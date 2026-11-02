@@ -4090,7 +4090,7 @@ void ThisCls::UpdatePathingState(float a1)
                 break;
             case -1:
             case 0:
-                m_6c = 7;
+                m_6c = 8;
                 SetEnabled(1);
                 return;
             }
