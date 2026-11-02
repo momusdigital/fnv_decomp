@@ -1,3 +1,4 @@
+# (test only, not to be merged)
 #!/usr/bin/env python3
 """Run one of the Microsoft Visual C++ compilers this project is built with.
 
