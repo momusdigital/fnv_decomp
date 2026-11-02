@@ -1,3 +1,4 @@
+// Test: a comment-only change to a widely included header (expect: pass, nothing rebuilt).
 // Source layout: Actor. PC corrections are in generate_headers.py.
 #ifndef FNV_ACTOR_H
 #define FNV_ACTOR_H
