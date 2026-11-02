@@ -1,0 +1,8 @@
+name: spoof test
+on: pull_request
+permissions: {}
+jobs:
+  match:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "fake match"
