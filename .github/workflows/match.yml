@@ -52,6 +52,7 @@ jobs:
       problems: ${{ steps.plan.outputs.problems }}
       shards: ${{ steps.plan.outputs.shards }}
       compilers: ${{ steps.plan.outputs.compilers }}
+      all_compilers: ${{ steps.plan.outputs.all_compilers }}
     steps:
       - name: Check out the check (main's tools, never the change's)
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -84,6 +85,7 @@ jobs:
           print('problems=%d' % len(p['problems']))
           print('shards=%s' % json.dumps(list(range(len(p['shards'])))))
           print('compilers=%s' % json.dumps(sorted(set(p['compilers']) | {'sp1'})))
+          print('all_compilers=%s' % json.dumps(['rtm', 'sp1', 'vc8']))
           PY
           # the verdict when nothing needs building: rules broken, or nothing that can change a function
           if ! grep -q '^build=true' "$GITHUB_OUTPUT"; then
@@ -91,14 +93,16 @@ jobs:
             cat summary.md >> "$GITHUB_STEP_SUMMARY"
           fi
 
+  # Keeps the unpacked compilers in the cache. Only pushes to main (and runs by hand) may write it: pull request runs
+  # read it, and a build that finds no copy downloads its own.
   compilers:
     needs: plan
-    if: needs.plan.outputs.build == 'true'
+    if: github.event_name != 'pull_request_target'
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     strategy:
       matrix:
-        compiler: ${{ fromJSON(needs.plan.outputs.compilers) }}
+        compiler: ${{ fromJSON(needs.plan.outputs.all_compilers) }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -125,7 +129,7 @@ jobs:
 
   build:
     needs: [plan, compilers]
-    if: needs.plan.outputs.build == 'true'
+    if: always() && needs.plan.result == 'success' && needs.plan.outputs.build == 'true' && needs.compilers.result != 'failure'
     runs-on: ubuntu-24.04
     timeout-minutes: 90
     strategy:
@@ -142,21 +146,28 @@ jobs:
         with:
           path: msvc/sp1
           key: msvc-sp1-v1
-          fail-on-cache-miss: true
       - name: Restore the compiler (rtm)
         if: contains(needs.plan.outputs.compilers, 'rtm')
         uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: msvc/rtm
           key: msvc-rtm-v1
-          fail-on-cache-miss: true
       - name: Restore the compiler (vc8)
         if: contains(needs.plan.outputs.compilers, 'vc8')
         uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: msvc/vc8
           key: msvc-vc8-v1
-          fail-on-cache-miss: true
+      - name: Download any compiler the cache does not have, from Microsoft
+        env:
+          NEEDED: ${{ needs.plan.outputs.compilers }}
+        run: |
+          missing=$(python3 -c "import json,os,sys; print(' '.join(c for c in json.loads(os.environ['NEEDED']) if not os.path.isdir('msvc/' + c)))")
+          if [ -n "$missing" ]; then
+            sudo apt-get update -qq
+            sudo apt-get install -yqq --no-install-recommends p7zip-full cabextract msitools >/dev/null
+            for c in $missing; do check/.github/ci/compilers.sh "$c" msvc; done
+          fi
       - name: Check the compilers are Microsoft's
         run: |
           for c in sp1 rtm vc8; do
@@ -210,10 +221,11 @@ jobs:
           PROBLEMS: ${{ needs.plan.outputs.problems }}
           COMPILERS: ${{ needs.compilers.result }}
           BUILD: ${{ needs.build.result }}
+          PLANNED: ${{ needs.plan.outputs.build }}
         run: |
           say() { echo "$1" >> "$GITHUB_STEP_SUMMARY"; echo "$1"; }
           if [ "$PLAN" != success ]; then say "## Not verified: the change could not be fetched or planned (see the plan job)"; exit 1; fi
           if [ "${PROBLEMS:-0}" != 0 ]; then say "## Not verified: this change needs a maintainer (see the plan job)"; exit 1; fi
-          if [ "$BUILD" = skipped ] && [ "$COMPILERS" = skipped ]; then say "## Identical to main: nothing in this change can alter a function"; exit 0; fi
+          if [ "$PLANNED" != true ]; then say "## Identical to main: nothing in this change can alter a function"; exit 0; fi
           if [ "$BUILD" = success ]; then say "## Identical to main: every affected function compiles exactly as on main"; exit 0; fi
           say "## Not verified: see the build jobs (compilers: $COMPILERS, build: $BUILD)"; exit 1
