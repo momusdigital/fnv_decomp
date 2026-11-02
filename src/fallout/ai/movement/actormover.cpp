@@ -2488,7 +2488,7 @@ struct FUN_006d0b80
 };
 // Constructs a FUN_006d0b80 from the request and solution, then returns the result of FUN_006c93d0 on it.
 // @fnv 0x006d53b0
-int FUN_006d53b0(PathingRequest* pRequest, PathingSolution* b)
+int SolvePathingRequest(PathingRequest* pRequest, PathingSolution* b)
 {
     FUN_006d0b80 obj(pRequest, b);
     return obj.FUN_006c93d0();
@@ -4085,7 +4085,7 @@ void ThisCls::UpdatePathingState(float a1)
         {
             flag = false;
             m_1c.FUN_00559450()->FUN_006e2b20(m_28);
-            switch (FUN_006d53b0((PathingRequest*)m_1c.FUN_00559450(), (PathingSolution*)m_20.FUN_00559450()))
+            switch (SolvePathingRequest((PathingRequest*)m_1c.FUN_00559450(), (PathingSolution*)m_20.FUN_00559450()))
             {
                 break;
             case -1:

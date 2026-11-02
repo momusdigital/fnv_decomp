@@ -75269,7 +75269,7 @@
     },
     {
      "address": "0x006d53b0",
-     "symbol": "?FUN_006d53b0@@YAHPAVPathingRequest@@PAUPathingSolution@@@Z",
+     "symbol": "?SolvePathingRequest@@YAHPAVPathingRequest@@PAUPathingSolution@@@Z",
      "size": 104
     },
     {
@@ -75752,7 +75752,7 @@
     "??0GO@fnv_009df8c0@@QAE@H@Z": "0x00633c90",
     "??1GO@fnv_009df8c0@@QAE@XZ": "0x0045cec0",
     "??1FUN_006d0b80@@QAE@XZ": "0x006d0b80",
-    "__ehhandler$?FUN_006d53b0@@YAHPAVPathingRequest@@PAUPathingSolution@@@Z": "0x00f047e8",
+    "__ehhandler$?SolvePathingRequest@@YAHPAVPathingRequest@@PAUPathingSolution@@@Z": "0x00f047e8",
     "??0FUN_006d0b80@@QAE@PAVPathingRequest@@PAUPathingSolution@@@Z": "0x006c8d30",
     "?FUN_006c93d0@FUN_006d0b80@@QAEHXZ": "0x006c93d0",
     "__ehhandler$?FUN_009dc120@Mover11@@QAEXM@Z": "0x00f1bb38",
@@ -75784,7 +75784,7 @@
     "?Find@Fx_Node@@QAEPAUFx_Obj@@XZ": "0x009ddb30",
     "?Lookup@Fx_Obj@@QAEHXZ": "0x00717e50",
     "?Apply@Fx_Arg@@QAEXH@Z": "0x006dcce0",
-    "?FUN_006d53b0@@YAHPAVPathingRequest@@PAUPathingSolution@@@Z": "0x006d53b0",
+    "?SolvePathingRequest@@YAHPAVPathingRequest@@PAUPathingSolution@@@Z": "0x006d53b0",
     "?FUN_00483710@ThisCls@@QAE_NXZ": "0x00483710",
     "?FUN_00559450@?$RefPtr@USolT@@@@QAEPAUSolT@@XZ": "0x00559450",
     "?FUN_00931850@ActorX@@QAEHXZ": "0x00931850",
