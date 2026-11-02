@@ -1,0 +1,219 @@
+# The automatic check on pull requests: does the change keep every function matching?
+#
+# main matches the game byte for byte. A change keeps that true when every function it can affect compiles to exactly
+# what main compiles to (tools/compare_builds.py), so this check needs no part of the game and runs on GitHub's own
+# machines, free for a public repository. The compilers come from Microsoft's downloads (checked by SHA-256) and run
+# under Wine. Pull requests run as pull_request_target: the workflow and the tools are always main's, and the change is
+# fetched as data and compiled, never run. The jobs have read-only access and no secrets.
+name: match
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened, ready_for_review]
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      base:
+        description: Commit or branch to compare against (default the parent of head)
+        required: false
+      head:
+        description: Commit or branch to check (default the branch this runs on)
+        required: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: match-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request_target' }}
+
+env:
+  PYTHONDONTWRITEBYTECODE: 1
+  # a push to main is already trusted: changes to the check's own files there build nothing
+  TRUSTED: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && '--trusted' || '' }}
+  # SHA-256 over the unpacked compilers (.github/ci/compilers.sh --digest): a cached copy must still be Microsoft's
+  MSVC_SP1_DIGEST: 8d83bb2bcb5682604d10f3ed2d23bca83d6375a1b5976b79ef178ed611a93a25
+  MSVC_RTM_DIGEST: 3ac1c851b4d7eb3705d2401c965c28356bd7fe37ac03831e7ef331bec5f2191c
+  MSVC_VC8_DIGEST: 53f5254e11d649a7bd658f31eb282707bde6d6166fe064abbc3cd3aa04942960
+
+jobs:
+  plan:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      base: ${{ steps.refs.outputs.base }}
+      head: ${{ steps.refs.outputs.head }}
+      build: ${{ steps.plan.outputs.build }}
+      problems: ${{ steps.plan.outputs.problems }}
+      shards: ${{ steps.plan.outputs.shards }}
+      compilers: ${{ steps.plan.outputs.compilers }}
+    steps:
+      - name: Check out the check (main's tools, never the change's)
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          path: check
+          persist-credentials: false
+      - name: Fetch the change
+        id: refs
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_HEAD: ${{ github.event.pull_request.head.sha }}
+          PUSH_BEFORE: ${{ github.event.before }}
+          INPUT_BASE: ${{ inputs.base }}
+          INPUT_HEAD: ${{ inputs.head }}
+        run: |
+          check/.github/ci/fetch.sh resolve work | tee -a "$GITHUB_OUTPUT"
+          . <(grep -E '^(base|head)=' "$GITHUB_OUTPUT" | tail -2)
+          git -C work worktree add -q --detach ../base "$base"
+          git -C work worktree add -q --detach ../head "$head"
+      - name: Plan
+        id: plan
+        run: |
+          python3 -I check/tools/compare_builds.py plan base head --out plan.json $TRUSTED
+          python3 -I - >> "$GITHUB_OUTPUT" <<'PY'
+          import json
+          p = json.load(open('plan.json'))
+          build = bool(p['shards']) and not p['problems']
+          print('build=%s' % str(build).lower())
+          print('problems=%d' % len(p['problems']))
+          print('shards=%s' % json.dumps(list(range(len(p['shards'])))))
+          print('compilers=%s' % json.dumps(sorted(set(p['compilers']) | {'sp1'})))
+          PY
+          # the verdict when nothing needs building: rules broken, or nothing that can change a function
+          if ! grep -q '^build=true' "$GITHUB_OUTPUT"; then
+            python3 -I check/tools/compare_builds.py report --plan plan.json > summary.md || true
+            cat summary.md >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+  compilers:
+    needs: plan
+    if: needs.plan.outputs.build == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    strategy:
+      matrix:
+        compiler: ${{ fromJSON(needs.plan.outputs.compilers) }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          path: check
+          persist-credentials: false
+      - name: Look for the unpacked compiler
+        id: cache
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: msvc/${{ matrix.compiler }}
+          key: msvc-${{ matrix.compiler }}-v1
+          lookup-only: true
+      - name: Download it from Microsoft and unpack it
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -yqq --no-install-recommends p7zip-full cabextract msitools >/dev/null
+          check/.github/ci/compilers.sh "${{ matrix.compiler }}" msvc
+      - if: steps.cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: msvc/${{ matrix.compiler }}
+          key: msvc-${{ matrix.compiler }}-v1
+
+  build:
+    needs: [plan, compilers]
+    if: needs.plan.outputs.build == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: ${{ fromJSON(needs.plan.outputs.shards) }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          path: check
+          persist-credentials: false
+      - name: Restore the compiler (sp1)
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: msvc/sp1
+          key: msvc-sp1-v1
+          fail-on-cache-miss: true
+      - name: Restore the compiler (rtm)
+        if: contains(needs.plan.outputs.compilers, 'rtm')
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: msvc/rtm
+          key: msvc-rtm-v1
+          fail-on-cache-miss: true
+      - name: Restore the compiler (vc8)
+        if: contains(needs.plan.outputs.compilers, 'vc8')
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: msvc/vc8
+          key: msvc-vc8-v1
+          fail-on-cache-miss: true
+      - name: Check the compilers are Microsoft's
+        run: |
+          for c in sp1 rtm vc8; do
+            [ -d "msvc/$c" ] || continue
+            want=$(printenv "MSVC_${c^^}_DIGEST"); got=$(check/.github/ci/compilers.sh --digest "msvc/$c")
+            echo "$c: $got"
+            [ "$want" = unpinned ] || [ "$want" = "$got" ] || { echo "::error::the cached $c compiler is not the one Microsoft ships"; exit 1; }
+            [ "$c" = sp1 ] || ln -s ../sp1/SDK "msvc/$c/SDK"
+          done
+      - name: Install Wine
+        run: |
+          sudo dpkg --add-architecture i386
+          sudo apt-get update -qq
+          sudo apt-get install -yqq --no-install-recommends wine wine32:i386 >/dev/null
+          wine --version
+      - name: Fetch both commits
+        env:
+          BASE: ${{ needs.plan.outputs.base }}
+          HEAD: ${{ needs.plan.outputs.head }}
+        run: |
+          check/.github/ci/fetch.sh get work "$BASE" "$HEAD"
+          git -C work worktree add -q --detach ../base "$BASE"
+          git -C work worktree add -q --detach ../head "$HEAD"
+          python3 -I check/tools/compare_builds.py plan base head --out plan.json $TRUSTED
+      - name: Build both commits and compare
+        env:
+          BASE: ${{ needs.plan.outputs.base }}
+          HEAD: ${{ needs.plan.outputs.head }}
+          SHARD: ${{ matrix.shard }}
+          WINEDLLOVERRIDES: mscoree,mshtml=
+        run: |
+          export FNV_MSVC9_ROOT=$PWD/msvc/sp1 FNV_MSVC9_RTM_ROOT=$PWD/msvc/rtm FNV_MSVC8_ROOT=$PWD/msvc/vc8
+          export FNV_MSVC9_PREFIX=$RUNNER_TEMP/wine FNV_MSVC8_PREFIX=$RUNNER_TEMP/wine-vc8
+          python3 -I check/tools/msvc.py --compiler sp1 2>&1 | head -1
+          python3 -I check/tools/compare_builds.py shard work "$BASE" "$HEAD" --plan plan.json --shard "$SHARD" \
+            --out result.json --jobs "$(nproc)"
+          python3 -I check/tools/compare_builds.py report --plan plan.json result.json --only-shard "$SHARD" \
+            --summary summary.md || status=$?
+          cat summary.md >> "$GITHUB_STEP_SUMMARY"
+          exit "${status:-0}"
+
+  match:
+    needs: [plan, compilers, build]
+    if: always()
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Verdict
+        env:
+          PLAN: ${{ needs.plan.result }}
+          PROBLEMS: ${{ needs.plan.outputs.problems }}
+          COMPILERS: ${{ needs.compilers.result }}
+          BUILD: ${{ needs.build.result }}
+        run: |
+          say() { echo "$1" >> "$GITHUB_STEP_SUMMARY"; echo "$1"; }
+          if [ "$PLAN" != success ]; then say "## Not verified: the change could not be fetched or planned (see the plan job)"; exit 1; fi
+          if [ "${PROBLEMS:-0}" != 0 ]; then say "## Not verified: this change needs a maintainer (see the plan job)"; exit 1; fi
+          if [ "$BUILD" = skipped ] && [ "$COMPILERS" = skipped ]; then say "## Identical to main: nothing in this change can alter a function"; exit 0; fi
+          if [ "$BUILD" = success ]; then say "## Identical to main: every affected function compiles exactly as on main"; exit 0; fi
+          say "## Not verified: see the build jobs (compilers: $COMPILERS, build: $BUILD)"; exit 1

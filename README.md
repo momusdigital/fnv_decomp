@@ -73,6 +73,20 @@ your executable).
 
 A full run compiles about 2,988 units; expect it to take a while.
 
+## Pull requests
+
+Every pull request is checked automatically, on GitHub's machines and without any part of the game: each unit the
+change can affect is built both at `main` and with the change, and every function must come out the same (the same
+code bytes, and every reference resolving to the same original address through `build/units.json`). Since `main`
+matches the game, a change that passes still matches it. Renaming functions, parameters, variables and types passes,
+and so do comments; a change to what any function compiles to does not, and the check lists the functions that differ.
+
+- When you rename a function, give `build/units.json` its new decorated name at the same address, in every unit that
+  lists it.
+- The check covers changes to `src/`, `include/`, the names in `build/units.json` and Markdown files. Anything else
+  (the tools, the rest of the build recipe, the workflow) is checked by a maintainer.
+- `python3 tools/compare_builds.py` runs the same comparison on your own machine.
+
 ## Layout
 
 | Path | What it holds |
@@ -83,7 +97,8 @@ A full run compiles about 2,988 units; expect it to take a while.
 | `patches/` | The game's changes to `inflate.c` as a diff against the official zlib file. |
 | `build/units.json` | The build recipe: for each unit its source, compiler, flags and the functions it must reproduce. |
 | `build/image_check.json` | SHA-256 fingerprints of a few functions, used to recognise the right executable. |
-| `tools/` | The compiler wrapper, the COFF/PE comparison and `build_and_match.py`. |
+| `tools/` | The compiler wrapper, the COFF/PE comparison, `build_and_match.py` and `compare_builds.py` (the pull request check). |
+| `.github/` | The automatic check on pull requests. |
 
 Some units appear in more than one variant (for example `*_ob1_variant.cpp`): the original was built with different
 optimisation settings in different places, and each variant reproduces the functions built with its settings.
