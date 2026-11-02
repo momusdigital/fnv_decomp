@@ -202,7 +202,7 @@ jobs:
     needs: [plan, compilers, build]
     if: always()
     runs-on: ubuntu-24.04
-    timeout-minutes: 5
+    timeout-minutes: 6
     steps:
       - name: Verdict
         env:
