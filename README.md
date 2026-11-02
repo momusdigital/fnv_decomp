@@ -15,6 +15,61 @@ project stays online.
 - **Trademarks** belong to their holders, listed under [Legal](#legal). This project is not affiliated with or
   endorsed by any of them.
 
+## Contributing
+
+Pull requests are welcome from anyone. Most of what is left is readability: many functions still have placeholder
+names (`FUN_00xxxxxx`), vague names or no comment, and all of that can be improved without changing a single byte of
+the output.
+
+### The automatic check
+
+Every pull request gets an automatic check, called `match`. It runs on GitHub's machines, involves no part of the
+game, and has to pass before a pull request can be merged:
+
+1. It finds the translation units your change can affect: the files you changed and every unit that includes them.
+2. It builds each of those units twice, from `main` and with your change, with the Microsoft compilers the game was
+   built with.
+3. Every function has to come out identical: the same code bytes, and every call and data reference resolving to
+   the same original address through `build/units.json`, exception-handling code included. `main` matches the game
+   byte for byte, so a change that passes still does.
+
+What to expect:
+
+- **Passes:** renaming functions, parameters, variables, types and fields; adding or improving comments;
+  reformatting. A change only to comments, spacing or blank lines passes without a build.
+- **Fails:** anything that changes what a function compiles to. The check lists the functions that differ by
+  address; see what differs with your own copy of the game:
+  `python3 tools/build_and_match.py --image <your FalloutNV.exe> --only <unit>`.
+- **Needs a maintainer:** changes outside `src/`, `include/`, the names in `build/units.json` and Markdown files
+  (the tools, the rest of the build recipe, the workflow). The check marks these, and a maintainer verifies them
+  against the game before merging.
+
+### Renaming a function
+
+`build/units.json` lists every function by its original address and its decorated (mangled) name. When you rename a
+function, put its new decorated name at the same address, in every unit that lists it; otherwise the check reports
+the old name as unbound. Adding a declaration or a string literal can renumber the compiler's string labels
+(`$SG...`) that `build/units.json` names; the check says so when that is the cause.
+
+### Never include any part of the game
+
+No executable, no bytes copied from it, no object files built from this code, no game data. A pull request that
+contains any of it is closed.
+
+### Running the check yourself
+
+With the compilers set up (see "What you need"), commit your change, then compare it with `main`:
+
+    git fetch origin
+    git worktree add --detach ../fnv-main origin/main      # main, to compare against
+    git worktree add --detach ../fnv-scratch HEAD          # a scratch checkout the check builds in
+    python3 tools/compare_builds.py plan ../fnv-main . --out ../plan.json --max-shards 1
+    python3 tools/compare_builds.py shard ../fnv-scratch "$(git rev-parse origin/main)" "$(git rev-parse HEAD)" \
+        --plan ../plan.json --shard 0 --out ../result.json
+    python3 tools/compare_builds.py report --plan ../plan.json ../result.json
+
+When `plan` reports no units to build, skip `shard` and run `report` without `../result.json`.
+
 ## Status
 
 - Functions in scope: 70,611 of 70,611 match byte for byte.
@@ -73,20 +128,6 @@ your executable).
 
 A full run compiles about 2,988 units; expect it to take a while.
 
-## Pull requests
-
-Every pull request is checked automatically, on GitHub's machines and without any part of the game: each unit the
-change can affect is built both at `main` and with the change, and every function must come out the same (the same
-code bytes, and every reference resolving to the same original address through `build/units.json`). Since `main`
-matches the game, a change that passes still matches it. Renaming functions, parameters, variables and types passes,
-and so do comments; a change to what any function compiles to does not, and the check lists the functions that differ.
-
-- When you rename a function, give `build/units.json` its new decorated name at the same address, in every unit that
-  lists it.
-- The check covers changes to `src/`, `include/`, the names in `build/units.json` and Markdown files. Anything else
-  (the tools, the rest of the build recipe, the workflow) is checked by a maintainer.
-- `python3 tools/compare_builds.py` runs the same comparison on your own machine.
-
 ## Layout
 
 | Path | What it holds |
@@ -97,7 +138,7 @@ and so do comments; a change to what any function compiles to does not, and the 
 | `patches/` | The game's changes to `inflate.c` as a diff against the official zlib file. |
 | `build/units.json` | The build recipe: for each unit its source, compiler, flags and the functions it must reproduce. |
 | `build/image_check.json` | SHA-256 fingerprints of a few functions, used to recognise the right executable. |
-| `tools/` | The compiler wrapper, the COFF/PE comparison, `build_and_match.py` and `compare_builds.py` (the pull request check). |
+| `tools/` | The compiler wrapper, the COFF/PE comparison, `build_and_match.py` and `compare_builds.py` (the pull request check, see [Contributing](#contributing)). |
 | `.github/` | The automatic check on pull requests. |
 
 Some units appear in more than one variant (for example `*_ob1_variant.cpp`): the original was built with different
