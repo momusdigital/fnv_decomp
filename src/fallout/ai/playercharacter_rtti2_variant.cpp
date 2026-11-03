@@ -5345,7 +5345,7 @@ struct ExtObj
     void FUN_005d14d0(int arg);
 };
 void __cdecl FUN_005b5e40(const char* msg);
-void __cdecl FUN_00868d70(int arg);
+void __cdecl ClearAll(int arg);
 void __cdecl FUN_00401030(void* p);
 struct FUN_0093bea0_cls
 {

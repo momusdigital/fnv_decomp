@@ -1191,8 +1191,9 @@ __forceinline bool __cdecl checkRotation(const HkMapperParams& params, short bon
     return true;
 }
 
+// Builds the A-to-B and B-to-A skeleton mappings from the parameters, swapping the skeletons first when a ragdoll mapping goes from the larger skeleton to the smaller one.
 // @fnv 0x00ce61c0
-__declspec(nothrow) void __cdecl FUN_00ce61c0(const HkMapperParams& originalParams, HkMapperData& originalAToB,
+__declspec(nothrow) void __cdecl createMapping(const HkMapperParams& originalParams, HkMapperData& originalAToB,
                                               HkMapperData& originalBToA) throw()
 {
     hkErrorInstance().beginSection(0x54e4323e, "hkaSkeletonMapperUtils::createMapping");

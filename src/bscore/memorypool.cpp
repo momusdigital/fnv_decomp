@@ -168,7 +168,7 @@ void FUN_00aa6c70_shell::FUN_00aa6c70(void* apPointer)
 namespace fnv_00aa6f90 {
 struct FUN_00aa6f90_shell : public MemoryPool
 {
-    void FUN_00aa6f90();
+    void FreeUnusedPagesForAllPools();
 };
 
 struct FUN_00aa6eb0_shell
@@ -179,8 +179,9 @@ struct Helper_00aa6eb0
 {
     void FUN_00aa7260();
 };
+// Releases every page with no live blocks, sorting the page list first, while holding the pool lock.
 // @fnv 0x00aa6f90
-void FUN_00aa6f90_shell::FUN_00aa6f90()
+void FUN_00aa6f90_shell::FreeUnusedPagesForAllPools()
 {
     bool blistSorted;
     m_kCriticalSection.Lock("MemoryPool::FreeUnusedPagesForAllPools()");

@@ -963,7 +963,7 @@ int __cdecl TruncateFloatToInt(float);
 void __cdecl FUN_0084cbd0(const char*, ...);
 char* __cdecl FUN_00ec7750(const char*, const char*);
 unsigned int __cdecl FUN_00ec8d08(const char*, char**, int);
-void __cdecl FUN_00868d70(int);
+void __cdecl ClearAll(int);
 void __cdecl FUN_00c459d0(int);
 class PlayerCharacter;
 extern PlayerCharacter* g_thePlayer;
@@ -1110,7 +1110,7 @@ void LoadPlayerLocation(BGSLoadGameBuffer* apLoadGameBuffer)
     }
 
     ((LLD_TESHelper*)g_TES)->FUN_004539a0(true, 0);
-    FUN_00868d70(0);
+    ClearAll(0);
     FUN_00c459d0(0);
 }
 

@@ -2082,7 +2082,7 @@ extern SoundOps* DAT_011dd870;
 extern SoundOps* DAT_011dd874;
 // Plays a footstep or jump sound for ref, choosing the material sound and optional armor/jump sound based on the surface and actor state.
 // @fnv 0x00838780
-void __cdecl FUN_00838780(TESObjectREFR* apRefr)
+void __cdecl PlayCollisionSound(TESObjectREFR* apRefr)
 {
     AutoMemHelper memCtx5(11, true, "D:\\_Fallout3\\Platforms\\Common\\Code\\Fallout\\Audio\\ImpactMixer.cpp", 941);
     if (FUN_00702360())

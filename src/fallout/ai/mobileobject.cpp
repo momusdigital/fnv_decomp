@@ -1483,8 +1483,8 @@ struct Holder_00884aa0
     int UpdateControllerScale();
     int FUN_00884aa0();
 };
-void __cdecl FUN_00838780(Holder_00884aa0*, int);
-// Calls UpdateControllerScale; if it returns nonzero, calls FUN_00838780 with this and 0, then returns that result.
+void __cdecl PlayCollisionSound(Holder_00884aa0*, int);
+// Calls UpdateControllerScale; if it returns nonzero, calls PlayCollisionSound with this and 0, then returns that result.
 // @fnv 0x00884aa0
 int Holder_00884aa0::FUN_00884aa0()
 {
@@ -1492,7 +1492,7 @@ int Holder_00884aa0::FUN_00884aa0()
     result = UpdateControllerScale();
     if (result)
     {
-        FUN_00838780(this, 0);
+        PlayCollisionSound(this, 0);
     }
     return result;
 }

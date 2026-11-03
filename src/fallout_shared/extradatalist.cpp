@@ -285,7 +285,7 @@ void FUN_0040fbf0_shell::FUN_0040fbf0(char* apName)
 namespace fnv_0040fe20 {
 struct FUN_0040fe20_shell : public BaseExtraList
 {
-    unsigned int FUN_0040fe20();
+    unsigned int ItemsInList();
 };
 
 class RecursiveSpinLock
@@ -300,7 +300,7 @@ BSExtraData* __fastcall FUN_0044ddc0(BSExtraData*);
 
 // Locks g_011c3920, counts the nodes in the pHead list via FUN_0044ddc0, unlocks, and returns the count.
 // @fnv 0x0040fe20
-unsigned int FUN_0040fe20_shell::FUN_0040fe20()
+unsigned int FUN_0040fe20_shell::ItemsInList()
 {
     BSExtraData* work;
     unsigned int iCount;
@@ -421,7 +421,7 @@ BSExtraData* FUN_00410220_shell::FUN_00410220(unsigned char acType)
 namespace fnv_004102d0 {
 struct FUN_004102d0_shell : public BaseExtraList
 {
-    BSExtraData* FUN_004102d0(unsigned char);
+    BSExtraData* GetPrevExtraData(unsigned char);
 };
 
 class RecursiveSpinLock
@@ -441,8 +441,9 @@ extern RecursiveSpinLock g_011c3920;
 
 unsigned int __fastcall TESObjectREFR_GetFlags_call(TESObjectREFR*);
 
+// Returns the node before the first entry of the given type, or null when the type is absent.
 // @fnv 0x004102d0
-BSExtraData* FUN_004102d0_shell::FUN_004102d0(unsigned char acType)
+BSExtraData* FUN_004102d0_shell::GetPrevExtraData(unsigned char acType)
 {
     if (!HasExtraData(acType))
         return 0;
@@ -535,7 +536,7 @@ Y00411e40* __fastcall FUN_00411e40(Y00411e40* apThis)
 namespace fnv_00411ec0 {
 struct FUN_00411ec0_shell : public ExtraDataList
 {
-    void FUN_00411ec0(ExtraDataList*);
+    void CopyList(ExtraDataList*);
 };
 
 struct NodeSI
@@ -550,15 +551,15 @@ struct RecursiveSpinLock
 extern RecursiveSpinLock g_011c3920;
 struct EDLStandIn
 {
-    void FUN_00411fd0(int);
+    void RemoveAllCopyableExtra(int);
     void FUN_004103d0(void*);
 };
 // Locks g_011c3920, copies each extra-data node from apCopy into this list, then unlocks.
 // @fnv 0x00411ec0
-void FUN_00411ec0_shell::FUN_00411ec0(ExtraDataList* apCopy)
+void FUN_00411ec0_shell::CopyList(ExtraDataList* apCopy)
 {
     BSExtraData* pwork;
-    ((EDLStandIn*)this)->FUN_00411fd0(1);
+    ((EDLStandIn*)this)->RemoveAllCopyableExtra(1);
     g_011c3920.Lock("ExtraDataList::CopyList()");
     if (apCopy)
     {
@@ -744,7 +745,7 @@ bool FUN_004121b0_shell::FUN_004121b0()
 namespace fnv_004126c0 {
 struct FUN_004126c0_shell : public ExtraDataList
 {
-    bool FUN_004126c0(ExtraDataList*, bool, bool);
+    bool CompareListForContainer(ExtraDataList*, bool, bool);
 };
 
 class RecursiveSpinLock
@@ -768,8 +769,9 @@ class TESObjectREFR_Flags : public TESObjectREFR
 
 extern RecursiveSpinLock g_011c3920;
 
+// Compares apCompare's entries with this list's under the global lock; returns true when an entry is missing on one side or differs by value, skipping script and owner data when asked.
 // @fnv 0x004126c0
-bool FUN_004126c0_shell::FUN_004126c0(ExtraDataList* apCompare, bool abCompareScriptAndOwnerData, bool bThrown)
+bool FUN_004126c0_shell::CompareListForContainer(ExtraDataList* apCompare, bool abCompareScriptAndOwnerData, bool bThrown)
 {
     g_011c3920.Lock("ExtraDataList::CompareListForContainer()");
     bool bres = false;
@@ -12586,7 +12588,7 @@ struct PatrolActorPackageData
 struct ExtraHelper_004bca80
 {
   public:
-    int FUN_0040fe20();
+    int ItemsInList();
 };
 
 struct GlobalObject_0096a2d0 : public RecursiveSpinLock
@@ -12598,12 +12600,12 @@ extern GlobalObject_0096a2d0 g_011c3920;
 struct ExtraDataList_shell : public BaseExtraList
 {
   public:
-    bool FUN_004127e0(ExtraDataList_shell* apCompare);
+    bool CompareList(ExtraDataList_shell* apCompare);
 };
 
 // Locks the global lock, walks both extra-data lists comparing entries by type and value, and returns whether they differ.
 // @fnv 0x004127e0
-bool ExtraDataList_shell::FUN_004127e0(ExtraDataList_shell* apCompare)
+bool ExtraDataList_shell::CompareList(ExtraDataList_shell* apCompare)
 {
     g_011c3920.Lock("ExtraDataList::CompareList()");
 
@@ -12663,8 +12665,8 @@ bool ExtraDataList_shell::FUN_004127e0(ExtraDataList_shell* apCompare)
         }
     }
 
-    if (reinterpret_cast<ExtraHelper_004bca80*>(this)->FUN_0040fe20() !=
-        reinterpret_cast<ExtraHelper_004bca80*>(apCompare)->FUN_0040fe20())
+    if (reinterpret_cast<ExtraHelper_004bca80*>(this)->ItemsInList() !=
+        reinterpret_cast<ExtraHelper_004bca80*>(apCompare)->ItemsInList())
     {
         BSExtraData* apExtra;
         work = pHead;
@@ -14259,12 +14261,12 @@ class ExtraDataListCopyListForContainer
   public:
     void FUN_004103d0(BSExtraData* data);
     void _FUN_00410020(BSExtraData* data, bool remove);
-    void FUN_004121e0(ExtraDataList* copy, bool dontRemove);
+    void CopyListForContainer(ExtraDataList* copy, bool dontRemove);
 };
 
 // Locks g_011c3920, walks the extra-data list of copy, copies selected entries and optionally removes them, then unlocks.
 // @fnv 0x004121e0
-void ExtraDataListCopyListForContainer::FUN_004121e0(ExtraDataList* copy, bool dontRemove)
+void ExtraDataListCopyListForContainer::CopyListForContainer(ExtraDataList* copy, bool dontRemove)
 {
     BSExtraData* work;
     bool bHasResultObj;
@@ -14346,12 +14348,12 @@ struct FUN_00412380_shell
 {
   public:
     void FUN_004103d0(BSExtraData*);
-    void FUN_00412380(ExtraDataList* apCopy);
+    void DuplicateExtraListForContainer(ExtraDataList* apCopy);
 };
 
 // Locks g_011c3920, walks the extra-data list of apCopy and calls FUN_004103d0 on entries whose type is in a fixed set, then unlocks.
 // @fnv 0x00412380
-void FUN_00412380_shell::FUN_00412380(ExtraDataList* apCopy)
+void FUN_00412380_shell::DuplicateExtraListForContainer(ExtraDataList* apCopy)
 {
     g_011c3920.Lock("ExtraDataList::DuplicateExtraListForContainer()");
 
@@ -14411,11 +14413,11 @@ struct XList
     void* vt;
     XData* head;
     void SetBitFlag(unsigned char, int);
-    void FUN_0040fcb0(bool del);
+    void RemoveAllDefault(bool del);
 };
 // Locks the list, calls ResetTlsBufferIfListMatches, then unlinks and optionally deletes every entry whose type is not one of the default types, and unlocks.
 // @fnv 0x0040fcb0
-void XList::FUN_0040fcb0(bool abDelete)
+void XList::RemoveAllDefault(bool abDelete)
 {
     DAT_011c3920.Enter("BaseExtraList::RemoveAllDefault()");
     ResetTlsBufferIfListMatches(this);
@@ -16696,7 +16698,7 @@ struct ExtraCopyList : ExtraDataList
 {
     void FUN_004103d0(BSExtraData*);
     void FUN_00410020(BSExtraData*, bool);
-    void FUN_00412490(ExtraCopyList* source, bool transfer);
+    void CopyListForReference(ExtraCopyList* source, bool transfer);
 };
 struct ExtraCopyLock
 {
@@ -16710,7 +16712,7 @@ struct ScriptCopyHelper
 
 // Copies extra-data entries from source into this list, transferring or cloning script extras depending on transfer, under a lock.
 // @fnv 0x00412490
-void ExtraCopyList::FUN_00412490(ExtraCopyList* source, bool transfer)
+void ExtraCopyList::CopyListForReference(ExtraCopyList* source, bool transfer)
 {
     ((ExtraCopyLock*)&DAT_011c3920)->FUN_0040fbf0("ExtraDataList::CopyListForReference()");
     BSExtraData* extra = source->pHead;
@@ -23309,7 +23311,7 @@ extern RecursiveSpinLock g_011c3920;
 extern __declspec(thread) int g_tlsDirty[4];
 struct FUN_00410020_t : BaseExtraList
 {
-    BSExtraData* FUN_004102d0(unsigned char);
+    BSExtraData* GetPrevExtraData(unsigned char);
     void FUN_00410020(BSExtraData* apExtra, bool abDelete);
 };
 // Looks up an entry using apExtra's IsPatrolling result, updates flags, calls FUN_0040f7d0, clears that bit, and optionally deletes apExtra.
@@ -23320,7 +23322,7 @@ void FUN_00410020_t::FUN_00410020(BSExtraData* apExtra, bool abDelete)
         return;
     g_011c3920.Lock("BaseExtraList::RemoveExtra()");
     int etype = ((PatrolActorPackageData*)apExtra)->IsPatrolling();
-    BSExtraData* pprev = FUN_004102d0(etype);
+    BSExtraData* pprev = GetPrevExtraData(etype);
     if (pprev)
         ((TESObjectREFR_Flags*)pprev)->SetFlags(((TESObjectREFR_GetFlags_Helper*)apExtra)->CallGetFlags());
     else
@@ -23338,7 +23340,7 @@ void FUN_00410020_t::FUN_00410020(BSExtraData* apExtra, bool abDelete)
 
 struct FUN_004120b0_shell : public ExtraDataList
 {
-    void FUN_004120b0();
+    void RemoveNonPersistentCellData();
 };
 
 void __cdecl ResetTlsBufferIfListMatches(BaseExtraList const*);
@@ -23353,7 +23355,7 @@ extern FUN_004121b0_shell* g_BGSSaveLoadGame;
 
 // Locks g_011c3920, retains case 4 and cases 1 or 2 when FUN_004121b0 returns true, and deletes other entries while updating links.
 // @fnv 0x004120b0
-void FUN_004120b0_shell::FUN_004120b0()
+void FUN_004120b0_shell::RemoveNonPersistentCellData()
 {
     g_011c3920.Lock("ExtraDataList::RemoveNonPersistentCellData()");
     ResetTlsBufferIfListMatches((BaseExtraList*)this);
@@ -24279,7 +24281,7 @@ void RemoveExtraList::FUN_00410140(unsigned char etype)
 
 struct CopyableExtraList : public ExtraDataList
 {
-    void FUN_00411fd0(bool);
+    void RemoveAllCopyableExtra(bool);
 };
 
 struct CopyableExtraNode
@@ -24296,7 +24298,7 @@ struct S11f20
 };
 // Removes all copyable extra data nodes from the list, optionally deleting them, while holding the ExtraDataList lock.
 // @fnv 0x00411fd0
-void CopyableExtraList::FUN_00411fd0(bool abdelete)
+void CopyableExtraList::RemoveAllCopyableExtra(bool abdelete)
 {
     CopyableExtraNode* pwork;
     CopyableExtraNode* plast;

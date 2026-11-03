@@ -211,8 +211,9 @@ extern GlobalObject_00869db0 g_011de858;
 extern bool DAT_011de958;
 extern __declspec(thread) bool bCollecting;
 
+// Locks the garbage collector (or tries to) and deletes the queued objects and references, honouring the collector's in-progress flags.
 // @fnv 0x00868d70
-void FUN_00868d70(bool abTryLock)
+void ClearAll(bool abTryLock)
 {
     if (DAT_011de958)
         return;

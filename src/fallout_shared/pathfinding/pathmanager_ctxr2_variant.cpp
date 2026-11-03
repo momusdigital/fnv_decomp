@@ -36,11 +36,12 @@ struct PathIndex
 
 struct FUN_006eb6b0_cls : public PathManagerImpl
 {
-    void FUN_006eb6b0(int id);
+    void CancelCurrentPathsAndPause(int id);
 };
 
+// Under the path-manager lock, walks the pending path requests and cancels every request whose slot belongs to id.
 // @fnv 0x006eb6b0
-void FUN_006eb6b0_cls::FUN_006eb6b0(int id)
+void FUN_006eb6b0_cls::CancelCurrentPathsAndPause(int id)
 {
     reinterpret_cast<BSSpinLock_r006eb6b0*>(reinterpret_cast<char*>(this) + 0xc38)
         ->Lock("PathManagerImpl::CancelCurrentPathsAndPause");

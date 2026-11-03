@@ -2771,12 +2771,12 @@ struct FUN_00568bb0_shell : public TESObjectREFR
     void FUN_00568bb0(ExtraDataList*);
 };
 
-void __fastcall FUN_00411ec0(const ExtraDataList*, int, ExtraDataList*);
+void __fastcall CopyList(const ExtraDataList*, int, ExtraDataList*);
 const ExtraDataList* __fastcall GetExtra_005d43c0(TESObjectREFR*, int);
 
 struct ExtraDataList_helper
 {
-    void FUN_00411ec0(ExtraDataList*) const;
+    void CopyList(ExtraDataList*) const;
 };
 
 struct TESObjectREFR_helper
@@ -2787,7 +2787,7 @@ struct TESObjectREFR_helper
 // @fnv 0x00568bb0
 void FUN_00568bb0_shell::FUN_00568bb0(ExtraDataList* pextra)
 {
-    ((TESObjectREFR_helper*)this)->GetExtra()->FUN_00411ec0(pextra);
+    ((TESObjectREFR_helper*)this)->GetExtra()->CopyList(pextra);
 }
 }  // namespace fnv_00568bb0
 
@@ -38133,7 +38133,7 @@ struct Extra
     Link* FUN_0041f810();
     CopyHolder* FUN_00418250();
     void FUN_0041f840(Ref*, bool);
-    void FUN_00411ec0(Extra*);
+    void CopyList(Extra*);
     void FUN_0041e530(Ref*);
     void FUN_0041edd0(Ref*);
     void FUN_0041ae70();
@@ -38598,7 +38598,7 @@ void Ref::FUN_0055c3e0(TESForm* apSource)
             lights = lights->FUN_00726070();
         }
     }
-    FUN_005d43c0()->FUN_00411ec0(pSource->FUN_005d43c0());
+    FUN_005d43c0()->CopyList(pSource->FUN_005d43c0());
     if (pSource->FUN_004077c0())
     {
         links3 = pSource->FUN_005d43c0()->FUN_0041f170();
@@ -50383,7 +50383,7 @@ struct CompareFormReceiver
 };
 struct CompareExtraList
 {
-    bool FUN_004127e0(CompareExtraList*);
+    bool CompareList(CompareExtraList*);
 };
 struct CompareData
 {
@@ -50417,7 +50417,7 @@ bool CompareRefView::FUN_0055d230(TESForm* other)
         return true;
     if (FUN_008d6f30() != pOther->FUN_008d6f30())
         return true;
-    if (extra.FUN_004127e0(pOther->FUN_005d43c0()))
+    if (extra.CompareList(pOther->FUN_005d43c0()))
         return true;
     if (((TESObjectREFR*)this)->GetScale() != ((TESObjectREFR*)pOther)->GetScale())
         return true;

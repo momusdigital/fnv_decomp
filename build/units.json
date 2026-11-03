@@ -5688,7 +5688,7 @@
     },
     {
      "address": "0x00aa6f90",
-     "symbol": "?FUN_00aa6f90@FUN_00aa6f90_shell@fnv_00aa6f90@@QAEXXZ",
+     "symbol": "?FreeUnusedPagesForAllPools@FUN_00aa6f90_shell@fnv_00aa6f90@@QAEXXZ",
      "size": 157
     },
     {
@@ -5927,12 +5927,12 @@
     },
     {
      "address": "0x00aa5c80",
-     "symbol": "?FUN_00aa5c80@FUN_00aa5c80_shell@@QAEXXZ",
+     "symbol": "?FreeAllBuffers@FUN_00aa5c80_shell@@QAEXXZ",
      "size": 182
     },
     {
      "address": "0x00aa5d40",
-     "symbol": "?FUN_00aa5d40@FUN_00aa5d40_shell@fnv_00aa5d40@@QAEII@Z",
+     "symbol": "?FreeBuffers@FUN_00aa5d40_shell@fnv_00aa5d40@@QAEII@Z",
      "size": 232
     },
     {
@@ -5972,7 +5972,7 @@
     "?Allocate@FUN_00aa58d0_Alloc@fnv_00aa58d0@@QAEPAXI@Z": "0x00aa3e40",
     "??0FUN_00aa5860@fnv_00aa58d0@@QAE@XZ": "0x00aa5860",
     "?DAT_011f63b4@fnv_00aa58d0@@3PAUFUN_00aa5860@1@A": "0x011f63b4",
-    "?FUN_00aa5c80@FUN_00aa58b0_holder@@QAEXXZ": "0x00aa5c80",
+    "?FreeAllBuffers@FUN_00aa58b0_holder@@QAEXXZ": "0x00aa5c80",
     "?Deallocate@MemoryManagerDealloc@@QAEXPAX@Z": "0x00aa4060",
     "?DAT_011f63b4@@3PAUFUN_00aa5950_s@@A": "0x011f63b4",
     "??1FUN_00aa5950_s@@QAE@XZ": "0x00aa58b0",
@@ -42185,7 +42185,7 @@
     "?FUN_00c7e3b0@SceneOwner@@QAEXXZ": "0x00c7e3b0",
     "?FUN_00ce5310@PoseBuffer@@QAEXXZ": "0x00ce5310",
     "?FUN_00c7bfd0@PoseState@@QAEXXZ": "0x00c7bfd0",
-    "?FUN_00ce61c0@@YAXPAUPoseState@@PAUPoseBuffer@@1@Z": "0x00ce61c0",
+    "?createMapping@@YAXPAUPoseState@@PAUPoseBuffer@@1@Z": "0x00ce61c0",
     "?FUN_00c7c2b0@PoseState@@QAEXXZ": "0x00c7c2b0",
     "?FUN_00c79e20@SceneOwner@@QAEXXZ": "0x00c79e20",
     "??0FUN_00ce4a20@@QAE@PAUPoseBuffer@@@Z": "0x00ce4a20",
@@ -74171,7 +74171,7 @@
     "?ZERO@NiPoint3@@2V1@B": "0x011f426c",
     "??BFlt@fnv_00810ff0@@QBEIXZ": "0x00559450",
     "?FUN_00626cb0@Unk626@fnv_00810ff0@@QAEXH@Z": "0x00626cb0",
-    "?FUN_00838780@@YAXPAUHolder_00884aa0@@H@Z": "0x00838780",
+    "?PlayCollisionSound@@YAXPAUHolder_00884aa0@@H@Z": "0x00838780",
     "?g_thePlayer@fnv_008a0270@@3PAUPC7d@1@A": "0x011dea3c",
     "?IsTalkingActivator@MobileObject@@QBE_NXZ": "0x00574900",
     "?GetProgressValue@TESChallenge@fnv_0092f1c0@@QAEPAVTESObjectREFR@@XZ": "0x005e3fa0",
@@ -79533,7 +79533,7 @@
     "?FUN_0093bea0@B93BE30ProcessManager@@QAEXXZ": "0x0093bea0",
     "?DAT_011dea3c@@3PAXA": "0x011dea3c",
     "?FUN_005b5e40@@YAXPBD@Z": "0x005b5e40",
-    "?FUN_00868d70@@YAXH@Z": "0x00868d70",
+    "?ClearAll@@YAXH@Z": "0x00868d70",
     "?FUN_00401030@@YAXPAX@Z": "0x00401030",
     "?FUN_00452eb0@ExtObj@@QAEXXZ": "0x00452eb0",
     "?FUN_0066b0d0@ExtObj@@QAEXH@Z": "0x0066b0d0",
@@ -86301,7 +86301,7 @@
     },
     {
      "address": "0x008359e0",
-     "symbol": "?FUN_008359e0@fnv_008359e0@@YAXPAURadioSource@1@_N@Z",
+     "symbol": "?SetBroadcastState@fnv_008359e0@@YAXPAURadioSource@1@_N@Z",
      "size": 424
     },
     {
@@ -86884,7 +86884,7 @@
    "functions": [
     {
      "address": "0x00835be0",
-     "symbol": "?FUN_00835be0@@YAXPAVBGSTalkingActivator@@PAVTESTopic@@@Z",
+     "symbol": "?StartRadioConversation@@YAXPAVBGSTalkingActivator@@PAVTESTopic@@@Z",
      "size": 814
     }
    ],
@@ -86972,7 +86972,7 @@
     },
     {
      "address": "0x00838780",
-     "symbol": "?FUN_00838780@@YAXPAVTESObjectREFR@@@Z",
+     "symbol": "?PlayCollisionSound@@YAXPAVTESObjectREFR@@@Z",
      "size": 2608
     },
     {
@@ -87248,7 +87248,7 @@
     "?FUN_00ad7480@BSAudio@@QAE?AUBSSoundHandleEx@@PBDII@Z": "0x00ad7480",
     "$SG4438": "0x0107d1dc",
     "$SG4441": "0x0107d1cc",
-    "__ehhandler$?FUN_00838780@@YAXPAVTESObjectREFR@@@Z": "0x00f1220f",
+    "__ehhandler$?PlayCollisionSound@@YAXPAVTESObjectREFR@@@Z": "0x00f1220f",
     "$SG4452": "0x0107d0a8",
     "?DAT_011dd874@@3PAUSoundOps@@A": "0x011dd874",
     "$SG4520": "0x0107d1a8",
@@ -117565,11 +117565,11 @@
     "?FUN_004bfba0@RepairInventoryChanges@@QAEPAURepairInventoryItem@@PAVTESBoundObject@@_N1@Z": "0x004bfba0",
     "?FUN_00559450@RepairInventoryItem@@QAEPAURepairExtraNode@@XZ": "0x00559450",
     "?FUN_006815c0@RepairExtraNode@@QAEAAPAUExtraDataList@@XZ": "0x006815c0",
-    "?FUN_00412380@ExtraDataList@@QAEXPAU1@@Z": "0x00412380",
+    "?DuplicateExtraListForContainer@ExtraDataList@@QAEXPAU1@@Z": "0x00412380",
     "?FUN_00419ad0@ExtraDataList@@QAEXH@Z": "0x00419ad0",
     "?FUN_0063f7b0@RepairExtraNode@@QAEXXZ": "0x0063f7b0",
     "?FUN_00726070@RepairExtraNode@@QAEPAU1@XZ": "0x00726070",
-    "?FUN_004126c0@ExtraDataList@@QAE_NPAU1@_N1@Z": "0x004126c0",
+    "?CompareListForContainer@ExtraDataList@@QAE_NPAU1@_N1@Z": "0x004126c0",
     "?FUN_005ae3d0@RepairExtraNode@@QAEXAAPAUExtraDataList@@@Z": "0x005ae3d0",
     "?FUN_00905330@RepairExtraNode@@QAEXAAPAUExtraDataList@@@Z": "0x00905330",
     "?FUN_00419f80@ExtraDataList@@QAEXPAX@Z": "0x00419f80",
@@ -118036,7 +118036,7 @@
     "?SetCount@ExtraDataList@@QAEXH@Z": "0x00419ad0",
     "?FNV_FUN_0044ddc0Type@TESBoundObject@@QAEHXZ": "0x00401170",
     "?FUN_004bde40@RepairEntry@@QAEPAXXZ": "0x004bde40",
-    "?FUN_004126c0@ExtraDataList@@QAE_NPAV1@HH@Z": "0x004126c0",
+    "?CompareListForContainer@ExtraDataList@@QAE_NPAV1@HH@Z": "0x004126c0",
     "?AddHead@ExtraListNode@@QAEXABQAVExtraDataList@@@Z": "0x005ae3d0",
     "?Remove@ExtraListNode@@QAEXABQAVExtraDataList@@@Z": "0x00905330",
     "?FUN_00419f80@ExtraDataList@@QAEXH@Z": "0x00419f80",
@@ -127714,14 +127714,14 @@
     "?FUN_006733e0@EffectP@@QAEPAUTESForm@@XZ": "0x006733e0",
     "?FUN_008d8520@ActorP@@QAEPAUProcessP@@XZ": "0x008d8520",
     "?FUN_006815c0@ExtraListP@@QAEPAPAUExtraP@@XZ": "0x006815c0",
-    "?FUN_0040fe20@ExtraP@@QAEIXZ": "0x0040fe20",
+    "?ItemsInList@ExtraP@@QAEIXZ": "0x0040fe20",
     "?FUN_00418770@ExtraP@@QAEFXZ": "0x00418770",
     "?FUN_0044ddc0@EntryP@@QAEPAUTESBoundObject@@XZ": "0x0044ddc0",
     "?FUN_00447080@ModelLoaderP@@QAEXPBDHHHHH@Z": "0x00447080",
     "?FUN_0088c790@ActorP@@QAEXPAUTESBoundObject@@HPAUExtraP@@HHH@Z": "0x0088c790",
     "??2FUN_004bc550@@SAPAXI@Z": "0x00401000",
     "??2FUN_00410360@@SAPAXI@Z": "0x00401000",
-    "?FUN_00412380@FUN_00410360@@QAEXPAUExtraP@@@Z": "0x00412380",
+    "?DuplicateExtraListForContainer@FUN_00410360@@QAEXPAUExtraP@@@Z": "0x00412380",
     "?FUN_005ae3d0@ExtraListP@@QAEXPAPAUExtraP@@@Z": "0x005ae3d0",
     "?FUN_0088c650@ActorP@@QAEXPAUTESBoundObject@@HHHHH@Z": "0x0088c650",
     "?FUN_00559450@EntryP@@QAEPAUExtraListP@@XZ": "0x00559450",
@@ -135166,7 +135166,7 @@
     "?FUN_00652160@@YA_NXZ": "0x00652160",
     "?FUN_00652130@@YAHXZ": "0x00652130",
     "?FUN_00652190@@YAXXZ": "0x00652190",
-    "?FUN_00868d70@@YAXH@Z": "0x00868d70",
+    "?ClearAll@@YAXH@Z": "0x00868d70",
     "?FUN_00c459d0@@YAXH@Z": "0x00c459d0",
     "?FUN_00aa7030@@YAXXZ": "0x00aa7030",
     "?DAT_01202d98@@3PAUIOManager@@A": "0x01202d98",
@@ -135175,7 +135175,7 @@
     "?DAT_011de70c@@3IA": "0x011de70c",
     "?FUN_00452490@TES@@QAEXH@Z": "0x00452490",
     "?Instance@ScrapHeapManager@@SAAAU1@XZ": "0x00866d10",
-    "?FUN_00aa5c80@ScrapHeapManager@@QAEXXZ": "0x00aa5c80",
+    "?FreeAllBuffers@ScrapHeapManager@@QAEXXZ": "0x00aa5c80",
     "?FUN_00652110@@YAPAUWorker@@XZ": "0x00652110",
     "?FUN_00529ea0@Worker@@QAE_NXZ": "0x00529ea0",
     "?FUN_00453a80@TES@@QAE_NXZ": "0x00453a80",
@@ -135648,7 +135648,7 @@
     },
     {
      "address": "0x00868d70",
-     "symbol": "?FUN_00868d70@@YAX_N@Z",
+     "symbol": "?ClearAll@@YAX_N@Z",
      "size": 1037
     },
     {
@@ -138208,7 +138208,7 @@
     "?FUN_007037c0@FUN_004539a0_tes@fnv_008774a0@@QAEXH@Z": "0x007037c0",
     "?FUN_0061cc40@FUN_004539a0_tes@fnv_008774a0@@QAEXH@Z": "0x0061cc40",
     "?FUN_006c09f0@FUN_006c09f0_mgr@fnv_008774a0@@QAEXXZ": "0x006c09f0",
-    "?FUN_00868d70@fnv_008774a0@@YAXH@Z": "0x00868d70",
+    "?ClearAll@fnv_008774a0@@YAXH@Z": "0x00868d70",
     "?FUN_00c459d0@fnv_008774a0@@YAXH@Z": "0x00c459d0",
     "?FUN_0084a840@FUN_007d6bd0_save@fnv_008774a0@@QAEXXZ": "0x0084a840",
     "?FUN_00970d50@FUN_00970d50_lists@fnv_008774a0@@QAEXXZ": "0x00970d50",
@@ -139096,7 +139096,7 @@
     "?g_modelLoader@@3PAVModelLoader@@A": "0x011c3b3c",
     "?FUN_00448620@ModelLoader@@QAEX_N@Z": "0x00448620",
     "?g_TES@@3PAVTES@@A": "0x011dea10",
-    "?FUN_00868d70@@YAXH@Z": "0x00868d70",
+    "?ClearAll@@YAXH@Z": "0x00868d70",
     "?FUN_00b5fd60@@YIXPAVShadowSceneNode@@@Z": "0x00b5fd60",
     "?FUN_00c459d0@@YAXH@Z": "0x00c459d0",
     "?FUN_00651e30@@YAXXZ": "0x00651e30",
@@ -142682,7 +142682,7 @@
     "?g_thePlayer@@3PAVPlayerCharacter@@A": "0x011dea3c",
     "?TruncateFloatToInt@@YAHM@Z": "0x00406d90",
     "?g_BGSSaveLoadGame@@3PAUBGSSaveLoadGame@@A": "0x011ddf38",
-    "?FUN_00868d70@@YAXH@Z": "0x00868d70",
+    "?ClearAll@@YAXH@Z": "0x00868d70",
     "?FUN_00c459d0@@YAXH@Z": "0x00c459d0",
     "??_R0?AVTESWorldSpace@@@8": "0x01183fd0",
     "??0LLD_Point3@@QAE@XZ": "0x006815c0",
@@ -165042,12 +165042,12 @@
     },
     {
      "address": "0x0040fcb0",
-     "symbol": "?FUN_0040fcb0@XList@@QAEX_N@Z",
+     "symbol": "?RemoveAllDefault@XList@@QAEX_N@Z",
      "size": 363
     },
     {
      "address": "0x0040fe20",
-     "symbol": "?FUN_0040fe20@FUN_0040fe20_shell@fnv_0040fe20@@QAEIXZ",
+     "symbol": "?ItemsInList@FUN_0040fe20_shell@fnv_0040fe20@@QAEIXZ",
      "size": 85
     },
     {
@@ -165082,7 +165082,7 @@
     },
     {
      "address": "0x004102d0",
-     "symbol": "?FUN_004102d0@FUN_004102d0_shell@fnv_004102d0@@QAEPAVBSExtraData@@E@Z",
+     "symbol": "?GetPrevExtraData@FUN_004102d0_shell@fnv_004102d0@@QAEPAVBSExtraData@@E@Z",
      "size": 129
     },
     {
@@ -165167,7 +165167,7 @@
     },
     {
      "address": "0x00411ec0",
-     "symbol": "?FUN_00411ec0@FUN_00411ec0_shell@fnv_00411ec0@@QAEXPAVExtraDataList@@@Z",
+     "symbol": "?CopyList@FUN_00411ec0_shell@fnv_00411ec0@@QAEXPAVExtraDataList@@@Z",
      "size": 96
     },
     {
@@ -165177,12 +165177,12 @@
     },
     {
      "address": "0x00411fd0",
-     "symbol": "?FUN_00411fd0@CopyableExtraList@@QAEX_N@Z",
+     "symbol": "?RemoveAllCopyableExtra@CopyableExtraList@@QAEX_N@Z",
      "size": 217
     },
     {
      "address": "0x004120b0",
-     "symbol": "?FUN_004120b0@FUN_004120b0_shell@@QAEXXZ",
+     "symbol": "?RemoveNonPersistentCellData@FUN_004120b0_shell@@QAEXXZ",
      "size": 245
     },
     {
@@ -165192,27 +165192,27 @@
     },
     {
      "address": "0x004121e0",
-     "symbol": "?FUN_004121e0@ExtraDataListCopyListForContainer@fnv_004121e0@@QAEXPAVExtraDataList@@_N@Z",
+     "symbol": "?CopyListForContainer@ExtraDataListCopyListForContainer@fnv_004121e0@@QAEXPAVExtraDataList@@_N@Z",
      "size": 401
     },
     {
      "address": "0x00412380",
-     "symbol": "?FUN_00412380@FUN_00412380_shell@fnv_00412380@@QAEXPAVExtraDataList@@@Z",
+     "symbol": "?DuplicateExtraListForContainer@FUN_00412380_shell@fnv_00412380@@QAEXPAVExtraDataList@@@Z",
      "size": 269
     },
     {
      "address": "0x00412490",
-     "symbol": "?FUN_00412490@ExtraCopyList@@QAEXPAU1@_N@Z",
+     "symbol": "?CopyListForReference@ExtraCopyList@@QAEXPAU1@_N@Z",
      "size": 553
     },
     {
      "address": "0x004126c0",
-     "symbol": "?FUN_004126c0@FUN_004126c0_shell@fnv_004126c0@@QAE_NPAVExtraDataList@@_N1@Z",
+     "symbol": "?CompareListForContainer@FUN_004126c0_shell@fnv_004126c0@@QAE_NPAVExtraDataList@@_N1@Z",
      "size": 274
     },
     {
      "address": "0x004127e0",
-     "symbol": "?FUN_004127e0@ExtraDataList_shell@fnv_004127e0@@QAE_NPAU12@@Z",
+     "symbol": "?CompareList@ExtraDataList_shell@fnv_004127e0@@QAE_NPAU12@@Z",
      "size": 385
     },
     {
@@ -167904,7 +167904,7 @@
     "?TESObjectREFR_GetFlags_call@fnv_004102d0@@YIIPAVTESObjectREFR@@@Z": "0x0044ddc0",
     "?FUN_0040ec80@Y00411e40@@QAEXE@Z": "0x0040ec80",
     "?DAT_01014458@@3HA": "0x01014458",
-    "?FUN_00411fd0@EDLStandIn@fnv_00411ec0@@QAEXH@Z": "0x00411fd0",
+    "?RemoveAllCopyableExtra@EDLStandIn@fnv_00411ec0@@QAEXH@Z": "0x00411fd0",
     "$SG9470": "0x01014468",
     "?FUN_004103d0@EDLStandIn@fnv_00411ec0@@QAEXPAX@Z": "0x004103d0",
     "?GetFlags@NodeSI@fnv_00411ec0@@QAEIXZ": "0x0044ddc0",
@@ -168410,7 +168410,7 @@
     "?g_011c3920@fnv_004127e0@@3UGlobalObject_0096a2d0@1@A": "0x011c3920",
     "?FUN_00411f20@FUN_00411f20_shell@fnv_004127e0@@QAE_NPAVBSExtraData@@@Z": "0x00411f20",
     "?GetTarget@Crime@fnv_004127e0@@QAEPAVTESObjectREFR@@XZ": "0x0044ddc0",
-    "?FUN_0040fe20@ExtraHelper_004bca80@fnv_004127e0@@QAEHXZ": "0x0040fe20",
+    "?ItemsInList@ExtraHelper_004bca80@fnv_004127e0@@QAEHXZ": "0x0040fe20",
     "??0FUN_00431950@fnv_00418550@@QAE@PAVTESObjectREFR@1@@Z": "0x00431950",
     "__ehhandler$?FUN_004194b0@ExtraDataListRemoveTrespassPackage@fnv_004194b0@@QAEPAVBSExtraData@@PAVDate@2@@Z": "0x00f00bdb",
     "?FUN_00410020@ExtraDataListRemoveTrespassPackage@fnv_004194b0@@QAEXPAVBSExtraData@@_N@Z": "0x00410020",
@@ -168687,7 +168687,7 @@
     "?DAT_011f426c@@3HA": "0x011f426c",
     "?FUN_00418800@FUN_00418800_shell@@QAEPAVScript@@XZ": "0x00418800",
     "?FUN_00419f80@FUN_00419f80_shell@@QAEXPAUScriptLocals@@@Z": "0x00419f80",
-    "__ehhandler$?FUN_00412490@ExtraCopyList@@QAEXPAU1@_N@Z": "0x00ef205b",
+    "__ehhandler$?CopyListForReference@ExtraCopyList@@QAEXPAU1@_N@Z": "0x00ef205b",
     "$SG28996": "0x01014534",
     "?FUN_0040fbf0@ExtraCopyLock@@QAEXPBD@Z": "0x0040fbf0",
     "?FUN_004f1540@ExtraCopyData@@QAEEXZ": "0x004f1540",
@@ -169218,7 +169218,7 @@
     "?CallGetFlags@TESObjectREFR_GetFlags_Helper@@QAEIXZ": "0x0044ddc0",
     "?SetFlags@TESObjectREFR_Flags@@QAEXI@Z": "0x00403550",
     "?FUN_0040f7d0@@YAXPAXH@Z": "0x0040f7d0",
-    "?FUN_004102d0@FUN_00410020_t@@QAEPAVBSExtraData@@E@Z": "0x004102d0",
+    "?GetPrevExtraData@FUN_00410020_t@@QAEPAVBSExtraData@@E@Z": "0x004102d0",
     "?g_tlsDirty@@3PAHA": "0x01272000",
     "?FUN_004121b0@FUN_004121b0_shell@@QAE_NXZ": "0x004121b0",
     "?g_BGSSaveLoadGame@@3PAUFUN_004121b0_shell@@A": "0x011ddf38",
@@ -182331,7 +182331,7 @@
     "?_ref_006815c0@ListHelper_004bca80@@QAEPAPAUExtraHelper_004bca80@@XZ": "0x006815c0",
     "?FUN_00418770@ExtraHelper_004bca80@@QAEFXZ": "0x00418770",
     "?_ref_00726070@ListHelper_004bca80@@QAEPAU1@XZ": "0x00726070",
-    "?FUN_0040fe20@ExtraHelper_004bca80@@QAEHXZ": "0x0040fe20",
+    "?ItemsInList@ExtraHelper_004bca80@@QAEHXZ": "0x0040fe20",
     "?_ref_00905330@ListHelper_004bca80@@QAEXPAPAUExtraHelper_004bca80@@@Z": "0x00905330",
     "?_ref_006815c0@fnv_004bda70@@YIPAPAVExtraDataList@@PAUExtraNode@1@@Z": "0x006815c0",
     "?GetItem@?$BSSimpleList@PAVExtraDataList@@@@QAEAAPAVExtraDataList@@XZ": "0x006815c0",
@@ -182364,7 +182364,7 @@
     "?GetCount@ItemChangeAccess@fnv_004c3380@@QAEHXZ": "0x00726070",
     "?SetCount@ItemChangeAccess@fnv_004c3380@@QAEXH@Z": "0x006ecd40",
     "?FUN_0041c7f0@ExtraDataListAccess@fnv_004c3380@@QAEXPAVTESObjectREFR@@@Z": "0x0041c7f0",
-    "?FUN_004126c0@ExtraDataListAccess@fnv_004c3380@@QAE_NPAVExtraDataList@@_N1@Z": "0x004126c0",
+    "?CompareListForContainer@ExtraDataListAccess@fnv_004c3380@@QAE_NPAVExtraDataList@@_N1@Z": "0x004126c0",
     "?FUN_00418770@ExtraDataListAccess@fnv_004c3380@@QBEFXZ": "0x00418770",
     "?FUN_00419ad0@ExtraDataListAccess@fnv_004c3380@@QAEXH@Z": "0x00419ad0",
     "?Remove@?$BSSimpleListAccess@PAVExtraDataList@@@fnv_004c3380@@QAEXABQAVExtraDataList@@@Z": "0x00905330",
@@ -182774,7 +182774,7 @@
     "?FUN_006815c0@EquipList@@QAEPAPAUEquipExtra@@XZ": "0x006815c0",
     "?FUN_00418750@EquipExtra@@QAE_NXZ": "0x00418750",
     "?FUN_005f65d0@EquipList@@QAE_NAAPAUEquipExtra@@@Z": "0x005f65d0",
-    "?FUN_004127e0@EquipExtra@@QAE_NPAU1@@Z": "0x004127e0",
+    "?CompareList@EquipExtra@@QAE_NPAU1@@Z": "0x004127e0",
     "?FUN_00726070@EquipList@@QAEPAU1@XZ": "0x00726070",
     "??0EquipEntry@@QAE@PAUEquipForm@@H@Z": "0x004bc550",
     "?FUN_00905820@EquipChangeList@@QAEXAAPAUEquipEntry@@@Z": "0x00905820",
@@ -182782,7 +182782,7 @@
     "?FUN_004c0bf0@EquipForm@@QAE_NXZ": "0x004c0bf0",
     "?FUN_00418770@EquipExtra@@QAEFXZ": "0x00418770",
     "??0EquipExtra@@QAE@XZ": "0x00410360",
-    "?FUN_00411ec0@EquipExtra@@QAEXPAU1@@Z": "0x00411ec0",
+    "?CopyList@EquipExtra@@QAEXPAU1@@Z": "0x00411ec0",
     "?FUN_00419ad0@EquipExtra@@QAEXG@Z": "0x00419ad0",
     "?FUN_0042dec0@EquipExtra@@QAEXXZ": "0x0042dec0",
     "?FUN_00726070@EquipEntry@@QAEHXZ": "0x00726070",
@@ -182817,7 +182817,7 @@
     "?_ref_006815c0@ExtraNodeShell@@QAEPAPAUExtraShell@@XZ": "0x006815c0",
     "?FUN_00418750@ExtraShell@@QAE_NXZ": "0x00418750",
     "?FUN_005f65d0@ExtraNodeShell@@QAE_NPAPAUExtraShell@@@Z": "0x005f65d0",
-    "?FUN_004127e0@ExtraShell@@QAE_NPAU1@@Z": "0x004127e0",
+    "?CompareList@ExtraShell@@QAE_NPAU1@@Z": "0x004127e0",
     "?_ref_00726070@ExtraNodeShell@@QAEPAU1@XZ": "0x00726070",
     "??0ItemShell@@QAE@PAUBoundShell@@H@Z": "0x004bc550",
     "?FUN_004bddd0@ItemShell@@QAE_N_N@Z": "0x004bddd0",
@@ -182825,7 +182825,7 @@
     "?FUN_004c0bf0@BoundShell@@QAE_NXZ": "0x004c0bf0",
     "?FUN_00418770@ExtraShell@@QAEFXZ": "0x00418770",
     "??0ExtraShell@@QAE@XZ": "0x00410360",
-    "?FUN_00411ec0@ExtraShell@@QAEXPAU1@@Z": "0x00411ec0",
+    "?CopyList@ExtraShell@@QAEXPAU1@@Z": "0x00411ec0",
     "?FUN_00419ad0@ExtraShell@@QAEXH@Z": "0x00419ad0",
     "?FUN_0042dec0@ExtraShell@@QAEXXZ": "0x0042dec0",
     "??0ExtraNodeShell@@QAE@XZ": "0x0096a2d0",
@@ -182850,7 +182850,7 @@
     "?FUN_004bfba0@W20Inventory@@QAEPAUW20Entry@@PAUW20Form@@_NH@Z": "0x004bfba0",
     "??0W20Extra@@QAE@XZ": "0x00410360",
     "?IsEmpty@W20Extra@@QAE_NXZ": "0x004bca60",
-    "?FUN_004121e0@W20Extra@@QAEXPAU1@_N@Z": "0x004121e0",
+    "?CopyListForContainer@W20Extra@@QAEXPAU1@_N@Z": "0x004121e0",
     "?GetScale@W20Ref@@QAEMXZ": "0x00598040",
     "?FUN_00419fb0@W20Extra@@QAEXM@Z": "0x00419fb0",
     "?GetOwner@W20Extra@@QAEPAUW20Form@@XZ": "0x00418660",
@@ -182862,7 +182862,7 @@
     "??0W20ExtraList@@QAE@XZ": "0x0096a2d0",
     "?AddHead@W20ExtraList@@QAEXPAPAUW20Extra@@@Z": "0x005ae3d0",
     "?_ref_006815c0@W20ExtraList@@QAEPAPAUW20Extra@@XZ": "0x006815c0",
-    "?FUN_004126c0@W20Extra@@QAE_NPAU1@_N1@Z": "0x004126c0",
+    "?CompareListForContainer@W20Extra@@QAE_NPAU1@_N1@Z": "0x004126c0",
     "?_ref_00726070@W20ExtraList@@QAEPAU1@XZ": "0x00726070",
     "?FUN_00418770@W20Extra@@QAEFXZ": "0x00418770",
     "?Remove@W20ExtraList@@QAEXPAPAUW20Extra@@@Z": "0x00905330",
@@ -182902,7 +182902,7 @@
     "?FUN_00418750@AddExtra@@QAE_NXZ": "0x00418750",
     "?FUN_00418770@AddExtra@@QAEFXZ": "0x00418770",
     "?FUN_00419ad0@AddExtra@@QAEXF@Z": "0x00419ad0",
-    "?FUN_004126c0@AddExtra@@QAE_NPAU1@_N1@Z": "0x004126c0",
+    "?CompareListForContainer@AddExtra@@QAE_NPAU1@_N1@Z": "0x004126c0",
     "?FUN_00726070@AddNode@@QAEPAU1@XZ": "0x00726070",
     "?_ref_00905330@AddNode@@QAEXABQAUAddExtra@@@Z": "0x00905330",
     "?FUN_00705020@@YA_NXZ": "0x00705020",
@@ -183042,7 +183042,7 @@
     "??0FUN_00410360@InventoryCopy@@QAE@XZ": "0x00410360",
     "?FUN_00410220@FUN_00410360@InventoryCopy@@QAEPAXH@Z": "0x00410220",
     "?FUN_00410020@FUN_00410360@InventoryCopy@@QAEXPAXH@Z": "0x00410020",
-    "?FUN_004121e0@FUN_00410360@InventoryCopy@@QAEXPAU12@H@Z": "0x004121e0",
+    "?CopyListForContainer@FUN_00410360@InventoryCopy@@QAEXPAU12@H@Z": "0x004121e0",
     "?FUN_00905820@ExtraNode@InventoryCopy@@QAEXPAPAUFUN_00410360@2@@Z": "0x00905820",
     "?FUN_0040ff60@FUN_00410360@InventoryCopy@@QAEXPAX@Z": "0x0040ff60",
     "?FUN_00726070@ExtraNode@InventoryCopy@@QAEPAU12@XZ": "0x00726070",
@@ -183078,7 +183078,7 @@
     "?FUN_00559450@MoveItem@@QAEPAUMoveExtraNode@@XZ": "0x00559450",
     "?FUN_005ae380@MoveExtraNode@@QAEIXZ": "0x005ae380",
     "?FUN_006815c0@MoveExtraNode@@QAEPAPAUMoveExtra@@XZ": "0x006815c0",
-    "?FUN_0040fe20@MoveExtra@@QAEIXZ": "0x0040fe20",
+    "?ItemsInList@MoveExtra@@QAEIXZ": "0x0040fe20",
     "?FUN_0063f7b0@MoveExtraNode@@QAEXXZ": "0x0063f7b0",
     "?FUN_008256d0@MoveExtraNode@@QAE_NXZ": "0x008256d0",
     "?FUN_00470470@MoveExtraNode@@QAEXXZ": "0x00470470",
@@ -183232,7 +183232,7 @@
     "?FUN_00418630@CleanupExtra@@QAEPAUCleanupReference@@XZ": "0x00418630",
     "?FUN_0055d310@CleanupReference@@QAEPAXXZ": "0x0055d310",
     "?FUN_00418600@CleanupExtra@@QAEXXZ": "0x00418600",
-    "?FUN_0040fe20@CleanupExtra@@QAEIXZ": "0x0040fe20",
+    "?ItemsInList@CleanupExtra@@QAEIXZ": "0x0040fe20",
     "?FUN_00418770@CleanupExtra@@QAEFXZ": "0x00418770",
     "?FUN_00559450@CleanupItem@@QAEPAUCleanupExtraNode@@XZ": "0x00559450",
     "?FUN_00905330@CleanupExtraNode@@QAEXABQAUCleanupExtra@@@Z": "0x00905330",
@@ -183359,11 +183359,11 @@
     "?FUN_00726070@InvEntry@@QAEHXZ": "0x00726070",
     "?FUN_006ecd40@InvEntry@@QAEXH@Z": "0x006ecd40",
     "?FUN_00726070@InvNode@@QAEPAU1@XZ": "0x00726070",
-    "?FUN_004126c0@InvExtra@@QAE_NPAU1@HH@Z": "0x004126c0",
+    "?CompareListForContainer@InvExtra@@QAE_NPAU1@HH@Z": "0x004126c0",
     "?FUN_00418770@InvExtra@@QAEFXZ": "0x00418770",
     "?FUN_00419ad0@InvExtra@@QAEXG@Z": "0x00419ad0",
     "??0InvExtra@@QAE@XZ": "0x00410360",
-    "?FUN_00412380@InvExtra@@QAEXPAU1@@Z": "0x00412380",
+    "?DuplicateExtraListForContainer@InvExtra@@QAEXPAU1@@Z": "0x00412380",
     "??0InvNode@@QAE@XZ": "0x0096a2d0",
     "?FUN_005ae3d0@InvNode@@QAEXAAPAUInvExtra@@@Z": "0x005ae3d0",
     "??0InvEntry@@QAE@PAXH@Z": "0x004bc550",
@@ -183376,7 +183376,7 @@
     "?FUN_00410220@Transfer4c37Form4@@QAEHH@Z": "0x00410220",
     "?FUN_00418770@Transfer4c37Form4@@QAEFXZ": "0x00418770",
     "?FUN_0042dec0@Transfer4c37Form4@@QAEXXZ": "0x0042dec0",
-    "?FUN_0040fe20@Transfer4c37Form4@@QAEHXZ": "0x0040fe20",
+    "?ItemsInList@Transfer4c37Form4@@QAEHXZ": "0x0040fe20",
     "?_ref_00905330@Transfer4c37FirstObj@@QAEXPAPAUTransfer4c37Form4@@@Z": "0x00905330",
     "?FUN_00482a90@Transfer4c37Cont@@QAEHH@Z": "0x00482a90",
     "?FUN_004bddd0@Transfer4c37Entry@@QAE_NH@Z": "0x004bddd0",
@@ -183392,7 +183392,7 @@
     "?FUN_00726070@Transfer4c37EntryFirst@@QAEPAU1@XZ": "0x00726070",
     "?FUN_00418770@Transfer4c37ItemObj@@QAEFXZ": "0x00418770",
     "?FUN_00418ab0@Transfer4c37ItemObj@@QAE_NH@Z": "0x00418ab0",
-    "?FUN_0040fe20@Transfer4c37ItemObj@@QAEHXZ": "0x0040fe20",
+    "?ItemsInList@Transfer4c37ItemObj@@QAEHXZ": "0x0040fe20",
     "?FUN_00418750@Transfer4c37ItemObj@@QAE_NXZ": "0x00418750",
     "?FUN_00440da0@Transfer4c37C37Obj@@QAE_NXZ": "0x00440da0",
     "?FUN_0088d7d0@Transfer4c37C37Obj@@QAE_NHHPAXHHH@Z": "0x0088d7d0",
@@ -183404,9 +183404,9 @@
     "??0Transfer4c37Obj20@@QAE@XZ": "0x00410360",
     "?FUN_005ae3d0@Transfer4c37EntryHeadS@@QAEXPAPAUTransfer4c37Obj20@@@Z": "0x005ae3d0",
     "?FUN_0041d000@Transfer4c37Obj20@@QAEHXZ": "0x0041d000",
-    "?FUN_00412490@Transfer4c37Obj20@@QAEXPAXH@Z": "0x00412490",
+    "?CopyListForReference@Transfer4c37Obj20@@QAEXPAXH@Z": "0x00412490",
     "?FUN_00419ad0@Transfer4c37Obj20@@QAEXH@Z": "0x00419ad0",
-    "?FUN_0040fe20@Transfer4c37Obj20@@QAEHXZ": "0x0040fe20",
+    "?ItemsInList@Transfer4c37Obj20@@QAEHXZ": "0x0040fe20",
     "?FUN_00418770@Transfer4c37Obj20@@QAEFXZ": "0x00418770",
     "?FUN_005ac750@@YAXPAX0H@Z": "0x005ac750",
     "?_ref_00726070@Transfer4c37NewObj@@QAEHXZ": "0x00726070",
@@ -183420,7 +183420,7 @@
     "?FUN_00418860@Transfer4c37ItemObj@@QAEMXZ": "0x00418860",
     "?FUN_00567490@Transfer4c37ResObj@@QAEXM@Z": "0x00567490",
     "?FUN_005d43c0@Transfer4c37ResObj@@QAEPAUTransfer4c37MidObj@@XZ": "0x005d43c0",
-    "?FUN_00412490@Transfer4c37MidObj@@QAEXPAXH@Z": "0x00412490",
+    "?CopyListForReference@Transfer4c37MidObj@@QAEXPAXH@Z": "0x00412490",
     "?FUN_008d6f30@Transfer4c37C37Obj@@QAEHXZ": "0x008d6f30",
     "?FUN_00567770@Transfer4c37ResObj@@QAEHXZ": "0x00567770",
     "?FUN_00546a40@Transfer4c37M68Obj@@QAEHXZ": "0x00546a40",
@@ -183545,7 +183545,7 @@
     "?FUN_005ac1e0@Sh005ac1e0@@QAE_NPAX00_N@Z": "0x005ac1e0",
     "?FUN_005d43c0@Sh005d43c0@@QAEPAXXZ": "0x005d43c0",
     "?FUN_00419f80@Sh00419f80@@QAEXPAX@Z": "0x00419f80",
-    "?FUN_00411fd0@Sh00411fd0@@QAEXPAX@Z": "0x00411fd0",
+    "?RemoveAllCopyableExtra@Sh00411fd0@@QAEXPAX@Z": "0x00411fd0",
     "?FUN_00905330@ListZ@@QAEXPAPAVFUN_008515f0@@@Z": "0x00905330",
     "??_GFUN_008515f0@@QAEPAXI@Z": "0x008515f0",
     "?FUN_005ae380@ListZ@@QAEHXZ": "0x005ae380",
@@ -183568,13 +183568,13 @@
     "?FUN_00480d10@XBiped17Sub17@@QAE_NXZ": "0x00480d10",
     "?FUN_004c0bd0@XBiped17Sub17@@QAE_NXZ": "0x004c0bd0",
     "?FUN_00483710@XForm17@@QAE_NXZ": "0x00483710",
-    "?FUN_0040fe20@XExtra17@@QAEHXZ": "0x0040fe20",
+    "?ItemsInList@XExtra17@@QAEHXZ": "0x0040fe20",
     "?_ref_00726070@XChange17@@QAEHXZ": "0x00726070",
     "?FUN_004bc8f0@XChange17@@QAEH_N@Z": "0x004bc8f0",
     "?FUN_00419ad0@XExtra17@@QAEXF@Z": "0x00419ad0",
     "?FUN_004bca60@XExtra17@@QAE_NXZ": "0x004bca60",
     "?_ref_00905330@XNodeE17@@QAEXPAPAUXExtra17@@@Z": "0x00905330",
-    "?FUN_004126c0@XExtra17@@QAE_NPAU1@H_N@Z": "0x004126c0",
+    "?CompareListForContainer@XExtra17@@QAE_NPAU1@H_N@Z": "0x004126c0",
     "?_ref_00726070@XNodeE17@@QAEPAU1@XZ": "0x00726070",
     "?FUN_00418770@XExtra17@@QAEFXZ": "0x00418770",
     "?FUN_004bffb0@XInv17@@QAEPAUTESContainer@@XZ": "0x004bffb0",
@@ -183820,7 +183820,7 @@
     "?CountAndPruneEntries@CleanItem@@QAEHXZ": "0x004bca80",
     "?FUN_00418ab0@CleanExtra@@QAE_N_N@Z": "0x00418ab0",
     "?FUN_0040fae0@CleanExtra@@QAEX_N@Z": "0x0040fae0",
-    "?FUN_00412380@CleanExtra@@QAEXPAU1@@Z": "0x00412380",
+    "?DuplicateExtraListForContainer@CleanExtra@@QAEXPAU1@@Z": "0x00412380",
     "?SetWornState@CleanExtra@@QAEX_N0@Z": "0x0041aa20",
     "?FUN_004bc8f0@CleanItem@@QAEH_N@Z": "0x004bc8f0",
     "?FUN_00726070@CleanExtra@@QAEPAUCleanDatum@@XZ": "0x00726070",
@@ -183828,7 +183828,7 @@
     "?FUN_00410220@CleanExtra@@QAEPAXE@Z": "0x00410220",
     "?FUN_00410020@CleanExtra@@QAEXPAUCleanDatum@@_N@Z": "0x00410020",
     "?FUN_0040ff60@CleanExtra@@QAEXPAUCleanDatum@@@Z": "0x0040ff60",
-    "?FUN_0040fe20@CleanExtra@@QAEIXZ": "0x0040fe20",
+    "?ItemsInList@CleanExtra@@QAEIXZ": "0x0040fe20",
     "?FUN_00726070@CleanBaseNode@@QAEPAU1@XZ": "0x00726070",
     "?FUN_008256d0@CleanItemNode@@QAE_NXZ": "0x008256d0",
     "?FUN_006815c0@CleanItemNode@@QAEPAPAUCleanItem@@XZ": "0x006815c0",
@@ -199725,7 +199725,7 @@
     },
     {
      "address": "0x006c39c0",
-     "symbol": "?FUN_006c39c0@FUN_006c39c0_shell@fnv_006c39c0@@QAEXXZ",
+     "symbol": "?ForceUpdate@FUN_006c39c0_shell@fnv_006c39c0@@QAEXXZ",
      "size": 478
     },
     {
@@ -208670,7 +208670,7 @@
     "?FUN_006eb310@@YIXPAX@Z": "0x006eb310",
     "?FUN_006eb390@@YI_NPAX@Z": "0x006eb390",
     "?FUN_006eb3b0@@YIXPAX@Z": "0x006eb3b0",
-    "?FUN_006eb6b0@T006ebd10@@QAEXH@Z": "0x006eb6b0",
+    "?CancelCurrentPathsAndPause@T006ebd10@@QAEXH@Z": "0x006eb6b0",
     "?FUN_0040f6e0@G006ebf30@@QAEXXZ": "0x0040f6e0",
     "?FUN_00401970@NiAVObject@@QAEXXZ": "0x00401970",
     "?Deallocate@@YAXPAX@Z": "0x00401030",
@@ -208913,13 +208913,13 @@
    "functions": [
     {
      "address": "0x006eb6b0",
-     "symbol": "?FUN_006eb6b0@FUN_006eb6b0_cls@@QAEXH@Z",
+     "symbol": "?CancelCurrentPathsAndPause@FUN_006eb6b0_cls@@QAEXH@Z",
      "size": 217
     }
    ],
    "symbols": {
     "___security_cookie": "0x011c16bc",
-    "__ehhandler$?FUN_006eb6b0@FUN_006eb6b0_cls@@QAEXH@Z": "0x00f06508",
+    "__ehhandler$?CancelCurrentPathsAndPause@FUN_006eb6b0_cls@@QAEXH@Z": "0x00f06508",
     "$SG2912": "0x0106d5f8",
     "?Lock@BSSpinLock_r006eb6b0@@QAEXPBD@Z": "0x004538a0",
     "??0PathWorkList@@QAE@XZ": "0x006ec970",
@@ -220314,7 +220314,7 @@
     "??1ReloadNode@@QAE@XZ": "0x0045cec0",
     "??1ReloadContext@@QAE@XZ": "0x00404ee0",
     "?ReloadPathingGet@@YAPAUReloadPathing@@XZ": "0x006c0720",
-    "?FUN_006c39c0@ReloadPathing@@QAEXXZ": "0x006c39c0",
+    "?ForceUpdate@ReloadPathing@@QAEXXZ": "0x006c39c0",
     "__real@3fe0000000000000": "0x01011588",
     "__real@40b0000000000000": "0x01017a10",
     "__ehhandler$?FUN_00454450@ReloadManager@fnv_00454450@@QAEXPAUReloadPoint@2@@Z": "0x00eed3d0",
@@ -220398,7 +220398,7 @@
     "?FUN_00454b70@ReloadHandler@fnv_00454450@@QAE_NXZ": "0x00454b70",
     "?reloadHasWorld@fnv_00454450@@3_NA": "0x011f94ab",
     "?ReloadPathingGet@fnv_00454450@@YAPAUReloadPathing@1@XZ": "0x006c0720",
-    "?FUN_006c39c0@ReloadPathing@fnv_00454450@@QAEXXZ": "0x006c39c0",
+    "?ForceUpdate@ReloadPathing@fnv_00454450@@QAEXXZ": "0x006c39c0",
     "?DAT_011c3e38@fnv_00454d50@@3HA": "0x011c3e38",
     "?FUN_004503f0@FUN_004503f0_obj@fnv_00454d50@@QAEIXZ": "0x004503f0",
     "?FUN_005f36f0@FUN_00454d50_shell@fnv_00454d50@@QAEPAUTESObjectCELL@2@XZ": "0x005f36f0",
@@ -230641,7 +230641,7 @@
     "?FUN_00418630@FNVObject@@QAEPAXXZ": "0x00418630",
     "?FUN_00418600@FNVObject@@QAEXXZ": "0x00418600",
     "?FUN_0055d310@FNVObject@@QAEHXZ": "0x0055d310",
-    "?FUN_0040fe20@FNVObject@@QAEIXZ": "0x0040fe20",
+    "?ItemsInList@FNVObject@@QAEIXZ": "0x0040fe20",
     "?FUN_00410220@FNVObject@@QAEHH@Z": "0x00410220",
     "?_DAT_011dea3c@@3PAXA": "0x011dea3c",
     "?FUN_0044ddc0@FNVRecordGroup@@QAEPAU1@PAUFNVObject@@HHHPAXHHHH@Z": "0x0044ddc0",
@@ -246362,7 +246362,7 @@
     "?DAT_01183028@@3HA": "0x01183028",
     "?FNV_DynamicCast@@YAPAXPAXH00H@Z": "0x00ec43fb",
     "?FUN_004851b0@CellState@@QAEXPAVTESForm@@@Z": "0x004851b0",
-    "?FUN_00411ec0@ExtraListPair@@QAEXPAU1@@Z": "0x00411ec0",
+    "?CopyList@ExtraListPair@@QAEXPAU1@@Z": "0x00411ec0",
     "?FUN_00425fd0@CellState@@QAE_NXZ": "0x00425fd0",
     "?FUN_00544600@CellState@@QAEPAXXZ": "0x00544600",
     "?memcpy@@YAPAXPAXPBXI@Z": "0x00401460",
@@ -246540,7 +246540,7 @@
     "?FNV_GetFormType@Object54@@QAEIXZ": "0x00401170",
     "?FUN_00419ad0@Extra54@@QAEXF@Z": "0x00419ad0",
     "??0FUN_004bc550@@QAE@PAUObject54@@H@Z": "0x004bc550",
-    "?FUN_00412380@Extra54@@QAEXPAU1@@Z": "0x00412380",
+    "?DuplicateExtraListForContainer@Extra54@@QAEXPAU1@@Z": "0x00412380",
     "?FUN_0041aed0@Extra54@@QAEXXZ": "0x0041aed0",
     "?AddHead@FUN_0096a2d0@@QAEXPAPAUExtra54@@@Z": "0x005ae3d0",
     "?FUN_00418770@Extra54@@QAEFXZ": "0x00418770",
@@ -247729,7 +247729,7 @@
     "?GetFieldAt124@FUN_00497280_shell@fnv_00543c50@@QAEIXZ": "0x00497280",
     "?GetLightingTemplate@CellCompareView@fnv_00543c50@@QAEPAVCellLightingTemplate@@XZ": "0x00558b40",
     "?_memcmp@fnv_00543c50@@YAHPBX0I@Z": "0x00ec4835",
-    "?FUN_004127e0@FUN_004127e0_shell@fnv_00543c50@@QAE_NPAV?$BSSimpleList@PAVTESImageSpaceModifier@@@@@Z": "0x004127e0",
+    "?CompareList@FUN_004127e0_shell@fnv_00543c50@@QAE_NPAV?$BSSimpleList@PAVTESImageSpaceModifier@@@@@Z": "0x004127e0",
     "?FUN_00547650@C5Cell@cell547@@QAEPAVTESImageSpace@@XZ": "0x00547650",
     "?FUN_00425fd0@C5Cell@cell547@@QAE_NXZ": "0x00425fd0",
     "?FUN_0054ddd0@C5Cell@cell547@@QAEPAUC5Region@2@XZ": "0x0054ddd0",
@@ -252955,7 +252955,7 @@
     "?FUN_005682c0@FUN_005682c0_caller@@QAEH_N@Z": "0x005682c0",
     "__real@408f400000000000": "0x01017b70",
     "?GetExtra@TESObjectREFR_helper@fnv_00568bb0@@QBEPAUExtraDataList_helper@2@XZ": "0x005d43c0",
-    "?FUN_00411ec0@ExtraDataList_helper@fnv_00568bb0@@QBEXPAUExtraDataList@2@@Z": "0x00411ec0",
+    "?CopyList@ExtraDataList_helper@fnv_00568bb0@@QBEXPAUExtraDataList@2@@Z": "0x00411ec0",
     "?FUN_005d43c0@@YIPAVExtraDataList@@PAVTESObjectREFR@@@Z": "0x005d43c0",
     "?FUN_00418490@@YIPAUMapMarkerData@@PAVExtraDataList@@@Z": "0x00418490",
     "??B?$BSStringT@D@@QBEPBDXZ": "0x00559450",
@@ -255338,7 +255338,7 @@
     "?FUN_00a59d30@CopyNode@@QAEPAUProperty@@H@Z": "0x00a59d30",
     "?FUN_0057c730@PropertyList@@QAEXABQAURef@@@Z": "0x0057c730",
     "?FUN_0041f840@Extra@@QAEXPAURef@@_N@Z": "0x0041f840",
-    "?FUN_00411ec0@Extra@@QAEXPAU1@@Z": "0x00411ec0",
+    "?CopyList@Extra@@QAEXPAU1@@Z": "0x00411ec0",
     "?FUN_0049c680@PropertyList@@QAEPAXABQAURef@@PAX@Z": "0x0049c680",
     "?FUN_004ed8c0@PropertyList@@QAEXABQAURef@@@Z": "0x004ed8c0",
     "?FUN_00450b80@@YAPAUShadow@@H@Z": "0x00450b80",
@@ -256252,7 +256252,7 @@
     "?FUN_00891170@CompareRefView@fnv_0055d230@@QAEPBUCompareData@2@XZ": "0x00891170",
     "?FUN_008d6f30@CompareRefView@fnv_0055d230@@QBEPAXXZ": "0x008d6f30",
     "?FUN_005d43c0@CompareRefView@fnv_0055d230@@QAEPAUCompareExtraList@2@XZ": "0x005d43c0",
-    "?FUN_004127e0@CompareExtraList@fnv_0055d230@@QAE_NPAU12@@Z": "0x004127e0",
+    "?CompareList@CompareExtraList@fnv_0055d230@@QAE_NPAU12@@Z": "0x004127e0",
     "?Update@SkyObject55F5@@QAEXPAUSky@@H@Z": "0x008d0600",
     "?GetDisabled@RefH55F5@@QAE_NXZ": "0x00440da0",
     "?FUN_00484af0@RefH55F5@@QAEX_N@Z": "0x00484af0",
@@ -271537,7 +271537,7 @@
     "?FUN_005accb0@@YA_NHHHPAVNiCallbackHost@@HHHPAHPAI@Z": "0x005accb0",
     "?FUN_00835810@@YAXPAVNiCallbackHost@@I@Z": "0x00835810",
     "?FUN_00835980@@YAXPAVNiCallbackHost@@@Z": "0x00835980",
-    "?FUN_00835be0@@YA_NHI@Z": "0x00835be0",
+    "?StartRadioConversation@@YA_NHI@Z": "0x00835be0",
     "?FUN_005a43b0@@YAXPAVTESObjectREFR@@HHPAN@Z": "0x005a43b0",
     "?FUN_00453a70@@YAPAUUIState@@XZ": "0x00453a70",
     "?FUN_005bb4d0@UIState@@QAE_NXZ": "0x005bb4d0",
@@ -273051,7 +273051,7 @@
     "_FUN_00835b90": "0x00835b90",
     "??_C@_0BL@LNKHGAFE@GetBroadcastState?5?$DO?$DO?5?$CF0?42f?$AA@": "0x0103cf0c",
     "?FUN_005accb0@@YA_NPAX000000PAH@Z": "0x005accb0",
-    "?FUN_008359e0@@YAXPAX_N@Z": "0x008359e0",
+    "?SetBroadcastState@@YAXPAX_N@Z": "0x008359e0",
     "?CmdMemSet@fnv_005d8420@@YAPAXPAXHI@Z": "0x00ec61c0",
     "?CmdExtractArgs@fnv_005d8420@@YA_NPAX0PAI0000ZZ": "0x005accb0",
     "?g_pCmdPlayer@fnv_005d8420@@3PAUCmdPlayer@1@A": "0x011dea3c",
@@ -477324,7 +477324,7 @@
     },
     {
      "address": "0x00ce61c0",
-     "symbol": "?FUN_00ce61c0@@YAXABUHkMapperParams@@AAUHkMapperData@@1@Z",
+     "symbol": "?createMapping@@YAXABUHkMapperParams@@AAUHkMapperData@@1@Z",
      "size": 13246
     }
    ],
@@ -506106,7 +506106,7 @@
    "functions": [
     {
      "address": "0x00cfc1d0",
-     "symbol": "?FUN_00cfc1d0@DebugTableDispatcher@@QAEXXZ",
+     "symbol": "?debugPrintTable@DebugTableDispatcher@@QAEXXZ",
      "size": 884
     }
    ],
@@ -533326,7 +533326,7 @@
    "functions": [
     {
      "address": "0x00d63680",
-     "symbol": "?FUN_00d63680@hkpVehicleViewer@VehicleStepD63680@@MAEXPAVhkpWorld@2@@Z",
+     "symbol": "?step@hkpVehicleViewer@VehicleStepD63680@@MAEXPAVhkpWorld@2@@Z",
      "size": 1486
     }
    ],
@@ -598152,7 +598152,7 @@
     "?DAT_011f6bd0@@3IA": "0x011f6bd0",
     "?DAT_011f6bb8@@3V_RTL_CRITICAL_SECTION@@A": "0x011f6bb8",
     "?FUN_00fdb2a0@@YAXXZ": "0x00fdb2a0",
-    "?FUN_00aa6f90@@YIXPAUMemoryPool@@@Z": "0x00aa6f90",
+    "?FreeUnusedPagesForAllPools@@YIXPAUMemoryPool@@@Z": "0x00aa6f90",
     "__imp_?QueryPerformanceCounter@@YGHPA_J@Z": "0x00fdf0a0",
     "?FUN_00aa9e50@AbstractHeap@@QAEXPAUHeapFreeList@@PAUHeapFreeBlock@@@Z": "0x00aa9e50"
    }
