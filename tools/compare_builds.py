@@ -21,8 +21,11 @@ The rules (plan): only src/, include/, build/units.json and *.md files may chang
 a pull request opened by the repository owner) .github/ and tools/ may change as well: this check cannot vouch for
 them, the owner verifies them with a full build_and_match.py run, and main is built against the game after every
 change. In build/units.json only decorated names may change: every unit keeps its source, compiler, flags, function
-addresses and sizes, EH tails and the addresses its symbols bind. Anything else (build/image_check.json,
-third_party/, patches/, a new unit) needs a maintainer.
+addresses and sizes, EH tails and every address its symbols bind. A unit may also bind a further name to an address
+the recipe already has (identical code the linker folded has one address and several names). EH code resolves names
+through the whole recipe, so when those names change in any way, every unit with EH tails is built again. Anything
+else (build/image_check.json, third_party/, patches/, a new unit, an address the recipe does not have) needs a
+maintainer.
 
 A file whose change is only in comments and whitespace inside lines (nothing else moves) cannot change any function,
 so its includers are not rebuilt; __LINE__ is used only to name static-assert typedefs, and a change that adds a new
@@ -215,6 +218,10 @@ def plan(base, head, shard_size, max_shards, trusted=False):
         code_changed += comment_only; comment_only = []   # a new __LINE__ use: line positions may matter
     units = ra['units']
     affected = set(recipe_changed)
+    if rb is not None and recipe_names(ra['units']) != recipe_names(rb['units']):
+        # EH code resolves names through the whole recipe (recipe_names): a binding added, removed or renamed in any
+        # unit can change what it resolves to in units that did not change, so every unit with EH tails is built again
+        affected |= {i for i, u in enumerate(units) if u.get('eh_tails')}
     if code_changed:
         ga, gb = include_graph(base, fa), include_graph(head, fb)
         hit = set(code_changed)
