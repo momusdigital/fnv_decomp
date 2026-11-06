@@ -16,7 +16,7 @@ extern int DAT_011ae61c;
 void FUN_00811e00(int value);
 struct FUN_008133d0_shell
 {
-    void FUN_008133d0(int value);
+    void SetState(int value);
 };
 
 #include <stdlib.h>

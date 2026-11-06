@@ -222,7 +222,7 @@ bool FUN_00480070_shell::FUN_00480070(BaseFormComponent* component)
 namespace fnv_00480210 {
 struct TESSaveLoadGame
 {
-    void FUN_008579b0(void*, int);
+    void SaveGameDataOLD(void*, int);
 };
 extern TESSaveLoadGame* g_TESSaveLoadGame;
 struct FUN_00480210_This
@@ -234,7 +234,7 @@ void FUN_00480210_This::FUN_00480210(unsigned int aiFlags)
 {
     if (aiFlags & 0)
     {
-        g_TESSaveLoadGame->FUN_008579b0((void*)((char*)this + 4), 7);
+        g_TESSaveLoadGame->SaveGameDataOLD((void*)((char*)this + 4), 7);
     }
 }
 }  // namespace fnv_00480210

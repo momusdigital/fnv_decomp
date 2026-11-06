@@ -303,20 +303,20 @@ struct EdgeV
 };
 struct NH
 {
-    void FUN_0068efd0(EdgeT*, unsigned short, int);
+    void GetEdge(EdgeT*, unsigned short, int);
     const NiPoint3& FUN_0068f0a0(unsigned short);
 };
 struct FloatValueProvider : public NavMesh
 {
     EdgeV FUN_0068f040(unsigned short tri, int idx);
 };
-// Fetches the edge indices for a triangle via FUN_0068efd0 and returns pointers to the two edge vertices from FUN_0068f0a0.
+// Fetches the edge indices for a triangle via GetEdge and returns pointers to the two edge vertices from FUN_0068f0a0.
 // @fnv 0x0068f040
 EdgeV FloatValueProvider::FUN_0068f040(unsigned short ausTriIndex, int aiEdgeIndex)
 {
     EdgeT edge;
     EdgeV ev;
-    ((NH*)this)->FUN_0068efd0(&edge, ausTriIndex, aiEdgeIndex);
+    ((NH*)this)->GetEdge(&edge, ausTriIndex, aiEdgeIndex);
     ev.a = &((NH*)this)->FUN_0068f0a0(edge.a);
     ev.b = &((NH*)this)->FUN_0068f0a0(edge.b);
     return ev;
@@ -364,19 +364,19 @@ class TESWorldSpace : public TESForm
 {
 };
 
-TESForm* __fastcall FUN_00690830(const NavMeshInfo*);
+TESForm* __fastcall GetParentSpace(const NavMeshInfo*);
 
-// Casts the result of FUN_00690830(_this) to TESWorldSpace* and returns it.
+// Casts the result of GetParentSpace(_this) to TESWorldSpace* and returns it.
 // @fnv 0x00690800
-TESWorldSpace* __fastcall FUN_00690800(const NavMeshInfo* apNavMeshInfo)
+TESWorldSpace* __fastcall GetWorldSpace(const NavMeshInfo* apNavMeshInfo)
 {
-    return dynamic_cast<TESWorldSpace*>(FUN_00690830(apNavMeshInfo));
+    return dynamic_cast<TESWorldSpace*>(GetParentSpace(apNavMeshInfo));
 }
 
 TESForm* __cdecl _ref_004839c0(unsigned int);
 
 // @fnv 0x00690830
-TESForm* __fastcall FUN_00690830(const NavMeshInfo* pThis)
+TESForm* __fastcall GetParentSpace(const NavMeshInfo* pThis)
 {
     if (*(TESForm**)((char*)pThis + 0x1c))
         return *(TESForm**)((char*)pThis + 0x1c);
@@ -654,7 +654,7 @@ struct NavMeshEdgeVertexPair
 typedef char _sizecheck_NavMeshEdgeVertices[sizeof(NavMeshEdgeVertexPair) == 8 ? 1 : -1];
 struct FUN_0068f0c0_shell : public NavMesh
 {
-    bool FUN_0068f0c0(unsigned short, int, NiPoint3*, NiPoint3*);
+    bool GetEdgeVertices(unsigned short, int, NiPoint3*, NiPoint3*);
 };
 
 struct NavMeshTriangle
@@ -672,7 +672,7 @@ struct NH
 
 // Looks up the two vertex indices of the given triangle edge and writes their positions into p0 and p1, returning true.
 // @fnv 0x0068f0c0
-bool FUN_0068f0c0_shell::FUN_0068f0c0(unsigned short ausTriIndex, int aiEdgeIndex, NiPoint3* pStartVertex,
+bool FUN_0068f0c0_shell::GetEdgeVertices(unsigned short ausTriIndex, int aiEdgeIndex, NiPoint3* pStartVertex,
                                       NiPoint3* pEndVertex)
 {
     int iNext;
@@ -691,11 +691,11 @@ struct FUN_00690e10_shell
 {
     char _pad0c[0x0c];
     unsigned int flags;
-    bool __thiscall FUN_00690e10();
+    bool __thiscall HasEdgeExtraInfo();
 };
 
 // @fnv 0x00690e10
-bool __thiscall FUN_00690e10_shell::FUN_00690e10()
+bool __thiscall FUN_00690e10_shell::HasEdgeExtraInfo()
 {
     return (flags & 7) != 0;
 }
@@ -1673,10 +1673,10 @@ struct TES
 extern TES g_TES;
 struct FUN_00690d50_shell
 {
-    void FUN_00690d50(bool abCheckout);
+    void ClearNavMesh(bool abCheckout);
 };
 // @fnv 0x00690d50
-void FUN_00690d50_shell::FUN_00690d50(bool abCheckout)
+void FUN_00690d50_shell::ClearNavMesh(bool abCheckout)
 {
     ((GlobalObject_00869f00*)((char*)this + 0x28))->Clear(true);
     ((GlobalObject_00869f00*)((char*)this + 0x38))->Clear(true);
@@ -1787,7 +1787,7 @@ struct FUN_00691c90_shell
 
 struct FUN_00690e10_shell
 {
-    bool FUN_00690e10();
+    bool HasEdgeExtraInfo();
 };
 
 struct S6907D0
@@ -1828,7 +1828,7 @@ void FUN_00690e90_shell::UpdateTriangleExtraInfo(unsigned short aiExtraInfo)
     {
         if (reinterpret_cast<FUN_00690e10_shell*>(
                 reinterpret_cast<S006949d0*>(reinterpret_cast<unsigned char*>(this) + 0x38)->GetAt(i))
-                ->FUN_00690e10())
+                ->HasEdgeExtraInfo())
         {
             for (t = 0; t < 3; ++t)
             {
@@ -1917,7 +1917,7 @@ class NavMeshTriangle
 {
   public:
     bool IsEdgeFlagSet(int);
-    unsigned char FUN_0068f200(int);
+    unsigned char IsEdgeConnected(int);
     unsigned short FUN_0068f2c0(int);
     unsigned short FUN_005582d0(int);
     void ClearFlag(int);
@@ -1939,7 +1939,7 @@ struct MeshView
     char* FUN_00559450();
     unsigned int FUN_0084e3a0();
     unsigned int FUN_00558200();
-    unsigned int FUN_00690800();
+    unsigned int GetWorldSpace();
     bool FUN_00690860(NavMeshPtr*);
 };
 
@@ -2074,7 +2074,7 @@ bool NavMeshView::Validate(int a0)
         NavMeshTriangle* triA = tris.FUN_00558dd0(j);
         for (long k = 0; k < 3; k++)
         {
-            if (!triA->IsEdgeFlagSet(k) && triA->FUN_0068f200(k) != 0 && triA->FUN_0068f2c0(k) >= tris.FUN_0044ddc0())
+            if (!triA->IsEdgeFlagSet(k) && triA->IsEdgeConnected(k) != 0 && triA->FUN_0068f2c0(k) >= tris.FUN_0044ddc0())
             {
                 FUN_005b5e40(DAT_0106a9c0, FUN_0084e3a0(), p.FUN_00559450(), j, k);
                 triA->SetArrayValue(k, 0xffff);
@@ -2131,7 +2131,7 @@ bool NavMeshView::Validate(int a0)
                             continue;
                         }
                     }
-                    if (FUN_0059bb30()->FUN_0054ddd0() != pRetrievedObject->m_04->FUN_00690800())
+                    if (FUN_0059bb30()->FUN_0054ddd0() != pRetrievedObject->m_04->GetWorldSpace())
                     {
                         FUN_005b5e40(DAT_0106a7d8, FUN_0084e3a0(), p.FUN_00559450(), b, tri7,
                                      pRetrievedObject->m_04->FUN_00559450());
@@ -2644,11 +2644,11 @@ struct NHc_b9119
 
 struct FUN_0068efd0_cls
 {
-    EdgeT* FUN_0068efd0(EdgeT* out, unsigned short tri, int idx);
+    EdgeT* GetEdge(EdgeT* out, unsigned short tri, int idx);
 };
 
 // @fnv 0x0068efd0
-EdgeT* FUN_0068efd0_cls::FUN_0068efd0(EdgeT* out, unsigned short tri, int idx)
+EdgeT* FUN_0068efd0_cls::GetEdge(EdgeT* out, unsigned short tri, int idx)
 {
     EdgeT r;
     r.a = ((NHc2_b9119*)this)->FUN_005582f0(tri, idx)->FUN_005582d0();
@@ -2672,12 +2672,12 @@ bool FUN_0068f1d0_shell::IsEdgeFlagSet(int aiEdgeIndex)
 
 struct FUN_0068f200_shell : public NavMeshTriangle
 {
-    bool FUN_0068f200(int);
+    bool IsEdgeConnected(int);
 };
 
 // Returns true if the triangle's edge entry at aiEdgeIndex is not 0xFFFF.
 // @fnv 0x0068f200
-bool FUN_0068f200_shell::FUN_0068f200(int aiEdgeIndex)
+bool FUN_0068f200_shell::IsEdgeConnected(int aiEdgeIndex)
 {
     return ((unsigned short*)((char*)this + 6))[aiEdgeIndex] != 0xFFFF;
 }
@@ -2758,7 +2758,7 @@ struct TriX
 {
     bool IsEdgeFlagSet(int);
     unsigned short FUN_0068f2c0(int);
-    unsigned char FUN_0068f200(int);
+    unsigned char IsEdgeConnected(int);
 };
 
 struct MeshX
@@ -2777,7 +2777,7 @@ bool MeshX::FindAdjacentEdge(unsigned short aTri, int aEdge, MeshX** appOutMesh,
     if (aTri >= this->FUN_00558200())
         return false;
     TriX* pTri = this->GetTriangle(aTri);
-    if (pTri->FUN_0068f200(aEdge))
+    if (pTri->IsEdgeConnected(aEdge))
     {
         if (pTri->IsEdgeFlagSet(aEdge))
         {

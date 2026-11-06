@@ -199,11 +199,11 @@ struct FUN_006f90a0_shell
 };
 struct FUN_006f91a0_shell : ArrSI
 {
-    void FUN_006f91a0();
+    void UpdateShaderProperties();
 };
 // Iterates the array at this+4, and for each unflagged entry with a nonzero value, looks up a property and passes it with the entry to UpdateInstances.
 // @fnv 0x006f91a0
-void FUN_006f91a0_shell::FUN_006f91a0()
+void FUN_006f91a0_shell::UpdateShaderProperties()
 {
     for (unsigned int i = 0; i < ((ArrSI*)((char*)this + 4))->GetFlags(); ++i)
     {

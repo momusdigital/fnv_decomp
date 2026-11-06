@@ -228,7 +228,7 @@ namespace fnv_004efb20 {
 struct TESSaveLoadGame
 {
     unsigned char FUN_008df040(void);
-    void FUN_008579b0(void* data, unsigned int size);
+    void SaveGameDataOLD(void* data, unsigned int size);
 };
 extern TESSaveLoadGame* g_TESSaveLoadGame;
 
@@ -241,15 +241,15 @@ struct FUN_004efb20_shell
 void FUN_004efb20_shell::FUN_004efb20(float afTime)
 {
     float foffset = ((float*)((char*)this + 0x48))[0] + afTime;
-    g_TESSaveLoadGame->FUN_008579b0(&foffset, 4);
-    g_TESSaveLoadGame->FUN_008579b0((void*)((char*)this + 0x44), 4);
+    g_TESSaveLoadGame->SaveGameDataOLD(&foffset, 4);
+    g_TESSaveLoadGame->SaveGameDataOLD((void*)((char*)this + 0x44), 4);
     if (g_TESSaveLoadGame->FUN_008df040() < 0x71)
     {
-        g_TESSaveLoadGame->FUN_008579b0(&foffset, 4);
+        g_TESSaveLoadGame->SaveGameDataOLD(&foffset, 4);
     }
-    g_TESSaveLoadGame->FUN_008579b0((void*)((char*)this + 0x34), 4);
-    g_TESSaveLoadGame->FUN_008579b0((void*)((char*)this + 0x38), 4);
-    g_TESSaveLoadGame->FUN_008579b0((void*)((char*)this + 0x54), 4);
+    g_TESSaveLoadGame->SaveGameDataOLD((void*)((char*)this + 0x34), 4);
+    g_TESSaveLoadGame->SaveGameDataOLD((void*)((char*)this + 0x38), 4);
+    g_TESSaveLoadGame->SaveGameDataOLD((void*)((char*)this + 0x54), 4);
 }
 }  // namespace fnv_004efb20
 

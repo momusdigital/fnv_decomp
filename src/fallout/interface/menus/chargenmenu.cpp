@@ -83,7 +83,7 @@ struct PC7d
 };
 extern PC7d* g_thePlayer;
 // @fnv 0x00754530
-void __cdecl FUN_00754530(Tile* tile, ActorValue::Index index)
+void __cdecl TagSkillsFunc(Tile* tile, ActorValue::Index index)
 {
     if (((TGF*)tile)->GetFloat(0xfac) == _gModifierZero)
         DAT_011d92a0 = 0;
@@ -355,7 +355,7 @@ struct Proxy_5f6e80
 };
 extern int DAT_011dea3c;
 int __cdecl FUN_005d9660();
-void __cdecl FUN_00754460();
+void __cdecl SetAttributesFunc();
 
 // @fnv 0x007537b0
 void __cdecl FUN_007537b0()
@@ -364,7 +364,7 @@ void __cdecl FUN_007537b0()
     {
         if (*(int*)((char*)DAT_011d920c + 0x28) == 0)
         {
-            ((Proxy_7314c0*)((char*)DAT_011d920c + 0x58))->FUN_007314c0((void*)FUN_00754460, 0, 0x7fffffff);
+            ((Proxy_7314c0*)((char*)DAT_011d920c + 0x58))->FUN_007314c0((void*)SetAttributesFunc, 0, 0x7fffffff);
         }
         else
         {
@@ -372,7 +372,7 @@ void __cdecl FUN_007537b0()
             {
                 ((Proxy_5f6e80*)((Proxy_884350b*)DAT_011dea3c)->FUN_00884350(i, -1))->FUN_005f6e80();
             }
-            ((Proxy_7314c0*)((char*)DAT_011d920c + 0x58))->FUN_007314c0((void*)FUN_00754530, 0, 0x7fffffff);
+            ((Proxy_7314c0*)((char*)DAT_011d920c + 0x58))->FUN_007314c0((void*)TagSkillsFunc, 0, 0x7fffffff);
         }
         ((Proxy_700320*)((Proxy_726070*)DAT_011d920c)->FUN_00726070(0x1772, 1))->FUN_00700320();
         ((Proxy_a1d910*)DAT_011d920c)->FUN_00a1d910();
@@ -1148,7 +1148,7 @@ struct FUN_00754460_obj
     virtual void v229(int, float);
     char pad_04[0xa0];
     FUN_00754460_sub m_a4;
-    void FUN_0093a850(int, float);
+    void SetActorBaseValue(int, float);
 };
 
 struct FUN_00754460_self
@@ -1157,7 +1157,7 @@ struct FUN_00754460_self
 };
 
 // @fnv 0x00754460
-void __cdecl FUN_00754460(FUN_00754460_self* pSelf, int a2)
+void __cdecl SetAttributesFunc(FUN_00754460_self* pSelf, int a2)
 {
     if (DAT_011d920c != 0 && *(unsigned char*)((char*)DAT_011d920c + 0x54) != 0 &&
         *(int*)((char*)DAT_011d920c + 0x28) == 0)
@@ -1168,7 +1168,7 @@ void __cdecl FUN_00754460(FUN_00754460_self* pSelf, int a2)
     else
     {
         ((FUN_00754460_obj*)DAT_011dea3c)
-            ->FUN_0093a850(a2, (float)((double)pSelf->FUN_00a011b0(DAT_011d9210) + pSelf->FUN_00a011b0(DAT_011d9224)));
+            ->SetActorBaseValue(a2, (float)((double)pSelf->FUN_00a011b0(DAT_011d9210) + pSelf->FUN_00a011b0(DAT_011d9224)));
     }
 }
 

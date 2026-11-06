@@ -22,7 +22,7 @@ struct TESForm
 struct LightEffect : TESForm
 {
     void FUN_0080f030(Actor* apActor);
-    void FUN_0080ed60();
+    void DetachLight();
     float GetFloatAtOffset1C();
     void AttachLightEffect();
 };
@@ -238,18 +238,18 @@ struct Host
     Source* FUN_0059bb30();
     void FUN_0080e830();
 };
-void __cdecl FUN_0080ee50(int* value);
+void __cdecl AttachBestLightEffect(int* value);
 struct FUN_0080e900_inner
 {
     void* FUN_00822b40();
 };
 struct FUN_0080e900_cls
 {
-    void FUN_0080ed60();
+    void DetachLight();
     FUN_0080e900_inner* FUN_0059bb30();
     void FUN_0080e900();
 };
-void __cdecl FUN_0080ee50(char* p);
+void __cdecl AttachBestLightEffect(char* p);
 extern int DAT_011dc304;
 struct EdCallee
 {
@@ -657,7 +657,7 @@ class MagicTarget
     virtual BSSimpleList<ActiveEffect*>* GetActiveEffectList();
 };
 // @fnv 0x0080ee50
-void FUN_0080ee50(MagicTarget* target)
+void AttachBestLightEffect(MagicTarget* target)
 {
     if (!target)
         return;
@@ -672,12 +672,12 @@ void FUN_0080ee50(MagicTarget* target)
             if (!strongest || strongest->GetFloatAtOffset1C() < light->GetFloatAtOffset1C())
             {
                 if (strongest)
-                    strongest->FUN_0080ed60();
+                    strongest->DetachLight();
                 strongest = light;
             }
             else
             {
-                light->FUN_0080ed60();
+                light->DetachLight();
             }
         }
         node = node->GetNext();

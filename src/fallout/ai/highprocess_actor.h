@@ -446,7 +446,7 @@ class Actor : public MobileObject
     void RefreshActorData();
     bool UpdateActorInventory();
     Script* GetAttachedScript();
-    void FUN_00884f80();
+    void SetWalkRunFlagDirty();
     static float GetActorScale();
     unsigned char layout88[0x1c];
     ActorValueOwner actorValueOwner;

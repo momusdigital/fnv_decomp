@@ -40,7 +40,7 @@ unsigned int FUN_0083d890_shell::FUN_0083d890()
 
 struct TESSaveLoadGame
 {
-    void FUN_008579b0(void*, int);
+    void SaveGameDataOLD(void*, int);
 };
 extern TESSaveLoadGame* g_TESSaveLoadGame;
 
@@ -59,15 +59,15 @@ struct FUN_0083d490_shell : FUN_0083d420_shell
 void FUN_0083d490_shell::SaveToGame()
 {
     unsigned char c1 = FUN_0083d890();
-    g_TESSaveLoadGame->FUN_008579b0(&c1, 1);
+    g_TESSaveLoadGame->SaveGameDataOLD(&c1, 1);
     if (c1)
-        g_TESSaveLoadGame->FUN_008579b0((void*)(unsigned int)((Flt*)this)->operator unsigned int(), c1);
+        g_TESSaveLoadGame->SaveGameDataOLD((void*)(unsigned int)((Flt*)this)->operator unsigned int(), c1);
     unsigned char c2 = ((FUN_0083d420_shell*)((char*)this + 0x10))->FUN_0083d890();
-    g_TESSaveLoadGame->FUN_008579b0(&c2, 1);
+    g_TESSaveLoadGame->SaveGameDataOLD(&c2, 1);
     if (c2)
-        g_TESSaveLoadGame->FUN_008579b0((void*)(unsigned int)((Flt*)((char*)this + 0x10))->operator unsigned int(), c2);
-    g_TESSaveLoadGame->FUN_008579b0((char*)this + 8, 4);
-    g_TESSaveLoadGame->FUN_008579b0((char*)this + 0xc, 4);
+        g_TESSaveLoadGame->SaveGameDataOLD((void*)(unsigned int)((Flt*)((char*)this + 0x10))->operator unsigned int(), c2);
+    g_TESSaveLoadGame->SaveGameDataOLD((char*)this + 8, 4);
+    g_TESSaveLoadGame->SaveGameDataOLD((char*)this + 0xc, 4);
 }
 
 struct FUN_0083d1e0_SubA
@@ -196,7 +196,7 @@ FUN_0083d280_cls::FUN_0083d280_cls(int aiArg1, int aiArg2, int aiArg3, int aiArg
 namespace fnv_0083d550 {
 struct FUN_008579e0_shell
 {
-    void FUN_008579e0(void*, unsigned int);
+    void LoadGameDataOLD(void*, unsigned int);
 };
 extern FUN_008579e0_shell* g_TESSaveLoadGame;
 void FUN_00403d30(void*, int, unsigned int);
@@ -213,32 +213,32 @@ struct Record
     BSStr second;
     void FUN_0083d550();
 };
-// Reads two BSStr fields, flags, and value from g_TESSaveLoadGame via FUN_008579e0, setting empty strings when lengths are zero.
+// Reads two BSStr fields, flags, and value from g_TESSaveLoadGame via LoadGameDataOLD, setting empty strings when lengths are zero.
 // @fnv 0x0083d550
 void Record::FUN_0083d550()
 {
     unsigned char firstLength, secondLength;
-    g_TESSaveLoadGame->FUN_008579e0(&firstLength, 1);
+    g_TESSaveLoadGame->LoadGameDataOLD(&firstLength, 1);
     if (firstLength)
     {
         char firstBuffer[260];
         FUN_00403d30(firstBuffer, 0, 260);
-        g_TESSaveLoadGame->FUN_008579e0(firstBuffer, firstLength);
+        g_TESSaveLoadGame->LoadGameDataOLD(firstBuffer, firstLength);
         first.Set(firstBuffer, 0);
     }
     else
         first.Set("", 0);
-    g_TESSaveLoadGame->FUN_008579e0(&secondLength, 1);
+    g_TESSaveLoadGame->LoadGameDataOLD(&secondLength, 1);
     if (secondLength)
     {
         char secondBuffer[260];
         FUN_00403d30(secondBuffer, 0, 260);
-        g_TESSaveLoadGame->FUN_008579e0(secondBuffer, secondLength);
+        g_TESSaveLoadGame->LoadGameDataOLD(secondBuffer, secondLength);
         second.Set(secondBuffer, 0);
     }
     else
         second.Set("", 0);
-    g_TESSaveLoadGame->FUN_008579e0(&flags, 4);
-    g_TESSaveLoadGame->FUN_008579e0(&value, 4);
+    g_TESSaveLoadGame->LoadGameDataOLD(&flags, 4);
+    g_TESSaveLoadGame->LoadGameDataOLD(&value, 4);
 }
 }  // namespace fnv_0083d550

@@ -916,7 +916,7 @@ struct GrabHost
     GrabFilter* FUN_00931ed0(int*);
     void SetEffectValue(int, float, GrabRef*);
     void FUN_00961280();
-    GrabController* FUN_009306d0();
+    GrabController* GetCharController();
     void FUN_0095f930(GrabRef*, int, float);
 };
 extern GrabSetting DAT_011e0b1c;
@@ -1067,7 +1067,7 @@ void GrabHost::FUN_0095f930(GrabRef* ref, int newMode, float range)
                 FUN_00961280();
                 return;
             }
-            GrabController* controller = FUN_009306d0();
+            GrabController* controller = GetCharController();
             if (controller)
             {
                 float minDistance = FUN_004587d0(controller->GetSettingFloat()) + DAT_01020998;

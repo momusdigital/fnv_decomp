@@ -405,12 +405,12 @@ struct FUN_007adc30_shell
 {
     char _pad[0xec];
     unsigned int m_flags;
-    bool FUN_007adc30(int trait);
+    bool IsFlagged(int trait);
 };
 
 // Returns whether the bit for the given trait index is set in m_flags.
 // @fnv 0x007adc30
-bool FUN_007adc30_shell::FUN_007adc30(int trait)
+bool FUN_007adc30_shell::IsFlagged(int trait)
 {
     return (m_flags & (1 << trait)) != 0;
 }
@@ -454,9 +454,9 @@ bool FUN_007af180_shell::FUN_007af180(int aeList)
     {
         (*(Tile_Set_Helper**)((char*)this + 4))->Set(0x1004, aeList);
         ((OptList**)((char*)this + 0x28))[aeList]->FUN_007b4410();
-        if (aeList == 5 && FUN_007adc30(0))
+        if (aeList == 5 && IsFlagged(0))
             PopulateHairOptions();
-        else if (aeList == 8 && FUN_007adc30(1))
+        else if (aeList == 8 && IsFlagged(1))
             PopulateEyesList();
         else if (aeList == 3)
             SyncListItemTemplate();
@@ -570,7 +570,7 @@ struct TESNPC
 };
 struct FUN_007adc60_shell
 {
-    void FUN_007adc60(int, bool);
+    void SetFlag(int, bool);
 };
 struct FUN_007b1ca0_t
 {
@@ -605,8 +605,8 @@ void FUN_007b1ca0_t::UpdateHairAndEyes()
         pNPC->SetEyes(((FUN_004ac110_shell*)pNPC)->FUN_004ac110()->GetReferencedValue());
         UpdateEyeTextures();
     }
-    ((FUN_007adc60_shell*)this)->FUN_007adc60(0, true);
-    ((FUN_007adc60_shell*)this)->FUN_007adc60(1, true);
+    ((FUN_007adc60_shell*)this)->SetFlag(0, true);
+    ((FUN_007adc60_shell*)this)->SetFlag(1, true);
 }
 }  // namespace fnv_007b1ca0
 
@@ -718,7 +718,7 @@ struct FUN_00601830_shell
 };
 struct FUN_007adc60_shell
 {
-    void FUN_007adc60(int, bool);
+    void SetFlag(int, bool);
 };
 struct FUN_007b18f0_shell
 {
@@ -734,24 +734,24 @@ struct FUN_007b25a0_shell
 };
 struct FUN_007b51f0_shell : FUN_007adc30_shell
 {
-    void FUN_007b51f0();
+    void Randomize();
 };
 char __cdecl ConsumeByteAtE4();
 // @fnv 0x007b51f0
-void __cdecl FUN_007b51f0()
+void __cdecl Randomize()
 {
     if (DAT_011da634)
     {
-        if (ConsumeByteAtE4() == 1 || ((FUN_007adc30_shell*)DAT_011da634)->FUN_007adc30(7))
+        if (ConsumeByteAtE4() == 1 || ((FUN_007adc30_shell*)DAT_011da634)->IsFlagged(7))
         {
             ((FUN_00601830_shell*)(void*)(*((char**)DAT_011da634 + 0xd8 / 4)))->RandomizeFace(1, 0, 1);
-            ((FUN_007adc60_shell*)DAT_011da634)->FUN_007adc60(7, true);
+            ((FUN_007adc60_shell*)DAT_011da634)->SetFlag(7, true);
             ((FUN_007b18f0_shell*)DAT_011da634)->HandleMenuKey(0x22);
             ((FUN_007b18f0_shell*)DAT_011da634)->HandleMenuKey(0x23);
             ((FUN_007b1e70_shell*)DAT_011da634)->UpdateFaceGen(1, 1, 0);
             ((FUN_007b25a0_shell*)DAT_011da634)->FUN_007b25a0();
-            ((FUN_007adc60_shell*)DAT_011da634)->FUN_007adc60(8, false);
-            ((FUN_007adc60_shell*)DAT_011da634)->FUN_007adc60(9, false);
+            ((FUN_007adc60_shell*)DAT_011da634)->SetFlag(8, false);
+            ((FUN_007adc60_shell*)DAT_011da634)->SetFlag(9, false);
         }
     }
 }
@@ -825,7 +825,7 @@ int __cdecl FUN_004b7220();
 struct Actor
 {
     unsigned char FUN_008a6970();
-    void FUN_008a6840(int);
+    void SetWantWeaponDrawn(int);
     void UnEquipObject(void*, int, void*, bool, bool, bool);
 };
 extern Actor* pPlayer;
@@ -980,7 +980,7 @@ Tile* __cdecl GetOrCreateMenuTile(int param)
             }
         }
         DAT_011da688 = pPlayer->FUN_008a6970();
-        pPlayer->FUN_008a6840(0);
+        pPlayer->SetWantWeaponDrawn(0);
         InventoryChanges* inventory = InventoryChanges::GetOrAddInventoryChanges(pPlayer);
         for (unsigned int i = 0; i < 20; i++)
         {
@@ -1404,7 +1404,7 @@ struct HairMenu
     TESNPC* npc;
     void PopulateHairOptions();
     void UpdateMinusPlusTiles();
-    void FUN_007adc60(int, bool);
+    void SetFlag(int, bool);
 };
 // @fnv 0x007af300
 void HairMenu::PopulateHairOptions()
@@ -1426,7 +1426,7 @@ void HairMenu::PopulateHairOptions()
     {
     }
     options->ApplyToAllTiles();
-    FUN_007adc60(0, false);
+    SetFlag(0, false);
 }
 
 class B7AF450NPC;
@@ -1540,7 +1540,7 @@ class B7AF450RaceMenu
     int unkD4;
     B7AF450NPC* m_pkNPC;
 
-    void FUN_007adc60(int iIndex, bool bFlag);
+    void SetFlag(int iIndex, bool bFlag);
     void PopulateEyesList();
 };
 
@@ -1556,7 +1556,7 @@ void B7AF450RaceMenu::PopulateEyesList()
                 ->SetData(*pkIter->GetItem());
     }
     m_pkListBox->Finish();
-    FUN_007adc60(1, false);
+    SetFlag(1, false);
 }
 
 // SyncListItemTemplate: thiscall, /MT /Od /GS /EHsc. Two guarded blocks on flags from this->m_34 / this->m_d8.
@@ -1718,8 +1718,8 @@ struct HairMenu
     int unk3c;
     HairOptionList* unk40;
     void ApplyHairOption(HairOption* option);
-    void FUN_007afa40(int);
-    void FUN_007b3660();
+    void SetHairColorSliders(int);
+    void ChangeHairColor();
 };
 // @fnv 0x007af900
 void HairMenu::ApplyHairOption(HairOption* option)
@@ -1738,14 +1738,14 @@ void HairMenu::ApplyHairOption(HairOption* option)
             FUN_00406f60(&name, "sHairColor%d", option->GetFloat1005());
             found = GameSettingCollection::Instance()->GetSetting(name, &setting);
             option->FUN_007b3810(setting->String());
-            FUN_007afa40(*valueSetting->Int());
+            SetHairColorSliders(*valueSetting->Int());
         }
     }
     else
     {
         unk40->FindByColor(29)->FUN_007b3810(g_011d3528.String());
     }
-    FUN_007b3660();
+    ChangeHairColor();
 }
 }  // namespace fnv_007af900
 
@@ -1765,11 +1765,11 @@ struct FUN_007afa40_cls
     unsigned int unk20, unk24, unk28, unk2c;
     unsigned int unk30, unk34, unk38, unk3c;
     FUN_007afa40_mgr* m_40;
-    void FUN_007afa40(unsigned int value);
+    void SetHairColorSliders(unsigned int value);
 };
 
 // @fnv 0x007afa40
-void FUN_007afa40_cls::FUN_007afa40(unsigned int uiPackedValue)
+void FUN_007afa40_cls::SetHairColorSliders(unsigned int uiPackedValue)
 {
     void* cur = m_40->FUN_00559450();
     while (cur != 0)
@@ -1899,10 +1899,10 @@ struct Target
     ScenePointer scene;
     ScaleObject* scale;
     void UpdateShadowSceneNode();
-    bool FUN_007b1970(float, bool);
+    bool RotatePlayer(float, bool);
 };
 // @fnv 0x007b1970
-bool Target::FUN_007b1970(float offset, bool force)
+bool Target::RotatePlayer(float offset, bool force)
 {
     Matrix p = *scene.FUN_00559450()->FUN_006a9540();
     float s, a, i;
@@ -2868,11 +2868,11 @@ class B3CA0Menu
 {
   public:
     B3CA0SliderOption* AddOption(int m_uiSoundID, const char* pcTemplate, int iParent, int iUnk);
-    B3CA0SliderOption* FUN_007b3ca0(int m_uiSoundID, int iParent, int iLow, int iHigh, int iValue, float fSequenceTimeRatio);
+    B3CA0SliderOption* AddSliderOption(int m_uiSoundID, int iParent, int iLow, int iHigh, int iValue, float fSequenceTimeRatio);
 };
 
 // @fnv 0x007b3ca0
-B3CA0SliderOption* B3CA0Menu::FUN_007b3ca0(int m_uiSoundID, int iParent, int iLow, int iHigh, int iValue, float afFraction)
+B3CA0SliderOption* B3CA0Menu::AddSliderOption(int m_uiSoundID, int iParent, int iLow, int iHigh, int iValue, float afFraction)
 {
     if (afFraction < 0.0)
         afFraction = 0.0f;
@@ -3096,7 +3096,7 @@ struct InitOptions
 {
     void FUN_0050f9a0(void*);
     InitItem* FUN_007b3b80(const char*, int);
-    InitItem* FUN_007b3ca0(const char*, int, int, int, int, float);
+    InitItem* AddSliderOption(const char*, int, int, int, int, float);
     void AddFloatOption(const char*, InitOptions*);
     void FUN_0041fd00(int);
     void CopyControlValues(InitOptions*);
@@ -3631,12 +3631,12 @@ void InitRaceMenu::SetupRaceMenu(int mode)
                                     ->FUN_00403550(*pRaceNode->FUN_006815c0());
                         }
                         ((InitOptions*)options[2])
-                            ->FUN_007b3ca0(DAT_011d3ff4.FUN_004c69f0(), 24, 1, 20, 0x80000001, 0.25f);
+                            ->AddSliderOption(DAT_011d3ff4.FUN_004c69f0(), 24, 1, 20, 0x80000001, 0.25f);
                         ((InitOptions*)options[2])
                             ->AddFloatOption(DAT_011d36e4.FUN_004c69f0(), ((InitOptions*)options[4]));
                         ((InitOptions*)options[2])->FUN_007b3b80(DAT_011d3d48.FUN_004c69f0(), 25);
                         slider = ((InitOptions*)options[2])
-                                     ->FUN_007b3ca0(DAT_011d4084.FUN_004c69f0(), 26, 1, 10, 0x80000001, 0.25f);
+                                     ->AddSliderOption(DAT_011d4084.FUN_004c69f0(), 26, 1, 10, 0x80000001, 0.25f);
                         slider->FUN_007b3810(DAT_01020770);
                         ((InitOptions*)options[3])
                             ->AddFloatOption(DAT_011d22d4.FUN_004c69f0(), ((InitOptions*)options[5]));
@@ -3656,16 +3656,16 @@ void InitRaceMenu::SetupRaceMenu(int mode)
                             ->AddFloatOption(DAT_011d31c8.FUN_004c69f0(), ((InitOptions*)options[8]));
                         color = npc->FUN_004169d0();
                         ((InitOptions*)options[6])
-                            ->FUN_007b3ca0(DAT_011d3ff4.FUN_004c69f0(), 29, 0, 15, 0x80000001, 0.25f)
+                            ->AddSliderOption(DAT_011d3ff4.FUN_004c69f0(), 29, 0, 15, 0x80000001, 0.25f)
                             ->FUN_007b3810(DAT_011d3528.FUN_00403df0());
                         ((InitOptions*)options[6])
-                            ->FUN_007b3ca0(DAT_011d2a84.FUN_004c69f0(), 30, 0, 255, (unsigned char)(color & 255),
+                            ->AddSliderOption(DAT_011d2a84.FUN_004c69f0(), 30, 0, 255, (unsigned char)(color & 255),
                                            0.125f);
                         ((InitOptions*)options[6])
-                            ->FUN_007b3ca0(DAT_011d25a4.FUN_004c69f0(), 31, 0, 255,
+                            ->AddSliderOption(DAT_011d25a4.FUN_004c69f0(), 31, 0, 255,
                                            (unsigned char)(((unsigned short)color >> 8) & 255), 0.125f);
                         ((InitOptions*)options[6])
-                            ->FUN_007b3ca0(DAT_011d2d48.FUN_004c69f0(), 32, 0, 255,
+                            ->AddSliderOption(DAT_011d2d48.FUN_004c69f0(), 32, 0, 255,
                                            (unsigned char)((color >> 16) & 255), 0.125f);
                         for (InitNode* pBeardNode = ((InitData*)DAT_011c3f2c)->FUN_00624700();
                              pBeardNode && *pBeardNode->FUN_006815c0(); pBeardNode = pBeardNode->FUN_00726070())
@@ -3814,8 +3814,8 @@ struct RaceSexMenu7
     MenuOption7* pActiveOption;
     int GetCurrentPage();
     void HandleOptionSelection();
-    bool FUN_007b1970(float afAngle, int a2);
-    void FUN_007adc60(int aiID, bool abVal);
+    bool RotatePlayer(float afAngle, int a2);
+    void SetFlag(int aiID, bool abVal);
     void FUN_007ae240(int aiID, Tile7* apTile);
 };
 
@@ -3846,7 +3846,7 @@ void RaceSexMenu7::FUN_007ae240(int aiID, Tile7* apTile)
         else if (aiID == 1)
         {
             static float sfWidth = tile7c->GetValue(0xfb1);
-            FUN_007adc60(5, FUN_007b1970(fDelta2 / sfWidth * 6.2831854820251465, 0));
+            SetFlag(5, RotatePlayer(fDelta2 / sfWidth * 6.2831854820251465, 0));
             fLastTime = GetInterfaceMgr7()->FUN_007697f0();
         }
     }
@@ -3931,7 +3931,7 @@ struct Interface
 Interface* FUN_004b7210();
 bool FUN_004b71d0();
 unsigned int FUN_00457fe0();
-bool FUN_00702450(int);
+bool IsTopMenuID(int);
 int FUN_0072fa60(int);
 int MinInt(int, int);
 float FUN_0040ebd0(float, float);
@@ -4012,10 +4012,10 @@ struct Menu
     unsigned int unke8;
     unsigned int unkec;
     Sound sounds[4];
-    void FUN_007adc60(int, bool);
-    bool FUN_007adc30(int);
+    void SetFlag(int, bool);
+    bool IsFlagged(int);
     bool UpdateProgress(float, int);
-    bool FUN_007b1970(float, int);
+    bool RotatePlayer(float, int);
     void HandleOptionSelection();
     void HandlePendingTileAction();
     void UpdateZoomAndScroll();
@@ -4024,7 +4024,7 @@ struct Menu
 // @fnv 0x007ae420
 void Menu::UpdateZoomAndScroll()
 {
-    if (FUN_00702450(Id()))
+    if (IsTopMenuID(Id()))
     {
         for (unsigned int i = 0; i < 4; i++)
             if (sounds[i].FUN_0044ddc0() == 3)
@@ -4039,14 +4039,14 @@ void Menu::UpdateZoomAndScroll()
             verticalSlot17 = DAT_011dea0c->FUN_00877720()->GetAxisState(0, 10);
             int absXSlot10 = FUN_0072fa60(horizontalSlot1);
             int absYSlot39 = FUN_0072fa60(verticalSlot17);
-            FUN_007adc60(5, 0);
-            FUN_007adc60(6, 0);
+            SetFlag(5, 0);
+            SetFlag(6, 0);
             if (absYSlot39 > 8689 && absYSlot39 > absXSlot10)
             {
                 int span = DAT_011a07b0 - 8689;
                 int amountSlot0 = span - (DAT_011a07b0 - MinInt(absYSlot39, DAT_011a07b0));
                 velocity += amountSlot0 * DAT_01075af8 / span * (time - previous);
-                FUN_007adc60(
+                SetFlag(
                     6, UpdateProgress((verticalSlot17 > DAT_01012060 ? -1 : 1) * velocity * (time - previous), 0));
             }
             else
@@ -4055,19 +4055,19 @@ void Menu::UpdateZoomAndScroll()
                 {
                     float ratio = horizontalSlot1 > 0 ? (float)(horizontalSlot1 - 8689) / (DAT_011a07b0 - 8689)
                                                       : (float)(-horizontalSlot1 - 8689) / (DAT_011a07ac + 8689);
-                    FUN_007adc60(5, FUN_007b1970(ratio * DAT_01075af0 * (time - previous) / DAT_01017b70, 0));
+                    SetFlag(5, RotatePlayer(ratio * DAT_01075af0 * (time - previous) / DAT_01017b70, 0));
                 }
                 velocity = 0.0f;
             }
-            if (FUN_007adc30(5) && !sounds[3].FUN_00ad8930())
+            if (IsFlagged(5) && !sounds[3].FUN_00ad8930())
                 sounds[3].FUN_00ad8830(0);
-            else if (!FUN_007adc30(5) && sounds[3].FUN_00ad8930())
+            else if (!IsFlagged(5) && sounds[3].FUN_00ad8930())
                 sounds[3].FUN_00ad88f0();
-            if (FUN_007adc30(6) && !sounds[2].FUN_00ad8930())
+            if (IsFlagged(6) && !sounds[2].FUN_00ad8930())
                 sounds[2].FUN_00ad8830(0);
-            else if (!FUN_007adc30(6) && sounds[2].FUN_00ad8930())
+            else if (!IsFlagged(6) && sounds[2].FUN_00ad8930())
                 sounds[2].FUN_00ad88f0();
-            if (dragY && FUN_007adc30(4))
+            if (dragY && IsFlagged(4))
             {
                 HandleOptionSelection();
                 dragY = 0;
@@ -4076,7 +4076,7 @@ void Menu::UpdateZoomAndScroll()
         }
         else
         {
-            FUN_007adc60(6, 0);
+            SetFlag(6, 0);
             if (FUN_004b7210()->FUN_0070ec70() && FUN_004b7210()->selected)
             {
                 bool up = FUN_004b7210()->FUN_0070ec70() > DAT_01012060;
@@ -4099,7 +4099,7 @@ void Menu::UpdateZoomAndScroll()
                 float increase = (time - previous) * velocity;
                 if (desired < current + increase)
                     increase = desired - current;
-                FUN_007adc60(6, UpdateProgress(increase, 0));
+                SetFlag(6, UpdateProgress(increase, 0));
             }
             else if (current > desired)
             {
@@ -4107,19 +4107,19 @@ void Menu::UpdateZoomAndScroll()
                 float decrease = (time - previous) * velocity;
                 if (desired > current + decrease)
                     decrease = desired - current;
-                FUN_007adc60(6, UpdateProgress(decrease, 0));
+                SetFlag(6, UpdateProgress(decrease, 0));
             }
             else
                 velocity = 0.0f;
-            if (FUN_007adc30(6) && !sounds[2].FUN_00ad8930())
+            if (IsFlagged(6) && !sounds[2].FUN_00ad8930())
                 sounds[2].FUN_00ad8830(0);
-            else if (!FUN_007adc30(6) && sounds[2].FUN_00ad8930())
+            else if (!IsFlagged(6) && sounds[2].FUN_00ad8930())
                 sounds[2].FUN_00ad88f0();
-            if (FUN_007adc30(5) && !sounds[3].FUN_00ad8930())
+            if (IsFlagged(5) && !sounds[3].FUN_00ad8930())
                 sounds[3].FUN_00ad8830(0);
-            else if (!FUN_007adc30(5) && sounds[3].FUN_00ad8930())
+            else if (!IsFlagged(5) && sounds[3].FUN_00ad8930())
                 sounds[3].FUN_00ad88f0();
-            FUN_007adc60(5, 0);
+            SetFlag(5, 0);
             if (dragY && DAT_011dea0c->FUN_00877720() && DAT_011dea0c->FUN_00877720()->FUN_00a23a50(0, 2))
                 HandlePendingTileAction();
         }
@@ -4233,7 +4233,7 @@ struct String67
 extern Input67* DAT_011dea0c;
 extern Setting67 DAT_011d34f8, DAT_011d3684;
 extern char DAT_0106f380[], DAT_01075b00[];
-bool FUN_00702450(int);
+bool IsTopMenuID(int);
 int FUN_0072fa60(int);
 bool FUN_004b71d0();
 void FUN_00706ff0(Tile67*);
@@ -4271,7 +4271,7 @@ struct Menu67
     Tile67* right;
     int unk90, unk94;
     String67 message;
-    void FUN_007adc60(int, bool);
+    void SetFlag(int, bool);
     int FUN_007dcc00();
     bool FUN_007af180(int);
     bool HandleAction(int, int);
@@ -4279,12 +4279,12 @@ struct Menu67
 // @fnv 0x007aecb0
 bool Menu67::HandleAction(int action, int argument)
 {
-    if (FUN_00702450(Id()))
+    if (IsTopMenuID(Id()))
     {
         if (action >= 0)
         {
             int key = DAT_011dea0c->FUN_00877720(0, 7)->GetAxisState();
-            FUN_007adc60(4, action != 4 && action != 3 && FUN_0072fa60(key) < 0x1ea9);
+            SetFlag(4, action != 4 && action != 3 && FUN_0072fa60(key) < 0x1ea9);
         }
         switch (action)
         {
@@ -4787,7 +4787,7 @@ struct MorphMenuOption
 };
 struct MorphMenuList
 {
-    MorphMenuOption* FUN_007b3ca0(const char*, int, int, int, int, float);
+    MorphMenuOption* AddSliderOption(const char*, int, int, int, int, float);
 };
 extern const char morphFormat[];
 struct FaceMorphMenu
@@ -4807,9 +4807,9 @@ struct FaceMorphMenu
         unkB0, unkB4, unkB8, unkBc, unkC0, unkC4, unkC8, unkCc, unkD0, unkD4;
     FaceActor* actor;
     void HandleMenuKey(int);
-    bool FUN_007adc30(int);
+    bool IsFlagged(int);
     void UpdateFaceGen(int, int, int);
-    void FUN_007adc60(int, bool);
+    void SetFlag(int, bool);
     void FUN_007b25a0();
     void BuildMorphOptions();
 };
@@ -4916,7 +4916,7 @@ void FaceMorphMenu::BuildMorphOptions()
         {
             float value = GetMorphCoordinateValue(morphs, 0, 0, index);
             value = FUN_00404010(FUN_0040ebd0(value, shape[index].maximum), shape[index].minimum);
-            MorphMenuOption* option = lists[shape[index].group]->FUN_007b3ca0(
+            MorphMenuOption* option = lists[shape[index].group]->AddSliderOption(
                 shape[index].name, 34, static_cast<int>(shape[index].minimum * 10.0),
                 static_cast<int>(shape[index].maximum * 10.0), static_cast<int>(value * 10.0), 0.25f);
             option->FUN_007b3810(morphFormat);
@@ -4926,7 +4926,7 @@ void FaceMorphMenu::BuildMorphOptions()
     {
         float value = GetMorphCoordinateValue(morphs, 1, 0, 29);
         value = FUN_00404010(FUN_0040ebd0(value, tone[29].maximum), tone[29].minimum);
-        MorphMenuOption* option = lists[tone[29].group]->FUN_007b3ca0(
+        MorphMenuOption* option = lists[tone[29].group]->AddSliderOption(
             tone[29].name, 35, static_cast<int>(tone[29].minimum * 10.0), static_cast<int>(tone[29].maximum * 10.0),
             static_cast<int>(value * 10.0), 0.25f);
         option->FUN_007b3810(morphFormat);
@@ -4935,7 +4935,7 @@ void FaceMorphMenu::BuildMorphOptions()
     {
         float value = GetMorphCoordinateValue(morphs, 1, 0, 28);
         value = FUN_00404010(FUN_0040ebd0(value, tone[28].maximum), tone[28].minimum);
-        MorphMenuOption* option = lists[tone[28].group]->FUN_007b3ca0(
+        MorphMenuOption* option = lists[tone[28].group]->AddSliderOption(
             tone[28].name, 35, static_cast<int>(tone[28].minimum * 10.0), static_cast<int>(tone[28].maximum * 10.0),
             static_cast<int>(value * 10.0), 0.25f);
         option->FUN_007b3810(morphFormat);
@@ -4944,7 +4944,7 @@ void FaceMorphMenu::BuildMorphOptions()
     {
         float value = GetMorphCoordinateValue(morphs, 1, 0, 30);
         value = FUN_00404010(FUN_0040ebd0(value, tone[30].maximum), tone[30].minimum);
-        MorphMenuOption* option = lists[tone[30].group]->FUN_007b3ca0(
+        MorphMenuOption* option = lists[tone[30].group]->AddSliderOption(
             tone[30].name, 35, static_cast<int>(tone[30].minimum * 10.0), static_cast<int>(tone[30].maximum * 10.0),
             static_cast<int>(value * 10.0), 0.25f);
         option->FUN_007b3810(morphFormat);
@@ -4953,7 +4953,7 @@ void FaceMorphMenu::BuildMorphOptions()
     {
         float value = GetMorphCoordinateValue(morphs, 1, 0, 31);
         value = FUN_00404010(FUN_0040ebd0(value, tone[31].maximum), tone[31].minimum);
-        MorphMenuOption* option = lists[tone[31].group]->FUN_007b3ca0(
+        MorphMenuOption* option = lists[tone[31].group]->AddSliderOption(
             tone[31].name, 35, static_cast<int>(tone[31].minimum * 10.0), static_cast<int>(tone[31].maximum * 10.0),
             static_cast<int>(value * 10.0), 0.25f);
         option->FUN_007b3810(morphFormat);
@@ -4962,7 +4962,7 @@ void FaceMorphMenu::BuildMorphOptions()
     {
         float value = GetMorphCoordinateValue(morphs, 1, 0, 8);
         value = FUN_00404010(FUN_0040ebd0(value, tone[8].maximum), tone[8].minimum);
-        MorphMenuOption* option = lists[tone[8].group]->FUN_007b3ca0(
+        MorphMenuOption* option = lists[tone[8].group]->AddSliderOption(
             tone[8].name, 35, static_cast<int>(tone[8].minimum * 10.0), static_cast<int>(tone[8].maximum * 10.0),
             static_cast<int>(value * 10.0), 0.25f);
         option->FUN_007b3810(morphFormat);
@@ -4971,7 +4971,7 @@ void FaceMorphMenu::BuildMorphOptions()
     {
         float value = GetMorphCoordinateValue(morphs, 1, 0, 9);
         value = FUN_00404010(FUN_0040ebd0(value, tone[9].maximum), tone[9].minimum);
-        MorphMenuOption* option = lists[tone[9].group]->FUN_007b3ca0(
+        MorphMenuOption* option = lists[tone[9].group]->AddSliderOption(
             tone[9].name, 35, static_cast<int>(tone[9].minimum * 10.0), static_cast<int>(tone[9].maximum * 10.0),
             static_cast<int>(value * 10.0), 0.25f);
         option->FUN_007b3810(morphFormat);
@@ -4980,7 +4980,7 @@ void FaceMorphMenu::BuildMorphOptions()
     {
         float value = GetMorphCoordinateValue(morphs, 1, 0, 18);
         value = FUN_00404010(FUN_0040ebd0(value, tone[18].maximum), tone[18].minimum);
-        MorphMenuOption* option = lists[tone[18].group]->FUN_007b3ca0(
+        MorphMenuOption* option = lists[tone[18].group]->AddSliderOption(
             tone[18].name, 35, static_cast<int>(tone[18].minimum * 10.0), static_cast<int>(tone[18].maximum * 10.0),
             static_cast<int>(value * 10.0), 0.25f);
         option->FUN_007b3810(morphFormat);
@@ -4989,7 +4989,7 @@ void FaceMorphMenu::BuildMorphOptions()
     {
         float value = GetMorphCoordinateValue(morphs, 1, 0, 27);
         value = FUN_00404010(FUN_0040ebd0(value, tone[27].maximum), tone[27].minimum);
-        MorphMenuOption* option = lists[tone[27].group]->FUN_007b3ca0(
+        MorphMenuOption* option = lists[tone[27].group]->AddSliderOption(
             tone[27].name, 35, static_cast<int>(tone[27].minimum * 10.0), static_cast<int>(tone[27].maximum * 10.0),
             static_cast<int>(value * 10.0), 0.25f);
         option->FUN_007b3810(morphFormat);
@@ -4998,7 +4998,7 @@ void FaceMorphMenu::BuildMorphOptions()
     {
         float value = GetMorphCoordinateValue(morphs, 1, 0, 22);
         value = FUN_00404010(FUN_0040ebd0(value, tone[22].maximum), tone[22].minimum);
-        MorphMenuOption* option = lists[tone[22].group]->FUN_007b3ca0(
+        MorphMenuOption* option = lists[tone[22].group]->AddSliderOption(
             tone[22].name, 35, static_cast<int>(tone[22].minimum * 10.0), static_cast<int>(tone[22].maximum * 10.0),
             static_cast<int>(value * 10.0), 0.25f);
         option->FUN_007b3810(morphFormat);
@@ -5007,7 +5007,7 @@ void FaceMorphMenu::BuildMorphOptions()
     {
         float value = GetMorphCoordinateValue(morphs, 1, 0, 5);
         value = FUN_00404010(FUN_0040ebd0(value, tone[5].maximum), tone[5].minimum);
-        MorphMenuOption* option = lists[tone[5].group]->FUN_007b3ca0(
+        MorphMenuOption* option = lists[tone[5].group]->AddSliderOption(
             tone[5].name, 35, static_cast<int>(tone[5].minimum * 10.0), static_cast<int>(tone[5].maximum * 10.0),
             static_cast<int>(value * 10.0), 0.25f);
         option->FUN_007b3810(morphFormat);
@@ -5016,7 +5016,7 @@ void FaceMorphMenu::BuildMorphOptions()
     {
         float value = GetMorphCoordinateValue(morphs, 1, 0, 6);
         value = FUN_00404010(FUN_0040ebd0(value, tone[6].maximum), tone[6].minimum);
-        MorphMenuOption* option = lists[tone[6].group]->FUN_007b3ca0(
+        MorphMenuOption* option = lists[tone[6].group]->AddSliderOption(
             tone[6].name, 35, static_cast<int>(tone[6].minimum * 10.0), static_cast<int>(tone[6].maximum * 10.0),
             static_cast<int>(value * 10.0), 0.25f);
         option->FUN_007b3810(morphFormat);
@@ -5025,7 +5025,7 @@ void FaceMorphMenu::BuildMorphOptions()
     {
         float value = GetMorphCoordinateValue(morphs, 1, 0, 3);
         value = FUN_00404010(FUN_0040ebd0(value, tone[3].maximum), tone[3].minimum);
-        MorphMenuOption* option = lists[tone[3].group]->FUN_007b3ca0(
+        MorphMenuOption* option = lists[tone[3].group]->AddSliderOption(
             tone[3].name, 35, static_cast<int>(tone[3].minimum * 10.0), static_cast<int>(tone[3].maximum * 10.0),
             static_cast<int>(value * 10.0), 0.25f);
         option->FUN_007b3810(morphFormat);
@@ -5033,15 +5033,15 @@ void FaceMorphMenu::BuildMorphOptions()
     }
     HandleMenuKey(34);
     HandleMenuKey(35);
-    if (FUN_007adc30(8))
+    if (IsFlagged(8))
     {
         UpdateFaceGen(1, 1, 0);
-        FUN_007adc60(8, false);
+        SetFlag(8, false);
     }
-    if (FUN_007adc30(9))
+    if (IsFlagged(9))
     {
         FUN_007b25a0();
-        FUN_007adc60(9, false);
+        SetFlag(9, false);
     }
 }
 
@@ -7072,8 +7072,8 @@ struct PendingMenu
     int unk0bc;
     PendingTile* pendingTile;
     PendingOption* pendingOption;
-    bool FUN_007adc30(int trait);
-    void FUN_007adc60(int trait, bool enabled);
+    bool IsFlagged(int trait);
+    void SetFlag(int trait, bool enabled);
     void HandleOptionSelection();
     void HandlePendingTileAction();
 };
@@ -7111,14 +7111,14 @@ void PendingMenu::HandlePendingTileAction()
         }
         else if (action == 105)
         {
-            changed = FUN_007adc30(2);
+            changed = IsFlagged(2);
         }
         if (changed)
         {
             HandleOptionSelection();
             pendingTile->FUN_00a0b110(0xfcb);
         }
-        FUN_007adc60(2, false);
+        SetFlag(2, false);
         pendingTile = 0;
         pendingOption = 0;
     }
@@ -7293,13 +7293,13 @@ struct Menu7
     void ApplyHairOption(Option7*);
     void ApplyParam(Option7*);
     void HandleMenuKey(int);
-    bool FUN_007adc30(int);
+    bool IsFlagged(int);
     void UpdateFaceGen(int, int, int);
-    void FUN_007adc60(int, bool);
+    void SetFlag(int, bool);
     void FUN_007b25a0();
     void RebuildFaceGen(int);
     void UpdateEyeTextures();
-    void FUN_007afa40(unsigned int);
+    void SetHairColorSliders(unsigned int);
     void HandleOptionSelection();
 };
 
@@ -7321,13 +7321,13 @@ void Menu7::HandleOptionSelection()
     {
         ApplyParam(selected);
         HandleMenuKey(selected->FUN_00726070());
-        if (FUN_007adc30(8))
+        if (IsFlagged(8))
         {
             if (selected->FUN_00726070() == 34)
                 UpdateFaceGen(0, 1, 0);
             else
                 UpdateFaceGen(0, 0, 1);
-            FUN_007adc60(8, false);
+            SetFlag(8, false);
         }
     }
     else if (selected->FUN_00726070() == 24)
@@ -7341,9 +7341,9 @@ void Menu7::HandleOptionSelection()
         FUN_007b25a0();
         RebuildFaceGen(1);
         UpdateEyeTextures();
-        FUN_007adc60(8, false);
-        FUN_007adc60(9, false);
-        FUN_007afa40(npc->FUN_004169d0());
+        SetFlag(8, false);
+        SetFlag(9, false);
+        SetHairColorSliders(npc->FUN_004169d0());
         Option7* option6 = lists[6]->FindByColor(29);
         if (option6)
         {
@@ -7352,7 +7352,7 @@ void Menu7::HandleOptionSelection()
             option6->FUN_007b3840(low3, high);
             option6->FUN_007b3760(low3);
         }
-        FUN_007adc60(0, true);
+        SetFlag(0, true);
     }
     else if (selected->FUN_00726070() == 26)
     {
@@ -7374,16 +7374,16 @@ void Menu7::HandleOptionSelection()
         FUN_00652e00(npc->race.FUN_00726070()->FUN_005d9fb0(npc->GetSex()), base3, result6, 0);
         if (FUN_00652900(result6, npc->FUN_00601800()))
             FUN_006529a0(result6, npc->FUN_00601800(), 0, 0);
-        ((Menu7*)DAT_011da634)->FUN_007adc60(7, true);
+        ((Menu7*)DAT_011da634)->SetFlag(7, true);
         ((Menu7*)DAT_011da634)->HandleMenuKey(34);
         ((Menu7*)DAT_011da634)->HandleMenuKey(35);
         ((Menu7*)DAT_011da634)->UpdateFaceGen(1, 1, 0);
-        ((Menu7*)DAT_011da634)->FUN_007adc60(8, false);
-        ((Menu7*)DAT_011da634)->FUN_007adc60(9, true);
+        ((Menu7*)DAT_011da634)->SetFlag(8, false);
+        ((Menu7*)DAT_011da634)->SetFlag(9, true);
     }
     else
         return;
-    FUN_007adc60(7, false);
+    SetFlag(7, false);
 }
 }  // namespace fnv_007b4b50
 
@@ -7426,7 +7426,7 @@ class HCOptionList
     void ApplyToAllTiles();
     int FUN_0084e3a0();
     int FUN_0044edb0();
-    void FUN_007b4530(int iStep);
+    void ScrollBy(int iStep);
 };
 
 struct HCHairList
@@ -7578,12 +7578,12 @@ class HCMenuView
     void CreateMenuOption();
     void FUN_007b25a0();
     void UpdateHairAndEyes();
-    bool FUN_007adc30(int m_iValueId);
+    bool IsFlagged(int m_iValueId);
     void RebuildFaceGen(int iValue);
     void UpdateEyeTextures();
     void UpdateFaceGen(int iA, int iB, int iC);
     bool FUN_007af180(int iValue);
-    void FUN_007adc60(int m_uiSoundID, int iValue);
+    void SetFlag(int m_uiSoundID, int iValue);
     void HandlePendingTileAction();
     void UpdateMinusPlusTiles();
     void FUN_007adce0(int aiIndex, HCTile* pkTile);
@@ -7631,10 +7631,10 @@ void HCMenuView::FUN_007adce0(int aiIndex, HCTile* pkTile)
             }
             break;
         case 0x19:
-            if (FUN_007adc30(7))
-                FUN_007b51f0();
+            if (IsFlagged(7))
+                Randomize();
             else
-                FUN_00703e80(DAT_011d3288.FUN_00403df0(), 0, 0, FUN_007b51f0, 0, 0x12, 0.0f, 0.0f,
+                FUN_00703e80(DAT_011d3288.FUN_00403df0(), 0, 0, Randomize, 0, 0x12, 0.0f, 0.0f,
                              DAT_011d3684.FUN_00403df0(), DAT_011d34f8.FUN_00403df0(), 0);
             break;
         case 0x1b:
@@ -7670,7 +7670,7 @@ void HCMenuView::FUN_007adce0(int aiIndex, HCTile* pkTile)
         if (bChangedTmp)
         {
             m_apLists[iList]->ApplyToAllTiles();
-            FUN_007adc60(7, 0);
+            SetFlag(7, 0);
         }
     }
     else if (aiIndex == 4)
@@ -7696,12 +7696,12 @@ void HCMenuView::FUN_007adce0(int aiIndex, HCTile* pkTile)
         }
         else if (aiIndex == 2 && pkTile->IsTraitNonZero(0xfa3))
         {
-            m_apLists[iList]->FUN_007b4530(1);
+            m_apLists[iList]->ScrollBy(1);
             UpdateMinusPlusTiles();
         }
         else if (aiIndex == 3 && pkTile->IsTraitNonZero(0xfa3))
         {
-            m_apLists[iList]->FUN_007b4530(-1);
+            m_apLists[iList]->ScrollBy(-1);
             UpdateMinusPlusTiles();
         }
     }
@@ -8207,12 +8207,12 @@ struct FUN_007b3660_shell
     int unkD0;
     int unkD4;
     FUN_007b3720_shell_* mD8;
-    void FUN_007b3660();
+    void ChangeHairColor();
     void RebuildFaceGen(int);
 };
 // Iterates m40's entries, reads the values of types 0x1e/0x1f/0x20 into f0/mid/hi, packs them into a 24-bit value passed to mD8, then calls RebuildFaceGen(0).
 // @fnv 0x007b3660
-void FUN_007b3660_shell::FUN_007b3660()
+void FUN_007b3660_shell::ChangeHairColor()
 {
     int iter;
     int f0 = -1;

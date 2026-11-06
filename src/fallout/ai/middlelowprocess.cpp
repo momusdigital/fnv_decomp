@@ -1119,7 +1119,7 @@ struct Virtual92
 struct Save92
 {
     bool FUN_00862110();
-    void FUN_008579e0(void*, unsigned);
+    void LoadGameDataOLD(void*, unsigned);
     Record92* FUN_004fd3c0();
     unsigned char FUN_008df040();
     unsigned FUN_00825c00();
@@ -1151,7 +1151,7 @@ void Target92::FUN_0092e730(unsigned flags, unsigned arg2, unsigned arg3)
     if ((*(Save92**)&DAT_011de45c)->FUN_00862110())
     {
         unsigned uiMagic;
-        (*(Save92**)&DAT_011de45c)->FUN_008579e0(&uiMagic, 4);
+        (*(Save92**)&DAT_011de45c)->LoadGameDataOLD(&uiMagic, 4);
         if (uiMagic != 0x424c4f4b)
         {
             Record92* pRecord = (*(Save92**)&DAT_011de45c)->FUN_004fd3c0();
@@ -1167,9 +1167,9 @@ void Target92::FUN_0092e730(unsigned flags, unsigned arg2, unsigned arg3)
             }
         }
         b = (*(Save92**)&DAT_011de45c)->FUN_00825c00();
-        (*(Save92**)&DAT_011de45c)->FUN_008579e0(&a, 2);
+        (*(Save92**)&DAT_011de45c)->LoadGameDataOLD(&a, 2);
     }
-    (*(Save92**)&DAT_011de45c)->FUN_008579e0(&field, 4);
+    (*(Save92**)&DAT_011de45c)->LoadGameDataOLD(&field, 4);
     if (flags & 0x100000)
         sub.LoadModifiers();
     if ((*(Save92**)&DAT_011de45c)->FUN_00862110())
@@ -2017,7 +2017,7 @@ void FUN_0090d570();
 Ref* FUN_00703180();
 const char* FUN_00464f30(int a, int b);
 int FUN_00ec623a(char* buf, const char* fmt, ...);
-void FUN_00703c00(const char* s);
+void PrintToConsole(const char* s);
 void FUN_005ac750(Pkg* p, int a, int b);
 
 struct ProcStandIn
@@ -2748,7 +2748,7 @@ void ProcStandIn::FUN_0092d050(Ref* apRef)
                     {
                         FUN_00ec623a(acBuffer, "%s is sleeping with %s", pActor->GetName(),
                                      FUN_00464f30(DAT_0119bcb0[GetAssignedPackage()->GetProcType()], 0));
-                        FUN_00703c00(acBuffer);
+                        PrintToConsole(acBuffer);
                     }
                     break;
                 case 5:
@@ -2756,7 +2756,7 @@ void ProcStandIn::FUN_0092d050(Ref* apRef)
                     {
                         FUN_00ec623a(acBuffer, "%s is eating with %s", pActor->GetName(),
                                      FUN_00464f30(DAT_0119bcb0[GetAssignedPackage()->GetProcType()], 0));
-                        FUN_00703c00(acBuffer);
+                        PrintToConsole(acBuffer);
                     }
                     break;
                 case 6:
@@ -2859,7 +2859,7 @@ void ProcStandIn::FUN_0092d050(Ref* apRef)
                     {
                         FUN_00ec623a(acBuffer, "%s is done with %s", pActor->GetName(),
                                      FUN_00464f30(DAT_0119bcb0[GetAssignedPackage()->GetProcType()], 0));
-                        FUN_00703c00(acBuffer);
+                        PrintToConsole(acBuffer);
                     }
                     delete m_pInventoryEntryData;
                     m_pInventoryEntryData = 0;

@@ -301,7 +301,7 @@ FUN_00852ae0::~FUN_00852ae0()
 struct Loader2e40
 {
     void* FUN_00559450();
-    void* FUN_00866390();
+    void* GetAdvancedBuffer();
 };
 struct Change2e40
 {
@@ -324,7 +324,7 @@ struct Info2e40
 {
     int unk00, unk04, cellID, x, y, unk14, unk18, unk1c, unk20, unk24, unk28, unk2c;
     Info2e40();
-    bool FUN_0084e6a0(TESObjectCELL**, TESWorldSpace**);
+    bool GetOriginalLocationCellAndWorld(TESObjectCELL**, TESWorldSpace**);
 };
 void __cdecl FUN_0084e930(void*, int, Info2e40*);
 TESObjectCELL* __cdecl ResolveReferenceForm(unsigned int, Info2e40*, bool);
@@ -359,7 +359,7 @@ void Target2e40::FUN_00852e40(unsigned int uiRefID, Forms2e40* forms)
             return;
         }
         Info2e40 changeInfo;
-        FUN_0084e930(change->loader.FUN_00866390(), iChangeType, &changeInfo);
+        FUN_0084e930(change->loader.GetAdvancedBuffer(), iChangeType, &changeInfo);
         if (iChangeType == 5)
         {
             TESObjectCELL* cell = ResolveReferenceForm(uiRefID, &changeInfo, false);
@@ -370,7 +370,7 @@ void Target2e40::FUN_00852e40(unsigned int uiRefID, Forms2e40* forms)
         {
             TESObjectCELL* interior = 0;
             TESWorldSpace* world = 0;
-            if (changeInfo.FUN_0084e6a0(&interior, &world))
+            if (changeInfo.GetOriginalLocationCellAndWorld(&interior, &world))
             {
                 if (interior)
                     forms->FUN_00843750(interior, uiRefID, false);

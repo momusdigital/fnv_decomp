@@ -85,11 +85,11 @@ struct FUN_004bddd0_t
 };
 struct FUN_00781860_shell
 {
-    bool __thiscall FUN_00781860(InventoryStackRecord*);
+    bool __thiscall IsItemRepairable(InventoryStackRecord*);
 };
 struct FUN_00781680_shell : public InventoryMenu
 {
-    void __thiscall FUN_00781680();
+    void __thiscall UpdateButtons();
 };
 struct GlobalObject_0040c150 : public InventoryMenuSetting
 {
@@ -571,7 +571,7 @@ struct Setting
 };
 struct Camera
 {
-    void FUN_007f8610(int, float, float, bool);
+    void MoveKnob(int, float, float, bool);
 };
 struct Interface
 {
@@ -657,7 +657,7 @@ struct Menu
     unsigned int unke4;
     Entry entry;
     Tile* FUN_00726070();
-    void FUN_00781680();
+    void UpdateButtons();
     void ClearActionPointSource();
     void UpdateItemDisplay(int, Tile*);
 };
@@ -672,7 +672,7 @@ void Menu::UpdateItemDisplay(int action, Tile* changed)
             int selectedSlot11 = (int)list.Value(0xfac)->FUN_00a011b0();
             if (DAT_011d9f34 != selectedSlot11)
             {
-                FUN_004b7210()->FUN_00704370()->FUN_007f8610(
+                FUN_004b7210()->FUN_00704370()->MoveKnob(
                     0, DAT_011d9f34 < selectedSlot11 ? *DAT_011db2f0.FUN_00403e20() : -*DAT_011db2f0.FUN_00403e20(),
                     *DAT_011db358.FUN_00403e20(), 1);
                 DAT_011d9f34 = selectedSlot11;
@@ -732,7 +732,7 @@ void Menu::UpdateItemDisplay(int action, Tile* changed)
                 (*icon->tile.FUN_0073ac90())->FUN_00700320(0xfa3, 0);
             if (!entry.FUN_00701740())
                 description->FUN_00700320(0xfa3, 1);
-            FUN_00781680();
+            UpdateButtons();
         }
     }
     else if (action == 30)
@@ -788,7 +788,7 @@ extern void* player;
 float __cdecl FUN_00476b20(float);
 struct InventoryCheck
 {
-    bool FUN_00781860(Entry* entry);
+    bool IsItemRepairable(Entry* entry);
 };
 struct ItemLabelSource : InventoryStackRecord
 {
@@ -1051,7 +1051,7 @@ struct ProcObj
 struct PlayerShell
 {
     int FUN_00891d70();
-    float FUN_008a0c20();
+    float GetMaxCarryWeight();
     ProcObj* FUN_008d8520();
 };
 struct RenderedObj
@@ -1108,8 +1108,8 @@ unsigned int __fastcall FUN_0044ddc0(void*);
 int __cdecl FUN_004839c0(int);
 unsigned int __cdecl FUN_0044a670(const char*);
 
-void __cdecl FUN_007824e0();
-void __cdecl FUN_00782620();
+void __cdecl CompareForSorting();
+void __cdecl ShouldHideItem();
 static const char kStr_IM_Headline_Title[] = "IM_Headline_Title";
 // @fnv 0x00782a90
 void FUN_00782a90()
@@ -1151,7 +1151,7 @@ void FUN_00782a90()
             FUN_00406d00(ba, 0x40, "%d", ((PlayerShell*)g_thePlayer)->FUN_00891d70());
         ((InvObj*)(void*)(unsigned int)DAT_011d9ea4)->t28->FUN_00a01350(DAT_011d9eb4, ba, true);
         FUN_00406d00(ba, 0x40, "%d/%d", ((ActorAV*)&g_thePlayer->actorValueOwner)->q2(0x2e),
-                     (int)(((PlayerShell*)g_thePlayer)->FUN_008a0c20()));
+                     (int)(((PlayerShell*)g_thePlayer)->GetMaxCarryWeight()));
         ((InvObj*)(void*)(unsigned int)DAT_011d9ea4)->t34->FUN_00a01350(DAT_011d9eb4, ba, true);
         FUN_00406d00(ba, 0x40, "%d/%d", ((ActorAV*)&g_thePlayer->actorValueOwner)->q2(0x10),
                      ((ActorAV*)&g_thePlayer->actorValueOwner)->q7(0x10));
@@ -1209,7 +1209,7 @@ void FUN_00782a90()
                         if (((ItemObj*)*am->FUN_006815c0())->FUN_004bd820())
                             FUN_00406d50(bo, 0x80, "+");
                         ((InvObj*)(void*)(unsigned int)DAT_011d9ea4)
-                            ->lb.FUN_0071a320(*am->FUN_006815c0(), bo, (void*)&FUN_007824e0, 0);
+                            ->lb.FUN_0071a320(*am->FUN_006815c0(), bo, (void*)&CompareForSorting, 0);
                     }
                 }
             }
@@ -1232,9 +1232,9 @@ void FUN_00782a90()
                     tt->FUN_00700320(0xfaa, 0x1e);
                 }
             }
-            ((InvObj*)(void*)(unsigned int)DAT_011d9ea4)->lb.ApplyFilter((void*)&FUN_00782620);
+            ((InvObj*)(void*)(unsigned int)DAT_011d9ea4)->lb.ApplyFilter((void*)&ShouldHideItem);
             ((InvObj*)(void*)(unsigned int)DAT_011d9ea4)->lb.FUN_007314c0((void*)&FUN_00780c00, -1, 0x7fffffff);
-            ((InvObj*)(void*)(unsigned int)DAT_011d9ea4)->lb.q8((int)&FUN_007824e0);
+            ((InvObj*)(void*)(unsigned int)DAT_011d9ea4)->lb.q8((int)&CompareForSorting);
         }
         ((FUN_00781b10_shell*)DAT_011d9ea4)->ClearActionPointSource();
         FUN_007800c0();

@@ -812,11 +812,11 @@ struct xController
     char m_pad04[0x430];
     xPtr m_434;
     float m_438;
-    void FUN_008e4e50(xActor* apActor);
+    void SetupPhantom(xActor* apActor);
 };
 
 // @fnv 0x008e4e50
-void xController::FUN_008e4e50(xActor* apActor)
+void xController::SetupPhantom(xActor* apActor)
 {
     if (apActor->m_68->FUN_5f0())
     {

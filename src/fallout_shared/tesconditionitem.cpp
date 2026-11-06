@@ -392,7 +392,7 @@ struct FUN_00681500_class
 
 struct FUN_00681530_class
 {
-    void FUN_00681530(int count);
+    void SetComparisonCondition(int count);
 };
 
 struct FUN_00681220_class
@@ -401,12 +401,12 @@ struct FUN_00681220_class
     unsigned int m_comparisonValue;
     unsigned int m_usFunctionCode;
     unsigned int m_data0C;
-    void FUN_00681220(int functionCode);
+    void SetDefaultDataForFunction(int functionCode);
 };
 
 // Normalizes functionCode into the 0x280 range, applies it via ClearAndSetFunctionCode, then sets count and value based on the function code.
 // @fnv 0x00681220
-void FUN_00681220_class::FUN_00681220(int functionCode)
+void FUN_00681220_class::SetDefaultDataForFunction(int functionCode)
 {
     int iNormalizedFunction = functionCode;
     if (functionCode >= 0x1000 && functionCode < 0x1280)
@@ -439,20 +439,20 @@ void FUN_00681220_class::FUN_00681220(int functionCode)
         case 0x106F:
         case 0x1070:
         case 0x1136:
-            ((FUN_00681530_class*)this)->FUN_00681530(0);
+            ((FUN_00681530_class*)this)->SetComparisonCondition(0);
             ((FUN_00681500_class*)this)->SetValueIfNoParams(1.0f);
             break;
         case 0x1001:
-            ((FUN_00681530_class*)this)->FUN_00681530(4);
+            ((FUN_00681530_class*)this)->SetComparisonCondition(4);
             ((FUN_00681500_class*)this)->SetValueIfNoParams(100.0f);
             break;
         case 0x106B:
-            ((FUN_00681530_class*)this)->FUN_00681530(1);
+            ((FUN_00681530_class*)this)->SetComparisonCondition(1);
             ((FUN_00681500_class*)this)->SetValueIfNoParams(0.0f);
             break;
         case 0x10F7:
             m_data0C = 0x28;
-            ((FUN_00681530_class*)this)->FUN_00681530(0);
+            ((FUN_00681530_class*)this)->SetComparisonCondition(0);
             ((FUN_00681500_class*)this)->SetValueIfNoParams(1.0f);
             break;
         }

@@ -119,7 +119,7 @@ void QuestStage::MarkDone(bool done)
     }
     if (done || reinterpret_cast<PlayerQuestData*>(this)->GetConditions()->ContainsTrait(g_thePlayer, 0))
     {
-        m_pCompletionDate = new Date(g_calendar.GetGameHour(), g_calendar.GetCurrentMonth(), g_calendar.FUN_00867c60());
+        m_pCompletionDate = new Date(g_calendar.GetGameHour(), g_calendar.GetCurrentMonth(), g_calendar.GetYear());
 
         if (FUN_0060fd70())
         {

@@ -561,19 +561,19 @@ class Owner_8cc740
     int unka8, unkac, unkb0;
     NiPoint3 m_kOffset;
 
-    Source_8cc740* FUN_009306d0();
-    void FUN_008cfad0(float fScaleMultiplier, NiPoint3 kPos, int iZero, unsigned int uiType);
+    Source_8cc740* GetCharController();
+    void PlayArrowCollisionSound(float fScaleMultiplier, NiPoint3 kPos, int iZero, unsigned int uiType);
     Emitter18_8cc740* FUN_008cdd90();
     Emitter30_8cc740* FUN_009ee040();
     Emitter18_8cc740* FUN_004f9bf0();
     void* FUN_007af430();
     void FUN_008ccce0(const NiPoint3& kPos, const NiPoint3& kWorldPosition);
     void FUN_008cc6d0(int iState);
-    void FUN_008cc740(const NiPoint3& kPos, const NiPoint3& kWorldPosition);
+    void CollideTerrain(const NiPoint3& kPos, const NiPoint3& kWorldPosition);
 };
 
 // @fnv 0x008cc740
-void Owner_8cc740::FUN_008cc740(const NiPoint3& kPos, const NiPoint3& kWorldPosition)
+void Owner_8cc740::CollideTerrain(const NiPoint3& kPos, const NiPoint3& kWorldPosition)
 {
     m_pUserData = new ProjectionData_8cc740;
     NiPoint3 kIntersectionOffset = m_kOffset;
@@ -586,9 +586,9 @@ void Owner_8cc740::FUN_008cc740(const NiPoint3& kPos, const NiPoint3& kWorldPosi
     m_pUserData->m_kStartPoint = kPos + kIntersectionOffset;
     m_pUserData->m_kRotationMatrix = DAT_011a9448;
     m_pUserData->m_kValue = DAT_011f426c;
-    if (FUN_009306d0())
+    if (GetCharController())
     {
-        Rotation_8cc740 kRot(FUN_009306d0()->FUN_00807080());
+        Rotation_8cc740 kRot(GetCharController()->FUN_00807080());
         if (kRot.FUN_00458700(0).FUN_004586d0() == -DAT_01085910)
         {
             if (GetNode())
@@ -611,7 +611,7 @@ void Owner_8cc740::FUN_008cc740(const NiPoint3& kPos, const NiPoint3& kWorldPosi
         break;
     }
     m_iActive = 1;
-    FUN_008cfad0(m_pUserData->m_kValue.Length(), kPos, 0, uiType);
+    PlayArrowCollisionSound(m_pUserData->m_kValue.Length(), kPos, 0, uiType);
     if (m_pkController && m_pkController->GetEffect())
         m_pkController->GetEffect()->FUN_008d0600(kPos, 0);
     if (m_pkController)
@@ -813,7 +813,7 @@ struct xActor
     int m_8c;
     int m_90, m_94;
     float m_98;
-    xHolder* FUN_009306d0();
+    xHolder* GetCharController();
     void FUN_008ccce0(const xP3& akA, const xP3& akB);
 };
 
@@ -838,9 +838,9 @@ void xActor::FUN_008ccce0(const xP3& akA, const xP3& akB)
     m_88->m_iWordAt04 = akA;
     m_88->m_30 = xg_11a9448;
     m_88->m_1c = xg_NiPoint3_ZERO;
-    if (FUN_009306d0())
+    if (GetCharController())
     {
-        xVec4 V(*FUN_009306d0()->FUN_00807080());
+        xVec4 V(*GetCharController()->FUN_00807080());
         if (V.FUN_00458700(0).FUN_004586d0() == -xg_1085910)
         {
             if (FUN_1d0())
@@ -1027,7 +1027,7 @@ struct xActor
     int m_8c;
     int m_90, m_94;
     float m_98;
-    xHolder* FUN_009306d0();
+    xHolder* GetCharController();
     void FUN_008ccfb0(int aiValue);
 };
 
@@ -1046,9 +1046,9 @@ void xActor::FUN_008ccfb0(int aiValue)
         m_88->m_iWordAt04 = xg_NiPoint3_ZERO;
         m_88->m_30 = xg_11a9448;
         m_88->m_1c = xg_NiPoint3_ZERO;
-        if (FUN_009306d0())
+        if (GetCharController())
         {
-            xVec4 V(*FUN_009306d0()->FUN_00807080());
+            xVec4 V(*GetCharController()->FUN_00807080());
             if (V.FUN_00458700(0).FUN_004586d0() == -xg_1085910)
             {
                 if (FUN_1d0())
@@ -1410,11 +1410,11 @@ class Projectile8CD
     unsigned int unk84;
     Target8CD* m_pkTarget;
 
-    bool FUN_008cd520(Caster8CD* pkCaster);
+    bool ProcessCollisionReference(Caster8CD* pkCaster);
 };
 
 // @fnv 0x008cd520
-bool Projectile8CD::FUN_008cd520(Caster8CD* pkCaster)
+bool Projectile8CD::ProcessCollisionReference(Caster8CD* pkCaster)
 {
     Prepare();
     if (m_pkTarget->m_iActive)
@@ -1536,10 +1536,10 @@ struct TargetD0020
     bool GetByteAtOffsetC3();
     float FUN_008d01e0();
     void SetByteAtOffsetC3(bool);
-    void FUN_008d0020(Vec3D0020 position, Vec3D0020 direction, ObjectD0020* object);
+    void ApplyCollisionForce(Vec3D0020 position, Vec3D0020 direction, ObjectD0020* object);
 };
 // @fnv 0x008d0020
-void TargetD0020::FUN_008d0020(Vec3D0020 position, Vec3D0020 direction, ObjectD0020* object)
+void TargetD0020::ApplyCollisionForce(Vec3D0020 position, Vec3D0020 direction, ObjectD0020* object)
 {
     if (!object || GetByteAtOffsetC3())
         return;

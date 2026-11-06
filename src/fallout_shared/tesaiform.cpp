@@ -597,7 +597,7 @@ void MyInner::DispatchToOuter(int arg)
 namespace fnv_0047f840 {
 struct TESSaveLoadGame
 {
-    void FUN_008579b0(void*, int);
+    void SaveGameDataOLD(void*, int);
 };
 extern TESSaveLoadGame* g_TESSaveLoadGame;
 
@@ -612,11 +612,11 @@ void FUN_0047f840_shell::FUN_0047f840(unsigned int aFlags)
 {
     if (aFlags & 8)
     {
-        g_TESSaveLoadGame->FUN_008579b0((char*)this + 4, 1);
-        g_TESSaveLoadGame->FUN_008579b0((char*)this + 5, 1);
-        g_TESSaveLoadGame->FUN_008579b0((char*)this + 6, 1);
-        g_TESSaveLoadGame->FUN_008579b0((char*)this + 7, 1);
-        g_TESSaveLoadGame->FUN_008579b0((char*)this + 8, 1);
+        g_TESSaveLoadGame->SaveGameDataOLD((char*)this + 4, 1);
+        g_TESSaveLoadGame->SaveGameDataOLD((char*)this + 5, 1);
+        g_TESSaveLoadGame->SaveGameDataOLD((char*)this + 6, 1);
+        g_TESSaveLoadGame->SaveGameDataOLD((char*)this + 7, 1);
+        g_TESSaveLoadGame->SaveGameDataOLD((char*)this + 8, 1);
     }
 }
 }  // namespace fnv_0047f840

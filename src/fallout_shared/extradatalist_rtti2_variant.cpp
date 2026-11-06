@@ -226,7 +226,7 @@ struct SSaveGame
 {
     unsigned int FUN_00825c00();
     bool FUN_00862110();
-    void FUN_008579b0(void* data, int size);
+    void SaveGameDataOLD(void* data, int size);
     void FUN_00857a10(void* data, int size);
     unsigned char FUN_008df040();
     FormIDEntry* FUN_004fd3e0();
@@ -253,7 +253,7 @@ void __cdecl FUN_0040fbe0(const char* fmt, ...);
 void __cdecl FUN_005b5e40(const char* fmt, ...);
 SForm* __cdecl FUN_004839c0(unsigned int id);
 unsigned char __cdecl FUN_0044a670(char* s);
-void __cdecl FUN_00805b40(void* p, int a);
+void __cdecl SaveActiveEffectList(void* p, int a);
 
 struct SaveShell : public ExtraDataList
 {
@@ -391,14 +391,14 @@ void SaveShell::FUN_004235e0(unsigned int flags, SForm* form)
     if (DAT_011de45c->FUN_00862110())
     {
         tagA2 = 0x424c4f4b;
-        DAT_011de45c->FUN_008579b0(&tagA2, 4);
+        DAT_011de45c->SaveGameDataOLD(&tagA2, 4);
         blkA4 = DAT_011de45c->FUN_00825c00();
-        DAT_011de45c->FUN_008579b0(&zero, 2);
+        DAT_011de45c->SaveGameDataOLD(&zero, 2);
     }
     DAT_011c3920.FUN_0040fbf0(0);
     count9 = 0;
     cnt = DAT_011de45c->FUN_00825c00();
-    DAT_011de45c->FUN_008579b0(&count9, 2);
+    DAT_011de45c->SaveGameDataOLD(&count9, 2);
     extra = (GenericExtra*)pHead;
     while (extra)
     {
@@ -409,78 +409,78 @@ void SaveShell::FUN_004235e0(unsigned int flags, SForm* form)
         case 36:
             if (flags & 0)
             {
-                DAT_011de45c->FUN_008579b0(&type, 1);
+                DAT_011de45c->SaveGameDataOLD(&type, 1);
                 short v = extra->d.s;
-                DAT_011de45c->FUN_008579b0(&v, 2);
+                DAT_011de45c->SaveGameDataOLD(&v, 2);
             }
             break;
         case 37:
             if (flags & 0)
             {
-                DAT_011de45c->FUN_008579b0(&type, 1);
+                DAT_011de45c->SaveGameDataOLD(&type, 1);
                 float v = extra->d.f;
-                DAT_011de45c->FUN_008579b0(&v, 4);
+                DAT_011de45c->SaveGameDataOLD(&v, 4);
             }
             break;
         case 38:
             if (flags & 0)
             {
-                DAT_011de45c->FUN_008579b0(&type, 1);
+                DAT_011de45c->SaveGameDataOLD(&type, 1);
                 char v = extra->d.c;
-                DAT_011de45c->FUN_008579b0(&v, 1);
+                DAT_011de45c->SaveGameDataOLD(&v, 1);
             }
             break;
         case 141:
             if (flags & 0)
             {
-                DAT_011de45c->FUN_008579b0(&type, 1);
+                DAT_011de45c->SaveGameDataOLD(&type, 1);
                 char v = extra->d.c;
-                DAT_011de45c->FUN_008579b0(&v, 1);
+                DAT_011de45c->SaveGameDataOLD(&v, 1);
             }
             break;
         case 39:
             if (flags & 0)
             {
-                DAT_011de45c->FUN_008579b0(&type, 1);
+                DAT_011de45c->SaveGameDataOLD(&type, 1);
                 float v = extra->d.f;
-                DAT_011de45c->FUN_008579b0(&v, 4);
+                DAT_011de45c->SaveGameDataOLD(&v, 4);
             }
             break;
         case 40:
             if (flags & 0)
             {
-                DAT_011de45c->FUN_008579b0(&type, 1);
+                DAT_011de45c->SaveGameDataOLD(&type, 1);
                 float v = extra->d.f;
-                DAT_011de45c->FUN_008579b0(&v, 4);
+                DAT_011de45c->SaveGameDataOLD(&v, 4);
             }
             break;
         case 42:
             if (flags & 0x1000)
             {
-                DAT_011de45c->FUN_008579b0(&type, 1);
+                DAT_011de45c->SaveGameDataOLD(&type, 1);
                 LockSaveData* p = extra->d.p;
                 unsigned int iD = 0;
                 if (p->key)
                 {
                     iD = p->key->FUN_0084e3a0();
                 }
-                DAT_011de45c->FUN_008579b0(p, 1);
+                DAT_011de45c->SaveGameDataOLD(p, 1);
                 DAT_011de45c->FUN_00857a10(&iD, 4);
-                DAT_011de45c->FUN_008579b0(&p->flags, 1);
+                DAT_011de45c->SaveGameDataOLD(&p->flags, 1);
             }
             break;
         case 48:
             if (flags & 0)
             {
-                DAT_011de45c->FUN_008579b0(&type, 1);
+                DAT_011de45c->SaveGameDataOLD(&type, 1);
                 float v = extra->d.f;
-                DAT_011de45c->FUN_008579b0(&v, 4);
+                DAT_011de45c->SaveGameDataOLD(&v, 4);
             }
             break;
         case 33:
             if (flags & 0)
             {
-                DAT_011de45c->FUN_008579b0(&type, 1);
+                DAT_011de45c->SaveGameDataOLD(&type, 1);
                 unsigned int id = extra->d.form->FUN_0084e3a0();
                 DAT_011de45c->FUN_00857a10(&id, 4);
             }
@@ -488,7 +488,7 @@ void SaveShell::FUN_004235e0(unsigned int flags, SForm* form)
         case 34:
             if (flags & 0)
             {
-                DAT_011de45c->FUN_008579b0(&type, 1);
+                DAT_011de45c->SaveGameDataOLD(&type, 1);
                 unsigned int id = extra->d.form->FUN_0084e3a0();
                 DAT_011de45c->FUN_00857a10(&id, 4);
             }
@@ -496,9 +496,9 @@ void SaveShell::FUN_004235e0(unsigned int flags, SForm* form)
         case 35:
             if (flags & 0)
             {
-                DAT_011de45c->FUN_008579b0(&type, 1);
+                DAT_011de45c->SaveGameDataOLD(&type, 1);
                 int v = extra->d.i;
-                DAT_011de45c->FUN_008579b0(&v, 4);
+                DAT_011de45c->SaveGameDataOLD(&v, 4);
             }
             break;
         case 22:
@@ -507,16 +507,16 @@ void SaveShell::FUN_004235e0(unsigned int flags, SForm* form)
         case 71:
             if (flags & 0)
             {
-                DAT_011de45c->FUN_008579b0(&type, 1);
+                DAT_011de45c->SaveGameDataOLD(&type, 1);
             }
             break;
         case 31:
-            DAT_011de45c->FUN_008579b0(&type, 1);
+            DAT_011de45c->SaveGameDataOLD(&type, 1);
             break;
         case 13:
             if (flags & 0)
             {
-                DAT_011de45c->FUN_008579b0(&type, 1);
+                DAT_011de45c->SaveGameDataOLD(&type, 1);
                 unsigned int id = extra->d.form->FUN_0084e3a0();
                 SForm* kObj = extra->d10.form;
                 DAT_011de45c->FUN_00857a10(&id, 4);
@@ -526,14 +526,14 @@ void SaveShell::FUN_004235e0(unsigned int flags, SForm* form)
         case 47:
             if (flags & 0)
             {
-                DAT_011de45c->FUN_008579b0(&type, 1);
+                DAT_011de45c->SaveGameDataOLD(&type, 1);
                 ::ExtraLeveledItem* x = dynamic_cast< ::ExtraLeveledItem*>((::BSExtraData*)extra);
-                DAT_011de45c->FUN_008579b0(&x->unk0C, 4);
-                DAT_011de45c->FUN_008579b0(&x->unk10, 1);
+                DAT_011de45c->SaveGameDataOLD(&x->unk0C, 4);
+                DAT_011de45c->SaveGameDataOLD(&x->unk10, 1);
             }
             break;
         case 25: {
-            DAT_011de45c->FUN_008579b0(&type, 1);
+            DAT_011de45c->SaveGameDataOLD(&type, 1);
             SExtraPackage* x = (SExtraPackage*)dynamic_cast< ::ExtraPackage*>((::BSExtraData*)extra);
             unsigned int id = x->package->FUN_0084e3a0();
             unsigned int iD8 = 0;
@@ -542,14 +542,14 @@ void SaveShell::FUN_004235e0(unsigned int flags, SForm* form)
                 iD8 = x->form14->FUN_0084e3a0();
             }
             DAT_011de45c->FUN_00857a10(&id, 4);
-            DAT_011de45c->FUN_008579b0(&x->unk10, 4);
+            DAT_011de45c->SaveGameDataOLD(&x->unk10, 4);
             DAT_011de45c->FUN_00857a10(&iD8, 4);
-            DAT_011de45c->FUN_008579b0(&x->unk18, 1);
-            DAT_011de45c->FUN_008579b0(&x->unk19, 1);
+            DAT_011de45c->SaveGameDataOLD(&x->unk18, 1);
+            DAT_011de45c->SaveGameDataOLD(&x->unk19, 1);
             if (DAT_011de45c->FUN_008df040() >= 0x40 && DAT_011c3f2c->FUN_00469860(id))
             {
                 unsigned char b = x->package->FUN_0041ca90();
-                DAT_011de45c->FUN_008579b0(&b, 1);
+                DAT_011de45c->SaveGameDataOLD(&b, 1);
                 x->package->vf150();
             }
             break;
@@ -557,7 +557,7 @@ void SaveShell::FUN_004235e0(unsigned int flags, SForm* form)
         case 26:
             if (flags & 0)
             {
-                DAT_011de45c->FUN_008579b0(&type, 1);
+                DAT_011de45c->SaveGameDataOLD(&type, 1);
                 SExtraTresPassPackage* x =
                     (SExtraTresPassPackage*)dynamic_cast< ::ExtraTresPassPackage*>((::BSExtraData*)extra);
                 unsigned int id = 0;
@@ -575,7 +575,7 @@ void SaveShell::FUN_004235e0(unsigned int flags, SForm* form)
         case 28:
             if (flags & 0)
             {
-                DAT_011de45c->FUN_008579b0(&type, 1);
+                DAT_011de45c->SaveGameDataOLD(&type, 1);
                 ::ExtraReferencePointer* x = dynamic_cast< ::ExtraReferencePointer*>((::BSExtraData*)extra);
                 unsigned int id = x->ref->FUN_0084e3a0();
                 DAT_011de45c->FUN_00857a10(&id, 4);
@@ -584,14 +584,14 @@ void SaveShell::FUN_004235e0(unsigned int flags, SForm* form)
         case 46:
             if (flags & 0)
             {
-                DAT_011de45c->FUN_008579b0(&type, 1);
+                DAT_011de45c->SaveGameDataOLD(&type, 1);
             }
             break;
         case 27: {
-            DAT_011de45c->FUN_008579b0(&type, 1);
+            DAT_011de45c->SaveGameDataOLD(&type, 1);
             short n = 0;
             unsigned int pos2 = DAT_011de45c->FUN_00825c00();
-            DAT_011de45c->FUN_008579b0(&n, 2);
+            DAT_011de45c->SaveGameDataOLD(&n, 2);
             SExtraRunOncePacks* x = (SExtraRunOncePacks*)dynamic_cast< ::ExtraRunOncePacks*>((::BSExtraData*)extra);
             ListNode* kIter = x->list;
             while (kIter && !kIter->FUN_008256d0())
@@ -601,7 +601,7 @@ void SaveShell::FUN_004235e0(unsigned int flags, SForm* form)
                 {
                     unsigned int id = item->form->FUN_0084e3a0();
                     DAT_011de45c->FUN_00857a10(&id, 4);
-                    DAT_011de45c->FUN_008579b0(&item->flag, 1);
+                    DAT_011de45c->SaveGameDataOLD(&item->flag, 1);
                     n++;
                 }
                 kIter = kIter->FUN_00726070();
@@ -610,7 +610,7 @@ void SaveShell::FUN_004235e0(unsigned int flags, SForm* form)
             break;
         }
         case 24: {
-            DAT_011de45c->FUN_008579b0(&type, 1);
+            DAT_011de45c->SaveGameDataOLD(&type, 1);
             ::ExtraPackageStartLocation* x = dynamic_cast< ::ExtraPackageStartLocation*>((::BSExtraData*)extra);
             unsigned int iD = 0;
             if (x->loc)
@@ -623,16 +623,16 @@ void SaveShell::FUN_004235e0(unsigned int flags, SForm* form)
                              form->FUN_0084e3a0(), form->vf130());
             }
             DAT_011de45c->FUN_00857a10(&iD, 4);
-            DAT_011de45c->FUN_008579b0(x->pos, 0xc);
-            DAT_011de45c->FUN_008579b0(&x->unk1C, 4);
+            DAT_011de45c->SaveGameDataOLD(x->pos, 0xc);
+            DAT_011de45c->SaveGameDataOLD(&x->unk1C, 4);
             break;
         }
         case 29: {
-            DAT_011de45c->FUN_008579b0(&type, 1);
+            DAT_011de45c->SaveGameDataOLD(&type, 1);
             ::ExtraFollower* x = dynamic_cast< ::ExtraFollower*>((::BSExtraData*)extra);
             short n = 0;
             unsigned int pos2 = DAT_011de45c->FUN_00825c00();
-            DAT_011de45c->FUN_008579b0(&n, 2);
+            DAT_011de45c->SaveGameDataOLD(&n, 2);
             FormNode* kIter = x->list;
             while (kIter && !kIter->FUN_008256d0())
             {
@@ -651,7 +651,7 @@ void SaveShell::FUN_004235e0(unsigned int flags, SForm* form)
         case 50:
             if (flags & 0)
             {
-                DAT_011de45c->FUN_008579b0(&type, 1);
+                DAT_011de45c->SaveGameDataOLD(&type, 1);
                 ::NonActorMagicCaster* X = dynamic_cast< ::NonActorMagicCaster*>((::BSExtraData*)extra);
                 int a = 0;
                 if (X->caster.vf34())
@@ -676,7 +676,7 @@ void SaveShell::FUN_004235e0(unsigned int flags, SForm* form)
         case 51:
             if (flags & 0)
             {
-                DAT_011de45c->FUN_008579b0(&type, 1);
+                DAT_011de45c->SaveGameDataOLD(&type, 1);
                 ::NonActorMagicTarget* x = dynamic_cast< ::NonActorMagicTarget*>((::BSExtraData*)extra);
                 unsigned int iD = 0;
                 if (x->target.vf04())
@@ -684,13 +684,13 @@ void SaveShell::FUN_004235e0(unsigned int flags, SForm* form)
                     iD = x->target.vf04()->FUN_0084e3a0();
                 }
                 DAT_011de45c->FUN_00857a10(&iD, 4);
-                FUN_00805b40(x->target.vf08(), 0);
+                SaveActiveEffectList(x->target.vf08(), 0);
             }
             break;
         case 43:
             if (flags & 0x20000)
             {
-                DAT_011de45c->FUN_008579b0(&type, 1);
+                DAT_011de45c->SaveGameDataOLD(&type, 1);
                 ::ExtraTeleport* x = dynamic_cast< ::ExtraTeleport*>((::BSExtraData*)extra);
                 x->data->Save();
             }
@@ -698,7 +698,7 @@ void SaveShell::FUN_004235e0(unsigned int flags, SForm* form)
         case 63:
             if (flags & 0)
             {
-                DAT_011de45c->FUN_008579b0(&type, 1);
+                DAT_011de45c->SaveGameDataOLD(&type, 1);
                 ::ExtraPoison* x = dynamic_cast< ::ExtraPoison*>((::BSExtraData*)extra);
                 unsigned int iD = x->poison->FUN_0084e3a0();
                 DAT_011de45c->FUN_00857a10(&iD, 4);
@@ -707,40 +707,40 @@ void SaveShell::FUN_004235e0(unsigned int flags, SForm* form)
         case 65:
             if (flags & 0x10000000)
             {
-                DAT_011de45c->FUN_008579b0(&type, 1);
+                DAT_011de45c->SaveGameDataOLD(&type, 1);
                 ::ExtraLastFinishedSequence* x = dynamic_cast< ::ExtraLastFinishedSequence*>((::BSExtraData*)extra);
                 unsigned char len = FUN_0044a670(x->name);
-                DAT_011de45c->FUN_008579b0(&len, 1);
-                DAT_011de45c->FUN_008579b0(x->name, len);
+                DAT_011de45c->SaveGameDataOLD(&len, 1);
+                DAT_011de45c->SaveGameDataOLD(x->name, len);
             }
             break;
         case 44:
             if (flags & 0)
             {
-                DAT_011de45c->FUN_008579b0(&type, 1);
+                DAT_011de45c->SaveGameDataOLD(&type, 1);
                 ::ExtraMapMarker* x = dynamic_cast< ::ExtraMapMarker*>((::BSExtraData*)extra);
                 unsigned char b = x->data->FUN_00424940();
-                DAT_011de45c->FUN_008579b0(&b, 1);
+                DAT_011de45c->SaveGameDataOLD(&b, 1);
             }
             break;
         case 144:
             if (flags & 0)
             {
-                DAT_011de45c->FUN_008579b0(&type, 1);
+                DAT_011de45c->SaveGameDataOLD(&type, 1);
                 ::ExtraAudioMarker* x = dynamic_cast< ::ExtraAudioMarker*>((::BSExtraData*)extra);
             }
             break;
         case 145:
             if (flags & 0)
             {
-                DAT_011de45c->FUN_008579b0(&type, 1);
+                DAT_011de45c->SaveGameDataOLD(&type, 1);
                 ::ExtraAudioBuoyMarker* x = dynamic_cast< ::ExtraAudioBuoyMarker*>((::BSExtraData*)extra);
             }
             break;
         case 12:
             if (form && form->vf100())
             {
-                DAT_011de45c->FUN_008579b0(&type, 1);
+                DAT_011de45c->SaveGameDataOLD(&type, 1);
                 SExtraPersistentCell* x =
                     (SExtraPersistentCell*)dynamic_cast< ::ExtraPersistentCell*>((::BSExtraData*)extra);
                 unsigned int iD = 0;
@@ -753,7 +753,7 @@ void SaveShell::FUN_004235e0(unsigned int flags, SForm* form)
             break;
             break;
         case 57: {
-            DAT_011de45c->FUN_008579b0(&type, 1);
+            DAT_011de45c->SaveGameDataOLD(&type, 1);
             ::ExtraItemDropper* x = dynamic_cast< ::ExtraItemDropper*>((::BSExtraData*)extra);
             unsigned int id = 0;
             if (x->dropper)
@@ -765,7 +765,7 @@ void SaveShell::FUN_004235e0(unsigned int flags, SForm* form)
             break;
         }
         case 70: {
-            DAT_011de45c->FUN_008579b0(&type, 1);
+            DAT_011de45c->SaveGameDataOLD(&type, 1);
             SExtraHeadingTarget* x = (SExtraHeadingTarget*)dynamic_cast< ::ExtraHeadingTarget*>((::BSExtraData*)extra);
             unsigned int id = 0;
             if (x->target)
@@ -778,7 +778,7 @@ void SaveShell::FUN_004235e0(unsigned int flags, SForm* form)
         case 73:
             if (flags & 0)
             {
-                DAT_011de45c->FUN_008579b0(&type, 1);
+                DAT_011de45c->SaveGameDataOLD(&type, 1);
                 unsigned int id = extra->d.form->FUN_0084e3a0();
                 DAT_011de45c->FUN_00857a10(&id, 4);
             }
@@ -786,24 +786,24 @@ void SaveShell::FUN_004235e0(unsigned int flags, SForm* form)
         case 74:
             if (flags & 0)
             {
-                DAT_011de45c->FUN_008579b0(&type, 1);
+                DAT_011de45c->SaveGameDataOLD(&type, 1);
                 char v = extra->d.c;
-                DAT_011de45c->FUN_008579b0(&v, 1);
+                DAT_011de45c->SaveGameDataOLD(&v, 1);
             }
             break;
         case 77: {
             ::ExtraInfoGeneralTopic* x = dynamic_cast< ::ExtraInfoGeneralTopic*>((::BSExtraData*)extra);
             if (x->topic)
             {
-                DAT_011de45c->FUN_008579b0(&type, 1);
+                DAT_011de45c->SaveGameDataOLD(&type, 1);
                 x->topic->SaveTopic();
             }
             break;
         }
         case 78: {
-            DAT_011de45c->FUN_008579b0(&type, 1);
+            DAT_011de45c->SaveGameDataOLD(&type, 1);
             ::ExtraHasNoRumors* x = dynamic_cast< ::ExtraHasNoRumors*>((::BSExtraData*)extra);
-            DAT_011de45c->FUN_008579b0(&x->value, 1);
+            DAT_011de45c->SaveGameDataOLD(&x->value, 1);
         }
         }
         if (before != DAT_011de45c->FUN_00825c00())

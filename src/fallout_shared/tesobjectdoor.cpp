@@ -2368,7 +2368,7 @@ struct FollowerPlayer : PlayerCharacter
 };
 struct FollowerActor : Actor
 {
-    bool FUN_008bc860(PlayerCharacter* player);
+    bool CouldBeFollowing(PlayerCharacter* player);
     void FUN_008b3ad0();
 };
 struct FollowerListOps
@@ -2401,7 +2401,7 @@ void __cdecl FUN_00519290()
             Actor* actor = source->GetItem();
             if (actor)
             {
-                if (!static_cast<FollowerActor*>(actor)->FUN_008bc860(g_thePlayer))
+                if (!static_cast<FollowerActor*>(actor)->CouldBeFollowing(g_thePlayer))
                 {
                     removed->AddHead(actor);
                 }

@@ -1119,7 +1119,7 @@ struct SaveLoadStatsDump
 {
     int m_00, m_04, m_08, m_0c;
     xNodeL m_10;
-    void FUN_00853e10();
+    void OutputStats();
     void Write(const char*);
     void* GetFirstPos();
     void GetNext(void*&, unsigned int&, xNodeL*&);
@@ -1128,7 +1128,7 @@ struct SaveLoadStatsDump
 
 // Writes a formatted dump of save/load form stats, misc stats, and save game history via Write.
 // @fnv 0x00853e10
-void SaveLoadStatsDump::FUN_00853e10()
+void SaveLoadStatsDump::OutputStats()
 {
     void* qfTOqo;
     int qsSDDgz;

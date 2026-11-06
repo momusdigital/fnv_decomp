@@ -20,7 +20,7 @@ int CombatState::GetInventoryItemCount(TESForm* object)
 // @fnv 0x008be1b0
 void CombatState::ProcessCoverLOSResult()
 {
-    if (los && los->FUN_00884920())
+    if (los && los->HasCachedValues())
         los->FUN_008be220(this);
     else
         Clear();
@@ -1626,7 +1626,7 @@ void FUN_0099a530_shell::FUN_0099a530()
 namespace fnv_009a2f50 {
 struct BGSSaveGameBuffer
 {
-    void FUN_00865f60(unsigned int);
+    void SaveVariableSizedValue(unsigned int);
 };
 struct BGSSaveFormBuffer : BGSSaveGameBuffer
 {
@@ -1659,7 +1659,7 @@ void FUN_009a2f50_shell::FUN_009a2f50(BGSSaveFormBuffer* buffer)
     buffer->SaveData((char*)this + 52, 4, 0);
     ((CombatTargetTimestamp*)((char*)this + 28))->SaveTimeStamp(buffer);
     unsigned int flags = ((char*)this + 32) ? ((ArrSI*)((char*)this + 32))->GetFlags() : 0;
-    buffer->FUN_00865f60(flags);
+    buffer->SaveVariableSizedValue(flags);
     for (unsigned int i = 0; i < flags; ++i)
     {
         void* cover = ((FUN_009a3280_shell*)((char*)this + 32))->FUN_009a3280(i);
@@ -5453,7 +5453,7 @@ struct CombatController
 };
 struct CombatPath
 {
-    bool FUN_006e4650(int);
+    bool CheckDynamicCoverValid(int);
 };
 struct CombatPathOwner
 {
@@ -5747,7 +5747,7 @@ void CombatUpdate::FUN_00997cf0()
                 pathTimer.FUN_00910b10();
             }
         }
-        else if (path && path->index != -1 && !path->path.FUN_006e4650(path->index))
+        else if (path && path->index != -1 && !path->path.CheckDynamicCoverValid(path->index))
             pathTimer.FUN_008d7f40(2.0f);
         if (DAT_011f1ae4)
         {
@@ -6727,9 +6727,9 @@ struct Actor
     virtual void slot1f0();
     virtual const Point& Position();
     Location FUN_00575650();
-    bool FUN_008bc9d0(Weapon*, int);
+    bool CanUseWeapon(Weapon*, int);
     Process* FUN_008d8520();
-    bool FUN_008a8870();
+    bool IsReloading();
     void FUN_008a8840();
 };
 struct CombatData
@@ -6975,7 +6975,7 @@ void Manager::EvaluateWeaponScores()
         }
         case 40: {
             Weapon* weaponSlot32Slot15 = (Weapon*)item;
-            if (actor->FUN_008bc9d0(weaponSlot32Slot15, 1))
+            if (actor->CanUseWeapon(weaponSlot32Slot15, 1))
             {
                 unsigned int index = scoresSlot20.FUN_007881d0();
                 FUN_00403d30(&scoresSlot20.FUN_006b3160(index), 0, 20);
@@ -7014,7 +7014,7 @@ void Manager::EvaluateWeaponScores()
                     if (equippedSlot10 && weaponSlot32Slot15 == equippedSlot10->FUN_0044ddc0())
                     {
                         Animation* animation = actor->AnimationData();
-                        bool busySlot0 = actor->FUN_008a8870() || (animation && animation->FUN_008846c0());
+                        bool busySlot0 = actor->IsReloading() || (animation && animation->FUN_008846c0());
                         if (!busySlot0)
                         {
                             Process* process = actor->FUN_008d8520();
@@ -7044,7 +7044,7 @@ void Manager::EvaluateWeaponScores()
                     {
                         bool emptySlot0 = state && state->FUN_00726070() <= 0 && active && active->GetByteAt102() > 0;
                         bool busy2Slot10 =
-                            actor->FUN_008a8870() || (animation2Slot1 && animation2Slot1->FUN_008846c0());
+                            actor->IsReloading() || (animation2Slot1 && animation2Slot1->FUN_008846c0());
                         if (emptySlot0 && !busy2Slot10)
                             actor->FUN_008a8840();
                     }
@@ -8592,7 +8592,7 @@ struct PickActor : PickRef
     virtual bool IsCreature();
     PickBase* FUN_004181e0();
     PickProc* FUN_008d8520();
-    bool FUN_008bc9d0(PickWeapon*, int);
+    bool CanUseWeapon(PickWeapon*, int);
 };
 struct PickController
 {
@@ -8875,7 +8875,7 @@ bool WeaponSearch::SelectBestWeaponTarget()
             continue;
         if (aC2 && !aRy->FUN_004c0c30())
             continue;
-        if (!aC1->FUN_008bc9d0(aRy, 0))
+        if (!aC1->CanUseWeapon(aRy, 0))
             continue;
         float cbA = 0.0f;
         if (aKB <= 0.0)
@@ -9248,7 +9248,7 @@ struct Save435
     void FUN_00865e50(void*, unsigned, int);
     void FUN_00865df0(void*, int);
     void FUN_00865db0(void*, int);
-    void FUN_00865f60(unsigned);
+    void SaveVariableSizedValue(unsigned);
 };
 struct Stamp435
 {
@@ -9412,7 +9412,7 @@ void Owner435::SaveToStream(Save435* pSaveBuffer)
         pSaveBuffer->FUN_00865df0(references[i], 0);
     {
         unsigned count = &list24 ? list24.FUN_0044ddc0() : 0;
-        pSaveBuffer->FUN_00865f60(count);
+        pSaveBuffer->SaveVariableSizedValue(count);
         for (unsigned j = 0; j < count; j++)
         {
             void** item = list24.FUN_006a7ad0(j);
@@ -9487,7 +9487,7 @@ void Owner435::SaveToStream(Save435* pSaveBuffer)
         location2.FUN_009a2f50(pSaveBuffer);
     {
         unsigned uiList164Count = &list164 ? list164.FUN_0044ddc0() : 0;
-        pSaveBuffer->FUN_00865f60(uiList164Count);
+        pSaveBuffer->SaveVariableSizedValue(uiList164Count);
         for (unsigned uiList164Index = 0; uiList164Index < uiList164Count; uiList164Index++)
         {
             Item435* item2 = list164.FUN_00844160(uiList164Index);
@@ -9496,7 +9496,7 @@ void Owner435::SaveToStream(Save435* pSaveBuffer)
     }
     {
         unsigned uiList174Count = &list174 ? list174.FUN_0044ddc0() : 0;
-        pSaveBuffer->FUN_00865f60(uiList174Count);
+        pSaveBuffer->SaveVariableSizedValue(uiList174Count);
         for (unsigned m = 0; m < uiList174Count; m++)
         {
             ItemB435* item3 = list174.FUN_006dad90(m);

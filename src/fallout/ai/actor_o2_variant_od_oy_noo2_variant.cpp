@@ -1701,7 +1701,7 @@ struct ParamObj
 };
 struct SubObjSrc
 {
-    void* FUN_009306d0();
+    void* GetCharController();
 };
 struct Sub410
 {
@@ -1818,7 +1818,7 @@ void HostShell::FUN_008a4af0(ParamObj* source, float strength, float secondary, 
             if (!Unk_8C() && enabled)
             {
                 bool special = false;
-                void* sub = ((SubObjSrc*)this)->FUN_009306d0();
+                void* sub = ((SubObjSrc*)this)->GetCharController();
                 if (sub)
                     special = ((Sub410*)((char*)sub + 0x410))->FUN_008a5170();
                 FUN_00c9b250(manager, 0.0f, special);
@@ -3423,11 +3423,11 @@ struct xActor
     virtual void v174();
     virtual float FUN_2bc(int);
     xFilter FUN_00931ed0();
-    float FUN_008bdbd0(xActor* apTarget, float afHeight);
+    float GetVATSTargetVisible(xActor* apTarget, float afHeight);
 };
 
 // @fnv 0x008bdbd0
-float xActor::FUN_008bdbd0(xActor* apTarget, float afHeight)
+float xActor::GetVATSTargetVisible(xActor* apTarget, float afHeight)
 {
     if (!apTarget || !apTarget->FUN_1d0())
         return 0.0f;
@@ -6096,7 +6096,7 @@ struct kSelf
     kArea* FUN_00891170();
     void* FUN_00575d70();
     void FUN_00947d80();
-    void FUN_009480c0();
+    void ResetMapMarkerStructList();
     void FUN_0094cae0(kActor* p);
 };
 
@@ -6282,7 +6282,7 @@ void kSelf::FUN_0094cae0(kActor* p)
         kE* e4 = m760 ? m760->FUN_009611e0(4)->FUN_004f35b0() : 0;
         FUN_00705420(m760, e4 ? e4->v2c() : 0, 1);
         FUN_00947d80();
-        FUN_009480c0();
+        ResetMapMarkerStructList();
         kNodeT<kRef>* n2 = &list.head;
         while (n2 && *n2->Get())
         {

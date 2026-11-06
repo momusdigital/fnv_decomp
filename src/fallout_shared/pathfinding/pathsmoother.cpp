@@ -200,7 +200,7 @@ struct FUN_006ed530_cls
     SubSlot m_90;
 
     void FUN_006ed850();
-    void FUN_006eef80();
+    void BuildShrunkEdgeLeftRightArrays();
     bool CheckEdges();
     void CopyNodePositions();
     void FUN_006f03a0();
@@ -211,11 +211,11 @@ struct FUN_006ed530_cls
     void AppendSegments(int aA, int aB);
     void SmoothPathDirections();
     void FUN_006ed730(Triple* apSrc, void* apRes);
-    bool FUN_006ed530(NodeA* a1, ArgObj* a2, ArgObj* a3, Triple* a4, Triple* a5, int a6, Gate* a7, unsigned char a8);
+    bool SmoothPath(NodeA* a1, ArgObj* a2, ArgObj* a3, Triple* a4, Triple* a5, int a6, Gate* a7, unsigned char a8);
 };
 
 // @fnv 0x006ed530
-bool FUN_006ed530_cls::FUN_006ed530(NodeA* apNode, ArgObj* apArgObj, ArgObj* apArgObj2, Triple* apTripleA,
+bool FUN_006ed530_cls::SmoothPath(NodeA* apNode, ArgObj* apArgObj, ArgObj* apArgObj2, Triple* apTripleA,
                                     Triple* apTripleB, int aiValue, Gate* apGate, unsigned char abForce)
 {
     bool bResult;
@@ -249,7 +249,7 @@ bool FUN_006ed530_cls::FUN_006ed530(NodeA* apNode, ArgObj* apArgObj, ArgObj* apA
     m_90.FUN_008454f0(0);
 
     FUN_006ed850();
-    FUN_006eef80();
+    BuildShrunkEdgeLeftRightArrays();
     bResult = CheckEdges();
     CopyNodePositions();
     FUN_006f03a0();

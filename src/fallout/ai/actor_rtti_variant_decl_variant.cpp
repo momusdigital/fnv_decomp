@@ -361,7 +361,7 @@ struct CrimeCalendar
     float FUN_00867da0();
     char FUN_00867d60();
     int FUN_00867d20();
-    int FUN_00867c60();
+    int GetYear();
 };
 extern CrimeCalendar g_011de7b8;
 struct CrimeQueue
@@ -375,7 +375,7 @@ class TESNPC : public TESBoundObject
 {
 };
 // @fnv 0x008c00e0
-void Actor::FUN_008c00e0(TESObjectREFR* victimRef, int amount, int crimeValue)
+void Actor::PickpocketAlarm(TESObjectREFR* victimRef, int amount, int crimeValue)
 {
     bool status = false;
     if ((Actor*)this != DAT_011dea3c)
@@ -408,7 +408,7 @@ void Actor::FUN_008c00e0(TESObjectREFR* victimRef, int amount, int crimeValue)
     isLowLevel->AddActor((Actor*)this);
     g_011e0e80.AddObjectToList(isLowLevel);
     target->FUN_008bff50();
-    target->FUN_008b7c00(true, true);
+    target->AddFactionMinorCrime(true, true);
     if (m_bActorListValid)
     {
         bool alert = true;
@@ -431,7 +431,7 @@ void Actor::FUN_008c00e0(TESObjectREFR* victimRef, int amount, int crimeValue)
     {
         m_bActorListValid = true;
         m_iIntegerAfterActorListValid =
-            (g_011de7b8.FUN_00867d20() << 9) | g_011de7b8.FUN_00867d60() | (g_011de7b8.FUN_00867c60() << 13);
+            (g_011de7b8.FUN_00867d20() << 9) | g_011de7b8.FUN_00867d60() | (g_011de7b8.GetYear() << 13);
     }
     target->FUN_008bf500((Actor*)this);
 }

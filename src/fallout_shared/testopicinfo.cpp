@@ -864,7 +864,7 @@ void FUN_0061cfd0_shell::FUN_0061cfd0(char* apPrompt)
 
 // Reads the flags byte at offset 0x26 and returns 1 if bit 0x10 is set, 3 if bit 0x20 is set, otherwise 2.
 // @fnv 0x0061e720
-int __fastcall FUN_0061e720(const char* pThis)
+int __fastcall GetDummyNodeState(const char* pThis)
 {
     return (pThis[0x26] & 0x10) ? 1 : ((pThis[0x26] & 0x20) ? 3 : 2);
 }
@@ -904,11 +904,11 @@ bool FUN_0061f260_shell::FUN_0061f260()
 
 struct FUN_0061f340_shell : public TESTopicInfo
 {
-    void FUN_0061f340(unsigned short);
+    void SetInfoIndex(unsigned short);
 };
 
 // @fnv 0x0061f340
-void FUN_0061f340_shell::FUN_0061f340(unsigned short usIndex)
+void FUN_0061f340_shell::SetInfoIndex(unsigned short usIndex)
 {
     *(unsigned short*)((char*)this + 0x20) = usIndex;
 }
@@ -1066,11 +1066,11 @@ struct FUN_006174d0_shell
 
 struct FUN_0061cb60_shell : TESResponseList
 {
-    void FUN_0061cb60(TESResponse* head);
+    void CopyResponseList(TESResponse* head);
 };
 
 // @fnv 0x0061cb60
-void FUN_0061cb60_shell::FUN_0061cb60(TESResponse* head)
+void FUN_0061cb60_shell::CopyResponseList(TESResponse* head)
 {
     ClearResponses();
     TESResponse* previous = 0;
@@ -1214,10 +1214,10 @@ struct FUN_0061f280_This
     {}
     char _pad[30];
     unsigned char field22;
-    void FUN_0061f280();
+    void ResetSaidOnceFlags();
 };
 // @fnv 0x0061f280
-void FUN_0061f280_This::FUN_0061f280()
+void FUN_0061f280_This::ResetSaidOnceFlags()
 {
     field22 = 0;
     v19(0x80000000);
@@ -1228,7 +1228,7 @@ struct GlobalObject2_0040c150
     int* Int();
 };
 extern GlobalObject2_0040c150 g_011d0dc8;
-int __fastcall FUN_0061e720(const char*);
+int __fastcall GetDummyNodeState(const char*);
 struct CondOps
 {
     bool ContainsTrait(TESObjectREFR*, TESObjectREFR*, bool&, bool);
@@ -1252,11 +1252,11 @@ struct FUN_0061e600_t : public TESTopicInfo
 {
     bool FUN_00619b20();
     bool IsNew();
-    bool FUN_0061e600(bool& rbDeferred, TESQuest* apQuest, TESObjectREFR* apSpeaker, TESObjectREFR* apListener);
+    bool CheckCondition(bool& rbDeferred, TESQuest* apQuest, TESObjectREFR* apSpeaker, TESObjectREFR* apListener);
 };
 
 // @fnv 0x0061e600
-bool FUN_0061e600_t::FUN_0061e600(bool& rbDeferred, TESQuest* apQuest, TESObjectREFR* apSpeaker,
+bool FUN_0061e600_t::CheckCondition(bool& rbDeferred, TESQuest* apQuest, TESObjectREFR* apSpeaker,
                                   TESObjectREFR* apListener)
 {
     bool bResult;
@@ -1266,7 +1266,7 @@ bool FUN_0061e600_t::FUN_0061e600(bool& rbDeferred, TESQuest* apQuest, TESObject
     if (FUN_00619b20() && IsNew())
         return false;
     {
-        int iType = FUN_0061e720((const char*)this);
+        int iType = GetDummyNodeState((const char*)this);
         pActor = 0;
         if (apListener && ((TESForm*)apListener)->IsActor())
             pActor = (ActorS*)apListener;
@@ -1739,7 +1739,7 @@ void TopicInfoCopy::FUN_0061e330(TESForm* form)
     SetSpeaker(topic->GetSpeaker());
     static_cast<ScriptCopy*>(GetResultScript(0))->CopyFromScript(topic->GetResultScript(0));
     static_cast<ScriptCopy*>(GetResultScript(1))->CopyFromScript(topic->GetResultScript(1));
-    reinterpret_cast<FUN_0061f340_shell*>(this)->FUN_0061f340(topic->GetInfoIndex());
+    reinterpret_cast<FUN_0061f340_shell*>(this)->SetInfoIndex(topic->GetInfoIndex());
     reinterpret_cast<FUN_0061e0f0_shell*>(this)->FUN_0061e0f0(static_cast<TopicInfoCopy*>(topic)->FUN_00500940());
     if (static_cast<TopicInfoCopy*>(topic)->GetField38())
         FUN_0061e180(static_cast<TopicInfoCopy*>(topic)->GetField38());
@@ -1880,11 +1880,11 @@ class B61F2B0Object
     int unk40;
     int m_iZ;
 
-    int FUN_0061f2b0();
+    int GetDifficulty();
 };
 
 // @fnv 0x0061f2b0
-int B61F2B0Object::FUN_0061f2b0()
+int B61F2B0Object::GetDifficulty()
 {
     switch (m_iZ)
     {

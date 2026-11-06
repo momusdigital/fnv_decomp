@@ -733,7 +733,7 @@ struct FormBufferContext
     void* pData;
     FormBufferContext();
     void* FUN_00559450();
-    void* FUN_00866390();
+    void* GetAdvancedBuffer();
 };
 struct BGSSaveLoadInitialDataPacket
 {
@@ -751,7 +751,7 @@ struct ReferencePlacementData
     unsigned char cFlags;
     ReferencePlacementData();
     bool GetCellAndWorld(TESObjectCELL*& cell, TESWorldSpace*& world);
-    void FUN_0084e6a0(TESObjectCELL*& cell, TESWorldSpace*& world);
+    void GetOriginalLocationCellAndWorld(TESObjectCELL*& cell, TESWorldSpace*& world);
 };
 struct TESObjectREFR
 {
@@ -961,7 +961,7 @@ unsigned int BGSSaveLoadGameImpl::LoadFormData(SaveLoadFile* apFile, LoadFormBuf
             }
             else if (einitialDataType == 6 && !pform)
             {
-                refData.FUN_0084e6a0(pcell, pworld);
+                refData.GetOriginalLocationCellAndWorld(pcell, pworld);
                 if (pcell)
                     (*(ReconstructFormsH**)((char*)this + 0x20))->FUN_00843750(pcell, iformID, false);
                 else
@@ -1017,10 +1017,10 @@ unsigned int BGSSaveLoadGameImpl::LoadFormData(SaveLoadFile* apFile, LoadFormBuf
                     FormIDConverter* pcurrentFormIDMap = *(FormIDConverter**)((char*)this + 8);
                     *(FormIDConverter**)((char*)this + 8) = apOldFormIDMap;
                     ReferencePlacementData refData;
-                    FUN_0084e930(unloadedFormBuffer.FUN_00866390(), eoldInitialDataType, &refData);
+                    FUN_0084e930(unloadedFormBuffer.GetAdvancedBuffer(), eoldInitialDataType, &refData);
                     TESObjectCELL* pcell = 0;
                     TESWorldSpace* pworld = 0;
-                    refData.FUN_0084e6a0(pcell, pworld);
+                    refData.GetOriginalLocationCellAndWorld(pcell, pworld);
                     if (pcell && g_TES->IsCellBuffered(pcell, false))
                     {
                         (*(ReconstructFormsH**)((char*)this + 0x20))->FUN_00843750(pcell, iformID, false);
@@ -1287,10 +1287,10 @@ struct FUN_00848e70_shell
 };
 struct FUN_0084a840_shell : BGSSaveLoadGame
 {
-    void FUN_0084a840();
+    void RevertAllChanges();
 };
 // @fnv 0x0084a840
-void FUN_0084a840_shell::FUN_0084a840()
+void FUN_0084a840_shell::RevertAllChanges()
 {
     ((FUN_00848ca0_shell*)this)->FUN_00848ca0(true);
     BGSSaveLoadHistory_Destroy(1);
@@ -1552,12 +1552,12 @@ bool __fastcall FUN_00425fd0(TESObjectCELL*);
 struct SLGameShell : public BGSSaveLoadGame
 {
     bool FUN_00849a90(TESForm* apForm);
-    void FUN_00849730(TESForm* apForm, bool abForce);
+    void UnloadForm(TESForm* apForm, bool abForce);
 };
 
 // Unloads a form into an UnloadFormBuffer, updates its change data, and records reference cell/worldspace info for reference forms.
 // @fnv 0x00849730
-void SLGameShell::FUN_00849730(TESForm* apForm, bool abForce)
+void SLGameShell::UnloadForm(TESForm* apForm, bool abForce)
 {
     AutoMemContext m_uiMemoryContext(
         MEM_CONTEXT_MEM_CONTEXT_SAVELOAD, true,
@@ -2557,7 +2557,7 @@ struct BGSLoadFormBuffer
 struct FlagMethods
 {
     unsigned int flags;
-    void FUN_00841100(unsigned int);
+    void AddFlags(unsigned int);
 };
 struct FUN_008c71b0
 {
@@ -2801,7 +2801,7 @@ bool ReconstructSession::LoadSaveGame(SaveFile* pSaveFile, bool restoreMode)
                         UnloadFlags previous_ = pendingChanges->GetFirstEntry(index);
                         if (previous_.FUN_00559450())
                         {
-                            ((FlagMethods*)&currentVal)->FUN_00841100(previous_.FUN_00559450());
+                            ((FlagMethods*)&currentVal)->AddFlags(previous_.FUN_00559450());
                             pendingChanges->FUN_00845a20(index);
                         }
                         pendingChanges->ApplyFormQuantityChange(index, changed);
@@ -3059,7 +3059,7 @@ class FUN_008492b0_shell
     LoadBufferArray buffers;
     void SetFlag8(bool);
     void FUN_0084a690(TESForm*, GlobalObject_008c71b0, bool);
-    void FUN_00849730(TESForm*, bool);
+    void UnloadForm(TESForm*, bool);
     void ResetLoadBuffers(bool resetWorld);
 };
 // @fnv 0x008492b0
@@ -3109,7 +3109,7 @@ void FUN_008492b0_shell::ResetLoadBuffers(bool resetWorld)
                         if (((Actor*)actor)->GetProcess())
                             actor->V145();
                     }
-                    FUN_00849730(ref, true);
+                    UnloadForm(ref, true);
                     TESObjectCELL* cell = ref->GetParentCell();
                     if (cell)
                         ((CellPhysics*)cell)->RemoveReference(ref);
@@ -3445,7 +3445,7 @@ struct Buf84
 {
     unsigned int FUN_00559450();
     int FUN_00849220();
-    void* FUN_00866390();
+    void* GetAdvancedBuffer();
     void FUN_006665a0();
     unsigned char FUN_0084b450();
     unsigned int FUN_008663e0();
@@ -3562,7 +3562,7 @@ void FUN_0084ab20_shell::FUN_0084ab20()
                     if (res != 0)
                     {
                         S84mini mini;
-                        FUN_0084e930(value->buffer.FUN_00866390(), res, &mini);
+                        FUN_0084e930(value->buffer.GetAdvancedBuffer(), res, &mini);
                         size = (unsigned int)mini.d;
                         if (res != 3)
                         {
@@ -3663,7 +3663,7 @@ void FUN_0084ab20_shell::FUN_0084ab20()
                     {
                         S84 info;
                         info.FUN_00849280();
-                        FUN_0084e930(ev->buffer.FUN_00866390(), resA4, &info);
+                        FUN_0084e930(ev->buffer.GetAdvancedBuffer(), resA4, &info);
                         eg = (unsigned int)info.f00;
                         es = (unsigned int)(FUN_00406d90(info.pt.x) >> 12);
                         ej = (unsigned int)(FUN_00406d90(info.pt.y) >> 12);
@@ -3703,7 +3703,7 @@ void FUN_0084ab20_shell::FUN_0084ab20()
                     info2.FUN_00849280();
                     if (ev->buffer.FUN_00559450() != 0 && res100 == 6)
                     {
-                        FUN_0084e930(ev->buffer.FUN_00866390(), res100, &info2);
+                        FUN_0084e930(ev->buffer.GetAdvancedBuffer(), res100, &info2);
                         ((RefMap84*)m_pReferencesMap)->FUN_0084b470(fm);
                         Form84* formX = FUN_004839c0((unsigned int)info2.f00);
                         if (formX != 0 && formX->FUN_00401170() == 0x41)
@@ -3734,7 +3734,7 @@ void FUN_0084ab20_shell::FUN_0084ab20()
                             unsigned char pC;
                             unsigned int len;
                             unsigned int pA;
-                            bb = (unsigned int)ev->buffer.FUN_00866390();
+                            bb = (unsigned int)ev->buffer.GetAdvancedBuffer();
                             len = FUN_0084e800(res100);
                             bb += len;
                             as = 0;
@@ -3836,13 +3836,13 @@ class ReconstructScratch
     unsigned int unk28;
     unsigned int unk2c;
     void FUN_00849280();
-    void FUN_0084e6a0(TESForm**, unsigned int*);
+    void GetOriginalLocationCellAndWorld(TESForm**, unsigned int*);
 };
 class SourceData
 {
   public:
     unsigned int unk00;
-    char* FUN_00866390();
+    char* GetAdvancedBuffer();
 };
 class StringRef
 {
@@ -3958,10 +3958,10 @@ void ReconstructLoadContext::FUN_00848e70(BGSSaveLoadChangesMap* changes, TESFil
                     {
                         ReconstructScratch scratch;
                         scratch.FUN_00849280();
-                        FUN_0084e930(more.FUN_00866390(), type, &scratch);
+                        FUN_0084e930(more.GetAdvancedBuffer(), type, &scratch);
                         TESForm* reconstructed = 0;
                         old = 0;
-                        scratch.FUN_0084e6a0(&reconstructed, &old);
+                        scratch.GetOriginalLocationCellAndWorld(&reconstructed, &old);
                         if (reconstructed)
                         {
                             if (g_TES->FUN_004511e0(reconstructed, 0))

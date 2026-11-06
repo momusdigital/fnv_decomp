@@ -783,7 +783,7 @@ struct FNStub
 };
 struct TESSaveLoadGame
 {
-    void FUN_008579b0(void*, int);
+    void SaveGameDataOLD(void*, int);
 };
 extern TESSaveLoadGame* g_TESSaveLoadGame;
 int BSStringLength(const char*);
@@ -2269,7 +2269,7 @@ extern "C" char g_nestedScriptRunFormat[];
 extern "C" void* __fastcall FNV_GetObjectReference(void*);
 __declspec(dllimport) long __stdcall QueryPerformanceCounter(__int64*);
 __declspec(dllimport) long __stdcall QueryPerformanceFrequency(__int64*);
-bool FUN_00702fc0();
+bool IsDebugTextVisible();
 void FUN_005b5e40(const char* fmt, int a, int b);
 struct Clist
 {

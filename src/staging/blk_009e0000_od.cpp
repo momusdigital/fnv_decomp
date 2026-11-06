@@ -615,7 +615,7 @@ struct S_009eb8a0_Time
 {
     int FUN_00867d20();
     char FUN_00867d60();
-    int FUN_00867c60();
+    int GetYear();
 };
 struct S_009eb8a0_Setting
 {
@@ -642,7 +642,7 @@ struct S_009eb8a0_Cls
 // @fnv 0x009eb8a0
 bool S_009eb8a0_Cls::FUN_009eb8a0()
 {
-    int now4 = (DAT_011de7b8.FUN_00867d20() << 9) | DAT_011de7b8.FUN_00867d60() | (DAT_011de7b8.FUN_00867c60() << 13);
+    int now4 = (DAT_011de7b8.FUN_00867d20() << 9) | DAT_011de7b8.FUN_00867d60() | (DAT_011de7b8.GetYear() << 13);
     bool result5 = false;
     if (now4 - unk30 >= *DAT_011cd39c.FUN_0043d4d0())
     {
@@ -1459,7 +1459,7 @@ struct ItemCls
 {
     void FUN_0047eb90(int);
     bool FUN_008a61b0();
-    void FUN_00881680(int);
+    void EndInterruptPackage(int);
     MidCls* FUN_005d43c0();
 };
 struct ListNode
@@ -1558,7 +1558,7 @@ FUN_009eb660::~FUN_009eb660()
         {
             item6 = (ItemCls*)*pA3->FUN_006815c0();
             if (item6->FUN_008a61b0())
-                item6->FUN_00881680(0);
+                item6->EndInterruptPackage(0);
             destB_ = item6->FUN_005d43c0()->FUN_0041cf00();
             if (destB_ != 0)
                 destB_->FUN_00905330(this);

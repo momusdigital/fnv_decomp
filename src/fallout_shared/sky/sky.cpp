@@ -1428,7 +1428,7 @@ namespace fnv_0063e9f0 {
 class TESSaveLoadGame
 {
   public:
-    void FUN_008579b0(void*, int);
+    void SaveGameDataOLD(void*, int);
     void FUN_00857a10(int*, int);
 };
 
@@ -1486,15 +1486,15 @@ void FUN_0063e9f0_shell::FUN_0063e9f0()
         DAT_011de45c->FUN_00857a10(&formID4, 4);
     }
 
-    DAT_011de45c->FUN_008579b0(&value_ec, 4);
-    DAT_011de45c->FUN_008579b0(&value_f0, 4);
-    DAT_011de45c->FUN_008579b0(&value_f4, 4);
-    DAT_011de45c->FUN_008579b0(&value_f8, 4);
+    DAT_011de45c->SaveGameDataOLD(&value_ec, 4);
+    DAT_011de45c->SaveGameDataOLD(&value_f0, 4);
+    DAT_011de45c->SaveGameDataOLD(&value_f4, 4);
+    DAT_011de45c->SaveGameDataOLD(&value_f8, 4);
 
     if (DAT_011de45c->FUN_008df040() >= 0x69)
     {
-        DAT_011de45c->FUN_008579b0(&value_118, 4);
-        DAT_011de45c->FUN_008579b0(&value_110, 4);
+        DAT_011de45c->SaveGameDataOLD(&value_118, 4);
+        DAT_011de45c->SaveGameDataOLD(&value_110, 4);
     }
 }
 }  // namespace fnv_0063e9f0

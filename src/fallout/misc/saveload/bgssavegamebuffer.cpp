@@ -76,14 +76,14 @@ void __thiscall FUN_00865c80_shell::FUN_00865c80(FUN_00846330_shell* a1, int a2)
 
 struct BGSSaveGameBuffer
 {
-    void FUN_00865f60(unsigned int aiVariableValue);
+    void SaveVariableSizedValue(unsigned int aiVariableValue);
     void WriteAtOffset(void* data, unsigned int size, unsigned int offset);
 };
 
 void __cdecl _fnv_call_845cc0(const char* fmt, unsigned int value);
 
 // @fnv 0x00865f60
-void BGSSaveGameBuffer::FUN_00865f60(unsigned int aiVariableValue)
+void BGSSaveGameBuffer::SaveVariableSizedValue(unsigned int aiVariableValue)
 {
     unsigned char cvalue3;
     unsigned short svalue9;
@@ -112,12 +112,12 @@ void BGSSaveGameBuffer::FUN_00865f60(unsigned int aiVariableValue)
 
 struct FUN_00835f10_shell
 {
-    void __thiscall FUN_00835f10(BGSSaveFormBuffer* apBuffer);
+    void __thiscall SaveGame(BGSSaveFormBuffer* apBuffer);
 };
 
 // Writes the object's pointer to the save buffer, then saves four consecutive one-byte fields at offsets 0x1c through 0x1f.
 // @fnv 0x00835f10
-void __thiscall FUN_00835f10_shell::FUN_00835f10(BGSSaveFormBuffer* apBuffer)
+void __thiscall FUN_00835f10_shell::SaveGame(BGSSaveFormBuffer* apBuffer)
 {
     apBuffer->SerializeFormData(*(void**)this, 0);
     apBuffer->SaveData((char*)this + 0x1c, 1, 0);
@@ -221,11 +221,11 @@ struct FUN_008579b0_shell
     int m_14;
     int m_18;
     int m_1c;
-    void __thiscall FUN_008579b0(void* a1, unsigned int a2);
+    void __thiscall SaveGameDataOLD(void* a1, unsigned int a2);
 };
 // Copies a2 bytes from a1 into the buffer at this+0x14, then calls Init with a2.
 // @fnv 0x008579b0
-void __thiscall FUN_008579b0_shell::FUN_008579b0(void* apSource, unsigned int uiSize)
+void __thiscall FUN_008579b0_shell::SaveGameDataOLD(void* apSource, unsigned int uiSize)
 {
     __memcpy(*(void**)((char*)this + 0x14), apSource, uiSize);
     ((FUN_00857bd0*)this)->Init(uiSize);
@@ -374,11 +374,11 @@ struct FUN_00865f20_shell
     int _08;
     unsigned int m_0c;
     void __thiscall FUN_00865ce0(char* a1, int a2, unsigned int a3, int a4);
-    unsigned int __thiscall FUN_00865f20();
+    unsigned int __thiscall StartVariableSizedValue();
 };
 // Appends a single '#' character at offset m_0c and returns the previous offset.
 // @fnv 0x00865f20
-unsigned int __thiscall FUN_00865f20_shell::FUN_00865f20()
+unsigned int __thiscall FUN_00865f20_shell::StartVariableSizedValue()
 {
     char cvalue;
     unsigned int iposition;
@@ -411,11 +411,11 @@ void __thiscall FUN_0083fb10_shell::FUN_0083fb10(BGSSaveFormBuffer* apBuffer)
 unsigned int __cdecl _strlen(const char*);
 struct FUN_00865e70_shell : BGSSaveGameBuffer
 {
-    void __thiscall FUN_00865e70(const char* apString, unsigned int aiUnusedMetaDataArg);
+    void __thiscall SaveString(const char* apString, unsigned int aiUnusedMetaDataArg);
 };
 // Writes a string to the save buffer: computes its length, writes the 2-byte length, then the string bytes if non-empty.
 // @fnv 0x00865e70
-void FUN_00865e70_shell::FUN_00865e70(const char* apString, unsigned int aiUnusedMetaDataArg)
+void FUN_00865e70_shell::SaveString(const char* apString, unsigned int aiUnusedMetaDataArg)
 {
     unsigned short usLength = apString ? _strlen(apString) : 0;
     unsigned short usSavedLength = usLength;
@@ -426,14 +426,14 @@ void FUN_00865e70_shell::FUN_00865e70(const char* apString, unsigned int aiUnuse
 
 struct FUN_00865ff0_shell : FUN_00865f20_shell
 {
-    void __thiscall FUN_00865ff0(unsigned int a1, unsigned int a2);
-    void __thiscall FUN_00866140(unsigned int a1, unsigned int a2);
+    void __thiscall SaveVariableSizedValue(unsigned int a1, unsigned int a2);
+    void __thiscall ShiftBuffer(unsigned int a1, unsigned int a2);
 };
 
 extern const char $SG2649[];
 
 // @fnv 0x00865ff0
-void __thiscall FUN_00865ff0_shell::FUN_00865ff0(unsigned int uiValue, unsigned int a2)
+void __thiscall FUN_00865ff0_shell::SaveVariableSizedValue(unsigned int uiValue, unsigned int a2)
 {
     if (uiValue < 0x40)
     {
@@ -442,13 +442,13 @@ void __thiscall FUN_00865ff0_shell::FUN_00865ff0(unsigned int uiValue, unsigned 
     }
     else if (uiValue < 0x4000)
     {
-        this->FUN_00866140(a2, 1);
+        this->ShiftBuffer(a2, 1);
         unsigned short value16 = static_cast<unsigned short>((uiValue << 2) | 1);
         this->FUN_00865ce0(reinterpret_cast<char*>(&value16), 2, a2, 0);
     }
     else if (uiValue < 0x40000000)
     {
-        this->FUN_00866140(a2, 3);
+        this->ShiftBuffer(a2, 3);
         unsigned int value32 = (uiValue << 2) | 2;
         this->FUN_00865ce0(reinterpret_cast<char*>(&value32), 4, a2, 0);
     }

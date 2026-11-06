@@ -129,7 +129,7 @@ struct BGSSaveLoadGame
 {
     bool SetThreadAllowChanges(bool);
     bool FUN_0042ce10();
-    void FUN_00849730(void*, int);
+    void UnloadForm(void*, int);
 };
 struct Class_0084a700
 {
@@ -226,7 +226,7 @@ void TESObjectCELL::RemoveNonPersistentRefs()
                             ((FUN_00881d10*)pActor)->SetHoursPassed();
                     }
                     g_TESSaveLoadGame->FUN_008d0370(pRef);
-                    g_BGSSaveLoadGame->FUN_00849730(pRef, 0);
+                    g_BGSSaveLoadGame->UnloadForm(pRef, 0);
                     bool bPrint = true;
                     if (g_BGSSaveLoadGame->FUN_0042ce10() &&
                         ((Class_0084a700*)g_BGSSaveLoadGame)->HasChangeForForm(pRef, CF845(8)) &&
@@ -271,7 +271,7 @@ void TESObjectCELL::RemoveNonPersistentRefs()
                 if (!pNavFile || pNavFile->IsMasterFile())
                 {
                     NiPointer<NavMesh> apSearchNavMesh = pNavMeshArray->GetNavMeshAt(i);
-                    g_BGSSaveLoadGame->FUN_00849730(apSearchNavMesh.FUN_00458b50(), 0);
+                    g_BGSSaveLoadGame->UnloadForm(apSearchNavMesh.FUN_00458b50(), 0);
                     pNavMeshArray->RemoveAndCollect(i);
                     i--;
                 }

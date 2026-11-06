@@ -2419,12 +2419,12 @@ void __cdecl FUN_008329a0(bool);
 class Shell
 {
   public:
-    static void FUN_008325b0(Ref* ref, bool bArg);
+    static void ActivateRadio(Ref* ref, bool bArg);
 };
 
 // Enables or disables the bolt sound for a reference, creating or releasing its sound record and updating the sound state.
 // @fnv 0x008325b0
-void Shell::FUN_008325b0(Ref* ref, bool abEnable)
+void Shell::ActivateRadio(Ref* ref, bool abEnable)
 {
     if (DAT_011dd436)
     {
@@ -2800,11 +2800,11 @@ struct LoadBuffer : BGSLoadGameBuffer
 
     void __thiscall FUN_00865e50(void*, unsigned int, unsigned int);
 
-    void __thiscall FUN_00865e70(void*, unsigned int);
+    void __thiscall SaveString(void*, unsigned int);
 
-    unsigned int __thiscall FUN_00865f20();
+    unsigned int __thiscall StartVariableSizedValue();
 
-    void __thiscall FUN_00865ff0(unsigned int, unsigned int);
+    void __thiscall SaveVariableSizedValue(unsigned int, unsigned int);
 
     void __thiscall FUN_00865df0(unsigned int, unsigned int);
 };
@@ -2858,11 +2858,11 @@ void __cdecl FUN_008366e0(LoadBuffer* buffer)
 
     buffer->FUN_00865e50(&DAT_011dd434, 1, 0);
 
-    buffer->FUN_00865e70(&DAT_011dd448, 0);
+    buffer->SaveString(&DAT_011dd448, 0);
 
     firstID2 = 0;
 
-    formCount = buffer->FUN_00865f20();
+    formCount = buffer->StartVariableSizedValue();
 
     stationPosition4 = &DAT_011dd58c;
 
@@ -2882,11 +2882,11 @@ void __cdecl FUN_008366e0(LoadBuffer* buffer)
         stationPosition4 = stationPosition4->GetNext();
     }
 
-    buffer->FUN_00865ff0(firstID2, formCount);
+    buffer->SaveVariableSizedValue(firstID2, formCount);
 
     stationCount = 0;
 
-    receiverCount = buffer->FUN_00865f20();
+    receiverCount = buffer->StartVariableSizedValue();
 
     formNode2 = &DAT_011dd554;
 
@@ -2906,7 +2906,7 @@ void __cdecl FUN_008366e0(LoadBuffer* buffer)
         formNode2 = formNode2->GetNext();
     }
 
-    buffer->FUN_00865ff0(stationCount, receiverCount);
+    buffer->SaveVariableSizedValue(stationCount, receiverCount);
 
     secondID5 = 0;
 
@@ -2926,7 +2926,7 @@ void __cdecl FUN_008366e0(LoadBuffer* buffer)
 
     station_2 = 0;
 
-    formPosition4 = buffer->FUN_00865f20();
+    formPosition4 = buffer->StartVariableSizedValue();
 
     stationNode = &DAT_011dd59c;
 
@@ -2946,7 +2946,7 @@ void __cdecl FUN_008366e0(LoadBuffer* buffer)
         stationNode = stationNode->GetNext();
     }
 
-    buffer->FUN_00865ff0(station_2, formPosition4);
+    buffer->SaveVariableSizedValue(station_2, formPosition4);
 }
 }  // namespace fnv_008366e0
 
@@ -3725,10 +3725,10 @@ void __cdecl FUN_00834260(FalloutRadio::RadioStationState* apState)
 class RadioLoadBufferView : public BGSLoadGameBuffer
 {
   public:
-    void FUN_00864980(void* apDest, unsigned int auiSize);
+    void LoadData(void* apDest, unsigned int auiSize);
     char* FUN_008649a0(char* apDest);
-    unsigned int FUN_00864a60();
-    unsigned int FUN_008648a0();
+    unsigned int LoadVariableSizedValue();
+    unsigned int LoadFormID();
     void FUN_008648e0(unsigned int* apID);
 };
 
@@ -3776,11 +3776,11 @@ void FUN_008368b0(BGSLoadGameBuffer* apBuffer)
     unsigned int e;
     unsigned int j;
 
-    ((RadioLoadBufferView*)apBuffer)->FUN_00864980(&::fnv_008366e0::DAT_011dd428, 4);
-    ((RadioLoadBufferView*)apBuffer)->FUN_00864980(&DAT_011dd434, 1);
+    ((RadioLoadBufferView*)apBuffer)->LoadData(&::fnv_008366e0::DAT_011dd428, 4);
+    ((RadioLoadBufferView*)apBuffer)->LoadData(&DAT_011dd434, 1);
     ((RadioLoadBufferView*)apBuffer)->FUN_008649a0(::fnv_00832240::DAT_011dd448);
 
-    cf = ((RadioLoadBufferView*)apBuffer)->FUN_00864a60();
+    cf = ((RadioLoadBufferView*)apBuffer)->LoadVariableSizedValue();
     for (q = 0; q < cf; ++q)
     {
         b = (FalloutRadio::RadioReceiver*)new RadioLoadReceiverEntry();
@@ -3788,7 +3788,7 @@ void FUN_008368b0(BGSLoadGameBuffer* apBuffer)
         ((RadioLoadListView<FalloutRadio::RadioReceiver*>*)&DAT_011dd58c)->FUN_005ae3d0(&b);
     }
 
-    ba = ((RadioLoadBufferView*)apBuffer)->FUN_00864a60();
+    ba = ((RadioLoadBufferView*)apBuffer)->LoadVariableSizedValue();
     for (k = 0; k < ba; ++k)
     {
         l = (FalloutRadio::RadioStationState*)new RadioLoadStationEntry();
@@ -3797,16 +3797,16 @@ void FUN_008368b0(BGSLoadGameBuffer* apBuffer)
     }
 
     f = 0;
-    f = dynamic_cast< ::TESBoundObject*>(FUN_004839c0(((RadioLoadBufferView*)apBuffer)->FUN_008648a0()));
+    f = dynamic_cast< ::TESBoundObject*>(FUN_004839c0(((RadioLoadBufferView*)apBuffer)->LoadFormID()));
     DAT_011dd42c = (unsigned int)f;
 
     eb = 0;
-    eb = dynamic_cast< ::TESBoundObject*>(FUN_004839c0(((RadioLoadBufferView*)apBuffer)->FUN_008648a0()));
+    eb = dynamic_cast< ::TESBoundObject*>(FUN_004839c0(((RadioLoadBufferView*)apBuffer)->LoadFormID()));
     DAT_011dd430 = (unsigned int)eb;
 
     if (apBuffer->vfn_0() >= 10)
     {
-        c = ((RadioLoadBufferView*)apBuffer)->FUN_00864a60();
+        c = ((RadioLoadBufferView*)apBuffer)->LoadVariableSizedValue();
         for (e = 0; e < c; ++e)
         {
             j = 0;

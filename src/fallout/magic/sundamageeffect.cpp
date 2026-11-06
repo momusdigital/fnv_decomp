@@ -66,7 +66,7 @@ struct PC7d
 extern PC7d* g_thePlayer;
 struct S_0082a150
 {
-    double FUN_0082a1b0();
+    double GetDamageAmount();
     bool FUN_0082a150();
 };
 // @fnv 0x0082a150
@@ -75,7 +75,7 @@ bool S_0082a150::FUN_0082a150()
     if (reinterpret_cast<BSThread*>(this)->GetThreadID() ==
         (g_thePlayer ? (unsigned int)(reinterpret_cast<char*>(g_thePlayer) + 0x94) : 0))
     {
-        if (this->FUN_0082a1b0() > (double)0.01f)
+        if (this->GetDamageAmount() > (double)0.01f)
             return true;
     }
     return false;
@@ -87,7 +87,7 @@ struct ActiveEffectSaveHelper
 };
 struct TESSaveLoadGameHelper
 {
-    void FUN_008579b0(void*, int);
+    void SaveGameDataOLD(void*, int);
 };
 struct FUN_0082a3e0_shell : SunDamageEffect
 {
@@ -98,7 +98,7 @@ void FUN_0082a3e0_shell::SaveSunDamageEffect(Actor* apActor)
 {
     ((ActiveEffectSaveHelper*)this)->SaveGame(apActor);
     if (g_TESSaveLoadGame->FUN_008df040() >= 0x71)
-        ((TESSaveLoadGameHelper*)g_TESSaveLoadGame)->FUN_008579b0((char*)this + 0x48, 4);
+        ((TESSaveLoadGameHelper*)g_TESSaveLoadGame)->SaveGameDataOLD((char*)this + 0x48, 4);
 }
 
 struct MagicCaster;
@@ -426,7 +426,7 @@ struct S_00829bb0_Actor
     S_00829bb0_Cell* FUN_008d6f30();
     bool FUN_00575d10();
     S_00829bb0_Proc* FUN_008d8520();
-    void FUN_008a7d50(int a, int b);
+    void TriggerPain(int a, int b);
 };
 
 struct S_00829bb0_Caster
@@ -449,7 +449,7 @@ extern float DAT_011a14f8;
 struct S_00829bb0_Eff : FUN_00829a70
 {
     S_00829bb0_Caster* FUN_0059bb30();
-    double FUN_0082a1b0();
+    double GetDamageAmount();
     void FUN_00829e00(bool a);
     void UpdateEffect(float arg);
 };
@@ -475,7 +475,7 @@ void S_00829bb0_Eff::UpdateEffect(float arg)
         else
         {
             S_00829bb0_Proc* proc;
-            float f = FUN_0082a1b0();
+            float f = GetDamageAmount();
             FUN_00829e00(f > 0.01f);
             if (actor == DAT_011dea3c)
             {
@@ -484,7 +484,7 @@ void S_00829bb0_Eff::UpdateEffect(float arg)
                     DAT_011dea3c->v338(f * arg, 0.0f, 0);
                     if (DAT_011a14f8 < 0.0)
                     {
-                        DAT_011dea3c->FUN_008a7d50(1, 1);
+                        DAT_011dea3c->TriggerPain(1, 1);
                         DAT_011a14f8 = *DAT_011d18d8.FUN_00403e20();
                     }
                     else if (DAT_011a14f8 == 3.4028234663852886e+38)
@@ -865,7 +865,7 @@ float FUN_00649390(float, float, float, float, bool, float, bool);
 
 // Calls FUN_00649390 with values read from this, DAT_011dea10, and p; returns 0.0 when the guard fails.
 // @fnv 0x0082a1b0
-double S_0082a150::FUN_0082a1b0()
+double S_0082a150::GetDamageAmount()
 {
     H_Calls* p;
     H_Calls* aQ;

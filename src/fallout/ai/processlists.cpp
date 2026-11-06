@@ -486,7 +486,7 @@ void __fastcall FUN_0096c710(ProcessLists* pProcessLists)
 
 struct FUN_0096cfa0_proc
 {
-    void FUN_008ff030(MobileObject*);
+    void SkipFadeIn(MobileObject*);
 };
 struct FUN_0096cfa0_virt
 {
@@ -562,7 +562,7 @@ struct FUN_0096cfa0_cls
     MobileObjectProcessArray pa;
     void FUN_0096cfa0();
 };
-// Iterates the collection up to its tail count, and for each valid MobileObject whose virtual check passes, calls FUN_008ff030 on its current AI process.
+// Iterates the collection up to its tail count, and for each valid MobileObject whose virtual check passes, calls SkipFadeIn on its current AI process.
 // @fnv 0x0096cfa0
 void FUN_0096cfa0_cls::FUN_0096cfa0()
 {
@@ -571,7 +571,7 @@ void FUN_0096cfa0_cls::FUN_0096cfa0()
     {
         pmob = pa.GetItem(i);
         if (pmob && ((FUN_0096cfa0_virt*)pmob)->vlast())
-            ((FUN_0096cfa0_proc*)pmob->GetCurrentAIProcess())->FUN_008ff030(pmob);
+            ((FUN_0096cfa0_proc*)pmob->GetCurrentAIProcess())->SkipFadeIn(pmob);
     }
 }
 
@@ -878,7 +878,7 @@ struct FUN_00973de0_act
     virtual bool vlast(int);
     bool IsPlayerTeammate();
     void SetSpeakingState(bool);
-    void FUN_008ad910(void*, bool, bool);
+    void MoveActorAndFollowers(void*, bool, bool);
 };
 struct FUN_00973de0_player
 {
@@ -912,7 +912,7 @@ void FUN_00973de0_cls::FUN_00973de0()
                 a->IsPlayerTeammate())
             {
                 a->SetSpeakingState(false);
-                a->FUN_008ad910(pPlayer, false, false);
+                a->MoveActorAndFollowers(pPlayer, false, false);
             }
         }
     }
@@ -1845,7 +1845,7 @@ struct ActorDetect
 };
 struct FUN_00884480_shell
 {
-    bool FUN_00884480();
+    bool CanSpeak();
 };
 struct FUN_008bc3d0_shell
 {
@@ -2345,7 +2345,7 @@ void FUN_00977cb0_shell::StartActorDialogue(int eaction, TESObjectREFR* apObject
             pTalk = g_thePlayer->GetDialogueTarget();
             if (pTalk)
             {
-                if (pTalk->Unk_85() == 9 || !((FUN_00884480_shell*)pTalk)->FUN_00884480() || pTalk->IsDead(false) ||
+                if (pTalk->Unk_85() == 9 || !((FUN_00884480_shell*)pTalk)->CanSpeak() || pTalk->IsDead(false) ||
                     ((PCH*)pTalk)->HasCombatState() ||
                     (((ActorDetect*)pTalk)->UpdateActorPackageState(4) && !pTalk->IsPlayerTeammate()) ||
                     ((Ref_S*)pTalk)->GetDistanceToReference(g_thePlayer, false, false) > idistance)
@@ -2367,7 +2367,7 @@ void FUN_00977cb0_shell::StartActorDialogue(int eaction, TESObjectREFR* apObject
                 bool bsetactor = true;
                 bool bisTeammate = pact ? pact->IsPlayerTeammate() : false;
                 if (pact && pact->GetCurrentAIProcess() && pact->Unk_85() != 9 &&
-                    ((FUN_00884480_shell*)pact)->FUN_00884480() && !FUN_008a67f0(pact) &&
+                    ((FUN_00884480_shell*)pact)->CanSpeak() && !FUN_008a67f0(pact) &&
                     !((ProcStub*)pact->GetCurrentAIProcess())->IsInDialogue() &&
                     ((ActorDetect*)pact)
                             ->CalculateDetectionLevel(0, (Actor*)g_thePlayer, &blineofsight, false, 0, false, 0) > 0 &&
@@ -4584,7 +4584,7 @@ Modifier* __cdecl _FUN_004b7210();
 unsigned char __cdecl FUN_005b6f70();
 
 // @fnv 0x00703c00
-void __cdecl FUN_00703c00(char const* text, char const* context)
+void __cdecl PrintToConsole(char const* text, char const* context)
 {
     if (_FUN_004b7210() && _FUN_004b7210()->GetKey())
     {
@@ -4673,7 +4673,7 @@ struct GameTimerRecord
 
 struct TESSaveLoadGame
 {
-    void FUN_008579b0(void* data, int type);
+    void SaveGameDataOLD(void* data, int type);
 };
 
 struct TESFormList
@@ -4704,7 +4704,7 @@ struct FUN_009754f0_shell
 // @fnv 0x009754f0
 void FUN_009754f0_shell::FUN_009754f0()
 {
-    reinterpret_cast<TESSaveLoadGame*>(DAT_011de45c)->FUN_008579b0(&DAT_011e0e2c, 4);
+    reinterpret_cast<TESSaveLoadGame*>(DAT_011de45c)->SaveGameDataOLD(&DAT_011e0e2c, 4);
 
     int i;
     unsigned int* time;
@@ -4714,7 +4714,7 @@ void FUN_009754f0_shell::FUN_009754f0()
     {
         unsigned short count = 0;
         time = reinterpret_cast<GameTimerRecord*>(DAT_011de45c)->GetTime();
-        reinterpret_cast<TESSaveLoadGame*>(DAT_011de45c)->FUN_008579b0(&count, 2);
+        reinterpret_cast<TESSaveLoadGame*>(DAT_011de45c)->SaveGameDataOLD(&count, 2);
         list = lists[i];
 
         while (list != 0 && !reinterpret_cast<_ref_008256d0_shell*>(list)->_ref_008256d0())
@@ -5997,7 +5997,7 @@ struct ActorProcessProxy
     int FUN_008d8520();
     CellProcessType* FUN_00881510();
     int FUN_00931850();
-    void FUN_00881680(int flag);
+    void EndInterruptPackage(int flag);
 };
 
 extern float DAT_01084838;
@@ -6046,7 +6046,7 @@ void __cdecl ProcessPlayerCellActors()
                             typedef void(__thiscall * VirtualAction)(MobileObject*, int);
                             typedef void(__thiscall * VirtualFloat)(MobileObject*, float);
                             reinterpret_cast<VirtualAction>((*reinterpret_cast<void***>(actor))[0x10D])(actor, 0);
-                            reinterpret_cast<ActorProcessProxy*>(actor)->FUN_00881680(0);
+                            reinterpret_cast<ActorProcessProxy*>(actor)->EndInterruptPackage(0);
                             reinterpret_cast<VirtualFloat>((*reinterpret_cast<void***>(actor))[0x97])(actor,
                                                                                                       DAT_01084838);
                         }
@@ -6076,7 +6076,7 @@ void __cdecl ProcessPlayerCellActors()
 struct Settings970d50
 {
     float FUN_00867da0();
-    int FUN_00867c60();
+    int GetYear();
     int FUN_00867d20();
     bool FUN_00867d60();
 };
@@ -6092,7 +6092,7 @@ struct Actor970d50 : Actor
     int FUN_007af430();
     void FUN_008a1800(int);
     int FUN_008d8520();
-    void FUN_00893340(bool);
+    void InitPackageLocations(bool);
 };
 void __cdecl FUN_005ac190(Actor970d50*, void*);
 struct ProcessQueue970d50
@@ -6108,7 +6108,7 @@ void Lists970d50::FUN_00970d50()
 {
     MobileObject* object = 0;
     DAT_011e0358 = DAT_011de7b8.FUN_00867da0();
-    DAT_011e035c = DAT_011de7b8.FUN_00867c60();
+    DAT_011e035c = DAT_011de7b8.GetYear();
     DAT_011a39c4 = DAT_011de7b8.FUN_00867d20();
     DAT_011e0360 = DAT_011de7b8.FUN_00867d60();
     for (unsigned int index = m_kMobileObjectProcessList.GetHead((PROCESS_TYPE)3);
@@ -6132,7 +6132,7 @@ void Lists970d50::FUN_00970d50()
             }
             else
             {
-                actor->FUN_00893340(false);
+                actor->InitPackageLocations(false);
             }
         }
     }
@@ -7522,7 +7522,7 @@ struct Obj
     Obj* FUN_00881650();
     bool FUN_009336c0();
     Obj* FUN_009344a0();
-    void FUN_00881680(int a);
+    void EndInterruptPackage(int a);
     void FUN_008c4f10(int a);
     Obj* FUN_00410220(unsigned char a);
     bool FUN_008a6650(int a);
@@ -7698,7 +7698,7 @@ void Host::FUN_00976680(Obj* apObject)
                             }
                             else if (objB4->FUN_009344a0() != 0 && objB4->FUN_009344a0()->FUN_00674d40())
                             {
-                                objB4->FUN_00881680(0);
+                                objB4->EndInterruptPackage(0);
                             }
                             else
                             {
@@ -7846,7 +7846,7 @@ void Host::FUN_00976680(Obj* apObject)
                         }
                         else if (item5->FUN_009344a0()->FUN_00674d40())
                         {
-                            item5->FUN_00881680(0);
+                            item5->EndInterruptPackage(0);
                         }
                         else
                         {
@@ -8621,7 +8621,7 @@ struct RandomData
 {
     int FUN_00867d20();
     signed char FUN_00867d60();
-    int FUN_00867c60();
+    int GetYear();
 };
 extern "C" SingletonData DAT_011e0e80;
 extern "C" RandomData DAT_011de7b8;
@@ -8659,7 +8659,7 @@ FUN_009eb500::FUN_009eb500(unsigned int arg1, RefObj* arg2, unsigned int uiField
     members.field0c = DAT_011e0e80.FUN_009eb620();
     field38 = 0;
     members.field14 =
-        (DAT_011de7b8.FUN_00867d20() << 9) | DAT_011de7b8.FUN_00867d60() | (DAT_011de7b8.FUN_00867c60() << 13);
+        (DAT_011de7b8.FUN_00867d20() << 9) | DAT_011de7b8.FUN_00867d60() | (DAT_011de7b8.GetYear() << 13);
     FloatValue fInitValue(FUN_00435dd0());
     point = fInitValue;
 }
@@ -9661,8 +9661,8 @@ struct ActorEntity
     unsigned char FUN_00493bb0();
     int FUN_008a0d10(int, ActorEntity*, bool*, unsigned char, int, int, bool*);
     bool IsHostileTo(ActorEntity*, int, int*, int);
-    bool FUN_008bc700(ActorEntity*);
-    bool FUN_008a78f0(int);
+    bool IsInCombatWithActor(ActorEntity*);
+    bool ShouldSkipFallOutBehavior(int);
     void FUN_008c8bb0(int);
     void FUN_00966f20(ActorEntity*, bool, int);
     void FUN_00967350(ActorEntity*);
@@ -9744,9 +9744,9 @@ void DetectionLists::UpdateDetection()
                                 int l = 0;
                                 bool ba = false;
                                 if (h->IsHostileTo(((ActorEntity*)DAT_011dea3c), 0, &l, 0) ||
-                                    h->FUN_008bc700(((ActorEntity*)DAT_011dea3c)))
+                                    h->IsInCombatWithActor(((ActorEntity*)DAT_011dea3c)))
                                     ba = true;
-                                else if ((l == 0 || l == 1) && h->Base()->misc.FUN_00705cf0() && !h->FUN_008a78f0(6))
+                                else if ((l == 0 || l == 1) && h->Base()->misc.FUN_00705cf0() && !h->ShouldSkipFallOutBehavior(6))
                                     ba = true;
                                 if (h && eb < *DAT_011ccf94.Value())
                                     DAT_011e0e80.FUN_0096e3c0(f);
@@ -9834,7 +9834,7 @@ void FUN_0096d810_shell::FUN_0096d810()
         m_fProcessUpdateTimer -= DAT_011f6394.FUN_0084d030();
 
     DAT_011e0358 = DAT_011de7b8.FUN_00867da0();
-    DAT_011e035c = DAT_011de7b8.FUN_00867c60();
+    DAT_011e035c = DAT_011de7b8.GetYear();
     DAT_011a39c4 = DAT_011de7b8.FUN_00867d20();
     DAT_011e0360 = DAT_011de7b8.FUN_00867d60();
     FUN_008d5bc0();
@@ -10497,7 +10497,7 @@ struct FUN_008d80e0_shell
 };
 struct FUN_00881680_shell
 {
-    void FUN_00881680(int);
+    void EndInterruptPackage(int);
 };
 struct Extra19
 {
@@ -10537,7 +10537,7 @@ bool __fastcall IsInPackageType(Actor*);
 struct IdleForm67
 {
     Actor* FUN_0067f390();
-    void FUN_0067f3c0(int);
+    void SetLocReference(int);
 };
 struct ScriptGetText
 {
@@ -10986,7 +10986,7 @@ void FUN_0096f600_shell::FUN_0096f600(Actor* arg1, bool abClearPackageTargets)
                                     ActorPackageContext* proc2 = mainProc->GetCurrentProcessData();
                                     if (proc2 != 0 && ((FUN_0044ddc0_shell*)proc2)->FUN_0044ddc0() == arg1)
                                     {
-                                        ((FUN_00881680_shell*)bed1)->FUN_00881680(0);
+                                        ((FUN_00881680_shell*)bed1)->EndInterruptPackage(0);
                                     }
                                     else if (((FUN_0041ca90*)ed)->get() == 0x1c)
                                     {
@@ -11094,7 +11094,7 @@ void FUN_0096f600_shell::FUN_0096f600(Actor* arg1, bool abClearPackageTargets)
                                     {
                                         if (((ScriptGetText*)pkg)->GetText()->FUN_0067f390() == arg1)
                                         {
-                                            ((ScriptGetText*)pkg)->GetText()->FUN_0067f3c0(0);
+                                            ((ScriptGetText*)pkg)->GetText()->SetLocReference(0);
                                         }
                                     }
                                 }
@@ -11105,7 +11105,7 @@ void FUN_0096f600_shell::FUN_0096f600(Actor* arg1, bool abClearPackageTargets)
                                     {
                                         if (((ScriptGetText*)pkg2)->GetText()->FUN_0067f390() == arg1)
                                         {
-                                            ((ScriptGetText*)pkg2)->GetText()->FUN_0067f3c0(0);
+                                            ((ScriptGetText*)pkg2)->GetText()->SetLocReference(0);
                                         }
                                     }
                                 }
@@ -11139,7 +11139,7 @@ void FUN_0096f600_shell::FUN_0096f600(Actor* arg1, bool abClearPackageTargets)
                                     if (((FUN_00674d40_shell*)((ActorTargetSource*)bed1)->GetProcessTarget())
                                             ->FUN_00674d40())
                                     {
-                                        ((FUN_00881680_shell*)bed1)->FUN_00881680(0);
+                                        ((FUN_00881680_shell*)bed1)->EndInterruptPackage(0);
                                     }
                                     else
                                     {
@@ -11294,7 +11294,7 @@ void FUN_0096f600_shell::FUN_0096f600(Actor* arg1, bool abClearPackageTargets)
                             {
                                 if (((ScriptGetText*)idx)->GetText()->FUN_0067f390() == arg1)
                                 {
-                                    ((ScriptGetText*)idx)->GetText()->FUN_0067f3c0(0);
+                                    ((ScriptGetText*)idx)->GetText()->SetLocReference(0);
                                 }
                             }
                         }
@@ -11306,7 +11306,7 @@ void FUN_0096f600_shell::FUN_0096f600(Actor* arg1, bool abClearPackageTargets)
                             {
                                 if (((ScriptGetText*)sel)->GetText()->FUN_0067f390() == arg1)
                                 {
-                                    ((ScriptGetText*)sel)->GetText()->FUN_0067f3c0(0);
+                                    ((ScriptGetText*)sel)->GetText()->SetLocReference(0);
                                 }
                             }
                         }
@@ -11337,7 +11337,7 @@ void FUN_0096f600_shell::FUN_0096f600(Actor* arg1, bool abClearPackageTargets)
                                 if (((FUN_00674d40_shell*)((ActorTargetSource*)ti6)->GetProcessTarget())
                                         ->FUN_00674d40())
                                 {
-                                    ((FUN_00881680_shell*)ti6)->FUN_00881680(0);
+                                    ((FUN_00881680_shell*)ti6)->EndInterruptPackage(0);
                                 }
                                 else
                                 {
@@ -12853,7 +12853,7 @@ struct DetectionActor : public MobileObject
     virtual int FUN_D1(PlayerCharacter*, bool);
     bool FUN_00440da0();
     BaseProcess* FUN_008d8520();
-    bool FUN_008bc700(PlayerCharacter*);
+    bool IsInCombatWithActor(PlayerCharacter*);
     bool IsHostileTo(PlayerCharacter*, bool, unsigned int*, bool);
 };
 struct DetectionProcessArray
@@ -12897,7 +12897,7 @@ bool DetectionList::HasNearbyDetectedActor(bool differentDistance)
             {
                 int result = current->FUN_D1(pPlayer, false);
                 unsigned int state2 = 0;
-                if (current->FUN_008bc700(pPlayer))
+                if (current->IsInCombatWithActor(pPlayer))
                 {
                     found7 = true;
                 }
@@ -16085,8 +16085,8 @@ void FUN_00975b60_shell::CleanupCrimeLists(BGSLoadGameBuffer* buffer)
 
 struct Buffer652
 {
-    void FUN_00864980(void*, unsigned int);
-    unsigned int FUN_00864a60();
+    void LoadData(void*, unsigned int);
+    unsigned int LoadVariableSizedValue();
     void FUN_008648e0(TESObjectREFR**);
 };
 struct Receiver652;
@@ -16121,12 +16121,12 @@ struct Radio652
 // @fnv 0x00836240
 void Radio652::FUN_00836240(Buffer652* buffer)
 {
-    buffer->FUN_00864980(&unk08, 4);
-    buffer->FUN_00864980(&unk0c, 4);
-    buffer->FUN_00864980(&unk10, 1);
-    buffer->FUN_00864980(&unk11, 1);
-    buffer->FUN_00864980(&unk14, 4);
-    unsigned int count = buffer->FUN_00864a60();
+    buffer->LoadData(&unk08, 4);
+    buffer->LoadData(&unk0c, 4);
+    buffer->LoadData(&unk10, 1);
+    buffer->LoadData(&unk11, 1);
+    buffer->LoadData(&unk14, 4);
+    unsigned int count = buffer->LoadVariableSizedValue();
     for (unsigned int i = 0; i < count; i++)
     {
         TESObjectREFR* ref = 0;
@@ -16136,7 +16136,7 @@ void Radio652::FUN_00836240(Buffer652* buffer)
             receivers.FUN_005ae3d0(radio);
     }
     bool has3 = false;
-    buffer->FUN_00864980(&has3, 1);
+    buffer->LoadData(&has3, 1);
     if (has3)
     {
         conversation = new FUN_0083b830;
@@ -16216,9 +16216,9 @@ struct ObjA
     virtual void v3e();
     virtual void v3f();
     virtual bool IsActor();
-    void FUN_00881680(int);
+    void EndInterruptPackage(int);
     bool FUN_00566950();
-    void FUN_008ad910(int, int, int);
+    void MoveActorAndFollowers(int, int, int);
 };
 struct ActorA : ObjA
 {
@@ -16309,7 +16309,7 @@ struct StubX
     ListA list;
     void FUN_00973ee0(int a);
 };
-// Iterates over list, and for each live actor that is player-targeted or matches FUN_00566950, calls FUN_00881680 and FUN_008ad910 with a.
+// Iterates over list, and for each live actor that is player-targeted or matches FUN_00566950, calls EndInterruptPackage and MoveActorAndFollowers with a.
 // @fnv 0x00973ee0
 void StubX::FUN_00973ee0(int a)
 {
@@ -16326,8 +16326,8 @@ void StubX::FUN_00973ee0(int a)
         {
             if (g_mgrA->IsPlayerTargeted(actor, 0) || actor->FUN_00566950())
             {
-                actor->FUN_00881680(0);
-                actor->FUN_008ad910(a, 0, 0);
+                actor->EndInterruptPackage(0);
+                actor->MoveActorAndFollowers(a, 0, 0);
             }
         }
     }

@@ -12954,12 +12954,12 @@ extern void __cdecl FUN_00a29680(char*, char*);
 
 struct CubeTextureResource
 {
-    bool __thiscall FUN_00e8aa70();
+    bool __thiscall CreateCubeMap();
 };
 
 // Creates a cube texture on the device and stores it at offset 0x64, or calls FUN_00a29680 with an error string and returns false on failure.
 // @fnv 0x00e8aa70
-bool __thiscall CubeTextureResource::FUN_00e8aa70()
+bool __thiscall CubeTextureResource::CreateCubeMap()
 {
     const D3DFORMAT format =
         *reinterpret_cast<D3DFORMAT*>(reinterpret_cast<char*>(this) + 0x20);
@@ -13648,7 +13648,7 @@ struct DeviceResource {
     void FUN_00e687a0(TextureInput*, ResourceConfig*);
     bool SetProgram(void*);
     TextureDescription* FUN_00e8a300(TextureDescription*, void*, TextureDescription**);
-    bool FUN_00e8aa70();
+    bool CreateCubeMap();
     void FUN_00e8ab70(DirectResource*, unsigned int);
     void FUN_00e8aaf0(TextureSurface*, unsigned int);
 };
@@ -14213,7 +14213,7 @@ DeviceResource* __cdecl FUN_00e8abf0(TextureInput* input, ResourceConfig* config
         result->fallback = false;
         result->SetProgram(directResource->GetPalette());
         result->bytes = directResource->GetSize();
-        if (result->FUN_00e8aa70() && result->texture) {
+        if (result->CreateCubeMap() && result->texture) {
             unsigned int bytes = result->bytes;
             DAT_0126f9bc += bytes;
             unsigned int pad = 0;
@@ -14242,7 +14242,7 @@ DeviceResource* __cdecl FUN_00e8abf0(TextureInput* input, ResourceConfig* config
             (preferences.mode == 2 && DAT_011f4508 && config->mipmaps)) result->mipmaps = true;
         else result->mipmaps = false;
         result->levels = config->mipmaps ? preparedSurface->GetLevels() : 1;
-        if (result->FUN_00e8aa70() && result->texture) {
+        if (result->CreateCubeMap() && result->texture) {
             if (preparedSurface->GetFaces() != 6) {
                 result->Delete(1);
                 return 0;

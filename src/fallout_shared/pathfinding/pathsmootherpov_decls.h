@@ -61,7 +61,7 @@ class NavMesh
     bool MatchNavMesh(const NavMeshEdgeData&, NavMeshEdgeData&);
     NavMeshEdgeVertexPair FUN_0068f040(unsigned short, int);
     NiPoint3 FUN_006971e0(unsigned short);
-    void FUN_0068f0c0(unsigned short, int, NiPoint3&, NiPoint3&);
+    void GetEdgeVertices(unsigned short, int, NiPoint3&, NiPoint3&);
     unsigned int GetCurrentMoveModeType();
     const class NavMeshInfo* FUN_0068efb0();
     bool GetTriangleHeightAtPoint(unsigned short, const NiPoint3&, float, float, float&);
@@ -327,9 +327,9 @@ class PathSmootherPOVSearch : public AStarSearch<PathSmootherPOVAvoidanceNode, N
     bool CalculatePathCost(PathSmootherPOVPoint*, PathSmootherPOVPoint*, const NiPoint3&, const NiPoint3&, float*);
     virtual bool CollectConnections(const POVNode*, BSSimpleArray<POVNode*>*);
     virtual bool HasReachedGoal(const POVNode*);
-    bool FUN_006b1e50(const NavMeshEdgePoint&, Sphere&, CircularArc, NavMeshEdgePoint*);
+    bool CheckArcAgainstNavMesh(const NavMeshEdgePoint&, Sphere&, CircularArc, NavMeshEdgePoint*);
     bool FUN_006b23d0(const NavMeshEdgePoint&, Sphere&, CircularArc);
-    bool FUN_006b25f0(const NavMeshEdgePoint&, const NiPoint3&, NavMeshEdgePoint*, bool, bool, float&);
+    bool TripleCheckSegmentAgainstNavMesh(const NavMeshEdgePoint&, const NiPoint3&, NavMeshEdgePoint*, bool, bool, float&);
     unsigned int FUN_0069f900(PathSmootherPOVPoint*, ANGLE_DIRECTION);
     int InsertOrUpdateNode(unsigned int, float, POVNode*&);
     void SetPOVSearchNode(POVNode*, PathSmootherPOVPoint*, ANGLE_DIRECTION);

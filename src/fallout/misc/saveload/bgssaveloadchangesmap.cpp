@@ -43,7 +43,7 @@ void BGSSaveLoadChangesMap::AddFormChangeFlags(unsigned int formID, FormChangeMa
         return;
     }
 
-    changes->FUN_00841100((char*)flags.FUN_00559450());
+    changes->AddFlags((char*)flags.FUN_00559450());
 }
 
 // @fnv 0x00845880

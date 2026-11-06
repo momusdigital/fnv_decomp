@@ -664,7 +664,7 @@ bool NavMeshSearchEdges::FindEdgeConnections(const SearchNode* current, BSSimple
                             }
                         }
                         NiPoint3 edgeStart, edgeEnd5;
-                        neighborMesh->FUN_0068f0c0(neighborTriangle, outEdge, edgeStart, edgeEnd5);
+                        neighborMesh->GetEdgeVertices(neighborTriangle, outEdge, edgeStart, edgeEnd5);
                         float edgeLength = (edgeStart - edgeEnd5).FUN_00589850();
                         float maxEdgeLength6 = DAT_010231a0;
                         float narrowPenalty2 = 1.0f - edgeLength / maxEdgeLength6;

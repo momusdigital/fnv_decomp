@@ -126,7 +126,7 @@ extern Interface* DAT_011d8804;
 extern MenuState* DAT_011da920;
 
 // @fnv 0x007c01b0
-void FUN_007c01b0()
+void Close()
 {
     if (DAT_011da920)
     {
@@ -238,9 +238,9 @@ extern DecMgr* DAT_011dea3c;
 extern DecBox DAT_011e0e80;
 
 int __cdecl FUN_00ec62c0();
-void __cdecl FUN_00717280(int);
+void __cdecl PlayMenuSound(int);
 void __cdecl FUN_004d5c60(int);
-void __cdecl FUN_007c01b0();
+void __cdecl Close();
 
 struct FUN_007c0220_cls
 {
@@ -263,7 +263,7 @@ void FUN_007c0220_cls::FUN_007c0220(int slot, int value)
     switch (slot)
     {
     case 4:
-        FUN_00717280(1);
+        PlayMenuSound(1);
         if ((m_45 && *DAT_011d89f0.FUN_00408d60()) || (!m_45 && *DAT_011d8974.FUN_00408d60()))
         {
             DAT_011de134->ResetAndUpdate();
@@ -288,9 +288,9 @@ void FUN_007c0220_cls::FUN_007c0220(int slot, int value)
         DAT_011e0e80.FUN_00975160();
         break;
     case 5:
-        FUN_00717280(2);
+        PlayMenuSound(2);
         DAT_011dea3c->FUN_005c1a00(0, 0);
-        FUN_007c01b0();
+        Close();
         break;
     }
 }
@@ -442,7 +442,7 @@ extern PlayerStub* DAT_011dea3c;
 extern TESStub* DAT_011dea10;
 extern TimeGlobalStub DAT_011f6394;
 
-bool __cdecl FUN_00703d50();
+bool __cdecl IsConsoleVisible();
 
 struct MenuClass
 {
@@ -473,12 +473,12 @@ struct MenuClass
     unsigned char unk47;
 
     void UpdateClockText();
-    bool FUN_007c0580();
+    bool UpdateSleeping();
 };
 
 // Handles input state flags and, while m_b44 is set, advances m_f40 by the frame time and updates the tile's _current_value and _SetInCode when it reaches 1.0.
 // @fnv 0x007c0580
-bool MenuClass::FUN_007c0580()
+bool MenuClass::UpdateSleeping()
 {
     if (DAT_011dea0c->FUN_00877720(15, 2)->FUN_00a24660())
     {
@@ -486,7 +486,7 @@ bool MenuClass::FUN_007c0580()
     }
     if ((m_b46 && DAT_011dea0c->FUN_00877720(15, 1)->FUN_00a24660()) || (m_b44 && !DAT_011dea3c->FUN_0094df60()))
     {
-        if (!FUN_00703d50())
+        if (!IsConsoleVisible())
         {
             v03(5, 0);
             return false;

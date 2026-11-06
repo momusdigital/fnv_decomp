@@ -2211,8 +2211,8 @@ struct XPObj
 {
     XPObj();
     ~XPObj();
-    void FUN_0067f140(int);
-    void FUN_0067f3c0(void*);
+    void SetLocType(int);
+    void SetLocReference(void*);
     void* unk00;
     void* unk04;
     void* unk08;
@@ -2864,8 +2864,8 @@ void XObj::FUN_009694d0(void* arg0)
     A5->FUN_00826b40(1);
     A5->FUN_00826b90(1);
     XPObj* P = new XPObj;
-    P->FUN_0067f140(0);
-    P->FUN_0067f3c0(this);
+    P->SetLocType(0);
+    P->SetLocReference(this);
     A5->FUN_00671d30(P);
     delete P;
     XVObj* X = new XVObj;
@@ -2921,7 +2921,7 @@ struct LocBF
     char data[12];
     LocBF();
     ~LocBF();
-    void FUN_0067f3c0(void*);
+    void SetLocReference(void*);
 };
 struct DataBF
 {
@@ -2977,7 +2977,7 @@ void ActorBF::FUN_008bf7b0(void* arg, int unused)
     pack->FUN_00826b40(true);
     pack->FUN_00826b90(true);
     LocBF* loc = new LocBF;
-    loc->FUN_0067f3c0(arg);
+    loc->SetLocReference(arg);
     pack->FUN_00671d30(loc);
     delete loc;
     DataBF* kDat = new DataBF;
@@ -3638,8 +3638,8 @@ void AssignedCharacter::FUN_008d2a80(AssignedArgument* argument)
     location->FUN_00826b40(1);
     location->FUN_00826b90(1);
     package = new XPObj;
-    package->FUN_0067f140(0);
-    package->FUN_0067f3c0(this);
+    package->SetLocType(0);
+    package->SetLocReference(this);
     location->FUN_00671d30(package);
     delete package;
     XVObj* target = new XVObj;

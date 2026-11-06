@@ -7,11 +7,11 @@ struct StateObject
     unsigned int unk00;
     unsigned int unk04;
     unsigned int state;
-    int FUN_00db7810(unsigned char* bytes, int length);
+    int write(unsigned char* bytes, int length);
 };
 // Updates state by folding each byte of bytes into it through Crc32ShiftRight8, then stores the result in state and returns length.
 // @fnv 0x00db7810
-int StateObject::FUN_00db7810(unsigned char* bytes, int length)
+int StateObject::write(unsigned char* bytes, int length)
 {
     unsigned int current = state;
     for (int i = 0; i < length; ++i)

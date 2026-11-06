@@ -1515,11 +1515,11 @@ unsigned char __fastcall IsPackageFlag80Set(TESPackage* pThis)
 
 struct FUN_0067ac50_shell : public TESPackage
 {
-    bool FUN_0067ac50();
+    bool GetFOEnableAvoidRadiationBehavior();
 };
 
 // @fnv 0x0067ac50
-bool FUN_0067ac50_shell::FUN_0067ac50()
+bool FUN_0067ac50_shell::GetFOEnableAvoidRadiationBehavior()
 {
     return (*reinterpret_cast<unsigned short*>(reinterpret_cast<char*>(this) + 0x22) & 0x100) ? true : false;
 }
@@ -4403,7 +4403,7 @@ FUN_0067c770::FUN_0067c770()
 struct FUN_0085a290_t
 {
     void __thiscall DeleteFormById(unsigned int);
-    TESPackage* __thiscall FUN_0085a240(unsigned int, unsigned char);
+    TESPackage* __thiscall CreatePackage(unsigned int, unsigned char);
 };
 TESPackage* __cdecl CreatePackageStandIn(PTYPE);
 struct Helper
@@ -4486,7 +4486,7 @@ struct Helper
 };
 // Calls DeleteFormById with a1, creates a package from a2, sets its field via f74(a1, 1), and returns the package.
 // @fnv 0x0085a240
-TESPackage* __thiscall FUN_0085a290_t::FUN_0085a240(unsigned int a1, unsigned char ucPackageType)
+TESPackage* __thiscall FUN_0085a290_t::CreatePackage(unsigned int a1, unsigned char ucPackageType)
 {
     DeleteFormById(a1);
     TESPackage* p = CreatePackageStandIn((PTYPE)ucPackageType);
@@ -5850,7 +5850,7 @@ struct FUN_0067abf0_shell
 };
 struct FUN_0067ac50_shell
 {
-    bool FUN_0067ac50();
+    bool GetFOEnableAvoidRadiationBehavior();
 };
 struct FUN_0067ac70_shell
 {
@@ -5962,7 +5962,7 @@ void FUN_0067a1b0_shell::FUN_0067a1b0(TESPackage* apCopy)
     ((FUN_0067aaf0_Holder*)this)->FUN_0067aaf0(((FUN_0067aad0_shell*)apCopy)->FUN_0067aad0());
     ((FUN_0067ab70_shell*)this)->FUN_0067ab70(((FUN_0067ab50_shell*)apCopy)->HasFlag40());
     ((FUN_0067abf0_shell*)this)->FUN_0067abf0(((Get0067abd0_r1b0*)apCopy)->IsPackageFlag80Set());
-    ((FUN_0067ac70_shell*)this)->SetFlag100(((FUN_0067ac50_shell*)apCopy)->FUN_0067ac50());
+    ((FUN_0067ac70_shell*)this)->SetFlag100(((FUN_0067ac50_shell*)apCopy)->GetFOEnableAvoidRadiationBehavior());
     ((FUN_00671a20_shell*)this)->FUN_00671a20(((FUN_0067a460_shell*)apCopy)->FUN_0067a460());
     ((FUN_0067a6b0_shell*)this)->SetFlag100000(((FUN_0067a690_shell*)apCopy)->HasFlag100000());
     ((FUN_0067a640_shell*)this)->SetFlag200000(((FUN_00441b00_shell*)apCopy)->GetForceUnequipWeapon());
@@ -10857,7 +10857,7 @@ bool IsValidPickTarget(PickForm* form, PickContext* pContext)
 struct SaveStream679120 : SaveManager
 {
     unsigned int FUN_00825c00();
-    void FUN_008579b0(void*, int);
+    void SaveGameDataOLD(void*, int);
 };
 struct Location679120
 {
@@ -10898,11 +10898,11 @@ void Package679120::SavePackage()
     if (DAT_011de45c->FUN_00862110())
     {
         unsigned int tag = 0x424c4f4b;
-        ((SaveStream679120*)DAT_011de45c)->FUN_008579b0(&tag, 4);
+        ((SaveStream679120*)DAT_011de45c)->SaveGameDataOLD(&tag, 4);
         start = ((SaveStream679120*)DAT_011de45c)->FUN_00825c00();
-        ((SaveStream679120*)DAT_011de45c)->FUN_008579b0(&blockLength, 2);
+        ((SaveStream679120*)DAT_011de45c)->SaveGameDataOLD(&blockLength, 2);
     }
-    ((SaveStream679120*)DAT_011de45c)->FUN_008579b0(&flags, 12);
+    ((SaveStream679120*)DAT_011de45c)->SaveGameDataOLD(&flags, 12);
     unsigned char presence = 0;
     if (f2c)
         presence |= 1;
@@ -10913,7 +10913,7 @@ void Package679120::SavePackage()
         ((Location679120*)f2c)->FUN_0067fa00();
     if (f30)
         ((Target679120*)f30)->SaveLoad();
-    ((SaveStream679120*)DAT_011de45c)->FUN_008579b0(&flags18, 4);
+    ((SaveStream679120*)DAT_011de45c)->SaveGameDataOLD(&flags18, 4);
     if (*g_011de4e8.Bool())
     {
         unsigned int end = ((SaveStream679120*)DAT_011de45c)->FUN_00825c00();
@@ -11624,7 +11624,7 @@ struct Obj : Slots64
     Form* FUN_007af430();
     Extra* FUN_005d43c0();
     float FUN_00571600();
-    float FUN_008be940();
+    float GetEyeLevel();
 };
 struct Setting
 {
@@ -11681,7 +11681,7 @@ float Package::GetPackageResult(Obj* obj, bool flag)
                     {
                         float top = unused->getHeight();
                         result += (int)top;
-                        float height = unused->FUN_008be940() + unused->getPos()->z - top;
+                        float height = unused->GetEyeLevel() + unused->getPos()->z - top;
                         float z = target->getPos()->z;
                         if (height > z)
                         {
@@ -12617,7 +12617,7 @@ class V
     bool HasExtraFollowerForm(V*);
     int FUN_00962620();
     V* GetAcousticSpace();
-    int FUN_008bc790(V*);
+    int AddFollower(V*);
 };
 struct Pkg_006780e0_Ctx
 {
@@ -12763,12 +12763,12 @@ V* TESPackageExt::FUN_006780e0(V* targetObj, bool option)
                 QueueUIMessage(g_011d3d54.FUN_00403df0(), 0, 0, 0, DAT_010162c0, 0);
             }
             else
-                saved3->FUN_008bc790(targetObj);
+                saved3->AddFollower(targetObj);
         }
         else if (GetPackType() == (PTYPE)2)
         {
             if (saved3 != _g_thePlayer)
-                targetObj->FUN_008bc790(saved3);
+                targetObj->AddFollower(saved3);
         }
     }
     return secondary7;
@@ -12804,7 +12804,7 @@ struct ChangeRecX
 struct SaveX
 {
     bool FUN_00862110();
-    void FUN_008579e0(void* pvData, unsigned int uiSize);
+    void LoadGameDataOLD(void* pvData, unsigned int uiSize);
     ChangeRecX* FUN_004fd3c0();
     unsigned char FUN_008df040();
     unsigned int FUN_00825c00();
@@ -12835,7 +12835,7 @@ void PackX::FUN_009ecbe0()
     if (DAT_011de45c->FUN_00862110())
     {
         int iHeader;
-        DAT_011de45c->FUN_008579e0(&iHeader, 4);
+        DAT_011de45c->LoadGameDataOLD(&iHeader, 4);
         if (iHeader != 'BLOK')
         {
             ChangeRecX* pkRec = DAT_011de45c->FUN_004fd3c0();
@@ -12856,15 +12856,15 @@ void PackX::FUN_009ecbe0()
             }
         }
         uiBlockStart_u = DAT_011de45c->FUN_00825c00();
-        DAT_011de45c->FUN_008579e0(&usBlockSize_yfuyr, 2);
+        DAT_011de45c->LoadGameDataOLD(&usBlockSize_yfuyr, 2);
     }
     FUN_00484d00(&usCount_qu, 2);
     for (i_f = 0; i_f < usCount_qu; i_f++)
     {
         signed char cType;
-        DAT_011de45c->FUN_008579e0(&cType, 1);
+        DAT_011de45c->LoadGameDataOLD(&cType, 1);
         unsigned short usID;
-        DAT_011de45c->FUN_008579e0(&usID, 2);
+        DAT_011de45c->LoadGameDataOLD(&usID, 2);
         int iResult = DAT_011e0e80.FUN_009727c0(cType, usID);
     }
     if (DAT_011de45c->FUN_00862110())
@@ -13587,7 +13587,7 @@ class SaveLoad679
 {
   public:
     bool FUN_00862110();
-    void FUN_008579e0(void*, unsigned int);
+    void LoadGameDataOLD(void*, unsigned int);
     SaveRecord679* FUN_004fd3c0();
     unsigned char FUN_008df040();
     unsigned int FUN_00825c00();
@@ -13642,7 +13642,7 @@ void Package679::FUN_00679340()
         if (g_TESSaveLoadGame->FUN_00862110())
         {
             unsigned int marker;
-            g_TESSaveLoadGame->FUN_008579e0(&marker, 4);
+            g_TESSaveLoadGame->LoadGameDataOLD(&marker, 4);
             if (marker != 0x424c4f4b)
             {
                 SaveRecord679* record = g_TESSaveLoadGame->FUN_004fd3c0();
@@ -13662,9 +13662,9 @@ void Package679::FUN_00679340()
                 }
             }
             blockStart = g_TESSaveLoadGame->FUN_00825c00();
-            g_TESSaveLoadGame->FUN_008579e0(&blockSize, 2);
+            g_TESSaveLoadGame->LoadGameDataOLD(&blockSize, 2);
         }
-        g_TESSaveLoadGame->FUN_008579e0(&packageFlags, 12);
+        g_TESSaveLoadGame->LoadGameDataOLD(&packageFlags, 12);
         FUN_00484d00(&flags, 1);
         if (flags & 1)
         {
@@ -13676,7 +13676,7 @@ void Package679::FUN_00679340()
             target = new FUN_0067ff70;
             target->FUN_00680640();
         }
-        g_TESSaveLoadGame->FUN_008579e0(&flags18, 4);
+        g_TESSaveLoadGame->LoadGameDataOLD(&flags18, 4);
         if (g_TESSaveLoadGame->FUN_00862110())
         {
             unsigned int end = g_TESSaveLoadGame->FUN_00825c00();

@@ -1016,7 +1016,7 @@ struct FUN_00e369d0_Result
 
 struct FUN_00cf2880_Shape
 {
-    hkUint32 FUN_00cf2880(FUN_00e369d0_Result* result, LCCastInput* input, const hkUint8** filter, hkInt32 maskAll);
+    hkUint32 linearCast(FUN_00e369d0_Result* result, LCCastInput* input, const hkUint8** filter, hkInt32 maskAll);
 };
 
 struct FUN_006212c0_Context
@@ -1053,7 +1053,7 @@ void FUN_00e369d0_Class::CastWheel(int hitOut, hkUint32 b, hkUint8 wheelIndex, i
     input.m_50 = 0;
 
     reinterpret_cast<FUN_00cf2880_Shape*>(pWheelState->m_pCollisionShape)
-        ->FUN_00cf2880(&result, &input, &input.m_20, 0);
+        ->linearCast(&result, &input, &input.m_20, 0);
 
     if (input.m_50 != 0)
     {

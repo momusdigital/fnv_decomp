@@ -587,9 +587,9 @@ struct FUN_0073b480_shell
 };
 
 Tile* __cdecl FindMenuById(int);
-void __cdecl FUN_00717280(int);
+void __cdecl PlayMenuSound(int);
 
-// Gets tile 0x402, sets it to 0x1772/1, invokes its menu, then calls FUN_00717280 with 0x19 or 0x1b depending on FUN_00409700.
+// Gets tile 0x402, sets it to 0x1772/1, invokes its menu, then calls PlayMenuSound with 0x19 or 0x1b depending on FUN_00409700.
 // @fnv 0x0073b480
 void FUN_0073b480_shell::UpdateMenuTile()
 {
@@ -599,9 +599,9 @@ void FUN_0073b480_shell::UpdateMenuTile()
         ptile->Set(0x1772, 1);
         ptile->GetMenu()->LoadMenuData();
         if (m_pObjectToUpdateMenuTile->FUN_00409700())
-            FUN_00717280(0x19);
+            PlayMenuSound(0x19);
         else
-            FUN_00717280(0x1b);
+            PlayMenuSound(0x1b);
     }
 }
 }  // namespace fnv_0073b480
@@ -1005,7 +1005,7 @@ void BookTarget::UpdateBookMenu(BookInput* input, int value)
     FUN_00726070()->FUN_00700320(0x100a, 0);
 }
 
-void __cdecl FUN_00717280(int);
+void __cdecl PlayMenuSound(int);
 
 struct MyTile
 {
@@ -1073,7 +1073,7 @@ void BookMenu_Shell::HandleScrollInput(int a1, int a2)
             if (iVar5 != 0)
             {
                 InterfaceManager::Instance();
-                FUN_00717280(iVar5);
+                PlayMenuSound(iVar5);
             }
         }
     }
@@ -1125,7 +1125,7 @@ struct BSFile
     bool FUN_008905f0();
     void FUN_00aff7c0(BSStringT<char>*, int);
 };
-extern void __cdecl FUN_00703c00(const char*, ...);
+extern void __cdecl PrintToConsole(const char*, ...);
 struct LoadBook
 {
     BookTile* FUN_00726070();
@@ -1142,7 +1142,7 @@ void LoadBook::LoadBookFile()
     file.FUN_00aff300(false, false);
     if (!file.FUN_008905f0())
     {
-        FUN_00703c00(DAT_01070f84, path2.FUN_00559450());
+        PrintToConsole(DAT_01070f84, path2.FUN_00559450());
         return;
     }
     file.FUN_00aff7c0(&text6, -1);

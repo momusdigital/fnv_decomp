@@ -1461,7 +1461,7 @@ struct Flt
 };
 struct Unk626
 {
-    void FUN_00626cb0(int);
+    void SetCollisionFilter(int);
 };
 struct Ths810
 {
@@ -1469,12 +1469,12 @@ struct Ths810
     Flt f;
     void FUN_00810ff0(int);
 };
-// If the stored Flt value is non-zero, treats it as an Unk626 and calls FUN_00626cb0 with a.
+// If the stored Flt value is non-zero, treats it as an Unk626 and calls SetCollisionFilter with a.
 // @fnv 0x00810ff0
 void Ths810::FUN_00810ff0(int a)
 {
     if ((unsigned int)f)
-        ((Unk626*)(unsigned int)f)->FUN_00626cb0(a);
+        ((Unk626*)(unsigned int)f)->SetCollisionFilter(a);
 }
 }  // namespace fnv_00810ff0
 
@@ -5070,7 +5070,7 @@ struct Loader_S
 };
 struct BGSSaveLoadGame_S
 {
-    void FUN_00849730(void*, int);
+    void UnloadForm(void*, int);
 };
 struct ProcessDel
 {
@@ -5325,7 +5325,7 @@ bool FUN_009c45d0_t::FUN_009c45d0()
         {
             if (bLoadedTmp)
             {
-                g_BGSSaveLoadGame->FUN_00849730(this, 0);
+                g_BGSSaveLoadGame->UnloadForm(this, 0);
             }
             ((MobileVtbl*)this)->MarkForDeletion(true);
             result2 = false;
@@ -6321,12 +6321,12 @@ extern signed char DAT_011e0360;
 
 struct FUN_00935ae0_t : public MobileObject
 {
-    void FUN_00935ae0();
+    void UpdateTopicInfoSayOnce();
 };
 
 // Removes and deletes each stored say-once topic info whose date and hour have already passed relative to the current game date and time.
 // @fnv 0x00935ae0
-void FUN_00935ae0_t::FUN_00935ae0()
+void FUN_00935ae0_t::UpdateTopicInfoSayOnce()
 {
     ExtraSayTopicInfoOnceADay* pextra9 = 0;
     BSSimpleList<TopicInfoVisitRecord*>* pList;
@@ -9394,7 +9394,7 @@ bool FUN_008cf8f0_shell::SwitchProcess()
 float& __fastcall FUN_00403e20(float* pThis);
 struct Obj930A
 {
-    bhkCharacterController* FUN_009306d0();
+    bhkCharacterController* GetCharController();
 };
 struct ActorV_S
 {
@@ -9410,7 +9410,7 @@ extern SettingT_GameSettingCollection_ originalRuntimeFloatSetting848;
 // @fnv 0x00930640
 int Holder_00884aa0::UpdateControllerScale()
 {
-    bhkCharacterController* controller = reinterpret_cast<Obj930A*>(this)->FUN_009306d0();
+    bhkCharacterController* controller = reinterpret_cast<Obj930A*>(this)->GetCharController();
     if (controller)
     {
         float scale =
@@ -9492,7 +9492,7 @@ struct FUN_00670b30
     float radius;
     FUN_00670b30();
     ~FUN_00670b30();
-    void FUN_0067f3c0(TESObjectREFR*);
+    void SetLocReference(TESObjectREFR*);
 };
 struct PackageTargetObj
 {
@@ -9618,7 +9618,7 @@ bool DialogueHost::FUN_00934fd0(MobileObject* target, int aiUnused2, int aiUnuse
         ((PackageMethods*)location)->FUN_00826b40(true);
         ((PackageMethods*)location)->FUN_00826b90(true);
         FUN_00670b30* package = (FUN_00670b30*)new FUN_0067f030;
-        package->FUN_0067f3c0(target);
+        package->SetLocReference(target);
         ((PackageMethods*)location)->FUN_00671d30(package);
         delete package;
         PackageTargetObj* destination = new PackageTargetObj;

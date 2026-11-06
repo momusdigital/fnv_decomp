@@ -99,7 +99,7 @@ class LocationDescriptor
     char pad[0xc];
     LocationDescriptor();
     ~LocationDescriptor();
-    void FUN_0067f3c0(TESObjectREFR*);
+    void SetLocReference(TESObjectREFR*);
 };
 
 struct TESObjectREFR_Flags
@@ -148,7 +148,7 @@ FUN_009f9250::FUN_009f9250(TESObjectREFR* apRef, int aiUnk88, int aiUnk8c, int a
     PackageTargetRecord* pTarget;
     LocationDescriptor* ploc;
     ploc = new LocationDescriptor;
-    ploc->FUN_0067f3c0(apRef);
+    ploc->SetLocReference(apRef);
     FUN_00671d30(ploc);
     delete ploc;
     pTarget = new PackageTargetRecord;
@@ -199,12 +199,12 @@ void FUN_009f1350_shell::RemoveRef(TESObjectREFR* apRef)
             ((PTHelper*)((Script*)this)->GetData())
                 ->SetTargetObjectReference(*(((BSSimpleList_TESObjectREFR_Helper*)((char*)this + 0x98))->_ref_006815c0()));
             ((LocationDescriptor*)((Script*)this)->GetText())
-                ->FUN_0067f3c0(*(((BSSimpleList_TESObjectREFR_Helper*)((char*)this + 0x98))->_ref_006815c0()));
+                ->SetLocReference(*(((BSSimpleList_TESObjectREFR_Helper*)((char*)this + 0x98))->_ref_006815c0()));
         }
         else
         {
             ((PTHelper*)((Script*)this)->GetData())->SetTargetObjectReference(0);
-            ((LocationDescriptor*)((Script*)this)->GetText())->FUN_0067f3c0(0);
+            ((LocationDescriptor*)((Script*)this)->GetText())->SetLocReference(0);
         }
     }
     if (apRef == *(TESObjectREFR**)((char*)this + 0xa4))
@@ -990,8 +990,8 @@ struct SaveFormIDHelper
 struct BGSSaveFormBuffer : public SaveFormIDHelper
 {
     void SaveData(void*, int, int);
-    unsigned int FUN_00865f20(void);
-    void FUN_00865ff0(int, unsigned int);
+    unsigned int StartVariableSizedValue(void);
+    void SaveVariableSizedValue(int, unsigned int);
 };
 
 struct BSSimpleList
@@ -1028,7 +1028,7 @@ void FUN_009f2380_shell::SaveExtraData(BGSSaveFormBuffer* apSaveGameBuffer)
     apSaveGameBuffer->SerializeFormData(*(void**)((char*)this + 0xa4), 0);
 
     isaveGameCount = 0;
-    pForm = apSaveGameBuffer->FUN_00865f20();
+    pForm = apSaveGameBuffer->StartVariableSizedValue();
     isaveGameBufferPos = (BSSimpleList*)((char*)this + 0x98);
 
     while (isaveGameBufferPos != 0)
@@ -1042,7 +1042,7 @@ void FUN_009f2380_shell::SaveExtraData(BGSSaveFormBuffer* apSaveGameBuffer)
         isaveGameBufferPos = isaveGameBufferPos->_ref_00726070();
     }
 
-    apSaveGameBuffer->FUN_00865ff0(isaveGameCount, pForm);
+    apSaveGameBuffer->SaveVariableSizedValue(isaveGameCount, pForm);
 }
 
 struct BGSLoadFormBuffer
@@ -1904,7 +1904,7 @@ struct SaveStream
 {
     unsigned char* FUN_00825c00();
     bool FUN_00862110();
-    void FUN_008579b0(void*, int);
+    void SaveGameDataOLD(void*, int);
     SaveDebugRecord* GetHitSound();
 };
 struct FleeSavePackage
@@ -1940,13 +1940,13 @@ void FleeSavePackage::SaveFleePackage()
     if (reinterpret_cast<SaveStream*>(DAT_011de45c)->FUN_00862110())
     {
         unsigned int tag = 0x424c4f4b;
-        reinterpret_cast<SaveStream*>(DAT_011de45c)->FUN_008579b0(&tag, 4);
+        reinterpret_cast<SaveStream*>(DAT_011de45c)->SaveGameDataOLD(&tag, 4);
         position = reinterpret_cast<SaveStream*>(DAT_011de45c)->FUN_00825c00();
-        reinterpret_cast<SaveStream*>(DAT_011de45c)->FUN_008579b0(&sizeVal, 2);
+        reinterpret_cast<SaveStream*>(DAT_011de45c)->SaveGameDataOLD(&sizeVal, 2);
     }
     unsigned short kCount = 0;  // Number of avoided references.
     unsigned char* _position = reinterpret_cast<SaveStream*>(DAT_011de45c)->FUN_00825c00();
-    reinterpret_cast<SaveStream*>(DAT_011de45c)->FUN_008579b0(&kCount, 2);
+    reinterpret_cast<SaveStream*>(DAT_011de45c)->SaveGameDataOLD(&kCount, 2);
     SavedReferenceList* node = &avoided;
     while (node && !node->FUN_008256d0())
     {

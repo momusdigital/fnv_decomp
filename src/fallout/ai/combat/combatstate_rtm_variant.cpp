@@ -71,11 +71,11 @@ struct CombatLoadBuffer
 
     virtual unsigned char Version();
 
-    void FUN_00864980(void*, unsigned int);
+    void LoadData(void*, unsigned int);
 
-    unsigned int FUN_008648a0();
+    unsigned int LoadFormID();
 
-    unsigned int FUN_00864a60();
+    unsigned int LoadVariableSizedValue();
 
     void FUN_008648e0(void*);
 };
@@ -361,19 +361,19 @@ void CombatLoadState::FUN_009a2040(CombatLoadBuffer* buffer)
 
     unsigned char pairPresence;
 
-    buffer->FUN_00864980(&flags, 1);
+    buffer->LoadData(&flags, 1);
 
-    buffer->FUN_00864980(&state, 4);
+    buffer->LoadData(&state, 4);
 
     if (state == -1)
         state = 0;
 
     for (unsigned int i = 0; i < 6; i++)
-        weapons[i] = dynamic_cast<TESObjectWEAP*>(FUN_004839c0(buffer->FUN_008648a0()));
+        weapons[i] = dynamic_cast<TESObjectWEAP*>(FUN_004839c0(buffer->LoadFormID()));
 
     {
 
-        unsigned int weaponCount = buffer->FUN_00864a60();
+        unsigned int weaponCount = buffer->LoadVariableSizedValue();
 
         otherWeapons.FUN_006f2290(weaponCount, true);
 
@@ -382,65 +382,65 @@ void CombatLoadState::FUN_009a2040(CombatLoadBuffer* buffer)
 
             TESObjectWEAP** item = otherWeapons.FUN_006a7ad0(i);
 
-            *item = dynamic_cast<TESObjectWEAP*>(FUN_004839c0(buffer->FUN_008648a0()));
+            *item = dynamic_cast<TESObjectWEAP*>(FUN_004839c0(buffer->LoadFormID()));
         }
 
-        currentWeapon = dynamic_cast<TESObjectWEAP*>(FUN_004839c0(buffer->FUN_008648a0()));
+        currentWeapon = dynamic_cast<TESObjectWEAP*>(FUN_004839c0(buffer->LoadFormID()));
 
-        buffer->FUN_00864980(&value38, 4);
+        buffer->LoadData(&value38, 4);
 
         for (unsigned int i = 0; i < 7; i++)
-            buffer->FUN_00864980(&values3c[i], 4);
+            buffer->LoadData(&values3c[i], 4);
 
-        buffer->FUN_00864980(&unk058, 4);
+        buffer->LoadData(&unk058, 4);
 
-        buffer->FUN_00864980(&unk05c, 4);
+        buffer->LoadData(&unk05c, 4);
 
-        buffer->FUN_00864980(&unk064, 4);
+        buffer->LoadData(&unk064, 4);
 
-        buffer->FUN_00864980(&unk068, 4);
+        buffer->LoadData(&unk068, 4);
 
-        buffer->FUN_00864980(&unk06c, 4);
+        buffer->LoadData(&unk06c, 4);
 
-        buffer->FUN_00864980(&flag70, 1);
+        buffer->LoadData(&flag70, 1);
 
-        buffer->FUN_00864980(&flag71, 1);
+        buffer->LoadData(&flag71, 1);
 
-        buffer->FUN_00864980(&flag72, 1);
+        buffer->LoadData(&flag72, 1);
 
-        buffer->FUN_00864980(&flag73, 1);
+        buffer->LoadData(&flag73, 1);
 
-        buffer->FUN_00864980(&flag74, 1);
+        buffer->LoadData(&flag74, 1);
 
-        buffer->FUN_00864980(&flag75, 1);
+        buffer->LoadData(&flag75, 1);
 
-        buffer->FUN_00864980(&flag76, 1);
+        buffer->LoadData(&flag76, 1);
 
-        buffer->FUN_00864980(&flag77, 1);
+        buffer->LoadData(&flag77, 1);
 
-        explosion = dynamic_cast<BGSExplosion*>(FUN_004839c0(buffer->FUN_008648a0()));
+        explosion = dynamic_cast<BGSExplosion*>(FUN_004839c0(buffer->LoadFormID()));
 
-        buffer->FUN_00864980(&unk07c, 4);
+        buffer->LoadData(&unk07c, 4);
 
-        buffer->FUN_00864980(&unk080, 4);
+        buffer->LoadData(&unk080, 4);
 
-        buffer->FUN_00864980(&position, 12);
+        buffer->LoadData(&position, 12);
 
-        buffer->FUN_00864980(&unk090, 4);
+        buffer->LoadData(&unk090, 4);
 
-        buffer->FUN_00864980(&flagc8, 1);
+        buffer->LoadData(&flagc8, 1);
 
-        buffer->FUN_00864980(&flagc9, 1);
+        buffer->LoadData(&flagc9, 1);
 
-        buffer->FUN_00864980(&unk0cc, 4);
+        buffer->LoadData(&unk0cc, 4);
 
-        buffer->FUN_00864980(&unk0d0, 4);
+        buffer->LoadData(&unk0d0, 4);
 
-        buffer->FUN_00864980(&unk0d4, 4);
+        buffer->LoadData(&unk0d4, 4);
 
-        buffer->FUN_00864980(&unk08, 4);
+        buffer->LoadData(&unk08, 4);
 
-        buffer->FUN_00864980(&flagd8, 1);
+        buffer->LoadData(&flagd8, 1);
 
         buffer->FUN_008648e0(&unk0dc);
 
@@ -468,7 +468,7 @@ void CombatLoadState::FUN_009a2040(CombatLoadBuffer* buffer)
 
         presence = 0;
 
-        buffer->FUN_00864980(&presence, 1);
+        buffer->LoadData(&presence, 1);
 
         if (presence & 1)
         {
@@ -518,7 +518,7 @@ void CombatLoadState::FUN_009a2040(CombatLoadBuffer* buffer)
 
         {
 
-            unsigned int countA = buffer->FUN_00864a60();
+            unsigned int countA = buffer->LoadVariableSizedValue();
 
             itemsA.FUN_009a3480(countA, true);
 
@@ -532,7 +532,7 @@ void CombatLoadState::FUN_009a2040(CombatLoadBuffer* buffer)
 
             {
 
-                unsigned int countB = buffer->FUN_00864a60();
+                unsigned int countB = buffer->LoadVariableSizedValue();
 
                 itemsB.FUN_009a3610(countB, true);
 
@@ -546,11 +546,11 @@ void CombatLoadState::FUN_009a2040(CombatLoadBuffer* buffer)
 
                 stamp184.FUN_009a5ff0(buffer);
 
-                buffer->FUN_00864980(&flag188, 1);
+                buffer->LoadData(&flag188, 1);
 
                 pairPresence = 0;
 
-                buffer->FUN_00864980(&pairPresence, 1);
+                buffer->LoadData(&pairPresence, 1);
 
                 for (unsigned int i = 0; i < 5; i++)
                 {
@@ -562,26 +562,26 @@ void CombatLoadState::FUN_009a2040(CombatLoadBuffer* buffer)
 
                         buffer->FUN_008648e0(pairs[i]);
 
-                        pairs[i]->object = dynamic_cast<TESBoundObject*>(FUN_004839c0(buffer->FUN_008648a0()));
+                        pairs[i]->object = dynamic_cast<TESBoundObject*>(FUN_004839c0(buffer->LoadFormID()));
                     }
                 }
 
                 for (unsigned int i = 0; i < 2; i++)
                 {
 
-                    objects[i] = dynamic_cast<TESBoundObject*>(FUN_004839c0(buffer->FUN_008648a0()));
+                    objects[i] = dynamic_cast<TESBoundObject*>(FUN_004839c0(buffer->LoadFormID()));
 
                     objectStamps[i].FUN_009a5f20(buffer);
                 }
 
-                buffer->FUN_00864980(&unk1bc, 4);
+                buffer->LoadData(&unk1bc, 4);
 
                 buffer->FUN_008648e0(&unk1c0);
 
-                buffer->FUN_00864980(&flag1c8, 1);
+                buffer->LoadData(&flag1c8, 1);
 
                 if (buffer->Version() >= 15)
-                    buffer->FUN_00864980(&unk228, 4);
+                    buffer->LoadData(&unk228, 4);
 
                 stamp1cc.FUN_009a5f20(buffer);
 

@@ -121,12 +121,12 @@ struct ObsMgr
     int unkD8;
     int unkDC;
     S006c4ad0_Map mapE0;
-    void FUN_006c1760(S006c4ad0_Ptr* sp);
-    void FUN_006c4ad0();
+    void UpdateObstacle(S006c4ad0_Ptr* sp);
+    void ProcessDeactivatedObstacles();
 };
 
 // @fnv 0x006c4ad0
-void ObsMgr::FUN_006c4ad0()
+void ObsMgr::ProcessDeactivatedObstacles()
 {
     unsigned int count = queueA0.Count();
     for (unsigned int i = 0; i < count; i++)
@@ -143,7 +143,7 @@ void ObsMgr::FUN_006c4ad0()
             FUN_00458620(&v, &h);
             V3 tmp;
             if (v.FUN_00439ef0(&tmp, &sp.FUN_00559450()->pos)->FUN_004a7290() > kObsDist)
-                FUN_006c1760(&sp);
+                UpdateObstacle(&sp);
             list3C.FUN_00631620(&sp);
         }
     }

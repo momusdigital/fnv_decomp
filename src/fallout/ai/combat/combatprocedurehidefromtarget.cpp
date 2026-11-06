@@ -149,7 +149,7 @@ void S_009d6750::PrintState(S_009d6750_Output* out, int x, int y)
 
 struct BGSLoadFormBuffer
 {
-    void FUN_00864980(void* destination, unsigned int size);
+    void LoadData(void* destination, unsigned int size);
 };
 struct FUN_00996ef0_shell
 {
@@ -197,15 +197,15 @@ struct HideTargetLayout
 void HideTargetLayout::Load(BGSLoadFormBuffer* stream)
 {
     ((FUN_00996ef0_shell*)this)->FUN_00996ef0(stream);
-    stream->FUN_00864980(&unk10, 4);
-    stream->FUN_00864980(&unk14, 4);
+    stream->LoadData(&unk10, 4);
+    stream->LoadData(&unk14, 4);
     unk18.FUN_009a5f20(stream);
-    stream->FUN_00864980(&unk20, 12);
-    stream->FUN_00864980(&unk2C, 12);
-    stream->FUN_00864980(&unk3C, 1);
-    stream->FUN_00864980(&unk3D, 1);
+    stream->LoadData(&unk20, 12);
+    stream->LoadData(&unk2C, 12);
+    stream->LoadData(&unk3C, 1);
+    stream->LoadData(&unk3D, 1);
     unsigned char tag = 0;
-    stream->FUN_00864980(&tag, 1);
+    stream->LoadData(&tag, 1);
     if (tag == 2)
     {
         state = ((FUN_0097fb60_shell*)owner->FUN_00586150())->GetFieldAtE8();

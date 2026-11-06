@@ -138,7 +138,7 @@ struct ActiveEffect;
 
 struct TESSaveLoadGame
 {
-    void FUN_008579b0(void* apData, unsigned int auiSize);
+    void SaveGameDataOLD(void* apData, unsigned int auiSize);
     unsigned char FUN_008df040();
 };
 
@@ -152,10 +152,10 @@ struct FUN_0081bd80_s
 // @fnv 0x0081bd80
 void FUN_0081bd80_s::FUN_0081bd80(ActiveEffect* apEffect, TESObjectREFR* apTarget)
 {
-    g_TESSaveLoadGame->FUN_008579b0((char*)this + 0x20, 4);
-    g_TESSaveLoadGame->FUN_008579b0((char*)this + 0x24, 1);
+    g_TESSaveLoadGame->SaveGameDataOLD((char*)this + 0x20, 4);
+    g_TESSaveLoadGame->SaveGameDataOLD((char*)this + 0x24, 1);
     if (g_TESSaveLoadGame->FUN_008df040() >= 0x72)
-        g_TESSaveLoadGame->FUN_008579b0((char*)this + 8, 4);
+        g_TESSaveLoadGame->SaveGameDataOLD((char*)this + 8, 4);
 }
 }  // namespace fnv_0081bd80
 

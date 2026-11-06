@@ -320,8 +320,8 @@ int __fastcall GetResponseCount(TESResponse* apResponse)
 struct BGSSaveFormBuffer
 {
     void SaveData(void*, int, int);
-    unsigned int FUN_00865f20();
-    void FUN_00865ff0(int, unsigned int);
+    unsigned int StartVariableSizedValue();
+    void SaveVariableSizedValue(int, unsigned int);
 };
 struct Node_006815c0
 {
@@ -345,7 +345,7 @@ void FUN_00937b50_cls::FUN_00937b50(BGSSaveFormBuffer* buf)
 {
     unsigned int uiPos;
     int iCount = 0;
-    uiPos = buf->FUN_00865f20();
+    uiPos = buf->StartVariableSizedValue();
     BSSimpleList<Item_00937b50*>* node = (BSSimpleList<Item_00937b50*>*)this;
     while (node)
     {
@@ -370,7 +370,7 @@ void FUN_00937b50_cls::FUN_00937b50(BGSSaveFormBuffer* buf)
             }
         }
     }
-    buf->FUN_00865ff0(iCount, uiPos);
+    buf->SaveVariableSizedValue(iCount, uiPos);
 }
 
 struct NiAVObject
@@ -592,11 +592,11 @@ void FUN_00935cc0(int param_1)
 struct FUN_009369a0_shell
 {
     TESResponse* m_next;
-    int FUN_009369a0();
+    int GetListCount();
 };
 // Returns the result of GetResponseCount on m_next, or 0 when m_next is null.
 // @fnv 0x009369a0
-int FUN_009369a0_shell::FUN_009369a0()
+int FUN_009369a0_shell::GetListCount()
 {
     return m_next ? GetResponseCount(m_next) : 0;
 }
@@ -644,11 +644,11 @@ struct FUN_00986500_shell
 };
 struct FUN_0093a660_class
 {
-    void __thiscall FUN_0093a660(int apActor);
+    void __thiscall RemoveActorFromPlayercombatList(int apActor);
 };
 // If the pointer at this+0xd64 is non-null, forwards apActor to its RemoveByTarget method.
 // @fnv 0x0093a660
-void FUN_0093a660_class::FUN_0093a660(int apActor)
+void FUN_0093a660_class::RemoveActorFromPlayercombatList(int apActor)
 {
     if (*(void**)((char*)this + 0xd64) == 0)
         return;
@@ -708,16 +708,16 @@ struct StateObject
 };
 struct OwnerObject
 {
-    StateObject* FUN_009306d0();
+    StateObject* GetCharController();
     bool FUN_009337b0();
 };
-// Returns true if the state object obtained from FUN_009306d0 has a virtual element whose v3() equals 2.
+// Returns true if the state object obtained from GetCharController has a virtual element whose v3() equals 2.
 // @fnv 0x009337b0
 bool OwnerObject::FUN_009337b0()
 {
     StateObject* pointer;
     bool result = false;
-    pointer = FUN_009306d0();
+    pointer = GetCharController();
     if (pointer && pointer->FUN_00933810())
     {
         if (pointer->FUN_00933810()->v3() == 2)
@@ -2213,7 +2213,7 @@ class FUN_0093a850_cls
     virtual float v291(int a, bool* b);
     virtual void v292(int a, float f);
     void FUN_008808f0(int a, int b);
-    void FUN_0093a850(int a1, float f);
+    void SetActorBaseValue(int a1, float f);
 };
 class FUN_0093a850_shell
 {
@@ -2321,11 +2321,11 @@ class FUN_0093a850_shell
     virtual void v100(int a, float f);
 };
 FUN_0093a850_shell* __fastcall FUN_004181e0(FUN_0093a850_cls* self);
-void __cdecl FUN_00704e10(int a);
+void __cdecl UpdateActorValue(int a);
 
-// Reads a bool via v291; if set calls v292 with the float, otherwise forwards to the shell's v100, then calls FUN_00704e10 and FUN_008808f0.
+// Reads a bool via v291; if set calls v292 with the float, otherwise forwards to the shell's v100, then calls UpdateActorValue and FUN_008808f0.
 // @fnv 0x0093a850
-void FUN_0093a850_cls::FUN_0093a850(int a1, float f)
+void FUN_0093a850_cls::SetActorBaseValue(int a1, float f)
 {
     bool b = false;
     float r = v291(a1, &b);
@@ -2337,7 +2337,7 @@ void FUN_0093a850_cls::FUN_0093a850(int a1, float f)
     {
         FUN_004181e0(this)->v100(a1, f);
     }
-    FUN_00704e10(a1);
+    UpdateActorValue(a1);
     FUN_008808f0(a1, 1);
 }
 
@@ -3753,7 +3753,7 @@ struct FUN_00938180 : Actor122
     void FUN_005d14d0(int);
     int FUN_00931850();
     void FUN_00930c70();
-    Controller122* FUN_009306d0();
+    Controller122* GetCharController();
     void FUN_004534f0(int);
     float FUN_00950610(float);
     void SetField688(int);
@@ -3860,7 +3860,7 @@ FUN_00938180::FUN_00938180() : f634(0), f694(0), f69c(0), f764(1), f854(0x25), f
     FUN_00939840(0);
     f210 = new List122;
     FUN_00930c70();
-    Controller122* controller10 = FUN_009306d0();
+    Controller122* controller10 = GetCharController();
     if (controller10)
     {
         controller10->FUN_00939860(1000);
@@ -5095,7 +5095,7 @@ struct TickRef : VSlot<RV5, 0>
     TickProc* FUN_008d8520();
     int GetExtraDataShort();
     TickCell* FUN_008d6f30();
-    bool FUN_00885520(MPt*, TickCell*, float);
+    bool IsPointDeepUnderWater(MPt*, TickCell*, float);
     TickExtraActivate* FUN_00569160();
     bool FUN_0057b460();
     int FUN_00401170();
@@ -5201,7 +5201,7 @@ struct TickMover
 };
 struct TickSave
 {
-    bool FUN_008512f0();
+    bool LoadMostRecentSaveGame();
     bool IsField5Set();
     bool LoadQuickSave();
     void FUN_008509a0();
@@ -5261,7 +5261,7 @@ struct TickPoint2
 };
 struct TickMagicTarget
 {
-    bool FUN_00822e00();
+    bool HasDamageHealthEffect();
 };
 struct TickExtraActivate
 {
@@ -6106,7 +6106,7 @@ struct TickPlayer : VSlot<AV17, 0>
     void FUN_00969c30();
     TickProc* FUN_008d8520();
     bool FUN_009678a0();
-    TickController* FUN_009306d0();
+    TickController* GetCharController();
     void FUN_00962190();
     void RestorePlayerLocation(bool);
     TickRef* GetField688();
@@ -6129,7 +6129,7 @@ struct TickPlayer : VSlot<AV17, 0>
     unsigned char FUN_0093a640();
     void FUN_0093a6f0(bool);
     void FUN_0093a5f0(bool);
-    void FUN_0088d640();
+    void GetOutofFurnitureQuick();
     unsigned char GetByteAt798();
     void FUN_00886360(float);
     int FUN_004f8960();
@@ -6141,11 +6141,11 @@ struct TickPlayer : VSlot<AV17, 0>
     TickContext* FUN_005d43c0();
     void FUN_00953d40();
     void UpdatePlayerStateIfActive();
-    bool FUN_008a16d0();
+    bool IsWeaponDrawn();
     void FUN_009462c0(bool, bool);
     bool FUN_008843a0();
     bool FUN_008a6970();
-    void FUN_008a6840(bool);
+    void SetWantWeaponDrawn(bool);
     void FUN_009673d0(float);
     bool FUN_00437bf0();
     bool FUN_00437bd0();
@@ -6157,17 +6157,17 @@ struct TickPlayer : VSlot<AV17, 0>
     void FUN_00962350();
     float FUN_008a0b10();
     float FUN_00931d70();
-    void FUN_00884f80();
+    void SetWalkRunFlagDirty();
     void FUN_009503d0();
     void FUN_00950530();
     bool FUN_00948310();
-    bool FUN_008849c0();
+    bool IsJumping();
     bool FUN_00894d60();
     void FUN_008a73e0(int, int);
     void SetAnimationGroupFromFlags(unsigned char);
     unsigned char FUN_005a03d0();
     bool HasActorsByPackage();
-    bool FUN_00885520(MPt*, TickCell*, float);
+    bool IsPointDeepUnderWater(MPt*, TickCell*, float);
     unsigned char FUN_00575d10();
     unsigned char GetByteAt66E();
     bool FUN_005a1e50();
@@ -6182,9 +6182,9 @@ struct TickPlayer : VSlot<AV17, 0>
     TickMenu* FUN_00464e10();
     bool FUN_00953c50(bool*);
     bool FUN_005c7870();
-    void FUN_009444d0(float);
+    void UpdatePlayerCombat(float);
     bool FUN_00894900();
-    TickFace* FUN_008adcb0();
+    TickFace* GetFaceAnimationData();
     int FUN_00967da0();
     float FUN_00944300();
     void FUN_009442e0(float);
@@ -6225,7 +6225,7 @@ extern MSetting DAT_011cd62c, DAT_011cd5c8;
 extern TickStringSetting DAT_011d4528, DAT_011d400c, DAT_011d4b40;
 extern char DAT_011a28e0, DAT_011841cc;
 extern "C" void FUN_00709c40(int);
-void FUN_007d0a70();
+void ChooseMainMenu();
 void FUN_00961d50();
 extern "C" void FUN_00703e80(const char*, int, int, void (*)(), int, int, float, float, const char*, const char*, int);
 extern "C" TickShadow* FUN_00450b80(int);
@@ -6236,7 +6236,7 @@ extern "C" void FUN_007062e0(int, int, int);
 extern "C" bool BuildActionMenu(TickList*, TickRef*);
 extern "C" TickSoundForm* GetUIActivateNothingSound();
 extern "C" int FUN_00717a40(int, int);
-extern "C" bool FUN_00709bc0();
+extern "C" bool IsPipBoyOpening();
 extern "C" bool FUN_004b71d0();
 extern "C" int FUN_00ec7d40(int);
 extern MSetting DAT_011cd158, DAT_011cdfcc, DAT_011e0964;
@@ -6268,7 +6268,7 @@ extern "C" bool FUN_00705a00();
 extern "C" bool FUN_007f52c0();
 float FUN_009443f0();
 void* FUN_005d2860();
-void FUN_00705640();
+void CreateVATSMenu();
 extern bool DAT_011e0780, DAT_011a3b31, DAT_011e0bc0;
 extern float DAT_011e07c4, DAT_011e0b60, DAT_011e0bbc, DAT_011e07c8, DAT_011e0b58;
 extern MSetting DAT_011cde8c;
@@ -6511,7 +6511,7 @@ void TickPlayer::FUN_0093e860(float elapsed)
     }
     else
         FUN_00963e00(8, 0);
-    TickController* controller = FUN_009306d0();
+    TickController* controller = GetCharController();
     if (controller && controller->HasFlag20000())
     {
         if (!unk205)
@@ -6673,7 +6673,7 @@ void TickPlayer::FUN_0093e860(float elapsed)
                 FUN_0093a5f0(false);
                 DAT_011e0798 = 0.0f;
             }
-            FUN_0088d640();
+            GetOutofFurnitureQuick();
             DAT_011e0798 = 0.0f;
             return;
         }
@@ -6715,8 +6715,8 @@ void TickPlayer::FUN_0093e860(float elapsed)
                 if (DAT_011a3b34 < 0.0)
                 {
                     DAT_011a3b34 = DAT_01012054;
-                    if (!DAT_011de134->FUN_008512f0())
-                        FUN_007d0a70();
+                    if (!DAT_011de134->LoadMostRecentSaveGame())
+                        ChooseMainMenu();
                 }
             }
             else
@@ -6730,7 +6730,7 @@ void TickPlayer::FUN_0093e860(float elapsed)
                 FUN_00703e80(DAT_011d4b40.FUN_00403df0(), 0, 0, FUN_00961d50, 1, 0x17, 0.0f, 0.0f,
                              DAT_011d400c.FUN_00403df0(), DAT_011d4528.FUN_00403df0(), 0);
             else
-                FUN_007d0a70();
+                ChooseMainMenu();
             DAT_011e07c0 = true;
         }
         vf1e0();
@@ -6894,7 +6894,7 @@ void TickPlayer::FUN_0093e860(float elapsed)
     UpdatePlayerStateIfActive();
     bool weaponToggled = false;
     unkd50 += elapsed;
-    if (input->FUN_00a24660(0x12, 1) && unk68->vf148() && FUN_008a16d0())
+    if (input->FUN_00a24660(0x12, 1) && unk68->vf148() && IsWeaponDrawn())
     {
         int key1 = FUN_00717a40(1, 0);
         int key4 = FUN_00717a40(4, 0);
@@ -6923,13 +6923,13 @@ void TickPlayer::FUN_0093e860(float elapsed)
                     FUN_008a6970())
                 {
                     weaponToggled = true;
-                    FUN_008a6840(false);
+                    SetWantWeaponDrawn(false);
                     DAT_011e0bc1 = true;
                 }
                 else if (!DAT_011e0bc1 && !FUN_008a6970())
                 {
                     if (!(GetVtbl20Result() & 0x800))
-                        FUN_008a6840(true);
+                        SetWantWeaponDrawn(true);
                     DAT_011e0bc1 = true;
                 }
             }
@@ -6945,7 +6945,7 @@ void TickPlayer::FUN_0093e860(float elapsed)
         unk651 = !unk651;
     if (input->FUN_00a24660(0xb, 1))
         unk652 = !unk652;
-    if (unk652 && !FUN_00709bc0() && !FUN_00702360())
+    if (unk652 && !IsPipBoyOpening() && !FUN_00702360())
     {
         if (input->FUN_00a24660(0, 0) || input->FUN_00a24660(1, 0) || input->FUN_00a24660(3, 0) ||
             input->FUN_00a24660(2, 0))
@@ -7222,7 +7222,7 @@ axesDone:
         animGroup &= ~0x3f;
     unk190->vf00c(animGroup);
     if (sneakPressed)
-        FUN_00884f80();
+        SetWalkRunFlagDirty();
     unk190->vf018(elapsed);
     FUN_009503d0();
     FUN_00950530();
@@ -7246,7 +7246,7 @@ axesDone:
             {
                 if (unk68->vf3e4() != 7 && !FUN_008bbc10() && unk64c == unk64b && !FUN_00967ae0() && unk68->vf3f8())
                 {
-                    if ((weapon && (!weapon->FUN_006450c0() || !FUN_008a16d0())) || (!weapon && !FUN_008a16d0()))
+                    if ((weapon && (!weapon->FUN_006450c0() || !IsWeaponDrawn())) || (!weapon && !IsWeaponDrawn()))
                         SetActiveState(1, 0, 0);
                     else
                         FUN_00894cc0(true);
@@ -7289,20 +7289,20 @@ axesDone:
             FUN_008a73e0(-1, 0);
         if (FUN_008a7570() != 0xc)
         {
-            bool ready = !FUN_008849c0() && !FUN_005a2030();
+            bool ready = !IsJumping() && !FUN_005a2030();
             bool aiming = input->FUN_00a24660(6, 0) != 0;
             bool special = FUN_00894d60();
             if (aiming)
             {
                 if (!FUN_00703350() && (animGroup | 0xf))
                 {
-                    if (!FUN_009306d0()->FUN_005c0880())
+                    if (!GetCharController()->FUN_005c0880())
                         SetAnimationGroupFromFlags((unsigned char)animGroup);
                 }
-                else if (!special && FUN_009306d0()->HasFlag400())
+                else if (!special && GetCharController()->HasFlag400())
                     vf254();
             }
-            else if (FUN_009306d0()->HasFlag400())
+            else if (GetCharController()->HasFlag400())
                 vf254();
             FUN_0095f6a0();
             flag = true;
@@ -7318,11 +7318,11 @@ axesDone:
             DispatchMessageToSink(DAT_011d4474.FUN_00403df0(), 0, DAT_010208a0, 0, DAT_010162c0, false);
         else if (HasActorsByPackage())
             DispatchMessageToSink(DAT_011d28b0.FUN_00403df0(), 0, DAT_010208a0, 0, DAT_010162c0, false);
-        else if (FUN_00885520(vf1f4(), FUN_008d6f30(), DAT_01084d20))
+        else if (IsPointDeepUnderWater(vf1f4(), FUN_008d6f30(), DAT_01084d20))
             DispatchMessageToSink(DAT_011d4948.FUN_00403df0(), 0, DAT_010208a0, 0, DAT_010162c0, false);
         else if (((TickLists*)&DAT_011e0e80)->HasNearbyDetectedActor(DAT_011dea3c->FUN_00575d10()))
             DispatchMessageToSink(DAT_011d2e50.FUN_00403df0(), 0, DAT_010208a0, 0, DAT_010162c0, false);
-        else if (DAT_011dea3c->FUN_009306d0()->FUN_005c0880() == 1 || DAT_011dea3c->FUN_009306d0()->FUN_005c0880() == 2)
+        else if (DAT_011dea3c->GetCharController()->FUN_005c0880() == 1 || DAT_011dea3c->GetCharController()->FUN_005c0880() == 2)
             DispatchMessageToSink(DAT_011d3e20.FUN_00403df0(), 0, DAT_010208a0, 0, DAT_010162c0, false);
         else if (DAT_011dea3c->FUN_008d6f30()->FUN_005444c0() || !DAT_011dea3c->GetByteAt66E())
             DispatchMessageToSink(DAT_011d20ac.FUN_00403df0(), 0, DAT_010208a0, 0, DAT_010162c0, false);
@@ -7330,7 +7330,7 @@ axesDone:
             DispatchMessageToSink(DAT_011d4b10.FUN_00403df0(), 0, DAT_010208a0, 0, DAT_010162c0, false);
         else if (FUN_008d8520() && FUN_008d8520()->vf764() != 0.0)
             DispatchMessageToSink(DAT_011d4b10.FUN_00403df0(), 0, DAT_010208a0, 0, DAT_010162c0, false);
-        else if (DAT_011dea3c->unk94.FUN_00822e00())
+        else if (DAT_011dea3c->unk94.HasDamageHealthEffect())
             DispatchMessageToSink(DAT_011d47d4.FUN_00403df0(), 0, DAT_010208a0, 0, DAT_010162c0, false);
         else
             FUN_007054f0(0);
@@ -7348,7 +7348,7 @@ axesDone:
         if (!FUN_0050d4a0())
         {
             MVec4 scratch;
-            TickController* controller = FUN_009306d0();
+            TickController* controller = GetCharController();
             if (controller)
             {
                 controller->FUN_005620e0(&origin);
@@ -7405,18 +7405,18 @@ axesDone:
                 break;
             }
             }
-            if (switchNow && !unk64f && FUN_00716440() == FUN_009443f0() && !unk64d && FUN_008a16d0() &&
+            if (switchNow && !unk64f && FUN_00716440() == FUN_009443f0() && !unk64d && IsWeaponDrawn() &&
                 !FUN_00950090() && !unk64a && unk64c == unk64a)
             {
                 FUN_00529c90(FUN_005d2860());
                 DAT_011dea0c->FUN_0086fd90(true);
-                FUN_00705640();
+                CreateVATSMenu();
                 DAT_011e0780 = false;
             }
             else
             {
                 DAT_011e0780 = true;
-                FUN_008a6840(true);
+                SetWantWeaponDrawn(true);
                 if (FUN_00950090() || unk64a)
                 {
                     FUN_009500a0();
@@ -7501,8 +7501,8 @@ axesDone:
             TickRef* actor = target;
             TickProc* targetProcess = actor->FUN_008d8520();
             if (!actor->vf22c(0) &&
-                (actor->FUN_00885520(actor->vf1f4(), actor->FUN_008d6f30(), DAT_01084d20) ||
-                 DAT_011dea3c->FUN_00885520(DAT_011dea3c->vf1f4(), FUN_008d6f30(), DAT_01084d20) ||
+                (actor->IsPointDeepUnderWater(actor->vf1f4(), actor->FUN_008d6f30(), DAT_01084d20) ||
+                 DAT_011dea3c->IsPointDeepUnderWater(DAT_011dea3c->vf1f4(), FUN_008d6f30(), DAT_01084d20) ||
                  (targetProcess && targetProcess->vf610() == 5) || (targetProcess && targetProcess->vf610() == 6)))
                 blocked = true;
         }
@@ -7671,14 +7671,14 @@ axesDone:
     }
     if (unk68)
         unk68->vf104();
-    FUN_009444d0(elapsed);
+    UpdatePlayerCombat(elapsed);
 
     if (DAT_011dea3c->FUN_00894900())
     {
         if (DAT_011e0bac < 1.0)
         {
             DAT_011e0bac = 1.0f;
-            TickFace* face = FUN_008adcb0();
+            TickFace* face = GetFaceAnimationData();
             if (face)
                 face->vf114(0xe, 1.0f);
         }
@@ -7686,7 +7686,7 @@ axesDone:
     else if (DAT_011e0bac > 0.0)
     {
         DAT_011e0bac = 0.0f;
-        TickFace* face = FUN_008adcb0();
+        TickFace* face = GetFaceAnimationData();
         if (face)
             face->vfb4(DAT_01016248, 1, 0, 0, 0, 0);
     }

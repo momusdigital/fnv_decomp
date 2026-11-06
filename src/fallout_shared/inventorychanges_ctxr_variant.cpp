@@ -1108,8 +1108,8 @@ struct SaveFormIDHelper
 struct BGSSaveFormBuffer
 {
     void SaveData(void*, int, int);
-    unsigned int FUN_00865f20();
-    void FUN_00865ff0(int, unsigned int);
+    unsigned int StartVariableSizedValue();
+    void SaveVariableSizedValue(int, unsigned int);
 };
 struct FUN_00426a30_shell
 {
@@ -1738,7 +1738,7 @@ struct ActorStand
     Stats stats;
     ProcessStand* FUN_008d8520();
     float GetFatigueRatio();
-    bool FUN_008bc9d0(Weapon*, bool);
+    bool CanUseWeapon(Weapon*, bool);
 };
 struct Form
 {
@@ -1997,7 +1997,7 @@ struct Record90
 struct Load90
 {
     bool FUN_00862110();
-    void FUN_008579e0(void*, unsigned int);
+    void LoadGameDataOLD(void*, unsigned int);
     Record90* FUN_004fd3c0();
     unsigned int FUN_00825c00();
     unsigned char FUN_008df040();
@@ -2024,7 +2024,7 @@ struct Ptr90
 };
 struct Found90
 {
-    void FUN_0081c470(bool, float);
+    void Fade(bool, float);
     void FUN_00621b20(float);
 };
 struct Caster90
@@ -4245,7 +4245,7 @@ template <> class SettingT<GameSettingCollection>
 };
 extern SettingT<GameSettingCollection> originalRuntimeFloatSetting31;
 extern SettingT<GameSettingCollection> originalRuntimeFloatSetting32;
-void __cdecl FUN_008ba2f0(ActorValueOwner*, int, float, float, int);
+void __cdecl InventoryWeightModifiedCallback(ActorValueOwner*, int, float, float, int);
 struct WeightExtra
 {
     bool FUN_00418ba0();
@@ -4957,8 +4957,8 @@ struct SaveBuffer_4d4090
     Blob4_4d4090 GetChangeFlags();
     void SetChangeFlags(Blob4_4d4090 flags);
     void SetSpeakerIdle(TESIdleForm* idle);
-    unsigned int FUN_00865f20();
-    void FUN_00865ff0(int, unsigned int);
+    unsigned int StartVariableSizedValue();
+    void SaveVariableSizedValue(int, unsigned int);
 };
 struct ItemSave_4d4090
 {
@@ -6998,7 +6998,7 @@ struct LoadBuffer4160
     void SetValue(unsigned int flags);
     void FUN_0086cf00(FUN_008c71b0 flags);
     void FUN_0086cf00(unsigned int flags);
-    unsigned int FUN_00864a60();
+    unsigned int LoadVariableSizedValue();
 };
 struct Item4160 : FUN_0076b630
 {
@@ -8287,7 +8287,7 @@ extern const char DAT_010208e0[];
 
 struct MoveActorExt : MoveOwner
 {
-    bool FUN_008b8e90(MoveForm*);
+    bool IsInFaction(MoveForm*);
 };
 const char* __cdecl FUN_0048e730(TESBoundObject*, MoveOwner*);
 void __cdecl FUN_00406d00(char*, unsigned int, const char*, const char*, const char*);
@@ -8339,7 +8339,7 @@ void InventoryMoveTarget::FUN_004cb5f0(MoveOwner* source, MoveOwner* destination
                             onlyForm = (MoveForm*)actor->FUN_007af430();
                         if (extra->FUN_00418660() && (MoveForm*)extra->FUN_00418660() != (MoveForm*)source &&
                             (!actor || actor->FUN_007af430() == baseExtraA ||
-                             ((MoveActorExt*)actor)->FUN_008b8e90(modExtra_2)))
+                             ((MoveActorExt*)actor)->IsInFaction(modExtra_2)))
                         {
 
                             if (item->FUN_00559450()->FUN_005ae380() <= 1)

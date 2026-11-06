@@ -125,12 +125,12 @@ struct S_00701e00_Class
     int unk2c;
     int unk30;
 
-    void FUN_00701e00(int index);
+    void HighlightHotkey(int index);
 };
 
 // Updates the owner with unk2c and a per-index item pointer (or a default), then stores index in unk28 and sets unk24 to 1 when index is non-negative.
 // @fnv 0x00701e00
-void S_00701e00_Class::FUN_00701e00(int index)
+void S_00701e00_Class::HighlightHotkey(int index)
 {
     unk00->FUN_00700320(unk2c, index);
 
@@ -899,12 +899,12 @@ static const char str_FormatCount[] = "%s (%d)";
 
 struct HotkeyWheelUpdate : HotkeyWheelDisplay
 {
-    void FUN_007017b0();
+    void UpdateHotkeyList();
 };
 
 // Updates hotkey slot tiles with item icons, assigned state, and count labels from the player's inventory changes.
 // @fnv 0x007017b0
-void HotkeyWheelUpdate::FUN_007017b0()
+void HotkeyWheelUpdate::UpdateHotkeyList()
 {
     InventoryChanges* invChanges2 = InventoryChanges::GetOrAddInventoryChanges(_g_thePlayer);
     BSStringT<char> str3;
@@ -982,7 +982,7 @@ int HWShell::FUN_00701bd0(int index)
     {
         if (index >= 0)
             result5 = index;
-        ((S_00701e00_Class*)this)->FUN_00701e00(result5);
+        ((S_00701e00_Class*)this)->HighlightHotkey(result5);
     }
     else
     {
@@ -1026,7 +1026,7 @@ int HWShell::FUN_00701bd0(int index)
                 DAT_011d88f4 = g_timeGlobal.GetTimeStamp();
             }
             if (g_timeGlobal.GetTimeStamp() - DAT_011d88f4 > DAT_0101b268 || result5 == -1 || cur == -1)
-                ((S_00701e00_Class*)this)->FUN_00701e00(result5);
+                ((S_00701e00_Class*)this)->HighlightHotkey(result5);
         }
     }
     return result5;

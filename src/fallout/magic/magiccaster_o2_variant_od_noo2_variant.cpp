@@ -120,11 +120,11 @@ struct Master
     int field10;
     int field14;
     int field18;
-    void FUN_00817b90(Vec3 center, ListHandle* item, void* filter, RangeManager* source, TargetInterface* first,
+    void DoExplosion(Vec3 center, ListHandle* item, void* filter, RangeManager* source, TargetInterface* first,
                       float scale, float strength);
     TargetInterface* FUN_00815410();
     bool CheckHealthDamageKill(int* origin, void* filter);
-    void FUN_00818150(TargetInterface* selected, Vec3 location, RangeManager* source, float attenuation);
+    void ExplodeRigidBody(TargetInterface* selected, Vec3 location, RangeManager* source, float attenuation);
     void ApplyExplosion(TargetInterface* selected, Vec3 location, RangeManager* source, float attenuation);
 };
 extern TargetInterface* DAT_011dea3c;
@@ -156,7 +156,7 @@ extern int* __cdecl FUN_00403e20(unsigned int);
 extern void* __cdecl FUN_00416870(float, float, float);
 
 // @fnv 0x00817b90
-void Master::FUN_00817b90(Vec3 center, ListHandle* item, void* filter, RangeManager* source, TargetInterface* first,
+void Master::DoExplosion(Vec3 center, ListHandle* item, void* filter, RangeManager* source, TargetInterface* first,
                           float scale, float strength)
 {
     if (source->FUN_00825c00()->FUN_00403e60(0x20000000))
@@ -182,7 +182,7 @@ void Master::FUN_00817b90(Vec3 center, ListHandle* item, void* filter, RangeMana
                 int target = FUN_004b59f0(*entries->FUN_00629ab0(i));
                 if (target)
                 {
-                    FUN_00818150((TargetInterface*)target, center, source, attenuation);
+                    ExplodeRigidBody((TargetInterface*)target, center, source, attenuation);
                 }
             }
 

@@ -867,7 +867,7 @@ struct PathingRequestLOS : PathingRequestHelper
 
 struct Outer006d8910
 {
-    unsigned char FUN_006d8910(unsigned short);
+    unsigned char GetNeighborCount(unsigned short);
 };
 
 struct NavMeshPtr
@@ -928,7 +928,7 @@ struct ActorSub : Actor
     bool SetPathingRequestAvoidNodes(void*);
     void* FUN_00575ca0();
     Location16 FUN_00575650();
-    bool FUN_008b3b90();
+    bool DidPathingFail();
     bool FUN_008b3960();
     SearchRef* FUN_008b39d0();
     bool FUN_008b3bb0();
@@ -1246,7 +1246,7 @@ void SearchProcedure::UpdateSearchState()
 
     case 1:
     case 8:
-        if (pActor2->FUN_008b3b90())
+        if (pActor2->DidPathingFail())
         {
             if (!pActor2->FUN_008b3960())
             {
@@ -1286,7 +1286,7 @@ void SearchProcedure::UpdateSearchState()
         break;
 
     case 2:
-        if (pActor2->FUN_008b3b90())
+        if (pActor2->DidPathingFail())
         {
             if (!pActor2->FUN_008b3960() && this->m_pReference)
             {
@@ -1336,7 +1336,7 @@ void SearchProcedure::UpdateSearchState()
 
     case 3: {
         bool bFlag455;
-        if (pActor2->FUN_008b3b90())
+        if (pActor2->DidPathingFail())
         {
             if (!pActor2->FUN_008b3960())
             {
@@ -1387,7 +1387,7 @@ void SearchProcedure::UpdateSearchState()
                             NavMeshPtr navMesh;
                             if (loc53c.FUN_006dd610(&navMesh))
                             {
-                                char cRes = navMesh->FUN_006d8910(loc53c.GetShortValueAtOffset24());
+                                char cRes = navMesh->GetNeighborCount(loc53c.GetShortValueAtOffset24());
                                 if ((cRes == 1 && dist > originalRuntimeFloatSetting459.Float()->f *
                                                              originalRuntimeFloatSetting459.Float()->f) ||
                                     (cRes == 2 && dist > originalRuntimeFloatSetting458.Float()->f *

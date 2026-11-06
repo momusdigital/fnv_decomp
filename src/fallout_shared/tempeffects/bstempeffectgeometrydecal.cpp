@@ -2695,7 +2695,7 @@ FUN_00688770::~FUN_00688770()
 struct SaveGameBuffer688
 {
     char* FUN_00825c00();
-    void FUN_008579b0(const void* pvData, unsigned int uiSize);
+    void SaveGameDataOLD(const void* pvData, unsigned int uiSize);
 };
 struct SaveForm688
 {
@@ -2796,9 +2796,9 @@ void Decal688::FUN_00688b00()
     if (DAT_011de45c->FUN_00862110())
     {
         unsigned int uiTag = 'BLOK';
-        ((SaveGameBuffer688*)DAT_011de45c)->FUN_008579b0(&uiTag, 4);
+        ((SaveGameBuffer688*)DAT_011de45c)->SaveGameDataOLD(&uiTag, 4);
         pcSizePos = ((SaveGameBuffer688*)DAT_011de45c)->FUN_00825c00();
-        ((SaveGameBuffer688*)DAT_011de45c)->FUN_008579b0(&usSize, 2);
+        ((SaveGameBuffer688*)DAT_011de45c)->SaveGameDataOLD(&usSize, 2);
     }
 
     if (*DAT_011de4e8.FUN_00408d60())
@@ -2939,7 +2939,7 @@ struct DecalLoad688Header
 };
 struct DecalLoad688Reader
 {
-    void FUN_008579e0(void* data, unsigned int size);
+    void LoadGameDataOLD(void* data, unsigned int size);
 };
 struct DecalLoad688Version
 {
@@ -2969,7 +2969,7 @@ bool DecalLoad688::FUN_00688c90()
     if (DAT_011de45c->FUN_00862110())
     {
         unsigned int blok;
-        ((DecalLoad688Reader*)DAT_011de45c)->FUN_008579e0(&blok, 4);
+        ((DecalLoad688Reader*)DAT_011de45c)->LoadGameDataOLD(&blok, 4);
         if (blok != 0x424c4f4b)
         {
             DecalLoad688Header* form7 = ((DecalLoad688Runtime*)DAT_011de45c)->FUN_004fd3c0();
@@ -2985,7 +2985,7 @@ bool DecalLoad688::FUN_00688c90()
             }
         }
         base = ((DecalLoad688Buffer*)DAT_011de45c)->FUN_00825c00();
-        ((DecalLoad688Reader*)DAT_011de45c)->FUN_008579e0(&count, 2);
+        ((DecalLoad688Reader*)DAT_011de45c)->LoadGameDataOLD(&count, 2);
     }
     if (DAT_011de45c->FUN_00862110())
     {

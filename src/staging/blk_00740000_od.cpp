@@ -239,7 +239,7 @@ struct StrMem
 {
     StrMem();
     ~StrMem();
-    void FUN_006ffe10();
+    void Initialize();
 };
 struct FUN_00759f20_holder
 {
@@ -252,7 +252,7 @@ struct FUN_00759eb0 : public StrMem
 // @fnv 0x00759eb0
 FUN_00759eb0::FUN_00759eb0(const char* s)
 {
-    FUN_006ffe10();
+    Initialize();
     ((FUN_00759f20_holder*)this)->AssignString(s);
 }
 
@@ -1477,7 +1477,7 @@ struct CaravanOwner : Menu
     int unknownde4, unknownde8;
     CaravanTotal laneTotals[6];
     void UpdateHandStats(int);
-    bool FUN_00740f10(unsigned int);
+    bool IsFlagSet(unsigned int);
     int CompareToTwentyOneToTwentySix(int);
     int FUN_0074f600(int, int);
     int FUN_00752cb0(int, int);
@@ -1572,7 +1572,7 @@ CaravanDecision CaravanOwner::FUN_0074fdc0()
         this->UpdateHandStats(local_48Value18);
     }
 
-    if ((this->FUN_00740f10(0x800)))
+    if ((this->IsFlagSet(0x800)))
     {
         openingValue36.FUN_00403550(4);
         if (mode < 1)

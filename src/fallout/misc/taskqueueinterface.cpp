@@ -2377,7 +2377,7 @@ struct PlainPackedTask
 };
 // Packs a script command opcode, form ID, and variadic parameters into a 32-byte task buffer and submits it to the task queue.
 // @fnv 0x0087a8b0
-void __cdecl FUN_0087a8b0(TaskQueueInterface* queue, unsigned int opcode, FormTaskRef* form, ...)
+void __cdecl QueueScriptFunctionCall(TaskQueueInterface* queue, unsigned int opcode, FormTaskRef* form, ...)
 {
     int h;
     int p;

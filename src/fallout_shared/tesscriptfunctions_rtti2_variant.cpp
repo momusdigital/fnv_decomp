@@ -902,7 +902,7 @@ struct Actor_5c98e0_Shell
 {
     FNVActorContext* FUN_005d43c0();
     FNVWipController_SV* FUN_008d8520();
-    void FUN_008b3d30();
+    void ClearLookAtTarget();
 };
 
 extern "C" void* __cdecl FNV_DynamicCast(void*, long, const void*, const void*, int);
@@ -924,7 +924,7 @@ bool __cdecl FUN_005c98e0(const ScriptParameter* apParameters, const char* apCom
             if (actor->FUN_008d8520())
             {
                 actor->FUN_008d8520()->v648(1);
-                actor->FUN_008b3d30();
+                actor->ClearLookAtTarget();
                 actor->FUN_008d8520()->v7ac(0);
             }
         }

@@ -242,7 +242,7 @@ struct FUN_006fc920_Class
 {
     int __thiscall ReadFromStream(NiBinaryStream* a1);
 };
-void __cdecl FUN_006fda10();
+void __cdecl UnloadPersistentDataRecurse();
 struct FUN_006fca70_Class
 {
     void __thiscall FUN_006fca70();
@@ -618,7 +618,7 @@ struct S006F1E90
 {
     bool __thiscall FUN_006f1fc0(int);
     bool __thiscall IsSegmentClear(int, int);
-    bool __thiscall FUN_006f1e90(int, int);
+    bool __thiscall IsSegmentValid(int, int);
 };
 extern int DAT_0106d814;
 struct FUN_006f26d0_Class
@@ -1108,12 +1108,12 @@ struct Unk006fec90
 };
 struct Unk006fec00
 {
-    bool FUN_006fec00(int a1);
+    bool GetPointIsInNode(int a1);
 };
 struct Unk006fec90_Class
 {
     int GetActiveMenu(int a1);
-    bool FUN_006fec00(int a1);
+    bool GetPointIsInNode(int a1);
     int m_iWordAt00;
     int m_cByteAtOffset1;
     int m_cByteAtOffset2;
@@ -1340,15 +1340,15 @@ struct FUN_006fe920_Class
 };
 struct FUN_006fed30_Callee
 {
-    int __thiscall FUN_006fed30(int a1);
+    int __thiscall GetTreeBlockForPoint(int a1);
 };
 struct FUN_006fed30_Class
 {
-    int __thiscall FUN_006fed30(int a1);
+    int __thiscall GetTreeBlockForPoint(int a1);
 };
 struct LocalUnk006fec90_Class
 {
-    bool __thiscall FUN_006fec00(int a1);
+    bool __thiscall GetPointIsInNode(int a1);
 };
 struct LocalBSSimpleList
 {
@@ -1653,7 +1653,7 @@ class FUN_006e6db0_cls
     FUN_006e6db0_ObjectBase* m_84;
 
     void FlushChildren();
-    void FUN_006e6db0();
+    void CleanUpRayCasts();
 };
 struct FUN_006e7190_Helper30
 {
@@ -2088,7 +2088,7 @@ struct FUN_006edd30_shell
     Location_006edd30* FUN_006edc40();
     PathEdge_006edd30* CreateSize28();
     Path_006edd30* CreateObject();
-    void FUN_006edd30(const Position_006edd30* start, const Position_006edd30* finish);
+    void AddFirstEdge(const Position_006edd30* start, const Position_006edd30* finish);
 };
 extern unsigned int DAT_010a2720;
 void* __cdecl operator new(unsigned int size, void* place);
@@ -2271,7 +2271,7 @@ struct F08
     int unk30, unk34, unk38, unk3c;
     A08 unk40, unk54;
     unsigned int UpdateNodeDirection(unsigned int, float, bool);
-    void FUN_006eef80();
+    void BuildShrunkEdgeLeftRightArrays();
 };
 extern const float DAT_01016248;
 struct Pt_6f03a0
@@ -3509,7 +3509,7 @@ class C6FEC00Cell
     float m_fCenterX;
     float m_fCenterY;
 
-    bool FUN_006fec00(const C6FEC00Point2* pkPoint);
+    bool GetPointIsInNode(const C6FEC00Point2* pkPoint);
 };
 struct SteamCallbackA
 {
@@ -3731,8 +3731,8 @@ class TESObjectREFR : public TESForm
 class BGSLoadFormBuffer
 {
   public:
-    void FUN_00864980(void* apDest, unsigned int auiSize);
-    unsigned int FUN_008648a0();
+    void LoadData(void* apDest, unsigned int auiSize);
+    unsigned int LoadFormID();
 };
 TESForm* FUN_004839c0(unsigned int auiFormID);
 struct LoadedRefPosition
@@ -4071,7 +4071,7 @@ class EDBC0Builder
     EDBC0EntryArray m_kOpen;
 
     EDBC0Entry* CreateEntry();
-    void FUN_006edbc0();
+    void AddStartVert();
 };
 struct PBTriangle
 {
@@ -4448,15 +4448,15 @@ class PathingLocation
 };
 struct TargetNavInfo
 {
-    TESWorldSpace* FUN_00690800();
-    TESObjectCELL* FUN_006b7770();
+    TESWorldSpace* GetWorldSpace();
+    TESObjectCELL* GetCell();
 };
 extern NiPoint3Ex DAT_011a946c;
 bool __cdecl FUN_006d7350(PathingLocation&, PathingLocation&, PathingLocation*, void*);
 bool __cdecl FUN_006d7490(PathingLocation&, PathingLocation&, void*, void*);
 struct TargetHost
 {
-    bool FUN_006f0050(const NiPoint3Ex&, NiPoint3Ex&, TargetNavInfo*, int, const NiPoint3Ex&, PathingLocation&,
+    bool PushPoint(const NiPoint3Ex&, NiPoint3Ex&, TargetNavInfo*, int, const NiPoint3Ex&, PathingLocation&,
                       PathingLocation&);
 };
 struct HeightVec
@@ -4723,7 +4723,7 @@ struct AvoidPath
     int unk9c;
     int unka0;
     AvoidPoints points;
-    bool FUN_006f1e90(const FUN_006815c0&, const FUN_006815c0&);
+    bool IsSegmentValid(const FUN_006815c0&, const FUN_006815c0&);
     void ClipPathAgainstObstacles();
 };
 bool FUN_006ba9e0(const FUN_006815c0&, const FUN_006815c0&, const FUN_006815c0&, float);
@@ -5671,7 +5671,7 @@ struct P3
 };
 struct NavMesh
 {
-    void FUN_0068f0c0(unsigned short tri, int edge, P3& a, P3& b);
+    void GetEdgeVertices(unsigned short tri, int edge, P3& a, P3& b);
     void FindAdjacentEdge(unsigned short tri, int edge, NavMesh*& outMesh, unsigned short& outTri, int& outEdge);
 };
 struct PathNode
@@ -5717,8 +5717,8 @@ struct PathSmoother
     PointList m40;
     PointList m54;
 
-    void FUN_006edbc0();
-    void FUN_006edd30(P3& a, P3& b);
+    void AddStartVert();
+    void AddFirstEdge(P3& a, P3& b);
     void AddPathFromEdge(P3& p, unsigned int i);
     void AddPathFromContext(P3& p, unsigned int i);
     void CreateNavMeshEdges();

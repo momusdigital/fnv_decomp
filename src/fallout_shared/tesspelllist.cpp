@@ -412,7 +412,7 @@ struct SavedRecord
 struct TESSaveLoadGame
 {
     bool FUN_00862110();
-    void FUN_008579e0(void*, unsigned int);
+    void LoadGameDataOLD(void*, unsigned int);
     void FUN_00857aa0(unsigned int*, unsigned int);
     SavedRecord* CurrentRecord();
     unsigned int Position();
@@ -448,7 +448,7 @@ void LoadedSpells::LoadSpellList(unsigned int flags, unsigned int unused)
         if (g_TESSaveLoadGame->FUN_00862110())
         {
             unsigned int s;
-            g_TESSaveLoadGame->FUN_008579e0(&s, 4);
+            g_TESSaveLoadGame->LoadGameDataOLD(&s, 4);
             if (s != 0x424c4f4b)
             {
                 SavedRecord* f = g_TESSaveLoadGame->CurrentRecord();
@@ -469,12 +469,12 @@ void LoadedSpells::LoadSpellList(unsigned int flags, unsigned int unused)
                 }
             }
             a = g_TESSaveLoadGame->Position();
-            g_TESSaveLoadGame->FUN_008579e0(&h, 2);
+            g_TESSaveLoadGame->LoadGameDataOLD(&h, 2);
         }
         spells.RemoveAll();
         leveledSpells.RemoveAll();
         unsigned short i;
-        g_TESSaveLoadGame->FUN_008579e0(&i, 2);
+        g_TESSaveLoadGame->LoadGameDataOLD(&i, 2);
         for (p = 0; p < i; p++)
         {
             unsigned int b;
@@ -600,7 +600,7 @@ class TES
 class TESSaveLoadGame
 {
   public:
-    void FUN_008579b0(void* pData, int size);
+    void SaveGameDataOLD(void* pData, int size);
     void FUN_00857a10(void* pData, int size);
     bool FUN_00862110();
 };
@@ -667,14 +667,14 @@ void TESSpellList_Target::SaveSpellList(unsigned int flags)
         if (g_TESSaveLoadGame->FUN_00862110())
         {
             blok = 0x424C4F4B;
-            g_TESSaveLoadGame->FUN_008579b0(&blok, 4);
+            g_TESSaveLoadGame->SaveGameDataOLD(&blok, 4);
             pBlockSize3 = (unsigned short*)reinterpret_cast<TimeGlobal*>(g_TESSaveLoadGame)->GetTimeStamp();
-            g_TESSaveLoadGame->FUN_008579b0(&unk0CVal, 2);
+            g_TESSaveLoadGame->SaveGameDataOLD(&unk0CVal, 2);
         }
 
         spellCount1 = 0;
         pNumSpells = (unsigned short*)reinterpret_cast<TimeGlobal*>(g_TESSaveLoadGame)->GetTimeStamp();
-        g_TESSaveLoadGame->FUN_008579b0(&spellCount1, 2);
+        g_TESSaveLoadGame->SaveGameDataOLD(&spellCount1, 2);
 
         curNodePtr = reinterpret_cast<ActorMagicSpellList*>(this)->GetSpells();
         while (curNodePtr)

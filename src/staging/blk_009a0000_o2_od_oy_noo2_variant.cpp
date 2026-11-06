@@ -36,7 +36,7 @@ extern SettingB09 g_kSetting2EC;
 struct HandleB09
 {
     int m_iValue;
-    bool FUN_00624070();
+    bool QBipLayer();
     int FUN_0043b4d0();
 };
 struct FormB09
@@ -267,7 +267,7 @@ void OwnerB09::FUN_009b0920(RefB09* pRef)
             NiPoint3B09 kWorldPosition = kRefPos - *GetPos1F4();
             kWorldPosition.Unitize();
             HandleB09 kHandle;
-            if (pRef->FUN_0043b4f0(&kHandle)->FUN_00624070())
+            if (pRef->FUN_0043b4f0(&kHandle)->QBipLayer())
                 kWorldPosition[2] += *g_kSettingE70.GetFloat();
             bool bMatched = false;
             if (FUN_009ad610())

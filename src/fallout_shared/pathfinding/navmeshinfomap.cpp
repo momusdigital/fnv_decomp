@@ -435,7 +435,7 @@ bool FUN_006b6910_shell::FUN_006b6910(TESForm* apForm)
 namespace fnv_006b7850 {
 struct FUN_006b7850_shell : public NavMeshInfoMap
 {
-    void* FUN_006b7850(TESWorldSpace*, int);
+    void* FindNavMeshInfoForCellKey(TESWorldSpace*, int);
 };
 
 struct DummyPointerMap
@@ -445,7 +445,7 @@ struct DummyPointerMap
 unsigned int PrepareScriptMessage(int);
 // Looks up the worldspace's map by form ID, then the cell's entry by prepared key, returning the stored info pointer or null.
 // @fnv 0x006b7850
-void* FUN_006b7850_shell::FUN_006b7850(TESWorldSpace* apWorldSpace, int aiCellKey)
+void* FUN_006b7850_shell::FindNavMeshInfoForCellKey(TESWorldSpace* apWorldSpace, int aiCellKey)
 {
     DummyPointerMap* worldspaceMap;
     void* infoarray;
@@ -478,10 +478,10 @@ struct HArr
 };
 struct FUN_006b7910_shell
 {
-    void FUN_006b7910(BSSimpleArray<void*, 1024>* arr);
+    void GetAllNavMeshInfo(BSSimpleArray<void*, 1024>* arr);
 };
 // @fnv 0x006b7910
-void FUN_006b7910_shell::FUN_006b7910(BSSimpleArray<void*, 1024>* pArray)
+void FUN_006b7910_shell::GetAllNavMeshInfo(BSSimpleArray<void*, 1024>* pArray)
 {
     ((_Mem_20a4*)pArray)->SetSize(0, false);
     ((HArr*)pArray)->GrowCapacity(0x800);
@@ -571,19 +571,19 @@ struct DoorH
 int __cdecl BuildCellKey(short, short);
 struct FUN_006b77e0_shell
 {
-    int FUN_006b7850(void*, int);
+    int FindNavMeshInfoForCellKey(void*, int);
     int LookupScriptMessageValue(TESObjectCELL*);
-    int FUN_006b77e0(TESObjectCELL*);
+    int FindNavMeshInfoForCell(TESObjectCELL*);
 };
 // @fnv 0x006b77e0
-int FUN_006b77e0_shell::FUN_006b77e0(TESObjectCELL* cell)
+int FUN_006b77e0_shell::FindNavMeshInfoForCell(TESObjectCELL* cell)
 {
     if (!cell)
         return 0;
     if (cell->IsInterior())
         return LookupScriptMessageValue(cell);
     else
-        return FUN_006b7850(((DoorH*)cell)->GetParentWorldSpace(),
+        return FindNavMeshInfoForCellKey(((DoorH*)cell)->GetParentWorldSpace(),
                             BuildCellKey((short)((CellH*)cell)->GetCellGridX(), (short)((CellH*)cell)->GetCellGridY()));
 }
 }  // namespace fnv_006b77e0
@@ -596,11 +596,11 @@ struct TESWorldSpaceStandIn : public TESWorldSpace
 struct NavMeshInfoStandIn : public NavMeshInfo
 {
     TESWorldSpace* GetParentWorldSpace();
-    TESObjectCELL* FUN_006b7770();
+    TESObjectCELL* GetCell();
 };
 
 // @fnv 0x006b7770
-TESObjectCELL* NavMeshInfoStandIn::FUN_006b7770()
+TESObjectCELL* NavMeshInfoStandIn::GetCell()
 {
     TESWorldSpace* worldSpace = GetParentWorldSpace();
     if (worldSpace)
@@ -633,7 +633,7 @@ class NavMesh
   public:
     bool FUN_00460340();
     bool FUN_00440d80();
-    void FUN_006986d0();
+    void UpdateNavMeshInfo();
 };
 struct PtrView
 {
@@ -744,7 +744,7 @@ bool WorkerNavMap::FUN_006b6580()
         NavMeshPtr mesh8;
         if (((NavMeshInfo*)valueVal)->AcquireNavMesh(mesh8) && ((PtrView*)&mesh8)->FUN_00559450()->FUN_00460340() &&
             !((PtrView*)&mesh8)->FUN_00559450()->FUN_00440d80())
-            ((PtrView*)&mesh8)->FUN_00559450()->FUN_006986d0();
+            ((PtrView*)&mesh8)->FUN_00559450()->UpdateNavMeshInfo();
     }
     ValidateNavMeshes();
     return true;
@@ -1284,10 +1284,10 @@ struct GridArray
 };
 struct InfoNav : NavMeshInfo
 {
-    int FUN_00690830();
+    int GetParentSpace();
     bool HasNonZeroAtOffset54();
     bool FUN_00690860(NavMeshPtr*);
-    int FUN_00690800();
+    int GetWorldSpace();
 
     void InitializeFromMeshSource(NavMesh*);
 };
@@ -1309,7 +1309,7 @@ struct CleanupMap
 };
 struct GridLookup
 {
-    MeshInfoArray* FUN_006b7850(NavMesh*, unsigned int);
+    MeshInfoArray* FindNavMeshInfoForCellKey(NavMesh*, unsigned int);
 };
 struct GridMap
 {
@@ -1397,19 +1397,19 @@ void WorkerNavMap::ValidateNavMeshes()
                 while (iterator)
                 {
                     m_kNavMeshInfosByFormID.GetNext(iterator, identifier, (void*&)meshInfo);
-                    if (!meshInfo->FUN_00690830())
+                    if (!meshInfo->GetParentSpace())
                     {
                         Warning(DAT_0106c0d8, ((PtrView*)meshInfo)->FUN_00559450(),
-                                (((NavMeshInfoStandIn*)meshInfo)->FUN_006b7770()
-                                     ? ((CellView*)((NavMeshInfoStandIn*)meshInfo)->FUN_006b7770())->GetEditorID()
+                                (((NavMeshInfoStandIn*)meshInfo)->GetCell()
+                                     ? ((CellView*)((NavMeshInfoStandIn*)meshInfo)->GetCell())->GetEditorID()
                                      : DAT_01011584));
                         invalidatedList.FUN_007cb2e0(&meshInfo);
                     }
                     else if (!meshInfo->HasNonZeroAtOffset54())
                     {
                         Warning(DAT_0106c078, ((PtrView*)meshInfo)->FUN_00559450(),
-                                (((NavMeshInfoStandIn*)meshInfo)->FUN_006b7770()
-                                     ? ((CellView*)((NavMeshInfoStandIn*)meshInfo)->FUN_006b7770())->GetEditorID()
+                                (((NavMeshInfoStandIn*)meshInfo)->GetCell()
+                                     ? ((CellView*)((NavMeshInfoStandIn*)meshInfo)->GetCell())->GetEditorID()
                                      : DAT_01011584));
                         RemoveNavMeshId(meshInfo);
                         invalidatedList.FUN_007cb2e0(&meshInfo);
@@ -1422,8 +1422,8 @@ void WorkerNavMap::ValidateNavMeshes()
                             {
                                 Warning(
                                     DAT_0106c008, ((PtrView*)meshInfo)->FUN_00559450(),
-                                    (((NavMeshInfoStandIn*)meshInfo)->FUN_006b7770()
-                                         ? ((CellView*)((NavMeshInfoStandIn*)meshInfo)->FUN_006b7770())->GetEditorID()
+                                    (((NavMeshInfoStandIn*)meshInfo)->GetCell()
+                                         ? ((CellView*)((NavMeshInfoStandIn*)meshInfo)->GetCell())->GetEditorID()
                                          : DAT_01011584));
                                 invalidatedList.FUN_007cb2e0(&meshInfo);
                                 continue;
@@ -1445,8 +1445,8 @@ void WorkerNavMap::ValidateNavMeshes()
                                 if (invalid)
                                 {
                                     Warning(DAT_0106bfa8, ((PtrView*)meshInfo)->FUN_00559450(),
-                                            (((NavMeshInfoStandIn*)meshInfo)->FUN_006b7770()
-                                                 ? ((CellView*)((NavMeshInfoStandIn*)meshInfo)->FUN_006b7770())
+                                            (((NavMeshInfoStandIn*)meshInfo)->GetCell()
+                                                 ? ((CellView*)((NavMeshInfoStandIn*)meshInfo)->GetCell())
                                                        ->GetEditorID()
                                                  : DAT_01011584));
                                     ((InfoArray*)&meshInfo->adjacent)->FUN_006bf8f0(k, true);
@@ -1468,8 +1468,8 @@ void WorkerNavMap::ValidateNavMeshes()
                                 if (invalid)
                                 {
                                     Warning(DAT_0106bfa8, ((PtrView*)meshInfo)->FUN_00559450(),
-                                            (((NavMeshInfoStandIn*)meshInfo)->FUN_006b7770()
-                                                 ? ((CellView*)((NavMeshInfoStandIn*)meshInfo)->FUN_006b7770())
+                                            (((NavMeshInfoStandIn*)meshInfo)->GetCell()
+                                                 ? ((CellView*)((NavMeshInfoStandIn*)meshInfo)->GetCell())
                                                        ->GetEditorID()
                                                  : DAT_01011584));
                                     ((InfoArray*)&meshInfo->preferred)->FUN_006bf8f0(k, true);
@@ -1477,7 +1477,7 @@ void WorkerNavMap::ValidateNavMeshes()
                                 }
                             }
                             LocalList neighborList;
-                            if (meshInfo->FUN_00690800())
+                            if (meshInfo->GetWorldSpace())
                             {
                                 short gridX, gridY;
                                 SplitUInt32(meshInfo->m_uiPathingFlags, &gridX, &gridY);
@@ -1489,7 +1489,7 @@ void WorkerNavMap::ValidateNavMeshes()
                                             continue;
                                         MeshInfoArray* pCellMeshes =
                                             ((GridLookup*)this)
-                                                ->FUN_006b7850((NavMesh*)meshInfo->FUN_00690800(),
+                                                ->FindNavMeshInfoForCellKey((NavMesh*)meshInfo->GetWorldSpace(),
                                                                PackShortPair((unsigned short)x, (unsigned short)y));
                                         if (pCellMeshes)
                                             for (unsigned int i = 0; i < pCellMeshes->FUN_0044ddc0(); ++i)
@@ -1631,16 +1631,16 @@ class TESObjectCELL : public ::TESForm
     virtual ~TESObjectCELL();
 };
 
-::TESForm* __fastcall FUN_00690830(const ::NavMeshInfo*);
+::TESForm* __fastcall GetParentSpace(const ::NavMeshInfo*);
 
 struct InteriorCellLookup : public ::NavMeshInfo
 {
     ::TESObjectCELL* FUN_006b77b0();
 };
 
-// Casts the TESForm* returned by FUN_00690830(this) to TESObjectCELL*.
+// Casts the TESForm* returned by GetParentSpace(this) to TESObjectCELL*.
 // @fnv 0x006b77b0
 ::TESObjectCELL* InteriorCellLookup::FUN_006b77b0()
 {
-    return dynamic_cast< ::TESObjectCELL*>(FUN_00690830(this));
+    return dynamic_cast< ::TESObjectCELL*>(GetParentSpace(this));
 }

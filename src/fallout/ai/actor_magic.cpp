@@ -571,18 +571,18 @@ void FUN_008c5330_shell::ClearField4C()
 
 struct FUN_008d4a80_shell
 {
-    int FUN_008d4a80(int);
+    int MapActorValue(int);
 };
 struct FUN_00880580_shell
 {
     void FUN_00880580(int);
     void FUN_008d4840(int a);
 };
-// Calls FUN_008d4a80 on the object at this-0xa4 with a, then passes the result to FUN_00880580.
+// Calls MapActorValue on the object at this-0xa4 with a, then passes the result to FUN_00880580.
 // @fnv 0x008d4840
 void FUN_00880580_shell::FUN_008d4840(int a)
 {
-    FUN_00880580(reinterpret_cast<FUN_008d4a80_shell*>(reinterpret_cast<char*>(this) - 0xa4)->FUN_008d4a80(a));
+    FUN_00880580(reinterpret_cast<FUN_008d4a80_shell*>(reinterpret_cast<char*>(this) - 0xa4)->MapActorValue(a));
 }
 
 struct PCStub
@@ -3099,15 +3099,15 @@ struct XHost17 : public XHostVtbl17
 
     XHigh17* FUN_008d8520();
 
-    void FUN_008bfa40(XRefr17*, int, int, int, XForm17*);
+    void StealAlarm(XRefr17*, int, int, int, XForm17*);
 
     bool FUN_00493bb0();
 
     void FUN_00574b30(XRefr17*, int, bool, bool);
 
-    bool FUN_008a16d0();
+    bool IsWeaponDrawn();
 
-    bool FUN_008bc9d0(void*, int);
+    bool CanUseWeapon(void*, int);
 
     void FUN_0088c650(void*, int, int, int, int, int);
 
@@ -3177,7 +3177,7 @@ void XHost17::FUN_00891e00(XRefr17* pRefr, int iCount, bool a2)
             if (pRefr->FUN_00567790() != 0 && !pRefr->FUN_005785e0(this, true) && FUN_008d8520()->FUN_0045cd60() == 0)
             {
 
-                FUN_008bfa40(pRefr, (int)bound, iCount, 0, pRefr->FUN_00567790());
+                StealAlarm(pRefr, (int)bound, iCount, 0, pRefr->FUN_00567790());
 
                 if (FUN_00493bb0() && this != (XHost17*)g_thePlayer)
                 {
@@ -3236,7 +3236,7 @@ void XHost17::FUN_00891e00(XRefr17* pRefr, int iCount, bool a2)
                     if (t4 == FUN_0044ddc0(m_pBaseProcess->vfn_14c()))
                     {
 
-                        if (FUN_008a16d0())
+                        if (IsWeaponDrawn())
                         {
 
                             m_pBaseProcess->vfn_1cc(0, vfn_1e8(), vfn_1e4(), this);
@@ -3295,7 +3295,7 @@ void XHost17::FUN_00891e00(XRefr17* pRefr, int iCount, bool a2)
                             ->FUN_00709430(((XW17*)m_pBaseProcess->vfn_148())->HasEffect(6)) <= 0.0)
                     {
 
-                        vfn_3ec(FUN_0044ddc0(m_pBaseProcess->vfn_148()), FUN_008a16d0(),
+                        vfn_3ec(FUN_0044ddc0(m_pBaseProcess->vfn_148()), IsWeaponDrawn(),
                                 ((XW17*)m_pBaseProcess->vfn_148())->HasEffect(2), 0);
                     }
                 }
@@ -3322,7 +3322,7 @@ void XHost17::FUN_00891e00(XRefr17* pRefr, int iCount, bool a2)
 
                 bo2 = FUN_0044ddc0(bo);
 
-                if (FUN_008bc9d0(bo2, 1))
+                if (CanUseWeapon(bo2, 1))
                 {
 
                     FUN_0088c650(FUN_0044ddc0(bo), 1, 0, 1, 0, 1);
@@ -3367,7 +3367,7 @@ struct FUN_00670b30
     int unk08;
     FUN_00670b30();
     ~FUN_00670b30();
-    void FUN_0067f3c0(void*);
+    void SetLocReference(void*);
 };
 
 class TESPackage
@@ -3917,7 +3917,7 @@ void FUN_008a75a0_shell::EnsurePackage26()
     pNewPkg3->SetMustReachLocation(false);
     pNewPkg3->SetMustComplete(true);
     FUN_00670b30* pLoc = new FUN_00670b30();
-    pLoc->FUN_0067f3c0(this);
+    pLoc->SetLocReference(this);
     pNewPkg3->FUN_00671d30(pLoc);
     delete pLoc;
     pNewPkg3->SetProcedureType(PROC_21);
@@ -4725,11 +4725,11 @@ class EnchantableHolder8c30
 class Actor8c30 : public Actor
 {
   public:
-    void FUN_008c30a0();
+    void UnloadPermanentMagic();
 };
 
 // @fnv 0x008c30a0
-void Actor8c30::FUN_008c30a0()
+void Actor8c30::UnloadPermanentMagic()
 {
     BSSimpleList<SpellItem*>* pkIter = GetActorBase()->spells.GetSpells();
     while (pkIter)
@@ -5185,7 +5185,7 @@ struct FUN_0081bf80
 {
     FUN_0081bf80(void* pkLightData, Node8c39* pkMagicNode);
     ~FUN_0081bf80();
-    void FUN_0081c470(bool bFade, float fDuration);
+    void Fade(bool bFade, float fDuration);
     void UpdateLightFade(float fTime);
     int m_kNextStreamField[7];
 };
@@ -5250,7 +5250,7 @@ void Actor8c39::AttachMagicEffect(Source8c39* pkSource)
             pkManager->FUN_0047aa40(true);
             pkSequence->FUN_0098adb0(-s_fMaxTime);
             if (m_pkLight)
-                m_pkLight->FUN_0081c470(true, pkSequence->FUN_00508100() * 0.75);
+                m_pkLight->Fade(true, pkSequence->FUN_00508100() * 0.75);
         }
         if (m_pkLight)
             m_pkLight->UpdateLightFade(0.0f);
@@ -7355,12 +7355,12 @@ struct SightActor
     SightBase* GetActorBase();
     bool IsSneaking();
     float FUN_008854d0(bool);
-    float FUN_008be940();
+    float GetEyeLevel();
     float GetActorHeight();
     void FUN_00931ed0(SightFilterBits*);
     float GetScale();
     SightProcess* GetCurrentAIProcess();
-    bool FUN_0088b880(bool, SightActor*, bool, int*, bool);
+    bool LineOfSight(bool, SightActor*, bool, int*, bool);
 };
 struct SightCell
 {
@@ -7369,7 +7369,7 @@ struct SightCell
 
 // Checks visibility through the sight process or ray checks; ray checks can write a code to result.
 // @fnv 0x0088b880
-bool SightActor::FUN_0088b880(bool force, SightActor* other, bool mode, int* result, bool skipAngle)
+bool SightActor::LineOfSight(bool force, SightActor* other, bool mode, int* result, bool skipAngle)
 {
     bool visible = false;
     SightActor* actor = 0;
@@ -7424,7 +7424,7 @@ bool SightActor::FUN_0088b880(bool force, SightActor* other, bool mode, int* res
                 if (IsSneaking())
                     height = FUN_008854d0(mode);
                 else
-                    height = mode ? FUN_008be940() : GetActorHeight() * 0.75;
+                    height = mode ? GetEyeLevel() : GetActorHeight() * 0.75;
                 if (!source)
                     start.z += height;
                 if (g_TES->FUN_004511e0(cell, 1))

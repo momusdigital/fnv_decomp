@@ -514,7 +514,7 @@ struct Interface_Ext : Interface
 };
 
 // @fnv 0x00702450
-bool __cdecl FUN_00702450(Interface::enumMenus aeMenuID)
+bool __cdecl IsTopMenuID(Interface::enumMenus aeMenuID)
 {
     if (FUN_004b7210() && (unsigned char)((Modifier*)FUN_004b7210())->GetKey())
     {
@@ -639,13 +639,13 @@ class BGSMoviePlayer
 };
 
 extern BGSMoviePlayer* DAT_0126fac4;
-void __fastcall FUN_00713f00(InterfaceManager*);
+void __fastcall Accumulate(InterfaceManager*);
 
 // @fnv 0x00702870
 void FUN_00702870()
 {
     if (FUN_004b7210() && reinterpret_cast<Modifier*>(FUN_004b7210())->GetKey() && !DAT_0126fac4->FUN_00ec17c0())
-        FUN_00713f00(FUN_004b7210());
+        Accumulate(FUN_004b7210());
 }
 }  // namespace fnv_00702870
 
@@ -748,7 +748,7 @@ struct ConsoleManager
     bool IsConsoleActive();
 };
 // @fnv 0x00703d50
-bool FUN_00703d50()
+bool IsConsoleVisible()
 {
     if (FUN_004b7210() && reinterpret_cast<Modifier*>(FUN_004b7210())->GetKey() && ConsoleManager::Instance(false))
         return ConsoleManager::Instance(true)->IsConsoleActive();
@@ -766,15 +766,15 @@ struct ConsoleManager
 {
     static ConsoleManager* Instance(bool);
     bool IsConsoleActive();
-    void FUN_0071d580();
+    void ToggleVisible();
 };
 // @fnv 0x00703da0
-void FUN_00703da0()
+void CloseConsole()
 {
     if (FUN_004b7210() && reinterpret_cast<Modifier*>(FUN_004b7210())->GetKey() && ConsoleManager::Instance(false) &&
         ConsoleManager::Instance(true)->IsConsoleActive())
     {
-        ConsoleManager::Instance(true)->FUN_0071d580();
+        ConsoleManager::Instance(true)->ToggleVisible();
         reinterpret_cast<Modifier*>(FUN_004b7210())->AddMenuStackEntry(3, false);
     }
 }
@@ -983,14 +983,14 @@ class Modifier
     char GetKey(void);
 };
 
-void __fastcall FUN_00713c70(InterfaceManager*);
+void __fastcall LastMinuteUpdate(InterfaceManager*);
 
-// If FUN_004b7210() returns a Modifier whose GetKey() is nonzero, calls FUN_00713c70 with the InterfaceManager from FUN_004b7210().
+// If FUN_004b7210() returns a Modifier whose GetKey() is nonzero, calls LastMinuteUpdate with the InterfaceManager from FUN_004b7210().
 // @fnv 0x007058e0
 void FUN_007058e0()
 {
     if (FUN_004b7210() && static_cast<unsigned char>(reinterpret_cast<Modifier*>(FUN_004b7210())->GetKey()))
-        FUN_00713c70(FUN_004b7210());
+        LastMinuteUpdate(FUN_004b7210());
 }
 }  // namespace fnv_007058e0
 
@@ -1066,15 +1066,15 @@ class Modifier
     char GetKey();
 };
 
-bool __cdecl FUN_00709bc0();
-bool __cdecl FUN_00709c00();
+bool __cdecl IsPipBoyOpening();
+bool __cdecl IsPipBoyOpened();
 
 // @fnv 0x00705a00
 bool __cdecl FUN_00705a00()
 {
     if (FUN_004b7210() && (unsigned char)((Modifier*)FUN_004b7210())->GetKey())
     {
-        return FUN_00709bc0() || FUN_00709c00();
+        return IsPipBoyOpening() || IsPipBoyOpened();
     }
     else
     {
@@ -1236,14 +1236,14 @@ class SurgeryMenu
     static void __cdecl UpdatePerkEntries();
 };
 
-void __cdecl FUN_007dd710();
+void __cdecl UpdatePerks();
 void __cdecl UpdateStatsMenuLevelText();
 void __cdecl ClearMapMenuNote();
 
 // @fnv 0x00706a90
-void __cdecl FUN_00706a90()
+void __cdecl FinishLoadGame()
 {
-    FUN_007dd710();
+    UpdatePerks();
     UpdateStatsMenuLevelText();
     StatsMenu::UpdateStatusEffects();
     MapMenu::SetMapPositionToPlayer();
@@ -1469,7 +1469,7 @@ struct DummyRenderer_00706e90
 
 // Returns FUN_00706e80() multiplied by the default render target group's height divided by its width.
 // @fnv 0x00706e90
-float __cdecl FUN_00706e90()
+float __cdecl GetRenderedMenuScreenHeight()
 {
     DummyRenderer_00706e90* apRenderer = (DummyRenderer_00706e90*)FUN_0043c4b0();
     return FUN_00706e80() * ((double)apRenderer->GetDefaultRenderTargetGroup()->GetHeight(0) /
@@ -1583,7 +1583,7 @@ extern S_004431f0* DAT_011d890c;
 
 // Calls FUN_004431f0(1) on DAT_011d890c if it is non-null, then sets DAT_011d890c to null.
 // @fnv 0x00707820
-void FUN_00707820()
+void ClearTempModel()
 {
     S_004431f0* p0;
     S_004431f0* p1 = DAT_011d890c;
@@ -1646,7 +1646,7 @@ class FORenderedMenu;
 FORenderedMenu* __fastcall FUN_00707af0(InterfaceManager*);
 
 // @fnv 0x00707ad0
-FORenderedMenu* FUN_00707ad0()
+FORenderedMenu* GetCurrentRenderedMenu()
 {
     return FUN_00707af0(FUN_004b7210());
 }
@@ -1672,11 +1672,11 @@ extern int DAT_011d89a4;
 extern int DAT_011d89ac;
 
 bool __cdecl IsConditionMet();
-void __cdecl FUN_007094f0();
+void __cdecl HandleQueuedMenuOpen();
 void __cdecl FUN_00709a90();
 
 // @fnv 0x00709470
-void __cdecl FUN_00709470(int param_1, int param_2, int param_3, int param_4, int param_5)
+void __cdecl QueueMenuCreate(int param_1, int param_2, int param_3, int param_4, int param_5)
 {
     if (param_1 != 7)
     {
@@ -1696,19 +1696,19 @@ void __cdecl FUN_00709470(int param_1, int param_2, int param_3, int param_4, in
     }
     if (!IsConditionMet())
     {
-        FUN_007094f0();
+        HandleQueuedMenuOpen();
         FUN_00709a90();
     }
 }
 
 // @fnv 0x00709bc0
-bool FUN_00709bc0()
+bool IsPipBoyOpening()
 {
     return *(int*)((char*)FUN_004b7210() + 0x4bc) == 2;
 }
 
 // @fnv 0x00709c00
-bool __cdecl FUN_00709c00()
+bool __cdecl IsPipBoyOpened()
 {
     return *(int*)((char*)FUN_004b7210() + 0x4bc) == 3;
 }
@@ -1789,7 +1789,7 @@ struct Modifier
 };
 struct HUDHelper
 {
-    void FUN_00775920();
+    void ClearAllSubtitlesAndMessages();
 };
 extern HUDMainMenu* g_pHudMainMenuInstance;
 InterfaceManager* FUN_004b7210();
@@ -1797,7 +1797,7 @@ InterfaceManager* FUN_004b7210();
 void FUN_007053b0()
 {
     if (FUN_004b7210() && ((Modifier*)FUN_004b7210())->GetKey() && g_pHudMainMenuInstance)
-        ((HUDHelper*)g_pHudMainMenuInstance)->FUN_00775920();
+        ((HUDHelper*)g_pHudMainMenuInstance)->ClearAllSubtitlesAndMessages();
 }
 }  // namespace fnv_007053b0
 
@@ -1809,7 +1809,7 @@ struct Modifier
 };
 struct FUN_0070b790_shell
 {
-    void FUN_0070b790(char);
+    void SetStatsPageNumber(char);
 };
 namespace fnv_0070b810 {
 struct FUN_0070b810_shell
@@ -1832,11 +1832,11 @@ int MinInt(int, int);
 int FUN_00705c40(int, char);
 // If the interface manager exists and a key is pressed, updates the stats, inventory and map tab states and selects the given menu, defaulting to 0x3eb.
 // @fnv 0x00705b70
-void FUN_00705b70(char aiStatsTab, char aiInventoryTab, char aiMapTab, int aiWhichMenu)
+void SetMainMenuDefaults(char aiStatsTab, char aiInventoryTab, char aiMapTab, int aiWhichMenu)
 {
     if (FUN_004b7210() && ((Modifier*)FUN_004b7210())->GetKey())
     {
-        ((FUN_0070b790_shell*)FUN_004b7210())->FUN_0070b790(MinInt(4, FUN_00705c40(0, aiStatsTab)));
+        ((FUN_0070b790_shell*)FUN_004b7210())->SetStatsPageNumber(MinInt(4, FUN_00705c40(0, aiStatsTab)));
         ((fnv_0070b810::FUN_0070b810_shell*)FUN_004b7210())->FUN_0070b810(MinInt(4, FUN_00705c40(0, aiInventoryTab)));
         ((fnv_0070b870::S0b870*)FUN_004b7210())->FUN_0070b870(MinInt(4, FUN_00705c40(0, aiMapTab)));
         if (aiWhichMenu != 0x3eb && aiWhichMenu != 0x3ea && aiWhichMenu != 0x3ff)
@@ -1975,8 +1975,8 @@ struct MenuHelper
 {
     void UpdateOption(int);
 };
-void __cdecl FUN_00730690(int);
-void __cdecl FUN_00728a30(int);
+void __cdecl ForceBarterUpdate(int);
+void __cdecl ForceRecipeUpdate(int);
 void __cdecl FUN_00704bc0();
 
 // @fnv 0x00704af0
@@ -1997,11 +1997,11 @@ void FUN_00704af0()
             }
             else if (FUN_00702680(0x41d, 0))
             {
-                FUN_00730690(1);
+                ForceBarterUpdate(1);
             }
             else if (FUN_00702680(0x435, 0))
             {
-                FUN_00728a30(1);
+                ForceRecipeUpdate(1);
             }
             else if (FUN_00702680(0x3f0, 0))
             {
@@ -2081,7 +2081,7 @@ class MenuFade : public Menu
     unsigned int GetCurrentFadeState();
 };
 Tile* __cdecl FindMenuById(int);
-bool __cdecl FUN_00709c00();
+bool __cdecl IsPipBoyOpened();
 class InterfaceManagerPC
 {
   public:
@@ -2096,7 +2096,7 @@ bool __cdecl FUN_00702680(Interface::enumMenus aeMenuID, unsigned int abFadeStat
     if (FUN_004b7210() && ((InterfaceManagerPC*)FUN_004b7210())->GetKey())
     {
         if (aeMenuID == Interface::eMainFour)
-            return FUN_00709c00() && (FUN_00702680(Interface::eStatsMenu, abFadeStatesThatCountAsVisible) ||
+            return IsPipBoyOpened() && (FUN_00702680(Interface::eStatsMenu, abFadeStatesThatCountAsVisible) ||
                                       FUN_00702680(Interface::eInventoryMenu, abFadeStatesThatCountAsVisible) ||
                                       FUN_00702680(Interface::eRepairMenu, abFadeStatesThatCountAsVisible) ||
                                       FUN_00702680(Interface::eItemModMenu, abFadeStatesThatCountAsVisible) ||
@@ -2142,7 +2142,7 @@ struct Modifier
 
 // If FUN_004b7210 returns a Modifier whose GetKey is nonzero, calls FUN_00703030 on it.
 // @fnv 0x00703000
-void FUN_00703000()
+void ToggleDebugTextVisible()
 {
     if (FUN_004b7210() && reinterpret_cast<Modifier*>(FUN_004b7210())->GetKey())
         reinterpret_cast<Modifier*>(FUN_004b7210())->FUN_00703030();
@@ -2393,14 +2393,14 @@ extern GlobalObject_0045cfe0 g_011c3ea4;
 extern int g_011d8950;
 extern int DAT_011d8960;
 
-void FUN_00763ff0();
+void ServiceStart();
 void GetOrCreateMenuTile(int);
 
 // @fnv 0x00705870
-void FUN_00705870(int arg)
+void CreateRaceSexMenu(int arg)
 {
     if (FUN_00705100())
-        FUN_00763ff0();
+        ServiceStart();
 
     if (*g_011c3ea4.Int() > 1 && g_011d8950 == 0)
     {
@@ -2474,7 +2474,7 @@ extern "C" void __cdecl FUN_007e41f0(int, int);
 
 // If FUN_004b7210 returns a Modifier whose GetKey is nonzero, forwards a and b to FUN_007e41f0.
 // @fnv 0x00706230
-void FUN_00706230(int aiArg1, int aiArg2)
+void SetSurgeryCursorPos(int aiArg1, int aiArg2)
 {
     if (FUN_004b7210() && reinterpret_cast<Modifier*>(FUN_004b7210())->GetKey())
         FUN_007e41f0(aiArg1, aiArg2);
@@ -2492,7 +2492,7 @@ void FUN_00784c80();
 
 // If FUN_004b7210 returns a Modifier whose GetKey is nonzero, calls FUN_00784c80.
 // @fnv 0x00706270
-void FUN_00706270()
+void CreateLevelUpMenu()
 {
     if (FUN_004b7210() && reinterpret_cast<Modifier*>(FUN_004b7210())->GetKey())
         FUN_00784c80();
@@ -2524,12 +2524,12 @@ unsigned int FUN_00706d10()
     return ((FUN_005e3fc0_shell*)FUN_004b7210())->Get();
 }
 
-void __cdecl FUN_00717280(int aiSoundIndex);
+void __cdecl PlayMenuSound(int aiSoundIndex);
 
 // @fnv 0x00706f30
 void FUN_00706f30(int aiSoundIndex)
 {
-    FUN_00717280(aiSoundIndex);
+    PlayMenuSound(aiSoundIndex);
 }
 
 void __cdecl RemoveNodeById(int);
@@ -2582,12 +2582,12 @@ bool IsSomethingZero()
     return *(int*)((char*)FUN_004b7210() + 0x4bc) == 0;
 }
 
-void FUN_0077f2f0(int a1);
+void InitGunScope(int a1);
 
 // @fnv 0x00709c20
 void FUN_00709c20(int a1)
 {
-    FUN_0077f2f0(a1);
+    InitGunScope(a1);
 }
 
 extern int DAT_011da204;
@@ -2622,7 +2622,7 @@ class ConsoleManager
   public:
     static ConsoleManager* __cdecl Instance(bool);
     bool IsConsoleActive(void);
-    void FUN_0071d580();
+    void ToggleVisible();
 };
 
 class Modifier
@@ -2638,12 +2638,12 @@ class FUN_00714d90_struct
 };
 
 // @fnv 0x00703e10
-void __cdecl FUN_00703e10()
+void __cdecl OpenConsole()
 {
     if (FUN_004b7210() != 0 && ((Modifier*)FUN_004b7210())->GetKey() != 0 && ConsoleManager::Instance(0) != 0 &&
         !ConsoleManager::Instance(1)->IsConsoleActive())
     {
-        ConsoleManager::Instance(1)->FUN_0071d580();
+        ConsoleManager::Instance(1)->ToggleVisible();
         ((FUN_00714d90_struct*)FUN_004b7210())->PushMenuStackEntry(3);
     }
 }
@@ -2689,7 +2689,7 @@ extern "C" int __cdecl FUN_00705d90();
 
 struct TESSaveLoadGame
 {
-    void FUN_008579b0(void*, int);
+    void SaveGameDataOLD(void*, int);
 };
 extern TESSaveLoadGame* g_TESSaveLoadGame;
 
@@ -2718,11 +2718,11 @@ void __cdecl SaveMenuTabStates()
     if (acMagicTab < 1)
         acMagicTab = 1;
 
-    g_TESSaveLoadGame->FUN_008579b0(&acInventoryTab, 1);
-    g_TESSaveLoadGame->FUN_008579b0(&acStatsTab4, 1);
-    g_TESSaveLoadGame->FUN_008579b0(&acMapTab9, 1);
-    g_TESSaveLoadGame->FUN_008579b0(&acMagicTab, 1);
-    g_TESSaveLoadGame->FUN_008579b0(&icurrentMainMenu, 4);
+    g_TESSaveLoadGame->SaveGameDataOLD(&acInventoryTab, 1);
+    g_TESSaveLoadGame->SaveGameDataOLD(&acStatsTab4, 1);
+    g_TESSaveLoadGame->SaveGameDataOLD(&acMapTab9, 1);
+    g_TESSaveLoadGame->SaveGameDataOLD(&acMagicTab, 1);
+    g_TESSaveLoadGame->SaveGameDataOLD(&icurrentMainMenu, 4);
 }
 
 struct FUN_00406f90_this
@@ -2806,7 +2806,7 @@ struct FakeTile
 };
 // If the interface manager exists and its modifier key is set, culls or unculls the tile's scene node according to abVisible.
 // @fnv 0x00703810
-void FUN_00703810(bool abVisible)
+void SetMenuSystemVisible(bool abVisible)
 {
     if (FUN_004b7210() && (unsigned char)((Modifier*)FUN_004b7210())->GetKey())
     {
@@ -3040,7 +3040,7 @@ void __cdecl FUN_00704f50();
 void __cdecl CloseStartMenu(bool);
 
 // @fnv 0x00703610
-void __cdecl FUN_00703610()
+void __cdecl HideMenus()
 {
     Tile* pinv;
     Tile* prepair;
@@ -3200,7 +3200,7 @@ struct MenuAccess
 
 struct PipboyAccess
 {
-    void FUN_007f8a80();
+    void TriggerRandomEffect();
 };
 
 struct MenuVirtualAccess
@@ -3289,7 +3289,7 @@ void __cdecl UpdatePipboyMapVisibility(bool abVisibility, bool abAnyVisibleState
         if (abVisibility)
         {
             reinterpret_cast<PipboyAccess*>(reinterpret_cast<ProxyMgr*>(FUN_004b7210())->GetPipboyManager())
-                ->FUN_007f8a80();
+                ->TriggerRandomEffect();
 
             reinterpret_cast<ProxyMgr*>(FUN_004b7210())->GetPipboyManager()->ActivateButton(3);
 
@@ -3312,7 +3312,7 @@ class Modifier
 class SleepWaitMenu : public Menu
 {
   public:
-    bool FUN_007c0580();
+    bool UpdateSleeping();
 };
 
 unsigned int __cdecl FUN_00705770();
@@ -3328,7 +3328,7 @@ bool FUN_007056f0()
     ptile = reinterpret_cast<Tile*>(FindMenuById(FUN_00705770()));
     pSleepWaitMenu = ptile ? static_cast<SleepWaitMenu*>(ptile->GetMenu()) : 0;
 
-    return _FUN_004b7210() && _FUN_004b7210()->GetKey() && pSleepWaitMenu && pSleepWaitMenu->FUN_007c0580();
+    return _FUN_004b7210() && _FUN_004b7210()->GetKey() && pSleepWaitMenu && pSleepWaitMenu->UpdateSleeping();
 }
 }  // namespace fnv_007056f0
 
@@ -3829,7 +3829,7 @@ void __cdecl B706130UpdateAllTiles(bool bForce);
 extern B706130Setting g_kB706130Setting;
 
 // @fnv 0x00706130
-bool __cdecl FUN_00706130(int m_uiSoundID)
+bool __cdecl CreateComputersMenu(int m_uiSoundID)
 {
     if (B706130GetManager() && B706130GetManager()->GetKey())
     {
@@ -3873,7 +3873,7 @@ bool __cdecl FUN_004b5bf0(unsigned int a);
 
 // Constructs a temporary with value 1.0 and dispatches it to DAT_011dea10 or to the object at a1 depending on FUN_004b5bf0(a1).
 // @fnv 0x00707870
-unsigned int __cdecl FUN_00707870(unsigned int a1)
+unsigned int __cdecl CopyOrDeepCopyNode(unsigned int a1)
 {
     unsigned int pad[6];
     FUN_00707870_Temp t(1.0f);
@@ -4764,9 +4764,9 @@ void __cdecl FUN_00703100()
     }
 }
 
-extern "C" void __fastcall FUN_00717600(InterfaceManager*);
+extern "C" void __fastcall PreLoadMenus(InterfaceManager*);
 extern "C" void __cdecl UpdatePipboyMapVisibility(int, int);
-extern "C" void __cdecl FUN_007048f0(int, int, int);
+extern "C" void __cdecl SetInventoryMenuVisible(int, int, int);
 extern "C" void __cdecl ShowStatsMenu(int, int);
 
 // @fnv 0x00703500
@@ -4780,7 +4780,7 @@ void __cdecl HandleMenuKeyInput(void)
             int pManager = (int)iMenu->FUN_00586150()->GetFloat(0x1771);
             if (pManager == 0)
             {
-                FUN_00717600(FUN_004b7210());
+                PreLoadMenus(FUN_004b7210());
                 pManager = 0x3eb;
             }
             switch (pManager)
@@ -4791,7 +4791,7 @@ void __cdecl HandleMenuKeyInput(void)
             case 0x3ea:
             case 0x40b:
             case 0x425:
-                FUN_007048f0(1, 0, 1);
+                SetInventoryMenuVisible(1, 0, 1);
                 break;
             case 0x3eb:
                 ShowStatsMenu(1, 0);
@@ -4863,7 +4863,7 @@ void FUN_00702840();
 void RenderOrFallback(int, int);
 void FUN_00702960();
 // @fnv 0x00704010
-char __cdecl FUN_00704010(const char* text, int aiArg1, int aiArg2, int aiArg3, ...)
+char __cdecl CreateModalMessageMenu(const char* text, int aiArg1, int aiArg2, int aiArg3, ...)
 {
     DAT_0119f349 = -1;
     bool success = false;
@@ -4916,7 +4916,7 @@ void ResetItemModMenu();
 void PlayPipboyPageSound(bool);
 struct PipProxy
 {
-    void FUN_007f8a80();
+    void TriggerRandomEffect();
     void FUN_007fa010(unsigned int);
     bool IsUnk28Set();
 };
@@ -4968,7 +4968,7 @@ void ShowStatsMenu(bool show, bool fades)
         }
         if (show)
         {
-            ((InterfaceProxy*)FUN_004b7210())->FUN_00704370()->FUN_007f8a80();
+            ((InterfaceProxy*)FUN_004b7210())->FUN_00704370()->TriggerRandomEffect();
             ((InterfaceProxy*)FUN_004b7210())->FUN_00704370()->FUN_007fa010(1);
             if (((InterfaceProxy*)FUN_004b7210())->FUN_00704370()->IsUnk28Set())
                 PlayPipboyPageSound(false);
@@ -5001,19 +5001,19 @@ struct DecompVec3
 
 struct DecompTarget
 {
-    void FUN_00774fd0(int a1, DecompArg12 a2, DecompVec3 a3, int a4, bool a5);
+    void ShowSubtitle(int a1, DecompArg12 a2, DecompVec3 a3, int a4, bool a5);
 };
 
 extern unsigned int DAT_011d96c0;
 
-// If the interface manager and its shell are available and DAT_011d96c0 is set, forwards the arguments to FUN_00774fd0 on DAT_011d96c0; always returns false.
+// If the interface manager and its shell are available and DAT_011d96c0 is set, forwards the arguments to ShowSubtitle on DAT_011d96c0; always returns false.
 // @fnv 0x00705210
 bool __cdecl FUN_00705210(int aiArg1, DecompArg12 aArg12, DecompVec3 aVec3, int aiArg4, bool a5)
 {
     DecompScopeGuard guard(13, 1, "D:\\_Fallout3\\Platforms\\Common\\Code\\Fallout\\Interface\\Interface.cpp", 0x8ec);
     if (FUN_004b7210() && ((FUN_009373f0_shell*)FUN_004b7210())->FUN_009373f0() && DAT_011d96c0)
     {
-        ((DecompTarget*)DAT_011d96c0)->FUN_00774fd0(aiArg1, aArg12, aVec3, aiArg4, a5);
+        ((DecompTarget*)DAT_011d96c0)->ShowSubtitle(aiArg1, aArg12, aVec3, aiArg4, a5);
     }
     return false;
 }
@@ -5135,7 +5135,7 @@ int __cdecl strcpy_s(char* apDest, unsigned int auiDestSize, const char* apSrc);
 int __cdecl _stricmp(const char* apStr1, const char* apStr2);
 
 // @fnv 0x007070c0
-bool __cdecl FUN_007070c0(const char* apName, char* apBuffer, unsigned int auiBufferSize, bool abArg4)
+bool __cdecl FindTextReplacementString(const char* apName, char* apBuffer, unsigned int auiBufferSize, bool abArg4)
 {
     bool bFound = false;
     if (apName && *apName && apBuffer && auiBufferSize)
@@ -5537,7 +5537,7 @@ class FileFinder
 };
 // Clears the flag, then loads a model from path via the model loader or a BSStream and returns its NiNode, or null on failure.
 // @fnv 0x00707660
-NiNode* FUN_00707660(const char* path, bool* flag)
+NiNode* LoadModelFile(const char* path, bool* flag)
 {
     *flag = false;
     if (g_modelLoader && !DAT_011d8908)
@@ -5746,7 +5746,7 @@ int FUN_0075b310(TESObjectREFR* apRef, int aType);
 
 // If the interface manager key is held, adjusts aType to 2 for owned non-actor refs that cannot be used, then calls FUN_0075b310; otherwise returns 0.
 // @fnv 0x00704ed0
-int FUN_00704ed0(TESObjectREFR* apRef, int aType)
+int CreateContainerMenu(TESObjectREFR* apRef, int aType)
 {
     if (FUN_004b7210() && ((InterfaceManagerPCMine*)FUN_004b7210())->GetKey())
     {
@@ -5774,7 +5774,7 @@ struct MgrQ
 };
 // Returns the result of MgrQ::FUN_00644640 when FUN_004b7210 is non-null and MgrQ::FUN_009373f0 is true, otherwise false.
 // @fnv 0x00702fc0
-bool FUN_00702fc0()
+bool IsDebugTextVisible()
 {
     if (FUN_004b7210() && ((MgrQ*)FUN_004b7210())->FUN_009373f0())
         return ((MgrQ*)FUN_004b7210())->FUN_00644640();
@@ -5797,7 +5797,7 @@ struct M70Trait
 };
 struct M70Hud
 {
-    void FUN_007f8a80();
+    void TriggerRandomEffect();
     void FUN_007fa010(int a);
     bool IsUnk28Set();
 };
@@ -5820,7 +5820,7 @@ void UpdateCurrentValue();
 
 // Shows or hides the inventory menu, closing related menus and resetting HUD state as needed.
 // @fnv 0x007048f0
-void FUN_007048f0(bool show, bool fade, bool reset)
+void SetInventoryMenuVisible(bool show, bool fade, bool reset)
 {
     M70Menu* pMenu3eb;
     M70Menu* pMenu3ea;
@@ -5876,7 +5876,7 @@ void FUN_007048f0(bool show, bool fade, bool reset)
             }
             if (reset)
             {
-                FUN_004b7210()->FUN_00704370()->FUN_007f8a80();
+                FUN_004b7210()->FUN_00704370()->TriggerRandomEffect();
                 FUN_004b7210()->FUN_00704370()->FUN_007fa010(2);
             }
             if (FUN_004b7210()->FUN_00704370()->IsUnk28Set())
@@ -7293,7 +7293,7 @@ IMHelper* __stdcall Getter2(SpawnedObject* obj);
 ValueHolder* FUN_00765b80(void* a);
 void FUN_00a04200(int a);
 // @fnv 0x00705ec0
-bool FUN_00705ec0(void* arg)
+bool CreateHackingMenu(void* arg)
 {
     if (FUN_004b7210() != 0 && ((IMHelper*)FUN_004b7210())->FUN_009373f0())
     {
@@ -7328,7 +7328,7 @@ struct TileQ
 };
 struct PipboyQ
 {
-    void FUN_007f8a80();
+    void TriggerRandomEffect();
     void FUN_007fa010(int);
     bool IsUnk28Set();
 };
@@ -7379,7 +7379,7 @@ void FUN_007046f0(bool abShow, bool abInstant, bool abActivate)
                 ((TileQ*)FUN_004b7210()->FUN_00586150())->FUN_00700320(0x1771, 0x425);
             if (abActivate)
             {
-                ((IMQ*)FUN_004b7210())->FUN_00704370()->FUN_007f8a80();
+                ((IMQ*)FUN_004b7210())->FUN_00704370()->TriggerRandomEffect();
                 ((IMQ*)FUN_004b7210())->FUN_00704370()->FUN_007fa010(2);
             }
             if (((IMQ*)FUN_004b7210())->FUN_00704370()->IsUnk28Set())
@@ -7768,9 +7768,9 @@ extern int DAT_011d8998;
 extern int DAT_011d899c;
 
 InterfaceManagerView* FUN_004b7210();
-int FUN_00704ed0(TESObjectREFR* pkRef, int iArg);
-bool FUN_00705ec0(TESObjectREFR* pkRef);
-bool FUN_00706130(TESObjectREFR* pkRef);
+int CreateContainerMenu(TESObjectREFR* pkRef, int iArg);
+bool CreateHackingMenu(TESObjectREFR* pkRef);
+bool CreateComputersMenu(TESObjectREFR* pkRef);
 int FUN_00705070(TESObjectREFR* pkRef, int iArg0, int iArg1);
 int GetOrCreateMenuTile(int iArg);
 bool InitStartMenu(int iArg0, int iArg1);
@@ -7782,7 +7782,7 @@ static const char s_szPlayerNameEntryMenu[] = "Player Name Entry Menu";
 
 // Processes pending action requests stored in DAT_011d8950 and DAT_011d8998, executing the corresponding logic and clearing the flags on success.
 // @fnv 0x007094f0
-void FUN_007094f0()
+void HandleQueuedMenuOpen()
 {
     DAT_011d89c0.FUN_0040fbf0(0);
     if (DAT_011d8950 && (!FUN_004b7210()->m_iModalCount || DAT_011d8950 == 6 || DAT_011d8950 == 7))
@@ -7791,13 +7791,13 @@ void FUN_007094f0()
         switch (DAT_011d8950)
         {
         case 1:
-            bPickResultFound = s7094f0::FUN_00704ed0(DAT_011d8954, DAT_011d8964) ? 1 : 0;
+            bPickResultFound = s7094f0::CreateContainerMenu(DAT_011d8954, DAT_011d8964) ? 1 : 0;
             break;
         case 2:
-            bPickResultFound = FUN_00705ec0(DAT_011d8954);
+            bPickResultFound = CreateHackingMenu(DAT_011d8954);
             break;
         case 3:
-            bPickResultFound = FUN_00706130(DAT_011d8954);
+            bPickResultFound = CreateComputersMenu(DAT_011d8954);
             break;
         case 4:
             if (!FUN_004b7210()->FUN_007023a0())

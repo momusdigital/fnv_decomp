@@ -118,7 +118,7 @@ struct FUN_00a712f0
     static void* operator new(unsigned int);
     static void operator delete(void*, unsigned int);
     FUN_00a712f0();
-    void FUN_00712e60(const Rect2180&);
+    void SetViewPort(const Rect2180&);
     void FUN_00507700(float);
     void FUN_00a6faf0(const Frustum2180&);
     void SetLookAt(const Point2180&, const Point2180&);

@@ -86,11 +86,11 @@ struct FUN_004bddd0_t
 };
 struct FUN_00781860_shell
 {
-    bool __thiscall FUN_00781860(InventoryStackRecord*);
+    bool __thiscall IsItemRepairable(InventoryStackRecord*);
 };
 struct FUN_00781680_shell : public InventoryMenu
 {
-    void __thiscall FUN_00781680();
+    void __thiscall UpdateButtons();
 };
 struct GlobalObject_0040c150 : public InventoryMenuSetting
 {
@@ -572,7 +572,7 @@ struct Setting
 };
 struct Camera
 {
-    void FUN_007f8610(int, float, float, bool);
+    void MoveKnob(int, float, float, bool);
 };
 struct Interface
 {
@@ -658,7 +658,7 @@ struct Menu
     unsigned int unke4;
     Entry entry;
     Tile* FUN_00726070();
-    void FUN_00781680();
+    void UpdateButtons();
     void ClearActionPointSource();
     void UpdateItemDisplay(int, Tile*);
 };
@@ -673,7 +673,7 @@ void Menu::UpdateItemDisplay(int action, Tile* changed)
             int selectedSlot11 = (int)list.Value(0xfac)->FUN_00a011b0();
             if (DAT_011d9f34 != selectedSlot11)
             {
-                FUN_004b7210()->FUN_00704370()->FUN_007f8610(
+                FUN_004b7210()->FUN_00704370()->MoveKnob(
                     0, DAT_011d9f34 < selectedSlot11 ? *DAT_011db2f0.FUN_00403e20() : -*DAT_011db2f0.FUN_00403e20(),
                     *DAT_011db358.FUN_00403e20(), 1);
                 DAT_011d9f34 = selectedSlot11;
@@ -733,7 +733,7 @@ void Menu::UpdateItemDisplay(int action, Tile* changed)
                 (*icon->tile.FUN_0073ac90())->FUN_00700320(0xfa3, 0);
             if (!entry.FUN_00701740())
                 description->FUN_00700320(0xfa3, 1);
-            FUN_00781680();
+            UpdateButtons();
         }
     }
     else if (action == 30)
@@ -789,7 +789,7 @@ extern void* player;
 float __cdecl FUN_00476b20(float);
 struct InventoryCheck
 {
-    bool FUN_00781860(Entry* entry);
+    bool IsItemRepairable(Entry* entry);
 };
 struct ItemLabelSource : InventoryStackRecord
 {
@@ -895,18 +895,18 @@ struct Menu75b
     void FUN_00780d60();
 };
 
-bool FUN_00702450(int);
+bool IsTopMenuID(int);
 FOPipboyManager* FUN_00705990();
 bool FUN_00709d40();
 bool FUN_00702140();
-void FUN_00717280(int);
+void PlayMenuSound(int);
 void ShowStatsMenu(int, int);
 void UpdatePipboyMapVisibility(int, int);
 
 // @fnv 0x00782190
 bool InventoryMenu::FUN_00782190(int input, int unused)
 {
-    if (!FUN_00702450(1002) || !FUN_00705990()->IsUnk28Set())
+    if (!IsTopMenuID(1002) || !FUN_00705990()->IsUnk28Set())
         return false;
     bool consumed = false;
     if (FUN_00709d40() && m_kMenuData.GetVisible())
@@ -922,17 +922,17 @@ bool InventoryMenu::FUN_00782190(int input, int unused)
             break;
         }
     }
-    if (!consumed && FUN_00702450(1002))
+    if (!consumed && IsTopMenuID(1002))
     {
         switch (input)
         {
         case 13:
-            FUN_00717280(36);
+            PlayMenuSound(36);
             ShowStatsMenu(1, 0);
             consumed = true;
             break;
         case 14:
-            FUN_00717280(36);
+            PlayMenuSound(36);
             UpdatePipboyMapVisibility(1, 0);
             consumed = true;
             break;

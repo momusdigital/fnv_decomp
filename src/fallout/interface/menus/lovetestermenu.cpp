@@ -243,7 +243,7 @@ extern LoveTesterMenu* DAT_011da2c8;
 
 // If the LoveTesterMenu singleton exists and its flag is set, calls StepPosition with 1 and then FUN_00795e20 on it.
 // @fnv 0x00795c60
-void FUN_00795c60()
+void NextPage()
 {
     if (DAT_011da2c8 && DAT_011da2c8->m_bState54)
     {
@@ -922,7 +922,7 @@ extern const char DAT_010747c4[];
 int __cdecl FUN_00647b70(int, int);
 struct PlayerSetter
 {
-    void FUN_0093a7c0(int, int);
+    void SetActorBaseValue(int, int);
 };
 void __fastcall FUN_00795e20(Glob*);
 struct CallbackInput
@@ -931,7 +931,7 @@ struct CallbackInput
     int actorValue;
 };
 // @fnv 0x007957c0
-void __cdecl FUN_007957c0(CallbackInput* input)
+void __cdecl DecreaseActorValue(CallbackInput* input)
 {
     if (!DAT_011da2c8)
         return;
@@ -945,7 +945,7 @@ void __cdecl FUN_007957c0(CallbackInput* input)
             sound = ((AudioView*)BSAudio::GetSingleton())->GetSoundHandleByEditorID(DAT_010747c4, 0x121);
             sound.Play(false);
         }
-        ((PlayerSetter*)g_thePlayer)->FUN_0093a7c0(value, FUN_00647b70(count - 1, 1));
+        ((PlayerSetter*)g_thePlayer)->SetActorBaseValue(value, FUN_00647b70(count - 1, 1));
     }
     FUN_00795e20(DAT_011da2c8);
 }
@@ -995,11 +995,11 @@ struct Menu
 };
 struct PlayerOps
 {
-    void FUN_0093a7c0(int, int);
+    void SetActorBaseValue(int, int);
 };
 int FUN_00647b70(int, int);
 // @fnv 0x007958e0
-void FUN_007958e0()
+void DecreaseCurrentActorValue()
 {
     if (!DAT_011da2c8)
         return;
@@ -1014,7 +1014,7 @@ void FUN_007958e0()
                 ->FUN_copy(&((Audio*)BSAudio::GetSingleton())->FUN_00ad7550("OBJBookSpecialNumberDown", 0x121));
             ((FUN_00ad8830_shell*)&sound)->FUN_00ad8830(false);
         }
-        ((PlayerOps*)g_thePlayer)->FUN_0093a7c0(index, FUN_00647b70(value - 1, 1));
+        ((PlayerOps*)g_thePlayer)->SetActorBaseValue(index, FUN_00647b70(value - 1, 1));
     }
     ((Menu*)DAT_011da2c8)->FUN_00795e20();
 }
@@ -1064,11 +1064,11 @@ struct This796
 {
     char _0[0x1c4];
     NiPointer<NiSourceTexture> tex[27];
-    void FUN_00796100();
+    void LoadButtonAndTextImages();
 };
 // Builds texture paths with _sprintf_s and FUN_004b7240, then creates each texture via g_TES->CreateTextureImage into tex[0..26].
 // @fnv 0x00796100
-void This796::FUN_00796100()
+void This796::LoadButtonAndTextImages()
 {
     char bufB[0x104];
     char bufA5[0x108];
@@ -1263,7 +1263,7 @@ struct InventoryMenuSetting
     const char* FUN_00403df0();
 };
 extern InventoryMenuSetting DAT_011c3cb4;
-bool FUN_00702450(int);
+bool IsTopMenuID(int);
 int FUN_00408b20(const char*, const char*);
 extern const char DAT_0101fd00[];
 struct NiUpdateData
@@ -1375,7 +1375,7 @@ struct MenuAnimation
 // @fnv 0x00791ab0
 void MenuAnimation::UpdateAnimation()
 {
-    if (!FUN_00702450(0x432))
+    if (!IsTopMenuID(0x432))
         return;
     Controls* current = g_osGlobals->FUN_00877720();
     int input = 30;
@@ -1725,7 +1725,7 @@ struct FUN_00a712f0
     static void* operator new(unsigned int);
     static void operator delete(void*, unsigned int);
     FUN_00a712f0();
-    void FUN_00712e60(const ImageSpaceEffectParam&);
+    void SetViewPort(const ImageSpaceEffectParam&);
     void FUN_00507700(float);
     void FUN_00a6faf0(const NiFrustum&);
     void FUN_004bc1f0(float, float, float);
@@ -1749,7 +1749,7 @@ FUN_00a712f0* SurgeryCameraMenu::CreateSurgeryCamera()
     ImageSpaceEffectParam ba(0.0f, 1.0f, 1.0f, 0.0f);
     if (DAT_011f9426)
         ba = DAT_011ad840;
-    k->FUN_00712e60(ba);
+    k->SetViewPort(ba);
     NiFrustum c(false);
     c.farPlane = ((CameraRenderer*)FUN_0045c670())->GetAspectRatio();
     c.nearPlane = *DAT_01203144.Float();
@@ -1907,7 +1907,7 @@ struct MenuParam_00795630
 };
 
 // @fnv 0x00795630
-void __cdecl FUN_00795630(MenuParam_00795630* pMenuParam)
+void __cdecl RefreshRightAVButton(MenuParam_00795630* pMenuParam)
 {
     int value = pMenuParam->unk24;
     if (value != -1)
@@ -1989,10 +1989,10 @@ WorkerAudio* __cdecl FUN_00453a70();
 int __cdecl MinInt(int, int);
 struct WorkerActor
 {
-    void FUN_0093a7c0(int, int);
+    void SetActorBaseValue(int, int);
 };
 // @fnv 0x00795a00
-void FUN_00795a00(WorkerButton* button)
+void IncreaseActorValue(WorkerButton* button)
 {
     if (!DAT_011da2c8)
         return;
@@ -2007,7 +2007,7 @@ void FUN_00795a00(WorkerButton* button)
             sound.FUN_00ad8830(false);
         }
         if (FUN_00794d80(DAT_011da2c8) < ((WorkerMenu*)DAT_011da2c8)->available)
-            ((WorkerActor*)g_thePlayer)->FUN_0093a7c0(index, MinInt(value + 1, 10));
+            ((WorkerActor*)g_thePlayer)->SetActorBaseValue(index, MinInt(value + 1, 10));
     }
     ((WorkerMenu*)DAT_011da2c8)->FUN_00795e20();
 }
@@ -2070,7 +2070,7 @@ struct Menu_7caa80 : LoveTesterMenu
 extern Menu_7caa80* DAT_011daa38;
 struct Player_7caa80
 {
-    void FUN_0093a7c0(int, int);
+    void SetActorBaseValue(int, int);
 };
 int __cdecl MinInt(int, int);
 struct Button_7caa80
@@ -2103,7 +2103,7 @@ void __cdecl PlaySpecialBookSoundAndSetStat(Button_7caa80* button)
         }
         if (FUN_00794d80(DAT_011daa38) < DAT_011daa38->m_iEntryCount)
         {
-            ((Player_7caa80*)g_thePlayer)->FUN_0093a7c0(key, MinInt(value + 1, 10));
+            ((Player_7caa80*)g_thePlayer)->SetActorBaseValue(key, MinInt(value + 1, 10));
         }
     }
     DAT_011daa38->InvokeCallbacksForSlot();
@@ -2129,7 +2129,7 @@ void __cdecl UpdateLoveTester()
             sound.Play(false);
         }
         if (FUN_00794d80(DAT_011da2c8) < ((LoveTesterMenu*)DAT_011da2c8)->m_iEntryCount)
-            ((PlayerSetter*)g_thePlayer)->FUN_0093a7c0(key, MinInt(value + 1, 10));
+            ((PlayerSetter*)g_thePlayer)->SetActorBaseValue(key, MinInt(value + 1, 10));
     }
     FUN_00795e20(DAT_011da2c8);
 }
@@ -2358,13 +2358,13 @@ struct DigitList109
     int unk00, unk04, unk08, unk0c;
     void FUN_007cb2e0(Digit109* const&);
 };
-void __cdecl FUN_007958e0(void*);
+void __cdecl DecreaseCurrentActorValue(void*);
 void __cdecl UpdateLoveTester(void*);
-void __cdecl FUN_00795630(void*);
-void __cdecl FUN_00795c60(void*);
+void __cdecl RefreshRightAVButton(void*);
+void __cdecl NextPage(void*);
 void __cdecl FUN_00795ca0(void*);
 void __cdecl FUN_00795390(void*);
-void __cdecl FUN_00795a00(void*);
+void __cdecl IncreaseActorValue(void*);
 int __cdecl FUN_00406d00(char*, unsigned int, const char*, ...);
 struct Menu109
 {
@@ -2462,7 +2462,7 @@ struct Menu109
     LabelList109 values;
     ButtonList109 controls;
     LabelList109 totals;
-    void FUN_00796100();
+    void LoadButtonAndTextImages();
     void FUN_00795e20();
     void Init();
 };
@@ -2552,11 +2552,11 @@ void Menu109::Init()
     Adjust109* increase7;
     Button109* button12;
     Label109* value4;
-    decrease27 = new Adjust109((void*)FUN_007958e0, (void*)UpdateMenuEntryState, "P1_Decrease_Btn:0", -1, 0);
+    decrease27 = new Adjust109((void*)DecreaseCurrentActorValue, (void*)UpdateMenuEntryState, "P1_Decrease_Btn:0", -1, 0);
     ((Menu109*)DAT_011da2c8)->controls.FUN_007cb2e0(decrease27);
-    decrease27 = new Adjust109((void*)UpdateLoveTester, (void*)FUN_00795630, "P1_Increase_Btn:0", -1, 0);
+    decrease27 = new Adjust109((void*)UpdateLoveTester, (void*)RefreshRightAVButton, "P1_Increase_Btn:0", -1, 0);
     ((Menu109*)DAT_011da2c8)->controls.FUN_007cb2e0(decrease27);
-    button12 = new Button109((void*)FUN_00795c60, (void*)SetTargetFromGlobalState, "P1_RT_Btn:0");
+    button12 = new Button109((void*)NextPage, (void*)SetTargetFromGlobalState, "P1_RT_Btn:0");
     ((Menu109*)DAT_011da2c8)->controls.FUN_007cb2e0(button12);
     button12 = new Button109((void*)FUN_00795ca0, (void*)FUN_00795780, "P1_LT_Btn:0");
     ((Menu109*)DAT_011da2c8)->controls.FUN_007cb2e0(button12);
@@ -2599,69 +2599,69 @@ void Menu109::Init()
     }
     total28 = new Label109((void*)UpdateDigitDisplay, "P1_PointsRemainDigit1:0", "P1_PointsRemainDigit2:0", -1, 1, 0);
     totals.FUN_007cb2e0(total28);
-    button12 = new Button109((void*)FUN_00795c60, (void*)SetTargetFromGlobalState, "LookInside_Btn:0");
+    button12 = new Button109((void*)NextPage, (void*)SetTargetFromGlobalState, "LookInside_Btn:0");
     misc.FUN_007cb2e0(button12);
     value4 = new Label109((void*)FUN_00795390, "Index_StrengthPointVal:0", 0, 5, 1, 0);
     values.FUN_007cb2e0(value4);
-    decrease27 = new Adjust109((void*)FUN_007957c0, (void*)UpdateMenuEntryState, "Index_StrengthDecrease_Btn:0", 5, 2,
+    decrease27 = new Adjust109((void*)DecreaseActorValue, (void*)UpdateMenuEntryState, "Index_StrengthDecrease_Btn:0", 5, 2,
                                value4, total28);
     adjustments.FUN_007cb2e0(decrease27);
     increase7 =
-        new Adjust109((void*)FUN_00795a00, (void*)FUN_00795630, "Index_StrengthIncrease_Btn:0", 5, 2, value4, total28);
+        new Adjust109((void*)IncreaseActorValue, (void*)RefreshRightAVButton, "Index_StrengthIncrease_Btn:0", 5, 2, value4, total28);
     adjustments.FUN_007cb2e0(increase7);
     value4 = new Label109((void*)FUN_00795390, "Index_PerceptionPointVal:0", 0, 6, 1, 0);
     values.FUN_007cb2e0(value4);
-    decrease27 = new Adjust109((void*)FUN_007957c0, (void*)UpdateMenuEntryState, "Index_PerceptionDecrease_Btn:0", 6, 2,
+    decrease27 = new Adjust109((void*)DecreaseActorValue, (void*)UpdateMenuEntryState, "Index_PerceptionDecrease_Btn:0", 6, 2,
                                value4, total28);
     adjustments.FUN_007cb2e0(decrease27);
-    increase7 = new Adjust109((void*)FUN_00795a00, (void*)FUN_00795630, "Index_PerceptionIncrease_Btn:0", 6, 2, value4,
+    increase7 = new Adjust109((void*)IncreaseActorValue, (void*)RefreshRightAVButton, "Index_PerceptionIncrease_Btn:0", 6, 2, value4,
                               total28);
     adjustments.FUN_007cb2e0(increase7);
     value4 = new Label109((void*)FUN_00795390, "Index_EndurancePointVal:0", 0, 7, 1, 0);
     values.FUN_007cb2e0(value4);
-    decrease27 = new Adjust109((void*)FUN_007957c0, (void*)UpdateMenuEntryState, "Index_EnduranceDecrease_Btn:0", 7, 2,
+    decrease27 = new Adjust109((void*)DecreaseActorValue, (void*)UpdateMenuEntryState, "Index_EnduranceDecrease_Btn:0", 7, 2,
                                value4, total28);
     adjustments.FUN_007cb2e0(decrease27);
     increase7 =
-        new Adjust109((void*)FUN_00795a00, (void*)FUN_00795630, "Index_EnduranceIncrease_Btn:0", 7, 2, value4, total28);
+        new Adjust109((void*)IncreaseActorValue, (void*)RefreshRightAVButton, "Index_EnduranceIncrease_Btn:0", 7, 2, value4, total28);
     adjustments.FUN_007cb2e0(increase7);
     value4 = new Label109((void*)FUN_00795390, "Index_CharismaPointVal:0", 0, 8, 1, 0);
     values.FUN_007cb2e0(value4);
-    decrease27 = new Adjust109((void*)FUN_007957c0, (void*)UpdateMenuEntryState, "Index_CharismaDecrease_Btn:0", 8, 2,
+    decrease27 = new Adjust109((void*)DecreaseActorValue, (void*)UpdateMenuEntryState, "Index_CharismaDecrease_Btn:0", 8, 2,
                                value4, total28);
     adjustments.FUN_007cb2e0(decrease27);
     increase7 =
-        new Adjust109((void*)FUN_00795a00, (void*)FUN_00795630, "Index_CharismaIncrease_Btn:0", 8, 2, value4, total28);
+        new Adjust109((void*)IncreaseActorValue, (void*)RefreshRightAVButton, "Index_CharismaIncrease_Btn:0", 8, 2, value4, total28);
     adjustments.FUN_007cb2e0(increase7);
     value4 = new Label109((void*)FUN_00795390, "Index_IntelligencePointVal:0", 0, 9, 1, 0);
     values.FUN_007cb2e0(value4);
-    decrease27 = new Adjust109((void*)FUN_007957c0, (void*)UpdateMenuEntryState, "Index_IntelligenceDecrease_Btn:0", 9,
+    decrease27 = new Adjust109((void*)DecreaseActorValue, (void*)UpdateMenuEntryState, "Index_IntelligenceDecrease_Btn:0", 9,
                                2, value4, total28);
     adjustments.FUN_007cb2e0(decrease27);
-    increase7 = new Adjust109((void*)FUN_00795a00, (void*)FUN_00795630, "Index_IntelligenceIncrease_Btn:0", 9, 2,
+    increase7 = new Adjust109((void*)IncreaseActorValue, (void*)RefreshRightAVButton, "Index_IntelligenceIncrease_Btn:0", 9, 2,
                               value4, total28);
     adjustments.FUN_007cb2e0(increase7);
     value4 = new Label109((void*)FUN_00795390, "Index_AgilityPointVal:0", 0, 10, 1, 0);
     values.FUN_007cb2e0(value4);
-    decrease27 = new Adjust109((void*)FUN_007957c0, (void*)UpdateMenuEntryState, "Index_AgilityDecrease_Btn:0", 10, 2,
+    decrease27 = new Adjust109((void*)DecreaseActorValue, (void*)UpdateMenuEntryState, "Index_AgilityDecrease_Btn:0", 10, 2,
                                value4, total28);
     adjustments.FUN_007cb2e0(decrease27);
     increase7 =
-        new Adjust109((void*)FUN_00795a00, (void*)FUN_00795630, "Index_AgilityIncrease_Btn:0", 10, 2, value4, total28);
+        new Adjust109((void*)IncreaseActorValue, (void*)RefreshRightAVButton, "Index_AgilityIncrease_Btn:0", 10, 2, value4, total28);
     adjustments.FUN_007cb2e0(increase7);
     value4 = new Label109((void*)FUN_00795390, "Index_LuckPointVal:0", 0, 11, 1, 0);
     values.FUN_007cb2e0(value4);
-    decrease27 = new Adjust109((void*)FUN_007957c0, (void*)UpdateMenuEntryState, "Index_LuckDecrease_Btn:0", 11, 2,
+    decrease27 = new Adjust109((void*)DecreaseActorValue, (void*)UpdateMenuEntryState, "Index_LuckDecrease_Btn:0", 11, 2,
                                value4, total28);
     adjustments.FUN_007cb2e0(decrease27);
     increase7 =
-        new Adjust109((void*)FUN_00795a00, (void*)FUN_00795630, "Index_LuckIncrease_Btn:0", 11, 2, value4, total28);
+        new Adjust109((void*)IncreaseActorValue, (void*)RefreshRightAVButton, "Index_LuckIncrease_Btn:0", 11, 2, value4, total28);
     adjustments.FUN_007cb2e0(increase7);
     button12 = new Button109((void*)FUN_00795ce0, (void*)SetTargetFromGlobalState, "AllDone_Btn:0");
     adjustments.FUN_007cb2e0(button12);
-    FUN_00796100();
+    LoadButtonAndTextImages();
     ((Menu109*)DAT_011da2c8)->FUN_00795e20();
-    FUN_00795c60(0);
+    NextPage(0);
 }
 }  // namespace fnv_007928e0
 
@@ -2988,12 +2988,12 @@ void InputMenu::HandleButton(int button, int unused)
             {
                 if (FUN_00794d80(this) < available)
                     ((PlayerSetter*)g_thePlayer)
-                        ->FUN_0093a7c0(((FUN_00794d30_shell*)this)->FUN_00794d30(), MinInt(local972322 + 1, 10));
+                        ->SetActorBaseValue(((FUN_00794d30_shell*)this)->FUN_00794d30(), MinInt(local972322 + 1, 10));
             }
             else
             {
                 ((PlayerSetter*)g_thePlayer)
-                    ->FUN_0093a7c0(((FUN_00794d30_shell*)this)->FUN_00794d30(), FUN_00647b70(local972322 - 1, 1));
+                    ->SetActorBaseValue(((FUN_00794d30_shell*)this)->FUN_00794d30(), FUN_00647b70(local972322 - 1, 1));
             }
             local421248 = ((InputPlayer*)g_thePlayer)->owner.GetCurrent(((FUN_00794d30_shell*)this)->FUN_00794d30());
         }
@@ -3004,11 +3004,11 @@ void InputMenu::HandleButton(int button, int unused)
             if (button == 2)
             {
                 if (FUN_00794d80(this) < available)
-                    ((PlayerSetter*)g_thePlayer)->FUN_0093a7c0(local294918, MinInt(local972322 + 1, 10));
+                    ((PlayerSetter*)g_thePlayer)->SetActorBaseValue(local294918, MinInt(local972322 + 1, 10));
             }
             else
             {
-                ((PlayerSetter*)g_thePlayer)->FUN_0093a7c0(local294918, FUN_00647b70(local972322 - 1, 1));
+                ((PlayerSetter*)g_thePlayer)->SetActorBaseValue(local294918, FUN_00647b70(local972322 - 1, 1));
             }
             local421248 = ((InputPlayer*)g_thePlayer)->owner.GetCurrent(local294918);
         }

@@ -457,7 +457,7 @@ struct EffectOwner
 };
 
 bool __cdecl FUN_005b6f70();
-void __cdecl FUN_00703c00(const char* apFormat, ...);
+void __cdecl PrintToConsole(const char* apFormat, ...);
 
 struct FUN_0080d7b0_cls
 {
@@ -479,6 +479,6 @@ void FUN_0080d7b0_cls::ApplyDisintegrateWeaponDamage()
         pEffect->ApplyDamage(pTarget, GetFloatAtOffset1C(), 0);
 
     if (FUN_005b6f70())
-        FUN_00703c00("%s's %s takes %0.2f disintegrate weapon damage!", pEffect->FUN_0055d520(),
+        PrintToConsole("%s's %s takes %0.2f disintegrate weapon damage!", pEffect->FUN_0055d520(),
                      pTarget->GetTargetFullName(), GetFloatAtOffset1C());
 }

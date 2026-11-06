@@ -203,11 +203,11 @@ struct PaddedBooleanState
     unsigned char padding[0x210];
     bool m_bState;
 
-    void FUN_006a36e0(bool);
+    void SetDraw(bool);
 };
 
 // @fnv 0x006a36e0
-void PaddedBooleanState::FUN_006a36e0(bool abDraw)
+void PaddedBooleanState::SetDraw(bool abDraw)
 {
     if (abDraw)
     {
@@ -259,9 +259,9 @@ struct GlobalObject_0045cfe0
 
 struct PaddedBooleanState
 {
-    void FUN_006a36e0(bool value);
-    void FUN_006a37a0(TESObjectCELL* cell, bool value);
-    void FUN_006a5ca0();
+    void SetDraw(bool value);
+    void AddDrawOnlyNavMeshes(TESObjectCELL* cell, bool value);
+    void UpdateRenderOnlyNavMeshes();
 };
 
 bool __fastcall FUN_00425fd0(TESObjectCELL* cell);
@@ -271,7 +271,7 @@ GlobalObject_0045cfe0 g_011c63cc;
 int g_TES;
 
 // @fnv 0x006a5ca0
-void PaddedBooleanState::FUN_006a5ca0()
+void PaddedBooleanState::UpdateRenderOnlyNavMeshes()
 {
     TESObjectCELL* pcellVal;
     int d8;
@@ -279,7 +279,7 @@ void PaddedBooleanState::FUN_006a5ca0()
     int y3;
     TESObjectCELL* pgridCell4;
 
-    FUN_006a36e0(false);
+    SetDraw(false);
     pcellVal = reinterpret_cast<TES*>(g_TES)->GetDetailedActorPathHandler();
     if (pcellVal)
     {
@@ -294,16 +294,16 @@ void PaddedBooleanState::FUN_006a5ca0()
                 {
                     pgridCell4 = reinterpret_cast<TESWorldSpace*>(reinterpret_cast<DoorH*>(pcellVal)->GetParentWorldSpace())
                                      ->GetCellAtGridPosition(x9, y3);
-                    FUN_006a37a0(pgridCell4, false);
+                    AddDrawOnlyNavMeshes(pgridCell4, false);
                 }
             }
         }
         else
         {
-            reinterpret_cast<PaddedBooleanState*>(FUN_00552ba0())->FUN_006a37a0(pcellVal, false);
+            reinterpret_cast<PaddedBooleanState*>(FUN_00552ba0())->AddDrawOnlyNavMeshes(pcellVal, false);
         }
     }
-    FUN_006a36e0(true);
+    SetDraw(true);
 }
 }  // namespace fnv_006a5ca0
 
@@ -807,7 +807,7 @@ struct NavRenderX
     unsigned int unk1fc;
     CellMapX kMap;
     int GetTriColor(NavTriX* apTri);
-    void FUN_006a37a0(CellX* apCell, bool abUpdate);
+    void AddDrawOnlyNavMeshes(CellX* apCell, bool abUpdate);
 };
 unsigned int __fastcall xGetNavMeshCount(NavArrX* apArray);
 void* __cdecl xNiMalloc(unsigned int auiSize);
@@ -824,7 +824,7 @@ extern bool xbShowCover;
 extern float xfCoverWidth, xfCoverScale, xfCoverOffset, xfCoverWidth2;
 // Builds and attaches a navmesh debug render node for the cell: lines, cover lines, triangles and spheres, then updates the nav root if requested.
 // @fnv 0x006a37a0
-void NavRenderX::FUN_006a37a0(CellX* apCell, bool abUpdate)
+void NavRenderX::AddDrawOnlyNavMeshes(CellX* apCell, bool abUpdate)
 {
     NavArrX* qfTOqo;
     unsigned int qQMZREG;

@@ -33,7 +33,7 @@ float Creature::GetAnimationSpeedMultiplier(ANIM_GROUP_ENUM group)
 
 struct FUN_008d4a80_shell : public Creature
 {
-    int FUN_008d4a80(int);
+    int MapActorValue(int);
 };
 
 namespace ActorValue {
@@ -45,7 +45,7 @@ bool __cdecl GetFlag(Index, unsigned int);
 
 // Returns 0x2d if the actor value at aiWhich has flag 0x400 set, otherwise returns aiWhich.
 // @fnv 0x008d4a80
-int FUN_008d4a80_shell::FUN_008d4a80(int aiWhich)
+int FUN_008d4a80_shell::MapActorValue(int aiWhich)
 {
     if (ActorValue::GetFlag((ActorValue::Index)aiWhich, 0x400))
         return 0x2d;
@@ -125,67 +125,67 @@ void FUN_008d4490_shell::SetRagdoll(bool bRagDoll)
 
 struct S008d48a0
 {
-    int FUN_008d4a80(int, int);
+    int MapActorValue(int, int);
     void FUN_008806d0(int);
     void FUN_008d48a0(int, int);
 };
-// Calls FUN_008d4a80 with a and b, then passes the result to FUN_008806d0.
+// Calls MapActorValue with a and b, then passes the result to FUN_008806d0.
 // @fnv 0x008d48a0
 void S008d48a0::FUN_008d48a0(int aiFirst, int aiSecond)
 {
-    this->FUN_008806d0(this->FUN_008d4a80(aiFirst, aiSecond));
+    this->FUN_008806d0(this->MapActorValue(aiFirst, aiSecond));
 }
 
 struct FUN_008d48d0_This
 {
-    int FUN_008d4a80(int, float);
+    int MapActorValue(int, float);
     void FUN_00880700(int);
     void FUN_008d48d0(int, float);
 };
-// Calls FUN_008d4a80 with aiWhich and aiValue, then passes the result to FUN_00880700.
+// Calls MapActorValue with aiWhich and aiValue, then passes the result to FUN_00880700.
 // @fnv 0x008d48d0
 void FUN_008d48d0_This::FUN_008d48d0(int aiWhich, float aiValue)
 {
-    FUN_00880700(FUN_008d4a80(aiWhich, aiValue));
+    FUN_00880700(MapActorValue(aiWhich, aiValue));
 }
 
 struct Unk008d49
 {
-    int FUN_008d4a80(int, int, int);
+    int MapActorValue(int, int, int);
     void FUN_00880950(int);
     void FUN_008d4900(int, int, int);
 };
-// Calls FUN_008d4a80 with a, b and c, then passes the result to FUN_00880950.
+// Calls MapActorValue with a, b and c, then passes the result to FUN_00880950.
 // @fnv 0x008d4900
 void Unk008d49::FUN_008d4900(int aiArg1, int aiArg2, int aiArg3)
 {
-    FUN_00880950(FUN_008d4a80(aiArg1, aiArg2, aiArg3));
+    FUN_00880950(MapActorValue(aiArg1, aiArg2, aiArg3));
 }
 
 struct FUN_008d4960_CLASS
 {
-    int FUN_008d4a80(int, int, int);
+    int MapActorValue(int, int, int);
     void FUN_00880c70(int);
     void FUN_008d4960(int, int, int);
 };
-// Computes a value from the three arguments via FUN_008d4a80 and passes the result to FUN_00880c70.
+// Computes a value from the three arguments via MapActorValue and passes the result to FUN_00880c70.
 // @fnv 0x008d4960
 void FUN_008d4960_CLASS::FUN_008d4960(int aiArg1, int aiArg2, int aiArg3)
 {
-    FUN_00880c70(FUN_008d4a80(aiArg1, aiArg2, aiArg3));
+    FUN_00880c70(MapActorValue(aiArg1, aiArg2, aiArg3));
 }
 
 struct Unk008d4a50
 {
-    int FUN_008d4a80(int, float);
+    int MapActorValue(int, float);
     void SetActorValue(int);
     void FUN_008d4a50(int, float);
 };
-// Calls FUN_008d4a80 with aiWhich and aiValue, then passes the result to SetActorValue.
+// Calls MapActorValue with aiWhich and aiValue, then passes the result to SetActorValue.
 // @fnv 0x008d4a50
 void Unk008d4a50::FUN_008d4a50(int aiWhich, float aiValue)
 {
-    SetActorValue(FUN_008d4a80(aiWhich, aiValue));
+    SetActorValue(MapActorValue(aiWhich, aiValue));
 }
 
 void _Deallocate(void*);
@@ -225,11 +225,11 @@ struct C008d46f0 : XActor
 {
     char _pad[0xA3];
     H008d46f0 _h;
-    float FUN_008d46f0();
+    float GetWeaponSkill();
 };
 // Casts the actor base to TESCreature and returns _h.f2(0x2D) as a float, or 0 if the cast fails.
 // @fnv 0x008d46f0
-float C008d46f0::FUN_008d46f0()
+float C008d46f0::GetWeaponSkill()
 {
     TESCreature* pcreature;
     pcreature = dynamic_cast<TESCreature*>(GetActorBase());
@@ -238,7 +238,7 @@ float C008d46f0::FUN_008d46f0()
 
 struct Holder
 {
-    int FUN_008d4a80(int, float, Actor*);
+    int MapActorValue(int, float, Actor*);
 };
 struct FUN_00880ad0_shell
 {
@@ -248,17 +248,17 @@ struct FUN_008d4930_shell
 {
     void FUN_008d4930(int, float, Actor*);
 };
-// Calls FUN_008d4a80 with a, b and c, then passes the returned int to FUN_00880ad0 on this object.
+// Calls MapActorValue with a, b and c, then passes the returned int to FUN_00880ad0 on this object.
 // @fnv 0x008d4930
 void FUN_008d4930_shell::FUN_008d4930(int aiArg, float afArg, Actor* apActor)
 {
-    ((FUN_00880ad0_shell*)this)->FUN_00880ad0(((Holder*)this)->FUN_008d4a80(aiArg, afArg, apActor));
+    ((FUN_00880ad0_shell*)this)->FUN_00880ad0(((Holder*)this)->MapActorValue(aiArg, afArg, apActor));
 }
 
 namespace fnv_008d4990 {
 struct Holder
 {
-    int FUN_008d4a80(int, float, int);
+    int MapActorValue(int, float, int);
 };
 struct FUN_00880e00_OBJ
 {
@@ -268,41 +268,41 @@ struct FUN_008d4990_OBJ : Holder
 {
     void FUN_008d4990(int, float, int);
 };
-// Calls FUN_008d4a80 with the three arguments and passes its result to FUN_00880e00 on this object.
+// Calls MapActorValue with the three arguments and passes its result to FUN_00880e00 on this object.
 // @fnv 0x008d4990
 void FUN_008d4990_OBJ::FUN_008d4990(int aiArg, float afArg, int aiArg2)
 {
-    ((FUN_00880e00_OBJ*)this)->FUN_00880e00(FUN_008d4a80(aiArg, afArg, aiArg2));
+    ((FUN_00880e00_OBJ*)this)->FUN_00880e00(MapActorValue(aiArg, afArg, aiArg2));
 }
 }  // namespace fnv_008d4990
 
 namespace fnv_008d49c0 {
 struct Holder
 {
-    int FUN_008d4a80(int, int, int);
+    int MapActorValue(int, int, int);
     int FUN_00880fb0(int);
     void FUN_008d49c0(int, int, int);
 };
-// Calls FUN_008d4a80 with a, b and c, then passes the result to FUN_00880fb0.
+// Calls MapActorValue with a, b and c, then passes the result to FUN_00880fb0.
 // @fnv 0x008d49c0
 void Holder::FUN_008d49c0(int aiArg1, int aiArg2, int aiArg3)
 {
-    FUN_00880fb0(FUN_008d4a80(aiArg1, aiArg2, aiArg3));
+    FUN_00880fb0(MapActorValue(aiArg1, aiArg2, aiArg3));
 }
 }  // namespace fnv_008d49c0
 
 namespace fnv_008d49f0 {
 struct Holder
 {
-    int FUN_008d4a80(int, float, void*);
+    int MapActorValue(int, float, void*);
     void ApplyActorValueDelta(int);
     void FUN_008d49f0(int, float, void*);
 };
-// Calls FUN_008d4a80 with the given arguments and passes its result to ApplyActorValueDelta.
+// Calls MapActorValue with the given arguments and passes its result to ApplyActorValueDelta.
 // @fnv 0x008d49f0
 void Holder::FUN_008d49f0(int aiArg, float afValue, void* a3)
 {
-    ApplyActorValueDelta(FUN_008d4a80(aiArg, afValue, a3));
+    ApplyActorValueDelta(MapActorValue(aiArg, afValue, a3));
 }
 }  // namespace fnv_008d49f0
 

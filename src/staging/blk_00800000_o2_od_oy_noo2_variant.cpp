@@ -356,7 +356,7 @@ struct xActor
     xCell* FUN_008d6f30();
     float FUN_00567400();
     xFilter FUN_00931ed0();
-    xOwner* FUN_009306d0();
+    xOwner* GetCharController();
     xShooterV* FUN_009185e0();
     void FUN_0081eba0();
 };
@@ -376,7 +376,7 @@ void xActor::FUN_0081eba0()
     PLPOS = *xg_player_11dea3c->FUN_1f4();
     PLPOS.z = PLPOS.z + xFUN_0070c3b0(xg_player_11dea3c) * xg_player_11dea3c->FUN_00567400();
     DIR = MYPOS - PLPOS;
-    xOwner* OWNER = FUN_009306d0();
+    xOwner* OWNER = GetCharController();
     xFilter FILTER(0);
     if (OWNER)
         FILTER = OWNER->FUN_0070c440();
@@ -639,7 +639,7 @@ struct xProj : xBase
     void FUN_0081e570(int);
     void ResetProjectileIdleAnimation();
     void FUN_0080feb0();
-    xCtl* FUN_009306d0();
+    xCtl* GetCharController();
     xCell* FUN_008d6f30();
     xSound PlaySoundByFormID(void*, int, unsigned int, int);
     void FUN_0081eba0();
@@ -660,7 +660,7 @@ xProj::xProj(int a, int b, int c, int d, xP3 kP1, xP3 kP2, void* apE, xOwner* ap
     ResetProjectileIdleAnimation();
     FUN_0080feb0();
     xVec4 V(-xg_107a510, 0.0f, 0.0f, 0.0f);
-    FUN_009306d0()->FUN_0080fb00(&V);
+    GetCharController()->FUN_0080fb00(&V);
     FUN_008d6f30()->FUN_00548230(this, false);
     if (FUN_004fd400()->FUN_004fd3c0())
     {

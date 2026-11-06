@@ -151,7 +151,7 @@ class TESSaveLoadGame
 {
   public:
     unsigned char FUN_008df040();
-    void FUN_008579e0(void*, unsigned int);
+    void LoadGameDataOLD(void*, unsigned int);
     void FUN_00857aa0(unsigned int*, unsigned int);
     void FUN_00857bd0(unsigned int);
 };
@@ -159,16 +159,16 @@ extern TESSaveLoadGame* g_TESSaveLoadGame;
 extern const char DAT_010793e0[];
 void FNV_Warning(const char*, ...);
 // @fnv 0x00805920
-ActiveEffect* FUN_00805920(BGSLoadFormBuffer* buffer)
+ActiveEffect* LoadActiveEffect(BGSLoadFormBuffer* buffer)
 {
     unsigned short effectSize = 28;
     unsigned int magicItemID;
     unsigned char recordIndex;
     MagicItem* magicItem;
     if (g_TESSaveLoadGame->FUN_008df040() >= 42)
-        g_TESSaveLoadGame->FUN_008579e0(&effectSize, 2);
+        g_TESSaveLoadGame->LoadGameDataOLD(&effectSize, 2);
     g_TESSaveLoadGame->FUN_00857aa0(&magicItemID, 4);
-    g_TESSaveLoadGame->FUN_008579e0(&recordIndex, 1);
+    g_TESSaveLoadGame->LoadGameDataOLD(&recordIndex, 1);
     magicItem = MagicItem::GetMagicItemByID(magicItemID);
     if (magicItem)
     {

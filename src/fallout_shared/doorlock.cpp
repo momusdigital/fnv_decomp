@@ -786,7 +786,7 @@ struct Point
 };
 struct Nav
 {
-    void* FUN_00690800();
+    void* GetWorldSpace();
     void* GetInteriorCell();
 };
 struct Position
@@ -1929,9 +1929,9 @@ bool BuildPathWithDoors(Location* start, Location* end, Result* result, int a4, 
                                        end->FUN_0044edb0(), infos, doors, a5))
         {
             ParentSpaceNode node;
-            node.unk04 = infos.FUN_00877a30(0)->FUN_00690800();
+            node.unk04 = infos.FUN_00877a30(0)->GetWorldSpace();
             node.unk08 = infos.FUN_00877a30(0)->GetInteriorCell();
-            node.unk00 = infos.FUN_00877a30(0)->FUN_00690800() != 0;
+            node.unk00 = infos.FUN_00877a30(0)->GetWorldSpace() != 0;
             result->FUN_006cf4c0(node);
             for (unsigned i = 0; i < doors.FUN_0044ddc0(); ++i)
             {
@@ -1942,9 +1942,9 @@ bool BuildPathWithDoors(Location* start, Location* end, Result* result, int a4, 
                     entry.unk04 = doors.FUN_00877a30(i)->FUN_00568e50()->FUN_00717e50();
                     result->unk10.FUN_006dae00(entry);
                     ParentSpaceNode next;
-                    next.unk04 = infos.FUN_00877a30(i + 1)->FUN_00690800();
+                    next.unk04 = infos.FUN_00877a30(i + 1)->GetWorldSpace();
                     next.unk08 = infos.FUN_00877a30(i + 1)->GetInteriorCell();
-                    next.unk00 = infos.FUN_00877a30(i + 1)->FUN_00690800() != 0;
+                    next.unk00 = infos.FUN_00877a30(i + 1)->GetWorldSpace() != 0;
                     result->FUN_006cf4c0(next);
                 }
             }

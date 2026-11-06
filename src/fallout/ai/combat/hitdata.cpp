@@ -587,8 +587,8 @@ struct FUN_009b7060_actor
     virtual void v215();
     virtual bool v216();
     bool FUN_004997b0();
-    bool FUN_008bc700(Actor* apActor);
-    bool FUN_0088b880(int a1, Actor* apActor, int a3, int a4, int a5);
+    bool IsInCombatWithActor(Actor* apActor);
+    bool LineOfSight(int a1, Actor* apActor, int a3, int a4, int a5);
     int FUN_008a0d10(int a1, Actor* apActor, char* apDetected, int a4, int a5, int a6, int a7);
 };
 
@@ -627,9 +627,9 @@ void FUN_009b7060_shell::ApplyCriticalHit()
 
     if (pSource && ((FUN_009b7060_actor*)pSource)->v216() && pTarget && ((FUN_009b7060_actor*)pTarget)->v064() &&
         !((FUN_009b7060_actor*)pTarget)->v139(0) && ((FUN_009b7060_actor*)pSource)->FUN_004997b0() &&
-        !((FUN_009b7060_actor*)pTarget)->FUN_008bc700(pSource))
+        !((FUN_009b7060_actor*)pTarget)->IsInCombatWithActor(pSource))
     {
-        char cDetected = ((FUN_009b7060_actor*)pTarget)->FUN_0088b880(0, pSource, 1, 0, 0);
+        char cDetected = ((FUN_009b7060_actor*)pTarget)->LineOfSight(0, pSource, 1, 0, 0);
         int iDetection = ((FUN_009b7060_actor*)pTarget)->FUN_008a0d10(0, pSource, &cDetected, 0, 0, 0, 0);
         if (iDetection <= 0)
         {

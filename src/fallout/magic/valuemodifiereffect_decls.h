@@ -825,7 +825,7 @@ class TaskQueueInterface
   public:
     static TaskQueueInterface* GetSingleton();
 };
-void __cdecl FUN_0087a8b0(TaskQueueInterface*, int, Actor*, ...);
+void __cdecl QueueScriptFunctionCall(TaskQueueInterface*, int, Actor*, ...);
 
 // Getter bodies are shared by the original linker. The receiver overlays below
 // preserve canonical symbol bindings: +0x24 target, +0x28 caster, +0x0c source.

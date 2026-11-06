@@ -515,8 +515,8 @@ void __thiscall FUN_006e4f10_class::FUN_006e4f10(const NiPoint3& aPoint)
 
 struct FNVInputStream
 {
-    void FUN_00864980(void* destination, unsigned int bytes);
-    unsigned int FUN_00864a60();
+    void LoadData(void* destination, unsigned int bytes);
+    unsigned int LoadVariableSizedValue();
 };
 struct FNVElements4
 {
@@ -537,31 +537,31 @@ struct FUN_006e51a0_shell
 void FUN_006e51a0_shell::LoadFromStream(FNVInputStream* stream)
 {
     FUN_006e34f0(stream);
-    stream->FUN_00864980(reinterpret_cast<char*>(this) + 0xb0, 4);
-    stream->FUN_00864980(reinterpret_cast<char*>(this) + 0xb4, 4);
-    stream->FUN_00864980(reinterpret_cast<char*>(this) + 0xb8, 4);
-    stream->FUN_00864980(reinterpret_cast<char*>(this) + 0xbc, 4);
-    stream->FUN_00864980(reinterpret_cast<char*>(this) + 0xc0, 4);
-    stream->FUN_00864980(reinterpret_cast<char*>(this) + 0xc4, 4);
-    stream->FUN_00864980(reinterpret_cast<char*>(this) + 0xc8, 12);
-    stream->FUN_00864980(reinterpret_cast<char*>(this) + 0xd4, 12);
-    stream->FUN_00864980(reinterpret_cast<char*>(this) + 0xe0, 1);
+    stream->LoadData(reinterpret_cast<char*>(this) + 0xb0, 4);
+    stream->LoadData(reinterpret_cast<char*>(this) + 0xb4, 4);
+    stream->LoadData(reinterpret_cast<char*>(this) + 0xb8, 4);
+    stream->LoadData(reinterpret_cast<char*>(this) + 0xbc, 4);
+    stream->LoadData(reinterpret_cast<char*>(this) + 0xc0, 4);
+    stream->LoadData(reinterpret_cast<char*>(this) + 0xc4, 4);
+    stream->LoadData(reinterpret_cast<char*>(this) + 0xc8, 12);
+    stream->LoadData(reinterpret_cast<char*>(this) + 0xd4, 12);
+    stream->LoadData(reinterpret_cast<char*>(this) + 0xe0, 1);
 
-    unsigned int count4 = stream->FUN_00864a60();
+    unsigned int count4 = stream->LoadVariableSizedValue();
     reinterpret_cast<FNVElements4*>(reinterpret_cast<char*>(this) + 0xe4)->FUN_006f2290(count4, 1);
     for (unsigned int i = 0; i < count4; ++i)
     {
         void* item = reinterpret_cast<FNVElements4*>(reinterpret_cast<char*>(this) + 0xe4)->FUN_006a7ad0(i);
-        stream->FUN_00864980(item, 4);
+        stream->LoadData(item, 4);
     }
     {
-        unsigned int count12 = stream->FUN_00864a60();
+        unsigned int count12 = stream->LoadVariableSizedValue();
         reinterpret_cast<FNVElements12*>(reinterpret_cast<char*>(this) + 0xf4)->FUN_0069cea0(count12, 1);
         for (unsigned int uiIndex12 = 0; uiIndex12 < count12; ++uiIndex12)
         {
             void* item =
                 reinterpret_cast<FNVElements12*>(reinterpret_cast<char*>(this) + 0xf4)->FUN_006a7af0(uiIndex12);
-            stream->FUN_00864980(item, 12);
+            stream->LoadData(item, 12);
         }
     }
 }
@@ -659,7 +659,7 @@ FUN_006e5510_cls::FUN_006e5510_cls()
 struct SaveBuffer6e4
 {
     void FUN_00865e50(void* pvData, unsigned int uiSize, int iFlags);
-    void FUN_00865f60(unsigned int ItemUpdateArray);
+    void SaveVariableSizedValue(unsigned int ItemUpdateArray);
 };
 struct Elements4Ex : FNVElements4
 {
@@ -710,7 +710,7 @@ void Saver6e4::SaveToBuffer(SaveBuffer6e4* pkBuffer)
     pkBuffer->FUN_00865e50(&m_bE0, 1, 0);
     {
         unsigned int ItemUpdateArray = &m_kList4 ? m_kList4.FUN_0044ddc0() : 0;
-        pkBuffer->FUN_00865f60(ItemUpdateArray);
+        pkBuffer->SaveVariableSizedValue(ItemUpdateArray);
         for (unsigned int i = 0; i < ItemUpdateArray; i++)
         {
             void* pItem = m_kList4.FUN_006a7ad0(i);
@@ -719,7 +719,7 @@ void Saver6e4::SaveToBuffer(SaveBuffer6e4* pkBuffer)
     }
     {
         unsigned int ItemUpdateArray = &m_kList12 ? m_kList12.FUN_0044ddc0() : 0;
-        pkBuffer->FUN_00865f60(ItemUpdateArray);
+        pkBuffer->SaveVariableSizedValue(ItemUpdateArray);
         for (unsigned int i = 0; i < ItemUpdateArray; i++)
         {
             void* pItem = m_kList12.FUN_006a7af0(i);

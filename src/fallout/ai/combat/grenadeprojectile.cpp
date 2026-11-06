@@ -115,7 +115,7 @@ struct NiAVObject;
 
 struct ObjHelper
 {
-    void* __thiscall FUN_00810660();
+    void* __thiscall GetNiObject();
     TESForm* __thiscall FUN_00621a90();
 };
 
@@ -133,12 +133,12 @@ void FUN_009b4bf0_shell::DispatchReferenceSourceFiles(ObjHelper* pObjHelper, voi
 {
     if (pObjHelper)
     {
-        if (pObjHelper->FUN_00810660())
+        if (pObjHelper->GetNiObject())
         {
             TESObjectREFR* pRef8;
             BSSimpleList<TESFile*>* m_kSourceFiles;
             int nCount2;
-            pRef8 = GetReferenceFromNiAVObject((NiAVObject*)pObjHelper->FUN_00810660());
+            pRef8 = GetReferenceFromNiAVObject((NiAVObject*)pObjHelper->GetNiObject());
             m_kSourceFiles = pObjHelper->FUN_00621a90()->GetSourceFiles();
             nCount2 = -1;
             ((void(__thiscall*)(void*, TESObjectREFR*, void**, void**, BSSimpleList<TESFile*>*, int, int))(

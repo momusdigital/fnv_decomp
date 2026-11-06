@@ -2606,7 +2606,7 @@ struct UpdateTreeNode {
 };
 struct UpdateManager {
     void FUN_00713da0(UpdateTreeNode*);
-    void FUN_00713e20();
+    void UpdateTileModels();
 };
 extern UpdateManager* DAT_011d8a80;
 extern void* DAT_011f3320;
@@ -2649,7 +2649,7 @@ void __cdecl FUN_00a04200(bool update)
     }
     if (update) {
         AutoMemContext kRenderContext(13);
-        DAT_011d8a80->FUN_00713e20();
+        DAT_011d8a80->UpdateTileModels();
     }
     if (FUN_00706d70()) {
         AutoMemContext refreshContext(13);
@@ -2796,7 +2796,7 @@ struct ClipTile {
 float __cdecl FUN_00706e40();
 float __cdecl FUN_00706e10();
 float __cdecl FUN_00706e80();
-float __cdecl FUN_00706e90();
+float __cdecl GetRenderedMenuScreenHeight();
 __forceinline float ClipMax(float a, float b) { return a > b ? a : b; }
 // @fnv 0x00a07a40
 void ClipTile::FUN_00a07a40(float left, float top, float right, float bottom)
@@ -2832,7 +2832,7 @@ void ClipTile::FUN_00a07a40(float left, float top, float right, float bottom)
                     width = FUN_00706e10();
                     if (FUN_00a03c60()) {
                         height = FUN_00706e80();
-                        width = FUN_00706e90();
+                        width = GetRenderedMenuScreenHeight();
                     }
                     rect.left = (int)ClipMax(left, 0.0f);
                     rect.top = (int)ClipMax(top, 0.0f);

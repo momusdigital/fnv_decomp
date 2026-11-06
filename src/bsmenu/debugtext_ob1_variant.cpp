@@ -61,7 +61,7 @@ struct FUN_00a0e6d0_this {
     virtual int VFunc(int, int, int, const char*, char*, void*);
 };
 int __cdecl InvokeVFuncWithVarArgs(FUN_00a0e6d0_this* p0, int p1, void* p2, int p3, int p4, const char* p5, ...);
-extern "C" unsigned char __cdecl FUN_00702fc0();
+extern "C" unsigned char __cdecl IsDebugTextVisible();
 extern int DAT_011f33dc;
 extern void (__stdcall *DAT_00fdf05c)(int*);
 void __cdecl FUN_00a11820();
@@ -952,7 +952,7 @@ extern Setting DAT_011f33bc;
 extern "C" __declspec(thread) int DAT_00a0fe20_tlsstate;
 extern "C" unsigned long __readfsdword(unsigned long);
 
-unsigned char __cdecl FUN_00703d50();
+unsigned char __cdecl IsConsoleVisible();
 float __cdecl FUN_00706df0();
 int __cdecl FUN_00706d10();
 void __cdecl ReleaseLock();
@@ -1158,7 +1158,7 @@ TESObjectDoorController* A0FE20Cls::FUN_00a0fe20(char* pcText, float fX, float f
     A0FE20StateGuard ao(13);
 
     if (!*pcText) return 0;
-    if (!FUN_00703d50() && !FUN_00702fc0()) return 0;
+    if (!IsConsoleVisible() && !IsDebugTextVisible()) return 0;
 
     float aj = 1.0f;
     if (DAT_011c70eb) aj = 1.33333f;

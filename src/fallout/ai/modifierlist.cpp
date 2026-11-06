@@ -165,10 +165,10 @@ int** __fastcall FUN_00937d70(int** apArrayOut)
 
 struct FUN_009375e0_shell : public ActorValueModifierList
 {
-    void FUN_009375e0(char key, float value);
+    void SetModifier(char key, float value);
 };
 // @fnv 0x009375e0
-void FUN_009375e0_shell::FUN_009375e0(char key, float value)
+void FUN_009375e0_shell::SetModifier(char key, float value)
 {
     Modifier* modifier = GetModifierItem(key);
     if (!modifier)
@@ -254,7 +254,7 @@ void* Unk3713::ReleaseIfFlagged(unsigned int flags)
 
 struct TESSaveLoadGame
 {
-    void FUN_008579b0(void* a, int b);
+    void SaveGameDataOLD(void* a, int b);
 };
 extern TESSaveLoadGame* g_TESSaveLoadGame;
 struct Host37870
@@ -268,8 +268,8 @@ bool Host37870::FUN_00937870(Modifier* apModifier)
         return false;
     char key = apModifier->GetKey();
     float value = apModifier->GetValue();
-    g_TESSaveLoadGame->FUN_008579b0(&key, 1);
-    g_TESSaveLoadGame->FUN_008579b0(&value, 4);
+    g_TESSaveLoadGame->SaveGameDataOLD(&key, 1);
+    g_TESSaveLoadGame->SaveGameDataOLD(&value, 4);
     return true;
 }
 
@@ -316,7 +316,7 @@ struct GameTimerRecord
 
 struct TESSaveLoadGame : GameTimerRecord
 {
-    void FUN_008579b0(void*, int);
+    void SaveGameDataOLD(void*, int);
 };
 extern TESSaveLoadGame* g_TESSaveLoadGame;
 
@@ -337,7 +337,7 @@ void FUN_009378d0_shell::CountModifiers()
 {
     unsigned short icount = 0;
     unsigned short* pusCount = (unsigned short*)g_TESSaveLoadGame->GetTime();
-    g_TESSaveLoadGame->FUN_008579b0(&icount, 2);
+    g_TESSaveLoadGame->SaveGameDataOLD(&icount, 2);
 
     BSSimpleList<Modifier*>* pmodlist = (BSSimpleList<Modifier*>*)this;
     while (pmodlist && *((BSSimpleList_helper*)pmodlist)->_ref_006815c0())
@@ -481,12 +481,12 @@ class FUN_00937400_ModifierList : public BSSimpleList<Modifier*>
     bool m_bAllowZeroValueModifiers;
     ModifierPointerList* m_ppModifiedActorValues;
 
-    void FUN_00937400(Modifier* modifier);
+    void DeleteModifier(Modifier* modifier);
 };
 
 // Removes a modifier from the list, or from m_ppModifiedActorValues when the actor value is flagged and tracked there.
 // @fnv 0x00937400
-void FUN_00937400_ModifierList::FUN_00937400(Modifier* modifier)
+void FUN_00937400_ModifierList::DeleteModifier(Modifier* modifier)
 {
     if (!modifier)
         return;

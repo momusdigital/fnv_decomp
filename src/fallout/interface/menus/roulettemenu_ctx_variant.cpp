@@ -158,7 +158,7 @@ struct FUN_004bc1f0_S
 };
 struct FUN_007bf840_shell
 {
-    void FUN_007bf840();
+    void SetBetChip();
 };
 extern double DAT_01070e78;
 extern GO g_011da8a0;
@@ -4286,12 +4286,12 @@ struct RouletteState
     int unk3ff8;
     int unk3ffc;
     int unk4000;
-    int FUN_007bf390();
+    int GetBetIndex();
     bool FUN_007bed70(int);
     bool RemoveEntryById(int);
     void FUN_007bf670();
     void ApplyValueToChain(int, float);
-    void FUN_007bf840();
+    void SetBetChip();
     void HandleRouletteInput(int, Tile*);
 };
 struct FUN_00559450_shell
@@ -4851,7 +4851,7 @@ struct S_007bf7a0
     int unk3f00, unk3f04, unk3f08, unk3f0c, unk3f10, unk3f14, unk3f18, unk3f1c;
     S_007bf7a0_Tile* tilesA[10];
     S_007bf7a0_Tile* tilesB[10];
-    void FUN_007bf7a0();
+    void ResetBetChips();
 };
 struct SettingString
 {
@@ -9421,8 +9421,8 @@ struct Setup
     int unk3fdc;
     int state;
     void InitRouletteScene();
-    void FUN_007bf7a0();
-    void FUN_007bf840();
+    void ResetBetChips();
+    void SetBetChip();
     Scene* FUN_007c2180();
     void InitRouletteWheel();
 };
@@ -9541,7 +9541,7 @@ struct CasinoForRoulette
 {
     int FUN_0084e3a0();
     CasinoData* FUN_00504e60();
-    void* FUN_007316d0();
+    void* GetChipType();
 };
 struct MenuVirtual
 {
@@ -9776,10 +9776,10 @@ struct Roulette
     int m_iNode;
     char kad[0x3f94 - 0x3f20];
     float m_afRadius[0x10];
-    int FUN_007bf390();
+    int GetBetIndex();
 };
 // @fnv 0x007bf390
-int Roulette::FUN_007bf390()
+int Roulette::GetBetIndex()
 {
     int i;
     for (i = 0; i < 0x90; i++)
@@ -10013,7 +10013,7 @@ bool RouletteState::FUN_007bed70(int number)
         reinterpret_cast<BetList*>(unk3e78)->FUN_00726c60(ba);
     else
         reinterpret_cast<BetList*>(unk3e78)->FUN_005ae3d0(ba);
-    FUN_007bf840();
+    SetBetChip();
     ++unk3fe4;
     ++unk3fe0;
     unk3fec += unk3fe8;
@@ -10036,7 +10036,7 @@ bool RouletteState::FUN_007bed70(int number)
         reinterpret_cast<RouletteScene*>(static_cast<unsigned int>(g_011da8a0))
             ->FUN_0043b4a0(unk3fe0 + 10)
             ->FUN_004bc1f0(c.x, c.y, 0.0f);
-        FUN_007bf840();
+        SetBetChip();
     }
     if (unk3fec + unk3fe8 > unk3ff0)
     {

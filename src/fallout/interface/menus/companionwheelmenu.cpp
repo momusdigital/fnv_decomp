@@ -22,7 +22,7 @@ int __thiscall FUN_00754bf0_shell::GetClass()
 
 struct FUN_00884480_shell
 {
-    bool __thiscall FUN_00884480(void);
+    bool __thiscall CanSpeak(void);
 };
 struct Actor
 {
@@ -31,11 +31,11 @@ struct Actor
 extern Actor* g_thePlayer;
 
 // @fnv 0x00754d90
-bool FUN_00754d90(Actor* apActor)
+bool GetShouldCompanionWheelOpen(Actor* apActor)
 {
     if (!apActor)
         return false;
-    if (!static_cast<FUN_00884480_shell*>(static_cast<void*>(apActor))->FUN_00884480())
+    if (!static_cast<FUN_00884480_shell*>(static_cast<void*>(apActor))->CanSpeak())
         return false;
     int tmp;
     if (apActor->IsHostileToActor(g_thePlayer, 0, &tmp, false))
@@ -124,10 +124,10 @@ struct FUN_00756930_shell
 {
     char _pad[0x68];
     Actor* m_pDialogueActor;
-    void __thiscall FUN_00756930();
+    void __thiscall Do_Backup();
 };
 // @fnv 0x00756930
-void __thiscall FUN_00756930_shell::FUN_00756930()
+void __thiscall FUN_00756930_shell::Do_Backup()
 {
     if (m_pDialogueActor)
         ((FUN_008a7760_holder*)m_pDialogueActor)->OpenDialogMenu();
@@ -288,7 +288,7 @@ struct InterfaceH
     static bool __cdecl GetSelectedTargetIndex(int);
 };
 
-void __cdecl FUN_00717280(int);
+void __cdecl PlayMenuSound(int);
 
 struct FUN_007552e0_shell
 {
@@ -316,53 +316,53 @@ void FUN_007552e0_shell::FUN_007552e0(int aiID, Tile* apTarget)
     switch (aiID)
     {
     case 11:
-        FUN_00717280(1);
+        PlayMenuSound(1);
         CloseMenuAndRefresh(1);
         break;
 
     case 3:
         FUN_00756960(reinterpret_cast<int>(this));
-        FUN_00717280(1);
+        PlayMenuSound(1);
         break;
 
     case 2:
         this->ToggleFollowerWait();
         this->SelectTile(aiID, true);
-        FUN_00717280(1);
+        PlayMenuSound(1);
         break;
 
     case 4:
-        reinterpret_cast<FUN_00756930_shell*>(this)->FUN_00756930();
-        FUN_00717280(1);
+        reinterpret_cast<FUN_00756930_shell*>(this)->Do_Backup();
+        PlayMenuSound(1);
         break;
 
     case 0:
         this->ToggleAggressive();
         this->SelectTile(aiID, true);
-        FUN_00717280(1);
+        PlayMenuSound(1);
         break;
 
     case 1:
         this->HealCompanion();
         this->SelectTile(aiID, true);
-        FUN_00717280(1);
+        PlayMenuSound(1);
         break;
 
     case 7:
         this->ToggleRelatedTopic();
         this->SelectTile(aiID, true);
-        FUN_00717280(1);
+        PlayMenuSound(1);
         break;
 
     case 6:
         this->FUN_007568d0();
-        FUN_00717280(1);
+        PlayMenuSound(1);
         break;
 
     case 5:
         reinterpret_cast<FUN_007560c0_shell*>(this)->ToggleFollowersTacticsDistance();
         this->SelectTile(aiID, true);
-        FUN_00717280(1);
+        PlayMenuSound(1);
         break;
     }
 }
@@ -682,7 +682,7 @@ TileOps* OpenCompanionMenu(ActorOps* actor)
 }
 }  // namespace fnv_00754de0
 
-extern "C" bool __cdecl FUN_00702450(int);
+extern "C" bool __cdecl IsTopMenuID(int);
 
 struct Foo
 {
@@ -701,7 +701,7 @@ struct Foo
 bool Foo::HandleTileAction(int aiAction, int unused)
 {
     bool result = false;
-    if (!FUN_00702450(0x433))
+    if (!IsTopMenuID(0x433))
     {
         return result;
     }
@@ -734,7 +734,7 @@ struct WheelHost
     void __thiscall FUN_00755760(int a, int b);
 };
 
-bool __cdecl FUN_00702450(int);
+bool __cdecl IsTopMenuID(int);
 
 // @fnv 0x00755760
 void __thiscall WheelHost::FUN_00755760(int aiSlot, int aiValue)
@@ -743,7 +743,7 @@ void __thiscall WheelHost::FUN_00755760(int aiSlot, int aiValue)
     {
         aiValue = m_aiIndexedValues[aiSlot];
     }
-    if (FUN_00702450(0x433) == 0)
+    if (IsTopMenuID(0x433) == 0)
     {
     }
     else
@@ -1282,16 +1282,16 @@ struct InteractionActor
     bool FUN_00493bb0();
     bool FUN_00566950();
     bool FUN_00608d80();
-    bool FUN_0087f3d0();
+    bool GetEssential();
     TESPackage* FUN_009344a0();
     bool FUN_004997b0();
     bool FUN_008ace90();
     void StartDialog(DialogueManager*, int, int);
-    void FUN_008bb520(ActorPosition);
+    void RequestRotate(ActorPosition);
     bool FUN_008b3bb0();
     bool FUN_008b3c30();
-    void FUN_008a8e50();
-    void FUN_008a7a90();
+    void StopAttack();
+    void ForceIdleAnimation();
     const char* FUN_0055d520();
 };
 extern InteractionActor* interactionPlayer;
@@ -1300,7 +1300,7 @@ struct DialogueDisplay
     void FUN_009c8950(int, int);
 };
 extern DialogueDisplay dialogueDisplay;
-void FUN_00709470(int, InteractionActor*, unsigned int, int, int, int);
+void QueueMenuCreate(int, InteractionActor*, unsigned int, int, int, int);
 struct InputState
 {
     void FUN_00ad8780();
@@ -1368,7 +1368,7 @@ void InteractionMenu::UpdateCompanionInteraction()
         if (aTarget->FUN_00493bb0() && player2 == interactionPlayer && aTarget->FUN_00566950())
         {
             dialogueDisplay.FUN_009c8950(0, 0);
-            FUN_00709470(4, aTarget, 0, 0, 1, 0);
+            QueueMenuCreate(4, aTarget, 0, 0, 1, 0);
             return;
         }
         if (aTarget && (!aTarget->FUN_00493bb0() || aTarget->CanInteract()) &&
@@ -1380,7 +1380,7 @@ void InteractionMenu::UpdateCompanionInteraction()
                 return;
             if (!aTarget->IsUnavailable(0))
             {
-                if (player2 == interactionPlayer && aTarget->CanInteract() && aTarget->FUN_0087f3d0())
+                if (player2 == interactionPlayer && aTarget->CanInteract() && aTarget->GetEssential())
                 {
                     return;
                 }
@@ -1430,15 +1430,15 @@ void InteractionMenu::UpdateCompanionInteraction()
                                 aTarget->FUN_008d8520()->GetLevelInfo()->level > 19)
                                 aTarget->FUN_008d8520()->SetFlags(512);
                             if (!aTarget->GetState())
-                                aTarget->FUN_008bb520(*player2->GetPosition(0));
+                                aTarget->RequestRotate(*player2->GetPosition(0));
                             unsigned int topic = 0;
                             InteractionActor* participant = 0;
                             if (player2 == interactionPlayer)
                             {
                                 if (!aTarget->FUN_008b3bb0() && !aTarget->FUN_008b3c30())
                                     aTarget->FUN_008d8520()->Prepare(aTarget);
-                                player2->FUN_008a8e50();
-                                aTarget->FUN_008a8e50();
+                                player2->StopAttack();
+                                aTarget->StopAttack();
                                 DialoguePackage* package = dynamic_cast<DialoguePackage*>(player2->FUN_009344a0());
                                 if (package)
                                     topic = package->topic;
@@ -1460,7 +1460,7 @@ void InteractionMenu::UpdateCompanionInteraction()
                                     if (speaker == interactionPlayer)
                                         speaker = aTarget;
                                     dialogueDisplay.FUN_009c8950(0, 0);
-                                    FUN_00709470(4, speaker, topic, 0, 1, 0);
+                                    QueueMenuCreate(4, speaker, topic, 0, 1, 0);
                                 }
                                 else
                                 {
@@ -1473,8 +1473,8 @@ void InteractionMenu::UpdateCompanionInteraction()
                                 if (!interactionPlayer->FUN_008d8520()->AllowTarget(player2))
                                     return;
                                 FUN_00453a70(4)->FUN_00ad8780();
-                                player2->FUN_008a8e50();
-                                aTarget->FUN_008a8e50();
+                                player2->StopAttack();
+                                aTarget->StopAttack();
                                 participant = player2;
                                 if (!player2->FUN_00493bb0())
                                 {
@@ -1488,18 +1488,18 @@ void InteractionMenu::UpdateCompanionInteraction()
                                     player2->FUN_008d8520()->SetPackage(player2, 1);
                                 aTarget->extras.FUN_00815b00();
                                 if (aTarget == interactionPlayer)
-                                    aTarget->FUN_008a7a90();
+                                    aTarget->ForceIdleAnimation();
                                 else
                                     aTarget->FUN_008d8520()->SetFlags(1024);
                                 if (player2 == interactionPlayer)
-                                    player2->FUN_008a7a90();
+                                    player2->ForceIdleAnimation();
                                 else
                                     player2->FUN_008d8520()->SetFlags(1024);
                                 dialogueDisplay.FUN_009c8950(0, 0);
                                 InteractionActor* speaker = player2;
                                 if (speaker == interactionPlayer)
                                     speaker = aTarget;
-                                FUN_00709470(4, speaker, topic, 0, 1, 0);
+                                QueueMenuCreate(4, speaker, topic, 0, 1, 0);
                             }
                         }
                         delete item3;
@@ -2643,7 +2643,7 @@ struct Actor : Reference
     Process* FUN_008d8520();
     int FUN_00931850();
     bool FUN_0094df60();
-    bool FUN_0087f3d0();
+    bool GetEssential();
     int FUN_004f8960();
     unsigned int FUN_005d43c0();
 };
@@ -2713,7 +2713,7 @@ bool FUN_005c8a50(void* paramInfo, void* scriptData, Reference* source, void* co
                     return true;
                 }
                 if (DAT_011dea3c->FUN_0094df60() || actor->FUN_008d8520()->FUN_0045cd60() != 0 ||
-                    (actor->FUN_0087f3d0() && actor->FUN_004f8960() == 6))
+                    (actor->GetEssential() && actor->FUN_004f8960() == 6))
                 {
                     Sequence* selected = idleVal->FUN_0061b320(actor, 0, 0, 0, 1);
                     if (selected)
@@ -3532,7 +3532,7 @@ struct ActorBase755d
 
 struct Actor755d : ActorBase755d, AVO755d
 {
-    float FUN_008a0c20();
+    float GetMaxCarryWeight();
 };
 
 float __cdecl FUN_008a0cd0(AVO755d* owner, int value);
@@ -3572,12 +3572,12 @@ struct Wheel755d
     int unk60;
     int unk64;
     Actor755d* actor;
-    void FUN_00755dc0(int mode);
+    void SetButtonContextText(int mode);
 };
 
 // Builds a string for selected modes and writes it to the tile's 0xfc4 string field.
 // @fnv 0x00755dc0
-void Wheel755d::FUN_00755dc0(int mode)
+void Wheel755d::SetButtonContextText(int mode)
 {
     char rltxt[260];
     int b;
@@ -3630,7 +3630,7 @@ void Wheel755d::FUN_00755dc0(int mode)
             if (actor)
             {
                 rlA5 = (int)FUN_008a0cd0(actor, 0xd);
-                a2 = (int)actor->FUN_008a0c20();
+                a2 = (int)actor->GetMaxCarryWeight();
                 sprintf_s(rltxt, 260, "%s  %d/%d", DAT_011d1e60.String(), rlA5, a2);
             }
             break;
@@ -3689,7 +3689,7 @@ struct WheelSelection
     int selected;
     void SelectTile(int next, bool force);
     void SetTileText(const char*);
-    void FUN_00755dc0(int);
+    void SetButtonContextText(int);
 };
 
 // Selects a tile in the wheel, updating highlight state, tile text, and playing a UI scroll sound.
@@ -3776,7 +3776,7 @@ void WheelSelection::SelectTile(int next, bool force)
         SetTileText($SG3295);
         break;
     }
-    FUN_00755dc0(selected);
+    SetButtonContextText(selected);
 }
 
 struct FUN_007563a0_shell

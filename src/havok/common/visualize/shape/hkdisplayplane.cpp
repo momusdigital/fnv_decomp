@@ -142,11 +142,11 @@ extern "C" void __cdecl FUN_00c908c0(unsigned int a1, VecBuf* v, int cap, int el
 struct FUN_00de5050_cls
 {
     void Fill(VecTemp4* out);
-    void FUN_00de5050(VecBuf* s, unsigned int a2);
+    void getWireframeGeometry(VecBuf* s, unsigned int a2);
 };
 
 // @fnv 0x00de5050
-void FUN_00de5050_cls::FUN_00de5050(VecBuf* s, unsigned int a2)
+void FUN_00de5050_cls::getWireframeGeometry(VecBuf* s, unsigned int a2)
 {
     int n = (int)(s->m_iElementCount & 0x3fffffff);
     if (n < 12)

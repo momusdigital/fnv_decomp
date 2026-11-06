@@ -410,7 +410,7 @@ void PathSmootherPOVSearch::AddNavMeshEdgeRecord(NavMesh* mesh, unsigned short t
                 if (exitNormal.Dot(entryNormal) < 0.9f)
                 {
                     NiPoint3 p1, p2;
-                    exit.m_pLocationNavMesh->FUN_0068f0c0(exit.m_usTriangleID, exit.m_iEdgeIndex, p1, p2);
+                    exit.m_pLocationNavMesh->GetEdgeVertices(exit.m_usTriangleID, exit.m_iEdgeIndex, p1, p2);
                     NiPoint3 Crossing;
                     if (FUN_006ba100(p1, p2, start, end, Crossing))
                     {
@@ -690,7 +690,7 @@ bool PathSmootherPOVSearch::FindPathToPoint(const POVNode* node, PathSmootherPOV
                             else
                             {
                                 sourceLocation.m_iEdgeIndex = -1;
-                                if (!FUN_006b1e50(sourceLocation, startSphere, sourceArc, &exitLocation))
+                                if (!CheckArcAgainstNavMesh(sourceLocation, startSphere, sourceArc, &exitLocation))
                                 {
                                     ++failedCount;
                                     continue;
@@ -706,7 +706,7 @@ bool PathSmootherPOVSearch::FindPathToPoint(const POVNode* node, PathSmootherPOV
                                 endSphere.Center + tangentData.Tangents[i].m_kEnd.MakePointOnCircle(endSphere.Radius);
                             exitLocation.m_iEdgeIndex = -1;
                             discount = 0.0f;
-                            if (!FUN_006b25f0(exitLocation, destination, &entryLocation,
+                            if (!TripleCheckSegmentAgainstNavMesh(exitLocation, destination, &entryLocation,
                                               currentNode.m_pAvoidNode->eType == 2, pov->eType == 3, discount))
                             {
                                 ++failedCount;
@@ -1953,9 +1953,9 @@ struct Link17
 int FUN_006bb570(const Sphere17&, const Sphere17&, ANGLE_DIRECTION, SphereTangents&);
 struct LastNodeSearch17 : PathSmootherPOVSearch
 {
-    bool FUN_006b1e50(const NavMeshEdgePoint&, Sphere17&, Arc17, NavMeshEdgePoint*);
+    bool CheckArcAgainstNavMesh(const NavMeshEdgePoint&, Sphere17&, Arc17, NavMeshEdgePoint*);
     bool FUN_006b23d0(const NavMeshEdgePoint&, Sphere17&, Arc17);
-    bool FUN_006b25f0(const NavMeshEdgePoint&, const Point17&, NavMeshEdgePoint*, bool, bool, float&);
+    bool TripleCheckSegmentAgainstNavMesh(const NavMeshEdgePoint&, const Point17&, NavMeshEdgePoint*, bool, bool, float&);
     bool FindPath(const NavMeshEdgePoint&, const Point17&, NavMeshEdgePoint*, float&);
     bool FUN_006b2c00(PathSmootherPOVPoint*, PathSmootherPOVPoint*, NiPoint3&, const Point17&, float&);
     bool TryAddLastNode();
@@ -1976,7 +1976,7 @@ bool LastNodeSearch17::TryAddLastNode()
         return false;
     Arc17 c((const Angle17&)eb.m_kEnd, (const Angle17&)b.Tangents[0].m_kStartAngle, h.Direction);
     NavMeshEdgePoint cf;
-    if (!FUN_006b1e50(eb.m_kEndPoint, f, c, &cf))
+    if (!CheckArcAgainstNavMesh(eb.m_kEndPoint, f, c, &cf))
         return false;
     if (!FUN_006b23d0(eb.m_kEndPoint, f, c))
         return false;
@@ -1986,7 +1986,7 @@ bool LastNodeSearch17::TryAddLastNode()
     float p = 0;
     if (pRequest->GetFloatAtOffset68() >= 100.0)
     {
-        if (FUN_006b25f0(cf, ba, &s, false, true, p))
+        if (TripleCheckSegmentAgainstNavMesh(cf, ba, &s, false, true, p))
         {
             float radius = 0;
             if (!FUN_006b2c00(h.m_pAvoidNode, m_pGoalPoint, cf.Location, ba, radius))
@@ -2036,7 +2036,7 @@ bool PathSmootherPOVSearch::FUN_006b2fc0(BSSimpleArray<NavMeshTriangleEdgeRefere
     {
         NiPoint3 kStartPt;
         NiPoint3 kEndPt;
-        Edges->operator[](i).m_pLocationNavMesh->FUN_0068f0c0(Edges->operator[](i).m_usTriangleIdentifier,
+        Edges->operator[](i).m_pLocationNavMesh->GetEdgeVertices(Edges->operator[](i).m_usTriangleIdentifier,
                                                               Edges->operator[](i).m_iEdgeIndex, kStartPt, kEndPt);
         if ((kStartPt - kEndPt).FUN_004a7290() < pRequest->GetFloatAtOffset68() * pRequest->GetFloatAtOffset68() * 4.0)
         {
@@ -4306,7 +4306,7 @@ struct Search : PathSmootherPOVSearch
     void FUN_006ae190();
     void BuildPOVLinks();
     void CreateSmoother();
-    void FUN_006aefc0();
+    void AddPOVsFromAvoidNodes();
     void FUN_006af2b0();
     void FUN_006af500();
     void AddAvoidanceNodes();
@@ -4318,7 +4318,7 @@ void Search::AddAvoidanceNodes()
     FUN_006ae190();
     BuildPOVLinks();
     CreateSmoother();
-    FUN_006aefc0();
+    AddPOVsFromAvoidNodes();
     FUN_006af2b0();
     FUN_006af500();
     if (((Request*)pRequest)->FUN_006a7980())
@@ -4387,11 +4387,11 @@ extern const NiPoint3 DAT_011f426c;
 
 struct FUN_006aefc0_cls : public PathSmootherPOVSearch
 {
-    void FUN_006aefc0();
+    void AddPOVsFromAvoidNodes();
 };
 
 // @fnv 0x006aefc0
-void FUN_006aefc0_cls::FUN_006aefc0()
+void FUN_006aefc0_cls::AddPOVsFromAvoidNodes()
 {
     AvoidNodeArrayHolder holder(this->pRequest->GetString());
     if (holder.Get() != 0)
@@ -6758,12 +6758,12 @@ extern float DAT_0106b3a8;
 
 struct POVSearch
 {
-    bool FUN_006b1e50(const EdgeLoc&, PtEx&, ASCArc, EdgeLoc*);
+    bool CheckArcAgainstNavMesh(const EdgeLoc&, PtEx&, ASCArc, EdgeLoc*);
     bool FindPath(const EdgeLoc&, const P3&, EdgeLoc*, float*);
 };
 
 // @fnv 0x006b1e50
-bool POVSearch::FUN_006b1e50(const EdgeLoc& edge, PtEx& sphere, ASCArc arc, EdgeLoc* out)
+bool POVSearch::CheckArcAgainstNavMesh(const EdgeLoc& edge, PtEx& sphere, ASCArc arc, EdgeLoc* out)
 {
     ASC rot3;
     rot3.SetFromAngle(arc.Direction == 0 ? DAT_01064f64 : DAT_0106b3a8);
@@ -7176,12 +7176,12 @@ extern const float DAT_01016970;
 
 struct ClearanceSearch : PathSmootherPOVSearch
 {
-    bool FUN_006b25f0(const NavMeshEdgePoint&, const NiPoint3&, NavMeshEdgePoint*, bool, bool, float&);
+    bool TripleCheckSegmentAgainstNavMesh(const NavMeshEdgePoint&, const NiPoint3&, NavMeshEdgePoint*, bool, bool, float&);
 };
 
 // Finds a path from origin to target, then probes four lateral offsets around the route to verify clearance, adjusting the hit height if flipB is false.
 // @fnv 0x006b25f0
-bool ClearanceSearch::FUN_006b25f0(const NavMeshEdgePoint& origin, const NiPoint3& target, NavMeshEdgePoint* hit,
+bool ClearanceSearch::TripleCheckSegmentAgainstNavMesh(const NavMeshEdgePoint& origin, const NiPoint3& target, NavMeshEdgePoint* hit,
                                    bool flipA, bool flipB, float& afDestinationHeight)
 {
     if (!reinterpret_cast<CollisionProbe*>(this)->FindPath(origin, target, hit, afDestinationHeight))

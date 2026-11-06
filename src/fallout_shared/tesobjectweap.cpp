@@ -4188,7 +4188,7 @@ struct Param {
     virtual void Unk_72();
     virtual void Unk_73();
     virtual void* Unk_74();
-    int FUN_009306d0();
+    int GetCharController();
     void* FUN_008d6f30();
     void* FUN_00950be0();
     bool FUN_004eaf60();
@@ -4276,9 +4276,9 @@ void ThisObj::FUN_00524db0(Param* param)
     f9 = *DAT_011cf4b0.FUN_00403e20();
     obj34.FUN_0063c8a0(tempBCz.FUN_00416870(FUN_00476b70(f7c5, f9), FUN_00476b70(f7c5, f9), FUN_00476b70(f7c5, f9)));
     obj34.FUN_00439180(*DAT_011cf498.FUN_00403e20());
-    if (paramHome8->FUN_009306d0()) {
+    if (paramHome8->GetCharController()) {
         ob88.FUN_006815c0();
-        FUN_00458620(&ob88, paramHome8->FUN_009306d0() + 0x4f0);
+        FUN_00458620(&ob88, paramHome8->GetCharController() + 0x4f0);
         obj34.FUN_0063c8a0(&ob88);
     }
     obj14.FUN_006815c0();

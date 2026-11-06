@@ -177,7 +177,7 @@ bool __thiscall Tile_IsTrue_standin::ContainsTrait(int)
 extern int DAT_011da7dc;
 
 // @fnv 0x007b7c40
-int __cdecl FUN_007b7c40(ListBoxItem* apItem1, ListBoxItem* apItem2)
+int __cdecl SortFunc(ListBoxItem* apItem1, ListBoxItem* apItem2)
 {
     bool bisGreyedOut1;
     bool bisGreyedOut2;
@@ -443,7 +443,7 @@ void __cdecl FUN_0040fbe0(const char* apMessage);
 void __cdecl FNV_Warning(const char* apMessage);
 int __cdecl FUN_00408b20(const char* apString1, const char* apString2);
 float __cdecl FUN_00a01530();
-void __cdecl FUN_00763ff0();
+void __cdecl ServiceStart();
 
 struct RSMTile
 {
@@ -599,7 +599,7 @@ RSMTile* __cdecl CreateRepairServicesMenu(RSMActor* apVendor)
         g_pRepairServicesMenu->iUnk9C = apVendor->kExtraList.GetByType(0x27);
         g_pRepairServicesMenu->kRepairList.Initialize(g_pRepairServicesMenu->pTile30, "RSM_RepairListTemplate");
         g_pRepairServicesMenu->RefreshRepairMenu();
-        FUN_00763ff0();
+        ServiceStart();
         if (FUN_00408b20(g_kLanguageSetting.GetString(), "ENGLISH"))
         {
             pTile->GetChild("RSM_Headline_Title")
@@ -783,7 +783,7 @@ void RepairMenu::RefreshRepairMenu()
         ((RepairListView*)&((RepairMenuView*)DAT_011da7f0)->items)
             ->PopulateInventoryList(DAT_011dea3c, FUN_007b7b40, 0, 0, 1, 0);
         ((RepairListView*)&((RepairMenuView*)DAT_011da7f0)->items)->FUN_007314c0(UpdateRepairMenuTile, -1, 0x7fffffff);
-        ((RepairListView*)&((RepairMenuView*)DAT_011da7f0)->items)->Sort(FUN_007b7c40);
+        ((RepairListView*)&((RepairMenuView*)DAT_011da7f0)->items)->Sort(SortFunc);
         if (((RepairPlayerView*)DAT_011dea3c)->FUN_00891d70() > *DAT_011d3a08.FUN_0043d4d0())
             FUN_00406d00(szText, 64, &DAT_01075f34, DAT_011d25b0.FUN_00403df0(), *DAT_011d3a08.FUN_0043d4d0());
         else

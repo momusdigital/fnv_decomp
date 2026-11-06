@@ -155,7 +155,7 @@ struct xActor
     virtual void v61();
     virtual void v62();
     virtual bool FUN_fc();
-    xOwnerP* FUN_009306d0();
+    xOwnerP* GetCharController();
 };
 
 xActor* xFUN_0056f930(xNode*);
@@ -186,10 +186,10 @@ struct xPtr
 struct xCaster
 {
     xPtr m_iWordAt00;
-    bool FUN_00620bc0(const xP3& akFrom, xP3& akTo, xOutHit* apOut);
+    bool Pick(const xP3& akFrom, xP3& akTo, xOutHit* apOut);
 };
 // @fnv 0x00620bc0
-bool xCaster::FUN_00620bc0(const xP3& akFrom, xP3& akTo, xOutHit* apOut)
+bool xCaster::Pick(const xP3& akFrom, xP3& akTo, xOutHit* apOut)
 {
     bool RESULT = false;
     if (m_iWordAt00.FUN_00559450())
@@ -252,7 +252,7 @@ bool xCaster::FUN_00620bc0(const xP3& akFrom, xP3& akTo, xOutHit* apOut)
                             else if (ACTOR->FUN_fc())
                             {
                                 xActor* PACTOR = ACTOR;
-                                xOwnerP* OWNER = PACTOR->FUN_009306d0();
+                                xOwnerP* OWNER = PACTOR->GetCharController();
                                 if (OWNER && OWNER->FUN_00621240())
                                     FOUND = false;
                             }

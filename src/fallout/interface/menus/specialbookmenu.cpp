@@ -388,7 +388,7 @@ extern bool DAT_011a0854;
 extern const char* DAT_011a0858[];
 extern const char* DAT_011a0878[];
 extern int DAT_011f36bc;
-bool __cdecl FUN_00702450(int);
+bool __cdecl IsTopMenuID(int);
 int __cdecl FUN_00408b20(const char*, const char*);
 MenuController* __cdecl FUN_00653270(const int*, MenuController*);
 struct MenuUpdate
@@ -426,7 +426,7 @@ struct MenuUpdate
 // @fnv 0x007c6200
 void MenuUpdate::FUN_007c6200()
 {
-    if (!FUN_00702450(0x424))
+    if (!IsTopMenuID(0x424))
         return;
     MenuInput* pInput = g_osGlobals->FUN_00877720();
     {
@@ -478,7 +478,7 @@ void MenuUpdate::FUN_007c6200()
     }
 }
 
-bool __cdecl FUN_00702450(unsigned int);
+bool __cdecl IsTopMenuID(unsigned int);
 struct Values6440
 {
     virtual void v0();
@@ -567,7 +567,7 @@ struct Target6440 : SPECIALBookMenu
 // @fnv 0x007c6440
 bool Target6440::HandleSpecialBookKey(unsigned int key, int unused)
 {
-    if (FUN_00702450(0x424))
+    if (IsTopMenuID(0x424))
     {
         int index = FUN_007ca030();
         switch (key)
@@ -671,7 +671,7 @@ FUN_007ca2c0::FUN_007ca2c0(int a, const char* apFirstName, const char* apSecondN
     }
 }
 
-// Candidate for FUN_007cadd0 (FNV decompilation, official checker)
+// Candidate for LoadButtonAndTextImages (FNV decompilation, official checker)
 
 // __thiscall, no stack args (caller pops 0). /Od /Oy- /GS /EHsc.
 
@@ -950,11 +950,11 @@ struct FUN_007cadd0_self
 
     int m1e0;  // 0x1e0
 
-    void FUN_007cadd0();
+    void LoadButtonAndTextImages();
 };
 
 // @fnv 0x007cadd0
-void FUN_007cadd0_self::FUN_007cadd0()
+void FUN_007cadd0_self::LoadButtonAndTextImages()
 
 {
 
@@ -1141,11 +1141,11 @@ struct SPECIALBookMenu_7c9dc0
     int unk40;
     int unk44;
     int pageIndex;
-    bool FUN_007c9dc0(bool forward);
+    bool TurnPage(bool forward);
 };
 
 // @fnv 0x007c9dc0
-bool SPECIALBookMenu_7c9dc0::FUN_007c9dc0(bool forward)
+bool SPECIALBookMenu_7c9dc0::TurnPage(bool forward)
 {
     bool turned = false;
     if (forward)
@@ -1212,13 +1212,13 @@ void __cdecl FUN_007cabb0(void* p);
 void __cdecl FUN_007ca8a0(void* p);
 void __cdecl FUN_007cabf0(void* p);
 void __cdecl DispatchSourceCallback(void* p);
-void __cdecl FUN_007cac30(void* p);
+void __cdecl CloseCallback(void* p);
 void __cdecl UpdateEntryRankText(void* p);
 void __cdecl DispatchStateCallback(void* p);
 void __cdecl UpdateLodVisibility(void* p);
-void __cdecl FUN_007ca700(void* p);
-void __cdecl FUN_007ca960(void* p);
-void __cdecl FUN_007ca7a0(void* p);
+void __cdecl RefreshLeftAVButton(void* p);
+void __cdecl DecreaseActorValue(void* p);
+void __cdecl RefreshRightAVButton(void* p);
 void __cdecl PlaySpecialBookSoundAndSetStat(void* p);
 
 typedef void(__cdecl* ItemCb)(void* p);
@@ -1471,7 +1471,7 @@ struct SpecialBookMenuX
     BkNode* m_pReferencedNode;
     BkGroup m_groups[9];
     void InitMenu();
-    void FUN_007cadd0();
+    void LoadButtonAndTextImages();
 };
 
 // Unused, never emitted: keeps the per-TU $SG literal numbering clear of the checker's fixed $SG bindings (KB k8552).
@@ -1557,9 +1557,9 @@ void SpecialBookMenuX::InitMenu()
     valueX = new BkDisplay(UpdateEntryRankText, "P1_PointVal:0", 0, 5);
     kMsg = new BkDisplay(DispatchStateCallback, "P1_Message:0", 0, -1);
     pDigits = new BkDisplay(UpdateLodVisibility, "P1_PointsRemainDigit1:0", "P1_PointsRemainDigit2:0", -1);
-    declA = new BkStepButton(FUN_007ca960, FUN_007ca700, "P1_Decrease_Btn:0", 5, 2, valueX, pDigits);
+    declA = new BkStepButton(DecreaseActorValue, RefreshLeftAVButton, "P1_Decrease_Btn:0", 5, 2, valueX, pDigits);
     pIncrease =
-        new BkStepButton(PlaySpecialBookSoundAndSetStat, FUN_007ca7a0, "P1_Increase_Btn:0", 5, 2, valueX, pDigits);
+        new BkStepButton(PlaySpecialBookSoundAndSetStat, RefreshRightAVButton, "P1_Increase_Btn:0", 5, 2, valueX, pDigits);
     next = new BkButton(FUN_007cabb0, CallVfunc60WithGlobalOffset, "P1_RT_Btn:0");
     pLeft = new BkButton(FUN_007cabf0, FUN_007ca8a0, "P1_LT_Btn:0");
     m_groups[1].displays.FUN_007cb2e0(valueX);
@@ -1573,9 +1573,9 @@ void SpecialBookMenuX::InitMenu()
     valueX = new BkDisplay(UpdateEntryRankText, "P2_PointVal:0", 0, 6);
     kMsg = new BkDisplay(DispatchStateCallback, "P2_Message:0", 0, -1);
     pDigits = new BkDisplay(UpdateLodVisibility, "P2_PointsRemainDigit1:0", "P2_PointsRemainDigit2:0", -1);
-    declA = new BkStepButton(FUN_007ca960, FUN_007ca700, "P2_Decrease_Btn:0", 6, 2, valueX, pDigits);
+    declA = new BkStepButton(DecreaseActorValue, RefreshLeftAVButton, "P2_Decrease_Btn:0", 6, 2, valueX, pDigits);
     pIncrease =
-        new BkStepButton(PlaySpecialBookSoundAndSetStat, FUN_007ca7a0, "P2_Increase_Btn:0", 6, 2, valueX, pDigits);
+        new BkStepButton(PlaySpecialBookSoundAndSetStat, RefreshRightAVButton, "P2_Increase_Btn:0", 6, 2, valueX, pDigits);
     next = new BkButton(FUN_007cabb0, CallVfunc60WithGlobalOffset, "P2_RT_Btn:0");
     pLeft = new BkButton(FUN_007cabf0, FUN_007ca8a0, "P2_LT_Btn:0");
     m_groups[2].displays.FUN_007cb2e0(valueX);
@@ -1589,9 +1589,9 @@ void SpecialBookMenuX::InitMenu()
     valueX = new BkDisplay(UpdateEntryRankText, "P3_PointVal:0", 0, 7);
     kMsg = new BkDisplay(DispatchStateCallback, "P3_Message:0", 0, -1);
     pDigits = new BkDisplay(UpdateLodVisibility, "P3_PointsRemainDigit1:0", "P3_PointsRemainDigit2:0", -1);
-    declA = new BkStepButton(FUN_007ca960, FUN_007ca700, "P3_Decrease_Btn:0", 7, 2, valueX, pDigits);
+    declA = new BkStepButton(DecreaseActorValue, RefreshLeftAVButton, "P3_Decrease_Btn:0", 7, 2, valueX, pDigits);
     pIncrease =
-        new BkStepButton(PlaySpecialBookSoundAndSetStat, FUN_007ca7a0, "P3_Increase_Btn:0", 7, 2, valueX, pDigits);
+        new BkStepButton(PlaySpecialBookSoundAndSetStat, RefreshRightAVButton, "P3_Increase_Btn:0", 7, 2, valueX, pDigits);
     next = new BkButton(FUN_007cabb0, CallVfunc60WithGlobalOffset, "P3_RT_Btn:0");
     pLeft = new BkButton(FUN_007cabf0, FUN_007ca8a0, "P3_LT_Btn:0");
     m_groups[3].displays.FUN_007cb2e0(valueX);
@@ -1605,9 +1605,9 @@ void SpecialBookMenuX::InitMenu()
     valueX = new BkDisplay(UpdateEntryRankText, "P4_PointVal:0", 0, 8);
     kMsg = new BkDisplay(DispatchStateCallback, "P4_Message:0", 0, -1);
     pDigits = new BkDisplay(UpdateLodVisibility, "P4_PointsRemainDigit1:0", "P4_PointsRemainDigit2:0", -1);
-    declA = new BkStepButton(FUN_007ca960, FUN_007ca700, "P4_Decrease_Btn:0", 8, 2, valueX, pDigits);
+    declA = new BkStepButton(DecreaseActorValue, RefreshLeftAVButton, "P4_Decrease_Btn:0", 8, 2, valueX, pDigits);
     pIncrease =
-        new BkStepButton(PlaySpecialBookSoundAndSetStat, FUN_007ca7a0, "P4_Increase_Btn:0", 8, 2, valueX, pDigits);
+        new BkStepButton(PlaySpecialBookSoundAndSetStat, RefreshRightAVButton, "P4_Increase_Btn:0", 8, 2, valueX, pDigits);
     next = new BkButton(FUN_007cabb0, CallVfunc60WithGlobalOffset, "P4_RT_Btn:0");
     pLeft = new BkButton(FUN_007cabf0, FUN_007ca8a0, "P4_LT_Btn:0");
     m_groups[4].displays.FUN_007cb2e0(valueX);
@@ -1621,9 +1621,9 @@ void SpecialBookMenuX::InitMenu()
     valueX = new BkDisplay(UpdateEntryRankText, "P5_PointVal:0", 0, 9);
     kMsg = new BkDisplay(DispatchStateCallback, "P5_Message:0", 0, -1);
     pDigits = new BkDisplay(UpdateLodVisibility, "P5_PointsRemainDigit1:0", "P5_PointsRemainDigit2:0", -1);
-    declA = new BkStepButton(FUN_007ca960, FUN_007ca700, "P5_Decrease_Btn:0", 9, 2, valueX, pDigits);
+    declA = new BkStepButton(DecreaseActorValue, RefreshLeftAVButton, "P5_Decrease_Btn:0", 9, 2, valueX, pDigits);
     pIncrease =
-        new BkStepButton(PlaySpecialBookSoundAndSetStat, FUN_007ca7a0, "P5_Increase_Btn:0", 9, 2, valueX, pDigits);
+        new BkStepButton(PlaySpecialBookSoundAndSetStat, RefreshRightAVButton, "P5_Increase_Btn:0", 9, 2, valueX, pDigits);
     next = new BkButton(FUN_007cabb0, CallVfunc60WithGlobalOffset, "P5_RT_Btn:0");
     pLeft = new BkButton(FUN_007cabf0, FUN_007ca8a0, "P5_LT_Btn:0");
     m_groups[5].displays.FUN_007cb2e0(valueX);
@@ -1637,9 +1637,9 @@ void SpecialBookMenuX::InitMenu()
     valueX = new BkDisplay(UpdateEntryRankText, "P6_PointVal:0", 0, 10);
     kMsg = new BkDisplay(DispatchStateCallback, "P6_Message:0", 0, -1);
     pDigits = new BkDisplay(UpdateLodVisibility, "P6_PointsRemainDigit1:0", "P6_PointsRemainDigit2:0", -1);
-    declA = new BkStepButton(FUN_007ca960, FUN_007ca700, "P6_Decrease_Btn:0", 10, 2, valueX, pDigits);
+    declA = new BkStepButton(DecreaseActorValue, RefreshLeftAVButton, "P6_Decrease_Btn:0", 10, 2, valueX, pDigits);
     pIncrease =
-        new BkStepButton(PlaySpecialBookSoundAndSetStat, FUN_007ca7a0, "P6_Increase_Btn:0", 10, 2, valueX, pDigits);
+        new BkStepButton(PlaySpecialBookSoundAndSetStat, RefreshRightAVButton, "P6_Increase_Btn:0", 10, 2, valueX, pDigits);
     next = new BkButton(FUN_007cabb0, CallVfunc60WithGlobalOffset, "P6_RT_Btn:0");
     pLeft = new BkButton(FUN_007cabf0, FUN_007ca8a0, "P6_LT_Btn:0");
     m_groups[6].displays.FUN_007cb2e0(valueX);
@@ -1653,9 +1653,9 @@ void SpecialBookMenuX::InitMenu()
     valueX = new BkDisplay(UpdateEntryRankText, "P7_PointVal:0", 0, 11);
     kMsg = new BkDisplay(DispatchStateCallback, "P7_Message:0", 0, -1);
     pDigits = new BkDisplay(UpdateLodVisibility, "P7_PointsRemainDigit1:0", "P7_PointsRemainDigit2:0", -1);
-    declA = new BkStepButton(FUN_007ca960, FUN_007ca700, "P7_Decrease_Btn:0", 11, 2, valueX, pDigits);
+    declA = new BkStepButton(DecreaseActorValue, RefreshLeftAVButton, "P7_Decrease_Btn:0", 11, 2, valueX, pDigits);
     pIncrease =
-        new BkStepButton(PlaySpecialBookSoundAndSetStat, FUN_007ca7a0, "P7_Increase_Btn:0", 11, 2, valueX, pDigits);
+        new BkStepButton(PlaySpecialBookSoundAndSetStat, RefreshRightAVButton, "P7_Increase_Btn:0", 11, 2, valueX, pDigits);
     next = new BkButton(FUN_007cabb0, CallVfunc60WithGlobalOffset, "P7_RT_Btn:0");
     pLeft = new BkButton(FUN_007cabf0, FUN_007ca8a0, "P7_LT_Btn:0");
     m_groups[7].displays.FUN_007cb2e0(valueX);
@@ -1668,57 +1668,57 @@ void SpecialBookMenuX::InitMenu()
 
     valueX = new BkDisplay(UpdateEntryRankText, "Index_StrengthPointVal:0", 0, 5);
     m_groups[8].displays.FUN_007cb2e0(valueX);
-    declA = new BkStepButton(FUN_007ca960, FUN_007ca700, "Index_StrengthDecrease_Btn:0", 5, 2, valueX, pDigits);
+    declA = new BkStepButton(DecreaseActorValue, RefreshLeftAVButton, "Index_StrengthDecrease_Btn:0", 5, 2, valueX, pDigits);
     m_groups[8].buttons.FUN_007cb2e0(declA);
-    pIncrease = new BkStepButton(PlaySpecialBookSoundAndSetStat, FUN_007ca7a0, "Index_StrengthIncrease_Btn:0", 5, 2,
+    pIncrease = new BkStepButton(PlaySpecialBookSoundAndSetStat, RefreshRightAVButton, "Index_StrengthIncrease_Btn:0", 5, 2,
                                  valueX, pDigits);
     m_groups[8].buttons.FUN_007cb2e0(pIncrease);
 
     valueX = new BkDisplay(UpdateEntryRankText, "Index_PerceptionPointVal:0", 0, 6);
     m_groups[8].displays.FUN_007cb2e0(valueX);
-    declA = new BkStepButton(FUN_007ca960, FUN_007ca700, "Index_PerceptionDecrease_Btn:0", 6, 2, valueX, pDigits);
+    declA = new BkStepButton(DecreaseActorValue, RefreshLeftAVButton, "Index_PerceptionDecrease_Btn:0", 6, 2, valueX, pDigits);
     m_groups[8].buttons.FUN_007cb2e0(declA);
-    pIncrease = new BkStepButton(PlaySpecialBookSoundAndSetStat, FUN_007ca7a0, "Index_PerceptionIncrease_Btn:0", 6, 2,
+    pIncrease = new BkStepButton(PlaySpecialBookSoundAndSetStat, RefreshRightAVButton, "Index_PerceptionIncrease_Btn:0", 6, 2,
                                  valueX, pDigits);
     m_groups[8].buttons.FUN_007cb2e0(pIncrease);
 
     valueX = new BkDisplay(UpdateEntryRankText, "Index_EndurancePointVal:0", 0, 7);
     m_groups[8].displays.FUN_007cb2e0(valueX);
-    declA = new BkStepButton(FUN_007ca960, FUN_007ca700, "Index_EnduranceDecrease_Btn:0", 7, 2, valueX, pDigits);
+    declA = new BkStepButton(DecreaseActorValue, RefreshLeftAVButton, "Index_EnduranceDecrease_Btn:0", 7, 2, valueX, pDigits);
     m_groups[8].buttons.FUN_007cb2e0(declA);
-    pIncrease = new BkStepButton(PlaySpecialBookSoundAndSetStat, FUN_007ca7a0, "Index_EnduranceIncrease_Btn:0", 7, 2,
+    pIncrease = new BkStepButton(PlaySpecialBookSoundAndSetStat, RefreshRightAVButton, "Index_EnduranceIncrease_Btn:0", 7, 2,
                                  valueX, pDigits);
     m_groups[8].buttons.FUN_007cb2e0(pIncrease);
 
     valueX = new BkDisplay(UpdateEntryRankText, "Index_CharismaPointVal:0", 0, 8);
     m_groups[8].displays.FUN_007cb2e0(valueX);
-    declA = new BkStepButton(FUN_007ca960, FUN_007ca700, "Index_CharismaDecrease_Btn:0", 8, 2, valueX, pDigits);
+    declA = new BkStepButton(DecreaseActorValue, RefreshLeftAVButton, "Index_CharismaDecrease_Btn:0", 8, 2, valueX, pDigits);
     m_groups[8].buttons.FUN_007cb2e0(declA);
-    pIncrease = new BkStepButton(PlaySpecialBookSoundAndSetStat, FUN_007ca7a0, "Index_CharismaIncrease_Btn:0", 8, 2,
+    pIncrease = new BkStepButton(PlaySpecialBookSoundAndSetStat, RefreshRightAVButton, "Index_CharismaIncrease_Btn:0", 8, 2,
                                  valueX, pDigits);
     m_groups[8].buttons.FUN_007cb2e0(pIncrease);
 
     valueX = new BkDisplay(UpdateEntryRankText, "Index_IntelligencePointVal:0", 0, 9);
     m_groups[8].displays.FUN_007cb2e0(valueX);
-    declA = new BkStepButton(FUN_007ca960, FUN_007ca700, "Index_IntelligenceDecrease_Btn:0", 9, 2, valueX, pDigits);
+    declA = new BkStepButton(DecreaseActorValue, RefreshLeftAVButton, "Index_IntelligenceDecrease_Btn:0", 9, 2, valueX, pDigits);
     m_groups[8].buttons.FUN_007cb2e0(declA);
-    pIncrease = new BkStepButton(PlaySpecialBookSoundAndSetStat, FUN_007ca7a0, "Index_IntelligenceIncrease_Btn:0", 9, 2,
+    pIncrease = new BkStepButton(PlaySpecialBookSoundAndSetStat, RefreshRightAVButton, "Index_IntelligenceIncrease_Btn:0", 9, 2,
                                  valueX, pDigits);
     m_groups[8].buttons.FUN_007cb2e0(pIncrease);
 
     valueX = new BkDisplay(UpdateEntryRankText, "Index_AgilityPointVal:0", 0, 10);
     m_groups[8].displays.FUN_007cb2e0(valueX);
-    declA = new BkStepButton(FUN_007ca960, FUN_007ca700, "Index_AgilityDecrease_Btn:0", 10, 2, valueX, pDigits);
+    declA = new BkStepButton(DecreaseActorValue, RefreshLeftAVButton, "Index_AgilityDecrease_Btn:0", 10, 2, valueX, pDigits);
     m_groups[8].buttons.FUN_007cb2e0(declA);
-    pIncrease = new BkStepButton(PlaySpecialBookSoundAndSetStat, FUN_007ca7a0, "Index_AgilityIncrease_Btn:0", 10, 2,
+    pIncrease = new BkStepButton(PlaySpecialBookSoundAndSetStat, RefreshRightAVButton, "Index_AgilityIncrease_Btn:0", 10, 2,
                                  valueX, pDigits);
     m_groups[8].buttons.FUN_007cb2e0(pIncrease);
 
     valueX = new BkDisplay(UpdateEntryRankText, "Index_LuckPointVal:0", 0, 11);
     m_groups[8].displays.FUN_007cb2e0(valueX);
-    declA = new BkStepButton(FUN_007ca960, FUN_007ca700, "Index_LuckDecrease_Btn:0", 11, 2, valueX, pDigits);
+    declA = new BkStepButton(DecreaseActorValue, RefreshLeftAVButton, "Index_LuckDecrease_Btn:0", 11, 2, valueX, pDigits);
     m_groups[8].buttons.FUN_007cb2e0(declA);
-    pIncrease = new BkStepButton(PlaySpecialBookSoundAndSetStat, FUN_007ca7a0, "Index_LuckIncrease_Btn:0", 11, 2,
+    pIncrease = new BkStepButton(PlaySpecialBookSoundAndSetStat, RefreshRightAVButton, "Index_LuckIncrease_Btn:0", 11, 2,
                                  valueX, pDigits);
     m_groups[8].buttons.FUN_007cb2e0(pIncrease);
 
@@ -1726,12 +1726,12 @@ void SpecialBookMenuX::InitMenu()
     m_groups[8].displays.FUN_007cb2e0(kMsg);
     pDigits = new BkDisplay(UpdateLodVisibility, (char*)"Index_PointsRemainDigit1:0", "Index_PointsRemainDigit2:0", -1);
     m_groups[8].displays.FUN_007cb2e0(pDigits);
-    next = new BkButton(FUN_007cac30, DispatchSourceCallback, "AllDone_Btn:0");
+    next = new BkButton(CloseCallback, DispatchSourceCallback, "AllDone_Btn:0");
     m_groups[8].buttons.FUN_007cb2e0(next);
     pLeft = new BkButton(FUN_007cabf0, FUN_007ca8a0, "Index_LT_Btn:0");
     m_groups[8].buttons.FUN_007cb2e0(pLeft);
 
-    FUN_007cadd0();
+    LoadButtonAndTextImages();
     for (int iGroup = 0; iGroup < 9; iGroup++)
     {
         for (unsigned int iItem = 0; iItem < m_groups[iGroup].displays.FUN_0044ddc0(); iItem++)
@@ -1804,7 +1804,7 @@ struct BookPlayer
     int unk9c;
     int unka0;
     StatValues values;
-    void FUN_0093a7c0(int stat, int value);
+    void SetActorBaseValue(int stat, int value);
 };
 struct RawBookPtr
 {
@@ -1966,7 +1966,7 @@ struct BookMenu
     void* scene;
     BookGroup groups[9];
     int FUN_007ca030();
-    bool FUN_007c9dc0(bool);
+    bool TurnPage(bool);
     void InvokeCallbacksForSlot();
     void HandleKey(unsigned int key, int unused);
 };
@@ -1989,9 +1989,9 @@ void BookMenu::HandleKey(unsigned int key, int unused)
         if (finished)
         {
             if (key == 0)
-                turned = FUN_007c9dc0(true);
+                turned = TurnPage(true);
             else
-                turned = FUN_007c9dc0(false);
+                turned = TurnPage(false);
             InvokeCallbacksForSlot();
         }
         break;
@@ -2005,11 +2005,11 @@ void BookMenu::HandleKey(unsigned int key, int unused)
             if (key == 2)
             {
                 if (FUN_00794d80(this) < limit)
-                    ((BookPlayer*)g_thePlayer)->FUN_0093a7c0(FUN_007ca030(), MinInt(oldValue9 + 1, 10));
+                    ((BookPlayer*)g_thePlayer)->SetActorBaseValue(FUN_007ca030(), MinInt(oldValue9 + 1, 10));
             }
             else
             {
-                ((BookPlayer*)g_thePlayer)->FUN_0093a7c0(FUN_007ca030(), FUN_00647b70(oldValue9 - 1, 1));
+                ((BookPlayer*)g_thePlayer)->SetActorBaseValue(FUN_007ca030(), FUN_00647b70(oldValue9 - 1, 1));
             }
             newValue = ((BookPlayer*)g_thePlayer)->values.GetValue(FUN_007ca030());
         }
@@ -2020,11 +2020,11 @@ void BookMenu::HandleKey(unsigned int key, int unused)
             if (key == 2)
             {
                 if (FUN_00794d80(this) < limit)
-                    ((BookPlayer*)g_thePlayer)->FUN_0093a7c0(stat, MinInt(oldValue9 + 1, 10));
+                    ((BookPlayer*)g_thePlayer)->SetActorBaseValue(stat, MinInt(oldValue9 + 1, 10));
             }
             else
             {
-                ((BookPlayer*)g_thePlayer)->FUN_0093a7c0(stat, FUN_00647b70(oldValue9 - 1, 1));
+                ((BookPlayer*)g_thePlayer)->SetActorBaseValue(stat, FUN_00647b70(oldValue9 - 1, 1));
             }
             newValue = ((BookPlayer*)g_thePlayer)->values.GetValue(stat);
         }

@@ -121,19 +121,19 @@ FUN_0048eaf0::~FUN_0048eaf0()
 
 class PC7d;
 extern PC7d* g_thePlayer;
-void __cdecl FUN_00709470(int, int, int, int, int, int);
+void __cdecl QueueMenuCreate(int, int, int, int, int, int);
 void __cdecl FUN_0047a560(int, PC7d*, int);
 struct S00517380
 {
     void FUN_00517380(int, PC7d*);
 };
-// If a1 is non-zero and a2 is the player, calls FUN_00709470 with (1, a1, 0, 0, 1, 0) then FUN_0047a560(a1, a2, 0).
+// If a1 is non-zero and a2 is the player, calls QueueMenuCreate with (1, a1, 0, 0, 1, 0) then FUN_0047a560(a1, a2, 0).
 // @fnv 0x00517380
 void S00517380::FUN_00517380(int a1, PC7d* a2)
 {
     if (a1 != 0 && a2 == g_thePlayer)
     {
-        FUN_00709470(1, a1, 0, 0, 1, 0);
+        QueueMenuCreate(1, a1, 0, 0, 1, 0);
         FUN_0047a560(a1, a2, 0);
     }
 }

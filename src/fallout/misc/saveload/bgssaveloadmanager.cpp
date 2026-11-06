@@ -457,7 +457,7 @@ extern void __fastcall FUN_00c3e340(IOManager*);
 
 // Calls FUN_00c3e340 on DAT_01202d98, then calls FUN_006ebcd0 on the PathManager singleton.
 // @fnv 0x00850bf0
-void __fastcall FUN_00850bf0(int)
+void __fastcall EndSaveGame(int)
 {
     FUN_00c3e340(DAT_01202d98);
     PathManager::GetRandomGenerator()->FUN_006ebcd0();
@@ -605,10 +605,10 @@ struct FUN_006ebc90_shell
 };
 struct FUN_00850ba0_shell
 {
-    void FUN_00850ba0();
+    void StartSaveGame();
 };
 // @fnv 0x00850ba0
-void FUN_00850ba0_shell::FUN_00850ba0()
+void FUN_00850ba0_shell::StartSaveGame()
 {
     ((FUN_006ebc70_shell*)PathManager::GetRandomGenerator())->FUN_006ebc70();
     FUN_00c3e310(DAT_01202d98);
@@ -813,9 +813,9 @@ struct SaveManager
     void FUN_00851330();
     void FUN_00851540();
     void BuildSaveFileName(char*, int, int);
-    void FUN_00850ba0();
+    void StartSaveGame();
     SaveLoadFile* FUN_00850030(const char*, int, int, int);
-    void FUN_00850bf0();
+    void EndSaveGame();
     void FUN_00850ea0(SaveLoadFile*);
     void FUN_00850100(SaveLoadFile*, bool);
     void BuildWeaponPath(const char*, char*, bool);
@@ -854,7 +854,7 @@ bool SaveManager::FUN_008503b0(const char* acFileName, int mode, bool remove)
     strcpy_s(f, 260, acFileName);
     ((SaveGameOps*)g_BGSSaveLoadGame)->FUN_0084ab20();
     unsigned int h = ((SaveGameOps*)g_BGSSaveLoadGame)->FUN_00441110()->GetReferenceFlags();
-    FUN_00850ba0();
+    StartSaveGame();
     SaveLoadFile* i = 0;
     if (file)
         i = file;
@@ -862,7 +862,7 @@ bool SaveManager::FUN_008503b0(const char* acFileName, int mode, bool remove)
         i = FUN_00850030(acFileName, 1, 2, mode);
     if (!i)
     {
-        FUN_00850bf0();
+        EndSaveGame();
         return false;
     }
     if (eb)
@@ -876,10 +876,10 @@ bool SaveManager::FUN_008503b0(const char* acFileName, int mode, bool remove)
     {
         ((SaveGameOps*)g_BGSSaveLoadGame)->SetFlag4(false);
         QueueUIMessage(g_011d4f0c.GetString(), 0, str_010208a0, 0, DAT_010162c0, false);
-        FUN_00850bf0();
+        EndSaveGame();
         return false;
     }
-    FUN_00850bf0();
+    EndSaveGame();
     if (i != file)
         FUN_00850100(i, true);
     if (remove)

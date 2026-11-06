@@ -310,11 +310,11 @@ struct LM2
     int b;
     char pad2[0xd0 - 0x74];
     SubObj s;
-    void FUN_00788f30();
+    void InitStatsTilesList();
 };
 // Calls s.FUN_004ed900, then passes &a and &b to s.FUN_004ed8c0 in turn.
 // @fnv 0x00788f30
-void LM2::FUN_00788f30()
+void LM2::InitStatsTilesList()
 {
     s.FUN_004ed900();
     s.FUN_004ed8c0(&a);
@@ -328,7 +328,7 @@ struct FUN_Sub
 };
 // Calls FUN_004ed900 on the FUN_Sub at self+0xdc, then FUN_004ed8c0 with self+0x94, self+0x34 and self+0x60.
 // @fnv 0x00788f80
-void __fastcall FUN_00788f80(char* self)
+void __fastcall InitObjectiveTilesList(char* self)
 {
     ((FUN_Sub*)(self + 0xdc))->FUN_004ed900();
     ((FUN_Sub*)(self + 0xdc))->FUN_004ed8c0(self + 0x94);
@@ -345,11 +345,11 @@ struct S788
 {
     char pad[0xe8];
     M788 m;
-    void FUN_00788fe0();
+    void InitXPProgressTilesList();
 };
 // Calls m.FUN_004ed900, then passes six member addresses (offsets 0x68, 0x98, 0x9c, 0x64, 0x50, 0xa0) to m.FUN_004ed8c0.
 // @fnv 0x00788fe0
-void S788::FUN_00788fe0()
+void S788::InitXPProgressTilesList()
 {
     m.FUN_004ed900();
     m.FUN_004ed8c0((char*)this + 0x68);
@@ -375,11 +375,11 @@ struct LM3
     SubObj s1;
     char pad3[0x100 - 0xf5];
     SubObj s2;
-    void FUN_00789080();
+    void InitTipTilesList();
 };
 // Calls FUN_004ed900 then FUN_004ed8c0 on s1 with &a and on s2 with &b.
 // @fnv 0x00789080
-void LM3::FUN_00789080()
+void LM3::InitTipTilesList()
 {
     s1.FUN_004ed900();
     s1.FUN_004ed8c0(&a);
@@ -714,7 +714,7 @@ void LMStandIn::FUN_0078bb40()
 }
 
 // @fnv 0x0078bc60
-int __fastcall FUN_0078bc60(int apObject)
+int __fastcall GetLoadScreenTypeData(int apObject)
 {
     return *(int*)(apObject + 0x34) + 0x18;
 }
@@ -782,7 +782,7 @@ extern bool DAT_011a0295;
 extern bool DAT_011c70f8;
 
 // @fnv 0x0078d080
-void __cdecl FUN_0078d080(void)
+void __cdecl ShowChanges(void)
 {
     FUN_0043c4b0()->StartScene();
     RecursiveLock* pTileCritSect = FUN_00713d70();
@@ -1139,7 +1139,7 @@ struct FUN_0078a3e0_shell
 };
 struct FUN_0078cc50_shell
 {
-    void FUN_0078cc50();
+    void FadeIn();
 };
 struct BSAudio
 {
@@ -1325,7 +1325,7 @@ void FUN_007890e0_shell::InitLoadingMenu(TESForm* apLocation)
         p3dtile->FUN_00a20cc0("Left");
         data.FUN_0043d410(0.0f, true, false);
         p3dtile->FUN_0056c7f0()->Update(data);
-        ((FUN_0078cc50_shell*)this)->FUN_0078cc50();
+        ((FUN_0078cc50_shell*)this)->FadeIn();
         *(unsigned int*)((char*)this + 0x1e4) = 0;
     }
 
@@ -1597,7 +1597,7 @@ struct LoadingMenuS
     void FUN_0078a230();
     void UpdateLoadingScreenText(int);
     void ApplyLoadingScreenTexture(void*);
-    void FUN_0078cc50();
+    void FadeIn();
 };
 
 // @fnv 0x00789820
@@ -1699,14 +1699,14 @@ void FUN_00789820_shell::FUN_00789820()
             ((LoadingMenuS*)this)->ApplyLoadingScreenTexture(*(void**)((LoadingMenu*)this)->_padToUsFlags_pad1ec);
         }
         if (!*(unsigned int*)((LoadingMenu*)this)->_padToExtra && ((LoadingMenu*)this)->GetFloat(4))
-            ((LoadingMenuS*)this)->FUN_0078cc50();
+            ((LoadingMenuS*)this)->FadeIn();
         else
             *(unsigned int*)((LoadingMenu*)this)->_padToExtra = gm_GetTickCount();
         ((LoadingMenu*)this)->nextTipTime = *(unsigned int*)((LoadingMenu*)this)->_padToExtra;
     }
     else if (((LoadingMenu*)this)->GetFloat(4))
     {
-        ((LoadingMenuS*)this)->FUN_0078cc50();
+        ((LoadingMenuS*)this)->FadeIn();
     }
     else if (!((LoadingMenu*)this)->GetFloat(9) && gm_GetTickCount() >= ((LoadingMenu*)this)->nextTipTime)
     {
@@ -2991,10 +2991,10 @@ class LoadingMenuCreateMenu
     void FUN_00788ab0(TESForm*);
     void FUN_00a1dc70(LoadingMenuCreateTile*, bool);
     void CopyTileLayout();
-    void FUN_00788f30();
-    void FUN_00788f80();
-    void FUN_00789080();
-    void FUN_00788fe0();
+    void InitStatsTilesList();
+    void InitObjectiveTilesList();
+    void InitTipTilesList();
+    void InitXPProgressTilesList();
     void FUN_0078b6a0(bool);
     void FUN_0078b6f0(bool);
     void FUN_0078b650(bool);
@@ -3033,10 +3033,10 @@ Tile* __cdecl CreateLoadingMenuTile(TESForm* form, bool refresh, bool visible)
         tile->FUN_00a1dc70(existing, false);
         DAT_011da0c0 = tile;
         DAT_011da0c0->CopyTileLayout();
-        DAT_011da0c0->FUN_00788f30();
-        DAT_011da0c0->FUN_00788f80();
-        DAT_011da0c0->FUN_00789080();
-        DAT_011da0c0->FUN_00788fe0();
+        DAT_011da0c0->InitStatsTilesList();
+        DAT_011da0c0->InitObjectiveTilesList();
+        DAT_011da0c0->InitTipTilesList();
+        DAT_011da0c0->InitXPProgressTilesList();
         DAT_011da0c0->FUN_0078b6a0(false);
         DAT_011da0c0->FUN_0078b6f0(false);
         DAT_011da0c0->FUN_0078b650(false);
@@ -3507,7 +3507,7 @@ extern bool DAT_011a0296;
 struct PerkEntryX : BGSPerkEntry
 {
     void* FUN_005f36f0();
-    int FUN_0078bc60();
+    int GetLoadScreenTypeData();
     int FUN_005a7130();
 };
 struct LoadingMenuX : LoadingMenu
@@ -3537,7 +3537,7 @@ void LoadingMenuX::FUN_0078bb60(BGSPerkEntry* entry)
     }
     if (((PerkEntryX*)entry)->FUN_005f36f0())
     {
-        int x = ((PerkEntryX*)entry)->FUN_0078bc60();
+        int x = ((PerkEntryX*)entry)->GetLoadScreenTypeData();
         FUN_0078b9b0(x);
         switch (((PerkEntryX*)entry)->FUN_005a7130())
         {
@@ -3954,11 +3954,11 @@ struct FadeMenu
 
     void SetTileAlpha(Tile* pkTile, float fAlpha);
     void FUN_00458080(int iArg0, int iArg1);
-    void FUN_0078cc50();
+    void FadeIn();
 };
 
 // @fnv 0x0078cc50
-void FadeMenu::FUN_0078cc50()
+void FadeMenu::FadeIn()
 {
     static float s_fDuration = m_pkTile->FUN_00a011b0(0xfc1) * 1000.0;
 
@@ -4018,7 +4018,7 @@ bool FUN_0078aa90_shell::UpdateLoadingScreen()
 
 struct LoadVisibilityMenu : LoadingMenu
 {
-    void FUN_0078b3f0(TESLoadScreen*, bool);
+    void UpdatePlayerTileVisibilities(TESLoadScreen*, bool);
     void FUN_0078b650(bool);
     void FUN_0078b6a0(bool);
     void FUN_0078b6f0(bool);
@@ -4027,7 +4027,7 @@ struct LoadVisibilityMenu : LoadingMenu
 
 // For a selected screen with bShow true, dispatches settings by screen type; otherwise passes bShow to all four methods.
 // @fnv 0x0078b3f0
-void LoadVisibilityMenu::FUN_0078b3f0(TESLoadScreen* pLoadScreen, bool bShow)
+void LoadVisibilityMenu::UpdatePlayerTileVisibilities(TESLoadScreen* pLoadScreen, bool bShow)
 {
     if (!GetFloat(6))
     {
@@ -4126,7 +4126,7 @@ struct S00788ab0_MenuTileQuery
 {
     S00788ab0_StartMenu* GetMenu();
 };
-int FUN_0070ede0();
+int GetClassStatic();
 S00788ab0_MenuTileQuery* FUN_00a09030(int);
 void FUN_0078cfc0();
 void FUN_0078d020();
@@ -4161,7 +4161,7 @@ void S00788ab0_LoadingSetup::FUN_00788ab0(int aiExtraCandidates)
         m_uiFirstStateValue = gm_GetTickCount() - 4000;
         if (DAT_011d8907 || g_BGSSaveLoadGame->FUN_0042ce10())
         {
-            S00788ab0_StartMenu* menu = FUN_00a09030(FUN_0070ede0())->GetMenu();
+            S00788ab0_StartMenu* menu = FUN_00a09030(GetClassStatic())->GetMenu();
             if (menu && !menu->IsFlagSet(S00788ab0_StartMenu::Flag1))
             {
                 delete menu;

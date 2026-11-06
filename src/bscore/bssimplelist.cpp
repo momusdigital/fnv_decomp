@@ -1008,7 +1008,7 @@ struct ModifierActorValueView
 struct ModifierRoutingList : BSSimpleList<ModifierEntryView*>
 {
     void FUN_00937280(char, ModifierEntryView*);
-    void FUN_00937380(ModifierEntryView* mod);
+    void AddModifier(ModifierEntryView* mod);
 };
 
 namespace ActorValue {
@@ -1017,7 +1017,7 @@ ActorValueInfo* __cdecl GetActorValueInfo(Index);
 
 // Looks up the modifier key; calls the other routing method when info has bit 0 set, otherwise adds the entry at the head.
 // @fnv 0x00937380
-void ModifierRoutingList::FUN_00937380(ModifierEntryView* apEntry)
+void ModifierRoutingList::AddModifier(ModifierEntryView* apEntry)
 {
     if (!apEntry)
         return;

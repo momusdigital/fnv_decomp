@@ -953,7 +953,7 @@ int __thiscall FUN_006fc950_Class::FUN_006fc950(int pBuffer)
 }
 }  // namespace fnv_006fc950
 
-void __cdecl FUN_006fda10();
+void __cdecl UnloadPersistentDataRecurse();
 struct FUN_006fca70_Class
 {
     void __thiscall FUN_006fca70();
@@ -963,7 +963,7 @@ struct FUN_006fca70_Class
 void __thiscall FUN_006fca70_Class::FUN_006fca70()
 {
     if (*(void**)((char*)this + 4))
-        ((void(__thiscall*)(void*))FUN_006fda10)(*(void**)((char*)this + 4));
+        ((void(__thiscall*)(void*))UnloadPersistentDataRecurse)(*(void**)((char*)this + 4));
 }
 
 struct FUN_006ff880_Class
@@ -1807,11 +1807,11 @@ struct S006F1E90
 {
     bool __thiscall FUN_006f1fc0(int);
     bool __thiscall IsSegmentClear(int, int);
-    bool __thiscall FUN_006f1e90(int, int);
+    bool __thiscall IsSegmentValid(int, int);
 };
 // Returns true when the second argument passes FUN_006f1fc0 and the pair passes IsSegmentClear; otherwise false.
 // @fnv 0x006f1e90
-bool __thiscall S006F1E90::FUN_006f1e90(int aiFirst, int aiSecond)
+bool __thiscall S006F1E90::IsSegmentValid(int aiFirst, int aiSecond)
 {
     if (FUN_006f1fc0(aiSecond) && IsSegmentClear(aiFirst, aiSecond))
         return true;
@@ -2876,7 +2876,7 @@ struct PathingLocation
 {
     PathingLocation();
     ~PathingLocation();
-    void __thiscall FUN_006dd3e0(int a1);
+    void __thiscall SetNavMeshInfo(int a1);
     void __thiscall FUN_006f4ed0(int a1);
 };
 struct FUN_006f4e40_Class
@@ -2888,7 +2888,7 @@ struct FUN_006f4e40_Class
 // @fnv 0x006f4e40
 FUN_006f4e40_Class::FUN_006f4e40_Class(int aiValue)
 {
-    loc.FUN_006dd3e0(aiValue);
+    loc.SetNavMeshInfo(aiValue);
     *(int*)((char*)this + 0x2c) = 0;
     loc.FUN_006f4ed0(aiValue + 0x10);
     p = (void*)1;
@@ -2900,7 +2900,7 @@ struct PathingLocation
 {
     PathingLocation();
     ~PathingLocation();
-    void FUN_006dd3e0(int a1);
+    void SetNavMeshInfo(int a1);
     void FUN_006f4ed0(int a1);
 };
 struct FUN_006f4f90_Class
@@ -2966,7 +2966,7 @@ struct FUN_006f4f90_Class
 // @fnv 0x006f4f90
 FUN_006f4f90_Class::FUN_006f4f90_Class(int aiFirst, int aiSecond)
 {
-    m_loc.FUN_006dd3e0(aiSecond);
+    m_loc.SetNavMeshInfo(aiSecond);
     ((int*)this)[0x2c / 4] = 0;
     m_loc.FUN_006f4ed0(aiFirst);
     m_type = 3;
@@ -3226,7 +3226,7 @@ struct PathingLocation
 {
     PathingLocation();
     ~PathingLocation();
-    void FUN_006dd3e0(int a1);
+    void SetNavMeshInfo(int a1);
     void FUN_006f4ed0(int a1);
 };
 struct FUN_006f4f00_Class
@@ -3248,7 +3248,7 @@ struct FUN_006f4f00_Class
 // @fnv 0x006f4f00
 FUN_006f4f00_Class::FUN_006f4f00_Class(int a1, int a2, int a3)
 {
-    m_loc.FUN_006dd3e0(a1);
+    m_loc.SetNavMeshInfo(a1);
     m_iUnknownValue = a3;
     m_loc.FUN_006f4ed0(a2);
     m_type = 7;
@@ -3361,12 +3361,12 @@ struct Unk006fec90
 };
 struct Unk006fec00
 {
-    bool FUN_006fec00(int a1);
+    bool GetPointIsInNode(int a1);
 };
 struct Unk006fec90_Class
 {
     int GetActiveMenu(int a1);
-    bool FUN_006fec00(int a1);
+    bool GetPointIsInNode(int a1);
     int m_iWordAt00;
     int m_cByteAtOffset1;
     int m_cByteAtOffset2;
@@ -3381,7 +3381,7 @@ struct Unk006fec90_Class
 int Unk006fec90_Class::GetActiveMenu(int a1)
 {
     int result = 0;
-    if (FUN_006fec00(a1))
+    if (GetPointIsInNode(a1))
     {
         if (m_pMenu && m_pMenu->GetInitialized() && !((unsigned char*)this)[0x5d])
         {
@@ -3934,17 +3934,17 @@ bool __thiscall FUN_006fe920_Class::FUN_006fe920(bool value)
 
 struct FUN_006fed30_Callee
 {
-    int __thiscall FUN_006fed30(int a1);
+    int __thiscall GetTreeBlockForPoint(int a1);
 };
 
 struct FUN_006fed30_Class
 {
-    int __thiscall FUN_006fed30(int a1);
+    int __thiscall GetTreeBlockForPoint(int a1);
 };
 
 struct LocalUnk006fec90_Class
 {
-    bool __thiscall FUN_006fec00(int a1);
+    bool __thiscall GetPointIsInNode(int a1);
 };
 
 struct LocalBSSimpleList
@@ -3955,11 +3955,11 @@ struct LocalBSSimpleList
 void* __cdecl FUN_006fe510();
 
 // @fnv 0x006fed30
-int FUN_006fed30_Class::FUN_006fed30(int a1)
+int FUN_006fed30_Class::GetTreeBlockForPoint(int a1)
 {
     int result = 0;
 
-    if (reinterpret_cast<LocalUnk006fec90_Class*>(this)->FUN_006fec00(a1))
+    if (reinterpret_cast<LocalUnk006fec90_Class*>(this)->GetPointIsInNode(a1))
     {
         if (reinterpret_cast<LocalBSSimpleList*>(this)->GetNext() == FUN_006fe510() &&
             *reinterpret_cast<int*>(reinterpret_cast<char*>(this) + 0x18) != 0)
@@ -3973,7 +3973,7 @@ int FUN_006fed30_Class::FUN_006fed30(int a1)
                 for (int i = 0; i < 4; ++i)
                 {
                     result =
-                        reinterpret_cast<FUN_006fed30_Callee**>(reinterpret_cast<char*>(this) + 0x20)[i]->FUN_006fed30(
+                        reinterpret_cast<FUN_006fed30_Callee**>(reinterpret_cast<char*>(this) + 0x20)[i]->GetTreeBlockForPoint(
                             a1);
                     if (result != 0)
                         break;
@@ -4582,12 +4582,12 @@ class FUN_006e6db0_cls
     FUN_006e6db0_ObjectBase* m_84;
 
     void FlushChildren();
-    void FUN_006e6db0();
+    void CleanUpRayCasts();
 };
 
 // Flushes children, then releases and frees m_84 and frees m_80, clearing both pointers.
 // @fnv 0x006e6db0
-void FUN_006e6db0_cls::FUN_006e6db0()
+void FUN_006e6db0_cls::CleanUpRayCasts()
 {
     FlushChildren();
     if (m_84 != 0)
@@ -5207,10 +5207,10 @@ struct FUN_006edd30_shell
     Location_006edd30* FUN_006edc40();
     PathEdge_006edd30* CreateSize28();
     Path_006edd30* CreateObject();
-    void FUN_006edd30(const Position_006edd30* start, const Position_006edd30* finish);
+    void AddFirstEdge(const Position_006edd30* start, const Position_006edd30* finish);
 };
 // @fnv 0x006edd30
-void FUN_006edd30_shell::FUN_006edd30(const Position_006edd30* start, const Position_006edd30* finish)
+void FUN_006edd30_shell::AddFirstEdge(const Position_006edd30* start, const Position_006edd30* finish)
 {
     Location_006edd30* startLocation2 = FUN_006edc40();
     LocationContext_006edd30* context_2 = contexts->FUN_006ced70();
@@ -5596,10 +5596,10 @@ struct F08
     int unk30, unk34, unk38, unk3c;
     A08 unk40, unk54;
     unsigned int UpdateNodeDirection(unsigned int, float, bool);
-    void FUN_006eef80();
+    void BuildShrunkEdgeLeftRightArrays();
 };
 // @fnv 0x006eef80
-void F08::FUN_006eef80()
+void F08::BuildShrunkEdgeLeftRightArrays()
 {
     unk40.GetFirstForm()->copy = unk40.GetFirstForm()->original;
     unk54.GetFirstForm()->copy = unk54.GetFirstForm()->original;
@@ -7422,12 +7422,12 @@ class C6FEC00Cell
     float m_fCenterX;
     float m_fCenterY;
 
-    bool FUN_006fec00(const C6FEC00Point2* pkPoint);
+    bool GetPointIsInNode(const C6FEC00Point2* pkPoint);
 };
 
 // Returns true if pkPoint lies within m_uiSize * DAT_01016968 of the cell center on both axes.
 // @fnv 0x006fec00
-bool C6FEC00Cell::FUN_006fec00(const C6FEC00Point2* pkPoint)
+bool C6FEC00Cell::GetPointIsInNode(const C6FEC00Point2* pkPoint)
 {
     float fRadius = m_uiSize * DAT_01016968;
     if (C6FEC00Abs(pkPoint->y - m_fCenterY) > fRadius)
@@ -7773,8 +7773,8 @@ class TESObjectREFR : public TESForm
 class BGSLoadFormBuffer
 {
   public:
-    void FUN_00864980(void* apDest, unsigned int auiSize);
-    unsigned int FUN_008648a0();
+    void LoadData(void* apDest, unsigned int auiSize);
+    unsigned int LoadFormID();
 };
 TESForm* FUN_004839c0(unsigned int auiFormID);
 
@@ -7814,9 +7814,9 @@ class LoadedRefHolder
 // @fnv 0x006e23b0
 void LoadedRefHolder::FUN_006e23b0(BGSLoadFormBuffer* apBuffer)
 {
-    apBuffer->FUN_00864980(&m_uiValue1, 4);
-    apBuffer->FUN_00864980(&m_kPathOffset, 12);
-    m_pReference = dynamic_cast<TESObjectREFR*>(FUN_004839c0(apBuffer->FUN_008648a0()));
+    apBuffer->LoadData(&m_uiValue1, 4);
+    apBuffer->LoadData(&m_kPathOffset, 12);
+    m_pReference = dynamic_cast<TESObjectREFR*>(FUN_004839c0(apBuffer->LoadFormID()));
     m_kMember.LoadGame(apBuffer);
 }
 
@@ -8329,12 +8329,12 @@ class EDBC0Builder
     EDBC0EntryArray m_kOpen;
 
     EDBC0Entry* CreateEntry();
-    void FUN_006edbc0();
+    void AddStartVert();
 };
 
 // Creates an entry from the source location's nav mesh info and triangle, copies the builder's point, and adds it to both the all and open arrays.
 // @fnv 0x006edbc0
-void EDBC0Builder::FUN_006edbc0()
+void EDBC0Builder::AddStartVert()
 {
     EDBC0Entry* pkEntry = CreateEntry();
     EDBC0Location* pkLocation = m_pkSource->GetLocation();
@@ -8725,7 +8725,7 @@ struct HostP059
     ArrayP059<EdgeP059*> edgesA, edgesB;
     unsigned int UpdateNodeDirection(unsigned int, float, bool);
     NodeP059* SplitNode(unsigned int, bool, const PointP059&, const PointP059&);
-    bool FUN_006f0050(const PointP059&, const PointP059&, InfoP059, const PointP059&, const PointP059&,
+    bool PushPoint(const PointP059&, const PointP059&, InfoP059, const PointP059&, const PointP059&,
                       const PointP059&);
 };
 extern const PointP059 DAT_011f426c;
@@ -8788,7 +8788,7 @@ unsigned int HostP059::UpdateNodeDirection(unsigned int index, float radius, boo
             c->direction = b.FUN_004a0bd0() * d - k * radius;
         bool o = false;
         if (g->FUN_006a7ad0(index - 1)->active && g->FUN_006a7ad0(index)->active)
-            o = FUN_006f0050(*c, c->position, c->info, c->direction, l->FUN_006a7ad0(index - 1)->position,
+            o = PushPoint(*c, c->position, c->info, c->direction, l->FUN_006a7ad0(index - 1)->position,
                              *l->FUN_006a7ad0(index + 1));
         else
         {
@@ -9098,23 +9098,23 @@ class PathingLocation
 };
 struct TargetNavInfo
 {
-    TESWorldSpace* FUN_00690800();
-    TESObjectCELL* FUN_006b7770();
+    TESWorldSpace* GetWorldSpace();
+    TESObjectCELL* GetCell();
 };
 extern NiPoint3Ex DAT_011a946c;
 bool __cdecl FUN_006d7350(PathingLocation&, PathingLocation&, PathingLocation*, void*);
 bool __cdecl FUN_006d7490(PathingLocation&, PathingLocation&, void*, void*);
 struct TargetHost
 {
-    bool FUN_006f0050(const NiPoint3Ex&, NiPoint3Ex&, TargetNavInfo*, int, const NiPoint3Ex&, PathingLocation&,
+    bool PushPoint(const NiPoint3Ex&, NiPoint3Ex&, TargetNavInfo*, int, const NiPoint3Ex&, PathingLocation&,
                       PathingLocation&);
 };
 // @fnv 0x006f0050
-bool TargetHost::FUN_006f0050(const NiPoint3Ex& start, NiPoint3Ex& output, TargetNavInfo* nav, int unused,
+bool TargetHost::PushPoint(const NiPoint3Ex& start, NiPoint3Ex& output, TargetNavInfo* nav, int unused,
                               const NiPoint3Ex& offset, PathingLocation& first, PathingLocation& second)
 {
-    PathingLocation endLocation(start + offset * 0.01f + DAT_011a946c, nav->FUN_006b7770(), nav->FUN_00690800());
-    PathingLocation startLocation(start - offset + DAT_011a946c, nav->FUN_006b7770(), nav->FUN_00690800());
+    PathingLocation endLocation(start + offset * 0.01f + DAT_011a946c, nav->GetCell(), nav->GetWorldSpace());
+    PathingLocation startLocation(start - offset + DAT_011a946c, nav->GetCell(), nav->GetWorldSpace());
     PathingLocation hitLocation;
     if (FUN_006d7350(endLocation, startLocation, &hitLocation, 0))
     {
@@ -9507,7 +9507,7 @@ struct AvoidPath
     int unk9c;
     int unka0;
     AvoidPoints points;
-    bool FUN_006f1e90(const FUN_006815c0&, const FUN_006815c0&);
+    bool IsSegmentValid(const FUN_006815c0&, const FUN_006815c0&);
     void ClipPathAgainstObstacles();
 };
 bool FUN_006ba9e0(const FUN_006815c0&, const FUN_006815c0&, const FUN_006815c0&, float);
@@ -9544,8 +9544,8 @@ void AvoidPath::ClipPathAgainstObstacles()
                                            points.FUN_00691750(j)->FUN_005c3420(), &entry29[0], &entry29[1]))
                     entry29[0] = entry29[1] = points.FUN_00691750(j)->FUN_005c3420();
                 bool entryValid2[2];
-                entryValid2[0] = FUN_006f1e90(points.FUN_00691750(j)->FUN_005c3420(), entry29[0]);
-                entryValid2[1] = FUN_006f1e90(points.FUN_00691750(j)->FUN_005c3420(), entry29[1]);
+                entryValid2[0] = IsSegmentValid(points.FUN_00691750(j)->FUN_005c3420(), entry29[0]);
+                entryValid2[1] = IsSegmentValid(points.FUN_00691750(j)->FUN_005c3420(), entry29[1]);
                 unsigned int end14 = j + 1;
                 while (end14 < points.FUN_0044ddc0())
                 {
@@ -9560,8 +9560,8 @@ void AvoidPath::ClipPathAgainstObstacles()
                                               points.FUN_00691750(end14)->FUN_005c3420(), &exit[0], &exit[1]))
                     {
                         bool exitValid21[2];
-                        exitValid21[0] = FUN_006f1e90(points.FUN_00691750(end14)->FUN_005c3420(), exit[0]);
-                        exitValid21[1] = FUN_006f1e90(points.FUN_00691750(end14)->FUN_005c3420(), exit[1]);
+                        exitValid21[0] = IsSegmentValid(points.FUN_00691750(end14)->FUN_005c3420(), exit[0]);
+                        exitValid21[1] = IsSegmentValid(points.FUN_00691750(end14)->FUN_005c3420(), exit[1]);
                         bool available2[2];
                         available2[0] = entryValid2[0] && exitValid21[1];
                         available2[1] = entryValid2[1] && exitValid21[0];
@@ -11029,7 +11029,7 @@ struct P3
 
 struct NavMesh
 {
-    void FUN_0068f0c0(unsigned short tri, int edge, P3& a, P3& b);
+    void GetEdgeVertices(unsigned short tri, int edge, P3& a, P3& b);
     void FindAdjacentEdge(unsigned short tri, int edge, NavMesh*& outMesh, unsigned short& outTri, int& outEdge);
 };
 
@@ -11080,8 +11080,8 @@ struct PathSmoother
     PointList m40;
     PointList m54;
 
-    void FUN_006edbc0();
-    void FUN_006edd30(P3& a, P3& b);
+    void AddStartVert();
+    void AddFirstEdge(P3& a, P3& b);
     void AddPathFromEdge(P3& p, unsigned int i);
     void AddPathFromContext(P3& p, unsigned int i);
     void CreateNavMeshEdges();
@@ -11092,22 +11092,22 @@ struct PathSmoother
 // @fnv 0x006ed850
 void PathSmoother::FUN_006ed850()
 {
-    FUN_006edbc0();
+    AddStartVert();
     for (unsigned int i8 = 0; i8 < m24->Size(); i8++)
     {
         P3 a;
         P3 b;
-        m24->GetAt(i8).mesh->FUN_0068f0c0(m24->GetAt(i8).tri, m24->GetAt(i8).edge, a, b);
+        m24->GetAt(i8).mesh->GetEdgeVertices(m24->GetAt(i8).tri, m24->GetAt(i8).edge, a, b);
         if (i8 == 0)
         {
             P3 crTmp = (a - b).Cross(a - m08);
             if (crTmp.z > 0.0)
             {
-                FUN_006edd30(b, a);
+                AddFirstEdge(b, a);
             }
             else
             {
-                FUN_006edd30(a, b);
+                AddFirstEdge(a, b);
             }
         }
         else if (a.Eq(**m40.GetLast()))
@@ -11138,7 +11138,7 @@ void PathSmoother::FUN_006ed850()
             }
             P3 c;
             P3 d4;
-            mesh9->FUN_0068f0c0(tri, edge9, c, d4);
+            mesh9->GetEdgeVertices(tri, edge9, c, d4);
             P3 left3;
             P3 rightB;
             if ((*m54.GetLast())->Eq(c))
@@ -11401,12 +11401,12 @@ class LoadHolder6F51
     void FUN_006f5100(BGSLoadFormBuffer* apBuffer);
 };
 
-// Calls FUN_00864980(this, 4) on apBuffer, sets m_pReference via FUN_004839c0 and a dynamic_cast to TESObjectREFR, then calls m_kMember.LoadGame.
+// Calls LoadData(this, 4) on apBuffer, sets m_pReference via FUN_004839c0 and a dynamic_cast to TESObjectREFR, then calls m_kMember.LoadGame.
 // @fnv 0x006f5100
 void LoadHolder6F51::FUN_006f5100(BGSLoadFormBuffer* apBuffer)
 {
-    apBuffer->FUN_00864980(this, 4);
-    m_pReference = dynamic_cast<TESObjectREFR*>(FUN_004839c0(apBuffer->FUN_008648a0()));
+    apBuffer->LoadData(this, 4);
+    m_pReference = dynamic_cast<TESObjectREFR*>(FUN_004839c0(apBuffer->LoadFormID()));
     m_kMember.LoadGame(apBuffer);
 }
 

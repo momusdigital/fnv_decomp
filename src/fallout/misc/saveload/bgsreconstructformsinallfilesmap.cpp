@@ -1317,7 +1317,7 @@ struct SetAtHelper : public DummyPointerMap
 
 struct FUN_00841460_shell
 {
-    void FUN_00841460(FUN_00544210_shell*, unsigned int, unsigned int, unsigned int);
+    void AddCellForm(FUN_00544210_shell*, unsigned int, unsigned int, unsigned int);
 };
 
 struct FUN_00841340 : public FUN_00841460_shell
@@ -1329,11 +1329,11 @@ struct FUN_00841340 : public FUN_00841460_shell
 FUN_00841340::FUN_00841340()
 {}
 
-void FUN_00841460_shell::FUN_00841460(FUN_00544210_shell* param1, unsigned int param2, unsigned int param3,
+void FUN_00841460_shell::AddCellForm(FUN_00544210_shell* param1, unsigned int param2, unsigned int param3,
                                       unsigned int param4)
 {}
 
-// Looks up the entry for param1's key, creating a new FUN_00841340 if absent, then forwards param1-param4 to its FUN_00841460.
+// Looks up the entry for param1's key, creating a new FUN_00841340 if absent, then forwards param1-param4 to its AddCellForm.
 // @fnv 0x008417e0
 void SetAtHelper::GetOrCreateAndDispatch(FUN_00544210_shell* pKeySource, unsigned int param2, unsigned int param3,
                                          unsigned int param4)
@@ -1347,7 +1347,7 @@ void SetAtHelper::GetOrCreateAndDispatch(FUN_00544210_shell* pKeySource, unsigne
         this->SetAt(uiKey, uiEntry);
     }
 
-    ((FUN_00841460_shell*)uiEntry)->FUN_00841460(pKeySource, param2, param3, param4);
+    ((FUN_00841460_shell*)uiEntry)->AddCellForm(pKeySource, param2, param3, param4);
 }
 
 namespace fnv_008418b0 {
@@ -1436,11 +1436,11 @@ struct FUN_008419f0
 
 struct FUN_00841fc0_class : SetAtHelper
 {
-    void FUN_00841fc0(DoorH*, unsigned int, unsigned int, unsigned int);
+    void AddCellForm(DoorH*, unsigned int, unsigned int, unsigned int);
 };
 
 // @fnv 0x00841fc0
-void FUN_00841fc0_class::FUN_00841fc0(DoorH* door, unsigned int arg1, unsigned int arg2, unsigned int arg3)
+void FUN_00841fc0_class::AddCellForm(DoorH* door, unsigned int arg1, unsigned int arg2, unsigned int arg3)
 {
     void* id;
     unsigned int value;
@@ -1533,7 +1533,7 @@ struct FUN_00841b20_standin
 
 struct FUN_00841fc0_standin
 {
-    void FUN_00841fc0(TESObjectCELL*, int, int, int);
+    void AddCellForm(TESObjectCELL*, int, int, int);
 };
 
 struct FUN_00842600_shell
@@ -1567,7 +1567,7 @@ void FUN_00842600_shell::ProcessCell(TESObjectCELL* cell, int aiArg1, int aiArg2
 
         reinterpret_cast<FUN_00841fc0_standin*>(
             *reinterpret_cast<FUN_00841fc0_standin**>(reinterpret_cast<char*>(this) + 0x14))
-            ->FUN_00841fc0(cell, aiArg1, aiArg2, aiArg3);
+            ->AddCellForm(cell, aiArg1, aiArg2, aiArg3);
     }
 
     ++*reinterpret_cast<int*>(reinterpret_cast<char*>(this) + 0x18);
@@ -3780,12 +3780,12 @@ struct ReconstructCellMap
 
 struct BGSReconstructCellsMapImpl : ReconstructCellMap
 {
-    void FUN_00841460(ReconstructCell* apCell, ReconstructCell* apOther, unsigned int auiArg1, unsigned int auiArg2);
+    void AddCellForm(ReconstructCell* apCell, ReconstructCell* apOther, unsigned int auiArg1, unsigned int auiArg2);
 };
 
 // Computes a key for apCell, creates a ReconstructCellEntry in the map if missing, then adds flags or stores apOther with auiArg1 and auiArg2.
 // @fnv 0x00841460
-void BGSReconstructCellsMapImpl::FUN_00841460(ReconstructCell* apCell, ReconstructCell* apOther, unsigned int auiArg1,
+void BGSReconstructCellsMapImpl::AddCellForm(ReconstructCell* apCell, ReconstructCell* apOther, unsigned int auiArg1,
                                               unsigned int auiArg2)
 {
     unsigned int uiKey4 = 0;

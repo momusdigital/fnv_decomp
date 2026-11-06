@@ -2173,7 +2173,7 @@ class Actor : public MobileObject
   public:
     bool FUN_00437bd0();
     bool FUN_00437bf0();
-    float FUN_00897b50(int iType);
+    float GetAnimGroupDuration(int iType);
 };
 
 class DetailedActorMover
@@ -2350,7 +2350,7 @@ bool FUN_009e2aa0_shell::FUN_009e2aa0(float fTimeDelta)
         if ((uiMoveMode3 & 0x200) && (!(uiOldFlagsVal & 0x200) || ((uiOldFlagsVal & 0x30) && !(uiMoveFlags3 & 0x30))))
         {
             *(int*)((char*)this + 0xcc) = 1;
-            *(float*)((char*)this + 0x90) = (*(Actor**)((char*)this + 4))->FUN_00897b50(3) * 0.5;
+            *(float*)((char*)this + 0x90) = (*(Actor**)((char*)this + 4))->GetAnimGroupDuration(3) * 0.5;
         }
         else
             break;
@@ -3442,7 +3442,7 @@ class PathingSolution
 {
   public:
     PathingGraphNode& FUN_006b05a0();
-    void FUN_006e7e70(float, float, int, int*, NiPoint3*);
+    void FindPointOnPath(float, float, int, int*, NiPoint3*);
 };
 
 struct Flt
@@ -3490,7 +3490,7 @@ float DetailedActorPathHandlerRot::FUN_009e4800(float afDeltaT, float* pfRotateM
             {
                 int iNode;
                 ((PathingSolution*)(unsigned int)*(Flt*)&pCurrentPathingSolution)
-                    ->FUN_006e7e70(m_fSplineParameter, fLookAheadDist - fDist, 1, &iNode, &kGoal);
+                    ->FindPointOnPath(m_fSplineParameter, fLookAheadDist - fDist, 1, &iNode, &kGoal);
             }
             fFacingAngle = (*(Actor**)((char*)this + 4))->GetCurrentTargetDistance(0);
             NiPoint3_sub toTarget = ((const NiPoint3_sub&)kGoal) - *(*(Actor**)((char*)this + 4))->GetPos();
@@ -4079,7 +4079,7 @@ struct TESObjectREFR
     virtual float GetCurrentTargetDistance(int);
     TESWorldSpace* GetParentWorldSpace();
     TESObjectCELL* GetParentCell();
-    void FUN_008ad1c0(NiPoint3&, float, TESObjectCELL*, TESWorldSpace*, unsigned char, unsigned char);
+    void MoveActorAndFollowers(NiPoint3&, float, TESObjectCELL*, TESWorldSpace*, unsigned char, unsigned char);
 };
 class PathingLocationEx
 {
@@ -4221,7 +4221,7 @@ void FUN_009e77d0_cls::UpdatePathTether(float afPercentTraveled)
             GetNavMeshHeight(&tetherNavMeshLoc, &snapLocation.z);
             float fheading = (*(TESObjectREFR**)((char*)this + 4))->GetCurrentTargetDistance(0);
             (*(TESObjectREFR**)((char*)this + 4))
-                ->FUN_008ad1c0(snapLocation, fheading, (*(TESObjectREFR**)((char*)this + 4))->GetParentCell(),
+                ->MoveActorAndFollowers(snapLocation, fheading, (*(TESObjectREFR**)((char*)this + 4))->GetParentCell(),
                                (*(TESObjectREFR**)((char*)this + 4))->GetParentWorldSpace(), 1, 1);
         }
         ((FUN_009e3c00_cls*)this)->AdvanceAlongPath(0.0f);
@@ -5480,7 +5480,7 @@ struct B006815c0
 struct PathingSolution
 {
     unsigned int GetNodeCount();
-    void FUN_006e7e70(float, float, int, int*, NiPoint3*);
+    void FindPointOnPath(float, float, int, int*, NiPoint3*);
 };
 struct FUN_006e84b0_shell
 {
@@ -5533,11 +5533,11 @@ void FUN_009e3c00_shell::AdvanceAlongPath(float afDist)
     float fnewSplineT;
     if (afDist >= gModifierZero)
         ((PathingSolution*)(unsigned int)((DAPHView_009e3c00*)this)->m_pPathingSolution)
-            ->FUN_006e7e70(((DAPHView_009e3c00*)this)->m_fSplineParameter, afDist, 1, (int*)&fnewSplineT,
+            ->FindPointOnPath(((DAPHView_009e3c00*)this)->m_fSplineParameter, afDist, 1, (int*)&fnewSplineT,
                            (NiPoint3*)&newPoint);
     else
         ((PathingSolution*)(unsigned int)((DAPHView_009e3c00*)this)->m_pPathingSolution)
-            ->FUN_006e7e70(((DAPHView_009e3c00*)this)->m_fSplineParameter, -afDist, 0, (int*)&fnewSplineT,
+            ->FindPointOnPath(((DAPHView_009e3c00*)this)->m_fSplineParameter, -afDist, 0, (int*)&fnewSplineT,
                            (NiPoint3*)&newPoint);
     ((DAPHView_009e3c00*)this)->m_fSplineParameter = fnewSplineT;
     ((DAPHView_009e3c00*)this)->m_kPathVector3 = newPoint;
@@ -6480,8 +6480,8 @@ struct PathArchive
 {
     void FUN_00865e50(void* data, unsigned int size, unsigned int flags);
     void FUN_00865df0(void* data, unsigned int flags);
-    unsigned int FUN_00865f20();
-    void FUN_00865ff0(unsigned int count, unsigned int token);
+    unsigned int StartVariableSizedValue();
+    void SaveVariableSizedValue(unsigned int count, unsigned int token);
 };
 struct PathSerializationData
 {
@@ -6585,7 +6585,7 @@ void PathSerializationData::Serialize(PathArchive* archive)
     archive->FUN_00865e50(&m_fPathValue18, 4, 0);
     archive->FUN_00865df0(m_pPathTargetReference, 0);
     unsigned int count = 0;
-    unsigned int token = archive->FUN_00865f20();
+    unsigned int token = archive->StartVariableSizedValue();
     ActorAvoidNode* node = &ActorAvoidEntryList;
     while (node != 0)
     {
@@ -6597,7 +6597,7 @@ void PathSerializationData::Serialize(PathArchive* archive)
         }
         node = node->FUN_00726070();
     }
-    archive->FUN_00865ff0(count, token);
+    archive->SaveVariableSizedValue(count, token);
 }
 
 struct PtrArrayView
@@ -7890,7 +7890,7 @@ struct CollisionObjectView
 };
 struct CollidableView
 {
-    void* FUN_00810660();
+    void* GetNiObject();
 };
 struct ControllerView
 {
@@ -8026,7 +8026,7 @@ struct MotionActor
     virtual void v1f0();
     virtual const MotionVec& GetPosition();
     bool FUN_005a2030();
-    ControllerView* FUN_009306d0();
+    ControllerView* GetCharController();
     TESWorldSpace* FUN_00575d70();
     TESObjectCELL* FUN_008d6f30();
 };
@@ -8160,12 +8160,12 @@ bool MotionTarget::UpdateMotion(float afDeltaTime)
         float ba = h.Horizontal();
         if (f.Dot(f) < radius * radius * 0.125)
         {
-            ControllerView* k = actor->FUN_009306d0();
+            ControllerView* k = actor->GetCharController();
             if (k)
             {
                 CollisionObjectView* j = 0;
                 CollidableView* c = k->FUN_00c6fd60();
-                void* e = c ? c->FUN_00810660() : 0;
+                void* e = c ? c->GetNiObject() : 0;
                 CollisionObjectView* l = FUN_0056f930(e);
                 j = l && l->IsObstacle() ? l : 0;
                 if (j)
@@ -8184,12 +8184,12 @@ bool MotionTarget::UpdateMotion(float afDeltaTime)
         float ba = h.Squared();
         if (f.Dot(f) < lastDelta.Dot(lastDelta) * 0.125)
         {
-            ControllerView* k = actor->FUN_009306d0();
+            ControllerView* k = actor->GetCharController();
             if (k)
             {
                 CollisionObjectView* j = 0;
                 CollidableView* c = k->FUN_00c6fd60();
-                void* e = c ? c->FUN_00810660() : 0;
+                void* e = c ? c->GetNiObject() : 0;
                 CollisionObjectView* l = FUN_0056f930(e);
                 j = l && l->IsObstacle() ? l : 0;
                 if (j)
@@ -8757,7 +8757,7 @@ struct AvoidActor
     virtual float v175(int);
     bool FUN_007ff8e0();
     bool FUN_00552470() const;
-    AvoidController* FUN_009306d0();
+    AvoidController* GetCharController();
     float FUN_008be1b0();
     bool FUN_004938e0();
     bool DispatchToReceiver();
@@ -8891,7 +8891,7 @@ int AvoidHandler::UpdateAvoidance(float deltaTime)
 {
     AvoidActor* target = actor->v116();
     if (!target || !target->FUN_007ff8e0() ||
-        (target->FUN_00552470() && actor->FUN_009306d0()->FUN_008a3b50() > *g_011f2bd0.FUN_00403e20()))
+        (target->FUN_00552470() && actor->GetCharController()->FUN_008a3b50() > *g_011f2bd0.FUN_00403e20()))
         return 0;
     if (avoidState != 2 && moveDelta.GetSquaredXYLength() < 0.25)
         return 0;
@@ -9037,7 +9037,7 @@ int AvoidHandler::UpdateAvoidance(float deltaTime)
                 if (delta.FUN_004a7290() > current->FUN_008be1b0())
                     avoidNodes->AppendNode(&AvoidElement(current->v125() + delta, avoidRadius, 2.0f, mode));
                 AvoidPoint position = current->v125();
-                AvoidController* controller = current->FUN_009306d0();
+                AvoidController* controller = current->GetCharController();
                 if (controller && !controller->flags.FUN_00621270(0x8000000))
                 {
                     AvoidQuaternion rotationValue;
@@ -10604,7 +10604,7 @@ class ActorS_1d50
     virtual float GetCurrentTargetDistance(int iUnused);
     virtual void SetTarget(FUN_004f2770_Class* pkTarget);
     float FUN_008a0b10();
-    void FUN_008ad1c0(NiPoint3& kPos2, float fHeading9, TESObjectCELL* pkCell, TESWorldSpace* pkWorld,
+    void MoveActorAndFollowers(NiPoint3& kPos2, float fHeading9, TESObjectCELL* pkCell, TESWorldSpace* pkWorld,
                       unsigned char ucA, unsigned char ucB);
 };
 
@@ -10779,7 +10779,7 @@ int PackageProcW_1d50::FUN_009e1d50(int iUnused)
             }
         }
     }
-    m_pkActor->FUN_008ad1c0(kPos2, fHeading9, (TESObjectCELL*)uiCell6, (TESWorldSpace*)uiWorld3, 1, 0);
+    m_pkActor->MoveActorAndFollowers(kPos2, fHeading9, (TESObjectCELL*)uiCell6, (TESWorldSpace*)uiWorld3, 1, 0);
     iResultY2 = 5;
     ResetMoveState();
     m_iFadeIndex = 5;

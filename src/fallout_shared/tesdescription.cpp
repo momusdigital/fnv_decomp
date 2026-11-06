@@ -274,7 +274,7 @@ const char* __cdecl GetActorValueName(Index aeIndex);
 }
 
 float __cdecl FUN_004bd510(float afValue, float afMult);
-void __cdecl FUN_00709470(int, TESObjectREFR*, int, int, int, int);
+void __cdecl QueueMenuCreate(int, TESObjectREFR*, int, int, int, int);
 bool __cdecl QueueUIMessage(const char* apMsg, int aeType, const char* apIcon, const char* apSound, float afTime,
                             bool abInstant);
 void __cdecl FUN_0047a560(TESObjectREFR* apRef, PlayerCharacter* apActor, int aiUnk);
@@ -331,11 +331,11 @@ void TermHack::FUN_005015f0(TESObjectREFR* apRef, PlayerCharacter* apActor)
         {
         case 0:
         case 1:
-            FUN_00709470(3, apRef, 0, 0, 1, 0);
+            QueueMenuCreate(3, apRef, 0, 0, 1, 0);
             break;
         case 2:
         case 3:
-            FUN_00709470(2, apRef, 0, 0, 1, 0);
+            QueueMenuCreate(2, apRef, 0, 0, 1, 0);
             break;
         case 4: {
             BSStringT_char kMsg;

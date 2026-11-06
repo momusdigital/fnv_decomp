@@ -2009,10 +2009,10 @@ void FUN_005a9d00_shell::FUN_005a9d00()
 class BGSSaveFormBuffer
 {
   public:
-    unsigned int FUN_00865f20();
+    unsigned int StartVariableSizedValue();
     void FUN_00865e50(void* data, unsigned int size, int flag);
     void FUN_00865db0(unsigned int value, unsigned int flag);
-    void FUN_00865ff0(int count, unsigned int offset);
+    void SaveVariableSizedValue(int count, unsigned int offset);
 };
 
 void __cdecl FUN_005acc90(unsigned int* aiID, const double* adVal);
@@ -2028,7 +2028,7 @@ struct SaveLocals9db0 : public ScriptLocals
 void SaveLocals9db0::FUN_005a9db0(BGSSaveFormBuffer* buffer)
 {
     int count3 = 0;
-    unsigned int offset = buffer->FUN_00865f20();
+    unsigned int offset = buffer->StartVariableSizedValue();
     BSSimpleList<ScriptLocalVariable*>* node3 = m_pVariableList;
     while (node3)
     {
@@ -2052,7 +2052,7 @@ void SaveLocals9db0::FUN_005a9db0(BGSSaveFormBuffer* buffer)
         }
         node3 = node3->GetNext();
     }
-    buffer->FUN_00865ff0(count3, offset);
+    buffer->SaveVariableSizedValue(count3, offset);
     unsigned char hasEffect = m_pExtendedLocals != 0;
     buffer->FUN_00865e50(&hasEffect, 1, 0);
     if (hasEffect)
@@ -2290,7 +2290,7 @@ void __fastcall FUN_005a8c00(void* pThis)
 struct StateX
 {
     char* FUN_00825c00();
-    void FUN_008579b0(const void* p, unsigned int n);
+    void SaveGameDataOLD(const void* p, unsigned int n);
     void FUN_00857a10(const void* p, unsigned int n);
 };
 void __cdecl FUN_005b5e40(const char* pFmt, const char* file, int line);
@@ -2334,13 +2334,13 @@ void ThisX::WriteScriptLocals()
     if (DAT_011de45c->FUN_00862110())
     {
         chunkTag = 0x424c4f4b;
-        ((StateX*)DAT_011de45c)->FUN_008579b0(&chunkTag, 4);
+        ((StateX*)DAT_011de45c)->SaveGameDataOLD(&chunkTag, 4);
         posB = ((StateX*)DAT_011de45c)->FUN_00825c00();
-        ((StateX*)DAT_011de45c)->FUN_008579b0(&numHdr, 2);
+        ((StateX*)DAT_011de45c)->SaveGameDataOLD(&numHdr, 2);
     }
     written = 0;
     posNum = ((StateX*)DAT_011de45c)->FUN_00825c00();
-    ((StateX*)DAT_011de45c)->FUN_008579b0(&written, 2);
+    ((StateX*)DAT_011de45c)->SaveGameDataOLD(&written, 2);
     pList = m_0c;
     while (pList)
     {
@@ -2352,13 +2352,13 @@ void ThisX::WriteScriptLocals()
                 converted = 0;
                 FUN_005acc90(&converted, &pCur->value);
                 tagged = pCur->id | 0x80000000;
-                ((StateX*)DAT_011de45c)->FUN_008579b0(&tagged, 4);
+                ((StateX*)DAT_011de45c)->SaveGameDataOLD(&tagged, 4);
                 ((StateX*)DAT_011de45c)->FUN_00857a10(&converted, 4);
             }
             else
             {
-                ((StateX*)DAT_011de45c)->FUN_008579b0(pCur, 4);
-                ((StateX*)DAT_011de45c)->FUN_008579b0(&pCur->value, 8);
+                ((StateX*)DAT_011de45c)->SaveGameDataOLD(pCur, 4);
+                ((StateX*)DAT_011de45c)->SaveGameDataOLD(&pCur->value, 8);
             }
             written++;
         }
@@ -2368,9 +2368,9 @@ void ThisX::WriteScriptLocals()
     hasTail = false;
     if (m_10)
         hasTail = true;
-    ((StateX*)DAT_011de45c)->FUN_008579b0(&hasTail, 1);
+    ((StateX*)DAT_011de45c)->SaveGameDataOLD(&hasTail, 1);
     if (hasTail)
-        ((StateX*)DAT_011de45c)->FUN_008579b0(m_10, 8);
+        ((StateX*)DAT_011de45c)->SaveGameDataOLD(m_10, 8);
     if (*DAT_011de4e8.FUN_00408d60())
     {
         curPos = ((StateX*)DAT_011de45c)->FUN_00825c00();
@@ -2454,7 +2454,7 @@ void __cdecl WriteReferenceLists(BGSSaveFormBuffer* buffer)
 
             count1 = 0;
 
-            offset1 = buffer->FUN_00865f20();
+            offset1 = buffer->StartVariableSizedValue();
 
             list1 = &DAT_011caca8;
 
@@ -2474,11 +2474,11 @@ void __cdecl WriteReferenceLists(BGSSaveFormBuffer* buffer)
                 list1 = (BSSimpleList<TESObjectREFR*>*)FUN_00726070(list1);
             }
 
-            buffer->FUN_00865ff0(count1, offset1);
+            buffer->SaveVariableSizedValue(count1, offset1);
 
             count2 = 0;
 
-            offset6 = buffer->FUN_00865f20();
+            offset6 = buffer->StartVariableSizedValue();
 
             listVal = &DAT_011cac98;
 
@@ -2498,11 +2498,11 @@ void __cdecl WriteReferenceLists(BGSSaveFormBuffer* buffer)
                 listVal = (BSSimpleList<TESObjectREFR*>*)FUN_00726070(listVal);
             }
 
-            buffer->FUN_00865ff0(count2, offset6);
+            buffer->SaveVariableSizedValue(count2, offset6);
 
             count7 = 0;
 
-            offsetVal = buffer->FUN_00865f20();
+            offsetVal = buffer->StartVariableSizedValue();
 
             list9 = &DAT_011cacb8;
 
@@ -2522,11 +2522,11 @@ void __cdecl WriteReferenceLists(BGSSaveFormBuffer* buffer)
                 list9 = (BSSimpleList<TESObjectREFR*>*)FUN_00726070(list9);
             }
 
-            buffer->FUN_00865ff0(count7, offsetVal);
+            buffer->SaveVariableSizedValue(count7, offsetVal);
 
             count9 = 0;
 
-            offset4 = buffer->FUN_00865f20();
+            offset4 = buffer->StartVariableSizedValue();
 
             list4 = &DAT_011cace8;
 
@@ -2546,7 +2546,7 @@ void __cdecl WriteReferenceLists(BGSSaveFormBuffer* buffer)
                 list4 = (BSSimpleList<TESObjectREFR*>*)FUN_00726070(list4);
             }
 
-            buffer->FUN_00865ff0(count9, offset4);
+            buffer->SaveVariableSizedValue(count9, offset4);
         }
     }
 
@@ -3802,7 +3802,7 @@ struct SavedFormHeader
 struct ScriptSaveReader : TESSaveLoadGame
 {
     bool FUN_00862110();
-    void FUN_008579e0(void*, unsigned int);
+    void LoadGameDataOLD(void*, unsigned int);
     void FUN_00857aa0(unsigned int*, unsigned int);
     SavedFormHeader* FUN_004fd3c0();
     unsigned int FUN_00825c00();
@@ -3826,7 +3826,7 @@ void LoadScriptLocals::FUN_005a9950()
     if (((ScriptSaveReader*)g_TESSaveLoadGame)->FUN_00862110())
     {
         unsigned int blockTag;
-        ((ScriptSaveReader*)g_TESSaveLoadGame)->FUN_008579e0(&blockTag, 4);
+        ((ScriptSaveReader*)g_TESSaveLoadGame)->LoadGameDataOLD(&blockTag, 4);
         if (blockTag != 0x424c4f4b)
         {
             SavedFormHeader* header = ((ScriptSaveReader*)g_TESSaveLoadGame)->FUN_004fd3c0();
@@ -3846,16 +3846,16 @@ void LoadScriptLocals::FUN_005a9950()
             }
         }
         i = ((ScriptSaveReader*)g_TESSaveLoadGame)->FUN_00825c00();
-        ((ScriptSaveReader*)g_TESSaveLoadGame)->FUN_008579e0(&a, 2);
+        ((ScriptSaveReader*)g_TESSaveLoadGame)->LoadGameDataOLD(&a, 2);
     }
-    ((ScriptSaveReader*)g_TESSaveLoadGame)->FUN_008579e0(&s, 2);
+    ((ScriptSaveReader*)g_TESSaveLoadGame)->LoadGameDataOLD(&s, 2);
     for (p = 0; p < s; p++)
     {
         unsigned int i = 0;
         double p = 0.0;
         if (((ScriptSaveReader*)g_TESSaveLoadGame)->FUN_008df040() >= 117)
         {
-            ((ScriptSaveReader*)g_TESSaveLoadGame)->FUN_008579e0(&i, 4);
+            ((ScriptSaveReader*)g_TESSaveLoadGame)->LoadGameDataOLD(&i, 4);
             if (i & 0x80000000)
             {
                 i &= 0x7fffffff;
@@ -3865,21 +3865,21 @@ void LoadScriptLocals::FUN_005a9950()
             }
             else
             {
-                ((ScriptSaveReader*)g_TESSaveLoadGame)->FUN_008579e0(&p, 8);
+                ((ScriptSaveReader*)g_TESSaveLoadGame)->LoadGameDataOLD(&p, 8);
             }
         }
         if (((ScriptSaveReader*)g_TESSaveLoadGame)->FUN_008df040() < 117)
         {
-            ((ScriptSaveReader*)g_TESSaveLoadGame)->FUN_008579e0(&i, 4);
-            ((ScriptSaveReader*)g_TESSaveLoadGame)->FUN_008579e0(&p, 8);
+            ((ScriptSaveReader*)g_TESSaveLoadGame)->LoadGameDataOLD(&i, 4);
+            ((ScriptSaveReader*)g_TESSaveLoadGame)->LoadGameDataOLD(&p, 8);
         }
         SetVariable(i, p);
     }
-    ((ScriptSaveReader*)g_TESSaveLoadGame)->FUN_008579e0(&h, 1);
+    ((ScriptSaveReader*)g_TESSaveLoadGame)->LoadGameDataOLD(&h, 1);
     if (h)
     {
         m_pExtendedLocals = (ScriptDefinition*)new double;
-        ((ScriptSaveReader*)g_TESSaveLoadGame)->FUN_008579e0(m_pExtendedLocals, 8);
+        ((ScriptSaveReader*)g_TESSaveLoadGame)->LoadGameDataOLD(m_pExtendedLocals, 8);
     }
     if (((ScriptSaveReader*)g_TESSaveLoadGame)->FUN_00862110())
     {

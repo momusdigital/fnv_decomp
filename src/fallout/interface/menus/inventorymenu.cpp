@@ -402,12 +402,12 @@ struct FUN_004bddd0_t
 
 struct FUN_00781860_shell
 {
-    bool __thiscall FUN_00781860(InventoryStackRecord*);
+    bool __thiscall IsItemRepairable(InventoryStackRecord*);
 };
 
 struct FUN_00781680_shell : public InventoryMenu
 {
-    void __thiscall FUN_00781680();
+    void __thiscall UpdateButtons();
 };
 
 struct GlobalObject_0040c150 : public InventoryMenuSetting
@@ -420,7 +420,7 @@ extern GlobalObject_0040c150 g_011d460c;
 extern GlobalObject_0040c150 g_011d478c;
 
 // @fnv 0x00781680
-void FUN_00781680_shell::FUN_00781680()
+void FUN_00781680_shell::UpdateButtons()
 {
     int icurrTabIndex;
 
@@ -445,7 +445,7 @@ void FUN_00781680_shell::FUN_00781680()
                          (unsigned char)(InventoryMenu::ms_pActionPointSource->FUN_0044ddc0()->GetFormType() != 0x29));
         m_pTiles[19]->Set(0xfaf, 1);
 
-        m_pTiles[8]->Set(0xfaf, ((FUN_00781860_shell*)this)->FUN_00781860(InventoryMenu::ms_pActionPointSource));
+        m_pTiles[8]->Set(0xfaf, ((FUN_00781860_shell*)this)->IsItemRepairable(InventoryMenu::ms_pActionPointSource));
     }
     else
     {
@@ -532,7 +532,7 @@ struct FUN_004bddd0_t
 int __cdecl FUN_00408b20(char const*, char const*);
 
 // @fnv 0x007824e0
-int __cdecl FUN_007824e0(ListBoxItem<InventoryStackRecord*>* apItem1, ListBoxItem<InventoryStackRecord*>* apItem2)
+int __cdecl CompareForSorting(ListBoxItem<InventoryStackRecord*>* apItem1, ListBoxItem<InventoryStackRecord*>* apItem2)
 {
     int iresult;
 
@@ -1163,7 +1163,7 @@ struct Setting
 };
 struct Camera
 {
-    void FUN_007f8610(int, float, float, bool);
+    void MoveKnob(int, float, float, bool);
 };
 struct Interface
 {
@@ -1249,7 +1249,7 @@ struct Menu
     unsigned int unke4;
     Entry entry;
     Tile* FUN_00726070();
-    void FUN_00781680();
+    void UpdateButtons();
     void ClearActionPointSource();
     void UpdateItemDisplay(int, Tile*);
 };
@@ -1265,7 +1265,7 @@ void Menu::UpdateItemDisplay(int action, Tile* changed)
             int selectedSlot11 = (int)list.Value(0xfac)->FUN_00a011b0();
             if (DAT_011d9f34 != selectedSlot11)
             {
-                FUN_004b7210()->FUN_00704370()->FUN_007f8610(
+                FUN_004b7210()->FUN_00704370()->MoveKnob(
                     0, DAT_011d9f34 < selectedSlot11 ? *DAT_011db2f0.FUN_00403e20() : -*DAT_011db2f0.FUN_00403e20(),
                     *DAT_011db358.FUN_00403e20(), 1);
                 DAT_011d9f34 = selectedSlot11;
@@ -1325,7 +1325,7 @@ void Menu::UpdateItemDisplay(int action, Tile* changed)
                 (*icon->tile.FUN_0073ac90())->FUN_00700320(0xfa3, 0);
             if (!entry.FUN_00701740())
                 description->FUN_00700320(0xfa3, 1);
-            FUN_00781680();
+            UpdateButtons();
         }
     }
     else if (action == 30)
@@ -1381,10 +1381,10 @@ extern void* player;
 float __cdecl FUN_00476b20(float);
 struct InventoryCheck
 {
-    bool FUN_00781860(Entry* entry);
+    bool IsItemRepairable(Entry* entry);
 };
 // @fnv 0x00781860
-bool InventoryCheck::FUN_00781860(Entry* entry)
+bool InventoryCheck::IsItemRepairable(Entry* entry)
 {
     bool result5 = false;
     Form* form4 = entry ? entry->FUN_0044ddc0() : 0;
@@ -2437,15 +2437,15 @@ extern VTCounter DAT_011d2418;
 void FUN_007800c0();
 void FUN_00782470(int iFlag);
 int FUN_0077ff80();
-void FUN_00717280(int iMenu);
+void PlayMenuSound(int iMenu);
 void FUN_007b7020(VTTarget* pkTargetNum);
 VTCombat* FUN_004bf220(VTPlayer* pkPlayer);
-void FUN_00784710(VTTarget* pkTargetNum, int iFlag);
+void InitItemModMenu(VTTarget* pkTargetNum, int iFlag);
 bool FUN_004b71d0();
 void FUN_00782a90();
 void DispatchMessageToSink(const char* pcText, int iA, const char* pcIcon, const char* pcSound, float fTime, int iB);
 void CreateQuantityMenu(VTTile* pkTile, void (*pfnCallback)(int), int iMax);
-void FUN_00782620();
+void ShouldHideItem();
 void UpdateItemLabel(Tile* pkTile);
 void IsNotFormType2E();
 
@@ -2475,7 +2475,7 @@ void VTMenu::FUN_00780140(int m_uiSoundID, VTTile* pkTile)
                 ->FUN_00704370()
                 ->FUN_007fb150(*DAT_011db458.FUN_00403e20(), *DAT_011db37c.FUN_00403e20(), 0.5f);
             ((VTInterface*)FUN_004b7210())->SetByte13(m_uiSoundID);
-            m_kCallbackList.ApplyFilter(FUN_00782620);
+            m_kCallbackList.ApplyFilter(ShouldHideItem);
             m_kCallbackList.FUN_007314c0(FUN_00780c00, -1, 0x7fffffff);
             FUN_007800c0();
             FUN_00782470(1);
@@ -2499,7 +2499,7 @@ void VTMenu::FUN_00780140(int m_uiSoundID, VTTile* pkTile)
     case 8:
         if (DAT_011d9ea8)
         {
-            FUN_00717280(0x24);
+            PlayMenuSound(0x24);
             UpdateCurrentValue();
             FUN_007b7020(DAT_011d9ea8);
         }
@@ -2507,7 +2507,7 @@ void VTMenu::FUN_00780140(int m_uiSoundID, VTTile* pkTile)
     case 19:
         if (DAT_011d9ea8 && DAT_011d9ea8->FUN_0044ddc0()->FUN_00401170() == 0x28)
         {
-            FUN_00717280(0x24);
+            PlayMenuSound(0x24);
             UpdateCurrentValue();
             if (DAT_011d9ea8->FUN_00559450() && !*DAT_011d9ea8->FUN_00559450()->FUN_006815c0())
             {
@@ -2515,7 +2515,7 @@ void VTMenu::FUN_00780140(int m_uiSoundID, VTTile* pkTile)
                 pkCombat->AddItemExtraData(DAT_011d9ea8->FUN_0044ddc0(), DAT_011d9ea8->FUN_00726070(),
                                            (VTPlayer*)DAT_011dea3c, 0, DAT_011d9ea8);
             }
-            FUN_00784710(DAT_011d9ea8, 1);
+            InitItemModMenu(DAT_011d9ea8, 1);
         }
         break;
     case 29:
@@ -2591,7 +2591,7 @@ void VTMenu::FUN_00780140(int m_uiSoundID, VTTile* pkTile)
     case 10:
         UpdateCurrentValue();
         FUN_00726070()->FUN_00700320(DAT_011d9eb8, 0);
-        m_kCallbackList.ApplyFilter(FUN_00782620);
+        m_kCallbackList.ApplyFilter(ShouldHideItem);
         m_kCallbackList.FUN_007314c0(FUN_00780c00, -1, 0x7fffffff);
         FUN_007800c0();
         break;
@@ -2690,7 +2690,7 @@ FilterList* __cdecl FUN_00483a00(int*);
 
 // Returns whether a form fails the current tab's checks, including type, item, and condition-index checks.
 // @fnv 0x00782620
-bool __cdecl FUN_00782620(Entry* entry)
+bool __cdecl ShouldHideItem(Entry* entry)
 {
     if (DAT_011d9ea4)
     {
@@ -2750,5 +2750,5 @@ void FUN_00781b10_shell::ClearActionPointSource()
           ->FUN_0073ac90())
         ->Set(0xFA3, 0);
 
-    reinterpret_cast<FUN_00781680_shell*>(this)->FUN_00781680();
+    reinterpret_cast<FUN_00781680_shell*>(this)->UpdateButtons();
 }

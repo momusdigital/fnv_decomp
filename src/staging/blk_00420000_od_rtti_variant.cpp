@@ -1410,7 +1410,7 @@ struct CloneRef
     void FUN_00575700(NiPoint3 kAngle);
     void FUN_004fbf00(CloneSource* pSource);
     void FUN_00898280(bool b);
-    void FUN_00935ae0();
+    void UpdateTopicInfoSayOnce();
     CloneExtraList* FUN_005d43c0();
     CloneProcess* FUN_008d8520();
     void FUN_00407800(CloneProcess* pProcess);

@@ -433,7 +433,7 @@ struct EvadeActor
     EvadeActorBase* FUN_004181e0();
     bool FUN_008b3840(NiPoint3*);
     bool FUN_008bb630(PathingRequest*);
-    bool FUN_008b3b90();
+    bool DidPathingFail();
     bool FUN_008b3960();
     bool FUN_008b3bb0();
     EvadeWorldLocation FUN_00575650();
@@ -535,7 +535,7 @@ void EvadeProcedure::UpdateFleeState()
         break;
     }
     case 1:
-        if (actor->FUN_008b3b90())
+        if (actor->DidPathingFail())
         {
             if (!actor->FUN_008b3960())
             {

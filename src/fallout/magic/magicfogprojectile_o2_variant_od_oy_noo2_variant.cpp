@@ -72,7 +72,7 @@ struct xCell
 struct xOwner
 {
     void FUN_0081c4a0(void*);
-    void FUN_0081c470(bool, float);
+    void Fade(bool, float);
 };
 struct xA
 {
@@ -126,7 +126,7 @@ struct xProj : xBase
     void FUN_0081e570(int);
     void InitProjectileEffect();
     void FUN_00819ca0();
-    xCtl* FUN_009306d0();
+    xCtl* GetCharController();
     xCell* FUN_008d6f30();
     xSound PlaySoundByFormID(void*, int, unsigned int, int);
     void FUN_0081eba0();
@@ -150,7 +150,7 @@ xProj::xProj(int a, int b, int c, int d, xP3 kP1, xP3 kP2, void* apE, xOwner* ap
     InitProjectileEffect();
     FUN_00819ca0();
     xVec4 V(-xg_107ad40, 0.0f, 0.0f, 0.0f);
-    FUN_009306d0()->FUN_0080fb00(&V);
+    GetCharController()->FUN_0080fb00(&V);
     FUN_008d6f30()->FUN_00548230(this, false);
     if (FUN_004fd400()->FUN_004fd3c0())
     {
@@ -164,7 +164,7 @@ xProj::xProj(int a, int b, int c, int d, xP3 kP1, xP3 kP2, void* apE, xOwner* ap
     {
         apOwner->FUN_0081c4a0(this);
         m_cc = apOwner;
-        m_cc->FUN_0081c470(false, m_ac);
+        m_cc->Fade(false, m_ac);
     }
     FUN_0081eba0();
     void* SHOOTER = FUN_009185e0() ? FUN_009185e0()->FUN_2c() : 0;

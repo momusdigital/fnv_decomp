@@ -7194,7 +7194,7 @@ void Group_98d030::FUN_0098d030()
 struct SavedCombatState;
 struct CombatWriter
 {
-    void FUN_00865f60(unsigned int);
+    void SaveVariableSizedValue(unsigned int);
     void FUN_00865e50(const void*, unsigned int, int);
     void FUN_00865df0(void*, int);
     void FUN_00865db0(void*, int);
@@ -7298,7 +7298,7 @@ void SavedCombatState::WriteToStream(CombatWriter* writer)
 {
     {
         unsigned int count = &tasks ? tasks.FUN_0044ddc0() : 0;
-        writer->FUN_00865f60(count);
+        writer->SaveVariableSizedValue(count);
         for (unsigned int i = 0; i < count; ++i)
         {
             CombatTask** item = tasks.FUN_006a7ad0(i);
@@ -7307,7 +7307,7 @@ void SavedCombatState::WriteToStream(CombatWriter* writer)
     }
     {
         unsigned int count = &targets ? targets.FUN_0044ddc0() : 0;
-        writer->FUN_00865f60(count);
+        writer->SaveVariableSizedValue(count);
         for (unsigned int i = 0; i < count; ++i)
         {
             CombatTarget* item = targets.FUN_0096a2b0(i);
@@ -7316,7 +7316,7 @@ void SavedCombatState::WriteToStream(CombatWriter* writer)
     }
     {
         unsigned int count = &actions ? actions.FUN_0044ddc0() : 0;
-        writer->FUN_00865f60(count);
+        writer->SaveVariableSizedValue(count);
         for (unsigned int i = 0; i < count; ++i)
         {
             CombatAction* item = actions.FUN_006dad90(i);
@@ -7347,7 +7347,7 @@ void SavedCombatState::WriteToStream(CombatWriter* writer)
         writer->FUN_00865e50(&field10c, 4, 0);
         {
             unsigned int count = &items ? items.FUN_0044ddc0() : 0;
-            writer->FUN_00865f60(count);
+            writer->SaveVariableSizedValue(count);
             for (unsigned int i = 0; i < count; ++i)
             {
                 CombatReferenceEntry* item = items.GetElementAt(i);
@@ -7359,7 +7359,7 @@ void SavedCombatState::WriteToStream(CombatWriter* writer)
         }
         {
             unsigned int count = &edges ? edges.FUN_0044ddc0() : 0;
-            writer->FUN_00865f60(count);
+            writer->SaveVariableSizedValue(count);
             for (unsigned int i = 0; i < count; ++i)
             {
                 CombatEdge* item = edges.FUN_006a7af0(i);

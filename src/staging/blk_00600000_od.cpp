@@ -1768,7 +1768,7 @@ struct CleanupItem
     virtual void V02();
     virtual void V03();
     virtual ~CleanupItem();
-    void FUN_0061f340(unsigned int);
+    void SetInfoIndex(unsigned int);
 };
 struct CleanupArray
 {
@@ -1831,7 +1831,7 @@ FUN_006186d0::~FUN_006186d0()
             {
                 CleanupItem* pNullItem = 0;
                 topic->FUN_00717e50()->FUN_0061bd20(i, pNullItem);
-                item->FUN_0061f340(0xffff);
+                item->SetInfoIndex(0xffff);
                 delete item;
             }
         }

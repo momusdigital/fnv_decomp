@@ -4723,7 +4723,7 @@ struct SubX
     void FUN_005102e0();
     void RemoveAll();
     void FUN_004f6640();
-    void FUN_006c09f0();
+    void ClearAllObstacles();
     int FUN_0045af00();
     void SetNavMeshMaps(int a1);
     bool FUN_004f6de0();
@@ -5226,7 +5226,7 @@ bool DataHandlerX::FUN_0045dfe0()
         delete pIkqW;
     }
     p1d8->FUN_004f6640();
-    xFUN_006c0720()->FUN_006c09f0();
+    xFUN_006c0720()->ClearAllObstacles();
     if (xDAT_011dea10->FUN_0045af00())
     {
         xDAT_011dea10->SetNavMeshMaps(0);

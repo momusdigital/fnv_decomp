@@ -1018,7 +1018,7 @@ void Owner::FUN_008c64d0(unsigned a, unsigned auiUnused)
 struct PackageSaveWriter
 {
     void FUN_00857a10(void* data, unsigned int size);
-    void FUN_008579b0(void* data, unsigned int size);
+    void SaveGameDataOLD(void* data, unsigned int size);
 };
 extern PackageSaveWriter* DAT_011de45c;
 
@@ -1052,15 +1052,15 @@ void ActorPackageLegacySave::FUN_008c6250(unsigned int auiFlags)
         if ((auiFlags & 0) != 0 && g_dataHandler->FormIDExists(auiFormId))
         {
             unsigned char ucType = pPackage->GetPackType();
-            DAT_011de45c->FUN_008579b0(&ucType, 1);
+            DAT_011de45c->SaveGameDataOLD(&ucType, 1);
             if ((auiFlags & 0) == 0)
             {
                 static_cast<PackageVirtuals*>(pPackage)->Unk_54();
             }
         }
-        DAT_011de45c->FUN_008579b0(&m_iPackageValue, 4);
+        DAT_011de45c->SaveGameDataOLD(&m_iPackageValue, 4);
     }
-    DAT_011de45c->FUN_008579b0(&m_fPackageValue, 4);
+    DAT_011de45c->SaveGameDataOLD(&m_fPackageValue, 4);
 }
 
 extern "C" void __cdecl FUN_005b5e40(const char* apFormat, ...);

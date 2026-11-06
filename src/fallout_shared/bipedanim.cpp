@@ -1807,7 +1807,7 @@ struct ActorCalls
     BaseProcess* FUN_008d8520();
     void FUN_008b0b00(bool);
     Animation* FUN_008b70d0();
-    bool FUN_008a16d0();
+    bool IsWeaponDrawn();
 };
 struct PlayerCalls
 {
@@ -1873,12 +1873,12 @@ void FUN_004ab750_shell::FUN_004ab750(TESObjectWEAP* apWeapon, unsigned char iMo
                     if (m_pActor == _g_thePlayer && this == ((PlayerCalls*)_g_thePlayer)->FUN_00950b00(true))
                         ((ActorCalls*)pActor)
                             ->FUN_008d8520()
-                            ->UpdateWeaponDrawn(((ActorCalls*)pActor)->FUN_008a16d0(), this,
+                            ->UpdateWeaponDrawn(((ActorCalls*)pActor)->IsWeaponDrawn(), this,
                                                 _g_thePlayer->GetAnimation(true), pActor);
                     else
                         ((ActorCalls*)pActor)
                             ->FUN_008d8520()
-                            ->UpdateWeaponDrawn(((ActorCalls*)pActor)->FUN_008a16d0(), this,
+                            ->UpdateWeaponDrawn(((ActorCalls*)pActor)->IsWeaponDrawn(), this,
                                                 ((ActorCalls*)pActor)->FUN_008b70d0(), pActor);
                 }
             }
@@ -2257,7 +2257,7 @@ struct BipedLoadAccess : BipedAnim
 struct ActorLoadAccess : Actor
 {
     void FUN_00571760(TESObjectWEAP*);
-    bool FUN_008a16d0();
+    bool IsWeaponDrawn();
     Animation* FUN_008b70d0();
 };
 struct PlayerLoadAccess : PlayerCharacter
@@ -2473,10 +2473,10 @@ void BipedLoadAccess::UpdateBipedObjects(bool force)
                         if (actor->GetProcess())
                         {
                             if (m_pActor == g_thePlayer && this == ((PlayerLoadAccess*)g_thePlayer)->FUN_00950b00(true))
-                                actor->GetProcess()->UpdateWeaponDrawn(actor->FUN_008a16d0(), this,
+                                actor->GetProcess()->UpdateWeaponDrawn(actor->IsWeaponDrawn(), this,
                                                                        g_thePlayer->GetAnimation(true), actor);
                             else
-                                actor->GetProcess()->UpdateWeaponDrawn(actor->FUN_008a16d0(), this,
+                                actor->GetProcess()->UpdateWeaponDrawn(actor->IsWeaponDrawn(), this,
                                                                        actor->FUN_008b70d0(), actor);
                         }
                     }

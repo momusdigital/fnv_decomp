@@ -534,7 +534,7 @@ struct PM
 extern HUDMainMenu* g_pHudMainMenuInstance;
 void __cdecl FUN_0077a5b0(const char*, int, int);
 // @fnv 0x007736d0
-void __cdecl FUN_007736d0(Script* script)
+void __cdecl DisplayQuestReminder(Script* script)
 {
     if (!g_pHudMainMenuInstance)
         return;
@@ -639,7 +639,7 @@ void __cdecl UpdateMeterTile(Tile* apTile, float afMeterPercent, int aeJustify, 
 
 struct FUN_00775670_shell : public HUDMainMenu
 {
-    void FUN_00775670();
+    void HideSubtitle();
 };
 
 class Tile
@@ -663,7 +663,7 @@ extern char const g_011d31e0_arg1[];
 extern HUDMainMenu* HUDMainMenu_pme;
 
 // @fnv 0x00775670
-void FUN_00775670_shell::FUN_00775670()
+void FUN_00775670_shell::HideSubtitle()
 {
     if (!Interface::IsMenuActive((Interface::enumMenus)0x3f5, 0))
     {
@@ -1303,7 +1303,7 @@ class BSAudio
 };
 struct HUDMainMenuS
 {
-    void FUN_007737c0(float afDrinkinRads, float afStandinRads);
+    void UpdateRadiationMeterConditions(float afDrinkinRads, float afStandinRads);
 };
 extern HUDMainMenu* g_pHudMainMenuInstance;
 extern double _gModifierZero;
@@ -1322,7 +1322,7 @@ void __cdecl UpdateRadiationHUD(float afDrinkinRads, float afStandinRads)
                     BSAudio::GetSingleton()->GetSoundHandleByEditorID("UIPipBoyRadiationTestLP", 0x11);
                 ((SoundPlaybackHandle*)((char*)g_pHudMainMenuInstance + 0x1ac))->Play(false);
             }
-            ((HUDMainMenuS*)g_pHudMainMenuInstance)->FUN_007737c0(afDrinkinRads, afStandinRads);
+            ((HUDMainMenuS*)g_pHudMainMenuInstance)->UpdateRadiationMeterConditions(afDrinkinRads, afStandinRads);
         }
         else if (((SoundPlaybackHandle*)((char*)g_pHudMainMenuInstance + 0x1ac))->IsValid())
         {
@@ -3801,12 +3801,12 @@ extern FloatSetting g_01203150;
 
 struct CamBuilder
 {
-    CamObj* FUN_0077ee50();
+    CamObj* Create3DCamera();
 };
 
 // Allocates a CamObj, sets its viewport, FOV-derived frustum, LOD adjust, look-at, scale and updates it, then returns it.
 // @fnv 0x0077ee50
-CamObj* CamBuilder::FUN_0077ee50()
+CamObj* CamBuilder::Create3DCamera()
 {
     CamObj* pCamera = new CamObj;
     CamRect port2(0.0f, 1.0f, 1.0f, 0.0f);
@@ -3926,10 +3926,10 @@ extern int DAT_011d96c0;
 extern char DAT_011d9770;
 extern void* DAT_011c3b3c;
 
-void FUN_0077f270();
+void ClearGunScope();
 
 // @fnv 0x0077f2f0
-void FUN_0077f2f0(FUN_0077f2f0_obj* pObject)
+void InitGunScope(FUN_0077f2f0_obj* pObject)
 {
     FUN_0077f2f0_vt55* vt;
     FUN_0077f2f0_loc loc;
@@ -3937,7 +3937,7 @@ void FUN_0077f2f0(FUN_0077f2f0_obj* pObject)
     {
         if (((FUN_0077f2f0_mgr*)&DAT_011d9770)->GetA() != 0)
         {
-            FUN_0077f270();
+            ClearGunScope();
             if (pObject != 0)
             {
                 if (pObject->F48cee0() > 0)
@@ -4545,7 +4545,7 @@ struct HUDActor : RefX
     HUDDetectionList* FUN_00595d10();
     bool FUN_00477ba0();
     HUDDetection* FUN_00967090(void*);
-    bool FUN_008bc700(void*);
+    bool IsInCombatWithActor(void*);
     bool FUN_00493bb0();
     bool FUN_00579690();
     Script* FUN_005cbb50();
@@ -4838,13 +4838,13 @@ struct HUDMessageList
     int FUN_005ae380();
     HUDMessage** FUN_006815c0();
 };
-void __cdecl FUN_00779070(Tile*, Tile*, Tile*, Tile*);
+void __cdecl UpdateCompass(Tile*, Tile*, Tile*, Tile*);
 float __cdecl FUN_00715da0();
 float __cdecl FUN_00715d40();
 float __cdecl FUN_007177c0();
 float __cdecl FUN_00717820();
 float __cdecl FUN_00408840(float);
-void __cdecl FUN_00773190(RefX*);
+void __cdecl SetEnemyActor(RefX*);
 void __cdecl FUN_00401030(void*);
 int __cdecl FUN_00458030();
 extern bool DAT_011d96c5, DAT_011d97c0;
@@ -4856,21 +4856,21 @@ extern const float DAT_010162c0, DAT_01016248, DAT_01021f44;
 struct HUDUpdate : HUDMainMenu
 {
     void FUN_00770430();
-    void FUN_0077da60();
+    void UpdateHotkeysWheel();
     void UpdateAmmoHUD();
     void UpdateCompassMarkers();
     void FUN_0077f700();
     void UpdateActorValueMeter(int);
-    void FUN_0077e4f0();
-    void FUN_007732d0();
+    void UpdateBreathMeter();
+    void UpdateSneak();
     void UpdateQuestNotification();
-    void FUN_0077c4e0();
+    void UpdateXPMeter();
     void UpdateRadMeter();
     void UpdateCrippleMeters(bool);
     void UpdateTargetInfo(void*);
     void ResetHudTiles();
     void ResetWaitTiles();
-    void FUN_00775670();
+    void HideSubtitle();
     HUDSubtitle* FindTargetMarker();
     void FUN_007756e0();
 };
@@ -4880,8 +4880,8 @@ void HUDUpdate::FUN_00770430()
     if (!DAT_011dea3c || !((HUDActor*)DAT_011dea3c)->FUN_008d6f30())
         return;
     ((HUDTime*)m_cBuffer)->FUN_00771520();
-    FUN_00779070(m_pTiles[6], m_pTiles[3], m_pTiles[4], m_pTiles[5]);
-    FUN_0077da60();
+    UpdateCompass(m_pTiles[6], m_pTiles[3], m_pTiles[4], m_pTiles[5]);
+    UpdateHotkeysWheel();
     UpdateAmmoHUD();
     UpdateCompassMarkers();
     FUN_0077f700();
@@ -4916,7 +4916,7 @@ void HUDUpdate::FUN_00770430()
     ((TileX*)HUDMainMenu_WithPme::g_pHudMainMenuInstance->m_pTiles[59])->Refresh(1);
     UpdateActorValueMeter(16);
     UpdateActorValueMeter(12);
-    FUN_0077e4f0();
+    UpdateBreathMeter();
     ((TileX*)HUDMainMenu_WithPme::g_pHudMainMenuInstance->m_pTiles[86])->Set(4009, DAT_011d979c, true);
     ((TileX*)HUDMainMenu_WithPme::g_pHudMainMenuInstance->m_pTiles[78])->Set(4009, DAT_011d979c, true);
     ((TileX*)HUDMainMenu_WithPme::g_pHudMainMenuInstance->m_pTiles[75])->Set(4009, DAT_011d979c, true);
@@ -4945,14 +4945,14 @@ void HUDUpdate::FUN_00770430()
         ((TileX*)HUDMainMenu_WithPme::g_pHudMainMenuInstance->m_pTiles[15])->Set(xTraitID(DAT_01073474), 0);
     }
     if (((HUDActor*)DAT_011dea3c)->FUN_004997b0())
-        FUN_007732d0();
+        UpdateSneak();
     else if (((TileX*)HUDMainMenu_WithPme::g_pHudMainMenuInstance->m_pTiles[24])->GetFloat(4009) > 0.0 &&
              ((HUDTile*)HUDMainMenu_WithPme::g_pHudMainMenuInstance->m_pTiles[24])->FUN_00a07fc0(4009))
         ((HUDTile*)HUDMainMenu_WithPme::g_pHudMainMenuInstance->m_pTiles[24])
             ->StartFade(4009, ((TileX*)HUDMainMenu_WithPme::g_pHudMainMenuInstance->m_pTiles[24])->GetFloat(4009), 0.0f, DAT_01016248, 0);
     if (HUDMainMenu_WithPme::g_pHudMainMenuInstance->m_eHudMenuMode != 18 && HUDMainMenu_WithPme::g_pHudMainMenuInstance->m_eHudMenuMode != 19)
         UpdateQuestNotification();
-    FUN_0077c4e0();
+    UpdateXPMeter();
     UpdateRadMeter();
     UpdateCrippleMeters(((HUDActor*)DAT_011dea3c)->FUN_004d1360());
     DAT_011d96c5 = false;
@@ -4986,7 +4986,7 @@ void HUDUpdate::FUN_00770430()
         if (DAT_011f21cc && DAT_011f21cc->IsActor() && !DAT_011f21cc->IsDead(false))
         {
             a = true;
-            FUN_00773190((RefX*)DAT_011f21cc);
+            SetEnemyActor((RefX*)DAT_011f21cc);
         }
     }
     else if (m_pTargetActor && !((HUDActor*)m_pTargetActor)->IsDead(false) &&
@@ -5009,7 +5009,7 @@ void HUDUpdate::FUN_00770430()
         bool hostile = false;
         if (m_pTargetActor && ((((HUDActor*)DAT_011dea3c)->FUN_00967090(m_pTargetActor) &&
                                 ((HUDActor*)DAT_011dea3c)->FUN_00967090(m_pTargetActor)->detected) ||
-                               ((HUDActor*)m_pTargetActor)->FUN_008bc700(DAT_011dea3c)))
+                               ((HUDActor*)m_pTargetActor)->IsInCombatWithActor(DAT_011dea3c)))
             hostile = true;
         ((TileX*)m_pTiles[21])->Set(4003, 1);
         ((TileX*)m_pTiles[22])->Set(4003, 1);
@@ -5032,12 +5032,12 @@ void HUDUpdate::FUN_00770430()
         HUDMainMenu_WithPme::g_pHudMainMenuInstance->m_eHudMenuMode != 18 && HUDMainMenu_WithPme::g_pHudMainMenuInstance->m_eHudMenuMode != 19)
     {
         m_uiHudValueSecondAfterActor = DAT_011f6394.GetTimeStamp();
-        FUN_007736d0(((HUDActor*)DAT_011dea3c)->FUN_005cbb50());
+        DisplayQuestReminder(((HUDActor*)DAT_011dea3c)->FUN_005cbb50());
     }
     else if (m_uiHudValueSecondAfterActor == 0 && FUN_00458030() == 2)
     {
         m_uiHudValueSecondAfterActor = DAT_011f6394.GetTimeStamp();
-        FUN_007736d0(((HUDActor*)DAT_011dea3c)->FUN_005cbb50());
+        DisplayQuestReminder(((HUDActor*)DAT_011dea3c)->FUN_005cbb50());
         m_bQuestObjectiveUpdatesEnabled = false;
     }
     {
@@ -5058,7 +5058,7 @@ void HUDUpdate::FUN_00770430()
                     (*((HUDSubtitleList*)m_kSubtitleArray)->FUN_00877a30(k))->duration * DAT_01017b70)
                 {
                     if (*((HUDSubtitleList*)m_kSubtitleArray)->FUN_00877a30(k) == m_pCurrentSubtitle)
-                        FUN_00775670();
+                        HideSubtitle();
                     HUDSubtitle* j = *((HUDSubtitleList*)m_kSubtitleArray)->FUN_00877a30(k);
                     FUN_00401030(j);
                     ((HUDSubtitleList*)m_kSubtitleArray)->FUN_006bf8f0(k, true);
@@ -5217,7 +5217,7 @@ struct HealthActor : RefX
     int unk0A0;
     ActorValueOwner actorValues;
     TESBoundObject* FUN_00579280();
-    bool FUN_008bc700(Actor* other);
+    bool IsInCombatWithActor(Actor* other);
     DetectX* FUN_00967090(HealthActor* other);
     bool FUN_008bbc10();
 };
@@ -5237,7 +5237,7 @@ struct TargetHealthHUD : HUDMainMenu
 {
     void UpdateTargetInfo(HealthActor* actor);
 };
-void __cdecl FUN_00773190(HealthActor* actor);
+void __cdecl SetEnemyActor(HealthActor* actor);
 extern bool DAT_011d96ba;
 extern bool DAT_011d96b9;
 
@@ -5257,7 +5257,7 @@ void __cdecl UpdateTargetHealthHUD(HealthActor* target, unsigned char enabled)
                 isDead = actor && actor->IsDead(false);
                 if (actor && ((((HealthActor*)pPlayer)->FUN_00967090(actor) &&
                                ((HealthActor*)pPlayer)->FUN_00967090(actor)->bDetected) ||
-                              actor->FUN_008bc700((Actor*)pPlayer)))
+                              actor->IsInCombatWithActor((Actor*)pPlayer)))
                 {
                     isHostile = true;
                 }
@@ -5266,7 +5266,7 @@ void __cdecl UpdateTargetHealthHUD(HealthActor* target, unsigned char enabled)
                             !((FUN_00a01230_shell*)HUDMainMenu_pme->m_pTiles[32])->IsTraitNonZero(4003);
                 if (show)
                 {
-                    FUN_00773190(actor);
+                    SetEnemyActor(actor);
                     HUDMainMenu_pme->m_pTiles[21]->Set(4003, 1);
                     HUDMainMenu_pme->m_pTiles[22]->Set(4003, 1);
                     HUDMainMenu_pme->m_pTiles[23]->Set(4003, 1);
@@ -5524,7 +5524,7 @@ struct EnemyTimer
 };
 // Selects the enemy reference to show in the HUD, sets its name text, and refreshes the timer and its value.
 // @fnv 0x00773190
-void FUN_00773190(EnemyRefV* pkRef)
+void SetEnemyActor(EnemyRefV* pkRef)
 {
     if (*g_011e0988.Bool())
         return;
@@ -5559,7 +5559,7 @@ struct RandomGenerator
 extern RandomGenerator g_011f6394;
 extern const double DAT_01073490;
 // @fnv 0x007737c0
-void HUDMainMenuS::FUN_007737c0(float afDrinkinRads, float afStandinRads)
+void HUDMainMenuS::UpdateRadiationMeterConditions(float afDrinkinRads, float afStandinRads)
 {
     float totalRads = afDrinkinRads + afStandinRads;
     if (afDrinkinRads > _gModifierZero)
@@ -6482,8 +6482,8 @@ struct QInterface
 };
 QInterface* FUN_004b7210();
 bool FUN_00702680(int, unsigned int);
-bool FUN_00703d50();
-bool FUN_00702450(int);
+bool IsConsoleVisible();
+bool IsTopMenuID(int);
 struct QFlags
 {
     unsigned int FUN_0044ddc0();
@@ -6546,7 +6546,7 @@ void QHud::UpdateQuestNotification()
     if (!FUN_007735d0() && !DAT_011d96bc->FUN_0077b2c0() &&
         !(FUN_00773650() &&
           ((QTile*)HUDMainMenu_pme->m_pTiles[13])->children.FUN_0073ac90()[0]->FUN_00a011b0(4009) != 0.0) &&
-        (!FUN_004b7210()->FUN_007023a0() || FUN_00702680(1009, 0) || FUN_00703d50()) && !DAT_011f2250.FUN_0044ddc0())
+        (!FUN_004b7210()->FUN_007023a0() || FUN_00702680(1009, 0) || IsConsoleVisible()) && !DAT_011f2250.FUN_0044ddc0())
     {
         m_bQuestObjectiveUpdatePending = true;
         QEntry* aShared;
@@ -6696,7 +6696,7 @@ void QHud::UpdateQuestNotification()
     }
     if (FUN_007735d0())
         UpdateTileAnimations(HUDMainMenu_pme->m_pTiles[14]);
-    else if (!FUN_00702450(1048))
+    else if (!IsTopMenuID(1048))
     {
         if ((FUN_00773650() || !((QObjectives*)m_kQuestObjectives)->FUN_008256d0()) && !FUN_007735d0())
             UpdateQuestMenu(HUDMainMenu_pme->m_pTiles[13]);
@@ -7436,10 +7436,10 @@ struct BreathHUD
     int unk1f8;
     int unk1fc;
     BreathSequence* sequence;
-    void FUN_0077e4f0();
+    void UpdateBreathMeter();
 };
 // @fnv 0x0077e4f0
-void BreathHUD::FUN_0077e4f0()
+void BreathHUD::UpdateBreathMeter()
 {
     float aWater = breathPlayer->Calculate(breathPlayer->GetPosition()->z, breathPlayer->GetContainingCell());
     bool submergedA = aWater >= 0.009999999776482582;
@@ -7913,7 +7913,7 @@ extern Ptr_77f270 g_011d9770;
 
 // If HUDMainMenu_pme and g_011d9770 exist and the node has a child at index 0, detaches that child and clears b1fc on the HUD menu.
 // @fnv 0x0077f270
-void __cdecl FUN_0077f270()
+void __cdecl ClearGunScope()
 {
     if (HUDMainMenu_pme && (Node_77f270*)g_011d9770 && ((Node_77f270*)g_011d9770)->FUN_0045bc00(0))
     {
@@ -9020,7 +9020,7 @@ void __cdecl FUN_005e58f0(int aiPerk, CompassRef* apRef, float* apValue);
 
 // Updates compass tile positions, visibility, and fade for map markers, quest targets, the player marker, and nearby actors.
 // @fnv 0x00779070
-void __cdecl FUN_00779070(CompassMovie* apMovie, CompassTileList* apMapTiles, CompassTileList* apQuestTiles,
+void __cdecl UpdateCompass(CompassMovie* apMovie, CompassTileList* apMapTiles, CompassTileList* apQuestTiles,
                           CompassTileList* apActorTiles)
 {
     static int iDistanceID = FUN_00a00940("_Distance", -1);
@@ -9466,7 +9466,7 @@ class VisibilityPlayer
     virtual int GetMode();
     bool FUN_005a03f0(unsigned int);
     bool FUN_008bbc10();
-    bool FUN_008a16d0();
+    bool IsWeaponDrawn();
     NiNode* FUN_007721a0();
     bool FUN_00524d10();
 };
@@ -9476,7 +9476,7 @@ class VisibilityHUD : public HUDMainMenu
   public:
     int FUN_0059bb30();
     void FUN_00a1db20();
-    void FUN_00775670();
+    void HideSubtitle();
 };
 struct VisibilityMode
 {
@@ -9565,7 +9565,7 @@ void __cdecl FUN_00771700(int aiMenuMode)
             state = 16;
         }
     }
-    if (state == 22 && DAT_011d9770 && DAT_011d9770->FUN_0045bc00(0) && _g_thePlayer->FUN_008a16d0())
+    if (state == 22 && DAT_011d9770 && DAT_011d9770->FUN_0045bc00(0) && _g_thePlayer->IsWeaponDrawn())
         state = 23;
     if (state != 24 && state != 4 && state != 5 && _g_thePlayer->FUN_005a03f0(1))
     {
@@ -9589,7 +9589,7 @@ void __cdecl FUN_00771700(int aiMenuMode)
         FUN_00778b10();
         break;
     case 3:
-        ((VisibilityHUD*)HUDMainMenu_pme)->FUN_00775670();
+        ((VisibilityHUD*)HUDMainMenu_pme)->HideSubtitle();
         HUDMainMenu_pme->m_iHudValueFirstBeforeMode = 0x100;
         break;
     case 4:
@@ -9599,38 +9599,38 @@ void __cdecl FUN_00771700(int aiMenuMode)
     case 18:
     case 21:
     case 24:
-        ((VisibilityHUD*)HUDMainMenu_pme)->FUN_00775670();
+        ((VisibilityHUD*)HUDMainMenu_pme)->HideSubtitle();
         HUDMainMenu_pme->m_iHudValueFirstBeforeMode = 0;
         break;
     case 19:
-        ((VisibilityHUD*)HUDMainMenu_pme)->FUN_00775670();
+        ((VisibilityHUD*)HUDMainMenu_pme)->HideSubtitle();
         HUDMainMenu_pme->m_iHudValueFirstBeforeMode = 0;
         break;
     case 25:
-        ((VisibilityHUD*)HUDMainMenu_pme)->FUN_00775670();
+        ((VisibilityHUD*)HUDMainMenu_pme)->HideSubtitle();
         HUDMainMenu_pme->m_iHudValueFirstBeforeMode = 0;
         break;
     case 9:
-        ((VisibilityHUD*)HUDMainMenu_pme)->FUN_00775670();
+        ((VisibilityHUD*)HUDMainMenu_pme)->HideSubtitle();
         HUDMainMenu_pme->m_iHudValueFirstBeforeMode = 0x1000;
         break;
     case 12:
         HUDMainMenu_pme->m_iHudValueFirstBeforeMode = 0x1514;
         break;
     case 6:
-        ((VisibilityHUD*)HUDMainMenu_pme)->FUN_00775670();
+        ((VisibilityHUD*)HUDMainMenu_pme)->HideSubtitle();
         HUDMainMenu_pme->m_iHudValueFirstBeforeMode = 0x1110;
         break;
     case 7:
-        ((VisibilityHUD*)HUDMainMenu_pme)->FUN_00775670();
+        ((VisibilityHUD*)HUDMainMenu_pme)->HideSubtitle();
         HUDMainMenu_pme->m_iHudValueFirstBeforeMode = 0x100;
         break;
     case 8:
-        ((VisibilityHUD*)HUDMainMenu_pme)->FUN_00775670();
+        ((VisibilityHUD*)HUDMainMenu_pme)->HideSubtitle();
         HUDMainMenu_pme->m_iHudValueFirstBeforeMode = 0x108;
         break;
     case 23:
-        ((VisibilityHUD*)HUDMainMenu_pme)->FUN_00775670();
+        ((VisibilityHUD*)HUDMainMenu_pme)->HideSubtitle();
         HUDMainMenu_pme->m_iHudValueFirstBeforeMode = 8;
         break;
     case 11:
@@ -9641,7 +9641,7 @@ void __cdecl FUN_00771700(int aiMenuMode)
         break;
     case 15:
     case 16:
-        ((VisibilityHUD*)HUDMainMenu_pme)->FUN_00775670();
+        ((VisibilityHUD*)HUDMainMenu_pme)->HideSubtitle();
         HUDMainMenu_pme->m_iHudValueFirstBeforeMode = 0x1010;
     }
     HUDMainMenu_pme->m_iHudValueFirstBeforeMode &= HUDMainMenu_pme->m_iHudValueSecondBeforeMode;
@@ -9741,7 +9741,7 @@ class HotkeyTile
 struct HotkeyWheel
 {
     int FUN_00701bd0(int aiIndex);
-    void FUN_007017b0();
+    void UpdateHotkeyList();
     bool FUN_00701740();
     void FUN_00701760(bool abVisible);
     void FUN_00701e80();
@@ -9956,12 +9956,12 @@ static const char s_szBlank[] = " ";
 
 struct HUDHotkeys : HUDMainMenu
 {
-    void FUN_0077da60();
+    void UpdateHotkeysWheel();
 };
 
 // Updates hotkey wheel selection, tile labels, and icon visibility based on input state and timer thresholds.
 // @fnv 0x0077da60
-void HUDHotkeys::FUN_0077da60()
+void HUDHotkeys::UpdateHotkeysWheel()
 {
     if (!((HUDInterface*)FUN_004b7210())->FUN_007023a0() && !DAT_011dea3c->FUN_vt22c(0) &&
         !DAT_011dea3c->FUN_005a03f0(4))
@@ -9971,7 +9971,7 @@ void HUDHotkeys::FUN_0077da60()
             int iSelected = ((HotkeyWheel*)m_kMenuData)->FUN_00701bd0(-1);
             if (!DAT_011d9e90 && iSelected >= 0)
             {
-                ((HotkeyWheel*)m_kMenuData)->FUN_007017b0();
+                ((HotkeyWheel*)m_kMenuData)->UpdateHotkeyList();
                 DAT_011d9e90 = true;
                 DAT_011d9e8c = DAT_011f6394.FUN_00825c00();
             }
@@ -10134,18 +10134,18 @@ class Tile_traitSetter
 
 struct HUDMainMenuEx : public HUDMainMenu
 {
-    void FUN_00775920();
+    void ClearAllSubtitlesAndMessages();
 };
 
 extern HUDMainMenuEx* HUDMainMenu_pSingleton;
 
 // Sets trait 4009 to afScale * 255.0 on HUD main menu tiles with indices outside the listed exclusions.
 // @fnv 0x0077e430
-void __cdecl FUN_0077e430(float afScale)
+void __cdecl ResetHUDOpacity(float afScale)
 {
     if (HUDMainMenu_pSingleton)
     {
-        HUDMainMenu_pSingleton->FUN_00775920();
+        HUDMainMenu_pSingleton->ClearAllSubtitlesAndMessages();
         for (int i = 1; i < 59; i++)
         {
             switch (i)
@@ -10478,7 +10478,7 @@ struct VATSCreateProcX
     virtual void v1a4();
     virtual void v1a8();
     virtual bool IsInDialogue();
-    void FUN_008ff030(VATSCreateRefX* apRef);
+    void SkipFadeIn(VATSCreateRefX* apRef);
 };
 struct VATSCreateAVOwnerX
 {
@@ -10733,7 +10733,7 @@ struct VATSCreateRefX
     VATSCreateProcX* GetProcess();
     bool FUN_005a2030() const;
     void FUN_00950110(int aiArg);
-    void FUN_008a6840(int aiArg);
+    void SetWantWeaponDrawn(int aiArg);
     void SetProcessValue(float afArg);
     void SetActiveState(int a1, int a2, int a3);
 };
@@ -11417,8 +11417,8 @@ bool FUN_007e9200()
                 VATSCreateDAT_011f21e8 = VATSCreateDAT_011c3f2c->PlaceObjectReference(
                     VATSCreateDAT_011db0ac, qCTa, VATSCreateDAT_011f426c, VATSCreateDAT_011dea10->FUN_005f36f0(),
                     VATSCreateDAT_011dea10->FUN_004fd3e0(), 0, 0, 0);
-                VATSCreateDAT_011f21e8->FUN_008a6840(1);
-                VATSCreateDAT_011f21e8->GetProcess()->FUN_008ff030(VATSCreateDAT_011f21e8);
+                VATSCreateDAT_011f21e8->SetWantWeaponDrawn(1);
+                VATSCreateDAT_011f21e8->GetProcess()->SkipFadeIn(VATSCreateDAT_011f21e8);
                 VATSCreateDAT_011f21e8->SetProcessValue(0.0f);
             }
         }
@@ -11446,8 +11446,8 @@ bool FUN_007e9200()
                 VATSCreateDAT_011f21ec = VATSCreateDAT_011c3f2c->PlaceObjectReference(
                     VATSCreateDAT_011db0b4, qXUDve, VATSCreateDAT_011f426c, VATSCreateDAT_011dea10->FUN_005f36f0(),
                     VATSCreateDAT_011dea10->FUN_004fd3e0(), 0, 0, 0);
-                VATSCreateDAT_011f21ec->FUN_008a6840(1);
-                VATSCreateDAT_011f21ec->GetProcess()->FUN_008ff030(VATSCreateDAT_011f21ec);
+                VATSCreateDAT_011f21ec->SetWantWeaponDrawn(1);
+                VATSCreateDAT_011f21ec->GetProcess()->SkipFadeIn(VATSCreateDAT_011f21ec);
                 VATSCreateDAT_011f21ec->SetProcessValue(0.0f);
             }
         }
@@ -11942,11 +11942,11 @@ struct InteractionTile
 };
 struct HUDInteraction : HUDMainMenu
 {
-    void FUN_007732d0();
+    void UpdateSneak();
 };
 // Updates HUD tile 24 using player state, a process count, and string and float settings.
 // @fnv 0x007732d0
-void HUDInteraction::FUN_007732d0()
+void HUDInteraction::UpdateSneak()
 {
     bool blocked = false;
     {
@@ -12024,12 +12024,12 @@ void __cdecl FUN_00401030(void*);
 extern HUDMainMenu* HUDMainMenu_pme;
 struct HUDClearMessages : HUDMainMenu
 {
-    void FUN_00775920();
-    void FUN_00775670();
+    void ClearAllSubtitlesAndMessages();
+    void HideSubtitle();
 };
 
 // @fnv 0x00775920
-void HUDClearMessages::FUN_00775920()
+void HUDClearMessages::ClearAllSubtitlesAndMessages()
 {
     ClearMessagesList* list = (ClearMessagesList*)m_kMessageList;
     while (list && !list->FUN_008256d0())
@@ -12043,7 +12043,7 @@ void HUDClearMessages::FUN_00775920()
     ((ClearMessagesTile*)HUDMainMenu_pme->m_pTiles[26])->FUN_00a01350(4036, g_011d31e0_arg1, true);
     ((ClearMessagesTile*)HUDMainMenu_pme->m_pTiles[26])->FUN_00a012d0(4009, 0.0f, true);
     ((ClearMessagesTile*)HUDMainMenu_pme->m_pTiles[25])->FUN_00a012d0(4009, 0.0f, true);
-    FUN_00775670();
+    HideSubtitle();
 }
 
 int __cdecl FUN_00408b20(const char* a, const char* b);

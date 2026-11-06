@@ -1375,7 +1375,7 @@ struct BGSSaveFormBuffer
 };
 struct BGSSaveGameBuffer
 {
-    void FUN_00865f60(unsigned int);
+    void SaveVariableSizedValue(unsigned int);
 };
 struct ArrSI
 {
@@ -1453,7 +1453,7 @@ void CombatController::FUN_009819f0(BGSSaveFormBuffer* apSaveGameBuffer)
     FUN_00982350(&pProc88, apSaveGameBuffer);
     {
         unsigned int uiProcedureCount = (ArrSI*)arr8c ? ((ArrSI*)arr8c)->GetFlags() : 0;
-        ((BGSSaveGameBuffer*)apSaveGameBuffer)->FUN_00865f60(uiProcedureCount);
+        ((BGSSaveGameBuffer*)apSaveGameBuffer)->SaveVariableSizedValue(uiProcedureCount);
         for (unsigned int i = 0; i < uiProcedureCount; i++)
         {
             CombatProcedure** pbackgroundProcedure =
@@ -2946,7 +2946,7 @@ extern const float runtimeFloatSettingDefault375;
 
 struct Actor
 {
-    void FUN_00884f80();
+    void SetWalkRunFlagDirty();
 };
 
 struct Dummy00981520
@@ -2971,7 +2971,7 @@ void FUN_00981570_shell::FUN_00981570(int aeCombatMoveMode)
     unsigned int imoveMode = DAT_011a4884[aeCombatMoveMode];
     m_fCombatMoveValue = 1.0f;
     m_fCombatMoveDuration = 1.0f;
-    m_pkAttacker->FUN_00884f80();
+    m_pkAttacker->SetWalkRunFlagDirty();
 
     switch (aeCombatMoveMode)
     {
@@ -3259,7 +3259,7 @@ extern int g_iCombatControllerCount;
 
 struct ActorStub
 {
-    void FUN_008b3d30();
+    void ClearLookAtTarget();
     void SetActiveState(int, int, int);
     bool FUN_00894d60();
     bool FUN_00894cc0(bool);
@@ -3374,7 +3374,7 @@ FUN_0097d770::~FUN_0097d770()
     {
         FUN_00980830(0);
         FUN_009801b0(0);
-        GetFieldBC()->FUN_008b3d30();
+        GetFieldBC()->ClearLookAtTarget();
         GetFieldBC()->SetActiveState(0, 0, 0);
         FUN_00980110(0);
     }
@@ -6497,8 +6497,8 @@ struct LoadBufferStand
 {
     virtual unsigned char Version();
     void FUN_008648e0(void*);
-    void FUN_00864980(void*, unsigned int);
-    unsigned int FUN_00864a60();
+    void LoadData(void*, unsigned int);
+    unsigned int LoadVariableSizedValue();
 };
 struct StateStand
 {
@@ -6620,12 +6620,12 @@ void CombatStand::FUN_00981d00(LoadBufferStand* buffer)
     buffer->FUN_008648e0(&unkBC);
     buffer->FUN_008648e0(&unkC0);
     unsigned int group = 0;
-    buffer->FUN_00864980(&group, 4);
+    buffer->LoadData(&group, 4);
     unk80 = DAT_011f1958->FindByKey(group);
     unk9C->FUN_009a2040(buffer);
     LoadCombatProcedure(&unk84, buffer);
     LoadCombatProcedure(&unk88, buffer);
-    unsigned int count4 = buffer->FUN_00864a60();
+    unsigned int count4 = buffer->LoadVariableSizedValue();
     unk8C.FUN_006f2290(count4, true);
     for (unsigned int i3 = 0; i3 < count4; i3++)
     {
@@ -6633,7 +6633,7 @@ void CombatStand::FUN_00981d00(LoadBufferStand* buffer)
         LoadCombatProcedure(proc, buffer);
     }
     bool hasPlan = false;
-    buffer->FUN_00864980(&hasPlan, 1);
+    buffer->LoadData(&hasPlan, 1);
     if (hasPlan)
     {
         unkA0 = new FUN_00993d60(this);
@@ -6641,30 +6641,30 @@ void CombatStand::FUN_00981d00(LoadBufferStand* buffer)
         unkAC = unkA0->FUN_0084e3a0();
     }
     signed char action5 = -1;
-    buffer->FUN_00864980(&action5, 1);
+    buffer->LoadData(&action5, 1);
     if (action5 != -1)
         unkA8 = FUN_00982070(action5);
-    buffer->FUN_00864980(&unkB0, 4);
+    buffer->LoadData(&unkB0, 4);
     unkB4.FUN_009a5f20(buffer);
-    buffer->FUN_00864980(&unkC7, 1);
-    buffer->FUN_00864980(&unkC8, 4);
-    buffer->FUN_00864980(&unkD8, 4);
-    buffer->FUN_00864980(&unkDC, 4);
-    buffer->FUN_00864980(&unkE4, 1);
-    buffer->FUN_00864980(&unk125, 1);
-    buffer->FUN_00864980(&unk126, 1);
-    buffer->FUN_00864980(&unk144, 4);
-    buffer->FUN_00864980(&unk148, 4);
+    buffer->LoadData(&unkC7, 1);
+    buffer->LoadData(&unkC8, 4);
+    buffer->LoadData(&unkD8, 4);
+    buffer->LoadData(&unkDC, 4);
+    buffer->LoadData(&unkE4, 1);
+    buffer->LoadData(&unk125, 1);
+    buffer->LoadData(&unk126, 1);
+    buffer->LoadData(&unk144, 4);
+    buffer->LoadData(&unk148, 4);
     for (unsigned int j = 0; j < 2; j++)
     {
-        buffer->FUN_00864980(&unk128[j], 12);
-        buffer->FUN_00864980(&unk140[j], 1);
+        buffer->LoadData(&unk128[j], 12);
+        buffer->LoadData(&unk140[j], 1);
     }
-    buffer->FUN_00864980(&unk142, 1);
+    buffer->LoadData(&unk142, 1);
     if (buffer->Version() >= 10)
     {
-        buffer->FUN_00864980(&unkC6, 1);
-        buffer->FUN_00864980(&unkC5, 1);
+        buffer->LoadData(&unkC6, 1);
+        buffer->LoadData(&unkC5, 1);
     }
 }
 }  // namespace fnv_00981d00

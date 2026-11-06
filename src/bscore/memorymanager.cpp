@@ -300,19 +300,19 @@ class FUN_00aa39c0_cls
   public:
     unsigned char m_00;
     void InitializeHeaps();
-    void FUN_00866770();
+    void SpecifyPools();
     void FUN_00483710();
     void FUN_00aa39c0();
 };
 
-// Calls ClearMemoryPoolTables, InitializeHeaps, FUN_00866770 and FUN_00483710, sets m_00 to 1 and clears g_tls.m_2b4.
+// Calls ClearMemoryPoolTables, InitializeHeaps, SpecifyPools and FUN_00483710, sets m_00 to 1 and clears g_tls.m_2b4.
 // @fnv 0x00aa39c0
 void FUN_00aa39c0_cls::FUN_00aa39c0()
 {
     ClearMemoryPoolTables();
     InitializeHeaps();
     m_00 = 1;
-    FUN_00866770();
+    SpecifyPools();
     FUN_00483710();
     g_tls.m_2b4 = 0;
 }

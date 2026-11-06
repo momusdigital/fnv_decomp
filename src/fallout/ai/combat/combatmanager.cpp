@@ -1194,7 +1194,7 @@ struct FUN_005a4320_shell
 
 struct ActorShell
 {
-    bool FUN_008b0970(Actor* apActor);
+    bool GetShouldHelp(Actor* apActor);
     bool IsHostileToActor(Actor* apTarget, int aiArg, int* apResult, bool abArg);
 };
 
@@ -1207,7 +1207,7 @@ struct FUN_00992530_shell : public CombatManager
 bool FUN_00992530_shell::FUN_00992530(Actor* apActor, Actor* apTarget)
 {
     unsigned int kIresult = 0;
-    if (!((ActorShell*)apActor)->FUN_008b0970(apTarget))
+    if (!((ActorShell*)apActor)->GetShouldHelp(apTarget))
         return false;
     if (apActor && apTarget)
     {
@@ -1219,7 +1219,7 @@ bool FUN_00992530_shell::FUN_00992530(Actor* apActor, Actor* apTarget)
             for (unsigned int i5 = 0; i5 < ihelperCount4; i5++)
             {
                 Actor* phelper2 = ((FUN_005a4320_shell*)pgroup2)->FUN_00968630(i5);
-                if (((ActorShell*)apActor)->FUN_008b0970(phelper2))
+                if (((ActorShell*)apActor)->GetShouldHelp(phelper2))
                     return false;
             }
             imemberCount5 = pgroup2->GetCount();
@@ -2398,8 +2398,8 @@ struct BGSSaveFormBuffer
 {
     void SerializeFormData(void*, int);
     void SaveData(void*, int, int);
-    unsigned int FUN_00865f20();
-    void FUN_00865ff0(int, unsigned int);
+    unsigned int StartVariableSizedValue();
+    void SaveVariableSizedValue(int, unsigned int);
 };
 struct CPMap00993a80
 {
@@ -2432,7 +2432,7 @@ void FUN_009932d0_shell::FUN_009932d0(BGSSaveFormBuffer* apBuffer)
 {
     apBuffer->SaveData((char*)this + 0x34, 4, 0);
     unsigned int uiSavedCount = 0;
-    unsigned int uiPos = apBuffer->FUN_00865f20();
+    unsigned int uiPos = apBuffer->StartVariableSizedValue();
     {
         unsigned int uiMapCount;
         unsigned int uiPos2;
@@ -2452,10 +2452,10 @@ void FUN_009932d0_shell::FUN_009932d0(BGSSaveFormBuffer* apBuffer)
                 uiSavedCount++;
             }
         }
-        apBuffer->FUN_00865ff0(uiSavedCount, uiPos);
+        apBuffer->SaveVariableSizedValue(uiSavedCount, uiPos);
         ((S009a59e0*)*(void**)((char*)this + 0x14))->SaveThreats(apBuffer);
         uiMapCount = 0;
-        uiPos2 = apBuffer->FUN_00865f20();
+        uiPos2 = apBuffer->StartVariableSizedValue();
         for (CPMapItem00993a80* pMapPos = (CPMapItem00993a80*)((MapX*)*(void**)((char*)this + 0x10))->GetFirstPos();
              pMapPos;)
         {
@@ -2465,7 +2465,7 @@ void FUN_009932d0_shell::FUN_009932d0(BGSSaveFormBuffer* apBuffer)
             apBuffer->SerializeFormData((void*)uiKey, 0);
             uiMapCount++;
         }
-        apBuffer->FUN_00865ff0(uiMapCount, uiPos2);
+        apBuffer->SaveVariableSizedValue(uiMapCount, uiPos2);
     }
     ((S009a5f90*)((char*)this + 0x20))->SaveTimeStamp(apBuffer);
     ((FUN_009a5eb0_shell*)((char*)this + 0x24))->FUN_009a5eb0(apBuffer);
@@ -2922,7 +2922,7 @@ FUN_00985d10* FUN_00991f80_shell::FUN_00991f80(Actor* apActor)
 
 struct ActorShell_992110
 {
-    bool FUN_008b0670(Actor* apTarget);
+    bool CanAttackActor(Actor* apTarget);
 };
 struct CombatGroup_992110
 {
@@ -2951,7 +2951,7 @@ CombatController_992110* FUN_00992110_shell::FUN_00992110(Actor* apActor, Actor*
     CombatGroup_992110* pGroup2 = 0;
     if (!pController)
     {
-        if (!((ActorShell_992110*)apActor)->FUN_008b0670(apTarget))
+        if (!((ActorShell_992110*)apActor)->CanAttackActor(apTarget))
             return 0;
         pGroup2 = (CombatGroup_992110*)FUN_00991e80();
         pGroup2->AddMember(apActor);

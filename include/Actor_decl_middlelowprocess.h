@@ -21,7 +21,7 @@ class Actor : public MobileObject,
               public CachedValuesOwner
 {
   public:
-    void FUN_00881680(bool a);  // declared for the original code (decl_variants.py)
+    void EndInterruptPackage(bool a);  // declared for the original code (decl_variants.py)
 
   public:
     bhkRagdollController* m_pRagdollController;            // +0xAC

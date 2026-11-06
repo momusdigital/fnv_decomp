@@ -309,10 +309,10 @@ struct DummyPointerMap
 };
 struct Holder
 {
-    void FUN_0085efc0(DummyPointerMap*, unsigned int, unsigned short);
+    void QueueBufferLoad(DummyPointerMap*, unsigned int, unsigned short);
     void FUN_0085f010(TESForm*, unsigned short);
 };
-// Looks up the parent form's ID in the map at offset 0x58; if present, uses 0 instead, then passes the ID and type to FUN_0085efc0.
+// Looks up the parent form's ID in the map at offset 0x58; if present, uses 0 instead, then passes the ID and type to QueueBufferLoad.
 // @fnv 0x0085f010
 void Holder::FUN_0085f010(TESForm* apParentForm, unsigned short aeType)
 {
@@ -320,12 +320,12 @@ void Holder::FUN_0085f010(TESForm* apParentForm, unsigned short aeType)
     unsigned int formID = apParentForm->GetFormID();
     if ((*(DummyPointerMap**)((char*)this + 0x58))->GetAt(formID, uiExistingValue))
         formID = 0;
-    FUN_0085efc0(*(DummyPointerMap**)((char*)this + 0x58), formID, aeType);
+    QueueBufferLoad(*(DummyPointerMap**)((char*)this + 0x58), formID, aeType);
 }
 
 struct BGSSaveGameBuffer
 {
-    void FUN_00865f60(unsigned int);
+    void SaveVariableSizedValue(unsigned int);
     void WriteAtOffset(void*, unsigned int, unsigned int);
 };
 struct FakeBGSLoadGameSubBuffer
@@ -342,7 +342,7 @@ void FakeBGSLoadGameSubBuffer::WriteToSaveGameBuffer(BGSSaveGameBuffer* apSaveGa
     padvancedBuffer = pBuffer + 1;
     isize = 0;
     padvancedBuffer += ReadEncodedInteger(padvancedBuffer, isize);
-    apSaveGameBuffer->FUN_00865f60(isize);
+    apSaveGameBuffer->SaveVariableSizedValue(isize);
     apSaveGameBuffer->WriteAtOffset(padvancedBuffer, isize, 1);
 }
 
@@ -444,11 +444,11 @@ unsigned char BGSSaveFormBuffer::GetVersion()
 struct FUN_00865120_shell
 {
     char* pBuffer;
-    void FUN_00865120(BGSSaveFormBuffer* apSaveGameBuffer);
+    void CopyBuffer(BGSSaveFormBuffer* apSaveGameBuffer);
 };
 
 // @fnv 0x00865120
-void FUN_00865120_shell::FUN_00865120(BGSSaveFormBuffer* apSaveGameBuffer)
+void FUN_00865120_shell::CopyBuffer(BGSSaveFormBuffer* apSaveGameBuffer)
 {
     char* pbuffer;
     unsigned int isize;
@@ -724,7 +724,7 @@ struct ReferenceSaveAccess : TESObjectREFR
 struct SubBufferSaveShell
 {
     char* pBuffer;
-    void FUN_00865120(FUN_008659c0_Buffer* buffer);
+    void CopyBuffer(FUN_008659c0_Buffer* buffer);
     void FUN_00865020(TESForm* form);
 };
 // Saves a reference form to a sub-buffer, or logs a warning if the form is not a reference.
@@ -739,7 +739,7 @@ void SubBufferSaveShell::FUN_00865020(TESForm* form)
                             DAT_011de134->GetConstant27());
         buffer.FUN_0050f9c0(form);
         ref->FUN_00562de0(&buffer);
-        FUN_00865120(&buffer);
+        CopyBuffer(&buffer);
     }
     else
     {

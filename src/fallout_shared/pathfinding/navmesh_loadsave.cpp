@@ -42,7 +42,7 @@ void NavMesh::CopyNavMeshDataTo(NavMeshPtr& copy)
     Triangles.FUN_00694ea0(&copy->Triangles);
     m_kEdgeExtraInfo.FUN_00694f20(&copy->m_kEdgeExtraInfo);
     m_kIndexList.FUN_00694f80(&copy->m_kIndexList);
-    m_kGrid.FUN_0069dd50(&copy->m_kGrid);
+    m_kGrid.CopyTo(&copy->m_kGrid);
     m_kObstacleUndoData.FUN_00694fe0(&copy->m_kObstacleUndoData);
     m_kClosedDoorInfo.FUN_00695040(&copy->m_kClosedDoorInfo);
     void* pos = ((NavMeshObstacleMap*)pTriangleToObstacleMap)->GetFirstPos();
@@ -508,11 +508,11 @@ struct Host006bc8e0
     InnerA006bc8e0* p0;
     int _4;
     InnerB006bc8e0* p8;
-    bool FUN_006bc8e0(InnerA006bc8e0*, InnerB006bc8e0*);
+    bool ResetNavMeshFromObstacleUndoData(InnerA006bc8e0*, InnerB006bc8e0*);
 };
 // Stores the two inner pointers, calls FUN_006bebd0, then forwards b's v10 and v18 to the two sub-objects with flag 1 and returns true.
 // @fnv 0x006bc8e0
-bool Host006bc8e0::FUN_006bc8e0(InnerA006bc8e0* pInnerA, InnerB006bc8e0* pInnerB)
+bool Host006bc8e0::ResetNavMeshFromObstacleUndoData(InnerA006bc8e0* pInnerA, InnerB006bc8e0* pInnerB)
 {
     p0 = pInnerA;
     p8 = pInnerB;
@@ -937,8 +937,8 @@ struct TriS
     bool FUN_00693b90();
     void FUN_00693bb0();
     void FUN_00693c10();
-    void FUN_00693bd0(int);
-    bool FUN_00690e10();
+    void SetObjectCount(int);
+    bool HasEdgeExtraInfo();
     bool IsEdgeFlagSet(int);
     unsigned short FUN_0068f2c0(int);
 };
@@ -979,15 +979,15 @@ struct NavMeshS
 {
     TriS* FUN_005582f0(unsigned short);
     EdgeExtraInfo* GetEdge(unsigned short);
-    void FUN_006959b0();
+    void CreateGrid();
     void RebuildTriangleList();
     void UpdateTriangleExtraInfo(unsigned short);
     TESForm* GetDoorForm();
-    void FUN_006986d0();
+    void UpdateNavMeshInfo();
     void Validate(bool);
 };
 unsigned int FUN_00693db0();
-TESForm* __fastcall FUN_00690830(const NavMeshInfo*);
+TESForm* __fastcall GetParentSpace(const NavMeshInfo*);
 extern TESObjectCELL* DAT_011c3f30;
 extern ProcessLists g_011d6ca8;
 
@@ -1131,7 +1131,7 @@ bool FUN_00692950_shell::FUN_00692950(TESFile* apFile)
                 {
                     if (apFile->QEndian())
                         ((TriArr*)((char*)this + 0x38))->FUN_00558dd0(i).FUN_00693c10();
-                    ((TriArr*)((char*)this + 0x38))->FUN_00558dd0(i).FUN_00693bd0(0);
+                    ((TriArr*)((char*)this + 0x38))->FUN_00558dd0(i).SetObjectCount(0);
                 }
             }
             break;
@@ -1146,7 +1146,7 @@ bool FUN_00692950_shell::FUN_00692950(TESFile* apFile)
                     ((TESForm*)this)->GetDebugName(&navmeshString);
                     Warning("MASTERFILE: Navmesh %s has a bad navmesh grid, please touch and resave",
                             (unsigned int)(const Flt&)navmeshString);
-                    ((NavMeshS*)this)->FUN_006959b0();
+                    ((NavMeshS*)this)->CreateGrid();
                 }
                 operator delete(pchunkData);
             }
@@ -1274,11 +1274,11 @@ bool FUN_00692950_shell::FUN_00692950(TESFile* apFile)
         {
             Warning("MASTERFILE: Did not find matching NavMeshInfo for NavMesh ID %08X, Creating a temporary one",
                     ((TESForm*)this)->GetFormID());
-            ((NavMeshS*)this)->FUN_006986d0();
+            ((NavMeshS*)this)->UpdateNavMeshInfo();
         }
         else
         {
-            if (!FUN_00690830(*(NavMeshInfo**)((char*)this + 0x104)))
+            if (!GetParentSpace(*(NavMeshInfo**)((char*)this + 0x104)))
                 *(unsigned int*)((char*)*(NavMeshInfo**)((char*)this + 0x104) + 4) =
                     ((NavMeshS*)this)->GetDoorForm()->GetFormID();
             ((TESRecipe*)*(NavMeshInfo**)((char*)this + 0x104))->SetCategory((unsigned int)this);
@@ -1305,7 +1305,7 @@ bool FUN_00692950_shell::FUN_00692950(TESFile* apFile)
                 TriS* ptri = ((NavMeshS*)this)->FUN_005582f0((unsigned short)i);
                 if (ptri->HasFlag40())
                 {
-                    if (!ptri->FUN_00690e10())
+                    if (!ptri->HasEdgeExtraInfo())
                         continue;
                     for (int e = 0; e < 3; ++e)
                     {

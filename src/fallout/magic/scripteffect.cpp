@@ -280,7 +280,7 @@ struct FUN_008050d0_shell
 
 struct FUN_008579b0_shell
 {
-    void FUN_008579b0(void*, unsigned int);
+    void SaveGameDataOLD(void*, unsigned int);
 };
 
 struct FUN_005a9670_shell
@@ -304,7 +304,7 @@ void FUN_00827ca0_shell::LoadScriptEffect(BGSLoadFormBuffer* apBuffer)
         {
             count = ((FUN_005a94f0_shell*)m_pScriptLocals)->GetScriptLocalsSerializedSize();
         }
-        ((FUN_008579b0_shell*)g_TESSaveLoadGame)->FUN_008579b0(&count, 2);
+        ((FUN_008579b0_shell*)g_TESSaveLoadGame)->SaveGameDataOLD(&count, 2);
     }
     if (g_TESSaveLoadGame->FUN_008df040() < 0x2a)
     {
@@ -328,7 +328,7 @@ struct FUN_005abf60_shell
 
 struct FUN_008579e0_shell
 {
-    void FUN_008579e0(void* pFlag, unsigned int value);
+    void LoadGameDataOLD(void* pFlag, unsigned int value);
 };
 
 struct FUN_00857bd0
@@ -353,7 +353,7 @@ void FUN_00827d30_class::FUN_00827d30(Actor* apActor)
     unsigned short flag = 0;
     if (g_TESSaveLoadGame->FUN_008df040() >= 42)
     {
-        ((FUN_008579e0_shell*)g_TESSaveLoadGame)->FUN_008579e0(&flag, 2);
+        ((FUN_008579e0_shell*)g_TESSaveLoadGame)->LoadGameDataOLD(&flag, 2);
     }
     if (g_TESSaveLoadGame->FUN_008df040() < 42)
     {

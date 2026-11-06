@@ -10743,7 +10743,7 @@ struct Entity
 {
     unsigned int unk00, unk04;
     HavokPart* unk08;
-    void FUN_00626cb0(unsigned int);
+    void SetCollisionFilter(unsigned int);
 };
 struct Collision
 {
@@ -10950,7 +10950,7 @@ void ApplyCollisionEffect(Scene* object, float time)
             HavokPart* pAdjustedPart = part ? (HavokPart*)((char*)part + 0x10) : 0;
             filter = pAdjustedPart ? pAdjustedPart->unk1C : 0;
             filter = (filter & ~0x77u) | 8;
-            entity->FUN_00626cb0(filter);
+            entity->SetCollisionFilter(filter);
         }
         unsigned int layer = (filter >> 8) & 31;
         float scale = DAT_011b1190[layer];
@@ -17703,7 +17703,7 @@ void __cdecl FUN_00c9e3e0(void)
 struct C00624070
 {
     unsigned int value;
-    __declspec(noinline) bool FUN_00624070();
+    __declspec(noinline) bool QBipLayer();
 };
 
 extern unsigned __int64 selected_target_masks[];
@@ -17756,13 +17756,13 @@ bool FUN_00c84740(unsigned int a, unsigned int b)
         return abs(int((cachedA >> 8) & 31) - int((cachedB >> 8) & 31)) != 1;
     }
 
-    if (!((C00624070*)&a)->FUN_00624070() || !((C00624070*)&b)->FUN_00624070())
+    if (!((C00624070*)&a)->QBipLayer() || !((C00624070*)&b)->QBipLayer())
         return false;
 
     return Mask135(cachedA, cachedB);
 }
 
-__declspec(noinline) bool C00624070::FUN_00624070()
+__declspec(noinline) bool C00624070::QBipLayer()
 {
     unsigned int layer = value & 127;
     return layer == 8 || layer == 29;

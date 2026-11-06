@@ -226,7 +226,7 @@ void __cdecl _FNV_Warning(char const*);
 void __cdecl _FUN_007037e0();
 void __cdecl ShutdownVats();
 // @fnv 0x007f4890
-Tile* __cdecl FUN_007f4890(Tile* a1, char const* a2)
+Tile* __cdecl VatsMenuGetTileByName(Tile* a1, char const* a2)
 {
     Tile* result = FindNamedTile(a1, a2);
     if (result != 0)
@@ -415,11 +415,11 @@ struct FUN_00800ed0_This
         int v;
         GO g;
     } arr[32];
-    void FUN_00800ed0();
+    void ClearMultiTargets();
 };
 // Resets each of the cnt entries' value and pointer to zero, then sets cnt to 0 and sel to -1.
 // @fnv 0x00800ed0
-void FUN_00800ed0_This::FUN_00800ed0()
+void FUN_00800ed0_This::ClearMultiTargets()
 {
     for (int i = 0; i < cnt; ++i)
     {
@@ -1491,7 +1491,7 @@ InterfaceManagerX* xFUN_004b7210();
 
 struct EffectX
 {
-    void FUN_00800ac0(int a1, int a2, int a3);
+    void SetTarget(int a1, int a2, int a3);
 };
 EffectX* xGetVATSEffect();
 
@@ -1571,12 +1571,12 @@ struct VATSMenuX
     void AssignActionTiles(ListX<TargetX*>* apNode);
     void UpdateLimbHighlight();
     void UpdateQueueEntry(CommandX* apCmd, bool abArg2, bool abArg3);
-    float FUN_007f48e0();
+    float CalculateProbableEnemyHealth();
     void UpdateHitChanceDisplay();
     bool UpdateVatsTargeting();
     void FUN_007f3070();
     bool FUN_007f28d0();
-    bool FUN_007f6af0();
+    bool PickNewTarget();
     ListX<ChanceX*>* FindEntryForRef();
     int FUN_007f3bf0(int aiLimb);
     int GetConsecutiveMatchCount();
@@ -1664,7 +1664,7 @@ void VATSMenuX::Update()
         if (!xFUN_00702450(0x420) && xDAT_011a0b68)
         {
             xDAT_011a0b68 = 0;
-            xGetVATSEffect()->FUN_00800ac0(0, -1, 0);
+            xGetVATSEffect()->SetTarget(0, -1, 0);
         }
         m_pTiles[28]->RemoveFadeItemsForTile(0x80000000);
         (*m_pTiles[28]->kChildren.FUN_0073ac90())->RemoveFadeItemsForTile(0x80000000);
@@ -1833,7 +1833,7 @@ void VATSMenuX::Update()
             if (xDAT_011f2250.GetFlags() == 2 && m_bFirstFlag)
             {
                 UpdateQueueEntry(0, 0, 0);
-                xDAT_011db0d4->m_fHitChance = xDAT_011db0d4->FUN_007f48e0();
+                xDAT_011db0d4->m_fHitChance = xDAT_011db0d4->CalculateProbableEnemyHealth();
             }
             UpdateHitChanceDisplay();
         }
@@ -1967,7 +1967,7 @@ void VATSMenuX::Update()
             }
             if (xDAT_011f21cc && iModeNum76)
             {
-                bool bBusy = !InterfaceManagerX::FUN_004b71d0() && FUN_007f6af0();
+                bool bBusy = !InterfaceManagerX::FUN_004b71d0() && PickNewTarget();
                 if (!bBusy && m_pTargetChance->fHitChance > 0)
                 {
                     if ((xFUN_004b7210()->FUN_004b71d0() && xDAT_011f2250.GetFlags() == 2) ||
@@ -2187,12 +2187,12 @@ void VATSMenuX::Update()
                             kSoundIn = AudioX::GetSingleton()->GetSoundHandleByEditorID("UIVATSEnterFail", 0x121);
                             kSoundIn.Play(0);
                         }
-                        xDAT_011db0d4->m_fHitChance = xDAT_011db0d4->FUN_007f48e0();
+                        xDAT_011db0d4->m_fHitChance = xDAT_011db0d4->CalculateProbableEnemyHealth();
                     }
                     else if (!xFUN_004b7210()->FUN_004b71d0() && xDAT_011f2250.GetFlags() == 1 &&
                              !m_bAdditionalStateFlag)
                     {
-                        FUN_007f6af0();
+                        PickNewTarget();
                     }
                 }
                 else if (!bBusy && m_pTargetChance->bCrippled && xDAT_011f2250.GetFlags() == 2 && m_bFirstFlag)
@@ -2805,10 +2805,10 @@ struct Target
     unsigned int unk2b0;
     bool flag2b4, flag2b5;
     void FUN_00800650(float, float, bool);
-    void FUN_00800ac0(TargetActor*, int, bool);
+    void SetTarget(TargetActor*, int, bool);
 };
 // @fnv 0x00800ac0
-void Target::FUN_00800ac0(TargetActor* actor, int slot, bool state)
+void Target::SetTarget(TargetActor* actor, int slot, bool state)
 {
     if (!actor)
         FUN_0040fbe0(DAT_01078e44);
@@ -3119,7 +3119,7 @@ extern PromptSetting originalRuntimeFloatSetting1077, originalRuntimeFloatSettin
 extern PromptSetting g_011d2754, g_011d46c0, g_011d46d8;
 void ApplyPerkModifiers(int, PlayerPrompt*, ...);
 // @fnv 0x007eb920
-void __cdecl FUN_007eb920(WeaponPrompt* weapon)
+void __cdecl SetupSpecialAttackButtons(WeaponPrompt* weapon)
 {
     if (weapon && weapon->FUN_007ebd10() > 0.0 &&
         weapon->FUN_007ebd30() <= DAT_011dea3c->values.Get(weapon->GetUnk15C()))
@@ -3576,13 +3576,13 @@ struct Actor
     virtual void slot41c();
     virtual void slot420();
     virtual void Act(Actor*, int, int, int, int, int, int, int);
-    bool FUN_0087f3d0();
-    bool FUN_008b8e90(void*);
+    bool GetEssential();
+    bool IsInFaction(void*);
 };
 struct Wheel
 {
-    void FUN_00800ac0(int, int, int);
-    void FUN_00800ed0();
+    void SetTarget(int, int, int);
+    void ClearMultiTargets();
 };
 Wheel* FUN_00705910();
 void FUN_005e58f0(int, void*, float*);
@@ -3646,11 +3646,11 @@ void ShutdownVats()
         float chanceBSlot0 = *V::DAT_011ce738.FUN_00403e20();
         V::FUN_005e58f0(67, V::DAT_011dea3c, &chanceASlot14);
         V::FUN_005e58f0(67, V::DAT_011dea3c, &chanceBSlot0);
-        if (V::DAT_011f21e8 && V::DAT_011f21cc && V::DAT_011f21cc->Ready() && !V::DAT_011f21cc->FUN_0087f3d0() &&
+        if (V::DAT_011f21e8 && V::DAT_011f21cc && V::DAT_011f21cc->Ready() && !V::DAT_011f21cc->GetEssential() &&
             chanceBSlot0 >= V::FUN_00476b70(0.0f, 1.0f))
         {
             void* perk = V::FUN_0058db10(8);
-            if (perk && !V::DAT_011f21cc->FUN_008b8e90(perk))
+            if (perk && !V::DAT_011f21cc->IsInFaction(perk))
             {
                 V::Request* action = new V::Request();
                 action->action = 25;
@@ -3663,7 +3663,7 @@ void ShutdownVats()
                 V::DAT_011f21e8->Act(V::DAT_011f21cc, 0, 1, 1, 0, 0, 1, 0);
             }
         }
-        if (V::DAT_011f21ec && V::DAT_011f21cc && V::DAT_011f21cc->Ready() && !V::DAT_011f21cc->FUN_0087f3d0() &&
+        if (V::DAT_011f21ec && V::DAT_011f21cc && V::DAT_011f21cc->Ready() && !V::DAT_011f21cc->GetEssential() &&
             chanceASlot14 >= V::FUN_00476b70(0.0f, 1.0f))
         {
             V::Request* action = new V::Request();
@@ -3693,8 +3693,8 @@ void ShutdownVats()
             V::DAT_011f21ec = 0;
         }
     }
-    V::FUN_00705910()->FUN_00800ac0(0, -1, 0);
-    V::FUN_00705910()->FUN_00800ed0();
+    V::FUN_00705910()->SetTarget(0, -1, 0);
+    V::FUN_00705910()->ClearMultiTargets();
     V::DAT_011db0cd = 0;
 }
 
@@ -3996,7 +3996,7 @@ struct Menu85
     Limb85* current;
     TargetList85* FindListEntryForTarget(Actor85*);
     int FUN_007f3bf0(int);
-    float FUN_007f48e0();
+    float CalculateProbableEnemyHealth();
 };
 extern Actor85* DAT_011db0d0;
 extern Actor85* DAT_011dea3c;
@@ -4016,7 +4016,7 @@ struct Audio85
 Audio85* FUN_00453a70();
 struct Highlight85
 {
-    void FUN_00800ac0(Actor85*, int, int);
+    void SetTarget(Actor85*, int, int);
     void AppendValue(int);
 };
 Highlight85* FUN_00705910();
@@ -4038,7 +4038,7 @@ void UpdateVatsTargetHighlight(bool force)
                 sound.FUN_00418900(FUN_00453a70()->FUN_00ad7550("UIVATSSelectTargetPart", 289));
                 sound.FUN_00ad8830(0);
             }
-            ((Menu85*)DAT_011db0d4)->damage = ((Menu85*)DAT_011db0d4)->FUN_007f48e0();
+            ((Menu85*)DAT_011db0d4)->damage = ((Menu85*)DAT_011db0d4)->CalculateProbableEnemyHealth();
             Actor85* actor4 = 0;
             if (target13 && *target13->FUN_006815c0() && (*target13->FUN_006815c0())->actor->IsActor())
                 actor4 = (*target13->FUN_006815c0())->actor;
@@ -4051,10 +4051,10 @@ void UpdateVatsTargetHighlight(bool force)
                     (((Mode85*)&DAT_011f2250)->FUN_0044ddc0() == 2 && DAT_011db0d0 != ((Actor85*)DAT_011f21cc)))
                 {
                     if (((Mode85*)&DAT_011f2250)->FUN_0044ddc0() == 3)
-                        FUN_00705910()->FUN_00800ac0((*target13->FUN_006815c0())->actor,
+                        FUN_00705910()->SetTarget((*target13->FUN_006815c0())->actor,
                                                      ((Menu85*)DAT_011db0d4)->current->part, 1);
                     else
-                        FUN_00705910()->FUN_00800ac0((*target13->FUN_006815c0())->actor, 15, 0);
+                        FUN_00705910()->SetTarget((*target13->FUN_006815c0())->actor, 15, 0);
                     DAT_011db0d0 = (*target13->FUN_006815c0())->actor;
                 }
                 DAT_011a0b70 = ((Menu85*)DAT_011db0d4)->current->part;
@@ -4062,9 +4062,9 @@ void UpdateVatsTargetHighlight(bool force)
             else if (actor4 && actor4->FUN_008d8520())
             {
                 if (!((Menu85*)DAT_011db0d4)->current->flag && ((Mode85*)&DAT_011f2250)->FUN_0044ddc0() == 3)
-                    FUN_00705910()->FUN_00800ac0(((Actor85*)DAT_011f21cc), ((Menu85*)DAT_011db0d4)->current->part, 1);
+                    FUN_00705910()->SetTarget(((Actor85*)DAT_011f21cc), ((Menu85*)DAT_011db0d4)->current->part, 1);
                 else
-                    FUN_00705910()->FUN_00800ac0(((Actor85*)DAT_011f21cc), ((Menu85*)DAT_011db0d4)->current->part, 0);
+                    FUN_00705910()->SetTarget(((Actor85*)DAT_011f21cc), ((Menu85*)DAT_011db0d4)->current->part, 0);
                 LimbList85* limb =
                     &(*((Menu85*)DAT_011db0d4)->FindListEntryForTarget(((Actor85*)DAT_011f21cc))->FUN_006815c0())
                          ->limbs;
@@ -4446,7 +4446,7 @@ struct MenuX
     TargetsX* FindListEntryForTarget(RefX*);
     void AssignActionTiles(TargetsX*);
     void UpdateQueueEntry(int, int, int);
-    float FUN_007f48e0();
+    float CalculateProbableEnemyHealth();
     void FUN_007f3070();
 };
 
@@ -4465,7 +4465,7 @@ void FUN_007f3bd0(int);
 void FUN_00705780();
 extern bool DAT_011db0b2;
 extern bool DAT_011db0b3;
-void FUN_007eb920(unsigned);
+void SetupSpecialAttackButtons(unsigned);
 // Handles a VATS menu key press: updates left/right state, plays sounds, cycles the selected target and its items, and refreshes the menu.
 // @fnv 0x007eecb0
 void MenuX::HandleInput(int key, int held)
@@ -4642,13 +4642,13 @@ void MenuX::HandleInput(int key, int held)
         if (!closing && reinterpret_cast<VatsX*>(&DAT_011f2250)->FUN_0044ddc0() == 2 && heading)
         {
             UpdateQueueEntry(0, 0, 0);
-            reinterpret_cast<MenuX*>(DAT_011db0d4)->damage = reinterpret_cast<MenuX*>(DAT_011db0d4)->FUN_007f48e0();
+            reinterpret_cast<MenuX*>(DAT_011db0d4)->damage = reinterpret_cast<MenuX*>(DAT_011db0d4)->CalculateProbableEnemyHealth();
         }
         break;
     }
     if (selectedTarget && selectedTarget->v64())
         DAT_011a59f0 = 25;
-    FUN_007eb920(flags);
+    SetupSpecialAttackButtons(flags);
     FUN_007f3070();
     if (reinterpret_cast<VatsX*>(&DAT_011f2250)->FUN_005d8710() && selectedTarget)
         reinterpret_cast<VatsX*>(&DAT_011f2250)->FUN_009c9ae0(selectedTarget);
@@ -5974,10 +5974,10 @@ struct TimerM
 struct EffectM
 {
     void FUN_0044ac20(const int*);
-    void FUN_00800d50(ActorM*);
-    void FUN_00800e50(ActorM*);
-    void FUN_00800ac0(ActorM*, int, int);
-    void FUN_00800ed0();
+    void SetMultiTarget(ActorM*);
+    void SetSelectedMultiTarget(ActorM*);
+    void SetTarget(ActorM*, int, int);
+    void ClearMultiTargets();
     bool GetByteAtOffset();
     void FUN_00800700();
     void FUN_008009d0();
@@ -6113,19 +6113,19 @@ bool MenuM::UpdateVatsTargeting()
             a9 = &mTargets;
             while (a9 && !a9->FUN_008256d0())
             {
-                FUN_00705910()->FUN_00800d50(a9->FUN_006815c0()->actor);
+                FUN_00705910()->SetMultiTarget(a9->FUN_006815c0()->actor);
                 a9 = a9->FUN_00726070();
             }
             lit = true;
         }
-        FUN_00705910()->FUN_00800e50(mTarget);
+        FUN_00705910()->SetSelectedMultiTarget(mTarget);
         return true;
     }
     else if (lit)
     {
         lit = false;
-        FUN_00705910()->FUN_00800ac0(0, 0, 0);
-        FUN_00705910()->FUN_00800ed0();
+        FUN_00705910()->SetTarget(0, 0, 0);
+        FUN_00705910()->ClearMultiTargets();
         disabledVal = 0;
         FUN_00705910()->FUN_0044ac20(&disabledVal);
         UpdateVatsTargetHighlight(1);
@@ -6143,7 +6143,7 @@ bool MenuM::UpdateVatsTargeting()
                 FUN_00705910()->FUN_00800700();
                 if (!target22->actor->check())
                 {
-                    FUN_00705910()->FUN_00800ac0(target22->actor, 1, 1);
+                    FUN_00705910()->SetTarget(target22->actor, 1, 1);
                     FUN_00705910()->FUN_008009d0();
                 }
             }
@@ -6369,7 +6369,7 @@ struct WeaponTypeCall
 float FUN_009b4fe0(CommandX* command);
 
 // @fnv 0x007f48e0
-float VATSMenuX::FUN_007f48e0()
+float VATSMenuX::CalculateProbableEnemyHealth()
 {
     if (!xDAT_011f21cc || !xDAT_011f21cc->IsActor())
         return 0.0f;
@@ -7309,7 +7309,7 @@ struct PlayerCharacter : public Actor
     ProcessX* GetCurrentAIProcess();
 };
 
-void __cdecl FUN_007eb920(unsigned int);
+void __cdecl SetupSpecialAttackButtons(unsigned int);
 float __cdecl GetAngleBetweenPoints(const P3&, const P3&);
 
 struct TargetSelectHelper
@@ -7344,7 +7344,7 @@ void TargetSelectHelper::SelectTarget(bool abReverse)
         {
             bestAngle2 = diff2;
             DAT_011f21cc = *reinterpret_cast<Actor**>(*iter->FUN_006815c0());
-            FUN_007eb920(flags);
+            SetupSpecialAttackButtons(flags);
 
             BSSimpleList* itemIter2 = reinterpret_cast<BSSimpleList*>(&(*iter->FUN_006815c0())->items);
             reinterpret_cast<VATSMenu*>(DAT_011db0d4)->m_pTargetChance = *itemIter2->FUN_006815c0();
@@ -8914,7 +8914,7 @@ struct GlobC
 {
     BSSimpleList* FUN_00595d10();
     GlobD* FUN_008d6f30();
-    bool FUN_0088b880(int a1, void* a2, int a3, int a4, int a5);
+    bool LineOfSight(int a1, void* a2, int a3, int a4, int a5);
     void* FUN_00575d70();
     MidObj* FUN_00931ed0(void* a);
 };
@@ -9396,7 +9396,7 @@ bool FUN_007f52c0()
         }
         float prob = target->reference->FUN_005723b0(DAT_011dea3c, 0, 0);
         if (prob < DAT_01011590 || prob > *DAT_011d45b8.FUN_00403e20() ||
-            !((GlobC*)DAT_011dea3c)->FUN_0088b880(1, target->reference, 1, 0, 1))
+            !((GlobC*)DAT_011dea3c)->LineOfSight(1, target->reference, 1, 0, 1))
         {
             cur = cur->FUN_00726070();
             continue;

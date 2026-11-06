@@ -36,11 +36,11 @@ FormChangeMask FormChangeMask::HasFormChanged(FormChangeMask changes, FormChange
 
 struct FUN_00841100_shell : public FormChangeMask
 {
-    void FUN_00841100(int);
+    void AddFlags(int);
 };
 
 // @fnv 0x00841100
-void FUN_00841100_shell::FUN_00841100(int aiFlags)
+void FUN_00841100_shell::AddFlags(int aiFlags)
 {
     *(int*)this |= aiFlags;
 }
@@ -517,11 +517,11 @@ bool BGSChangeFlagsEx::TestFormChangeFlags(TESForm* apForm)
         {
             if (Test(0x10000000))
             {
-                kForced.FUN_00841100(0x10000000);
+                kForced.AddFlags(0x10000000);
             }
             if (Test(0x8000000))
             {
-                kForced.FUN_00841100(0x8000000);
+                kForced.AddFlags(0x8000000);
             }
         }
         switch (eFormType2)
@@ -530,7 +530,7 @@ bool BGSChangeFlagsEx::TestFormChangeFlags(TESForm* apForm)
         case 0x3C:
             if (Test(0x40000))
             {
-                kForced.FUN_00841100(0x40000);
+                kForced.AddFlags(0x40000);
             }
             break;
         }
@@ -538,7 +538,7 @@ bool BGSChangeFlagsEx::TestFormChangeFlags(TESForm* apForm)
     case 0x47:
         if (Test(0x40000000))
         {
-            kForced.FUN_00841100(0x40000000);
+            kForced.AddFlags(0x40000000);
         }
         break;
     }

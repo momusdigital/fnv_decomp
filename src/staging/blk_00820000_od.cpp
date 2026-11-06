@@ -331,10 +331,10 @@ struct S7010
 };
 struct FUN_0083dea0_class
 {
-    unsigned int FUN_0083dea0();
+    unsigned int HasDummyPrompt();
 };
 // @fnv 0x0083dea0
-unsigned int FUN_0083dea0_class::FUN_0083dea0()
+unsigned int FUN_0083dea0_class::HasDummyPrompt()
 {
     return 0 < ((S7010*)((char*)this + 0x34))->Length();
 }

@@ -1089,10 +1089,10 @@ struct PhantomS
     int unkCC;
     CollidableS** m_overlapData;
     int m_overlapSize;
-    void FUN_00cf2880(const CollidableS* collA, const LinCastInputS& input, void* castCollector, void* startCollector);
+    void linearCast(const CollidableS* collA, const LinCastInputS& input, void* castCollector, void* startCollector);
 };
 // @fnv 0x00cf2880
-void PhantomS::FUN_00cf2880(const CollidableS* collA, const LinCastInputS& input, void* castCollector,
+void PhantomS::linearCast(const CollidableS* collA, const LinCastInputS& input, void* castCollector,
                             void* startCollector)
 {
     union

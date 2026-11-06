@@ -1748,8 +1748,8 @@ struct XPObj
 {
     XPObj();
     ~XPObj();
-    void FUN_0067f140(int);
-    void FUN_0067f3c0(void*);
+    void SetLocType(int);
+    void SetLocReference(void*);
     void* unk00;
     void* unk04;
     void* unk08;

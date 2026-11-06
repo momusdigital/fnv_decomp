@@ -30,14 +30,14 @@ struct TESForm
 struct LightEffect : TESForm
 {
     void FUN_0080f030(Actor* apActor);
-    void FUN_0080ed60();
+    void DetachLight();
 };
 
 // @fnv 0x0080f030
 void LightEffect::FUN_0080f030(Actor* apActor)
 {
     TESForm::Revert(apActor);
-    FUN_0080ed60();
+    DetachLight();
 }
 
 struct FUN_0080e6d0_shell
@@ -336,14 +336,14 @@ struct Host
     Source* FUN_0059bb30();
     void FUN_0080e830();
 };
-void __cdecl FUN_0080ee50(int* value);
-// Gets an Effect via FUN_0059bb30()->FUN_00822b40() and, if non-null, passes its field94 to FUN_0080ee50.
+void __cdecl AttachBestLightEffect(int* value);
+// Gets an Effect via FUN_0059bb30()->FUN_00822b40() and, if non-null, passes its field94 to AttachBestLightEffect.
 // @fnv 0x0080e830
 void Host::FUN_0080e830()
 {
     Effect* effect = FUN_0059bb30() ? FUN_0059bb30()->FUN_00822b40() : 0;
     if (effect)
-        FUN_0080ee50(effect ? &effect->field94 : 0);
+        AttachBestLightEffect(effect ? &effect->field94 : 0);
 }
 
 struct FUN_0080e900_inner
@@ -353,21 +353,21 @@ struct FUN_0080e900_inner
 
 struct FUN_0080e900_cls
 {
-    void FUN_0080ed60();
+    void DetachLight();
     FUN_0080e900_inner* FUN_0059bb30();
     void FUN_0080e900();
 };
 
-void __cdecl FUN_0080ee50(char* p);
+void __cdecl AttachBestLightEffect(char* p);
 
 // @fnv 0x0080e900
 void FUN_0080e900_cls::FUN_0080e900()
 {
-    FUN_0080ed60();
+    DetachLight();
     char* a = FUN_0059bb30() != 0 ? (char*)FUN_0059bb30()->FUN_00822b40() : 0;
     if (a != 0)
     {
-        FUN_0080ee50(a != 0 ? a + 0x94 : 0);
+        AttachBestLightEffect(a != 0 ? a + 0x94 : 0);
     }
 }
 
@@ -389,7 +389,7 @@ void* __cdecl FUN_00450b80(int aiArg);
 typedef void(__thiscall* EdVirtual)(void* self, void* apArg);
 
 // @fnv 0x0080ed60
-void LightEffect::FUN_0080ed60()
+void LightEffect::DetachLight()
 {
     void* pActor2;
     void* pTmp;

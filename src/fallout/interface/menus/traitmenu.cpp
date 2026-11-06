@@ -928,7 +928,7 @@ extern int DAT_011daf70;
 int __cdecl FUN_00408b20(char const*, char const*);
 
 // @fnv 0x007e7740
-int FUN_007e7740(ListBoxItem<BGSPerk*>* apItem1, ListBoxItem<BGSPerk*>* apItem2)
+int SortPerksFunc(ListBoxItem<BGSPerk*>* apItem1, ListBoxItem<BGSPerk*>* apItem2)
 {
     int iresult;
 
@@ -1528,7 +1528,7 @@ TileView* __cdecl FUN_007e6990()
         ((TraitView*)DAT_011daf74)->FUN_00726070()->Set(DAT_011daf68, ((TraitView*)DAT_011daf74)->count);
         ((TraitView*)DAT_011daf74)->UpdateValueDifferenceMessage();
         ((TraitView*)DAT_011daf74)->box.Traverse(FUN_007e7670, 0, 0x7fffffff);
-        ((TraitView*)DAT_011daf74)->box.Sort(FUN_007e7740);
+        ((TraitView*)DAT_011daf74)->box.Sort(SortPerksFunc);
         ((TraitView*)DAT_011daf74)->box.UpdateScrollTile(true);
         return manager;
     }

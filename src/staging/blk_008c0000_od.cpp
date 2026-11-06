@@ -858,11 +858,11 @@ extern ProcessLists DAT_011e0e80;
 
 struct FUN_008d6f50_Class
 {
-    void FUN_008d6f50(int arg);
+    void Run(int arg);
 };
 
 // @fnv 0x008d6f50
-void FUN_008d6f50_Class::FUN_008d6f50(int pCamera)
+void FUN_008d6f50_Class::Run(int pCamera)
 {
     if (((NiPointer<NiNode>*)((char*)this + 0xa0))->operator==(0))
     {
@@ -953,11 +953,11 @@ struct FUN_00571550_shell
 int __cdecl FUN_00571550();
 struct FUN_008da1a0_Class
 {
-    void FUN_008da1a0(FUN_00571550_shell* actor);
+    void InitBoneLOD(FUN_00571550_shell* actor);
 };
 // Clears the field at offset 0x2e4, then scans the actor's model controllers and stores the first one accepted by g_012031b8.
 // @fnv 0x008da1a0
-void FUN_008da1a0_Class::FUN_008da1a0(FUN_00571550_shell* actor)
+void FUN_008da1a0_Class::InitBoneLOD(FUN_00571550_shell* actor)
 {
     *(int*)((char*)this + 0x2e4) = 0;
     int id = actor->GetReferenceType();
@@ -2995,7 +2995,7 @@ struct ResourceInfo
 };
 struct EventProperty
 {
-    unsigned char FUN_006205a0();
+    unsigned char QMaterial();
 };
 struct EventTarget
 {
@@ -3138,11 +3138,11 @@ struct Object
     virtual void v114();
     virtual void v115();
     virtual int GetSource();
-    void FUN_008cfad0(float weight, int a, int b, int c, int offset, unsigned char enabled);
+    void PlayArrowCollisionSound(float weight, int a, int b, int c, int offset, unsigned char enabled);
 };
 // If the object's source resolves to a resource with metadata, builds an EventRecord from the arguments and passes it to FUN_00837550.
 // @fnv 0x008cfad0
-void Object::FUN_008cfad0(float weight, int aiParam1, int aiParam2, int aiParam3, int offset, unsigned char enabled)
+void Object::PlayArrowCollisionSound(float weight, int aiParam1, int aiParam2, int aiParam3, int offset, unsigned char enabled)
 {
     int source = GetSource();
     if (source != 0 && *reinterpret_cast<int**>(reinterpret_cast<unsigned char*>(this) + 0x88) != 0 &&
@@ -3157,7 +3157,7 @@ void Object::FUN_008cfad0(float weight, int aiParam1, int aiParam2, int aiParam3
             record.defaultWeight = DAT_01016248;
             record.target = metadata;
             record.cursorOffset = offset;
-            record.resourceType = metadata->FUN_004ae6a0()->FUN_006205a0();
+            record.resourceType = metadata->FUN_004ae6a0()->QMaterial();
             record.enabled = enabled;
             record.param1 = aiParam1;
             record.param2 = aiParam2;
@@ -4659,7 +4659,7 @@ struct FloatSetting
 extern FloatSetting DAT_011ce1dc, DAT_011cedac;
 struct AnimationOutput
 {
-    void FUN_00626cb0(unsigned int);
+    void SetCollisionFilter(unsigned int);
     void FUN_005615d0(const NiPoint3&);
     void FUN_00561630(const NiPoint3&);
 };
@@ -4914,7 +4914,7 @@ bool MovementController::UpdateAnimation(AnimationOutput* output)
         getNode()->FUN_00a59c60(update);
     }
     FUN_00c6a350(getNode(), 1, true, false, true);
-    output->FUN_00626cb0(UpdateToken(4, GetCachedValue(), 0).value);
+    output->SetCollisionFilter(UpdateToken(4, GetCachedValue(), 0).value);
     if (!DAT_011de45c->FUN_0047c850())
     {
         NiPoint3 aRotation = FUN_004a3760(-1.0f, velocity);
@@ -5146,7 +5146,7 @@ struct CollisionFilterD6
 struct AnimationOutputD6
 {
     CollisionFilterD6 FUN_0043b4f0();
-    void FUN_00626cb0(unsigned int);
+    void SetCollisionFilter(unsigned int);
 };
 struct MovementControllerD6 : MovementController
 {
@@ -5163,8 +5163,8 @@ bool MovementControllerD6::FUN_008cd6d0(AnimationOutputD6* output)
     CollisionFilterD6 filter = output->FUN_0043b4f0();
     filter.FUN_004a39f0(0xf);
     filter.SetFlag4000(false);
-    output->FUN_00626cb0(filter.value);
-    output->FUN_00626cb0(UpdateToken(0xf, GetCachedValue(), 0).value);
+    output->SetCollisionFilter(filter.value);
+    output->SetCollisionFilter(UpdateToken(0xf, GetCachedValue(), 0).value);
     return true;
 }
 
@@ -5566,7 +5566,7 @@ class TopicInfoArray
 };
 // Removes up to maximum ArrowProjectiles matching owner, target and filter: the first pass deletes or calls FUN_008cc6d0(3), the second pass always deletes.
 // @fnv 0x008ce180
-void FUN_008ce180(void* target, int maximum, int owner, bool destroy, bool filter)
+void DeleteAttachedArrows(void* target, int maximum, int owner, bool destroy, bool filter)
 {
     int list = 0;
     TopicInfoArray* count = (TopicInfoArray*)((AttachedArrowProcesses*)&DAT_011e0e80)->FUN_00717e50();

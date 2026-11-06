@@ -369,7 +369,7 @@ struct PipboyStub : FOPipboyManager
 {
     void SetQuad(ImageSpaceEffectParam* p);
     void FUN_007f7fb0(ImageSpaceEffectParam* p);
-    void FUN_007f7f40();
+    void ResetColors();
 };
 struct FUN_007f7fb0_Value
 {

@@ -1420,7 +1420,7 @@ struct TESSound
 struct FUN_008579e0_shell
 {
 
-    void __thiscall FUN_008579e0(void* buf, unsigned int n);
+    void __thiscall LoadGameDataOLD(void* buf, unsigned int n);
 };
 
 struct TimeGlobal : FUN_008579e0_shell
@@ -1501,7 +1501,7 @@ void This::FUN_00809e60(Actor* apActor)
 
         unsigned int i;
 
-        DAT_011de45c->FUN_008579e0(&i, 4);
+        DAT_011de45c->LoadGameDataOLD(&i, 4);
 
         if (i != 0x424c4f4b)
         {
@@ -1527,12 +1527,12 @@ void This::FUN_00809e60(Actor* apActor)
 
         flag = DAT_011de45c->GetTimeStamp();
 
-        DAT_011de45c->FUN_008579e0(&w18, 2);
+        DAT_011de45c->LoadGameDataOLD(&w18, 2);
     }
 
     unsigned char n1c;
 
-    DAT_011de45c->FUN_008579e0(&n1c, 1);
+    DAT_011de45c->LoadGameDataOLD(&n1c, 1);
 
     if (n1c)
     {
@@ -1547,7 +1547,7 @@ void This::FUN_00809e60(Actor* apActor)
     for (; rec2 < 0x14; rec2++)
     {
 
-        DAT_011de45c->FUN_008579e0(&n1c, 1);
+        DAT_011de45c->LoadGameDataOLD(&n1c, 1);
 
         if (n1c)
         {
@@ -1569,15 +1569,15 @@ void This::FUN_00809e60(Actor* apActor)
     if ((int)DAT_011de45c->FUN_008df040() >= 0x41)
     {
 
-        DAT_011de45c->FUN_008579e0(&fA0, 4);
+        DAT_011de45c->LoadGameDataOLD(&fA0, 4);
 
-        DAT_011de45c->FUN_008579e0(&fA4, 1);
+        DAT_011de45c->LoadGameDataOLD(&fA4, 1);
     }
 
     if ((int)DAT_011de45c->FUN_008df040() >= 0x6b)
     {
 
-        DAT_011de45c->FUN_008579e0(&fA8, 1);
+        DAT_011de45c->LoadGameDataOLD(&fA8, 1);
     }
 
     if (DAT_011de45c->FUN_00862110())
@@ -1722,7 +1722,7 @@ struct TESSaveLoadGame
 {
     unsigned int FUN_00825c00();
     bool FUN_00862110();
-    void FUN_008579b0(void*, int);
+    void SaveGameDataOLD(void*, int);
     unsigned char FUN_008df040();
     SaveHeader* FUN_004fd3e0();
 };
@@ -1758,14 +1758,14 @@ void SaveEffect::FUN_00809bd0(void* arg)
         if (g_TESSaveLoadGame->FUN_00862110())
         {
             unsigned int tag = 0x424c4f4b;
-            g_TESSaveLoadGame->FUN_008579b0(&tag, 4);
+            g_TESSaveLoadGame->SaveGameDataOLD(&tag, 4);
             blockStart = g_TESSaveLoadGame->FUN_00825c00();
-            g_TESSaveLoadGame->FUN_008579b0(&blockSize, 2);
+            g_TESSaveLoadGame->SaveGameDataOLD(&blockSize, 2);
         }
         present = false;
         if (unk4c)
             present = true;
-        g_TESSaveLoadGame->FUN_008579b0(&present, 1);
+        g_TESSaveLoadGame->SaveGameDataOLD(&present, 1);
         if (present)
             ((ValueReferencePair*)unk4c)->FUN_004be6f0();
         for (iSlot = 0; iSlot < 20; iSlot++)
@@ -1773,17 +1773,17 @@ void SaveEffect::FUN_00809bd0(void* arg)
             present = false;
             if (unk50[iSlot])
                 present = true;
-            g_TESSaveLoadGame->FUN_008579b0(&present, 1);
+            g_TESSaveLoadGame->SaveGameDataOLD(&present, 1);
             if (present)
                 ((ValueReferencePair*)unk50[iSlot])->FUN_004be6f0();
         }
         if (g_TESSaveLoadGame->FUN_008df040() >= 65)
         {
-            g_TESSaveLoadGame->FUN_008579b0(&unka0, 4);
-            g_TESSaveLoadGame->FUN_008579b0(&unka4, 1);
+            g_TESSaveLoadGame->SaveGameDataOLD(&unka0, 4);
+            g_TESSaveLoadGame->SaveGameDataOLD(&unka4, 1);
         }
         if (g_TESSaveLoadGame->FUN_008df040() >= 107)
-            g_TESSaveLoadGame->FUN_008579b0(&unka8, 1);
+            g_TESSaveLoadGame->SaveGameDataOLD(&unka8, 1);
         if (*g_011de4e8.Bool())
         {
             unsigned int uiHeaderPos = g_TESSaveLoadGame->FUN_00825c00();

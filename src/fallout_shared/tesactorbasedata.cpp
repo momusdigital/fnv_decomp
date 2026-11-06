@@ -1939,7 +1939,7 @@ class RefShell
     bool FUN_0056afc0();
     void* FUN_008d8520();
     ExtraShell* FUN_005d43c0();
-    void FUN_00884f80();
+    void SetWalkRunFlagDirty();
     void* FUN_007af430();
     void FUN_0056b020(void*, void*);
     void FUN_00575690(void*);
@@ -2009,7 +2009,7 @@ void OwnerShell::FUN_0047ce10(RefShell* ref)
         if (ref->isOther())
         {
             RefShell* other3 = ref;
-            other3->FUN_00884f80();
+            other3->SetWalkRunFlagDirty();
         }
         void* oldbase2 = ref->FUN_007af430();
         void* newbase = FUN_0047d130(oldbase2, base6);
@@ -2317,7 +2317,7 @@ struct LoadingFormInfo
 struct TESSaveLoadGame
 {
     bool FUN_00862110();
-    void FUN_008579e0(void* buf, unsigned int size);
+    void LoadGameDataOLD(void* buf, unsigned int size);
     LoadingFormInfo* FUN_004fd3c0();
     unsigned char FUN_008df040();
     unsigned int FUN_00825c00();
@@ -2446,7 +2446,7 @@ void TESActorBaseData_Shell::FUN_0047e6f0(unsigned int changeFlags, void* pBuffe
 
     if (g_TESSaveLoadGame->FUN_00862110())
     {
-        g_TESSaveLoadGame->FUN_008579e0(&type, 4);
+        g_TESSaveLoadGame->LoadGameDataOLD(&type, 4);
         if (type != 0x424C4F4B)
         {
             loadBuffer = g_TESSaveLoadGame->FUN_004fd3c0();
@@ -2469,21 +2469,21 @@ void TESActorBaseData_Shell::FUN_0047e6f0(unsigned int changeFlags, void* pBuffe
             }
         }
         offsetA = g_TESSaveLoadGame->FUN_00825c00();
-        g_TESSaveLoadGame->FUN_008579e0(&readSize, 2);
+        g_TESSaveLoadGame->LoadGameDataOLD(&readSize, 2);
     }
 
     if (changeFlags & 2)
     {
-        g_TESSaveLoadGame->FUN_008579e0(&this->actorData, sizeof(this->actorData));
+        g_TESSaveLoadGame->LoadGameDataOLD(&this->actorData, sizeof(this->actorData));
     }
 
     this->DeleteRegionColorEntries();
 
-    g_TESSaveLoadGame->FUN_008579e0(&totalItems, 2);
+    g_TESSaveLoadGame->LoadGameDataOLD(&totalItems, 2);
     for (idx = 0; idx < totalItems; ++idx)
     {
         g_TESSaveLoadGame->FUN_00857aa0(&factID, 4);
-        g_TESSaveLoadGame->FUN_008579e0(&val, 1);
+        g_TESSaveLoadGame->LoadGameDataOLD(&val, 1);
         form2 = FUN_004839c0(factID);
         if (form2)
         {

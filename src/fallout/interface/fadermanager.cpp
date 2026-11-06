@@ -305,11 +305,11 @@ struct FUN_006ffe80_shell
     int m_00, m_04, m_08, m_0c, m_10, m_14, m_18, m_1c, m_20, m_24;
     unsigned char m_28, m_29;
     void FUN_006ffe80(int, int);
-    void FUN_006ffe10();
+    void Initialize();
 };
 // Calls FUN_006ffe80(0, 0), then initializes fields from DAT_0119f278/27c/280 and zeroes m_20, m_1c, m_24, m_29 while setting m_28 to 1.
 // @fnv 0x006ffe10
-void FUN_006ffe80_shell::FUN_006ffe10()
+void FUN_006ffe80_shell::Initialize()
 {
     FUN_006ffe80(0, 0);
     m_10 = DAT_0119f278;

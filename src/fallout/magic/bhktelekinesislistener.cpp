@@ -621,7 +621,7 @@ struct TelekinesisReferenceView
 
 struct TelekinesisBodyView
 {
-    void FUN_00626cb0(unsigned int);
+    void SetCollisionFilter(unsigned int);
 };
 
 struct TelekinesisFinishReceiver : ::bhkTelekinesisListener
@@ -638,7 +638,7 @@ struct TelekinesisFinishReceiver : ::bhkTelekinesisListener
 extern "C" int DAT_01186044;
 extern "C" int DAT_0119ba28;
 
-// If pRef is set, casts its v116() result and calls FUN_00b4dec0(2) on success; then calls FUN_00626cb0, FUN_00807cb0, and deletes this receiver.
+// If pRef is set, casts its v116() result and calls FUN_00b4dec0(2) on success; then calls SetCollisionFilter, FUN_00807cb0, and deletes this receiver.
 // @fnv 0x00807a10
 void TelekinesisFinishReceiver::FUN_00807a10(::hkpEntity* entity)
 {
@@ -656,7 +656,7 @@ void TelekinesisFinishReceiver::FUN_00807a10(::hkpEntity* entity)
             pavlod->FUN_00b4dec0(2);
     }
 
-    pBody->FUN_00626cb0(m_Filter);
+    pBody->SetCollisionFilter(m_Filter);
 
     ::FUN_00807cb0(reinterpret_cast<char*>(this), entity);
 

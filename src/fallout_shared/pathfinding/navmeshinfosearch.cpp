@@ -316,7 +316,7 @@ struct FUN_006b8c50_shell : public NavMeshInfoSearch
 };
 
 class TESWorldSpace;
-TESWorldSpace* __fastcall FUN_00690800(const NavMeshInfo*);
+TESWorldSpace* __fastcall GetWorldSpace(const NavMeshInfo*);
 struct NavSearch_S
 {
     void FUN_006b8ec0(void*, void**, float);
@@ -334,8 +334,8 @@ bool FUN_006b8c50_shell::SetupNavMeshSearch(PathingActorData* apActorLockData, v
     *(PathingActorData**)((char*)this + 0x2078) = apActorLockData;
     *(int*)((char*)this + 0x207c) = aeDoorLockDisposition;
     *(bool*)((char*)this + 0x2080) = false;
-    if (FUN_00690800((const NavMeshInfo*)apStartMesh) &&
-        FUN_00690800((const NavMeshInfo*)apStartMesh) == FUN_00690800((const NavMeshInfo*)apGoalMesh))
+    if (GetWorldSpace((const NavMeshInfo*)apStartMesh) &&
+        GetWorldSpace((const NavMeshInfo*)apStartMesh) == GetWorldSpace((const NavMeshInfo*)apGoalMesh))
         *(bool*)((char*)this + 0x2080) = true;
     float fstartheuristic = 3.402823466e+38F;
     if (*(bool*)((char*)this + 0x2080))

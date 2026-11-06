@@ -387,7 +387,7 @@ struct SaveProxy
 {
     char* FUN_00825c00();
     bool FUN_00862110();
-    void FUN_008579b0(void*, unsigned int);
+    void SaveGameDataOLD(void*, unsigned int);
     HeaderProxy* FUN_004fd3e0();
 };
 struct OwnerProxy
@@ -445,13 +445,13 @@ void OwnerProxy::SaveBackupPackage()
     if (((SaveProxy*)DAT_011de45c)->FUN_00862110())
     {
         unsigned int tag = 0x424c4f4b;
-        ((SaveProxy*)DAT_011de45c)->FUN_008579b0(&tag, 4);
+        ((SaveProxy*)DAT_011de45c)->SaveGameDataOLD(&tag, 4);
         p = (unsigned short*)((SaveProxy*)DAT_011de45c)->FUN_00825c00();
-        ((SaveProxy*)DAT_011de45c)->FUN_008579b0(&a, 2);
+        ((SaveProxy*)DAT_011de45c)->SaveGameDataOLD(&a, 2);
     }
     unsigned short s = 0;
     char* h = ((SaveProxy*)DAT_011de45c)->FUN_00825c00();
-    ((SaveProxy*)DAT_011de45c)->FUN_008579b0(&s, 2);
+    ((SaveProxy*)DAT_011de45c)->SaveGameDataOLD(&s, 2);
     FUN_00484ce0(&unk80, 12);
     if (*g_011de4e8.Bool())
     {
@@ -489,7 +489,7 @@ struct PackageLocation897
     Actor897* reference;
     PackageLocation897();
     ~PackageLocation897();
-    void FUN_0067f3c0(Actor897*);
+    void SetLocReference(Actor897*);
 };
 struct PackageTargetObj
 {
@@ -829,7 +829,7 @@ void Actor897::FUN_00897bd0(void* unused)
     value->SetMustReachLocation(false);
     value->SetMustComplete(false);
     PackageLocation897* location = new PackageLocation897;
-    location->FUN_0067f3c0(this);
+    location->SetLocReference(this);
     value->FUN_00671d30(location);
     delete location;
     PackageTargetObj* target = new PackageTargetObj;
@@ -862,7 +862,7 @@ struct PackageReader : OwnerProxy
 struct LoadManager
 {
     bool FUN_00862110();
-    void FUN_008579e0(void*, unsigned int);
+    void LoadGameDataOLD(void*, unsigned int);
     LoadHeader* FUN_004fd3c0();
     unsigned char FUN_008df040();
     char* FUN_00825c00();
@@ -877,7 +877,7 @@ void PackageReader::LoadPackageBlock()
     if (((LoadManager*)DAT_011de45c)->FUN_00862110())
     {
         unsigned int uiBlockMarker;
-        ((LoadManager*)DAT_011de45c)->FUN_008579e0(&uiBlockMarker, 4);
+        ((LoadManager*)DAT_011de45c)->LoadGameDataOLD(&uiBlockMarker, 4);
         if (uiBlockMarker != 0x424c4f4b)
         {
             LoadHeader* header = ((LoadManager*)DAT_011de45c)->FUN_004fd3c0();
@@ -898,7 +898,7 @@ void PackageReader::LoadPackageBlock()
             }
         }
         pBlockStart = ((LoadManager*)DAT_011de45c)->FUN_00825c00();
-        ((LoadManager*)DAT_011de45c)->FUN_008579e0(&usBlockSize, 2);
+        ((LoadManager*)DAT_011de45c)->LoadGameDataOLD(&usBlockSize, 2);
     }
     FUN_00484d00(&unk80, 12);
     if (((LoadManager*)DAT_011de45c)->FUN_00862110())

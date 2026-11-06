@@ -18,7 +18,7 @@ struct Tile
 {
     void Set(int, int);
 };
-int __cdecl FUN_00707ad0();
+int __cdecl GetCurrentRenderedMenu();
 struct Holder
 {
     Tile* _ref_00726070();
@@ -26,14 +26,14 @@ struct Holder
     void FUN_00a1d910();
 };
 extern Holder* DAT_011da618;
-// If DAT_011da618 is set, sets its tile to 0x1772/1, then calls FUN_00a1d9e0 or FUN_00a1d910 depending on FUN_00707ad0.
+// If DAT_011da618 is set, sets its tile to 0x1772/1, then calls FUN_00a1d9e0 or FUN_00a1d910 depending on GetCurrentRenderedMenu.
 // @fnv 0x007abdf0
-void FUN_007abdf0()
+void Close()
 {
     if (DAT_011da618)
     {
         DAT_011da618->_ref_00726070()->Set(0x1772, 1);
-        if (FUN_00707ad0())
+        if (GetCurrentRenderedMenu())
             DAT_011da618->FUN_00a1d9e0();
         else
             DAT_011da618->FUN_00a1d910();

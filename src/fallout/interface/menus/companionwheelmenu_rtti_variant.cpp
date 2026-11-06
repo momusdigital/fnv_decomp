@@ -10,14 +10,14 @@ struct FUN_00754bf0_shell
 };
 struct FUN_00884480_shell
 {
-    bool __thiscall FUN_00884480(void);
+    bool __thiscall CanSpeak(void);
 };
 struct Actor
 {
     bool __thiscall IsHostileToActor(Actor*, int, int*, bool);
 };
 extern Actor* g_thePlayer;
-bool FUN_00754d90(Actor* a);
+bool GetShouldCompanionWheelOpen(Actor* a);
 int __cdecl FUN_00755260();
 extern "C" float __cdecl LogFloat(float);
 float FUN_00755660(float value);
@@ -53,7 +53,7 @@ struct FUN_00756930_shell
 {
     char _pad[0x68];
     Actor* m_pDialogueActor;
-    void __thiscall FUN_00756930();
+    void __thiscall Do_Backup();
 };
 struct TESForm
 {
@@ -103,7 +103,7 @@ struct InterfaceH
 {
     static bool __cdecl GetSelectedTargetIndex(int);
 };
-void __cdecl FUN_00717280(int);
+void __cdecl PlayMenuSound(int);
 struct FUN_007552e0_shell
 {
     void __thiscall FUN_007552e0(int, Tile*);
@@ -146,7 +146,7 @@ struct MenuFactory
 MenuFactory* __cdecl FUN_00a09030(int id);
 int __cdecl OpenCompanionMenu(int value);
 bool __cdecl DestroyCompanionWheelMenu(int value);
-extern "C" bool __cdecl FUN_00702450(int);
+extern "C" bool __cdecl IsTopMenuID(int);
 struct Foo
 {
     virtual void vf0();
@@ -165,7 +165,7 @@ struct WheelHost
     void __thiscall SelectTile(int, bool);
     void __thiscall FUN_00755760(int a, int b);
 };
-bool __cdecl FUN_00702450(int);
+bool __cdecl IsTopMenuID(int);
 struct InteractionActor;
 struct PackageNode
 {
@@ -681,16 +681,16 @@ struct InteractionActor
     bool FUN_00493bb0();
     bool FUN_00566950();
     bool FUN_00608d80();
-    bool FUN_0087f3d0();
+    bool GetEssential();
     TESPackage* FUN_009344a0();
     bool FUN_004997b0();
     bool FUN_008ace90();
     void StartDialog(DialogueManager*, int, int);
-    void FUN_008bb520(ActorPosition);
+    void RequestRotate(ActorPosition);
     bool FUN_008b3bb0();
     bool FUN_008b3c30();
-    void FUN_008a8e50();
-    void FUN_008a7a90();
+    void StopAttack();
+    void ForceIdleAnimation();
     const char* FUN_0055d520();
 };
 extern InteractionActor* interactionPlayer;
@@ -699,7 +699,7 @@ struct DialogueDisplay
     void FUN_009c8950(int, int);
 };
 extern DialogueDisplay dialogueDisplay;
-void FUN_00709470(int, InteractionActor*, unsigned int, int, int, int);
+void QueueMenuCreate(int, InteractionActor*, unsigned int, int, int, int);
 struct InputState
 {
     void FUN_00ad8780();
@@ -1805,7 +1805,7 @@ struct Actor : Reference
     Process* FUN_008d8520();
     int FUN_00931850();
     bool FUN_0094df60();
-    bool FUN_0087f3d0();
+    bool GetEssential();
     int FUN_004f8960();
     unsigned int FUN_005d43c0();
 };
@@ -1874,7 +1874,7 @@ bool FUN_005c8a50(void* paramInfo, void* scriptData, Reference* source, void* co
                     return true;
                 }
                 if (DAT_011dea3c->FUN_0094df60() || actor->FUN_008d8520()->FUN_0045cd60() != 0 ||
-                    (actor->FUN_0087f3d0() && actor->FUN_004f8960() == 6))
+                    (actor->GetEssential() && actor->FUN_004f8960() == 6))
                 {
                     Sequence* selected = idleVal->FUN_0061b320(actor, 0, 0, 0, 1);
                     if (selected)

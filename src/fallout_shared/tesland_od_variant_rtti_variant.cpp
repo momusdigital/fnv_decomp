@@ -1043,7 +1043,7 @@ struct Node960
     void FUN_00a5bc40(const char*, Binary960*);
     Geometry960* FUN_0045bc00(unsigned);
 };
-void* __cdecl FUN_00b54b60(Geometry960*);
+void* __cdecl CreateTangentSpaceSimple(Geometry960*);
 void __cdecl FUN_00b57e30(Node960*, int, int);
 struct Data960
 {

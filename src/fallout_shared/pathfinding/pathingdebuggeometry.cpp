@@ -215,13 +215,13 @@ struct Ref
     Ref* FUN_008d6f30();
     bool FUN_005656d0();
     bool FUN_00564d80();
-    void FUN_0093a660(Ref* a);
+    void RemoveActorFromPlayercombatList(Ref* a);
     void FUN_00967350(Ref* a);
     void FUN_00952c30(Ref* a);
     int FUN_00931850();
     bool FUN_00574900();
-    void FUN_00881680(int a);
-    void FUN_0088d640();
+    void EndInterruptPackage(int a);
+    void GetOutofFurnitureQuick();
     void FUN_00407800(Proc* a);
     void FUN_0056c880(unsigned int a, bool b);
     void* FUN_0056ac90();
@@ -584,7 +584,7 @@ extern Ref* DAT_011ca27c;
 extern Ref* DAT_011ca280;
 extern Tes* DAT_011dea10;
 extern GlobalObj DAT_011e0e80;
-void __cdecl FUN_008cddd0(Ref* a, int b);
+void __cdecl DeleteAttachedArrows(Ref* a, int b);
 int __cdecl FUN_00570f60();
 void __cdecl FUN_00835980(Ref* a);
 
@@ -638,9 +638,9 @@ void Ref::FUN_00574400()
                                 ((MagicSub*)((char*)q + 0x94))->FUN_00824970();
                                 if (FUN_00570f60() > 0)
                                 {
-                                    FUN_008cddd0(this, 1);
+                                    DeleteAttachedArrows(this, 1);
                                 }
-                                DAT_011dea3c->FUN_0093a660(q);
+                                DAT_011dea3c->RemoveActorFromPlayercombatList(q);
                                 DAT_011dea3c->FUN_00967350(q);
                                 DAT_011e0e80.RemoveActor(q);
                                 if (FUN_008d6f30() != 0)
@@ -674,7 +674,7 @@ void Ref::FUN_00574400()
                                     if (r != 0)
                                     {
                                         r->vt288();
-                                        r->FUN_00881680(0);
+                                        r->EndInterruptPackage(0);
                                     }
                                     else
                                     {
@@ -697,7 +697,7 @@ void Ref::FUN_00574400()
                                     if (p->vt100())
                                     {
                                         i = p;
-                                        i->FUN_0088d640();
+                                        i->GetOutofFurnitureQuick();
                                     }
                                     else
                                     {

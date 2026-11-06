@@ -516,7 +516,7 @@ struct GameTimerRecord
 
 struct BGSSaveGameBuffer
 {
-    void __thiscall FUN_00865f60(unsigned int);
+    void __thiscall SaveVariableSizedValue(unsigned int);
 };
 
 GameTimerRecord g_timeGlobal;
@@ -549,7 +549,7 @@ void SpectatorPackageSave::FUN_009f87d0(BGSSaveFormBuffer* apSaveGameBuffer)
                      ? reinterpret_cast<ArrSI*>(reinterpret_cast<char*>(this) + 0xa0)->GetFlags()
                      : 0;
 
-    reinterpret_cast<BGSSaveGameBuffer*>(apSaveGameBuffer)->FUN_00865f60(threatInfo);
+    reinterpret_cast<BGSSaveGameBuffer*>(apSaveGameBuffer)->SaveVariableSizedValue(threatInfo);
 
     for (ipathTimeDelta = 0; ipathTimeDelta < threatInfo; ++ipathTimeDelta)
     {

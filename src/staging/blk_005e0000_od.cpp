@@ -1753,7 +1753,7 @@ struct FNStub
 };
 struct TESSaveLoadGame
 {
-    void FUN_008579b0(void*, int);
+    void SaveGameDataOLD(void*, int);
 };
 extern TESSaveLoadGame* g_TESSaveLoadGame;
 int BSStringLength(const char*);
@@ -1766,20 +1766,20 @@ struct FUN_005f6f70_Class
 // @fnv 0x005f6f70
 void FUN_005f6f70_Class::FUN_005f6f70()
 {
-    g_TESSaveLoadGame->FUN_008579b0((char*)this + 0x44, 0x1c);
+    g_TESSaveLoadGame->SaveGameDataOLD((char*)this + 0x44, 0x1c);
     unsigned char a;
     a = 0;
     if (((FNStub*)((char*)this + 0x18))->GetFullName())
         a = BSStringLength(((FNStub*)((char*)this + 0x18))->GetFullName());
-    g_TESSaveLoadGame->FUN_008579b0(&a, 1);
+    g_TESSaveLoadGame->SaveGameDataOLD(&a, 1);
     if (a)
-        g_TESSaveLoadGame->FUN_008579b0(((FNStub*)((char*)this + 0x18))->GetFullName(), a);
+        g_TESSaveLoadGame->SaveGameDataOLD(((FNStub*)((char*)this + 0x18))->GetFullName(), a);
     a = 0;
     if (((FNStub*)((char*)this + 0x2c))->GetFullName())
         a = BSStringLength(((FNStub*)((char*)this + 0x2c))->GetFullName());
-    g_TESSaveLoadGame->FUN_008579b0(&a, 1);
+    g_TESSaveLoadGame->SaveGameDataOLD(&a, 1);
     if (a)
-        g_TESSaveLoadGame->FUN_008579b0(((FNStub*)((char*)this + 0x2c))->GetFullName(), a);
+        g_TESSaveLoadGame->SaveGameDataOLD(((FNStub*)((char*)this + 0x2c))->GetFullName(), a);
 }
 
 struct NiTMallocInterface_0096afc0
@@ -4655,7 +4655,7 @@ extern "C" void* __fastcall FNV_GetObjectReference(void*);
 __declspec(dllimport) long __stdcall QueryPerformanceCounter(__int64*);
 __declspec(dllimport) long __stdcall QueryPerformanceFrequency(__int64*);
 
-bool FUN_00702fc0();
+bool IsDebugTextVisible();
 void FUN_005b5e40(const char* fmt, int a, int b);
 
 struct Clist
@@ -4802,7 +4802,7 @@ struct Runner
 // @fnv 0x005e0d20
 bool Runner::RunScript(A8* apScript, void* apObject, SLoc* a3, int a4, bool a5, char a6, char a7, float a8)
 {
-    bool vf = FUN_00702fc0();
+    bool vf = IsDebugTextVisible();
     __int64 ve = 0;
     __int64 vo;
     if (vf)

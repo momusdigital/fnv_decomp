@@ -59,7 +59,7 @@ struct originalRuntimeFloatSetting1295_t
 };
 struct ActShell
 {
-    void FUN_008bb520(NiP3 p, int a);
+    void RequestRotate(NiP3 p, int a);
     float FUN_005723b0(TESObjectREFR* r, int a, int b);
     bool FUN_008a61b0();
     bool FUN_008b3bb0();
@@ -778,7 +778,7 @@ void MidProc::FUN_00918120(Actor* pActor, int a2, int a3, int a4)
         HighProcess* pHi = dynamic_cast<HighProcess*>(pActor->GetProcess());
         if (pHi && pActor->GetProcess() && !pActor->GetProcess()->GetSitSleepState())
         {
-            ((ActShell*)pActor)->FUN_008bb520(*((V1f4*)this->pTarget)->v1f4(), 0);
+            ((ActShell*)pActor)->RequestRotate(*((V1f4*)this->pTarget)->v1f4(), 0);
         }
     }
 

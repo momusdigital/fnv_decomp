@@ -74,7 +74,7 @@ struct Actor;
 struct TESSaveLoadGame
 {
     unsigned char FUN_008df040();
-    void FUN_008579b0(void*, int);
+    void SaveGameDataOLD(void*, int);
 };
 extern TESSaveLoadGame* g_TESSaveLoadGame;
 
@@ -93,7 +93,7 @@ void ShieldEffect_008283f0::SaveShieldData(Actor* actor)
 {
     ((ShieldEffectHelper*)this)->FUN_00802db0(actor);
     if (g_TESSaveLoadGame->FUN_008df040() >= 0x6e)
-        g_TESSaveLoadGame->FUN_008579b0((char*)this + 0x4c, 4);
+        g_TESSaveLoadGame->SaveGameDataOLD((char*)this + 0x4c, 4);
 }
 }  // namespace fnv_008283f0
 

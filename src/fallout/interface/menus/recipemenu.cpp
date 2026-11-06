@@ -104,7 +104,7 @@ struct FUN_00727680_shell
 
 // If abNow is set, calls PopulateChallengeList on DAT_011d8e90 when non-null and clears DAT_011d8ea4; otherwise sets DAT_011d8ea4 to 1.
 // @fnv 0x00728a30
-void __cdecl FUN_00728a30(bool abNow)
+void __cdecl ForceRecipeUpdate(bool abNow)
 {
     if (abNow)
     {
@@ -383,7 +383,7 @@ bool FUN_00728420_shell::HandleMenuButton(int aiButton, float afValue)
     return bHandled;
 }
 
-int __cdecl FUN_00727920(void* recipe);
+int __cdecl CanMakeRecipe(void* recipe);
 
 struct FUN_00728c10_entry
 {
@@ -403,8 +403,8 @@ int __cdecl CompareRecipes(FUN_00728c10_entry* pLeftEntry, FUN_00728c10_entry* p
     leftCanMake = reinterpret_cast<FNStub*>(reinterpret_cast<char*>(pLeftEntry->m_pRecipe) + 0x18)->GetFullName();
     result = reinterpret_cast<FNStub*>(reinterpret_cast<char*>(pRightEntry->m_pRecipe) + 0x18)->GetFullName();
     rightCanMake = 0;
-    rightName = FUN_00727920(pLeftEntry->m_pRecipe);
-    leftName = FUN_00727920(pRightEntry->m_pRecipe);
+    rightName = CanMakeRecipe(pLeftEntry->m_pRecipe);
+    leftName = CanMakeRecipe(pRightEntry->m_pRecipe);
 
     if ((rightName > 0 && leftName > 0) || (rightName <= 0 && leftName <= 0))
     {
@@ -554,7 +554,7 @@ GameTimerRecord g_timeGlobal;
 void FUN_00728a70_shell::FUN_00728a70()
 {
     if ((unsigned char)DAT_011d8ea4 == 1)
-        FUN_00728a30(true);
+        ForceRecipeUpdate(true);
 
     if (DAT_0119fbf0)
     {
@@ -2719,8 +2719,8 @@ void FNV_Warning(const char* fmt, ...);
 int FUN_007273e0();
 RcMenu* FUN_00a09030(int menuID);
 float FUN_00a01530();
-void FUN_00763ff0();
-void FUN_00717280(int value);
+void ServiceStart();
+void PlayMenuSound(int value);
 TESForm* FUN_00483a00(const char* editorID);
 char InitTutorialMenu(BGSMessage* message, int flags);
 
@@ -2754,7 +2754,7 @@ RcTile* CreateRecipeMenu(int vendor, int type)
         {
             tile2->FUN_00a012d0(0xfad, FUN_00a01530(), true);
         }
-        FUN_00763ff0();
+        ServiceStart();
         ((RcMenu*)DAT_011d8e90)->list6C.FUN_0075a0d0(((RcMenu*)DAT_011d8e90)->tile34, "CM_list_template");
         ((RcMenu*)DAT_011d8e90)->listA0.FUN_0075a0d0(((RcMenu*)DAT_011d8e90)->tile40, "CM_list_template");
         ((RcMenu*)DAT_011d8e90)->tile2C->FUN_00a01350(0xfc4, g_011d2088.FUN_00403df0(), true);
@@ -2769,7 +2769,7 @@ RcTile* CreateRecipeMenu(int vendor, int type)
             ->tile48->FUN_00a012d0(0xfa1, ((RcMenu*)DAT_011d8e90)->tile48->FUN_00a011b0(0xfa1) - 20.0, true);
         ((RcMenu*)DAT_011d8e90)->unk60 = vendor;
         ((RcMenu*)DAT_011d8e90)->unk64 = type;
-        FUN_00717280(0x24);
+        PlayMenuSound(0x24);
         if (!static_cast<RcIM*>(FUN_004b7210())->sub4D4.FUN_00718840(0x26))
         {
             BGSMessage* message = dynamic_cast<BGSMessage*>(FUN_00483a00("HelpCrafting"));
@@ -3724,7 +3724,7 @@ void RecipeEnterMenu::FUN_00727b10(int id, RecipeTiles* tile)
                     else
                         ((RecipeEnterMenu*)DAT_011d8e90)->tiles[5]->FUN_00700320(0xfa9, 255);
                 }
-                if (FUN_00727920(DAT_011d8e94))
+                if (CanMakeRecipe(DAT_011d8e94))
                     ((RecipeEnterMenu*)DAT_011d8e90)->tiles[7]->FUN_00700320(0xfaf, 1);
                 else
                     ((RecipeEnterMenu*)DAT_011d8e90)->tiles[7]->FUN_00700320(0xfaf, 0);
@@ -3954,7 +3954,7 @@ struct RecipeCanMakeView
 
 // Checks challenge prerequisites and, with an owner, limits the count by bound-object inventory ratios; otherwise it starts at 100.
 // @fnv 0x00727920
-int __cdecl FUN_00727920(void* apChallenge)
+int __cdecl CanMakeRecipe(void* apChallenge)
 {
     ChallengeOwner* pOwner =
         (((ChallengeOwner*)((RcMenu*)DAT_011d8e90)->unk60) && ((ChallengeOwner*)((RcMenu*)DAT_011d8e90)->unk60)->v40())

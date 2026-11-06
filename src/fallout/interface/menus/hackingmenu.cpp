@@ -168,17 +168,17 @@ struct StrMem
 {
     StrMem();
     ~StrMem();
-    void __thiscall FUN_006ffe10();
+    void __thiscall Initialize();
 };
 struct FUN_00726c90 : StrMem
 {
     FUN_00726c90();
 };
-// Constructs the object by calling FUN_006ffe10.
+// Constructs the object by calling Initialize.
 // @fnv 0x00726c90
 FUN_00726c90::FUN_00726c90()
 {
-    FUN_006ffe10();
+    Initialize();
 }
 
 struct ListX
@@ -482,12 +482,12 @@ struct FUN_00767bb0_shell
     unsigned char _pad[0x28];
     FUN_00767bb0_entry* entries[46];
 
-    TGF* __thiscall FUN_00767bb0(unsigned int a, unsigned int b);
+    TGF* __thiscall FindTile(unsigned int a, unsigned int b);
 };
 
 // Scans 46 entries for one whose value is non-null, passes a check, and whose floats at 0xfac and 0x1004 equal a and b; returns that value or null.
 // @fnv 0x00767bb0
-TGF* __thiscall FUN_00767bb0_shell::FUN_00767bb0(unsigned int a, unsigned int b)
+TGF* __thiscall FUN_00767bb0_shell::FindTile(unsigned int a, unsigned int b)
 {
     for (unsigned int i = 0; i < 46; ++i)
     {
@@ -2532,7 +2532,7 @@ struct InterfaceManager
 };
 
 InterfaceManager* FUN_004b7210();
-bool FUN_00702450(int iMenuID);
+bool IsTopMenuID(int iMenuID);
 int FUN_00ec86e1(int iChar);
 
 struct HackingState
@@ -2721,7 +2721,7 @@ class HackingMenu
     bool m_bBlink;
 
     int GetScaledValue();
-    Tile* FUN_00767bb0(int iColumn, int iNewRow);
+    Tile* FindTile(int iColumn, int iNewRow);
     bool HandleKey(int iKey, int iUnused);
 };
 
@@ -2731,7 +2731,7 @@ bool HackingMenu::HandleKey(int iKey, int iUnused)
 {
     if (!FUN_004b7210()->FUN_004b71d0())
         return false;
-    if (FUN_00702450(0x41f))
+    if (IsTopMenuID(0x41f))
     {
         DAT_011d95bc->m_pkSelected = m_pkCursorTile;
         if (m_iStage < 2 && iKey == 9)
@@ -2758,7 +2758,7 @@ bool HackingMenu::HandleKey(int iKey, int iUnused)
                     {
                         int iColIndex = (int)m_pkCursorTile->FUN_00a011b0(0xfac);
                         int iNewRow = (int)m_pkCursorTile->FUN_00a011b0(0x1004) - 1;
-                        Tile* pkFound = FUN_00767bb0(iColIndex, iNewRow);
+                        Tile* pkFound = FindTile(iColIndex, iNewRow);
                         if (pkFound)
                         {
                             m_bBlink = false;
@@ -2797,7 +2797,7 @@ bool HackingMenu::HandleKey(int iKey, int iUnused)
                     {
                         int iColIndex = (int)m_pkCursorTile->FUN_00a011b0(0xfac);
                         int iNewRow = (int)m_pkCursorTile->FUN_00a011b0(0x1004) + 1;
-                        Tile* pkFound = FUN_00767bb0(iColIndex, iNewRow);
+                        Tile* pkFound = FindTile(iColIndex, iNewRow);
                         if (pkFound)
                         {
                             m_bBlink = false;
@@ -2825,7 +2825,7 @@ bool HackingMenu::HandleKey(int iKey, int iUnused)
                 if (iColumn > 0)
                 {
                     m_bBlink = false;
-                    m_pkCursorTile = FUN_00767bb0(iColumn - 1, (unsigned int)m_pkCursorTile->FUN_00a011b0(0x1004));
+                    m_pkCursorTile = FindTile(iColumn - 1, (unsigned int)m_pkCursorTile->FUN_00a011b0(0x1004));
                     return true;
                 }
                 break;
@@ -2835,7 +2835,7 @@ bool HackingMenu::HandleKey(int iKey, int iUnused)
                 if (iColumn < 0x10)
                 {
                     m_bBlink = false;
-                    m_pkCursorTile = FUN_00767bb0(iColumn + 1, (unsigned int)m_pkCursorTile->FUN_00a011b0(0x1004));
+                    m_pkCursorTile = FindTile(iColumn + 1, (unsigned int)m_pkCursorTile->FUN_00a011b0(0x1004));
                     return true;
                 }
                 break;
@@ -2848,7 +2848,7 @@ bool HackingMenu::HandleKey(int iKey, int iUnused)
 
 }
 
-bool __cdecl FUN_00702450(int);
+bool __cdecl IsTopMenuID(int);
 struct Sub4D4
 {
     bool __thiscall FUN_00718840(int);
@@ -3350,7 +3350,7 @@ void DummyClass::FUN_00767c90()
 {
     unsigned int bbb;
     int j;
-    if (unk24 != 1 || !FUN_00702450(FUN_00766a40()) ||
+    if (unk24 != 1 || !IsTopMenuID(FUN_00766a40()) ||
         (unk1DA && !((Mgr4B7210*)FUN_004b7210())->m4D4.FUN_00718840(0x13)))
     {
         return;
@@ -3689,7 +3689,7 @@ struct TileStatics
 };
 
 TilePX* __cdecl CreateComputerMenu(const char* path);
-FORenderedMenu* __cdecl FUN_00707ad0();
+FORenderedMenu* __cdecl GetCurrentRenderedMenu();
 
 // Creates a computer menu tile, updates tile statics, and attaches it to a rendered terminal, creating a new FTerminalPX if none exists.
 // @fnv 0x0076a540
@@ -3702,7 +3702,7 @@ void FUN_0076a510_shell::FUN_0076a540()
         TilePX* pTile = CreateComputerMenu(*(const char**)((char*)this + 0x198));
         pTile->FUN_00a03c90()->FUN_00867a20();
         TileStatics::UpdateAll(false);
-        FORenderedTerminal* r = dynamic_cast<FORenderedTerminal*>(FUN_00707ad0());
+        FORenderedTerminal* r = dynamic_cast<FORenderedTerminal*>(GetCurrentRenderedMenu());
         if (!r)
         {
             FNV_Warning(&DAT_01072b00);

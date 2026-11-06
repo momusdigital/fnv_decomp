@@ -94,7 +94,7 @@ struct ActorValue
 struct NiNodeBooleanState
 {
     bool GetBooleanValue();
-    void FUN_008d5270();
+    void FinishLevelUp();
 };
 struct Actor
 {
@@ -121,7 +121,7 @@ extern PC7d* g_thePlayer;
 extern int DAT_011d9fdc;
 extern "C" void __cdecl UpdateStatsMenuLevelText();
 void __cdecl FUN_0077da30();
-void __cdecl FUN_008d5270();
+void __cdecl FinishLevelUp();
 void __cdecl FUN_00786570(Tile*, ActorValue::Index);
 struct LevelUpMenuShell
 {
@@ -135,7 +135,7 @@ void __cdecl UpdateLevelUpMenu()
     FUN_0077da30();
     if (DAT_011d9fdc != 0)
     {
-        g_thePlayer->FUN_00464e10()->FUN_008d5270();
+        g_thePlayer->FUN_00464e10()->FinishLevelUp();
         ((ListBox_enum_ActorValue__Index_*)((int)DAT_011d9fdc + 0x94))->Traverse(FUN_00786570, 0, 0x7fffffff);
         if (g_thePlayer->FUN_00464e10()->GetBooleanValue())
             g_thePlayer->ConfigureActorState(true, false);
@@ -257,7 +257,7 @@ extern int DAT_011d9fdc;
 extern int DAT_011d9fe0;
 // If the tile reports the state stored in DAT_011d9fe0, clears that state via Set and notifies the holder at DAT_011d9fdc.
 // @fnv 0x00786200
-void FUN_00786200(Tile* pTile)
+void ResetPerksFunc(Tile* pTile)
 {
     if (pTile->ContainsTrait(DAT_011d9fe0))
     {
@@ -356,7 +356,7 @@ struct Tile
 extern int DAT_011d9ff4;
 extern PC7d* g_thePlayer;
 // @fnv 0x007864e0
-void FUN_007864e0(Tile* tile, TESObjectREFR* reference)
+void UpdatePerksFunc(Tile* tile, TESObjectREFR* reference)
 {
     float value;
     if (((FUN_00785150_This*)reference)->FUN_00785150((TESObjectREFR*)g_thePlayer) &&
@@ -1425,7 +1425,7 @@ void SkillsMenu::UpdateSkillsAndPerks()
 
 int FUN_00a01860(const char*);
 void UpdateLevelUpMenu();
-void FUN_007864e0(const char*);
+void UpdatePerksFunc(const char*);
 void ComparePerkListItems(const char*);
 extern int DAT_011d9fe8;
 extern int DAT_011d9fd8;
@@ -1514,7 +1514,7 @@ void Target::SetPage(int page)
             listA.FUN_00786a50(true);
             break;
         case 1:
-            listB.FUN_007314c0(FUN_007864e0, 0, 0x7fffffff);
+            listB.FUN_007314c0(UpdatePerksFunc, 0, 0x7fffffff);
             listB.Apply(ComparePerkListItems);
             listA.FUN_007312e0();
             listB.UpdateScrollTile(true);
@@ -1827,7 +1827,7 @@ struct FUN_00a011b0_cls
 };
 
 // @fnv 0x00786170
-void __cdecl FUN_00786170(Tile* apTile, int a2)
+void __cdecl ResetSkillsFunc(Tile* apTile, int a2)
 {
     bool flag = false;
     reinterpret_cast<VT_b9166*>(DAT_011dea3c)
@@ -1936,7 +1936,7 @@ struct HolderThis
 extern int DAT_011d9ff8;
 extern GlobalObj DAT_011da050;
 
-void FUN_00786240(Tile* tile, int idx);
+void PerkUpdateFunc(Tile* tile, int idx);
 
 // @fnv 0x007867a0
 void Holder::UpdateTileEffects(Tile* tile)
@@ -1983,7 +1983,7 @@ void Holder::UpdateTileEffects(Tile* tile)
             DAT_011da050.AppendMember(&recVal);
         }
     }
-    ((HolderThis*)this)->trav.FUN_007314c0(FUN_00786240, 0, 0x7fffffff);
+    ((HolderThis*)this)->trav.FUN_007314c0(PerkUpdateFunc, 0, 0x7fffffff);
 }
 
 // Destructor: clear the model list, unregister from the global tracker, then the list member is destroyed.
@@ -4013,7 +4013,7 @@ extern GlobalObject_00788300 g_011da050;
 
 // Finds the matching item, adjusts its stored value against tile bounds and overflow, then updates a tile trait.
 // @fnv 0x00786240
-void __cdecl FUN_00786240(LevelValue* apTile, int aiMatchValue)
+void __cdecl PerkUpdateFunc(LevelValue* apTile, int aiMatchValue)
 {
     for (unsigned int i = 0; i < g_011da050.GetCount(); ++i)
     {

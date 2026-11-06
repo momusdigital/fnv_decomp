@@ -162,13 +162,13 @@ int __cdecl FUN_00828b20(const void*, const void*);
 void __cdecl FUN_00ec6f20(int, int, int, int);
 struct SelectionPredicate
 {
-    bool FUN_00828f00(int, SelectedRecord*);
+    bool CheckSummonLocation(int, SelectedRecord*);
 };
 struct RecordSelector
 {
     bool SelectRecord(void* context, int flags, SelectedRecord* output);
 };
-// Collects records via GetZero, sorts them with FUN_00ec6f20, finds the first matching FUN_00828f00, copies it to output and frees the array.
+// Collects records via GetZero, sorts them with FUN_00ec6f20, finds the first matching CheckSummonLocation, copies it to output and frees the array.
 // @fnv 0x00828cb0
 bool RecordSelector::SelectRecord(void* context, int flags, SelectedRecord* output)
 {
@@ -180,7 +180,7 @@ bool RecordSelector::SelectRecord(void* context, int flags, SelectedRecord* outp
     selectionContext = context;
     FUN_00ec6f20((int)entries, count, sizeof(SelectedRecord), (int)&FUN_00828b20);
     index = 0;
-    while (index < count && !((SelectionPredicate*)this)->FUN_00828f00(flags, &entries[index]))
+    while (index < count && !((SelectionPredicate*)this)->CheckSummonLocation(flags, &entries[index]))
     {
         ++index;
     }
@@ -495,7 +495,7 @@ struct S_008287e0_Item
 
 struct S_008287e0_Temp
 {
-    void FUN_00689920(const char* m_pIdleForm);
+    void PlaySequence(const char* m_pIdleForm);
     void* FUN_00490e40();
 };
 
@@ -557,7 +557,7 @@ void S_008287e0::FUN_008287e0()
     NiPoint3 vel = 64.0f * NiPoint3(-FUN_005c53d0(-unk64.z), FUN_005b9e80(-unk64.z), 0.0f);
     void* m_kModelObjectsItem =
         FUN_006890b0(ref->FUN_008d6f30(), 1.0f, FUN_0084e3a0()->FUN_00825c00()->vfn05(), vel, unk58, 1.0f, 7, 0);
-    ((S_008287e0_Temp*)m_kModelObjectsItem)->FUN_00689920(m_pIdleForm);
+    ((S_008287e0_Temp*)m_kModelObjectsItem)->PlaySequence(m_pIdleForm);
     void* pAVObject = ((S_008287e0_Temp*)m_kModelObjectsItem)->FUN_00490e40();
     unk54 = GetAnimValueByPrefix(pAVObject, m_pIdleForm, "Hit");
 
@@ -1429,7 +1429,7 @@ float ComputeDirectionalFalloff(S_00828dc0_Actor* actor, S_00828dc0_Obj* obj)
 struct RegistrationManager
 {
     void FUN_00857a10(const void*, unsigned int);
-    void FUN_008579b0(void*, unsigned int);
+    void SaveGameDataOLD(void*, unsigned int);
 };
 extern RegistrationManager* g_registrationManager;
 
@@ -1480,12 +1480,12 @@ void FUN_008297a0_shell::FUN_008297a0(int value)
     if (unk4c != 0)
         id = unk4c->FUN_0084e3a0();
     g_registrationManager->FUN_00857a10(&id, 4);
-    g_registrationManager->FUN_008579b0(&unk50, 1);
+    g_registrationManager->SaveGameDataOLD(&unk50, 1);
     if (unk4c == 0)
     {
-        g_registrationManager->FUN_008579b0(&unk54, 4);
-        g_registrationManager->FUN_008579b0(&unk58, 12);
-        g_registrationManager->FUN_008579b0(&unk64, 12);
+        g_registrationManager->SaveGameDataOLD(&unk54, 4);
+        g_registrationManager->SaveGameDataOLD(&unk58, 12);
+        g_registrationManager->SaveGameDataOLD(&unk64, 12);
     }
 }
 

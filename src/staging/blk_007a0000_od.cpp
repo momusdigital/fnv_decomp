@@ -666,10 +666,10 @@ struct ActiveEffectCollection
     float rate;
     int FUN_00559450();
     ActiveEffectEntry*** FUN_0057cbe0(int* iterator);
-    void FUN_007b4530(int amount);
+    void ScrollBy(int amount);
 };
 // @fnv 0x007b4530
-void ActiveEffectCollection::FUN_007b4530(int amount)
+void ActiveEffectCollection::ScrollBy(int amount)
 {
     if (rate <= DAT_01012060)
         return;

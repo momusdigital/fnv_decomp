@@ -52,21 +52,21 @@ struct FUN_00620110_Class
 {
     int* m_vtbl;
     void FUN_00620110();
-    void __thiscall FUN_006201c0();
+    void __thiscall EmptyList();
 };
 // @fnv 0x00620110
 void FUN_00620110_Class::FUN_00620110()
 {
     m_vtbl = (int*)&DAT_0104d9e0;
-    FUN_006201c0();
+    EmptyList();
 }
 
 struct FUN_006205a0_Class
 {
-    int FUN_006205a0();
+    int QMaterial();
 };
 // @fnv 0x006205a0
-int FUN_006205a0_Class::FUN_006205a0()
+int FUN_006205a0_Class::QMaterial()
 {
     return *(int*)((char*)this + 0x10) & 0x1f;
 }
@@ -978,11 +978,11 @@ struct FUN_00620180_Class
 };
 struct FUN_00620130_Class : public BSSimpleList<int*>
 {
-    void __thiscall FUN_006206d0(BSSimpleList<int*>* pList, BSSimpleList<int*>* pItem);
-    void __thiscall FUN_00620130(BSSimpleList<int*>* pList);
+    void __thiscall RemoveTargetFromZone(BSSimpleList<int*>* pList, BSSimpleList<int*>* pItem);
+    void __thiscall RemoveTarget(BSSimpleList<int*>* pList);
 };
 // @fnv 0x00620130
-void __thiscall FUN_00620130_Class::FUN_00620130(BSSimpleList<int*>* pList)
+void __thiscall FUN_00620130_Class::RemoveTarget(BSSimpleList<int*>* pList)
 {
     if (!pList)
         return;
@@ -990,7 +990,7 @@ void __thiscall FUN_00620130_Class::FUN_00620130(BSSimpleList<int*>* pList)
     while (pNode)
     {
         BSSimpleList<int*>* pNext = ((FUN_00620180_Class*)pNode)->FUN_00620180();
-        FUN_006206d0(pNode, pList);
+        RemoveTargetFromZone(pNode, pList);
         pNode = pNext;
     }
 }
@@ -1025,10 +1025,10 @@ struct FUN_006205e0_shell
 };
 struct FUN_006206d0_Class : public FUN_006205e0_shell
 {
-    void __thiscall FUN_006206d0(AnimIdle* self, int a2);
+    void __thiscall RemoveTargetFromZone(AnimIdle* self, int a2);
 };
 // @fnv 0x006206d0
-void __thiscall FUN_006206d0_Class::FUN_006206d0(AnimIdle* self, int a2)
+void __thiscall FUN_006206d0_Class::RemoveTargetFromZone(AnimIdle* self, int a2)
 {
     if (!a2)
         return;
@@ -1442,10 +1442,10 @@ struct H0043b4d0
 };
 struct C00624070
 {
-    bool __thiscall FUN_00624070();
+    bool __thiscall QBipLayer();
 };
 // @fnv 0x00624070
-bool __thiscall C00624070::FUN_00624070()
+bool __thiscall C00624070::QBipLayer()
 {
     int el = ((H0043b4d0*)this)->FUN_0043b4d0();
     return el == 8 || el == 0x1d;
@@ -1500,10 +1500,10 @@ struct FUN_004ae700_S
 struct FUN_00626cb0_Class
 {
     int* m_vtbl;
-    void __thiscall FUN_00626cb0(Flt filter);
+    void __thiscall SetCollisionFilter(Flt filter);
 };
 // @fnv 0x00626cb0
-void __thiscall FUN_00626cb0_Class::FUN_00626cb0(Flt filter)
+void __thiscall FUN_00626cb0_Class::SetCollisionFilter(Flt filter)
 {
     FUN_00626d00_Class* obj = reinterpret_cast<FUN_004ae700_S*>(this)->FUN_004ae700();
     if (obj)
@@ -2408,18 +2408,18 @@ struct FUN_00620680_Class
 {
     int m_auiShapeKeys;
     FUN_00620300_Class* m_kNode;
-    AnimIdle* FUN_00620680(int key, int pad);
+    AnimIdle* RemoveTargetFromZone(int key, int pad);
 };
 
 // @fnv 0x00620680
-AnimIdle* FUN_00620680_Class::FUN_00620680(int key, int pad)
+AnimIdle* FUN_00620680_Class::RemoveTargetFromZone(int key, int pad)
 {
     if (m_kNode)
     {
         AnimIdle* idle = m_kNode->FindDerivedByKey(key);
         if (idle)
         {
-            reinterpret_cast<FUN_006206d0_Class*>(this)->FUN_006206d0(idle, pad);
+            reinterpret_cast<FUN_006206d0_Class*>(this)->RemoveTargetFromZone(idle, pad);
             return idle;
         }
     }
@@ -3558,7 +3558,7 @@ struct VT
 struct Ref
 {
     VT* vt;
-    Sub* __thiscall FUN_009306d0();
+    Sub* __thiscall GetCharController();
 };
 struct Me
 {
@@ -3572,9 +3572,9 @@ void __thiscall Me::FUN_006295e0(Ref* apRef)
     t.FUN_006815c0();
     FUN_006296d0(apRef, apRef->vt->v1f4(apRef, &t));
     apRef->vt->v2a8(apRef, &t);
-    if (apRef->FUN_009306d0())
+    if (apRef->GetCharController())
     {
-        ((Sub*)((char*)apRef->FUN_009306d0() + 0x410))->FUN_00629650(false);
+        ((Sub*)((char*)apRef->GetCharController() + 0x410))->FUN_00629650(false);
     }
 }
 
@@ -3955,7 +3955,7 @@ unsigned int __cdecl FUN_0062b150(unsigned int param_1, unsigned int uiValue)
     }
     else
     {
-        uiResult = MinInt(reinterpret_cast<FUN_006205a0_Class*>(iStack_8)->FUN_006205a0(), 0x23);
+        uiResult = MinInt(reinterpret_cast<FUN_006205a0_Class*>(iStack_8)->QMaterial(), 0x23);
     }
     return uiResult;
 }
@@ -6369,14 +6369,14 @@ struct Shape62b3
     virtual void V49();
     virtual void V50();
     virtual ShapeList62b3* GetContainer();
-    int FUN_006205a0();
+    int QMaterial();
 };
 
 struct Filter62b3
 {
     unsigned int m_uiFilter;
     Filter62b3();
-    bool FUN_00624070();
+    bool QBipLayer();
     int FUN_006240b0();
 };
 
@@ -6410,11 +6410,11 @@ float GetObjectMass(WorldObject62b3* pkObject)
     }
     else
     {
-        fMass = FUN_0062b1e0(pkWorldShape->FUN_006205a0());
+        fMass = FUN_0062b1e0(pkWorldShape->QMaterial());
     }
     float fMult = 1.0f;
     Filter62b3 kFilter = pkObject->FUN_0043b4f0();
-    if (kFilter.FUN_00624070())
+    if (kFilter.QBipLayer())
     {
         if (fMass > 0.0)
         {
@@ -7566,7 +7566,7 @@ struct FUN_00620230_DeleteView
 };
 // Deletes every node in the firstZone linked list and sets firstZone to null.
 // @fnv 0x006201c0
-void FUN_00620110_Class::FUN_006201c0()
+void FUN_00620110_Class::EmptyList()
 {
     FUN_00620180_Class* current = static_cast<ZoneTargetListenerView*>(this)->firstZone;
     while (current)

@@ -153,7 +153,7 @@ class NavMesh
     const NiPoint3& FUN_0068f0a0(unsigned short);
     NavMeshEdgeVertexPair FUN_0068f040(unsigned short, int);
     NiPoint3 FUN_00697290(unsigned short);
-    void FUN_006987d0(const NiPointer<ObstacleData>&, const NiPoint3&, BSSimpleArray<unsigned short>*);
+    void GetOverlappedTriangleList(const NiPointer<ObstacleData>&, const NiPoint3&, BSSimpleArray<unsigned short>*);
     NiPoint3 GetPlaneNormal(unsigned short);
     bool AddDoorObstacle(unsigned int, ObstacleData*);
     NavMeshClosedDoorInfo* GetClosedDoorInfo(unsigned short);

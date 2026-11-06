@@ -376,14 +376,14 @@ struct FUN_004bc1f0_S
 
 struct FUN_007bf840_shell
 {
-    void FUN_007bf840();
+    void SetBetChip();
 };
 
 extern double DAT_01070e78;
 extern GO g_011da8a0;
 
 // @fnv 0x007bf840
-void FUN_007bf840_shell::FUN_007bf840()
+void FUN_007bf840_shell::SetBetChip()
 {
     NiPoint3 loc;
     int level = 0;
@@ -4553,12 +4553,12 @@ struct RouletteState
     int unk3ff8;
     int unk3ffc;
     int unk4000;
-    int FUN_007bf390();
+    int GetBetIndex();
     bool FUN_007bed70(int);
     bool RemoveEntryById(int);
     void FUN_007bf670();
     void ApplyValueToChain(int, float);
-    void FUN_007bf840();
+    void SetBetChip();
     void HandleRouletteInput(int, Tile*);
 };
 // When unk0028 is 4, handles roulette input id 3-8: adjusts unk3fe8 bet, updates tile values and calls ApplyValueToChain with alpha values.
@@ -4573,7 +4573,7 @@ void RouletteState::HandleRouletteInput(int aiInputId, Tile* tile)
             SetRouletteMenuTile();
             break;
         case 3: {
-            int selected = FUN_007bf390();
+            int selected = GetBetIndex();
             if (selected < 159 && unk3fec < unk4000 && FUN_007bed70(selected))
             {
                 ((TileValue*)DAT_011da878->m_pTiles[20])->SetTraitAndReset(DAT_011da86c, 1.0f);
@@ -4607,7 +4607,7 @@ void RouletteState::HandleRouletteInput(int aiInputId, Tile* tile)
             break;
         }
         case 4: {
-            int selected2 = FUN_007bf390();
+            int selected2 = GetBetIndex();
             if (selected2 < 159 && RemoveEntryById(selected2))
             {
                 BSAudio::GetSingleton()->GetSoundHandleByEditorID("GAMERouletteDecreaseBet", 0x121).Play(false);
@@ -4670,7 +4670,7 @@ void RouletteState::HandleRouletteInput(int aiInputId, Tile* tile)
                 ((RouletteState*)DAT_011da878)->ApplyValueToChain(6, 128.0f);
             }
             if (unk3fe4 != 10)
-                FUN_007bf840();
+                SetBetChip();
             if (oldBet != unk3fe8)
                 BSAudio::GetSingleton()->GetSoundHandleByEditorID("GAMERouletteValidBet", 0x121).Play(false);
             ((TileValue*)DAT_011da878->m_pTiles[10])->SetTraitAndReset(DAT_011da86c, 1.0f);
@@ -4701,7 +4701,7 @@ void RouletteState::HandleRouletteInput(int aiInputId, Tile* tile)
                 ((RouletteState*)DAT_011da878)->ApplyValueToChain(7, 128.0f);
             }
             if (unk3fe4 != 10)
-                FUN_007bf840();
+                SetBetChip();
             if (oldBet2 != unk3fe8)
                 BSAudio::GetSingleton()->GetSoundHandleByEditorID("GAMERouletteValidBet", 0x121).Play(false);
             ((TileValue*)DAT_011da878->m_pTiles[10])->SetTraitAndReset(DAT_011da86c, 1.0f);
@@ -5284,10 +5284,10 @@ struct S_007bf7a0
     int unk3f00, unk3f04, unk3f08, unk3f0c, unk3f10, unk3f14, unk3f18, unk3f1c;
     S_007bf7a0_Tile* tilesA[10];
     S_007bf7a0_Tile* tilesB[10];
-    void FUN_007bf7a0();
+    void ResetBetChips();
 };
 // @fnv 0x007bf7a0
-void S_007bf7a0::FUN_007bf7a0()
+void S_007bf7a0::ResetBetChips()
 {
     for (int i = 0; i < 10; i++)
     {
@@ -9896,8 +9896,8 @@ struct Setup
     int unk3fdc;
     int state;
     void InitRouletteScene();
-    void FUN_007bf7a0();
-    void FUN_007bf840();
+    void ResetBetChips();
+    void SetBetChip();
     Scene* FUN_007c2180();
     void InitRouletteWheel();
 };
@@ -9947,8 +9947,8 @@ void Setup::InitRouletteScene()
     for (int l = 0; l < 10; l++)
         (*(SceneHolder*)&g_011da8a0).FUN_00559450()->Attach(tilesB[l], true);
     state = 3;
-    FUN_007bf7a0();
-    FUN_007bf840();
+    ResetBetChips();
+    SetBetChip();
     NiUpdateData found(0.0f, false, false);
     (*(SceneHolder*)&g_011da8a0).FUN_00559450()->FUN_00a59c60(found);
     Controller* update = model->FUN_00a5c570(&DAT_011f36ac);
@@ -10113,7 +10113,7 @@ struct CasinoForRoulette
 {
     int FUN_0084e3a0();
     CasinoData* FUN_00504e60();
-    void* FUN_007316d0();
+    void* GetChipType();
 };
 struct MenuVirtual
 {
@@ -10295,7 +10295,7 @@ RouletteTile* __cdecl FUN_007bbe20(RoulettePlayerStandIn* casino, int bet, int a
         BSAudio::GetSingleton()->GetSoundHandleByEditorID(DAT_01025cc4, 0x121).Play(false);
         return 0;
     }
-    if (DAT_011dea3c->FUN_00575610(((CasinoForRoulette*)DAT_011da880)->FUN_007316d0()) < bet)
+    if (DAT_011dea3c->FUN_00575610(((CasinoForRoulette*)DAT_011da880)->GetChipType()) < bet)
     {
         char message[260];
         FUN_00406d00(message, 260, g_011d2424.String());
@@ -10321,7 +10321,7 @@ RouletteTile* __cdecl FUN_007bbe20(RoulettePlayerStandIn* casino, int bet, int a
         ((RouletteState*)DAT_011da878)->unk4000 = arg3;
         ((RouletteState*)DAT_011da878)->unk3fe8 = bet;
         ((RouletteState*)DAT_011da878)->unk3ff0 =
-            DAT_011dea3c->FUN_00575610(((CasinoForRoulette*)DAT_011da880)->FUN_007316d0());
+            DAT_011dea3c->FUN_00575610(((CasinoForRoulette*)DAT_011da880)->GetChipType());
         ((RouletteState*)DAT_011da878)->unk3ff4 = DAT_011dea3c->av.FUN_0066ef20(11);
         ((RouletteState*)DAT_011da878)->unk3fec = 0;
         ((MenuMethods*)DAT_011da878)->FUN_00a1dc70(ui, 0);
@@ -10419,7 +10419,7 @@ bool RouletteState::RemoveEntryById(int id)
             if (unk3fe4 == 10)
             {
                 unk3fe0 = (*node->FUN_006815c0())->objectIndex;
-                FUN_007bf840();
+                SetBetChip();
                 reinterpret_cast<RouletteScene*>(DAT_011da8a0.FUN_00559450())
                     ->FUN_0043b4a0(unk3fe0)
                     ->FUN_004bc1f0(reinterpret_cast<float&>(unk3fd4), reinterpret_cast<float&>(unk3fd8),
@@ -14634,10 +14634,10 @@ struct Roulette
     int m_iNode;
     char kad[0x3f94 - 0x3f20];
     float m_afRadius[0x10];
-    int FUN_007bf390();
+    int GetBetIndex();
 };
 // @fnv 0x007bf390
-int Roulette::FUN_007bf390()
+int Roulette::GetBetIndex()
 {
     int i;
     for (i = 0; i < 0x90; i++)
@@ -15517,7 +15517,7 @@ struct NotifyObj
 
 struct CasinoX
 {
-    FormX* FUN_007316d0();
+    FormX* GetChipType();
     int GetFieldAt210();
     NotifyObj* FUN_00504e40();
     CasinoLimits* FUN_00504e60();
@@ -15545,7 +15545,7 @@ extern NiObjPtr DAT_011da8a0;
 extern int DAT_011da86c;
 extern int DAT_011da870;
 
-bool __cdecl FUN_00702450(int a1);
+bool __cdecl IsTopMenuID(int a1);
 float __cdecl FUN_00408820(float a1);
 double __cdecl FUN_00715d40();
 double __cdecl FUN_00706e50();
@@ -15647,10 +15647,10 @@ class RouletteMenuX
     TileX* FUN_00726070();
     void FUN_00a1d910();
     void RotateRouletteWheelToResult(int aiResult);
-    void FUN_007bf7a0();
-    void FUN_007bf840();
+    void ResetBetChips();
+    void SetBetChip();
     void UpdateBetTileText();
-    int FUN_007bf390();
+    int GetBetIndex();
     void ApplyValueToChain(int aiIndex, float afAlpha);
 };
 
@@ -15666,7 +15666,7 @@ void RouletteMenuX::FUN_007bd2a0()
     float fMoveX4 = 1.0f;
     float fMoveY4 = 1.0f;
     static AudioPlaybackHandle kSpinSound;
-    bool bActive2 = FUN_00702450(GetID());
+    bool bActive2 = IsTopMenuID(GetID());
     if (m_iLastTime == 0)
     {
         iElapsed = 0;
@@ -15736,20 +15736,20 @@ void RouletteMenuX::FUN_007bd2a0()
             FUN_00726070()->FUN_00700320(0x1772, 1);
             FUN_00a1d910();
             int iChipDiff;
-            if ((iChipDiff = m_iChips - DAT_011dea3c->FUN_00575610(DAT_011da880->FUN_007316d0())) < 0)
+            if ((iChipDiff = m_iChips - DAT_011dea3c->FUN_00575610(DAT_011da880->GetChipType())) < 0)
             {
-                DAT_011dea3c->RemoveItem(DAT_011da880->FUN_007316d0(), 0, -iChipDiff, 0, 0, 0, 0, 0, 1, 0);
+                DAT_011dea3c->RemoveItem(DAT_011da880->GetChipType(), 0, -iChipDiff, 0, 0, 0, 0, 0, 1, 0);
                 BSStringX kLostMsg;
-                FUN_00406f60(&kLostMsg, "%i %s%s %s", -iChipDiff, FUN_00482720(DAT_011da880->FUN_007316d0()),
+                FUN_00406f60(&kLostMsg, "%i %s%s %s", -iChipDiff, FUN_00482720(DAT_011da880->GetChipType()),
                              DAT_011d3114.FUN_00403df0(), DAT_011d3db4.FUN_00403df0());
                 DispatchMessageToSink(kLostMsg.FUN_00559450(), 0,
                                       "Interface\\Icons\\Message Icons\\glow_message_vaultboy_sad.dds",
-                                      DAT_011dea3c->FUN_008adcf0(DAT_011da880->FUN_007316d0(), 1, 0), 2.0f, 0);
+                                      DAT_011dea3c->FUN_008adcf0(DAT_011da880->GetChipType(), 1, 0), 2.0f, 0);
             }
             else if (iChipDiff > 0)
             {
                 InventoryStackRecord kChange;
-                kChange.FUN_004818e0(DAT_011da880->FUN_007316d0(), iChipDiff, 0);
+                kChange.FUN_004818e0(DAT_011da880->GetChipType(), iChipDiff, 0);
                 if (DAT_011da87c->iEarnings < DAT_011da880->GetFieldAt210())
                 {
                     kChange.FUN_004821a0(DAT_011dea3c, 0);
@@ -15758,11 +15758,11 @@ void RouletteMenuX::FUN_007bd2a0()
                 {
                     kChange.FUN_004821a0(DAT_011dea3c, 1);
                     BSStringX kWonMsg;
-                    FUN_00406f60(&kWonMsg, "%i %s%s %s\n%s", iChipDiff, FUN_00482720(DAT_011da880->FUN_007316d0()),
+                    FUN_00406f60(&kWonMsg, "%i %s%s %s\n%s", iChipDiff, FUN_00482720(DAT_011da880->GetChipType()),
                                  DAT_011d3114.FUN_00403df0(), DAT_011d4e7c.FUN_00403df0(), DAT_011d3abc.FUN_00403df0());
                     DispatchMessageToSink(kWonMsg.FUN_00559450(), 0,
                                           "Interface\\Icons\\Message Icons\\glow_message_vaultboy_very_happy.dds",
-                                          DAT_011dea3c->FUN_008adcf0(DAT_011da880->FUN_007316d0(), 1, 0), 2.0f, 0);
+                                          DAT_011dea3c->FUN_008adcf0(DAT_011da880->GetChipType(), 1, 0), 2.0f, 0);
                 }
             }
             if (m_bLimitUp)
@@ -15795,11 +15795,11 @@ void RouletteMenuX::FUN_007bd2a0()
         }
         if (m_apSpinSeq[m_iRouletteResult]->FUN_00508100() / 2.0 < s_fSpinTime && m_bSpinning)
         {
-            FUN_007bf7a0();
+            ResetBetChips();
             m_iChipNode = 3;
             NiPoint3X kPos = *DAT_011da8a0.FUN_00559450()->FUN_0043b4a0(2)->FUN_0043c490();
             DAT_011da8a0.FUN_00559450()->FUN_0043b4a0(m_iChipNode)->FUN_004bc1f0(kPos.x, kPos.y, 0.0f);
-            FUN_007bf840();
+            SetBetChip();
             m_bSpinning = false;
         }
         if (m_apSpinSeq[m_iRouletteResult]->FUN_00508100() < s_fSpinTime)
@@ -16048,7 +16048,7 @@ void RouletteMenuX::FUN_007bd2a0()
                     ->FUN_0043b4a0(m_iChipNode + 10)
                     ->FUN_00a59c60(ColorFlags(0.0f, false, false));
             }
-            int iHover = FUN_007bf390();
+            int iHover = GetBetIndex();
             if (iHover < 0x9f)
             {
                 if (m_pHighlight)

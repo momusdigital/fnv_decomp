@@ -239,11 +239,11 @@ struct Manager
 {
     void FUN_00858730(Reference*);
     bool FUN_0047c850();
-    void FUN_00859690(Cell*);
+    void LoadCell(Cell*);
     bool FUN_008727b0();
     void FUN_004534f0(bool);
     void FUN_00858af0(int, int, int);
-    void FUN_0085f850(int);
+    void LoadQueuedData(int);
 };
 extern Manager* DAT_011de45c;
 extern void* DAT_011ca254;
@@ -376,13 +376,13 @@ void Cell::FUN_00542d40()
 
     if (DAT_011de45c->FUN_0047c850())
     {
-        DAT_011de45c->FUN_00859690(this);
+        DAT_011de45c->LoadCell(this);
         if (!DAT_011de45c->FUN_0047c850() && DAT_011de45c->FUN_008727b0())
         {
             bool state = DAT_011de45c->FUN_0047c850();
             DAT_011de45c->FUN_004534f0(true);
             DAT_011de45c->FUN_00858af0(0, 0, 0);
-            DAT_011de45c->FUN_0085f850(0);
+            DAT_011de45c->LoadQueuedData(0);
             DAT_011de45c->FUN_004534f0(state);
         }
     }

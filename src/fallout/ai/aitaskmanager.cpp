@@ -1257,10 +1257,10 @@ struct MessageQueueHandler
     char _20[0x14];
     int _34;
     bool ProcessMessage(FUN_008c8190*, int);
-    void FUN_008c8240(int);
+    void RunToCompletion(int);
 };
 // @fnv 0x008c8240
-void MessageQueueHandler::FUN_008c8240(int eType)
+void MessageQueueHandler::RunToCompletion(int eType)
 {
     _34 = eType;
     FUN_008c8190 msg;
@@ -1547,7 +1547,7 @@ struct CountingSemaphore
 };
 struct MobileObjectTaskletData
 {
-    void FUN_008c8240(int arg);
+    void RunToCompletion(int arg);
 };
 struct GlobalObject_008caab0
 {
@@ -1582,7 +1582,7 @@ unsigned int FUN_008c9c70_cls::RunTaskletLoop()
         {
             pTaskletData = g_011dfb98.FUN_008c9cf0();
             if (pTaskletData)
-                pTaskletData->FUN_008c8240(arg);
+                pTaskletData->RunToCompletion(arg);
         } while (pTaskletData);
         finish.Signal();
     }
@@ -2487,7 +2487,7 @@ struct WorkQueue
     void ForwardToInner(const CountTask&);
     void ForwardToInner(const ActorTask&);
     void CallMidVirtualB();
-    void FUN_008c8240(int);
+    void RunToCompletion(int);
 };
 struct BoolSettingView
 {
@@ -2719,16 +2719,16 @@ void TaskOwnerTarget::FUN_008c94e0()
         else
         {
             if (!*DAT_011dfc70.Bool())
-                first.FUN_008c8240(0);
-            third.FUN_008c8240(0);
-            fifth.FUN_008c8240(0);
+                first.RunToCompletion(0);
+            third.RunToCompletion(0);
+            fifth.RunToCompletion(0);
             if (*DAT_011c3ea4.Int() == 1)
             {
-                second.FUN_008c8240(0);
-                fourth.FUN_008c8240(0);
+                second.RunToCompletion(0);
+                fourth.RunToCompletion(0);
             }
             if (!*DAT_011dfb88.Bool())
-                sixth.FUN_008c8240(0);
+                sixth.RunToCompletion(0);
         }
     }
     if (*DAT_011c3ea4.Int() == 1)
@@ -2992,7 +2992,7 @@ class R
     float FUN_005723b0(R* a, int b, int c);
     char FUN_00493bb0();
     unsigned char IsHostileTo(R* a, int b, int* c, int d);
-    unsigned char FUN_008bc700(R* a);
+    unsigned char IsInCombatWithActor(R* a);
     int FUN_008a0d10(int a, R* b, unsigned char* c, unsigned char d, int e, int f, unsigned char* g);
     void FUN_00966f20(R* a, unsigned char b, int c);
     void FUN_00967350(R* a);
@@ -3079,7 +3079,7 @@ void Owner::UpdateProjectile(R* arg)
                             int aV14 = DAT_011dea3c->FUN_008a0d10(1, p, &v16, v1e2, 0, 0, &v1d);
                             unsigned char v15 = 0;
                             int v1c2 = 0;
-                            if (p->IsHostileTo(DAT_011dea3c, 0, &v1c2, 0) || p->FUN_008bc700(DAT_011dea3c))
+                            if (p->IsHostileTo(DAT_011dea3c, 0, &v1c2, 0) || p->IsInCombatWithActor(DAT_011dea3c))
                             {
                                 v15 = 1;
                             }
@@ -3173,7 +3173,7 @@ class UpdateActor : public Actor
     BaseProcess* FUN_008d8520();
     void RestoreHealth(float amount);
     void ApplyFatigueDamage(float amount);
-    bool FUN_008bc860(Actor* actor);
+    bool CouldBeFollowing(Actor* actor);
 };
 class PlayerCharacter : public UpdateActor
 {
@@ -3260,7 +3260,7 @@ void UpdateManager::UpdateMobileObject(MobileObject* object)
                 while (nodeVal && nodeVal->GetItem())
                 {
                     Actor* actorA = nodeVal->GetItem();
-                    if (actorA && actorA != g_thePlayer && !static_cast<UpdateActor*>(actorA)->FUN_008bc860(actorTmp))
+                    if (actorA && actorA != g_thePlayer && !static_cast<UpdateActor*>(actorA)->CouldBeFollowing(actorTmp))
                         listVal->AddHead(actorA);
                     nodeVal = nodeVal->GetNext();
                 }
@@ -3326,7 +3326,7 @@ struct Obj
     void FUN_008ca070();
     void ForwardToInner(Temp*);
     void CallMidVirtualB();
-    void FUN_008c8240(int);
+    void RunToCompletion(int);
 };
 // @fnv 0x008ca070
 void Obj::FUN_008ca070()
@@ -3385,9 +3385,9 @@ void Obj::FUN_008ca070()
                 else
                 {
                     if (*DAT_011dfc70.FUN_00408d60())
-                        FUN_008c8240(0);
+                        RunToCompletion(0);
                     if (*DAT_011dfb88.FUN_00408d60())
-                        ((Obj*)((char*)this + 0x138))->FUN_008c8240(0);
+                        ((Obj*)((char*)this + 0x138))->RunToCompletion(0);
                 }
             }
         }

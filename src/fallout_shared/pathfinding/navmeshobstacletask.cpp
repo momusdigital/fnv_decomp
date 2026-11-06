@@ -531,11 +531,11 @@ struct ObstacleTaskShell
     int unk4C;
     int unk50;
     bool bForce;
-    bool FUN_006c85e0();
+    bool ReplaceNavMesh();
 };
 
 // @fnv 0x006c85e0
-bool ObstacleTaskShell::FUN_006c85e0()
+bool ObstacleTaskShell::ReplaceNavMesh()
 {
     if (!(ObstacleMesh*)m_spSourceNavMesh)
         return false;

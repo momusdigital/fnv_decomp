@@ -72,7 +72,7 @@ struct S009b4d10 : public FUN_009b3fa0
 struct NiAVObject;
 struct ObjHelper
 {
-    void* __thiscall FUN_00810660();
+    void* __thiscall GetNiObject();
     TESForm* __thiscall FUN_00621a90();
 };
 extern TESObjectREFR* __cdecl GetReferenceFromNiAVObject(NiAVObject*);

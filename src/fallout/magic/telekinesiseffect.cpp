@@ -87,7 +87,7 @@ struct ValueModifierEffect
 struct TESSaveLoadGame_shell
 {
     void FUN_00857aa0(unsigned int* pOut, unsigned int size);
-    void FUN_008579e0(void* pOut, unsigned int size);
+    void LoadGameDataOLD(void* pOut, unsigned int size);
     unsigned char FUN_008df040();
 };
 
@@ -107,8 +107,8 @@ void TelekinesisEffect::LoadFromSave(Actor* apActor)
     *(unsigned int*)((char*)this + 0x58) = irefID;
     if (((TESSaveLoadGame_shell*)g_TESSaveLoadGame)->FUN_008df040() >= 0x40)
     {
-        ((TESSaveLoadGame_shell*)g_TESSaveLoadGame)->FUN_008579e0((void*)((char*)this + 0x50), 4);
-        ((TESSaveLoadGame_shell*)g_TESSaveLoadGame)->FUN_008579e0((void*)((char*)this + 0x54), 4);
+        ((TESSaveLoadGame_shell*)g_TESSaveLoadGame)->LoadGameDataOLD((void*)((char*)this + 0x50), 4);
+        ((TESSaveLoadGame_shell*)g_TESSaveLoadGame)->LoadGameDataOLD((void*)((char*)this + 0x54), 4);
     }
 }
 }  // namespace fnv_0082b290
@@ -266,7 +266,7 @@ struct TESSaveLoadGame
 {
     void FUN_00857a10(int, int);
     unsigned char FUN_008df040();
-    void FUN_008579b0(void*, int);
+    void SaveGameDataOLD(void*, int);
 };
 struct ref_0084e3a0_shell
 {
@@ -287,8 +287,8 @@ void FUN_0082b200_shell::SaveLoad(Actor* apActor)
     ((TESSaveLoadGame*)g_TESSaveLoadGame)->FUN_00857a10((int)&irefID, 4);
     if (((TESSaveLoadGame*)g_TESSaveLoadGame)->FUN_008df040() >= 0x40)
     {
-        ((TESSaveLoadGame*)g_TESSaveLoadGame)->FUN_008579b0((char*)this + 0x50, 4);
-        ((TESSaveLoadGame*)g_TESSaveLoadGame)->FUN_008579b0((char*)this + 0x54, 4);
+        ((TESSaveLoadGame*)g_TESSaveLoadGame)->SaveGameDataOLD((char*)this + 0x50, 4);
+        ((TESSaveLoadGame*)g_TESSaveLoadGame)->SaveGameDataOLD((char*)this + 0x54, 4);
     }
 }
 

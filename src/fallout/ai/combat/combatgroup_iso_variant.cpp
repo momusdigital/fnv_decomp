@@ -6605,7 +6605,7 @@ struct Actor
     virtual void slot424();
     virtual void slot428();
     virtual Group* ActorCombatGroup();
-    bool FUN_008b3b90();
+    bool DidPathingFail();
     bool FUN_008b3bf0();
     void* FUN_00575ca0();
 };
@@ -6762,7 +6762,7 @@ void Group::FUN_0098a580()
     }
     if (FUN_0097ef30())
     {
-        if (focus && (focus->FUN_008b3b90() || !focus->FUN_008b3bf0()))
+        if (focus && (focus->DidPathingFail() || !focus->FUN_008b3bf0()))
             focus = 0;
         if (updateTimer.FUN_008d7f80())
         {
@@ -7221,10 +7221,10 @@ class CE80Group
 struct LoadBuf
 {
     virtual unsigned char Version();
-    unsigned int FUN_00864a60();
-    void FUN_00864980(void*, unsigned int);
+    unsigned int LoadVariableSizedValue();
+    void LoadData(void*, unsigned int);
     void FUN_008648e0(void*);
-    unsigned int FUN_008648a0();
+    unsigned int LoadFormID();
 };
 struct LoadPair
 {

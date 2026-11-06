@@ -91,7 +91,7 @@ extern unsigned char DAT_0118abb1;
 extern TESImageSpaceModifier* DAT_011c9704;
 
 // @fnv 0x0080bfa0
-TESImageSpaceModifier* __cdecl FUN_0080bfa0()
+TESImageSpaceModifier* __cdecl GetConcussion()
 {
     if (!DAT_0118abb1)
         return 0;

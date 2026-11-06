@@ -685,7 +685,7 @@ struct MeshPoint
 };
 struct MeshTriangle
 {
-    bool FUN_00690e10();
+    bool HasEdgeExtraInfo();
     bool HasFlag40();
     bool IsEdgeFlagSet(int);
     unsigned short FUN_0068f2c0(int);
@@ -775,7 +775,7 @@ void NavInfo::InitializeFromMeshSource(MeshSource* source)
         for (unsigned int i = 0; i < count; ++i)
         {
             MeshTriangle* triangle = source->FUN_005582f0((unsigned short)i);
-            if (!triangle->FUN_00690e10())
+            if (!triangle->HasEdgeExtraInfo())
                 continue;
             bool isPreferred = triangle->HasFlag40();
             for (int edge = 0; edge < 3; ++edge)

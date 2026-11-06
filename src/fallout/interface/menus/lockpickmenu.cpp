@@ -544,7 +544,7 @@ struct FUN_00a712f0 : FUN_00aa13e0
     int unk10c;
     int unk110;
     FUN_00a712f0();
-    void FUN_00712e60(FUN_00414430*);
+    void SetViewPort(FUN_00414430*);
     void FUN_00507700(float);
     void FUN_00a6faf0(FUN_00a71b70*);
     void SetLookAt(const FUN_00416870&, const FUN_00416870&);
@@ -553,7 +553,7 @@ struct FUN_00a712f0 : FUN_00aa13e0
 };
 struct FUN_0078e900_shell
 {
-    FUN_00a712f0* FUN_0078e900();
+    FUN_00a712f0* Create3DCamera();
 };
 
 Renderer* FUN_0045c670();
@@ -574,13 +574,13 @@ extern double DAT_01070c80;
 //   b = camera, f = viewport rect, c = frustum, g = aspect ratio,
 //   d = frustum scale, e = view angle, a = trailing value object.
 // @fnv 0x0078e900
-FUN_00a712f0* FUN_0078e900_shell::FUN_0078e900()
+FUN_00a712f0* FUN_0078e900_shell::Create3DCamera()
 {
     float g;
     FUN_00a712f0* b = new FUN_00a712f0;
     FUN_00414430 f(0.0f, 1.0f, 1.0f, 0.0f);
     float d;
-    b->FUN_00712e60(&f);
+    b->SetViewPort(&f);
     FUN_00a71b70 c(0);
     float e;
     c.unk14 = FUN_0045c670()->vf64();
@@ -891,12 +891,12 @@ struct C
     int m_8c;
     float m_90;
     void __thiscall UpdateLockRotation(float v);
-    void __thiscall FUN_007908f0();
+    void __thiscall RotateLockpick();
 };
 
 // Computes a sound value from game state, clamps it, plays a sound on threshold crossings, stores it, and updates m_90 from nearby tiles.
 // @fnv 0x007908f0
-void __thiscall C::FUN_007908f0()
+void __thiscall C::RotateLockpick()
 {
     float RunSeventhVirtualOperation = 0.0f;
     long cnt4 = 0;
@@ -1229,7 +1229,7 @@ struct ThisCls
     ChildObj* m_b0;
     Mat9 m_b4;
     NiPoint3 m_d8;
-    void* FUN_0078e900();
+    void* Create3DCamera();
     void InitLockInterface();
 };
 
@@ -1300,7 +1300,7 @@ void ThisCls::InitLockInterface()
         }
         FUN_00a6d2d0(idx);
     }
-    ((Glob*)&DAT_011da224)->FUN_0066b0d0(FUN_0078e900());
+    ((Glob*)&DAT_011da224)->FUN_0066b0d0(Create3DCamera());
     ((VObj*)FUN_00450b80(1))->m_dc(((Glob*)&DAT_011da24c)->FUN_00559450(), 1);
     float val;
     val = (float)(((TimeObj*)((AVObj*)((Glob*)&DAT_011da24c)->FUN_00559450())->FUN_0043d450())->FUN_0084d030() * 3.0);
@@ -2136,7 +2136,7 @@ struct xPlayer
     char m_auiShapeKeys[0x208];
     bool m_20c;
     void FUN_00915d20(int);
-    void FUN_008bfa40(void*, int, int, int, xForm*);
+    void StealAlarm(void*, int, int, int, xForm*);
     void FUN_0094fd30(int);
 };
 
@@ -2226,7 +2226,7 @@ struct xLockPickMenu
     xSeq* m_b0;
     xMat3 m_b4;
     xPoint3 m_d8;
-    void FUN_007908f0();
+    void RotateLockpick();
     void AdvanceSequence(float);
     void UpdateLockRotation(float);
     bool FUN_00791540(bool);
@@ -2337,7 +2337,7 @@ void xLockPickMenu::FUN_0078eb50()
                     xAudio::FUN_00453a70()->FUN_00ad7550(s_szTurn, 0x121).FUN_00ad8830(false);
                     m_28 = 3;
                 }
-                FUN_007908f0();
+                RotateLockpick();
             }
             if (m_8c > 0.0)
             {
@@ -2406,7 +2406,7 @@ void xLockPickMenu::FUN_0078eb50()
                             if (CRIME)
                             {
                                 xg_player_11dea3c->FUN_00915d20(1);
-                                xg_player_11dea3c->FUN_008bfa40(CRIME, 0, 0, 0, OWNER);
+                                xg_player_11dea3c->StealAlarm(CRIME, 0, 0, 0, OWNER);
                             }
                             else
                             {

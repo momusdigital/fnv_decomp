@@ -12,17 +12,17 @@ void ApplyPerkModifiers(int entryPoint, Actor* actor, ...);
 struct Struct801420
 {
     int f0;
-    void FUN_00801420(unsigned char a, int b);
-    void FUN_00801450(unsigned char a, int b);
-    void FUN_00801880();
+    void DrawTarget(unsigned char a, int b);
+    void DrawSingleTarget(unsigned char a, int b);
+    void DrawMultipleTargets();
 };
 // @fnv 0x00801420
-void Struct801420::FUN_00801420(unsigned char a, int b)
+void Struct801420::DrawTarget(unsigned char a, int b)
 {
     if (f0 == 0)
-        FUN_00801450(a, b);
+        DrawSingleTarget(a, b);
     else
-        FUN_00801880();
+        DrawMultipleTargets();
 }
 
 extern "C" unsigned char __cdecl FUN_00709d00();
@@ -31,11 +31,11 @@ struct FOVATSEffectManager_00801a60
 {
     void FUN_00801ad0(int, int, int, unsigned char);
     void FUN_00801bb0(int, int, int, unsigned char);
-    void FUN_00801a60(int, int, int, unsigned char);
+    void PrepareEffect(int, int, int, unsigned char);
 };
 
 // @fnv 0x00801a60
-void FOVATSEffectManager_00801a60::FUN_00801a60(int a, int b, int c, unsigned char d)
+void FOVATSEffectManager_00801a60::PrepareEffect(int a, int b, int c, unsigned char d)
 {
     if (FUN_00709d00())
         return;
@@ -78,14 +78,14 @@ struct ImageSpaceManager : S4
 
 struct FOVATSEffectManager_008019d0
 {
-    void FUN_008019d0();
+    void ShutdownEffect();
 };
 
 ImageSpaceManager* __cdecl FUN_004e3270(void);
 extern int DAT_012007fc;
 
 // @fnv 0x008019d0
-void FOVATSEffectManager_008019d0::FUN_008019d0()
+void FOVATSEffectManager_008019d0::ShutdownEffect()
 {
     FUN_004e3270()->FUN_004ebbc0(0x0A)->SetFormType(0);
     FUN_004e3270()->FUN_004ebbc0(0x0B)->SetFormType(0);
@@ -507,7 +507,7 @@ struct VATSEffectStub
     void FUN_00800820(float t);
     void UpdateProgress(float t);
     void FUN_00800900(float t);
-    void FUN_00800ac0(int a, int b, int c);
+    void SetTarget(int a, int b, int c);
 };
 
 // @fnv 0x00800370
@@ -546,7 +546,7 @@ void VATSEffectStub::FUN_00800370()
     }
     if (target && target->v22c(0))
     {
-        FUN_00800ac0(0, -1, 0);
+        SetTarget(0, -1, 0);
     }
     VDebugPrint("====== VATSEffectOnIdle ======");
     for (unsigned int i = 0; i < 16; i++)
@@ -625,11 +625,11 @@ struct S801880
     int unk2C4;
     int unk2C8;
     Str8 name;
-    void FUN_00801880();
+    void DrawMultipleTargets();
 };
 
 // @fnv 0x00801880
-void S801880::FUN_00801880()
+void S801880::DrawMultipleTargets()
 {
     if (this->count > 0)
     {
@@ -1106,7 +1106,7 @@ void FUN_005b5e40(const char*);
 struct VATSRender : VATSEffectStub
 {
     AccumulatorPtr accumulator;
-    void FUN_00801420(unsigned char, int);
+    void DrawTarget(unsigned char, int);
     void FUN_00800f30(RenderTexture*, int, unsigned char, int, int, unsigned char);
 };
 // @fnv 0x00800f30
@@ -1163,7 +1163,7 @@ void VATSRender::FUN_00800f30(RenderTexture* texture, int mode, unsigned char dr
     }
     accumulator.FUN_00559450()->FUN_004a1040(8);
     FUN_00b4f450(8);
-    FUN_00801420(draw, flags);
+    DrawTarget(draw, flags);
     FUN_00b4f450(0);
     accumulator.FUN_00559450()->FUN_004a1040(0);
     if (refraction)
@@ -2035,14 +2035,14 @@ struct This9
     int unk2c8;
     Sub9 sub2cc;
     void UpdateEquipmentVisibility();
-    void FUN_008022c0();
+    void RestoreBodyParts();
 };
 P2Obj* __cdecl FUN_0045c670();
 void __cdecl FUN_00b6bee0(Svc9*, void*, X10*);
 void __cdecl FUN_00b6c0d0(Svc9*, int, int);
 
 // @fnv 0x00801450
-void Struct801420::FUN_00801450(unsigned char a, int b)
+void Struct801420::DrawSingleTarget(unsigned char a, int b)
 {
     if (((This9*)this)->actor)
     {
@@ -2116,7 +2116,7 @@ void Struct801420::FUN_00801450(unsigned char a, int b)
         x102->FUN_004a0fd0(0);
         x102->FUN_004fb0b0(0);
         if ((((This9*)this)->b129 && !(((This9*)this)->b2b4) || a) && b != 1)
-            ((This9*)this)->FUN_008022c0();
+            ((This9*)this)->RestoreBodyParts();
         (void)ptr12;
     }
 }

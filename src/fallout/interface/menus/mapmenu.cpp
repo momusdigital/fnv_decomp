@@ -20,13 +20,13 @@ void TileImage::SetTexture(NiAVObject* image)
 // @fnv 0x0079f640
 void MapMenu::SetMapPositionToPlayer()
 {
-    if (DAT_011da368 && g_thePlayer->FUN_00798400())
+    if (DAT_011da368 && g_thePlayer->QPlayerMapMarker())
     {
-        TESObjectREFR* ref = g_thePlayer->FUN_00798400();
+        TESObjectREFR* ref = g_thePlayer->QPlayerMapMarker();
         DAT_011da368->m_kPlayerWorldPosition = *ref->GetPos();
-        DAT_011da368->m_pCurrentMapSpace = g_thePlayer->FUN_00798400()->GetParentWorldSpace();
+        DAT_011da368->m_pCurrentMapSpace = g_thePlayer->QPlayerMapMarker()->GetParentWorldSpace();
         if (!DAT_011da368->m_pCurrentMapSpace)
-            DAT_011da368->m_pCurrentMapSpace = g_thePlayer->FUN_00798400()->GetParentCell();
+            DAT_011da368->m_pCurrentMapSpace = g_thePlayer->QPlayerMapMarker()->GetParentCell();
     }
 }
 
@@ -162,11 +162,11 @@ void FUN_00796f40_shell::SetFlag8000(bool abOn)
 
 struct FUN_00798400_shell : public PlayerCharacter
 {
-    TESObjectREFR* FUN_00798400();
+    TESObjectREFR* QPlayerMapMarker();
 };
 
 // @fnv 0x00798400
-TESObjectREFR* FUN_00798400_shell::FUN_00798400()
+TESObjectREFR* FUN_00798400_shell::QPlayerMapMarker()
 {
     return *(TESObjectREFR**)((char*)this + 0x6f4);
 }
@@ -414,7 +414,7 @@ void FUN_00832240(TESObjectREFR*, bool);
 bool FUN_0079b390(BGSNote*);
 bool FUN_0079b720(TESChallenge*);
 void FUN_0079be80(Tile*, TESObjectREFR*);
-void FUN_00798840();
+void SetPlayerMarkerCallback();
 void FUN_00798710();
 
 struct FUN_0053d280_shell
@@ -630,11 +630,11 @@ void MapMenuClick::FUN_00796fd0(int aiID, Tile* apTarget)
                     pAdjustNorthRotationCell->FUN_00555b10(m_kPlayerWorldPosition, m_kPlayerWorldPosition, false);
                 m_pTiles[6]->Set(0xfa3, 0);
                 BSAudio::GetSingleton()->GetSoundHandleByEditorID("UIPopUpMapMarkerAdded ", 0x121).Play(false);
-                if (g_thePlayer->FUN_00798400())
-                    Interface::ShowButtonDialog(g_011d4438.String(), 0, 0, FUN_00798840, 0, 0x17, 0.0f, 0.0f,
+                if (g_thePlayer->QPlayerMapMarker())
+                    Interface::ShowButtonDialog(g_011d4438.String(), 0, 0, SetPlayerMarkerCallback, 0, 0x17, 0.0f, 0.0f,
                                                 g_011d4960.String(), g_011d33a8.String(), g_011d4f54.String(), 0);
                 else
-                    Interface::ShowButtonDialog(g_011d3a2c.String(), 0, 0, FUN_00798840, 3, 0x17, 0.0f, 0.0f,
+                    Interface::ShowButtonDialog(g_011d3a2c.String(), 0, 0, SetPlayerMarkerCallback, 3, 0x17, 0.0f, 0.0f,
                                                 g_011d34f8.String(), g_011d3684.String(), 0);
             }
             break;
@@ -919,7 +919,7 @@ void* __fastcall _FNV_GetObjectReference(RefH*);
 bool __cdecl IsRadioStationTalkingActivator(void*, int);
 // Returns true if p is null, disabled, or its object reference passes IsRadioStationTalkingActivator with 0.
 // @fnv 0x0079be30
-bool FUN_0079be30(RefH* apRef)
+bool RadioFilterFunc(RefH* apRef)
 {
     return apRef == 0 || apRef->GetDisabled() || IsRadioStationTalkingActivator(_FNV_GetObjectReference(apRef), 0);
 }
@@ -1267,7 +1267,7 @@ struct FUN_00456540_shell : public PlayerTargetLocation
 };
 struct FUN_0093be30_shell
 {
-    void FUN_0093be30(PlayerTargetLocation*);
+    void RequestPositionPlayer(PlayerTargetLocation*);
 };
 struct DAT_011da368_shell
 {
@@ -1283,7 +1283,7 @@ void FUN_00798a00()
     {
         FUN_00456540_shell* loc = new FUN_00456540_shell;
         *(PlayerTargetLocation**)(loc->data + 0x30) = _DAT_011da368->ms_pInventoryMenu;
-        _g_thePlayer->FUN_0093be30(loc);
+        _g_thePlayer->RequestPositionPlayer(loc);
         _DAT_011da368->ms_pInventoryMenu = 0;
     }
 }
@@ -1363,7 +1363,7 @@ bool _FUN_004b71d0();
 InterfaceManager* FUN_004b7210();
 int __fastcall FUN_005cbb50(char*);
 bool __cdecl FUN_0079bc50(MagicCaster_shell*);
-bool __cdecl FUN_0079bc90(void*);
+bool __cdecl QuestObjectiveSortFunc(void*);
 struct ListBoxS
 {
     virtual void A0();
@@ -1439,8 +1439,8 @@ void FUN_0079b8e0_shell::UpdateQuestObjectiveList()
             }
         }
     }
-    ((ListBoxS*)((char*)this + 0x1c0))->V8(FUN_0079bc90);
-    ((ListBoxS*)((char*)this + 0x130))->V8(FUN_0079bc90);
+    ((ListBoxS*)((char*)this + 0x1c0))->V8(QuestObjectiveSortFunc);
+    ((ListBoxS*)((char*)this + 0x130))->V8(QuestObjectiveSortFunc);
     ((ListBoxS*)((char*)this + 0x130))->FUN_007a2350(true);
     if (FUN_005cbb50((char*)_g_thePlayer))
     {
@@ -1580,7 +1580,7 @@ struct FUN_007a5a30_Host
 
 struct FUN_0079b460_shell : public MapMenu
 {
-    void FUN_0079b460(bool);
+    void ToggleNotesChallengeMode(bool);
 };
 
 extern const char $SG3295[];
@@ -1590,7 +1590,7 @@ extern MapMenu* _DAT_011da368;
 extern signed char DAT_011da36e;
 
 // @fnv 0x0079b460
-void FUN_0079b460_shell::FUN_0079b460(bool abToggle)
+void FUN_0079b460_shell::ToggleNotesChallengeMode(bool abToggle)
 {
     Tile* pchallengeText;
 
@@ -2350,7 +2350,7 @@ extern double DAT_0101e568;
 
 // Compares two objects by a value at DAT_011da344, falling back to the value at 0xfac, returning -1, 0 or 1.
 // @fnv 0x0079bc90
-int __cdecl FUN_0079bc90(FUN_00a011b0_owner_b9258** apFirst, FUN_00a011b0_owner_b9258** apSecond)
+int __cdecl QuestObjectiveSortFunc(FUN_00a011b0_owner_b9258** apFirst, FUN_00a011b0_owner_b9258** apSecond)
 {
     int result2 = 0;
     float f3 = (*apFirst)->FUN_00a011b0(DAT_011da344);
@@ -2926,7 +2926,7 @@ struct PlayerMarkerCalls : public PlayerCharacter
 
 // Reads a mode, updates the player/map marker accordingly, resets the marker position, and repositions the marker element unless a condition holds.
 // @fnv 0x00798840
-void FUN_00798840()
+void SetPlayerMarkerCallback()
 {
     char cMode = ConsumeByteAtE4();
     switch (cMode)
@@ -3213,15 +3213,15 @@ struct Controller
     void UpdateMapHighlight();
 };
 
-bool __cdecl FUN_00702450(int code);
+bool __cdecl IsTopMenuID(int code);
 UIManager* __cdecl FUN_00705990();
 bool __cdecl FUN_00709d40();
 double __cdecl FUN_00408820(float value);
 int __cdecl FUN_00a01860(const void* key);
 int __cdecl FUN_00a01860(const void* key, float value);
 int __cdecl FUN_00ec62c0();
-void __cdecl FUN_00717280(int);
-void __cdecl FUN_007048f0(int, int, int);
+void __cdecl PlayMenuSound(int);
+void __cdecl SetInventoryMenuVisible(int, int, int);
 void __cdecl ShowStatsMenu(int, int);
 
 extern WorldInput* DAT_011dea0c;
@@ -3246,10 +3246,10 @@ extern const char DAT_01070250[];
 // @fnv 0x00799790
 bool Controller::HandleInputCommand(int command, int ignored)
 {
-    if (!FUN_00702450(0x3ff) || !FUN_00705990()->IsUnk28Set())
+    if (!IsTopMenuID(0x3ff) || !FUN_00705990()->IsUnk28Set())
         return false;
     bool changed = false;
-    if (FUN_00702450(0x3ff))
+    if (IsTopMenuID(0x3ff))
     {
 
         if (FUN_00709d40())
@@ -3332,12 +3332,12 @@ bool Controller::HandleInputCommand(int command, int ignored)
         switch (command)
         {
         case 0xd:
-            FUN_00717280(0x24);
-            FUN_007048f0(1, 0, 1);
+            PlayMenuSound(0x24);
+            SetInventoryMenuVisible(1, 0, 1);
             changed = true;
             break;
         case 0xe:
-            FUN_00717280(0x24);
+            PlayMenuSound(0x24);
             ShowStatsMenu(1, 0);
             changed = true;
             break;
@@ -3398,7 +3398,7 @@ extern SettingT_GameSettingCollection_ localeSetting;
 extern SettingT_GameSettingCollection_ g_011d4aec;
 int TraitID(const char*);
 // @fnv 0x0079aba0
-void FUN_0079aba0()
+void UpdateMenu()
 {
     if (DAT_011da368 && GetRenderState()->IsReady())
     {
@@ -3795,7 +3795,7 @@ extern "C" float DAT_01023cd8;
 extern "C" void __cdecl FUN_004ff1a0(int, void*, int);
 extern unsigned int __cdecl FUN_0079c070();
 extern BSSimpleList<unsigned int>* __cdecl FUN_0079c080();
-extern bool FUN_0079be30(RefH*);
+extern bool RadioFilterFunc(RefH*);
 extern int __cdecl CompareMobileObjects(FUN_0079bd70_data*, FUN_0079bd70_data*);
 
 struct RadioEntry
@@ -3839,7 +3839,7 @@ void FUN_0079bea0_Shell::RefreshRadioList()
         tile->Set(DAT_011da348, FUN_0079c070() && node->GetItem() == *(unsigned int*)FUN_0079c070());
         tile->Set(DAT_011da344, record.FUN_005f65d0(&node->GetItem()) ? DAT_01023cd8 : DAT_0101e704, true);
     }
-    ((RadioList*)&m_kMapMarkerListBox)->FUN_007a3d20(&FUN_0079be30);
+    ((RadioList*)&m_kMapMarkerListBox)->FUN_007a3d20(&RadioFilterFunc);
     ((RadioCallback)((RadioList*)&m_kMapMarkerListBox)->vtable[8])((RadioList*)&m_kMapMarkerListBox,
                                                                    (void*)&CompareMobileObjects);
     record.FUN_00470470();
@@ -4865,7 +4865,7 @@ struct Reference
     bool FUN_00575d10();
     void* FUN_00575d70();
     World* FUN_008d6f30();
-    Reference* FUN_00798400();
+    Reference* QPlayerMapMarker();
 };
 extern Reference* DAT_011dea3c;
 struct Tile
@@ -4955,7 +4955,7 @@ struct Menu
     int unk118;
     World* world;
     Point GetMarkerPosition(Point, void*);
-    void FUN_0079e0a0();
+    void AddQuestMarkers();
     void UpdateMapMarkers();
     void FUN_0079f6f0();
     void UpdateQuestMarker();
@@ -5006,9 +5006,9 @@ void Menu::FUN_0079dbb0()
             4001, map->FUN_0045cd60()->FUN_00a011b0(4017) / DAT_01011590 - map->FUN_00a011b0(4017) * point.x, 0);
         map->FUN_00a012d0(
             4002, map->FUN_0045cd60()->FUN_00a011b0(4016) / DAT_01011590 - map->FUN_00a011b0(4016) * point.y, 0);
-        FUN_0079e0a0();
+        AddQuestMarkers();
         UpdateMapMarkers();
-        if (DAT_011dea3c->FUN_00798400())
+        if (DAT_011dea3c->QPlayerMapMarker())
         {
             FUN_0079f6f0();
             UpdateQuestMarker();
@@ -5070,13 +5070,13 @@ struct MarkerTileOps
 struct MarkerMap : MapMenu
 {
     TESObjectREFR* SelectTarget(TESObjectREFR*, PathingPath*);
-    void FUN_0079f8d0(TESObjectREFR*, TESObjectREFR*, PathingPath*, int);
+    void CreateWaypointPath(TESObjectREFR*, TESObjectREFR*, PathingPath*, int);
     NiPoint3 GetMarkerPosition(NiPoint3, TESWorldSpace*);
     Tile* FUN_00a1ddb0(Tile*, const char*, int);
-    void FUN_0079e0a0();
+    void AddQuestMarkers();
 };
 // @fnv 0x0079e0a0
-void MarkerMap::FUN_0079e0a0()
+void MarkerMap::AddQuestMarkers()
 {
     MarkerTile* tile = ((MarkerTile*)m_pMapTile)->FUN_00a03eb0(27);
     while (tile)
@@ -5104,7 +5104,7 @@ void MarkerMap::FUN_0079e0a0()
         if (target)
         {
             if (m_iMapDisplayMode == 33)
-                FUN_0079f8d0(m_pFirstMapReference, target, (*node->FUN_006815c0())->FUN_00460140(), 29);
+                CreateWaypointPath(m_pFirstMapReference, target, (*node->FUN_006815c0())->FUN_00460140(), 29);
         }
         else if (reference && ((m_iMapDisplayMode == 33 && !((RefMapOps*)reference)->FUN_00575d10()) ||
                                (m_iMapDisplayMode == 32 && reference->GetParentCell() == g_thePlayer->GetParentCell())))
@@ -5485,7 +5485,7 @@ struct QuestMapReference : TESObjectREFR
 };
 struct QuestMapMenu : MapMenu
 {
-    void FUN_0079f8d0(TESObjectREFR*, TESObjectREFR*, void*, int);
+    void CreateWaypointPath(TESObjectREFR*, TESObjectREFR*, void*, int);
     TESObjectREFR* SelectTarget(TESObjectREFR*, PathingPath*);
     NiPoint3 GetMarkerPosition(NiPoint3, TESWorldSpace*);
     void UpdateQuestMarker();
@@ -5494,20 +5494,20 @@ struct QuestMapMenu : MapMenu
 void QuestMapMenu::UpdateQuestMarker()
 {
     TESObjectREFR* reference = m_iMapDisplayMode == 33
-                                   ? SelectTarget(g_thePlayer->FUN_00798400(),
+                                   ? SelectTarget(g_thePlayer->QPlayerMapMarker(),
                                                   (PathingPath*)((FUN_0079f620_shell*)g_thePlayer)->GetOffsetPointer())
                                    : ((QuestMapPlayer*)g_thePlayer)->GetFirstOrFallback();
     if (reference)
     {
         if (m_iMapDisplayMode == 33)
-            FUN_0079f8d0(m_pFirstMapReference, reference, ((FUN_0079f620_shell*)g_thePlayer)->GetOffsetPointer(), 30);
+            CreateWaypointPath(m_pFirstMapReference, reference, ((FUN_0079f620_shell*)g_thePlayer)->GetOffsetPointer(), 30);
     }
-    else if (g_thePlayer->FUN_00798400())
+    else if (g_thePlayer->QPlayerMapMarker())
     {
-        if ((m_iMapDisplayMode == 33 && !((QuestMapReference*)g_thePlayer->FUN_00798400())->FUN_00575d10()) ||
-            (m_iMapDisplayMode == 32 && ((QuestMapReference*)g_thePlayer->FUN_00798400())->FUN_008d6f30() ==
+        if ((m_iMapDisplayMode == 33 && !((QuestMapReference*)g_thePlayer->QPlayerMapMarker())->FUN_00575d10()) ||
+            (m_iMapDisplayMode == 32 && ((QuestMapReference*)g_thePlayer->QPlayerMapMarker())->FUN_008d6f30() ==
                                             ((QuestMapPlayer*)g_thePlayer)->FUN_008d6f30()))
-            reference = g_thePlayer->FUN_00798400();
+            reference = g_thePlayer->QPlayerMapMarker();
     }
     if (reference)
     {
@@ -5732,10 +5732,10 @@ float __cdecl FUN_004579e0(float);
 float __cdecl FUN_004b5550(float, float);
 struct Map053 : MapMenu
 {
-    void FUN_0079f8d0(TESObjectREFR*, TESObjectREFR*, PathingPath*, int);
+    void CreateWaypointPath(TESObjectREFR*, TESObjectREFR*, PathingPath*, int);
 };
 // @fnv 0x0079f8d0
-void Map053::FUN_0079f8d0(TESObjectREFR* start, TESObjectREFR* end, PathingPath* path, int id)
+void Map053::CreateWaypointPath(TESObjectREFR* start, TESObjectREFR* end, PathingPath* path, int id)
 {
     if (!start || !end || !path)
         return;
@@ -7961,7 +7961,7 @@ struct MapEnterObjectiveSelection : ListBox<BGSQuestObjective*>
 };
 struct Burst
 {
-    void FUN_007f8610(int, float, float, int);
+    void MoveKnob(int, float, float, int);
 };
 struct Proxy
 {
@@ -8048,7 +8048,7 @@ void Reconstruction798cb0::FUN_00798cb0(int aiEventCode, Tile* tile)
     {
         ((Proxy*)FUN_004b7210())
             ->FUN_00704370()
-            ->FUN_007f8610(0, DAT_011da400 < index ? DAT_011db2f0.Float()->f : -DAT_011db2f0.Float()->f,
+            ->MoveKnob(0, DAT_011da400 < index ? DAT_011db2f0.Float()->f : -DAT_011db2f0.Float()->f,
                            DAT_011db358.Float()->f, 1);
         DAT_011da400 = index;
     }

@@ -219,12 +219,12 @@ int StateMachine::RunStep(void* context, unsigned int step, bool* finished)
 struct MemoryManager
 {
     void CreateMemoryPool(unsigned int, unsigned int, const char*);
-    void FUN_00866770();
+    void SpecifyPools();
 };
 
 // Calls CreateMemoryPool repeatedly with fixed numeric values and matching "Pool N" names.
 // @fnv 0x00866770
-void MemoryManager::FUN_00866770()
+void MemoryManager::SpecifyPools()
 {
     CreateMemoryPool(8, 0x600000, "Pool 8");
     CreateMemoryPool(12, 0x500000, "Pool 12");

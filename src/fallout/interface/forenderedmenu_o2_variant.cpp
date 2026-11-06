@@ -140,7 +140,7 @@ struct MenuStub
     char _p61[0x58];
     bool bB9;
     void ResetMenuState();
-    void FUN_007fae70(int);
+    void SetScreenTexture(int);
 };
 struct S007fb100
 {

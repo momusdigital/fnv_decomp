@@ -414,7 +414,7 @@ struct Actor
 {
     int FUN_008a7570();
     BaseProcess* FUN_008d8520();
-    void FUN_008a6840(bool);
+    void SetWantWeaponDrawn(bool);
     int FUN_00575610(TESForm*);
     void FUN_0088c650(TESForm*, int, ExtraDataList*, bool, bool, bool);
     void FUN_0088c790(TESForm*, ExtraDataList*, bool, bool, bool, bool);
@@ -456,7 +456,7 @@ void CombatProcedureSW::UpdateWeaponDraw()
     {
         if (actor->FUN_008d8520()->IsWeaponOut())
         {
-            actor->FUN_008a6840(false);
+            actor->SetWantWeaponDrawn(false);
             return;
         }
         if (pWeapon)
@@ -475,7 +475,7 @@ void CombatProcedureSW::UpdateWeaponDraw()
     else if (weap == pWeapon)
     {
         if (!actor->FUN_008d8520()->IsWeaponOut())
-            actor->FUN_008a6840(true);
+            actor->SetWantWeaponDrawn(true);
         if (!weap || FUN_006450c0(weap))
             controller->UpdateActorValues();
         SetState();

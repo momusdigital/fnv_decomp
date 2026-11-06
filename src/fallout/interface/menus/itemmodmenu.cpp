@@ -432,12 +432,12 @@ extern int g_iEqUnused;
 
 struct EqMenu
 {
-    bool FUN_00783af0(EqEntry* apTarget);
+    bool ItemModItem(EqEntry* apTarget);
 };
 
 // Merges the current entry's extra data into the player's inventory, equips it to a free hand slot, and returns whether it was equipped.
 // @fnv 0x00783af0
-bool EqMenu::FUN_00783af0(EqEntry* apTarget)
+bool EqMenu::ItemModItem(EqEntry* apTarget)
 {
     EqEntry* pPlayerEntry =
         EqInventoryChanges::GetOrAddInventoryChanges(g_pEqPlayer)->FindEntry(g_pEqCurrentEntry->GetType(), 1, 0);
@@ -906,15 +906,15 @@ class ItemModListW
     ItemEntry* FUN_007a1910();
     void RemoveTile(int);
 };
-void FUN_00717280(int);
-void FUN_00784710(ItemEntry*, int);
+void PlayMenuSound(int);
+void InitItemModMenu(ItemEntry*, int);
 void FUN_00782a90();
-void FUN_007048f0(int, int, int);
+void SetInventoryMenuVisible(int, int, int);
 
 class ItemModMenuW : public ItemModMenu
 {
   public:
-    bool FUN_00783af0(ItemEntry*);
+    bool ItemModItem(ItemEntry*);
     void HandleItemModMenuClick(int tileID, Tile* clickedTile);
 };
 
@@ -937,13 +937,13 @@ void ItemModMenuW::HandleItemModMenuClick(int tileID, Tile* clickedTile)
                 ItemEntry* pEntry = ((ItemModListW*)&m_kItemList)->FUN_007a1910();
                 TESForm* pForm =
                     (const char*)*pEntry ? *(TESForm**)&((B006815c0*)(const char*)*pEntry)->B006815c0::B006815c0() : 0;
-                if (FUN_00783af0(pEntry))
+                if (ItemModItem(pEntry))
                 {
                     _g_thePlayer->SendItemModEvent(((TESObjectREFR_GetFlags_Helper*)pEntry)->CallGetFlags(), pForm,
                                                    true, false, false, false, false, false, true, false);
                     FUN_00453a70()->GetSoundHandleByEditorID("UIItemGunsSmallUp ", 0x121).FUN_00ad8830(false);
                     ((ItemModListW*)&m_kItemList)->RemoveTile(((ItemModListW*)&m_kItemList)->v1());
-                    FUN_00784710(DAT_011d9f58, 0);
+                    InitItemModMenu(DAT_011d9f58, 0);
                     if (pEntry->FUN_004bddd0(false))
                     {
                         _g_thePlayer->UpdateRepairMenu();
@@ -954,7 +954,7 @@ void ItemModMenuW::HandleItemModMenuClick(int tileID, Tile* clickedTile)
         }
         break;
     case 12:
-        FUN_00717280(0x24);
+        PlayMenuSound(0x24);
         if (DAT_011d9f40 == 1)
         {
             _g_thePlayer->FUN_0088c650(
@@ -963,7 +963,7 @@ void ItemModMenuW::HandleItemModMenuClick(int tileID, Tile* clickedTile)
             DAT_011d9f58->FUN_004bdc70();
             DAT_011d9f40 = 0;
         }
-        FUN_007048f0(1, 0, 0);
+        SetInventoryMenuVisible(1, 0, 0);
         break;
     }
 }
@@ -1383,7 +1383,7 @@ struct Manager78
 };
 void FUN_007046f0(int, int, int);
 // @fnv 0x00784710
-void FUN_00784710(Entry78* pEntry, bool b)
+void InitItemModMenu(Entry78* pEntry, bool b)
 {
     if (b)
         DAT_011d9f40 = 0;

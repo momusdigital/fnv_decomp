@@ -2556,7 +2556,7 @@ struct FontC {
 
 void __cdecl FUN_005b5e40(int, const char*, int);
 void __cdecl FUN_00ec8d5f(char*, int, const char*, int);
-void __cdecl FUN_007070c0(char*, char*, int, int);
+void __cdecl FindTextReplacementString(char*, char*, int, int);
 void __cdecl FUN_00ec61c0(void*, int, unsigned int);
 void __cdecl FUN_00ec7c66(char*, int, const char*, int);
 
@@ -2605,7 +2605,7 @@ SStr FontC::FUN_00a16ea0(const char* text, int* apiPos, unsigned mask, unsigned 
                     p2[n5] = 0;
                     char kNamebuf[0x104];
                     kNamebuf[0] = 0;
-                    FUN_007070c0(p2, kNamebuf, 0x104, 0);
+                    FindTextReplacementString(p2, kNamebuf, 0x104, 0);
                     if (kNamebuf[0] == '\\') {
                         kNamebuf[strlen(kNamebuf) - 1] = 0;
                         GetNode(0)->LoadIconFromPath(&kNamebuf[1]);
@@ -3840,7 +3840,7 @@ extern "C" int __cdecl FUN_00ec65a6(char*,unsigned int,const char*);
 extern "C" int __cdecl sprintf(char*,const char*,...);
 extern "C" void* __cdecl FUN_00ec61c0(void*,int,unsigned int);
 extern "C" void* __cdecl FUN_00ec7230(void*,const void*,unsigned int);
-bool __cdecl FUN_007070c0(const char*,char*,unsigned int,bool);
+bool __cdecl FindTextReplacementString(const char*,char*,unsigned int,bool);
 bool __cdecl ResolveSettingString(const char*,char*);
 void __cdecl FUN_00406d00(char*,unsigned int,const char*,...);
 void __cdecl NormalizeSmartQuotes(unsigned char*);
@@ -4046,7 +4046,7 @@ void Font::FUN_00a12fb0(const char* input,Layout* layout) {
    entitySlot1[countSlot0?countSlot0-prefixSlot10:countSlot0]=0;
    unsigned int consumed=strlen(entitySlot1)+1;
    if(workSlot77[scan+countSlot0]==';') consumed+=prefixSlot10;
-   if(FUN_007070c0(entitySlot1,replacementSlot0,1024,positiveSlot0) || ResolveSettingString(entitySlot1,replacementSlot0)) {
+   if(FindTextReplacementString(entitySlot1,replacementSlot0,1024,positiveSlot0) || ResolveSettingString(entitySlot1,replacementSlot0)) {
     unsigned int replacementLengthSlot18=strlen(replacementSlot0);
     int deltaSlot0=replacementLengthSlot18-consumed;
     if(replacementSlot0[replacementLengthSlot18-1]=='\\') {

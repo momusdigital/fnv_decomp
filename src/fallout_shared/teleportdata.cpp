@@ -370,7 +370,7 @@ class Other
 class TESSaveLoadGame
 {
   public:
-    void FUN_008579b0(void* data, int size);
+    void SaveGameDataOLD(void* data, int size);
     void FUN_00857a10(void* data, int size);
 };
 
@@ -388,8 +388,8 @@ struct Thing
 // @fnv 0x0043a930
 void Thing::Save()
 {
-    DAT_011de45c->FUN_008579b0(m_data04, 0xc);
-    DAT_011de45c->FUN_008579b0(m_data10, 0xc);
+    DAT_011de45c->SaveGameDataOLD(m_data04, 0xc);
+    DAT_011de45c->SaveGameDataOLD(m_data10, 0xc);
     int formID = 0;
     if (m_object != 0)
         formID = m_object->FUN_0084e3a0();

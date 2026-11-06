@@ -185,11 +185,11 @@ struct FUN_00689920_shell
     unsigned int m_f;
     Flt m_flt;
 
-    void FUN_00689920(const char*);
+    void PlaySequence(const char*);
 };
 
 // @fnv 0x00689920
-void FUN_00689920_shell::FUN_00689920(const char* name)
+void FUN_00689920_shell::PlaySequence(const char* name)
 {
     NiControllerManager* controllerManager =
         _UseSaveGameBlocks(&DAT_011f36ac, reinterpret_cast<Model*>(m_flt.operator unsigned int())->GetObject3D());
@@ -889,7 +889,7 @@ struct R01Diagnostic
 struct R01SaveReader
 {
     bool FUN_00862110();
-    void FUN_008579e0(void*, unsigned int);
+    void LoadGameDataOLD(void*, unsigned int);
     unsigned int FUN_00825c00();
     R01Diagnostic* FUN_004fd3c0();
     unsigned char FUN_008df040();
@@ -1153,7 +1153,7 @@ bool R01FxPlayer::LoadFromSave()
         if (reinterpret_cast<R01SaveReader*>(DAT_011de45c)->FUN_00862110())
         {
             unsigned int aA1c4;
-            reinterpret_cast<R01SaveReader*>(DAT_011de45c)->FUN_008579e0(&aA1c4, 4);
+            reinterpret_cast<R01SaveReader*>(DAT_011de45c)->LoadGameDataOLD(&aA1c4, 4);
             if (aA1c4 != 0x424c4f4b)
             {
                 R01Diagnostic* diag = reinterpret_cast<R01SaveReader*>(DAT_011de45c)->FUN_004fd3c0();
@@ -1175,21 +1175,21 @@ bool R01FxPlayer::LoadFromSave()
                 }
             }
             a1c2 = reinterpret_cast<R01SaveReader*>(DAT_011de45c)->FUN_00825c00();
-            reinterpret_cast<R01SaveReader*>(DAT_011de45c)->FUN_008579e0(&aA2, 2);
+            reinterpret_cast<R01SaveReader*>(DAT_011de45c)->LoadGameDataOLD(&aA2, 2);
         }
         aA4 = FUN_00682990();
-        reinterpret_cast<R01SaveReader*>(DAT_011de45c)->FUN_008579e0(&aAF8, 1);
+        reinterpret_cast<R01SaveReader*>(DAT_011de45c)->LoadGameDataOLD(&aAF8, 1);
         char aActive8[0x104];
         memset(aActive8, 0, sizeof(aActive8));
-        reinterpret_cast<R01SaveReader*>(DAT_011de45c)->FUN_008579e0(aActive8, aAF8);
+        reinterpret_cast<R01SaveReader*>(DAT_011de45c)->LoadGameDataOLD(aActive8, aAF8);
         a1c4_2.Init();
-        reinterpret_cast<R01SaveReader*>(DAT_011de45c)->FUN_008579e0(&a1c4_2, 0x10);
+        reinterpret_cast<R01SaveReader*>(DAT_011de45c)->LoadGameDataOLD(&a1c4_2, 0x10);
         aAccuracy5.Init();
         a1c4_2.FUN_004f0180(&aAccuracy5);
         aAPGeom.Init();
-        reinterpret_cast<R01SaveReader*>(DAT_011de45c)->FUN_008579e0(&aAPGeom, 0xc);
-        reinterpret_cast<R01SaveReader*>(DAT_011de45c)->FUN_008579e0(&aAction2, 4);
-        reinterpret_cast<R01SaveReader*>(DAT_011de45c)->FUN_008579e0(&a3_2, 2);
+        reinterpret_cast<R01SaveReader*>(DAT_011de45c)->LoadGameDataOLD(&aAPGeom, 0xc);
+        reinterpret_cast<R01SaveReader*>(DAT_011de45c)->LoadGameDataOLD(&aAction2, 4);
+        reinterpret_cast<R01SaveReader*>(DAT_011de45c)->LoadGameDataOLD(&a3_2, 2);
         if (aA4)
         {
             R01SceneRoot* a4_2 = reinterpret_cast<R01Scene*>(DAT_011c3b3c)->FUN_00447080(aActive8, 0, 1, 0, 0, 0);
@@ -1515,7 +1515,7 @@ struct SGSaveLoadGame
 {
     char* FUN_00825c00();
     bool FUN_00862110();
-    void FUN_008579b0(void* apData, unsigned int auiSize);
+    void SaveGameDataOLD(void* apData, unsigned int auiSize);
     SGChangeRecord* FUN_004fd3e0();
 };
 extern SGSaveLoadGame* DAT_011de45c;
@@ -1603,23 +1603,23 @@ void SGTempEffectParticle::FUN_00689cb0()
     if (DAT_011de45c->FUN_00862110())
     {
         unsigned int uiMarker = 'BLOK';
-        DAT_011de45c->FUN_008579b0(&uiMarker, 4);
+        DAT_011de45c->SaveGameDataOLD(&uiMarker, 4);
         pSizeLoc = (unsigned short*)DAT_011de45c->FUN_00825c00();
-        DAT_011de45c->FUN_008579b0(&usBlockLen, 2);
+        DAT_011de45c->SaveGameDataOLD(&usBlockLen, 2);
     }
 
     FUN_00682920();
     unsigned char ucLength = (unsigned char)FUN_0044a670(pFilename);
-    DAT_011de45c->FUN_008579b0(&ucLength, 1);
-    DAT_011de45c->FUN_008579b0((void*)pFilename, ucLength);
+    DAT_011de45c->SaveGameDataOLD(&ucLength, 1);
+    DAT_011de45c->SaveGameDataOLD((void*)pFilename, ucLength);
 
     SGQuaternion kQuaternion;
     kQuaternion.FUN_00a6df40(((SGAVObject*)spParticle)->FUN_006a9540());
-    DAT_011de45c->FUN_008579b0(&kQuaternion, 16);
+    DAT_011de45c->SaveGameDataOLD(&kQuaternion, 16);
     SGPoint3 kLocalTranslate = ((SGAVObject*)spParticle)->FUN_0043c490();
-    DAT_011de45c->FUN_008579b0(&kLocalTranslate, 12);
+    DAT_011de45c->SaveGameDataOLD(&kLocalTranslate, 12);
     float fLocScale = ((SGAVObject*)spParticle)->GetFloatAt64();
-    DAT_011de45c->FUN_008579b0(&fLocScale, 4);
+    DAT_011de45c->SaveGameDataOLD(&fLocScale, 4);
 
     unsigned short usSequence = 0;
     SGControllerManager* pController = FUN_00653270(&DAT_011f36ac, ((SGAVObject*)spParticle)->FUN_0043b230());
@@ -1627,7 +1627,7 @@ void SGTempEffectParticle::FUN_00689cb0()
     {
         usSequence = FUN_0055fdb0(pController);
     }
-    DAT_011de45c->FUN_008579b0(&usSequence, 2);
+    DAT_011de45c->SaveGameDataOLD(&usSequence, 2);
     if (usSequence)
     {
         FUN_0055fe70(pController, DAT_01012054);

@@ -1228,11 +1228,11 @@ struct FUN_00693bd0_class
     int c;
     int d;
     int e;
-    void FUN_00693bd0(unsigned short v);
+    void SetObjectCount(unsigned short v);
 };
 // Calls ClampUnsignedShort on a local copy of v with 0 and 7, then stores bits 13-15 of the result into d.
 // @fnv 0x00693bd0
-void FUN_00693bd0_class::FUN_00693bd0(unsigned short ausValue)
+void FUN_00693bd0_class::SetObjectCount(unsigned short ausValue)
 {
     ClampUnsignedShort(&ausValue, 0, 7);
     d = (d & 0xffff1fff) | (ausValue << 0xd);
@@ -2150,11 +2150,11 @@ void C81110Header::ClearFields()
 struct Foo
 {
     char m0;
-    void FUN_00681530(int value);
+    void SetComparisonCondition(int value);
 };
 
 // @fnv 0x00681530
-void Foo::FUN_00681530(int value)
+void Foo::SetComparisonCondition(int value)
 {
     int temp = value;
     if (value < 0 || value >= 6)
@@ -3462,10 +3462,10 @@ struct Sub0069d4b0
     float m_originX;
     float m_originY;
     Tris_0069d4b0* FUN_006967c0(int x, int y);
-    void FUN_0069d4b0(Pt_0069d4b0* a1, Pt_0069d4b0* a2, Out_0069d4b0* a3);
+    void GetTriangleDataForAABB(Pt_0069d4b0* a1, Pt_0069d4b0* a2, Out_0069d4b0* a3);
 };
 // @fnv 0x0069d4b0
-void Sub0069d4b0::FUN_0069d4b0(Pt_0069d4b0* a1, Pt_0069d4b0* a2, Out_0069d4b0* apOut)
+void Sub0069d4b0::GetTriangleDataForAABB(Pt_0069d4b0* a1, Pt_0069d4b0* a2, Out_0069d4b0* apOut)
 {
     float dx9 = a1->x - m_originX;
     float dy2 = a1->y - m_originY;
@@ -3949,7 +3949,7 @@ struct GObj
 extern GObj DAT_011d6ddc;
 struct A4Obj
 {
-    void FUN_0069f920(StrObj* s, void* p);
+    void AddPathingNode(StrObj* s, void* p);
 };
 struct HdrS
 {
@@ -6047,7 +6047,7 @@ struct ThisCls
     bool FUN_0069f010(Vec3Obj* a0, Vec3Obj* a1, void* a2, int a3, A4Obj* a4);
 };
 
-// Sets up start and end nodes from a0 and a1, runs ProcessSearchNode, passes each result entry's strings to a4->FUN_0069f920, and returns the search result.
+// Sets up start and end nodes from a0 and a1, runs ProcessSearchNode, passes each result entry's strings to a4->AddPathingNode, and returns the search result.
 // @fnv 0x0069f010
 bool ThisCls::FUN_0069f010(Vec3Obj* apStart, Vec3Obj* apEnd, void* a2, int a3, A4Obj* apResult)
 {
@@ -6134,10 +6134,10 @@ bool ThisCls::FUN_0069f010(Vec3Obj* apStart, Vec3Obj* apEnd, void* a2, int a3, A
             {
                 StrObj str1((char*)m_20e8.GetBufferElementAddress(k) + 0x1c,
                             ((NavLike*)m_20e8.GetBufferElementAddress(k)->m_10)->FUN_0068efb0());
-                apResult->FUN_0069f920(&str1, &DAT_011f426c);
+                apResult->AddPathingNode(&str1, &DAT_011f426c);
                 StrObj str2((char*)m_20e8.GetBufferElementAddress(k) + 0x34,
                             ((NavLike*)m_20e8.GetBufferElementAddress(k)->m_28)->FUN_0068efb0());
-                apResult->FUN_0069f920(&str2, &DAT_011f426c);
+                apResult->AddPathingNode(&str2, &DAT_011f426c);
             }
         }
         if (DAT_011d6dcc)
@@ -6212,7 +6212,7 @@ struct NavMeshGrid
     BSSimpleArray<unsigned short, 1024>* m_24;
 
     void FUN_0069d2d0();
-    void FUN_0069dd50(NavMeshGrid* apGrid) const;
+    void CopyTo(NavMeshGrid* apGrid) const;
 };
 
 void NavMeshGrid::FUN_0069d2d0()
@@ -6220,7 +6220,7 @@ void NavMeshGrid::FUN_0069d2d0()
 
 // Copies scalar and block fields from this NavMeshGrid into apGrid, allocates a matching BSSimpleArray, and copies each element via FUN_00694f80.
 // @fnv 0x0069dd50
-void NavMeshGrid::FUN_0069dd50(NavMeshGrid* apGrid) const
+void NavMeshGrid::CopyTo(NavMeshGrid* apGrid) const
 {
     apGrid->FUN_0069d2d0();
 
@@ -6271,7 +6271,7 @@ class TESObjectREFR
 Script* __cdecl FUN_004826d0(TESForm* formID);
 
 // @fnv 0x006823d0
-Script* FUN_006823d0(unsigned int index, FunctionData const* data)
+Script* GetScriptFromParam(unsigned int index, FunctionData const* data)
 {
     Script* result = 0;
 

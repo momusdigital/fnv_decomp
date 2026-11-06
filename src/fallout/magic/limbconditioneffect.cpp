@@ -137,14 +137,14 @@ struct ValueModifierEffect
 };
 struct TESSaveLoadGame
 {
-    void FUN_008579b0(int*, int);
+    void SaveGameDataOLD(int*, int);
 };
 extern TESSaveLoadGame* g_TESSaveLoadGame;
 // @fnv 0x0082ba30
 void ValueModifierEffect::FUN_0082ba30(Actor* apActor)
 {
     FUN_00802db0(apActor);
-    g_TESSaveLoadGame->FUN_008579b0(&m_4C, 4);
+    g_TESSaveLoadGame->SaveGameDataOLD(&m_4C, 4);
 }
 }  // namespace fnv_0082ba30
 

@@ -2412,11 +2412,11 @@ struct FUN_0087a790_class
     PackedTaskQueueProcessor* m_pTaskQueueProcessor;
     unsigned int m_uiTaskFlags;
 
-    void __thiscall FUN_0087a790();
+    void __thiscall ProcessQueue();
 };
 
 // @fnv 0x0087a790
-void FUN_0087a790_class::FUN_0087a790()
+void FUN_0087a790_class::ProcessQueue()
 {
     m_pTaskQueueProcessor = m_pSecondaryTaskProcessor;
     m_uiTaskFlags = gm_GetCurrentThreadId();
@@ -2532,12 +2532,12 @@ struct FUN_00866140_cls
     int m_08;
     int m_0c;
     void Step();
-    void FUN_00866140(int a1, int a2);
+    void ShiftBuffer(int a1, int a2);
 };
 
 // Adds a2 to m_0c, calls Step while the total exceeds m_08, then emits four values unless DAT_011de134->FUN_00424940() is true, and stores the new total.
 // @fnv 0x00866140
-void FUN_00866140_cls::FUN_00866140(int aiOffset, int aiAmount)
+void FUN_00866140_cls::ShiftBuffer(int aiOffset, int aiAmount)
 {
     int iNewTotal = m_0c + aiAmount;
     if (iNewTotal <= 0)
@@ -3482,10 +3482,10 @@ struct FUN_00878080_Class
     int unk0c;
     int unk10;
     StateControl control;
-    void __thiscall FUN_00878080(int unused);
+    void __thiscall CheckMemoryLevel(int unused);
 };
 // @fnv 0x00878080
-void FUN_00878080_Class::FUN_00878080(int unused)
+void FUN_00878080_Class::CheckMemoryLevel(int unused)
 {
     if (!control.FUN_0044b130())
         return;
@@ -6822,11 +6822,11 @@ struct Actor
     void FUN_008bbdb0();
     void FUN_008bbe00();
     void FUN_008c4400();
-    void FUN_0087d890(bool);
+    void ConstructorInitialize(bool);
 };
 // Initializes the actor: allocates process and controller, optionally registers it, sets default field values, resets state and runs update/init calls.
 // @fnv 0x0087d890
-void Actor::FUN_0087d890(bool registerActor)
+void Actor::ConstructorInitialize(bool registerActor)
 {
     FUN_0046a010(1);
     process = new Process;
@@ -7322,7 +7322,7 @@ extern char DAT_011deef4;
 extern unsigned char DAT_011a3014;
 bool FUN_0070ec00();
 int __cdecl FUN_00a09030(int);
-void __cdecl FUN_00709470(int, int, int, int, int, int);
+void __cdecl QueueMenuCreate(int, int, int, int, int, int);
 int FUN_004bc3f0();
 void __cdecl FUN_004dc6e0(int, int);
 bool FUN_00446e10();
@@ -7367,7 +7367,7 @@ LRESULT CALLBACK FUN_0086a0a0(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             {
                                 if (!FUN_00a09030(0x3ef))
                                 {
-                                    FUN_00709470(6, 0, 0, 0, 1, 0);
+                                    QueueMenuCreate(6, 0, 0, 0, 1, 0);
                                 }
                             }
                         }
@@ -7477,7 +7477,7 @@ struct H
     unsigned char FUN_00ad8ce0();
     void FUN_00ad8d10();
     unsigned char FUN_004077c0();
-    void FUN_0093a660(void*);
+    void RemoveActorFromPlayercombatList(void*);
     void FUN_00967350(void*);
     void RemoveActor(void*);
     void FUN_0087fd20();
@@ -7486,7 +7486,7 @@ struct H
     unsigned char FUN_004226e0();
     void FUN_00824970();
     void FUN_0092ed60(int);
-    void FUN_00881680(int);
+    void EndInterruptPackage(int);
     void FUN_00976680(void*);
     void FUN_0096f600(void*, int);
     void FUN_00975320(void*);
@@ -7505,7 +7505,7 @@ struct H
     void* FUN_0084e3a0();
     void RemoveEntry(void*);
     int FUN_0045cd60();
-    void FUN_008c30a0();
+    void UnloadPermanentMagic();
     void DispelSummonEffects();
 };
 
@@ -7682,7 +7682,7 @@ FUN_0087dcb0::~FUN_0087dcb0()
 
         if (!((H*)this)->FUN_004077c0())
         {
-            ((H*)DAT_011dea3c)->FUN_0093a660(this);
+            ((H*)DAT_011dea3c)->RemoveActorFromPlayercombatList(this);
             ((H*)DAT_011dea3c)->FUN_00967350(this);
             ((H*)&DAT_011e0e80)->RemoveActor(this);
             ((H*)this)->FUN_0087fd20();
@@ -7693,7 +7693,7 @@ FUN_0087dcb0::~FUN_0087dcb0()
                 B94::FUN_00824970();
                 FUN_0066e100(this);
                 ((H*)this)->FUN_0092ed60(1);
-                ((H*)this)->FUN_00881680(0);
+                ((H*)this)->EndInterruptPackage(0);
                 ((H*)&DAT_011e0e80)->FUN_00976680(this);
                 ((H*)&DAT_011e0e80)->FUN_0096f600(this, 1);
                 ((H*)&DAT_011e0e80)->FUN_00975320(this);
@@ -7706,7 +7706,7 @@ FUN_0087dcb0::~FUN_0087dcb0()
                         {
                             ((H*)p)->RemoveEntry(((H*)this)->FUN_0084e3a0());
                         }
-                        ((H*)this)->FUN_008c30a0();
+                        ((H*)this)->UnloadPermanentMagic();
                     }
                     ((H*)this)->DispelSummonEffects();
                 }

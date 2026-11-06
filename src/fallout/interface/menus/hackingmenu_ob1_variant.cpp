@@ -47,7 +47,7 @@ struct StrMem
 {
     StrMem();
     ~StrMem();
-    void __thiscall FUN_006ffe10();
+    void __thiscall Initialize();
 };
 struct FUN_00726c90 : StrMem
 {
@@ -179,7 +179,7 @@ struct FUN_00767bb0_shell
     unsigned char _pad[0x28];
     FUN_00767bb0_entry* entries[46];
 
-    TGF* __thiscall FUN_00767bb0(unsigned int a, unsigned int b);
+    TGF* __thiscall FindTile(unsigned int a, unsigned int b);
 };
 void* __cdecl operator new(unsigned int);
 struct FUN_00702220

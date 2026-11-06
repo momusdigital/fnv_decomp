@@ -231,7 +231,7 @@ struct xActor
     xCell* FUN_008d6f30();
     float FUN_00567400();
     xFilter FUN_00931ed0();
-    xOwner* FUN_009306d0();
+    xOwner* GetCharController();
     void* FUN_004181e0();
     bool GetWaterPlaneIntersection(xPick*, float*);
     void FUN_009795c0(float);
@@ -252,7 +252,7 @@ bool xActor::FUN_009c40c0()
     PLPOS = *xg_player_11dea3c->FUN_1f4();
     PLPOS.z = PLPOS.z + xFUN_0070c3b0(xg_player_11dea3c) * xg_player_11dea3c->FUN_00567400();
     DIR = MYPOS - PLPOS;
-    xOwner* OWNER = FUN_009306d0();
+    xOwner* OWNER = GetCharController();
     xFilter FILTER(0);
     if (OWNER)
         FILTER = OWNER->FUN_0070c440();

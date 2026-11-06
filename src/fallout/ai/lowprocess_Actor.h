@@ -22,9 +22,9 @@ class Actor : public MobileObject,
 {
   public:
     BaseProcess* GetProcess();
-    void FUN_00884f80();
-    TESPackage* FUN_00881450();
-    void FUN_008b3d30();
+    void SetWalkRunFlagDirty();
+    TESPackage* GetPackage();
+    void ClearLookAtTarget();
     TESObjectREFR* FUN_004fd380();
     void FUN_0057bd60(TESObjectREFR*);
     void SetDialogueTopic(TESTopic*);
@@ -34,7 +34,7 @@ class Actor : public MobileObject,
                                               PathingAvoidNodeArray*);
     void SetPathingRequestAvoidNodes(PathingRequest*);
     float GetCurrentMovementSpeed();
-    void FUN_008ad910(TESObjectREFR*, bool, bool);
+    void MoveActorAndFollowers(TESObjectREFR*, bool, bool);
     bool DispatchWithObj(TESObjectREFR*, float, void*);
 
     void GetApplicablePackages(BSSimpleList<TESPackage*>*, float);

@@ -1272,7 +1272,7 @@ struct ClipTile {
 float __cdecl FUN_00706e40();
 float __cdecl FUN_00706e10();
 float __cdecl FUN_00706e80();
-float __cdecl FUN_00706e90();
+float __cdecl GetRenderedMenuScreenHeight();
 __forceinline float ClipMax(float a, float b) { return a > b ? a : b; }
 class SceneRefObject {
 public:

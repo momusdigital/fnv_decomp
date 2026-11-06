@@ -15,7 +15,7 @@ class FormChangeRecord : public FormChangeMask
     FormChangeRecord();
     ~FormChangeRecord();
     bool FUN_00562210(unsigned int flags);
-    void FUN_00841100(char* buffer);
+    void AddFlags(char* buffer);
 };
 
 class TESDataHandlerAccess

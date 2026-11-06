@@ -20243,12 +20243,12 @@ struct Header
 struct Stream
 {
     bool FUN_00862110();
-    void FUN_008579e0(void*, unsigned int);
+    void LoadGameDataOLD(void*, unsigned int);
     void FUN_00857aa0(void*, unsigned int);
     unsigned char FUN_008df040();
     unsigned int FUN_00825c00();
     Header* FUN_004fd3c0();
-    TESPackage* FUN_0085a240(unsigned int, unsigned char);
+    TESPackage* CreatePackage(unsigned int, unsigned char);
 };
 struct Manager
 {
@@ -20426,7 +20426,7 @@ void Extras::FUN_00424960(unsigned int auiChangeFlags, unsigned int unused, TESO
     if (DAT_011de45c->FUN_00862110())
     {
         unsigned int blockType;
-        DAT_011de45c->FUN_008579e0(&blockType, 4);
+        DAT_011de45c->LoadGameDataOLD(&blockType, 4);
         if (blockType != 0x424c4f4b)
         {
             Header* header = DAT_011de45c->FUN_004fd3c0();
@@ -20440,24 +20440,24 @@ void Extras::FUN_00424960(unsigned int auiChangeFlags, unsigned int unused, TESO
                 FUN_005b5e40(DAT_010156a8, DAT_010152d0, 0x2c2c, DAT_011de45c->FUN_008df040());
         }
         pActor = DAT_011de45c->FUN_00825c00();
-        DAT_011de45c->FUN_008579e0(&bLoadedScript, 2);
+        DAT_011de45c->LoadGameDataOLD(&bLoadedScript, 2);
     }
     bool usBlockSize = false;
     bool bFlag = false;
     Actor* i = dynamic_cast<Actor*>(reference);
     int m_usPassCountLocal;
-    DAT_011de45c->FUN_008579e0(&uiBlockStart, 2);
+    DAT_011de45c->LoadGameDataOLD(&uiBlockStart, 2);
     for (m_usPassCountLocal = 0; m_usPassCountLocal < uiBlockStart; m_usPassCountLocal++)
     {
         unsigned char type;
-        DAT_011de45c->FUN_008579e0(&type, 1);
+        DAT_011de45c->LoadGameDataOLD(&type, 1);
         switch (type)
         {
         case 36: {
             if (auiChangeFlags & 0)
             {
                 short value;
-                DAT_011de45c->FUN_008579e0(&value, 2);
+                DAT_011de45c->LoadGameDataOLD(&value, 2);
                 FUN_00419ad0(value);
             }
             break;
@@ -20466,7 +20466,7 @@ void Extras::FUN_00424960(unsigned int auiChangeFlags, unsigned int unused, TESO
             if (auiChangeFlags & 0)
             {
                 float value;
-                DAT_011de45c->FUN_008579e0(&value, 4);
+                DAT_011de45c->LoadGameDataOLD(&value, 4);
                 FUN_00419970(value);
             }
             break;
@@ -20475,7 +20475,7 @@ void Extras::FUN_00424960(unsigned int auiChangeFlags, unsigned int unused, TESO
             if (auiChangeFlags & 0)
             {
                 unsigned char value;
-                DAT_011de45c->FUN_008579e0(&value, 1);
+                DAT_011de45c->LoadGameDataOLD(&value, 1);
                 FUN_00419a20(value);
             }
             break;
@@ -20484,7 +20484,7 @@ void Extras::FUN_00424960(unsigned int auiChangeFlags, unsigned int unused, TESO
             if (auiChangeFlags & 0)
             {
                 unsigned char value;
-                DAT_011de45c->FUN_008579e0(&value, 1);
+                DAT_011de45c->LoadGameDataOLD(&value, 1);
                 EnsureLeveledListExtra(value);
             }
             break;
@@ -20493,7 +20493,7 @@ void Extras::FUN_00424960(unsigned int auiChangeFlags, unsigned int unused, TESO
             if (auiChangeFlags & 0)
             {
                 float value;
-                DAT_011de45c->FUN_008579e0(&value, 4);
+                DAT_011de45c->LoadGameDataOLD(&value, 4);
                 FUN_00419bb0(value);
             }
             break;
@@ -20502,7 +20502,7 @@ void Extras::FUN_00424960(unsigned int auiChangeFlags, unsigned int unused, TESO
             if (auiChangeFlags & 0)
             {
                 float value;
-                DAT_011de45c->FUN_008579e0(&value, 4);
+                DAT_011de45c->LoadGameDataOLD(&value, 4);
                 FUN_00419c60(value);
             }
             break;
@@ -20513,14 +20513,14 @@ void Extras::FUN_00424960(unsigned int auiChangeFlags, unsigned int unused, TESO
                 FUN_00411b00* lock = new FUN_00411b00;
                 if (DAT_011de45c->FUN_008df040() >= 21)
                 {
-                    DAT_011de45c->FUN_008579e0(lock, 1);
+                    DAT_011de45c->LoadGameDataOLD(lock, 1);
                     unsigned int qidnYUK, qbfQdhM;
                     DAT_011de45c->FUN_00857aa0(&qidnYUK, 4);
                     if (DAT_011de45c->FUN_008df040() < 26)
                     {
                         DAT_011de45c->FUN_00857aa0(&qbfQdhM, 4);
                     }
-                    DAT_011de45c->FUN_008579e0(&lock->flags, 1);
+                    DAT_011de45c->LoadGameDataOLD(&lock->flags, 1);
                     if (qidnYUK)
                         lock->key = dynamic_cast<TESKey*>(FUN_004839c0(qidnYUK));
                 }
@@ -20532,7 +20532,7 @@ void Extras::FUN_00424960(unsigned int auiChangeFlags, unsigned int unused, TESO
             if (DAT_011de45c->FUN_008df040() < 67 && (auiChangeFlags & 0x10))
             {
                 float value;
-                DAT_011de45c->FUN_008579e0(&value, 4);
+                DAT_011de45c->LoadGameDataOLD(&value, 4);
                 if (reference)
                     ((RefHelper*)reference)->FUN_00567490(value);
                 else
@@ -20541,7 +20541,7 @@ void Extras::FUN_00424960(unsigned int auiChangeFlags, unsigned int unused, TESO
             if (DAT_011de45c->FUN_008df040() >= 67 && (auiChangeFlags & 0))
             {
                 float value;
-                DAT_011de45c->FUN_008579e0(&value, 4);
+                DAT_011de45c->LoadGameDataOLD(&value, 4);
                 FUN_00419fb0(value);
             }
             break;
@@ -20572,7 +20572,7 @@ void Extras::FUN_00424960(unsigned int auiChangeFlags, unsigned int unused, TESO
             if (auiChangeFlags & 0)
             {
                 unsigned int value;
-                DAT_011de45c->FUN_008579e0(&value, 4);
+                DAT_011de45c->LoadGameDataOLD(&value, 4);
                 FUN_004198a0(value);
             }
             break;
@@ -20629,8 +20629,8 @@ void Extras::FUN_00424960(unsigned int auiChangeFlags, unsigned int unused, TESO
             {
                 unsigned int qidnYUK;
                 unsigned char qbfQdhM;
-                DAT_011de45c->FUN_008579e0(&qidnYUK, 4);
-                DAT_011de45c->FUN_008579e0(&qbfQdhM, 1);
+                DAT_011de45c->LoadGameDataOLD(&qidnYUK, 4);
+                DAT_011de45c->LoadGameDataOLD(&qbfQdhM, 1);
                 SetLeveledItemIndex(qidnYUK);
                 SetExtraDataByte(qbfQdhM);
             }
@@ -20640,16 +20640,16 @@ void Extras::FUN_00424960(unsigned int auiChangeFlags, unsigned int unused, TESO
             unsigned int qidnYUK, qoPB, qtOMjSX;
             unsigned char qCWCA, qbfQdhM;
             DAT_011de45c->FUN_00857aa0(&qidnYUK, 4);
-            DAT_011de45c->FUN_008579e0(&qoPB, 4);
+            DAT_011de45c->LoadGameDataOLD(&qoPB, 4);
             DAT_011de45c->FUN_00857aa0(&qtOMjSX, 4);
-            DAT_011de45c->FUN_008579e0(&qCWCA, 1);
-            DAT_011de45c->FUN_008579e0(&qbfQdhM, 1);
+            DAT_011de45c->LoadGameDataOLD(&qCWCA, 1);
+            DAT_011de45c->LoadGameDataOLD(&qbfQdhM, 1);
             TESPackage* quYjuqT = 0;
             if (DAT_011de45c->FUN_008df040() >= 64 && DAT_011c3f2c->FUN_00469860(qidnYUK))
             {
                 unsigned char formType;
-                DAT_011de45c->FUN_008579e0(&formType, 1);
-                quYjuqT = DAT_011de45c->FUN_0085a240(qidnYUK, formType);
+                DAT_011de45c->LoadGameDataOLD(&formType, 1);
+                quYjuqT = DAT_011de45c->CreatePackage(qidnYUK, formType);
                 ((PackageVirtual*)quYjuqT)->Init();
             }
             if (!quYjuqT)
@@ -20665,7 +20665,7 @@ void Extras::FUN_00424960(unsigned int auiChangeFlags, unsigned int unused, TESO
                 DAT_011de45c->FUN_00857aa0(&id, 4);
                 if (id)
                 {
-                    TESPackage* package = DAT_011de45c->FUN_0085a240(id, 23);
+                    TESPackage* package = DAT_011de45c->CreatePackage(id, 23);
                     ((PackageVirtual*)package)->Init();
                     SetTrespassPackage(package);
                 }
@@ -20676,7 +20676,7 @@ void Extras::FUN_00424960(unsigned int auiChangeFlags, unsigned int unused, TESO
             if (auiChangeFlags & 0)
             {
                 unsigned int value;
-                DAT_011de45c->FUN_008579e0(&value, 4);
+                DAT_011de45c->LoadGameDataOLD(&value, 4);
             }
             break;
         }
@@ -20694,13 +20694,13 @@ void Extras::FUN_00424960(unsigned int auiChangeFlags, unsigned int unused, TESO
         case 27: {
             int qbfQdhM;
             unsigned short qidnYUK;
-            DAT_011de45c->FUN_008579e0(&qidnYUK, 2);
+            DAT_011de45c->LoadGameDataOLD(&qidnYUK, 2);
             for (qbfQdhM = 0; qbfQdhM < qidnYUK; qbfQdhM++)
             {
                 unsigned int qYePyBl;
                 unsigned char qAXSCg;
                 DAT_011de45c->FUN_00857aa0(&qYePyBl, 4);
-                DAT_011de45c->FUN_008579e0(&qAXSCg, 1);
+                DAT_011de45c->LoadGameDataOLD(&qAXSCg, 1);
                 TESPackage* qxDeKK = dynamic_cast<TESPackage*>(FUN_004839c0(qYePyBl));
                 if (qxDeKK)
                     FUN_0041d700(qxDeKK, qAXSCg);
@@ -20712,8 +20712,8 @@ void Extras::FUN_00424960(unsigned int auiChangeFlags, unsigned int unused, TESO
             unsigned int qidnYUK;
             float qtOMjSX;
             DAT_011de45c->FUN_00857aa0(&qidnYUK, 4);
-            DAT_011de45c->FUN_008579e0(&qoPB.position, 12);
-            DAT_011de45c->FUN_008579e0(&qtOMjSX, 4);
+            DAT_011de45c->LoadGameDataOLD(&qoPB.position, 12);
+            DAT_011de45c->LoadGameDataOLD(&qtOMjSX, 4);
             qoPB.form = FUN_004839c0(qidnYUK);
             TESWorldSpace* qbfQdhM = dynamic_cast<TESWorldSpace*>(qoPB.form);
             TESObjectCELL* qCWCA = dynamic_cast<TESObjectCELL*>(qoPB.form);
@@ -20724,7 +20724,7 @@ void Extras::FUN_00424960(unsigned int auiChangeFlags, unsigned int unused, TESO
         case 29: {
             int qbfQdhM;
             unsigned short qidnYUK;
-            DAT_011de45c->FUN_008579e0(&qidnYUK, 2);
+            DAT_011de45c->LoadGameDataOLD(&qidnYUK, 2);
             for (qbfQdhM = 0; qbfQdhM < qidnYUK; qbfQdhM++)
             {
                 unsigned int id;
@@ -20782,7 +20782,7 @@ void Extras::FUN_00424960(unsigned int auiChangeFlags, unsigned int unused, TESO
                 if (DAT_011de45c->FUN_008df040() >= 21 && DAT_011de45c->FUN_008df040() < 23)
                 {
                     int index;
-                    DAT_011de45c->FUN_008579e0(&index, 4);
+                    DAT_011de45c->LoadGameDataOLD(&index, 4);
                     if (index < 245)
                         FUN_00422850(DAT_011977d8[index].name);
                 }
@@ -20790,9 +20790,9 @@ void Extras::FUN_00424960(unsigned int auiChangeFlags, unsigned int unused, TESO
                 {
                     unsigned char qdxfsH;
                     char qxQHW[264];
-                    DAT_011de45c->FUN_008579e0(&qdxfsH, 1);
+                    DAT_011de45c->LoadGameDataOLD(&qdxfsH, 1);
                     FUN_00403d30(qxQHW, 0, 260);
-                    DAT_011de45c->FUN_008579e0(qxQHW, qdxfsH);
+                    DAT_011de45c->LoadGameDataOLD(qxQHW, qdxfsH);
                     FUN_00422850(qxQHW);
                 }
             }
@@ -20802,7 +20802,7 @@ void Extras::FUN_00424960(unsigned int auiChangeFlags, unsigned int unused, TESO
             if (auiChangeFlags & 0)
             {
                 unsigned char qjvRB;
-                DAT_011de45c->FUN_008579e0(&qjvRB, 1);
+                DAT_011de45c->LoadGameDataOLD(&qjvRB, 1);
                 RecordExtra* qpia = (RecordExtra*)FUN_00410220(44);
                 if (qpia)
                     qpia->object->FUN_0042e680(qjvRB);
@@ -20844,7 +20844,7 @@ void Extras::FUN_00424960(unsigned int auiChangeFlags, unsigned int unused, TESO
         }
         case 58: {
             unsigned char itemCount;
-            DAT_011de45c->FUN_008579e0(&itemCount, 1);
+            DAT_011de45c->LoadGameDataOLD(&itemCount, 1);
             for (unsigned int j = 0; j < itemCount; j++)
             {
                 unsigned int id;
@@ -20888,7 +20888,7 @@ void Extras::FUN_00424960(unsigned int auiChangeFlags, unsigned int unused, TESO
             if (auiChangeFlags & 0)
             {
                 unsigned char value;
-                DAT_011de45c->FUN_008579e0(&value, 1);
+                DAT_011de45c->LoadGameDataOLD(&value, 1);
                 SetHotKey(value);
             }
             break;
@@ -20904,7 +20904,7 @@ void Extras::FUN_00424960(unsigned int auiChangeFlags, unsigned int unused, TESO
         }
         case 78: {
             unsigned char value;
-            DAT_011de45c->FUN_008579e0(&value, 1);
+            DAT_011de45c->LoadGameDataOLD(&value, 1);
             FUN_00421600(value);
             break;
         }
@@ -20969,14 +20969,14 @@ struct BufObj
     virtual void v0();
     virtual int v4();
     virtual int v8();
-    int FUN_00865f20();
+    int StartVariableSizedValue();
     ResObj FUN_00428110(int flags);
     int FUN_00865e50(void* a1, int a2, int a3);
     int FUN_00865df0(int a1, int a2);
     int FUN_00865db0(int a1, int a2);
-    void FUN_00865ff0(int a1, int a2);
-    void FUN_00865f60(int a1);
-    void FUN_00865e70(int a1);
+    void SaveVariableSizedValue(int a1, int a2);
+    void SaveVariableSizedValue(int a1);
+    void SaveString(int a1);
     void FUN_00428110(TempC* a1);
     void SetValue(TempC a1);
     void SetValue(int a1);
@@ -21217,7 +21217,7 @@ struct Owner
 void Owner::WriteNodeList(BufObj* apBuffer)
 {
     int r3 = 0;
-    int count = apBuffer->FUN_00865f20();
+    int count = apBuffer->StartVariableSizedValue();
     int b19 = apBuffer->v4();
     int r1 = apBuffer->v8();
     unsigned char hasOwner6 = b19 != 0 ? DAT_011c3f2c->FUN_00469860(((XObj*)b19)->FUN_0084e3a0()) : (unsigned char)0;
@@ -21326,7 +21326,7 @@ void Owner::WriteNodeList(BufObj* apBuffer)
             case 0x1b: {
                 Node* record2 = node;
                 int entryCount = 0;
-                int start2 = apBuffer->FUN_00865f20();
+                int start2 = apBuffer->StartVariableSizedValue();
                 ListObj* cursor4 = record2->m_0c;
                 while (cursor4 != 0)
                 {
@@ -21339,13 +21339,13 @@ void Owner::WriteNodeList(BufObj* apBuffer)
                     }
                     cursor4 = cursor4->FUN_00726070();
                 }
-                apBuffer->FUN_00865ff0(entryCount, start2);
+                apBuffer->SaveVariableSizedValue(entryCount, start2);
                 break;
             }
             case 0x1d: {
                 Node* record2 = node;
                 int entryCount = 0;
-                int start2 = apBuffer->FUN_00865f20();
+                int start2 = apBuffer->StartVariableSizedValue();
                 ListObj* cursor4 = record2->m_0c;
                 while (cursor4 != 0)
                 {
@@ -21357,7 +21357,7 @@ void Owner::WriteNodeList(BufObj* apBuffer)
                     }
                     cursor4 = cursor4->FUN_00726070();
                 }
-                apBuffer->FUN_00865ff0(entryCount, start2);
+                apBuffer->SaveVariableSizedValue(entryCount, start2);
                 break;
             }
             case 0x6c: {
@@ -21368,7 +21368,7 @@ void Owner::WriteNodeList(BufObj* apBuffer)
             case 0x73: {
                 Node* record2 = node;
                 int entryCount = 0;
-                int start2 = apBuffer->FUN_00865f20();
+                int start2 = apBuffer->StartVariableSizedValue();
                 ListObj* cursor4 = record2->m_0c;
                 while (cursor4 != 0)
                 {
@@ -21382,7 +21382,7 @@ void Owner::WriteNodeList(BufObj* apBuffer)
                     }
                     cursor4 = cursor4->FUN_00726070();
                 }
-                apBuffer->FUN_00865ff0(entryCount, start2);
+                apBuffer->SaveVariableSizedValue(entryCount, start2);
                 break;
             }
             case 0x75: {
@@ -21400,7 +21400,7 @@ void Owner::WriteNodeList(BufObj* apBuffer)
             case 0x35: {
                 Node* record2 = node;
                 int entryCount = 0;
-                int start2 = apBuffer->FUN_00865f20();
+                int start2 = apBuffer->StartVariableSizedValue();
                 ListObj* cursor4 = record2->m_0c;
                 while (cursor4 != 0)
                 {
@@ -21415,7 +21415,7 @@ void Owner::WriteNodeList(BufObj* apBuffer)
                     }
                     cursor4 = cursor4->FUN_00726070();
                 }
-                apBuffer->FUN_00865ff0(entryCount, start2);
+                apBuffer->SaveVariableSizedValue(entryCount, start2);
                 break;
             }
 
@@ -21423,7 +21423,7 @@ void Owner::WriteNodeList(BufObj* apBuffer)
                 Node* record2 = node;
                 record2->FUN_00435e40();
                 unsigned int cnt = ((Cont45*)&record2->m_0c) ? ((Cont45*)&record2->m_0c)->FUN_0044ddc0() : 0;
-                apBuffer->FUN_00865f60(cnt);
+                apBuffer->SaveVariableSizedValue(cnt);
                 for (unsigned int i = 0; i < cnt; i++)
                 {
                     ElemA* e = ((Cont45*)&record2->m_0c)->FUN_006a7ad0(i);
@@ -21434,7 +21434,7 @@ void Owner::WriteNodeList(BufObj* apBuffer)
             case 0x5e: {
                 Node* record2 = node;
                 int entryCount = 0;
-                int start2 = apBuffer->FUN_00865f20();
+                int start2 = apBuffer->StartVariableSizedValue();
                 ListObj* cursor4 = record2->m_0c;
                 while (cursor4 != 0)
                 {
@@ -21447,7 +21447,7 @@ void Owner::WriteNodeList(BufObj* apBuffer)
                     }
                     cursor4 = cursor4->FUN_00726070();
                 }
-                apBuffer->FUN_00865ff0(entryCount, start2);
+                apBuffer->SaveVariableSizedValue(entryCount, start2);
                 break;
             }
             case 0x70: {
@@ -21477,7 +21477,7 @@ void Owner::WriteNodeList(BufObj* apBuffer)
             case 0x7c: {
                 Node* record2 = node;
                 unsigned int cnt = ((Cont7c*)&record2->m_0c) ? ((Cont7c*)&record2->m_0c)->FUN_0044ddc0() : 0;
-                apBuffer->FUN_00865f60(cnt);
+                apBuffer->SaveVariableSizedValue(cnt);
                 for (unsigned int i = 0; i < cnt; i++)
                 {
                     int* e = ((Cont7c*)&record2->m_0c)->FUN_006a7ad0(i);
@@ -21605,7 +21605,7 @@ void Owner::WriteNodeList(BufObj* apBuffer)
                 apBuffer->FUN_00865e50(&record2->m_1c, 1, 0);
                 apBuffer->FUN_00865df0(record2->m_14, 0);
                 unsigned int cnt = ((Cont5f*)&record2->m_20) ? ((Cont5f*)&record2->m_20)->FUN_0044ddc0() : 0;
-                apBuffer->FUN_00865f60(cnt);
+                apBuffer->SaveVariableSizedValue(cnt);
                 for (unsigned int i = 0; i < cnt; i++)
                 {
                     ElemF* payload = ((Cont5f*)&record2->m_20)->FUN_006a7ad0(i);
@@ -21614,7 +21614,7 @@ void Owner::WriteNodeList(BufObj* apBuffer)
                     apBuffer->FUN_00865e50(&payload->f0->value02, 1, 0);
                     apBuffer->FUN_00865e50(&payload->f0->value03, 1, 0);
                     unsigned int cnt2 = (&payload->f0->entries) ? (&payload->f0->entries)->FUN_0044ddc0() : 0;
-                    apBuffer->FUN_00865f60(cnt2);
+                    apBuffer->SaveVariableSizedValue(cnt2);
                     for (unsigned int j = 0; j < cnt2; j++)
                     {
                         int* sub = (&payload->f0->entries)->FUN_006a7ad0(j);
@@ -21683,7 +21683,7 @@ void Owner::WriteNodeList(BufObj* apBuffer)
                 apBuffer->FUN_00865db0((int)record2->m_1c, 0);
                 apBuffer->FUN_00865e50(&record2->m_0c, 4, 0);
                 int entryCount = 0;
-                int start2 = apBuffer->FUN_00865f20();
+                int start2 = apBuffer->StartVariableSizedValue();
                 ListObj* cursor4 = (ListObj*)&record2->m_20;
                 while (cursor4 != 0)
                 {
@@ -21699,13 +21699,13 @@ void Owner::WriteNodeList(BufObj* apBuffer)
                     }
                     cursor4 = cursor4->FUN_00726070();
                 }
-                apBuffer->FUN_00865ff0(entryCount, start2);
+                apBuffer->SaveVariableSizedValue(entryCount, start2);
                 break;
             }
             case 0x8f: {
                 Node* t = node;
-                apBuffer->FUN_00865e70(t->FUN_00428070(0).FUN_00559450());
-                apBuffer->FUN_00865e70(t->CallWithField14(0).FUN_00559450());
+                apBuffer->SaveString(t->FUN_00428070(0).FUN_00559450());
+                apBuffer->SaveString(t->CallWithField14(0).FUN_00559450());
                 break;
             }
             case 0x92: {
@@ -21723,7 +21723,7 @@ void Owner::WriteNodeList(BufObj* apBuffer)
         }
         node = node->FUN_0044ddc0();
     }
-    apBuffer->FUN_00865ff0(r3, count);
+    apBuffer->SaveVariableSizedValue(r3, count);
 }
 }  // namespace fnv_00426a30
 
@@ -22234,8 +22234,8 @@ struct ActorExtraShell
 
 struct FUN_0087f3d0_shell
 {
-    bool FUN_0087f3d0();
-    void FUN_008a0960();
+    bool GetEssential();
+    void RestoreFullHealthAndConditions();
 };
 
 // @fnv 0x008a08e0
@@ -22247,8 +22247,8 @@ void ActorExtraShell::FUN_008a08e0(unsigned char arg)
     if (vf216() || vf135() || !arg)
         return;
 
-    if (flag && reinterpret_cast<FUN_0087f3d0_shell*>(this)->FUN_0087f3d0())
-        reinterpret_cast<FUN_0087f3d0_shell*>(this)->FUN_008a0960();
+    if (flag && reinterpret_cast<FUN_0087f3d0_shell*>(this)->GetEssential())
+        reinterpret_cast<FUN_0087f3d0_shell*>(this)->RestoreFullHealthAndConditions();
 }
 
 namespace fnv_00422c40 {
@@ -22618,7 +22618,7 @@ extern char DAT_01184430;
 extern char DAT_01184408;
 extern char DAT_011843e4;
 void* FUN_00ec43fb(void*, int, void*, void*, int);
-unsigned short FUN_00805a00(int, int);
+unsigned short GetActiveEffectListSaveSize(int, int);
 int FUN_0044a670(int);
 FormQ* FUN_004839c0(int);
 void FUN_0040fbe0(const char*, ...);
@@ -22833,7 +22833,7 @@ unsigned short ExtraDataListQ::FUN_00422c40(unsigned int aiFlags, ObjQ* apObj)
                 NonActorMagicTargetQ* pMag =
                     (NonActorMagicTargetQ*)FUN_00ec43fb(p_gslscu, 0, &DAT_01183b2c, &DAT_0118444c, 0);
                 size += 4;
-                size += FUN_00805a00(pMag->mt.m2(), 0);
+                size += GetActiveEffectListSaveSize(pMag->mt.m2(), 0);
             }
             break;
         case 0x2b:

@@ -454,7 +454,7 @@ extern int DAT_012683ec;
 extern const double DAT_01012060;
 extern const double DAT_01021798;
 
-float __cdecl FUN_007d1d00(int aiSetting);
+float __cdecl GetFadeOutMultiplier(int aiSetting);
 LodManager* __cdecl FUN_00b4f5c0();
 bool __cdecl FUN_00525420();
 void __cdecl FUN_00c9b670(NiNode* apRoot, NiPoint3* apDir, int aiA, float afB, int aiC);
@@ -802,7 +802,7 @@ struct Actor
     bool FUN_00493bb0();
     void UpdateControllerFlag();
     bool FUN_004eaf60();
-    float FUN_008be940();
+    float GetEyeLevel();
     NiPoint3* FUN_00436aa0();
     int FUN_0084e3a0();
     int FUN_008d8520();
@@ -870,7 +870,7 @@ void Actor::FUN_00886cb0(float afDelta, int aiUnused)
                 kCameraPos = *DAT_011e07d0->FUN_0045bb80();
             else
                 kCameraPos = DAT_011dea3c->FUN_00436aa0()->FUN_00439e90(
-                    FUN_004a3760(DAT_011dea3c->FUN_008be940(), DAT_011a9484));
+                    FUN_004a3760(DAT_011dea3c->GetEyeLevel(), DAT_011a9484));
             NiBound kBound = *p3D->FUN_0043d450();
             float fDistance =
                 kCameraPos.FUN_00439ef0(*kBound.FUN_006815c0()).FUN_00457990() - kBound.FUN_0084d030() * DAT_01021798;
@@ -878,7 +878,7 @@ void Actor::FUN_00886cb0(float afDelta, int aiUnused)
             NiObject* pFade = p3D->FUN_vt10();
             if (pFade)
             {
-                float fRatio = fDistance / FUN_007d1d00(3);
+                float fRatio = fDistance / GetFadeOutMultiplier(3);
                 bFar = fRatio > pFade->GetFloatAtOffsetB0();
             }
             LodManager* pLod = FUN_00b4f5c0();
@@ -1055,10 +1055,10 @@ struct P164Flags
 struct P164Buffer
 {
     virtual unsigned char GetVersion();
-    void FUN_00864980(void*, unsigned int);
+    void LoadData(void*, unsigned int);
     void FUN_008648e0(void*);
-    unsigned int FUN_008648a0();
-    unsigned int FUN_00864a60();
+    unsigned int LoadFormID();
+    unsigned int LoadVariableSizedValue();
     P164Flags FUN_00428110();
 };
 struct P164Item
@@ -1102,7 +1102,7 @@ struct P164Actor : Actor
 {
     void FUN_008ab3a0(P164Buffer*);
     void FUN_00932a00(P164Buffer*);
-    void FUN_00884f80();
+    void SetWalkRunFlagDirty();
     void FUN_008c1ac0(bool);
     void SetFlag40000000(bool);
     bool FUN_00566950();
@@ -1558,63 +1558,63 @@ void P164Actor::FUN_008ab3a0(P164Buffer* buffer)
     int oldState = ((P164State*)this)->FUN_004f8960();
     FUN_00932a00(buffer);
     m_eLifeState = (ACTOR_LIFE_STATE)oldState;
-    FUN_00884f80();
-    buffer->FUN_00864980(&ActorConditionAndAnimationState, 4);
+    SetWalkRunFlagDirty();
+    buffer->LoadData(&ActorConditionAndAnimationState, 4);
     ActorConditionAndAnimationState = DAT_011e0e80.FUN_0096d490() - ActorConditionAndAnimationState;
-    buffer->FUN_00864980(&ActorStateFlags, 1);
-    buffer->FUN_00864980(&ActorReferenceData, 1);
-    buffer->FUN_00864980(&m_bFirstActorFlag, 1);
-    buffer->FUN_00864980(&m_bActorFlag, 1);
-    buffer->FUN_00864980(&m_fFirstValueAfterFlag, 4);
-    buffer->FUN_00864980(&m_bSecondBooleanValue, 1);
-    buffer->FUN_00864980(&m_eAnimationGroup, 4);
-    buffer->FUN_00864980(&m_bHasUpdated, 1);
-    buffer->FUN_00864980(&ActorReferenceListData, 1);
-    buffer->FUN_00864980(&ActorBaseConfiguration, 1);
-    buffer->FUN_00864980(&m_bFlagBeforeActorBase, 1);
-    buffer->FUN_00864980(&ActorBaseReference, 1);
-    buffer->FUN_00864980(&m_bSecondActorFlag, 1);
-    buffer->FUN_00864980(&m_iIntegerBeforeTwoFloatValues, 4);
-    buffer->FUN_00864980(&BooleanIntegerTwoFloatData, 4);
-    buffer->FUN_00864980(&IntegerFloatFlagSettings, 4);
-    buffer->FUN_00864980(&m_bFirstFlagAfterForm, 1);
-    buffer->FUN_00864980(&m_bFormFlag, 1);
-    buffer->FUN_00864980(&m_bMiddleFlagBeforeActorMover, 1);
-    buffer->FUN_00864980(&m_iPackageState, 4);
-    buffer->FUN_00864980(&ActorProjectileState, 4);
-    buffer->FUN_00864980(&m_bFlagBeforeTwoBooleans, 1);
-    buffer->FUN_00864980(&m_bMiddleFlag, 1);
+    buffer->LoadData(&ActorStateFlags, 1);
+    buffer->LoadData(&ActorReferenceData, 1);
+    buffer->LoadData(&m_bFirstActorFlag, 1);
+    buffer->LoadData(&m_bActorFlag, 1);
+    buffer->LoadData(&m_fFirstValueAfterFlag, 4);
+    buffer->LoadData(&m_bSecondBooleanValue, 1);
+    buffer->LoadData(&m_eAnimationGroup, 4);
+    buffer->LoadData(&m_bHasUpdated, 1);
+    buffer->LoadData(&ActorReferenceListData, 1);
+    buffer->LoadData(&ActorBaseConfiguration, 1);
+    buffer->LoadData(&m_bFlagBeforeActorBase, 1);
+    buffer->LoadData(&ActorBaseReference, 1);
+    buffer->LoadData(&m_bSecondActorFlag, 1);
+    buffer->LoadData(&m_iIntegerBeforeTwoFloatValues, 4);
+    buffer->LoadData(&BooleanIntegerTwoFloatData, 4);
+    buffer->LoadData(&IntegerFloatFlagSettings, 4);
+    buffer->LoadData(&m_bFirstFlagAfterForm, 1);
+    buffer->LoadData(&m_bFormFlag, 1);
+    buffer->LoadData(&m_bMiddleFlagBeforeActorMover, 1);
+    buffer->LoadData(&m_iPackageState, 4);
+    buffer->LoadData(&ActorProjectileState, 4);
+    buffer->LoadData(&m_bFlagBeforeTwoBooleans, 1);
+    buffer->LoadData(&m_bMiddleFlag, 1);
     if (buffer->GetVersion() >= 8)
-        buffer->FUN_00864980(&m_eCriticalStage, 4);
+        buffer->LoadData(&m_eCriticalStage, 4);
     if (buffer->GetVersion() >= 9)
     {
-        buffer->FUN_00864980(&m_bActorListValid, 1);
-        buffer->FUN_00864980(&m_iIntegerAfterActorListValid, 4);
-        buffer->FUN_00864980(&ActorStatusData, 1);
-        buffer->FUN_00864980(&m_uiFirstValueAfterInteger, 4);
-        buffer->FUN_00864980(&m_uiActorFlags, 4);
+        buffer->LoadData(&m_bActorListValid, 1);
+        buffer->LoadData(&m_iIntegerAfterActorListValid, 4);
+        buffer->LoadData(&ActorStatusData, 1);
+        buffer->LoadData(&m_uiFirstValueAfterInteger, 4);
+        buffer->LoadData(&m_uiActorFlags, 4);
         FUN_008c1ac0(false);
         SetFlag40000000(false);
     }
     if (buffer->GetVersion() >= 13)
-        buffer->FUN_00864980(&m_uiValueBeforeBooleanFields, 4);
+        buffer->LoadData(&m_uiValueBeforeBooleanFields, 4);
     buffer->FUN_008648e0(&m_pActorReference);
-    m_pActorBase = dynamic_cast<TESActorBase*>(FUN_004839c0(buffer->FUN_008648a0()));
+    m_pActorBase = dynamic_cast<TESActorBase*>(FUN_004839c0(buffer->LoadFormID()));
     buffer->FUN_008648e0(&m_pMobileObject);
     if (buffer->FUN_00428110().FUN_004280f0(0x400))
     {
         unsigned char lifeState = 0;
-        buffer->FUN_00864980(&lifeState, 1);
+        buffer->LoadData(&lifeState, 1);
         m_eLifeState = (ACTOR_LIFE_STATE)lifeState;
     }
     if (buffer->FUN_00428110().FUN_004280f0(0x80000))
     {
-        unsigned int count = buffer->FUN_00864a60();
+        unsigned int count = buffer->LoadVariableSizedValue();
         for (unsigned int i = 0; i < count; ++i)
         {
             ActorListEntry* modifier = new ActorListEntry;
             buffer->FUN_008648e0(&modifier->form);
-            buffer->FUN_00864980(modifier, 4);
+            buffer->LoadData(modifier, 4);
             ((P164List*)&m_kSecondPointerList)->FUN_005ae3d0(modifier);
         }
     }

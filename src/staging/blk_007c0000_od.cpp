@@ -112,16 +112,16 @@ void __cdecl FUN_007c5fb0()
 extern int* DAT_011daa38;
 struct FUN_007c9dc0_Class
 {
-    void FUN_007c9dc0(int);
+    void TurnPage(int);
     void InvokeCallbacksForSlot();
 };
-// If DAT_011daa38 is set and its byte at offset 0x54 is nonzero, calls FUN_007c9dc0(1) and InvokeCallbacksForSlot on it.
+// If DAT_011daa38 is set and its byte at offset 0x54 is nonzero, calls TurnPage(1) and InvokeCallbacksForSlot on it.
 // @fnv 0x007cabb0
 void FUN_007cabb0()
 {
     if (DAT_011daa38 && *(unsigned char*)((unsigned char*)DAT_011daa38 + 0x54))
     {
-        ((FUN_007c9dc0_Class*)DAT_011daa38)->FUN_007c9dc0(1);
+        ((FUN_007c9dc0_Class*)DAT_011daa38)->TurnPage(1);
         ((FUN_007c9dc0_Class*)DAT_011daa38)->InvokeCallbacksForSlot();
     }
 }
@@ -130,16 +130,16 @@ namespace fnv_007cabf0 {
 extern int* DAT_011daa38;
 struct FUN_007c9dc0_Class
 {
-    void FUN_007c9dc0(int a);
+    void TurnPage(int a);
     void InvokeCallbacksForSlot();
 };
-// If DAT_011daa38 is set and its byte at offset 0x54 is nonzero, calls FUN_007c9dc0(0) and InvokeCallbacksForSlot on it.
+// If DAT_011daa38 is set and its byte at offset 0x54 is nonzero, calls TurnPage(0) and InvokeCallbacksForSlot on it.
 // @fnv 0x007cabf0
 void FUN_007cabf0()
 {
     if (DAT_011daa38 && *(unsigned char*)((char*)DAT_011daa38 + 0x54))
     {
-        ((FUN_007c9dc0_Class*)DAT_011daa38)->FUN_007c9dc0(0);
+        ((FUN_007c9dc0_Class*)DAT_011daa38)->TurnPage(0);
         ((FUN_007c9dc0_Class*)DAT_011daa38)->InvokeCallbacksForSlot();
     }
 }
@@ -663,7 +663,7 @@ void __cdecl FUN_007c6120();
 
 // If DAT_011daa38 is set and FUN_00794d80 returns its element 22, calls FUN_007c6120; otherwise plays the "UIActivateNothing" sound via BSAudio.
 // @fnv 0x007cac30
-void __cdecl FUN_007cac30()
+void __cdecl CloseCallback()
 {
     unsigned long long padding;
 
@@ -775,7 +775,7 @@ struct FUN_00559450_Owner
 bool __cdecl FUN_004b71d0();
 
 // @fnv 0x007ca700
-void __cdecl FUN_007ca700(void* pObject)
+void __cdecl RefreshLeftAVButton(void* pObject)
 {
     int iValue = *(int*)((char*)pObject + 0x24);
     if (((FUN_007ca700_Virt*)(DAT_011dea3c + 0xa4))->v07(iValue) > 1)
@@ -1323,7 +1323,7 @@ struct FUN_00a712f0
     static void* operator new(unsigned int);
     static void operator delete(void*, unsigned int);
     FUN_00a712f0();
-    void FUN_00712e60(const ImageSpaceEffectParam&);
+    void SetViewPort(const ImageSpaceEffectParam&);
     void FUN_00507700(float);
     void FUN_00a6faf0(const NiFrustum&);
     void FUN_004bc1f0(float, float, float);
@@ -1428,7 +1428,7 @@ FUN_00a712f0* CameraContext::CreateSurgery3DCamera()
     ImageSpaceEffectParam viewport(0.0f, 1.0f, 1.0f, 0.0f);
     if (DAT_011f9426)
         viewport = DAT_011ad840;
-    distance->FUN_00712e60(viewport);
+    distance->SetViewPort(viewport);
     NiFrustum angle(false);  // Perspective frustum.
     angle.farPlane = FUN_0045c670()->GetScale();
     angle.nearPlane = *DAT_01203144.Float();
@@ -1743,7 +1743,7 @@ struct CsParam
 extern char* DAT_011dea3c;
 
 // @fnv 0x007ca7a0
-void __cdecl FUN_007ca7a0(CsParam* param_1)
+void __cdecl RefreshRightAVButton(CsParam* param_1)
 {
     int iValue = param_1->unk24;
     if (((CsVObj*)(DAT_011dea3c + 0xa4))->vf07(iValue) < 10 &&
@@ -2368,11 +2368,11 @@ struct FUN_007ca960_Owner
 {
     int unk00[41];
     FUN_007ca700_Virt kSub;
-    void FUN_0093a7c0(int a, int b);
+    void SetActorBaseValue(int a, int b);
 };
 
 // @fnv 0x007ca960
-void __cdecl FUN_007ca960(void* apSelf)
+void __cdecl DecreaseActorValue(void* apSelf)
 {
     if (!DAT_011daa38)
         return;
@@ -2387,7 +2387,7 @@ void __cdecl FUN_007ca960(void* apSelf)
                 &((FUN_00ad7550_shell*)BSAudio::GetSingleton())->FUN_00ad7550("OBJBookSpecialNumber", 0x121));
             kSound.Play(false);
         }
-        ((FUN_007ca960_Owner*)DAT_011dea3c)->FUN_0093a7c0(m_uiSoundID, FUN_00647b70(iCount - 1, 1));
+        ((FUN_007ca960_Owner*)DAT_011dea3c)->SetActorBaseValue(m_uiSoundID, FUN_00647b70(iCount - 1, 1));
     }
     ((FUN_007c9dc0_Class*)DAT_011daa38)->InvokeCallbacksForSlot();
 }

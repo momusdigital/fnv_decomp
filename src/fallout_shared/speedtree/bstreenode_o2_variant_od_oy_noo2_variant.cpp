@@ -2251,7 +2251,7 @@ struct xTarget
 };
 struct xCreated
 {
-    xTarget* FUN_009306d0();
+    xTarget* GetCharController();
 };
 xCreated* xFUN_00c6dec0(int, void*);
 void* xFUN_004b5950(void*);
@@ -2274,7 +2274,7 @@ float xFUN_004587d0(float);
 void* xFUN_004a3a40(unsigned int);
 struct xShapeX
 {
-    int FUN_006205a0();
+    int QMaterial();
 };
 const char* xFUN_00ec7750(const char*, const char*);
 struct xIntSetting
@@ -2388,7 +2388,7 @@ void xEffect::FUN_0066c160(float afTime)
             xCreated* PC = xFUN_00c6dec0(0x3e8, PA);
             if (PC)
             {
-                xTarget* PD = PC->FUN_009306d0();
+                xTarget* PD = PC->GetCharController();
                 if (PD)
                 {
                     xEvent EV;
@@ -2450,7 +2450,7 @@ void xEffect::FUN_0066c160(float afTime)
                 xP3 PT2;
                 xShapeX* PS = (xShapeX*)xFUN_004a3a40(ARR->FUN_0062e150(I)->m_8->FUN_00559450());
                 BND2.m_14 = 4;
-                BND2.m_15 = (unsigned char)(PS ? PS->FUN_006205a0() : 0);
+                BND2.m_15 = (unsigned char)(PS ? PS->QMaterial() : 0);
                 BND2.m_10 = 1.0f;
                 BND2.m_iThirdValue = xFUN_004587d0(V1.FUN_00630b40().FUN_004586d0());
                 BND2.m_18 = (int)PB + (int)PREF;

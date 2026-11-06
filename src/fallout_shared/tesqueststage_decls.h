@@ -279,7 +279,7 @@ enum CALENDAR_MONTH
 class Calendar
 {
   public:
-    unsigned int FUN_00867c60();
+    unsigned int GetYear();
     CALENDAR_MONTH GetCurrentMonth();
     signed char GetGameHour();
 };

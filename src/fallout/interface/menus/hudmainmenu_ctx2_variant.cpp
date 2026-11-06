@@ -139,14 +139,14 @@ extern float XPClampHigh(float, float);
 extern int XPMax(int, int);
 extern int XPMin(int, int);
 extern int XPSprintf(char*, unsigned int, const char*, ...);
-extern void FUN_00717280(int);
+extern void PlayMenuSound(int);
 struct XPMenu : HUDMainMenu
 {
-    void FUN_0077c4e0();
+    void UpdateXPMeter();
 };
 
 // @fnv 0x0077c4e0
-void XPMenu::FUN_0077c4e0()
+void XPMenu::UpdateXPMeter()
 {
     static int minTrait = LookupXPTrait("_x_min", -1);
     static int maxTrait = LookupXPTrait("_x_max", -1);
@@ -300,7 +300,7 @@ void XPMenu::FUN_0077c4e0()
                     int levelEndXP11 = LevelXP(xpNextLevel);
                     if (canLevelUp13 && meterMax4 == m_pTiles[47]->Read(4001) && !_g_thePlayer->IsBusy() &&
                         !hasPendingLevel18)
-                        FUN_00717280(21);
+                        PlayMenuSound(21);
                     if (currentXP15 > levelEndXP11 && xpNextLevel < *xpMaxLevel.Int() && !hasPendingLevel18)
                     {
                         ++xpCurrentLevel;

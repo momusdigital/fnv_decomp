@@ -1261,8 +1261,8 @@ struct BGSSaveFormBuffer
     FormChangeMask GetChangeFlags(unsigned int);
     void SerializeFormData(void*, int);
     void SaveData(void*, int, int);
-    unsigned int FUN_00865f20();
-    void FUN_00865ff0(int, unsigned int);
+    unsigned int StartVariableSizedValue();
+    void SaveVariableSizedValue(int, unsigned int);
 };
 struct LeveledObject
 {
@@ -1281,7 +1281,7 @@ void FUN_00488c50_shell::SaveLeveledListEntries(BGSSaveFormBuffer* apSaveGameBuf
     if (apSaveGameBuffer->GetChangeFlags(0x80000000))
     {
         unsigned int isaveGameCount = 0;
-        unsigned int isaveGameBufferPos = apSaveGameBuffer->FUN_00865f20();
+        unsigned int isaveGameBufferPos = apSaveGameBuffer->StartVariableSizedValue();
         BSSimpleList<LeveledObject*>* pCurrentElementNext = (BSSimpleList<LeveledObject*>*)((char*)this + 0x14);
         while (pCurrentElementNext)
         {
@@ -1299,7 +1299,7 @@ void FUN_00488c50_shell::SaveLeveledListEntries(BGSSaveFormBuffer* apSaveGameBuf
             }
             pCurrentElementNext = pCurrentElementNext->GetNext();
         }
-        apSaveGameBuffer->FUN_00865ff0(isaveGameCount, isaveGameBufferPos);
+        apSaveGameBuffer->SaveVariableSizedValue(isaveGameCount, isaveGameBufferPos);
     }
 }
 }  // namespace fnv_00488c50

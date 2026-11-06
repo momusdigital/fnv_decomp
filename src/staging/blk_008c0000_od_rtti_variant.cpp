@@ -415,7 +415,7 @@ struct ProcessLists
 extern ProcessLists DAT_011e0e80;
 struct FUN_008d6f50_Class
 {
-    void FUN_008d6f50(int arg);
+    void Run(int arg);
 };
 extern "C" void __cdecl _delete(void* p, unsigned int size);
 struct FUN_008df980_Class
@@ -464,7 +464,7 @@ struct FUN_00571550_shell
 int __cdecl FUN_00571550();
 struct FUN_008da1a0_Class
 {
-    void FUN_008da1a0(FUN_00571550_shell* actor);
+    void InitBoneLOD(FUN_00571550_shell* actor);
 };
 struct FUN_0052d240_obj
 {
@@ -2107,7 +2107,7 @@ struct ResourceInfo
 };
 struct EventProperty
 {
-    unsigned char FUN_006205a0();
+    unsigned char QMaterial();
 };
 struct EventTarget
 {
@@ -2250,7 +2250,7 @@ struct Object
     virtual void v114();
     virtual void v115();
     virtual int GetSource();
-    void FUN_008cfad0(float weight, int a, int b, int c, int offset, unsigned char enabled);
+    void PlayArrowCollisionSound(float weight, int a, int b, int c, int offset, unsigned char enabled);
 };
 struct FUN_00620b80_shell
 {
@@ -3556,7 +3556,7 @@ struct FloatSetting
 extern FloatSetting DAT_011ce1dc, DAT_011cedac;
 struct AnimationOutput
 {
-    void FUN_00626cb0(unsigned int);
+    void SetCollisionFilter(unsigned int);
     void FUN_005615d0(const NiPoint3&);
     void FUN_00561630(const NiPoint3&);
 };
@@ -4215,7 +4215,7 @@ struct ArgumentData
 };
 struct TargetOwner
 {
-    void __thiscall FUN_008cc740(ArgumentData*, ArgumentData*);
+    void __thiscall CollideTerrain(ArgumentData*, ArgumentData*);
     void __thiscall FUN_008cba30(ArgumentData*, ArgumentData*, LiveCallback*);
     void __thiscall FUN_008cc730(ArgumentData*, ArgumentData*, void*, int);
 };
@@ -4282,7 +4282,7 @@ void __cdecl FUN_008d12e0(TargetOwner* target, SourceData* source, int arg0, int
     FUN_004a3970(&argumentBundle, arg1);
     if (state.FUN_004a3a20() == 1)
     {
-        target->FUN_008cc740(&first, &argumentBundle);
+        target->CollideTerrain(&first, &argumentBundle);
         return;
     }
     if (owner)
@@ -4302,12 +4302,12 @@ void __cdecl FUN_008d12e0(TargetOwner* target, SourceData* source, int arg0, int
 
 struct PackageNodeHandler
 {
-    unsigned int FUN_00819250();
+    unsigned int GetCollisionGroup();
 };
 class Actor : public TESObjectREFR
 {
   public:
-    PackageNodeHandler* FUN_009306d0();
+    PackageNodeHandler* GetCharController();
 };
 struct ActorImpact
 {
@@ -4536,13 +4536,13 @@ bool SceneProjectile::FUN_008cdaf0(SceneOutput* owner)
     v2a0();
     FUN_00c6a350(v1d0(), 1, true, false, true);
     Actor* actor = dynamic_cast<Actor*>(unk88->object);
-    if (actor && actor->FUN_009306d0())
+    if (actor && actor->GetCharController())
     {
-        owner->FUN_00626cb0(UpdateToken(4, actor->FUN_009306d0()->FUN_00819250(), 0).value);
+        owner->SetCollisionFilter(UpdateToken(4, actor->GetCharController()->GetCollisionGroup(), 0).value);
     }
     else
     {
-        owner->FUN_00626cb0(UpdateToken(4, GetCachedValue(), 0).value);
+        owner->SetCollisionFilter(UpdateToken(4, GetCachedValue(), 0).value);
     }
     owner->FUN_005615d0(unk88->position);
     ResourceUpdate* resource = FUN_004b5a20(owner->GetReferenceFlags());

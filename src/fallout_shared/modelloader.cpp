@@ -3339,7 +3339,7 @@ extern PC7d* g_thePlayer;
 struct A9
 {
     int FUN_00936ef0();
-    void FUN_008b7360(int, void*);
+    void QueueReplacementLocomotion(int, void*);
 };
 struct Hx
 {
@@ -3360,7 +3360,7 @@ void __fastcall FUN_00441200(char* self)
     if ((void*)a != g_thePlayer && !((A9*)a)->FUN_00936ef0())
         ((MLa*)g_modelLoader)->SetTlsFlag(true);
     if (FUN_008b7b70((Struct_008b7b70*)a))
-        ((A9*)a)->FUN_008b7360(1, self);
+        ((A9*)a)->QueueReplacementLocomotion(1, self);
     ((Hx*)self)->FUN_0043fed0();
     ((MLa*)g_modelLoader)->SetTlsFlag(b);
 }
@@ -13382,7 +13382,7 @@ struct Z_00626c50
 
 struct Y_00626c50
 {
-    void FUN_00626cb0();
+    void SetCollisionFilter();
 };
 
 struct Mgr_00626c50
@@ -13634,18 +13634,18 @@ struct FUN_00626c50_cls
     unsigned int unk39C;
     Mgr_00626c50 m_3a0;
     unsigned int m_3a8;
-    void FUN_00626c50(unsigned int a1);
+    void SetShapeGroup(unsigned int a1);
 };
 
-// Stores a1 in m_3a8, passes it to local.FUN_0059ce80, and calls FUN_0043b4f0/FUN_00626cb0 on objects obtained from m_3a0.FUN_00559450.
+// Stores a1 in m_3a8, passes it to local.FUN_0059ce80, and calls FUN_0043b4f0/SetCollisionFilter on objects obtained from m_3a0.FUN_00559450.
 // @fnv 0x00626c50
-void FUN_00626c50_cls::FUN_00626c50(unsigned int auiValue)
+void FUN_00626c50_cls::SetShapeGroup(unsigned int auiValue)
 {
     Local_00626c50 local;
     reinterpret_cast<Z_00626c50*>(m_3a0.FUN_00559450((unsigned int)&local))->FUN_0043b4f0();
     local.FUN_0059ce80(auiValue);
     m_3a8 = auiValue;
-    reinterpret_cast<Y_00626c50*>(m_3a0.FUN_00559450(local.v))->FUN_00626cb0();
+    reinterpret_cast<Y_00626c50*>(m_3a0.FUN_00559450(local.v))->SetCollisionFilter();
 }
 
 class C1C50Filter
@@ -18843,7 +18843,7 @@ void FUN_00578250(Obj3*);
 bool FUN_005784b0(Obj3*);
 void FUN_00578300(Obj3*);
 int FUN_00570f60();
-void FUN_008cddd0(Ref3*, bool);
+void DeleteAttachedArrows(Ref3*, bool);
 void FUN_00868660(Obj3*);
 void FUN_00c45830(Obj3*);
 void FUN_00c6bd00(Obj3*, bool);
@@ -18996,7 +18996,7 @@ void Ref3::FUN_005702e0(Obj3* replacement, bool warn)
         {
             DAT_011e0e80.Remove(this);
             if (FUN_00570f60() > 0)
-                FUN_008cddd0(this, true);
+                DeleteAttachedArrows(this, true);
         }
         if (actor17 && actor17 != _g_thePlayer)
         {

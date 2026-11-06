@@ -515,8 +515,8 @@ namespace fnv_0081d800 {
 struct NiControllerManager;
 struct BGSSaveFormBuffer
 {
-    unsigned int FUN_00865f20();
-    void FUN_00865ff0(int, unsigned int);
+    unsigned int StartVariableSizedValue();
+    void SaveVariableSizedValue(int, unsigned int);
 };
 struct Animation
 {
@@ -678,7 +678,7 @@ void FUN_0081d800_t::FUN_0081d800(BGSSaveGameBuffer* apSaveGameBuffer)
         pmanager = (NiControllerManager*)FUN_00653270(
             &DAT_011f36ac, (NiProperty*)((NiObjectNET*)(unsigned int)*(Flt*)((char*)this + 0x30))->GetControllers());
     {
-        unsigned int uiStartPosition = ((BGSSaveFormBuffer*)apSaveGameBuffer)->FUN_00865f20();
+        unsigned int uiStartPosition = ((BGSSaveFormBuffer*)apSaveGameBuffer)->StartVariableSizedValue();
         unsigned int uiFormIdBefore = ((TESForm*)apSaveGameBuffer)->GetFormID();
         if (pmanager)
         {
@@ -688,7 +688,7 @@ void FUN_0081d800_t::FUN_0081d800(BGSSaveGameBuffer* apSaveGameBuffer)
             FUN_00563f30(pmanager, apSaveGameBuffer, -1.0f);
         }
         unsigned int uiFormIdAfter = ((TESForm*)apSaveGameBuffer)->GetFormID();
-        ((BGSSaveFormBuffer*)apSaveGameBuffer)->FUN_00865ff0(uiFormIdAfter - uiFormIdBefore, uiStartPosition);
+        ((BGSSaveFormBuffer*)apSaveGameBuffer)->SaveVariableSizedValue(uiFormIdAfter - uiFormIdBefore, uiStartPosition);
     }
 }
 }  // namespace fnv_0081d800
@@ -1567,7 +1567,7 @@ struct SaveManagerLocal
 {
     const char* FUN_00825c00();
     void FUN_00600ab0(const char*);
-    void FUN_008579e0(void*, unsigned int);
+    void LoadGameDataOLD(void*, unsigned int);
 };
 extern SaveManagerLocal* DAT_011de45c;
 extern const float DAT_01012054;
@@ -1600,7 +1600,7 @@ void Candidate::SetFilenameAndInit(EffectLocal* effect, TESObjectREFR* target, c
     const char* saved = DAT_011de45c->FUN_00825c00();
     DAT_011de45c->FUN_00600ab0(previous);
     unsigned short version3;
-    DAT_011de45c->FUN_008579e0(&version3, 2);
+    DAT_011de45c->LoadGameDataOLD(&version3, 2);
     if (reinterpret_cast<ObjectPtrLocal*>(&spRetainedObject)->FUN_00559450())
     {
         void* controller4 = FUN_00653270(
@@ -1817,7 +1817,7 @@ unsigned short __cdecl FUN_0055fdb0(NiControllerManager*);
 void __cdecl FUN_0055fe70(NiControllerManager*, float);
 struct TESSaveLoadGame
 {
-    void FUN_008579b0(void*, int);
+    void SaveGameDataOLD(void*, int);
 };
 extern TESSaveLoadGame* g_TESSaveLoadGame;
 struct Animation
@@ -1914,7 +1914,7 @@ void FUN_0081d150_t::FUN_0081d150(ActiveEffect* apEffect, TESObjectREFR* apTarge
     unsigned short usState = 0;
     if (pmanager)
         usState = FUN_0055fdb0(pmanager);
-    g_TESSaveLoadGame->FUN_008579b0(&usState, 2);
+    g_TESSaveLoadGame->SaveGameDataOLD(&usState, 2);
     if (usState)
     {
         float ftime = -1.0f;
@@ -1943,7 +1943,7 @@ struct QueueHelper
 };
 struct TESSaveLoadGame
 {
-    void FUN_008579e0(void* apData, unsigned int auiSize);
+    void LoadGameDataOLD(void* apData, unsigned int auiSize);
 };
 extern TESSaveLoadGame* g_TESSaveLoadGame;
 struct FUN_0081d2a0_t
@@ -1966,12 +1966,12 @@ void FUN_0081d2a0_t::FUN_0081d2a0(ActiveEffect* apEffect, TESObjectREFR* apTarge
                                ->GetModelFilePath(),
                            5, 0, 0, true, false, false);
     }
-    g_TESSaveLoadGame->FUN_008579e0(&isize, 2);
+    g_TESSaveLoadGame->LoadGameDataOLD(&isize, 2);
     if (isize)
     {
         pbuffer = (char*)operator new(isize + 2);
         memcpy(pbuffer, &isize, 2);
-        g_TESSaveLoadGame->FUN_008579e0(pbuffer + 2, isize);
+        g_TESSaveLoadGame->LoadGameDataOLD(pbuffer + 2, isize);
         *(char**)((char*)this + 0x2c) = pbuffer;
     }
 }
@@ -1982,7 +1982,7 @@ class TESSaveLoadGame
 {
   public:
     void ValidateFormIDArray(unsigned int* apID, unsigned int auiSize);
-    void FUN_008579e0(void* apData, unsigned int auiSize);
+    void LoadGameDataOLD(void* apData, unsigned int auiSize);
 };
 extern TESSaveLoadGame* g_TESSaveLoadGame;
 TESForm* GetFormByID(unsigned int aiID);
@@ -2005,10 +2005,10 @@ bool FUN_0081d6c0_shell::FUN_0081d6c0()
         bSuccess = false;
     {
         unsigned char isize;
-        g_TESSaveLoadGame->FUN_008579e0(&isize, 1);
+        g_TESSaveLoadGame->LoadGameDataOLD(&isize, 1);
         char* pBuffer = new char[isize + 1];
         memset(pBuffer, 0, isize + 1);
-        g_TESSaveLoadGame->FUN_008579e0(pBuffer, isize);
+        g_TESSaveLoadGame->LoadGameDataOLD(pBuffer, isize);
         m_bFirstPerson = true;
         LoadGame(0, pTarget);
         if (bSuccess)

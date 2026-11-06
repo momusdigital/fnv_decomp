@@ -137,7 +137,7 @@ void FUN_006e5a80_shell::FUN_006e5a80(PathingRequest* apDest)
 
 struct BGSSaveGameBuffer
 {
-    void FUN_00865f60(unsigned int flags);
+    void SaveVariableSizedValue(unsigned int flags);
 };
 
 struct BGSSaveFormBuffer : public BGSSaveGameBuffer
@@ -170,7 +170,7 @@ void FUN_006e5b20_shell::FUN_006e5b20(BGSSaveFormBuffer* apSaveGameBuffer)
             ? reinterpret_cast<TESObjectREFR_GetFlags_Helper*>(reinterpret_cast<char*>(this) + 0xB4)->CallGetFlags()
             : 0;
 
-    reinterpret_cast<BGSSaveGameBuffer*>(apSaveGameBuffer)->FUN_00865f60(isaveGameCount);
+    reinterpret_cast<BGSSaveGameBuffer*>(apSaveGameBuffer)->SaveVariableSizedValue(isaveGameCount);
 
     {
         unsigned int i;

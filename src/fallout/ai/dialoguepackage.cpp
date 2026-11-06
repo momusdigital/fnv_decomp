@@ -1460,7 +1460,7 @@ struct TESSound
 };
 struct FUN_008579e0_shell
 {
-    void __thiscall FUN_008579e0(void* buf, unsigned int n);
+    void __thiscall LoadGameDataOLD(void* buf, unsigned int n);
 };
 struct TimeGlobal : FUN_008579e0_shell
 {
@@ -1494,7 +1494,7 @@ extern void* DAT_01184720;
 struct SLObj
 {
     void __thiscall LoadFromSave();
-    int __thiscall FUN_0083bac0(unsigned short a);
+    int __thiscall GetDialogueItemByIndex(unsigned short a);
 };
 struct DialogueItem_shell
 {
@@ -1530,7 +1530,7 @@ void This::LoadSaveData()
         if (DAT_011de45c->FUN_00862110())
         {
             unsigned int i;
-            DAT_011de45c->FUN_008579e0(&i, 4);
+            DAT_011de45c->LoadGameDataOLD(&i, 4);
             if (i != 0x424c4f4b)
             {
                 TESSound* rec = DAT_011de45c->GetBoltSound();
@@ -1546,7 +1546,7 @@ void This::LoadSaveData()
                 }
             }
             flag = DAT_011de45c->GetTimeStamp();
-            DAT_011de45c->FUN_008579e0(&w18, 2);
+            DAT_011de45c->LoadGameDataOLD(&w18, 2);
         }
         FUN_00484d00(&f90, 4);
         if ((int)DAT_011de45c->FUN_008df040() >= 0x6a)
@@ -1577,7 +1577,7 @@ void This::LoadSaveData()
                 FUN_00484d00(&w38, 2);
                 if (w38 != -1)
                 {
-                    fa8 = ((SLObj*)fa4)->FUN_0083bac0((unsigned short)w38);
+                    fa8 = ((SLObj*)fa4)->GetDialogueItemByIndex((unsigned short)w38);
                 }
                 else
                 {
@@ -1680,7 +1680,7 @@ class Conversation
     PlayerCharacter* listener;
     Conversation(Character* speaker, PlayerCharacter* listener, TESTopic* topic);
     void FUN_0083c220();
-    DialogueItem* FUN_0083bac0(short index);
+    DialogueItem* GetDialogueItemByIndex(short index);
     void FUN_0083c8a0(DialogueItem* item);
 };
 
@@ -1763,7 +1763,7 @@ void DialoguePackageState::ResolveReferences()
         {
             conversation = new Conversation((Character*)speaker, (PlayerCharacter*)listener, topic);
             if (oldConversation != -1)
-                item = conversation->FUN_0083bac0(oldConversation);
+                item = conversation->GetDialogueItemByIndex(oldConversation);
             else
                 item = 0;
             if (item && responseIndex != -1)
@@ -1789,7 +1789,7 @@ class DialogueSaveGameWriter
   public:
     unsigned int FUN_00825c00();
     bool FUN_00862110();
-    void FUN_008579b0(void*, int);
+    void SaveGameDataOLD(void*, int);
     unsigned char FUN_008df040();
     DialogueSaveRecord* FUN_004fd3e0();
 };
@@ -1884,9 +1884,9 @@ void DialoguePackage::FUN_009ef6e0()
     if (((DialogueSaveGameWriter*)g_TESSaveLoadGame)->FUN_00862110())
     {
         unsigned int blockTag = 0x424c4f4b;
-        ((DialogueSaveGameWriter*)g_TESSaveLoadGame)->FUN_008579b0(&blockTag, 4);
+        ((DialogueSaveGameWriter*)g_TESSaveLoadGame)->SaveGameDataOLD(&blockTag, 4);
         offset = (unsigned short*)((DialogueSaveGameWriter*)g_TESSaveLoadGame)->FUN_00825c00();
-        ((DialogueSaveGameWriter*)g_TESSaveLoadGame)->FUN_008579b0(&size5, 2);
+        ((DialogueSaveGameWriter*)g_TESSaveLoadGame)->SaveGameDataOLD(&size5, 2);
     }
     FUN_00484ce0(&state, 4);
     if (((DialogueSaveGameWriter*)g_TESSaveLoadGame)->FUN_008df040() >= 106)
@@ -1910,7 +1910,7 @@ void DialoguePackage::FUN_009ef6e0()
     unsigned short countB = 0;  // count
     if (conversation)
         countB = conversation->FUN_0083bb30();
-    ((DialogueSaveGameWriter*)g_TESSaveLoadGame)->FUN_008579b0(&countB, 2);
+    ((DialogueSaveGameWriter*)g_TESSaveLoadGame)->SaveGameDataOLD(&countB, 2);
     if (countB)
     {
         conversation->SaveConversation();
@@ -1957,8 +1957,8 @@ struct BGSLoadFormBuffer
 {
     virtual unsigned char GetVersion();
     void FUN_008648e0(void* p);
-    unsigned FUN_008648a0();
-    void FUN_00864980(void* p, unsigned n);
+    unsigned LoadFormID();
+    void LoadData(void* p, unsigned n);
 };
 TESForm* __cdecl FUN_004839c0(unsigned id);
 struct List0083b830SV
@@ -1966,7 +1966,7 @@ struct List0083b830SV
     int a, b, c;
     List0083b830SV();
     void* operator new(unsigned);
-    void* FUN_0083bac0(unsigned short i);
+    void* GetDialogueItemByIndex(unsigned short i);
     void FUN_0083c330(BGSLoadFormBuffer* buf);
 };
 struct DlgItemX
@@ -2043,33 +2043,33 @@ void FUN_009f0460_class::FUN_009f0460(BGSLoadFormBuffer* apSaveBuffer)
     apSaveBuffer->FUN_008648e0(&mb4);
     apSaveBuffer->FUN_008648e0(&mb8);
     apSaveBuffer->FUN_008648e0(&m9c);
-    m8c = dynamic_cast<TESTopic*>(FUN_004839c0(apSaveBuffer->FUN_008648a0()));
-    apSaveBuffer->FUN_00864980(&m90, 4);
-    apSaveBuffer->FUN_00864980(&m98, 1);
-    apSaveBuffer->FUN_00864980(&mbc, 1);
-    apSaveBuffer->FUN_00864980(&mbd, 1);
-    apSaveBuffer->FUN_00864980(&mbe, 1);
-    apSaveBuffer->FUN_00864980(&mbf, 1);
-    apSaveBuffer->FUN_00864980(&mc0, 1);
-    apSaveBuffer->FUN_00864980(&mc1, 1);
-    apSaveBuffer->FUN_00864980(&mc4, 4);
-    apSaveBuffer->FUN_00864980(&mc8, 4);
-    apSaveBuffer->FUN_00864980(&ma0, 1);
-    apSaveBuffer->FUN_00864980(&mcc, 1);
+    m8c = dynamic_cast<TESTopic*>(FUN_004839c0(apSaveBuffer->LoadFormID()));
+    apSaveBuffer->LoadData(&m90, 4);
+    apSaveBuffer->LoadData(&m98, 1);
+    apSaveBuffer->LoadData(&mbc, 1);
+    apSaveBuffer->LoadData(&mbd, 1);
+    apSaveBuffer->LoadData(&mbe, 1);
+    apSaveBuffer->LoadData(&mbf, 1);
+    apSaveBuffer->LoadData(&mc0, 1);
+    apSaveBuffer->LoadData(&mc1, 1);
+    apSaveBuffer->LoadData(&mc4, 4);
+    apSaveBuffer->LoadData(&mc8, 4);
+    apSaveBuffer->LoadData(&ma0, 1);
+    apSaveBuffer->LoadData(&mcc, 1);
     if (apSaveBuffer->GetVersion() >= 3)
-        apSaveBuffer->FUN_00864980(&mc2, 1);
+        apSaveBuffer->LoadData(&mc2, 1);
     bool b = false;
-    apSaveBuffer->FUN_00864980(&b, 1);
+    apSaveBuffer->LoadData(&b, 1);
     if (b)
     {
         ma4 = new List0083b830SV();
         ma4->FUN_0083c330(apSaveBuffer);
         short i1 = -1;
-        apSaveBuffer->FUN_00864980(&i1, 2);
+        apSaveBuffer->LoadData(&i1, 2);
         if (i1 != -1)
-            ma8 = (DlgItemX*)ma4->FUN_0083bac0(i1);
+            ma8 = (DlgItemX*)ma4->GetDialogueItemByIndex(i1);
         short i2 = -1;
-        apSaveBuffer->FUN_00864980(&i2, 2);
+        apSaveBuffer->LoadData(&i2, 2);
         if (ma8 && i2 != -1)
             mac = ma8->GetResponseByIndex(i2);
     }

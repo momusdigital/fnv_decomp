@@ -95,7 +95,7 @@ struct Link8
 };
 struct Material8
 {
-    unsigned int FUN_006205a0();
+    unsigned int QMaterial();
 };
 struct Controller8
 {
@@ -430,7 +430,7 @@ struct Ref8
     unsigned char unk0c0;
     bool requested;
     unsigned short unk0c2;
-    Ref8* FUN_009306d0();
+    Ref8* GetCharController();
     FUN_004a3c90* FUN_00807080();
     Node8* FUN_0043fcd0();
     Node8* FUN_00950bb0(int);
@@ -444,7 +444,7 @@ struct Ref8
     NiPoint3* FUN_00436aa0();
     float GetActorHeight();
     void FUN_008ccfb0(Ref8*);
-    void FUN_008d0020(NiPoint3, NiPoint3, Link8*);
+    void ApplyCollisionForce(NiPoint3, NiPoint3, Link8*);
     void FUN_008ccce0(const NiPoint3*, const NiPoint3*);
     void FUN_008cc6d0(int);
     int FUN_008cdd90();
@@ -493,9 +493,9 @@ void Ref8::FUN_008cba30(const NiPoint3* start, const NiPoint3* end, Ref8* victim
     state->target = *start;
     state->rotation = DAT_011a9448;
     state->direction = DAT_011f426c;
-    if (FUN_009306d0())
+    if (GetCharController())
     {
-        FUN_004a3c90 direction(FUN_009306d0()->FUN_00807080());
+        FUN_004a3c90 direction(GetCharController()->FUN_00807080());
         if (direction.FUN_00458700(0).FUN_004586d0() == -DAT_01085910)
         {
             if (v1d0())
@@ -616,7 +616,7 @@ void Ref8::FUN_008cba30(const NiPoint3* start, const NiPoint3* end, Ref8* victim
             }
         }
         if (linked)
-            FUN_008d0020(*start, root->FUN_00461130()->FUN_004b4500(DAT_011a9478), linked);
+            ApplyCollisionForce(*start, root->FUN_00461130()->FUN_004b4500(DAT_011a9478), linked);
         if (state->node)
         {
             Form8* form = FUN_0043b610(state->node);
@@ -624,7 +624,7 @@ void Ref8::FUN_008cba30(const NiPoint3* start, const NiPoint3* end, Ref8* victim
             Material8* material = object ? object->FUN_004ae6a0() : 0;
             if (material)
             {
-                switch (material->FUN_006205a0())
+                switch (material->QMaterial())
                 {
                 case 0:
                 case 3:

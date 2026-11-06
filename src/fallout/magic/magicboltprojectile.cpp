@@ -28,11 +28,11 @@ void FUN_00811e00(int value)
 
 struct FUN_008133d0_shell
 {
-    void FUN_008133d0(int value);
+    void SetState(int value);
 };
 
 // @fnv 0x008133d0
-void FUN_008133d0_shell::FUN_008133d0(int value)
+void FUN_008133d0_shell::SetState(int value)
 {
     *(int*)((char*)this + 0xac) = value;
 }
@@ -1330,7 +1330,7 @@ struct AimProjectile
     AimNodePtr m_pController;
 
     AimOwner* FUN_009185e0();
-    AimTarget* FUN_009306d0();
+    AimTarget* GetCharController();
     float GetField90Float();
     bool UpdateProjectileAimNode();
 };
@@ -1343,7 +1343,7 @@ bool AimProjectile::UpdateProjectileAimNode()
     AimRef* pRef4 = pOwnerB ? pOwnerB->GetRef() : 0;
     AimFullActor* pActor2 = (pRef4 && pRef4->IsActor()) ? (AimFullActor*)pRef4 : 0;
     AimSource* pSource = pActor2 ? pActor2->GetSource() : 0;
-    AimTarget* aPTarget = FUN_009306d0();
+    AimTarget* aPTarget = GetCharController();
 
     if (pSource && aPTarget && (AimNode*)m_pController)
     {
@@ -1383,7 +1383,7 @@ struct FUN_00484d40_Host
 };
 struct FUN_008579e0_shell
 {
-    void FUN_008579e0(void*, unsigned int);
+    void LoadGameDataOLD(void*, unsigned int);
 };
 struct NiQuaternion
 {
@@ -1413,13 +1413,13 @@ void LoadObject::LoadObjectData(int arg1, int arg2)
 {
     v71();
     FUN_0081e980(arg1, arg2);
-    reinterpret_cast<FUN_008579e0_shell*>(g_TESSaveLoadGame)->FUN_008579e0(&unkAC, 4);
+    reinterpret_cast<FUN_008579e0_shell*>(g_TESSaveLoadGame)->LoadGameDataOLD(&unkAC, 4);
     reinterpret_cast<Helper009f8770*>(this)->FUN_00484d00(&unk88, 4);
     FUN_00814aa0* formID = new FUN_00814aa0;
     if (g_TESSaveLoadGame->FUN_008df040() >= 0x30)
     {
         reinterpret_cast<Helper009f8770*>(this)->FUN_00484d00(&formID->m0, 12);
-        reinterpret_cast<FUN_008579e0_shell*>(g_TESSaveLoadGame)->FUN_008579e0(&formID->m1, 16);
+        reinterpret_cast<FUN_008579e0_shell*>(g_TESSaveLoadGame)->LoadGameDataOLD(&formID->m1, 16);
         reinterpret_cast<Helper009f8770*>(this)->FUN_00484d00(reinterpret_cast<Quat16*>(&formID->m1) + 1, 4);
     }
     if (g_TESSaveLoadGame->FUN_008df040() < 0x30)
@@ -2366,11 +2366,11 @@ struct Root : GameObject
 
     void UpdateFlags(int, int);
 
-    Control* FUN_009306d0();
+    Control* GetCharController();
 
     GameObject* FUN_009185e0();
 
-    void FUN_008133d0(int);
+    void SetState(int);
 
     void UpdatePending(int, int);
 };
@@ -2383,7 +2383,7 @@ void Root::UpdatePending(int arg1, int arg2)
 
     UpdateFlags(arg1, arg2);
 
-    Control* a = FUN_009306d0();
+    Control* a = GetCharController();
     LocalStore handle;
 
     if (a)
@@ -2489,15 +2489,15 @@ void Root::UpdatePending(int arg1, int arg2)
                 if (m0a8.FUN_00559450()->FUN_00ee8990() || state0ac == 2)
                 {
 
-                    FUN_008133d0(2);
+                    SetState(2);
 
                     LocalStore handle;
 
-                    FUN_009306d0()->FUN_0070c440(&handle);
+                    GetCharController()->FUN_0070c440(&handle);
 
                     handle.SetFlag4000(1);
 
-                    FUN_009306d0()->FUN_00810ff0(handle.value);
+                    GetCharController()->FUN_00810ff0(handle.value);
                 }
             }
         }
@@ -2891,7 +2891,7 @@ class AEExplosion
 class AEIdle
 {
   public:
-    void FUN_00689920(const char* pcName);
+    void PlaySequence(const char* pcName);
 };
 AEIdle* FUN_006890b0(void* pvCell, float fRadius, int iAreaType, AEPoint3 akStart, AEPoint3 kTo, float fScale,
                      int iType, int iFlags);
@@ -2929,8 +2929,8 @@ class AEProjectile : public AERefr
     float m_fd4;
 
     float GetUnka4();
-    AEProcess* FUN_009306d0();
-    void FUN_008133d0(int iValue);
+    AEProcess* GetCharController();
+    void SetState(int iValue);
     void FUN_0081f000(AEPoint3 akStart, AEPoint3 kTo);
     void* FUN_008d6f30();  // GetParentCell
     int FUN_00810fd0();
@@ -2950,16 +2950,16 @@ void AEProjectile::Impact(AEPoint3 kPos, int iIndex, AERefr* pkTarget, bool bSil
         return;
 
     m_fd4 = GetUnka4();
-    if (FUN_009306d0())
+    if (GetCharController())
     {
-        if (FUN_009306d0()->m_kFlags.FUN_00621270(0x8000))
+        if (GetCharController()->m_kFlags.FUN_00621270(0x8000))
             v196();
         AEHandle kHandle;
-        FUN_009306d0()->FUN_0070c440(&kHandle);
+        GetCharController()->FUN_0070c440(&kHandle);
         kHandle.SetFlag4000(true);
-        FUN_009306d0()->FUN_00810ff0(kHandle.m_pIntegerData);
+        GetCharController()->FUN_00810ff0(kHandle.m_pIntegerData);
     }
-    FUN_008133d0(1);
+    SetState(1);
 
     AENode* pkNode = GetNode3D();
     if (pkNode)
@@ -2996,7 +2996,7 @@ void AEProjectile::Impact(AEPoint3 kPos, int iIndex, AERefr* pkTarget, bool bSil
         int iAreaType = FUN_004fd400()->m_kArea.GetValue();
         AEPoint3 akStart = GetNode3D() ? GetNode3D()->FUN_006a9540(DAT_011a9478).FUN_004b4500() : DAT_011a9478;
         AEIdle* pkAreaIdle = FUN_006890b0(FUN_008d6f30(), 5.0f, iAreaType, akStart, kPos, 1.0f, 7, 0);
-        pkAreaIdle->FUN_00689920("SpecialIdle_AreaEffect");
+        pkAreaIdle->PlaySequence("SpecialIdle_AreaEffect");
     }
 
     if (FUN_004fd400()->FUN_008ce390() && !bSilent)
@@ -3276,7 +3276,7 @@ struct F139This
     F139Ref* ref;
     F139Ref* FUN_00586150();
     F139Cell* FUN_008d6f30();
-    F139Result* FUN_009306d0();
+    F139Result* GetCharController();
     void FUN_00812700(float, F139Entry*);
     void AttachEffectToSpine(F139Owner*, F139Arg*);
 };
@@ -3311,7 +3311,7 @@ void F139This::AttachEffectToSpine(F139Owner* owner, F139Arg* arg)
     }
     F139Vec i;
     i.FUN_006815c0();
-    FUN_009306d0()->FUN_00812b00(&i);
+    GetCharController()->FUN_00812b00(&i);
     F139Node* p = 0;
     F139Node* f = ref ? ref->node() : 0;
     if (f)

@@ -114,13 +114,13 @@ extern FurnitureSearchManager* DAT_011c3f2c;
 extern FurnitureList DAT_011e0424;
 extern FurnitureSetting DAT_011cd24c;
 extern FurnitureTime DAT_011f6394;
-void __cdecl FUN_00922960(::TESObjectREFR*, ::Actor*);
+void __cdecl EvaluateReferenceforSitSleep(::TESObjectREFR*, ::Actor*);
 struct SearchFurnitureProcess : ::MiddleHighProcess
 {
-    void FUN_00922670(::Actor*, bool, ::TESObjectREFR*);
+    void FindBedChairs(::Actor*, bool, ::TESObjectREFR*);
 };
 // @fnv 0x00922670
-void SearchFurnitureProcess::FUN_00922670(::Actor* actor, bool flag, ::TESObjectREFR* target)
+void SearchFurnitureProcess::FindBedChairs(::Actor* actor, bool flag, ::TESObjectREFR* target)
 {
     DAT_011e040c = flag;
     ::TESObjectCELL* a = actor->GetParentCell();
@@ -148,12 +148,12 @@ void SearchFurnitureProcess::FUN_00922670(::Actor* actor, bool flag, ::TESObject
     {
         ::NiPoint3* targetPosition = target->GetPos();
         reinterpret_cast<FurnitureSearchManager*>(DAT_011c3f2c)
-            ->FUN_0046f280(target->GetParentCell(), *targetPosition, i, *targetPosition, i, FUN_00922960, actor);
+            ->FUN_0046f280(target->GetParentCell(), *targetPosition, i, *targetPosition, i, EvaluateReferenceforSitSleep, actor);
     }
     else
     {
         reinterpret_cast<FurnitureSearchManager*>(DAT_011c3f2c)
-            ->FUN_0046f280(a, p, i, f->FUN_00675de0(actor), i, FUN_00922960, actor);
+            ->FUN_0046f280(a, p, i, f->FUN_00675de0(actor), i, EvaluateReferenceforSitSleep, actor);
     }
     reinterpret_cast<FurnitureList*>(&m_kSecondaryReferenceList)->FUN_00470470();
     FurnitureList* cf = &DAT_011e0424;

@@ -228,7 +228,7 @@ struct TgtOps
 
 struct FUN_00700350_Class
 {
-    void FUN_00700350();
+    void DumpInfo();
 };
 
 struct FUN_00717e30_Class
@@ -236,11 +236,11 @@ struct FUN_00717e30_Class
     void FUN_00717e30();
 };
 
-// Calls GetPosition on the TgtOps at offset 0x178 and invokes FUN_00700350 on the returned object.
+// Calls GetPosition on the TgtOps at offset 0x178 and invokes DumpInfo on the returned object.
 // @fnv 0x00717e30
 void FUN_00717e30_Class::FUN_00717e30()
 {
-    ((FUN_00700350_Class*)((TgtOps*)((char*)this + 0x178))->GetPosition())->FUN_00700350();
+    ((FUN_00700350_Class*)((TgtOps*)((char*)this + 0x178))->GetPosition())->DumpInfo();
 }
 
 extern int DAT_0106f448;
@@ -577,12 +577,12 @@ done:;
 namespace fnv_00707b30 {
 struct InterfaceManager;
 InterfaceManager* FUN_004b7210();
-void FUN_00717990();
+void IsCurrentRenderedMenuTopmost();
 // @fnv 0x00707b30
 void FUN_00707b30()
 {
     FUN_004b7210();
-    FUN_00717990();
+    IsCurrentRenderedMenuTopmost();
 }
 }  // namespace fnv_00707b30
 
@@ -1312,12 +1312,12 @@ void __cdecl FUN_00709b40()
     RenderFaceGenScene();
 }
 
-void FUN_0077f270();
+void ClearGunScope();
 
 // @fnv 0x00709ca0
 void FUN_00709ca0()
 {
-    FUN_0077f270();
+    ClearGunScope();
 }
 
 unsigned char __cdecl FUN_00709cc0();

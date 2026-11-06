@@ -171,14 +171,14 @@ int FUN_00a0e710(Thiss* pThis, const RgbaColor* apTextColor, DEBUGTEXT_LOCATION 
 }
 }  // namespace fnv_00a0e710
 
-extern "C" unsigned char __cdecl FUN_00702fc0();
+extern "C" unsigned char __cdecl IsDebugTextVisible();
 extern int DAT_011f33dc;
 extern void (__stdcall *DAT_00fdf05c)(int*);
 
 // @fnv 0x00a11820
 void __cdecl FUN_00a11820()
 {
-    if (FUN_00702fc0())
+    if (IsDebugTextVisible())
         DAT_00fdf05c(&DAT_011f33dc);
 }
 
@@ -1052,7 +1052,7 @@ bool SearchText::FUN_00a103e0(char* destination, float x, float y, int flags)
 // @fnv 0x00a11840
 void __cdecl ReleaseLock()
 {
-    if (FUN_00702fc0() != 0) {
+    if (IsDebugTextVisible() != 0) {
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_011f33dc);
     }
 }

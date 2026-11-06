@@ -4549,7 +4549,7 @@ extern "C" void* memmove(void*, const void*, unsigned int);
 extern "C" void* FUN_00ec61c0(void*, int, unsigned int);
 // Copies tangent and binormal data from extra data when present; otherwise computes per-vertex vectors from UVs and normals and updates geometry data.
 // @fnv 0x00b54b60
-NativeB66810* __cdecl FUN_00b54b60(NiGeometry* apGeometry)
+NativeB66810* __cdecl CreateTangentSpaceSimple(NiGeometry* apGeometry)
 {
     if (apGeometry->GetName())
         _strnicmp(apGeometry->GetName(), DAT_0102bf34, 4);

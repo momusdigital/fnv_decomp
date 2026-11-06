@@ -3071,11 +3071,11 @@ class FUN_00c50210_cls
     NiPoint3 m_kCenter;
     float m_fBoundRadius;
 
-    bool FUN_00c50210(KPlanes* planes);
+    bool WithinFrustum(KPlanes* planes);
 };
 
 // @fnv 0x00c50210
-bool FUN_00c50210_cls::FUN_00c50210(KPlanes* planes)
+bool FUN_00c50210_cls::WithinFrustum(KPlanes* planes)
 {
     int iPlaneIndex;
     float fRad = m_fBoundRadius;
@@ -3458,11 +3458,11 @@ struct BoundObject
     unsigned int unk08;
     NiPoint3 center;
     float radius;
-    bool FUN_00c502a0(const Frustum* frustum);
+    bool CompletelyWithinFrustum(const Frustum* frustum);
 };
 // Returns true when every plane selected by kComparisonMask classifies the sphere as 1; otherwise returns false.
 // @fnv 0x00c502a0
-bool BoundObject::FUN_00c502a0(const Frustum* frustum)
+bool BoundObject::CompletelyWithinFrustum(const Frustum* frustum)
 {
     float radius = this->radius;
     Sphere bound = {center, radius};

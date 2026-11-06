@@ -3093,8 +3093,8 @@ struct SaveFormIDHelper
 struct BGSSaveFormBuffer
 {
     void SaveData(void*, int, int);
-    unsigned int FUN_00865f20();
-    void FUN_00865ff0(int, unsigned int);
+    unsigned int StartVariableSizedValue();
+    void SaveVariableSizedValue(int, unsigned int);
 };
 struct FUN_00426a30_shell
 {
@@ -3114,7 +3114,7 @@ void FUN_004bed60_shell::SavePerkList(BGSSaveFormBuffer* buffer)
     ((SaveFormIDHelper*)buffer)->SerializeFormData((void*)pad1, 0);
     buffer->SaveData((char*)this + 4, 4, 0);
     unsigned int count = 0;
-    unsigned int total = buffer->FUN_00865f20();
+    unsigned int total = buffer->StartVariableSizedValue();
     BSSimpleList<BGSPerk*>* node = list;
     while (node)
     {
@@ -3126,7 +3126,7 @@ void FUN_004bed60_shell::SavePerkList(BGSSaveFormBuffer* buffer)
         }
         node = node->GetNext();
     }
-    buffer->FUN_00865ff0((int)count, total);
+    buffer->SaveVariableSizedValue((int)count, total);
 }
 
 struct SpawnedEntry
@@ -4053,7 +4053,7 @@ struct ActorStand
     Stats stats;
     ProcessStand* FUN_008d8520();
     float GetFatigueRatio();
-    bool FUN_008bc9d0(Weapon*, bool);
+    bool CanUseWeapon(Weapon*, bool);
 };
 struct Form
 {
@@ -4350,7 +4350,7 @@ FUN_0076b630* Target::SelectBestWeapon(ActorStand* subject, float* apfScore, int
                                                                                                                                     usable =
                                                                                                                                         false;
                                                                                                                                 if (a &&
-                                                                                                                                    (!a->FUN_008bc9d0(
+                                                                                                                                    (!a->CanUseWeapon(
                                                                                                                                          weapon,
                                                                                                                                          true) ||
                                                                                                                                      !usable))
@@ -4563,7 +4563,7 @@ FUN_0076b630* Target::SelectBestWeapon(ActorStand* subject, float* apfScore, int
                                                                                                                             !FUN_004bffb0()
                                                                                                                                  ->FUN_00481eb0(
                                                                                                                                      weapon) &&
-                                                                                                                            a->FUN_008bc9d0(
+                                                                                                                            a->CanUseWeapon(
                                                                                                                                 weapon,
                                                                                                                                 true) &&
                                                                                                                             (!change
@@ -5202,7 +5202,7 @@ struct Record90
 struct Load90
 {
     bool FUN_00862110();
-    void FUN_008579e0(void*, unsigned int);
+    void LoadGameDataOLD(void*, unsigned int);
     Record90* FUN_004fd3c0();
     unsigned int FUN_00825c00();
     unsigned char FUN_008df040();
@@ -5229,7 +5229,7 @@ struct Ptr90
 };
 struct Found90
 {
-    void FUN_0081c470(bool, float);
+    void Fade(bool, float);
     void FUN_00621b20(float);
 };
 struct Caster90
@@ -5340,7 +5340,7 @@ void Animation90::LoadFromSave(TESObjectREFR* ref)
         if (g_TESSaveLoadGame->FUN_00862110())
         {
             unsigned int uiBlockHeader;
-            g_TESSaveLoadGame->FUN_008579e0(&uiBlockHeader, 4);
+            g_TESSaveLoadGame->LoadGameDataOLD(&uiBlockHeader, 4);
             if (uiBlockHeader != 0x424c4f4b)
             {
                 Record90* record = g_TESSaveLoadGame->FUN_004fd3c0();
@@ -5359,27 +5359,27 @@ void Animation90::LoadFromSave(TESObjectREFR* ref)
                         g_TESSaveLoadGame->FUN_008df040());
             }
             start = g_TESSaveLoadGame->FUN_00825c00();
-            g_TESSaveLoadGame->FUN_008579e0(&size, 2);
+            g_TESSaveLoadGame->LoadGameDataOLD(&size, 2);
         }
         Actor90* actor = 0;
         if (ref && ref->IsActor())
             actor = (Actor90*)ref;
-        g_TESSaveLoadGame->FUN_008579e0(&m_fMovementRate, 4);
-        g_TESSaveLoadGame->FUN_008579e0(&m_fCombatAnimationRate, 4);
-        g_TESSaveLoadGame->FUN_008579e0(m_kNodeTranslation, 12);
-        g_TESSaveLoadGame->FUN_008579e0(&m_fAnimationAmount, 4);
-        g_TESSaveLoadGame->FUN_008579e0(&m_cState, 1);
-        g_TESSaveLoadGame->FUN_008579e0(&j, 1);
+        g_TESSaveLoadGame->LoadGameDataOLD(&m_fMovementRate, 4);
+        g_TESSaveLoadGame->LoadGameDataOLD(&m_fCombatAnimationRate, 4);
+        g_TESSaveLoadGame->LoadGameDataOLD(m_kNodeTranslation, 12);
+        g_TESSaveLoadGame->LoadGameDataOLD(&m_fAnimationAmount, 4);
+        g_TESSaveLoadGame->LoadGameDataOLD(&m_cState, 1);
+        g_TESSaveLoadGame->LoadGameDataOLD(&j, 1);
         for (i = 0; i < 8; i++)
             if (j & (1 << i))
             {
-                g_TESSaveLoadGame->FUN_008579e0(&((unsigned short*)group)[i], 2);
-                g_TESSaveLoadGame->FUN_008579e0(&((int*)action)[i], 4);
-                g_TESSaveLoadGame->FUN_008579e0(&((int*)m_acTargetName)[i], 4);
-                g_TESSaveLoadGame->FUN_008579e0(&((unsigned short*)usReloadGroup)[i], 2);
-                g_TESSaveLoadGame->FUN_008579e0(&((int*)m_acAnimationName)[i], 4);
+                g_TESSaveLoadGame->LoadGameDataOLD(&((unsigned short*)group)[i], 2);
+                g_TESSaveLoadGame->LoadGameDataOLD(&((int*)action)[i], 4);
+                g_TESSaveLoadGame->LoadGameDataOLD(&((int*)m_acTargetName)[i], 4);
+                g_TESSaveLoadGame->LoadGameDataOLD(&((unsigned short*)usReloadGroup)[i], 2);
+                g_TESSaveLoadGame->LoadGameDataOLD(&((int*)m_acAnimationName)[i], 4);
                 char state;
-                g_TESSaveLoadGame->FUN_008579e0(&state, 1);
+                g_TESSaveLoadGame->LoadGameDataOLD(&state, 1);
                 ((Seq90**)m_pChildTile)[i] = 0;
                 if (state != -2)
                 {
@@ -5399,10 +5399,10 @@ void Animation90::LoadFromSave(TESObjectREFR* ref)
             ((Ptr90*)LocalStateValue)->FUN_0066b0d0(LoadIdleAnimation(actor, this, time));
         if ((Idle90*)*(Ptr90*)LocalInput && ((Idle90*)*(Ptr90*)LocalInput)->FUN_0044ddc0() == 1)
             ((Seq90**)m_pChildTile)[7] = 0;
-        g_TESSaveLoadGame->FUN_008579e0(&m_cSkipNextBlend, 1);
+        g_TESSaveLoadGame->LoadGameDataOLD(&m_cSkipNextBlend, 1);
         k = true;
         if (g_TESSaveLoadGame->FUN_008df040() >= 64)
-            g_TESSaveLoadGame->FUN_008579e0(&k, 1);
+            g_TESSaveLoadGame->LoadGameDataOLD(&k, 1);
         if (k)
         {
             bool restored = false;
@@ -5430,12 +5430,12 @@ void Animation90::LoadFromSave(TESObjectREFR* ref)
                                         manager->FUN_0047aa40(true);
                                         sequence->FUN_004efbc0(time);
                                         float aSavedTime;
-                                        g_TESSaveLoadGame->FUN_008579e0(&aSavedTime, 4);
+                                        g_TESSaveLoadGame->LoadGameDataOLD(&aSavedTime, 4);
                                         {
                                             Found90* found = actor->caster.FUN_00726070();
                                             if (found)
                                             {
-                                                found->FUN_0081c470(true, sequence->FUN_00508100() * 0.75);
+                                                found->Fade(true, sequence->FUN_00508100() * 0.75);
                                                 found->FUN_00621b20(aSavedTime);
                                             }
                                         }
@@ -5837,7 +5837,7 @@ FUN_004be930_form* __cdecl FUN_004839c0(unsigned int auiFormID);
 struct FUN_008df040_shell
 {
     bool FUN_00862110();
-    void FUN_008579e0(void* apBuffer, unsigned int auiSize);
+    void LoadGameDataOLD(void* apBuffer, unsigned int auiSize);
     void FUN_00857aa0(unsigned int* apBuffer, int aiSize);
     FUN_004fd3c0_info* FUN_004fd3c0();
     unsigned char FUN_008df040();
@@ -5870,7 +5870,7 @@ void FUN_004be930_shell::FUN_004be930()
     if (g_TESSaveLoadGame->FUN_00862110())
     {
         unsigned int uiMarker;
-        g_TESSaveLoadGame->FUN_008579e0(&uiMarker, 4);
+        g_TESSaveLoadGame->LoadGameDataOLD(&uiMarker, 4);
         if (uiMarker != 0x424c4f4b)
         {
             FUN_004fd3c0_info* pInfo = g_TESSaveLoadGame->FUN_004fd3c0();
@@ -5888,14 +5888,14 @@ void FUN_004be930_shell::FUN_004be930()
                     g_inventoryChangesSourceFilename, 0x647, g_TESSaveLoadGame->FUN_008df040());
         }
         uiStart = g_TESSaveLoadGame->FUN_00825c00();
-        g_TESSaveLoadGame->FUN_008579e0(&usSize, 2);
+        g_TESSaveLoadGame->LoadGameDataOLD(&usSize, 2);
     }
 
     g_TESSaveLoadGame->FUN_00857aa0(&uiFormIDX, 4);
-    g_TESSaveLoadGame->FUN_008579e0(&iCountDelta, 4);
+    g_TESSaveLoadGame->LoadGameDataOLD(&iCountDelta, 4);
     pObject = dynamic_cast<TESBoundObject*>((TESForm*)FUN_004839c0(uiFormIDX));
     pExtraLists = 0;
-    g_TESSaveLoadGame->FUN_008579e0(&iCount, 4);
+    g_TESSaveLoadGame->LoadGameDataOLD(&iCount, 4);
     if (iCount)
     {
         pExtraLists = new BSSimpleList<ExtraDataList*>;
@@ -10163,7 +10163,7 @@ template <> class SettingT<GameSettingCollection>
 };
 extern SettingT<GameSettingCollection> originalRuntimeFloatSetting31;
 extern SettingT<GameSettingCollection> originalRuntimeFloatSetting32;
-void __cdecl FUN_008ba2f0(ActorValueOwner*, int, float, float, int);
+void __cdecl InventoryWeightModifiedCallback(ActorValueOwner*, int, float, float, int);
 struct WeightExtra
 {
     bool FUN_00418ba0();
@@ -10356,7 +10356,7 @@ float WeightInventory::FUN_004d0900(bool useAmmoWeight)
         }
         m_fTotalWeight = result5;
         if (actorTmp)
-            FUN_008ba2f0(actorTmp, 0x2e, m_fArmorWeight, m_fTotalWeight - m_fArmorWeight, 0);
+            InventoryWeightModifiedCallback(actorTmp, 0x2e, m_fArmorWeight, m_fTotalWeight - m_fArmorWeight, 0);
     }
     return m_fTotalWeight;
 }
@@ -11306,7 +11306,7 @@ struct SSaveGame
 {
     unsigned int FUN_00825c00();
     bool FUN_00862110();
-    void FUN_008579b0(void* data, int size);
+    void SaveGameDataOLD(void* data, int size);
     void FUN_00857a10(void* data, int size);
     unsigned char FUN_008df040();
     FormIDEntry* FUN_004fd3e0();
@@ -11368,13 +11368,13 @@ void FUN_004d3ab0_cls::FUN_004d3ab0()
     if (DAT_011de45c->FUN_00862110())
     {
         kTag = 0x424c4f4b;
-        DAT_011de45c->FUN_008579b0(&kTag, 4);
+        DAT_011de45c->SaveGameDataOLD(&kTag, 4);
         blk = DAT_011de45c->FUN_00825c00();
-        DAT_011de45c->FUN_008579b0(&zero, 2);
+        DAT_011de45c->SaveGameDataOLD(&zero, 2);
     }
     count_ = 0;
     cnt = DAT_011de45c->FUN_00825c00();
-    DAT_011de45c->FUN_008579b0(&count_, 2);
+    DAT_011de45c->SaveGameDataOLD(&count_, 2);
     aNode = (ItemNode*)m_pEntryList;
     while (aNode && !aNode->FUN_008256d0())
     {
@@ -11588,8 +11588,8 @@ struct SaveBuffer_4d4090
     Blob4_4d4090 GetChangeFlags();
     void SetChangeFlags(Blob4_4d4090 flags);
     void SetSpeakerIdle(TESIdleForm* idle);
-    unsigned int FUN_00865f20();
-    void FUN_00865ff0(int, unsigned int);
+    unsigned int StartVariableSizedValue();
+    void SaveVariableSizedValue(int, unsigned int);
 };
 
 struct ItemSave_4d4090
@@ -11611,7 +11611,7 @@ void InvChangesSave::FUN_004d4090(SaveBuffer_4d4090* buffer)
     buffer->SetSpeakerIdle(0);
     buffer->SetChangeFlags(0x400);
     int count7 = 0;
-    unsigned int pos3 = buffer->FUN_00865f20();
+    unsigned int pos3 = buffer->StartVariableSizedValue();
     BSSimpleList<InventoryStackRecord*>* nodeTmp = m_pEntryList;
     while (nodeTmp != 0)
     {
@@ -11623,7 +11623,7 @@ void InvChangesSave::FUN_004d4090(SaveBuffer_4d4090* buffer)
         }
         nodeTmp = nodeTmp->GetNext();
     }
-    buffer->FUN_00865ff0(count7, pos3);
+    buffer->SaveVariableSizedValue(count7, pos3);
     buffer->SetSpeakerIdle(savedIdle3);
     buffer->SetChangeFlags(oldFlags);
 }
@@ -15184,7 +15184,7 @@ struct LoadBuffer4160
     void SetValue(unsigned int flags);
     void FUN_0086cf00(FUN_008c71b0 flags);
     void FUN_0086cf00(unsigned int flags);
-    unsigned int FUN_00864a60();
+    unsigned int LoadVariableSizedValue();
 };
 
 struct Item4160 : FUN_0076b630
@@ -15215,7 +15215,7 @@ void Inventory4160::FUN_004d4160(LoadBuffer4160* buffer)
     buffer->FUN_007037c0(0);
     buffer->SetValue(FUN_008c71b0(0x400));
     buffer->FUN_0086cf00(FUN_008c71b0(0));
-    unsigned int itemCount = buffer->FUN_00864a60();
+    unsigned int itemCount = buffer->LoadVariableSizedValue();
     for (unsigned int i = 0; i < itemCount; i++)
     {
         FUN_004459e0* item = new FUN_0076b630;

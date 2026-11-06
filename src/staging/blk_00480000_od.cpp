@@ -1613,9 +1613,9 @@ class SaveFormBuf0048
 {
   public:
     ChangeFlags0048 GetChangeFlags(unsigned int mask);
-    unsigned int FUN_00865f20();
+    unsigned int StartVariableSizedValue();
     void FUN_00865df0(void* form, int arg);
-    void FUN_00865ff0(int count, unsigned int pos);
+    void SaveVariableSizedValue(int count, unsigned int pos);
 };
 
 template <class T> class FormNode0048
@@ -1645,7 +1645,7 @@ void FormListPair::FUN_0048e040(SaveFormBuf0048* buffer)
     {
         {
             int i = 0;
-            unsigned int off = buffer->FUN_00865f20();
+            unsigned int off = buffer->StartVariableSizedValue();
             FormNode0048<TESForm*>* pCurrent = &listA;
             while (pCurrent)
             {
@@ -1657,11 +1657,11 @@ void FormListPair::FUN_0048e040(SaveFormBuf0048* buffer)
                 }
                 pCurrent = pCurrent->FUN_00726070();
             }
-            buffer->FUN_00865ff0(i, off);
+            buffer->SaveVariableSizedValue(i, off);
         }
         {
             int cnt = 0;
-            unsigned int iPos = buffer->FUN_00865f20();
+            unsigned int iPos = buffer->StartVariableSizedValue();
             FormNode0048<TESForm*>* list = &listB;
             while (list)
             {
@@ -1673,7 +1673,7 @@ void FormListPair::FUN_0048e040(SaveFormBuf0048* buffer)
                 }
                 list = list->FUN_00726070();
             }
-            buffer->FUN_00865ff0(cnt, iPos);
+            buffer->SaveVariableSizedValue(cnt, iPos);
         }
     }
 }
@@ -3073,9 +3073,9 @@ struct BGSLoadFormBuffer
     virtual void vp1();
     virtual void vp2();
     virtual Actor* V3();
-    void FUN_00864980(void* a, int b);
-    int FUN_00864a60();
-    unsigned int FUN_008648a0();
+    void LoadData(void* a, int b);
+    int LoadVariableSizedValue();
+    unsigned int LoadFormID();
     bool FUN_008648e0(int* a);
     void AddToOffset(int a);
 };
@@ -3216,21 +3216,21 @@ void __thiscall AnimSelf::Load(BGSLoadFormBuffer* apBuffer)
     FUN_00496280();
     if (m_d8.FUN_00559450() != 0)
         ((F48fef0*)m_d8.FUN_00559450())->FUN_0048fef0(0.0f);
-    apBuffer->FUN_00864980(&m_10c, 4);
-    apBuffer->FUN_00864980(&m_110, 4);
-    apBuffer->FUN_00864980(&m_10, 0xc);
-    apBuffer->FUN_00864980(&m_48, 4);
-    apBuffer->FUN_00864980(&m_cc, 1);
-    apBuffer->FUN_00864980(&m_d4, 4);
-    apBuffer->FUN_00864980(&m_122, 2);
+    apBuffer->LoadData(&m_10c, 4);
+    apBuffer->LoadData(&m_110, 4);
+    apBuffer->LoadData(&m_10, 0xc);
+    apBuffer->LoadData(&m_48, 4);
+    apBuffer->LoadData(&m_cc, 1);
+    apBuffer->LoadData(&m_d4, 4);
+    apBuffer->LoadData(&m_122, 2);
     {
-        int count = apBuffer->FUN_00864a60();
+        int count = apBuffer->LoadVariableSizedValue();
         unsigned int j;
         for (j = 0; j < (unsigned int)count; j++)
         {
             LoadedIdle* rawNew = new LoadedIdle;
-            rawNew->idle = dynamic_cast<TESIdleForm*>(FUN_004839c0(apBuffer->FUN_008648a0()));
-            apBuffer->FUN_00864980(&rawNew->value, 4);
+            rawNew->idle = dynamic_cast<TESIdleForm*>(FUN_004839c0(apBuffer->LoadFormID()));
+            apBuffer->LoadData(&rawNew->value, 4);
             m_134.FUN_005ae3d0((ExtraDataList**)&rawNew);
         }
     }
@@ -3239,40 +3239,40 @@ void __thiscall AnimSelf::Load(BGSLoadFormBuffer* apBuffer)
     unsigned char flags6 = apBuffer->FUN_008648e0(&formA5);
     if (flags6)
     {
-        apBuffer->AddToOffset(apBuffer->FUN_00864a60());
+        apBuffer->AddToOffset(apBuffer->LoadVariableSizedValue());
     }
     else if (formA5 != 0)
     {
         formA5 = formA5 != 0 ? (int)dynamic_cast<TESIdleForm*>(FUN_004839c0((unsigned int)formA5)) : 0;
         if (formA5 == 0)
         {
-            apBuffer->AddToOffset(apBuffer->FUN_00864a60());
+            apBuffer->AddToOffset(apBuffer->LoadVariableSizedValue());
         }
         else
         {
-            apBuffer->FUN_00864a60();
+            apBuffer->LoadVariableSizedValue();
             m_124 = new AnimIdleStub((TESIdleForm*)formA5, 7, 1, owner6, 1, (Animation*)0);
             ((F497c10*)((PtrBox*)&m_124)->FUN_00559450())->LoadAnimationData(apBuffer, this);
         }
     }
     char maskTmp;
     maskTmp = 0;
-    apBuffer->FUN_00864980(&maskTmp, 1);
+    apBuffer->LoadData(&maskTmp, 1);
     {
         unsigned int k;
         for (k = 0; k < 8; k++)
         {
             if (maskTmp & (1 << k))
             {
-                apBuffer->FUN_00864980(&m_4c[k], 2);
-                apBuffer->FUN_00864980(&m_5c[k], 4);
-                apBuffer->FUN_00864980(&m_9c[k], 2);
-                apBuffer->FUN_00864980(&m_7c[k], 4);
-                apBuffer->FUN_00864980(&m_ac[k], 4);
+                apBuffer->LoadData(&m_4c[k], 2);
+                apBuffer->LoadData(&m_5c[k], 4);
+                apBuffer->LoadData(&m_9c[k], 2);
+                apBuffer->LoadData(&m_7c[k], 4);
+                apBuffer->LoadData(&m_ac[k], 4);
                 m_e0[k] = 0;
                 char b49;
                 b49 = -1;
-                apBuffer->FUN_00864980(&b49, 1);
+                apBuffer->LoadData(&b49, 1);
                 if (b49 != -2)
                 {
                     FUN_004974a0();
@@ -3291,18 +3291,18 @@ void __thiscall AnimSelf::Load(BGSLoadFormBuffer* apBuffer)
             }
         }
     }
-    apBuffer->FUN_00864980(&m_120, 1);
+    apBuffer->LoadData(&m_120, 1);
     {
         groupA5 = -1;
         slotX = -1;
-        apBuffer->FUN_00864980(&groupA5, 2);
-        apBuffer->FUN_00864980(&slotX, 1);
+        apBuffer->LoadData(&groupA5, 2);
+        apBuffer->LoadData(&slotX, 1);
         if (slotX != -1 && m_e0[slotX] != 0)
             owner6->GetProcess()->V3ec(groupA5, m_e0[slotX]);
     }
     {
         slot7 = -1;
-        apBuffer->FUN_00864980(&slot7, 1);
+        apBuffer->LoadData(&slot7, 1);
         if (((PtrBox*)&m_124)->FUN_00559450() != 0)
         {
             if (slot7 != -1)
@@ -3610,7 +3610,7 @@ void AnimDataN::SaveAnimData(SaveBufN* pBuffer)
 
 struct SaveGameBufferAA8
 {
-    void FUN_008579b0(void* pvData, unsigned int uiSize);
+    void SaveGameDataOLD(void* pvData, unsigned int uiSize);
 };
 extern SaveGameBufferAA8* DAT_011de45c;
 struct ActorAnimDataAA8
@@ -3624,7 +3624,7 @@ void __cdecl FUN_0049aa80(Actor* pkActor, ActorAnimDataAA8* pkAnimData)
     unsigned short usAnimValue = 0;
     if (pkAnimData && !pkActor->V22c(0))
         usAnimValue = pkAnimData->GetSerializedSize(pkActor);
-    DAT_011de45c->FUN_008579b0(&usAnimValue, 2);
+    DAT_011de45c->SaveGameDataOLD(&usAnimValue, 2);
     if (pkAnimData && !pkActor->V22c(0))
         pkAnimData->WriteToStream(pkActor);
 }

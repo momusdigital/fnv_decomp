@@ -1699,7 +1699,7 @@ struct Binary960 {unsigned unk00,unk04,unk08,unk0c,unk10;Binary960(unsigned,unsi
 const char* __cdecl FUN_00539f40();
 struct Geometry960 {void FUN_00539ef0(void*);void FUN_00439410(Property960*);};
 struct Node960 {void FUN_00a5bc40(const char*,Binary960*);Geometry960* FUN_0045bc00(unsigned);};
-void* __cdecl FUN_00b54b60(Geometry960*);void __cdecl FUN_00b57e30(Node960*,int,int);
+void* __cdecl CreateTangentSpaceSimple(Geometry960*);void __cdecl FUN_00b57e30(Node960*,int,int);
 struct Data960 {Node960** nodes;unsigned unk04,unk08;Color960** colors;unsigned unk10,unk14,unk18,unk1c;Texture960* base[4];Texture960** layers[4];unsigned char** binary[4];};
 struct Host960 {unsigned unk00,unk04,unk08,unk0c,unk10,unk14,unk18,flags,unk20,unk24;Data960* data;void FUN_005394c0(bool);bool FUN_00539960();};
 // @fnv 0x00539960
@@ -1745,7 +1745,7 @@ bool Host960::FUN_00539960() {
     data->layers[a][4]?data->layers[a][4]->FUN_00541590():0,
     data->layers[a][5]?data->layers[a][5]->FUN_00541590():0,0,0,0);
    Geometry960* value=data->nodes[a]->FUN_0045bc00(0);
-   void* geometry=FUN_00b54b60(value);
+   void* geometry=CreateTangentSpaceSimple(value);
    property->FUN_00539f20(geometry);
    void* shader=property->vd4(value);
    value->FUN_00539ef0(shader);

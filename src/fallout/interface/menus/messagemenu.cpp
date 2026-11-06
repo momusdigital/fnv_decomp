@@ -68,18 +68,18 @@ class PlayerCharacter
 
 extern void* DAT_011da4f0;
 Tile* __fastcall _ref_00726070(void*);
-int __cdecl FUN_00707ad0();
+int __cdecl GetCurrentRenderedMenu();
 void __fastcall FUN_00a1d9e0(void*);
 void __fastcall FUN_00a1d910(void*);
 void __cdecl SetDialogMenuActive(int);
 
 // @fnv 0x007a8df0
-void __cdecl FUN_007a8df0()
+void __cdecl Close()
 {
     if (DAT_011da4f0)
     {
         _ref_00726070(DAT_011da4f0)->Set(0x1772, 1);
-        if (FUN_00707ad0())
+        if (GetCurrentRenderedMenu())
             FUN_00a1d9e0(DAT_011da4f0);
         else
             FUN_00a1d910(DAT_011da4f0);
@@ -225,7 +225,7 @@ extern GlobalObject_007ab590 g_011da53c;
 extern int DAT_011da4f4;
 extern Obj_007aa530* DAT_011da4f0;
 int __cdecl GetCurrentArrayElement();
-void __cdecl FUN_007a8df0();
+void __cdecl Close();
 // @fnv 0x007aa530
 void CleanupGlobalObject()
 {
@@ -240,7 +240,7 @@ void CleanupGlobalObject()
         g_011da53c.Remove(DAT_011da4f4, true);
     }
     if (!GetCurrentArrayElement())
-        FUN_007a8df0();
+        Close();
     else if (DAT_011da4f0)
         DAT_011da4f0->PopulateFromMessageData();
 }
@@ -254,21 +254,21 @@ struct GlobalObject2_0040c150
 extern GlobalObject2_0040c150 g_011c3ea4;
 extern bool DAT_011da4ec;
 extern int DAT_011da4f0;
-void __cdecl FUN_007a8df0();
+void __cdecl Close();
 void __cdecl FUN_007a8ba0();
 int __cdecl GetCurrentArrayElement();
-void __cdecl FUN_00709470(int, int, int, int, int, int);
-// Stores the flag in DAT_011da4ec and calls FUN_007a8df0 or FUN_007a8ba0/FUN_00709470 depending on DAT_011da4f0 and GetCurrentArrayElement.
+void __cdecl QueueMenuCreate(int, int, int, int, int, int);
+// Stores the flag in DAT_011da4ec and calls Close or FUN_007a8ba0/QueueMenuCreate depending on DAT_011da4f0 and GetCurrentArrayElement.
 // @fnv 0x007aa6b0
 void FUN_007aa6b0(bool a)
 {
     DAT_011da4ec = a;
     if (DAT_011da4f0 && DAT_011da4ec)
-        FUN_007a8df0();
+        Close();
     if (!DAT_011da4f0 && !DAT_011da4ec && GetCurrentArrayElement())
     {
         if (*g_011c3ea4.Int() > 1)
-            FUN_00709470(7, 0, 0, 0, 1, 0);
+            QueueMenuCreate(7, 0, 0, 0, 1, 0);
         else
             FUN_007a8ba0();
     }
@@ -431,17 +431,17 @@ struct ArrSI
 extern unsigned int DAT_011da4f4;
 extern unsigned char DAT_011da4ec;
 extern unsigned char DAT_011da594;
-extern void __cdecl FUN_007a8df0(void);
+extern void __cdecl Close(void);
 extern void __cdecl FUN_007aa6b0(unsigned char);
 extern ArrSI g_011da53c;
 
 // @fnv 0x007aaf20
-void __cdecl FUN_007aaf20(bool abFlag)
+void __cdecl SetPauseMenuMode(bool abFlag)
 {
     if (abFlag)
     {
         DAT_011da4f4 = g_011da53c.GetFlags();
-        FUN_007a8df0();
+        Close();
         DAT_011da594 = DAT_011da4ec;
         FUN_007aa6b0(0);
     }
@@ -596,7 +596,7 @@ struct Setting
 };
 extern Setting DAT_011c3ea4;
 bool FUN_007050d0();
-void FUN_00709470(int, int, int, int, int, bool);
+void QueueMenuCreate(int, int, int, int, int, bool);
 void FUN_007a8ba0();
 // Builds a Message from the given title, text, icon, sound and buttons, inserts it into the message queue, and triggers the display update.
 // @fnv 0x007a8e60
@@ -663,7 +663,7 @@ bool QueueMessage(const char* title, const char* message, const char* icon, cons
     if (!DAT_011da4f0 && !DAT_011da4ec && (!FUN_007050d0() || pause))
     {
         if (*DAT_011c3ea4.FUN_0043d4d0() > 1)
-            FUN_00709470(7, 0, 0, 0, 1, !info->GetByteAtOffset56());
+            QueueMenuCreate(7, 0, 0, 0, 1, !info->GetByteAtOffset56());
         else
             FUN_007a8ba0();
     }
@@ -930,7 +930,7 @@ extern const char DAT_01011584[], DAT_01020770[], DAT_01063d7c[];
 extern const unsigned DAT_010173f0;
 void FUN_007aae70();
 void FUN_007a8ba0();
-void FUN_00709470(int, int, int, int, int, int);
+void QueueMenuCreate(int, int, int, int, int, int);
 void FUN_00406d30(char*, unsigned, const char*);
 unsigned FUN_0044a670(const char*);
 int FUN_00408b20(const char*, const char*);
@@ -1038,7 +1038,7 @@ bool BuildActionMenu(ActionMenuList* list, ActionMenuReference* reference)
     if (!DAT_011da4f0 && !DAT_011da4ec)
     {
         if (*DAT_011c3ea4.FUN_0043d4d0() > 1)
-            FUN_00709470(7, 0, 0, 0, 1, 0);
+            QueueMenuCreate(7, 0, 0, 0, 1, 0);
         else
             FUN_007a8ba0();
     }

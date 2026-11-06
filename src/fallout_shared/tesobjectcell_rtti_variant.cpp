@@ -896,7 +896,7 @@ class Actor : public MobileObject
     virtual void FUN_virtual460(TESObjectREFR*, float);
     bool FUN_00440da0();
     bool FUN_00440d80();
-    bool FUN_0087f3d0();
+    bool GetEssential();
     void FUN_0089d900(Actor*, float);
 };
 struct ContainerChanges550
@@ -946,7 +946,7 @@ void Cell550::FUN_0054b5b0()
                 changes->FUN_004ce380(reference, g_thePlayer, false, false, true, false, -1, 0);
             if (actor && !actor->FUN_00440da0() && !actor->FUN_00440d80())
                 actor->FUN_virtual460(g_thePlayer, 10.0f);
-            if (actor && !actor->FUN_0087f3d0() && !actor->FUN_00440da0() && !actor->FUN_00440d80() &&
+            if (actor && !actor->GetEssential() && !actor->FUN_00440da0() && !actor->FUN_00440d80() &&
                 !actor->FUN_virtual22c(0))
             {
                 actor->FUN_virtual424(g_thePlayer, 0, 0, 0, 0, 0, 1, 0);

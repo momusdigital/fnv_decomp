@@ -830,7 +830,7 @@ struct Key_623cb0
 {
     void FUN_008c71b0(void* v);
     int FUN_004a3a20();
-    unsigned char FUN_00624070();
+    unsigned char QBipLayer();
     int FUN_006240b0();
     void* m_00;
 };
@@ -918,19 +918,19 @@ void Owner_623cb0::ProcessHit(Rec_623cb0* apHitRecord)
             key8.FUN_008c71b0(((Gen_623cb0*)entry)->FUN_0043b540());
             if (key1.FUN_004a3a20() == key8.FUN_004a3a20())
             {
-                if (key1.FUN_00624070())
+                if (key1.QBipLayer())
                 {
                     return;
                 }
             }
-            else if (key1.FUN_00624070())
+            else if (key1.QBipLayer())
             {
                 if (key1.FUN_006240b0() == 0x11)
                 {
                     return;
                 }
             }
-            else if (key8.FUN_00624070())
+            else if (key8.QBipLayer())
             {
                 if (key8.FUN_006240b0() == 0x11)
                 {

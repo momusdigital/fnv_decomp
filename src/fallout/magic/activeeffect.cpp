@@ -1228,8 +1228,8 @@ bool StandIn00806200::ClearCasterIfMatch(MagicCaster* apCaster)
 
 struct BGSSaveFormBuffer
 {
-    unsigned int FUN_00865f20();
-    void FUN_00865ff0(int, unsigned int);
+    unsigned int StartVariableSizedValue();
+    void SaveVariableSizedValue(int, unsigned int);
 };
 void FUN_00806840(BGSSaveFormBuffer*, BGSPerkEntry*);
 
@@ -1237,7 +1237,7 @@ void FUN_00806840(BGSSaveFormBuffer*, BGSPerkEntry*);
 void FUN_00806a10(BGSSaveFormBuffer* pBuffer, BSSimpleList<BGSPerkEntry*>* pPerkList)
 {
     int count = 0;
-    unsigned int size = pBuffer->FUN_00865f20();
+    unsigned int size = pBuffer->StartVariableSizedValue();
     BSSimpleList<BGSPerkEntry*>* pCurrent = pPerkList;
     while (pCurrent)
     {
@@ -1249,7 +1249,7 @@ void FUN_00806a10(BGSSaveFormBuffer* pBuffer, BSSimpleList<BGSPerkEntry*>* pPerk
         }
         pCurrent = pCurrent->GetNext();
     }
-    pBuffer->FUN_00865ff0(count, size);
+    pBuffer->SaveVariableSizedValue(count, size);
 }
 
 struct SaveManager
@@ -1394,7 +1394,7 @@ struct SaveSizeListNode
 
 // Computes a save size by adding fixed header bytes and per-node sizes from FUN_00805810, optionally logging the delta and current form header.
 // @fnv 0x00805a00
-unsigned short FUN_00805a00(SaveSizeListNode* pNodeList, void* pArg)
+unsigned short GetActiveEffectListSaveSize(SaveSizeListNode* pNodeList, void* pArg)
 {
     unsigned short uiSize = 0;
     unsigned short uiStart = uiSize;
@@ -1893,13 +1893,13 @@ unsigned short FUN_00804f80_shell::FUN_00804f80(Actor* apActor)
 
 struct EffectSaveStream : SaveManager
 {
-    void FUN_008579b0(void*, unsigned int);
+    void SaveGameDataOLD(void*, unsigned int);
     void FUN_00857a10(void*, unsigned int);
     unsigned char* FUN_00825c00();
 };
 struct CasterSaveID
 {
-    unsigned int FUN_00818be0();
+    unsigned int GetMagicCasterFormID();
 };
 struct TargetSaveID
 {
@@ -1940,17 +1940,17 @@ struct EffectSaveShell : ActiveEffect
 // @fnv 0x008050d0
 void EffectSaveShell::FUN_008050d0(Actor* actor)
 {
-    ((EffectSaveStream*)DAT_011de45c)->FUN_008579b0(&m_fEffectMagnitude, 4);
-    ((EffectSaveStream*)DAT_011de45c)->FUN_008579b0(&bActive, 1);
-    ((EffectSaveStream*)DAT_011de45c)->FUN_008579b0(&bEffectFlag, 1);
-    ((EffectSaveStream*)DAT_011de45c)->FUN_008579b0(&bWasPlaying, 1);
-    ((EffectSaveStream*)DAT_011de45c)->FUN_008579b0(&bPickResultFound, 1);
-    ((EffectSaveStream*)DAT_011de45c)->FUN_008579b0(&m_bEffectState, 1);
-    ((EffectSaveStream*)DAT_011de45c)->FUN_008579b0(&m_fElapsedTime, 4);
-    ((EffectSaveStream*)DAT_011de45c)->FUN_008579b0(&fDuration, 4);
+    ((EffectSaveStream*)DAT_011de45c)->SaveGameDataOLD(&m_fEffectMagnitude, 4);
+    ((EffectSaveStream*)DAT_011de45c)->SaveGameDataOLD(&bActive, 1);
+    ((EffectSaveStream*)DAT_011de45c)->SaveGameDataOLD(&bEffectFlag, 1);
+    ((EffectSaveStream*)DAT_011de45c)->SaveGameDataOLD(&bWasPlaying, 1);
+    ((EffectSaveStream*)DAT_011de45c)->SaveGameDataOLD(&bPickResultFound, 1);
+    ((EffectSaveStream*)DAT_011de45c)->SaveGameDataOLD(&m_bEffectState, 1);
+    ((EffectSaveStream*)DAT_011de45c)->SaveGameDataOLD(&m_fElapsedTime, 4);
+    ((EffectSaveStream*)DAT_011de45c)->SaveGameDataOLD(&fDuration, 4);
     unsigned int casterID = 0;
     if (m_pEffectInstance)
-        casterID = ((CasterSaveID*)m_pEffectInstance)->FUN_00818be0();
+        casterID = ((CasterSaveID*)m_pEffectInstance)->GetMagicCasterFormID();
     ((EffectSaveStream*)DAT_011de45c)->FUN_00857a10(&casterID, 4);
     unsigned int targetID = 0;
     if (pTarget)
@@ -1972,13 +1972,13 @@ void EffectSaveShell::FUN_008050d0(Actor* actor)
         {
             a = 0;
             f = ((EffectSaveStream*)DAT_011de45c)->FUN_00825c00();
-            ((EffectSaveStream*)DAT_011de45c)->FUN_008579b0(&a, 1);
+            ((EffectSaveStream*)DAT_011de45c)->SaveGameDataOLD(&a, 1);
             b = (HitEffectSaveNode*)pHitEffectList;
             while (b && !b->FUN_008256d0())
             {
                 d = *b->FUN_006815c0();
                 c = d->GetType();
-                ((EffectSaveStream*)DAT_011de45c)->FUN_008579b0(&c, 1);
+                ((EffectSaveStream*)DAT_011de45c)->SaveGameDataOLD(&c, 1);
                 d->SaveGame(this, actor);
                 ++a;
                 b = b->FUN_00726070();
@@ -1987,12 +1987,12 @@ void EffectSaveShell::FUN_008050d0(Actor* actor)
         }
         if (DAT_011de45c->FUN_008df040() >= 72)
         {
-            ((EffectSaveStream*)DAT_011de45c)->FUN_008579b0(&iFlags, 4);
+            ((EffectSaveStream*)DAT_011de45c)->SaveGameDataOLD(&iFlags, 4);
         }
         else if (DAT_011de45c->FUN_008df040() >= 65)
         {
             e = HasFlag(1);
-            ((EffectSaveStream*)DAT_011de45c)->FUN_008579b0(&e, 1);
+            ((EffectSaveStream*)DAT_011de45c)->SaveGameDataOLD(&e, 1);
         }
     }
 }
@@ -2003,7 +2003,7 @@ struct ActiveEffectLoader : FUN_00805650_shell
 };
 struct EffectSaveReader
 {
-    void FUN_008579e0(void*, unsigned int);
+    void LoadGameDataOLD(void*, unsigned int);
     void FUN_00857aa0(unsigned int*, unsigned int);
     unsigned char FUN_008df040();
 };
@@ -2056,14 +2056,14 @@ void ActiveEffectLoader::FUN_00805330(Actor* actor)
     MagicHitEffect* d;  // Hit effect being restored.
     unsigned char g;    // Number of saved hit effects.
     unsigned int h;     // Serialized target form ID.
-    ((EffectSaveReader*)DAT_011de45c)->FUN_008579e0(&m_fEffectMagnitude, 4);
-    ((EffectSaveReader*)DAT_011de45c)->FUN_008579e0(&bActive, 1);
-    ((EffectSaveReader*)DAT_011de45c)->FUN_008579e0(&bEffectFlag, 1);
-    ((EffectSaveReader*)DAT_011de45c)->FUN_008579e0(&bWasPlaying, 1);
-    ((EffectSaveReader*)DAT_011de45c)->FUN_008579e0(&bPickResultFound, 1);
-    ((EffectSaveReader*)DAT_011de45c)->FUN_008579e0(&m_bEffectState, 1);
-    ((EffectSaveReader*)DAT_011de45c)->FUN_008579e0(&m_fElapsedTime, 4);
-    ((EffectSaveReader*)DAT_011de45c)->FUN_008579e0(&fDuration, 4);
+    ((EffectSaveReader*)DAT_011de45c)->LoadGameDataOLD(&m_fEffectMagnitude, 4);
+    ((EffectSaveReader*)DAT_011de45c)->LoadGameDataOLD(&bActive, 1);
+    ((EffectSaveReader*)DAT_011de45c)->LoadGameDataOLD(&bEffectFlag, 1);
+    ((EffectSaveReader*)DAT_011de45c)->LoadGameDataOLD(&bWasPlaying, 1);
+    ((EffectSaveReader*)DAT_011de45c)->LoadGameDataOLD(&bPickResultFound, 1);
+    ((EffectSaveReader*)DAT_011de45c)->LoadGameDataOLD(&m_bEffectState, 1);
+    ((EffectSaveReader*)DAT_011de45c)->LoadGameDataOLD(&m_fElapsedTime, 4);
+    ((EffectSaveReader*)DAT_011de45c)->LoadGameDataOLD(&fDuration, 4);
     ((EffectSaveReader*)DAT_011de45c)->FUN_00857aa0(&a, 4);
     m_pEffectInstance = (MagicCaster*)a;
     ((EffectSaveReader*)DAT_011de45c)->FUN_00857aa0(&h, 4);
@@ -2072,10 +2072,10 @@ void ActiveEffectLoader::FUN_00805330(Actor* actor)
     pSource = (TESBoundObject*)f;
     if (((EffectSaveReader*)DAT_011de45c)->FUN_008df040() >= 42)
     {
-        ((EffectSaveReader*)DAT_011de45c)->FUN_008579e0(&g, 1);
+        ((EffectSaveReader*)DAT_011de45c)->LoadGameDataOLD(&g, 1);
         for (b = 0; b < g; ++b)
         {
-            ((EffectSaveReader*)DAT_011de45c)->FUN_008579e0(&c, 1);
+            ((EffectSaveReader*)DAT_011de45c)->LoadGameDataOLD(&c, 1);
             d = 0;
             switch (c)
             {
@@ -2097,10 +2097,10 @@ void ActiveEffectLoader::FUN_00805330(Actor* actor)
         }
     }
     if (((EffectSaveReader*)DAT_011de45c)->FUN_008df040() >= 72)
-        ((EffectSaveReader*)DAT_011de45c)->FUN_008579e0(&iFlags, 4);
+        ((EffectSaveReader*)DAT_011de45c)->LoadGameDataOLD(&iFlags, 4);
     else if (((EffectSaveReader*)DAT_011de45c)->FUN_008df040() >= 65)
     {
-        ((EffectSaveReader*)DAT_011de45c)->FUN_008579e0(&e, 1);
+        ((EffectSaveReader*)DAT_011de45c)->LoadGameDataOLD(&e, 1);
         if (e)
             FUN_00805650();
     }
@@ -2275,7 +2275,7 @@ void ProcessActiveEffect(ActiveEffect* apEffect, Actor* apActor);
 
 // Serializes the active-effect list for an actor, writing a block marker and size, counting entries, and logging the block size when debug output is enabled.
 // @fnv 0x00805b40
-void FUN_00805b40(AENode* apList, Actor* apActor)
+void SaveActiveEffectList(AENode* apList, Actor* apActor)
 {
     unsigned short usZero6 = 0;
     char* pSizePos8 = 0;
@@ -2426,7 +2426,7 @@ void ActiveEffectSaveShell::FUN_00806230(SaveFormBuf* apBuffer)
     apBuffer->SerializeFormData(pMagicItem ? ((SpellIDShell*)pMagicItem)->GetNumericID() : 0, 0);
     apBuffer->SaveFormPtr(pSource, 0);
     int iCount7 = 0;
-    unsigned int uiOffset2 = apBuffer->FUN_00865f20();
+    unsigned int uiOffset2 = apBuffer->StartVariableSizedValue();
     SaveHitNode* pNode = (SaveHitNode*)pHitEffectList;
     while (pNode)
     {
@@ -2440,7 +2440,7 @@ void ActiveEffectSaveShell::FUN_00806230(SaveFormBuf* apBuffer)
         }
         pNode = pNode->GetNext();
     }
-    apBuffer->FUN_00865ff0(iCount7, uiOffset2);
+    apBuffer->SaveVariableSizedValue(iCount7, uiOffset2);
 }
 
 class B806840EffectItem;
@@ -2568,8 +2568,8 @@ void ActiveEffect805670::FUN_00805670(Actor* apActor)
 
 struct BufShell806420
 {
-    unsigned int FUN_008648a0();
-    int FUN_00864a60();
+    unsigned int LoadFormID();
+    int LoadVariableSizedValue();
 };
 struct HitFxShell806420
 {
@@ -2631,8 +2631,8 @@ void FUN_00806420_shell::FUN_00806420(BGSLoadFormBuffer* apBuffer)
     apBuffer->ReadFormIdentifier(&m_pEffectInstance);
     apBuffer->ReadFormIdentifier(&pTarget);
     apBuffer->ReadFormIdentifier(&pMagicItem);
-    pSource = dynamic_cast<TESBoundObject*>(FUN_004839c0(((BufShell806420*)apBuffer)->FUN_008648a0()));
-    int count = ((BufShell806420*)apBuffer)->FUN_00864a60();
+    pSource = dynamic_cast<TESBoundObject*>(FUN_004839c0(((BufShell806420*)apBuffer)->LoadFormID()));
+    int count = ((BufShell806420*)apBuffer)->LoadVariableSizedValue();
     for (unsigned int i = 0; i < (unsigned int)count; ++i)
     {
         MagicHitEffect* pHitEffect;
@@ -2683,7 +2683,7 @@ struct SaveLoadRecord_5d40
 class SaveReadShell_5d40
 {
   public:
-    void FUN_008579e0(void*, unsigned int);
+    void LoadGameDataOLD(void*, unsigned int);
 };
 
 class TESSaveLoadGame_5d40 : public SaveReadShell_5d40
@@ -2786,7 +2786,7 @@ class TESFormStandin_5d40
 class TESForm;
 TESForm* FUN_004839c0(unsigned int id);
 void __cdecl FNV_Warning(const char* fmt, ...);
-ActiveEffect* FUN_00805920(Actor*);
+ActiveEffect* LoadActiveEffect(Actor*);
 
 class ActorStandin_5d40 : public Actor
 {
@@ -2825,7 +2825,7 @@ void FUN_00805d40(ActiveEffectList_5d40* apList, ActorStandin_5d40* apActor)
 
     if (((TESSaveLoadGame_5d40*)g_TESSaveLoadGame)->FUN_00862110())
     {
-        ((TESSaveLoadGame_5d40*)g_TESSaveLoadGame)->FUN_008579e0(&eb, 4);
+        ((TESSaveLoadGame_5d40*)g_TESSaveLoadGame)->LoadGameDataOLD(&eb, 4);
         if (eb != 'BLOK')
         {
             cf = (SaveLoadRecord_5d40*)((TESSaveLoadGame_5d40*)g_TESSaveLoadGame)->FUN_004fd3c0();
@@ -2846,7 +2846,7 @@ void FUN_00805d40(ActiveEffectList_5d40* apList, ActorStandin_5d40* apActor)
             }
         }
         i = ((TESSaveLoadGame_5d40*)g_TESSaveLoadGame)->FUN_00825c00();
-        ((TESSaveLoadGame_5d40*)g_TESSaveLoadGame)->FUN_008579e0(&a, 2);
+        ((TESSaveLoadGame_5d40*)g_TESSaveLoadGame)->LoadGameDataOLD(&a, 2);
     }
 
     p = 0.0f;
@@ -2864,10 +2864,10 @@ void FUN_00805d40(ActiveEffectList_5d40* apList, ActorStandin_5d40* apActor)
     }
     apList->RemoveAll();
 
-    ((TESSaveLoadGame_5d40*)g_TESSaveLoadGame)->FUN_008579e0(&s, 2);
+    ((TESSaveLoadGame_5d40*)g_TESSaveLoadGame)->LoadGameDataOLD(&s, 2);
     for (h = 0; h < (int)s; ++h)
     {
-        l = FUN_00805920(apActor);
+        l = LoadActiveEffect(apActor);
         k = dynamic_cast<VampirismEffect*>(l);
         if (k && apActor)
         {

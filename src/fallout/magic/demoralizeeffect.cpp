@@ -44,7 +44,7 @@ FUN_0080c890::FUN_0080c890(MagicCaster* a, MagicItem* pItem, EffectItem* pEffect
 
 struct TESSaveLoadGame
 {
-    void FUN_008579b0(void*, int);
+    void SaveGameDataOLD(void*, int);
 };
 extern TESSaveLoadGame* g_TESSaveLoadGame;
 
@@ -58,12 +58,12 @@ struct DemoralizeEffectShell : DemoralizeEffect
     void FUN_0082b750(Actor* apActor);
 };
 
-// Saves the game for apActor, then calls FUN_008579b0 on this+0x48 with 1.
+// Saves the game for apActor, then calls SaveGameDataOLD on this+0x48 with 1.
 // @fnv 0x0082b750
 void DemoralizeEffectShell::FUN_0082b750(Actor* apActor)
 {
     reinterpret_cast<SaveGameHelper*>(this)->SaveGame(apActor);
-    g_TESSaveLoadGame->FUN_008579b0(reinterpret_cast<char*>(this) + 0x48, 1);
+    g_TESSaveLoadGame->SaveGameDataOLD(reinterpret_cast<char*>(this) + 0x48, 1);
 }
 
 struct Actor;
@@ -989,7 +989,7 @@ struct S_0080ca50_Actor
     virtual void v109();
     virtual S_0080ca50_Sub* v428();
     bool FUN_008a6650(int a);
-    void FUN_00881680(int a);
+    void EndInterruptPackage(int a);
 };
 struct S_0080ca50_Actor2
 {
@@ -1280,7 +1280,7 @@ struct S_0080ca50_Effect
     void FUN_0080ca50();
 };
 
-// Resolves caster and target actors; if both exist, either runs the caster's v428 path or calls FUN_00881680 and v410 on the caster, then sets unk48 to 1.
+// Resolves caster and target actors; if both exist, either runs the caster's v428 path or calls EndInterruptPackage and v410 on the caster, then sets unk48 to 1.
 // @fnv 0x0080ca50
 void S_0080ca50_Effect::FUN_0080ca50()
 {
@@ -1295,7 +1295,7 @@ void S_0080ca50_Effect::FUN_0080ca50()
         }
         else if (!caster->FUN_008a6650(0))
         {
-            caster->FUN_00881680(0);
+            caster->EndInterruptPackage(0);
             caster->v410(target2, 1, 1, 1, 0, 0, DAT_01012054, DAT_01012054);
             unk48 = 1;
         }

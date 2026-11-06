@@ -251,7 +251,7 @@ struct FUN_007393f0_shell
 
     int DrawCard(int a1, int a2, int a3);
     int DrawCard(G2* hand, int a1, int a2);
-    void FUN_00738ff0(G2* hand);
+    void GetHandValue(G2* hand);
 
     void __thiscall DealInitialCards();
 };
@@ -282,7 +282,7 @@ struct SetElem
 };
 struct SetMgr
 {
-    void* FUN_007316d0();
+    void* GetChipType();
 };
 struct SetMgrB
 {
@@ -2767,11 +2767,11 @@ struct GlobalPtr
 };
 struct BlackjackMenuShell
 {
-    void FUN_007396e0(int a1, int a2, CardInfo* a3);
+    void SwapCardTextures(int a1, int a2, CardInfo* a3);
 };
 struct OwnQ
 {
-    int FUN_00738ff0(Node129* pList);
+    int GetHandValue(Node129* pList);
 };
 struct CardHand
 {
@@ -2835,13 +2835,13 @@ struct InputMenu
     bool HasFlag(int);
     void SetFlag(int, bool);
     int DrawCard(void*, bool, bool);
-    int FUN_00738ff0(CardHand*);
+    int GetHandValue(CardHand*);
     void ClearField();
     void FUN_00738c30(int, float);
     void DealInitialCards();
     bool FUN_00739650(bool);
     void UpdateChipPositions();
-    void FUN_007396e0(int, int, CardInfo*);
+    void SwapCardTextures(int, int, CardInfo*);
     void FUN_007399f0();
 };
 
@@ -2887,7 +2887,7 @@ struct BooleanHandler
 };
 struct CasinoUpdate
 {
-    void* FUN_007316d0();
+    void* GetChipType();
     int GetFieldAt210();
     BooleanHandler* FUN_00504e40();
     Stats129* FUN_00504e60();
@@ -2998,7 +2998,7 @@ struct TimeUpdate
     int FUN_00825c00();
 };
 extern TimeUpdate g_timeGlobal;
-bool __cdecl FUN_00702450(int);
+bool __cdecl IsTopMenuID(int);
 struct InterfaceUpdate
 {
     FUN_00a012d0_t* FUN_0045cd60();
@@ -3128,8 +3128,8 @@ struct BlackjackUpdate
     void FUN_00a1d910();
     bool HasFlag(int);
     void SetFlag(int, bool);
-    int FUN_00738ff0(FUN_0096a2d0*);
-    void FUN_007396e0(int, int, BJCard*);
+    int GetHandValue(FUN_0096a2d0*);
+    void SwapCardTextures(int, int, BJCard*);
     void FUN_007395a0();
     void UpdateButtonState(int);
     void FUN_00739970(bool);
@@ -3149,7 +3149,7 @@ void BlackjackUpdate::FUN_00734db0()
     int dt = 0;
     float speed = 1.0f;
     static GlobalObject_0041a250 sound;
-    bool active = FUN_00702450(GetID());
+    bool active = IsTopMenuID(GetID());
     if (!lastTime)
     {
         player = new FUN_0096a2d0;
@@ -3184,24 +3184,24 @@ void BlackjackUpdate::FUN_00734db0()
             FUN_00726070()->FUN_00700320(0x1772, 1);
             FUN_00a1d910();
             int difference =
-                balance - ((PlayerUpdate*)DAT_011dea3c)->FUN_00575610(((CasinoUpdate*)DAT_011d9058)->FUN_007316d0());
+                balance - ((PlayerUpdate*)DAT_011dea3c)->FUN_00575610(((CasinoUpdate*)DAT_011d9058)->GetChipType());
             if (difference < 0)
             {
                 ((PlayerUpdate*)DAT_011dea3c)
-                    ->Remove(((CasinoUpdate*)DAT_011d9058)->FUN_007316d0(), 0, -difference, 0, 0, 0, 0, 0, 1, 0);
+                    ->Remove(((CasinoUpdate*)DAT_011d9058)->GetChipType(), 0, -difference, 0, 0, 0, 0, 0, 1, 0);
                 BSStringT<char> msg;
                 FUN_00406f60(&msg, DAT_0101c178, -difference,
-                             FUN_00482720(((CasinoUpdate*)DAT_011d9058)->FUN_007316d0()), DAT_011d3114.FUN_00403df0(),
+                             FUN_00482720(((CasinoUpdate*)DAT_011d9058)->GetChipType()), DAT_011d3114.FUN_00403df0(),
                              DAT_011d3db4.FUN_00403df0());
                 DispatchMessageToSink(msg, 0, DAT_010208a0,
                                       (int)((PlayerUpdate*)DAT_011dea3c)
-                                          ->FUN_008adcf0(((CasinoUpdate*)DAT_011d9058)->FUN_007316d0(), 1, false),
+                                          ->FUN_008adcf0(((CasinoUpdate*)DAT_011d9058)->GetChipType(), 1, false),
                                       DAT_010162c0, 0);
             }
             else if (difference > 0)
             {
                 TESContainer inventory;
-                inventory.FUN_004818e0(((CasinoUpdate*)DAT_011d9058)->FUN_007316d0(), difference, 0);
+                inventory.FUN_004818e0(((CasinoUpdate*)DAT_011d9058)->GetChipType(), difference, 0);
                 if (DAT_011d9054->amount < ((CasinoUpdate*)DAT_011d9058)->GetFieldAt210())
                     inventory.FUN_004821a0(DAT_011dea3c, false);
                 else
@@ -3209,11 +3209,11 @@ void BlackjackUpdate::FUN_00734db0()
                     inventory.FUN_004821a0(DAT_011dea3c, true);
                     BSStringT<char> msg2;
                     FUN_00406f60(&msg2, DAT_01070d8c, difference,
-                                 FUN_00482720(((CasinoUpdate*)DAT_011d9058)->FUN_007316d0()),
+                                 FUN_00482720(((CasinoUpdate*)DAT_011d9058)->GetChipType()),
                                  DAT_011d3114.FUN_00403df0(), DAT_011d4e7c.FUN_00403df0(), DAT_011d3abc.FUN_00403df0());
                     DispatchMessageToSink(msg2, 0, DAT_0103a830,
                                           (int)((PlayerUpdate*)DAT_011dea3c)
-                                              ->FUN_008adcf0(((CasinoUpdate*)DAT_011d9058)->FUN_007316d0(), 1, false),
+                                              ->FUN_008adcf0(((CasinoUpdate*)DAT_011d9058)->GetChipType(), 1, false),
                                           DAT_010162c0, 0);
                 }
             }
@@ -3243,12 +3243,12 @@ void BlackjackUpdate::FUN_00734db0()
                 sounded = true;
                 FUN_0096a2d0* p = player;
                 FUN_0096a2d0* dealerNode = dealer;
-                FUN_007396e0(0, 1, *p->FUN_006815c0());
+                SwapCardTextures(0, 1, *p->FUN_006815c0());
                 p = p->FUN_00726070();
-                FUN_007396e0(0, 2, *p->FUN_006815c0());
-                FUN_007396e0(2, 1, *dealerNode->FUN_006815c0());
+                SwapCardTextures(0, 2, *p->FUN_006815c0());
+                SwapCardTextures(2, 1, *dealerNode->FUN_006815c0());
                 dealerNode = dealerNode->FUN_00726070();
-                FUN_007396e0(2, 2, *dealerNode->FUN_006815c0());
+                SwapCardTextures(2, 2, *dealerNode->FUN_006815c0());
                 playerAnim->FUN_0047aab0(playerSeq[1], 0, 0, 1.0f, 0.0f, 0);
                 dealerAnim->FUN_0047aab0(dealerSeq[1], 0, 0, 1.0f, 0.0f, 0);
                 endTime = playerSeq[1]->FUN_00508100();
@@ -3312,13 +3312,13 @@ void BlackjackUpdate::FUN_00734db0()
                 }
                 else
                 {
-                    int value = FUN_00738ff0(player);
+                    int value = GetHandValue(player);
                     if (value == 21)
                     {
                         playerResult = 5;
                         SetFlag(0x20, true);
                     }
-                    if (FUN_00738ff0(dealer) == 21)
+                    if (GetHandValue(dealer) == 21)
                     {
                         SetFlag(0x20, true);
                         if (playerResult == 5)
@@ -3406,7 +3406,7 @@ void BlackjackUpdate::FUN_00734db0()
                 curr = curr->FUN_00726070();
                 drawn++;
             }
-            FUN_007396e0(handId, drawn, last);
+            SwapCardTextures(handId, drawn, last);
         }
         Update90 hu(DAT_011d90e0, true, false);
         if (onSplit)
@@ -3591,7 +3591,7 @@ void BlackjackUpdate::FUN_00734db0()
             message->FUN_00700320(0xfa3, 0);
         if (!dealerSeq[counts[2]])
         {
-            if (FUN_00738ff0(dealer) > 21 || HasFlag(0x2000))
+            if (GetHandValue(dealer) > 21 || HasFlag(0x2000))
                 state = 12;
             else
                 state = 11;
@@ -3613,7 +3613,7 @@ void BlackjackUpdate::FUN_00734db0()
                 drawn++;
             }
             if (last)
-                FUN_007396e0(2, drawn, last);
+                SwapCardTextures(2, drawn, last);
             dealerAnim->FUN_0047aab0(dealerSeq[counts[2]], 0, 0, 1.0f, 0.0f, 0);
         }
         if (DAT_011d90e0 < dealerSeq[counts[2]]->FUN_00508100())
@@ -3625,7 +3625,7 @@ void BlackjackUpdate::FUN_00734db0()
         {
             dealerAnim->FUN_0047b220(dealerSeq[counts[2]], 0.0f);
             counts[2]++;
-            if (FUN_00738ff0(dealer) > 21 || HasFlag(0x2000))
+            if (GetHandValue(dealer) > 21 || HasFlag(0x2000))
                 state = 12;
             else
                 state = 11;
@@ -3676,7 +3676,7 @@ void BlackjackUpdate::FUN_00734db0()
             state = 12;
             break;
         }
-        int dealerTotal = FUN_00738ff0(dealer);
+        int dealerTotal = GetHandValue(dealer);
         int chosen = 0;
         int count = 0;
         FUN_0096a2d0* node = dealer;
@@ -3700,8 +3700,8 @@ void BlackjackUpdate::FUN_00734db0()
     }
     case 12: {
         FUN_004d5c60(41);
-        int playerValue = FUN_00738ff0(player);
-        int dealerValue = FUN_00738ff0(dealer);
+        int playerValue = GetHandValue(player);
+        int dealerValue = GetHandValue(dealer);
         int payout = 0;
         char buf[260];
         if (!playerResult)
@@ -3715,7 +3715,7 @@ void BlackjackUpdate::FUN_00734db0()
         }
         if (HasFlag(8))
         {
-            playerValue = FUN_00738ff0(split);
+            playerValue = GetHandValue(split);
             if (!splitResult)
             {
                 if ((playerValue > dealerValue && playerValue < 22) || (playerValue < 22 && dealerValue > 21))

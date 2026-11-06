@@ -194,7 +194,7 @@ struct FUN_00a011f0_shell
 
 // Compares the strings returned by FUN_00a011f0(0xfc4) on both items using _mbscmp and returns the result.
 // @fnv 0x0075d130
-int FUN_0075d130(FUN_00a011f0_shell** apItem1, FUN_00a011f0_shell** apItem2)
+int SortFunc(FUN_00a011f0_shell** apItem1, FUN_00a011f0_shell** apItem2)
 {
     return _mbscmp((unsigned char const*)(*apItem1)->FUN_00a011f0(0xfc4),
                    (unsigned char const*)(*apItem2)->FUN_00a011f0(0xfc4));
@@ -819,7 +819,7 @@ struct ActorView
     virtual void vfn_0380();
     virtual void vfn_0384();
     virtual bool IsValid();
-    bool FUN_0087f3d0();
+    bool GetEssential();
     ActorView* FUN_008d8520();
 };
 struct CurrentItem
@@ -862,7 +862,7 @@ bool MenuLogic::FUN_0075d510(InventoryEntry* entry, ExpectedReference* reference
         if (actor->IsActor())
         {
             a = actor;
-            if (a->FUN_0087f3d0())
+            if (a->GetEssential())
                 return false;
             if (a->FUN_008d8520())
             {
@@ -1335,7 +1335,7 @@ struct MenuData
     void FUN_00a1dc70(MenuTile*, bool);
     bool FUN_0075b710();
     MenuTile* FUN_00726070();
-    void FUN_0075bc80();
+    void InitContainerMode();
     void FUN_00a1dc20(int);
     void FUN_0075c280(int);
 };
@@ -1383,7 +1383,7 @@ MenuTile* FUN_0075b310(TESObjectREFR* reference, int mode)
             title->Set(4036, "", true);
         ((MenuData*)DAT_011d93f8)->reference = reference;
         ((MenuData*)DAT_011d93f8)->mode = mode;
-        ((MenuData*)DAT_011d93f8)->FUN_0075bc80();
+        ((MenuData*)DAT_011d93f8)->InitContainerMode();
         int subtitle = FUN_00a01860("_Title");
         if (((MenuData*)DAT_011d93f8)->tile60)
             ((MenuData*)DAT_011d93f8)->tile60->Set(subtitle, DAT_011d2c7c.FUN_00403df0(), true);
@@ -1422,11 +1422,11 @@ struct BSAudioEx : BSAudio
 };
 struct ContainerMenuEx : ContainerMenu
 {
-    void FUN_0075baf0(TESObjectREFR* apRef, bool abOpen);
+    void PlayContainerSound(TESObjectREFR* apRef, bool abOpen);
 };
 
 // @fnv 0x0075baf0
-void ContainerMenuEx::FUN_0075baf0(TESObjectREFR* apRef, bool abOpen)
+void ContainerMenuEx::PlayContainerSound(TESObjectREFR* apRef, bool abOpen)
 {
     TESSound* SoundAssetTmp = 0;
     if (!apRef)
@@ -1523,14 +1523,14 @@ struct Menu75d250
     bool HandleMenuAction(int aiAction, int aiUnused);
 };
 
-bool __cdecl FUN_00702450(int aiID);
+bool __cdecl IsTopMenuID(int aiID);
 
 // Handles menu actions 13/14 by switching between the two panes and actions 3/4 by resetting the active pane and setting state, returning whether handled.
 // @fnv 0x0075d250
 bool Menu75d250::HandleMenuAction(int aiAction, int aiUnused)
 {
     bool bHandled = false;
-    if (FUN_00702450(0x3f0))
+    if (IsTopMenuID(0x3f0))
     {
         switch (aiAction)
         {
@@ -2325,7 +2325,7 @@ struct Actor_75e0b0
     int unk9c;
     int unka0;
     AV_75e0b0 av;
-    void FUN_008c00e0(Actor_75e0b0*, int, int);
+    void PickpocketAlarm(Actor_75e0b0*, int, int);
     Base_75e0b0* FUN_004181e0();
     void FUN_0094fd30(int);
 };
@@ -2434,7 +2434,7 @@ bool FUN_0075e0b0_shell::FUN_0075e0b0(Actor_75e0b0* actor, int amount)
         }
         else
         {
-            DAT_011dea3c->FUN_008c00e0(actor, 0, 0);
+            DAT_011dea3c->PickpocketAlarm(actor, 0, 0);
             DispatchMessageToSink(DAT_011d3f94.FUN_00403df0(), 2, 0, 0, 2.0f, false);
             success = false;
             failed = true;
@@ -2928,7 +2928,7 @@ extern int DAT_01183028;
 extern int DAT_01184720;
 struct FloatThis75
 {
-    double FUN_008a0c20();
+    double GetMaxCarryWeight();
 };
 struct MenuEc75
 {
@@ -3087,7 +3087,7 @@ void __cdecl HandleContainerMenuActivate(int aiCount)
             {
                 if (((Sound75*)refObj)->FUN_00577250(0) +
                         FUN_0048ebc0((int)FUN_0044ddc0(DAT_011d93fc), FUN_004d1360((void*)DAT_011dea3c)) * aiCount >=
-                    ((FloatThis75*)refObj)->FUN_008a0c20())
+                    ((FloatThis75*)refObj)->GetMaxCarryWeight())
                 {
                     FUN_00406d00(msgtext, 260, DAT_01012058, (char*)((Name75*)refObj)->FUN_0055d520(),
                                  (int)g_011d2628.FUN_00403df0());
@@ -4104,7 +4104,7 @@ void FUN_0075da60(xTile* pTile, xItem* pItem)
 extern "C" void* __cdecl FUN_00ec43fb(void* p, long off, void* src, void* dst, int isRef);
 
 TESForm* FUN_00483a00(const char* pcName);
-void FUN_00763ff0();
+void ServiceStart();
 struct TileX
 {
     void FUN_00700320(int m_uiSoundID, int iVal);
@@ -4183,12 +4183,12 @@ struct MenuX
     int unk7c;
     int m80;
     void SetLabelText(int i);
-    void FUN_0075baf0(RefX* pkRef, bool b);
-    void FUN_0075bc80();
+    void PlayContainerSound(RefX* pkRef, bool b);
+    void InitContainerMode();
 };
 // Switches on m80 to update labels, play the trader sound and selected topic info, or set tile traits to zero.
 // @fnv 0x0075bc80
-void MenuX::FUN_0075bc80()
+void MenuX::InitContainerMode()
 {
     switch (m80)
     {
@@ -4197,7 +4197,7 @@ void MenuX::FUN_0075bc80()
         if (m74)
         {
             SetLabelText(m74->FUN_0055d520());
-            FUN_0075baf0(m74, true);
+            PlayContainerSound(m74, true);
         }
         break;
     case 3:
@@ -4205,7 +4205,7 @@ void MenuX::FUN_0075bc80()
         {
             SetLabelText(m74->FUN_0055d520());
             BSAudio::GetSingleton()->GetSoundHandleByEditorID("DRSTraderOpen", 0x121).Play(false);
-            FUN_00763ff0();
+            ServiceStart();
             TESTopic* pkForm = dynamic_cast<TESTopic*>(FUN_00483a00("FollowersTrade"));
             ((MgrX*)DAT_011d93f8)->PlaySelectedTopicInfo(pkForm);
         }
@@ -4952,10 +4952,10 @@ void InventoryMenu::FUN_0075c280(MenuForm* filter)
     }
     m_kList.FUN_007314c0(FUN_0075d160, 0, 0x7fffffff);
     m_kList.ApplyFilter(FUN_0075e650);
-    m_kList.Sort(FUN_0075d130);
+    m_kList.Sort(SortFunc);
     otherList.FUN_007314c0(FUN_0075d160, 0, 0x7fffffff);
     otherList.ApplyFilter(FUN_0075e650);
-    otherList.Sort(FUN_0075d130);
+    otherList.Sort(SortFunc);
     DAT_011dea3c->GetTwoValues(&weight7, &capacity4);
     FUN_00406d00(label5, 64, DAT_010722d0, DAT_011d1e60.FUN_00403df0(), FUN_00406d90(FUN_004bd510(weight7, 1.0f)),
                  FUN_00406d90(FUN_004bd510(capacity4, 1.0f)));
@@ -5034,7 +5034,7 @@ struct ThiS
     int f20;
     unsigned char f24;
     int f28;
-    void FUN_007017b0();
+    void UpdateHotkeyList();
     void FUN_007019e0(ObjRef* p1);
 };
 
@@ -5070,7 +5070,7 @@ void ThiS::FUN_007019e0(ObjRef* apObjRef)
         if (d != 0)
             DAT_011c3b3c->FUN_00447080(d->GetSwapName(), 0, 1, 0, 0, 0);
     }
-    FUN_007017b0();
+    UpdateHotkeyList();
     ((PlayerObj*)DAT_011dea3c)->PlayActorSound(apObjRef->FUN_0044ddc0(), 1, 0);
     f24 = 0;
     ObjRef* aRef = b;

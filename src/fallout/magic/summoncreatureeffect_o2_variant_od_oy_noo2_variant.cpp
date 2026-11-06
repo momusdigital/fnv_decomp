@@ -596,11 +596,11 @@ struct SummonCreatureEffectHelper : SummonCreatureEffect
 {
     EffectTarget* GetTarget();
     TESForm* GetBaseForm();
-    bool FUN_00828f00(int iUnused, NiPoint3* pkPos);
+    bool CheckSummonLocation(int iUnused, NiPoint3* pkPos);
 };
 
 // @fnv 0x00828f00
-bool SummonCreatureEffectHelper::FUN_00828f00(int iUnused, NiPoint3* pkPos)
+bool SummonCreatureEffectHelper::CheckSummonLocation(int iUnused, NiPoint3* pkPos)
 {
     MobileObject* pkActor = GetTarget() ? GetTarget()->GetActor() : 0;
     TESBoundObject* pkBound = dynamic_cast<TESBoundObject*>(GetBaseForm());

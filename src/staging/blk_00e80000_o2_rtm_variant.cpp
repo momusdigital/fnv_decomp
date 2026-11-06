@@ -9080,7 +9080,7 @@ struct DeviceResource {
     void FUN_00e687a0(TextureInput*, ResourceConfig*);
     bool SetProgram(void*);
     TextureDescription* FUN_00e8a300(TextureDescription*, void*, TextureDescription**);
-    bool FUN_00e8aa70();
+    bool CreateCubeMap();
     void FUN_00e8ab70(DirectResource*, unsigned int);
     void FUN_00e8aaf0(TextureSurface*, unsigned int);
 };

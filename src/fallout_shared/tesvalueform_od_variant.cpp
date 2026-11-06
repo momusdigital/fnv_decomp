@@ -45,7 +45,7 @@ unsigned short TESValueForm::FUN_0048e9b0(unsigned int aiFlags)
 namespace fnv_0048e9e0 {
 struct TESSaveLoadGame
 {
-    void FUN_008579b0(void*, int);
+    void SaveGameDataOLD(void*, int);
 };
 extern TESSaveLoadGame* g_TESSaveLoadGame;
 
@@ -58,7 +58,7 @@ struct TESValueForm
 void TESValueForm::FUN_0048e9e0(unsigned int flags)
 {
     if (flags & 2)
-        g_TESSaveLoadGame->FUN_008579b0(reinterpret_cast<char*>(this) + 4, 4);
+        g_TESSaveLoadGame->SaveGameDataOLD(reinterpret_cast<char*>(this) + 4, 4);
 }
 }  // namespace fnv_0048e9e0
 

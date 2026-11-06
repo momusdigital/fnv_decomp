@@ -7372,9 +7372,9 @@ struct Buffer75
 {
     virtual unsigned char Version();
     Flag75 FUN_00428110(unsigned int);
-    void FUN_00864980(void*, unsigned int);
-    unsigned int FUN_008648a0();
-    unsigned int FUN_00864a60();
+    void LoadData(void*, unsigned int);
+    unsigned int LoadFormID();
+    unsigned int LoadVariableSizedValue();
     bool FUN_0042ce90();
 };
 
@@ -7625,10 +7625,10 @@ void NPC75::FUN_00609220(Buffer75* buffer)
     FUN_005f1fd0(buffer);
 
     if (buffer->FUN_00428110(0x200).FUN_004280f0())
-        buffer->FUN_00864980(&skills, 28);
+        buffer->LoadData(&skills, 28);
 
     if (buffer->FUN_00428110(0x400).FUN_004280f0())
-        npcClass = dynamic_cast<TESClass*>(FUN_004839c0(buffer->FUN_008648a0()));
+        npcClass = dynamic_cast<TESClass*>(FUN_004839c0(buffer->LoadFormID()));
 
     unsigned char changed1 = 0;
 
@@ -7645,7 +7645,7 @@ void NPC75::FUN_00609220(Buffer75* buffer)
 
         TESRace* newRace = 0;
 
-        newRace = dynamic_cast<TESRace*>(FUN_004839c0(buffer->FUN_008648a0()));
+        newRace = dynamic_cast<TESRace*>(FUN_004839c0(buffer->LoadFormID()));
 
         if (newRace != race.FUN_00726070())
         {
@@ -7653,7 +7653,7 @@ void NPC75::FUN_00609220(Buffer75* buffer)
             changed1 |= 0x1b;
         }
 
-        originalRace = dynamic_cast<TESRace*>(FUN_004839c0(buffer->FUN_008648a0()));
+        originalRace = dynamic_cast<TESRace*>(FUN_004839c0(buffer->LoadFormID()));
     }
 
     if (updateHeight27)
@@ -7664,7 +7664,7 @@ void NPC75::FUN_00609220(Buffer75* buffer)
 
         bool useAlternate7 = false;
 
-        buffer->FUN_00864980(&useAlternate7, 1);
+        buffer->LoadData(&useAlternate7, 1);
 
         Matrix75(*coordinates20)[2] = face;
 
@@ -7695,7 +7695,7 @@ void NPC75::FUN_00609220(Buffer75* buffer)
                     {
 
                         float value = 0.0f;
-                        buffer->FUN_00864980(&value, 4);
+                        buffer->LoadData(&value, 4);
 
                         if (*coordinates20[set][group].FUN_0060b370(row, col).FUN_00629ab0() != value)
                         {
@@ -7713,11 +7713,11 @@ void NPC75::FUN_00609220(Buffer75* buffer)
         float oldLength23 = hairLength;
         float oldColor22 = (float)hairColor;
 
-        hair = dynamic_cast<TESHair*>(FUN_004839c0(buffer->FUN_008648a0()));
-        eyes = dynamic_cast<TESEyes*>(FUN_004839c0(buffer->FUN_008648a0()));
+        hair = dynamic_cast<TESHair*>(FUN_004839c0(buffer->LoadFormID()));
+        eyes = dynamic_cast<TESEyes*>(FUN_004839c0(buffer->LoadFormID()));
 
-        buffer->FUN_00864980(&hairLength, 4);
-        buffer->FUN_00864980(&hairColor, 4);
+        buffer->LoadData(&hairLength, 4);
+        buffer->LoadData(&hairColor, 4);
 
         bool partsChanged41 = false;
 
@@ -7740,12 +7740,12 @@ void NPC75::FUN_00609220(Buffer75* buffer)
 
             {
 
-                unsigned int count33 = buffer->FUN_00864a60();
+                unsigned int count33 = buffer->LoadVariableSizedValue();
 
                 for (unsigned int index = 0; index < count33; ++index)
                 {
                     BGSHeadPart* part = 0;
-                    part = dynamic_cast<BGSHeadPart*>(FUN_004839c0(buffer->FUN_008648a0()));
+                    part = dynamic_cast<BGSHeadPart*>(FUN_004839c0(buffer->LoadFormID()));
                     if (part)
                         parts.FUN_005ae3d0(part);
                 }
@@ -7786,7 +7786,7 @@ void NPC75::FUN_00609220(Buffer75* buffer)
     {
 
         bool sex = false;
-        buffer->FUN_00864980(&sex, 1);
+        buffer->LoadData(&sex, 1);
 
         if (actorData.FUN_00461580(1) != sex)
         {
@@ -7814,8 +7814,8 @@ class BGSSaveFormBuffer
   public:
     Shell_00608f00_Flags FUN_00428110();
     void FUN_00865e50(void*, unsigned int, int);
-    unsigned int FUN_00865f20();
-    void FUN_00865ff0(int, unsigned int);
+    unsigned int StartVariableSizedValue();
+    void SaveVariableSizedValue(int, unsigned int);
 };
 class Shell_00608f00_Buf
 {
@@ -7908,7 +7908,7 @@ void Shell_00608f00_NPC::FUN_00608f00(BGSSaveFormBuffer* apFile)
         apFile->FUN_00865e50(&iHairColor, 4, 0);
         {
             int iNumParts = 0;
-            unsigned int uiElapsedMilliseconds = apFile->FUN_00865f20();
+            unsigned int uiElapsedMilliseconds = apFile->StartVariableSizedValue();
             Shell_00608f00_Node* pIter = (Shell_00608f00_Node*)&m_kHeadPartList;
             while (pIter)
             {
@@ -7921,7 +7921,7 @@ void Shell_00608f00_NPC::FUN_00608f00(BGSSaveFormBuffer* apFile)
                 }
                 pIter = ::FUN_00726070(pIter);
             }
-            apFile->FUN_00865ff0(iNumParts, uiElapsedMilliseconds);
+            apFile->SaveVariableSizedValue(iNumParts, uiElapsedMilliseconds);
         }
     }
     if (apFile->FUN_00428110().Test(0x1000000))
@@ -8026,7 +8026,7 @@ bool TESNPCActivate::FUN_00607990(TESObjectREFR* apTargetRef, TESObjectREFR* apA
 
     if (pTarget->IsPlayerTeammate() && apActivatorRef == g_thePlayer)
     {
-        if (FUN_00754d90(pTarget))
+        if (GetShouldCompanionWheelOpen(pTarget))
             OpenDialogueMenu(8, apTargetRef, 0, 0, 0, false);
         return false;
     }
@@ -8153,8 +8153,8 @@ bool TESNPCActivate::FUN_00607990(TESObjectREFR* apTargetRef, TESObjectREFR* apA
                             {
                                 if (!pTarget->HasEssentialStatus() && !pTarget->IsMovementActive())
                                     pTarget->GetProcess()->StopActorMovement(pTarget);
-                                pActivator->FUN_008a8e50();
-                                pTarget->FUN_008a8e50();
+                                pActivator->StopAttack();
+                                pTarget->StopAttack();
                                 DialoguePackage* pDialoguePackage =
                                     dynamic_cast<DialoguePackage*>(pActivator->GetCurrentPackage());
                                 if (pDialoguePackage)
@@ -8190,8 +8190,8 @@ bool TESNPCActivate::FUN_00607990(TESObjectREFR* apTargetRef, TESObjectREFR* apA
                                 if (!g_thePlayer->GetProcess()->IsAimingAtActor(pActivator))
                                     return false;
                                 BSAudio::GetSingleton()->SetAudioState(4);
-                                pActivator->FUN_008a8e50();
-                                pTarget->FUN_008a8e50();
+                                pActivator->StopAttack();
+                                pTarget->StopAttack();
                                 pDialogueReference = pActivator;
                                 if (!static_cast<ActorQueries*>(pActivator)->IsInCombat())
                                 {
@@ -8207,11 +8207,11 @@ bool TESNPCActivate::FUN_00607990(TESObjectREFR* apTargetRef, TESObjectREFR* apA
                                     pActivator->GetProcess()->SetProcessTarget(pActivator, 1);
                                 pTarget->RemoveCastingArt();
                                 if (pTarget == g_thePlayer)
-                                    pTarget->FUN_008a7a90();
+                                    pTarget->ForceIdleAnimation();
                                 else
                                     pTarget->GetProcess()->AddPostAnimAction(0x400);
                                 if (pActivator == g_thePlayer)
-                                    pActivator->FUN_008a7a90();
+                                    pActivator->ForceIdleAnimation();
                                 else
                                     pActivator->GetProcess()->AddPostAnimAction(0x400);
                                 DAT_011f2250.SetEquipmentState(0, 0);

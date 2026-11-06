@@ -752,7 +752,7 @@ ContNode* __fastcall FUN_00717e50(void* p);
 unsigned int __fastcall FUN_0044ddc0(TESObjectREFR* ref);
 struct PlayerStub
 {
-    bool FUN_0088b880(int a1, Actor* target, int a3, int a4, int a5);
+    bool LineOfSight(int a1, Actor* target, int a3, int a4, int a5);
 };
 float __cdecl FUN_009a64d0(Actor* a, Actor* b, int c);
 bool IsTargetInCone(Actor* a, Actor* b, float* outDist);

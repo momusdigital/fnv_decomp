@@ -334,7 +334,7 @@ struct DummyRenderer_00706e90
     virtual void v49();
     virtual DummyRTG_00706e90* GetDefaultRenderTargetGroup();
 };
-float __cdecl FUN_00706e90();
+float __cdecl GetRenderedMenuScreenHeight();
 void __cdecl FUN_007164c0(void*, float);
 void __cdecl FUN_00706f50(void* apPointer, float afLength);
 void __fastcall UpdateNodeTimers(InterfaceManager*);
@@ -376,7 +376,7 @@ struct S_004431f0
     void* FUN_004431f0(unsigned int);
 };
 extern S_004431f0* DAT_011d890c;
-void FUN_00707820();
+void ClearTempModel();
 struct FUN_00707950_shell : public InterfaceManager
 {
     void SetNeed(bool);
@@ -392,7 +392,7 @@ struct FUN_007079f0_shell : public InterfaceManager
 bool __cdecl FUN_007178a0();
 class FORenderedMenu;
 FORenderedMenu* __fastcall FUN_00707af0(InterfaceManager*);
-FORenderedMenu* FUN_00707ad0();
+FORenderedMenu* GetCurrentRenderedMenu();
 int __cdecl FUN_004dc200();
 float FUN_00707b60();
 extern int g_011d8950;
@@ -406,11 +406,11 @@ extern int DAT_011d89a0;
 extern int DAT_011d89a4;
 extern int DAT_011d89ac;
 bool __cdecl IsConditionMet();
-void __cdecl FUN_007094f0();
+void __cdecl HandleQueuedMenuOpen();
 void __cdecl FUN_00709a90();
-void __cdecl FUN_00709470(int param_1, int param_2, int param_3, int param_4, int param_5);
-bool FUN_00709bc0();
-bool __cdecl FUN_00709c00();
+void __cdecl QueueMenuCreate(int param_1, int param_2, int param_3, int param_4, int param_5);
+bool IsPipBoyOpening();
+bool __cdecl IsPipBoyOpened();
 class TESRace;
 template <> class BSSimpleList<TESRace*>
 {
@@ -501,7 +501,7 @@ class MenuFade : public Menu
     unsigned int GetCurrentFadeState();
 };
 Tile* __cdecl FindMenuById(int);
-bool __cdecl FUN_00709c00();
+bool __cdecl IsPipBoyOpened();
 class InterfaceManagerPC
 {
   public:
@@ -533,9 +533,9 @@ struct GlobalObject_0045cfe0
 extern GlobalObject_0045cfe0 g_011c3ea4;
 extern int g_011d8950;
 extern int DAT_011d8960;
-void FUN_00763ff0();
+void ServiceStart();
 void GetOrCreateMenuTile(int);
-void FUN_00705870(int arg);
+void CreateRaceSexMenu(int arg);
 class MapMenu;
 extern MapMenu* DAT_011da368;
 char FUN_00706830();
@@ -544,7 +544,7 @@ struct FUN_005e3fc0_shell
     unsigned int Get();
 };
 unsigned int FUN_00706d10();
-void __cdecl FUN_00717280(int aiSoundIndex);
+void __cdecl PlayMenuSound(int aiSoundIndex);
 void FUN_00706f30(int aiSoundIndex);
 void __cdecl RemoveNodeById(int);
 void __cdecl FUN_00706f90(int aiValue);
@@ -564,7 +564,7 @@ class TileMenu
     const char* FUN_00709a50();
 };
 bool IsSomethingZero();
-void FUN_0077f2f0(int a1);
+void InitGunScope(int a1);
 void FUN_00709c20(int a1);
 extern int DAT_011da204;
 void FUN_0078e0d0();
@@ -577,7 +577,7 @@ extern "C" char __cdecl FUN_00705d50();
 extern "C" int __cdecl FUN_00705d90();
 struct TESSaveLoadGame
 {
-    void FUN_008579b0(void*, int);
+    void SaveGameDataOLD(void*, int);
 };
 extern TESSaveLoadGame* g_TESSaveLoadGame;
 void __cdecl SaveMenuTabStates();
@@ -809,7 +809,7 @@ B706130Manager* __cdecl B706130GetManager();
 B706130Tile* __cdecl CreateComputerMenu(int m_uiSoundID);
 void __cdecl B706130UpdateAllTiles(bool bForce);
 extern B706130Setting g_kB706130Setting;
-bool __cdecl FUN_00706130(int m_uiSoundID);
+bool __cdecl CreateComputersMenu(int m_uiSoundID);
 class FUN_00707870_Temp
 {
   public:
@@ -827,7 +827,7 @@ struct FUN_00707870_Target
 };
 extern FUN_00707870_Owner* DAT_011dea10;
 bool __cdecl FUN_004b5bf0(unsigned int a);
-unsigned int __cdecl FUN_00707870(unsigned int a1);
+unsigned int __cdecl CopyOrDeepCopyNode(unsigned int a1);
 extern "C" __declspec(dllimport) int __stdcall IsDebuggerPresent();
 extern "C" __declspec(dllimport) __declspec(noreturn) void __stdcall ExitProcess(unsigned int uExitCode);
 extern "C" void __debugbreak();
@@ -1558,9 +1558,9 @@ struct IMMenuOpen : InterfaceManager
 };
 void UpdateMenuTileVisibility();
 void __cdecl FUN_00703100();
-extern "C" void __fastcall FUN_00717600(InterfaceManager*);
+extern "C" void __fastcall PreLoadMenus(InterfaceManager*);
 extern "C" void __cdecl UpdatePipboyMapVisibility(int, int);
-extern "C" void __cdecl FUN_007048f0(int, int, int);
+extern "C" void __cdecl SetInventoryMenuVisible(int, int, int);
 extern "C" void __cdecl ShowStatsMenu(int, int);
 void __cdecl HandleMenuKeyInput(void);
 bool __cdecl QueueMessage(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a10, va_list* args, int enabled,
@@ -1608,7 +1608,7 @@ void FUN_00702810();
 void FUN_00702840();
 void RenderOrFallback(int, int);
 void FUN_00702960();
-char __cdecl FUN_00704010(const char* text, int aiArg1, int aiArg2, int aiArg3, ...);
+char __cdecl CreateModalMessageMenu(const char* text, int aiArg1, int aiArg2, int aiArg3, ...);
 struct MenuProxy
 {
     void FUN_00a1d910();
@@ -1626,7 +1626,7 @@ void ResetItemModMenu();
 void PlayPipboyPageSound(bool);
 struct PipProxy
 {
-    void FUN_007f8a80();
+    void TriggerRandomEffect();
     void FUN_007fa010(unsigned int);
     bool IsUnk28Set();
 };
@@ -1657,7 +1657,7 @@ struct DecompVec3
 };
 struct DecompTarget
 {
-    void FUN_00774fd0(int a1, DecompArg12 a2, DecompVec3 a3, int a4, bool a5);
+    void ShowSubtitle(int a1, DecompArg12 a2, DecompVec3 a3, int a4, bool a5);
 };
 extern unsigned int DAT_011d96c0;
 bool __cdecl FUN_00705210(int aiArg1, DecompArg12 aArg12, DecompVec3 aVec3, int aiArg4, bool a5);
@@ -1738,7 +1738,7 @@ TESForm* __cdecl FUN_00483a00(const char* apName);
 int __cdecl sprintf_s(char* apBuffer, unsigned int auiBufferSize, const char* apFormat, ...);
 int __cdecl strcpy_s(char* apDest, unsigned int auiDestSize, const char* apSrc);
 int __cdecl _stricmp(const char* apStr1, const char* apStr2);
-bool __cdecl FUN_007070c0(const char* apName, char* apBuffer, unsigned int auiBufferSize, bool abArg4);
+bool __cdecl FindTextReplacementString(const char* apName, char* apBuffer, unsigned int auiBufferSize, bool abArg4);
 class NiStream
 {
   public:
@@ -2078,7 +2078,7 @@ class FileFinder
     };
     static FILE_LOCATION Exist(const char*, char*, unsigned int, unsigned int);
 };
-NiNode* FUN_00707660(const char* path, bool* flag);
+NiNode* LoadModelFile(const char* path, bool* flag);
 class B7AB690FullName
 {
   public:
@@ -2180,14 +2180,14 @@ struct TESObjectREFRMine : TESObjectREFR
     bool CanBeUsed(Actor* apActor, bool abUnk);
 };
 int FUN_0075b310(TESObjectREFR* apRef, int aType);
-int FUN_00704ed0(TESObjectREFR* apRef, int aType);
+int CreateContainerMenu(TESObjectREFR* apRef, int aType);
 void __cdecl FUN_0040fbe0();
 struct MgrQ
 {
     bool FUN_009373f0();
     bool FUN_00644640();
 };
-bool FUN_00702fc0();
+bool IsDebugTextVisible();
 namespace sleep704 {
 struct M70Tile
 {
@@ -2204,7 +2204,7 @@ struct M70Trait
 };
 struct M70Hud
 {
-    void FUN_007f8a80();
+    void TriggerRandomEffect();
     void FUN_007fa010(int a);
     bool IsUnk28Set();
 };
@@ -2226,7 +2226,7 @@ void FUN_00782470(int a);
 void UpdateCurrentValue();
 
 // @fnv 0x007048f0
-void FUN_007048f0(bool show, bool fade, bool reset)
+void SetInventoryMenuVisible(bool show, bool fade, bool reset)
 {
     M70Menu* pMenu3eb;
     M70Menu* pMenu3ea;
@@ -2282,7 +2282,7 @@ void FUN_007048f0(bool show, bool fade, bool reset)
             }
             if (reset)
             {
-                FUN_004b7210()->FUN_00704370()->FUN_007f8a80();
+                FUN_004b7210()->FUN_00704370()->TriggerRandomEffect();
                 FUN_004b7210()->FUN_00704370()->FUN_007fa010(2);
             }
             if (FUN_004b7210()->FUN_00704370()->IsUnk28Set())
@@ -3617,9 +3617,9 @@ extern int DAT_011d8998;
 extern int DAT_011d899c;
 
 InterfaceManagerView* FUN_004b7210();
-int FUN_00704ed0(TESObjectREFR* pkRef, int iArg);
-bool FUN_00705ec0(TESObjectREFR* pkRef);
-bool FUN_00706130(TESObjectREFR* pkRef);
+int CreateContainerMenu(TESObjectREFR* pkRef, int iArg);
+bool CreateHackingMenu(TESObjectREFR* pkRef);
+bool CreateComputersMenu(TESObjectREFR* pkRef);
 int FUN_00705070(TESObjectREFR* pkRef, int iArg0, int iArg1);
 int GetOrCreateMenuTile(int iArg);
 bool InitStartMenu(int iArg0, int iArg1);
@@ -3630,7 +3630,7 @@ bool DestroyCompanionWheelMenu(Actor* pkActor);
 static const char s_szPlayerNameEntryMenu[] = "Player Name Entry Menu";
 
 // @fnv 0x007094f0
-void FUN_007094f0()
+void HandleQueuedMenuOpen()
 {
     DAT_011d89c0.FUN_0040fbf0(0);
     if (DAT_011d8950 && (!FUN_004b7210()->m_iModalCount || DAT_011d8950 == 6 || DAT_011d8950 == 7))
@@ -3639,13 +3639,13 @@ void FUN_007094f0()
         switch (DAT_011d8950)
         {
         case 1:
-            bPickResultFound = s7094f0::FUN_00704ed0(DAT_011d8954, DAT_011d8964) ? 1 : 0;
+            bPickResultFound = s7094f0::CreateContainerMenu(DAT_011d8954, DAT_011d8964) ? 1 : 0;
             break;
         case 2:
-            bPickResultFound = FUN_00705ec0(DAT_011d8954);
+            bPickResultFound = CreateHackingMenu(DAT_011d8954);
             break;
         case 3:
-            bPickResultFound = FUN_00706130(DAT_011d8954);
+            bPickResultFound = CreateComputersMenu(DAT_011d8954);
             break;
         case 4:
             if (!FUN_004b7210()->FUN_007023a0())

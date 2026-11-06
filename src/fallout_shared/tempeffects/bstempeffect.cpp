@@ -173,7 +173,7 @@ struct SoundH
 
 struct TESSaveLoadGame
 {
-    void FUN_008579b0(void*, int);
+    void SaveGameDataOLD(void*, int);
     void FUN_00857a10(int, int);
 };
 
@@ -187,8 +187,8 @@ struct FUN_00682920_shell
 // @fnv 0x00682920
 void FUN_00682920_shell::FUN_00682920()
 {
-    g_TESSaveLoadGame->FUN_008579b0((char*)this + 8, 4);
-    g_TESSaveLoadGame->FUN_008579b0((char*)this + 0x10, 4);
+    g_TESSaveLoadGame->SaveGameDataOLD((char*)this + 8, 4);
+    g_TESSaveLoadGame->SaveGameDataOLD((char*)this + 0x10, 4);
     SoundH* apSaveGameBuffer = 0;
     if (*(void**)((char*)this + 0xc))
     {
@@ -214,7 +214,7 @@ class TESObjectCELL : public TESForm
 
 struct FUN_00682990_LoadShim
 {
-    void FUN_008579e0(void*, unsigned int);
+    void LoadGameDataOLD(void*, unsigned int);
 };
 
 struct FUN_00682990_SGLShim
@@ -238,9 +238,9 @@ bool FUN_00682990_shell::FUN_00682990()
     unsigned int formID;
 
     reinterpret_cast<FUN_00682990_LoadShim*>(DAT_011de45c)
-        ->FUN_008579e0(reinterpret_cast<void*>(reinterpret_cast<char*>(this) + 8), 4);
+        ->LoadGameDataOLD(reinterpret_cast<void*>(reinterpret_cast<char*>(this) + 8), 4);
     reinterpret_cast<FUN_00682990_LoadShim*>(DAT_011de45c)
-        ->FUN_008579e0(reinterpret_cast<void*>(reinterpret_cast<char*>(this) + 0x10), 4);
+        ->LoadGameDataOLD(reinterpret_cast<void*>(reinterpret_cast<char*>(this) + 0x10), 4);
     reinterpret_cast<FUN_00682990_SGLShim*>(DAT_011de45c)->FUN_00857aa0(&formID, 4);
 
     *reinterpret_cast<TESObjectCELL**>(reinterpret_cast<char*>(this) + 0x0c) =

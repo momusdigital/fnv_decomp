@@ -1413,8 +1413,8 @@ struct SaveBufCls
 {
     void __thiscall FUN_00865e50(void* data, unsigned int size, int z);
     void __thiscall FUN_00865df0(void* data, unsigned int size);
-    unsigned int __thiscall FUN_00865f20();
-    void __thiscall FUN_00865ff0(unsigned int count, unsigned int pos);
+    unsigned int __thiscall StartVariableSizedValue();
+    void __thiscall SaveVariableSizedValue(unsigned int count, unsigned int pos);
 };
 
 struct SaveItemCls
@@ -1444,7 +1444,7 @@ void __thiscall DetClassCls::WriteToSaveBuffer(SaveBufCls* buffer)
     buffer->FUN_00865e50(&this->m_14, 4, 0);
     buffer->FUN_00865df0(this->m_00, 0);
     unsigned int count = 0;
-    unsigned int pos4 = buffer->FUN_00865f20();
+    unsigned int pos4 = buffer->StartVariableSizedValue();
     SaveNodeCls* node3 = this->m_04;
     while (node3 != 0)
     {
@@ -1456,7 +1456,7 @@ void __thiscall DetClassCls::WriteToSaveBuffer(SaveBufCls* buffer)
         }
         node3 = node3->FUN_00726070();
     }
-    buffer->FUN_00865ff0(count, pos4);
+    buffer->SaveVariableSizedValue(count, pos4);
 }
 
 extern double DAT_01012060;

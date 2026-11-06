@@ -3,7 +3,7 @@
 
 #include "startmenu_packet.h"
 void FUN_007d1b30();
-float FUN_007d1d00(int type);
+float GetFadeOutMultiplier(int type);
 void FUN_007d30d0();
 
 #include <string.h>
@@ -32,7 +32,7 @@ struct MainMenuPlayerAccess
 class TES;
 void __cdecl PlayAudioMedia(int, const char*, unsigned int, bool, bool, float, unsigned int);
 void __cdecl FUN_008304c0();
-void __cdecl FUN_00703610();
+void __cdecl HideMenus();
 void __cdecl FUN_00706320(int);
 void __cdecl FUN_00761460(bool);
 void __cdecl ResetTaskQueueGlobals();
@@ -45,11 +45,11 @@ struct PC7d;
 extern PC7d* g_thePlayer;
 
 // @fnv 0x007d0a70
-void FUN_007d0a70()
+void ChooseMainMenu()
 {
     char acMusicPath[64];
     delete (MainMenuDeletable*)DAT_011daac0;
-    FUN_00703610();
+    HideMenus();
     FUN_00706320(0);
     ((MainMenuAudioAccess*)FUN_00453a70())->FUN_00ad84e0(-1, false);
     ResetTaskQueueGlobals();

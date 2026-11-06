@@ -8068,7 +8068,7 @@ struct Game
     void FUN_00861ea0();
     bool FUN_008727b0();
     void FUN_00858af0(int, int, int);
-    void FUN_0085f850(int);
+    void LoadQueuedData(int);
 };
 extern Game* DAT_011de45c;
 struct Loader
@@ -8166,7 +8166,7 @@ void Grid::RefreshGrid()
         DAT_011de45c->FUN_004534f0(true);
         DAT_011de45c->FUN_004534f0(true);
         DAT_011de45c->FUN_00858af0(0, 0, 0);
-        DAT_011de45c->FUN_0085f850(0);
+        DAT_011de45c->LoadQueuedData(0);
         DAT_011de45c->FUN_004534f0(second6);
         DAT_011de45c->FUN_004534f0(first);
     }
@@ -8735,7 +8735,7 @@ void ReloadInterfaceReset();
 void ReloadInterfaceRefresh();
 struct ReloadStreaming
 {
-    void FUN_00871dc0();
+    void RenderMenuBackground();
     void FUN_0086ff70();
 };
 extern ReloadStreaming* reloadStreaming;
@@ -8886,7 +8886,7 @@ extern ReloadPlayerCheck* reloadPlayerCheck;
 void ReloadManager::AttachScene(ReloadScene* destination, ReloadPoint* position)
 {
     if (!FUN_00451530())
-        reloadStreaming->FUN_00871dc0();
+        reloadStreaming->RenderMenuBackground();
     ReloadGetRoot()->FUN_00454380(0);
     ReloadGetRoot()->SetProcessEnabled(false);
     ReloadInterior* interiorData5;
@@ -9990,7 +9990,7 @@ bool Manager458::PlaySoundOnRef(int iSound, Point458 kPos, Ref458* pkRef)
 struct SaveWriter : SaveState
 {
     unsigned char* FUN_00825c00();
-    void FUN_008579b0(void*, unsigned int);
+    void SaveGameDataOLD(void*, unsigned int);
     void FUN_00857a10(void*, unsigned int);
 };
 struct ValueReferencePair
@@ -10023,14 +10023,14 @@ void SaveBlockOwner::WriteSaveBlock()
     if (DAT_011de45c->FUN_00862110())
     {
         unsigned int blockType = 0x424c4f4b;
-        static_cast<SaveWriter*>(DAT_011de45c)->FUN_008579b0(&blockType, 4);
+        static_cast<SaveWriter*>(DAT_011de45c)->SaveGameDataOLD(&blockType, 4);
         initialPosition = static_cast<SaveWriter*>(DAT_011de45c)->FUN_00825c00();
-        static_cast<SaveWriter*>(DAT_011de45c)->FUN_008579b0(&count, 2);
+        static_cast<SaveWriter*>(DAT_011de45c)->SaveGameDataOLD(&count, 2);
     }
     node = reinterpret_cast<SaveEntryNode*>(FUN_0050d100());
     // Number of entries written before the entry data.
     unsigned int blockSize = reinterpret_cast<SaveItemList*>(node)->FUN_005ae380();
-    static_cast<SaveWriter*>(DAT_011de45c)->FUN_008579b0(&blockSize, 4);
+    static_cast<SaveWriter*>(DAT_011de45c)->SaveGameDataOLD(&blockSize, 4);
     while (node)
     {
         ValueReferencePair* entry = *node->FUN_006815c0();
@@ -10040,12 +10040,12 @@ void SaveBlockOwner::WriteSaveBlock()
             if (entry->form)
                 formId = entry->form->_ref_0084e3a0();
             static_cast<SaveWriter*>(DAT_011de45c)->FUN_00857a10(&formId, 4);
-            static_cast<SaveWriter*>(DAT_011de45c)->FUN_008579b0(&entry->value, 2);
+            static_cast<SaveWriter*>(DAT_011de45c)->SaveGameDataOLD(&entry->value, 2);
         }
         node = node->FUN_00726070();
     }
     if (DAT_011de45c->FUN_008df040() >= 50)
-        static_cast<SaveWriter*>(DAT_011de45c)->FUN_008579b0(&DAT_011c3c08, 4);
+        static_cast<SaveWriter*>(DAT_011de45c)->SaveGameDataOLD(&DAT_011c3c08, 4);
     if (*DAT_011de4e8.FUN_00408d60())
     {
         unsigned char* finalPosition = static_cast<SaveWriter*>(DAT_011de45c)->FUN_00825c00();

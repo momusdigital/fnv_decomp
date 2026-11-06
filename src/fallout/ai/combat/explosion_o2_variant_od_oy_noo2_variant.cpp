@@ -763,7 +763,7 @@ struct Cell810
 };
 struct Process810
 {
-    void* FUN_00819250();
+    void* GetCollisionGroup();
 };
 struct Test810
 {
@@ -907,7 +907,7 @@ struct Actor810
     virtual int v214();
     Body810* FUN_00950bb0(int);
     Cell810* FUN_008d6f30();
-    Process810* FUN_009306d0();
+    Process810* GetCharController();
 };
 extern Actor810* pPlayer;
 struct Vec4810
@@ -1039,8 +1039,8 @@ bool Host810::FUN_009b1810(Vec810 pos, Actor810* actor)
     Filter810 filter(0);
     filter.FUN_004a39f0(39);
     Actor810* checkActor = actor->v100() ? actor : 0;
-    if (checkActor && checkActor->FUN_009306d0())
-        filter.FUN_0059ce80(checkActor->FUN_009306d0()->FUN_00819250());
+    if (checkActor && checkActor->GetCharController())
+        filter.FUN_0059ce80(checkActor->GetCharController()->GetCollisionGroup());
     else
         filter.FUN_0059ce80(FUN_005dbe10());
     pos = array.ApplyScaled(*DAT_011d1344.FUN_00403e20());
@@ -1342,7 +1342,7 @@ struct Proc
 struct Owner
 {
     virtual void vf00();
-    int FUN_006205a0();
+    int QMaterial();
     int FUN_00c84f10(int i);
 };
 
@@ -2330,7 +2330,7 @@ void ProjCls::FUN_009ae6e0()
                                                 Owner* ow = FUN_004a3a40(ref->FUN_00559450());
                                                 if (!ow)
                                                     continue;
-                                                id = ow->FUN_006205a0();
+                                                id = ow->QMaterial();
                                             }
                                             if (id == target)
                                             {

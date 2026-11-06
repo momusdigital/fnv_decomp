@@ -1659,7 +1659,7 @@ struct ActivationRef
     virtual void Slot222();
     virtual void Slot223();
     virtual float GroundOffset();
-    float FUN_008be940();
+    float GetEyeLevel();
     ActivationProcess* FUN_008d8520();
     void SetByteAt79a(bool);
     ActivationAction* FUN_00950a60(int, int);
@@ -1683,7 +1683,7 @@ bool ActivationRef::ActivateWithActorCheck(ActivationRef* source, ActivationRef*
         ActivationRef* actor = target;
         FUN_00600900(this);
         FUN_00600940(1);
-        float height2 = actor->FUN_008be940() + actor->Position().z - actor->GroundOffset();
+        float height2 = actor->GetEyeLevel() + actor->Position().z - actor->GroundOffset();
         float sourceHeight = source->Position().z;
         int mode = 0;
         if (!source->IsForced())
@@ -1920,7 +1920,7 @@ struct VATSLike
 extern VATSLike DAT_011f2250;
 
 bool QueueUIMessage(const char* apText, int aiIcon, const char* apSound, const char* apUnk, float afTime, bool abUnk);
-void FUN_00709470(int a1, int a2, int a3, int a4, int a5, int a6);
+void QueueMenuCreate(int a1, int a2, int a3, int a4, int a5, int a6);
 
 struct DialogueStarter
 {
@@ -1964,7 +1964,7 @@ struct DialogueStarter
     bool FUN_004feeb0(RefLike* apRef, RefLike* apTarget, int a3, int a4, int a5);
 };
 
-// Checks the player extra holder, resolves the actor and base form, then starts a conversation or resets VATS and calls FUN_00709470 for the player.
+// Checks the player extra holder, resolves the actor and base form, then starts a conversation or resets VATS and calls QueueMenuCreate for the player.
 // @fnv 0x004feeb0
 bool DialogueStarter::FUN_004feeb0(RefLike* apRef, RefLike* apTarget, int aiUnused1, int aiUnused2, int aiUnused3)
 {
@@ -2003,7 +2003,7 @@ bool DialogueStarter::FUN_004feeb0(RefLike* apRef, RefLike* apTarget, int aiUnus
         if ((void*)apTarget == (void*)_g_thePlayer)
         {
             DAT_011f2250.Reset(0, 0);
-            FUN_00709470(4, (int)pSpeakerActor, 0, unk90, 1, 0);
+            QueueMenuCreate(4, (int)pSpeakerActor, 0, unk90, 1, 0);
         }
         else
         {
@@ -2101,7 +2101,7 @@ struct Script* FUN_004826d0(Topic*);
 unsigned int DialogueRandom();
 struct CalendarView
 {
-    int FUN_00867ca0();
+    int GetSeason();
 };
 extern "C" CalendarView DAT_011de7b8;
 struct SettingView
@@ -2264,7 +2264,7 @@ bool Action::TryAddTopic(TopicInfo* pTopicInfo, TESObjectREFR* reference, int ar
         {
             unsigned char chance =
                 reinterpret_cast<TopicAction*>(reinterpret_cast<char*>(this) - offsetof(TopicAction, action))
-                    ->FUN_00508d90(DAT_011de7b8.FUN_00867ca0());
+                    ->FUN_00508d90(DAT_011de7b8.GetSeason());
             if (chance > 0 && DialogueRandom() % 100 < chance)
                 success = true;
         }
@@ -2326,7 +2326,7 @@ struct ActionData
 bool FUN_005094f0(unsigned int);
 struct ActorState
 {
-    bool FUN_00822e00();
+    bool HasDamageHealthEffect();
 };
 struct ActionCell
 {
@@ -2719,7 +2719,7 @@ bool ActionHandler::FUN_005095b0(ActionReference* reference, ActionActor* activa
             {
                 QueueUIMessage(g_011d252c.FUN_00403df0(), 0, g_011cba18_arg1, 0, 2.0f, false);
             }
-            else if (((ActionActor*)_g_thePlayer)->state.FUN_00822e00())
+            else if (((ActionActor*)_g_thePlayer)->state.HasDamageHealthEffect())
             {
                 QueueUIMessage(g_011d1e0c.FUN_00403df0(), 0, g_011cba18_arg1, 0, 2.0f, false);
             }
@@ -3088,7 +3088,7 @@ struct ActivateActor
     virtual bool IsActor();
     bool FUN_00891db0(ActivateKey*, int, int, int, int*);
     ActivateActorAction* FUN_008d8520();
-    void FUN_008bfa40(ActivateReference*, int, int, int, int);
+    void StealAlarm(ActivateReference*, int, int, int, int);
 };
 struct ActivateSound
 {
@@ -3264,7 +3264,7 @@ bool ActivateObject::FUN_00516dc0(ActivateReference* apTarget, TESObjectREFR* ac
             if (a4)
                 apTarget->Activate(a4, 0, a5, 0, 0, actor2, 0, 0, 1, 0);
             if (actor2->IsActor() && !apTarget->FUN_005785e0(actor2, true) && apTarget->FUN_00567790())
-                actor2->FUN_008bfa40(apTarget, a4, a5, 1, extra);
+                actor2->StealAlarm(apTarget, a4, a5, 1, extra);
         }
         return true;
     }
@@ -3445,7 +3445,7 @@ struct RefView
 int GetFlagMask(int);
 void FUN_0047a560(ActivationRef*, ActivationRef*, int);
 int FUN_0047b250(ActivationRef*);
-void FUN_008325b0(ActivationRef*, bool);
+void ActivateRadio(ActivationRef*, bool);
 struct FUN_005113f0_shell
 {
     int unk00;
@@ -3497,7 +3497,7 @@ bool FUN_005113f0_shell::FUN_005113f0(ActivationRef* ref, ActivationRef* activat
     {
         FUN_00600900((ActivationRef*)this);
         FUN_00600940(1);
-        float a = h->FUN_008be940() + h->Position().z - h->GroundOffset();
+        float a = h->GetEyeLevel() + h->Position().z - h->GroundOffset();
         float f = ref->Position().z;
         int AB = 0;
         if (!ref->IsForced())
@@ -3551,7 +3551,7 @@ bool FUN_005113f0_shell::FUN_005113f0(ActivationRef* ref, ActivationRef* activat
         int p = FUN_0047b250(ref);
         if (p == 1 || p == 2)
             h = true;
-        FUN_008325b0(ref, h);
+        ActivateRadio(ref, h);
     }
     return true;
 }
@@ -4306,7 +4306,7 @@ class AAActor
     bool FUN_008a6650(int iFlag);
     bool FUN_00894d60();
     bool IsHostileTo(AAActor* pkTarget, int iA, int* piTopic, int iB);
-    bool FUN_0087f3d0();
+    bool GetEssential();
     AAValueHolder* FUN_004181e0();
     bool FUN_00493bb0();
     bool FUN_004997b0();
@@ -4315,10 +4315,10 @@ class AAActor
     bool FUN_00898ff0();
     void StartDialog(void* pkSceneVal, int iA, int iB);
     bool FUN_008b3bb0();
-    void FUN_008a8e50();
-    void FUN_008a7a90();
+    void StopAttack();
+    void ForceIdleAnimation();
     TESPackage* FUN_009344a0();
-    void FUN_008bb520(AAPoint kPos, int iFlag);
+    void RequestRotate(AAPoint kPos, int iFlag);
     bool FUN_009336c0();
 };
 
@@ -4363,8 +4363,8 @@ extern AAMenuMode DAT_011de7b8;
 AASound* FUN_00453a70();
 int FUN_00ec623a(char* pcBuffer, const char* pcFormat, ...);
 void DispatchMessageToSink(const char* pcText, int iA, const char* pcIcon, const char* pcSound, float fTime, int iB);
-void FUN_00709470(int iType, void* pkTarget, int iA, int iB, int iC, int iD);
-bool FUN_00754d90(AAActor* pkActorVal);
+void QueueMenuCreate(int iType, void* pkTarget, int iA, int iB, int iC, int iD);
+bool GetShouldCompanionWheelOpen(AAActor* pkActorVal);
 AASceneList* GetTopicSubTypeName(int iA, int iB);
 int FUN_00702640();
 
@@ -4435,7 +4435,7 @@ bool AAHandler::OnActivate(TESObjectREFR* pkRef, TESObjectREFR* pkActivatorRef, 
     else if (pkActorVal->IsDead(0))
     {
         if (pkActivator == (AAActor*)DAT_011dea3c)
-            FUN_00709470(1, pkRef, 0, 0, 1, 0);
+            QueueMenuCreate(1, pkRef, 0, 0, 1, 0);
         else if (pkObject && !dynamic_cast<TESNPC*>(pkObject))
             ((AAActor*)pkRef)->ActivateItem(pkObject, 0, iCount, 0, 0, pkActivator, 0, 0, 1, 0);
     }
@@ -4443,13 +4443,13 @@ bool AAHandler::OnActivate(TESObjectREFR* pkRef, TESObjectREFR* pkActivatorRef, 
     {
         pkActivator->FUN_008d8520()->SetDialogueActor(pkActivator, pkActorVal, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0);
     }
-    else if (pkActivator == (AAActor*)DAT_011dea3c && pkActorVal->IsIncapacitated() && pkActorVal->FUN_0087f3d0())
+    else if (pkActivator == (AAActor*)DAT_011dea3c && pkActorVal->IsIncapacitated() && pkActorVal->GetEssential())
     {
         return false;
     }
     else if (pkActorVal->FUN_004181e0()->m_kValues.IsEssential() && !pkActorVal->FUN_00493bb0() &&
              pkActivator == (AAActor*)DAT_011dea3c &&
-             ((pkActorVal->IsIncapacitated() && !pkActorVal->FUN_0087f3d0()) ||
+             ((pkActorVal->IsIncapacitated() && !pkActorVal->GetEssential()) ||
               (((AAActor*)DAT_011dea3c)->FUN_004997b0() && !pkActorVal->FUN_00566950())) &&
              !pkActorVal->FUN_008ace90())
     {
@@ -4460,14 +4460,14 @@ bool AAHandler::OnActivate(TESObjectREFR* pkRef, TESObjectREFR* pkActivatorRef, 
             return false;
         }
         else
-            FUN_00709470(1, pkRef, 0, 0, 2, 0);
+            QueueMenuCreate(1, pkRef, 0, 0, 2, 0);
     }
     else if (pkActorVal->FUN_00898ff0() || pkActivator != (AAActor*)DAT_011dea3c)
     {
         if (pkActorVal->FUN_00566950() && pkActivatorRef == (TESObjectREFR*)DAT_011dea3c)
         {
-            if (FUN_00754d90(pkActorVal))
-                FUN_00709470(8, pkRef, 0, 0, 0, 0);
+            if (GetShouldCompanionWheelOpen(pkActorVal))
+                QueueMenuCreate(8, pkRef, 0, 0, 0, 0);
             return false;
         }
         AASceneList* pkScenes = pkActivator == (AAActor*)DAT_011dea3c ? GetTopicSubTypeName(0, 0) : 0;
@@ -4480,7 +4480,7 @@ bool AAHandler::OnActivate(TESObjectREFR* pkRef, TESObjectREFR* pkActivatorRef, 
         else if (pkActorVal->FUN_00493bb0() && pkActivator == (AAActor*)DAT_011dea3c && pkActorVal->FUN_00566950())
         {
             ((AAMusic*)&DAT_011f2250)->FUN_009c8950(0, 0);
-            FUN_00709470(4, pkActorVal, 0, 0, 1, 0);
+            QueueMenuCreate(4, pkActorVal, 0, 0, 1, 0);
         }
         else if (pkActorVal && (!pkActorVal->FUN_00493bb0() || pkActorVal->IsIncapacitated()) &&
                  (pkActivator != (AAActor*)DAT_011dea3c || !pkActorVal->GetSitSleepState() ||
@@ -4494,8 +4494,8 @@ bool AAHandler::OnActivate(TESObjectREFR* pkRef, TESObjectREFR* pkActivatorRef, 
             {
                 if (!pkActorVal->FUN_008b3bb0())
                     pkActorVal->FUN_008d8520()->StopIdle(pkActorVal);
-                pkActivator->FUN_008a8e50();
-                pkActorVal->FUN_008a8e50();
+                pkActivator->StopAttack();
+                pkActorVal->StopAttack();
                 pkSpeaker = pkRef;
                 if (pkActorVal->GetCurrentTalkTarget() == (AAActor*)DAT_011dea3c && pkPackageCur &&
                     !pkPackageCur->FUN_0041ca90())
@@ -4507,15 +4507,15 @@ bool AAHandler::OnActivate(TESObjectREFR* pkRef, TESObjectREFR* pkActivatorRef, 
                 }
                 FUN_00453a70()->FUN_00ad8780(4);
                 pkActorVal->m_kAnim.FUN_00815b00();
-                pkActorVal->FUN_008a7a90();
-                pkActivator->FUN_008a7a90();
+                pkActorVal->ForceIdleAnimation();
+                pkActivator->ForceIdleAnimation();
                 if (pkProcessRef->GetMovementState() != 9)
                 {
                     ((AAMusic*)&DAT_011f2250)->FUN_009c8950(0, 0);
                     AAActor* pkTarget = pkActivator;
                     if (pkTarget == (AAActor*)DAT_011dea3c)
                         pkTarget = pkActorVal;
-                    FUN_00709470(4, pkTarget, iDialogueTopic, 0, 1, 0);
+                    QueueMenuCreate(4, pkTarget, iDialogueTopic, 0, 1, 0);
                 }
                 else
                     pkActorVal->StartConversation((AAActor*)DAT_011dea3c, 0, 0, 1, 0, 0, 0, 0, 0);
@@ -4525,8 +4525,8 @@ bool AAHandler::OnActivate(TESObjectREFR* pkRef, TESObjectREFR* pkActivatorRef, 
                 if (!pkActorVal->FUN_008d8520()->CanTalkTo(pkActivator))
                     return false;
                 FUN_00453a70()->FUN_00ad8780(4);
-                pkActivator->FUN_008a8e50();
-                pkActorVal->FUN_008a8e50();
+                pkActivator->StopAttack();
+                pkActorVal->StopAttack();
                 pkSpeaker = (TESObjectREFR*)pkActivator;
                 DialoguePackage* pkDialogueOld = dynamic_cast<DialoguePackage*>(pkActivator->FUN_009344a0());
                 if (pkDialogueOld)
@@ -4536,13 +4536,13 @@ bool AAHandler::OnActivate(TESObjectREFR* pkRef, TESObjectREFR* pkActivatorRef, 
                 else
                     pkActivator->FUN_008d8520()->SetConversationState(pkActivator, 1);
                 pkActorVal->m_kAnim.FUN_00815b00();
-                pkActorVal->FUN_008a7a90();
-                pkActivator->FUN_008a7a90();
+                pkActorVal->ForceIdleAnimation();
+                pkActivator->ForceIdleAnimation();
                 ((AAMusic*)&DAT_011f2250)->FUN_009c8950(0, 0);
                 AAActor* pkTarget2 = pkActivator;
                 if (pkTarget2 == (AAActor*)DAT_011dea3c)
                     pkTarget2 = pkActorVal;
-                FUN_00709470(4, pkTarget2, iDialogueTopic, 0, 1, 0);
+                QueueMenuCreate(4, pkTarget2, iDialogueTopic, 0, 1, 0);
             }
             else
             {
@@ -4551,7 +4551,7 @@ bool AAHandler::OnActivate(TESObjectREFR* pkRef, TESObjectREFR* pkActivatorRef, 
                     ((AAPackage*)pkActorVal->FUN_009344a0())->FUN_0041ca90() != 2)
                     pkProcessRef->SetConversationState(pkActorVal, 1);
                 if (pkActorVal != pkActivator && !pkActorVal->GetSitSleepState())
-                    pkActorVal->FUN_008bb520(pkActivator->GetPos(), 0);
+                    pkActorVal->RequestRotate(pkActivator->GetPos(), 0);
                 if (!pkActivator->FUN_009336c0())
                 {
                     if (pkActivatorPackageTmp->FUN_0041d8a0() && !pkActivatorPackageTmp->FUN_0041d8a0()->FUN_00726070())
@@ -4572,8 +4572,8 @@ bool AAHandler::OnActivate(TESObjectREFR* pkRef, TESObjectREFR* pkActivatorRef, 
     }
     else if (pkActorVal->FUN_00566950() && pkActivatorRef == (TESObjectREFR*)DAT_011dea3c)
     {
-        if (FUN_00754d90(pkActorVal))
-            FUN_00709470(8, pkRef, 0, 0, 0, 0);
+        if (GetShouldCompanionWheelOpen(pkActorVal))
+            QueueMenuCreate(8, pkRef, 0, 0, 0, 0);
         return false;
     }
     return true;

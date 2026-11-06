@@ -67,7 +67,7 @@ struct Field21c
 {
     int __thiscall FUN_00621440();
     void __thiscall FUN_00621370(int x);
-    unsigned char __thiscall FUN_00620bc0(NiPoint3* a, NiPoint3* b, BigObj* c);
+    unsigned char __thiscall Pick(NiPoint3* a, NiPoint3* b, BigObj* c);
     unsigned char __thiscall FUN_006214d0(void* o, NiPoint3* p, float a, float b);
 };
 struct Obj621ad0
@@ -499,7 +499,7 @@ struct ThisShell
     unsigned char byte64d;
     void __thiscall FUN_0094a0c0(NiPoint3* p1, NiPoint3* p2, unsigned char flag);
     void __thiscall FUN_008c4640();
-    void* __thiscall FUN_009306d0();
+    void* __thiscall GetCharController();
 };
 // @fnv 0x0094a0c0
 void ThisShell::FUN_0094a0c0(NiPoint3* p1, NiPoint3* p2, unsigned char flag)
@@ -545,10 +545,10 @@ void ThisShell::FUN_0094a0c0(NiPoint3* p1, NiPoint3* p2, unsigned char flag)
         big.FUN_00621c40();
         if (field21c->FUN_00621440() == 0)
         {
-            int handle = FUN_009306d0() ? ((Obj621ad0*)FUN_009306d0())->FUN_00621ad0() : 0;
+            int handle = GetCharController() ? ((Obj621ad0*)GetCharController())->FUN_00621ad0() : 0;
             field21c->FUN_00621370(handle);
         }
-        if (field21c->FUN_00620bc0(&a70, &a7c, &big))
+        if (field21c->Pick(&a70, &a7c, &big))
         {
             ((PointSubtract*)&a7c)->Subtract(a70);
             if (len - a7c.Length() > 2.0)
@@ -619,7 +619,7 @@ void ThisShell::FUN_0094a0c0(NiPoint3* p1, NiPoint3* p2, unsigned char flag)
     }
     else if (!FUN_00702680(0x40c, 0) && DAT_011f2250.FUN_0044ddc0() != 4)
     {
-        void* o = FUN_009306d0();
+        void* o = GetCharController();
         float ft = ((TObjShell*)this)->GetActorHeight() - 124.0;
         if (field21c->FUN_006214d0(o, &v128, *DAT_011e09c8.FUN_00403e20(), ft))
             ok = true;

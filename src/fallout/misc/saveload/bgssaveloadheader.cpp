@@ -116,7 +116,7 @@ struct HeaderBuffer
     HeaderBuffer();
     ~HeaderBuffer();
     void FUN_00865e50(const void*, unsigned int, bool);
-    void FUN_00865e70(const char*, bool);
+    void SaveString(const char*, bool);
     void FUN_00865c40(HeaderFile*);
 };
 struct HeaderManager
@@ -189,16 +189,16 @@ void FUN_0084d4b0(HeaderFile* file)
     stream->FUN_00865e50(&width2, 4, false);
     unsigned int numberVal = DAT_011de134->FUN_0044ddc0();
     stream->FUN_00865e50(&numberVal, 4, false);
-    stream->FUN_00865e70(DAT_011dea3c->FUN_0055d520(), false);
-    stream->FUN_00865e70(FUN_0047e0e0(DAT_011dea3c), false);
+    stream->SaveString(DAT_011dea3c->FUN_0055d520(), false);
+    stream->SaveString(FUN_0047e0e0(DAT_011dea3c), false);
     unsigned int level2 = DAT_011dea3c->FUN_0087f9f0();
     stream->FUN_00865e50(&level2, 4, false);
     char location9[260];
     DAT_011de134->CopyPlayerName(location9);
-    stream->FUN_00865e70(location9, false);
+    stream->SaveString(location9, false);
     char time[260];
     DAT_011de134->FormatPlayTime(time, true);
-    stream->FUN_00865e70(time, false);
+    stream->SaveString(time, false);
     buffer_.FUN_00865c40(file);
     if (!DAT_011de134->FUN_00424940())
         file->WriteToFile(pixels->FUN_0064dac0(0, 0), height5 * width2 * 3);

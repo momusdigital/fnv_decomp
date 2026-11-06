@@ -626,7 +626,7 @@ struct SaveC400
 {
     unsigned int FUN_00825c00();
     bool FUN_00862110();
-    void FUN_008579b0(void*, int);
+    void SaveGameDataOLD(void*, int);
     void FUN_00857a10(void*, int);
     ObjC400* FUN_004fd3e0();
 };
@@ -664,13 +664,13 @@ void S24::WriteReactionList(unsigned int auiFlags)
         if (DAT_011de45c->FUN_00862110())
         {
             int tag = 0x424c4f4b;
-            DAT_011de45c->FUN_008579b0(&tag, 4);
+            DAT_011de45c->SaveGameDataOLD(&tag, 4);
             posSize4 = DAT_011de45c->FUN_00825c00();
-            DAT_011de45c->FUN_008579b0(&sizeWord, 2);
+            DAT_011de45c->SaveGameDataOLD(&sizeWord, 2);
         }
         unsigned short kCount = 0;
         unsigned int posCountC = DAT_011de45c->FUN_00825c00();
-        DAT_011de45c->FUN_008579b0(&kCount, 2);
+        DAT_011de45c->SaveGameDataOLD(&kCount, 2);
         ReactionListOps_bd50* node = ((ReactionListOps_bd50*)this)->FUN_00717e50();
         while (node)
         {
@@ -679,7 +679,7 @@ void S24::WriteReactionList(unsigned int auiFlags)
             {
                 unsigned int formID = item->pForm->GetFormID();
                 DAT_011de45c->FUN_00857a10(&formID, 4);
-                DAT_011de45c->FUN_008579b0(&item->iOffset, 4);
+                DAT_011de45c->SaveGameDataOLD(&item->iOffset, 4);
                 kCount++;
             }
             node = node->FUN_00726070();
@@ -897,10 +897,10 @@ struct FUN_0048c9d0_ListNode
 struct FUN_0048c9d0_SaveBuffer
 {
     FUN_0048c9d0_ChangeFlags* FUN_00428110(int* value, int size);
-    unsigned int FUN_00865f20();
+    unsigned int StartVariableSizedValue();
     void FUN_00865df0(int value, int flag);
     void FUN_00865e50(void* data, unsigned int size, int flag);
-    void FUN_00865ff0(int count, unsigned int value);
+    void SaveVariableSizedValue(int count, unsigned int value);
 };
 
 struct FUN_0048c9d0_Class
@@ -924,7 +924,7 @@ void FUN_0048c9d0_Class::FUN_0048c9d0(FUN_0048c9d0_SaveBuffer* buffer)
         if (buffer->FUN_00428110(&temp, 4)->FUN_004280f0())
         {
             count = 0;
-            value = buffer->FUN_00865f20();
+            value = buffer->StartVariableSizedValue();
             cursor = &list;
             while (cursor != 0)
             {
@@ -938,7 +938,7 @@ void FUN_0048c9d0_Class::FUN_0048c9d0(FUN_0048c9d0_SaveBuffer* buffer)
                 }
                 cursor = cursor->FUN_00726070();
             }
-            buffer->FUN_00865ff0(count, value);
+            buffer->SaveVariableSizedValue(count, value);
         }
     }
 }

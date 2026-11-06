@@ -499,24 +499,24 @@ void __thiscall NiTPointerMap_Standin::ClearAndFree()
 namespace fnv_00484ce0 {
 struct TESSaveLoadGameHelper
 {
-    void FUN_008579b0(void*, int);
+    void SaveGameDataOLD(void*, int);
     void FUN_00484ce0(void* form, int flag);
 };
 
 extern TESSaveLoadGame* g_TESSaveLoadGame;
 
-// Forwards the form and flag to the save/load game's FUN_008579b0 handler.
+// Forwards the form and flag to the save/load game's SaveGameDataOLD handler.
 // @fnv 0x00484ce0
 void TESSaveLoadGameHelper::FUN_00484ce0(void* form, int flag)
 {
-    ((TESSaveLoadGameHelper*)g_TESSaveLoadGame)->FUN_008579b0(form, flag);
+    ((TESSaveLoadGameHelper*)g_TESSaveLoadGame)->SaveGameDataOLD(form, flag);
 }
 }  // namespace fnv_00484ce0
 
 namespace fnv_00484d00 {
 struct FUN_008579e0_shell
 {
-    void __thiscall FUN_008579e0(void* buffer, unsigned int size);
+    void __thiscall LoadGameDataOLD(void* buffer, unsigned int size);
 };
 
 extern TESSaveLoadGame* g_TESSaveLoadGame;
@@ -529,7 +529,7 @@ struct FUN_00484d00_shell
 // @fnv 0x00484d00
 void __thiscall FUN_00484d00_shell::FUN_00484d00(void* buffer, unsigned int size)
 {
-    reinterpret_cast<FUN_008579e0_shell*>(g_TESSaveLoadGame)->FUN_008579e0(buffer, size);
+    reinterpret_cast<FUN_008579e0_shell*>(g_TESSaveLoadGame)->LoadGameDataOLD(buffer, size);
 }
 }  // namespace fnv_00484d00
 
@@ -762,11 +762,11 @@ struct FUN_00855130_This
 };
 struct FUN_00855150_s
 {
-    void FUN_00855150(TESForm*, unsigned int);
+    void RemoveChange(TESForm*, unsigned int);
 };
 struct FUN_008579e0_shell
 {
-    void FUN_008579e0(void*, unsigned int);
+    void LoadGameDataOLD(void*, unsigned int);
 };
 struct ATM
 {
@@ -800,7 +800,7 @@ struct GridArray_s
 struct SLGStub
 {
     unsigned int ClearRefrFlag(TESForm*, unsigned int);
-    void FUN_00861ee0(unsigned char);
+    void SetCurrentVersion(unsigned char);
     void LoadChange(TESForm*, unsigned int);
     void FUN_00858700(void*);
 };
@@ -901,7 +901,7 @@ bool FUN_00858730_shell::FUN_00858730(TESForm* apForm)
 
             g_011de494.QueryPerformanceCounter((int)"TESSaveLoadGame::LoadForm");
             *(void**)((char*)this + 0x14) = ptempbuffer;
-            ((FUN_008579e0_shell*)g_TESSaveLoadGame)->FUN_008579e0(&formHeader, 4);
+            ((FUN_008579e0_shell*)g_TESSaveLoadGame)->LoadGameDataOLD(&formHeader, 4);
             if (FNV_GetFormType(apForm) != formHeader.type)
             {
                 char pmessageA[260];
@@ -917,7 +917,7 @@ bool FUN_00858730_shell::FUN_00858730(TESForm* apForm)
             isize = formHeader.size;
             iflags = *(Flt*)pchange2;
             iflags = ((SLGStub*)this)->ClearRefrFlag(apForm, iflags);
-            ((SLGStub*)this)->FUN_00861ee0(formHeader.version);
+            ((SLGStub*)this)->SetCurrentVersion(formHeader.version);
             bufferHeader4.FUN_00858aa0(&formHeader, apForm->GetFormID(), iflags);
             ((EffectSetting*)this)->SetBoltSound((TESSound*)&bufferHeader4);
             brestore = ((FUN_00485d50_slg*)this)->GetLoading();
@@ -937,7 +937,7 @@ bool FUN_00858730_shell::FUN_00858730(TESForm* apForm)
             ((TESRaceForm*)pchange2)->Initialize(0);
             if (*(unsigned int*)((char*)this + 0x54))
             {
-                ((FUN_00855150_s*)changes)->FUN_00855150(apForm, *(unsigned int*)((char*)this + 0x54));
+                ((FUN_00855150_s*)changes)->RemoveChange(apForm, *(unsigned int*)((char*)this + 0x54));
                 *(unsigned int*)((char*)this + 0x54) = 0;
             }
             g_011de494.WaitForTasksDuringRendering();
@@ -1157,7 +1157,7 @@ struct FUN_008586a0_class
 };
 struct FUN_00858600_class
 {
-    void* FUN_00858600(void*);
+    void* CreateBuffer(void*);
 };
 struct FUN_00858700_class
 {
@@ -1185,7 +1185,7 @@ void FUN_00858570_class::LoadTempEffectsList(int apFile)
     {
         if (*(void**)((char*)this + 0x44))
             ((FUN_008558a0_class*)*(void**)((char*)this + 0x44))->FUN_008558a0(ptempBuffer, "Temp Effects List");
-        void* ptempBuffer2 = ((FUN_00858600_class*)this)->FUN_00858600(ptempBuffer);
+        void* ptempBuffer2 = ((FUN_00858600_class*)this)->CreateBuffer(ptempBuffer);
         ((FUN_009756c0_class*)&DAT_011e0e80)->SaveTempEffects();
         ((FUN_008586a0_class*)this)->ForwardToFUN_00857b50(apFile, ptempBuffer2, (int)ptempBuffer);
         ((FUN_00858700_class*)this)->FUN_00858700(ptempBuffer2);
@@ -1204,10 +1204,10 @@ int __cdecl FUN_007023c0();
 int __cdecl FUN_00702640();
 struct FUN_008616f0_shell
 {
-    bool __thiscall FUN_008616f0();
+    bool __thiscall GetSavingAllowed();
 };
 // @fnv 0x008616f0
-bool __thiscall FUN_008616f0_shell::FUN_008616f0()
+bool __thiscall FUN_008616f0_shell::GetSavingAllowed()
 {
     if (_g_thePlayer->FUN_004f8960() == 2 || _g_thePlayer->FUN_004f8960() == 1)
         return false;
@@ -1779,17 +1779,17 @@ class FUN_008586a0_class
 class TESSaveLoadGame
 {
   public:
-    void* FUN_00858600(unsigned int);
+    void* CreateBuffer(unsigned int);
     void FUN_00858700(void*);
-    void FUN_008579b0(void*, int);
+    void SaveGameDataOLD(void*, int);
     void FUN_00857a10(int, int);
-    void FUN_00858480(BSFile*);
+    void SaveGlobals(BSFile*);
 };
 
 extern TESDataHandler* g_dataHandler;
 
 // @fnv 0x00858480
-void TESSaveLoadGame::FUN_00858480(BSFile* apFile)
+void TESSaveLoadGame::SaveGlobals(BSFile* apFile)
 {
     GlobalListNode* pglobals4;
     unsigned short icount3;
@@ -1800,8 +1800,8 @@ void TESSaveLoadGame::FUN_00858480(BSFile* apFile)
     icount3 = static_cast<unsigned short>(pglobals4->GetSize());
     isize9 = static_cast<unsigned short>(icount3 * 8 + 2);
 
-    ptempBuffer2 = this->FUN_00858600(isize9);
-    this->FUN_008579b0(&icount3, 2);
+    ptempBuffer2 = this->CreateBuffer(isize9);
+    this->SaveGameDataOLD(&icount3, 2);
 
     while (pglobals4)
     {
@@ -1816,7 +1816,7 @@ void TESSaveLoadGame::FUN_00858480(BSFile* apFile)
                 iglobalID2 = pglobal->GetFormID();
                 fvalue6 = pglobal->GetValue();
                 this->FUN_00857a10(reinterpret_cast<int>(&iglobalID2), 4);
-                this->FUN_008579b0(&fvalue6, 4);
+                this->SaveGameDataOLD(&fvalue6, 4);
             }
         }
         pglobals4 = pglobals4->_ref_00726070();
@@ -2334,13 +2334,13 @@ class C8578b0
 class C857950
 {
   public:
-    void __thiscall FUN_00857950(int* a, int b);
+    void __thiscall DeleteSaveGame(int* a, int b);
 };
 
 void __cdecl FUN_00aff0b0(int);
 
 // @fnv 0x00857950
-void __thiscall C857950::FUN_00857950(int* pObject, int b)
+void __thiscall C857950::DeleteSaveGame(int* pObject, int b)
 {
     int* p;
     if (pObject == 0)
@@ -2551,12 +2551,12 @@ struct FUN_00861ee0_Class
     int unk7c;
     unsigned char unk80;
 
-    void __thiscall FUN_00861ee0(unsigned char value);
+    void __thiscall SetCurrentVersion(unsigned char value);
 };
 
 // If value is below 0x13, calls FUN_005b5e40 with DAT_01081cf0, value and 0x13, then stores value in unk80.
 // @fnv 0x00861ee0
-void __thiscall FUN_00861ee0_Class::FUN_00861ee0(unsigned char value)
+void __thiscall FUN_00861ee0_Class::SetCurrentVersion(unsigned char value)
 {
     if (value < 0x13)
         FUN_005b5e40(DAT_01081cf0, value, 0x13);
@@ -3898,7 +3898,7 @@ extern "C" __declspec(dllimport) int __stdcall DeleteFileA(const char*);
 struct SaveOwner
 {
     void BuildSaveFilename(char*);
-    void FUN_00857950(SaveFile*, int);
+    void DeleteSaveGame(SaveFile*, int);
     SaveFile* OpenSaveFile(SaveFile*, const char*, unsigned int);
 };
 // Builds the save file path from the name and settings, rotates .bak backups, then opens or seeks a SaveFile according to mode.
@@ -3963,7 +3963,7 @@ SaveFile* SaveOwner::OpenSaveFile(SaveFile* file, const char* name, unsigned int
             lengthX = BSStringLength(shortName);
             if (lengthX > 4 && !_strnicmp(shortName + lengthX - 4, ".ess", 4))
                 shortName[lengthX - 4] = 0;
-            FUN_00857950(file, 0);
+            DeleteSaveGame(file, 0);
             if (!_strnicmp(shortName, "Save ", 5) || FUN_004812f0(shortName, "autosave"))
                 result2 = OpenSaveFile(0, 0, 0);
             else
@@ -6034,10 +6034,10 @@ struct Texture
 Texture* FUN_00a5ff10(PixelData*, const char*, const Preferences&);
 struct Reader
 {
-    void* FUN_00858600(unsigned int);
+    void* CreateBuffer(unsigned int);
     void FUN_008586d0(File*, void*, unsigned int);
     void FUN_00858700(void*);
-    void FUN_008579e0(void*, unsigned int);
+    void LoadGameDataOLD(void*, unsigned int);
     void FUN_00857bd0(unsigned int);
     Texture* ReadTexture(File*, unsigned int, unsigned int*, char*, unsigned short*, char*, float*, Identity*,
                          unsigned int*, unsigned int*);
@@ -6048,72 +6048,72 @@ Texture* Reader::ReadTexture(File* file, unsigned int size, unsigned int* puiFla
                              unsigned short* pusLevel, char* pcLocation, float* pfGameTime, Identity* identity,
                              unsigned int* puiNumber, unsigned int* puiImageSize)
 {
-    void* buffer5 = FUN_00858600(size);
+    void* buffer5 = CreateBuffer(size);
     FUN_008586d0(file, buffer5, size);
     if (DAT_011de45c->FUN_008df040() >= 56)
     {
         unsigned int flagsValue;
-        FUN_008579e0(&flagsValue, 4);
+        LoadGameDataOLD(&flagsValue, 4);
         if (puiFlags)
             *puiFlags = flagsValue;
     }
     if (DAT_011de45c->FUN_008df040() < 56 && puiFlags)
         *puiFlags = 0;
     unsigned char length3;
-    FUN_008579e0(&length3, 1);
+    LoadGameDataOLD(&length3, 1);
     if (pcName)
-        FUN_008579e0(pcName, length3);
+        LoadGameDataOLD(pcName, length3);
     else
         FUN_00857bd0(length3);
     unsigned short levelValue6 = 0;
     if (DAT_011de45c->FUN_008df040() >= 52)
-        FUN_008579e0(&levelValue6, 2);
+        LoadGameDataOLD(&levelValue6, 2);
     if (pusLevel)
         *pusLevel = levelValue6;
-    FUN_008579e0(&length3, 1);
+    LoadGameDataOLD(&length3, 1);
     if (pcLocation)
     {
         if (length3)
-            FUN_008579e0(pcLocation, length3);
+            LoadGameDataOLD(pcLocation, length3);
         else
             FUN_00406d30(pcLocation, 300, DAT_011d4fcc.FUN_00403df0());
     }
     else if (length3)
         FUN_00857bd0(length3);
     float time;
-    FUN_008579e0(&time, 4);
+    LoadGameDataOLD(&time, 4);
     if (pfGameTime)
         *pfGameTime = time;
     unsigned int count3 = 0;
     if (DAT_011de45c->FUN_008df040() >= 29)
-        FUN_008579e0(&count3, 4);
+        LoadGameDataOLD(&count3, 4);
     if (puiNumber)
         *puiNumber = count3;
     Identity id8;
     FUN_00403d30(&id8, 0, 16);
     if (DAT_011de45c->FUN_008df040() >= 56)
-        FUN_008579e0(&id8, 16);
+        LoadGameDataOLD(&id8, 16);
     if (DAT_011de45c->FUN_008df040() < 56)
         id8 = file->GetLastWriteTime();
     if (identity)
         *identity = id8;
     Texture* texture4 = 0;
     unsigned int dataSize;
-    FUN_008579e0(&dataSize, 4);
+    LoadGameDataOLD(&dataSize, 4);
     if (dataSize)
     {
         if (puiImageSize)
         {
             unsigned int width;
-            FUN_008579e0(&width, 4);
+            LoadGameDataOLD(&width, 4);
             unsigned int height8;
-            FUN_008579e0(&height8, 4);
+            LoadGameDataOLD(&height8, 4);
             *puiImageSize = height8;
             if (DAT_011de45c->FUN_008df040() < 46)
                 FUN_00857bd0(36);
             PixelFormat format = DAT_011aa2e8;
             PixelData* pixels3 = new PixelData(width, width, format, 1, 1);
-            FUN_008579e0(pixels3->FUN_0064dac0(0, 0), width * height8 * 3);
+            LoadGameDataOLD(pixels3->FUN_0064dac0(0, 0), width * height8 * 3);
             Preferences preferences;
             preferences.format = 2;
             preferences.alpha = 0;
@@ -6940,7 +6940,7 @@ struct Ref624
 struct Repair624
 {
     bool HasInvalidComponents(B006815c0*);
-    void FUN_008624e0(Ref624* reference);
+    void SafetyCheckReferencePositionAndAngle(Ref624* reference);
 };
 void __cdecl FUN_00573800(Ref624*, void*, void*);
 void __cdecl FNV_Warning(const char*, ...);
@@ -6949,7 +6949,7 @@ extern const char DAT_01081d98[];
 extern int DAT_01183fd0;
 extern B006815c0 DAT_011f426c;
 // @fnv 0x008624e0
-void Repair624::FUN_008624e0(Ref624* reference)
+void Repair624::SafetyCheckReferencePositionAndAngle(Ref624* reference)
 {
     if (reference)
     {
@@ -7038,7 +7038,7 @@ struct ExpiredChangesMap
     void* FUN_004b9ba0();
     void FUN_006b7f20(void*&, unsigned int&, ExpiredChangeData*&);
     bool FUN_00855220(unsigned int, bool);
-    void FUN_00855150(void*, unsigned int);
+    void RemoveChange(void*, unsigned int);
 };
 struct ExpiredCellMap
 {
@@ -7152,12 +7152,12 @@ struct ExpiredSaveLoadGame
     void* currentBuffer;
     bool FUN_008a81c0();
     void FUN_008a8150(bool);
-    void FUN_008579e0(void*, unsigned int);
-    void FUN_008579b0(void*, unsigned int);
+    void LoadGameDataOLD(void*, unsigned int);
+    void SaveGameDataOLD(void*, unsigned int);
     unsigned int FUN_00861cd0(unsigned short);
     unsigned int FUN_00861c00(unsigned int);
-    void* FUN_00858600(unsigned int);
-    void FUN_00857d10(ExpiredReference*, bool);
+    void* CreateBuffer(unsigned int);
+    void ResetReferencePosition(ExpiredReference*, bool);
     void PurgeExpiredCellChanges();
 };
 // Disables save loading, collects expired cell change records into a map, removes matching change entries, frees the map, and restores the previous enabled state.
@@ -7185,13 +7185,13 @@ void ExpiredSaveLoadGame::PurgeExpiredCellChanges()
             {
                 currentBuffer = i->FUN_00726070();
                 ExpiredSaveHeader header;
-                ((ExpiredSaveLoadGame*)g_TESSaveLoadGame)->FUN_008579e0(&header, 4);
+                ((ExpiredSaveLoadGame*)g_TESSaveLoadGame)->LoadGameDataOLD(&header, 4);
                 if (header.type == 0x39 && header.version >= 0x5b)
                 {
                     if (j & 0)
                     {
                         ExpiredCellSmall cell;
-                        ((ExpiredSaveLoadGame*)g_TESSaveLoadGame)->FUN_008579e0(&cell, 4);
+                        ((ExpiredSaveLoadGame*)g_TESSaveLoadGame)->LoadGameDataOLD(&cell, 4);
                         e = FUN_00861cd0(cell.world);
                         p.x = cell.x;
                         p.y = cell.y;
@@ -7199,12 +7199,12 @@ void ExpiredSaveLoadGame::PurgeExpiredCellChanges()
                     else if (j & 0)
                     {
                         ExpiredCellLarge cell;
-                        ((ExpiredSaveLoadGame*)g_TESSaveLoadGame)->FUN_008579e0(&cell, 6);
+                        ((ExpiredSaveLoadGame*)g_TESSaveLoadGame)->LoadGameDataOLD(&cell, 6);
                         e = FUN_00861cd0(cell.world);
                         p.x = cell.x;
                         p.y = cell.y;
                     }
-                    FUN_008579e0(&resetTime, 4);
+                    LoadGameDataOLD(&resetTime, 4);
                 }
                 currentBuffer = 0;
             }
@@ -7262,7 +7262,7 @@ void ExpiredSaveLoadGame::PurgeExpiredCellChanges()
         if (s->FUN_00726070())
         {
             currentBuffer = s->FUN_00726070();
-            ((ExpiredSaveLoadGame*)g_TESSaveLoadGame)->FUN_008579e0(&p, 4);
+            ((ExpiredSaveLoadGame*)g_TESSaveLoadGame)->LoadGameDataOLD(&p, 4);
             eb = p.type;
             if (eb == 0x3a || eb == 0x3b || eb == 0x3c || eb == 0x3d || eb == 0x3e || eb == 0x3f || eb == 0x69 ||
                 eb == 0x40)
@@ -7270,7 +7270,7 @@ void ExpiredSaveLoadGame::PurgeExpiredCellChanges()
                 if (cf & 0)
                 {
                     ExpiredMoveWithFlags move;
-                    ((ExpiredSaveLoadGame*)g_TESSaveLoadGame)->FUN_008579e0(&move, 0x24);
+                    ((ExpiredSaveLoadGame*)g_TESSaveLoadGame)->LoadGameDataOLD(&move, 0x24);
                     a = move.parent;
                     q = (int)move.x >> 12;
                     i = (int)move.y >> 12;
@@ -7280,7 +7280,7 @@ void ExpiredSaveLoadGame::PurgeExpiredCellChanges()
                     if (cf & 0)
                     {
                         ExpiredMoveWithExtra move;
-                        ((ExpiredSaveLoadGame*)g_TESSaveLoadGame)->FUN_008579e0(&move, 0x2c);
+                        ((ExpiredSaveLoadGame*)g_TESSaveLoadGame)->LoadGameDataOLD(&move, 0x2c);
                         a = move.parent;
                         q = (int)move.x >> 12;
                         i = (int)move.y >> 12;
@@ -7288,7 +7288,7 @@ void ExpiredSaveLoadGame::PurgeExpiredCellChanges()
                     else
                     {
                         ExpiredMove move;
-                        ((ExpiredSaveLoadGame*)g_TESSaveLoadGame)->FUN_008579e0(&move, 0x1c);
+                        ((ExpiredSaveLoadGame*)g_TESSaveLoadGame)->LoadGameDataOLD(&move, 0x1c);
                         a = move.parent;
                         q = (int)move.x >> 12;
                         i = (int)move.y >> 12;
@@ -7379,14 +7379,14 @@ void ExpiredSaveLoadGame::PurgeExpiredCellChanges()
                                 unsigned int ba = p.size;
                                 if (cf & 0)
                                     p.size += 4;
-                                void* k = FUN_00858600(p.size + 4);
-                                ((ExpiredSaveLoadGame*)g_TESSaveLoadGame)->FUN_008579b0(&p, 4);
+                                void* k = CreateBuffer(p.size + 4);
+                                ((ExpiredSaveLoadGame*)g_TESSaveLoadGame)->SaveGameDataOLD(&p, 4);
                                 if (cf & 0)
                                 {
                                     unsigned int storedWorld = a;
-                                    ((ExpiredSaveLoadGame*)g_TESSaveLoadGame)->FUN_008579b0(&storedWorld, 4);
+                                    ((ExpiredSaveLoadGame*)g_TESSaveLoadGame)->SaveGameDataOLD(&storedWorld, 4);
                                 }
-                                FUN_008579b0(b + l + 4, ba);
+                                SaveGameDataOLD(b + l + 4, ba);
                                 _Deallocate(b);
                                 s->FUN_006ecd40(k);
                                 s->FUN_00537e90(cf);
@@ -7394,11 +7394,11 @@ void ExpiredSaveLoadGame::PurgeExpiredCellChanges()
                             }
                             else if (h)
                             {
-                                changes->FUN_00855150(h, 4);
+                                changes->RemoveChange(h, 4);
                             }
                         }
                         if (h)
-                            FUN_00857d10(h, false);
+                            ResetReferencePosition(h, false);
                     }
                     if ((eb == 0x3b || eb == 0x3c) && ::g_dataHandler->FormIDExists(f))
                     {
@@ -7844,7 +7844,7 @@ struct Chg00855220
 struct FUN_00855150_cls
 {
     void RemoveKey(unsigned int id);
-    bool FUN_00855150(TESForm* form, unsigned int flags);
+    bool RemoveChange(TESForm* form, unsigned int flags);
 };
 
 struct GlobalObj0047c850
@@ -7865,7 +7865,7 @@ struct FormCalls00855150
 };
 
 // @fnv 0x00855150
-bool FUN_00855150_cls::FUN_00855150(TESForm* form, unsigned int flags)
+bool FUN_00855150_cls::RemoveChange(TESForm* form, unsigned int flags)
 {
     if (DAT_011de45c->FUN_0047c850())
     {
@@ -7943,10 +7943,10 @@ class SelfX
     char pad2[0x44 - 0x2c - 1];
     ChangesX* m44;
     void FUN_00857b50(BufX* pBuf, void* p, unsigned int n);
-    void FUN_00861820(BufX* pBuf);
+    void SaveCreatedBaseObjects(BufX* pBuf);
 };
 // @fnv 0x00861820
-void SelfX::FUN_00861820(BufX* pBuf)
+void SelfX::SaveCreatedBaseObjects(BufX* pBuf)
 {
     unsigned int uiCount_ggbd = 0;
     NodeX* pkNode_dhyats = &m2c;
@@ -8166,17 +8166,17 @@ struct Host58030
     char unk00[0x44];
     Field58030* f44;
     void __thiscall FUN_00857b50(int a, void* p, int n);
-    void __thiscall FUN_00858480(int a);
-    int __thiscall FUN_00858600(int id);
+    void __thiscall SaveGlobals(int a);
+    int __thiscall CreateBuffer(int id);
     void __thiscall ForwardToFUN_00857b50(int a, int x, int id);
     void __thiscall FUN_00858700(int x);
-    void __thiscall FUN_00861820(int a);
-    void __thiscall FUN_00858030(int aParam);
+    void __thiscall SaveCreatedBaseObjects(int a);
+    void __thiscall SaveGlobalData(int aParam);
 };
 
 // Writes save data for the player, world, process lists, sky, HUD, interface, and regions into the save stream.
 // @fnv 0x00858030
-void __thiscall Host58030::FUN_00858030(int aParam)
+void __thiscall Host58030::SaveGlobalData(int aParam)
 {
     int v48;
 
@@ -8217,7 +8217,7 @@ void __thiscall Host58030::FUN_00858030(int aParam)
     vec = *DAT_011dea3c->FUN_00436aa0();
     FUN_00857b50(aParam, &v14, 4);
     FUN_00857b50(aParam, &vec, 12);
-    FUN_00858480(aParam);
+    SaveGlobals(aParam);
 
     w4 = DAT_011dea10->FUN_00459100();
     FUN_00857b50(aParam, &w4, 2);
@@ -8225,7 +8225,7 @@ void __thiscall Host58030::FUN_00858030(int aParam)
     {
         if (f44 != 0)
             f44->FUN_008558a0(w4, "TES Class");
-        v34 = FUN_00858600(w4);
+        v34 = CreateBuffer(w4);
         DAT_011dea10->WriteSaveBlock();
         ForwardToFUN_00857b50(aParam, v34, w4);
         FUN_00858700(v34);
@@ -8237,7 +8237,7 @@ void __thiscall Host58030::FUN_00858030(int aParam)
     {
         if (f44 != 0)
             f44->FUN_008558a0(w4, "Process Lists Class");
-        v38 = FUN_00858600(w4);
+        v38 = CreateBuffer(w4);
         DAT_011e0e80.FUN_009754f0();
         ForwardToFUN_00857b50(aParam, v38, w4);
         FUN_00858700(v38);
@@ -8249,7 +8249,7 @@ void __thiscall Host58030::FUN_00858030(int aParam)
     {
         if (f44 != 0)
             f44->FUN_008558a0(w4, "Sky/Weather");
-        v3c4 = FUN_00858600(w4);
+        v3c4 = CreateBuffer(w4);
         FUN_0046dd00()->FUN_0063e9f0();
         ForwardToFUN_00857b50(aParam, v3c4, w4);
         FUN_00858700(v3c4);
@@ -8257,14 +8257,14 @@ void __thiscall Host58030::FUN_00858030(int aParam)
 
     v182 = 0;
     FUN_00857b50(aParam, &v182, 4);
-    FUN_00861820(aParam);
+    SaveCreatedBaseObjects(aParam);
     w4 = 0;
     FUN_00857b50(aParam, &w4, 2);
     if (w4 != 0)
     {
         if (f44 != 0)
             f44->FUN_008558a0(w4, "HUD Reticle");
-        v405 = FUN_00858600(w4);
+        v405 = CreateBuffer(w4);
         ForwardToFUN_00857b50(aParam, v405, w4);
         FUN_00858700(v405);
     }
@@ -8275,7 +8275,7 @@ void __thiscall Host58030::FUN_00858030(int aParam)
     {
         if (f44 != 0)
             f44->FUN_008558a0(w4, "Interface");
-        v444 = FUN_00858600(w4);
+        v444 = CreateBuffer(w4);
         SaveMenuTabStates();
         ForwardToFUN_00857b50(aParam, v444, w4);
         FUN_00858700(v444);
@@ -8287,7 +8287,7 @@ void __thiscall Host58030::FUN_00858030(int aParam)
     {
         if (f44 != 0)
             f44->FUN_008558a0(w4, "Regions");
-        v48 = FUN_00858600(w4);
+        v48 = CreateBuffer(w4);
         FUN_004f1300();
         ForwardToFUN_00857b50(aParam, v48, w4);
         FUN_00858700(v48);
@@ -8318,12 +8318,12 @@ struct SaveMemory
     int unk0c;
     int unk10;
     void* buffer;
-    void* FUN_00858600(unsigned int);
+    void* CreateBuffer(unsigned int);
 };
 
 // Allocates size bytes with operator new and calls FUN_0040fbe0 if the returned pointer is null.
 // @fnv 0x00858600
-void* SaveMemory::FUN_00858600(unsigned int size)
+void* SaveMemory::CreateBuffer(unsigned int size)
 {
     AutoMemContext context(MC_11, true, DAT_010804c8, 0x103a);
     buffer = operator new(size);
@@ -8658,7 +8658,7 @@ struct InventoryMenuSetting
 };
 extern InventoryMenuSetting g_011d34f8;
 extern InventoryMenuSetting g_011d3684;
-char __cdecl FUN_00704010(const char*, int, int, const char*, const char*, int);
+char __cdecl CreateModalMessageMenu(const char*, int, int, const char*, const char*, int);
 struct SaveHeaderReader
 {
     unsigned int unknown00;
@@ -8757,7 +8757,7 @@ unsigned int SaveHeaderReader::FUN_00860e20(NiBinaryStream* stream, bool loadIde
             char messageBuffer[520];
             (sprintf)(messageBuffer, DAT_01081b50, majorVersion, minorVersion, 0, 125);
             reinterpret_cast<SaveLoadManager*>(::g_TESSaveLoadGame)->FUN_004534f0(1);
-            char response = FUN_00704010(messageBuffer, 1, 5, g_011d34f8.FUN_00403df0(), g_011d3684.FUN_00403df0(), 0);
+            char response = CreateModalMessageMenu(messageBuffer, 1, 5, g_011d34f8.FUN_00403df0(), g_011d3684.FUN_00403df0(), 0);
             reinterpret_cast<SaveLoadManager*>(::g_TESSaveLoadGame)->FUN_004534f0(0);
             if (response == 2)
                 result = -1;
@@ -8796,7 +8796,7 @@ bool __cdecl QueueUIMessage(const char*, int, const char*, const char*, float, b
 
 struct FUN_008579e0_shell
 {
-    void FUN_008579e0(void*, unsigned int);
+    void LoadGameDataOLD(void*, unsigned int);
 };
 
 struct TESSound;
@@ -8924,12 +8924,12 @@ struct Cls56
     int m_3c;
     int m_40;
     Obj44* m_44;
-    bool FUN_008616f0();
-    void FUN_00858030(FormObj*);
+    bool GetSavingAllowed();
+    void SaveGlobalData(FormObj*);
     void FUN_00862150(FormObj*);
     unsigned short FUN_0085a450(Obj56*, int);
     void FUN_0085a520(Obj56*, int);
-    void* FUN_00858600(int);
+    void* CreateBuffer(int);
     void FUN_00858700(void*);
     bool FUN_00856ca0(int, int, unsigned char);
 };
@@ -8946,7 +8946,7 @@ bool Cls56::FUN_00856ca0(int aiFileHandle, int apSavePath, unsigned char p2)
     int recs;
     int rTmp;
 
-    if (!((FUN_00485d50_slg*)this)->GetLoading() && !FUN_008616f0())
+    if (!((FUN_00485d50_slg*)this)->GetLoading() && !GetSavingAllowed())
     {
         if (apSavePath == 0 || FUN_00408b20((const char*)apSavePath, DAT_0107fae0) != 0)
         {
@@ -8977,7 +8977,7 @@ bool Cls56::FUN_00856ca0(int aiFileHandle, int apSavePath, unsigned char p2)
     rTmp = 0;
     ((::FUN_008586a0_class*)this)->FUN_00857b50((int)pForm, (int)&rTmp, 4);
     ((::FUN_008586a0_class*)this)->FUN_00857b50((int)pForm, (int)&rTmp, 4);
-    FUN_00858030(pForm);
+    SaveGlobalData(pForm);
     recs = 0;
     mapPos = m_00->FUN_004b9ba0();
     while (mapPos)
@@ -8996,7 +8996,7 @@ bool Cls56::FUN_00856ca0(int aiFileHandle, int apSavePath, unsigned char p2)
             if (m_14)
             {
                 WordBuf wordBuf;
-                ((FUN_008579e0_shell*)g_TESSaveLoadGame)->FUN_008579e0(&wordBuf, 4);
+                ((FUN_008579e0_shell*)g_TESSaveLoadGame)->LoadGameDataOLD(&wordBuf, 4);
                 recData.b = wordBuf.b2;
                 recData.d = wordBuf.b3;
                 ((::FUN_008586a0_class*)g_TESSaveLoadGame)->FUN_00857b50((int)pForm, (int)&recData, 10);
@@ -9028,7 +9028,7 @@ bool Cls56::FUN_00856ca0(int aiFileHandle, int apSavePath, unsigned char p2)
                     ((::FUN_008586a0_class*)this)->FUN_00857b50((int)pForm, (int)&soundVal, 2);
                     if (soundVal)
                     {
-                        void* tempObj = FUN_00858600(soundVal);
+                        void* tempObj = CreateBuffer(soundVal);
                         FUN_0085a520(obj, *(int*)&recData.c0);
                         obj->Vw(*(int*)&recData.c0);
                         ((::FUN_008586a0_class*)this)->ForwardToFUN_00857b50((int)pForm, (int)tempObj, soundVal);
@@ -9334,7 +9334,7 @@ struct LargeCellRecord85A520
 };
 struct SaveStream85A520
 {
-    void FUN_008579b0(void*, int);
+    void SaveGameDataOLD(void*, int);
 };
 extern "C" void* _FNV_DynamicCast(void*, int, void*, void*, int);
 extern int DAT_01183028;
@@ -9375,7 +9375,7 @@ void SaveHandler85A520::FUN_0085a520(SaveForm85A520* form, unsigned int flags)
                 small.id = FUN_00861c60(cell->FUN_0054ddd0()->FUN_0084e3a0());
                 small.x = (unsigned char)cell->FUN_00544c30();
                 small.y = (unsigned char)cell->FUN_00544c60();
-                ((SaveStream85A520*)::DAT_011de45c)->FUN_008579b0(&small, 4);
+                ((SaveStream85A520*)::DAT_011de45c)->SaveGameDataOLD(&small, 4);
             }
             else if (flags & 0)
             {
@@ -9383,7 +9383,7 @@ void SaveHandler85A520::FUN_0085a520(SaveForm85A520* form, unsigned int flags)
                 large.id = FUN_00861c60(cell->FUN_0054ddd0()->FUN_0084e3a0());
                 large.x = cell->FUN_00544c30();
                 large.y = cell->FUN_00544c60();
-                ((SaveStream85A520*)::DAT_011de45c)->FUN_008579b0(&large, 6);
+                ((SaveStream85A520*)::DAT_011de45c)->SaveGameDataOLD(&large, 6);
             }
         }
         return;
@@ -9443,7 +9443,7 @@ void SaveHandler85A520::FUN_0085a520(SaveForm85A520* form, unsigned int flags)
             world.type = 2;
             world.base = FindOrAddValue(pRef->FUN_00586150()->FUN_00825c00()->FUN_004086a0());
         }
-        ((SaveStream85A520*)::DAT_011de45c)->FUN_008579b0(&world, 36);
+        ((SaveStream85A520*)::DAT_011de45c)->SaveGameDataOLD(&world, 36);
     }
     else if (flags & 6)
     {
@@ -9480,10 +9480,10 @@ void SaveHandler85A520::FUN_0085a520(SaveForm85A520* form, unsigned int flags)
                 }
             }
             cellA.savedLocation = savedLocation;
-            ((SaveStream85A520*)::DAT_011de45c)->FUN_008579b0(&cellA, 44);
+            ((SaveStream85A520*)::DAT_011de45c)->SaveGameDataOLD(&cellA, 44);
         }
         else
-            ((SaveStream85A520*)::DAT_011de45c)->FUN_008579b0(&savedLocation, 28);
+            ((SaveStream85A520*)::DAT_011de45c)->SaveGameDataOLD(&savedLocation, 28);
     }
     else if (flags & 0)
     {
@@ -9496,7 +9496,7 @@ void SaveHandler85A520::FUN_0085a520(SaveForm85A520* form, unsigned int flags)
             id = FindOrAddValue(world->FUN_0084e3a0());
         else
             SaveWarning85A520::FUN_005b5e40(DAT_010809e8, parent->GetName(), parent->FUN_0084e3a0());
-        ((SaveStream85A520*)::DAT_011de45c)->FUN_008579b0(&id, 4);
+        ((SaveStream85A520*)::DAT_011de45c)->SaveGameDataOLD(&id, 4);
     }
 }
 
@@ -10460,11 +10460,11 @@ struct Record77
 struct Save77
 {
     void FUN_0085a2e0(TESForm*);
-    TESForm* FUN_00859a90(unsigned int, Record77*);
+    TESForm* CreateReference(unsigned int, Record77*);
 };
 // Looks up or creates a TESForm from the record and initializes it according to its type.
 // @fnv 0x00859a90
-TESForm* Save77::FUN_00859a90(unsigned int id, Record77* record)
+TESForm* Save77::CreateReference(unsigned int id, Record77* record)
 {
     AutoMemContext scope6(static_cast<MEM_CONTEXT>(49), true, DAT_010804c8, 0x133b);
     TESForm* pForm = (TESForm*)::FUN_004839c0(id);

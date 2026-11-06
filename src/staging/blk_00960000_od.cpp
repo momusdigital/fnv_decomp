@@ -1188,14 +1188,14 @@ struct LogDate
 };
 
 int __cdecl FUN_00570f60();
-void __cdecl FUN_008ce180(unsigned int flags, int limit, TES* object, int, int);
+void __cdecl DeleteAttachedArrows(unsigned int flags, int limit, TES* object, int, int);
 
 struct FUN_00962590_Class : public TES
 {
     void FUN_00962590();
 };
 
-// If FUN_00570f60() returns a positive value, gets the log date, reads its ArrSI flags, and calls FUN_008ce180 with those flags when nonzero.
+// If FUN_00570f60() returns a positive value, gets the log date, reads its ArrSI flags, and calls DeleteAttachedArrows with those flags when nonzero.
 // @fnv 0x00962590
 void FUN_00962590_Class::FUN_00962590()
 {
@@ -1217,7 +1217,7 @@ void FUN_00962590_Class::FUN_00962590()
                 if (flags != 0)
                 {
                     if (limit != 0)
-                        FUN_008ce180(flags, limit, this, 1, 1);
+                        DeleteAttachedArrows(flags, limit, this, 1, 1);
                 }
             }
         }
@@ -2824,7 +2824,7 @@ struct PKRef
     virtual void v1F0();
     virtual PKPoint3* GetPos();
 
-    PKHighProcess* FUN_009306d0();
+    PKHighProcess* GetCharController();
     bool FUN_00962950(void* apRoot);
 };
 
@@ -2882,7 +2882,7 @@ bool PKRef::FUN_00962950(void* apRoot)
     g_pPKPick->ClearResults(0);
     if (bBlocked)
         return true;
-    return FUN_009306d0()->FUN_00c6fa20();
+    return GetCharController()->FUN_00c6fa20();
 }
 
 template <class Collection> class SettingT
@@ -4684,8 +4684,8 @@ void ActorUpdateManager::UpdateActors()
 struct LoadBuffer
 {
     virtual unsigned char GetVersion();
-    void FUN_00864980(void*, unsigned int);
-    unsigned int FUN_00864a60();
+    void LoadData(void*, unsigned int);
+    unsigned int LoadVariableSizedValue();
 };
 struct LoadedEntry
 {
@@ -5259,14 +5259,14 @@ struct FUN_00975930_shell
 // @fnv 0x00975930
 void FUN_00975930_shell::FUN_00975930(LoadBuffer* buffer)
 {
-    buffer->FUN_00864980(&unk00154, 4);
+    buffer->LoadData(&unk00154, 4);
     if (buffer->GetVersion() >= 18)
-        buffer->FUN_00864980(&unk00158, 4);
-    buffer->FUN_00864980(&unk103B4, 4);
-    buffer->FUN_00864980(&unk103B8, 4);
+        buffer->LoadData(&unk00158, 4);
+    buffer->LoadData(&unk103B4, 4);
+    buffer->LoadData(&unk103B8, 4);
     for (unsigned int i = 0; i < 5; ++i)
     {
-        unsigned int count = buffer->FUN_00864a60();
+        unsigned int count = buffer->LoadVariableSizedValue();
         if (count)
         {
             if (lists[i])
@@ -6557,7 +6557,7 @@ struct CombatActor
     CombatActorVtable* vtable;
     unsigned char FUN_00566950();
     unsigned char IsHostileTo(void* target, int mode, int* result, unsigned char check);
-    unsigned char FUN_008bffc0();
+    unsigned char IsAngryWithPlayer();
     CombatActor* FUN_0044ddc0();
     void* FUN_009344a0();
     int FUN_008f25e0(int);
@@ -7905,7 +7905,7 @@ int CombatController::FUN_00967da0()
         for (unsigned int index = 0; index < a->FUN_005a4320(); index++)
         {
             CombatActor* old = a->FUN_00968630(index);
-            if (old && old->FUN_00566950() && !old->FUN_008bffc0())
+            if (old && old->FUN_00566950() && !old->IsAngryWithPlayer())
             {
                 a->RemoveByTarget(old);
                 index--;
@@ -8544,7 +8544,7 @@ struct WTHighProcess
 
 struct WTPlayer
 {
-    WTController* FUN_009306d0();
+    WTController* GetCharController();
     WTHighProcess* GetProcessData();
     bool FUN_00575d10();
     unsigned char GetByteAt66E();
@@ -8552,7 +8552,7 @@ struct WTPlayer
 
 struct WTPlayerBounds
 {
-    bool FUN_00822e00();
+    bool HasDamageHealthEffect();
 };
 
 struct WTProcessLists
@@ -8858,7 +8858,7 @@ struct WTActor
     virtual bool v448();
     bool HasActorsByPackage();
     WTCell* GetParentCellData();
-    bool FUN_00885520(WTWorld* apWorld, WTCell* apCell, float afRadius);
+    bool IsPointDeepUnderWater(WTWorld* apWorld, WTCell* apCell, float afRadius);
     WTProcess* GetCurrentProcess();
     void FUN_00969fa0();
 };
@@ -8877,7 +8877,7 @@ void WTActor::FUN_00969fa0()
         QueueUIMessage(g_kWTMsgUnk28b0.String(), 0, "Interface\\Icons\\Message Icons\\glow_message_vaultboy_sad.dds", 0,
                        g_fWTMessageTime, false);
     }
-    else if (FUN_00885520(GetWorld(), GetParentCellData(), g_fWTEnemyRadiusMult))
+    else if (IsPointDeepUnderWater(GetWorld(), GetParentCellData(), g_fWTEnemyRadiusMult))
     {
         QueueUIMessage(g_kWTMsgEnemies.String(), 0, "Interface\\Icons\\Message Icons\\glow_message_vaultboy_sad.dds", 0,
                        g_fWTMessageTime, false);
@@ -8887,7 +8887,7 @@ void WTActor::FUN_00969fa0()
         QueueUIMessage(g_kWTMsgUnk2e50.String(), 0, "Interface\\Icons\\Message Icons\\glow_message_vaultboy_sad.dds", 0,
                        g_fWTMessageTime, false);
     }
-    else if (g_pWTPlayer->FUN_009306d0()->FUN_005c0880() == 1 || g_pWTPlayer->FUN_009306d0()->FUN_005c0880() == 2)
+    else if (g_pWTPlayer->GetCharController()->FUN_005c0880() == 1 || g_pWTPlayer->GetCharController()->FUN_005c0880() == 2)
     {
         QueueUIMessage(g_kWTMsgFalling.String(), 0, "Interface\\Icons\\Message Icons\\glow_message_vaultboy_sad.dds", 0,
                        g_fWTMessageTime, false);
@@ -8907,7 +8907,7 @@ void WTActor::FUN_00969fa0()
         QueueUIMessage(g_kWTMsgUnk4b10.String(), 0, "Interface\\Icons\\Message Icons\\glow_message_vaultboy_sad.dds", 0,
                        g_fWTMessageTime, false);
     }
-    else if (((WTPlayerBounds*)((char*)g_pWTPlayer + 0x94))->FUN_00822e00())
+    else if (((WTPlayerBounds*)((char*)g_pWTPlayer + 0x94))->HasDamageHealthEffect())
     {
         QueueUIMessage(g_kWTMsgUnk47d4.String(), 0, "Interface\\Icons\\Message Icons\\glow_message_vaultboy_sad.dds", 0,
                        g_fWTMessageTime, false);

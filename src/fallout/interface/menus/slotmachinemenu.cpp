@@ -74,10 +74,10 @@ struct FUN_007c5760_shell
 {
     int pad[0x3a];
     int m_aiValues[3];
-    int FUN_007c5760();
+    int InterpretSpin();
 };
 // @fnv 0x007c5760
-int FUN_007c5760_shell::FUN_007c5760()
+int FUN_007c5760_shell::InterpretSpin()
 {
     int wildcount = 0;
     for (int i = 0; i < 3; i++)
@@ -618,14 +618,14 @@ struct FUN_007c56e0_shell
     int savedResults[3];
     int currentResults[3];
 
-    int FUN_007c5760();
-    void FUN_007c56e0();
+    int InterpretSpin();
+    void SpinReels();
 };
 
 int __cdecl FUN_00944460(int, int);
 
 // @fnv 0x007c56e0
-void FUN_007c56e0_shell::FUN_007c56e0()
+void FUN_007c56e0_shell::SpinReels()
 {
     for (int i = 0; i < 3; ++i)
     {
@@ -633,7 +633,7 @@ void FUN_007c56e0_shell::FUN_007c56e0()
         currentResults[i] = sourceValues[FUN_00944460(0, valueCount * 2 - 1)];
     }
 
-    FUN_007c5760();
+    InterpretSpin();
 }
 
 struct PlayerCharacter
@@ -982,7 +982,7 @@ struct Casino
     StringField name;
     void* FUN_0084e3a0();
     CasinoData* FUN_00504e60();
-    void* FUN_007316d0();
+    void* GetChipType();
 };
 struct Player
 {
@@ -1235,7 +1235,7 @@ GameTile* __cdecl FUN_007c0a40(char* casino, int wager, int mode, int threshold)
         BSAudio::GetSingleton()->GetSoundHandleByEditorID(DAT_01025cc4, 0x121).Play(false);
         return 0;
     }
-    if (DAT_011dea3c->FUN_00575610(((Casino*)DAT_011da9ac)->FUN_007316d0()) < DAT_011a082c)
+    if (DAT_011dea3c->FUN_00575610(((Casino*)DAT_011da9ac)->GetChipType()) < DAT_011a082c)
     {
         char message[260];
         _sprintf_s(message, 260, DAT_011d2424.FUN_00403df0());
@@ -1274,7 +1274,7 @@ GameTile* __cdecl FUN_007c0a40(char* casino, int wager, int mode, int threshold)
         DAT_011da9a4->tilea4->FUN_00a01350(DAT_011da99c, DAT_011d3300.FUN_00403df0(), true);
         DAT_011da9a4->tilea4->SetTraitAndReset(DAT_011da998, 1.0f);
         DAT_011da9a4->tilea4->FUN_00700320(DAT_011da998,
-                                           DAT_011dea3c->FUN_00575610(((Casino*)DAT_011da9ac)->FUN_007316d0()));
+                                           DAT_011dea3c->FUN_00575610(((Casino*)DAT_011da9ac)->GetChipType()));
         char label[64];
         if (FUN_0044a670(((Casino*)DAT_011da9ac)->name.FUN_00408da0()))
             _sprintf_s(label, 64, DAT_01012058, ((Casino*)DAT_011da9ac)->name.FUN_00408da0(),
@@ -2935,8 +2935,8 @@ struct SlotReelLogic
     int unkE4;
     int reels[3];  // 0xe8
 
-    int FUN_007c56e0();
-    int FUN_007c5760();
+    int SpinReels();
+    int InterpretSpin();
     bool AdjustReels(int a);
 };
 int __cdecl FUN_00944460(int, int);
@@ -2955,10 +2955,10 @@ bool SlotReelLogic::AdjustReels(int a)
             switch (a)
             {
             case 0:
-                while (FUN_007c56e0() < a)
+                while (SpinReels() < a)
                 {
                 }
-                return AdjustReels(FUN_007c5760());
+                return AdjustReels(InterpretSpin());
                 break;
             case 2:
                 if (reels[0] == 12)
@@ -2976,7 +2976,7 @@ bool SlotReelLogic::AdjustReels(int a)
                     reels[0] = values[FUN_00944460(0, iValueCount) * 2];
                     reels[1] = values[FUN_00944460(0, iValueCount) * 2];
                 }
-                if (FUN_007c5760() > a)
+                if (InterpretSpin() > a)
                 {
                     return true;
                 }
@@ -3167,9 +3167,9 @@ struct SlotsMenu
     int unkf4;
     int unkf8;
     int soundIndex;
-    int FUN_007c56e0();
+    int SpinReels();
     bool AdjustReels(int);
-    int FUN_007c5760();
+    int InterpretSpin();
     void FUN_007c2460(int, void*);
 };
 extern int DAT_011a0828, DAT_011a082c, DAT_011da998;
@@ -3193,9 +3193,9 @@ void SlotsMenu::FUN_007c2460(int action, void* target)
             if (funds < bet)
                 break;
             soundIndex = 1;
-            result = FUN_007c56e0();
+            result = SpinReels();
             won = AdjustReels(result);
-            result = FUN_007c5760();
+            result = InterpretSpin();
             state = 1;
             FUN_004d5c60(42);
             break;

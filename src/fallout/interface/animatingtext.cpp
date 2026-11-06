@@ -96,7 +96,7 @@ void TwTypewriter::FUN_006ffea0()
     }
 }
 
-// FUN_00700110: thiscall, /Od /GS, guarded float-state updates on member m_0c.
+// ForceFinish: thiscall, /Od /GS, guarded float-state updates on member m_0c.
 struct ObjC
 {
     void FUN_00a0a270(float v, int flag);
@@ -127,11 +127,11 @@ struct FUN_00700110_cls
     bool FUN_007000b0();
     bool FUN_007000d0();
     int FUN_00559450();
-    void FUN_00700110();
+    void ForceFinish();
 };
 
 // @fnv 0x00700110
-void FUN_00700110_cls::FUN_00700110()
+void FUN_00700110_cls::ForceFinish()
 {
     if (FUN_007000b0())
     {

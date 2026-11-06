@@ -1657,7 +1657,7 @@ class HKMenu
     int GetScaledValue();
     void FUN_00768020();
     void FUN_0076a670(char* pcOut, const char* pcText);
-    HKTile* FUN_00767bb0(int iColumn, unsigned int uiLine);
+    HKTile* FindTile(int iColumn, unsigned int uiLine);
     void UpdateHighlight();
 };
 
@@ -1747,7 +1747,7 @@ void HKMenu::UpdateHighlight()
                 else
                 {
                     HKTile* pkLine =
-                        FUN_00767bb0(0, (unsigned int)DAT_011d95bc->m_pkTextTile->FUN_00a011b0(0x1004) + 1);
+                        FindTile(0, (unsigned int)DAT_011d95bc->m_pkTextTile->FUN_00a011b0(0x1004) + 1);
                     iX2Cur = (int)(pkLine->FUN_00a011b0(0xfa1) + 119.0);
                     iY2 = (int)pkLine->FUN_00a011b0(0xfa2);
                 }
@@ -1764,7 +1764,7 @@ void HKMenu::UpdateHighlight()
                 else
                 {
                     HKTile* pkPrevLine =
-                        FUN_00767bb0(0x10, (unsigned int)DAT_011d95bc->m_pkTextTile->FUN_00a011b0(0x1004) - 1);
+                        FindTile(0x10, (unsigned int)DAT_011d95bc->m_pkTextTile->FUN_00a011b0(0x1004) - 1);
                     iXNew = (int)(pkPrevLine->FUN_00a011b0(0xfa1) + (0x13 - k) * 0x11);
                     iY = (int)pkPrevLine->FUN_00a011b0(0xfa2);
                 }

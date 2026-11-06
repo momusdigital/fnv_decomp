@@ -145,7 +145,7 @@ struct LocationDescriptor
 
     LocationDescriptor();
     ~LocationDescriptor();
-    void FUN_0067f3c0(TESObjectREFR*);
+    void SetLocReference(TESObjectREFR*);
 };
 
 struct TESObjectREFR
@@ -545,7 +545,7 @@ void TESObjectREFR::FUN_008984c0()
     packageLocation->SetMustComplete(true);
 
     LocationDescriptor* package = new LocationDescriptor;
-    package->FUN_0067f3c0(this);
+    package->SetLocReference(this);
     packageLocation->FUN_00671d30(package);
 
     delete package;
@@ -2191,11 +2191,11 @@ struct SubActor
     bool FUN_00884ae0();
     bool FUN_0087f3b0();
     bool FUN_0087f350();
-    bool FUN_00884b50();
+    bool IsAllowedToSwim();
 };
 
 // @fnv 0x00884b50
-bool SubActor::FUN_00884b50()
+bool SubActor::IsAllowedToSwim()
 {
     if (this->unk14c)
     {
@@ -2327,11 +2327,11 @@ struct Refr
     float __thiscall FUN_008a0b10();
     float __thiscall FUN_00567400();
     unsigned int __thiscall GetVtbl20Result();
-    void __thiscall FUN_008855f0(float* a, float b, float c);
+    void __thiscall AdjustSpeedForFollowing(float* a, float b, float c);
 };
 
 // @fnv 0x008855f0
-void __thiscall Refr::FUN_008855f0(float* pfValue, float b, float c)
+void __thiscall Refr::AdjustSpeedForFollowing(float* pfValue, float b, float c)
 {
     TargetInfo* tInfoX = FUN_009344a0();
     Refr* obj3 = FUN_00881650();

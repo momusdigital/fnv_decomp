@@ -495,7 +495,7 @@ void* Fake406e40::FUN_00406e40(unsigned int flags)
     return this;
 }
 
-float __fastcall FUN_008a0c20(void*);
+float __fastcall GetMaxCarryWeight(void*);
 struct Mid93
 {
     virtual void f0();
@@ -508,11 +508,11 @@ struct Obj93
     Mid93 m;
     void __thiscall GetTwoValues(float*, float*);
 };
-// Stores FUN_008a0c20(this) into *p2 and the result of m.f2(46) into *p1.
+// Stores GetMaxCarryWeight(this) into *p2 and the result of m.f2(46) into *p1.
 // @fnv 0x0093abe0
 void __thiscall Obj93::GetTwoValues(float* pfValue, float* pfResult)
 {
-    *pfResult = FUN_008a0c20(this);
+    *pfResult = GetMaxCarryWeight(this);
     *pfValue = (float)m.f2(46);
 }
 

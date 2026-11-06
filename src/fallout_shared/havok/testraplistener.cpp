@@ -1115,7 +1115,7 @@ void* FUN_0062dc50_shell::FUN_0062dc50(unsigned int auiArg1, unsigned int auiArg
 
 struct FUN_00620680_Class
 {
-    void* FUN_00620680(void*, void*);
+    void* RemoveTargetFromZone(void*, void*);
 };
 
 struct FUN_0062dd20_vtable
@@ -1259,7 +1259,7 @@ struct FUN_0062dd20_shell
     bool FUN_0062dd20(RootContactPoint& arPoint);
 };
 
-// Looks up two TESObjectREFRs from arPoint, and if both exist and the second passes a vtable check, resolves a ZoneEntry via FUN_00620680 and returns true.
+// Looks up two TESObjectREFRs from arPoint, and if both exist and the second passes a vtable check, resolves a ZoneEntry via RemoveTargetFromZone and returns true.
 // @fnv 0x0062dd20
 bool FUN_0062dd20_shell::FUN_0062dd20(RootContactPoint& arPoint)
 {
@@ -1276,7 +1276,7 @@ bool FUN_0062dd20_shell::FUN_0062dd20(RootContactPoint& arPoint)
             ZoneEntry* ptrap;
             ptrap = reinterpret_cast<ZoneEntry*>(
                 reinterpret_cast<FUN_00620680_Class*>(reinterpret_cast<char*>(this) - 8)
-                    ->FUN_00620680(*reinterpret_cast<void**>(reinterpret_cast<char*>(&arPoint) + 0x48), m_pReference));
+                    ->RemoveTargetFromZone(*reinterpret_cast<void**>(reinterpret_cast<char*>(&arPoint) + 0x48), m_pReference));
         }
         bres = true;
     }
@@ -1897,7 +1897,7 @@ struct EventCode
 struct TrapEventHandler
 {
     void FUN_00576800(TESObjectREFR* reference);
-    void FUN_00620130(TESObjectREFR* reference);
+    void RemoveTarget(TESObjectREFR* reference);
 };
 struct FUN_0062da00_Class
 {
@@ -1922,7 +1922,7 @@ void FUN_0062da00_Class::HandleTrapEvent(InputBody* pInputBody)
             }
             else
             {
-                reinterpret_cast<TrapEventHandler*>(reinterpret_cast<char*>(this) - 8)->FUN_00620130(reference);
+                reinterpret_cast<TrapEventHandler*>(reinterpret_cast<char*>(this) - 8)->RemoveTarget(reference);
             }
         }
     }

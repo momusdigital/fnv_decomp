@@ -168,11 +168,11 @@ void __thiscall FUN_00810640_class::FUN_00810640(int aiValue)
 
 struct FUN_008106b0_Class
 {
-    void FUN_008106b0(float value);
+    void SetFallTime(float value);
 };
 
 // @fnv 0x008106b0
-void FUN_008106b0_Class::FUN_008106b0(float value)
+void FUN_008106b0_Class::SetFallTime(float value)
 {
     *(float*)((char*)this + 0x548) = value;
 }
@@ -420,10 +420,10 @@ struct FUN_00810660_Class
 {
     char pad[0x594];
     Flt f;
-    unsigned int __thiscall FUN_00810660();
+    unsigned int __thiscall GetNiObject();
 };
 // @fnv 0x00810660
-unsigned int FUN_00810660_Class::FUN_00810660()
+unsigned int FUN_00810660_Class::GetNiObject()
 {
     return f ? reinterpret_cast<FUN_00c85c80_Class*>(f.operator unsigned int())->FUN_00c85c80(0) : 0;
 }
@@ -471,11 +471,11 @@ struct FUN_00800e50_Class
     int f08;
     int f0c;
     int f10;
-    void __thiscall FUN_00800d50(int a);
-    void __thiscall FUN_00800e50(int a);
+    void __thiscall SetMultiTarget(int a);
+    void __thiscall SetSelectedMultiTarget(int a);
 };
 // @fnv 0x00800e50
-void __thiscall FUN_00800e50_Class::FUN_00800e50(int aiValue)
+void __thiscall FUN_00800e50_Class::SetSelectedMultiTarget(int aiValue)
 {
     int result = -1;
     for (int i = 0; i < f0c; i++)
@@ -488,7 +488,7 @@ void __thiscall FUN_00800e50_Class::FUN_00800e50(int aiValue)
     else if (f0c < 0x20)
     {
         f10 = f0c;
-        FUN_00800d50(aiValue);
+        SetMultiTarget(aiValue);
     }
 }
 
@@ -543,7 +543,7 @@ struct SoundPlaybackHandle
 };
 struct FUN_008133d0_shell
 {
-    void FUN_008133d0(int);
+    void SetState(int);
 };
 struct P0_0081dbb0
 {
@@ -583,7 +583,7 @@ struct FUN_008117d0 : FUN_0081dbb0
 // @fnv 0x008117d0
 FUN_008117d0::FUN_008117d0() : spA8(0), spB4(0), spB8(0), spBC(0), spC0(0)
 {
-    ((FUN_008133d0_shell*)this)->FUN_008133d0(0);
+    ((FUN_008133d0_shell*)this)->SetState(0);
     f88 = 4096.0f;
     iB0 = 0;
     iC4 = 0;
@@ -1402,7 +1402,7 @@ extern char DAT_01078e78;
 
 // Clears a flag, returns if a is already in the list, else appends a and its getter result, sets f04 if empty, and calls FUN_00ba91a0.
 // @fnv 0x00800d50
-void FUN_00800e50_Class::FUN_00800d50(int pNode)
+void FUN_00800e50_Class::SetMultiTarget(int pNode)
 {
     ((char*)this)[0x2b4] = 0;
     for (int i = 0; i < this->f0c; ++i)

@@ -2378,11 +2378,11 @@ struct FUN_0069f920_cls
 {
     int unk00, unk04, unk08, unk0c, unk10, unk14, unk18, unk1c;
     FUN_0069f920_Sub unk20;
-    void* __thiscall FUN_0069f920(int, int);
+    void* __thiscall AddPathingNode(int, int);
 };
 // Calls unk20.FUN_006a1920 for a node, constructs FUN_006e2280(a, b) at the address FUN_006e8f80 returns for it, and returns the node.
 // @fnv 0x0069f920
-void* __thiscall FUN_0069f920_cls::FUN_0069f920(int aiArg1, int aiArg2)
+void* __thiscall FUN_0069f920_cls::AddPathingNode(int aiArg1, int aiArg2)
 {
     void* pNode = unk20.FUN_006a1920();
     void* pPlace = unk20.FUN_006e8f80((unsigned int)pNode);

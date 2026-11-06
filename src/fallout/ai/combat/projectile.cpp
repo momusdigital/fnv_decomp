@@ -1582,7 +1582,7 @@ int __fastcall FUN_00874480(char*);
 
 struct Actor
 {
-    bool FUN_008a8870();
+    bool IsReloading();
 };
 
 void __cdecl FUN_009bb6d0(void*, void*);
@@ -1748,7 +1748,7 @@ void FUN_009c2ff0_shell::FUN_009c2ff0()
 
         if (ref && !ref->vfn_22c(false) && !ref->vfn_230())
         {
-            if (!actor || !actor->FUN_008a8870())
+            if (!actor || !actor->IsReloading())
             {
                 FUN_009bb6d0(ref, this);
             }
@@ -7439,7 +7439,7 @@ struct Obj
 struct CF845
 {
     CF845(int);
-    bool FUN_00624070();
+    bool QBipLayer();
     int FUN_004a3a20();
     int FUN_0043b4d0();
     int value;
@@ -7842,7 +7842,7 @@ bool ProjectileHit::ProcessHit(Obj* object, Vec const& point, Vec const& normal,
         {
             ((WorldObject*)hit->collision)->FUN_00c90510();
             if (object && object->IsActor() && buffer->FUN_004b5980() == 1 &&
-                CF845(buffer->FUN_0043b540()).FUN_00624070())
+                CF845(buffer->FUN_0043b540()).QBipLayer())
             {
                 Body* body = FUN_004b5820(buffer);
                 Obj* actor = object;
@@ -9080,9 +9080,9 @@ TESForm* __cdecl FUN_004839c0(unsigned int);
 ActorCause* __cdecl FindStateByValue(unsigned int);
 struct LoadBuf52 : BGSLoadFormBuffer
 {
-    unsigned int FUN_008648a0();
+    unsigned int LoadFormID();
     void FUN_00864a20(void*, unsigned int);
-    unsigned int FUN_00864a60();
+    unsigned int LoadVariableSizedValue();
 };
 struct FUN_0076b630
 {
@@ -9235,7 +9235,7 @@ void LoadProjectile52::LoadProjectile(LoadBuf52* buffer)
     buffer->ReadTypedData(&floatE0, 4);
     buffer->ReadTypedData(&floatE4, 4);
     buffer->ReadTypedData(&floatE8, 4);
-    wordF8 = (unsigned int)dynamic_cast<TESObjectWEAP*>(FUN_004839c0(buffer->FUN_008648a0()));
+    wordF8 = (unsigned int)dynamic_cast<TESObjectWEAP*>(FUN_004839c0(buffer->LoadFormID()));
     buffer->ReadFormIdentifier(&wordFC);
     buffer->ReadFormIdentifier(&word100);
     buffer->ReadTypedData(&position, 12);
@@ -9276,7 +9276,7 @@ void LoadProjectile52::LoadProjectile(LoadBuf52* buffer)
     }
     if (buffer->GetVersion() >= 14)
     {
-        unsigned int count = buffer->FUN_00864a60();
+        unsigned int count = buffer->LoadVariableSizedValue();
         for (unsigned int index = 0; index < count; ++index)
         {
             FUN_009bffb0* item = new FUN_009bffb0;
@@ -10934,8 +10934,8 @@ class BGSSaveFormBuffer : public FUN_00865df0_buf
   public:
     void FUN_00865e50(void* data, unsigned int size, int unk = 0);
     void SaveQuaternion(void* data, unsigned int size, int unk = 0);
-    unsigned int FUN_00865f20();
-    void FUN_00865ff0(int count, unsigned int pos);
+    unsigned int StartVariableSizedValue();
+    void SaveVariableSizedValue(int count, unsigned int pos);
 };
 
 class ActorCauseHelper
@@ -11018,7 +11018,7 @@ void ProjectileHelper::SaveProjectile(BGSSaveFormBuffer* buf)
     }
 
     unsigned int count2 = 0;
-    unsigned int pos5 = buf->FUN_00865f20();
+    unsigned int pos5 = buf->StartVariableSizedValue();
     ListNodeHelper* curr = (ListNodeHelper*)&this->list;
     while (curr)
     {
@@ -11030,7 +11030,7 @@ void ProjectileHelper::SaveProjectile(BGSSaveFormBuffer* buf)
         }
         curr = curr->FUN_00726070();
     }
-    buf->FUN_00865ff0(count2, pos5);
+    buf->SaveVariableSizedValue(count2, pos5);
     buf->FUN_00865e50(&this->byte90, 1, 0);
 }
 

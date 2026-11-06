@@ -799,7 +799,7 @@ S_006eaa00* S_006eaa00::FUN_006eaa00(S_006eaa00* apSource)
 }
 
 namespace fnv_006eac40 {
-void __fastcall FUN_006c09d0(void*);
+void __fastcall Close(void*);
 struct BSWin32TaskletManager
 {
     void ReleaseItem(void*);
@@ -809,11 +809,11 @@ struct FUN_006eac40_Holder
 {
     void FUN_006eac40();
 };
-// Calls FUN_006c09d0 on this, then passes this to the tasklet manager's ReleaseItem.
+// Calls Close on this, then passes this to the tasklet manager's ReleaseItem.
 // @fnv 0x006eac40
 void FUN_006eac40_Holder::FUN_006eac40()
 {
-    FUN_006c09d0(this);
+    Close(this);
     GetTaskletManager().ReleaseItem(this);
 }
 }  // namespace fnv_006eac40
@@ -1017,11 +1017,11 @@ struct PathManagerImpl_t
 {
     char pad[0x1480];
     Queue_006eac70 kQueue;
-    bool FUN_006c5ec0(FUN_006c5e70*, int);
+    bool AttachTask(FUN_006c5e70*, int);
     bool QueueTaskletRequest(GO aspRequest, Ptr2_006e9e20 aspMessageQueue);
 };
 
-// Creates a tasklet from the request and message queue, adds it to kQueue, and removes and deletes it if FUN_006c5ec0 fails.
+// Creates a tasklet from the request and message queue, adds it to kQueue, and removes and deletes it if AttachTask fails.
 // @fnv 0x006eac70
 bool PathManagerImpl_t::QueueTaskletRequest(GO aspRequest, Ptr2_006e9e20 aspMessageQueue)
 {
@@ -1029,7 +1029,7 @@ bool PathManagerImpl_t::QueueTaskletRequest(GO aspRequest, Ptr2_006e9e20 aspMess
     FUN_006c5e70 task = FUN_006c5e40();
     ((TESRaceForm*)&task)->Initialize((unsigned int)ptaskData);
     kQueue.Add(FUN_00559450((int*)&aspRequest), &ptaskData, 1);
-    if (!FUN_006c5ec0(&task, 0))
+    if (!AttachTask(&task, 0))
     {
         kQueue.Remove(FUN_00559450((int*)&aspRequest));
         delete ptaskData;
@@ -1146,10 +1146,10 @@ struct ManagerView
     SearchLock lock;
     SearchArray first;
     SearchArray second;
-    int FUN_006ea350();
+    int ComputeRayCasts();
 };
 // @fnv 0x006ea350
-int ManagerView::FUN_006ea350()
+int ManagerView::ComputeRayCasts()
 {
     int total = 0;
     lock.FUN_0040fbf0(0);

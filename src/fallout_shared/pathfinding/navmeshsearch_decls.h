@@ -70,7 +70,7 @@ class NavMesh
     EdgeExtraInfo* GetEdgeInfo(unsigned short, int);
     NavMeshClosedDoorInfo* GetClosedDoorInfo(unsigned short);
     bool GetStaticAvoidNodesForTriangle(unsigned short, BSSimpleArray<NavMeshStaticAvoidNode*>&);
-    void FUN_0068f0c0(unsigned short, int, NiPoint3&, NiPoint3&);
+    void GetEdgeVertices(unsigned short, int, NiPoint3&, NiPoint3&);
 };
 class NavMeshTriangleReference
 {

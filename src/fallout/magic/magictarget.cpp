@@ -744,11 +744,11 @@ class S3c60
 
 struct FUN_00822e00_shell : public MagicTarget
 {
-    bool FUN_00822e00();
+    bool HasDamageHealthEffect();
 };
 
 // @fnv 0x00822e00
-bool FUN_00822e00_shell::FUN_00822e00()
+bool FUN_00822e00_shell::HasDamageHealthEffect()
 {
     BSSimpleList<ActiveEffect*>* list = GetActiveEffectList();
     bool found = false;

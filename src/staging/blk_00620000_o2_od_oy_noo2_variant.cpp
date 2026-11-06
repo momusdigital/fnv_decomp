@@ -1243,7 +1243,7 @@ struct xMid
 struct xPlayer
 {
     xMid* FUN_008d8520();
-    void* FUN_009306d0();
+    void* GetCharController();
 };
 extern xPlayer* xg_player_11dea3c;
 struct xQty
@@ -1347,7 +1347,7 @@ bool xCaster::FUN_006214d0(xRef* apRef, const xP3& akPos, float afA, float afB)
     xFUN_004a3e00(&POSV, akPos);
     DIRV.FUN_004a3f10(apRef->FUN_00621a40());
     xBody* BODY = 0;
-    if (apRef == xg_player_11dea3c->FUN_009306d0())
+    if (apRef == xg_player_11dea3c->GetCharController())
     {
         BODY = m_iWordAt00.FUN_00559450();
         if (POSV.FUN_00458700(2).FUN_004586d0() > DIRV.FUN_00458700(2).FUN_004586d0())
@@ -3660,11 +3660,11 @@ class ShapeCaster
     void FUN_00626da0();
     xHitRes* FUN_00621210(xHitFlag* pFlag);
     void FUN_00cabad0();
-    bool FUN_00626b30(const NiPoint3& kFrom, const NiPoint3& kWorldPosition, float fDist);
+    bool CastShape(const NiPoint3& kFrom, const NiPoint3& kWorldPosition, float fDist);
 };
 
 // @fnv 0x00626b30
-bool ShapeCaster::FUN_00626b30(const NiPoint3& kFrom, const NiPoint3& kWorldPosition, float fDist)
+bool ShapeCaster::CastShape(const NiPoint3& kFrom, const NiPoint3& kWorldPosition, float fDist)
 {
     NiPoint3 qfTOqo = kFrom + kWorldPosition * fDist;
     FUN_00626da0();

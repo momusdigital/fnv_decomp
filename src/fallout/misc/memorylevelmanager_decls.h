@@ -24,7 +24,7 @@ class TESObjectCELL
     static unsigned int InitializeTESResources(ActorReferenceArray::ActorReferenceSetupData&, bool, bool, bool);
 };
 void FUN_00878250(bool);
-void FUN_00878200(ActorReferenceArray::ActorReferenceSetupData&);
+void EndMemoryFree(ActorReferenceArray::ActorReferenceSetupData&);
 class PlayerCharacter;
 extern PlayerCharacter* g_thePlayer;
 class BSFaceGenModelMap

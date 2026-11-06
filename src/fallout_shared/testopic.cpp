@@ -440,9 +440,9 @@ TESTopicInfo* __cdecl GetTopicInfoByIndex(QuestDialogueInfo* apQuestInfo, unsign
 
 struct TopicInfoStandin
 {
-    void FUN_0061f340(unsigned short index);
+    void SetInfoIndex(unsigned short index);
 };
-// For each entry in apInfoArray up to its form ID, calls FUN_0061f340 on the entry with its index as a 16-bit value.
+// For each entry in apInfoArray up to its form ID, calls SetInfoIndex on the entry with its index as a 16-bit value.
 // @fnv 0x00619fe0
 void FUN_00619fe0(TopicInfoArray* apInfoArray)
 {
@@ -454,7 +454,7 @@ void FUN_00619fe0(TopicInfoArray* apInfoArray)
             TopicInfoStandin* pInfo = (TopicInfoStandin*)apInfoArray->GetAt(i);
             if (pInfo)
             {
-                pInfo->FUN_0061f340((unsigned short)i);
+                pInfo->SetInfoIndex((unsigned short)i);
             }
         }
     }
@@ -1091,7 +1091,7 @@ struct FUN_00619f70_shell
 };
 struct FUN_0061f280_shell
 {
-    void FUN_0061f280();
+    void ResetSaidOnceFlags();
 };
 struct FUN_00619b20_shell
 {
@@ -1110,7 +1110,7 @@ struct FUN_00619a90_shell
     void ProcessTopicInfoList(unsigned int param);
 };
 
-// Retrieves a list for param, then for each entry calls FUN_00619b20 and, if true and IsNew, calls FUN_0061f280.
+// Retrieves a list for param, then for each entry calls FUN_00619b20 and, if true and IsNew, calls ResetSaidOnceFlags.
 // @fnv 0x00619a90
 void __thiscall FUN_00619a90_shell::ProcessTopicInfoList(unsigned int param)
 {
@@ -1123,7 +1123,7 @@ void __thiscall FUN_00619a90_shell::ProcessTopicInfoList(unsigned int param)
         {
             TESTopicInfo* info = *(TESTopicInfo**)((Arr*)list)->GetAt(i);
             if (info && ((FUN_00619b20_shell*)info)->FUN_00619b20() && ((BSTempEffectDebris*)info)->IsNew())
-                ((FUN_0061f280_shell*)info)->FUN_0061f280();
+                ((FUN_0061f280_shell*)info)->ResetSaidOnceFlags();
         }
     }
 }
@@ -1715,7 +1715,7 @@ struct NiTLargeArray_TESTopicInfo
 struct TopicInfoStandin : public TESTopicInfo
 {
     void SetOwnerQuest(TESQuest* quest);
-    void FUN_0061f340(unsigned short index);
+    void SetInfoIndex(unsigned short index);
 };
 
 struct PlayerCharacter_Helper : public PlayerCharacter
@@ -1830,7 +1830,7 @@ void TESTopic_Shell::InitializeTopic()
                     {
                         ((TopicInfoStandin*)curInfo)->SetOwnerQuest(questInfo->pQuest);
                         curInfo->InitItem();
-                        ((TopicInfoStandin*)curInfo)->FUN_0061f340((unsigned short)i);
+                        ((TopicInfoStandin*)curInfo)->SetInfoIndex((unsigned short)i);
                     }
                 }
             }
@@ -1857,7 +1857,7 @@ class TopicInfoArrayMethods : public TopicInfoArray
 class TopicInfoMethods : public TESTopicInfo
 {
   public:
-    void FUN_0061f340(unsigned short index);
+    void SetInfoIndex(unsigned short index);
 };
 class TopicMethods : public TESTopic
 {
@@ -1930,7 +1930,7 @@ bool TopicMethods::AddTopicInfo(TESQuest* quest, TESTopicInfo* info, unsigned in
                         while (lastIndex > 0 && !GetTopicInfoByIndex(questInfo, lastIndex))
                             lastIndex--;
                         lastIndex++;
-                        static_cast<TopicInfoMethods*>(info)->FUN_0061f340((unsigned short)lastIndex);
+                        static_cast<TopicInfoMethods*>(info)->SetInfoIndex((unsigned short)lastIndex);
                         static_cast<TopicInfoArrayMethods*>(questInfo->GetInfoArray())->FUN_00864240(lastIndex, info);
                     }
                 }

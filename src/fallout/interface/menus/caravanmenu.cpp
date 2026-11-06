@@ -234,11 +234,11 @@ struct FUN_00740f10_shell
 {
     char _pad[0xe74];
     unsigned int m_flags;
-    bool FUN_00740f10(unsigned int aFlag);
+    bool IsFlagSet(unsigned int aFlag);
 };
 
 // @fnv 0x00740f10
-bool FUN_00740f10_shell::FUN_00740f10(unsigned int aFlag)
+bool FUN_00740f10_shell::IsFlagSet(unsigned int aFlag)
 {
     return (m_flags & aFlag) != 0;
 }
@@ -500,10 +500,10 @@ struct NPCHandArrayInfo
     int m_0x14;
     int m_0x18;
 
-    void __thiscall FUN_0073b730(BSSimpleArray* pNPCHandArray);
+    void __thiscall Print_WhatIsHeThinking(BSSimpleArray* pNPCHandArray);
 };
 
-void __thiscall NPCHandArrayInfo::FUN_0073b730(BSSimpleArray* pNPCHandArray)
+void __thiscall NPCHandArrayInfo::Print_WhatIsHeThinking(BSSimpleArray* pNPCHandArray)
 {
     if (pNPCHandArray)
     {
@@ -614,7 +614,7 @@ GlobalObject_00633c90::GlobalObject_00633c90() : GO(0)
 {}
 
 // @fnv 0x00740f30
-void __cdecl FUN_00740f30()
+void __cdecl Draw3DElements()
 {
     void* pBase;
     Accum_00733500* uiGlobal;
@@ -7506,7 +7506,7 @@ struct MenuView
 
     unsigned int mae8;
 
-    bool FUN_00740f10(unsigned int);
+    bool IsFlagSet(unsigned int);
 
     void TransferBarterItems(unsigned int);
 
@@ -7520,7 +7520,7 @@ void MenuView::UpdateCaravanMenu()
 
     m02c = 3;
 
-    if (FUN_00740f10(0x400))
+    if (IsFlagSet(0x400))
     {
 
         ((CaravanState*)DAT_011dea3c)->FUN_00740e70(((CaravanState*)DAT_011dea3c)->GetFieldAtOffset61C() + mae8);
@@ -7579,7 +7579,7 @@ void MenuView::UpdateCaravanMenu()
 
     m0b8->FUN_00715c60(DAT_011d9174, ((CaravanState*)DAT_011dea3c)->GetMember62C());
 
-    m0bc->FUN_00a01350(0xfc4, FUN_00740f10(0x400) ? DAT_011d4b58.FUN_00403df0() : DAT_011d1e6c.FUN_00403df0(), 1);
+    m0bc->FUN_00a01350(0xfc4, IsFlagSet(0x400) ? DAT_011d4b58.FUN_00403df0() : DAT_011d1e6c.FUN_00403df0(), 1);
 
     m030->FUN_00700320(0xfa3, 0);
 
@@ -7597,7 +7597,7 @@ void MenuView::UpdateCaravanMenu()
 
     m0f8->FUN_00a01350(0xfc4, DAT_011d3360.FUN_00403df0(), 1);
 
-    TransferBarterItems(FUN_00740f10(0x400));
+    TransferBarterItems(IsFlagSet(0x400));
 }
 
 class TESForm
@@ -8589,7 +8589,7 @@ struct Obj917c
 
     void RebuildCardLists();
     void InitCaravanTable();
-    void FUN_0073d020();
+    void PrepareAnteMenu();
 
     int FUN_00726070();
     void FUN_00a1dc70(void* p, int z);
@@ -8726,7 +8726,7 @@ int __cdecl FUN_00741060(int a0, int a1, int a2, float a3, char a4)
             ->SetTraitAndReset(((Obj917c*)DAT_011d917c)->m_6c->FUN_00a01860(DAT_01070250), 1.0f);
         DAT_011d9184 = a4;
         ((Obj917c*)DAT_011d917c)->InitCaravanTable();
-        ((Obj917c*)DAT_011d917c)->FUN_0073d020();
+        ((Obj917c*)DAT_011d917c)->PrepareAnteMenu();
         DAT_011d917c->SetFlag(1, 0);
         ((Obj917c*)DAT_011d917c)->FUN_00a1dc20(0);
         if (!((SubObj*)((char*)_FUN_004b7210() + 0x4d4))->FUN_00718840(0x1e))
@@ -9807,14 +9807,14 @@ struct ActionDispatch
     unsigned int unk24;
     unsigned int unk28;
     void* blocked;
-    bool FUN_00740f10(unsigned int flag);
+    bool IsFlagSet(unsigned int flag);
     void HandleEvent(unsigned int event, unsigned int unused);
 };
-// If not blocked and FUN_00740f10(1) is false, maps event codes to SetPrimary/SetSecondary calls with a zero value.
+// If not blocked and IsFlagSet(1) is false, maps event codes to SetPrimary/SetSecondary calls with a zero value.
 // @fnv 0x00749560
 void ActionDispatch::HandleEvent(unsigned int event, unsigned int unused)
 {
-    if (!blocked && !FUN_00740f10(1))
+    if (!blocked && !IsFlagSet(1))
     {
         switch (event)
         {
@@ -14218,7 +14218,7 @@ struct DeckMenu
     unsigned int unk0e3c;
     int playerSelection;
     int opponentSelection;
-    bool FUN_00740f10(unsigned int);
+    bool IsFlagSet(unsigned int);
     void UpdateDeckCardNodes(bool, int);
 };
 
@@ -14266,7 +14266,7 @@ void DeckMenu::UpdateDeckCardNodes(bool player, int unused)
                             l->setTexture(0, 0, texture);
                     }
                 }
-                else if (FUN_00740f10(0x800) && j != 5)
+                else if (IsFlagSet(0x800) && j != 5)
                 {
                     node->FUN_00450f90(true);
                     UpdateInfo ba(0.0f, false, false);
@@ -14280,7 +14280,7 @@ void DeckMenu::UpdateDeckCardNodes(bool player, int unused)
                     UpdateInfo b(0.0f, false, false);
                     node->update(b);
                 }
-                else if (!FUN_00740f10(0x800) && e < 5)
+                else if (!IsFlagSet(0x800) && e < 5)
                 {
                     node->FUN_00450f90(true);
                     UpdateInfo ba(0.0f, false, false);
@@ -14295,7 +14295,7 @@ void DeckMenu::UpdateDeckCardNodes(bool player, int unused)
                     node->update(b);
                 }
             }
-            if (!FUN_00740f10(0x800))
+            if (!IsFlagSet(0x800))
             {
                 player ? strcpy_s(nodeName, 260, "Player-Deck_06:5") : strcpy_s(nodeName, 260, "Opponent-Deck_06:5");
                 node = FUN_004aae30(c, nodeName);
@@ -14863,10 +14863,10 @@ struct CaravanCardMenu : S_0074ed40_Cls
     unsigned int unkb3c;
     unsigned int unkb40;
     CardAssetArray assets[8][7];
-    void FUN_0074e220(int track, int row, int card);
+    void UpdateTrackCardTexture(int track, int row, int card);
 };
 // @fnv 0x0074e220
-void CaravanCardMenu::FUN_0074e220(int track, int row, int card)
+void CaravanCardMenu::UpdateTrackCardTexture(int track, int row, int card)
 {
     // Local names preserve the original MSVC9 stack layout.
     NiAVObject* f = m_rows[track][row];
@@ -20684,7 +20684,7 @@ struct Target7490
     int unkE28;
     int unkE2C;
     int unkE30;
-    bool FUN_00740f10(unsigned int flag);
+    bool IsFlagSet(unsigned int flag);
     void FUN_0074ed40(int index);
     void FUN_0074edd0();
     void SetFlag(int a, int b);
@@ -20696,7 +20696,7 @@ struct Target7490
 bool Target7490::FUN_007490e0(int aiType, int aiUnused)
 {
     bool bResult = false;
-    if (FUN_00740f10(1) || aiType != 10)
+    if (IsFlagSet(1) || aiType != 10)
         return bResult;
     if (unk28 == 3)
     {
@@ -20721,9 +20721,9 @@ bool Target7490::FUN_007490e0(int aiType, int aiUnused)
     else if (unk28 == 2)
     {
         bResult = true;
-        if (FUN_00740f10(0x1000))
+        if (IsFlagSet(0x1000))
         {
-            if (FUN_00740f10(0x2000))
+            if (IsFlagSet(0x2000))
                 FUN_0074ed40(unkE30);
             else
                 FUN_0074edd0();
@@ -21522,7 +21522,7 @@ struct FUN_0073d020_Class
     int playerAmount;
     int npcAmount;
     int poolAmount;
-    void FUN_0073d020();
+    void PrepareAnteMenu();
     void ComputePlayerAndTargetTotals();
     void UpdateControls();
     void FUN_00749a40(int);
@@ -21530,7 +21530,7 @@ struct FUN_0073d020_Class
 };
 // Loads currency NIFs, resets state, computes bet totals, updates UI labels and controls, and places bills and coins.
 // @fnv 0x0073d020
-void FUN_0073d020_Class::FUN_0073d020()
+void FUN_0073d020_Class::PrepareAnteMenu()
 {
     int amount;
     char path[260];
@@ -21685,7 +21685,7 @@ struct CMTime
 struct CMFn
 {
     static CMIntfMgr* __cdecl FUN_004b7210();
-    static bool __cdecl FUN_00702450(unsigned int menuID);
+    static bool __cdecl IsTopMenuID(unsigned int menuID);
     static float __cdecl FUN_00408820(float v);
 };
 extern float DAT_011d9208;
@@ -21773,7 +21773,7 @@ struct E_Move
     int FUN_00825c00();
     void FUN_0041fd00(int lane);
     void FUN_00437730(int slot);
-    void FUN_0073b730(D_Array* list);
+    void Print_WhatIsHeThinking(D_Array* list);
 };
 struct E_Marker
 {
@@ -21914,7 +21914,7 @@ struct CaravanGame
     bool deckChanged;
     char ue87;
     void SetFlag(int flags, int set);
-    bool FUN_00740f10(unsigned int flag);
+    bool IsFlagSet(unsigned int flag);
     void FUN_00749a40(int index);
     void UpdateControls();
     CMTile* FUN_00726070();
@@ -21924,12 +21924,12 @@ struct CaravanGame
     void ClearField();
     void UpdateCardSlots(int value, bool flag);
     void UpdateIconResources(int value);
-    void FUN_0073ea90();
+    void PrepareGameMenu();
     void UpdateCardTexture();
     void UpdateSelection(int a);
     void UpdateDeckCardNodes(bool player, bool flag);
     void UpdateHandStats(int lane);
-    void FUN_0074e220(int lane, int col, int index);
+    void UpdateTrackCardTexture(int lane, int col, int index);
     bool CheckCaravanResult();
     void FUN_0074fdc0(E_Move* move);
     void UpdateDeckTextures(int a);
@@ -21946,7 +21946,7 @@ void CaravanGame::FUN_00741500()
 {
     int dt = 0;
     float scale = 1.0f;
-    bool active = CMFn::FUN_00702450(GetID());
+    bool active = CMFn::IsTopMenuID(GetID());
     if (helpPending)
     {
         if (active && CMFn::FUN_004b7210()->gate.FUN_00718840(helpMessage))
@@ -21995,7 +21995,7 @@ void CaravanGame::FUN_00741500()
     DAT_011d9204 = state;
     if (!active || mode == 1)
         CMFn::FUN_004b7210()->FUN_0045cd60()->FUN_00a012d0(0xfa9, 255.0f, true);
-    if (FUN_00740f10(0x20000))
+    if (IsFlagSet(0x20000))
     {
         if (active)
         {
@@ -22417,13 +22417,13 @@ void CaravanGame::FUN_00741500()
             SetFlag(0x4000, 1);
             UpdateControls();
             FUN_00749a40(-1);
-            FUN_0073ea90();
+            PrepareGameMenu();
         }
         break;
     }
     // group B
     case 11: {
-        int side = FUN_00740f10(0x4000);
+        int side = IsFlagSet(0x4000);
         if (!removeSeq[side][handIndex] || !cardSeq[curLane][curCol][animStep].in)
             break;
         if (DAT_011d9208 == DAT_01012060)
@@ -22449,15 +22449,15 @@ void CaravanGame::FUN_00741500()
         {
             sideMgr[side]->FUN_0047b220(removeSeq[side][handIndex], 0.0f);
             cardCtrl[curLane][curCol]->FUN_0047b220(cardSeq[curLane][curCol][animStep].in, 0.0f);
-            if ((cardList[2][0].FUN_0044ddc0() && !FUN_00740f10(0x4000)) ||
-                (cardList[3][0].FUN_0044ddc0() && FUN_00740f10(0x4000)))
+            if ((cardList[2][0].FUN_0044ddc0() && !IsFlagSet(0x4000)) ||
+                (cardList[3][0].FUN_0044ddc0() && IsFlagSet(0x4000)))
             {
-                UpdateDeckCardNodes(!FUN_00740f10(0x4000), FUN_00740f10(0x800));
+                UpdateDeckCardNodes(!IsFlagSet(0x4000), IsFlagSet(0x800));
                 sideMgr[side]->FUN_0047aab0(sideSeq[side][1], 0, false, 1.0f, 0.0f, 0);
                 CMUpdateData udWar(0.0f, true, false);
                 sideNode[side]->FUN_00a59c60(udWar);
                 sideMgr[side]->FUN_0047b220(sideSeq[side][1], 0.0f);
-                if (!FUN_00740f10(0x4000) && cardList[2][0].FUN_0044ddc0() && cardList[3][0].FUN_0044ddc0())
+                if (!IsFlagSet(0x4000) && cardList[2][0].FUN_0044ddc0() && cardList[3][0].FUN_0044ddc0())
                 {
                     SetFlag(0x800, 0);
                     if (!CMFn::FUN_004b7210()->gate.FUN_00718840(0x21))
@@ -22474,7 +22474,7 @@ void CaravanGame::FUN_00741500()
             }
             else
             {
-                UpdateDeckCardNodes(!FUN_00740f10(0x4000), true);
+                UpdateDeckCardNodes(!IsFlagSet(0x4000), true);
                 sideMgr[side]->FUN_0047aab0(removeSeq[side][0], 0, false, 1.0f, 0.0f, 0);
                 CMUpdateData udDeck(0.0f, true, false);
                 sideNode[side]->FUN_00a59c60(udDeck);
@@ -22485,7 +22485,7 @@ void CaravanGame::FUN_00741500()
             {
                 handIndex = hand.FUN_0044ddc0() - 1;
                 UpdateSelection(0);
-                if (FUN_00740f10(0x800) && ((C_Card*)hand.FUN_006a7ad0(handIndex))->FUN_008d80e0() > 10)
+                if (IsFlagSet(0x800) && ((C_Card*)hand.FUN_006a7ad0(handIndex))->FUN_008d80e0() > 10)
                     SetFlag(4, 1);
             }
             sideTile[side]->SetTraitAndReset(DAT_011d9174, 1.0f);
@@ -22498,7 +22498,7 @@ void CaravanGame::FUN_00741500()
     }
     // group C
     case 12: {
-        int side = FUN_00740f10(0x4000);
+        int side = IsFlagSet(0x4000);
         if (!removeSeq[side][handIndex])
             break;
         if (DAT_011d9208 == DAT_01012060)
@@ -22518,10 +22518,10 @@ void CaravanGame::FUN_00741500()
         if (DAT_011d9208 >= removeSeq[side][handIndex]->FUN_00508100())
         {
             sideMgr[side]->FUN_0047b220(removeSeq[side][handIndex], 0.0f);
-            if ((cardList[2][0].FUN_0044ddc0() && !FUN_00740f10(0x4000)) ||
-                (cardList[3][0].FUN_0044ddc0() && FUN_00740f10(0x4000)))
+            if ((cardList[2][0].FUN_0044ddc0() && !IsFlagSet(0x4000)) ||
+                (cardList[3][0].FUN_0044ddc0() && IsFlagSet(0x4000)))
             {
-                UpdateDeckCardNodes(!FUN_00740f10(0x4000), FUN_00740f10(0x800));
+                UpdateDeckCardNodes(!IsFlagSet(0x4000), IsFlagSet(0x800));
                 sideMgr[side]->FUN_0047aab0(sideSeq[side][1], 0, false, 1.0f, 0.0f, 0);
                 CMUpdateData ud(0.0f, true, false);
                 sideNode[side]->FUN_00a59c60(ud);
@@ -22529,7 +22529,7 @@ void CaravanGame::FUN_00741500()
             }
             else
             {
-                UpdateDeckCardNodes(!FUN_00740f10(0x4000), true);
+                UpdateDeckCardNodes(!IsFlagSet(0x4000), true);
                 sideMgr[side]->FUN_0047aab0(removeSeq[side][0], 0, false, 1.0f, 0.0f, 0);
                 CMUpdateData ud(0.0f, true, false);
                 sideNode[side]->FUN_00a59c60(ud);
@@ -22540,14 +22540,14 @@ void CaravanGame::FUN_00741500()
             {
                 handIndex = hand.FUN_0044ddc0() - 1;
                 UpdateSelection(false);
-                if (FUN_00740f10(0x800) && ((C_Card*)hand.FUN_006a7ad0(handIndex))->FUN_008d80e0() > 10)
+                if (IsFlagSet(0x800) && ((C_Card*)hand.FUN_006a7ad0(handIndex))->FUN_008d80e0() > 10)
                     SetFlag(4, 1);
             }
             sideTile[side]->SetTraitAndReset(DAT_011d9174, 1.0f);
             sideTile[side]->FUN_00715c60(DAT_011d9174, side == 0 ? deck[0].FUN_0044ddc0() : deck[1].FUN_0044ddc0());
             UpdateControls();
             FUN_00749a40(-1);
-            if (FUN_00740f10(0x4000))
+            if (IsFlagSet(0x4000))
             {
                 state = 0x15;
             }
@@ -22561,7 +22561,7 @@ void CaravanGame::FUN_00741500()
     }
     // group C
     case 13: {
-        int side = FUN_00740f10(0x4000);
+        int side = IsFlagSet(0x4000);
         if (!sideSeq[side][handIndex + 1] || !cardSeq[curLane][curCol][animStep].in)
             break;
         if (DAT_011d9208 == DAT_01012060)
@@ -22590,7 +22590,7 @@ void CaravanGame::FUN_00741500()
         {
             sideMgr[side]->FUN_0047b220(sideSeq[side][handIndex + 1], 0.0f);
             cardCtrl[curLane][curCol]->FUN_0047b220(cardSeq[curLane][curCol][animStep].in, 0.0f);
-            UpdateDeckCardNodes(!FUN_00740f10(0x4000), FUN_00740f10(0x800));
+            UpdateDeckCardNodes(!IsFlagSet(0x4000), IsFlagSet(0x800));
             sideMgr[side]->FUN_0047aab0(sideSeq[side][1], 0, false, 1.0f, 0.0f, 0);
             CMUpdateData ud(0.0f, true, false);
             sideNode[side]->FUN_00a59c60(ud);
@@ -22599,7 +22599,7 @@ void CaravanGame::FUN_00741500()
             {
                 handIndex = hand.FUN_0044ddc0() - 1;
                 UpdateSelection(false);
-                if (FUN_00740f10(0x800) && ((C_Card*)hand.FUN_006a7ad0(handIndex))->FUN_008d80e0() > 10)
+                if (IsFlagSet(0x800) && ((C_Card*)hand.FUN_006a7ad0(handIndex))->FUN_008d80e0() > 10)
                     SetFlag(4, 1);
             }
             else if (playedCard->FUN_008d80e0() == 12 || playedCard->FUN_008d80e0() == 15)
@@ -22645,7 +22645,7 @@ void CaravanGame::FUN_00741500()
     }
     // group C
     case 14: {
-        int side = FUN_00740f10(0x4000);
+        int side = IsFlagSet(0x4000);
         if (!sideSeq[side][handIndex + 1])
             break;
         if (DAT_011d9208 == DAT_01012060)
@@ -22684,9 +22684,9 @@ void CaravanGame::FUN_00741500()
             sideTile[side]->FUN_00715c60(DAT_011d9174, side == 0 ? deck[0].FUN_0044ddc0() : deck[1].FUN_0044ddc0());
             state = 0x15;
             handIndex = hand.FUN_0044ddc0() - 1;
-            if (FUN_00740f10(0x800) && ((C_Card*)hand.FUN_006a7ad0(handIndex))->FUN_008d80e0() > 10)
+            if (IsFlagSet(0x800) && ((C_Card*)hand.FUN_006a7ad0(handIndex))->FUN_008d80e0() > 10)
                 SetFlag(4, 1);
-            if ((side == 1 && !FUN_00740f10(0x800)) || (side == 0 && FUN_00740f10(0x800)))
+            if ((side == 1 && !IsFlagSet(0x800)) || (side == 0 && IsFlagSet(0x800)))
                 UpdateSelection(false);
         }
         break;
@@ -22746,7 +22746,7 @@ void CaravanGame::FUN_00741500()
                 for (int i = 0; i < 7; i++)
                     cardList[curLane][i].FUN_008454f0(true);
                 state = 0x15;
-                if (FUN_00740f10(0x4000))
+                if (IsFlagSet(0x4000))
                 {
                     handIndex = hand.FUN_0044ddc0() - 1;
                     UpdateSelection(0);
@@ -22811,7 +22811,7 @@ void CaravanGame::FUN_00741500()
                 DAT_011d9208 = 0.0f;
             else
             {
-                if (!FUN_00740f10(0x8000))
+                if (!IsFlagSet(0x8000))
                 {
                     for (int i = curCol; i < 6; i++)
                     {
@@ -22820,7 +22820,7 @@ void CaravanGame::FUN_00741500()
                         for (unsigned int j = 0; j < next->FUN_0044ddc0(); j++)
                         {
                             cardList[curLane][i].FUN_007cb2e0(next->FUN_006a7ad0(j));
-                            FUN_0074e220(curLane, i, j);
+                            UpdateTrackCardTexture(curLane, i, j);
                         }
                     }
                     cardList[curLane][6].FUN_008454f0(true);
@@ -22838,7 +22838,7 @@ void CaravanGame::FUN_00741500()
                             for (unsigned int j = 0; j < next->FUN_0044ddc0(); j++)
                             {
                                 cardList[curLane][i].FUN_007cb2e0(next->FUN_006a7ad0(j));
-                                FUN_0074e220(curLane, i, j);
+                                UpdateTrackCardTexture(curLane, i, j);
                             }
                         }
                         laneQueue[curLane].FUN_006bf8f0(0, true);
@@ -22919,7 +22919,7 @@ void CaravanGame::FUN_00741500()
             else
             {
                 UpdateHandStats(curLane);
-                if (FUN_00740f10(0x8000))
+                if (IsFlagSet(0x8000))
                     state = 0x13;
                 else
                     state = 0x15;
@@ -22971,7 +22971,7 @@ void CaravanGame::FUN_00741500()
         deckChanged = false;
         E_Move move;
         FUN_0074fdc0(&move);
-        if (FUN_00740f10(0x800))
+        if (IsFlagSet(0x800))
         {
             if (move.FUN_0044ddc0() == 6)
             {
@@ -23004,7 +23004,7 @@ void CaravanGame::FUN_00741500()
                 move.FUN_0041fd00(i);
                 move.FUN_00437730(0);
                 if ((unsigned char)DAT_011d9184)
-                    move.FUN_0073b730(&oppHand);
+                    move.Print_WhatIsHeThinking(&oppHand);
                 int cardId = oppHand.FUN_006a7ad0(handIndex);
                 oppHand.FUN_006bf8f0(handIndex, true);
                 cardList[i][curCol].FUN_007cb2e0(cardId);
@@ -23056,7 +23056,7 @@ void CaravanGame::FUN_00741500()
                 oppHand.FUN_006bf8f0(handIndex, true);
                 oppHand.FUN_007cb2e0(drawn);
                 if ((unsigned char)DAT_011d9184)
-                    move.FUN_0073b730(&oppHand);
+                    move.Print_WhatIsHeThinking(&oppHand);
                 deck[1].FUN_006bf8f0(pickOpponent, true);
                 if (!deck[1].FUN_0044ddc0())
                     pickOpponent = -1;
@@ -23103,7 +23103,7 @@ void CaravanGame::FUN_00741500()
                 int cardId = oppHand.FUN_006a7ad0(handIndex);
                 oppHand.FUN_006bf8f0(handIndex, true);
                 if ((unsigned char)DAT_011d9184)
-                    move.FUN_0073b730(&oppHand);
+                    move.Print_WhatIsHeThinking(&oppHand);
                 cardList[curLane][curCol].FUN_007cb2e0(cardId);
             }
             state = 0xd;
@@ -23265,7 +23265,7 @@ void CaravanGame::FUN_00741500()
                 if (DAT_011d9208 - stateTimer > 0.25)
                 {
                     stateTimer = DAT_011d9208;
-                    if (!FUN_00740f10(0x1000))
+                    if (!IsFlagSet(0x1000))
                     {
                         handIndex = (int)(mx / E_Fn::FUN_00408840(mx) + handIndex);
                         int count = hand.FUN_0044ddc0();
@@ -23275,17 +23275,17 @@ void CaravanGame::FUN_00741500()
                             handIndex = count - 1;
                         CMAudio::FUN_00453a70()->FUN_00ad7550("GAMECaravanSwitchCard", 0x121).FUN_00ad8830(false);
                         UpdateSelection(0);
-                        if (FUN_00740f10(0x800) && ((C_Card*)hand.FUN_006a7ad0(handIndex))->FUN_008d80e0() > 10)
+                        if (IsFlagSet(0x800) && ((C_Card*)hand.FUN_006a7ad0(handIndex))->FUN_008d80e0() > 10)
                             SetFlag(4, 1);
                         else
                             SetFlag(4, 0);
                         FUN_00749a40(-1);
                     }
-                    else if (!FUN_00740f10(0x800))
+                    else if (!IsFlagSet(0x800))
                     {
                         int stepX = (int)(E_Fn::FUN_00408840(mx) < 1.1 ? 0.0 : mx / E_Fn::FUN_00408840(mx));
                         int stepY = (int)(E_Fn::FUN_00408840(my) < 1.1 ? 0.0 : my / E_Fn::FUN_00408840(my));
-                        if (FUN_00740f10(0x2000))
+                        if (IsFlagSet(0x2000))
                         {
                             FUN_0074ed40(curLane);
                             curLane = curLane + stepX;
@@ -23435,7 +23435,7 @@ struct xCaravan
     unsigned char m_e78;
     int m_10c_dummy;
 
-    bool FUN_00740f10(unsigned int);
+    bool IsFlagSet(unsigned int);
     void SetFlag(int, int);
     void PlaceBillsAndCoins(int, int);
     void UpdateControls();
@@ -23464,15 +23464,15 @@ extern xGameState* xg_11d917c;
 bool xCaravan::FUN_00747d30(int aiKey, int aiUnused)
 {
     bool handled = false;
-    if (FUN_00740f10(1) || m_e78 || !FUN_00740f10(0x10000))
+    if (IsFlagSet(1) || m_e78 || !IsFlagSet(0x10000))
         return m_2c == 3;
-    if (FUN_00740f10(0x4000) || m_2c != 0)
+    if (IsFlagSet(0x4000) || m_2c != 0)
         return false;
 
     switch (aiKey)
     {
     case 9:
-        if (FUN_00740f10(4))
+        if (IsFlagSet(4))
             return false;
         if (m_28 == 3)
         {
@@ -23506,7 +23506,7 @@ bool xCaravan::FUN_00747d30(int aiKey, int aiUnused)
         }
         else if (m_28 == 2)
         {
-            if (FUN_00740f10(0x800) && !FUN_00740f10(0x1000))
+            if (IsFlagSet(0x800) && !IsFlagSet(0x1000))
             {
                 m_e30 = 0;
                 m_e34 = 0;
@@ -23521,7 +23521,7 @@ bool xCaravan::FUN_00747d30(int aiKey, int aiUnused)
                 SetFlag(0x1000, 1);
                 handled = true;
             }
-            else if (!FUN_00740f10(0x1000))
+            else if (!IsFlagSet(0x1000))
             {
                 xAudio::FUN_00453a70()->FUN_00ad7550("GAMECaravanAddToTrack", 0x121).FUN_00ad8830(false);
                 SetFlag(0x1000, 1);
@@ -23533,16 +23533,16 @@ bool xCaravan::FUN_00747d30(int aiKey, int aiUnused)
             }
             else
             {
-                if (FUN_00740f10(0x2000))
+                if (IsFlagSet(0x2000))
                 {
                     FUN_0074ed40(m_e30);
                     m_dec[m_e30].m_iWordAt00 = 0;
                     m_2c = 15;
                     return true;
                 }
-                if (FUN_00740f10(0x1000))
+                if (IsFlagSet(0x1000))
                 {
-                    if (FUN_00740f10(0x800))
+                    if (IsFlagSet(0x800))
                     {
                         SetFlag(0x1000, 0);
                         FUN_0074edd0();
@@ -23621,7 +23621,7 @@ bool xCaravan::FUN_00747d30(int aiKey, int aiUnused)
         }
         break;
     case 11:
-        if (FUN_00740f10(0x10))
+        if (IsFlagSet(0x10))
             return false;
         if (m_28 == 3)
         {
@@ -23652,7 +23652,7 @@ bool xCaravan::FUN_00747d30(int aiKey, int aiUnused)
         if (1)
         {
         }
-        if (FUN_00740f10(2))
+        if (IsFlagSet(2))
             return false;
         if (m_28 == 3)
         {
@@ -23686,7 +23686,7 @@ bool xCaravan::FUN_00747d30(int aiKey, int aiUnused)
             if (xFUN_00702450(v13()))
                 xFUN_0073ca50();
         }
-        if (FUN_00740f10(0x20))
+        if (IsFlagSet(0x20))
             return false;
         if (m_28 == 0)
         {
@@ -23706,7 +23706,7 @@ bool xCaravan::FUN_00747d30(int aiKey, int aiUnused)
             if (xFUN_00702450(v13()))
                 xFUN_0073ca50();
         }
-        if (FUN_00740f10(0x40))
+        if (IsFlagSet(0x40))
             return false;
         if (m_28 == 0)
         {
@@ -23752,7 +23752,7 @@ bool xCaravan::FUN_00747d30(int aiKey, int aiUnused)
             if (xFUN_00702450(v13()))
                 xFUN_0073ca50();
         }
-        if (FUN_00740f10(0x80))
+        if (IsFlagSet(0x80))
             return false;
         if (m_28 == 0)
         {
@@ -23762,9 +23762,9 @@ bool xCaravan::FUN_00747d30(int aiKey, int aiUnused)
         }
         else if (m_28 == 2)
         {
-            if (!FUN_00740f10(0x1000) && m_b04.FUN_0044ddc0() > 0)
+            if (!IsFlagSet(0x1000) && m_b04.FUN_0044ddc0() > 0)
             {
-                m_2c = FUN_00740f10(0x800) ? 12 : 14;
+                m_2c = IsFlagSet(0x800) ? 12 : 14;
                 if (m_e40 != -1)
                 {
                     xCard* DECKCARD2 = m_b04.FUN_006a7ad0(m_e40);
@@ -23793,7 +23793,7 @@ bool xCaravan::FUN_00747d30(int aiKey, int aiUnused)
             if (xFUN_00702450(v13()))
                 xFUN_0073ca50();
         }
-        if (FUN_00740f10(0x100))
+        if (IsFlagSet(0x100))
             return false;
         if (m_28 == 0)
         {
@@ -23803,7 +23803,7 @@ bool xCaravan::FUN_00747d30(int aiKey, int aiUnused)
         }
         else if (m_28 == 2)
         {
-            if (!FUN_00740f10(0x1000) && !FUN_00740f10(0x800))
+            if (!IsFlagSet(0x1000) && !IsFlagSet(0x800))
             {
                 SetFlag(0x2000, 1);
                 SetFlag(0x1000, 1);
@@ -23910,25 +23910,25 @@ void Menu_749a40::FUN_00749a40(int slot)
     case 6:
         break;
     case 7:
-        if (((FUN_00740f10_shell*)this)->FUN_00740f10(2) || ((FUN_00740f10_shell*)this)->FUN_00740f10(1))
+        if (((FUN_00740f10_shell*)this)->IsFlagSet(2) || ((FUN_00740f10_shell*)this)->IsFlagSet(1))
             ((FNV_74A000_This*)this)->FUN_0074a000(slot, 128.0f);
         else
             ((FNV_74A000_This*)this)->FUN_0074a000(slot, 255.0f);
         break;
     case 37:
-        if (((FUN_00740f10_shell*)this)->FUN_00740f10(4) || ((FUN_00740f10_shell*)this)->FUN_00740f10(1))
+        if (((FUN_00740f10_shell*)this)->IsFlagSet(4) || ((FUN_00740f10_shell*)this)->IsFlagSet(1))
             ((FNV_74A000_This*)this)->FUN_0074a000(slot, 128.0f);
         else
             ((FNV_74A000_This*)this)->FUN_0074a000(slot, 255.0f);
         break;
     case 36:
-        if (((FUN_00740f10_shell*)this)->FUN_00740f10(16) || ((FUN_00740f10_shell*)this)->FUN_00740f10(1))
+        if (((FUN_00740f10_shell*)this)->IsFlagSet(16) || ((FUN_00740f10_shell*)this)->IsFlagSet(1))
             ((FNV_74A000_This*)this)->FUN_0074a000(slot, 128.0f);
         else
             ((FNV_74A000_This*)this)->FUN_0074a000(slot, 255.0f);
         break;
     case 8:
-        if (((FUN_00740f10_shell*)this)->FUN_00740f10(2))
+        if (((FUN_00740f10_shell*)this)->IsFlagSet(2))
             ((FNV_74A000_This*)this)->FUN_0074a000(slot, 128.0f);
         else
         {
@@ -23945,7 +23945,7 @@ void Menu_749a40::FUN_00749a40(int slot)
         ((FNV_74A000_This*)this)->FUN_0074a000(slot, 255.0f);
         break;
     case 10:
-        if (((FUN_00740f10_shell*)this)->FUN_00740f10(64))
+        if (((FUN_00740f10_shell*)this)->IsFlagSet(64))
             ((FNV_74A000_This*)this)->FUN_0074a000(slot, 128.0f);
         else
             ((FNV_74A000_This*)this)->FUN_0074a000(slot, 255.0f);
@@ -23954,43 +23954,43 @@ void Menu_749a40::FUN_00749a40(int slot)
         ((FNV_74A000_This*)this)->FUN_0074a000(slot, 255.0f);
         break;
     case 12:
-        if (((FUN_00740f10_shell*)this)->FUN_00740f10(4) || ((FUN_00740f10_shell*)this)->FUN_00740f10(1))
+        if (((FUN_00740f10_shell*)this)->IsFlagSet(4) || ((FUN_00740f10_shell*)this)->IsFlagSet(1))
             ((FNV_74A000_This*)this)->FUN_0074a000(slot, 128.0f);
         else
             ((FNV_74A000_This*)this)->FUN_0074a000(slot, 255.0f);
         break;
     case 13:
-        if (((FUN_00740f10_shell*)this)->FUN_00740f10(16) || ((FUN_00740f10_shell*)this)->FUN_00740f10(1))
+        if (((FUN_00740f10_shell*)this)->IsFlagSet(16) || ((FUN_00740f10_shell*)this)->IsFlagSet(1))
             ((FNV_74A000_This*)this)->FUN_0074a000(slot, 128.0f);
         else
             ((FNV_74A000_This*)this)->FUN_0074a000(slot, 255.0f);
         break;
     case 14:
-        if (((FUN_00740f10_shell*)this)->FUN_00740f10(2) || ((FUN_00740f10_shell*)this)->FUN_00740f10(1))
+        if (((FUN_00740f10_shell*)this)->IsFlagSet(2) || ((FUN_00740f10_shell*)this)->IsFlagSet(1))
             ((FNV_74A000_This*)this)->FUN_0074a000(slot, 128.0f);
         else
             ((FNV_74A000_This*)this)->FUN_0074a000(slot, 255.0f);
         break;
     case 20:
-        if (((FUN_00740f10_shell*)this)->FUN_00740f10(128) || ((FUN_00740f10_shell*)this)->FUN_00740f10(1))
+        if (((FUN_00740f10_shell*)this)->IsFlagSet(128) || ((FUN_00740f10_shell*)this)->IsFlagSet(1))
             ((FNV_74A000_This*)this)->FUN_0074a000(slot, 128.0f);
         else
             ((FNV_74A000_This*)this)->FUN_0074a000(slot, 255.0f);
         break;
     case 21:
-        if (((FUN_00740f10_shell*)this)->FUN_00740f10(256) || ((FUN_00740f10_shell*)this)->FUN_00740f10(1))
+        if (((FUN_00740f10_shell*)this)->IsFlagSet(256) || ((FUN_00740f10_shell*)this)->IsFlagSet(1))
             ((FNV_74A000_This*)this)->FUN_0074a000(slot, 128.0f);
         else
             ((FNV_74A000_This*)this)->FUN_0074a000(slot, 255.0f);
         break;
     case 19:
-        if (((FUN_00740f10_shell*)this)->FUN_00740f10(4) || ((FUN_00740f10_shell*)this)->FUN_00740f10(1))
+        if (((FUN_00740f10_shell*)this)->IsFlagSet(4) || ((FUN_00740f10_shell*)this)->IsFlagSet(1))
             ((FNV_74A000_This*)this)->FUN_0074a000(slot, 128.0f);
         else
             ((FNV_74A000_This*)this)->FUN_0074a000(slot, 255.0f);
         break;
     case 22:
-        if (((FUN_00740f10_shell*)this)->FUN_00740f10(8) || ((FUN_00740f10_shell*)this)->FUN_00740f10(1))
+        if (((FUN_00740f10_shell*)this)->IsFlagSet(8) || ((FUN_00740f10_shell*)this)->IsFlagSet(1))
             ((FNV_74A000_This*)this)->FUN_0074a000(slot, 128.0f);
         else
             ((FNV_74A000_This*)this)->FUN_0074a000(slot, 255.0f);
@@ -24365,7 +24365,7 @@ struct CaravanMenuX
     SceneNode* m_pOppGrid[3];
     SceneNode* m_pSelectAdd;
     SceneNode* m_pSelectRemove;
-    void FUN_0073ea90();
+    void PrepareGameMenu();
     void UpdateHandStats(int index);
     void SetFlag(int flag, int set);
     void UpdateDeckCardNodes(int which, int set);
@@ -24375,7 +24375,7 @@ struct CaravanMenuX
 
 // Routes m_hand cards to player and opponent lists, draws eight cards from each deck, builds scene nodes and animation controls, and updates UI tiles.
 // @fnv 0x0073ea90
-void CaravanMenuX::FUN_0073ea90()
+void CaravanMenuX::PrepareGameMenu()
 {
     CardList* pPlayerList = DAT_011dea3c->GetField618();
     CardList* pOpponent = DAT_011dea3c->GetField614();

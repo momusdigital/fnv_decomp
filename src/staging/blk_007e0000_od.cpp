@@ -656,11 +656,11 @@ struct PipboyStub : FOPipboyManager
 {
     void SetQuad(ImageSpaceEffectParam* p);
     void FUN_007f7fb0(ImageSpaceEffectParam* p);
-    void FUN_007f7f40();
+    void ResetColors();
 };
 
 // @fnv 0x007f7f40
-void PipboyStub::FUN_007f7f40()
+void PipboyStub::ResetColors()
 {
     ImageSpaceEffectParam p(0.0f, 0.0f, 0.0f, 0.0f);
     if (reinterpret_cast<SystemColorManager*>(FUN_00718b60())->GetColor(4, *(NiColor*)&p))

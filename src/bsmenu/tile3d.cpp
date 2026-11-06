@@ -1501,10 +1501,10 @@ class BSString
 };
 
 const char* FUN_00707860();
-NiAVObject* FUN_00707660(const char* path, bool* flag);
-NiAVObject* FUN_00707870(NiAVObject* obj);
+NiAVObject* LoadModelFile(const char* path, bool* flag);
+NiAVObject* CopyOrDeepCopyNode(NiAVObject* obj);
 void FUN_00707930(int a);
-void FUN_00707820();
+void ClearTempModel();
 
 class Tile3DX
 {
@@ -1555,7 +1555,7 @@ void Tile3DX::LoadTile()
     else
         strFilename.Sprintf("%s\\%s", FUN_00707860(), pszName);
     bool flag = false;
-    NiAVObject* m_kModelObjectsItem = FUN_00707660(strFilename.CStr(), &flag);
+    NiAVObject* m_kModelObjectsItem = LoadModelFile(strFilename.CStr(), &flag);
     if (!m_kModelObjectsItem)
     {
         node = 0;
@@ -1563,7 +1563,7 @@ void Tile3DX::LoadTile()
     }
     SetFlag20000(flag);
     if (m_kModelObjectsItem->GetParent())
-        m_kModelObjectsItem = FUN_00707870(m_kModelObjectsItem);
+        m_kModelObjectsItem = CopyOrDeepCopyNode(m_kModelObjectsItem);
     AttachController(m_kModelObjectsItem);
     node->m_children.RemoveAll();
     RemovePropertyRecursive(m_kModelObjectsItem);
@@ -1576,6 +1576,6 @@ void Tile3DX::LoadTile()
         flags ^= 0x40;
     FUN_00a07530(9);
     FUN_00707930(1);
-    FUN_00707820();
+    ClearTempModel();
 }
 }  // namespace fnv_00a20980

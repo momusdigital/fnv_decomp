@@ -10,7 +10,7 @@ void ActorReferenceArray::SetupActorReferences()
     if (g_thePlayer->FUN_00878340() && BSFaceGenManager::GetModelMap() &&
         BSFaceGenManager::GetModelMap()->FUN_00529ea0() && !Tile::FindMenuById(0x40c))
         BSFaceGenManager::GetModelMap()->PurgeUnusedModels(false);
-    FUN_00878200(data);
+    EndMemoryFree(data);
 }
 // @fnv 0x009777a0
 void ActorReferenceArray::ResetActorReferences()
@@ -169,7 +169,7 @@ void __fastcall FUN_00c3e340(IOManager*);
 extern IOManager* DAT_01202d98;
 
 // @fnv 0x00878200
-void __cdecl FUN_00878200(unsigned char* aFreeData)
+void __cdecl EndMemoryFree(unsigned char* aFreeData)
 {
     FUN_00a5b460();
     FUN_00aa7030();

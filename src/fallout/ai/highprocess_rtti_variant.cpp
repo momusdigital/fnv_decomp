@@ -531,7 +531,7 @@ struct Actor
     unsigned int unk188;
     unsigned int unk18c;
     Process* process;
-    void FUN_00881680(int);
+    void EndInterruptPackage(int);
     ::TESPackage* FUN_009344a0();
     float FUN_00572380(const Vec&);
     Cell* FUN_008d6f30();
@@ -540,8 +540,8 @@ struct Actor
     bool FUN_008bb630(Request*);
     bool FUN_00894d60();
     void FUN_00894cc0(int);
-    void FUN_008b39f0(int);
-    bool FUN_008b3b90();
+    void SetMoveMode(int);
+    bool DidPathingFail();
     void FUN_008db810(Actor*);
 };
 struct System
@@ -574,7 +574,7 @@ void Actor::FUN_008db810(Actor* actor)
         int count = targetsSlot0.FUN_0044ddc0();
         if (count > 0)
         {
-            actor->FUN_00881680(0);
+            actor->EndInterruptPackage(0);
             actor->Start(*targetsSlot0.FUN_006a7ad0(0), 1, 1, 1, 0, 0, DAT_01012054, DAT_01012054);
             ::FleePackage* following = dynamic_cast< ::FleePackage*>(actor->FUN_009344a0());
             if (following)
@@ -587,7 +587,7 @@ void Actor::FUN_008db810(Actor* actor)
     }
     if (package->FUN_009f7fe0())
     {
-        actor->FUN_00881680(0);
+        actor->EndInterruptPackage(0);
         return;
     }
     float nearDistanceSlot10 = 0.0f;
@@ -635,7 +635,7 @@ void Actor::FUN_008db810(Actor* actor)
                 return;
             if (actor->FUN_00894d60())
                 actor->FUN_00894cc0(0);
-            actor->FUN_008b39f0(512);
+            actor->SetMoveMode(512);
             Vec targetSlot6Slot10;
             if (actor->process->GetPathCoordinate(&targetSlot6Slot10))
             {
@@ -651,7 +651,7 @@ void Actor::FUN_008db810(Actor* actor)
         package->FUN_009f7f20(actor, 1);
         package->FUN_009f7d70(actor, 1);
     }
-    if (actor->FUN_008b3b90())
+    if (actor->DidPathingFail())
         return;
     if (distanceSlot14 > farDistanceSlot35 * 2.0f)
     {

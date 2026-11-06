@@ -95,11 +95,11 @@ struct FakeList
 };
 struct FUN_007e5720_struct
 {
-    WoundFake* FUN_007e5720();
+    WoundFake* GetCurrentLimbWound();
 };
 // Walks the limb wound list and returns the first wound whose _04 matches the menu's _C0, or null if none is found.
 // @fnv 0x007e5720
-WoundFake* FUN_007e5720_struct::FUN_007e5720()
+WoundFake* FUN_007e5720_struct::GetCurrentLimbWound()
 {
     FakeList* pWoundList = (FakeList*)&g_011dae48;
     while (pWoundList != 0 && !pWoundList->_ref_008256d0())
@@ -310,7 +310,7 @@ NiPointer<NiNode> g_011dae5c;
 FUN_00950c20_self* _g_thePlayer;
 
 // @fnv 0x007e5170
-void FUN_007e5170()
+void Shutdown3DElements()
 {
     NiGeometry* pSourceGeometry = static_cast<NiGeometry*>(NiAdditionalGeometryData::GetShadowSceneNodeForIndex(1));
     pSourceGeometry->v58(g_011dade8.operator unsigned int());
@@ -764,7 +764,7 @@ void CloseSurgeryMenu()
         ((InterfaceManager*)FUN_004b7210())->GetParent()->SetInt(0xfa9, 0xff);
     }
 
-    FUN_007e5170();
+    Shutdown3DElements();
     ((SurgeryMenuType*)DAT_011dada4)->sound94.Stop();
     ((SurgeryMenuType*)DAT_011dada4)->soundA0.Stop();
     ((SurgeryMenuType*)DAT_011dada4)->sound94.Release();
@@ -2373,7 +2373,7 @@ struct SurgeryLimbMenu
     int unkBC;
     ActorValue::Index avC0;
 
-    LimbWoundData* FUN_007e5720();
+    LimbWoundData* GetCurrentLimbWound();
     float FUN_007e58e0();
 };
 
@@ -2383,7 +2383,7 @@ float SurgeryLimbMenu::FUN_007e58e0()
 {
     float total = 0;
     float range8 = 0;
-    LimbWoundData* wound_ = FUN_007e5720();
+    LimbWoundData* wound_ = GetCurrentLimbWound();
     if (!wound_)
     {
         tile70->Set(FUN_00a01860("_Value"), 1.0f, true);
@@ -2878,7 +2878,7 @@ struct WoundUpdater
 // @fnv 0x007e59f0
 void WoundUpdater::UpdateWounds(float delta)
 {
-    WoundFake* pHead = ((FUN_007e5720_struct*)DAT_011dada4)->FUN_007e5720();
+    WoundFake* pHead = ((FUN_007e5720_struct*)DAT_011dada4)->GetCurrentLimbWound();
     FakeList* node2 = (FakeList*)pHead->_00;
     while (node2 != 0 && !node2->_ref_008256d0())
     {
@@ -3575,7 +3575,7 @@ struct EventMenu
     float FUN_007e58e0();
     void UpdateWounds(float);
     int GetLimbPercentage();
-    EventWounds* FUN_007e5720();
+    EventWounds* GetCurrentLimbWound();
     void OnButtonClick(int, int);
 };
 int __cdecl FUN_00a00940(const char*, int);
@@ -3718,7 +3718,7 @@ void EventMenu::OnButtonClick(int button, int arg)
                                 ->FUN_0088b740(limb, (float)(GetLimbPercentage() -
                                                              ((EventPlayer*)_g_thePlayer)->values.Current(limb)));
                             ((EventPlayer*)_g_thePlayer)->Mod(16, -cost, 0);
-                            wounds = ((EventMenu*)DAT_011dada4)->FUN_007e5720();
+                            wounds = ((EventMenu*)DAT_011dada4)->GetCurrentLimbWound();
                             wounds->changed = true;
                             break;
                         }
@@ -3896,7 +3896,7 @@ struct BoneMenu
     int bracket;
     int unkC8, unkCC, unkD0, unkD4, unkD8, unkDC, unkE0;
     BoneManager* manager;
-    BoneWound* FUN_007e5720();
+    BoneWound* GetCurrentLimbWound();
     int GetTierFromPercent(int);
 };
 struct BoneWoundList
@@ -3917,7 +3917,7 @@ void __cdecl UpdateBoneWounds(BoneHost* host)
     if (managerLocal3)
     {
         ((BoneMenu*)DAT_011dada4)->manager = managerLocal3;
-        BoneWound* previous_2 = ((BoneMenu*)DAT_011dada4)->FUN_007e5720();
+        BoneWound* previous_2 = ((BoneMenu*)DAT_011dada4)->GetCurrentLimbWound();
         BoneWound* currentItem = 0;
         if (!previous_2)
         {
@@ -3986,7 +3986,7 @@ void __cdecl UpdateBoneWounds(BoneHost* host)
         blendA = ((25.0 - ((BonePlayer*)DAT_011dea3c)->values.Get(((BoneMenu*)DAT_011dada4)->limb)) + 75.0) / 100.0;
         break;
     }
-    BoneWound* wound9 = ((BoneMenu*)DAT_011dada4)->FUN_007e5720();
+    BoneWound* wound9 = ((BoneMenu*)DAT_011dada4)->GetCurrentLimbWound();
     if (wound9 && ((BoneMenu*)DAT_011dada4)->bracket)
     {
         BoneNode* node = wound9->list;
@@ -4082,7 +4082,7 @@ extern BipPointer DAT_011dae5c;
 
 // Looks up the "Bip01" node, calls two methods with global float values and arguments, then updates the current root.
 // @fnv 0x007e4fe0
-void __cdecl FUN_007e4fe0(float a, float b, float c)
+void __cdecl SetSurgeryPlayer3DPosition(float a, float b, float c)
 {
     if (DAT_011dae5c.FUN_00559450())
     {

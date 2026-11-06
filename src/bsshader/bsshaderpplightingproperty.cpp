@@ -2622,7 +2622,7 @@ extern char DAT_011f4aac;
 extern int DAT_011f91c0;
 extern char DAT_010ae238;
 extern char DAT_010ae1f0;
-extern void* __cdecl FUN_00b54b60(CallerArg*);
+extern void* __cdecl CreateTangentSpaceSimple(CallerArg*);
 extern void __cdecl FUN_005b5e40(void*, void*);
 struct RefHandle
 {
@@ -2789,7 +2789,7 @@ bool SelfObj::FUN_00b67a40(CallerArg* arg)
         bool bSameKind = geom->property ? geom->property->IsSameKind(&DAT_011f4aac) : false;
         if (!bSameKind && !(geom->typeFlags & 0xf000))
         {
-            activeHandle.FUN_0066b0d0(FUN_00b54b60(arg));
+            activeHandle.FUN_0066b0d0(CreateTangentSpaceSimple(arg));
         }
     }
     if ((primaryFlags & 0x100000) > 0)

@@ -372,11 +372,11 @@ void __cdecl FUN_00868770(int* a, int b);
 
 struct FUN_00868740_shell
 {
-    void FUN_00868740();
+    void AddGarbageMark();
 };
 
 // @fnv 0x00868740
-void FUN_00868740_shell::FUN_00868740()
+void FUN_00868740_shell::AddGarbageMark()
 {
     FUN_00868770(reinterpret_cast<int*>(this) + 1, *(reinterpret_cast<int*>(this) + 1) | 0x40000000);
 }
@@ -558,7 +558,7 @@ template <> class NiTArray<NiPointer<NiAVObject>, NiTNewInterface<NiPointer<NiAV
     unsigned int Add(const NiPointer<NiAVObject>& object);
 };
 
-// Calls FUN_00868740 on apObject if non-null, then adds it to one of two global NiTArray lists depending on bCollecting.
+// Calls AddGarbageMark on apObject if non-null, then adds it to one of two global NiTArray lists depending on bCollecting.
 // @fnv 0x00868660
 void FUN_00868660(NiAVObject* apObject)
 {
@@ -566,7 +566,7 @@ void FUN_00868660(NiAVObject* apObject)
 
     if (apObject)
     {
-        reinterpret_cast<FUN_00868740_shell*>(apObject)->FUN_00868740();
+        reinterpret_cast<FUN_00868740_shell*>(apObject)->AddGarbageMark();
     }
 
     if (bCollecting)

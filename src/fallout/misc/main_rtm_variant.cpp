@@ -23,11 +23,11 @@ extern Receiver86* g_dataHandler;
 
 struct PluginListReader
 {
-    bool FUN_00872430(const char* pDir, const char* pName);
+    bool LoadPluginsFromFile(const char* pDir, const char* pName);
 };
 
 // @fnv 0x00872430
-bool PluginListReader::FUN_00872430(const char* pDir, const char* pName)
+bool PluginListReader::LoadPluginsFromFile(const char* pDir, const char* pName)
 {
     char acPath[260];
     char acLine[512];

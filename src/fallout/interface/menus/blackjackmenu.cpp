@@ -586,7 +586,7 @@ struct FUN_007393f0_shell
 
     int DrawCard(int a1, int a2, int a3);
     int DrawCard(G2* hand, int a1, int a2);
-    void FUN_00738ff0(G2* hand);
+    void GetHandValue(G2* hand);
 
     void __thiscall DealInitialCards();
 };
@@ -617,7 +617,7 @@ void __thiscall FUN_007393f0_shell::DealInitialCards()
     cardindex = this->DrawCard(this->_playerHand, 1, 0);
     reinterpret_cast<SoundListView*>(this->_playerHand)->AddTail(&this->_deck[cardindex]);
 
-    this->FUN_00738ff0(this->_playerHand);
+    this->GetHandValue(this->_playerHand);
 }
 
 namespace fnv_007395a0 {
@@ -787,7 +787,7 @@ struct SetElem
 
 struct SetMgr
 {
-    void* FUN_007316d0();
+    void* GetChipType();
 };
 
 struct SetMgrB
@@ -849,8 +849,8 @@ FUN_007315e0::FUN_007315e0()
     DAT_011d9048 = FUN_00a00940("_x", -1);
     unk28 = 10;
     m7C = 0;
-    if (DAT_011d9058->FUN_007316d0() != 0)
-        m74 = (void*)DAT_011dea3c->FUN_00575610((int)DAT_011d9058->FUN_007316d0());
+    if (DAT_011d9058->GetChipType() != 0)
+        m74 = (void*)DAT_011dea3c->FUN_00575610((int)DAT_011d9058->GetChipType());
     ClearField();
 }
 
@@ -1631,7 +1631,7 @@ struct PlayerStandIn
 extern PlayerStandIn* g_thePlayer;
 struct FormHolder
 {
-    TESForm* FUN_007316d0();
+    TESForm* GetChipType();
 };
 extern FormHolder* g_formHolder;
 int __cdecl FUN_00a00940(const char*, int);
@@ -1720,8 +1720,8 @@ FUN_007c06f0::FUN_007c06f0()
     unkF4 = 0;
     unk154 = g_thePlayer->GetField630();
     unkFC = 1;
-    if (g_formHolder->FUN_007316d0())
-        unkD4 = g_thePlayer->FUN_00575610(g_formHolder->FUN_007316d0());
+    if (g_formHolder->GetChipType())
+        unkD4 = g_thePlayer->FUN_00575610(g_formHolder->GetChipType());
 }
 }  // namespace fnv_007c06f0
 
@@ -3222,7 +3222,7 @@ Tile129* FUN_00733630(SetMgr* casino, int minimum, int maximum, int required)
         FUN_00453a70()->FUN_00ad7550(DAT_01025cc4, 0x121).FUN_00ad8830(false);
         return 0;
     }
-    if (DAT_011dea3c->FUN_00575610((int)DAT_011d9058->FUN_007316d0()) < DAT_0119fe40)
+    if (DAT_011dea3c->FUN_00575610((int)DAT_011d9058->GetChipType()) < DAT_0119fe40)
     {
         char message[260];
         FUN_00406d00(message, 260, DAT_011d2424.FUN_00403df0());
@@ -3261,7 +3261,7 @@ Tile129* FUN_00733630(SetMgr* casino, int minimum, int maximum, int required)
         ((Menu129*)DAT_011d9050)->tile38->FUN_00a01350((int)DAT_011d9044, DAT_011d3300.FUN_00403df0(), true);
         ((Menu129*)DAT_011d9050)->tile38->SetTraitAndReset((int)DAT_011d9048, 1.0f);
         ((Menu129*)DAT_011d9050)
-            ->tile38->FUN_00700320((int)DAT_011d9048, DAT_011dea3c->FUN_00575610((int)DAT_011d9058->FUN_007316d0()));
+            ->tile38->FUN_00700320((int)DAT_011d9048, DAT_011dea3c->FUN_00575610((int)DAT_011d9058->GetChipType()));
         char label[64];
         if (FUN_0044a670(((Casino129*)DAT_011d9058)->name.FUN_00408da0()))
             FUN_00406d00(label, 64, DAT_01012058, ((Casino129*)DAT_011d9058)->name.FUN_00408da0(),
@@ -4552,11 +4552,11 @@ struct GlobalPtr
 
 struct BlackjackMenuShell
 {
-    void FUN_007396e0(int a1, int a2, CardInfo* a3);
+    void SwapCardTextures(int a1, int a2, CardInfo* a3);
 };
 
 // @fnv 0x007396e0
-void BlackjackMenuShell::FUN_007396e0(int a1, int aiIndex, CardInfo* apCardInfo)
+void BlackjackMenuShell::SwapCardTextures(int a1, int aiIndex, CardInfo* apCardInfo)
 {
     Node90* _prop;
     char aBuf1[30];
@@ -4610,11 +4610,11 @@ void BlackjackMenuShell::FUN_007396e0(int a1, int aiIndex, CardInfo* apCardInfo)
 
 struct OwnQ
 {
-    int FUN_00738ff0(Node129* pList);
+    int GetHandValue(Node129* pList);
 };
 // Sums adjusted card values, counts entries with value 12, then subtracts 10 per such entry while total exceeds 21.
 // @fnv 0x00738ff0
-int OwnQ::FUN_00738ff0(Node129* pList)
+int OwnQ::GetHandValue(Node129* pList)
 {
     int iTotal;
     int iAces;
@@ -4701,13 +4701,13 @@ struct InputMenu
     bool HasFlag(int);
     void SetFlag(int, bool);
     int DrawCard(void*, bool, bool);
-    int FUN_00738ff0(CardHand*);
+    int GetHandValue(CardHand*);
     void ClearField();
     void FUN_00738c30(int, float);
     void DealInitialCards();
     bool FUN_00739650(bool);
     void UpdateChipPositions();
-    void FUN_007396e0(int, int, CardInfo*);
+    void SwapCardTextures(int, int, CardInfo*);
     void FUN_007399f0();
 };
 // Dispatches a UI action (hit, double, split, raise, lower, max, stand) to the appropriate blackjack state transition and card logic.
@@ -4742,7 +4742,7 @@ void InputMenu::HandleAction(int action, void* tile)
                 {
                     hitIndex7 = DrawCard(split, true, false);
                     split->FUN_00905820(&cards[hitIndex7]);
-                    hitTotal7 = FUN_00738ff0(split);
+                    hitTotal7 = GetHandValue(split);
                     if (hitTotal7 >= 21)
                     {
                         SetFlag(0x800, true);
@@ -4767,7 +4767,7 @@ void InputMenu::HandleAction(int action, void* tile)
                 {
                     hitIndex7 = DrawCard(hand, true, false);
                     hand->FUN_00905820(&cards[hitIndex7]);
-                    hitTotal7 = FUN_00738ff0(hand);
+                    hitTotal7 = GetHandValue(hand);
                     if (hitTotal7 >= 21)
                     {
                         SetFlag(0x400, true);
@@ -4826,7 +4826,7 @@ void InputMenu::HandleAction(int action, void* tile)
                     SetFlag(1, true);
                     ((Menu129*)DAT_011d9050)->tile34->SetTraitAndReset((int)DAT_011d9048, 1.0f);
                     ((Menu129*)DAT_011d9050)->tile34->FUN_00700320((int)DAT_011d9048, splitBet + bet);
-                    int aDoubleTotal = FUN_00738ff0(hand);
+                    int aDoubleTotal = GetHandValue(hand);
                     if (aDoubleTotal > 21)
                         result = 4;
                     SetFlag(0x40, false);
@@ -4876,13 +4876,13 @@ void InputMenu::HandleAction(int action, void* tile)
                         split->FUN_00726c60(splitCard7);
                     else
                         split->FUN_005ae3d0(splitCard7);
-                    FUN_007396e0(1, 1, splitCard7);
+                    SwapCardTextures(1, 1, splitCard7);
                     splitIndex = DrawCard(hand, false, false);
                     secondNode3->FUN_00726c60(&cards[splitIndex]);
                     splitIndex = DrawCard(split, false, false);
                     split->FUN_00905820(&cards[splitIndex]);
-                    int handTotal8 = FUN_00738ff0(hand);
-                    int splitTotal2 = FUN_00738ff0(hand);
+                    int handTotal8 = GetHandValue(hand);
+                    int splitTotal2 = GetHandValue(hand);
                     if (handTotal8 == 21)
                     {
                         result = 5;

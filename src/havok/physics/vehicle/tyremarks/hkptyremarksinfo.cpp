@@ -82,12 +82,12 @@ class hkObjE39E
     int unk0C;
     hkArrayE39E<hkPointSetE39E*> m_kPointSets;
 
-    void FUN_00e39ee0(hkStatisticsCollectorE39E* pkCollector, const hkClassE39E* pkClass) const throw();
+    void calcContentStatistics(hkStatisticsCollectorE39E* pkCollector, const hkClassE39E* pkClass) const throw();
 };
 
 // For each point set in the array, adds its ray array to the statistics collector under the name "Points".
 // @fnv 0x00e39ee0
-void hkObjE39E::FUN_00e39ee0(hkStatisticsCollectorE39E* pkCollector, const hkClassE39E* pkClass) const throw()
+void hkObjE39E::calcContentStatistics(hkStatisticsCollectorE39E* pkCollector, const hkClassE39E* pkClass) const throw()
 {
     for (int i = 0; i < m_kPointSets.GetLogicalSize(); i++)
         pkCollector->addArray("Points", m_kPointSets.m_data[i]->m_kPoints);

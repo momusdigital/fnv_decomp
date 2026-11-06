@@ -394,7 +394,7 @@ struct ActorPackageContext
 
 struct TESSaveLoadGameHelper
 {
-    void FUN_008579b0(void*, int);
+    void SaveGameDataOLD(void*, int);
 };
 
 struct FUN_0081e8c0_shell_standin
@@ -422,7 +422,7 @@ void FUN_00811110_shell::FUN_00811110(unsigned int aiFlags)
         reinterpret_cast<PC7d*>(this)->FUN_00484ce0(reinterpret_cast<char*>(this) + 0x8c, 4);
     }
 
-    reinterpret_cast<TESSaveLoadGameHelper*>(g_TESSaveLoadGame)->FUN_008579b0(reinterpret_cast<char*>(this) + 0xac, 4);
+    reinterpret_cast<TESSaveLoadGameHelper*>(g_TESSaveLoadGame)->SaveGameDataOLD(reinterpret_cast<char*>(this) + 0xac, 4);
 
     reinterpret_cast<PC7d*>(this)->FUN_00484ce0(reinterpret_cast<char*>(this) + 0xb0, 4);
 
@@ -834,7 +834,7 @@ struct ProjectileImpact
     int unka4;
     float elapsed, duration;
     int unkb0, mode;
-    ProjectileInfo* FUN_009306d0();
+    ProjectileInfo* GetCharController();
     void* GetParentCell();
     int GetArchetype();
     ProjectileEvent* FUN_009185e0();
@@ -845,9 +845,9 @@ struct ProjectileImpact
 void ProjectileImpact::TriggerImpact(int aiUnused1, int aiUnused2, int aiUnused3, int aiUnused4, int aiEventArg,
                                      bool abSuppress)
 {
-    ProjectileFlags a = FUN_009306d0()->FUN_0070c440();
+    ProjectileFlags a = GetCharController()->FUN_0070c440();
     a.SetFlag4000(true);
-    FUN_009306d0()->FUN_00810ff0(a.value);
+    GetCharController()->FUN_00810ff0(a.value);
     mode = 1;
     float b = (duration - elapsed) / duration;
     if (!abSuppress && b > 0.0)
@@ -1580,7 +1580,7 @@ struct AreaProjectile
     int unkbc;
     Effect* effect;
     bool FUN_00440d80() const;
-    Info* FUN_009306d0();
+    Info* GetCharController();
     void FUN_00484af0(int);
     void FUN_008106d0(float dt);
 };
@@ -1599,7 +1599,7 @@ void AreaProjectile::FUN_008106d0(float afDeltaTime)
         case 1: {
             if (FUN_00440d80())
                 break;
-            if (FUN_004587d0(FUN_009306d0()->GetFloatAtOffset53C()) >= Position().z)
+            if (FUN_004587d0(GetCharController()->GetFloatAtOffset53C()) >= Position().z)
                 SetPosition(Position(), 0, 0, 1);
             Vec newPosition(0.0f, speed * afDeltaTime, 0.0f);
             Vec oldPosition = Position();
@@ -1952,7 +1952,7 @@ struct Cls
     virtual void tv115();
     virtual void* tv116();
     void UpdateFlags(int, int);
-    Ctrl* FUN_009306d0();
+    Ctrl* GetCharController();
     Refr* FUN_009185e0();
     void FUN_008115c0(int a1, int a2);
 };
@@ -1961,7 +1961,7 @@ struct Cls
 void Cls::FUN_008115c0(int aiArg1, int aiArg2)
 {
     UpdateFlags(aiArg1, aiArg2);
-    Ctrl* ctrl4 = FUN_009306d0();
+    Ctrl* ctrl4 = GetCharController();
     if (ctrl4)
     {
         unsigned int _result;
@@ -2394,10 +2394,10 @@ struct Projectile
     Sound sound;
     float start;
     bool FUN_00440d80() const;
-    Controller* FUN_009306d0();
+    Controller* GetCharController();
     void FUN_00812700(float, Link*);
     float GetField90Float();
-    void FUN_008133d0(int);
+    void SetState(int);
     float GetUnka4();
     void UpdateMotion(float delta);
 };
@@ -2412,16 +2412,16 @@ void Projectile::UpdateMotion(float delta)
     Vec original = Root()->FUN_0043c490();
     if ((Anim*)animation && mode == 0)
     {
-        if (FUN_004587d0(FUN_009306d0()->GetFloatAtOffset53C()) >= Position().z)
+        if (FUN_004587d0(GetCharController()->GetFloatAtOffset53C()) >= Position().z)
             Relocate(Position(), 0, 0, 1);
         Vec movementVal(0.0f, speed * delta, 0.0f);
         Vec before = NiPoint3_ZERO;
-        if (FUN_009306d0())
-            FUN_009306d0()->FUN_00812b00(before);
+        if (GetCharController())
+            GetCharController()->FUN_00812b00(before);
         Move(delta, movementVal, 15);
         Vec after = NiPoint3_ZERO;
-        if (FUN_009306d0())
-            FUN_009306d0()->FUN_00812b00(after);
+        if (GetCharController())
+            GetCharController()->FUN_00812b00(after);
         distance += (after - before).FUN_00457990();
         if (distance > *originalRuntimeFloatSetting1130.FUN_00403e20())
             Mark(1);
@@ -2477,20 +2477,20 @@ void Projectile::UpdateMotion(float delta)
                                   -FUN_004b5550(vertical, horizontal_));
             ((Node*)node)->FUN_0043fa80(&rotation);
         }
-        else if (FUN_009306d0())
+        else if (GetCharController())
         {
             Vec position;
-            FUN_009306d0()->FUN_00812b00(position);
+            GetCharController()->FUN_00812b00(position);
             float length = (original - position).FUN_00457990();
             if (!moving ||
                 GetField90Float() * speed > ((Anim*)animation)->FUN_008d8b80() * ((Anim*)animation)->GetFloatAt144())
                 ((Anim*)animation)->DispatchFloatPair(delta, length, speed, moving);
             if (((Anim*)animation)->FUN_00ee8990())
             {
-                FUN_008133d0(2);
-                Flags state = FUN_009306d0()->FUN_0070c440();
+                SetState(2);
+                Flags state = GetCharController()->FUN_0070c440();
                 state.SetFlag4000(true);
-                FUN_009306d0()->FUN_00810ff0(state.value);
+                GetCharController()->FUN_00810ff0(state.value);
             }
         }
     }
@@ -2528,7 +2528,7 @@ struct FUN_00440460_shell
 
 struct FUN_008106b0_shell : FUN_00810a80_shell
 {
-    void FUN_008106b0(float strength);
+    void SetFallTime(float strength);
 };
 
 struct FUN_0081c320_shell
@@ -2577,7 +2577,7 @@ struct FUN_00440d80_shell
 
 struct FUN_009306d0_shell
 {
-    FUN_008106b0_shell* FUN_009306d0();
+    FUN_008106b0_shell* GetCharController();
 };
 
 struct FUN_0081a320_class
@@ -3097,7 +3097,7 @@ void FUN_0081a320_class::FUN_0081a320(float afDeltaTime)
             if (((FUN_00440d80_shell*)this)->FUN_00440d80())
                 return;
 
-            if (FUN_004587d0(((FUN_009306d0_shell*)this)->FUN_009306d0()->GetFloatAtOffset53C()) >= v125()->z)
+            if (FUN_004587d0(((FUN_009306d0_shell*)this)->GetCharController()->GetFloatAtOffset53C()) >= v125()->z)
                 v193(*v125(), 0, 0, 1);
 
             float distanceTraveled;
@@ -3106,8 +3106,8 @@ void FUN_0081a320_class::FUN_0081a320(float afDeltaTime)
             aim.FUN_00416870(0.0f, m_88 * afDeltaTime, 0.0f);
 
             ((FUN_009306d0_shell*)this)
-                ->FUN_009306d0()
-                ->FUN_008106b0(1.0f - afDeltaTime * *DAT_011d1ad8.FUN_00403e20());
+                ->GetCharController()
+                ->SetFallTime(1.0f - afDeltaTime * *DAT_011d1ad8.FUN_00403e20());
 
             Vec3 start = *v125();
 
@@ -3184,7 +3184,7 @@ struct SaveStream
 
     unsigned char __thiscall FUN_008df040();
 
-    void __thiscall FUN_008579b0(const void*, int);
+    void __thiscall SaveGameDataOLD(const void*, int);
 
     void* __thiscall FUN_004fd3e0();
 };
@@ -3289,14 +3289,14 @@ void FUN_008ce610_owner::FUN_008ce610(int arg)
 
         unsigned int magic = 0x424c4f4b;
 
-        reinterpret_cast<TESSaveLoadGameHelper*>(DAT_011de45c)->FUN_008579b0(&magic, 4);
+        reinterpret_cast<TESSaveLoadGameHelper*>(DAT_011de45c)->SaveGameDataOLD(&magic, 4);
 
         pLength = reinterpret_cast<unsigned short*>(reinterpret_cast<SaveStream*>(DAT_011de45c)->FUN_00825c00());
 
-        reinterpret_cast<TESSaveLoadGameHelper*>(DAT_011de45c)->FUN_008579b0(&idB, 2);
+        reinterpret_cast<TESSaveLoadGameHelper*>(DAT_011de45c)->SaveGameDataOLD(&idB, 2);
     }
 
-    reinterpret_cast<TESSaveLoadGameHelper*>(DAT_011de45c)->FUN_008579b0(reinterpret_cast<char*>(this) + 0x8c, 4);
+    reinterpret_cast<TESSaveLoadGameHelper*>(DAT_011de45c)->SaveGameDataOLD(reinterpret_cast<char*>(this) + 0x8c, 4);
 
     FUN_00484ce0(reinterpret_cast<char*>(this) + 0x90, 4);
 
@@ -3342,7 +3342,7 @@ void FUN_008ce610_owner::FUN_008ce610(int arg)
     {
 
         reinterpret_cast<TESSaveLoadGameHelper*>(DAT_011de45c)
-            ->FUN_008579b0((*reinterpret_cast<MotionStateRecord**>(reinterpret_cast<char*>(this) + 0x88)), 4);
+            ->SaveGameDataOLD((*reinterpret_cast<MotionStateRecord**>(reinterpret_cast<char*>(this) + 0x88)), 4);
 
         FUN_00484ce0(&(*reinterpret_cast<MotionStateRecord**>(reinterpret_cast<char*>(this) + 0x88))->origin, 12);
 
@@ -3360,7 +3360,7 @@ void FUN_008ce610_owner::FUN_008ce610(int arg)
             transform.FUN_00a6df40(
                 &(*reinterpret_cast<MotionStateRecord**>(reinterpret_cast<char*>(this) + 0x88))->extended);
 
-            reinterpret_cast<TESSaveLoadGameHelper*>(DAT_011de45c)->FUN_008579b0(&transform, 16);
+            reinterpret_cast<TESSaveLoadGameHelper*>(DAT_011de45c)->SaveGameDataOLD(&transform, 16);
         }
 
         if ((*reinterpret_cast<MotionStateRecord**>(reinterpret_cast<char*>(this) + 0x88))->type == 1 ||
@@ -4005,7 +4005,7 @@ struct Cls
     unsigned char uc3;
     int fc4;
     void FUN_0046a010(int);
-    void FUN_008caea0(int, float);
+    void InitHavok(int, float);
     void UpdateFlags(int, int);
     void FUN_008cf440(int, int);
 };
@@ -4034,7 +4034,7 @@ void Cls::FUN_008cf440(int a1, int a2)
         fc4 = a1;
         return;
     }
-    FUN_008caea0(fa4, 1.0f);
+    InitHavok(fa4, 1.0f);
     UpdateFlags(a1, a2);
     if (f88 != 0 && (f88->f00 == 1 || f88->f00 == 0))
     {
@@ -4798,7 +4798,7 @@ struct EffectSetting
 
 struct NodeEffect
 {
-    void FUN_0081c470(bool, float);
+    void Fade(bool, float);
 };
 
 struct ContinuousBeamProjectile
@@ -5050,7 +5050,7 @@ struct ContinuousBeamProjectile
     EffectItem* FUN_00586150();
     void FUN_00575830(const NiPoint3*);
     void FUN_0081f000(NiPoint3, NiPoint3, unsigned int);
-    ProjectileNodeStandin* FUN_009306d0();
+    ProjectileNodeStandin* GetCharController();
     int GetArchetype();
     void* FUN_008d6f30();
     ProjectileEvent* FUN_009185e0();
@@ -5097,15 +5097,15 @@ void ContinuousBeamProjectile::ApplyAreaEffect(NiPoint3 point, unsigned int vari
     if (this->sound.FUN_00ad8ce0())
         this->sound.FUN_00ad88f0();
 
-    if (this->FUN_009306d0() && !silent)
+    if (this->GetCharController() && !silent)
     {
-        if (this->FUN_009306d0()->sub410.FUN_00621270(0x8000))
+        if (this->GetCharController()->sub410.FUN_00621270(0x8000))
         {
             this->v310();
         }
-        CustomFlags aFlags3 = this->FUN_009306d0()->FUN_0070c440();
+        CustomFlags aFlags3 = this->GetCharController()->FUN_0070c440();
         aFlags3.SetFlag4000(true);
-        this->FUN_009306d0()->FUN_00810ff0(aFlags3.value);
+        this->GetCharController()->FUN_00810ff0(aFlags3.value);
     }
 
     this->unkac = 2;
@@ -5129,7 +5129,7 @@ void ContinuousBeamProjectile::ApplyAreaEffect(NiPoint3 point, unsigned int vari
             aPSeq5->FUN_0098adb0(-DAT_0107a510);
             if (this->effect)
             {
-                this->effect->FUN_0081c470(false, (float)(aPSeq5->FUN_00508100() * DAT_0101de30));
+                this->effect->Fade(false, (float)(aPSeq5->FUN_00508100() * DAT_0101de30));
             }
         }
     }
@@ -6638,7 +6638,7 @@ struct C0Obj
     int c14;
     int c18;
     C0Obj(int, void*);
-    void FUN_0081c470(int, float);
+    void Fade(int, float);
     void FUN_00621b00(float);
 };
 struct Ret8d
@@ -6892,7 +6892,7 @@ void Cls8112c0::FUN_008112c0(int aiParam1, int aiParam2)
                     result = foundEffect->FUN_0047a520(&StrObj("SpecialIdle_AreaEffect"));
                     if (result)
                     {
-                        m_c0->FUN_0081c470(0, ((Obj24*)result)->FUN_00508100() * DAT_0101de30);
+                        m_c0->Fade(0, ((Obj24*)result)->FUN_00508100() * DAT_0101de30);
                         m_c0->FUN_00621b00(f10);
                     }
                 }
@@ -6955,7 +6955,7 @@ struct PackageNodeHandler
 struct MotionController
 {
     float GetFloatAtOffset53C();
-    void FUN_008106b0(float);
+    void SetFallTime(float);
 };
 struct SaveService
 {
@@ -7171,7 +7171,7 @@ struct Controller
     void* releaseData;
 
     bool FUN_00440d80();
-    MotionController* FUN_009306d0();
+    MotionController* GetCharController();
     void FUN_008ccfb0(int);
     bool ProcessImpact();
     int FUN_008d6f30();
@@ -7212,16 +7212,16 @@ void Controller::FUN_008cb3c0(float afDelta)
         {
             return;
         }
-        if (phase == 0 && FUN_009306d0())
+        if (phase == 0 && GetCharController())
         {
             Vec3 delta_pos(0.0f, velocity * afDelta, 0.0f);
             Vec3 oldPosition = *v125();
-            if (FUN_004587d0(FUN_009306d0()->GetFloatAtOffset53C()) >= v125()->z)
+            if (FUN_004587d0(GetCharController()->GetFloatAtOffset53C()) >= v125()->z)
             {
                 float stepScale = (lifetime - 1.0f * afDelta) / lifetime;
                 velocity = velocity * stepScale;
                 acceleration = acceleration * stepScale;
-                FUN_009306d0()->FUN_008106b0(stepScale);
+                GetCharController()->SetFallTime(stepScale);
                 lifetime = lifetime - 1.0f * afDelta;
                 if (lifetime < DAT_01011588)
                 {

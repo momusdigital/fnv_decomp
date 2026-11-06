@@ -396,7 +396,7 @@ void FUN_006e2b90::SetFlag(unsigned char value)
 
 struct BGSSaveGameBuffer
 {
-    void FUN_00865f60(unsigned int);
+    void SaveVariableSizedValue(unsigned int);
 };
 
 struct BGSSaveFormBuffer : public BGSSaveGameBuffer
@@ -466,7 +466,7 @@ void FUN_006e3230_shell::FUN_006e3230(BGSSaveFormBuffer* buffer)
                   ->GetFlags()
             : 0;
 
-    buffer->FUN_00865f60(i);
+    buffer->SaveVariableSizedValue(i);
 
     for (isaveGameCount = 0; isaveGameCount < i; ++isaveGameCount)
     {

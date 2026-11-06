@@ -293,7 +293,7 @@ struct FUN_0051b070_shell
 };
 struct TESSaveLoadGame
 {
-    void FUN_008579b0(void*, int);
+    void SaveGameDataOLD(void*, int);
 };
 extern TESSaveLoadGame* g_TESSaveLoadGame;
 struct FUN_00515290_shell
@@ -311,7 +311,7 @@ void FUN_00515290_shell::FUN_00515290(unsigned int aiFlags)
     base.FUN_00484c20(aiFlags);
     m84.FUN_0048e9e0(aiFlags);
     if (aiFlags & 0x20)
-        g_TESSaveLoadGame->FUN_008579b0(&bC1, 1);
+        g_TESSaveLoadGame->SaveGameDataOLD(&bC1, 1);
 }
 
 namespace fnv_005152e0 {
@@ -456,7 +456,7 @@ struct FUN_005153a0_ret
 struct FUN_005153a0_arg
 {
     FUN_005153a0_ret* FUN_00428110(unsigned int* out, int size);
-    void FUN_00864980(void* p, int n);
+    void LoadData(void* p, int n);
 };
 struct FUN_005153a0_holder
 {
@@ -571,7 +571,7 @@ void FUN_005153a0_cls::FUN_005153a0(FUN_005153a0_arg* a1)
     m_84.FUN_0048ea80(a1);
     if (a1->FUN_00428110(&local, 0x20)->FUN_004280f0())
     {
-        a1->FUN_00864980(&bC1, 1);
+        a1->LoadData(&bC1, 1);
     }
 }
 

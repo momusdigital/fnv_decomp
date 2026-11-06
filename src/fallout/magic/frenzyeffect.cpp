@@ -54,7 +54,7 @@ void* FrenzyEffectShell::ConstructFrenzyEffect(void* apArg1, void* apArg2, void*
 
 struct TESSaveLoadGame
 {
-    void __thiscall FUN_008579b0(void*, int);
+    void __thiscall SaveGameDataOLD(void*, int);
 };
 extern TESSaveLoadGame* g_TESSaveLoadGame;
 struct FUN_0080dfd0_shell : ValueModifierEffect
@@ -62,12 +62,12 @@ struct FUN_0080dfd0_shell : ValueModifierEffect
     void __thiscall FUN_00802db0(Actor*);
     void __thiscall FUN_0080dfd0(Actor* actor);
 };
-// Calls FUN_00802db0 on the actor, then passes this+0x4c and 1 to TESSaveLoadGame::FUN_008579b0.
+// Calls FUN_00802db0 on the actor, then passes this+0x4c and 1 to TESSaveLoadGame::SaveGameDataOLD.
 // @fnv 0x0080dfd0
 void __thiscall FUN_0080dfd0_shell::FUN_0080dfd0(Actor* actor)
 {
     FUN_00802db0(actor);
-    g_TESSaveLoadGame->FUN_008579b0((char*)this + 0x4c, 1);
+    g_TESSaveLoadGame->SaveGameDataOLD((char*)this + 0x4c, 1);
 }
 
 namespace fnv_0080e000 {

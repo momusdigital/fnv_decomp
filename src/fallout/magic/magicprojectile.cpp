@@ -84,7 +84,7 @@ struct FUN_00932070_shell
 };
 struct FUN_00818be0_shell
 {
-    unsigned int FUN_00818be0();
+    unsigned int GetMagicCasterFormID();
 };
 struct FUN_0040a1e0_shell
 {
@@ -100,7 +100,7 @@ void FUN_0081e8c0_shell::FUN_0081e8c0(unsigned int aiFlags)
     SaveProcess(aiFlags);
     unsigned int icasterID =
         reinterpret_cast<FUN_00818be0_shell*>(*reinterpret_cast<void**>(reinterpret_cast<unsigned char*>(this) + 0x94))
-            ->FUN_00818be0();
+            ->GetMagicCasterFormID();
     reinterpret_cast<FUN_00484d20_Class*>(this)->ForwardToSaveLoadGame(reinterpret_cast<int>(&icasterID), 4);
     unsigned int ispellID =
         reinterpret_cast<FUN_0040a1e0_shell*>(*reinterpret_cast<void**>(reinterpret_cast<unsigned char*>(this) + 0x98))
@@ -1850,7 +1850,7 @@ FUN_00822920::FUN_00822920(void*, int, GameTimerRecord*, unsigned int, Vector3, 
 
 // Constructs one of four class instances based on projectile->FUN_004086a0() and passes it to DAT_011e0e80.
 // @fnv 0x0081e040
-void __cdecl FUN_0081e040(void* a, unsigned int b, unsigned int c, int d, GameTimerRecord* timer, S86a0* projectile,
+void __cdecl Launch(void* a, unsigned int b, unsigned int c, int d, GameTimerRecord* timer, S86a0* projectile,
                           Vector3 first, Vector3 second)
 {
     void* result = 0;

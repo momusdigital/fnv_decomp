@@ -3034,7 +3034,7 @@ struct Game
     void FUN_00861ea0();
     bool FUN_008727b0();
     void FUN_00858af0(int, int, int);
-    void FUN_0085f850(int);
+    void LoadQueuedData(int);
 };
 extern Game* DAT_011de45c;
 struct Loader
@@ -3132,7 +3132,7 @@ void Grid::RefreshGrid()
         DAT_011de45c->FUN_004534f0(true);
         DAT_011de45c->FUN_004534f0(true);
         DAT_011de45c->FUN_00858af0(0, 0, 0);
-        DAT_011de45c->FUN_0085f850(0);
+        DAT_011de45c->LoadQueuedData(0);
         DAT_011de45c->FUN_004534f0(second6);
         DAT_011de45c->FUN_004534f0(first);
     }
@@ -3580,7 +3580,7 @@ void ReloadInterfaceReset();
 void ReloadInterfaceRefresh();
 struct ReloadStreaming
 {
-    void FUN_00871dc0();
+    void RenderMenuBackground();
     void FUN_0086ff70();
 };
 extern ReloadStreaming* reloadStreaming;
@@ -3975,7 +3975,7 @@ class Manager458
 struct SaveWriter : SaveState
 {
     unsigned char* FUN_00825c00();
-    void FUN_008579b0(void*, unsigned int);
+    void SaveGameDataOLD(void*, unsigned int);
     void FUN_00857a10(void*, unsigned int);
 };
 struct ValueReferencePair

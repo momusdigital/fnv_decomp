@@ -1611,7 +1611,7 @@ struct TESSaveLoadGameHelper
 {
     unsigned int GetTimeStamp();
     bool FUN_00862110();
-    void FUN_008579b0(void*, int);
+    void SaveGameDataOLD(void*, int);
     SaveHeaderView* GetHitSound();
 };
 extern TESSaveLoadGame* g_TESSaveLoadGame;
@@ -1736,12 +1736,12 @@ void SavedProcess::FUN_008d0a10(unsigned int flags, unsigned int unused)
     if (((TESSaveLoadGameHelper*)g_TESSaveLoadGame)->FUN_00862110())
     {
         unsigned int tag = 0x424c4f4b;
-        ((TESSaveLoadGameHelper*)g_TESSaveLoadGame)->FUN_008579b0(&tag, 4);
+        ((TESSaveLoadGameHelper*)g_TESSaveLoadGame)->SaveGameDataOLD(&tag, 4);
         begin = (unsigned int*)((TimeGlobal*)g_TESSaveLoadGame)->GetTimeStamp();
-        ((TESSaveLoadGameHelper*)g_TESSaveLoadGame)->FUN_008579b0(&length, 2);
+        ((TESSaveLoadGameHelper*)g_TESSaveLoadGame)->SaveGameDataOLD(&length, 2);
     }
     data.FUN_008c6250(flags);
-    ((TESSaveLoadGameHelper*)g_TESSaveLoadGame)->FUN_008579b0(&unk1c, 4);
+    ((TESSaveLoadGameHelper*)g_TESSaveLoadGame)->SaveGameDataOLD(&unk1c, 4);
     if (*g_011de4e8.Bool())
     {
         unsigned int header = ((TimeGlobal*)g_TESSaveLoadGame)->GetTimeStamp();
@@ -1782,7 +1782,7 @@ struct Record8d
 struct Reader8d
 {
     bool FUN_00862110();
-    void FUN_008579e0(void*, unsigned);
+    void LoadGameDataOLD(void*, unsigned);
     Record8d* FUN_004fd3c0();
     unsigned char FUN_008df040();
     unsigned FUN_00825c00();
@@ -1890,7 +1890,7 @@ void Target8d::LoadAndValidate(void* arg1, void* arg2, void* arg3)
     if ((*(Reader8d**)&DAT_011de45c)->FUN_00862110())
     {
         unsigned tag;
-        (*(Reader8d**)&DAT_011de45c)->FUN_008579e0(&tag, 4);
+        (*(Reader8d**)&DAT_011de45c)->LoadGameDataOLD(&tag, 4);
         if (tag != 0x424c4f4b)
         {
             Record8d* record = (*(Reader8d**)&DAT_011de45c)->FUN_004fd3c0();
@@ -1906,10 +1906,10 @@ void Target8d::LoadAndValidate(void* arg1, void* arg2, void* arg3)
             }
         }
         start = (*(Reader8d**)&DAT_011de45c)->FUN_00825c00();
-        (*(Reader8d**)&DAT_011de45c)->FUN_008579e0(&count, 2);
+        (*(Reader8d**)&DAT_011de45c)->LoadGameDataOLD(&count, 2);
     }
     base.FUN_008c6320(arg1, arg2);
-    (*(Reader8d**)&DAT_011de45c)->FUN_008579e0(&field, 4);
+    (*(Reader8d**)&DAT_011de45c)->LoadGameDataOLD(&field, 4);
     if ((*(Reader8d**)&DAT_011de45c)->FUN_00862110())
     {
         unsigned end = (*(Reader8d**)&DAT_011de45c)->FUN_00825c00();

@@ -11221,11 +11221,11 @@ struct World {
     QueryCollisionInput* m_pCollisionInput;
     C96CollisionFilter* m_pCollisionFilter;
 
-    void FUN_00c96df0(Collidable* collA, const QueryCollisionInput* input, Collector* collector) throw();
+    void getPenetrations(Collidable* collA, const QueryCollisionInput* input, Collector* collector) throw();
 };
 
 // @fnv 0x00c96df0
-void World::FUN_00c96df0(Collidable* collA, const QueryCollisionInput* input, Collector* collector) throw() {
+void World::getPenetrations(Collidable* collA, const QueryCollisionInput* input, Collector* collector) throw() {
 
     C96MonitorStream& ms1 = C96MonitorStream::GetMonitorStream();
     char* pos1 = ms1.m_pos;

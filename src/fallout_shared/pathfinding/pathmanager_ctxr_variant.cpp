@@ -24,7 +24,7 @@ struct ObjA
 
 struct PathingTaskData_Ext : public PathingTaskData
 {
-    int FUN_006ea350();
+    int ComputeRayCasts();
     bool FUN_006ea490();
     void FUN_0060d4b0(int);
 };
@@ -1501,7 +1501,7 @@ struct FUN_006eae40_shell
     int unk_1478;
     int unk_147c;
     Coll1480 m_sub1480;
-    void FUN_006c5ec0(ObjC* pC, int a);
+    void AttachTask(ObjC* pC, int a);
     void FUN_006eae40();
 };
 
@@ -1536,7 +1536,7 @@ void FUN_006eae40_shell::FUN_006eae40()
     {
         if (m_sub1480.TryGetNextEntry(&objA6, &pOut_b, &pFound_vv, 1) && pFound_vv->FUN_005dc980())
         {
-            count_iagb += pFound_vv->FUN_006ea350();
+            count_iagb += pFound_vv->ComputeRayCasts();
             if ((unsigned int)count_iagb > 10)
                 break;
             if (pFound_vv->FUN_006ea490())
@@ -1544,7 +1544,7 @@ void FUN_006eae40_shell::FUN_006eae40()
                 pFound_vv->FUN_0060d4b0(0);
                 ObjC objC_oqluk;
                 objC_oqluk.FUN_006ecd40(pFound_vv);
-                FUN_006c5ec0(&objC_oqluk, 0);
+                AttachTask(&objC_oqluk, 0);
             }
         }
     }

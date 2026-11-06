@@ -1396,7 +1396,7 @@ class FUN_004d4eb0 : public FUN_004d4f10
 struct BGSLoadGameBuffer
 {
     virtual unsigned char GetVersion();
-    void FUN_00864980(void*, unsigned int);
+    void LoadData(void*, unsigned int);
 };
 struct SavedSettingValue
 {
@@ -1486,7 +1486,7 @@ struct DoorTeleportLoadData
 };
 struct FUN_008579e0_shell
 {
-    void FUN_008579e0(void*, unsigned int);
+    void LoadGameDataOLD(void*, unsigned int);
 };
 extern FUN_008579e0_shell* g_TESSaveLoadGame;
 struct DoorTeleportArray

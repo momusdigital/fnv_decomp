@@ -217,13 +217,13 @@ struct Ref
     Ref* FUN_008d6f30();
     bool FUN_005656d0();
     bool FUN_00564d80();
-    void FUN_0093a660(Ref* a);
+    void RemoveActorFromPlayercombatList(Ref* a);
     void FUN_00967350(Ref* a);
     void FUN_00952c30(Ref* a);
     int FUN_00931850();
     bool FUN_00574900();
-    void FUN_00881680(int a);
-    void FUN_0088d640();
+    void EndInterruptPackage(int a);
+    void GetOutofFurnitureQuick();
     void FUN_00407800(Proc* a);
     void FUN_0056c880(unsigned int a, bool b);
     void* FUN_0056ac90();
@@ -585,7 +585,7 @@ extern Ref* DAT_011ca27c;
 extern Ref* DAT_011ca280;
 extern Tes* DAT_011dea10;
 extern GlobalObj DAT_011e0e80;
-void __cdecl FUN_008cddd0(Ref* a, int b);
+void __cdecl DeleteAttachedArrows(Ref* a, int b);
 int __cdecl FUN_00570f60();
 void __cdecl FUN_00835980(Ref* a);
 struct ObjectResolver

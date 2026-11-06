@@ -1931,11 +1931,11 @@ struct FUN_006df780_S
 
 struct FUN_006dfe90_S
 {
-    bool FUN_006dfe90(PathingLocation* loc, bool b);
+    bool SetLocationSeen(PathingLocation* loc, bool b);
 };
 
 // @fnv 0x006dfe90
-bool FUN_006dfe90_S::FUN_006dfe90(PathingLocation* pLocation, bool bFlag)
+bool FUN_006dfe90_S::SetLocationSeen(PathingLocation* pLocation, bool bFlag)
 {
     NavMeshPtr apSearchNavMesh;
     bool bResult;
@@ -2376,12 +2376,12 @@ struct FUN_006df5f0_Class
 
 struct FUN_006dfdc0_Class
 {
-    bool FUN_006dfdc0(PathingLocation* path);
+    bool IsLocationSeen(PathingLocation* path);
 };
 
 // Gets the path's navmesh and location, looks up the location index in this array, and delegates the check to the element at that index.
 // @fnv 0x006dfdc0
-bool FUN_006dfdc0_Class::FUN_006dfdc0(PathingLocation* path)
+bool FUN_006dfdc0_Class::IsLocationSeen(PathingLocation* path)
 {
     NavMeshPtr navMesh;
 
@@ -3063,11 +3063,11 @@ struct PathBuilder
     PathRequestView* request;
     PathingSolution* solution;
     bool FindPath(const NiPoint3&, const NiPoint3&, void*, PathDoorView*);
-    bool FUN_006c9b20();
+    bool BuildTeleportDoorPath();
 };
 // Runs a path search between the request's start and end locations, then builds the path through the resulting edges and doors, returning the search result.
 // @fnv 0x006c9b20
-bool PathBuilder::FUN_006c9b20()
+bool PathBuilder::BuildTeleportDoorPath()
 {
     FUN_006f33b0 searchB;
     TeleportPathHelper dataB;
@@ -3153,7 +3153,7 @@ struct Mid6cec
 struct PathingSolutionS
 {
     VirtualPathingNodeS* GetVirtualNode(unsigned int uiIndex);
-    void FUN_0069f920(FUN_004ff7e0* pkLocation, NiPoint3* pkOffset);
+    void AddPathingNode(FUN_004ff7e0* pkLocation, NiPoint3* pkOffset);
     Mid6cec* FUN_006b05a0();
 };
 
@@ -3172,7 +3172,7 @@ bool PathBuilder::BuildPathSegment(unsigned int uiStartIndex, unsigned int uiEnd
         FUN_006dcc40 kTargetPoint(m_pSolution->GetVirtualNode(i)->FUN_00717e50());
         if (!FUN_006cac70(m_pSolution->GetVirtualNode(i)))
             kTargetPoint.FUN_006dd460(&kTargetPoint.FUN_006dd540()->kPos);
-        m_pSolution->FUN_0069f920(&kTargetPoint, &NiPoint3_ZERO);
+        m_pSolution->AddPathingNode(&kTargetPoint, &NiPoint3_ZERO);
     }
     if (m_pSolution->GetVirtualNode(uiEndIndex)->IsTransitionNode())
         m_pSolution->FUN_006b05a0()->FUN_006cc560(m_pSolution->GetVirtualNode(uiEndIndex)->FUN_0055b980());
@@ -3897,7 +3897,7 @@ struct PathingSolution
     PathingSolution();
     ~PathingSolution();
     unsigned int GetNodeCount();
-    bool FUN_006e7e70(float, float, int, float*, NiPoint3*);
+    bool FindPointOnPath(float, float, int, float*, NiPoint3*);
 };
 struct PathingRequestClosePoint
 {
@@ -3952,7 +3952,7 @@ bool __cdecl FindPathToTarget(RequestAccess* request, NiPoint3* output)
         if (FUN_006d0b10(&aOrigin, &aMatrix))
         {
             float aNode;
-            if (aMatrix.FUN_006e7e70(float(aMatrix.GetNodeCount() - 1), request->GetFloatAtOffsetB0(), 0, &aNode,
+            if (aMatrix.FindPointOnPath(float(aMatrix.GetNodeCount() - 1), request->GetFloatAtOffsetB0(), 0, &aNode,
                                      output))
             {
                 return true;
@@ -4010,7 +4010,7 @@ struct TriangleHandle : MeshTriangle
 };
 struct Mesh
 {
-    void FUN_0068f0c0(unsigned short, int, Point&, Point&);
+    void GetEdgeVertices(unsigned short, int, Point&, Point&);
     Triangle* FUN_005582f0(unsigned short);
     bool MatchNavMesh(MeshEdgeRecord*, TriangleHandle*);
     NavMeshInfo* FUN_0068efb0();
@@ -4108,7 +4108,7 @@ bool __cdecl FUN_006d4570(LocationView* location, float radius, LocationView* re
         {
             Point q;
             Point b;
-            i.FUN_00559450()->FUN_0068f0c0(f, edge, q, b);
+            i.FUN_00559450()->GetEdgeVertices(f, edge, q, b);
             h.enabled[edge] = DistanceToSegment(location->FUN_005c3420(), q, b, 0) < radius;
         }
         p.FUN_006db4f0(&h);
@@ -4148,7 +4148,7 @@ bool __cdecl FUN_006d4570(LocationView* location, float radius, LocationView* re
                                 {
                                     Point q;
                                     Point b;
-                                    neighbor.mesh->FUN_0068f0c0(neighbor.triangle, side, q, b);
+                                    neighbor.mesh->GetEdgeVertices(neighbor.triangle, side, q, b);
                                     next.enabled[side] = DistanceToSegment(location->FUN_005c3420(), q, b, 0) < radius;
                                 }
                                 p.FUN_006db4f0(&next);
@@ -4167,7 +4167,7 @@ bool __cdecl FUN_006d4570(LocationView* location, float radius, LocationView* re
             {
                 Point i;
                 Point cf;
-                a.FUN_006a1440(j)->mesh->FUN_0068f0c0(a.FUN_006a1440(j)->triangle, a.FUN_006a1440(j)->edge, i, cf);
+                a.FUN_006a1440(j)->mesh->GetEdgeVertices(a.FUN_006a1440(j)->triangle, a.FUN_006a1440(j)->edge, i, cf);
                 Point f = GetClosestPointOnSegment(location->FUN_005c3420(), i, cf);
                 float s = (f - location->FUN_005c3420()).FUN_004a7290();
                 if (s < p)
@@ -4482,7 +4482,7 @@ struct FUN_00527990_shell
 };
 struct FUN_006dd280_shell
 {
-    void FUN_006dd280(BGSPerk** item, int value, void* data);
+    void SetupData(BGSPerk** item, int value, void* data);
 };
 struct FUN_006dd220_Class
 {
@@ -4496,7 +4496,7 @@ FUN_006dd220_Class* FUN_006dd220_Class::ConstructFromSource(void* source)
     int b = 0;
     int a = 0;
     reinterpret_cast<FUN_00527990_shell*>(source)->FUN_00527990(&b, &a);
-    reinterpret_cast<FUN_006dd280_shell*>(this)->FUN_006dd280(
+    reinterpret_cast<FUN_006dd280_shell*>(this)->SetupData(
         &reinterpret_cast<BSSimpleList<BGSPerk*>*>(source)->GetItem(), b, reinterpret_cast<void*>(a));
     return this;
 }
@@ -5323,7 +5323,7 @@ struct FUN_00865db0_shell
 };
 struct FUN_00865f60_shell
 {
-    void FUN_00865f60(unsigned int value);
+    void SaveVariableSizedValue(unsigned int value);
 };
 struct FUN_006df9c0_shell
 {
@@ -5344,7 +5344,7 @@ void FUN_006dffc0_Class::WriteToBuffer(FUN_00865db0_shell* buffer)
 {
     buffer->FUN_00865db0(m_ref ? m_ref->FUN_00559450() : 0, 0);
     unsigned int count = this ? ((FUN_0044ddc0_shell*)this)->FUN_0044ddc0() : 0;
-    ((FUN_00865f60_shell*)buffer)->FUN_00865f60(count);
+    ((FUN_00865f60_shell*)buffer)->SaveVariableSizedValue(count);
     for (unsigned int index = 0; index < count; ++index)
     {
         unsigned int* item = &((FUN_006a7ad0_shell*)this)->FUN_006a7ad0(index);

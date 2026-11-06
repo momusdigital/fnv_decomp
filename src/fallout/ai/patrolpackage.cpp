@@ -527,7 +527,7 @@ struct BGSSaveFormBuffer
 {
     void SaveData(void*, int, int);
     void SerializeFormData(void*, int);
-    void FUN_00865f60(unsigned int);
+    void SaveVariableSizedValue(unsigned int);
 };
 struct ArrSI
 {
@@ -553,7 +553,7 @@ void FUN_009f33d0_shell::FUN_009f33d0(BGSSaveFormBuffer* apSaveGameBuffer)
     apSaveGameBuffer->SaveData((char*)this + 0x30, 4, 0);
     apSaveGameBuffer->SerializeFormData(*(void**)((char*)this + 0x14), 0);
     unsigned int isaveGameCount = (ArrSI*)((char*)this + 0x1c) ? ((ArrSI*)((char*)this + 0x1c))->GetFlags() : 0;
-    apSaveGameBuffer->FUN_00865f60(isaveGameCount);
+    apSaveGameBuffer->SaveVariableSizedValue(isaveGameCount);
     for (unsigned int i = 0; i < isaveGameCount; ++i)
     {
         TESObjectREFR** ppRefr = (TESObjectREFR**)&((BSSimpleArray*)((char*)this + 0x1c))->GetAt(i);

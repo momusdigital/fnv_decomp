@@ -128,7 +128,7 @@ struct FUN_00a712f0
     static void* operator new(unsigned int);
     static void operator delete(void*, unsigned int);
     FUN_00a712f0();
-    void FUN_00712e60(const Rect2180&);
+    void SetViewPort(const Rect2180&);
     void FUN_00507700(float);
     void FUN_00a6faf0(const Frustum2180&);
     void SetLookAt(const Point2180&, const Point2180&);
@@ -145,7 +145,7 @@ FUN_00a712f0* Target2180::FUN_007c2180()
 {
     FUN_00a712f0* camera5 = new FUN_00a712f0;
     Rect2180 rect(0.0f, 1.0f, 1.0f, 0.0f);
-    camera5->FUN_00712e60(rect);
+    camera5->SetViewPort(rect);
     Frustum2180 frustum5(false);
     frustum5.farz = FUN_0045c670()->get();
     frustum5.nearz = *((Setting2180*)&DAT_01203144)->FUN_00403e20();

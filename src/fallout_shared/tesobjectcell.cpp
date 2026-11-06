@@ -15977,7 +15977,7 @@ struct Stream
 {
     unsigned char FUN_008df040();
     bool FUN_00862110();
-    void FUN_008579e0(void*, unsigned int);
+    void LoadGameDataOLD(void*, unsigned int);
     Header* FUN_004fd3c0();
     unsigned int FUN_00825c00();
 };
@@ -16051,7 +16051,7 @@ void Cell::LoadChanged(unsigned int auiChangedFlags, int file)
         if (DAT_011de45c->FUN_00862110())
         {
             unsigned int uiChunkTag;
-            DAT_011de45c->FUN_008579e0(&uiChunkTag, 4);
+            DAT_011de45c->LoadGameDataOLD(&uiChunkTag, 4);
             if (uiChunkTag != 0x424c4f4b)
             {
                 Header* header = DAT_011de45c->FUN_004fd3c0();
@@ -16065,7 +16065,7 @@ void Cell::LoadChanged(unsigned int auiChangedFlags, int file)
                     FUN_005b5e40(DAT_010156a8, DAT_0102ed68, 0x3d9d, DAT_011de45c->FUN_008df040());
             }
             start = DAT_011de45c->FUN_00825c00();
-            DAT_011de45c->FUN_008579e0(&usChunkSize, 2);
+            DAT_011de45c->LoadGameDataOLD(&usChunkSize, 2);
         }
         if (auiChangedFlags & 2)
         {
@@ -18666,7 +18666,7 @@ struct ShWorld
 struct ShCell
 {
     unsigned char FUN_00552bb0();
-    void FUN_006a37a0(void* owner, int mode);
+    void AddDrawOnlyNavMeshes(void* owner, int mode);
 };
 
 struct ShPortalGraph
@@ -18745,7 +18745,7 @@ void FUN_00552970_Call::UpdateCellScene(NiNode* node)
     FUN_005577b0(1);
     FUN_0054b950(1);
     if (((ShCell*)FUN_00552ba0())->FUN_00552bb0())
-        ((ShCell*)FUN_00552ba0())->FUN_006a37a0(this, 1);
+        ((ShCell*)FUN_00552ba0())->AddDrawOnlyNavMeshes(this, 1);
     FUN_00557470();
     UpdateNavMeshObstacles();
     ((ShNavMgr*)NavMeshObstacleManager::GetSingleton())->FUN_006c1170();
@@ -22724,14 +22724,14 @@ void CellInitLoadView::FUN_005559d0(BGSLoadFormBuffer* apLoadGameBuffer)
 
 struct Call_006c0c80
 {
-    void FUN_006c0c80(TESObjectREFR* object);
+    void RemoveObstacleForReference(TESObjectREFR* object);
 };
 
 class NavMeshObstacleManager : public Call_006c0c80
 {
   public:
     static NavMeshObstacleManager* __cdecl GetSingleton();
-    void FUN_006c1060(TESObjectREFR* object);
+    void OnDoorRemove(TESObjectREFR* object);
 };
 
 class TESBoundObject;
@@ -23118,13 +23118,13 @@ void FUN_00551110_Cell::FUN_005576c0()
         {
             if (reinterpret_cast<CellObstacleVirtual*>(perk)->Check())
             {
-                NavMeshObstacleManager::GetSingleton()->FUN_006c0c80(reinterpret_cast<TESObjectREFR*>(perk));
+                NavMeshObstacleManager::GetSingleton()->RemoveObstacleForReference(reinterpret_cast<TESObjectREFR*>(perk));
             }
 
             if (_FNV_GetFormType(reinterpret_cast<TESForm*>(
                     _FNV_GetObjectReference(reinterpret_cast<TESObjectREFR*>(perk)))) == 0x1C)
             {
-                NavMeshObstacleManager::GetSingleton()->FUN_006c1060(reinterpret_cast<TESObjectREFR*>(perk));
+                NavMeshObstacleManager::GetSingleton()->OnDoorRemove(reinterpret_cast<TESObjectREFR*>(perk));
             }
         }
 

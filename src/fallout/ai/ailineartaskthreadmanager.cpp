@@ -254,7 +254,7 @@ unsigned int __cdecl gm_GetCurrentThreadId(void);
 bool __cdecl FUN_00713d90(void);
 bool __fastcall FUN_0087a730(void*);
 bool __cdecl FUN_008c7bc0(void);
-void* __stdcall FUN_00713d80(int);
+void* __stdcall QInstance(int);
 unsigned int __fastcall GetValueWithItemResult(void*);
 unsigned long __fastcall _ref_0084e3a0(void*);
 extern GlobalObject2_0040c150 g_011c3ea4;
@@ -274,14 +274,14 @@ bool __cdecl FUN_008c7aa0()
         unsigned long icurrthread = gm_GetCurrentThreadId();
         if (icurrthread != (unsigned long)g_osGlobals->GetAudioBackendData())
         {
-            if (FUN_008c7bc0() || GetValueWithItemResult(FUN_00713d80(1)) < 6)
+            if (FUN_008c7bc0() || GetValueWithItemResult(QInstance(1)) < 6)
                 bretval = true;
         }
         else
         {
             if (!FUN_008c7bc0())
             {
-                if (GetValueWithItemResult(FUN_00713d80(0)) < 11 || GetValueWithItemResult(FUN_00713d80(1)) < 7)
+                if (GetValueWithItemResult(QInstance(0)) < 11 || GetValueWithItemResult(QInstance(1)) < 7)
                     bretval = true;
                 else
                     bretval = false;
@@ -517,11 +517,11 @@ struct TaskThreadStandin
 
 struct FUN_008c73a0_shell : public AIThreadManager
 {
-    void FUN_008c73a0();
+    void DestroyThreads();
 };
 
 // @fnv 0x008c73a0
-void FUN_008c73a0_shell::FUN_008c73a0()
+void FUN_008c73a0_shell::DestroyThreads()
 {
     unsigned int i;
     int j;
@@ -645,7 +645,7 @@ struct GlobalObject_0096d020
     void FUN_0096db30(float, int, int);
 };
 
-void* __stdcall FUN_00713d80(int);
+void* __stdcall QInstance(int);
 void __fastcall FUN_0086fd70(void*);
 float __cdecl FUN_00453850();
 bool __cdecl FUN_005c42d0();
@@ -663,11 +663,11 @@ extern RecursiveSpinLock DAT_011f11a0;
 extern void* BGSSaveLoadGlobalDataWorldspacePtr;
 
 // @fnv 0x008c7bd0
-void __cdecl FUN_008c7bd0()
+void __cdecl AIThreadCombined()
 {
-    reinterpret_cast<FUN_008c79e0_shell*>(FUN_00713d80(0))->SignalThreadEvent(0);
+    reinterpret_cast<FUN_008c79e0_shell*>(QInstance(0))->SignalThreadEvent(0);
     FUN_0086fd70(g_osGlobals);
-    reinterpret_cast<FUN_008c79e0_shell*>(FUN_00713d80(0))->SignalThreadEvent(1);
+    reinterpret_cast<FUN_008c79e0_shell*>(QInstance(0))->SignalThreadEvent(1);
 
     reinterpret_cast<FUN_0087a6b0_shell*>(TaskQueueInterface::GetInstance())->FUN_0087a6b0();
 
@@ -699,7 +699,7 @@ void __cdecl FUN_008c7bd0()
 
     reinterpret_cast<Zt5TES*>(g_TES)->FUN_00453550(FUN_00453850());
 
-    reinterpret_cast<FUN_008c7d80_shell*>(FUN_00713d80(1))->SetCurrent(6);
+    reinterpret_cast<FUN_008c7d80_shell*>(QInstance(1))->SetCurrent(6);
     FUN_008c80d0();
 
     if (*g_011d73e4.Bool())
@@ -709,8 +709,8 @@ void __cdecl FUN_008c7bd0()
     FUN_005ae270();
     FUN_005a9d60();
 
-    reinterpret_cast<FUN_008c7d80_shell*>(FUN_00713d80(0))->SetCurrent(11);
-    reinterpret_cast<FUN_008c7d80_shell*>(FUN_00713d80(1))->SetCurrent(7);
+    reinterpret_cast<FUN_008c7d80_shell*>(QInstance(0))->SetCurrent(11);
+    reinterpret_cast<FUN_008c7d80_shell*>(QInstance(1))->SetCurrent(7);
 }
 }  // namespace fnv_008c7bd0
 
@@ -769,7 +769,7 @@ struct FUN_0096cb50_shell
     void UpdateHighProcessActors();
 };
 
-void* __stdcall FUN_00713d80(int);
+void* __stdcall QInstance(int);
 float __cdecl FUN_00453850(void);
 void __cdecl FUN_005ae270(void);
 void __cdecl FUN_005a9d60(void);
@@ -777,43 +777,43 @@ extern int g_TES;
 extern int DAT_011e0e80;
 
 // @fnv 0x008c7f50
-void FUN_008c7f50()
+void AIThread2TaskFunc()
 {
-    reinterpret_cast<FUN_008c79e0_shell*>(FUN_00713d80(1))->SignalThreadEvent(0);
-    reinterpret_cast<FUN_008c7a70_shell*>(FUN_00713d80(0))->WaitForEvent(1);
+    reinterpret_cast<FUN_008c79e0_shell*>(QInstance(1))->SignalThreadEvent(0);
+    reinterpret_cast<FUN_008c7a70_shell*>(QInstance(0))->WaitForEvent(1);
 
     reinterpret_cast<FUN_0087a6b0_shell*>(TaskQueueInterface::GetInstance())->FUN_0087a6b0();
     reinterpret_cast<FUN_0096c330_shell*>(&DAT_011e0e80)->UpdateDetection();
 
-    reinterpret_cast<FUN_008c79e0_shell*>(FUN_00713d80(1))->SignalThreadEvent(1);
-    reinterpret_cast<FUN_008c79e0_shell*>(FUN_00713d80(1))->SignalThreadEvent(2);
-    reinterpret_cast<FUN_008c7a70_shell*>(FUN_00713d80(0))->WaitForEvent(2);
+    reinterpret_cast<FUN_008c79e0_shell*>(QInstance(1))->SignalThreadEvent(1);
+    reinterpret_cast<FUN_008c79e0_shell*>(QInstance(1))->SignalThreadEvent(2);
+    reinterpret_cast<FUN_008c7a70_shell*>(QInstance(0))->WaitForEvent(2);
 
     reinterpret_cast<FUN_0096c330_shell*>(&DAT_011e0e80)->FUN_0096db30(0.0f, 0, 0);
 
-    reinterpret_cast<FUN_008c79e0_shell*>(FUN_00713d80(1))->SignalThreadEvent(3);
+    reinterpret_cast<FUN_008c79e0_shell*>(QInstance(1))->SignalThreadEvent(3);
     reinterpret_cast<SkyObject*>(&DAT_011e0e80)->Update(0.0f, 0);
     reinterpret_cast<FUN_0096cb50_shell*>(&DAT_011e0e80)->UpdateHighProcessActors();
 
-    reinterpret_cast<FUN_008c79e0_shell*>(FUN_00713d80(1))->SignalThreadEvent(4);
+    reinterpret_cast<FUN_008c79e0_shell*>(QInstance(1))->SignalThreadEvent(4);
     BGSDestructibleObjectForm::UpdateDestructionMap();
 
-    reinterpret_cast<FUN_008c79e0_shell*>(FUN_00713d80(1))->SignalThreadEvent(5);
-    reinterpret_cast<FUN_008c7a70_shell*>(FUN_00713d80(0))->WaitForEvent(4);
+    reinterpret_cast<FUN_008c79e0_shell*>(QInstance(1))->SignalThreadEvent(5);
+    reinterpret_cast<FUN_008c7a70_shell*>(QInstance(0))->WaitForEvent(4);
 
     reinterpret_cast<Zt5TES*>(g_TES)->FUN_00453550(FUN_00453850());
 
-    reinterpret_cast<FUN_008c79e0_shell*>(FUN_00713d80(1))->SignalThreadEvent(6);
+    reinterpret_cast<FUN_008c79e0_shell*>(QInstance(1))->SignalThreadEvent(6);
     reinterpret_cast<FUN_0087a6d0_shell*>(TaskQueueInterface::GetInstance())->FUN_0087a6d0();
 
-    reinterpret_cast<FUN_008c7a70_shell*>(FUN_00713d80(0))->WaitForEvent(8);
-    reinterpret_cast<FUN_008c79e0_shell*>(FUN_00713d80(1))->SignalThreadEvent(7);
+    reinterpret_cast<FUN_008c7a70_shell*>(QInstance(0))->WaitForEvent(8);
+    reinterpret_cast<FUN_008c79e0_shell*>(QInstance(1))->SignalThreadEvent(7);
 
     FUN_005ae270();
     FUN_005a9d60();
 
-    reinterpret_cast<FUN_008c7a70_shell*>(FUN_00713d80(0))->WaitForEvent(9);
-    reinterpret_cast<FUN_008c7a70_shell*>(FUN_00713d80(0))->WaitForEvent(11);
+    reinterpret_cast<FUN_008c7a70_shell*>(QInstance(0))->WaitForEvent(9);
+    reinterpret_cast<FUN_008c7a70_shell*>(QInstance(0))->WaitForEvent(11);
 }
 }  // namespace fnv_008c7f50
 
@@ -888,7 +888,7 @@ extern void* BGSSaveLoadGlobalDataWorldspacePtr;
 extern int DAT_011e0e80;
 extern GlobalObject_0045cf30 g_011d73e4;
 
-void* __cdecl FUN_00713d80();
+void* __cdecl QInstance();
 void __fastcall FUN_0086fd70(void*);
 void __fastcall FUN_00991dc0(void*);
 void __cdecl FUN_005a9d60();
@@ -897,39 +897,39 @@ bool __cdecl FUN_005c42d0();
 void __cdecl FUN_008c80d0();
 
 // @fnv 0x008c7da0
-void __cdecl FUN_008c7da0()
+void __cdecl AIThread1TaskFunc()
 {
-    reinterpret_cast<FUN_008c79e0_shell*>(FUN_00713d80())->SignalThreadEvent(0, 0);
+    reinterpret_cast<FUN_008c79e0_shell*>(QInstance())->SignalThreadEvent(0, 0);
     FUN_0086fd70(g_osGlobals);
-    reinterpret_cast<FUN_008c79e0_shell*>(FUN_00713d80())->SignalThreadEvent(0, 1);
+    reinterpret_cast<FUN_008c79e0_shell*>(QInstance())->SignalThreadEvent(0, 1);
     reinterpret_cast<FUN_0087a6b0_shell*>(TaskQueueInterface::GetInstance())->FUN_0087a6b0();
     reinterpret_cast<FUN_00991500_shell*>(BGSSaveLoadGlobalDataWorldspacePtr)->FUN_00991500(FUN_005c42d0());
     reinterpret_cast<ProcessLists*>(&DAT_011e0e80)->FUN_0096cca0();
     reinterpret_cast<ProcessLists*>(&DAT_011e0e80)->FUN_0096cda0();
-    reinterpret_cast<FUN_008c79e0_shell*>(FUN_00713d80())->SignalThreadEvent(0, 2);
+    reinterpret_cast<FUN_008c79e0_shell*>(QInstance())->SignalThreadEvent(0, 2);
     g_TES->FUN_00455640();
-    reinterpret_cast<FUN_008c79e0_shell*>(FUN_00713d80())->SignalThreadEvent(0, 3);
+    reinterpret_cast<FUN_008c79e0_shell*>(QInstance())->SignalThreadEvent(0, 3);
     FUN_00991dc0(BGSSaveLoadGlobalDataWorldspacePtr);
-    reinterpret_cast<FUN_008c79e0_shell*>(FUN_00713d80())->SignalThreadEvent(0, 4);
+    reinterpret_cast<FUN_008c79e0_shell*>(QInstance())->SignalThreadEvent(0, 4);
     reinterpret_cast<FUN_009784c0_shell*>(&DAT_011e0e80)->FUN_009784c0();
-    reinterpret_cast<FUN_008c79e0_shell*>(FUN_00713d80())->SignalThreadEvent(0, 5);
+    reinterpret_cast<FUN_008c79e0_shell*>(QInstance())->SignalThreadEvent(0, 5);
     reinterpret_cast<ProcessLists*>(&DAT_011e0e80)->FUN_0096bcd0(0.0f, 0);
-    reinterpret_cast<FUN_008c79e0_shell*>(FUN_00713d80())->SignalThreadEvent(0, 6);
+    reinterpret_cast<FUN_008c79e0_shell*>(QInstance())->SignalThreadEvent(0, 6);
     ProcessLists::ProcessPlayerCellActors();
-    reinterpret_cast<FUN_008c79e0_shell*>(FUN_00713d80())->SignalThreadEvent(0, 10);
-    reinterpret_cast<FUN_008c7a70_shell*>(FUN_00713d80())->WaitForEvent(1, 1);
-    reinterpret_cast<FUN_008c7a70_shell*>(FUN_00713d80())->WaitForEvent(1, 3);
+    reinterpret_cast<FUN_008c79e0_shell*>(QInstance())->SignalThreadEvent(0, 10);
+    reinterpret_cast<FUN_008c7a70_shell*>(QInstance())->WaitForEvent(1, 1);
+    reinterpret_cast<FUN_008c7a70_shell*>(QInstance())->WaitForEvent(1, 3);
     reinterpret_cast<ProcessLists*>(&DAT_011e0e80)->RunActorUpdates();
-    reinterpret_cast<FUN_008c79e0_shell*>(FUN_00713d80())->SignalThreadEvent(0, 7);
+    reinterpret_cast<FUN_008c79e0_shell*>(QInstance())->SignalThreadEvent(0, 7);
     reinterpret_cast<FUN_0087a6d0_shell*>(TaskQueueInterface::GetInstance())->FUN_0087a6d0();
-    reinterpret_cast<FUN_008c79e0_shell*>(FUN_00713d80())->SignalThreadEvent(0, 8);
-    reinterpret_cast<FUN_008c7a70_shell*>(FUN_00713d80())->WaitForEvent(1, 7);
+    reinterpret_cast<FUN_008c79e0_shell*>(QInstance())->SignalThreadEvent(0, 8);
+    reinterpret_cast<FUN_008c7a70_shell*>(QInstance())->WaitForEvent(1, 7);
     FUN_008c80d0();
-    reinterpret_cast<FUN_008c79e0_shell*>(FUN_00713d80())->SignalThreadEvent(0, 9);
+    reinterpret_cast<FUN_008c79e0_shell*>(QInstance())->SignalThreadEvent(0, 9);
     if (*g_011d73e4.Bool())
         NavMeshObstacleManager::GetSingleton()->Update();
     FUN_005ae270();
     FUN_005a9d60();
-    reinterpret_cast<FUN_008c79e0_shell*>(FUN_00713d80())->SignalThreadEvent(0, 11);
+    reinterpret_cast<FUN_008c79e0_shell*>(QInstance())->SignalThreadEvent(0, 11);
 }
 }  // namespace fnv_008c7da0

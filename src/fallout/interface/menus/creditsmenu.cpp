@@ -206,7 +206,7 @@ struct S_0075f200_Tile
 struct S_0075f200_Mgr
 {
     int unk00;
-    void FUN_007d6c90();
+    void _EndCredits();
 };
 extern S_0075f200_Tile* DAT_011c3f3c;
 
@@ -222,7 +222,7 @@ FUN_0075f200::~FUN_0075f200()
 {
     DAT_011c3f3c->FUN_0046dce0(0.0f);
     if (DAT_011daac0)
-        ((S_0075f200_Mgr*)DAT_011daac0)->FUN_007d6c90();
+        ((S_0075f200_Mgr*)DAT_011daac0)->_EndCredits();
 }
 
 struct CallbackTarget
@@ -508,7 +508,7 @@ void CreditsMenuX::FUN_0075f910()
         CheckSaveNameConflict();
 }
 
-bool __cdecl FUN_00702450(int iMenu);
+bool __cdecl IsTopMenuID(int iMenu);
 bool __cdecl B75FB30IsMenuVisible(int iMenu);
 void __cdecl CheckSaveNameConflict();
 
@@ -531,7 +531,7 @@ bool B75FB30Menu::IsKeyHandled(int iKey, int iUnused)
     case 4:
         return false;
     default:
-        if (FUN_00702450(0x417) && !B75FB30IsMenuVisible(0x3e9))
+        if (IsTopMenuID(0x417) && !B75FB30IsMenuVisible(0x3e9))
         {
             CheckSaveNameConflict();
             return true;

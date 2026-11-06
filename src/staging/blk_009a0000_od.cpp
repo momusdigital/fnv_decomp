@@ -1663,12 +1663,12 @@ struct CombatThreatMap : public MapX
 
 struct FUN_00865f20_shell
 {
-    unsigned int __thiscall FUN_00865f20();
+    unsigned int __thiscall StartVariableSizedValue();
 };
 
 struct FUN_00865ff0_shell
 {
-    void __thiscall FUN_00865ff0(int count, unsigned int size);
+    void __thiscall SaveVariableSizedValue(int count, unsigned int size);
 };
 
 struct FUN_00865db0_shell
@@ -1680,7 +1680,7 @@ struct FUN_00865db0_shell
 void CombatThreatMap::SaveThreats(BGSSaveFormBuffer* buffer)
 {
     unsigned int position = 0;
-    unsigned int size = reinterpret_cast<FUN_00865f20_shell*>(buffer)->FUN_00865f20();
+    unsigned int size = reinterpret_cast<FUN_00865f20_shell*>(buffer)->StartVariableSizedValue();
     void* count = GetFirstPos();
 
     while (count)
@@ -1697,7 +1697,7 @@ void CombatThreatMap::SaveThreats(BGSSaveFormBuffer* buffer)
         }
     }
 
-    reinterpret_cast<FUN_00865ff0_shell*>(buffer)->FUN_00865ff0(position, size);
+    reinterpret_cast<FUN_00865ff0_shell*>(buffer)->SaveVariableSizedValue(position, size);
 }
 
 struct FUN_009a5df0
@@ -5091,7 +5091,7 @@ struct FUN_009a4a10_actor
     virtual void v135();
     virtual void v136();
     virtual bool v137();
-    FUN_0066ca00_holder* FUN_009306d0();
+    FUN_0066ca00_holder* GetCharController();
     bool FUN_00444d00(int aiFlag);
 };
 
@@ -5143,7 +5143,7 @@ NiPoint3 FUN_009a4a10_shell::FUN_009a4a10()
         if (pActor->v137())
         {
             pCharActor4 = pActor;
-            pController2 = pCharActor4->FUN_009306d0();
+            pController2 = pCharActor4->GetCharController();
             if (pController2)
             {
                 pController2->FUN_0066ca00(&kMotionVelocity);
@@ -8649,7 +8649,7 @@ struct HitActor
     bool FUN_00894d60();
     HitProcess* FUN_008d8520();
     void SetFieldE28(float);
-    bool FUN_008a16d0();
+    bool IsWeaponDrawn();
 };
 struct HitClip
 {
@@ -8791,7 +8791,7 @@ void HitDamage::FUN_009b5a30(bool skipBlock)
             if (DAT_011dea3c == target)
                 DAT_011dea3c->SetFieldE28(*DAT_011d0be4.FUN_00403e20());
             bool power = false;
-            if (blockWeapon2 && target->FUN_008a16d0())
+            if (blockWeapon2 && target->IsWeaponDrawn())
                 power = true;
             int skill = 0;
             if (weapon && blockWeapon2 && (blockWeapon2->FUN_00446390() == 2 || blockWeapon2->FUN_00446390() == 1))

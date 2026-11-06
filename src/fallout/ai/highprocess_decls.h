@@ -2271,7 +2271,7 @@ class HighProcess : public MiddleHighProcess
     bool ClearProcessState(Actor*);
     void ProcessActorWithFlag(Actor*, bool);
     bool FUN_008ff080();
-    void FUN_008e5730(Actor*);
+    void EvaluateBoneLod(Actor*);
     void Update(MobileObject*);
     bool ProcessActivate(Actor*, bool);
     void UpdateActorStateWithOptions(Actor*, bool, bool, int, bool);

@@ -308,7 +308,7 @@ struct BGSSaveLoadManager_ext : public BGSSaveLoadManager
 };
 
 // @fnv 0x00846ad0
-bool __fastcall FUN_00846ad0(const char** pThis)
+bool __fastcall IsQuicksave(const char** pThis)
 {
     return ((BGSSaveLoadManager_ext*)DAT_011de134)->IsQuickSaveFileName(*pThis);
 }
@@ -401,11 +401,11 @@ struct FUN_00846710_mgr_view
 struct FUN_00846710_cls : public BGSSaveLoadFileEntry
 {
     void DispatchEvent();
-    bool FUN_00846710();
+    bool SaveGame();
 };
 
 // @fnv 0x00846710
-bool FUN_00846710_cls::FUN_00846710()
+bool FUN_00846710_cls::SaveGame()
 {
     if (reinterpret_cast<FUN_00846710_mgr_view*>(DAT_011de134)->Probe00851980(pFileName) ||
         reinterpret_cast<FUN_00846710_mgr_view*>(DAT_011de134)->Probe00851a20(pFileName))

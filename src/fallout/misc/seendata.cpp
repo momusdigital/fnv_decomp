@@ -249,7 +249,7 @@ void* Class_00879970::FUN_00879970(unsigned int flags)
 namespace fnv_0087a060 {
 struct TESSaveLoadGame
 {
-    void FUN_008579b0(void* a1, int a2);
+    void SaveGameDataOLD(void* a1, int a2);
 };
 extern TESSaveLoadGame* g_TESSaveLoadGame;
 struct Proxy87060
@@ -258,11 +258,11 @@ struct Proxy87060
     int _4;
     void FUN_0087a060(bool abRecursing);
 };
-// Passes the address of _4 and size 0x20 to TESSaveLoadGame::FUN_008579b0.
+// Passes the address of _4 and size 0x20 to TESSaveLoadGame::SaveGameDataOLD.
 // @fnv 0x0087a060
 void Proxy87060::FUN_0087a060(bool abRecursing)
 {
-    g_TESSaveLoadGame->FUN_008579b0(&_4, 0x20);
+    g_TESSaveLoadGame->SaveGameDataOLD(&_4, 0x20);
 }
 }  // namespace fnv_0087a060
 
@@ -288,8 +288,8 @@ struct BGSSaveFormBuffer;
 struct BGSSaveFormBuffer
 {
     void SaveData(void* p, int a, int b);
-    unsigned int FUN_00865f20();
-    void FUN_00865ff0(int a, unsigned int b);
+    unsigned int StartVariableSizedValue();
+    void SaveVariableSizedValue(int a, unsigned int b);
 };
 struct FUN_0087a0c0_shell
 {
@@ -306,7 +306,7 @@ struct IntSeenData_0087a4e0
 void IntSeenData_0087a4e0::SaveToBuffer(BGSSaveFormBuffer* buffer)
 {
     unsigned int icount = 0;
-    unsigned int icountPosition = buffer->FUN_00865f20();
+    unsigned int icountPosition = buffer->StartVariableSizedValue();
     IntSeenData_0087a4e0* pNode = this;
     while (pNode)
     {
@@ -316,7 +316,7 @@ void IntSeenData_0087a4e0::SaveToBuffer(BGSSaveFormBuffer* buffer)
         pNode = *(IntSeenData_0087a4e0**)((char*)pNode + 0x28);
         ++icount;
     }
-    buffer->FUN_00865ff0(icount, icountPosition);
+    buffer->SaveVariableSizedValue(icount, icountPosition);
 }
 }  // namespace fnv_0087a4e0
 
@@ -597,7 +597,7 @@ unsigned short A2A0Object::FUN_0087a2a0(bool bFull)
 
 struct SaveDataWriter
 {
-    void FUN_008579b0(void* data, unsigned int size);
+    void SaveGameDataOLD(void* data, unsigned int size);
 };
 extern SaveDataWriter* DAT_011de45c;
 
@@ -636,10 +636,10 @@ void FUN_0087a330_shell::SaveSeenSection(bool abRecursing)
         {
             ++usSectionCount;
         }
-        DAT_011de45c->FUN_008579b0(&usSectionCount, 2);
+        DAT_011de45c->SaveGameDataOLD(&usSectionCount, 2);
     }
-    DAT_011de45c->FUN_008579b0(&m_cFirstByte, 1);
-    DAT_011de45c->FUN_008579b0(&m_cFollowingByte, 1);
+    DAT_011de45c->SaveGameDataOLD(&m_cFirstByte, 1);
+    DAT_011de45c->SaveGameDataOLD(&m_cFollowingByte, 1);
     if (m_pNext)
     {
         reinterpret_cast<SeenSectionDispatcher*>(m_pNext)->SaveSeenSection(true);

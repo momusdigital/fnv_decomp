@@ -119,7 +119,7 @@ struct FUN_006fca40
 {
     void* Del(unsigned int);
 };
-struct FUN_006fd7b0
+struct UnloadData
 {
     void Go(int);
 };
@@ -131,7 +131,7 @@ struct FUN_006fd750
 // @fnv 0x006fd750
 void FUN_006fd750::Unload()
 {
-    ((FUN_006fd7b0*)this)->Go(7);
+    ((UnloadData*)this)->Go(7);
     for (int i = 0; i < 4; i++)
     {
         FUN_006fca40* c = ((FUN_006fca40**)((char*)this + 0x20))[i];
@@ -222,18 +222,18 @@ struct FUN_006fd980_shell
     void* pBlock;
     int f18, f1c;
     FUN_006fd980_shell* pChildren[4];
-    void FUN_006fd7b0(int a);
-    void FUN_006fd980(int a);
+    void UnloadData(int a);
+    void UnloadDataRecurse(int a);
 };
 // @fnv 0x006fd980
-void FUN_006fd980_shell::FUN_006fd980(int aiFlags)
+void FUN_006fd980_shell::UnloadDataRecurse(int aiFlags)
 {
     if (pChunk || pBlock)
-        FUN_006fd7b0(aiFlags);
+        UnloadData(aiFlags);
     for (int i = 0; i < 4; i++)
     {
         if (pChildren[i])
-            pChildren[i]->FUN_006fd980(aiFlags);
+            pChildren[i]->UnloadDataRecurse(aiFlags);
     }
     m_bNodeStateFlag = 0;
     if (aiFlags & 4)
@@ -591,11 +591,11 @@ struct FUN_006fda10_shell
     char pad30[0x2c];
     bool m_bPersistent;  // +0x5c
 
-    void FUN_006fda10();
+    void UnloadPersistentDataRecurse();
 };
 
 // @fnv 0x006fda10
-void FUN_006fda10_shell::FUN_006fda10()
+void FUN_006fda10_shell::UnloadPersistentDataRecurse()
 {
     int i;
 
@@ -610,7 +610,7 @@ void FUN_006fda10_shell::FUN_006fda10()
     for (i = 0; i < 4; i++)
     {
         if (pChildren[i])
-            pChildren[i]->FUN_006fda10();
+            pChildren[i]->UnloadPersistentDataRecurse();
     }
 }
 
@@ -710,12 +710,12 @@ struct FUN_006fd7b0_Owner
     int unk58;
     bool bCheckOwner;
 
-    void FUN_006fd7b0(unsigned int auiFlags);
+    void UnloadData(unsigned int auiFlags);
 };
 
 // Deletes pPartA/pPartB/pPartC according to auiFlags bits, conditionally keeping pPartA, and clears pFlagHolder->bActive.
 // @fnv 0x006fd7b0
-void FUN_006fd7b0_Owner::FUN_006fd7b0(unsigned int auiFlags)
+void FUN_006fd7b0_Owner::UnloadData(unsigned int auiFlags)
 {
     if (bInitialized && pPartA && (auiFlags & 1))
     {
@@ -857,8 +857,8 @@ struct TerrainUpdate
     bool GetByteAtOffset5C();
     bool FUN_006fe920(bool);
     void UpdateTileFromChunk();
-    void FUN_006fd7b0(int);
-    void FUN_006fd980(int);
+    void UnloadData(int);
+    void UnloadDataRecurse(int);
     WorldRefUpdate* Get();
     bool FUN_006fede0();
     void UpdateVisibility(SceneUpdate*);
@@ -889,7 +889,7 @@ void TerrainUpdate::UpdateTerrainNode(void* arg, bool update)
                 if (children[loadedIndex2]->chunk && children[loadedIndex2]->chunk->GetInitialized())
                     children[loadedIndex2]->UpdateTileFromChunk();
             }
-            FUN_006fd7b0(1);
+            UnloadData(1);
         }
         if (FUN_006fe920(true))
             childrenLoaded = true;
@@ -919,7 +919,7 @@ void TerrainUpdate::UpdateTerrainNode(void* arg, bool update)
         {
             for (int unloadIndex4 = 0; unloadIndex4 < 4; unloadIndex4++)
                 if (children[unloadIndex4])
-                    children[unloadIndex4]->FUN_006fd980(1);
+                    children[unloadIndex4]->UnloadDataRecurse(1);
             childrenLoaded = false;
         }
         if (oldRoot && Get()->Get() != g_TES->GetHitSound())
@@ -968,11 +968,11 @@ struct TerrainNodeX : BGSTerrainNode
     unsigned int GetLevel();
     TerrainSceneX* GetOwner();
     bool WantsTrees(int iArg);
-    void FUN_006fe330(int iArg);
+    void UpdateTrees(int iArg);
 };
 
 // @fnv 0x006fe330
-void TerrainNodeX::FUN_006fe330(int iArg)
+void TerrainNodeX::UpdateTrees(int iArg)
 {
     AutoMemContext kMemContext((MEM_CONTEXT)0x25, true, kBGSTerrainNodeFileLabel, 0x1ed);
     if (GetLevel() == TerrainTreeLevelX())
@@ -1008,7 +1008,7 @@ void TerrainNodeX::FUN_006fe330(int iArg)
         {
             if (pChildren[i] != 0)
             {
-                ((TerrainNodeX*)pChildren[i])->FUN_006fe330(iArg);
+                ((TerrainNodeX*)pChildren[i])->UpdateTrees(iArg);
             }
         }
     }
@@ -1132,7 +1132,7 @@ struct Node006f
     unsigned FUN_00726070();
     bool FUN_006fe620(int);
     bool FUN_006fe6d0(int);
-    void FUN_006fee90(bool);
+    void UpdateBlockVisibility(bool);
     Ret006f* FUN_00559450();
     void UpdateBlock(int, bool);
 };
@@ -1154,7 +1154,7 @@ void Node006f::UpdateBlock(int a, bool abFlag)
                 if (block->FUN_00529ea0())
                     block->FUN_006f5ca0();
                 if (abFlag)
-                    FUN_006fee90(false);
+                    UpdateBlockVisibility(false);
             }
             if (block)
             {
@@ -1239,10 +1239,10 @@ struct FeeNode
     void* pChunk;
     BlockObj* pBlock;
     bool FUN_006fede0();
-    void FUN_006fee90(int a);
+    void UpdateBlockVisibility(int a);
 };
 // @fnv 0x006fee90
-void FeeNode::FUN_006fee90(int a)
+void FeeNode::UpdateBlockVisibility(int a)
 {
     GetterObj* getter5 = DAT_011dea10->FUN_004fd3e0();
     GridObj* grid;

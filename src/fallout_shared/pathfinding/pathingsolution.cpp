@@ -330,7 +330,7 @@ struct PathingControlPoint
 typedef char _sizecheck_PathingSplineKey[sizeof(PathingControlPoint) == 24 ? 1 : -1];
 struct FUN_006e8450_shell : public SplineInterpolator
 {
-    void FUN_006e8450(void*, void*);
+    void SetKeys(void*, void*);
 };
 
 struct FUN_006e7d10_caller
@@ -340,7 +340,7 @@ struct FUN_006e7d10_caller
 
 // Forwards each of the two key arguments to the corresponding key object's FUN_006e7d10 method.
 // @fnv 0x006e8450
-void FUN_006e8450_shell::FUN_006e8450(void* aKey1, void* aKey2)
+void FUN_006e8450_shell::SetKeys(void* aKey1, void* aKey2)
 {
     reinterpret_cast<FUN_006e7d10_caller*>(this->Key1)->FUN_006e7d10(aKey1);
     reinterpret_cast<FUN_006e7d10_caller*>(this->Key2)->FUN_006e7d10(aKey2);
@@ -511,7 +511,7 @@ struct SplineInterpolator
 typedef char _sizecheck_PathingSpline[sizeof(SplineInterpolator) == 68 ? 1 : -1];
 struct FUN_006e7e70_shell : public PathingSolution
 {
-    bool FUN_006e7e70(float, float, bool, float*, NiPoint3*);
+    bool FindPointOnPath(float, float, bool, float*, NiPoint3*);
 };
 
 struct ArrSI
@@ -550,7 +550,7 @@ struct FUN_006e7b60
 {
     FUN_006e7b60();
     ~FUN_006e7b60();
-    void FUN_006e8450(const PathingSplineKeyS&, const PathingSplineKeyS&);
+    void SetKeys(const PathingSplineKeyS&, const PathingSplineKeyS&);
     bool FindPointAtDistance(float, float, bool, float*, NiPoint3*, float);
     float MeasurePathLength(float, float, unsigned int);
     BSSplineS SplinePath;
@@ -560,7 +560,7 @@ struct FUN_006e7b60
 
 // Walks the spline segments forward or backward from afCurrentParameter by afDist, writing the resulting parameter and point to the output pointers.
 // @fnv 0x006e7e70
-bool FUN_006e7e70_shell::FUN_006e7e70(float afCurrentParameter, float afDist, bool abForward, float* apNewParameter,
+bool FUN_006e7e70_shell::FindPointOnPath(float afCurrentParameter, float afDist, bool abForward, float* apNewParameter,
                                       NiPoint3* apNewPoint)
 {
     if (!GetObjectFlags((char*)this))
@@ -581,7 +581,7 @@ bool FUN_006e7e70_shell::FUN_006e7e70(float afCurrentParameter, float afDist, bo
         float fcurrentParam = afCurrentParameter;
         float fdist = afDist;
         FUN_006e7b60 spline;
-        spline.FUN_006e8450(
+        spline.SetKeys(
             ((OwnS2*)((Dummy_006e8f80*)&member2)->FUN_006e8f80(icurrentSpline))->GetLocationAndTangent(),
             ((OwnS2*)((Dummy_006e8f80*)&member2)->FUN_006e8f80(icurrentSpline + 1))->GetLocationAndTangent());
         bfound = spline.FindPointAtDistance(fcurrentParam - icurrentSpline, fdist, abForward, apNewParameter,
@@ -599,7 +599,7 @@ bool FUN_006e7e70_shell::FUN_006e7e70(float afCurrentParameter, float afDist, bo
                     *apNewPoint = FUN_00717e50(FUN_006b05a0(this)).FUN_005c3420();
                 return false;
             }
-            spline.FUN_006e8450(
+            spline.SetKeys(
                 ((OwnS2*)((Dummy_006e8f80*)&member2)->FUN_006e8f80(icurrentSpline))->GetLocationAndTangent(),
                 ((OwnS2*)((Dummy_006e8f80*)&member2)->FUN_006e8f80(icurrentSpline + 1))->GetLocationAndTangent());
             bfound = spline.FindPointAtDistance(0.0f, fdist, abForward, apNewParameter, apNewPoint, 1.0f);
@@ -628,7 +628,7 @@ bool FUN_006e7e70_shell::FUN_006e7e70(float afCurrentParameter, float afDist, bo
         float fcurrentParam = afCurrentParameter;
         float fdist = afDist;
         FUN_006e7b60 spline;
-        spline.FUN_006e8450(
+        spline.SetKeys(
             ((OwnS2*)((Dummy_006e8f80*)&member2)->FUN_006e8f80(icurrentSpline))->GetLocationAndTangent(),
             ((OwnS2*)((Dummy_006e8f80*)&member2)->FUN_006e8f80(icurrentSpline + 1))->GetLocationAndTangent());
         bfound = spline.FindPointAtDistance(fcurrentParam - icurrentSpline, fdist, abForward, apNewParameter,
@@ -646,7 +646,7 @@ bool FUN_006e7e70_shell::FUN_006e7e70(float afCurrentParameter, float afDist, bo
                     *apNewPoint = FUN_00717e50(FUN_006e8480(this)).FUN_005c3420();
                 return false;
             }
-            spline.FUN_006e8450(
+            spline.SetKeys(
                 ((OwnS2*)((Dummy_006e8f80*)&member2)->FUN_006e8f80(icurrentSpline))->GetLocationAndTangent(),
                 ((OwnS2*)((Dummy_006e8f80*)&member2)->FUN_006e8f80(icurrentSpline + 1))->GetLocationAndTangent());
             bfound = spline.FindPointAtDistance(1.0f, fdist, abForward, apNewParameter, apNewPoint, 1.0f);
@@ -888,7 +888,7 @@ struct FUN_0052d240_obj : public FUN_006e7b60
 };
 struct FUN_006e8450_shell
 {
-    void FUN_006e8450(const M24&, const M24&);
+    void SetKeys(const M24&, const M24&);
 };
 struct FUN_006e9af0_S
 {
@@ -920,12 +920,12 @@ float FUN_006e84b0_shell::GetSplineLengthAtParameter(float afParameter)
     for (int i = 0; i < inode; ++i)
     {
         ((FUN_006e8450_shell*)&spline)
-            ->FUN_006e8450(((FUN_006e7970_shell*)this)->FUN_006e7970(i)->GetLocationAndTangent(),
+            ->SetKeys(((FUN_006e7970_shell*)this)->FUN_006e7970(i)->GetLocationAndTangent(),
                            ((FUN_006e7970_shell*)this)->FUN_006e7970(i + 1)->GetLocationAndTangent());
         ftotalLength += ((FUN_006e9af0_S*)&spline)->MeasurePathLength(0.0f, 1.0f, 2);
     }
     ((FUN_006e8450_shell*)&spline)
-        ->FUN_006e8450(((FUN_006e7970_shell*)this)->FUN_006e7970(inode)->GetLocationAndTangent(),
+        ->SetKeys(((FUN_006e7970_shell*)this)->FUN_006e7970(inode)->GetLocationAndTangent(),
                        ((FUN_006e7970_shell*)this)->FUN_006e7970(inode + 1)->GetLocationAndTangent());
     ftotalLength += ((FUN_006e9af0_S*)&spline)->MeasurePathLength(0.0f, afParameter - inode, 2);
     return ftotalLength;
@@ -1250,7 +1250,7 @@ struct SplinePath
     ~SplinePath();
     Key first, second;
 
-    void FUN_006e8450(Key*, Key*);
+    void SetKeys(Key*, Key*);
     float MeasurePathLength(float, float, unsigned int);
     bool FindPointOnSpline(float, float, bool, float*, Vec*, float);
 };
@@ -1275,7 +1275,7 @@ Vec Solution::GetPointAtDistance(float position, float distance)
     Key next2 = FUN_006e7970(index + 1)->GetLocationAndTangent();
     Key current = FUN_006e7970(index)->GetLocationAndTangent();
     SplinePath spline3;
-    ((SplinePath*)&spline3)->FUN_006e8450(&current, &next2);
+    ((SplinePath*)&spline3)->SetKeys(&current, &next2);
     float lengthVal = ((SplinePath*)&spline3)->MeasurePathLength(parameterTmp, 1.0f, 2);
     while (index < (int)(GetNodeCount() - 2) && lengthVal < remaining7)
     {
@@ -1283,7 +1283,7 @@ Vec Solution::GetPointAtDistance(float position, float distance)
         index = index + 1;
         current.FUN_006e7d10(next2);
         next2.FUN_006e7d10(FUN_006e7970(index + 1)->GetLocationAndTangent());
-        ((SplinePath*)&spline3)->FUN_006e8450(&current, &next2);
+        ((SplinePath*)&spline3)->SetKeys(&current, &next2);
         parameterTmp = 0.0f;
         lengthVal = ((SplinePath*)&spline3)->MeasurePathLength(0.0f, 1.0f, 2);
     }
@@ -1306,7 +1306,7 @@ Vec Solution::GetPointAtDistance(float position, float distance)
 struct SaveBuffer
 {
     void SaveData(void*, unsigned int, int);
-    void FUN_00865f60(unsigned int);
+    void SaveVariableSizedValue(unsigned int);
     void FUN_00865db0(unsigned int, int);
 };
 struct SaveEntryA
@@ -1381,7 +1381,7 @@ void SaveSolution::FUN_006e8b10(SaveBuffer* buffer)
     buffer->SaveData(&unk18, 4, 0);
     buffer->SaveData(&unk1c, 4, 0);
     unsigned int countA9 = &first ? ((CountView*)&first)->Count() : 0;
-    buffer->FUN_00865f60(countA9);
+    buffer->SaveVariableSizedValue(countA9);
     for (unsigned int indexA = 0; indexA < countA9; ++indexA)
     {
         SaveEntryA* entryA8 = first.FUN_006e8f60(indexA);
@@ -1389,7 +1389,7 @@ void SaveSolution::FUN_006e8b10(SaveBuffer* buffer)
     }
     {
         unsigned int countB8 = &second ? ((CountView*)&second)->Count() : 0;
-        buffer->FUN_00865f60(countB8);
+        buffer->SaveVariableSizedValue(countB8);
         for (unsigned int indexB6 = 0; indexB6 < countB8; ++indexB6)
         {
             SaveEntryB* entryB9 = second.GetEntry(indexB6);
@@ -1399,7 +1399,7 @@ void SaveSolution::FUN_006e8b10(SaveBuffer* buffer)
     AvoidArray avoided5;
     {
         unsigned int countCA = &avoided5 ? ((CountView*)&avoided5)->Count() : 0;
-        buffer->FUN_00865f60(countCA);
+        buffer->SaveVariableSizedValue(countCA);
         for (unsigned int indexC5 = 0; indexC5 < countCA; ++indexC5)
         {
             SaveEntryC* entryC2 = avoided5.GetEntry(indexC5);
@@ -1408,7 +1408,7 @@ void SaveSolution::FUN_006e8b10(SaveBuffer* buffer)
     }
     {
         unsigned int countD8 = &fourth ? ((CountView*)&fourth)->Count() : 0;
-        buffer->FUN_00865f60(countD8);
+        buffer->SaveVariableSizedValue(countD8);
         for (unsigned int indexD = 0; indexD < countD8; ++indexD)
         {
             unsigned int& entryD3 = fourth.GetEntry(indexD);

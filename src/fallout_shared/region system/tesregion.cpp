@@ -320,7 +320,7 @@ struct S_004f1300_Mgr
 struct S_004f1300_Save
 {
     unsigned short* FUN_00825c00();
-    void FUN_008579b0(void* apData, unsigned int auiSize);
+    void SaveGameDataOLD(void* apData, unsigned int auiSize);
     void FUN_00857a10(void* apData, unsigned int auiSize);
 };
 
@@ -332,7 +332,7 @@ void __cdecl FUN_004f1300()
 {
     unsigned short m_usPassCountLocal = 0;
     unsigned short* pusCount4 = DAT_011de45c->FUN_00825c00();
-    DAT_011de45c->FUN_008579b0(&m_usPassCountLocal, 2);
+    DAT_011de45c->SaveGameDataOLD(&m_usPassCountLocal, 2);
 
     BSSimpleList<S_004f1300_Item*>* pNodeX = DAT_011c3f2c->FUN_004169d0();
     while (pNodeX && !pNodeX->IsEmpty())
@@ -346,7 +346,7 @@ void __cdecl FUN_004f1300()
             fSecondFunctionValue = pItem->FUN_00526ae0();
         }
         DAT_011de45c->FUN_00857a10(&iID2, 4);
-        DAT_011de45c->FUN_008579b0(&fSecondFunctionValue, 4);
+        DAT_011de45c->SaveGameDataOLD(&fSecondFunctionValue, 4);
         m_usPassCountLocal++;
         pNodeX = pNodeX->GetNext();
     }

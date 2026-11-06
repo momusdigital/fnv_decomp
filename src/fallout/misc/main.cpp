@@ -203,7 +203,7 @@ __declspec(dllimport) void __stdcall ExitProcess(unsigned int);
 
 // Calls FUN_004da670 with pThis[2] and pThis[3]; on failure formats an error message with FUN_0086d580, shows a MessageBoxA and calls ExitProcess(0).
 // @fnv 0x0086d500
-void __fastcall FUN_0086d500(int* pThis)
+void __fastcall InitializeRenderer(int* pThis)
 {
     char buf[512];
     if (!FUN_004da670(pThis[2], pThis[3]))
@@ -512,10 +512,10 @@ void __cdecl FUN_00c66760(float, bool, bool);
 void __cdecl FUN_0086f330();
 struct Mover
 {
-    void FUN_0086f260();
+    void OnIdle_UpdateTimer();
 };
 // @fnv 0x0086f260
-void Mover::FUN_0086f260()
+void Mover::OnIdle_UpdateTimer()
 {
     ((BGSLoadFormBuffer*)&g_timeGlobal)->FUN_008a8150(*g_011dedbc.GetLifeStateControlFlag());
     if (!DAT_011dea2b)
@@ -719,7 +719,7 @@ extern PlayerCharacter* pPlayer;
 extern TESObjectREFR DAT_011f2250;
 extern TimeGlobal g_timeGlobal;
 HotkeyWheelDisplay* __cdecl FUN_007fdf30();
-bool __cdecl FUN_00709bc0();
+bool __cdecl IsPipBoyOpening();
 // @fnv 0x0086f390
 void FUN_0086f390_shell::FUN_0086f390()
 {
@@ -727,7 +727,7 @@ void FUN_0086f390_shell::FUN_0086f390()
     FUN_007fdf30()->FUN_00a257c0(g_timeGlobal.GetSecondsPassed());
     if (!*((unsigned char*)this + 6) && !pPlayer->V8B(0))
     {
-        if ((DAT_011f2250.GetFlags() == 4 && !pPlayer->FUN_007d1360()) || FUN_00709bc0())
+        if ((DAT_011f2250.GetFlags() == 4 && !pPlayer->FUN_007d1360()) || IsPipBoyOpening())
         {
             if (!Interface::IsMenuActive((Interface::enumMenus)0x3e9, 0) && !PlayerCharacter::UpdatePlayerStatus())
                 FUN_007fdf30()->FUN_00a253d0();
@@ -738,7 +738,7 @@ void FUN_0086f390_shell::FUN_0086f390()
 
 struct FUN_0086f640_shell : public Main
 {
-    void FUN_0086f640();
+    void OnIdle_UpdateAudio();
 };
 
 class BSAudio
@@ -767,7 +767,7 @@ class SoundPlaybackManager
 };
 
 // @fnv 0x0086f640
-void FUN_0086f640_shell::FUN_0086f640()
+void FUN_0086f640_shell::OnIdle_UpdateAudio()
 {
     BSAudio::GetSingleton()->Update(true);
     FalloutRadio::Update(false);
@@ -890,16 +890,16 @@ struct GlobalObject2_0040c150
 
 extern GlobalObject2_0040c150 g_011c3ea4;
 
-void __fastcall FUN_0086f640(void* pThis);
+void __fastcall OnIdle_UpdateAudio(void* pThis);
 void __fastcall FUN_0086f890(void* pThis);
 void __cdecl FUN_00552570();
 void __fastcall FUN_0086f670(void* pThis);
 
-// Calls FUN_0086f640, FUN_0086f890, then FUN_00552570 if *g_011c3ea4.Int() > 1, and finally FUN_0086f670 on pThis.
+// Calls OnIdle_UpdateAudio, FUN_0086f890, then FUN_00552570 if *g_011c3ea4.Int() > 1, and finally FUN_0086f670 on pThis.
 // @fnv 0x008705d0
 void __fastcall FUN_008705d0(void* pThis)
 {
-    FUN_0086f640(pThis);
+    OnIdle_UpdateAudio(pThis);
     FUN_0086f890(pThis);
     if (*g_011c3ea4.Int() > 1)
     {
@@ -938,7 +938,7 @@ extern GlobalObject2_0040c150 g_011c3ea4;
 
 void* __cdecl FUN_004b7210(void);
 void __cdecl FUN_005aa720(void);
-void __cdecl FUN_007094f0(void);
+void __cdecl HandleQueuedMenuOpen(void);
 void __fastcall FUN_00870680(void*);
 void __fastcall FUN_0087a6f0(TaskQueueInterface*);
 void __fastcall FUN_0087a710(TaskQueueInterface*);
@@ -954,7 +954,7 @@ void FUN_00870610_shell::FUN_00870610()
         TaskQueueInterface::GetSingleton()->ProcessTaskQueue();
         FUN_0087a6f0(TaskQueueInterface::GetSingleton());
     }
-    FUN_007094f0();
+    HandleQueuedMenuOpen();
     FUN_00870680(FUN_004b7210());
     FUN_00a0e770(DebugText::Instance(true));
 }
@@ -1135,10 +1135,10 @@ struct FUN_00871c90_shell
 {
     char pad[3];
     bool f;
-    void FUN_00871c90(bool b);
+    void SetActive(bool b);
 };
 // @fnv 0x00871c90
-void FUN_00871c90_shell::FUN_00871c90(bool abEnabled)
+void FUN_00871c90_shell::SetActive(bool abEnabled)
 {
     if (*((ProcessLists*)&g_011deed8)->GetLifeStateControlFlag())
         abEnabled = 1;
@@ -1303,7 +1303,7 @@ void* __fastcall FUN_00874670(char* pThis)
 }
 
 // @fnv 0x00874900
-float __fastcall FUN_00874900(const char* pThis)
+float __fastcall Get1stPersonFOV(const char* pThis)
 {
     return *(const float*)(pThis + 0x674);
 }
@@ -1311,7 +1311,7 @@ float __fastcall FUN_00874900(const char* pThis)
 namespace fnv_00874ac0 {
 struct FUN_00874ac0_shell : public Main
 {
-    void FUN_00874ac0(bool);
+    void DrawWorld_VATS(bool);
 };
 
 struct StrG
@@ -1345,7 +1345,7 @@ struct Interface
 };
 void __cdecl FUN_004eced0(int);
 // @fnv 0x00874ac0
-void FUN_00874ac0_shell::FUN_00874ac0(bool b)
+void FUN_00874ac0_shell::DrawWorld_VATS(bool b)
 {
     void* seq = Interface::GetVATSEffect()->GetControllerSequence();
     if (seq)
@@ -1828,7 +1828,7 @@ void __cdecl FUN_00876d20()
 namespace fnv_00877430 {
 struct FUN_00877430_shell : public Main
 {
-    void FUN_00877430();
+    void KillMenuBGTexture();
 };
 
 struct StrG
@@ -1850,7 +1850,7 @@ struct ImageSpaceManager
 };
 BSTextureManager* __stdcall FUN_004a0ea0(const char*);
 // @fnv 0x00877430
-void FUN_00877430_shell::FUN_00877430()
+void FUN_00877430_shell::KillMenuBGTexture()
 {
     if ((const char*)g_011ded3c)
     {
@@ -2504,7 +2504,7 @@ struct InterfaceH
 int __cdecl FUN_004dc1f0();
 int __cdecl FUN_004dc200();
 void __cdecl FUN_00703080(float x, float y);
-void __cdecl FUN_00706230(int x, int y);
+void __cdecl SetSurgeryCursorPos(int x, int y);
 
 struct FUN_00871d10_t
 {
@@ -2521,14 +2521,14 @@ bool FUN_00871d10_t::FUN_00871d10(int x, int y)
     if (!InterfaceH::GetSelectedTargetIndex(0x41e))
         FUN_00703080((float)(x / (double)FUN_004dc1f0()), (float)(y / (double)FUN_004dc200()));
     else
-        FUN_00706230(x, y);
+        SetSurgeryCursorPos(x, y);
     return true;
 }
 
 namespace fnv_008727d0 {
 struct FUN_008727d0_shell : public Main
 {
-    void FUN_008727d0();
+    void DrawWorld_UpdateWater();
 };
 
 struct BSFaceGenAnimationData;
@@ -2587,7 +2587,7 @@ extern bool DAT_011ff104;
 extern bool DAT_011ff8c4;
 
 // @fnv 0x008727d0
-void FUN_008727d0_shell::FUN_008727d0()
+void FUN_008727d0_shell::DrawWorld_UpdateWater()
 {
     if (*g_011c7adc.GetLifeStateControlFlag())
     {
@@ -3278,7 +3278,7 @@ struct TaskQueueInterface
     static TaskQueueInterface* GetInstance();
     static void ThreadProcessSecondaryInput();
     static void ThreadProcessInput(unsigned int);
-    void FUN_0087a790();
+    void ProcessQueue();
 };
 struct FUN_0087a6b0_shell
 {
@@ -3361,7 +3361,7 @@ void FUN_0086f6a0_shell::FUN_0086f6a0()
     {
         FUN_0054ae30();
         ((FUN_0087a6d0_shell*)TaskQueueInterface::GetInstance())->FUN_0087a6d0();
-        TaskQueueInterface::GetInstance()->FUN_0087a790();
+        TaskQueueInterface::GetInstance()->ProcessQueue();
         FUN_00552570();
         FUN_0086f830(DAT_011c3c08);
         ((FUN_0087a6b0_shell*)TaskQueueInterface::GetInstance())->FUN_0087a6b0();
@@ -3526,7 +3526,7 @@ struct RgbaColor
 typedef char _sizecheck_NiColorA[sizeof(RgbaColor) == 16 ? 1 : -1];
 struct FUN_008746d0_shell : public Main
 {
-    void FUN_008746d0(BSRenderedTexture*);
+    void DrawWorld_Add1stPersonToDepthBuffer(BSRenderedTexture*);
 };
 
 struct NiNode;
@@ -3650,11 +3650,11 @@ SceneGraph_008746d0* __cdecl FUN_0045c670();
 void __cdecl FUN_00b6b8d0(unsigned int, NiRenderTargetGroup*);
 void __cdecl FUN_00b6bee0(void*, NiAVObject*, FUN_004a0fd0_shell*);
 void __cdecl FUN_004eced0(unsigned int);
-float __fastcall FUN_00874900(PC_00605d70*);
-float __fastcall FUN_00710ab0(PC_00605d70*);
+float __fastcall Get1stPersonFOV(PC_00605d70*);
+float __fastcall GetWorldFOV(PC_00605d70*);
 extern NiColor DAT_011f4998;
 // @fnv 0x008746d0
-void FUN_008746d0_shell::FUN_008746d0(BSRenderedTexture* apRenderTexture)
+void FUN_008746d0_shell::DrawWorld_Add1stPersonToDepthBuffer(BSRenderedTexture* apRenderTexture)
 {
     S4* pimagespacemanager = FUN_004e3270();
     Renderer_008746d0* prenderer = FUN_004a0e90();
@@ -3679,15 +3679,15 @@ void FUN_008746d0_shell::FUN_008746d0(BSRenderedTexture* apRenderTexture)
     NiAVObject* p1stPersonNode = (NiAVObject*)pscenegraph;
     bool bwas1stPersonCulled = p1stPersonNode->FUN_00456610();
     p1stPersonNode->SetAppCulled(false);
-    p1stperson3d->FUN_00c52020(FUN_00874900((PC_00605d70*)g_thePlayer), 0, 0, 0);
-    BSShaderManager::SetFOV(FUN_00874900((PC_00605d70*)g_thePlayer));
+    p1stperson3d->FUN_00c52020(Get1stPersonFOV((PC_00605d70*)g_thePlayer), 0, 0, 0);
+    BSShaderManager::SetFOV(Get1stPersonFOV((PC_00605d70*)g_thePlayer));
     pculler->FUN_004a0fd0(*(Flt*)((char*)this + 0x90));
     FUN_00b6bee0(((BSFaceGenNiNode*)p1stperson3d)->GetAnimationData(), p1stPersonNode, pculler);
     BSShaderRenderUtility::SetRenderCamera(((BSFaceGenNiNode*)p1stperson3d)->GetAnimationData(),
                                            *(Flt*)((char*)this + 0x90), false);
     pculler->FUN_004a0fd0(0);
-    p1stperson3d->FUN_00c52020(FUN_00710ab0((PC_00605d70*)g_thePlayer), 0, 0, 0);
-    BSShaderManager::SetFOV(FUN_00710ab0((PC_00605d70*)g_thePlayer));
+    p1stperson3d->FUN_00c52020(GetWorldFOV((PC_00605d70*)g_thePlayer), 0, 0, 0);
+    BSShaderManager::SetFOV(GetWorldFOV((PC_00605d70*)g_thePlayer));
     p1stPersonNode->SetAppCulled(bwas1stPersonCulled);
     if (m_kFieldAfterWeaponFlags)
     {
@@ -3754,8 +3754,8 @@ struct BSFaceGenNiNode
     void FUN_00c52020(float f, int a, void* b, int c);
 };
 struct FUN_00710ab0_Class;
-float __fastcall FUN_00710ab0(FUN_00710ab0_Class* p);
-float __fastcall FUN_00874900(const char* p);
+float __fastcall GetWorldFOV(FUN_00710ab0_Class* p);
+float __fastcall Get1stPersonFOV(const char* p);
 struct BSShaderManager
 {
     static void __cdecl SetFOV(float fov);
@@ -3766,22 +3766,22 @@ struct BSShaderAccumulator
 };
 struct FUN_00875e40_shell
 {
-    void FUN_00875e40(BSShaderAccumulator* pAccum, BSRenderedTexture* pTexture);
+    void DrawWorld_DoDepth(BSShaderAccumulator* pAccum, BSRenderedTexture* pTexture);
 };
 
 // Clones the scene graph's animation data as a camera, sets FOV and depth via pAccum->SetupDepth, then deletes the cloned camera.
 // @fnv 0x00875e40
-void FUN_00875e40_shell::FUN_00875e40(BSShaderAccumulator* pAccum, BSRenderedTexture* pTexture)
+void FUN_00875e40_shell::DrawWorld_DoDepth(BSShaderAccumulator* pAccum, BSRenderedTexture* pTexture)
 {
     BSFaceGenNiNode* pkSceneGraph = (BSFaceGenNiNode*)FUN_0045c670();
     if (DAT_011f2250.GetFlags() != 4)
-        pkSceneGraph->FUN_00c52020(FUN_00710ab0((FUN_00710ab0_Class*)g_thePlayer), 0, 0, 0);
-    BSShaderManager::SetFOV(FUN_00710ab0((FUN_00710ab0_Class*)g_thePlayer));
+        pkSceneGraph->FUN_00c52020(GetWorldFOV((FUN_00710ab0_Class*)g_thePlayer), 0, 0, 0);
+    BSShaderManager::SetFOV(GetWorldFOV((FUN_00710ab0_Class*)g_thePlayer));
     {
         NiObjectCopyInfo kInfo(0x101);
         FUN_00875e40_Clone* pkCamera = ((FUN_00875e40_Src*)pkSceneGraph->GetAnimationData())->Clone(kInfo);
         if (DAT_011f2250.GetFlags() != 4)
-            pkSceneGraph->FUN_00c52020(FUN_00874900((const char*)g_thePlayer), 0, pkCamera, 0);
+            pkSceneGraph->FUN_00c52020(Get1stPersonFOV((const char*)g_thePlayer), 0, pkCamera, 0);
         AutoMemHelper kMemHelper(0x27, true, "D:\\_Fallout3\\Platforms\\Common\\Code\\Fallout\\Misc\\Main.cpp", 0x234c);
         pAccum->SetupDepth((NiCamera*)pkSceneGraph->GetAnimationData(), (NiCamera*)pkCamera, pTexture);
         delete pkCamera;
@@ -4724,7 +4724,7 @@ void __cdecl FUN_007c9ca0(void);
 
 struct MainTarget
 {
-    int FUN_00872f50(S148c0* prenderer, BSRenderedTexture* apDestination, int parameter, bool bmultiSampleEnabled);
+    int DrawWorld_InitRenderTexture(S148c0* prenderer, BSRenderedTexture* apDestination, int parameter, bool bmultiSampleEnabled);
     void FUN_00874b90(ImageSpaceManager* pimagespacemanager, S148c0* prenderer, bool bmultiSampleEnabled,
                       BSRenderedTexture* apDestination);
     void FUN_00875fd0(bool bmultiSampleEnabled, int result, S148c0* prenderer, BSRenderedTexture* apDestination);
@@ -4744,7 +4744,7 @@ void MainTarget::FUN_00872940(BSRenderedTexture* apDestination)
 
     reinterpret_cast<NiParallelUpdateTaskManager*>(this)->SetupTaskWorkers();
 
-    result = FUN_00872f50(prenderer, apDestination, 0, bmultiSampleEnabled);
+    result = DrawWorld_InitRenderTexture(prenderer, apDestination, 0, bmultiSampleEnabled);
 
     FUN_00874b90(pimagespacemanager, prenderer, bmultiSampleEnabled, apDestination);
 
@@ -6116,7 +6116,7 @@ struct Receiver86
     void FUN_0066b0d0(int);
     void FUN_00b6da10(int);
     void FUN_00448420();
-    void FUN_008c73a0();
+    void DestroyThreads();
     Receiver86* FUN_008d8520();
     void FUN_0086be30();
     void FUN_006c0900();
@@ -6159,10 +6159,10 @@ struct Receiver86
     Receiver86* FUN_004e2190();
     void FUN_00b63620();
     void FUN_004a4340();
-    void FUN_008026b0();
+    void ClearQueries();
     bool FUN_005dc960();
     unsigned char FUN_00678ce0();
-    void FUN_008774a0(int);
+    void PerformGameReset(int);
 
     void FUN_00b012f0(const char*, const char*);
     void FUN_004a0370();
@@ -6170,14 +6170,14 @@ struct Receiver86
     void FUN_0086bae0(void*, int);
     void FUN_004a03c0();
     void FUN_00ec16d0(const char*, int, int, int, int, float);
-    void FUN_0086cf20(Receiver86*);
+    void InitTES(Receiver86*);
     int FUN_006629f0();
     void FUN_006eb8c0();
     void FUN_006c07d0();
     void FUN_008c7290();
-    void FUN_0086d500();
+    void InitializeRenderer();
     void FUN_0086d590();
-    void FUN_00871c90(int);
+    void SetActive(int);
 
     Receiver86* FUN_008526c0();
     void FUN_004fb090(void*);
@@ -6316,7 +6316,7 @@ int __cdecl FUN_0040fbe0(...);
 int __cdecl FUN_0086bda0(...);
 int __cdecl FUN_00876d20(...);
 
-int __cdecl FUN_0086d500(...);
+int __cdecl InitializeRenderer(...);
 Receiver86* __cdecl FUN_0043c4b0();
 int __cdecl FUN_004a0370(...);
 int __cdecl SUB_005d4a40(...);
@@ -6325,17 +6325,17 @@ int __cdecl FUN_0086bae0(...);
 int __cdecl FUN_0086d590(...);
 int __cdecl FUN_00702250(...);
 int __cdecl FUN_006519f0(...);
-int __cdecl FUN_00871c90(...);
+int __cdecl SetActive(...);
 int __cdecl FUN_006a2920(...);
 int __cdecl FUN_0086c010(...);
 int __cdecl FUN_004a03c0(...);
 int __cdecl FUN_00866ff0(...);
 int __cdecl FUN_00ec16d0(...);
-int __cdecl FUN_0086cf20(...);
+int __cdecl InitTES(...);
 int __cdecl FUN_006629f0(...);
 int __cdecl FUN_0086be90(...);
 int __cdecl FUN_0086be80(...);
-Receiver86* __cdecl FUN_00713d80();
+Receiver86* __cdecl QInstance();
 int __cdecl FUN_008c7290(...);
 int __cdecl FUN_006d0870(...);
 Receiver86* __cdecl GetPathManager();
@@ -6388,12 +6388,12 @@ int __cdecl FUN_00b63620(...);
 Receiver86* __cdecl FUN_0049fef0();
 int __cdecl FUN_004a4340(...);
 Receiver86* __cdecl FUN_00705910();
-int __cdecl FUN_008026b0(...);
+int __cdecl ClearQueries(...);
 int __cdecl FUN_005dc960(...);
 int __cdecl FUN_00678ce0(...);
-int __cdecl FUN_008774a0(...);
+int __cdecl PerformGameReset(...);
 int __cdecl FUN_006ff620(...);
-int __cdecl FUN_00703610(...);
+int __cdecl HideMenus(...);
 int __cdecl FUN_00706320(...);
 Receiver86* __cdecl FUN_004a0ea0();
 int __cdecl FUN_00b6da10(...);
@@ -6402,7 +6402,7 @@ int __cdecl FUN_0086bea0(...);
 int __cdecl FUN_00683a60(...);
 int __cdecl FUN_00a819e0(...);
 int __cdecl FUN_00448420(...);
-int __cdecl FUN_008c73a0(...);
+int __cdecl DestroyThreads(...);
 int __cdecl FUN_00867090(...);
 int __cdecl FUN_004dc560(...);
 int __cdecl FUN_004dc590(...);
@@ -6705,7 +6705,7 @@ int __stdcall FUN_0086a850(unsigned int param_1, unsigned int param_2, unsigned 
                 _DAT_011d8804 = (unsigned int)newInterface17;
                 memoryContext11.FUN_00404f70();
                 FUN_0040fbe0(&UNK_0108295c);
-                ((Receiver86*)_DAT_011dea0c)->FUN_0086d500();
+                ((Receiver86*)_DAT_011dea0c)->InitializeRenderer();
                 DAT_011f4509 = 1;
                 FUN_0043c4b0()->FUN_004a0370();
                 FUN_0043c4b0()->FUN_0086bbd0(&SUB_005d4a40, 0);
@@ -6714,19 +6714,19 @@ int __stdcall FUN_0086a850(unsigned int param_1, unsigned int param_2, unsigned 
                 ((Receiver86*)_DAT_011dea0c)->FUN_0086d590();
                 FUN_00702250(1);
                 FUN_006519f0();
-                ((Receiver86*)_DAT_011dea0c)->FUN_00871c90(1);
+                ((Receiver86*)_DAT_011dea0c)->SetActive(1);
                 FUN_006a2920();
                 FUN_0086c010();
                 FUN_0043c4b0()->FUN_004a03c0();
                 FUN_00866ff0();
                 DAT_0126fac4->FUN_00ec16d0(g_011de72c.FUN_00403df0(), 0, -1, 1, 1, 0.0f);
                 memoryContext11.FUN_00404f70();
-                ((Receiver86*)_DAT_011dea0c)->FUN_0086cf20((Receiver86*)FUN_0045c670());
+                ((Receiver86*)_DAT_011dea0c)->InitTES((Receiver86*)FUN_0045c670());
                 FUN_0086be90(((Receiver86*)FUN_0045c670())->FUN_006629f0());
                 FUN_0086be80(((Receiver86*)FUN_0045c670())->FUN_006629f0());
                 if (*g_011c3ea4.Int() > 1)
                 {
-                    FUN_00713d80()->FUN_008c7290();
+                    QInstance()->FUN_008c7290();
                 }
                 FUN_006d0870();
                 GetPathManager()->FUN_006eb8c0();
@@ -6838,7 +6838,7 @@ int __stdcall FUN_0086a850(unsigned int param_1, unsigned int param_2, unsigned 
                             FUN_00453a70()->FUN_00ad7740(1);
                             ((Receiver86*)_DAT_011dea0c)->FUN_004e2190()->FUN_00b63620();
                             FUN_0049fef0()->FUN_004a4340();
-                            FUN_00705910()->FUN_008026b0();
+                            FUN_00705910()->ClearQueries();
                             if (FUN_00446e10())
                             {
                                 inactiveRect3.left = 0;
@@ -6859,12 +6859,12 @@ int __stdcall FUN_0086a850(unsigned int param_1, unsigned int param_2, unsigned 
                         break;
                     if (((Receiver86*)_DAT_011dea0c)->FUN_00678ce0())
                     {
-                        ((Receiver86*)_DAT_011dea0c)->FUN_008774a0(1);
+                        ((Receiver86*)_DAT_011dea0c)->PerformGameReset(1);
                     }
                 }
                 ((Receiver86*)_DAT_011dea0c)->FUN_004f15a0(0);
                 FUN_006ff620();
-                FUN_00703610();
+                HideMenus();
                 FUN_00706320(0);
                 if (g_011ded3c.FUN_00559450())
                 {
@@ -6889,7 +6889,7 @@ int __stdcall FUN_0086a850(unsigned int param_1, unsigned int param_2, unsigned 
                 g_modelLoader->FUN_00448420();
                 if (*g_011c3ea4.Int() > 1)
                 {
-                    FUN_00713d80()->FUN_008c73a0();
+                    QInstance()->DestroyThreads();
                 }
                 FUN_00867090();
                 FUN_004dc560();
@@ -7270,7 +7270,7 @@ struct SkyInit
 };
 extern SkyInit* DAT_011dea20;
 extern int DAT_011dea1c;
-void FUN_00877730();
+void InitSky();
 int FUN_0086d470();
 ScenePart* FUN_007a1480();
 void LogInit(const char*, ...);
@@ -8497,16 +8497,16 @@ extern TimeInit timeInstance;
 struct BootInit
 {
     bool LoadPlugins(int*, int);
-    void FUN_0086cf20(ScenePart*);
+    void InitTES(ScenePart*);
 };
 // Initializes the game world, plugins, player, terrain, and scripts in sequence, logging each stage.
 // @fnv 0x0086cf20
-void BootInit::FUN_0086cf20(ScenePart* scene)
+void BootInit::InitTES(ScenePart* scene)
 {
     MemScope memory5(10, true, "D:\\_Fallout3\\Platforms\\Common\\Code\\Fallout\\Misc\\Main.cpp", 0xe4f);
     memory5.Enter(10, true, "D:\\_Fallout3\\Platforms\\Common\\Code\\Fallout\\Misc\\Main.cpp", 0xe51);
     DAT_011dea20 = SkyInit::GetInstance();
-    FUN_00877730();
+    InitSky();
     int mode = FUN_0086d470();
     ScenePart* root_2 = FUN_007a1480();
     if (root_2)
@@ -8786,11 +8786,11 @@ struct Service
     void FUN_0096e9b0();
     void FUN_008d0600(float, int);
     void FUN_0040fba0();
-    void FUN_00878080(bool);
+    void CheckMemoryLevel(bool);
     void FUN_0049fff0();
-    void FUN_00712e60(void*);
+    void SetViewPort(void*);
     int FUN_0044ddc0();
-    float FUN_00710ab0();
+    float GetWorldFOV();
     void FUN_00c52020(float, int, int, bool);
     void* FUN_006629f0();
     void FUN_0045bc80(bool, bool);
@@ -8811,10 +8811,10 @@ struct Service
 };
 Service* __cdecl FUN_00af2640();
 bool __cdecl FUN_00702360();
-bool __cdecl FUN_00709bc0();
+bool __cdecl IsPipBoyOpening();
 bool __cdecl FUN_007050d0();
-bool __cdecl FUN_00703d50();
-void* __cdecl FUN_00707ad0();
+bool __cdecl IsConsoleVisible();
+void* __cdecl GetCurrentRenderedMenu();
 void* __cdecl FUN_00705990();
 Service* __cdecl FUN_004b7210();
 Service* __cdecl FUN_006ff580();
@@ -8828,7 +8828,7 @@ Service* __cdecl FUN_00446ef0();
 bool __cdecl FUN_0086ef60();
 Service* __cdecl FUN_0049fef0();
 Service* __cdecl FUN_0045c670();
-Service* __cdecl FUN_00713d80();
+Service* __cdecl QInstance();
 Service* __cdecl GetPathManager();
 Service* __cdecl FUN_00552ba0();
 Service* __cdecl GetNavMeshObstacleManager();
@@ -8853,7 +8853,7 @@ void __cdecl FUN_007058e0();
 void __cdecl FUN_0057ab70();
 void __cdecl FUN_00b60040();
 void __cdecl RecreateRenderDevice();
-void __cdecl FUN_00703e10();
+void __cdecl OpenConsole();
 void __cdecl FUN_00a29680();
 void __cdecl FUN_005ae270();
 void __cdecl FUN_005a9d60();
@@ -8898,14 +8898,14 @@ struct MainLoop
     void FUN_0086f940();
     void FUN_0086f190();
     void FUN_00483710();
-    void FUN_0086f260();
+    void OnIdle_UpdateTimer();
     void FUN_0086f390();
     void FUN_0086efe0();
     void FUN_0086f450();
     void FUN_0086fbe0();
     void FUN_0086fd70();
     void FUN_0086fc60();
-    void FUN_00871dc0();
+    void RenderMenuBackground();
     void FUN_0086ff70();
     void FUN_008705d0();
     void FUN_0086f6a0();
@@ -8927,20 +8927,20 @@ void MainLoop::FUN_0086e650()
             return;
     }
     FUN_00af2640()->Update();
-    DAT_011dea2b = FUN_00702360() || FUN_00709bc0();
+    DAT_011dea2b = FUN_00702360() || IsPipBoyOpening();
     DAT_011dea2c = FUN_007050d0();
     DAT_011dea2d = DAT_011d8804->FUN_00701450(true);
-    DAT_011dea2e = FUN_00703d50();
-    bool differentMenu = FUN_00707ad0() && FUN_00707ad0() != FUN_00705990();
+    DAT_011dea2e = IsConsoleVisible();
+    bool differentMenu = GetCurrentRenderedMenu() && GetCurrentRenderedMenu() != FUN_00705990();
     if (FUN_004b7210()->FUN_00424940() == 3 && !differentMenu)
         FUN_008782b0();
     FUN_0086f940();
     FUN_006ff580()->FUN_006ff860();
     FUN_0086fd90(!DAT_011dea2b && !paused);
-    DAT_011dea2b = FUN_00702360() || FUN_00709bc0();
+    DAT_011dea2b = FUN_00702360() || IsPipBoyOpening();
     DAT_011dea2c = FUN_007050d0();
     DAT_011dea2d = DAT_011d8804->FUN_00701450(true);
-    DAT_011dea2e = FUN_00703d50();
+    DAT_011dea2e = IsConsoleVisible();
     if (DAT_011deefc)
         FUN_006da7c0(DAT_011dea3c->FUN_008d6f30(), DAT_011dea3c->Position(), 2, 100);
     DAT_011de134->FUN_00851d90();
@@ -8953,7 +8953,7 @@ void MainLoop::FUN_0086e650()
     DAT_011df674 = 0;
     if (!DAT_011dea2b)
         FUN_0086ef40();
-    FUN_0086f260();
+    OnIdle_UpdateTimer();
     FUN_0086f390();
     DAT_01202d98->FUN_00c3dbf0();
     if (!FUN_0086efa0())
@@ -9005,7 +9005,7 @@ void MainLoop::FUN_0086e650()
         }
     }
     DAT_011f11a0.FUN_0040fba0();
-    FUN_00446ef0()->FUN_00878080(true);
+    FUN_00446ef0()->CheckMemoryLevel(true);
     if (FUN_0086ef60())
         FUN_00a61cd0();
     FUN_00868850();
@@ -9016,10 +9016,10 @@ void MainLoop::FUN_0086e650()
         FUN_0086fd70();
     FUN_00483710();
     FUN_0049fef0()->FUN_0049fff0();
-    FUN_00524c90()->FUN_00712e60(&DAT_011ad840);
+    FUN_00524c90()->SetViewPort(&DAT_011ad840);
     if (DAT_011f2250.FUN_0044ddc0() != 4)
-        FUN_0045c670()->FUN_00c52020(DAT_011dea3c->FUN_00710ab0(), 0, 0, true);
-    FUN_00b54000(DAT_011dea3c->FUN_00710ab0());
+        FUN_0045c670()->FUN_00c52020(DAT_011dea3c->GetWorldFOV(), 0, 0, true);
+    FUN_00b54000(DAT_011dea3c->GetWorldFOV());
     void* sceneB = DAT_011deb7c.FUN_00559450()->FUN_006629f0();
     void* replacement5 = 0;
     DAT_011dea10->FUN_0045bc80(true, true);
@@ -9031,7 +9031,7 @@ void MainLoop::FUN_0086e650()
         if (*DAT_011c3ea4.FUN_0043d4d0() > 1)
         {
             FUN_008c80e0(true);
-            FUN_00713d80()->FUN_008c78c0();
+            QInstance()->FUN_008c78c0();
         }
         else
             DAT_011e0fe0.FUN_008ca070();
@@ -9055,7 +9055,7 @@ void MainLoop::FUN_0086e650()
     if (FUN_00714a00())
         FUN_00a81a80();
     if (FUN_007023c0() == 0x3f4 && FUN_007056f0())
-        FUN_00871dc0();
+        RenderMenuBackground();
     FUN_0057ab70();
     FUN_00b60040();
     int mode4 = FUN_0047e040((float)DAT_011dea3c->values.Get(23));
@@ -9076,7 +9076,7 @@ void MainLoop::FUN_0086e650()
     if ((!DAT_011dea2b || DAT_011dea2d) && !DAT_011dea2e && !paused)
     {
         if (*DAT_011c3ea4.FUN_0043d4d0() > 1)
-            FUN_00713d80()->FUN_008c7990();
+            QInstance()->FUN_008c7990();
         else
             DAT_011e0fe0.FUN_008ca300();
     }
@@ -9085,7 +9085,7 @@ void MainLoop::FUN_0086e650()
     if (FUN_0070ed10())
     {
         FUN_0070ed20(0);
-        FUN_00703e10();
+        OpenConsole();
     }
     FUN_00a29680();
     FUN_005ae270();
@@ -9122,7 +9122,7 @@ struct RMenu
 {
     RootNode* FUN_007fa950();
 };
-RMenu* __cdecl FUN_00707ad0();
+RMenu* __cdecl GetCurrentRenderedMenu();
 Rend* __cdecl FUN_0043c4b0();
 bool __cdecl FUN_004dc310();
 bool __cdecl FUN_00705a00();
@@ -9186,7 +9186,7 @@ struct RenderMgr
 
     void FUN_00872ad0();
     void FUN_00871290();
-    int FUN_00872f50(Rend* r, int p1, bool p2, bool b);
+    int DrawWorld_InitRenderTexture(Rend* r, int p1, bool p2, bool b);
     void FUN_00874b90(ISMgr* m, Rend* r, bool b, int p1);
     void FUN_00874c10();
     void FUN_00875110(Rend* r, RootNode* root, int z, int res);
@@ -9199,14 +9199,14 @@ struct RenderMgr
     void FUN_008707c0(int p1, bool p2);
 };
 
-// Runs the render update: resets helpers, computes a result via FUN_00872f50, sets up a node when FUN_00705a00 is true, and dispatches the remaining render steps.
+// Runs the render update: resets helpers, computes a result via DrawWorld_InitRenderTexture, sets up a node when FUN_00705a00 is true, and dispatches the remaining render steps.
 // @fnv 0x008707c0
 void RenderMgr::FUN_008707c0(int p1, bool p2)
 {
     ISMgr* ism2 = FUN_004e3270();
     Rend* renderer = FUN_0043c4b0();
     bool flag_ = FUN_004dc310();
-    RootNode* root2 = FUN_00707ad0() ? FUN_00707ad0()->FUN_007fa950() : 0;
+    RootNode* root2 = GetCurrentRenderedMenu() ? GetCurrentRenderedMenu()->FUN_007fa950() : 0;
     FUN_00872ad0();
     for (int i4 = 1; i4 < 0x11; i4++)
     {
@@ -9214,7 +9214,7 @@ void RenderMgr::FUN_008707c0(int p1, bool p2)
         FUN_004ea970()->FUN_00ba3130(1, i4);
     }
     FUN_00871290();
-    int res4 = FUN_00872f50(renderer, p1, p2, flag_);
+    int res4 = DrawWorld_InitRenderTexture(renderer, p1, p2, flag_);
     FUN_00874b90(ism2, renderer, flag_, p1);
     if (*g_011c3ea4.Int() > 1)
         FUN_008c80e0(0);
@@ -9618,7 +9618,7 @@ struct ShadowActor
 struct ShadowHost
 {
     void FUN_00871290();
-    void FUN_00871a50();
+    void UpdateOffscreenInterface();
 };
 // Toggles shadow rendering based on two flags, builds the shadow map from actors, renders visible shadow maps up to a limit, and resets unused shadow targets.
 // @fnv 0x00871290
@@ -9761,7 +9761,7 @@ void ShadowHost::FUN_00871290()
             FUN_004ea970(1, i)->FUN_00ba3130();
         }
     }
-    FUN_00871a50();
+    UpdateOffscreenInterface();
 }
 
 namespace fnv_00871a50 {
@@ -9778,7 +9778,7 @@ struct RenderFlag
 extern RenderFlag DAT_011db2cc, DAT_011d8ba0;
 struct RenderNode
 {
-    void FUN_007fae70(int);
+    void SetScreenTexture(int);
     bool FUN_00456610();
     void FUN_00450f90(bool);
 };
@@ -9795,7 +9795,7 @@ struct UiRenderer
     virtual void slot2();
     virtual void Draw(RenderNode*, bool, int);
 };
-extern UiRenderer* __cdecl FUN_00707ad0();
+extern UiRenderer* __cdecl GetCurrentRenderedMenu();
 struct RenderHolder
 {
     RenderNode* FUN_00559450();
@@ -9811,11 +9811,11 @@ extern void* __cdecl FUN_0043c4b0();
 extern const char DAT_010829c4[];
 struct HudRenderPass
 {
-    void FUN_00871a50();
+    void UpdateOffscreenInterface();
 };
 // When the HUD conditions hold, ensures the render holder has a node, draws it via the UI renderer, and temporarily hides menu 1001's node while drawing.
 // @fnv 0x00871a50
-void HudRenderPass::FUN_00871a50()
+void HudRenderPass::UpdateOffscreenInterface()
 {
     if (FUN_00702360() && (*DAT_011db2cc.FUN_00408d60() || *DAT_011d8ba0.FUN_00408d60()) && FUN_007079b0())
     {
@@ -9826,7 +9826,7 @@ void HudRenderPass::FUN_00871a50()
         if (!DAT_011dec64.FUN_00559450())
             DAT_011dec64.FUN_0066b0d0(FUN_004a0ea0(FUN_0043c4b0(), 45, 0, 0, 0)->FUN_00b6e110());
         if (!wasActive)
-            FUN_00705990()->FUN_007fae70(0);
+            FUN_00705990()->SetScreenTexture(0);
         bool show = FUN_00707b30() || FUN_00a09030(1001) || FUN_00a09030(1016) || FUN_00a09030(1059);
         if (FUN_007079b0() && show)
         {
@@ -9840,7 +9840,7 @@ void HudRenderPass::FUN_00871a50()
                 node_2->FUN_00450f90(true);
             }
 
-            FUN_00707ad0()->Draw(DAT_011dec64.FUN_00559450(), true, 0);
+            GetCurrentRenderedMenu()->Draw(DAT_011dec64.FUN_00559450(), true, 0);
             if (hide)
                 node_2->FUN_00450f90(previous5);
         }
@@ -9986,7 +9986,7 @@ struct Rect
 };
 struct Camera
 {
-    void FUN_00712e60(const Rect&);
+    void SetViewPort(const Rect&);
 };
 Camera* FUN_00524c90();
 extern Rect DAT_011ad840;
@@ -9994,7 +9994,7 @@ float FUN_0040ebd0(float, float);
 struct Modifier;
 struct InterfaceManager
 {
-    Modifier* FUN_00718ab0();
+    Modifier* GetCurrentImagespaceMod();
 };
 InterfaceManager* FUN_004b7210();
 Modifier* FUN_005d2860();
@@ -10008,7 +10008,7 @@ struct RenderMenu
     void* FUN_008b6200();
     void* GetMenuRoot();
 };
-RenderMenu* FUN_00707ad0();
+RenderMenu* GetCurrentRenderedMenu();
 struct BSCullingProcess
 {
     int unk00;
@@ -10117,10 +10117,10 @@ struct FUN_00871dc0_class
     bool unk9c;
     void FUN_0086fd90(int);
     void FUN_008706b0(MenuTarget*, int, bool);
-    void FUN_00871dc0();
+    void RenderMenuBackground();
 };
 // @fnv 0x00871dc0
-void FUN_00871dc0_class::FUN_00871dc0()
+void FUN_00871dc0_class::RenderMenuBackground()
 {
     AutoMemHelper modifier(13, true, "D:\\_Fallout3\\Platforms\\Common\\Code\\Fallout\\Misc\\Main.cpp", 7193);
     if (!g_thePlayer->GetParentCell() || !g_thePlayer->GetNiNode())
@@ -10141,11 +10141,11 @@ void FUN_00871dc0_class::FUN_00871dc0()
             FUN_0040ebd0((float)FUN_0043c4b0()->Target()->Width(0) / (float)g_011ded3c.Get()->FUN_00872370(0), 1.0f);
         float y =
             FUN_0040ebd0((float)FUN_0043c4b0()->Target()->Height(0) / (float)g_011ded3c.Get()->FUN_008723d0(0), 1.0f);
-        FUN_00524c90()->FUN_00712e60(Rect(0, x, y, 0));
+        FUN_00524c90()->SetViewPort(Rect(0, x, y, 0));
     }
     else if (DAT_011f9426)
-        FUN_00524c90()->FUN_00712e60(DAT_011ad840);
-    Modifier* mem = FUN_004b7210()->FUN_00718ab0();
+        FUN_00524c90()->SetViewPort(DAT_011ad840);
+    Modifier* mem = FUN_004b7210()->GetCurrentImagespaceMod();
     FUN_00529c90(FUN_005d2860());
     if (mem)
     {
@@ -10159,11 +10159,11 @@ void FUN_00871dc0_class::FUN_00871dc0()
     if (FUN_00702680(0x40c, 0) && IsStartMenuFlag1Set())
     {
         BSCullingProcess cull(0);
-        void* camera = FUN_00707ad0()->FUN_008b6200();
+        void* camera = GetCurrentRenderedMenu()->FUN_008b6200();
         cull.FUN_0041fd00(camera);
         cull.FUN_004a0fd0(unk98.Get());
         ((SceneObject*)unk98.Get())->FUN_004a1020(FUN_00450b80(1));
-        FUN_00b6bee0(camera, FUN_00707ad0()->GetMenuRoot(), &cull);
+        FUN_00b6bee0(camera, GetCurrentRenderedMenu()->GetMenuRoot(), &cull);
         FUN_00b6c0d0(camera, unk98.Get(), 0);
         cull.FUN_004a0fd0(0);
     }
@@ -10176,7 +10176,7 @@ void FUN_00871dc0_class::FUN_00871dc0()
     FUN_004ea970()->FUN_00ba3130(1, 0x17);
     FUN_004ea970()->FUN_00ba2fa0();
     DAT_011dea29 = true;
-    FUN_00524c90()->FUN_00712e60(Rect(0, 1, 1, 0));
+    FUN_00524c90()->SetViewPort(Rect(0, 1, 1, 0));
     FUN_00a04500();
     FUN_0043c4b0()->FUN_004a03c0();
     unk9c = false;
@@ -10297,17 +10297,17 @@ struct _Rect16_00712e60
 };
 struct _Cam_00712e60
 {
-    void FUN_00712e60(const _Rect16_00712e60& r);
+    void SetViewPort(const _Rect16_00712e60& r);
 };
 _Cam_00712e60* __cdecl FUN_00524c90();
 
 struct Host
 {
-    BSRenderedTexture* FUN_00872f50(P1* a1, BSRenderedTexture* a2, unsigned char a3, unsigned char a4);
+    BSRenderedTexture* DrawWorld_InitRenderTexture(P1* a1, BSRenderedTexture* a2, unsigned char a3, unsigned char a4);
 };
 
 // @fnv 0x00872f50
-BSRenderedTexture* Host::FUN_00872f50(P1* apSource, BSRenderedTexture* apFallbackTexture, unsigned char abSkipCreate,
+BSRenderedTexture* Host::DrawWorld_InitRenderTexture(P1* apSource, BSRenderedTexture* apFallbackTexture, unsigned char abSkipCreate,
                                       unsigned char abUseSourceGroup)
 {
     BSRenderedTexture* tex = 0;
@@ -10326,7 +10326,7 @@ BSRenderedTexture* Host::FUN_00872f50(P1* apSource, BSRenderedTexture* apFallbac
             float fb;
             fb = (float)FUN_008731a0(
                 (double)apSource->FUN_004dee70() * DAT_01082d20 / (double)((TexObj*)tex)->FUN_008723d0(0), 1.0f);
-            FUN_00524c90()->FUN_00712e60((_Rect16_00712e60&)ImageSpaceEffectParam(0.0f, fa, fb, 0.0f));
+            FUN_00524c90()->SetViewPort((_Rect16_00712e60&)ImageSpaceEffectParam(0.0f, fa, fb, 0.0f));
         }
         FUN_00b6b8d0(7, tex->GetGroup());
     }
@@ -10358,7 +10358,7 @@ BSFaceGenNiNode* __cdecl FUN_0045c670();
 
 struct BSFaceGenAnimationData
 {
-    void FUN_00712e60(void*);
+    void SetViewPort(void*);
 };
 BSFaceGenAnimationData* __cdecl FUN_00524c90();
 
@@ -10412,7 +10412,7 @@ struct PlayerHelper
 {
     NiNode* FUN_00950bb0(bool);
     PlayerObjectHelper* FUN_007721a0();
-    bool FUN_008a8870();
+    bool IsReloading();
     bool FUN_00967ae0();
 };
 
@@ -10445,7 +10445,7 @@ struct FORenderedMenu
     BGSBodyPart* FUN_006838b0();
 };
 FORenderedMenu* __cdecl FUN_00705990();
-FORenderedMenu* __cdecl FUN_00707ad0();
+FORenderedMenu* __cdecl GetCurrentRenderedMenu();
 
 struct MTRenderingSystem_Helper
 {
@@ -10458,7 +10458,7 @@ struct ObjectA0
 {
     void FUN_00507700(float);
     void FUN_00a6faf0(void*);
-    void FUN_00712e60(void*);
+    void SetViewPort(void*);
     void FUN_004f00e0(const NiPoint3&);
     void FUN_00688430(TransformState*);
     NiPoint3* FUN_0045bb80();
@@ -10611,11 +10611,11 @@ void MainShell::FUN_00874c10()
     {
         if (FUN_0043c4b0()->v51() == 0 || FUN_0043c4b0()->v51() == FUN_0043c4b0()->v50())
         {
-            FUN_00524c90()->FUN_00712e60(&DAT_011ad840);
+            FUN_00524c90()->SetViewPort(&DAT_011ad840);
         }
     }
 
-    ((FaceGenHelper*)pFaceGenNode2)->FUN_00c52020(FUN_00874900((const char*)g_thePlayer), 0, 0, 0);
+    ((FaceGenHelper*)pFaceGenNode2)->FUN_00c52020(Get1stPersonFOV((const char*)g_thePlayer), 0, 0, 0);
 
     if (((!((PlayerHelper*)g_thePlayer)->FUN_00950bb0(0)->FUN_00456610() &&
           !((PlayerHelper*)g_thePlayer)->FUN_00950bb0(1)->FUN_00456610() == 0) ||
@@ -10629,13 +10629,13 @@ void MainShell::FUN_00874c10()
 
         spObjA0->FUN_00507700(((AnimDataHelper*)pAnimData)->FUN_006447f0());
         spObjA0->FUN_00a6faf0(((AnimDataHelper*)pAnimData)->FUN_0045bbe0());
-        spObjA0->FUN_00712e60(((AnimDataHelper*)pAnimData)->FUN_004a0d10());
+        spObjA0->SetViewPort(((AnimDataHelper*)pAnimData)->FUN_004a0d10());
 
         TransformState kTransform = *((AnimDataHelper*)pAnimData)->FUN_00461130();
         spObjA0->FUN_004f00e0(*DAT_011e07d0->FUN_0045bb80() + pt_5c3);
         spObjA0->FUN_00688430(&kTransform);
 
-        if (((PlayerHelper*)g_thePlayer)->FUN_007721a0() && !((PlayerHelper*)g_thePlayer)->FUN_008a8870() &&
+        if (((PlayerHelper*)g_thePlayer)->FUN_007721a0() && !((PlayerHelper*)g_thePlayer)->IsReloading() &&
             !DAT_011f2250.FUN_00525430())
         {
             spObjA0->FUN_004f00e0(*((PlayerHelper*)g_thePlayer)->FUN_007721a0()->FUN_0045bb80() + pt_5c3);
@@ -10663,7 +10663,7 @@ void MainShell::FUN_00874c10()
         DAT_011de9d1 = 0;
     }
 
-    if (FUN_00707ad0() && FUN_00707ad0() != FUN_00705990())
+    if (GetCurrentRenderedMenu() && GetCurrentRenderedMenu() != FUN_00705990())
     {
     }
     else
@@ -10778,9 +10778,9 @@ struct Scene
     unsigned char visible, unk3b;
     void FUN_00450f90(bool);
     void FUN_007148c0(int, int);
-    void FUN_00712e60(const Rect&);
+    void SetViewPort(const Rect&);
     void FUN_00a6faf0(void*);
-    void FUN_007fae70(int);
+    void SetScreenTexture(int);
     Scene* FUN_007fa950();
     Scene* FUN_00875bd0(int);
     Scene* FUN_00a59d30(void*);
@@ -10995,11 +10995,11 @@ struct Mode
 struct Player
 {
     Scene* FUN_00950bb0(int);
-    float FUN_00874900();
-    float FUN_00710ab0();
+    float Get1stPersonFOV();
+    float GetWorldFOV();
     bool FUN_008c51c0();
     Scene* FUN_007721a0();
-    bool FUN_008a8870();
+    bool IsReloading();
 };
 extern Player* DAT_011dea3c;
 extern bool DAT_011f9426, DAT_011de9d1;
@@ -11015,7 +11015,7 @@ Scene* FUN_0045c670();
 Scene* FUN_004ea970();
 Scene* FUN_0043c4b0();
 void FUN_00b54000(float);
-Scene* FUN_00707ad0();
+Scene* GetCurrentRenderedMenu();
 Scene* FUN_00705990();
 bool FUN_007079b0();
 bool FUN_00705a00();
@@ -11085,26 +11085,26 @@ void Main::FUN_00875110(Scene* root, Scene* firstPerson, Scene* extra, Scene* pa
     Guard guardSlot1(0x34, 1, DAT_010829c4, 0x221f);
     root->FUN_007148c0(0, 4);
     if (DAT_011f9426 && (!FUN_0043c4b0()->Primary() || FUN_0043c4b0()->Primary() == FUN_0043c4b0()->Secondary()))
-        camera.FUN_00559450()->FUN_00712e60(DAT_011ad840);
+        camera.FUN_00559450()->SetViewPort(DAT_011ad840);
     else
-        camera.FUN_00559450()->FUN_00712e60(Rect(0, 1, 1, 0));
-    renderSlot52->FUN_00c52020(DAT_011dea3c->FUN_00874900(), 0, 0, 0);
-    FUN_00b54000(DAT_011dea3c->FUN_00874900());
+        camera.FUN_00559450()->SetViewPort(Rect(0, 1, 1, 0));
+    renderSlot52->FUN_00c52020(DAT_011dea3c->Get1stPersonFOV(), 0, 0, 0);
+    FUN_00b54000(DAT_011dea3c->Get1stPersonFOV());
     camera.FUN_00559450()->FUN_00a6faf0(viewSlot23->FUN_0045bbe0());
     if (firstPerson)
     {
-        FUN_00707ad0()->FUN_007fae70(0);
+        GetCurrentRenderedMenu()->SetScreenTexture(0);
         firstPerson->FUN_00450f90(0);
         if (FUN_007079b0())
         {
             if (FUN_00705a00() && DAT_011dea3c->FUN_008c51c0())
-                FUN_00707ad0()->FUN_007fa950()->FUN_00450f90(1);
+                GetCurrentRenderedMenu()->FUN_007fa950()->FUN_00450f90(1);
             Pointer tempTextureSlot13(new Output(99, 1, 759));
             contextSlot26->FUN_00c4f270(1);
-            Scene* property = FUN_00707ad0()->FUN_007fa950()->FUN_00a59d30(FUN_0040df90());
+            Scene* property = GetCurrentRenderedMenu()->FUN_007fa950()->FUN_00a59d30(FUN_0040df90());
             if (property)
                 property->FUN_0049ed90(0);
-            FUN_00707ad0()->FUN_007fae70(0);
+            GetCurrentRenderedMenu()->SetScreenTexture(0);
             contextSlot26->FUN_004a0fd0(tempTextureSlot13.FUN_00559450());
             if (FUN_00705a00() && DAT_011dea3c->FUN_008c51c0())
             {
@@ -11112,16 +11112,16 @@ void Main::FUN_00875110(Scene* root, Scene* firstPerson, Scene* extra, Scene* pa
                 FUN_00b6bee0(camera.FUN_00559450(), FUN_00705990()->FUN_00875bd0(1), contextSlot26);
                 FUN_00b6bee0(camera.FUN_00559450(), FUN_00705990()->FUN_00875bd0(2), contextSlot26);
             }
-            FUN_00b6bee0(camera.FUN_00559450(), FUN_00707ad0()->FUN_007fa950(), contextSlot26);
+            FUN_00b6bee0(camera.FUN_00559450(), GetCurrentRenderedMenu()->FUN_007fa950(), contextSlot26);
             FUN_00b6c0d0(camera.FUN_00559450(), tempTextureSlot13.FUN_00559450(), 0);
             contextSlot26->FUN_004a0fd0(0);
             tempTextureSlot13.FUN_0066b0d0(0);
             contextSlot26->FUN_00c4f2d0();
             if (FUN_00705a00() && DAT_011dea3c->FUN_008c51c0())
-                FUN_00707ad0()->FUN_007fa950()->FUN_00450f90(0);
+                GetCurrentRenderedMenu()->FUN_007fa950()->FUN_00450f90(0);
         }
     }
-    if (FUN_00707ad0() && FUN_00707ad0() != FUN_00705990())
+    if (GetCurrentRenderedMenu() && GetCurrentRenderedMenu() != FUN_00705990())
     {
     }
     else if (!FUN_00705a00() || !DAT_011dea3c->FUN_008c51c0())
@@ -11134,7 +11134,7 @@ void Main::FUN_00875110(Scene* root, Scene* firstPerson, Scene* extra, Scene* pa
         if (list && !list->FUN_004a4460())
         {
             Vec offset(0, 0, 0);
-            if (DAT_011dea3c->FUN_007721a0() && !DAT_011dea3c->FUN_008a8870() && !DAT_011f2250.FUN_00525430())
+            if (DAT_011dea3c->FUN_007721a0() && !DAT_011dea3c->IsReloading() && !DAT_011f2250.FUN_00525430())
                 offset = DAT_011dea3c->FUN_007721a0()->FUN_0045bb80()->FUN_00439ef0(*DAT_011e07d0->FUN_0045bb80());
             Scene* render2Slot14 = FUN_0045c670();
             Scene* view2Slot10 = render2Slot14->FUN_006629f0();
@@ -11174,7 +11174,7 @@ void Main::FUN_00875110(Scene* root, Scene* firstPerson, Scene* extra, Scene* pa
             DAT_011f9438->FUN_00a29680();
             FUN_00b6b8d0(6, pass->FUN_00b6b260());
             if (DAT_011f9426)
-                FUN_00524c90()->FUN_00712e60(DAT_011ad840);
+                FUN_00524c90()->SetViewPort(DAT_011ad840);
         }
         Scene* render3Slot0 = FUN_0045c670();
         surface.FUN_00559450()->FUN_00b64570(camera.FUN_00559450(), pass);
@@ -11189,8 +11189,8 @@ void Main::FUN_00875110(Scene* root, Scene* firstPerson, Scene* extra, Scene* pa
         FUN_00450b80(0)->FUN_008750e0(DAT_011f426c);
     }
     if (DAT_011f2250.FUN_0044ddc0() != 4)
-        FUN_0045c670()->FUN_00c52020(DAT_011dea3c->FUN_00710ab0(), 0, 0, 0);
-    FUN_00b54000(DAT_011dea3c->FUN_00710ab0());
+        FUN_0045c670()->FUN_00c52020(DAT_011dea3c->GetWorldFOV(), 0, 0, 0);
+    FUN_00b54000(DAT_011dea3c->GetWorldFOV());
     if (extra && !extra->FUN_0043b230()->FUN_00456610())
     {
         bool previousSlot0 = extra->FUN_0043b230()->FUN_00456610();
@@ -11210,8 +11210,8 @@ void Main::FUN_00875110(Scene* root, Scene* firstPerson, Scene* extra, Scene* pa
     }
     if (extra)
         extra->FUN_006426a0(2, texture.FUN_00559450(), DAT_011deb7c.FUN_00559450()->FUN_006629f0());
-    renderSlot52->FUN_00c52020(DAT_011dea3c->FUN_00874900(), 0, 0, 0);
-    FUN_00b54000(DAT_011dea3c->FUN_00874900());
+    renderSlot52->FUN_00c52020(DAT_011dea3c->Get1stPersonFOV(), 0, 0, 0);
+    FUN_00b54000(DAT_011dea3c->Get1stPersonFOV());
 }
 }
 
@@ -11230,8 +11230,8 @@ void __cdecl FUN_00b6b790();
 bool __cdecl FUN_007079b0();
 struct RenderEffectManager
 {
-    void FUN_00801a60(void*, BSShaderAccumulator*, int, unsigned char);
-    void FUN_008019d0();
+    void PrepareEffect(void*, BSShaderAccumulator*, int, unsigned char);
+    void ShutdownEffect();
 };
 RenderEffectManager* __cdecl FUN_00705910();
 struct AccumulatorPointer
@@ -11259,7 +11259,7 @@ struct RenderedMenu
     virtual void UnkVirtual10();
     virtual float GetRenderScale();
 };
-RenderedMenu* __cdecl FUN_00707ad0();
+RenderedMenu* __cdecl GetCurrentRenderedMenu();
 void __cdecl FUN_00b55ac0(void*, void*, void*);
 struct TextureReturnManager
 {
@@ -11276,7 +11276,7 @@ struct ImageSpaceEffectParam
 };
 struct ViewportCamera
 {
-    void FUN_00712e60(const ImageSpaceEffectParam&);
+    void SetViewPort(const ImageSpaceEffectParam&);
 };
 ViewportCamera* __cdecl FUN_00524c90();
 struct FrameRenderer
@@ -11334,19 +11334,19 @@ void FrameRenderer::FUN_00875fd0(void* unused, void* renderer, void* scene, void
         !g_BGSSaveLoadGame->FUN_005621d0() && !bSkipScene)
         FUN_00702870();
     if (DAT_011deb38.FUN_00559450())
-        FUN_00705910()->FUN_00801a60(renderer, DAT_011deb38.FUN_00559450(), 0, 0);
+        FUN_00705910()->PrepareEffect(renderer, DAT_011deb38.FUN_00559450(), 0, 0);
     bool menuActive = FUN_007079b0() && !bSkipScene && DAT_011dea29;
     if (menuActive)
     {
         DAT_012005a2 = true;
-        float renderScale = FUN_00707ad0()->GetRenderScale();
+        float renderScale = GetCurrentRenderedMenu()->GetRenderScale();
         DAT_011add08 = renderScale;
     }
     DAT_011f917c = FUN_0045c670()->GetAnimationData();
     FUN_00b55ac0(scene, renderer, target);
     if (DAT_011deb38.FUN_00559450())
     {
-        FUN_00705910()->FUN_008019d0();
+        FUN_00705910()->ShutdownEffect();
         FUN_004a0ea0()->FUN_00b6da10(DAT_011deb38.FUN_00559450());
         DAT_011deb38.FUN_0066b0d0(0);
     }
@@ -11355,7 +11355,7 @@ void FrameRenderer::FUN_00875fd0(void* unused, void* renderer, void* scene, void
         DAT_012005a2 = false;
         DAT_011add08 = 1.0f;
     }
-    FUN_00524c90()->FUN_00712e60(ImageSpaceEffectParam(0.0f, 1.0f, 1.0f, 0.0f));
+    FUN_00524c90()->SetViewPort(ImageSpaceEffectParam(0.0f, 1.0f, 1.0f, 0.0f));
 }
 }  // namespace fnv_00875fd0
 
@@ -11389,7 +11389,7 @@ struct Camera876
     Camera876* FUN_008b6200();
     Camera876* FUN_005585e0();
     R876* FUN_004a0d10();
-    void FUN_00712e60(R876*);
+    void SetViewPort(R876*);
     Camera876* FUN_0045bb80();
     V876* FUN_004a0bd0(V876*);
     void FUN_004fb0b0(bool);
@@ -11403,7 +11403,7 @@ struct Camera876
     Camera876* FUN_00a59d30(void*);
     void FUN_00a5a040();
     Camera876* FUN_007fa950();
-    void FUN_007fae70(void*);
+    void SetScreenTexture(void*);
     Camera876* FUN_00559450();
     void* FUN_004bc320(int);
 };
@@ -11433,7 +11433,7 @@ extern Camera876 g_011dec64;
 extern V876 DAT_011f426c;
 extern bool DAT_011f9426;
 extern R876 DAT_011ad840;
-Camera876* FUN_00707ad0();
+Camera876* GetCurrentRenderedMenu();
 Mode876* FUN_00705990();
 bool FUN_00705a00();
 void FUN_00709b50(bool, float, float, int);
@@ -11571,9 +11571,9 @@ void Shell876::FUN_008761e0(int unused, Input876* input)
     V876 j;
     p = (Player876*)FUN_0045c670();
     s = p->FUN_008d80e0();
-    i = FUN_00707ad0()->FUN_008b6200();
+    i = GetCurrentRenderedMenu()->FUN_008b6200();
     input->FUN_007148c0(0, 4);
-    f = FUN_00707ad0()->FUN_005585e0();
+    f = GetCurrentRenderedMenu()->FUN_005585e0();
     s->FUN_004fb0b0(true);
     cf.FUN_0043d410(0.0f, 0, 0);
     b.FUN_00476a80();
@@ -11608,7 +11608,7 @@ void Shell876::FUN_008761e0(int unused, Input876* input)
         i = aa0.FUN_00559450();
     h = *i->FUN_004a0d10();
     if (DAT_011f9426 && FUN_0043c4b0()->height() == FUN_0043c4b0()->width())
-        i->FUN_00712e60(&DAT_011ad840);
+        i->SetViewPort(&DAT_011ad840);
     FUN_00b98380(0, 1);
     s->FUN_0041fd00(i);
     s->FUN_004a0fd0(a8c.FUN_00559450());
@@ -11618,15 +11618,15 @@ void Shell876::FUN_008761e0(int unused, Input876* input)
     a8c.FUN_00559450()->FUN_00b63b90(6);
     s->FUN_004a0fd0(0);
     FUN_004eced0(1);
-    q = FUN_00707ad0()->FUN_007fa950()->FUN_00a59d30(FUN_0040df90());
+    q = GetCurrentRenderedMenu()->FUN_007fa950()->FUN_00a59d30(FUN_0040df90());
     if (q)
     {
         q->FUN_0049ed90(true);
         q->FUN_00439340(6);
         q->FUN_00439390(0);
-        FUN_00707ad0()->FUN_007fa950()->FUN_00a5a040();
+        GetCurrentRenderedMenu()->FUN_007fa950()->FUN_00a5a040();
     }
-    FUN_00707ad0()->FUN_007fae70(g_011dec64.FUN_00559450()->FUN_004bc320(0));
+    GetCurrentRenderedMenu()->SetScreenTexture(g_011dec64.FUN_00559450()->FUN_004bc320(0));
     s->FUN_0041fd00(i);
     s->FUN_004a0fd0(a98.FUN_00559450());
     FUN_00b97e30(0, 1);
@@ -11637,16 +11637,16 @@ void Shell876::FUN_008761e0(int unused, Input876* input)
         FUN_00b6bee0(i, FUN_00705990()->FUN_00875bd0(2), s);
         FUN_00b97de0(0, 1);
     }
-    FUN_00b6bee0(i, FUN_00707ad0()->FUN_007fa950(), s);
+    FUN_00b6bee0(i, GetCurrentRenderedMenu()->FUN_007fa950(), s);
     FUN_00b6c0d0(i, a98.FUN_00559450(), 0);
     FUN_00714a60(1);
     if (DAT_011dea3c->FUN_008c51c0() && FUN_00705a00())
         FUN_00714a40(1);
     s->FUN_004a0fd0(0);
-    FUN_00707ad0()->FUN_007fae70(0);
+    GetCurrentRenderedMenu()->SetScreenTexture(0);
     if (q)
         q->FUN_0049ed90(false);
-    i->FUN_00712e60(&h);
+    i->SetViewPort(&h);
     if (DAT_011dea3c->FUN_00967ae0())
     {
         f->FUN_00a59c60(&cf);
@@ -12128,7 +12128,7 @@ struct FUN_008774a0_player
 struct FUN_007d6bd0_save
 {
     bool FUN_007d6bd0(bool abFlag);
-    void FUN_0084a840();
+    void RevertAllChanges();
 };
 
 struct FUN_004539a0_tes
@@ -12145,7 +12145,7 @@ struct FUN_00ad8780_audio
 };
 struct FUN_006c09f0_mgr
 {
-    void FUN_006c09f0();
+    void ClearAllObstacles();
 };
 struct FUN_00970d50_lists
 {
@@ -12180,13 +12180,13 @@ struct FUN_008774a0_shell
     bool FUN_004f1540();
     void FUN_004f15a0(int aiValue);
     void FUN_008776e0();
-    void FUN_008774a0(bool abFlag);
+    void PerformGameReset(bool abFlag);
 };
 
 extern FUN_008774a0_shell* DAT_011dea0c;
 
 // @fnv 0x008774a0
-void FUN_008774a0_shell::FUN_008774a0(bool abFlag)
+void FUN_008774a0_shell::PerformGameReset(bool abFlag)
 {
     bool bState = FUN_004f1540();
     FUN_004f15a0(0);
@@ -12209,11 +12209,11 @@ void FUN_008774a0_shell::FUN_008774a0(bool abFlag)
     DAT_011dea10->FUN_004539a0(0, 0);
     DAT_011dea10->FUN_007037c0(0x7fffffff);
     DAT_011dea10->FUN_0061cc40(0x7fffffff);
-    GetNavMeshObstacleManager()->FUN_006c09f0();
+    GetNavMeshObstacleManager()->ClearAllObstacles();
     FUN_00868d70(0);
     FUN_00c459d0(0);
     DAT_011dea3c->v115(0, 0);
-    DAT_011ddf38->FUN_0084a840();
+    DAT_011ddf38->RevertAllChanges();
     ((FUN_00970d50_lists*)&DAT_011e0e80)->FUN_00970d50();
     DAT_011c3f2c->FUN_004614e0();
     FUN_00b4f5c0()->FUN_00b631d0();
@@ -13009,7 +13009,7 @@ ImageSpaceManager* FUN_004e3270();
 void FUN_00b57e30(void* p, int a, int b);
 
 // @fnv 0x00877730
-void FUN_00877730()
+void InitSky()
 {
     AutoMemHelper helper8(0x21, true, "D:\\_Fallout3\\Platforms\\Common\\Code\\Fallout\\Misc\\Main.cpp", 0x26bd);
     FUN_0040fbe0("Initializing Sky...");
@@ -13191,7 +13191,7 @@ struct NiUpdateData
 };
 struct ISMgr
 {
-    void FUN_00712e60(const ImageSpaceEffectParam& p);
+    void SetViewPort(const ImageSpaceEffectParam& p);
 };
 struct ISHolder
 {
@@ -13204,7 +13204,7 @@ struct StateObj
 };
 extern StateObj DAT_011f2250;
 struct PlayerCharacter;
-float __fastcall FUN_00710ab0(PlayerCharacter* p);
+float __fastcall GetWorldFOV(PlayerCharacter* p);
 extern PlayerCharacter* g_thePlayer;
 struct BSShaderManager
 {
@@ -13245,7 +13245,7 @@ struct CamWatcher
     int unk00;
     CamWatcher();
     ~CamWatcher();
-    void FUN_008d6f50(NiCamera* cam);
+    void Run(NiCamera* cam);
 };
 extern unsigned char DAT_011f9fc0;
 extern unsigned char DAT_011f9fc1;
@@ -13312,22 +13312,22 @@ struct MainX
 // @fnv 0x00872b00
 void* MainX::UpdateCamera()
 {
-    ((ISMgr*)FUN_0045c670()->GetAnimationData())->FUN_00712e60(DAT_011ad840);
+    ((ISMgr*)FUN_0045c670()->GetAnimationData())->SetViewPort(DAT_011ad840);
     if (DAT_011f2250.CallGetFlags() != 4)
     {
-        ((ISHolder*)FUN_0045c670())->FUN_00c52020(FUN_00710ab0(g_thePlayer), 0, 0, true);
+        ((ISHolder*)FUN_0045c670())->FUN_00c52020(GetWorldFOV(g_thePlayer), 0, 0, true);
     }
-    BSShaderManager::SetFOV(FUN_00710ab0(g_thePlayer));
+    BSShaderManager::SetFOV(GetWorldFOV(g_thePlayer));
     if (bFlag9C)
     {
-        ((ISMgr*)FUN_0045c670()->GetAnimationData())->FUN_00712e60(ImageSpaceEffectParam(0.0f, 1.0f, 1.0f, 0.0f));
+        ((ISMgr*)FUN_0045c670()->GetAnimationData())->SetViewPort(ImageSpaceEffectParam(0.0f, 1.0f, 1.0f, 0.0f));
     }
     NiCamera* pCamera = ((CamNode*)g_011deb7c)->GetAnimationData();
     NiCamera* pOverride6 = 0;
     if (*g_011ded80.Bool())
     {
         static CamWatcher kWatcher;
-        kWatcher.FUN_008d6f50(pOverride6 ? pOverride6 : pCamera);
+        kWatcher.Run(pOverride6 ? pOverride6 : pCamera);
     }
     ((NiAVObject*)g_011deb34)->FUN_00440460(((CamNode*)g_011deb7c)->FUN_00558310()->FUN_0043c490());
     NiUpdateData kData5(0.0f, false, false);
@@ -13357,10 +13357,10 @@ namespace fnv_0086ff70 {
 struct Main86 : Main
 {
     void FUN_0086ff70();
-    void FUN_00871dc0();
-    void FUN_00877430();
+    void RenderMenuBackground();
+    void KillMenuBGTexture();
     void FUN_008706b0(int, int, int);
-    void FUN_00871a50();
+    void UpdateOffscreenInterface();
     void FUN_00872940(int);
     void FUN_00874b90(int);
 };
@@ -13679,7 +13679,7 @@ void Main86::FUN_0086ff70()
         bool second = reinterpret_cast<PlayerContext86*>(DAT_011dea3c->FUN_00950bb0(0))->FUN_00456610();
         reinterpret_cast<PlayerContext86*>(DAT_011dea3c->FUN_00950bb0(1))->FUN_00450f90(1);
         reinterpret_cast<PlayerContext86*>(DAT_011dea3c->FUN_00950bb0(0))->FUN_00450f90(1);
-        FUN_00871dc0();
+        RenderMenuBackground();
         reinterpret_cast<PlayerContext86*>(DAT_011dea3c->FUN_00950bb0(1))->FUN_00450f90(first);
         reinterpret_cast<PlayerContext86*>(DAT_011dea3c->FUN_00950bb0(0))->FUN_00450f90(second);
     }
@@ -13709,7 +13709,7 @@ void Main86::FUN_0086ff70()
                 DAT_011de45c->FUN_004534f0(0);
                 DAT_011de45c->FUN_00483710();
             }
-            FUN_00877430();
+            KillMenuBGTexture();
         }
     }
     else
@@ -13743,7 +13743,7 @@ void Main86::FUN_0086ff70()
             FUN_004ea970(0, i)->FUN_00ba30f0();
             FUN_004ea970(1, i)->FUN_00ba3130();
         }
-        FUN_00871a50();
+        UpdateOffscreenInterface();
         if ((unsigned char)FUN_00702680(0x41e, 0) || (unsigned char)FUN_00702680(0x3f6, 0) ||
             (unsigned char)FUN_00702680(0x424, 0) || (unsigned char)FUN_00702680(0x432, 0) ||
             (unsigned char)FUN_00702680(0x438, 0) || (unsigned char)FUN_00702680(0x439, 0) ||
@@ -13969,18 +13969,18 @@ struct RenderCoordinator
     ShaderHolder shaders;
     void FUN_00872ad0();
     ModelView* UpdateCamera();
-    void FUN_008727d0();
+    void DrawWorld_UpdateWater();
     bool FUN_008749b0();
     void FUN_00871290();
-    BSRenderedTexture* FUN_00872f50(RenderView*, int, int, bool);
-    void FUN_00874ac0(bool);
+    BSRenderedTexture* DrawWorld_InitRenderTexture(RenderView*, int, int, bool);
+    void DrawWorld_VATS(bool);
     void FUN_00874b50(BSRenderedTexture*, bool, unsigned);
     void FUN_00873200(ModelView*, bool, int, bool);
-    void FUN_008746d0(BSRenderedTexture*);
+    void DrawWorld_Add1stPersonToDepthBuffer(BSRenderedTexture*);
     void FUN_00874920(ShaderView*, BSRenderedTexture*);
     void FUN_00874c10();
     void FUN_00875110(RenderView*, int, ModelView*, BSRenderedTexture*);
-    void FUN_00875e40(ShaderView*, BSRenderedTexture*);
+    void DrawWorld_DoDepth(ShaderView*, BSRenderedTexture*);
     void FUN_00875fa0(ShaderView*, BSRenderedTexture*);
     void FUN_00875fd0(bool, BSRenderedTexture*, RenderView*, int);
     void FUN_00876a20(RenderView*);
@@ -13999,11 +13999,11 @@ void RenderCoordinator::FUN_00870bd0(int arg, bool skip)
     bool q = FUN_004dc310();
     FUN_00872ad0();
     s = UpdateCamera();
-    FUN_008727d0();
+    DrawWorld_UpdateWater();
     bool i = FUN_008749b0();
     FUN_00871290();
-    BSRenderedTexture* j = FUN_00872f50(l, arg, 0, q);
-    FUN_00874ac0(i);
+    BSRenderedTexture* j = DrawWorld_InitRenderTexture(l, arg, 0, q);
+    DrawWorld_VATS(i);
     FUN_00874b50(j, q, 5);
     bool cf = !p && !skip && !FUN_00705910()->FUN_005585e0() && !FUN_00705100();
     bool a = false;
@@ -14038,7 +14038,7 @@ void RenderCoordinator::FUN_00870bd0(int arg, bool skip)
     if ((c || ba || f) && cf)
     {
         b = true;
-        FUN_008746d0(j);
+        DrawWorld_Add1stPersonToDepthBuffer(j);
         FUN_00874b50(j, q, 0);
     }
     if (FUN_005b9b00() && shaders.FUN_00559450()->SumItemSubValues() > 0)
@@ -14057,7 +14057,7 @@ void RenderCoordinator::FUN_00870bd0(int arg, bool skip)
         FUN_004ea970(1, 22)->FUN_00ba3130();
     }
     if (c || ba)
-        FUN_00875e40(shaders.FUN_00559450(), j);
+        DrawWorld_DoDepth(shaders.FUN_00559450(), j);
     if (f)
         FUN_00875fa0(shaders.FUN_00559450(), j);
     if (j7 && !DAT_011dea10->FUN_005f36f0() && DAT_011dea20 && DAT_011dea20->FUN_0045cd60())
@@ -14152,7 +14152,7 @@ class OSGlobals_ML
     int unk00;
     int unk04;
     HWND__* window;
-    void FUN_00877430();
+    void KillMenuBGTexture();
 };
 void __cdecl FUN_0040fca0(unsigned long);
 unsigned char __cdecl FUN_00446e10();
@@ -14211,7 +14211,7 @@ bool __cdecl FUN_00872570(bool active)
                     }
                 }
             }
-            MainLoopGlobals::g_osGlobals->FUN_00877430();
+            MainLoopGlobals::g_osGlobals->KillMenuBGTexture();
             if (FUN_00446e10())
             {
                 long style;
@@ -14721,7 +14721,7 @@ class PlayerUpdate : public TESObjectREFR
 };
 struct PlayerCalls
 {
-    bool FUN_0093bea0();
+    bool HandlePositionPlayerRequest();
     void FUN_009481d0();
     void FUN_009466d0(float delta, unsigned char mode);
     NiPoint3* GetAddTopicList();
@@ -14762,7 +14762,7 @@ struct UpdateScale
 };
 extern UpdateScale DAT_011f2250;
 extern unsigned char DAT_011e07a8;
-bool FUN_00709bc0();
+bool IsPipBoyOpening();
 extern bool DAT_011dea2b;
 void FUN_0086fba0(bool);
 void FUN_0086fbb0(BGSAcousticSpace*);
@@ -14785,9 +14785,9 @@ struct PlayerUpdateState
 void PlayerUpdateState::FUN_0086f940()
 {
     bool bChanged;
-    if (!reinterpret_cast<PlayerCalls*>(g_thePlayer)->FUN_0093bea0())
+    if (!reinterpret_cast<PlayerCalls*>(g_thePlayer)->HandlePositionPlayerRequest())
     {
-        if (DAT_011dea2b && !FUN_00709bc0())
+        if (DAT_011dea2b && !IsPipBoyOpening())
         {
             reinterpret_cast<PlayerCalls*>(g_thePlayer)->FUN_009481d0();
         }
@@ -14880,7 +14880,7 @@ struct Resource
 struct ResourceObject
 {
     ResourceObject* FUN_006629f0();
-    void FUN_00712e60(void*);
+    void SetViewPort(void*);
     void FUN_0070b760(int);
     void FUN_004a1020(void*);
     ResourceObject* FUN_00558310();
@@ -15615,7 +15615,7 @@ void RenderSystem::FUN_0086d590()
     (FUN_0086e520)(FUN_004bc3f0());
     FUN_0086e4e0(str_01082c8c);
     InitRenderSystem();
-    DAT_011deb7c.FUN_00559450()->FUN_006629f0()->FUN_00712e60(&DAT_011ad840);
+    DAT_011deb7c.FUN_00559450()->FUN_006629f0()->SetViewPort(&DAT_011ad840);
     ((ResourceObject*)p)->FUN_0070b760(0);
     FUN_00b4f2f0(0, p);
     this->resource88.FUN_00559450()->FUN_004a1020(p);
@@ -15733,7 +15733,7 @@ void RenderSystem::FUN_0086d590()
 
 struct S00875bf0_Cam875
 {
-    void FUN_00712e60(const struct S00875bf0_Color875&);
+    void SetViewPort(const struct S00875bf0_Color875&);
 };
 struct S00875bf0_Color875
 {
@@ -15758,7 +15758,7 @@ struct FORenderedMenu
     virtual void* v2();
     S00875bf0_Cam875* FUN_008b6200();
 };
-FORenderedMenu* FUN_00707ad0();
+FORenderedMenu* GetCurrentRenderedMenu();
 FORenderedMenu* FUN_00705990();
 struct S00875bf0_Ptr875
 {
@@ -15887,12 +15887,12 @@ struct S00875bf0_Shell875
 // @fnv 0x00875bf0
 void S00875bf0_Shell875::FUN_00875bf0()
 {
-    if (!g_011deb38.FUN_00559450() && FUN_00707ad0() && FUN_00707ad0() != FUN_00705990())
+    if (!g_011deb38.FUN_00559450() && GetCurrentRenderedMenu() && GetCurrentRenderedMenu() != FUN_00705990())
     {
         S00875bf0_FaceNode875* face = (S00875bf0_FaceNode875*)FUN_0045c670();
         S00875bf0_Scene875* scene = ((S00875bf0_Face875*)face)->FUN_008d80e0();
         scene->FUN_00c4f270(1);
-        S00875bf0_Cam875* camera = FUN_00707ad0()->FUN_008b6200() ? FUN_00707ad0()->FUN_008b6200()
+        S00875bf0_Cam875* camera = GetCurrentRenderedMenu()->FUN_008b6200() ? GetCurrentRenderedMenu()->FUN_008b6200()
                                                                   : (S00875bf0_Cam875*)face->GetAnimationData();
         scene->FUN_0041fd00(camera);
         scene->FUN_004a0fd0(this->scene.FUN_00559450());
@@ -15900,10 +15900,10 @@ void S00875bf0_Shell875::FUN_00875bf0()
         if (DAT_011f9426 &&
             (!((S00875bf0_Render875*)FUN_0043c4b0())->v51() ||
              ((S00875bf0_Render875*)FUN_0043c4b0())->v51() == ((S00875bf0_Render875*)FUN_0043c4b0())->v50()))
-            camera->FUN_00712e60(DAT_011ad840);
+            camera->SetViewPort(DAT_011ad840);
         else
-            camera->FUN_00712e60(S00875bf0_Color875(0.0f, 1.0f, 1.0f, 0.0f));
-        FUN_00b6bee0(camera, FUN_00707ad0()->v2(), scene);
+            camera->SetViewPort(S00875bf0_Color875(0.0f, 1.0f, 1.0f, 0.0f));
+        FUN_00b6bee0(camera, GetCurrentRenderedMenu()->v2(), scene);
         BSShaderManagerRenderMode::SetRenderMode(15);
         FUN_00b97e30(0, 1);
         FUN_00b98380(8, 1);
@@ -15911,7 +15911,7 @@ void S00875bf0_Shell875::FUN_00875bf0()
         BSShaderManagerRenderMode::SetRenderMode(0);
         FUN_004eced0(1);
         FUN_00714a60(1);
-        FUN_00b6bee0(camera, FUN_00707ad0()->v2(), scene);
+        FUN_00b6bee0(camera, GetCurrentRenderedMenu()->v2(), scene);
         FUN_00b6c0d0(camera, this->scene.FUN_00559450(), 0);
         scene->FUN_004a0fd0(0);
         scene->FUN_00c4f2d0();

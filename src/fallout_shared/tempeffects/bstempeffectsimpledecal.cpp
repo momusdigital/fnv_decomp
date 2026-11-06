@@ -150,14 +150,14 @@ struct Flt
 };
 struct DecalHolder
 {
-    bool FUN_0068b4c0(unsigned int);
+    bool ProcessGeometry(unsigned int);
     void FUN_00682810();
     void FUN_0068b1e0();
 };
 // @fnv 0x0068b1e0
 void DecalHolder::FUN_0068b1e0()
 {
-    if (!FUN_0068b4c0(*(Flt*)((char*)this + 0x10C)))
+    if (!ProcessGeometry(*(Flt*)((char*)this + 0x10C)))
         return;
     FUN_00682810();
 }
@@ -280,12 +280,12 @@ void NiFree(void* pointer);
 
 struct FUN_0068b220_shell
 {
-    void FUN_0068b220();
+    void CleanUpMemory();
 };
 
 // If the flag at offset 0x2d is clear, deallocates the six pointers at 0xcc-0xf4 and nulls them, then deletes each element of the array at 0xf8 and clears it.
 // @fnv 0x0068b220
-void FUN_0068b220_shell::FUN_0068b220()
+void FUN_0068b220_shell::CleanUpMemory()
 {
     ScrapHeapBuffer* pAllocator;
 
@@ -884,7 +884,7 @@ class FUN_0068b080 : public BSTempEffect
 {
   public:
     virtual ~FUN_0068b080();
-    void FUN_0068b220();
+    void CleanUpMemory();
 
     int unk1C;
     NiPointer<DecalNode> spNode20;
@@ -948,7 +948,7 @@ class FUN_0068b080 : public BSTempEffect
     NiPointer<DecalNode> spNode10C;
 };
 
-// Releases the decal nodes, detaches the node from its owner, calls FUN_0068b220, and decrements DAT_011c57ec when b2D is set.
+// Releases the decal nodes, detaches the node from its owner, calls CleanUpMemory, and decrements DAT_011c57ec when b2D is set.
 // @fnv 0x0068b080
 FUN_0068b080::~FUN_0068b080()
 {
@@ -965,7 +965,7 @@ FUN_0068b080::~FUN_0068b080()
         }
         spNode28 = 0;
     }
-    FUN_0068b220();
+    CleanUpMemory();
     if (b2D)
     {
         DAT_011c57ec--;
@@ -2347,11 +2347,11 @@ struct Host
     void ProcessDecalTriangles(Param*);
     void ResizeMeshBuffers();
     int FUN_0068ca90();
-    bool FUN_0068b4c0(Param*);
+    bool ProcessGeometry(Param*);
 };
 
 // @fnv 0x0068b4c0
-bool Host::FUN_0068b4c0(Param* apParam)
+bool Host::ProcessGeometry(Param* apParam)
 {
     float vValue40;
     int modeValue10;

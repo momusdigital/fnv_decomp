@@ -3095,7 +3095,7 @@ struct ImpMaterial
     virtual void m031();
     virtual void m032();
     virtual ImpMaterialSet* FUN_vtcc();
-    int FUN_006205a0();
+    int QMaterial();
 };
 
 struct ImpSkin
@@ -3450,7 +3450,7 @@ void ImpProjectile::ApplyImpact(ImpTarget* apTarget, ImpPoint* apPos, ImpPoint* 
                                 ImpMaterial* pSingle = FUN_004a3a40(pSurfaceInfo->FUN_00559450());
                                 if (!pSingle)
                                     continue;
-                                iSurfaceMaterialCur = pSingle->FUN_006205a0();
+                                iSurfaceMaterialCur = pSingle->QMaterial();
                             }
                             if (iSurfaceMaterialCur == aiMaterial && pSurfaceInfo != pLastSurface)
                             {

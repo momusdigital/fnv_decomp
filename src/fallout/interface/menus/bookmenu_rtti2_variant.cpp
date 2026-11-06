@@ -757,7 +757,7 @@ struct BookTarget : Menu
     BookTile* FUN_00726070();
     void UpdateBookMenu(BookInput*, int);
 };
-void __cdecl FUN_00717280(int);
+void __cdecl PlayMenuSound(int);
 struct MyTile
 {
     bool IsTraitNonZero(int);
@@ -834,7 +834,7 @@ struct BSFile
     bool FUN_008905f0();
     void FUN_00aff7c0(BSStringT<char>*, int);
 };
-extern void __cdecl FUN_00703c00(const char*, ...);
+extern void __cdecl PrintToConsole(const char*, ...);
 struct LoadBook
 {
     BookTile* FUN_00726070();
@@ -889,11 +889,11 @@ struct MenuH
 Menu* __cdecl FindMenuById(int);
 InterfaceManager* __cdecl FUN_004b7210();
 void __cdecl FNV_Warning(const char*, ...);
-void __cdecl FUN_00717280(int);
+void __cdecl PlayMenuSound(int);
 void* __fastcall FUN_00726070(Menu*);
 
 // @fnv 0x0073ad50
-Tile* __cdecl FUN_0073ad50(TESObjectBOOK* apBook, TESObjectREFR* apRef)
+Tile* __cdecl Create(TESObjectBOOK* apBook, TESObjectREFR* apRef)
 {
     BookMenu* g_pHudMainMenuInstance;
     InterfaceManager* pin;
@@ -928,9 +928,9 @@ Tile* __cdecl FUN_0073ad50(TESObjectBOOK* apBook, TESObjectREFR* apRef)
             ptile->FUN_00a012d0(0xfad, ftop_depth, true);
         ((BookMenuData*)g_pHudMainMenuInstance)->UpdateBookMenu(apBook, apRef);
         if (((BookMenuData*)g_pHudMainMenuInstance)->m_pObjectToUpdateMenuTile->FUN_00409700())
-            FUN_00717280(0x18);
+            PlayMenuSound(0x18);
         else
-            FUN_00717280(0x1a);
+            PlayMenuSound(0x1a);
         ((MenuH*)pmenu)->SetMenuVisibility(false);
         return ptile;
     }

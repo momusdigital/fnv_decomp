@@ -1015,7 +1015,7 @@ struct Player
     void Penalize(int);
 };
 extern Player* _g_thePlayer;
-bool FUN_00709bc0();
+bool IsPipBoyOpening();
 struct Open
 {
     static int GetOpenState(Ref*);
@@ -1176,7 +1176,7 @@ struct Terminal
 // @fnv 0x00501310
 bool Terminal::ActivateTerminal(Ref* target, Ref* user, int arg3, int arg4, int arg5)
 {
-    if (FUN_00709bc0())
+    if (IsPipBoyOpening())
     {
         return false;
     }

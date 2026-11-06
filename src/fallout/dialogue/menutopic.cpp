@@ -33,7 +33,7 @@ MenuTopic* TopicMenuController::GetSelectedTopic()
 // @fnv 0x0083e4f0
 MenuTopic* TopicMenuController::GetFirstTopic()
 {
-    return FUN_0083f260()->GetItem();
+    return GetCurrentTopicList()->GetItem();
 }
 
 // Advances the stored iterator to its next entry and returns whether it exists and has an item.
@@ -49,7 +49,7 @@ bool TopicMenuController::AdvanceTopic()
 // @fnv 0x0083e370
 bool TopicMenuController::SelectTopic(bool advance)
 {
-    m_pCurrentTopicList = FUN_0083f260();
+    m_pCurrentTopicList = GetCurrentTopicList();
     if (advance && m_pCurrentTopicList)
         m_pCurrentTopicList = m_pCurrentTopicList->GetNext();
     return m_pCurrentTopicList && m_pCurrentTopicList->GetItem();
@@ -96,7 +96,7 @@ bool TopicMenuController::Initialize(MobileObject* speaker, TESTopic* requestedT
                 new MenuTopic(locals.quest, locals.topic, locals.info, (MobileObject*)m_pDialogueSpeaker, false);
             locals.menuTopic->FUN_0045cd60(2147483648.0f)->FUN_00965250();
             locals.menuTopic->FillResponseList();
-            FUN_0083f260()->AddTail(locals.menuTopic);
+            GetCurrentTopicList()->AddTail(locals.menuTopic);
         }
     }
     if (locals.menuTopic)
@@ -293,7 +293,7 @@ struct FUN_0083e430_shell : public TopicMenuController
 bool FUN_0083e430_shell::FUN_0083e430(int aiIndex)
 {
     int a = 0;
-    BSSimpleList<MenuTopic*>* pMenuTopicEntry = FUN_0083f260();
+    BSSimpleList<MenuTopic*>* pMenuTopicEntry = GetCurrentTopicList();
     if (pMenuTopicEntry)
     {
         pMenuTopicEntry = pMenuTopicEntry->GetNext();
@@ -313,13 +313,13 @@ bool FUN_0083e430_shell::FUN_0083e430(int aiIndex)
 namespace fnv_0083f260 {
 struct FUN_0083f260_shell : public TopicMenuController
 {
-    void* FUN_0083f260();
+    void* GetCurrentTopicList();
 };
 
 void** __fastcall _ref_006815c0(void* pThis);
 
 // @fnv 0x0083f260
-void* FUN_0083f260_shell::FUN_0083f260()
+void* FUN_0083f260_shell::GetCurrentTopicList()
 {
     return *_ref_006815c0((char*)this + 4);
 }
@@ -409,7 +409,7 @@ void FUN_0083ec30_shell::UpdateTopicList()
         TESTopic* pTopic = pMenuTopicEntry->GetAudioBackendData();
         if (pList)
         {
-            ((FUN_0083ec30_mgr*)this)->FUN_0083e2d0(FUN_0083f260(), false);
+            ((FUN_0083ec30_mgr*)this)->FUN_0083e2d0(GetCurrentTopicList(), false);
             BuildTopicList(pList, false, bIsChoice, pTopic);
         }
         if (m_bControllerFlag)
@@ -577,11 +577,11 @@ struct FUN_0083f0d0_shell
 {
     char _pad[0x25];
     char f25;
-    int FUN_0083f0d0();
+    int GetDummyNodeState();
 };
 // Returns 1 if bit 0x10 of f25 is set, otherwise 2 plus 1 when bit 0x20 is set.
 // @fnv 0x0083f0d0
-int FUN_0083f0d0_shell::FUN_0083f0d0()
+int FUN_0083f0d0_shell::GetDummyNodeState()
 {
     return (f25 & 0x10) ? 1 : (((f25 & 0x20) != 0) + 2);
 }
@@ -698,7 +698,7 @@ void FUN_0083ed50_shell::BuildMenuTopics(BSSimpleList<TESTopic*>* apList, bool a
         if (!abFlag && ((FUN_0083de60_shell*)pTopic)->FUN_0083de60())
             continue;
 
-        int iTypeValue = ((FUN_0083f0d0_shell*)pTopic)->FUN_0083f0d0();
+        int iTypeValue = ((FUN_0083f0d0_shell*)pTopic)->GetDummyNodeState();
         if (((MenuTopicPlayer*)g_thePlayer)->actorValues.GetActorValue(9) <= *g_011d0dc8.Int())
         {
             if (iTypeValue == 3)
@@ -717,8 +717,8 @@ void FUN_0083ed50_shell::BuildMenuTopics(BSSimpleList<TESTopic*>* apList, bool a
             if (pExisting && !bStateChanged)
             {
                 if (((FUN_0083e0c0_shell*)pExisting)->HasCur() && !bStateChanged &&
-                    !((FUN_005f65d0_list*)FUN_0083f260())->FUN_005f65d0(pExisting))
-                    FUN_0083f260()->AddTail(pExisting);
+                    !((FUN_005f65d0_list*)GetCurrentTopicList())->FUN_005f65d0(pExisting))
+                    GetCurrentTopicList()->AddTail(pExisting);
                 bStateChanged = true;
             }
         }
@@ -742,9 +742,9 @@ void FUN_0083ed50_shell::BuildMenuTopics(BSSimpleList<TESTopic*>* apList, bool a
             if (bCreate5)
                 pMenuTopic = new MenuTopic(pQuest4, pTopic, pInfo, (MobileObject*)m_pDialogueSpeaker, bChoice);
             if (bCreate5 && ((FUN_0083e0c0_shell*)pMenuTopic)->HasCur() &&
-                !((FUN_005f65d0_list*)FUN_0083f260())->FUN_005f65d0(pMenuTopic))
+                !((FUN_005f65d0_list*)GetCurrentTopicList())->FUN_005f65d0(pMenuTopic))
             {
-                FUN_0083f260()->AddTail(pMenuTopic);
+                GetCurrentTopicList()->AddTail(pMenuTopic);
             }
             else if (pMenuTopic)
             {
@@ -759,7 +759,7 @@ void FUN_0083ed50_shell::BuildMenuTopics(BSSimpleList<TESTopic*>* apList, bool a
         }
     }
     if (!abNoSort)
-        ((FUN_005f65d0_list*)FUN_0083f260())->SortItems(FUN_0083f110);
+        ((FUN_005f65d0_list*)GetCurrentTopicList())->SortItems(FUN_0083f110);
 }
 
 struct LoadHeader
@@ -1180,7 +1180,7 @@ struct InfoShell
     void MarkAsRefusal();
     bool FUN_00619b20();
     bool IsSayOnceADay();
-    int FUN_0061f2b0();
+    int GetDifficulty();
     int GetType();
 };
 
@@ -1245,7 +1245,7 @@ class Mgr
     MenuTopic* FUN_0083e4f0();
     void FUN_0083e370(int a);
     void AddHeadIfNotNull(void* p);
-    ListShell* FUN_0083f260(MenuTopic** p);
+    ListShell* GetCurrentTopicList(MenuTopic** p);
     bool CheckTopicInfoChance(MenuTopic* pTopic);
 };
 
@@ -1257,7 +1257,7 @@ bool Mgr::CheckTopicInfoChance(MenuTopic* pTopic)
         int iChance2 = ComputeWeightedValue(((MenuPlayer*)g_thePlayer)->actorValues.FUN_0066ef50(0x2b),
                                             m_pDialogueSpeaker->v64() ? (float)m_pDialogueSpeaker->v209(g_thePlayer, 0)
                                                                       : *g_011d0a24.Float(),
-                                            ((InfoShell*)pTopic->GetTopicInfo())->FUN_0061f2b0());
+                                            ((InfoShell*)pTopic->GetTopicInfo())->GetDifficulty());
         int iRoll5 = DialogueRandom() % 100;
         if (iRoll5 >= iChance2)
         {
@@ -1287,7 +1287,7 @@ bool Mgr::CheckTopicInfoChance(MenuTopic* pTopic)
                         SpeakerVt* pSpk7 = m_pDialogueSpeaker;
                         pSpk7->LoadRecord(pTopic->GetTopicInfo());
                     }
-                    FUN_0083f260(&pTopic)->FUN_00905330();
+                    GetCurrentTopicList(&pTopic)->FUN_00905330();
                 }
                 ((MenuList*)pList)->AddTail(FUN_0083e4f0());
                 ((MenuList*)pList)->AddTail(pNew);
@@ -1319,7 +1319,7 @@ struct TESSaveLoadGame
 {
     char* FUN_00825c00();
     bool FUN_00862110();
-    void FUN_008579b0(void* pData, int iSize);
+    void SaveGameDataOLD(void* pData, int iSize);
     void FUN_00857a10(void* pData, int iSize);
     SaveFormHeader83f3* FUN_004fd3e0();
 };
@@ -1358,18 +1358,18 @@ void MenuTopic83f3::SaveTopic()
     if (g_TESSaveLoadGame->FUN_00862110())
     {
         unsigned int uiTag = 'BLOK';
-        g_TESSaveLoadGame->FUN_008579b0(&uiTag, 4);
+        g_TESSaveLoadGame->SaveGameDataOLD(&uiTag, 4);
         pcSizeLoc = g_TESSaveLoadGame->FUN_00825c00();
-        g_TESSaveLoadGame->FUN_008579b0(&usLen, 2);
+        g_TESSaveLoadGame->SaveGameDataOLD(&usLen, 2);
     }
     const char* pcTopic = m_kPrompt.String();
     unsigned char ucTextLen = BSStringLength(pcTopic);
-    g_TESSaveLoadGame->FUN_008579b0(&ucTextLen, 1);
+    g_TESSaveLoadGame->SaveGameDataOLD(&ucTextLen, 1);
     if (ucTextLen)
-        g_TESSaveLoadGame->FUN_008579b0((void*)pcTopic, ucTextLen);
-    g_TESSaveLoadGame->FUN_008579b0(&m_bFirstFlag, 1);
-    g_TESSaveLoadGame->FUN_008579b0(&m_bIsRemappedRumor, 1);
-    g_TESSaveLoadGame->FUN_008579b0(&m_bInfoHasBeenRead, 1);
+        g_TESSaveLoadGame->SaveGameDataOLD((void*)pcTopic, ucTextLen);
+    g_TESSaveLoadGame->SaveGameDataOLD(&m_bFirstFlag, 1);
+    g_TESSaveLoadGame->SaveGameDataOLD(&m_bIsRemappedRumor, 1);
+    g_TESSaveLoadGame->SaveGameDataOLD(&m_bInfoHasBeenRead, 1);
     unsigned int uiQuestID = 0;
     if (pQuest)
         uiQuestID = ((NamedForm83f3*)pQuest)->FUN_0084e3a0();

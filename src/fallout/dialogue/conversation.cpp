@@ -198,7 +198,7 @@ void FNV_Warning(const char*, ...);
 struct ConversationLoad : Conversation
 {
     void* m_pConversationLoadContext;
-    void* FUN_0083bac0(unsigned short);
+    void* GetDialogueItemByIndex(unsigned short);
     void LoadFromSave();
 };
 
@@ -246,7 +246,7 @@ void ConversationLoad::LoadFromSave()
     short sCurrentItemIndex;
     g_TESSaveLoadGame->ReadTypedData(&sCurrentItemIndex, 2);
     if (sCurrentItemIndex != -1)
-        ((StandIn*)this)->FUN_0083c8a0(FUN_0083bac0(sCurrentItemIndex));
+        ((StandIn*)this)->FUN_0083c8a0(GetDialogueItemByIndex(sCurrentItemIndex));
     else
         m_pConversationLoadContext = 0;
     if (g_TESSaveLoadGame->FUN_00862110())
@@ -296,7 +296,7 @@ struct DialogueItemListRef
 
 // Walks the dialogue item list until the entry at aiIndex is found and returns its item, warning and returning 0 if the index is out of range.
 // @fnv 0x0083bac0
-void* ConversationLoad::FUN_0083bac0(unsigned short aiIndex)
+void* ConversationLoad::GetDialogueItemByIndex(unsigned short aiIndex)
 {
     short iElementIndex = 0;
     BSSimpleList<DialogueItem*>* pCurrentElementNext = (BSSimpleList<DialogueItem*>*)this;
@@ -354,7 +354,7 @@ void FUN_0083c330_shell::FUN_0083c330(BGSLoadFormBuffer* buffer)
     if (count != -1)
     {
         reinterpret_cast<StandIn*>(this)->FUN_0083c8a0(
-            reinterpret_cast<ConversationLoad*>(this)->FUN_0083bac0(static_cast<unsigned short>(count)));
+            reinterpret_cast<ConversationLoad*>(this)->GetDialogueItemByIndex(static_cast<unsigned short>(count)));
     }
 }
 }  // namespace fnv_0083c330
@@ -625,7 +625,7 @@ struct CVSaveLoad
 {
     unsigned int GetTimeStamp();
     bool FUN_00862110();
-    void FUN_008579b0(void*, int);
+    void SaveGameDataOLD(void*, int);
     void* GetHitSound();
 };
 
@@ -648,13 +648,13 @@ void CVConv::SaveConversation()
     if (g_saveLoad->FUN_00862110())
     {
         unsigned int uiBlok9 = 0x424c4f4b;  // slot -0x20
-        g_saveLoad->FUN_008579b0(&uiBlok9, 4);
+        g_saveLoad->SaveGameDataOLD(&uiBlok9, 4);
         pSizeTmp = (short*)g_saveLoad->GetTimeStamp();
-        g_saveLoad->FUN_008579b0(&sCount_, 2);
+        g_saveLoad->SaveGameDataOLD(&sCount_, 2);
     }
     short sIndex5 = 0;                                  // slot -0x1c
     short* sVer7 = (short*)g_saveLoad->GetTimeStamp();  // slot -0x0c
-    g_saveLoad->FUN_008579b0(&sIndex5, 2);
+    g_saveLoad->SaveGameDataOLD(&sIndex5, 2);
     CVNode* uiStartTime4 = this;  // slot -0x18
     while (uiStartTime4 && !uiStartTime4->IsEmpty())
     {
@@ -667,7 +667,7 @@ void CVConv::SaveConversation()
     short pNode2 = -1;  // slot -0x08
     if (m_pConversationLoadContext)
         pNode2 = FUN_0083ba50(*m_pConversationLoadContext->GetItem());
-    g_saveLoad->FUN_008579b0(&pNode2, 2);
+    g_saveLoad->SaveGameDataOLD(&pNode2, 2);
     if (*g_011de4e8.Bool())
     {
         unsigned int uiEndTime4 = g_saveLoad->GetTimeStamp();  // slot -0x2c

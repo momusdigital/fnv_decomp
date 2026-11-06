@@ -44,7 +44,7 @@ class TopicMenuController
     // TESObjectREFR* __cdecl TopicMenuController::*()
     // TopicMenuController& __cdecl TopicMenuController::*(const TopicMenuController&)
     // void* __cdecl TopicMenuController::*(unsigned int)
-    BSSimpleList<MenuTopic*>* FUN_0083f260();
+    BSSimpleList<MenuTopic*>* GetCurrentTopicList();
     bool SelectTopic(bool advance);
     bool AdvanceTopic();
     MenuTopic* GetSelectedTopic();

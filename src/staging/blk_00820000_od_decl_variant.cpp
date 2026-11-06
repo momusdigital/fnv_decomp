@@ -126,7 +126,7 @@ struct S7010
 };
 struct FUN_0083dea0_class
 {
-    unsigned int FUN_0083dea0();
+    unsigned int HasDummyPrompt();
 };
 extern "C" void* __cdecl _NiFreeAlias(void*);
 extern void* DAT_0107ca64;

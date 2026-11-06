@@ -295,7 +295,7 @@ bool __cdecl FUN_0066dde0(int);
 
 struct ActorX_S
 {
-    bool FUN_0088b880(int, TESObjectREFR*, int, int, int);
+    bool LineOfSight(int, TESObjectREFR*, int, int, int);
 };
 
 struct BooleanFloatQuery
@@ -317,7 +317,7 @@ void FUN_009c8e00_shell::FUN_009c8e00(VATSCommand* apCommand)
     {
         if (apCommand->bSuccess && apCommand->pTarget && !FUN_009c8ea0())
         {
-            if (!((ActorX_S*)DAT_011f21f0)->FUN_0088b880(1, apCommand->pTarget, 1, 0, 0))
+            if (!((ActorX_S*)DAT_011f21f0)->LineOfSight(1, apCommand->pTarget, 1, 0, 0))
             {
                 apCommand->bSuccess = false;
             }

@@ -536,7 +536,7 @@ struct Actor : Refr
     bool FUN_00579670();
     void* FUN_00891d30();
     bool FUN_008a7870();
-    bool FUN_0088d2f0(Refr* r, int a, int b, bool c);
+    bool PutActorInChairBedQuick(Refr* r, int a, int b, bool c);
     void* FUN_008d6f30();
     void FUN_00575830(Point3* p);
     void FUN_00562020();
@@ -849,7 +849,7 @@ void ThisCls::FUN_00972d30()
                                             }
                                             if (accepted != 0 && j->v1d0() != 0)
                                             {
-                                                resultFlag = j->FUN_0088d2f0(accepted, _object, idx13, visible);
+                                                resultFlag = j->PutActorInChairBedQuick(accepted, _object, idx13, visible);
                                             }
                                             else if (_x)
                                             {

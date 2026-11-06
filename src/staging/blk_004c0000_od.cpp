@@ -3361,7 +3361,7 @@ FUN_004d4eb0::~FUN_004d4eb0()
 struct BGSLoadGameBuffer
 {
     virtual unsigned char GetVersion();
-    void FUN_00864980(void*, unsigned int);
+    void LoadData(void*, unsigned int);
 };
 struct SavedSettingValue
 {
@@ -3374,13 +3374,13 @@ void __cdecl ReadSavedSettings(BGSLoadGameBuffer* buffer)
 {
     unsigned int count = 0x15;
     if (buffer->GetVersion() >= 11)
-        buffer->FUN_00864980(&count, 4);
+        buffer->LoadData(&count, 4);
     if (count > 0x1000000)
         return;
     for (unsigned int i = 0; i < count; i++)
     {
         unsigned int value = 0;
-        buffer->FUN_00864980(&value, 4);
+        buffer->LoadData(&value, 4);
         if (i < 43 && DAT_011c6d50[i])
             static_cast<SavedSettingValue*>(DAT_011c6d50[i])->value = value;
     }
@@ -3515,7 +3515,7 @@ struct DoorTeleportLoadData
 };
 struct FUN_008579e0_shell
 {
-    void FUN_008579e0(void*, unsigned int);
+    void LoadGameDataOLD(void*, unsigned int);
 };
 extern FUN_008579e0_shell* g_TESSaveLoadGame;
 struct DoorTeleportArray
@@ -3528,9 +3528,9 @@ struct DoorTeleportArray
 // @fnv 0x004da3f0
 void DoorTeleportArray::FUN_004da3f0()
 {
-    g_TESSaveLoadGame->FUN_008579e0(this, 1);
+    g_TESSaveLoadGame->LoadGameDataOLD(this, 1);
     entries = new DoorTeleportLoadData[count];
-    g_TESSaveLoadGame->FUN_008579e0(entries, count * sizeof(DoorTeleportLoadData));
+    g_TESSaveLoadGame->LoadGameDataOLD(entries, count * sizeof(DoorTeleportLoadData));
 }
 
 extern int DAT_011c70e0;

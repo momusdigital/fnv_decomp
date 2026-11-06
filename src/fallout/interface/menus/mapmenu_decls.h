@@ -442,7 +442,7 @@ class PlayerCharacter : public TESObjectREFR
 {
   public:
     bool IsFastTravelAllowed();
-    TESObjectREFR* FUN_00798400();
+    TESObjectREFR* QPlayerMapMarker();
     void FUN_009529d0(TESQuest*);
     void SetDateTimeText(BSStringT<char>&);
 };
@@ -710,7 +710,7 @@ class InterfaceManager
     float GetScaledValue();
     Tile* FUN_00586150();
 };
-void FUN_00798840();
+void SetPlayerMarkerCallback();
 void FUN_00798710();
 void FUN_0079be80(Tile*, TESObjectREFR*);
 bool FUN_0079b390(BGSNote*);

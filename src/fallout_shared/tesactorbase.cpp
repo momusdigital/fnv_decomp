@@ -668,7 +668,7 @@ struct TESSaveLoadGame
     unsigned int GetTimeStamp();
     bool FUN_00862110();
     unsigned char FUN_008df040();
-    void FUN_008579b0(void*, int);
+    void SaveGameDataOLD(void*, int);
     SaveRecord* GetHitSound();
 };
 extern TESSaveLoadGame* g_TESSaveLoadGame;
@@ -852,9 +852,9 @@ void SaveActorBase::FUN_005f18c0(unsigned int flags)
     if (g_TESSaveLoadGame->FUN_00862110())
     {
         unsigned int tag = 0x424c4f4b;
-        g_TESSaveLoadGame->FUN_008579b0(&tag, 4);
+        g_TESSaveLoadGame->SaveGameDataOLD(&tag, 4);
         pos2 = (unsigned short*)g_TESSaveLoadGame->GetTimeStamp();
-        g_TESSaveLoadGame->FUN_008579b0(&size, 2);
+        g_TESSaveLoadGame->SaveGameDataOLD(&size, 2);
     }
     if (g_TESSaveLoadGame->FUN_008df040() >= 109)
         FUN_00484c20(flags);
@@ -1005,7 +1005,7 @@ FormName* __cdecl FUN_004839c0(unsigned int);
 struct TESSaveLoadGame
 {
     bool FUN_00862110();
-    void FUN_008579e0(void*, unsigned int);
+    void LoadGameDataOLD(void*, unsigned int);
     unsigned char FUN_008df040();
     unsigned int FUN_00825c00();
     LoadHdr* FUN_004fd3c0();
@@ -1117,7 +1117,7 @@ void ActorBaseLoad::FUN_005f1b30(unsigned int aiFlags, unsigned int a2)
     curPosC = 0;
     if (g_TESSaveLoadGame->FUN_00862110())
     {
-        g_TESSaveLoadGame->FUN_008579e0(&hdrWord, 4);
+        g_TESSaveLoadGame->LoadGameDataOLD(&hdrWord, 4);
         if (hdrWord != 0x424c4f4b)
         {
             hdrB = g_TESSaveLoadGame->FUN_004fd3c0();
@@ -1138,7 +1138,7 @@ void ActorBaseLoad::FUN_005f1b30(unsigned int aiFlags, unsigned int a2)
             }
         }
         curPosC = g_TESSaveLoadGame->FUN_00825c00();
-        g_TESSaveLoadGame->FUN_008579e0(&usVarZ, 2);
+        g_TESSaveLoadGame->LoadGameDataOLD(&usVarZ, 2);
     }
     if (g_TESSaveLoadGame->FUN_008df040() >= 0x6d)
         FUN_00484c50(aiFlags, a2);

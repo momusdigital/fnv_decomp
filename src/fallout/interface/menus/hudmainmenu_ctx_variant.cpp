@@ -75,7 +75,7 @@ class MenuStub
     void FUN_00a1dc20(int value);
     int FUN_00726070();
     bool FUN_00770070();
-    NiNode* FUN_0077ee50();
+    NiNode* Create3DCamera();
 };
 class HotKeyWheelStub
 {
@@ -279,7 +279,7 @@ FontManagerStub* __cdecl FUN_005bd5b0();
 void __cdecl FUN_0040fbe0(const char* message);
 void __cdecl FUN_007037e0();
 void __cdecl FUN_00a04200(bool value);
-void __cdecl FUN_0077e430(float value);
+void __cdecl ResetHUDOpacity(float value);
 void __cdecl FUN_00771700(int value);
 static const char kTemplateRightBracket[] = "template_right_bracket";
 static const char kTemplateMeter3[] = "template_meter";
@@ -896,7 +896,7 @@ Tile* FUN_0076bfe0()
         DAT_011d9770->FUN_004bc1f0(380.0f, 0.0f, 0.0f);
         NiUpdateData kUpdateSceneY(0.0f, false, false);
         DAT_011d9770->FUN_00a59c60(kUpdateSceneY);
-        DAT_011d975c = ((MenuStub*)HUDMainMenu_pme)->FUN_0077ee50();
+        DAT_011d975c = ((MenuStub*)HUDMainMenu_pme)->Create3DCamera();
         DAT_011d96bc = new HUDEmptyStub;
         FUN_00450b80(1)->vfdc(DAT_011d9770, true);
         fShadowRadiusXB = DAT_011d9770->FUN_0043d450()->FUN_0084d030() * 3.0;
@@ -915,7 +915,7 @@ Tile* FUN_0076bfe0()
                 l_114->FUN_0047aab0(HUDMainMenu_pme->m_pHudAnimationSequence, 0, 1, 1.0f, 0.0f, 0);
         }
         pMenuXB->FUN_00a1dc20(1);
-        FUN_0077e430(*DAT_011d9774.FUN_00403e20());
+        ResetHUDOpacity(*DAT_011d9774.FUN_00403e20());
         FUN_00771700(5);
         FUN_00713d70()->FUN_004538c0();
         return pMenuTileN;
@@ -1076,10 +1076,10 @@ class SubtitleHUD : public Menu
     void* currentEnemy;
     bool wasSneaking;
     SubtitleTimer timer;
-    bool FUN_00774fd0(const char*, BSSoundHandleEx, SubtitlePoint, TESObjectREFR*, bool);
+    bool ShowSubtitle(const char*, BSSoundHandleEx, SubtitlePoint, TESObjectREFR*, bool);
 };
 // @fnv 0x00774fd0
-bool SubtitleHUD::FUN_00774fd0(const char* text, BSSoundHandleEx sound, SubtitlePoint position, TESObjectREFR* speaker,
+bool SubtitleHUD::ShowSubtitle(const char* text, BSSoundHandleEx sound, SubtitlePoint position, TESObjectREFR* speaker,
                                bool persistent)
 {
     bool added = false;

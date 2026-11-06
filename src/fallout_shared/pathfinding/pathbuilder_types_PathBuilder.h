@@ -90,7 +90,7 @@ class PathBuilder
     bool BuildPathSegment(unsigned int, unsigned int);
     bool IsNavMeshInfoCompatible(const NavMeshInfo*, const NavMeshInfo*);
     bool CanPathBetweenNavMeshes(const NavMeshInfo*, const NavMeshInfo*);
-    bool FUN_006c9b20();
+    bool BuildTeleportDoorPath();
     bool BuildPathForActor(Actor*, unsigned int);
     void* AdvanceCounter();
     void* FUN_006e8f40(void*);

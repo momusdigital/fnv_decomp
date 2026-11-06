@@ -10906,7 +10906,7 @@ void __cdecl FUN_00c9e3e0(void);
 struct C00624070
 {
     unsigned int value;
-    __declspec(noinline) bool FUN_00624070();
+    __declspec(noinline) bool QBipLayer();
 };
 extern unsigned __int64 selected_target_masks[];
 extern unsigned int DAT_01268078[];
@@ -10915,7 +10915,7 @@ __forceinline bool Mask135(unsigned int a, unsigned int b)
     return (DAT_01268078[(a >> 8) & 31] & (1 << ((b >> 8) & 31))) != 0;
 }
 bool FUN_00c84740(unsigned int a, unsigned int b);
-__declspec(noinline) bool C00624070::FUN_00624070()
+__declspec(noinline) bool C00624070::QBipLayer()
 {
     unsigned int layer = value & 127;
     return layer == 8 || layer == 29;

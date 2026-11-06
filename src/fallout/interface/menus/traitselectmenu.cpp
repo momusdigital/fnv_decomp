@@ -148,11 +148,11 @@ struct FUN_007e8860_shell
     int m_iSelectedTrait;
     void FUN_007e8840();
     void SelectTrait(int, int);
-    void FUN_007e8860(int tile);
+    void ToggleCheckBox(int tile);
 };
 
 // @fnv 0x007e8860
-void FUN_007e8860_shell::FUN_007e8860(int tile)
+void FUN_007e8860_shell::ToggleCheckBox(int tile)
 {
     if (m_iSelectedTrait == tile)
         FUN_007e8840();
@@ -191,7 +191,7 @@ void __thiscall TraitSelectMenuStandIn::FUN_007e8280(int aiID, Tile* apTarget)
 }
 
 void __cdecl FUN_007e7de0();
-void __cdecl FUN_00717280(int);
+void __cdecl PlayMenuSound(int);
 
 struct FUN_007e7e30_shell
 {
@@ -223,10 +223,10 @@ void FUN_007e7e30_shell::FUN_007e7e30(int aiID, Tile* apTarget)
     case 10:
     case 11:
     case 12:
-        ((FUN_007e8860_shell*)this)->FUN_007e8860(aiID);
+        ((FUN_007e8860_shell*)this)->ToggleCheckBox(aiID);
         break;
     case 14:
-        FUN_00717280(1);
+        PlayMenuSound(1);
         FUN_007e7de0();
         break;
     }
@@ -271,7 +271,7 @@ class B7E81B0Menu
     int unk74;
     int m_iSelected;
 
-    void FUN_007e8860(int iIndex);
+    void ToggleCheckBox(int iIndex);
     void ChangePage(bool bNext);
     bool HandleKeyInput(int iKey, int iUnused);
 };
@@ -284,7 +284,7 @@ bool B7E81B0Menu::HandleKeyInput(int iKey, int iUnused)
     {
     case 9:
         if (m_iSelected >= 0 && m_iSelected <= 0xc)
-            FUN_007e8860(m_iSelected);
+            ToggleCheckBox(m_iSelected);
         else if (m_iSelected == 0xe)
             HandleClick(0xe, m_pvTile);
         bHandled = true;

@@ -27,9 +27,9 @@ class LocationDescriptor
     unsigned int FUN_0067f1c0();
     void SetRadius(unsigned int radius);
     TESObjectREFR* GetLocationReference();
-    void FUN_0067f3c0(TESObjectREFR* reference);
+    void SetLocReference(TESObjectREFR* reference);
     TESObjectCELL* GetLocationCellReference();
-    void FUN_0067f410(TESObjectCELL* cell);
+    void SetLocCell(TESObjectCELL* cell);
     TESBoundObject* FUN_0067f430();
     void SetValue(TESForm* form);
     PACKAGE_OBJECT_TYPE GetObjectType();

@@ -1658,7 +1658,7 @@ struct FUN_00a712f0 : ShadowObject, NiMemObjectAllocation
     void FUN_00a59c60(ShadowUpdateData&);
     void SetLookAt(const ShadowVector&, const ShadowVector&);
     void FUN_00a6faf0(const NiFrustum&);
-    void FUN_00712e60(const ShadowViewport&);
+    void SetViewPort(const ShadowViewport&);
     void FUN_00a70080(const NiBound&);
 };
 struct ShadowManager
@@ -1901,7 +1901,7 @@ void ShadowSceneLightDecompile::UpdateShadow(void* unused, unsigned char* render
             }
             reinterpret_cast<FUN_00a712f0*>(GetShadowCamera())->SetLookAt(b.position, e.up);
             reinterpret_cast<FUN_00a712f0*>(GetShadowCamera())->FUN_00a6faf0(frustum);
-            reinterpret_cast<FUN_00a712f0*>(GetShadowCamera())->FUN_00712e60(viewport);
+            reinterpret_cast<FUN_00a712f0*>(GetShadowCamera())->SetViewPort(viewport);
             d.finalUpdate.time = 0.0f;
             d.finalUpdate.updateControllers = false;
             d.finalUpdate.multithreaded = false;

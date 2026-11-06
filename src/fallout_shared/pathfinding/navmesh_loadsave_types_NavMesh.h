@@ -270,7 +270,7 @@ FNV_STATIC_ASSERT(sizeof(NiTMap_unsigned_short_NavMeshPOVData_) == 16);
 class NavMeshGrid
 {
   public:
-    void FUN_0069dd50(NavMeshGrid*);
+    void CopyTo(NavMeshGrid*);
     unsigned int m_uiGridIndex;                                // +0x0, 4 bytes
     float m_fFirstGridValue;                                   // +0x4, 4 bytes
     float NavMeshPointEntry;                                   // +0x8, 4 bytes

@@ -99,7 +99,7 @@ Tile* __cdecl FindNamedTile(Tile*, char const*);
 void __cdecl _FNV_Warning(char const*);
 void __cdecl _FUN_007037e0();
 void __cdecl ShutdownVats();
-Tile* __cdecl FUN_007f4890(Tile* a1, char const* a2);
+Tile* __cdecl VatsMenuGetTileByName(Tile* a1, char const* a2);
 struct AnimIdle
 {
     int GetSection();
@@ -299,7 +299,7 @@ struct Owner007f6af0
     void UpdateLimbHighlight();
 };
 // @fnv 0x007f6af0
-bool __fastcall FUN_007f6af0(Owner007f6af0* self)
+bool __fastcall PickNewTarget(Owner007f6af0* self)
 {
     if (self->field_10e)
         return false;

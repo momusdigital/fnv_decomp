@@ -477,7 +477,7 @@ bool FUN_009865b0_shell::FUN_009865b0(int param)
 namespace fnv_009866d0 {
 struct Actor
 {
-    bool __thiscall FUN_008b0670(Actor*);
+    bool __thiscall CanAttackActor(Actor*);
 };
 struct FUN_00903600_shell
 {
@@ -491,7 +491,7 @@ struct FUN_009866d0_shell
 {
     bool __thiscall FUN_009866d0(Actor* target);
 };
-// Iterates the actors in this collection and returns false as soon as one actor fails FUN_008b0670 on target; otherwise returns true.
+// Iterates the actors in this collection and returns false as soon as one actor fails CanAttackActor on target; otherwise returns true.
 // @fnv 0x009866d0
 bool __thiscall FUN_009866d0_shell::FUN_009866d0(Actor* target)
 {
@@ -499,7 +499,7 @@ bool __thiscall FUN_009866d0_shell::FUN_009866d0(Actor* target)
     for (unsigned int i = 0; i < count; ++i)
     {
         Actor* actor = ((FUN_00903600_shell*)this)->GetIntAt(i);
-        if (actor && !actor->FUN_008b0670(target))
+        if (actor && !actor->CanAttackActor(target))
             return false;
     }
     return true;
@@ -551,7 +551,7 @@ struct FUN_005a4320_shell
 };
 struct FUN_008b0670_shell
 {
-    bool __thiscall FUN_008b0670(Actor*);
+    bool __thiscall CanAttackActor(Actor*);
 };
 struct FUN_00986aa0_shell : PathingSolution
 {
@@ -564,7 +564,7 @@ bool __thiscall FUN_00986aa0_shell::FUN_00986aa0(Actor* actor)
     for (unsigned int i = 0; i < count; ++i)
     {
         Actor* target = reinterpret_cast<FUN_005a4320_shell*>(this)->FUN_00968630(i);
-        if (!reinterpret_cast<FUN_008b0670_shell*>(actor)->FUN_008b0670(target))
+        if (!reinterpret_cast<FUN_008b0670_shell*>(actor)->CanAttackActor(target))
             return false;
     }
     return true;
@@ -8765,7 +8765,7 @@ struct Actor
     virtual void slot424();
     virtual void slot428();
     virtual Group* ActorCombatGroup();
-    bool FUN_008b3b90();
+    bool DidPathingFail();
     bool FUN_008b3bf0();
     void* FUN_00575ca0();
 };
@@ -8922,7 +8922,7 @@ void Group::FUN_0098a580()
     }
     if (FUN_0097ef30())
     {
-        if (focus && (focus->FUN_008b3b90() || !focus->FUN_008b3bf0()))
+        if (focus && (focus->DidPathingFail() || !focus->FUN_008b3bf0()))
             focus = 0;
         if (updateTimer.FUN_008d7f80())
         {
@@ -9410,10 +9410,10 @@ void CE80Group::RecountActors()
 struct LoadBuf
 {
     virtual unsigned char Version();
-    unsigned int FUN_00864a60();
-    void FUN_00864980(void*, unsigned int);
+    unsigned int LoadVariableSizedValue();
+    void LoadData(void*, unsigned int);
     void FUN_008648e0(void*);
-    unsigned int FUN_008648a0();
+    unsigned int LoadFormID();
 };
 struct LoadPair
 {
@@ -9579,7 +9579,7 @@ struct GroupLoad
 void GroupLoad::FUN_0098e3d0(LoadBuf* buffer)
 {
     {
-        unsigned int countItems = buffer->FUN_00864a60();
+        unsigned int countItems = buffer->LoadVariableSizedValue();
         items.SetSize(countItems, true);
         for (unsigned int indexItems = 0; indexItems < countItems; indexItems++)
         {
@@ -9589,7 +9589,7 @@ void GroupLoad::FUN_0098e3d0(LoadBuf* buffer)
         }
     }
     {
-        unsigned int countNodes = buffer->FUN_00864a60();
+        unsigned int countNodes = buffer->LoadVariableSizedValue();
         nodes.FUN_0098ed80(countNodes, true);
         for (unsigned int indexNodes = 0; indexNodes < countNodes; indexNodes++)
         {
@@ -9598,7 +9598,7 @@ void GroupLoad::FUN_0098e3d0(LoadBuf* buffer)
         }
     }
     {
-        unsigned int countMembers = buffer->FUN_00864a60();
+        unsigned int countMembers = buffer->LoadVariableSizedValue();
         members.FUN_0098f040(countMembers, true);
         for (unsigned int indexMembers = 0; indexMembers < countMembers; indexMembers++)
         {
@@ -9607,57 +9607,57 @@ void GroupLoad::FUN_0098e3d0(LoadBuf* buffer)
         }
     }
     char strategyIndex = -1;
-    buffer->FUN_00864980(&strategyIndex, 1);
+    buffer->LoadData(&strategyIndex, 1);
     if (strategyIndex != -1)
         strategy = FUN_0098e980(strategyIndex);
-    buffer->FUN_00864980(&flag, 1);
+    buffer->LoadData(&flag, 1);
     pair30.FUN_009a5f20(buffer);
     pair38.FUN_009a5f20(buffer);
-    buffer->FUN_00864980(&unk040, 4);
+    buffer->LoadData(&unk040, 4);
     ref44.FUN_009a5ff0(buffer);
     pair48.FUN_009a5f20(buffer);
     pairb0.FUN_009a5f20(buffer);
     paira8.FUN_009a5f20(buffer);
     for (unsigned int indexTimers = 0; indexTimers < 10; indexTimers++)
         timers[indexTimers].FUN_009a5f20(buffer);
-    buffer->FUN_00864980(&active, 4);
+    buffer->LoadData(&active, 4);
     if (active > 0)
     {
         buffer->FUN_008648e0(&unk0ec);
-        buffer->FUN_00864980(&unk100, 12);
+        buffer->LoadData(&unk100, 12);
         paird8.FUN_009a5f20(buffer);
         paire0.FUN_009a5f20(buffer);
         if (buffer->Version() >= 5)
             refe8.FUN_009a5ff0(buffer);
         handle.FUN_00527ba0(buffer);
-        buffer->FUN_00864980(&unk10c, 4);
+        buffer->LoadData(&unk10c, 4);
         {
-            unsigned int countExtras = buffer->FUN_00864a60();
+            unsigned int countExtras = buffer->LoadVariableSizedValue();
             extras.FUN_0098f2f0(countExtras, true);
             for (unsigned int indexExtras = 0; indexExtras < countExtras; indexExtras++)
             {
                 LoadExtra* extra = extras.GetElementAt(indexExtras);
                 extra->FUN_00527ba0(buffer);
-                buffer->FUN_00864980(&extra->value, 4);
+                buffer->LoadData(&extra->value, 4);
                 buffer->FUN_008648e0(&extra->id);
                 extra->ref.FUN_009a5ff0(buffer);
             }
         }
         {
-            unsigned int countParents = buffer->FUN_00864a60();
+            unsigned int countParents = buffer->LoadVariableSizedValue();
             parents.FUN_006a8890(countParents, true);
             for (unsigned int indexParents = 0; indexParents < countParents; indexParents++)
             {
                 ParentNode& parent = parents.GetAt(indexParents);
-                parent.a = dynamic_cast<TESObjectREFR*>(_ref_004839c0(buffer->FUN_008648a0()));
-                parent.b = dynamic_cast<TESObjectREFR*>(_ref_004839c0(buffer->FUN_008648a0()));
-                buffer->FUN_00864980(&parent.c, 1);
-                buffer->FUN_00864980(&parent.d, 1);
-                buffer->FUN_00864980(&parent.e, 1);
+                parent.a = dynamic_cast<TESObjectREFR*>(_ref_004839c0(buffer->LoadFormID()));
+                parent.b = dynamic_cast<TESObjectREFR*>(_ref_004839c0(buffer->LoadFormID()));
+                buffer->LoadData(&parent.c, 1);
+                buffer->LoadData(&parent.d, 1);
+                buffer->LoadData(&parent.e, 1);
             }
         }
         bool hasAnim = false;
-        buffer->FUN_00864980(&hasAnim, 1);
+        buffer->LoadData(&hasAnim, 1);
         if (hasAnim)
         {
             anim = new LoadAnim;
@@ -9666,12 +9666,12 @@ void GroupLoad::FUN_0098e3d0(LoadBuf* buffer)
         loaded = 1;
     }
     pair50.FUN_009a5f20(buffer);
-    buffer->FUN_00864980(&unk0c0, 4);
-    buffer->FUN_00864980(&unk0c4, 4);
-    buffer->FUN_00864980(&unk0c8, 4);
-    buffer->FUN_00864980(&unk0cc, 4);
+    buffer->LoadData(&unk0c0, 4);
+    buffer->LoadData(&unk0c4, 4);
+    buffer->LoadData(&unk0c8, 4);
+    buffer->LoadData(&unk0cc, 4);
     pairb8.FUN_009a5f20(buffer);
-    buffer->FUN_00864980(&flag154, 1);
+    buffer->LoadData(&flag154, 1);
 }
 
 struct UpdateOwner;

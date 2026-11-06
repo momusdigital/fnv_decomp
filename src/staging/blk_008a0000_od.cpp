@@ -216,7 +216,7 @@ unsigned char FUN_008b4cf0_class::GetByte65()
 
 struct FUN_00884920_holder
 {
-    bool FUN_00884920();
+    bool HasCachedValues();
     void FUN_008beb50(void*);
 };
 struct FUN_008beae0_vt
@@ -243,7 +243,7 @@ struct FUN_008beae0 : FUN_008beae0_vt
 // @fnv 0x008beae0
 void FUN_008beae0::ProcessCoverLOSResult()
 {
-    if (*(FUN_00884920_holder**)((char*)this + 0x68) && (*(FUN_00884920_holder**)((char*)this + 0x68))->FUN_00884920())
+    if (*(FUN_00884920_holder**)((char*)this + 0x68) && (*(FUN_00884920_holder**)((char*)this + 0x68))->HasCachedValues())
         (*(FUN_00884920_holder**)((char*)this + 0x68))->FUN_008beb50(this ? (char*)this + 0xa8 : 0);
     else
         ((FUN_008beae0_vt*)((char*)this + 0xa8))->v13();
@@ -1125,7 +1125,7 @@ float FUN_008bec20_cls::FUN_008bec20(Fun008bec20Arg* arg)
 struct S_008bec80_Base;
 struct S_008bec80_Tgt
 {
-    bool FUN_00884920();
+    bool HasCachedValues();
     void FUN_008becf0(S_008bec80_Base* p);
 };
 struct S_008bec80_Base
@@ -1187,11 +1187,11 @@ struct S_008bec80 : S_008bec80_Head, S_008bec80_Base
 {
     void FUN_008bec80();
 };
-// If unk68 exists and its FUN_00884920 returns true, calls unk68->FUN_008becf0(this); otherwise calls v6().
+// If unk68 exists and its HasCachedValues returns true, calls unk68->FUN_008becf0(this); otherwise calls v6().
 // @fnv 0x008bec80
 void S_008bec80::FUN_008bec80()
 {
-    if (unk68 && unk68->FUN_00884920())
+    if (unk68 && unk68->HasCachedValues())
     {
         unk68->FUN_008becf0(this);
     }
@@ -1269,7 +1269,7 @@ struct PkgLoc
 {
     PkgLoc();
     ~PkgLoc();
-    void FUN_0067f3c0(void*);
+    void SetLocReference(void*);
     int unk00;
     int unk04;
     int unk08;
@@ -2136,7 +2136,7 @@ void Me::FUN_008bf500(void* arg)
     pNewPkg->SetMustReachLocation(true);
     pNewPkg->SetMustComplete(true);
     PkgLoc* pLocation = new PkgLoc;
-    pLocation->FUN_0067f3c0(arg);
+    pLocation->SetLocReference(arg);
     pNewPkg->FUN_00671d30(pLocation);
     delete pLocation;
     PkgTarget* target = new PkgTarget;
@@ -2222,7 +2222,7 @@ struct MidObj
 };
 struct P2
 {
-    bool FUN_008b4360();
+    bool IsExplodablePart();
     int FUN_005e3fa0();
     MidObj* FUN_008d8520();
     unsigned char GetUnk66();
@@ -2476,7 +2476,7 @@ ResObj* ThisC::CreateNodeFromTransform(void* pLookupKey, A2* pTransformSource, A
             p4 = p9->GetValueByIndex(pLookupKey);
             if (p4 != 0)
             {
-                if (p4->FUN_008b4360())
+                if (p4->IsExplodablePart())
                 {
                     if (bApplyTransform != 0)
                     {
@@ -2845,7 +2845,7 @@ struct RefObj
     ExtraList* GetExtraData();
     int FUN_008a0d10(int, ActorX*, char*, int, int, int, int);
     void FUN_008bff50();
-    void FUN_008b7c00(int, int);
+    void AddFactionMinorCrime(int, int);
     void FUN_008bf7b0(ActorX*, TESForm*);
     ProcV* GetProcess();
 };
@@ -3156,7 +3156,7 @@ struct NewObj
     static void* operator new(size_t_ n);
     NewObj(int, RefObj*, ActorX*, int, int, TESForm*);
     void FUN_008bff50();
-    void FUN_008b7c00(int, int);
+    void AddFactionMinorCrime(int, int);
     void FUN_008bf7b0(ActorX*, TESForm*);
     int FUN_008a0d10(int, ActorX*, char*, int, int, int, int);
     void* FUN_0084e3a0();
@@ -3167,7 +3167,7 @@ struct G67
     float FUN_00867da0();
     unsigned int FUN_00867d20();
     char FUN_00867d60();
-    unsigned int FUN_00867c60();
+    unsigned int GetYear();
 };
 struct Z
 {
@@ -3188,7 +3188,7 @@ struct ActorX
     void* FUN_00964100(int);
     ProcV* GetProcess();
     void SetLight(void* p);
-    void FUN_008bfa40(RefObj* pSrc, int a2, int a3, int a4, TESForm* p5);
+    void StealAlarm(RefObj* pSrc, int a2, int a3, int a4, TESForm* p5);
 };
 
 int __fastcall FNV_GetFormType(TESForm* p);
@@ -3199,7 +3199,7 @@ int __cdecl GetTopicSubTypeName(int, int);
 void __cdecl SetTlsInt(int);
 
 // @fnv 0x008bfa40
-void ActorX::FUN_008bfa40(RefObj* apSource, int a2, int aiArg3, int aiArg4, TESForm* apForm)
+void ActorX::StealAlarm(RefObj* apSource, int a2, int aiArg3, int aiArg4, TESForm* apForm)
 {
     bool h = false; /* -0x11  bFlag  bucket 14 */
     RefObj* p = 0;  /* -0x10  pRes   bucket 15 */
@@ -3272,7 +3272,7 @@ void ActorX::FUN_008bfa40(RefObj* apSource, int a2, int aiArg3, int aiArg4, TESF
             k = new NewObj(0, apSource, this, a2, aiArg4, apForm);
         p->GetExtraData()->AddOrCreateExtraItem(k, ((G67*)&DAT_011de7b8)->FUN_00867da0());
         p->FUN_008bff50();
-        p->FUN_008b7c00(1, 1);
+        p->AddFactionMinorCrime(1, 1);
         ((Z*)&DAT_011e0e80)->AddObjectToList(k);
         k->AddActor(p);
         if (this->m134)
@@ -3300,7 +3300,7 @@ void ActorX::FUN_008bfa40(RefObj* apSource, int a2, int aiArg3, int aiArg4, TESF
                 this->m134 = 1;
                 this->m138 = (((G67*)&DAT_011de7b8)->FUN_00867d20() << 9) |
                              (signed char)((G67*)&DAT_011de7b8)->FUN_00867d60() |
-                             (((G67*)&DAT_011de7b8)->FUN_00867c60() << 13);
+                             (((G67*)&DAT_011de7b8)->GetYear() << 13);
             }
         }
         if (h)

@@ -152,10 +152,10 @@ struct S819
 {
     char p[0x594];
     BSS819 s;
-    int FUN_00819250();
+    int GetCollisionGroup();
 };
 // @fnv 0x00819250
-int S819::FUN_00819250()
+int S819::GetCollisionGroup()
 {
     return ((bhkWorldObject*)s) ? ((bhkWorldObject*)s)->FUN_0043b4f0().FUN_004a3a20() : 0;
 }
@@ -795,11 +795,11 @@ void* __cdecl FUN_00ec43fb(void* a0, int a1, int* a2, int* a3, int a4);
 
 struct FUN_00818be0_cls
 {
-    void* FUN_00818be0();
+    void* GetMagicCasterFormID();
 };
 
 // @fnv 0x00818be0
-void* FUN_00818be0_cls::FUN_00818be0()
+void* FUN_00818be0_cls::GetMagicCasterFormID()
 {
     void* a = ((Callee00815410*)this)->FUN_00815410();
     OuterB* b = (OuterB*)FUN_00ec43fb(this, 0, &DAT_011a1224, &DAT_01184638, 0);
@@ -1095,7 +1095,7 @@ struct SpellFeedback : MagicItem
 };
 struct FUN_0081c470_shell
 {
-    void FUN_0081c470(bool, float);
+    void Fade(bool, float);
 };
 struct CastingCheck : MagicCaster
 {
@@ -1141,7 +1141,7 @@ bool CastingCheck::TryCast(TESBoundObject* source)
     FUN_00815d00(cost, source, false, 1.0f, false);
     SpellCast(spell, true);
     if (apTargetLight)
-        ((FUN_0081c470_shell*)apTargetLight)->FUN_0081c470(false, 0.75f);
+        ((FUN_0081c470_shell*)apTargetLight)->Fade(false, 0.75f);
     return true;
 }
 
@@ -2208,7 +2208,7 @@ struct P142Caster : MagicCaster
     bool FUN_00817940(MagicTarget*, NiPoint3, P142Spell*, ActiveEffect*, bool);
     void ApplyAreaEffect(P142Spell*, ActiveEffect*, int, NiPoint3, MagicTarget*, P142Ref*, BSSimpleList<const char*>*,
                          bool*, float);
-    void FUN_00817b90(NiPoint3, int, P142Spell*, EffectItem*, BSSimpleList<const char*>*, float, float);
+    void DoExplosion(NiPoint3, int, P142Spell*, EffectItem*, BSSimpleList<const char*>*, float, float);
     bool CheckHealthDamageKill(MagicTarget*, P142Spell*);
     void ApplyExplosion(Actor*, NiPoint3, EffectItem*, float);
     void ApplySpellEffects(P142Spell*, int, NiPoint3, P142Ref*, P142Ref*, int, float, float);
@@ -2265,7 +2265,7 @@ void P142Caster::ApplySpellEffects(P142Spell* spell, int flags, NiPoint3 positio
     if (!primary)
     {
         if (secondary)
-            FUN_00817b90(position, flags, spell, secondary, &special, effectiveness, magnitude);
+            DoExplosion(position, flags, spell, secondary, &special, effectiveness, magnitude);
         else if (target && target->IsActor() && notified && notified->GetEffectSetting()->FUN_00403e60(0x20000000))
         {
             Actor* actor = (Actor*)target;
@@ -3287,12 +3287,12 @@ struct LightDelete
 extern Setting_S AimRangeSetting;
 AimPoint ComputeRelativeFiringAngle(TESObjectREFR*, TESObjectREFR*, float, float, int);
 AimPoint FUN_009a87f0(AimPoint, TESObjectREFR*, float, float, int);
-void FUN_0081e040(MagicCaster*, int, MagicEffectCollection*, MagicItem*, EffectItem*, EffectSetting*, AimPoint, AimPoint);
+void Launch(MagicCaster*, int, MagicEffectCollection*, MagicItem*, EffectItem*, EffectSetting*, AimPoint, AimPoint);
 struct FUN_00818610_class : MagicCaster
 {
     void CastAimEffect();
 };
-// If the caster has a valid spell and effect item, computes aim points from the aim reference or actor and dispatches the magic effect via FUN_0081e040.
+// If the caster has a valid spell and effect item, computes aim points from the aim reference or actor and dispatches the magic effect via Launch.
 // @fnv 0x00818610
 void FUN_00818610_class::CastAimEffect()
 {
@@ -3341,7 +3341,7 @@ void FUN_00818610_class::CastAimEffect()
         }
         if (i && f)
         {
-            FUN_0081e040(this, 0, apTargetLight, GetSelectedMagicItem(), i, a, b, cf);
+            Launch(this, 0, apTargetLight, GetSelectedMagicItem(), i, a, b, cf);
             apTargetLight = 0;
         }
         if (apTargetLight)
@@ -4040,7 +4040,7 @@ struct Node
 };
 struct ModelInstance
 {
-    void FUN_00689920(const char*);
+    void PlaySequence(const char*);
     Node* FUN_00490e40();
 };
 struct PositionProvider
@@ -4497,7 +4497,7 @@ struct Caster
     void GatherTargetsInArea(MagicItem*, bool, Point, Context*);
     bool FUN_00817940(Target*, Point, MagicItem*, Active*, bool);
     void ApplyAreaEffect(MagicItem*, Active*, void*, Point, Target*, bool, Context*, bool*, float);
-    void FUN_00817b90(Point, void*, MagicItem*, Effect*, Context*, float, float);
+    void DoExplosion(Point, void*, MagicItem*, Effect*, Context*, float, float);
     bool CheckHealthDamageKill(TargetPart*, MagicItem*);
     void ApplyExplosion(ActorView*, Point, Effect*, float);
     void CastAimEffect();
@@ -4692,7 +4692,7 @@ void Caster::FUN_00815d00(float power, Source* source, bool immediate, float mul
         position = provider3 ? *provider3->FUN_0045bb80() : *areaTarget3->GetPosition();
         if (areaEffect7)
         {
-            FUN_00817b90(position, areaTarget3->FUN_008d6f30(), spellB, areaEffect7, &contextSlot12, 1.0f, 1.0f);
+            DoExplosion(position, areaTarget3->FUN_008d6f30(), spellB, areaEffect7, &contextSlot12, 1.0f, 1.0f);
             if (artSlot15 && artSlot15->model.FUN_0048cee0())
             {
                 Point direction(-FUN_005c53d0(-areaTarget3->FUN_00430830()->x),
@@ -4700,7 +4700,7 @@ void Caster::FUN_00815d00(float power, Source* source, bool immediate, float mul
                 ModelInstance* instance2 =
                     FUN_006890b0(areaTarget3->FUN_008d6f30(), 1.0f, artSlot15->model.GetModelFilePath(), direction,
                                  position, 1.0f, 7, 0);
-                instance2->FUN_00689920(DAT_0102054c);
+                instance2->PlaySequence(DAT_0102054c);
                 if (instance2->FUN_00490e40())
                 {
                     float areaScale = areaEffect7->FUN_00404420() * *DAT_011d1bbc.FUN_00403e20();
@@ -4799,12 +4799,12 @@ float CalcForce(int a, int b, float dist, int c, int d, float e);
 
 struct Pusher
 {
-    void FUN_00818150(PushRef* target, Vec3 origin, EffectStub* effect, float magnitude);
+    void ExplodeRigidBody(PushRef* target, Vec3 origin, EffectStub* effect, float magnitude);
 };
 
 // Computes a force on target from origin and effect, clamps and scales it, then applies the resulting impulse to the target.
 // @fnv 0x00818150
-void Pusher::FUN_00818150(PushRef* target, Vec3 origin, EffectStub* effect, float magnitude)
+void Pusher::ExplodeRigidBody(PushRef* target, Vec3 origin, EffectStub* effect, float magnitude)
 {
     Vec3 pos;
     GetRefPosition(&pos, target->GetNode());

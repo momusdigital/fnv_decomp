@@ -485,7 +485,7 @@ void FUN_009d3800_cls::FUN_009d3800(void* a1)
 class Tile;
 struct BGSLoadFormBuffer
 {
-    void FUN_00864980(void* apData, unsigned int auiSize);
+    void LoadData(void* apData, unsigned int auiSize);
 };
 struct InterfaceManager
 {
@@ -526,15 +526,15 @@ void FUN_009d38f0_shell::FUN_009d38f0(BGSLoadFormBuffer* apBuffer)
 {
     FUN_00996ef0(apBuffer);
     bool bHasCover = false;
-    apBuffer->FUN_00864980(&eState, 4);
-    apBuffer->FUN_00864980(&bHasCover, 1);
+    apBuffer->LoadData(&eState, 4);
+    apBuffer->LoadData(&bHasCover, 1);
     if (bHasCover)
         uiCoverLocation = ((FUN_0097fb60_shell*)pManager->FUN_00586150())->GetFieldAtE8();
     else
         uiCoverLocation = GetFieldValue((unsigned int*)pManager->FUN_00586150());
-    apBuffer->FUN_00864980(m_afFirstVector, 0xc);
-    apBuffer->FUN_00864980(m_afSecondVector, 0xc);
-    apBuffer->FUN_00864980(LastPosition, 0xc);
+    apBuffer->LoadData(m_afFirstVector, 0xc);
+    apBuffer->LoadData(m_afSecondVector, 0xc);
+    apBuffer->LoadData(LastPosition, 0xc);
     kWaitTimer.FUN_009a5f20(apBuffer);
     kWaitingOutTimer.FUN_009a5f20(apBuffer);
     kTimer4c.FUN_009a5f20(apBuffer);

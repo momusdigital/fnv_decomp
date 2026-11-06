@@ -1797,7 +1797,7 @@ struct ActorOps
     TESBoundObject* FUN_007af430();
     bool FUN_005a2030();
     float FUN_0057b0a0();
-    SkinOps* FUN_009306d0();
+    SkinOps* GetCharController();
     bool FUN_004997b0();
     bool FUN_00884730();
     bool FUN_008ba410();
@@ -1884,7 +1884,7 @@ void PlayFootstepSound(FootstepActor* apActor, int foot)
                 ((cell->FUN_00425fd0() && cell->FUN_004518e0()) || !cell->FUN_00425fd0()))
                 soundType = true;
             ActorOps* material = actorOps;
-            if (material->FUN_009306d0()->FUN_00838750())
+            if (material->GetCharController()->FUN_00838750())
                 movingActor = true;
             if (!g_TES_011dea10->FUN_005f36f0() && cell && cell->FUN_00546fb0())
             {
@@ -1896,9 +1896,9 @@ void PlayFootstepSound(FootstepActor* apActor, int foot)
                 materialIndex = 0;
                 if (soundType)
                     materialIndex = 8;
-                else if (material && material->FUN_009306d0() &&
-                         material->FUN_009306d0()->material.FUN_0059bb30() != 36)
-                    materialIndex = material->FUN_009306d0()->material.FUN_0059bb30();
+                else if (material && material->GetCharController() &&
+                         material->GetCharController()->material.FUN_0059bb30() != 36)
+                    materialIndex = material->GetCharController()->material.FUN_0059bb30();
                 else if (result)
                 {
                     materialIndex = result->GetField1C();
@@ -1910,8 +1910,8 @@ void PlayFootstepSound(FootstepActor* apActor, int foot)
             {
                 if (soundType)
                     materialIndex = 8;
-                else if (material && material->FUN_009306d0())
-                    materialIndex = material->FUN_009306d0()->material.FUN_0059bb30();
+                else if (material && material->GetCharController())
+                    materialIndex = material->GetCharController()->material.FUN_0059bb30();
             }
             if (foot > 1)
                 foot -= 2;
@@ -2146,7 +2146,7 @@ void __cdecl FUN_00838780(TESObjectREFR* apRefr)
                 }
             }
             ActorOps* pq = pActor;
-            if (pq->FUN_009306d0()->FUN_00838750())
+            if (pq->GetCharController()->FUN_00838750())
                 local2 = true;
             if (!g_TES_011dea10->FUN_005f36f0() && cell8 && cell8->FUN_00546fb0())
             {
@@ -2157,8 +2157,8 @@ void __cdecl FUN_00838780(TESObjectREFR* apRefr)
                 material6 = 0;
                 if (flagWater6)
                     material6 = 8;
-                else if (pq && pq->FUN_009306d0() && pq->FUN_009306d0()->material.FUN_0059bb30() != 0x24)
-                    material6 = pq->FUN_009306d0()->material.FUN_0059bb30();
+                else if (pq && pq->GetCharController() && pq->GetCharController()->material.FUN_0059bb30() != 0x24)
+                    material6 = pq->GetCharController()->material.FUN_0059bb30();
                 else if (localA)
                 {
                     material6 = localA->GetField1C();
@@ -2170,8 +2170,8 @@ void __cdecl FUN_00838780(TESObjectREFR* apRefr)
             {
                 if (flagWater6)
                     material6 = 8;
-                else if (pq && pq->FUN_009306d0())
-                    material6 = pq->FUN_009306d0()->material.FUN_0059bb30();
+                else if (pq && pq->GetCharController())
+                    material6 = pq->GetCharController()->material.FUN_0059bb30();
             }
             int idx11 = 9;
             int typeY = 0;

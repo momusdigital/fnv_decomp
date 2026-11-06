@@ -14,7 +14,7 @@ struct TESEatPackageData
 void __cdecl _FUN_004856d0(int);
 struct LocationDescriptor
 {
-    void __thiscall FUN_0067f6c0(int);
+    void __thiscall Save(int);
 };
 struct FakeCls
 {

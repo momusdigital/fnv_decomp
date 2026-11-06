@@ -1225,7 +1225,7 @@ float Outer::FUN_008c4850()
 namespace fnv_00821e40 {
 struct TESSaveLoadGame
 {
-    void FUN_008579b0(void*, int);
+    void SaveGameDataOLD(void*, int);
     void FUN_00857a10(int*, int);
     unsigned char FUN_008df040();
 };
@@ -1243,10 +1243,10 @@ struct FUN_00821e40_shell
 void FUN_00821e40_shell::FUN_00821e40(ActiveEffect* pEffect, TESObjectREFR* a2)
 {
     FUN_0081bd80(pEffect, a2);
-    g_TESSaveLoadGame->FUN_008579b0((char*)this + 0x34, 4);
+    g_TESSaveLoadGame->SaveGameDataOLD((char*)this + 0x34, 4);
     if (g_TESSaveLoadGame->FUN_008df040() >= 0x37)
     {
-        g_TESSaveLoadGame->FUN_008579b0((char*)this + 0x28, 1);
+        g_TESSaveLoadGame->SaveGameDataOLD((char*)this + 0x28, 1);
         int v = 0;
         if (m_pAffectedArmorObject)
             v = m_pAffectedArmorObject->GetFormID();

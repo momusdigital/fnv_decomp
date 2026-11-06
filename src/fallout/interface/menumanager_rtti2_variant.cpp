@@ -33,7 +33,7 @@ class TESObjectBOOK : public TESBoundObject
 Tile* FUN_00a09030(int menuClass);
 bool IsStartMenuFlag1Set();
 int FUN_00720df0();
-int FUN_0070ede0();
+int GetClassStatic();
 Tile* FUN_00704140();
 Tile* FUN_00704490();
 Tile* FUN_007046c0();
@@ -45,7 +45,7 @@ void FUN_007164c0(Tile* menu, float value);
 bool FUN_0070cb7d0(bool flag, bool other);
 Tile* CreateLoadingMenuTile(void* form, bool a, bool b);
 Tile* FUN_0075b310(void* form, int flag);
-Tile* FUN_0073ad50(void* book, char* data);
+Tile* Create(void* book, char* data);
 
 struct Mgr20
 {
@@ -97,7 +97,7 @@ void* Mgr20::FUN_00720aa0(int menuClass)
     {
         pMenu = FUN_0076bfe0();
     }
-    else if (FUN_0070ede0() == menuClass && FUN_0070cb7d0(bFlag, false))
+    else if (GetClassStatic() == menuClass && FUN_0070cb7d0(bFlag, false))
     {
         pMenu = FUN_00a09030(menuClass);
     }
@@ -125,7 +125,7 @@ void* Mgr20::FUN_00720aa0(int menuClass)
             char* data = ((Tile*)pBookMenu)->FUN_00671d10();
             TESObjectBOOK* pBookForm = dynamic_cast<TESObjectBOOK*>(((TESBoundObject*)data)->FUN_007af430());
             delete (Tile*)pBookMenu;
-            pMenu = FUN_0073ad50(pBookForm, data);
+            pMenu = Create(pBookForm, data);
         }
     }
 

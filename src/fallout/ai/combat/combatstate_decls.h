@@ -15,7 +15,7 @@ class CombatLocations
 class CombatLOS
 {
   public:
-    bool FUN_00884920();
+    bool HasCachedValues();
     void FUN_008be220(CombatLocations*);
 };
 class CombatPrefix

@@ -39,7 +39,7 @@ extern unsigned char DAT_011d8fc0;
 
 // If abNow is set, calls RebuildInventoryLists(0) on DAT_011d8fa4 when non-null and clears DAT_011d8fc0; otherwise sets DAT_011d8fc0 to 1.
 // @fnv 0x00730690
-void __cdecl FUN_00730690(bool abNow)
+void __cdecl ForceBarterUpdate(bool abNow)
 {
     if (abNow)
     {
@@ -930,11 +930,11 @@ int __cdecl FUN_0072d6c0();
 ObjA* __cdecl FUN_00a09030(int a);
 int __cdecl FUN_00a01860(const char* a);
 float __stdcall FUN_00a01530(int a);
-void __cdecl FUN_00763ff0();
+void __cdecl ServiceStart();
 int __cdecl FUN_00647b70(int a, int b);
 int __cdecl MinInt(int a, int b);
 int __cdecl FUN_00649050(int a, int* b, int* c);
-void __cdecl FUN_00717280(int a);
+void __cdecl PlayMenuSound(int a);
 
 // Validates arg0, resolves the inventory menu object, initializes its labels and settings from the config, and stores it in DAT_011d8fa4.
 // @fnv 0x0072d250
@@ -986,7 +986,7 @@ int __cdecl InitInventoryMenu(int arg0, int aiValue)
         {
             bb->FUN_00a012d0(0xfad, FUN_00a01530(1));
         }
-        FUN_00763ff0();
+        ServiceStart();
         ((SelfObj*)((char*)selfa + 0x4d4))->FUN_00718630(0x17, FUN_0072d6c0(), 0x200);
         ((BigObj*)DAT_011d8fa4)->m_a8.FUN_0075a0d0(((BigObj*)DAT_011d8fa4)->m_40, str_010704d4);
         ((BigObj*)DAT_011d8fa4)->m_d8.FUN_0075a0d0(((BigObj*)DAT_011d8fa4)->m_54, str_010704d4);
@@ -1016,7 +1016,7 @@ int __cdecl InitInventoryMenu(int arg0, int aiValue)
         ((BigObj*)DAT_011d8fa4)->m_84 = 0.0f;
         FUN_00649050(((SubEA*)((char*)DAT_011dea3c + 0xa4))->FUN_0066ef20(0x20), &((BigObj*)DAT_011d8fa4)->m_94,
                      &((BigObj*)DAT_011d8fa4)->m_98);
-        FUN_00717280(0x24);
+        PlayMenuSound(0x24);
         ((BigObj*)DAT_011d8fa4)->FUN_00a1dc20(0);
         ((BigObj*)DAT_011d8fa4)->RebuildInventoryLists(0);
         return (int)bb;
@@ -1167,8 +1167,8 @@ struct BmFilteredList
 
 int __cdecl FUN_00a01860(const char* pName);
 int __cdecl TruncateFloatToInt(float f);
-bool __cdecl FUN_00703d50();
-void __cdecl FUN_00703c00(const char* pFormat, ...);
+bool __cdecl IsConsoleVisible();
+void __cdecl PrintToConsole(const char* pFormat, ...);
 void __cdecl UpdateBarterQuantity(int iCount);
 void __cdecl CreateQuantityMenu(int iCount, void(__cdecl* pfnCallback)(int), int iMax);
 void __cdecl FUN_0072db40();
@@ -1176,7 +1176,7 @@ void __cdecl FUN_00703e80(int a1, int a2, const char* pMessage, void(__cdecl* pf
                           float f8, const char* pButton1, const char* pButton2, int a11);
 void __cdecl UpdateTopicMenu();
 void __cdecl FUN_00706f30(void* pkTile);
-int __cdecl FUN_007304b0(void* pkItem);
+int __cdecl FilterModeFunc(void* pkItem);
 
 static const char s_szNumBartered[] = "_NumBartered";
 static const char s_szOrigRef[] = "Original Container Ref: '%s' (%08x)";
@@ -1219,16 +1219,16 @@ void BarterMenuClick::HandleTileClick(int iTileIndex, BmTile* pkTile)
             g_bBarterFlag_0119fdb0 = 0;
             int iCount = g_pkSelectedItem_011d8fa8->FUN_00726070() -
                          TruncateFloatToInt(pkTile->FUN_00a011b0(FUN_00a01860(s_szNumBartered)));
-            if (FUN_00703d50())
+            if (IsConsoleVisible())
             {
                 BmRef* pkOrig = g_pkSelectedItem_011d8fa8->FUN_00559450() &&
                                         *g_pkSelectedItem_011d8fa8->FUN_00559450()->FUN_006815c0()
                                     ? (*g_pkSelectedItem_011d8fa8->FUN_00559450()->FUN_006815c0())->FUN_00418630()
                                     : 0;
                 if (pkOrig)
-                    FUN_00703c00(s_szOrigRef, pkOrig->GetEditorID(), pkOrig->FUN_0084e3a0());
+                    PrintToConsole(s_szOrigRef, pkOrig->GetEditorID(), pkOrig->FUN_0084e3a0());
                 else
-                    FUN_00703c00(s_szOrigRefNone);
+                    PrintToConsole(s_szOrigRefNone);
             }
             else if (iCount > *g_s_011d2418.FUN_0043d4d0())
             {
@@ -1266,7 +1266,7 @@ void BarterMenuClick::HandleTileClick(int iTileIndex, BmTile* pkTile)
             else if (m_iMerchantFilter > 5)
                 m_iMerchantFilter = 0;
             UpdateTileText((int)m_apTiles[3]);
-            m_kMerchantList.ApplyFilter(FUN_007304b0);
+            m_kMerchantList.ApplyFilter(FilterModeFunc);
         } while (!m_kMerchantList.FUN_0071ae60() && m_iMerchantFilter != 0);
         break;
     case 7:
@@ -1281,14 +1281,14 @@ void BarterMenuClick::HandleTileClick(int iTileIndex, BmTile* pkTile)
             else if (m_iPlayerFilter > 5)
                 m_iPlayerFilter = 0;
             UpdateTileText((int)m_apTiles[8]);
-            m_kPlayerList.ApplyFilter(FUN_007304b0);
+            m_kPlayerList.ApplyFilter(FilterModeFunc);
         } while (!m_kPlayerList.FUN_0071ae60() && m_iPlayerFilter != 0);
         break;
     }
 }
 
 namespace fnv_0072db60 {
-// FUN_0072db60: thiscall, /GS, two identical formatted-label blocks.
+// UpdateCapsLabels: thiscall, /GS, two identical formatted-label blocks.
 struct SysVA
 {
     void* FUN_00891d70();
@@ -1354,12 +1354,12 @@ struct FUN_0072db60_cls
     int unk88;
     int m_8c;
     int m_90;
-    void FUN_0072db60();
+    void UpdateCapsLabels();
 };
 
 // Stores two values from global subsystems into m_8c and m_90, then formats each with a string and passes it to m_3c and m_50 via FUN_00a01350.
 // @fnv 0x0072db60
-void FUN_0072db60_cls::FUN_0072db60()
+void FUN_0072db60_cls::UpdateCapsLabels()
 {
     char buf[0x40];
     m_8c = (int)DAT_011dea3c->FUN_00891d70();
@@ -1903,7 +1903,7 @@ void __cdecl UpdateBarterItemTile(BarterTile* pkTile, BarterItem* pkItem)
 }  // namespace fnv_0072f210
 
 // HandleAction candidate
-bool __cdecl FUN_00702450(int aiId);
+bool __cdecl IsTopMenuID(int aiId);
 
 struct FUN_007312e0_shell
 {
@@ -1998,7 +1998,7 @@ class FUN_0072f4b0_cls
 bool FUN_0072f4b0_cls::HandleAction(int aiAction, int aiUnused)
 {
     bool bHandled = false;
-    if (FUN_00702450(0x41d))
+    if (IsTopMenuID(0x41d))
     {
         switch (aiAction)
         {
@@ -2674,11 +2674,11 @@ struct Self72
     ListObj* m_108;
     NodeS m_10c;
     NodeS m_114;
-    void FUN_0072db60();
+    void UpdateCapsLabels();
     void __thiscall RebuildInventoryLists(int arg);
 };
 
-// Rebuilds the m_a8/m_d8 lists from the player and data handler for the given form, then selects and activates m_108 and calls FUN_0072db60.
+// Rebuilds the m_a8/m_d8 lists from the player and data handler for the given form, then selects and activates m_108 and calls UpdateCapsLabels.
 // @fnv 0x0072dc30
 void __thiscall Self72::RebuildInventoryLists(int arg)
 {
@@ -2790,10 +2790,10 @@ void __thiscall Self72::RebuildInventoryLists(int arg)
     }
     m_a8.FUN_007314c0((void*)FUN_0072eac0, 0, 0x7fffffff);
     m_a8.FUN_007314c0((void*)UpdateBarterItemTile, 0, 0x7fffffff);
-    m_a8.ApplyFilter((void*)FUN_007304b0);
+    m_a8.ApplyFilter((void*)FilterModeFunc);
     m_a8.Virt20((void*)CompareF070Entries);
     m_d8.FUN_007314c0((void*)UpdateBarterItemTile, 0, 0x7fffffff);
-    m_d8.ApplyFilter((void*)FUN_007304b0);
+    m_d8.ApplyFilter((void*)FilterModeFunc);
     m_d8.Virt20((void*)CompareF070Entries);
     if (0 == m_108)
     {
@@ -2827,7 +2827,7 @@ void __thiscall Self72::RebuildInventoryLists(int arg)
             }
         }
     }
-    FUN_0072db60();
+    UpdateCapsLabels();
 }
 
 // List sort comparator: entries whose tile has the highlight trait come first, then order by tile text.
@@ -3281,7 +3281,7 @@ void FUN_007306d0_cls::FUN_007306d0()
 {
     if (DAT_011d8fc0 == 1)
     {
-        FUN_00730690(true);
+        ForceBarterUpdate(true);
     }
     if (DAT_0119fdb0 != 0)
     {
@@ -3591,7 +3591,7 @@ struct Fr7304Menu
 
 // Evaluates the item type against a filter and, when a tile exists, combines the result with a comparison to _num_bartered.
 // @fnv 0x007304b0
-bool __cdecl FUN_007304b0(Fr7304Entry* pkItem)
+bool __cdecl FilterModeFunc(Fr7304Entry* pkItem)
 {
     bool bResult = false;
     int iType = pkItem->FUN_0044ddc0()->FUN_00401170();

@@ -307,7 +307,7 @@ struct SaveGameHelper
 };
 struct TESSaveLoadGameHelper
 {
-    void FUN_008579b0(void* apDest, int aiSize);
+    void SaveGameDataOLD(void* apDest, int aiSize);
 };
 struct FUN_008274a0_shell : ActiveEffect
 {
@@ -323,10 +323,10 @@ struct FUN_008274a0_shell : ActiveEffect
 void FUN_008274a0_shell::FUN_008274a0(Actor* apActor)
 {
     ((SaveGameHelper*)this)->SaveGame(apActor);
-    ((TESSaveLoadGameHelper*)g_TESSaveLoadGame)->FUN_008579b0(&m_4c, 4);
-    ((TESSaveLoadGameHelper*)g_TESSaveLoadGame)->FUN_008579b0(&m_50, 4);
-    ((TESSaveLoadGameHelper*)g_TESSaveLoadGame)->FUN_008579b0(m_54, 12);
-    ((TESSaveLoadGameHelper*)g_TESSaveLoadGame)->FUN_008579b0(m_60, 16);
+    ((TESSaveLoadGameHelper*)g_TESSaveLoadGame)->SaveGameDataOLD(&m_4c, 4);
+    ((TESSaveLoadGameHelper*)g_TESSaveLoadGame)->SaveGameDataOLD(&m_50, 4);
+    ((TESSaveLoadGameHelper*)g_TESSaveLoadGame)->SaveGameDataOLD(m_54, 12);
+    ((TESSaveLoadGameHelper*)g_TESSaveLoadGame)->SaveGameDataOLD(m_60, 16);
 }
 
 void* __cdecl operator new(unsigned int);
@@ -817,7 +817,7 @@ struct ReanimateBody
 };
 struct ActorBodyAccess : Actor
 {
-    ReanimateBody* FUN_008adcb0();
+    ReanimateBody* GetFaceAnimationData();
 };
 struct BoneCollision
 {
@@ -858,7 +858,7 @@ void ReanimateState::UpdateReanimation(Actor* actor)
     ReanimateNode* root = reinterpret_cast<ReanimateNode*>(actor->a116());
     if (root)
     {
-        ReanimateBody* controller2 = static_cast<ActorBodyAccess*>(actor)->FUN_008adcb0();
+        ReanimateBody* controller2 = static_cast<ActorBodyAccess*>(actor)->GetFaceAnimationData();
         if (controller2)
         {
             if (state < 40)

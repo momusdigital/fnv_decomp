@@ -147,20 +147,20 @@ struct Helper98
 };
 struct DispHelper
 {
-    void __thiscall FUN_007586e0(int);
+    void __thiscall DisplayTerminal(int);
 };
 void __cdecl RefreshF57EA0TerminalMenu();
 struct FUN_00758a80_shell
 {
-    void __thiscall FUN_00758a80();
+    void __thiscall DisplayPreviousTerminal();
 };
 // @fnv 0x00758a80
-void __thiscall FUN_00758a80_shell::FUN_00758a80()
+void __thiscall FUN_00758a80_shell::DisplayPreviousTerminal()
 {
     ((Helper98*)((char*)this + 0x98))->_ref_0063f7b0();
     *(int*)((char*)this + 0xA8) = *(((Helper98*)((char*)this + 0x98))->_ref_006815c0());
     if (*(int*)((char*)this + 0xA8) != 0)
-        ((DispHelper*)this)->FUN_007586e0(0);
+        ((DispHelper*)this)->DisplayTerminal(0);
     else
         RefreshF57EA0TerminalMenu();
 }
@@ -301,7 +301,7 @@ struct TL
 };
 struct NoArgumentMethodObject
 {
-    void FUN_00700110();
+    void ForceFinish();
 };
 struct TileProcessor
 {
@@ -313,7 +313,7 @@ void TileProcessor::ProcessAllTiles()
     void* piter = (void*)((Flt*)this)->operator unsigned int();
     while (piter)
     {
-        ((NoArgumentMethodObject*)((TL*)this)->GetNext(piter))->FUN_00700110();
+        ((NoArgumentMethodObject*)((TL*)this)->GetNext(piter))->ForceFinish();
     }
 }
 
@@ -408,7 +408,7 @@ bool FUN_007583f0_shell::HandleButtonInput(int aiButton, float afValue)
             }
             else
             {
-                reinterpret_cast<FUN_00758a80_shell*>(this)->FUN_00758a80();
+                reinterpret_cast<FUN_00758a80_shell*>(this)->DisplayPreviousTerminal();
             }
             return true;
         }
@@ -1648,12 +1648,12 @@ struct CHMenu
     int unk0E4;
     CHDisplay* pDisplay;
 
-    void FUN_007586e0(bool abAddRecent);
+    void DisplayTerminal(bool abAddRecent);
 };
 
 // Resets the display and list box, optionally adds the current challenge to the recent list, and rebuilds the challenge lines and tiles.
 // @fnv 0x007586e0
-void CHMenu::FUN_007586e0(bool abAddRecent)
+void CHMenu::DisplayTerminal(bool abAddRecent)
 {
     if (!pChallenge)
         return;
@@ -3166,7 +3166,7 @@ struct ChallengeMenu
     int unkE4;
     MyDisplay* pDisplay;
 
-    void FUN_007586e0(int);
+    void DisplayTerminal(int);
     void RefreshDisplay();
 };
 
@@ -3179,7 +3179,7 @@ void ChallengeMenu::RefreshDisplay()
     this->pTile50->FUN_00700320(0xFA3, 0);
     this->pTile54->FUN_00700320(0xFA3, 0);
     this->pTile58->FUN_00700320(0xFA3, 0);
-    this->FUN_007586e0(1);
+    this->DisplayTerminal(1);
 
     this->pDisplay->InsertAtPosition(g_011d3d78.FUN_004c69f0(), this->pTile34->FUN_00a00f30(0xFC4),
                                      this->pTile34->FindTraitValue(0xFA3), 0);
@@ -3437,8 +3437,8 @@ struct HostF
     typedef void (HostF::*Handler)(Note*);
     Handler m_handlers[16];
     void SetTextSource(int);
-    void FUN_007586e0(int);
-    void FUN_00758a80();
+    void DisplayTerminal(int);
+    void DisplayPreviousTerminal();
     void RefreshDisplay();
     void __thiscall FUN_00757f70(int a1, TileF* a2);
 };
@@ -3466,7 +3466,7 @@ void __thiscall HostF::FUN_00757f70(int aiTileIndex, TileF* apTile)
             m_pTiles[1]->FUN_00700320(0xfa3, 1);
             if (DAT_011d93c0)
             {
-                FUN_007586e0(0);
+                DisplayTerminal(0);
             }
             else
             {
@@ -3494,14 +3494,14 @@ void __thiscall HostF::FUN_00757f70(int aiTileIndex, TileF* apTile)
             obj = m_kNode.FindItemData(apTile);
             if (!obj)
             {
-                FUN_00758a80();
+                DisplayPreviousTerminal();
             }
             else if (obj->m_70)
             {
                 obj->SetFlag4(true);
                 obj->FUN_00501830(m_ac);
                 m_a8 = obj->m_70;
-                FUN_007586e0(1);
+                DisplayTerminal(1);
             }
             else
             {
@@ -3534,7 +3534,7 @@ void __thiscall HostF::FUN_00757f70(int aiTileIndex, TileF* apTile)
                 else
                 {
                     if (obj->FUN_00758390())
-                        FUN_007586e0(0);
+                        DisplayTerminal(0);
                 }
             }
         }

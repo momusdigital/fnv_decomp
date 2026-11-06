@@ -1648,7 +1648,7 @@ extern GlobalObject2_0040c150 g_011c3ea4;
 bool __fastcall FUN_00572c80(TESObjectREFR*);
 void __cdecl DebugLog(const char*, ...);
 void __cdecl _FNV_Warning(const char*, ...);
-void __cdecl FUN_0087a8b0(TaskQueueInterface*, int, TESObjectREFR*, ...);
+void __cdecl QueueScriptFunctionCall(TaskQueueInterface*, int, TESObjectREFR*, ...);
 void __cdecl FUN_005c0740(TESObjectREFR*, unsigned char, float);
 
 struct TLSData_005c05f0 {
@@ -1686,7 +1686,7 @@ bool __cdecl FUN_005c05f0(const ScriptParameter* paramInfo, const char* scriptDa
 
     if (*g_011c3ea4.Int() > 1)
     {
-        FUN_0087a8b0(TaskQueueInterface::GetSingleton(), 0x1007, thisObj, axis, value);
+        QueueScriptFunctionCall(TaskQueueInterface::GetSingleton(), 0x1007, thisObj, axis, value);
     }
     else
     {
@@ -1718,7 +1718,7 @@ public:
 };
 
 extern GlobalObject2_0040c150 g_011c3ea4;
-void __cdecl FUN_0087a8b0(TaskQueueInterface*, int, TESObjectREFR*, ...);
+void __cdecl QueueScriptFunctionCall(TaskQueueInterface*, int, TESObjectREFR*, ...);
 
 // @fnv 0x005c1b80
 bool __cdecl FUN_005c1b80(const ScriptParameter* paramInfo, const char* scriptData, TESObjectREFR* thisObj, TESObjectREFR* containingObj, Script* scriptObj, ScriptLocals* locals, double& result, unsigned int& opcodeOffsetPtr)
@@ -1727,7 +1727,7 @@ bool __cdecl FUN_005c1b80(const ScriptParameter* paramInfo, const char* scriptDa
     if (!ExtractArgs(paramInfo, scriptData, &opcodeOffsetPtr, thisObj, containingObj, scriptObj, locals, &scale))
         return false;
     if (*g_011c3ea4.Int() > 1) {
-        FUN_0087a8b0(TaskQueueInterface::GetSingleton(), 0x113c, thisObj, scale);
+        QueueScriptFunctionCall(TaskQueueInterface::GetSingleton(), 0x113c, thisObj, scale);
     } else {
         Script::SetReferenceScale(thisObj, scale);
     }
@@ -2092,7 +2092,7 @@ public:
     virtual void V62();
     virtual void V63();
     virtual bool V64();
-    void FUN_008b8e20(void* arg1, int arg2);
+    void AddFaction(void* arg1, int arg2);
 };
 
 // @fnv 0x005d5390
@@ -2107,7 +2107,7 @@ bool __cdecl FUN_005d5390(const ScriptParameter* paramInfo, const char* scriptDa
     if (arg1 && thisObj->V64())
     {
         TESObjectREFR_005d5390* actor = thisObj;
-        actor->FUN_008b8e20(arg1, arg2);
+        actor->AddFaction(arg1, arg2);
     }
     return true;
 }
@@ -3629,26 +3629,26 @@ bool FUN_005ceb70(const ScriptParameter* apParam, const char* apSource, TESObjec
 
 class PC7d;
 extern PC7d* g_thePlayer;
-extern "C" void __cdecl FUN_00705870(int);
+extern "C" void __cdecl CreateRaceSexMenu(int);
 
 // @fnv 0x005cee30
 bool FUN_005cee30()
 {
     if (g_thePlayer) {
-        FUN_00705870(2);
+        CreateRaceSexMenu(2);
     }
     return true;
 }
 
 class PC7d;
-extern "C" void __cdecl FUN_00705870(int);
+extern "C" void __cdecl CreateRaceSexMenu(int);
 extern PC7d* g_thePlayer;
 
 // @fnv 0x005cee50
 bool __cdecl FUN_005cee50()
 {
     if (g_thePlayer) {
-        FUN_00705870(3);
+        CreateRaceSexMenu(3);
     }
     return true;
 }
@@ -3844,12 +3844,12 @@ char __cdecl FUN_005d9160()
     return 1;
 }
 
-extern "C" void __cdecl FUN_00705870(int);
+extern "C" void __cdecl CreateRaceSexMenu(int);
 
 // @fnv 0x005d9350
 char __cdecl FUN_005d9350()
 {
-    FUN_00705870(0);
+    CreateRaceSexMenu(0);
     return 1;
 }
 
@@ -3871,14 +3871,14 @@ char __cdecl FUN_005da260(void* a, void* b, void* c)
 class PC7d;
 extern PC7d* g_thePlayer;
 
-void __cdecl FUN_00703da0(void);
-void __cdecl FUN_00709470(int, int, int, int, int, int);
+void __cdecl CloseConsole(void);
+void __cdecl QueueMenuCreate(int, int, int, int, int, int);
 
 // @fnv 0x005da540
 char __cdecl FUN_005da540()
 {
-    FUN_00703da0();
-    FUN_00709470(9, (int)g_thePlayer, 0, 0, 1, 0);
+    CloseConsole();
+    QueueMenuCreate(9, (int)g_thePlayer, 0, 0, 1, 0);
     return 1;
 }
 
@@ -3957,13 +3957,13 @@ bool __cdecl FUN_005db490()
 
 namespace fnv_005db6c0 {
 extern "C" bool __cdecl FUN_005db6e0(int);
-extern "C" void __cdecl FUN_00703da0(void);
+extern "C" void __cdecl CloseConsole(void);
 
 // @fnv 0x005db6c0
 bool __cdecl FUN_005db6c0()
 {
     FUN_005db6e0(1);
-    FUN_00703da0();
+    CloseConsole();
     return 1;
 }
 }  // namespace fnv_005db6c0
@@ -4191,7 +4191,7 @@ void* __cdecl FUN_004b7210(void);
 void FUN_00753420(int a1, int a2, unsigned char a3, unsigned char a4);
 
 // @fnv 0x007062a0
-void __cdecl FUN_007062a0(int a1, int a2, unsigned char a3, unsigned char a4)
+void __cdecl CreateCharGenMenu(int a1, int a2, unsigned char a3, unsigned char a4)
 {
     if (FUN_004b7210() != 0) {
         if (static_cast<Modifier*>(FUN_004b7210())->GetKey() != 0) {
@@ -7293,7 +7293,7 @@ struct GlobalObject_0045cfe0 { int* Int(); };
 extern GlobalObject_0045cfe0 g_011c3ea4;
 struct TaskQueue5ccf50 { static TaskQueue5ccf50* __cdecl GetInstance(); };
 class Actor;
-void __cdecl FUN_0087a8b0(TaskQueue5ccf50*, int, Actor*, ...);
+void __cdecl QueueScriptFunctionCall(TaskQueue5ccf50*, int, Actor*, ...);
 bool __fastcall FUN_00572c80(TESObjectREFR*);
 void DebugLog(const char*, ...);
 void _FNV_Warning(const char*, ...);
@@ -7320,7 +7320,7 @@ bool FUN_005ccf50(const ScriptParameter* paramInfo, const char* scriptData, TESO
     }
     if (pTeleportMarker) {
         if (*g_011c3ea4.Int() > 1)
-            FUN_0087a8b0(TaskQueue5ccf50::GetInstance(), 0x109e, (Actor*)thisObj, pTeleportMarker, (double)fX, (double)fY, (double)fZ);
+            QueueScriptFunctionCall(TaskQueue5ccf50::GetInstance(), 0x109e, (Actor*)thisObj, pTeleportMarker, (double)fX, (double)fY, (double)fZ);
         else
             ScriptMoveHelper::MoveReferenceToPosition(thisObj, pTeleportMarker, fX, fY, fZ);
     }
@@ -8093,7 +8093,7 @@ public:
 };
 struct TESLog005d0760 { void* GetLogDate(); };
 struct ActorState005d0760 { bool FUN_00437bd0(); };
-struct S_008ace10 { void FUN_008ace10(bool); };
+struct S_008ace10 { void SetUnConscious(bool); };
 struct FUN_0087faa0_shell { void FUN_0087faa0(); };
 
 // @fnv 0x005d0760
@@ -8113,7 +8113,7 @@ bool FUN_005d0760(const ScriptParameter* paramInfo, const char* scriptData, TESO
                     ((VProc005d0760*)((TESLog005d0760*)pActor)->GetLogDate())->Slot614(0x800);
                     ((VProc005d0760*)((TESLog005d0760*)pActor)->GetLogDate())->Slot71c(0);
                 }
-                ((S_008ace10*)pActor)->FUN_008ace10(true);
+                ((S_008ace10*)pActor)->SetUnConscious(true);
                 ((FUN_0087faa0_shell*)pActor)->FUN_0087faa0();
                 if (((TESLog005d0760*)pActor)->GetLogDate())
                     ((VProc005d0760*)((TESLog005d0760*)pActor)->GetLogDate())->Slot338(-1.0f);
@@ -8122,7 +8122,7 @@ bool FUN_005d0760(const ScriptParameter* paramInfo, const char* scriptData, TESO
                     ((VProc005d0760*)((TESLog005d0760*)pActor)->GetLogDate())->Slot614(0x800);
                     ((VProc005d0760*)((TESLog005d0760*)pActor)->GetLogDate())->Slot71c(0);
                 }
-                ((S_008ace10*)pActor)->FUN_008ace10(false);
+                ((S_008ace10*)pActor)->SetUnConscious(false);
             }
         }
     }
@@ -8164,7 +8164,7 @@ struct GlobalObject_0045cfe0 { int* Int(); };
 extern GlobalObject_0045cfe0 g_011c3ea4;
 struct Actor;
 struct TaskQueueInterface { static TaskQueueInterface* __cdecl GetInstance(); };
-void __cdecl FUN_0087a8b0(TaskQueueInterface*, int, Actor*, ...);
+void __cdecl QueueScriptFunctionCall(TaskQueueInterface*, int, Actor*, ...);
 void __cdecl FUN_005d3c20(TESObjectREFR*, float);
 // @fnv 0x005d3b90
 bool FUN_005d3b90(const ScriptParameter* parameters, const char* scriptData, TESObjectREFR* thisObject, TESObjectREFR* container, Script* script, ScriptLocals* locals, double& result, unsigned int& opcodeOffset)
@@ -8175,7 +8175,7 @@ bool FUN_005d3b90(const ScriptParameter* parameters, const char* scriptData, TES
     if (!thisObject)
         return false;
     if (*g_011c3ea4.Int() > 1)
-        FUN_0087a8b0(TaskQueueInterface::GetInstance(), 0x1156, (Actor*)thisObject, value);
+        QueueScriptFunctionCall(TaskQueueInterface::GetInstance(), 0x1156, (Actor*)thisObject, value);
     else
         FUN_005d3c20(thisObject, value);
     return true;
@@ -8251,7 +8251,7 @@ struct GlobalObject_0045cfe0 { int* Int(); };
 extern GlobalObject_0045cfe0 g_011c3ea4;
 struct TaskQueueInterface { static TaskQueueInterface* GetInstance(); };
 void FUN_005d4c20(TESObjectREFR*, float);
-void FUN_0087a8b0(TaskQueueInterface*, int, Actor*, ...);
+void QueueScriptFunctionCall(TaskQueueInterface*, int, Actor*, ...);
 
 // @fnv 0x005d4b90
 bool FUN_005d4b90(const ScriptParameter* parameters, const char* scriptData,
@@ -8265,7 +8265,7 @@ bool FUN_005d4b90(const ScriptParameter* parameters, const char* scriptData,
     if (!thisObject)
         return false;
     if (g_011c3ea4.Int()[0] > 1)
-        FUN_0087a8b0(TaskQueueInterface::GetInstance(), 0x116c,
+        QueueScriptFunctionCall(TaskQueueInterface::GetInstance(), 0x116c,
                       (Actor*)thisObject, damage);
     else
         FUN_005d4c20(thisObject, damage);
@@ -9469,7 +9469,7 @@ namespace fnv_005cd5b0 {
 bool __fastcall FUN_005a1e50(bool const*);
 struct FUN_005c1a00 { void Set(int, char); };
 extern FUN_005c1a00* _g_thePlayer;
-extern "C" void __cdecl FUN_007055c0();
+extern "C" void __cdecl CloseSleepMenu();
 // @fnv 0x005cd5b0
 bool FUN_005cd5b0(const ScriptParameter* parameters, const char* scriptData, TESObjectREFR* thisObject, TESObjectREFR* container, Script* script, ScriptLocals* locals, double& result, unsigned int& opcodeOffset)
 {
@@ -9482,7 +9482,7 @@ bool FUN_005cd5b0(const ScriptParameter* parameters, const char* scriptData, TES
             value = 0;
         _g_thePlayer->Set(value, 1);
         if (value == 0)
-            FUN_007055c0();
+            CloseSleepMenu();
     }
     return true;
 }
@@ -9589,7 +9589,7 @@ bool FUN_005ce6b0(const ScriptParameter* apParameters, const char* apCompiledPar
 }  // namespace fnv_005ce6b0
 
 namespace fnv_005cedf0 {
-extern "C" void __cdecl FUN_00705870(int);
+extern "C" void __cdecl CreateRaceSexMenu(int);
 extern TESObjectREFR* g_thePlayer;
 __declspec(thread) bool tls_0268;
 // @fnv 0x005cedf0
@@ -9598,9 +9598,9 @@ bool FUN_005cedf0()
     if (g_thePlayer)
     {
         if (tls_0268)
-            FUN_00705870(0);
+            CreateRaceSexMenu(0);
         else
-            FUN_00705870(1);
+            CreateRaceSexMenu(1);
     }
     return true;
 }
@@ -10003,7 +10003,7 @@ bool FUN_005daa40(const ScriptParameter* parameters, const char* scriptData,
 }
 
 class Menu;
-struct FUN_00758a80_shell { void FUN_00758a80(); };
+struct FUN_00758a80_shell { void DisplayPreviousTerminal(); };
 struct Tile_ { Menu* GetMenu(); };
 Menu* __cdecl FindMenuById(int);
 
@@ -10015,7 +10015,7 @@ bool FUN_005dc4e0()
     pmenutile = (Tile_*)FindMenuById(0x421);
     pmenu = pmenutile ? (FUN_00758a80_shell*)pmenutile->GetMenu() : 0;
     if (pmenu)
-        pmenu->FUN_00758a80();
+        pmenu->DisplayPreviousTerminal();
     return true;
 }
 
@@ -11352,8 +11352,8 @@ public:
 class FUN_00800e50_Class : public FUN_0044ac20_class
 {
 public:
-    void FUN_00800d50(int);
-    void FUN_00800e50(int);
+    void SetMultiTarget(int);
+    void SetSelectedMultiTarget(int);
 };
 
 class ShadowLightData : public FUN_00800e50_Class
@@ -11505,9 +11505,9 @@ bool FUN_005bb610(const ScriptParameter* parameter, const char* format,
 
     if (reference && reinterpret_cast<FUN_005bb610_vtable*>(reference)->V116())
     {
-        Interface::GetVATSEffect()->FUN_00800d50(
+        Interface::GetVATSEffect()->SetMultiTarget(
             reinterpret_cast<int>(reference));
-        Interface::GetVATSEffect()->FUN_00800e50(
+        Interface::GetVATSEffect()->SetSelectedMultiTarget(
             reinterpret_cast<int>(reference));
         fParam = 1;
         Interface::GetVATSEffect()->FUN_0044ac20(&fParam);
@@ -12595,7 +12595,7 @@ bool __cdecl FUN_005d4c60(const ScriptParameter* apParameters, const char* apCom
     FUN_005a3b20(apRefObject, iAction, 0, afReturnValue);
 }
 
-void __cdecl FUN_007062a0(int, int, unsigned char, unsigned char);
+void __cdecl CreateCharGenMenu(int, int, unsigned char, unsigned char);
 
 // @fnv 0x005d71f0
 bool FUN_005d71f0(const ScriptParameter* parameter, const char* functionName,
@@ -12612,9 +12612,9 @@ bool FUN_005d71f0(const ScriptParameter* parameter, const char* functionName,
         bSuccess = false;
     } else {
         if (iValue > 0) {
-            FUN_007062a0(0, iValue, 1, 1);
+            CreateCharGenMenu(0, iValue, 1, 1);
         } else if (iValue2 > 0) {
-            FUN_007062a0(1, iValue2, 1, 1);
+            CreateCharGenMenu(1, iValue2, 1, 1);
         }
     }
 
@@ -12905,7 +12905,7 @@ struct VFinal : VDerived
 
 struct FUN_008bbf40_StandIn
 {
-    void FUN_008bbf40(int, int, int, int, int, bool, bool, bool, bool);
+    void InitiateUseWeaponPackage(int, int, int, int, int, bool, bool, bool, bool);
 };
 
 // @fnv 0x005d7a30
@@ -12946,7 +12946,7 @@ bool FUN_005d7a30(const ScriptParameter* parameter, const char* format,
 
         reinterpret_cast<VFinal*>(object)->V269(false);
 
-        reinterpret_cast<FUN_008bbf40_StandIn*>(object)->FUN_008bbf40(
+        reinterpret_cast<FUN_008bbf40_StandIn*>(object)->InitiateUseWeaponPackage(
             d, i, b, a, e, static_cast<bool>(g), static_cast<bool>(c),
             static_cast<bool>(h), static_cast<bool>(f));
     }
@@ -13068,7 +13068,7 @@ struct FUN_005d9370_vtable
 
 struct FUN_008bca90_stand_in
 {
-    void FUN_008bca90(bool);
+    void SetPlayerTeammate(bool);
 };
 
 // @fnv 0x005d9370
@@ -13087,7 +13087,7 @@ bool FUN_005d9370(const ScriptParameter* parameter, const char* functionName,
         if (reinterpret_cast<FUN_005d9370_vtable*>(reference)->V64())
         {
             TESObjectREFR* object = reference;
-            reinterpret_cast<FUN_008bca90_stand_in*>(object)->FUN_008bca90(value != 0);
+            reinterpret_cast<FUN_008bca90_stand_in*>(object)->SetPlayerTeammate(value != 0);
         }
     }
 
@@ -13999,7 +13999,7 @@ class MobileObject : public MobileObjectBase
 public:
     virtual bool IsDead() = 0;
 
-    void FUN_008c30a0()
+    void UnloadPermanentMagic()
     {
     }
 };
@@ -14047,7 +14047,7 @@ void ProcessManager::FUN_00977540()
         if (pProcess && pProcess->IsDead())
             pTarget = pProcess;
         if (pTarget)
-            pTarget->FUN_008c30a0();
+            pTarget->UnloadPermanentMagic();
     }
 
     for (unsigned int j = processes.GetHead(static_cast<PROCESS_TYPE>(1));
@@ -14061,11 +14061,11 @@ void ProcessManager::FUN_00977540()
                 pTarget2 = pProcess;
         }
         if (pTarget2)
-            pTarget2->FUN_008c30a0();
+            pTarget2->UnloadPermanentMagic();
     }
 
     if (_g_thePlayer)
-        _g_thePlayer->FUN_008c30a0();
+        _g_thePlayer->UnloadPermanentMagic();
 }
 }  // namespace fnv_00977540
 
@@ -14073,13 +14073,13 @@ namespace fnv_005bb6c0 {
 class FUN_00800ed0_This
 {
 public:
-    void FUN_00800ed0();
+    void ClearMultiTargets();
 };
 
 class FUN_0044ac20_class : public FUN_00800ed0_This
 {
 public:
-    void FUN_00800ac0(int, int, int);
+    void SetTarget(int, int, int);
     void FUN_0044ac20(int const*);
 };
 
@@ -14231,8 +14231,8 @@ bool FUN_005bb6c0(const ScriptParameter* parameter, const char* name,
     if (referenceOne != 0 &&
         reinterpret_cast<VirtualOffsetBase*>(referenceOne)->DeactivateAllHighlights())
     {
-        Interface::GetVATSEffect()->FUN_00800ac0(0, 0, 0);
-        Interface::GetVATSEffect()->FUN_00800ed0();
+        Interface::GetVATSEffect()->SetTarget(0, 0, 0);
+        Interface::GetVATSEffect()->ClearMultiTargets();
         zero = 0;
         Interface::GetVATSEffect()->FUN_0044ac20(&zero);
     }
@@ -14393,8 +14393,8 @@ struct FormListData17 { bool FUN_005f65d0(Form17*const&); };
 struct FormList17 { FormListData17* FUN_00500940(); };
 extern void* DAT_011dea3c;
 float FUN_009a64d0(void*,Ref17*,int);
-bool FUN_00703d50();
-void FUN_00703c00(const char*,...);
+bool IsConsoleVisible();
+void PrintToConsole(const char*,...);
 extern const char DAT_01034044[];
 // @fnv 0x00594e40
 bool FUN_00594e40(void* unused,int value,void* parameter,double& result) {
@@ -14495,7 +14495,7 @@ bool FUN_00594e40(void* unused,int value,void* parameter,double& result) {
    h=true;
   }
  }
- if(FUN_00703d50()) FUN_00703c00(DAT_01034044,value,parameter,result);
+ if(IsConsoleVisible()) PrintToConsole(DAT_01034044,value,parameter,result);
  return h;
 }
 
@@ -14913,7 +14913,7 @@ struct FNV_5b6cd0_Data {
 };
 void __cdecl FUN_00878160(FNV_5b6cd0_Data*, int, int, int);
 void __cdecl FUN_00878250(unsigned int);
-void __cdecl FUN_00878200(FNV_5b6cd0_Data*);
+void __cdecl EndMemoryFree(FNV_5b6cd0_Data*);
 struct FNV_5b6cd0_Host {
     void FUN_004539a0(int, int);
 };
@@ -14924,7 +14924,7 @@ bool __cdecl FUN_005b6cd0() {
     FUN_00878160(&data, 1, 1, 1);
     DAT_011dea10->FUN_004539a0(1, 0);
     FUN_00878250(data.field05);
-    FUN_00878200(&data);
+    EndMemoryFree(&data);
     return true;
 }
 
@@ -14960,7 +14960,7 @@ public:
 void* FUN_0054f4c0();
 void* FUN_0045c670();
 void FUN_00b62a20();
-void FUN_00703c00(const char* fmt, const char* s);
+void PrintToConsole(const char* fmt, const char* s);
 void FUN_0057d0a0(Vec3f a, Vec3f b, float c);
 
 // @fnv 0x005b70c0
@@ -14979,7 +14979,7 @@ bool FUN_005b70c0()
                 FUN_0057d0a0(*((GrassItem*)r)->GetVec(), DAT_011f426c, 0.0f);
             }
         }
-        FUN_00703c00("Grass Display %s", (flag == 0) ? "Enabled." : "Disabled.");
+        PrintToConsole("Grass Display %s", (flag == 0) ? "Enabled." : "Disabled.");
     }
     return true;
 }
@@ -15280,9 +15280,9 @@ void FUN_005ba6b0()
     DAT_011f9fc2 = !DAT_011f9fc2;
 }
 
-void __cdecl FUN_00703000();
-bool __cdecl FUN_00702fc0();
-void __cdecl FUN_00703c00(const char* fmt, const char* text);
+void __cdecl ToggleDebugTextVisible();
+bool __cdecl IsDebugTextVisible();
+void __cdecl PrintToConsole(const char* fmt, const char* text);
 
 struct DebugTextTlsBlock005ba760 {
     unsigned int unk0000;
@@ -15448,10 +15448,10 @@ extern __declspec(thread) DebugTextTlsBlock005ba760 g_debugTextTls;
 bool __cdecl FUN_005ba760()
 {
     const char* text;
-    FUN_00703000();
+    ToggleDebugTextVisible();
     if (g_debugTextTls.bDebugTextEnabled)
     {
-        if (FUN_00702fc0())
+        if (IsDebugTextVisible())
         {
             text = "On";
         }
@@ -15459,13 +15459,13 @@ bool __cdecl FUN_005ba760()
         {
             text = "Off";
         }
-        FUN_00703c00("Debug Text -> %s", text);
+        PrintToConsole("Debug Text -> %s", text);
     }
     return true;
 }
 
 bool __cdecl FUN_005accb0(void*,void*,void*,void*,void*,void*,void*,float*,float*,float*,unsigned int*);
-void __cdecl FUN_007e4fe0(float,float,float);
+void __cdecl SetSurgeryPlayer3DPosition(float,float,float);
 // @fnv 0x005bb4f0
 bool __cdecl FUN_005bb4f0(void* context,void* scriptData,void* firstValue,void* secondValue,void* thirdValue,void* fourthValue,void* unusedArgument,void* lastArgument)
 {
@@ -15477,7 +15477,7 @@ bool __cdecl FUN_005bb4f0(void* context,void* scriptData,void* firstValue,void* 
     d = 0.0f;
     c = 1.0f;
     if (!FUN_005accb0(context,scriptData,lastArgument,firstValue,secondValue,thirdValue,fourthValue,&a,&d,&c,&b)) return false;
-    FUN_007e4fe0(a,d,c);
+    SetSurgeryPlayer3DPosition(a,d,c);
     return true;
 }
 
@@ -15606,7 +15606,7 @@ extern float DAT_0101e580;
 bool __cdecl FUN_005accb0(void* p0, void* p1, void* p2, void* p3, void* p4, void* p5, void* p6, float* p7, unsigned int* p8, unsigned int* p9, unsigned int* p10);
 void* __stdcall FUN_00705910(void* a, int b, int c);
 void* __stdcall FUN_00705910(void* a);
-void __fastcall FUN_00800ac0(void* self);
+void __fastcall SetTarget(void* self);
 void __fastcall FUN_0044ac20(void* self);
 
 // @fnv 0x005bb570
@@ -15624,7 +15624,7 @@ bool __cdecl FUN_005bb570(void* p0, void* p1, ScriptRefPlaceholder* p2, void* p3
     }
     if (p2 != 0 && p2->V116() != 0)
     {
-        FUN_00800ac0(FUN_00705910(p2, (int)fVal2, 0));
+        SetTarget(FUN_00705910(p2, (int)fVal2, 0));
         zero = 0;
         FUN_0044ac20(FUN_00705910(&zero));
     }
@@ -15667,7 +15667,7 @@ class B5BB800Form;
 
 class B5BB800Menu {
 public:
-    void FUN_007f8610(B5BB800Form* pkForm, float fValue, float fDuration, bool bFlag);
+    void MoveKnob(B5BB800Form* pkForm, float fValue, float fDuration, bool bFlag);
 };
 
 B5BB800Menu* __cdecl B5BB800GetMenu();
@@ -15687,7 +15687,7 @@ bool __cdecl FUN_005bb800(B5BB800ParamInfo* pkParamInfo, B5BB800ScriptData* pkSc
     float fValue;
     if (!B5BB800ExtractArgs(pkParamInfo, pkScriptData, puiOpcodeOffset, pkThisObj, pkContainingObj, pkScript, pkEventList, &pkForm9, &fValue))
         return false;
-    B5BB800GetMenu()->FUN_007f8610(pkForm9, fValue, g_fB5BB800Duration, true);
+    B5BB800GetMenu()->MoveKnob(pkForm9, fValue, g_fB5BB800Duration, true);
     return true;
 }
 
@@ -15891,8 +15891,8 @@ bool __cdecl FUN_005bc510()
 
 namespace fnv_005bd3c0 {
 extern unsigned char DAT_011d73cc;
-unsigned char FUN_00702fc0();
-void FUN_00703000();
+unsigned char IsDebugTextVisible();
+void ToggleDebugTextVisible();
 
 struct PathingHandle {
     void Shutdown();
@@ -15904,8 +15904,8 @@ bool __cdecl FUN_005bd3c0()
 {
     if (DAT_011d73cc == 0) {
         DAT_011d73cc = 1;
-        if ((int)FUN_00702fc0() == 0) {
-            FUN_00703000();
+        if ((int)IsDebugTextVisible() == 0) {
+            ToggleDebugTextVisible();
         }
         FUN_005ba8d0("Pathing", 0)->Shutdown();
     } else {
@@ -15958,7 +15958,7 @@ extern TESStandIn5bd* g_TES5bd;
 extern DataHandlerStandIn* g_dataHandler5bd;
 extern QueuedCellManagerStandIn* g_queuedCellMgr5bd;
 extern PlayerStandIn5bd* g_player5bd;
-void __cdecl FUN_00703da0(void);
+void __cdecl CloseConsole(void);
 
 // @fnv 0x005bd660
 bool FUN_005bd660(const ScriptParameter* parameters, const char* scriptData, TESObjectREFR* thisObject, TESObjectREFR* container, Script* script, ScriptLocals* locals, double* result, unsigned int* opcodeOffset)
@@ -15980,7 +15980,7 @@ bool FUN_005bd660(const ScriptParameter* parameters, const char* scriptData, TES
     if (!cell)
         cell = g_dataHandler5bd->CreateExteriorCell(0, x, y4, worldSpace);
     if (cell) {
-        FUN_00703da0();
+        CloseConsole();
         g_player5bd->CenterOnCell(0, cell);
     }
     *((bool*)g_player5bd + 0x206) = true;
@@ -16421,7 +16421,7 @@ bool __cdecl FUN_005accb0(const ScriptParameter* apParameters, const char* apCom
 ScriptEditTarget* __cdecl FUN_00ec43fb(TESObjectREFR* apRef, int aUnk1, const char* aStr1, const char* aStr2, int aUnk2);
 bool __cdecl FUN_00406d70(unsigned int uiA, unsigned int uiB);
 const char* __cdecl FUN_0066eac0(unsigned int uiA);
-void __cdecl FUN_00703c00(const char* apFmt, ...);
+void __cdecl PrintToConsole(const char* apFmt, ...);
 
 // @fnv 0x005bdcd0
 bool __cdecl FUN_005bdcd0(const ScriptParameter* apParameters, const char* apCompiledParams, TESObjectREFR* apRefObject, TESObjectREFR* apContainer, Script* apScript, ScriptLocals* apScriptLocals, double& afReturnValue, unsigned int& auiOffset)
@@ -16437,7 +16437,7 @@ bool __cdecl FUN_005bdcd0(const ScriptParameter* apParameters, const char* apCom
             pTarget->Apply(uiA, uiB);
         } else {
             if (g_scriptDebugTls.bDebugIsActor) {
-                FUN_00703c00("Actor Value '%s' cannot be modified in scripts or the console.", FUN_0066eac0(uiA));
+                PrintToConsole("Actor Value '%s' cannot be modified in scripts or the console.", FUN_0066eac0(uiA));
             }
         }
     }
@@ -19035,7 +19035,7 @@ extern unsigned int _tls_index;
 void* __fastcall FUN_0056a9f0(void* ecx);
 unsigned int __fastcall FUN_0084e3a0(void* ecx);
 void __cdecl FUN_005acc70(unsigned int* out, double* value);
-void __cdecl FUN_00703c00(const char* fmt, unsigned int value);
+void __cdecl PrintToConsole(const char* fmt, unsigned int value);
 
 // @fnv 0x005ce630
 bool __cdecl FUN_005ce630(unsigned int a0, unsigned int a1, void* apRef, unsigned int a3, unsigned int a4, unsigned int a5, double* afOut)
@@ -19052,7 +19052,7 @@ bool __cdecl FUN_005ce630(unsigned int a0, unsigned int a1, void* apRef, unsigne
     }
     if (g_tlsBlock.unk268 != 0)
     {
-        FUN_00703c00("GetParentRef >> (%08x)", result);
+        PrintToConsole("GetParentRef >> (%08x)", result);
     }
     return true;
 }
@@ -19599,7 +19599,7 @@ void FUN_005d1150(int a1, int a2, int a3, int a4, int a5, int a6, int a7)
 
 namespace fnv_005d11b0 {
 struct ValueStore { virtual int Read(unsigned int index); };
-struct GameManager { void FUN_0093a7c0(unsigned int index, int value); };
+struct GameManager { void SetActorBaseValue(unsigned int index, int value); };
 extern "C" GameManager* DAT_011dea3c;
 extern bool __cdecl FUN_005accb0(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int*, int*);
 extern bool __cdecl FUN_005d1260(unsigned int);
@@ -19616,7 +19616,7 @@ bool __cdecl FUN_005d11b0(unsigned int input, unsigned int actor, unsigned int f
         if (FUN_005d1260(actorValueIndex)) {
             int previous = reinterpret_cast<ValueStore*>(reinterpret_cast<char*>(DAT_011dea3c) + 0xa4)->Read(actorValueIndex);
             previous += delta;
-            DAT_011dea3c->FUN_0093a7c0(actorValueIndex, previous);
+            DAT_011dea3c->SetActorBaseValue(actorValueIndex, previous);
         }
         return true;
     }
@@ -21082,7 +21082,7 @@ struct ThreadScriptFlags_005d3dc0 {
 };
 extern __declspec(thread) ThreadScriptFlags_005d3dc0 g_threadScriptFlags_005d3dc0;
 bool __cdecl FUN_005a3760(TESObjectREFR*, unsigned int, int, double*);
-void __cdecl FUN_00703c00(const char* apFmt, ...);
+void __cdecl PrintToConsole(const char* apFmt, ...);
 
 // @fnv 0x005d3dc0
 bool __cdecl FUN_005d3dc0(const ScriptParameter* apParameters, const char* apCompiledParams, TESObjectREFR* apRefObject, TESObjectREFR* apContainer, Script* apScript, ScriptLocals* apScriptLocals, double& afReturnValue, unsigned int& auiOffset)
@@ -21095,7 +21095,7 @@ bool __cdecl FUN_005d3dc0(const ScriptParameter* apParameters, const char* apCom
         } else {
             pMsg = "Actor counts friendly hits";
         }
-        FUN_00703c00("%s", pMsg);
+        PrintToConsole("%s", pMsg);
     }
     return bResult;
 }
@@ -21603,8 +21603,8 @@ struct DebugPageOwner
 
 extern "C" void* __cdecl FUN_00ec61c0(void*, int, unsigned int);
 extern "C" bool __cdecl FUN_005accb0(int, int, int, int, int, int, int, DebugTextBuffer*);
-extern "C" bool __cdecl FUN_00702fc0();
-extern "C" void __cdecl FUN_00703c00(const char*);
+extern "C" bool __cdecl IsDebugTextVisible();
+extern "C" void __cdecl PrintToConsole(const char*);
 extern "C" DebugPageOwner* __cdecl FUN_005ba8d0();
 extern "C" DebugPageOwner* __stdcall FUN_005ba8d1(unsigned char*, int);
 extern int DAT_011dea3c;
@@ -21622,13 +21622,13 @@ bool __cdecl FUN_005d5020(int a1, int a2, int a3, int a4, int a5, int a6, int a7
     FUN_00ec61c0(buf.text, 0, 0x7fc);
     if (FUN_005accb0(a1, a2, a8, a3, a4, a5, a6, &buf) != 0)
     {
-        if (!FUN_00702fc0() && buf.first == 0)
+        if (!IsDebugTextVisible() && buf.first == 0)
         {
-            FUN_00703c00("You must supply a debug page name if debug text is not showing");
+            PrintToConsole("You must supply a debug page name if debug text is not showing");
         }
         else
         {
-            if (FUN_00702fc0() && buf.first == 0)
+            if (IsDebugTextVisible() && buf.first == 0)
             {
                 page = FUN_005ba8d0()->GetPage();
             }
@@ -22083,7 +22083,7 @@ virtual void Unk3f(); virtual unsigned char IsActive();};
 struct ScriptNode { unsigned char m_iWordAt00[0xbc]; unsigned char m_flag; int __thiscall FUN_0055d520(); };
 extern "C" bool __cdecl FUN_005accb0(int, int, int, ScriptContextObject*, int, int, int, int*);
 extern "C" ScriptNode* __cdecl FUN_00ec43fb(ScriptContextObject*, int, const void*, const void*, int);
-extern "C" void __cdecl FUN_00703c00(void*, int, const void*);
+extern "C" void __cdecl PrintToConsole(void*, int, const void*);
 extern const char DAT_011841cc;
 extern const char DAT_011846d4;
 extern const char DAT_010399b8;
@@ -22109,7 +22109,7 @@ bool __cdecl FUN_005d6a60(int a, int b, ScriptContextObject* context, int d, int
                     statusString = &DAT_010399bc;
                 else
                     statusString = &DAT_010399b8;
-                FUN_00703c00((void*)&DAT_01039f58, scriptNode->FUN_0055d520(), statusString);
+                PrintToConsole((void*)&DAT_01039f58, scriptNode->FUN_0055d520(), statusString);
             }
         }
     }
@@ -22686,7 +22686,7 @@ bool __cdecl FUN_005d6b60(const ScriptParameter* apParameters, const char* apCom
 }
 
 bool __cdecl FUN_005accb0(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int* pOut);
-void __cdecl FUN_007062a0(int, int, unsigned char, unsigned char);
+void __cdecl CreateCharGenMenu(int, int, unsigned char, unsigned char);
 
 // @fnv 0x005d72f0
 bool __cdecl FUN_005d72f0(int a1, int a2, int a3, int a4, int a5, int a6, int unk20, int a8)
@@ -22699,14 +22699,14 @@ bool __cdecl FUN_005d72f0(int a1, int a2, int a3, int a4, int a5, int a6, int un
     }
     else
     {
-        FUN_007062a0(0, out, 1, 1);
+        CreateCharGenMenu(0, out, 1, 1);
     }
     return result;
 }
 
 namespace fnv_005d7350 {
 extern "C" bool __cdecl FUN_005accb0(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int* a8, int* a9);
-void __cdecl FUN_007062a0(int, int, unsigned char, unsigned char);
+void __cdecl CreateCharGenMenu(int, int, unsigned char, unsigned char);
 
 // @fnv 0x005d7350
 bool __cdecl FUN_005d7350(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8)
@@ -22717,14 +22717,14 @@ bool __cdecl FUN_005d7350(int a1, int a2, int a3, int a4, int a5, int a6, int a7
     if (!FUN_005accb0(a1, a2, a8, a3, a4, a5, a6, &var_ch, &var_4h)) {
         result3 = false;
     } else {
-        FUN_007062a0(1, var_ch, 0, var_4h == 1);
+        CreateCharGenMenu(1, var_ch, 0, var_4h == 1);
     }
     return result3;
 }
 }  // namespace fnv_005d7350
 
 extern bool __cdecl FUN_005accb0(int a, int b, int extra, int c, int d, int e, int f, int* result);
-extern void __cdecl FUN_007062a0(int a, int b, int c, int d);
+extern void __cdecl CreateCharGenMenu(int a, int b, int c, int d);
 
 // @fnv 0x005d73d0
 bool __cdecl FUN_005d73d0(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8)
@@ -22734,7 +22734,7 @@ bool __cdecl FUN_005d73d0(int a1, int a2, int a3, int a4, int a5, int a6, int a7
     if (!FUN_005accb0(a1, a2, a8, a3, a4, a5, a6, &result)) {
         success = false;
     } else {
-        FUN_007062a0(1, result, 1, 1);
+        CreateCharGenMenu(1, result, 1, 1);
     }
     return success;
 }
@@ -24283,7 +24283,7 @@ struct IdleHandle {
 extern IdleManager* DAT_011dea10;
 extern const char DAT_0103d174[];
 extern const char DAT_0103d158[];
-extern void __cdecl FUN_00703c00(const char*);
+extern void __cdecl PrintToConsole(const char*);
 
 // @fnv 0x005de4a0
 bool __cdecl FUN_005de4a0(
@@ -24312,9 +24312,9 @@ bool __cdecl FUN_005de4a0(
         node = node->FUN_00726070();
     }
     if (result != 0.0)
-        FUN_00703c00(DAT_0103d174);
+        PrintToConsole(DAT_0103d174);
     else
-        FUN_00703c00(DAT_0103d158);
+        PrintToConsole(DAT_0103d158);
     return true;
 }
 }  // namespace fnv_005de4a0
@@ -24792,7 +24792,7 @@ extern char DAT_011846d4;
 extern __declspec(thread) bool g_bDebugIsActor;
 void* __cdecl FUN_00ec43fb(TESObjectREFR* apRef, int aUnk1, const char* aStr1, const char* aStr2, int aUnk2);
 bool __fastcall FUN_008c1b30(void* apObj);
-void __cdecl FUN_00703c00(const char* apFmt, ...);
+void __cdecl PrintToConsole(const char* apFmt, ...);
 
 class FUN_005dfc70_cls : public TESObjectREFR
 {
@@ -24816,11 +24816,11 @@ bool __cdecl FUN_005dfc70(const ScriptParameter* apParameters, const char* apCom
         iResult = FUN_008c1b30(pRef2) ? 1 : 0;
         afReturnValue = (double)iResult;
         if (g_bDebugIsActor) {
-            FUN_00703c00("IsActorRefEssential >> %0.f", afReturnValue);
+            PrintToConsole("IsActorRefEssential >> %0.f", afReturnValue);
         }
     } else {
         if (g_bDebugIsActor) {
-            FUN_00703c00("IsActorRefEssential >> Invalid actor reference ");
+            PrintToConsole("IsActorRefEssential >> Invalid actor reference ");
         }
     }
     return true;
@@ -26499,7 +26499,7 @@ bool FUN_005b7b40(int form,int flags,int option,int source,int destination,int q
 }  // namespace fnv_005b7b40
 
 extern bool DAT_0118c6f0;   // menus visible
-void __cdecl FUN_00703810(bool bShow);
+void __cdecl SetMenuSystemVisible(bool bShow);
 
 // Script command: ToggleMenus.
 // @fnv 0x005b9490
@@ -26508,15 +26508,15 @@ bool __cdecl FUN_005b9490(const ScriptParameter* apParameters, const char* apCom
                           unsigned int* apOffset)
 {
     DAT_0118c6f0 ^= 1;
-    FUN_00703810(DAT_0118c6f0);
+    SetMenuSystemVisible(DAT_0118c6f0);
     if (tlsData.bConsoleEcho)
-        static_cast<void (__cdecl*)(const char*, ...)>(FUN_00703c00)("Menus -> %s", DAT_0118c6f0 ? "On" : "Off");
+        static_cast<void (__cdecl*)(const char*, ...)>(PrintToConsole)("Menus -> %s", DAT_0118c6f0 ? "On" : "Off");
     return true;
 }
 
 extern unsigned char __cdecl FUN_005b9790(void);
 extern void __cdecl FUN_005b97d0(bool);
-extern void __cdecl FUN_00703c00(const char*, const char*);
+extern void __cdecl PrintToConsole(const char*, const char*);
 extern const char str_010399afc[];
 extern const char str_010399b8[];
 extern const char str_010399bc[];
@@ -26533,7 +26533,7 @@ bool __cdecl FUN_005b9720(void)
         } else {
             puStack_8 = str_010399b8;
         }
-        FUN_00703c00(str_010399afc, puStack_8);
+        PrintToConsole(str_010399afc, puStack_8);
     }
     return true;
 }
@@ -27485,20 +27485,20 @@ bool __cdecl FUN_005ba1a0(const ScriptParameter* paramInfo, const char* scriptDa
     if (!thisObj) {
         FUN_005ba2f0(FUN_005ba2d0() ^ true);
         if (tlsData.bConsoleEcho)
-            FUN_00703c00("GrabIK %s", FUN_005ba2d0() ? "On" : "Off");
+            PrintToConsole("GrabIK %s", FUN_005ba2d0() ? "On" : "Off");
     } else {
         GrabIKActorView* pActor = (GrabIKActorView*)dynamic_cast<Actor*>(thisObj);
         if (pActor && pActor->pGrabIK) {
             pActor->pGrabIK->SetEnabled(pActor->pGrabIK->IsEnabled() ^ true);
             if (tlsData.bConsoleEcho)
-                FUN_00703c00("GrabIK on REF %s %s", ((GrabIKRefView*)thisObj)->GetName(),
+                PrintToConsole("GrabIK on REF %s %s", ((GrabIKRefView*)thisObj)->GetName(),
                     pActor->pGrabIK->IsEnabled() ? "On" : "Off");
         }
     }
     return true;
 }
 
-void FUN_00703c00(const char*, ...);
+void PrintToConsole(const char*, ...);
 bool FUN_005ba4b0();
 struct LookIKState { bool FUN_005ba540(); void FUN_005ba4f0(unsigned char); };
 struct ActorLookLayout {
@@ -27730,12 +27730,12 @@ extern __declspec(thread) LookTls lookTls;
 bool FUN_005ba380(const ScriptParameter*,const char*,TESObjectREFR* reference,TESObjectREFR*,Script*,ScriptLocals*,double&,unsigned int&) {
  if (!reference) {
   FUN_005ba4d0(FUN_005ba4b0() ^ 1);
-  if (lookTls.console) FUN_00703c00("LookIK %s",FUN_005ba4b0()?"On":"Off");
+  if (lookTls.console) PrintToConsole("LookIK %s",FUN_005ba4b0()?"On":"Off");
  } else {
   Actor* actor = dynamic_cast<Actor*>(reference);
   if (actor && ((ActorLookLayout*)actor)->state) {
    ((ActorLookLayout*)actor)->state->FUN_005ba4f0(((ActorLookLayout*)actor)->state->FUN_005ba540() ^ 1);
-   if (lookTls.console) FUN_00703c00("LookIK on REF %s %s",((LookReference*)reference)->Name(),((ActorLookLayout*)actor)->state->FUN_005ba540()?"On":"Off");
+   if (lookTls.console) PrintToConsole("LookIK on REF %s %s",((LookReference*)reference)->Name(),((ActorLookLayout*)actor)->state->FUN_005ba540()?"On":"Off");
   }
  }
  return true;
@@ -28700,7 +28700,7 @@ bool __cdecl FUN_005bc310(const ScriptParameter* paramInfo, const char* scriptDa
 namespace fnv_005bc3b0 {
 struct TlsData { char pad[0x268]; bool bDebug; char p2[3]; void* pTarget; };
 extern __declspec(thread) TlsData DAT_0126fd98;
-void FUN_00703c00(const char*, ...);
+void PrintToConsole(const char*, ...);
 class ScriptParameter; class TESObjectREFR; class Script; class ScriptLocals;
 class ProcMgr { public: void FUN_00971ba0(); };
 extern ProcMgr DAT_011e0e80;
@@ -28710,7 +28710,7 @@ bool FUN_005bc3b0(const ScriptParameter* paramInfo, const char* scriptData, TESO
 {
     DAT_011f1228 = !DAT_011f1228;
     if (DAT_0126fd98.bDebug)
-        FUN_00703c00("AI Processing for actors in high is  %s", DAT_011f1228 ? "On" : "Off");
+        PrintToConsole("AI Processing for actors in high is  %s", DAT_011f1228 ? "On" : "Off");
     if (!DAT_011f1228)
         DAT_011e0e80.FUN_00971ba0();
     return true;
@@ -28721,7 +28721,7 @@ extern bool DAT_011f122c;
 extern const char DAT_010399b8[];
 extern const char DAT_010399bc[];
 extern const char DAT_0103a094[];
-void __cdecl FUN_00703c00(const char* format, const char* value);
+void __cdecl PrintToConsole(const char* format, const char* value);
 
 // @fnv 0x005bc580
 bool __cdecl FUN_005bc580()
@@ -28730,7 +28730,7 @@ bool __cdecl FUN_005bc580()
 
     if (tlsData.bConsoleEcho)
     {
-        FUN_00703c00(DAT_0103a094,
+        PrintToConsole(DAT_0103a094,
                       DAT_011f122c ? DAT_010399bc : DAT_010399b8);
     }
     return true;
@@ -29200,9 +29200,9 @@ struct ModeCell {
 struct CellHandle { ModeCell* FUN_005875a0(); };
 struct ModeManager {
     bool FUN_00552bb0();
-    void FUN_006a36e0(bool enabled);
-    void FUN_006a5ee0(bool enabled);
-    void FUN_006a37a0(ModeCell* cell, bool enabled);
+    void SetDraw(bool enabled);
+    void SetTransparentOverLayMode(bool enabled);
+    void AddDrawOnlyNavMeshes(ModeCell* cell, bool enabled);
 };
 ModeManager* FUN_00552ba0();
 struct CellWorld { ModeCell* FUN_00457070(); };
@@ -29230,7 +29230,7 @@ bool __cdecl FUN_005bcfe0(const ScriptParameter* parameters, const char* scriptD
         DAT_011d6e28 = !DAT_011d6e28;
         if (bActive) {
             uiMode = DAT_011d6e24;
-            FUN_00552ba0()->FUN_006a36e0(false);
+            FUN_00552ba0()->SetDraw(false);
             bActive = false;
         } else {
             uiMode = 0;
@@ -29240,7 +29240,7 @@ bool __cdecl FUN_005bcfe0(const ScriptParameter* parameters, const char* scriptD
         DAT_011d6e29 = !DAT_011d6e29;
         if (bActive) {
             uiMode = DAT_011d6e24;
-            FUN_00552ba0()->FUN_006a36e0(false);
+            FUN_00552ba0()->SetDraw(false);
             bActive = false;
         }
         uiMode = 3;
@@ -29248,9 +29248,9 @@ bool __cdecl FUN_005bcfe0(const ScriptParameter* parameters, const char* scriptD
     if (uiMode != 0) {
         DAT_011d6ec4 = true;
         if (uiMode == 2)
-            FUN_00552ba0()->FUN_006a5ee0(true);
+            FUN_00552ba0()->SetTransparentOverLayMode(true);
         else if (uiMode == 1 || uiMode == 3)
-            FUN_00552ba0()->FUN_006a5ee0(false);
+            FUN_00552ba0()->SetTransparentOverLayMode(false);
         DAT_011d6e24 = uiMode;
         if (!bActive) {
             ModeCell* cell = ((CellWorld*)DAT_011dea10)->FUN_00457070();
@@ -29260,18 +29260,18 @@ bool __cdecl FUN_005bcfe0(const ScriptParameter* parameters, const char* scriptD
                     for (int x = cell->FUN_00544c30() - radius; x <= cell->FUN_00544c30() + radius; ++x) {
                         for (int y = cell->FUN_00544c60() - radius; y <= cell->FUN_00544c60() + radius; ++y) {
                             ModeCell* nearby = cell->FUN_0054ddd0(x, y)->FUN_005875a0();
-                            FUN_00552ba0()->FUN_006a37a0(nearby, false);
+                            FUN_00552ba0()->AddDrawOnlyNavMeshes(nearby, false);
                         }
                     }
                 } else {
-                    FUN_00552ba0()->FUN_006a37a0(cell, false);
+                    FUN_00552ba0()->AddDrawOnlyNavMeshes(cell, false);
                 }
             }
-            FUN_00552ba0()->FUN_006a36e0(true);
+            FUN_00552ba0()->SetDraw(true);
         }
     } else {
         DAT_011d6ec4 = false;
-        FUN_00552ba0()->FUN_006a36e0(false);
+        FUN_00552ba0()->SetDraw(false);
     }
     return true;
 }
@@ -29314,7 +29314,7 @@ bool FUN_005bd410(void* p1,void* p2,void* p3,void* p4,void* p5,void* p6,void* p7
 
 namespace fnv_005bd5e0 {
 extern "C" bool __cdecl FUN_005accb0(int,int,int,int,int,int,int,void*);
-extern void __cdecl FUN_00703da0();
+extern void __cdecl CloseConsole();
 struct Player5bd { void __thiscall CenterOnCell(void* cell, int flag); };
 extern Player5bd* g_thePlayer;
 // @fnv 0x005bd5e0
@@ -29322,7 +29322,7 @@ bool __cdecl FUN_005bd5e0(int a,int b,int c,int d,int e,int f,int unusedArg,int 
     char cellText[0x200];
     if (!FUN_005accb0(a,b,h,c,d,e,f,cellText))
         return false;
-    FUN_00703da0();
+    CloseConsole();
     g_thePlayer->CenterOnCell(cellText,0);
     return true;
 }
@@ -29941,7 +29941,7 @@ public:
 extern bool __cdecl ExtractArgs(const ScriptParameter*, const char*, unsigned int*, TESObjectREFR*, TESObjectREFR*, Script*, ScriptLocals*, ...);
 extern bool __cdecl FUN_00406d70(unsigned int, unsigned int);
 extern const char* __cdecl FUN_0066eac0(unsigned int);
-extern void __cdecl FUN_00703c00(const char*, const char*);
+extern void __cdecl PrintToConsole(const char*, const char*);
 extern const char DAT_0103a310[];
 typedef void (__thiscall *ActorValueChange)(Actor*, unsigned int, float, int);
 // @fnv 0x005be190
@@ -29957,7 +29957,7 @@ bool __cdecl FUN_005be190(const ScriptParameter* parameters, const char* compile
             float amount = (float)((double)newValue - (double)(reinterpret_cast<ActorValueOwner*>((char*)pActor + 0xa4))->GetValue(actorValue));
             ((ActorValueChange)(*(void***)pActor)[0x3a4 / 4])(pActor, actorValue, amount, 0);
         } else if (g_tls.bDebug) {
-            FUN_00703c00(DAT_0103a310, FUN_0066eac0(actorValue));
+            PrintToConsole(DAT_0103a310, FUN_0066eac0(actorValue));
         }
     }
     return true;
@@ -33229,7 +33229,7 @@ struct List5c3bf0 {
     ListNode5c3bf0* FUN_00455600();
 };
 extern List5c3bf0* DAT_011c3f2c;
-void FUN_00703c00(const char* fmt, ...);
+void PrintToConsole(const char* fmt, ...);
 
 // @fnv 0x005c3bf0
 bool FUN_005c3bf0()
@@ -33239,7 +33239,7 @@ bool FUN_005c3bf0()
         Obj5c3bf0* obj = *node->FUN_006815c0();
         node = node->FUN_00726070();
         if (obj) {
-            FUN_00703c00("%s (%s) -- Stage %d", obj->GetName(), obj->FUN_00455620() ? "On" : "Off", obj->FUN_0060d700());
+            PrintToConsole("%s (%s) -- Stage %d", obj->GetName(), obj->FUN_00455620() ? "On" : "Off", obj->FUN_0060d700());
         }
     }
     return true;
@@ -35688,7 +35688,7 @@ virtual void slot220();
 virtual void slot224();
 virtual void slot228();
 virtual bool Busy(int);
-void FUN_00934250();Process* FUN_008d8520();int FUN_00931850();void FUN_0057bd60(Actor*);bool FUN_0087f3d0();int FUN_004f8960();void* FUN_005d43c0();Actor* FUN_005e3fa0();void FUN_0057ad20(Idle*);void FUN_0057ace0(unsigned int);unsigned int FUN_0084e3a0();};
+void FUN_00934250();Process* FUN_008d8520();int FUN_00931850();void FUN_0057bd60(Actor*);bool GetEssential();int FUN_004f8960();void* FUN_005d43c0();Actor* FUN_005e3fa0();void FUN_0057ad20(Idle*);void FUN_0057ace0(unsigned int);unsigned int FUN_0084e3a0();};
 struct Process {
 virtual void slot0();
 virtual void slot4();
@@ -36107,7 +36107,7 @@ int savedSlot16=*DAT_011cd378.FUN_0043d4d0();DAT_011cd378.FUN_0045ce80(0x7ffffff
 if(actor && target){actor->FUN_00934250();if(actor->FUN_008d8520() && !actor->Busy(1) && target->FUN_008d8520()){
 actor->FUN_008d8520()->Reset(0);actor->FUN_008d8520()->Clear();
 if(!actor->FUN_00931850()){if(!optionSlot33){target->FUN_008d8520()->Flag(0);target->FUN_008d8520()->Target(actor);target->FUN_0057bd60(actor);}actor->FUN_008d8520()->Flag(0);actor->FUN_008d8520()->Target(target);}
-if(DAT_011dea3c->FUN_0094df60() || actor->FUN_008d8520()->FUN_0045cd60() || (actor->FUN_0087f3d0() && actor->FUN_004f8960()==6)){
+if(DAT_011dea3c->FUN_0094df60() || actor->FUN_008d8520()->FUN_0045cd60() || (actor->GetEssential() && actor->FUN_004f8960()==6)){
 Event* event=idleSlot10->FUN_0061b320(actor,target,0,0,1);if(event){event->FUN_0083c7b0();int old=event->FUN_0083c820();event->FUN_0083c850(0);event->FUN_0083c850(1);FUN_005ac750(idleSlot10,actor->FUN_005d43c0(),0x40000);delete event;}}
 else{actor->FUN_0057bd60(target);actor->FUN_008d8520()->Start(actor,idleSlot10,enabledSlot10,0,1,1);}
 }}
@@ -39543,16 +39543,16 @@ virtual void v220();
 virtual void v224();
 virtual void v228();
 virtual bool v22c(int);
-Process* FUN_008d8520(); void FUN_0088d640(); Cell* FUN_008d6f30(); World* FUN_00575d70(); const Point& FUN_00430830();
-void FUN_0093be30(MoveRequest*); void FUN_00575830(Point*); void FUN_005757d0(float); void FUN_00575770(float); Matrix FUN_0056fa00();
-Motion* FUN_009306d0(); void FUN_008b3ab0(); void FUN_008bcd20(); void FUN_008c4640(); void FUN_00952c30(Reference*);
+Process* FUN_008d8520(); void GetOutofFurnitureQuick(); Cell* FUN_008d6f30(); World* FUN_00575d70(); const Point& FUN_00430830();
+void RequestPositionPlayer(MoveRequest*); void FUN_00575830(Point*); void FUN_005757d0(float); void FUN_00575770(float); Matrix FUN_0056fa00();
+Motion* GetCharController(); void FUN_008b3ab0(); void FUN_008bcd20(); void FUN_008c4640(); void FUN_00952c30(Reference*);
 };
 extern Reference* DAT_011dea3c;
 struct ActorManager { void FUN_00972840(Reference*,int); };
 extern ActorManager DAT_011e0e80;
 struct WorldManager { bool FUN_004511e0(Cell*,int); };
 extern WorldManager* DAT_011dea10;
-void __cdecl FUN_00703da0();
+void __cdecl CloseConsole();
 void __cdecl FUN_00573800(Reference*,Cell*,World*);
 void __cdecl FUN_005b5e40(const char*);
 // @fnv 0x005ccb20
@@ -39564,7 +39564,7 @@ void __cdecl FUN_005ccb20(Reference* moved,Reference* destination,float dx,float
      Reference* source=moved;
      DAT_011e0e80.FUN_00972840(source,0);
      Process* process=source->FUN_008d8520();
-     if(process && process->v4bc()) source->FUN_0088d640();
+     if(process && process->v4bc()) source->GetOutofFurnitureQuick();
    }
    Cell* cellSlot7=destination->FUN_008d6f30();
    World* worldSlot0=destination->FUN_00575d70();
@@ -39580,8 +39580,8 @@ void __cdecl FUN_005ccb20(Reference* moved,Reference* destination,float dx,float
      if(worldSlot0) request->world=worldSlot0;
      else if(cellSlot7 && cellSlot7->FUN_00425fd0()) request->cell=cellSlot7;
      request->destination=destination;
-     DAT_011dea3c->FUN_0093be30(request);
-     FUN_00703da0();
+     DAT_011dea3c->RequestPositionPlayer(request);
+     CloseConsole();
    } else {
      bool movable=moved->v0fc();
      moved->FUN_00575830(&positionSlot4);
@@ -39601,7 +39601,7 @@ void __cdecl FUN_005ccb20(Reference* moved,Reference* destination,float dx,float
      if(moved->FUN_008d6f30() && DAT_011dea10->FUN_004511e0(moved->FUN_008d6f30(),0)) moved->v1c4();
      if(movable) {
        Reference* mobile2=moved;
-       Motion* motion=mobile2->FUN_009306d0();
+       Motion* motion=mobile2->GetCharController();
        if(motion) motion->FUN_005620e0(&positionSlot4);
      }
      if(actorSlot46) {
@@ -39652,17 +39652,17 @@ struct RefCD {
     bool FUN_00572c80();
     unsigned FUN_0084e3a0();
 };
-struct ProcCD { void FUN_008fe9e0(RefCD*, int, float, float, float); };
+struct ProcCD { void FadeOutAndMove(RefCD*, int, float, float, float); };
 struct ActorCD : RefCD { ProcCD* FUN_008d8520(); void* FUN_00931850(); };
 struct ManagerCD { bool FUN_00469860(unsigned); };
 struct SettingCD { int* FUN_0043d4d0(); };
 struct TLSCD { char pad[0x268]; bool logging; };
 extern "C" __declspec(thread) TLSCD tlsCD;
 extern bool FUN_005accb0(void*, void*, void*, RefCD*, RefCD*, RefCD*, void*, int*, float*, float*, float*);
-extern void FUN_00703c00(const char*, ...);
+extern void PrintToConsole(const char*, ...);
 extern void FUN_005b5e40(const char*, ...);
 extern void* FUN_004537b0();
-extern void FUN_0087a8b0(void*, int, RefCD*, ...);
+extern void QueueScriptFunctionCall(void*, int, RefCD*, ...);
 extern void FUN_005ccb20(RefCD*, int, float, float, float);
 struct CmdCD { static bool FUN_005cd0e0(void*, void*, RefCD*, RefCD*, RefCD*, void*, void*, void*); };
 // @fnv 0x005cd0e0
@@ -39674,21 +39674,21 @@ bool CmdCD::FUN_005cd0e0(void* p1, void* p2, RefCD* p3, RefCD* p4, RefCD* p5, vo
     if (!FUN_005accb0(p1,p2,p8,p3,p4,p5,p6,&p,&h,&a,&i)) return false;
     if (p3 && !p3->FUN_00572c80()) {
         if (tlsCD.logging)
-            FUN_00703c00(&DAT_0103a598,p3->v76());
+            PrintToConsole(&DAT_0103a598,p3->v76());
         if (!(*(ManagerCD**)&DAT_011c3f2c)->FUN_00469860(p5->FUN_0084e3a0()))
             FUN_005b5e40(&DAT_0103a538,p5->v76(),p5->FUN_0084e3a0(),p3->v76(),p3->FUN_0084e3a0());
         return true;
     }
     if (p) {
         if (*((SettingCD*)&DAT_011c3ea4)->FUN_0043d4d0() > 1) {
-            FUN_0087a8b0(FUN_004537b0(),0x124f,p3,p,h,a,i);
+            QueueScriptFunctionCall(FUN_004537b0(),0x124f,p3,p,h,a,i);
         } else {
             if (p3->v64()) {
                 ActorCD* actor = (ActorCD*)p3;
                 if (actor->FUN_008d8520()) {
                     if (!actor->FUN_00931850()) {
                         ProcCD* process = actor->FUN_008d8520();
-                        process->FUN_008fe9e0(actor,p,h,a,i);
+                        process->FadeOutAndMove(actor,p,h,a,i);
                     } else {
                         FUN_005ccb20(p3,p,h,a,i);
                     }
@@ -40021,7 +40021,7 @@ struct ValueContext {
     int FUN_0084e3a0();
 };
 extern void __cdecl FUN_005acc70(int* value, double* result);
-extern void __cdecl FUN_00703c00(const char* label, int value);
+extern void __cdecl PrintToConsole(const char* label, int value);
 extern char DAT_0103b76c;
 typedef ValueContext* (__thiscall *ActorContextMethod)(Actor*);
 // @fnv 0x005ce480
@@ -40038,7 +40038,7 @@ bool __cdecl FUN_005ce480(const ScriptParameter* parameters, const char* compile
         }
     }
     if (tlsData.bConsoleEcho)
-        FUN_00703c00(&DAT_0103b76c, value);
+        PrintToConsole(&DAT_0103b76c, value);
     return true;
 }
 
@@ -40751,7 +40751,7 @@ struct FUN_0081c720 {
  FUN_0081c720(EffectReference*,void*,float);
 };
 struct EffectManager { void FUN_00973fd0(FUN_0081c720*); };
-struct EffectInstance { void FUN_00689920(const char*); };
+struct EffectInstance { void PlaySequence(const char*); };
 bool __cdecl FUN_005accb0(const ScriptParameter*, const char*, unsigned int*, EffectReference*, TESObjectREFR*, Script*, ScriptLocals*, EffectDefinition**, float*);
 float FUN_005b9e80(float);
 float FUN_005c53d0(float);
@@ -40772,10 +40772,10 @@ bool FUN_005d1dc0(const ScriptParameter* parameters, const char* scriptData, Eff
   EffectVector direction;
   direction.FUN_00416870(-FUN_005c53d0(-instance.z),FUN_005b9e80(-instance.z),0.0f);
   EffectInstance* position = FUN_006890b0(reference->FUN_008d6f30(),1.0f,applied->model.v5(),direction,angles,1.0f,7,0);
-  position->FUN_00689920("SpecialIdle_HitEffect");
+  position->PlaySequence("SpecialIdle_HitEffect");
   if (g_tlsDebug.flag) {
-   if (reference->FUN_0055d520()) FUN_00703c00("Visual effect has been applied to %s",reference->FUN_0055d520());
-   else FUN_00703c00("Visual effect has been applied to reference");
+   if (reference->FUN_0055d520()) PrintToConsole("Visual effect has been applied to %s",reference->FUN_0055d520());
+   else PrintToConsole("Visual effect has been applied to reference");
   }
   return true;
  }
@@ -40784,14 +40784,14 @@ bool FUN_005d1dc0(const ScriptParameter* parameters, const char* scriptData, Eff
  if (effect && effect->v49()) {
   ((EffectManager*)&DAT_011e0e80)->FUN_00973fd0(effect);
   if (g_tlsDebug.flag) {
-   if (reference->FUN_0055d520()) FUN_00703c00("Visual effect has been applied to %s",reference->FUN_0055d520());
-   else FUN_00703c00("Visual effect has been applied to reference");
+   if (reference->FUN_0055d520()) PrintToConsole("Visual effect has been applied to %s",reference->FUN_0055d520());
+   else PrintToConsole("Visual effect has been applied to reference");
   }
  } else {
   delete effect;
   if (g_tlsDebug.flag) {
-   if (reference->FUN_0055d520()) FUN_00703c00("Visual effect initialization failed for %s",reference->FUN_0055d520());
-   else FUN_00703c00("Visual effect initialization failed for reference");
+   if (reference->FUN_0055d520()) PrintToConsole("Visual effect initialization failed for %s",reference->FUN_0055d520());
+   else PrintToConsole("Visual effect initialization failed for reference");
   }
  }
  return true;
@@ -40822,13 +40822,13 @@ bool __cdecl FUN_005d28b0(const ScriptParameter* apParameters, const char* apCom
 {
     bool bResult = FUN_005a3670(apThisObject, 0, 0, apResult);
     if (tlsData.bConsoleEcho)
-        static_cast<void (__cdecl*)(const char*, ...)>(FUN_00703c00)("Is actor riding horse >> %0.2f", *apResult);
+        static_cast<void (__cdecl*)(const char*, ...)>(PrintToConsole)("Is actor riding horse >> %0.2f", *apResult);
     return bResult;
 }
 
 namespace fnv_005d2910 {
 extern "C" bool __cdecl FUN_005a2a50(void*, int, int, double*);
-extern "C" void __cdecl FUN_00703c00(const char*, ...);
+extern "C" void __cdecl PrintToConsole(const char*, ...);
 extern const char DAT_0103bed4[];
 extern __declspec(thread) unsigned char g_debugLoggingFlag;
 
@@ -40837,7 +40837,7 @@ extern "C" bool __cdecl FUN_005d2910(void* first, void* second, void* condition,
 {
     bool success = FUN_005a2a50(condition, 0, 0, result);
     if (g_debugLoggingFlag) {
-        FUN_00703c00(DAT_0103bed4, *result);
+        PrintToConsole(DAT_0103bed4, *result);
     }
     return success;
 }
@@ -40973,7 +40973,7 @@ extern unsigned char DAT_011c7a65;
 
 bool __cdecl FUN_005accb0(const ScriptParameter*, const char*, unsigned int*, TESObjectREFR*, TESObjectREFR*, Script*, ScriptLocals*, char*, float*);
 int __cdecl FUN_00404dc0(const char*, const char*);
-void __cdecl FUN_00703c00(const char*, ...);
+void __cdecl PrintToConsole(const char*, ...);
 void __cdecl FUN_0049c860(void*);
 bool __cdecl FUN_005d2a40();
 void __cdecl FUN_00406d00(char*, unsigned int, const char*, ...);
@@ -40984,12 +40984,12 @@ extern "C" __declspec(dllimport) int __stdcall QueryPerformanceFrequency(long lo
 // @fnv 0x005d2a80
 bool __cdecl FUN_005d2a80(const ScriptParameter* parameters, const char* scriptData, TESObjectREFR* thisObject, TESObjectREFR* container, Script* script, ScriptLocals* locals, double& result, unsigned int& opcodeOffset)
 {
-    extern void __cdecl FUN_00703c00(const char*, ...);
+    extern void __cdecl PrintToConsole(const char*, ...);
     WaterObj* p;
     float value = 0.0f;
     char buf[512];
     if (!FUN_005accb0(parameters, scriptData, &opcodeOffset, thisObject, container, script, locals, buf, &value)) {
-        FUN_00703c00("reflectamt, fresnel, opacity, speed, noise, reflect, refract, lod");
+        PrintToConsole("reflectamt, fresnel, opacity, speed, noise, reflect, refract, lod");
         return false;
     }
     p = 0;
@@ -41007,68 +41007,68 @@ bool __cdecl FUN_005d2a80(const ScriptParameter* parameters, const char* scriptD
         if (value >= 0.0f && value <= 1.0f) {
             if (p) {
                 p->fbc = value;
-                FUN_00703c00("set water reflectivity amount to %f", (double)value);
+                PrintToConsole("set water reflectivity amount to %f", (double)value);
                 p->f7f = 0;
             } else {
                 DAT_011ff3ec = value;
-                FUN_00703c00("set water reflectivity amount to %f", (double)value);
+                PrintToConsole("set water reflectivity amount to %f", (double)value);
                 DAT_011c7a65 = 1;
             }
         } else {
-            FUN_00703c00("usage : mws reflectamt (0.0 - 1.0)", (double)value);
+            PrintToConsole("usage : mws reflectamt (0.0 - 1.0)", (double)value);
         }
     } else if (!FUN_00404dc0(buf, "distort")) {
         if (p) {
             p->fc4 = value;
-            FUN_00703c00("set water distortion amount to %f", (double)value);
+            PrintToConsole("set water distortion amount to %f", (double)value);
             p->f7f = 0;
         } else {
             DAT_011ff3f4 = value;
-            FUN_00703c00("set water distortion amount to %f", (double)value);
+            PrintToConsole("set water distortion amount to %f", (double)value);
             DAT_011c7a65 = 1;
         }
     } else if (!FUN_00404dc0(buf, "fresnel")) {
         if (value >= 0.0f && value <= 1.0f) {
             if (p) {
                 p->f118 = value;
-                FUN_00703c00("set fresnel term to %f", (double)value);
+                PrintToConsole("set fresnel term to %f", (double)value);
                 p->f7f = 0;
             } else {
                 DAT_011ff10c = value;
-                FUN_00703c00("set fresnel term to %f", (double)value);
+                PrintToConsole("set fresnel term to %f", (double)value);
                 DAT_011c7a65 = 1;
             }
         } else {
-            FUN_00703c00("usage : mws fresnel (0.0 - 1.0)", (double)value);
+            PrintToConsole("usage : mws fresnel (0.0 - 1.0)", (double)value);
         }
     } else if (!FUN_00404dc0(buf, "opacity")) {
         if (value >= 0.0f && value <= 100.0f) {
             if (p) {
                 p->fc0 = value / 100.0f;
-                FUN_00703c00("set water opacity to %d", (int)value);
+                PrintToConsole("set water opacity to %d", (int)value);
                 p->f7f = 0;
             } else {
                 DAT_011ff3f0 = value / 100.0f;
-                FUN_00703c00("set water opacity to %d", (int)value);
+                PrintToConsole("set water opacity to %d", (int)value);
                 DAT_011c7a65 = 1;
             }
         } else {
-            FUN_00703c00("usage : mws opacity (0.0 - 100.0)", (double)value);
+            PrintToConsole("usage : mws opacity (0.0 - 100.0)", (double)value);
         }
     } else if (!FUN_00404dc0(buf, "blend")) {
     } else if (!FUN_00404dc0(buf, "noise")) {
         if (value >= 0.0f && value <= 100.0f) {
             if (p) {
                 p->f11c = value;
-                FUN_00703c00("set noise scale to %f", (double)value);
+                PrintToConsole("set noise scale to %f", (double)value);
                 p->f7f = 0;
             } else {
                 DAT_011ffe48 = value;
-                FUN_00703c00("set noise to %f", (double)value);
+                PrintToConsole("set noise to %f", (double)value);
                 DAT_011c7a65 = 1;
             }
         } else {
-            FUN_00703c00("usage : mws noise (0.0 - 100.0)", (double)value);
+            PrintToConsole("usage : mws noise (0.0 - 100.0)", (double)value);
         }
     } else if (!FUN_00404dc0(buf, "off")) {
         if (p) {
@@ -41120,65 +41120,65 @@ bool __cdecl FUN_005d2a80(const ScriptParameter* parameters, const char* scriptD
         if (p) {
             if (p->f80) {
                 p->f80 = 0;
-                FUN_00703c00("Toggle Reflections : OFF");
+                PrintToConsole("Toggle Reflections : OFF");
             } else {
                 p->f80 = 1;
-                FUN_00703c00("Toggle Reflections : ON");
+                PrintToConsole("Toggle Reflections : ON");
             }
         } else {
             if (*DAT_011c7b6c.FUN_00408d60()) {
                 DAT_011c7b6c.FUN_004de2d0(0);
-                FUN_00703c00("Toggle Global Water Reflections : OFF");
+                PrintToConsole("Toggle Global Water Reflections : OFF");
             } else {
                 DAT_011c7b6c.FUN_004de2d0(1);
-                FUN_00703c00("Toggle Global Water Reflections : ON");
+                PrintToConsole("Toggle Global Water Reflections : ON");
             }
         }
     } else if (!FUN_00404dc0(buf, "refract")) {
         if (p) {
             if (p->f81) {
                 p->f81 = 0;
-                FUN_00703c00("Toggle Refractions : OFF");
+                PrintToConsole("Toggle Refractions : OFF");
             } else {
                 p->f80 = 1;
-                FUN_00703c00("Toggle Refractions : ON");
+                PrintToConsole("Toggle Refractions : ON");
             }
         } else {
             if (*DAT_011c7c60.FUN_00408d60()) {
                 DAT_011c7c60.FUN_004de2d0(0);
-                FUN_00703c00("Toggle Global Water Refractions : OFF");
+                PrintToConsole("Toggle Global Water Refractions : OFF");
             } else {
                 DAT_011c7c60.FUN_004de2d0(1);
-                FUN_00703c00("Toggle Global Water Refractions : ON");
+                PrintToConsole("Toggle Global Water Refractions : ON");
             }
         }
     } else if (!FUN_00404dc0(buf, "depth")) {
         if (p) {
             if (p->f63) {
                 p->f63 = 0;
-                FUN_00703c00("Toggle Depth : OFF");
+                PrintToConsole("Toggle Depth : OFF");
             } else {
                 p->f63 = 1;
-                FUN_00703c00("Toggle Depth : ON");
+                PrintToConsole("Toggle Depth : ON");
             }
         } else {
             if (*DAT_011c7bbc.FUN_00408d60()) {
                 DAT_011c7bbc.FUN_004de2d0(0);
-                FUN_00703c00("Toggle Global Water Depth : OFF");
+                PrintToConsole("Toggle Global Water Depth : OFF");
             } else {
                 DAT_011c7bbc.FUN_004de2d0(1);
-                FUN_00703c00("Toggle Global Water Depth : ON");
+                PrintToConsole("Toggle Global Water Depth : ON");
             }
         }
     } else if (!FUN_00404dc0(buf, "fog")) {
         if (value >= 0.0f && value <= 100.0f) {
             if (p) {
                 p->f120 = value / 100.0f;
-                FUN_00703c00("set fog amount to %d", (int)value);
+                PrintToConsole("set fog amount to %d", (int)value);
                 p->f7f = 0;
             } else {
                 DAT_011ff414 = value / 100.0f;
-                FUN_00703c00("set fog amount to %d", (int)value);
+                PrintToConsole("set fog amount to %d", (int)value);
                 DAT_011c7a65 = 1;
             }
         }
@@ -41186,7 +41186,7 @@ bool __cdecl FUN_005d2a80(const ScriptParameter* parameters, const char* scriptD
         if (((Host5d*)DAT_011dea10)->FUN_0070ec90()) {
             ((Host5d*)DAT_011dea10)->FUN_0070ec90()->FUN_004e6370(1, 1, 1);
         }
-        FUN_00703c00("Toggle LOD Water");
+        PrintToConsole("Toggle LOD Water");
     } else if (!FUN_00404dc0(buf, "autowater")) {
         double secondsPerTick = 1000.0;
         long long freq;
@@ -41393,7 +41393,7 @@ namespace s5d4a50 {
 extern __declspec(thread) bool tls_bEchoConsole;
 
 void FUN_005a3980(void* pvRef, int iArg0, int iArg1, double* pdResult);
-void FUN_00703c00(const char* pcFormat, ...);
+void PrintToConsole(const char* pcFormat, ...);
 
 static const char s_szIsEssentialFormat[] = "IsEssential >> %0.2f";
 
@@ -41403,7 +41403,7 @@ bool FUN_005d4a50(void* pvParamInfo, void* pvScriptData, void* pvThisObj, void* 
 {
     FUN_005a3980(pvThisObj, 0, 0, pdResult);
     if (tls_bEchoConsole)
-        FUN_00703c00(s_szIsEssentialFormat, *pdResult);
+        PrintToConsole(s_szIsEssentialFormat, *pdResult);
     return true;
 }
 
@@ -41968,8 +41968,8 @@ unsigned int __cdecl FUN_00ec6130(const char* str);
 
 int __cdecl FUN_00404dc0(const char* a, const char* b);
 
-void __cdecl FUN_00703c00(const char* format, ...);
-void __cdecl FUN_00703c00(const char* format, double val);
+void __cdecl PrintToConsole(const char* format, ...);
+void __cdecl PrintToConsole(const char* format, double val);
 
 // @fnv 0x005d5850
 bool __cdecl FUN_005d5850(const ScriptParameter* apParameters, const char* apCompiledParams, TESObjectREFR* apRefObject, TESObjectREFR* apContainer, Script* apScript, ScriptLocals* apScriptLocals, double& afReturnValue, unsigned int& auiOffset)
@@ -42056,7 +42056,7 @@ bool __cdecl FUN_005d5850(const ScriptParameter* apParameters, const char* apCom
 
         if (reinterpret_cast<const unsigned char*>(&tls_005d5850)[0x268])
 
-            FUN_00703c00(DAT_0103cad4, anyOn ? DAT_010399b8 : DAT_010399bc);
+            PrintToConsole(DAT_0103cad4, anyOn ? DAT_010399b8 : DAT_010399bc);
 
     } else if (!FUN_00404dc0(name, DAT_0103cacc)) {
 
@@ -42064,7 +42064,7 @@ bool __cdecl FUN_005d5850(const ScriptParameter* apParameters, const char* apCom
 
         if (reinterpret_cast<const unsigned char*>(&tls_005d5850)[0x268])
 
-            FUN_00703c00(DAT_0103ca9c, *DAT_011f1680.FUN_00408d60() ? DAT_010399bc : DAT_010399b8);
+            PrintToConsole(DAT_0103ca9c, *DAT_011f1680.FUN_00408d60() ? DAT_010399bc : DAT_010399b8);
 
     } else if (!FUN_00404dc0(name, DAT_0103ca90)) {
 
@@ -42072,7 +42072,7 @@ bool __cdecl FUN_005d5850(const ScriptParameter* apParameters, const char* apCom
 
         if (reinterpret_cast<const unsigned char*>(&tls_005d5850)[0x268])
 
-            FUN_00703c00(DAT_0103ca60, *DAT_011f16c0.FUN_00408d60() ? DAT_010399bc : DAT_010399b8);
+            PrintToConsole(DAT_0103ca60, *DAT_011f16c0.FUN_00408d60() ? DAT_010399bc : DAT_010399b8);
 
     } else if (!FUN_00404dc0(name, DAT_0103ca58) || !FUN_00404dc0(name, DAT_0103ca4c)) {
 
@@ -42080,7 +42080,7 @@ bool __cdecl FUN_005d5850(const ScriptParameter* apParameters, const char* apCom
 
         if (reinterpret_cast<const unsigned char*>(&tls_005d5850)[0x268])
 
-            FUN_00703c00(DAT_0103ca24, *DAT_011f1674.FUN_00408d60() ? DAT_010399bc : DAT_010399b8);
+            PrintToConsole(DAT_0103ca24, *DAT_011f1674.FUN_00408d60() ? DAT_010399bc : DAT_010399b8);
 
     } else if (!FUN_00404dc0(name, DAT_0103ca18) || !FUN_00404dc0(name, DAT_0103ca08)) {
 
@@ -42088,7 +42088,7 @@ bool __cdecl FUN_005d5850(const ScriptParameter* apParameters, const char* apCom
 
         if (reinterpret_cast<const unsigned char*>(&tls_005d5850)[0x268])
 
-            FUN_00703c00(DAT_0103c9dc, *DAT_011f16e0.FUN_00408d60() ? DAT_010399bc : DAT_010399b8);
+            PrintToConsole(DAT_0103c9dc, *DAT_011f16e0.FUN_00408d60() ? DAT_010399bc : DAT_010399b8);
 
     } else if (!FUN_00404dc0(name, DAT_0103c9d4) || !FUN_00404dc0(name, DAT_0103c9c4)) {
 
@@ -42096,7 +42096,7 @@ bool __cdecl FUN_005d5850(const ScriptParameter* apParameters, const char* apCom
 
         if (reinterpret_cast<const unsigned char*>(&tls_005d5850)[0x268])
 
-            FUN_00703c00(DAT_0103c990, *DAT_011f168c.FUN_00408d60() ? DAT_010399bc : DAT_010399b8);
+            PrintToConsole(DAT_0103c990, *DAT_011f168c.FUN_00408d60() ? DAT_010399bc : DAT_010399b8);
 
     } else if (!FUN_00404dc0(name, DAT_0103c988)) {
 
@@ -42104,7 +42104,7 @@ bool __cdecl FUN_005d5850(const ScriptParameter* apParameters, const char* apCom
 
         if (reinterpret_cast<const unsigned char*>(&tls_005d5850)[0x268])
 
-            FUN_00703c00(DAT_0103c964, *DAT_011f1ba0.FUN_00408d60() ? DAT_010399bc : DAT_010399b8);
+            PrintToConsole(DAT_0103c964, *DAT_011f1ba0.FUN_00408d60() ? DAT_010399bc : DAT_010399b8);
 
     } else if (!FUN_00404dc0(name, DAT_0103c95c)) {
 
@@ -42112,7 +42112,7 @@ bool __cdecl FUN_005d5850(const ScriptParameter* apParameters, const char* apCom
 
         if (reinterpret_cast<const unsigned char*>(&tls_005d5850)[0x268])
 
-            FUN_00703c00(DAT_0103c938, *DAT_011f1878.FUN_00408d60() ? DAT_010399bc : DAT_010399b8);
+            PrintToConsole(DAT_0103c938, *DAT_011f1878.FUN_00408d60() ? DAT_010399bc : DAT_010399b8);
 
     } else if (!FUN_00404dc0(name, DAT_0103c930)) {
 
@@ -42120,7 +42120,7 @@ bool __cdecl FUN_005d5850(const ScriptParameter* apParameters, const char* apCom
 
         if (reinterpret_cast<const unsigned char*>(&tls_005d5850)[0x268])
 
-            FUN_00703c00(DAT_0103c90c, *DAT_011f1858.FUN_00408d60() ? DAT_010399bc : DAT_010399b8);
+            PrintToConsole(DAT_0103c90c, *DAT_011f1858.FUN_00408d60() ? DAT_010399bc : DAT_010399b8);
 
     } else if (!FUN_00404dc0(name, DAT_0103c904)) {
 
@@ -42128,7 +42128,7 @@ bool __cdecl FUN_005d5850(const ScriptParameter* apParameters, const char* apCom
 
         if (reinterpret_cast<const unsigned char*>(&tls_005d5850)[0x268])
 
-            FUN_00703c00(DAT_0103c8e0, *DAT_011f1b24.FUN_00408d60() ? DAT_010399bc : DAT_010399b8);
+            PrintToConsole(DAT_0103c8e0, *DAT_011f1b24.FUN_00408d60() ? DAT_010399bc : DAT_010399b8);
 
     } else if (!FUN_00404dc0(name, DAT_0103c8d8)) {
 
@@ -42136,7 +42136,7 @@ bool __cdecl FUN_005d5850(const ScriptParameter* apParameters, const char* apCom
 
         if (reinterpret_cast<const unsigned char*>(&tls_005d5850)[0x268])
 
-            FUN_00703c00(DAT_0103c8b4, *DAT_011f1814.FUN_00408d60() ? DAT_010399bc : DAT_010399b8);
+            PrintToConsole(DAT_0103c8b4, *DAT_011f1814.FUN_00408d60() ? DAT_010399bc : DAT_010399b8);
 
     } else if (!FUN_00404dc0(name, DAT_0103c8ac)) {
 
@@ -42144,7 +42144,7 @@ bool __cdecl FUN_005d5850(const ScriptParameter* apParameters, const char* apCom
 
         if (reinterpret_cast<const unsigned char*>(&tls_005d5850)[0x268])
 
-            FUN_00703c00(DAT_0103c884, *DAT_011f15b0.FUN_00408d60() ? DAT_010399bc : DAT_010399b8);
+            PrintToConsole(DAT_0103c884, *DAT_011f15b0.FUN_00408d60() ? DAT_010399bc : DAT_010399b8);
 
     } else if (!FUN_00404dc0(name, DAT_0103c87c) || !FUN_00404dc0(name, DAT_0103c870)) {
 
@@ -42152,7 +42152,7 @@ bool __cdecl FUN_005d5850(const ScriptParameter* apParameters, const char* apCom
 
         if (reinterpret_cast<const unsigned char*>(&tls_005d5850)[0x268])
 
-            FUN_00703c00(DAT_0103c844, *DAT_011f1824.FUN_00408d60() ? DAT_010399bc : DAT_010399b8);
+            PrintToConsole(DAT_0103c844, *DAT_011f1824.FUN_00408d60() ? DAT_010399bc : DAT_010399b8);
 
     } else if (!FUN_00404dc0(name, DAT_0103c83c)) {
 
@@ -42160,7 +42160,7 @@ bool __cdecl FUN_005d5850(const ScriptParameter* apParameters, const char* apCom
 
         if (reinterpret_cast<const unsigned char*>(&tls_005d5850)[0x268])
 
-            FUN_00703c00(DAT_0103c810, *DAT_011f15a4.FUN_00408d60() ? DAT_010399bc : DAT_010399b8);
+            PrintToConsole(DAT_0103c810, *DAT_011f15a4.FUN_00408d60() ? DAT_010399bc : DAT_010399b8);
 
     } else if (!FUN_00404dc0(name, DAT_0103c808)) {
 
@@ -42168,7 +42168,7 @@ bool __cdecl FUN_005d5850(const ScriptParameter* apParameters, const char* apCom
 
         if (reinterpret_cast<const unsigned char*>(&tls_005d5850)[0x268])
 
-            FUN_00703c00(DAT_0103c7d8, *DAT_011f1c30.FUN_00408d60() ? DAT_0103c800 : DAT_01011f58);
+            PrintToConsole(DAT_0103c7d8, *DAT_011f1c30.FUN_00408d60() ? DAT_0103c800 : DAT_01011f58);
 
     } else if (!FUN_00404dc0(name, DAT_0103c7d0)) {
 
@@ -42180,7 +42180,7 @@ bool __cdecl FUN_005d5850(const ScriptParameter* apParameters, const char* apCom
 
         if (reinterpret_cast<const unsigned char*>(&tls_005d5850)[0x268])
 
-            FUN_00703c00(DAT_0103c7a0, *DAT_011f1c70.FUN_00403e20());
+            PrintToConsole(DAT_0103c7a0, *DAT_011f1c70.FUN_00403e20());
 
     } else if (!FUN_00404dc0(name, DAT_0103c798) || !FUN_00404dc0(name, DAT_0103c78c)) {
 
@@ -42188,7 +42188,7 @@ bool __cdecl FUN_005d5850(const ScriptParameter* apParameters, const char* apCom
 
         if (reinterpret_cast<const unsigned char*>(&tls_005d5850)[0x268])
 
-            FUN_00703c00(DAT_0103c758, *DAT_011f15d0.FUN_00408d60() ? DAT_010399bc : DAT_010399b8);
+            PrintToConsole(DAT_0103c758, *DAT_011f15d0.FUN_00408d60() ? DAT_010399bc : DAT_010399b8);
 
     } else if (!FUN_00404dc0(name, DAT_0103c750)) {
 
@@ -42196,7 +42196,7 @@ bool __cdecl FUN_005d5850(const ScriptParameter* apParameters, const char* apCom
 
         if (reinterpret_cast<const unsigned char*>(&tls_005d5850)[0x268])
 
-            FUN_00703c00(DAT_0103c724, *DAT_011f197c.FUN_00408d60() ? DAT_010399bc : DAT_010399b8);
+            PrintToConsole(DAT_0103c724, *DAT_011f197c.FUN_00408d60() ? DAT_010399bc : DAT_010399b8);
 
     } else if (!FUN_00404dc0(name, DAT_0103c71c)) {
 
@@ -42204,7 +42204,7 @@ bool __cdecl FUN_005d5850(const ScriptParameter* apParameters, const char* apCom
 
         if (reinterpret_cast<const unsigned char*>(&tls_005d5850)[0x268])
 
-            FUN_00703c00(DAT_0103c6f0, *DAT_011f1c4c.FUN_00408d60() ? DAT_010399bc : DAT_010399b8);
+            PrintToConsole(DAT_0103c6f0, *DAT_011f1c4c.FUN_00408d60() ? DAT_010399bc : DAT_010399b8);
 
     } else if (!FUN_00404dc0(name, DAT_0103c6e8)) {
 
@@ -42212,11 +42212,11 @@ bool __cdecl FUN_005d5850(const ScriptParameter* apParameters, const char* apCom
 
         if (reinterpret_cast<const unsigned char*>(&tls_005d5850)[0x268])
 
-            FUN_00703c00(DAT_0103c6c8, *DAT_011f15ec.FUN_00408d60() ? DAT_010399bc : DAT_010399b8);
+            PrintToConsole(DAT_0103c6c8, *DAT_011f15ec.FUN_00408d60() ? DAT_010399bc : DAT_010399b8);
 
     } else if (reinterpret_cast<const unsigned char*>(&tls_005d5850)[0x268]) {
 
-        FUN_00703c00(DAT_0103c6b4, name);
+        PrintToConsole(DAT_0103c6b4, name);
 
     }
 
@@ -42584,7 +42584,7 @@ struct InventoryDiagnosticForm {
     unsigned int FUN_0084e3a0();
     InventoryDiagnosticEntry* FUN_005754a0(unsigned int,int);
     int FUN_00401170();
-    bool FUN_008bc9d0(InventoryDiagnosticForm*,bool);
+    bool CanUseWeapon(InventoryDiagnosticForm*,bool);
     InventoryDiagnosticList* FUN_00500940();
 };
 struct InventoryDiagnosticEntry {
@@ -42603,7 +42603,7 @@ struct InventoryDiagnosticEnchant {
 };
 InventoryDiagnosticEnchant* FUN_00475020(InventoryDiagnosticForm*);
 const char* FUN_00482720(InventoryDiagnosticForm*);
-void FUN_00703c00(const char*,...);
+void PrintToConsole(const char*,...);
 extern const char DAT_0103cc6c[];
 extern const char DAT_0103cc5c[];
 extern const char DAT_01011584[];
@@ -42621,20 +42621,20 @@ bool FUN_005d6d40(const ScriptParameter* parameters,const char* data,InventoryDi
         if(reference->IsActor()) actor_11=reference;
         int count=reference->FUN_00575590(0,1);
         if(count>0) {
-            FUN_00703c00(DAT_0103cc6c,reference->FUN_00474cb0()?reference->GetName():reference->FUN_0055d520(),reference->FUN_0084e3a0(),count);
+            PrintToConsole(DAT_0103cc6c,reference->FUN_00474cb0()?reference->GetName():reference->FUN_0055d520(),reference->FUN_0084e3a0(),count);
             for(unsigned int index=0;index<(unsigned int)count;index++) {
                 InventoryDiagnosticEntry* entry=reference->FUN_005754a0(index,0);
                 if(entry && entry->FUN_0044ddc0()) {
                     InventoryDiagnosticForm* form3=entry->FUN_0044ddc0();
                     switch(form3->FUN_00401170()) {
                     case 40:
-                        FUN_00703c00(DAT_0103cc30,entry->FUN_00726070(),form3->FUN_00474cb0()?form3->GetName():FUN_00482720(form3),form3->FUN_0084e3a0(),entry->FUN_004bcdb0(0),entry->FUN_004bcdb0(1),entry->FUN_004bddd0(0)?DAT_0103cc54:DAT_01011584,actor_11&&!actor_11->FUN_008bc9d0(form3,true)?DAT_0103cc5c:DAT_01011584);
+                        PrintToConsole(DAT_0103cc30,entry->FUN_00726070(),form3->FUN_00474cb0()?form3->GetName():FUN_00482720(form3),form3->FUN_0084e3a0(),entry->FUN_004bcdb0(0),entry->FUN_004bcdb0(1),entry->FUN_004bddd0(0)?DAT_0103cc54:DAT_01011584,actor_11&&!actor_11->CanUseWeapon(form3,true)?DAT_0103cc5c:DAT_01011584);
                         break;
                     case 24:
-                        FUN_00703c00(DAT_0103cc10,entry->FUN_00726070(),form3->FUN_00474cb0()?form3->GetName():FUN_00482720(form3),form3->FUN_0084e3a0(),entry->FUN_004bcdb0(0),entry->FUN_004bcdb0(1),entry->FUN_004bddd0(0)?DAT_0103cc54:DAT_01011584);
+                        PrintToConsole(DAT_0103cc10,entry->FUN_00726070(),form3->FUN_00474cb0()?form3->GetName():FUN_00482720(form3),form3->FUN_0084e3a0(),entry->FUN_004bcdb0(0),entry->FUN_004bcdb0(1),entry->FUN_004bddd0(0)?DAT_0103cc54:DAT_01011584);
                         break;
                     default:
-                        FUN_00703c00(DAT_0103cbfc,entry->FUN_00726070(),form3->FUN_00474cb0()?form3->GetName():FUN_00482720(form3),form3->FUN_0084e3a0(),entry->FUN_004bddd0(0)?DAT_0103cc54:DAT_01011584);
+                        PrintToConsole(DAT_0103cbfc,entry->FUN_00726070(),form3->FUN_00474cb0()?form3->GetName():FUN_00482720(form3),form3->FUN_0084e3a0(),entry->FUN_004bddd0(0)?DAT_0103cc54:DAT_01011584);
                         break;
                     }
                     InventoryDiagnosticEnchant* enchant=FUN_00475020(form3);
@@ -42642,10 +42642,10 @@ bool FUN_005d6d40(const ScriptParameter* parameters,const char* data,InventoryDi
                         InventoryDiagnosticForm* effect=enchant->FUN_00726070();
                         if(effect) {
                             InventoryDiagnosticList* list=effect->FUN_00500940();
-                            FUN_00703c00(DAT_0103cbe8,effect->FUN_00474cb0()?effect->GetName():FUN_00482720(effect),effect->FUN_0084e3a0());
+                            PrintToConsole(DAT_0103cbe8,effect->FUN_00474cb0()?effect->GetName():FUN_00482720(effect),effect->FUN_0084e3a0());
                             while(list) {
                                 InventoryDiagnosticForm* detail=*list->FUN_006815c0();
-                                FUN_00703c00(DAT_0103cbd4,detail->FUN_00474cb0()?detail->GetName():FUN_00482720(detail),detail->FUN_0084e3a0());
+                                PrintToConsole(DAT_0103cbd4,detail->FUN_00474cb0()?detail->GetName():FUN_00482720(detail),detail->FUN_0084e3a0());
                                 list=list->FUN_00726070();
                             }
                         }
@@ -42703,14 +42703,14 @@ bool __cdecl FUN_005d7290(int p1, int p2, int p3, int p4, int p5, int p6, int p7
     if (!unkCb0(p1, p2, p8, p3, p4, p5, p6, &out)) {
         result = false;
     } else {
-        FUN_007062a0(0, out, 0, 1);
+        CreateCharGenMenu(0, out, 0, 1);
     }
     return result;
 }
 
 extern unsigned int DAT_011c57f4;
 extern bool DAT_011f9442;
-extern void FUN_00703c00(const char*, ...);
+extern void PrintToConsole(const char*, ...);
 
 // @fnv 0x005d7610
 bool FUN_005d7610(const ScriptParameter* paramInfo, const char* scriptData, TESObjectREFR* thisObj, TESObjectREFR* containingObj, Script* scriptObj, ScriptLocals* locals, double& result, unsigned int& opcodeOffsetPtr) {
@@ -42723,57 +42723,57 @@ bool FUN_005d7610(const ScriptParameter* paramInfo, const char* scriptData, TESO
             case 0:
                 if (DAT_011c57f4 & 1) {
                     DAT_011c57f4 &= ~1;
-                    FUN_00703c00("Wireframe Decal Clipping Planes : DISABLED");
+                    PrintToConsole("Wireframe Decal Clipping Planes : DISABLED");
                 } else {
                     DAT_011c57f4 |= 1;
-                    FUN_00703c00("Wireframe Decal Clipping Planes : ENABLED");
+                    PrintToConsole("Wireframe Decal Clipping Planes : ENABLED");
                 }
                 break;
             case 1:
                 if (DAT_011c57f4 & 2) {
                     DAT_011c57f4 &= ~2;
-                    FUN_00703c00("Decal Clipping Planes : DISABLED");
+                    PrintToConsole("Decal Clipping Planes : DISABLED");
                 } else {
                     DAT_011c57f4 |= 2;
-                    FUN_00703c00("Decal Clipping Planes : ENABLED");
+                    PrintToConsole("Decal Clipping Planes : ENABLED");
                 }
                 break;
             case 2:
                 if (DAT_011c57f4 & 4) {
                     DAT_011c57f4 &= ~4;
-                    FUN_00703c00("Occlusion query camera direction : DISABLED");
+                    PrintToConsole("Occlusion query camera direction : DISABLED");
                 } else {
                     DAT_011c57f4 |= 4;
-                    FUN_00703c00("Occlusion query camera direction : ENABLED");
+                    PrintToConsole("Occlusion query camera direction : ENABLED");
                 }
                 break;
             case 3:
                 if (DAT_011c57f4 & 8) {
                     DAT_011c57f4 &= ~8;
-                    FUN_00703c00("Decal Transform : DISABLED");
+                    PrintToConsole("Decal Transform : DISABLED");
                 } else {
                     DAT_011c57f4 |= 8;
-                    FUN_00703c00("Decal Transform : ENABLED");
+                    PrintToConsole("Decal Transform : ENABLED");
                 }
                 break;
             case 4:
                 if (DAT_011c57f4 & 16) {
                     DAT_011c57f4 &= ~16;
-                    FUN_00703c00("Failed Decals : DISABLED");
+                    PrintToConsole("Failed Decals : DISABLED");
                 } else {
                     DAT_011c57f4 |= 16;
-                    FUN_00703c00("Failed Decals : ENABLED");
+                    PrintToConsole("Failed Decals : ENABLED");
                 }
                 break;
             case 5:
                 if (DAT_011c57f4 & 32) {
                     DAT_011c57f4 &= ~32;
                     DAT_011f9442 = false;
-                    FUN_00703c00("Wireframe Decals : DISABLED");
+                    PrintToConsole("Wireframe Decals : DISABLED");
                 } else {
                     DAT_011c57f4 |= 32;
                     DAT_011f9442 = true;
-                    FUN_00703c00("Wireframe Decals : ENABLED");
+                    PrintToConsole("Wireframe Decals : ENABLED");
                 }
                 break;
         }
@@ -44004,7 +44004,7 @@ struct DialogueActor : FUN_005d9550_cls {
     virtual void slot133();
     virtual void slot134();
     virtual bool IsOwnedReference();
-    void FUN_008c0460(TESObjectREFR*, int, int);
+    void AttackAlarm(TESObjectREFR*, int, int);
     DialogueProcess* FUN_008d8520();
     TESForm* FUN_00567790();
 };
@@ -44027,10 +44027,10 @@ bool __cdecl FUN_005da2a0(const ScriptParameter* parameters, const char* scriptD
         DialogueActor* currentActor = thisObject;
         inputActor = inputForm;
         if (!inputActor && !actor) {
-            currentActor->FUN_008c0460(_g_thePlayer, 0, 1);
+            currentActor->AttackAlarm(_g_thePlayer, 0, 1);
             currentActor->FUN_008d8520()->SetDialogueActor(currentActor, _g_thePlayer, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0);
         } else if (inputActor && inputActor != (DialogueActor*)_g_thePlayer && inputActor->FUN_008d8520()) {
-            inputActor->FUN_008c0460(_g_thePlayer, 0, 1);
+            inputActor->AttackAlarm(_g_thePlayer, 0, 1);
             inputActor->FUN_008d8520()->SetDialogueActor(inputActor, _g_thePlayer, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0);
         } else if (actor) {
             inputActor = ((DialogueActorLookup*)&DAT_011e0e80)->FUN_00970b30(actor, 1, 1);
@@ -44047,12 +44047,12 @@ bool __cdecl FUN_005da2a0(const ScriptParameter* parameters, const char* scriptD
                             owner = ((DialogueActorLookup*)&DAT_011e0e80)->FUN_00970a20(ownerFaction, 0);
                         }
                         if (owner) {
-                            owner->FUN_008c0460(_g_thePlayer, 0, 1);
+                            owner->AttackAlarm(_g_thePlayer, 0, 1);
                             inputActor->FUN_008d8520()->SetDialogueActor(inputActor, _g_thePlayer, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0);
                         }
                     }
                 } else {
-                    inputActor->FUN_008c0460(_g_thePlayer, 0, 1);
+                    inputActor->AttackAlarm(_g_thePlayer, 0, 1);
                     inputActor->FUN_008d8520()->SetDialogueActor(inputActor, _g_thePlayer, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0);
                 }
             }
@@ -45992,7 +45992,7 @@ extern ScriptResult* __cdecl FUN_00ec43fb(
     ScriptTargetForm* form, int zero, const void* a,
     const void* b, int flags);
 
-extern void __cdecl FUN_00703c00(const void* value);
+extern void __cdecl PrintToConsole(const void* value);
 extern const int DAT_011841cc;
 extern const int DAT_011846d4;
 extern const int DAT_0103d31c;
@@ -46011,7 +46011,7 @@ bool __cdecl FUN_005dfd30(
         ScriptResult* result = FUN_00ec43fb(form, 0, &DAT_011841cc, &DAT_011846d4, 0);
         result->FUN_008c1ac0(outcome > 0);
     } else if (__tls_index[0x268]) {
-        FUN_00703c00(&DAT_0103d31c);
+        PrintToConsole(&DAT_0103d31c);
     }
 
     return true;
@@ -47237,7 +47237,7 @@ struct FNVWipGame {
     int FUN_0084e3a0();
     void FUN_0057ace0(int handle);
     void* FUN_005d43c0();
-    unsigned char FUN_0087f3d0();
+    unsigned char GetEssential();
     int FUN_004f8960();
     FNVWipGame* FUN_005e3fa0();
     void FUN_0083c7b0();
@@ -47385,7 +47385,7 @@ void FNVWipScreenManager::FUN_008d6050() {
                 return;
             }
             if (reinterpret_cast<FNVWipAudio*>(DAT_011dea3c)->FUN_0094df60() || player->FUN_008d8520()->FUN_0045cd60() ||
-                (player->FUN_0087f3d0() && player->FUN_004f8960()==6)) {
+                (player->GetEssential() && player->FUN_004f8960()==6)) {
             FNVWipGame* dialogue2 = resource->FUN_0061b320(player,0,0,0,1);
             if (dialogue2) {
                 dialogue2->FUN_0083c7b0();
@@ -47834,8 +47834,8 @@ public:
 class StringFormattingUtility
 {
 public:
-    void FUN_00802880();
-    void FUN_008029c0();
+    void OutputDebugPageNames();
+    void SetScreenDebugPage();
 };
 
 int __cdecl strcat_s(char*, unsigned int, char const*);
@@ -47877,9 +47877,9 @@ bool __cdecl FUN_005ba7c0(
     }
 
     if (debugText[0] == 0) {
-        FUN_005ba8d0(&_DebugLog)->FUN_00802880();
+        FUN_005ba8d0(&_DebugLog)->OutputDebugPageNames();
     } else {
-        FUN_005ba8d0(debugText, value)->FUN_008029c0();
+        FUN_005ba8d0(debugText, value)->SetScreenDebugPage();
 
         TaskQueueInterface::CopyStringToBuffer(
             customIni, 0x104, FUN_004dc110());
@@ -50174,7 +50174,7 @@ public:
     bool IsPlayerTeammate();
 };
 
-void __cdecl FUN_00709470(int, int, int, int, int, int);
+void __cdecl QueueMenuCreate(int, int, int, int, int, int);
 
 // @fnv 0x005d9430
 bool __cdecl FUN_005d9430(
@@ -50202,7 +50202,7 @@ bool __cdecl FUN_005d9430(
             &extractedResult);
 
         if (actor->IsPlayerTeammate() || extractedResult != 0) {
-            FUN_00709470(
+            QueueMenuCreate(
                 1,
                 reinterpret_cast<int>(object),
                 0,
@@ -50233,7 +50233,7 @@ public:
     static TaskQueueInterface* __cdecl GetInstance(void);
 };
 
-void __cdecl FUN_0087a8b0(TaskQueueInterface*, int, Actor*, ...);
+void __cdecl QueueScriptFunctionCall(TaskQueueInterface*, int, Actor*, ...);
 
 struct ScriptMatchFaceGeometryBaseHelper
 {
@@ -50270,7 +50270,7 @@ bool __cdecl FUN_005d9b20(
         }
 
         if (*g_011c3ea4.Int() > 1) {
-            FUN_0087a8b0(
+            QueueScriptFunctionCall(
                 TaskQueueInterface::GetInstance(),
                 0x11df,
                 reinterpret_cast<Actor*>(target),
@@ -51962,10 +51962,10 @@ extern DbgLog DAT_011c3ea4;
 
 bool __fastcall FUN_00572c80(TESObjectREFR* ref);
 int __fastcall FUN_0084e3a0(void* obj);
-int FUN_00703c00(const char* fmt, int arg);
+int PrintToConsole(const char* fmt, int arg);
 int FUN_005b5e40(const char* fmt, int a, int b, int c, int d);
 int FUN_004537b0();
-int FUN_0087a8b0(int v, int id, TESObjectREFR* r, int b, double f);
+int QueueScriptFunctionCall(int v, int id, TESObjectREFR* r, int b, double f);
 int FUN_005c0b10(TESObjectREFR* r, unsigned char b, float f);
 
 // @fnv 0x005c09c0
@@ -51979,7 +51979,7 @@ bool FUN_005c09c0(const ScriptParameter* p1, const char* p2, TESObjectREFR* a3, 
 
     if (a3 != 0 && !(FUN_00572c80)(a3)) {
         if (tlsFlag268 != 0) {
-            FUN_00703c00("%s cannot be moved.",
+            PrintToConsole("%s cannot be moved.",
                          ((int (__thiscall*)(TESObjectREFR*))(*(void***)a3)[0x130 / 4])(a3));
         }
         if (!FUN_005c09c0_ns::DAT_011c3f2c->FUN_00469860((FUN_0084e3a0)(a5))) {
@@ -51993,7 +51993,7 @@ bool FUN_005c09c0(const ScriptParameter* p1, const char* p2, TESObjectREFR* a3, 
     }
 
     if (*DAT_011c3ea4.FUN_0043d4d0() > 1) {
-        (FUN_0087a8b0)(FUN_004537b0(), 0x1009, a3, b, f);
+        (QueueScriptFunctionCall)(FUN_004537b0(), 0x1009, a3, b, f);
     } else {
         (FUN_005c0b10)(a3, (unsigned char)b, f);
     }
@@ -52388,8 +52388,8 @@ public:
 };
 class PackageTargetD09 {
 public:
-    void FUN_0067f3c0(TESForm* pkForm);
-    void FUN_0067f410(TESForm* pkForm);
+    void SetLocReference(TESForm* pkForm);
+    void SetLocCell(TESForm* pkForm);
 };
 class TESPackage : public TESForm {
 };
@@ -52418,10 +52418,10 @@ bool FUN_005d09e0(const ScriptParameter* paramInfo, const char* scriptData, TESO
                 if (pkPackage) {
                     PackageTargetD09* pkPackageTarget = pkPackage->FUN_0055b980();
                     if (pkCurrentObject) {
-                        pkPackageTarget->FUN_0067f3c0(pkCurrentObject);
+                        pkPackageTarget->SetLocReference(pkCurrentObject);
                         pkPackage->FUN_005d0b80(0);
                     } else if (pkSecond) {
-                        pkPackageTarget->FUN_0067f410(pkSecond);
+                        pkPackageTarget->SetLocCell(pkSecond);
                         pkPackage->FUN_005d0b80(0);
                     }
                 }
@@ -53846,7 +53846,7 @@ public:
 };
 
 bool FUN_005accb0(int a0, int a1, int a2, int a3, int a4, int a5, int a6, unsigned short* out);
-void FUN_00703c00(const char* fmt, unsigned int v);
+void PrintToConsole(const char* fmt, unsigned int v);
 
 // @fnv 0x005d0d30
 bool FUN_005d0d30(int p0, int p1, int p2, int p3, int p4, int p5, int p6, int p7) {
@@ -53861,7 +53861,7 @@ bool FUN_005d0d30(int p0, int p1, int p2, int p3, int p4, int p5, int p6, int p7
             ((BarterSub_b10016*)((char*)obj2 + 0x30))->FUN_0047e240((unsigned short)wordSlot);
         }
         if (g_tlsBlock.unk268 != 0) {
-            FUN_00703c00(" Actor's base barter gold is  %d ",
+            PrintToConsole(" Actor's base barter gold is  %d ",
                 ((BarterSub_b10016*)((char*)obj2 + 0x30))->FUN_0047d3f0());
         }
     }
@@ -55354,7 +55354,7 @@ bool __cdecl FUN_005d1340(const ::ScriptParameter* parameters, const char* compi
 
 class type_info;
 struct TESValueForm { void SetFormValue(unsigned int); };
-void FUN_00730690(bool);
+void ForceBarterUpdate(bool);
 // @fnv 0x005d3e30
 bool FUN_005d3e30(const ::ScriptParameter* apParameters, const char* apCompiledParams, ::TESObjectREFR* apRefObject, ::TESObjectREFR* apContainer, ::Script* apScript, ::ScriptLocals* apScriptLocals, double* afReturnValue, unsigned int* auiOffset)
 {
@@ -55370,7 +55370,7 @@ bool FUN_005d3e30(const ::ScriptParameter* apParameters, const char* apCompiledP
                 pvalue->SetFormValue(iCount);
                 if (::tlsData.bConsoleEcho)
                     ::_DebugLog("%s has been set to a VALUE of %i", ((::MobileObject*)apRefObject)->GetFullName(), iCount);
-                FUN_00730690(false);
+                ForceBarterUpdate(false);
             }
         }
     }

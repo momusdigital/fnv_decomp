@@ -883,7 +883,7 @@ struct xMid
 struct xPlayer
 {
     xMid* FUN_008d8520();
-    void* FUN_009306d0();
+    void* GetCharController();
 };
 extern xPlayer* xg_player_11dea3c;
 struct xQty
@@ -2163,7 +2163,7 @@ class ShapeCaster
     void FUN_00626da0();
     xHitRes* FUN_00621210(xHitFlag* pFlag);
     void FUN_00cabad0();
-    bool FUN_00626b30(const NiPoint3& kFrom, const NiPoint3& kWorldPosition, float fDist);
+    bool CastShape(const NiPoint3& kFrom, const NiPoint3& kWorldPosition, float fDist);
 };
 extern "C" __m128 _mm_min_ps(__m128, __m128);
 const __m128* __fastcall FUN_006815c0(const void* obj);

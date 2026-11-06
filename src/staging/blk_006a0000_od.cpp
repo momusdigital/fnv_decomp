@@ -2733,10 +2733,10 @@ struct FUN_006bc940_class
     NavMesh* mesh;
     void* p1;
     ArrSI* flags;
-    unsigned int FUN_006bc940();
+    unsigned int GetTrianglesMaxObstacleCount();
 };
 // @fnv 0x006bc940
-unsigned int FUN_006bc940_class::FUN_006bc940()
+unsigned int FUN_006bc940_class::GetTrianglesMaxObstacleCount()
 {
     unsigned int result = 0;
     for (unsigned int i = 0; i < ((ArrSI*)((char*)flags + 0x20))->GetFlags(); ++i)
@@ -3382,7 +3382,7 @@ void FUN_006be660_class::FUN_006be660()
 
 struct FUN_00693bd0_class
 {
-    void FUN_00693bd0(unsigned short value);
+    void SetObjectCount(unsigned short value);
 };
 
 struct FUN_006be770_Info
@@ -3410,19 +3410,19 @@ void FUN_006be770_class::FUN_006be770()
 {
     for (unsigned int i = m_08->m_18; i < (unsigned int)(m_08->m_18 + m_08->m_1c); ++i)
     {
-        reinterpret_cast<FUN_00693bd0_class*>(m_00->GetTriangle((unsigned short)i))->FUN_00693bd0(m_44 + 1);
+        reinterpret_cast<FUN_00693bd0_class*>(m_00->GetTriangle((unsigned short)i))->SetObjectCount(m_44 + 1);
     }
 
     for (unsigned int j = 0; j < reinterpret_cast<ArrSI*>(&m_08->m_30)->GetFlags(); ++j)
     {
         NavMeshTriangle* triangle = m_00->GetTriangle(m_08->m_30.FUN_006a1440(j));
 
-        reinterpret_cast<FUN_00693bd0_class*>(triangle)->FUN_00693bd0(triangle->GetBits13To15() + 1);
+        reinterpret_cast<FUN_00693bd0_class*>(triangle)->SetObjectCount(triangle->GetBits13To15() + 1);
     }
 }
 
 extern float g_011c7278_arg1;
-bool __cdecl FUN_006c3570(NiPoint3 const&, void* const&, float, float);
+bool __cdecl IsPointInBox(NiPoint3 const&, void* const&, float, float);
 
 struct FUN_006bf2d0_class
 {
@@ -3437,7 +3437,7 @@ bool FUN_006bf2d0_class::FUN_006bf2d0(NiPoint3* p)
 {
     for (unsigned int i = 0; i < ((ArrSI*)((char*)m_8 + 0x20))->GetFlags(); i++)
     {
-        if (FUN_006c3570(*p, *(void**)&m_iWordAt04, g_011c7278_arg1, 32.0f))
+        if (IsPointInBox(*p, *(void**)&m_iWordAt04, g_011c7278_arg1, 32.0f))
             return true;
     }
     return false;
@@ -7561,7 +7561,7 @@ struct Host120
     Mesh120* mesh;
     unsigned unk04, unk08, unk0c, unk10, unk14, unk18, unk1c, unk20, unk24, unk28, unk2c;
     Array120 edges;
-    bool FUN_006bec40(Vertex120*, Vertex120*, Vertex120*);
+    bool CheckTriangleAgainstObstacle(Vertex120*, Vertex120*, Vertex120*);
     bool FUN_006bede0(Vertex120*, Vertex120*, Vertex120*);
     bool BuildTrianglesFromEdgePairs();
 };
@@ -7619,7 +7619,7 @@ bool Host120::BuildTrianglesFromEdgePairs()
                     continue;
                 if ((third->a == outer1 && third->b == outer2) || (third->a == outer2 && third->b == outer1))
                 {
-                    if (!FUN_006bec40(shared, outer1, outer2))
+                    if (!CheckTriangleAgainstObstacle(shared, outer1, outer2))
                         continue;
                     if (!FUN_006bede0(shared, outer1, outer2))
                         continue;
@@ -7713,7 +7713,7 @@ struct ObstacleDataPtr
 
 bool __cdecl FUN_006b9cf0(const Vec3& kA, const Vec3& kB, const Vec3& kC, const Vec3& kPoint, float& fDist,
                           float fRadius, float fAngleDifference);
-bool __cdecl FUN_006c3570(const Vec3& kPoint, const ObstacleDataPtr& kObstacle, float fRadius, float fAngleDifference);
+bool __cdecl IsPointInBox(const Vec3& kPoint, const ObstacleDataPtr& kObstacle, float fRadius, float fAngleDifference);
 
 struct PathTriangleCheck
 {
@@ -7726,11 +7726,11 @@ struct PathTriangleCheck
     int unk18;
     PathNodeArray kNodeArray;
 
-    bool FUN_006bec40(PathNode* pA, PathNode* pB, PathNode* pC);
+    bool CheckTriangleAgainstObstacle(PathNode* pA, PathNode* pB, PathNode* pC);
 };
 
 // @fnv 0x006bec40
-bool PathTriangleCheck::FUN_006bec40(PathNode* pNodeA, PathNode* pNodeB, PathNode* pNodeC)
+bool PathTriangleCheck::CheckTriangleAgainstObstacle(PathNode* pNodeA, PathNode* pNodeB, PathNode* pNodeC)
 {
     Vec3 kA = pNodes->GetNodePos(pNodeA->usIndex);
     Vec3 kB9 = pNodes->GetNodePos(pNodeB->usIndex);
@@ -7748,7 +7748,7 @@ bool PathTriangleCheck::FUN_006bec40(PathNode* pNodeA, PathNode* pNodeB, PathNod
             return false;
     }
 
-    if (FUN_006c3570(kCenter4, kObstacle, 128.0f, 180.0f))
+    if (IsPointInBox(kCenter4, kObstacle, 128.0f, 180.0f))
         return false;
     return true;
 }
@@ -8136,11 +8136,11 @@ struct Host260
     int m_ac;
     Pointer260 m_b0;
     Pointer260 m_b4;
-    void FUN_006a5ee0(bool enabled);
+    void SetTransparentOverLayMode(bool enabled);
 };
 // Sets a value on each of several sub-objects depending on enabled, then calls FUN_00ba91a0 with 31 and the inverse of enabled.
 // @fnv 0x006a5ee0
-void Host260::FUN_006a5ee0(bool enabled)
+void Host260::SetTransparentOverLayMode(bool enabled)
 {
     if (enabled)
     {
@@ -8950,7 +8950,7 @@ struct BuildValue
     void SetArrayValue(int coordinate, unsigned short value);
     void FUN_00691570(unsigned int flags);
     unsigned short GetBits13To15();
-    void FUN_00693bd0(unsigned int lastIndex);
+    void SetObjectCount(unsigned int lastIndex);
 };
 
 class ObstacleData
@@ -9176,7 +9176,7 @@ bool BuildProcess::Build(BuildOutput* pOutput, BuildInput* pInput, BuildCatalog*
         for (unsigned int i = 0; i < input->componentCollection.FUN_0044ddc0(); ++i)
         {
             BuildValue* value = output->FUN_005582f0(input->componentCollection.FUN_006a1440(i)->objectId);
-            value->FUN_00693bd0((unsigned int)value->GetBits13To15() - 1);
+            value->SetObjectCount((unsigned int)value->GetBits13To15() - 1);
         }
         for (unsigned int id = input->firstIndex; id < input->firstIndex + input->indexCount; ++id)
         {
@@ -9352,7 +9352,7 @@ struct TriX
 struct MeshX
 {
     bool FindAdjacentEdge(unsigned short, int, unsigned short*, unsigned short*, unsigned short*);
-    int FUN_006997b0(unsigned short, int);
+    int GetObstacleForTriangle(unsigned short, int);
 };
 bool __cdecl AreWideCharsEqual(const unsigned short&, const unsigned short&);
 struct NavMeshTriList : DA00694f80
@@ -9476,7 +9476,7 @@ void HostB60::BuildNavMeshEdges()
                 }
                 if (cls == 3)
                 {
-                    ((MeshX*)mesh)->FUN_006997b0(p8->m_kNavMeshTriangleList.GetAt(i), (int)&ed->f1c);
+                    ((MeshX*)mesh)->GetObstacleForTriangle(p8->m_kNavMeshTriangleList.GetAt(i), (int)&ed->f1c);
                 }
                 if (cls == 4)
                 {
@@ -9923,11 +9923,11 @@ struct S6bdcb0Owner
     S6bdcb0Array kItems;
 
     bool ShouldRemove(S6bdcb0Item* pItem);
-    void FUN_006bdcb0();
+    void RemoveInvalidEdges();
 };
 
 // @fnv 0x006bdcb0
-void S6bdcb0Owner::FUN_006bdcb0()
+void S6bdcb0Owner::RemoveInvalidEdges()
 {
     for (unsigned int i = 0; i < kItems.GetSize(); i++)
     {

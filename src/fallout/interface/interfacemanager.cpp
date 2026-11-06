@@ -168,7 +168,7 @@ struct TileMenu;
 struct MenuValueDescriptor;
 struct FUN_0070b790_shell : public InterfaceManager
 {
-    void FUN_0070b790(char);
+    void SetStatsPageNumber(char);
 };
 
 struct Tile_
@@ -182,7 +182,7 @@ struct Menu
 Tile_* FindMenuById(int);
 // Stores a at offset 0x12, then looks up tile 0x3eb and, if it has a menu, forwards a to that menu's SetCurrentPageFromChar.
 // @fnv 0x0070b790
-void FUN_0070b790_shell::FUN_0070b790(char a)
+void FUN_0070b790_shell::SetStatsPageNumber(char a)
 {
     *(char*)((char*)this + 0x12) = a;
     Tile_* tile = FindMenuById(0x3eb);
@@ -416,7 +416,7 @@ struct FUN_00710ab0_Class
 };
 
 // @fnv 0x00710ab0
-float __fastcall FUN_00710ab0(FUN_00710ab0_Class* _this)
+float __fastcall GetWorldFOV(FUN_00710ab0_Class* _this)
 {
     return _this->val;
 }
@@ -663,12 +663,12 @@ struct _Cam_00712e60
 {
     char pad[0x100];
     _Rect16_00712e60 m_kPort;
-    void FUN_00712e60(const _Rect16_00712e60& kPort);
+    void SetViewPort(const _Rect16_00712e60& kPort);
 };
 
 // Copies the given port rectangle into the camera's m_kPort field.
 // @fnv 0x00712e60
-void _Cam_00712e60::FUN_00712e60(const _Rect16_00712e60& kPort)
+void _Cam_00712e60::SetViewPort(const _Rect16_00712e60& kPort)
 {
     m_kPort = kPort;
 }
@@ -974,8 +974,8 @@ class ImageSpaceManager
     void FUN_007123a0(bool);
 };
 
-void __cdecl FUN_00703610();
-void __fastcall FUN_0071d580(ConsoleManager*);
+void __cdecl HideMenus();
+void __fastcall ToggleVisible(ConsoleManager*);
 
 // @fnv 0x00714fd0
 int FUN_00714fd0_shell::RemoveFromStack(int aiID, bool abForceRemoval)
@@ -1016,7 +1016,7 @@ int FUN_00714fd0_shell::RemoveFromStack(int aiID, bool abForceRemoval)
     if (enterStack[0] == 3 && enterStack[1] == 0)
     {
         if (ConsoleManager::Instance(false))
-            FUN_0071d580(ConsoleManager::Instance(true));
+            ToggleVisible(ConsoleManager::Instance(true));
         return this->RemoveFromStack(3, false);
     }
 
@@ -1028,7 +1028,7 @@ int FUN_00714fd0_shell::RemoveFromStack(int aiID, bool abForceRemoval)
     }
 
     if (aiID == 1)
-        FUN_00703610();
+        HideMenus();
 
     *(int*)((char*)this + 0xc) = 4;
     ImageSpaceManager::FUN_004e3270()->FUN_007123a0(aiID != 1001);
@@ -1389,7 +1389,7 @@ static NiNode* (Tile_Access::*const pTileFunc)() = &Tile_Access::FUN_0056c7f0;
 }
 
 // @fnv 0x00717990
-bool __cdecl FUN_00717990()
+bool __cdecl IsCurrentRenderedMenuTopmost()
 {
     if (*(BSAudio**)(DAT_011d8a80 + 0x16c) == 0)
         return false;
@@ -1546,7 +1546,7 @@ struct BaseFormComponent
 typedef char _sizecheck_BaseFormComponent[sizeof(BaseFormComponent) == 4 ? 1 : -1];
 struct FUN_00718ab0_shell : public InterfaceManager
 {
-    TESImageSpaceModifier* FUN_00718ab0();
+    TESImageSpaceModifier* GetCurrentImagespaceMod();
 };
 
 class PlayerCharacter
@@ -1573,7 +1573,7 @@ struct Tile_helper
 
 // Returns a TESImageSpaceModifier chosen by player state, top menu ID, or whether the Player Name Entry Menu tile exists.
 // @fnv 0x00718ab0
-TESImageSpaceModifier* FUN_00718ab0_shell::FUN_00718ab0()
+TESImageSpaceModifier* FUN_00718ab0_shell::GetCurrentImagespaceMod()
 {
     TESImageSpaceModifier* presultMod = 0;
     int etopID = FUN_007023c0();
@@ -1776,7 +1776,7 @@ struct FORenderedMenu
     virtual void v12();
     virtual void v13();
     bool GetInitialized();
-    void FUN_007fae70(int);
+    void SetScreenTexture(int);
 };
 struct Calendar
 {
@@ -1807,7 +1807,7 @@ void FUN_007181d0_shell::SetRenderedMenu(FORenderedMenu* apRenderedMenu)
     {
         if (*(FORenderedMenu**)((char*)this + 0x16c))
         {
-            (*(FORenderedMenu**)((char*)this + 0x16c))->FUN_007fae70(0);
+            (*(FORenderedMenu**)((char*)this + 0x16c))->SetScreenTexture(0);
             (*(FORenderedMenu**)((char*)this + 0x16c))->v13();
             if (*(FORenderedMenu**)((char*)this + 0x16c) != ((InterfaceHelper*)this)->GetPipboyManager())
                 FUN_007182b0(*(FORenderedMenu**)((char*)this + 0x16c));
@@ -2153,7 +2153,7 @@ struct Ctl
 struct MCH
 {
     bool Idle(int);
-    bool FUN_0071d580();
+    bool ToggleVisible();
 };
 struct MMH
 {
@@ -2412,13 +2412,13 @@ struct IMX
     char _p16[0x14];
     S4d4 o4d4;
     void UpdateControllerState(bool);
-    void FUN_00717660();
+    void PreLoadMainMenus();
     PBM* GetPipboyManager();
     void FUN_00718930(int);
-    void FUN_007118d0();
+    void UpdateCursor();
     TileH* GetFieldBC();
     void UpdateFocusTarget();
-    TileH* FUN_007126c0(int);
+    TileH* PickMenus(int);
     void FUN_00717ef0(MenuH*, int, TileH*);
     void SetMode(int);
     void AddDeferredHideLimb(int);
@@ -2448,7 +2448,7 @@ float GetRatio();
 float FUN_00717860();
 bool FUN_0070ed30();
 bool IsStatsMenuActive();
-int FUN_0070ede0();
+int GetClassStatic();
 bool FUN_0070edf0();
 int FUN_00458030();
 void* FUN_0076bfe0();
@@ -2459,13 +2459,13 @@ bool FUN_007024e0();
 bool IsBothFlagsSet();
 void CloseStartMenu(int);
 bool FUN_0070ec00();
-void FUN_00709470(int, int, int, int, int, int);
+void QueueMenuCreate(int, int, int, int, int, int);
 void FUN_00a0df80();
 void SetDialogMenuActive(int);
 int FUN_00717a40(int, int);
-void FUN_00717280(int);
+void PlayMenuSound(int);
 void ShowStatsMenu(int, int);
-void FUN_007048f0(int, int, int);
+void SetInventoryMenuVisible(int, int, int);
 void UpdatePipboyMapVisibility(int, int);
 bool __fastcall FUN_0070ec50(char*);
 bool __fastcall FUN_0070edc0(char*);
@@ -2524,7 +2524,7 @@ void FUN_0070c4a0_shell::UpdateInterface()
     }
     if (((IMX*)this)->bc8)
     {
-        ((IMX*)this)->FUN_00717660();
+        ((IMX*)this)->PreLoadMainMenus();
     }
     ConsoleManager* pCurrentConsoleManager = 0;
     Ctl* pcontrols = (Ctl*)g_osGlobals->FUN_00877720();
@@ -2557,7 +2557,7 @@ void FUN_0070c4a0_shell::UpdateInterface()
         !InterfaceManager::IsInterfaceMenuActive() ||
         (FUN_004b71d0() && (IFH::GetSelectedTargetIndex(0x40b) || IFH::GetSelectedTargetIndex(0x425))) ||
         (IFH::GetSelectedTargetIndex(0x3ea) && FUN_0070ed30()) || (IsStatsMenuActive() && DAT_011d8a84) ||
-        FindMenuById(FUN_0070ede0());
+        FindMenuById(GetClassStatic());
     if (((IMX*)this)->p16c)
     {
         ((IMX*)this)->p16c->vf14();
@@ -2718,7 +2718,7 @@ void FUN_0070c4a0_shell::UpdateInterface()
             ((IMX*)this)->t28->FUN_0056c7f0()->SetAppCulled(false);
             ((IMX*)this)->t28->Set(0xfa3, 1);
         }
-        ((IMX*)this)->FUN_007118d0();
+        ((IMX*)this)->UpdateCursor();
         if (!((IMX*)this)->bed)
         {
             if (!((IMX*)this)->GetFieldBC() || !((IMX*)this)->GetFieldBC()->IsVisible() ||
@@ -2761,7 +2761,7 @@ void FUN_0070c4a0_shell::UpdateInterface()
         ((IMX*)this)->f44 = (float)pcontrols->FUN_00a239e0(3);
         if (FUN_004b71d0() || (!FUN_004b71d0() && ((IMX*)this)->bed))
         {
-            TileH* pover_target = ((IMX*)this)->FUN_007126c0(0);
+            TileH* pover_target = ((IMX*)this)->PickMenus(0);
             MenuH* pover_menu = 0;
             if (pover_target)
             {
@@ -2916,7 +2916,7 @@ void FUN_0070c4a0_shell::UpdateInterface()
                         break;
                     case 2:
                         psoundHand.Play(false);
-                        FUN_007048f0(1, 0, 1);
+                        SetInventoryMenuVisible(1, 0, 1);
                         break;
                     case 3:
                         psoundHand.Play(false);
@@ -3098,7 +3098,7 @@ void FUN_0070c4a0_shell::UpdateInterface()
                         }
                         else
                         {
-                            FUN_00717280(2);
+                            PlayMenuSound(2);
                         }
                     }
                 }
@@ -3180,7 +3180,7 @@ void FUN_0070c4a0_shell::UpdateInterface()
     {
         pCurrentConsoleManager = ConsoleManager::Instance(true);
         pcontrols->FUN_00a237b0();
-        if (((MCH*)pCurrentConsoleManager)->FUN_0071d580())
+        if (((MCH*)pCurrentConsoleManager)->ToggleVisible())
         {
             ((IMX*)this)->PushMenuStackEntry(3);
         }
@@ -3194,7 +3194,7 @@ void FUN_0070c4a0_shell::UpdateInterface()
     {
         if (PCS::UpdatePlayerStatus() && IFH::GetSelectedTargetIndex(0x3f5) && FUN_007024e0())
         {
-            if (GetTopEnterStackEntry() == FUN_0070ede0() && !IsBothFlagsSet())
+            if (GetTopEnterStackEntry() == GetClassStatic() && !IsBothFlagsSet())
             {
                 CloseStartMenu(1);
             }
@@ -3207,7 +3207,7 @@ void FUN_0070c4a0_shell::UpdateInterface()
             }
             else if (!FUN_0070ec00())
             {
-                FUN_00709470(6, 0, 0, 0, 1, 0);
+                QueueMenuCreate(6, 0, 0, 0, 1, 0);
             }
         }
     }
@@ -3302,7 +3302,7 @@ void FUN_0070c4a0_shell::UpdateInterface()
             switch (bskipIdle)
             {
             case 0x3ea:
-                FUN_007048f0(1, 0, 1);
+                SetInventoryMenuVisible(1, 0, 1);
                 break;
             case 0x3eb:
                 ShowStatsMenu(1, 0);
@@ -3342,7 +3342,7 @@ struct UIRoot
     char pad2[0x580 - 0x22];
     UIRoot();
     void InitInterface(bool);
-    void FUN_0070b240();
+    void InitSecond();
 };
 extern UIRoot* DAT_011d8a80;
 extern bool DAT_011d8a84;
@@ -3357,7 +3357,7 @@ void __cdecl InitUIRoot(unsigned int uiStage, bool abInitialLoad)
     if (uiStage == 1)
         DAT_011d8a80->InitInterface(abInitialLoad);
     else if (uiStage == 2)
-        DAT_011d8a80->FUN_0070b240();
+        DAT_011d8a80->InitSecond();
     DAT_011d8a80->flagA = false;
     DAT_011d8a80->flagB = false;
 }
@@ -3588,7 +3588,7 @@ class InterfaceManager_FUN_0070a130
     Obj0070a8e0 m_4d4;
 
     InterfaceManager_FUN_0070a130();
-    NiNode* FUN_00712e90(void* apNode);
+    NiNode* CreateSceneGraph(void* apNode);
 };
 
 // @fnv 0x0070a130
@@ -3671,8 +3671,8 @@ InterfaceManager_FUN_0070a130::InterfaceManager_FUN_0070a130()
         spAlpha->FUN_00439390(7);
     }
 
-    spMenu3DRoot = FUN_00712e90(FUN_005bac70("Menu3DRoot", 1));
-    m_pRenderedMenuObject = FUN_00712e90(FUN_005bac60("MenuRoot", 0));
+    spMenu3DRoot = CreateSceneGraph(FUN_005bac70("Menu3DRoot", 1));
+    m_pRenderedMenuObject = CreateSceneGraph(FUN_005bac60("MenuRoot", 0));
 
     MenuSystem::Instance(true);
     m_13c = new Obj006319e0;
@@ -5525,7 +5525,7 @@ struct AnimationHelper
 };
 struct FOPipboyManager
 {
-    void FUN_007f8a80();
+    void TriggerRandomEffect();
     void UpdatePipboyLight(int);
 };
 struct InterfaceHelper
@@ -5589,7 +5589,7 @@ void __cdecl HandleMenuKeyInput();
 bool __cdecl FUN_007a1750();
 void __cdecl FUN_0079ffb0(int);
 void __cdecl FUN_008d6a80(int, void*);
-bool __fastcall FUN_008a16d0(PlayerCharacter*);
+bool __fastcall IsWeaponDrawn(PlayerCharacter*);
 bool __fastcall FUN_00967ae0(PlayerCharacter*);
 void _FNV_Warning(const char*);
 extern int DAT_0118a838[];
@@ -5666,7 +5666,7 @@ void FUN_0070ee80_shell::UpdatePipboyWaiver()
             {
                 float ftime;
                 HUDMainMenu::UpdateVisibilityState(3);
-                if (FUN_008a16d0(g_thePlayer))
+                if (IsWeaponDrawn(g_thePlayer))
                 {
                     TESObjectWEAP* pweapon = g_thePlayer->GetLogDate()->GetActiveWeapon()
                                                  ? g_thePlayer->GetLogDate()->GetActiveWeapon()->GetFlags()
@@ -5692,7 +5692,7 @@ void FUN_0070ee80_shell::UpdatePipboyWaiver()
                     (*(void (**)())((char*)this + 0x4c0))();
                     *(void (**)())((char*)this + 0x4c0) = 0;
                 }
-                ((InterfaceHelper*)FUN_004b7210())->GetPipboyManager()->FUN_007f8a80();
+                ((InterfaceHelper*)FUN_004b7210())->GetPipboyManager()->TriggerRandomEffect();
                 ((Im7181*)FUN_004b7210())->SetRenderedMenu(((InterfaceHelper*)FUN_004b7210())->GetPipboyManager());
                 *(int*)((char*)this + 0x4bc) = 3;
             }
@@ -5845,7 +5845,7 @@ struct NiFrustum
 typedef char _sizecheck_NiFrustum[sizeof(NiFrustum) == 28 ? 1 : -1];
 struct FUN_00712e90_shell : public InterfaceManager
 {
-    SceneGraph* FUN_00712e90(SceneGraph*, char*, bool);
+    SceneGraph* CreateSceneGraph(SceneGraph*, char*, bool);
 };
 
 namespace Local {
@@ -6009,7 +6009,7 @@ extern FaderManager* DAT_011d8804;
 
 // Creates or reuses a SceneGraph, sets its camera rotation, aspect-based frustum and position, and adds main/cursor root nodes when not a buffer.
 // @fnv 0x00712e90
-SceneGraph* FUN_00712e90_shell::FUN_00712e90(SceneGraph* apGraph, char* apName, bool abIsBuffer)
+SceneGraph* FUN_00712e90_shell::CreateSceneGraph(SceneGraph* apGraph, char* apName, bool abIsBuffer)
 {
     float faspectRatio;
     Local::AutoMemContext tempMemContext(
@@ -6100,7 +6100,7 @@ void __fastcall ResetWidget(Owner* self)
 namespace fnv_00713c70 {
 struct FUN_00713c70_shell : public InterfaceManager
 {
-    void FUN_00713c70();
+    void LastMinuteUpdate();
 };
 
 struct IntHolder0
@@ -6138,26 +6138,26 @@ struct Obj8c
 };
 struct Updater
 {
-    void FUN_00713e20();
+    void UpdateTileModels();
 };
 void __cdecl WaitForTasksAndClearScripts();
 void __cdecl FUN_00713d60();
 ATM* __cdecl FUN_00713d70();
-Obj8c* __stdcall FUN_00713d80(int);
-void __stdcall FUN_00713d80();
+Obj8c* __stdcall QInstance(int);
+void __stdcall QInstance();
 bool __cdecl FUN_00713d90();
 void __cdecl FUN_00a04510();
 void __cdecl FUN_00a080d0();
 extern bool DAT_011d8908;
 // @fnv 0x00713c70
-void FUN_00713c70_shell::FUN_00713c70()
+void FUN_00713c70_shell::LastMinuteUpdate()
 {
     NiNode* pscene_graph;
     if (*((IntHolder*)&g_011c3ea4)->Int() > 1)
     {
-        FUN_00713d80();
+        QInstance();
         if (FUN_00713d90())
-            FUN_00713d80(0)->WaitForEvent(1);
+            QInstance(0)->WaitForEvent(1);
     }
     WaitForTasksAndClearScripts();
     DAT_011d8908 = true;
@@ -6173,7 +6173,7 @@ void FUN_00713c70_shell::FUN_00713c70()
     if (!((ArrHelper*)&g_011d8b44)->FUN_0076b610())
     {
         FUN_00713d70()->QueryPerformanceCounter(0);
-        ((Updater*)this)->FUN_00713e20();
+        ((Updater*)this)->UpdateTileModels();
         FUN_00713d70()->WaitForTasksDuringRendering();
     }
     DAT_011d8908 = false;
@@ -6209,17 +6209,17 @@ struct IMStandIn
     char m_uiStandInValue[0x8c];
     char m_flt8c[0xbc];
     bool m_flag148;
-    void FUN_00713c70();
-    void FUN_00713f00();
+    void LastMinuteUpdate();
+    void Accumulate();
 };
 
 // @fnv 0x00713f00
-void IMStandIn::FUN_00713f00()
+void IMStandIn::Accumulate()
 {
     m_flag148 = true;
     NiNode* root = reinterpret_cast<Interface*>(this)->GetRoot();
     if (!FUN_00644640(this) && !IsInterfaceActive())
-        FUN_00713c70();
+        LastMinuteUpdate();
     if (reinterpret_cast<FUN_007079f0_shell*>(this)->FUN_007079f0() && !IsInterfaceActive())
         FUN_00702c80(false, false);
     TaskThreadManager::GetSingleton()->FUN_00ba3390(reinterpret_cast<BSFaceGenNiNode*>(root)->GetAnimationData(), 0,
@@ -6276,7 +6276,7 @@ void IMStandIn::UpdateFocusTarget()
 namespace fnv_00717660 {
 struct FUN_00717660_shell : public InterfaceManager
 {
-    void FUN_00717660();
+    void PreLoadMainMenus();
 };
 
 struct Tile_Set_Helper
@@ -6288,10 +6288,10 @@ Tile_Set_Helper* __cdecl CreateInventoryMenuIfModifierKey();
 Tile_Set_Helper* __cdecl FUN_00704490();
 Tile_Set_Helper* __cdecl FUN_007046c0();
 Tile_Set_Helper* __cdecl FUN_00704140();
-void __cdecl FUN_00705b70(int, int, int, int);
-void __cdecl FUN_00703610();
+void __cdecl SetMainMenuDefaults(int, int, int, int);
+void __cdecl HideMenus();
 // @fnv 0x00717660
-void FUN_00717660_shell::FUN_00717660()
+void FUN_00717660_shell::PreLoadMainMenus()
 {
     if (*((bool*)this + 0xc8))
     {
@@ -6311,8 +6311,8 @@ void FUN_00717660_shell::FUN_00717660()
         pmenutile = FUN_00704140();
         if (pmenutile)
             pmenutile->Set(0xfa3, 0);
-        FUN_00705b70(0, 0, 4, 0x3eb);
-        FUN_00703610();
+        SetMainMenuDefaults(0, 0, 4, 0x3eb);
+        HideMenus();
         *((char*)this + 0xc8) = 0;
     }
 }
@@ -6890,7 +6890,7 @@ void FUN_0070ed20(unsigned char value)
 }
 
 // @fnv 0x0070ede0
-int __cdecl FUN_0070ede0()
+int __cdecl GetClassStatic()
 {
     return 0x3f5;
 }
@@ -6954,7 +6954,7 @@ struct GlobalObject_008c71d0;
 extern GlobalObject_008c71d0 g_011dfa50;
 
 // @fnv 0x00713d80
-GlobalObject_008c71d0* FUN_00713d80()
+GlobalObject_008c71d0* QInstance()
 {
     return &g_011dfa50;
 }
@@ -8205,7 +8205,7 @@ struct FUN_007079f0_shell
 {
     bool FUN_007079f0();
 };
-void __fastcall FUN_00713c70(void*);
+void __fastcall LastMinuteUpdate(void*);
 void __cdecl FUN_00b6bee0(Camera_007134d0*, ::NiNode*, BSCullingProcess*);
 struct ShaderUtil_007134d0
 {
@@ -8222,7 +8222,7 @@ struct _Rect16_00712e60
 };
 struct _Cam_00712e60
 {
-    void FUN_00712e60(const _Rect16_00712e60&);
+    void SetViewPort(const _Rect16_00712e60&);
 };
 struct MenuBase_007134d0;
 MenuBase_007134d0* __cdecl FindMenuById(int);
@@ -8244,7 +8244,7 @@ void FUN_007134d0_shell::FUN_007134d0(BSCullingProcess* apCuller, bool abPipboyV
         {
             if (!reinterpret_cast<IfaceHelper_007134d0*>(this)->FUN_00644640() &&
                 !Interface_Helper::IsInterfaceActive())
-                FUN_00713c70(this);
+                LastMinuteUpdate(this);
             if (reinterpret_cast<FUN_007079f0_shell*>(this)->FUN_007079f0() && !Interface_Helper::IsInterfaceActive())
                 FUN_00702c80(false, false);
         }
@@ -8274,7 +8274,7 @@ void FUN_007134d0_shell::FUN_007134d0(BSCullingProcess* apCuller, bool abPipboyV
         }
         if (FUN_0043c4b0()->FUN_cc() == FUN_0043c4b0()->FUN_c8())
             reinterpret_cast<_Cam_00712e60*>(reinterpret_cast<SceneRoot_007134d0*>(pscene_graph)->GetAnimationData())
-                ->FUN_00712e60(DAT_011ad840);
+                ->SetViewPort(DAT_011ad840);
         ShaderUtil_007134d0::SetRenderCamera(
             reinterpret_cast<SceneRoot_007134d0*>(pscene_graph)->GetAnimationData(),
             (Accum_007134d0*)(unsigned int)*reinterpret_cast<Flt_Helper*>((char*)this + 0x8c), false);
@@ -8367,7 +8367,7 @@ void FUN_007134d0_shell::FUN_007134d0(BSCullingProcess* apCuller, bool abPipboyV
         }
         if (!FUN_0043c4b0()->FUN_cc())
             reinterpret_cast<_Cam_00712e60*>(reinterpret_cast<SceneRoot_007134d0*>(pscene_graph)->GetAnimationData())
-                ->FUN_00712e60(DAT_011ad840);
+                ->SetViewPort(DAT_011ad840);
         ShaderUtil_007134d0::SetRenderCamera(
             reinterpret_cast<SceneRoot_007134d0*>(pscene_graph)->GetAnimationData(),
             (Accum_007134d0*)(unsigned int)*reinterpret_cast<Flt_Helper*>((char*)this + 0x8c), false);
@@ -8519,16 +8519,16 @@ extern TESDataHandler* g_dataHandler;
 extern void* _g_thePlayer;
 struct FUN_00717600_shell
 {
-    void FUN_00717660();
-    void FUN_00717600();
+    void PreLoadMainMenus();
+    void PreLoadMenus();
 };
 // @fnv 0x00717600
-void FUN_00717600_shell::FUN_00717600()
+void FUN_00717600_shell::PreLoadMenus()
 {
     if (_g_thePlayer && ((unsigned char*)this)[0xc9] && !g_dataHandler->FUN_004516b0())
     {
         void* cmode = *(void**)((char*)this + 0xc);
-        FUN_00717660();
+        PreLoadMainMenus();
         *(void**)((char*)this + 0xc) = cmode;
         ((char*)this)[0xc9] = 0;
     }
@@ -10273,7 +10273,7 @@ void FUN_00a00a30();
 void FUN_00a1c800();
 void FUN_00718bf0();
 void ClearAllElements();
-void FUN_00707820();
+void ClearTempModel();
 void ClearStartMenuEntries();
 void WaitForTasksAndClearScripts();
 struct FUN_0070a920
@@ -10417,7 +10417,7 @@ FUN_0070a920::~FUN_0070a920()
     DAT_011d8b54.FUN_00470470();
     FUN_00718bf0();
     ClearAllElements();
-    FUN_00707820();
+    ClearTempModel();
     delete object174;
     root8c.FUN_0066b0d0(0);
     delete object94;
@@ -10709,14 +10709,14 @@ struct Manager
     AccumulatorPtr accumulatorB;
     Accumulator* first;
     Accumulator* second;
-    void FUN_007118d0();
-    void FUN_0070b240();
+    void UpdateCursor();
+    void InitSecond();
 };
 void CreateFontManager();
 CursorTile* FUN_0076bfe0();
 void FUN_00771700(int);
 // @fnv 0x0070b240
-void Manager::FUN_0070b240()
+void Manager::InitSecond()
 {
     lc1::AutoMemContext j(13, true, DAT_0106ef50, 667);
     CreateFontManager();
@@ -10742,7 +10742,7 @@ void Manager::FUN_0070b240()
     l.FUN_0043d410(0.0f, false, false);
     c->FUN_0056c7f0()->Update(l);
     cursor = c;
-    FUN_007118d0();
+    UpdateCursor();
     cursor->FUN_0056c7f0()->SetAppCulled(true);
     first = new Accumulator;
     first->FUN_0070b760(1);
@@ -11295,11 +11295,11 @@ struct FUN_00710060_cls
     char pad7e[0x15c - 0x7e];
     int unk15c;
     unsigned int unk160;
-    int FUN_00710060(bool p1, bool p2, bool* p3);
+    int GetTopGamepadButton(bool p1, bool p2, bool* p3);
 };
 
 // @fnv 0x00710060
-int FUN_00710060_cls::FUN_00710060(bool p1, bool p2, bool* p3)
+int FUN_00710060_cls::GetTopGamepadButton(bool p1, bool p2, bool* p3)
 {
     int e;
     int f1;
@@ -11565,7 +11565,7 @@ void PickOwner::UpdatePickObjects()
     c.SetByteAtOffset17(1);
     c.FUN_00705fc0(((PickWorld*)g_TES)->FUN_0084e3a0());
     c.FUN_006ecd40(0);
-    FUN_0045c670()->FUN_00c52020(FUN_00710ab0((FUN_00710ab0_Class*)DAT_011dea3c), 0, 0, 0);
+    FUN_0045c670()->FUN_00c52020(GetWorldFOV((FUN_00710ab0_Class*)DAT_011dea3c), 0, 0, 0);
     FUN_0045c670()->FUN_006629f0()->MapScreenToRay((int)screenX, (int)screenY, d, e, 0);
     if (c.FUN_00e98e20(d, e, 0))
     {
@@ -12796,7 +12796,7 @@ struct Obj10
 
 struct Obj6629
 {
-    void FUN_00712e60(float* p);
+    void SetViewPort(float* p);
 };
 
 struct Obj7fa
@@ -12878,7 +12878,7 @@ void __cdecl FUN_00714960(int a);
 
 bool __cdecl FUN_007178a0();
 
-bool __cdecl FUN_00717990();
+bool __cdecl IsCurrentRenderedMenuTopmost();
 
 void __cdecl FUN_00714900();
 
@@ -13063,7 +13063,7 @@ void MenuMgr::RenderMenu(int a, int b)
         if (DAT_011f9426)
         {
 
-            FUN_007fa950()->FUN_006629f0()->FUN_00712e60(&DAT_011ad840);
+            FUN_007fa950()->FUN_006629f0()->SetViewPort(&DAT_011ad840);
         }
     }
 
@@ -13101,7 +13101,7 @@ void MenuMgr::RenderMenu(int a, int b)
 
     if (*DAT_011db2cc.FUN_00408d60())
 
-        bFlagl = unk4bc == 2 || ((FUN_007178a0() || unk168) && FUN_00717990());
+        bFlagl = unk4bc == 2 || ((FUN_007178a0() || unk168) && IsCurrentRenderedMenuTopmost());
 
     else
 
@@ -13351,7 +13351,7 @@ class NiPick
 class PickCamera
 {
   public:
-    void FUN_00712e60(const FUN_00414430_Rect& pDataToSerialize);
+    void SetViewPort(const FUN_00414430_Rect& pDataToSerialize);
     void MapScreenToRay(int iX, int iY, NiPoint3* pkOrigin, NiPoint3* pkDir, int iValue);
 };
 class PickScene
@@ -13396,7 +13396,7 @@ double FUN_00706e40();
 float FUN_00706e80();
 float FUN_00404010(float fA, float fB);
 float FUN_0040ebd0(float fA, float fB);
-bool FUN_00717990();
+bool IsCurrentRenderedMenuTopmost();
 
 class IMView
 {
@@ -13718,12 +13718,12 @@ class IMView
     PickScene* FUN_007fa950();
     void* FUN_00714f00();
     bool FUN_00716910(PickTile* pkTileTmp);
-    PickTile* FUN_007126c0(bool bAny);
+    PickTile* PickMenus(bool bAny);
 };
 
 // Performs a 3D pick at the cursor position, walks the hit results to find a PickTile, and returns it or null.
 // @fnv 0x007126c0
-PickTile* IMView::FUN_007126c0(bool bAny)
+PickTile* IMView::PickMenus(bool bAny)
 {
     AutoMemContext kMemContextCur(MEM_CONTEXT_MEM_CONTEXT_INTERFACE, true,
                                   "D:\\_Fallout3\\Platforms\\Common\\Code\\Fallout\\Interface\\InterfaceManager.cpp",
@@ -13748,11 +13748,11 @@ PickTile* IMView::FUN_007126c0(bool bAny)
             fX = m_fScaledX;
             fYFinal = m_fScaledY;
         }
-        else if (FUN_00717990())
+        else if (IsCurrentRenderedMenuTopmost())
             return 0;
     }
     if (DAT_011f9426)
-        FUN_007fa950()->FUN_006629f0()->FUN_00712e60(FUN_00414430_Rect(0.0f, 1.0f, 1.0f, 0.0f));
+        FUN_007fa950()->FUN_006629f0()->SetViewPort(FUN_00414430_Rect(0.0f, 1.0f, 1.0f, 0.0f));
     FUN_007fa950()->FUN_006629f0()->MapScreenToRay((int)fX, (int)fYFinal, &kOriginVal, &kWorldPosition, 0);
     if (kPickOut.FUN_00e98e20(&kOriginVal, &kWorldPosition, 0))
     {
@@ -14103,7 +14103,7 @@ static const char s_szUILevelUp[] = "UILevelUp";
 
 // Maps recognized values to editor IDs, assigns each fetched handle, then calls FUN_00ad8830(false).
 // @fnv 0x00717280
-void FUN_00717280(int aiSoundIndex)
+void PlayMenuSound(int aiSoundIndex)
 {
     BSSoundHandleEx kSound;
     switch (aiSoundIndex)
@@ -14480,12 +14480,12 @@ struct CursorX
     int unke8;
     char unkec;
     unsigned char bED;
-    void FUN_007118d0();
+    void UpdateCursor();
 };
 
 // Reads input to adjust and bound the tile position, updates stored cursor coordinates when x or z changes, and passes update data to the node.
 // @fnv 0x007118d0
-void CursorX::FUN_007118d0()
+void CursorX::UpdateCursor()
 {
     if (FUN_004b71d0() && !b7d && !FUN_0071b160(1)->FUN_004a4020())
         return;
@@ -14694,7 +14694,7 @@ bool IsStartMenuFlag1Set();
 bool FUN_0070ec00();
 bool FUN_005d4a40();
 unsigned int FUN_00457fe0();
-bool FUN_00702450(int iMenuID);
+bool IsTopMenuID(int iMenuID);
 bool FUN_007024e0();
 TESForm* FUN_004839c0(unsigned int auiFormId);
 bool InitTutorialMenu(BGSMessage* pkMessage, int iArg);
@@ -14728,7 +14728,7 @@ void TutorialState::FUN_007182e0()
             m_iCurrent = 41;
         }
         else if (m_uiDueTime && FUN_00457fe0() >= m_uiDueTime && m_iCurrent < 41 &&
-                 (!m_akEntries[m_iCurrent].m_uiMenu || FUN_00702450(m_akEntries[m_iCurrent].m_uiMenu + 1001)) &&
+                 (!m_akEntries[m_iCurrent].m_uiMenu || IsTopMenuID(m_akEntries[m_iCurrent].m_uiMenu + 1001)) &&
                  FUN_007024e0())
         {
             BGSMessage* pkMessage = dynamic_cast<BGSMessage*>(FUN_004839c0(m_iCurrent + 0x168));
@@ -14742,11 +14742,11 @@ void TutorialState::FUN_007182e0()
             for (int i = 0; i < 41; i++)
             {
                 if (m_akEntries[i].m_bPending && !m_akEntries[i].m_bShown && m_iCurrent != i &&
-                    (!m_akEntries[m_iCurrent].m_uiMenu || FUN_00702450(m_akEntries[i].m_uiMenu + 1001)) &&
+                    (!m_akEntries[m_iCurrent].m_uiMenu || IsTopMenuID(m_akEntries[i].m_uiMenu + 1001)) &&
                     FUN_007024e0())
                 {
                     if (m_iCurrent < 41 &&
-                        (!m_akEntries[m_iCurrent].m_uiMenu || FUN_00702450(m_akEntries[m_iCurrent].m_uiMenu + 1001)))
+                        (!m_akEntries[m_iCurrent].m_uiMenu || IsTopMenuID(m_akEntries[m_iCurrent].m_uiMenu + 1001)))
                         m_akEntries[m_iCurrent].m_bPending = 0;
                     m_iCurrent = i;
                     m_uiDueTime = FUN_00457fe0() + m_akEntries[i].m_uiDelay;
@@ -14794,11 +14794,11 @@ struct ThreadOwner
 extern "C" unsigned int __cdecl FUN_0040fc90();
 struct TileModelsUpdateEntry
 {
-    void FUN_00713e20();
+    void UpdateTileModels();
 };
 
 // @fnv 0x00713e20
-void TileModelsUpdateEntry::FUN_00713e20()
+void TileModelsUpdateEntry::UpdateTileModels()
 {
     unsigned int iTileIndex;
     for (iTileIndex = 0; iTileIndex < ((TileModelsUpdateDetail::UpdateList*)&g_011d8b44)->FUN_0044ddc0(); iTileIndex++)

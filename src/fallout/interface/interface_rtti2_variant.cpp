@@ -127,7 +127,7 @@ struct InterfaceGate704
 bool __cdecl FUN_00702680(int, int);
 
 // @fnv 0x00704e10
-void __cdecl FUN_00704e10(int id)
+void __cdecl UpdateActorValue(int id)
 {
     if (FUN_004b7210() && ((InterfaceGate704*)FUN_004b7210())->FUN_009373f0())
     {

@@ -124,7 +124,7 @@ struct FUN_006df760_shell
 };
 struct FUN_006dfe90_shell
 {
-    bool __thiscall FUN_006dfe90(BSAudio*, bool);
+    bool __thiscall SetLocationSeen(BSAudio*, bool);
 };
 struct FUN_006e0bc0_shell
 {
@@ -138,7 +138,7 @@ bool __thiscall FUN_006e0bc0_shell::FUN_006e0bc0(BSAudio* aArg, bool aFlag)
         return false;
     unsigned int key = 0;
     if (((DummyPointerMap*)((char*)this + 8))->GetAt(*(Flt*)pTopic, key))
-        return ((FUN_006dfe90_shell*)key)->FUN_006dfe90(aArg, aFlag);
+        return ((FUN_006dfe90_shell*)key)->SetLocationSeen(aArg, aFlag);
     return false;
 }
 
@@ -319,7 +319,7 @@ struct BGSSaveFormBuffer
 
 struct BGSSaveGameBuffer : BGSSaveFormBuffer
 {
-    void __thiscall FUN_00865f60(unsigned int);
+    void __thiscall SaveVariableSizedValue(unsigned int);
 };
 
 struct FUN_006df9c0_shell
@@ -344,7 +344,7 @@ void __thiscall FUN_006df9c0_shell::FUN_006df9c0(BGSSaveGameBuffer* buffer)
         unsigned int count;
 
         count = ((char*)this + 4) ? m_aiIndexedValues.GetFlags() : 0;
-        buffer->FUN_00865f60(count);
+        buffer->SaveVariableSizedValue(count);
 
         for (unsigned int i = 0; i < count; ++i)
         {
@@ -1043,7 +1043,7 @@ struct FUN_00853130_shell
 };
 struct FUN_006dfdc0_shell
 {
-    bool __thiscall FUN_006dfdc0(void*);
+    bool __thiscall IsLocationSeen(void*);
 };
 
 struct FUN_006e0b50_cls
@@ -1066,16 +1066,16 @@ bool __thiscall FUN_006e0b50_cls::FUN_006e0b50(void* aArg)
     value = 0;
     if (((FUN_00853130_shell*)((char*)this + 8))->FUN_00853130(((FUN_00559450_shell*)pHolder)->FUN_00559450(&value)))
     {
-        return ((FUN_006dfdc0_shell*)value)->FUN_006dfdc0(aArg);
+        return ((FUN_006dfdc0_shell*)value)->IsLocationSeen(aArg);
     }
     return false;
 }
 
 struct LoadBufferEx
 {
-    unsigned int __thiscall FUN_00865f20();
+    unsigned int __thiscall StartVariableSizedValue();
     void __thiscall FUN_00865db0(unsigned int key, unsigned int flags);
-    void __thiscall FUN_00865ff0(unsigned int writtenCount, unsigned int offset);
+    void __thiscall SaveVariableSizedValue(unsigned int writtenCount, unsigned int offset);
     void __thiscall FUN_00865e50(void* value, unsigned int size, unsigned int flags);
 };
 struct PathingCell
@@ -1113,7 +1113,7 @@ struct PathingGrid
 void PathingGrid::SaveGame(LoadBufferEx* buffer)
 {
     unsigned int writtenCount = 0;
-    unsigned int startOffset = buffer->FUN_00865f20();
+    unsigned int startOffset = buffer->StartVariableSizedValue();
     void* position = cells.FUN_004b9ba0();
     while (position != 0)
     {
@@ -1127,7 +1127,7 @@ void PathingGrid::SaveGame(LoadBufferEx* buffer)
             writtenCount++;
         }
     }
-    buffer->FUN_00865ff0(writtenCount, startOffset);
+    buffer->SaveVariableSizedValue(writtenCount, startOffset);
     buffer->FUN_00865e50(&unk18, 4, 0);
     buffer->FUN_00865e50(&unk44, 4, 0);
     buffer->FUN_00865e50(&unk48, 4, 0);

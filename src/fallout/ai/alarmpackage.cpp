@@ -568,8 +568,8 @@ namespace fnv_009ecec0 {
 struct BGSSaveFormBuffer
 {
     void SaveData(void*, int, int);
-    unsigned int FUN_00865f20();
-    void FUN_00865ff0(int, unsigned int);
+    unsigned int StartVariableSizedValue();
+    void SaveVariableSizedValue(int, unsigned int);
 };
 
 struct CrimeNode : public BSSimpleList<Crime*>
@@ -593,7 +593,7 @@ struct FUN_009ecec0_shell
 void FUN_009ecec0_shell::SaveCrimeList(BGSSaveFormBuffer* apSaveGameBuffer)
 {
     unsigned int isaveGameCount = 0;
-    unsigned int isaveGameBufferPos = apSaveGameBuffer->FUN_00865f20();
+    unsigned int isaveGameBufferPos = apSaveGameBuffer->StartVariableSizedValue();
     CrimeNode* pCurrentElementNext = reinterpret_cast<CrimeNode*>((char*)this + 0x80);
     while (pCurrentElementNext)
     {
@@ -608,7 +608,7 @@ void FUN_009ecec0_shell::SaveCrimeList(BGSSaveFormBuffer* apSaveGameBuffer)
         }
         pCurrentElementNext = static_cast<CrimeNode*>(pCurrentElementNext->GetNext());
     }
-    apSaveGameBuffer->FUN_00865ff0(isaveGameCount, isaveGameBufferPos);
+    apSaveGameBuffer->SaveVariableSizedValue(isaveGameCount, isaveGameBufferPos);
 }
 }  // namespace fnv_009ecec0
 
@@ -877,8 +877,8 @@ struct SaveLocal
 {
     void FUN_00865e50(void*, unsigned int, int);
     void FUN_00865df0(void*, int);
-    unsigned int FUN_00865f20();
-    void FUN_00865ff0(int, unsigned int);
+    unsigned int StartVariableSizedValue();
+    void SaveVariableSizedValue(int, unsigned int);
 };
 struct AuxLocal
 {
@@ -926,7 +926,7 @@ void Candidate::SaveToStream(SaveLocal* buffer)
     buffer->FUN_00865df0(form14, 0);
     buffer->FUN_00865df0(form24, 0);
     int count6 = 0;
-    unsigned int pos1 = buffer->FUN_00865f20();
+    unsigned int pos1 = buffer->StartVariableSizedValue();
     NodeLocal* node9 = &list1c;
     while (node9)
     {
@@ -938,10 +938,10 @@ void Candidate::SaveToStream(SaveLocal* buffer)
         }
         node9 = node9->FUN_00726070();
     }
-    buffer->FUN_00865ff0(count6, pos1);
+    buffer->SaveVariableSizedValue(count6, pos1);
     {
         int count7 = 0;
-        unsigned int pos3 = buffer->FUN_00865f20();
+        unsigned int pos3 = buffer->StartVariableSizedValue();
         NodeLocal* nodeTmp = list38;
         while (nodeTmp)
         {
@@ -953,7 +953,7 @@ void Candidate::SaveToStream(SaveLocal* buffer)
             }
             nodeTmp = nodeTmp->FUN_00726070();
         }
-        buffer->FUN_00865ff0(count7, pos3);
+        buffer->SaveVariableSizedValue(count7, pos3);
     }
 }
 
@@ -1529,10 +1529,10 @@ extern "C" char DAT_01183028;
 extern "C" char DAT_01184704;
 struct Reader009
 {
-    void FUN_00864980(void*, unsigned);
+    void LoadData(void*, unsigned);
     void FUN_008648e0(void*);
-    void* FUN_008648a0();
-    unsigned FUN_00864a60();
+    void* LoadFormID();
+    unsigned LoadVariableSizedValue();
 };
 class TESBoundObject : public TESForm
 {
@@ -1575,20 +1575,20 @@ struct Host009
 // @fnv 0x009ec1a0
 void Host009::ReadFromStream(Reader009* apReader)
 {
-    apReader->FUN_00864980(&a, 4);
-    apReader->FUN_00864980(&b, 4);
-    apReader->FUN_00864980(&e, 1);
-    apReader->FUN_00864980(&g, 4);
-    apReader->FUN_00864980(&j, 4);
-    apReader->FUN_00864980(&k, 1);
-    apReader->FUN_00864980(&l, 4);
+    apReader->LoadData(&a, 4);
+    apReader->LoadData(&b, 4);
+    apReader->LoadData(&e, 1);
+    apReader->LoadData(&g, 4);
+    apReader->LoadData(&j, 4);
+    apReader->LoadData(&k, 1);
+    apReader->LoadData(&l, 4);
     field.FUN_009a5ff0(apReader);
     apReader->FUN_008648e0(&c);
     apReader->FUN_008648e0(&d);
-    f = dynamic_cast<TESBoundObject*>(FUN_004839c0(apReader->FUN_008648a0()));
+    f = dynamic_cast<TESBoundObject*>(FUN_004839c0(apReader->LoadFormID()));
     apReader->FUN_008648e0(&h);
     {
-        unsigned count = apReader->FUN_00864a60();
+        unsigned count = apReader->LoadVariableSizedValue();
         for (unsigned i = 0; i < count; i++)
         {
             void* item = 0;
@@ -1598,11 +1598,11 @@ void Host009::ReadFromStream(Reader009* apReader)
     }
     strings = new List009;
     {
-        unsigned uiFactionCount = apReader->FUN_00864a60();
+        unsigned uiFactionCount = apReader->LoadVariableSizedValue();
         for (unsigned uiFactionIndex = 0; uiFactionIndex < uiFactionCount; uiFactionIndex++)
         {
             void* pFaction = 0;
-            pFaction = dynamic_cast<TESFaction*>(FUN_004839c0(apReader->FUN_008648a0()));
+            pFaction = dynamic_cast<TESFaction*>(FUN_004839c0(apReader->LoadFormID()));
             if (pFaction)
                 strings->FUN_005ae3d0(&pFaction);
         }
@@ -1624,7 +1624,7 @@ struct TimeGlobal
 };
 struct TESSaveLoadGameHelper
 {
-    void FUN_008579b0(void* pv, int size);
+    void SaveGameDataOLD(void* pv, int size);
 };
 struct ProcessLists9EC990
 {
@@ -1657,23 +1657,23 @@ void FUN_009ec990_host::FUN_009ec990()
     if (g_TESSaveLoadGame->FUN_00862110())
     {
         unsigned int uiMagic_2 = 0x424c4f4b;
-        ((TESSaveLoadGameHelper*)g_TESSaveLoadGame)->FUN_008579b0(&uiMagic_2, 4);
+        ((TESSaveLoadGameHelper*)g_TESSaveLoadGame)->SaveGameDataOLD(&uiMagic_2, 4);
         pSizeTmp = (unsigned short*)((TimeGlobal*)g_TESSaveLoadGame)->GetTimeStamp();
-        ((TESSaveLoadGameHelper*)g_TESSaveLoadGame)->FUN_008579b0(&usVersion7, 2);
+        ((TESSaveLoadGameHelper*)g_TESSaveLoadGame)->SaveGameDataOLD(&usVersion7, 2);
     }
 
     unsigned short m_usPassCountLocal = 0;
     unsigned short* aPCount = (unsigned short*)((TimeGlobal*)g_TESSaveLoadGame)->GetTimeStamp();
-    ((TESSaveLoadGameHelper*)g_TESSaveLoadGame)->FUN_008579b0(&m_usPassCountLocal, 2);
+    ((TESSaveLoadGameHelper*)g_TESSaveLoadGame)->SaveGameDataOLD(&m_usPassCountLocal, 2);
 
     BSSimpleList<void*>* pNodeX = 0;
     while (pNodeX != 0 && !pNodeX->IsEmpty())
     {
         void* pv = pNodeX->GetItem();
         char cIndex2 = (char)((CrimeList*)pv)->FUN_00726070();
-        ((TESSaveLoadGameHelper*)g_TESSaveLoadGame)->FUN_008579b0(&cIndex2, 1);
+        ((TESSaveLoadGameHelper*)g_TESSaveLoadGame)->SaveGameDataOLD(&cIndex2, 1);
         unsigned short usResult6 = ((ProcessLists9EC990*)&DAT_011e0e80)->FUN_00972740((int)cIndex2, pv);
-        ((TESSaveLoadGameHelper*)g_TESSaveLoadGame)->FUN_008579b0(&usResult6, 2);
+        ((TESSaveLoadGameHelper*)g_TESSaveLoadGame)->SaveGameDataOLD(&usResult6, 2);
         m_usPassCountLocal++;
         pNodeX = pNodeX->GetNext();
     }

@@ -2546,7 +2546,7 @@ struct CreatureView
 struct Part
 {
     bool IsFlag40Set();
-    bool FUN_008b4360();
+    bool IsExplodablePart();
     unsigned char GetByte65();
     signed char GetByte63();
     bool FUN_008b5190();
@@ -3318,7 +3318,7 @@ struct Actor : ActorPrefix, LimbOwner
 {
     TESActorBase* GetActorBase();
     bool FUN_00573090(int);
-    bool FUN_0087f3d0();
+    bool GetEssential();
     void FUN_00572fc0(int, void*, void*, int, bool);
     void FUN_008b52a0(int, int, bool, bool, bool, bool);
     void ApplyEffectToBodyParts(Effect*, int, int, void*, void*, int, int, bool);
@@ -3347,7 +3347,7 @@ void Actor::ApplyEffectToBodyParts(Effect* effect, int type, int part, void* sou
     }
     if (FUN_00573090(part))
         return;
-    if (FUN_0087f3d0() || IsStateActive(0))
+    if (GetEssential() || IsStateActive(0))
         return;
     Part* q;
     Weapon* b;
@@ -3365,7 +3365,7 @@ void Actor::ApplyEffectToBodyParts(Effect* effect, int type, int part, void* sou
         if (q)
         {
             cf = q->IsFlag40Set();
-            if (q->FUN_008b4360())
+            if (q->IsExplodablePart())
                 h = q->GetByte65();
             if (q && cf && h >= 100)
                 f = true;
@@ -3403,9 +3403,9 @@ void Actor::ApplyEffectToBodyParts(Effect* effect, int type, int part, void* sou
         k = process->GetNode(ba);
         if (!k || k->FUN_00456610())
             continue;
-        if (a && !c->FUN_008b4360())
+        if (a && !c->IsExplodablePart())
             a = false;
-        if (!c->FUN_008b5190() && !c->FUN_008b4360())
+        if (!c->FUN_008b5190() && !c->IsExplodablePart())
             continue;
         FUN_00572fc0(ba, source, target, ba, a);
         if (!FUN_008c7aa0())

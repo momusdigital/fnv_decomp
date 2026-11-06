@@ -8,11 +8,11 @@ struct FUN_0081c470_shell
     float m_fFadeInTime;
     float m_fFadeOutTime;
     bool bFadeInActive;
-    void FUN_0081c470(bool abIn, float afTime);
+    void Fade(bool abIn, float afTime);
 };
 
 // @fnv 0x0081c470
-void FUN_0081c470_shell::FUN_0081c470(bool abIn, float afTime)
+void FUN_0081c470_shell::Fade(bool abIn, float afTime)
 {
     bFadeInActive = abIn;
     m_fFadeOutTime = afTime;

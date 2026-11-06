@@ -154,7 +154,7 @@ void ValueModifierEffect::ApplyActorValueModifier(Actor* actor, float magnitude,
                 actor->GetProcess()->vfn_72c(g_thePlayer, -magnitude);
             actor->DamageActorValue(value, magnitude, caster);
             if (magnitude < 0.0 && value == 16)
-                FUN_0087a8b0(TaskQueueInterface::GetSingleton(), 0x116c, actor, -magnitude);
+                QueueScriptFunctionCall(TaskQueueInterface::GetSingleton(), 0x116c, actor, -magnitude);
         }
     }
 }

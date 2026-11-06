@@ -1138,7 +1138,7 @@ struct BoltEffectUpd
     void FUN_00804210(bool bForce);
     bool FUN_00705cf0();
     float GetFloatAtOffset1C(int iIndex);
-    void FUN_00803b70(float fTimeOffset);
+    void Update3D(float fTimeOffset);
     void UpdateEffect(float fTimeOffset);
 };
 
@@ -1174,7 +1174,7 @@ void BoltEffectUpd::UpdateEffect(float fTimeOffset)
         FUN_00804210(false);
     }
     if (!FUN_00705cf0())
-        FUN_00803b70(fTimeOffset);
+        Update3D(fTimeOffset);
 }
 
 struct S_008033b0_Obj;
@@ -1888,11 +1888,11 @@ struct S_00803b70_Main
     S_00803b70_H50 m_50;
     S_00803b70_H54 m_54;
     S_00803b70_H58 m_58;
-    void FUN_00803b70(float value);
+    void Update3D(float value);
 };
 
 // @fnv 0x00803b70
-void S_00803b70_Main::FUN_00803b70(float value)
+void S_00803b70_Main::Update3D(float value)
 {
     if (m_50.FUN_00559450() && m_54.FUN_00559450() && m_4c.FUN_00559450() && m_58.FUN_00559450() && !DAT_011db9f4)
     {

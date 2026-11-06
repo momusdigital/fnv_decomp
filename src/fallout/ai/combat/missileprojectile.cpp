@@ -2175,7 +2175,7 @@ struct MissileHandle
 struct MissileBody
 {
     MissileHandle FUN_0043b4f0();
-    void FUN_00626cb0(unsigned);
+    void SetCollisionFilter(unsigned);
     int FUN_00517630();
     void SetFlag(unsigned, bool);
 };
@@ -2621,7 +2621,7 @@ void MissileActor::HandleMissileImpact()
             {
                 MissileHandle handle = ownBody53->FUN_0043b4f0();
                 handle.FUN_004a39f0(15);
-                ownBody53->FUN_00626cb0(handle.value);
+                ownBody53->SetCollisionFilter(handle.value);
             }
             if (!paused)
                 FUN_00575830(hit31->position.FUN_00439e90(), FUN_009b7010().ApplyScaled(impactScale));

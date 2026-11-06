@@ -1690,7 +1690,7 @@ struct GlobalObj
 extern GlobalObj* DAT_011f1708;
 int __fastcall FUN_008a7570(void*);
 bool __fastcall FUN_0097f2d0(void*);
-bool __fastcall FUN_008a16d0(void*);
+bool __fastcall IsWeaponDrawn(void*);
 bool __fastcall FUN_004c0c30(void*);
 Proc* __fastcall FUN_008d8520(void*);
 int __fastcall FUN_007031c0(int);
@@ -1787,7 +1787,7 @@ void This::FUN_009cc510()
         m2 = FUN_00644580(m_04->FUN_00980070(), 50, 50, false, s33);
         v29 = t45->V141() || t45->V140() || t45->FUN_00437bd0() || t45->FUN_00579670() || t45->FUN_00437bf0();
         m33 = t45->FUN_008a1710();
-        if (v29 || !FUN_008a16d0(t45) || (m33 != 0 && FUN_004c0c30(m33)))
+        if (v29 || !IsWeaponDrawn(t45) || (m33 != 0 && FUN_004c0c30(m33)))
             m2 = 0.0f;
         v30 = (t57 && n44 > 0.0f) ? true : FUN_008d8520(FUN_00996de0())->V254();
         if (!v30 || !FUN_0097f2d0(m_04))
@@ -2579,7 +2579,7 @@ float __cdecl FUN_00404010(float, float);
 unsigned int __cdecl FUN_00944460(unsigned int, unsigned int);
 void __cdecl FUN_005b5e40(const char*, ...);
 bool __cdecl FUN_005b6f70();
-void __cdecl FUN_00703c00(const char*, ...);
+void __cdecl PrintToConsole(const char*, ...);
 
 extern double DAT_01012060;
 extern double DAT_01012070;
@@ -2899,7 +2899,7 @@ int S009ce870::FUN_009ce870(float afDistance, float afReach, bool, bool, int)
     bSelected9 = true;
     if (FUN_005b6f70() && bSelected9)
     {
-        FUN_00703c00("%.20s selects %s power attack!", pActorF->FUN_0055d520(),
+        PrintToConsole("%.20s selects %s power attack!", pActorF->FUN_0055d520(),
                      iResult == 0x5c   ? "NORMAL"
                      : iResult == 0x5d ? "FORWARD"
                      : iResult == 0x5e ? "BACKWARD"
@@ -3100,7 +3100,7 @@ struct Actor
     bool FUN_00493bb0();
     bool FUN_005a2030();
     unsigned short FUN_00897910(int, int, int, int);
-    float FUN_00897b50(int);
+    float GetAnimGroupDuration(int);
     void DispatchToTarget(int);
     const char* FUN_0055d520();
 };
@@ -3144,7 +3144,7 @@ float FUN_006465f0(float, float);
 int FUN_005f2440(unsigned short);
 double FUN_00404010(float, float);
 bool FUN_005b6f70();
-void FUN_00703c00(const char*, ...);
+void PrintToConsole(const char*, ...);
 struct Procedure
 {
     int unk00;
@@ -3242,7 +3242,7 @@ void Procedure::EvaluateReaction()
                 }
                 if (FUN_005f2440(FUN_00996de0()->FUN_00897910(state, 0, 0, 0)) == state)
                 {
-                    float current = actor2->FUN_00897b50(state);
+                    float current = actor2->GetAnimGroupDuration(state);
                     duration3 = FUN_00404010(current, duration3);
                     float amount_2 = 0.0f;
                     actor2->DispatchToTarget(targetState3 && amount_2 > *DAT_011ce380.FUN_00403e20() ? action | 512
@@ -3252,7 +3252,7 @@ void Procedure::EvaluateReaction()
                     SetMode(2);
                 }
                 else if (FUN_005b6f70())
-                    FUN_00703c00(DAT_01090c60, actor2->FUN_0055d520(),
+                    PrintToConsole(DAT_01090c60, actor2->FUN_0055d520(),
                                  action & 4   ? DAT_01090cb8
                                  : action & 8 ? DAT_01090cb0
                                  : action & 1 ? DAT_01090ca4
@@ -4939,7 +4939,7 @@ struct P12_9cc240
 };
 struct Act9cc240
 {
-    bool FUN_008b3b90();
+    bool DidPathingFail();
     bool FUN_008b3960();
     float FUN_00567400();
 };
@@ -5017,7 +5017,7 @@ void CPAM9cc240::UpdateCombatState()
     FUN_00483710();
     if (FUN_0044edb0() == 3 || FUN_0044edb0() == 4)
     {
-        if (dst0->FUN_008b3b90() && !dst0->FUN_008b3960())
+        if (dst0->DidPathingFail() && !dst0->FUN_008b3960())
         {
             if (!m48.FUN_0097fa50())
             {

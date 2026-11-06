@@ -1,6 +1,6 @@
 
 // src/fallout/ai/middlelowprocess_decl_variant.cpp - declaration variant unit created 2026-10-26 by decl_variants.py for paused function 0x0092cab0: the skeleton of src/fallout/ai/middlelowprocess.cpp
-// with declarations corrected to what the original code does (LowProcess.h: LowProcess += void FUN_0092cab0(Actor* source);; Actor.h: virtual void Unk_10D(void); -> virtual void Unk_10D(int a);; Actor.h: Actor += void FUN_00881680(bool a);). Move the function to its real unit once
+// with declarations corrected to what the original code does (LowProcess.h: LowProcess += void FUN_0092cab0(Actor* source);; Actor.h: virtual void Unk_10D(void); -> virtual void Unk_10D(int a);; Actor.h: Actor += void EndInterruptPackage(bool a);). Move the function to its real unit once
 // that unit declares it this way.
 
 #include "../../../include/layout_support.h"
@@ -23,7 +23,7 @@ void LowProcess::FUN_0092cab0(Actor* source)
     if (!pTarget || actor->GetDisabled() || actor->GetDeleted() || actor->Unk_8B(false))
     {
         source->Unk_10D(0);
-        source->FUN_00881680(false);
+        source->EndInterruptPackage(false);
     }
     else if (actor && actor->GetProcess() && actor->GetProcess()->GetProcessLevel() == 2)
     {

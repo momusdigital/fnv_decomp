@@ -332,7 +332,7 @@ void CoverPathingRequestCover::CopyToCover(CoverPathingRequest* apRequest)
 class NavMesh
 {
   public:
-    bool FUN_006997b0(unsigned short a);
+    bool GetObstacleForTriangle(unsigned short a);
 };
 
 class NavMeshPtr
@@ -364,17 +364,17 @@ struct FUN_006e4650_class
 {
     bool FUN_006dd610(NavMeshPtr& nm);
     unsigned short GetShortValueAtOffset24(NiPointer<PathingSolution>& sol);
-    bool FUN_006e4650(int arg);
+    bool CheckDynamicCoverValid(int arg);
 };
 
 // @fnv 0x006e4650
-bool FUN_006e4650_class::FUN_006e4650(int aiValue)
+bool FUN_006e4650_class::CheckDynamicCoverValid(int aiValue)
 {
     NavMeshPtr nm;
     if (FUN_006dd610(nm))
     {
         NiPointer<PathingSolution> sol(0);
-        if (nm->FUN_006997b0(GetShortValueAtOffset24(sol)) && sol->unk70 == aiValue)
+        if (nm->GetObstacleForTriangle(GetShortValueAtOffset24(sol)) && sol->unk70 == aiValue)
             return true;
     }
     return false;
@@ -440,7 +440,7 @@ int S_006e4740::FUN_006e4740()
     if (FUN_006dd610(nm))
     {
         NiPointer<PathingSolution> sol(0);
-        if (nm->FUN_006997b0(GetShortValueAtOffset24(sol)))
+        if (nm->GetObstacleForTriangle(GetShortValueAtOffset24(sol)))
         {
             return sol->unk70;
         }

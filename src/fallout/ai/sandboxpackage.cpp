@@ -1145,7 +1145,7 @@ struct SaveFormIDHelper
 
 struct BGSSaveGameBuffer
 {
-    void __thiscall FUN_00865f60(unsigned int);
+    void __thiscall SaveVariableSizedValue(unsigned int);
 };
 
 struct BGSSaveFormBuffer
@@ -1214,7 +1214,7 @@ void __thiscall FUN_009f5a60_shell::SaveCrimeData(BGSSaveFormBuffer* apSaveGameB
             ? (unsigned int)reinterpret_cast<Crime*>(reinterpret_cast<unsigned char*>(this) + 0x20)->GetTarget()
             : 0;
 
-    reinterpret_cast<BGSSaveGameBuffer*>(apSaveGameBuffer)->FUN_00865f60(isaveGameCount_2);
+    reinterpret_cast<BGSSaveGameBuffer*>(apSaveGameBuffer)->SaveVariableSizedValue(isaveGameCount_2);
 
     for (i = 0; i < isaveGameCount_2; ++i)
     {

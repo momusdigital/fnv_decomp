@@ -1338,7 +1338,7 @@ struct Actor
     void FUN_00575830(V* v);
     void UpdateNodeTransform(int a, int b);
     float FUN_00931d70();
-    Obj* FUN_009306d0();
+    Obj* GetCharController();
     Obj* FUN_00874480();
     float GetFirstLightParameter();
     float FUN_00508070();
@@ -1540,9 +1540,9 @@ void Actor::FUN_009b90b0()
                                     Handle h;
                                     h.FUN_008c71b0(0);
                                     int t8bc;
-                                    if (FUN_009306d0())
+                                    if (GetCharController())
                                     {
-                                        h.val = FUN_009306d0()->FUN_0070c440(&t8bc)->val;
+                                        h.val = GetCharController()->FUN_0070c440(&t8bc)->val;
                                     }
                                     else
                                     {
@@ -1603,17 +1603,17 @@ void Actor::FUN_009b90b0()
                                 SetWhich(0);
                             FUN_00c69f50(p60, 1, 1);
                             FUN_00c6a350(p60, 4, 1, 1, 1);
-                            if (FUN_009306d0())
+                            if (GetCharController())
                             {
                                 int tcac;
-                                FUN_00c6a3d0(p60, FUN_009306d0()->FUN_0070c440(&tcac)->FUN_004a3a20(), 1, 1);
+                                FUN_00c6a3d0(p60, GetCharController()->FUN_0070c440(&tcac)->FUN_004a3a20(), 1, 1);
                                 if (!noMove)
                                 {
                                     FUN_00575830(&owner->unk04);
                                     V5 vcc0;
                                     vcc0.FUN_006815c0();
                                     FUN_004a3e00(&vcc0, &owner->unk04);
-                                    FUN_009306d0()->FUN_00c6e390(&vcc0);
+                                    GetCharController()->FUN_00c6e390(&vcc0);
                                 }
                                 UpdateNodeTransform(0, 0);
                             }

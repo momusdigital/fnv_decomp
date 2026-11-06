@@ -2093,7 +2093,7 @@ template <class T> struct MmPtr
 
 struct MmOwner
 {
-    void FUN_006fee90(int i);
+    void UpdateBlockVisibility(int i);
 };
 
 struct MenuModelImpl
@@ -2143,7 +2143,7 @@ void MenuModelImpl::UpdateMenuNodes()
         MmTransform kTransformTmp(0.0f, 0, 0);
         m_spNodeA.FUN_00559450()->FUN_00a5a040();
         m_spNodeA.FUN_00559450()->FUN_00a59c60(&kTransformTmp);
-        m_pkOwnerManager->FUN_006fee90(0);
+        m_pkOwnerManager->UpdateBlockVisibility(0);
         m_spNodeA.FUN_00559450()->FUN_005495f0()->SetByteAtOffset38(0);
         m_spNodeA.FUN_00559450()->FUN_005495f0()->FUN_00a67050(0x4000);
         m_spNodeA.FUN_00559450()->FUN_005495f0()->FUN_004410f0(1);
@@ -2401,7 +2401,7 @@ struct GtAccum
 };
 struct GtOwner
 {
-    void FUN_006fee90(int i);
+    void UpdateBlockVisibility(int i);
 };
 int __cdecl FUN_00438220();
 int __cdecl FUN_0040df90();
@@ -2450,7 +2450,7 @@ void FUN_006f6a90_Owner::ApplyShaderSetup(GtAVObject* pkObject)
         GtPoint3 kZeroWork(0.0f, 0, 0);
         pkGeomA->FUN_00a5a040();
         pkGeomA->FUN_00a59c60(&kZeroWork);
-        m_pkOwnerManager->FUN_006fee90(0);
+        m_pkOwnerManager->UpdateBlockVisibility(0);
         pkGeomA->FUN_005495f0()->SetByteAtOffset38(0);
         pkGeomA->FUN_005495f0()->FUN_00a67050(0x4000);
         pkGeomA->FUN_005495f0()->FUN_004410f0(1);

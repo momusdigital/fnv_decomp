@@ -31,7 +31,7 @@ void FUN_007038e0(int);
 void FUN_00703920();
 void FUN_00702c80(bool, bool);
 void UpdateMenuTileVisibility();
-int FUN_0070ede0();
+int GetClassStatic();
 int MinInt(int, int);
 int FUN_00647b70(int, int);
 

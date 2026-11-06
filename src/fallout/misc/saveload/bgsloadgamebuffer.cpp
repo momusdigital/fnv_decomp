@@ -200,11 +200,11 @@ struct BGSLoadGameBuffer
 typedef char _sizecheck_BGSLoadGameBuffer[sizeof(BGSLoadGameBuffer) == 16 ? 1 : -1];
 struct FUN_00864980_shell : public BGSLoadGameBuffer
 {
-    void FUN_00864980(NiQuaternion*, unsigned int);
+    void LoadData(NiQuaternion*, unsigned int);
 };
 
 // @fnv 0x00864980
-void FUN_00864980_shell::FUN_00864980(NiQuaternion* apData, unsigned int aiSize)
+void FUN_00864980_shell::LoadData(NiQuaternion* apData, unsigned int aiSize)
 {
     ReadTypedData(apData, aiSize);
 }
@@ -401,11 +401,11 @@ struct FUN_008579e0_shell
 {
     char _0[0x14];
     void* _14;
-    void FUN_008579e0(void* dst, unsigned int size);
+    void LoadGameDataOLD(void* dst, unsigned int size);
 };
 // Copies size bytes from the object's _14 pointer into dst, then calls Init(size) on this.
 // @fnv 0x008579e0
-void FUN_008579e0_shell::FUN_008579e0(void* dst, unsigned int size)
+void FUN_008579e0_shell::LoadGameDataOLD(void* dst, unsigned int size)
 {
     __memcpy(dst, _14, size);
     ((FUN_00857bd0*)this)->Init(size);
@@ -598,7 +598,7 @@ struct PackedFormID
 typedef char _sizecheck_BGSNumericIDIndex[sizeof(PackedFormID) == 3 ? 1 : -1];
 struct FUN_008648a0_shell : public BGSLoadGameBuffer
 {
-    bool FUN_008648a0(unsigned int*);
+    bool LoadFormID(unsigned int*);
 };
 
 struct Dummy84eaf0
@@ -612,10 +612,10 @@ struct FUN_00864820_wrap
 };
 struct FUN_008648a0_t : public BGSLoadGameBuffer
 {
-    unsigned int FUN_008648a0();
+    unsigned int LoadFormID();
 };
 // @fnv 0x008648a0
-unsigned int FUN_008648a0_t::FUN_008648a0()
+unsigned int FUN_008648a0_t::LoadFormID()
 {
     unsigned int iformID;
     PackedFormID formIDIndex;
@@ -1021,17 +1021,17 @@ struct BGSLoadGameBuffer
 typedef char _sizecheck_BGSLoadGameBuffer[sizeof(BGSLoadGameBuffer) == 16 ? 1 : -1];
 struct FUN_00864a60_shell : public BGSLoadGameBuffer
 {
-    int FUN_00864a60();
+    int LoadVariableSizedValue();
 };
 
 struct FUN_00864a60_cls : public BGSLoadGameBuffer
 {
-    int FUN_00864a60();
+    int LoadVariableSizedValue();
 };
 
 // Reads a tag byte, dispatches on its low two bits to read a 1, 2 or 4 byte value, and returns that value shifted right by two.
 // @fnv 0x00864a60
-int FUN_00864a60_cls::FUN_00864a60()
+int FUN_00864a60_cls::LoadVariableSizedValue()
 {
     unsigned char tag = (unsigned char)pBuffer[m_uiReadOffset];
     unsigned int flags9 = tag & 3;

@@ -481,11 +481,11 @@ struct FOPipboyManagerPC : public FORenderedMenu
     float m_fFirstPersonLightIntensity;
     float m_fThirdPersonLightIntensity;
     bool m_bPipBoyLightEnabled;
-    void FUN_007f8610(Knobs aiKnob, float afAmount, float afRate, bool abPlaySound);
+    void MoveKnob(Knobs aiKnob, float afAmount, float afRate, bool abPlaySound);
 };
 
 // @fnv 0x007f8610
-void FOPipboyManagerPC::FUN_007f8610(Knobs aiKnob, float afAmount, float afRate, bool abPlaySound)
+void FOPipboyManagerPC::MoveKnob(Knobs aiKnob, float afAmount, float afRate, bool abPlaySound)
 {
     if (abPlaySound && aiKnob == 0)
     {
@@ -521,11 +521,11 @@ extern SettingT_GameSettingCollection_ g_011db4ec;
 
 struct FOPipboyManagerPC : public FOPipboyManager
 {
-    void FUN_007f8a80();
+    void TriggerRandomEffect();
 };
 
 // @fnv 0x007f8a80
-void FOPipboyManagerPC::FUN_007f8a80()
+void FOPipboyManagerPC::TriggerRandomEffect()
 {
     float fchance;
 
@@ -590,11 +590,11 @@ bool __cdecl IsConsoleActive();
 
 struct FOPipboyManagerPC : public FOPipboyManager
 {
-    void FUN_007fa220();
+    void UpdateIdleAnims();
 };
 
 // @fnv 0x007fa220
-void FOPipboyManagerPC::FUN_007fa220()
+void FOPipboyManagerPC::UpdateIdleAnims()
 {
     BSAnimGroupSequence* pIdleSequence;
     Animation* panim;
@@ -758,8 +758,8 @@ extern GameTimerRecord g_timeGlobal;
 struct S07f7ee0
 {
     bool UpdateScreenEffect();
-    void FUN_007f8320(float);
-    void FUN_007fa220();
+    void UpdateKnobs(float);
+    void UpdateIdleAnims();
     bool FUN_007f7ee0();
 };
 // @fnv 0x007f7ee0
@@ -769,8 +769,8 @@ bool S07f7ee0::FUN_007f7ee0()
     if (!this->UpdateScreenEffect())
         return false;
     fappTime = (float)(unsigned int)((AnimIdle*)&g_timeGlobal)->GetSection();
-    this->FUN_007f8320(fappTime);
-    this->FUN_007fa220();
+    this->UpdateKnobs(fappTime);
+    this->UpdateIdleAnims();
     return true;
 }
 
@@ -1263,7 +1263,7 @@ FUN_007f7a70::FUN_007f7a70() : root(0), thirdRoot(0), thirdScreen(0), partialGeo
 }
 
 bool FUN_00705ea0();
-void FUN_00703610();
+void HideMenus();
 struct PipboyBase
 {
     virtual ~PipboyBase();
@@ -1352,12 +1352,12 @@ struct FUN_007f7ce0 : PipboyBase
     bool m_bPipBoyLightEnabled;
     virtual ~FUN_007f7ce0();
 };
-// Destructor that, if FUN_00705ea0() returns true, calls FUN_00703610().
+// Destructor that, if FUN_00705ea0() returns true, calls HideMenus().
 // @fnv 0x007f7ce0
 FUN_007f7ce0::~FUN_007f7ce0()
 {
     if (FUN_00705ea0())
-        FUN_00703610();
+        HideMenus();
 }
 
 namespace fnv_007f8320 {
@@ -1372,11 +1372,11 @@ class NiAVObjectHelper : public NiAVObject
 class S07f7ee0 : public FOPipboyManager
 {
   public:
-    void FUN_007f8320(float fTime);
+    void UpdateKnobs(float fTime);
 };
 
 // @fnv 0x007f8320
-void S07f7ee0::FUN_007f8320(float fTime)
+void S07f7ee0::UpdateKnobs(float fTime)
 {
     bool bUpdated[3];
     float fMoveElapsedTime = fTime - DAT_011db370;

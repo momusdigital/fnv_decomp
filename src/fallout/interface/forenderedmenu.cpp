@@ -341,9 +341,9 @@ struct MenuStub
     char _p61[0x58];
     bool bB9;
     void ResetMenuState();
-    void FUN_007fae70(int);
+    void SetScreenTexture(int);
 };
-// Clears the bB9, b4d and b60 flags, culls the object at unk1c if set, and calls FUN_007fae70(0).
+// Clears the bB9, b4d and b60 flags, culls the object at unk1c if set, and calls SetScreenTexture(0).
 // @fnv 0x007fb0b0
 void MenuStub::ResetMenuState()
 {
@@ -352,7 +352,7 @@ void MenuStub::ResetMenuState()
     b60 = 0;
     if (unk1c)
         ((NiAVObject*)(unsigned int)unk1c)->SetAppCulled(true);
-    FUN_007fae70(0);
+    SetScreenTexture(0);
 }
 
 struct S007fb100
@@ -493,11 +493,11 @@ struct Menu;
 Menu* __cdecl FindMenuById(int id);
 struct FUN_007fc8d0_shell : public FORenderedMenu
 {
-    void FUN_007fc8d0();
+    void UnhidePopupMenus();
 };
 // Looks up three tiles by id and, for each enabled flag at offsets 0xd2/0xd0/0xd1, un-culls that tile's node.
 // @fnv 0x007fc8d0
-void FUN_007fc8d0_shell::FUN_007fc8d0()
+void FUN_007fc8d0_shell::UnhidePopupMenus()
 {
     Tile* pquantity2 = (Tile*)FindMenuById(0x3e9);
     Tile* pmessage = (Tile*)FindMenuById(0x3f8);
@@ -620,7 +620,7 @@ void FUN_007fb530_shell::FUN_007fb530(float afDuration)
 struct FUN_007f8010_shell : public FORenderedMenu
 {
     bool GetInitialized();
-    void FUN_007f7f40();
+    void ResetColors();
     void FUN_007fb040();
     void FUN_007f8010();
 };
@@ -655,7 +655,7 @@ void FUN_007f8010_shell::FUN_007f8010()
         return;
 
     reinterpret_cast<Interface*>(this)->FUN_007fa8d0(false);
-    FUN_007f7f40();
+    ResetColors();
 
     DAT_011d890a = 1;
     g_burstSoundEnabled = 1;
@@ -682,7 +682,7 @@ void FUN_007f8010_shell::FUN_007f8010()
 }
 
 // @fnv 0x007fae70
-void MenuStub::FUN_007fae70(int apTexture)
+void MenuStub::SetScreenTexture(int apTexture)
 {
     NiProperty* pnlp;
 
@@ -963,7 +963,7 @@ struct NodeView : NiNode
 };
 struct CameraView : NiAVObject
 {
-    void FUN_00712e60(const Rect4&);
+    void SetViewPort(const Rect4&);
     void FUN_00733fd0(float);
     void SetLookAt(const Point3&, const Point3&);
     void FUN_00507700(float);
@@ -972,7 +972,7 @@ struct CameraView : NiAVObject
 struct MenuView
 {
     void SetGo(NiNode*);
-    void FUN_007b1970(float, bool);
+    void RotatePlayer(float, bool);
     void UpdateProgress(float, bool);
     int FUN_007dcc00();
 };
@@ -1463,7 +1463,7 @@ struct PlayerView
     virtual void unkV0BD();
     virtual void SetAngle(float);
     ProcessView* FUN_008d8520();
-    void FUN_00884f80();
+    void SetWalkRunFlagDirty();
     void ForwardToVtSlot(int);
     AnimView* FUN_00950a60(bool);
     NodeView* FUN_00950bb0(bool);
@@ -1594,7 +1594,7 @@ struct NewCamera
 };
 struct EngineView
 {
-    void FUN_00871dc0();
+    void RenderMenuBackground();
 };
 struct ControlsView
 {
@@ -1773,7 +1773,7 @@ struct FUN_007fd6c0_Class
 // @fnv 0x007fd6c0
 void FUN_007fd6c0_Class::UpdatePlayerFaceScene()
 {
-    DAT_011dea0c->FUN_00871dc0();
+    DAT_011dea0c->RenderMenuBackground();
     DAT_011ad884 = false;
     if (!IsUnk28Set())
         return;
@@ -1787,7 +1787,7 @@ void FUN_007fd6c0_Class::UpdatePlayerFaceScene()
     ((NiNode*)FUN_00450b80(1))->AddObject(FUN_005585e0(), true);
     ((ControlsView*)FUN_007fdf30())->FUN_00a253d0();
     DAT_011dea3c->FUN_008d8520()->SetState(DAT_011dea3c, 0);
-    DAT_011dea3c->FUN_00884f80();
+    DAT_011dea3c->SetWalkRunFlagDirty();
     DAT_011dea3c->ForwardToVtSlot(0x400);
     DAT_011dea3c->FUN_00950a60(false)->FUN_00496080(20, 0.0f);
     DAT_011dea3c->FUN_00950a60(false)->FUN_008eeaa0(23);
@@ -1815,7 +1815,7 @@ void FUN_007fd6c0_Class::UpdatePlayerFaceScene()
     radius->SetGo(scene);
     camera = (CameraView*)new NewCamera;
     Rect4 up(0.0f, 1.0f, 1.0f, 0.0f);
-    camera->FUN_00712e60(up);
+    camera->SetViewPort(up);
     camera->FUN_00733fd0(1.0f);
     Point3 rootUpdate(0.0f, 1.0f, 0.0f);
     camera->SetLookAt(rootUpdate, Point3(0.0f, 0.0f, 1.0f));
@@ -1833,7 +1833,7 @@ void FUN_007fd6c0_Class::UpdatePlayerFaceScene()
     NiUpdateData menuRoot(0.0f, false, false);
     camera->Update(menuRoot);
     root->SetAppCulled(false);
-    radius->FUN_007b1970(0.5235987901687622f, true);
+    radius->RotatePlayer(0.5235987901687622f, true);
     radius->UpdateProgress(0.0f, true);
     UpdateSlotSelection(radius->FUN_007dcc00());
 }
@@ -2046,7 +2046,7 @@ struct Frustum82
 struct Camera82
 {
     Frustum82& FUN_0045bbe0();
-    void FUN_00712e60(const Rect82&);
+    void SetViewPort(const Rect82&);
     void FUN_00a6faf0(const Frustum82&);
 };
 struct Accumulator82
@@ -2214,7 +2214,7 @@ struct Rendered82
     int unkd0;
     ObjectPointer82 accumulator;
     void UpdateMenuVisibility();
-    void FUN_007fc8d0();
+    void UnhidePopupMenus();
     void FUN_007fba00(void*, void*, Target82*);
 };
 Renderer82* FUN_0043c4b0();
@@ -2259,7 +2259,7 @@ void Rendered82::FUN_007fba00(void* pRenderArg1, void* pRenderArg2, Target82* pS
     if (FUN_004e9510())
     {
         FUN_00b6b8d0(pRenderArg2, target31.FUN_00559450()->FUN_00b6b260());
-        camera23->FUN_00712e60(Rect82(0.0f, 1.0f, 1.0f, 0.0f));
+        camera23->SetViewPort(Rect82(0.0f, 1.0f, 1.0f, 0.0f));
     }
     Frustum82 frustum12 = camera23->FUN_0045bbe0();
     Frustum82 saved14 = frustum12;
@@ -2293,7 +2293,7 @@ void Rendered82::FUN_007fba00(void* pRenderArg1, void* pRenderArg2, Target82* pS
     FUN_00b6bee0(scene3->FUN_006629f0(), root.FUN_00559450(), render4);
     FUN_00b6c0d0(scene3->FUN_006629f0(), accumulator.FUN_00559450(), 0);
     render4->FUN_00c4f2d0();
-    FUN_007fc8d0();
+    UnhidePopupMenus();
     render4->FUN_004a0fd0(0);
     if (this != FUN_00705990())
         root.FUN_00559450()->FUN_00450f90(true);

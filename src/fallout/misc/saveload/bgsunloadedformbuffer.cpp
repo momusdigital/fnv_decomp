@@ -32,7 +32,7 @@ struct FormInfoRecord
 struct FormBufferContext
 {
     char* pBuffer;
-    char* FUN_00866390();
+    char* GetAdvancedBuffer();
 };
 
 unsigned int __cdecl FUN_00845d70(unsigned int);
@@ -40,7 +40,7 @@ unsigned int __fastcall FUN_00864520(void*);
 
 // If pBuffer is set, computes a size from the header via FUN_00864520 and FUN_00845d70 and returns pBuffer plus that size plus 2; otherwise returns 0.
 // @fnv 0x00866390
-char* FormBufferContext::FUN_00866390()
+char* FormBufferContext::GetAdvancedBuffer()
 {
     FormInfoRecord* punloadedHeader;
     unsigned int isizeTypeSize;
@@ -131,11 +131,11 @@ struct FUN_0084b450_Class
 struct FUN_00866480_shell : FormBufferContext
 {
     unsigned int FUN_00866430();
-    BGSLoadFormBuffer* FUN_00866480();
+    BGSLoadFormBuffer* CreateLoadFormBuffer();
 };
 
 // @fnv 0x00866480
-BGSLoadFormBuffer* FUN_00866480_shell::FUN_00866480()
+BGSLoadFormBuffer* FUN_00866480_shell::CreateLoadFormBuffer()
 {
     SIZE_TYPE esizeType;
     char* padvancedBuffer;

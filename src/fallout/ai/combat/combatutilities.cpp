@@ -984,7 +984,7 @@ unsigned int __fastcall FUN_0044ddc0(TESObjectREFR* ref);
 
 struct PlayerStub
 {
-    bool FUN_0088b880(int a1, Actor* target, int a3, int a4, int a5);
+    bool LineOfSight(int a1, Actor* target, int a3, int a4, int a5);
 };
 
 float __cdecl FUN_009a64d0(Actor* a, Actor* b, int c);
@@ -1076,7 +1076,7 @@ Actor* FUN_009a60e0(Actor* actor, float maxDist)
         }
     }
 
-    if (best3 && actor->IsSlot216() && !((PlayerStub*)g_thePlayer)->FUN_0088b880(1, best3, 1, 0, 0))
+    if (best3 && actor->IsSlot216() && !((PlayerStub*)g_thePlayer)->LineOfSight(1, best3, 1, 0, 0))
     {
         best3 = 0;
     }

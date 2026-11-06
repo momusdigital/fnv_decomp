@@ -27,10 +27,10 @@ class Actor : public MobileObject,
               public CachedValuesOwner
 {
   public:
-    void FUN_008c00e0(TESObjectREFR* victimRef, int amount, int crimeValue);
+    void PickpocketAlarm(TESObjectREFR* victimRef, int amount, int crimeValue);
     bool FUN_005785e0(Actor* target, bool a);
     void FUN_008bff50();
-    void FUN_008b7c00(bool a, bool b);
+    void AddFactionMinorCrime(bool a, bool b);
     void FUN_008bf500(Actor* actor);  // declared for the original code (decl_variants.py)
 
   public:

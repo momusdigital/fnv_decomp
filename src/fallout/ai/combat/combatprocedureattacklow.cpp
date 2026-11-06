@@ -323,7 +323,7 @@ struct FUN_009cbb70_actor : FUN_009cbb70_actorbase, FUN_00645d00_base
     FUN_004459e0* FUN_00576260(FUN_00525980_weap* apWeapon, int aiFlag);
     bool FUN_008a6650(int aiFlag);
     void FUN_0089a760(AnimIdle* apPackage, int aiFlag);
-    bool FUN_008a8dd0(FUN_00525980_weap* apWeapon);
+    bool ShouldUseAmmo(FUN_00525980_weap* apWeapon);
     int FUN_00575610(void* apAmmo);
 };
 
@@ -412,7 +412,7 @@ void FUN_009cbb70_shell::FUN_009cbb70()
         pTarget->FUN_0089a760(spPackage, 0);
     }
 
-    if (pWeapon && pWeapon->FUN_00525980(kActor) && kActor->FUN_008a8dd0(pWeapon))
+    if (pWeapon && pWeapon->FUN_00525980(kActor) && kActor->ShouldUseAmmo(pWeapon))
     {
         void* pAmmoA = pWeapon->FUN_00525980(kActor);
         int iCountCur = kActor->FUN_00575610(pAmmoA);

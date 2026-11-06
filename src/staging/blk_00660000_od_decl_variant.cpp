@@ -671,8 +671,8 @@ struct SaveBufCls
 {
     void __thiscall FUN_00865e50(void* data, unsigned int size, int z);
     void __thiscall FUN_00865df0(void* data, unsigned int size);
-    unsigned int __thiscall FUN_00865f20();
-    void __thiscall FUN_00865ff0(unsigned int count, unsigned int pos);
+    unsigned int __thiscall StartVariableSizedValue();
+    void __thiscall SaveVariableSizedValue(unsigned int count, unsigned int pos);
 };
 struct SaveItemCls
 {

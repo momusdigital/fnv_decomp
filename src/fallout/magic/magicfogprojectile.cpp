@@ -338,7 +338,7 @@ struct FUN_0081aa80
 };
 struct SaveManager
 {
-    void FUN_008579e0(void*, unsigned);
+    void LoadGameDataOLD(void*, unsigned);
     unsigned char FUN_008df040();
 };
 extern SaveManager* DAT_011de45c;
@@ -526,7 +526,7 @@ void Projectile::LoadFromStream(int a, int b)
     FUN_00484d00(&unkA8, 4);
     FUN_00484d00(&unk88, 4);
     FUN_00484d00(&unkAC, 4);
-    DAT_011de45c->FUN_008579e0(&unkB4, 4);
+    DAT_011de45c->LoadGameDataOLD(&unkB4, 4);
     FUN_00484d00(&unkB8, 4);
     if (unkB4 == 1)
     {
@@ -840,7 +840,7 @@ struct Node2
 };
 struct SaveMgrExt
 {
-    void FUN_008579b0(void*, unsigned int);
+    void SaveGameDataOLD(void*, unsigned int);
     unsigned short* FUN_00825c00();
     unsigned char FUN_008df040();
 };
@@ -881,7 +881,7 @@ void FUN_0081ade0_cls::SaveToStream(int a1)
     FUN_00484ce0(&m_a8, 4);
     FUN_00484ce0(&m88, 4);
     FUN_00484ce0(&m_ac, 4);
-    ((SaveMgrExt*)DAT_011de45c)->FUN_008579b0(&m_b4, 4);
+    ((SaveMgrExt*)DAT_011de45c)->SaveGameDataOLD(&m_b4, 4);
     FUN_00484ce0(&m_b8, 4);
     if (m_b4 == 1)
     {
@@ -958,7 +958,7 @@ struct FogLight
     FogLight(unsigned int auiFormId, void* pkNode);
     void* operator new(unsigned int uiSize);
     void operator delete(void* pvMem);
-    void FUN_0081c470(int iUnk, float fRadius);
+    void Fade(int iUnk, float fRadius);
     void FUN_00621b20(float fFadeAmount);
 };
 
@@ -1151,7 +1151,7 @@ void FogProjectileLoad::LoadProjectile(int a1, int a2)
         m_pkLight = new FogLight(FUN_004fd400()->FUN_004fd380()->FUN_0084e3a0(), Get3D());
         if (m_pkLight)
         {
-            m_pkLight->FUN_0081c470(0, m_fBoundRadius);
+            m_pkLight->Fade(0, m_fBoundRadius);
             m_pkLight->FUN_00621b20(fFadeAmount);
         }
     }
@@ -1552,7 +1552,7 @@ struct FogProjectileImpl
     virtual void* Get3D();
 
     void UpdateFlags(int a1, int a2);
-    FogShader* FUN_009306d0();
+    FogShader* GetCharController();
     FogCasterSrc* FUN_009185e0();
     void FUN_0081b430(int a1, int a2);
 };
@@ -1561,7 +1561,7 @@ struct FogProjectileImpl
 void FogProjectileImpl::FUN_0081b430(int a1, int a2)
 {
     UpdateFlags(a1, a2);
-    FogShader* pkShaderZ = FUN_009306d0();
+    FogShader* pkShaderZ = GetCharController();
     if (pkShaderZ)
     {
         int iColor;

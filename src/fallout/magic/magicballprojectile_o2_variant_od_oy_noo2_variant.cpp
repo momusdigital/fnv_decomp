@@ -192,14 +192,14 @@ struct xCharCtl
     }
     static void operator delete(void*);
     xCharCtl(xCtlCinfo*, xActor*);
-    void FUN_008106b0(float);
+    void SetFallTime(float);
     void FUN_00810610(bool);
     void FUN_008105e0(bool);
     void FUN_00810640(xActor*);
     void FUN_0057b1d0(float);
     xWorld* FUN_00621ad0();
     void FUN_00c70c90(xWorld*);
-    void* FUN_00810660();
+    void* GetNiObject();
     void FUN_00c6d7a0(void*);
     void FUN_005620e0(xP3*);
     xFilter FUN_0070c440();
@@ -513,18 +513,18 @@ struct xActor
     xMid* m_68;
     char m_pad6c[0x38];
     xAVOwner m_a4;
-    xCharCtl* FUN_009306d0();
+    xCharCtl* GetCharController();
     xCell* FUN_008d6f30();
     xFilter FUN_00931ed0();
-    void FUN_008caea0(xActor* apOther, float afVal);
+    void InitHavok(xActor* apOther, float afVal);
 };
 
 // @fnv 0x008caea0
-void xActor::FUN_008caea0(xActor* apOther, float afVal)
+void xActor::InitHavok(xActor* apOther, float afVal)
 {
     if (!m_68 || m_68->FUN_0045cd60())
         return;
-    xCharCtl* CTL = FUN_009306d0();
+    xCharCtl* CTL = GetCharController();
     xCell* CELL = FUN_008d6f30();
     xWorld* WORLD = CELL ? xFUN_004543c0(CELL) : 0;
     if (!CTL)
@@ -544,7 +544,7 @@ void xActor::FUN_008caea0(xActor* apOther, float afVal)
             CI.FUN_00810590(6, xFUN_008cddb0());
         CI.SetAssociatedActorValue(6);
         CTL = new xCharCtl(&CI, this);
-        CTL->FUN_008106b0(1.0f);
+        CTL->SetFallTime(1.0f);
         CTL->FUN_00810610(xFUN_00525420());
         CTL->FUN_008105e0(true);
         m_68->FUN_290(CTL);
@@ -559,7 +559,7 @@ void xActor::FUN_008caea0(xActor* apOther, float afVal)
         xWorld* PREV = CTL->FUN_00621ad0();
         CTL->FUN_00c70c90(WORLD);
         void* NODE = FUN_1d0();
-        void* CUR = CTL->FUN_00810660();
+        void* CUR = CTL->GetNiObject();
         bool ADD = true;
         if (CUR != NODE)
         {
@@ -567,7 +567,7 @@ void xActor::FUN_008caea0(xActor* apOther, float afVal)
             if (WORLD && xFUN_004bae00(WORLD))
             {
                 CTL->FUN_d0(0);
-                xFUN_00b6b910(CTL->FUN_00810660(), 1);
+                xFUN_00b6b910(CTL->GetNiObject(), 1);
             }
             xFUN_00c6a350(NODE, 4, true, false, true);
             ADD = true;

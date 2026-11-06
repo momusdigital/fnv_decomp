@@ -17,7 +17,7 @@ extern PlayerCharacter* g_thePlayer;
 extern unsigned int DialogueRandom();
 
 // @fnv 0x0061af30
-TESTopicInfo* FUN_0061af30(TESTopicInfo* input, bool& deferredResult, TESObjectREFR* speaker, TESObjectREFR* listener,
+TESTopicInfo* GetMatchingFollowUpInfo(TESTopicInfo* input, bool& deferredResult, TESObjectREFR* speaker, TESObjectREFR* listener,
                            bool filter, BSSimpleList<DialogueItem*>* history)
 {
     TESTopicInfo* b = input;

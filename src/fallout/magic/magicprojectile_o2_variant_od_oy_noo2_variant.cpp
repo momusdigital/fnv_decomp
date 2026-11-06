@@ -3299,14 +3299,14 @@ struct Visual
     Visual(FxState*, Actor*);
     static void* operator new(unsigned int);
     static void operator delete(void*);
-    void FUN_008106b0(float);
+    void SetFallTime(float);
     void FUN_00810610(bool);
     void FUN_008105e0(int);
     void FUN_00810640(Actor*);
     void FUN_0057b1d0(float);
     Scene* FUN_00621ad0();
     void FUN_00c70c90(Scene*);
-    void* FUN_00810660();
+    void* GetNiObject();
     void FUN_00c6d7a0(void*);
     void FUN_005620e0(Vector3*);
     Handle FUN_0070c440();
@@ -3536,7 +3536,7 @@ struct Actor
     int unk60;
     int unk64;
     Scene* scene;
-    Visual* FUN_009306d0();
+    Visual* GetCharController();
     Scene* FUN_008d6f30();
     Scene* FUN_009185e0();
     void FUN_00819ca0();
@@ -3562,7 +3562,7 @@ void Actor::FUN_00819ca0()
 {
     if (!scene || scene->FUN_0045cd60())
         return;
-    Visual* active = FUN_009306d0();
+    Visual* active = GetCharController();
     Scene* parent = FUN_008d6f30();
     Scene* target = parent ? parent->FUN_004543c0() : 0;
     if (!active)
@@ -3611,7 +3611,7 @@ void Actor::FUN_00819ca0()
             state.FUN_00810590(7, 0);
         state.SetAssociatedActorValue(6);
         active = new Visual(&state, this);
-        active->FUN_008106b0(1.0f);
+        active->SetFallTime(1.0f);
         active->FUN_00810610(FUN_00525420());
         active->FUN_008105e0(1);
         scene->add(active);
@@ -3626,7 +3626,7 @@ void Actor::FUN_00819ca0()
         Scene* initial = active->FUN_00621ad0();
         active->FUN_00c70c90(target);
         void* expected = GetUnderlyingObject();
-        void* actual = active->FUN_00810660();
+        void* actual = active->GetNiObject();
         bool dirty = true;
         if (actual != expected)
         {
@@ -3634,7 +3634,7 @@ void Actor::FUN_00819ca0()
             if (target && target->FUN_004bae00())
             {
                 active->updateSwitch(0);
-                CopyBlock48(active->FUN_00810660(), 1);
+                CopyBlock48(active->GetNiObject(), 1);
                 notifyChanged();
             }
             FUN_00c6a350(expected, 4, 1, 0, 1);

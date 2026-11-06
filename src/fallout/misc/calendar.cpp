@@ -130,12 +130,12 @@ void Calendar::Update(float afDeltaTime)
 
 struct FUN_00867c60_shell : public Calendar
 {
-    unsigned int FUN_00867c60();
+    unsigned int GetYear();
 };
 
 // Returns the value read by the TESGlobalValueReader stored at the start of the object, or 77.0f when that pointer is null.
 // @fnv 0x00867c60
-unsigned int FUN_00867c60_shell::FUN_00867c60()
+unsigned int FUN_00867c60_shell::GetYear()
 {
     return (int)(*(TESGlobalValueReader**)this ? (*(TESGlobalValueReader**)this)->GetValue() : 77.0f);
 }
@@ -236,12 +236,12 @@ DateString CalendarDateFormatter::FormatDate()
 struct Thing
 {
     int FUN_00867d20();
-    int FUN_00867ca0();
+    int GetSeason();
 };
 
 // Maps values 0 through 11 to results 0 through 3 using a switch.
 // @fnv 0x00867ca0
-int Thing::FUN_00867ca0()
+int Thing::GetSeason()
 {
     int result = 0;
     switch (FUN_00867d20())

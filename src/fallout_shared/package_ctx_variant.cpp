@@ -19,7 +19,7 @@ class FUN_0067f030 : public FUN_00670b30
     FUN_0067f030();
     ~FUN_0067f030();
     void FUN_0067f760(PackageInit*);
-    void FUN_0067f140(int);
+    void SetLocType(int);
 };
 class FUN_0067ff70
 {
@@ -217,7 +217,7 @@ void PackageInit::FUN_00674930()
     {
     case 9:
         if (FUN_00674d20())
-            FUN_0055b980()->FUN_0067f140(6);
+            FUN_0055b980()->SetLocType(6);
         break;
     case 14:
         if (FUN_00674d20())
@@ -230,11 +230,11 @@ void PackageInit::FUN_00674930()
     case 13: {
         PackageDataInit* packageData_2 = data;
         if (packageData_2->flag05)
-            FUN_0055b980()->FUN_0067f140(6);
+            FUN_0055b980()->SetLocType(6);
         if (!FUN_0055b980())
         {
             FUN_0067f030* location = new FUN_0067f030;
-            location->FUN_0067f140(6);
+            location->SetLocType(6);
             FUN_00671d30(location);
             delete static_cast<FUN_00670b30*>(location);
         }
@@ -242,7 +242,7 @@ void PackageInit::FUN_00674930()
     }
     case 12:
         if (FUN_00673890())
-            FUN_0055b980()->FUN_0067f140(6);
+            FUN_0055b980()->SetLocType(6);
         break;
     }
     FUN_00484ab0(1);

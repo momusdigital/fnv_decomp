@@ -458,7 +458,7 @@ class BGSLoadFormBuffer
     virtual unsigned char GetVersion();
     void ReadTypedData(void*, unsigned int);
     bool ReadFormIdentifier(void*);
-    unsigned int FUN_008648a0();
+    unsigned int LoadFormID();
     int ReadElementCount();
     FormChangeMask GetChangeFlags(unsigned int);
     FormChangeMask GetOldChangeFlags(unsigned int);

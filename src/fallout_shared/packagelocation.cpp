@@ -22,7 +22,7 @@ TESObjectCELL* LocationDescriptor::GetLocationCellReference()
 }
 
 // @fnv 0x0067f3c0
-void LocationDescriptor::FUN_0067f3c0(TESObjectREFR* reference)
+void LocationDescriptor::SetLocReference(TESObjectREFR* reference)
 {
     m_ucLocationType = PLT_REFERENCE;
     pRef = reference;
@@ -42,7 +42,7 @@ void LocationDescriptor::InitItem(TESForm* owner)
     case PLT_CELL: {
         TESObjectCELL* cell = dynamic_cast<TESObjectCELL*>(TESForm::GetFormByID(formID));
         if (cell)
-            FUN_0067f410(cell);
+            SetLocCell(cell);
         else
         {
             if (static_cast<BGSCameraPath*>(owner)->HasNameForWarning())
@@ -51,7 +51,7 @@ void LocationDescriptor::InitItem(TESForm* owner)
             else
                 Warning("MASTERFILE: Unable to find Package Location Cell (%08X) on owner object (%08X).", formID,
                         owner->GetFormID());
-            FUN_0067f410(0);
+            SetLocCell(0);
         }
     }
     break;
@@ -74,7 +74,7 @@ void LocationDescriptor::InitItem(TESForm* owner)
     case PLT_REFERENCE: {
         TESObjectREFR* reference = dynamic_cast<TESObjectREFR*>(TESForm::GetFormByID(formID));
         if (reference)
-            FUN_0067f3c0(reference);
+            SetLocReference(reference);
         else
         {
             if (static_cast<BGSCameraPath*>(owner)->HasNameForWarning())
@@ -83,7 +83,7 @@ void LocationDescriptor::InitItem(TESForm* owner)
             else
                 Warning("MASTERFILE: Unable to find Package Location Reference (%08X) on owner object (%08X).", formID,
                         owner->GetFormID());
-            FUN_0067f3c0(0);
+            SetLocReference(0);
         }
     }
     break;
@@ -181,11 +181,11 @@ void FUN_0067f110_shell::FUN_0067f110()
 
 struct FUN_0067f140_shell : public LocationDescriptor
 {
-    void FUN_0067f140(int);
+    void SetLocType(int);
 };
 
 // @fnv 0x0067f140
-void FUN_0067f140_shell::FUN_0067f140(int aeLoctype)
+void FUN_0067f140_shell::SetLocType(int aeLoctype)
 {
     if (aeLoctype != m_ucLocationType)
     {
@@ -248,11 +248,11 @@ void FUN_0067f1f0_shell::FUN_0067f1f0(unsigned int aiRad)
 
 struct FUN_0067f410_shell : public LocationDescriptor
 {
-    void FUN_0067f410(TESObjectCELL*);
+    void SetLocCell(TESObjectCELL*);
 };
 
 // @fnv 0x0067f410
-void FUN_0067f410_shell::FUN_0067f410(TESObjectCELL* apCell)
+void FUN_0067f410_shell::SetLocCell(TESObjectCELL* apCell)
 {
     m_ucLocationType = 1;
     pCell = apCell;
@@ -1340,11 +1340,11 @@ void __cdecl _FUN_00485990(unsigned int chunkId, ChunkPayloadHandler* location, 
 
 struct FUN_0067f6c0_shell : public LocationDescriptor
 {
-    void FUN_0067f6c0(unsigned int chunkId);
+    void Save(unsigned int chunkId);
 };
 
 // @fnv 0x0067f6c0
-void FUN_0067f6c0_shell::FUN_0067f6c0(unsigned int chunkId)
+void FUN_0067f6c0_shell::Save(unsigned int chunkId)
 {
     ChunkPayloadHandler locStruct;
     memset(&locStruct, 0, sizeof(locStruct));
@@ -1472,7 +1472,7 @@ bool FUN_0067f220_cls::LookupAndStore(int a1, int a2, unsigned char* pucOut)
 class TESSaveLoadGame
 {
   public:
-    void FUN_008579b0(void*, int);
+    void SaveGameDataOLD(void*, int);
     void FUN_00857a10(int, int);
 };
 extern TESSaveLoadGame* DAT_011de45c;
@@ -1484,8 +1484,8 @@ struct FUN_0067fa00_shell : public LocationDescriptor
 // @fnv 0x0067fa00
 void FUN_0067fa00_shell::FUN_0067fa00()
 {
-    DAT_011de45c->FUN_008579b0(this, 1);
-    DAT_011de45c->FUN_008579b0(&m_pLocationData, 4);
+    DAT_011de45c->SaveGameDataOLD(this, 1);
+    DAT_011de45c->SaveGameDataOLD(&m_pLocationData, 4);
     switch (m_ucLocationType)
     {
         break;
@@ -1501,7 +1501,7 @@ void FUN_0067fa00_shell::FUN_0067fa00()
         break;
     }
     case 5:
-        DAT_011de45c->FUN_008579b0(&pObject, 4);
+        DAT_011de45c->SaveGameDataOLD(&pObject, 4);
         break;
     }
 }
@@ -1642,7 +1642,7 @@ unsigned short FUN_0067f990_C::FUN_0067f990()
 namespace fnv_0067faa0 {
 struct FileQ
 {
-    void FUN_008579e0(void* p, int n);
+    void LoadGameDataOLD(void* p, int n);
     void FUN_00857aa0(void* p, int n);
 };
 extern FileQ* DAT_011de45c;
@@ -1658,8 +1658,8 @@ struct OwnQ
 void OwnQ::FUN_0067faa0()
 {
     int iTmp;
-    DAT_011de45c->FUN_008579e0(this, 1);
-    DAT_011de45c->FUN_008579e0(&iVal, 4);
+    DAT_011de45c->LoadGameDataOLD(this, 1);
+    DAT_011de45c->LoadGameDataOLD(&iVal, 4);
     switch (cType)
     {
         break;
@@ -1672,7 +1672,7 @@ void OwnQ::FUN_0067faa0()
         iData = iTmp;
         break;
     case 5:
-        DAT_011de45c->FUN_008579e0(&iData, 4);
+        DAT_011de45c->LoadGameDataOLD(&iData, 4);
         break;
     }
 }

@@ -117,7 +117,7 @@ Tile* __cdecl FUN_00a09030(unsigned int eLine);
 void __cdecl FUN_007e9200();
 
 // @fnv 0x00705640
-void __cdecl FUN_00705640()
+void __cdecl CreateVATSMenu()
 {
     if (FUN_004b7210() && ((InterfaceManagerKey*)FUN_004b7210())->FUN_009373f0())
     {
@@ -139,15 +139,15 @@ class Iface2
   public:
     bool FUN_009373f0();
 };
-void FUN_007c01b0();
+void Close();
 // @fnv 0x007055c0
-void FUN_007055c0()
+void CloseSleepMenu()
 {
     if (FUN_004b7210() && ((Iface2*)FUN_004b7210())->FUN_009373f0())
     {
         Tile* a = FUN_00a09030(0x3f4);
         SleepWaitMenu* b = a ? dynamic_cast<SleepWaitMenu*>(a->GetMenu()) : 0;
         if (b)
-            FUN_007c01b0();
+            Close();
     }
 }

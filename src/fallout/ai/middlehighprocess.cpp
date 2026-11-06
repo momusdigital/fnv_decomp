@@ -199,10 +199,10 @@ struct FUN_00914b40_cls
     unsigned char furnIndex;
     char pad2[0x1a8 - 0x145];
     int idx1a8;
-    void FUN_00914b40();
+    void ClearReservation();
 };
 // @fnv 0x00914b40
-void FUN_00914b40_cls::FUN_00914b40()
+void FUN_00914b40_cls::ClearReservation()
 {
     if (g_dataHandler->FUN_004226e0())
         return;
@@ -221,7 +221,7 @@ struct FUN_00915400_shell : public MiddleHighProcess
 };
 
 void __fastcall FUN_00483710(void*);
-void __fastcall FUN_00914b40(void*);
+void __fastcall ClearReservation(void*);
 
 struct LowProcess_helper
 {
@@ -241,7 +241,7 @@ void FUN_00915400_shell::FUN_00915400()
     SetProcessModeEnabled(false);
     SetTarget(0);
     ClearPackageObjectList();
-    FUN_00914b40(this);
+    ClearReservation(this);
 }
 
 struct Actor;
@@ -2698,10 +2698,10 @@ struct FUN_0092c680_cls
     unsigned char furnIndex;
     char pad1[3];
     FMark marker;
-    void FUN_0092c680();
+    void ClearFurnitureMarker();
 };
 // @fnv 0x0092c680
-void FUN_0092c680_cls::FUN_0092c680()
+void FUN_0092c680_cls::ClearFurnitureMarker()
 {
     if (!g_BGSSaveLoadGame->FUN_0042ce10() && furniture && !g_dataHandler->FUN_004226e0())
         furniture->SetMarkerState(furnIndex, false);
@@ -3003,7 +3003,7 @@ struct StandInB
 };
 struct StandInC
 {
-    void FUN_0092c680();
+    void ClearFurnitureMarker();
 };
 extern Actor* g_thePlayer;
 // @fnv 0x009287e0
@@ -3020,7 +3020,7 @@ void FUN_009287e0_shell::FUN_009287e0(Actor* apActor)
     (*(void(__thiscall***)(void*, Actor*, int, int, int))this)[0x130](this, apActor, 0, 0, 0x7f);
     if (apActor == g_thePlayer)
         ((StandInB*)g_thePlayer)->FUN_005098c0();
-    ((StandInC*)this)->FUN_0092c680();
+    ((StandInC*)this)->ClearFurnitureMarker();
 }
 }  // namespace fnv_009287e0
 
@@ -3597,15 +3597,15 @@ struct VirtObj
 };
 struct Host
 {
-    void FUN_00913a20(int);
+    void QueueFiles(int);
     void FUN_00913fb0(VirtObj*);
 };
-// Reads an int from p via f3() and passes it to FUN_00913a20.
+// Reads an int from p via f3() and passes it to QueueFiles.
 // @fnv 0x00913fb0
 void Host::FUN_00913fb0(VirtObj* apVirtObj)
 {
     int tmp = apVirtObj->f3();
-    FUN_00913a20(tmp);
+    QueueFiles(tmp);
 }
 
 struct FUN_009145c0
@@ -3673,13 +3673,13 @@ FUN_00914ae0::~FUN_00914ae0()
 struct Proxy00917770
 {
     void FUN_00917770(Actor* apActor);
-    void FUN_0091d3c0(Actor* a, float b, bool c);
+    void ProcessFollowOneHour(Actor* a, float b, bool c);
 };
-// Calls FUN_0091d3c0 on apActor with 3600.0f and true.
+// Calls ProcessFollowOneHour on apActor with 3600.0f and true.
 // @fnv 0x00917770
 void Proxy00917770::FUN_00917770(Actor* apActor)
 {
-    FUN_0091d3c0(apActor, 3600.0f, true);
+    ProcessFollowOneHour(apActor, 3600.0f, true);
 }
 
 struct Thunk0091f100
@@ -4360,7 +4360,7 @@ extern LH g_011e0424;
 extern bool DAT_011e040c;
 
 // @fnv 0x00922960
-bool FUN_00922960(TESObjectREFR* apRef, long aiFilterData)
+bool EvaluateReferenceforSitSleep(TESObjectREFR* apRef, long aiFilterData)
 {
     Actor* pActor = (Actor*)aiFilterData;
     TESFurniture* pFurniture;
@@ -7828,7 +7828,7 @@ struct WeaponEquipmentAccess
 
 struct ActorWeaponAccess
 {
-    void FUN_00884f80();
+    void SetWalkRunFlagDirty();
 };
 
 struct WeaponDrawProcess : MiddleHighProcess
@@ -7857,7 +7857,7 @@ void WeaponDrawProcess::FUN_00915d60(Actor* actor, bool drawn)
                        0, reinterpret_cast<WeaponEquipmentAccess*>(pWeapon)->HasEffect(2, 0)));
     }
 
-    reinterpret_cast<ActorWeaponAccess*>(actor)->FUN_00884f80();
+    reinterpret_cast<ActorWeaponAccess*>(actor)->SetWalkRunFlagDirty();
 }
 
 struct ActorCalls
@@ -7867,12 +7867,12 @@ struct ActorCalls
     bool FUN_00437bd0();
     bool FUN_005a2030();
     bool FUN_0087f3b0();
-    bool FUN_0087f570();
+    bool SwimsOnly();
     bool FUN_00493bb0();
     void* FUN_005d43c0();
     float FUN_00572380(NiPoint3*);
     int FUN_008a8230(Actor*);
-    void FUN_0093a690(Actor*);
+    void AddActorToPlayerCombatList(Actor*);
     int FUN_00953c20();
 };
 struct PackageCalls
@@ -7956,7 +7956,7 @@ bool FUN_00916880_shell::TryStartCombatAction(Actor* actor, Actor* target, bool 
             reinterpret_cast<ImmediateAction>((*reinterpret_cast<void***>(actor))[0x410 / 4])(
                 actor, target, 1, 1, 1, 0, 0, DAT_01012054, DAT_01012054);
             if (target == DAT_011dea3c && reinterpret_cast<ActorCalls*>(DAT_011dea3c)->FUN_008a8230(actor) > 0)
-                reinterpret_cast<ActorCalls*>(DAT_011dea3c)->FUN_0093a690(actor);
+                reinterpret_cast<ActorCalls*>(DAT_011dea3c)->AddActorToPlayerCombatList(actor);
             return true;
         }
 
@@ -7977,7 +7977,7 @@ bool FUN_00916880_shell::TryStartCombatAction(Actor* actor, Actor* target, bool 
             bool bTargetHasCondition = reinterpret_cast<ActorCalls*>(target)->FUN_005a2030();
             if (!reinterpret_cast<ActorCalls*>(actor)->FUN_0087f3b0() && bTargetHasCondition)
                 return false;
-            if (reinterpret_cast<ActorCalls*>(actor)->FUN_0087f570() && !bTargetHasCondition)
+            if (reinterpret_cast<ActorCalls*>(actor)->SwimsOnly() && !bTargetHasCondition)
                 return false;
         }
 
@@ -8030,7 +8030,7 @@ bool FUN_00916880_shell::TryStartCombatAction(Actor* actor, Actor* target, bool 
 
         if (target == DAT_011dea3c && reinterpret_cast<ActorCalls*>(actor)->FUN_00493bb0() &&
             reinterpret_cast<ActorCalls*>(DAT_011dea3c)->FUN_008a8230(actor) > 0)
-            reinterpret_cast<ActorCalls*>(DAT_011dea3c)->FUN_0093a690(actor);
+            reinterpret_cast<ActorCalls*>(DAT_011dea3c)->AddActorToPlayerCombatList(actor);
     }
     return true;
 }
@@ -8039,11 +8039,11 @@ extern float DAT_01012054;
 class FUN_009180b0_cls
 {
   public:
-    unsigned char FUN_008b3690(NiPoint3* pos, unsigned int a4, unsigned int a5, float fTime, unsigned int a7);
+    unsigned char SetPathfindingGoal(NiPoint3* pos, unsigned int a4, unsigned int a5, float fTime, unsigned int a7);
     unsigned char FUN_009180b0(Actor* self, NiPoint3 a1, unsigned int a4, unsigned int a5);
 };
 
-// If the actor's state is 4 or 9, calls Unk_106 and returns 0; otherwise forwards the position, two ints, DAT_01012054 and 0 to FUN_008b3690.
+// If the actor's state is 4 or 9, calls Unk_106 and returns 0; otherwise forwards the position, two ints, DAT_01012054 and 0 to SetPathfindingGoal.
 // @fnv 0x009180b0
 unsigned char FUN_009180b0_cls::FUN_009180b0(Actor* self, NiPoint3 kPosition, unsigned int a4, unsigned int a5)
 {
@@ -8052,7 +8052,7 @@ unsigned char FUN_009180b0_cls::FUN_009180b0(Actor* self, NiPoint3 kPosition, un
         self->Unk_106();
         return 0;
     }
-    return ((FUN_009180b0_cls*)self)->FUN_008b3690(&kPosition, a4, a5, DAT_01012054, 0);
+    return ((FUN_009180b0_cls*)self)->SetPathfindingGoal(&kPosition, a4, a5, DAT_01012054, 0);
 }
 
 struct PackageForTarget
@@ -8143,10 +8143,10 @@ struct ActorInventoryAccess
 };
 struct FUN_0091d790_shell : MiddleHighProcess
 {
-    bool FUN_0091d790(ActorInventoryAccess* actor);
+    bool ProcessEatOneHour(ActorInventoryAccess* actor);
 };
 // @fnv 0x0091d790
-bool FUN_0091d790_shell::FUN_0091d790(ActorInventoryAccess* actor)
+bool FUN_0091d790_shell::ProcessEatOneHour(ActorInventoryAccess* actor)
 {
     InventoryLookup* inventory = 0;
     inventory = actor->FUN_00891d30();
@@ -8832,7 +8832,7 @@ struct SSActor
     virtual void SetLookingTarget(float);
     float GetLooking() const;
     void ClampLookAngle(float);
-    char* FUN_009306d0();
+    char* GetCharController();
     void FUN_00931fb0(bool);
     void SetCurrentSitSleepState(int state);
 };
@@ -8873,7 +8873,7 @@ void SSProcess::UpdateSitSleepState(SSActor* actor, int state, TESObjectREFR* fu
     if (actor)
     {
         actor->ClampLookAngle(actor->GetLooking());
-        char* data2 = actor->FUN_009306d0();
+        char* data2 = actor->GetCharController();
         if (data2)
         {
             bool disable = IsFurnitureType(furniture, ((SSMarker*)&FurnitureMarker)->FUN_005094b0());
@@ -9348,7 +9348,7 @@ bool FUN_00921250_cls::ProcessNode(void* arg)
 
 struct BipedAnimStandIn
 {
-    void FUN_0088d640();
+    void GetOutofFurnitureQuick();
 };
 
 struct FUN_00922ad0_owner
@@ -9359,7 +9359,7 @@ struct FUN_00922ad0_owner
 // @fnv 0x00922ad0
 void FUN_00922ad0_owner::FUN_00922ad0(BipedAnimStandIn* apBiped)
 {
-    apBiped->FUN_0088d640();
+    apBiped->GetOutofFurnitureQuick();
 }
 
 struct FUN_00922b40_cls
@@ -10166,12 +10166,12 @@ struct RefListClear
 };
 struct ResetActor : Actor
 {
-    void FUN_008b3d30();
+    void ClearLookAtTarget();
     void FUN_005ce9d0(int);
 };
 struct ResetProcess : MiddleHighProcess
 {
-    void FUN_00914b40();
+    void ClearReservation();
     void SetFlag40(int);
     void ResetForActor(ResetActor* actor);
 };
@@ -10183,14 +10183,14 @@ void ResetProcess::ResetForActor(ResetActor* actor)
     SetCurrentMovementComplete(true);
     SetTarget(0);
     ResetMovementState();
-    FUN_00914b40();
+    ClearReservation();
     SetFlag40(0);
     m_pSecondMagicItem = 0;
     AcquireObject* c = (AcquireObject*)m_pDetectionData60;
     AcquireObject* l = c;
     l ? l->FUN_007b3fa0(1) : 0;
     m_pDetectionData60 = 0;
-    actor->FUN_008b3d30();
+    actor->ClearLookAtTarget();
     actor->FUN_005ce9d0(0);
     SetStartShooting(false);
     m_bAimStateFlag = false;
@@ -10384,7 +10384,7 @@ struct RecordFlags
 };
 struct SaveBuffer
 {
-    void FUN_008579b0(const void* data, unsigned int count);
+    void SaveGameDataOLD(const void* data, unsigned int count);
     unsigned char FUN_008df040();
 };
 extern SaveBuffer* DAT_011de45c;
@@ -10405,38 +10405,38 @@ void SaveGameRecordWriter::SaveActorRecord(void* actor)
         if (!((GetStateFunction)(*(void***)actor)[0x8b])(actor, 0))
         {
             unsigned int packed = ((RecordValue*)((char*)record + 0x3e0))->FUN_00ca9600();
-            DAT_011de45c->FUN_008579b0(&packed, 4);
-            DAT_011de45c->FUN_008579b0((char*)record + 0x520, 4);
+            DAT_011de45c->SaveGameDataOLD(&packed, 4);
+            DAT_011de45c->SaveGameDataOLD((char*)record + 0x520, 4);
             unsigned int flags2 = ((RecordFlags*)((char*)record + 0x410))->FUN_00621270(-1);
-            DAT_011de45c->FUN_008579b0(&flags2, 4);
+            DAT_011de45c->SaveGameDataOLD(&flags2, 4);
             if (flags2 & 0x800)
             {
                 RecordVector position;
                 position.FUN_006815c0();
                 record->FUN_00812b00(&position);
-                DAT_011de45c->FUN_008579b0(&position, 12);
+                DAT_011de45c->SaveGameDataOLD(&position, 12);
             }
-            DAT_011de45c->FUN_008579b0((char*)record + 0x4f0, 16);
-            DAT_011de45c->FUN_008579b0((char*)record + 0x500, 16);
+            DAT_011de45c->SaveGameDataOLD((char*)record + 0x4f0, 16);
+            DAT_011de45c->SaveGameDataOLD((char*)record + 0x500, 16);
             RecordVector direction;
             direction.FUN_006815c0();
             record->FUN_0066ca00(&direction);
-            DAT_011de45c->FUN_008579b0(&direction, 12);
+            DAT_011de45c->SaveGameDataOLD(&direction, 12);
             if (((GetSwitchFunction)(*(void***)actor)[0x40])(actor))
             {
-                DAT_011de45c->FUN_008579b0((char*)record + 0x540, 4);
-                DAT_011de45c->FUN_008579b0((char*)record + 0x544, 4);
-                DAT_011de45c->FUN_008579b0((char*)record + 0x548, 4);
+                DAT_011de45c->SaveGameDataOLD((char*)record + 0x540, 4);
+                DAT_011de45c->SaveGameDataOLD((char*)record + 0x544, 4);
+                DAT_011de45c->SaveGameDataOLD((char*)record + 0x548, 4);
             }
             else
             {
-                DAT_011de45c->FUN_008579b0((char*)record + 0x54c, 4);
-                DAT_011de45c->FUN_008579b0((char*)record + 0x548, 4);
+                DAT_011de45c->SaveGameDataOLD((char*)record + 0x54c, 4);
+                DAT_011de45c->SaveGameDataOLD((char*)record + 0x548, 4);
             }
             if (DAT_011de45c->FUN_008df040() >= 0x77)
             {
-                DAT_011de45c->FUN_008579b0((char*)record + 0x550, 4);
-                DAT_011de45c->FUN_008579b0((char*)record + 0x558, 4);
+                DAT_011de45c->SaveGameDataOLD((char*)record + 0x550, 4);
+                DAT_011de45c->SaveGameDataOLD((char*)record + 0x558, 4);
             }
         }
     }
@@ -13430,7 +13430,7 @@ struct FUN_0092b460_cls
     char pad_04[0x194];
     float m_198;
     void FUN_00912960(FUN_0092b460_cls* a, FUN_0092b460_cls* b);
-    void FUN_008b3d30();
+    void ClearLookAtTarget();
     FUN_0092b460_cls* FUN_009f3390();
     FUN_0092b460_cls* FUN_007af430();
     int FUN_00401170();
@@ -13451,7 +13451,7 @@ void FUN_0092b460_cls::FUN_0092b460(FUN_0092b460_cls* a1, FUN_0092b460_cls* a2)
     FUN_0092b460_cls* c5;
     FUN_0092b460_cls* r;
     this->FUN_00912960(a1, a2);
-    a1->FUN_008b3d30();
+    a1->ClearLookAtTarget();
     p = a2->FUN_009f3390();
     if (p == 0 || p->FUN_007af430()->FUN_00401170() != 0x30)
     {
@@ -13487,10 +13487,10 @@ unsigned int FUN_0092b9c0_Class::GetAtOffset1DC(int index)
     return reinterpret_cast<unsigned int*>(reinterpret_cast<unsigned char*>(this) + 0x1DC)[index];
 }
 
-// Thiscall wrapper: pass the argument as this to FUN_008b3d30, make a virtual call on this, then clear the flag at +0xe1.
+// Thiscall wrapper: pass the argument as this to ClearLookAtTarget, make a virtual call on this, then clear the flag at +0xe1.
 struct FUN_008b3d30_s
 {
-    void FUN_008b3d30();
+    void ClearLookAtTarget();
 };
 class FUN_0092bf20_cls
 {
@@ -13824,11 +13824,11 @@ class FUN_0092bf20_cls
     unsigned char m_e1;
     void FUN_0092bf20(FUN_008b3d30_s* p);
 };
-// Calls p->FUN_008b3d30(), then invokes vSlot10D(0) and sets m_e1 to 0.
+// Calls p->ClearLookAtTarget(), then invokes vSlot10D(0) and sets m_e1 to 0.
 // @fnv 0x0092bf20
 void FUN_0092bf20_cls::FUN_0092bf20(FUN_008b3d30_s* p)
 {
-    p->FUN_008b3d30();
+    p->ClearLookAtTarget();
     this->vSlot10D(0);
     this->m_e1 = 0;
 }
@@ -14374,7 +14374,7 @@ struct WanderPackage
 struct WanderActor : Actor
 {
     TESWorldSpace* FUN_00575d70();
-    void FUN_008b3690(NiPoint3*, TESObjectCELL*, TESWorldSpace*, float, int);
+    void SetPathfindingGoal(NiPoint3*, TESObjectCELL*, TESWorldSpace*, float, int);
 };
 struct WanderDataHandler
 {
@@ -14409,7 +14409,7 @@ bool WanderProcess::WanderToPoint(WanderActor* actor, int unused)
     GetObjectPosition(&j, &c);
     if (actor->Unk_85())
         UpdateActorInteraction(actor);
-    actor->FUN_008b3690(&c, actor->GetParentCell(), actor->FUN_00575d70(), 100.0f, 0);
+    actor->SetPathfindingGoal(&c, actor->GetParentCell(), actor->FUN_00575d70(), 100.0f, 0);
     if (FUN_00703180() == actor)
     {
         char buffer[300];
@@ -14617,11 +14617,11 @@ struct Host913
     unsigned char m_0f;
     int m_10;
     Sub14 m_14;
-    bool FUN_00913a20(Proc* apProc);
+    bool QueueFiles(Proc* apProc);
 };
 
 // @fnv 0x00913a20
-bool Host913::FUN_00913a20(Proc* apProc)
+bool Host913::QueueFiles(Proc* apProc)
 {
     ObjB913* objBA7;
     Proc* procCopy;
@@ -14889,7 +14889,7 @@ struct FUN_00914610 : Base96
     void* FUN_008d83e0();
     void FUN_0091ee70();
     void FUN_0091fe80(int);
-    void FUN_00914b40();
+    void ClearReservation();
     void ClearQueuedItems();
 };
 // @fnv 0x00914610
@@ -14948,7 +14948,7 @@ FUN_00914610::~FUN_00914610()
     preload.FUN_006f74f0(0);
     clone.FUN_0092c8b0(0);
     unk140 = 0;
-    FUN_00914b40();
+    ClearReservation();
     while (!hidden.FUN_008256d0())
     {
         delete hidden.FUN_006815c0();
@@ -15243,7 +15243,7 @@ struct P114ActorOps
     P114RefOps* FUN_008a2d40();
     bool FUN_00575450(unsigned int);
     bool FUN_008b3bb0();
-    void FUN_00892e90(int, P114RefOps*, TESObjectREFR*, int, unsigned int);
+    void PutItemInReference(int, P114RefOps*, TESObjectREFR*, int, unsigned int);
     TESObjectCELL* FUN_008d6f30();
     void FUN_0087faa0();
 };
@@ -15474,7 +15474,7 @@ void P114Process::FUN_00916df0(Actor* actor)
                     ba = m_pReference40;
                 if (ba && ((P114RefOps*)ba)->FUN_0055d310())
                 {
-                    ((P114ActorOps*)actor)->FUN_00892e90(item2->FUN_0044ddc0(), c, ba, i->FUN_00672930(), q);
+                    ((P114ActorOps*)actor)->PutItemInReference(item2->FUN_0044ddc0(), c, ba, i->FUN_00672930(), q);
                 }
                 else
                 {
@@ -16350,7 +16350,7 @@ struct FurnitureActorAccess : Actor
     InventoryLookup* FUN_00891d30();
     void FUN_008c1de0(void*);
     unsigned int GetVtbl20Result();
-    void FUN_00884f80();
+    void SetWalkRunFlagDirty();
     void ForwardToVtSlot(unsigned int);
 };
 struct GlobalObject_0044fae0
@@ -16368,8 +16368,8 @@ struct FurnitureProcess : MiddleHighProcess
     virtual void Slot496();
     virtual void Slot497();
     virtual void UseFurniture(Actor*, bool);
-    void FUN_00922670(Actor*, bool, int);
-    void FUN_0092c680();
+    void FindBedChairs(Actor*, bool, int);
+    void ClearFurnitureMarker();
     void FUN_00917a70(FurnitureActorAccess* actor, int elapsed);
 };
 // @fnv 0x00917a70
@@ -16384,14 +16384,14 @@ void FurnitureProcess::FUN_00917a70(FurnitureActorAccess* actor, int elapsed)
         return;
     }
     if (actor->IsCharacter() && !actor->Unk_85() && !m_pFurnitureReference && m_kSecondaryReferenceList.IsEmpty())
-        FUN_00922670(actor, true, elapsed);
+        FindBedChairs(actor, true, elapsed);
     if (actor->IsCharacter() && actor->Unk_85() != 4)
     {
         if (!m_pFurnitureReference && ((FurnitureListAccess*)&m_kSecondaryReferenceList)->FUN_005ae380() &&
             g_011e043c.FUN_0044b130())
         {
             m_pFurnitureReference = m_kSecondaryReferenceList.GetItem();
-            FUN_0092c680();
+            ClearFurnitureMarker();
             if (((FurnitureReferenceAccess*)m_pFurnitureReference)->GetOwner())
             {
                 m_kSecondaryReferenceList.Remove(m_pFurnitureReference);
@@ -16406,7 +16406,7 @@ void FurnitureProcess::FUN_00917a70(FurnitureActorAccess* actor, int elapsed)
                 for (int i = 0; i < count; i++)
                     node = node->GetNext();
                 m_pFurnitureReference = node->GetItem();
-                FUN_0092c680();
+                ClearFurnitureMarker();
                 m_kSecondaryReferenceList.Remove(m_pFurnitureReference);
             }
             g_011e043c.FUN_0082f1f0();
@@ -16433,7 +16433,7 @@ void FurnitureProcess::FUN_00917a70(FurnitureActorAccess* actor, int elapsed)
     StartIdleAnimation(actor, 0, 2, true, false, true);
     if (actor->GetVtbl20Result() & 0x400)
     {
-        actor->FUN_00884f80();
+        actor->SetWalkRunFlagDirty();
         actor->ForwardToVtSlot(0x400);
     }
 }
@@ -18959,8 +18959,8 @@ struct PackageProcess
     PackageQueue queue;
 
     bool CheckActivationTarget(PackageActor*);
-    bool FUN_0091d790(PackageActor*);
-    bool FUN_0091d3c0(PackageActor*, float, int);
+    bool ProcessEatOneHour(PackageActor*);
+    bool ProcessFollowOneHour(PackageActor*, float, int);
     bool FUN_0091c810(PackageActor*);
     void UpdatePackage(MobileObject*, float);
 };
@@ -19095,12 +19095,12 @@ void PackageProcess::UpdatePackage(MobileObject* object, float delta)
                     again3 = false;
                     break;
                 case 5:
-                    again3 = FUN_0091d790(actor_);
+                    again3 = ProcessEatOneHour(actor_);
                     break;
                 case 6:
                     if (actor_->IsInCombat())
                         StopCombat(actor_);
-                    again3 = FUN_0091d3c0(actor_, DAT_01084838, 1);
+                    again3 = ProcessFollowOneHour(actor_, DAT_01084838, 1);
                     break;
                 case 7:
                     if (actor_->IsInCombat())
@@ -19257,11 +19257,11 @@ struct FollowProcess : TargetProcess
     virtual void FollowSlot519();
     virtual void FollowSlot520();
     virtual bool UpdateDestination(Actor*, NiPoint3, TESObjectCELL*, TESWorldSpace*);
-    bool FUN_0091d3c0(Actor* actor, float elapsed, bool advance);
+    bool ProcessFollowOneHour(Actor* actor, float elapsed, bool advance);
 };
 // Updates the follow package target: validates the package, refreshes the destination when the target moved or is too far, and handles run-once packages.
 // @fnv 0x0091d3c0
-bool FollowProcess::FUN_0091d3c0(Actor* actor, float elapsed, bool advance)
+bool FollowProcess::ProcessFollowOneHour(Actor* actor, float elapsed, bool advance)
 {
     PackageAccess* pPackage = 0;
     pPackage = (PackageAccess*)GetOneTimePackage();
@@ -19751,7 +19751,7 @@ struct ProcedureActor
     virtual void Slot268();
     virtual void ResetTargetPointer(Actor*);
     virtual void Advance();
-    void FUN_00881680(int);
+    void EndInterruptPackage(int);
     float FUN_005723b0(Actor*, int, int);
     ProcedureProcess* FUN_008d8520();
 };
@@ -19809,7 +19809,7 @@ struct FollowProcedure
     int unk38;
     int unk3c;
     TESObjectREFR* targetReference;
-    void FUN_0091d3c0(ProcedureActor*, float, bool);
+    void ProcessFollowOneHour(ProcedureActor*, float, bool);
     bool FUN_0091dd30(ProcedureActor*, void*);
 };
 // Refreshes the follow target reference, advances the actor and target procedures while not busy, and returns false.
@@ -19824,7 +19824,7 @@ bool FollowProcedure::FUN_0091dd30(ProcedureActor* actor, void* unused)
     if (!targetReference || reinterpret_cast<ProcedureRef*>(targetReference)->FUN_00440da0())
     {
         actor->ResetTargetPointer(target4);
-        actor->FUN_00881680(0);
+        actor->EndInterruptPackage(0);
         return false;
     }
     if (target4 && actor->FUN_005723b0(target4, 0, 0) < 250.0 &&
@@ -19844,7 +19844,7 @@ bool FollowProcedure::FUN_0091dd30(ProcedureActor* actor, void* unused)
     }
     else
     {
-        FUN_0091d3c0(actor, DAT_01084838, false);
+        ProcessFollowOneHour(actor, DAT_01084838, false);
     }
     if (target4 && !reinterpret_cast<ProcedureActor*>(target4)->IsBusy(0))
     {
@@ -22343,10 +22343,10 @@ struct ActorStand
     int unka8;
     Anim* unkac;
     Process* FUN_00950a60(int);
-    bool FUN_008845a0();
+    bool CanKnockDown();
     float FUN_00893500();
     int FUN_004f8960();
-    void FUN_0088d640();
+    void GetOutofFurnitureQuick();
     Node* FUN_0043fcd0(int);
     Node* FUN_0043fcd0();
     bool FUN_00566950();
@@ -22354,9 +22354,9 @@ struct ActorStand
     void FUN_00934250();
     bool FUN_008bbc10();
     void SetActiveState(int, int, int);
-    AnimState* FUN_008adcb0();
+    AnimState* GetFaceAnimationData();
     const char* FUN_0055d520();
-    bool FUN_008a8300(float);
+    bool IsCloseToGround(float);
     bool FUN_005a2030();
     Node* FUN_00571530(Node*, const char*);
     Active* FUN_005d43c0();
@@ -23191,7 +23191,7 @@ void Target::UpdateKnockedDownState(ActorStand* actor)
         return;
     if (actor == g_actorPlayer && idx == g_actorPlayer->FUN_00950a60(1))
         return;
-    if (!actor->FUN_008845a0())
+    if (!actor->CanKnockDown())
     {
         unk13c = 0;
         return;
@@ -23202,7 +23202,7 @@ void Target::UpdateKnockedDownState(ActorStand* actor)
     if ((direction || actor->v234() || actor->FUN_004f8960() == 6) && !unk13c)
     {
         if (actor->v214() && actor->v214() != 5)
-            actor->FUN_0088d640();
+            actor->GetOutofFurnitureQuick();
         actor->unk88.FUN_00815b00();
         v6c4();
         actor->v48(4);
@@ -23254,7 +23254,7 @@ void Target::UpdateKnockedDownState(ActorStand* actor)
                 unk13c = 3;
             else
                 unk13c = 1;
-            AnimState* anim = actor->FUN_008adcb0();
+            AnimState* anim = actor->GetFaceAnimationData();
             if (anim)
                 anim->v216(1, 0);
             idx->FUN_00496080(20, 0.0f);
@@ -23275,7 +23275,7 @@ void Target::UpdateKnockedDownState(ActorStand* actor)
                 v420(actor);
                 break;
             }
-            AnimState* getupState = actor->FUN_008adcb0();
+            AnimState* getupState = actor->GetFaceAnimationData();
             if (getupState)
                 getupState->v216(0, 0);
             unk13c = 5;
@@ -23294,13 +23294,13 @@ void Target::UpdateKnockedDownState(ActorStand* actor)
             now = elapsed - start;
         bool longerWait = DAT_011de7b8.FUN_00867950() * 0.0006600000197067857 < now;
         bool process = DAT_011de7b8.FUN_00867950() * 0.001500000013038516 < now;
-        if (actor->FUN_00893500() >= 0.0 && !actor->v234() && longerWait && (process || actor->FUN_008a8300(16.0f)))
+        if (actor->FUN_00893500() >= 0.0 && !actor->v234() && longerWait && (process || actor->IsCloseToGround(16.0f)))
         {
             signed char saved7 = unk13c;
             unk13c = 3;
             void* timedAnim4 = DAT_011cb6a0->FUN_00600950(actor, 0);
             unk13c = saved7;
-            AnimState* timedState2 = actor->FUN_008adcb0();
+            AnimState* timedState2 = actor->GetFaceAnimationData();
             if (timedState2)
                 timedState2->v216(0, 0);
             unk13c = 5;
@@ -23597,7 +23597,7 @@ struct Actor920b80
     float GetFatigue();
     Node920b80* Get3DSimple();
     Extra920b80* FUN_005d43c0(bool);
-    Face920b80* FUN_008adcb0();
+    Face920b80* GetFaceAnimationData();
 };
 
 void __cdecl ApplyHavokOperation(Node920b80*, bool, bool);
@@ -23623,7 +23623,7 @@ void FUN_00920b80_shell::ResetWeaponState(Actor920b80* apActor)
     FUN_00c9bdf0(pActorRootNode, 1.0f);
     apActor->FUN_005d43c0(false)->UpdateRagDoll();
     apActor->Reset3D(4);
-    Face920b80* p3DTmp = apActor->FUN_008adcb0();
+    Face920b80* p3DTmp = apActor->GetFaceAnimationData();
     if (p3DTmp)
         p3DTmp->SetupBlink(0, 0);
     m_cCharacterControllerState = 0;
@@ -24085,19 +24085,19 @@ struct P130Actor
     virtual void v217();
     virtual void v218();
     virtual bool IsDead();
-    void FUN_008a6840(int);
+    void SetWantWeaponDrawn(int);
     int FUN_008a7570();
     bool HasAnyFlag();
     bool FUN_004997b0();
-    void FUN_00884f80();
+    void SetWalkRunFlagDirty();
     void ForwardToVtSlot(int);
     void FUN_008b3ab0();
     void FUN_00895110(float, float);
     void FUN_00931fb0(bool);
     void FUN_008a73e0(int, bool);
     void FUN_00931d30(float);
-    P130Controller* FUN_008adcb0();
-    void FUN_0088d640();
+    P130Controller* GetFaceAnimationData();
+    void GetOutofFurnitureQuick();
 };
 struct P130Marker
 {
@@ -24173,7 +24173,7 @@ bool P130Process::FUN_009213e0(P130Actor* actor)
         return false;
     if (IsAdditionalActorFlagSet() && !IsCurrentlyAlerted())
     {
-        actor->FUN_008a6840(0);
+        actor->SetWantWeaponDrawn(0);
         return true;
     }
     m_pReference40 = 0;
@@ -24211,7 +24211,7 @@ bool P130Process::FUN_009213e0(P130Actor* actor)
         if (isBed && !GetCurrentPackage())
             StartIdle(actor, 0, 0);
         if (actor->FUN_004997b0())
-            actor->FUN_00884f80();
+            actor->SetWalkRunFlagDirty();
         actor->ForwardToVtSlot(0x400);
         if ((void*)actor != (void*)g_thePlayer)
             StopActorMovement((Actor*)actor);
@@ -24325,7 +24325,7 @@ bool P130Process::FUN_009213e0(P130Actor* actor)
                     package->FUN_004994f0(((P130IdlePtr*)&package->LocalInput)->FUN_00559450()->FUN_00825c00(), false);
                 if (isBed)
                 {
-                    P130Controller* controller = actor->FUN_008adcb0();
+                    P130Controller* controller = actor->GetFaceAnimationData();
                     if (controller)
                         controller->SetState(true, false);
                     SetFurnitureState((Actor*)actor, (SIT_SLEEP_STATE)9, m_pFurnitureReference,
@@ -24342,7 +24342,7 @@ bool P130Process::FUN_009213e0(P130Actor* actor)
         else if (!package->FUN_00921e30() && ((P130IdlePtr*)&package->LocalInput)->FUN_00559450() &&
                  ((P130IdlePtr*)&package->LocalInput)->FUN_00559450()->FUN_0044ddc0() == 3)
         {
-            actor->FUN_0088d640();
+            actor->GetOutofFurnitureQuick();
             package->FUN_00498910(true, false);
         }
         break;
@@ -25590,7 +25590,7 @@ struct EquipActor
     void GetWeaponObject();
     FUN_0041a250* FUN_005d43c0();
     bool FUN_00524d10();
-    void FUN_00884f80();
+    void SetWalkRunFlagDirty();
 };
 struct EquipProcess
 {
@@ -26211,7 +26211,7 @@ void EquipProcess::UpdateEquipVisuals(bool draw, EquipRef* reference, EquipAnim*
             sound.FUN_00ad88f0();
         actor->FUN_005d43c0()->FUN_0041a3e0(sound);
     }
-    actor->FUN_00884f80();
+    actor->SetWalkRunFlagDirty();
 }
 }  // namespace fnv_009231d0
 
@@ -26314,7 +26314,7 @@ struct Buffer86
 {
     unsigned int FUN_00825c00();
     bool FUN_00862110();
-    void FUN_008579b0(const void*, unsigned int);
+    void SaveGameDataOLD(const void*, unsigned int);
     void FUN_00857a10(const void*, unsigned int);
     unsigned char FUN_008df040();
     Record86* FUN_004fd3e0();
@@ -26408,7 +26408,7 @@ Named86* FUN_004839c0(unsigned int);
 void __cdecl FUN_0040fbe0(const char*, ...);
 void __cdecl FUN_005b5e40(const char*, ...);
 void FUN_0049aa80(MobileObject*, void*);
-void FUN_00805b40(void*, Actor*);
+void SaveActiveEffectList(void*, Actor*);
 struct Process86
 {
     int unk00;
@@ -26569,31 +26569,31 @@ void Process86::FUN_00924560(unsigned int flags, MobileObject* owner)
     if (((Buffer86*)DAT_011de45c)->FUN_00862110())
     {
         unsigned int tag = 0x424c4f4b;
-        ((Buffer86*)DAT_011de45c)->FUN_008579b0(&tag, 4);
+        ((Buffer86*)DAT_011de45c)->SaveGameDataOLD(&tag, 4);
         block31 = ((Buffer86*)DAT_011de45c)->FUN_00825c00();
-        ((Buffer86*)DAT_011de45c)->FUN_008579b0(&blockSize14, 2);
+        ((Buffer86*)DAT_011de45c)->SaveGameDataOLD(&blockSize14, 2);
     }
-    ((Buffer86*)DAT_011de45c)->FUN_008579b0(&unk134, 1);
-    ((Buffer86*)DAT_011de45c)->FUN_008579b0(&unk135, 1);
+    ((Buffer86*)DAT_011de45c)->SaveGameDataOLD(&unk134, 1);
+    ((Buffer86*)DAT_011de45c)->SaveGameDataOLD(&unk135, 1);
     if (((Buffer86*)DAT_011de45c)->FUN_008df040() >= 52)
     {
-        ((Buffer86*)DAT_011de45c)->FUN_008579b0(&unk168, 1);
-        ((Buffer86*)DAT_011de45c)->FUN_008579b0(&unk170, 4);
+        ((Buffer86*)DAT_011de45c)->SaveGameDataOLD(&unk168, 1);
+        ((Buffer86*)DAT_011de45c)->SaveGameDataOLD(&unk170, 4);
     }
     if (((Buffer86*)DAT_011de45c)->FUN_008df040() >= 77)
-        ((Buffer86*)DAT_011de45c)->FUN_008579b0(&unk174, 4);
+        ((Buffer86*)DAT_011de45c)->SaveGameDataOLD(&unk174, 4);
     if (flags & 0)
         package.FUN_008c6250(flags);
     int objectID19 = 0;
     if (object)
         objectID19 = object->FUN_0084e3a0();
     ((Buffer86*)DAT_011de45c)->FUN_00857a10(&objectID19, 4);
-    ((Buffer86*)DAT_011de45c)->FUN_008579b0(&unk108, 4);
-    ((Buffer86*)DAT_011de45c)->FUN_008579b0(&unk1da, 1);
-    ((Buffer86*)DAT_011de45c)->FUN_008579b0(&position, 12);
-    ((Buffer86*)DAT_011de45c)->FUN_008579b0(&unkdc, 4);
-    ((Buffer86*)DAT_011de45c)->FUN_008579b0(&unk13d, 1);
-    ((Buffer86*)DAT_011de45c)->FUN_008579b0(&unk144, 1);
+    ((Buffer86*)DAT_011de45c)->SaveGameDataOLD(&unk108, 4);
+    ((Buffer86*)DAT_011de45c)->SaveGameDataOLD(&unk1da, 1);
+    ((Buffer86*)DAT_011de45c)->SaveGameDataOLD(&position, 12);
+    ((Buffer86*)DAT_011de45c)->SaveGameDataOLD(&unkdc, 4);
+    ((Buffer86*)DAT_011de45c)->SaveGameDataOLD(&unk13d, 1);
+    ((Buffer86*)DAT_011de45c)->SaveGameDataOLD(&unk144, 1);
     int formID22 = 0;
     if (form)
         formID22 = form->FUN_0084e3a0();
@@ -26601,10 +26601,10 @@ void Process86::FUN_00924560(unsigned int flags, MobileObject* owner)
     float length90 = vector.FUN_00568650();
     unsigned char modeValue7 = mode;
     Vec86 point12 = vector;
-    ((Buffer86*)DAT_011de45c)->FUN_008579b0(&length90, 4);
-    ((Buffer86*)DAT_011de45c)->FUN_008579b0(&modeValue7, 1);
-    ((Buffer86*)DAT_011de45c)->FUN_008579b0(&point12, 12);
-    ((Buffer86*)DAT_011de45c)->FUN_008579b0(&unk13c, 1);
+    ((Buffer86*)DAT_011de45c)->SaveGameDataOLD(&length90, 4);
+    ((Buffer86*)DAT_011de45c)->SaveGameDataOLD(&modeValue7, 1);
+    ((Buffer86*)DAT_011de45c)->SaveGameDataOLD(&point12, 12);
+    ((Buffer86*)DAT_011de45c)->SaveGameDataOLD(&unk13c, 1);
     if (flags & 0x10000000)
         FUN_0049aa80(owner, animation);
     int referenceID17 = 0;
@@ -26615,20 +26615,20 @@ void Process86::FUN_00924560(unsigned int flags, MobileObject* owner)
     if (other)
         otherID4 = other->RefreshItem();
     ((Buffer86*)DAT_011de45c)->FUN_00857a10(&otherID4, 4);
-    FUN_00805b40(effects, actor12);
+    SaveActiveEffectList(effects, actor12);
     if (((Buffer86*)DAT_011de45c)->FUN_008df040() >= 69)
-        ((Buffer86*)DAT_011de45c)->FUN_008579b0(&unke0, 1);
+        ((Buffer86*)DAT_011de45c)->SaveGameDataOLD(&unke0, 1);
     if (((Buffer86*)DAT_011de45c)->FUN_008df040() >= 73)
     {
-        ((Buffer86*)DAT_011de45c)->FUN_008579b0(&unk188, 1);
-        ((Buffer86*)DAT_011de45c)->FUN_008579b0(&unk189, 1);
+        ((Buffer86*)DAT_011de45c)->SaveGameDataOLD(&unk188, 1);
+        ((Buffer86*)DAT_011de45c)->SaveGameDataOLD(&unk189, 1);
     }
     if (((Buffer86*)DAT_011de45c)->FUN_008df040() >= 101)
     {
-        ((Buffer86*)DAT_011de45c)->FUN_008579b0(&unkd8, 4);
+        ((Buffer86*)DAT_011de45c)->SaveGameDataOLD(&unkd8, 4);
         unsigned short count33 = 0;
         unsigned short* countLocation35 = (unsigned short*)((Buffer86*)DAT_011de45c)->FUN_00825c00();
-        ((Buffer86*)DAT_011de45c)->FUN_008579b0(&count33, 2);
+        ((Buffer86*)DAT_011de45c)->SaveGameDataOLD(&count33, 2);
         List86* node17 = &list;
         while (node17 && !node17->FUN_008256d0())
         {
@@ -26643,7 +26643,7 @@ void Process86::FUN_00924560(unsigned int flags, MobileObject* owner)
         *countLocation35 = count33;
     }
     if (((Buffer86*)DAT_011de45c)->FUN_008df040() >= 109)
-        ((Buffer86*)DAT_011de45c)->FUN_008579b0(&unk18b, 1);
+        ((Buffer86*)DAT_011de45c)->SaveGameDataOLD(&unk18b, 1);
     if (((Buffer86*)DAT_011de45c)->FUN_008df040() >= 113)
     {
         int id1 = 0;
@@ -27395,8 +27395,8 @@ struct SaveBuffer58
     virtual unsigned int v2();
     void FUN_00865e50(void*, unsigned int, int);
     void FUN_00865df0(void*, int);
-    unsigned int FUN_00865f20();
-    void FUN_00865ff0(unsigned int, unsigned int);
+    unsigned int StartVariableSizedValue();
+    void SaveVariableSizedValue(unsigned int, unsigned int);
     Flag58 FUN_00428110(unsigned int);
     unsigned int FUN_0084e3a0();
     void FUN_00865db0(unsigned int, int);
@@ -27662,7 +27662,7 @@ void ProcessSave58::FUN_00926a20(SaveBuffer58* buffer)
     buffer->FUN_00865e50(&counterValue, 4, 0);
     {
         unsigned int count = 0;
-        unsigned int marker = buffer->FUN_00865f20();
+        unsigned int marker = buffer->StartVariableSizedValue();
         FormNode58* node = &list;
         while (node)
         {
@@ -27674,16 +27674,16 @@ void ProcessSave58::FUN_00926a20(SaveBuffer58* buffer)
             }
             node = node->FUN_00726070();
         }
-        buffer->FUN_00865ff0(count, marker);
+        buffer->SaveVariableSizedValue(count, marker);
     }
     ((SavedPart58*)&unk0e4)->SavePackage(buffer);
     if (header && buffer->FUN_00428110(0x10000000).FUN_004280f0())
     {
-        unsigned int sizeMarker6 = buffer->FUN_00865f20();
+        unsigned int sizeMarker6 = buffer->StartVariableSizedValue();
         unsigned int start5 = buffer->FUN_0084e3a0();
         field1c0->SaveAnimData(buffer);
         unsigned int end14 = buffer->FUN_0084e3a0();
-        buffer->FUN_00865ff0(end14 - start5, sizeMarker6);
+        buffer->SaveVariableSizedValue(end14 - start5, sizeMarker6);
     }
     FUN_00806a10(buffer, (void*)unk1b8);
     buffer->FUN_00865db0(field164 ? field164->FUN_0040a1e0() : 0, 0);
@@ -27691,7 +27691,7 @@ void ProcessSave58::FUN_00926a20(SaveBuffer58* buffer)
     buffer->FUN_00865db0(field1bc ? field1bc->RefreshItem() : 0, 0);
     {
         unsigned int finalCount = 0;
-        unsigned int finalMarker = buffer->FUN_00865f20();
+        unsigned int finalMarker = buffer->StartVariableSizedValue();
         SaveNode58* finalNode = savedlist;
         while (finalNode)
         {
@@ -27703,7 +27703,7 @@ void ProcessSave58::FUN_00926a20(SaveBuffer58* buffer)
             }
             finalNode = finalNode->FUN_00726070();
         }
-        buffer->FUN_00865ff0(finalCount, finalMarker);
+        buffer->SaveVariableSizedValue(finalCount, finalMarker);
     }
 }
 
@@ -28055,7 +28055,7 @@ struct P124Actor
     virtual void SetAngle(float);
     float FUN_00567400();
     void FUN_00931d30(float);
-    P124Controller* FUN_009306d0();
+    P124Controller* GetCharController();
 };
 struct P124Input
 {
@@ -28154,8 +28154,8 @@ void P124Process::UpdateFurnitureAnimation(P124Input* input)
                 actor->FUN_00931d30(base->GetFurnitureHeading(((P124Marker*)&FurnitureMarker)->FUN_005094b0()));
             }
             m_ucFurnitureInteractionState = offset;
-            if (actor->FUN_009306d0())
-                actor->FUN_009306d0()->FUN_005620e0(&((P124Marker*)&FurnitureMarker)->FUN_006815c0());
+            if (actor->GetCharController())
+                actor->GetCharController()->FUN_005620e0(&((P124Marker*)&FurnitureMarker)->FUN_006815c0());
         }
         else
             ((P124Fallback*)this)->Reset(actor);
@@ -28984,7 +28984,7 @@ struct Actor9 : Actor
     bool FUN_008b3bd0();
     void PathToLocation(PathingRequest*, NiPoint3 const&, void*, void*, float, int);
     void SetPathingRequestAvoidNodes(PathingRequest*);
-    void FUN_008b3d30();
+    void ClearLookAtTarget();
 };
 ObjC9* FUN_0044edb0(ObjA9*);
 bool __cdecl FUN_0092a980(int);
@@ -29215,7 +29215,7 @@ void Proc9::UpdatePackageState(Actor9* apActor)
                 }
             }
             this->ResetCurrentPackage();
-            apActor->FUN_008b3d30();
+            apActor->ClearLookAtTarget();
             flag->SelectSandboxActivity(apActor, (ObjB9*)this->GetCurrentPackage());
             flag->m_04 = 1;
         }
@@ -29342,7 +29342,7 @@ struct SleepController
 };
 struct FurnitureActorAccess
 {
-    SleepController* FUN_008adcb0();
+    SleepController* GetFaceAnimationData();
 };
 struct FurnitureProcess : MiddleHighProcess
 {
@@ -29352,7 +29352,7 @@ struct FurnitureProcess : MiddleHighProcess
     virtual void unused496();
     virtual void unused497();
     virtual void BeginFurniture(Actor*, int);
-    void FUN_0092c680();
+    void ClearFurnitureMarker();
     bool TryUseFurniture(Actor* actor, TESObjectREFR* furniture);
 };
 
@@ -29373,11 +29373,11 @@ bool FurnitureProcess::TryUseFurniture(Actor* actor, TESObjectREFR* furniture)
         else
         {
             m_pFurnitureReference = furniture;
-            FUN_0092c680();
+            ClearFurnitureMarker();
         }
     }
     if (!m_pFurnitureReference)
-        FUN_0092c680();
+        ClearFurnitureMarker();
     TESBoundObject* chair = m_pFurnitureReference->GetObjectReference();
     // The base-object predicate selects the chair state rather than the bed state.
     bool base = reinterpret_cast<FurnitureBase*>(chair)->FUN_005093f0();
@@ -29402,7 +29402,7 @@ bool FurnitureProcess::TryUseFurniture(Actor* actor, TESObjectREFR* furniture)
     }
     if (actor->Unk_85() == 9)
     {
-        SleepController* controller = reinterpret_cast<FurnitureActorAccess*>(actor)->FUN_008adcb0();
+        SleepController* controller = reinterpret_cast<FurnitureActorAccess*>(actor)->GetFaceAnimationData();
         if (controller && !controller->IsActive())
             controller->SetActive(true, false);
     }
@@ -29971,7 +29971,7 @@ struct DeadDetectListHelper
 };
 
 unsigned short __cdecl GetAnimationSize(void*, void*);
-unsigned short __cdecl FUN_00805a00(void*, void*);
+unsigned short __cdecl GetActiveEffectListSaveSize(void*, void*);
 TESForm* __cdecl FUN_004839c0(unsigned int);
 void __cdecl FUN_0040fbe0(const char*, ...);
 
@@ -30033,7 +30033,7 @@ unsigned short MiddleHighProcess_Shell::FUN_00924220(unsigned int a2, MobileObje
     uiTotalSize += 4;
     uiTotalSize += 4;
 
-    uiTotalSize += FUN_00805a00(this->m_pActiveEffectList, pActor2);
+    uiTotalSize += GetActiveEffectListSaveSize(this->m_pActiveEffectList, pActor2);
 
     if (g_TESSaveLoadGame->FUN_008df040() >= 0x45)
     {
@@ -30099,7 +30099,7 @@ struct FormFlagsAccessor
 class FUN_008579e0_shell
 {
   public:
-    void FUN_008579e0(void* dst, unsigned int size);
+    void LoadGameDataOLD(void* dst, unsigned int size);
 };
 
 class TESSaveLoadGame : public FUN_008579e0_shell
@@ -30192,7 +30192,7 @@ void TargetProcess::LoadFromSave(unsigned int a1, unsigned int a2, MobileObject*
     if (g_TESSaveLoadGame->FUN_00862110())
     {
         unsigned int uTag;
-        g_TESSaveLoadGame->FUN_008579e0(&uTag, 4);
+        g_TESSaveLoadGame->LoadGameDataOLD(&uTag, 4);
         if (uTag != 0x424c4f4b)
         {
             void* pFormInfo;
@@ -30216,21 +30216,21 @@ void TargetProcess::LoadFromSave(unsigned int a1, unsigned int a2, MobileObject*
             }
         }
         aA114 = g_TESSaveLoadGame->FUN_00825c00();
-        g_TESSaveLoadGame->FUN_008579e0(&ExitLoc, 2);
+        g_TESSaveLoadGame->LoadGameDataOLD(&ExitLoc, 2);
     }
 
-    g_TESSaveLoadGame->FUN_008579e0(&this->m_bFirstActorFlag, 1);
-    g_TESSaveLoadGame->FUN_008579e0(&this->m_bAdditionalActorFlag, 1);
+    g_TESSaveLoadGame->LoadGameDataOLD(&this->m_bFirstActorFlag, 1);
+    g_TESSaveLoadGame->LoadGameDataOLD(&this->m_bAdditionalActorFlag, 1);
 
     if (g_TESSaveLoadGame->FUN_008df040() >= 0x34)
     {
-        g_TESSaveLoadGame->FUN_008579e0(&this->m_bWeaponOut, 1);
-        g_TESSaveLoadGame->FUN_008579e0(&this->m_fFirstEffectShaderValue, 4);
+        g_TESSaveLoadGame->LoadGameDataOLD(&this->m_bWeaponOut, 1);
+        g_TESSaveLoadGame->LoadGameDataOLD(&this->m_fFirstEffectShaderValue, 4);
     }
 
     if (g_TESSaveLoadGame->FUN_008df040() >= 0x4d)
     {
-        g_TESSaveLoadGame->FUN_008579e0(&this->m_fSecondEffectShaderValue, 4);
+        g_TESSaveLoadGame->LoadGameDataOLD(&this->m_fSecondEffectShaderValue, 4);
     }
 
     if ((a1 & 0x20) || (a2 & 0x20))
@@ -30260,19 +30260,19 @@ void TargetProcess::LoadFromSave(unsigned int a1, unsigned int a2, MobileObject*
     g_TESSaveLoadGame->FUN_00857aa0(&EndLoc, 4);
     this->m_pCombatTarget = (Actor*)EndLoc;
 
-    g_TESSaveLoadGame->FUN_008579e0(&this->m_ePackageObjectType, 4);
-    g_TESSaveLoadGame->FUN_008579e0(&this->m_bAnimationStateFlag, 1);
+    g_TESSaveLoadGame->LoadGameDataOLD(&this->m_ePackageObjectType, 4);
+    g_TESSaveLoadGame->LoadGameDataOLD(&this->m_bAnimationStateFlag, 1);
 
     if (g_TESSaveLoadGame->FUN_008df040() < 0x18)
     {
         unsigned char m_cCharacterControllerState;
-        g_TESSaveLoadGame->FUN_008579e0(&m_cCharacterControllerState, 1);
+        g_TESSaveLoadGame->LoadGameDataOLD(&m_cCharacterControllerState, 1);
     }
 
-    g_TESSaveLoadGame->FUN_008579e0(&this->m_kPackageTargetPosition, 12);
-    g_TESSaveLoadGame->FUN_008579e0(&this->m_kEighthUnshownMember, 4);
-    g_TESSaveLoadGame->FUN_008579e0(&this->m_ucFurnitureInteractionState, 1);
-    g_TESSaveLoadGame->FUN_008579e0(&this->m_ucFurnitureMarkerIndex, 1);
+    g_TESSaveLoadGame->LoadGameDataOLD(&this->m_kPackageTargetPosition, 12);
+    g_TESSaveLoadGame->LoadGameDataOLD(&this->m_kEighthUnshownMember, 4);
+    g_TESSaveLoadGame->LoadGameDataOLD(&this->m_ucFurnitureInteractionState, 1);
+    g_TESSaveLoadGame->LoadGameDataOLD(&this->m_ucFurnitureMarkerIndex, 1);
 
     unsigned int a190;
     g_TESSaveLoadGame->FUN_00857aa0(&a190, 4);
@@ -30281,15 +30281,15 @@ void TargetProcess::LoadFromSave(unsigned int a1, unsigned int a2, MobileObject*
     NiPoint3WithCtor Left;
     float a60;
     unsigned char a1c3;
-    g_TESSaveLoadGame->FUN_008579e0(&a60, 4);
-    g_TESSaveLoadGame->FUN_008579e0(&a1c3, 1);
-    g_TESSaveLoadGame->FUN_008579e0(&Left, 12);
+    g_TESSaveLoadGame->LoadGameDataOLD(&a60, 4);
+    g_TESSaveLoadGame->LoadGameDataOLD(&a1c3, 1);
+    g_TESSaveLoadGame->LoadGameDataOLD(&Left, 12);
     ((FurnitureMarkExt&)this->FurnitureMarker).FUN_00c54550(a60);
     ((FurnitureMarkExt&)this->FurnitureMarker).FUN_00568ab0(a1c3);
     ((FurnitureMarkExt&)this->FurnitureMarker).FUN_0098ddd0(Left);
 
     char Diff;
-    g_TESSaveLoadGame->FUN_008579e0(&Diff, 1);
+    g_TESSaveLoadGame->LoadGameDataOLD(&Diff, 1);
     if (!Diff)
     {
         Actor* pActorDyn = dynamic_cast<Actor*>(a3);
@@ -30302,7 +30302,7 @@ void TargetProcess::LoadFromSave(unsigned int a1, unsigned int a2, MobileObject*
             if (g_TESSaveLoadGame->FUN_008df040() < 0x2f)
             {
                 unsigned char bTemp;
-                g_TESSaveLoadGame->FUN_008579e0(&bTemp, 1);
+                g_TESSaveLoadGame->LoadGameDataOLD(&bTemp, 1);
                 if (bTemp)
                 {
                     Struct_004d9330* p = new Struct_004d9330();
@@ -30331,13 +30331,13 @@ void TargetProcess::LoadFromSave(unsigned int a1, unsigned int a2, MobileObject*
 
     if (g_TESSaveLoadGame->FUN_008df040() >= 0x45)
     {
-        g_TESSaveLoadGame->FUN_008579e0(&this->m_bPackageStateFlag2, 1);
+        g_TESSaveLoadGame->LoadGameDataOLD(&this->m_bPackageStateFlag2, 1);
     }
 
     if (g_TESSaveLoadGame->FUN_008df040() >= 0x49)
     {
-        g_TESSaveLoadGame->FUN_008579e0(&this->m_bAiming, 1);
-        g_TESSaveLoadGame->FUN_008579e0(&this->m_bAimStateFlag, 1);
+        g_TESSaveLoadGame->LoadGameDataOLD(&this->m_bAiming, 1);
+        g_TESSaveLoadGame->LoadGameDataOLD(&this->m_bAimStateFlag, 1);
     }
 
     if (g_TESSaveLoadGame->FUN_008df040() >= 0x65)
@@ -30346,13 +30346,13 @@ void TargetProcess::LoadFromSave(unsigned int a1, unsigned int a2, MobileObject*
         {
             g_TESSaveLoadGame->FUN_00857bd0(4);
         }
-        g_TESSaveLoadGame->FUN_008579e0(&this->m_kNinthUnshownMember, 4);
+        g_TESSaveLoadGame->LoadGameDataOLD(&this->m_kNinthUnshownMember, 4);
         if (g_TESSaveLoadGame->FUN_008df040() < 0x68)
         {
             g_TESSaveLoadGame->FUN_00857bd0(4);
         }
         unsigned short listCount;
-        g_TESSaveLoadGame->FUN_008579e0(&listCount, 2);
+        g_TESSaveLoadGame->LoadGameDataOLD(&listCount, 2);
         for (unsigned int i = 0; i < listCount; ++i)
         {
             unsigned int itemFormID;
@@ -30363,7 +30363,7 @@ void TargetProcess::LoadFromSave(unsigned int a1, unsigned int a2, MobileObject*
 
     if (g_TESSaveLoadGame->FUN_008df040() >= 0x6d)
     {
-        g_TESSaveLoadGame->FUN_008579e0(&this->m_bFourthStateFlag, 1);
+        g_TESSaveLoadGame->LoadGameDataOLD(&this->m_bFourthStateFlag, 1);
     }
 
     if (g_TESSaveLoadGame->FUN_008df040() >= 0x71)
@@ -30588,7 +30588,7 @@ struct Ref92
     virtual Pos92* v1f4();
     char pad194[0x190 - 4];
     Memb92* pMemb;
-    bool FUN_008b3b90();
+    bool DidPathingFail();
     bool FUN_008b3bb0();
     float FUN_005723b0(void* a, int b, int c);
     Ref92* FUN_007af430();
@@ -31173,7 +31173,7 @@ void This92::FUN_0092b030(Ref92* a2, void* a3)
     bool p;
     float z7;
     Ref92* bb5;
-    if (a2->FUN_008b3b90())
+    if (a2->DidPathingFail())
     {
         v858(a2, a3);
         return;
@@ -32610,7 +32610,7 @@ struct ActShell
 {
     float FUN_005723b0(TESObjectREFR* r, int a, int b);
     bool FUN_008b3bb0();
-    void FUN_008b39f0(unsigned int a);
+    void SetMoveMode(unsigned int a);
     void FUN_0087faa0();
 };
 struct RefShell
@@ -33475,7 +33475,7 @@ void MidProc::FUN_00918ee0(Actor* apActor, bool abArg2, int aiArg3, int aiArg4)
             if (0)
             {
             }
-            ((ActShell*)apActor)->FUN_008b39f0(aiArg3);
+            ((ActShell*)apActor)->SetMoveMode(aiArg3);
             if (!this->v521(apActor, *((V1f4*)this->pTarget)->v1f4(), ((RefShell*)this->pTarget)->FUN_008d6f30(),
                             ((RefShell*)this->pTarget)->FUN_00575d70()))
                 return;
@@ -33676,7 +33676,7 @@ struct Vector4f
 };
 struct SaveGame
 {
-    void FUN_008579e0(void* data, int size);
+    void LoadGameDataOLD(void* data, int size);
     unsigned char FUN_008df040();
 };
 struct Sub410
@@ -34502,16 +34502,16 @@ void Self::FUN_00926690(Ref* actor)
     {
         int iState3;
         int iFlags;
-        DAT_011de45c->FUN_008579e0(&iState3, 4);
+        DAT_011de45c->LoadGameDataOLD(&iState3, 4);
         pProcessTmp->FUN_008e2680(iState3);
-        DAT_011de45c->FUN_008579e0(&pProcessTmp->m520, 4);
-        DAT_011de45c->FUN_008579e0(&iFlags, 4);
+        DAT_011de45c->LoadGameDataOLD(&pProcessTmp->m520, 4);
+        DAT_011de45c->LoadGameDataOLD(&iFlags, 4);
         pProcessTmp->m410.FUN_006296b0(-1);
         pProcessTmp->m410.FUN_00629670(iFlags, 1);
         if ((iFlags & 0x800) && DAT_011de45c->FUN_008df040() >= 0x23)
         {
             Vec3 kPos;
-            DAT_011de45c->FUN_008579e0(&kPos, 0xc);
+            DAT_011de45c->LoadGameDataOLD(&kPos, 0xc);
             if (Get4bc() && Get4d4())
             {
                 Ref* pRef5 = 0;
@@ -34530,21 +34530,21 @@ void Self::FUN_00926690(Ref* actor)
         {
             actor->FUN_00931fb0(0);
         }
-        DAT_011de45c->FUN_008579e0(&pProcessTmp->m4f0, 0x10);
-        DAT_011de45c->FUN_008579e0(&pProcessTmp->m500, 0x10);
+        DAT_011de45c->LoadGameDataOLD(&pProcessTmp->m4f0, 0x10);
+        DAT_011de45c->LoadGameDataOLD(&pProcessTmp->m500, 0x10);
         Vec3 kVel_;
-        DAT_011de45c->FUN_008579e0(&kVel_, 0xc);
+        DAT_011de45c->LoadGameDataOLD(&kVel_, 0xc);
         pProcessTmp->FUN_00926980(&kVel_);
         if (actor->Is100())
         {
-            DAT_011de45c->FUN_008579e0(&pProcessTmp->m540, 4);
-            DAT_011de45c->FUN_008579e0(&pProcessTmp->m544, 4);
-            DAT_011de45c->FUN_008579e0(&pProcessTmp->m548, 4);
+            DAT_011de45c->LoadGameDataOLD(&pProcessTmp->m540, 4);
+            DAT_011de45c->LoadGameDataOLD(&pProcessTmp->m544, 4);
+            DAT_011de45c->LoadGameDataOLD(&pProcessTmp->m548, 4);
         }
         else if (DAT_011de45c->FUN_008df040() >= 0x20)
         {
-            DAT_011de45c->FUN_008579e0(&pProcessTmp->m54c, 4);
-            DAT_011de45c->FUN_008579e0(&pProcessTmp->m548, 4);
+            DAT_011de45c->LoadGameDataOLD(&pProcessTmp->m54c, 4);
+            DAT_011de45c->LoadGameDataOLD(&pProcessTmp->m548, 4);
         }
         if (iState3 == 2 && (pProcessTmp->FUN_0088b0c0() || pProcessTmp->FUN_009269f0()))
         {
@@ -34552,8 +34552,8 @@ void Self::FUN_00926690(Ref* actor)
         }
         if (DAT_011de45c->FUN_008df040() >= 0x77)
         {
-            DAT_011de45c->FUN_008579e0(&pProcessTmp->m550, 4);
-            DAT_011de45c->FUN_008579e0(&pProcessTmp->m558, 4);
+            DAT_011de45c->LoadGameDataOLD(&pProcessTmp->m550, 4);
+            DAT_011de45c->LoadGameDataOLD(&pProcessTmp->m558, 4);
         }
     }
 }
@@ -39179,7 +39179,7 @@ class QueuedItemSV
 {
   public:
     QueuedItemSV();
-    void FUN_00913a20(Actor* apActor);
+    void QueueFiles(Actor* apActor);
     TESBoundObject* pObject;
     ExtraDataList* pExtraData;
     int iCount;
@@ -39220,7 +39220,7 @@ void FUN_00915950_shell::FUN_00915950(Actor* apActor, bool abEquip, TESBoundObje
         pItem->bUnk10 = abArg9;
         pItem->bUnk11 = abArg10;
         pItem->bUnk0F = abArg11;
-        pItem->FUN_00913a20(apActor);
+        pItem->QueueFiles(apActor);
         if (!m_pkPaddedFloatRecordList)
         {
             m_pkPaddedFloatRecordList = new BSSimpleList< ::PaddedFloatRecord*>;
@@ -40711,10 +40711,10 @@ struct Actor70
     short unk18a;
 
     bool FUN_008b3bb0();
-    void FUN_008b39f0(int);
+    void SetMoveMode(int);
     bool FUN_00915ef0(Actor70*);
     float FUN_00572380(const Vec70&);
-    void FUN_0092c680();
+    void ClearFurnitureMarker();
     void* FUN_008d6f30();
     void* FUN_00575d70();
     void FUN_0088c790(int);
@@ -40722,7 +40722,7 @@ struct Actor70
     float FUN_00567400();
     void FUN_00931d30(float);
     Actor70* FUN_008d8520();
-    Actor70* FUN_008adcb0();
+    Actor70* GetFaceAnimationData();
     void UpdateFurnitureAlignment(Actor70*);
     void FUN_00919320(Actor70*, bool, bool, int, int);
 };
@@ -40763,7 +40763,7 @@ void Actor70::FUN_00919320(Actor70* actor, bool checkReach, bool finish, int act
         (actor->FUN_008b3bb0() && !package34->CanReach(actor, 0, -1.0f, 0) && !FUN_00915ef0(actor)))
     {
 
-        actor->FUN_008b39f0(action);
+        actor->SetMoveMode(action);
 
         if (!Move(actor, package34->FUN_00675de0(actor), package34->FUN_00675c20(actor),
                   package34->FUN_00675a50(actor)))
@@ -40793,7 +40793,7 @@ void Actor70::FUN_00919320(Actor70* actor, bool checkReach, bool finish, int act
         if (!furniture)
         {
             furniture = objectRef19;
-            FUN_0092c680();
+            ClearFurnitureMarker();
         }
 
         if (actor->SitState())
@@ -40895,7 +40895,7 @@ void Actor70::FUN_00919320(Actor70* actor, bool checkReach, bool finish, int act
                         if (sleeping43)
                         {
 
-                            Actor70* movement = actor->FUN_008adcb0();
+                            Actor70* movement = actor->GetFaceAnimationData();
 
                             if (movement)
                                 movement->Movement(1, 0);
@@ -40971,7 +40971,7 @@ void Actor70::FUN_00919320(Actor70* actor, bool checkReach, bool finish, int act
             if (!furniture)
             {
                 furniture = objectRef19;
-                FUN_0092c680();
+                ClearFurnitureMarker();
             }
 
             if (furniture->FUN_005686b0(&current18, 1, 1, &target, &selected8, 1))
@@ -41038,8 +41038,8 @@ struct BufferView
     virtual void v04();
     virtual void v08();
     virtual ReferenceView* GetRef();
-    unsigned int FUN_008648a0();
-    void FUN_00864980(void* dst, unsigned int size);
+    unsigned int LoadFormID();
+    void LoadData(void* dst, unsigned int size);
 };
 
 struct ItemLoadState913e80
@@ -41061,9 +41061,9 @@ struct ItemLoadState913e80
 void ItemLoadState913e80::FUN_00913e80(BufferView* buffer)
 {
     ReferenceView* ref = buffer->GetRef();
-    object = dynamic_cast<TESBoundObject*>(reinterpret_cast<TESForm*>(::FUN_004839c0(buffer->FUN_008648a0())));
+    object = dynamic_cast<TESBoundObject*>(reinterpret_cast<TESForm*>(::FUN_004839c0(buffer->LoadFormID())));
     int iIndex = -1;
-    buffer->FUN_00864980(&iIndex, 4);
+    buffer->LoadData(&iIndex, 4);
     if (iIndex != -1)
     {
         InventoryChangesView* holder = ref ? ref->FUN_005d43c0()->FUN_00418520() : 0;
@@ -41072,13 +41072,13 @@ void ItemLoadState913e80::FUN_00913e80(BufferView* buffer)
             entry = holder->GetExtraValueAtPosition(object, iIndex);
         }
     }
-    buffer->FUN_00864980(&unk08, 4);
-    buffer->FUN_00864980(&unk0C, 1);
-    buffer->FUN_00864980(&unk0D, 1);
-    buffer->FUN_00864980(&unk0E, 1);
-    buffer->FUN_00864980(&unk0F, 1);
-    buffer->FUN_00864980(&unk10, 1);
-    buffer->FUN_00864980(&unk11, 1);
+    buffer->LoadData(&unk08, 4);
+    buffer->LoadData(&unk0C, 1);
+    buffer->LoadData(&unk0D, 1);
+    buffer->LoadData(&unk0E, 1);
+    buffer->LoadData(&unk0F, 1);
+    buffer->LoadData(&unk10, 1);
+    buffer->LoadData(&unk11, 1);
 }
 
 }
@@ -41100,7 +41100,7 @@ struct MarkerX
 {
     void SetMarkerState(int, bool);
 };
-void __fastcall FUN_00914b40(void*);
+void __fastcall ClearReservation(void*);
 struct FUN_005682c0_caller
 {
     int FUN_005682c0(bool);
@@ -41289,7 +41289,7 @@ void SetTargetProcess::FUN_0091ea40(TESObjectREFR* apRef)
     if (bnewTarget)
     {
         if (pTarget)
-            FUN_00914b40(this);
+            ClearReservation(this);
         TESObjectREFR** pmutableTarget = &pTarget;
         *pmutableTarget = apRef;
         ((MHPVtX*)this)->v158()->SetFlags((unsigned int)apRef);
@@ -41889,7 +41889,7 @@ struct UseRef
     struct UseEntry* FUN_00576260(void* apItem, int aiCount);
     bool FUN_008b3bb0();
     UseCell* FUN_008d6f30();
-    void FUN_00892e90(void* apItem);
+    void PutItemInReference(void* apItem);
     TESBoundObject* FUN_007af430();
     float FUN_005723b0(UseRef* apRef, int a2, int a3);
     UseProcess* FUN_008d8520();
@@ -42320,7 +42320,7 @@ bool UseProcess::FUN_0091c810(UseRef* apActor)
                     pLocationCur = m_pReference40;
                 if (pLocationCur && pLocationCur->FUN_0055d310())
                 {
-                    apActor->FUN_00892e90(
+                    apActor->PutItemInReference(
                         pEntryOut->FUN_0044ddc0(pXData, pLocationCur, pPackage->FUN_00672930(), pOwner));
                 }
                 else
@@ -42356,7 +42356,7 @@ bool UseProcess::FUN_0091c810(UseRef* apActor)
                         m_pDetectionData60 = 0;
                         if (pLocationCur && pLocationCur->FUN_0055d310())
                         {
-                            apActor->FUN_00892e90(
+                            apActor->PutItemInReference(
                                 pEntryOut->FUN_0044ddc0(pXData, pLocationCur, pPackage->FUN_00672930(), pOwner));
                         }
                         else

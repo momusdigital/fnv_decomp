@@ -1,6 +1,6 @@
 
 // src/fallout/interface/menus/mapmenu_decl_variant.cpp - declaration variant unit created 2026-10-26 by decl_variants.py for paused function 0x0079af30: the skeleton of src/fallout/interface/menus/mapmenu.cpp
-// with declarations corrected to what the original code does (mapmenu_decls.h: MapMenu += void FUN_0079af30(); void UpdateLocalMap(); void RefreshMap(); void UpdateQuestObjectiveList(); void RefreshNotesList(); void RefreshChallengeList(); void FUN_0079b460(bool a); void SetNote(BGSNote* note); void RefreshRadioList();; mapmenu_decls.h: void FUN_007a1a70(); void FUN_007a1c90(); void). Move the function to its real unit once
+// with declarations corrected to what the original code does (mapmenu_decls.h: MapMenu += void UpdateCurrentPage(); void UpdateLocalMap(); void RefreshMap(); void UpdateQuestObjectiveList(); void RefreshNotesList(); void RefreshChallengeList(); void ToggleNotesChallengeMode(bool a); void SetNote(BGSNote* note); void RefreshRadioList();; mapmenu_decls.h: void FUN_007a1a70(); void FUN_007a1c90(); void). Move the function to its real unit once
 // that unit declares it this way.
 
 #include "mapmenu_decls_decl_mapmenu.h"
@@ -12,7 +12,7 @@ template <> void ListBox<TESQuest*>::ClearSelection(bool notify)
 
 bool FUN_007a1750();
 // @fnv 0x0079af30
-void MapMenu::FUN_0079af30()
+void MapMenu::UpdateCurrentPage()
 {
     int selected = -1;
     Tile* index = 0;
@@ -56,7 +56,7 @@ void MapMenu::FUN_0079af30()
             DAT_011da368->m_kNoteListBox.UpdateScrollSelection(true);
         }
         DAT_011da368->RefreshChallengeList();
-        FUN_0079b460(false);
+        ToggleNotesChallengeMode(false);
         break;
     case 36:
         DAT_011da368->m_pTiles[12]->Set(0xfa3, 0);

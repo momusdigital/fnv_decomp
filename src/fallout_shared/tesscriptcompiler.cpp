@@ -970,7 +970,7 @@ struct ScriptNameRef
 void __cdecl FUN_00407000(char* buf, const char* fmt, void* args);
 void __cdecl FUN_00406f60(StrBuf8* out, const char* fmt, char* name, unsigned int line, char* msg);
 int __cdecl FUN_00464f30(char* a, int b);
-void __cdecl FUN_00703c00(int a);
+void __cdecl PrintToConsole(int a);
 void __cdecl FUN_005b5e40(int a);
 
 // @fnv 0x005aea90
@@ -985,7 +985,7 @@ void __cdecl ReportScriptError(CStringArgument* self, const char* pcFormat, ...)
                  self->m_uiLastLineNumber, msg);
     if (self->m_eCompilerIndex == 1)
     {
-        FUN_00703c00(FUN_00464f30(strBuf.GetText(), 0));
+        PrintToConsole(FUN_00464f30(strBuf.GetText(), 0));
     }
     else
     {

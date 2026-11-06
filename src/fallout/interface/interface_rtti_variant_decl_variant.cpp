@@ -117,7 +117,7 @@ class InterfaceManagerKey
 };
 Tile* __cdecl FUN_00a09030(unsigned int eLine);
 void __cdecl FUN_007e9200();
-void __cdecl FUN_00705640();
+void __cdecl CreateVATSMenu();
 
 class SleepWaitMenu : public Menu
 {

@@ -624,7 +624,7 @@ class ProcessLists
 extern ProcessLists DAT_011e0e80;
 
 // @fnv 0x008cddd0
-void FUN_008cddd0(MobileObject* owner, bool bFlag)
+void DeleteAttachedArrows(MobileObject* owner, bool bFlag)
 {
     if (owner == 0 || owner->Unk_89())
         return;

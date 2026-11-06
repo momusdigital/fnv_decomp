@@ -60,7 +60,7 @@ struct Loc
     int unk00, unk04, unk08;
     Loc();
     ~Loc();
-    void FUN_0067f3c0(A*);
+    void SetLocReference(A*);
 };
 struct Target
 {
@@ -846,7 +846,7 @@ struct A
     bool FUN_008a6650(int);
     unsigned int FUN_0044ddc0();
     bool FUN_00833c20();
-    void FUN_00881680(int);
+    void EndInterruptPackage(int);
     Cls* GetClass();
     void FUN_008bf4e0(int);
     bool FUN_005653d0();
@@ -909,7 +909,7 @@ void A::FUN_008bed50(A* source, int value, bool react, A* target)
         if (GetCurrentPackage()->GetPackType() == 21)
             v = GetCurrentPackage();
         else if (GetCurrentPackage()->FUN_00678610())
-            FUN_00881680(0);
+            EndInterruptPackage(0);
     }
     if (source && GetClass()->IsGuard())
     {
@@ -942,9 +942,9 @@ void A::FUN_008bed50(A* source, int value, bool react, A* target)
         current->SetMustComplete(true);
         Loc* s = new Loc;
         if (source)
-            s->FUN_0067f3c0(source->FUN_0084e3a0());
+            s->SetLocReference(source->FUN_0084e3a0());
         else
-            s->FUN_0067f3c0(target);
+            s->SetLocReference(target);
         current->FUN_00671d30(s);
         delete s;
         Target* created;

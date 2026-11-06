@@ -456,8 +456,8 @@ void D470Owner::SetExtraData(D470Source* pkSource)
 
 struct BGSLoadFormBuffer
 {
-    void FUN_00864980(void* destination, unsigned int size);
-    unsigned int FUN_008648a0();
+    void LoadData(void* destination, unsigned int size);
+    unsigned int LoadFormID();
 };
 TESForm* __cdecl FUN_004839c0(unsigned int);
 struct PackageTargetObj : PackageTargetRecord
@@ -481,28 +481,28 @@ struct UseWeaponLoader : TESUseWeaponPackageData
 // @fnv 0x0067d6b0
 void UseWeaponLoader::LoadUseWeaponData(BGSLoadFormBuffer* buffer)
 {
-    buffer->FUN_00864980(&m_bFlag1, 1);
-    buffer->FUN_00864980(&m_bFlag2, 1);
-    buffer->FUN_00864980(&m_bFlag3, 1);
-    buffer->FUN_00864980(&m_bFlag4, 1);
-    buffer->FUN_00864980(&m_bFlag5, 1);
-    buffer->FUN_00864980(&m_bFlag6, 1);
-    buffer->FUN_00864980(&m_usValue1, 2);
-    buffer->FUN_00864980(&m_usValue2, 2);
-    buffer->FUN_00864980(&m_usValue3, 2);
-    buffer->FUN_00864980(&m_fValue1, 4);
-    buffer->FUN_00864980(&m_fValue2, 4);
-    pWeapon = dynamic_cast<TESObjectWEAP*>(FUN_004839c0(buffer->FUN_008648a0()));
+    buffer->LoadData(&m_bFlag1, 1);
+    buffer->LoadData(&m_bFlag2, 1);
+    buffer->LoadData(&m_bFlag3, 1);
+    buffer->LoadData(&m_bFlag4, 1);
+    buffer->LoadData(&m_bFlag5, 1);
+    buffer->LoadData(&m_bFlag6, 1);
+    buffer->LoadData(&m_usValue1, 2);
+    buffer->LoadData(&m_usValue2, 2);
+    buffer->LoadData(&m_usValue3, 2);
+    buffer->LoadData(&m_fValue1, 4);
+    buffer->LoadData(&m_fValue2, 4);
+    pWeapon = dynamic_cast<TESObjectWEAP*>(FUN_004839c0(buffer->LoadFormID()));
     bool hasTarget;
     bool hasLocation = false;
-    buffer->FUN_00864980(&hasLocation, 1);
+    buffer->LoadData(&hasLocation, 1);
     if (hasLocation)
     {
         m_pUseTarget = new PackageTargetObj;
         static_cast<PackageTargetObj*>(m_pUseTarget)->FUN_006807b0(buffer);
     }
     hasTarget = false;
-    buffer->FUN_00864980(&hasTarget, 1);
+    buffer->LoadData(&hasTarget, 1);
     if (hasTarget)
     {
         m_pTargetLocation = reinterpret_cast<LocationDescriptor*>(new PackageLocationObj);

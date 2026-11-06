@@ -1304,7 +1304,7 @@ float LowProcess::RunProcessUpdate(Actor* actor, PatrolActorPackageData* patrol,
                     distance = Pathing::FindPathDistance(start, end, 4096.0f, 0, Pathing::kIgnoreLocks);
                 }
                 fTimeDelta -= distance / speed;
-                actor->FUN_008ad910(pPatrolRef, true, false);
+                actor->MoveActorAndFollowers(pPatrolRef, true, false);
                 HandlePatrolArrival(actor, patrol);
             }
             else if (actor->HasEssentialStatus())
@@ -1831,12 +1831,12 @@ bool LowProcess::SelectNextPackage(Actor* actor)
         ActorMover* mover;
         TESPackage* package;
     } context;
-    context.package = actor->FUN_00881450();
+    context.package = actor->GetPackage();
     if (context.package == GetCurrentPackage())
         return false;
     vfn_230(context.package, actor);
     vfn_244();
-    actor->FUN_008b3d30();
+    actor->ClearLookAtTarget();
     if (GetCurrentPackage())
     {
         if (!reinterpret_cast<LocationDescriptor*>(
@@ -2132,7 +2132,7 @@ void LowProcess::OnPackageChanged(Actor* actor, TESPackage* package)
             vfn_2a4(actor, topic, 0, 0, true, false);
     }
     if (actor)
-        actor->FUN_00884f80();
+        actor->SetWalkRunFlagDirty();
 }
 
 // @fnv 0x00913630
@@ -2448,12 +2448,12 @@ void FUN_008d7e00_shell::FUN_008d7e00(bool abSet, unsigned char uMask)
 
 struct FUN_008d7e60_shell : public LowProcess
 {
-    bool FUN_008d7e60(unsigned char);
+    bool GetBit(unsigned char);
 };
 
 // Returns true if the byte at offset 0x30 of this object has any of the bits in uMask set.
 // @fnv 0x008d7e60
-bool FUN_008d7e60_shell::FUN_008d7e60(unsigned char uMask)
+bool FUN_008d7e60_shell::GetBit(unsigned char uMask)
 {
     return (((unsigned char*)this)[0x30] & uMask) != 0;
 }
@@ -7153,7 +7153,7 @@ class Actor909
     virtual Process909* GetProcess();
 
     float GetTargetValue(Actor909* pkTarget);
-    void FUN_00881680(int iUnk);
+    void EndInterruptPackage(int iUnk);
     void FUN_00909c90(Actor909* pkTarget);
 };
 
@@ -7166,7 +7166,7 @@ void Actor909::FUN_00909c90(Actor909* pkTarget)
     }
     else
     {
-        pkTarget->FUN_00881680(0);
+        pkTarget->EndInterruptPackage(0);
     }
 }
 
@@ -7824,7 +7824,7 @@ struct Ref57
     bool FUN_00440da0();
     Form57* FUN_007af430();
     Package57* FUN_008d8520();
-    bool FUN_008b8e90(void*);
+    bool IsInFaction(void*);
     Extra57* FUN_005d43c0();
     bool FUN_00493bb0();
     float FUN_00568ad0();
@@ -7902,7 +7902,7 @@ bool __cdecl CheckPackageMatch(Ref57* ref, long aTargetRef)
         if (package4->condition && actor19)
         {
             Ref57* actorRef = ref;
-            if (actorRef->FUN_008b8e90(package4->condition))
+            if (actorRef->IsInFaction(package4->condition))
                 matches10 = true;
         }
         else
@@ -8498,8 +8498,8 @@ struct BGSChangeFlags_s
 struct BGSSaveFormBuffer
 {
     void SaveData(void* apData, unsigned int auiSize, int aiArg);
-    unsigned int FUN_00865f20();
-    void FUN_00865ff0(int aiCount, unsigned int auiPosition);
+    unsigned int StartVariableSizedValue();
+    void SaveVariableSizedValue(int aiCount, unsigned int auiPosition);
     BGSChangeFlags_s FUN_00428110();
 };
 struct FUN_00865df0_buf
@@ -8564,7 +8564,7 @@ void FUN_00910450_shell::FUN_00910450(BGSSaveFormBuffer* apBuffer)
     ((FUN_00865df0_buf*)apBuffer)->FUN_00865df0(pForm4C, 0);
     ((FUN_00865df0_buf*)apBuffer)->FUN_00865df0(pForm54, 0);
     int iNumActors = 0;
-    unsigned int uiPosition = apBuffer->FUN_00865f20();
+    unsigned int uiPosition = apBuffer->StartVariableSizedValue();
     BSSimpleList<Actor*>* pNode = &kActors;
     while (pNode)
     {
@@ -8576,7 +8576,7 @@ void FUN_00910450_shell::FUN_00910450(BGSSaveFormBuffer* apBuffer)
         }
         pNode = pNode->GetNext();
     }
-    apBuffer->FUN_00865ff0(iNumActors, uiPosition);
+    apBuffer->SaveVariableSizedValue(iNumActors, uiPosition);
     if (apBuffer->FUN_00428110().Test(0x200000))
         kExtra.FUN_00937b50(apBuffer);
 }
@@ -9064,7 +9064,7 @@ struct R : Pads<18, Empty>
 {
     virtual void v48(unsigned);
     E* FUN_005d43c0();
-    P* FUN_00881450();
+    P* GetPackage();
 };
 int FUN_0096a820(int);
 bool FUN_005ac750(P*, E*, unsigned);
@@ -9119,7 +9119,7 @@ bool C::TrySelectTarget(R* ref, P** ppOut)
                 v4ec(true);
                 v118(true);
                 ref->FUN_005d43c0()->SetExtraDataFlag(true);
-                P* d = ref->FUN_00881450();
+                P* d = ref->GetPackage();
                 if (d && d != a && FUN_009078d0(d, true))
                 {
                     int g4 = v810(ref, d);
@@ -9877,7 +9877,7 @@ namespace fnv_0090fa70 {
 struct TESSaveLoadGame
 {
     bool FUN_00862110();
-    void FUN_008579b0(void* ptr, unsigned int size);
+    void SaveGameDataOLD(void* ptr, unsigned int size);
     void FUN_00857a10(void* ptr, unsigned int size);
     unsigned char FUN_008df040();
     unsigned int FUN_00825c00();
@@ -10052,14 +10052,14 @@ void LowProcessFA70::SaveToStream(unsigned int changedFlags, unsigned int arg2)
     if (DAT_011de45c->FUN_00862110())
     {
         unsigned int blockTag = 0x424c4f4b;
-        DAT_011de45c->FUN_008579b0(&blockTag, 4);
+        DAT_011de45c->SaveGameDataOLD(&blockTag, 4);
         aBlockStart = DAT_011de45c->FUN_00825c00();
-        DAT_011de45c->FUN_008579b0(&zeroWord, 2);
+        DAT_011de45c->SaveGameDataOLD(&zeroWord, 2);
     }
-    DAT_011de45c->FUN_008579b0(&this->m_uiObjectFlags, 1);
+    DAT_011de45c->SaveGameDataOLD(&this->m_uiObjectFlags, 1);
     if (DAT_011de45c->FUN_008df040() >= 0x4b)
     {
-        DAT_011de45c->FUN_008579b0(&this->unkA4, 4);
+        DAT_011de45c->SaveGameDataOLD(&this->unkA4, 4);
     }
     if (DAT_011de45c->FUN_008df040() >= 0x4f)
     {
@@ -10072,7 +10072,7 @@ void LowProcessFA70::SaveToStream(unsigned int changedFlags, unsigned int arg2)
     }
     if (DAT_011de45c->FUN_008df040() >= 0x56)
     {
-        DAT_011de45c->FUN_008579b0(&this->m_iValue58, 4);
+        DAT_011de45c->SaveGameDataOLD(&this->m_iValue58, 4);
     }
     unsigned int pTgt5 = 0;
     if (this->pTarget != 0 && this->m_pDetectionData60 == 0)
@@ -10092,9 +10092,9 @@ void LowProcessFA70::SaveToStream(unsigned int changedFlags, unsigned int arg2)
     }
     if (DAT_011de45c->FUN_008df040() >= 0x74)
     {
-        DAT_011de45c->FUN_008579b0(&this->unkA8, 4);
+        DAT_011de45c->SaveGameDataOLD(&this->unkA8, 4);
     }
-    DAT_011de45c->FUN_008579b0(&this->unkAC, 4);
+    DAT_011de45c->SaveGameDataOLD(&this->unkAC, 4);
     if (*DAT_011de4e8.FUN_00408d60())
     {
         unsigned int endPos = DAT_011de45c->FUN_00825c00();
@@ -11682,9 +11682,9 @@ struct AcquireActor : Actor
     InventoryEntry* FUN_008a2d40();
     bool FUN_00575450(void* ownerTmp);
     InventoryEntry* FUN_00576260(TESBoundObject* item, int countIn);
-    void FUN_00892e90(void* item);
+    void PutItemInReference(void* item);
     float FUN_005723b0(TESObjectREFR* ref, int a, int b);
-    void FUN_008b3690(const NiPoint3& posVal, TESObjectCELL* cellOld, TESWorldSpace* world, float radius, int flags);
+    void SetPathfindingGoal(const NiPoint3& posVal, TESObjectCELL* cellOld, TESWorldSpace* world, float radius, int flags);
 };
 
 // Actor's primary vtable up to slot 0xF3, which takes the picked-up item.
@@ -12003,7 +12003,7 @@ void AcquireProcess::FUN_00909430(AcquireActor* actor)
                     location = (AcquireRef*)m_pReference40;
                 if (location != 0 && location->FUN_0055d310())
                 {
-                    actor->FUN_00892e90(entry->FUN_0044ddc0(xData, location, packageNum->FUN_00672930(), ownerTmp));
+                    actor->PutItemInReference(entry->FUN_0044ddc0(xData, location, packageNum->FUN_00672930(), ownerTmp));
                 }
                 else
                 {
@@ -12060,7 +12060,7 @@ void AcquireProcess::FUN_00909430(AcquireActor* actor)
             actorPathLength > targetPathLength)
         {
             if (actor->FUN_008b3bb0())
-                actor->FUN_008b3690(((AcquirePackage*)GetCurrentPackage())->FUN_00675de0(actor),
+                actor->SetPathfindingGoal(((AcquirePackage*)GetCurrentPackage())->FUN_00675de0(actor),
                                     ((AcquirePackage*)GetCurrentPackage())->FUN_00675c20(actor),
                                     ((AcquirePackage*)GetCurrentPackage())->FUN_00675a50(actor), -1.0f, 0);
         }

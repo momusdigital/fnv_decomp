@@ -573,7 +573,7 @@ class ActorS
     float GetCurrentMovementSpeed();
     TESWorldSpace* GetParentWorldSpace();
     TESObjectCELL* GetParentCell();
-    void FUN_008ad1c0(NiPoint3&, float, TESObjectCELL*, TESWorldSpace*, unsigned char, unsigned char);
+    void MoveActorAndFollowers(NiPoint3&, float, TESObjectCELL*, TESWorldSpace*, unsigned char, unsigned char);
     int GetProcessTier();
 };
 class PlayerS
@@ -651,7 +651,7 @@ int FUN_009ea8a0_cls::UpdatePathMovement(float afDeltaT)
                     return 3;
                 case 1:
                     ((ActorS*)pActor)
-                        ->FUN_008ad1c0(currentLoc, fangle, ((ActorS*)pActor)->GetParentCell(),
+                        ->MoveActorAndFollowers(currentLoc, fangle, ((ActorS*)pActor)->GetParentCell(),
                                        ((ActorS*)pActor)->GetParentWorldSpace(), 1, 0);
                     return 0;
                 }
@@ -659,7 +659,7 @@ int FUN_009ea8a0_cls::UpdatePathMovement(float afDeltaT)
             else
             {
                 ((ActorS*)pActor)
-                    ->FUN_008ad1c0(currentLoc, fangle, ((ActorS*)pActor)->GetParentCell(),
+                    ->MoveActorAndFollowers(currentLoc, fangle, ((ActorS*)pActor)->GetParentCell(),
                                    ((ActorS*)pActor)->GetParentWorldSpace(), 1, 0);
                 if (((ActorS*)pActor)->GetProcessTier() == 0 && !((PlayerS*)g_thePlayer)->IsSleepingOrResting())
                     return 0;
@@ -680,7 +680,7 @@ int FUN_009ea8a0_cls::UpdatePathMovement(float afDeltaT)
     float fangle = GetDirectionAngle(deltaToNode);
     ((ActorS*)pActor)->SetFurnitureHeading(fangle);
     ((ActorS*)pActor)
-        ->FUN_008ad1c0(currentLoc, fangle, ((ActorS*)pActor)->GetParentCell(), ((ActorS*)pActor)->GetParentWorldSpace(), 1,
+        ->MoveActorAndFollowers(currentLoc, fangle, ((ActorS*)pActor)->GetParentCell(), ((ActorS*)pActor)->GetParentWorldSpace(), 1,
                        0);
     if (((ActorS*)pActor)->GetProcessTier() == 0 && !((PlayerS*)g_thePlayer)->IsSleepingOrResting())
         return 0;

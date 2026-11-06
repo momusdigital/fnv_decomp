@@ -286,11 +286,11 @@ struct FUN_0084e6a0_shell
     int f8;
     int fC;
     int f10;
-    bool FUN_0084e6a0(TESObjectCELL*& cell, TESWorldSpace*& world);
+    bool GetOriginalLocationCellAndWorld(TESObjectCELL*& cell, TESWorldSpace*& world);
 };
 
 // @fnv 0x0084e6a0
-bool FUN_0084e6a0_shell::FUN_0084e6a0(TESObjectCELL*& cell, TESWorldSpace*& world)
+bool FUN_0084e6a0_shell::GetOriginalLocationCellAndWorld(TESObjectCELL*& cell, TESWorldSpace*& world)
 {
     TESForm* form = TESForm::GetFormByID(f8);
     bool bResolved = GetCellAndWorldspaceForForm(form, cell, world);
@@ -649,9 +649,9 @@ class BGSSaveFormBuffer
 {
   public:
     void SaveData(const void*, unsigned int, int);
-    unsigned int FUN_00865f20();
+    unsigned int StartVariableSizedValue();
     unsigned int FUN_0084e3a0();
-    void FUN_00865ff0(int, unsigned int);
+    void SaveVariableSizedValue(int, unsigned int);
 };
 
 struct BGSSaveLoadGame_Accessor : public BGSSaveLoadGame
@@ -1062,11 +1062,11 @@ INITIAL_DATA_TYPE __cdecl FUN_0084eb80(BGSSaveFormBuffer* apFile, TESForm* apFor
         if (pRefr->vfn_1d0() || !holder_.FUN_00559450())
         {
             unsigned int offsetBefore6;
-            unsigned int bookmark8 = apFile->FUN_00865f20();
+            unsigned int bookmark8 = apFile->StartVariableSizedValue();
             offsetBefore6 = apFile->FUN_0084e3a0();
             pRefr->FUN_00562de0(apFile);
             unsigned int offsetAfter = apFile->FUN_0084e3a0();
-            apFile->FUN_00865ff0(offsetAfter - offsetBefore6, bookmark8);
+            apFile->SaveVariableSizedValue(offsetAfter - offsetBefore6, bookmark8);
         }
         else
         {

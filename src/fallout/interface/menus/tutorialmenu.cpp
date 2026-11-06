@@ -47,7 +47,7 @@ struct Menu
     void FUN_00a1d9e0();
 };
 struct FORenderedMenu;
-FORenderedMenu* __cdecl FUN_00707ad0();
+FORenderedMenu* __cdecl GetCurrentRenderedMenu();
 void __cdecl HandleBackAction();
 extern Menu* DAT_011db088;
 
@@ -62,7 +62,7 @@ void FUN_007e8d60()
     if (DAT_011db088)
     {
         reinterpret_cast<Tile*>(reinterpret_cast<BSSimpleList*>(DAT_011db088)->FUN_00726070())->Set(0x1772, 1);
-        if (FUN_00707ad0())
+        if (GetCurrentRenderedMenu())
             DAT_011db088->FUN_00a1d9e0();
         else
             DAT_011db088->LoadMenuData();
@@ -137,10 +137,10 @@ struct FUN_007e9010_Owner
     char _pad1[20];
     unsigned int m_iMapDisplayMode;
     unsigned int m_uiPageCount;
-    void FUN_007e9010();
+    void UpdatePrevNext();
 };
 // @fnv 0x007e9010
-void FUN_007e9010_Owner::FUN_007e9010()
+void FUN_007e9010_Owner::UpdatePrevNext()
 {
     tileB->Set(0xFAF, 0 < m_iMapDisplayMode);
     tileA->Set(0xFAF, m_iMapDisplayMode + 1 < m_uiPageCount);
@@ -434,7 +434,7 @@ class HMenuX
     void FUN_00a1dc70(void* apMenu, bool abFlag);
     void FUN_00a1dc20(int aiValue);
     void ApplyRecordToTiles(void* apTile);
-    void FUN_007e9010();
+    void UpdatePrevNext();
 };
 
 struct HelpListNode;
@@ -516,7 +516,7 @@ bool InitTutorialMenu(TESForm* apMsg, bool aFlag)
         if (apMsg != 0)
         {
             ((HMenuX*)DAT_011db088)->ApplyRecordToTiles(apMsg);
-            ((HMenuX*)DAT_011db088)->FUN_007e9010();
+            ((HMenuX*)DAT_011db088)->UpdatePrevNext();
             ((TForm2*)DAT_011db088)->IsInCombat();
             ((IMF*)FUN_004b7210())->FUN_0045cd60()->Set(0xfa9, DAT_01023cd8, 1);
             ((HMenuX*)DAT_011db088)->FUN_00a1dc20(0);

@@ -947,7 +947,7 @@ struct xCam : xAV
     xCam();
     static void* operator new(unsigned int);
     static void operator delete(void*);
-    void FUN_00712e60(const xColorA&);
+    void SetViewPort(const xColorA&);
     void FUN_00733fd0(float);
     void FUN_00507700(float);
     void FUN_00a6faf0(const xFrustum&);
@@ -1121,7 +1121,7 @@ struct xRenderedMenu
     void FUN_007f7fb0(const xColorA&);
     xT1* FUN_009611e0();
     void FUN_004dc540(xAV*);
-    void FUN_007fae70(int);
+    void SetScreenTexture(int);
     void FUN_00810530(bool);
     void FUN_008d7f00(float);
     int FUN_009b6600();
@@ -1159,7 +1159,7 @@ void xRenderedMenu::Init()
     qdqWL->FUN_00440490(*xg_f_11db544.FUN_00403e20());
     FUN_004dc540(qdqWL);
     xAV* qSuoDt = qdqWL->GetObjectByName(xFixedStr(s_szScreen));
-    FUN_007fae70(0);
+    SetScreenTexture(0);
     FUN_00810530(false);
     m_fc.FUN_0066b0d0(0);
     m_104.FUN_0066b0d0(0);
@@ -1194,7 +1194,7 @@ void xRenderedMenu::Init()
     qdqWL->FUN_00a59c60(qsSDDgz);
     xCam* qSVM = new xCam();
     xColorA qrEZrs(0.0f, 1.0f, 1.0f, 0.0f);
-    qSVM->FUN_00712e60(qrEZrs);
+    qSVM->SetViewPort(qrEZrs);
     xMat3 qbGYp;
     qbGYp.SetElement(0, 0.0f, 0.0f, 1.0f);
     qbGYp.SetElement(1, 1.0f, 0.0f, 0.0f);

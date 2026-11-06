@@ -1521,7 +1521,7 @@ struct PhysicsObject
 
     __declspec(noalias) Filter FUN_0043b4f0();
 
-    void FUN_00626cb0(unsigned int);
+    void SetCollisionFilter(unsigned int);
 
     bool FUN_008cffa0();
 
@@ -2041,7 +2041,7 @@ void __cdecl FUN_00c88a40(bool create, Filter filter, SceneNode* first, SceneNod
 
                 bits = (bits & ~0x7f) | (layer & 0x7f);
 
-                sourceBody->FUN_00626cb0(bits);
+                sourceBody->SetCollisionFilter(bits);
 
                 World* world = FUN_00621480(targetBody->GetWorld());
 

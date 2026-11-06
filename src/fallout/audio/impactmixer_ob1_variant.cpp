@@ -1122,7 +1122,7 @@ struct ActorOps
     TESBoundObject* FUN_007af430();
     bool FUN_005a2030();
     float FUN_0057b0a0();
-    SkinOps* FUN_009306d0();
+    SkinOps* GetCharController();
     bool FUN_004997b0();
     bool FUN_00884730();
     bool FUN_008ba410();

@@ -2698,7 +2698,7 @@ struct CloneRef
     void FUN_00575700(NiPoint3 kAngle);
     void FUN_004fbf00(CloneSource* pSource);
     void FUN_00898280(bool b);
-    void FUN_00935ae0();
+    void UpdateTopicInfoSayOnce();
     CloneExtraList* FUN_005d43c0();
     CloneProcess* FUN_008d8520();
     void FUN_00407800(CloneProcess* pProcess);
@@ -3030,7 +3030,7 @@ CloneRef* CloneFactory::FUN_00436780(void* pBase, CloneSource* pSource)
         pRef->FUN_00575700(pSource->FUN_00430830());
         pRef->FUN_004fbf00(pSource);
         pRef->FUN_00898280(true);
-        pRef->FUN_00935ae0();
+        pRef->UpdateTopicInfoSayOnce();
         if (pSource->FUN_008d6f30() && pSource->FUN_008d6f30()->FUN_00425fd0())
         {
             pRef->SetParentCell(pSource->FUN_008d6f30());

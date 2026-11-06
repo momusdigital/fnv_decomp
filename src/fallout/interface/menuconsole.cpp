@@ -164,7 +164,7 @@ bool ConsoleManager::Idle(int aiKeyCode)
                 else if (!_mbsicmp((const unsigned char*)text, (const unsigned char*)"reload mainmenu"))
                 {
                     DebugText::ClearDebugText();
-                    delete FindMenuById(FUN_0070ede0());
+                    delete FindMenuById(GetClassStatic());
                     StartMenu::Create(false, false);
                 }
                 else if (!FUN_0071cff0(text, "reload ", 7))
@@ -775,11 +775,11 @@ struct FUN_0071d620_shell : public InterfaceManager
     int m_iConsoleY;
     char cVisible;
 
-    void FUN_0071d620(char acState);
+    void SetVisible(char acState);
 };
 
 // @fnv 0x0071d620
-void FUN_0071d620_shell::FUN_0071d620(char acState)
+void FUN_0071d620_shell::SetVisible(char acState)
 {
     char cold_state;
     cold_state = cVisible;
@@ -934,11 +934,11 @@ class FUN_0071d580_cls
     signed char m_38;
 
     void Call_0071d620(int);
-    bool FUN_0071d580();
+    bool ToggleVisible();
 };
 
 // @fnv 0x0071d580
-bool FUN_0071d580_cls::FUN_0071d580()
+bool FUN_0071d580_cls::ToggleVisible()
 {
     ToggleGlobalFlag();
     if (m_38 == 0)

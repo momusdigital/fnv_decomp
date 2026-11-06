@@ -322,11 +322,11 @@ struct Owner
     Obj* objsA[15];
     int unk168;
     Obj* objsB[15];
-    void FUN_008026b0();
+    void ClearQueries();
 };
 
 // @fnv 0x008026b0
-void Owner::FUN_008026b0()
+void Owner::ClearQueries()
 {
     for (unsigned int i = 0; i < 15; i++)
     {
@@ -411,11 +411,11 @@ struct FUN_008029c0_class
     int unk18;
     int unk1c;
 
-    bool __thiscall FUN_008029c0(const char* apPage, int value);
+    bool __thiscall SetScreenDebugPage(const char* apPage, int value);
 };
 
 // @fnv 0x008029c0
-bool FUN_008029c0_class::FUN_008029c0(const char* apPage, int value)
+bool FUN_008029c0_class::SetScreenDebugPage(const char* apPage, int value)
 {
     int result = reinterpret_cast<FUN_00802a20_class*>(this)->FUN_00802a20(apPage);
 
@@ -891,11 +891,11 @@ struct This8022
     int m_238;
     int m_23c;
     void __thiscall FUN_00802260(NodeObj* a1, int a2, unsigned char a3);
-    void __thiscall FUN_008022c0();
+    void __thiscall RestoreBodyParts();
 };
 
 // @fnv 0x008022c0
-void __thiscall This8022::FUN_008022c0()
+void __thiscall This8022::RestoreBodyParts()
 {
     if (!m_004->tv64())
         return;
@@ -997,12 +997,12 @@ struct PageReporter
     int unk18;
     int unk1c;
     RegisteredPage pages[64];
-    void FUN_00802880(void(__cdecl*)(const char*));
+    void OutputDebugPageNames(void(__cdecl*)(const char*));
 };
 void FUN_00406d50(char*, unsigned int, const char*);
 // Builds a comma-separated string of up to five page names per batch and passes each batch to the report callback.
 // @fnv 0x00802880
-void PageReporter::FUN_00802880(void(__cdecl* report)(const char*))
+void PageReporter::OutputDebugPageNames(void(__cdecl* report)(const char*))
 {
     char buffer[512];
     buffer[0] = 0;

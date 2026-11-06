@@ -77,7 +77,7 @@ class hkObjE39E
     int unk0C;
     hkArrayE39E<hkPointSetE39E*> m_kPointSets;
 
-    void FUN_00e39ee0(hkStatisticsCollectorE39E* pkCollector, const hkClassE39E* pkClass) const throw();
+    void calcContentStatistics(hkStatisticsCollectorE39E* pkCollector, const hkClassE39E* pkClass) const throw();
 };
 
 #include <xmmintrin.h>

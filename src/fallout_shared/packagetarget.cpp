@@ -83,10 +83,10 @@ void LocationDescriptor::Copy(LocationDescriptor* source, bool copy)
             {
             case 0:
                 SetRadius(source->FUN_0067f1c0());
-                FUN_0067f3c0(source->GetLocationReference());
+                SetLocReference(source->GetLocationReference());
                 break;
             case 1:
-                FUN_0067f410(source->GetLocationCellReference());
+                SetLocCell(source->GetLocationCellReference());
                 break;
             case 4:
                 SetRadius(source->FUN_0067f1c0());
@@ -379,7 +379,7 @@ void C80720Target::SaveToBuffer(C80720SaveBuffer* pkBuffer)
 
 struct S_006807b0_Stream
 {
-    void FUN_00864980(void* data, unsigned int size);
+    void LoadData(void* data, unsigned int size);
     void FUN_008648e0(void* data);
 };
 struct S_006807b0_Target : PackageTargetRecord
@@ -389,9 +389,9 @@ struct S_006807b0_Target : PackageTargetRecord
 // @fnv 0x006807b0
 void S_006807b0_Target::FUN_006807b0(S_006807b0_Stream* pStream)
 {
-    pStream->FUN_00864980(this, 1);
-    pStream->FUN_00864980(&iValue, 4);
-    pStream->FUN_00864980(&m_fTargetValue, 4);
+    pStream->LoadData(this, 1);
+    pStream->LoadData(&iValue, 4);
+    pStream->LoadData(&m_fTargetValue, 4);
     switch (m_uiTargetType)
     {
         break;
@@ -400,7 +400,7 @@ void S_006807b0_Target::FUN_006807b0(S_006807b0_Stream* pStream)
         pStream->FUN_008648e0(&pTargetForm);
         break;
     case 2:
-        pStream->FUN_00864980(&pTargetForm, 4);
+        pStream->LoadData(&pTargetForm, 4);
         break;
     }
 }
@@ -429,7 +429,7 @@ struct C680590Form
 
 struct TESSaveLoadGame
 {
-    void FUN_008579b0(void* pvData, unsigned int uiSize);
+    void SaveGameDataOLD(void* pvData, unsigned int uiSize);
     void FUN_00857a10(int iData, int iSize);
 };
 
@@ -452,9 +452,9 @@ struct C680590Target
 // @fnv 0x00680590
 void C680590Target::SaveLoad()
 {
-    g_TESSaveLoadGame->FUN_008579b0(&m_ucType, 1);
-    g_TESSaveLoadGame->FUN_008579b0(&m_iData1, 4);
-    g_TESSaveLoadGame->FUN_008579b0(&m_iData2, 4);
+    g_TESSaveLoadGame->SaveGameDataOLD(&m_ucType, 1);
+    g_TESSaveLoadGame->SaveGameDataOLD(&m_iData1, 4);
+    g_TESSaveLoadGame->SaveGameDataOLD(&m_iData2, 4);
 
     switch (m_ucType)
     {
@@ -470,7 +470,7 @@ void C680590Target::SaveLoad()
     }
     break;
     case 2:
-        g_TESSaveLoadGame->FUN_008579b0(&m_iValue, 4);
+        g_TESSaveLoadGame->SaveGameDataOLD(&m_iValue, 4);
         break;
     }
 }
@@ -497,7 +497,7 @@ void FUN_006806e0_target::ResolveTargetForm()
 
 struct SaveLoadStub
 {
-    void FUN_008579e0(void* data, int size);
+    void LoadGameDataOLD(void* data, int size);
     void FUN_00857aa0(void* data, int size);
 };
 extern SaveLoadStub* g_saveLoad_011de45c;
@@ -512,9 +512,9 @@ struct SaveDataStub
 // @fnv 0x00680640
 void SaveDataStub::FUN_00680640()
 {
-    g_saveLoad_011de45c->FUN_008579e0(this, 1);
-    g_saveLoad_011de45c->FUN_008579e0(&unk08, 4);
-    g_saveLoad_011de45c->FUN_008579e0(&unk0C, 4);
+    g_saveLoad_011de45c->LoadGameDataOLD(this, 1);
+    g_saveLoad_011de45c->LoadGameDataOLD(&unk08, 4);
+    g_saveLoad_011de45c->LoadGameDataOLD(&unk0C, 4);
     switch (type)
     {
         break;
@@ -526,7 +526,7 @@ void SaveDataStub::FUN_00680640()
     }
     break;
     case 2:
-        g_saveLoad_011de45c->FUN_008579e0(&unk04, 4);
+        g_saveLoad_011de45c->LoadGameDataOLD(&unk04, 4);
         break;
     }
 }

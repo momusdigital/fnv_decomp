@@ -2851,7 +2851,7 @@ struct World97
 extern World97* DAT_011e07d0;
 struct Other97
 {
-    void FUN_00712e60();
+    void SetViewPort();
 };
 struct Manager97
 {
@@ -2978,9 +2978,9 @@ struct FUN_00939880
     int unk198;
     int unk19c;
     FUN_00939880();
-    void FUN_00946020(float, float, float);
+    void Setup(float, float, float);
     void FUN_00946140(float);
-    float FUN_00946190();
+    float GetCurrent();
     unsigned char FUN_00946280();
 };
 struct Update97
@@ -3424,7 +3424,7 @@ void Update97::UpdateScopeZoom(float elapsed)
         weapon = DAT_011e0970.FUN_00403e20();
         float speed = DAT_011ce870.FUN_00403e20();
         float resetVertical = 1.0f;
-        FUN_0045c670(&DAT_011ad840)->FUN_006629f0()->FUN_00712e60();
+        FUN_0045c670(&DAT_011ad840)->FUN_006629f0()->SetViewPort();
         if (unusedScale && actor->isScoped())
         {
             weapon = FUN_00408840(unusedScale->FUN_00508070());
@@ -3500,14 +3500,14 @@ void Update97::UpdateScopeZoom(float elapsed)
                                                     i = DAT_011d48dc.FUN_00403e20();
                                                 else if (DAT_011f2250.FUN_0044ddc0() == 2)
                                                     i = DAT_011d4a2c.FUN_00403e20();
-                                                horizontalBlend->FUN_00946020(currentHorizontal, vertical, i);
-                                                verticalBlend->FUN_00946020(currentVertical, step, i);
+                                                horizontalBlend->Setup(currentHorizontal, vertical, i);
+                                                verticalBlend->Setup(currentVertical, step, i);
                                                 previous = DAT_011f21cc;
                                             }
                                             horizontalBlend->FUN_00946140(DAT_011f6394.FUN_0084d030());
                                             verticalBlend->FUN_00946140(DAT_011f6394.FUN_0084d030());
-                                            currentHorizontal = horizontalBlend->FUN_00946190();
-                                            currentVertical = verticalBlend->FUN_00946190();
+                                            currentHorizontal = horizontalBlend->GetCurrent();
+                                            currentVertical = verticalBlend->GetCurrent();
                                             if (verticalBlend->FUN_00946280())
                                             {
                                                 FUN_007f3bd0(1);

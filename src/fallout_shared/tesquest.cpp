@@ -1204,7 +1204,7 @@ struct QuestSaveManager
 {
     unsigned char* FUN_00825c00();
     bool FUN_00862110();
-    void FUN_008579b0(void*, unsigned int);
+    void SaveGameDataOLD(void*, unsigned int);
     SaveFormInfo* FUN_004fd3e0();
 };
 struct QuestSaveItem
@@ -1256,9 +1256,9 @@ void QuestSave::FUN_0060dd50(unsigned int flags)
     if (((QuestSaveManager*)g_TESSaveLoadGame)->FUN_00862110())
     {
         unsigned int marker = 0x424c4f4b;
-        ((QuestSaveManager*)g_TESSaveLoadGame)->FUN_008579b0(&marker, 4);
+        ((QuestSaveManager*)g_TESSaveLoadGame)->SaveGameDataOLD(&marker, 4);
         p = ((QuestSaveManager*)g_TESSaveLoadGame)->FUN_00825c00();
-        ((QuestSaveManager*)g_TESSaveLoadGame)->FUN_008579b0(&h, 2);
+        ((QuestSaveManager*)g_TESSaveLoadGame)->SaveGameDataOLD(&h, 2);
     }
     if (flags & 2)
     {
@@ -1294,12 +1294,12 @@ void QuestSave::FUN_0060dd50(unsigned int flags)
                         FUN_00484ce0(&j, 1);
                         if (p)
                         {
-                            ((QuestSaveManager*)g_TESSaveLoadGame)->FUN_008579b0(p, 4);
+                            ((QuestSaveManager*)g_TESSaveLoadGame)->SaveGameDataOLD(p, 4);
                         }
                         else
                         {
                             Date emptyDate;
-                            ((QuestSaveManager*)g_TESSaveLoadGame)->FUN_008579b0(&emptyDate, 4);
+                            ((QuestSaveManager*)g_TESSaveLoadGame)->SaveGameDataOLD(&emptyDate, 4);
                         }
                         ++q;
                     }
@@ -1356,7 +1356,7 @@ void* __cdecl FUN_004839c0(void*);
 struct StreamReader
 {
     bool FUN_00862110();
-    void FUN_008579e0(void*, unsigned int);
+    void LoadGameDataOLD(void*, unsigned int);
     unsigned int FUN_00825c00();
     void* FUN_004fd3c0();
     unsigned char FUN_008df040();
@@ -1415,7 +1415,7 @@ void QuestLoader::LoadQuestData(unsigned int flags, unsigned int extra)
     if (((StreamReader*)DAT_011de45c)->FUN_00862110())
     {
         unsigned int tag;
-        ((StreamReader*)DAT_011de45c)->FUN_008579e0(&tag, 4);
+        ((StreamReader*)DAT_011de45c)->LoadGameDataOLD(&tag, 4);
         if (tag != 0x424c4f4b)
         {
             void* entry = ((StreamReader*)DAT_011de45c)->FUN_004fd3c0();
@@ -1431,7 +1431,7 @@ void QuestLoader::LoadQuestData(unsigned int flags, unsigned int extra)
             }
         }
         start = ((StreamReader*)DAT_011de45c)->FUN_00825c00();
-        ((StreamReader*)DAT_011de45c)->FUN_008579e0(&sizeRead, 2);
+        ((StreamReader*)DAT_011de45c)->LoadGameDataOLD(&sizeRead, 2);
     }
     if (flags & 2)
     {
@@ -1467,7 +1467,7 @@ void QuestLoader::LoadQuestData(unsigned int flags, unsigned int extra)
                     {
                         unsigned char itemId;
                         ((QuestInput*)this)->FUN_00484d00(&itemId, 1);
-                        ((StreamReader*)DAT_011de45c)->FUN_008579e0(&dateValue, 4);
+                        ((StreamReader*)DAT_011de45c)->LoadGameDataOLD(&dateValue, 4);
                         if (questStage)
                         {
                             StageEntry* item = (StageEntry*)questStage->FindItemByDoneFlag(itemId);
@@ -1607,8 +1607,8 @@ struct F810Buf
 {
     F810Flags* FUN_00428110(void* out, unsigned int tag);
     void FUN_00865e50(void* data, int size, int flag);
-    unsigned int FUN_00865f20();
-    void FUN_00865ff0(int count, unsigned int total);
+    unsigned int StartVariableSizedValue();
+    void SaveVariableSizedValue(int count, unsigned int total);
 };
 struct FUN_0060e810_shell
 {
@@ -1641,7 +1641,7 @@ struct FUN_0060e810_shell
     void WriteToBuffer(F810Buf* buf);
 };
 
-// Serializes cFlag3c, iVal40, the list44 and list4c lists and pObj5c into buf, each guarded by a tag check, writing counts via FUN_00865ff0.
+// Serializes cFlag3c, iVal40, the list44 and list4c lists and pObj5c into buf, each guarded by a tag check, writing counts via SaveVariableSizedValue.
 // @fnv 0x0060e810
 void FUN_0060e810_shell::WriteToBuffer(F810Buf* buf)
 {
@@ -1681,7 +1681,7 @@ void FUN_0060e810_shell::WriteToBuffer(F810Buf* buf)
     if (buf->FUN_00428110(&flags2, 0x80000000)->FUN_004280f0())
     {
         idx0 = 0;
-        cnt1 = buf->FUN_00865f20();
+        cnt1 = buf->StartVariableSizedValue();
         nodeC = &list44;
         while (nodeC != 0)
         {
@@ -1693,7 +1693,7 @@ void FUN_0060e810_shell::WriteToBuffer(F810Buf* buf)
                 buf->FUN_00865e50(&rawD, 1, 0);
                 buf->FUN_00865e50(&flg, 1, 0);
                 idxD = 0;
-                cntA = buf->FUN_00865f20();
+                cntA = buf->StartVariableSizedValue();
                 listD = itemD->FUN_00717e50();
                 while (listD != 0)
                 {
@@ -1713,12 +1713,12 @@ void FUN_0060e810_shell::WriteToBuffer(F810Buf* buf)
                     }
                     listD = listD->FUN_00726070();
                 }
-                buf->FUN_00865ff0(idxD, cntA);
+                buf->SaveVariableSizedValue(idxD, cntA);
                 idx0++;
             }
             nodeC = nodeC->FUN_00726070();
         }
-        buf->FUN_00865ff0(idx0, cnt1);
+        buf->SaveVariableSizedValue(idx0, cnt1);
     }
     if (buf->FUN_00428110(&tagD, 0x40000000)->FUN_004280f0())
     {
@@ -1727,7 +1727,7 @@ void FUN_0060e810_shell::WriteToBuffer(F810Buf* buf)
     if (buf->FUN_00428110(&flagsE, 0x20000000)->FUN_004280f0())
     {
         iterY = 0;
-        cntY = buf->FUN_00865f20();
+        cntY = buf->StartVariableSizedValue();
         head1 = &list4c;
         while (head1 != 0)
         {
@@ -1745,7 +1745,7 @@ void FUN_0060e810_shell::WriteToBuffer(F810Buf* buf)
             }
             head1 = head1->FUN_00726070();
         }
-        buf->FUN_00865ff0(iterY, cntY);
+        buf->SaveVariableSizedValue(iterY, cntY);
     }
 }
 

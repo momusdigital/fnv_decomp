@@ -848,7 +848,7 @@ void ListBoxProxy::SortAndSynchronize(int(__cdecl* apCompareFn)(ListBoxItem_int_
 }
 
 // @fnv 0x00763ff0
-void FUN_00763ff0()
+void ServiceStart()
 {
     if (DAT_011d9510 && DAT_011d9510->m_eGoodbyeState == 0)
     {

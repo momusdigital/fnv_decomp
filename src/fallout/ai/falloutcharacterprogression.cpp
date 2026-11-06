@@ -150,8 +150,8 @@ struct TESActorBaseData
 {
     void SetLevel(unsigned short);
 };
-void __cdecl FUN_00706270();
-// If the flag is set, plays the UILevelUp sound, raises the player's actor base level by one and calls FUN_00706270.
+void __cdecl CreateLevelUpMenu();
+// If the flag is set, plays the UILevelUp sound, raises the player's actor base level by one and calls CreateLevelUpMenu.
 // @fnv 0x008d5210
 void Flt::LevelUpPlayer()
 {
@@ -159,7 +159,7 @@ void Flt::LevelUpPlayer()
         return;
     BSAudio::GetSingleton()->FUN_00ad7fa0("UILevelUp", 0x121);
     ((TESActorBaseData*)((char*)g_thePlayer->GetActorBase() + 0x30))->SetLevel(g_thePlayer->GetLevel() + 1);
-    FUN_00706270();
+    CreateLevelUpMenu();
 }
 }  // namespace fnv_008d5210
 
@@ -261,11 +261,11 @@ extern G7d1 g_011e0a30;
 
 struct FUN_008d5270_shell : public Flt
 {
-    void FUN_008d5270();
+    void FinishLevelUp();
 };
 
 // @fnv 0x008d5270
-void FUN_008d5270_shell::FUN_008d5270()
+void FUN_008d5270_shell::FinishLevelUp()
 {
     if (!((FUN_008d55e0_shell*)(unsigned int)*this)->FUN_008d55e0(_g_thePlayer->GetLevel() + 1))
     {
@@ -574,7 +574,7 @@ extern PlayerCharacter* _g_thePlayer;
 
 struct FUN_008d5300_shell
 {
-    void FUN_008d5270();
+    void FinishLevelUp();
     void SetPlayerLevel(int aLevel);
 };
 
@@ -607,7 +607,7 @@ void FUN_008d5300_shell::SetPlayerLevel(int aLevel)
     *(int*)(data + 4) = ActorValueUtility::ConvertActorValue(aLevel + 1);
 
     ((TESActorBaseData*)((char*)((XActor*)(void*)_g_thePlayer)->GetActorBase() + 0x30))->SetLevel(aLevel);
-    FUN_008d5270();
+    FinishLevelUp();
     _FUN_007df4e0();
     StatsMenu::UpdateStatusEffects();
 }

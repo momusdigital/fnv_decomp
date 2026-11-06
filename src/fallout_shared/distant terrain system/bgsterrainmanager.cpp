@@ -125,7 +125,7 @@ int __cdecl FUN_006fcda0()
 
 struct FUN_006fd980_shell
 {
-    void FUN_006fd980(int);
+    void UnloadDataRecurse(int);
 };
 
 struct FUN_006fce00_shell
@@ -133,12 +133,12 @@ struct FUN_006fce00_shell
     void FUN_006fce00();
 };
 
-// If the pointer at offset 4 is non-null, calls FUN_006fd980(7) on it.
+// If the pointer at offset 4 is non-null, calls UnloadDataRecurse(7) on it.
 // @fnv 0x006fce00
 void __thiscall FUN_006fce00_shell::FUN_006fce00()
 {
     if (*(int*)((char*)this + 4) != 0)
-        (*(FUN_006fd980_shell**)((char*)this + 4))->FUN_006fd980(7);
+        (*(FUN_006fd980_shell**)((char*)this + 4))->UnloadDataRecurse(7);
 }
 
 struct BGSTerrainChunk
@@ -277,7 +277,7 @@ int BGSTerrainChunk::FUN_006fceb0(int a1)
 
 struct FUN_006fed30_Callee
 {
-    int __thiscall FUN_006fed30(int);
+    int __thiscall GetTreeBlockForPoint(int);
 };
 struct FUN_006fcef0_shell
 {
@@ -285,13 +285,13 @@ struct FUN_006fcef0_shell
     FUN_006fed30_Callee* m_04;
     int __thiscall ForwardToCallee(int);
 };
-// If m_04 is set, forwards a to m_04's FUN_006fed30 and returns its result; otherwise returns 0.
+// If m_04 is set, forwards a to m_04's GetTreeBlockForPoint and returns its result; otherwise returns 0.
 // @fnv 0x006fcef0
 int __thiscall FUN_006fcef0_shell::ForwardToCallee(int a)
 {
     int unused = 0;
     if (m_04)
-        return m_04->FUN_006fed30(a);
+        return m_04->GetTreeBlockForPoint(a);
     return 0;
 }
 
@@ -859,7 +859,7 @@ struct LodNode
 {
     void UpdateTerrainNode(const NiPoint3&, bool);
     void UpdateBlock(const NiPoint3&, bool);
-    void FUN_006fe330(const NiPoint3&);
+    void UpdateTrees(const NiPoint3&);
 };
 
 struct RefArray
@@ -953,7 +953,7 @@ void BGSTerrainManager::FUN_006fca90(const NiPoint3& arPos, int aiFlags)
             if (m_bShaderFeatureActive && *DAT_011d8680.Bool())
             {
                 unsigned int count;
-                lodNode->FUN_006fe330(pos);
+                lodNode->UpdateTrees(pos);
                 if (FUN_006fcda0() > 0u && array2C.FUN_0044ddc0() > 0)
                 {
                     LocalRefArray kept;

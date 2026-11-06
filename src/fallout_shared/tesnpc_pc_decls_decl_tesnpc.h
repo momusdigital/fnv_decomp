@@ -384,10 +384,10 @@ class TESObjectREFR : public TESForm
     bool IsMovementActive();
     bool SetReferenceHeading(NiPoint3, bool);
     void SetReferenceState(TESTopic*, bool, bool);
-    void FUN_008a8e50();
+    void StopAttack();
     void ClearReferenceState(TESBoundObject*);
     TESBoundObject* GetObjectReference();
-    void FUN_008a7a90();
+    void ForceIdleAnimation();
     void InitializeReference(TESObjectREFR*, TESBoundObject*, int);
 };
 class MobileObject : public TESObjectREFR
@@ -509,7 +509,7 @@ class TESTopic
 };
 BSAudio* GetAudioSystem();
 extern PlayerCharacter* g_thePlayer;
-bool FUN_00754d90(Actor*);
+bool GetShouldCompanionWheelOpen(Actor*);
 void OpenDialogueMenu(int, TESObjectREFR*, TESTopic*, void*, int, bool);
 bool ShowMessage(const char*, int, const char*, const char*, float, bool);
 int FUN_00702640();

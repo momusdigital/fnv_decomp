@@ -3053,7 +3053,7 @@ struct WRef
     char pad[0x4];
     const Pt3& GetPos_v();
     float FUN_008d6f30(float);
-    bool FUN_00885520(const Pt3&, float);
+    bool IsPointDeepUnderWater(const Pt3&, float);
     bool FUN_004938e0();
 };
 
@@ -3279,7 +3279,7 @@ struct WVirt
     virtual void p7c();
     virtual const Pt3& GetPos();
     void* FUN_008d6f30(float);
-    bool FUN_00885520(const Pt3&, void*);
+    bool IsPointDeepUnderWater(const Pt3&, void*);
     bool FUN_004938e0();
 };
 
@@ -3322,7 +3322,7 @@ void WSys::FUN_004e8a00()
                     {
                         f1 = true;
                         WVirt* ref = (WVirt*)group->refs.AddEight(pos2);
-                        bool inside = ref->FUN_00885520(ref->GetPos(), ref->FUN_008d6f30(1.0f));
+                        bool inside = ref->IsPointDeepUnderWater(ref->GetPos(), ref->FUN_008d6f30(1.0f));
                         if (!inside && ref->FUN_004938e0())
                         {
                             if (!group->list58.FUN_00559450())

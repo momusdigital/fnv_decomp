@@ -117,7 +117,7 @@ extern char DAT_01183a34[];
 struct GlobalMgr
 {
     unsigned char FUN_008df040();
-    void FUN_008579b0(int* out, unsigned int n);
+    void SaveGameDataOLD(int* out, unsigned int n);
 };
 
 struct Holder48
@@ -166,7 +166,7 @@ void FUN_0080d540_cls::FUN_0080d540(unsigned int arg)
                 }
             }
         }
-        ((GlobalMgr*)DAT_011de45c)->FUN_008579b0(&result, 4);
+        ((GlobalMgr*)DAT_011de45c)->SaveGameDataOLD(&result, 4);
     }
 }
 
@@ -495,7 +495,7 @@ struct Node
     Result* FUN_00822b40();
 };
 bool FUN_005b6f70();
-int FUN_00703c00(const char* fmt, ...);
+int PrintToConsole(const char* fmt, ...);
 struct FUN_0080d340_cls
 {
     unsigned int unk00, unk04, unk08, unk0c, unk10, unk14, unk18, unk1c, unk20, unk24, unk28, unk2c, unk30, unk34,
@@ -523,7 +523,7 @@ void FUN_0080d340_cls::FUN_0080d340()
             p->FUN_slot242((void*)this->m_48, this->GetFloatAtOffset1C(1));
             if (FUN_005b6f70())
             {
-                FUN_00703c00("%s's %s takes %0.2f disintegrate armor damage!", p->FUN_0055d520(),
+                PrintToConsole("%s's %s takes %0.2f disintegrate armor damage!", p->FUN_0055d520(),
                              this->m_48->GetTargetFullName(), this->GetFloatAtOffset1C());
             }
             t = this->m_48;

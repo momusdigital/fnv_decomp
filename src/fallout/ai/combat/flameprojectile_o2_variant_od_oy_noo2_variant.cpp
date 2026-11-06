@@ -481,7 +481,7 @@ struct ProjectileEffect
     virtual void pe2b8();
     virtual float GetProjectileSpread(int iMode);
     ActorRef* FUN_008d6f30();
-    AttachedObject* FUN_009306d0();
+    AttachedObject* GetCharController();
     FireObject* FUN_00874480();
     Controller* FUN_009b3cb0();
     float FUN_00931d70();
@@ -519,10 +519,10 @@ bool ProjectileEffect::FUN_009b36f0()
     direction.FUN_004a0c10();
     Handle objectHandle;
     objectHandle.FUN_008c71b0(0);
-    if (FUN_009306d0())
+    if (GetCharController())
     {
         unsigned int handleId;
-        objectHandle.id = *FUN_009306d0()->FUN_0070c440(&handleId);
+        objectHandle.id = *GetCharController()->FUN_0070c440(&handleId);
     }
     else
     {

@@ -1895,7 +1895,7 @@ struct PathingSolution
 };
 struct ActorStub_009dc7f0
 {
-    void FUN_0088d640();
+    void GetOutofFurnitureQuick();
     void TryMove(int);
 };
 struct VObj_009dc7f0
@@ -1938,7 +1938,7 @@ void DoorTeleportSpaceReceiver::UpdateTeleportPathState()
         return;
     else if (pActor->GetProcess()->GetSitSleepState())
     {
-        ((ActorStub_009dc7f0*)pActor)->FUN_0088d640();
+        ((ActorStub_009dc7f0*)pActor)->GetOutofFurnitureQuick();
         return;
     }
     if (!pObj || FUN_009dcd40())
@@ -5049,7 +5049,7 @@ struct World
 };
 struct Area
 {
-    int FUN_006b7850();
+    int FindNavMeshInfoForCellKey();
 };
 struct Map
 {
@@ -5189,7 +5189,7 @@ struct Actor
     int FUN_00931850();
     Cell* FUN_008d6f30();
     World* FUN_00575d70();
-    void FUN_008ad1c0(const Vec&, float, int, int, int, int);
+    void MoveActorAndFollowers(const Vec&, float, int, int, int, int);
     bool FUN_008b0190(int);
 };
 struct Reference
@@ -5277,8 +5277,8 @@ void Mover::SetEnabled(bool abEnabled)
             if (!xSlot14 && !y &&
                 !DAT_011dea10
                      ->FUN_0045af00(actor->FUN_00575d70(), PackShortPair((unsigned short)xSlot14, (unsigned short)y))
-                     ->FUN_006b7850())
-                actor->FUN_008ad1c0(request.FUN_00559450()->FUN_006a9540()->FUN_005c3420(), 0.0f,
+                     ->FindNavMeshInfoForCellKey())
+                actor->MoveActorAndFollowers(request.FUN_00559450()->FUN_006a9540()->FUN_005c3420(), 0.0f,
                                     request.FUN_00559450()->FUN_006a9540()->FUN_009611e0(),
                                     request.FUN_00559450()->FUN_006a9540()->FUN_00441110(), 0, 1);
         }
@@ -7676,7 +7676,7 @@ namespace PathEndCheck14 {
 struct Node
 {
     bool FUN_006e2330();
-    bool FUN_006e22f0(::TESObjectREFR*);
+    bool ActivateNode(::TESObjectREFR*);
 };
 struct Solution
 {
@@ -7733,7 +7733,7 @@ int Mover::FUN_009dc980()
         pnode = &currentPath.FUN_00559450()->FUN_006b05a0();
         if (pnode->FUN_006e2330())
         {
-            if (!pnode->FUN_006e22f0(pActor) && !pActor->GetCurrentAIProcess()->GetCurrentFadeState())
+            if (!pnode->ActivateNode(pActor) && !pActor->GetCurrentAIProcess()->GetCurrentFadeState())
             {
                 eState = 7;
                 SetEnabled(true);

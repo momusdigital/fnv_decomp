@@ -1587,14 +1587,14 @@ struct FalloutAudioMedia
 };
 struct S78080
 {
-    void __thiscall FUN_00878080();
+    void __thiscall CheckMemoryLevel();
 };
 S78080* __stdcall FUN_00446ef0(int);
-// Calls FUN_00878080 on the object from FUN_00446ef0(0), updates FalloutAudioMedia, and if loading is active twice, calls FUN_00861ea0 on g_TESSaveLoadGame.
+// Calls CheckMemoryLevel on the object from FUN_00446ef0(0), updates FalloutAudioMedia, and if loading is active twice, calls FUN_00861ea0 on g_TESSaveLoadGame.
 // @fnv 0x00446ea0
 void __cdecl FUN_00446ea0()
 {
-    FUN_00446ef0(0)->FUN_00878080();
+    FUN_00446ef0(0)->CheckMemoryLevel();
     FalloutAudioMedia::Update();
     if (g_TESSaveLoadGame->GetLoading() && g_TESSaveLoadGame->GetLoading())
         g_TESSaveLoadGame->FUN_00861ea0();

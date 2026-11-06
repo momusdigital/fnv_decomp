@@ -7152,7 +7152,7 @@ struct IdleLog
 struct IdleStream
 {
     bool FUN_00862110();
-    void FUN_008579e0(void*, unsigned int);
+    void LoadGameDataOLD(void*, unsigned int);
     IdleLog* FUN_004fd3c0();
     bool FUN_008df040();
     unsigned int FUN_00825c00();
@@ -7194,7 +7194,7 @@ IdleLoadTask* __cdecl LoadIdleAnimation(Actor* actor, Animation* animation, floa
     if (((IdleStream*)DAT_011de45c)->FUN_00862110())
     {
         unsigned int magic;
-        ((IdleStream*)DAT_011de45c)->FUN_008579e0(&magic, 4);
+        ((IdleStream*)DAT_011de45c)->LoadGameDataOLD(&magic, 4);
         if (magic != 0x424c4f4b)
         {
             IdleLog* log = ((IdleStream*)DAT_011de45c)->FUN_004fd3c0();
@@ -7208,14 +7208,14 @@ IdleLoadTask* __cdecl LoadIdleAnimation(Actor* actor, Animation* animation, floa
                 FUN_005b5e40(DAT_010156a8, DAT_0101d930, 0x121c, ((IdleStream*)DAT_011de45c)->FUN_008df040());
         }
         start = ((IdleStream*)DAT_011de45c)->FUN_00825c00();
-        ((IdleStream*)DAT_011de45c)->FUN_008579e0(&blockSize4, 2);
+        ((IdleStream*)DAT_011de45c)->LoadGameDataOLD(&blockSize4, 2);
     }
     unsigned int id4;
     bool present4 = ((IdleStream*)DAT_011de45c)->FUN_00857aa0(&id4, 4);
     if (id4 || present4)
     {
         unsigned short size;
-        ((IdleStream*)DAT_011de45c)->FUN_008579e0(&size, 2);
+        ((IdleStream*)DAT_011de45c)->LoadGameDataOLD(&size, 2);
         TESIdleForm* idle = 0;
         if (id4)
             idle = dynamic_cast<TESIdleForm*>(FUN_004839c0(id4));
@@ -7654,7 +7654,7 @@ struct BlendActor : Actor
     bool IsSneaking();
     void PlayAnimationSequence(int group, Animation* animation);
 };
-bool __fastcall FUN_008a16d0(Actor*);
+bool __fastcall IsWeaponDrawn(Actor*);
 int __fastcall FUN_008a7570(Actor*);
 bool __fastcall FUN_004226e0(TESDataHandler*);
 float* __fastcall FUN_00403e20(void*);
@@ -7698,7 +7698,7 @@ void FUN_004994f0_shell::FUN_004994f0(int section, bool restoreAction)
     bool allowed = true;
     bool _overrideFlag = false;
     bool aChanged = false;
-    if (m_pAttachedReference && (kIndex == 4 || section == 20) && FUN_008a16d0(actor) && !FUN_004226e0(DAT_011c3f2c))
+    if (m_pAttachedReference && (kIndex == 4 || section == 20) && IsWeaponDrawn(actor) && !FUN_004226e0(DAT_011c3f2c))
     {
         if (restoreAction && FUN_008a7570(actor) == 2 && actor->GetProcess()->GetActorProcessTime())
             _overrideFlag = true;
@@ -7950,7 +7950,7 @@ struct Stream_00499b90
 {
     unsigned int FUN_00825c00();
     bool FUN_00862110();
-    void FUN_008579b0(const void* pSrc, unsigned int uSize);
+    void SaveGameDataOLD(const void* pSrc, unsigned int uSize);
     unsigned char FUN_008df040();
     unsigned int FUN_004fd3e0();
 };
@@ -8296,15 +8296,15 @@ void Holder_00499b90::WriteToStream(Class2_00499b90* pClass2)
     {
         unsigned int uKolb;
         uKolb = 0x424c4f4b;
-        ((Stream_00499b90*)DAT_011de45c)->FUN_008579b0(&uKolb, 4);
+        ((Stream_00499b90*)DAT_011de45c)->SaveGameDataOLD(&uKolb, 4);
         uMark2 = ((Stream_00499b90*)DAT_011de45c)->FUN_00825c00();
-        ((Stream_00499b90*)DAT_011de45c)->FUN_008579b0(&lengthA5, 2);
+        ((Stream_00499b90*)DAT_011de45c)->SaveGameDataOLD(&lengthA5, 2);
     }
-    ((Stream_00499b90*)DAT_011de45c)->FUN_008579b0(&this->unk10c, 4);
-    ((Stream_00499b90*)DAT_011de45c)->FUN_008579b0(&this->unk110, 4);
-    ((Stream_00499b90*)DAT_011de45c)->FUN_008579b0(this->f10, 0xc);
-    ((Stream_00499b90*)DAT_011de45c)->FUN_008579b0(&this->unk48, 4);
-    ((Stream_00499b90*)DAT_011de45c)->FUN_008579b0(&this->fcc, 1);
+    ((Stream_00499b90*)DAT_011de45c)->SaveGameDataOLD(&this->unk10c, 4);
+    ((Stream_00499b90*)DAT_011de45c)->SaveGameDataOLD(&this->unk110, 4);
+    ((Stream_00499b90*)DAT_011de45c)->SaveGameDataOLD(this->f10, 0xc);
+    ((Stream_00499b90*)DAT_011de45c)->SaveGameDataOLD(&this->unk48, 4);
+    ((Stream_00499b90*)DAT_011de45c)->SaveGameDataOLD(&this->fcc, 1);
     bMask7 = 0;
     for (cb_ = 0; (char)cb_ < 8; cb_++)
     {
@@ -8313,16 +8313,16 @@ void Holder_00499b90::WriteToStream(Class2_00499b90* pClass2)
             bMask7 |= 1 << cb_;
         }
     }
-    ((Stream_00499b90*)DAT_011de45c)->FUN_008579b0(&bMask7, 1);
+    ((Stream_00499b90*)DAT_011de45c)->SaveGameDataOLD(&bMask7, 1);
     for (cb_ = 0; (char)cb_ < 8; cb_++)
     {
         if (this->f4c[cb_] != 0xff && this->f4c[cb_] != 0xffff)
         {
-            ((Stream_00499b90*)DAT_011de45c)->FUN_008579b0(&this->f4c[cb_], 2);
-            ((Stream_00499b90*)DAT_011de45c)->FUN_008579b0(&this->f5c[cb_], 4);
-            ((Stream_00499b90*)DAT_011de45c)->FUN_008579b0(&this->f7c[cb_], 4);
-            ((Stream_00499b90*)DAT_011de45c)->FUN_008579b0(&this->f9c[cb_], 2);
-            ((Stream_00499b90*)DAT_011de45c)->FUN_008579b0(&this->fac[cb_], 4);
+            ((Stream_00499b90*)DAT_011de45c)->SaveGameDataOLD(&this->f4c[cb_], 2);
+            ((Stream_00499b90*)DAT_011de45c)->SaveGameDataOLD(&this->f5c[cb_], 4);
+            ((Stream_00499b90*)DAT_011de45c)->SaveGameDataOLD(&this->f7c[cb_], 4);
+            ((Stream_00499b90*)DAT_011de45c)->SaveGameDataOLD(&this->f9c[cb_], 2);
+            ((Stream_00499b90*)DAT_011de45c)->SaveGameDataOLD(&this->fac[cb_], 4);
             unsigned char bId;
             void* pOut;
             bId = 0xff;
@@ -8336,7 +8336,7 @@ void Holder_00499b90::WriteToStream(Class2_00499b90* pClass2)
                              this->f5c[cb_]);
                 bId = 0xfe;
             }
-            ((Stream_00499b90*)DAT_011de45c)->FUN_008579b0(&bId, 1);
+            ((Stream_00499b90*)DAT_011de45c)->SaveGameDataOLD(&bId, 1);
             if (this->fe0[cb_] != 0)
             {
                 ((Elem_00499b90*)this->fe0[cb_])->FUN_004efb20(*(float*)&this->fd0);
@@ -8359,7 +8359,7 @@ void Holder_00499b90::WriteToStream(Class2_00499b90* pClass2)
     {
         FUN_004975e0(pPi14, ((Span_00499b90*)&this->f124)->FUN_00559450(), ((void*)this), *(float*)&this->fd0);
     }
-    ((Stream_00499b90*)DAT_011de45c)->FUN_008579b0(&this->f120, 1);
+    ((Stream_00499b90*)DAT_011de45c)->SaveGameDataOLD(&this->f120, 1);
     bFlagVal = 0;
     if (pPi14->m_88.FUN_0034() != 0)
     {
@@ -8390,7 +8390,7 @@ void Holder_00499b90::WriteToStream(Class2_00499b90* pClass2)
                             bFlagVal = 1;
                             if (((Stream_00499b90*)DAT_011de45c)->FUN_008df040() >= 0x40)
                             {
-                                ((Stream_00499b90*)DAT_011de45c)->FUN_008579b0(&bFlagVal, 1);
+                                ((Stream_00499b90*)DAT_011de45c)->SaveGameDataOLD(&bFlagVal, 1);
                             }
                             ((Elem_00499b90*)u40)->FUN_004efb20(*(float*)&this->fd0);
                             float f44;
@@ -8401,7 +8401,7 @@ void Holder_00499b90::WriteToStream(Class2_00499b90* pClass2)
                             {
                                 f44 = ((Anim_00499b90*)pSequence3)->FUN_00621b00();
                             }
-                            ((Stream_00499b90*)DAT_011de45c)->FUN_008579b0(&f44, 4);
+                            ((Stream_00499b90*)DAT_011de45c)->SaveGameDataOLD(&f44, 4);
                         }
                     }
                 }
@@ -8410,7 +8410,7 @@ void Holder_00499b90::WriteToStream(Class2_00499b90* pClass2)
     }
     if (((Stream_00499b90*)DAT_011de45c)->FUN_008df040() >= 0x40 && bFlagVal == 0)
     {
-        ((Stream_00499b90*)DAT_011de45c)->FUN_008579b0(&bFlagVal, 1);
+        ((Stream_00499b90*)DAT_011de45c)->SaveGameDataOLD(&bFlagVal, 1);
     }
     if (*((Detect_00499b90*)&DAT_011de4e8)->FUN_00408d60() != '\0')
     {
@@ -9623,7 +9623,7 @@ template <class T> struct S49Ptr
 };
 struct S49Save
 {
-    void FUN_008579b0(void* data, int size);
+    void SaveGameDataOLD(void* data, int size);
 };
 struct S49Entry
 {
@@ -9645,15 +9645,15 @@ extern S49Save* DAT_011de45c;
 void S49Entry::FUN_00497180(float value, S49Map* map)
 {
     bool bHasObj;
-    DAT_011de45c->FUN_008579b0(&iA, 4);
-    DAT_011de45c->FUN_008579b0(&iB, 4);
-    DAT_011de45c->FUN_008579b0(&iC, 4);
+    DAT_011de45c->SaveGameDataOLD(&iA, 4);
+    DAT_011de45c->SaveGameDataOLD(&iB, 4);
+    DAT_011de45c->SaveGameDataOLD(&iC, 4);
     bHasObj = false;
     if (kObj.FUN_00559450())
     {
         bHasObj = true;
     }
-    DAT_011de45c->FUN_008579b0(&bHasObj, 1);
+    DAT_011de45c->SaveGameDataOLD(&bHasObj, 1);
     if (bHasObj)
     {
         char cCheckResult = -1;
@@ -9662,7 +9662,7 @@ void S49Entry::FUN_00497180(float value, S49Map* map)
         {
             cCheckResult = pChecker->Check18(kObj.FUN_00559450());
         }
-        DAT_011de45c->FUN_008579b0(&cCheckResult, 1);
+        DAT_011de45c->SaveGameDataOLD(&cCheckResult, 1);
         kObj.FUN_00559450()->FUN_004efb20(value);
     }
 }

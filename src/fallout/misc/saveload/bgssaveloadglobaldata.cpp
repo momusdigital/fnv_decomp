@@ -534,8 +534,8 @@ struct BGSSaveFormBuffer
 {
     void SerializeFormData(void* apForm, int aiFlags);
     void SaveData(void* apData, int aiSize, int aiFlags);
-    unsigned int FUN_00865f20();
-    void FUN_00865ff0(int aiCount, unsigned int auiPos);
+    unsigned int StartVariableSizedValue();
+    void SaveVariableSizedValue(int aiCount, unsigned int auiPos);
 };
 
 extern TESDataHandler* g_dataHandler;
@@ -545,7 +545,7 @@ void FUN_0084cc90(BGSSaveFormBuffer* apBuffer)
 {
     GlobalListNode* pList = g_dataHandler->GetTESGlobalList();
     int iCount = 0;
-    unsigned int uiStart = apBuffer->FUN_00865f20();
+    unsigned int uiStart = apBuffer->StartVariableSizedValue();
     GlobalListNode* pIter = pList;
     while (pIter)
     {
@@ -559,7 +559,7 @@ void FUN_0084cc90(BGSSaveFormBuffer* apBuffer)
         }
         pIter = pIter->FUN_00726070();
     }
-    apBuffer->FUN_00865ff0(iCount, uiStart);
+    apBuffer->SaveVariableSizedValue(iCount, uiStart);
 }
 
 namespace fnv_00866200 {
@@ -632,8 +632,8 @@ namespace fnv_00975840 {
 struct BGSSaveFormBuffer
 {
     void SaveData(void* apData, int aiSize, int aiFlags);
-    unsigned int FUN_00865f20();
-    void FUN_00865ff0(int aiCount, unsigned int auiPos);
+    unsigned int StartVariableSizedValue();
+    void SaveVariableSizedValue(int aiCount, unsigned int auiPos);
 };
 
 struct SavedItem
@@ -662,7 +662,7 @@ void FUN_00975840_owner::FUN_00975840(BGSSaveFormBuffer* apBuffer)
     for (unsigned int i = 0; i < 5; ++i)
     {
         unsigned int ItemUpdateArray = 0;
-        unsigned int uiStart = apBuffer->FUN_00865f20();
+        unsigned int uiStart = apBuffer->StartVariableSizedValue();
         ItemListNode* pIter = ((ItemListNode**)((char*)this + 0x44))[i];
         while (pIter)
         {
@@ -674,7 +674,7 @@ void FUN_00975840_owner::FUN_00975840(BGSSaveFormBuffer* apBuffer)
             }
             pIter = pIter->FUN_00726070();
         }
-        apBuffer->FUN_00865ff0(ItemUpdateArray, uiStart);
+        apBuffer->SaveVariableSizedValue(ItemUpdateArray, uiStart);
     }
 }
 }  // namespace fnv_00975840
@@ -1356,7 +1356,7 @@ void __cdecl SaveImageSpaceModifierInstances(int pBuffer)
     float v5;
 
     v3 = 0;
-    aV11 = ((BGSSaveFormBuffer*)pBuffer)->FUN_00865f20();
+    aV11 = ((BGSSaveFormBuffer*)pBuffer)->StartVariableSizedValue();
     i6 = g_TES->FUN_0043b5d0();
     while (i6 != 0)
     {
@@ -1376,7 +1376,7 @@ void __cdecl SaveImageSpaceModifierInstances(int pBuffer)
         }
         i6 = i6->GetNext();
     }
-    ((BGSSaveFormBuffer*)pBuffer)->FUN_00865ff0(v3, aV11);
+    ((BGSSaveFormBuffer*)pBuffer)->SaveVariableSizedValue(v3, aV11);
 }
 
 #include <stdarg.h>

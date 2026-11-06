@@ -12,7 +12,7 @@ struct TESEatPackageData
 void __cdecl _FUN_004856d0(int);
 struct LocationDescriptor
 {
-    void __thiscall FUN_0067f6c0(int);
+    void __thiscall Save(int);
 };
 
 // @fnv 0x0067bbb0
@@ -21,7 +21,7 @@ void __thiscall TESEatPackageData::FUN_0067bbb0()
     _FUN_004856d0(0x44454b50);
     if (this->m_pPackageTarget != 0)
     {
-        ((LocationDescriptor*)this->m_pPackageTarget)->FUN_0067f6c0(0x32444c50);
+        ((LocationDescriptor*)this->m_pPackageTarget)->Save(0x32444c50);
     }
 }
 
