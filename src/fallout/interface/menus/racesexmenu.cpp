@@ -673,7 +673,7 @@ struct FUN_007b1e70_shell
 };
 struct FUN_007b25a0_shell
 {
-    void FUN_007b25a0();
+    void UpdatePlayerHead();
 };
 struct FUN_007b51f0_shell : FUN_007adc30_shell
 {
@@ -692,7 +692,7 @@ void __cdecl FUN_007b51f0()
             ((FUN_007b18f0_shell*)DAT_011da634)->HandleMenuKey(0x22);
             ((FUN_007b18f0_shell*)DAT_011da634)->HandleMenuKey(0x23);
             ((FUN_007b1e70_shell*)DAT_011da634)->UpdateFaceGen(1, 1, 0);
-            ((FUN_007b25a0_shell*)DAT_011da634)->FUN_007b25a0();
+            ((FUN_007b25a0_shell*)DAT_011da634)->UpdatePlayerHead();
             ((FUN_007adc60_shell*)DAT_011da634)->FUN_007adc60(8, false);
             ((FUN_007adc60_shell*)DAT_011da634)->FUN_007adc60(9, false);
         }
@@ -3961,7 +3961,7 @@ int FUN_0072fa60(int);
 bool FUN_004b71d0();
 void FUN_00706ff0(Tile*);
 void UpdateRaceSexMenu();
-void FUN_00703e80(const char*, int, int, void (*)(), int, int, float, float, const char*, const char*, int);
+void ShowMessageBox(const char*, int, int, void (*)(), int, int, float, float, const char*, const char*, int);
 struct Menu67
 {
     virtual void v0();
@@ -4025,7 +4025,7 @@ bool Menu67::HandleAction(int action, int argument)
             if (bChanged)
                 FUN_00453a70()->FUN_00ad7550(DAT_01075b00, 0x121, 0).FUN_00ad8830();
             else if (action == 14)
-                FUN_00703e80(message.FUN_00559450(), 0, 0, UpdateRaceSexMenu, 1, 0x12, 0.0f, 0.0f,
+                ShowMessageBox(message.FUN_00559450(), 0, 0, UpdateRaceSexMenu, 1, 0x12, 0.0f, 0.0f,
                              DAT_011d3684.FUN_00403df0(), DAT_011d34f8.FUN_00403df0(), 0);
             return true;
         }
@@ -4527,7 +4527,7 @@ struct FaceMorphMenu
     bool FUN_007adc30(int);
     void UpdateFaceGen(int, int, int);
     void FUN_007adc60(int, bool);
-    void FUN_007b25a0();
+    void UpdatePlayerHead();
     void BuildMorphOptions();
 };
 // @fnv 0x007afaf0
@@ -4757,7 +4757,7 @@ void FaceMorphMenu::BuildMorphOptions()
     }
     if (FUN_007adc30(9))
     {
-        FUN_007b25a0();
+        UpdatePlayerHead();
         FUN_007adc60(9, false);
     }
 }
@@ -5641,10 +5641,10 @@ struct RaceMenuFaceRefreshState
     int unkd4;
     TESNPC* npc;
     void UpdateShadowSceneNode();
-    void FUN_007b25a0();
+    void UpdatePlayerHead();
 };
 // @fnv 0x007b25a0
-void RaceMenuFaceRefreshState::FUN_007b25a0()
+void RaceMenuFaceRefreshState::UpdatePlayerHead()
 {
     FUN_006570e0(_g_thePlayer->FUN_007af430());
     DAT_011c5cb4 = true;
@@ -6135,7 +6135,7 @@ struct Menu7
     bool FUN_007adc30(int);
     void UpdateFaceGen(int, int, int);
     void FUN_007adc60(int, bool);
-    void FUN_007b25a0();
+    void UpdatePlayerHead();
     void RebuildFaceGen(int);
     void UpdateEyeTextures();
     void FUN_007afa40(unsigned int);
@@ -6177,7 +6177,7 @@ void Menu7::HandleOptionSelection()
         HandleMenuKey(34);
         HandleMenuKey(35);
         UpdateFaceGen(1, 1, 0);
-        FUN_007b25a0();
+        UpdatePlayerHead();
         RebuildFaceGen(1);
         UpdateEyeTextures();
         FUN_007adc60(8, false);
@@ -6404,7 +6404,7 @@ class HCMenuView
 
     int FUN_007dcc00();
     void CreateMenuOption();
-    void FUN_007b25a0();
+    void UpdatePlayerHead();
     void UpdateHairAndEyes();
     bool FUN_007adc30(int m_iValueId);
     void RebuildFaceGen(int iValue);
@@ -6451,7 +6451,7 @@ void HCMenuView::FUN_007adce0(int aiIndex, Tile* pkTile)
                     bUpdatePlayer = true;
                 }
                 CreateMenuOption();
-                FUN_007b25a0();
+                UpdatePlayerHead();
                 UpdateHairAndEyes();
                 bChangedTmp = true;
                 if (bUpdatePlayer)
@@ -6462,7 +6462,7 @@ void HCMenuView::FUN_007adce0(int aiIndex, Tile* pkTile)
             if (FUN_007adc30(7))
                 FUN_007b51f0();
             else
-                FUN_00703e80(DAT_011d3288.FUN_00403df0(), 0, 0, FUN_007b51f0, 0, 0x12, 0.0f, 0.0f,
+                ShowMessageBox(DAT_011d3288.FUN_00403df0(), 0, 0, FUN_007b51f0, 0, 0x12, 0.0f, 0.0f,
                              DAT_011d3684.FUN_00403df0(), DAT_011d34f8.FUN_00403df0(), 0);
             break;
         case 0x1b:
@@ -6508,7 +6508,7 @@ void HCMenuView::FUN_007adce0(int aiIndex, Tile* pkTile)
     else if (aiIndex == 5)
     {
         if (iList == m_iNameList)
-            FUN_00703e80(m_kName.FUN_00559450(), 0, 0, UpdateRaceSexMenu, 1, 0x12, 0.0f, 0.0f,
+            ShowMessageBox(m_kName.FUN_00559450(), 0, 0, UpdateRaceSexMenu, 1, 0x12, 0.0f, 0.0f,
                          DAT_011d3684.FUN_00403df0(), DAT_011d34f8.FUN_00403df0(), 0);
         else
             FUN_007af180(m_apLists[iList]->FUN_0044edb0());

@@ -41,8 +41,8 @@ class NiBillboardNode : public NiNode
     unsigned char FUN_00a7db30(NiObject* object);
     __declspec(noalias) bool FUN_00a7dc40(const BoardObject* camera, const BoardVector& position,
                                         BoardVector& worldPosition, BoardVector& up, BoardVector& right);
-    void FUN_00a7de40(const BoardObject* camera);
-    void FUN_00a7de40(NiCullingProcess* camera);
+    void RotateToCamera(const BoardObject* camera);
+    void RotateToCamera(NiCullingProcess* camera);
     void FUN_00a7e610(NiCullingProcess* process);
     void FUN_00a7e630();
     BillboardClone* FUN_00a7e710(void* context);

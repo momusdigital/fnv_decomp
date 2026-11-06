@@ -1692,7 +1692,7 @@ extern Pointer90<NiAVObject> DAT_011d90bc;
 extern int DAT_011f36ac;
 struct Loader90
 {
-    NiNode* FUN_00447080(const char*, int, int, int, int, int);
+    NiNode* LoadModel(const char*, int, int, int, int, int);
 };
 extern Loader90* DAT_011c3b3c;
 NiAVObject* __cdecl FUN_004aae30(NiAVObject*, const char*);
@@ -2622,9 +2622,9 @@ struct Menu90
 // @fnv 0x00732540
 void Menu90::InitBlackjackScene()
 {
-    rootdb8 = DAT_011c3b3c->FUN_00447080("Meshes\\Terminals\\NV_BlackJack\\NV_Blackjack-Hand1.NIF", 0, 1, 0, 0, 0);
-    rootdbc = DAT_011c3b3c->FUN_00447080("Meshes\\Terminals\\NV_BlackJack\\NV_Blackjack-Hand2.NIF", 0, 1, 0, 0, 0);
-    rootdc0 = DAT_011c3b3c->FUN_00447080("Meshes\\Terminals\\NV_BlackJack\\NV_Blackjack-Dealer.NIF", 0, 1, 0, 0, 0);
+    rootdb8 = DAT_011c3b3c->LoadModel("Meshes\\Terminals\\NV_BlackJack\\NV_Blackjack-Hand1.NIF", 0, 1, 0, 0, 0);
+    rootdbc = DAT_011c3b3c->LoadModel("Meshes\\Terminals\\NV_BlackJack\\NV_Blackjack-Hand2.NIF", 0, 1, 0, 0, 0);
+    rootdc0 = DAT_011c3b3c->LoadModel("Meshes\\Terminals\\NV_BlackJack\\NV_Blackjack-Dealer.NIF", 0, 1, 0, 0, 0);
     NiNode* root8 = rootdb4;
     DAT_011d90bc.FUN_0066b0d0(FUN_004aae30(rootdb4, "object1"));
     ((Pointer90<NiNode>*)&DAT_011d9098)->FUN_0066b0d0(new NiNode(0));

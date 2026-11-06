@@ -349,7 +349,7 @@ struct ClearNode
 extern unsigned char DAT_011d8909;
 extern const char str_0106f8d0[];
 int __cdecl FUN_00a01860(const char*);
-void __cdecl FUN_00401030(void*);
+void __cdecl FormHeap_Free(void*);
 struct Target007a4780
 {
     void* unk00;

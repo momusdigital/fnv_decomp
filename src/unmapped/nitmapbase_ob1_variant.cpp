@@ -42,7 +42,7 @@ struct FUN_00404d00_class
     int m_i;
     FUN_00404d00_class();
 };
-void* __cdecl FUN_00401000(unsigned int size);
+void* __cdecl FormHeap_Allocate(unsigned int size);
 extern void* DAT_011c8048;
 struct SpawnedObj404a80
 {
@@ -50,7 +50,7 @@ struct SpawnedObj404a80
     SpawnedObj404a80();
     static void* operator new(unsigned int size)
     {
-        return FUN_00401000(size);
+        return FormHeap_Allocate(size);
     }
 };
 void __cdecl EnsureSpawnedObj();

@@ -2011,7 +2011,7 @@ struct SlotTextureLoader
 extern SlotTextureLoader* DAT_011dea10;
 struct SlotModelLoader
 {
-    void* FUN_00447080(const char*, int, bool, bool, bool, bool);
+    void* LoadModel(const char*, int, bool, bool, bool, bool);
 };
 extern SlotModelLoader* DAT_011c3b3c;
 void FUN_00406d00(char*, unsigned int, const char*, ...);
@@ -2036,13 +2036,13 @@ bool SlotMachineMenu::LoadAssets()
         FUN_00406d00(path, 260, "%sNV_SlotMachine-Symbol%s.dds", "Textures\\terminals\\NV_SlotMachine\\", "S");
         FUN_004b7240(path, normalized, 260);
         DAT_011dea10->FUN_004568c0(normalized, &m_reelNodes[7].m_pObject, false, false);
-        machine = DAT_011c3b3c->FUN_00447080(reinterpret_cast<SlotAssets*>(DAT_011da9ac)->FUN_00504e00(7)->GetPath(), 0,
+        machine = DAT_011c3b3c->LoadModel(reinterpret_cast<SlotAssets*>(DAT_011da9ac)->FUN_00504e00(7)->GetPath(), 0,
                                              true, false, false, false);
-        reel1 = DAT_011c3b3c->FUN_00447080("Meshes\\terminals\\NV_SlotMachine\\NV_SlotMachine-Reel01.NIF", 0, true,
+        reel1 = DAT_011c3b3c->LoadModel("Meshes\\terminals\\NV_SlotMachine\\NV_SlotMachine-Reel01.NIF", 0, true,
                                            false, false, false);
-        reel2 = DAT_011c3b3c->FUN_00447080("Meshes\\terminals\\NV_SlotMachine\\NV_SlotMachine-Reel02.NIF", 0, true,
+        reel2 = DAT_011c3b3c->LoadModel("Meshes\\terminals\\NV_SlotMachine\\NV_SlotMachine-Reel02.NIF", 0, true,
                                            false, false, false);
-        reel3 = DAT_011c3b3c->FUN_00447080("Meshes\\terminals\\NV_SlotMachine\\NV_SlotMachine-Reel03.NIF", 0, true,
+        reel3 = DAT_011c3b3c->LoadModel("Meshes\\terminals\\NV_SlotMachine\\NV_SlotMachine-Reel03.NIF", 0, true,
                                            false, false, false);
         loading = false;
         return InitReels();

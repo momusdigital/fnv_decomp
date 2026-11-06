@@ -3478,13 +3478,13 @@ ExtraDismemberedLimbs::~ExtraDismemberedLimbs()
     }
 }
 
-extern "C" void __cdecl FUN_00401030(void* p);
+extern "C" void __cdecl FormHeap_Free(void* p);
 
 // @fnv 0x00430ca0
 ExtraLock::~ExtraLock()
 {
     void* p = pLock;
-    FUN_00401030(p);
+    FormHeap_Free(p);
 }
 
 extern char DAT_01183b2c;
@@ -3987,17 +3987,17 @@ bool ExtraLastFinishedSequence::FUN_00435310(BSExtraData* apExtra)
     return false;
 }
 
-void __cdecl FUN_00401030(void*);
+void __cdecl FormHeap_Free(void*);
 
 extern int DAT_01015e4c;
-extern "C" void __cdecl FUN_00401030(void*);
+extern "C" void __cdecl FormHeap_Free(void*);
 
-// Sets the vtable pointer, frees ownedSource via FUN_00401030, then calls FUN_0040ecb0.
+// Sets the vtable pointer, frees ownedSource via FormHeap_Free, then calls FUN_0040ecb0.
 // @fnv 0x004355f0
 ExtraMultiBoundData::~ExtraMultiBoundData()
 {
     void* sourceToFree = pBound;
-    FUN_00401030(sourceToFree);
+    FormHeap_Free(sourceToFree);
 }
 
 class Point3Offset

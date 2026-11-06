@@ -3150,7 +3150,7 @@ struct Node
 };
 struct Loader
 {
-    Node* FUN_00447080(const char*, int, bool, int, int, int);
+    Node* LoadModel(const char*, int, bool, int, int, int);
 };
 extern Loader* DAT_011c3b3c;
 struct Scene
@@ -3219,8 +3219,8 @@ int FUN_00a01860(const char*);
 void CaravanMenu::InitMenu()
 {
     using namespace CaravanSetup;
-    (*(Node**)((char*)this + 0x18c)) = DAT_011c3b3c->FUN_00447080(DAT_0107121c, 0, true, 0, 0, 0);
-    (*(Node**)((char*)this + 0x188)) = DAT_011c3b3c->FUN_00447080(DAT_010711e4, 0, true, 0, 0, 0);
+    (*(Node**)((char*)this + 0x18c)) = DAT_011c3b3c->LoadModel(DAT_0107121c, 0, true, 0, 0, 0);
+    (*(Node**)((char*)this + 0x188)) = DAT_011c3b3c->LoadModel(DAT_010711e4, 0, true, 0, 0, 0);
     DAT_011d91e4.FUN_00559450()->Attach((*(Node**)((char*)this + 0x188)), true);
     DAT_011d91e4.FUN_00559450()->Attach((*(Node**)((char*)this + 0x18c)), true);
     (*(Array*)((char*)this + 0x164)).FUN_008454f0(true);
@@ -3337,11 +3337,11 @@ void CaravanMenu::InitMenu()
     FUN_00406d00(labelText, 260, DAT_01012058, DAT_011d3d48.FUN_00403df0(), DAT_011d2e68.FUN_00403df0());
     (*(Tile**)((char*)this + 0x58))->FUN_00a01350(4036, labelText, true);
     (*(Tile**)((char*)this + 0x58))->FUN_00a012d0(4001, reinterpret_cast<float (__thiscall*)(Tile*, int, bool)>(ReadTileTraitWithPropagation)((*(Tile**)((char*)this + 0x58)), 4001, true) - 150.0);
-    (*(Tile**)((char*)this + 0x58))->FUN_00a07530(1);
+    (*(Tile**)((char*)this + 0x58))->SetChangeFlag(1);
     if (!FUN_004b71d0())
         (*(Tile**)((char*)this + 0x58))->FUN_00a01350(FUN_00a01860(DAT_01071358), DAT_010633a0, true);
     (*(Tile**)((char*)this + 0x5c))->FUN_00a012d0(4001, reinterpret_cast<float (__thiscall*)(Tile*, int, bool)>(ReadTileTraitWithPropagation)((*(Tile**)((char*)this + 0x5c)), 4001, true) - 150.0);
-    (*(Tile**)((char*)this + 0x5c))->FUN_00a07530(1);
+    (*(Tile**)((char*)this + 0x5c))->SetChangeFlag(1);
     (*(Tile**)((char*)this + 0x30))->FUN_00700320(4003, false);
     (*(Tile**)((char*)this + 0x34))->FUN_00700320(4003, true);
     (*(Tile**)((char*)this + 0x38))->FUN_00700320(4003, false);
@@ -3354,7 +3354,7 @@ void CaravanMenu::InitMenu()
     (*(Tile**)((char*)this + 0x64))->FUN_00a01350(4036, DAT_011d354c.FUN_00403df0(), true);
     (*(Tile**)((char*)this + 0x68))->FUN_00a01350(4036, DAT_011d2784.FUN_00403df0(), true);
     (*(Tile**)((char*)this + 0xcc))->FUN_00700320(4003, false);
-    (*(Tile**)((char*)this + 0xcc))->FUN_00a07530(4);
+    (*(Tile**)((char*)this + 0xcc))->SetChangeFlag(4);
     UpdateControls();
 }
 
@@ -3367,7 +3367,7 @@ struct TileNode
 
     void FUN_00a012d0(unsigned int, float);
 
-    void FUN_00a07530(unsigned int);
+    void SetChangeFlag(unsigned int);
 
     void SetTraitAndReset(int, float);
 
@@ -3489,7 +3489,7 @@ void CaravanMenu::UpdateCaravanMenu()
 
             pGainTile->FUN_00a012d0(0xfb1, (float)(pGainTile->FUN_00a011b0(0xfb1, 1) + DAT_0106c948));
 
-            pGainTile->FUN_00a07530(0x10);
+            pGainTile->SetChangeFlag(0x10);
         }
     }
 
@@ -15045,7 +15045,7 @@ bool __cdecl Check_00702450(int v);
 void __cdecl UpdateCardSelection();
 void __cdecl FUN_0074a270();
 void __cdecl FUN_00717de0(int v);
-void __cdecl FUN_00703e80(const char* a1, int a2, int a3, void(__cdecl* a4)(), int a5, int a6, float a7, float a8,
+void __cdecl ShowMessageBox(const char* a1, int a2, int a3, void(__cdecl* a4)(), int a5, int a6, float a7, float a8,
                           const char* a9, const char* a10, int a11);
 struct Target7490
 {
@@ -16022,7 +16022,7 @@ bool Target7490::FUN_007490e0(int aiType, int aiUnused)
         }
         else if (Check_00702450(V13()))
         {
-            FUN_00703e80(g_011d43b4.FUN_00403df0(), 0, 0, FUN_0074a270, 0, 0x17, 0.0f, 0.0f, g_011d34f8.FUN_00403df0(),
+            ShowMessageBox(g_011d43b4.FUN_00403df0(), 0, 0, FUN_0074a270, 0, 0x17, 0.0f, 0.0f, g_011d34f8.FUN_00403df0(),
                          g_011d3684.FUN_00403df0(), 0);
             SetFlag(1, 1);
             bResult = true;
@@ -16042,14 +16042,14 @@ struct MenuTile
     void FUN_00a012d0(int, float, bool);
     void SetTraitAndReset(int, float);
     MenuTile* FUN_00a03da0(const char*);
-    void FUN_00a07530(int);
+    void SetChangeFlag(int);
 };
 struct ModelNode
 {
 };
 struct Loader
 {
-    ModelNode* FUN_00447080(const char*, int, bool, bool, bool, bool);
+    ModelNode* LoadModel(const char*, int, bool, bool, bool, bool);
 };
 extern Loader* DAT_011c3b3c;
 struct SettingText
@@ -16099,15 +16099,15 @@ void CaravanMenu::FUN_0073d020()
     char path[260];
     {
         FUN_00406d00(path, 260, "%sCurrency-Bill_Grid.NIF", "Meshes\\Terminals\\NV_Caravan\\");
-        (*reinterpret_cast<ModelNode**>((reinterpret_cast<char*>(this) + 0x114))) = DAT_011c3b3c->FUN_00447080(path, 0, true, false, false, false);
+        (*reinterpret_cast<ModelNode**>((reinterpret_cast<char*>(this) + 0x114))) = DAT_011c3b3c->LoadModel(path, 0, true, false, false, false);
         FUN_00406d00(path, 260, "%sCurrency-Coin_Grid.NIF", "Meshes\\Terminals\\NV_Caravan\\");
-        (*reinterpret_cast<ModelNode**>((reinterpret_cast<char*>(this) + 0x118))) = DAT_011c3b3c->FUN_00447080(path, 0, true, false, false, false);
+        (*reinterpret_cast<ModelNode**>((reinterpret_cast<char*>(this) + 0x118))) = DAT_011c3b3c->LoadModel(path, 0, true, false, false, false);
         for (int i = 0; i < 3; i++)
         {
             FUN_00406d00(path, 260, "%sCurrency-Bill_%i.NIF", "Meshes\\Terminals\\NV_Caravan\\", i + 1);
-            (*reinterpret_cast<ModelNode* (*)[3]>((reinterpret_cast<char*>(this) + 0x128)))[i] = DAT_011c3b3c->FUN_00447080(path, 0, true, false, false, false);
+            (*reinterpret_cast<ModelNode* (*)[3]>((reinterpret_cast<char*>(this) + 0x128)))[i] = DAT_011c3b3c->LoadModel(path, 0, true, false, false, false);
             FUN_00406d00(path, 260, "%sCurrency-Coin_%i.NIF", "Meshes\\Terminals\\NV_Caravan\\", i + 1);
-            (*reinterpret_cast<ModelNode* (*)[3]>((reinterpret_cast<char*>(this) + 0x11c)))[i] = DAT_011c3b3c->FUN_00447080(path, 0, true, false, false, false);
+            (*reinterpret_cast<ModelNode* (*)[3]>((reinterpret_cast<char*>(this) + 0x11c)))[i] = DAT_011c3b3c->LoadModel(path, 0, true, false, false, false);
         }
         (*reinterpret_cast<int*>((reinterpret_cast<char*>(this) + 0x28))) = 0;
         (*reinterpret_cast<int*>((reinterpret_cast<char*>(this) + 0x2c))) = 0;
@@ -16136,7 +16136,7 @@ void CaravanMenu::FUN_0073d020()
         if (info)
         {
             info->FUN_00a012d0(0xfb1, info->FUN_00a011b0(0xfb1) + 150.0, true);
-            info->FUN_00a07530(16);
+            info->SetChangeFlag(16);
         }
         (*reinterpret_cast<MenuTile**>((reinterpret_cast<char*>(this) + 0x40)))->FUN_00a01350(0xfc4, (*reinterpret_cast<NameView**>((reinterpret_cast<char*>(this) + 0x100)))->FUN_0055d520(), true);
         (*reinterpret_cast<MenuTile**>((reinterpret_cast<char*>(this) + 0x40)))->SetTraitAndReset(DAT_011d9174, 1.0f);
@@ -18644,7 +18644,7 @@ struct SceneRoot
 struct ModelLoader
 {
     void FUN_0045a5e0(const char* path);
-    SceneNode* FUN_00447080(const char* path, int a, int b, int c, int d, int e);
+    SceneNode* LoadModel(const char* path, int a, int b, int c, int d, int e);
 };
 struct UiTile
 {
@@ -18655,7 +18655,7 @@ struct UiTile
     UiTile* FUN_00a03da0(const char* name);
     float FUN_00a011b0(int id, int flag);
     void FUN_00a012d0(int id, float value);
-    void FUN_00a07530(int value);
+    void SetChangeFlag(int value);
 };
 struct GameSetting
 {
@@ -18813,11 +18813,11 @@ void CaravanMenu::FUN_0073ea90()
         {
             FUN_00406d00(szModel, 0x104, "%sPlayer_%i_0%i.NIF", "Meshes\\Terminals\\NV_Caravan\\", iSide + 1,
                          iCard + 1);
-            (*reinterpret_cast<SceneNode* (*)[6][7]>((reinterpret_cast<char*>(this) + 0x198)))[iSide][iCard] = DAT_011c3b3c->FUN_00447080(szModel, 0, 1, 0, 0, 0);
+            (*reinterpret_cast<SceneNode* (*)[6][7]>((reinterpret_cast<char*>(this) + 0x198)))[iSide][iCard] = DAT_011c3b3c->LoadModel(szModel, 0, 1, 0, 0, 0);
             DAT_011d91e4.FUN_00559450()->AttachChildInAvailableSlot((*reinterpret_cast<SceneNode* (*)[6][7]>((reinterpret_cast<char*>(this) + 0x198)))[iSide][iCard], 1);
             FUN_00406d00(szModel, 0x104, "%sOpponent_%i_0%i.NIF", "Meshes\\Terminals\\NV_Caravan\\", iSide + 1,
                          iCard + 1);
-            (*reinterpret_cast<SceneNode* (*)[6][7]>((reinterpret_cast<char*>(this) + 0x198)))[iSide + 3][iCard] = DAT_011c3b3c->FUN_00447080(szModel, 0, 1, 0, 0, 0);
+            (*reinterpret_cast<SceneNode* (*)[6][7]>((reinterpret_cast<char*>(this) + 0x198)))[iSide + 3][iCard] = DAT_011c3b3c->LoadModel(szModel, 0, 1, 0, 0, 0);
             DAT_011d91e4.FUN_00559450()->AttachChildInAvailableSlot((*reinterpret_cast<SceneNode* (*)[6][7]>((reinterpret_cast<char*>(this) + 0x198)))[iSide + 3][iCard], 1);
         }
     }
@@ -18825,22 +18825,22 @@ void CaravanMenu::FUN_0073ea90()
     for (int iGrid = 0; iGrid < 3; iGrid++)
     {
         FUN_00406d00(szModel, 0x104, "%sPlayerGrid_%i.NIF", "Meshes\\Terminals\\NV_Caravan\\", iGrid + 1);
-        (*reinterpret_cast<SceneNode* (*)[3]>((reinterpret_cast<char*>(this) + 0xe54)))[iGrid] = DAT_011c3b3c->FUN_00447080(szModel, 0, 1, 0, 0, 0);
+        (*reinterpret_cast<SceneNode* (*)[3]>((reinterpret_cast<char*>(this) + 0xe54)))[iGrid] = DAT_011c3b3c->LoadModel(szModel, 0, 1, 0, 0, 0);
         FUN_00406d00(szModel, 0x104, "%sOppGrid_%i.NIF", "Meshes\\Terminals\\NV_Caravan\\", iGrid + 1);
-        (*reinterpret_cast<SceneNode* (*)[3]>((reinterpret_cast<char*>(this) + 0xe60)))[iGrid] = DAT_011c3b3c->FUN_00447080(szModel, 0, 1, 0, 0, 0);
+        (*reinterpret_cast<SceneNode* (*)[3]>((reinterpret_cast<char*>(this) + 0xe60)))[iGrid] = DAT_011c3b3c->LoadModel(szModel, 0, 1, 0, 0, 0);
     }
 
     FUN_00406d00(szModel, 0x104, "%sSelect_Add.NIF", "Meshes\\Terminals\\NV_Caravan\\");
-    (*reinterpret_cast<SceneNode**>((reinterpret_cast<char*>(this) + 0xe6c))) = DAT_011c3b3c->FUN_00447080(szModel, 0, 1, 0, 0, 0);
+    (*reinterpret_cast<SceneNode**>((reinterpret_cast<char*>(this) + 0xe6c))) = DAT_011c3b3c->LoadModel(szModel, 0, 1, 0, 0, 0);
     DAT_011d91e4.FUN_00559450()->AttachChildInAvailableSlot((*reinterpret_cast<SceneNode**>((reinterpret_cast<char*>(this) + 0xe6c))), 1);
     FUN_00406d00(szModel, 0x104, "%sSelect_Remove.NIF", "Meshes\\Terminals\\NV_Caravan\\");
-    (*reinterpret_cast<SceneNode**>((reinterpret_cast<char*>(this) + 0xe70))) = DAT_011c3b3c->FUN_00447080(szModel, 0, 1, 0, 0, 0);
+    (*reinterpret_cast<SceneNode**>((reinterpret_cast<char*>(this) + 0xe70))) = DAT_011c3b3c->LoadModel(szModel, 0, 1, 0, 0, 0);
     DAT_011d91e4.FUN_00559450()->AttachChildInAvailableSlot((*reinterpret_cast<SceneNode**>((reinterpret_cast<char*>(this) + 0xe70))), 1);
 
     FUN_00406d00(szModel, 0x104, "%s%s", "Meshes\\Terminals\\NV_Caravan\\", "Player_Deck.NIF");
-    (*reinterpret_cast<SceneNode* (*)[2]>((reinterpret_cast<char*>(this) + 0x190)))[0] = DAT_011c3b3c->FUN_00447080(szModel, 0, 1, 0, 0, 0);
+    (*reinterpret_cast<SceneNode* (*)[2]>((reinterpret_cast<char*>(this) + 0x190)))[0] = DAT_011c3b3c->LoadModel(szModel, 0, 1, 0, 0, 0);
     FUN_00406d00(szModel, 0x104, "%s%s", "Meshes\\Terminals\\NV_Caravan\\", "Opponent_Deck.NIF");
-    (*reinterpret_cast<SceneNode* (*)[2]>((reinterpret_cast<char*>(this) + 0x190)))[1] = DAT_011c3b3c->FUN_00447080(szModel, 0, 1, 0, 0, 0);
+    (*reinterpret_cast<SceneNode* (*)[2]>((reinterpret_cast<char*>(this) + 0x190)))[1] = DAT_011c3b3c->LoadModel(szModel, 0, 1, 0, 0, 0);
     DAT_011d91e4.FUN_00559450()->AttachChildInAvailableSlot((*reinterpret_cast<SceneNode* (*)[2]>((reinterpret_cast<char*>(this) + 0x190)))[0], 1);
     DAT_011d91e4.FUN_00559450()->AttachChildInAvailableSlot((*reinterpret_cast<SceneNode* (*)[2]>((reinterpret_cast<char*>(this) + 0x190)))[1], 1);
 
@@ -18963,7 +18963,7 @@ void CaravanMenu::FUN_0073ea90()
     {
         pInfoRect->FUN_00a012d0(0xfb1, pInfoRect->FUN_00a011b0(0xfb1, 1) + DAT_0106c948);
         pInfoRect->FUN_00a012d0(0xfa1, pInfoRect->FUN_00a011b0(0xfa1, 1) - DAT_0106c948);
-        pInfoRect->FUN_00a07530(0x11);
+        pInfoRect->SetChangeFlag(0x11);
     }
 
     (*reinterpret_cast<UiTile**>((reinterpret_cast<char*>(this) + 0x88)))->FUN_00a01350(0xfc4, DAT_011d1fec.FUN_00403df0(), 1);

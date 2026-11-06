@@ -8153,7 +8153,7 @@ extern double DAT_01012060;
 extern double DAT_01012070;
 extern float DAT_010718c0;
 
-void* __cdecl FUN_00401000(unsigned int a1);
+void* __cdecl FormHeap_Allocate(unsigned int a1);
 extern NiPoint3 DAT_011f426c;
 struct ListHead
 {

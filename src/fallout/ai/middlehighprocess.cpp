@@ -2927,7 +2927,7 @@ void FUN_009287e0_shell::FUN_009287e0(Actor* apActor)
 MemoryManager* __cdecl FUN_00401020(void);
 
 // @fnv 0x00401000
-void* __cdecl FUN_00401000(unsigned int size)
+void* __cdecl FormHeap_Allocate(unsigned int size)
 {
     return FUN_00401020()->Allocate(size);
 }
@@ -14635,7 +14635,7 @@ struct P114RefOps
     P114RefOps** FUN_006815c0();
     TESObjectREFR* FUN_0041c8d0();
     TESObjectREFR* FUN_0067f390();
-    void* FUN_0055d310();
+    void* GetContainer();
     TESBoundObject* FUN_007af430();
     unsigned int FUN_004459e0(unsigned int);
 };
@@ -14944,7 +14944,7 @@ void P114Process::FUN_00916df0(Actor* actor)
                 TESObjectREFR* ba = i->FUN_0055b980()->FUN_0067f390();
                 if (!ba)
                     ba = m_pReference40;
-                if (ba && ((P114RefOps*)ba)->FUN_0055d310())
+                if (ba && ((P114RefOps*)ba)->GetContainer())
                 {
                     ((P114ActorOps*)actor)->FUN_00892e90(item2->FUN_0044ddc0(), c, ba, i->FUN_00672930(), q);
                 }
@@ -21094,7 +21094,7 @@ extern int DAT_01183a1c;
 
 extern "C" Timer* __cdecl FUN_004839c0(int);
 extern "C" int __cdecl FUN_0048e8a0(int);
-extern "C" void __cdecl FUN_005ac750(void*, void*, int);
+extern "C" void __cdecl MarkBaseExtraListScriptEvent(void*, void*, int);
 extern "C" int __cdecl FUN_00ec43fb(int, int, void*, void*, int);
 
 struct Proc
@@ -21231,7 +21231,7 @@ void Proc::ProcessActorInteraction(Actor* target)
                 }
                 void* extra = 0;
                 extra = task64->extra;
-                FUN_005ac750(created, extra, 0x4000);
+                MarkBaseExtraListScriptEvent(created, extra, 0x4000);
             }
             {
                 Task* deletingTask = task64;
@@ -24815,7 +24815,7 @@ struct EquipActor
     virtual void v123();
     virtual void v124();
     virtual void* GetPosition();
-    void FUN_0088c790(EquipWeapon*, int, int, int, int, int);
+    void UnequipItem(EquipWeapon*, int, int, int, int, int);
     unsigned short FUN_00897910(unsigned int, EquipEntry*, bool, EquipAnim*, int, int, int);
     EquipAnim* FUN_00950a60(int);
     void GetWeaponObject();
@@ -25360,7 +25360,7 @@ void EquipProcess::UpdateEquipVisuals(bool draw, EquipRef* reference, EquipAnim*
     {
         model3->SetVisible(0);
         if (!DAT_011de45c->FUN_0047c850())
-            actor->FUN_0088c790(entry->FUN_0044ddc0(), 1, 0, 0, 0, 1);
+            actor->UnequipItem(entry->FUN_0044ddc0(), 1, 0, 0, 0, 1);
     }
     else if (!model3 && entry && DAT_011ddf38->FUN_0042ce10())
     {
@@ -35674,7 +35674,7 @@ void FUN_00703180();
 
 unsigned char UpdateEffectShaderOnActor(Actor*, unsigned char);
 
-void FUN_005ac750(shared_types::TESPackage*, void*, int);
+void MarkBaseExtraListScriptEvent(shared_types::TESPackage*, void*, int);
 
 // ProcedureProcess's own virtual calls: slots 520 on of the MiddleHighProcess vtable as this view declares them
 struct ProcedureProcessSlots : MiddleLowProcess
@@ -36214,7 +36214,7 @@ void ProcedureProcess::FUN_00919f60(ProcedureActor* apActor)
                     ((PackageProcedureAccess*)p)->FUN_00678610())
                 {
 
-                    FUN_005ac750(p, h->FUN_005d43c0(), 0x400);
+                    MarkBaseExtraListScriptEvent(p, h->FUN_005d43c0(), 0x400);
 
                     OnPackageEnd(h, (::TESPackage*)p);
 
@@ -39159,7 +39159,7 @@ struct Actor70
     void FUN_0092c680();
     void* FUN_008d6f30();
     void* FUN_00575d70();
-    void FUN_0088c790(int);
+    void UnequipItem(int);
     bool FUN_0094df60();
     float FUN_00567400();
     void FUN_00931d30(float);
@@ -39279,7 +39279,7 @@ void Actor70::FUN_00919320(Actor70* actor, bool checkReach, bool finish, int act
             Anim70* animation = Anim();
 
             if (animation)
-                actor->FUN_0088c790(animation->FUN_0044ddc0(1, 0, 0, 0, 1));
+                actor->UnequipItem(animation->FUN_0044ddc0(1, 0, 0, 0, 1));
         }
 
         if (objectRef19 && objectRef19->FUN_00568680())
@@ -40332,7 +40332,7 @@ struct UseRef
     float FUN_005723b0(UseRef* apRef, int a2, int a3);
     UseProcess* FUN_008d8520();
     void FUN_0087faa0();
-    int FUN_0055d310();
+    int GetContainer();
 };
 
 struct UseExtraList
@@ -40756,7 +40756,7 @@ bool UseProcess::FUN_0091c810(UseRef* apActor)
                 UseRef* pLocationCur = pPackage->FUN_0055b980()->FUN_0067f390();
                 if (!pLocationCur)
                     pLocationCur = m_pReference40;
-                if (pLocationCur && pLocationCur->FUN_0055d310())
+                if (pLocationCur && pLocationCur->GetContainer())
                 {
                     apActor->FUN_00892e90(
                         pEntryOut->FUN_0044ddc0(pXData, pLocationCur, pPackage->FUN_00672930(), pOwner));
@@ -40792,7 +40792,7 @@ bool UseProcess::FUN_0091c810(UseRef* apActor)
                         pEntryOut = apActor->FUN_00576260(m_pDetectionData60->pItem, 0);
                         delete m_pDetectionData60;
                         m_pDetectionData60 = 0;
-                        if (pLocationCur && pLocationCur->FUN_0055d310())
+                        if (pLocationCur && pLocationCur->GetContainer())
                         {
                             apActor->FUN_00892e90(
                                 pEntryOut->FUN_0044ddc0(pXData, pLocationCur, pPackage->FUN_00672930(), pOwner));

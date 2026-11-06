@@ -71,7 +71,7 @@ struct LoadingFontDimensions : FontManager
 // Tile.h does not yet declare this text-layout finalization entry point.
 struct LoadingStatsTile : Tile
 {
-    void FUN_00a0b520();
+    void ApplyRotationOnChildren();
 };
 
 InterfaceManager* FUN_004b7210();
@@ -2051,12 +2051,12 @@ void LoadingMenu::ApplyXPBarSettings(LoadingTileSettingsX* apSettings)
                 pTile->Set(0xfb3, apSettings->fGreen, true);
                 pTile->Set(0xfb4, apSettings->fBlue, true);
                 pTile->SetInt(0xff5, -1);
-                pTile->FUN_00a07530(8);
+                pTile->SetChangeFlag(8);
             }
         }
     }
     m_pTiles[16]->Set(0xffa, apSettings->fAlpha, true);
-    static_cast<LoadingStatsTile*>(m_pTiles[16])->FUN_00a0b520();
+    static_cast<LoadingStatsTile*>(m_pTiles[16])->ApplyRotationOnChildren();
 }
 
 class Base_b7116
@@ -2303,8 +2303,8 @@ void LoadingMenu::ApplySettings(LoadingStatsSettings* settings)
                 firstTile->Set(0xfa2, y, true);
                 secondTile->Set(0xfa2, y, true);
                 y += spacing;
-                static_cast<LoadingStatsTile*>(firstTile)->FUN_00a07530(8);
-                static_cast<LoadingStatsTile*>(secondTile)->FUN_00a07530(8);
+                static_cast<LoadingStatsTile*>(firstTile)->SetChangeFlag(8);
+                static_cast<LoadingStatsTile*>(secondTile)->SetChangeFlag(8);
                 ++uiIndex;
             }
             else
@@ -2316,7 +2316,7 @@ void LoadingMenu::ApplySettings(LoadingStatsSettings* settings)
         }
     }
     static_cast<LoadingStatsTile*>(m_pTiles[31])->Set(0xffa, settings->first.fAlpha, true);
-    static_cast<LoadingStatsTile*>(m_pTiles[31])->FUN_00a0b520();
+    static_cast<LoadingStatsTile*>(m_pTiles[31])->ApplyRotationOnChildren();
 }
 
 struct Extent
@@ -2386,7 +2386,7 @@ void LoadingMenu::UpdateMenuTiles(Options* options)
                 tile->Set(0xfb3, options->value2, true);
                 tile->Set(0xfb4, options->value3, true);
                 tile->SetInt(0xff5, -1);
-                tile->FUN_00a07530(8);
+                tile->SetChangeFlag(8);
             }
             else if (tile == m_pTiles[3])
             {
@@ -2400,7 +2400,7 @@ void LoadingMenu::UpdateMenuTiles(Options* options)
         }
     }
     m_pTiles[27]->Set(0xffa, options->alpha, true);
-    static_cast<LoadingStatsTile*>(m_pTiles[27])->FUN_00a0b520();
+    static_cast<LoadingStatsTile*>(m_pTiles[27])->ApplyRotationOnChildren();
 }
 
 // @fnv 0x0078ce10

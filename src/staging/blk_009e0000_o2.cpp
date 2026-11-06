@@ -1233,7 +1233,7 @@ int __stdcall FUN_009fa120(int a, int b, int* apOut)
     return 0x80004002;
 }
 
-int __cdecl FUN_00401030(int);
+int __cdecl FormHeap_Free(int);
 
 class SubA4
 {
@@ -1266,7 +1266,7 @@ class FUN_009fa1f0_cls
 // @fnv 0x009fa1f0
 FUN_009fa1f0_cls::~FUN_009fa1f0_cls()
 {
-    FUN_00401030(m_14);
+    FormHeap_Free(m_14);
 }
 
 struct S_009fa2f0_table
@@ -4454,7 +4454,7 @@ struct S9fcc60_Base
     __declspec(nothrow) void FUN_009fb170();
 };
 
-__declspec(nothrow) void* __cdecl FUN_00401000(unsigned int size);
+__declspec(nothrow) void* __cdecl FormHeap_Allocate(unsigned int size);
 extern "C" __declspec(dllimport) __declspec(nothrow) void* __stdcall VirtualAlloc(void* address, unsigned int size,
                                                                                   unsigned int allocationType,
                                                                                   unsigned int protect);
@@ -4499,7 +4499,7 @@ int S9fcc60_Alloc::FUN_009fcc60()
     for (; m_lAllocated < m_lCount; m_lAllocated++, pBlock += lAlignedSize)
     {
         int hr;
-        S9fcc60_Sample* mem = (S9fcc60_Sample*)FUN_00401000(0x48);
+        S9fcc60_Sample* mem = (S9fcc60_Sample*)FormHeap_Allocate(0x48);
         pSample = mem ? mem->FUN_009fcb50(0, this, &hr, pBlock + m_lPrefix, m_lSize) : 0;
         if (pSample == 0)
         {
@@ -4630,7 +4630,7 @@ struct FUN_009fd200_list
     int freeCount;
     FUN_009fd200_node* freeHead;
 };
-void __cdecl FUN_00401030(void* p);
+void __cdecl FormHeap_Free(void* p);
 class FUN_009fd200_cls
 {
   public:
@@ -4671,7 +4671,7 @@ unsigned int FUN_009fd200_cls::RemoveNode(FUN_009fd200_node* node)
         }
         else
         {
-            FUN_00401030(node);
+            FormHeap_Free(node);
         }
         int* pCount = &list->count;
         *pCount -= 1;
@@ -5513,7 +5513,7 @@ long AsyncIoStandIn::StartThread()
 
 namespace fnv_009fe870 {
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(void* pkSection);
-void __cdecl FUN_00401030(void* pvMemory);  // free
+void __cdecl FormHeap_Free(void* pvMemory);  // free
 
 class OwnedLock
 {
@@ -5566,7 +5566,7 @@ class FUN_009fe870
     class FUN_009fcfe0 m_kHandle7c;  // +0x7c
 };
 
-// Destructor that calls FUN_009fe690 and FUN_009fe0c0, then frees every item in m_kListB via FUN_00401030 and clears the list.
+// Destructor that calls FUN_009fe690 and FUN_009fe0c0, then frees every item in m_kListB via FormHeap_Free and clears the list.
 // @fnv 0x009fe870
 FUN_009fe870::~FUN_009fe870()
 {
@@ -5574,7 +5574,7 @@ FUN_009fe870::~FUN_009fe870()
     FUN_009fe0c0();
     void* pvPos = m_kListB.m_pvHead;
     while (pvPos)
-        FUN_00401030(m_kListB.PopAndGetValue(pvPos));
+        FormHeap_Free(m_kListB.PopAndGetValue(pvPos));
     m_kListB.ClearList();
 }
 }  // namespace fnv_009fe870

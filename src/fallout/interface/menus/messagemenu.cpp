@@ -525,7 +525,7 @@ struct Message
 };
 void* __cdecl operator new(unsigned int);
 void __cdecl operator delete(void*);
-void* FUN_00401000(unsigned int);
+void* FormHeap_Allocate(unsigned int);
 int FUN_0044a670(const char*);
 void FUN_00406d30(char*, unsigned int, const char*);
 int FUN_00408b20(const char*, const char*);

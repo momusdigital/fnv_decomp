@@ -817,7 +817,7 @@ void InventoryMenu::UpdateItemDisplay(int action, Tile* changed)
                 m_pTiles[11]->FUN_00a012d0(0xfb1, InventorySelection::DAT_01072e3c, 1);
                 m_pTiles[11]->FUN_00a012d0(0xfb0, InventorySelection::DAT_01072e3c, 1);
             }
-            m_pTiles[11]->FUN_00a07530(17);
+            m_pTiles[11]->SetChangeFlag(17);
             char path[260];
             InventorySelection::FUN_00406d30(path, 260, InventorySelection::DAT_0106eb24);
             unsigned int prefixLengthSlot0 = InventorySelection::FUN_0044a670(path);
@@ -1050,12 +1050,12 @@ void __fastcall RefreshInventorySelection(InventoryMenu* menu)
     else if (!((Sh004bddd0*)DAT_011d9ea8)->FUN_004bddd0(false))
     {
         g_thePlayer
-            ->FUN_0088c650(static_cast<TESForm*>(a), (int)((InventoryEntryCountAccess*)DAT_011d9ea8)->FUN_00726070(), static_cast<ExtraDataList*>(b), false, false, true);
+            ->EquipItem(static_cast<TESForm*>(a), (int)((InventoryEntryCountAccess*)DAT_011d9ea8)->FUN_00726070(), static_cast<ExtraDataList*>(b), false, false, true);
     }
     else
     {
         g_thePlayer
-            ->FUN_0088c790(reinterpret_cast<int>(a), (int)((InventoryEntryCountAccess*)DAT_011d9ea8)->FUN_00726070(), reinterpret_cast<int>(b), false, false, true);
+            ->UnequipItem(reinterpret_cast<int>(a), (int)((InventoryEntryCountAccess*)DAT_011d9ea8)->FUN_00726070(), reinterpret_cast<int>(b), false, false, true);
     }
 
 done:

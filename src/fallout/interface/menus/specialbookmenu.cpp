@@ -623,7 +623,7 @@ bool SPECIALBookMenu::FUN_007c9dc0(bool forward)
 }
 
 extern "C" void* __cdecl FUN_00aa13e0(unsigned int size);
-extern "C" void* __cdecl FUN_00401000(unsigned int size);
+extern "C" void* __cdecl FormHeap_Allocate(unsigned int size);
 
 void __cdecl CallVfunc60WithGlobalOffset(void* p);
 void __cdecl FUN_007cabb0(void* p);
@@ -730,7 +730,7 @@ struct BkScene
 };
 struct BkLoader
 {
-    NiNode* FUN_00447080(const char* path, int a, int b, int c, int d, int e);
+    NiNode* LoadModel(const char* path, int a, int b, int c, int d, int e);
 };
 
 struct BkItemBase
@@ -793,7 +793,7 @@ void SPECIALBookMenu::InitMenu()
     BkDisplay* kMsg;
 
     DAT_011daa38->m_pReferencedNode =
-        DAT_011c3b3c->FUN_00447080("Meshes\\Terminals\\Babybook02.NIF", 0, 1, 0, 0, 0);
+        DAT_011c3b3c->LoadModel("Meshes\\Terminals\\Babybook02.NIF", 0, 1, 0, 0, 0);
     FUN_004b7660(DAT_011daa38->m_pReferencedNode);
     DAT_011daa38->m_pReferencedNode->FUN_00440490(0.05f);
     DAT_011daa38->m_pReferencedNode->FUN_004bc1f0(0.0f, 0.0f, -60.0f);

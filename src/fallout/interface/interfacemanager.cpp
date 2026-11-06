@@ -1070,12 +1070,12 @@ float __cdecl FUN_00715da0()
 
 
 extern TES* g_TES;
-void __cdecl FUN_007ffe00();
+void __cdecl PurgeTerminalModel();
 
 // @fnv 0x007160b0
 void __fastcall FUN_007160b0(InterfaceManager* pThis)
 {
-    FUN_007ffe00();
+    PurgeTerminalModel();
     pThis->FUN_00586150()->ClearTextures();
     MapMenu::OpenMap();
     g_TES->SetTESActive(true);
@@ -2277,7 +2277,7 @@ int FUN_0070ede0();
 bool FUN_0070edf0();
 int FUN_00458030();
 void* FUN_0076bfe0();
-void FUN_00784c80();
+void ShowLevelUpMenu();
 bool FUN_0070ed10();
 void FUN_0070ed20(int);
 bool FUN_007024e0();
@@ -2515,7 +2515,7 @@ void FUN_0070c4a0_shell::UpdateInterface()
         }
         if (DAT_011d8905)
         {
-            FUN_00784c80();
+            ShowLevelUpMenu();
             DAT_011d8905 = false;
         }
         g_thePlayer->FUN_0095d090();
@@ -4183,7 +4183,7 @@ struct MapMenuHelper
 
 struct MenuCloser
 {
-    void FUN_007ffd50();
+    void Close();
 };
 void __fastcall FUN_0070bbc0(BSAudio*);
 void __cdecl HandleMenuKeyInput();
@@ -4211,7 +4211,7 @@ void FUN_0070ee80_shell::UpdatePipboyWaiver()
         }
         else if (InterfaceHelper::GetSelectedTargetIndex(0x421) || InterfaceHelper::GetSelectedTargetIndex(0x41f))
         {
-            (*(MenuCloser**)((char*)this + 0x16c))->FUN_007ffd50();
+            (*(MenuCloser**)((char*)this + 0x16c))->Close();
         }
         else
         {

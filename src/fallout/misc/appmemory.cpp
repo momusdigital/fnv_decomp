@@ -160,7 +160,7 @@ int StateMachine::RunStep(void* context, unsigned int step, bool* finished)
         if (DAT_011f11a0.FUN_0078d200())
         {
             FUN_00868d70(1);
-            DAT_011f11a0.FUN_0040fba0();
+            DAT_011f11a0.Leave();
         }
     case 3:
         FUN_00c459d0(1);

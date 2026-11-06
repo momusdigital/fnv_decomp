@@ -108,7 +108,7 @@ class RegionPoint
 };
 int FUN_0096a820(int);
 extern int* DAT_011a3ff0[];
-void FUN_005ac750(TESForm*, ExtraDataList*, unsigned int);
+void MarkBaseExtraListScriptEvent(TESForm*, ExtraDataList*, unsigned int);
 void HandleMobileObjectResult(unsigned int, bool);
 
 
@@ -5153,7 +5153,7 @@ struct Ref57
     bool FUN_00493bb0();
     float FUN_00568ad0();
     void* FUN_00575ca0();
-    void* FUN_0055d310();
+    void* GetContainer();
     int FUN_00575590(int, int);
     FUN_004459e0_Entry57* FUN_005754a0(int, int);
 };
@@ -5332,7 +5332,7 @@ bool __cdecl CheckPackageMatch(Ref57* ref, long aTargetRef)
                             record101->form = base14->form;
                             record101->ref = ref;
                             record101->inventory = 1;
-                            void* container = ref->FUN_0055d310();
+                            void* container = ref->GetContainer();
                             if (container)
                             {
                                 Inventory57* changes = FUN_004bf220(ref);
@@ -5375,7 +5375,7 @@ bool __cdecl CheckPackageMatch(Ref57* ref, long aTargetRef)
                         record101->form = entry->FUN_0044ddc0();
                         record101->ref = ref;
                         record101->inventory = 1;
-                        void* otherContainer = ref->FUN_0055d310();
+                        void* otherContainer = ref->GetContainer();
                         if (otherContainer)
                         {
                             Inventory57* otherChanges = FUN_004bf220(ref);
@@ -6033,7 +6033,7 @@ struct R : Pads<18, Empty>
     P* FUN_00881450();
 };
 int FUN_0096a820(int);
-bool FUN_005ac750(P*, E*, unsigned);
+bool MarkBaseExtraListScriptEvent(P*, E*, unsigned);
 int FUN_008c6ca0(int);
 // @fnv 0x00907ab0
 bool LowProcess::TrySelectTarget(Actor* ref, TESPackage** ppOut)
@@ -6050,7 +6050,7 @@ bool LowProcess::TrySelectTarget(Actor* ref, TESPackage** ppOut)
             {
                 int c5 = FUN_0096a820(a->FUN_009611e0());
                 reinterpret_cast<R*>(ref)->FUN_005d43c0()->FUN_0041cae0(c5 - 1);
-                FUN_005ac750(a, reinterpret_cast<R*>(ref)->FUN_005d43c0(), 0x400);
+                MarkBaseExtraListScriptEvent(a, reinterpret_cast<R*>(ref)->FUN_005d43c0(), 0x400);
                 OnPackageEnd(ref, reinterpret_cast<TESPackage*>(a));
                 SetProcessModeEnabled(true);
                 SetProcessConditionMet(true);
@@ -7602,7 +7602,7 @@ struct InventoryEntry
 
 struct AcquireRef : TESObjectREFR
 {
-    int FUN_0055d310();
+    int GetContainer();
     TESBoundObject* FUN_007af430();
 };
 
@@ -7941,7 +7941,7 @@ void LowProcess::FUN_00909430(Actor* actor)
                 AcquireRef* location = packageNum->FUN_0055b980()->FUN_0067f390();
                 if (location == 0)
                     location = (AcquireRef*)m_pReference40;
-                if (location != 0 && location->FUN_0055d310())
+                if (location != 0 && location->GetContainer())
                 {
                     static_cast<AcquireActor*>(actor)->FUN_00892e90(entry->FUN_0044ddc0(xData, location, packageNum->FUN_00672930(), ownerTmp));
                 }

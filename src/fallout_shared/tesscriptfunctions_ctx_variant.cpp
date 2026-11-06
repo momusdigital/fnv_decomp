@@ -56,7 +56,7 @@ extern Actor* g_thePlayer;
 void FUN_00704af0();
 
 // @fnv 0x005d0300
-bool FUN_005d0300(const ScriptParameter* param, const char* desc, TESObjectREFR* obj, TESObjectREFR* obj2,
+bool Cmd_UnequipItem_Execute(const ScriptParameter* param, const char* desc, TESObjectREFR* obj, TESObjectREFR* obj2,
                   Script* script, ScriptLocals* locals, double& result, unsigned int& opcode)
 {
     TESForm* pForm = 0;
@@ -85,7 +85,7 @@ bool FUN_005d0300(const ScriptParameter* param, const char* desc, TESObjectREFR*
                     if (pExtra)
                     {
                         pExtra->FUN_0041ab70(false);
-                        pActor->FUN_0088c790(pForm, 1, 0, 1, bSet, 1);
+                        pActor->UnequipItem(pForm, 1, 0, 1, bSet, 1);
                         if (pActor == g_thePlayer && iFlag == 0)
                         {
                             BSStringT<char> str;

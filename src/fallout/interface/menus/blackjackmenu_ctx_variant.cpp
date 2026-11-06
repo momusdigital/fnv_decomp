@@ -342,7 +342,7 @@ extern NiPointer<NiNode> DAT_011d90bc;
 extern int DAT_011f36ac;
 struct Loader90
 {
-    NiNode* FUN_00447080(const char*, int, int, int, int, int);
+    NiNode* LoadModel(const char*, int, int, int, int, int);
 };
 extern Loader90* DAT_011c3b3c;
 NiNode* __cdecl FUN_004aae30(NiNode*, const char*);

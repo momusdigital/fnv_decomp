@@ -671,7 +671,7 @@ struct BlkInterfaceView
     static void __cdecl PrintDebugMessage();
 };
 // @fnv 0x0040fba0
-void __thiscall RecursiveSpinLock::FUN_0040fba0()
+void __thiscall RecursiveSpinLock::Leave()
 {
     BlkInterfaceView::PrintDebugMessage();
     --m_uiRecursionCount;

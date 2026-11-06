@@ -639,7 +639,7 @@ ScriptLocals* Script::GetOrCreateScriptLocals()
 }
 
 // @fnv 0x005ac190
-void __cdecl FUN_005ac190(TESObjectREFR* ownerObject, ExtraDataList* apExtra)
+void __cdecl DoCheckScriptRunnerAndRun(TESObjectREFR* ownerObject, ExtraDataList* apExtra)
 {
     if (apExtra && apExtra->FUN_00418830())
     {
@@ -758,7 +758,7 @@ ScriptReferencedObject* Script::GetReferencedForm(unsigned int aiIndex, ScriptLo
 
 // If apExtra has script locals, forwards apActionForm and aiFlag to the locals' FUN_005a8e20 and returns its result; otherwise returns false.
 // @fnv 0x005ac750
-bool __cdecl FUN_005ac750(TESForm* apActionForm, ExtraDataList* apExtra, unsigned int aiFlag)
+bool __cdecl MarkBaseExtraListScriptEvent(TESForm* apActionForm, ExtraDataList* apExtra, unsigned int aiFlag)
 {
     bool bres = false;
     if (apExtra && apExtra->FUN_00418830())

@@ -206,7 +206,7 @@ class FUN_00b276f0_cls
 
     void Reset();
 };
-extern void __cdecl FUN_00401030(void* p);
+extern void __cdecl FormHeap_Free(void* p);
 // InitBuffer
 extern "C" int __cdecl FUN_00b2e4a0(unsigned int count, int flag);
 extern "C" void __cdecl FUN_00b0fb80();
@@ -312,7 +312,7 @@ struct Hldr0044
     void Init(unsigned int* p);
 };
 extern "C" void __stdcall FUN_00ec7894(Hldr0044* p, void* dat);
-extern "C" void __cdecl FUN_00401000(unsigned int scaled);
+extern "C" void __cdecl FormHeap_Allocate(unsigned int scaled);
 extern "C" int DAT_01140ef8;
 extern "C" int DAT_010176f8;
 // @fnv 0x00b35f00
@@ -336,7 +336,7 @@ extern "C" void __cdecl FUN_00b35f00(unsigned int n)
         }
     }
 
-    FUN_00401000(n * 2);
+    FormHeap_Allocate(n * 2);
 }
 
 struct FUN_00b31270
@@ -928,7 +928,7 @@ void B30Owner::FUN_00b30c80(unsigned short usType)
     for (p = 0; p < FUN_00b0a9a0(usType); p++)
     {
         a = m_kLists[usType][p];
-        FUN_00401030(a);
+        FormHeap_Free(a);
         m_kLists[usType][p] = 0;
     }
 }
@@ -2741,7 +2741,7 @@ record_model::FUN_00b2e680* __cdecl FUN_00b2e500(record_model::FUN_00b2e680* _Fi
     return _Result;
 }
 
-void FUN_00401030(void* p);
+void FormHeap_Free(void* p);
 inline void* operator new(unsigned int, void* p)
 {
     return p;
@@ -2765,7 +2765,7 @@ inline void Del(FUN_00b2e740* p, unsigned int f)
     StrY* q = &p->s;
     q->FUN_0044a730(true, 0);
     if (f & 1)
-        FUN_00401030(p);
+        FormHeap_Free(p);
 }
 inline void DeadX()
 {
@@ -3377,7 +3377,7 @@ void VcVector::FUN_00b319e0()
 }
 }  // namespace fnv_00b319e0
 
-void __cdecl FUN_00401030(void* p);
+void __cdecl FormHeap_Free(void* p);
 
 struct BufferPtr
 {
@@ -3385,7 +3385,7 @@ struct BufferPtr
     __forceinline ~BufferPtr()
     {
         void* pData = m_pData;
-        FUN_00401030(pData);
+        FormHeap_Free(pData);
     }
 };
 
@@ -3959,7 +3959,7 @@ void FUN_00b32540_Vector::FUN_00b32540()
 namespace fnv_00b32880 {
 inline void FreeQ(void* p)
 {
-    FUN_00401030(p);
+    FormHeap_Free(p);
 }
 struct VB2Q
 {
@@ -4576,17 +4576,17 @@ struct AlQ
     }
     void deallocate(ElQ* p, unsigned)
     {
-        FUN_00401030(p);
+        FormHeap_Free(p);
     }
     void destroy(ElQ* p)
     {
         p->~ElQ();
     }
-    static void FUN_00401030(void*);
+    static void FormHeap_Free(void*);
 };
 inline void FreeQ(void* p)
 {
-    AlQ::FUN_00401030(p);
+    AlQ::FormHeap_Free(p);
 }
 ElQ* __cdecl FUN_00b23aa0(unsigned n, ElQ* p);
 ElQ* __cdecl FUN_00b36bf0(ElQ* f, ElQ* l, ElQ* d, AlQ& al, MoveCatQ c, TagQ t);
@@ -7648,7 +7648,7 @@ asgnb36::AsVector* __cdecl FUN_00b35f60(asgnb36::AsVector* _First, asgnb36::AsVe
 }  // namespace fnv_00b35f60
 
 namespace fnv_00b361b0 {
-void FUN_00401030(void* p);
+void FormHeap_Free(void* p);
 inline void* operator new(unsigned int, void* p)
 {
     return p;
@@ -7657,7 +7657,7 @@ inline void operator delete(void*, void*)
 {}
 inline void FreeQ(void* p)
 {
-    FUN_00401030(p);
+    FormHeap_Free(p);
 }
 struct VBQ
 {
@@ -7716,14 +7716,14 @@ inline void* __cdecl operator new(size_t, void* p) throw()
 }
 inline void __cdecl operator delete(void*, void*) throw()
 {}
-void __cdecl FUN_00401030(void* p);
+void __cdecl FormHeap_Free(void* p);
 struct S00b368d0_Buf
 {
     void* p;
     ~S00b368d0_Buf()
     {
         void* tmp = p;
-        FUN_00401030(tmp);
+        FormHeap_Free(tmp);
     }
 };
 struct S00b368d0_Elem : S00b368d0_Buf
@@ -7794,7 +7794,7 @@ inline void operator delete(void*, void*)
 {}
 inline void FreeQ(void* p)
 {
-    FUN_00401030(p);
+    FormHeap_Free(p);
 }
 struct VBQ
 {
@@ -7881,7 +7881,7 @@ inline void operator delete(void*, void*)
 {}
 inline void FreeQ(void* p)
 {
-    FUN_00401030(p);
+    FormHeap_Free(p);
 }
 struct VBQ
 {
@@ -7973,7 +7973,7 @@ inline void operator delete(void*, void*)
 {}
 inline void FreeQ(void* p)
 {
-    FUN_00401030(p);
+    FormHeap_Free(p);
 }
 struct VBQ
 {
@@ -8841,9 +8841,9 @@ struct AlQ
     }
     void deallocate(ElQ* p, unsigned)
     {
-        FUN_00401030(p);
+        FormHeap_Free(p);
     }
-    static void FUN_00401030(void*);
+    static void FormHeap_Free(void*);
 };
 ElQ* __cdecl FUN_00b3e450(ElQ* f, ElQ* l, ElQ* d, AlQ& al);
 ElQ* __cdecl FUN_00b3e4a0(ElQ* f, ElQ* l, ElQ* d, AlQ& al);
@@ -10560,7 +10560,7 @@ void SxOwner::FUN_00b3feb0(SxObj* obj)
 }
 }  // namespace fnv_00b3feb0
 
-void __cdecl FUN_00401030(void* p);
+void __cdecl FormHeap_Free(void* p);
 struct FUN_00b3f0a0
 {
     int m_base[8];
@@ -10592,7 +10592,7 @@ struct B2AE90_Allocator
 {
     void deallocate(void* p)
     {
-        FUN_00401030(p);
+        FormHeap_Free(p);
     }
 };
 struct B2AE90_ArrayBase
@@ -11131,17 +11131,17 @@ struct AlQ
     }
     void deallocate(ElQ* p, unsigned)
     {
-        FUN_00401030(p);
+        FormHeap_Free(p);
     }
     void destroy(ElQ* p)
     {
         p->~ElQ();
     }
-    static void FUN_00401030(void*);
+    static void FormHeap_Free(void*);
 };
 inline void FreeQ(void* p)
 {
-    AlQ::FUN_00401030(p);
+    AlQ::FormHeap_Free(p);
 }
 ElQ* __cdecl FUN_00b23aa0(unsigned n, ElQ* p);
 ElQ* __cdecl FUN_00b36d70(ElQ* f, ElQ* l, ElQ* d, AlQ& al, MoveCatQ c, TagQ t);
@@ -12058,7 +12058,7 @@ void __cdecl FUN_00b36b10(unsigned int* first, unsigned count, const unsigned in
 }
 }  // namespace fnv_00b36b10
 
-extern void __cdecl FUN_00401030(void* p);
+extern void __cdecl FormHeap_Free(void* p);
 template <class T> inline void swapq(T& l, T& r)
 {
     if (&l != &r)
@@ -12077,7 +12077,7 @@ struct AuxBaseQ
     AuxQ* m0;
     static void Dealloc(void* p)
     {
-        FUN_00401030(p);
+        FormHeap_Free(p);
     }
     ~AuxBaseQ()
     {
@@ -12137,7 +12137,7 @@ void __thiscall FUN_00b357d0::FUN_00b36f60(FUN_00b357d0& o)
 }
 
 namespace fnv_00b37190 {
-extern void __cdecl FUN_00401030(void* p);
+extern void __cdecl FormHeap_Free(void* p);
 template <class T> inline void swapq(T& l, T& r)
 {
     if (&l != &r)
@@ -12156,7 +12156,7 @@ struct AuxBaseQ
     AuxQ* m0;
     static void Dealloc(void* p)
     {
-        FUN_00401030(p);
+        FormHeap_Free(p);
     }
     ~AuxBaseQ()
     {
@@ -15779,7 +15779,7 @@ struct S00b360a0_Base
     ~S00b360a0_Base()
     {
         void* p = allocation;
-        FUN_00401030(p);
+        FormHeap_Free(p);
     }
 };
 struct S00b360a0_Vec : S00b360a0_Base

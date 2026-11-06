@@ -91,7 +91,7 @@ struct Loader_S
 extern Loader_S* g_modelLoader;
 extern int DAT_011a0bb0;
 extern Flt g_011db63c;
-void FUN_007ffe00();
+void PurgeTerminalModel();
 struct FUN_007e0e30_Class
 {
     void* m_p;
@@ -796,7 +796,7 @@ struct RemoveInterface
 };
 RemoveInterface* FUN_004b7210();
 int FUN_00a01860(const char*);
-void FUN_00401030(void*);
+void FormHeap_Free(void*);
 struct RemoveBase
 {
     int unk00;

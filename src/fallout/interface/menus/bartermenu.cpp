@@ -434,7 +434,7 @@ void __cdecl FUN_00703c00(const char* pFormat, ...);
 void __cdecl UpdateBarterQuantity(int iCount);
 void __cdecl CreateQuantityMenu(int iCount, void(__cdecl* pfnCallback)(int), int iMax);
 void __cdecl FUN_0072db40();
-void __cdecl FUN_00703e80(int a1, int a2, const char* pMessage, void(__cdecl* pfnCallback)(), int a5, int a6, float f7,
+void __cdecl ShowMessageBox(int a1, int a2, const char* pMessage, void(__cdecl* pfnCallback)(), int a5, int a6, float f7,
                           float f8, const char* pButton1, const char* pButton2, int a11);
 void __cdecl UpdateTopicMenu();
 void __cdecl FUN_00706f30(void* pkTile);
@@ -488,7 +488,7 @@ void BarterMenu::HandleTileClick(int iTileIndex, Tile* pkTile)
         break;
     case 19:
         if (reinterpret_cast<BmItemList&>(m_kMerchantItems).FUN_005ae380() || reinterpret_cast<BmItemList&>(m_kPlayerItems).FUN_005ae380())
-            FUN_00703e80(0, 0, g_s_011d1fa4.FUN_00403df0(), FUN_0072db40, 0, 0x17, 0.0f, 0.0f,
+            ShowMessageBox(0, 0, g_s_011d1fa4.FUN_00403df0(), FUN_0072db40, 0, 0x17, 0.0f, 0.0f,
                          g_s_011d34f8.FUN_00403df0(), g_s_011d3684.FUN_00403df0(), 0);
         else
             UpdateTopicMenu();
@@ -1449,7 +1449,7 @@ struct ItemTransferManager
 };
 extern ItemTransferManager* g_transferMgr_011c3f2c;
 
-bool __cdecl FUN_005ac750(TESObjectREFR* apRef, ExtraDataList* apExtraList, unsigned int auiFlags);
+bool __cdecl MarkBaseExtraListScriptEvent(TESObjectREFR* apRef, ExtraDataList* apExtraList, unsigned int auiFlags);
 float __cdecl FUN_00406ce0(float afValue);
 int __cdecl TruncateFloatToInt(float afValue);
 extern "C" const char* __cdecl FUN_00ec7d40(int aiValue);
@@ -1477,7 +1477,7 @@ void BarterMenu::CompleteBarterTransaction()
         InventoryStackRecord* pItem = pNode6->GetItem();
         ExtraDataList* pExtraList = pItem->FUN_00559450() ? pItem->FUN_00559450()->GetItem() : 0;
         if (pExtraList)
-            fnv_0072fd10::FUN_005ac750(m_merchant, pExtraList, 0x4000);
+            fnv_0072fd10::MarkBaseExtraListScriptEvent(m_merchant, pExtraList, 0x4000);
         fnv_0072fd10::g_transferMgr_011c3f2c->ProcessInventoryRecords(pItem, pItem->FUN_00726070(), m_merchant);
         delete pItem;
     }
@@ -1487,7 +1487,7 @@ void BarterMenu::CompleteBarterTransaction()
         InventoryStackRecord* pItem3 = pNode3->GetItem();
         ExtraDataList* pExtraList5 = pItem3->FUN_00559450() ? pItem3->FUN_00559450()->GetItem() : 0;
         if (pExtraList5)
-            fnv_0072fd10::FUN_005ac750((TESObjectREFR*)fnv_0072fd10::g_player_011dea3c, pExtraList5, 0x4000);
+            fnv_0072fd10::MarkBaseExtraListScriptEvent((TESObjectREFR*)fnv_0072fd10::g_player_011dea3c, pExtraList5, 0x4000);
         fnv_0072fd10::g_player_011dea3c->RemoveItem(pItem3->FUN_0044ddc0(), pExtraList5, pItem3->FUN_00726070(), 0, 0, pTarget3, 0, 0, 1,
                                    0);
         delete pItem3;

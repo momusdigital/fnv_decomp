@@ -1766,7 +1766,7 @@ bool QueueMessage(const char*, const char*, const char*, int, void*, int, int, c
                   float, float, float);
 // Shows a warning message via QueueMessage when the interface manager's modifier key is held, returning the result; otherwise returns false.
 // @fnv 0x00703e80
-bool FUN_00703e80(const char* aText, const char* apcIconFilename, const char* apcTitle, void* afpResult,
+bool ShowMessageBox(const char* aText, const char* apcIconFilename, const char* apcTitle, void* afpResult,
                   int aiFirstButtonResult, int aiWarningContext, float afBackgroundTextureOpacityOverride,
                   float afMenuWidthOverride, const char* axFirst, ...)
 {
@@ -2435,14 +2435,14 @@ class Modifier
     unsigned char GetKey();
 };
 
-void FUN_00784c80();
+void ShowLevelUpMenu();
 
-// If FUN_004b7210 returns a Modifier whose GetKey is nonzero, calls FUN_00784c80.
+// If FUN_004b7210 returns a Modifier whose GetKey is nonzero, calls ShowLevelUpMenu.
 // @fnv 0x00706270
 void FUN_00706270()
 {
     if (FUN_004b7210() && reinterpret_cast<Modifier*>(FUN_004b7210())->GetKey())
-        FUN_00784c80();
+        ShowLevelUpMenu();
 }
 }  // namespace fnv_00706270
 
@@ -4906,7 +4906,7 @@ class Model
 };
 struct Loader_S
 {
-    NiNode* FUN_00447080(const char*, int, bool, bool, bool, bool);
+    NiNode* LoadModel(const char*, int, bool, bool, bool, bool);
 };
 extern bool DAT_011d8908;
 class FileFinder
@@ -4926,7 +4926,7 @@ NiNode* FUN_00707660(const char* path, bool* flag)
     if (g_modelLoader && !DAT_011d8908)
     {
         *flag = true;
-        return ((Loader_S*)g_modelLoader)->FUN_00447080(path, 0, true, false, false, false);
+        return ((Loader_S*)g_modelLoader)->LoadModel(path, 0, true, false, false, false);
     }
     else if (FileFinder::Exist(path, 0, 0, -1))
     {
@@ -5845,7 +5845,7 @@ struct Tile30
 {
     unsigned int FUN_0056c7f0();
     void FUN_007a1400(int);
-    void FUN_00a07530(int);
+    void SetChangeFlag(int);
     void FUN_00700320(int, int);
     void FUN_00a012d0(int, float, int);
 };
@@ -6022,7 +6022,7 @@ struct Obj1C
 
 int __cdecl FUN_00556870(V3Maker*);
 // free helpers; conventions read from add esp evidence
-extern "C" void* __cdecl FUN_00401000(unsigned int);
+extern "C" void* __cdecl FormHeap_Allocate(unsigned int);
 extern "C" void __stdcall FUN_00401050(void*, unsigned int, unsigned int, void*);
 extern "C" void* __cdecl FUN_00aa1070(unsigned int);
 extern "C" void* __cdecl FUN_00aa13e0(unsigned int);
@@ -6392,7 +6392,7 @@ void __cdecl FUN_0079ffb0(char param_1)
     if (cMenuOk4 == '\0')
         pMenu25->FUN_00450f90(0);
 
-    reinterpret_cast<Tile30*>(DAT_011da368->m_pTiles[2])->FUN_00a07530(0x108);
+    reinterpret_cast<Tile30*>(DAT_011da368->m_pTiles[2])->SetChangeFlag(0x108);
     reinterpret_cast<Tile30*>(DAT_011da368->m_pTiles[2])->FUN_00700320(0xfcd, size27 * gridSize13);
     reinterpret_cast<Tile30*>(DAT_011da368->m_pTiles[2])->FUN_00700320(0xfce, size27 * gridSize13);
     reinterpret_cast<Tile30*>(DAT_011da368->m_pTiles[2])
@@ -6600,7 +6600,7 @@ namespace s7094f0 {
 struct Lock
 {
     void FUN_0040fbf0(int iArg);
-    void FUN_0040fba0();
+    void Leave();
 };
 
 
@@ -6739,7 +6739,7 @@ void FUN_007094f0()
             DAT_011d899c = 0;
         }
     }
-    DAT_011d89c0.FUN_0040fba0();
+    DAT_011d89c0.Leave();
 }
 
 }

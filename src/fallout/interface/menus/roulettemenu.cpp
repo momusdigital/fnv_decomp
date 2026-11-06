@@ -1420,7 +1420,7 @@ Tile* __cdecl FUN_007bbe20(RoulettePlayerStandIn* casino, int bet, int arg3, int
             FUN_00406d00(name, 64, "%s %s", ((PlayerVirtual*)DAT_011da880)->GetName(), g_011d3e08.String());
         ((Tile*)(*reinterpret_cast<Tile**>(reinterpret_cast<char*>(DAT_011da878) + 0x34)))->FUN_00a01350(DAT_011da870, name, true);
         FUN_00a08b20((Tile*)(*reinterpret_cast<Tile**>(reinterpret_cast<char*>(DAT_011da878) + 0x34)), DAT_010761e4)->FUN_00700320(0xfa3, 0);
-        FUN_00a08b20((Tile*)(*reinterpret_cast<Tile**>(reinterpret_cast<char*>(DAT_011da878) + 0x34)), DAT_010761e4)->FUN_00a07530(8);
+        FUN_00a08b20((Tile*)(*reinterpret_cast<Tile**>(reinterpret_cast<char*>(DAT_011da878) + 0x34)), DAT_010761e4)->SetChangeFlag(8);
         DAT_011da878->UpdateBetTileText();
         ((Tile*)(*reinterpret_cast<Tile**>(reinterpret_cast<char*>(DAT_011da878) + 0x38)))->FUN_00a01350(0xfc4, g_011d41e0.String(), true);
         ((Tile*)(*reinterpret_cast<Tile**>(reinterpret_cast<char*>(DAT_011da878) + 0x3c)))->FUN_00a01350(0xfc4, g_011d2c1c.String(), true);

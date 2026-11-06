@@ -3569,7 +3569,7 @@ extern MemoryManager DAT_011f6238;
 extern char* DAT_0109b220;
 extern const char str_010c36b0[];
 char* __cdecl FUN_00a5b690(const char* text);
-void __cdecl FUN_00401030(void* buffer);
+void __cdecl FormHeap_Free(void* buffer);
 
 extern NiFixedString* DAT_012043ac;
 

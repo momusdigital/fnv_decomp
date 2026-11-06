@@ -16,7 +16,7 @@ void FUN_0057acc0(unsigned int index);
 struct ExtraList
 {
     BSExtraData* FUN_00410220(int type);
-    void FUN_0040ff60(BSExtraData* p);
+    void AddExtraData(BSExtraData* p);
 };
 bool __cdecl FUN_00576040(int x);
 class Owner
@@ -55,7 +55,7 @@ MagicTarget* Owner::FUN_00575f30()
         if (!p)
         {
             p = new NonActorMagicTarget(this);
-            FUN_005d43c0()->FUN_0040ff60(p);
+            FUN_005d43c0()->AddExtraData(p);
             v18(0x80000000);
         }
     }

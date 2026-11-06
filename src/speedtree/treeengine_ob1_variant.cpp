@@ -1578,7 +1578,7 @@ void CTreeEngine::FUN_00b2bde0(ElementIterator* p)
 namespace fnv_00b2c130 {
 void __cdecl FUN_00ec7c56();
 void __cdecl FUN_00b138c0(void* p);
-void __cdecl FUN_00401030(void* p);
+void __cdecl FormHeap_Free(void* p);
 
 struct Elem
 {
@@ -1630,7 +1630,7 @@ struct VB
     ~VB()
     {
         void* p = m_00;
-        FUN_00401030(p);
+        FormHeap_Free(p);
     }
 };
 

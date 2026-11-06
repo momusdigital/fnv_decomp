@@ -2328,7 +2328,7 @@ void ClickMenu::FUN_007db380(int id, Tile* tile)
         if (tile == m_kHealingOptions[i].pTile && m_kHealingOptions[i].m_pStatusEffect)
         {
             ((Actor*)g_thePlayer)
-                ->FUN_0088c650(m_kHealingOptions[i].m_pStatusEffect->FUN_0044ddc0(),
+                ->EquipItem(m_kHealingOptions[i].m_pStatusEffect->FUN_0044ddc0(),
                                m_kHealingOptions[i].m_pStatusEffect->FUN_00726070(),
                                reinterpret_cast<ExtraDataList*>(m_kHealingOptions[i].m_pStatusEffect->FUN_00559450()
                                    ? ((ClickNode*)m_kHealingOptions[i].m_pStatusEffect->FUN_00559450())->FUN_006815c0()

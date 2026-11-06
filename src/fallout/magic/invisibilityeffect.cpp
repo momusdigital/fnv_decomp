@@ -13,10 +13,10 @@ class __declspec(novtable) InvisibilityEffect;
 #include "../../../include/ValueModifierEffect.h"
 
 extern int DAT_0107a21c;
-void* __cdecl FUN_00401000(unsigned int uiSize);
+void* __cdecl FormHeap_Allocate(unsigned int uiSize);
 inline void* InvisibilityEffect::operator new(unsigned int uiSize)
 {
-    return FUN_00401000(uiSize);
+    return FormHeap_Allocate(uiSize);
 }
 // Constructs the object by calling the ValueModifierEffect base constructor and installing the DAT_0107a21c vtable pointer.
 // @fnv 0x0080e030
@@ -54,7 +54,7 @@ void InvisibilityEffect::RevertInvisibility(Actor* apActor)
 }
 
 
-void* __cdecl FUN_00401000(unsigned int uiSize);
+void* __cdecl FormHeap_Allocate(unsigned int uiSize);
 
 // @fnv 0x0080e060
 InvisibilityEffect* InvisibilityEffect::CreateEffect()

@@ -104,7 +104,7 @@ class HighlightTile_mapmenu
 public:
     HighlightTile_mapmenu* FUN_00a03da0(const char* name);
     void FUN_0071aa60(bool value);
-    void FUN_00a07530(int flags);
+    void SetChangeFlag(int flags);
     bool GetSpeechChallengeFailure();
     float FUN_00a011b0(int trait);
     void FUN_00a012d0(int trait, float value, bool propagate);
@@ -2406,19 +2406,19 @@ void MapHighlightList::UpdateHighlightBox()
                     if (pSide)
                     {
                         pSide->FUN_0071aa60(true);
-                        pSide->FUN_00a07530(8);
+                        pSide->SetChangeFlag(8);
                         pSide = pBox->FUN_00a03da0("bottom");
                         pSide->FUN_0071aa60(true);
-                        pSide->FUN_00a07530(8);
+                        pSide->SetChangeFlag(8);
                         pSide = pBox->FUN_00a03da0("left");
                         pSide->FUN_0071aa60(true);
-                        pSide->FUN_00a07530(8);
+                        pSide->SetChangeFlag(8);
                         pSide = pBox->FUN_00a03da0("right");
                         pSide->FUN_0071aa60(true);
-                        pSide->FUN_00a07530(8);
+                        pSide->SetChangeFlag(8);
                     }
                     pBox->FUN_0071aa60(true);
-                    pBox->FUN_00a07530(8);
+                    pBox->SetChangeFlag(8);
                 }
             }
             else
@@ -2430,19 +2430,19 @@ void MapHighlightList::UpdateHighlightBox()
                     if (pSide)
                     {
                         pSide->FUN_0071aa60(false);
-                        pSide->FUN_00a07530(8);
+                        pSide->SetChangeFlag(8);
                         pSide = pBox->FUN_00a03da0("bottom");
                         pSide->FUN_0071aa60(false);
-                        pSide->FUN_00a07530(8);
+                        pSide->SetChangeFlag(8);
                         pSide = pBox->FUN_00a03da0("left");
                         pSide->FUN_0071aa60(false);
-                        pSide->FUN_00a07530(8);
+                        pSide->SetChangeFlag(8);
                         pSide = pBox->FUN_00a03da0("right");
                         pSide->FUN_0071aa60(false);
-                        pSide->FUN_00a07530(8);
+                        pSide->SetChangeFlag(8);
                     }
                     pBox->FUN_0071aa60(false);
-                    pBox->FUN_00a07530(8);
+                    pBox->SetChangeFlag(8);
                 }
             }
         }
@@ -4325,7 +4325,7 @@ struct QuestNode
 };
 struct PlayerQuestOps
 {
-    QuestNode* FUN_00952ba0();
+    QuestNode* GetCurrentQuestTargets();
 };
 struct RefMapOps
 {
@@ -4376,7 +4376,7 @@ void MarkerMap::FUN_0079e0a0()
         delete tile;
         tile = ((MarkerTile*)m_pMapTile)->FUN_00a03eb0(29);
     }
-    for (QuestNode* node = ((PlayerQuestOps*)g_thePlayer)->FUN_00952ba0();
+    for (QuestNode* node = ((PlayerQuestOps*)g_thePlayer)->GetCurrentQuestTargets();
          g_011e07f0.FUN_00408d60()->b && node && *node->FUN_006815c0(); node = node->FUN_00726070())
     {
         TESObjectREFR* reference = (*node->FUN_006815c0())->FUN_006101b0(true);
@@ -4441,7 +4441,7 @@ struct MarkerTile : Tile
 {
     float FUN_00a011b0(int);
     MarkerTile* FUN_00a03da0(const char*);
-    void FUN_00a07530(int);
+    void SetChangeFlag(int);
 };
 struct MarkerMenu : MapMenu
 {
@@ -4512,7 +4512,7 @@ void MarkerMenu::UpdateQuestMarkers()
                 aCacheObject->AppendFloatAction(0x7d1, 60.0f);
                 aCacheObject->FUN_00a09410(0);
             }
-            a->FUN_00a07530(0x3ff);
+            a->SetChangeFlag(0x3ff);
         }
         p = p->GetNext();
     }
@@ -4687,7 +4687,7 @@ void MapMenuExt::UpdateMapMarkers()
             newTile->Set(0xfb7, 2);
             newTile->Set(0xfb9, 2);
             newTile->Set(0xfb0, 60.0f, true);
-            newTile->FUN_00a07530(2);
+            newTile->SetChangeFlag(2);
 
             LBValue* xVal = (LBValue*)newTile->GetValue(0xfa1);
             LBValue* valY = (LBValue*)newTile->GetValue(0xfa2);
@@ -5721,7 +5721,7 @@ struct SelectTile
     SelectAction* FUN_00a00f30(int);
     bool FUN_0071aa80();
     void FUN_0071aa60(bool);
-    void FUN_00a07530(int);
+    void SetChangeFlag(int);
     SelectTile* FUN_00a03da0(const char*);
     void FUN_00700320(int, int);
 };
@@ -5761,19 +5761,19 @@ void SelectionList::UpdateSelectionState()
                     if (part)
                     {
                         part->FUN_0071aa60(true);
-                        part->FUN_00a07530(8);
+                        part->SetChangeFlag(8);
                         part = container->FUN_00a03da0(DAT_0106f88c);
                         part->FUN_0071aa60(true);
-                        part->FUN_00a07530(8);
+                        part->SetChangeFlag(8);
                         part = container->FUN_00a03da0(DAT_0106f884);
                         part->FUN_0071aa60(true);
-                        part->FUN_00a07530(8);
+                        part->SetChangeFlag(8);
                         part = container->FUN_00a03da0(DAT_0106f87c);
                         part->FUN_0071aa60(true);
-                        part->FUN_00a07530(8);
+                        part->SetChangeFlag(8);
                     }
                     container->FUN_0071aa60(true);
-                    container->FUN_00a07530(8);
+                    container->SetChangeFlag(8);
                 }
             }
             else
@@ -5785,19 +5785,19 @@ void SelectionList::UpdateSelectionState()
                     if (partOff3)
                     {
                         partOff3->FUN_0071aa60(false);
-                        partOff3->FUN_00a07530(8);
+                        partOff3->SetChangeFlag(8);
                         partOff3 = containerOff4->FUN_00a03da0(DAT_0106f88c);
                         partOff3->FUN_0071aa60(false);
-                        partOff3->FUN_00a07530(8);
+                        partOff3->SetChangeFlag(8);
                         partOff3 = containerOff4->FUN_00a03da0(DAT_0106f884);
                         partOff3->FUN_0071aa60(false);
-                        partOff3->FUN_00a07530(8);
+                        partOff3->SetChangeFlag(8);
                         partOff3 = containerOff4->FUN_00a03da0(DAT_0106f87c);
                         partOff3->FUN_0071aa60(false);
-                        partOff3->FUN_00a07530(8);
+                        partOff3->SetChangeFlag(8);
                     }
                     containerOff4->FUN_0071aa60(false);
-                    containerOff4->FUN_00a07530(8);
+                    containerOff4->SetChangeFlag(8);
                 }
             }
         }
@@ -6819,19 +6819,19 @@ void HighlightList_mapmenu::UpdateHighlight()
                     if (edge)
                     {
                         edge->FUN_0071aa60(true);
-                        edge->FUN_00a07530(8);
+                        edge->SetChangeFlag(8);
                         edge = box->FUN_00a03da0("bottom");
                         edge->FUN_0071aa60(true);
-                        edge->FUN_00a07530(8);
+                        edge->SetChangeFlag(8);
                         edge = box->FUN_00a03da0("left");
                         edge->FUN_0071aa60(true);
-                        edge->FUN_00a07530(8);
+                        edge->SetChangeFlag(8);
                         edge = box->FUN_00a03da0("right");
                         edge->FUN_0071aa60(true);
-                        edge->FUN_00a07530(8);
+                        edge->SetChangeFlag(8);
                     }
                     box->FUN_0071aa60(true);
-                    box->FUN_00a07530(8);
+                    box->SetChangeFlag(8);
                 }
             }
             else
@@ -6843,19 +6843,19 @@ void HighlightList_mapmenu::UpdateHighlight()
                     if (edge)
                     {
                         edge->FUN_0071aa60(false);
-                        edge->FUN_00a07530(8);
+                        edge->SetChangeFlag(8);
                         edge = box->FUN_00a03da0("bottom");
                         edge->FUN_0071aa60(false);
-                        edge->FUN_00a07530(8);
+                        edge->SetChangeFlag(8);
                         edge = box->FUN_00a03da0("left");
                         edge->FUN_0071aa60(false);
-                        edge->FUN_00a07530(8);
+                        edge->SetChangeFlag(8);
                         edge = box->FUN_00a03da0("right");
                         edge->FUN_0071aa60(false);
-                        edge->FUN_00a07530(8);
+                        edge->SetChangeFlag(8);
                     }
                     box->FUN_0071aa60(false);
-                    box->FUN_00a07530(8);
+                    box->SetChangeFlag(8);
                 }
             }
         }

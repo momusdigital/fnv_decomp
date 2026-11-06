@@ -3411,7 +3411,7 @@ void __cdecl FUN_0044d600(Value aValue1, Value aValue2, int aiArg)
                  result, zero.value);
 }
 
-void __cdecl FUN_00401030(void* p);
+void __cdecl FormHeap_Free(void* p);
 
 class FUN_0044d770_base
 {
@@ -3430,13 +3430,13 @@ class FUN_0044d770_cls : public FUN_0044d770_base
     virtual ~FUN_0044d770_cls();
 };
 
-// Calls Cleanup(1), then passes m_10 to FUN_00401030.
+// Calls Cleanup(1), then passes m_10 to FormHeap_Free.
 // @fnv 0x0044d770
 FUN_0044d770_cls::~FUN_0044d770_cls()
 {
     Cleanup(1);
     void* a = m_10;
-    FUN_00401030(a);
+    FormHeap_Free(a);
 }
 
 void __cdecl Deallocate(void*);
@@ -3468,7 +3468,7 @@ FUN_0044d9b0::~FUN_0044d9b0()
     Deallocate(q);
 }
 
-void __cdecl FUN_00401030(void* apMemory);
+void __cdecl FormHeap_Free(void* apMemory);
 
 class FUN_0044da70_base
 {
@@ -3492,12 +3492,12 @@ FUN_0044da70_cls::~FUN_0044da70_cls()
 {
     FUN_00528e40(1);
     void* pFirst_2 = m_0c;
-    FUN_00401030(pFirst_2);
+    FormHeap_Free(pFirst_2);
     void* pSecond = (void*)m_04;
-    FUN_00401030(pSecond);
+    FormHeap_Free(pSecond);
 }
 
-void __cdecl FUN_00401030(void* p);
+void __cdecl FormHeap_Free(void* p);
 
 class FUN_0044db30_base
 {
@@ -3520,9 +3520,9 @@ FUN_0044db30_cls::~FUN_0044db30_cls()
 {
     Cleanup(1);
     void* a = m_0c;
-    FUN_00401030(a);
+    FormHeap_Free(a);
     void* b = m_04;
-    FUN_00401030(b);
+    FormHeap_Free(b);
 }
 
 struct B44DD40HeadPtr
@@ -6269,7 +6269,7 @@ bool List44b::FUN_0044bdb0(FUN_0044e370 pSceneObject)
     return bResult;
 }
 
-void __cdecl FUN_00401030(void* apMemory);
+void __cdecl FormHeap_Free(void* apMemory);
 struct FUN_0044dc50 : FUN_0044b4b0
 {
     void* m_04;
@@ -6285,9 +6285,9 @@ FUN_0044dc50::~FUN_0044dc50()
     void* pkHead;
     FUN_00528e40(1);
     pkHead = m_0c;
-    FUN_00401030(pkHead);
+    FormHeap_Free(pkHead);
     pkTail = m_04;
-    FUN_00401030(pkTail);
+    FormHeap_Free(pkTail);
 }
 
 struct AutoMemQ

@@ -903,7 +903,7 @@ void Tile3D::LoadTile()
     m_pRenderedNodeEntry->FUN_00a5a040();
     if (uiFlags & 0x40)
         uiFlags ^= 0x40;
-    FUN_00a07530(9);
+    SetChangeFlag(9);
     FUN_00707930(1);
     FUN_00707820();
 }

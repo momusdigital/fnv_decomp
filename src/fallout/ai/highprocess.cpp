@@ -11693,7 +11693,7 @@ void HighProcess::FUN_008f9180(Actor* apActor)
         if (pWeapon && pWeapon->IsUsable())
         {
             apActor->FUN_008a6840(0);
-            apActor->FUN_0088c790(reinterpret_cast<TESForm*>(pBase), 1, 0, 0, 0, 1);
+            apActor->UnequipItem(reinterpret_cast<TESForm*>(pBase), 1, 0, 0, 0, 1);
         }
     }
     apActor->FUN_008b3d30();
@@ -13578,7 +13578,7 @@ struct FUN_004181e0_base
 
 struct FUN_005ac750_extra;
 FUN_005ac750_extra* __fastcall FUN_005d43c0(Actor* apRef);
-bool __cdecl FUN_005ac750(Actor* apForm, FUN_005ac750_extra* apExtra, unsigned int auiFlags);
+bool __cdecl MarkBaseExtraListScriptEvent(Actor* apForm, FUN_005ac750_extra* apExtra, unsigned int auiFlags);
 
 
 // @fnv 0x008b01c0
@@ -13614,7 +13614,7 @@ void Actor::FUN_008b01c0()
                     pTarget = (Actor*)g_processLists.FUN_00970b30(pFaction, 0, 0);
                 }
             }
-            FUN_005ac750(m_pActorReference, ::FUN_005d43c0(this), 0x20);
+            MarkBaseExtraListScriptEvent(m_pActorReference, ::FUN_005d43c0(this), 0x20);
             if (pTarget && m_pActorReference)
                 pTarget->FUN_008c0460(m_pActorReference, 0, true);
             m_bActorFlag = false;
@@ -13632,7 +13632,7 @@ void Actor::FUN_008b01c0()
         if (pBase)
             pBase->kData.FUN_0047ead0(0);
     }
-    FUN_005ac750(m_pActorReference, ::FUN_005d43c0(this), 0x10);
+    MarkBaseExtraListScriptEvent(m_pActorReference, ::FUN_005d43c0(this), 0x10);
     if (FUN_008d8520())
     {
         FUN_008d8520()->UpdateActorProcess(3.402823466e+38F);
@@ -18122,7 +18122,7 @@ extern Setting DAT_011cd82c;
 extern TESBoundObject* DAT_011ca244;
 extern TESBoundObject* DAT_011ca248;
 class TESContainer;
-TESContainer* __fastcall FUN_0055d310(TESObjectREFR*);   // 0x0055d310
+TESContainer* __fastcall GetContainer(TESObjectREFR*);   // 0x0055d310
 // Checks the current package target against the actor, resolves the target form, and runs the package procedure or target handling, returning false.
 // @fnv 0x008f2610
 bool HighProcess::FUN_008f2610(Actor* actor, float unused)
@@ -18204,7 +18204,7 @@ bool HighProcess::FUN_008f2610(Actor* actor, float unused)
                 TESObjectREFR* objectBase = k->FUN_0055b980()->GetLocationReference();
                 if (!objectBase)
                     objectBase = m_pReference40;
-                if (objectBase && FUN_0055d310(objectBase))
+                if (objectBase && GetContainer(objectBase))
                 {
                     actor->FUN_00892e90((TESForm*)e->FUN_0044ddc0(), (int)object, objectBase, k->FUN_00672930(), (int)location);
                     m_bDialogueFlag = false;
@@ -18238,7 +18238,7 @@ bool HighProcess::FUN_008f2610(Actor* actor, float unused)
                         e = actor->FindEntryForObject((TESBoundObject*)((P157Entry*)m_pDetectionData60)->data, 0);
                         delete m_pDetectionData60;
                         m_pDetectionData60 = 0;
-                        if (objectBase && FUN_0055d310(objectBase))
+                        if (objectBase && GetContainer(objectBase))
                             actor->FUN_00892e90((TESForm*)e->FUN_0044ddc0(), (int)object, objectBase, k->FUN_00672930(), (int)location);
                         else
                         {
@@ -19497,7 +19497,7 @@ bool HighProcess::ProcessUseItemAt(Actor* actor)
             if (m_pCurrentWeapon && repetitionsSlot23 > 0 && m_sFirstIndex >= repetitionsSlot23 && actor->FUN_008a7570() == -1 &&
                 ((BehaviorUpdate::Anim*)actor->GetAnimData())->FUN_004985f0())
             {
-                actor->FUN_0088c650((::Form*)m_pCurrentWeapon, 1, 0, 1, 0, 1);
+                actor->EquipItem((::Form*)m_pCurrentWeapon, 1, 0, 1, 0, 1);
                 ((HighProcess*)this)->SetProcessTarget(actor, 2);
                 FUN_0092bf20(actor);
                 this->RefreshActorValues(actor);
@@ -19545,7 +19545,7 @@ bool HighProcess::ProcessUseItemAt(Actor* actor)
             if (animation->FUN_004985f0())
             {
                 if (m_pCurrentWeapon)
-                    actor->FUN_0088c650((::Form*)m_pCurrentWeapon, 1, 0, 1, 0, 1);
+                    actor->EquipItem((::Form*)m_pCurrentWeapon, 1, 0, 1, 0, 1);
                 if (packageSlot2->IsMustReachLocation() && !((BehaviorUpdate::List*)packageSlot2->FUN_0041d8a0())->FUN_00726070() &&
                     animation->FUN_004985f0())
                 {
@@ -19609,7 +19609,7 @@ extern char DAT_01015440;
 extern char DAT_01088358;
 TESForm* __cdecl FUN_004839c0(void* a);
 int __cdecl FUN_005b5e40(const char* s1, ...);
-void __cdecl FUN_00401030(void* p);
+void __cdecl FormHeap_Free(void* p);
 struct This
 {
     int f000;
@@ -23668,7 +23668,7 @@ void HighProcess::vfn_7b4(Actor* apRefr)
                     cntLocal36 = (void*)((Q980T*)p18Local4->FUN_0055b980())->FUN_0067f390();
                     if (cntLocal36 == 0)
                         cntLocal36 = m_pReference40;
-                    if (cntLocal36 != 0 && FUN_0055d310((TESObjectREFR*)cntLocal36) != 0)
+                    if (cntLocal36 != 0 && GetContainer((TESObjectREFR*)cntLocal36) != 0)
                     {
                         if (!m_bDialogueFlag)
                         {
@@ -23723,7 +23723,7 @@ void HighProcess::vfn_7b4(Actor* apRefr)
                             v84Local15 = (fnv_008dfa10::P20T*)(apRefr->FindEntryForObject((TESBoundObject*)((M64T*)m_pDetectionData60)->f04, 0));
                             delete ((M64T*)m_pDetectionData60);
                             m_pDetectionData60 = 0;
-                            if (cntLocal36 != 0 && FUN_0055d310((TESObjectREFR*)cntLocal36) != 0)
+                            if (cntLocal36 != 0 && GetContainer((TESObjectREFR*)cntLocal36) != 0)
                             {
                                 apRefr->FUN_00892e90(
                                     (TESForm*)v84Local15->FUN_0044ddc0(), v7c, (TESObjectREFR*)cntLocal36, p18Local4->GetPackageTargetType(), v74Local9);
@@ -23901,7 +23901,7 @@ extern "C"
     TESWorldSpace* __fastcall FUN_00575d70(TESObjectREFR*);
     TESBoundObject* __fastcall FUN_004216f0(ExtraDataList*);
     int __cdecl FUN_0048e8a0(TESBoundObject*);
-    bool __cdecl FUN_005ac750(TESForm*, ExtraDataList*, unsigned int);
+    bool __cdecl MarkBaseExtraListScriptEvent(TESForm*, ExtraDataList*, unsigned int);
 }
 
 extern SettingT_GameSettingCollection_ g_011cde98;
@@ -24035,7 +24035,7 @@ void HighProcessEx::FUN_008e59c0(Actor* apActor)
                     ->FUN_00419700(ref28);
                 ExtraDataList* extra4 = 0;
                 extra4 = ((ObjectstoAcquireStandIn*)this->m_pDetectionData60)->extraList;
-                FUN_005ac750(ref24, extra4, 0x4000);
+                MarkBaseExtraListScriptEvent(ref24, extra4, 0x4000);
                 ((ObjectstoAcquireStandIn*)this->m_pDetectionData60)
                     ->object->Activate((TESObjectREFR*)apActor, 0, ((ObjectstoAcquireStandIn*)this->m_pDetectionData60)->boundObj, 1);
             }
@@ -24044,7 +24044,7 @@ void HighProcessEx::FUN_008e59c0(Actor* apActor)
                 ref24 = this->pTarget;
                 ExtraDataList* extra5 = 0;
                 extra5 = ((ObjectstoAcquireStandIn*)this->m_pDetectionData60)->extraList;
-                FUN_005ac750(ref24, extra5, 0x4000);
+                MarkBaseExtraListScriptEvent(ref24, extra5, 0x4000);
                 ((TESObjectREFR*)ref24)->RemoveItem(((ObjectstoAcquireStandIn*)this->m_pDetectionData60)->boundObj, 0, 1, 0, 0, apActor, 0, 0,
                               1, 0);
             }
@@ -24434,10 +24434,10 @@ void HighProcess::UpdateActorStateWithOptions(Actor* subject, bool force, bool u
                 m_bAimStateFlag = true;
                 WalkItem* weapon3 = (WalkItem*)(this->GetActiveWeapon());
                 if (weapon3)
-                    subject->FUN_0088c790((int)weapon3->FUN_0044ddc0(), (int)((void*)1), 0, 0, 0, true);
+                    subject->UnequipItem((int)weapon3->FUN_0044ddc0(), (int)((void*)1), 0, 0, 0, true);
                 WalkItem* ammo12 = (WalkItem*)(this->GetCurrentAmmo());
                 if (ammo12)
-                    subject->FUN_0088c790((int)ammo12->FUN_0044ddc0(), (int)(ammo12->FUN_00726070()), 0, 0, 0, true);
+                    subject->UnequipItem((int)ammo12->FUN_0044ddc0(), (int)(ammo12->FUN_00726070()), 0, 0, 0, true);
             }
         }
         if (!FUN_00915ef0(subject) || !force)
@@ -25972,7 +25972,7 @@ struct Obj1208ee
 {
     ~Obj1208ee();
 };
-void __cdecl FUN_005ac750(void* a1, void* a2, int a3);
+void __cdecl MarkBaseExtraListScriptEvent(void* a1, void* a2, int a3);
 struct D8Obj8ee
 {
     void FUN_00498910(int a1, int a2);
@@ -26787,7 +26787,7 @@ void HighProcess::Update(MobileObject* aArg)
                                 m_fDialogueDelay = 0.0f;
                             if (!((const LowProcess*)this)->IsProcessActivityActive() && !after7e->IsMustComplete() && after7e->FUN_00678610())
                             {
-                                FUN_005ac750(after7e, pActorY->FUN_005d43c0(), 0x400);
+                                MarkBaseExtraListScriptEvent(after7e, pActorY->FUN_005d43c0(), 0x400);
                                 ((HighProcess*)this)->OnPackageEnd(pActorY, after7e);
                                 ((LowProcess*)this)->SetProcessModeEnabled(1);
                             }
@@ -27176,7 +27176,7 @@ bool HighProcess::ProcessUseWeapon(Actor* actor)
         case 1:
             if (weapon != target->GetTargetForm())
             {
-                actor->FUN_0088c650(target->GetTargetForm(), 1, 0, true, false, true);
+                actor->EquipItem(target->GetTargetForm(), 1, 0, true, false, true);
                 return true;
             }
             break;
@@ -27185,7 +27185,7 @@ bool HighProcess::ProcessUseWeapon(Actor* actor)
             TESObjectREFR* useRef = this->GetCurrentProcessData()->GetTarget();
             if (useRef && weapon != useRef->FUN_007af430())
             {
-                actor->FUN_0088c650(useRef->FUN_007af430(), 1, 0, true, false, true);
+                actor->EquipItem(useRef->FUN_007af430(), 1, 0, true, false, true);
                 return true;
             }
         }
@@ -27197,7 +27197,7 @@ bool HighProcess::ProcessUseWeapon(Actor* actor)
                 TESForm* item = pInventoryB->GetBoundObjectByIndex(m_ePackageObjectType, &count);
                 if (item)
                 {
-                    actor->FUN_0088c650(item, 1, 0, true, false, true);
+                    actor->EquipItem(item, 1, 0, true, false, true);
                     return true;
                 }
             }
@@ -27225,7 +27225,7 @@ bool HighProcess::ProcessUseWeapon(Actor* actor)
         if (thrownDone)
         {
             actor->SetIsSwimming(false);
-            actor->FUN_0088c790(weapon, 1, 0, false, false, true);
+            actor->UnequipItem(weapon, 1, 0, false, false, true);
             m_fSecondAnimationValue = 0.0f;
         }
         else if (kData->IsVolleyFire())
@@ -27300,7 +27300,7 @@ bool HighProcess::ProcessUseWeapon(Actor* actor)
     {
         if (weapon)
         {
-            actor->FUN_0088c790(weapon, 1, 0, false, false, true);
+            actor->UnequipItem(weapon, 1, 0, false, false, true);
             return true;
         }
     }
@@ -27319,7 +27319,7 @@ bool HighProcess::ProcessUseWeapon(Actor* actor)
             newWeaponA = entry3->FUN_0044ddc0();
         if (newWeaponA)
         {
-            actor->FUN_0088c650(newWeaponA, 1, 0, true, false, true);
+            actor->EquipItem(newWeaponA, 1, 0, true, false, true);
         }
         else
         {
@@ -27327,7 +27327,7 @@ bool HighProcess::ProcessUseWeapon(Actor* actor)
             this->SetProcessTarget(actor, 2);
         }
         if (entry3)
-            actor->FUN_0088c650(entry3->FUN_0044ddc0(), 1, 0, true, false, true);
+            actor->EquipItem(entry3->FUN_0044ddc0(), 1, 0, true, false, true);
         delete entry3;
         return true;
     }
@@ -27783,7 +27783,7 @@ struct ProcessEatRefView : TESObjectREFR
     unsigned int GetVtbl20Result();
     void ForwardToVtSlot(unsigned int);
     void FUN_008c1de0(TESBoundObject*, ExtraDataList*, bool);
-    void FUN_0088c650(TESBoundObject*, int, ExtraDataList*, bool, bool, bool);
+    void EquipItem(TESBoundObject*, int, ExtraDataList*, bool, bool, bool);
     ProcessEatPackageView* FUN_00891d30();
     char* FUN_0055d520();
 };
@@ -28035,7 +28035,7 @@ void ProcessEatProcess008e3140::FUN_008e3140(Actor* actor, TESObjectREFR* prefer
                 if (aProcess)
                 {
                     m_pCurrentWeapon = aProcess->FUN_0044ddc0();
-                    ((ProcessEatRefView*)actor)->FUN_0088c650(aProcess->FUN_0044ddc0(), 1, 0, true, false, true);
+                    ((ProcessEatRefView*)actor)->EquipItem(aProcess->FUN_0044ddc0(), 1, 0, true, false, true);
                 }
                 this->SetAnimationComplete(true);
                 ((ProcessEatListView*)&m_kSecondaryReferenceList)->FUN_00470470();

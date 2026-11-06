@@ -1065,7 +1065,7 @@ TileTemplate_00a0ae70* Storage_00a0ae70::FUN_00a0ae70(const char* apName)
 }
 
 struct NiTexture;
-struct FUN_00a07530_shell { void FUN_00a07530(int); };
+struct FUN_00a07530_shell { void SetChangeFlag(int); };
 struct A0B020Child {
     virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03(); virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
 };
@@ -1099,7 +1099,7 @@ void A0B020Tile::FUN_00a0b020()
             if (pkProp)
             {
                 pkProp->FUN_00bb7a10(0);
-                ((FUN_00a07530_shell*)this)->FUN_00a07530(0x20);
+                ((FUN_00a07530_shell*)this)->SetChangeFlag(0x20);
             }
         }
     }
@@ -1284,7 +1284,7 @@ void TileV::FUN_00a0b420(TileValueV* pValues, float fValue)
     {
     int iValue3 = (int)f;
     if (HasValue(pValues, iValue3))
-        FUN_00a07530(8);
+        SetChangeFlag(8);
     }
     NiTListItem<TileV*>* pkIter = GetHeadPos();
     while (pkIter)
@@ -1366,10 +1366,10 @@ struct TileWork {
  float ReadTrait(int);
  bool ReadBooleanTrait(int);
  void WriteTrait(int,float,bool);
- void FUN_00a0b520();
+ void ApplyRotationOnChildren();
 };
 // @fnv 0x00a0b520
-void TileWork::FUN_00a0b520() {
+void TileWork::ApplyRotationOnChildren() {
  float local37;
  float local35;
  bool valid_31;
@@ -1435,7 +1435,7 @@ void TileWork::FUN_00a0b520() {
  }
  }
  }
- childVal5->FUN_00a0b520();
+ childVal5->ApplyRotationOnChildren();
  }
  }
 }
@@ -2912,7 +2912,7 @@ void ChildTraitInvalidator::FUN_00a0b350(int iValue, float fDefault)
     if (fValue == _gModifierZero)
         fValue = fDefault;
     if ((float)iValue == fValue)
-        FUN_00a07530(8);
+        SetChangeFlag(8);
 
     NiTListItem<ChildTraitInvalidator*>* pkPos = reinterpret_cast<ChildTraversal*>(&m_kChildTileList)->GetHeadPos();
     while (pkPos)
@@ -2921,8 +2921,8 @@ void ChildTraitInvalidator::FUN_00a0b350(int iValue, float fDefault)
 
 unsigned int __cdecl FUN_0044a670(const char* text);
 unsigned int __cdecl FUN_00403940(unsigned int a, unsigned int b);
-void* __cdecl FUN_00401000(unsigned int size);
-void __cdecl FUN_00401030(void* p);
+void* __cdecl FormHeap_Allocate(unsigned int size);
+void __cdecl FormHeap_Free(void* p);
 void* __cdecl FUN_00401460(void* dst, const void* src, unsigned int size);
 
 class FUN_00a0c220 {
@@ -3450,17 +3450,17 @@ template <> inline bool BSStringT<char>::Set(const BSStringT<char>& rhs) {
     if (n <= MaxLength()) {
         if (n) FUN_00401460(pString, rhs.String(), n + 1);
         else {
-            if (pString) { char* deleted = pString; FUN_00401030(deleted); }
+            if (pString) { char* deleted = pString; FormHeap_Free(deleted); }
             pString = 0;
             n = 0;
             SetMaxLength(n);
         }
     } else {
         old = pString;
-        char* allocated = (char*)FUN_00401000(n + 1);
+        char* allocated = (char*)FormHeap_Allocate(n + 1);
         pString = allocated;
         FUN_00401460(pString, rhs.String(), n + 1);
-        if (old) { char* deletedOld = old; FUN_00401030(deletedOld); }
+        if (old) { char* deletedOld = old; FormHeap_Free(deletedOld); }
         SetMaxLength(n);
     }
     SetLength(n);
@@ -3495,10 +3495,10 @@ extern "C" int __cdecl sscanf(const char*, const char*, ...);
 
 inline unsigned int __cdecl FUN_0044a670(const char* value) { return strlen(value); }
 unsigned int __cdecl FUN_00403940(unsigned int, unsigned int);
-void* __cdecl FUN_00401000(unsigned int);
-void __cdecl FUN_00401030(void*);
+void* __cdecl FormHeap_Allocate(unsigned int);
+void __cdecl FormHeap_Free(void*);
 inline void* __cdecl FUN_00401460(void* d, const void* s, unsigned n) { return memcpy(d,s,n); }
-inline void ReleaseParsedString(void* pointer) { FUN_00401030(pointer); }
+inline void ReleaseParsedString(void* pointer) { FormHeap_Free(pointer); }
 extern double DAT_01094ba8, DAT_01012060, DAT_01094ce8, DAT_01094ca0, DAT_01094c98, DAT_01094c90, DAT_01094c88, DAT_01073490, DAT_01094c80;
 extern const char DAT_01011584[], DAT_01094cf0[], DAT_01094ca8[], DAT_01094c58[];
 
@@ -3519,7 +3519,7 @@ struct ParsedToken {
     }
 };
 struct ParsedNode {
-    static void* operator new[](unsigned int bytes) { return FUN_00401000(bytes); }
+    static void* operator new[](unsigned int bytes) { return FormHeap_Allocate(bytes); }
     ParsedNode* next;
     ParsedNode* previous;
     ParsedToken* value;
@@ -3545,7 +3545,7 @@ struct ParsedPoolLock {
             recursion = 1;
         }
     }
-    void FUN_0040fba0() {
+    void Leave() {
         FUN_0040fbe0();
         --recursion;
         if (!recursion) owner = 0;
@@ -3583,7 +3583,7 @@ struct ParsedAllocator {
         node->value = 0;
         node->next = 0;
         node->previous = 0;
-        DAT_011c5f80.FUN_0040fba0();
+        DAT_011c5f80.Leave();
         return node;
     }
     void FUN_0045cee0(ParsedNode* node) {
@@ -3592,7 +3592,7 @@ struct ParsedAllocator {
         item->previous = 0;
         item->next = DAT_011c5f58;
         DAT_011c5f58 = item;
-        DAT_011c5f80.FUN_0040fba0();
+        DAT_011c5f80.Leave();
     }
 };
 struct ParsedList {
@@ -4067,11 +4067,11 @@ struct R_P09 { void FUN_00a09130(int, void*, int); };
 
 struct R_P04 { void FUN_00a09410(bool); };
 
-struct R_P08 { void FUN_00a07530(int); };
+struct R_P08 { void SetChangeFlag(int); };
 
 inline MemoryManager* FUN_00401020(){return &DAT_011f6238;}
-inline void* FUN_00401000(unsigned n){return FUN_00401020()->Allocate(n);}
-inline void FUN_00401030(void*p){FUN_00401020()->Deallocate(p);}
+inline void* FormHeap_Allocate(unsigned n){return FUN_00401020()->Allocate(n);}
+inline void FormHeap_Free(void*p){FUN_00401020()->Deallocate(p);}
 inline void* FUN_00401460(void*dst,const void*src,unsigned n){return memcpy(dst,src,n);}
 extern "C" unsigned strlen(const char*);
 
@@ -4160,7 +4160,7 @@ void C00a033b0::FUN_00a033b0(R_Menu* a1)
 
                 aw = ad;
 
-            ((R_P08*)ad)->FUN_00a07530(0x10000);
+            ((R_P08*)ad)->SetChangeFlag(0x10000);
 
         }
 
@@ -4240,7 +4240,7 @@ void C00a033b0::FUN_00a033b0(R_Menu* a1)
 
                     ((R_SetS*)ad)->FUN_00a01350(ao->m10, ao->str.String(), true);
 
-                    ((R_P08*)ad)->FUN_00a07530(0x20);
+                    ((R_P08*)ad)->SetChangeFlag(0x20);
 
                 }
 

@@ -144,7 +144,7 @@ BoundItemEffect::~BoundItemEffect()
     }
 }
 
-void* __cdecl FUN_00401000(unsigned int uiSize);
+void* __cdecl FormHeap_Allocate(unsigned int uiSize);
 void* operator new(unsigned int);
 
 // Allocates a BoundItemEffect from the caster, item and effect item.
@@ -1680,9 +1680,9 @@ class BIActor
     virtual void v1c8();
     virtual void v1cc();
     virtual int IsAlive();  // +0x1d0
-    void FUN_0088c790(void* pkForm, int iA, int iB, int iC, int iD, int iE);
+    void UnequipItem(void* pkForm, int iA, int iB, int iC, int iD, int iE);
     int FUN_00575610(TESBoundObject* pkBase);
-    void FUN_0088c650(TESBoundObject* pkBase, int iA, int iB, int iC, int iD, int iE);
+    void EquipItem(TESBoundObject* pkBase, int iA, int iB, int iC, int iD, int iE);
     BIWornSlot* FUN_005d43c0(int iSlot, int iFlag);
     TESBoundObject* FUN_007af430();
     BIProcess* FUN_008d8520();
@@ -1793,7 +1793,7 @@ void BoundItemEffect::Finish()
             pkData = pkChanges->FUN_004bfda0(pkWeapon, 0);
             if (pkData)
                 pkData->FUN_0041b040();
-            pkActor->FUN_0088c790(pkWeapon, 1, 0, 0, 0, 1);
+            pkActor->UnequipItem(pkWeapon, 1, 0, 0, 0, 1);
             pkActor->UnequipItem(pkWeapon, 0, 1, 0, 0, 0, 0, 0, 1, 0);
             if (m_pkWeaponEntry)
             {
@@ -1802,7 +1802,7 @@ void BoundItemEffect::Finish()
                 if (pkActor->FUN_00575610(((BIEntry*)m_pkWeaponEntry)->FUN_0044ddc0()) >= 1)
                 {
                     bEquipped = true;
-                    pkActor->FUN_0088c650(((BIEntry*)m_pkWeaponEntry)->FUN_0044ddc0(), 1, 0, 1, 0, 1);
+                    pkActor->EquipItem(((BIEntry*)m_pkWeaponEntry)->FUN_0044ddc0(), 1, 0, 1, 0, 1);
                 }
                 if (m_bLoadWeaponModel)
                 {
@@ -1831,7 +1831,7 @@ void BoundItemEffect::Finish()
             pkArmorData = pkArmorChanges->FUN_004bfda0(pkArmorRes, 0);
             if (pkArmorData)
                 pkArmorData->FUN_0041b040();
-            pkActor->FUN_0088c790(pkArmorRes, 1, 0, 0, 0, 1);
+            pkActor->UnequipItem(pkArmorRes, 1, 0, 0, 0, 1);
             pkActor->UnequipItem(pkArmorRes, 0, 1, 0, 0, 0, 0, 0, 1, 0);
             for (int i = 0; i < 0x14; i++)
             {
@@ -1847,7 +1847,7 @@ void BoundItemEffect::Finish()
                         bool bEquipped = false;
                         if (pkActor->FUN_00575610(pkEntry->FUN_0044ddc0()) >= 1)
                         {
-                            pkActor->FUN_0088c650(pkEntry->FUN_0044ddc0(), 1, 0, 1, 0, 1);
+                            pkActor->EquipItem(pkEntry->FUN_0044ddc0(), 1, 0, 1, 0, 1);
                             BIEntry* pkWorn = pkActor->FUN_005d43c0(i, 0)->FUN_00418520()->FUN_004c8c10();
                             if (!pkWorn || pkWorn->FUN_0044ddc0() != pkEntry->FUN_0044ddc0())
                                 bKeepModel = FUN_0080a700(pkActor, pkEntry, this);
@@ -2424,8 +2424,8 @@ struct ActorP
     ProcessP* FUN_008d8520();
     TESBoundObject* FUN_007af430();
     InvHolderP* FUN_005d43c0();
-    void FUN_0088c790(TESBoundObject*, int, ExtraP*, int, int, int);
-    void FUN_0088c650(TESBoundObject*, int, int, int, int, int);
+    void UnequipItem(TESBoundObject*, int, ExtraP*, int, int, int);
+    void EquipItem(TESBoundObject*, int, int, int, int, int);
 };
 struct CasterP
 {
@@ -2433,7 +2433,7 @@ struct CasterP
 };
 struct ModelLoaderP
 {
-    void FUN_00447080(const char*, int, int, int, int, int);
+    void LoadModel(const char*, int, int, int, int, int);
 };
 
 struct FUN_00410360 : ExtraP
@@ -2442,7 +2442,7 @@ struct FUN_00410360 : ExtraP
     FUN_00410360();
     static void* operator new(unsigned int n)
     {
-        return FUN_00401000(n);
+        return FormHeap_Allocate(n);
     }
     static void operator delete(void*);
     void FUN_00412380(ExtraP*);
@@ -2453,7 +2453,7 @@ struct FUN_004bc550 : EntryP
     FUN_004bc550(TESBoundObject*, int);
     static void* operator new(unsigned int n)
     {
-        return FUN_00401000(n);
+        return FormHeap_Allocate(n);
     }
     static void operator delete(void*);
 };
@@ -2463,7 +2463,7 @@ struct FUN_004bc650 : EntryP
     FUN_004bc650(EntryP*);
     static void* operator new(unsigned int n)
     {
-        return FUN_00401000(n);
+        return FormHeap_Allocate(n);
     }
     static void operator delete(void*);
 };
@@ -2496,11 +2496,11 @@ void BoundItemEffect::FUN_00808a30()
                 TESObjectWEAP* oldWeapon = dynamic_cast<TESObjectWEAP*>(extra);
                 if (oldWeapon && ((const TESModel*)((const char*)&oldWeapon->m_kModelFilePath - sizeof(void*)))->GetModelLength() > 0)
                 {
-                    ((ModelLoaderP*)DAT_011c3b3c)->FUN_00447080(oldWeapon->GetModelFilePath(), 0, 1, 0, 0, 0);
+                    ((ModelLoaderP*)DAT_011c3b3c)->LoadModel(oldWeapon->GetModelFilePath(), 0, 1, 0, 0, 0);
                     m_bLoadWeaponModel = true;
                 }
             }
-            weapon->FUN_0088c790(weapon->FUN_008d8520()->Equipped()->FUN_0044ddc0(), 1,
+            weapon->UnequipItem(weapon->FUN_008d8520()->Equipped()->FUN_0044ddc0(), 1,
                                  *weapon->FUN_008d8520()->Equipped()->list->FUN_006815c0(), 0, 0, 1);
             m_pkWeaponEntry = (InventoryStackRecord*)new FUN_004bc550(extra, 0);
             if (old)
@@ -2512,7 +2512,7 @@ void BoundItemEffect::FUN_00808a30()
         }
         weapon->AddItem(actor, 0, 1);
         if (!weapon->FUN_008d8520()->Equipped() || weapon->FUN_008d8520()->Equipped()->FUN_0044ddc0() != actor)
-            weapon->FUN_0088c650(actor, 1, 0, 1, 1, 1);
+            weapon->EquipItem(actor, 1, 0, 1, 1, 1);
         ExtraP* newExtra = 0;
         if (weapon->FUN_008d8520() && weapon->FUN_008d8520()->Equipped() &&
             weapon->FUN_008d8520()->Equipped()->FUN_00559450())
@@ -2549,7 +2549,7 @@ void BoundItemEffect::FUN_00808a30()
                     if (biped)
                     {
                         ((ModelLoaderP*)DAT_011c3b3c)
-                            ->FUN_00447080(biped->GetBipedModel(manager), 0, 1, 0, 0, 0);
+                            ->LoadModel(biped->GetBipedModel(manager), 0, 1, 0, 0, 0);
                         m_bLoadArmorModel = true;
                     }
                 }
@@ -2566,7 +2566,7 @@ void BoundItemEffect::FUN_00808a30()
         }
         ExtraP* npc = new FUN_00410360;
         weapon->AddItem((TESBoundObject*)armor, npc, 1);
-        weapon->FUN_0088c650((TESBoundObject*)armor, 1, 0, 1, 0, 1);
+        weapon->EquipItem((TESBoundObject*)armor, 1, 0, 1, 0, 1);
         EquipManagerP* preload = FUN_004bf220(weapon);
         npc = preload->FUN_004bfda0(armor, 1);
         if (npc)
@@ -2741,8 +2741,8 @@ struct ActorA
     virtual void Equip(TESBoundObject*, int, int);
     TESBoundObject* FUN_007af430();
     ExtraA* FUN_005d43c0();
-    void FUN_0088c790(TESBoundObject*, int, int, int, int, int);
-    void FUN_0088c650(TESBoundObject*, int, int, int, int, int);
+    void UnequipItem(TESBoundObject*, int, int, int, int, int);
+    void EquipItem(TESBoundObject*, int, int, int, int, int);
 };
 struct TargetA
 {
@@ -2801,7 +2801,7 @@ void BoundItemEffect::InitLoadGame(Actor* arg)
             delete (EntryA*)m_pkWeaponEntry;
             m_pkWeaponEntry = (InventoryStackRecord*)pWeaponCopy;
         }
-        j->FUN_0088c790(((EntryA*)m_pkWeaponEntry)->FUN_0044ddc0(), 1, 0, 0, 0, 1);
+        j->UnequipItem(((EntryA*)m_pkWeaponEntry)->FUN_0044ddc0(), 1, 0, 0, 0, 1);
     }
     for (actor = 0; actor < 20; actor++)
     {
@@ -2814,7 +2814,7 @@ void BoundItemEffect::InitLoadGame(Actor* arg)
                 delete (EntryA*)m_apArmorEntries[actor];
                 m_apArmorEntries[actor] = (InventoryStackRecord*)pArmorCopy;
             }
-            j->FUN_0088c790(((EntryA*)m_apArmorEntries[actor])->FUN_0044ddc0(), 1, 0, 0, 0, 1);
+            j->UnequipItem(((EntryA*)m_apArmorEntries[actor])->FUN_0044ddc0(), 1, 0, 0, 0, 1);
         }
     }
     if (m_bModifierActive)
@@ -2824,7 +2824,7 @@ void BoundItemEffect::InitLoadGame(Actor* arg)
         if (item && !item->FUN_004c8f30(pBoundForm))
         {
             j->Equip(pBoundForm, 0, 1);
-            j->FUN_0088c650(pBoundForm, 1, 0, 1, 0, 1);
+            j->EquipItem(pBoundForm, 1, 0, 1, 0, 1);
         }
     }
 }

@@ -401,7 +401,7 @@ struct P03MM
     void* Allocate(unsigned int);
 };
 MemoryManager* __cdecl FUN_00401020(void);
-void* __cdecl FUN_00401000(unsigned int size);
+void* __cdecl FormHeap_Allocate(unsigned int size);
 struct QueuedItemList
 {
     PaddedFloatRecord** _ref_006815c0();
@@ -5436,7 +5436,7 @@ struct P114RefOps
     P114RefOps** FUN_006815c0();
     TESObjectREFR* FUN_0041c8d0();
     TESObjectREFR* FUN_0067f390();
-    void* FUN_0055d310();
+    void* GetContainer();
     TESBoundObject* FUN_007af430();
     unsigned int FUN_004459e0(unsigned int);
 };
@@ -16065,7 +16065,7 @@ struct UseRef
     float FUN_005723b0(UseRef* apRef, int a2, int a3);
     UseProcess* FUN_008d8520();
     void FUN_0087faa0();
-    int FUN_0055d310();
+    int GetContainer();
 };
 
 struct UseExtraList
@@ -16488,7 +16488,7 @@ bool UseProcess::FUN_0091c810(UseRef* apActor)
                 UseRef* pLocationCur = pPackage->FUN_0055b980()->FUN_0067f390();
                 if (!pLocationCur)
                     pLocationCur = m_pReference40;
-                if (pLocationCur && pLocationCur->FUN_0055d310())
+                if (pLocationCur && pLocationCur->GetContainer())
                 {
                     apActor->FUN_00892e90(
                         pEntryOut->FUN_0044ddc0(pXData, pLocationCur, pPackage->FUN_00672930(), pOwner));
@@ -16524,7 +16524,7 @@ bool UseProcess::FUN_0091c810(UseRef* apActor)
                         pEntryOut = apActor->FUN_00576260(m_pDetectionData60->pItem, 0);
                         delete m_pDetectionData60;
                         m_pDetectionData60 = 0;
-                        if (pLocationCur && pLocationCur->FUN_0055d310())
+                        if (pLocationCur && pLocationCur->GetContainer())
                         {
                             apActor->FUN_00892e90(
                                 pEntryOut->FUN_0044ddc0(pXData, pLocationCur, pPackage->FUN_00672930(), pOwner));

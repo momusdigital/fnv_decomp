@@ -361,7 +361,7 @@ struct NodePtrObj
 };
 struct ModelLoader
 {
-    int FUN_00447080(const char*, int, int, int, int, int);
+    int LoadModel(const char*, int, int, int, int, int);
     int FUN_0045a5e0(const char*);
 };
 extern ModelLoader* g_modelLoader;
@@ -481,7 +481,7 @@ void BGSCameraShot::SetupCamera(void* param1, int iMode)
     void* myFoundPtr;
     if (TESModel::GetModelLength())
     {
-        ((NodePtrObj*)&m_spPositionNode)->FUN_0066b0d0((void*)g_modelLoader->FUN_00447080(GetModelFilePath(), 0, 1, 1, 0, 0));
+        ((NodePtrObj*)&m_spPositionNode)->FUN_0066b0d0((void*)g_modelLoader->LoadModel(GetModelFilePath(), 0, 1, 1, 0, 0));
     }
     myFoundPtr = ((NodePtrObj*)&m_spPositionNode)->FUN_00559450()
                      ? FUN_00653270(&DAT_011f4a18, (void*)((NodePtrObj*)&m_spPositionNode)->FUN_00559450()->FUN_0045bc00(0))

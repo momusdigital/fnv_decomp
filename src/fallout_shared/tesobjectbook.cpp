@@ -370,7 +370,7 @@ extern InventoryMenuSetting g_011d34f8;
 extern InventoryMenuSetting g_011d3684;
 extern const char DAT_0108b3b4[];
 void __cdecl FUN_0095e900();
-void __cdecl FUN_00703e80(const char*, int, int, void(__cdecl*)(), int, int, float, float, ...);
+void __cdecl ShowMessageBox(const char*, int, int, void(__cdecl*)(), int, int, float, float, ...);
 // Checks the inventory item and weapon type, displays messages on failure, and stores action before formatting the final prompt.
 // @fnv 0x0095e6f0
 void Actor::FUN_0095e6f0(int action)
@@ -382,26 +382,26 @@ void Actor::FUN_0095e6f0(int action)
         TESObjectWEAP* weapon = item ? dynamic_cast<TESObjectWEAP*>(item->GetObject()) : 0;
         if (!weapon)
         {
-            FUN_00703e80(g_011d2748.FUN_00403df0(), 0, 0, FUN_0095e900, 1, 23, 0.0f, 0.0f, g_011d38b8.FUN_00403df0(),
+            ShowMessageBox(g_011d2748.FUN_00403df0(), 0, 0, FUN_0095e900, 1, 23, 0.0f, 0.0f, g_011d38b8.FUN_00403df0(),
                          0);
             return;
         }
         if (weapon->GetUnk15C() != 45 && weapon->GetUnk15C() != 38)
         {
-            FUN_00703e80(g_011d2748.FUN_00403df0(), 0, 0, FUN_0095e900, 1, 23, 0.0f, 0.0f, g_011d38b8.FUN_00403df0(),
+            ShowMessageBox(g_011d2748.FUN_00403df0(), 0, 0, FUN_0095e900, 1, 23, 0.0f, 0.0f, g_011d38b8.FUN_00403df0(),
                          0);
             return;
         }
         if (item->FUN_004bdcc0())
         {
-            FUN_00703e80(g_011d2814.FUN_00403df0(), 0, 0, FUN_0095e900, 1, 23, 0.0f, 0.0f, g_011d38b8.FUN_00403df0(),
+            ShowMessageBox(g_011d2814.FUN_00403df0(), 0, 0, FUN_0095e900, 1, 23, 0.0f, 0.0f, g_011d38b8.FUN_00403df0(),
                          0);
             return;
         }
         *reinterpret_cast<int*>(reinterpret_cast<char*>(this) + 0x758) = action;
         char szPrompt[256];
         sprintf(szPrompt, DAT_0108b3b4, g_011d4e94.FUN_00403df0(), weapon->TESFullName::GetFullName());
-        FUN_00703e80(szPrompt, 0, 0, FUN_0095e900, 2, 23, 0.0f, 0.0f, g_011d34f8.FUN_00403df0(),
+        ShowMessageBox(szPrompt, 0, 0, FUN_0095e900, 2, 23, 0.0f, 0.0f, g_011d34f8.FUN_00403df0(),
                      g_011d3684.FUN_00403df0(), 0);
     }
 }

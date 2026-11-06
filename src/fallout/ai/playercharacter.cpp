@@ -1132,7 +1132,7 @@ extern unsigned int DAT_011c3c00;
 
 extern void *DAT_01202d98, *DAT_011c3b3c, *DAT_01202df4, *DAT_011c3f2c, *DAT_011de45c;
 
-extern void* __cdecl FUN_00401000(unsigned int);
+extern void* __cdecl FormHeap_Allocate(unsigned int);
 
 extern void* __cdecl FUN_00aa13e0(unsigned int);
 
@@ -5655,7 +5655,7 @@ struct ExtObj
 };
 void __cdecl FUN_005b5e40(const char* msg);
 void __cdecl FUN_00868d70(int arg);
-void __cdecl FUN_00401030(void* p);
+void __cdecl FormHeap_Free(void* p);
 
 struct FUN_0093bea0_cls
 {
@@ -6890,7 +6890,7 @@ bool FUN_0093bea0_cls::FUN_0093bea0()
         }
         FUN_00868d70(1);
         kOld = m_pPositionRequest;
-        FUN_00401030(kOld);
+        FormHeap_Free(kOld);
         m_pPositionRequest = 0;
     }
     if (ok5)
@@ -13905,7 +13905,7 @@ struct ActorAnimation : TESObjectREFR
 };
 extern int DAT_011dea3c;
 extern void* __cdecl FUN_004bf220(ActorAnimation*);
-extern void* __cdecl FUN_00401000(unsigned int);
+extern void* __cdecl FormHeap_Allocate(unsigned int);
 struct NextState
 {
     void FUN_006ecd40();
@@ -19464,7 +19464,7 @@ struct SmartNode
 };
 struct Loader
 {
-    Node* FUN_00447080(const char*, int, bool, bool, bool, bool);
+    Node* LoadModel(const char*, int, bool, bool, bool, bool);
     void* FUN_00447330(const char*, int, int, int);
     void FUN_00447850(void*);
 };
@@ -20880,11 +20880,11 @@ struct View
     Controller* FUN_009306d0();
     void FUN_009697c0(bool);
     SmartBiped* FUN_00950b00(bool);
-    Node* FUN_0094e1d0(bool);
+    Node* Load3D(bool);
 };
 // Loads the first-person model and the FUN_0087e060 node, looks up Camera1st, Bip and Camera3rd nodes, creates biped and animation objects, and returns the node.
 // @fnv 0x0094e1d0
-Node* View::FUN_0094e1d0(bool arg)
+Node* View::Load3D(bool arg)
 {
     MemScope localValue5(0x34, true, "D:\\_Fallout3\\Platforms\\Common\\Code\\Fallout\\AI\\PlayerCharacter.cpp",
                          0x2458);
@@ -20946,7 +20946,7 @@ Node* View::FUN_0094e1d0(bool arg)
         }
     }
     Node* localValue11 =
-        g_modelLoader->FUN_00447080(FUN_00464f30(g_011cdd78.FUN_00403df0(), false), 3, true, false, false, false);
+        g_modelLoader->LoadModel(FUN_00464f30(g_011cdd78.FUN_00403df0(), false), 3, true, false, false, false);
     localValue11->SetTaskFlag(true);
     firstPerson.FUN_0066b0d0(localValue11);
     DAT_011e07cc = firstPerson.FUN_00559450()->Find(FUN_0094ead0());
@@ -22006,10 +22006,10 @@ struct PlayerView
     unsigned int unkd6c;
     unsigned int unkd70;
     char animationState[96];
-    void FUN_005702e0(NiNode*, bool);
+    void Set3D(NiNode*, bool);
     void FUN_0094eb40(NiNode*, bool);
 };
-// Calls FUN_005702e0 and, if object is null, deletes first and second and clears node, DAT_011e07d0-d8 and animationState; may warn instead.
+// Calls Set3D and, if object is null, deletes first and second and clears node, DAT_011e07d0-d8 and animationState; may warn instead.
 // @fnv 0x0094eb40
 void PlayerView::FUN_0094eb40(NiNode* apNode, bool force)
 {
@@ -22019,7 +22019,7 @@ void PlayerView::FUN_0094eb40(NiNode* apNode, bool force)
     }
     else
     {
-        FUN_005702e0(apNode, force);
+        Set3D(apNode, force);
         if (!apNode)
         {
             delete first;
@@ -24920,7 +24920,7 @@ class FUN_00620850
 struct Lock950
 {
     void FUN_0040fbf0(char* pcName);
-    void FUN_0040fba0();
+    void Leave();
 };
 extern Lock950 DAT_011f11a0;
 
@@ -25096,7 +25096,7 @@ void FUN_00950660_shell::FUN_00950660(int a, int b, int c)
     delete pkProcess;
     pkProcess = pkHigh;
     DAT_011e0e80.FUN_0096d470(this, FUN_00931850());
-    DAT_011f11a0.FUN_0040fba0();
+    DAT_011f11a0.Leave();
     v113();
     Owner950* pkOwner = FUN_009306d0();
     if (pkOwner)
@@ -28511,12 +28511,12 @@ namespace fnv_00952ba0 {
 // PlayerCharacter.h lacks this quest-target operation; use the shared quest and objective storage.
 struct PlayerQuestTargetOperations : public PlayerCharacter
 {
-    PlayerList<RegionObjectEntry*>* FUN_00952ba0();
+    PlayerList<RegionObjectEntry*>* GetCurrentQuestTargets();
 };
 
 // Returns the player's current quest target list, refreshing it from the active quest when the flag is set or the quest has no targets.
 // @fnv 0x00952ba0
-PlayerList<RegionObjectEntry*>* PlayerQuestTargetOperations::FUN_00952ba0()
+PlayerList<RegionObjectEntry*>* PlayerQuestTargetOperations::GetCurrentQuestTargets()
 {
     if (m_pCurrentQuest == 0)
         return 0;
@@ -28545,12 +28545,12 @@ struct PlayerOps
 {
     void FUN_00952d60(void*, void*, int);
 };
-TESContainer* __fastcall FUN_0055d310(TESObjectREFR*);
+TESContainer* __fastcall GetContainer(TESObjectREFR*);
 
 struct FUN_00952c30_shell : PlayerCharacter
 {
     void FUN_00952c30(TESObjectREFR* apMovingRef);
-    PlayerList<TESQuestTargetX*>* FUN_00952ba0();
+    PlayerList<TESQuestTargetX*>* GetCurrentQuestTargets();
 };
 
 // Sets a flag when the moving reference is the player or matches a quest target, or when the target's container holds the target's form ID.
@@ -28563,7 +28563,7 @@ void FUN_00952c30_shell::FUN_00952c30(TESObjectREFR* apMovingRef)
             ((PlayerOps*)this)->FUN_00952d60(*(void**)((char*)this + 0x6f4), (char*)this + 0x6f8, 0);
         *((bool*)this + 0x206) = true;
     }
-    PlayerList<TESQuestTargetX*>* pList = FUN_00952ba0();
+    PlayerList<TESQuestTargetX*>* pList = GetCurrentQuestTargets();
     TESQuestTargetX* pTarget = 0;
     while (pList && *((QTNode*)pList)->_ref_006815c0() && !*((bool*)this + 0x206))
     {
@@ -28572,9 +28572,9 @@ void FUN_00952c30_shell::FUN_00952c30(TESObjectREFR* apMovingRef)
         TESObjectREFR* ptargref = (TESObjectREFR*)((TgtOps*)pTarget)->GetReference(true);
         if (ptargref == apMovingRef)
             *((bool*)this + 0x206) = true;
-        if (ptargref && FUN_0055d310(ptargref))
+        if (ptargref && GetContainer(ptargref))
         {
-            TESContainer* pContainer = FUN_0055d310(ptargref);
+            TESContainer* pContainer = GetContainer(ptargref);
             if (pContainer)
             {
                 InventoryChanges* pInventoryChanges = InventoryChanges::CreateForReference(ptargref);
@@ -35439,7 +35439,7 @@ extern ResetSetting DAT_0120315c, DAT_01203168;
 extern ResetList DAT_011e0ae8;
 extern ResetHandler* DAT_011c3f2c;
 void SetTreeValue(void*, int);
-void FUN_00401030(void*);
+void FormHeap_Free(void*);
 void FUN_00806ba0(ResetFlagState*, void*);
 void SortTopicList(int, void*);
 void FUN_005aae20(ResetFlagState*);
@@ -36765,7 +36765,7 @@ struct GObj
 struct PlayerShell
 {
     int GetAtIfValid(int value);
-    void FUN_0088c650(TESBoundObject* obj, int value, ExtraDataList* extra, bool b1, bool b2, bool b3);
+    void EquipItem(TESBoundObject* obj, int value, ExtraDataList* extra, bool b1, bool b2, bool b3);
     unsigned short FUN_00897910(int value, int a2, int a3, Animation* anim);
     void FUN_008a73e0(int value, BSAnimGroupSequence* seq);
 };
@@ -36835,7 +36835,7 @@ bool Host95::FUN_0095d450(TESObjectWEAP* apWeapon, int sel, unsigned char b10, u
             q = reinterpret_cast<RefWrap*>(m_pBaseProcess->GetCurrentAmmo())->FUN_00726070() + 1;
         if (b14)
             q = h7;
-        ((PlayerShell*)this)->FUN_0088c650(a, q, 0, true, false, false);
+        ((PlayerShell*)this)->EquipItem(a, q, 0, true, false, false);
         return true;
         break;
     }
@@ -41551,7 +41551,7 @@ typedef PlayerList<FUN_00963bf0_item*> FUN_00963bf0_node;
 
 
 extern double DAT_01012060;
-void FUN_00401030(void* p);
+void FormHeap_Free(void* p);
 
 struct FUN_00963bf0_cls
 {
@@ -41959,7 +41959,7 @@ void FUN_00963bf0_cls::RemoveExpiredItems()
         {
             node->Remove(obj);
             FUN_00963bf0_item* tmp = obj;
-            FUN_00401030(tmp);
+            FormHeap_Free(tmp);
             node = m_60c;
         }
         else

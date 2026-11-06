@@ -561,7 +561,7 @@ void InventoryMenu::UpdateItemDisplay(int action, Tile* changed)
                 m_pTiles[11]->FUN_00a012d0(0xfb1, InventorySelection::DAT_01072e3c, 1);
                 m_pTiles[11]->FUN_00a012d0(0xfb0, InventorySelection::DAT_01072e3c, 1);
             }
-            m_pTiles[11]->FUN_00a07530(17);
+            m_pTiles[11]->SetChangeFlag(17);
             char path[260];
             InventorySelection::FUN_00406d30(path, 260, InventorySelection::DAT_0106eb24);
             unsigned int prefixLengthSlot0 = InventorySelection::FUN_0044a670(path);
@@ -683,11 +683,11 @@ struct Sh004bddd0
 };
 struct Sh0088c650
 {
-    void FUN_0088c650(void* a, int b, void* c, bool d, bool e, bool f);
+    void EquipItem(void* a, int b, void* c, bool d, bool e, bool f);
 };
 struct Sh0088c790
 {
-    void FUN_0088c790(void* a, int b, void* c, bool d, bool e, bool f);
+    void UnequipItem(void* a, int b, void* c, bool d, bool e, bool f);
 };
 unsigned __cdecl FUN_0058db10(int arg);
 unsigned __cdecl FUN_004839c0(int arg);

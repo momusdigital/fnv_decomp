@@ -69,7 +69,7 @@ void NiBillboardNode::FUN_00a7dab0(NiUpdateData& data, unsigned int flags)
 // @fnv 0x00a7e610
 void NiBillboardNode::FUN_00a7e610(NiCullingProcess* process)
 {
-    FUN_00a7de40(*(NiCullingProcess**)((char*)process + 0xc));
+    RotateToCamera(*(NiCullingProcess**)((char*)process + 0xc));
     NiNode::OnVisible(*process);
 }
 
@@ -393,7 +393,7 @@ struct CompositionResult
     float storage[sizeof(BoardTransform) / sizeof(float)];
 };
 // @fnv 0x00a7de40
-void NiBillboardNode::FUN_00a7de40(const BoardObject* cameraObject)
+void NiBillboardNode::RotateToCamera(const BoardObject* cameraObject)
 {
     const NiAVObject* camera = (const NiAVObject*)cameraObject;
 #define world (*(BoardTransform*)&m_kWorld)

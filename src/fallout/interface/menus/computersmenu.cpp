@@ -2050,19 +2050,19 @@ __declspec(dllexport) __declspec(noinline) inline void HighlightList_computersme
                     if (edge)
                     {
                         edge->FUN_0071aa60(true);
-                        edge->FUN_00a07530(8);
+                        edge->SetChangeFlag(8);
                         edge = box->GetNamedChild("bottom");
                         edge->FUN_0071aa60(true);
-                        edge->FUN_00a07530(8);
+                        edge->SetChangeFlag(8);
                         edge = box->GetNamedChild("left");
                         edge->FUN_0071aa60(true);
-                        edge->FUN_00a07530(8);
+                        edge->SetChangeFlag(8);
                         edge = box->GetNamedChild("right");
                         edge->FUN_0071aa60(true);
-                        edge->FUN_00a07530(8);
+                        edge->SetChangeFlag(8);
                     }
                     box->FUN_0071aa60(true);
-                    box->FUN_00a07530(8);
+                    box->SetChangeFlag(8);
                 }
             }
             else
@@ -2074,19 +2074,19 @@ __declspec(dllexport) __declspec(noinline) inline void HighlightList_computersme
                     if (edge)
                     {
                         edge->FUN_0071aa60(false);
-                        edge->FUN_00a07530(8);
+                        edge->SetChangeFlag(8);
                         edge = box->GetNamedChild("bottom");
                         edge->FUN_0071aa60(false);
-                        edge->FUN_00a07530(8);
+                        edge->SetChangeFlag(8);
                         edge = box->GetNamedChild("left");
                         edge->FUN_0071aa60(false);
-                        edge->FUN_00a07530(8);
+                        edge->SetChangeFlag(8);
                         edge = box->GetNamedChild("right");
                         edge->FUN_0071aa60(false);
-                        edge->FUN_00a07530(8);
+                        edge->SetChangeFlag(8);
                     }
                     box->FUN_0071aa60(false);
-                    box->FUN_00a07530(8);
+                    box->SetChangeFlag(8);
                 }
             }
         }

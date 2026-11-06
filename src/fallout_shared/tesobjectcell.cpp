@@ -15818,7 +15818,7 @@ void ObstacleMap::SetOrInsertValue(unsigned int key, ObstacleMapValue val)
 
 namespace fnv_004375c0 {
 struct Entry;
-void FUN_00401030(void*);
+void FormHeap_Free(void*);
 struct FUN_0040ecb0
 {
     virtual ~FUN_0040ecb0();

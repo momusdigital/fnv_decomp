@@ -7401,7 +7401,7 @@ void FUN_00444dc0_t::QueueModelForObject(TESObject* apObject, QHeadPtrDest* apDe
 namespace fnv_00447080 {
 struct FUN_00447080_shell : public ModelLoader
 {
-    NiNode* FUN_00447080(char*, int, bool, bool, bool, bool);
+    NiNode* LoadModel(char*, int, bool, bool, bool, bool);
 };
 
 struct Flt
@@ -7454,7 +7454,7 @@ struct ModelMapStand
     virtual bool Get(char*, Model**);
 };
 // @fnv 0x00447080
-NiNode* FUN_00447080_shell::FUN_00447080(char* apFilename, int aeLODFadeMult, bool abPrepareObject,
+NiNode* FUN_00447080_shell::LoadModel(char* apFilename, int aeLODFadeMult, bool abPrepareObject,
                                          bool abSuppressWarning, bool abFaceGenModel, bool abDontIncrementRefCount)
 {
     Model* pmodel = 0;
@@ -10004,12 +10004,12 @@ struct ML
     int unk0, unk4;
     Queue* q8;
     Queue* qc;
-    void FUN_00444850(Ref* ref, int a2, bool a3);
+    void QueueReference(Ref* ref, int a2, bool a3);
 };
 
 // Checks manager and ref state, updates or creates a queued load task for ref, then adds it to q8 and optionally qc.
 // @fnv 0x00444850
-void ML::FUN_00444850(Ref* ref, int aiValue, bool a3)
+void ML::QueueReference(Ref* ref, int aiValue, bool a3)
 {
     if (DAT_011ddf38->FUN_0042ce10() && !DAT_011ddf38->FUN_00444d20())
         return;
@@ -11399,7 +11399,7 @@ bool NiStream::FUN_00c3a8a0(const char* a1, BSFile* a2)
 
 // FUN_0043ace0 worker2 a2run3 A1: NiSortAdjustNode drop m_a8 (pack NiMemObject is 1B, +4 align -> 42 fields = 0xac alloc like ORIG)
 int __cdecl FUN_0044a670(const char*);
-void* __cdecl FUN_00401000(unsigned int);
+void* __cdecl FormHeap_Allocate(unsigned int);
 int __cdecl FUN_00406d30(char*, unsigned int, const char*);
 void __fastcall FUN_00c3b370(void*);
 void* __fastcall FUN_00413f40(void*);
@@ -11635,7 +11635,7 @@ void ThisS::FUN_0043ace0(const char* apName, BSStream* apSource, unsigned char a
                                                                     m_04 = 0;
                                                                     m_08 = 0;
                                                                     count = FUN_0044a670(apName) + 1;
-                                                                    c = (char*)FUN_00401000(count);
+                                                                    c = (char*)FormHeap_Allocate(count);
                                                                     m_buf = c;
                                                                     FUN_00406d30(m_buf, count, apName);
                                                                     if (apSource->GetRefAt21C() == 0)
@@ -15599,7 +15599,7 @@ struct Ref3
     int unk0a8;
     Delete3* owned;
     Other3* other;
-    void FUN_005702e0(Obj3*, bool);
+    void Set3D(Obj3*, bool);
     Obj3* Get3DSimple();
     Proc3* Process();
     int ProcessLevel();
@@ -15810,7 +15810,7 @@ Nav3* GetNav3();
 void baseNotify3(Form3*, Ref3*);
 // Swaps the reference's 3D object for replacement, detaching and cleaning up the old one and attaching the new one with its saved transform.
 // @fnv 0x005702e0
-void Ref3::FUN_005702e0(Obj3* replacement, bool warn)
+void Ref3::Set3D(Obj3* replacement, bool warn)
 {
     if (Get3DSimple() == replacement)
     {

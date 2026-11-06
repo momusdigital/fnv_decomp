@@ -430,7 +430,7 @@ public:
     float FUN_005723b0(Actor* a, int b, int c);
     int FUN_00891be0(Target* pkTarget);
     void FUN_0088d7d0(int iArg0, int iArg1, int iArg2, bool bArg3, bool bArg4, bool bArg5);
-    void FUN_0088c790(int iArg0, int iArg1, int iArg2, bool bArg3, bool bArg4, bool bArg5);
+    void UnequipItem(int iArg0, int iArg1, int iArg2, bool bArg3, bool bArg4, bool bArg5);
     void FUN_0093a660(Actor*);
     void FUN_00967220(Actor*, int);
     void FUN_00884f80();
@@ -504,8 +504,8 @@ public:
     void FUN_008b38d0(PathingRequest*, const NiPoint3&, void*, float, int); // 0x008b38d0
     bool CallPathMgr(FurnitureMark*, TESObjectCELL*, TESWorldSpace*, float, float, int); // 0x008b3750
     int FUN_00575610(TESForm*);
-    void FUN_0088c650(TESForm*, int, ExtraDataList*, bool, bool, bool);
-    void FUN_0088c790(TESForm*, ExtraDataList*, bool, bool, bool, bool);
+    void EquipItem(TESForm*, int, ExtraDataList*, bool, bool, bool);
+    void UnequipItem(TESForm*, ExtraDataList*, bool, bool, bool, bool);
     float __thiscall GetCombatRating(float);
     float __thiscall FUN_008be600();
     bool FUN_008bc9d0(Weapon*, int);
@@ -550,7 +550,7 @@ public:
     void FUN_008bb5c0(float, bool);
     void FUN_008b3ab0();
     Ref* FUN_00569b80();
-    void FUN_0088c650(Form*, int, int, int, int, int);
+    void EquipItem(Form*, int, int, int, int, int);
     bool FUN_008c0050();
     bool IsCurrentlyAlerted();
     bool FUN_00579670();
@@ -703,7 +703,7 @@ public:
     void FUN_008a5e40(bool);
     void FUN_00934250();
     void FUN_00950030();
-    void FUN_0088c790(TESForm*, int, int, int, bool, int);
+    void UnequipItem(TESForm*, int, int, int, bool, int);
     bool UnEquipObject(class TESBoundObject*, int, class ExtraDataList*, bool, bool, bool);
     void __thiscall RemoveEntry(Entry*);
     void SetEffectValue(int, float, int);

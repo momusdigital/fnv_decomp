@@ -3124,8 +3124,8 @@ FUN_00483370::FUN_00483370()
 
 bool __cdecl FUN_00401500();
 void __cdecl AppendChunk(void*, void*, void*);
-void* __cdecl FUN_00401000(unsigned int size);
-void __cdecl FUN_00401030(void* p);
+void* __cdecl FormHeap_Allocate(unsigned int size);
+void __cdecl FormHeap_Free(void* p);
 void* __cdecl FUN_00401460(void* dst, void* src, unsigned int size);
 void __cdecl FUN_00401080(void* p, bool value);
 
@@ -3139,11 +3139,11 @@ struct Slot4
     unsigned int value;
     static void* operator new[](unsigned int size)
     {
-        return FUN_00401000(size);
+        return FormHeap_Allocate(size);
     }
     static void operator delete[](void* p)
     {
-        FUN_00401030(p);
+        FormHeap_Free(p);
     }
 };
 

@@ -2452,7 +2452,7 @@ void FUN_006d01d0_Class::FUN_006d01d0(unsigned int count, bool clear)
 struct SpinLock6c67
 {
     void FUN_0040fbf0(const char* pcName);
-    void FUN_0040fba0();
+    void Leave();
     int m_kNextStreamField[2];
 };
 
@@ -2508,7 +2508,7 @@ void Queue6c67::ClearQueue(bool abFreeNodes)
         m_pkTail = m_pkHead;
         m_pkTable = new FUN_006c73b0(iCapacity);
     }
-    m_kLock.FUN_0040fba0();
+    m_kLock.Leave();
 }
 
 struct FUN_006c6ae0_Base

@@ -2042,7 +2042,7 @@ struct ItemObj
 extern Loader* DAT_011c3b3c;
 extern int DAT_011f36bc;
 extern int DAT_011f36e4;
-void __cdecl FUN_00401030(void*);
+void __cdecl FormHeap_Free(void*);
 struct FUN_0048fb50
 {
     void* f00;
@@ -2200,7 +2200,7 @@ FUN_0048fb50::~FUN_0048fb50()
         {
             itemValB2 = *nodeBq->FUN_006815c0();
             itemCopy2 = itemValB2;
-            FUN_00401030(itemCopy2);
+            FormHeap_Free(itemCopy2);
             nodeBq = nodeBq->FUN_00726070();
         }
         m134.FUN_00470470();

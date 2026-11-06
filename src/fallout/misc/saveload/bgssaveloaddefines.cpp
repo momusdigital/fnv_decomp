@@ -202,7 +202,7 @@ unsigned int ReadEncodedInteger(char* buffer, unsigned int& value)
 MemoryManager* __cdecl FUN_00401020(void);
 
 // @fnv 0x00401030
-void __cdecl FUN_00401030(void* ptr)
+void __cdecl FormHeap_Free(void* ptr)
 {
     FUN_00401020()->Deallocate(ptr);
 }

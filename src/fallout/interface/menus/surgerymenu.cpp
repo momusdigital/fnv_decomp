@@ -3055,7 +3055,7 @@ struct EventPlayer
     int unka0;
     EventValues values;
     EventEntry* FUN_00576260(EventForm*, int);
-    void FUN_0088c650(void*, int, void*, bool, bool, bool);
+    void EquipItem(void*, int, void*, bool, bool, bool);
     void FUN_0088b740(int, float);
 };
 struct EventScene
@@ -3167,7 +3167,7 @@ void EventMenu::OnButtonClick(int button, int arg)
                                 FUN_00726070()->FUN_00a012d0(stimpak, FUN_00726070()->FUN_00a011b0(stimpak) - 1.0,
                                                              true);
                                 ((EventPlayer*)_g_thePlayer)
-                                    ->FUN_0088c650(
+                                    ->EquipItem(
                                         ((EventMenu*)DAT_011dada4)->entry->FUN_0044ddc0(),
                                         ((EventMenu*)DAT_011dada4)->entry->FUN_00726070(),
                                         ((EventMenu*)DAT_011dada4)->entry->FUN_00559450()
@@ -3184,7 +3184,7 @@ void EventMenu::OnButtonClick(int button, int arg)
                                 FUN_00726070()->FUN_00a012d0(morphine, FUN_00726070()->FUN_00a011b0(morphine) - 1.0,
                                                              true);
                                 ((EventPlayer*)_g_thePlayer)
-                                    ->FUN_0088c650(FUN_0058db10(4), item->FUN_00726070(),
+                                    ->EquipItem(FUN_0058db10(4), item->FUN_00726070(),
                                                    item->FUN_00559450() ? *(item->FUN_00559450()->FUN_006815c0()) : 0,
                                                    false, false, true);
                                 delete item;

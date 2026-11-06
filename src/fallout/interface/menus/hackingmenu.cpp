@@ -491,7 +491,7 @@ struct FUN_007021b0_cls
 
 extern "C" void __stdcall FUN_00ec5fce(void* object, int elementSize, int count, void (FUN_007021b0_cls::*callback)());
 
-extern "C" void __cdecl FUN_00401030(void* apMemory);
+extern "C" void __cdecl FormHeap_Free(void* apMemory);
 
 // Destroys the object's elements and optionally frees the allocation, returning the object or its base pointer depending on flags.
 // @fnv 0x007021b0
@@ -503,7 +503,7 @@ void* FUN_007021b0_cls::DestroyOrFree(unsigned int flags)
 
         if (flags & 1)
         {
-            FUN_00401030(reinterpret_cast<char*>(this) - 4);
+            FormHeap_Free(reinterpret_cast<char*>(this) - 4);
         }
 
         return reinterpret_cast<char*>(this) - 4;
@@ -513,7 +513,7 @@ void* FUN_007021b0_cls::DestroyOrFree(unsigned int flags)
 
     if (flags & 1)
     {
-        FUN_00401030(this);
+        FormHeap_Free(this);
     }
 
     return this;
@@ -1034,7 +1034,7 @@ struct SysColorMgr
     void ApplyToChild();
 };
 unsigned int __cdecl gm_GetTickCount();
-void __cdecl FUN_00401030(void*);
+void __cdecl FormHeap_Free(void*);
 extern SettingColl DAT_011d0b90;
 extern unsigned int DAT_011d95c0;
 extern char DAT_011d9674;
@@ -1065,7 +1065,7 @@ HackingMenu::~HackingMenu()
     DAT_011d95c0 = gm_GetTickCount() + DAT_011d0b90.FUN_0043d4d0()->v;
     pair180.FreeAll();
     void* ptrTmp = reinterpret_cast<void*>(unk1b0);
-    FUN_00401030(ptrTmp);
+    FormHeap_Free(ptrTmp);
     DAT_011d95b8 = 0;
     for (i8 = 0; i8 < 5; i8++)
     {
@@ -1137,7 +1137,7 @@ void HackingMenu::RemoveRandomWord()
         reinterpret_cast<unsigned int*>(unk1b0)[index] = reinterpret_cast<unsigned int*>(unk1b0)[index + 1];
     reinterpret_cast<unsigned int*>(unk1b0)[index] = 0x198;
     char* deleted = *word->Get();
-    FUN_00401030(deleted);
+    FormHeap_Free(deleted);
     (*reinterpret_cast<HackList*>(&pair180)).Remove(word->Get());
     --reinterpret_cast<unsigned int&>(unk1a8);
 }

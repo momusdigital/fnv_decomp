@@ -2809,7 +2809,7 @@ bool Mob9c::FUN_009c47d0()
     delete process;
     process = pHighProcess;
     g_processLists9c.AddActor(this, 0, 0, 0, 0);
-    g_lock9c.FUN_0040fba0();
+    g_lock9c.Leave();
     SetProcessFlag(0);
     process->ClearIdleAnimation();
     return true;
@@ -2878,7 +2878,7 @@ bool Owner_9c4a40::FUN_009c4a40()
     delete process;
     process = newProcess;
     DAT_011e0e80.FUN_0096d450((MobileObject*)this, 2, 0, 0, 0);
-    g_projectileLock_9c4a40.FUN_0040fba0();
+    g_projectileLock_9c4a40.Leave();
     return true;
 }
 
@@ -6881,7 +6881,7 @@ bool MobileObjectProcessReplacement::FUN_009c4b60()
     delete (Base_0092c950*)this->m_pBaseProcess;
     this->m_pBaseProcess = reinterpret_cast<BaseProcess*>(newProcess);
     DAT_011e0e80.FUN_0096d450(this, 3, 0, 0, 0);
-    DAT_011f11a0.FUN_0040fba0();
+    DAT_011f11a0.Leave();
     return true;
 }
 }  // namespace fnv_009c4b60

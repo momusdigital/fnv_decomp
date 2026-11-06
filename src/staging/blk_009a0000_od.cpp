@@ -6385,7 +6385,7 @@ extern float DAT_0102918c;
 extern Setting DAT_011d0030, DAT_011d0490, DAT_011cfea0, DAT_011d0edc, DAT_011d0d38, DAT_011d00d8, DAT_011d05e0;
 float ComputeSquaredRatioComplement(float, float);
 void FUN_005299a0(void*, float, int);
-void FUN_005ac750(void*, int, int);
+void MarkBaseExtraListScriptEvent(void*, int, int);
 void InitCombatThing(Hit082*, Obj082*, Obj082*, Obj082*, float);
 NiPoint2 FUN_00532fd0(float, NiPoint2*);
 Obj082* FUN_00705950();
@@ -6426,11 +6426,11 @@ void Obj082::ProcessHits()
                 Obj082* amount = entry->object->IsActor() ? entry->object : 0;
                 if (amount)
                     amount->CallProcessAt778();
-                FUN_005ac750(GetSource() ? (void*)GetSource()->FUN_00559450() : 0, entry->object->FUN_005d43c0(), 0x80);
+                MarkBaseExtraListScriptEvent(GetSource() ? (void*)GetSource()->FUN_00559450() : 0, entry->object->FUN_005d43c0(), 0x80);
                 if (GetFieldE0())
-                    FUN_005ac750(GetFieldE0(), entry->object->FUN_005d43c0(), 0x100);
+                    MarkBaseExtraListScriptEvent(GetFieldE0(), entry->object->FUN_005d43c0(), 0x100);
                 else
-                    FUN_005ac750(FUN_004181e0(), entry->object->FUN_005d43c0(), 0x100);
+                    MarkBaseExtraListScriptEvent(FUN_004181e0(), entry->object->FUN_005d43c0(), 0x100);
                 actor = GetCachedValue() * distance;
                 if (entry->object->FUN_00477ba0() && GetFieldC8() == DAT_011dea3c)
                     DAT_011dea3c->SetEffectValue(10, DAT_0102918c, 0);

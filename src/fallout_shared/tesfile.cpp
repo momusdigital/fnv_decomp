@@ -1861,8 +1861,8 @@ struct TagX
 {
 };
 void FUN_00401080(void* p, TagX t);
-void* FUN_00401000(unsigned int n);
-void FUN_00401030(void* p);
+void* FormHeap_Allocate(unsigned int n);
+void FormHeap_Free(void* p);
 bool FindFormEnumIndex(int id);
 void FUN_005b5e40(const char* fmt, ...);
 extern int g_iDat01187020;
@@ -1902,7 +1902,7 @@ void TESFile::InflateCompressedForm()
         bool bOk = fnv_004740a0::FindFormEnumIndex(m_kRecordInfo.form);
         if (!bOk)
             return;
-        char* pBufferVal = (char*)FUN_00401000(m_kRecordInfo.length + 1);
+        char* pBufferVal = (char*)FormHeap_Allocate(m_kRecordInfo.length + 1);
         if (!pBufferVal)
             return;
         if (m_pFile->Read(pBufferVal, m_kRecordInfo.length) != m_kRecordInfo.length)
@@ -1916,7 +1916,7 @@ void TESFile::InflateCompressedForm()
             if (IsEndianConversionRequired())
                 FUN_00401080(&uiSize7, TagX());
             pBufferVal[m_kRecordInfo.length] = 0;
-            m_pDecompressedFormBuffer = (char*)FUN_00401000(uiSize7);
+            m_pDecompressedFormBuffer = (char*)FormHeap_Allocate(uiSize7);
             m_uiAuxBufferSize = uiSize7;
             ZStreamX kStream;
             char acState[0x1ba4];
@@ -1932,7 +1932,7 @@ void TESFile::InflateCompressedForm()
                 FUN_00b45db0(&kStream);
                 fnv_004740a0::FUN_005b5e40("TESFile: Error initializing ZLib inflate stream.");
                 ClearDecompressedFormBuffer();
-                FUN_00401030(pBufferVal);
+                FormHeap_Free(pBufferVal);
                 return;
             }
             kStream.m_uiAvailableInputBytes = m_kRecordInfo.length - 4;
@@ -1945,7 +1945,7 @@ void TESFile::InflateCompressedForm()
                 FUN_00b45db0(&kStream);
                 fnv_004740a0::FUN_005b5e40("TESFile: Error inflating ZLib stream.");
                 ClearDecompressedFormBuffer();
-                FUN_00401030(pBufferVal);
+                FormHeap_Free(pBufferVal);
                 return;
             }
             if (iRet6 != 1)
@@ -1953,12 +1953,12 @@ void TESFile::InflateCompressedForm()
                 FUN_00b45db0(&kStream);
                 fnv_004740a0::FUN_005b5e40("TESFile: Error: ZLib stream did not terminate.");
                 ClearDecompressedFormBuffer();
-                FUN_00401030(pBufferVal);
+                FormHeap_Free(pBufferVal);
                 return;
             }
             FUN_00b45db0(&kStream);
         }
-        FUN_00401030(pBufferVal);
+        FormHeap_Free(pBufferVal);
     }
 }
 

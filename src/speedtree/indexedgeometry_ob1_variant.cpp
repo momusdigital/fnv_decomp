@@ -323,9 +323,9 @@ struct K
     int __thiscall FUN_00b33110(int, int);
     void __thiscall FUN_00b331c0();
 };
-void __cdecl FUN_00401030(void*);
+void __cdecl FormHeap_Free(void*);
 unsigned int __cdecl FUN_00ec7c56(void);
-void __cdecl FUN_00401030(void*);
+void __cdecl FormHeap_Free(void*);
 struct InnerVec
 {
     int unk00;
@@ -1646,7 +1646,7 @@ void VecQ_acad60::FUN_00b0dae0(const char& _Val)
     }
 }
 
-void __cdecl FUN_00401030(void* p);
+void __cdecl FormHeap_Free(void* p);
 struct VB9
 {
     inline void*& PP()
@@ -1655,7 +1655,7 @@ struct VB9
     }
     inline void Dealloc(void* q)
     {
-        FUN_00401030(q);
+        FormHeap_Free(q);
     }
     ~VB9()
     {
@@ -1761,7 +1761,7 @@ struct FUN_00b2e9c0
     VC9 v178;
     inline void Free(void* p)
     {
-        FUN_00401030(p);
+        FormHeap_Free(p);
     }
     void ClearOuter();
     ~FUN_00b2e9c0();
@@ -3942,7 +3942,7 @@ struct ScalarAllocator
 {
     __forceinline void deallocate(unsigned int* _Ptr, unsigned int)
     {
-        FUN_00401030(_Ptr);
+        FormHeap_Free(_Ptr);
     }
 };
 
@@ -4345,7 +4345,7 @@ namespace fnv_00b2c890 {
 #include <string.h>
 
 void* operator new(unsigned int);
-void FUN_00401030(void*);
+void FormHeap_Free(void*);
 namespace std {
 class exception
 {
@@ -4418,7 +4418,7 @@ template <class T> struct NativeAllocator
 {
     void deallocate(T* ptr, unsigned int)
     {
-        fnv_00b2c890::FUN_00401030(ptr);
+        fnv_00b2c890::FormHeap_Free(ptr);
     }
     T* allocate(unsigned int count)
     {

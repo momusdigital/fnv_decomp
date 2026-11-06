@@ -2314,7 +2314,7 @@ void* SaveLoadCleanup::FUN_008451a0(unsigned int flags)
     return this;
 }
 
-void* __cdecl FUN_00401000(unsigned int size);
+void* __cdecl FormHeap_Allocate(unsigned int size);
 
 struct Obj_b9971
 {
@@ -2325,7 +2325,7 @@ struct Obj_b9971
     Obj_b9971();
     static void* operator new(unsigned int size) throw()
     {
-        return FUN_00401000(size);
+        return FormHeap_Allocate(size);
     }
 };
 
@@ -2981,7 +2981,7 @@ void TESSaveLoadGame::LoadAnimationForReference(TESObjectREFR* reference, unsign
     }
 }
 
-extern "C" void __cdecl FUN_00401030(void* data);
+extern "C" void __cdecl FormHeap_Free(void* data);
 struct FnvMap
 {
     void* FUN_004b9ba0();
@@ -3019,7 +3019,7 @@ void TESSaveLoadGame::LoadHavokData()
             }
             LoadHavokDataForReference(refObject, data);
         }
-        FUN_00401030(data);
+        FormHeap_Free(data);
         reinterpret_cast<FnvMap*>(m_pHavokDataBufferMap)->RemoveKey(key);
     }
 }
@@ -4727,7 +4727,7 @@ void TESSaveLoadGame::LoadAttachedAnimations()
             }
             LoadAttachedAnimationForReference(pRef_zaxvzc, pData_zbax);
         }
-        FUN_00401030(pData_zbax);
+        FormHeap_Free(pData_zbax);
         reinterpret_cast<FnvMap*>(m_pAttachedAnimationBufferMap)->RemoveKey(uiID);
     }
 }
@@ -5621,7 +5621,7 @@ struct Mgr10
 };
 struct Mgr3c
 {
-    void FUN_00444850(Actor*, int, int);
+    void QueueReference(Actor*, int, int);
 };
 struct Owner
 {
@@ -5740,7 +5740,7 @@ void SaveGameInitForms::FUN_00858af0(EntryListNode* list, Entry* ctx, bool reset
             FUN_00451010()->FUN_00c66300();
         DAT_011dea10->FUN_00459920();
         if (!((VObj*)DAT_011dea3c)->FUN_00950bb0(0))
-            DAT_011c3b3c->FUN_00444850((Actor*)DAT_011dea3c, 0, 0);
+            DAT_011c3b3c->QueueReference((Actor*)DAT_011dea3c, 0, 0);
         DAT_01202d98->FUN_00456520();
         DAT_01202d98->FUN_008495b0();
         if (node1)

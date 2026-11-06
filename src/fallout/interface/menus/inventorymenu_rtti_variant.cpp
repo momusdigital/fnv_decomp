@@ -186,7 +186,7 @@ void Menu::UpdateItemDisplay(int action, Tile* changed)
                 static_cast<InventoryMenu*>(this)->m_pTiles[11]->FUN_00a012d0(0xfb1, DAT_01072e3c, 1);
                 static_cast<InventoryMenu*>(this)->m_pTiles[11]->FUN_00a012d0(0xfb0, DAT_01072e3c, 1);
             }
-            static_cast<InventoryMenu*>(this)->m_pTiles[11]->FUN_00a07530(17);
+            static_cast<InventoryMenu*>(this)->m_pTiles[11]->SetChangeFlag(17);
             char path[260];
             FUN_00406d30(path, 260, DAT_0106eb24);
             unsigned int prefixLengthSlot0 = FUN_0044a670(path);

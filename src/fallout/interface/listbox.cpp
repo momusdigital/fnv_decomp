@@ -16,7 +16,7 @@ class HighlightTile_listbox
 public:
     HighlightTile_listbox* FUN_00a03da0(const char* name);
     void FUN_0071aa60(bool value);
-    void FUN_00a07530(int flags);
+    void SetChangeFlag(int flags);
     bool GetSpeechChallengeFailure();
     float FUN_00a011b0(int trait);
     void FUN_00a012d0(int trait, float value, bool propagate);
@@ -4431,19 +4431,19 @@ void HighlightList_listbox::FUN_00725080()
                     if (child)
                     {
                         child->FUN_0071aa60(true);
-                        child->FUN_00a07530(8);
+                        child->SetChangeFlag(8);
                         child = box->GetNamedChild(str_0106f88c);
                         child->FUN_0071aa60(true);
-                        child->FUN_00a07530(8);
+                        child->SetChangeFlag(8);
                         child = box->GetNamedChild(str_0106f884);
                         child->FUN_0071aa60(true);
-                        child->FUN_00a07530(8);
+                        child->SetChangeFlag(8);
                         child = box->GetNamedChild(str_0106f87c);
                         child->FUN_0071aa60(true);
-                        child->FUN_00a07530(8);
+                        child->SetChangeFlag(8);
                     }
                     box->FUN_0071aa60(true);
-                    box->FUN_00a07530(8);
+                    box->SetChangeFlag(8);
                 }
             }
             else
@@ -4455,19 +4455,19 @@ void HighlightList_listbox::FUN_00725080()
                     if (child)
                     {
                         child->FUN_0071aa60(false);
-                        child->FUN_00a07530(8);
+                        child->SetChangeFlag(8);
                         child = box->GetNamedChild(str_0106f88c);
                         child->FUN_0071aa60(false);
-                        child->FUN_00a07530(8);
+                        child->SetChangeFlag(8);
                         child = box->GetNamedChild(str_0106f884);
                         child->FUN_0071aa60(false);
-                        child->FUN_00a07530(8);
+                        child->SetChangeFlag(8);
                         child = box->GetNamedChild(str_0106f87c);
                         child->FUN_0071aa60(false);
-                        child->FUN_00a07530(8);
+                        child->SetChangeFlag(8);
                     }
                     box->FUN_0071aa60(false);
-                    box->FUN_00a07530(8);
+                    box->SetChangeFlag(8);
                 }
             }
         }
@@ -4512,19 +4512,19 @@ void FUN_007254d0_t::UpdateSpeechChallengeTrait()
                     if (child)
                     {
                         ((Tile*)child)->FUN_0071aa60(true);
-                        ((Tile*)child)->FUN_00a07530(8);
+                        ((Tile*)child)->SetChangeFlag(8);
                         child = ((Tile*)parent)->GetNamedChild(str_0106f88c);
                         ((Tile*)child)->FUN_0071aa60(true);
-                        ((Tile*)child)->FUN_00a07530(8);
+                        ((Tile*)child)->SetChangeFlag(8);
                         child = ((Tile*)parent)->GetNamedChild(str_0106f884);
                         ((Tile*)child)->FUN_0071aa60(true);
-                        ((Tile*)child)->FUN_00a07530(8);
+                        ((Tile*)child)->SetChangeFlag(8);
                         child = ((Tile*)parent)->GetNamedChild(str_0106f87c);
                         ((Tile*)child)->FUN_0071aa60(true);
-                        ((Tile*)child)->FUN_00a07530(8);
+                        ((Tile*)child)->SetChangeFlag(8);
                     }
                     ((Tile*)parent)->FUN_0071aa60(true);
-                    ((Tile*)parent)->FUN_00a07530(8);
+                    ((Tile*)parent)->SetChangeFlag(8);
                 }
             }
             else
@@ -4536,19 +4536,19 @@ void FUN_007254d0_t::UpdateSpeechChallengeTrait()
                     if (child)
                     {
                         ((Tile*)child)->FUN_0071aa60(false);
-                        ((Tile*)child)->FUN_00a07530(8);
+                        ((Tile*)child)->SetChangeFlag(8);
                         child = ((Tile*)parent)->GetNamedChild(str_0106f88c);
                         ((Tile*)child)->FUN_0071aa60(false);
-                        ((Tile*)child)->FUN_00a07530(8);
+                        ((Tile*)child)->SetChangeFlag(8);
                         child = ((Tile*)parent)->GetNamedChild(str_0106f884);
                         ((Tile*)child)->FUN_0071aa60(false);
-                        ((Tile*)child)->FUN_00a07530(8);
+                        ((Tile*)child)->SetChangeFlag(8);
                         child = ((Tile*)parent)->GetNamedChild(str_0106f87c);
                         ((Tile*)child)->FUN_0071aa60(false);
-                        ((Tile*)child)->FUN_00a07530(8);
+                        ((Tile*)child)->SetChangeFlag(8);
                     }
                     ((Tile*)parent)->FUN_0071aa60(false);
-                    ((Tile*)parent)->FUN_00a07530(8);
+                    ((Tile*)parent)->SetChangeFlag(8);
                 }
             }
         }
@@ -4614,19 +4614,19 @@ void ListBox726210::FUN_00726210()
                     if (child != 0)
                     {
                         ((Tile*)child)->FUN_0071aa60(true);
-                        ((Tile*)child)->FUN_00a07530(8);
+                        ((Tile*)child)->SetChangeFlag(8);
                         child = ((Tile*)box)->GetNamedChild(str_0106f88c);
                         ((Tile*)child)->FUN_0071aa60(true);
-                        ((Tile*)child)->FUN_00a07530(8);
+                        ((Tile*)child)->SetChangeFlag(8);
                         child = ((Tile*)box)->GetNamedChild(str_0106f884);
                         ((Tile*)child)->FUN_0071aa60(true);
-                        ((Tile*)child)->FUN_00a07530(8);
+                        ((Tile*)child)->SetChangeFlag(8);
                         child = ((Tile*)box)->GetNamedChild(str_0106f87c);
                         ((Tile*)child)->FUN_0071aa60(true);
-                        ((Tile*)child)->FUN_00a07530(8);
+                        ((Tile*)child)->SetChangeFlag(8);
                     }
                     ((Tile*)box)->FUN_0071aa60(true);
-                    ((Tile*)box)->FUN_00a07530(8);
+                    ((Tile*)box)->SetChangeFlag(8);
                 }
             }
             else
@@ -4638,19 +4638,19 @@ void ListBox726210::FUN_00726210()
                     if (child != 0)
                     {
                         ((Tile*)child)->FUN_0071aa60(false);
-                        ((Tile*)child)->FUN_00a07530(8);
+                        ((Tile*)child)->SetChangeFlag(8);
                         child = ((Tile*)box)->GetNamedChild(str_0106f88c);
                         ((Tile*)child)->FUN_0071aa60(false);
-                        ((Tile*)child)->FUN_00a07530(8);
+                        ((Tile*)child)->SetChangeFlag(8);
                         child = ((Tile*)box)->GetNamedChild(str_0106f884);
                         ((Tile*)child)->FUN_0071aa60(false);
-                        ((Tile*)child)->FUN_00a07530(8);
+                        ((Tile*)child)->SetChangeFlag(8);
                         child = ((Tile*)box)->GetNamedChild(str_0106f87c);
                         ((Tile*)child)->FUN_0071aa60(false);
-                        ((Tile*)child)->FUN_00a07530(8);
+                        ((Tile*)child)->SetChangeFlag(8);
                     }
                     ((Tile*)box)->FUN_0071aa60(false);
-                    ((Tile*)box)->FUN_00a07530(8);
+                    ((Tile*)box)->SetChangeFlag(8);
                 }
             }
         }
@@ -5868,19 +5868,19 @@ void HighlightList_listbox::FUN_007a73e0()
                     if (child)
                     {
                         child->FUN_0071aa60(true);
-                        child->FUN_00a07530(8);
+                        child->SetChangeFlag(8);
                         child = box->GetNamedChild("bottom");
                         child->FUN_0071aa60(true);
-                        child->FUN_00a07530(8);
+                        child->SetChangeFlag(8);
                         child = box->GetNamedChild("left");
                         child->FUN_0071aa60(true);
-                        child->FUN_00a07530(8);
+                        child->SetChangeFlag(8);
                         child = box->GetNamedChild("right");
                         child->FUN_0071aa60(true);
-                        child->FUN_00a07530(8);
+                        child->SetChangeFlag(8);
                     }
                     box->FUN_0071aa60(true);
-                    box->FUN_00a07530(8);
+                    box->SetChangeFlag(8);
                 }
             }
             else
@@ -5892,19 +5892,19 @@ void HighlightList_listbox::FUN_007a73e0()
                     if (child)
                     {
                         child->FUN_0071aa60(false);
-                        child->FUN_00a07530(8);
+                        child->SetChangeFlag(8);
                         child = box->GetNamedChild("bottom");
                         child->FUN_0071aa60(false);
-                        child->FUN_00a07530(8);
+                        child->SetChangeFlag(8);
                         child = box->GetNamedChild("left");
                         child->FUN_0071aa60(false);
-                        child->FUN_00a07530(8);
+                        child->SetChangeFlag(8);
                         child = box->GetNamedChild("right");
                         child->FUN_0071aa60(false);
-                        child->FUN_00a07530(8);
+                        child->SetChangeFlag(8);
                     }
                     box->FUN_0071aa60(false);
-                    box->FUN_00a07530(8);
+                    box->SetChangeFlag(8);
                 }
             }
         }
@@ -6517,19 +6517,19 @@ void ListBoxX::FUN_007d97a0()
                     if (child != 0)
                     {
                         ((Tile*)child)->FUN_0071aa60(true);
-                        ((Tile*)child)->FUN_00a07530(8);
+                        ((Tile*)child)->SetChangeFlag(8);
                         child = ((Tile*)box)->GetNamedChild(str_0106f88c);
                         ((Tile*)child)->FUN_0071aa60(true);
-                        ((Tile*)child)->FUN_00a07530(8);
+                        ((Tile*)child)->SetChangeFlag(8);
                         child = ((Tile*)box)->GetNamedChild(str_0106f884);
                         ((Tile*)child)->FUN_0071aa60(true);
-                        ((Tile*)child)->FUN_00a07530(8);
+                        ((Tile*)child)->SetChangeFlag(8);
                         child = ((Tile*)box)->GetNamedChild(str_0106f87c);
                         ((Tile*)child)->FUN_0071aa60(true);
-                        ((Tile*)child)->FUN_00a07530(8);
+                        ((Tile*)child)->SetChangeFlag(8);
                     }
                     ((Tile*)box)->FUN_0071aa60(true);
-                    ((Tile*)box)->FUN_00a07530(8);
+                    ((Tile*)box)->SetChangeFlag(8);
                 }
             }
             else
@@ -6541,19 +6541,19 @@ void ListBoxX::FUN_007d97a0()
                     if (child != 0)
                     {
                         ((Tile*)child)->FUN_0071aa60(false);
-                        ((Tile*)child)->FUN_00a07530(8);
+                        ((Tile*)child)->SetChangeFlag(8);
                         child = ((Tile*)box)->GetNamedChild(str_0106f88c);
                         ((Tile*)child)->FUN_0071aa60(false);
-                        ((Tile*)child)->FUN_00a07530(8);
+                        ((Tile*)child)->SetChangeFlag(8);
                         child = ((Tile*)box)->GetNamedChild(str_0106f884);
                         ((Tile*)child)->FUN_0071aa60(false);
-                        ((Tile*)child)->FUN_00a07530(8);
+                        ((Tile*)child)->SetChangeFlag(8);
                         child = ((Tile*)box)->GetNamedChild(str_0106f87c);
                         ((Tile*)child)->FUN_0071aa60(false);
-                        ((Tile*)child)->FUN_00a07530(8);
+                        ((Tile*)child)->SetChangeFlag(8);
                     }
                     ((Tile*)box)->FUN_0071aa60(false);
-                    ((Tile*)box)->FUN_00a07530(8);
+                    ((Tile*)box)->SetChangeFlag(8);
                 }
             }
         }
@@ -6591,7 +6591,7 @@ struct IMObjX
 };
 void* FUN_004b7210();
 int __cdecl FUN_00a01860(const char*);
-void __cdecl FUN_00401030(void*);
+void __cdecl FormHeap_Free(void*);
 
 struct LBThis
 {
@@ -6638,7 +6638,7 @@ bool LBThis::RemoveItemNode(FUN_004ee7d0_node* pNodeToRemove, FUN_004ee7d0_node*
             (void)(elemA ? elemA->FUN_004459e0(1) : 0);
         }
         itemB = *pNodeToRemove->FUN_006815c0();
-        FUN_00401030(itemB);
+        FormHeap_Free(itemB);
         if (pNodeToRemove == (this ? &head : 0))
         {
             if (head.next)
@@ -6981,19 +6981,19 @@ void ListBoxZ::FUN_0071a740()
                     if (pkSide)
                     {
                         pkSide->FUN_0071aa60(true);
-                        pkSide->FUN_00a07530(8);
+                        pkSide->SetChangeFlag(8);
                         pkSide = pkBox->GetNamedChild("bottom");
                         pkSide->FUN_0071aa60(true);
-                        pkSide->FUN_00a07530(8);
+                        pkSide->SetChangeFlag(8);
                         pkSide = pkBox->GetNamedChild("left");
                         pkSide->FUN_0071aa60(true);
-                        pkSide->FUN_00a07530(8);
+                        pkSide->SetChangeFlag(8);
                         pkSide = pkBox->GetNamedChild("right");
                         pkSide->FUN_0071aa60(true);
-                        pkSide->FUN_00a07530(8);
+                        pkSide->SetChangeFlag(8);
                     }
                     pkBox->FUN_0071aa60(true);
-                    pkBox->FUN_00a07530(8);
+                    pkBox->SetChangeFlag(8);
                 }
             }
             else
@@ -7005,19 +7005,19 @@ void ListBoxZ::FUN_0071a740()
                     if (pkSide)
                     {
                         pkSide->FUN_0071aa60(false);
-                        pkSide->FUN_00a07530(8);
+                        pkSide->SetChangeFlag(8);
                         pkSide = pkBox->GetNamedChild("bottom");
                         pkSide->FUN_0071aa60(false);
-                        pkSide->FUN_00a07530(8);
+                        pkSide->SetChangeFlag(8);
                         pkSide = pkBox->GetNamedChild("left");
                         pkSide->FUN_0071aa60(false);
-                        pkSide->FUN_00a07530(8);
+                        pkSide->SetChangeFlag(8);
                         pkSide = pkBox->GetNamedChild("right");
                         pkSide->FUN_0071aa60(false);
-                        pkSide->FUN_00a07530(8);
+                        pkSide->SetChangeFlag(8);
                     }
                     pkBox->FUN_0071aa60(false);
-                    pkBox->FUN_00a07530(8);
+                    pkBox->SetChangeFlag(8);
                 }
             }
         }

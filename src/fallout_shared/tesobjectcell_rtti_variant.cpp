@@ -127,7 +127,7 @@ extern CellSaveLoad* DAT_011de45c;
 class CellModelLoader
 {
   public:
-    void FUN_00444850(RefX* pkRef, int iCell);
+    void QueueReference(RefX* pkRef, int iCell);
 };
 extern CellModelLoader* DAT_011c3b3c;
 class CellProcessLists
@@ -227,7 +227,7 @@ void TESObjectCELL::AddReference(RefX* pkRef, bool bArg)
                         else
                             pkRef->Unk_24c();
                     }
-                    DAT_011c3b3c->FUN_00444850(pkRef, DAT_011dea10->FUN_00458be0(this, 0, 0));
+                    DAT_011c3b3c->QueueReference(pkRef, DAT_011dea10->FUN_00458be0(this, 0, 0));
                 }
             }
             if (!bQueue && pkRef->IsActor())

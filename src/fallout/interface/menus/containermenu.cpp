@@ -3823,7 +3823,7 @@ struct InvChg
 struct Loader
 {
     void FUN_0045a5e0(char* name);
-    void* FUN_00447080(char* name, int a1, int a2, int a3, int a4, int a5);
+    void* LoadModel(char* name, int a1, int a2, int a3, int a4, int a5);
 };
 extern Loader* DAT_011c3b3c;
 InvChg* __cdecl FUN_004bf220(void* arg);
@@ -3876,7 +3876,7 @@ void ThiS::FUN_007019e0(ObjRef* apObjRef)
         if (d == 0)
             d = dynamic_cast<TESModelTextureSwap*>(apObjRef->FUN_0044ddc0());
         if (d != 0)
-            DAT_011c3b3c->FUN_00447080(const_cast<char*>(d->GetModelFilePath()), 0, 1, 0, 0, 0);
+            DAT_011c3b3c->LoadModel(const_cast<char*>(d->GetModelFilePath()), 0, 1, 0, 0, 0);
     }
     FUN_007017b0();
     ((PlayerObj_containermenu*)DAT_011dea3c)->PlayActorSound(apObjRef->FUN_0044ddc0(), 1, 0);

@@ -77,9 +77,9 @@ unsigned __cdecl FUN_0044a670(const char*);
 
 unsigned __cdecl FUN_00403940(unsigned, unsigned);
 
-void* __cdecl FUN_00401000(unsigned);
+void* __cdecl FormHeap_Allocate(unsigned);
 
-void __cdecl FUN_00401030(void*);
+void __cdecl FormHeap_Free(void*);
 
 void __cdecl FUN_00401460(void*, const void*, unsigned);
 
@@ -764,10 +764,10 @@ NiNode* TileText::CalculateNode()
 
     FUN_00a012d0(0xfb0, ParseFloatValue(countVal), true);
 
-    FUN_00a07530(9);
+    SetChangeFlag(9);
 
     if (IsTraitNonZero(0xfae))
-        FUN_00a07530(0x100);
+        SetChangeFlag(0x100);
 
     if (!kFirst)
         kFirst = FUN_00706d30();

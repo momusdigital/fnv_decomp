@@ -886,7 +886,7 @@ extern const char DAT_011846d4, DAT_011841cc;
 Actor* FUN_00ec43fb(Reference*, int, const void*, const void*, int);
 // 0x004f8960: no arguments on the stack; ECX carries the Actor.
 int __fastcall GetActorAnimationAction(Actor*);
-void FUN_005ac750(Idle*, void*, int);
+void MarkBaseExtraListScriptEvent(Idle*, void*, int);
 Reference* FUN_00564480(int, int);
 bool FUN_005accb0(void*, void*, void*, Reference*, void*, void*, void*, Idle**, int*, void**, int*, int*);
 // @fnv 0x005c8a50
@@ -950,7 +950,7 @@ bool FUN_005c8a50(void* paramInfo, void* scriptData, Reference* source, void* co
                         int unused = selected->FUN_0083c820();
                         selected->FUN_0083c850(0);
                         selected->FUN_0083c850(1);
-                        FUN_005ac750(idleVal, actor->FUN_005d43c0(), 0x40000);
+                        MarkBaseExtraListScriptEvent(idleVal, actor->FUN_005d43c0(), 0x40000);
                         delete selected;
                     }
                 }
@@ -959,7 +959,7 @@ bool FUN_005c8a50(void* paramInfo, void* scriptData, Reference* source, void* co
             }
             else if (reinterpret_cast<Process*>(actor->FUN_008d8520()))
             {
-                FUN_005ac750(idleVal, actor->FUN_005d43c0(), 0x40000);
+                MarkBaseExtraListScriptEvent(idleVal, actor->FUN_005d43c0(), 0x40000);
                 reinterpret_cast<Process*>(actor->FUN_008d8520())->Clear(0);
             }
         }

@@ -530,7 +530,7 @@ struct FUN_004afba0_class
 // @fnv 0x004afba0
 void FUN_004afba0_class::UnlockAtOffset()
 {
-    ((RecursiveSpinLock*)((char*)this + 0x20))->FUN_0040fba0();
+    ((RecursiveSpinLock*)((char*)this + 0x20))->Leave();
 }
 }  // namespace fnv_004afba0
 
@@ -2718,7 +2718,7 @@ struct FUN_00658930_cls
     unsigned int GetShortAtOffsetA();
 };
 
-void __cdecl FUN_00401030(void* p);
+void __cdecl FormHeap_Free(void* p);
 
 struct Guard_b9135
 {
@@ -2748,7 +2748,7 @@ FUN_004b0480_cls::~FUN_004b0480_cls()
     {
         void* p = ((FUN_004b07e0_Class*)((char*)this + 8))->PopElement();
         void* q = p;
-        FUN_00401030(q);
+        FormHeap_Free(q);
     }
 }
 

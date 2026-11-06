@@ -1777,7 +1777,7 @@ struct FUN_00cd1eb0_StandIn
     int __thiscall FUN_00cd1eb0(int param);
 };
 
-extern void __cdecl FUN_00401030(void* ptr);
+extern void __cdecl FormHeap_Free(void* ptr);
 
 // @fnv 0x00cd1eb0
 int __thiscall FUN_00cd1eb0_StandIn::FUN_00cd1eb0(int aiFlags)
@@ -1785,7 +1785,7 @@ int __thiscall FUN_00cd1eb0_StandIn::FUN_00cd1eb0(int aiFlags)
     unk00 = 0x010cb1e4;
     if (aiFlags & 1)
     {
-        FUN_00401030(this);
+        FormHeap_Free(this);
     }
     return (int)this;
 }

@@ -2115,8 +2115,8 @@ struct CellOffsetData
     float minX, minY, maxX, maxY;
     unsigned int baseOffset;
 };
-void* FUN_00401000(unsigned int);
-void FUN_00401030(void*);
+void* FormHeap_Allocate(unsigned int);
+void FormHeap_Free(void*);
 void FUN_00403d30(void*, int, unsigned int);
 int FUN_00404dc0(const char*, const char*);
 struct WorldSpaceEditorLookupMethods : TESWorldSpace
@@ -2159,17 +2159,17 @@ bool WorldSpaceEditorLookupMethods::FindCellByEditorID(const char* editorID, int
                                 if (chunkID == 0x44494445)
                                 {
                                     unsigned int uiBufferSize = data->GetField25C() + 1;
-                                    char* size = (char*)FUN_00401000(uiBufferSize);
+                                    char* size = (char*)FormHeap_Allocate(uiBufferSize);
                                     FUN_00403d30(size, 0, uiBufferSize);
                                     data->FUN_00472890(size, 0);
                                     if (!FUN_00404dc0(size, editorID))
                                     {
                                         *outX = x;
                                         *outY = y;
-                                        FUN_00401030(size);
+                                        FormHeap_Free(size);
                                         return true;
                                     }
-                                    FUN_00401030(size);
+                                    FormHeap_Free(size);
                                 }
                             }
                         }

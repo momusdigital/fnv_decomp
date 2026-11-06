@@ -2781,7 +2781,7 @@ struct Manager80830
     void FUN_00983970(CombatController*, int, int, bool);
 };
 extern void* DAT_011f1708;
-bool __cdecl FUN_005ac750(void*, void*, unsigned int);
+bool __cdecl MarkBaseExtraListScriptEvent(void*, void*, unsigned int);
 
 // @fnv 0x00980830
 void CombatController::FUN_00980830(void* target)
@@ -2807,7 +2807,7 @@ void CombatController::FUN_00980830(void* target)
         {
             if (reinterpret_cast<Related80830*>(m_pCombatData)->GetResultForArg(target) > 0)
             {
-                FUN_005ac750((*reinterpret_cast<void**>(&pTarget)), actor->FUN_005d43c0(), 0x8000);
+                MarkBaseExtraListScriptEvent((*reinterpret_cast<void**>(&pTarget)), actor->FUN_005d43c0(), 0x8000);
                 ((Manager80830*)DAT_011f1708)->FUN_00983970(this, 4, 4, true);
             }
         }

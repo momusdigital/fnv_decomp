@@ -218,7 +218,7 @@ class Tile
     Menu* FUN_00a03c90();
     Tile* FUN_00a03eb0(int trait);
     void FUN_00a04640(bool enabled);
-    void FUN_00a07530(int trait);
+    void SetChangeFlag(int trait);
     bool FUN_00a07ed0(int trait);
     bool FUN_00a07fc0(int trait);
     void FUN_00a0b110(int trait);

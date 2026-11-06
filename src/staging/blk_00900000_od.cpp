@@ -859,7 +859,7 @@ FUN_00913880::~FUN_00913880()
     RemoveAll();
 }
 
-void __cdecl FUN_00401030(void* p);
+void __cdecl FormHeap_Free(void* p);
 
 struct _Base_009064e0
 {
@@ -881,7 +881,7 @@ FUN_009064e0::~FUN_009064e0()
 {
     unk04(1);
     void* a = m_iThirdValue;
-    FUN_00401030(a);
+    FormHeap_Free(a);
     void* b = m_iWordAt04;
-    FUN_00401030(b);
+    FormHeap_Free(b);
 }

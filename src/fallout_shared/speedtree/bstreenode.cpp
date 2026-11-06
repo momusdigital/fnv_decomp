@@ -674,7 +674,7 @@ void BSTreeNode::GetViewerStrings(NiViewerStringsArray* list)
 }
 
 extern void* __cdecl FUN_00aa13e0(unsigned int size);
-extern void* __cdecl FUN_00401000(unsigned int size);
+extern void* __cdecl FormHeap_Allocate(unsigned int size);
 extern float DAT_01016b78;
 extern void* __cdecl GetFltValueAtOffset16();
 

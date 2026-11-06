@@ -778,7 +778,7 @@ struct FUN_004f2770_Class
     virtual void v0ef();
     virtual void v0f0();
     virtual void UpdateRepairMenu();
-    void FUN_0088c650(unsigned int, ContNode*, TESForm*, bool, bool, bool);
+    void EquipItem(unsigned int, ContNode*, TESForm*, bool, bool, bool);
 };
 extern FUN_004f2770_Class* _g_thePlayer;
 extern ItemEntry* DAT_011d9f58;
@@ -841,7 +841,7 @@ void ItemModMenu::HandleSelection(int tileID, Tile* clickedTile)
         FUN_00717280(0x24);
         if (DAT_011d9f40 == 1)
         {
-            _g_thePlayer->FUN_0088c650(
+            _g_thePlayer->EquipItem(
                 ((TESObjectREFR_GetFlags_Helper*)DAT_011d9f58)->CallGetFlags(), fnv_007838a0::FUN_00726070((ContNode*)DAT_011d9f58),
                 *(TESForm**)&((B006815c0*)(const char*)*DAT_011d9f58)->B006815c0::B006815c0(), true, false, true);
             DAT_011d9f58->FUN_004bdc70();
@@ -878,7 +878,7 @@ struct Name78
 };
 struct Player78
 {
-    void FUN_0088c790(Form78*, int, void*, int, int, int);
+    void UnequipItem(Form78*, int, void*, int, int, int);
 };
 extern Player78* _g_thePlayer;
 extern Entry78* g_011d9f58;
@@ -1239,7 +1239,7 @@ void FUN_00784710(Entry78* pEntry, bool b)
         if (g_011d9f58 && b && g_011d9f58->FUN_004bddd0(false))
         {
             g_011d9f58->FUN_004bdb40();
-            _g_thePlayer->FUN_0088c790(g_011d9f58->FUN_0044ddc0(), g_011d9f58->FUN_00726070(),
+            _g_thePlayer->UnequipItem(g_011d9f58->FUN_0044ddc0(), g_011d9f58->FUN_00726070(),
                                        *g_011d9f58->FUN_00559450()->FUN_006815c0(), 0, 0, 1);
             DAT_011d9f40 = 1;
         }

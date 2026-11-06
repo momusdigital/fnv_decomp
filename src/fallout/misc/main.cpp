@@ -5352,7 +5352,7 @@ int __cdecl FUN_008d8520(...);
 int __cdecl FUN_0086be30(...);
 int __cdecl FUN_004e0800(...);
 int __cdecl FUN_004def20(...);
-int __cdecl FUN_007ffe00(...);
+int __cdecl PurgeTerminalModel(...);
 int __cdecl FUN_00832010(...);
 int __cdecl FUN_008304a0(...);
 int __cdecl FUN_0082f9c0(...);
@@ -5845,7 +5845,7 @@ int __stdcall FUN_0086a850(unsigned int param_1, unsigned int param_2, unsigned 
                 }
                 FUN_004e0800();
                 FUN_004def20();
-                FUN_007ffe00();
+                PurgeTerminalModel();
                 FUN_00832010();
                 FUN_008304a0();
                 FUN_0082f9c0();
@@ -7721,7 +7721,7 @@ struct Service
     void FUN_0096eb40();
     void FUN_0096e9b0();
     void FUN_008d0600(float, int);
-    void FUN_0040fba0();
+    void Leave();
     void FUN_00878080(bool);
     void FUN_0049fff0();
     void FUN_00712e60(void*);
@@ -7940,7 +7940,7 @@ void MainLoop::FUN_0086e650()
             DAT_011e0e80.FUN_0096e9b0();
         }
     }
-    DAT_011f11a0.FUN_0040fba0();
+    DAT_011f11a0.Leave();
     FUN_00446ef0()->FUN_00878080(true);
     if (FUN_0086ef60())
         FUN_00a61cd0();
@@ -8378,7 +8378,7 @@ struct ShadowBoolSetting
 struct ShadowLock
 {
     void FUN_0040fbf0(int);
-    void FUN_0040fba0();
+    void Leave();
 };
 struct ShadowActors
 {
@@ -8610,7 +8610,7 @@ void ShadowHost::FUN_00871290()
                     }
                 }
             }
-            DAT_011f1180.FUN_0040fba0();
+            DAT_011f1180.Leave();
             system->FUN_00b5cde0(playerShadow32);
             ShadowNode* playerNode50 = DAT_011dea3c->FUN_00950bb0(1);
             if (playerNode50)

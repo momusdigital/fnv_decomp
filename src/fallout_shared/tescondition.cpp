@@ -306,7 +306,7 @@ void FUN_00404760_shell::FUN_00404760(PerkEntryConditionSet* source)
 
 extern "C" void __stdcall FUN_00ec5fce(void* object, int elementSize, int count, void (PerkEntryConditionSet::*callback)());
 
-extern "C" void __cdecl FUN_00401030(void* apMemory);
+extern "C" void __cdecl FormHeap_Free(void* apMemory);
 
 // @fnv 0x005ea2c0
 void* PerkEntryConditionSet::DeleteConditions(unsigned int flags)
@@ -317,7 +317,7 @@ void* PerkEntryConditionSet::DeleteConditions(unsigned int flags)
 
         if (flags & 1)
         {
-            FUN_00401030(reinterpret_cast<char*>(this) - 4);
+            FormHeap_Free(reinterpret_cast<char*>(this) - 4);
         }
 
         return reinterpret_cast<char*>(this) - 4;
@@ -327,7 +327,7 @@ void* PerkEntryConditionSet::DeleteConditions(unsigned int flags)
 
     if (flags & 1)
     {
-        FUN_00401030(this);
+        FormHeap_Free(this);
     }
 
     return this;

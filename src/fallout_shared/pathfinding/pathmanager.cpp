@@ -1071,7 +1071,7 @@ struct SearchLock
     int unk18;
     int unk1c;
     void FUN_0040fbf0(const char*);
-    void FUN_0040fba0();
+    void Leave();
 };
 struct ManagerView
 {
@@ -1104,7 +1104,7 @@ int ManagerView::FUN_006ea350()
                 break;
         }
     }
-    lock.FUN_0040fba0();
+    lock.Leave();
     return total;
 }
 
@@ -5737,7 +5737,7 @@ unsigned int FUN_006ea780_Obj::RequestLocationStatus(int pShape, int iLocation, 
             default:
                 status = 2;
             }
-            ((RequestManager*)this)->lock.FUN_0040fba0();
+            ((RequestManager*)this)->lock.Leave();
             return status;
         }
     }
@@ -5751,7 +5751,7 @@ unsigned int FUN_006ea780_Obj::RequestLocationStatus(int pShape, int iLocation, 
     request->status = 0;
     ((RequestManager*)this)->requests.FUN_007cb2e0(entry);
     ((RequestManager*)this)->statuses.FUN_007cb2e0(request);
-    ((RequestManager*)this)->lock.FUN_0040fba0();
+    ((RequestManager*)this)->lock.Leave();
     ((RequestManager*)this)->FUN_0060d4b0(1);
     return status;
 }

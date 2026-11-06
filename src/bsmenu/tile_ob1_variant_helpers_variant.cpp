@@ -429,7 +429,7 @@ struct Storage_00a0ae70 {
     TileTemplate_00a0ae70* FUN_00a0ae70(const char* apName);
 };
 struct NiTexture;
-struct FUN_00a07530_shell { void FUN_00a07530(int); };
+struct FUN_00a07530_shell { void SetChangeFlag(int); };
 struct A0B020Child {
     virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03(); virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
 };
@@ -627,7 +627,7 @@ struct TileWork {
  float ReadTrait(int);
  bool ReadBooleanTrait(int);
  void WriteTrait(int,float,bool);
- void FUN_00a0b520();
+ void ApplyRotationOnChildren();
 };
 unsigned int BSStringLength(const char*);
 inline unsigned int BSStringCapacityMaximum(unsigned int a, unsigned int b) { return a > b ? a : b; }
@@ -1079,8 +1079,8 @@ public:
 };
 unsigned int __cdecl FUN_0044a670(const char* text);
 unsigned int __cdecl FUN_00403940(unsigned int a, unsigned int b);
-void* __cdecl FUN_00401000(unsigned int size);
-void __cdecl FUN_00401030(void* p);
+void* __cdecl FormHeap_Allocate(unsigned int size);
+void __cdecl FormHeap_Free(void* p);
 void* __cdecl FUN_00401460(void* dst, const void* src, unsigned int size);
 template <> inline void BSStringT<char>::SetLength(unsigned int length)
 {
@@ -1103,7 +1103,7 @@ template <> inline bool BSStringT<char>::Set(const char* text, unsigned int leng
     unsigned int maxLen = MaxLength();
     if (newLen > maxLen) {
         char* oldString = pString;
-        char* newString = (char*)FUN_00401000(newLen + 1);
+        char* newString = (char*)FormHeap_Allocate(newLen + 1);
         pString = newString;
         if (text)
             FUN_00401460(pString, text, srcLen + 1);
@@ -1111,7 +1111,7 @@ template <> inline bool BSStringT<char>::Set(const char* text, unsigned int leng
             *pString = 0;
         if (oldString) {
             char* p = oldString;
-            FUN_00401030(p);
+            FormHeap_Free(p);
         }
         SetMaxLength(newLen);
     } else if (newLen) {
@@ -1122,7 +1122,7 @@ template <> inline bool BSStringT<char>::Set(const char* text, unsigned int leng
     } else {
         if (pString) {
             char* p = pString;
-            FUN_00401030(p);
+            FormHeap_Free(p);
         }
         pString = 0;
         newLen = 0;
@@ -1463,8 +1463,8 @@ extern "C" int __cdecl FUN_00ec8d5f(char*, unsigned int, const char*, unsigned i
 extern "C" int __cdecl FUN_00ec65a6(char*, unsigned int, const char*);
 extern "C" char* __cdecl FUN_00ecc5f8(char*, const char*, char**);
 extern "C" unsigned int __cdecl FUN_00ec6130(const char*);
-extern void* __cdecl FUN_00401000(unsigned);
-extern void __cdecl FUN_00401030(void*);
+extern void* __cdecl FormHeap_Allocate(unsigned);
+extern void __cdecl FormHeap_Free(void*);
 extern void* __cdecl FUN_00401460(void*, const void*, unsigned);
 __forceinline void* __cdecl operator new[](unsigned size) { return ((TilePool_ac80*)&DAT_011f6238)->FUN_00aa3e40(size); }
 __forceinline void __cdecl operator delete[](void* data) { DAT_011f6238.FUN_00aa4060(data); }

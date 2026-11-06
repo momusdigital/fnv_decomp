@@ -3552,7 +3552,7 @@ struct FUN_006ffda0_cls
     int __thiscall FUN_00559450();
     int __thiscall FUN_004048e0();
 };
-int __cdecl FUN_00401030(int a);
+int __cdecl FormHeap_Free(int a);
 int __cdecl AllocateZeroed(int a, int b);
 TESForm* FUN_004839c0(unsigned int auiFormID);
 struct LoadedRefPosition
@@ -5309,7 +5309,7 @@ struct LockEC7E
 {
     int unk00[2];
     void FUN_0040fbf0(const char* pcName);
-    void FUN_0040fba0();
+    void Leave();
 };
 struct EntryEC7E
 {

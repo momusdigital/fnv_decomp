@@ -720,7 +720,7 @@ void FUN_0096e570_shell::FUN_0096e570()
         *(int*)((char*)this + 0x150) = *(int*)((char*)this + 0x150) - 1;
     }
 
-    ((RecursiveSpinLock*)((char*)this + 0x10300))->FUN_0040fba0();
+    ((RecursiveSpinLock*)((char*)this + 0x10300))->Leave();
 }
 
 struct FUN_0096e6f0_shell : public ProcessLists
@@ -749,7 +749,7 @@ void FUN_0096e6f0_shell::RemoveActor(Actor* pactor)
             break;
         }
     }
-    reinterpret_cast<RecursiveSpinLock*>(reinterpret_cast<char*>(this) + 0x10300)->FUN_0040fba0();
+    reinterpret_cast<RecursiveSpinLock*>(reinterpret_cast<char*>(this) + 0x10300)->Leave();
 }
 
 extern double DAT_0102c188;
@@ -1253,7 +1253,7 @@ void FUN_0096b050_shell::UpdateLowProcesses(float afDelta, bool abSleeping)
             DAT_011f11a0.Lock(0);
             delete pmob->GetCurrentAIProcess();
             ((MobileObjectExt*)pmob)->SetCurrentProcess(0);
-            DAT_011f11a0.FUN_0040fba0();
+            DAT_011f11a0.Leave();
         }
         plisttemp = plisttemp->GetNext();
     }
@@ -2006,7 +2006,7 @@ void FUN_00977cb0_shell::StartActorDialogue(int eaction, TESObjectREFR* apObject
                     idistance += 200;
                 }
             }
-            ((RecursiveSpinLock*)((char*)this + 0x10300))->FUN_0040fba0();
+            ((RecursiveSpinLock*)((char*)this + 0x10300))->Leave();
         }
         switch (eaction)
         {
@@ -2537,7 +2537,7 @@ void FUN_00977660_shell::FUN_00977660()
     ((RecursiveSpinLock*)((char*)this + 0x10300))->Lock(0);
     *(unsigned int*)((char*)this + 0x150) = 0;
     MemsetWrapper((char*)this + 0x88, 0, 200);
-    ((RecursiveSpinLock*)((char*)this + 0x10300))->FUN_0040fba0();
+    ((RecursiveSpinLock*)((char*)this + 0x10300))->Leave();
     MobileObject* pCurrentObject = 0;
     Actor* pactor = 0;
     for (unsigned int i = 0;
@@ -4434,7 +4434,7 @@ extern int DAT_011e035c;
 extern int DAT_011a39c4;
 extern bool DAT_011e0360;
 
-void __cdecl FUN_005ac190(::Actor*, void*);
+void __cdecl DoCheckScriptRunnerAndRun(::Actor*, void*);
 
 struct Lists970d50 : ProcessLists
 {
@@ -4457,7 +4457,7 @@ void Lists970d50::FUN_00970d50()
             actor = (::Actor*)object;
         if (actor)
         {
-            FUN_005ac190(actor, actor->FUN_005d43c0());
+            DoCheckScriptRunnerAndRun(actor, actor->FUN_005d43c0());
             if (actor->FUN_00440d80() || !actor->FUN_007af430() || actor->GetActorValue((ActorValue::Index)16) <= 0)
             {
                 if (!actor->FUN_00440d80() && actor->FUN_007af430() && actor->GetActorValue((ActorValue::Index)16) <= 0)
@@ -7213,7 +7213,7 @@ void LowListProcessLists::UpdateLowListProcessLists(float delta, bool)
             DAT_011f11a0.Lock(0);
             delete tail->GetCurrentAIProcess();
             ((MobileObjectExt*)tail)->SetCurrentProcess(0);
-            DAT_011f11a0.FUN_0040fba0();
+            DAT_011f11a0.Leave();
         }
         head = head->GetNext();
     }
@@ -7613,14 +7613,14 @@ void Shell96::FUN_0096b810(float delta, int unused)
         {
             DAT_011f11a0.Lock(0);
             delete h;
-            DAT_011f11a0.FUN_0040fba0();
+            DAT_011f11a0.Leave();
         }
         else if (((Obj96*)h)->FUN_00440da0())
         {
             DAT_011f11a0.Lock(0);
             delete (BaseProcess*)((Obj96*)h)->FUN_008d8520();
             ((Obj96*)h)->FUN_00407800(0);
-            DAT_011f11a0.FUN_0040fba0();
+            DAT_011f11a0.Leave();
         }
         s = s->GetNext();
     }
@@ -8078,7 +8078,7 @@ struct FUN_0040fbf0_lock
 {
     bool FUN_0078d200();
     void FUN_0040fbf0(char* apName);
-    void FUN_0040fba0();
+    void Leave();
 };
 
 void __cdecl FUN_008d5bc0();
@@ -8158,19 +8158,19 @@ void FUN_0096d810_shell::FUN_0096d810()
         if (m_bUpdateLowProcesses && !FUN_00525420() && ((FUN_0040fbf0_lock*)&DAT_011f11a0)->FUN_0078d200())
         {
             UpdateLowProcesses(0.0f, false);
-            ((FUN_0040fbf0_lock*)&DAT_011f11a0)->FUN_0040fba0();
+            ((FUN_0040fbf0_lock*)&DAT_011f11a0)->Leave();
         }
         if (m_bUpdateLowListProcessLists && !FUN_00525420())
         {
             ((FUN_0040fbf0_lock*)&DAT_011f11a0)->FUN_0040fbf0(0);
             UpdateLowListProcessLists(0.0f, false);
-            ((FUN_0040fbf0_lock*)&DAT_011f11a0)->FUN_0040fba0();
+            ((FUN_0040fbf0_lock*)&DAT_011f11a0)->Leave();
         }
         if (m_bRunSecondProcessUpdate)
         {
             ((FUN_0040fbf0_lock*)&DAT_011f11a0)->FUN_0040fbf0(0);
             FUN_0096b810(0.0f, false);
-            ((FUN_0040fbf0_lock*)&DAT_011f11a0)->FUN_0040fba0();
+            ((FUN_0040fbf0_lock*)&DAT_011f11a0)->Leave();
         }
         if (m_fCrimeListUpdateTimer <= DAT_01012060)
             UpdateCrimeLists();
@@ -10465,7 +10465,7 @@ void Lists976030::FUN_00976030(int mode)
             {
                 DAT_011f11a0.Lock(0);
                 delete p;
-                DAT_011f11a0.FUN_0040fba0();
+                DAT_011f11a0.Leave();
                 f = 0;
             }
         }
@@ -10498,7 +10498,7 @@ void Lists976030::FUN_00976030(int mode)
                         q = i;
                         DAT_011f11a0.Lock(0);
                         delete a;
-                        DAT_011f11a0.FUN_0040fba0();
+                        DAT_011f11a0.Leave();
                     }
                     else
                         q = q->GetNext();
@@ -10507,7 +10507,7 @@ void Lists976030::FUN_00976030(int mode)
             b->RemoveHead();
             DAT_011f11a0.Lock(0);
             delete p;
-            DAT_011f11a0.FUN_0040fba0();
+            DAT_011f11a0.Leave();
         }
     }
     else if (mode == 0)
@@ -10518,7 +10518,7 @@ void Lists976030::FUN_00976030(int mode)
             h->RemoveHead();
             DAT_011f11a0.Lock(0);
             delete p;
-            DAT_011f11a0.FUN_0040fba0();
+            DAT_011f11a0.Leave();
         }
     }
     h->RemoveAll();

@@ -2574,7 +2574,7 @@ bool UpdateActivatePrompt(RefX* apRef, int aiUnused, bool abForce)
         xpHUD->m_pTiles[38]->Set(0xff4, 1);
         xpHUD->m_pTiles[39]->Set(0xff4, 1);
     }
-    s_pButtonText->FUN_00a07530(8);
+    s_pButtonText->SetChangeFlag(8);
     qbfQdhM = xpHUD->m_pTiles[32]->GetFloat(0x100c);
     NiPoint3 qrEZrs =
         FontManager::Instance()->GetStringDimensions(xpHUD->m_pTiles[32]->GetString(0xfc4), (int)xpHUD->m_pTiles[32]->GetFloat(0xfb9),
@@ -3560,7 +3560,7 @@ float __cdecl FUN_007177c0();
 float __cdecl FUN_00717820();
 float __cdecl FUN_00408840(float);
 void __cdecl FUN_00773190(RefX*);
-void __cdecl FUN_00401030(void*);
+void __cdecl FormHeap_Free(void*);
 int __cdecl FUN_00458030();
 extern bool DAT_011d96c5, DAT_011d97c0;
 extern float DAT_011d979c;
@@ -3627,8 +3627,8 @@ void HUDUpdate::FUN_00770430()
         ->Set(4001, h - 2 * cf - ((Tile*)HUDMainMenu::g_pHudMainMenuInstance->m_pTiles[59])->GetFloat(4017) + DAT_0101db88, true);
     ((Tile*)HUDMainMenu::g_pHudMainMenuInstance->m_pTiles[59])
         ->Set(4002, f - 2 * p - ((Tile*)HUDMainMenu::g_pHudMainMenuInstance->m_pTiles[59])->GetFloat(4016), true);
-    ((Tile*)HUDMainMenu::g_pHudMainMenuInstance->m_pTiles[60])->FUN_00a07530(1);
-    ((Tile*)HUDMainMenu::g_pHudMainMenuInstance->m_pTiles[59])->FUN_00a07530(1);
+    ((Tile*)HUDMainMenu::g_pHudMainMenuInstance->m_pTiles[60])->SetChangeFlag(1);
+    ((Tile*)HUDMainMenu::g_pHudMainMenuInstance->m_pTiles[59])->SetChangeFlag(1);
     UpdateActorValueMeter(16);
     UpdateActorValueMeter(12);
     FUN_0077e4f0();
@@ -3730,10 +3730,10 @@ void HUDUpdate::FUN_00770430()
         ((Tile*)m_pTiles[22])->Set(4003, 1);
         ((Tile*)m_pTiles[23])->Set(4003, 1);
         ((Tile*)HUDMainMenu::g_pHudMainMenuInstance->m_pTiles[62])->Set(4084, hostile ? 2 : 1);
-        ((Tile*)HUDMainMenu::g_pHudMainMenuInstance->m_pTiles[21])->FUN_00a07530(8);
-        ((Tile*)HUDMainMenu::g_pHudMainMenuInstance->m_pTiles[22])->FUN_00a07530(8);
-        ((Tile*)HUDMainMenu::g_pHudMainMenuInstance->m_pTiles[23])->FUN_00a07530(8);
-        ((Tile*)HUDMainMenu::g_pHudMainMenuInstance->m_pTiles[23])->FUN_00a07530(8);
+        ((Tile*)HUDMainMenu::g_pHudMainMenuInstance->m_pTiles[21])->SetChangeFlag(8);
+        ((Tile*)HUDMainMenu::g_pHudMainMenuInstance->m_pTiles[22])->SetChangeFlag(8);
+        ((Tile*)HUDMainMenu::g_pHudMainMenuInstance->m_pTiles[23])->SetChangeFlag(8);
+        ((Tile*)HUDMainMenu::g_pHudMainMenuInstance->m_pTiles[23])->SetChangeFlag(8);
     }
     if (m_pTargetActor && (((HUDActor*)m_pTargetActor)->FUN_00493bb0() || DAT_011f2250.FUN_0044ddc0() == 4))
         UpdateTargetInfo(m_pTargetActor);
@@ -3775,7 +3775,7 @@ void HUDUpdate::FUN_00770430()
                     if (*((HUDSubtitleList*)&m_kSubtitleArray)->FUN_00877a30(k) == (HUDSubtitle*)m_pCurrentSubtitle)
                         FUN_00775670();
                     HUDSubtitle* j = *((HUDSubtitleList*)&m_kSubtitleArray)->FUN_00877a30(k);
-                    FUN_00401030(j);
+                    FormHeap_Free(j);
                     ((HUDSubtitleList*)&m_kSubtitleArray)->FUN_006bf8f0(k, true);
                     --k;
                 }
@@ -3928,7 +3928,7 @@ struct FUN_00a01230_shell : Tile
 };
 struct FUN_00a07530_shell : Tile
 {
-    void FUN_00a07530(int flags);
+    void SetChangeFlag(int flags);
 };
 struct TargetHealthTile : Tile
 {
@@ -3973,10 +3973,10 @@ void __cdecl UpdateTargetHealthHUD(HealthActor* target, unsigned char enabled)
                     HUDMainMenu_pme->m_pTiles[23]->Set(4003, 1);
                     HUDMainMenu_pme->m_pTiles[23]->Set(4003, 1);
                     HUDMainMenu_pme->m_pTiles[62]->Set(4084, isHostile ? 2 : 1);
-                    ((FUN_00a07530_shell*)HUDMainMenu_pme->m_pTiles[21])->FUN_00a07530(8);
-                    ((FUN_00a07530_shell*)HUDMainMenu_pme->m_pTiles[22])->FUN_00a07530(8);
-                    ((FUN_00a07530_shell*)HUDMainMenu_pme->m_pTiles[23])->FUN_00a07530(8);
-                    ((FUN_00a07530_shell*)HUDMainMenu_pme->m_pTiles[23])->FUN_00a07530(8);
+                    ((FUN_00a07530_shell*)HUDMainMenu_pme->m_pTiles[21])->SetChangeFlag(8);
+                    ((FUN_00a07530_shell*)HUDMainMenu_pme->m_pTiles[22])->SetChangeFlag(8);
+                    ((FUN_00a07530_shell*)HUDMainMenu_pme->m_pTiles[23])->SetChangeFlag(8);
+                    ((FUN_00a07530_shell*)HUDMainMenu_pme->m_pTiles[23])->SetChangeFlag(8);
                     ((TargetHealthHUD*)HUDMainMenu_pme)->UpdateTargetInfo(actor);
                 }
             }
@@ -10385,7 +10385,7 @@ struct ClearMessagesList
     ClearMessagesList* FUN_00726070();
     void FUN_00470470();
 };
-void __cdecl FUN_00401030(void*);
+void __cdecl FormHeap_Free(void*);
 extern HUDMainMenu* HUDMainMenu_pme;
 
 // @fnv 0x00775920
@@ -10395,7 +10395,7 @@ void __fastcall ClearHUDMessages(HUDMainMenu* menu)
     while (list && !list->FUN_008256d0())
     {
         void* message = *list->FUN_006815c0();
-        FUN_00401030(message);
+        FormHeap_Free(message);
         list = list->FUN_00726070();
     }
     ((ClearMessagesList*)&menu->m_kMessageList)->FUN_00470470();

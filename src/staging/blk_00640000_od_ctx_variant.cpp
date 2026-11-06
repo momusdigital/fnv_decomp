@@ -1525,7 +1525,7 @@ int __thiscall FUN_0064bda0_Class::FUN_0064bda0()
 struct FUN_0040fbf0_lock
 {
     void FUN_0040fbf0(int);
-    void FUN_0040fba0();
+    void Leave();
 };
 struct FUN_0064be40_shell
 {
@@ -2109,7 +2109,7 @@ struct Hldr0044
     void FUN_0044d6c0(int a);
 };
 extern "C" void __stdcall FUN_00ec7894(Hldr0044* p, void* dat);
-extern "C" void __cdecl FUN_00401000(int scaled);
+extern "C" void __cdecl FormHeap_Allocate(int scaled);
 extern "C" int DAT_01140ef8;
 // @fnv 0x00658c10
 extern "C" void __cdecl FUN_00658c10(int a, int b)
@@ -2129,7 +2129,7 @@ extern "C" void __cdecl FUN_00658c10(int a, int b)
         }
     }
 
-    FUN_00401000(a * 60);
+    FormHeap_Allocate(a * 60);
 }
 class Base_b9895
 {

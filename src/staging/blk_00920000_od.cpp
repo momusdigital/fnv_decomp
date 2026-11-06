@@ -6053,7 +6053,7 @@ extern char DAT_011a28e0, DAT_011841cc;
 extern "C" void FUN_00709c40(int);
 void FUN_007d0a70();
 void FUN_00961d50();
-extern "C" void FUN_00703e80(const char*, int, int, void (*)(), int, int, float, float, const char*, const char*, int);
+extern "C" void ShowMessageBox(const char*, int, int, void (*)(), int, int, float, float, const char*, const char*, int);
 extern "C" TickShadow* FUN_00450b80(int);
 extern "C" bool FUN_00702360();
 extern "C" TickRef* FUN_00703350();
@@ -6553,7 +6553,7 @@ void TickPlayer::FUN_0093e860(float elapsed)
             vf2a0();
             FUN_00709c40(0);
             if (DAT_011de134->IsField5Set())
-                FUN_00703e80(DAT_011d4b40.FUN_00403df0(), 0, 0, FUN_00961d50, 1, 0x17, 0.0f, 0.0f,
+                ShowMessageBox(DAT_011d4b40.FUN_00403df0(), 0, 0, FUN_00961d50, 1, 0x17, 0.0f, 0.0f,
                              DAT_011d400c.FUN_00403df0(), DAT_011d4528.FUN_00403df0(), 0);
             else
                 FUN_007d0a70();

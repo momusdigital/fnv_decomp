@@ -948,7 +948,7 @@ struct ManagedSceneEntry
         reinterpret_cast<S751*>(this)->Initialize();
     }
 };
-void* __cdecl FUN_00401000(unsigned int size);
+void* __cdecl FormHeap_Allocate(unsigned int size);
 struct SpawnedItem_b10003
 {
     unsigned char unk00;
@@ -962,7 +962,7 @@ struct SpawnedItem_b10003
     SpawnedItem_b10003();
     static void* operator new(unsigned int size) throw()
     {
-        return FUN_00401000(size);
+        return FormHeap_Allocate(size);
     }
 };
 void* __cdecl operator new(unsigned int size);
@@ -1578,7 +1578,7 @@ struct FUN_00585940_shell
 TESForm* FUN_004839c0(unsigned int);
 int FindFormEnumIndex(unsigned int);
 int __cdecl FUN_00404dc0(const char*, const char*);
-void __cdecl FUN_00401030(void*);
+void __cdecl FormHeap_Free(void*);
 
 extern "C" char DAT_010186b8[];
 extern DialogueResponse* DAT_011c3f2c;
@@ -1713,7 +1713,7 @@ int TESFileArray::FUN_00461cf0(char* name, int* out1, int* out2)
                                             }
                                         }
                                     }
-                                    FUN_00401030(ptr);
+                                    FormHeap_Free(ptr);
                                 }
                                 read2 = f->FUN_00472150(true);
                             }

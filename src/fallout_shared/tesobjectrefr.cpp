@@ -809,13 +809,13 @@ using ::InventoryChanges;
 typedef char _sizecheck_InventoryChanges[sizeof(InventoryChanges) == 20 ? 1 : -1];
 
 
-TESContainer* __fastcall FUN_0055d310(TESObjectREFR*);
+TESContainer* __fastcall GetContainer(TESObjectREFR*);
 
-// Returns the container of pRef via FUN_0055d310, or null when pRef is null.
+// Returns the container of pRef via GetContainer, or null when pRef is null.
 // @fnv 0x004bffb0
 TESContainer* InventoryChanges::GetOriginalContainer()
 {
-    return pRef ? FUN_0055d310((TESObjectREFR*)pRef) : 0;
+    return pRef ? GetContainer((TESObjectREFR*)pRef) : 0;
 }
 
 using ::RecursiveSpinLock;
@@ -9993,7 +9993,7 @@ struct TES_s
 extern TES_s* g_TES;
 struct Loader_S
 {
-    void FUN_00444850(TESObjectREFR*, void*, int);
+    void QueueReference(TESObjectREFR*, void*, int);
 };
 extern Loader_S* g_modelLoader;
 
@@ -10027,7 +10027,7 @@ void FUN_005627c0_shell::FUN_005627c0(BGSLoadFormBuffer* apLoadGameBuffer)
             ((VRefr005627c0*)this)->Slot73(0, 0);
         else if (!((VRefr005627c0*)this)->Slot74() && ((BSOcclusionPlane*)this)->GetCullResult() &&
                  ((TESObjectCELL*)((BSOcclusionPlane*)this)->GetCullResult())->IsOutdoorCell())
-            g_modelLoader->FUN_00444850(this, g_TES->FUN_00458be0(((BSOcclusionPlane*)this)->GetCullResult(), 0), 1);
+            g_modelLoader->QueueReference(this, g_TES->FUN_00458be0(((BSOcclusionPlane*)this)->GetCullResult(), 0), 1);
     }
 }
 }  // namespace fnv_005627c0
@@ -10398,7 +10398,7 @@ struct XInv
     bool FUN_004d2480(void*);
 };
 XScript* __fastcall FUN_00418800(XEDL*);
-void* __fastcall FUN_0055d310(void*);
+void* __fastcall GetContainer(void*);
 
 // @fnv 0x00565870
 bool FUN_00565870_shell::FUN_00565870()
@@ -10419,7 +10419,7 @@ bool FUN_00565870_shell::FUN_00565870()
         if (pact->GetLogDate() && !pact->GetCurrentProcessLevel() && !((VS00565870*)pact)->v116())
             return false;
     case 0x1b:
-        pCont = FUN_0055d310(this);
+        pCont = GetContainer(this);
         if (pCont)
         {
             pinventory = XInv::CreateForReference(this);
@@ -12264,7 +12264,7 @@ extern void FNV2062_InventoryChanges_FUN_0042cde0_target();
 #define FNV2062_InventoryChanges_FUN_0042cde0 ((bool (__thiscall *)(InventoryChanges*))FNV2062_InventoryChanges_FUN_0042cde0_target)
 struct ResetInvContainerLookup
 {
-    static TESContainer* __fastcall FUN_0055d310(TESObjectREFR*);
+    static TESContainer* __fastcall GetContainer(TESObjectREFR*);
 };
 struct FUN_008adc50_shell
 {
@@ -12379,7 +12379,7 @@ void FUN_00574920_t::FUN_00574920(bool abLeveledOnly)
 
     if (!g_BGSSaveLoadGame->IsLoading() && ((RefV*)this)->FUN_00577de0())
         abLeveledOnly = true;
-    pContainer = ResetInvContainerLookup::FUN_0055d310(this);
+    pContainer = ResetInvContainerLookup::GetContainer(this);
     if (pContainer)
     {
         pinventory = 0;
@@ -12899,7 +12899,7 @@ using ::InventoryChanges;
 extern void FNV2062_InventoryChanges_FUN_004c94f0_target();
 #undef FNV2062_InventoryChanges_FUN_004c94f0
 #define FNV2062_InventoryChanges_FUN_004c94f0 ((void* (__thiscall *)(InventoryChanges*, int))FNV2062_InventoryChanges_FUN_004c94f0_target)
-TESContainer* __fastcall FUN_0055d310(TESObjectREFR*);
+TESContainer* __fastcall GetContainer(TESObjectREFR*);
 struct FUN_005754a0_Class
 {
     void* FUN_005754a0(int a1, unsigned char a2);
@@ -12908,7 +12908,7 @@ struct FUN_005754a0_Class
 void* FUN_005754a0_Class::FUN_005754a0(int a1, unsigned char abUseDataHandler)
 {
     void* result = 0;
-    TESContainer* container = fnv_005754a0::FUN_0055d310((TESObjectREFR*)this);
+    TESContainer* container = fnv_005754a0::GetContainer((TESObjectREFR*)this);
     if (container)
     {
         InventoryChanges* changes = 0;
@@ -16444,8 +16444,8 @@ struct FlagExtra
 };
 struct FlagList
 {
-    FlagExtra* FUN_0040ff60(FlagExtra*);
-    void FUN_00410140(int);
+    FlagExtra* AddExtraData(FlagExtra*);
+    void RemoveExtraType(int);
 };
 struct RefFlags
 {
@@ -16478,7 +16478,7 @@ void RefFlags::FUN_005650d0(unsigned char enabled)
     FlagExtra* extra = FUN_00527080(0x92);
     if (enabled == 1 && !extra)
     {
-        extra = FUN_005d43c0()->FUN_0040ff60(new FlagExtra);
+        extra = FUN_005d43c0()->AddExtraData(new FlagExtra);
     }
     if (extra)
     {
@@ -16489,7 +16489,7 @@ void RefFlags::FUN_005650d0(unsigned char enabled)
             flags &= ~8;
         extra->FUN_0041fd00(flags);
         if (!flags)
-            FUN_005d43c0()->FUN_00410140(0x92);
+            FUN_005d43c0()->RemoveExtraType(0x92);
         Changed(0x80000000);
     }
 }
@@ -17337,7 +17337,7 @@ void FUN_00571560_Class::FUN_00571560()
 }
 
 using ::TESContainer;
-TESContainer* __fastcall FUN_0055d310(TESObjectREFR* reference);
+TESContainer* __fastcall GetContainer(TESObjectREFR* reference);
 struct SelectedObject
 {
 };
@@ -17358,7 +17358,7 @@ void FUN_00575510_shell::FUN_00575510(bool useProvider, void** relatedObject, Se
 {
     TESContainer* container;
     SelectedObject* resolvedSelection = 0;
-    container = FUN_0055d310(this);
+    container = GetContainer(this);
     *selectedObject = 0;
     *relatedObject = 0;
     if (container)
@@ -21104,7 +21104,7 @@ struct InitExtraList
     void FUN_00419ad0(int);
     void FUN_00421f30(InitScaleExtra*);
     void* FUN_00410220(int);
-    void FUN_00410140(int);
+    void RemoveExtraType(int);
     void FUN_0041aeb0();
 };
 struct InitCell
@@ -21652,7 +21652,7 @@ struct InitSelection
     bool FUN_0042cde0();
 };
 InitSelection* FUN_004bf220(InitReference*);
-void* __fastcall FUN_0055d310(InitReference*);
+void* __fastcall GetContainer(InitReference*);
 struct InitPending
 {
     void FUN_006fcfa0();
@@ -21777,7 +21777,7 @@ void InitReference::FUN_0055d760()
     rotation.z = FUN_004b1480(rotation.z);
     FUN_00484ab0(true);
     if (FUN_007af430() && FUN_007af430()->FUN_00401170() != 40 && FUN_005d43c0()->FUN_00410220(110))
-        FUN_005d43c0()->FUN_00410140(110);
+        FUN_005d43c0()->RemoveExtraType(110);
     FUN_0043b2b0(false);
     int errors = FUN_0046e8a0();
     FUN_004fffe0(previousDebug);
@@ -21799,7 +21799,7 @@ void InitReference::FUN_0055d760()
                 "MASTERFILE: Errors were encountered during InitItem for reference:\n\nBase: '%s' (%08X)\nRef: '%s' (%08X)\nCell: NONE\n\nSee Warnings file for more information.",
                 FUN_007af430()->DebugName(), FUN_007af430()->FUN_0084e3a0(), FUN_00401280(), FUN_0084e3a0());
     }
-    void* container2 = FUN_0055d310(this);
+    void* container2 = GetContainer(this);
     if (container2)
     {
         InitSelection* selection = FUN_004bf220(this);
@@ -22623,7 +22623,7 @@ struct LoadObject
     bool FUN_00440da0();
     bool FUN_00440d80();
     void FUN_00484af0(bool);
-    void* FUN_0055d310();
+    void* GetContainer();
     void FUN_00571b50();
     void FUN_004534f0(bool);
     void FUN_00483710();
@@ -22680,7 +22680,7 @@ void LoadObject::FUN_0055ec40(unsigned int flags, unsigned int more)
         reset(0, true);
     if (flags & 0x20)
     {
-        void* container = FUN_0055d310();
+        void* container = GetContainer();
         if (container)
         {
             if (isActor())
@@ -22797,7 +22797,7 @@ struct MyExtraDataList : public ExtraDataList
 struct MyModelLoader : public ModelLoader
 {
     bool FUN_00445750(void* ref);
-    void FUN_00444850(void* ref, void* cellData);
+    void QueueReference(void* ref, void* cellData);
 };
 extern MyModelLoader* g_modelLoader;
 
@@ -23000,7 +23000,7 @@ void FUN_0055f240_Class::FUN_0055f240(unsigned int changedFlags)
             {
                 if (!g_modelLoader->FUN_00445750(this))
                 {
-                    g_modelLoader->FUN_00444850(this, g_TES->FUN_00458be0(GetParentCell(), 0, 0));
+                    g_modelLoader->QueueReference(this, g_TES->FUN_00458be0(GetParentCell(), 0, 0));
                 }
             }
         }
@@ -30844,7 +30844,7 @@ struct RefOps
     virtual void v21c();
     virtual void v220();
     virtual bool v224();
-    void* FUN_0055d310();
+    void* GetContainer();
     bool FUN_00440da0();
     RefOps* FUN_008d6f30();
     bool FUN_005656d0();
@@ -30858,13 +30858,13 @@ struct RefOps
 };
 extern RefOps* DAT_011dea3c;
 void __cdecl FUN_005f5950(int, int, void*, int, int, int, int);
-void __cdecl FUN_005ac750(RefOps*, void*, int);
+void __cdecl MarkBaseExtraListScriptEvent(RefOps*, void*, int);
 ListOps* __cdecl FUN_004bf220(RefOps*);
 ScriptOps* __cdecl FUN_004826d0(EntryOps*);
 // @fnv 0x00574b30
 void RefOps::FUN_00574b30(RefOps* source, int count, bool abArg1, bool abArg2)
 {
-    void* container = FUN_0055d310();
+    void* container = GetContainer();
     if (container)
     {
         if ((!v100() || FUN_00440da0()) && FUN_008d6f30() && source->FUN_005656d0() && !FUN_005656d0())
@@ -30874,7 +30874,7 @@ void RefOps::FUN_00574b30(RefOps* source, int count, bool abArg1, bool abArg2)
             FUN_005f5950(10, count, source->FUN_007af430(), 0, 0, 0, 0);
             FUN_005f5950(6, count, source->FUN_007af430(), 0, 0, 0, 0);
         }
-        FUN_005ac750(this, source->FUN_005d43c0(), 1);
+        MarkBaseExtraListScriptEvent(this, source->FUN_005d43c0(), 1);
         ListOps* inventory = FUN_004bf220(this);
         bool normal = true;
         if (source->v224())
@@ -30885,7 +30885,7 @@ void RefOps::FUN_00574b30(RefOps* source, int count, bool abArg1, bool abArg2)
             {
                 FUN_004bc650* data = new FUN_004bc650(actor->FUN_009d9f00());
                 if (data && data->FUN_00559450() && *data->FUN_00559450()->FUN_006815c0())
-                    FUN_005ac750(this, *data->FUN_00559450()->FUN_006815c0(), 1);
+                    MarkBaseExtraListScriptEvent(this, *data->FUN_00559450()->FUN_006815c0(), 1);
                 inventory->FUN_004c3380(data, true);
                 data = 0;
             }
@@ -30919,7 +30919,7 @@ void RefOps::FUN_00574b30(RefOps* source, int count, bool abArg1, bool abArg2)
                             script->FUN_005ac1e0(reference, extras->FUN_00418830(), 0, false);
                             delete reference;
                         }
-                        FUN_005ac750(this, extras, 1);
+                        MarkBaseExtraListScriptEvent(this, extras, 1);
                         inventory->FUN_004c29a0(base, extras, true);
                     }
                     else
@@ -32865,7 +32865,7 @@ struct LoopExtras
 {
     LoopPrimitive* FUN_0041fbe0();
     void FUN_00418890(GlobalObject_0041a250*);
-    void FUN_00410140(int);
+    void RemoveExtraType(int);
     void FUN_0041a800(GlobalObject_0041a250*);
 };
 struct LoopAudio
@@ -33128,7 +33128,7 @@ void RefObj::FUN_00579ac0(bool enable)
             {
                 i.FUN_00ad88f0();
                 i.FUN_00ad8d10();
-                FUN_005d43c0()->FUN_00410140(79);
+                FUN_005d43c0()->RemoveExtraType(79);
             }
             if (h)
             {
@@ -33171,7 +33171,7 @@ void RefObj::FUN_00579ac0(bool enable)
             if (i.FUN_00ad8ce0())
             {
                 i.FUN_00ad8da0(1000);
-                FUN_005d43c0()->FUN_00410140(79);
+                FUN_005d43c0()->RemoveExtraType(79);
             }
             break;
         }
@@ -34258,7 +34258,7 @@ class ListQ
   public:
     BSExtraData* FUN_00410220();
     void FUN_00410020(int);
-    void FUN_0040ff60();
+    void AddExtraData();
 };
 
 class ResQ
@@ -34560,21 +34560,21 @@ ResQ* OwnQ::FUN_0055c050(int a1, int a2)
     Lock(0);
     ResQ* pResult_f = (ResQ*)dynamic_cast<TESObjectREFR*>(FUN_004867a0(0, a2));
     if (pTeleport_mcxj)
-        FUN_005d43c0((int)pTeleport_mcxj)->FUN_0040ff60();
+        FUN_005d43c0((int)pTeleport_mcxj)->AddExtraData();
     if (pEnable_ix)
-        FUN_005d43c0((int)pEnable_ix)->FUN_0040ff60();
+        FUN_005d43c0((int)pEnable_ix)->AddExtraData();
     if (pRandom_v)
-        FUN_005d43c0((int)pRandom_v)->FUN_0040ff60();
+        FUN_005d43c0((int)pRandom_v)->AddExtraData();
     if (pLock_fqcf)
-        FUN_005d43c0((int)pLock_fqcf)->FUN_0040ff60();
+        FUN_005d43c0((int)pLock_fqcf)->AddExtraData();
     if (pLock_ekv)
-        FUN_005d43c0((int)pLock_ekv)->FUN_0040ff60();
+        FUN_005d43c0((int)pLock_ekv)->AddExtraData();
     if (pOwner_v)
-        FUN_005d43c0((int)pOwner_v)->FUN_0040ff60();
+        FUN_005d43c0((int)pOwner_v)->AddExtraData();
     if (pMerch_mb)
-        FUN_005d43c0((int)pMerch_mb)->FUN_0040ff60();
+        FUN_005d43c0((int)pMerch_mb)->AddExtraData();
     if (pLeveled_xczy)
-        FUN_005d43c0((int)pLeveled_xczy)->FUN_0040ff60();
+        FUN_005d43c0((int)pLeveled_xczy)->AddExtraData();
     Lock(iSaved_yywkx);
     pResult_f->SetQ(0, 1);
     pResult_f->FUN_00565480(0);
@@ -35281,12 +35281,12 @@ struct Form
 struct Owner
 {
     Form* FUN_007af430();
-    Component* FUN_0055d310();
+    Component* GetContainer();
 };
 
 // Returns the owner form as a Weapon or Ammo component if its form type is weapon (0x2a/0x2b) or ammo (0x1b), otherwise returns null.
 // @fnv 0x0055d310
-Component* Owner::FUN_0055d310()
+Component* Owner::GetContainer()
 {
     Component* pkResult = 0;
     if (FUN_007af430())
@@ -36884,7 +36884,7 @@ struct Obj
 struct Thing
 {
     Obj* FUN_007af430();
-    int FUN_0055d310();
+    int GetContainer();
     bool FUN_005656d0();
 };
 extern "C" int FUN_004826d0(void* obj);
@@ -36899,7 +36899,7 @@ bool Thing::FUN_005656d0()
     }
     else
     {
-        int value = FUN_0055d310();
+        int value = GetContainer();
         if (value != 0)
         {
             int inv = (int)FUN_004bf220(this);
@@ -39357,7 +39357,7 @@ class Obj011c3b3c
 {
   public:
     bool FUN_00445750(Ref*);
-    void FUN_00444850(Ref*, void*);
+    void QueueReference(Ref*, void*);
 };
 
 class Obj011dea10
@@ -39383,8 +39383,8 @@ extern "C" char DAT_011dea10;
 extern "C" char DAT_011e0e80;
 extern "C" char DAT_011ddf38;
 
-void __cdecl FUN_005ac190(Ref*, ExtraDataList*);
-bool __cdecl FUN_005ac750(Ref*, ExtraDataList*, unsigned int);
+void __cdecl DoCheckScriptRunnerAndRun(Ref*, ExtraDataList*);
+bool __cdecl MarkBaseExtraListScriptEvent(Ref*, ExtraDataList*, unsigned int);
 
 class Ref
 {
@@ -39574,14 +39574,14 @@ void Ref::FUN_0056f700()
                     }
                 }
                 ((Obj011c3b3c*)*(void**)&DAT_011c3b3c)
-                    ->FUN_00444850(this, ((Obj011dea10*)*(void**)&DAT_011dea10)->FUN_00458be0(GetTarget(0, 1)));
+                    ->QueueReference(this, ((Obj011dea10*)*(void**)&DAT_011dea10)->FUN_00458be0(GetTarget(0, 1)));
             }
             else
             {
                 if (!((Obj011ddf38*)*(void**)&DAT_011ddf38)->IsLoading())
                 {
-                    FUN_005ac190(this, GetExtraData());
-                    FUN_005ac750(this, GetExtraData(), 0x1000);
+                    DoCheckScriptRunnerAndRun(this, GetExtraData());
+                    MarkBaseExtraListScriptEvent(this, GetExtraData(), 0x1000);
                 }
             }
         }
@@ -40683,7 +40683,7 @@ struct G
 struct H
 {
     bool FUN_00445750(R*);
-    void FUN_00444850(R*, void*, int);
+    void QueueReference(R*, void*, int);
 };
 struct M
 {
@@ -40911,7 +40911,7 @@ void R::FUN_00573f40()
                 FUN_00579ac0(true);
             if (!FUN_00440d80() && FUN_007af430() &&
                 (FUN_007af430()->FUN_00401170() == 30 || FUN_007af430()->FUN_00401170() == 21 || !FUN_00444ed0()))
-                (*(H**)&DAT_011c3b3c)->FUN_00444850(this, (*(G**)&DAT_011dea10)->FUN_00458be0(FUN_008d6f30(), 0), 0);
+                (*(H**)&DAT_011c3b3c)->QueueReference(this, (*(G**)&DAT_011dea10)->FUN_00458be0(FUN_008d6f30(), 0), 0);
             if (FUN_008d6f30()->FUN_00450ff0() && v116() && FUN_007af430() && FUN_007af430()->FUN_00401170() == 30)
             {
                 N* node = FUN_005725f0();
@@ -41001,7 +41001,7 @@ struct Inv
     int FUN_004c37d0(S*, Item*, bool, int, void*, bool, int, int, int, bool, bool, int);
 };
 extern "C" char DAT_011dea3c;
-extern bool FUN_005ac750(S*, void*, int);
+extern bool MarkBaseExtraListScriptEvent(S*, void*, int);
 extern Inv* FUN_004bf220(S*);
 extern bool FUN_00705020();
 extern bool FUN_00705000();
@@ -41038,7 +41038,7 @@ struct S
     virtual void a220(), a221(), a222(), a223(), a224(), a225(), a226(), a227(), a228(), a229();
     virtual void a230(), a231(), a232(), a233(), a234(), a235(), a236(), a237(), a238();
     virtual Entry* entry(int);
-    void* FUN_0055d310();
+    void* GetContainer();
     Cell* FUN_008d6f30();
     bool FUN_005656d0();
     int FUN_00575610(Weapon*);
@@ -41047,7 +41047,7 @@ struct S
     bool FUN_00493bb0();
     bool FUN_00566950();
     void FUN_0088c830(Item*, int, void*, bool, bool, bool);
-    void FUN_0088c650(Item*, int, void*, bool, bool, bool);
+    void EquipItem(Item*, int, void*, bool, bool, bool);
     int FUN_005750a0(Item*, void*, int, bool, bool, int, int, int, bool, bool);
 };
 // @fnv 0x005750a0
@@ -41056,13 +41056,13 @@ int S::FUN_005750a0(Item* arg, void* extra, int count, bool b1, bool b2, int p1,
     int result2 = 0;
     if (!arg)
         return 0;
-    void* container7 = FUN_0055d310();
+    void* container7 = GetContainer();
     if (container7)
     {
         bool changedVal = false;
         if (!isactor() && FUN_008d6f30())
             changedVal = FUN_005656d0();
-        FUN_005ac750(this, extra, 4);
+        MarkBaseExtraListScriptEvent(this, extra, 4);
         Inv* inventory9 = FUN_004bf220(this);
         result2 = inventory9->FUN_004c37d0(this, arg, b1, count, extra, b2, p1, p2, p3, b3, b4, 0);
         if (isactor())
@@ -41086,7 +41086,7 @@ int S::FUN_005750a0(Item* arg, void* extra, int count, bool b1, bool b2, int p1,
                         if (FUN_00702360() && actor->FUN_00566950())
                             actor->FUN_0088c830(item->FUN_0044ddc0(), 1, 0, true, false, true);
                         else
-                            actor->FUN_0088c650(item->FUN_0044ddc0(), 1, 0, true, false, true);
+                            actor->EquipItem(item->FUN_0044ddc0(), 1, 0, true, false, true);
                     }
                 }
             }
@@ -41104,15 +41104,15 @@ struct Obj4bf
 };
 struct Thing575
 {
-    void* FUN_0055d310();
+    void* GetContainer();
     bool FUN_00575400(int a);
 };
 Obj4bf* FUN_004bf220(Thing575* t);
-// Returns true when FUN_0055d310 returns non-null and FUN_004bfda0(a, 0) returns nonzero.
+// Returns true when GetContainer returns non-null and FUN_004bfda0(a, 0) returns nonzero.
 // @fnv 0x00575400
 bool Thing575::FUN_00575400(int a)
 {
-    void* p = FUN_0055d310();
+    void* p = GetContainer();
     bool result = false;
     if (p)
     {
@@ -41137,17 +41137,17 @@ struct Obj
 
 struct Thing
 {
-    int FUN_0055d310();
+    int GetContainer();
     int FUN_00575590(unsigned char flag, unsigned char value);
 };
 
 extern "C" void* FUN_004bf220(void* self);
 
-// If FUN_0055d310 is nonzero, calls FUN_004c8fd0 on the selected object and returns its result minus one; otherwise returns -2.
+// If GetContainer is nonzero, calls FUN_004c8fd0 on the selected object and returns its result minus one; otherwise returns -2.
 // @fnv 0x00575590
 int Thing::FUN_00575590(unsigned char abUseGlobal, unsigned char value)
 {
-    int result = FUN_0055d310();
+    int result = GetContainer();
     int out = -1;
     if (result != 0)
     {
@@ -41234,7 +41234,7 @@ class FUN_00575e30_mid
 {
   public:
     BSExtraData* FUN_00410220();
-    void FUN_0040ff60();
+    void AddExtraData();
 };
 class FUN_00575e30_cls
 {
@@ -41270,7 +41270,7 @@ void* FUN_00575e30_cls::FUN_00575e30()
     if (z == 0)
     {
         z = new FUN_00575e30_thing(this);
-        FUN_005d43c0(z)->FUN_0040ff60();
+        FUN_005d43c0(z)->AddExtraData();
         v48(0x80000000);
     }
     return z != 0 ? (char*)z + 0xc : 0;
@@ -41370,7 +41370,7 @@ struct FUN_00577250_shell
     virtual void vFc();
     virtual bool FUN_00vfn100();
 
-    Container* FUN_0055d310();
+    Container* GetContainer();
     ExtraList* FUN_005d43c0();
     float FUN_008a0c20();
 
@@ -41382,13 +41382,13 @@ float FUN_00577250_shell::FUN_00577250(bool arg)
 {
     float value = 0.0f;
 
-    if (FUN_0055d310())
+    if (GetContainer())
     {
         ItemData* item = FUN_005d43c0()->FUN_00418520();
         if (item)
             value = item->FUN_004d0900(arg);
         else
-            value = FUN_0055d310()->FUN_00481e10(arg);
+            value = GetContainer()->FUN_00481e10(arg);
     }
 
     if (FUN_00vfn100())
@@ -41420,7 +41420,7 @@ Info* FUN_004bf220(Owner* pkOwner);
 
 struct Owner
 {
-    void* FUN_0055d310();
+    void* GetContainer();
     bool FUN_00577de0();
 };
 
@@ -41429,7 +41429,7 @@ struct Owner
 bool Owner::FUN_00577de0()
 {
     bool bResult = false;
-    void* pvData = FUN_0055d310();
+    void* pvData = GetContainer();
     if (pvData)
     {
         Info* pkInfo = FUN_004bf220(this);
@@ -42967,7 +42967,7 @@ struct Topic57
 
 void FUN_005790f0();
 bool FUN_00703150();
-bool FUN_005ac750(void*, void*, unsigned int);
+bool MarkBaseExtraListScriptEvent(void*, void*, unsigned int);
 void FUN_00705210(const char*, S12, P12, void*, bool);
 
 // Processes the topic, updates dialog and process state, and may pass a response string to another function.
@@ -43001,7 +43001,7 @@ void Actor57::StartDialog(Topic57* apTopic, unsigned char arg2, int iUnused)
                 Resp57* r6 = dlgTmp->GetCurrentItem();
                 dlgTmp->FUN_0083c850(0);
                 dlgTmp->FUN_0083c850(1);
-                FUN_005ac750(apTopic, actor2->GetExtraData(), 0x40000);
+                MarkBaseExtraListScriptEvent(apTopic, actor2->GetExtraData(), 0x40000);
             }
             if (actor2->GetProcess()->v30c())
             {
@@ -43722,7 +43722,7 @@ extern DlgIntSetting DAT_011cd378;
 extern DlgBoolSetting DAT_011d8928;
 extern unsigned char DAT_011f122d;
 
-void __cdecl FUN_005ac750(void* apOwner, DlgExtraList* apExtra, int aiFlags);
+void __cdecl MarkBaseExtraListScriptEvent(void* apOwner, DlgExtraList* apExtra, int aiFlags);
 int __cdecl FUN_00653cf0(int aiType);
 bool FUN_005b7470();
 bool FUN_00703150();
@@ -43756,7 +43756,7 @@ void DlgActor::FUN_00935f60()
         if (m_pkConversation && !m_pkConversation->FUN_00579200())
             m_pkConversation->FUN_0061f170(1, this);
         if (bFinishNew)
-            FUN_005ac750(pOwner, FUN_005d43c0(), 0x40000);
+            MarkBaseExtraListScriptEvent(pOwner, FUN_005d43c0(), 0x40000);
         if (!bSaid)
             m_fFirstReferenceTimer = 1.0f;
         if (bFinishNew)
@@ -44336,7 +44336,7 @@ struct FUN_00633c90
 };
 struct AttachModelLoader
 {
-    ModelNode* FUN_00447080(const char*, int, int, int, int, int);
+    ModelNode* LoadModel(const char*, int, int, int, int, int);
 };
 struct ModelEnvironment
 {
@@ -44393,7 +44393,7 @@ bool ModelRef::FUN_005710c0()
                 FUN_00406d30(filename5, 260, FUN_005715d0());
                 char* separator270 = FUN_0040ab30(filename5, '\\');
                 FUN_00406d30(separator270 + 1, 260 - (separator270 - filename5) - 1, *link14->FUN_006815c0());
-                ModelNode* loaded338 = DAT_011c3b3c->FUN_00447080(filename5, 3, 1, 0, 0, 0);
+                ModelNode* loaded338 = DAT_011c3b3c->LoadModel(filename5, 3, 1, 0, 0, 0);
                 if (loaded338)
                 {
                     FUN_004ad050 process392(FUN_00567400());
@@ -45110,7 +45110,7 @@ extern void FNV2062_ExtraDataList_FUN_00426720_target();
 #undef FNV2062_ExtraDataList_FUN_00426720
 #define FNV2062_ExtraDataList_FUN_00426720 ((void (__thiscall *)(ExtraDataList*, unsigned int, unsigned int, TESObjectREFR*))FNV2062_ExtraDataList_FUN_00426720_target)
 
-TESContainer* __fastcall FUN_0055d310(TESObjectREFR*);
+TESContainer* __fastcall GetContainer(TESObjectREFR*);
 void FUN_00c69f50(NiNode*, int, int);
 
 struct C0055f780 : public TESObjectREFR
@@ -45129,7 +45129,7 @@ void C0055f780::FUN_0055f780(unsigned int a1, unsigned int a2)
     this->FUN_008d0600(a1, a2);
     if (a1 & 0x20)
     {
-        TESContainer* cont = (FUN_0055d310)(this);
+        TESContainer* cont = (GetContainer)(this);
         if (cont)
         {
             InventoryChanges* inv = InventoryChanges::GetOrAddInventoryChanges((void*)this);
@@ -46463,7 +46463,7 @@ struct InvChanges55F5 : InvBase55F5
     static InvChanges55F5* __cdecl CreateForReference(TESObjectREFR*);
 };
 
-TESContainer* __fastcall FUN_0055d310(TESObjectREFR*);
+TESContainer* __fastcall GetContainer(TESObjectREFR*);
 
 struct VTable55F5
 {
@@ -46629,7 +46629,7 @@ void Ref55F5::FUN_0055f5f0(unsigned int uiFlags, unsigned int param2)
 
     if (uiFlags & 0x20)
     {
-        pchanges = FUN_0055d310(reinterpret_cast<TESObjectREFR*>(this));
+        pchanges = GetContainer(reinterpret_cast<TESObjectREFR*>(this));
         if (pchanges)
         {
             pInvChanges = InvChanges55F5::CreateForReference(reinterpret_cast<TESObjectREFR*>(this));
@@ -46974,7 +46974,7 @@ float HealthReferenceEntry::FUN_00568ad0()
 
 using ::TESContainer;
 
-TESContainer* __fastcall FUN_0055d310(TESObjectREFR* refr);
+TESContainer* __fastcall GetContainer(TESObjectREFR* refr);
 
 struct RefInventoryQuery
 {
@@ -46985,7 +46985,7 @@ struct RefInventoryQuery
 bool __thiscall RefInventoryQuery::FUN_00575450(unsigned int aId)
 {
     bool bHasResultObj;
-    TESContainer* pCont = FUN_0055d310((TESObjectREFR*)this);
+    TESContainer* pCont = GetContainer((TESObjectREFR*)this);
     bHasResultObj = false;
     if (pCont)
     {
@@ -47107,7 +47107,7 @@ struct StandIn_Vtbl100
 // @fnv 0x00574fa0
 void AddBoundItemRef::FUN_00574fa0(TESBoundObject* apObject, ExtraDataList* apExtra, int aiNumber)
 {
-    TESContainer* pCont = ::FUN_0055d310((TESObjectREFR*)(void*)this);
+    TESContainer* pCont = ::GetContainer((TESObjectREFR*)(void*)this);
     if (pCont)
     {
         if (!((StandIn_Vtbl100*)this)->Unk_100() || ((RefH*)this)->GetDisabled())
@@ -47159,7 +47159,7 @@ bool InventoryRefView::FUN_00574a80(TESBoundObject* apObject, int aiNumber, Extr
     bool abflag = false;
 
     {
-        TESContainer* pCont = (::FUN_0055d310)((TESObjectREFR*)this);
+        TESContainer* pCont = (::GetContainer)((TESObjectREFR*)this);
 
         if (pCont)
         {
@@ -47542,7 +47542,7 @@ int FUN_00577d50_shell::FUN_00577d50()
     Container_00577d50* pCont;
     int igold = 0;
 
-    pCont = (Container_00577d50*)::FUN_0055d310(this);
+    pCont = (Container_00577d50*)::GetContainer(this);
     if (pCont)
     {
         InvChanges_00577d50* pinventory;

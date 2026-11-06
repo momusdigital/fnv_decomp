@@ -4907,7 +4907,7 @@ FUN_004338b0::FUN_004338b0() : BE(0x53), vtbl(DAT_01015ce4)
 namespace fnv_0040ff60 {
 struct FUN_0040ff60_shell : public BaseExtraList
 {
-    BSExtraData* FUN_0040ff60(BSExtraData*);
+    BSExtraData* AddExtraData(BSExtraData*);
 };
 
 extern RecursiveSpinLock g_011c3920;
@@ -4926,7 +4926,7 @@ struct TESObjectREFR_Flags
 };
 bool __cdecl FUN_0040f980(int);
 // @fnv 0x0040ff60
-BSExtraData* FUN_0040ff60_shell::FUN_0040ff60(BSExtraData* apExtra)
+BSExtraData* FUN_0040ff60_shell::AddExtraData(BSExtraData* apExtra)
 {
     BSExtraData* work;
     ::g_011c3920.Lock(reinterpret_cast<const char*>(0x01014364) /* BaseExtraList::AddExtra() */);
@@ -8024,11 +8024,11 @@ void __cdecl _Deallocate(void*);
 struct FUN_00418d20_class
 {
     void __thiscall FUN_0048fb50();
-    void* __thiscall FUN_00418d20(unsigned int flags);
+    void* __thiscall Destroy(unsigned int flags);
 };
 // Calls FUN_0048fb50, then deallocates this when flags has bit 0 set, and returns this.
 // @fnv 0x00418d20
-void* __thiscall FUN_00418d20_class::FUN_00418d20(unsigned int flags)
+void* __thiscall FUN_00418d20_class::Destroy(unsigned int flags)
 {
     FUN_0048fb50();
     if (flags & 1)
@@ -8042,11 +8042,11 @@ void __cdecl _Deallocate(void*);
 struct FUN_004aae50_shell
 {
     void FUN_004aae50();
-    void* FUN_00418e00(unsigned int flags);
+    void* Destroy(unsigned int flags);
 };
 // Calls FUN_004aae50, then deallocates this when flags has bit 0 set, and returns this.
 // @fnv 0x00418e00
-void* FUN_004aae50_shell::FUN_00418e00(unsigned int flags)
+void* FUN_004aae50_shell::Destroy(unsigned int flags)
 {
     FUN_004aae50();
     if (flags & 1)
@@ -13208,14 +13208,14 @@ int FUN_00420bc0_cls::FUN_00420bc0(int aiIndex)
 }
 
 extern char DAT_010151f0;
-void __cdecl FUN_00401030(void* pointer);
+void __cdecl FormHeap_Free(void* pointer);
 
 // @fnv 0x00421160
 void ExtraCollisionData::FUN_00421160()
 {
     *reinterpret_cast<void**>(this) = &DAT_010151f0;
     void* changes = m_pCollisionData;
-    FUN_00401030(changes);
+    FormHeap_Free(changes);
     BSExtraData::~BSExtraData();
 }
 
@@ -13878,7 +13878,7 @@ struct ExtraCopyList : ExtraDataList
 struct ExtraCopyLock
 {
     void FUN_0040fbf0(const char*);
-    void FUN_0040fba0();
+    void Leave();
 };
 struct ScriptCopyHelper
 {
@@ -13939,7 +13939,7 @@ void ExtraCopyList::FUN_00412490(ExtraCopyList* source, bool transfer)
         if (extra && advance)
             extra = ((ExtraCopyData*)extra)->FUN_0044ddc0();
     }
-    ((ExtraCopyLock*)&DAT_011c3920)->FUN_0040fba0();
+    ((ExtraCopyLock*)&DAT_011c3920)->Leave();
 }
 
 namespace ExtraSave {
@@ -14171,7 +14171,7 @@ struct Extra
 struct Lock
 {
     void FUN_0040fbf0(const char*);
-    void FUN_0040fba0();
+    void Leave();
 };
 extern Lock DAT_011c3920;
 bool __cdecl FUN_00401500();
@@ -14703,7 +14703,7 @@ void ExtraList::WriteToSave()
         }
         extra = extra->FUN_0044ddc0();
     }
-    DAT_011c3920.FUN_0040fba0();
+    DAT_011c3920.Leave();
 }
 }
 
@@ -15142,7 +15142,7 @@ struct List
     void SetIgnoredBySandbox(bool);
     Ammo* GetExtraAmmo();
     void* FUN_00410220(unsigned char);
-    void* FUN_0040ff60(void*);
+    void* AddExtraData(void*);
     void SetRadioData(Radio*);
     Teleport* FUN_00418460();
     void FUN_00419120(Teleport*);
@@ -15268,7 +15268,7 @@ void loader::List::LoadExtraData(File* file, void* owner)
         {
             data = new PathingActorState;
             extra = new LockExtra(data);
-            FUN_0040ff60(extra);
+            AddExtraData(extra);
         }
         else
             data = extra->data;
@@ -15424,7 +15424,7 @@ void loader::List::LoadExtraData(File* file, void* owner)
         {
             extra = new ExtraRagDollData;
             extra->m_pRagDollData = reinterpret_cast<::RagDollData*>(new RagdollData);
-            FUN_0040ff60(extra);
+            AddExtraData(extra);
             ragdollData = reinterpret_cast<RagdollData*>(extra->m_pRagDollData);
         }
         if (!ragdollData->LoadRagdollChunk(file))
@@ -15473,7 +15473,7 @@ void loader::List::LoadExtraData(File* file, void* owner)
         if (!extra)
         {
             extra = new ExtraActivateRef;
-            FUN_0040ff60(extra);
+            AddExtraData(extra);
         }
         if (file->GetField25C() == 4)
         {
@@ -15490,7 +15490,7 @@ void loader::List::LoadExtraData(File* file, void* owner)
         if (!extra)
         {
             extra = new ExtraActivateRef;
-            FUN_0040ff60(extra);
+            AddExtraData(extra);
         }
         int size = file->GetField25C();
         if (size > 1)
@@ -15507,7 +15507,7 @@ void loader::List::LoadExtraData(File* file, void* owner)
         if (!extra)
         {
             extra = new ExtraActivateRef;
-            FUN_0040ff60(extra);
+            AddExtraData(extra);
         }
         PackageRef* pData = new PackageRef;
         file->FUN_00472890(pData, 8);
@@ -15521,7 +15521,7 @@ void loader::List::LoadExtraData(File* file, void* owner)
         if (!pExtra)
         {
             pExtra = new ExtraActivateRef;
-            FUN_0040ff60(pExtra);
+            AddExtraData(pExtra);
         }
         PackageCombat value;
         memset(&value, 0, 12);
@@ -15757,7 +15757,7 @@ void loader::List::LoadExtraData(File* file, void* owner)
     case 0x46525358: {
         RefExtra* extra = (RefExtra*)FUN_00410220(0x92);
         if (!extra)
-            extra = (RefExtra*)FUN_0040ff60(new RefExtra);
+            extra = (RefExtra*)AddExtraData(new RefExtra);
         int value = 0;
         file->ReadChunkInt(&value);
         extra->FUN_0041fd00(value);
@@ -15766,7 +15766,7 @@ void loader::List::LoadExtraData(File* file, void* owner)
     case 0x44525358: {
         RefExtra* extra = (RefExtra*)FUN_00410220(0x92);
         if (!extra)
-            extra = (RefExtra*)FUN_0040ff60(new RefExtra);
+            extra = (RefExtra*)AddExtraData(new RefExtra);
         float value = 0.0f;
         file->ReadChunkInt(&value);
         extra->value = value;
@@ -16035,7 +16035,7 @@ struct RunOnceOwner
 };
 
 signed char __fastcall FUN_0086a460(DurationData* sched);
-void __cdecl FUN_00401030(RunOnceItem* item);
+void __cdecl FormHeap_Free(RunOnceItem* item);
 
 struct FUN_00410220_shell
 {
@@ -16071,7 +16071,7 @@ void FUN_0041d7b0_cls::RemoveRunOnceItems(char abKeepFlag)
             {
                 reinterpret_cast<ContNode*>(owner->pRunOnceList)->FUN_00905330(&item);
                 RunOnceItem* doomed = item;
-                FUN_00401030(doomed);
+                FormHeap_Free(doomed);
                 cur = owner->pRunOnceList;
             }
             else
@@ -16398,7 +16398,7 @@ struct LoadRef
     ScriptLocals* FUN_00418830();
     void FUN_005a9d00();
     void FUN_0041cda0();
-    void FUN_00410140(int aiFlag);
+    void RemoveExtraType(int aiFlag);
     void* FUN_00418460();
     void RemoveExtraType43();
     void FUN_00422920();
@@ -16432,13 +16432,13 @@ void LoadRef::FUN_004267d0(unsigned int auiFlags, LoadRefForm* apForm)
     if ((auiFlags & kLoadRefChange_Unused) && bTargetIsActor)
         FUN_0041cda0();
     if ((auiFlags & kLoadRefChange_Unused) && !bTargetIsActor)
-        FUN_00410140(0x12);
+        RemoveExtraType(0x12);
     if (auiFlags & kLoadRefChange_Unused)
-        FUN_00410140(0x2e);
+        RemoveExtraType(0x2e);
     if ((auiFlags & kLoadRefChange_Unused) && !bTargetIsActor)
     {
-        FUN_00410140(0x32);
-        FUN_00410140(0x33);
+        RemoveExtraType(0x32);
+        RemoveExtraType(0x33);
     }
     if ((auiFlags & kLoadRefChange_00020000) && !bTargetIsActor)
     {
@@ -16451,9 +16451,9 @@ void LoadRef::FUN_004267d0(unsigned int auiFlags, LoadRefForm* apForm)
     if ((auiFlags & kLoadRefChange_Unused) && bTargetIsActor)
         FUN_0041cda0();
     if ((auiFlags & kLoadRefChange_Unused) && !bTargetIsActor)
-        FUN_00410140(0x12);
+        RemoveExtraType(0x12);
     if (auiFlags & kLoadRefChange_Unused)
-        FUN_00410140(0x2e);
+        RemoveExtraType(0x2e);
 
     if (g_pLoadRefSaveLoadGame->FUN_0055f5b0())
     {
@@ -16464,7 +16464,7 @@ void LoadRef::FUN_004267d0(unsigned int auiFlags, LoadRefForm* apForm)
             RemoveExtraType0x18();
             FUN_00422720();
             RemoveExtra045();
-            FUN_00410140(0x3a);
+            RemoveExtraType(0x3a);
             FUN_00419dc0(0);
             RemoveExtra0x1F();
             FUN_0042e040();
@@ -16946,7 +16946,7 @@ struct FUN_00422c20_shell : public ExtraDataList
 
 struct FUN_00410140_shell : public ExtraDataList
 {
-    void FUN_00410140(int);
+    void RemoveExtraType(int);
 };
 
 struct FUN_0042ce30_shell : public ExtraDataList
@@ -16968,7 +16968,7 @@ void FUN_0042dd90_cls::FUN_0042dd90(FUN_0042ce30_shell* pExtraList)
     ((FUN_00422920_shell*)this)->FUN_00422920();
     if (pExtraList->FUN_0042ce30(&flags, 0x80000000)->operator bool())
     {
-        ((FUN_00410140_shell*)this)->FUN_00410140(0x12);
+        ((FUN_00410140_shell*)this)->RemoveExtraType(0x12);
     }
 }
 
@@ -17358,7 +17358,7 @@ struct Extras
     void FUN_0041d700(TESPackage*, unsigned char);
     void FUN_0041ad00(TESWorldSpace*, TESObjectCELL*, NiPoint3*, float);
     void FUN_00422480(unsigned int);
-    void FUN_0040ff60(void*);
+    void AddExtraData(void*);
     void FUN_00419120(FUN_0043a160*);
     void FUN_00419d10(unsigned int);
     void FUN_00422850(char*);
@@ -17740,7 +17740,7 @@ void Extras::FUN_00424960(unsigned int auiChangeFlags, unsigned int unused, TESO
                 FUN_00825ad0* qoPB = new FUN_00825ad0(qtOMjSX);
                 qoPB->data.SetA(qbfQdhM);
                 qoPB->data.SetB(qidnYUK);
-                FUN_0040ff60(qoPB);
+                AddExtraData(qoPB);
             }
             break;
         }
@@ -17751,7 +17751,7 @@ void Extras::FUN_00424960(unsigned int auiChangeFlags, unsigned int unused, TESO
                 DAT_011de45c->FUN_00857aa0(&qidnYUK, 4);
                 FUN_00825fd0* qbfQdhM = new FUN_00825fd0(qidnYUK);
                 FUN_00805d40(qbfQdhM->data.Get(), 0);
-                FUN_0040ff60(qbfQdhM);
+                AddExtraData(qbfQdhM);
             }
             break;
         }
@@ -18886,7 +18886,7 @@ struct Target42
     Map42* FUN_00418490();
     void FUN_0041eff0(float);
     Script42* FUN_00418830();
-    void FUN_00410140(unsigned char);
+    void RemoveExtraType(unsigned char);
     void FUN_0042dae0(Buf42*);
 };
 // @fnv 0x0042dae0
@@ -18936,7 +18936,7 @@ void Target42::FUN_0042dae0(Buf42* pBuffer)
             }
         }
         if (remove)
-            FUN_00410140((unsigned char)i3);
+            RemoveExtraType((unsigned char)i3);
     }
 }
 }  // namespace fnv_0042dae0
@@ -19518,7 +19518,7 @@ class ProfQ
 {
   public:
     void FUN_0040fbf0(int);
-    void FUN_0040fba0();
+    void Leave();
 };
 class GameQ
 {
@@ -19862,7 +19862,7 @@ unsigned short ExtraDataSaveSizer::FUN_00422c40(unsigned int aiFlags, ObjQ* apOb
                          reinterpret_cast<const char*>(0x010152d0) /* D:\_Fallout3\Platforms\Common\Code\Fallout Shared\ExtraDataList.cpp */);
         }
     }
-    DAT_011c3920.FUN_0040fba0();
+    DAT_011c3920.Leave();
     return size;
 }
 }  // namespace fnv_00422c40
@@ -19960,7 +19960,7 @@ struct Node
 struct S0041d950
 {
     Node* __thiscall FUN_00410220(unsigned char);
-    void __thiscall FUN_0040ff60(Node*);
+    void __thiscall AddExtraData(Node*);
     void __thiscall FUN_0041d950(NiPoint3* pIn);
 };
 // Gets or creates a Node, then copies the input NiPoint3 into its pos field.
@@ -19971,7 +19971,7 @@ void S0041d950::FUN_0041d950(NiPoint3* pIn)
     if (p == 0)
     {
         p = new Node();
-        FUN_0040ff60(p);
+        AddExtraData(p);
     }
     *reinterpret_cast<PodPoint3*>(&p->pos) = *reinterpret_cast<const PodPoint3*>(pIn);
 }
@@ -20001,7 +20001,7 @@ struct ListEntry
 struct Owner
 {
     ListEntry* FUN_00410220(int iType);
-    void FUN_0040ff60(ListEntry* pkEntry);
+    void AddExtraData(ListEntry* pkEntry);
     void FUN_0041dcd0(Form* pkForm);
 };
 
@@ -20015,7 +20015,7 @@ void Owner::FUN_0041dcd0(Form* pkForm)
         if (!pkEntry)
         {
             pkEntry = new ListEntry;
-            FUN_0040ff60(pkEntry);
+            AddExtraData(pkEntry);
         }
         if (!pkEntry->m_kForms.FUN_005f65d0(pkForm))
             pkEntry->m_kForms.FUN_005ae3d0(pkForm);
@@ -20048,7 +20048,7 @@ struct SetEntry
 struct Owner
 {
     SetEntry* FUN_00410220(int iType);
-    void FUN_0040ff60(SetEntry* pkEntry);
+    void AddExtraData(SetEntry* pkEntry);
     void FUN_0041e530(Form* pkForm);
 };
 
@@ -20062,7 +20062,7 @@ void Owner::FUN_0041e530(Form* pkForm)
         if (!pkEntry)
         {
             pkEntry = new SetEntry;
-            FUN_0040ff60(pkEntry);
+            AddExtraData(pkEntry);
         }
         if (!pkEntry->m_kForms.FUN_005f65d0(pkForm))
             pkEntry->m_kForms.FUN_005ae3d0(pkForm);
@@ -20103,14 +20103,14 @@ struct E4Extra
 struct E4List
 {
     E4Extra* FUN_00410220(int type);
-    void FUN_0040ff60(E4Extra* extra);
-    void FUN_00410140(int type);
+    void AddExtraData(E4Extra* extra);
+    void RemoveExtraType(int type);
     void FUN_00421940(E4Object* object);
 };
 }
 using namespace extra421;
 
-// For nonnull object, replaces or creates the type-5 entry and assigns pObject; for null, calls FUN_00410140(5).
+// For nonnull object, replaces or creates the type-5 entry and assigns pObject; for null, calls RemoveExtraType(5).
 // @fnv 0x00421940
 void E4List::FUN_00421940(E4Object* object)
 {
@@ -20129,12 +20129,12 @@ void E4List::FUN_00421940(E4Object* object)
         {
             pExtra = new E4Extra();
             pExtra->pObject = object;
-            FUN_0040ff60(pExtra);
+            AddExtraData(pExtra);
         }
     }
     else
     {
-        FUN_00410140(5);
+        RemoveExtraType(5);
     }
 }
 
@@ -21040,7 +21040,7 @@ void ResolveExtraOwner::FUN_00416be0(TESForm* owner)
 
 struct RemoveExtraList : public BaseExtraList
 {
-    void FUN_00410140(unsigned char);
+    void RemoveExtraType(unsigned char);
 };
 
 struct XD
@@ -21065,7 +21065,7 @@ void __cdecl FUN_0040f7d0(void*, int);
 
 // Removes the first extra data entry of the given type from the list, updating the head or previous link and calling FUN_0040f7d0.
 // @fnv 0x00410140
-void RemoveExtraList::FUN_00410140(unsigned char etype)
+void RemoveExtraList::RemoveExtraType(unsigned char etype)
 {
     ::g_011c3920.Lock(reinterpret_cast<const char*>(0x01014380) /* BaseExtraList::RemoveExtra() */);
     XD* pprev = 0;

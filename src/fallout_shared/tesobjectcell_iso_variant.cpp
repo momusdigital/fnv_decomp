@@ -311,8 +311,8 @@ extern Calendar g_calendar;
 unsigned int __cdecl FUN_00526100();
 bool __fastcall FUN_005262a0(void* zone);
 Obj34* __cdecl FUN_00475400(void* p);
-void __cdecl FUN_005ac190(RefrShell* refr, ExtraShell_tesobjectcell_iso_variant* extra);
-bool __cdecl FUN_005ac750(RefrShell* refr, ExtraShell_tesobjectcell_iso_variant* extra, unsigned int a);
+void __cdecl DoCheckScriptRunnerAndRun(RefrShell* refr, ExtraShell_tesobjectcell_iso_variant* extra);
+bool __cdecl MarkBaseExtraListScriptEvent(RefrShell* refr, ExtraShell_tesobjectcell_iso_variant* extra, unsigned int a);
 ExtraShell_tesobjectcell_iso_variant* __fastcall FUN_005d43c0(RefrShell* refr);
 struct CellShell : public FUN_00546af0_shell
 {
@@ -556,8 +556,8 @@ bool CellShell::FUN_0054df30()
                     break;
                 }
             }
-            FUN_005ac190(refr2, FUN_005d43c0(refr2));
-            FUN_005ac750(refr2, FUN_005d43c0(refr2), 0x80000000);
+            DoCheckScriptRunnerAndRun(refr2, FUN_005d43c0(refr2));
+            MarkBaseExtraListScriptEvent(refr2, FUN_005d43c0(refr2), 0x80000000);
         }
     }
     CellRefLockLeave();

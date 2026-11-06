@@ -2213,7 +2213,7 @@ void ManagedSceneHolder::EnsureCurrentEntry()
         current = new ManagedSceneEntry;
 }
 
-void* __cdecl FUN_00401000(unsigned int size);
+void* __cdecl FormHeap_Allocate(unsigned int size);
 
 struct SpawnedItem_b10003
 {
@@ -2228,7 +2228,7 @@ struct SpawnedItem_b10003
     SpawnedItem_b10003();
     static void* operator new(unsigned int size) throw()
     {
-        return FUN_00401000(size);
+        return FormHeap_Allocate(size);
     }
 };
 

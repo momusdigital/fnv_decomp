@@ -545,7 +545,7 @@ NiNode* TileImage::CalculateNode()
 
     FUN_00a037e0(0xfad, FUN_00a011b0(0xfad, 0));
     if (IsTraitNonZero(0xfae))
-        FUN_00a07530(0x100);
-    FUN_00a07530(0x3d);
+        SetChangeFlag(0x100);
+    SetChangeFlag(0x3d);
     return (NiNode*)m_pRenderedNodeEntry;
 }

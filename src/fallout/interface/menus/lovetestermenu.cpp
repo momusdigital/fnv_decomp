@@ -1603,7 +1603,7 @@ struct Light109 : Scene109
 };
 struct Loader109
 {
-    Scene109* FUN_00447080(const char*, int, int, int, int, int);
+    Scene109* LoadModel(const char*, int, int, int, int, int);
 };
 extern Loader109* DAT_011c3b3c;
 void __cdecl FUN_004b7660(Scene109*);
@@ -1659,10 +1659,10 @@ int __cdecl FUN_00406d00(char*, unsigned int, const char*, ...);
 void LoveTesterMenu::Init()
 {
     using namespace fnv_007928e0;
-    DAT_011da2c8->front = fnv_007928e0::DAT_011c3b3c->FUN_00447080(
+    DAT_011da2c8->front = fnv_007928e0::DAT_011c3b3c->LoadModel(
         "Meshes\\architecture\\Goodsprings\\NV_VitoMaticVigorTester_Activate.NIF", 0, 1, 0, 0, 0);
     FUN_004b7660(DAT_011da2c8->front);
-    DAT_011da2c8->cabinet = fnv_007928e0::DAT_011c3b3c->FUN_00447080(
+    DAT_011da2c8->cabinet = fnv_007928e0::DAT_011c3b3c->LoadModel(
         "Meshes\\architecture\\Goodsprings\\NV_VitoMaticVigorTester_Cabinet.NIF", 0, 1, 0, 0, 0);
     FUN_004b7660(DAT_011da2c8->cabinet);
     Matrix109 rotation5, turn1;

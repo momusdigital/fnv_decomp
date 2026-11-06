@@ -1094,7 +1094,7 @@ public:
 };
 
 TESForm* FUN_004839c0(unsigned int);
-bool FUN_005ac750(TESForm*, ExtraDataList*, unsigned int);
+bool MarkBaseExtraListScriptEvent(TESForm*, ExtraDataList*, unsigned int);
 struct Entry62C
 {
     unsigned int id;
@@ -1122,7 +1122,7 @@ void Shell62C::ApplyEntriesToRef(TESObjectREFR* ref)
         if (form && form->GetIsReference())
         {
             TESObjectREFR* target = (TESObjectREFR*)form;
-            FUN_005ac750(target, extra, 0x40000000);
+            MarkBaseExtraListScriptEvent(target, extra, 0x40000000);
             static_cast<TrapReferenceNotification*>(ref)->FUN_00572e10(target);
             ref->FUN_00565870();
         }
@@ -1362,7 +1362,7 @@ struct Subject62
     bool ProcessCollisionPairs(int);
 };
 void* FUN_004b59f0(void*);
-void __cdecl FUN_00401030(void*);
+void __cdecl FormHeap_Free(void*);
 // @fnv 0x0062cc90
 bool Subject62::ProcessCollisionPairs(int arg)
 {
@@ -1410,7 +1410,7 @@ bool Subject62::ProcessCollisionPairs(int arg)
                                 if (found)
                                 {
                                     ExtraDataList* extra = _ref_0084e3a0()->FUN_005d43c0();
-                                    world |= FUN_005ac750(ref, extra, 0x10000000);
+                                    world |= MarkBaseExtraListScriptEvent(ref, extra, 0x10000000);
                                 }
                             }
                         }
@@ -1442,7 +1442,7 @@ bool Subject62::ProcessCollisionPairs(int arg)
                             if (found)
                             {
                                 ExtraDataList* extra = _ref_0084e3a0()->FUN_005d43c0();
-                                world |= FUN_005ac750(ref, extra, 0x10000000);
+                                world |= MarkBaseExtraListScriptEvent(ref, extra, 0x10000000);
                             }
                         }
                     }
@@ -1465,7 +1465,7 @@ bool Subject62::ProcessCollisionPairs(int arg)
         if (flags)
         {
             ExtraDataList* extra = _ref_0084e3a0()->FUN_005d43c0();
-            world |= FUN_005ac750(flags, extra, ref);
+            world |= MarkBaseExtraListScriptEvent(flags, extra, ref);
             static_cast<TrapReferenceNotification*>(_ref_0084e3a0())->FUN_00572e10(flags);
         }
     }

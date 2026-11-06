@@ -412,7 +412,7 @@ bool EffectItemListOperations::Compare(EffectItemList* apOther)
     return false;
 }
 
-void* __cdecl FUN_00401000(unsigned int uiSize);
+void* __cdecl FormHeap_Allocate(unsigned int uiSize);
 
 class B5B10ItemCopy
 {
@@ -421,7 +421,7 @@ class B5B10ItemCopy
 
     static void* operator new(unsigned int uiSize)
     {
-        return FUN_00401000(uiSize);
+        return FormHeap_Allocate(uiSize);
     }
     static void operator delete(void* pvMem);
 

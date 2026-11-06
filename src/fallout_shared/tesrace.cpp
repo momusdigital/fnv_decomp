@@ -760,8 +760,8 @@ void __cdecl FUN_00485710(unsigned int, const void*, unsigned int);
 void __cdecl FUN_00485910(unsigned int, unsigned int);
 void __cdecl FUN_00485910(unsigned int, float);
 void __cdecl FUN_00485950(unsigned int, unsigned short);
-void* __cdecl FUN_00401000(unsigned int);
-void __cdecl FUN_00401030(void*);
+void* __cdecl FormHeap_Allocate(unsigned int);
+void __cdecl FormHeap_Free(void*);
 void* __cdecl FUN_00403d30(void*, int, unsigned int);
 // The shared model API lacks this additional save operation.
 struct TESModelSaveAccess : TESModel
@@ -925,7 +925,7 @@ void SaveRaceAccess::SaveRace()
         if (count)
         {
             unsigned int geometrybytes31 = count * 4;
-            float* geometrydata18 = (float*)FUN_00401000(geometrybytes31);
+            float* geometrydata18 = (float*)FormHeap_Allocate(geometrybytes31);
             FUN_00403d30(geometrydata18, 0, geometrybytes31);
             for (unsigned int geometryindex = 0; geometryindex < count; geometryindex++)
             {
@@ -939,7 +939,7 @@ void SaveRaceAccess::SaveRace()
                                                          .FUN_00629ab0();
             }
             FUN_00485710(0x53474746, geometrydata18, count);
-            FUN_00401030(geometrydata18);
+            FormHeap_Free(geometrydata18);
             geometrydata18 = 0;
         }
         if (sex3 == 0)
@@ -949,7 +949,7 @@ void SaveRaceAccess::SaveRace()
         if (count)
         {
             unsigned int asymmetrybytes4 = count * 4;
-            float* asymmetrydata24 = (float*)FUN_00401000(asymmetrybytes4);
+            float* asymmetrydata24 = (float*)FormHeap_Allocate(asymmetrybytes4);
             FUN_00403d30(asymmetrydata24, 0, asymmetrybytes4);
             for (unsigned int asymmetryindex = 0; asymmetryindex < count; asymmetryindex++)
             {
@@ -963,7 +963,7 @@ void SaveRaceAccess::SaveRace()
                                                            .FUN_00629ab0();
             }
             FUN_00485710(0x41474746, asymmetrydata24, count);
-            FUN_00401030(asymmetrydata24);
+            FormHeap_Free(asymmetrydata24);
             asymmetrydata24 = 0;
         }
         if (sex3 == 0)
@@ -973,7 +973,7 @@ void SaveRaceAccess::SaveRace()
         if (count)
         {
             unsigned int texturebytes2 = count * 4;
-            float* texturedata16 = (float*)FUN_00401000(texturebytes2);
+            float* texturedata16 = (float*)FormHeap_Allocate(texturebytes2);
             FUN_00403d30(texturedata16, 0, texturebytes2);
             for (unsigned int textureindex = 0; textureindex < count; textureindex++)
             {
@@ -987,7 +987,7 @@ void SaveRaceAccess::SaveRace()
                                                        .FUN_00629ab0();
             }
             FUN_00485710(0x53544746, texturedata16, count);
-            FUN_00401030(texturedata16);
+            FormHeap_Free(texturedata16);
             texturedata16 = 0;
         }
         FUN_00485950(0x4d414e53, m_usRaceAttribute);

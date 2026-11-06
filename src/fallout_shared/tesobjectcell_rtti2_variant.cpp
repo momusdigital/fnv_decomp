@@ -53,11 +53,11 @@ struct ProcessListB54
 extern ProcessListB54 DAT_011e0e80;
 struct LoaderB54
 {
-    void FUN_00444850(TESObjectREFR* pRef, void* p, int i);
+    void QueueReference(TESObjectREFR* pRef, void* p, int i);
 };
 extern LoaderB54* DAT_011c3b3c;
-void __cdecl FUN_005ac190(TESObjectREFR* pRef, void* p);
-void __cdecl FUN_005ac750(TESObjectREFR* pRef, void* p, int iFlags);
+void __cdecl DoCheckScriptRunnerAndRun(TESObjectREFR* pRef, void* p);
+void __cdecl MarkBaseExtraListScriptEvent(TESObjectREFR* pRef, void* p, int iFlags);
 
 class SceneB54
 {
@@ -122,8 +122,8 @@ void SceneB54::FUN_0054bcf0(bool bArg)
                 iCountA++;
                 if (!g_BGSSaveLoadGame->FUN_0042ce10())
                 {
-                    FUN_005ac190(pRef, pRef->FUN_005d43c0());
-                    FUN_005ac750(pRef, pRef->FUN_005d43c0(), 0x1000);
+                    DoCheckScriptRunnerAndRun(pRef, pRef->FUN_005d43c0());
+                    MarkBaseExtraListScriptEvent(pRef, pRef->FUN_005d43c0(), 0x1000);
                 }
                 bool bDisabled4 = false;
                 bDisabled4 = pRef->FUN_00440da0();
@@ -143,7 +143,7 @@ void SceneB54::FUN_0054bcf0(bool bArg)
                         MobileObject* pTarget = static_cast<MobileObject*>(pRef);
                         pTarget->Unk_98();
                     }
-                    ((LoaderB54*)DAT_011c3b3c)->FUN_00444850(pRef, pCell9, 0);
+                    ((LoaderB54*)DAT_011c3b3c)->QueueReference(pRef, pCell9, 0);
                     if (pRef->GetNiNode())
                     {
                         bool bProcess3 = true;

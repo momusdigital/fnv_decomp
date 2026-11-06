@@ -86,7 +86,7 @@ void __cdecl ApplyFaceGenTextures(NiNode* apNode, void* apData);
 class FaceRefr
 {
   public:
-    void FUN_005702e0(NiNode* apNode, bool abQueue);
+    void Set3D(NiNode* apNode, bool abQueue);
     NiNode* FUN_0087e060(bool abFlag);
 };
 class PlayerFace
@@ -241,7 +241,7 @@ void TESNPC::FUN_00609f60(Actor* apActor)
             if (pNode && bPrevHadRace != bNowHasRace)
             {
                 pParent = (NiNode*)((FUN_009611e0_shell*)apActor->TESObjectREFR::Get3DSimple())->FUN_009611e0();
-                ((FaceRefr*)apActor)->FUN_005702e0(0, true);
+                ((FaceRefr*)apActor)->Set3D(0, true);
             }
             if (bNowHasRace)
                 SetModelFilePath(g_011d2b38.FUN_00403df0());

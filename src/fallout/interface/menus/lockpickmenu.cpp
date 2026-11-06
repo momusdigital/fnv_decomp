@@ -740,7 +740,7 @@ void __thiscall LockPickMenu::FUN_007908f0()
 // InitLockInterface v1 worker20: faithful transcription from capstone ORIG
 struct ModelLoader
 {
-    void* FUN_00447080(const char* path, int a, bool b, bool c, bool d, bool e);
+    void* LoadModel(const char* path, int a, bool b, bool c, bool d, bool e);
 };
 extern ModelLoader* DAT_011c3b3c;
 struct SortNode
@@ -863,9 +863,9 @@ extern unsigned char DAT_011a9448;
 void LockPickMenu::InitLockInterface()
 {
     void* pin;
-    pin = DAT_011c3b3c->FUN_00447080("Meshes\\Terminals\\LockInterface01.NIF", 0, true, false, false, false);
+    pin = DAT_011c3b3c->LoadModel("Meshes\\Terminals\\LockInterface01.NIF", 0, true, false, false, false);
     void* idx;
-    idx = DAT_011c3b3c->FUN_00447080("Meshes\\Terminals\\BobbyPin01.NIF", 0, true, false, false, false);
+    idx = DAT_011c3b3c->LoadModel("Meshes\\Terminals\\BobbyPin01.NIF", 0, true, false, false, false);
     *(Mat9*)&rotation = *(Mat9*)&DAT_011a9448;
     {
         position = NiPoint3(0.0f, 0.0f, -1.6f);
