@@ -23,7 +23,7 @@ public:
     ~CombatThreatRecord_nitmapbase_ob1_variant();
     bool IsXLessThan(float);
     void LoadGame(BGSLoadGameBuffer*);
-    void __thiscall FUN_009a5e50();
+    void __thiscall SetVtableAndProcessState_009a5e50();
 };
 
 extern int DAT_01189c40;
@@ -42,7 +42,7 @@ struct FUN_00404d00_class
     int m_i;
     FUN_00404d00_class();
 };
-void* __cdecl FUN_00401000(unsigned int size);
+void* __cdecl FormHeap_Allocate(unsigned int size);
 extern void* DAT_011c8048;
 struct SpawnedObj404a80
 {
@@ -50,7 +50,7 @@ struct SpawnedObj404a80
     SpawnedObj404a80();
     static void* operator new(unsigned int size)
     {
-        return FUN_00401000(size);
+        return FormHeap_Allocate(size);
     }
 };
 void __cdecl EnsureSpawnedObj();
@@ -211,11 +211,12 @@ struct MapOwnerStandIn
     int unk20, unk24, unk28, unk2C, unk30, unk34, unk38, unk3C;
     NiTPointerMap<unsigned int, void*> m_kFormatEntries;
 
-    void FUN_00ec2e50();
+    void ReleaseStorage_00ec2e50();
 };
 
 // @fnv 0x00ec2e50
-void MapOwnerStandIn::FUN_00ec2e50()
+// src: GUESS 0x00ec2e50 (confidence: low)
+void MapOwnerStandIn::ReleaseStorage_00ec2e50()
 {
     NiTMapIterator pos = m_kFormatEntries.GetFirstPos();
     while (pos)

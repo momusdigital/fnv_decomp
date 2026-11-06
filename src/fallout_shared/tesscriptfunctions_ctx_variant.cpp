@@ -53,10 +53,11 @@ struct TesscriptfunctionsInterfaceView
 extern char DAT_011d424c;
 extern Actor* g_thePlayer;
 
-void FUN_00704af0();
+void Interface_UpdateInventory();
 
 // @fnv 0x005d0300
-bool FUN_005d0300(const ScriptParameter* param, const char* desc, TESObjectREFR* obj, TESObjectREFR* obj2,
+// src: EXE 0x005d0300
+bool Cmd_UnequipItem_Execute(const ScriptParameter* param, const char* desc, TESObjectREFR* obj, TESObjectREFR* obj2,
                   Script* script, ScriptLocals* locals, double& result, unsigned int& opcode)
 {
     TESForm* pForm = 0;
@@ -84,8 +85,8 @@ bool FUN_005d0300(const ScriptParameter* param, const char* desc, TESObjectREFR*
                     pExtra = pChanges->FUN_004bfda0(pForm, 0);
                     if (pExtra)
                     {
-                        pExtra->FUN_0041ab70(false);
-                        pActor->FUN_0088c790(pForm, 1, 0, 1, bSet, 1);
+                        pExtra->ExtraDataList_SetCanNotWear(false);
+                        pActor->QueueUnEquipObject(pForm, 1, 0, 1, bSet, 1);
                         if (pActor == g_thePlayer && iFlag == 0)
                         {
                             BSStringT<char> str;
@@ -94,9 +95,9 @@ bool FUN_005d0300(const ScriptParameter* param, const char* desc, TESObjectREFR*
                             TesscriptfunctionsInterfaceView::ShowMessage(str.String(), 0,
                                                    "Interface\\Icons\\Message Icons\\glow_message_vaultboy_neutral.dds",
                                                    0, 2.0f, false);
-                            g_thePlayer->FUN_00950030();
+                            g_thePlayer->PlayerCharacter_UpdatePlayer3d();
                             g_thePlayer->GetProcess()->UpdateActorAppearance(true, false, false);
-                            FUN_00704af0();
+                            Interface_UpdateInventory();
                         }
                     }
                 }
@@ -107,28 +108,28 @@ bool FUN_005d0300(const ScriptParameter* param, const char* desc, TESObjectREFR*
             InventoryChanges* pChanges2 = InventoryChanges::GetOrAddInventoryChanges(obj);
             if (pChanges2)
             {
-                InventoryStackRecord* pHolder = pChanges2->FUN_004d0650(pForm, 0);
+                InventoryStackRecord* pHolder = pChanges2->InventoryChanges_GetInventoryItem(pForm, 0);
                 if (pHolder)
                 {
-                    if (pHolder->FUN_00559450())
+                    if (pHolder->Modelloader_GetReferencedThis())
                     {
-                        if (pHolder->FUN_00559450()->GetItem())
+                        if (pHolder->Modelloader_GetReferencedThis()->GetItem())
                         {
-                            pHolder->FUN_00559450()->GetItem()->FUN_0041ab70(bSet);
+                            pHolder->Modelloader_GetReferencedThis()->GetItem()->ExtraDataList_SetCanNotWear(bSet);
                         }
                         else
                         {
                             ExtraDataList* pNew = new ExtraDataList();
-                            pNew->FUN_0041ab70(bSet);
-                            pHolder->FUN_00559450()->AddHead(pNew);
+                            pNew->ExtraDataList_SetCanNotWear(bSet);
+                            pHolder->Modelloader_GetReferencedThis()->AddHead(pNew);
                         }
                     }
                     else
                     {
                         pHolder->m_pExtraDataLists = new BSSimpleList<ExtraDataList*>();
                         ExtraDataList* pNew2 = new ExtraDataList();
-                        pNew2->FUN_0041ab70(bSet);
-                        pHolder->FUN_00559450()->AddHead(pNew2);
+                        pNew2->ExtraDataList_SetCanNotWear(bSet);
+                        pHolder->Modelloader_GetReferencedThis()->AddHead(pNew2);
                     }
                     delete pHolder;
                 }

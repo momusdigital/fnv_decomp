@@ -18,7 +18,7 @@ public:
     ~CombatThreatRecord_nitmapbase();
     bool IsXLessThan(float);
     void LoadGame(BGSLoadGameBuffer*);
-    void __thiscall FUN_009a5e50();
+    void __thiscall SetVtableAndProcessState_009a5e50();
 };
 
 extern int DAT_01189c40;
@@ -112,7 +112,7 @@ void __fastcall DeleteAllEntries(NiTMapBase<DFALL<NiTMapItem<unsigned int, Comba
     map->RemoveAll();
 }
 
-void* __cdecl FUN_00401000(unsigned int size);
+void* __cdecl FormHeap_Allocate(unsigned int size);
 extern void* DAT_011c8048;
 
 struct SpawnedObj404a80
@@ -121,7 +121,7 @@ struct SpawnedObj404a80
     SpawnedObj404a80();
     static void* operator new(unsigned int size)
     {
-        return FUN_00401000(size);
+        return FormHeap_Allocate(size);
     }
 };
 
