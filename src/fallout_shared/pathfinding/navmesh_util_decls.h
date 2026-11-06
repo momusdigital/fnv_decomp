@@ -101,7 +101,7 @@ class NavMeshVertexMap
     NavMeshVertexMap(unsigned int);
     ~NavMeshVertexMap();
     void* GetFirstPos();
-    bool FUN_0069b4d0(TwoIntRecord, NavMeshVertexEdgeData*&);
+    bool LookupNavMeshPairValue(TwoIntRecord, NavMeshVertexEdgeData*&);
     void SetKeyValue(TwoIntRecord, NavMeshVertexEdgeData*);
     void GetNextEntry(void*&, TwoIntRecord&, NavMeshVertexEdgeData*&);
 };

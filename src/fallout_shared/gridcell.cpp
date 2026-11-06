@@ -519,10 +519,10 @@ struct CLS_004bc240
 {
     char _pad[0x1c];
     Arr arr;
-    void* FUN_004bc240();
+    void* GetFirstControllerSequence();
 };
 // @fnv 0x004bc240
-void* CLS_004bc240::FUN_004bc240()
+void* CLS_004bc240::GetFirstControllerSequence()
 {
     KFModel* p = *(KFModel**)arr.GetAt(0);
     if (p)

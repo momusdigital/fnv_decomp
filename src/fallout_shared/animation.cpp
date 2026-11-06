@@ -3660,10 +3660,10 @@ struct StandIn
 {
     char _pad[0x124];
     Flt m_kHandle;
-    BSAnimGroupSequence* FUN_00921e30();
+    BSAnimGroupSequence* GetIdleControllerSequence();
 };
 // @fnv 0x00921e30
-BSAnimGroupSequence* StandIn::FUN_00921e30()
+BSAnimGroupSequence* StandIn::GetIdleControllerSequence()
 {
     return m_kHandle ? ((AnimIdle*)(unsigned int)m_kHandle)->GetControllerSequence() : 0;
 }

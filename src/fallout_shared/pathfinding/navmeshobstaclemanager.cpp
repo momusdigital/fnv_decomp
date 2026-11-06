@@ -1935,7 +1935,7 @@ struct SpObst
 };
 struct Map6920
 {
-    void FUN_006c6920(unsigned int, SpObst);
+    void SetOrInsertMapValue(unsigned int, SpObst);
 };
 struct List_009e03e0
 {
@@ -1983,7 +1983,7 @@ bool FUN_006c4fb0_shell::ProcessDoorObstacles()
                 }
             }
             ((MapH*)((char*)this + 0x110))->RemoveAt(doorId);
-            ((Map6920*)((char*)this + 0x100))->FUN_006c6920(doorId, (unsigned int*)&spArray);
+            ((Map6920*)((char*)this + 0x100))->SetOrInsertMapValue(doorId, (unsigned int*)&spArray);
         }
     }
     ((List_009e03e0*)((char*)this + 0xf8))->RemoveAll();
@@ -4098,11 +4098,11 @@ struct Key_c1190
 struct HolderMap_c1190
 {
     bool FUN_006c62d0(unsigned int key, Ptr_c1190<Holder_c1190>* out);
-    void FUN_006c6920(unsigned int key, Ptr_c1190<Holder_c1190> val);
+    void SetOrInsertMapValue(unsigned int key, Ptr_c1190<Holder_c1190> val);
 };
 struct ObsMap_c1190
 {
-    void FUN_006c6920(Kind_c1190* key, Ptr_c1190<Obs_c1190> val);
+    void SetOrInsertMapValue(Kind_c1190* key, Ptr_c1190<Obs_c1190> val);
 };
 void __cdecl FUN_006c34f0(Key_c1190* key, Ptr_c1190<Holder_c1190>& holder);
 void __cdecl FUN_006c3440(const Ptr_c1190<Obs_c1190>& obst);
@@ -4123,12 +4123,12 @@ void Mgr_c1190::RegisterKey(Key_c1190* key)
     {
         spHolder = new Holder_c1190;
         FUN_006c34f0(key, spHolder);
-        ((HolderMap_c1190*)((char*)this + 0x1c))->FUN_006c6920(key->FUN_0084e3a0(), spHolder);
+        ((HolderMap_c1190*)((char*)this + 0x1c))->SetOrInsertMapValue(key->FUN_0084e3a0(), spHolder);
     }
     for (unsigned int i = 0; i < spHolder->kObstacles.FUN_0044ddc0(); i++)
     {
         Ptr_c1190<Obs_c1190> spObst(spHolder->kObstacles.FUN_00877a30(i));
-        ((ObsMap_c1190*)((char*)this + 0xe0))->FUN_006c6920(spObst->m_spKind, spObst);
+        ((ObsMap_c1190*)((char*)this + 0xe0))->SetOrInsertMapValue(spObst->m_spKind, spObst);
         FUN_006c1d60(spObst->m_spKind);
         if (spObst->m_spKind->FUN_005609b0())
         {
@@ -6550,7 +6550,7 @@ struct M100
 };
 struct M110
 {
-    void FUN_006c6920(int k, PtrX p);
+    void SetOrInsertMapValue(int k, PtrX p);
 };
 class SelfX
 {
@@ -6597,7 +6597,7 @@ bool SelfX::FUN_006c5190()
                     }
                 }
                 m100.RemoveKey(pkObj->FUN_0084e3a0());
-                m110.FUN_006c6920(pkObj->FUN_0084e3a0(), spScreenData);
+                m110.SetOrInsertMapValue(pkObj->FUN_0084e3a0(), spScreenData);
                 bChanged = true;
             }
             m_kList.FUN_00905330(&pkObj);

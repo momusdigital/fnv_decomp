@@ -128,11 +128,11 @@ struct Lock00aa61b0
 {
     unsigned int state;
     unsigned long owner;
-    bool FUN_00aa61b0();
+    bool TryAcquireWriteLock();
 };
 // Tries to acquire the lock: re-enters if already owned by this thread, otherwise atomically sets state and records the owner thread id.
 // @fnv 0x00aa61b0
-bool Lock00aa61b0::FUN_00aa61b0()
+bool Lock00aa61b0::TryAcquireWriteLock()
 {
     bool bLocked = false;
     unsigned long dwThreadId = GetCurrentThreadId();

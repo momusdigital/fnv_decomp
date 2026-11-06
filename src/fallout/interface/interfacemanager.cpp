@@ -2146,7 +2146,7 @@ struct Ctl
     int HandleHotkeyInput(int, int);
     int FUN_00a23820(int*);
     int FUN_00a238a0(int, int);
-    void FUN_00a237b0();
+    void FlushBufferedInput();
     void FUN_0070ec20(int, int);
     void FUN_00a253d0();
 };
@@ -3153,7 +3153,7 @@ void FUN_0070c4a0_shell::UpdateInterface()
                     if (itype)
                     {
                         ((IMX*)this)->HandleGamepadButton(itype);
-                        pcontrols->FUN_00a237b0();
+                        pcontrols->FlushBufferedInput();
                     }
                 }
             }
@@ -3179,7 +3179,7 @@ void FUN_0070c4a0_shell::UpdateInterface()
     if (pcontrols->SetHotkeyItem(0x1d, 1) || tempMemContext)
     {
         pCurrentConsoleManager = ConsoleManager::Instance(true);
-        pcontrols->FUN_00a237b0();
+        pcontrols->FlushBufferedInput();
         if (((MCH*)pCurrentConsoleManager)->FUN_0071d580())
         {
             ((IMX*)this)->PushMenuStackEntry(3);
@@ -7895,7 +7895,7 @@ struct FUN_00a04640_cls
 };
 struct FUN_00a237b0_cls
 {
-    void FUN_00a237b0();
+    void FlushBufferedInput();
 };
 class StartMenu
 {
@@ -8012,7 +8012,7 @@ void FUN_0070b8f0_shell::UpdateStartMenuState()
     UpdateNodeTimers((InterfaceManager*)this);
     if (m_uiContentCount == 3 && !m_11)
     {
-        ((FUN_00a237b0_cls*)pInputManager)->FUN_00a237b0();
+        ((FUN_00a237b0_cls*)pInputManager)->FlushBufferedInput();
         m_uiContentCount = 5;
         if (!FUN_004b71d0() || m_7d)
         {

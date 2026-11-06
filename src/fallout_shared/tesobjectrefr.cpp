@@ -20677,11 +20677,11 @@ struct B200Owner
     int unk60;
     B200List* m_pkList;
 
-    bool FUN_0057b200();
+    bool HasListItems();
 };
 
 // @fnv 0x0057b200
-bool B200Owner::FUN_0057b200()
+bool B200Owner::HasListItems()
 {
     return m_pkList ? m_pkList->m_iArrayLength > 0 : false;
 }
@@ -51813,7 +51813,7 @@ class TESMagicTargetForm
 
 // Returns true if the given TESForm is a TESMagicTargetForm.
 // @fnv 0x00576040
-bool FUN_00576040(TESForm* form)
+bool IsMagicTargetForm(TESForm* form)
 {
     return dynamic_cast<TESMagicTargetForm*>(form) != 0;
 }

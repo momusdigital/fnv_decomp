@@ -24,10 +24,10 @@ struct ShellTmp
     int _pad;
     BSSimpleList<WeatherEntry*> _list;
     void AssignTileIndices();
-    void FUN_007a2e00(CmpFunc a1);
+    void SortAndIndexListItems(CmpFunc a1);
 };
 // @fnv 0x007a2e00
-void ShellTmp::FUN_007a2e00(CmpFunc pCompare)
+void ShellTmp::SortAndIndexListItems(CmpFunc pCompare)
 {
     _list.Sort(pCompare);
     AssignTileIndices();

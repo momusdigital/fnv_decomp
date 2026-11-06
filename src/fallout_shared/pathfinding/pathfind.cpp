@@ -68,7 +68,7 @@ bool Pathing::BuildPath(PathingRequest* request, PathingSolution* solution)
     switch (request->GetType())
     {
     case RequestLocation:
-        return FUN_006d0b10(request, solution);
+        return BuildRequestedPath(request, solution);
         break;
     case RequestClosePoint: {
         PathingRequestClosePoint* closeRequest = (PathingRequestClosePoint*)request;
@@ -9158,7 +9158,7 @@ bool __cdecl BuildOptimalPathSolution(PathingRequestOptimalLocation* request, Pa
         else
         {
             if (p > ((RequestOperations*)request)->FUN_0099e040())
-                return FUN_006d0b10(request, solution);
+                return BuildRequestedPath(request, solution);
             return false;
         }
     }

@@ -2484,7 +2484,7 @@ struct Field18C
 };
 
 struct FUN_0099a8d0_struct;
-bool __fastcall FUN_0097fb20(FUN_0099a8d0_struct*);
+bool __fastcall IsWeaponSwitchPrevented(FUN_0099a8d0_struct*);
 
 struct FUN_009a0680_shell
 {
@@ -2519,7 +2519,7 @@ void FUN_0099a8d0_struct::FUN_0099a8d0()
     {
         NiPoint3 local_14;
         bool bSafe = FUN_0099ccd0(&field_E4->loc, field_E4->loc.GetLocation(), &local_14, ptr4, 0);
-        if (!bSafe || !FUN_0097fb20(this))
+        if (!bSafe || !IsWeaponSwitchPrevented(this))
         {
             field_E4->FUN_005407b0(1);
         }

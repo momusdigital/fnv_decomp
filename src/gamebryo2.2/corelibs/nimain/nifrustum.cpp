@@ -15,12 +15,12 @@ struct NiFrustum
     float m_fNearPlane;
     float m_fFarPlane;
     bool m_bOrthographic;
-    char* FUN_00a71bc0(const char*);
+    char* FormatFrustumViewerString(const char*);
 };
 
 // Allocates a buffer sized from the prefix length and formats the frustum's near, far, left, right, top, bottom and ortho values into it, returning the string.
 // @fnv 0x00a71bc0
-char* NiFrustum::FUN_00a71bc0(const char* pcPrefix)
+char* NiFrustum::FormatFrustumViewerString(const char* pcPrefix)
 {
     char* pcString;
     unsigned int uiLen;

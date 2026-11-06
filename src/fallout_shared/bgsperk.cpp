@@ -428,7 +428,7 @@ BGSAbilityPerkEntry* BGSAbilityPerkEntry::Initialize()
 }
 
 // @fnv 0x005eb680
-unsigned int TESConditionItem::FUN_005eb680()
+unsigned int TESConditionItem::GetConditionFunctionID()
 {
     return function;
 }
@@ -666,7 +666,7 @@ bool FUN_005eb5e0_t::CheckPlayerConditions()
         while (bresult && pCurrentElementNext && !pCurrentElementNext->FUN_008256d0())
         {
             TESConditionItem* pConditionItem = *pCurrentElementNext->FUN_006815c0();
-            if (pConditionItem && pConditionItem->FUN_005eb680() == 0x46)
+            if (pConditionItem && pConditionItem->GetConditionFunctionID() == 0x46)
             {
                 bool bignore;
                 bresult = reinterpret_cast<TESConditionItemHelper*>(pConditionItem)
@@ -2410,7 +2410,7 @@ void PerkPrinter::BuildDescription(char* output, unsigned int outputSize)
         int index = 0;
         for (; kItem != 0; index++)
         {
-            if (kItem->FUN_005eb680() == 0x1ef)
+            if (kItem->GetConditionFunctionID() == 0x1ef)
             {
                 ConditionParameters* node = kItem->FUN_00413f40();
                 int form = node->value;
@@ -2466,7 +2466,7 @@ void PerkPrinter::BuildDescription(char* output, unsigned int outputSize)
                     strcat_s(output, outputSize, message);
                 }
             }
-            else if (kItem->FUN_005eb680() == 0x1c1)
+            else if (kItem->GetConditionFunctionID() == 0x1c1)
             {
                 foundVal = true;
                 if (index == 0 && !first)

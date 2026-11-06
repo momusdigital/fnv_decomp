@@ -101,7 +101,7 @@ class TESWorldSpace
     void SetParent(TESWorldSpace*);
     void SetFieldD0(unsigned int);
     TESObjectCELL* GetInteriorCell();
-    void FUN_00588270(BSSimpleArray<TESObjectREFR*, 1024>&);
+    void AppendInteriorCellReferences(BSSimpleArray<TESObjectREFR*, 1024>&);
 };
 class Tile;
 class InterfaceManager

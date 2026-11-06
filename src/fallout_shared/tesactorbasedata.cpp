@@ -178,25 +178,25 @@ struct FUN_0047ccc0_shell : public TESActorBaseData
 
 struct FUN_0047cce0_shell
 {
-    void FUN_0047cce0(int, bool);
+    void SetTemplateFlagByIndex(int, bool);
 };
 
 // @fnv 0x0047ccc0
 void FUN_0047ccc0_shell::FUN_0047ccc0(bool abVal)
 {
-    reinterpret_cast<FUN_0047cce0_shell*>(this)->FUN_0047cce0(0xf, abVal);
+    reinterpret_cast<FUN_0047cce0_shell*>(this)->SetTemplateFlagByIndex(0xf, abVal);
 }
 
 struct DummyClass_0047cce0
 {
     char pad[0x1a];
     unsigned short flags;
-    void FUN_0047cce0(int index, bool set);
+    void SetTemplateFlagByIndex(int index, bool set);
 };
 
 // Sets or clears bit `index` in the 16-bit flags field when index is in [0,16).
 // @fnv 0x0047cce0
-void DummyClass_0047cce0::FUN_0047cce0(int index, bool set)
+void DummyClass_0047cce0::SetTemplateFlagByIndex(int index, bool set)
 {
     if (index >= 0 && index < 16)
     {

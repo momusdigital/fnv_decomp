@@ -50,7 +50,7 @@ class RgbaColor
   public:
     float r, g, b, a;
     RgbaColor(float, float, float, float);
-    RgbaColor& FUN_005321d0(float);
+    RgbaColor& ScaleRGBA(float);
 };
 class ColorAnimationKey
 {

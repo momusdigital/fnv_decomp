@@ -117,7 +117,7 @@ float FUN_00a6dc30(float t, float fCos)
 
 // Interpolates p to q and a to b by t, then slerps between those two results by 2*t*(1-t) into self.
 // @fnv 0x00a6e430
-void __fastcall FUN_00a6e430(NiQuaternion* self, int edx, float afTime, const NiQuaternion& aStart,
+void __fastcall InterpolateQuaternionSquad(NiQuaternion* self, int edx, float afTime, const NiQuaternion& aStart,
                              const NiQuaternion& aStart2, const NiQuaternion& aEnd2, const NiQuaternion& aEnd)
 {
     NiQuaternion q1;

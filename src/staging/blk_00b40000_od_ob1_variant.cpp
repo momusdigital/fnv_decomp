@@ -14,7 +14,7 @@ struct NiPoint3
 };
 struct CIdvCamera
 {
-    CIdvCamera& FUN_00b3f0c0(CIdvCamera const&);
+    CIdvCamera& CopyCameraTranslation(CIdvCamera const&);
     CIdvCamera& FUN_00b402d0(CIdvCamera const& src);
 };
 struct FUN_00ec7c56_t

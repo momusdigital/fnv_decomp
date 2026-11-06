@@ -1469,7 +1469,7 @@ template <class T> inline void WriteBinaryArray(NiBinaryStreamA67& os, const T* 
 
 // Writes an array of NiPoint2A67 values to the backing stream of kStream as a flat array of floats.
 // @fnv 0x00a67aa0
-void __cdecl FUN_00a67aa0(NiStreamA67& kStream, const NiPoint2A67* pkValue, unsigned int uiNumEls)
+void __cdecl WritePoint2Array(NiStreamA67& kStream, const NiPoint2A67* pkValue, unsigned int uiNumEls)
 {
     WriteBinaryArray(*kStream.m_pBackingStream, (const float*)pkValue, uiNumEls * 2);
 }
@@ -1943,7 +1943,7 @@ struct BoundEquality : NiBound
         return (static_cast<const Point3Equality&>(m_kCenter) == kBound.m_kCenter &&
                 m_fBoundRadius == kBound.m_fBoundRadius);
     }
-    __declspec(noinline) bool FUN_00a926b0(const NiBound& kBound) const
+    __declspec(noinline) bool IsBoundDifferent(const NiBound& kBound) const
     {
         return !(*this == kBound);
     }
@@ -2031,7 +2031,7 @@ bool GeometryEquality::FUN_00a67840(NiObject* pkObject)
         }
     }
 
-    if (static_cast<BoundEquality*>(&m_kBound)->FUN_00a926b0(pkData->m_kBound))
+    if (static_cast<BoundEquality*>(&m_kBound)->IsBoundDifferent(pkData->m_kBound))
         return false;
 
     if ((m_pkColor && !pkData->m_pkColor) || (!m_pkTexture && pkData->m_pkTexture))
@@ -2387,7 +2387,7 @@ void* FUN_00ec61c0(void* pvDest, int iValue, unsigned int uiSize);
 typedef void*(__thiscall* CtorStubEA0)(void*);
 extern "C" void __stdcall _vector_constructor_iterator(void* apvArray, unsigned int uiElemSize, int iCount,
                                                        CtorStubEA0 pfnCtor);
-void FUN_00a67aa0(StreamEA0& kStream, void* pvDest, int iCount);
+void WritePoint2Array(StreamEA0& kStream, void* pvDest, int iCount);
 void FUN_00a29680(const char* pcFmt, const char* pcName, int iKBytes);
 
 class GeomEA0 : public ObjEA0
@@ -2587,7 +2587,7 @@ void GeomEA0::ReadBinary(StreamEA0& kStream)
             {
                 unsigned int uiExtraCount = ((unsigned short)uiTextureFlags - 1) * m_usVertices;
                 Point2EA0* pkTemp = new Point2EA0[uiExtraCount];
-                FUN_00a67aa0(kStream, pkTemp, uiExtraCount);
+                WritePoint2Array(kStream, pkTemp, uiExtraCount);
                 g_memoryManager.Deallocate(pkTemp);
                 FUN_00a29680(&UNK_0109c040, &kStream.m_cName, (uiExtraCount * 8) >> 10);
             }

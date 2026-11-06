@@ -12,7 +12,7 @@ struct NiPoint3
 };
 struct CIdvCamera
 {
-    CIdvCamera& FUN_00b3f0c0(CIdvCamera const&);
+    CIdvCamera& CopyCameraTranslation(CIdvCamera const&);
     CIdvCamera& FUN_00b402d0(CIdvCamera const& src);
 };
 // @fnv 0x00b402d0
@@ -20,7 +20,7 @@ CIdvCamera& CIdvCamera::FUN_00b402d0(CIdvCamera const& src)
 {
     if (&src != this)
     {
-        FUN_00b3f0c0(src);
+        CopyCameraTranslation(src);
         *(unsigned char*)((char*)this + 0x10) = *(unsigned char*)((char*)&src + 0x10);
         *(int*)((char*)this + 0x14) = *(int*)((char*)&src + 0x14);
         *(unsigned char*)((char*)this + 0x18) = *(unsigned char*)((char*)&src + 0x18);

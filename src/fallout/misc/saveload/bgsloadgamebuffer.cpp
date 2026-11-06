@@ -311,7 +311,7 @@ struct LGB : public BGSLoadGameBuffer
 };
 
 // @fnv 0x0084c2a0
-void FUN_0084c2a0(unsigned int start, unsigned int end, unsigned char flag)
+void LoadSavedFormRange(unsigned int start, unsigned int end, unsigned char flag)
 {
     LGB lgb;
     for (unsigned int uiIndex = start; uiIndex < end; uiIndex++)

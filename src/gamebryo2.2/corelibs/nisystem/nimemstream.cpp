@@ -71,7 +71,7 @@ struct NiMemStream
 
 // Copies up to count bytes from the stream's buffer at m_pos into dest, advances m_pos, and returns the number of bytes copied.
 // @fnv 0x00aa2e60
-unsigned int FUN_00aa2e60(NiMemStream* stream, void* dest, unsigned int count)
+unsigned int ReadMemoryStream(NiMemStream* stream, void* dest, unsigned int count)
 {
     unsigned int available = stream->m_kRayEnd - stream->m_pos;
     if (count > available)
@@ -122,7 +122,7 @@ unsigned int __cdecl FUN_00aa2f20(NiMemStream* pStream, const void* pSrc, unsign
 }
 
 namespace fnv_00aa2f80 {
-extern "C" void __cdecl FUN_00aa2e60(void*);
+extern "C" void __cdecl ReadMemoryStream(void*);
 extern "C" void __cdecl FUN_00aa2ea0(void*);
 extern "C" void __cdecl FUN_00aa2ec0(void*);
 extern "C" void __cdecl FUN_00aa2f20(void*);
@@ -146,7 +146,7 @@ void NiMemStream::SetSwapMode(bool bDoSwap)
     }
     else
     {
-        m_read = FUN_00aa2e60;
+        m_read = ReadMemoryStream;
         m_write = FUN_00aa2ea0;
     }
 }

@@ -535,7 +535,7 @@ extern "C"
 }
 
 // @fnv 0x0066eac0
-const char* __cdecl FUN_0066eac0(ActorValue::Index index)
+const char* __cdecl GetActorValueInternalName(ActorValue::Index index)
 {
     char* presult = 0;
     ActorValueInfo* pinfo = ActorValue::GetActorValueInfo(index);

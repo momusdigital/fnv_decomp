@@ -67,7 +67,7 @@ struct ProxyMgr
     ProxyPipboy* __thiscall GetPipboyManager();
 };
 void FUN_00782470(bool a1);
-unsigned char FUN_007824b0();
+unsigned char GetCurrentInventoryTab();
 unsigned int __fastcall FUN_0044ddc0(void*);
 unsigned char __cdecl IsNotFormType2E(void* a1);
 struct FUN_007832e0_class

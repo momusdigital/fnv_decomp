@@ -336,10 +336,10 @@ struct ST_00849cc0
 {
     char pad[0x10];
     BGSSaveLoadGame* pGame;
-    bool FUN_00849cc0(unsigned int id);
+    bool ContainsSavedReference(unsigned int id);
 };
 // @fnv 0x00849cc0
-bool ST_00849cc0::FUN_00849cc0(unsigned int id)
+bool ST_00849cc0::ContainsSavedReference(unsigned int id)
 {
     return pGame->ContainsReference(id);
 }

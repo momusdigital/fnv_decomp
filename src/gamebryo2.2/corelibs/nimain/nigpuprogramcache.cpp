@@ -78,11 +78,11 @@ struct NiGPUProgramCache
     NiTFixedStringMap_NiAVObject___ m_kObjectMap;
     char _pad1[0x30];
     bool m_bLoadComplete;
-    bool FUN_00ee8e70();
+    bool ClearGPUProgramCache();
 };
 
 // @fnv 0x00ee8e70
-bool __thiscall NiGPUProgramCache::FUN_00ee8e70()
+bool __thiscall NiGPUProgramCache::ClearGPUProgramCache()
 {
     m_kObjectMap.RemoveAll();
     m_bLoadComplete = false;
@@ -658,14 +658,14 @@ struct S_00ee97e0_Cls
     int unk30;
     int unk34;
     bool WriteToStream(S_00ee97e0_Stream* s, S_00ee97e0_Obj* o, int* v);
-    void FUN_00ee9230(S_00ee97e0_Stream* s, int v);
+    void WriteLengthPrefixedString(S_00ee97e0_Stream* s, int v);
 };
 
 // @fnv 0x00ee97e0
 bool S_00ee97e0_Cls::WriteToStream(S_00ee97e0_Stream* pStream, S_00ee97e0_Obj* pObj, int* piValue)
 {
     S_00ee97e0_Write(pStream, &unk34);
-    FUN_00ee9230(pStream, *piValue);
+    WriteLengthPrefixedString(pStream, *piValue);
     int f8 = pObj->unk08;
     if (!vf90(pStream, f8))
         return false;
@@ -674,11 +674,11 @@ bool S_00ee97e0_Cls::WriteToStream(S_00ee97e0_Stream* pStream, S_00ee97e0_Obj* p
     for (unsigned int i = 0; i < count; i++)
     {
         S_00ee97e0_Elem* e = pObj->unk0c[i];
-        FUN_00ee9230(pStream, *e->FUN_00a62660());
-        FUN_00ee9230(pStream, *e->FUN_00eea4f0());
-        FUN_00ee9230(pStream, *e->FUN_00eea500());
-        FUN_00ee9230(pStream, *e->FUN_00eea510());
-        FUN_00ee9230(pStream, *e->FUN_00eea520());
+        WriteLengthPrefixedString(pStream, *e->FUN_00a62660());
+        WriteLengthPrefixedString(pStream, *e->FUN_00eea4f0());
+        WriteLengthPrefixedString(pStream, *e->FUN_00eea500());
+        WriteLengthPrefixedString(pStream, *e->FUN_00eea510());
+        WriteLengthPrefixedString(pStream, *e->FUN_00eea520());
         int a = e->FUN_00be0ad0();
         S_00ee97e0_Write(pStream, &a);
         int b = e->FUN_00aa1ac0();
@@ -1371,7 +1371,7 @@ inline void S_00ee9230_WriteBinary(S_00ee9230_Stream* pkStream, const void* pvBu
 
 // Writes a length-prefixed null-terminated string to pkStream, using a zero length when pcString is null.
 // @fnv 0x00ee9230
-bool __stdcall FUN_00ee9230(S_00ee9230_Stream* pkStream, const char* pcString)
+bool __stdcall WriteLengthPrefixedString(S_00ee9230_Stream* pkStream, const char* pcString)
 {
     if (pcString == 0)
     {
@@ -1669,7 +1669,7 @@ class GpuCacheWriter
     PathString m_1c;
     PathString m_20;
 
-    void FUN_00ee9230(StreamObj* s, unsigned int v);
+    void WriteLengthPrefixedString(StreamObj* s, unsigned int v);
     __forceinline bool CanSave()
     {
         return m_1c.Exists() && (((bool(__cdecl*)(const char*))FUN_00aa1ab0)(m_1c) || FUN_00aa1bb0(m_1c));
@@ -1695,9 +1695,9 @@ bool GpuCacheWriter::FUN_00ee9620()
         unsigned int version = 5;
         S00ee9620_SaveBinary(s, version);
 
-        FUN_00ee9230(s, v19());
-        FUN_00ee9230(s, v18());
-        FUN_00ee9230(s, *v15());
+        WriteLengthPrefixedString(s, v19());
+        WriteLengthPrefixedString(s, v18());
+        WriteLengthPrefixedString(s, *v15());
 
         MapItem* pItem = m_map.FUN_00ee8ac0();
         while (pItem != 0)

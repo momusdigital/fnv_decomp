@@ -574,7 +574,7 @@ struct VW
 };
 // Looks up key in the hash table and, if an equal entry is found, stores its value through val.p and returns true; otherwise returns false.
 // @fnv 0x0069b4d0
-bool __fastcall FUN_0069b4d0(MP* self, TwoIntRecord key, VW aOutValue)
+bool __fastcall LookupNavMeshPairValue(MP* self, TwoIntRecord key, VW aOutValue)
 {
     IT* pkItem;
     unsigned int uiIndex = self->KeyToHashIndex(key);
@@ -920,7 +920,7 @@ void FUN_00699b60_shell::BuildPortalPOVs()
                 NavMeshEdgeData hedge(this, i, e);
                 TwoIntRecord hvert1(this, ptri->FUN_005582d0(e));
                 NavMeshVertexEdgeData* pdata1;
-                if (!kNavMeshVertexLookup.FUN_0069b4d0(hvert1, pdata1))
+                if (!kNavMeshVertexLookup.LookupNavMeshPairValue(hvert1, pdata1))
                 {
                     pdata1 = new NavMeshVertexEdgeData;
                     pdata1->m_kVertexKey = hvert1;
@@ -929,7 +929,7 @@ void FUN_00699b60_shell::BuildPortalPOVs()
                 pdata1->Edges.AppendElement(hedge);
                 TwoIntRecord hvert2(this, ptri->FUN_005582d0((e + 1) % 3));
                 NavMeshVertexEdgeData* pdata2;
-                if (!kNavMeshVertexLookup.FUN_0069b4d0(hvert2, pdata2))
+                if (!kNavMeshVertexLookup.LookupNavMeshPairValue(hvert2, pdata2))
                 {
                     pdata2 = new NavMeshVertexEdgeData;
                     pdata2->m_kVertexKey = hvert2;
@@ -942,7 +942,7 @@ void FUN_00699b60_shell::BuildPortalPOVs()
                 NavMeshEdgeData hedge(this, i, e);
                 TwoIntRecord hvert1(this, ptri->FUN_005582d0(e));
                 NavMeshVertexEdgeData* pdata1;
-                if (!kNavMeshVertexLookup.FUN_0069b4d0(hvert1, pdata1))
+                if (!kNavMeshVertexLookup.LookupNavMeshPairValue(hvert1, pdata1))
                 {
                     pdata1 = new NavMeshVertexEdgeData;
                     pdata1->m_kVertexKey = hvert1;
@@ -951,7 +951,7 @@ void FUN_00699b60_shell::BuildPortalPOVs()
                 pdata1->m_kOutgoingEdges.AppendElement(hedge);
                 TwoIntRecord hvert2(this, ptri->FUN_005582d0((e + 1) % 3));
                 NavMeshVertexEdgeData* pdata2;
-                if (!kNavMeshVertexLookup.FUN_0069b4d0(hvert2, pdata2))
+                if (!kNavMeshVertexLookup.LookupNavMeshPairValue(hvert2, pdata2))
                 {
                     pdata2 = new NavMeshVertexEdgeData;
                     pdata2->m_kVertexKey = hvert2;

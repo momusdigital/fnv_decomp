@@ -378,7 +378,7 @@ struct Base00c319e0
 };
 
 extern "C" char* __cdecl FUN_00a7d330(char* s);
-extern "C" char* __cdecl FUN_00a7d450(const char* key, unsigned short value);
+extern "C" char* __cdecl FormatShortViewerString(const char* key, unsigned short value);
 
 struct FUN_00c2e430_shell : Base00c319e0, NiPSysBoundUpdateModifier
 {
@@ -390,7 +390,7 @@ void FUN_00c2e430_shell::FUN_00c2e430(NiStream& stream)
 {
     Base00c319e0::FUN_00c319e0(reinterpret_cast<StrArr*>(&stream));
     reinterpret_cast<NiStrTable&>(stream).Add(FUN_00a7d330((char*)g_01202788));
-    reinterpret_cast<NiStrTable&>(stream).Add(FUN_00a7d450("Update Skip", *(unsigned short*)((char*)this + 0x18)));
+    reinterpret_cast<NiStrTable&>(stream).Add(FormatShortViewerString("Update Skip", *(unsigned short*)((char*)this + 0x18)));
 }
 
 class NiPoint3

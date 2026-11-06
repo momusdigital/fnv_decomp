@@ -552,7 +552,7 @@ template <class T> class ListBox
     void FUN_007a36e0();
     void FUN_007a43a0();
     void FUN_007a50f0();
-    void FUN_007a2350(bool a);
+    void SetMapListBoxEnabled(bool a);
     void SetEnabledTrait(bool a);
     void FUN_007a30e0(bool a);
     void FUN_007a5a30(bool a);

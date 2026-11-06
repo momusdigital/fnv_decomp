@@ -11,12 +11,12 @@ struct ComputersMenu
 {
     char _base[0x28];
     Tile* m_pTiles[64];
-    void FUN_00754c00(int aiID, Tile* apTile);
+    void SetComputerMenuTile(int aiID, Tile* apTile);
 };
 
 // Stores apTile into the tile slot at index aiID when aiID is in [0, 0x10).
 // @fnv 0x00754c00
-void ComputersMenu::FUN_00754c00(int aiID, Tile* apTile)
+void ComputersMenu::SetComputerMenuTile(int aiID, Tile* apTile)
 {
     if (aiID >= 0 && aiID < 0x10)
     {

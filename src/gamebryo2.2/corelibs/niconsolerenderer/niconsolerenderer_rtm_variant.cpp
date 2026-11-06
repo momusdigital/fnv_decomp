@@ -1258,7 +1258,7 @@ class FUN_00e69640_cls
 };
 struct VertexDeclarationElement { unsigned short stream,offset; unsigned char type,method,usage,m_ucUsageIndex; };
 struct VertexDeclarationDevice : Dev { virtual long __stdcall DrawPrimitiveUP(); virtual long __stdcall DrawIndexedPrimitiveUP(); virtual long __stdcall ProcessVertices(); virtual long __stdcall CreateVertexDeclaration(const VertexDeclarationElement*, void**); };
-struct RendererDeclarationOwner { unsigned int m_rendererFields[0xa0]; void* m_vertexDeclaration; unsigned int m_declarationState; VertexDeclarationDevice* m_device; void* __thiscall FUN_00e696a0(); };
+struct RendererDeclarationOwner { unsigned int m_rendererFields[0xa0]; void* m_vertexDeclaration; unsigned int m_declarationState; VertexDeclarationDevice* m_device; void* __thiscall GetOrCreateVertexDeclaration(); };
 // FUN_00e69960 - 13-byte thiscall forwarder: loads the object at this+0x8b8,
 // reads its vtable slot +0x54 (index 21) and tail-jumps to it.
 class FUN_00e69960_target
@@ -5945,7 +5945,7 @@ struct ConsoleRendererShaders {
     int unk904;
     int unk908;
     ShaderList m_kShaderList;
-    void FUN_00e75380();
+    void UnloadAllShaders();
 };
 class E757E0Renderer {
 public:
@@ -22789,7 +22789,7 @@ struct StripIndexManager { StripIndexBuffer* AcquireCachedResource(unsigned int,
 struct StripRenderer {
     void DrawExpanded(StripRendererData*, StripIndexBuffer*, unsigned int, void*, StripGeometryData*, StripStream*);
     unsigned int FUN_00e69790();
-    unsigned int FUN_00e696a0();
+    unsigned int GetOrCreateVertexDeclaration();
     void FUN_00e6d3a0(void*,void*,StripGeometryData*,unsigned int&,unsigned int&);
     void FUN_00e70720(StripGeometry*);
 

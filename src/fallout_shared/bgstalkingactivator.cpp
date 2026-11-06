@@ -319,7 +319,7 @@ Elem12& __fastcall FUN_006a1440(ArrayObj* pThis, StackIdx aiIndex)
 }
 
 // @fnv 0x004ff190
-void FUN_004ff190()
+void ClearRadioStations()
 {
     BGSTalkingActivator::ms_kRadioStations.RemoveAll();
 }

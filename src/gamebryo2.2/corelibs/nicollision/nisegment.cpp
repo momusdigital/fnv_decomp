@@ -12,10 +12,10 @@ struct OriginDirectionPair
 {
     NiPoint3 m_kStartPoint;
     NiPoint3 m_kLightVector;
-    NiPoint3 FUN_00eb6090(float fS);
+    NiPoint3 EvaluateSegmentPoint(float fS);
 };
 // @fnv 0x00eb6090
-NiPoint3 OriginDirectionPair::FUN_00eb6090(float fS)
+NiPoint3 OriginDirectionPair::EvaluateSegmentPoint(float fS)
 {
     NiPoint3 p;
     NiPoint3 s;

@@ -953,7 +953,7 @@ struct B1c
 
 // Copies [first, last) backward element by element so the copy ends at dst, and returns dst - (last - first).
 // @fnv 0x00b24710
-CopyableStateBlock* FUN_00b24710(CopyableStateBlock* first, CopyableStateBlock* last, CopyableStateBlock* dst)
+CopyableStateBlock* CopyStateBlocksBackward(CopyableStateBlock* first, CopyableStateBlock* last, CopyableStateBlock* dst)
 {
     B1c a;
     B1c aa = {};
@@ -1178,7 +1178,7 @@ struct B1c
 
 // Copies the range of CopyableStateBlock elements from first to last into dst and returns a pointer past the last copied element.
 // @fnv 0x00b264f0
-CopyableStateBlock* FUN_00b264f0(CopyableStateBlock* first, CopyableStateBlock* last, CopyableStateBlock* dst)
+CopyableStateBlock* CopyStateBlocksForward(CopyableStateBlock* first, CopyableStateBlock* last, CopyableStateBlock* dst)
 {
     CopyableStateBlock* pDstEnd = dst + (last - first);
     B1c a8 = {};

@@ -27,7 +27,7 @@ bool TeleportDoorSearch::CollectConnections(const AStarNode<ParentSpaceNode, Tel
 {
     reinterpret_cast<BSSimpleArray<SandboxProcedureData, 1024>*>(&doors)->Clear(false);
     if (node->exterior)
-        node->world->FUN_00588270(doors);
+        node->world->AppendInteriorCellReferences(doors);
     else
         node->cell->AppendCellReferences(doors);
     if (disposition == 1 || disposition == 3 || lockData)

@@ -52,7 +52,7 @@ bool NiTransformInterpolator::Update(float time, NiObjectNET* target, NiQuatTran
             TimedRotationKey::InterpolatePosition(time, pRotateKeys, eKeyType, count, last, size);
         m_usLastPositionKeyIndex = (unsigned short)last;
     }
-    TimedAnimationKey* pScaleKeys = FUN_00a3f9e0(count, eKeyType, size);
+    TimedAnimationKey* pScaleKeys = GetScaleKeys(count, eKeyType, size);
     if (count > 0)
     {
         last = m_usLastScaleKeyIndex;
@@ -238,7 +238,7 @@ struct FUN_00a4e410_tgt
 };
 struct FUN_00a3f930_tgt
 {
-    void FUN_00a3f930(NiTransformData*);
+    void SetTransformData(NiTransformData*);
 };
 struct RcObj
 {
@@ -257,7 +257,7 @@ NiInterpolator* FUN_00a3fd10_shell::FUN_00a3fd10(float m_fStartTime, float m_fMa
     {
         NiTransformData* spNewData = 0;
         ((FUN_00a4e410_tgt*)*(void**)((char*)this + 0x2c))->FUN_00a4e410(m_fStartTime, m_fMaximumDistance, &spNewData);
-        ((FUN_00a3f930_tgt*)pkSeqInterp)->FUN_00a3f930(spNewData);
+        ((FUN_00a3f930_tgt*)pkSeqInterp)->SetTransformData(spNewData);
         *(unsigned short*)((char*)pkSeqInterp + 0x30) = 0;
         *(unsigned short*)((char*)pkSeqInterp + 0x32) = 0;
         *(unsigned short*)((char*)pkSeqInterp + 0x34) = 0;
@@ -347,7 +347,7 @@ void FUN_00a3f6f0_t::FUN_00a3f6f0(float afArg1, float afArg2)
 
 // Returns the scale key array from the interpolator's transform data, filling in key count, interpolation type and key size, or zeroes if no data exists.
 // @fnv 0x00a3f9e0
-TimedAnimationKey* NiTransformInterpolator::FUN_00a3f9e0(unsigned int& uiNumScaleKeys,
+TimedAnimationKey* NiTransformInterpolator::GetScaleKeys(unsigned int& uiNumScaleKeys,
                                                          AnimationKey::KeyType& eScaleKeyType,
                                                          unsigned char& ucScaleKeySize)
 {
@@ -430,11 +430,11 @@ struct Holder
     unsigned short m_us0;
     unsigned short m_us1;
     unsigned short m_us2;
-    void FUN_00a3f930(RefObj* pkData);
+    void SetTransformData(RefObj* pkData);
 };
 // Replaces the held RefObj pointer with pkData, adjusting reference counts, and resets the three counters to zero.
 // @fnv 0x00a3f930
-void Holder::FUN_00a3f930(RefObj* pkData)
+void Holder::SetTransformData(RefObj* pkData)
 {
     if (m_spTransformData != pkData)
     {

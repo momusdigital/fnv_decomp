@@ -64,7 +64,7 @@ char* BGSSaveLoadFileEntry::FUN_007d5140()
 }
 
 // @fnv 0x007d5280
-NiTexture* BGSSaveLoadFileEntry::FUN_007d5280()
+NiTexture* BGSSaveLoadFileEntry::GetSaveScreenshot()
 {
     return spScreenshot.operator->();
 }
@@ -1493,7 +1493,7 @@ struct NodeObj
 struct Tile
 {
     void Set(int, unsigned int);
-    NodeObj* FUN_007d5280();
+    NodeObj* GetSaveScreenshot();
 };
 struct TileImage : public Tile
 {
@@ -1524,8 +1524,8 @@ bool FUN_007d51a0_shell::FUN_007d51a0(BGSSaveLoadFileEntry* apSaveGame)
         pTileImage->SetTexture(pTexture);
         pTileImage->Set(0xfb0, pTexture->v38());
         pTileImage->Set(0xfb1, pTexture->v37());
-        if (!pTileImage->FUN_007d5280()->FUN_009c8660())
-            pTileImage->FUN_007d5280()->FUN_007700b0(*reinterpret_cast<FltOps*>(reinterpret_cast<char*>(this) + 0x1b8));
+        if (!pTileImage->GetSaveScreenshot()->FUN_009c8660())
+            pTileImage->GetSaveScreenshot()->FUN_007700b0(*reinterpret_cast<FltOps*>(reinterpret_cast<char*>(this) + 0x1b8));
         return true;
     }
     return false;
@@ -2713,12 +2713,12 @@ class ListBoxBase
 struct ListBox_int : ListBoxBase
 {
     Tile* m_pListTile;
-    void FUN_007d7bd0(bool abVal);
+    void SetIntegerListBoxEnabled(bool abVal);
 };
 
 // Sets the _enabled trait on the list box's tile to abVal, caching the trait index in a static.
 // @fnv 0x007d7bd0
-void ListBox_int::FUN_007d7bd0(bool abVal)
+void ListBox_int::SetIntegerListBoxEnabled(bool abVal)
 {
     static int iEnabledTrait = GetTileValueID("_enabled", -1);
     m_pListTile->Set(iEnabledTrait, abVal);
@@ -5783,7 +5783,7 @@ struct LBInt
     int FindItemData(TileX*);
     bool ContainsKey(TileX*);
     bool FUN_00764e40();
-    void FUN_007d7bd0(int);
+    void SetIntegerListBoxEnabled(int);
     char rest[0x2c];
 };
 struct LBSave
@@ -5881,7 +5881,7 @@ void TargetSM::FUN_007ce9b0(int reason, TileX* tile)
             if (((TargetSM*)DAT_011daac0)->m_kOptionIndexList.FUN_00764e40())
             {
                 ((TargetSM*)DAT_011daac0)->FadeTile(14, 0, 0x80000000, -1.0f);
-                ((TargetSM*)DAT_011daac0)->m_kOptionIndexList.FUN_007d7bd0(0);
+                ((TargetSM*)DAT_011daac0)->m_kOptionIndexList.SetIntegerListBoxEnabled(0);
             }
             FadeTile(1, 0, 0x80000000, -1.0f);
             m_kSecondOptionListBox.FUN_007d74f0(0);
@@ -9040,7 +9040,7 @@ struct BSStrHelper7d5
     operator const char*() const;
 };
 // @fnv 0x007d5280
-const char* __fastcall FUN_007d5280(void* p)
+const char* __fastcall GetSaveScreenshot(void* p)
 {
     return *(BSStrHelper7d5*)((char*)p + 0x40);
 }
@@ -9645,7 +9645,7 @@ struct ListBox4bc0
 {
     Tile_4bc0* AddItem(int aiValue, const char* apcText, int(__cdecl* apfnSort)(ListBoxItem_4bc0*, ListBoxItem_4bc0*),
                        const char* apcTileName);
-    void FUN_007d7bd0(bool abVal);
+    void SetIntegerListBoxEnabled(bool abVal);
 };
 
 struct SM4bc0
@@ -9664,7 +9664,7 @@ void SM4bc0::FUN_007d4bc0()
 {
     if (!GetRaceCount(&m_kOptionIndexList))
         m_kOptionIndexList.AddItem(-1, g_011d3ad4.GetMenuTitle(), 0, 0);
-    m_kOptionIndexList.FUN_007d7bd0(true);
+    m_kOptionIndexList.SetIntegerListBoxEnabled(true);
     FadeTile(14, 1, 0x80000000, -1.0f);
     FadeTile(5, 1, 0x80000000, -1.0f);
 }

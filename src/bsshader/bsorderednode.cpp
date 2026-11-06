@@ -27,11 +27,11 @@ struct NiBound
     {
         return c0 == b.c0 && c1 == b.c1 && c2 == b.c2 && c3 == b.c3;
     }
-    bool FUN_00a926b0(const NiBound& b);
+    bool IsBoundDifferent(const NiBound& b);
 };
 // Returns true when this NiBound differs from b, i.e. the negation of operator==.
 // @fnv 0x00a926b0
-bool NiBound::FUN_00a926b0(const NiBound& b)
+bool NiBound::IsBoundDifferent(const NiBound& b)
 {
     return !(*this == b);
 }

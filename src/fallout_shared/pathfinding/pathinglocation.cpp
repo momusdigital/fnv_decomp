@@ -1434,7 +1434,7 @@ class PathBuilder : public FUN_006d0b80
 
 // Creates a PathBuilder from pRequest and m_pOutputSolution, calls BuildPath, and returns its result.
 // @fnv 0x006d0b10
-bool __cdecl FUN_006d0b10(PathingRequest* pRequest, PathingSolution* m_pOutputSolution)
+bool __cdecl BuildRequestedPath(PathingRequest* pRequest, PathingSolution* m_pOutputSolution)
 {
     PathBuilder kBuilder(pRequest, m_pOutputSolution);
     bool bResult = kBuilder.BuildPath();

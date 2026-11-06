@@ -710,12 +710,12 @@ struct NiLookAtInterpolator
 {
     int _pad[5];
     NiFixedString m_kTargetNodeName;
-    void FUN_00eea6d0(const NiFixedString& kName);
+    void SetLookAtTargetName(const NiFixedString& kName);
 };
 
 // Assigns kName's handle to the interpolator's name field, incrementing the new string's refcount and decrementing the old one's.
 // @fnv 0x00eea6d0
-void NiLookAtInterpolator::FUN_00eea6d0(const NiFixedString& kName)
+void NiLookAtInterpolator::SetLookAtTargetName(const NiFixedString& kName)
 {
     char* pcNewHandle = kName.m_kHandle;
     if (m_kTargetNodeName.m_kHandle != pcNewHandle)

@@ -6848,7 +6848,7 @@ struct RefX
 
 // Compares the distances from the player to the positions of two RefX objects, returning 1, -1 or 0.
 // @fnv 0x0077b300
-int __cdecl FUN_0077b300(RefX** apRefA, RefX** apRefB)
+int __cdecl ComparePlayerDistances(RefX** apRefA, RefX** apRefB)
 {
     if (apRefA && *apRefA && apRefB && *apRefB)
     {
@@ -9015,7 +9015,7 @@ void __cdecl UpdateMapMarkerHUD(CompassEvent* apEvent);
 void __cdecl FUN_0076b960(const char*, const char*, int, int, int, int, const char*);
 void __cdecl FUN_005f5950(int, int, CompassRef*, CompassRef*, int, int, int);
 void __cdecl FUN_004d5c60(bool abVal);
-int __cdecl FUN_0077b300(void*, void*);
+int __cdecl ComparePlayerDistances(void*, void*);
 void __cdecl FUN_005e58f0(int aiPerk, CompassRef* apRef, float* apValue);
 
 // Updates compass tile positions, visibility, and fade for map markers, quest targets, the player marker, and nearby actors.
@@ -9237,7 +9237,7 @@ void __cdecl FUN_00779070(CompassMovie* apMovie, CompassTileList* apMapTiles, Co
     unsigned int uiShown = pActors->Count();
     if (pActors->Count() > (unsigned int)*DAT_011d32d0.Int())
     {
-        pActors->Sort(FUN_0077b300);
+        pActors->Sort(ComparePlayerDistances);
         uiShown = *DAT_011d32d0.Int();
     }
     while (pActors && !pActors->IsEmpty() && uiShown)

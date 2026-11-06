@@ -2961,7 +2961,7 @@ struct AttachRef
     bool FUN_00564e60();
     void FUN_0056f700();
     bool FUN_00452370();
-    bool FUN_0057b200();
+    bool HasListItems();
     bool FUN_004523e0(int);
     void FUN_00483710();
     void* FUN_00430830();

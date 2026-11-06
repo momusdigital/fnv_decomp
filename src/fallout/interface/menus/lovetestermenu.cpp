@@ -279,7 +279,7 @@ struct FUN_00794d30_shell
 {
     int FUN_00794d30();
 };
-int __fastcall FUN_00794d80(void*);
+int __fastcall GetPlayerSPECIALTotal(void*);
 
 struct AVOwner_007927a0
 {
@@ -319,7 +319,7 @@ bool FUN_007927a0_shell::HandleKeyInput(int aiKey)
     case '=':
     case 0x80000003: {
         int iIndex = ((FUN_00794d30_shell*)this)->FUN_00794d30();
-        if (iIndex != -1 && FUN_00794d80(this) < m_iEntryCount && g_thePlayer->avOwner.GetValue(iIndex) < 10)
+        if (iIndex != -1 && GetPlayerSPECIALTotal(this) < m_iEntryCount && g_thePlayer->avOwner.GetValue(iIndex) < 10)
         {
             f3(2, 0);
             return true;
@@ -347,7 +347,7 @@ bool FUN_007927a0_shell::HandleKeyInput(int aiKey)
 
 // Sums the player's avOwner values for indices 5 through 11 and returns the total.
 // @fnv 0x00794d80
-int __fastcall FUN_00794d80(void* apUnused)
+int __fastcall GetPlayerSPECIALTotal(void* apUnused)
 {
     return g_thePlayer->avOwner.GetValue(5) + g_thePlayer->avOwner.GetValue(6) + g_thePlayer->avOwner.GetValue(7) +
            g_thePlayer->avOwner.GetValue(8) + g_thePlayer->avOwner.GetValue(9) + g_thePlayer->avOwner.GetValue(10) +
@@ -358,7 +358,7 @@ int __fastcall FUN_00794d80(void* apUnused)
 void SetTargetFromGlobalState(Outer* apOuter)
 {
     if (*(unsigned int*)((char*)DAT_011da2c8 + 0x48) == 8 &&
-        FUN_00794d80(DAT_011da2c8) < *(int*)((char*)DAT_011da2c8 + 0x58))
+        GetPlayerSPECIALTotal(DAT_011da2c8) < *(int*)((char*)DAT_011da2c8 + 0x58))
         apOuter->q->Target(0, 0, (unsigned int)*(Flt*)((char*)DAT_011da2c8 + 0x200));
     else
         apOuter->q->Target(0, 0, (unsigned int)*(Flt*)((char*)DAT_011da2c8 + 0x204));
@@ -399,7 +399,7 @@ extern int _data_011c16bc;
 // @fnv 0x00795ce0
 void __cdecl FUN_00795ce0(void* apButton)
 {
-    if (DAT_011da2c8 && FUN_00794d80(DAT_011da2c8) == reinterpret_cast<LoveTesterMenu*>(DAT_011da2c8)->m_iEntryCount)
+    if (DAT_011da2c8 && GetPlayerSPECIALTotal(DAT_011da2c8) == reinterpret_cast<LoveTesterMenu*>(DAT_011da2c8)->m_iEntryCount)
     {
         BSAudio::GetSingleton()->GetSoundHandleByEditorID("OBJBookSpecialNumberFinished", 0x121, false).Play();
         FUN_007917a0();
@@ -842,7 +842,7 @@ void __cdecl UpdateDigitDisplay(DigitView* view)
 {
     if (!view->tens || !view->ones)
         return;
-    int ones = ((LoveTesterMenu*)DAT_011da2c8)->m_iEntryCount - FUN_00794d80(DAT_011da2c8);
+    int ones = ((LoveTesterMenu*)DAT_011da2c8)->m_iEntryCount - GetPlayerSPECIALTotal(DAT_011da2c8);
     int value = (ones / 10 < 9 ? ones / 10 : 9) > 0 ? (ones / 10 < 9 ? ones / 10 : 9) : 0;
     int tens = ones % 10 < 0 ? 0 : ones % 10;
     if (value > 0)
@@ -1817,7 +1817,7 @@ struct Menu170
     int position;
     int u4c, u50, u54;
     int available;
-    int FUN_00794d80();
+    int GetPlayerSPECIALTotal();
     bool StepPosition(bool increase);
 };
 // Moves position up or down within bounds, plays page-turn or limit sounds, and triggers the matching animation sequence on the scene controller.
@@ -1838,7 +1838,7 @@ bool Menu170::StepPosition(bool increase)
         }
         else
         {
-            if (FUN_00794d80() == available)
+            if (GetPlayerSPECIALTotal() == available)
             {
                 BSAudioS_::GetSingleton()->GetSoundHandleByEditorID("OBJBookSpecialNumberFinished", 0x121).Play(false);
                 FUN_007917a0();
@@ -1913,7 +1913,7 @@ void __cdecl FUN_00795630(MenuParam_00795630* pMenuParam)
     if (value != -1)
     {
         if (DAT_011dea3c->avOwner.GetValue(value) < 10 &&
-            (DAT_011da2c8 == 0 || FUN_00794d80(DAT_011da2c8) < *(int*)((char*)DAT_011da2c8 + 0x58)))
+            (DAT_011da2c8 == 0 || GetPlayerSPECIALTotal(DAT_011da2c8) < *(int*)((char*)DAT_011da2c8 + 0x58)))
         {
             pMenuParam->unk08.FUN_00559450(0)->FUN_00450f90();
         }
@@ -2006,7 +2006,7 @@ void FUN_00795a00(WorkerButton* button)
             sound = FUN_00453a70()->GetSoundHandleByEditorID(DAT_010747ac, 0x121);
             sound.FUN_00ad8830(false);
         }
-        if (FUN_00794d80(DAT_011da2c8) < ((WorkerMenu*)DAT_011da2c8)->available)
+        if (GetPlayerSPECIALTotal(DAT_011da2c8) < ((WorkerMenu*)DAT_011da2c8)->available)
             ((WorkerActor*)g_thePlayer)->FUN_0093a7c0(index, MinInt(value + 1, 10));
     }
     ((WorkerMenu*)DAT_011da2c8)->FUN_00795e20();
@@ -2101,7 +2101,7 @@ void __cdecl PlaySpecialBookSoundAndSetStat(Button_7caa80* button)
             sound.FUN_00418900(FUN_00453a70()->FUN_00ad7550("OBJBookSpecialNumber", 0x121));
             sound.FUN_00ad8830(false);
         }
-        if (FUN_00794d80(DAT_011daa38) < DAT_011daa38->m_iEntryCount)
+        if (GetPlayerSPECIALTotal(DAT_011daa38) < DAT_011daa38->m_iEntryCount)
         {
             ((Player_7caa80*)g_thePlayer)->FUN_0093a7c0(key, MinInt(value + 1, 10));
         }
@@ -2128,7 +2128,7 @@ void __cdecl UpdateLoveTester()
             sound = ((AudioView*)BSAudio::GetSingleton())->GetSoundHandleByEditorID("OBJBookSpecialNumber", 0x121);
             sound.Play(false);
         }
-        if (FUN_00794d80(DAT_011da2c8) < ((LoveTesterMenu*)DAT_011da2c8)->m_iEntryCount)
+        if (GetPlayerSPECIALTotal(DAT_011da2c8) < ((LoveTesterMenu*)DAT_011da2c8)->m_iEntryCount)
             ((PlayerSetter*)g_thePlayer)->FUN_0093a7c0(key, MinInt(value + 1, 10));
     }
     FUN_00795e20(DAT_011da2c8);
@@ -2956,7 +2956,7 @@ void InputMenu::HandleButton(int button, int unused)
     switch (button)
     {
     case 4:
-        if (FUN_00794d80(this) == available)
+        if (GetPlayerSPECIALTotal(this) == available)
         {
             BSAudio::GetSingleton()->GetSoundHandleByEditorID("OBJBookSpecialNumberFinished", 0x121, false).Play();
             FUN_007917a0();
@@ -2986,7 +2986,7 @@ void InputMenu::HandleButton(int button, int unused)
             local972322 = ((InputPlayer*)g_thePlayer)->owner.GetBase(((FUN_00794d30_shell*)this)->FUN_00794d30());
             if (button == 2)
             {
-                if (FUN_00794d80(this) < available)
+                if (GetPlayerSPECIALTotal(this) < available)
                     ((PlayerSetter*)g_thePlayer)
                         ->FUN_0093a7c0(((FUN_00794d30_shell*)this)->FUN_00794d30(), MinInt(local972322 + 1, 10));
             }
@@ -3003,7 +3003,7 @@ void InputMenu::HandleButton(int button, int unused)
             local972322 = ((InputPlayer*)g_thePlayer)->owner.GetBase(local294918);
             if (button == 2)
             {
-                if (FUN_00794d80(this) < available)
+                if (GetPlayerSPECIALTotal(this) < available)
                     ((PlayerSetter*)g_thePlayer)->FUN_0093a7c0(local294918, MinInt(local972322 + 1, 10));
             }
             else

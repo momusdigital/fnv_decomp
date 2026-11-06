@@ -945,7 +945,7 @@ struct Triangle
 {
     Pt3 origin, edge0, edge1;
     float radiusSquared, b, q;
-    Pt3 FUN_00eb3830() const;
+    Pt3 GetTriangleUnitNormal() const;
 };
 float __cdecl GetSquaredDistanceToTriangle(Pt3 const&, Triangle const&, float&, float&);
 Pt3 __cdecl FUN_004a3760(float, Pt3 const&);
@@ -1011,7 +1011,7 @@ bool __cdecl SphereTriangleCollision(float time, Sphere const& sphere, Pt3 const
         contactPoint = query.k.origin + query.k.edge0 * query.k.b + query.k.edge1 * query.k.q;
         if (calcNormals)
         {
-            triangleNormal = query.k.FUN_00eb3830();
+            triangleNormal = query.k.GetTriangleUnitNormal();
             sphereNormal = -triangleNormal;
         }
         return true;

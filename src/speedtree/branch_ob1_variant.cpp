@@ -267,7 +267,7 @@ extern float runtimeInitializationFloat4160;
 extern const double DAT_010a4d90;
 extern int __cdecl FUN_00ecadb8();
 extern const double DAT_01029790;
-inline float __cdecl FUN_00b14e90(float lower, float upper)
+inline float __cdecl RandomFloatInRange(float lower, float upper)
 {
     float fraction = FUN_00ecadb8() / DAT_01029790;
     float range = upper - lower;
@@ -439,21 +439,21 @@ void ParticleEmitter::FUN_00b14ca0(CreationSettings* settings)
 {
     if (settings->count != 0)
     {
-        float initial = FUN_00b14e90(0.0f, runtimeInitializationFloat4160);
+        float initial = RandomFloatInRange(0.0f, runtimeInitializationFloat4160);
         float perStep = runtimeInitializationFloat4160 / (float)settings->count;
         for (int i = 0; i < settings->count; ++i)
         {
             CreationValues values = {0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f};
-            values.angle = (float)i * FUN_00b14e90(settings->interval * perStep, perStep) + initial;
+            values.angle = (float)i * RandomFloatInRange(settings->interval * perStep, perStep) + initial;
             if (values.angle > runtimeInitializationFloat4160)
                 values.angle -= runtimeInitializationFloat4160;
             values.forward = settings->forward;
             values.magnitude = settings->verticalDeviation;
             values.spread =
-                radians(FUN_00b14e90(settings->spread - settings->deviation, settings->spread + settings->deviation));
-            values.vertical = FUN_00b14e90(settings->vertical - settings->verticalRange,
+                radians(RandomFloatInRange(settings->spread - settings->deviation, settings->spread + settings->deviation));
+            values.vertical = RandomFloatInRange(settings->vertical - settings->verticalRange,
                                            settings->vertical + settings->verticalRange);
-            values.sideways = FUN_00b14e90(settings->tilt - settings->sideways, settings->tilt + settings->sideways);
+            values.sideways = RandomFloatInRange(settings->tilt - settings->sideways, settings->tilt + settings->sideways);
             channel.FUN_00b15280(&values);
         }
     }

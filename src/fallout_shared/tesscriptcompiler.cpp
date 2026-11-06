@@ -161,7 +161,7 @@ void __cdecl FUN_005afe10(int aiArg1, int aiArg2, int aiArg3)
 
 // Advances *apOffset past tab, space and comma characters in apExpLine, stopping at the first other character.
 // @fnv 0x005b1b60
-void __cdecl FUN_005b1b60(const char* apExpLine, int* apOffset)
+void __cdecl SkipScriptSeparators(const char* apExpLine, int* apOffset)
 {
     for (;;)
     {
@@ -704,7 +704,7 @@ bool __cdecl ResolveScriptCommand(ScriptWordView* word)
 
 // Scans text from start to the null terminator, counting '(' and ')', and returns whether the final depth is zero.
 // @fnv 0x005b1a90
-bool __cdecl FUN_005b1a90(const char* text, unsigned int start)
+bool __cdecl HasBalancedParenthesisCount(const char* text, unsigned int start)
 {
     int depth_ = 0;
     unsigned int i = start;
@@ -1904,7 +1904,7 @@ struct CompilerShell : public CStringArgument
 int __cdecl FUN_005af5f0(CompilerShell* aCompiler, ScriptVariableData* apWord, char* apExpLine, int* apOffset,
                          bool aAllowRef, bool aFlag5)
 {
-    FUN_005b1b60(apExpLine, apOffset);
+    SkipScriptSeparators(apExpLine, apOffset);
     int len = 0;
     if (apExpLine[*apOffset] == '"')
     {

@@ -48,7 +48,7 @@ class BSAudio
     float FUN_00ad7a80();
     float FUN_00ad7ab0();
     float FUN_00ad7c80();
-    bool FUN_00ad7c50();
+    bool IsAudioUnderwater();
     void FUN_00ad7990(bool);
     void FUN_00ad7940(NiPoint3, NiPoint3);
     void FUN_00ad79b0(unsigned int);

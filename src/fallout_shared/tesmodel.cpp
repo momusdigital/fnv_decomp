@@ -903,7 +903,7 @@ struct TextureModelView : TESModel
 };
 // Loads texture file entries into the model's texture list from the given file, using the model's path and form context.
 // @fnv 0x004893e0
-void FUN_004893e0(TESModel* model, TESFile* file)
+void LoadModelTextures(TESModel* model, TESFile* file)
 {
     if (model && file)
         static_cast<TextureModelView*>(model)->textures.Load(file, dynamic_cast<TESForm*>(model),

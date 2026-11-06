@@ -5053,7 +5053,7 @@ struct Buffer
     void SaveData(void*, unsigned, int);
 };
 char GetStatsMenuPage();
-unsigned char FUN_007824b0();
+unsigned char GetCurrentInventoryTab();
 float GetMapMenuFloatSetting();
 float GetTileFloatOrDefault();
 void FUN_00403d30(void*, int, unsigned);
@@ -5064,7 +5064,7 @@ void FUN_007066d0(Buffer* buffer)
     float text;
     int length = (int)((Root*)FUN_004b7210())->GetValue(0x1771)->GetFloat();
     char third = GetStatsMenuPage();
-    unsigned char x = FUN_007824b0();
+    unsigned char x = GetCurrentInventoryTab();
     char value = FUN_00706830();
     buffer->SaveData(&length, 4, 0);
     buffer->SaveData(&third, 1, 0);

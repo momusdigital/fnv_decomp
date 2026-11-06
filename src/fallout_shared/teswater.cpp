@@ -8760,7 +8760,7 @@ struct RefList2
 };
 struct Extra
 {
-    RefList* FUN_0041f140();
+    RefList* GetReflectedReferences();
 };
 struct CellOwner
 {
@@ -9120,7 +9120,7 @@ void Target::FUN_004e9d40(void* input, State* state, bool special)
                                 }
                                 if (!special && FUN_004e62e0(ref, input))
                                 {
-                                    RefList* list = ref->FUN_005d43c0()->FUN_0041f140();
+                                    RefList* list = ref->FUN_005d43c0()->GetReflectedReferences();
                                     while (list && !list->FUN_008256d0())
                                     {
                                         if (list->FUN_006815c0()->flags & 1)
@@ -11217,7 +11217,7 @@ struct Cell074
 };
 struct Extra074
 {
-    struct Link074* FUN_0041f140();
+    struct Link074* GetReflectedReferences();
 };
 struct LinkData074
 {
@@ -11539,7 +11539,7 @@ void Owner074::RenderWaterRefs(Camera074* camera, State074* state)
                                         nextActor = actorPos;
                                     }
                                 }
-                                Link074* link = ref->FUN_005d43c0()->FUN_0041f140();
+                                Link074* link = ref->FUN_005d43c0()->GetReflectedReferences();
                                 while (link && !link->FUN_008256d0())
                                 {
                                     if ((*link->FUN_006815c0())->flags & 2)
@@ -12062,7 +12062,7 @@ class NiTMap_S
     bool RemoveKey(unsigned int);
 };
 
-extern bool __fastcall FUN_0057b200(TESObjectREFR*);
+extern bool __fastcall HasListItems(TESObjectREFR*);
 
 class Helper57b240
 {
@@ -12246,7 +12246,7 @@ void TESWaterSystem_Impl::FUN_004e5fe0(TESObjectREFR* apRef)
                         }
                         if (val && nextPos38)
                         {
-                            while (FUN_0057b200(apRef))
+                            while (HasListItems(apRef))
                             {
                                 ((Helper57b240*)apRef)->FUN_0057b240(0);
                             }

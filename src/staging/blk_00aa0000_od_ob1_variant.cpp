@@ -275,7 +275,7 @@ struct AbstractHeap
     HeapFreeBlock* m2048;
     HeapFreeBlock* m204c;
 
-    void __thiscall FUN_00aa9e50(HeapFreeList* list, HeapFreeBlock* block);
+    void __thiscall RemoveFreeHeapBlock(HeapFreeList* list, HeapFreeBlock* block);
     void __thiscall Clear();
 };
 struct FUN_00aaaa80_Class

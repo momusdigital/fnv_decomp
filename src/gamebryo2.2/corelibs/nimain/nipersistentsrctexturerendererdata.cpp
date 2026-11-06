@@ -1360,7 +1360,7 @@ class FUN_00e75a70 : public Base_00a62b60
   public:
     virtual ~FUN_00e75a70() throw();
 
-    void FUN_00e75380() throw();
+    void UnloadAllShaders() throw();
     void ClearArrays() throw();
     void ResetPools() throw();
 
@@ -2067,7 +2067,7 @@ FUN_00e75a70::~FUN_00e75a70() throw()
     }
 
     RunRegistryHandlers();
-    FUN_00e75380();
+    UnloadAllShaders();
     FUN_00e819f0();
     FUN_00e7cec0();
     m_kMap8cc.RemoveAll();

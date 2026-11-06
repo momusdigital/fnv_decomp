@@ -96,7 +96,7 @@ NiTStringPointerMap<ShaderBufferRecord*>::~NiTStringPointerMap()
 }
 
 // @fnv 0x00b7fce0
-bool __stdcall FUN_00b7fce0(const char* left, const char* right)
+bool __stdcall EqualStringsCaseInsensitive(const char* left, const char* right)
 {
     return NiStricmp(left, right) == 0;
 }

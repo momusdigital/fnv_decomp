@@ -1128,7 +1128,7 @@ struct TimeGlobal
 extern GlobalObject_0045cf30 g_011deed8;
 extern TimeGlobal g_timeGlobal;
 HotkeyWheelDisplay* FUN_007fdf30();
-void __fastcall FUN_00a237b0(HotkeyWheelDisplay*);
+void __fastcall FlushBufferedInput(HotkeyWheelDisplay*);
 void __fastcall FUN_00a253d0(HotkeyWheelDisplay*);
 void __fastcall FUN_00aa50a0(TimeGlobal*);
 struct FUN_00871c90_shell
@@ -1144,7 +1144,7 @@ void FUN_00871c90_shell::FUN_00871c90(bool abEnabled)
         abEnabled = 1;
     if (FUN_007fdf30())
     {
-        FUN_00a237b0(FUN_007fdf30());
+        FlushBufferedInput(FUN_007fdf30());
         FUN_007fdf30()->FUN_00a23010();
         FUN_00a253d0(FUN_007fdf30());
     }
@@ -2046,11 +2046,11 @@ struct SomeClass
 {
     int m_ucUnknownByte[0xad4 / 4];
     Arr m_aiIndexedValues;
-    int FUN_0086bb70(unsigned int value);
+    int FindIndexedValue(unsigned int value);
 };
 
 // @fnv 0x0086bb70
-int SomeClass::FUN_0086bb70(unsigned int value)
+int SomeClass::FindIndexedValue(unsigned int value)
 {
     for (int i = 0; i < m_aiIndexedValues.GetSize(); i++)
     {
@@ -2825,15 +2825,15 @@ struct GlobalObject_00869b10
 
 struct SomeClass
 {
-    int FUN_0086bb70(unsigned int);
+    int FindIndexedValue(unsigned int);
     bool FUN_0086bb20(unsigned int index);
 };
 
-// Looks up index via FUN_0086bb70; if found, removes that entry from the two lists at offsets 0xad4 and 0xae4 and returns true, else false.
+// Looks up index via FindIndexedValue; if found, removes that entry from the two lists at offsets 0xad4 and 0xae4 and returns true, else false.
 // @fnv 0x0086bb20
 bool SomeClass::FUN_0086bb20(unsigned int index)
 {
-    int result = FUN_0086bb70(index);
+    int result = FindIndexedValue(index);
     if (result == -1)
         return false;
     (reinterpret_cast<GlobalObject_00869b10*>(reinterpret_cast<unsigned char*>(this) + 0xad4))->RemoveAt(result);
@@ -2865,7 +2865,7 @@ char FUN_0086bdf0()
 
 // Returns the smaller of the two arguments, comparing the float against the double and returning it as a double.
 // @fnv 0x008731a0
-double FUN_008731a0(double adValue, float afValue)
+double MinDoubleFloat(double adValue, float afValue)
 {
     double d;
     if (afValue > adValue)
@@ -5073,12 +5073,12 @@ class Sky86B
 class SkyOwner86B
 {
   public:
-    void FUN_0086be30();
+    void DeleteSkySingleton();
 };
 
 // Deletes the Sky86B singleton instance and clears its static pointer.
 // @fnv 0x0086be30
-void SkyOwner86B::FUN_0086be30()
+void SkyOwner86B::DeleteSkySingleton()
 {
     delete Sky86B::pInstance;
     Sky86B::pInstance = 0;
@@ -5090,12 +5090,12 @@ class C86D4C0Timer
     int unk00;
     float m_fInterval;
 
-    void FUN_0086d4c0(unsigned int uiFrequency);
+    void SetTimerFrequency(unsigned int uiFrequency);
 };
 
 // Stores the timer interval as 1000 divided by uiFrequency, or 0 when uiFrequency is zero.
 // @fnv 0x0086d4c0
-void C86D4C0Timer::FUN_0086d4c0(unsigned int uiFrequency)
+void C86D4C0Timer::SetTimerFrequency(unsigned int uiFrequency)
 {
     m_fInterval = uiFrequency ? 1000.0 / uiFrequency : 0.0;
 }
@@ -5594,11 +5594,11 @@ struct InputManager
     int unk04;
     int unk08;
     InputDevice* devices[1];
-    void FUN_00a23750(int index, float value);
+    void SetInputDeviceDeadZone(int index, float value);
 };
 // Scales value by 10000 and sets property 5 on the input device at index via SetProperty.
 // @fnv 0x00a23750
-void InputManager::FUN_00a23750(int index, float value)
+void InputManager::SetInputDeviceDeadZone(int index, float value)
 {
     InputDevice* device = devices[index];
     DIPROPDWORD property;
@@ -6118,7 +6118,7 @@ struct Receiver86
     void FUN_00448420();
     void FUN_008c73a0();
     Receiver86* FUN_008d8520();
-    void FUN_0086be30();
+    void DeleteSkySingleton();
     void FUN_006c0900();
     void* FUN_0086bee0(unsigned int);
     void* FUN_0086bf10(unsigned int);
@@ -6408,7 +6408,7 @@ int __cdecl FUN_004dc560(...);
 int __cdecl FUN_004dc590(...);
 int __cdecl FUN_00702330(...);
 int __cdecl FUN_008d8520(...);
-int __cdecl FUN_0086be30(...);
+int __cdecl DeleteSkySingleton(...);
 int __cdecl FUN_004e0800(...);
 int __cdecl FUN_004def20(...);
 int __cdecl FUN_007ffe00(...);
@@ -6897,7 +6897,7 @@ int __stdcall FUN_0086a850(unsigned int param_1, unsigned int param_2, unsigned 
                 FUN_00702330();
                 if (((Receiver86*)_DAT_011dea10)->FUN_008d8520())
                 {
-                    ((Receiver86*)_DAT_011dea10)->FUN_008d8520()->FUN_0086be30();
+                    ((Receiver86*)_DAT_011dea10)->FUN_008d8520()->DeleteSkySingleton();
                 }
                 FUN_004e0800();
                 FUN_004def20();
@@ -10276,7 +10276,7 @@ struct Mgr
 Mgr* __stdcall FUN_004a0ea0(P1* a, int b, int c, int d, int e);
 
 unsigned char FUN_008709f0();
-double FUN_008731a0(double b, float a);
+double MinDoubleFloat(double b, float a);
 void __cdecl FUN_00b6b8d0(unsigned int id, NiRenderTargetGroup* ausAnimationGroup);
 void __cdecl FUN_00b6b890(unsigned int id, NiRenderTargetGroup* ausAnimationGroup);
 
@@ -10321,10 +10321,10 @@ BSRenderedTexture* Host::FUN_00872f50(P1* apSource, BSRenderedTexture* apFallbac
             apSource->FUN_004dee70() != ((TexObj*)tex)->FUN_008723d0(0))
         {
             float fa;
-            fa = (float)FUN_008731a0(
+            fa = (float)MinDoubleFloat(
                 (double)apSource->FUN_004dee10() * DAT_01082d20 / (double)((TexObj*)tex)->FUN_00872370(0), 1.0f);
             float fb;
-            fb = (float)FUN_008731a0(
+            fb = (float)MinDoubleFloat(
                 (double)apSource->FUN_004dee70() * DAT_01082d20 / (double)((TexObj*)tex)->FUN_008723d0(0), 1.0f);
             FUN_00524c90()->FUN_00712e60((_Rect16_00712e60&)ImageSpaceEffectParam(0.0f, fa, fb, 0.0f));
         }
@@ -13065,10 +13065,10 @@ struct DIDeviceOwner
     int unk24;
     int unk28;
     IDIDevice8* m_pDirectInputDevice;
-    void FUN_00a237b0();
+    void FlushBufferedInput();
 };
 // @fnv 0x00a237b0
-void DIDeviceOwner::FUN_00a237b0()
+void DIDeviceOwner::FlushBufferedInput()
 {
     if (m_pDirectInputDevice)
     {
@@ -13537,7 +13537,7 @@ struct Options86
 struct Frame86
 {
     float FUN_007013e0();
-    void FUN_0086d4c0(int);
+    void SetTimerFrequency(int);
 };
 struct Node86
 {
@@ -13575,7 +13575,7 @@ struct ContextResult86
 };
 struct MenuHandler86
 {
-    void FUN_0086d4c0(int);
+    void SetTimerFrequency(int);
 };
 struct Receiver86;
 extern Receiver86* __cdecl FUN_0043c4b0();
@@ -13775,10 +13775,10 @@ void Main86::FUN_0086ff70()
                 FUN_00406d00(outputDirectory, 0x104, DAT_01082ca4, DAT_011deb04.FUN_00403df0(),
                              *DAT_011deecc.FUN_0043d4d0());
                 CreateDirectoryA(outputDirectory, 0);
-                DAT_011f6394.FUN_0086d4c0(*DAT_011dee00.FUN_0043d4d0());
+                DAT_011f6394.SetTimerFrequency(*DAT_011dee00.FUN_0043d4d0());
             }
             else
-                DAT_011f6394.FUN_0086d4c0(0);
+                DAT_011f6394.SetTimerFrequency(0);
         }
         else
             SaveScreenshot(0);
@@ -14632,7 +14632,7 @@ struct InputOwner
     JoystickCounts counters[8];
     unsigned int count;
     void FUN_00a236f0(unsigned int, int, int);
-    void FUN_00a23750(unsigned int, float);
+    void SetInputDeviceDeadZone(unsigned int, float);
 };
 // Accepts instances whose low device type byte is 20 or 21, creates a device, queries capabilities and object counts, and stores it.
 // @fnv 0x00a24830
@@ -14657,7 +14657,7 @@ int __stdcall FUN_00a24830(const DIDEVICEINSTANCEA* instance, void* context)
     device->EnumObjects(MatchObjectGuids, &manager->counters[manager->count], 0);
     manager->devices[manager->count] = device;
     manager->FUN_00a236f0(manager->count, -100, 100);
-    manager->FUN_00a23750(manager->count, 0.1f);
+    manager->SetInputDeviceDeadZone(manager->count, 0.1f);
     manager->count++;
     if (manager->count == 8)
         return 0;

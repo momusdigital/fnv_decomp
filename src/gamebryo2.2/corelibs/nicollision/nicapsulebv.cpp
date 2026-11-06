@@ -1438,7 +1438,7 @@ struct CapsuleSegment
 struct CollisionTriangle
 {
     Vec3 p, u, v;
-    Vec3 FUN_00eb3830() const;
+    Vec3 GetTriangleUnitNormal() const;
 };
 struct CapsuleTriangleQuery
 {
@@ -1495,7 +1495,7 @@ bool __cdecl FUN_00e9fdc0(float afTime, Capsule* apCapsule, Vec3* a2, const Vec3
                    collisionData.triangleV * collisionData.triangle.v;
         if (abNormal)
         {
-            *apNormal2 = collisionData.triangle.FUN_00eb3830();
+            *apNormal2 = collisionData.triangle.GetTriangleUnitNormal();
             *apNormal = -*apNormal2;
         }
         return true;

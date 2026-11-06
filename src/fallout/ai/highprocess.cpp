@@ -1038,7 +1038,7 @@ float HighProcess::GetCurrentActorValue(TESActorBase* base, ActorValue::Index in
     if (!m_pRevertibleObject)
         m_pRevertibleObject = new ActorValueStore;
     if (m_pRevertibleObject->FUN_00900400(index))
-        m_pRevertibleObject->FUN_008c6f00(index, ((MiddleLowProcess*)this)->GetCurrentActorValue(base, index, actor));
+        m_pRevertibleObject->SetCachedActorValue(index, ((MiddleLowProcess*)this)->GetCurrentActorValue(base, index, actor));
     return m_pRevertibleObject->GetFloatAt(index);
 }
 

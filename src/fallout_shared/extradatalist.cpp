@@ -230,7 +230,7 @@ __declspec(thread) BSExtraData* tls_pExtras[0x93];
 
 // Returns the cached extra data of the given type when apList matches the thread-local list, otherwise returns null.
 // @fnv 0x0040f9e0
-BSExtraData* __cdecl FUN_0040f9e0(BaseExtraList* apList, int aeType)
+BSExtraData* __cdecl GetCachedExtraData(BaseExtraList* apList, int aeType)
 {
     BSExtraData* pretval = 0;
     if (apList == tls_pList)
@@ -380,7 +380,7 @@ class PatrolActorPackageData
 
 extern RecursiveSpinLock g_011c3920;
 
-BSExtraData* __cdecl FUN_0040f9e0(BaseExtraList*, unsigned char);
+BSExtraData* __cdecl GetCachedExtraData(BaseExtraList*, unsigned char);
 void __cdecl FUN_0040fa40(BaseExtraList*, BSExtraData*);
 
 struct TESObjectREFR_GetFlags_Helper
@@ -395,7 +395,7 @@ BSExtraData* FUN_00410220_shell::FUN_00410220(unsigned char acType)
         return 0;
 
     BSExtraData* pretval = 0;
-    pretval = FUN_0040f9e0(this, acType);
+    pretval = GetCachedExtraData(this, acType);
     if (!pretval)
     {
         g_011c3920.Lock("BaseExtraList::GetExtraData()");
@@ -1000,12 +1000,12 @@ struct NavMeshDoorPortalEntry
 typedef char _sizecheck_NAVMESH_PORTAL[sizeof(NavMeshDoorPortalEntry) == 8 ? 1 : -1];
 struct FUN_00416ab0_shell : public NavMeshDoorPortalEntry
 {
-    void FUN_00416ab0(void*);
+    void InitializeNavMeshDoorPortal(void*);
 };
 
 // Resets the portal's two ID fields to zero and returns the object.
 // @fnv 0x00416ab0
-NavMeshDoorPortalEntry* __fastcall FUN_00416ab0(NavMeshDoorPortalEntry* pThis)
+NavMeshDoorPortalEntry* __fastcall InitializeNavMeshDoorPortal(NavMeshDoorPortalEntry* pThis)
 {
     pThis->m_uiNavMeshID = 0;
     pThis->m_usPortalTriangleIndex = 0;
@@ -10571,10 +10571,10 @@ struct ExtraTerminalState : BSExtraData
 };
 struct MyThis : BaseExtraList
 {
-    char FUN_0041c060();
+    char GetTerminalState();
 };
 // @fnv 0x0041c060
-char MyThis::FUN_0041c060()
+char MyThis::GetTerminalState()
 {
     ExtraTerminalState* pextra;
     pextra = (ExtraTerminalState*)GetExtraData(0x50);
@@ -10586,7 +10586,7 @@ char MyThis::FUN_0041c060()
 
 struct MyExtraDataList : BaseExtraList
 {
-    void FUN_0041cae0(int);
+    void SetExtraPackageIndex(int);
 };
 struct ExtraPackage
 {
@@ -10595,7 +10595,7 @@ struct ExtraPackage
     int iElementIndex;
 };
 // @fnv 0x0041cae0
-void MyExtraDataList::FUN_0041cae0(int aiIndex)
+void MyExtraDataList::SetExtraPackageIndex(int aiIndex)
 {
     ExtraPackage* pExtra = (ExtraPackage*)GetExtraData(0x19);
     if (pExtra)
@@ -10627,11 +10627,11 @@ struct ExtraReflectedRefs : BSExtraData
 };
 struct Holder : BaseExtraList
 {
-    FakeList* FUN_0041f140();
+    FakeList* GetReflectedReferences();
 };
 // Looks up the extra data of type 0x65 and returns a pointer to its list, or null if absent.
 // @fnv 0x0041f140
-FakeList* Holder::FUN_0041f140()
+FakeList* Holder::GetReflectedReferences()
 {
     ExtraReflectedRefs* pextra;
     pextra = (ExtraReflectedRefs*)GetExtraData(0x65);
@@ -10768,11 +10768,11 @@ struct ExtraSavedHavokData : BSExtraData
 };
 struct S_00422b90
 {
-    char* FUN_00422b90();
+    char* GetSavedHavokData();
 };
 // Retrieves the extra data of type 0x3D from the list and returns its stored pointer, or null if absent.
 // @fnv 0x00422b90
-char* S_00422b90::FUN_00422b90()
+char* S_00422b90::GetSavedHavokData()
 {
     ExtraSavedHavokData* pextra;
     pextra = (ExtraSavedHavokData*)((BaseExtraList*)this)->GetExtraData(0x3D);

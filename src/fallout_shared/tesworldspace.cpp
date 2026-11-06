@@ -145,7 +145,7 @@ void TESWorldSpace::SetParent(TESWorldSpace* world)
         field4E = 0;
 }
 // @fnv 0x00588270
-void TESWorldSpace::FUN_00588270(BSSimpleArray<TESObjectREFR*, 1024>& doors)
+void TESWorldSpace::AppendInteriorCellReferences(BSSimpleArray<TESObjectREFR*, 1024>& doors)
 {
     TESObjectCELL* cell = GetInteriorCell();
     if (cell)

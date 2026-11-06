@@ -173,7 +173,7 @@ class NiAVObject
     void UpdateSceneObject();
     void Update(NiUpdateData&);
     void RemoveProperty(unsigned int);
-    void FUN_00a5c050();
+    void ClearAnimationControllers();
     void UpdateModelBound();
 };
 class NiNode : public NiAVObject

@@ -3916,7 +3916,7 @@ struct PathingRequestClosePoint
     void FUN_006e5ee0(float);
 };
 bool FUN_006d91d0(PathBuilderDetailedPathMeshes*);
-bool FUN_006d0b10(PathingRequestHelper*, PathingSolution*);
+bool BuildRequestedPath(PathingRequestHelper*, PathingSolution*);
 bool FUN_006d34d0(PathingRequestClosePoint*, NiPoint3*);
 
 // Checks both request endpoints' nav meshes, builds a search between their triangles, and writes a path point to output, falling back to a close-point path.
@@ -3949,7 +3949,7 @@ bool __cdecl FindPathToTarget(RequestAccess* request, NiPoint3* output)
         PathingRequestHelper aOrigin;
         request->CopyTo(&aOrigin);
         PathingSolution aMatrix;
-        if (FUN_006d0b10(&aOrigin, &aMatrix))
+        if (BuildRequestedPath(&aOrigin, &aMatrix))
         {
             float aNode;
             if (aMatrix.FUN_006e7e70(float(aMatrix.GetNodeCount() - 1), request->GetFloatAtOffsetB0(), 0, &aNode,
@@ -4882,7 +4882,7 @@ unsigned int OwnerX::CreateEntry(int a, int b, int c)
 
 extern const char str_0106cb70[];
 extern const float DAT_010231a0;
-extern bool __cdecl FUN_006d0b10(const void*, const void*);
+extern bool __cdecl BuildRequestedPath(const void*, const void*);
 extern bool __cdecl FindCombatPosition(const void*, float, bool);
 
 struct NavMeshBuffer
@@ -5081,7 +5081,7 @@ bool __cdecl FUN_006d2c80(NavMeshContext* context, NavMeshRoute* route)
 {
     bool acceptedNew;
     AutoMemHelper memoryRef(0x2d, true, str_0106cb70, 0x322);
-    acceptedNew = FUN_006d0b10(context, route);
+    acceptedNew = BuildRequestedPath(context, route);
     if (!acceptedNew)
         return false;
     float thresholdRes = DAT_010231a0;
@@ -5103,7 +5103,7 @@ bool __cdecl FUN_006d2c80(NavMeshContext* context, NavMeshRoute* route)
             NavMeshBuffer replacement(currentVal.FUN_006377e0(), candidate);
             currentVal.FUN_006d1bc0(replacement);
             NavMeshResult resultTmp;
-            bool found = FUN_006d0b10(&currentVal, &resultTmp);
+            bool found = BuildRequestedPath(&currentVal, &resultTmp);
             if (found)
             {
                 context->FUN_006d30b0(currentVal.FUN_006377e0());

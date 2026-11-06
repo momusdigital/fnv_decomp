@@ -2810,7 +2810,7 @@ struct MM630
 extern MM630 g_mm630;
 
 char* __cdecl FUN_00a5b690(const char* s);
-int __cdecl FUN_004b75a0(void* p, const char* name);
+int __cdecl FindSubstringCaseInsensitive(void* p, const char* name);
 long __cdecl FUN_00eca6d3(const char* s);
 
 struct StrMem
@@ -3076,7 +3076,7 @@ bool __cdecl FUN_00c63c30(ObjC63* obj, ObjC63* root)
             DAT_012043d0 = (int)new NameHolder("DVPG");
         ExtraX* extra = root->GetExtraData(DAT_012043d0);
         ObjC63* p = obj;
-        if (p->GetMesh() && FUN_004b75a0(p->GetMesh(), "DecalPlacementVectorGroup"))
+        if (p->GetMesh() && FindSubstringCaseInsensitive(p->GetMesh(), "DecalPlacementVectorGroup"))
         {
             if (!extra)
             {

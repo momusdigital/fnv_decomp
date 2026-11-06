@@ -27,12 +27,12 @@ struct EB3830Triangle
     EB3830Point3 m_kEdgeA;
     EB3830Point3 m_kEdgeB;
 
-    EB3830Point3 FUN_00eb3830() const;
+    EB3830Point3 GetTriangleUnitNormal() const;
 };
 
 // Computes the cross product of m_kEdgeA and m_kEdgeB, normalizes it, and returns the resulting vector.
 // @fnv 0x00eb3830
-EB3830Point3 EB3830Triangle::FUN_00eb3830() const
+EB3830Point3 EB3830Triangle::GetTriangleUnitNormal() const
 {
     EB3830Point3 kNormal = m_kEdgeA.Cross(m_kEdgeB);
     kNormal.Unitize();

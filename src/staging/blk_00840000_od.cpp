@@ -111,12 +111,12 @@ void __cdecl FUN_00848d10()
     FUN_0084bfb0(0, 0xc);
 }
 
-extern "C" void __cdecl FUN_0084c110(int, int);
+extern "C" void __cdecl LoadSavedFormTypes(int, int);
 
 // @fnv 0x00848d30
 void __cdecl FUN_00848d30()
 {
-    FUN_0084c110(0, 0xc);
+    LoadSavedFormTypes(0, 0xc);
 }
 
 struct SM7d6

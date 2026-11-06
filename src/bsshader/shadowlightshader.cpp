@@ -14688,12 +14688,12 @@ void InitializeBeamPasses()
 class ObjectArray : public NiTObjectArray<NiPointer<NiRefObject> >
 {
   public:
-    void FUN_00b799c0();
+    void ClearObjectReferences();
 };
 
 // Clears each active pointer entry, then sets the array's size and ESize fields to zero.
 // @fnv 0x00b799c0
-void ObjectArray::FUN_00b799c0()
+void ObjectArray::ClearObjectReferences()
 {
     for (unsigned short i = 0; i < m_usSize; i++)
     {

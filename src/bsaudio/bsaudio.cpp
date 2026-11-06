@@ -109,7 +109,7 @@ float BSAudio::FUN_00ad7c80()
 }
 
 // @fnv 0x00ad7c50
-bool BSAudio::FUN_00ad7c50()
+bool BSAudio::IsAudioUnderwater()
 {
     BSAudioManager* manager = &BSAudioManager::GetRandomGenerator();
     bool underwater = manager->m_bUnderwater;
@@ -1324,12 +1324,12 @@ Settings* FUN_00ad9060();
 
 struct Owner
 {
-    bool FUN_00ad7c50();
+    bool IsAudioUnderwater();
 };
 
 // Returns whether the global settings object is enabled by calling IsEnabled on the Settings instance from FUN_00ad9060.
 // @fnv 0x00ad7c50
-bool Owner::FUN_00ad7c50()
+bool Owner::IsAudioUnderwater()
 {
     Settings* pkSettings = FUN_00ad9060();
     return pkSettings->IsEnabled();

@@ -202,11 +202,11 @@ struct S00863d90
 {
     unsigned int a, b, c;
     unsigned int cnt;
-    void FUN_00863d90(const unsigned int& e);
+    void AppendLargeArrayValue(const unsigned int& e);
 };
 // Appends the given element to the array at index cnt via SetAtGrow.
 // @fnv 0x00863d90
-void S00863d90::FUN_00863d90(const unsigned int& auiElement)
+void S00863d90::AppendLargeArrayValue(const unsigned int& auiElement)
 {
     ((NiTLargeArray*)this)->SetAtGrow(cnt, auiElement);
 }
@@ -2461,7 +2461,7 @@ struct Collection_00861c60
 {
     unsigned int FUN_0084e3a0();
     unsigned int* FUN_00877a30(unsigned int index);
-    unsigned short FUN_00863d90(const unsigned int& value);
+    unsigned short AppendLargeArrayValue(const unsigned int& value);
 };
 struct FUN_00861c60_shell
 {
@@ -2509,7 +2509,7 @@ unsigned short FUN_00861c60_shell::FUN_00861c60(unsigned int value)
         if (currentValue == value)
             return static_cast<unsigned short>(index);
     }
-    return collection->FUN_00863d90(value);
+    return collection->AppendLargeArrayValue(value);
 }
 
 extern "C" char DAT_01081cf0[];
@@ -6674,7 +6674,7 @@ struct NumericArray
 {
     unsigned int FUN_0084e3a0();
     unsigned int* FUN_00877a30(unsigned int index);
-    unsigned int FUN_00863d90(const unsigned int& value);
+    unsigned int AppendLargeArrayValue(const unsigned int& value);
 };
 struct FUN_00861b70_Class
 {
@@ -6696,7 +6696,7 @@ unsigned int FUN_00861b70_Class::FindOrAddValue(unsigned int value)
             return index;
         }
     }
-    return (*(NumericArray**)((char*)this + 0x78))->FUN_00863d90(value);
+    return (*(NumericArray**)((char*)this + 0x78))->AppendLargeArrayValue(value);
 }
 
 struct FUN_004fd380_shell

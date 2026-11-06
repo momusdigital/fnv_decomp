@@ -100,6 +100,6 @@ class NiTransformInterpolator : public NiKeyBasedInterpolator
     bool Update(float, NiObjectNET*, NiQuatTransform&);
     PositionKeyInterpolator* FUN_00a3f990(unsigned int&, AnimationKey::KeyType&, unsigned char&);
     TimedRotationKey* FUN_0058cb00(unsigned int&, AnimationKey::KeyType&, unsigned char&);
-    TimedAnimationKey* FUN_00a3f9e0(unsigned int&, AnimationKey::KeyType&, unsigned char&);
+    TimedAnimationKey* GetScaleKeys(unsigned int&, AnimationKey::KeyType&, unsigned char&);
 };
 #endif

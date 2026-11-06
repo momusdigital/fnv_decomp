@@ -10,10 +10,10 @@ struct CIdvCamera
 {
     int m_auiShapeKeys;
     Vector3D m_kTranslation;
-    CIdvCamera& FUN_00b3f0c0(const CIdvCamera& other);
+    CIdvCamera& CopyCameraTranslation(const CIdvCamera& other);
 };
 // @fnv 0x00b3f0c0
-CIdvCamera& CIdvCamera::FUN_00b3f0c0(const CIdvCamera& other)
+CIdvCamera& CIdvCamera::CopyCameraTranslation(const CIdvCamera& other)
 {
     if (&other != this)
     {

@@ -401,7 +401,7 @@ bool __cdecl FUN_00501870(TESObjectREFR* apRef)
 
 struct FUN_0041c060_Cls
 {
-    char __thiscall FUN_0041c060();
+    char __thiscall GetTerminalState();
 };
 struct FUN_00501a30_shell
 {
@@ -415,7 +415,7 @@ int __thiscall FUN_00501a30_shell::FUN_00501a30(Script* apScript)
     char c = -1;
     if (apScript)
     {
-        c = ((FUN_0041c060_Cls*)apScript->GetReferencedObjectList())->FUN_0041c060();
+        c = ((FUN_0041c060_Cls*)apScript->GetReferencedObjectList())->GetTerminalState();
     }
     if (c < 0)
     {
@@ -442,7 +442,7 @@ void FUN_00501a80_shell::FUN_00501a80(Script* apScript, int aiValue)
 
 struct FUN_0041c060_shell
 {
-    char __thiscall FUN_0041c060();
+    char __thiscall GetTerminalState();
 };
 struct FUN_00501ae0_shell : FUN_005015d0_shell
 {
@@ -456,7 +456,7 @@ bool FUN_00501ae0_shell::FUN_00501ae0(TESObjectREFR* apRef)
     if (apRef)
     {
         char clock;
-        clock = ((FUN_0041c060_shell*)((Script*)apRef)->GetReferencedObjectList())->FUN_0041c060();
+        clock = ((FUN_0041c060_shell*)((Script*)apRef)->GetReferencedObjectList())->GetTerminalState();
         if (clock == -2)
             bunlocked = true;
         else if (clock != -1)

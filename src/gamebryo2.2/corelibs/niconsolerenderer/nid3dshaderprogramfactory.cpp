@@ -962,7 +962,7 @@ ShaderArg* FUN_00e93850(const char* p0, const char* p1, const char* apCreatorNam
 bool __cdecl FUN_00aa1a30(const char* pcName, int eMode);
 extern "C" int __cdecl FUN_00ec65a6(char* d, unsigned int n, const char* s);
 int __cdecl FUN_00aa0020(int, bool, const char*, ...);
-void __cdecl FUN_00e983f0(const char* pcPath, char* pcDrive, char* pcDir, char* pcFName, char* pcExt);
+void __cdecl SplitFilePath(const char* pcPath, char* pcDrive, char* pcDir, char* pcFName, char* pcExt);
 int __cdecl FUN_00a305b0(char* d, unsigned int n, const char* fmt, ...);
 struct ShPF_Node
 {
@@ -1021,7 +1021,7 @@ bool FindShaderProgramFile(const char* pcShaderName, char* pcResolvedPath, unsig
     char acDir[260];
     char acFileName[260];
     char acExt[256];
-    FUN_00e983f0(pcShaderName, acDrive, acDir, acFileName, acExt);
+    SplitFilePath(pcShaderName, acDrive, acDir, acFileName, acExt);
     ShPF_Node* kIter;
     const char* pcDir = ShPF_Get()->GetFirstDir(kIter);
     while (pcDir)
@@ -1055,7 +1055,7 @@ struct FUN_00a53c30_Map
     bool __thiscall FUN_00a53c30(const char* key, void*& value);
 };
 
-void __cdecl FUN_00e98430(const char* source, char* destination, unsigned int size);
+void __cdecl CopyFileExtension(const char* source, char* destination, unsigned int size);
 char __cdecl FUN_00ec67aa(int c);
 
 // Looks up a value in DAT_0126fa14 using the lowercased extension, or the filename when no extension is extracted.
@@ -1073,7 +1073,7 @@ void* __cdecl FUN_00e932f0(const char* pcFilename)
     if (pcFilename == 0 || *pcFilename == 0)
         return 0;
 
-    FUN_00e98430(pcFilename, acFileExt, 0x100);
+    CopyFileExtension(pcFilename, acFileExt, 0x100);
     source = acFileExt + 1;
     if (acFileExt[1] == 0)
         source = pcFilename;

@@ -183,7 +183,7 @@ int _tolower(int character);
 
 // Returns a pointer to the first case-insensitive occurrence of apString2 within apString1, or 0 if not found.
 // @fnv 0x004b75a0
-const char* FUN_004b75a0(const char* apString1, const char* apString2)
+const char* FindSubstringCaseInsensitive(const char* apString1, const char* apString2)
 {
     int j;
     int ilen2;

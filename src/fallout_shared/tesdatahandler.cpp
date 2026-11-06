@@ -7902,11 +7902,11 @@ void FUN_0046f640_shell::ProcessInventoryRecords(FNVFile* file, int remaining, i
 
 struct TopicLookup : public TESDataHandler
 {
-    TESTopic* __thiscall FUN_00461690(unsigned int id);
+    TESTopic* __thiscall LookupTopicByID(unsigned int id);
 };
 
 // @fnv 0x00461690
-TESTopic* __thiscall TopicLookup::FUN_00461690(unsigned int id)
+TESTopic* __thiscall TopicLookup::LookupTopicByID(unsigned int id)
 {
     return dynamic_cast<TESTopic*>(TESFormInitFlag::GetFormByID(id));
 }

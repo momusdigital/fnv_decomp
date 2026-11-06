@@ -157,7 +157,7 @@ bool BGSTextureSet::Load(TESFile* file)
 }
 
 // @fnv 0x00593210
-void FUN_00593210()
+void ResetNullTextureSet()
 {
     BGSTextureSet::s_pNullTextureSet = 0;
 }

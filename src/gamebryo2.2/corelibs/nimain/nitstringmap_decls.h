@@ -50,7 +50,7 @@ template <class T_Map, class T_Value> class NiTStringTemplateMap : public T_Map
 class ShaderBufferRecord;
 void __cdecl NiFree(void*);
 int NiStricmp(const char* a, const char* b);
-bool __stdcall FUN_00b7fce0(const char* left, const char* right);
+bool __stdcall EqualStringsCaseInsensitive(const char* left, const char* right);
 template <> class NiTPointerMap<const char*, ShaderBufferRecord*>
 {
   public:

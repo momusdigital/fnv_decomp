@@ -62,12 +62,12 @@ void __cdecl _FNV_Warning(const char*);
 
 struct Conversation_Stub
 {
-    short FUN_0083ba50(DialogueItem* item);
+    short FindDialogueItemIndex(DialogueItem* item);
 };
 
 // Walks the dialogue item list looking for item and returns its index, warning and returning 0 if not found.
 // @fnv 0x0083ba50
-short Conversation_Stub::FUN_0083ba50(DialogueItem* item)
+short Conversation_Stub::FindDialogueItemIndex(DialogueItem* item)
 {
     short index = 0;
     ListNode* node = (ListNode*)this;
@@ -617,7 +617,7 @@ struct CVNode
 struct CVConv : CVNode
 {
     CVNode* m_pConversationLoadContext;
-    short FUN_0083ba50(CVItem* item);
+    short FindDialogueItemIndex(CVItem* item);
     void SaveConversation();
 };
 
@@ -666,7 +666,7 @@ void CVConv::SaveConversation()
     *sVer7 = sIndex5;
     short pNode2 = -1;  // slot -0x08
     if (m_pConversationLoadContext)
-        pNode2 = FUN_0083ba50(*m_pConversationLoadContext->GetItem());
+        pNode2 = FindDialogueItemIndex(*m_pConversationLoadContext->GetItem());
     g_saveLoad->FUN_008579b0(&pNode2, 2);
     if (*g_011de4e8.Bool())
     {

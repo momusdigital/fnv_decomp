@@ -382,11 +382,11 @@ struct S_00c1beb0
     float* m_pBase;
     unsigned int m_uiMaxSize;
     unsigned int m_uiSize;
-    void FUN_00c1beb0(unsigned int);
+    void SetEmitterArrayCapacity(unsigned int);
 };
 // Reallocates m_pBase to hold uiNewMax floats, copies the existing m_uiSize elements, frees the old buffer and updates m_uiMaxSize.
 // @fnv 0x00c1beb0
-void S_00c1beb0::FUN_00c1beb0(unsigned int uiNewCapacity)
+void S_00c1beb0::SetEmitterArrayCapacity(unsigned int uiNewCapacity)
 {
     if (uiNewCapacity == m_uiMaxSize)
         return;
@@ -452,17 +452,17 @@ struct S240
     float* m0;
     unsigned int m4;
     unsigned int m8;
-    void FUN_00c1beb0(unsigned int);
+    void SetEmitterArrayCapacity(unsigned int);
     void PushBack(float const&);
 };
-// Grows the buffer via FUN_00c1beb0 when full, then stores x at m0[m8] and increments m8.
+// Grows the buffer via SetEmitterArrayCapacity when full, then stores x at m0[m8] and increments m8.
 // @fnv 0x00c1c240
 void S240::PushBack(float const& afValue)
 {
     if (m8 == m4)
     {
         unsigned int n = m4 > 0 ? m4 + m4 : 1;
-        FUN_00c1beb0(n);
+        SetEmitterArrayCapacity(n);
     }
     m0[m8++] = afValue;
 }
@@ -1275,7 +1275,7 @@ struct AgeSet : NiTPrimitiveSet_float_
     void Add(const float& fValue)
     {
         if (m_uiAllocatedCapacity == m_uiElementCount)
-            ((S_00c1beb0*)this)->FUN_00c1beb0(m_uiElementCount > 0 ? 2 * m_uiElementCount : 1);
+            ((S_00c1beb0*)this)->SetEmitterArrayCapacity(m_uiElementCount > 0 ? 2 * m_uiElementCount : 1);
         m_pBase[m_uiAllocatedCapacity++] = fValue;
     }
 };

@@ -90,7 +90,7 @@ float S_00eaea50::FUN_00eaea50(const NiPoint3& kV0, const NiPoint3& kV1, float f
 
 struct SegmentMethods : OriginDirectionPair
 {
-    NiPoint3 FUN_00eb6090(float parameter) const;
+    NiPoint3 EvaluateSegmentPoint(float parameter) const;
 };
 struct PointMethods
 {
@@ -126,7 +126,7 @@ struct ContactGeometry
 void ContactGeometry::ComputeContactPoint(const NiPoint3& velocity0, const NiPoint3& velocity1)
 {
     NiPoint3 kCapsulePoint =
-        static_cast<const SegmentMethods&>(m_pkCapsule->m_kOriginDirectionPair).FUN_00eb6090(m_fParam);
+        static_cast<const SegmentMethods&>(m_pkCapsule->m_kOriginDirectionPair).EvaluateSegmentPoint(m_fParam);
     const NiPoint3* __restrict pkSphereCenter = &m_pkSphere->m_kCenter;
     NiPoint3 kSpherePoint = *pkSphereCenter;
     if (m_eRequestType == 2)

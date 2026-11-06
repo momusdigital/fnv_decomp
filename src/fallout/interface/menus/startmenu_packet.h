@@ -197,7 +197,7 @@ class BGSSaveLoadFileEntry
     void
     ReadTypedData();  // ?ReadTypedData@BGSSaveLoadFileEntry@@QAEXXZ @ 0x00846900 (defined in the saveloadmanager unit)
     char* FUN_007d5140();       // ReadTypedData(); return m_pSaveFileName
-    NiTexture* FUN_007d5280();  // return spScreenshot
+    NiTexture* GetSaveScreenshot();  // return spScreenshot
 };
 
 class GlobalObject_0044f440

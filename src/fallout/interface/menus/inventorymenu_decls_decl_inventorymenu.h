@@ -129,7 +129,7 @@ class InventoryMenu : public Menu
     void UpdateDialog();
     static Tile* Create();
     static int FUN_0077ff80();
-    bool FUN_0077ff90();
+    bool HasAllInventoryTiles();
     void FUN_00867a20();
     static void UpdateItemList();
     static InventoryMenu* ms_pInventoryMenu;

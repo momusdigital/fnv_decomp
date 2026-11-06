@@ -580,7 +580,7 @@ class ActorValueStore
     ActorValueStore();
     void ResetCacheValues();
     bool FUN_00900400(ActorValue::Index);
-    void FUN_008c6f00(ActorValue::Index, float);
+    void SetCachedActorValue(ActorValue::Index, float);
     float GetFloatAt(ActorValue::Index);
     void InvalidateValue(ActorValue::Index);
 };

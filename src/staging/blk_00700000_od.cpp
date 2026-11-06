@@ -2323,7 +2323,7 @@ struct MenuFrameProvider
 };
 struct MenuFrame
 {
-    void FUN_00a237b0();
+    void FlushBufferedInput();
 };
 extern MenuFrameProvider* DAT_011dea0c;
 struct MenuGate
@@ -2467,7 +2467,7 @@ void MenuState::UpdateMenuSelection()
     if (*reinterpret_cast<int*>(reinterpret_cast<char*>(this) + 0xc) == 4 &&
         (!*reinterpret_cast<unsigned char*>(reinterpret_cast<char*>(this) + 0x11) || DAT_011dea10->FUN_00451530()))
     {
-        cursor->FUN_00a237b0();
+        cursor->FlushBufferedInput();
         *reinterpret_cast<int*>(reinterpret_cast<char*>(this) + 0xc) = 1;
         if (!FUN_004b71d0() || *reinterpret_cast<unsigned char*>(reinterpret_cast<char*>(this) + 0x7d))
         {
@@ -2643,7 +2643,7 @@ extern InventoryMenuSetting g_011d4a08;
 extern InventoryMenuSetting g_011d3fc4;
 void FUN_004046f0(char*, const char*);
 bool FUN_004b71d0();
-int FUN_004b75a0(const char*, const char*);
+int FindSubstringCaseInsensitive(const char*, const char*);
 // Looks up a setting for control and copies its string into output; if prefix is set, rewrites output as '%s %s' with a prefix string and that text.
 // @fnv 0x007039b0
 void __cdecl GetControlLabel(int control, char* output, bool prefix)
@@ -2687,7 +2687,7 @@ void __cdecl GetControlLabel(int control, char* output, bool prefix)
             text = output;
         else
             text = g_011d37b0.FUN_00403df0();
-        if (setting && setting->name && FUN_004b75a0(setting->name, "trigger"))
+        if (setting && setting->name && FindSubstringCaseInsensitive(setting->name, "trigger"))
             sprintf(output, "%s %s", g_011d4a08.FUN_00403df0(), text.String());
         else
             sprintf(output, "%s %s", g_011d3fc4.FUN_00403df0(), text.String());

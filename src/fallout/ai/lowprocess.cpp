@@ -9042,7 +9042,7 @@ struct E
 {
     P* FUN_0041cb10();
     int FUN_0041cb40();
-    void FUN_0041cae0(int);
+    void SetExtraPackageIndex(int);
     void SetExtraDataFlag(bool);
     void FUN_0041c930(P*, int, int, bool);
     void FUN_004211d0(int);
@@ -9112,7 +9112,7 @@ bool C::TrySelectTarget(R* ref, P** ppOut)
             if (!FUN_009079f0(ref, a))
             {
                 int c5 = FUN_0096a820(a->FUN_009611e0());
-                ref->FUN_005d43c0()->FUN_0041cae0(c5 - 1);
+                ref->FUN_005d43c0()->SetExtraPackageIndex(c5 - 1);
                 FUN_005ac750(a, ref->FUN_005d43c0(), 0x400);
                 v5a0(ref, a);
                 v5a8(true);

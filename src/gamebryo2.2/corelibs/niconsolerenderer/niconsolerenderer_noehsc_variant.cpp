@@ -1580,7 +1580,7 @@ struct RendererDeclarationOwner
     void* m_vertexDeclaration;
     unsigned int m_declarationState;
     VertexDeclarationDevice* m_device;
-    void* __thiscall FUN_00e696a0();
+    void* __thiscall GetOrCreateVertexDeclaration();
 };
 // FUN_00e69960 - 13-byte thiscall forwarder: loads the object at this+0x8b8,
 // reads its vtable slot +0x54 (index 21) and tail-jumps to it.
@@ -7163,7 +7163,7 @@ struct ConsoleRendererShaders
     int unk904;
     int unk908;
     ShaderList m_kShaderList;
-    void FUN_00e75380();
+    void UnloadAllShaders();
 };
 class E757E0Renderer
 {

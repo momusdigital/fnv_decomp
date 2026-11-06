@@ -188,10 +188,10 @@ struct WeightedResultList
     BSSimpleArray<void*, 1024> kResults;
     BSSimpleArray<void*, 1024> kWeights;
     int m_iTotalWeight;
-    void FUN_009b7990(BGSBodyPart* aResult, unsigned int aiWeight);
+    void AddWeightedBodyPart(BGSBodyPart* aResult, unsigned int aiWeight);
 };
 // @fnv 0x009b7990
-void WeightedResultList::FUN_009b7990(BGSBodyPart* aResult, unsigned int aiWeight)
+void WeightedResultList::AddWeightedBodyPart(BGSBodyPart* aResult, unsigned int aiWeight)
 {
     m_iTotalWeight += aiWeight;
     kWeights.Add((void*&)aiWeight);

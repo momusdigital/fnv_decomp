@@ -493,10 +493,10 @@ void TESImageSpaceModifier::EvaluateInterpolators(float startTime, float strengt
     }
     RgbaColor kCurrentColor(0.0f, 0.0f, 0.0f, 0.0f);
     m_kColorInterpolatorOne.Update(effectTime, 0, kCurrentColor);
-    kCurrentColor.FUN_005321d0(strength);
+    kCurrentColor.ScaleRGBA(strength);
     pManager->FUN_00b8b5c0(kCurrentColor);
     m_kColorInterpolatorTwo.Update(effectTime, 0, kCurrentColor);
-    kCurrentColor.FUN_005321d0(strength);
+    kCurrentColor.ScaleRGBA(strength);
     pManager->FUN_00b8b690(kCurrentColor);
     float interpolatedBlur;
     m_kFloatInterpolatorOne.Update(effectTime, 0, interpolatedBlur);
@@ -606,7 +606,7 @@ void TESImageSpaceModifier::InitializeModifierData()
 
 // Multiplies the r, g, b and a components by scale and returns a reference to this object.
 // @fnv 0x005321d0
-RgbaColor& RgbaColor::FUN_005321d0(float scale)
+RgbaColor& RgbaColor::ScaleRGBA(float scale)
 {
     r *= scale;
     g *= scale;

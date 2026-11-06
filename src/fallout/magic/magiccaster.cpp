@@ -214,10 +214,10 @@ void FUN_008156e0_This::FUN_008156e0(SpellItem* apSpell, bool abLoadCast)
 
 struct ProxyFor15820
 {
-    void FUN_00815820(MagicItem* apSpell, TESBoundObject* apSource, bool abLoadCast);
+    void CastSelectedMagicItem(MagicItem* apSpell, TESBoundObject* apSource, bool abLoadCast);
 };
 // @fnv 0x00815820
-void ProxyFor15820::FUN_00815820(MagicItem* apSpell, TESBoundObject* apSource, bool abLoadCast)
+void ProxyFor15820::CastSelectedMagicItem(MagicItem* apSpell, TESBoundObject* apSource, bool abLoadCast)
 {
     if (apSpell == 0)
         return;

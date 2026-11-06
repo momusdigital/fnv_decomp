@@ -93,7 +93,7 @@ struct NiPoint3
 struct CombatController
 {
     int __thiscall FUN_00981690(void* a, const NiPoint3& b, unsigned char c);
-    void __thiscall FUN_009816d0(int d);
+    void __thiscall SetCombatLookAtTarget(int d);
 };
 struct CombatProcedureEx
 {
@@ -105,7 +105,7 @@ struct CombatProcedureEx
 // @fnv 0x00996e60
 void CombatProcedureEx::SetLookAtPoint(const NiPoint3& arLookAtPoint, unsigned char acPriority)
 {
-    m_pCombatController->FUN_009816d0(m_pCombatController->FUN_00981690(this, arLookAtPoint, acPriority));
+    m_pCombatController->SetCombatLookAtTarget(m_pCombatController->FUN_00981690(this, arLookAtPoint, acPriority));
 }
 
 namespace fnv_00996ea0 {

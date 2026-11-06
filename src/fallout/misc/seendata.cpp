@@ -76,11 +76,11 @@ struct S79a
 {
     unsigned int pad;
     unsigned int arr[1];
-    bool FUN_00879a40(unsigned int idx, bool set);
+    bool SetSeenBitReturningPrevious(unsigned int idx, bool set);
 };
 // Reads the bit at idx from the bit array, sets or clears it depending on set, and returns the previous bit value.
 // @fnv 0x00879a40
-bool S79a::FUN_00879a40(unsigned int auiIndex, bool set)
+bool S79a::SetSeenBitReturningPrevious(unsigned int auiIndex, bool set)
 {
     unsigned int aWord;
     unsigned int bBit;
@@ -124,7 +124,7 @@ float __cdecl GetRuntimeFloatSetting37();
 struct SeenData_S
 {
     bool IsBitSet(unsigned int);
-    void FUN_00879a40(unsigned int, bool);
+    void SetSeenBitReturningPrevious(unsigned int, bool);
     bool HasEnoughSeenPoints(const NiPoint3& a, const NiPoint3& b);
 };
 
@@ -144,7 +144,7 @@ bool SeenData_S::HasEnoughSeenPoints(const NiPoint3& aPoint, const NiPoint3& aOf
                 Pt delta = diff - aPoint;
                 if (delta.Length() < GetRuntimeFloatSetting37())
                 {
-                    FUN_00879a40(uiIndex, true);
+                    SetSeenBitReturningPrevious(uiIndex, true);
                     iSeenCount++;
                 }
             }

@@ -196,11 +196,11 @@ struct BGSSaveLoadFileEntry;
 struct ListBox
 {
     bool SetSelection(Tile* apItem, int apSelect);
-    bool FUN_007d8d80(Tile* apSelectItem);
+    bool SelectListBoxTile(Tile* apSelectItem);
 };
 
 // @fnv 0x007d8d80
-bool ListBox::FUN_007d8d80(Tile* apSelectItem)
+bool ListBox::SelectListBoxTile(Tile* apSelectItem)
 {
     return SetSelection(apSelectItem, 1);
 }
@@ -1806,7 +1806,7 @@ struct ListBox_7223a0
     int unk08;
     int unk0c;
     Tile_7223a0* m_pSelected;
-    bool FUN_00724fd0();
+    bool IsListBoxEnabled();
     bool ContainsKey(Tile_7223a0*);
     void FUN_00725080();
     bool FUN_007223a0(Tile_7223a0* apTile);
@@ -1815,7 +1815,7 @@ struct ListBox_7223a0
 // @fnv 0x007223a0
 bool ListBox_7223a0::FUN_007223a0(Tile_7223a0* apTile)
 {
-    if (FUN_00724fd0() && (!apTile || (ContainsKey(apTile) && apTile->IsTraitNonZero(FUN_00a00940(_DAT_01070244, -1)))))
+    if (IsListBoxEnabled() && (!apTile || (ContainsKey(apTile) && apTile->IsTraitNonZero(FUN_00a00940(_DAT_01070244, -1)))))
     {
         m_pSelected = apTile;
         FUN_00725080();
@@ -2997,7 +2997,7 @@ struct FUN_007d8da0_cls
     void FUN_007d8da0(bool bFlag);
 };
 
-// Iterates the list starting at this+4 and calls FUN_007d8d80 on each tile, skipping entries whose byte at offset 8 is set when bFlag is true.
+// Iterates the list starting at this+4 and calls SelectListBoxTile on each tile, skipping entries whose byte at offset 8 is set when bFlag is true.
 // @fnv 0x007d8da0
 void FUN_007d8da0_cls::FUN_007d8da0(bool abSkipFlagged)
 {
@@ -3006,7 +3006,7 @@ void FUN_007d8da0_cls::FUN_007d8da0(bool abSkipFlagged)
     {
         if (!abSkipFlagged || ((unsigned char*)*FUN_006815c0(cur))[8] == 0)
         {
-            ((ListBox*)this)->FUN_007d8d80((Tile*)*(void**)*FUN_006815c0(cur));
+            ((ListBox*)this)->SelectListBoxTile((Tile*)*(void**)*FUN_006815c0(cur));
         }
     }
 }
@@ -4750,12 +4750,12 @@ class C4FD0ListBox
     int unk08;
     C4FD0Tile* m_pkTile;
 
-    bool FUN_00724fd0();
+    bool IsListBoxEnabled();
 };
 
 // Returns true if m_pkTile exists and its _enabled trait value is set, using a cached trait ID.
 // @fnv 0x00724fd0
-bool C4FD0ListBox::FUN_00724fd0()
+bool C4FD0ListBox::IsListBoxEnabled()
 {
     static int s_iEnabledTrait = C4FD0TraitNameToID("_enabled", -1);
     return m_pkTile && m_pkTile->GetBoolValue(s_iEnabledTrait);
@@ -6802,12 +6802,12 @@ class C7D8950ListBox
     bool IsActive();
     bool Contains(C7D8950Tile* pkTile);
     void UpdateSelection();
-    bool FUN_007d8950(C7D8950Tile* pkTile);
+    bool SelectEnabledListBoxTile(C7D8950Tile* pkTile);
 };
 
 // If active and the tile is null or contained and enabled, sets m_pkSelected to the tile, updates the selection and returns true; otherwise returns false.
 // @fnv 0x007d8950
-bool C7D8950ListBox::FUN_007d8950(C7D8950Tile* pkTile)
+bool C7D8950ListBox::SelectEnabledListBoxTile(C7D8950Tile* pkTile)
 {
     if (IsActive() && (!pkTile || (Contains(pkTile) && pkTile->GetBoolValue(C7D8950TraitNameToID("_enabled", -1)))))
     {
@@ -7399,7 +7399,7 @@ struct Box118
     Tile118* selected;
     int unk14, unk18;
     unsigned short count, flags;
-    bool FUN_00724fd0();
+    bool IsListBoxEnabled();
     Tile118* FUN_00722410(unsigned int action);
 };
 // @fnv 0x00722410
@@ -7426,7 +7426,7 @@ Tile118* Box118::FUN_00722410(unsigned int action)
                         : 0;
         break;
     }
-    if (FUN_00724fd0() && delta8 && count)
+    if (IsListBoxEnabled() && delta8 && count)
     {
         int maximum = count - 1;
         int iCurrent;

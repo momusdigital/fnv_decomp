@@ -2558,11 +2558,11 @@ class StrMapW {
 public:
     void* vtbl;
     unsigned int m_uiHashSize;
-    unsigned int FUN_00a0d440(const char* pKey);
+    unsigned int HashStringKey(const char* pKey);
 };
 // Computes a hash of the pKey string and returns it modulo m_uiHashSize.
 // @fnv 0x00a0d440
-unsigned int StrMapW::FUN_00a0d440(const char* pKey)
+unsigned int StrMapW::HashStringKey(const char* pKey)
 {
     unsigned int uiHash = 0;
     while (*pKey)

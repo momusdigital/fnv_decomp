@@ -930,7 +930,7 @@ struct ActorSub : Actor
     Location16 FUN_00575650();
     bool FUN_008b3b90();
     bool FUN_008b3960();
-    SearchRef* FUN_008b39d0();
+    SearchRef* GetActorPathingLocation();
     bool FUN_008b3bb0();
     void FUN_008bcd60();
     double GetMagicProcessValue();
@@ -1340,7 +1340,7 @@ void SearchProcedure::UpdateSearchState()
         {
             if (!pActor2->FUN_008b3960())
             {
-                SearchRef* p45c = pActor2->FUN_008b39d0();
+                SearchRef* p45c = pActor2->GetActorPathingLocation();
                 if (p45c && m_pPortalConnectivityGraphInfo)
                 {
                     p45c->FUN_006dd6f0(0);

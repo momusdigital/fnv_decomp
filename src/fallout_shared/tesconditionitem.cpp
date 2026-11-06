@@ -39,7 +39,7 @@ class TESConditionItem
     bool GetParamCount();
     void InitItem(TESForm*);
     bool ContainsTrait(TESObjectREFR*, TESObjectREFR*, bool&);
-    unsigned int FUN_005eb680();
+    unsigned int GetConditionFunctionID();
     int GetComparisonCondition();
 };
 #pragma pack(pop)
@@ -166,7 +166,7 @@ bool TESConditionItem::ContainsTrait(TESObjectREFR* pSubjectRef, TESObjectREFR* 
             pData = Compare(GetComparisonCondition(), (float)pParam, fComparison);
             if (!pData)
             {
-                unsigned int uiFunction = FUN_005eb680() + 0x1000;
+                unsigned int uiFunction = GetConditionFunctionID() + 0x1000;
                 switch (uiFunction)
                 {
                 case 0x104c:
@@ -203,7 +203,7 @@ void TESConditionItem::InitItem(TESForm* owner)
                 Warning(DAT_01069458, referenceID);
         }
     }
-    if (!g_scriptCommands[FUN_005eb680()].eval)
+    if (!g_scriptCommands[GetConditionFunctionID()].eval)
     {
         char buffer[0x410];
         if (owner->GetFormType() == 0x46)
@@ -224,7 +224,7 @@ void TESConditionItem::InitItem(TESForm* owner)
             sprintf(buffer, DAT_01069440, owner->FUN_00440e30(), owner->GetEditorID(), owner->GetFormID());
         }
         Warning(DAT_010693d8, buffer, ((TESDataHandler*)owner->GetFile(-1))->GetTESImageSpaceList(),
-                g_scriptCommands[FUN_005eb680()].name);
+                g_scriptCommands[GetConditionFunctionID()].name);
     }
     if (GetParamCount() && m_comparisonGlobal)
     {

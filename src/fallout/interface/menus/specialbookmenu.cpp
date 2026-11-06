@@ -561,7 +561,7 @@ struct Target6440 : SPECIALBookMenu
     int unk54;
     int unk58;
     int FUN_007ca030();
-    int FUN_00794d80();
+    int GetPlayerSPECIALTotal();
     bool HandleSpecialBookKey(unsigned int key, int unused);
 };
 // @fnv 0x007c6440
@@ -579,7 +579,7 @@ bool Target6440::HandleSpecialBookKey(unsigned int key, int unused)
             return true;
         case 3:
         case 9:
-            if (index != -1 && FUN_00794d80() < unk58 && g_thePlayer->values.GetValue(index) < 10)
+            if (index != -1 && GetPlayerSPECIALTotal() < unk58 && g_thePlayer->values.GetValue(index) < 10)
                 v03(2, 0);
             return true;
         }
@@ -1745,7 +1745,7 @@ void SpecialBookMenuX::InitMenu()
     }
 }
 
-int __fastcall FUN_00794d80(void*);
+int __fastcall GetPlayerSPECIALTotal(void*);
 int __cdecl MinInt(int, int);
 int __cdecl FUN_00647b70(int, int);
 
@@ -1979,7 +1979,7 @@ void BookMenu::HandleKey(unsigned int key, int unused)
     switch (key)
     {
     case 4:
-        if (FUN_00794d80(this) == limit)
+        if (GetPlayerSPECIALTotal(this) == limit)
             FUN_007c6120();
         else
             BSAudio::GetSingleton()->GetSoundHandleByEditorID("UIActivateNothing", 0x121).Play(false);
@@ -2004,7 +2004,7 @@ void BookMenu::HandleKey(unsigned int key, int unused)
             oldValue9 = ((BookPlayer*)g_thePlayer)->values.GetBaseValue(FUN_007ca030());
             if (key == 2)
             {
-                if (FUN_00794d80(this) < limit)
+                if (GetPlayerSPECIALTotal(this) < limit)
                     ((BookPlayer*)g_thePlayer)->FUN_0093a7c0(FUN_007ca030(), MinInt(oldValue9 + 1, 10));
             }
             else
@@ -2019,7 +2019,7 @@ void BookMenu::HandleKey(unsigned int key, int unused)
             oldValue9 = ((BookPlayer*)g_thePlayer)->values.GetBaseValue(stat);
             if (key == 2)
             {
-                if (FUN_00794d80(this) < limit)
+                if (GetPlayerSPECIALTotal(this) < limit)
                     ((BookPlayer*)g_thePlayer)->FUN_0093a7c0(stat, MinInt(oldValue9 + 1, 10));
             }
             else

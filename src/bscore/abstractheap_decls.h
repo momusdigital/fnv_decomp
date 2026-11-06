@@ -192,8 +192,8 @@ class AbstractHeap : public IMemoryHeap
     void BaseFree(void*);
     void RemoveBlockFromFreeList(HeapFreeBlock*);
     void PushBlock(MemoryBlockHeader*);
-    void FUN_00aa9d30(HeapFreeBlock*);
-    void FUN_00aa9e50(HeapFreeList*, HeapFreeBlock*);
+    void InsertFreeHeapBlock(HeapFreeBlock*);
+    void RemoveFreeHeapBlock(HeapFreeList*, HeapFreeBlock*);
     void IncrementSubBucket(int);
     void DecrementSubBucket(int);
     void RebuildFreeLists();

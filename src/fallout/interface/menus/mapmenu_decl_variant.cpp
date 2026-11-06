@@ -16,7 +16,7 @@ void MapMenu::FUN_0079af30()
 {
     int selected = -1;
     Tile* index = 0;
-    m_kQuestListBox.FUN_007a2350(false);
+    m_kQuestListBox.SetMapListBoxEnabled(false);
     m_kObjectiveListBox.SetEnabledTrait(false);
     m_kNoteListBox.FUN_007a30e0(false);
     m_kNoteListBox.FUN_007a5a30(false);

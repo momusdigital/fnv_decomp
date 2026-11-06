@@ -1525,7 +1525,7 @@ struct RaceComparer : TESRace
     char GetByteAtOffset(unsigned);
     float FUN_00613120();
     float GetFieldA4OrDefault();
-    TESAttributes* FUN_004fadc0();
+    TESAttributes* GetExplosionData();
     TESAttributes* FUN_006130e0();
     TESModel* FUN_00613970(unsigned, unsigned);
     TESTexture* GetBodyPartTexture(unsigned, unsigned);
@@ -1570,7 +1570,7 @@ bool RaceComparer::IsDifferentFrom(TESForm* form)
         return true;
     if (GetFieldA4OrDefault() != pOtherRace->GetFieldA4OrDefault())
         return true;
-    if (m_kMaleAttributes.CompareWithBase(pOtherRace->FUN_004fadc0()))
+    if (m_kMaleAttributes.CompareWithBase(pOtherRace->GetExplosionData()))
         return true;
     if (m_kFemaleAttributes.CompareWithBase(pOtherRace->FUN_006130e0()))
         return true;

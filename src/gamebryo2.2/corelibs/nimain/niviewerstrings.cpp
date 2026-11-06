@@ -93,7 +93,7 @@ void* __cdecl _NiMalloc(unsigned int);
 int __cdecl _NiSprintf(char*, unsigned int, const char*, ...);
 // Allocates a buffer sized to the string plus 10, formats "str = value" into it with _NiSprintf, and returns the buffer.
 // @fnv 0x00a7d450
-char* __cdecl FUN_00a7d450(const char* pcName, short value)
+char* __cdecl FormatShortViewerString(const char* pcName, short value)
 {
     unsigned int size = strlen(pcName) + 10;
     char* buf = (char*)_NiMalloc(size);

@@ -2606,10 +2606,10 @@ void FUN_00e69640_cls::FUN_00e69640(int a)
 
 struct VertexDeclarationElement { unsigned short stream,offset; unsigned char type,method,usage,m_ucUsageIndex; };
 struct VertexDeclarationDevice : Dev { virtual long __stdcall DrawPrimitiveUP(); virtual long __stdcall DrawIndexedPrimitiveUP(); virtual long __stdcall ProcessVertices(); virtual long __stdcall CreateVertexDeclaration(const VertexDeclarationElement*, void**); };
-struct RendererDeclarationOwner { unsigned int m_rendererFields[0xa0]; void* m_vertexDeclaration; unsigned int m_declarationState; VertexDeclarationDevice* m_device; void* __thiscall FUN_00e696a0(); };
+struct RendererDeclarationOwner { unsigned int m_rendererFields[0xa0]; void* m_vertexDeclaration; unsigned int m_declarationState; VertexDeclarationDevice* m_device; void* __thiscall GetOrCreateVertexDeclaration(); };
 // Creates the vertex declaration from a fixed element array on first use and returns it, or null if creation fails.
 // @fnv 0x00e696a0
-void* RendererDeclarationOwner::FUN_00e696a0() {
+void* RendererDeclarationOwner::GetOrCreateVertexDeclaration() {
  if (!m_vertexDeclaration) {
     VertexDeclarationElement elements[5] = { {0,0,2,0,0,0}, {0,12,2,0,3,0}, {0,24,4,0,10,0}, {0,28,1,0,5,0}, {255,0,17,0,0,0} };
     if (m_device->CreateVertexDeclaration(elements, &m_vertexDeclaration) < 0) m_vertexDeclaration = 0;
@@ -8546,11 +8546,11 @@ struct ConsoleRendererShaders {
     int unk904;
     int unk908;
     ShaderList m_kShaderList;
-    void FUN_00e75380();
+    void UnloadAllShaders();
 };
 
 // @fnv 0x00e75380
-void ConsoleRendererShaders::FUN_00e75380() {
+void ConsoleRendererShaders::UnloadAllShaders() {
     while (m_kShaderList.count != 0) {
         D3DShaderStub* pkShader = (D3DShaderStub*)m_kShaderList.head->data;
         pkShader->UnloadShader();
@@ -30291,7 +30291,7 @@ struct StripIndexManager { StripIndexBuffer* AcquireCachedResource(unsigned int,
 struct StripRenderer {
     void DrawExpanded(StripRendererData*, StripIndexBuffer*, unsigned int, void*, StripGeometryData*, StripStream*);
     unsigned int FUN_00e69790();
-    unsigned int FUN_00e696a0();
+    unsigned int GetOrCreateVertexDeclaration();
     void FUN_00e6d3a0(void*,void*,StripGeometryData*,unsigned int&,unsigned int&);
     void FUN_00e70720(StripGeometry*);
 
@@ -30899,8 +30899,8 @@ void StripRenderer::FUN_00e70720(StripGeometry* geometry)
         rd->SetComPointer(FUN_00e69790());
     } else {
         if (rd->streamCount > 0) rd->strides[0] = 36;
-        renderState->SetFormat(FUN_00e696a0(),false);
-        rd->SetComPointer(FUN_00e696a0());
+        renderState->SetFormat(GetOrCreateVertexDeclaration(),false);
+        rd->SetComPointer(GetOrCreateVertexDeclaration());
     }
     rd->primitiveType = 5;
     shader->v90();
@@ -34317,7 +34317,7 @@ struct RendererE70140 {
 
     FakeCOM_00e8f040* FUN_00e69790();
 
-    FakeCOM_00e8f040* FUN_00e696a0();
+    FakeCOM_00e8f040* GetOrCreateVertexDeclaration();
 
     void FUN_00e6ab40(unsigned int, unsigned int,unsigned int,unsigned int,unsigned int,unsigned int,unsigned int,unsigned int);
 
@@ -34437,7 +34437,7 @@ void RendererE70140::FUN_00e70140(SceneArg* apSceneArg)
         if (ib == 0) return;
         this->FUN_00e6ab40(ib, primitiveSize, m, p4c, k_field_8, p5c, p64, primitiveCount);
     } else {
-        handle = FUN_00e696a0();
+        handle = GetOrCreateVertexDeclaration();
         buffer->SetComPointer(handle);
         if (0 < buffer->streamSize) buffer->format[0] = 0x24;
         shader->FUN_00e8bfa0(buffer, 0);

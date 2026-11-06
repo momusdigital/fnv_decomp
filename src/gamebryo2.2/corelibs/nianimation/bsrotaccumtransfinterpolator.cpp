@@ -306,7 +306,7 @@ struct RotAccumInterpolator
     QuaternionValue previousRotation;
     void* FUN_00a3f990(unsigned int*, int*, unsigned char*);
     void* FUN_0058cb00(unsigned int*, int*, unsigned char*);
-    void* FUN_00a3f9e0(unsigned int*, int*, unsigned char*);
+    void* GetScaleKeys(unsigned int*, int*, unsigned char*);
     bool Evaluate(float time, RotationObject* object, TransformValue& result);
 };
 // Evaluates position, rotation and scale keys at time, applies rotation delta to object matrix, and stores the result in result.
@@ -358,7 +358,7 @@ bool RotAccumInterpolator::Evaluate(float time, RotationObject* object, Transfor
     }
     {
         int scaleType;
-        keys = FUN_00a3f9e0(&count, &scaleType, &stride);
+        keys = GetScaleKeys(&count, &scaleType, &stride);
         if (count > 0)
         {
             index = scaleIndex;

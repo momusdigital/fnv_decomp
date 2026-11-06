@@ -139,7 +139,7 @@ struct MemoryAllocationManager
 
 // Allocates stSizeInBytes (minimum 1) with stAlignment via the global memory manager, using allocation type 7.
 // @fnv 0x00aa10b0
-void* FUN_00aa10b0(unsigned int stSizeInBytes, unsigned int stAlignment)
+void* AllocateAlignedNiMemory(unsigned int stSizeInBytes, unsigned int stAlignment)
 {
     if (stSizeInBytes == 0)
         stSizeInBytes = 1;

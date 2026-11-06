@@ -3269,25 +3269,25 @@ struct blob12
     char b[12];
 };
 
-void __fastcall FUN_00884970(int, blob4);
+void __fastcall ClearActorFlags(int, blob4);
 
-// If the pointer at pThis[11] is non-null, forwards the blob4 argument to FUN_00884970 along with that pointer.
+// If the pointer at pThis[11] is non-null, forwards the blob4 argument to ClearActorFlags along with that pointer.
 // @fnv 0x00884940
 void __fastcall FUN_00884940(int* pThis, blob4 aBlob)
 {
     if (pThis[11] != 0)
-        FUN_00884970(pThis[11], aBlob);
+        ClearActorFlags(pThis[11], aBlob);
 }
 
 struct DummyClass_00884970
 {
     char pad[0x44];
     unsigned int flags;
-    void FUN_00884970(unsigned int mask);
+    void ClearActorFlags(unsigned int mask);
 };
 
 // @fnv 0x00884970
-void DummyClass_00884970::FUN_00884970(unsigned int mask)
+void DummyClass_00884970::ClearActorFlags(unsigned int mask)
 {
     flags &= ~mask;
 }
@@ -79683,11 +79683,11 @@ class C8B39D0Actor
     int unk18C;
     C8B39D0Pathing* m_pkPathing;
 
-    C8B39D0PathingLocation* FUN_008b39d0();
+    C8B39D0PathingLocation* GetActorPathingLocation();
 };
 
 // @fnv 0x008b39d0
-C8B39D0PathingLocation* C8B39D0Actor::FUN_008b39d0()
+C8B39D0PathingLocation* C8B39D0Actor::GetActorPathingLocation()
 {
     return m_pkPathing->GetPathingLocation();
 }
@@ -100300,7 +100300,7 @@ struct Extra89
     Extra89* FUN_00418520();
     void* FUN_004c8c10(int, int);
     void* FUN_0041d6d0();
-    void* FUN_00422b90();
+    void* GetSavedHavokData();
 };
 struct Base89
 {
@@ -101721,7 +101721,7 @@ bool Actor89::FUN_00881d30()
         creature1 = this;
     if (creature1 && node16 && !creature1->v38c())
         allow3 = false;
-    if (v22c(1) && allow3 && !FUN_005d43c0()->FUN_0041d6d0() && !FUN_005d43c0()->FUN_00422b90())
+    if (v22c(1) && allow3 && !FUN_005d43c0()->FUN_0041d6d0() && !FUN_005d43c0()->GetSavedHavokData())
         unk118 = true;
     newProcess23->FUN_008e4e50(this);
     v1fc(0);

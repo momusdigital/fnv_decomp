@@ -1694,7 +1694,7 @@ struct Buffer
     void SaveData(void*, unsigned, int);
 };
 char GetStatsMenuPage();
-unsigned char FUN_007824b0();
+unsigned char GetCurrentInventoryTab();
 float GetMapMenuFloatSetting();
 float GetTileFloatOrDefault();
 void FUN_00403d30(void*, int, unsigned);

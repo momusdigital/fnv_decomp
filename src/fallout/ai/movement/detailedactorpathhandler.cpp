@@ -1823,7 +1823,7 @@ struct FUN_005f0c80_shell
     bool FUN_005f0c80();
 };
 bool __fastcall GetByteAtOffset70(void*);
-bool __fastcall FUN_0097fb20(CombatState*);
+bool __fastcall IsWeaponSwitchPrevented(CombatState*);
 p07::NiPoint3 __cdecl FUN_009a8050(ActorStub*);
 p07::NiPoint3 __cdecl FUN_009a88e0(ActorStub*, B006815c0);
 extern double g_d100;
@@ -1846,7 +1846,7 @@ int FUN_009e16e0_shell::FUN_009e16e0(float afDeltaT)
     int eresult = -1;
     bool bimmobile = ((FUN_005f0c80_shell*)((XActor*)*(ActorStub**)((char*)this + 4))->GetActorBase())->FUN_005f0c80();
     if (!FUN_0087eeb0(*(ActorStub**)((char*)this + 4)) && !GetByteAtOffset70(*(void**)((char*)this + 8)) &&
-        !FUN_0097fb20(*(CombatState**)((char*)this + 8)))
+        !IsWeaponSwitchPrevented(*(CombatState**)((char*)this + 8)))
     {
         switch (*(unsigned int*)((char*)this + 0xc8))
         {
@@ -1960,7 +1960,7 @@ int FUN_009e16e0_shell::FUN_009e16e0(float afDeltaT)
                         inewMoveMode = (*(ActorMover**)((char*)this + 8))->GetPreferredMoveModeType();
                         fCurrentAngle += fclampedAngleDelta * fdir;
                     }
-                    if (!FUN_0097fb20(*(CombatState**)((char*)this + 8)))
+                    if (!IsWeaponSwitchPrevented(*(CombatState**)((char*)this + 8)))
                         *(unsigned int*)((char*)this + 0x60) = inewMoveMode;
                     if (!bimmobile || std::abs(fgoalLookAngle) <= DAT_01092478)
                         (*(ActorStub**)((char*)this + 4))->SetFurnitureHeading(fCurrentAngle);
@@ -6608,11 +6608,11 @@ struct PtrArrayView
     unsigned short m_usSize;
     unsigned short m_usElementCount;
 
-    void* FUN_009e98d0(unsigned int index);
+    void* RemovePathArrayItem(unsigned int index);
 };
 
 // @fnv 0x009e98d0
-void* PtrArrayView::FUN_009e98d0(unsigned int index)
+void* PtrArrayView::RemovePathArrayItem(unsigned int index)
 {
     if (index >= m_usSize)
     {

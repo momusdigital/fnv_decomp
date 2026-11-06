@@ -464,7 +464,7 @@ struct ShaderMapArray
         vtable = &DAT_010f003c;
     }
     ~ShaderMapArray();
-    void FUN_00b799c0();
+    void ClearObjectReferences();
 };
 struct FUN_00b7e330 : ShaderMapBase
 {
@@ -482,7 +482,7 @@ FUN_00b7e330::FUN_00b7e330(unsigned int mapId, unsigned int initMode)
 {
     enabled = 1;
     FUN_00e81d00(mapId);
-    activeEntries.FUN_00b799c0();
+    activeEntries.ClearObjectReferences();
 }
 
 extern unsigned int DAT_011f5f90[];

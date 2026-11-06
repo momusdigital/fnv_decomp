@@ -177,7 +177,7 @@ Tile* InventoryMenu::Create()
     {
         ms_pInventoryMenu->SetTileMenu(reinterpret_cast<TileMenu*>(pTile), false);
         ms_pInventoryMenu->FUN_00867a20();
-        if (!ms_pInventoryMenu->FUN_0077ff90())
+        if (!ms_pInventoryMenu->HasAllInventoryTiles())
         {
             Warning("MENUS: Inventory Menu Creation Failed... Are your menu and art resources up to date?");
             return 0;
@@ -223,7 +223,7 @@ int InventoryMenu::FUN_0077ff80()
 
 // Returns true only if every one of the kNumTiles tile pointers is non-null; otherwise returns false.
 // @fnv 0x0077ff90
-bool InventoryMenu::FUN_0077ff90()
+bool InventoryMenu::HasAllInventoryTiles()
 {
     for (int i = 0; i < kNumTiles; ++i)
     {
@@ -347,7 +347,7 @@ void FUN_00782470(bool a1)
 }
 
 // @fnv 0x007824b0
-unsigned char FUN_007824b0()
+unsigned char GetCurrentInventoryTab()
 {
     int currTab;
     if (InventoryMenu::ms_pInventoryMenu)

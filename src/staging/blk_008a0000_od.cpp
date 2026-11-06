@@ -2084,7 +2084,7 @@ struct MeBase
 };
 struct Player
 {
-    void FUN_00966e50();
+    void RecordPickpocketWarning();
 };
 extern Player* g_thePlayer;
 struct Me : MeBase
@@ -2151,7 +2151,7 @@ void Me::FUN_008bf500(void* arg)
     FUN_008d8520()->v10();
     FUN_008d8520()->v452(this);
     v189(pNewPkg, 0, 1);
-    g_thePlayer->FUN_00966e50();
+    g_thePlayer->RecordPickpocketWarning();
 }
 
 struct ThreeByThreeMatrix

@@ -118,7 +118,7 @@ void FUN_00e91fa0_shell::FUN_00e91fa0()
 
 struct NiConsoleRendererStub
 {
-    void FUN_00e75380();
+    void UnloadAllShaders();
 };
 struct FUN_00e91ea0_cls
 {
@@ -129,7 +129,7 @@ struct FUN_00e91ea0_cls
 void __fastcall FUN_00e91ea0(FUN_00e91ea0_cls* self, int)
 {
     if (self->renderer)
-        self->renderer->FUN_00e75380();
+        self->renderer->UnloadAllShaders();
 }
 
 // @fnv 0x00e91eb0

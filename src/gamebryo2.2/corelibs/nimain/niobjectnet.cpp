@@ -172,7 +172,7 @@ bhkSphereShape::bhkSphereShape(float radius, bool convert)
 #pragma optimize("", on)
 
 // @fnv 0x00a5c050
-void NiObjectNET::FUN_00a5c050()
+void NiObjectNET::ClearAnimationControllers()
 {
     if (m_pControllers)
     {
@@ -916,7 +916,7 @@ struct NetEqual : NiObjectNET
 };
 struct CountController : NiTimeController
 {
-    unsigned int FUN_00a6cd00();
+    unsigned int CountControllers();
 };
 
 // Compares two NiObjectNET objects by checking name handle, geometry controller extra data, and time controller lists for equality.
@@ -954,8 +954,8 @@ bool NetEqual::FUN_00a5c820(NiObjectNET* other)
     }
     NiTimeController* pOtherController = other->m_pControllers;
     NiTimeController* pController = m_pControllers;
-    unsigned int i = pController ? ((CountController*)pController)->FUN_00a6cd00() : 0;
-    unsigned int uiOtherControllerCount = pOtherController ? ((CountController*)pOtherController)->FUN_00a6cd00() : 0;
+    unsigned int i = pController ? ((CountController*)pController)->CountControllers() : 0;
+    unsigned int uiOtherControllerCount = pOtherController ? ((CountController*)pOtherController)->CountControllers() : 0;
     if (i != uiOtherControllerCount)
         goto fail;
     while (pController && pOtherController)

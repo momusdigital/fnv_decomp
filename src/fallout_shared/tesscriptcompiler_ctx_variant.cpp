@@ -291,9 +291,9 @@ void* FUN_00403d30(void*, int, unsigned);
 
 bool FUN_005afeb0(const char*);
 
-bool FUN_005b1a90(const char*, unsigned);
+bool HasBalancedParenthesisCount(const char*, unsigned);
 
-void FUN_005b1b60(const char*, unsigned*);
+void SkipScriptSeparators(const char*, unsigned*);
 
 CompileCommand* FUN_005b1120(int);
 
@@ -536,12 +536,12 @@ bool LineCompiler::FUN_005aff40(CompileScript* script, CompileState* compiler, C
             *(unsigned short*)(line->output + line->outputSize) = (unsigned short)(word6.variableID);
             line->outputSize += 2;
         }
-        if (!FUN_005b1a90(line->input, line->inputOffset))
+        if (!HasBalancedParenthesisCount(line->input, line->inputOffset))
         {
             ReportScriptError(compiler, "Syntax Error.  Mismatched parentheses in set command.");
             return false;
         }
-        FUN_005b1b60(line->input, &line->inputOffset);
+        SkipScriptSeparators(line->input, &line->inputOffset);
 
         char setText20[512];
         FUN_00403d30(setText20, 0, 512);
@@ -573,12 +573,12 @@ bool LineCompiler::FUN_005aff40(CompileScript* script, CompileState* compiler, C
     case 24: {
         offset_2 = 0;
 
-        if (!FUN_005b1a90(line->input, offset_2))
+        if (!HasBalancedParenthesisCount(line->input, offset_2))
         {
             ReportScriptError(compiler, "Mismatched parentheses.");
             return false;
         }
-        FUN_005b1b60(line->input, &offset_2);
+        SkipScriptSeparators(line->input, &offset_2);
 
         char branchText7[512];
         FUN_00403d30(branchText7, 0, 512);

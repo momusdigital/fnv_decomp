@@ -137,12 +137,12 @@ struct SharedAccumulatorState
     unsigned int unk1f8;
     unsigned int unk1fc;
     unsigned int sharedLock;
-    bool FUN_00b63b10(NiObject* object);
+    bool MarkSharedObjectOnce(NiObject* object);
 };
 
 // Locks sharedLock, checks if object is in sharedObjects, adds it if missing, and returns true when it was newly added.
 // @fnv 0x00b63b10
-bool SharedAccumulatorState::FUN_00b63b10(NiObject* object)
+bool SharedAccumulatorState::MarkSharedObjectOnce(NiObject* object)
 {
     bool value = false;
     EnterCriticalSection(&sharedLock);

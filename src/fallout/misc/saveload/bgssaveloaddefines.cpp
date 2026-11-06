@@ -362,7 +362,7 @@ void __cdecl FUN_00845cc0(const char* apMessage, ...)
 }
 
 // @fnv 0x00845d40
-unsigned int FUN_00845d40(unsigned int value)
+unsigned int GetSaveIntegerSizeTag(unsigned int value)
 {
     if (value <= 0xff)
         return 0;

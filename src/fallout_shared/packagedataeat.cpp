@@ -35,11 +35,11 @@ struct TESEatPackageData
 {
     void* m_Base;
     LocationDescriptor* m_pPackageTarget;
-    void FUN_0067bfa0(BGSLoadFormBuffer*);
+    void ResolveEatPackageTarget(BGSLoadFormBuffer*);
 };
 
 // @fnv 0x0067bfa0
-void TESEatPackageData::FUN_0067bfa0(BGSLoadFormBuffer* apLoadGameBuffer)
+void TESEatPackageData::ResolveEatPackageTarget(BGSLoadFormBuffer* apLoadGameBuffer)
 {
     if (m_pPackageTarget != 0)
     {

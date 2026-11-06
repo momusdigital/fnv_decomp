@@ -23793,7 +23793,7 @@ struct P130Anim : Animation
     bool FUN_004985f0();
     void FUN_004974a0();
     void FUN_004994f0(int, bool);
-    int FUN_00921e30();
+    int GetIdleControllerSequence();
 };
 struct P130Node
 {
@@ -24339,7 +24339,7 @@ bool P130Process::FUN_009213e0(P130Actor* actor)
             }
             package->FUN_00498910(true, false);
         }
-        else if (!package->FUN_00921e30() && ((P130IdlePtr*)&package->LocalInput)->FUN_00559450() &&
+        else if (!package->GetIdleControllerSequence() && ((P130IdlePtr*)&package->LocalInput)->FUN_00559450() &&
                  ((P130IdlePtr*)&package->LocalInput)->FUN_00559450()->FUN_0044ddc0() == 3)
         {
             actor->FUN_0088d640();

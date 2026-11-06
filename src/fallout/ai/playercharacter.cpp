@@ -69038,12 +69038,12 @@ struct PickPocketWarningState : Character
     unsigned int unk22c;
     int warningCount;
     float warningDelay;
-    void FUN_00966e50();
+    void RecordPickpocketWarning();
 };
 
 // Increments warningCount and, if warningDelay equals -1.0, sets it to the float value of originalRuntimeFloatSetting250.
 // @fnv 0x00966e50
-void PickPocketWarningState::FUN_00966e50()
+void PickPocketWarningState::RecordPickpocketWarning()
 {
     ++warningCount;
     if (warningDelay == -1.0)
@@ -69159,12 +69159,12 @@ struct StealWarningState : Character
     unsigned int unk224;
     int warningCount;
     float warningDelay;
-    void FUN_00966e00();
+    void RecordStealWarning();
 };
 
 // Increments warningCount and sets warningDelay to the runtime float setting 250 when warningDelay is -1.0.
 // @fnv 0x00966e00
-void StealWarningState::FUN_00966e00()
+void StealWarningState::RecordStealWarning()
 {
     ++warningCount;
     if (warningDelay == -1.0)

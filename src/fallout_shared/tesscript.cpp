@@ -64,7 +64,7 @@ void Script::ClearData()
 {
     ::operator delete(m_data);
     ::operator delete(m_pText);
-    FUN_005aa2e0();
+    DeleteScriptVariables();
     InitializeActionList();
 }
 
@@ -291,7 +291,7 @@ void FUN_005aa220_shell::ResetScriptData()
 
 // Deletes every item in the variable list and removes each head until the list is empty.
 // @fnv 0x005aa2e0
-void Script::FUN_005aa2e0()
+void Script::DeleteScriptVariables()
 {
     BSSimpleList<ScriptVariableInfo*>* pList = GetVariableList();
     while (pList && !pList->IsEmpty())
@@ -323,7 +323,7 @@ void FUN_005aa420_shell::CopyFromScript(Script* apScriptToCopy)
     InitializeActionList();
     CopyScriptReferences(apScriptToCopy->GetReferencedObjectList(), GetReferencedObjectList(), this);
 
-    FUN_005aa2e0();
+    DeleteScriptVariables();
     CopyListToView(apScriptToCopy->GetVariableList(), GetVariableList(), this);
 
     if (apScriptToCopy->GetText())
@@ -1761,7 +1761,7 @@ void ScriptInitOwner::InitFromCompileData(CStringArgument* apCompileData)
         this->SetScriptData(*(unsigned int*)((char*)this + 0x20), *(char**)((char*)apCompileData + 0x20));
 
         this->InitializeActionList();
-        this->FUN_005aa2e0();
+        this->DeleteScriptVariables();
 
         if (*(unsigned int*)((char*)this + 0x20) != 0)
         {

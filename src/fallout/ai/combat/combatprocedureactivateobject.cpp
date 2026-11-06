@@ -258,7 +258,7 @@ class S_Idle
     bool HasIdleForm(void* form);
     bool FUN_00498f80();
     S_FileEntry* GetFileEntry();
-    S_HY* FUN_00921e30();
+    S_HY* GetIdleControllerSequence();
     float FUN_00453700();
 };
 
@@ -352,7 +352,7 @@ void C_Ranged::FUN_009ca760()
                             const char* b = strrchr(str, '_');
                             if (b)
                                 val = (float)atof(b + 1);
-                            hy = idle->FUN_00921e30();
+                            hy = idle->GetIdleControllerSequence();
                             if (!hy || val < hy->FUN_004eec60(idle->FUN_00453700()))
                                 this->status = 2;
                         }

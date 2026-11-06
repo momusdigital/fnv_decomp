@@ -181,7 +181,7 @@ S_00ae5f70* __thiscall C_00ae5f70::Init(S_00ae5f70* pObject, int a2, int a3, int
 
 // Compares the unsigned ints pointed to by a and b, returning -1 if the first is smaller, 1 if larger, else 0.
 // @fnv 0x00ae5fb0
-int __cdecl FUN_00ae5fb0(unsigned int* puiLeft, unsigned int* puiRight)
+int __cdecl CompareUnsignedValues(unsigned int* puiLeft, unsigned int* puiRight)
 {
     unsigned int v1 = *puiLeft;
     unsigned int v2 = *puiRight;

@@ -415,5 +415,5 @@ class TESConditionItem
   public:
     unsigned char data[8];
     unsigned short function;
-    unsigned int FUN_005eb680();
+    unsigned int GetConditionFunctionID();
 };

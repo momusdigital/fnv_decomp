@@ -3,12 +3,12 @@
 #include "bgsexplosion_types_BGSExplosion.h"
 #include "bgsexplosion_decls.h"
 
-// Clears the explosion's field to 0 and calls InitExplosionData on the object returned by FUN_004fadc0.
+// Clears the explosion's field to 0 and calls InitExplosionData on the object returned by GetExplosionData.
 // @fnv 0x004fade0
 void BGSExplosion::ResetFormData()
 {
     m_pExplosionBoundObject = 0;
-    FUN_004fadc0()->InitExplosionData();
+    GetExplosionData()->InitExplosionData();
 }
 
 // @fnv 0x004fabf0
@@ -169,7 +169,7 @@ TESSound* EffectSetting::GetCastSound()
 }
 
 // @fnv 0x004fadc0
-ExplosionEffectSettings* BGSExplosion::FUN_004fadc0()
+ExplosionEffectSettings* BGSExplosion::GetExplosionData()
 {
     return &Data;
 }
@@ -271,7 +271,7 @@ struct FUN_00477950_shell : public BGSExplosion
 // @fnv 0x00477950
 bool FUN_00477950_shell::HasAnyFlags(unsigned int mask)
 {
-    return (FUN_004fadc0()->iFlags & mask) ? true : false;
+    return (GetExplosionData()->iFlags & mask) ? true : false;
 }
 
 struct FUN_005e79a0_t
@@ -299,7 +299,7 @@ bool BGSExplosionCompare::CompareTo(TESForm* form)
         return true;
     if (((FUN_005e79a0_t*)this)->FUN_00485270(pOther))
         return true;
-    if (memcmp((char*)this + 0x74, pOther->FUN_004fadc0(), 0x34))
+    if (memcmp((char*)this + 0x74, pOther->GetExplosionData(), 0x34))
         return true;
     if (reinterpret_cast<EffectSettingShell*>(this)->GetLight() !=
         reinterpret_cast<EffectSettingShell*>(pOther)->GetLight())
@@ -741,6 +741,6 @@ void __thiscall BGSExplosion_shell::FUN_004fb5a0(TESForm* apCopy)
     if (!pcopy)
         return;
     ((FUN_005e78f0_t*)this)->FUN_004851b0(pcopy);
-    memcpy(FUN_004fadc0(), pcopy->FUN_004fadc0(), 0x34);
+    memcpy(GetExplosionData(), pcopy->GetExplosionData(), 0x34);
     ((EffectSetting_shell*)this)->SetLight(((EffectSetting_shell*)pcopy)->GetLight());
 }

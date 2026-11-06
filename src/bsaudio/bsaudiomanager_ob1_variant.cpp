@@ -65,7 +65,7 @@ struct C_00ae5f70
 {
     S_00ae5f70* __thiscall Init(S_00ae5f70* p, int a2, int a3, int a4, int a5, int a6, int a7);
 };
-int __cdecl FUN_00ae5fb0(unsigned int* a, unsigned int* b);
+int __cdecl CompareUnsignedValues(unsigned int* a, unsigned int* b);
 extern int g_011f6ec8;
 extern int DAT_011f6ecc;
 extern int DAT_01202800;
@@ -10233,7 +10233,7 @@ struct SoundNode
     unsigned int index;
     char* description;
 };
-int __cdecl FUN_00ae5fb0(unsigned int*, unsigned int*);
+int __cdecl CompareUnsignedValues(unsigned int*, unsigned int*);
 struct SoundDebugDescription
 {
     char* message;
@@ -10557,6 +10557,6 @@ DebugList* AudioSystem::FUN_00ae5ff0(unsigned int filter)
         }
     }
     LeaveCriticalSection(&criticalSection);
-    head8->FUN_00ae81e0((int(__cdecl*)(SoundNode*, SoundNode*))FUN_00ae5fb0);
+    head8->FUN_00ae81e0((int(__cdecl*)(SoundNode*, SoundNode*))CompareUnsignedValues);
     return head8;
 }

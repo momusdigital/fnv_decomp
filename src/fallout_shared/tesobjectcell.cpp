@@ -18476,7 +18476,7 @@ struct SaveLoad
 {
     bool SetThreadAllowChanges(bool arg);
     bool FUN_0042ce10();
-    bool FUN_00849cc0(unsigned int id);
+    bool ContainsSavedReference(unsigned int id);
 };
 
 struct Cell
@@ -18557,7 +18557,7 @@ bool Cell::FUN_00550500(File* file)
             void* p2 = FUN_004839c0(id4);
             bool b6 = false;
             if (!g_saveLoad->FUN_0042ce10())
-                b6 = g_saveLoad->FUN_00849cc0(id4);
+                b6 = g_saveLoad->ContainsSavedReference(id4);
             bool b2 = false;
             if (file->FUN_00471c20() && !file->FUN_00464df0()->FUN_008256d0() &&
                 (file->GetRecordHeader()->flags & 0x20) != 0)

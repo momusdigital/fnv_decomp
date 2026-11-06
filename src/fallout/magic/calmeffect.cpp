@@ -11,12 +11,12 @@ struct MagicCaster
 };
 struct CalmEffect : ActiveEffect
 {
-    bool __thiscall FUN_0080ba50(MagicCaster*);
+    bool __thiscall ClearCalmCasterAndDispel(MagicCaster*);
     bool __thiscall ClearCasterIfMatch(MagicCaster*);
 };
 // Calls ClearCasterIfMatch on the caster; if it returns true, dispels the effect and returns that result.
 // @fnv 0x0080ba50
-bool __thiscall CalmEffect::FUN_0080ba50(MagicCaster* caster)
+bool __thiscall CalmEffect::ClearCalmCasterAndDispel(MagicCaster* caster)
 {
     bool result = ClearCasterIfMatch(caster);
     if (result)

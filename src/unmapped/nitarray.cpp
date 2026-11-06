@@ -4,7 +4,7 @@
 struct NiD3DShaderFactory
 {
     void UpdateShaderMaterialCache(void*);
-    void FUN_00e94050(void*);
+    void ApplyDirtyMaterial(void*);
 };
 
 struct NiD3DRenderState
@@ -17,7 +17,7 @@ struct NiD3DRenderState
 void NiD3DRenderState::FUN_00e87980(void* apData)
 {
     ((NiD3DShaderFactory*)((char*)this + 0xf8))->UpdateShaderMaterialCache(apData);
-    ((NiD3DShaderFactory*)((char*)this + 0xf8))->FUN_00e94050(*(void**)((char*)this + 0x10f8));
+    ((NiD3DShaderFactory*)((char*)this + 0xf8))->ApplyDirtyMaterial(*(void**)((char*)this + 0x10f8));
 }
 
 struct FUN_009ba5f0_shell
@@ -436,7 +436,7 @@ struct S_00e87690_Arr
     unsigned short size;
     unsigned short esize;
     unsigned short grow;
-    void FUN_00b799c0() throw();
+    void ClearObjectReferences() throw();
     ~S_00e87690_Arr() throw()
     {
         DeleteNiNodePointerArray(data);
@@ -485,7 +485,7 @@ FUN_00e87690::~FUN_00e87690() throw()
                 p->v1();
         }
     }
-    a1.FUN_00b799c0();
+    a1.ClearObjectReferences();
     for (unsigned int i = 0; i < a2.maxSize; i++)
     {
         S_00e87690_Obj* p = a2.data[i];
@@ -498,7 +498,7 @@ FUN_00e87690::~FUN_00e87690() throw()
                 p->v1();
         }
     }
-    a2.FUN_00b799c0();
+    a2.ClearObjectReferences();
     unk3c = 0;
     if (unk38)
         unk38->Release();
@@ -1288,11 +1288,11 @@ class NiTArrayX
         return uiIndex;
     }
 
-    unsigned int FUN_00c1f360(const ElemPtr& element);
+    unsigned int InsertFirstEmptySlot(const ElemPtr& element);
 };
 
 // @fnv 0x00c1f360
-unsigned int NiTArrayX::FUN_00c1f360(const ElemPtr& element)
+unsigned int NiTArrayX::InsertFirstEmptySlot(const ElemPtr& element)
 {
     if (element == ElemPtr(0))
         return (unsigned int)~0;
@@ -1375,11 +1375,11 @@ struct MaterialUploadState
 {
     void* currentMaterial;
     bool dirty;
-    void FUN_00e94050(MaterialDeviceView* device);
+    void ApplyDirtyMaterial(MaterialDeviceView* device);
 };
 
 // @fnv 0x00e94050
-void MaterialUploadState::FUN_00e94050(MaterialDeviceView* device)
+void MaterialUploadState::ApplyDirtyMaterial(MaterialDeviceView* device)
 {
     if (dirty)
     {

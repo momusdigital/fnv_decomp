@@ -745,7 +745,7 @@ void* FUN_00aa2d60_cls::FUN_00aa2d60()
     return m_10;
 }
 
-void FUN_00aa2e60();
+void ReadMemoryStream();
 void FUN_00aa2ea0();
 
 struct S_00aa2fb0_Base
@@ -772,7 +772,7 @@ struct FUN_00aa2fb0 : S_00aa2fb0_Base
 FUN_00aa2fb0::FUN_00aa2fb0(void* a, unsigned int b) : unk10(a), unk14(0), unk1c(b), unk20(1), unk21(0)
 {
     unk18 = b;
-    unk08 = FUN_00aa2e60;
+    unk08 = ReadMemoryStream;
     unk0c = FUN_00aa2ea0;
 }
 

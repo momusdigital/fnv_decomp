@@ -7,7 +7,7 @@
 struct NiD3DShaderFactory
 {
     void UpdateShaderMaterialCache(void*);
-    void FUN_00e94050(void*);
+    void ApplyDirtyMaterial(void*);
 };
 struct NiD3DRenderState
 {

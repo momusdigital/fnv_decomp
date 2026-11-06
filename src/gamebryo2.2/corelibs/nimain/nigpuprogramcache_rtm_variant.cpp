@@ -354,7 +354,7 @@ struct S_00ee97e0_Cls
     int unk30;
     int unk34;
     bool WriteToStream(S_00ee97e0_Stream* s, S_00ee97e0_Obj* o, int* v);
-    void FUN_00ee9230(S_00ee97e0_Stream* s, int v);
+    void WriteLengthPrefixedString(S_00ee97e0_Stream* s, int v);
 };
 // CreateRecordPair - allocate a 12 byte record from the global allocator
 // (DAT_011f6238) and clear its two counter fields.  When the allocation
@@ -679,7 +679,7 @@ inline void S_00ee9230_WriteBinary(S_00ee9230_Stream* pkStream, const void* pvBu
 {
     pkStream->m_uiPos += pkStream->m_pfnWrite(pkStream, pvBuffer, uiBytes, &uiComponentSize, 1);
 }
-bool __stdcall FUN_00ee9230(S_00ee9230_Stream* pkStream, const char* pcString);
+bool __stdcall WriteLengthPrefixedString(S_00ee9230_Stream* pkStream, const char* pcString);
 class NiFileE93
 {
   public:
@@ -873,7 +873,7 @@ class GpuCacheWriter
     PathString m_1c;
     PathString m_20;
 
-    void FUN_00ee9230(StreamObj* s, unsigned int v);
+    void WriteLengthPrefixedString(StreamObj* s, unsigned int v);
     __forceinline bool CanSave()
     {
         return m_1c.Exists() && (((bool(__cdecl*)(const char*))FUN_00aa1ab0)(m_1c) || FUN_00aa1bb0(m_1c));
@@ -936,7 +936,7 @@ struct ShaderEntry : RefObjBase
     void SetName(const FixedStr& s);
     void FUN_00eea650(const FixedStr& s);
     void FUN_00eea690(const FixedStr& s);
-    void FUN_00eea6d0(const FixedStr& s);
+    void SetLookAtTargetName(const FixedStr& s);
     void AssignRefCounted(const FixedStr& s);
     void FUN_00eea540(unsigned int v);
     void FUN_00eea550(unsigned int v);
@@ -1154,7 +1154,7 @@ bool ShaderLib::FUN_00ee9cc0(S_00a8d8b0* s, bool& changed)
             ReadStr(s, buf);
             FixedStr t4;
             t4.m_kHandle = NiGlobalStringTable::AddString(buf);
-            e->FUN_00eea6d0(t4);
+            e->SetLookAtTargetName(t4);
             ReleaseStr(t4);
             ReadStr(s, buf);
             FixedStr t5;

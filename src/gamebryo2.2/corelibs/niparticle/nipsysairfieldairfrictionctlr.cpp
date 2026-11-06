@@ -130,11 +130,11 @@ struct WorkerAirFriction : NiPSysAirFieldAirFrictionCtlr
     int unk0c, unk10, unk14, unk18, unk1c, unk20, unk24, unk28;
     int unk2c, unk30, unk34, unk38;
     WorkerTarget* target;
-    void __thiscall FUN_00c307e0(volatile float value);
+    void __thiscall SetAirFrictionClamped(volatile float value);
 };
 // Clamps value to [0,1] and stores it in target->targetValue.
 // @fnv 0x00c307e0
-void WorkerAirFriction::FUN_00c307e0(float value)
+void WorkerAirFriction::SetAirFrictionClamped(float value)
 {
     WorkerTarget* pTarget = target;
     float clamped = value;

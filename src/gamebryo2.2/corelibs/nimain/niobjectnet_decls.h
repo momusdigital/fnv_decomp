@@ -121,7 +121,7 @@ class NiObjectNET : public NiObject
     void AddController(NiTimeController*);
     void GetNumChildren();
     bool ResizeExtraData(unsigned short);
-    void FUN_00a5c050();
+    void ClearAnimationControllers();
     void RefreshExtraData();
     bool AddExtraData(NiExtraData*);
     virtual void LinkObject(NiStream&);

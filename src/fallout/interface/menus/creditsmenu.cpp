@@ -644,7 +644,7 @@ extern SettingGS DAT_011d3684;
 extern SettingGS DAT_011d34f8;
 extern SettingStr DAT_011d39b4;
 unsigned int __cdecl FUN_0044a670(const char* apString);
-int __cdecl FUN_004b75a0(const char* apA, const char* apB);
+int __cdecl FindSubstringCaseInsensitive(const char* apA, const char* apB);
 void __cdecl FUN_00703e80(const char* apMessage, int a2, int a3, void(__cdecl* apCallback)(), int a5, int a6, float a7,
                           float a8, const char* apButton1, const char* apButton2, int a11);
 
@@ -664,7 +664,7 @@ void __cdecl CheckSaveNameConflict()
                 DAT_011d9474 = (int)*pkNode->FUN_006815c0();
                 if (((ValueReferencePair*)DAT_011d9474)->FUN_00846b10() &&
                     ((ValueReferencePair*)DAT_011d9474)->FUN_0075f8c0() &&
-                    FUN_004b75a0(DAT_011de134->kName.FUN_00559450(),
+                    FindSubstringCaseInsensitive(DAT_011de134->kName.FUN_00559450(),
                                  ((ValueReferencePair*)DAT_011d9474)->FUN_00559450()))
                 {
                     FUN_00703e80(DAT_011d39b4.FUN_004c69f0(), 0, 0, FUN_00761410, 0, 0x12, 0.0f, 0.0f,

@@ -596,7 +596,7 @@ struct ClothingVirtual
 void __cdecl ReadFullName(TESFullName*, RecordReader*);
 void __cdecl FUN_004781e0(BGSDestructibleObjectForm*, RecordReader*);
 void __cdecl FUN_004892d0(ModelSegment*, RecordReader*);
-void __cdecl FUN_004893e0(ModelSegment*, RecordReader*);
+void __cdecl LoadModelTextures(ModelSegment*, RecordReader*);
 void __cdecl FUN_0048a990(ModelSegment*, RecordReader*);
 struct ClothingLoader
 {
@@ -695,7 +695,7 @@ bool ClothingLoader::ReadFromStream(RecordReader* reader)
             break;
         }
         case 0x54444f4d: {
-            FUN_004893e0(&(&this->biped)->male, reader);
+            LoadModelTextures(&(&this->biped)->male, reader);
             break;
         }
         case 0x53444f4d: {
@@ -717,7 +717,7 @@ bool ClothingLoader::ReadFromStream(RecordReader* reader)
             break;
         }
         case 0x54324f4d: {
-            FUN_004893e0(&(&this->biped)->male4, reader);
+            LoadModelTextures(&(&this->biped)->male4, reader);
             break;
         }
         case 0x53324f4d: {
@@ -749,7 +749,7 @@ bool ClothingLoader::ReadFromStream(RecordReader* reader)
             break;
         }
         case 0x54334f4d: {
-            FUN_004893e0(&(&this->biped)->female, reader);
+            LoadModelTextures(&(&this->biped)->female, reader);
             break;
         }
         case 0x53334f4d: {
@@ -763,7 +763,7 @@ bool ClothingLoader::ReadFromStream(RecordReader* reader)
             break;
         }
         case 0x54344f4d: {
-            FUN_004893e0(&(&this->biped)->female4, reader);
+            LoadModelTextures(&(&this->biped)->female4, reader);
             break;
         }
         case 0x53344f4d: {

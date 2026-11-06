@@ -7395,7 +7395,7 @@ extern void* DAT_011f3d1c;
 extern void* DAT_011f3b6c;
 extern void* DAT_011f380c;
 extern void* DAT_011f389c;
-void __cdecl FUN_00a2cdc0();
+void __cdecl LoadBooleanKeyArray();
 void __cdecl FUN_00a2cc60();
 void __cdecl FUN_00a2cc10();
 void __cdecl AllocateArr8Array();
@@ -7416,7 +7416,7 @@ int __cdecl FUN_00a2ce20()
     DAT_011f3dac = 0;
     DAT_011f3c8c = 0;
     DAT_011f3bfc = 0;
-    DAT_011f3e3c = (void*)FUN_00a2cdc0;
+    DAT_011f3e3c = (void*)LoadBooleanKeyArray;
     DAT_011f3adc = (void*)FUN_00a2cc60;
     DAT_011f3a4c = (void*)FUN_00a2cc10;
     DAT_011f39bc = (void*)AllocateArr8Array;

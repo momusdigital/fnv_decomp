@@ -294,11 +294,11 @@ struct CombatState
 typedef char _sizecheck_CombatState[sizeof(CombatState) == 556 ? 1 : -1];
 struct FUN_0097fb20_shell : public CombatState
 {
-    bool FUN_0097fb20();
+    bool IsWeaponSwitchPrevented();
 };
 
 // @fnv 0x0097fb20
-bool __fastcall FUN_0097fb20(CombatState* pThis)
+bool __fastcall IsWeaponSwitchPrevented(CombatState* pThis)
 {
     return pThis->m_bWeaponSwitchPrevented;
 }
@@ -1291,11 +1291,11 @@ struct Holder_009816d0
     unsigned char pad[296];
     Pt_009816d0 arr128[2];
     unsigned char arr140[2];
-    void FUN_009816d0(unsigned char acIndex, const Pt_009816d0& arLookAtTarget, unsigned char acPriority);
+    void SetCombatLookAtTarget(unsigned char acIndex, const Pt_009816d0& arLookAtTarget, unsigned char acPriority);
 };
 // Stores a look-at target point and a priority byte into the slot selected by acIndex.
 // @fnv 0x009816d0
-void Holder_009816d0::FUN_009816d0(unsigned char acIndex, const Pt_009816d0& arLookAtTarget, unsigned char acPriority)
+void Holder_009816d0::SetCombatLookAtTarget(unsigned char acIndex, const Pt_009816d0& arLookAtTarget, unsigned char acPriority)
 {
     arr128[acIndex] = arLookAtTarget;
     arr140[acIndex] = acPriority;

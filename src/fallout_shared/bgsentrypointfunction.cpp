@@ -34,7 +34,7 @@ float RandomFloat(float afMin, float afMax);
 
 // Validates arguments, then adds a random float between the source's two values to the first value in apapValues.
 // @fnv 0x005e5d80
-void FUN_005e5d80(int aiArg1, int aiArg2, unsigned char aucArgCount, float** apapValues,
+void AddRandomEntryPointValue(int aiArg1, int aiArg2, unsigned char aucArgCount, float** apapValues,
                   EntryPointValueSource* apSource)
 {
     if (!ValidateEntryFunctionArgs(0, 2, aiArg1, aiArg2, aucArgCount, apapValues, apSource))
@@ -185,7 +185,7 @@ bool ValidateEntryFunctionArgs(int aiFunctionType, int aiDataType, int aiArg1, i
 
 // Validates entry function arguments, then sets the first value in apapValues to its absolute value.
 // @fnv 0x005e5ea0
-void __cdecl FUN_005e5ea0(int aiArg1, int aiArg2, unsigned char aucArgCount, float** apapValues,
+void __cdecl SetEntryPointAbsoluteValue(int aiArg1, int aiArg2, unsigned char aucArgCount, float** apapValues,
                           EntryPointValueSource* apSource)
 {
     float* pfValue;
@@ -200,7 +200,7 @@ class EntryPointValueSource;
 bool ValidateEntryFunctionArgs(int, int, int, int, unsigned char, float**, EntryPointValueSource*);
 
 // @fnv 0x005e5ef0
-void FUN_005e5ef0(int aiArg1, int aiArg2, unsigned char aucArgCount, float** apapValues,
+void SetEntryPointNegativeAbsoluteValue(int aiArg1, int aiArg2, unsigned char aucArgCount, float** apapValues,
                   EntryPointValueSource* apSource)
 {
     if (!ValidateEntryFunctionArgs(0, 0, aiArg1, aiArg2, aucArgCount, apapValues, apSource))

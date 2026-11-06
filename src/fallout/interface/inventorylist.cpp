@@ -8,7 +8,7 @@ struct InventoryStackRecord
 };
 int __cdecl _mbscmp(const unsigned char*, const unsigned char*);
 // @fnv 0x00719c80
-int __cdecl FUN_00719c80(InventoryStackRecord* pFirst, InventoryStackRecord* pSecond)
+int __cdecl CompareInventoryItemNames(InventoryStackRecord* pFirst, InventoryStackRecord* pSecond)
 {
     return _mbscmp(pFirst->GetFullName(), pSecond->GetFullName());
 }

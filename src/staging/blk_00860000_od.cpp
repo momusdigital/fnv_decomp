@@ -2043,7 +2043,7 @@ struct FUN_00853670_shell
     void FUN_00853670(int value);
 };
 
-unsigned int __cdecl FUN_00845d40(unsigned int value);
+unsigned int __cdecl GetSaveIntegerSizeTag(unsigned int value);
 unsigned int __cdecl FUN_00845d70(unsigned int value);
 void __cdecl WriteTypedValue(void* destination, unsigned int source, unsigned int count);
 
@@ -2057,7 +2057,7 @@ struct FUN_008665d0_class
 // @fnv 0x008665d0
 void FUN_008665d0_class::FUN_008665d0(void* source, unsigned int size, int value, unsigned char flag)
 {
-    unsigned int data4 = FUN_00845d40(size);
+    unsigned int data4 = GetSaveIntegerSizeTag(size);
     unsigned int totalSize = FUN_00845d70(data4);
     unsigned int encodedSize = size + totalSize + 2;
     void* object = operator new(encodedSize);

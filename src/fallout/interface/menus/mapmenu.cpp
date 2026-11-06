@@ -1377,7 +1377,7 @@ struct ListBoxS
     virtual void V8(bool(__cdecl*)(void*));
     Tile* FUN_007a44e0(BGSQuestObjective*, const char*, int, int);
     Tile* InsertTileFromTemplate(TESQuest*, const char*, int, int);
-    void FUN_007a2350(bool);
+    void SetMapListBoxEnabled(bool);
     void ApplyObjectiveFilter(bool(__cdecl*)(MagicCaster_shell*));
 };
 struct FUN_0079b8e0_shell
@@ -1441,7 +1441,7 @@ void FUN_0079b8e0_shell::UpdateQuestObjectiveList()
     }
     ((ListBoxS*)((char*)this + 0x1c0))->V8(FUN_0079bc90);
     ((ListBoxS*)((char*)this + 0x130))->V8(FUN_0079bc90);
-    ((ListBoxS*)((char*)this + 0x130))->FUN_007a2350(true);
+    ((ListBoxS*)((char*)this + 0x130))->SetMapListBoxEnabled(true);
     if (FUN_005cbb50((char*)_g_thePlayer))
     {
         Tile* pactiveQuestTile;
@@ -6777,12 +6777,12 @@ struct ListBoxEnable
     int unk04;
     int unk08;
     Tile* pParentTile;
-    void FUN_007a2350(bool bEnabled);
+    void SetMapListBoxEnabled(bool bEnabled);
 };
 
 // Stores bEnabled into pParentTile under the _enabled trait key.
 // @fnv 0x007a2350
-void ListBoxEnable::FUN_007a2350(bool bEnabled)
+void ListBoxEnable::SetMapListBoxEnabled(bool bEnabled)
 {
     static int kListBoxEnabled = GetTileValueID("_enabled", -1);
     pParentTile->Set(kListBoxEnabled, bEnabled);
@@ -6912,7 +6912,7 @@ struct AQ
 };
 struct BQ
 {
-    void FUN_007a2350(int);
+    void SetMapListBoxEnabled(int);
 };
 struct CQ
 {
@@ -6951,7 +6951,7 @@ void OwnQ::HandleEvent(int iEvent, RQ* pRef)
         kA160.FUN_007a30e0(1);
         break;
     case 15:
-        kB130.FUN_007a2350(1);
+        kB130.SetMapListBoxEnabled(1);
         kC1c0.SetEnabledTrait(0);
         break;
         break;
@@ -7949,7 +7949,7 @@ struct SelectedIndex
 };
 struct QuestSelection
 {
-    void FUN_007a2350(bool);
+    void SetMapListBoxEnabled(bool);
 };
 struct MapEnterNoteSelection : ListBox<BGSNote*>
 {
@@ -8036,7 +8036,7 @@ void Reconstruction798cb0::FUN_00798cb0(int aiEventCode, Tile* tile)
         ((MapEnterNoteSelection*)&m_kNoteListBox)->FUN_007a30e0(false);
         break;
     case 15:
-        ((QuestSelection*)&m_kQuestListBox)->FUN_007a2350(false);
+        ((QuestSelection*)&m_kQuestListBox)->SetMapListBoxEnabled(false);
         ((MapEnterObjectiveSelection*)&m_kObjectiveListBox)->SetEnabledTrait(true);
         break;
     case -1:

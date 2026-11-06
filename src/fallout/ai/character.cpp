@@ -2945,7 +2945,7 @@ struct PackBF
 void* __cdecl CreatePackageByType(int);
 struct GlobalBF
 {
-    void FUN_00966e00();
+    void RecordStealWarning();
 };
 extern "C" char DAT_011dea3c;
 struct ActorBF0 : SlotsBF<162, EmptyBF>
@@ -2990,7 +2990,7 @@ void ActorBF::FUN_008bf7b0(void* arg, int unused)
     FUN_008d8520()->clear();
     FUN_008d8520()->update(this);
     apply(pack, 0, true);
-    (*(GlobalBF**)&DAT_011dea3c)->FUN_00966e00();
+    (*(GlobalBF**)&DAT_011dea3c)->RecordStealWarning();
 }
 
 struct AssignedProcess

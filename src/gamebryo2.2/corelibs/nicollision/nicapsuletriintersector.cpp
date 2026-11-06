@@ -32,7 +32,7 @@ struct S_eb5ce0_Pt
     {
         return S_eb5ce0_Pt(-x, -y, -z);
     }
-    const S_eb5ce0_Pt* FUN_00eb3830(const S_eb5ce0_Pt* p);
+    const S_eb5ce0_Pt* GetTriangleUnitNormal(const S_eb5ce0_Pt* p);
 };
 struct S_eb5ce0_Obj
 {
@@ -55,13 +55,13 @@ struct S_eb5ce0_Obj
     float s68;
     void FUN_00eb5ce0(int unused, const S_eb5ce0_Pt* d);
 };
-// Recomputes p20 from p3c, pA, pB and s64/s68, sets p2c to the negated result of FUN_00eb3830 on p3c, and offsets p20 by d*unk1c when mode is 2.
+// Recomputes p20 from p3c, pA, pB and s64/s68, sets p2c to the negated result of GetTriangleUnitNormal on p3c, and offsets p20 by d*unk1c when mode is 2.
 // @fnv 0x00eb5ce0
 void S_eb5ce0_Obj::FUN_00eb5ce0(int unused, const S_eb5ce0_Pt* d)
 {
     p20 = (p3c + pA * s64) + pB * s68;
     S_eb5ce0_Pt n;
-    p2c = -*p3c.FUN_00eb3830(&n);
+    p2c = -*p3c.GetTriangleUnitNormal(&n);
     if (mode == 2)
     {
         p20 += *d * unk1c;

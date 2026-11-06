@@ -2011,7 +2011,7 @@ struct ItemView
 };
 struct DataHandlerView
 {
-    FUN_0061b320_shell* FUN_00461690(int);
+    FUN_0061b320_shell* LookupTopicByID(int);
 };
 struct AIView
 {
@@ -2082,7 +2082,7 @@ unsigned int __cdecl GenerateConversation(TESObjectREFR* speaker, TESObjectREFR*
         return 0;
     nextItem = initialTopic;
     if (!nextItem)
-        nextItem = ((DataHandlerView*)g_dataHandler)->FUN_00461690(210);
+        nextItem = ((DataHandlerView*)g_dataHandler)->LookupTopicByID(210);
     DialogueItem* base = 0;
     int exhausted = -1;
     srand((unsigned int)GetTime64(0));
@@ -2094,7 +2094,7 @@ unsigned int __cdecl GenerateConversation(TESObjectREFR* speaker, TESObjectREFR*
         {
             if (!initialTopic || ((InfoView*)initialTopic)->GetSignedByteAtOffset36() == 1)
             {
-                nextItem = ((DataHandlerView*)g_dataHandler)->FUN_00461690(212);
+                nextItem = ((DataHandlerView*)g_dataHandler)->LookupTopicByID(212);
                 base = nextItem->FUN_0061b320(previous, currentSpeaker, currentListener, history, false);
             }
             if (!base)

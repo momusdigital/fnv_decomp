@@ -340,7 +340,7 @@ struct Map6920
     unsigned int hashSize;
     MapItem6920** buckets;
     unsigned int size;
-    void FUN_006c6920(unsigned int key, NiPointer<NiAVObject> value);
+    void SetOrInsertMapValue(unsigned int key, NiPointer<NiAVObject> value);
 };
 struct RMapItem
 {

@@ -827,7 +827,7 @@ class MobileObject
 
 struct S_00422b90
 {
-    char* FUN_00422b90();
+    char* GetSavedHavokData();
 };
 
 class FakeBGSLoadGameSubBuffer
@@ -1058,7 +1058,7 @@ INITIAL_DATA_TYPE __cdecl FUN_0084eb80(BGSSaveFormBuffer* apFile, TESForm* apFor
     if (((StandaloneREFR*)apForm)->vfn_f0() && ((BGSChangeFlags_s*)&eChangeFlags)->Test(4))
     {
         StandaloneREFR* pRefr = (StandaloneREFR*)apForm;
-        CF845 holder_(((S_00422b90*)pRefr->GetExtraData())->FUN_00422b90());
+        CF845 holder_(((S_00422b90*)pRefr->GetExtraData())->GetSavedHavokData());
         if (pRefr->vfn_1d0() || !holder_.FUN_00559450())
         {
             unsigned int offsetBefore6;

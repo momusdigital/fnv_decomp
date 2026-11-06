@@ -125,7 +125,7 @@ extern const NiPoint3 DAT_011a9484;
 
 struct S_Line : S_00eaee50_Line
 {
-    void FUN_00eb6090(S_00eaee50_Point3& out, float t);
+    void EvaluateSegmentPoint(S_00eaee50_Point3& out, float t);
 };
 
 struct S_Shape
@@ -167,10 +167,10 @@ struct S_00eaef80
 void S_00eaef80::UpdatePoints(const S_00eaee50_Point3& kOffsetA, const S_00eaee50_Point3& kOffsetB)
 {
     NiPoint3 kPointA;
-    m_pkShapeA->m_kLine.FUN_00eb6090(kPointA, m_fParamA);
+    m_pkShapeA->m_kLine.EvaluateSegmentPoint(kPointA, m_fParamA);
 
     NiPoint3 kPointB;
-    m_pkShapeB->m_kLine.FUN_00eb6090(kPointB, m_fParamB);
+    m_pkShapeB->m_kLine.EvaluateSegmentPoint(kPointB, m_fParamB);
 
     if (unk18 == 2)
     {

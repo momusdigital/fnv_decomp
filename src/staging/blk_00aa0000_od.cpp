@@ -701,7 +701,7 @@ struct AbstractHeap
     HeapFreeBlock* m2048;
     HeapFreeBlock* m204c;
 
-    void __thiscall FUN_00aa9e50(HeapFreeList* list, HeapFreeBlock* block);
+    void __thiscall RemoveFreeHeapBlock(HeapFreeList* list, HeapFreeBlock* block);
     void __thiscall Clear();
 };
 
@@ -714,13 +714,13 @@ void AbstractHeap::Clear()
 
         while (list->m4 != 0)
         {
-            this->FUN_00aa9e50(list, list->m4);
+            this->RemoveFreeHeapBlock(list, list->m4);
         }
     }
 
     while (m204c != 0)
     {
-        this->FUN_00aa9e50(reinterpret_cast<HeapFreeList*>(&m2048), m204c);
+        this->RemoveFreeHeapBlock(reinterpret_cast<HeapFreeList*>(&m2048), m204c);
     }
 
     v13(m30);

@@ -270,7 +270,7 @@ void __cdecl BuildLODBlockFileName(char* apOutput, TESWorldSpace* apWorld, int a
 }
 
 // @fnv 0x006f57c0
-void __cdecl FUN_006f57c0(char* apOutput, TESWorldSpace* apWorld)
+void __cdecl FormatBuildingLODNormalPath(char* apOutput, TESWorldSpace* apWorld)
 {
     _sprintf_s(apOutput, 0x104, "Data\\Textures\\Landscape\\LOD\\%s\\Blocks\\%s.Buildings_n.dds",
                apWorld->GetStingerBlockFileNameHighPriority(), apWorld->GetStingerBlockFileNameHighPriority());
@@ -2617,7 +2617,7 @@ void F7070LODTask::QueueLODModelLoads()
     {
         FormatBuildingsLODTexturePath(acFirstPath, m_pContainingWorldspace);
         g_pModelLoader->QueueTask(acFirstPath, GetPriority(), this);
-        FUN_006f57c0(acSecondPath3, m_pContainingWorldspace);
+        FormatBuildingLODNormalPath(acSecondPath3, m_pContainingWorldspace);
         g_pModelLoader->QueueTask(acSecondPath3, GetPriority(), this);
     }
     bFadeQueuedCur = true;

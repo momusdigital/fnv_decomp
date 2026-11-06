@@ -9777,7 +9777,7 @@ struct P130Anim : Animation
     bool FUN_004985f0();
     void FUN_004974a0();
     void FUN_004994f0(int, bool);
-    int FUN_00921e30();
+    int GetIdleControllerSequence();
 };
 struct P130Node
 {

@@ -36,14 +36,14 @@ struct NiAVObject
 struct NiBSPNode : NiAVObject
 {
     void __thiscall FUN_00a9a840(NiUpdateData&);
-    void __thiscall FUN_00a9a760();
+    void __thiscall UpdateWorldPlane();
 };
 
 // @fnv 0x00a9a840
 void __thiscall NiBSPNode::FUN_00a9a840(NiUpdateData& aUpdateData)
 {
     NiAVObject::UpdateWorldData(aUpdateData);
-    FUN_00a9a760();
+    UpdateWorldPlane();
 }
 }  // namespace fnv_00a9a840
 
@@ -517,11 +517,11 @@ struct Plane_a9a760
     volatile float modelConstant;
     Vec_a9a760 worldNormal;
     float worldConstant;
-    void FUN_00a9a760();
+    void UpdateWorldPlane();
 };
 // Transforms modelNormal and modelConstant into world space using rotation, translation, and scale.
 // @fnv 0x00a9a760
-void Plane_a9a760::FUN_00a9a760()
+void Plane_a9a760::UpdateWorldPlane()
 {
     Vec_a9a760 normal = rotation * modelNormal;
     volatile float fWorldConstant = translation.Dot(normal);

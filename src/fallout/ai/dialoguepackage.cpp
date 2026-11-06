@@ -185,7 +185,7 @@ struct BGSSaveFormBuffer
 struct Conversation_Stub
 {
     void FUN_0083c270(BGSSaveFormBuffer* buf);
-    short FUN_0083ba50(DialogueItem* item);
+    short FindDialogueItemIndex(DialogueItem* item);
 };
 
 struct FUN_0083c900_shell
@@ -232,7 +232,7 @@ void DialoguePackage::SaveGame(BGSSaveFormBuffer* apSaveGameBuffer)
         (*(Conversation_Stub**)((char*)this + 0xa4))->FUN_0083c270(apSaveGameBuffer);
         scurrentItemIndex =
             (*(DialogueItem**)((char*)this + 0xa8))
-                ? (*(Conversation_Stub**)((char*)this + 0xa4))->FUN_0083ba50((*(DialogueItem**)((char*)this + 0xa8)))
+                ? (*(Conversation_Stub**)((char*)this + 0xa4))->FindDialogueItemIndex((*(DialogueItem**)((char*)this + 0xa8)))
                 : -1;
         apSaveGameBuffer->SaveData(&scurrentItemIndex, 2, 0);
         scurrentResponseIndex = ((*(DialogueItem**)((char*)this + 0xa8)) && (*(DialogueResponse**)((char*)this + 0xac)))
@@ -1810,7 +1810,7 @@ class Conversation_Stub
   public:
     unsigned short FUN_0083bb30();
     void SaveConversation();
-    short FUN_0083ba50(DialogueItem*);
+    short FindDialogueItemIndex(DialogueItem*);
 };
 TESForm* FUN_004839c0(unsigned int);
 void FUN_0040fbe0(const char*, ...);
@@ -1916,7 +1916,7 @@ void DialoguePackage::FUN_009ef6e0()
         conversation->SaveConversation();
         short itemIndex = -1;
         if (item)
-            itemIndex = conversation->FUN_0083ba50(item);
+            itemIndex = conversation->FindDialogueItemIndex(item);
         FUN_00484ce0(&itemIndex, 2);
         short responseIndex = -1;
         if (item && response)

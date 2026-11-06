@@ -21,18 +21,18 @@ struct FUN_00865b10_shell
     unsigned int __thiscall GetValuePlusNine();
 };
 
-unsigned int __cdecl FUN_00845d40(unsigned int);
+unsigned int __cdecl GetSaveIntegerSizeTag(unsigned int);
 unsigned int __cdecl FUN_00845d70(unsigned int);
 struct _ref_0084e3a0_shell
 {
     unsigned int __thiscall _ref_0084e3a0();
 };
 
-// Calls _ref_0084e3a0, passes the result through FUN_00845d40 and FUN_00845d70, then returns that value plus 9.
+// Calls _ref_0084e3a0, passes the result through GetSaveIntegerSizeTag and FUN_00845d70, then returns that value plus 9.
 // @fnv 0x00865b10
 unsigned int __thiscall FUN_00865b10_shell::GetValuePlusNine()
 {
-    unsigned int value = FUN_00845d70(FUN_00845d40(reinterpret_cast<_ref_0084e3a0_shell*>(this)->_ref_0084e3a0()));
+    unsigned int value = FUN_00845d70(GetSaveIntegerSizeTag(reinterpret_cast<_ref_0084e3a0_shell*>(this)->_ref_0084e3a0()));
     return value + 9;
 }
 
@@ -364,7 +364,7 @@ struct FUN_00846330_shell
     void __thiscall WriteToFile(void* data, int size);
 };
 
-unsigned int __cdecl FUN_00845d40(unsigned int);
+unsigned int __cdecl GetSaveIntegerSizeTag(unsigned int);
 void __cdecl WriteValueByType(void*, unsigned int, unsigned int);
 struct FUN_00865a30_owner
 {
@@ -381,7 +381,7 @@ struct FUN_00865a30_owner
 void FUN_00865a30_owner::FUN_00865a30(void* buffer)
 {
     unsigned int secondValue = ((_ref_0084e3a0_shell*)this)->_ref_0084e3a0();
-    unsigned int firstValue = FUN_00845d40(secondValue);
+    unsigned int firstValue = GetSaveIntegerSizeTag(secondValue);
     ((FUN_00865aa0_shell*)((char*)this + 0x1b))->SetFlags(firstValue);
     ((FUN_00846330_shell*)buffer)->WriteToFile((char*)this + 0x14, 9);
     WriteValueByType(buffer, secondValue, firstValue);

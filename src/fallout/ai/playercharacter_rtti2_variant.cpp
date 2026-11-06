@@ -35991,7 +35991,7 @@ struct PickPocketWarningState : Character
     unsigned int unk22c;
     int warningCount;
     float warningDelay;
-    void FUN_00966e50();
+    void RecordPickpocketWarning();
 };
 namespace RockItAmmoCountDetail {
 struct ItemCountView
@@ -36074,7 +36074,7 @@ struct StealWarningState : Character
     unsigned int unk224;
     int warningCount;
     float warningDelay;
-    void FUN_00966e00();
+    void RecordStealWarning();
 };
 struct PlayerListCleanup : ::FUN_0093bea0_cls
 {

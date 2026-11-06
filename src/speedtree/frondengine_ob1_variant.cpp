@@ -16664,7 +16664,7 @@ inline void FreeQ(void* p)
 {
     AlQ::FUN_00401030(p);
 }
-ElQ* __cdecl FUN_00b264f0(ElQ* f, ElQ* l, ElQ* d, RandQ, PtrCatQ, TagQ);
+ElQ* __cdecl CopyStateBlocksForward(ElQ* f, ElQ* l, ElQ* d, RandQ, PtrCatQ, TagQ);
 ElQ* __cdecl FUN_00b260c0(ElQ* f, ElQ* l, ElQ* d);
 ElQ* __cdecl FUN_00b26db0(ElQ* f, ElQ* l, ElQ* d, AlQ& al, PtrCatQ, TagQ);
 inline ElQ* Checked_base(ElQ* const& it)
@@ -16728,7 +16728,7 @@ inline PtrCatQ Ptr_cat(ElQ*&, ElQ*&)
 }
 inline ElQ* Unchecked_copy(ElQ* f, ElQ* l, ElQ* d)
 {
-    return FUN_00b264f0(Checked_base2(f), Checked_base2(l), d, RandQ(), Ptr_cat(f, d), TagQ());
+    return CopyStateBlocksForward(Checked_base2(f), Checked_base2(l), d, RandQ(), Ptr_cat(f, d), TagQ());
 }
 inline ElQ* Unchecked_uninitialized_copy(ElQ* f, ElQ* l, ElQ* d, AlQ& al)
 {

@@ -24,7 +24,7 @@ struct DummyClass_00aa6db0
 };
 
 // @fnv 0x00aa6db0
-unsigned int __fastcall FUN_00aa6db0(DummyClass_00aa6db0* pThis)
+unsigned int __fastcall FindUnusedPoolSlot(DummyClass_00aa6db0* pThis)
 {
     for (unsigned int i = 0; i < pThis->ItemUpdateArray; ++i)
     {
@@ -219,7 +219,7 @@ struct FUN_00aa6e60_shell
     void UnlinkNode(Node_00aa6e60*);
 };
 struct DummyClass_00aa6db0;
-unsigned int __fastcall FUN_00aa6db0(DummyClass_00aa6db0*);
+unsigned int __fastcall FindUnusedPoolSlot(DummyClass_00aa6db0*);
 struct MemoryPool_PCP
 {
     bool CommitPage(unsigned int, char*&);
@@ -254,7 +254,7 @@ void* FUN_00aa6aa0_shell::FUN_00aa6aa0(unsigned int requested)
                                                 m_kCriticalSection.Lock("MemoryPool::Allocate");
                                                 if (!m_pFreeBlockHead)
                                                 {
-                                                    inewPageIndex = FUN_00aa6db0((DummyClass_00aa6db0*)this);
+                                                    inewPageIndex = FindUnusedPoolSlot((DummyClass_00aa6db0*)this);
                                                     if (inewPageIndex == -1)
                                                     {
                                                         l1 = &m_kCriticalSection;

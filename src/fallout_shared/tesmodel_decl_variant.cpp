@@ -580,7 +580,7 @@ struct DestructionStageChunk
 extern "C" void* __cdecl _alloca(unsigned int);
 extern "C" void* __cdecl memset(void*, int, unsigned int);
 void __cdecl FUN_005b5e40(const char*, ...);
-void __cdecl FUN_004893e0(TESModel*, TESFile*);
+void __cdecl LoadModelTextures(TESModel*, TESFile*);
 
 // @fnv 0x004781e0
 void __cdecl FUN_004781e0(BGSDestructibleObjectForm* component, TESFile* file)
@@ -641,7 +641,7 @@ void __cdecl FUN_004781e0(BGSDestructibleObjectForm* component, TESFile* file)
                 }
                 case 0x54444d44:
                     pkData->stages[index]->EnsureB2_4fe();
-                    FUN_004893e0(pkData->stages[index]->replacementModel, file);
+                    LoadModelTextures(pkData->stages[index]->replacementModel, file);
                     break;
                 case 0x53444d44: {
                     pkData->stages[index]->EnsureB2_4fe();

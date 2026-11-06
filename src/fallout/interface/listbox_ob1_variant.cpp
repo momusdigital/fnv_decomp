@@ -63,7 +63,7 @@ struct BGSSaveLoadFileEntry;
 struct ListBox
 {
     bool SetSelection(Tile* apItem, int apSelect);
-    bool FUN_007d8d80(Tile* apSelectItem);
+    bool SelectListBoxTile(Tile* apSelectItem);
 };
 struct FUN_007d8e80_shell
 {
@@ -630,7 +630,7 @@ struct ListBox_7223a0
     int unk08;
     int unk0c;
     Tile_7223a0* m_pSelected;
-    bool FUN_00724fd0();
+    bool IsListBoxEnabled();
     bool ContainsKey(Tile_7223a0*);
     void FUN_00725080();
     bool FUN_007223a0(Tile_7223a0* apTile);
@@ -1843,7 +1843,7 @@ class C4FD0ListBox
     int unk08;
     C4FD0Tile* m_pkTile;
 
-    bool FUN_00724fd0();
+    bool IsListBoxEnabled();
 };
 struct FUN_00a00f30_shell
 {
@@ -2285,7 +2285,7 @@ class C7D8950ListBox
     bool IsActive();
     bool Contains(C7D8950Tile* pkTile);
     void UpdateSelection();
-    bool FUN_007d8950(C7D8950Tile* pkTile);
+    bool SelectEnabledListBoxTile(C7D8950Tile* pkTile);
 };
 struct TileValue
 {
@@ -2365,7 +2365,7 @@ struct Box118
     Tile118* selected;
     int unk14, unk18;
     unsigned short count, flags;
-    bool FUN_00724fd0();
+    bool IsListBoxEnabled();
     Tile118* FUN_00722410(unsigned int action);
 };
 

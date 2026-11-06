@@ -113,7 +113,7 @@ class PathingRequestOptimalLocation : public PathingRequest
 class PathingRequestUnknown : public PathingRequest
 {
 };
-bool FUN_006d0b10(PathingRequest*, PathingSolution*);
+bool BuildRequestedPath(PathingRequest*, PathingSolution*);
 bool FUN_006d0be0(PathingRequestClosePoint*, PathingSolution*);
 bool FUN_006d2c80(PathingRequestUnknown*, PathingSolution*);
 class Pathing

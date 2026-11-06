@@ -545,7 +545,7 @@ void FacingTint::FUN_00b40210(Vec* point, Vec* other, float t)
 #include <stdlib.h>
 // Returns a random float between minimum and maximum by scaling rand() to the range width and offsetting by minimum.
 // @fnv 0x00b14e90
-float FUN_00b14e90(float minimum, float maximum)
+float RandomFloatInRange(float minimum, float maximum)
 {
     float fraction = (float)(rand() / 32767.0);
     float range = maximum - minimum;

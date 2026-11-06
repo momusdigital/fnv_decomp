@@ -11,7 +11,7 @@ void SoundPlaybackManager::ProcessPendingSounds()
     float fStartHour;
     float soundEndHour;
     BSSimpleList<RegionSound*>* sounds = g_thePlayer->GetRegionSounds();
-    bool isSubmerged = TESLandTexture::GetSoundSystem()->FUN_00ad7c50();
+    bool isSubmerged = TESLandTexture::GetSoundSystem()->IsAudioUnderwater();
     BGSAcousticSpace* acousticSpace = !g_thePlayer                ? 0
                                       : !g_thePlayer->GetTarget() ? 0
                                                                   : g_thePlayer->GetTarget()->GetAcousticSpace();

@@ -564,11 +564,11 @@ struct Map6920
     unsigned int hashSize;
     MapItem6920** buckets;
     unsigned int size;
-    void FUN_006c6920(unsigned int key, NiPointer<NiAVObject> value);
+    void SetOrInsertMapValue(unsigned int key, NiPointer<NiAVObject> value);
 };
 // Looks up key in the bucket chain, replaces the value if found, otherwise allocates a new item, inserts it at the bucket head and increments size.
 // @fnv 0x006c6920
-void Map6920::FUN_006c6920(unsigned int key, NiPointer<NiAVObject> value)
+void Map6920::SetOrInsertMapValue(unsigned int key, NiPointer<NiAVObject> value)
 {
     unsigned int index = Hash(key);
     MapItem6920* item = buckets[index];

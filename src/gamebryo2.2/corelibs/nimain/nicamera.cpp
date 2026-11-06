@@ -274,7 +274,7 @@ struct FUN_00a5ea70_t
 
 struct NiFrustumViewerProxy
 {
-    char* FUN_00a71bc0(char const* name);
+    char* FormatFrustumViewerString(char const* name);
     char* ToString(char const* name);
 };
 
@@ -310,7 +310,7 @@ void FUN_00a71920_shell::FUN_00a71920(StrArr* strings)
     strings->SetAt(index, value);
 
     value =
-        reinterpret_cast<NiFrustumViewerProxy*>(reinterpret_cast<char*>(this) + 0xdc)->FUN_00a71bc0("m_kViewFrustum");
+        reinterpret_cast<NiFrustumViewerProxy*>(reinterpret_cast<char*>(this) + 0xdc)->FormatFrustumViewerString("m_kViewFrustum");
     index = strings->m_uiBufferCapacity;
     size = strings->m_iElementCount;
     if (index >= size)

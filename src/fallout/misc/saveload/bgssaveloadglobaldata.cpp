@@ -359,7 +359,7 @@ struct LGB : BGSLoadGameBuffer
     {}
 };
 // @fnv 0x0084c110
-void __cdecl FUN_0084c110(unsigned int aiStart, unsigned int aiEnd)
+void __cdecl LoadSavedFormTypes(unsigned int aiStart, unsigned int aiEnd)
 {
     LGB loadGameBuffer;
     for (unsigned int i = aiStart; i < aiEnd; ++i)

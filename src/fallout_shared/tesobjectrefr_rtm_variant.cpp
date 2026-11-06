@@ -36,7 +36,7 @@ struct ExtraList
     BSExtraData* FUN_00410220(int type);
     void FUN_0040ff60(BSExtraData* p);
 };
-bool __cdecl FUN_00576040(int x);
+bool __cdecl IsMagicTargetForm(int x);
 struct Owner
 {
     virtual void v00();
@@ -66,7 +66,7 @@ struct Owner
 ExtraBase2* Owner::FUN_00575f30()
 {
     NonActorMagicTarget* p = 0;
-    if (FUN_00576040(FUN_007af430()))
+    if (IsMagicTargetForm(FUN_007af430()))
     {
         p = dynamic_cast<NonActorMagicTarget*>(FUN_005d43c0()->FUN_00410220(0x33));
         if (!p)

@@ -285,7 +285,7 @@ struct GO
     operator unsigned int() const;
 };
 
-int __fastcall FUN_00794d80(void* value);
+int __fastcall GetPlayerSPECIALTotal(void* value);
 
 struct FUN_007ca530_CallbackBase
 {
@@ -430,7 +430,7 @@ struct FUN_007ca530_Params
 void DispatchStateCallback(FUN_007ca530_Params* params)
 {
     int state = *reinterpret_cast<int*>(reinterpret_cast<unsigned char*>(DAT_011daa38) + 0x58) -
-                FUN_00794d80(reinterpret_cast<void*>(DAT_011daa38));
+                GetPlayerSPECIALTotal(reinterpret_cast<void*>(DAT_011daa38));
 
     if (state > 1)
     {
@@ -608,7 +608,7 @@ struct FUN_007ca5f0_Argument
     LodObject* field10;
 };
 
-int __fastcall FUN_00794d80(void*);
+int __fastcall GetPlayerSPECIALTotal(void*);
 
 // @fnv 0x007ca5f0
 void UpdateLodVisibility(FUN_007ca5f0_Argument* p)
@@ -616,7 +616,7 @@ void UpdateLodVisibility(FUN_007ca5f0_Argument* p)
     if (!p->field4 || !p->field8)
         return;
 
-    int difference = reinterpret_cast<GameGlobal*>(DAT_011daa38)->timestamp - FUN_00794d80(DAT_011daa38);
+    int difference = reinterpret_cast<GameGlobal*>(DAT_011daa38)->timestamp - GetPlayerSPECIALTotal(DAT_011daa38);
 
     if (difference == 0)
     {
@@ -658,16 +658,16 @@ struct BSAudio
     SoundPlaybackHandle __thiscall GetSoundHandleByEditorID(char const* editorID, unsigned int flags);
 };
 
-int __fastcall FUN_00794d80(void* object);
+int __fastcall GetPlayerSPECIALTotal(void* object);
 void __cdecl FUN_007c6120();
 
-// If DAT_011daa38 is set and FUN_00794d80 returns its element 22, calls FUN_007c6120; otherwise plays the "UIActivateNothing" sound via BSAudio.
+// If DAT_011daa38 is set and GetPlayerSPECIALTotal returns its element 22, calls FUN_007c6120; otherwise plays the "UIActivateNothing" sound via BSAudio.
 // @fnv 0x007cac30
 void __cdecl FUN_007cac30()
 {
     unsigned long long padding;
 
-    if (DAT_011daa38 && FUN_00794d80(DAT_011daa38) == DAT_011daa38[22])
+    if (DAT_011daa38 && GetPlayerSPECIALTotal(DAT_011daa38) == DAT_011daa38[22])
     {
         FUN_007c6120();
     }
@@ -894,11 +894,11 @@ struct FUN_007ca8e0_Params
     unsigned int m_unknown08;
     FUN_007ca530_CallbackBase* callback;
 };
-// Calls the callback with a value from one of two source objects on DAT_011daa38, chosen by comparing FUN_00794d80's result against the field at offset 0x58.
+// Calls the callback with a value from one of two source objects on DAT_011daa38, chosen by comparing GetPlayerSPECIALTotal's result against the field at offset 0x58.
 // @fnv 0x007ca8e0
 void __cdecl DispatchSourceCallback(FUN_007ca8e0_Params* params)
 {
-    if (FUN_00794d80(DAT_011daa38) < *(int*)((char*)DAT_011daa38 + 0x58))
+    if (GetPlayerSPECIALTotal(DAT_011daa38) < *(int*)((char*)DAT_011daa38 + 0x58))
     {
         params->callback->FUN_000000f0(0, 0, ((FUN_00559450_Source*)((char*)DAT_011daa38 + 0x1d0))->FUN_00559450());
     }
@@ -1747,7 +1747,7 @@ void __cdecl FUN_007ca7a0(CsParam* param_1)
 {
     int iValue = param_1->unk24;
     if (((CsVObj*)(DAT_011dea3c + 0xa4))->vf07(iValue) < 10 &&
-        (DAT_011daa38 == 0 || FUN_00794d80(DAT_011daa38) < *(int*)((char*)DAT_011daa38 + 0x58)))
+        (DAT_011daa38 == 0 || GetPlayerSPECIALTotal(DAT_011daa38) < *(int*)((char*)DAT_011daa38 + 0x58)))
     {
         param_1->sub08.FUN_00559450(0)->FUN_00450f90();
     }

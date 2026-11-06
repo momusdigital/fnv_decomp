@@ -329,7 +329,7 @@ class BGSExplosion : public TESBoundObject,
   public:
     BGSExplosion();
     void ResetFormData();
-    ExplosionEffectSettings* FUN_004fadc0();
+    ExplosionEffectSettings* GetExplosionData();
     void InitItem();
     bool Load(TESFile* file);
     BGSImpactDataSet* FUN_00516bf0();

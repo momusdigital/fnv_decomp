@@ -132,7 +132,7 @@ struct TCChain
     TCChain* m_pNext;
 };
 // @fnv 0x00a6cd00
-unsigned int __fastcall FUN_00a6cd00(TCChain* p, int edx)
+unsigned int __fastcall CountControllers(TCChain* p, int edx)
 {
     unsigned int n = 0;
     while (p)

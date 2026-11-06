@@ -16420,7 +16420,7 @@ public:
 bool __cdecl FUN_005accb0(const ScriptParameter* apParameters, const char* apCompiledParams, unsigned int& auiOffset, TESObjectREFR* apRefObject, TESObjectREFR* apContainer, Script* apScript, ScriptLocals* apScriptLocals, unsigned int* puiA, unsigned int* puiB);
 ScriptEditTarget* __cdecl FUN_00ec43fb(TESObjectREFR* apRef, int aUnk1, const char* aStr1, const char* aStr2, int aUnk2);
 bool __cdecl FUN_00406d70(unsigned int uiA, unsigned int uiB);
-const char* __cdecl FUN_0066eac0(unsigned int uiA);
+const char* __cdecl GetActorValueInternalName(unsigned int uiA);
 void __cdecl FUN_00703c00(const char* apFmt, ...);
 
 // @fnv 0x005bdcd0
@@ -16437,7 +16437,7 @@ bool __cdecl FUN_005bdcd0(const ScriptParameter* apParameters, const char* apCom
             pTarget->Apply(uiA, uiB);
         } else {
             if (g_scriptDebugTls.bDebugIsActor) {
-                FUN_00703c00("Actor Value '%s' cannot be modified in scripts or the console.", FUN_0066eac0(uiA));
+                FUN_00703c00("Actor Value '%s' cannot be modified in scripts or the console.", GetActorValueInternalName(uiA));
             }
         }
     }
@@ -29123,7 +29123,7 @@ struct CommandDescription {
 };
 extern CommandDescription DAT_0118e8e0[];
 extern CommandDescription DAT_01190910[];
-int __cdecl FUN_004b75a0(const char*,const char*);
+int __cdecl FindSubstringCaseInsensitive(const char*,const char*);
 unsigned __cdecl FUN_0044a670(const char*);
 bool __cdecl FUN_005accb0(const ScriptParameter*,const char*,unsigned int*,TESObjectREFR*,TESObjectREFR*,Script*,ScriptLocals*,...);
 struct SettingArray {
@@ -29146,7 +29146,7 @@ bool __cdecl FUN_005bc950(const ScriptParameter* params,const char* data,TESObje
  DebugLog("----CONSOLE COMMANDS--------------------");
  unsigned i;
  for(i=0;i<205;i++) {
- if(!search[0] || FUN_004b75a0(DAT_0118e8e0[i].description,search) || FUN_004b75a0(DAT_0118e8e0[i].name,search) || FUN_004b75a0(DAT_0118e8e0[i].alternate,search)) {
+ if(!search[0] || FindSubstringCaseInsensitive(DAT_0118e8e0[i].description,search) || FindSubstringCaseInsensitive(DAT_0118e8e0[i].name,search) || FindSubstringCaseInsensitive(DAT_0118e8e0[i].alternate,search)) {
  if(DAT_0118e8e0[i].description && FUN_0044a670(DAT_0118e8e0[i].description)) {
  if(DAT_0118e8e0[i].alternate && FUN_0044a670(DAT_0118e8e0[i].alternate)) DebugLog("%s (%s) -> %s",DAT_0118e8e0[i].name,DAT_0118e8e0[i].alternate,DAT_0118e8e0[i].description);
  else DebugLog("%s -> %s",DAT_0118e8e0[i].name,DAT_0118e8e0[i].description);
@@ -29156,7 +29156,7 @@ bool __cdecl FUN_005bc950(const ScriptParameter* params,const char* data,TESObje
  }
  DebugLog("----SCRIPT FUNCTIONS--------------------");
  for(i=0;i<640;i++) {
- if(!search[0] || FUN_004b75a0(DAT_01190910[i].description,search) || FUN_004b75a0(DAT_01190910[i].name,search) || FUN_004b75a0(DAT_01190910[i].alternate,search)) {
+ if(!search[0] || FindSubstringCaseInsensitive(DAT_01190910[i].description,search) || FindSubstringCaseInsensitive(DAT_01190910[i].name,search) || FindSubstringCaseInsensitive(DAT_01190910[i].alternate,search)) {
  if(DAT_01190910[i].description && FUN_0044a670(DAT_01190910[i].description)) {
  if(DAT_01190910[i].alternate && FUN_0044a670(DAT_01190910[i].alternate)) DebugLog("%s (%s) -> %s",DAT_01190910[i].name,DAT_01190910[i].alternate,DAT_01190910[i].description);
  else DebugLog("%s -> %s",DAT_01190910[i].name,DAT_01190910[i].description);
@@ -29172,7 +29172,7 @@ bool __cdecl FUN_005bc950(const ScriptParameter* params,const char* data,TESObje
  for(old=0;old<settings.FUN_009938b0();old++) {
  char* text=settings.FUN_00877a30(old);
  if(text) {
- if(old && FUN_004b75a0(text,search)) DebugLog("%s",text);
+ if(old && FindSubstringCaseInsensitive(text,search)) DebugLog("%s",text);
  delete text;
  }
  }
@@ -29182,7 +29182,7 @@ bool __cdecl FUN_005bc950(const ScriptParameter* params,const char* data,TESObje
  for(old=0;old<ini.FUN_009938b0();old++) {
  char* name=ini.FUN_00877a30(old);
  if(name) {
- if(old && FUN_004b75a0(name,search)) DebugLog("%s",name);
+ if(old && FindSubstringCaseInsensitive(name,search)) DebugLog("%s",name);
  delete name;
  }
  }
@@ -29745,7 +29745,7 @@ struct Actor_005bd960 {
     bool FUN_0087f4e0();
 };
 extern bool __cdecl FUN_005accb0(const ScriptParameter*, const char*, unsigned int&, Actor_005bd960*, TESObjectREFR*, Script*, ScriptLocals*, int*);
-extern const char* __cdecl FUN_0066eac0(int);
+extern const char* __cdecl GetActorValueInternalName(int);
 extern bool __cdecl FUN_0066ed60(ValueInterface_005bd960*, int, float*);
 extern bool __cdecl FUN_00406d70(int, unsigned int);
 void __cdecl DebugLog(const char*, ...);
@@ -29763,7 +29763,7 @@ bool __cdecl FUN_005bd960(const ScriptParameter* paramInfo, const char* scriptDa
         Actor_005bd960* actorLocal = actor;
         int id4 = requestedValue2;
         float initial_2 = actorLocal->values.GetBase(id4);
-        DebugLog("GetActorValueInfo: %s on %s", FUN_0066eac0(id4), actorLocal->FUN_0055d520());
+        DebugLog("GetActorValueInfo: %s on %s", GetActorValueInternalName(id4), actorLocal->FUN_0055d520());
         DebugLog("...Current Value: %.2f Computed Base: %.2f ", actorLocal->values.Apply(id4), (double)initial_2);
         float current4 = actorLocal->FUN_004181e0()->values.Apply(id4);
         float delta = 0.0f;
@@ -29792,7 +29792,7 @@ extern __declspec(thread) bool g_bConsoleEcho;
 namespace ActorValue {
     bool GetFlag(int aiActorValue, unsigned int auiFlag);
 }
-const char* FUN_0066eac0(unsigned int aiActorValue);
+const char* GetActorValueInternalName(unsigned int aiActorValue);
 
 struct ActorModAVStandIn {
     virtual void v000(); virtual void v001(); virtual void v002(); virtual void v003();
@@ -29897,7 +29897,7 @@ bool __cdecl FUN_005bdf20(const ScriptParameter* apParameters, const char* apCom
             pActor->ModActorValue(m_eAssociatedActorValue, fAmount, 0);
         }
         else if (g_bConsoleEcho) {
-            DebugLog("Actor Value '%s' cannot be modified in scripts or the console.", FUN_0066eac0(m_eAssociatedActorValue));
+            DebugLog("Actor Value '%s' cannot be modified in scripts or the console.", GetActorValueInternalName(m_eAssociatedActorValue));
         }
     }
     return true;
@@ -29906,7 +29906,7 @@ bool __cdecl FUN_005bdf20(const ScriptParameter* apParameters, const char* apCom
 namespace ActorValue {
     bool GetFlag(Index eAV, unsigned int uiFlag);
 }
-const char* FUN_0066eac0(ActorValue::Index eAV);   // the actor value's name
+const char* GetActorValueInternalName(ActorValue::Index eAV);   // the actor value's name
 struct FUN_0088b740_shell {
     void FUN_0088b740(int iAV, float fValue);   // Actor: apply a script change to an actor value
 };
@@ -29922,7 +29922,7 @@ bool __cdecl FUN_005be080(const ScriptParameter* paramInfo, const char* scriptDa
         if (!ActorValue::GetFlag(eAV, 0x4000)) {
             ((FUN_0088b740_shell*)pActor)->FUN_0088b740(eAV, ActorValue::GetFlag(eAV, 0x200) ? -fValue : std::abs(fValue));
         } else if (tlsData.bConsoleEcho) {
-            DebugLog("Actor Value '%s' cannot be modified in scripts or the console.", FUN_0066eac0(eAV));
+            DebugLog("Actor Value '%s' cannot be modified in scripts or the console.", GetActorValueInternalName(eAV));
         }
     }
     return true;
@@ -29940,7 +29940,7 @@ public:
 };
 extern bool __cdecl ExtractArgs(const ScriptParameter*, const char*, unsigned int*, TESObjectREFR*, TESObjectREFR*, Script*, ScriptLocals*, ...);
 extern bool __cdecl FUN_00406d70(unsigned int, unsigned int);
-extern const char* __cdecl FUN_0066eac0(unsigned int);
+extern const char* __cdecl GetActorValueInternalName(unsigned int);
 extern void __cdecl FUN_00703c00(const char*, const char*);
 extern const char DAT_0103a310[];
 typedef void (__thiscall *ActorValueChange)(Actor*, unsigned int, float, int);
@@ -29957,7 +29957,7 @@ bool __cdecl FUN_005be190(const ScriptParameter* parameters, const char* compile
             float amount = (float)((double)newValue - (double)(reinterpret_cast<ActorValueOwner*>((char*)pActor + 0xa4))->GetValue(actorValue));
             ((ActorValueChange)(*(void***)pActor)[0x3a4 / 4])(pActor, actorValue, amount, 0);
         } else if (g_tls.bDebug) {
-            FUN_00703c00(DAT_0103a310, FUN_0066eac0(actorValue));
+            FUN_00703c00(DAT_0103a310, GetActorValueInternalName(actorValue));
         }
     }
     return true;
@@ -56158,7 +56158,7 @@ bool FUN_005bde40(
         {
             ::DebugLog(
                 "Actor Value '%s' cannot be modified in scripts or the console.",
-                ::FUN_0066eac0(actorValue));
+                ::GetActorValueInternalName(actorValue));
         }
     }
 

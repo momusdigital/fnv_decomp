@@ -79,7 +79,7 @@ void* AbstractHeap::BaseAllocate(unsigned int size)
             {
                 HeapFreeBlock* pNewBlock = 0;
                 bool bDecommitted = pBlock->IsDecommitted();
-                FUN_00aa9e50(pSizeClassFreeList, pBlock);
+                RemoveFreeHeapBlock(pSizeClassFreeList, pBlock);
                 if (iExtra)
                 {
                     if (bDecommitted)
@@ -88,7 +88,7 @@ void* AbstractHeap::BaseAllocate(unsigned int size)
                         bool bCommitted = VirtualAlloc(pBlock, iCommitSize, 4096, 4) != 0;
                         if (!bCommitted)
                         {
-                            FUN_00aa9d30(pBlock);
+                            InsertFreeHeapBlock(pBlock);
                             fnv_LeaveCriticalSection(&m_kCriticalSection);
                             return 0;
                         }
@@ -114,7 +114,7 @@ void* AbstractHeap::BaseAllocate(unsigned int size)
                         pNext->SetPrevious(pNewBlock);
                     }
                     ++m_iFreeBlockCount;
-                    FUN_00aa9d30(pNewBlock);
+                    InsertFreeHeapBlock(pNewBlock);
                     InsertFreeBlock(pNewBlock);
                 }
                 else
@@ -124,7 +124,7 @@ void* AbstractHeap::BaseAllocate(unsigned int size)
                         bool bCommitted = VirtualAlloc(pBlock, size + sizeof(MemoryBlockHeader), 4096, 4) != 0;
                         if (!bCommitted)
                         {
-                            FUN_00aa9d30(pBlock);
+                            InsertFreeHeapBlock(pBlock);
                             fnv_LeaveCriticalSection(&m_kCriticalSection);
                             return 0;
                         }
@@ -228,7 +228,7 @@ void AbstractHeap::CoalesceFreeBlocks(HeapFreeBlock* pFirstBlock, HeapFreeBlock*
     else
         pSecondBlock->GetNext()->SetPrevious(pFirstBlock);
     --m_iFreeBlockCount;
-    FUN_00aa9d30(pFirstBlock);
+    InsertFreeHeapBlock(pFirstBlock);
 }
 
 // @fnv 0x00aa98f0
@@ -239,21 +239,21 @@ void AbstractHeap::BaseFree(void* pointer)
     fnv_EnterCriticalSection(&m_kCriticalSection);
     HeapFreeBlock* block = (HeapFreeBlock*)((char*)pointer - sizeof(MemoryBlockHeader));
     m_iAllocatedBlockSize -= block->GetTotalSize();
-    FUN_00aa9d30(block);
+    InsertFreeHeapBlock(block);
     InsertFreeBlock(block);
     fnv_LeaveCriticalSection(&m_kCriticalSection);
 }
 
-// Removes the given block from the free list corresponding to its size by calling FUN_00aa9e50.
+// Removes the given block from the free list corresponding to its size by calling RemoveFreeHeapBlock.
 // @fnv 0x00aaa660
 inline void AbstractHeap::RemoveBlockFromFreeList(HeapFreeBlock* block)
 {
-    FUN_00aa9e50(GetFreeList(block->GetSize()), block);
+    RemoveFreeHeapBlock(GetFreeList(block->GetSize()), block);
 }
 
 // Clears the block's fields, marks it free, adds it to the free list for its size, and updates the free-block and sub-bucket counters.
 // @fnv 0x00aa9d30
-void AbstractHeap::FUN_00aa9d30(HeapFreeBlock* block)
+void AbstractHeap::InsertFreeHeapBlock(HeapFreeBlock* block)
 {
     block->m_pPrevFree = 0;
     block->m_pNextFree = 0;
@@ -264,7 +264,7 @@ void AbstractHeap::FUN_00aa9d30(HeapFreeBlock* block)
     IncrementSubBucket(block->GetSize());
 }
 // @fnv 0x00aa9e50
-void AbstractHeap::FUN_00aa9e50(HeapFreeList* apFreeList, HeapFreeBlock* block)
+void AbstractHeap::RemoveFreeHeapBlock(HeapFreeList* apFreeList, HeapFreeBlock* block)
 {
     HeapFreeBlock* pPrev = block->m_pPrevFree;
     HeapFreeBlock* pNext = block->m_pNextFree;

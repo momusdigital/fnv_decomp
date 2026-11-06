@@ -82,7 +82,7 @@ class BSAudio
     SoundPlaybackHandle GetSoundHandleByEditorID(const char*, unsigned int);
     SoundPlaybackHandle GetSoundHandleByFilePath(const char*, unsigned int, void*);
     void Precache(const char*, unsigned int, void*);
-    bool FUN_00ad7c50();
+    bool IsAudioUnderwater();
     void FUN_00ad79b0(int);
     void FUN_00ad77f0(float, unsigned int);
     int GetCurrentTimeMilliseconds();

@@ -71,12 +71,12 @@ struct TGF
 struct RaceSexMenu_MenuOption
 {
     TGF* pTGF;
-    void FUN_007b3840(int& aiLow, int& aiHigh);
+    void GetRaceSliderRange(int& aiLow, int& aiHigh);
 };
 
 // If pTGF is set, reads floats 0x1006 and 0x1007 from it and stores them as ints into aiLow and aiHigh.
 // @fnv 0x007b3840
-void RaceSexMenu_MenuOption::FUN_007b3840(int& aiLow, int& aiHigh)
+void RaceSexMenu_MenuOption::GetRaceSliderRange(int& aiLow, int& aiHigh)
 {
     if (pTGF)
     {
@@ -706,7 +706,7 @@ void FUN_007b5180_shell::CreateMenuOption()
     int ihigh;
     UpdateHairMenuOption();
     m_pCurrentOption = ((MenuOption2*)*(void**)((char*)this + 0x30))->FindByColor(0x18);
-    ((RaceSexMenu_MenuOption*)m_pCurrentOption)->FUN_007b3840(ilow, ihigh);
+    ((RaceSexMenu_MenuOption*)m_pCurrentOption)->GetRaceSliderRange(ilow, ihigh);
     ((TileValueAccessor*)m_pCurrentOption)->FUN_007b3760(ilow);
     HandleOptionSelection();
     m_pCurrentOption = 0;
@@ -2645,7 +2645,7 @@ struct MenuOptionFor3760
 {
     TileFor3760* tile;
     int __thiscall GetFloat1005();
-    void __thiscall FUN_007b3840(int& fTargetUpperBound, int& fMinimumInputValue);
+    void __thiscall GetRaceSliderRange(int& fTargetUpperBound, int& fMinimumInputValue);
     bool __thiscall FUN_007b3760(int value);
 };
 
@@ -2657,7 +2657,7 @@ bool MenuOptionFor3760::FUN_007b3760(int value)
     {
         int currentValue = GetFloat1005();
         int fTargetUpperBound, fMinimumInputValue;
-        FUN_007b3840(fTargetUpperBound, fMinimumInputValue);
+        GetRaceSliderRange(fTargetUpperBound, fMinimumInputValue);
         if (value < fTargetUpperBound)
             value = fTargetUpperBound;
         if (value > fMinimumInputValue)
@@ -3750,7 +3750,7 @@ struct Tile7
 };
 struct MenuOption7
 {
-    void FUN_007b3840(int& aiLow, int& aiHigh);
+    void GetRaceSliderRange(int& aiLow, int& aiHigh);
     bool FUN_007b3760(int aiValue);
 };
 struct OptionList7
@@ -3833,7 +3833,7 @@ void RaceSexMenu7::FUN_007ae240(int aiID, Tile7* apTile)
             {
                 int iLow6;
                 int iHigh;
-                pOption->FUN_007b3840(iLow6, iHigh);
+                pOption->GetRaceSliderRange(iLow6, iHigh);
                 float fRatio = fDelta2 / apTile->GetParent()->GetChild(0x65)->GetValue(0xfb1);
                 if (pOption->FUN_007b3760(FUN_004bd510(iBase + (iHigh - iLow6) * fRatio, 1.0f)))
                 {
@@ -5109,7 +5109,7 @@ bool SliderMenu::ClampSliderOptions(int iStartIndex, int iEndIndex, int bForward
                     int low, high;
                     {
                         int value = (int)(GetMorphCoordinateValue(values, bForward, 0, option->FUN_0044ddc0()) * 10.0);
-                        option->FUN_007b3840(low, high);
+                        option->GetRaceSliderRange(low, high);
                         if (value < low)
                         {
                             option->FUN_007b3760(low);
@@ -7139,7 +7139,7 @@ struct Option7
     void ApplyToAllTiles();
     Option7* FindByColor(int);
     void FUN_007b3810(const char*);
-    void FUN_007b3840(int&, int&);
+    void GetRaceSliderRange(int&, int&);
     void FUN_007b3760(int);
 };
 struct Race7
@@ -7349,7 +7349,7 @@ void Menu7::HandleOptionSelection()
         {
             option6->FUN_007b3810(g_011d3528.String());
             int low3, high;
-            option6->FUN_007b3840(low3, high);
+            option6->GetRaceSliderRange(low3, high);
             option6->FUN_007b3760(low3);
         }
         FUN_007adc60(0, true);
