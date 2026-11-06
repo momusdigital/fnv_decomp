@@ -1312,7 +1312,7 @@ class hkpWorldPostSimulationListener
 {
 public:
 virtual ~hkpWorldPostSimulationListener(){}
-virtual void FUN_00d63680(hkpWorld*world)=0;
+virtual void step(hkpWorld*world)=0;
 virtual void EntityRemovalCallback(hkpEntity*entity){}
 };
 class hkpVehicleViewer:
@@ -1332,7 +1332,7 @@ hkpVehicleViewer(const hkArray<hkProcessContext*>&contexts);
 virtual ~hkpVehicleViewer();
 virtual void WorldAddedCallback(hkpWorld*world);
 virtual void WorldRemovedCallback(hkpWorld*world);
-virtual void FUN_00d63680(hkpWorld*world);
+virtual void step(hkpWorld*world);
 virtual void ActionAddedCallback(hkpAction*action);
 virtual void ActionRemovedCallback(hkpAction*action);
 protected:
@@ -1719,8 +1719,9 @@ __forceinline T&PointerArrayView<T>::operator[](int i)
 ;
 return m_data[i];
 }
+// Draws each vehicle's contact points, spokes and wheel directions through the debug display handler.
 // @fnv 0x00d63680
-void hkpVehicleViewer::FUN_00d63680(hkpWorld*world)
+void hkpVehicleViewer::step(hkpWorld*world)
 {
 {StringCursor&mStream=StringCursor::GetMonitorStream();if(mStream.memoryAvailable()){StringCursor::CommandTimingEntry*h=reinterpret_cast<StringCursor::CommandTimingEntry*>(mStream.GetStreamEnd());h->m_pCommandName="T" "t" "hkpVehicleViewer::step";h->setTime();mStream.setEnd((char*)(h+1));}};ScopedTimer timeblock14;
 const int numVehicles=m_ppVehicles.GetLogicalSize();

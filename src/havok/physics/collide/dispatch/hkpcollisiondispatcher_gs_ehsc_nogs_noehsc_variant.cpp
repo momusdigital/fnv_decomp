@@ -4275,10 +4275,11 @@ struct DebugTableDispatcher : DispatcherReferencedObject
     CollisionAgentEntry* m_tableContinuous3;
     void RegisterAgentType(signed char (*)[32], signed char, int, int, signed char, signed char, CollisionAgentEntry (*)[32],
                       int);
-    void FUN_00cfc1d0();
+    void debugPrintTable();
 };
+// Dumps the dispatcher's discrete and continuous collision-agent priority tables through hkError.
 // @fnv 0x00cfc1d0
-void DebugTableDispatcher::FUN_00cfc1d0()
+void DebugTableDispatcher::debugPrintTable()
 {
     ((hkError*)DAT_01268360)->BeginSection(0x5e4345e4, "hkpCollisionDispatcher::debugPrintTable");
     if (!m_tableDiscrete || !m_tableContinuous)

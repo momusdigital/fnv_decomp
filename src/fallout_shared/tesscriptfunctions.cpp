@@ -22894,7 +22894,7 @@ bool FUN_005d8100(int a1, int a2, NiCallbackHost* a3, int a4, int a5, int a6, in
 }
 
 bool FUN_005accb0(int a1, int a2, int a3, int a4, int a5, int a6, int a7, unsigned int* out);
-bool FUN_00835be0(int a1, unsigned int value);
+bool StartRadioConversation(int a1, unsigned int value);
 
 // @fnv 0x005d82a0
 bool FUN_005d82a0(int a1, int a2, int a3, int a4, int a5, int a6, int unk20, int a8)
@@ -22903,7 +22903,7 @@ bool FUN_005d82a0(int a1, int a2, int a3, int a4, int a5, int a6, int unk20, int
     if (FUN_005accb0(a1, a2, a8, a3, a4, a5, a6, &result) == 0) {
         return false;
     }
-    FUN_00835be0(a3, result);
+    StartRadioConversation(a3, result);
     return true;
 }
 
@@ -42935,7 +42935,7 @@ bool __cdecl FUN_005d81b0(const ScriptParameter* paramInfo, const char* scriptDa
 }
 
 bool __cdecl FUN_005accb0(void* pArg1, void* pArg2, void* pArg8, void* pTarget, void* pArg4, void* pArg5, void* pArg6, int* piCount);
-void __cdecl FUN_008359e0(void* pTarget, bool bAny);
+void __cdecl SetBroadcastState(void* pTarget, bool bAny);
 
 // @fnv 0x005d8220
 bool __cdecl FUN_005d8220(void* pArg1, void* pArg2, void* pTarget, void* pArg4, void* pArg5, void* pArg6, void* pUnused, void* pArg8)
@@ -42943,7 +42943,7 @@ bool __cdecl FUN_005d8220(void* pArg1, void* pArg2, void* pTarget, void* pArg4, 
     int iCount = 0;
     if (!FUN_005accb0(pArg1, pArg2, pArg8, pTarget, pArg4, pArg5, pArg6, &iCount))
         return false;
-    FUN_008359e0(pTarget, iCount > 0);
+    SetBroadcastState(pTarget, iCount > 0);
     return true;
 }
 

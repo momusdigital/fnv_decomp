@@ -2200,8 +2200,9 @@ extern GlobalObject_0044fae0 g_011dd5e8;
 void FUN_008304a0();
 void FUN_008304c0();
 void PlayAudioMedia(int, const char*, unsigned int, bool, bool, float, unsigned int);
+// Turns the radio station behind source on or off, stopping its receivers' sounds and clearing its conversation when it goes off air.
 // @fnv 0x008359e0
-void FUN_008359e0(RadioSource* source, bool enabled)
+void SetBroadcastState(RadioSource* source, bool enabled)
 {
     if (DAT_011dd436)
         return;

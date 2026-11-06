@@ -208,7 +208,7 @@ class TES
 extern ModelLoader* g_modelLoader;
 extern TES* g_TES;
 
-void __cdecl FUN_00868d70(int);
+void __cdecl ClearAll(int);
 void __fastcall FUN_00b5fd60(ShadowSceneNode*);
 void __cdecl FUN_00c459d0(int);
 void __cdecl FUN_00651e30();
@@ -217,7 +217,7 @@ void __cdecl FUN_00651f40();
 // @fnv 0x00878250
 void __cdecl FUN_00878250(bool abRunExtraSteps)
 {
-    FUN_00868d70(1);
+    ClearAll(1);
     FUN_00b5fd60(NiAdditionalGeometryData::GetShadowSceneNodeForIndex(0));
     FUN_00c459d0(0);
     if (abRunExtraSteps)

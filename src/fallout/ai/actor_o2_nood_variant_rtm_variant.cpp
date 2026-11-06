@@ -499,7 +499,7 @@ void __cdecl FUN_00c74dd0(void*, const MatrixTransform*);
 void __cdecl FUN_00624ad0(MatrixTransform*, const void*);
 void* __cdecl FUN_00cea810(BoneTransformData*, ArrayStorage*, ArrayStorage*);
 int __cdecl FUN_00ec7750(const char*, const char*);
-void __cdecl FUN_00ce61c0(PoseState*, PoseBuffer*, PoseBuffer*);
+void __cdecl createMapping(PoseState*, PoseBuffer*, PoseBuffer*);
 InputScene* __cdecl FUN_00c802d0(Argument*);
 extern float DAT_01267c7c, DAT_01267c88, DAT_01267c94, DAT_01267ca0;
 extern float DAT_01267cac, DAT_01267cb8, DAT_01267cc4, DAT_01267cd0;

@@ -53,8 +53,9 @@ class BSAudio
     unsigned int GetSynchTime();
 };
 BSAudio* FUN_00453a70();
+// Finds or creates the radio station for form and starts its conversation with topic, interrupting any current one.
 // @fnv 0x00835be0
-void FUN_00835be0(BGSTalkingActivator* form, TESTopic* topic)
+void StartRadioConversation(BGSTalkingActivator* form, TESTopic* topic)
 {
     TESTopic* a = 0;
     FalloutRadio::RadioStationState* station = 0;
