@@ -42,11 +42,11 @@ void FUN_00d1dff0::setMotion()
 }
 
 // @fnv 0x00d1dec0
-void __stdcall FUN_00d1dec0(int)
+void __stdcall setMass(int)
 {}
 
 // @fnv 0x00d1ded0
-void __stdcall FUN_00d1ded0(int)
+void __stdcall setMassInv(int)
 {}
 
 // @fnv 0x00d1dee0
@@ -62,11 +62,11 @@ void __stdcall FUN_00d1df00(int)
 {}
 
 // @fnv 0x00d1df10
-void __stdcall FUN_00d1df10(int, int)
+void __stdcall applyPointImpulse(int, int)
 {}
 
 // @fnv 0x00d1df20
-void __stdcall FUN_00d1df20(int)
+void __stdcall applyAngularImpulse(int)
 {}
 
 // @fnv 0x00d1df30
@@ -266,7 +266,7 @@ void Veh_00d1e090::ComputeVelocityAlongDirection(hkVector4* position, hkVector4*
 extern "C" void _mm_store_ps(float*, __m128);
 
 // @fnv 0x00d1e010
-void __stdcall FUN_00d1e010(hkVector4* inertia)
+void __stdcall getInertiaLocal(hkVector4* inertia)
 {
     __m128 zero = _mm_setzero_ps();
     _mm_store_ps(reinterpret_cast<float*>(inertia), zero);

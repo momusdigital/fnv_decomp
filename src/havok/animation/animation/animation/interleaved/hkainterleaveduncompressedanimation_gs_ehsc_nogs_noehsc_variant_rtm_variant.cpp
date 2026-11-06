@@ -16,11 +16,11 @@ struct FUN_00e3f950_class
     int m_0c;
     int m_10;
     int m_14;
-    int FUN_00e3f950(int a, int b);
+    int getNumDataChunks(int a, int b);
 };
 struct FUN_00e3f970_class
 {
-    int FUN_00e3f970();
+    int getMaxSizeOfCombinedDataChunks();
 };
 struct FUN_00e3f990_class
 {
@@ -328,11 +328,11 @@ class S00e3f9b0_QsT
 struct S00e3f9b0_Anim : public hkaInterleavedUncompressedAnimation
 {
     void FUN_00e2f7c0(float time, int& frame, float& delta) const;
-    void FUN_00e3f9b0(float time, const short* tracks, unsigned int numTracks, S00e3f9b0_QsT* transformsOut) const;
+    void sampleIndividualTransformTracks(float time, const short* tracks, unsigned int numTracks, S00e3f9b0_QsT* transformsOut) const;
 };
 
 // @fnv 0x00e3f9b0
-void S00e3f9b0_Anim::FUN_00e3f9b0(float time, const short* tracks, unsigned int numTracks,
+void S00e3f9b0_Anim::sampleIndividualTransformTracks(float time, const short* tracks, unsigned int numTracks,
                                   S00e3f9b0_QsT* transformsOut) const
 {
     int frame;

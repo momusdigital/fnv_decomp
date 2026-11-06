@@ -100,7 +100,7 @@ struct EffectItemList_shell
 };
 
 // @fnv 0x004065e0
-int __fastcall FUN_004065e0(EffectItemList_shell* pthis)
+int __fastcall GetAssociatedSkill(EffectItemList_shell* pthis)
 {
     int eresult = -1;
     EffectItem* peffect = pthis->FindCostliestEffectItem(3, 0);
@@ -146,10 +146,10 @@ struct LN
 void _FNV_Warning(const char*);
 struct HX
 {
-    EI* FUN_00406ee0(unsigned char);
+    EI* GetEffectItemByIndex(unsigned char);
 };
 // @fnv 0x00406ee0
-EI* HX::FUN_00406ee0(unsigned char aiIndex)
+EI* HX::GetEffectItemByIndex(unsigned char aiIndex)
 {
     unsigned char uiCurrentIndex = 0;
     LN* pCurrentElementNext = this ? (LN*)((char*)this + 4) : 0;
@@ -275,11 +275,11 @@ struct EffectItemNode
 
 struct EffectItemList : public EffectItemHeader, public EffectItemNode
 {
-    bool FUN_00405da0();
+    bool CanBePoison();
 };
 
 // @fnv 0x00405da0
-bool EffectItemList::FUN_00405da0()
+bool EffectItemList::CanBePoison()
 {
     EffectItemList* pCurrentElementNext = this;
     if (pCurrentElementNext->_ref_008256d0())
@@ -913,12 +913,12 @@ struct FaceGenCache
 {
     int unk00;
     FaceGenMap kMap;
-    void FUN_0064fe80(FaceGenLog* apLog);
+    void OutputModelMapContents(FaceGenLog* apLog);
 };
 
 // Iterates the cache map and logs each entry's ref count, key, texture size and data size, warning and optionally adding the line to apLog.
 // @fnv 0x0064fe80
-void FaceGenCache::FUN_0064fe80(FaceGenLog* apLog)
+void FaceGenCache::OutputModelMapContents(FaceGenLog* apLog)
 {
     void* pPos3 = kMap.GetFirstPos();
     const char* pKey2;

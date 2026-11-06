@@ -951,7 +951,7 @@ public:
     ChildPtr<NiNode> m_spNode;
 
     NiNode* GetNode() const { return m_spNode; }
-    TileShaderProperty* FUN_00a0b1f0();
+    TileShaderProperty* GetShaderProperty();
 };
 
 static inline NiAVObject* A0B1F0GetChild(NiNode* pkNode, unsigned int uiIndex) {
@@ -962,7 +962,7 @@ static inline NiAVObject* A0B1F0GetChild(NiNode* pkNode, unsigned int uiIndex) {
 }
 
 // @fnv 0x00a0b1f0
-TileShaderProperty* A0B1F0Tile::FUN_00a0b1f0() {
+TileShaderProperty* A0B1F0Tile::GetShaderProperty() {
     TileShaderProperty* pkProperty = 0;
     NiNode* pkNode = GetNode();
     NiAVObject* pkCurrentObject = pkNode ? A0B1F0GetChild(pkNode, 0) : 0;
@@ -1159,10 +1159,10 @@ public:
     int unk, unk0C, unkCur, unkValue, uNewnk, unk1C, uTmpnk, unk24, unk28;
     ChildPtr<NiNode> m_spNode;
     NiNode* GetNode() const { return m_spNode; }
-    void FUN_00a0b020();
+    void ForceTextureRelease();
 };
 // @fnv 0x00a0b020
-void A0B020Tile::FUN_00a0b020()
+void A0B020Tile::ForceTextureRelease()
 {
     A0B020Node* pos2;
     NiAVObject* pNewkChild;
@@ -3346,7 +3346,7 @@ struct FUN_00ac5490 : FUN_00aaaa80 {
     void* file;
     void* archive;
     FUN_00ac5490(GameString signature);
-    bool FUN_00ac5540(GameString filename, bool binary);
+    bool LoadFile(GameString filename, bool binary);
     bool FUN_00ac5e00(void* buffer, unsigned int size, unsigned int count);
     void ClearHolders();
     __forceinline ~FUN_00ac5490() {
@@ -3385,7 +3385,7 @@ bool __cdecl FUN_00aaa7d0(const GameString& filename, unsigned int* width,
     unsigned int* height, unsigned int values[2][2], FractalReaderA* a, FractalReaderB* b)
 {
     FUN_00ac5490 stream("FRCTL001");
-    if (!stream.FUN_00ac5540(filename, true))
+    if (!stream.LoadFile(filename, true))
         return false;
     FractalHeader header;
     if (!stream.FUN_00ac5e00(&header, 1, 24))

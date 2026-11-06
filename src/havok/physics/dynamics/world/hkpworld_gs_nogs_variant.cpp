@@ -686,7 +686,7 @@ struct FUN_00c98250_Class
     void* m_iWordAt00;
     void* m_iWordAt04;
     void* m_8;
-    void* __thiscall FUN_00c98250(int, int, int);
+    void* __thiscall createContactMgr(int, int, int);
 };
 void __stdcall FUN_00c982a0(char* pFlag, int a2, int a3, int a4, int a5, int a6);
 void __stdcall FUN_00c982b0(unsigned char* flag, int a2, int a3, int a4, int a5, int a6, int a7, int a8);

@@ -79,11 +79,11 @@ struct Node : Base
 struct Owner
 {
     void FUN_00c32de0(Node* node, int arg);
-    Node* FUN_00c2b160(int arg);
+    Node* CreateClone(int arg);
 };
 
 // @fnv 0x00c2b160
-Node* Owner::FUN_00c2b160(int arg)
+Node* Owner::CreateClone(int arg)
 {
     Node* node = new Node();
     FUN_00c32de0(node, arg);

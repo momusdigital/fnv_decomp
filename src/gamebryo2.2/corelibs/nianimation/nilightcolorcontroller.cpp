@@ -114,11 +114,11 @@ struct NiObject
 bool __stdcall FUN_00a57c10(void*);
 struct FUN_00a4d1d0_holder
 {
-    bool __thiscall FUN_00a4d1d0(NiObject* pkObject);
+    bool __thiscall IsEqual(NiObject* pkObject);
 };
 // Checks pkObject via FUN_00a57c10, then compares bit 0 of the inverted byte at offset 0x38 with the byte at this+0x38 and returns the result.
 // @fnv 0x00a4d1d0
-bool __thiscall FUN_00a4d1d0_holder::FUN_00a4d1d0(NiObject* pkObject)
+bool __thiscall FUN_00a4d1d0_holder::IsEqual(NiObject* pkObject)
 {
     NiLightColorController* pkControl = (NiLightColorController*)pkObject;
     if (!FUN_00a57c10(pkControl))
@@ -199,10 +199,10 @@ struct CloneHost
 {
     char _pad[0x38];
     unsigned short m_uiObjectFlags;
-    void* __thiscall FUN_00a4d4b0(CloningProcess&);
+    void* __thiscall CreateClone(CloningProcess&);
 };
 // @fnv 0x00a4d4b0
-void* __thiscall CloneHost::FUN_00a4d4b0(CloningProcess& kCloning)
+void* __thiscall CloneHost::CreateClone(CloningProcess& kCloning)
 {
     CloneHost* pkObject = (CloneHost*)BSFadeNode::operator new(0x3c);
     if (pkObject)

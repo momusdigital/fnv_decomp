@@ -100,7 +100,7 @@ void __cdecl RegisterConvexListAgentCollisionFuncs(hkpConvexListAgent* self)
 
 struct FUN_00d337f0_self
 {
-    void __thiscall FUN_00dacb20(int a);
+    void __thiscall removePoint(int a);
     void __thiscall FUN_00d337f0(int a);
 };
 
@@ -108,7 +108,7 @@ struct FUN_00d337f0_self
 void __thiscall FUN_00d337f0_self::FUN_00d337f0(int a)
 {
     if (*(char*)((char*)this + 0x84))
-        FUN_00dacb20(a);
+        removePoint(a);
 }
 
 struct hkpGskfAgent

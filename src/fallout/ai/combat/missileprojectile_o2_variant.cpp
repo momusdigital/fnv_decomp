@@ -28,7 +28,7 @@ struct BeamProjectile
 };
 struct MissileProjectile : BeamProjectile
 {
-    void FUN_009baad0(BGSLoadFormBuffer*);
+    void LoadGame(BGSLoadFormBuffer*);
 };
 struct BGSProjectile
 {
@@ -288,11 +288,11 @@ struct FUN_00cbdd60_cls
     int unk00;
     int unk04;
     void FUN_00c89730(SpawnedObject_t* obj, unsigned int arg);
-    SpawnedObject_t* FUN_00cbdd60(unsigned int arg);
+    SpawnedObject_t* CreateClone(unsigned int arg);
 };
 
 // @fnv 0x00cbdd60
-SpawnedObject_t* FUN_00cbdd60_cls::FUN_00cbdd60(unsigned int arg)
+SpawnedObject_t* FUN_00cbdd60_cls::CreateClone(unsigned int arg)
 {
     TlsGuard_t guard;
     SpawnedObject_t* result = 0;
@@ -523,10 +523,10 @@ struct S_cbde40
     int unk08;
     S_cbde40_Base* unk0c;
     void CopyFromSource(S_cbde40_Obj* c);
-    S_cbde40_Base* FUN_00cbde40(bool* created);
+    S_cbde40_Base* CreateCinfo(bool* created);
 };
 // @fnv 0x00cbde40
-S_cbde40_Base* S_cbde40::FUN_00cbde40(bool* created)
+S_cbde40_Base* S_cbde40::CreateCinfo(bool* created)
 {
     S_cbde40_Guard guard;
     bool b = (unk0c == 0);

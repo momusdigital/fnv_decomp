@@ -828,11 +828,11 @@ class B80Notes : public B80Object
     NiObject** m_ppkNotes;
     unsigned short m_usNumNotes;
 
-    void FUN_00a44b80(B80Stream& kStream);
+    void SaveBinary(B80Stream& kStream);
 };
 // Saves the B80Notes object by calling the base B80Object save, writing m_usNumNotes, and saving each NiObject link ID in m_ppkNotes.
 // @fnv 0x00a44b80
-void B80Notes::FUN_00a44b80(B80Stream& kStream)
+void B80Notes::SaveBinary(B80Stream& kStream)
 {
     B80Object::FUN_00a89af0(kStream);
     B80SaveBinary(*kStream.m_pBackingStream, m_usNumNotes);

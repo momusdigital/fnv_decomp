@@ -221,11 +221,11 @@ struct StrCmpHelper
 
 struct FUN_00482df0_shell
 {
-    bool __thiscall FUN_00482df0(BaseFormComponent* apComponent);
+    bool __thiscall CompareComponent(BaseFormComponent* apComponent);
 };
 
 // @fnv 0x00482df0
-bool __thiscall FUN_00482df0_shell::FUN_00482df0(BaseFormComponent* apComponent)
+bool __thiscall FUN_00482df0_shell::CompareComponent(BaseFormComponent* apComponent)
 {
     TESDescription* pDesc = dynamic_cast<TESDescription*>(apComponent);
     if (!pDesc)
@@ -362,11 +362,11 @@ struct Off482d
 
 struct Desc482d : public TESDescription
 {
-    void FUN_00482d80(BaseFormComponent* apComponent);
+    void CopyComponent(BaseFormComponent* apComponent);
 };
 
 // @fnv 0x00482d80
-void Desc482d::FUN_00482d80(BaseFormComponent* apComponent)
+void Desc482d::CopyComponent(BaseFormComponent* apComponent)
 {
     TESDescription* pDesc = dynamic_cast<TESDescription*>(apComponent);
     if (!pDesc)

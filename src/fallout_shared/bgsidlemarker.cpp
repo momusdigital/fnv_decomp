@@ -85,10 +85,10 @@ struct FUN_004799f0_shell
 };
 struct FUN_005e7ed0_shell
 {
-    void FUN_005e7ed0();
+    void SaveForm();
 };
 // @fnv 0x005e7ed0
-void FUN_005e7ed0_shell::FUN_005e7ed0()
+void FUN_005e7ed0_shell::SaveForm()
 {
     ((FUN_004855a0*)this)->M();
     ((FUN_004799f0_shell*)((char*)this + 0x30))->FUN_004799f0();
@@ -257,12 +257,12 @@ class FormComponentComparison : public TESForm
 class IdleMarkerComparison : public BGSIdleMarker
 {
   public:
-    bool FUN_005e7f40(TESForm* apCompare);
+    bool Compare(TESForm* apCompare);
 };
 
 // Returns true if apCompare is not a BGSIdleMarker or if the base form component comparison against it succeeds.
 // @fnv 0x005e7f40
-bool IdleMarkerComparison::FUN_005e7f40(TESForm* apCompare)
+bool IdleMarkerComparison::Compare(TESForm* apCompare)
 {
     BGSIdleMarker* pIdleMarker = dynamic_cast<BGSIdleMarker*>(apCompare);
     if (!pIdleMarker)

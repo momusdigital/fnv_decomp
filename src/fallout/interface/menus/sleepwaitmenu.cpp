@@ -4,11 +4,11 @@
 
 struct SleepWaitMenu
 {
-    int FUN_007bfbc0();
+    int GetClass();
 };
 
 // @fnv 0x007bfbc0
-int SleepWaitMenu::FUN_007bfbc0()
+int SleepWaitMenu::GetClass()
 {
     return 0x3f4;
 }
@@ -221,7 +221,7 @@ struct DecMgr
 {
     void FUN_005c1a00(int);
     void FUN_005c1a00(int, int);
-    bool FUN_005c7870();
+    bool GetInChargen();
 };
 struct DecBox
 {
@@ -250,11 +250,11 @@ struct FUN_007c0220_cls
     unsigned char m_44;
     unsigned char m_45;
 
-    void FUN_007c0220(int slot, int value);
+    void DoClick(int slot, int value);
 };
 
 // @fnv 0x007c0220
-void FUN_007c0220_cls::FUN_007c0220(int slot, int value)
+void FUN_007c0220_cls::DoClick(int slot, int value)
 {
     if (value == 0 && slot >= 0 && slot < 6)
     {
@@ -281,7 +281,7 @@ void FUN_007c0220_cls::FUN_007c0220(int slot, int value)
         {
             FUN_004d5c60(0x17);
         }
-        if (!DAT_011dea3c->FUN_005c7870())
+        if (!DAT_011dea3c->GetInChargen())
         {
             DAT_011e0e80.FUN_00974fc0();
         }
@@ -323,11 +323,11 @@ struct FUN_007c04d0_cls
     int unk34;
     FUN_007c04d0_sub38* m_38;
 
-    bool FUN_007c04d0(int a1, int a2);
+    bool HandleSpecialKeyInput(int a1, int a2);
 };
 
 // @fnv 0x007c04d0
-bool FUN_007c04d0_cls::FUN_007c04d0(int a1, int aiUnused)
+bool FUN_007c04d0_cls::HandleSpecialKeyInput(int a1, int aiUnused)
 {
     bool done = false;
     if (m_38->IsTraitNonZero(0xfaf))

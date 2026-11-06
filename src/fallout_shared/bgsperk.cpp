@@ -467,12 +467,12 @@ unsigned char FUN_005ec040_stand::IsFlagSet()
 
 struct FUN_005ec060_shell : public TESConditionItem
 {
-    int FUN_005ec060();
+    int GetComparisonCondition();
 };
 
 // Extracts bits 5-7 of the first byte of this condition item and returns them as an integer.
 // @fnv 0x005ec060
-int FUN_005ec060_shell::FUN_005ec060()
+int FUN_005ec060_shell::GetComparisonCondition()
 {
     int ival = *(char*)this & 0xe0;
     ival >>= 5;
@@ -559,15 +559,15 @@ struct QuestStageEntry
 struct FUN_005e9a70_t : public BGSPerkEntry
 {
     void FUN_005e9a70();
-    void FUN_005e9620(int);
-    void FUN_005e9690();
+    void StartPerkEntry(int);
+    void FinishPerkEntry();
     QuestStageEntry Data;
 };
 // @fnv 0x005e9a70
 void FUN_005e9a70_t::FUN_005e9a70()
 {
     TESForm* ptempQuest;
-    FUN_005e9620(0);
+    StartPerkEntry(0);
     ptempQuest = Data.pQuest;
     if (Data.pQuest)
         Data.pQuest = (TESForm*)Data.pQuest->GetFormID();
@@ -577,7 +577,7 @@ void FUN_005e9a70_t::FUN_005e9a70()
     if (FUN_00401500())
         reinterpret_cast<RegionDataEntry*>(&Data)->Endian();
     Data.pQuest = ptempQuest;
-    FUN_005e9690();
+    FinishPerkEntry();
 }
 
 struct FUN_005ea2c0
@@ -750,8 +750,8 @@ void _FUN_00485910(unsigned int, unsigned int);
 struct FUN_005e9a70_t
 {
     char _pad[8];
-    void FUN_005e9620(int);
-    void FUN_005e9690();
+    void StartPerkEntry(int);
+    void FinishPerkEntry();
 };
 struct S5e9dd0 : FUN_005e9a70_t
 {
@@ -762,13 +762,13 @@ struct S5e9dd0 : FUN_005e9a70_t
 void S5e9dd0::FUN_005e9dd0()
 {
     unsigned int iabilityID;
-    FUN_005e9620(1);
+    StartPerkEntry(1);
     if (m_pSpell)
     {
         iabilityID = m_pSpell->GetFormID();
         _FUN_00485910(0x41544144, iabilityID);
     }
-    FUN_005e9690();
+    FinishPerkEntry();
 }
 }  // namespace fnv_005e9dd0
 
@@ -1152,10 +1152,10 @@ struct Holder005e9ba0
     char pad[8];
     TESQuest* quest;
     unsigned char stage;
-    void FUN_005e9ba0(void* apActor, bool bAlt);
+    void ApplyPerkEntry(void* apActor, bool bAlt);
 };
 // @fnv 0x005e9ba0
-void Holder005e9ba0::FUN_005e9ba0(void* apActor, bool bAlt)
+void Holder005e9ba0::ApplyPerkEntry(void* apActor, bool bAlt)
 {
     if (quest)
         ((TESQuest_Callable*)quest)->IsStageComplete(stage);
@@ -1185,10 +1185,10 @@ struct ThisStandIn
 {
     char _pad[8];
     void* m_pSpell;
-    void FUN_005e9ee0(Actor*, bool);
+    void ApplyPerkEntry(Actor*, bool);
 };
 // @fnv 0x005e9ee0
-void ThisStandIn::FUN_005e9ee0(Actor* apActor, bool bAlt)
+void ThisStandIn::ApplyPerkEntry(Actor* apActor, bool bAlt)
 {
     if (m_pSpell != 0)
     {
@@ -1457,10 +1457,10 @@ struct HolderEntry
 {
     char _pad[8];
     void* m_pSpell;
-    void FUN_005e9f20(Actor* apActor, bool bAlt);
+    void RemovePerkEntry(Actor* apActor, bool bAlt);
 };
 // @fnv 0x005e9f20
-void HolderEntry::FUN_005e9f20(Actor* apActor, bool bAlt)
+void HolderEntry::RemovePerkEntry(Actor* apActor, bool bAlt)
 {
     if (m_pSpell != 0)
     {
@@ -1504,7 +1504,7 @@ struct FUN_00485990_shell
 };
 struct FUN_005eb0e0_shell
 {
-    void FUN_005eb0e0();
+    void SaveForm();
 };
 bool FUN_00401500();
 struct FUN_005eb0e0_TESForm
@@ -1515,7 +1515,7 @@ struct FUN_005eb0e0_TESForm
 void AppendChunk(unsigned int, void*, int);
 // Calls M on several subobjects, clears and serializes the data at offset 0x38, then iterates the perk-entry list calling vfn_28 on each entry.
 // @fnv 0x005eb0e0
-void FUN_005eb0e0_shell::FUN_005eb0e0()
+void FUN_005eb0e0_shell::SaveForm()
 {
     ((FUN_004855a0*)this)->M();
     ((S_00487010*)((char*)this + 0x18))->FUN_00487010();
@@ -2274,7 +2274,7 @@ struct FUN_005ea6b0_shell : public BGSEntryPointPerkEntry
 // @fnv 0x005ea6b0
 void FUN_005ea6b0_shell::SavePerkEntry()
 {
-    reinterpret_cast<FUN_005e9a70_t*>(this)->FUN_005e9620(2);
+    reinterpret_cast<FUN_005e9a70_t*>(this)->StartPerkEntry(2);
     if (FUN_00401500())
     {
         FUN_00483710(&Data);
@@ -2296,7 +2296,7 @@ void FUN_005ea6b0_shell::SavePerkEntry()
     {
         m_pFunctionData->Unk_04();
     }
-    reinterpret_cast<FUN_005e9a70_t*>(this)->FUN_005e9690();
+    reinterpret_cast<FUN_005e9a70_t*>(this)->FinishPerkEntry();
 }
 
 struct VirtualListItem
@@ -2366,7 +2366,7 @@ struct FormNameData
 struct PerkConditionItem : TESConditionItem
 {
     ConditionParameters* FUN_00413f40();
-    int FUN_005ec060();
+    int GetComparisonCondition();
     unsigned char IsFlagSet();
     float FUN_00681490();
 };
@@ -2416,7 +2416,7 @@ void PerkPrinter::BuildDescription(char* output, unsigned int outputSize)
                 int form = node->value;
                 const char* value = _data_01020770;
                 int offset = 0;
-                switch (kItem->FUN_005ec060())
+                switch (kItem->GetComparisonCondition())
                 {
                 case 0:
                 case 1:

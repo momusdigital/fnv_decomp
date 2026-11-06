@@ -290,7 +290,7 @@ class __declspec(align(16)) S00dced70_Object
 
 // Havok getVtable helper: build the object with the finish-loading flag and read its vtable pointer.
 // @fnv 0x00dced70
-const void* __cdecl FUN_00dced70()
+const void* __cdecl getVtable_hkpBreakableConstraintData()
 {
     FinishingFlag flag;
     flag.m_bFinishing = 0;

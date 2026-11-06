@@ -920,7 +920,7 @@ struct S00d11470_Object {
     char* unkA0;
 };
 struct S00d11470_Owner {
-    bool __thiscall FUN_00d11470(int* first, int* second);
+    bool __thiscall areAabbsOverlapping(int* first, int* second);
 };
 void __cdecl FUN_00c908c0(void* alloc, void* self, int newCap, int elemSize);
 struct FUN_00d11e80_cls {
@@ -1002,7 +1002,7 @@ struct d11Sweep {
     int unkcc;
     int m_iBase;
 
-    void FUN_00d11fa0(d11Out& __restrict out);
+    void getAllAabbs(d11Out& __restrict out);
 };
 struct SweepEndpoint {
     unsigned short m_uiFilterValue;
@@ -1408,7 +1408,7 @@ struct AxisSweep {
     int unkA8;
     SweepType* types;
     void FUN_00d112c0(int numRecords, unsigned short code, SweepRecord* rec, int index, void* buffer);
-    void FUN_00d14100(int* index, EventList* events);
+    void reQuerySingleObject(int* index, EventList* events);
 };
 extern "C" void _ReadWriteBarrier();
 struct SweepNodeX {
@@ -1522,7 +1522,7 @@ struct SweepOwnerX {
  void FUN_00d112c0(int count,int key,SweepNodeX* node,unsigned int index,unsigned int* bits);
  void FUN_00d10d10(SweepNodeX* base,int count,SweepNodeX* node);
  void FixNodeEdges(unsigned int index);
- void FUN_00d14600(unsigned int* handle,SweepPairsX* pairs);
+ void removeObject(unsigned int* handle,SweepPairsX* pairs);
 };
 struct CacheNode { unsigned short minY,minZ,maxY,maxZ,minX,maxX; unsigned int handle; };
 struct Alloc {
@@ -1563,7 +1563,7 @@ struct CacheOwner {
     int unkA4, unkA8;
     SweepArray<SweepEndpoint> axis[3];
     __declspec(noinline) void FUN_00d13950(Blk* array, unsigned int a2);
-    void FUN_00d15f10(ItemList* a1, unsigned int a2);
+    void calcAabbCache(ItemList* a1, unsigned int a2);
 };
 void CacheOwner::FUN_00d13950(Blk* input, unsigned int out) {
     int n=(input->b+1)*2;
@@ -1693,7 +1693,7 @@ struct AssignedSweep {
     Node* nodes;
     void BuildBroadPhasePairs(Box*, int, Box*, int, int, int);
     void FixNodeEdges(int);
-    void FUN_00d193e0(RemovedHandleList*, int);
+    void removeObjectBatch(RemovedHandleList*, int);
 };
 
 struct SweepDeltaPair { const unsigned short* x; const unsigned short* y; };

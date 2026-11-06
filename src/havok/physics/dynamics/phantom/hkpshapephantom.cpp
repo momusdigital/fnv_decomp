@@ -261,12 +261,12 @@ struct S00c9e830_Obj
     S00c9e830_Shape* unk10;
 
     void NotifyListeners();
-    unsigned int FUN_00c9e830(S00c9e830_Shape* parameter);
+    unsigned int setShape(S00c9e830_Shape* parameter);
 };
 
 // Sets the object's shape to the given parameter, notifying listeners and the owner, or queues the operation if the owner is locked.
 // @fnv 0x00c9e830
-unsigned int S00c9e830_Obj::FUN_00c9e830(S00c9e830_Shape* apShape)
+unsigned int S00c9e830_Obj::setShape(S00c9e830_Shape* apShape)
 {
     S00c9e830_Operation operation;
 

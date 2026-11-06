@@ -92,11 +92,11 @@ struct FUN_00da2e60_cls
     void* m_vft;  // +0x00
     char m_auiShapeKeys[0x1c];
     int m_pSocket;  // +0x20
-    int FUN_00da2e60(int, int);
+    int write(int, int);
 };
 
 // @fnv 0x00da2e60
-int FUN_00da2e60_cls::FUN_00da2e60(int a, int b)
+int FUN_00da2e60_cls::write(int a, int b)
 {
     int r;
     if (m_pSocket != -1)
@@ -145,11 +145,11 @@ struct FUN_00da2f90_cls
 {
     char m_auiShapeKeys[0x20];
     int m_pSocket;
-    bool FUN_00da2f90(int a, int b, int c);
+    bool asyncSelect(int a, int b, int c);
 };
 extern "C" int __stdcall FUN_00ee6d7a(int, int, int, int);
 // @fnv 0x00da2f90
-bool FUN_00da2f90_cls::FUN_00da2f90(int aiArg1, int aiArg2, int c)
+bool FUN_00da2f90_cls::asyncSelect(int aiArg1, int aiArg2, int c)
 {
     return FUN_00ee6d7a(m_pSocket, aiArg1, aiArg2, ((c & 3) | ((c & 0xc) << 2))) != 0;
 }
@@ -369,12 +369,12 @@ struct SocketConnector
     int unk1c;
     int socket;
     int FUN_00da2de0();
-    int FUN_00da2ec0(const char* host, int port);
+    int connect(const char* host, int port);
 };
 
 // Resolves the host to an IPv4 address, ensures a socket exists, and calls the connection routine with the address and port.
 // @fnv 0x00da2ec0
-int SocketConnector::FUN_00da2ec0(const char* host, int port)
+int SocketConnector::connect(const char* host, int port)
 {
     IPv4SocketAddress target;
     FUN_00cb1280(&target, 0, sizeof(target));

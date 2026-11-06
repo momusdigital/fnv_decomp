@@ -37,7 +37,7 @@ void FUN_00cbb1b0_Class::FUN_00cbb1b0(hkReal a)
 extern "C" int DAT_01268a14;
 
 // @fnv 0x00cbb8a0
-int __cdecl FUN_00cbb8a0()
+int __cdecl getClassType()
 {
     return (int)&DAT_01268a14;
 }

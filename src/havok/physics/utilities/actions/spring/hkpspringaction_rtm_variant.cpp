@@ -253,7 +253,7 @@ struct SpringStep
 };
 struct SpringAction : hkpSpringAction
 {
-    void __thiscall FUN_00d4d530(const SpringStep& step);
+    void __thiscall applyAction(const SpringStep& step);
 };
 static __m128 dot3(__m128 a, __m128 b)
 {
@@ -299,7 +299,7 @@ static __m128 broadcast(float v)
     return _mm_load_ps1(&v);
 }
 // @fnv 0x00d4d530
-void SpringAction::FUN_00d4d530(const SpringStep& step)
+void SpringAction::applyAction(const SpringStep& step)
 {
     hkpEntity* a = m_pEntityA;
     hkpEntity* b = m_pEntityB;

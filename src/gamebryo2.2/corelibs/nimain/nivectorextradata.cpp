@@ -19,11 +19,11 @@ struct NiVectorExtraData : NiObject
 {
     char m_auiShapeKeys[8];
     float m_afVectorComponents[4];
-    bool FUN_00a92020(NiObject* pObject);
+    bool IsEqual(NiObject* pObject);
 };
 
 // @fnv 0x00a92020
-bool NiVectorExtraData::FUN_00a92020(NiObject* pObject)
+bool NiVectorExtraData::IsEqual(NiObject* pObject)
 {
     if (pObject)
     {
@@ -73,11 +73,11 @@ struct CloningProcess
 extern int DAT_0109fb94;
 struct FUN_00a920b0_shell : NiVectorExtraData
 {
-    NiObject* FUN_00a920b0(CloningProcess&);
+    NiObject* CreateClone(CloningProcess&);
 };
 // Allocates a NiVectorExtraData, initialises its four floats to zero, copies this object's four floats into it and returns it.
 // @fnv 0x00a920b0
-NiObject* FUN_00a920b0_shell::FUN_00a920b0(CloningProcess& kCloning)
+NiObject* FUN_00a920b0_shell::CreateClone(CloningProcess& kCloning)
 {
     NiVectorExtraData* pkObject = (NiVectorExtraData*)BSFadeNode::operator new(sizeof(NiVectorExtraData));
     if (pkObject)
@@ -373,11 +373,11 @@ class FUN_00a92110_cls : public NiVectorExtraData
 {
   public:
     void FUN_00a7b4a0(S_00a921f0_Stream* s);
-    void FUN_00a92110(S_00a921f0_Stream* s);
+    void LoadBinary(S_00a921f0_Stream* s);
 };
 
 // @fnv 0x00a92110
-void FUN_00a92110_cls::FUN_00a92110(S_00a921f0_Stream* s)
+void FUN_00a92110_cls::LoadBinary(S_00a921f0_Stream* s)
 {
     FUN_00a7b4a0(s);
     if ((unsigned int)s->unk0d8 < 0x500000e)

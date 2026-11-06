@@ -70,7 +70,7 @@ void* __thiscall FUN_00e3deb0_Class::FUN_00e3deb0(unsigned int uiFlags)
 }
 
 // @fnv 0x00e3c9d0
-__declspec(noinline) unsigned int __stdcall FUN_00e3c9d0(unsigned int a1, unsigned int a2)
+__declspec(noinline) unsigned int __stdcall calcSizeForSpu(unsigned int a1, unsigned int a2)
 {
     return 0xF0;
 }

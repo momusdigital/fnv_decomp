@@ -9,7 +9,7 @@ struct FUN_00d58d60_t
 {
     char pad[0x40];
     float* m;
-    void FUN_00d58d60(float* out);
+    void getFirstVertex(float* out);
 };
 struct FUN_00d591d0_class
 {
@@ -199,7 +199,7 @@ typedef hkUint16 hkpVertexId;
 class hkpConvexVerticesShapeImpl : public hkpConvexVerticesShape
 {
 public:
-    void FUN_00d59060(const hkpVertexId* ids, int numIds, Vector4WithInt24W* verticesOut) const;
+    void convertVertexIdsToVerticesImpl(const hkpVertexId* ids, int numIds, Vector4WithInt24W* verticesOut) const;
 };
 class SpliceAllocator;
 struct AlignedSpliceVector {__m128 value;};
@@ -353,7 +353,7 @@ struct MatchShape : public hkpShape
     int m_rotatedCapacity;
     int m_iStridedVertexCount;
 
-    void FUN_00d58ee0(const MatchVector& direction, MatchVector& supportingVertexOut) const;
+    void getSupportingVertexImpl(const MatchVector& direction, MatchVector& supportingVertexOut) const;
 };
 extern void* DAT_010d0fc4;
 extern "C" void _ReadWriteBarrier();

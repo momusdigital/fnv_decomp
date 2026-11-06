@@ -17,12 +17,12 @@ extern "C" const NiRTTI* __cdecl FUN_00a75f30()
 class NiTriStripsDataWork : public NiTriStripsData
 {
   public:
-    void FUN_00a75f40(unsigned short& rNumStrips, const unsigned short*& rStripLengths,
+    void GetStripData(unsigned short& rNumStrips, const unsigned short*& rStripLengths,
                       const unsigned short*& rStripLists, unsigned int& rNumIndices);
 };
 
 // @fnv 0x00a75f40
-void NiTriStripsDataWork::FUN_00a75f40(unsigned short& rNumStrips, const unsigned short*& rStripLengths,
+void NiTriStripsDataWork::GetStripData(unsigned short& rNumStrips, const unsigned short*& rStripLengths,
                                        const unsigned short*& rStripLists, unsigned int& rNumIndices)
 {
     rNumStrips = m_usStrips;

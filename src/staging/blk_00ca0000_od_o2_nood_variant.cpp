@@ -1240,10 +1240,10 @@ struct F7_Clone
     int unk00;
     F7_Shape* shape;
     void ReleaseObject(F7_Shape*, F7_Params*);
-    void FUN_00cbdb70(F7_Shape* dest, F7_Params* params);
+    void CloneData(F7_Shape* dest, F7_Params* params);
 };
 // @fnv 0x00cbdb70
-void F7_Clone::FUN_00cbdb70(F7_Shape* dest, F7_Params* params)
+void F7_Clone::CloneData(F7_Shape* dest, F7_Params* params)
 {
     F7_Scope scope;
     F7_Shape* src = shape;
@@ -1570,11 +1570,11 @@ struct MeshShape
     int material;
     void ReadGroup(NiStream&);
     void FUN_00c84d00(NiStream&);
-    void FUN_00ca7a70(NiStream&);
+    void LoadBinary(NiStream&);
 };
 
 // @fnv 0x00ca7a70
-void MeshShape::FUN_00ca7a70(NiStream& stream)
+void MeshShape::LoadBinary(NiStream& stream)
 {
     unsigned char allocated;
     RuntimeMesh* mesh = GetRuntime(&allocated);

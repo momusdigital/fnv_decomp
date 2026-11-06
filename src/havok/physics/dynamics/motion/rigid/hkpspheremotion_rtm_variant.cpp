@@ -183,18 +183,18 @@ extern double DAT_010c9300;
 extern float DAT_0104da4c;
 struct FUN_00d1e1d0_cls : hkpSphereMotion
 {
-    void FUN_00d1e1d0(int out);
+    void getInertiaLocal(int out);
 };
 extern "C" __m128 _mm_setzero_ps();
 class SphereInverseWorld : public hkpSphereMotion
 {
   public:
-    void FUN_00d1e3d0(hkMatrix3* out) const;
+    void getInertiaInvWorld(hkMatrix3* out) const;
 };
 extern "C" __m128 _mm_setzero_ps();
 struct TestMotion : public hkpSphereMotion
 {
-    void FUN_00d1e390(hkMatrix3& inertiaInvOut);
+    void getInertiaInvLocal(hkMatrix3& inertiaInvOut);
 };
 
 extern "C" __m128 _mm_load_ss(const float* p);

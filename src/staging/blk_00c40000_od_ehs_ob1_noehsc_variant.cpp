@@ -165,7 +165,7 @@ struct FUN_00c4ada0_Class {
 };
 struct FUN_00c4ade0_class {
     unsigned char FUN_00c452c0(int);
-    unsigned char FUN_00c4ade0(int);
+    unsigned char RegisterStreamables(int);
 };
 struct FUN_00c4ae10_Class {
     void FUN_00c452f0(int);
@@ -405,7 +405,7 @@ struct NiTPrimitiveArray_unsigned_int_ {
 };
 struct FUN_00c4ab00_Class {
     void __thiscall FUN_00c454c0(int);
-    void __thiscall FUN_00c4ab00(int a);
+    void __thiscall GetViewerStrings(int a);
 };
 struct FUN_00c4f2d0_class {
     void __thiscall FUN_00c4f2d0();
@@ -5201,7 +5201,7 @@ struct W5Self {
     int f14;
     W5Sub sub18;
     void __thiscall FUN_00a7b580(ArrC43220* a1);
-    void __thiscall FUN_00c550f0(ArrC43220* a1);
+    void __thiscall GetViewerStrings(ArrC43220* a1);
 };
 struct S_00c5b140_Node {
     int unk00;
@@ -5303,7 +5303,7 @@ struct S00c5cd80_Owner {
     int m_5c;
     unsigned short m_60;
     void FUN_00c1ce70(NiTPrimitiveArray_unsigned_int_* a);
-    void FUN_00c5cd80(NiTPrimitiveArray_unsigned_int_* arg);
+    void GetViewerStrings(NiTPrimitiveArray_unsigned_int_* arg);
 };
 struct Node_00c5e080 {
     virtual void vfunc00();

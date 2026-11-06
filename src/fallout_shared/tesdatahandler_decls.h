@@ -109,14 +109,14 @@ class TESDataHandler
     bool LoadPluginFiles(bool);
     void MarkGameSettingsLoaded();
     void ReportDataHandlerError(int);
-    void FUN_00464d30(bool);
+    void DisableAssignFormIDs(bool);
     bool FUN_00467780(TESFile*, bool);
     void FUN_00464d50(TESForm*);
     void FUN_00464d70(TESForm*);
     void SetField638(TESForm*);
     BSSimpleList<TESForm*>* FUN_00436aa0();
     BSSimpleList<TESForm*>* FUN_00624700();
-    BSSimpleList<TESForm*>* FUN_004612e0();
+    BSSimpleList<TESForm*>* GetTopicList();
     BSSimpleList<TESForm*>* FUN_004077e0();
     BSSimpleList<TESForm*>* FUN_0041d8a0();
     BSSimpleList<TESForm*>* FUN_0087eaa0();

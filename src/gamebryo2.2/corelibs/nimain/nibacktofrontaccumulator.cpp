@@ -347,11 +347,11 @@ class BackToFront_aa0 : public FUN_00aa0fc0
     virtual void v00();
 
     void FUN_00aa1000(BackToFront_aa0* pkClone, CloningProcess& kCloning);
-    BackToFront_aa0* FUN_00aa0f50(CloningProcess& kCloning);
+    BackToFront_aa0* CreateClone(CloningProcess& kCloning);
 };
 
 // @fnv 0x00aa0f50
-BackToFront_aa0* BackToFront_aa0::FUN_00aa0f50(CloningProcess& kCloning)
+BackToFront_aa0* BackToFront_aa0::CreateClone(CloningProcess& kCloning)
 {
     BackToFront_aa0* pkObject = new BackToFront_aa0;
     FUN_00aa1000(pkObject, kCloning);

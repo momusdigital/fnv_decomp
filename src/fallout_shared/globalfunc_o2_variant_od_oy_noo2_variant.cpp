@@ -92,7 +92,7 @@ struct S86870
     virtual void d44() = 0;
     virtual void* GetLink(char* p) = 0;
     void FUN_00c87670(NiStream* s);
-    void FUN_00c86870(NiStream* s);
+    void LinkObject(NiStream* s);
 };
 template <class T> struct NiTMallocInterface
 {
@@ -1292,7 +1292,7 @@ class RefObjC86D : public TESObjectDoorController
         DAT_01268124++;
     }
 };
-RefObjC86D* __cdecl FUN_00c86de0();
+RefObjC86D* __cdecl CreateObject();
 void FUN_00c876f0();
 void FUN_00c87700();
 void* __cdecl FUN_00aa13e0(unsigned int bytes);
@@ -1328,7 +1328,7 @@ class AllocatedNode
 class FUN_00c87010_cls : public FUN_00c86800_Class
 {
   public:
-    AllocatedNode* FUN_00c87010(FUN_00c86800_Table* p);
+    AllocatedNode* CreateClone(FUN_00c86800_Table* p);
 };
 
 #include <xmmintrin.h>

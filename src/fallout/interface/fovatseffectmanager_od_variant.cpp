@@ -103,7 +103,7 @@ struct RefLike
 
 struct FormLike
 {
-    unsigned int FUN_0043b540();
+    unsigned int getCollisionFilterInfo();
 };
 
 struct NodeLike
@@ -138,7 +138,7 @@ struct CellLike
 
 struct TESLike
 {
-    CellLike* FUN_00457620(Vec3Like* pos);
+    CellLike* GetLandGeometry(Vec3Like* pos);
 };
 
 struct ExtraLike
@@ -170,11 +170,11 @@ unsigned int FUN_004b5820(FormLike* form)
             {
                 result5 = ref->GetFlags();
             }
-            else if (FilterHolder(form->FUN_0043b540()).FUN_004a3a20() == 1)
+            else if (FilterHolder(form->getCollisionFilterInfo()).FUN_004a3a20() == 1)
             {
                 Vec3Like pos4;
                 FUN_00458620(&pos4, ((NodeLike*)node_)->FUN_004b4ec0());
-                CellLike* cellA = g_TES->FUN_00457620(&pos4);
+                CellLike* cellA = g_TES->GetLandGeometry(&pos4);
                 if (cellA && cellA->FUN_009611e0())
                 {
                     result5 = cellA->FUN_009611e0();

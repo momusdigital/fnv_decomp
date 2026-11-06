@@ -11,11 +11,11 @@ struct bhkRigidBody
 {
     void FUN_00c859e0(NiStream*);
     void FUN_00c8ef80(NiObject*);
-    void FUN_00c8f3c0(NiStream*);
+    void LinkObject(NiStream*);
 };
 // Calls FUN_00c859e0, reads a count from the stream, then reads that many NiObjects and passes each non-null one to FUN_00c8ef80.
 // @fnv 0x00c8f3c0
-void bhkRigidBody::FUN_00c8f3c0(NiStream* stream)
+void bhkRigidBody::LinkObject(NiStream* stream)
 {
     FUN_00c859e0(stream);
     unsigned int count = stream->GetLinkID();
@@ -92,7 +92,7 @@ void __cdecl AddMotionTypeName(StrArr* arr, int type)
 struct FUN_00c8eb00_s
 {
     void __thiscall ProcessListNodes();
-    void __thiscall FUN_00c9d590();
+    void __thiscall Remove();
     void __thiscall FUN_00c8eb00();
 };
 // @fnv 0x00c8eb00
@@ -100,7 +100,7 @@ void __thiscall FUN_00c8eb00_s::FUN_00c8eb00()
 {
     *(unsigned int*)(this + 0x10) &= 0xffffff77;
     ProcessListNodes();
-    FUN_00c9d590();
+    Remove();
 }
 
 struct LinkedRecord
@@ -210,7 +210,7 @@ struct S_00c8d440_Target
 extern S_00c8d440_Target* DAT_01268360;
 
 // @fnv 0x00c8d440
-void __stdcall FUN_00c8d440(bool flag)
+void __stdcall SetHavokAssertState(bool flag)
 {
     S_00c8d440_Target* t = DAT_01268360;
     t->v4(0xf043d534, S_00c8d440_Arg(flag));
@@ -939,7 +939,7 @@ struct SpawnedObject : public ChainB_cls
 
 // Allocates and constructs a new SpawnedObject, incrementing the three global counters in its constructors, and returns it.
 // @fnv 0x00c8ed70
-SpawnedObject* __cdecl FUN_00c8ed70()
+SpawnedObject* __cdecl CreateObject()
 {
     return new SpawnedObject();
 }

@@ -87,11 +87,11 @@ extern "C" bool __stdcall IsSameAs(NiObject*);
 
 struct NiBSplineData_shell : NiBSplineData
 {
-    bool FUN_00a51e50(NiObject* pkObject);
+    bool IsEqual(NiObject* pkObject);
 };
 
 // @fnv 0x00a51e50
-bool NiBSplineData_shell::FUN_00a51e50(NiObject* pkObject)
+bool NiBSplineData_shell::IsEqual(NiObject* pkObject)
 {
     if (IsSameAs(pkObject))
     {

@@ -156,8 +156,8 @@ void NiPoint3Interpolator::CreateObject(int state, bool force)
         if (reinterpret_cast<VATS*>(&g_011f2250)->FUN_005d8710())
         {
             reinterpret_cast<ExtraDataList*>(FUN_00450b80(0))
-                ->Set3DObject(reinterpret_cast<VATS*>(&g_011f2250)->FUN_005d8710()->FUN_004e6540());
-            FUN_00450b80(0)->vfn_e8(reinterpret_cast<VATS*>(&g_011f2250)->FUN_005d8710()->FUN_004e6540());
+                ->Set3DObject(reinterpret_cast<VATS*>(&g_011f2250)->FUN_005d8710()->GetLight());
+            FUN_00450b80(0)->vfn_e8(reinterpret_cast<VATS*>(&g_011f2250)->FUN_005d8710()->GetLight());
             reinterpret_cast<VATS*>(&g_011f2250)->SetLight(0, true);
         }
         break;
@@ -236,7 +236,7 @@ NiPoint3Interpolator* __fastcall FUN_00a49ae0(NiPoint3Interpolator* pThis, int, 
 }
 
 // @fnv 0x00a49410
-void* __fastcall FUN_00a49410(char* self, int, int)
+void* __fastcall GetKeyCount(char* self, int, int)
 {
     void* d = *(void**)(self + 0x18);
     if (!d)
@@ -385,11 +385,11 @@ extern float DAT_011a942c;
 
 struct NiPoint3Interpolator_shell
 {
-    bool __thiscall FUN_00a49460(unsigned short channel);
+    bool __thiscall GetChannelPosed(unsigned short channel);
 };
 
 // @fnv 0x00a49460
-bool NiPoint3Interpolator_shell::FUN_00a49460(unsigned short channel)
+bool NiPoint3Interpolator_shell::GetChannelPosed(unsigned short channel)
 {
     if (*(int*)((char*)this + 0x18))
         return false;
@@ -615,7 +615,7 @@ class A49B30Point3Interpolator : public A49B30KeyBasedInterpolator
     virtual ~A49B30Point3Interpolator();
 
     void CopyMemberData(A49B30Point3Interpolator* pkDest, void* pvCloning);
-    A49B30Point3Interpolator* FUN_00a49b30(void* pvCloning);
+    A49B30Point3Interpolator* CreateClone(void* pvCloning);
 
     A49B30Point3 m_kPoint3Value;
     A49B30DataPtr m_spPoint3Data;
@@ -623,7 +623,7 @@ class A49B30Point3Interpolator : public A49B30KeyBasedInterpolator
 };
 
 // @fnv 0x00a49b30
-A49B30Point3Interpolator* A49B30Point3Interpolator::FUN_00a49b30(void* pvCloning)
+A49B30Point3Interpolator* A49B30Point3Interpolator::CreateClone(void* pvCloning)
 {
     A49B30Point3Interpolator* pkClone = new A49B30Point3Interpolator;
     CopyMemberData(pkClone, pvCloning);
@@ -658,7 +658,7 @@ class FUN_00a49bb0_cls
     unsigned int unk08;
     Sub0cHelper m_sub0c;
     unsigned int m_val18;
-    void FUN_00a3cbf0(StrArrList* list);
+    void GetViewerStrings(StrArrList* list);
     void AppendPoint3Fields(StrArrList* list);
 };
 
@@ -672,7 +672,7 @@ void FUN_00a49bb0_cls::AppendPoint3Fields(StrArrList* list)
 {
     unsigned int value;
 
-    FUN_00a3cbf0(list);
+    GetViewerStrings(list);
     value = FUN_00a7d330(DAT_011f3f70);
     {
         unsigned int count = list->count;
@@ -877,11 +877,11 @@ struct Call_439090_tgt
 struct PosInterpEq : public NiPoint3Interpolator
 {
     bool FUN_00c85800(NiPoint3Interpolator* other);
-    bool FUN_00a49a80(NiPoint3Interpolator* other);
+    bool IsEqual(NiPoint3Interpolator* other);
 };
 
 // @fnv 0x00a49a80
-bool PosInterpEq::FUN_00a49a80(NiPoint3Interpolator* other)
+bool PosInterpEq::IsEqual(NiPoint3Interpolator* other)
 {
     if (!FUN_00c85800(other))
         return false;

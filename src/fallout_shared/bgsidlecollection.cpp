@@ -152,14 +152,14 @@ int BGSIdleCollection::GetPickType()
 }
 
 extern int DAT_0101abd8;
-void __fastcall FUN_0047b540(void* pThis);
+void __fastcall InitializeDataComponent(void* pThis);
 
 // @fnv 0x00479790
 void* __fastcall FUN_00479790(BaseFormComponent* pThis)
 {
     pThis->BaseFormComponent::BaseFormComponent();
     *(int**)pThis = &DAT_0101abd8;
-    FUN_0047b540(pThis);
+    InitializeDataComponent(pThis);
     return pThis;
 }
 
@@ -184,7 +184,7 @@ extern "C" void* DAT_0101abd8;
 
 struct FUN_004797c0_shell
 {
-    void FUN_00479810();
+    void ClearDataComponent();
     void FUN_004797c0();
 };
 
@@ -192,7 +192,7 @@ struct FUN_004797c0_shell
 void FUN_004797c0_shell::FUN_004797c0()
 {
     *reinterpret_cast<void**>(this) = &DAT_0101abd8;
-    FUN_00479810();
+    ClearDataComponent();
 }
 }  // namespace fnv_004797c0
 
@@ -229,10 +229,10 @@ struct StandIn
     unsigned char _c5;
     char _pad6[2];
     void* _p8;
-    void FUN_00479810();
+    void ClearDataComponent();
 };
 // @fnv 0x00479810
-void StandIn::FUN_00479810()
+void StandIn::ClearDataComponent()
 {
     void* idleArray = _p8;
     _Deallocate(idleArray);
@@ -250,11 +250,11 @@ struct __memcpyHelper
 };
 struct FUN_00479850_shell : BGSIdleCollection
 {
-    void FUN_00479850(BaseFormComponent* apCopyFC);
+    void CopyComponent(BaseFormComponent* apCopyFC);
 };
 // Copies the idle count, reallocates and copies the idle form array from apCopyFC, and copies the extra field.
 // @fnv 0x00479850
-void FUN_00479850_shell::FUN_00479850(BaseFormComponent* apCopyFC)
+void FUN_00479850_shell::CopyComponent(BaseFormComponent* apCopyFC)
 {
     BGSIdleCollection* pSource = dynamic_cast<BGSIdleCollection*>(apCopyFC);
     if (!pSource)

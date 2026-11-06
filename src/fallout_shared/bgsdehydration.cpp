@@ -158,7 +158,7 @@ bool BGSDehydrationStage::Load(TESFile* file)
             readOBNDSubRecord(file);
             break;
         case 0x41544144:
-            FUN_004861f0(file, FUN_00500940(8));
+            LoadData(file, FUN_00500940(8));
             break;
         }
 
@@ -428,11 +428,11 @@ struct CachedValuesOwner
 typedef char _sizecheck_CachedValuesOwner[sizeof(CachedValuesOwner) == 4 ? 1 : -1];
 struct FUN_00401190_shell : public TESForm
 {
-    bool FUN_00401190();
+    bool GetQuestObject();
 };
 
 // @fnv 0x00401190
-bool FUN_00401190_shell::FUN_00401190()
+bool FUN_00401190_shell::GetQuestObject()
 {
     return (m_uiFormFlags & 0x400) ? true : false;
 }
@@ -644,7 +644,7 @@ char* FUN_00551740_shell::GetCellName()
 
 struct FUN_005f0060_shell : public TESForm
 {
-    char* FUN_005f0060();
+    char* GetEditorID();
 };
 
 struct Flt
@@ -653,7 +653,7 @@ struct Flt
 };
 // Returns the value at offset 0x1c as a string pointer if nonzero, otherwise an empty string.
 // @fnv 0x005f0060
-char* FUN_005f0060_shell::FUN_005f0060()
+char* FUN_005f0060_shell::GetEditorID()
 {
     return (unsigned int)(*(Flt*)((char*)this + 0x1c)) ? (char*)(unsigned int)(*(Flt*)((char*)this + 0x1c)) : "";
 }
@@ -668,7 +668,7 @@ struct TESObjectREFR;
 struct FileEntryList;
 struct FUN_005fe0f0_shell : public TESForm
 {
-    char* FUN_005fe0f0();
+    char* GetEditorID();
 };
 
 struct Flt
@@ -676,7 +676,7 @@ struct Flt
     operator unsigned int() const;
 };
 // @fnv 0x005fe0f0
-char* FUN_005fe0f0_shell::FUN_005fe0f0()
+char* FUN_005fe0f0_shell::GetEditorID()
 {
     return (unsigned int)(*(Flt*)((char*)this + 0x4c)) ? (char*)(unsigned int)(*(Flt*)((char*)this + 0x4c)) : (char*)"";
 }
@@ -792,7 +792,7 @@ struct TESTopic : public TESForm, public TESFullName
 typedef char _sizecheck_TESTopic[sizeof(TESTopic) == 64 ? 1 : -1];
 struct FUN_00618660_shell : public TESForm
 {
-    char* FUN_00618660();
+    char* GetEditorID();
 };
 
 struct Flt
@@ -801,7 +801,7 @@ struct Flt
 };
 extern char $SG5889[];
 // @fnv 0x00618660
-char* FUN_00618660_shell::FUN_00618660()
+char* FUN_00618660_shell::GetEditorID()
 {
     return ((Flt*)((char*)this + 0x40))->operator unsigned int()
                ? (char*)((Flt*)((char*)this + 0x40))->operator unsigned int()
@@ -959,11 +959,11 @@ struct FUN_0055d480_name_object
 
 struct FUN_0055d480_shell
 {
-    const char* FUN_0055d480();
+    const char* GetEditorID();
 };
 
 // @fnv 0x0055d480
-const char* FUN_0055d480_shell::FUN_0055d480()
+const char* FUN_0055d480_shell::GetEditorID()
 {
     const char* name;
 
@@ -1010,11 +1010,11 @@ class FUN_00401150_cls
 {
   public:
     void FUN_00401170();
-    void FUN_00401150();
+    void GetSavedFormType();
 };
 
 // @fnv 0x00401150
-void FUN_00401150_cls::FUN_00401150()
+void FUN_00401150_cls::GetSavedFormType()
 {
     this->FUN_00401170();
 }
@@ -1025,7 +1025,7 @@ extern const char DAT_011846d4;
 extern const char DAT_01189dbc;
 struct LightQuery
 {
-    unsigned char __thiscall FUN_004fdf20();
+    unsigned char __thiscall GetCanTurnOff();
     unsigned char __thiscall FUN_004fdf40();
 };
 struct ResolvedLight
@@ -1247,7 +1247,7 @@ unsigned char LightController::FUN_004fde40(unsigned int first, unsigned int sec
     ResolvedLight* linkedLight = static_cast<ResolvedLight*>(FUN_00ec43fb(first, 0, &DAT_011841cc, &DAT_01189dbc, 0));
     if (lightSource && linkedLight)
     {
-        if (linkedLight->FUN_004181e0()->FUN_004fdf20() && !linkedLight->FUN_00444d00(0x200) &&
+        if (linkedLight->FUN_004181e0()->GetCanTurnOff() && !linkedLight->FUN_00444d00(0x200) &&
             linkedLight->CanActOn(lightSource, 0))
             return 1;
         if (linkedLight->FUN_004181e0()->FUN_004fdf40())
@@ -1667,7 +1667,7 @@ struct ActivationRef
 };
 extern ActivationRef* DAT_011dea3c;
 extern ActivationRef* DAT_011e0788;
-void FUN_00600900(ActivationRef*);
+void SetUsedItem(ActivationRef*);
 void FUN_00600940(int);
 void FUN_00600920(int);
 // Gets the activation form, runs an actor activation check with height/mode setup, and if allowed calls Activate on the form.
@@ -1681,7 +1681,7 @@ bool ActivationRef::ActivateWithActorCheck(ActivationRef* source, ActivationRef*
     if (target && target->IsActor())
     {
         ActivationRef* actor = target;
-        FUN_00600900(this);
+        SetUsedItem(this);
         FUN_00600940(1);
         float height2 = actor->FUN_008be940() + actor->Position().z - actor->GroundOffset();
         float sourceHeight = source->Position().z;
@@ -1697,7 +1697,7 @@ bool ActivationRef::ActivateWithActorCheck(ActivationRef* source, ActivationRef*
         }
         FUN_00600920(mode);
         bool permitted6 = actor->FUN_008d8520()->CanActivate(actor, 0, 3, 1, 0, 1);
-        FUN_00600900(0);
+        SetUsedItem(0);
         FUN_00600940(0);
         FUN_00600920(-1);
         if (!permitted6)
@@ -3165,7 +3165,7 @@ int FUN_00406d00(char*, unsigned int, const char*, ...);
 void DispatchMessageToSink(const char*, int, const char*, int, float, int);
 void FUN_005e58f0(int, ActivateActor*, float*);
 void FUN_00705830(ActivateReference*, int, int);
-void FUN_00600900(ActivateKey*);
+void SetUsedItem(ActivateKey*);
 void FUN_00600940(int);
 void FUN_00600920(int);
 int FUN_0047b250(ActivateReference*);
@@ -3227,11 +3227,11 @@ bool ActivateObject::FUN_00516dc0(ActivateReference* apTarget, TESObjectREFR* ac
                     ActivateAnimation* animation = actor2->GetAnimation();
                     if (animation)
                         animation->FUN_00498910(1, 0);
-                    FUN_00600900(DAT_011ca268);
+                    SetUsedItem(DAT_011ca268);
                     FUN_00600940(1);
                     FUN_00600920(1);
                     actor2->FUN_008d8520()->Action(actor2, 0, 2, 1, 0, 1);
-                    FUN_00600900(0);
+                    SetUsedItem(0);
                     FUN_00600940(0);
                     FUN_00600920(-1);
                     ActivateExtra* npcLock2 = apTarget->FUN_005691f0();
@@ -3421,7 +3421,7 @@ struct AudioView
 };
 struct ExtraView
 {
-    void FUN_0041a6a0(AudioPlaybackHandle*);
+    void SetActivateLoopSound(AudioPlaybackHandle*);
 };
 struct AnimationView
 {
@@ -3495,7 +3495,7 @@ bool FUN_005113f0_shell::FUN_005113f0(ActivationRef* ref, ActivationRef* activat
         h = activator;
     if (h)
     {
-        FUN_00600900((ActivationRef*)this);
+        SetUsedItem((ActivationRef*)this);
         FUN_00600940(1);
         float a = h->FUN_008be940() + h->Position().z - h->GroundOffset();
         float f = ref->Position().z;
@@ -3509,7 +3509,7 @@ bool FUN_005113f0_shell::FUN_005113f0(ActivationRef* ref, ActivationRef* activat
             AB = 1;
         FUN_00600920(AB);
         bool i = h->FUN_008d8520()->CanActivate(h, 0, 3, 1, 0, 1);
-        FUN_00600900(0);
+        SetUsedItem(0);
         FUN_00600940(0);
         FUN_00600920(-1);
         if (!i && unk80)
@@ -3537,7 +3537,7 @@ bool FUN_005113f0_shell::FUN_005113f0(ActivationRef* ref, ActivationRef* activat
         AudioPlaybackHandle AB =
             AudioView::FUN_00453a70()->FUN_00ad7480(FUN_00407820()->FUN_00511840(), i | 0x40000102, FUN_00407820());
         if (p)
-            ((PlayerView*)DAT_011dea3c)->FUN_005d43c0()->FUN_0041a6a0(&AB);
+            ((PlayerView*)DAT_011dea3c)->FUN_005d43c0()->SetActivateLoopSound(&AB);
         AB.FUN_00ad8b60(h.x, h.y, h.z);
         AB.FUN_00ad8f20(((NodeView*)ref)->Node());
         AB.FUN_00ad8830(false);

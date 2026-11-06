@@ -49,33 +49,33 @@ int Stream::ReadChar()
 
 struct S_00cb1570
 {
-    int FUN_00cb1570(void* pArg);
+    int setMark(void* pArg);
 };
 // @fnv 0x00cb1570
-int S_00cb1570::FUN_00cb1570(void* pArg)
+int S_00cb1570::setMark(void* pArg)
 {
     return 1;
 }
 
 // @fnv 0x00cb1580
-int __cdecl FUN_00cb1580()
+int __cdecl rewindToMark()
 {
     return 1;
 }
 
 // @fnv 0x00cb15c0
-void __stdcall FUN_00cb15c0(char* p)
+void __stdcall seekTellSupported(char* p)
 {
     *p = 0;
 }
 
 struct CB1590Object
 {
-    virtual int FUN_00cb1590(const void* a, const void* b) const;
+    virtual int seek(const void* a, const void* b) const;
 };
 
 // @fnv 0x00cb1590
-int CB1590Object::FUN_00cb1590(const void* a, const void* b) const
+int CB1590Object::seek(const void* a, const void* b) const
 {
     return 1;
 }

@@ -689,11 +689,11 @@ struct FUN_00662030_cls
     int FUN_00662110(int idx);
     int FUN_00662150(int idx);
     int FUN_00662190(int idx);
-    void FUN_00662030(int sel, int p2, int p3, int p4, float p5);
+    void ApplyMorph(int sel, int p2, int p3, int p4, float p5);
 };
 // Dispatches on sel to one of four lookup functions with p2, then if the result is non-null calls v1(p3, p4, p5) on it.
 // @fnv 0x00662030
-void FUN_00662030_cls::FUN_00662030(int aiSelector, int aiIndex, int aiArg1, int aiArg2, float p5)
+void FUN_00662030_cls::ApplyMorph(int aiSelector, int aiIndex, int aiArg1, int aiArg2, float p5)
 {
     int pMorph = 0;
     switch (aiSelector)

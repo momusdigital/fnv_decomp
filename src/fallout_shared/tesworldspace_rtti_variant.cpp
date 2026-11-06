@@ -335,7 +335,7 @@ class WorldSpaceOwner5845
     void SetParentWorld(TESWorldSpace* p);
     void FinishInit(int i);
     TESObjectCELL5845* GetPersistentCell();
-    void FUN_005845e0();
+    void InitItem();
 
     unsigned int unk04;
     unsigned int unk08;
@@ -392,7 +392,7 @@ class WorldSpaceOwner5845
 };
 
 // @fnv 0x005845e0
-void WorldSpaceOwner5845::FUN_005845e0()
+void WorldSpaceOwner5845::InitItem()
 {
     if (!IsTemporary5845())
     {
@@ -554,10 +554,10 @@ struct WorldX
     virtual void v00(), v04(), v08(), v0c(), v10(), v14(), v18(), v1c(), v20(), v24(), v28(), v2c(), v30(), v34(),
         v38();
     virtual bool IsChildOf(WorldX* pkWorld);
-    bool FUN_00584be0(FormX* pkForm);
+    bool Sort(FormX* pkForm);
 };
 // @fnv 0x00584be0
-bool WorldX::FUN_00584be0(FormX* pkForm)
+bool WorldX::Sort(FormX* pkForm)
 {
     bool bResult = false;
     switch (pkForm->FUN_00401170())

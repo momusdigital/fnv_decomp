@@ -108,10 +108,10 @@ struct FUN_00a744c0_holder
 };
 struct FUN_00a86e80_shell : BSResizableTriShape
 {
-    NiObject* __thiscall FUN_00a86e80(CloningProcess& kCloning);
+    NiObject* __thiscall CreateClone(CloningProcess& kCloning);
 };
 // @fnv 0x00a86e80
-NiObject* __thiscall FUN_00a86e80_shell::FUN_00a86e80(CloningProcess& kCloning)
+NiObject* __thiscall FUN_00a86e80_shell::CreateClone(CloningProcess& kCloning)
 {
     BSResizableTriShape* pkObject;
     pkObject = (BSResizableTriShape*)BSFadeNode::operator new(0xD8);
@@ -147,10 +147,10 @@ struct FUN_00a71d10_shell
 };
 struct FUN_00a86ed0_shell : BSResizableTriShape
 {
-    void __thiscall FUN_00a86ed0(NiStream&);
+    void __thiscall SaveBinary(NiStream&);
 };
 // @fnv 0x00a86ed0
-void __thiscall FUN_00a86ed0_shell::FUN_00a86ed0(NiStream& stream)
+void __thiscall FUN_00a86ed0_shell::SaveBinary(NiStream& stream)
 {
     ((FUN_00a71d10_shell*)this)->FUN_00a71d10(stream);
     NiBinaryStream* __restrict input = stream.m_pBackingStream;
@@ -291,11 +291,11 @@ struct FUN_00a86f50_shell : Caller74690
     unsigned char _00[0xc3];
     char* _c4;
 
-    void __thiscall FUN_00a86f50(StrArr* strings);
+    void __thiscall GetViewerStrings(StrArr* strings);
 };
 
 // @fnv 0x00a86f50
-void FUN_00a86f50_shell::FUN_00a86f50(StrArr* strings)
+void FUN_00a86f50_shell::GetViewerStrings(StrArr* strings)
 {
     char* value;
     unsigned int index;
@@ -376,12 +376,12 @@ struct FUN_00a86e00_cls
     unsigned int m_ic4;
     NiBound m_bound;
     void FUN_00a745c0();
-    void FUN_00a86e00();
+    void RenderImmediate();
 };
 
 // Copies m_bound into the object pointed to by m_pBound, then calls FUN_00a745c0.
 // @fnv 0x00a86e00
-void FUN_00a86e00_cls::FUN_00a86e00()
+void FUN_00a86e00_cls::RenderImmediate()
 {
     NiBound* pBound = m_pBound;
     float w = m_bound.m_w;

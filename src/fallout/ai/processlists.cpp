@@ -388,7 +388,7 @@ void ProcessLists::Revert(BGSLoadGameBuffer* buffer)
     NiTMap<TESGlobal*, bool>::NewItem();
     FUN_004ee7d0();
     bsrandom_singleton::MersenneTwister::GetRandomGenerator();
-    FUN_004a42a0();
+    RemoveAllDecals();
 }
 
 // Scans the temp-effect list for a MagicShaderHitEffect matching target with the lowest FUN_00621b00 value and no IsUnk28Set, returning it.
@@ -425,11 +425,11 @@ MagicShaderHitEffect* ProcessLists::FindMagicShaderHitEffect(TESObjectREFR* targ
 
 struct FUN_00632d20_shell : public Crime
 {
-    void FUN_00632d20(bool);
+    void SetFrontOnly(bool);
 };
 
 // @fnv 0x00632d20
-void FUN_00632d20_shell::FUN_00632d20(bool abflag)
+void FUN_00632d20_shell::SetFrontOnly(bool abflag)
 {
     *reinterpret_cast<bool*>(reinterpret_cast<char*>(this) + 0x10) = abflag;
 }
@@ -3494,11 +3494,11 @@ struct FUN_009722e0_shell
 };
 struct FUN_0047eb90_shell
 {
-    void FUN_0047eb90(int);
+    void SetPCAnEnemy(int);
 };
 struct FUN_0041cf00_shell
 {
-    void* FUN_0041cf00();
+    void* GetPlayerCrimeList();
 };
 struct List_009e03e0
 {
@@ -3539,7 +3539,7 @@ SL* FUN_00971fd0_shell::FUN_00971fd0(float afTime)
                     {
                         FUN_0047eb90_shell* pRef = *(FUN_0047eb90_shell**)pNode->_ref_006815c0();
                         if (!((FUN_009722e0_shell*)&g_kProcessLists)->IsActorInOtherList(pRef, pItem))
-                            pRef->FUN_0047eb90(0);
+                            pRef->SetPCAnEnemy(0);
                         pNode = (NodeS*)((TESFormList*)pNode)->GetFirst();
                     }
                 }
@@ -3547,7 +3547,7 @@ SL* FUN_00971fd0_shell::FUN_00971fd0(float afTime)
                 if (pTarget && pTarget->IsActor())
                 {
                     Actor* pActor = (Actor*)pTarget;
-                    NodeS* pActorList = (NodeS*)((FUN_0041cf00_shell*)pActor->GetExtra())->FUN_0041cf00();
+                    NodeS* pActorList = (NodeS*)((FUN_0041cf00_shell*)pActor->GetExtra())->GetPlayerCrimeList();
                     if (pActorList)
                         pActorList->_ref_00905330((void* const*)&pItem);
                 }
@@ -7516,9 +7516,9 @@ struct Obj
     int FUN_0041ca90();
     Obj* FUN_00671d10();
     Obj* FUN_00680020();
-    void FUN_00672fc0(int a);
+    void SetPackageTarget(int a);
     Obj* FUN_00676140(Obj* a);
-    void FUN_00671d30(int a);
+    void SetPackageLocation(int a);
     Obj* FUN_00881650();
     bool FUN_009336c0();
     Obj* FUN_009344a0();
@@ -7662,10 +7662,10 @@ void Host::FUN_00976680(Obj* apObject)
                                 if (objD4->FUN_00671d10() != 0)
                                 {
                                     if (objD4->FUN_00671d10()->FUN_00680020() == apObject)
-                                        objD4->FUN_00672fc0(0);
+                                        objD4->SetPackageTarget(0);
                                 }
                                 if (objD4->FUN_00676140(objB4) == apObject)
-                                    objD4->FUN_00671d30(0);
+                                    objD4->SetPackageLocation(0);
                             }
                         }
                     }
@@ -7678,10 +7678,10 @@ void Host::FUN_00976680(Obj* apObject)
                                 if (objC8->FUN_00671d10() != 0)
                                 {
                                     if (objC8->FUN_00671d10()->FUN_00680020() == apObject)
-                                        objC8->FUN_00672fc0(0);
+                                        objC8->SetPackageTarget(0);
                                 }
                                 if (objC8->FUN_00676140(objB4) == apObject)
-                                    objC8->FUN_00671d30(0);
+                                    objC8->SetPackageLocation(0);
                             }
                         }
                     }
@@ -7810,10 +7810,10 @@ void Host::FUN_00976680(Obj* apObject)
                             if (objD7->FUN_00671d10() != 0)
                             {
                                 if (objD7->FUN_00671d10()->FUN_00680020() == apObject)
-                                    objD7->FUN_00672fc0(0);
+                                    objD7->SetPackageTarget(0);
                             }
                             if (objD7->FUN_00676140(item5) == apObject)
-                                objD7->FUN_00671d30(0);
+                                objD7->SetPackageLocation(0);
                         }
                     }
                 }
@@ -7826,10 +7826,10 @@ void Host::FUN_00976680(Obj* apObject)
                             if (objC2->FUN_00671d10() != 0)
                             {
                                 if (objC2->FUN_00671d10()->FUN_00680020() == apObject)
-                                    objC2->FUN_00672fc0(0);
+                                    objC2->SetPackageTarget(0);
                             }
                             if (objC2->FUN_00676140(item5) == apObject)
-                                objC2->FUN_00671d30(0);
+                                objC2->SetPackageLocation(0);
                         }
                     }
                 }
@@ -10477,11 +10477,11 @@ struct FUN_008b3200_shell
 };
 struct FUN_00419ea0_shell
 {
-    Actor* FUN_00419ea0();
+    Actor* GetHeadTrackTargetExtra();
 };
 struct FUN_00419dc0_shell
 {
-    void FUN_00419dc0(int);
+    void SetHeadTrackTargetExtra(int);
 };
 struct FUN_0044ddc0_shell
 {
@@ -10938,9 +10938,9 @@ void FUN_0096f600_shell::FUN_0096f600(Actor* arg1, bool abClearPackageTargets)
                         ((FUN_008b3200_shell*)bed1)->FUN_008b3200(arg1);
                         if (bed1->GetExtraData() != 0)
                         {
-                            if (((FUN_00419ea0_shell*)bed1->GetExtraData())->FUN_00419ea0() == arg1)
+                            if (((FUN_00419ea0_shell*)bed1->GetExtraData())->GetHeadTrackTargetExtra() == arg1)
                             {
-                                ((FUN_00419dc0_shell*)bed1->GetExtraData())->FUN_00419dc0(0);
+                                ((FUN_00419dc0_shell*)bed1->GetExtraData())->SetHeadTrackTargetExtra(0);
                             }
                         }
                         BaseProcess* mainProc = bed1->GetCurrentAIProcess();
@@ -12224,7 +12224,7 @@ bool FUN_009722e0_shell::IsActorInOtherList(Actor* pActor, FUN_009722e0_member* 
 namespace fnv_00972aa0 {
 struct S_972aa0_Actor
 {
-    void FUN_0047eb90(int a);
+    void SetPCAnEnemy(int a);
 };
 struct S_972aa0_ActorNode
 {
@@ -12294,7 +12294,7 @@ void S_972aa0_Owner::RemoveCrimeById(unsigned int uiCrimeId)
                 {
                     S_972aa0_Actor* actor = *actors->FUN_006815c0();
                     if (!DAT_011e0e80.IsActorInOtherList(actor, crime))
-                        actor->FUN_0047eb90(0);
+                        actor->SetPCAnEnemy(0);
                     actors = actors->FUN_00726070();
                 }
                 list->FUN_00905330(crime);

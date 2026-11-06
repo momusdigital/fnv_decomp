@@ -4,7 +4,7 @@
 #include "havok/hkStreamWriter.h"
 
 // @fnv 0x00cb15d0
-int __stdcall FUN_00cb15d0(int arg0, int arg1)
+int __stdcall seek(int arg0, int arg1)
 {
     return 1;
 }
@@ -16,7 +16,7 @@ void __stdcall FUN_00cb15f0(unsigned char* flag)
 }
 
 // @fnv 0x00cb15e0
-int __cdecl FUN_00cb15e0()
+int __cdecl tell()
 {
     return -1;
 }

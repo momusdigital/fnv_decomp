@@ -37,7 +37,7 @@ class BGSDefaultObjectManager : public TESForm
     static TESForm* GetDefaultObjectByIndex(int);
 };
 void CreateDefaultTopics();
-void FUN_00479570();
+void GenerateDefaultMenuIcons();
 void RegisterEffectSetting(EffectSetting*);
 template <class T> unsigned int BSStringLength(const T*);
 extern BGSExplosion* DAT_011ca284;

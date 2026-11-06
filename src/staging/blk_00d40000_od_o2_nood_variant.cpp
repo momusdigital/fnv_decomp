@@ -580,7 +580,7 @@ struct __declspec(align(16)) SpawnedObject
 };
 
 // @fnv 0x00d4b260
-int FUN_00d4b260()
+int getVtable_hkpStorageExtendedMeshShape()
 {
     SpawnedObject obj;
     obj.FUN_00d4a180(W_d4a180());
@@ -659,7 +659,7 @@ struct __declspec(align(16)) HolderD4B
 };
 
 // @fnv 0x00d4b330
-int FUN_00d4b330()
+int getVtable_hkpExtendedMeshShape()
 {
     HolderD4B holder;
     ZeroD4B z = {0};
@@ -733,7 +733,7 @@ class __declspec(align(16)) S00d4bec0_Object
 
 // Havok getVtable helper: build the object with the finish-loading flag and read its vtable pointer.
 // @fnv 0x00d4bec0
-const void* __cdecl FUN_00d4bec0()
+const void* __cdecl getVtable_hkpStorageMeshShape()
 {
     FinishingFlag flag;
     flag.m_bFinishing = 0;
@@ -780,7 +780,7 @@ class __declspec(align(16)) S00d4bf40_Object
 
 // Havok getVtable helper: build the object with the finish-loading flag and read its vtable pointer.
 // @fnv 0x00d4bf40
-const void* __cdecl FUN_00d4bf40()
+const void* __cdecl getVtable_hkpMeshShape()
 {
     FinishingFlag flag;
     flag.m_bFinishing = 0;

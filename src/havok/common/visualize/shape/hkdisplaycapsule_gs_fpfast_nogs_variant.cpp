@@ -11,7 +11,7 @@ struct StaticHelper
 };
 struct hkDisplayCapsule
 {
-    void FUN_00d22d70();
+    void buildGeometry();
 };
 void __stdcall FUN_00d22db0(int, int);
 

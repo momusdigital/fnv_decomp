@@ -2100,7 +2100,7 @@ class S00b700d0_Alpha : public NiProperty
     S00b700d0_Alpha();
     void FUN_0049ed90(bool);
     void FUN_004393c0(bool);
-    void FUN_00439390(int);
+    void SetDestBlendMode(int);
     void FUN_004393e0(unsigned int);
 
     unsigned short m_usFlags;
@@ -2265,7 +2265,7 @@ bool S00b700d0_Shader::ApplyAlphaProperty(S00b700d0_Geom* apGeom)
     S00b700d0_Alpha* pAlpha = new S00b700d0_Alpha;
     pAlpha->FUN_0049ed90(pData->usFlags & 1);
     pAlpha->FUN_004393c0((pData->usFlags >> 9) & 1);
-    pAlpha->FUN_00439390((pData->usFlags >> 5) & 0xF);
+    pAlpha->SetDestBlendMode((pData->usFlags >> 5) & 0xF);
     pAlpha->m_usFlags &= 0xFFE1;
     pAlpha->FUN_004393e0((pData->usFlags >> 10) & 7);
     pAlpha->m_ucAlphaThreshold = pData->ucThreshold;

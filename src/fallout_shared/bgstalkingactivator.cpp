@@ -381,10 +381,10 @@ struct FUN_00511860_shell
 };
 struct FUN_004ff800_shell : public FUN_00511860_shell
 {
-    void FUN_004ff800(BGSSaveFormBuffer*);
+    void AppendSaveLoadFormBuffer(BGSSaveFormBuffer*);
 };
 // @fnv 0x004ff800
-void FUN_004ff800_shell::FUN_004ff800(BGSSaveFormBuffer* apSaveGameBuffer)
+void FUN_004ff800_shell::AppendSaveLoadFormBuffer(BGSSaveFormBuffer* apSaveGameBuffer)
 {
     FUN_00511860_shell::FUN_00511860(apSaveGameBuffer);
     if (apSaveGameBuffer->GetChangeFlags(0x800000))
@@ -628,11 +628,11 @@ struct FUN_00428110_shell
 TESForm* __cdecl FUN_004839c0(unsigned int a);
 struct FUN_004ff8a0_shell : public BGSTalkingActivator
 {
-    void FUN_004ff8a0(void* arg);
+    void InitLoadGame(void* arg);
 };
 // Calls FUN_004534f0, then conditionally replaces m_pTempRef with an Actor cast of the form returned by FUN_004839c0.
 // @fnv 0x004ff8a0
-void FUN_004ff8a0_shell::FUN_004ff8a0(void* arg)
+void FUN_004ff8a0_shell::InitLoadGame(void* arg)
 {
     ((FUN_004534f0_shell*)this)->FUN_004534f0(arg);
     unsigned int local;

@@ -243,10 +243,10 @@ struct S00e451b0_ZQueue
 };
 struct S00e451b0_ZGun : hkpMountedBallGun
 {
-    void FUN_00e451b0(S00e451b0_ZWorld*, const hkTransform*);
+    void fireGun(S00e451b0_ZWorld*, const hkTransform*);
 };
 // @fnv 0x00e451b0
-void S00e451b0_ZGun::FUN_00e451b0(S00e451b0_ZWorld* world, const hkTransform* transform)
+void S00e451b0_ZGun::fireGun(S00e451b0_ZWorld* world, const hkTransform* transform)
 {
     S00e451b0_SIMD::__m128 direction = *(const S00e451b0_SIMD::__m128*)&transform->m_rotation.m_kColumn0;
     S00e451b0_SIMD::__m128 start =

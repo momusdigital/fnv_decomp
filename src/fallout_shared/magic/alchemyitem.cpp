@@ -352,11 +352,11 @@ namespace fnv_004029b0 {
 struct FUN_004029d0_shell
 {
     bool FUN_004029d0(int);
-    bool FUN_004029b0();
+    bool IsAutoCalc();
 };
 
 // @fnv 0x004029b0
-bool FUN_004029d0_shell::FUN_004029b0()
+bool FUN_004029d0_shell::IsAutoCalc()
 {
     return !FUN_004029d0(1);
 }
@@ -411,17 +411,17 @@ struct FUN_004029d0_shell
 };
 struct FUN_00405da0_shell
 {
-    bool FUN_00405da0();
+    bool CanBePoison();
 };
 struct FUN_00402a90_shell
 {
     bool FUN_00402a90();
 };
-// Returns true when the object at this-0x3c passes FUN_004029d0(2) and this object's FUN_00405da0 returns false.
+// Returns true when the object at this-0x3c passes FUN_004029d0(2) and this object's CanBePoison returns false.
 // @fnv 0x00402a90
 bool FUN_00402a90_shell::FUN_00402a90()
 {
-    return ((FUN_004029d0_shell*)((char*)this - 0x3c))->FUN_004029d0(2) && !((FUN_00405da0_shell*)this)->FUN_00405da0();
+    return ((FUN_004029d0_shell*)((char*)this - 0x3c))->FUN_004029d0(2) && !((FUN_00405da0_shell*)this)->CanBePoison();
 }
 }  // namespace fnv_00402a90
 
@@ -554,11 +554,11 @@ extern TESObjectSTAT* DAT_011ca23c;
 struct H0050fb90
 {
     int _FNV_GetFormType();
-    bool FUN_0050fb90();
+    bool IsOcclusionMarker();
 };
 // Returns true if this object's form type is 0x20 and it matches one of the three TESObjectSTAT globals; otherwise false.
 // @fnv 0x0050fb90
-bool H0050fb90::FUN_0050fb90()
+bool H0050fb90::IsOcclusionMarker()
 {
     if (!this)
         return false;
@@ -591,7 +591,7 @@ struct AlchBase00
 {
     virtual void v0();
     char pad[0x2c];
-    void FUN_004861f0(TESFile*, void*, unsigned short);
+    void LoadData(TESFile*, void*, unsigned short);
 };
 struct AlchBase30
 {
@@ -711,7 +711,7 @@ void FUN_00403280_t::FUN_00403280(TESFile* apFile, int aiChunk)
         break;
     }
     case 0x41544144:
-        FUN_004861f0(apFile, 0, 0);
+        LoadData(apFile, 0, 0);
         break;
     }
 }

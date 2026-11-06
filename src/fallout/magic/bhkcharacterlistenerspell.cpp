@@ -22,11 +22,11 @@ const NiRTTI* bhkCharacterProxy::GetRTTI()
 
 struct FUN_00806f10_shell
 {
-    unsigned int FUN_00806f10();
+    unsigned int QCinfoSize();
 };
 
 // @fnv 0x00806f10
-unsigned int FUN_00806f10_shell::FUN_00806f10()
+unsigned int FUN_00806f10_shell::QCinfoSize()
 {
     return 0xc0;
 }
@@ -72,7 +72,7 @@ struct Node2
     int unk04;
     int unk08;
     int unk0C;
-    void* __thiscall FUN_0043b540();
+    void* __thiscall getCollisionFilterInfo();
 };
 
 struct Node
@@ -193,7 +193,7 @@ void ProxyUpdate::FUN_00806f20(Owner1* apOwner, Arg2* apArgs)
         Node* pNode = apOwner->FUN_00807770(i);
         int iResult1 = FUN_004b59f0(pNode->m_48);
         Str20 s;
-        s.FUN_008c71b0(pNode->m_48->FUN_0043b540());
+        s.FUN_008c71b0(pNode->m_48->getCollisionFilterInfo());
         int iResult3 = s.FUN_0043b4d0();
         if (iResult1 == 0)
         {

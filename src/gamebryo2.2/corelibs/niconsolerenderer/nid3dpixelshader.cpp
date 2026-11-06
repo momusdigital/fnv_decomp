@@ -117,11 +117,11 @@ struct FakeRenderer
 
 struct FUN_00e898c0_shell : NiD3DPixelShader
 {
-    void FUN_00e898c0();
+    void DestroyRendererData();
 };
 
 // @fnv 0x00e898c0
-void FUN_00e898c0_shell::FUN_00e898c0()
+void FUN_00e898c0_shell::DestroyRendererData()
 {
     if (m_pD3DPixelShader)
     {

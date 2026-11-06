@@ -139,7 +139,7 @@ struct M76Obj
 };
 // Allocates and initialises an M76Obj, passes it to self's FUN_00a37510 with cloning, copies self's m_bBoolValue into it and returns it.
 // @fnv 0x00a56650
-M76Obj* __fastcall FUN_00a56650(M76Obj* self, int, void* cloning)
+M76Obj* __fastcall CreateClone(M76Obj* self, int, void* cloning)
 {
     M76Obj* pkObject = new M76Obj;
     if (pkObject)
@@ -253,11 +253,11 @@ struct M76Obj
 {
     void FUN_00a37ec0(M76Stream*);
     char pad[0x30 - 0];
-    void FUN_00a56920(M76Stream*);
+    void SaveBinary(M76Stream*);
 };
 // Writes the object's base data via FUN_00a37ec0, then writes one byte at offset 0x30 through the stream's output bin.
 // @fnv 0x00a56920
-void __fastcall FUN_00a56920(M76Obj* self, int, M76Stream* stream)
+void __fastcall SaveBinary(M76Obj* self, int, M76Stream* stream)
 {
     self->FUN_00a37ec0(stream);
     M76Bin* __restrict out = stream->output;

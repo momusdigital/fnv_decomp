@@ -9,7 +9,7 @@
 extern "C" void* g_01204388;
 struct FUN_00c600f0_Class
 {
-    void* __thiscall FUN_00c600f0();
+    void* __thiscall GetRTTI();
 };
 struct NiStream;
 struct NiPSysModifier
@@ -28,11 +28,11 @@ struct FUN_00c60930_class
 extern "C" void* g_01204390;
 struct FUN_00c60d40_Class
 {
-    void* __thiscall FUN_00c60d40();
+    void* __thiscall GetRTTI();
 };
 struct FUN_00c61420_Class
 {
-    void* __thiscall FUN_00c61420(void* p);
+    void* __thiscall CreateClone(void* p);
 };
 struct FUN_00a99870_Class
 {
@@ -82,11 +82,11 @@ extern NiFixedString* DAT_012043a0;
 extern "C" void* g_012043a4;
 struct FUN_00c61810_class
 {
-    void* FUN_00c61810();
+    void* GetRTTI();
 };
 struct FUN_00c61820_class
 {
-    void* FUN_00c61820(int);
+    void* CreateClone(int);
 };
 struct NiStream;
 struct NiPSysVolumeEmitter
@@ -125,7 +125,7 @@ struct FUN_00c627e0_Class
 extern "C" void* g_012043b8;
 struct FUN_00c632e0_Class
 {
-    void* __thiscall FUN_00c632e0();
+    void* __thiscall GetRTTI();
 };
 struct FUN_00c31670_class
 {
@@ -139,7 +139,7 @@ struct GlobalObject_00a7b610;
 extern GlobalObject_00a7b610 g_012043c8;
 struct FUN_00c63aa0_class
 {
-    GlobalObject_00a7b610* FUN_00c63aa0();
+    GlobalObject_00a7b610* GetRTTI();
 };
 void __cdecl FUN_00c63c30(int, int);
 void __cdecl CallWithSameArgumentTwice(int a);
@@ -314,7 +314,7 @@ struct FUN_00c62090_Class
 extern GlobalObject_00a7b610 g_012043b0;
 struct FUN_00c63320_Class
 {
-    GlobalObject_00a7b610* __thiscall FUN_00c63320();
+    GlobalObject_00a7b610* __thiscall GetRTTI();
 };
 struct NiStream
 {
@@ -1167,11 +1167,11 @@ struct Parent645
 
 struct Obj645 : Parent645
 {
-    void FUN_00c645c0(ViewerStrings645* pkStrings);
+    void GetViewerStrings(ViewerStrings645* pkStrings);
 };
 
 // @fnv 0x00c645c0
-void Obj645::FUN_00c645c0(ViewerStrings645* pkStrings)
+void Obj645::GetViewerStrings(ViewerStrings645* pkStrings)
 {
     Parent645::FUN_00a99d70(pkStrings);
     pkStrings->FUN_0096a610(FUN_00a7d330(DAT_011f4428.GetName()));
@@ -1327,11 +1327,11 @@ struct SimpleColorModifier_Stub : ModifierBase_Stub
     float color2End;
     float color3Start;
 
-    void FUN_00c60b20(ViewerStrings* strings);
+    void GetViewerStrings(ViewerStrings* strings);
 };
 
 // @fnv 0x00c60b20
-void SimpleColorModifier_Stub::FUN_00c60b20(ViewerStrings* strings)
+void SimpleColorModifier_Stub::GetViewerStrings(ViewerStrings* strings)
 {
     ModifierBase_Stub::FUN_00c319e0(strings);
     strings->FUN_0096a610((unsigned int)FUN_00a7d330(reinterpret_cast<RTTI_Stub*>(&g_01204390)->GetName()));
@@ -4077,11 +4077,11 @@ struct Emitter61 : Base61
     int unk54;
     int unk58;
     PtrArray61 m_kArray;
-    void FUN_00c61cc0(Cloning61& kCloning);
+    void ProcessClone(Cloning61& kCloning);
 };
 
 // @fnv 0x00c61cc0
-void Emitter61::FUN_00c61cc0(Cloning61& kCloning)
+void Emitter61::ProcessClone(Cloning61& kCloning)
 {
     Base61::FUN_00c31c90(kCloning);
     void* pkClone4;

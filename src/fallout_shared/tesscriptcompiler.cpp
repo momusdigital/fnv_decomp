@@ -182,7 +182,7 @@ int __cdecl FUN_005b3cd0(unsigned short arg1, void* arg2, void* arg3, void* arg4
 
 // Calls FUN_005b3cd0 with the first four arguments and zero for the last two.
 // @fnv 0x005b3c70
-int __cdecl FUN_005b3c70(unsigned short arg1, void* arg2, void* arg3, void* arg4)
+int __cdecl Cmd_ShowMessage_Parse(unsigned short arg1, void* arg2, void* arg3, void* arg4)
 {
     return FUN_005b3cd0(arg1, arg2, arg3, arg4, 0, 0);
 }
@@ -190,7 +190,7 @@ int __cdecl FUN_005b3c70(unsigned short arg1, void* arg2, void* arg3, void* arg4
 int __cdecl FUN_005b3cd0(unsigned short, void*, void*, void*, int, int);
 
 // @fnv 0x005b3c40
-int __cdecl FUN_005b3c40(unsigned short param1, void* param2, void* param3, void* param4)
+int __cdecl Cmd_EssentialDeathReload_Parse(unsigned short param1, void* param2, void* param3, void* param4)
 {
     return FUN_005b3cd0(param1, param2, param3, param4, 1, 0);
 }
@@ -199,7 +199,7 @@ int __cdecl FUN_005b3cd0(unsigned short, void*, void*, void*, int, int);
 
 // Calls FUN_005b3cd0 with the given arguments plus 0 and 1, returning its result.
 // @fnv 0x005b3ca0
-int __cdecl FUN_005b3ca0(unsigned short arg1, void* arg2, void* arg3, void* arg4)
+int __cdecl Cmd_ShowWarning_Parse(unsigned short arg1, void* arg2, void* arg3, void* arg4)
 {
     return FUN_005b3cd0(arg1, arg2, arg3, arg4, 0, 1);
 }
@@ -272,7 +272,7 @@ struct ScriptVariableData
 };
 bool __cdecl ResolveScriptCommand(char*);
 // @fnv 0x005afeb0
-bool __cdecl FUN_005afeb0(const char* apVarName)
+bool __cdecl IsValidVariableName(const char* apVarName)
 {
     if (!apVarName || !apVarName[0])
         return false;
@@ -359,13 +359,13 @@ typedef ScriptCompileDataT<FUN_005ae490, FUN_005ae5c0> CStringArgument;
 class ScriptCompiler
 {
   public:
-    bool FUN_005aeb90(Script*, CStringArgument*);
-    bool FUN_005aedb0(Script* apScript, TESObjectREFR* apOwnerObject, COMPILER_NAME index, bool abOnLoad);
+    bool Compile(Script*, CStringArgument*);
+    bool CompilePartialScript(Script* apScript, TESObjectREFR* apOwnerObject, COMPILER_NAME index, bool abOnLoad);
 };
 
-// Builds compile data from the script and optional owner object, sets the compiler name, then calls FUN_005aeb90 to compile the script.
+// Builds compile data from the script and optional owner object, sets the compiler name, then calls Compile to compile the script.
 // @fnv 0x005aedb0
-bool ScriptCompiler::FUN_005aedb0(Script* apScript, TESObjectREFR* apOwnerObject, COMPILER_NAME eCompilerName,
+bool ScriptCompiler::CompilePartialScript(Script* apScript, TESObjectREFR* apOwnerObject, COMPILER_NAME eCompilerName,
                                   bool abOnLoad)
 {
     bool bResult;
@@ -389,7 +389,7 @@ bool ScriptCompiler::FUN_005aedb0(Script* apScript, TESObjectREFR* apOwnerObject
     else
         ((BSStr*)&compileData.m_pName)->Set(((BGSCameraPath*)compileData.pScript)->GetEditorID(), 0);
     compileData.pText = apScript->GetText();
-    bResult = FUN_005aeb90(apScript, &compileData);
+    bResult = Compile(apScript, &compileData);
     return bResult;
 }
 }  // namespace fnv_005aedb0
@@ -847,7 +847,7 @@ struct CompilerCtx
     Target* m_4c;
 
     ListNode* FUN_005a8080();
-    bool FUN_005afad0(ScriptRefHolder* p, int a, int b);
+    bool GetReferencedObject(ScriptRefHolder* p, int a, int b);
     bool ResolveReference(ScriptRefHolder* p);
 };
 
@@ -941,7 +941,7 @@ bool CompilerCtx::ResolveReference(ScriptRefHolder* apRef)
 
     if (DAT_011c3f2c->FindFormByEditorID(apRef) != 0)
     {
-        if (FUN_005afad0(apRef, 0, 0))
+        if (GetReferencedObject(apRef, 0, 0))
         {
             apRef->m_20c = 0;
             apRef->m_204 = 'G';
@@ -1011,13 +1011,13 @@ struct Script
 };
 struct ScriptCompiler
 {
-    bool FUN_005aeb90(Script* script, FUN_00613790_shell* data);
+    bool Compile(Script* script, FUN_00613790_shell* data);
     unsigned int ParseLine(CStringArgument*);
-    bool FUN_005b1180(CStringArgument*);
+    bool VerifyBlocks(CStringArgument*);
     bool FUN_005aff40(Script*, CStringArgument*, ScriptLineBuffer*);
 };
 // @fnv 0x005aeb90
-bool ScriptCompiler::FUN_005aeb90(Script* script, FUN_00613790_shell* pSource)
+bool ScriptCompiler::Compile(Script* script, FUN_00613790_shell* pSource)
 {
     if (!script || !pSource)
         return false;
@@ -1056,7 +1056,7 @@ bool ScriptCompiler::FUN_005aeb90(Script* script, FUN_00613790_shell* pSource)
                 ScriptCompileError((ScriptSource*)pSource, scriptNameError);
                 return false;
             }
-            if (!FUN_005b1180(pSource))
+            if (!VerifyBlocks(pSource))
                 return false;
         }
     }
@@ -1126,7 +1126,7 @@ struct Compile95
 };
 unsigned int __cdecl FUN_00ec6130(const char*);
 int __cdecl ReadScriptLine(Compile95*, Line95*);
-int __cdecl FUN_005af5f0(Compile95*, Word95*, const char*, unsigned int*, int, int);
+int __cdecl GetNextWord(Compile95*, Word95*, const char*, unsigned int*, int, int);
 void __cdecl ReportScriptError(Compile95*, const char*, ...);
 void __cdecl FUN_00406d30(char*, unsigned int, const char*);
 struct Parser95
@@ -1149,7 +1149,7 @@ int Parser95::ParseLine(Compile95* pCompile)
     }
     pCompile->offset += consumed38;
     Word95 word26;
-    int parsed2 = FUN_005af5f0(pCompile, &word26, line8->input, &line8->cursor, 1, 1);
+    int parsed2 = GetNextWord(pCompile, &word26, line8->input, &line8->cursor, 1, 1);
     if (!parsed2)
     {
         ReportScriptError(pCompile, "Syntax Error\r\n%s\r\nCould not parse this line.", line8->input);
@@ -1182,7 +1182,7 @@ int Parser95::ParseLine(Compile95* pCompile)
         {
             unsigned int cursor33 = 0;
             Word95 name21;
-            if (FUN_005af5f0(pCompile, &name21, line8->input, &cursor33, 0, 0))
+            if (GetNextWord(pCompile, &name21, line8->input, &cursor33, 0, 0))
                 pCompile->name.FUN_004037f0(name21.text, 0);
             else
             {
@@ -1314,7 +1314,7 @@ struct ScriptFunctionB15
     ScriptParseFunctionB15 m_pfnCompile;
 };
 
-int __cdecl FUN_005af5f0(CStringArgument* pkData, ScriptVariableData* pkWord, char* pInput, unsigned int* puiOffset,
+int __cdecl GetNextWord(CStringArgument* pkData, ScriptVariableData* pkWord, char* pInput, unsigned int* puiOffset,
                          int a5, int a6);
 ScriptFunctionB15* __cdecl FUN_005b1120(unsigned int m_uiReferenceID);
 
@@ -1339,7 +1339,7 @@ int FUN_005b1570_Class::CompileScriptLine(CStringArgument* pkData, unsigned int*
         {
             ScriptVariableData kWord;
             kWord.Reset();
-            if (!FUN_005af5f0(pkData, &kWord, pInput, &uiIndex, 1, 1))
+            if (!GetNextWord(pkData, &kWord, pInput, &uiIndex, 1, 1))
                 return 0;
 
             if (kWord.m_uiVariableID > 0)
@@ -1457,10 +1457,10 @@ struct ScriptBufferS
 void ReportScriptError(ScriptBufferS* pkBuffer, const char* pcError);
 struct FUN_005b1180_shell
 {
-    bool FUN_005b1180(ScriptBufferS* pkBuffer);
+    bool VerifyBlocks(ScriptBufferS* pkBuffer);
 };
 // @fnv 0x005b1180
-bool FUN_005b1180_shell::FUN_005b1180(ScriptBufferS* pkBuffer)
+bool FUN_005b1180_shell::VerifyBlocks(ScriptBufferS* pkBuffer)
 {
     unsigned int uiType5;
     bool bInBlock = false;
@@ -1895,13 +1895,13 @@ struct ScriptFuncDef
 };
 struct CompilerShell : public CStringArgument
 {
-    bool FUN_005afad0(ScriptVariableData* w, int a, bool b);
+    bool GetReferencedObject(ScriptVariableData* w, int a, bool b);
     bool ResolveReference(ScriptVariableData* w);
     ScriptFuncDef* GetNodeValue(unsigned int idx);
 };
 // Parses a quoted string or identifier from apExpLine into apWord, resolving references or script commands when aAllowRef is set.
 // @fnv 0x005af5f0
-int __cdecl FUN_005af5f0(CompilerShell* aCompiler, ScriptVariableData* apWord, char* apExpLine, int* apOffset,
+int __cdecl GetNextWord(CompilerShell* aCompiler, ScriptVariableData* apWord, char* apExpLine, int* apOffset,
                          bool aAllowRef, bool aFlag5)
 {
     FUN_005b1b60(apExpLine, apOffset);
@@ -1938,12 +1938,12 @@ int __cdecl FUN_005af5f0(CompilerShell* aCompiler, ScriptVariableData* apWord, c
                 return 0;
             }
             *apOffset = *apOffset + 1;
-            if (!aCompiler->FUN_005afad0(apWord, 0, aFlag5))
+            if (!aCompiler->GetReferencedObject(apWord, 0, aFlag5))
             {
                 ReportScriptError((CStringArgument*)aCompiler, "Unknown object '%s'.", apWord);
                 return 0;
             }
-            return FUN_005af5f0(aCompiler, apWord, apExpLine, apOffset, true, aFlag5);
+            return GetNextWord(aCompiler, apWord, apExpLine, apOffset, true, aFlag5);
         }
         ((char*)apWord)[len] = 0;
     }
@@ -1973,12 +1973,12 @@ int __cdecl FUN_005af5f0(CompilerShell* aCompiler, ScriptVariableData* apWord, c
                             return 0;
                         }
                         ((char*)apWord)[len - 1] = 0;
-                        if (!aCompiler->FUN_005afad0(apWord, 0, aFlag5))
+                        if (!aCompiler->GetReferencedObject(apWord, 0, aFlag5))
                         {
                             ReportScriptError((CStringArgument*)aCompiler, "Unknown object '%s'.", apWord);
                             return 0;
                         }
-                        return FUN_005af5f0(aCompiler, apWord, apExpLine, apOffset, true, aFlag5);
+                        return GetNextWord(aCompiler, apWord, apExpLine, apOffset, true, aFlag5);
                     }
                 }
                 ((char*)apWord)[len] = 0;
@@ -2056,7 +2056,7 @@ struct CStringArgument
 
 struct FUN_005afa50_shell : public CStringArgument
 {
-    bool FUN_005afa50();
+    bool VerifyReferencedObjectList();
 };
 
 struct FUN_005afa50_obj
@@ -2071,7 +2071,7 @@ void __cdecl ReportScriptError(void* owner, const char* fmt, const char* name);
 
 // Walks m_kReferencedObjectList and returns false, logging via FUN_005aea90, if any item has both m_08 and m_0c zero.
 // @fnv 0x005afa50
-bool FUN_005afa50_shell::FUN_005afa50()
+bool FUN_005afa50_shell::VerifyReferencedObjectList()
 {
     FUN_005afa50_list* list = &m_kReferencedObjectList;
     while (list != 0 && list->head() != 0)
@@ -2129,10 +2129,10 @@ struct MessageParameter_5b3c
 {
     char* name;
 };
-int __cdecl FUN_005af5f0(void*, MessageParseWord_5b3c*, char*, unsigned int*, bool, bool);
+int __cdecl GetNextWord(void*, MessageParseWord_5b3c*, char*, unsigned int*, bool, bool);
 struct CompileMessageContext_5b3c
 {
-    bool FUN_005afad0(MessageParseWord_5b3c*, bool, bool);
+    bool GetReferencedObject(MessageParseWord_5b3c*, bool, bool);
 };
 void __cdecl ReportScriptError(void*, const char*, ...);
 
@@ -2163,7 +2163,7 @@ bool __cdecl FUN_005b3cd0(unsigned short opcode, MessageParameter_5b3c* apParame
                             size = 0;
                             if (literal)
                             {
-                                size = FUN_005af5f0(context, &message, line->cLine, &line->uiElapsedMilliseconds, false,
+                                size = GetNextWord(context, &message, line->cLine, &line->uiElapsedMilliseconds, false,
                                                     false);
                                 if (!size)
                                 {
@@ -2180,7 +2180,7 @@ bool __cdecl FUN_005b3cd0(unsigned short opcode, MessageParameter_5b3c* apParame
                             {
                                 MessageParseWord_5b3c word;
                                 word.Reset();
-                                size = FUN_005af5f0(context, &word, line->cLine, &line->uiElapsedMilliseconds, false,
+                                size = GetNextWord(context, &word, line->cLine, &line->uiElapsedMilliseconds, false,
                                                     false);
                                 if (!size)
                                 {
@@ -2195,7 +2195,7 @@ bool __cdecl FUN_005b3cd0(unsigned short opcode, MessageParameter_5b3c* apParame
                                                  apParameter->name);
                                     return false;
                                 }
-                                if (!context->FUN_005afad0(&word, false, false) || word.reference == 0)
+                                if (!context->GetReferencedObject(&word, false, false) || word.reference == 0)
                                 {
                                     ReportScriptError(context,
                                                  "Item '%s' not found for parameter %s.\r\nCompiled script not saved!",
@@ -2247,7 +2247,7 @@ bool __cdecl FUN_005b3cd0(unsigned short opcode, MessageParameter_5b3c* apParame
                             {
                                 MessageParseWord_5b3c word;
                                 word.Reset();
-                                size = FUN_005af5f0(context, &word, line->cLine, &line->uiElapsedMilliseconds, true,
+                                size = GetNextWord(context, &word, line->cLine, &line->uiElapsedMilliseconds, true,
                                                     false);
                                 if (!size)
                                 {
@@ -2306,7 +2306,7 @@ bool __cdecl FUN_005b3cd0(unsigned short opcode, MessageParameter_5b3c* apParame
                                         MessageArrayWord_5b3c words[10];
                                         do
                                         {
-                                            size = FUN_005af5f0(context, &words[buttons], line->cLine,
+                                            size = GetNextWord(context, &words[buttons], line->cLine,
                                                                 &line->uiElapsedMilliseconds, false, false);
                                             if (size > 0)
                                                 buttons++;
@@ -2333,7 +2333,7 @@ bool __cdecl FUN_005b3cd0(unsigned short opcode, MessageParameter_5b3c* apParame
                                     int duration = 0;
                                     MessageParseWord_5b3c word;
                                     word.Reset();
-                                    size = FUN_005af5f0(context, &word, line->cLine, &line->uiElapsedMilliseconds,
+                                    size = GetNextWord(context, &word, line->cLine, &line->uiElapsedMilliseconds,
                                                         false, false);
                                     if (size > 0)
                                     {

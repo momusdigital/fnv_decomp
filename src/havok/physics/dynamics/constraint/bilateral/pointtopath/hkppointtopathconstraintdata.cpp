@@ -5,7 +5,7 @@
 #include "havok/hkpPointToPathConstraintData.h"
 
 // @fnv 0x00dee720
-void __stdcall FUN_00dee720(int aiUnused, void* apData)
+void __stdcall getRuntimeInfo(int aiUnused, void* apData)
 {
     *(int*)((char*)apData + 4) = 7;
     *(int*)apData = 0x3c;
@@ -13,12 +13,12 @@ void __stdcall FUN_00dee720(int aiUnused, void* apData)
 
 struct FUN_00dee7f0_class
 {
-    void __thiscall FUN_00dee7f0(void* a);
+    void __thiscall getConstraintInfo(void* a);
 };
 
 // Fills the struct at a with a pointer to this+0xc and constant fields 0, 0x180, 7, 8, 0xc.
 // @fnv 0x00dee7f0
-void __thiscall FUN_00dee7f0_class::FUN_00dee7f0(void* a)
+void __thiscall FUN_00dee7f0_class::getConstraintInfo(void* a)
 {
     *(int*)((char*)a + 0x10) = (int)((char*)this + 0xc);
     *(int*)((char*)a + 0x14) = 0xc;
@@ -123,12 +123,12 @@ class hkObjectDEE8
     int unk1c;
     char m_20;
 
-    hkBoolDEE8 FUN_00dee840() const;
+    hkBoolDEE8 isValid() const;
 };
 
 // Returns true when m_18 is non-null and m_20 is set.
 // @fnv 0x00dee840
-hkBoolDEE8 hkObjectDEE8::FUN_00dee840() const
+hkBoolDEE8 hkObjectDEE8::isValid() const
 {
     return m_18 != 0 && m_20;
 }
@@ -796,12 +796,12 @@ static __forceinline CurveLengthCall& lengthSlot(CurveDispatchTable* table)
 }
 struct PointToPathData : public hkpPointToPathConstraintData
 {
-    void FUN_00deea90(const QueryIn& in, QueryOut& out);
+    void buildJacobian(const QueryIn& in, QueryOut& out);
 };
 
 // Fills QueryOut with friction, linear, angular, and limit constraint rows for a point-to-path constraint using the nearest path point.
 // @fnv 0x00deea90
-void PointToPathData::FUN_00deea90(const QueryIn& in, QueryOut& out)
+void PointToPathData::buildJacobian(const QueryIn& in, QueryOut& out)
 {
     AppendEventRecord(in, out, in.m_pByteBuffer, 8);
 

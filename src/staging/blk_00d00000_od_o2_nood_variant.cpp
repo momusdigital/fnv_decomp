@@ -236,7 +236,7 @@ struct __declspec(align(16)) FUN_00c9ce00_cls
     void FUN_00c9ce00(int);
 };
 // @fnv 0x00d1f1a0
-int FUN_00d1f1a0()
+int getVtable_hkpEntity()
 {
     FUN_00c9ce00_cls holder;
     holder.FUN_00c9ce00(W().x);

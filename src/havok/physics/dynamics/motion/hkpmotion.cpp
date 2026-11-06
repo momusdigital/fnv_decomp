@@ -29,22 +29,22 @@ void __thiscall FUN_00c86420_Class::FUN_00c86420(char a)
 
 struct FUN_00c86480_Class
 {
-    void __thiscall FUN_00c86480(float v);
+    void __thiscall setMassInv(float v);
 };
 // @fnv 0x00c86480
-void __thiscall FUN_00c86480_Class::FUN_00c86480(float v)
+void __thiscall FUN_00c86480_Class::setMassInv(float v)
 {
     *(float*)((char*)this + 0xcc) = v;
 }
 
 struct FUN_00c86330_Class
 {
-    void __thiscall FUN_00c86330(float mass);
+    void __thiscall setMass(float mass);
 };
 
 // Computes the inverse of mass (0 if mass is 0) and passes it to the virtual function at vtable slot 4.
 // @fnv 0x00c86330
-void __thiscall FUN_00c86330_Class::FUN_00c86330(float mass)
+void __thiscall FUN_00c86330_Class::setMass(float mass)
 {
     float invMass;
     if (mass == 0.0f)
@@ -357,11 +357,11 @@ struct Motion_00c86660
 struct Motion_00c86610
 {
     Motion_00c86610();
-    void __thiscall FUN_00c86610(Motion_00c86610* dst);
+    void __thiscall getMotionStateAndVelocitiesAndDeactivationType(Motion_00c86610* dst);
 };
 // Copies the embedded Motion_00c86660 member and the two __m128 blocks plus one byte from this to dst.
 // @fnv 0x00c86610
-void __thiscall Motion_00c86610::FUN_00c86610(Motion_00c86610* apDest)
+void __thiscall Motion_00c86610::getMotionStateAndVelocitiesAndDeactivationType(Motion_00c86610* apDest)
 {
     ((Motion_00c86660*)((char*)apDest + 0x10))->FUN_00c86660((char*)this + 0x10);
     *(__m128*)((char*)apDest + 0xd0) = *(__m128*)((char*)this + 0xd0);

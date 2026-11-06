@@ -444,11 +444,11 @@ struct FUN_007a5730_shell
 
 struct MapMenuClick : public MapMenu
 {
-    void FUN_00796fd0(int, Tile*);
+    void DoClick(int, Tile*);
 };
 
 // @fnv 0x00796fd0
-void MapMenuClick::FUN_00796fd0(int aiID, Tile* apTarget)
+void MapMenuClick::DoClick(int aiID, Tile* apTarget)
 {
     if (apTarget == 0 && aiID >= 0 && aiID < 22)
         apTarget = m_pTiles[aiID];
@@ -501,20 +501,20 @@ void MapMenuClick::FUN_00796fd0(int aiID, Tile* apTarget)
                 }
                 if (bisSoundNote && (!bnoteMatch || !bsoundStopped))
                 {
-                    if (pnote->GetNoteType() == 0 && pnote->FUN_005e9100())
+                    if (pnote->GetNoteType() == 0 && pnote->GetNoteSound())
                     {
                         ((FUN_007a19a0_shell*)&m_kSoundList)
                             ->FUN_007a19a0(BSAudio::GetSingleton()->GetSoundHandleByFormID(
-                                pnote->FUN_005e9100()->GetFormID(), 0x101));
+                                pnote->GetNoteSound()->GetFormID(), 0x101));
                         m_bMapListUpdatePending = true;
                     }
-                    else if (pnote->GetNoteType() == 3 && pnote->FUN_005e9240() && pnote->FUN_005e92a0())
+                    else if (pnote->GetNoteType() == 3 && pnote->GetNoteTopic() && pnote->GetNoteSpeaker())
                     {
                         Character* pVoiceNoteNPC = new Character(false);
                         pVoiceNoteNPC->NotifySaveLoadGameOfFormChange();
                         Conversation* pVoiceNoteConvo = 0;
-                        pVoiceNoteNPC->ClearReferenceState(pnote->FUN_005e92a0());
-                        pVoiceNoteConvo = new Conversation(pVoiceNoteNPC, g_thePlayer, pnote->FUN_005e9240());
+                        pVoiceNoteNPC->ClearReferenceState(pnote->GetNoteSpeaker());
+                        pVoiceNoteConvo = new Conversation(pVoiceNoteNPC, g_thePlayer, pnote->GetNoteTopic());
                         ((FUN_0083b9a0_shell*)pVoiceNoteConvo)->FUN_0083b9a0();
                         if (pVoiceNoteConvo->GetCurrentItem() &&
                             pVoiceNoteConvo->GetCurrentItem()->SelectDefaultResponseList())
@@ -886,11 +886,11 @@ float S::GetScaledValue()
 
 struct FUN_00798480_This
 {
-    void FUN_00798480(int aiID, Tile* apTarget);
+    void HandleLeftClickPress(int aiID, Tile* apTarget);
 };
 // For ID 4, reads floats 4001 and 4002 from the Tile at offset 0x38 and stores them at offsets 0x120 and 0x124.
 // @fnv 0x00798480
-void FUN_00798480_This::FUN_00798480(int aiID, Tile* apTarget)
+void FUN_00798480_This::HandleLeftClickPress(int aiID, Tile* apTarget)
 {
     if (aiID == 4)
     {
@@ -1479,7 +1479,7 @@ struct FUN_004a0c90_shell
 
 struct TESObjectCELL_Ext
 {
-    float FUN_00555ad0();
+    float GetNorthRotation();
     void FUN_00555b10(NiPoint3 const& source, NiPoint3& destination, bool invert);
 };
 
@@ -1492,7 +1492,7 @@ NiPoint3 __cdecl FUN_004b3ae0(NiPoint3 const&, float const*);
 void TESObjectCELL_Ext::FUN_00555b10(NiPoint3 const& source, NiPoint3& destination, bool invert)
 {
     FUN_004a0c90_shell shell;
-    float f = this->FUN_00555ad0() * (invert ? -1.0f : 1.0f);
+    float f = this->GetNorthRotation() * (invert ? -1.0f : 1.0f);
 
     if (f != 0.0)
     {
@@ -1510,7 +1510,7 @@ class TESReputation
 {
   public:
     int GetReputationRank(int);
-    const char* FUN_00616710();
+    const char* GetReputationTitle();
 };
 
 extern SettingT_GameSettingCollection_ g_011cba0c;
@@ -1532,7 +1532,7 @@ extern SettingT_GameSettingCollection_ g_011cbd84;
 
 // Looks up the positive and negative reputation indices and returns the title string from the 4x4 table of game settings.
 // @fnv 0x00616710
-const char* TESReputation::FUN_00616710()
+const char* TESReputation::GetReputationTitle()
 {
     char cPosIndex;
     char cNegIndex;
@@ -4139,7 +4139,7 @@ struct NiPoint2_helper
     NiPoint2_helper(float, float);
 };
 int __cdecl TruncateFloatToInt(float);
-int __cdecl FUN_00556870(NiPoint3&);
+int __cdecl GetSeenValue(NiPoint3&);
 int __cdecl FUN_00a00940(const char*, int);
 struct MarkerChildren
 {
@@ -4208,7 +4208,7 @@ void MapView::UpdateLocalMap()
                 float c = 255.0f;
                 NiPoint3 b = GetMarkerPosition(d, 0);
                 if (m_bNeedsMapUpdate)
-                    c = (float)(FUN_00556870(d) / 4.0 * c);
+                    c = (float)(GetSeenValue(d) / 4.0 * c);
                 if (c > 0.0 && b.x >= 0.0 && b.x <= 1.0 && b.y >= 0.0 && b.y <= 1.0)
                 {
                     Tile* g = ((MapView*)DAT_011da368)->FUN_00a1ddb0(m_pTiles[2], "MapMarkerTemplate", false);
@@ -4297,7 +4297,7 @@ bool FUN_006d4d20(const Query&, const Query&, SearchResults*, int, float, const 
 struct World
 {
     void FUN_00555b10(Point&, const Point&, int);
-    float FUN_00555ad0();
+    float GetNorthRotation();
 };
 struct Reference
 {
@@ -4995,7 +4995,7 @@ void Menu::FUN_0079dbb0()
             tile->FUN_00a012d0(DAT_011da350, point.x, 1);
             tile->FUN_00a012d0(DAT_011da34c, point.y, 1);
             float angle = -DAT_011dea3c->Heading(0) - DAT_010290d0;
-            angle -= DAT_011dea3c->FUN_00575d10() ? DAT_011dea3c->FUN_008d6f30()->FUN_00555ad0() : 0.0f;
+            angle -= DAT_011dea3c->FUN_00575d10() ? DAT_011dea3c->FUN_008d6f30()->GetNorthRotation() : 0.0f;
             tile->FUN_00a012d0(4090, angle, 1);
         }
         else
@@ -7354,12 +7354,12 @@ struct FUN_0079c530_cls
     int unk78;
     int unk7c;
     int m_i80;
-    void FUN_0079c530(int a1, int a2);
+    void HandleMousewheel(int a1, int a2);
 };
 
 // If m_i80 is 0x20 or 0x21, pushes a flag based on PipboyLookup Query divided by 0x78 compared to DAT_01012060, with value DAT_01056528.
 // @fnv 0x0079c530
-void FUN_0079c530_cls::FUN_0079c530(int aiUnused, int a2)
+void FUN_0079c530_cls::HandleMousewheel(int aiUnused, int a2)
 {
     if (m_i80 == 0x21 || m_i80 == 0x20)
     {
@@ -7395,8 +7395,8 @@ struct MMRefNode;
 class MMWorld : public TESWorldSpace
 {
   public:
-    MMMapData* FUN_00586400();
-    const char* FUN_00586440();
+    MMMapData* GetWorldMapData();
+    const char* GetWorldMapTextureName();
     MMRefNode* GetOrCreateElement(int iFlag);
 };
 
@@ -7425,7 +7425,7 @@ struct MMParent
 };
 struct MMLocationName
 {
-    const char* FUN_00616710();
+    const char* GetReputationTitle();
 };
 struct MMMarkerData
 {
@@ -7617,17 +7617,17 @@ extern const char* DAT_011a0404[];
 // @fnv 0x0079cdb0
 void MMMenu::RefreshMap()
 {
-    MMMapData* pkData = m_pkRootSpace ? m_pkRootSpace->FUN_00586400() : 0;
+    MMMapData* pkData = m_pkRootSpace ? m_pkRootSpace->GetWorldMapData() : 0;
     if (!m_pkRootSpace || !pkData || !pkData->iWidth || !pkData->iHeight)
     {
         m_pkRootSpace = (MMWorld*)dynamic_cast<TESWorldSpace*>(FUN_004839c0(0x3c));
-        pkData = m_pkRootSpace ? m_pkRootSpace->FUN_00586400() : 0;
+        pkData = m_pkRootSpace ? m_pkRootSpace->GetWorldMapData() : 0;
         m_bRootSpaceChanged = true;
     }
     if (!m_pkRootSpace || !pkData || !pkData->iWidth || !pkData->iHeight)
     {
         m_pkRootSpace = *DAT_011c3f2c->FUN_00460140()->FUN_006815c0();
-        pkData = m_pkRootSpace ? m_pkRootSpace->FUN_00586400() : 0;
+        pkData = m_pkRootSpace ? m_pkRootSpace->GetWorldMapData() : 0;
         m_bRootSpaceChanged = true;
     }
     m_pkMapSpace = m_pkRootSpace;
@@ -7636,7 +7636,7 @@ void MMMenu::RefreshMap()
     {
         if (DAT_011da36c || m_bRootSpaceChanged)
         {
-            m_pkMapTile->FUN_00a01350(0xfcc, m_pkRootSpace->FUN_00586440(), 1);
+            m_pkMapTile->FUN_00a01350(0xfcc, m_pkRootSpace->GetWorldMapTextureName(), 1);
             m_pkMapTile->FUN_00715c60(0xfcd, pkData->iWidth);
             m_pkMapTile->FUN_00715c60(0xfce, pkData->iHeight);
             DAT_011da36c = false;
@@ -7669,7 +7669,7 @@ void MMMenu::RefreshMap()
                     if (pkName)
                     {
                         FUN_00406d00(acText, 0x100, "%s\n(%s)", pkRef->FUN_00569060()->FUN_00438eb0(),
-                                     pkName->FUN_00616710());
+                                     pkName->GetReputationTitle());
                         pkMarkerEntry->FUN_00a01350(FUN_00a00940("_LocationName", -1), acText, 1);
                     }
                     else
@@ -7977,13 +7977,13 @@ struct ClickVtable
 };
 struct Reconstruction798cb0 : MapMenu
 {
-    void FUN_00798cb0(int, Tile*);
+    void HandleMouseover(int, Tile*);
     void SetNote(BGSNote*);
     void UpdateChallengeText(TESChallenge*);
 };
 // Handles codes 23–25 for list selections and updates the selected index, with additional handling for codes 14, 15, and -1.
 // @fnv 0x00798cb0
-void Reconstruction798cb0::FUN_00798cb0(int aiEventCode, Tile* tile)
+void Reconstruction798cb0::HandleMouseover(int aiEventCode, Tile* tile)
 {
     int index = 0;
     BGSNote* challenge;

@@ -871,7 +871,7 @@ class TESActorBase
 class HighProcessCombatSource
 {
   public:
-    bool FUN_0059f610();
+    bool GetPlayable();
 };
 class AlchemyItem
 {
@@ -884,7 +884,7 @@ class BGSDefaultObjectManager
     static BGSDefaultObjectManager* Instance();
     static TESForm* GetDefaultObjectByIndex(int);
 };
-double FUN_0047eeb0(unsigned char);
+double GetConfidenceLevel(unsigned char);
 extern SettingT<GameSettingCollection> originalRuntimeFloatSetting106;
 extern GlobalObject_0040e0b0 g_011cdf10;
 extern SettingT_GameSettingCollection_ DAT_011cf414;

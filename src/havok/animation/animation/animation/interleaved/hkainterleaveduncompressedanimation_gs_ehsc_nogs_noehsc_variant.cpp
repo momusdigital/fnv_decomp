@@ -14,11 +14,11 @@ struct FUN_00e3f950_class
     int m_0c;
     int m_10;
     int m_14;
-    int FUN_00e3f950(int a, int b);
+    int getNumDataChunks(int a, int b);
 };
 struct FUN_00e3f970_class
 {
-    int FUN_00e3f970();
+    int getMaxSizeOfCombinedDataChunks();
 };
 struct FUN_00e3f990_class
 {

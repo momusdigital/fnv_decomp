@@ -755,11 +755,11 @@ struct SkinLoadData : SkinObjectBase
     SkinTransform rootParentToSkin;
     ResetFields* bones;
     unsigned int boneCount;
-    void FUN_00a84f50(SkinLoadStream& stream);
+    void LoadBinary(SkinLoadStream& stream);
 };
 // Reads skin data from a stream: base, transform, bone count, per-bone transforms/bounds/weights, and an optional trailing flag.
 // @fnv 0x00a84f50
-void SkinLoadData::FUN_00a84f50(SkinLoadStream& stream)
+void SkinLoadData::LoadBinary(SkinLoadStream& stream)
 {
     ((SkinLoadBase*)this)->ReadGroup(stream);
     ((SkinLoadTransform*)&rootParentToSkin)->FUN_00a86c80(stream);

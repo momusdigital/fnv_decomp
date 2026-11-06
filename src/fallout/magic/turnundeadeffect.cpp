@@ -73,11 +73,11 @@ class FUN_0082b370 : public ActiveEffect
 
     FUN_0082b370(int, int, int);
 
-    ActiveEffect* FUN_0082b3b0();
+    ActiveEffect* Clone();
 };
 
 // @fnv 0x0082b3b0
-ActiveEffect* FUN_0082b370::FUN_0082b3b0()
+ActiveEffect* FUN_0082b370::Clone()
 {
     FUN_0082b370* presult = new FUN_0082b370(field28, field8, fieldc);
     presult->m_bEffectFlag = m_bEffectFlag;
@@ -276,7 +276,7 @@ class Actor
     virtual void slot185();
     virtual bool HasFlag186();
     unsigned short FUN_0087f9f0();
-    bool FUN_00608d80();
+    bool IsReanimated();
 };
 class Reference
 {
@@ -291,10 +291,10 @@ class EffectEvaluator
 {
   public:
     float GetFloatAtOffset1C();
-    bool FUN_0082b460(Reference* reference);
+    bool CheckTarget(Reference* reference);
 };
 // @fnv 0x0082b460
-bool EffectEvaluator::FUN_0082b460(Reference* reference)
+bool EffectEvaluator::CheckTarget(Reference* reference)
 {
     Actor* actor = reference ? reference->FUN_00822b40() : 0;
     if (actor != 0)
@@ -307,7 +307,7 @@ bool EffectEvaluator::FUN_0082b460(Reference* reference)
                 if (result != 0)
                 {
                 }
-                else if (actor->FUN_00608d80())
+                else if (actor->IsReanimated())
                     return true;
             }
         }
@@ -327,7 +327,7 @@ struct C
 {
     int FUN_0059bb30();
     int FUN_0045cd60();
-    void FUN_0082b530();
+    void Start();
 };
 
 struct D
@@ -340,7 +340,7 @@ struct V
     virtual int v0();
 };
 // @fnv 0x0082b530
-void C::FUN_0082b530()
+void C::Start()
 {
     int b;
     int a;

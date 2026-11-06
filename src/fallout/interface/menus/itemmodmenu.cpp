@@ -295,7 +295,7 @@ struct ModObject
 };
 struct ModEntry
 {
-    ModEntry* FUN_004bd570(int);
+    ModEntry* GetModItem(int);
 };
 struct ModTile;
 struct ModTileList
@@ -326,9 +326,9 @@ void __cdecl UpdateTileFromObject(ModTile* tile, ModObject* object)
     if (DAT_011d9f58->FUN_004bd820())
     {
         ModEntry* other = object->FUN_0044ddc0();
-        if (((DAT_011d9f58->FUN_004bd820() & 1) && other == entry->FUN_004bd570(1)) ||
-            ((DAT_011d9f58->FUN_004bd820() & 2) && other == entry->FUN_004bd570(2)) ||
-            ((DAT_011d9f58->FUN_004bd820() & 4) && other == entry->FUN_004bd570(4)))
+        if (((DAT_011d9f58->FUN_004bd820() & 1) && other == entry->GetModItem(1)) ||
+            ((DAT_011d9f58->FUN_004bd820() & 2) && other == entry->GetModItem(2)) ||
+            ((DAT_011d9f58->FUN_004bd820() & 4) && other == entry->GetModItem(4)))
         {
             (*tile->field_04.FUN_007b5370())->FUN_00a012d0(0xfa9, DAT_01073c54, true);
         }
@@ -1652,7 +1652,7 @@ void __cdecl PopulateModListScreen()
         Entry* entry = 0;
         if (aFlags & 1)
         {
-            mod4 = base3->FUN_004bd570(1);
+            mod4 = base3->GetModItem(1);
             entry = new Entry(mod4, 1);
             row = ((Screen*)_DAT_011d9f54)->rows.Add(entry, entry->Name(), 0, 0);
             row->Set(DAT_011d9f4c, 1);
@@ -1660,7 +1660,7 @@ void __cdecl PopulateModListScreen()
         }
         if (aFlags & 2)
         {
-            kMod2_2 = base3->FUN_004bd570(2);
+            kMod2_2 = base3->GetModItem(2);
             entry = new Entry(kMod2_2, 1);
             row = ((Screen*)_DAT_011d9f54)->rows.Add(entry, entry->Name(), 0, 0);
             row->Set(DAT_011d9f4c, 1);
@@ -1668,7 +1668,7 @@ void __cdecl PopulateModListScreen()
         }
         if (aFlags & 4)
         {
-            mod5 = base3->FUN_004bd570(4);
+            mod5 = base3->GetModItem(4);
             entry = new Entry(mod5, 1);
             row = ((Screen*)_DAT_011d9f54)->rows.Add(entry, entry->Name(), 0, 0);
             row->Set(DAT_011d9f4c, 1);

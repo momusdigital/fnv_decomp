@@ -525,11 +525,11 @@ class B479FB0IdleList
     short unk06;
     B479FB0Idle** m_ppkIdles;
 
-    bool FUN_00479fb0(B479FB0Actor* pkActor, int iArg);
+    bool HasIdleForActor(B479FB0Actor* pkActor, int iArg);
 };
 
 // @fnv 0x00479fb0
-bool B479FB0IdleList::FUN_00479fb0(B479FB0Actor* pkActor, int iArg)
+bool B479FB0IdleList::HasIdleForActor(B479FB0Actor* pkActor, int iArg)
 {
     if (pkActor)
     {
@@ -846,16 +846,16 @@ extern "C" char FNV_RTTI_TESForm;
 extern "C" char FNV_RTTI_TESObjectREFR;
 extern unsigned char DAT_011831e8;
 
-FUN_004895b0_model* FUN_00481010(TESForm* form, TESObjectREFR* ref);
+FUN_004895b0_model* GetWorldTESModel(TESForm* form, TESObjectREFR* ref);
 
-// Calls FNV_DynamicCast and FUN_00481010, then returns v5() or an empty string.
+// Calls FNV_DynamicCast and GetWorldTESModel, then returns v5() or an empty string.
 // @fnv 0x004895b0
-const char* FUN_004895b0(TESForm* apForm)
+const char* GetModel(TESForm* apForm)
 {
     FUN_004895b0_model* m = (FUN_004895b0_model*)FNV_DynamicCast(apForm, 0, &FNV_RTTI_TESForm, &DAT_011831e8, 0);
     if (m == 0)
     {
-        m = FUN_00481010(apForm,
+        m = GetWorldTESModel(apForm,
                          (TESObjectREFR*)FNV_DynamicCast(apForm, 0, &FNV_RTTI_TESForm, &FNV_RTTI_TESObjectREFR, 0));
     }
     if (m != 0)
@@ -876,7 +876,7 @@ struct DistantModelView : TESModel
 };
 // If apForm is a TESModel, cast it to DistantModelView and call FUN_00489120 with apModelName.
 // @fnv 0x00489190
-void FUN_00489190(char* apModelName, TESForm* apForm)
+void GetDistantModelName(char* apModelName, TESForm* apForm)
 {
     TESModel* pmodel;
     if (apForm)
@@ -918,12 +918,12 @@ struct ModelCopyView : TESModel
     virtual void Slot10();
     virtual int GetFlags();
     virtual void SetFlags(int flags);
-    void FUN_00489430(BaseFormComponent* component);
+    void CopyComponent(BaseFormComponent* component);
 };
 
 // Copies the flags from a BaseFormComponent cast to TESModel into this ModelCopyView.
 // @fnv 0x00489430
-void ModelCopyView::FUN_00489430(BaseFormComponent* component)
+void ModelCopyView::CopyComponent(BaseFormComponent* component)
 {
     TESModel* copy = dynamic_cast<TESModel*>(component);
     if (copy == 0)
@@ -932,14 +932,14 @@ void ModelCopyView::FUN_00489430(BaseFormComponent* component)
 }
 
 // @fnv 0x00489540
-unsigned int __cdecl FUN_00489540(void* apForm)
+unsigned int __cdecl GetModelLength(void* apForm)
 {
     void* result;
 
     result = ::FNV_DynamicCast(apForm, 0, &::FNV_RTTI_TESForm, &::DAT_011831e8, 0);
     if (result == 0)
     {
-        result = ::FUN_00481010((::TESForm*)apForm, (::TESObjectREFR*)::FNV_DynamicCast(apForm, 0, &::FNV_RTTI_TESForm,
+        result = ::GetWorldTESModel((::TESForm*)apForm, (::TESObjectREFR*)::FNV_DynamicCast(apForm, 0, &::FNV_RTTI_TESForm,
                                                                                         &::FNV_RTTI_TESObjectREFR, 0));
     }
     if (result != 0)
@@ -987,7 +987,7 @@ int __fastcall _FNV_GetFormType(TESForm*);
 
 // Returns the biped model for a TESBipedModelForm, selecting the male or female variant based on the owner actor's sex when a reference is provided.
 // @fnv 0x00481010
-FUN_004895b0_model* __cdecl FUN_00481010(TESForm* apBipedModelForm, TESObjectREFR* apReference)
+FUN_004895b0_model* __cdecl GetWorldTESModel(TESForm* apBipedModelForm, TESObjectREFR* apReference)
 {
     TESBipedModelForm* sex = dynamic_cast<TESBipedModelForm*>(apBipedModelForm);
     TESForm* biped;

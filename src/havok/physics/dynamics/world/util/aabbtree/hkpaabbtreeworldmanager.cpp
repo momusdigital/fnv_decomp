@@ -38,11 +38,11 @@ void* __thiscall FUN_00d08350::Set(void* arg)
 }
 
 struct FUN_00d083a0_class {
-    void __thiscall FUN_00d083a0(int a);
+    void __thiscall setWorkingBuffer(int a);
 };
 
 // @fnv 0x00d083a0
-void __thiscall FUN_00d083a0_class::FUN_00d083a0(int aiValue)
+void __thiscall FUN_00d083a0_class::setWorkingBuffer(int aiValue)
 {
     *(int*)((char*)this + 0x30) = aiValue;
     *(int*)((char*)this + 0x34) = (*(int*)((char*)this + 0x38) << 4) + aiValue;
@@ -1628,11 +1628,11 @@ struct UpdateOwner {
     bool dirty;
     void FUN_00d09df0(void*, void*);
     void FUN_00d099d0(void*, void*);
-    void FUN_00d0a060(void*, void*);
+    void updateFromWorld(void*, void*);
 };
 // Records a monitor event, calls FUN_00d09df0 on first update or FUN_00d099d0 otherwise, sets dirty, and records a closing monitor event.
 // @fnv 0x00d0a060
-void UpdateOwner::FUN_00d0a060(void* a, void* b) {
+void UpdateOwner::updateFromWorld(void* a, void* b) {
     void* (__stdcall *getTls)(unsigned long) = TlsGetValue;
     MonitorStream* stream = (MonitorStream*)getTls(DAT_0126835c);
     MonitorEvent* event = stream->current;
@@ -1826,12 +1826,12 @@ struct FUN_00d085e0_class {
     void* arg10;
     int unk14, unk18, unk1c, unk20;
     char flag24;
-    void __thiscall FUN_00d085e0(const hkpWorldRayCastInputD084& input, const OtherObject* b, hkpWorldRayCastOutputD084* c);
+    void __thiscall castRay(const hkpWorldRayCastInputD084& input, const OtherObject* b, hkpWorldRayCastOutputD084* c);
 };
 
 // Performs a broad-phase ray cast via bpv and an optional tree cast, recording trace events to a TLS buffer.
 // @fnv 0x00d085e0
-void FUN_00d085e0_class::FUN_00d085e0(const hkpWorldRayCastInputD084& input, const OtherObject* apFilters, hkpWorldRayCastOutputD084* apRayCastOutput)
+void FUN_00d085e0_class::castRay(const hkpWorldRayCastInputD084& input, const OtherObject* apFilters, hkpWorldRayCastOutputD084* apRayCastOutput)
 {
     Scratch scratch;
     class FUN_00d9a040 ctx;
@@ -2040,7 +2040,7 @@ struct __declspec(align(16)) S00d094a0_Build {
 struct S00d094a0_Fallback {
     int m_00; int m_04; int m_08;
     void InitWalker(S00d094a0_Input*, S00d094a0_Ctx*);
-    int FUN_00d9e000();
+    int getNumPrimitives();
 };
 void __cdecl FUN_00d9d950(S00d094a0_Tree*, int, void*, void*);
 void __cdecl FillAabbArray(S00d094a0_Fallback*, int, int, void*);
@@ -2101,7 +2101,7 @@ void S00d094a0_Owner::FUN_00d094a0(S00d094a0_Tree** tree, S00d094a0_Input* input
         arrayB.release();arrayA.release();
     } else {
         S00d094a0_Fallback fallback;fallback.InitWalker(input,ctx);
-        const int count=fallback.FUN_00d9e000();
+        const int count=fallback.getNumPrimitives();
         S00d094a0_Desc desc;desc.FUN_00d976d0();desc.m_uiItemCount=count;desc.m_isMt=0;
         ctx->m_pCollisionShape->getAabb(&desc.m_kMinimumCorner,&desc.m_kMaximumCorner);
         if(*tree)(*tree)->FUN_00d978d0(&desc);

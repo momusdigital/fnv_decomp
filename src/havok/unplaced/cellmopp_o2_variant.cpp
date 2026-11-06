@@ -506,10 +506,10 @@ struct FUN_00cb0780_class
     int unk04;
     int unk08;
     void* memory;
-    void FUN_00cb0780(bool release);
+    void KillCinfo(bool release);
 };
 // @fnv 0x00cb0780
-void FUN_00cb0780_class::FUN_00cb0780(bool release)
+void FUN_00cb0780_class::KillCinfo(bool release)
 {
     void* allocation;
     MemoryContextGuard guard;
@@ -722,7 +722,7 @@ extern GlobalString g_01268350;
 char* __cdecl FUN_00a7d330(const char* text);
 struct StringBuilder
 {
-    void FUN_00ca5190(NiStringArray* array);
+    void GetViewerStrings(NiStringArray* array);
     void FUN_00cb09b0(NiStringArray* array);
 };
 struct ThreadStateGuard
@@ -741,7 +741,7 @@ struct ThreadStateGuard
 void StringBuilder::FUN_00cb09b0(NiStringArray* array)
 {
     ThreadStateGuard guard;
-    FUN_00ca5190(array);
+    GetViewerStrings(array);
     char* value = FUN_00a7d330(g_01268350.value);
     unsigned int count = array->count;
     unsigned int capacity = array->capacity;
@@ -937,11 +937,11 @@ class FUN_00ca4fd0_cls
     int unk04;
     Node* m_pReferencedNode;
 
-    void FUN_00ca4fd0(int first, int second);
+    void BuildDisplayGeometry(int first, int second);
 };
 
 // @fnv 0x00ca4fd0
-void FUN_00ca4fd0_cls::FUN_00ca4fd0(int first, int second)
+void FUN_00ca4fd0_cls::BuildDisplayGeometry(int first, int second)
 {
     Node* pNode;
     Link* m_pTaskletData;
@@ -1096,11 +1096,11 @@ struct FUN_00cb05d0_cls
     virtual void v47();
     virtual void v48();
     virtual void v49(SpawnedObject* obj, int a1);
-    SpawnedObject* FUN_00cb05d0(int a1);
+    SpawnedObject* CreateClone(int a1);
 };
 
 // @fnv 0x00cb05d0
-SpawnedObject* FUN_00cb05d0_cls::FUN_00cb05d0(int a1)
+SpawnedObject* FUN_00cb05d0_cls::CreateClone(int a1)
 {
     ThreadStateGuard guard;
     FUN_00c876f0();
@@ -1134,11 +1134,11 @@ struct FUN_00cb06c0_cls
     void* unk08;
     void* unk0c;
     void FUN_00cb0030(void* value);
-    void* FUN_00cb06c0(bool* out);
+    void* CreateCinfo(bool* out);
 };
 
 // @fnv 0x00cb06c0
-void* FUN_00cb06c0_cls::FUN_00cb06c0(bool* out)
+void* FUN_00cb06c0_cls::CreateCinfo(bool* out)
 {
     ThreadStateGuard guard;
     bool empty = (unk0c == 0);
@@ -1515,11 +1515,11 @@ struct FUN_00cb00a0_Class
     virtual void* slot43(void*);
     virtual void* slot44(void*);
     virtual BinaryDataRecord* getData(void*);
-    void FUN_00cb00a0(char*);
+    void LoadBinary(char*);
 };
 
 // @fnv 0x00cb00a0
-void FUN_00cb00a0_Class::FUN_00cb00a0(char* object)
+void FUN_00cb00a0_Class::LoadBinary(char* object)
 {
     this->FUN_00ca4ec0(object);
     if (object[0x1e5] != 1)
@@ -1586,12 +1586,12 @@ struct T
     virtual void slot43() = 0;
     virtual void slot44() = 0;
     virtual void* Query(char*) = 0;
-    void FUN_00cb0120(void*);
+    void SaveBinary(void*);
     void FUN_00ca4f80(void*);
 };
 
 // @fnv 0x00cb0120
-void T::FUN_00cb0120(void* arg)
+void T::SaveBinary(void* arg)
 {
     char local;
     volatile unsigned int* data = (volatile unsigned int*)Query(&local);
@@ -1769,11 +1769,11 @@ struct ValueObject_00ca5190
 
 struct StringBuilder_ca5190 : public StringBuilder
 {
-    void FUN_00ca5190(NiStringArray* array);
+    void GetViewerStrings(NiStringArray* array);
 };
 
 // @fnv 0x00ca5190
-void StringBuilder_ca5190::FUN_00ca5190(NiStringArray* array)
+void StringBuilder_ca5190::GetViewerStrings(NiStringArray* array)
 {
     ThreadStateGuard guard;
     reinterpret_cast<StringBuilderCalls_00ca5190*>(this)->FUN_00c851c0(array);

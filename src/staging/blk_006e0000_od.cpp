@@ -7937,7 +7937,7 @@ struct TraceFraction
 };
 struct TraceResult
 {
-    void FUN_0062a290();
+    void reset();
     TraceFraction* FUN_00460140();
 };
 struct TraceWorld
@@ -8042,7 +8042,7 @@ bool TraceOwner::TraceWithLiftAndExtension(const TraceVector& from, const TraceV
     TraceVector start3 = from.FUN_00439e90(DAT_011a9484.ApplyScaled(lift2));
     TraceVector end3 = to.FUN_00439e90(DAT_011a9484.ApplyScaled(lift2));
     request->state.FUN_0062a2b0();
-    result->FUN_0062a290();
+    result->reset();
     count++;
     request->FUN_004a3da0(start3);
     request->FUN_004a3eb0(end3);
@@ -8055,7 +8055,7 @@ bool TraceOwner::TraceWithLiftAndExtension(const TraceVector& from, const TraceV
         count++;
         TraceVector extended = end3.FUN_00439ef0(DAT_011a9484.ApplyScaled(distance + height));
         request->state.FUN_0062a2b0();
-        result->FUN_0062a290();
+        result->reset();
         request->FUN_004a3da0(end3);
         request->FUN_004a3eb0(extended);
         if (world->Trace(request))

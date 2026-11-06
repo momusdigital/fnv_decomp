@@ -84,12 +84,12 @@ struct NiBinaryExtraData : NiExtraData
     char* m_pData;
     unsigned int m_uiSize;
     void FUN_00a7b4a0(NiStream& stream);
-    void FUN_00a7f9a0(NiStream& stream);
+    void LoadBinary(NiStream& stream);
 };
 
 // Calls FUN_00a7b4a0, reads m_uiSize from the stream, and if nonzero allocates m_pData and reads m_uiSize bytes into it.
 // @fnv 0x00a7f9a0
-void NiBinaryExtraData::FUN_00a7f9a0(NiStream& stream)
+void NiBinaryExtraData::LoadBinary(NiStream& stream)
 {
     FUN_00a7b4a0(stream);
     ReadBinaryValue(stream, m_uiSize);
@@ -328,7 +328,7 @@ struct FUN_00a7fa90_cls
     unsigned int unk0C;
     void* m_p10;
     void FUN_00a7b580(FUN_00a7fa90_obj* s);
-    void FUN_00a7fa90(FUN_00a7fa90_obj* s);
+    void GetViewerStrings(FUN_00a7fa90_obj* s);
 };
 
 extern unsigned int DAT_011f4ab8;
@@ -337,7 +337,7 @@ void* __cdecl FUN_00a7d330(unsigned int v);
 void* __cdecl FUN_00a7d510(const char* fmt, void* v);
 
 // @fnv 0x00a7fa90
-void FUN_00a7fa90_cls::FUN_00a7fa90(FUN_00a7fa90_obj* pObj)
+void FUN_00a7fa90_cls::GetViewerStrings(FUN_00a7fa90_obj* pObj)
 {
     FUN_00a7b580(pObj);
     void* r = FUN_00a7d330(DAT_011f4ab8);
@@ -431,7 +431,7 @@ class A7F920BinaryExtraData : public A7F920ExtraData
     }
     virtual void vfunc00();
 
-    A7F920ExtraData* FUN_00a7f920(CloningProcess& kCloning);
+    A7F920ExtraData* CreateClone(CloningProcess& kCloning);
 
     char* m_pByteBuffer;
     unsigned int m_uiSize;
@@ -439,7 +439,7 @@ class A7F920BinaryExtraData : public A7F920ExtraData
 
 // Creates a new A7F920BinaryExtraData, copies member data, and duplicates the byte buffer when m_uiSize is non-zero.
 // @fnv 0x00a7f920
-A7F920ExtraData* A7F920BinaryExtraData::FUN_00a7f920(CloningProcess& kCloning)
+A7F920ExtraData* A7F920BinaryExtraData::CreateClone(CloningProcess& kCloning)
 {
     A7F920BinaryExtraData* pkClone = new A7F920BinaryExtraData;
     CopyMemberData(pkClone, kCloning);

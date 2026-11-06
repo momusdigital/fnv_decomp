@@ -2416,7 +2416,7 @@ struct FUN_00978420_class
 
 struct Zt5TES
 {
-    void FUN_00453550(float);
+    void UpdateCellAnimations(float);
 };
 
 struct BSOcclusionPlane
@@ -2461,7 +2461,7 @@ void FUN_0085f850_class::FUN_0085f850(bool arg)
     if (arg)
     {
         DAT_011e0e80.FUN_00978420(0.0f, 0);
-        g_TES->FUN_00453550(0.0f);
+        g_TES->UpdateCellAnimations(0.0f);
 
         int cullResult = _g_thePlayer->GetCullResult();
         if (cullResult)
@@ -4775,7 +4775,7 @@ class TESWorldSpace : public TESForm
 class Controller
 {
   public:
-    bool FUN_005c0860();
+    bool QIsFlying();
     void FUN_005620e0(NiPoint3*);
 };
 class NiUpdateData
@@ -5048,7 +5048,7 @@ bool RestoreBuffer::FUN_00857d10(RefAccess* ref, bool process)
             if (objectA)
             {
                 Controller* controller = ((MobileAccess*)objectA)->FUN_009306d0();
-                if (controller && !controller->FUN_005c0860())
+                if (controller && !controller->QIsFlying())
                     controller->FUN_005620e0(&location9);
             }
             node6->FUN_00440460(location9);
@@ -5904,7 +5904,7 @@ struct DataHandler
 
 struct ProcessLists
 {
-    void FUN_00445570(TESObjectREFR* pkRef);
+    void CancelReference(TESObjectREFR* pkRef);
 };
 
 extern SaveGame* DAT_011de45c;
@@ -6033,7 +6033,7 @@ void RefLoader::LoadChange(TESForm* pkForm, unsigned int uiChangeFlags)
                     if (((RefView*)pkRef)->FUN_008d6f30())
                         ((CellView*)((RefView*)pkRef)->FUN_008d6f30())->FUN_0054ca90(pkRef);
                     ((RefView*)pkRef)->SetParentCell(0);
-                    DAT_011c3b3c->FUN_00445570(pkRef);
+                    DAT_011c3b3c->CancelReference(pkRef);
                     ((RefView*)pkRef)->Update3D(0, 1);
                 }
             }
@@ -6814,7 +6814,7 @@ extern NiPoint3 DAT_011a9478;
 void FUN_00573800(Actor*, TESObjectCELL*, int);
 Node3d* FUN_00451010();
 void FUN_00451590(int);
-void FUN_0057d0a0(NiPoint3, NiPoint3, float);
+void UpdateGrass(NiPoint3, NiPoint3, float);
 void __cdecl operator delete(void*);
 
 struct ActorList2
@@ -6929,7 +6929,7 @@ void Cls::FUN_00858af0(EntryListNode* list, Entry* ctx, bool reset)
             FUN_00451010()->FUN_00c6b540(0);
         cam = *((VObj*)DAT_011dea3c)->GetPos();
         FUN_00451590(0);
-        FUN_0057d0a0(cam, DAT_011a9478, 1.0f);
+        UpdateGrass(cam, DAT_011a9478, 1.0f);
         FUN_00451590(1);
     }
     if (ctx && ((Actor*)DAT_011dea3c)->FUN_008d6f30())

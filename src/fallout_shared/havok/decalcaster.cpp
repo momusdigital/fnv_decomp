@@ -27,7 +27,7 @@ struct NiShader
 {
     static NiAVObject* __cdecl DynamicCast(NiAVObject*);
 };
-const void* __fastcall FUN_004b59d0(const char*);
+const void* __fastcall getOwner(const char*);
 struct DecalCaster
 {
     const RootContactPoint* FUN_006232f0(unsigned int);
@@ -46,7 +46,7 @@ unsigned int DecalCaster::GetCollisionFlags(unsigned int aiIndex)
         {
             {
                 bhkNiCollisionObject* pCollisionObject;
-                pCollisionObject = (bhkNiCollisionObject*)FUN_004b59d0(pEntry->name);
+                pCollisionObject = (bhkNiCollisionObject*)getOwner(pEntry->name);
                 {
                     NiAVObject* pObject;
                     pObject = NiShader::DynamicCast((NiAVObject*)pCollisionObject);

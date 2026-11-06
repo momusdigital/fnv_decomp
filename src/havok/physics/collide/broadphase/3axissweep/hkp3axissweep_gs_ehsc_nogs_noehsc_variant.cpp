@@ -1559,10 +1559,10 @@ Obj8* ep=&current;
 
     }
 
-    void FUN_00d12040(int** a0, unsigned int a1, int a2, unsigned int volatile a3, unsigned int volatile a4);
+    void updateAabbs(int** a0, unsigned int a1, int a2, unsigned int volatile a3, unsigned int volatile a4);
 };
 // @fnv 0x00d12040
-void Sweep8::FUN_00d12040(int** a0, unsigned int a1, int a2, unsigned int volatile a3, unsigned int volatile a4)
+void Sweep8::updateAabbs(int** a0, unsigned int a1, int a2, unsigned int volatile a3, unsigned int volatile a4)
 {
     
     int** r;
@@ -2468,11 +2468,11 @@ struct S16c50_Sweep {
         intsOut[2] = out.u16[2];
         intsOut[3] = out.u16[3];
     }
-    void FUN_00d16c50(const S16c50_CastAabbInput& input, S16c50_Collector& collector) const;
+    void castAabb(const S16c50_CastAabbInput& input, S16c50_Collector& collector) const;
 };
 
 // @fnv 0x00d16c50
-void S16c50_Sweep::FUN_00d16c50(const S16c50_CastAabbInput& input, S16c50_Collector& collector) const
+void S16c50_Sweep::castAabb(const S16c50_CastAabbInput& input, S16c50_Collector& collector) const
 {
     S16c50_Vec4 fromMin; fromMin.setSub4(input.m_vFrom, input.m_vHalfExtents);
     S16c50_Vec4 fromMax; fromMax.setAdd4(input.m_vFrom, input.m_vHalfExtents);
@@ -2723,11 +2723,11 @@ struct SweepShift
     Vec4 m_highRounded;
     Vec4 m_highScale;
 
-    void FUN_00d10f00(const Vec4& distance, Vec4& appliedOut, SweepShiftPairs& pairs);
+    void shiftBroadPhase(const Vec4& distance, Vec4& appliedOut, SweepShiftPairs& pairs);
 };
 
 // @fnv 0x00d10f00
-void SweepShift::FUN_00d10f00(const Vec4& distance, Vec4& appliedOut, SweepShiftPairs& pairs)
+void SweepShift::shiftBroadPhase(const Vec4& distance, Vec4& appliedOut, SweepShiftPairs& pairs)
 {
     Vec4 negated;
     negated.setNeg4(distance);
@@ -3197,7 +3197,7 @@ struct Sweep15 : public BroadPhaseBase {
     BatchMarker* m_pOverlappingMarkerInfo;
 
     __forceinline void collectSweepCandidates(const BatchAabb& spl,Arr& local);
-    void FUN_00d18400(In1* p1, In2* p2, int p3);
+    void addObjectBatch(In1* p1, In2* p2, int p3);
     int BuildBroadPhasePairs(void* a, int b, void* c, int d, int e, int f);
 };
 
@@ -3321,7 +3321,7 @@ __forceinline void Sweep15::collectSweepCandidates(const BatchAabb& spl,Arr& loc
 }
 
 // @fnv 0x00d18400
-void Sweep15::FUN_00d18400(In1* p1, In2* p2, int p3)
+void Sweep15::addObjectBatch(In1* p1, In2* p2, int p3)
 {
     Endpoint* ptrs[3];
     BatchAabb spl;

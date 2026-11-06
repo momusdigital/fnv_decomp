@@ -587,14 +587,14 @@ void __cdecl FUN_00d2f2c0(D2F2C0Dispatcher* dispatcher)
     }
 }
 
-struct CallTarget_00d2f760 { int FUN_00d2f760(int, int, int, int); };
+struct CallTarget_00d2f760 { int updateShapeCollectionFilter(int, int, int, int); };
 struct SearchObject {
     int FUN_00d2f3d0(unsigned int arg0, unsigned int arg1, unsigned int arg2, unsigned int arg3);
 };
 // @fnv 0x00d2f3d0
 int SearchObject::FUN_00d2f3d0(unsigned int arg0, unsigned int arg1, unsigned int arg2, unsigned int arg3)
 {
-    unsigned int uiResult = (unsigned int)((CallTarget_00d2f760*)this)->FUN_00d2f760((int)arg1, (int)arg0, (int)arg2, (int)arg3);
+    unsigned int uiResult = (unsigned int)((CallTarget_00d2f760*)this)->updateShapeCollectionFilter((int)arg1, (int)arg0, (int)arg2, (int)arg3);
     return (int)uiResult;
 }
 
@@ -1784,7 +1784,7 @@ struct FnvCpu_FUN_00d2c7d0_CpuInterface {
     virtual void Invoke(int value);
 };
 // @fnv 0x00d2c7d0
-void __cdecl FUN_00d2c7d0(FnvCpu_FUN_00d2c7d0_CpuInterface* object)
+void __cdecl cleanupLoadedObject_hkLiquidAction(FnvCpu_FUN_00d2c7d0_CpuInterface* object)
 {
     object->Invoke(0);
 }

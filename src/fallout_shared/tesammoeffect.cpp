@@ -290,21 +290,21 @@ struct FUN_00485680
 };
 struct FUN_00485e00_shell
 {
-    void FUN_00485e20(int, int);
+    void __SaveData(int, int);
 };
 bool __cdecl FUN_00401500();
 struct FUN_00599ef0_shell
 {
-    void FUN_00599ef0();
+    void SaveForm();
 };
 // @fnv 0x00599ef0
-void FUN_00599ef0_shell::FUN_00599ef0()
+void FUN_00599ef0_shell::SaveForm()
 {
     ((FUN_004855a0*)this)->M();
     ((S_00487010*)((char*)this + 0x18))->FUN_00487010();
     if (FUN_00401500())
         ((ContainerItemExtraFileData*)((char*)this + 0x24))->Endian();
-    ((FUN_00485e00_shell*)this)->FUN_00485e20((int)((char*)this + 0x24), 0xc);
+    ((FUN_00485e00_shell*)this)->__SaveData((int)((char*)this + 0x24), 0xc);
     if (FUN_00401500())
         ((ContainerItemExtraFileData*)((char*)this + 0x24))->Endian();
     ((FUN_00485680*)this)->M();
@@ -392,11 +392,11 @@ extern "C" int __cdecl memcmp(const void* pvA, const void* pvB, unsigned int Ite
 struct FUN_00599fc0_shell : public TESAmmoEffect
 {
     bool CompareFullName(TESForm* pkForm);
-    bool FUN_00599fc0(TESForm* pkForm);
+    bool Compare(TESForm* pkForm);
 };
 
 // @fnv 0x00599fc0
-bool FUN_00599fc0_shell::FUN_00599fc0(TESForm* pkForm)
+bool FUN_00599fc0_shell::Compare(TESForm* pkForm)
 {
     TESAmmoEffect* pkOther = dynamic_cast<TESAmmoEffect*>(pkForm);
     if (!pkOther)

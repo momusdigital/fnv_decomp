@@ -342,7 +342,7 @@ NiFormArray* FUN_00600630_shell::GetIdleFormArray(TESForm* apIdleDir)
 extern int _fnv_tesidlemanager_used_item;
 
 // @fnv 0x00600900
-void FUN_00600900(int param)
+void SetUsedItem(int param)
 {
     _fnv_tesidlemanager_used_item = param;
 }
@@ -560,11 +560,11 @@ struct FUN_00600030_cls
 {
     void* FUN_004b9ba0();
     void FUN_006b7f20(void** a, void** b, FUN_00600030_list** c);
-    void FUN_00600030();
+    void DestroyRootIdleArrayForms();
 };
 
 // @fnv 0x00600030
-void FUN_00600030_cls::FUN_00600030()
+void FUN_00600030_cls::DestroyRootIdleArrayForms()
 {
     void* a = FUN_004b9ba0();
     while (a != 0)

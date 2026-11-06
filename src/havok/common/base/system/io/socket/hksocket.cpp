@@ -87,7 +87,7 @@ void __cdecl CreateAllocatedValue()
 }
 
 // @fnv 0x00d2b8b0
-int __stdcall FUN_00d2b8b0(int a, int b, int c)
+int __stdcall asyncSelect(int a, int b, int c)
 {
     return 1;
 }
@@ -155,11 +155,11 @@ class FUN_00d2b740_cls
     unsigned int unk04;
     StreamIface* m_pBinaryStream;
 
-    int FUN_00d2b740(char* buf, int size);
+    int read(char* buf, int size);
 };
 
 // @fnv 0x00d2b740
-int FUN_00d2b740_cls::FUN_00d2b740(char* apBuffer, int size)
+int FUN_00d2b740_cls::read(char* apBuffer, int size)
 {
     int total = 0;
     if (size > 0)

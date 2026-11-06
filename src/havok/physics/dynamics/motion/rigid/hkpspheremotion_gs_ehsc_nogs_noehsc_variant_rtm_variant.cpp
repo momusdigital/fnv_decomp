@@ -210,7 +210,7 @@ struct VectorE4
 };
 struct SphereE4 : hkpSphereMotion
 {
-    void FUN_00d1e4d0(float dt, const VectorE4& force);
+    void applyForce(float dt, const VectorE4& force);
     void impulse(const VectorE4& v)
     {
         VectorE4 change;
@@ -220,7 +220,7 @@ struct SphereE4 : hkpSphereMotion
     }
 };
 // @fnv 0x00d1e4d0
-void SphereE4::FUN_00d1e4d0(float dt, const VectorE4& force)
+void SphereE4::applyForce(float dt, const VectorE4& force)
 {
     VectorE4 v;
     ScalarE4 time(dt);
@@ -255,11 +255,11 @@ struct FUN_00d1e520_cls
     virtual void vf12();
     virtual void vf13();
     virtual void Dispatch(const __m128& t, int b);
-    void FUN_00d1e520(float f, const __m128* a, int b);
+    void applyForce(float f, const __m128* a, int b);
 };
 
 // @fnv 0x00d1e520
-void FUN_00d1e520_cls::FUN_00d1e520(float f, const __m128* a, int b)
+void FUN_00d1e520_cls::applyForce(float f, const __m128* a, int b)
 {
     __m128 s = _mm_load_ss(&f);
     __m128 bc = _mm_shuffle_ps(s, s, 0);

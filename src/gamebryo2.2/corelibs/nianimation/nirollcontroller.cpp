@@ -67,11 +67,11 @@ struct StrArr {
 void __stdcall FUN_00a6d830(StrArr*);
 char* __cdecl _FUN_00a7d330(const char*);
 struct NiRollController {
-    void FUN_00a48790(StrArr*);
+    void GetViewerStrings(StrArr*);
 };
 // Appends the string returned by _FUN_00a7d330(g_011f3f58) to the StrArr, growing it via SetSize when full, then stores it with SetAt.
 // @fnv 0x00a48790
-void NiRollController::FUN_00a48790(StrArr* pStrArr)
+void NiRollController::GetViewerStrings(StrArr* pStrArr)
 {
     FUN_00a6d830(pStrArr);
     char* pkString = _FUN_00a7d330((const char*)g_011f3f58);
@@ -125,12 +125,12 @@ struct A486F0Controller : A486F0ControllerBase {
     A486F0Controller() {}
     virtual ~A486F0Controller();
 
-    A486F0Object* FUN_00a486f0(A486F0CloningProcess& kCloning);
+    A486F0Object* CreateClone(A486F0CloningProcess& kCloning);
 };
 
 // Allocates a new controller, copies this object's state into it via the cloning process, and returns the clone.
 // @fnv 0x00a486f0
-A486F0Object* A486F0Controller::FUN_00a486f0(A486F0CloningProcess& kCloning)
+A486F0Object* A486F0Controller::CreateClone(A486F0CloningProcess& kCloning)
 {
     A486F0Controller* pkClone = new A486F0Controller;
     CopyMemberData(pkClone, kCloning);
@@ -145,26 +145,26 @@ void __cdecl FUN_00a48560()
     FUN_00a57a70();
 }
 
-void __cdecl FUN_00a57ad0();
+void __cdecl RegisterStreamables();
 // @fnv 0x00a48570
 void __cdecl FUN_00a48570()
 {
-    FUN_00a57ad0();
+    RegisterStreamables();
 }
 
-void __cdecl FUN_00a57b00();
+void __cdecl SaveBinary();
 
 // @fnv 0x00a48580
 void __cdecl FUN_00a48580() {
-    FUN_00a57b00();
+    SaveBinary();
 }
 
-void __cdecl FUN_00a57b20();
+void __cdecl IsEqual();
 
 // @fnv 0x00a48590
 void __cdecl FUN_00a48590()
 {
-    FUN_00a57b20();
+    IsEqual();
 }
 
 #include "fnv_asm_helpers.h"   // project x87 helpers (fnv_SinCos, fnv_FloatToInt), kept last so earlier code is unchanged
@@ -213,7 +213,7 @@ public:
     virtual void vfn_00();
     bool FUN_00a36250(float fTime);
     NiFloatKeyA485* GetFloatKeys(unsigned int& uiNumKeys, int& eType, unsigned char& ucSize);
-    void FUN_00a485e0(NiUpdateDataA485& kUpdateData);
+    void Update(NiUpdateDataA485& kUpdateData);
 
     unsigned int m_uiRefCount;
     unsigned short m_uiObjectFlags;
@@ -226,7 +226,7 @@ public:
 };
 
 // @fnv 0x00a485e0
-void NiRollControllerA485::FUN_00a485e0(NiUpdateDataA485& kUpdateData)
+void NiRollControllerA485::Update(NiUpdateDataA485& kUpdateData)
 {
     if (!m_pkTarget || FUN_00a36250(kUpdateData.m_fTime))
         return;

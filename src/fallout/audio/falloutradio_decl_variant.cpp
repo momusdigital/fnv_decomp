@@ -43,7 +43,7 @@ void FUN_008304c0();
 class ATM
 {
   public:
-    void FUN_004538a0(const char*);
+    void Enter(const char*);
     void FUN_004538c0();
 };
 extern ATM g_011dd5e8;
@@ -76,7 +76,7 @@ void FUN_00835be0(BGSTalkingActivator* form, TESTopic* topic)
     if (!station || station->form->FUN_00440da0())
         return;
     bool f = station->station.IsFlag20Set();
-    g_011dd5e8.FUN_004538a0("FalloutRadio::StartRadioConversation");
+    g_011dd5e8.Enter("FalloutRadio::StartRadioConversation");
     if (station->station.conversation)
         while (station->station.conversation->FUN_0083b9f0())
         {

@@ -42,10 +42,10 @@ struct FUN_00806da0_shell
 };
 struct FUN_00829720_shell : public SummonCreatureEffect
 {
-    unsigned short __thiscall FUN_00829720(Actor* actor);
+    unsigned short __thiscall GetSaveSize(Actor* actor);
 };
 // @fnv 0x00829720
-unsigned short __thiscall FUN_00829720_shell::FUN_00829720(Actor* actor)
+unsigned short __thiscall FUN_00829720_shell::GetSaveSize(Actor* actor)
 {
     unsigned short isize = 0;
     isize += ((FUN_00806da0_shell*)this)->FUN_00806da0(actor);
@@ -537,11 +537,11 @@ struct S_008287e0
     S_008287e0_Item* FUN_0084e3a0();
     S_008287e0_Magic* FUN_0044ddc0();
     bool SelectRecord(S_008287e0_Actor* ref, int iUnk, NiPoint3* pPos);
-    void FUN_008287e0();
+    void Start();
 };
 
 // @fnv 0x008287e0
-void S_008287e0::FUN_008287e0()
+void S_008287e0::Start()
 {
     S_008287e0_Actor* ref = FUN_0059bb30() ? FUN_0059bb30()->FUN_00822b40() : 0;
     if (!ref)
@@ -713,7 +713,7 @@ struct FUN_00828610_cls
     unsigned char m_71;
 
     FUN_00828470_cls* CloneObject();
-    void FUN_00806d50(FUN_00828470_cls* apObj);
+    void CopyData(FUN_00828470_cls* apObj);
     FUN_0044ddc0_ret* FUN_0044ddc0();
 };
 
@@ -721,7 +721,7 @@ struct FUN_00828610_cls
 FUN_00828470_cls* FUN_00828610_cls::CloneObject()
 {
     FUN_00828470_cls* obj = new FUN_00828470_cls((void*)m_28, (void*)m_08, (void*)m_0c);
-    FUN_00806d50(obj);
+    CopyData(obj);
     obj->m_4c = m_4c;
     obj->m_50 = m_50;
     obj->m_54 = m_54;
@@ -1212,13 +1212,13 @@ struct S_00828ba0 : SummonCreatureEffect
     void FUN_00804210(int a);
     void SpawnSummonedActor(S_00828ba0_Actor* actor);
     void DispelOldestQualifyingEffect();
-    void FUN_00828ba0(int unused);
+    void Update(int unused);
 };
 void __cdecl FUN_0080b8f0(S_00828ba0_Target* t, S_00828ba0_Actor* actor);
 extern S_00828ba0_Actor* DAT_011dea3c;
 
 // @fnv 0x00828ba0
-void S_00828ba0::FUN_00828ba0(int unused)
+void S_00828ba0::Update(int unused)
 {
     S_00828ba0_Actor* actor = FUN_0059bb30() ? FUN_0059bb30()->FUN_00822b40() : 0;
     if (!actor || (m_70 && (!m_4c || m_4c->vfn8b(0))))
@@ -1469,11 +1469,11 @@ struct FUN_008297a0_shell : public SummonCreatureEffect
     int unk6c;
 
     void FUN_00806de0(int);
-    void FUN_008297a0(int);
+    void SaveGame(int);
 };
 
 // @fnv 0x008297a0
-void FUN_008297a0_shell::FUN_008297a0(int value)
+void FUN_008297a0_shell::SaveGame(int value)
 {
     FUN_00806de0(value);
     int id = 0;
@@ -2212,11 +2212,11 @@ struct Dbeffect : SummonCreatureEffect
     int unk44;
     int unk48;
     int formId;
-    void FUN_00829900(void* arg);
+    void InitLoadGame(void* arg);
 };
 // Calls the base handler, resolves formId to an Actor via FUN_004839c0, and dispels the effect if the lookup fails.
 // @fnv 0x00829900
-void Dbeffect::FUN_00829900(void* arg)
+void Dbeffect::InitLoadGame(void* arg)
 {
     ((DbeffectBaseCall*)this)->FUN_00806e70(arg);
     int iFormId = formId;

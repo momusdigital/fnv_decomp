@@ -90,7 +90,7 @@ class InterfaceManager
 class ATMStub
 {
   public:
-    void FUN_004538a0(int value);
+    void Enter(int value);
     void FUN_004538c0();
 };
 class FontManagerStub
@@ -334,7 +334,7 @@ Tile* FUN_0076bfe0()
         delete pOldMenuT;
     pInterfaceMgrY = FUN_004b7210();
     fTileAlphaM = FUN_00a01530();
-    FUN_00713d70()->FUN_004538a0(0);
+    FUN_00713d70()->Enter(0);
     pMenuTileN = pInterfaceMgrY->FUN_00586150()->FUN_00a01b00("Data\\Menus\\Main\\hud_main_menu.xml");
     pMenuXB = pMenuTileN->FUN_00a03c90();
     if (pMenuXB && pMenuXB->vf34() == FUN_00706f20())

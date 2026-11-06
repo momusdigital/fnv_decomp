@@ -46,11 +46,11 @@ struct FUN_00cfcc70_class {
     unsigned char m_12[0x2a];
     void* m_3c;
 
-    int FUN_00cfcc70(int value);
+    int reserveContactPointsImpl(int value);
 };
 
 // @fnv 0x00cfcc70
-int FUN_00cfcc70_class::FUN_00cfcc70(int value) {
+int FUN_00cfcc70_class::reserveContactPointsImpl(int value) {
     FUN_00cfcc70_data* data = static_cast<FUN_00cfcc70_data*>(m_3c);
     int field4 = data->m_04;
     int limit = *reinterpret_cast<unsigned short*>(
@@ -1268,12 +1268,12 @@ struct hkSimpleConstraintContactMgrStub
     hkConstraintInstanceBody m_pHavokConstraint;
 
     hkRigidBodyStub* FUN_00cfd800(const hkCdBodyStub& a, const hkCdBodyStub& b, int maxImpulse, hkCPProperties* cpi);
-    hkContactPointId FUN_00cfcf80(const hkCdBodyStub& a, const hkCdBodyStub& b, const hkProcessCollisionInputStub& input,
+    hkContactPointId addContactPointImpl(const hkCdBodyStub& a, const hkCdBodyStub& b, const hkProcessCollisionInputStub& input,
         hkProcessCollisionOutputStub& output, const hkGskCacheStub* contactCache, hkContactPt& cp);
 };
 
 // @fnv 0x00cfcf80
-hkContactPointId hkSimpleConstraintContactMgrStub::FUN_00cfcf80(const hkCdBodyStub& a, const hkCdBodyStub& b,
+hkContactPointId hkSimpleConstraintContactMgrStub::addContactPointImpl(const hkCdBodyStub& a, const hkCdBodyStub& b,
     const hkProcessCollisionInputStub& input, hkProcessCollisionOutputStub& output,
     const hkGskCacheStub* contactCache, hkContactPt& cp)
 {
@@ -1512,13 +1512,13 @@ struct Cls {
     virtual void v8(int, int);
     unsigned unk04, unk08; void* m0c; unsigned unk10; unsigned unk14; unsigned unk18; unsigned unk1c; unsigned unk20; unsigned unk24; unsigned unk28; unsigned unk2c; unsigned unk30; unsigned unk34; unsigned unk38; unsigned unk3c; unsigned unk40; unsigned unk44; unsigned unk48; unsigned unk4c; unsigned unk50; unsigned unk54; unsigned m58; unsigned m5c;
     Obj* FUN_00cfd800(int, int, int, int);
-    int FUN_00cfce80(int a1, int a2, int a3, int* a4, float a5, int a6, int a7, float* a8, int a9);
+    int addToiImpl(int a1, int a2, int a3, int* a4, float a5, int a6, int a7, float* a8, int a9);
 };
 void __cdecl FUN_00d01850(void*, Ctx*);
 void __cdecl FUN_00d00110(Obj*, Ctx*);
 // Dispatches an event context to m0c and to two objects with m204 set; result 1 calls v8(a4[1], a9), otherwise *a8 receives the context float; returns the result.
 // @fnv 0x00cfce80
-int Cls::FUN_00cfce80(int a1, int a2, int a3, int* a4, float a5, int a6, int a7, float* a8, int a9) {
+int Cls::addToiImpl(int a1, int a2, int a3, int* a4, float a5, int a6, int a7, float* a8, int a9) {
     Obj* o = FUN_00cfd800(a1, a2, 7, a9);
     Obj* p = (Obj*)((unsigned)o ^ m58 ^ m5c);
     Ctx c(a1,a2,a3,a4,a5,a6,a7,a8,a9,this);

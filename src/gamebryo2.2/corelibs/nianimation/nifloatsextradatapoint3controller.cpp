@@ -35,10 +35,10 @@ struct NiFloatsExtraDataPoint3Controller : NiPSysModifierCtlr {
     char pad[0x3c];
     int m_iFloatsExtraDataIndex;
     int m_kCtlrID;
-    NiFloatsExtraDataPoint3Controller* FUN_00a4ec80(void* proc);
+    NiFloatsExtraDataPoint3Controller* CreateClone(void* proc);
 };
 // @fnv 0x00a4ec80
-NiFloatsExtraDataPoint3Controller* NiFloatsExtraDataPoint3Controller::FUN_00a4ec80(void* proc)
+NiFloatsExtraDataPoint3Controller* NiFloatsExtraDataPoint3Controller::CreateClone(void* proc)
 {
     NiFloatsExtraDataPoint3Controller* p = (NiFloatsExtraDataPoint3Controller*)BSFadeNode::operator new(0x48);
     if (p) {
@@ -142,11 +142,11 @@ char* __cdecl FUN_00a7d4d0(char const* name, int value);
 struct FUN_00a4eed0_shell : Base57420 {
     int m_iFloatsExtraDataIndex;
 
-    void FUN_00a4eed0(StrArr* strings);
+    void GetViewerStrings(StrArr* strings);
 };
 
 // @fnv 0x00a4eed0
-void FUN_00a4eed0_shell::FUN_00a4eed0(StrArr* strings)
+void FUN_00a4eed0_shell::GetViewerStrings(StrArr* strings)
 {
     Base57420::FUN_00a57420(strings);
 

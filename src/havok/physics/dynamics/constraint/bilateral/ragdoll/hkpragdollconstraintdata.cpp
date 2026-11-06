@@ -5,7 +5,7 @@
 #include "havok/hkpRagdollConstraintData.h"
 
 // @fnv 0x00cde9d0
-void __stdcall FUN_00cde9d0(int* apUnused, int* apiOut)
+void __stdcall getRuntimeInfo(int* apUnused, int* apiOut)
 {
     apiOut[1] = 0xc;
     apiOut[0] = 0x80;
@@ -23,10 +23,10 @@ void __thiscall FUN_00cde980_cls::FUN_00cde980(int aiBitIndex)
 
 struct FUN_00cde960_cls
 {
-    void __thiscall FUN_00cde960(float a);
+    void __thiscall setMaxLinearImpulse(float a);
 };
 // @fnv 0x00cde960
-void __thiscall FUN_00cde960_cls::FUN_00cde960(float a)
+void __thiscall FUN_00cde960_cls::setMaxLinearImpulse(float a)
 {
     *(float*)((char*)this + 0x13c) = a;
 }
@@ -34,10 +34,10 @@ void __thiscall FUN_00cde960_cls::FUN_00cde960(float a)
 void* __cdecl FUN_00d21a60(void* a, int b, int c);
 struct FUN_00cde9b0_cls
 {
-    char* FUN_00cde9b0(int a);
+    char* getConstraintInfo(int a);
 };
 // @fnv 0x00cde9b0
-char* FUN_00cde9b0_cls::FUN_00cde9b0(int aiIndex)
+char* FUN_00cde9b0_cls::getConstraintInfo(int aiIndex)
 {
     return (char*)FUN_00d21a60((char*)this + 0x10, 0x130, aiIndex);
 }
@@ -153,11 +153,11 @@ struct FUN_00cde970_cls
     int unk134;
     int unk138;
     float m_13c;
-    float FUN_00cde970();
+    float getMaxLinearImpulse();
 };
 
 // @fnv 0x00cde970
-float FUN_00cde970_cls::FUN_00cde970()
+float FUN_00cde970_cls::getMaxLinearImpulse()
 {
     return m_13c;
 }

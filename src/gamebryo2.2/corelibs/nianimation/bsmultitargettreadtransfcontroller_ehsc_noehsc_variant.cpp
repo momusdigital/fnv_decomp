@@ -6,12 +6,12 @@
 #include "bsmultitargettreadtransfcontroller_decls.h"
 struct FUN_00a35950_shell : public BSMultiTargetTreadTransfController
 {
-    void* FUN_00a35950();
+    void* GetRTTI();
 };
 extern int g_011f36e4;
 struct FUN_00a35e90_shell : public BSMultiTargetTreadTransfController
 {
-    char* FUN_00a35e90(unsigned short);
+    char* GetInterpolatorID(unsigned short);
 };
 struct FUN_00a35fc0_shell
 {
@@ -118,7 +118,7 @@ struct Ctrl00a358b0
     char _0[52];
     Interp00a358b0* m_base;
     unsigned short m_num;
-    void __thiscall FUN_00a358b0(float afStartTime, float afEndTime);
+    void __thiscall GuaranteeTimeRange(float afStartTime, float afEndTime);
 };
 // Stand-in for NiInterpolator: the virtual used at vtable offset 0xB8 (index 46)
 // takes no stack arguments (this-> in ecx only).
@@ -173,7 +173,7 @@ struct InterpStub_00a2fac0
     virtual bool IsCorrectType() = 0;  // +0xB8
 };
 bool __stdcall FUN_00a2fac0(InterpStub_00a2fac0* apInterpolator, unsigned short ausIndex);
-// FUN_00a35900 : BSMultiTargetTreadTransfController entry getter.
+// CreateBlendInterpolator : BSMultiTargetTreadTransfController entry getter.
 // Returns &m_pEntries[usIndex]; the stride is sizeof(TreadEntry) = 0x34.
 struct FUN_00a35900_cls
 {
@@ -191,7 +191,7 @@ struct FUN_00a35900_cls
     int m_i2C;
     int m_i30;
     TreadEntry* m_pEntries;
-    TreadEntry* FUN_00a35900(unsigned short usIndex, int aParam1, int aParam2, int aParam3, int aParam4);
+    TreadEntry* CreateBlendInterpolator(unsigned short usIndex, int aParam1, int aParam2, int aParam3, int aParam4);
 };
 extern char DAT_01096694;
 void* __cdecl FUN_00aa13e0(unsigned int size) throw();
@@ -404,7 +404,7 @@ class NiQuaternion
   public:
     float w, x, y, z;
     void Slerp(float, const NiQuaternion&, const NiQuaternion&);
-    void FUN_004f0180(Mat112*);
+    void ToRotation(Mat112*);
 };
 extern Vec112 DAT_011a8400;
 extern NiQuaternion DAT_011f3704;

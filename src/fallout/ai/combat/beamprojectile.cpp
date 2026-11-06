@@ -12,11 +12,11 @@ struct NiPointer
 struct Projectile
 {
     NiPointer m_actorCause;  // +0x120
-    void FUN_00978ed0(ActorCause* apCause);
+    void SetActorCause(ActorCause* apCause);
 };
 
 // @fnv 0x00978ed0
-void Projectile::FUN_00978ed0(ActorCause* apCause)
+void Projectile::SetActorCause(ActorCause* apCause)
 {
     ((NiPointer*)((char*)this + 0x120))->operator=(apCause);
 }
@@ -115,7 +115,7 @@ void FUN_00979bb0_shell::FUN_00979bb0(BGSSaveFormBuffer* apSaveGameBuffer)
 struct S5870_Buf;
 struct S5870_Holder
 {
-    void FUN_009c5870(S5870_Buf*);
+    void FinishLoadGame(S5870_Buf*);
 };
 struct FUN_009abef0_shell
 {
@@ -124,7 +124,7 @@ struct FUN_009abef0_shell
 // @fnv 0x009abef0
 void FUN_009abef0_shell::FUN_009abef0(S5870_Buf* apLoadGameBuffer)
 {
-    ((S5870_Holder*)this)->FUN_009c5870(apLoadGameBuffer);
+    ((S5870_Holder*)this)->FinishLoadGame(apLoadGameBuffer);
 }
 
 struct NiRTTI;
@@ -156,7 +156,7 @@ extern const NiRTTI g_01202508;
 extern NiPoint3 NiPoint3_ZERO;
 struct FUN_004d7d50_StandIn
 {
-    unsigned int FUN_004d7d50();
+    unsigned int GetModifierCount();
     NiAVObject* GetByIndex(unsigned int i);
 };
 struct TESGrass
@@ -266,7 +266,7 @@ void BeamScale_shell::FUN_009795e0(NiAVObject* apObject, float scale)
                 if (FUN_0043b300(&g_01202538_arg1, apObject))
                 {
                     FUN_004d7d50_StandIn* node = (FUN_004d7d50_StandIn*)apObject;
-                    for (unsigned int i = 0; i < node->FUN_004d7d50(); i++)
+                    for (unsigned int i = 0; i < node->GetModifierCount(); i++)
                     {
                         NiAVObject* child = node->GetByIndex(i);
                         if (FUN_0043b300(&g_01202508, child))
@@ -451,7 +451,7 @@ struct Reference
 };
 struct Base
 {
-    bool FUN_004fdf20();
+    bool GetCanTurnOff();
     Reference* FUN_00586150();
 };
 struct SoundPlaybackHandle
@@ -1028,13 +1028,13 @@ struct BeamEffect
     void FUN_005de0a0(int, bool);
     Form* FUN_00567790();
     bool IsFightReactionAllowed(int, Actor*, Form*);
-    bool FUN_009c43e0(int, bool);
+    bool TurnOff(int, bool);
 };
 // @fnv 0x009c43e0
-bool BeamEffect::FUN_009c43e0(int value, bool silent)
+bool BeamEffect::TurnOff(int value, bool silent)
 {
     bool result = false;
-    if (FUN_004181e0()->FUN_004fdf20() && !FUN_00444d00(0x200))
+    if (FUN_004181e0()->GetCanTurnOff() && !FUN_00444d00(0x200))
     {
         StopSound();
         if (!silent)
@@ -1719,7 +1719,7 @@ struct Obj
 struct ArgRef
 {
     Obj* FUN_005495f0();
-    unsigned int FUN_004d7d50();
+    unsigned int GetModifierCount();
     Item* GetByIndex(unsigned int index);
 };
 
@@ -1747,7 +1747,7 @@ float FUN_00979840_cls::FUN_00979840(ArgRef* arg)
             if (FUN_0043b300(&DAT_012024e0, arg))
             {
                 ArgRef* owner = arg;
-                for (unsigned int i = 0; best == 0.0f && i < owner->FUN_004d7d50(); ++i)
+                for (unsigned int i = 0; best == 0.0f && i < owner->GetModifierCount(); ++i)
                 {
                     Item* item = owner->GetByIndex(i);
                     if (FUN_0043b300(&DAT_01202508, item))
@@ -1902,7 +1902,7 @@ struct FUN_009b8b10_cls
     unsigned char unk91[0x150 - 0x91];
     int m_i150;
 
-    bool FUN_009b8b10();
+    bool ProcessImpacts();
     bool FUN_00444d00(int);
     float GetFirstLightParameter();
     double FUN_009669c0();
@@ -1916,7 +1916,7 @@ struct FUN_009b8b10_cls
 };
 
 // @fnv 0x009b8b10
-bool FUN_009b8b10_cls::FUN_009b8b10()
+bool FUN_009b8b10_cls::ProcessImpacts()
 {
     bool bResult = false;
     if (!m_b90 && !m_k88.FUN_008256d0())

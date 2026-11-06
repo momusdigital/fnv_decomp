@@ -28,7 +28,7 @@ class TESCombatStyle : public TESForm
     void ResetFormData();
     bool Load(TESFile*);
 };
-TESCombatStyle* FUN_00505000();
+TESCombatStyle* GetDefaultCombatStyle();
 struct NiPoint3;
 class NiAVObject
 {

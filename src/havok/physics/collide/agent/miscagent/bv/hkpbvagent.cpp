@@ -733,10 +733,10 @@ struct S00d454c0_Owner
     void* m_pManager;
     S00d454c0_Filter* m_iFilter;
     S00d454c0_Agent* m_pCollisionAgent;
-    void FUN_00d454c0(CdBody* bodyA, CdBody* bodyB, S00d454c0_Input* input, S00d454c0_Result* result);
+    void processCollision(CdBody* bodyA, CdBody* bodyB, S00d454c0_Input* input, S00d454c0_Result* result);
 };
 // @fnv 0x00d454c0
-void S00d454c0_Owner::FUN_00d454c0(CdBody* bodyA, CdBody* bodyB, S00d454c0_Input* input, S00d454c0_Result* result)
+void S00d454c0_Owner::processCollision(CdBody* bodyA, CdBody* bodyB, S00d454c0_Input* input, S00d454c0_Result* result)
 {
     TimerBeginObj(DAT_010cf414, DAT_010cf404);
     BvShape* shape = bodyA->m_pCollisionShape;
@@ -823,7 +823,7 @@ struct Simplex
 
 struct AgentBase
 {
-    void FUN_00d454c0(int a, int b, int c, Simplex* s);
+    void processCollision(int a, int b, int c, Simplex* s);
 };
 
 struct Agent : AgentBase
@@ -831,13 +831,13 @@ struct Agent : AgentBase
     void FUN_00d46220(int a, int b, int c, Simplex* s);
 };
 
-// Calls base FUN_00d454c0, then updates vertex SIMD data and swaps simplex dimension and id fields when the closest point distance changed.
+// Calls base processCollision, then updates vertex SIMD data and swaps simplex dimension and id fields when the closest point distance changed.
 // @fnv 0x00d46220
 void Agent::FUN_00d46220(int a, int b, int c, Simplex* apSimplex)
 {
     SimplexVertex* pVertex = apSimplex->m_kRayEnd;
     float oldDistance = apSimplex->m_fClosestPointDistanceSquared;
-    AgentBase::FUN_00d454c0(b, a, c, apSimplex);
+    AgentBase::processCollision(b, a, c, apSimplex);
     for (; pVertex < apSimplex->m_kRayEnd; pVertex++)
     {
         const __m128* pb = &pVertex->m_kPointB;

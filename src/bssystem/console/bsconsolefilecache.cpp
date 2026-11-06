@@ -202,10 +202,10 @@ bool __thiscall FUN_00b02130_shell::QueueItem(void* apItem)
 
 struct FUN_00b020a0_shell
 {
-    char FUN_00b020a0(void* p);
+    char OpenTaskGroupData(void* p);
 };
 // @fnv 0x00b020a0
-char FUN_00b020a0_shell::FUN_00b020a0(void* pObject)
+char FUN_00b020a0_shell::OpenTaskGroupData(void* pObject)
 {
     unsigned char flag;
     void* obj = pObject;
@@ -237,11 +237,11 @@ extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject);
 
 struct FUN_00b01f50_shell
 {
-    void FUN_00b01f50();
+    void ShutdownAllTasks();
 };
 
 // @fnv 0x00b01f50
-void FUN_00b01f50_shell::FUN_00b01f50()
+void FUN_00b01f50_shell::ShutdownAllTasks()
 {
     unsigned int i;
 

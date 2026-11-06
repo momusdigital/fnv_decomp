@@ -835,7 +835,7 @@ struct FUN_00dced30_cls
 };
 
 // @fnv 0x00dced30
-void __cdecl FUN_00dced30(FUN_00dced30_cls* pObject)
+void __cdecl cleanupLoadedObject_hkpBreakableConstraintData(FUN_00dced30_cls* pObject)
 {
     pObject->m_v00(0);
 }
@@ -854,7 +854,7 @@ struct FUN_00d4dfc0_class
 };
 
 // @fnv 0x00dced50
-void __cdecl FUN_00dced50(FUN_00d4dfc0_class* object, unsigned int value)
+void __cdecl finishLoadedObject_hkpBreakableConstraintData(FUN_00d4dfc0_class* object, unsigned int value)
 {
     if (object)
         object->FUN_00d4dfc0(value);
@@ -2175,12 +2175,12 @@ struct S00dcd1b0_Obj
     int unk3C;
     ArrayBlock m_40;
     unsigned char m_4c;
-    void FUN_00dcd1b0(int value);
+    void initWeldingInfo(int value);
 };
 
 // Sets m_4c to value; if value is 6, frees the m_40 array block, otherwise computes cumulative offsets and resizes the block to fit total.
 // @fnv 0x00dcd1b0
-void S00dcd1b0_Obj::FUN_00dcd1b0(int value)
+void S00dcd1b0_Obj::initWeldingInfo(int value)
 {
     int total;
 

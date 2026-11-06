@@ -275,12 +275,12 @@ struct S00e43320_Mgr
     Vehicle433** m_ppVehicles;
     int m_uiItemCount;
     void FUN_00e43060(void* a, void* b, Out433* out);
-    void FUN_00e43320(void* param1, void* param2, void* param3);
+    void stepVehiclesUsingCastResults(void* param1, void* param2, void* param3);
 };
 
 // Iterates over m_ppVehicles, gathers per-wheel data via Counted433, and calls FUN_00e39030 on each vehicle with the collected array.
 // @fnv 0x00e43320
-void S00e43320_Mgr::FUN_00e43320(void* param1, void* param2, void* param3)
+void S00e43320_Mgr::stepVehiclesUsingCastResults(void* param1, void* param2, void* param3)
 {
     int i;
     {

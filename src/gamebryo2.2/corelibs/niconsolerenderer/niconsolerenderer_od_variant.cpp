@@ -164,7 +164,7 @@ struct FUN_00e695f0_shell
 };
 struct FUN_00e69600_shell
 {
-    unsigned int __thiscall FUN_00e69600();
+    unsigned int __thiscall GetDefaultRenderTargetGroup();
 };
 struct FUN_00e69900_shell
 {
@@ -265,7 +265,7 @@ struct FUN_00e75840_shell
 {
     unsigned int pad[0x5e0 / 4];
     unsigned int color;
-    void FUN_00e75840(float* param);
+    void SetBackgroundColor(float* param);
 };
 extern "C" void* g_01270900;
 void* __cdecl FUN_00e766f0();

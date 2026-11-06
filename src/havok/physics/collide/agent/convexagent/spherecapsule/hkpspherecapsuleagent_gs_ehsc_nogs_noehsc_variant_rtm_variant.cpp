@@ -774,7 +774,7 @@ virtual void getPenetrations(const hkpCdBody&bodyA,const hkpCdBody&bodyB,const C
 virtual void getClosestPoints(const hkpCdBody&bodyA,const hkpCdBody&bodyB,const CollisionAgentContext&input,hkpCdPointCollector&collector)=0;
 virtual void linearCast(const hkpCdBody&bodyA,const hkpCdBody&bodyB,const ShapeSweepParameters&input,hkpCdPointCollector&castCollector,hkpCdPointCollector*startCollector)=0;
 public:
-virtual void FUN_00d3f080(const hkpCdBody&a,const hkpCdBody&b,const GskAgentInput&input,WorldOperationEntry&result)=0;
+virtual void processCollision(const hkpCdBody&a,const hkpCdBody&b,const GskAgentInput&input,WorldOperationEntry&result)=0;
 virtual void cleanup(hkpConstraintOwner&info)=0;
 virtual void ProcessContactPoints(const hkpCdBody&bodyA,const hkpCdBody&bodyB,const CollisionAgentContext&input,hkpConstraintOwner&constraintOwner){}
 virtual void RemovePoint(const CollisionAgentContext&input);
@@ -855,7 +855,7 @@ class hkpSphereCapsuleAgent:public hkpIterativeLinearCastAgent
 {
 public:
 static void __cdecl RegisterCapsuleCapsuleAgent(hkpCollisionDispatcher*dispatcher);
-virtual inline void FUN_00d3f080(const hkpCdBody&bodyA,const hkpCdBody&bodyB,const GskAgentInput&input,WorldOperationEntry&result);
+virtual inline void processCollision(const hkpCdBody&bodyA,const hkpCdBody&bodyB,const GskAgentInput&input,WorldOperationEntry&result);
 virtual void getClosestPoints(const hkpCdBody&bodyA,const hkpCdBody&bodyB,const CollisionAgentContext&input,hkpCdPointCollector&pointDetails);
 static void __cdecl m_pVirtualFunction2(const hkpCdBody&bodyA,const hkpCdBody&bodyB,const CollisionAgentContext&input,class hkpCdPointCollector&collector);
 virtual void getPenetrations(const hkpCdBody&bodyA,const hkpCdBody&bodyB,const CollisionAgentContext&input,hkpCdBodyPairCollector&collector);
@@ -1004,7 +1004,7 @@ cpoint.getPosition().setAddMul4(posA,cpoint.getNormal(),capsuleB->getRadius()-di
 cpoint.setDistance(dist-radiusSum);
 return ST_CP_HIT;}
 // @fnv 0x00d3f080
-void hkpSphereCapsuleAgent::FUN_00d3f080(const hkpCdBody&bodyA,const hkpCdBody&bodyB,const GskAgentInput&input,WorldOperationEntry&result)
+void hkpSphereCapsuleAgent::processCollision(const hkpCdBody&bodyA,const hkpCdBody&bodyB,const GskAgentInput&input,WorldOperationEntry&result)
 {
 ;
 {StringCursor&mStream=StringCursor::GetMonitorStream();if(mStream.memoryAvailable()){StringCursor::CommandTimingEntry*h=reinterpret_cast<StringCursor::CommandTimingEntry*>(mStream.GetStreamEnd());h->m_pCommandName="T" "t" "SphereCapsule";h->setTime();mStream.setEnd((char*)(h+1));}};

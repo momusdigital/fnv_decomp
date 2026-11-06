@@ -186,10 +186,10 @@ struct FUN_00c2f2c0_shell : Base00c319e0
     char _pad[0x18];
     bool m_bHasString;
     char* m_pSpawnModifier;
-    void FUN_00c2f2c0(StrArr* pkStrings);
+    void GetViewerStrings(StrArr* pkStrings);
 };
 // @fnv 0x00c2f2c0
-void FUN_00c2f2c0_shell::FUN_00c2f2c0(StrArr* pkStrings)
+void FUN_00c2f2c0_shell::GetViewerStrings(StrArr* pkStrings)
 {
     FUN_00c319e0(pkStrings);
     char* pcString = FUN_00a7d330(*(char**)&g_01202798);
@@ -222,11 +222,11 @@ struct NiPSysAgeDeathModifierClone : NiPSysPositionModifier
     bool m_bHasString;
     NiPSysSpawnModifier* m_pSpawnModifier;
     void CopyMemberData(NiPSysModifier*, CloningProcess&);
-    NiPSysAgeDeathModifierClone* FUN_00c2f150(CloningProcess& kCloning);
+    NiPSysAgeDeathModifierClone* CreateClone(CloningProcess& kCloning);
 };
 extern int DAT_010c0304;
 // @fnv 0x00c2f150
-NiPSysAgeDeathModifierClone* NiPSysAgeDeathModifierClone::FUN_00c2f150(CloningProcess& kCloning)
+NiPSysAgeDeathModifierClone* NiPSysAgeDeathModifierClone::CreateClone(CloningProcess& kCloning)
 {
     NiPSysAgeDeathModifierClone* pkObject = (NiPSysAgeDeathModifierClone*)BSFadeNode::operator new(0x20);
     if (pkObject)

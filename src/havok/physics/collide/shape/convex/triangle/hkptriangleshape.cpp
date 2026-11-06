@@ -14,15 +14,15 @@ void __cdecl FUN_00d1fee0(char const* arg1, char const* const* arg2)
     FUN_00c90360(arg1, &g_01268970_arg1);
 }
 
-// FUN_00d1ff10: hkpTriangleShape helper returning (m_ucWeldingPadding + 1) * 3.
+// getNumCollisionSpheresImpl: hkpTriangleShape helper returning (m_ucWeldingPadding + 1) * 3.
 class FUN_00d1ff10_cls : public hkpTriangleShape
 {
 public:
-    int FUN_00d1ff10();
+    int getNumCollisionSpheresImpl();
 };
 
 // @fnv 0x00d1ff10
-int FUN_00d1ff10_cls::FUN_00d1ff10()
+int FUN_00d1ff10_cls::getNumCollisionSpheresImpl()
 {
     return (m_ucWeldingPadding + 1) * 3;
 }
@@ -229,12 +229,12 @@ struct SupportVector {
 };
 
 struct TriangleSupport : hkpTriangleShape {
-    void FUN_00d20270(float const* pf, float* out);
+    void getSupportingVertexImpl(float const* pf, float* out);
 };
 
 // Picks the triangle vertex with the largest projection of pf, adds m_kVertexTransform if its dot with pf is positive, and stores the index in out[3].
 // @fnv 0x00d20270
-void TriangleSupport::FUN_00d20270(float const* pf, float* out)
+void TriangleSupport::getSupportingVertexImpl(float const* pf, float* out)
 {
     __m128 v0 = *reinterpret_cast<const __m128*>(&m_kVertexA);
     __m128 v1 = *reinterpret_cast<const __m128*>(&m_kVertexB);
@@ -347,14 +347,14 @@ extern float __cdecl FUN_00c9e0f0(float, float);
 
 class TriangleWelding : public hkpTriangleShape {
 public:
-    int FUN_00d203f0(unsigned short* indices, unsigned char* count,
+    int weldContactPointImpl(unsigned short* indices, unsigned char* count,
         const hkVector4* position, const hkTransform* transform,
         SupportShape* source, const hkTransform* sourceTransform, hkVector4* output);
 };
 
 // Welds a triangle edge against a support shape, adjusting the face normal and separation based on welding type and sector cone.
 // @fnv 0x00d203f0
-int TriangleWelding::FUN_00d203f0(unsigned short* indices, unsigned char* count,
+int TriangleWelding::weldContactPointImpl(unsigned short* indices, unsigned char* count,
     const hkVector4* position, const hkTransform* transform,
     SupportShape* source, const hkTransform* sourceTransform, hkVector4* output) {
     unsigned int weldingType = m_eWeldingType;

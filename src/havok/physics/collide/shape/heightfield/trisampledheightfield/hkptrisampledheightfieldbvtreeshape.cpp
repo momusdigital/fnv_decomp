@@ -36,11 +36,11 @@ void TriSampledHeightFieldBvTreeShape::FUN_00d27200()
 
 struct FUN_00d268b0_Obj : public hkpTriSampledHeightFieldBvTreeShape
 {
-    int __thiscall FUN_00d268b0(int a, int b);
+    int __thiscall calcSizeForSpu(int a, int b);
 };
 
 // @fnv 0x00d268b0
-int __thiscall FUN_00d268b0_Obj::FUN_00d268b0(int a, int aiUnused)
+int __thiscall FUN_00d268b0_Obj::calcSizeForSpu(int a, int aiUnused)
 {
     hkpShape* childShape = m_kChildContainer.m_pContainedShape;
     void** vtable = *(void***)childShape;
@@ -483,11 +483,11 @@ struct FUN_00d26b30_cls
     int unk14;
     HolderD26B* m_holder;
 
-    void FUN_00d26b30(int a, int b, int c, int d);
+    void castRayWithCollectorImpl(int a, int b, int c, int d);
 };
 
 // @fnv 0x00d26b30
-void FUN_00d26b30_cls::FUN_00d26b30(int a, int b, int c, int d)
+void FUN_00d26b30_cls::castRayWithCollectorImpl(int a, int b, int c, int d)
 {
     m_holder->FUN_00d26450()->Tail(a, b, c, d);
 }
@@ -810,12 +810,12 @@ ExtentsQueryFn S00d26ba0_extentsFp = &FUN_00d26940;
 
 struct BvTreeShape : public hkpTriSampledHeightFieldBvTreeShape
 {
-    hkUint32 FUN_00d26ba0(const hkAabb& aabbIn, hkpShapeKey* hits, int maxNumKeys) const;
+    hkUint32 queryAabbImpl(const hkAabb& aabbIn, hkpShapeKey* hits, int maxNumKeys) const;
 };
 
 // Fills hits with shape keys for grid cells overlapping aabbIn and returns the count, or 0 if bounds checking finds every sampled height above or below it.
 // @fnv 0x00d26ba0
-hkUint32 BvTreeShape::FUN_00d26ba0(const hkAabb& aabbIn, hkpShapeKey* hits, int maxNumKeys) const
+hkUint32 BvTreeShape::queryAabbImpl(const hkAabb& aabbIn, hkpShapeKey* hits, int maxNumKeys) const
 {
     hkAabb aabb(aabbIn);
     const hkpTriSampledHeightFieldCollection* collection =

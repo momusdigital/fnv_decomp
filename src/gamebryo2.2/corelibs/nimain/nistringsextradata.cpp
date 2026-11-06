@@ -303,11 +303,11 @@ struct CloneObject
 struct CloneSource
 {
     void CopyStringsExtraData(CloneObject* pDest, void* pCloning);
-    CloneObject* FUN_00a94990(void* pCloning);
+    CloneObject* CreateClone(void* pCloning);
 };
 
 // @fnv 0x00a94990
-CloneObject* CloneSource::FUN_00a94990(void* pCloning)
+CloneObject* CloneSource::CreateClone(void* pCloning)
 {
     CloneObject* p = new CloneObject;
     CopyStringsExtraData(p, pCloning);

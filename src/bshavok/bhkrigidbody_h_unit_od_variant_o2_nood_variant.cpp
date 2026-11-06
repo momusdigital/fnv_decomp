@@ -41,11 +41,11 @@ struct S8d280_Mat
 class FUN_00c8d280_cls : public bhkRefObject
 {
   public:
-    S8d280_Mat* FUN_00c8d280(S8d280_Mat* out);
+    S8d280_Mat* GetTransform(S8d280_Mat* out);
 };
 
 // @fnv 0x00c8d280
-S8d280_Mat* FUN_00c8d280_cls::FUN_00c8d280(S8d280_Mat* out)
+S8d280_Mat* FUN_00c8d280_cls::GetTransform(S8d280_Mat* out)
 {
     if (this != 0)
     {
@@ -777,11 +777,11 @@ struct Q8f6e0_Obj
     virtual void vac();
     virtual void vb0();
     virtual Q8f6e0_Dummy* vB4(unsigned char* p);
-    int FUN_00c8f6e0(Q8f6e0_Arg* a);
+    int LoadCInfo(Q8f6e0_Arg* a);
     int FUN_00c87710(Q8f6e0_Arg* a);
 };
 // @fnv 0x00c8f6e0
-int Q8f6e0_Obj::FUN_00c8f6e0(Q8f6e0_Arg* a)
+int Q8f6e0_Obj::LoadCInfo(Q8f6e0_Arg* a)
 {
     unsigned char flag;
     int r = this->vA8();

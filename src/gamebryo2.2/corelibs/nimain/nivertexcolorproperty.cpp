@@ -148,11 +148,11 @@ struct FUN_00a5f210_cls
     unsigned short m_18;
 
     void FUN_00a5d7a0(NodeBase_b9855* p, unsigned int arg);
-    void* FUN_00a5f210(unsigned int a1);
+    void* CreateClone(unsigned int a1);
 };
 
 // @fnv 0x00a5f210
-void* FUN_00a5f210_cls::FUN_00a5f210(unsigned int a1)
+void* FUN_00a5f210_cls::CreateClone(unsigned int a1)
 {
     if (m_0c != 0)
     {

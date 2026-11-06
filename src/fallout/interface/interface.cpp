@@ -2542,11 +2542,11 @@ void __cdecl FUN_00706f90(int aiValue)
 
 struct FUN_00709920_Class
 {
-    const char* FUN_00709920();
+    const char* GetTypeName();
 };
 
 // @fnv 0x00709920
-const char* FUN_00709920_Class::FUN_00709920()
+const char* FUN_00709920_Class::GetTypeName()
 {
     return "TILE";
 }
@@ -2555,11 +2555,11 @@ class Tile;
 class TileRect
 {
   public:
-    const char* FUN_00709970();
+    const char* GetTypeName();
 };
 
 // @fnv 0x00709970
-const char* TileRect::FUN_00709970()
+const char* TileRect::GetTypeName()
 {
     return "RECT";
 }
@@ -2567,11 +2567,11 @@ const char* TileRect::FUN_00709970()
 class TileMenu
 {
   public:
-    const char* FUN_00709a50();
+    const char* GetTypeName();
 };
 
 // @fnv 0x00709a50
-const char* TileMenu::FUN_00709a50()
+const char* TileMenu::GetTypeName()
 {
     return "MENU";
 }
@@ -4292,7 +4292,7 @@ struct Player
     virtual void Unknown188();
     virtual void ActivateInterface(Helper*, int, int);
     InterfaceObject* FUN_008d8520();
-    bool FUN_00437bf0();
+    bool IsRestrained();
     bool FUN_00437bd0();
     int FUN_008d6f30(int);
     void OpenDialogMenu();
@@ -4302,7 +4302,7 @@ struct Player
 void Player::OpenDialogMenu()
 {
     ActiveObject* active = FUN_008d8520()->CurrentObject();
-    if (FUN_00437bf0() || FUN_00437bd0() || (active && active->FUN_0041ca90() == 26))
+    if (IsRestrained() || FUN_00437bd0() || (active && active->FUN_0041ca90() == 26))
     {
         return;
     }
@@ -6517,7 +6517,7 @@ struct ChainObj
     void FUN_004a0370();
     void FUN_004a03c0();
     void FUN_00555b10(NiPt3*, NiPt3*, int);
-    void FUN_00556ef0(int, int, int);
+    void GetIntSeenSection(int, int, int);
     void FUN_0054e640(Local12*);
     void FUN_0054e750(int, int, Local12*);
     void CollectCellReferences(unsigned int*);
@@ -6716,8 +6716,8 @@ struct Obj1C
     static void* operator new(unsigned int);
     static void operator delete(void*, unsigned int);
     Obj1C();
-    void FUN_00439340(int);
-    void FUN_00439390(int);
+    void SetSrcBlendMode(int);
+    void SetDestBlendMode(int);
     void FUN_0049ed90(int);
 };
 
@@ -6803,7 +6803,7 @@ struct MapMenuR6
     void UpdateLocalMap();
 };
 
-int __cdecl FUN_00556870(V3Maker*);
+int __cdecl GetSeenValue(V3Maker*);
 // free helpers; conventions read from add esp evidence
 extern "C" void* __cdecl FUN_00401000(unsigned int);
 extern "C" void __stdcall FUN_00401050(void*, unsigned int, unsigned int, void*);
@@ -6813,7 +6813,7 @@ extern "C" void __cdecl FUN_006815c0();
 extern "C" void __cdecl FUN_004a7800();
 extern "C" int __cdecl FUN_00406d90(float);
 extern "C" void __cdecl FUN_00406d00(char*, unsigned int, const char*, ...);
-extern "C" void __stdcall FUN_00ee6dc2(char*, int, unsigned int);
+extern "C" void __stdcall D3DXSaveTextureToFileA(char*, int, unsigned int);
 extern "C" bool __cdecl FUN_007a1750();
 extern "C" void* __cdecl FUN_007a1480();
 extern "C" void* __cdecl FUN_00653270(unsigned int, unsigned int);
@@ -6978,7 +6978,7 @@ void __cdecl FUN_0079ffb0(char param_1)
             base9c33 =
                 reinterpret_cast<const Position&>(NiPt3(static_cast<float>((insideTileX1 << 0xc) + 0x800),
                                                         static_cast<float>((insideTileY1 << 0xc) + 0x800), 0.0f));
-            static_cast<ChainObj*>(pSub10)->FUN_00556ef0(insideTileX1, insideTileY1, 0);
+            static_cast<ChainObj*>(pSub10)->GetIntSeenSection(insideTileX1, insideTileY1, 0);
             static_cast<ChainObj*>(static_cast<void*>(FUN_0043c4b0()))->FUN_004a0370();
             static_cast<ChainObj*>(pSub10)->FUN_0054e750(insideTileX1, insideTileY1, &local1415);
             static_cast<ChainObj*>(static_cast<void*>(FUN_0043c4b0()))->FUN_004a03c0();
@@ -7044,7 +7044,7 @@ void __cdecl FUN_0079ffb0(char param_1)
         }
         p3925 = static_cast<C39*>(FUN_00653270(reinterpret_cast<unsigned int>(&DAT_011f4418),
                                                reinterpret_cast<ChainObj*>(local1415.FUN_00559450())->FUN_0059bb30()));
-        FUN_00ee6dc2(pathB41, 3, p3925->v039(0));
+        D3DXSaveTextureToFileA(pathB41, 3, p3925->v039(0));
         reinterpret_cast<MapMenuR6*>(DAT_011da368)->field_128 =
             reinterpret_cast<MapMenuR6*>(DAT_011da368)->field_128 + 1;
         return;
@@ -7080,7 +7080,7 @@ void __cdecl FUN_0079ffb0(char param_1)
             mk324.FUN_0063c8a0(reinterpret_cast<NiPt3*>(&base9c33));
             float hgt = FLT_0101e570;
             if (reinterpret_cast<MapMenuR6*>(DAT_011da368)->field_12c != 0)
-                hgt = static_cast<float>(FUN_00556870(reinterpret_cast<V3Maker*>(&mk324)));
+                hgt = static_cast<float>(GetSeenValue(reinterpret_cast<V3Maker*>(&mk324)));
             static_cast<NiCol*>(pvC52)[idx19] = NiCol(1.0f, 1.0f, 1.0f, hgt / DBL_0101db80);
             idx19++;
         }
@@ -7150,8 +7150,8 @@ void __cdecl FUN_0079ffb0(char param_1)
     pMesh14->FUN_00439410(pFx44);
 
     pFx221 = new Obj1C();
-    static_cast<Obj1C*>(pFx221)->FUN_00439340(6);
-    static_cast<Obj1C*>(pFx221)->FUN_00439390(0);
+    static_cast<Obj1C*>(pFx221)->SetSrcBlendMode(6);
+    static_cast<Obj1C*>(pFx221)->SetDestBlendMode(0);
     static_cast<Obj1C*>(pFx221)->FUN_0049ed90(1);
     pMesh14->FUN_00439410(pFx221);
     FUN_00b57e30(pMesh14, 0, 0);
@@ -7890,7 +7890,7 @@ struct DisplayItem
 {
     DisplayForm* FUN_0044ddc0();
     DisplayForm* GetExtraForm();
-    float FUN_004bd400();
+    float GetItemValue();
     unsigned char FUN_004bd820();
     bool HasEffect(int);
     float FUN_004bcdb0(bool);
@@ -7937,7 +7937,7 @@ struct DisplayForm
     float FUN_00709430(int);
     float FUN_004be060();
     float FUN_004be180();
-    DisplayForm* FUN_004bd570(int);
+    DisplayForm* GetModItem(int);
     bool FUN_0040e210(int);
 };
 
@@ -8223,7 +8223,7 @@ struct DisplaySetting
 struct ArmorFlags
 {
     bool FUN_004c0bd0();
-    bool FUN_00514450();
+    bool IsMedium();
 };
 
 class TESObjectARMO : public TESBoundObject
@@ -8426,7 +8426,7 @@ void FUN_00707e30(DisplayItem* item, DisplayTile* root)
         float modY4 = 0.0f;
         float aModZ = 0.0f;
 
-        float _worth = item->FUN_004bd400();
+        float _worth = item->GetItemValue();
         float weight =
             FUN_0048ebc0(item->FUN_0044ddc0(), reinterpret_cast<DisplayPlayer*>(g_thePlayer)->FUN_004d1360());
 
@@ -8611,7 +8611,7 @@ void FUN_00707e30(DisplayItem* item, DisplayTile* root)
                 {
                     if (armor->armorFlags.FUN_004c0bd0())
                         FUN_00406d30(armorBuf_, 128, DAT_0118a644->FUN_00403df0());
-                    else if (armor->armorFlags.FUN_00514450())
+                    else if (armor->armorFlags.IsMedium())
                         FUN_00406d30(armorBuf_, 128, DAT_0118a648->FUN_00403df0());
                     else
                         FUN_00406d30(armorBuf_, 128, DAT_0118a640->FUN_00403df0());
@@ -8711,7 +8711,7 @@ void FUN_00707e30(DisplayItem* item, DisplayTile* root)
                     labeled = true;
                     modY4 += 41.0;
                     aModZ += 41.0;
-                    mod_16 = modWeapon5->FUN_004bd570(1);
+                    mod_16 = modWeapon5->GetModItem(1);
                     if (mod_16)
                         FUN_00406d30(_modName, 128, mod_16->name.FUN_00408da0());
                     else
@@ -8722,7 +8722,7 @@ void FUN_00707e30(DisplayItem* item, DisplayTile* root)
                 if (flags & 2)
                 {
                     maskB |= 0x100;
-                    mod_16 = modWeapon5->FUN_004bd570(2);
+                    mod_16 = modWeapon5->GetModItem(2);
                     if (mod_16)
                         FUN_00406d30(_modName, 128, mod_16->name.FUN_00408da0());
                     else
@@ -8738,7 +8738,7 @@ void FUN_00707e30(DisplayItem* item, DisplayTile* root)
 
                 if (flags & 4)
                 {
-                    mod_16 = modWeapon5->FUN_004bd570(4);
+                    mod_16 = modWeapon5->GetModItem(4);
                     if (mod_16)
                         FUN_00406d30(_modName, 128, mod_16->name.FUN_00408da0());
                     else

@@ -774,7 +774,7 @@ struct NiPtrC
 };
 struct NodeSrc
 {
-    NodeCls* FUN_00525700(void*);
+    NodeCls* GetFireNode(void*);
 };
 struct HolderCls
 {
@@ -807,7 +807,7 @@ void ThisCls::UpdateMuzzleFlash(ParamCls* apParam)
         apParam->v64()
             ? (NodeCls*)apParam->v131()
             : (((FUN_009611e0_shell*)this)->FUN_009611e0()
-                   ? (NodeCls*)((NodeSrc*)((FUN_009611e0_shell*)this)->FUN_009611e0())->FUN_00525700(apParam->v116())
+                   ? (NodeCls*)((NodeSrc*)((FUN_009611e0_shell*)this)->FUN_009611e0())->GetFireNode(apParam->v116())
                    : (NodeCls*)0);
     bool _flag = false;
     float fResultTmp = 0.0f;

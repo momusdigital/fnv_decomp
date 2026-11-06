@@ -480,7 +480,7 @@ struct ImpactObject
     virtual void unknown_0094();
     virtual ImpactState* unknown_0098();
     void __thiscall FUN_0043b4f0(ImpactType*);
-    float __thiscall FUN_004b5400();
+    float __thiscall GetMass();
     ImpactResult* __thiscall FUN_004ae750(ImpactVector*, ImpactVector*);
 };
 struct ImpactOwner
@@ -515,7 +515,7 @@ void ImpactOwner::FUN_0081f000(float x, float y, float z, float dx, float dy, fl
             scale *= *DAT_011ce798.FUN_00403e20();
             break;
         }
-        float weight = object->FUN_004b5400();
+        float weight = object->GetMass();
         if (weight < *DAT_011cf114.FUN_00403e20())
             scale = weight / *DAT_011cf114.FUN_00403e20() * scale;
         scale *= *DAT_011ce224.FUN_00403e20();

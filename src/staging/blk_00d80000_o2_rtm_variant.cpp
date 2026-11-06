@@ -7,7 +7,7 @@
 // (128 KB address window, o2 code style). Not a real source path: move functions to their real units once identified.
 #include "../../include/layout_support.h"
 extern int DAT_010cc4f4;
-void __cdecl FUN_00d9f6d0(int* p);
+void __cdecl finishLoadedObject_hkpSimulation(int* p);
 struct FUN_00d85300_Stub {
     void FUN_00d85300(int*);
 };
@@ -904,7 +904,7 @@ struct FUN_00d9a4d0_Class {
 struct FnvCpu_FUN_00d9f6b0_CpuInterface {
     virtual void Invoke(int value);
 };
-void __cdecl FUN_00d9f6b0(FnvCpu_FUN_00d9f6b0_CpuInterface* object);
+void __cdecl cleanupLoadedObject_hkpSimulation(FnvCpu_FUN_00d9f6b0_CpuInterface* object);
 extern char DAT_0102e388;
 struct FUN_00d9fb30_Stub {
     void FUN_00d9fb30();
@@ -1108,7 +1108,7 @@ struct FUN_00d86470_cls {
     int unk00;
     FUN_00dee750* m_04;
 
-    unsigned int FUN_00d86470();
+    unsigned int CreateData();
 };
 class hkBitFieldD867 {
 public:

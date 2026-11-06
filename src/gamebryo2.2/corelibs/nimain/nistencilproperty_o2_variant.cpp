@@ -253,10 +253,10 @@ struct Property : Base
     unsigned int unk04, unk08, unk0c, unk10, unk14;
     unsigned short mode;
     unsigned int flags, mask;
-    void FUN_00a6f740(Stream*);
+    void SaveBinary(Stream*);
 };
 // @fnv 0x00a6f740
-void Property::FUN_00a6f740(Stream* stream)
+void Property::SaveBinary(Stream* stream)
 {
     FUN_00a5d7b0(stream);
     unsigned int size = 2;
@@ -302,10 +302,10 @@ struct StencilDebugProperty : FUN_00a62a40_this
     unsigned int refCount, unk08, unk0c, unk10, unk14;
     unsigned short mode;
     unsigned int reference, mask;
-    void FUN_00a6f7d0(StrArr*);
+    void GetViewerStrings(StrArr*);
 };
 // @fnv 0x00a6f7d0
-void StencilDebugProperty::FUN_00a6f7d0(StrArr* strings)
+void StencilDebugProperty::GetViewerStrings(StrArr* strings)
 {
     AppendString(strings);
     strings->Append(FUN_00a7d330(DAT_011f4a0c));
@@ -522,10 +522,10 @@ struct Stencil
     unsigned short mode;
     unsigned int flags, mask;
     void FUN_00a5d7f0(Input&);
-    void FUN_00a6f500(Input& stream);
+    void LoadBinary(Input& stream);
 };
 // @fnv 0x00a6f500
-void Stencil::FUN_00a6f500(Input& stream)
+void Stencil::LoadBinary(Input& stream)
 {
     FUN_00a5d7f0(stream);
     if (stream.version < 0x14010002)

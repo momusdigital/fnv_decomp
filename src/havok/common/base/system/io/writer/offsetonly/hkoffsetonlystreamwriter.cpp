@@ -105,11 +105,11 @@ struct FUN_00e02ee0_cls
     int unk04;
     int unk08;
 
-    int FUN_00e02ee0();
+    int tell();
 };
 
 // @fnv 0x00e02ee0
-int FUN_00e02ee0_cls::FUN_00e02ee0()
+int FUN_00e02ee0_cls::tell()
 {
     return unk08;
 }

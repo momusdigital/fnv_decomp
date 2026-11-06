@@ -6,7 +6,7 @@
 // src/havok/physics/collide/util/kdtree/mediator/hkpcollidablemediator.cpp - unit created 2026-10-16 from the whole-binary attribution (360 source path: d:/projects/fallout/code/havok/source/physics/collide/util/kdtree/mediator/hkpcollidablemediator.cpp).
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
 struct Child { unsigned int unk00; unsigned int unk04; };
-struct Owner { unsigned int unk00; unsigned int unk04; Child* child; unsigned int FUN_00d9e000(); };
+struct Owner { unsigned int unk00; unsigned int unk04; Child* child; unsigned int getNumPrimitives(); };
 // InitWalker: thiscall (2 stack args). Stores vptr, flag word and list, walks the item list when ctx != 0, returns this.
 extern int DAT_010d40b4;
 struct __declspec(align(16)) OutSlot {
@@ -95,7 +95,7 @@ struct FUN_00d9e010_cls {
     unsigned int unk00;
     unsigned int unk04;
     Child* child;
-    unsigned int FUN_00d9e010(unsigned int index);
+    unsigned int getPrimitiveId(unsigned int index);
 };
 #include "fnv_asm_helpers.h"   // project x87 helpers (fnv_SinCos, fnv_FloatToInt), kept last so earlier code is unchanged
 

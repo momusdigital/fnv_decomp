@@ -535,7 +535,7 @@ void FUN_005e2550_shell::Release()
 
 struct FUN_005e2730_shell : public ScriptExecutor
 {
-    bool FUN_005e2730(Script*, TESObjectREFR*, ScriptLocals*);
+    bool InitActionList(Script*, TESObjectREFR*, ScriptLocals*);
 };
 
 struct FUN_005e2850_class
@@ -549,7 +549,7 @@ struct FUN_005e1160_shell
 
 // Creates a ScriptRunner if needed, then calls RunScript on either it or a temporary runner.
 // @fnv 0x005e2730
-bool FUN_005e2730_shell::FUN_005e2730(Script* apScript, TESObjectREFR* apOwnerObject, ScriptLocals* apOwnerVars)
+bool FUN_005e2730_shell::InitActionList(Script* apScript, TESObjectREFR* apOwnerObject, ScriptLocals* apOwnerVars)
 {
     if (!*(ScriptRunner**)this)
         *(ScriptRunner**)this = new ScriptRunner;

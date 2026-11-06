@@ -35,11 +35,11 @@ struct BGSPlaceableWater
 struct FUN_004e3280_shell
 {
     BGSPlaceableWater* p;
-    void FUN_004e3280();
+    void GetRefractionEnabled();
 };
 
 // @fnv 0x004e3280
-void FUN_004e3280_shell::FUN_004e3280()
+void FUN_004e3280_shell::GetRefractionEnabled()
 {
     reinterpret_cast<BGSPlaceableWater*>(this)->HasFlags(0x200);
 }
@@ -294,11 +294,11 @@ struct FUN_00456630_helper
 
 struct FUN_004f0140_class
 {
-    bool FUN_004f0140();
+    bool GetSelectiveUpdate();
 };
 
 // @fnv 0x004f0140
-bool FUN_004f0140_class::FUN_004f0140()
+bool FUN_004f0140_class::GetSelectiveUpdate()
 {
     return ((FUN_00456630_helper*)this)->FUN_00456630(2);
 }
@@ -491,11 +491,11 @@ int __thiscall FUN_004fd4f0_Class::FUN_004fd4f0()
 struct BGSProjectile
 {
     bool GetFlag(unsigned int) const;
-    bool FUN_004fdf20() const;
+    bool GetCanTurnOff() const;
 };
 
 // @fnv 0x004fdf20
-bool BGSProjectile::FUN_004fdf20() const
+bool BGSProjectile::GetCanTurnOff() const
 {
     return GetFlag(0x20);
 }
@@ -637,16 +637,16 @@ unsigned int FUN_004e7ff0()
 namespace fnv_004e8000 {
 struct NiNode
 {
-    void FUN_004def90();
+    void RemoveAllChildren();
 };
 extern GlobalObject_00633c90 g_011c7c28;
 
-// If the global object holds a non-null pointer, calls FUN_004def90 on it, then assigns 0 to the global object.
+// If the global object holds a non-null pointer, calls RemoveAllChildren on it, then assigns 0 to the global object.
 // @fnv 0x004e8000
 void FUN_004e8000()
 {
     if (reinterpret_cast<Flt*>(&g_011c7c28)->operator unsigned int())
-        reinterpret_cast<NiNode*>(reinterpret_cast<Flt*>(&g_011c7c28)->operator unsigned int())->FUN_004def90();
+        reinterpret_cast<NiNode*>(reinterpret_cast<Flt*>(&g_011c7c28)->operator unsigned int())->RemoveAllChildren();
     reinterpret_cast<GO*>(&g_011c7c28)->operator=(0);
 }
 }  // namespace fnv_004e8000
@@ -1104,7 +1104,7 @@ struct TESObjectMISC
     TESObjectMISC();
     ~TESObjectMISC();
     void SetFormType(int);
-    void FUN_004f9570();
+    void InitializeData();
 };
 
 struct FUN_004f93b0 : public TESObjectMISC
@@ -1126,7 +1126,7 @@ FUN_004f93b0::FUN_004f93b0()
     *reinterpret_cast<void**>(reinterpret_cast<char*>(this) + 0x8c) = &DAT_010244d8;
     *reinterpret_cast<void**>(reinterpret_cast<char*>(this) + 0x9c) = &DAT_010244c4;
     SetFormType(0x32);
-    FUN_004f9570();
+    InitializeData();
 }
 
 extern int DAT_010232b4;
@@ -2118,7 +2118,7 @@ struct InnerRegion
 };
 struct RegionSource
 {
-    InnerRegion* FUN_00527900();
+    InnerRegion* GetCell();
 };
 struct RegionPlayer
 {
@@ -2141,7 +2141,7 @@ bool __cdecl FUN_004f2640(RDLItem* target)
     {
         regionNode = reinterpret_cast<RegionPlayer*>(_g_thePlayer)
                          ->FUN_00575650(&queryBuffer, true)
-                         ->FUN_00527900()
+                         ->GetCell()
                          ->FUN_00547110();
     }
     while (regionNode != 0 && *regionNode->FUN_006815c0() != 0)
@@ -4282,7 +4282,7 @@ struct Obj20
     float FUN_00567470();
     float FUN_00821680();
     float GetFloatAt144();
-    float FUN_006447d0();
+    float GetCurrentWeatherPct();
     float FUN_004e4620();
     float FUN_006447f0();
 };
@@ -4454,9 +4454,9 @@ void Self::FUN_004e3d60(ParamObj* param)
                                     float zf4c = obj->GetFieldEC();
                                     float f48 = obj->FUN_004e4600();
                                     obj->m_34.v[0] += (double)FUN_004e44b0((float)(f_40 * 0.01745329238474369)) *
-                                                      (obj->FUN_006447d0() * f_44);
+                                                      (obj->GetCurrentWeatherPct() * f_44);
                                     obj->m_34.v[1] +=
-                                        (double)cos((float)(f_40 * 0.01745329238474369)) * (obj->FUN_006447d0() * f_44);
+                                        (double)cos((float)(f_40 * 0.01745329238474369)) * (obj->GetCurrentWeatherPct() * f_44);
                                     obj->m_44.v[0] += (double)FUN_004e44b0((float)(zf4c * 0.01745329238474369)) *
                                                       (obj->FUN_004e4620() * f_44);
                                     obj->m_44.v[1] +=

@@ -115,8 +115,8 @@ struct TESPackage
     void SetPackageType(int);
     void SetMustReachLocation(bool);
     void SetMustComplete(bool);
-    void FUN_00671d30(LocationDescriptor*);
-    void FUN_00672fc0(PackageTargetRecord*);
+    void SetPackageLocation(LocationDescriptor*);
+    void SetPackageTarget(PackageTargetRecord*);
     void SetProcedureType(PACKAGE_PROCEDURE_TYPE);
     PackageTargetRecord* GetTarget();
 };
@@ -149,10 +149,10 @@ FUN_009f9250::FUN_009f9250(TESObjectREFR* apRef, int aiUnk88, int aiUnk8c, int a
     LocationDescriptor* ploc;
     ploc = new LocationDescriptor;
     ploc->FUN_0067f3c0(apRef);
-    FUN_00671d30(ploc);
+    SetPackageLocation(ploc);
     delete ploc;
     pTarget = new PackageTargetRecord;
-    FUN_00672fc0(pTarget);
+    SetPackageTarget(pTarget);
     delete pTarget;
     SetProcedureType((PACKAGE_PROCEDURE_TYPE)0x14);
     GetTarget()->SetTargetKind(0);
@@ -979,7 +979,7 @@ unsigned short FUN_009f19f0_shell::GetSaveSize()
 
 struct FUN_006797c0_shell
 {
-    void FUN_006797c0(void*);
+    void AppendSaveLoadFormBuffer(void*);
 };
 
 struct SaveFormIDHelper
@@ -1014,7 +1014,7 @@ void FUN_009f2380_shell::SaveExtraData(BGSSaveFormBuffer* apSaveGameBuffer)
     unsigned int isaveGameCount;
     TESObjectREFR* pCurrentElementNext;
 
-    this->FUN_006797c0(apSaveGameBuffer);
+    this->AppendSaveLoadFormBuffer(apSaveGameBuffer);
 
     apSaveGameBuffer->SaveData((void*)((char*)this + 0x80), 1, 0);
     apSaveGameBuffer->SaveData((void*)((char*)this + 0x81), 1, 0);
@@ -2082,12 +2082,12 @@ struct FleeLoadPackage
     void BaseLoadGame();
     void ReadTypedData(void* apBuffer, int aiSize);
     void ReadFormIdentifier(unsigned int* apFormID, int aiSize);
-    void FUN_009f1e80();
+    void InitLoadGameTES();
 };
 
 // Loads the package's avoided-ref list, targets, flags, value and position from the save buffer, validating the BLOK header and block size.
 // @fnv 0x009f1e80
-void FleeLoadPackage::FUN_009f1e80()
+void FleeLoadPackage::InitLoadGameTES()
 {
     unsigned short usCount4;
     unsigned int uiRefA7;

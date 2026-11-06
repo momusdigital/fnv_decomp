@@ -19,9 +19,9 @@ void AnimationInterpolatorNode::UpdateInterpolatorsAtTime(float time, bool selec
             target = m_ppTargetObjects[iIndex];
             if (!target)
                 continue;
-            if (!selective && !target->FUN_004f0140())
+            if (!selective && !target->GetSelectiveUpdate())
                 continue;
-            else if (selective && target->FUN_004f0140())
+            else if (selective && target->GetSelectiveUpdate())
                 continue;
 
             if (m_pkBlendInterpolators[iIndex].Update(time, target, transform))
@@ -36,7 +36,7 @@ void AnimationInterpolatorNode::UpdateInterpolatorsAtTime(float time, bool selec
         }
 
         target = m_ppTargetObjects[iIndex];
-        if (!target || (!selective && !target->FUN_004f0140()))
+        if (!target || (!selective && !target->GetSelectiveUpdate()))
             return;
         if (m_pkBlendInterpolators[iIndex].Update(time, target, transform))
         {
@@ -68,11 +68,11 @@ bool FUN_004f0000_shell::FUN_004f0000()
 
 struct FUN_004f00e0_shell : public NiAVObject
 {
-    void FUN_004f00e0(void*);
+    void SetWorldTranslate(void*);
 };
 
 // @fnv 0x004f00e0
-void FUN_004f00e0_shell::FUN_004f00e0(void* kTrn)
+void FUN_004f00e0_shell::SetWorldTranslate(void* kTrn)
 {
     *reinterpret_cast<NiPoint3*>(reinterpret_cast<char*>(this) + 0x8C) = *reinterpret_cast<const NiPoint3*>(kTrn);
 }

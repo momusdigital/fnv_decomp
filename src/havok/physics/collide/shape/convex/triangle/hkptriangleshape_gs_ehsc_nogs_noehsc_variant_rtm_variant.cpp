@@ -14,7 +14,7 @@ void __cdecl FUN_00d1fee0(char const* arg1, char const* const* arg2);
 class FUN_00d1ff10_cls : public hkpTriangleShape
 {
   public:
-    int FUN_00d1ff10();
+    int getNumCollisionSpheresImpl();
 };
 static int __cdecl FUN_00d1fef0(unsigned short weldingInfo, int edge);
 int __cdecl ExtractEdge(unsigned short weldingInfo, int edge);
@@ -33,11 +33,11 @@ struct FUN_00d20370_Triangle
     __m128 vertexC;
     __m128 extrusion;
 
-    void __thiscall FUN_00d20370(const unsigned short* indexes, int count, __m128* output);
+    void __thiscall convertVertexIdsToVerticesImpl(const unsigned short* indexes, int count, __m128* output);
 };
 
 // @fnv 0x00d20370
-void __thiscall FUN_00d20370_Triangle::FUN_00d20370(const unsigned short* indexes, int count, __m128* output)
+void __thiscall FUN_00d20370_Triangle::convertVertexIdsToVerticesImpl(const unsigned short* indexes, int count, __m128* output)
 {
     for (int remaining = count - 1; remaining >= 0; --remaining)
     {

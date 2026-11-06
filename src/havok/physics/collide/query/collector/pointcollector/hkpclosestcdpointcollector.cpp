@@ -63,7 +63,7 @@ struct S_cd3b20_cls
     int m_5c;
     int m_60[8];
 
-    void FUN_00cd3b20(S_cd3b20_cls* src);
+    void addCdPoint(S_cd3b20_cls* src);
 };
 
 static __forceinline S_cd3b20_node* Last(S_cd3b20_node* p)
@@ -75,7 +75,7 @@ static __forceinline S_cd3b20_node* Last(S_cd3b20_node* p)
 
 // If m_30 is null or src->m_1c is less than m_2c, copies src state, setting m_30 and m_58 to the last nodes of src's two lists and recording their key paths.
 // @fnv 0x00cd3b20
-void S_cd3b20_cls::FUN_00cd3b20(S_cd3b20_cls* src)
+void S_cd3b20_cls::addCdPoint(S_cd3b20_cls* src)
 {
     if (m_30 != 0 && !(src->m_1c < m_2c))
         return;

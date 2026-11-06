@@ -537,13 +537,13 @@ class BC21890Node : public BC21890AVObject
     virtual ~BC21890Node();
 
     void CopyMemberData(BC21890Node* pkDest, BC21890CloningProcess& kCloning);
-    BC21890Node* FUN_00c21890(BC21890CloningProcess& kCloning);
+    BC21890Node* CreateClone(BC21890CloningProcess& kCloning);
 
     BC21890ObjectArray m_kChildList;
 };
 
 // @fnv 0x00c21890
-BC21890Node* BC21890Node::FUN_00c21890(BC21890CloningProcess& kCloning)
+BC21890Node* BC21890Node::CreateClone(BC21890CloningProcess& kCloning)
 {
     BC21890Node* pkClone = new BC21890Node;
     CopyMemberData(pkClone, kCloning);
@@ -1404,11 +1404,11 @@ struct C21550ParticleSystem : MeshSystem
 class C21550PostLink : public NiPSysMeshUpdateModifierC212
 {
   public:
-    void FUN_00c21550(NiStream& stream);
+    void PostLinkObject(NiStream& stream);
 };
 
 // @fnv 0x00c21550
-void C21550PostLink::FUN_00c21550(NiStream& stream)
+void C21550PostLink::PostLinkObject(NiStream& stream)
 {
     reinterpret_cast<C21550LinkBase*>(this)->FUN_00a89af0(stream);
     C21550StreamView* streamView = reinterpret_cast<C21550StreamView*>(&stream);

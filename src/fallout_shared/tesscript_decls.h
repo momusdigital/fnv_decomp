@@ -311,7 +311,7 @@ class ScriptLocals
     void ProcessPendingTasks();
     TESBoundObject* GetActionEntry();
     TESBoundObject* GetLocalData();
-    bool FUN_005a8e20(TESForm* form, unsigned int flag);
+    bool SetActionFlag(TESForm* form, unsigned int flag);
     void FUN_005a85c0();
 };
 class TESQuest : public TESForm
@@ -481,7 +481,7 @@ class BSFadeNode : public NiNode
 class RecursiveSpinLock
 {
   public:
-    void FUN_004538a0(unsigned int threadID);
+    void Enter(unsigned int threadID);
     void FUN_004538c0();
 };
 extern RecursiveSpinLock DAT_011cacf8;
@@ -499,7 +499,7 @@ class ScriptExecutor
 {
   public:
     static ScriptExecutor* Instance();
-    void FUN_005e2730(Script* script, TESObjectREFR* ref, ScriptLocals* locals);
+    void InitActionList(Script* script, TESObjectREFR* ref, ScriptLocals* locals);
     bool Run(Script*, TESObjectREFR*, ScriptLocals*, TESObjectREFR*, bool, bool, bool, float);
 };
 extern int DAT_011cae50;

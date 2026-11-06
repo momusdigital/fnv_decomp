@@ -12,11 +12,11 @@ class hkpShapeCollection_L
 {
   public:
     virtual ~hkpShapeCollection_L();
-    virtual int FUN_00d213d0();
+    virtual int getContainer();
 };
 
 // @fnv 0x00d213d0
-int hkpShapeCollection_L::FUN_00d213d0()
+int hkpShapeCollection_L::getContainer()
 {
     if (this != 0)
     {
@@ -38,7 +38,7 @@ void __stdcall FUN_00d213f0(int, int)
 {}
 
 // @fnv 0x00d21400
-void __stdcall FUN_00d21400(int a1)
+void __stdcall initWeldingInfo(int a1)
 {}
 
 struct Allocator
@@ -143,7 +143,7 @@ class FUN_00d21450_Class : public hkpShape
     char unk16;
     char unk17;
 
-    hkBoolRet FUN_00d21450(const ShapeRayCastQuery& input, ShapeRayCastOutput& output) const;
+    hkBoolRet castRayImpl(const ShapeRayCastQuery& input, ShapeRayCastOutput& output) const;
 };
 
 struct ShapeRayCastQuery
@@ -183,7 +183,7 @@ class hkpRayShapeCollectionFilter
 
 // Calls RayCast on each child in m_container (filtered if a filter is given), stores the last hit shape key in output.m_uiShapeKeys, returns true if any hit.
 // @fnv 0x00d21450
-hkBoolRet FUN_00d21450_Class::FUN_00d21450(const ShapeRayCastQuery& input, ShapeRayCastOutput& output) const
+hkBoolRet FUN_00d21450_Class::castRayImpl(const ShapeRayCastQuery& input, ShapeRayCastOutput& output) const
 {
     volatile unsigned int time;
     StringCursor* stream = (StringCursor*)TlsGetValue(DAT_0126835c);
@@ -359,11 +359,11 @@ class Owner_L
     void* unk08;
     void* unk0c;
     Coll_L2 m_coll;
-    void FUN_00d217d0(Arg0_L* arg0, Arg1_L* arg1, Arg2_L* arg2);
+    void castRayWithCollectorImpl(Arg0_L* arg0, Arg1_L* arg1, Arg2_L* arg2);
 };
 
 // @fnv 0x00d217d0
-void Owner_L::FUN_00d217d0(Arg0_L* arg0, Arg1_L* arg1, Arg2_L* arg2)
+void Owner_L::castRayWithCollectorImpl(Arg0_L* arg0, Arg1_L* arg1, Arg2_L* arg2)
 {
     volatile unsigned int uiTimestamp;
     ProfSlot_L* pProfSlot = (ProfSlot_L*)TlsGetValue(DAT_0126835c);
@@ -497,14 +497,14 @@ class hkPackedNiTriStripsShape_StandIn : public hkpShapeCollection
     virtual ~hkPackedNiTriStripsShape_StandIn();
     virtual void Unk04();
     virtual int First();
-    virtual float FUN_00d216e0(int arg);
+    virtual float getMaximumProjection(int arg);
     virtual void Unk10();
     virtual void Unk14();
 };
 
 // Iterates child shapes via ShapeIterator, calls GetMaxProjection(arg) on each and returns the largest value, between two timer records.
 // @fnv 0x00d216e0
-float hkPackedNiTriStripsShape_StandIn::FUN_00d216e0(int arg)
+float hkPackedNiTriStripsShape_StandIn::getMaximumProjection(int arg)
 {
     volatile float maxProj;
     __declspec(align(16)) float buf[125];
@@ -574,7 +574,7 @@ class ShapeContainerLite
 {
   public:
     virtual ~ShapeContainerLite();
-    virtual int FUN_00d213d0();
+    virtual int getContainer();
     ShapeContainerLite()
     {}
 };
@@ -596,7 +596,7 @@ class FUN_00d21410 : public hkpShape_ctor, public ShapeContainerLite
     WeldingAndType m_info;
     FUN_00d21410(int type, char collectionType);
     ~FUN_00d21410();
-    virtual int FUN_00d213d0();
+    virtual int getContainer();
 };
 
 // Constructs a shape object, initializing the reference count, user data, type, and collection type fields.

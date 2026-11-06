@@ -88,14 +88,14 @@ struct FUN_00818be0_shell
 };
 struct FUN_0040a1e0_shell
 {
-    unsigned int FUN_0040a1e0();
+    unsigned int GetMagicItemFormID();
 };
 struct FUN_0081e8c0_shell : FUN_00932070_shell
 {
-    void FUN_0081e8c0(unsigned int aiFlags);
+    void SaveGame(unsigned int aiFlags);
 };
 // @fnv 0x0081e8c0
-void FUN_0081e8c0_shell::FUN_0081e8c0(unsigned int aiFlags)
+void FUN_0081e8c0_shell::SaveGame(unsigned int aiFlags)
 {
     SaveProcess(aiFlags);
     unsigned int icasterID =
@@ -104,7 +104,7 @@ void FUN_0081e8c0_shell::FUN_0081e8c0(unsigned int aiFlags)
     reinterpret_cast<FUN_00484d20_Class*>(this)->ForwardToSaveLoadGame(reinterpret_cast<int>(&icasterID), 4);
     unsigned int ispellID =
         reinterpret_cast<FUN_0040a1e0_shell*>(*reinterpret_cast<void**>(reinterpret_cast<unsigned char*>(this) + 0x98))
-            ->FUN_0040a1e0();
+            ->GetMagicItemFormID();
     reinterpret_cast<FUN_00484d20_Class*>(this)->ForwardToSaveLoadGame(reinterpret_cast<int>(&ispellID), 4);
     reinterpret_cast<PC7d*>(this)->FUN_00484ce0(
         reinterpret_cast<unsigned int>(reinterpret_cast<unsigned char*>(this) + 0xa4), 4);
@@ -127,10 +127,10 @@ struct FUN_00484d40_Host
 struct FUN_0081e980_shell
 {
     void __thiscall SetProcessLevel(unsigned int, unsigned int);
-    void __thiscall FUN_0081e980(unsigned int, unsigned int);
+    void __thiscall LoadGame2(unsigned int, unsigned int);
 };
 // @fnv 0x0081e980
-void __thiscall FUN_0081e980_shell::FUN_0081e980(unsigned int a, unsigned int b)
+void __thiscall FUN_0081e980_shell::LoadGame2(unsigned int a, unsigned int b)
 {
     SetProcessLevel(a, b);
     unsigned int icasterID;
@@ -1796,7 +1796,7 @@ struct GameTimerRecord
 
 struct S86a0
 {
-    int FUN_004086a0();
+    int GetProjectileType();
 };
 
 void* __cdecl operator new(unsigned int size);
@@ -1848,7 +1848,7 @@ FUN_00819360::FUN_00819360(void*, int, GameTimerRecord*, unsigned int, Vector3, 
 FUN_00822920::FUN_00822920(void*, int, GameTimerRecord*, unsigned int, Vector3, Vector3)
 {}
 
-// Constructs one of four class instances based on projectile->FUN_004086a0() and passes it to DAT_011e0e80.
+// Constructs one of four class instances based on projectile->GetProjectileType() and passes it to DAT_011e0e80.
 // @fnv 0x0081e040
 void __cdecl FUN_0081e040(void* a, unsigned int b, unsigned int c, int d, GameTimerRecord* timer, S86a0* projectile,
                           Vector3 first, Vector3 second)
@@ -1858,7 +1858,7 @@ void __cdecl FUN_0081e040(void* a, unsigned int b, unsigned int c, int d, GameTi
 
     currentTime = projectile ? (unsigned int)projectile : timer->GetTime();
 
-    switch (projectile->FUN_004086a0())
+    switch (projectile->GetProjectileType())
     {
     case 0:
         result = new FUN_0080f810(a, d, timer, currentTime, first, second, b, c);

@@ -2353,7 +2353,7 @@ struct FUN_00e07b90_vector
 };
 // Stores the minimum corner of bounds into result and sets result->w to a scale factor derived from the largest axis extent.
 // @fnv 0x00e07b90
-void __stdcall FUN_00e07b90(const FUN_00e07b90_bounds* bounds, FUN_00e07b90_vector* result)
+void __stdcall getScaleInfo(const FUN_00e07b90_bounds* bounds, FUN_00e07b90_vector* result)
 {
     __m128 minCorner = _mm_setr_ps(bounds->minimumX, bounds->minimumY, bounds->minimumZ, 0.0f);
     _mm_store_ps(&result->x, minCorner);
@@ -3467,7 +3467,7 @@ struct Tree : public FUN_00e09640_class
     virtual void vf08() throw();
     virtual void vf0c() throw();
     virtual void vf10() throw();
-    virtual void FUN_00e08cc0(S_00e07da0_Node* node, int arg2, int arg3);
+    virtual void assemble(S_00e07da0_Node* node, int arg2, int arg3);
     virtual void vf18(S_00e07da0_Node* node, void* p) throw();
 
     int unk08;
@@ -3511,7 +3511,7 @@ typedef void(__thiscall* Vf18Fn)(Tree*, S_00e07da0_Node*, void*) throw();
 
 // Sets up MyBounds and MyRegion state for node, then writes node data into streams via m_pAssemblerHelper if present, else calls FUN_00e08040.
 // @fnv 0x00e08cc0
-void Tree::FUN_00e08cc0(S_00e07da0_Node* node, int arg2, int arg3)
+void Tree::assemble(S_00e07da0_Node* node, int arg2, int arg3)
 {
     MyRegion p;
     MyBounds s;

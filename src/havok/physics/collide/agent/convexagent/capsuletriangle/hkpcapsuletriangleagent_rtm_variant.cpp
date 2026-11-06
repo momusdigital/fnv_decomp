@@ -174,7 +174,7 @@ struct Buffer_d3b260
 };
 struct Agent_d3b260
 {
-    void FUN_00d3ad70(int b, int a, int c, Buffer_d3b260* buf);
+    void processCollision(int b, int a, int c, Buffer_d3b260* buf);
     void FUN_00d3b260(int a, int b, int c, Buffer_d3b260* buf);
 };
 struct __declspec(align(16)) FourWord
@@ -607,7 +607,7 @@ void __cdecl FUN_00cd6520(hkVector4*, float, hkVector4*, float, void*, float, in
 struct CollisionAgent
 {
     unsigned int unk00, unk04, unk08, unk0c, unk10, cache14;
-    void FUN_00d39ef0(const BodyRecord& a, const BodyRecord& b, const CollisionInput& input, Collector* output);
+    void getClosestPoints(const BodyRecord& a, const BodyRecord& b, const CollisionInput& input, Collector* output);
 };
 
 typedef void(__cdecl* FnA_d3a280)(void*, void*, void*, CallbackState*);

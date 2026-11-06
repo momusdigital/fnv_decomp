@@ -892,10 +892,10 @@ struct GeomView
     void* vptr;
     unsigned int refs;
     unsigned short usVertices;
-    unsigned short FUN_00a669e0() const;
+    unsigned short GetActiveVertexCount() const;
 };
 // @fnv 0x00a669e0
-unsigned short GeomView::FUN_00a669e0() const
+unsigned short GeomView::GetActiveVertexCount() const
 {
     return usVertices;
 }
@@ -1788,12 +1788,12 @@ class SlotOwner
     int unk30;
     SlotOverride* m_pOverride;  // +0x34
 
-    bool FUN_00a66c00(int iSlot);
+    bool ContainsVertexData(int iSlot);
 };
 
 // Returns true if the slot is occupied, checking m_pOverride first, then the specific slot pointer or m_pLeveled with m_uiLevel thresholds.
 // @fnv 0x00a66c00
-bool SlotOwner::FUN_00a66c00(int iSlot)
+bool SlotOwner::ContainsVertexData(int iSlot)
 {
     if (m_pOverride && m_pOverride->HasSlot(iSlot))
         return true;

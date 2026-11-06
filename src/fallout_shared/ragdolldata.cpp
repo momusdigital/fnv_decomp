@@ -138,7 +138,7 @@ void FUN_004d9fc0_shell::FUN_004d9fc0(bool abSet, unsigned short uFlags)
 
 // Recursively counts node and its descendants for which FUN_004a8b00 returns true, returning the total count.
 // @fnv 0x004da180
-unsigned char FUN_004da180(NiNode* node)
+unsigned char CountRagDollBones(NiNode* node)
 {
     unsigned char count = 0;
     if (node)
@@ -151,7 +151,7 @@ unsigned char FUN_004da180(NiNode* node)
             NiAVObject* object = node->FUN_0043b4a0(i);
             NiNode* child = object ? object->IsSceneNode() : 0;
             if (child)
-                count += FUN_004da180(child);
+                count += CountRagDollBones(child);
         }
     }
     return count;
@@ -474,11 +474,11 @@ class RagDollDataEx : public RagDollData
     void ReadFromActor(RagDollRefStandIn* apRef);
     void ReadFromRef(RagDollRefStandIn* apRef);
     bool ApplyToAnimationData(NiNode* apNode, unsigned int& auiIndex, unsigned int auiDepth);
-    bool FUN_004d9800(RagDollRefStandIn* apRef);
+    bool UpdateDataFromReference(RagDollRefStandIn* apRef);
 };
 
 // @fnv 0x004d9800
-bool RagDollDataEx::FUN_004d9800(RagDollRefStandIn* apRef)
+bool RagDollDataEx::UpdateDataFromReference(RagDollRefStandIn* apRef)
 {
     unsigned int uiIndex = 0;
     bool bResultTmp = true;
@@ -1088,7 +1088,7 @@ void FUN_004da230_shell::UpdateNodeFromPosition(FUN_004da230_param* object)
     }
 }
 
-unsigned char FUN_004da180(NiNode* node);
+unsigned char CountRagDollBones(NiNode* node);
 void FNV_Warning(const char* fmt, ...);
 
 struct RagDollBoneInit : public TransformEntry
@@ -1112,7 +1112,7 @@ void RagDollDataInit::InitFromRef(RagDollRefStandIn* apRef)
     {
         NiAVObject* pObj = apRef->Get3D();
         NiNode* pNode = pObj ? pObj->IsSceneNode() : 0;
-        count = FUN_004da180(pNode);
+        count = CountRagDollBones(pNode);
         if (count)
         {
             bones = new RagDollBoneInit[count];

@@ -658,11 +658,11 @@ class FUN_00c26570_cls
     unsigned int m_88;
     unsigned int m_8C;
     void FUN_00c25560(StreamOwner* a1);
-    void FUN_00c26570(StreamOwner* a1);
+    void SaveBinary(StreamOwner* a1);
 };
 
 // @fnv 0x00c26570
-void FUN_00c26570_cls::FUN_00c26570(StreamOwner* apOwner)
+void FUN_00c26570_cls::SaveBinary(StreamOwner* apOwner)
 {
     FUN_00c25560(apOwner);
     StreamCtx* s = apOwner->m_250;
@@ -802,15 +802,15 @@ struct FUN_00c26630_cls
     unsigned short m80, unk82;
     float m84, m88;
     unsigned char m8c;
-    void FUN_00c255b0(struct ArrHdr* a);
-    void FUN_00c26630(void* p);
+    void GetViewerStrings(struct ArrHdr* a);
+    void GetViewerStrings(void* p);
 };
-// Calls FUN_00c255b0 on the array, then appends entries built from g_01202680, m80, m84, m88 and m8c via the FUN_00a7d3xx/d4xx/d5xx helpers.
+// Calls GetViewerStrings on the array, then appends entries built from g_01202680, m80, m84, m88 and m8c via the FUN_00a7d3xx/d4xx/d5xx helpers.
 // @fnv 0x00c26630
-void FUN_00c26630_cls::FUN_00c26630(void* pArray)
+void FUN_00c26630_cls::GetViewerStrings(void* pArray)
 {
     ArrHdr* a = (ArrHdr*)pArray;
-    FUN_00c255b0(a);
+    GetViewerStrings(a);
     pArray = FUN_00a7d330(g_01202680);
     a->Add(pArray);
     pArray = FUN_00a7d490(str_010be5ec, m80);
@@ -1079,12 +1079,12 @@ struct FUN_00c26410_cls : S_00c26410_Mid
     float m_84;
     float m_88;
     unsigned char m_8C;
-    void FUN_00c26410(S_00c26410_Stream* pkStream);
+    void LoadBinary(S_00c26410_Stream* pkStream);
 };
 
 // Reads m_80, m_84, m_88, m_8C from pkStream, allocates m_7C with m_08 elements, and initializes each element's fields from m_80 and DAT_01015f5c.
 // @fnv 0x00c26410
-void FUN_00c26410_cls::FUN_00c26410(S_00c26410_Stream* pkStream)
+void FUN_00c26410_cls::LoadBinary(S_00c26410_Stream* pkStream)
 {
     FUN_00c25340(pkStream);
     S_BinRead(pkStream->m_pkBin, &m_80, 2);
@@ -1129,12 +1129,12 @@ struct StripCloneC263 : S_00c26000_Strip
         return FUN_00aa13e0(size);
     }
 
-    StripCloneC263* FUN_00c263b0(S_00c26000_Proc& cloning);
+    StripCloneC263* CreateClone(S_00c26000_Proc& cloning);
 };
 
 // Allocates a new StripCloneC263 and copies the source strip into it via CloneStrip, returning the new object.
 // @fnv 0x00c263b0
-StripCloneC263* StripCloneC263::FUN_00c263b0(S_00c26000_Proc& cloning)
+StripCloneC263* StripCloneC263::CreateClone(S_00c26000_Proc& cloning)
 {
     StripCloneC263* result = new StripCloneC263;
     CloneStrip(result, &cloning);

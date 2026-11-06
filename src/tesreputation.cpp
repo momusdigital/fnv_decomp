@@ -201,7 +201,7 @@ struct FUN_0047a240_shell
 };
 struct FUN_00485e00_shell
 {
-    void __thiscall FUN_00485e20(int, int);
+    void __thiscall __SaveData(int, int);
 };
 struct FUN_00485680
 {
@@ -221,7 +221,7 @@ void __thiscall FUN_00616470_shell::FUN_00616470()
     ((FUN_0047a240_shell*)((char*)this + 0x30))->FUN_0047a240(0x4f43494d);
     if (FUN_00401500())
         ((ReputationLimitData*)((char*)this + 0x40))->Endian();
-    ((FUN_00485e00_shell*)this)->FUN_00485e20((int)((char*)this + 0x40), 4);
+    ((FUN_00485e00_shell*)this)->__SaveData((int)((char*)this + 0x40), 4);
     if (FUN_00401500())
         ((ReputationLimitData*)((char*)this + 0x40))->Endian();
     ((FUN_00485680*)this)->M();
@@ -251,11 +251,11 @@ struct FUN_00615580_shell
     char _pad[0x40];
     float m44;
     float m48;
-    void FUN_00615580(int, float);
+    void SetReputationValue(int, float);
 };
 // Stores b into m44 when a equals 1, otherwise into m48, then calls v18 with 2.
 // @fnv 0x00615580
-void FUN_00615580_shell::FUN_00615580(int a, float afValue)
+void FUN_00615580_shell::SetReputationValue(int a, float afValue)
 {
     if (a == 1)
         m44 = afValue;
@@ -309,8 +309,8 @@ struct FUN_006155f0_shell
     int mField_4c;
 
     const char* __thiscall GetSelectedSettingString(void);
-    const char* __thiscall FUN_00616710(void);
-    const char* __thiscall FUN_006167d0(void);
+    const char* __thiscall GetReputationTitle(void);
+    const char* __thiscall GetReputationIcon(void);
     void ShowMessageBox(void);
 };
 
@@ -328,20 +328,20 @@ void FUN_006155f0_shell::ShowMessageBox(void)
 {
     char buffer[0x200];
 
-    _sprintf_s(buffer, 0x200, "%s\n%s", FUN_00616710(), GetSelectedSettingString());
+    _sprintf_s(buffer, 0x200, "%s\n%s", GetReputationTitle(), GetSelectedSettingString());
 
     reinterpret_cast<TutorialState*>(reinterpret_cast<unsigned char*>(_FUN_004b7210()) + 0x4d4)
         ->ShowMessage(0x27, 0, 0x1f4);
 
     if (mField_4c == 1)
     {
-        FUN_00703f10(buffer, FUN_006167d0(), mFNStub.GetFullName(),
+        FUN_00703f10(buffer, GetReputationIcon(), mFNStub.GetFullName(),
                      reinterpret_cast<StartMenu*>(&g_011cbcb0)->GetMenuTitle(), FUN_00615720, 1, 0x17, 0.0f, 0.0f,
                      reinterpret_cast<StartMenu*>(&g_011d38b8)->GetMenuTitle(), 0);
     }
     else
     {
-        FUN_00703f10(buffer, FUN_006167d0(), mFNStub.GetFullName(),
+        FUN_00703f10(buffer, GetReputationIcon(), mFNStub.GetFullName(),
                      reinterpret_cast<StartMenu*>(&g_011cba30)->GetMenuTitle(), FUN_00615720, 1, 0x17, 0.0f, 0.0f,
                      reinterpret_cast<StartMenu*>(&g_011d38b8)->GetMenuTitle(), 0);
     }
@@ -413,8 +413,8 @@ extern ReputationLimit DAT_011cbc70;
 extern ReputationLimit DAT_011cbd68;
 struct ReputationTracker
 {
-    float __thiscall FUN_00616a20();
-    float __thiscall FUN_00616a40();
+    float __thiscall GetPositiveRatio();
+    float __thiscall GetNegativeRatio();
     unsigned char __thiscall GetReputationRank(int kind);
 };
 // @fnv 0x00616950
@@ -424,11 +424,11 @@ unsigned char ReputationTracker::GetReputationRank(int kind)
     unsigned char rank = 0;
     if (kind == 1)
     {
-        value = FUN_00616a20();
+        value = GetPositiveRatio();
     }
     else
     {
-        value = FUN_00616a40();
+        value = GetNegativeRatio();
     }
     if (value >= *DAT_011cba7c.FUN_00403e20() && value < *DAT_011cbc70.FUN_00403e20())
     {
@@ -587,10 +587,10 @@ struct Reputation
     int sound;
     char GetReputationRank(int);
     void ShowMessageBox();
-    void FUN_00615a00(int kind, float amount);
+    void RemoveReputationValue(int kind, float amount);
 };
 // @fnv 0x00615a00
-void Reputation::FUN_00615a00(int kind, float amount)
+void Reputation::RemoveReputationValue(int kind, float amount)
 {
     bool changed = false;
     char oldRank = 0;
@@ -774,10 +774,10 @@ struct RepObject
     int sound;
     char GetRank(int);
     void Play();
-    void FUN_00615fa0(int kind, int amount);
+    void RemoveReputationValueByLevel(int kind, int amount);
 };
 // @fnv 0x00615fa0
-void RepObject::FUN_00615fa0(int kind, int amount)
+void RepObject::RemoveReputationValueByLevel(int kind, int amount)
 {
     bool changed = false;
     char oldRank = 0;
@@ -889,11 +889,11 @@ struct Host615730
     float m_fFirstReputationValue;
     float m_fSecondReputationValue;
     int m_eReputationType;
-    void FUN_00615730(int kind, float delta);
+    void AddReputationValue(int kind, float delta);
 };
 
 // @fnv 0x00615730
-void Host615730::FUN_00615730(int kind, float delta)
+void Host615730::AddReputationValue(int kind, float delta)
 {
     signed char val;
     bool changed;

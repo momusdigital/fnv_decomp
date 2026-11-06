@@ -64,7 +64,7 @@ struct FUN_007ef760_Owner
     virtual void vf1();
     virtual void vf2();
     virtual void vf3(int, int);
-    void __thiscall FUN_007ef760(int aiID, Tile* apTarget);
+    void __thiscall HandleMousewheel(int aiID, Tile* apTarget);
 };
 struct Vec2Tmp
 {

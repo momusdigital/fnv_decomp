@@ -759,7 +759,7 @@ struct TargetStream
     void LoadGroups();
     void FUN_00a63d10();
     void Clear();
-    bool FUN_00a65c60();
+    bool LoadStream();
     StreamObject* ObjectAt(unsigned int index)
     {
         StreamObject*& entry = objects[index];
@@ -860,7 +860,7 @@ bool TargetStream::FUN_00c3ac10()
     }
     else
     {
-        return FUN_00a65c60();
+        return LoadStream();
     }
     return true;
 }
@@ -2096,7 +2096,7 @@ struct C3B270_Owner
     int m_5C4;
     C3B270_Ref m_5C8;
     void FUN_00a66370(C3B270_Object* object);
-    bool FUN_00a66850();
+    bool SaveStream();
     bool FUN_00c3b270();
 };
 // @fnv 0x00c3b270
@@ -2107,7 +2107,7 @@ bool C3B270_Owner::FUN_00c3b270()
         m_5C8.FUN_00c3b970(new C3B270_Object);
         FUN_00a66370(m_5C8);
     }
-    bool result = FUN_00a66850();
+    bool result = SaveStream();
     m_5C8.FUN_00c3b970(0);
     return result;
 }

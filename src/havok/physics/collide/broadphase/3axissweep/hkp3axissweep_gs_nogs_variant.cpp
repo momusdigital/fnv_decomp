@@ -921,7 +921,7 @@ struct S00d11470_Object {
     char* unkA0;
 };
 struct S00d11470_Owner {
-    bool __thiscall FUN_00d11470(int* first, int* second);
+    bool __thiscall areAabbsOverlapping(int* first, int* second);
 };
 void __cdecl FUN_00c908c0(void* alloc, void* self, int newCap, int elemSize);
 struct FUN_00d11e80_cls {
@@ -1003,7 +1003,7 @@ struct d11Sweep {
     int unkcc;
     int m_iBase;
 
-    void FUN_00d11fa0(d11Out& __restrict out);
+    void getAllAabbs(d11Out& __restrict out);
 };
 struct SweepEndpoint {
     unsigned short m_uiFilterValue;
@@ -1409,7 +1409,7 @@ struct AxisSweep {
     int unkA8;
     SweepType* types;
     void FUN_00d112c0(int numRecords, unsigned short code, SweepRecord* rec, int index, void* buffer);
-    void FUN_00d14100(int* index, EventList* events);
+    void reQuerySingleObject(int* index, EventList* events);
 };
 extern "C" void _ReadWriteBarrier();
 struct SweepNodeX {
@@ -1523,7 +1523,7 @@ struct SweepOwnerX {
  void FUN_00d112c0(int count,int key,SweepNodeX* node,unsigned int index,unsigned int* bits);
  void FUN_00d10d10(SweepNodeX* base,int count,SweepNodeX* node);
  void FixNodeEdges(unsigned int index);
- void FUN_00d14600(unsigned int* handle,SweepPairsX* pairs);
+ void removeObject(unsigned int* handle,SweepPairsX* pairs);
 };
 
 #include <math.h>
@@ -1659,11 +1659,11 @@ struct SweepSpace {
     SweepAxis axes[3];
     unsigned int unkD0, unkD4, unkD8;
     float tolerance;
-    void FUN_00d16300(const SweepScan& scan, SweepRayCast* rays, int rayStride) const;
+    void castRay(const SweepScan& scan, SweepRayCast* rays, int rayStride) const;
 };
 
 // @fnv 0x00d16300
-void SweepSpace::FUN_00d16300(const SweepScan& scan, SweepRayCast* rays, int rayStride) const
+void SweepSpace::castRay(const SweepScan& scan, SweepRayCast* rays, int rayStride) const
 {
     __declspec(align(16)) unsigned int sweepKeys[4];
     SweepEndpointD16300* c[3];

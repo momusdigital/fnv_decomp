@@ -57,13 +57,13 @@ void FormComponentArray::InitializeFromForm(TESForm* form)
 
 struct FUN_0047c540_shell : public FormComponentArray
 {
-    void FUN_0047c540();
+    void ClearFormComponentArray();
 };
 
 void* __cdecl memset(void*, int, unsigned int);
 
 // @fnv 0x0047c540
-void FUN_0047c540_shell::FUN_0047c540()
+void FUN_0047c540_shell::ClearFormComponentArray()
 {
     memset(this, 0, 0x98);
 }

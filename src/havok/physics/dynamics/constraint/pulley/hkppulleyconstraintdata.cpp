@@ -6,11 +6,11 @@ void __cdecl FUN_00d21a60(void* a, int b, int c);
 
 struct hkpPulleyConstraintData
 {
-    void FUN_00deef40(int a);
+    void getConstraintInfo(int a);
 };
 
 // @fnv 0x00deef40
-void hkpPulleyConstraintData::FUN_00deef40(int a)
+void hkpPulleyConstraintData::getConstraintInfo(int a)
 {
     FUN_00d21a60((char*)this + 0x10, 0x70, a);
 }
@@ -72,12 +72,12 @@ struct S_00deef90
     int unk6c;
     float m_70;
     float m_74;
-    S_00deef90_hkBool FUN_00deef90() const;
+    S_00deef90_hkBool isValid() const;
 };
 
 // Returns true when both m_70 and m_74 are greater than zero.
 // @fnv 0x00deef90
-S_00deef90_hkBool S_00deef90::FUN_00deef90() const
+S_00deef90_hkBool S_00deef90::isValid() const
 {
     return m_70 > 0.0f && m_74 > 0.0f;
 }

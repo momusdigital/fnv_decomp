@@ -119,7 +119,7 @@ struct FUN_00a712f0
     static void operator delete(void*, unsigned int);
     FUN_00a712f0();
     void FUN_00712e60(const Rect2180&);
-    void FUN_00507700(float);
+    void SetMaxFarNearRatio(float);
     void FUN_00a6faf0(const Frustum2180&);
     void SetLookAt(const Point2180&, const Point2180&);
     void FUN_00733fd0(float);
@@ -442,7 +442,7 @@ struct UpdateOwner
     NodePointer previous;
     NodePointer current;
     unsigned FUN_00603b50();
-    float FUN_00602130();
+    float GetHairLength();
     unsigned FUN_00602150();
     unsigned FUN_005f0cc0();
     unsigned FUN_004169d0();
@@ -543,7 +543,7 @@ void UpdateOwner::FUN_006056f0(UpdateObject* object)
     {
         UpdatePacket packet;
         packet.identity = FUN_00603b50();
-        packet.weight = FUN_00602130();
+        packet.weight = GetHairLength();
         packet.flags = FUN_00602150();
         packet.sex = FUN_005f0cc0();
         packet.region = FUN_004169d0();

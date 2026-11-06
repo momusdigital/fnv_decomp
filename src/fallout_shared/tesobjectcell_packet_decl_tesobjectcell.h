@@ -261,7 +261,7 @@ class TESWorldSpace;
 class TESObjectCELL
 {
   public:
-    void FUN_005571a0(bool active);  // declared for the original code (decl_variants.py)
+    void QueueReferences(bool active);  // declared for the original code (decl_variants.py)
   public:
     char padToExtraData[0x24];
     unsigned char field24;

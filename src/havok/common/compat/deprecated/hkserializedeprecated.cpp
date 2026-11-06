@@ -7,7 +7,7 @@ struct hkStringPtr
     void operator=(const char*);
 };
 // @fnv 0x00dba5f0
-int __stdcall FUN_00dba5f0(int aiUnused1, int aiUnused2, int c)
+int __stdcall loadOldPackfileOnHeap(int aiUnused1, int aiUnused2, int c)
 {
     hkStringPtr* p = (hkStringPtr*)c;
     if (p)

@@ -11,7 +11,7 @@ extern void __cdecl __Dummy_00b6fef0(void* p, unsigned int flags);
 struct COMUnknownInterface;
 struct NiD3DVertexShader
 {
-    void FUN_00be0bd0(COMUnknownInterface* hDecl);
+    void SetVertexDeclaration(COMUnknownInterface* hDecl);
 };
 struct VTableObj
 {
@@ -36,7 +36,7 @@ void* __cdecl FUN_00e95cc0();
 extern const void* g_0126fa48;
 const void* __cdecl FUN_00e95df0();
 extern void(__cdecl* DAT_fdf3f0)();
-void __cdecl FUN_00ee6e2e();
+void __cdecl D3DXGetVertexShaderProfile();
 struct NiD3DShaderProgramCreator;
 struct NiD3DShaderProgram
 {

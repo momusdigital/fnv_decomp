@@ -521,12 +521,12 @@ struct NiPSysFieldModifierImpl
     float m_fDistanceLimit;
 
     void __thiscall FUN_00c31950(NiStream& kStream);
-    void __thiscall FUN_00c321f0(NiStream& kStream);
+    void __thiscall SaveBinary(NiStream& kStream);
 };
 
 // Calls FUN_00c31950, then writes the link ID and the float, float, bool and float fields to the stream.
 // @fnv 0x00c321f0
-void NiPSysFieldModifierImpl::FUN_00c321f0(NiStream& kStream)
+void NiPSysFieldModifierImpl::SaveBinary(NiStream& kStream)
 {
     FUN_00c31950(kStream);
     kStream.SaveLinkID(m_pkFieldObject);
@@ -576,7 +576,7 @@ struct S_00c322b0 : S_00c322b0_Base
     float m20;
     unsigned char m24;
     float m28;
-    void FUN_00c322b0(S_00c322b0_Arr* a);
+    void GetViewerStrings(S_00c322b0_Arr* a);
 };
 __forceinline void S_00c322b0_Add(S_00c322b0_Arr* a, char* s)
 {
@@ -586,7 +586,7 @@ __forceinline void S_00c322b0_Add(S_00c322b0_Arr* a, char* s)
     a->FUN_0096ae90(i, s);
 }
 // @fnv 0x00c322b0
-void S_00c322b0::FUN_00c322b0(S_00c322b0_Arr* a)
+void S_00c322b0::GetViewerStrings(S_00c322b0_Arr* a)
 {
     FUN_00c319e0(a);
     S_00c322b0_Add(a, FUN_00a7d330(DAT_012027e0));

@@ -792,7 +792,7 @@ struct TypeRegistry : RegistryBase
     {
         types.clear();
     }
-    void FUN_00d47970(const TypeRegistry&) throw();
+    void merge(const TypeRegistry&) throw();
 };
 struct RuntimeClass;
 struct ClassRegistry
@@ -985,7 +985,7 @@ static __declspec(noinline) ObjectResource* FUN_00d48840(LoadStream* input, Load
                                                          const ClassRegistry* classes, const TypeRegistry* types)
 {
     TypeRegistry unfinished(0);
-    unfinished.FUN_00d47970(*types);
+    unfinished.merge(*types);
     ResourceRef resource;
     resource.take((Resource*)FUN_00d48760((S00d48d30_Stream*)input, (S00d48d30_Format*)&format,
                                           (S00d48d30_Result*)error, (int)&unfinished));

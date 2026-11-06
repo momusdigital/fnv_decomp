@@ -4,7 +4,7 @@
 
 #include "alchemyitem_decls.h"
 
-// sub ecx,0x30; jmp FUN_004029b0
+// sub ecx,0x30; jmp IsAutoCalc
 // MSVC adjustor thunk: a derived class overrides a virtual declared by two bases;
 // the secondary-base vtable entry is a thunk that moves 'this' back by the primary base size.
 struct PrimaryBase

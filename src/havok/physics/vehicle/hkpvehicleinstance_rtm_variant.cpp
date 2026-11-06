@@ -94,7 +94,7 @@ struct VUC_VehicleTarget
     virtual void f6() = 0;
     virtual void f7() = 0;
     virtual void f8() = 0;
-    virtual void FUN_00e378e0(void* world) = 0;
+    virtual void addToWorld(void* world) = 0;
 };
 struct VUC_VehicleInstance
 {
@@ -110,7 +110,7 @@ struct VUC_VehicleInstance
     unsigned char m_auiShapeKeys[0x1c];
     VUC_VehicleTarget* m_target;
 
-    void FUN_00e378e0(void* world);
+    void addToWorld(void* world);
 };
 struct VUC_DeltaTime {
     float m_fTimeStep;
@@ -611,13 +611,13 @@ public:
     FUN_00e38b20* FUN_00e39210(const hkInputE392* pkInput, int iFlags) throw();
 };
 void __cdecl FUN_00e39190();
-void __cdecl FUN_00e392f0();
+void __cdecl applyAction();
 struct VUC_TransmissionTarget10
 {
     virtual void f1() = 0;
     virtual void f2() = 0;
     virtual void f3() = 0;
-    virtual void FUN_00e378e0(float dt, void* instance, void* transmission) = 0;
+    virtual void addToWorld(float dt, void* instance, void* transmission) = 0;
 };
 struct VUC_Transmission8
 {
@@ -1358,7 +1358,7 @@ struct S00e37880_Obj
     int unk14;
     S00e37880_Data* m_data;
 
-    float FUN_00e37880();
+    float calcMPH();
 };
 extern double DAT_01017b70;
 extern double DAT_01012640;

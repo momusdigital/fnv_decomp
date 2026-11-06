@@ -37,10 +37,10 @@ struct CureEffect
     char _pad[0x48];
     int m_eSpellType;
     int m_iCureType;
-    void FUN_0080c210();
+    void Start();
 };
 // @fnv 0x0080c210
-void CureEffect::FUN_0080c210()
+void CureEffect::Start()
 {
     if (m_iCureType == -1)
         ((Unk824630*)((BSThread*)this)->GetThreadID())->FUN_00824630(m_eSpellType);
@@ -117,13 +117,13 @@ struct FUN_0080c0f0_shell : ActiveEffect
     int m_eSpellType;
     int m_iCureType;
 
-    ActiveEffect* FUN_0080c0f0();
+    ActiveEffect* Clone();
 };
 
 void* __cdecl operator new(unsigned int);
 
 // @fnv 0x0080c0f0
-ActiveEffect* FUN_0080c0f0_shell::FUN_0080c0f0()
+ActiveEffect* FUN_0080c0f0_shell::Clone()
 {
     ActiveEffect* pEffect = 0;
 

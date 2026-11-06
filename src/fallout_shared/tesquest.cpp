@@ -527,7 +527,7 @@ struct MiscStatManager
 };
 
 // @fnv 0x0060cad0
-void FUN_0060cad0(int aeStatId)
+void DecPCMiscStat(int aeStatId)
 {
     MiscStatManager::AddMiscStat((MiscStatManager::MiscStat)aeStatId, -1);
 }
@@ -635,10 +635,10 @@ struct BSStr
 };
 struct FUN_0060dab0_shell
 {
-    bool FUN_0060dab0(const char* arg);
+    bool SetEditorID(const char* arg);
 };
 // @fnv 0x0060dab0
-bool FUN_0060dab0_shell::FUN_0060dab0(const char* pcString)
+bool FUN_0060dab0_shell::SetEditorID(const char* pcString)
 {
     unsigned int size = BSStringLength(pcString) + 1;
     char* buffer = static_cast<char*>(_alloca(size));
@@ -764,12 +764,12 @@ void __cdecl FUN_0077a480(void* apQuest);
 
 struct FUN_0060caf0_shell : TESQuest
 {
-    void FUN_0060caf0(bool abCompleted);
+    void SetFailed(bool abCompleted);
 };
 
 // Sets or clears the completed flag bit 0x40 on the quest, calls vtable slot 18 with 2, and notifies via FUN_0077a480 when newly completed.
 // @fnv 0x0060caf0
-void FUN_0060caf0_shell::FUN_0060caf0(bool abCompleted)
+void FUN_0060caf0_shell::SetFailed(bool abCompleted)
 {
     if (abCompleted && GetCompleted())
         return;
@@ -838,10 +838,10 @@ struct FUN_0060ca30_shell
     unsigned char _pad[0x38];
     unsigned char data;
 
-    void FUN_0060ca30(bool abCompleted);
+    void SetCompleted(bool abCompleted);
 };
 
-void FUN_0060ca30_shell::FUN_0060ca30(bool abCompleted)
+void FUN_0060ca30_shell::SetCompleted(bool abCompleted)
 {
     if (abCompleted && !(data & 2))
     {
@@ -854,7 +854,7 @@ void FUN_0060ca30_shell::FUN_0060ca30(bool abCompleted)
     {
         data &= ~2;
         RemoveTopic(2);
-        FUN_0060cad0(0);
+        DecPCMiscStat(0);
     }
 }
 
@@ -906,11 +906,11 @@ struct FUN_0060c950_node
 struct FUN_0060c950_cls
 {
     FUN_0060c950_node* FUN_005d43e0();
-    void FUN_0060c950(int a1);
+    void SetAllObjectivesComplete(int a1);
 };
 
 // @fnv 0x0060c950
-void FUN_0060c950_cls::FUN_0060c950(int a1)
+void FUN_0060c950_cls::SetAllObjectivesComplete(int a1)
 {
     FUN_0060c950_node* node = FUN_005d43e0();
     while (node && *node->FUN_006815c0())
@@ -946,7 +946,7 @@ struct FNV_InitPart
 struct FUN_0060cd60_shell : TESQuest
 {
     void FUN_004855a0();
-    void FUN_00485e20(void*, unsigned int);
+    void __SaveData(void*, unsigned int);
     FNV_SubObject* FUN_005f5760();
     FNV_InitNode* FUN_005d43c0();
     FNV_InitNode* FUN_005d43e0();
@@ -970,7 +970,7 @@ void FUN_0060cd60_shell::FUN_0060cd60()
     {
         reinterpret_cast<FNV_InitPart*>(&tESFullNameComponent + 1)->FUN_0060ce80();
     }
-    FUN_00485e20(reinterpret_cast<char*>(&tESFullNameComponent) + 12, 8);
+    __SaveData(reinterpret_cast<char*>(&tESFullNameComponent) + 12, 8);
     if (FUN_00401500())
     {
         reinterpret_cast<FNV_InitPart*>(&tESFullNameComponent + 1)->FUN_0060ce80();
@@ -1815,15 +1815,15 @@ struct QuestShell : TESForm, ScriptableBase, IconBase, NameBase
     ObjNode* FUN_005d43e0();
     bool HasFlag0x10();
     void FUN_0060c9c0(bool);
-    void FUN_0060ca30(bool);
-    void FUN_0060caf0(bool);
+    void SetCompleted(bool);
+    void SetFailed(bool);
     void SetFlag20(bool);
-    void FUN_0060d720();
+    void ResetQuest();
 };
-void __cdecl FUN_00619b60(QuestShell*);
+void __cdecl ClearAllSaidOnceInfosForQuest(QuestShell*);
 
 // @fnv 0x0060d720
-void QuestShell::FUN_0060d720()
+void QuestShell::ResetQuest()
 {
     StageNode* aStageNode;
     ObjNode* objNode;
@@ -1872,9 +1872,9 @@ void QuestShell::FUN_0060d720()
         m_pScriptLocals = FUN_00726070()->FUN_005abf60();
     }
 
-    FUN_00619b60(this);
+    ClearAllSaidOnceInfosForQuest(this);
     FUN_0060c9c0(HasFlag0x10());
-    FUN_0060ca30(false);
-    FUN_0060caf0(false);
+    SetCompleted(false);
+    SetFailed(false);
     SetFlag20(false);
 }

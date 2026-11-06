@@ -4,11 +4,11 @@
 
 struct LockPickMenu
 {
-    int FUN_0078da90();
+    int GetClass();
 };
 
 // @fnv 0x0078da90
-int LockPickMenu::FUN_0078da90()
+int LockPickMenu::GetClass()
 {
     return 0x3f6;
 }
@@ -69,11 +69,11 @@ struct Tile
 void* __cdecl FUN_004b7210();
 struct FUN_007902b0_shell
 {
-    void FUN_007902b0(int, Tile*);
+    void HandleMouseover(int, Tile*);
 };
 // If aiID is 13, gets the next entry from FUN_004b7210 and calls Set(0xfa9, 0.0f, true) on it as a Tile.
 // @fnv 0x007902b0
-void FUN_007902b0_shell::FUN_007902b0(int aiID, Tile* apTarget)
+void FUN_007902b0_shell::HandleMouseover(int aiID, Tile* apTarget)
 {
     if (aiID == 13)
     {
@@ -93,11 +93,11 @@ struct Proc_S
 void* __cdecl FUN_004b7210();
 struct Target
 {
-    void FUN_007902f0(int aiID, Tile* apTarget);
+    void DoLeave(int aiID, Tile* apTarget);
 };
 // If aiID equals 0xD, gets the next object from FUN_004b7210 and calls Set(0xFA9, 255.0f, true) on it as a Tile.
 // @fnv 0x007902f0
-void Target::FUN_007902f0(int aiID, Tile* apTarget)
+void Target::DoLeave(int aiID, Tile* apTarget)
 {
     if (aiID == 0xD)
     {
@@ -545,7 +545,7 @@ struct FUN_00a712f0 : FUN_00aa13e0
     int unk110;
     FUN_00a712f0();
     void FUN_00712e60(FUN_00414430*);
-    void FUN_00507700(float);
+    void SetMaxFarNearRatio(float);
     void FUN_00a6faf0(FUN_00a71b70*);
     void SetLookAt(const FUN_00416870&, const FUN_00416870&);
     void FUN_00733fd0(float);
@@ -585,7 +585,7 @@ FUN_00a712f0* FUN_0078e900_shell::FUN_0078e900()
     float e;
     c.unk14 = FUN_0045c670()->vf64();
     c.unk10 = *DAT_01203144.FUN_00403e20();
-    b->FUN_00507700(c.unk14 / c.unk10);
+    b->SetMaxFarNearRatio(c.unk14 / c.unk10);
     g = (double)(DAT_011f9426 ? DAT_011f9434 : FUN_004dc200()) / FUN_004dc1f0();
     d = DAT_01016264;
     e = *DAT_01203150.FUN_00403e20() * DAT_01023128 * DAT_01070c80;
@@ -2135,7 +2135,7 @@ struct xPlayer
     virtual void v290(int);
     char m_auiShapeKeys[0x208];
     bool m_20c;
-    void FUN_00915d20(int);
+    void SetWantWeaponDrawn(int);
     void FUN_008bfa40(void*, int, int, int, xForm*);
     void FUN_0094fd30(int);
 };
@@ -2405,7 +2405,7 @@ void xLockPickMenu::FUN_0078eb50()
                             }
                             if (CRIME)
                             {
-                                xg_player_11dea3c->FUN_00915d20(1);
+                                xg_player_11dea3c->SetWantWeaponDrawn(1);
                                 xg_player_11dea3c->FUN_008bfa40(CRIME, 0, 0, 0, OWNER);
                             }
                             else

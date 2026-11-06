@@ -11,11 +11,11 @@ void __stdcall FUN_00e4a020(void* unused)
 class hkMemMeshShapeCand : public hkMemoryMeshShape
 {
   public:
-    int FUN_00e4a030();
+    int getNumSections();
 };
 
 // @fnv 0x00e4a030
-int hkMemMeshShapeCand::FUN_00e4a030()
+int hkMemMeshShapeCand::getNumSections()
 {
     return m_sections.m_iElementCount;
 }

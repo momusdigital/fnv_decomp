@@ -67,11 +67,11 @@ struct FUN_0067f600_shell
 };
 struct FUN_0067c960_shell : TESUseItemPackageData
 {
-    bool FUN_0067c960(TESPackageData* apCompare);
+    bool Compare(TESPackageData* apCompare);
 };
 // Returns true if the cast fails, the target comparison returns true, or only the other target is non-null.
 // @fnv 0x0067c960
-bool FUN_0067c960_shell::FUN_0067c960(TESPackageData* apCompare)
+bool FUN_0067c960_shell::Compare(TESPackageData* apCompare)
 {
     TESUseItemPackageData* pUseItemData =
         (TESUseItemPackageData*)FUN_00ec43fb(apCompare, 0, &DAT_0119bdec, &DAT_0119bed8, 0);

@@ -655,12 +655,12 @@ struct hkpGravityGunEx : public hkpGravityGun
     void FUN_00e45fb0(GunTransform* a4, GunArg3* a3, DDCC60World* world);
     void FUN_00e45c90(hkReal dt, GunTransform* a4, GunArg3* a3);
 
-    void FUN_00e46140(hkReal dt, DDCC60World* world, GunArg3* a3, GunTransform* a4, bool b1, bool b2);
+    void stepGun(hkReal dt, DDCC60World* world, GunArg3* a3, GunTransform* a4, bool b1, bool b2);
 };
 
 // Dispatches a gun action to listeners based on b1/b2 and picked-body capacity, then calls FUN_00e45c90 with dt, a4, a3.
 // @fnv 0x00e46140
-void hkpGravityGunEx::FUN_00e46140(hkReal dt, DDCC60World* world, GunArg3* a3, GunTransform* apGunTransform, bool b1,
+void hkpGravityGunEx::stepGun(hkReal dt, DDCC60World* world, GunArg3* a3, GunTransform* apGunTransform, bool b1,
                                    bool b2)
 {
     MyVec v1;

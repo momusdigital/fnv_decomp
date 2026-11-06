@@ -1326,7 +1326,7 @@ class FUN_00aed420_cls
     S_Subsys* m_198;
     S_Subsys* m_19c;
     S_Subsys* m_1a0;
-    bool FUN_00aed420();
+    bool Pause();
 };
 struct IDSBufStub
 {
@@ -1623,7 +1623,7 @@ struct S_00af01e0_Cls
     int unk194;
     int unk198;
     S_00af01e0_Snd* unk19c;
-    int FUN_00af01e0(float f);
+    int SetFrameFrequencyPerc(float f);
 };
 extern "C" void* fnv_zlib_memset(void* dst, int c, int n);
 void FUN_005b5e40(const char* pcFormat, ...);
@@ -2743,7 +2743,7 @@ struct SoundObj
     bool is3D;
 
     bool IsPlaying();
-    void FUN_00aefda0(float maxDist, float minDist);
+    void SetDistances(float maxDist, float minDist);
 };
 extern const double DAT_010a3e68;
 extern const double DAT_010a3e60;
@@ -4569,10 +4569,10 @@ struct P010Object
         volume = a;
         vtable->update(this, unk24);
     }
-    void FUN_00aef090(float x, float y, float z);
+    void SetPositionF(float x, float y, float z);
 };
 // @fnv 0x00aef090
-void P010Object::FUN_00aef090(float x, float y, float z)
+void P010Object::SetPositionF(float x, float y, float z)
 {
     P010Vec tempVector;
     P010Vec output;

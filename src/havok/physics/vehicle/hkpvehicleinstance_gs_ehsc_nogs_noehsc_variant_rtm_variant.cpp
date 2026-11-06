@@ -157,7 +157,7 @@ struct VUC_VehicleTarget
     virtual void f6() = 0;
     virtual void f7() = 0;
     virtual void f8() = 0;
-    virtual void FUN_00e378e0(void* world) = 0;
+    virtual void addToWorld(void* world) = 0;
 };
 struct VUC_VehicleInstance
 {
@@ -173,7 +173,7 @@ struct VUC_VehicleInstance
     unsigned char m_auiShapeKeys[0x1c];
     VUC_VehicleTarget* m_target;
 
-    void FUN_00e378e0(void* world);
+    void addToWorld(void* world);
 };
 struct VUC_DeltaTime
 {
@@ -751,13 +751,13 @@ class hkSourceE392
     FUN_00e38b20* FUN_00e39210(const hkInputE392* pkInput, int iFlags) throw();
 };
 void __cdecl FUN_00e39190();
-void __cdecl FUN_00e392f0();
+void __cdecl applyAction();
 struct VUC_TransmissionTarget10
 {
     virtual void f1() = 0;
     virtual void f2() = 0;
     virtual void f3() = 0;
-    virtual void FUN_00e378e0(float dt, void* instance, void* transmission) = 0;
+    virtual void addToWorld(float dt, void* instance, void* transmission) = 0;
 };
 struct VUC_Transmission8
 {
@@ -1462,12 +1462,12 @@ class S00e384e0_WheelCollectorE38
     unsigned int unk44;
     S00e384e0_WheelInfoE38* m_kWheelInfoArray;
 
-    void FUN_00e384e0(const S00e384e0_ChassisE38* pkChassis, const S00e384e0_VehicleDataE38* pkData, int iWheel,
+    void calcCurrentPositionAndRotation(const S00e384e0_ChassisE38* pkChassis, const S00e384e0_VehicleDataE38* pkData, int iWheel,
                       S00e384e0_hkVector4E38& kPosOut, S00e384e0_hkQuaternionE38& kRotOut);
 };
 
 // @fnv 0x00e384e0
-void S00e384e0_WheelCollectorE38::FUN_00e384e0(const S00e384e0_ChassisE38* pkChassis,
+void S00e384e0_WheelCollectorE38::calcCurrentPositionAndRotation(const S00e384e0_ChassisE38* pkChassis,
                                                const S00e384e0_VehicleDataE38* pkData, int iWheel,
                                                S00e384e0_hkVector4E38& kPosOut, S00e384e0_hkQuaternionE38& kRotOut)
 {

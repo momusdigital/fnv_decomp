@@ -24,11 +24,11 @@ struct RefH
 };
 struct FUN_0081a920_shell : public RefH
 {
-    bool FUN_0081a920();
+    bool IsActive();
 };
 // Returns true when the int at offset 0xb4 is not 1 and the object is not deleted.
 // @fnv 0x0081a920
-bool FUN_0081a920_shell::FUN_0081a920()
+bool FUN_0081a920_shell::IsActive()
 {
     return *(int*)((char*)this + 0xb4) != 1 && !IsDeleted();
 }
@@ -42,10 +42,10 @@ extern TESSaveLoadGame* g_TESSaveLoadGame;
 struct MagicFogProjectile
 {
     unsigned short GetSaveRecordSize(unsigned int);
-    unsigned short FUN_0081ad00(unsigned int flags);
+    unsigned short GetSaveSize(unsigned int flags);
 };
 // @fnv 0x0081ad00
-unsigned short MagicFogProjectile::FUN_0081ad00(unsigned int flags)
+unsigned short MagicFogProjectile::GetSaveSize(unsigned int flags)
 {
     struct VirtualInterface
     {
@@ -221,7 +221,7 @@ struct Controller
 };
 struct Particle : Object
 {
-    unsigned FUN_004d7d50();
+    unsigned GetModifierCount();
     Object* GetByIndex(unsigned);
 };
 struct Node : Object
@@ -291,7 +291,7 @@ void Effect::ScaleEffect(Object* object)
             if (FUN_0043b300(&DAT_012024e0, object))
             {
                 Particle* particle = (Particle*)object;
-                for (unsigned i = 0; i < particle->FUN_004d7d50(); ++i)
+                for (unsigned i = 0; i < particle->GetModifierCount(); ++i)
                 {
                     Controller* controller;
                     {
@@ -511,7 +511,7 @@ struct Projectile
     FUN_0081aa80* head;
     unsigned id;
     void DeleteAllNodes();
-    void FUN_0081e980(int, int);
+    void LoadGame2(int, int);
     void FUN_00484d00(void*, unsigned);
     void FUN_00484d40(void*, unsigned);
     void LoadFromStream(int, int);
@@ -522,7 +522,7 @@ void Projectile::LoadFromStream(int a, int b)
 {
     DeleteAllNodes();
     Reset();
-    FUN_0081e980(a, b);
+    LoadGame2(a, b);
     FUN_00484d00(&unkA8, 4);
     FUN_00484d00(&unk88, 4);
     FUN_00484d00(&unkAC, 4);
@@ -848,7 +848,7 @@ struct SaveMgrExt
 class FUN_0081ade0_cls
 {
   public:
-    void FUN_0081e8c0(int);
+    void SaveGame(int);
     void FUN_00484ce0(void*, unsigned int);
     void ForwardToSaveLoadGame(void*, unsigned int);
     int FUN_00810fd0();
@@ -877,7 +877,7 @@ void FUN_0081ade0_cls::SaveToStream(int a1)
 {
     float f;
     unsigned short* out;
-    FUN_0081e8c0(a1);
+    SaveGame(a1);
     FUN_00484ce0(&m_a8, 4);
     FUN_00484ce0(&m88, 4);
     FUN_00484ce0(&m_ac, 4);
@@ -976,7 +976,7 @@ struct FogRefNode
 
 struct FogIndexList
 {
-    int FUN_00406ee0(unsigned char m_ucClipIdentifier);
+    int GetEffectItemByIndex(unsigned char m_ucClipIdentifier);
 };
 struct FogFile
 {
@@ -1165,7 +1165,7 @@ void FogProjectileLoad::LoadProjectile(int a1, int a2)
             if (uiFormID_2)
                 pkNode->m_pkForm = dynamic_cast<TESObjectREFR*>(FUN_004839c0(uiFormID_2));
             if (FUN_00810fd0())
-                pkNode->m_iValue = FUN_00810fd0()->kList.FUN_00406ee0(ucIndexZ);
+                pkNode->m_iValue = FUN_00810fd0()->kList.GetEffectItemByIndex(ucIndexZ);
             pkNode = pkNode->m_pkNext;
         }
     }
@@ -1554,11 +1554,11 @@ struct FogProjectileImpl
     void UpdateFlags(int a1, int a2);
     FogShader* FUN_009306d0();
     FogCasterSrc* FUN_009185e0();
-    void FUN_0081b430(int a1, int a2);
+    void FinishInitLoadGameTES(int a1, int a2);
 };
 
 // @fnv 0x0081b430
-void FogProjectileImpl::FUN_0081b430(int a1, int a2)
+void FogProjectileImpl::FinishInitLoadGameTES(int a1, int a2)
 {
     UpdateFlags(a1, a2);
     FogShader* pkShaderZ = FUN_009306d0();

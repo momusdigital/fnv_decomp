@@ -887,13 +887,13 @@ void FUN_00805650_shell::FUN_00805650()
 
 struct FUN_00803fe0_shell : public ActiveEffect
 {
-    ActiveEffect* FUN_00803fe0();
+    ActiveEffect* Clone();
 };
 
 // ActiveEffect::Copy (v04)
 // Allocates a new ActiveEffect from the spell and effect, copies data into it, and returns it.
 // @fnv 0x00803fe0
-ActiveEffect* FUN_00803fe0_shell::FUN_00803fe0()
+ActiveEffect* FUN_00803fe0_shell::Clone()
 {
     ActiveEffect* pNewEffect = new ActiveEffect(m_pEffectInstance, pSpell, pEffect);
     CopyData(pNewEffect);
@@ -909,12 +909,12 @@ extern TESSaveLoadGame* g_TESSaveLoadGame;
 
 struct FUN_00805760_shell : public ActiveEffect
 {
-    void FUN_00805760(Actor* apActor);
+    void FinishInitLoadGame(Actor* apActor);
 };
 
 // ActiveEffect::FinishLoadGameTES (v2C)
 // @fnv 0x00805760
-void FUN_00805760_shell::FUN_00805760(Actor* apActor)
+void FUN_00805760_shell::FinishInitLoadGame(Actor* apActor)
 {
     if (g_TESSaveLoadGame->FUN_008df040() >= 0x2a)
     {
@@ -2405,12 +2405,12 @@ struct SaveHitNode
 
 struct ActiveEffectSaveShell : public ActiveEffect
 {
-    void FUN_00806230(SaveFormBuf* apBuffer);
+    void SaveGameBGS(SaveFormBuf* apBuffer);
 };
 
 // Serializes the active effect's fields, caster/target/spell IDs, source form and hit effects into the save buffer.
 // @fnv 0x00806230
-void ActiveEffectSaveShell::FUN_00806230(SaveFormBuf* apBuffer)
+void ActiveEffectSaveShell::SaveGameBGS(SaveFormBuf* apBuffer)
 {
     apBuffer->SaveData(&m_fEffectMagnitude, 4, 0);
     apBuffer->SaveData(&bActive, 1, 0);
@@ -2613,11 +2613,11 @@ void __cdecl FNV_Warning(const char* fmt, ...);
 
 struct FUN_00806420_shell : public ActiveEffect
 {
-    void FUN_00806420(BGSLoadFormBuffer* a1);
+    void LoadGameBGS(BGSLoadFormBuffer* a1);
 };
 // Reads effect fields and tagged hit effects from the buffer, loads each effect, and adds it to pHitEffectList.
 // @fnv 0x00806420
-void FUN_00806420_shell::FUN_00806420(BGSLoadFormBuffer* apBuffer)
+void FUN_00806420_shell::LoadGameBGS(BGSLoadFormBuffer* apBuffer)
 {
     apBuffer->ReadTypedData(&m_fEffectMagnitude, 4);
     apBuffer->ReadTypedData(&bActive, 1);

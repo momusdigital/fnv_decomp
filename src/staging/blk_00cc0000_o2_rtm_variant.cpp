@@ -20047,11 +20047,11 @@ struct Owner59
     int unk00;
     FUN_00d4f0f0* src;
     void ReleaseObject(FUN_00d4f0f0* node, Params59* params);
-    void FUN_00cc59c0(FUN_00d4f0f0* node, Params59* params);
+    void CloneData(FUN_00d4f0f0* node, Params59* params);
 };
 
 // @fnv 0x00cc59c0
-void Owner59::FUN_00cc59c0(FUN_00d4f0f0* node, Params59* params)
+void Owner59::CloneData(FUN_00d4f0f0* node, Params59* params)
 {
     S_00cc4b90_Ctx ctx(0x10);
     FUN_00d4f0f0* s = src;

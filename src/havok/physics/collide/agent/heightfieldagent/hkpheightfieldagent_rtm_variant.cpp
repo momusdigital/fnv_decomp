@@ -455,7 +455,7 @@ struct S_00d32270_cls
     hkVector4 m_30;
     int m_40;
     S_00d32270_Target* m_44;
-    void FUN_00d32270(S_00d32270_Q* q, S_00d32270_P* p);
+    void addRayHit(S_00d32270_Q* q, S_00d32270_P* p);
 };
 
 struct S_00d32270_In
@@ -470,7 +470,7 @@ struct S_00d32270_In
 static __forceinline float S_min(float a, float b) { return (b < a) ? b : a; }
 
 // @fnv 0x00d32270
-void S_00d32270_cls::FUN_00d32270(S_00d32270_Q* q, S_00d32270_P* p)
+void S_00d32270_cls::addRayHit(S_00d32270_Q* q, S_00d32270_P* p)
 {
     __declspec(align(16)) S_00d32270_In in(m_40, q);
     float s = -m_20;

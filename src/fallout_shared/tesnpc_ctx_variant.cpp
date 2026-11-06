@@ -302,11 +302,11 @@ class MiddleHighProcess : public BaseProcess
 class TESNPCFace : public TESNPC
 {
   public:
-    void FUN_00609f60(Actor* apActor);
+    void LoadFaceGen(Actor* apActor);
 };
 
 // @fnv 0x00609f60
-void TESNPCFace::FUN_00609f60(Actor* apActor)
+void TESNPCFace::LoadFaceGen(Actor* apActor)
 {
     bool bChanged = false;
     for (unsigned int i = 0; i < 2; i++)
@@ -670,10 +670,10 @@ struct ThisT
 {
     char pad1c4[0x1c4];
     FUN_00633c90 holder;
-    void FUN_0060a950(ParamT*);
+    void SwapEyes(ParamT*);
 };
 // @fnv 0x0060a950
-void ThisT::FUN_0060a950(ParamT* param)
+void ThisT::SwapEyes(ParamT* param)
 {
     FUN_00633c90 a(0);
     FUN_00633c90 eye(0);

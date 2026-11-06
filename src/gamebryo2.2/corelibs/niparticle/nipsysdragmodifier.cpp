@@ -296,7 +296,7 @@ struct NiPSysDragShell : NiPSysModifier
     float percentage;
     float range;
     float falloff;
-    void FUN_00c2c620(NiStream& stream);
+    void GetViewerStrings(NiStream& stream);
 };
 extern char DAT_0102909c;
 extern char DAT_010bff18;
@@ -309,7 +309,7 @@ void* __cdecl FUN_00a7d5e0(const void* typeName, const void* value);
 void* __cdecl FUN_00a7d550(const void* typeName, float value);
 // Saves the modifier via NiPSysModifier::SaveBinary, then appends the drag object name, drag axis, percentage, range and falloff to the stream array.
 // @fnv 0x00c2c620
-void NiPSysDragShell::FUN_00c2c620(NiStream& stream)
+void NiPSysDragShell::GetViewerStrings(NiStream& stream)
 {
     NiPSysModifier::SaveBinary(stream);
     StreamArray& array = *reinterpret_cast<StreamArray*>(&stream);

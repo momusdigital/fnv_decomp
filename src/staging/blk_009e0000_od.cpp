@@ -1384,7 +1384,7 @@ struct DestCls
 };
 struct MidCls
 {
-    DestCls* FUN_0041cf00();
+    DestCls* GetPlayerCrimeList();
 };
 struct SrcCls
 {
@@ -1457,7 +1457,7 @@ struct SrcCls
 };
 struct ItemCls
 {
-    void FUN_0047eb90(int);
+    void SetPCAnEnemy(int);
     bool FUN_008a61b0();
     void FUN_00881680(int);
     MidCls* FUN_005d43c0();
@@ -1531,15 +1531,15 @@ FUN_009eb660::~FUN_009eb660()
         DAT_011e0e80.FUN_009726e0(this);
         if (f08 != 0)
         {
-            if (f08->FUN_005d43c0()->FUN_0041cf00() != 0)
-                f08->FUN_005d43c0()->FUN_0041cf00()->FUN_00905330(this);
+            if (f08->FUN_005d43c0()->GetPlayerCrimeList() != 0)
+                f08->FUN_005d43c0()->GetPlayerCrimeList()->FUN_00905330(this);
         }
         pB6 = m38;
         while (pB6 != 0 && !pB6->FUN_008256d0())
         {
             node5 = (ItemCls*)*pB6->FUN_006815c0();
             if (!DAT_011e0e80.IsActorInOtherList(node5, this))
-                node5->FUN_0047eb90(0);
+                node5->SetPCAnEnemy(0);
             pB6 = pB6->FUN_00726070();
         }
         pACopy = FUN_0044ddc0();
@@ -1548,7 +1548,7 @@ FUN_009eb660::~FUN_009eb660()
             if (pACopy->VCall100())
             {
                 destA8 = pACopy;
-                itemB = destA8->FUN_005d43c0()->FUN_0041cf00();
+                itemB = destA8->FUN_005d43c0()->GetPlayerCrimeList();
                 if (itemB != 0)
                     itemB->FUN_00905330(this);
             }
@@ -1559,7 +1559,7 @@ FUN_009eb660::~FUN_009eb660()
             item6 = (ItemCls*)*pA3->FUN_006815c0();
             if (item6->FUN_008a61b0())
                 item6->FUN_00881680(0);
-            destB_ = item6->FUN_005d43c0()->FUN_0041cf00();
+            destB_ = item6->FUN_005d43c0()->GetPlayerCrimeList();
             if (destB_ != 0)
                 destB_->FUN_00905330(this);
         }

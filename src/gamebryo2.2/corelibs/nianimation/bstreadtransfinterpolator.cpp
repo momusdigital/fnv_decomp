@@ -6,11 +6,11 @@ struct FUN_00a43560_shell
 {
     unsigned char m_auiShapeKeys[0x20];
     void* m_ptr_20;
-    int __thiscall FUN_00a43560(short arg);
+    int __thiscall GetKeyCount(short arg);
 };
 
 // @fnv 0x00a43560
-int __thiscall FUN_00a43560_shell::FUN_00a43560(short arg)
+int __thiscall FUN_00a43560_shell::GetKeyCount(short arg)
 {
     if (arg == 0)
     {
@@ -214,7 +214,7 @@ struct FUN_00a435e0_shell
     int unk1c;
     int unk20;
 
-    bool __thiscall FUN_00a435e0(int arg);
+    bool __thiscall GetChannelPosed(int arg);
 };
 
 // @fnv 0x00a435e0
@@ -333,7 +333,7 @@ inline void FUN_00a435e0_shell::v37()
 inline void FUN_00a435e0_shell::v38(int)
 {}
 
-bool FUN_00a435e0_shell::FUN_00a435e0(int arg)
+bool FUN_00a435e0_shell::GetChannelPosed(int arg)
 {
     if (unk20 != 0)
     {
@@ -661,7 +661,7 @@ class TreadTransfInterpolator : public NiKeyBasedInterpolator
     {}
     virtual ~TreadTransfInterpolator();
 
-    TreadTransfInterpolator* FUN_00a439e0(void* kCloning);
+    TreadTransfInterpolator* CreateClone(void* kCloning);
     void FUN_00a43690(TreadTransfInterpolator* pkDest, void* kCloning);
 
     unsigned int m_uiUnk0C;
@@ -674,7 +674,7 @@ class TreadTransfInterpolator : public NiKeyBasedInterpolator
 
 // Allocates a new TreadTransfInterpolator, passes it and kCloning to FUN_00a43690, then returns it.
 // @fnv 0x00a439e0
-TreadTransfInterpolator* TreadTransfInterpolator::FUN_00a439e0(void* kCloning)
+TreadTransfInterpolator* TreadTransfInterpolator::CreateClone(void* kCloning)
 {
     TreadTransfInterpolator* pkClone = new TreadTransfInterpolator;
     FUN_00a43690(pkClone, kCloning);

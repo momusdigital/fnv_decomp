@@ -6,13 +6,13 @@
 
 struct FUN_00c3a090_Class
 {
-    char __thiscall FUN_00c3a090(void* arg);
+    char __thiscall IsEqual(void* arg);
     char __thiscall IsSameAs(void* arg);
 };
 
 // Calls IsSameAs with arg and returns its result unchanged.
 // @fnv 0x00c3a090
-char __thiscall FUN_00c3a090_Class::FUN_00c3a090(void* arg)
+char __thiscall FUN_00c3a090_Class::IsEqual(void* arg)
 {
     char result = IsSameAs(arg);
     return result;
@@ -22,11 +22,11 @@ extern "C" void* g_01202828;
 
 struct FUN_00c3a610_Class
 {
-    void* __thiscall FUN_00c3a610();
+    void* __thiscall GetRTTI();
 };
 
 // @fnv 0x00c3a610
-void* __thiscall FUN_00c3a610_Class::FUN_00c3a610()
+void* __thiscall FUN_00c3a610_Class::GetRTTI()
 {
     return &g_01202828;
 }
@@ -86,11 +86,11 @@ extern "C" void* g_012043e4;
 
 struct FUN_00c3ba70_Class
 {
-    void* __thiscall FUN_00c3ba70();
+    void* __thiscall GetRTTI();
 };
 
 // @fnv 0x00c3ba70
-void* __thiscall FUN_00c3ba70_Class::FUN_00c3ba70()
+void* __thiscall FUN_00c3ba70_Class::GetRTTI()
 {
     return &g_012043e4;
 }
@@ -211,11 +211,11 @@ int FUN_00c35980_Class::FUN_00c35980()
 
 struct FUN_00c3a080_Class
 {
-    void* __thiscall FUN_00c3a080(int arg);
+    void* __thiscall CreateClone(int arg);
 };
 
 // @fnv 0x00c3a080
-void* FUN_00c3a080_Class::FUN_00c3a080(int arg)
+void* FUN_00c3a080_Class::CreateClone(int arg)
 {
     return 0;
 }
@@ -247,37 +247,37 @@ void __thiscall FUN_00c3a0c0_Class::AddFirstEmptyFromGlobal(unsigned int pArray)
 
 struct FUN_00c3a100_Class
 {
-    void __thiscall FUN_00c3a100(int);
+    void __thiscall LinkObject(int);
 };
 // @fnv 0x00c3a100
-void __thiscall FUN_00c3a100_Class::FUN_00c3a100(int)
+void __thiscall FUN_00c3a100_Class::LinkObject(int)
 {}
 
 struct FUN_00c3a110_Class
 {
-    void __thiscall FUN_00c3a110(int arg);
+    void __thiscall LoadBinary(int arg);
 };
 
 // @fnv 0x00c3a110
-void FUN_00c3a110_Class::FUN_00c3a110(int arg)
+void FUN_00c3a110_Class::LoadBinary(int arg)
 {}
 
 struct FUN_00c3a120_Class
 {
-    void __thiscall FUN_00c3a120(int);
+    void __thiscall SaveBinary(int);
 };
 
 // @fnv 0x00c3a120
-void __thiscall FUN_00c3a120_Class::FUN_00c3a120(int)
+void __thiscall FUN_00c3a120_Class::SaveBinary(int)
 {}
 
 struct FUN_00c3a130_Class
 {
-    char __thiscall FUN_00c3a130(void* arg);
+    char __thiscall RegisterStreamables(void* arg);
 };
 
 // @fnv 0x00c3a130
-char __thiscall FUN_00c3a130_Class::FUN_00c3a130(void* arg)
+char __thiscall FUN_00c3a130_Class::RegisterStreamables(void* arg)
 {
     return 1;
 }

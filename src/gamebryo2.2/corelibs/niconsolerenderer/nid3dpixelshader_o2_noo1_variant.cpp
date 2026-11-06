@@ -93,7 +93,7 @@ struct FakeRenderer
 };
 struct FUN_00e898c0_shell : NiD3DPixelShader
 {
-    void FUN_00e898c0();
+    void DestroyRendererData();
 };
 
 extern "C" unsigned int DAT_011f5fc4[];
@@ -222,11 +222,11 @@ struct ShaderConstantRenderState
 
 struct FUN_00e899a0_shell : NiD3DPixelShader
 {
-    bool FUN_00e899a0(NiShaderConstantMapEntry* pkEntry, const void* pvDataSource, unsigned int uiRegisterCount);
+    bool SetShaderConstant(NiShaderConstantMapEntry* pkEntry, const void* pvDataSource, unsigned int uiRegisterCount);
 };
 
 // @fnv 0x00e899a0
-bool FUN_00e899a0_shell::FUN_00e899a0(NiShaderConstantMapEntry* pkEntry, const void* pvDataSource,
+bool FUN_00e899a0_shell::SetShaderConstant(NiShaderConstantMapEntry* pkEntry, const void* pvDataSource,
                                       unsigned int uiRegisterCount)
 {
     if (!pvDataSource)

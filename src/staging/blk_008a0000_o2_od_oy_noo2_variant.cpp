@@ -16,7 +16,7 @@ struct FUN_008b3d70_Vec3
     FUN_008b3d70_Vec3 FUN_00439ef0(const FUN_008b3d70_Vec3& o) const;
     FUN_008b3d70_Vec3 ApplyScaled(float f) const;
 };
-void FUN_00525340(FUN_008b3d70_Vec3* v);
+void UnitizeVector(FUN_008b3d70_Vec3* v);
 
 struct FUN_008b3d70_Hit
 {
@@ -66,7 +66,7 @@ void* FUN_008b3d70_Picker::FUN_008b3d70(FUN_008b3d70_Vec3 start, FUN_008b3d70_Ve
     FUN_008b3d70_Hit* object = 0;
     float distance = 512.0f;
     FUN_008b3d70_Vec3 direction = end.FUN_00439ef0(start);
-    FUN_00525340(&direction);
+    UnitizeVector(&direction);
     FUN_008b3d70_Vec3 origin = end.FUN_00439ef0(direction.ApplyScaled(distance).ApplyScaled(0.5f));
     object = FUN_008cfbc0(world, origin, direction, &distance, 0);
     if (!object)

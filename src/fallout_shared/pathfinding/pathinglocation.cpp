@@ -630,11 +630,11 @@ struct FUN_006def40_shell
     void* pCell;
     void* m_pContainingWorldspace;
 
-    void FUN_006def40(BGSSaveFormBuffer*);
+    void SaveGame(BGSSaveFormBuffer*);
 };
 
 // @fnv 0x006def40
-void FUN_006def40_shell::FUN_006def40(BGSSaveFormBuffer* buffer)
+void FUN_006def40_shell::SaveGame(BGSSaveFormBuffer* buffer)
 {
     bool bhadNavMeshesArray;
 

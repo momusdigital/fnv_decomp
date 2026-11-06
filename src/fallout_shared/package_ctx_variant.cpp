@@ -168,13 +168,13 @@ class PackageInit
     int GetPackType();
     bool FUN_00674d20();
     bool FUN_00673890();
-    void FUN_00672fc0(FUN_0067ff70*);
-    void FUN_00671d30(FUN_0067f030*);
+    void SetPackageTarget(FUN_0067ff70*);
+    void SetPackageLocation(FUN_0067f030*);
     void FUN_00484ab0(int);
-    void FUN_00674930();
+    void InitItem();
 };
 // @fnv 0x00674930
-void PackageInit::FUN_00674930()
+void PackageInit::InitItem()
 {
     if (FUN_004013e0())
         return;
@@ -223,7 +223,7 @@ void PackageInit::FUN_00674930()
         if (FUN_00674d20())
         {
             if (!FUN_00671d10())
-                FUN_00672fc0(new FUN_0067ff70);
+                SetPackageTarget(new FUN_0067ff70);
             FUN_00671d10()->FUN_006800b0(3);
         }
         break;
@@ -235,7 +235,7 @@ void PackageInit::FUN_00674930()
         {
             FUN_0067f030* location = new FUN_0067f030;
             location->FUN_0067f140(6);
-            FUN_00671d30(location);
+            SetPackageLocation(location);
             delete static_cast<FUN_00670b30*>(location);
         }
         break;

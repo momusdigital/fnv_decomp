@@ -322,7 +322,7 @@ struct StrPacker
 {
     int unk00, unk04, unk08, unk0c, unk10;
     hkArrayChar m14;
-    void FUN_00ddf5a0(const char* str);
+    void pushDir(const char* str);
 };
 struct S_00ddeff0_Heap
 {
@@ -376,7 +376,7 @@ struct FUN_00ddeff0
 };
 struct FUN_00ddf640_Cls : Obj
 {
-    unsigned char* FUN_00ddf640();
+    unsigned char* popDir();
 };
 
 struct MonitorHeap

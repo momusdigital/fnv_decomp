@@ -336,7 +336,7 @@ struct CachePair
     Quaternion delta;
 };
 // @fnv 0x00d58590
-__declspec(noinline) void __fastcall FUN_00d58590(CylinderMeshBuilder* self)
+__declspec(noinline) void __fastcall buildGeometry(CylinderMeshBuilder* self)
 {
     const int& heights = self->m_88;
     const int& sectors = self->m_84;

@@ -210,7 +210,7 @@ struct FUN_00c4ada0_Class
 struct FUN_00c4ade0_class
 {
     unsigned char FUN_00c452c0(int);
-    unsigned char FUN_00c4ade0(int);
+    unsigned char RegisterStreamables(int);
 };
 struct FUN_00c4ae10_Class
 {
@@ -511,7 +511,7 @@ struct NiTPrimitiveArray_unsigned_int_
 struct FUN_00c4ab00_Class
 {
     void __thiscall FUN_00c454c0(int);
-    void __thiscall FUN_00c4ab00(int a);
+    void __thiscall GetViewerStrings(int a);
 };
 struct FUN_00c4f2d0_class
 {
@@ -16370,13 +16370,13 @@ struct C5F190Holder
         (void)w3;
     }
 
-    void FUN_00c5f190(NiTPrimitiveArray_unsigned_int_* out);
+    void GetViewerStrings(NiTPrimitiveArray_unsigned_int_* out);
 };
 
 extern "C" char* __cdecl FUN_00a7d5e0(const char* name, const char* value);
 
 // @fnv 0x00c5f190
-void C5F190Holder::FUN_00c5f190(NiTPrimitiveArray_unsigned_int_* out)
+void C5F190Holder::GetViewerStrings(NiTPrimitiveArray_unsigned_int_* out)
 {
     C5F190Line line;
     unsigned int res;

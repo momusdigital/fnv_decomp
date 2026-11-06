@@ -35,10 +35,10 @@ struct FUN_006264d0
 };
 struct HavokError
 {
-    void __thiscall FUN_00625650();
+    void __thiscall enableAll();
 };
 // @fnv 0x00625650
-void __thiscall HavokError::FUN_00625650()
+void __thiscall HavokError::enableAll()
 {
     ((FUN_006264d0*)((char*)this + 0x14))->FUN_006264d1();
 }
@@ -51,10 +51,10 @@ struct MessageHandler
 };
 struct HavokError
 {
-    void FUN_00625a80(const char* str);
+    void showString(const char* str);
 };
 // @fnv 0x00625a80
-void HavokError::FUN_00625a80(const char* pcMessage)
+void HavokError::showString(const char* pcMessage)
 {
     MessageHandler::Handler();
     _FNV_Warning(4, pcMessage);
@@ -195,11 +195,11 @@ struct FUN_00626470_Class
 struct FUN_006255d0_class
 {
     char pad[0x14];
-    void FUN_006255d0(int a, int b);
+    void setEnabled(int a, int b);
 };
 // Calls FUN_005609f0 on b; if true forwards a to FUN_006264b0 at this+0x14, otherwise calls FUN_00626470 with a and 1.
 // @fnv 0x006255d0
-void FUN_006255d0_class::FUN_006255d0(int a, int b)
+void FUN_006255d0_class::setEnabled(int a, int b)
 {
     if (((FUN_005609f0_shell*)&b)->FUN_005609f0())
         ((FUN_006264b0_Class*)((char*)this + 0x14))->FUN_006264b0(a);
@@ -253,7 +253,7 @@ void* __thiscall FUN_00626250_class::FUN_00626250(unsigned int flags)
     return this;
 }
 
-int __fastcall FUN_004720a0(char*);
+int __fastcall Tell(char*);
 
 struct FUN_00626390_class
 {
@@ -263,11 +263,11 @@ struct FUN_00626390_class
     int FUN_00626390();
 };
 
-// Returns the result of FUN_004720a0 on pFile, or 0 when pFile is null.
+// Returns the result of Tell on pFile, or 0 when pFile is null.
 // @fnv 0x00626390
 int FUN_00626390_class::FUN_00626390()
 {
-    return pFile ? FUN_004720a0(reinterpret_cast<char*>(pFile)) : 0;
+    return pFile ? Tell(reinterpret_cast<char*>(pFile)) : 0;
 }
 
 int __cdecl strcat_s(char*, unsigned int, const char*);
@@ -420,12 +420,12 @@ struct FUN_00626000
 
 struct FUN_00624e90_Class
 {
-    FUN_00626000* FUN_00624e90(int index);
+    FUN_00626000* openReader(int index);
 };
 
 // Allocates and constructs a FUN_00626000 object with the given index, returning the new object.
 // @fnv 0x00624e90
-FUN_00626000* FUN_00624e90_Class::FUN_00624e90(int index)
+FUN_00626000* FUN_00624e90_Class::openReader(int index)
 {
     return new FUN_00626000(index);
 }
@@ -781,12 +781,12 @@ struct FUN_00625610_Class
 {
     char unk00[0x14];
     FUN_00626490_Class m_sub;
-    CalleeObj* FUN_00625610(CalleeObj* obj, int b);
+    CalleeObj* isEnabled(CalleeObj* obj, int b);
 };
 
 // Calls FUN_00626490(b, 0) on m_sub, passes whether the result equals 0 to obj->FUN_00622570, and returns obj.
 // @fnv 0x00625610
-CalleeObj* FUN_00625610_Class::FUN_00625610(CalleeObj* obj, int b)
+CalleeObj* FUN_00625610_Class::isEnabled(CalleeObj* obj, int b)
 {
     obj->FUN_00622570(m_sub.FUN_00626490(b, 0) == 0);
     return obj;
@@ -877,12 +877,12 @@ struct ErrorHandler6257
     virtual void Raise(int aiSoundId, FUN_00622570 kResult);
     char m_acPad4[0x1c];
     char m_acSdkPath[0x104];
-    void FUN_00625790(const char* pcPrefix, int aiSoundId, const char* pcMessage, const char* pcFile, int iLine);
+    void assertMessage(const char* pcPrefix, int aiSoundId, const char* pcMessage, const char* pcFile, int iLine);
 };
 
 // Builds a prefix/message string, resolves the report file path against m_acSdkPath, reports it with the line number, and raises on result 5.
 // @fnv 0x00625790
-void ErrorHandler6257::FUN_00625790(const char* pcPrefix, int aiSoundId, const char* pcMessage, const char* pcFile,
+void ErrorHandler6257::assertMessage(const char* pcPrefix, int aiSoundId, const char* pcMessage, const char* pcFile,
                                     int iLine)
 {
     char acMsg[0x400];

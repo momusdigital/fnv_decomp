@@ -97,7 +97,7 @@ class hkClassMemberDC11
 class hkVersionCheckDC11
 {
   public:
-    int FUN_00e032d0(const hkClassMemberDC11* pkOld, const hkClassMemberDC11* pkNew) throw();
+    int areMembersCompatible(const hkClassMemberDC11* pkOld, const hkClassMemberDC11* pkNew) throw();
     int IsMemberCompatible(const hkClassMemberDC11* pkOld, const hkClassMemberDC11* pkNew) throw();
 };
 class hkMemoryAllocatorDC12;

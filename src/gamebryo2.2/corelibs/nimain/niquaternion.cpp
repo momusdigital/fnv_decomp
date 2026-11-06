@@ -130,7 +130,7 @@ void __fastcall FUN_00a6e430(NiQuaternion* self, int edx, float afTime, const Ni
 extern unsigned char DAT_011F3FE4;
 
 // @fnv 0x00a4ffe0
-unsigned char* __cdecl FUN_00a4ffe0()
+unsigned char* __cdecl GetRTTI()
 {
     return &DAT_011F3FE4;
 }

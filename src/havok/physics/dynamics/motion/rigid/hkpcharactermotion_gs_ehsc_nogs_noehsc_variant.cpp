@@ -100,7 +100,7 @@ class hkReferencedObjectD1EE : public hkBaseObjectD1EE
 class hkpSphereMotionD1EE : public hkReferencedObjectD1EE
 {
   public:
-    void FUN_00d1ee40(hkMatrix3D1EE& kInertiaInv) const;
+    void getInertiaInvLocal(hkMatrix3D1EE& kInertiaInv) const;
 
     unsigned char m_type;
     unsigned char m_ucDeactivationIntegrateCounter;
@@ -122,11 +122,11 @@ extern "C"
 
 struct S00d1f050_Obj : hkpCharacterMotion
 {
-    void FUN_00d1f050(const hkVector4* pos, const hkVector4* normal, float* out_vel, float* out_inv_mass) const;
+    void getProjectedPointVelocity(const hkVector4* pos, const hkVector4* normal, float* out_vel, float* out_inv_mass) const;
 };
 
 // @fnv 0x00d1f050
-void S00d1f050_Obj::FUN_00d1f050(const hkVector4* pos, const hkVector4* normal, float* out_vel,
+void S00d1f050_Obj::getProjectedPointVelocity(const hkVector4* pos, const hkVector4* normal, float* out_vel,
                                  float* out_inv_mass) const
 {
     __m128 com = _mm_load_ps((const float*)&m_kMotionState.m_kSweptTransform.m_vCenterOfMass1);

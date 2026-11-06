@@ -10,14 +10,14 @@ struct FUN_00e87a40_This {
     void FUN_00e87a40();
 };
 struct FUN_00e87a70_Class {
-    void __thiscall FUN_00e87a70();
+    void __thiscall SaveShaderState();
 };
 struct FUN_00e888b0_Class
 {
     int __thiscall FUN_00e888b0();
 };
 struct FUN_00e88a50_Class {
-    int __thiscall FUN_00e88a50(int index);
+    int __thiscall vGetTexture(int index);
 };
 struct FUN_00e87a50_Class {
     void __thiscall FUN_00e87a50();
@@ -26,7 +26,7 @@ struct FUN_00e87ea0_Class {
     int __thiscall CallVirtualWithFlags(void* p);
 };
 struct FUN_00e88710_Class {
-    void __thiscall FUN_00e88710(float* a, float* b);
+    void __thiscall GetCameraNearAndFar(float* a, float* b);
 };
 struct FUN_00e88730_Class {
     void __thiscall SetRange(float a, float b);
@@ -90,7 +90,7 @@ struct FUN_00e87af0_This {
     void __thiscall FUN_00e87af0(void* renderer);
 };
 struct FUN_00e886d0_Class {
-    void __thiscall FUN_00e886d0(float a);
+    void __thiscall SetMaxFogValue(float a);
 };
 struct FUN_00e88860_Class {
     int __thiscall FUN_00e88860(int idx);
@@ -99,10 +99,10 @@ struct FUN_00e889b0_Class {
     void __thiscall ClearBlock();
 };
 struct FUN_00e88ab0_Class {
-    void __thiscall FUN_00e88ab0(bool b);
+    void __thiscall SetForceNormalizeNormals(bool b);
 };
 struct FUN_00e88ad0_Class {
-    void __thiscall FUN_00e88ad0(bool v);
+    void __thiscall SetInternalNormalizeNormals(bool v);
 };
 struct FUN_00e88bb0_Class {
     void __thiscall ApplyFromArray(int* a);
@@ -818,7 +818,7 @@ public:
     virtual void v19();
     virtual void v1a(int a, unsigned int b, int c, int d);
 
-    void FUN_00e87c30(FUN_00e87c30_arg* a1);
+    void ApplyDitherMode(FUN_00e87c30_arg* a1);
 };
 struct C00e87ed0 {
     virtual void v0() = 0;
@@ -848,7 +848,7 @@ struct C00e87ed0 {
     virtual void v24() = 0;
     virtual void v25() = 0;
     virtual void v26(int, int, int, int) = 0;
-    void __thiscall FUN_00e87ed0(void* p);
+    void __thiscall ApplySpecular(void* p);
 };
 struct StencilPropStub {
     int unk00;
@@ -1259,7 +1259,7 @@ struct FUN_00e886b0_cls {
     int m_80;
     int m_84;
     float m_88;
-    float FUN_00e886b0();
+    float GetMaxFogValue();
 };
 struct FUN_00e886c0_cls {
     int m_00;
@@ -1296,7 +1296,7 @@ struct FUN_00e886c0_cls {
     int m_7c;
     int m_80;
     float m_84;
-    float FUN_00e886c0();
+    float GetMaxFogFactor();
 };
 class FUN_00e88750_cls {
 public:
@@ -1509,7 +1509,7 @@ struct FUN_00e88830_cls
     unsigned int unk01F0;
     unsigned int unk01F4;
     int m_1f8;
-    void FUN_00e88830(int a1, int unused1, int unused2);
+    void SetAlphaBlendEnable(int a1, int unused1, int unused2);
 };
 typedef void (__stdcall *FUN_00e88830_Slot)(void* self, int code, int value);
 struct RenderStateSink
@@ -3547,7 +3547,7 @@ public:
 };
 struct FUN_00e88a20_cls
 {
-    void FUN_00e88a20(int a1, int a2);
+    void vSetTexture(int a1, int a2);
 };
 typedef void (__stdcall *FUN_00e88a20_Slot)(void* self, int code, int value);
 struct FUN_00e88a60_Renderer {
@@ -3626,10 +3626,10 @@ struct FUN_00e88a60_Class {
 
     void __thiscall ClearSlotByValue(int value);
 };
-char __fastcall FUN_00e88ac0(void* self);
+char __fastcall GetForceNormalizeNormals(void* self);
 class FUN_00e88ae0_cls {
 public:
-    unsigned char FUN_00e88ae0();
+    unsigned char GetInternalNormalizeNormals();
     int unk0000;
     int unk0004;
     int unk0008;

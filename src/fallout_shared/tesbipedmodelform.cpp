@@ -125,11 +125,11 @@ void FUN_00480d50_shell::FUN_00480d50(bool abVal)
 
 struct FUN_00480d90_shell : public TESBipedModelForm
 {
-    bool FUN_00480d90();
+    bool GetPlayable();
 };
 
 // @fnv 0x00480d90
-bool FUN_00480d90_shell::FUN_00480d90()
+bool FUN_00480d90_shell::GetPlayable()
 {
     if (*((unsigned char*)this + 8) & 0x40)
         return false;
@@ -503,12 +503,12 @@ struct FUN_004804d0_shell
 
     FUN_004804d0_standin unkC4;
 
-    void FUN_004804d0();
+    void InitializeDataComponent();
 };
 
 // Clears unk04 and unk08, then calls Call on the seven embedded objects at unk0c, unk4c, unk8c, unk2c, unk6c, unk98 and unkC4.
 // @fnv 0x004804d0
-void FUN_004804d0_shell::FUN_004804d0()
+void FUN_004804d0_shell::InitializeDataComponent()
 {
     unk04 = 0;
     unk08 = 0;
@@ -526,12 +526,12 @@ void FUN_004804d0_shell::FUN_004804d0()
 class BipedComparison : public TESBipedModelForm
 {
   public:
-    bool FUN_004808f0(BaseFormComponent* other);
+    bool CompareComponent(BaseFormComponent* other);
 };
 
 // Compares this BipedComparison against another BaseFormComponent, returning true if the cast fails or any biped model, icon, or facegen field differs.
 // @fnv 0x004808f0
-bool BipedComparison::FUN_004808f0(BaseFormComponent* other)
+bool BipedComparison::CompareComponent(BaseFormComponent* other)
 {
     TESBipedModelForm* compared = dynamic_cast<TESBipedModelForm*>(other);
     if (!compared)
@@ -562,12 +562,12 @@ bool BipedComparison::FUN_004808f0(BaseFormComponent* other)
 class BipedModelCopy : public TESBipedModelForm
 {
   public:
-    void FUN_004807a0(BaseFormComponent* component);
+    void CopyComponent(BaseFormComponent* component);
 };
 
 // Copies all biped model fields from a source TESBipedModelForm into this BipedModelCopy after casting the component.
 // @fnv 0x004807a0
-void BipedModelCopy::FUN_004807a0(BaseFormComponent* component)
+void BipedModelCopy::CopyComponent(BaseFormComponent* component)
 {
     TESBipedModelForm* source;
     source = dynamic_cast<TESBipedModelForm*>(component);

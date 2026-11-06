@@ -17,15 +17,15 @@ struct P : TESPackage
     int GetPackType();
     bool FUN_00678610();
     bool HasFlag400000();
-    bool FUN_0067a460();
+    bool GetDrawWeaponFlag();
     bool FUN_00441b00();
     void SetPackageType(int);
-    void FUN_00671a20(bool);
+    void SetDrawWeaponFlag(bool);
     void SetFlag200000(bool);
     void SetMustReachLocation(bool);
     void SetMustComplete(bool);
-    void FUN_00671d30(Loc*);
-    void FUN_00672fc0(Target*);
+    void SetPackageLocation(Loc*);
+    void SetPackageTarget(Target*);
     void SetProcedureType(int);
     Target* FUN_00671d10();
     bool IsSpellInList(A*);
@@ -935,7 +935,7 @@ void A::FUN_008bed50(A* source, int value, bool react, A* target)
         current->SetPackageType(21);
         if (tmp)
         {
-            current->FUN_00671a20(tmp->FUN_0067a460());
+            current->SetDrawWeaponFlag(tmp->GetDrawWeaponFlag());
             current->SetFlag200000(tmp->FUN_00441b00());
         }
         current->SetMustReachLocation(true);
@@ -945,11 +945,11 @@ void A::FUN_008bed50(A* source, int value, bool react, A* target)
             s->FUN_0067f3c0(source->FUN_0084e3a0());
         else
             s->FUN_0067f3c0(target);
-        current->FUN_00671d30(s);
+        current->SetPackageLocation(s);
         delete s;
         Target* created;
         created = new Target;
-        current->FUN_00672fc0(created);
+        current->SetPackageTarget(created);
         delete created;
         current->SetProcedureType(11);
         current->FUN_00671d10()->FUN_006800b0(0);

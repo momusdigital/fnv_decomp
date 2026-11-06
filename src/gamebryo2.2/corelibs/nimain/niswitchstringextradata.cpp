@@ -486,12 +486,12 @@ class LinkArrayExtraA939 : public NiExtraDataA939
     NiObjectA939** m_ppkObjects;
     unsigned int m_uiValue1;
 
-    void FUN_00a93930(NiStreamA939& kStream);
+    void LoadBinary(NiStreamA939& kStream);
 };
 
 // Reads m_uiCount, allocates m_ppkObjects and loads each object via kStream, then reads m_uiValue1 from the underlying stream.
 // @fnv 0x00a93930
-void LinkArrayExtraA939::FUN_00a93930(NiStreamA939& kStream)
+void LinkArrayExtraA939::LoadBinary(NiStreamA939& kStream)
 {
     FUN_00a7b4a0(kStream);
     NiBinaryStreamLoad(kStream.m_pUnderlyingStream, &m_uiCount, 1);

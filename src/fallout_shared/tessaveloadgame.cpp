@@ -2402,7 +2402,7 @@ int FUN_0085a450_cls::FUN_0085a450(unsigned int a1, unsigned int auiFlags)
 
 struct FUN_0085b240_ref
 {
-    int FUN_004720a0();
+    int Tell();
 };
 struct FUN_0085b240_node
 {
@@ -2437,7 +2437,7 @@ void FUN_0085b240_cls::WritePluginList(FUN_0085b240_ref* a1)
     unsigned char flagA;
     if (this->m_44 != 0)
     {
-        iStartPos = a1->FUN_004720a0();
+        iStartPos = a1->Tell();
     }
     FUN_00857b50(a1, &flag9, 1);
     for (i = 0; i < flag9; i++)
@@ -2453,7 +2453,7 @@ void FUN_0085b240_cls::WritePluginList(FUN_0085b240_ref* a1)
     if (this->m_44 != 0)
     {
         reinterpret_cast<FUN_0085b240_att*>(this->m_44)
-            ->SetExtraDataString(a1->FUN_004720a0() - iStartPos, "Plugin List");
+            ->SetExtraDataString(a1->Tell() - iStartPos, "Plugin List");
     }
 }
 
@@ -4671,7 +4671,7 @@ struct SaveProcess
 };
 struct SaveTrespass
 {
-    SavePackage* FUN_0041cd70();
+    SavePackage* GetTrespassPackage();
 };
 struct SaveBase
 {
@@ -5529,8 +5529,8 @@ void SaveFormatter::FormatChangeFlags(char* buffer, SaveForm* form, unsigned int
                 if (flags & 0x0)
                 {
                     unsigned int packageID = 0;
-                    if (actor && actor->FUN_005d43c0() && actor->FUN_005d43c0()->FUN_0041cd70())
-                        packageID = actor->FUN_005d43c0()->FUN_0041cd70()->FUN_0084e3a0();
+                    if (actor && actor->FUN_005d43c0() && actor->FUN_005d43c0()->GetTrespassPackage())
+                        packageID = actor->FUN_005d43c0()->GetTrespassPackage()->FUN_0084e3a0();
                     if (details)
                     {
                         FUN_00406d00(text, 50, "CHANGE_ACTOR_EXTRA_TRESPASS_PACKAGE %08X\r\n", packageID);
@@ -7140,7 +7140,7 @@ struct ExpiredCalendar
     unsigned int FUN_00867e30();
 };
 extern ExpiredCalendar DAT_011de7b8;
-unsigned int __cdecl FUN_00526100();
+unsigned int __cdecl GetHoursToRespawnCell();
 ExpiredReference* __cdecl FUN_004839c0(unsigned int);
 struct ExpiredSaveLoadGame
 {
@@ -7223,7 +7223,7 @@ void ExpiredSaveLoadGame::PurgeExpiredCellChanges()
                     }
                 }
             }
-            if (resetTime && currentTime - resetTime > FUN_00526100())
+            if (resetTime && currentTime - resetTime > GetHoursToRespawnCell())
             {
                 ExpiredCellCoordinates* storedCoordinates = 0;
                 if (p.x != 0x7fffffff)
@@ -8348,7 +8348,7 @@ struct FUN_0085a2e0_Class
     void* unknown_2C;
     void* unknown_30;
     BSSimpleList<BGSNote*> deferred;
-    void FUN_0085a2e0(TESForm*);
+    void DeleteForm(TESForm*);
 };
 
 extern void __cdecl FUN_005b5e40(const char*);
@@ -8362,7 +8362,7 @@ struct IDSource0085a2e0
 struct FormCall0085a2e0
 {
     bool FUN_0047c850();
-    void FUN_00483c70();
+    void RemoveFromDataStructures();
 };
 struct FormIdOne0085a2e0
 {
@@ -8607,7 +8607,7 @@ struct DeferredAdd0085a2e0
 };
 // Checks form changes, assigns an ID, and for non-temporary non-cell forms calls methods and adds the form to deferred if absent.
 // @fnv 0x0085a2e0
-void FUN_0085a2e0_Class::FUN_0085a2e0(TESForm* form)
+void FUN_0085a2e0_Class::DeleteForm(TESForm* form)
 {
     if (!reinterpret_cast<FormCall0085a2e0*>(this)->FUN_0047c850())
         FUN_005b5e40(DAT_010809a0);
@@ -8621,7 +8621,7 @@ void FUN_0085a2e0_Class::FUN_0085a2e0(TESForm* form)
     else
     {
         reinterpret_cast<FormIdTwo0085a2e0*>(form)->SetFormID(0, 1);
-        reinterpret_cast<FormCall0085a2e0*>(form)->FUN_00483c70();
+        reinterpret_cast<FormCall0085a2e0*>(form)->RemoveFromDataStructures();
         reinterpret_cast<FormSlot77_0085a2e0*>(form)->Call(reinterpret_cast<unsigned int>(DAT_01011584));
         if (!deferred.IsInList(reinterpret_cast<BGSNote*&>(form)))
             reinterpret_cast<DeferredAdd0085a2e0*>(&deferred)->FUN_005ae3d0(reinterpret_cast<BGSNote**>(&form));
@@ -8775,7 +8775,7 @@ struct SaveGameFile56
     virtual void V4();
     virtual void Vf(int, int);
     virtual int Vg();
-    unsigned int FUN_004720a0();
+    unsigned int Tell();
 };
 
 struct SaveGameMap56
@@ -8972,7 +8972,7 @@ bool Cls56::FUN_00856ca0(int aiFileHandle, int apSavePath, unsigned char p2)
     seekPos = 0;
     if (!((FUN_00485d50_slg*)this)->GetLoading())
     {
-        seekPos = (int)pForm->FUN_004720a0();
+        seekPos = (int)pForm->Tell();
     }
     rTmp = 0;
     ((::FUN_008586a0_class*)this)->FUN_00857b50((int)pForm, (int)&rTmp, 4);
@@ -9047,7 +9047,7 @@ bool Cls56::FUN_00856ca0(int aiFileHandle, int apSavePath, unsigned char p2)
     filePos2 = 0;
     if (!((FUN_00485d50_slg*)this)->GetLoading())
     {
-        filePos2 = (int)pForm->FUN_004720a0();
+        filePos2 = (int)pForm->Tell();
     }
     ((::fnv_00861d10::TESSaveLoadGame_standin*)this)->WriteFormIDArrays((::fnv_00861d10::BSFile*)pForm);
     if (!((FUN_00485d50_slg*)this)->GetLoading())
@@ -9103,7 +9103,7 @@ struct SaveProcess85A520
 };
 struct SaveEffect85A520
 {
-    unsigned int FUN_004086a0();
+    unsigned int GetProjectileType();
 };
 struct SaveMagic85A520
 {
@@ -9441,7 +9441,7 @@ void SaveHandler85A520::FUN_0085a520(SaveForm85A520* form, unsigned int flags)
         else if (pRef)
         {
             world.type = 2;
-            world.base = FindOrAddValue(pRef->FUN_00586150()->FUN_00825c00()->FUN_004086a0());
+            world.base = FindOrAddValue(pRef->FUN_00586150()->FUN_00825c00()->GetProjectileType());
         }
         ((SaveStream85A520*)::DAT_011de45c)->FUN_008579b0(&world, 36);
     }
@@ -10459,7 +10459,7 @@ struct Record77
 };
 struct Save77
 {
-    void FUN_0085a2e0(TESForm*);
+    void DeleteForm(TESForm*);
     TESForm* FUN_00859a90(unsigned int, Record77*);
 };
 // Looks up or creates a TESForm from the record and initializes it according to its type.
@@ -10484,7 +10484,7 @@ TESForm* Save77::FUN_00859a90(unsigned int id, Record77* record)
         TESObjectREFR* reference = dynamic_cast<TESObjectREFR*>(pForm);
         if (!reference || (record->type != 0 && record->type != 3) || reference->FUN_007af430() != bound28)
         {
-            FUN_0085a2e0(pForm);
+            DeleteForm(pForm);
             pForm = 0;
         }
     }

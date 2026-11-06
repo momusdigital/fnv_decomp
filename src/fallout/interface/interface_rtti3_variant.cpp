@@ -550,18 +550,18 @@ void __cdecl RemoveNodeById(int);
 void __cdecl FUN_00706f90(int aiValue);
 struct FUN_00709920_Class
 {
-    const char* FUN_00709920();
+    const char* GetTypeName();
 };
 class Tile;
 class TileRect
 {
   public:
-    const char* FUN_00709970();
+    const char* GetTypeName();
 };
 class TileMenu
 {
   public:
-    const char* FUN_00709a50();
+    const char* GetTypeName();
 };
 bool IsSomethingZero();
 void FUN_0077f2f0(int a1);
@@ -1213,7 +1213,7 @@ struct Player
     virtual void Unknown188();
     virtual void ActivateInterface(Helper*, int, int);
     InterfaceObject* FUN_008d8520();
-    bool FUN_00437bf0();
+    bool IsRestrained();
     bool FUN_00437bd0();
     int FUN_008d6f30(int);
     void OpenDialogMenu();
@@ -2901,7 +2901,7 @@ struct ChainObj
     void FUN_004a0370();
     void FUN_004a03c0();
     void FUN_00555b10(NiPt3*, NiPt3*, int);
-    void FUN_00556ef0(int, int, int);
+    void GetIntSeenSection(int, int, int);
     void FUN_0054e640(Local12*);
     void FUN_0054e750(int, int, Local12*);
     void CollectCellReferences(unsigned int*);
@@ -3096,8 +3096,8 @@ struct Obj1C
     static void* operator new(unsigned int);
     static void operator delete(void*, unsigned int);
     Obj1C();
-    void FUN_00439340(int);
-    void FUN_00439390(int);
+    void SetSrcBlendMode(int);
+    void SetDestBlendMode(int);
     void FUN_0049ed90(int);
 };
 // map-menu state global, fields at their offsets
@@ -3181,7 +3181,7 @@ struct MapMenuR6
     unsigned char field_12c;
     void UpdateLocalMap();
 };
-int __cdecl FUN_00556870(V3Maker*);
+int __cdecl GetSeenValue(V3Maker*);
 // free helpers; conventions read from add esp evidence
 extern "C" void* __cdecl FUN_00401000(unsigned int);
 extern "C" void __stdcall FUN_00401050(void*, unsigned int, unsigned int, void*);
@@ -3191,7 +3191,7 @@ extern "C" void __cdecl FUN_006815c0();
 extern "C" void __cdecl FUN_004a7800();
 extern "C" int __cdecl FUN_00406d90(float);
 extern "C" void __cdecl FUN_00406d00(char*, unsigned int, const char*, ...);
-extern "C" void __stdcall FUN_00ee6dc2(char*, int, unsigned int);
+extern "C" void __stdcall D3DXSaveTextureToFileA(char*, int, unsigned int);
 extern "C" bool __cdecl FUN_007a1750();
 extern "C" void* __cdecl FUN_007a1480();
 extern "C" void* __cdecl FUN_00653270(unsigned int, unsigned int);
@@ -3732,7 +3732,7 @@ struct DisplayItem
 {
     DisplayForm* FUN_0044ddc0();
     DisplayForm* GetExtraForm();
-    float FUN_004bd400();
+    float GetItemValue();
     unsigned char FUN_004bd820();
     bool HasEffect(int);
     float FUN_004bcdb0(bool);
@@ -3778,7 +3778,7 @@ struct DisplayForm
     float FUN_00709430(int);
     float FUN_004be060();
     float FUN_004be180();
-    DisplayForm* FUN_004bd570(int);
+    DisplayForm* GetModItem(int);
     bool FUN_0040e210(int);
 };
 struct DisplayProcess
@@ -4057,7 +4057,7 @@ struct DisplaySetting
 struct ArmorFlags
 {
     bool FUN_004c0bd0();
-    bool FUN_00514450();
+    bool IsMedium();
 };
 class TESObjectARMO : public TESBoundObject
 {

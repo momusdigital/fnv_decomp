@@ -50,10 +50,10 @@ struct List
     int pad[3];
     int count;
     void FUN_00405d20(Item*);
-    void FUN_00405760(File*, const char*);
+    void Load(File*, const char*);
 };
 // @fnv 0x00405760
-void List::FUN_00405760(File* file, const char* name)
+void List::Load(File* file, const char* name)
 {
     unsigned id;
     EffectSetting* effect;

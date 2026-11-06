@@ -1657,7 +1657,7 @@ template <class T> inline void SwapT(T& x, T& y)
 void PartitionMotionPairs(PairEntryArray* apEntryArray, int* apiFixedCount, int index);
 extern "C" void _ReadBarrier(void);
 extern "C" void _WriteBarrier(void);
-// FUN_00d0ef40 v1 - Havok collide step: monitor ticks, reverse vcall loop, two ctx array loops
+// collideInternal v1 - Havok collide step: monitor ticks, reverse vcall loop, two ctx array loops
 extern char DAT_010cc64c[];
 // TtCollide
 extern char DAT_010cc634[];
@@ -2041,7 +2041,7 @@ struct ThisFull {
     void FUN_00d0d8b0(BodyL*, void*);
 };
 union StepArg { Param* step; volatile unsigned int tick; };
-void __fastcall FUN_00d0ef40(ThisFull* th, void* edx_unused, StepArg arg);
+void __fastcall collideInternal(ThisFull* th, void* edx_unused, StepArg arg);
 struct Tmp {
     int unk00;
     int unk04;
@@ -2741,7 +2741,7 @@ struct D0FE00Simulation {
     int m_iActorEntryCount;
 
     int FUN_00d0ed10();
-    int FUN_00d0fe00();
+    int advanceTime();
 };
 struct Se4b0_Heap {
     virtual void v00();

@@ -700,7 +700,7 @@ class ExtraDataList
   public:
     ExtraDataList();
     ~ExtraDataList();
-    void FUN_0041ab70(bool);
+    void SetCanNotWear(bool);
     int m_auiShapeKeys[8];
 };
 
@@ -743,7 +743,7 @@ int FUN_00406f60(BSStringT<char>* str, const char* fmt, ...);
 void FUN_00704af0();
 
 // @fnv 0x005d0300
-bool FUN_005d0300(const ScriptParameter* param, const char* desc, TESObjectREFR* obj, TESObjectREFR* obj2,
+bool Cmd_UnequipItem_Execute(const ScriptParameter* param, const char* desc, TESObjectREFR* obj, TESObjectREFR* obj2,
                   Script* script, ScriptLocals* locals, double& result, unsigned int& opcode)
 {
     TESForm* pForm = 0;
@@ -771,7 +771,7 @@ bool FUN_005d0300(const ScriptParameter* param, const char* desc, TESObjectREFR*
                     pExtra = pChanges->FUN_004bfda0(pForm, 0);
                     if (pExtra)
                     {
-                        pExtra->FUN_0041ab70(false);
+                        pExtra->SetCanNotWear(false);
                         pActor->FUN_0088c790(pForm, 1, 0, 1, bSet, 1);
                         if (pActor == g_thePlayer && iFlag == 0)
                         {
@@ -801,12 +801,12 @@ bool FUN_005d0300(const ScriptParameter* param, const char* desc, TESObjectREFR*
                     {
                         if (pHolder->FUN_00559450()->GetItem())
                         {
-                            pHolder->FUN_00559450()->GetItem()->FUN_0041ab70(bSet);
+                            pHolder->FUN_00559450()->GetItem()->SetCanNotWear(bSet);
                         }
                         else
                         {
                             ExtraDataList* pNew = new ExtraDataList();
-                            pNew->FUN_0041ab70(bSet);
+                            pNew->SetCanNotWear(bSet);
                             pHolder->FUN_00559450()->AddHead(pNew);
                         }
                     }
@@ -814,7 +814,7 @@ bool FUN_005d0300(const ScriptParameter* param, const char* desc, TESObjectREFR*
                     {
                         pHolder->m_pEntries = new BSSimpleList<const char*>();
                         ExtraDataList* pNew2 = new ExtraDataList();
-                        pNew2->FUN_0041ab70(bSet);
+                        pNew2->SetCanNotWear(bSet);
                         pHolder->FUN_00559450()->AddHead(pNew2);
                     }
                     delete pHolder;

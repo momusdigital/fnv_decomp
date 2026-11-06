@@ -200,10 +200,10 @@ FUN_00a75dc0::FUN_00a75dc0(int a1, int a2, int a3, int a4, int a5, int a6, int a
 struct S_a76020_Strips : public NiTriStripsData
 {
     unsigned int FUN_00a66f90();
-    unsigned int FUN_00a76020();
+    unsigned int GetBlockAllocationSize();
 };
 // @fnv 0x00a76020
-unsigned int S_a76020_Strips::FUN_00a76020()
+unsigned int S_a76020_Strips::GetBlockAllocationSize()
 {
     unsigned short listLen = m_usTriangles + m_usStrips * 2;
     unsigned int size = (listLen + m_usStrips) * 2;
@@ -481,12 +481,12 @@ unsigned int FUN_00a7d5a0(const void*, const void*);
 
 struct NiTriStripsSerializer : NiTriStripsData
 {
-    void FUN_00a76430(NiStream& stream);
+    void GetViewerStrings(NiStream& stream);
     void AppendTrianglesInfo(NiStream& stream);
 };
 
 // @fnv 0x00a76430
-void NiTriStripsSerializer::FUN_00a76430(NiStream& stream)
+void NiTriStripsSerializer::GetViewerStrings(NiStream& stream)
 {
     AppendTrianglesInfo(stream);
     unsigned int entry = FUN_00a7d330(*reinterpret_cast<const NiRTTI* const*>(&DAT_011f4a70));
@@ -739,10 +739,10 @@ void StripLoad::FUN_00a761c0(NiStream& stream)
 
 struct TSD : NiTriStripsData
 {
-    void FUN_00a75e40(unsigned short i, unsigned short& i0, unsigned short& i1, unsigned short& i2) const;
+    void GetTriangleIndices(unsigned short i, unsigned short& i0, unsigned short& i1, unsigned short& i2) const;
 };
 // @fnv 0x00a75e40
-void TSD::FUN_00a75e40(unsigned short i, unsigned short& i0, unsigned short& i1, unsigned short& i2) const
+void TSD::GetTriangleIndices(unsigned short i, unsigned short& i0, unsigned short& i1, unsigned short& i2) const
 {
     unsigned short* pusStripLists = m_pusStripLists;
     unsigned short* pusStripLengths = m_pusStripLengths;
@@ -776,11 +776,11 @@ struct FUN_00a8a9c0_s
 class NiTriStripsDataA75F : public NiTriStripsData
 {
   public:
-    bool FUN_00a75f80(NiObject* pkObject);
+    bool IsEqual(NiObject* pkObject);
 };
 
 // @fnv 0x00a75f80
-bool NiTriStripsDataA75F::FUN_00a75f80(NiObject* pkObject)
+bool NiTriStripsDataA75F::IsEqual(NiObject* pkObject)
 {
     if (!((FUN_00a8a9c0_s*)this)->MatchesTriangleCount(pkObject))
         return false;

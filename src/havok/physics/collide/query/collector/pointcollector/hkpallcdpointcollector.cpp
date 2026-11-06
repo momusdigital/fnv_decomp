@@ -167,11 +167,11 @@ struct S_00cab970_Cls
     int unk08;
     int unk0c;
     S_00cab970_Arr arr;
-    void FUN_00cab970(const S_00cab970_Src* src);
+    void addCdPoint(const S_00cab970_Src* src);
 };
 // Allocates an entry in arr, copies the two vectors from src, and records the root, key, and key path for each body via S_00cab970_Path.
 // @fnv 0x00cab970
-void S_00cab970_Cls::FUN_00cab970(const S_00cab970_Src* src)
+void S_00cab970_Cls::addCdPoint(const S_00cab970_Src* src)
 {
     S_00cab970_Entry& entry = arr.AllocatePair();
     entry.a.q = src->a.q;

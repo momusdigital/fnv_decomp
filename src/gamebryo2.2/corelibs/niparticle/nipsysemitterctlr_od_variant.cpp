@@ -34,7 +34,7 @@ extern const char* const g_01203340_arg1;
 const char* const* __cdecl FUN_00c1c2f0();
 extern int DAT_011ae754;
 extern int DAT_011ae758;
-const char* const* __stdcall FUN_00c1ba50(unsigned short usIndex);
+const char* const* __stdcall GetInterpolatorID(unsigned short usIndex);
 struct NiPSysEmitterCtlr_shell : NiPSysEmitterCtlr
 {
     void FUN_00c1bcc0(NiInterpolator* pkInterpolator, unsigned short usIndex);

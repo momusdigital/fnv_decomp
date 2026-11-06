@@ -396,7 +396,7 @@ struct Physics96
 };
 struct Descriptor96
 {
-    int FUN_0043b540();
+    int getCollisionFilterInfo();
 };
 struct Node96
 {
@@ -424,11 +424,11 @@ bool FUN_0043b300(const void*, Geometry96*);
 void FUN_00c6a350(Node96*, int, bool, bool, bool);
 struct Manager96
 {
-    void FUN_00624720(Input96*);
+    void entityRemovedCallback(Input96*);
 };
 
 // @fnv 0x00624720
-void Manager96::FUN_00624720(Input96* input)
+void Manager96::entityRemovedCallback(Input96* input)
 {
     if (!input)
         return;
@@ -463,7 +463,7 @@ void Manager96::FUN_00624720(Input96* input)
             if (ref->FUN_007af430() == DAT_011ca27c || ref->FUN_007af430() == DAT_011ca280)
                 FUN_00c6a350(linked, 5, true, false, true);
         }
-        if (Filter96(node->FUN_00460140()->FUN_0043b540()).FUN_0043b4d0() == 20 && ref && !ref->IsDisabled())
+        if (Filter96(node->FUN_00460140()->getCollisionFilterInfo()).FUN_0043b4d0() == 20 && ref && !ref->IsDisabled())
         {
             Geometry96* geometry = FUN_004b5a80(node);
             if (geometry && FUN_0043b300(&DAT_012681c0, geometry))

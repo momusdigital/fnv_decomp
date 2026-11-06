@@ -206,7 +206,7 @@ class hkpSimpleShapePhantomD1F5 : public FUN_00ca9520_class
     hkArrayD1F5<hkpSimpleShapePhantomCollisionDetailD1F5> m_kCollisionDetails;
     hkBoolD1F5 m_bOrderDirty;
 
-    void FUN_00d1f5a0(hkpCollidableD1F5* pkCollidable) throw();
+    void removeOverlappingCollidable(hkpCollidableD1F5* pkCollidable) throw();
 };
 class hkClassD1F6;
 extern const hkClassD1F6 DAT_0126902c;
@@ -1681,11 +1681,11 @@ struct LcPhantom
     int unk15c;
     LcCollidableArray unk160;
     void FUN_00d07ec0(LcAabb* aabb);
-    void FUN_00d1f270(const LcVec4& position, const LcCastIn& input, void* castCollector, void* startCollector);
+    void setPositionAndLinearCast(const LcVec4& position, const LcCastIn& input, void* castCollector, void* startCollector);
 };
 
 // @fnv 0x00d1f270
-void LcPhantom::FUN_00d1f270(const LcVec4& position, const LcCastIn& input, void* castCollector, void* startCollector)
+void LcPhantom::setPositionAndLinearCast(const LcVec4& position, const LcCastIn& input, void* castCollector, void* startCollector)
 {
     unke0.m_vComponents = position.m_vComponents;
     LcAabb aabb;

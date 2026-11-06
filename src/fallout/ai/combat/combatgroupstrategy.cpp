@@ -83,12 +83,12 @@ struct MarkerStruct
 
 struct CombatGroupStrategyFallBack
 {
-    void FUN_00990bd0(ActorCombatGroup* apGroup, MarkerStruct* apGroupData);
+    void Execute(ActorCombatGroup* apGroup, MarkerStruct* apGroupData);
 };
 
 // Iterates over every member of the group and calls SetElementValue with index i and value 2.
 // @fnv 0x00990bd0
-void CombatGroupStrategyFallBack::FUN_00990bd0(ActorCombatGroup* apGroup, MarkerStruct* apGroupData)
+void CombatGroupStrategyFallBack::Execute(ActorCombatGroup* apGroup, MarkerStruct* apGroupData)
 {
     unsigned int i = 0;
     for (; i < apGroup->GetCount(); i++)
@@ -178,10 +178,10 @@ struct GroupOps
 };
 struct DummyFallback
 {
-    bool __thiscall FUN_00990b70(ActorCombatGroup* apGroup, MarkerStruct* apGroupData);
+    bool __thiscall CanExecute(ActorCombatGroup* apGroup, MarkerStruct* apGroupData);
 };
 // @fnv 0x00990b70
-bool __thiscall DummyFallback::FUN_00990b70(ActorCombatGroup* apGroup, MarkerStruct* apGroupData)
+bool __thiscall DummyFallback::CanExecute(ActorCombatGroup* apGroup, MarkerStruct* apGroupData)
 {
     if (((DataOps*)apGroupData)->_ref_00726070() < 2)
         return false;
@@ -211,11 +211,11 @@ bool TargetClass::FUN_00990c10(struct ActorCombatGroup* apGroup)
 
 struct CombatGroupStrategyAmbush
 {
-    void __thiscall FUN_00990cb0(ActorCombatGroup* apGroup, MarkerStruct* apGroupData);
+    void __thiscall Execute(ActorCombatGroup* apGroup, MarkerStruct* apGroupData);
 };
 
 // @fnv 0x00990cb0
-void __thiscall CombatGroupStrategyAmbush::FUN_00990cb0(ActorCombatGroup* apGroup, MarkerStruct* apGroupData)
+void __thiscall CombatGroupStrategyAmbush::Execute(ActorCombatGroup* apGroup, MarkerStruct* apGroupData)
 {
     unsigned int i;
     unsigned int i2;
@@ -237,7 +237,7 @@ struct IntPair
 };
 struct CombatGroupStrategyAdvance
 {
-    void __thiscall FUN_00990e70(ActorCombatGroup* apGroup, MarkerStruct* apGroupData);
+    void __thiscall Execute(ActorCombatGroup* apGroup, MarkerStruct* apGroupData);
 };
 struct FUN_00990aa0_helper
 {
@@ -245,7 +245,7 @@ struct FUN_00990aa0_helper
 };
 // Iterates the group data's members and calls SetElementValue on the group with each member's _4 value and 4.
 // @fnv 0x00990e70
-void __thiscall CombatGroupStrategyAdvance::FUN_00990e70(ActorCombatGroup* apGroup, MarkerStruct* apGroupData)
+void __thiscall CombatGroupStrategyAdvance::Execute(ActorCombatGroup* apGroup, MarkerStruct* apGroupData)
 {
     int i;
     IntPair* pmember;
@@ -334,11 +334,11 @@ struct FUN_00990640_shell
 
 struct FUN_00990930_shell
 {
-    void __thiscall FUN_00990930(ActorCombatGroup* apGroup, MarkerStruct* apGroupData);
+    void __thiscall Execute(ActorCombatGroup* apGroup, MarkerStruct* apGroupData);
 };
 
 // @fnv 0x00990930
-void FUN_00990930_shell::FUN_00990930(ActorCombatGroup* apGroup, MarkerStruct* apGroupData)
+void FUN_00990930_shell::Execute(ActorCombatGroup* apGroup, MarkerStruct* apGroupData)
 {
     unsigned int irangedMemberCount;
     unsigned int itotalMemberCount;
@@ -766,10 +766,10 @@ struct CombatGroupMethods
 };
 struct CombatGroupStrategy
 {
-    bool FUN_00990ac0(ActorCombatGroup*);
+    bool Update(ActorCombatGroup*);
 };
 // @fnv 0x00990ac0
-bool CombatGroupStrategy::FUN_00990ac0(ActorCombatGroup* group)
+bool CombatGroupStrategy::Update(ActorCombatGroup* group)
 {
     bool bFound = false;
     unsigned count = group->GetCount();
@@ -794,7 +794,7 @@ extern const float DAT_01034294;
 
 struct FUN_00990c40_cls
 {
-    bool FUN_00990c40(int a1, int a2);
+    bool CanExecute(int a1, int a2);
 };
 
 struct FUN_00990c40_arg2
@@ -810,7 +810,7 @@ struct FUN_00990c40_arg1
 };
 
 // @fnv 0x00990c40
-bool FUN_00990c40_cls::FUN_00990c40(int a1, int a2)
+bool FUN_00990c40_cls::CanExecute(int a1, int a2)
 {
     if (((FUN_00990c40_arg2*)a2)->_ref_00726070() < 2)
     {

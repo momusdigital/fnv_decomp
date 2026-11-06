@@ -93,18 +93,18 @@ struct StrArr
 };
 struct Proxy536d0
 {
-    void FUN_00a536d0(StrArr*);
+    void GetViewerStrings(StrArr*);
 };
 char* __cdecl _FUN_00a7d330(const char*);
 struct NiBoolTimelineInterpolator : NiBoolInterpolator
 {
     void AppendString(StrArr*);
 };
-// Appends the string returned by _FUN_00a7d330(g_011f4044) to pkStrings, growing it via SetSize when full, after calling FUN_00a536d0.
+// Appends the string returned by _FUN_00a7d330(g_011f4044) to pkStrings, growing it via SetSize when full, after calling GetViewerStrings.
 // @fnv 0x00a53020
 void NiBoolTimelineInterpolator::AppendString(StrArr* pkStrings)
 {
-    ((Proxy536d0*)this)->FUN_00a536d0(pkStrings);
+    ((Proxy536d0*)this)->GetViewerStrings(pkStrings);
     char* pszStr = _FUN_00a7d330((const char*)g_011f4044);
     unsigned int uiSize = pkStrings->m_usSize;
     if (uiSize >= pkStrings->m_usMaxSize)
@@ -375,10 +375,10 @@ void FUN_00a52cf0()
 struct BoolInterpolator
 {
     bool FUN_00a53220();
-    bool FUN_00a52d10();
+    bool IsEqual();
 };
 // @fnv 0x00a52d10
-bool BoolInterpolator::FUN_00a52d10()
+bool BoolInterpolator::IsEqual()
 {
     return FUN_00a53220();
 }
@@ -412,12 +412,12 @@ class InterpA52F : public FUN_00a53280
     bool m_bBoolValue;
 
     void CloneTo(InterpA52F* dest, CloningProcessA52F& cloning);
-    InterpA52F* FUN_00a52f80(CloningProcessA52F& cloning);
+    InterpA52F* CreateClone(CloningProcessA52F& cloning);
 };
 
 // Allocates a new InterpA52F, copies state into it via CloneTo, and returns the clone.
 // @fnv 0x00a52f80
-InterpA52F* InterpA52F::FUN_00a52f80(CloningProcessA52F& cloning)
+InterpA52F* InterpA52F::CreateClone(CloningProcessA52F& cloning)
 {
     InterpA52F* p = new InterpA52F;
     CloneTo(p, cloning);

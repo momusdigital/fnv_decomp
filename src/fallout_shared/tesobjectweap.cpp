@@ -1308,12 +1308,12 @@ int __thiscall FUN_00522520_shell::GetField238()
 
 struct FUN_00522560_shell
 {
-    int __thiscall FUN_00522560(bool param);
+    int __thiscall GetSoundLevel(bool param);
 };
 
 // Returns 2 when param is true, otherwise returns the int stored at offset 0x364 of this object.
 // @fnv 0x00522560
-int __thiscall FUN_00522560_shell::FUN_00522560(bool abReturnTwo)
+int __thiscall FUN_00522560_shell::GetSoundLevel(bool abReturnTwo)
 {
     if (abReturnTwo)
         return 2;
@@ -1448,11 +1448,11 @@ struct Flt {
 
 struct FUN_00522c00_shell {
     unsigned char FUN_0046e8c0();
-    unsigned int FUN_00522c00();
+    unsigned int GetEmbeddedWeaponNode();
 };
 
 // @fnv 0x00522c00
-unsigned int FUN_00522c00_shell::FUN_00522c00()
+unsigned int FUN_00522c00_shell::GetEmbeddedWeaponNode()
 {
     if (FUN_0046e8c0())
     {
@@ -1495,11 +1495,11 @@ struct FUN_0048ea40_holder {
 };
 
 struct FUN_005230f0_shell : TESObjectWEAP {
-    void FUN_005230f0(BGSSaveFormBuffer* buffer);
+    void AppendSaveLoadFormBuffer(BGSSaveFormBuffer* buffer);
 };
 
 // @fnv 0x005230f0
-void FUN_005230f0_shell::FUN_005230f0(BGSSaveFormBuffer* buffer)
+void FUN_005230f0_shell::AppendSaveLoadFormBuffer(BGSSaveFormBuffer* buffer)
 {
     reinterpret_cast<FUN_00484d60_holder*>(this)->SaveIfChanged(buffer);
     reinterpret_cast<FUN_0048ea40_holder*>(reinterpret_cast<char*>(this) + 0x84)->FUN_0048ea40(buffer);
@@ -1542,15 +1542,15 @@ void* FUN_0051dad0_This::FUN_0051dad0(unsigned int flags)
     return this;
 }
 
-struct FUN_004fb7a0_obj { int FUN_004fb7a0(int); };
-struct FUN_00522ba0_obj { int FUN_00522ba0(int); };
-// If the object at offset 0x24C is non-null, forwards a1 to its FUN_004fb7a0 and returns the result; otherwise returns 0.
+struct FUN_004fb7a0_obj { int GetImpactData(int); };
+struct FUN_00522ba0_obj { int GetImpactData(int); };
+// If the object at offset 0x24C is non-null, forwards a1 to its GetImpactData and returns the result; otherwise returns 0.
 // @fnv 0x00522ba0
-int FUN_00522ba0_obj::FUN_00522ba0(int a1)
+int FUN_00522ba0_obj::GetImpactData(int a1)
 {
     int val = 0;
     if (*reinterpret_cast<FUN_004fb7a0_obj**>(reinterpret_cast<char*>(this) + 0x24C) != 0)
-        val = (*reinterpret_cast<FUN_004fb7a0_obj**>(reinterpret_cast<char*>(this) + 0x24C))->FUN_004fb7a0(a1);
+        val = (*reinterpret_cast<FUN_004fb7a0_obj**>(reinterpret_cast<char*>(this) + 0x24C))->GetImpactData(a1);
     return val;
 }
 
@@ -1577,10 +1577,10 @@ void FUN_00523080_shell::FUN_00523080(unsigned int aiFlags)
 }
 
 float __cdecl FUN_00404010(float, float);
-struct FUN_00524b80_This : TESObjectWEAP { float FUN_00524b80(bool); };
+struct FUN_00524b80_This : TESObjectWEAP { float GetMinSpreadDegrees(bool); };
 // Returns the weapon's spread at offset 0x104, reduced by the weapon-mod decrease-spread effect when bModValue is set.
 // @fnv 0x00524b80
-float FUN_00524b80_This::FUN_00524b80(bool abApplyMod)
+float FUN_00524b80_This::GetMinSpreadDegrees(bool abApplyMod)
 {
 	if (abApplyMod)
 		return FUN_00404010(0.0f, *(float*)((char*)this + 0x104) - GetModdedWeaponValue(WEAPON_MOD_EFFECT_WEAPON_MOD_DECREASE_SPREAD, 0));
@@ -1589,10 +1589,10 @@ float FUN_00524b80_This::FUN_00524b80(bool abApplyMod)
 }
 
 float __cdecl FUN_00404010(float, float);
-struct FUN_00524be0_shell : TESObjectWEAP { float FUN_00524be0(bool); };
+struct FUN_00524be0_shell : TESObjectWEAP { float GetSpreadDegrees(bool); };
 // Returns the weapon's spread at offset 0x108, reduced by the weapon-mod decrease-spread effect when bModValue is set.
 // @fnv 0x00524be0
-float FUN_00524be0_shell::FUN_00524be0(bool abApplyMod)
+float FUN_00524be0_shell::GetSpreadDegrees(bool abApplyMod)
 {
 	if (abApplyMod)
 		return FUN_00404010(0.0f, *(float *)((char *)this + 0x108) - GetModdedWeaponValue(WEAPON_MOD_EFFECT_WEAPON_MOD_DECREASE_SPREAD, 0));
@@ -1614,20 +1614,20 @@ NiPoint3 TransHolder::FUN_00524c40(NiPoint3 const &aPoint) const
 
 struct Unk005256b0 {
     bool FUN_0046e8c0();
-    const char* FUN_00522c00();
+    const char* GetEmbeddedWeaponNode();
     const char* GetProjectileNodeName();
 };
-// Returns the result of FUN_00522c00 if FUN_0046e8c0 and FUN_00522c00 succeed and the string is non-empty, otherwise "ProjectileNode".
+// Returns the result of GetEmbeddedWeaponNode if FUN_0046e8c0 and GetEmbeddedWeaponNode succeed and the string is non-empty, otherwise "ProjectileNode".
 // @fnv 0x005256b0
 const char* Unk005256b0::GetProjectileNodeName()
 {
-    return FUN_0046e8c0() && FUN_00522c00() && *FUN_00522c00() ? FUN_00522c00() : "ProjectileNode";
+    return FUN_0046e8c0() && GetEmbeddedWeaponNode() && *GetEmbeddedWeaponNode() ? GetEmbeddedWeaponNode() : "ProjectileNode";
 }
 
 struct SceneObjectLookup { static NiAVObject* __cdecl GetObjectByName(NiAVObject*, char const*); };
-struct UnkClass25700 { const char* GetProjectileNodeName(); NiAVObject* FUN_00525700(NiAVObject*); };
+struct UnkClass25700 { const char* GetProjectileNodeName(); NiAVObject* GetFireNode(NiAVObject*); };
 // @fnv 0x00525700
-NiAVObject* UnkClass25700::FUN_00525700(NiAVObject* apObject)
+NiAVObject* UnkClass25700::GetFireNode(NiAVObject* apObject)
 {
     NiAVObject* pFoundObject;
     const char* pNodeName;
@@ -2195,7 +2195,7 @@ struct WeaponCopyAccess : TESObjectWEAP {
     void FUN_008d8ae0(void*);
     BGSImpactDataSet* FUN_008d8b00();
     TESObjectSTAT* GetModSlotStat(unsigned char);
-    TESObjectIMOD* FUN_004bd570(unsigned char);
+    TESObjectIMOD* GetModItem(unsigned char);
     TESSound* GetValueByFlag(bool);
     TESSound* GetPointerByFlag(bool);
     TESSound* GetField228();
@@ -2213,7 +2213,7 @@ struct WeaponCopyAccess : TESObjectWEAP {
     void FUN_00521610(TESSound*);
     void FUN_008d8a80(TESSound*);
     void FUN_008d8aa0(TESSound*);
-    SOUND_LEVEL FUN_00522560(bool);
+    SOUND_LEVEL GetSoundLevel(bool);
     unsigned int FUN_00401170();
     void FUN_004f15a0(unsigned int);
 };
@@ -2242,9 +2242,9 @@ void WeaponCopyAccess::CopyFromWeapon(unsigned int id)
         SetModObject(5, source->GetModSlotStat(5));
         SetModObject(6, source->GetModSlotStat(6));
         SetModObject(7, source->GetModSlotStat(7));
-        SetModItem(1, source->FUN_004bd570(1));
-        SetModItem(2, source->FUN_004bd570(2));
-        SetModItem(4, source->FUN_004bd570(4));
+        SetModItem(1, source->GetModItem(1));
+        SetModItem(2, source->GetModItem(2));
+        SetModItem(4, source->GetModItem(4));
         m_kWeaponModTextureSwap1.CopyFromBase(&source->m_kWeaponModTextureSwap1);
         m_kWeaponModTextureSwap2.CopyFromBase(&source->m_kWeaponModTextureSwap2);
         m_kWeaponModTextureSwap3.CopyFromBase(&source->m_kWeaponModTextureSwap3);
@@ -2267,7 +2267,7 @@ void WeaponCopyAccess::CopyFromWeapon(unsigned int id)
         FUN_00521610(source->FUN_00521630());
         FUN_008d8a80(source->GetField244());
         FUN_008d8aa0(source->FUN_005224a0());
-        m_eSoundLevel = source->FUN_00522560(false);
+        m_eSoundLevel = source->GetSoundLevel(false);
         FUN_004f15a0(source->FUN_00401170());
     }
 }
@@ -2417,11 +2417,11 @@ struct WeaponCompareAccess : TESObjectWEAP {
     void* FUN_008d8ac0();
     void* FUN_008d8b00();
     void* GetModSlotStat(unsigned char);
-    void* FUN_004bd570(unsigned char);
+    void* GetModItem(unsigned char);
     void* GetOffsetF4();
     int GetValueByFlag(bool);
     int GetPointerByFlag(bool);
-    int FUN_00522560(bool);
+    int GetSoundLevel(bool);
     int GetField228();
     int GetField22C();
     int GetField230();
@@ -2461,9 +2461,9 @@ bool WeaponCompareAccess::IsDifferentFrom(TESForm* form) {
     if (GetModSlotStat(5) != other->GetModSlotStat(5)) return true;
     if (GetModSlotStat(6) != other->GetModSlotStat(6)) return true;
     if (GetModSlotStat(7) != other->GetModSlotStat(7)) return true;
-    if (FUN_004bd570(1) != other->FUN_004bd570(1)) return true;
-    if (FUN_004bd570(2) != other->FUN_004bd570(2)) return true;
-    if (FUN_004bd570(4) != other->FUN_004bd570(4)) return true;
+    if (GetModItem(1) != other->GetModItem(1)) return true;
+    if (GetModItem(2) != other->GetModItem(2)) return true;
+    if (GetModItem(4) != other->GetModItem(4)) return true;
     if (((WeaponStringCompare*)&m_kEmbeddedWeaponNodeName)->CompareString(&other->m_kEmbeddedWeaponNodeName, true)) return true;
     if (((WeaponStringCompare*)&VATSAttackName)->CompareString(&other->VATSAttackName, true)) return true;
     if (memcmp(&data, other->GetOffsetF4(), 0xcc)) return true;
@@ -2481,7 +2481,7 @@ bool WeaponCompareAccess::IsDifferentFrom(TESForm* form) {
     if (GetModDistantAttackSound() != other->GetModDistantAttackSound()) return true;
     if (GetField244() != other->GetField244()) return true;
     if (FUN_005224a0() != other->FUN_005224a0()) return true;
-    if (m_eSoundLevel != other->FUN_00522560(false)) return true;
+    if (m_eSoundLevel != other->GetSoundLevel(false)) return true;
     return false;
 }
 
@@ -2740,13 +2740,13 @@ public:
 extern PlayerCharacter* g_thePlayer;
 struct WeapAimShell : public TESObjectWEAP {
     int FUN_00446390();
-    WeapNode* FUN_00525700(void* root);
-    NiPoint3 FUN_005257a0(TESObjectREFR* ref);
+    WeapNode* GetFireNode(void* root);
+    NiPoint3 CalculateReleasePoint(TESObjectREFR* ref);
 };
 
 // Returns the reference's position raised by its height, or the world position of its weapon or 3D node when a process exists.
 // @fnv 0x005257a0
-NiPoint3 WeapAimShell::FUN_005257a0(TESObjectREFR* ref)
+NiPoint3 WeapAimShell::CalculateReleasePoint(TESObjectREFR* ref)
 {
     Actor* actor2 = ref->IsActor() ? (Actor*)ref : 0;
     WeapProcess* process = actor2 ? actor2->GetCurrentProcess() : 0;
@@ -2764,7 +2764,7 @@ NiPoint3 WeapAimShell::FUN_005257a0(TESObjectREFR* ref)
         if (process)
             node9 = ref->Get3D();
         else
-            node9 = FUN_00525700(isPlayer_2 ? g_thePlayer->GetPlayerNode() : ref->GetNiNode());
+            node9 = GetFireNode(isPlayer_2 ? g_thePlayer->GetPlayerNode() : ref->GetNiNode());
         if (node9)
             pos5 = *node9->GetWorldPos();
     }
@@ -2933,7 +2933,7 @@ struct FireExtra {
 struct FirePackage {
  int GetPackType();
  FireRef* FUN_00676140(FireRef*);
- struct FireUse* FUN_006758f0();
+ struct FireUse* GetUseWeaponPackageData();
 };
 struct FireRef {
  virtual void unused000();
@@ -3671,14 +3671,14 @@ struct FireWeapon : TESObjectWEAP {
 
  void FUN_00523150(FireRef*);
  int GetWeaponType() const;
- FireNode* FUN_00525700(FireNode*);
+ FireNode* GetFireNode(FireNode*);
  bool FUN_004ad030();
  struct FireString* FUN_00504e60();
- float FUN_00524b80(bool); float FUN_00524be0(bool);
+ float GetMinSpreadDegrees(bool); float GetSpreadDegrees(bool);
  bool FUN_004c0bf0();
  struct FireRefData* GetOrFallback(FireRef*);
  bool GetIsAutomaticWeapon();
- void FUN_00524db0(FireRef*);
+ void ExpelShellCasing(FireRef*);
  bool FUN_0046e8c0();
  float GetFloatAt144(); float FUN_00821680(); float FUN_00567470();
  float GetEffectValue(int,unsigned char);
@@ -3747,7 +3747,7 @@ extern FireRef* DAT_011f21f0;
 extern FireRef* DAT_011f21e8;
 extern FireRef* DAT_011f21ec;
 extern float DAT_011c9508;
-bool FUN_0066dde0(int);
+bool IsAttackAction(int);
 float RandomFloat(float,float);
 float FUN_004e44b0(float);
 float FireCos(float);
@@ -3798,7 +3798,7 @@ void FireWeapon::FUN_00523150(FireRef* reference) {
    if (player12) _g_thePlayer->FUN_00524d70();
   } else {
    if (process39) muzzle11 = reference->muzzle();
-   else muzzle11 = FUN_00525700(player12 ? _g_thePlayer->FUN_00950be0() : reference->root());
+   else muzzle11 = GetFireNode(player12 ? _g_thePlayer->FUN_00950be0() : reference->root());
    if (muzzle11) {
     position6 = *muzzle11->FUN_0045bb80();
     if (DAT_011f2250.FUN_0044ddc0()!=4 && actor19==_g_thePlayer && _g_thePlayer->FUN_008bbc10() && FUN_00504e60()->GetModelLength()) {
@@ -3848,7 +3848,7 @@ void FireWeapon::FUN_00523150(FireRef* reference) {
   float accuracy5 = actor19 ? actor19->GetCachedSpeed(1) : *g_011ce23c.Float();
   bool modSpread31 = false;
   if (actor19 && actor19->GetCurrentAIProcess() && extra13 && extra13->HasEffect(3)) modSpread31 = true;
-  float spread50 = (FUN_00524b80(modSpread31) + FUN_00524be0(modSpread31)*accuracy5) * 0.01745329238474369;
+  float spread50 = (GetMinSpreadDegrees(modSpread31) + GetSpreadDegrees(modSpread31)*accuracy5) * 0.01745329238474369;
   if (actor19 && actor19->GetCurrentAIProcess()) {
    spread50 = ComputeAmmoEffectValue(3,GetCurrentAmmo((Actor*)actor19) ? ((FireAmmo*)GetCurrentAmmo((Actor*)actor19))->FUN_00923000() : 0,spread50);
   }
@@ -3928,11 +3928,11 @@ void FireWeapon::FUN_00523150(FireRef* reference) {
   unsigned char specialFlag19=0;
   FirePackage* package3 = actor19 ? actor19->GetCurrentPackage() : 0;
   if (package3) {
-   FireUse* use=package3->FUN_006758f0();
+   FireUse* use=package3->GetUseWeaponPackageData();
    if (use) { aimed26=use->FUN_00424940(); specialFlag19=use->GetByteAt0D(); }
   }
   bool specialAmmo35=false;
-  if (shot16 && shot16->special && FUN_0066dde0(shot16->id)) specialAmmo35=true;
+  if (shot16 && shot16->special && IsAttackAction(shot16->id)) specialAmmo35=true;
   if (actor19 && process39) process39->shotsCount(projectileCount11);
   bool vatTarget22=false;
   FireRef* aimTarget25=0;
@@ -3967,7 +3967,7 @@ void FireWeapon::FUN_00523150(FireRef* reference) {
     FireRef* shooter2=0;
     if (reference->isActor()) shooter2=reference;
     spawned19=CreateProjectile(GetOrFallback(shooter2),reference,target20,this,position6,shotYaw16,shotPitch5,lastNode23,aimTarget25,aimed26,(bool)(specialFlag19 || useSpecial62),yawOffset5,pitchOffset13,0);
-    if (shot16 && (shot16->ammo || shot16->special) && FUN_0066dde0(shot16->id) && !useSpecial62) {
+    if (shot16 && (shot16->ammo || shot16->special) && IsAttackAction(shot16->id) && !useSpecial62) {
      if (!GetIsAutomaticWeapon() || (!DAT_011f2250.FUN_00441110() && GetIsAutomaticWeapon())) DAT_011f2250.FUN_009c8b90(spawned19);
     }
     if (!firstProjectile43) spawned19->SetWhich(0);
@@ -3975,7 +3975,7 @@ void FireWeapon::FUN_00523150(FireRef* reference) {
     --count3;
    }
    if (!useSpecial62) ++usedAmmo26;
-   if (shot16 && (shot16->ammo || shot16->special) && FUN_0066dde0(shot16->id)) {
+   if (shot16 && (shot16->ammo || shot16->special) && IsAttackAction(shot16->id)) {
     if (useSpecial62 && shot16->special) --shot16->special;
     else {
      int ammoPerShot=GetAmmoPerShot();
@@ -4023,7 +4023,7 @@ void FireWeapon::FUN_00523150(FireRef* reference) {
     }
     break;
   }
-  if (GetIsAutomaticWeapon()) FUN_00524db0(reference);
+  if (GetIsAutomaticWeapon()) ExpelShellCasing(reference);
 
  }
 }
@@ -4221,15 +4221,15 @@ bool __cdecl FUN_004b61d0(P12, BSFaceGenAnimationData*, float);
 float __cdecl FUN_00476b70(float, float);
 void __cdecl FUN_00458620(P12*, int);
 float __cdecl FUN_0040ebd0(float, float);
-void __cdecl FUN_00525340(P12*);
+void __cdecl UnitizeVector(P12*);
 struct ThisObj {
     SubA* FUN_004600d0();
-    void FUN_00524db0(Param* param);
+    void ExpelShellCasing(Param* param);
 };
 
 // Creates an XObj using node data, settings, and a call on param when the conditions pass.
 // @fnv 0x00524db0
-void ThisObj::FUN_00524db0(Param* param)
+void ThisObj::ExpelShellCasing(Param* param)
 {
     if (param != 0) {
     if (param->Unk_40()) {
@@ -4286,7 +4286,7 @@ void ThisObj::FUN_00524db0(Param* param)
     _fa8 = -*DAT_011ce0e4.FUN_00403e20();
     f8c2 = *DAT_011ce0e4.FUN_00403e20();
     vecA0.FUN_00439180(1.0f + FUN_00476b70(_fa8, f8c2));
-    FUN_00525340(&vecA0);
+    UnitizeVector(&vecA0);
     temp6.FUN_00416870(*DAT_011cf1d4.FUN_00403e20() * vecA0.x, 0.0f, *DAT_011cf1d4.FUN_00403e20() * vecA0.z);
     obj14 = *node3->FUN_00461130()->FUN_004b4500(&bufC3, &temp6);
     if (paramHome8 == DAT_011dea3c && !DAT_011dea3c->FUN_004eaf60() && !DAT_011f2250.FUN_00525430()) {

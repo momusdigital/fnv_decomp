@@ -32,15 +32,15 @@ void TESScriptableForm::InitItem(TESForm* owner)
 }
 
 extern int DAT_0101d518;
-void __fastcall FUN_0048cc80(void* pThis);
+void __fastcall InitializeDataComponent(void* pThis);
 
-// Initialises a BaseFormComponent: runs its base constructor, installs the vtable at DAT_0101d518, calls FUN_0048cc80, and returns pThis.
+// Initialises a BaseFormComponent: runs its base constructor, installs the vtable at DAT_0101d518, calls InitializeDataComponent, and returns pThis.
 // @fnv 0x0048cc50
 void* __fastcall FUN_0048cc50(BaseFormComponent* apComponent)
 {
     apComponent->BaseFormComponent::BaseFormComponent();
     *(int**)apComponent = &DAT_0101d518;
-    FUN_0048cc80(apComponent);
+    InitializeDataComponent(apComponent);
     return apComponent;
 }
 
@@ -128,11 +128,11 @@ struct TESTexture : public BaseFormComponent
 typedef char _sizecheck_TESTexture[sizeof(TESTexture) == 12 ? 1 : -1];
 struct FUN_0048cc80_shell : public BGSMessageIcon
 {
-    void FUN_0048cc80();
+    void InitializeDataComponent();
 };
 
 // @fnv 0x0048cc80
-void FUN_0048cc80_shell::FUN_0048cc80()
+void FUN_0048cc80_shell::InitializeDataComponent()
 {
     *(int*)((char*)this + 4) = 0;
     ((char*)this)[8] = 0;
@@ -303,11 +303,11 @@ struct Helper_00726070
 };
 struct Holder_0048cd30
 {
-    bool FUN_0048cd30(BaseFormComponent*);
+    bool CompareComponent(BaseFormComponent*);
 };
 // Casts a to TESScriptableForm and returns true if the cast fails or the two objects' _ref_00726070 values differ, false otherwise.
 // @fnv 0x0048cd30
-bool Holder_0048cd30::FUN_0048cd30(BaseFormComponent* apComponent)
+bool Holder_0048cd30::CompareComponent(BaseFormComponent* apComponent)
 {
     TESScriptableForm* b = dynamic_cast<TESScriptableForm*>(apComponent);
     if (!b)

@@ -15,7 +15,7 @@ struct FUN_00c936a0_host
 };
 struct FUN_00e41ef0_self
 {
-    void* FUN_00e41ef0(void* world);
+    void* addToWorld(void* world);
 };
 struct __declspec(align(16)) hkAabb
 {
@@ -45,7 +45,7 @@ struct FUN_00e41e70_host
     void* m_reserved[3];
     FUN_00cf24a0_host* m_pPhantom;
 
-    void FUN_00e41e70(unsigned int shape);
+    void updateBeforeCollisionDetection(unsigned int shape);
 };
 struct FUN_00c92c70_host
 {
@@ -53,7 +53,7 @@ struct FUN_00c92c70_host
 };
 struct FUN_00e41f00_self
 {
-    void FUN_00e41f00();
+    void removeFromWorld();
 };
 extern int DAT_010e5ae4;
 extern int DAT_0102e388;
@@ -444,7 +444,7 @@ struct __declspec(align(16)) FUN_00e41eb0_Input
 };
 struct FUN_00e41eb0_Host : public hkpVehicleRayCastWheelCollide
 {
-    void __thiscall FUN_00e41eb0(const void* source, void* output);
+    void __thiscall castSingleWheel(const void* source, void* output);
 };
 struct hkpVehicleDataE420
 {
@@ -526,7 +526,7 @@ struct S00e420c0_Self
     virtual void FinalizeWheelCollisionOutput(const hkpVehicleInstanceE420* vehicle, unsigned char wheelIndex,
                                               CollisionDetectionWheelOutputE420& cdInfo);
 
-    void FUN_00e420c0(float deltaTime, const hkpVehicleInstanceE420* vehicle,
+    void collideWheels(float deltaTime, const hkpVehicleInstanceE420* vehicle,
                       CollisionDetectionWheelOutputE420* cdInfoOut);
 };
 extern "C" __m128 _mm_min_ps(__m128 a, __m128 b);
@@ -619,7 +619,7 @@ struct FUN_00e42010_self
     void* unk44;
     FUN_00e42010_item* unk48;
 };
-void __stdcall FUN_00e42010(FUN_00e42010_self* self, hkAabb* aabb);
+void __stdcall calcWheelsAABB(FUN_00e42010_self* self, hkAabb* aabb);
 struct S00e42460_Vec4
 {
     __m128 m_vComponents;
@@ -730,7 +730,7 @@ struct S00e42460_RayCastCommand
 class S00e42460_RayCastWheelCollide : public hkpVehicleRayCastWheelCollide
 {
   public:
-    int FUN_00e42460(const S00e42460_VehicleInstance* vehicle, const hkpCollisionFilter* collisionFilter,
+    int buildRayCastCommands(const S00e42460_VehicleInstance* vehicle, const hkpCollisionFilter* collisionFilter,
                      hkInt32 filterSize, S00e42460_RayCastCommand* commandStorage,
                      S00e42460_WorldRayCastOutput* outputStorage) const;
 };
@@ -942,7 +942,7 @@ __forceinline void PointVelocity(const MotionData& motion, const VecWork& point,
     out.add(motion.linearVelocity);
 }
 // @fnv 0x00e42190
-void __stdcall FUN_00e42190(VObj* a, unsigned char idx, Src* src, Dst* dst)
+void __stdcall getCollisionOutputFromCastResult(VObj* a, unsigned char idx, Src* src, Dst* dst)
 {
     float* table = a->f34->f08;
     float slotA = table[idx * 12 + 8];

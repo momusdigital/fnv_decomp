@@ -2077,7 +2077,7 @@ void __thiscall FUN_009a03d0_cls::FUN_009a03d0(unsigned char flag)
 }
 
 extern "C" int __fastcall FUN_004030b0(void* obj);
-extern "C" float __cdecl FUN_0047eeb0(unsigned int v);
+extern "C" float __cdecl GetConfidenceLevel(unsigned int v);
 extern const double DAT_01012060;
 
 class FUN_009a1380_cls
@@ -2218,7 +2218,7 @@ unsigned char FUN_009a1380_cls::FUN_009a1380()
     {
         return 0;
     }
-    f = FUN_0047eeb0(m_c9);
+    f = GetConfidenceLevel(m_c9);
     if (f > DAT_01012060)
     {
         f -= m_cc;
@@ -2910,7 +2910,7 @@ extern S_9a54a0_Setting DAT_011cf3f0;
 struct S_9a54a0_Actor
 {
     float FUN_006a78f0();
-    float FUN_00477900();
+    float GetRadiusBSUnits();
 };
 float __cdecl ComputeExplosionDamageFalloff(float a, float b, float c);
 struct S_9a54a0_Class
@@ -2924,7 +2924,7 @@ void S_9a54a0_Class::FUN_009a54a0(int a1, S_9a54a0_Actor* pActor, float a3)
     float cur = pActor->FUN_006a78f0();
     if (cur >= *DAT_011cf3f0.FUN_00403e20())
     {
-        float f = pActor->FUN_00477900();
+        float f = pActor->GetRadiusBSUnits();
         f = ComputeExplosionDamageFalloff(f, cur, *DAT_011cf3f0.FUN_00403e20());
         AddOrUpdateItem(a1, f, 0.0f, a3, cur);
     }
@@ -6797,7 +6797,7 @@ void FUN_005ac750(void*, int, int);
 void InitCombatThing(Hit082*, Obj082*, Obj082*, Obj082*, float);
 Pair082 FUN_00532fd0(float, Pair082*);
 Obj082* FUN_00705950();
-bool FUN_00646400(void*, int);
+bool CheckKnockdown(void*, int);
 void FUN_00c6a350(Obj082*, int, int, int, int);
 // @fnv 0x009b00a0
 void Obj082::ProcessHits()
@@ -6871,7 +6871,7 @@ void Obj082::ProcessHits()
                         }
                         if (!amount->State(0) && (FUN_004181e0()->HasAnyFlags(4) ||
                                                   (FUN_004181e0()->HasAnyFlags(8) &&
-                                                   FUN_00646400(amount ? &amount->hits : 0, (int)hit.unk14))))
+                                                   CheckKnockdown(amount ? &amount->hits : 0, (int)hit.unk14))))
                             FUN_009b0d70(amount, distance);
                         if (amount->State(0))
                         {
@@ -8705,7 +8705,7 @@ struct HitWeapon
     bool FUN_006450c0();
     int FUN_00446390();
     unsigned char FUN_00525b20(int, int, HitActor*);
-    bool FUN_00524b40();
+    bool IsAutomaticWeapon();
     int FUN_009b6600();
 };
 extern HitActor* DAT_011dea3c;
@@ -8825,7 +8825,7 @@ void HitDamage::FUN_009b5a30(bool skipBlock)
     if (attacker && attacker->FUN_008d8520() && attacker->FUN_008d8520()->Weapon() &&
         attacker->FUN_008d8520()->Weapon()->HasEffect(12) && threshold > DAT_01012060)
         threshold /= weapon->FUN_00525b20(1, 0, attacker);
-    if (weapon && weapon->FUN_00524b40() && weapon->FUN_006450c0())
+    if (weapon && weapon->IsAutomaticWeapon() && weapon->FUN_006450c0())
     {
         float rounds = (float)FUN_009b65d0(weapon->clip.Count(), 1);
         float fraction = 1.0f - threshold / rounds;

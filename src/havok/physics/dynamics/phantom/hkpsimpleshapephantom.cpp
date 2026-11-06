@@ -285,11 +285,11 @@ class hkpSimpleShapePhantomD1F5 : public FUN_00ca9520_class
     hkArrayD1F5<hkpSimpleShapePhantomCollisionDetailD1F5> m_kCollisionDetails;
     hkBoolD1F5 m_bOrderDirty;
 
-    void FUN_00d1f5a0(hkpCollidableD1F5* pkCollidable) throw();
+    void removeOverlappingCollidable(hkpCollidableD1F5* pkCollidable) throw();
 };
 
 // @fnv 0x00d1f5a0
-void hkpSimpleShapePhantomD1F5::FUN_00d1f5a0(hkpCollidableD1F5* pkCollidable) throw()
+void hkpSimpleShapePhantomD1F5::removeOverlappingCollidable(hkpCollidableD1F5* pkCollidable) throw()
 {
     if (pkCollidable->getShape() != 0)
     {
@@ -1557,13 +1557,13 @@ void FUN_00d1f520_Phantom::QueryPenetrations(FUN_00d1f520_Collector& collector, 
 #include <xmmintrin.h>
 struct FUN_00d1f450_Obj
 {
-    void FUN_00d1f270(int* a, int b, int c, int d);
-    void FUN_00d1f450(int* source, int a, int b, int c);
+    void setPositionAndLinearCast(int* a, int b, int c, int d);
+    void setTransformAndLinearCast(int* source, int a, int b, int c);
 };
 
-// Copies 12 floats from source to this at float index 0x2C using SSE, then calls FUN_00d1f270 with source plus 0x30 bytes and a, b, c.
+// Copies 12 floats from source to this at float index 0x2C using SSE, then calls setPositionAndLinearCast with source plus 0x30 bytes and a, b, c.
 // @fnv 0x00d1f450
-void FUN_00d1f450_Obj::FUN_00d1f450(int* source, int a, int b, int c)
+void FUN_00d1f450_Obj::setTransformAndLinearCast(int* source, int a, int b, int c)
 {
     float* destination = reinterpret_cast<float*>(this) + 0x2C;
     float* vectors = reinterpret_cast<float*>(source);
@@ -1572,7 +1572,7 @@ void FUN_00d1f450_Obj::FUN_00d1f450(int* source, int a, int b, int c)
     _mm_store_ps(destination + 4, _mm_load_ps(vectors + 4));
     _mm_store_ps(destination + 8, _mm_load_ps(vectors + 8));
 
-    this->FUN_00d1f270(reinterpret_cast<int*>(reinterpret_cast<char*>(source) + 0x30), a, b, c);
+    this->setPositionAndLinearCast(reinterpret_cast<int*>(reinterpret_cast<char*>(source) + 0x30), a, b, c);
 }
 
 namespace fnv_00d1f960 {

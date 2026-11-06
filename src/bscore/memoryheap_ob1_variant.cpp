@@ -41,7 +41,7 @@ struct FUN_00aa7d60_cls
 {
     char pad0[0x10];
     unsigned int m_uiPage;
-    void FUN_00aa7d60(FUN_00aa7d60_blk* pBlock);
+    void DecommitPages(FUN_00aa7d60_blk* pBlock);
 };
 struct MemoryManager
 {
@@ -78,7 +78,7 @@ struct FUN_00aa7ca0_cls
     char pad0[0x20f0];
     bool m_bFlag;
     unsigned int WriteBucketInfo(FUN_00aa7ca0_obj* p);
-    unsigned int FUN_00aa7ca0(FUN_00aa7ca0_obj* p);
+    unsigned int OutputBucketInfo(FUN_00aa7ca0_obj* p);
 };
 struct AA7D00Stream
 {

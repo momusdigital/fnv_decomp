@@ -91,12 +91,12 @@ struct NiInterpolator
 };
 struct NiKeyBasedInterpolator : public NiInterpolator
 {
-    void FUN_00a3cbf0(StrArr*);
+    void GetViewerStrings(StrArr*);
 };
 char* _FUN_00a7d330(const char*);
 extern const char* _DAT_011f3740;
 // @fnv 0x00a3cbf0
-void NiKeyBasedInterpolator::FUN_00a3cbf0(StrArr* pkStrings)
+void NiKeyBasedInterpolator::GetViewerStrings(StrArr* pkStrings)
 {
     NiInterpolator::FUN_00a570b0(pkStrings);
     char* pcStr = _FUN_00a7d330(_DAT_011f3740);
@@ -182,14 +182,14 @@ class KeyInterp
         return (AnimationKey*)((char*)pkKeys + uiIndex * ucSize);
     }
 
-    void FUN_00a3cac0(float& fBeginKeyTime, float& fEndKeyTime) const;
+    void GetActiveTimeRange(float& fBeginKeyTime, float& fEndKeyTime) const;
 };
 
 extern float DAT_0109704c;
 extern float DAT_01015f5c;
 
 // @fnv 0x00a3cac0
-void KeyInterp::FUN_00a3cac0(float& fBeginKeyTime, float& fEndKeyTime) const
+void KeyInterp::GetActiveTimeRange(float& fBeginKeyTime, float& fEndKeyTime) const
 {
     fBeginKeyTime = DAT_0109704c;
     fEndKeyTime = DAT_01015f5c;

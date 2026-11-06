@@ -108,7 +108,7 @@ class SForm
 };
 struct Obj34
 {
-    int FUN_0040a1e0();
+    int GetMagicItemFormID();
 };
 struct Obj44
 {
@@ -656,7 +656,7 @@ void SaveShell::FUN_004235e0(unsigned int flags, SForm* form)
                 int a = 0;
                 if (X->caster.vf34())
                 {
-                    a = X->caster.vf34()->FUN_0040a1e0();
+                    a = X->caster.vf34()->GetMagicItemFormID();
                 }
                 DAT_011de45c->FUN_00857a10(&a, 4);
                 int b = 0;
@@ -1180,12 +1180,12 @@ class ThisQ
     void FUN_0041c900();
     void FUN_00419d10(G*);
     ListQ* FUN_00422700();
-    G* FUN_00418460();
+    G* GetTeleport();
     G* FUN_0041df90();
     G* FUN_0041de00();
     void FUN_0041de40(G*);
-    G* FUN_00419ea0();
-    void FUN_00419dc0(G*);
+    G* GetHeadTrackTargetExtra();
+    void SetHeadTrackTargetExtra(G*);
     void FUN_00426020(unsigned int a1, int a2, O* a3, void* a4);
 };
 // @fnv 0x00426020
@@ -1311,7 +1311,7 @@ void ThisQ::FUN_00426020(unsigned int a1, int a2, O* a3, void* a4)
             }
             if (a1 & 0x20000)
             {
-                G* h = FUN_00418460();
+                G* h = GetTeleport();
                 h->FUN_0043a9f0();
             }
         }
@@ -1359,12 +1359,12 @@ void ThisQ::FUN_00426020(unsigned int a1, int a2, O* a3, void* a4)
                     c8->FUN_005d43c0(a3)->FUN_0041e000();
             }
         }
-        v = FUN_00419ea0();
+        v = GetHeadTrackTargetExtra();
         if (v)
         {
             G* f9 = v;
             v = (G*)dynamic_cast<TESObjectREFR*>(FUN_004839c0(f9));
-            FUN_00419dc0(v);
+            SetHeadTrackTargetExtra(v);
         }
     }
 }

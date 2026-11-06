@@ -9,11 +9,11 @@ struct CombatProcedure
 
 struct CombatProcedureAttackGrenade : CombatProcedure
 {
-    void FUN_009cafc0();
+    void Shutdown();
 };
 
 // @fnv 0x009cafc0
-void CombatProcedureAttackGrenade::FUN_009cafc0()
+void CombatProcedureAttackGrenade::Shutdown()
 {
     CombatProcedure::RunProcedure();
 }
@@ -684,7 +684,7 @@ struct Procedure
     Target* TargetGet();
     bool Validate(void*, Point*, float);
     void Reset();
-    bool FUN_009cb460(Point* output, Point* input);
+    bool GetTargetedPoint(Point* output, Point* input);
 };
 extern Point zeroPoint;
 extern const float scaleValue;
@@ -692,7 +692,7 @@ unsigned char Arc(void*, Target*, Item*, Point, Point, Point, unsigned char*, Po
 unsigned char Direct(void*, Target*, Item*, Point*, unsigned char*, Point*, float);
 float Distance(Item*, Point, Point, unsigned char, float);
 // @fnv 0x009cb460
-bool Procedure::FUN_009cb460(Point* output, Point* input)
+bool Procedure::GetTargetedPoint(Point* output, Point* input)
 {
     void* i;
     i = ActorGet();

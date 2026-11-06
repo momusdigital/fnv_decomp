@@ -95,7 +95,7 @@ bool BGSHungerStage::Load(TESFile* file)
             form.readOBNDSubRecord(file);
             break;
         case 0x41544144:
-            reinterpret_cast<BGSDehydrationStage*>(this)->FUN_004861f0(
+            reinterpret_cast<BGSDehydrationStage*>(this)->LoadData(
                 file, reinterpret_cast<BGSDehydrationStage*>(this)->FUN_00500940(8));
             break;
         }
@@ -257,7 +257,7 @@ struct FUN_00485680
 
 struct FUN_00485e00_shell
 {
-    void FUN_00485e20(int, int);
+    void __SaveData(int, int);
 };
 
 struct FUN_00591e10_shell : public BGSDehydrationStage
@@ -280,7 +280,7 @@ void FUN_00591e10_shell::InitDehydrationStage()
         reinterpret_cast<FUN_005a71d0*>(reinterpret_cast<char*>(this) + 0x18)->FUN_00462230();
     }
 
-    reinterpret_cast<FUN_00485e00_shell*>(this)->FUN_00485e20(reinterpret_cast<int>(this) + 0x18, 8);
+    reinterpret_cast<FUN_00485e00_shell*>(this)->__SaveData(reinterpret_cast<int>(this) + 0x18, 8);
 
     if (_FUN_00401500())
     {

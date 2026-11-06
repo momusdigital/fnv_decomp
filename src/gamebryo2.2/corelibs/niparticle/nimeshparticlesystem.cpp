@@ -127,10 +127,10 @@ class NiMeshParticleSystem : public NiGeometry
     char _pad1[0x98];
     NiPropertyState _st;
     NiMeshPSysData* _pk;
-    void __thiscall FUN_00c21b60(NiPropertyState* pkParentState);
+    void __thiscall UpdatePropertiesDownward(NiPropertyState* pkParentState);
 };
 // @fnv 0x00c21b60
-void __thiscall NiMeshParticleSystem::FUN_00c21b60(NiPropertyState* pkParentState)
+void __thiscall NiMeshParticleSystem::UpdatePropertiesDownward(NiPropertyState* pkParentState)
 {
     NiGeometry::UpdatePropertiesDownwardPass(pkParentState);
     _pk->m_pMeshNode->UpdatePropertiesDownwardPass(&_st);
@@ -301,12 +301,12 @@ struct NiMeshParticleSystemClone : NiMeshParticleSystem
 {
     static void* __cdecl operator new(unsigned int);
     void __thiscall FUN_00c1b6f0(NiMeshParticleSystemClone*, CloningProcess&);
-    NiMeshParticleSystemClone* __thiscall FUN_00c21e20(CloningProcess&);
+    NiMeshParticleSystemClone* __thiscall CreateClone(CloningProcess&);
     char _pad114[4];
 };
 // Allocates and constructs a NiMeshParticleSystemClone, copies m_f110 and the byte at offset 0x114 from this, and returns it.
 // @fnv 0x00c21e20
-NiMeshParticleSystemClone* __thiscall NiMeshParticleSystemClone::FUN_00c21e20(CloningProcess& process)
+NiMeshParticleSystemClone* __thiscall NiMeshParticleSystemClone::CreateClone(CloningProcess& process)
 {
     NiMeshParticleSystemClone* result = new NiMeshParticleSystemClone;
     if (result)
@@ -338,7 +338,7 @@ extern void(__cdecl* DAT_011ac2ac)(char* buffer, const char* message, int value)
 struct FUN_00c21960_shell
 {
     void __thiscall CheckUnsupportedMeshParticle(NiStream& stream);
-    void __thiscall FUN_00c1b3a0(NiStream& stream);
+    void __thiscall LoadBinary(NiStream& stream);
 };
 
 // @fnv 0x00c21960
@@ -377,7 +377,7 @@ void __thiscall FUN_00c21960_shell::CheckUnsupportedMeshParticle(NiStream& strea
         }
     }
 
-    FUN_00c1b3a0(stream);
+    LoadBinary(stream);
 }
 
 class C21A10Object
@@ -826,7 +826,7 @@ struct NiObject
         return *(NiObject * * const*)((const char*)this + 0x1c);
     }
     void __thiscall ApplyToAllObjects(unsigned int);
-    void __thiscall FUN_00a809b0(unsigned int);
+    void __thiscall PurgeRendererData(unsigned int);
     void __thiscall FUN_00c21cb0(unsigned int);
 };
 struct NiObjectNode
@@ -844,7 +844,7 @@ struct NiObjectNode
 // @fnv 0x00c21cb0
 void __thiscall NiObject::FUN_00c21cb0(unsigned int value)
 {
-    FUN_00a809b0(value);
+    PurgeRendererData(value);
     NiObject* pLinkedObject = *(NiObject**)((char*)this + 0xb8);
     if (pLinkedObject)
     {
@@ -1186,11 +1186,11 @@ struct FUN_00c21a80_cls
     unsigned int unk10C;
     float m_f110;
     char m_b114;
-    void __thiscall FUN_00c21a80(NiUpdateData&, unsigned int);
+    void __thiscall UpdateDownwardPass(NiUpdateData&, unsigned int);
 };
 // Runs update callbacks over the node and object lists, defers the found object's v37, then stores the update time and flag.
 // @fnv 0x00c21a80
-void FUN_00c21a80_cls::FUN_00c21a80(NiUpdateData& aUpdateData, unsigned int arg2)
+void FUN_00c21a80_cls::UpdateDownwardPass(NiUpdateData& aUpdateData, unsigned int arg2)
 {
     if (aUpdateData.m_bRender)
     {
@@ -1331,7 +1331,7 @@ struct Ps21Node
     char _pad9c[0x1c];
     Ps21Owner* m_b8;
 
-    void FUN_00c1add0(unsigned int a1);
+    void UpdateWorldData(unsigned int a1);
     void CopyFromNode(unsigned int a1);
 };
 
@@ -1339,7 +1339,7 @@ struct Ps21Node
 // @fnv 0x00c21bf0
 void Ps21Node::CopyFromNode(unsigned int a1)
 {
-    FUN_00c1add0(a1);
+    UpdateWorldData(a1);
     Ps21Owner* owner = m_b8;
     owner->m_7c->m_34 = m_68;
     Ps21Target* y = owner->m_7c;

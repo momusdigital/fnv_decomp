@@ -62,11 +62,11 @@ struct TESForm
 };
 struct FUN_00475170_shell : public BGSClipRoundsForm
 {
-    bool FUN_00475170(BaseFormComponent*);
+    bool CompareComponent(BaseFormComponent*);
 };
 // Casts other to BGSClipRoundsForm and returns true if the cast fails or the form types differ, otherwise false.
 // @fnv 0x00475170
-bool FUN_00475170_shell::FUN_00475170(BaseFormComponent* other)
+bool FUN_00475170_shell::CompareComponent(BaseFormComponent* other)
 {
     BGSClipRoundsForm* pClipRoundsForm = dynamic_cast<BGSClipRoundsForm*>(other);
     if (!pClipRoundsForm)

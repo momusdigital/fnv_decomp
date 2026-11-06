@@ -7,11 +7,11 @@ struct Actor;
 struct ReanimateEffect
 {
     unsigned short __thiscall FUN_00804f80(Actor* apActor);
-    unsigned short __thiscall FUN_00827440(Actor* apActor);
+    unsigned short __thiscall GetSaveSize(Actor* apActor);
 };
 
 // @fnv 0x00827440
-unsigned short __thiscall ReanimateEffect::FUN_00827440(Actor* apActor)
+unsigned short __thiscall ReanimateEffect::GetSaveSize(Actor* apActor)
 {
     unsigned short isize = 0;
     isize += FUN_00804f80(apActor);
@@ -366,12 +366,12 @@ struct FUN_008266a0_copy60
 
 struct FUN_008266a0_shell : ReanimateEffect
 {
-    ActiveEffect* FUN_008266a0();
+    ActiveEffect* Clone();
 };
 
 // Allocates a new effect from three fields of this, passes it to a17, copies fields at 0x48-0x6f into it and returns it.
 // @fnv 0x008266a0
-ActiveEffect* FUN_008266a0_shell::FUN_008266a0()
+ActiveEffect* FUN_008266a0_shell::Clone()
 {
     ActiveEffect* presult = reinterpret_cast<ActiveEffect*>(
         new FUN_008265b0_shell(*reinterpret_cast<int*>(reinterpret_cast<char*>(this) + 0x28),
@@ -848,13 +848,13 @@ struct ReanimateState
     unsigned int unk44;
     BodyVirt* body;
     int state;
-    void FUN_00805760(Actor*);
+    void FinishInitLoadGame(Actor*);
     void UpdateReanimation(Actor*);
 };
 // @fnv 0x00827580
 void ReanimateState::UpdateReanimation(Actor* actor)
 {
-    FUN_00805760(actor);
+    FinishInitLoadGame(actor);
     ReanimateNode* root = reinterpret_cast<ReanimateNode*>(actor->a116());
     if (root)
     {
@@ -1934,21 +1934,21 @@ struct TESObjectREFR
 
 struct Character : Actor
 {
-    bool __thiscall FUN_00608d80();
+    bool __thiscall IsReanimated();
     int __thiscall FUN_004f8960();
 };
 
 struct FUN_00827340_cls
 {
-    bool __thiscall FUN_00827340(TESObjectREFR* apRef);
+    bool __thiscall CheckTarget(TESObjectREFR* apRef);
 };
 
-// Returns true when a1() yields a Character for which a139(0) is true, FUN_00608d80() is false, and FUN_004f8960() differs from 6.
+// Returns true when a1() yields a Character for which a139(0) is true, IsReanimated() is false, and FUN_004f8960() differs from 6.
 // @fnv 0x00827340
-bool FUN_00827340_cls::FUN_00827340(TESObjectREFR* apRef)
+bool FUN_00827340_cls::CheckTarget(TESObjectREFR* apRef)
 {
     Character* pChar = dynamic_cast<Character*>(apRef->a1());
-    if (pChar != 0 && pChar->a139(0) && !pChar->FUN_00608d80() && pChar->FUN_004f8960() != 6)
+    if (pChar != 0 && pChar->a139(0) && !pChar->IsReanimated() && pChar->FUN_004f8960() != 6)
     {
         return true;
     }

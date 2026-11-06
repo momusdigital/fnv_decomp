@@ -937,7 +937,7 @@ class DebugText
 extern GlobalObject2_0040c150 g_011c3ea4;
 
 void* __cdecl FUN_004b7210(void);
-void __cdecl FUN_005aa720(void);
+void __cdecl RunDelayedScriptActionsOnReferences(void);
 void __cdecl FUN_007094f0(void);
 void __fastcall FUN_00870680(void*);
 void __fastcall FUN_0087a6f0(TaskQueueInterface*);
@@ -947,7 +947,7 @@ void __fastcall FUN_00a0e770(DebugText*);
 // @fnv 0x00870610
 void FUN_00870610_shell::FUN_00870610()
 {
-    FUN_005aa720();
+    RunDelayedScriptActionsOnReferences();
     if (*g_011c3ea4.Int() > 1)
     {
         FUN_0087a710(TaskQueueInterface::GetSingleton());
@@ -2421,7 +2421,7 @@ struct NiUpdateDataH
 class TES
 {
   public:
-    void FUN_00453550(float afTimeDelta);
+    void UpdateCellAnimations(float afTimeDelta);
     void FUN_004537c0();
 };
 extern TES* g_TES;
@@ -2446,7 +2446,7 @@ void FUN_0086fc60_shell::FUN_0086fc60()
         }
         if (*g_011c3ea4.Int() == 1 && !DAT_011dea2b)
         {
-            g_TES->FUN_00453550(DAT_011dea30);
+            g_TES->UpdateCellAnimations(DAT_011dea30);
         }
         else
         {
@@ -2552,7 +2552,7 @@ struct MobileObjectCellAccess
 struct WaterZoneManager
 {
     int m_uiPathPointIndex;
-    void FUN_004e1bc0(BSFaceGenAnimationData* data, ShadowSceneNode* scene);
+    void UpdateWaterSystem(BSFaceGenAnimationData* data, ShadowSceneNode* scene);
     static void FUN_00872930(int index);
 };
 struct TES
@@ -2599,7 +2599,7 @@ void FUN_008727d0_shell::FUN_008727d0()
             ShadowSceneNode* pscene = NiAdditionalGeometryData::GetShadowSceneNodeForIndex(0);
             bool bwasLightUpdateDisabled = pscene->FUN_005f9ad0();
             pscene->SetCreatureType(1);
-            g_TES->GetActorScale()->FUN_004e1bc0(FUN_00524c90(), pscene);
+            g_TES->GetActorScale()->UpdateWaterSystem(FUN_00524c90(), pscene);
             pscene->SetCreatureType(bwasLightUpdateDisabled);
         }
         else
@@ -2646,11 +2646,11 @@ extern GlobalObjectO2_00a7b610 g_01201f7c;
 class BSFadeNodeCuller
 {
   public:
-    GlobalObjectO2_00a7b610* FUN_00872ef0();
+    GlobalObjectO2_00a7b610* GetRTTI();
 };
 
 // @fnv 0x00872ef0
-GlobalObjectO2_00a7b610* BSFadeNodeCuller::FUN_00872ef0()
+GlobalObjectO2_00a7b610* BSFadeNodeCuller::GetRTTI()
 {
     return &g_01201f7c;
 }
@@ -5286,11 +5286,11 @@ extern "C" __declspec(dllimport) void __stdcall DebugBreak();
 
 struct FUN_00872ed0_shell
 {
-    void FUN_00872ed0(int param_1);
+    void AppendVirtual(int param_1);
 };
 
 // @fnv 0x00872ed0
-void FUN_00872ed0_shell::FUN_00872ed0(int aiUnused)
+void FUN_00872ed0_shell::AppendVirtual(int aiUnused)
 {
     DebugBreak();
 }
@@ -6133,7 +6133,7 @@ struct Receiver86
     void FUN_0086bda0();
     Receiver86* FUN_00460140();
     int* FUN_006815c0();
-    void FUN_00458200(int);
+    void SetWorldSpace(int);
     void ClearIdleAnims();
     void FUN_008a8150(int);
     void FUN_00970d50();
@@ -6158,7 +6158,7 @@ struct Receiver86
     unsigned int FUN_0044edb0();
     Receiver86* FUN_004e2190();
     void FUN_00b63620();
-    void FUN_004a4340();
+    void ClearPendingQueries();
     void FUN_008026b0();
     bool FUN_005dc960();
     unsigned char FUN_00678ce0();
@@ -6324,7 +6324,7 @@ int __cdecl FUN_0086bbd0(...);
 int __cdecl FUN_0086bae0(...);
 int __cdecl FUN_0086d590(...);
 int __cdecl FUN_00702250(...);
-int __cdecl FUN_006519f0(...);
+int __cdecl InitializeSystem(...);
 int __cdecl FUN_00871c90(...);
 int __cdecl FUN_006a2920(...);
 int __cdecl FUN_0086c010(...);
@@ -6347,7 +6347,7 @@ int __cdecl FUN_004deb30(...);
 int __cdecl FUN_00416870(...);
 int __cdecl FUN_00460140(...);
 int __cdecl FUN_006815c0(...);
-int __cdecl FUN_00458200(...);
+int __cdecl SetWorldSpace(...);
 int __cdecl ClearIdleAnims(...);
 int __cdecl FUN_008a8150(...);
 int __cdecl FUN_00970d50(...);
@@ -6386,7 +6386,7 @@ int __cdecl FUN_00830640(...);
 int __cdecl FUN_004e2190(...);
 int __cdecl FUN_00b63620(...);
 Receiver86* __cdecl FUN_0049fef0();
-int __cdecl FUN_004a4340(...);
+int __cdecl ClearPendingQueries(...);
 Receiver86* __cdecl FUN_00705910();
 int __cdecl FUN_008026b0(...);
 int __cdecl FUN_005dc960(...);
@@ -6713,7 +6713,7 @@ int __stdcall FUN_0086a850(unsigned int param_1, unsigned int param_2, unsigned 
                 FUN_0086bf70();
                 ((Receiver86*)_DAT_011dea0c)->FUN_0086d590();
                 FUN_00702250(1);
-                FUN_006519f0();
+                InitializeSystem();
                 ((Receiver86*)_DAT_011dea0c)->FUN_00871c90(1);
                 FUN_006a2920();
                 FUN_0086c010();
@@ -6739,7 +6739,7 @@ int __stdcall FUN_0086a850(unsigned int param_1, unsigned int param_2, unsigned 
                 startupState3 = 0;
                 startupFlags3 = 0;
                 position25.FUN_00416870(_DAT_01018bfc, _DAT_01018bfc, _DAT_0101e704);
-                ((Receiver86*)_DAT_011dea10)->FUN_00458200(*g_dataHandler->FUN_00460140()->FUN_006815c0());
+                ((Receiver86*)_DAT_011dea10)->SetWorldSpace(*g_dataHandler->FUN_00460140()->FUN_006815c0());
                 ((Receiver86*)_DAT_011dea3c)->ClearIdleAnims();
                 g_TESSaveLoadGame->FUN_008a8150(1);
                 FUN_0040fbe0(&UNK_0108293c);
@@ -6837,7 +6837,7 @@ int __stdcall FUN_0086a850(unsigned int param_1, unsigned int param_2, unsigned 
                             FUN_00832ad0(0);
                             FUN_00453a70()->FUN_00ad7740(1);
                             ((Receiver86*)_DAT_011dea0c)->FUN_004e2190()->FUN_00b63620();
-                            FUN_0049fef0()->FUN_004a4340();
+                            FUN_0049fef0()->ClearPendingQueries();
                             FUN_00705910()->FUN_008026b0();
                             if (FUN_00446e10())
                             {
@@ -7339,7 +7339,7 @@ struct TaskInit
     void Activate();
 };
 TaskInit& GetTasks();
-void FUN_00526e10();
+void Create();
 void FUN_00990f20();
 struct InitSetting
 {
@@ -8523,7 +8523,7 @@ void BootInit::FUN_0086cf20(ScenePart* scene)
     CreateTrees(false);
     LogInit("Activating Tasklet Threads...");
     GetTasks().Activate();
-    FUN_00526e10();
+    Create();
     FUN_00990f20();
     memory5.Enter(25, true, "D:\\_Fallout3\\Platforms\\Common\\Code\\Fallout\\Misc\\Main.cpp", 0xe85);
     scene->Reset();
@@ -8768,7 +8768,7 @@ struct Service
     bool FUN_00701450(bool);
     void FUN_00851d90();
     void FUN_00c3dbf0();
-    void FUN_00457d70(int, int, int);
+    void ShowLoadingMenu(int, int, int);
     void FUN_00b6dd00(Service*, bool);
     void FUN_007011d0(bool);
     bool FUN_00451530();
@@ -8961,7 +8961,7 @@ void MainLoop::FUN_0086e650()
         if (FUN_0070edf0())
             FUN_0078cfc0();
         else if (FUN_00705ea0())
-            DAT_011dea10->FUN_00457d70(0, 0, 0);
+            DAT_011dea10->ShowLoadingMenu(0, 0, 0);
     }
     FUN_0086efe0();
     FUN_004a0ea0()->FUN_00b6dd00(FUN_00524c90(), DAT_011dea2b);
@@ -9394,7 +9394,7 @@ struct ShadowScene
 };
 struct ShadowMap
 {
-    ShadowNode* FUN_004e6540();
+    ShadowNode* GetLight();
     ShadowNode* FUN_005bf820();
     bool FUN_004e6580();
     void FUN_00b9bb10(float, bool);
@@ -9700,20 +9700,20 @@ void ShadowHost::FUN_00871290()
                 int rendered62 = 0;
                 while (shadow4)
                 {
-                    if (shadow4->FUN_004e6540() && shadow4->FUN_005bf820())
+                    if (shadow4->GetLight() && shadow4->FUN_005bf820())
                     {
-                        if (!shadow4->FUN_004e6580() && shadow4->FUN_004e6540()->FUN_00456610())
+                        if (!shadow4->FUN_004e6580() && shadow4->GetLight()->FUN_00456610())
                         {
                             if (shadow4->FUN_005bf820()->FUN_00456610())
                                 shadow4->FUN_00b9bb10(0.0f, true);
                             else
                             {
                                 if (rendered62 < limit)
-                                    shadow4->FUN_004e6540()->FUN_00450f90(false);
+                                    shadow4->GetLight()->FUN_00450f90(false);
                                 shadow4->FUN_00b9bb10(0.0f, false);
                             }
                         }
-                        if (rendered62 < limit && !shadow4->FUN_004e6540()->FUN_00456610() &&
+                        if (rendered62 < limit && !shadow4->GetLight()->FUN_00456610() &&
                             !shadow4->FUN_005bf820()->FUN_00456610())
                         {
                             ShadowBound bounds = *shadow4->FUN_005bf820()->FUN_0043d450();
@@ -9723,7 +9723,7 @@ void ShadowHost::FUN_00871290()
                             {
                                 ++rendered62;
                                 ShadowUpdate update53(0.0f, false, false);
-                                shadow4->FUN_004e6540()->FUN_00a59c60(&update53);
+                                shadow4->GetLight()->FUN_00a59c60(&update53);
                                 shadow4->UpdateShadow(view8, rendered62 - 1);
                                 shadow4->FUN_00b9fba0();
                                 void* renderer12 = FUN_00450b80(0)->FUN_00454b30();
@@ -9733,10 +9733,10 @@ void ShadowHost::FUN_00871290()
                                 shadow4->FUN_00ba02b0();
                             }
                             else
-                                shadow4->FUN_004e6540()->FUN_00450f90(true);
+                                shadow4->GetLight()->FUN_00450f90(true);
                         }
                         else
-                            shadow4->FUN_004e6540()->FUN_00450f90(true);
+                            shadow4->GetLight()->FUN_00450f90(true);
                     }
                     shadow4 = system->FUN_00b5b010();
                 }
@@ -10437,7 +10437,7 @@ extern VATSHelper DAT_011f2250;
 struct BGSBodyPart
 {
     NiPoint3* FUN_0045bb80();
-    void FUN_004f00e0(const NiPoint3&);
+    void SetWorldTranslate(const NiPoint3&);
 };
 
 struct FORenderedMenu
@@ -10456,10 +10456,10 @@ MTRenderingSystem_Helper* __cdecl FUN_004ea970();
 
 struct ObjectA0
 {
-    void FUN_00507700(float);
+    void SetMaxFarNearRatio(float);
     void FUN_00a6faf0(void*);
     void FUN_00712e60(void*);
-    void FUN_004f00e0(const NiPoint3&);
+    void SetWorldTranslate(const NiPoint3&);
     void FUN_00688430(TransformState*);
     NiPoint3* FUN_0045bb80();
 };
@@ -10627,18 +10627,18 @@ void MainShell::FUN_00874c10()
         NiUpdateData updateData7(0.0f, 0, 0);
         DAT_011de9d1 = 1;
 
-        spObjA0->FUN_00507700(((AnimDataHelper*)pAnimData)->FUN_006447f0());
+        spObjA0->SetMaxFarNearRatio(((AnimDataHelper*)pAnimData)->FUN_006447f0());
         spObjA0->FUN_00a6faf0(((AnimDataHelper*)pAnimData)->FUN_0045bbe0());
         spObjA0->FUN_00712e60(((AnimDataHelper*)pAnimData)->FUN_004a0d10());
 
         TransformState kTransform = *((AnimDataHelper*)pAnimData)->FUN_00461130();
-        spObjA0->FUN_004f00e0(*DAT_011e07d0->FUN_0045bb80() + pt_5c3);
+        spObjA0->SetWorldTranslate(*DAT_011e07d0->FUN_0045bb80() + pt_5c3);
         spObjA0->FUN_00688430(&kTransform);
 
         if (((PlayerHelper*)g_thePlayer)->FUN_007721a0() && !((PlayerHelper*)g_thePlayer)->FUN_008a8870() &&
             !DAT_011f2250.FUN_00525430())
         {
-            spObjA0->FUN_004f00e0(*((PlayerHelper*)g_thePlayer)->FUN_007721a0()->FUN_0045bb80() + pt_5c3);
+            spObjA0->SetWorldTranslate(*((PlayerHelper*)g_thePlayer)->FUN_007721a0()->FUN_0045bb80() + pt_5c3);
         }
 
         NiPoint3 pt_6c_ = *_pPlayerNode->FUN_0043c490();
@@ -10652,7 +10652,7 @@ void MainShell::FUN_00874c10()
 
         if (pBodyPart3)
         {
-            pBodyPart3->FUN_004f00e0(*pBodyPart3->FUN_0045bb80() - pt_5c3);
+            pBodyPart3->SetWorldTranslate(*pBodyPart3->FUN_0045bb80() - pt_5c3);
         }
 
         FUN_00870790((_Fake_FUN_00870790*)FUN_00450b80(0), *spObjA0->FUN_0045bb80());
@@ -10787,7 +10787,7 @@ struct Scene
     void FUN_0049ed90(int);
     Vec* FUN_0045bb80();
     void* FUN_0045bbe0();
-    void FUN_004f00e0(const Vec&);
+    void SetWorldTranslate(const Vec&);
     void FUN_00936aa0(bool);
     void FUN_00a29680();
     void* FUN_00b6b260();
@@ -11141,7 +11141,7 @@ void Main::FUN_00875110(Scene* root, Scene* firstPerson, Scene* extra, Scene* pa
             Context* context2Slot0 = render2Slot14->FUN_008d80e0();
             Pointer texture2Slot11(texture);
             Vec savedPosSlot10 = *view2Slot10->FUN_0045bb80();
-            view2Slot10->FUN_004f00e0(savedPosSlot10.FUN_00439e90(offset));
+            view2Slot10->SetWorldTranslate(savedPosSlot10.FUN_00439e90(offset));
             context2Slot0->FUN_004a0fd0(texture2Slot11.FUN_00559450());
             texture2Slot11.FUN_00559450()->FUN_00936aa0(1);
             bool renderedSlot0 = false;
@@ -11162,7 +11162,7 @@ void Main::FUN_00875110(Scene* root, Scene* firstPerson, Scene* extra, Scene* pa
             context2Slot0->FUN_004a0fd0(0);
             texture2Slot11.FUN_00559450()->FUN_00936aa0(0);
             texture2Slot11.FUN_0066b0d0(0);
-            view2Slot10->FUN_004f00e0(savedPosSlot10);
+            view2Slot10->SetWorldTranslate(savedPosSlot10);
         }
     }
     if (FUN_005b9b00())
@@ -11398,8 +11398,8 @@ struct Camera876
     void FUN_004a1020(void*);
     void FUN_00b63b90(int);
     void FUN_0049ed90(bool);
-    void FUN_00439340(int);
-    void FUN_00439390(int);
+    void SetSrcBlendMode(int);
+    void SetDestBlendMode(int);
     Camera876* FUN_00a59d30(void*);
     void FUN_00a5a040();
     Camera876* FUN_007fa950();
@@ -11622,8 +11622,8 @@ void Shell876::FUN_008761e0(int unused, Input876* input)
     if (q)
     {
         q->FUN_0049ed90(true);
-        q->FUN_00439340(6);
-        q->FUN_00439390(0);
+        q->SetSrcBlendMode(6);
+        q->SetDestBlendMode(0);
         FUN_00707ad0()->FUN_007fa950()->FUN_00a5a040();
     }
     FUN_00707ad0()->FUN_007fae70(g_011dec64.FUN_00559450()->FUN_004bc320(0));
@@ -11783,7 +11783,7 @@ struct SLDataHandler
 
 struct SLSky
 {
-    void FUN_004ba7d0();
+    void AttachAllLand3D();
 };
 
 struct SLTES
@@ -11919,7 +11919,7 @@ void __cdecl FUN_00876dd0(const char* apCellName, SLPoint3* apPos)
         if (bLoad7)
         {
             g_pSLTES->LoadArea(apPos, true);
-            g_pSLTES->GetSky()->FUN_004ba7d0();
+            g_pSLTES->GetSky()->AttachAllLand3D();
         }
     }
 }
@@ -12133,7 +12133,7 @@ struct FUN_007d6bd0_save
 
 struct FUN_004539a0_tes
 {
-    void FUN_004539a0(int a1, int a2);
+    void ClearAllCells(int a1, int a2);
     void FUN_007037c0(int aiValue);
     void FUN_0061cc40(int aiValue);
     void FUN_0045ac80();
@@ -12206,7 +12206,7 @@ void FUN_008774a0_shell::FUN_008774a0(bool abFlag)
     if (pRoot && pRoot->FUN_009611e0())
         pRoot->FUN_009611e0()->v058(pNode);
 
-    DAT_011dea10->FUN_004539a0(0, 0);
+    DAT_011dea10->ClearAllCells(0, 0);
     DAT_011dea10->FUN_007037c0(0x7fffffff);
     DAT_011dea10->FUN_0061cc40(0x7fffffff);
     GetNavMeshObstacleManager()->FUN_006c09f0();
@@ -12326,7 +12326,7 @@ struct ViewNode
     ViewNode* FUN_0084e3a0();
     void FUN_00b5ba80(ViewNode*, ViewNode*);
     ViewList* FUN_007d6bb0();
-    ViewNode* FUN_00457070();
+    ViewNode* GetCurrentCell();
     ViewNode* FUN_009d9f20();
     unsigned int FUN_00c5b5d0();
     ViewNode* FUN_00c5b5a0(int);
@@ -12738,7 +12738,7 @@ void MainView::FUN_00873200(ViewNode* listener, int unused, bool hide, bool draw
                     }
                 }
             }
-            ViewNode* extra6 = DAT_011dea10->FUN_00457070()->FUN_009d9f20();
+            ViewNode* extra6 = DAT_011dea10->GetCurrentCell()->FUN_009d9f20();
             if (extra6)
             {
                 for (int extraIndex = 0; extraIndex < extra6->FUN_00c5b5d0(); ++extraIndex)
@@ -13513,7 +13513,7 @@ struct Topic86
 };
 struct Engine86
 {
-    void FUN_00457d70(int, int, int);
+    void ShowLoadingMenu(int, int, int);
     int FUN_005f36f0();
     Engine86* FUN_004fd3e0();
     const char* FUN_00548210();
@@ -13693,7 +13693,7 @@ void Main86::FUN_0086ff70()
     {
         if (!DAT_011def04)
         {
-            DAT_011dea10->FUN_00457d70(0, 0, 0);
+            DAT_011dea10->ShowLoadingMenu(0, 0, 0);
             FUN_0040fbe0();
             reinterpret_cast<Extra86*>(&DAT_011e0e80)->FUN_0096cfa0();
         }
@@ -14137,7 +14137,7 @@ struct CellGrid_ML
 struct WorldAudio_ML
 {
     void ReleaseWaterResources(int, int);
-    void FUN_004e65d0();
+    void EnableWaterSystem();
 };
 class TES_ML
 {
@@ -14237,7 +14237,7 @@ bool __cdecl FUN_00872570(bool active)
         if (MainLoopGlobals::DAT_011dea10->FUN_0070ec90() && FUN_005d2a40())
         {
             MainLoopGlobals::DAT_011dea10->FUN_0070ec90()->ReleaseWaterResources(1, 0);
-            MainLoopGlobals::DAT_011dea10->FUN_0070ec90()->FUN_004e65d0();
+            MainLoopGlobals::DAT_011dea10->FUN_0070ec90()->EnableWaterSystem();
         }
     }
     return true;
@@ -14748,7 +14748,7 @@ class WorldUpdateCalls
   public:
     void FUN_00452580(const NiPoint3&, bool);
     bool FUN_00451530();
-    void FUN_00457d70(int, int, int);
+    void ShowLoadingMenu(int, int, int);
 };
 extern unsigned int _DAT_011dea10;
 struct TimeGlobal
@@ -14825,7 +14825,7 @@ void PlayerUpdateState::FUN_0086f940()
                         reinterpret_cast<WorldUpdateCalls*>(_DAT_011dea10)->FUN_00452580(position, true);
                         if (reinterpret_cast<WorldUpdateCalls*>(_DAT_011dea10)->FUN_00451530())
                         {
-                            reinterpret_cast<WorldUpdateCalls*>(_DAT_011dea10)->FUN_00457d70(0, 0, 0);
+                            reinterpret_cast<WorldUpdateCalls*>(_DAT_011dea10)->ShowLoadingMenu(0, 0, 0);
                         }
                     }
                     FUN_0086fba0(1);

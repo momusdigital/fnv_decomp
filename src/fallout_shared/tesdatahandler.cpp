@@ -1502,7 +1502,7 @@ bool EnchantmentItem::IsValidObject(TESForm* form)
     }
     break;
     case 25:
-        if (object->FUN_00409700())
+        if (object->GetScroll())
             return GetEnchantmentType() == 0;
         break;
     case 42:
@@ -2127,7 +2127,7 @@ void TESDataHandler::InitializeMagicSystem()
     }
     TESSound::InitializeMagicSystem();
     BGSImpactDataSet::CacheImpactDataSet();
-    FUN_00479570();
+    GenerateDefaultMenuIcons();
     BGSBodyPartData::InitializeBodyPartData();
     BGSTextureSet::InitializeNullTextureSet();
     BGSEncounterZone::CreateDefaultEncounterZone();
@@ -2222,9 +2222,9 @@ struct FUN_00460360_shell : public TESDataHandler
     void ProcessAllFiles();
 };
 
-void __fastcall FUN_00471130(TESFile*);
+void __fastcall CloseTES(TESFile*);
 
-// Iterates the data handler's file list and calls FUN_00471130 on each TESFile.
+// Iterates the data handler's file list and calls CloseTES on each TESFile.
 // @fnv 0x00460360
 void FUN_00460360_shell::ProcessAllFiles()
 {
@@ -2232,7 +2232,7 @@ void FUN_00460360_shell::ProcessAllFiles()
     while (pList && pList->GetItem())
     {
         TESFile* pfile = pList->GetItem();
-        FUN_00471130(pfile);
+        CloseTES(pfile);
         pList = pList->GetNext();
     }
 }
@@ -2267,11 +2267,11 @@ int __fastcall FUN_00461190(int param_1)
 
 struct FUN_004612e0_shell : public TESDataHandler
 {
-    void* FUN_004612e0();
+    void* GetTopicList();
 };
 
 // @fnv 0x004612e0
-void* FUN_004612e0_shell::FUN_004612e0()
+void* FUN_004612e0_shell::GetTopicList()
 {
     return reinterpret_cast<char*>(this) + 0x108;
 }
@@ -2497,11 +2497,11 @@ char* FUN_00462e80_shell::FUN_00462e80()
 
 struct FUN_00464d30_shell : public TESDataHandler
 {
-    void FUN_00464d30(bool);
+    void DisableAssignFormIDs(bool);
 };
 
 // @fnv 0x00464d30
-void FUN_00464d30_shell::FUN_00464d30(bool abNewbool)
+void FUN_00464d30_shell::DisableAssignFormIDs(bool abNewbool)
 {
     *((bool*)((char*)this + 0x620)) = abNewbool;
 }
@@ -2586,7 +2586,7 @@ void* __fastcall ConstructPathBuilderDetailedPathMeshes(PathBuilderDetailedPathM
 
 struct FUN_00469760_shell : public TESDataHandler
 {
-    bool FUN_00469760(unsigned int);
+    bool IsFormIDInUse(unsigned int);
 };
 
 class SaveLoadChangeHistory
@@ -2596,7 +2596,7 @@ class SaveLoadChangeHistory
 };
 
 // @fnv 0x00469760
-bool FUN_00469760_shell::FUN_00469760(unsigned int aiFormID)
+bool FUN_00469760_shell::IsFormIDInUse(unsigned int aiFormID)
 {
     if (TESFormInitFlag::GetFormByID(aiFormID))
         return true;
@@ -2951,7 +2951,7 @@ struct FUN_004738a0_shell
 };
 struct FUN_004539a0_shell
 {
-    void FUN_004539a0(int, int);
+    void ClearAllCells(int, int);
 };
 struct FUN_0046a330_shell
 {
@@ -2977,7 +2977,7 @@ struct FUN_00464e10_shell
 {
     FUN_008d50e0_shell* FUN_00464e10();
 };
-int __fastcall FUN_00471400(void*);
+int __fastcall LoadTESInfo(void*);
 int __cdecl _sprintf_s(char*, unsigned int, const char*, ...);
 void __cdecl CheckTopicsForQuest(int);
 void __cdecl SortTopicList(int, int);
@@ -3098,7 +3098,7 @@ bool FUN_00463070_shell::LoadDataFiles(bool abDownloadedContentOnly)
     ((LC3_DH*)this)->b61a = true;
     if (abDownloadedContentOnly)
         ((LC3_DH*)this)->uiCompiledCount = 0;
-    ((FUN_004539a0_shell*)g_TES)->FUN_004539a0(0, 0);
+    ((FUN_004539a0_shell*)g_TES)->ClearAllCells(0, 0);
     if (!abDownloadedContentOnly)
         g_TES->ClearField88();
     g_TES->SetDawnSound(0);
@@ -3109,7 +3109,7 @@ bool FUN_00463070_shell::LoadDataFiles(bool abDownloadedContentOnly)
     pfile = 0;
     if (((LC3_DH*)this)->b619)
     {
-        FUN_00471400(((LC3_DH*)this)->m_pActiveFile);
+        LoadTESInfo(((LC3_DH*)this)->m_pActiveFile);
         ((LC3_DH*)this)->m_pActiveFile->CheckMasterFiles(GetFileList(), true);
     }
     while (pheadpartList && *pheadpartList->_ref_006815c0())
@@ -3117,7 +3117,7 @@ bool FUN_00463070_shell::LoadDataFiles(bool abDownloadedContentOnly)
         pfile = (TESFile*)*pheadpartList->_ref_006815c0();
         if (pfile->GetIsChecked())
         {
-            FUN_00471400(pfile);
+            LoadTESInfo(pfile);
             pfile->CheckMasterFiles(GetFileList(), true);
             if (!((FUN_004738a0_shell*)pfile)->CheckFileVersion())
             {
@@ -3253,7 +3253,7 @@ bool FUN_00463070_shell::LoadDataFiles(bool abDownloadedContentOnly)
             }
         }
     }
-    FUN_00464d30(true);
+    DisableAssignFormIDs(true);
     if (!abDownloadedContentOnly)
         InitializeMagicSystem();
     DAT_011c3f28 = 0;
@@ -3270,7 +3270,7 @@ bool FUN_00463070_shell::LoadDataFiles(bool abDownloadedContentOnly)
             ((FUN_0046a330_shell*)this)->ReportDataHandlerError(3);
     }
     g_dataHandler->SetSaveLoadGameState(-1);
-    FUN_00464d30(false);
+    DisableAssignFormIDs(false);
 
     pweatherlist = (LC3_Node*)GetTESWeatherList();
     while (pweatherlist && (pweather = (TESForm*)*pweatherlist->_ref_006815c0()) != 0)
@@ -3467,7 +3467,7 @@ bool FUN_00463070_shell::LoadDataFiles(bool abDownloadedContentOnly)
         pzoneList = (LC3_Node*)pzoneList->GetFirst();
     }
     g_calendar.FUN_00867890();
-    pmaster = (LC3_Node*)FUN_004612e0();
+    pmaster = (LC3_Node*)GetTopicList();
     while (pmaster && (pwater = (TESForm*)*pmaster->_ref_006815c0()) != 0)
     {
         pwater->InitItem();
@@ -4047,11 +4047,11 @@ struct FUN_0046faf0_shell
     char pad[0x628];
     InventoryChanges* m_pSomething;
 
-    void FUN_0046faf0();
+    void ClearBarterContainer();
 };
 
 // @fnv 0x0046faf0
-void FUN_0046faf0_shell::FUN_0046faf0()
+void FUN_0046faf0_shell::ClearBarterContainer()
 {
     if (m_pSomething)
     {
@@ -4715,7 +4715,7 @@ struct ArrayX
 struct SubX
 {
     void ClearItems();
-    void FUN_004539a0(int a1, int a2);
+    void ClearAllCells(int a1, int a2);
     void ClearField88();
     SubX* FUN_0043b5d0();
     void FUN_004ee920();
@@ -4724,11 +4724,11 @@ struct SubX
     void RemoveAll();
     void FUN_004f6640();
     void FUN_006c09f0();
-    int FUN_0045af00();
+    int GetNavMeshInfoMap();
     void SetNavMeshMaps(int a1);
     bool FUN_004f6de0();
     void DeleteAllOwnedForms();
-    void FUN_00600030();
+    void DestroyRootIdleArrayForms();
     void DestroyCameraPaths();
     void FUN_00471d90(bool a1);
 };
@@ -4859,7 +4859,7 @@ struct DataHandlerX
     int i630;
     int i634;
     int i638;
-    void FUN_00464e50();
+    void CleanUpBadForms();
     ListX<FormX*>* GetBGSMusicTypeList();
     ListX<FormX*>* GetMediaSetList();
     ListX<FormX*>* GetMediaLocationControllerList();
@@ -4931,9 +4931,9 @@ bool DataHandlerX::FUN_0045dfe0()
     FormX* phJJslb;
     FormX* ptkE;
     b61d = 1;
-    FUN_00464e50();
+    CleanUpBadForms();
     xDAT_011c54c4->ClearItems();
-    xDAT_011dea10->FUN_004539a0(0, 0);
+    xDAT_011dea10->ClearAllCells(0, 0);
     xDAT_011dea10->ClearField88();
     xDAT_011dea10->FUN_0043b5d0()->FUN_004ee920();
     xFUN_00868d70(0);
@@ -5227,7 +5227,7 @@ bool DataHandlerX::FUN_0045dfe0()
     }
     p1d8->FUN_004f6640();
     xFUN_006c0720()->FUN_006c09f0();
-    if (xDAT_011dea10->FUN_0045af00())
+    if (xDAT_011dea10->GetNavMeshInfoMap())
     {
         xDAT_011dea10->SetNavMeshMaps(0);
     }
@@ -5237,7 +5237,7 @@ bool DataHandlerX::FUN_0045dfe0()
     }
     else
     {
-        xDAT_011cb6a0->FUN_00600030();
+        xDAT_011cb6a0->DestroyRootIdleArrayForms();
     }
     xDAT_011ca700->DestroyCameraPaths();
     while ((pzgs = kList078.GetItem()) != 0)
@@ -5423,12 +5423,12 @@ struct CellWorldHelper
 
 struct FUN_00461330_shell : public TESDataHandler
 {
-    TESObjectCELL* FUN_00461330(const char* editorID, int x, int y, TESWorldSpace* world);
+    TESObjectCELL* NewCell(const char* editorID, int x, int y, TESWorldSpace* world);
 };
 
 // Creates a TESObjectCELL for the given editorID and coordinates, assigns its ref ID and flags, adds it to the world, and returns it or null on failure.
 // @fnv 0x00461330
-TESObjectCELL* FUN_00461330_shell::FUN_00461330(const char* editorID, int x, int y, TESWorldSpace* world)
+TESObjectCELL* FUN_00461330_shell::NewCell(const char* editorID, int x, int y, TESWorldSpace* world)
 {
     if (!world)
         return 0;
@@ -5505,11 +5505,11 @@ struct SortPathArray
 int __cdecl FUN_00404dc0(const char*, const char*);
 struct SortHandler : TESDataHandler
 {
-    void FUN_004619b0();
+    void SortInteriorCells();
 };
 // Compacts the interiorCells array and selection-sorts it by SortPath::Name() using FUN_00404dc0 as the comparator.
 // @fnv 0x004619b0
-void SortHandler::FUN_004619b0()
+void SortHandler::SortInteriorCells()
 {
     reinterpret_cast<SortPathArray*>(&interiorCells)->Compact();
     int count = reinterpret_cast<SortPathArray*>(&interiorCells)->GetSize();
@@ -5546,7 +5546,7 @@ void SortHandler::FUN_004619b0()
 struct DeletionObject;
 struct ReferenceOwner
 {
-    void FUN_00536d80();
+    void UnLoadVertices();
 };
 struct ReferenceManager
 {
@@ -5610,7 +5610,7 @@ void DeletionDataHandler::DeleteObject(DeletionObject* object)
         object->FUN_0054af40(!DAT_011dea3c->FUN_0094df60());
     }
     if (!object->FUN_00425fd0())
-        object->FUN_00546fb0()->FUN_00536d80();
+        object->FUN_00546fb0()->UnLoadVertices();
     object->FUN_00546970();
     object->SetByteAt54(false);
     if (!object->FUN_00425fd0())
@@ -5645,11 +5645,11 @@ struct FUN_00464e50_cls : public TESDataHandler
 {
     bool FUN_004226e0();
     void FUN_00450b40(bool);
-    void FUN_00464e50();
+    void CleanUpBadForms();
 };
 
 // @fnv 0x00464e50
-void FUN_00464e50_cls::FUN_00464e50()
+void FUN_00464e50_cls::CleanUpBadForms()
 {
     if (!((FUN_00464e50_list*)((char*)this + 0x1fc))->FUN_0076b610() && DAT_011c54b9)
     {
@@ -5753,7 +5753,7 @@ struct HandlerOperations
 {
     ListNodeHelper* FUN_00460140();
     unsigned char FUN_004516b0();
-    TESObjectCELL* FUN_00461330(void* initializer, int x, int y, TESWorldSpace* space);
+    TESObjectCELL* NewCell(void* initializer, int x, int y, TESWorldSpace* space);
 };
 struct WorldOperations
 {
@@ -5781,7 +5781,7 @@ TESObjectCELL* FUN_00461c20_Holder::GetOrCreateCell(int x, int y, TESWorldSpace*
     if (cell)
         return cell;
     if (!((HandlerOperations*)this)->FUN_004516b0() && createMissing)
-        return ((HandlerOperations*)this)->FUN_00461330(&UNK_01011584, x, y, world);
+        return ((HandlerOperations*)this)->NewCell(&UNK_01011584, x, y, world);
     else
         return 0;
 }
@@ -6370,7 +6370,7 @@ class CreatureRef : public TESObjectREFR
 struct HandlerView : TESDataHandler
 {
     bool FUN_00469860(unsigned int);
-    TESObjectREFR* FUN_0046a190(TESBoundObject*, NiPoint3*, NiPoint3*, TESObjectCELL*, TESWorldSpace*);
+    TESObjectREFR* CreateExplosionAtLocation(TESBoundObject*, NiPoint3*, NiPoint3*, TESObjectCELL*, TESWorldSpace*);
     TESObjectREFR* CreateExplosion(TESBoundObject*, NiPoint3*, NiPoint3*, TESObjectCELL*, TESWorldSpace*);
     TESObjectREFR* PlaceObjectReference(TESBoundObject*, NiPoint3*, NiPoint3*, TESObjectCELL*, TESWorldSpace*,
                                         TESObjectREFR*, const char*, TESForm*);
@@ -6414,7 +6414,7 @@ TESObjectREFR* HandlerView::PlaceObjectReference(TESBoundObject* base, NiPoint3*
                 b = new CreatureRef;
                 break;
             case 81:
-                return FUN_0046a190(base, position, rotation, apInteriorCell, apWorldSpace);
+                return CreateExplosionAtLocation(base, position, rotation, apInteriorCell, apWorldSpace);
                 break;
             case 51:
                 return CreateExplosion(base, position, rotation, apInteriorCell, apWorldSpace);
@@ -6538,10 +6538,10 @@ void __cdecl FUN_005b5e40(const char*, ...);
 RefA* __cdecl CreateProjectileRef(TESForm*, RefA*, int, TESObjectCELL*, NiPoint3, MatrixA);
 struct SelfA
 {
-    RefA* FUN_0046a190(TESForm*, NiPoint3*, NiPoint3*, TESObjectCELL*, TESWorldSpace*);
+    RefA* CreateExplosionAtLocation(TESForm*, NiPoint3*, NiPoint3*, TESObjectCELL*, TESWorldSpace*);
 };
 // @fnv 0x0046a190
-RefA* SelfA::FUN_0046a190(TESForm* form, NiPoint3* pos, NiPoint3* angles, TESObjectCELL* suppliedCell,
+RefA* SelfA::CreateExplosionAtLocation(TESForm* form, NiPoint3* pos, NiPoint3* angles, TESObjectCELL* suppliedCell,
                           TESWorldSpace* world)
 {
     RefA* result = 0;
@@ -6599,7 +6599,7 @@ struct FormMap_46ec10
 extern FormMap_46ec10* DAT_011c54c0;
 
 int __cdecl FUN_005b5e40(const char* fmt, ...);
-const char* __cdecl FUN_004b1b60(int type);
+const char* __cdecl GetFormTypeName(int type);
 int __cdecl FUN_00456a20(const char* path, char* a2, int a3, unsigned int a4);
 
 class TESIcon : public TESFullName
@@ -6672,14 +6672,14 @@ void FUN_0046ec10_cls::ValidateFormIcons()
                     {
                         if (((FUN_0048cee0_shell*)tex)->FUN_0048cee0() == 0)
                         {
-                            FUN_005b5e40(str_01019974, FUN_004b1b60(form->GetFormType()), form->GetEditorID());
+                            FUN_005b5e40(str_01019974, GetFormTypeName(form->GetFormType()), form->GetEditorID());
                         }
                         else
                         {
                             char buf1[0x104];
                             sprintf_s(buf1, 0x104, str_0101996c, tex->vfn_18(), tex->GetFullName());
                             if (FUN_00456a20(buf1, 0, 0, -1) == 0)
-                                FUN_005b5e40(str_01019944, tex->GetFullName(), FUN_004b1b60(form->GetFormType()),
+                                FUN_005b5e40(str_01019944, tex->GetFullName(), GetFormTypeName(form->GetFormType()),
                                              form->GetEditorID());
                         }
                     }
@@ -6702,7 +6702,7 @@ void FUN_0046ec10_cls::ValidateFormIcons()
                             break;
                         }
                         if (flag)
-                            FUN_005b5e40(str_0101991c, FUN_004b1b60(form->GetFormType()), form->GetEditorID());
+                            FUN_005b5e40(str_0101991c, GetFormTypeName(form->GetFormType()), form->GetEditorID());
                     }
                     else
                     {
@@ -6717,7 +6717,7 @@ void FUN_0046ec10_cls::ValidateFormIcons()
                             break;
                         }
                         if (FUN_00456a20(buf2, 0, 0, -1) == 0)
-                            FUN_005b5e40(str_010198e0, icon->GetFullName(), FUN_004b1b60(form->GetFormType()),
+                            FUN_005b5e40(str_010198e0, icon->GetFullName(), GetFormTypeName(form->GetFormType()),
                                          form->GetEditorID());
                     }
                 }
@@ -6729,7 +6729,7 @@ void FUN_0046ec10_cls::ValidateFormIcons()
                     const char* iconPath = ((BipedHelper_46ec10*)biped)->FUN_00481230(0);
                     if (BSStringLength(iconPath) == 0)
                     {
-                        FUN_005b5e40(str_01019974, FUN_004b1b60(form->GetFormType()), form->GetEditorID());
+                        FUN_005b5e40(str_01019974, GetFormTypeName(form->GetFormType()), form->GetEditorID());
                     }
                     else
                     {
@@ -6737,7 +6737,7 @@ void FUN_0046ec10_cls::ValidateFormIcons()
                         sprintf_s(buf3, 0x104, str_0101996c, ((BipedHelper_46ec10*)biped)->CallVirtualSlot6(),
                                   iconPath);
                         if (FUN_00456a20(buf3, 0, 0, -1) == 0)
-                            FUN_005b5e40(str_010198b8, iconPath, FUN_004b1b60(form->GetFormType()),
+                            FUN_005b5e40(str_010198b8, iconPath, GetFormTypeName(form->GetFormType()),
                                          form->GetEditorID());
                     }
                 }
@@ -6770,7 +6770,7 @@ struct ChangeEntry
 };
 struct ChangeExtra
 {
-    TESObjectREFR* FUN_00418630();
+    TESObjectREFR* GetOriginalReference();
     short FUN_00418770();
 };
 struct ChangeList : ChangeNode
@@ -6874,7 +6874,7 @@ struct InventoryHandler : TESDataHandler
 {
     unsigned int unk624;
     FUN_004befb0* inventory;
-    void FUN_0046faf0();
+    void ClearBarterContainer();
     void UpdateInventoryForReference(TESObjectREFR* reference);
 };
 // @fnv 0x0046f310
@@ -6883,7 +6883,7 @@ void InventoryHandler::UpdateInventoryForReference(TESObjectREFR* reference)
     if (!inventory)
         inventory = new FUN_004befb0(0);
     else
-        FUN_0046faf0();
+        ClearBarterContainer();
     FUN_004befb0* pOtherInventory = ((ExtraInventoryView*)reference->GetExtraData())->FUN_00418520();
     if (pOtherInventory)
         pOtherInventory->FUN_004d26d0(inventory, reference, false);
@@ -6918,7 +6918,7 @@ void InventoryHandler::UpdateInventoryForReference(TESObjectREFR* reference)
                 while (count && count->FUN_006815c0())
                 {
                     ChangeExtra* extra = count->FUN_006815c0();
-                    if (extra->FUN_00418630() && extra->FUN_00418630() == entry)
+                    if (extra->GetOriginalReference() && extra->GetOriginalReference() == entry)
                     {
                         iExtraCount = extra->FUN_00418770();
                         actor->FUN_00559450()->FUN_00905330(extra);
@@ -7506,11 +7506,11 @@ struct ModelTest : TESDataHandler
     void SetTesting(int);
     void RecordPath(const char*);
     void CheckNode(NodeView*, const char*);
-    void FUN_0046ddb0(bool);
+    void CheckModels(bool);
 };
 // Iterates all TESObject forms, checks each model file exists or loads it, logs geometry stats and warnings, then resets testing.
 // @fnv 0x0046ddb0
-void ModelTest::FUN_0046ddb0(bool force)
+void ModelTest::CheckModels(bool force)
 {
     if (*g_011c408c.Bool())
         return;
@@ -7700,7 +7700,7 @@ struct FNVObject
 {
     virtual ~FNVObject();
     short FUN_00418770();
-    void* FUN_00418630();
+    void* GetOriginalReference();
     void FUN_00418600();
     int FUN_0055d310();
     unsigned int FUN_0040fe20();
@@ -7740,7 +7740,7 @@ struct FNVFile
 struct FNVRecordManager
 {
     void FUN_00905330(FNVObject**);
-    FNVRecordGroup* FUN_004bfba0(FNVRecordGroup*);
+    FNVRecordGroup* GetObjectInList(FNVRecordGroup*);
 };
 
 extern void* _DAT_011dea3c;
@@ -7758,7 +7758,7 @@ void FUN_0046f640_shell::ProcessInventoryRecords(FNVFile* file, int remaining, i
     FNVObject* current = 0;
     bool retrying;
     FNVRecordGroup* group = (*reinterpret_cast<FNVRecordManager**>(reinterpret_cast<unsigned char*>(this) + 0x628))
-                                ->FUN_004bfba0(file->FUN_0044ddc0(1, 0));
+                                ->GetObjectInList(file->FUN_0044ddc0(1, 0));
     if (!group)
         return;
 
@@ -7784,7 +7784,7 @@ void FUN_0046f640_shell::ProcessInventoryRecords(FNVFile* file, int remaining, i
                 count = current->FUN_00418770();
                 if (count > 0)
                 {
-                    processed = current->FUN_00418630();
+                    processed = current->GetOriginalReference();
                     if (remaining >= count)
                         current->FUN_00418600();
                     if (remaining < count)
@@ -7813,7 +7813,7 @@ void FUN_0046f640_shell::ProcessInventoryRecords(FNVFile* file, int remaining, i
                     unique = true;
                     if (firstRef)
                     {
-                        FNVRecordGroup* matching = firstRef->FUN_004bfba0(group->FUN_0044ddc0(1, 0));
+                        FNVRecordGroup* matching = firstRef->GetObjectInList(group->FUN_0044ddc0(1, 0));
                         if (matching && matching->FUN_00559450())
                         {
                             FNVListNode* scan = matching->FUN_00559450();
@@ -7829,7 +7829,7 @@ void FUN_0046f640_shell::ProcessInventoryRecords(FNVFile* file, int remaining, i
                     firstRef = reinterpret_cast<FNVObject*>(_DAT_011dea3c)->FUN_005d43c0()->FUN_00418520();
                     if (firstRef)
                     {
-                        FNVRecordGroup* matching = firstRef->FUN_004bfba0(group->FUN_0044ddc0(1, 0));
+                        FNVRecordGroup* matching = firstRef->GetObjectInList(group->FUN_0044ddc0(1, 0));
                         if (matching && matching->FUN_00559450())
                         {
                             FNVListNode* scan = matching->FUN_00559450();
@@ -7890,7 +7890,7 @@ void FUN_0046f640_shell::ProcessInventoryRecords(FNVFile* file, int remaining, i
             processed = 0;
             retrying = true;
             group = (*reinterpret_cast<FNVRecordManager**>(reinterpret_cast<unsigned char*>(this) + 0x628))
-                        ->FUN_004bfba0(file->FUN_0044ddc0(1, 0));
+                        ->GetObjectInList(file->FUN_0044ddc0(1, 0));
             if (!group)
                 return;
             node = group->FUN_00559450();

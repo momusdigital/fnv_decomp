@@ -137,7 +137,7 @@ struct FUN_00e695f0_shell {
 };
 struct FUN_00e69600_shell
 {
-    unsigned int __thiscall FUN_00e69600();
+    unsigned int __thiscall GetDefaultRenderTargetGroup();
 };
 struct FUN_00e69900_shell {
     void SetTwoValues(unsigned int a, unsigned int b);
@@ -216,7 +216,7 @@ struct FUN_00e75830_shell : GraphicsRenderer {
 struct FUN_00e75840_shell {
     unsigned int pad[0x5e0/4];
     unsigned int color;
-    void FUN_00e75840(float* param);
+    void SetBackgroundColor(float* param);
 };
 extern "C" void* g_01270900;
 void* __cdecl FUN_00e766f0();
@@ -374,14 +374,14 @@ struct Dev
 };
 struct RendererHolder
 {
- int __thiscall FUN_00e698a0(int a1, int a2, int a3, int a4);
+ int __thiscall DrawIndexedPrimitive_TRIANGLELIST(int a1, int a2, int a3, int a4);
 };
 struct FUN_00e698d0_shell { char _pad[0x288]; void* m_pDirectInputDevice; void DispatchToVTableSlot82(unsigned int a1, unsigned int a2, unsigned int a3, unsigned int a4); };
 struct FUN_00e69970_shell { void ClearShader(void* pkShader); };
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(void*);
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(void*);
 int __cdecl FUN_00e68ef0(void*, void*);
-struct StandIn_e6dc40 { bool FUN_00e6dc40(void*); };
+struct StandIn_e6dc40 { bool CreateSourceTextureRendererData(void*); };
 struct NiVBSet { void Create(unsigned int, void*); };
 int __cdecl CreateRenderedTextureData(void*, void*, unsigned int);
 struct Param_00e6dc80 { unsigned int pad[9]; unsigned int flag; };
@@ -389,7 +389,7 @@ struct Stand_00e6dc80 { char pad[0x8cc]; NiVBSet vb; bool CreateVertexBufferIfNe
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(void*);
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(void*);
 int __cdecl FUN_00e8abf0(void*, void*);
-struct FUN_00e6dcc0_shell { bool __thiscall FUN_00e6dcc0(void*); };
+struct FUN_00e6dcc0_shell { bool __thiscall CreateSourceCubeMapRendererData(void*); };
 struct NiTMapBaseStub { void __thiscall RemoveAll(); };
 extern int DAT_010eda24;
 extern MemoryManager g_memoryManager;
@@ -10780,7 +10780,7 @@ struct ResolveRenderer {
  unsigned int unk8f8;
  unsigned int unk8fc;
  BoundCache cache;
- bool FUN_00e74dc0();
+ bool EndUsingRenderTargetGroup();
 };
 unsigned int ConvertVertexComponents(FUN_00e76c30_Info* info);
 extern "C" void* __cdecl FUN_00ec61c0(void*, int, unsigned int);
@@ -12350,7 +12350,7 @@ struct FUN_00e759c0_cls {
     unsigned char unk5e1;
     unsigned char unk5e2;
     unsigned char unk5e3;
-    void FUN_00e759c0(float* out);
+    void GetBackgroundColor(float* out);
 };
 unsigned int __cdecl ConvertNormalizedShortsToFloats(NormalizedStream* s);
 struct E6F310Rect {
@@ -12477,7 +12477,7 @@ struct E6F310Device {
     virtual long __stdcall SetViewport(const void*);
 };
 struct E6F310Renderer {
-    void FUN_00e6f310(NiRectF* pkRect, unsigned int uiFlags);
+    void Do_ClearBuffer(NiRectF* pkRect, unsigned int uiFlags);
     int unk000;
     int unk004;
     int unk008;
@@ -14698,7 +14698,7 @@ public:
             m_630 = 0;
         }
     }
-    void FUN_00e711e0();
+    void Do_EndBatch();
 };
 struct Mesh;
 struct Batch;

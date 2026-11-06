@@ -616,7 +616,7 @@ class StorageMeshShape
     void FUN_00d55950();
     int FUN_00d55520(TrianglesSubpart& part);
 
-    int FUN_00d49dc0(const TrianglesSubpart& partIn);
+    int addShapesSubpart(const TrianglesSubpart& partIn);
 };
 // sub ecx,0x10; jmp target  ==  MSVC adjustor thunk: Derived overrides a virtual that both of its bases
 // declare, so the second base's vtable gets a thunk that moves `this` back by the first base's size (0x10).
@@ -825,11 +825,11 @@ struct StorageShape : hkpStorageExtendedMeshShape
     Subpart* FUN_00d562f0();
     void FUN_00d55950();
     int Vec4(Subpart*, int);
-    void FUN_00d4a2b0(SourceArg sourceArg);
+    void addTrianglesSubpart(SourceArg sourceArg);
 };
 
 // @fnv 0x00d4a2b0
-void StorageShape::FUN_00d4a2b0(SourceArg sourceArg)
+void StorageShape::addTrianglesSubpart(SourceArg sourceArg)
 {
     Subpart* destination = FUN_00d562f0();
     const Subpart& source = *sourceArg.p;

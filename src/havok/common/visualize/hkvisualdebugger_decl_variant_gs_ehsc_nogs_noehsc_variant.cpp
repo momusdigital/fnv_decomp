@@ -35,7 +35,7 @@ struct FUN_00ccf890_t : BSFadeNode
     FUN_00ccf890_t();
     ~FUN_00ccf890_t();
 };
-BSFadeNode* FUN_00ccf890();
+BSFadeNode* CreateObject();
 class hkVisualDebugger;
 struct FUN_00cd1e40_target
 {

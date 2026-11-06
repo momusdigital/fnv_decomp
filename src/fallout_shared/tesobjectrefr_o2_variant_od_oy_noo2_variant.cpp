@@ -115,7 +115,7 @@ struct Holder00c9d5d0
     virtual CallRet* GetRet();
     void* unk4;
     void* unk8;
-    void FUN_00c9d5d0();
+    void UpdateCollisionFilter();
 };
 extern int DAT_01268238;
 struct FUN_00c876a0_holder
@@ -181,7 +181,7 @@ struct bhkAabbPhantom : PhantomBase
     virtual WorldHolder* GetWorld();
     int m4;
     void* m8;
-    void FUN_00c9f460();
+    void UpdateCollisionFilter();
 };
 extern float DAT_010c72bc;
 struct InnerS
@@ -874,7 +874,7 @@ inline void* operator new(unsigned int n)
 struct FUN_00c9efa0_cls
 {
     void FUN_00c85900(FUN_00c6d190* p, unsigned int flag);
-    bhkRefObject* FUN_00c9efa0(unsigned int flag);
+    bhkRefObject* CreateClone(unsigned int flag);
 };
 struct S_00c9f1e0_Shape
 {
@@ -1226,7 +1226,7 @@ void __cdecl FUN_00c87700();
 struct ProjectileCreator
 {
     void __thiscall FUN_00c85900(Object_00c9f5a0* projectile, int mode);
-    Object_00c9f5a0* __thiscall FUN_00c9f640(int mode);
+    Object_00c9f5a0* __thiscall CreateClone(int mode);
 };
 struct TLSBlock
 {
@@ -1846,7 +1846,7 @@ struct FUN_00ca0090_cls
     void* m08;
     void* m0C;
     void FUN_00c9fb70(void* a);
-    void* FUN_00ca0090(unsigned char* out);
+    void* CreateCinfo(unsigned char* out);
 };
 class CA0540Base
 {
@@ -1971,7 +1971,7 @@ class CA0840Constraint
     CA0840Output* m_pkOutput;
 
     void SetOutput(CA0840Output* pkOutput);
-    CA0840Output* FUN_00ca0840(bool* pbCreated);
+    CA0840Output* CreateCinfo(bool* pbCreated);
 };
 class CAACF0Base
 {
@@ -2058,7 +2058,7 @@ class NiControllerC9E : public NiObjectC9E
   public:
     NiControllerC9E();
 
-    static NiObjectC9E* FUN_00c9ef30();
+    static NiObjectC9E* CreateObject();
 
     unsigned int m_uiRefCount;
     int unk08;
@@ -3212,11 +3212,11 @@ class ProjectileQ
     void UpdateAttachment(NiAVObjectQ* pkRoot);
     void Finish(int a, int b);
 
-    void FUN_005768b0();
+    void InitHavok();
 };
 
 // @fnv 0x005768b0
-void ProjectileQ::FUN_005768b0()
+void ProjectileQ::InitHavok()
 {
     if (m_pkCell && !m_pkCell->IsLoaded() && !m_pkCell->IsAttached())
         return;

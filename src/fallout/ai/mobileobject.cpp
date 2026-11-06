@@ -615,11 +615,11 @@ struct VTableHelper
     bool FUN_0087eeb0();
     void FUN_005757a0(float);
     void FUN_005757d0(float);
-    void FUN_00931b60(float fAngleDifference);
+    void SetHeading(float fAngleDifference);
 };
 
 // @fnv 0x00931b60
-void VTableHelper::FUN_00931b60(float afAngle)
+void VTableHelper::SetHeading(float afAngle)
 {
     if (((Actor*)this)->m_pBaseProcess)
     {
@@ -853,7 +853,7 @@ struct BGSLoadFormBuffer : public BGSLoadGameBuffer
 typedef char _sizecheck_BGSLoadFormBuffer[sizeof(BGSLoadFormBuffer) == 48 ? 1 : -1];
 struct FUN_00932d60_shell : public MobileObject
 {
-    void FUN_00932d60(BGSLoadFormBuffer*);
+    void FinishLoadGame(BGSLoadFormBuffer*);
 };
 
 class RecursiveSpinLock
@@ -922,7 +922,7 @@ extern Calendar g_calendar;
 extern PlayerCharacter* pPlayer;
 
 // @fnv 0x00932d60
-void FUN_00932d60_shell::FUN_00932d60(BGSLoadFormBuffer* apLoadGameBuffer)
+void FUN_00932d60_shell::FinishLoadGame(BGSLoadFormBuffer* apLoadGameBuffer)
 {
     ((TESObjectREFR_Accessor*)this)->FUN_005627c0(apLoadGameBuffer);
     if (m_pBaseProcess != 0)
@@ -973,7 +973,7 @@ void FUN_00932d60_shell::FUN_00932d60(BGSLoadFormBuffer* apLoadGameBuffer)
 
 struct FUN_009333e0_shell : public MobileObject
 {
-    void FUN_009333e0(bool);
+    void SetDelete(bool);
 };
 
 class MagicCaster;
@@ -989,7 +989,7 @@ struct ST_009333e0
 };
 bool __cdecl FUN_00933480(MobileObject*);
 // @fnv 0x009333e0
-void FUN_009333e0_shell::FUN_009333e0(bool abDeleted)
+void FUN_009333e0_shell::SetDelete(bool abDeleted)
 {
     ((ST_009333e0*)this)->FUN_00564930(abDeleted);
     DAT_011e0e80.AddMobileObjectToList(this);
@@ -1424,11 +1424,11 @@ bool FUN_0056f6b0_t::HasNextWithAtA0()
 
 struct StandIn_00672760 : public TESPackage
 {
-    TESPackage* FUN_00672760();
+    TESPackage* GetDialogueTopic();
 };
 // If the package type is 0xF or 0x1C, returns the TESPackage stored at offset 8 of the object at this+0x28; otherwise returns null.
 // @fnv 0x00672760
-TESPackage* StandIn_00672760::FUN_00672760()
+TESPackage* StandIn_00672760::GetDialogueTopic()
 {
     TESPackage* result = 0;
     if (GetPackType() == 0xF || GetPackType() == 0x1C)
@@ -3270,7 +3270,7 @@ struct LowProcess
 bhkWorld* __fastcall FUN_004543c0(TESObjectCELL*);
 struct FUN_005c0860Class
 {
-    bool FUN_005c0860();
+    bool QIsFlying();
 };
 struct TopicH
 {
@@ -3684,7 +3684,7 @@ void FUN_00932520_shell::UpdateFlags(unsigned int aiFlags, unsigned int aiOldFla
         bhkCharacterController* pcon = GetPhysicsCharacterController();
         if (pcon && ((LowProcess*)this)->GetTarget())
             pcon->FUN_00c70c90((int)FUN_004543c0((TESObjectCELL*)((LowProcess*)this)->GetTarget()));
-        if (pcon && !((FUN_005c0860Class*)pcon)->FUN_005c0860())
+        if (pcon && !((FUN_005c0860Class*)pcon)->QIsFlying())
         {
             NiPoint3 pos = *((TopicH*)this)->GetAddTopicList();
             ((CharCtl_S*)pcon)->FUN_005620e0(&pos);
@@ -7331,11 +7331,11 @@ struct FUN_00932880_shell
     unsigned char field86;
 
     void FUN_00562230(BGSSaveFormBuffer*);
-    void FUN_00932880(BGSSaveFormBuffer*);
+    void AppendSaveLoadFormBuffer(BGSSaveFormBuffer*);
 };
 
 // @fnv 0x00932880
-void FUN_00932880_shell::FUN_00932880(BGSSaveFormBuffer* pSaveGameBuffer)
+void FUN_00932880_shell::AppendSaveLoadFormBuffer(BGSSaveFormBuffer* pSaveGameBuffer)
 {
     char cprocessLevel = -1;
 
@@ -8164,13 +8164,13 @@ struct FUN_00931cc0_obj
     virtual void v2BC();
     virtual void v2C0();
     virtual void v2C4(float f);
-    void FUN_00931cc0(FUN_00931cc0_obj* other);
+    void SetHeadingToRef(FUN_00931cc0_obj* other);
 };
 float __cdecl GetDirectionAngle(const NiPoint3* p);
 
 // Computes the distance between this object's and other's v1F4 points and passes it to v2C4.
 // @fnv 0x00931cc0
-void FUN_00931cc0_obj::FUN_00931cc0(FUN_00931cc0_obj* other)
+void FUN_00931cc0_obj::SetHeadingToRef(FUN_00931cc0_obj* other)
 {
     NiPoint3 offset = *other->v1F4() - *v1F4();
     float dist = GetDirectionAngle(&offset);
@@ -9508,12 +9508,12 @@ struct PackageTargetObj
 };
 struct PackageMethods
 {
-    void FUN_0067a1b0(TESPackage*);
+    void CopyAllFlags(TESPackage*);
     void SetPackageType(int);
     void FUN_00826b40(bool);
     void FUN_00826b90(bool);
-    void FUN_00671d30(FUN_00670b30*);
-    void FUN_00672fc0(PackageTargetObj*);
+    void SetPackageLocation(FUN_00670b30*);
+    void SetPackageTarget(PackageTargetObj*);
     void FUN_00984f60(int);
     PackageTargetObj* FUN_00671d10();
 };
@@ -9571,7 +9571,7 @@ struct DialogueHost : TESObjectREFR
     virtual MobileObject* GetDialogueSpeaker(MobileObject*, int*);
     int FUN_00931850();
     void FUN_00934250();
-    bool FUN_00934fd0(MobileObject* target, int p2, int p3, int p4, int p5, bool refresh, TESTopic* topic, int p8,
+    bool InitiateDialogue(MobileObject* target, int p2, int p3, int p4, int p5, bool refresh, TESTopic* topic, int p8,
                       int p9);
 };
 struct DialogueLocation : FUN_00670b30
@@ -9585,7 +9585,7 @@ struct FUN_0067f030
     FUN_0067f030();
 };
 // @fnv 0x00934fd0
-bool DialogueHost::FUN_00934fd0(MobileObject* target, int aiUnused2, int aiUnused3, int aiUnused4, int aiUnused5,
+bool DialogueHost::InitiateDialogue(MobileObject* target, int aiUnused2, int aiUnused3, int aiUnused4, int aiUnused5,
                                 bool refresh, TESTopic* topic, int aiUnused8, int aiUnused9)
 {
     if (FUN_00931850() || ((DialogueHost*)target)->FUN_00931850())
@@ -9613,16 +9613,16 @@ bool DialogueHost::FUN_00934fd0(MobileObject* target, int aiUnused2, int aiUnuse
             new FUN_009edd80((FUN_0083b9a0_shell*)speaker, (Actor*)this, (Actor*)target, previous, true, true);
         location->iUnk8C = (int)topic;
         if (context)
-            ((PackageMethods*)location)->FUN_0067a1b0(context);
+            ((PackageMethods*)location)->CopyAllFlags(context);
         ((PackageMethods*)location)->SetPackageType(28);
         ((PackageMethods*)location)->FUN_00826b40(true);
         ((PackageMethods*)location)->FUN_00826b90(true);
         FUN_00670b30* package = (FUN_00670b30*)new FUN_0067f030;
         package->FUN_0067f3c0(target);
-        ((PackageMethods*)location)->FUN_00671d30(package);
+        ((PackageMethods*)location)->SetPackageLocation(package);
         delete package;
         PackageTargetObj* destination = new PackageTargetObj;
-        ((PackageMethods*)location)->FUN_00672fc0(destination);
+        ((PackageMethods*)location)->SetPackageTarget(destination);
         delete destination;
         ((PackageMethods*)location)->FUN_00984f60(10);
         ((PackageMethods*)location)->FUN_00671d10()->FUN_006800b0(0);
@@ -11277,10 +11277,10 @@ struct Obj
     void* FUN_00559450(GlobalObject_0041a250*, int, int, int, int, int, int, int, int, int, int);
     Obj* FUN_008d6f30();
     void FUN_0054baf0();
-    void FUN_009339a0(float, Obj*, bool);
+    void UpdateInDialogue(float, Obj*, bool);
 };
 // @fnv 0x009339a0
-void Obj::FUN_009339a0(float delta, Obj* target, bool skip)
+void Obj::UpdateInDialogue(float delta, Obj* target, bool skip)
 {
     Obj* data7 = v1e4();
     Obj* actor_ = 0;
@@ -12787,11 +12787,11 @@ class MagicProjectileObject
     MagicProjectileRef* unk68;
 
     NiPoint3 __thiscall FUN_0056fb10();
-    NiPoint3 __thiscall FUN_00933630();
+    NiPoint3 __thiscall GetMinBounds();
 };
 
 // @fnv 0x00933630
-NiPoint3 __thiscall MagicProjectileObject::FUN_00933630()
+NiPoint3 __thiscall MagicProjectileObject::GetMinBounds()
 {
     if (unk68 && unk68->vf5f0())
     {
@@ -13557,7 +13557,7 @@ struct ActorObject
     unsigned int FUN_0084e3a0();
     Package* FUN_009344a0();
     void* FUN_005e3fa0();
-    float FUN_009344d0(const char*, SoundRef*, unsigned int, unsigned int, int, int, int, ActorObject*, unsigned char,
+    float SpeakSoundFunction(const char*, SoundRef*, unsigned int, unsigned int, int, int, int, ActorObject*, unsigned char,
                        unsigned char, unsigned char, unsigned char, unsigned char);
 };
 struct Point
@@ -13612,7 +13612,7 @@ float __cdecl FUN_005790b0();
 double __cdecl FUN_008a2d20();
 // Creates and queues a named sound, configures playback parameters, and returns a computed float.
 // @fnv 0x009344d0
-float ActorObject::FUN_009344d0(const char* apSoundName, SoundRef* apSoundRef, unsigned int arg3, unsigned int arg4,
+float ActorObject::SpeakSoundFunction(const char* apSoundName, SoundRef* apSoundRef, unsigned int arg3, unsigned int arg4,
                                 int duration, int target, int otherTarget, ActorObject* other, unsigned char update,
                                 unsigned char playerSound, unsigned char arg11, unsigned char arg12,
                                 unsigned char force)

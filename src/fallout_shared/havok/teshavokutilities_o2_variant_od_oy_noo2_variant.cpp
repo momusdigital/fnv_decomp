@@ -43,7 +43,7 @@ struct Node
 struct WorldObject
 {
     void GetAabb(Aabb* bounds);
-    void FUN_00c8d280(HavokTransform* transform);
+    void GetTransform(HavokTransform* transform);
 };
 struct CollisionObject
 {
@@ -88,7 +88,7 @@ Point3* FUN_0062bfb0(Point3* out, Node* node)
             {
                 HavokTransform bodyHavok;
                 bodyHavok.FUN_0056ded0();
-                body->FUN_00c8d280(&bodyHavok);
+                body->GetTransform(&bodyHavok);
                 Transform bodyWorld;
                 bodyWorld.FUN_00476a80();
                 FUN_00624ad0(&bodyWorld, &bodyHavok);

@@ -825,7 +825,7 @@ class __declspec(align(16)) S00dfb2b0_Object
 
 // Havok getVtable helper: build the object with the finish-loading flag and read its vtable pointer.
 // @fnv 0x00dfb2b0
-const void* __cdecl FUN_00dfb2b0()
+const void* __cdecl getVtable_hkpMoppBvTreeShape()
 {
     FinishingFlag flag;
     flag.m_bFinishing = 0;
@@ -928,7 +928,7 @@ class __declspec(align(16)) S00dfb400_Object
 
 // Havok getVtable helper: build the object with the finish-loading flag and read its vtable pointer.
 // @fnv 0x00dfb400
-const void* __cdecl FUN_00dfb400()
+const void* __cdecl getVtable_hkMemoryResourceHandle()
 {
     FinishingFlag flag;
     flag.m_bFinishing = 0;
@@ -956,7 +956,7 @@ class __declspec(align(16)) S00dfb460_Object
 
 // Havok getVtable helper: build the object with the finish-loading flag and read its vtable pointer.
 // @fnv 0x00dfb460
-const void* __cdecl FUN_00dfb460()
+const void* __cdecl getVtable_hkMemoryResourceContainer()
 {
     FinishingFlag flag;
     flag.m_bFinishing = 0;
@@ -984,7 +984,7 @@ class __declspec(align(16)) S00dfba80_Object
 
 // Havok getVtable helper: build the object with the finish-loading flag and read its vtable pointer.
 // @fnv 0x00dfba80
-const void* __cdecl FUN_00dfba80()
+const void* __cdecl getVtable_hkaMeshBinding()
 {
     FinishingFlag flag;
     flag.m_bFinishing = 0;
@@ -1012,7 +1012,7 @@ class __declspec(align(16)) S00dfc7a0_Object
 
 // Havok getVtable helper: build the object with the finish-loading flag and read its vtable pointer.
 // @fnv 0x00dfc7a0
-const void* __cdecl FUN_00dfc7a0()
+const void* __cdecl getVtable_hkpStiffSpringChainData()
 {
     FinishingFlag flag;
     flag.m_bFinishing = 0;
@@ -1155,7 +1155,7 @@ class __declspec(align(16)) S00dfcb70_Object
 
 // Havok getVtable helper: build the object with the finish-loading flag and read its vtable pointer.
 // @fnv 0x00dfcb70
-const void* __cdecl FUN_00dfcb70()
+const void* __cdecl getVtable_hkpPoweredChainData()
 {
     FinishingFlag flag;
     flag.m_bFinishing = 0;
@@ -1188,7 +1188,7 @@ struct __declspec(align(16)) FUN_00d53df0
     int unk3C;
 };
 // @fnv 0x00dfce10
-int __cdecl FUN_00dfce10()
+int __cdecl getVtable_hkpBallSocketChainData()
 {
     Handle_dfce10 kHandle = {0};
     FUN_00d53df0 kQuery(kHandle);
@@ -1223,7 +1223,7 @@ class __declspec(align(16)) S00dfcf40_Object
 
 // Havok getVtable helper: build the object with the finish-loading flag and read its vtable pointer.
 // @fnv 0x00dfcf40
-const void* __cdecl FUN_00dfcf40()
+const void* __cdecl getVtable_hkpSimpleMeshShape()
 {
     FinishingFlag flag;
     flag.m_bFinishing = 0;
@@ -1267,7 +1267,7 @@ class __declspec(align(16)) S00dfd200_Object
 
 // Havok getVtable helper: build the object with the finish-loading flag and read its vtable pointer.
 // @fnv 0x00dfd200
-const void* __cdecl FUN_00dfd200()
+const void* __cdecl getVtable_hkpListShape()
 {
     FinishingFlag flag;
     flag.m_bFinishing = 0;
@@ -1311,7 +1311,7 @@ class __declspec(align(16)) S00dfd280_Object
 
 // Havok getVtable helper: build the object with the finish-loading flag and read its vtable pointer.
 // @fnv 0x00dfd280
-const void* __cdecl FUN_00dfd280()
+const void* __cdecl getVtable_hkpConvexVerticesShape()
 {
     FinishingFlag flag;
     flag.m_bFinishing = 0;
@@ -1427,7 +1427,7 @@ struct __declspec(align(16)) FUN_00dfd9b0_holder
 };
 
 // @fnv 0x00dfd9b0
-unsigned int* FUN_00dfd9b0()
+unsigned int* getVtable_hkxMaterial()
 {
     FUN_00dfd9b0_holder holder;
     FUN_00dfd9b0_arg arg = {0};
@@ -1452,7 +1452,7 @@ class __declspec(align(16)) S00dfda80_Object
 
 // Havok getVtable helper: build the object with the finish-loading flag and read its vtable pointer.
 // @fnv 0x00dfda80
-const void* __cdecl FUN_00dfda80()
+const void* __cdecl getVtable_hkxEnvironment()
 {
     FinishingFlag flag;
     flag.m_bFinishing = 0;
@@ -1480,7 +1480,7 @@ class __declspec(align(16)) S00dfe280_Object
 
 // Havok getVtable helper: build the object with the finish-loading flag and read its vtable pointer.
 // @fnv 0x00dfe280
-const void* __cdecl FUN_00dfe280()
+const void* __cdecl getVtable_hkaRagdollInstance()
 {
     FinishingFlag flag;
     flag.m_bFinishing = 0;
@@ -1538,7 +1538,7 @@ struct __declspec(align(16)) ZHolderDFE2F0
 };
 
 // @fnv 0x00dfe2f0
-int* FUN_00dfe2f0()
+int* getVtable_hkaSkeletonMapper()
 {
     ZHolderDFE2F0 holder;
     ZArgDFE2F0 arg = {0};
@@ -1598,7 +1598,7 @@ struct __declspec(align(16)) FUN_00dfe440_obj
 };
 
 // @fnv 0x00dfe440
-int FUN_00dfe440()
+int getVtable_hkaFootstepAnalysisInfo()
 {
     FUN_00dfe440_obj obj;
     obj.FUN_00e40ca0(FUN_00dfe440_arg());
@@ -1685,7 +1685,7 @@ class __declspec(align(16)) S00dff310_Object
 
 // Havok getVtable helper: build the object with the finish-loading flag and read its vtable pointer.
 // @fnv 0x00dff310
-const void* __cdecl FUN_00dff310()
+const void* __cdecl getVtable_hkpMountedBallGun()
 {
     FinishingFlag flag;
     flag.m_bFinishing = 0;
@@ -1725,7 +1725,7 @@ class __declspec(align(16)) S00dff4f0_Object
 
 // Havok getVtable helper: build the object with the finish-loading flag and read its vtable pointer.
 // @fnv 0x00dff4f0
-const void* __cdecl FUN_00dff4f0()
+const void* __cdecl getVtable_hkpGravityGun()
 {
     FinishingFlag flag;
     flag.m_bFinishing = 0;
@@ -1757,7 +1757,7 @@ class __declspec(align(16)) S00dff8b0_Object
 
 // Havok getVtable helper: build the object with the finish-loading flag and read its vtable pointer.
 // @fnv 0x00dff8b0
-const void* __cdecl FUN_00dff8b0()
+const void* __cdecl getVtable_hkpDisableEntityCollisionFilter()
 {
     FinishingFlag flag;
     flag.m_bFinishing = 0;
@@ -1789,7 +1789,7 @@ class __declspec(align(16)) S00dffa70_Object
 
 // Havok getVtable helper: build the object with the finish-loading flag and read its vtable pointer.
 // @fnv 0x00dffa70
-const void* __cdecl FUN_00dffa70()
+const void* __cdecl getVtable_hkpConstrainedSystemFilter()
 {
     FinishingFlag flag;
     flag.m_bFinishing = 0;
@@ -1829,7 +1829,7 @@ class __declspec(align(16)) S00dffbb0_Object
 
 // Havok getVtable helper: build the object with the finish-loading flag and read its vtable pointer.
 // @fnv 0x00dffbb0
-const void* __cdecl FUN_00dffbb0()
+const void* __cdecl getVtable_hkpBallGun()
 {
     FinishingFlag flag;
     flag.m_bFinishing = 0;
@@ -1846,7 +1846,7 @@ class __declspec(align(16)) S00dfffa0_Object
 };
 
 // @fnv 0x00dfffa0
-const void* __cdecl FUN_00dfffa0()
+const void* __cdecl getVtable_hkpMalleableConstraintData()
 {
     FinishingFlag flag;
     flag.m_bFinishing = 0;
@@ -2161,7 +2161,7 @@ class __declspec(align(16)) S00dfe5e0_Object
 };
 
 // @fnv 0x00dfe5e0
-const void* __cdecl FUN_00dfe5e0()
+const void* __cdecl getVtable_hkaBoneAttachment()
 {
     FinishingFlag flag;
     flag.m_bFinishing = 0;
@@ -2203,7 +2203,7 @@ class __declspec(align(16)) S00dfba10_Object
 };
 
 // @fnv 0x00dfba10
-const void* __cdecl FUN_00dfba10()
+const void* __cdecl getVtable_hkaSkeleton()
 {
     FinishingFlag flag;
     flag.m_bFinishing = 0;
@@ -2305,7 +2305,7 @@ class __declspec(align(16)) S00dfc400_Object
 };
 
 // @fnv 0x00dfc400
-const void* __cdecl FUN_00dfc400()
+const void* __cdecl getVtable_hkpSerializedAgentNnEntry()
 {
     FinishingFlag flag;
     flag.m_bFinishing = 0;
@@ -2336,7 +2336,7 @@ class __declspec(align(16)) AnimationBindingVtableProbe
 };
 
 // @fnv 0x00dfe9b0
-const void* __cdecl FUN_00dfe9b0()
+const void* __cdecl getVtable_hkaAnimationBinding()
 {
     FinishingFlag flag;
     flag.m_bFinishing = 0;

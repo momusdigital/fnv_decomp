@@ -30,7 +30,7 @@ struct S_0048cca0
 };
 struct FUN_0048b5c0_shell
 {
-    void FUN_0048b5c0();
+    void Save();
 };
 struct FUN_00508920_obj
 {

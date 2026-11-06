@@ -90,7 +90,7 @@ bool BGSMoviePlayer::UpdateMoviePlayback(bool continuePlaying)
 {
     int deviceStatus;
 
-    if (!FUN_00ec1840(continuePlaying))
+    if (!CheckContinuePlaying(continuePlaying))
         return false;
 
     deviceStatus = FUN_0043c4b0()->FUN_004dc020()->TestCooperativeLevel();

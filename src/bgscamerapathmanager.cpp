@@ -67,7 +67,7 @@ struct TESFile
 };
 struct FUN_0058b510_shell
 {
-    TESFile* FUN_0058b510(unsigned int a, unsigned int b);
+    TESFile* GetCameraPathToPlay(unsigned int a, unsigned int b);
 };
 struct FUN_0058b470_shell
 {
@@ -76,10 +76,10 @@ struct FUN_0058b470_shell
 bool __fastcall _ref_008256d0(const char* s);
 struct FUN_0058bb50_shell : NiFormArray
 {
-    TESFile* FUN_0058bb50(unsigned int arg1, unsigned int arg2);
+    TESFile* GetCameraPathToPlay(unsigned int arg1, unsigned int arg2);
 };
 // @fnv 0x0058bb50
-TESFile* FUN_0058bb50_shell::FUN_0058bb50(unsigned int arg1, unsigned int arg2)
+TESFile* FUN_0058bb50_shell::GetCameraPathToPlay(unsigned int arg1, unsigned int arg2)
 {
     TESFile* pFile = 0;
     if (arg1)
@@ -89,7 +89,7 @@ TESFile* FUN_0058bb50_shell::FUN_0058bb50(unsigned int arg1, unsigned int arg2)
         {
             TESForm* form = reinterpret_cast<NiFormArray_008b2010*>(this)->GetFormAt(i);
             if (form)
-                pFile = reinterpret_cast<FUN_0058b510_shell*>(form)->FUN_0058b510(arg1, arg2);
+                pFile = reinterpret_cast<FUN_0058b510_shell*>(form)->GetCameraPathToPlay(arg1, arg2);
             if (pFile)
                 break;
         }
@@ -222,7 +222,7 @@ struct SceneNode
     static void* operator new(unsigned int size);
     static void operator delete(void* p, unsigned int size);
     SceneNode* FUN_009611e0();
-    void FUN_004f00e0(void* arg);
+    void SetWorldTranslate(void* arg);
 };
 
 void* __fastcall FUN_0045bb80(SceneNode* node);
@@ -287,7 +287,7 @@ void FUN_0058ccf0_Class::SetSceneNode(SceneNode* node)
     else
     {
         node64 = new SceneNode(0);
-        ((SceneNode*)node64)->FUN_004f00e0(FUN_0045bb80(node));
+        ((SceneNode*)node64)->SetWorldTranslate(FUN_0045bb80(node));
     }
     SceneNode* root = node;
     while (root != 0 && root->IsRootCandidate() == 0)

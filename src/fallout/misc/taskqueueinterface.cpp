@@ -363,11 +363,11 @@ void TaskQueueInterface::ProcessQueuedTask(const BSPackedTask& akTask)
             switch (akTask.m_akPackedTaskVariantData[1].iData)
             {
             case 0x1007:
-                FUN_005c0740(m_pWorldReferenceInfo, akTask.m_akPackedTaskVariantData[3].pcDataA[0],
+                SetPosBase(m_pWorldReferenceInfo, akTask.m_akPackedTaskVariantData[3].pcDataA[0],
                              akTask.m_akPackedTaskVariantData[4].fData);
                 break;
             case 0x1009:
-                FUN_005c0b10(m_pWorldReferenceInfo, akTask.m_akPackedTaskVariantData[3].pcDataA[0],
+                SetAngleBase(m_pWorldReferenceInfo, akTask.m_akPackedTaskVariantData[3].pcDataA[0],
                              akTask.m_akPackedTaskVariantData[4].fData);
                 break;
             case 0x113c:
@@ -835,11 +835,11 @@ struct FUN_0043b370_cls
 {
     char pad[0x30];
     unsigned int flags;
-    void FUN_0043b370(bool set, unsigned int m);
+    void SetBit(bool set, unsigned int m);
 };
 // Sets or clears the bits of m in flags depending on set.
 // @fnv 0x0043b370
-void FUN_0043b370_cls::FUN_0043b370(bool set, unsigned int auiMask)
+void FUN_0043b370_cls::SetBit(bool set, unsigned int auiMask)
 {
     if (set)
         flags |= auiMask;

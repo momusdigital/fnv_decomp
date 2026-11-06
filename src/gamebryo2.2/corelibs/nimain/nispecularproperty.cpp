@@ -31,10 +31,10 @@ struct NiSpecularProperty : NiProperty
         *(void**)this = (void*)&DAT_010a02e4;
         m_uiObjectFlags = 0;
     }
-    NiObject* FUN_00a95110(CloningProcess&);
+    NiObject* CreateClone(CloningProcess&);
 };
 // @fnv 0x00a95110
-NiObject* NiSpecularProperty::FUN_00a95110(CloningProcess& kCloning)
+NiObject* NiSpecularProperty::CreateClone(CloningProcess& kCloning)
 {
     NiSpecularProperty* pkObject = new NiSpecularProperty;
     ((NiCullingProperty*)this)->FUN_00a5d7a0(pkObject, kCloning);
@@ -69,11 +69,11 @@ struct FUN_00a951f0_cls
     int unk14;
     unsigned char m_18;
     void AppendString(FUN_00a951f0_list* list);
-    void FUN_00a951f0(FUN_00a951f0_list* list);
+    void GetViewerStrings(FUN_00a951f0_list* list);
 };
 
 // @fnv 0x00a951f0
-void FUN_00a951f0_cls::FUN_00a951f0(FUN_00a951f0_list* list)
+void FUN_00a951f0_cls::GetViewerStrings(FUN_00a951f0_list* list)
 {
     AppendString(list);
     unsigned int item = FUN_00a7d330(DAT_011f5ecc);

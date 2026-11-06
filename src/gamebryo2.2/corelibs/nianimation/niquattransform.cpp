@@ -576,7 +576,7 @@ class ThreeByThreeMatrix
 };
 struct QuatRotate
 {
-    void FUN_004f0180(ThreeByThreeMatrix& kRot) const;
+    void ToRotation(ThreeByThreeMatrix& kRot) const;
 };
 extern char DAT_011a9448;
 static const double DAT_010241b0 = -3.4028234663852886e+38;
@@ -609,7 +609,7 @@ void FUN_00a386a0_shell::Inverse(NiQuatTransform& kDest)
     {
         *(NiQuaternionConjugateValue*)&kDest.m_kRotate =
             NiQuaternionConjugate(*(NiQuaternionConjugateValue*)&m_kRotate);
-        ((QuatRotate*)&kDest.m_kRotate)->FUN_004f0180(kRot);
+        ((QuatRotate*)&kDest.m_kRotate)->ToRotation(kRot);
     }
     if (m_kTranslate.x == DAT_010241b0)
     {

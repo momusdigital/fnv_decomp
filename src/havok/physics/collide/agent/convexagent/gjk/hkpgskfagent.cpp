@@ -58,12 +58,12 @@ void __cdecl FUN_00dae340(void*, int);
 
 struct hkpGskfAgent
 {
-    void FUN_00dacb20(unsigned short id);
+    void removePoint(unsigned short id);
 };
 
 // Scans up to count entries at this+0x36 for a matching id and, if found, calls FUN_00dae340 with this+0x30 and the entry index.
 // @fnv 0x00dacb20
-void hkpGskfAgent::FUN_00dacb20(unsigned short id)
+void hkpGskfAgent::removePoint(unsigned short id)
 {
     int count = *(unsigned char*)((char*)this + 0x32);
     int i = 0;

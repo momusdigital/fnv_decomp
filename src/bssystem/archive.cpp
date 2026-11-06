@@ -307,7 +307,7 @@ struct MobileObject
 
     bhkCharacterController* GetPhysicsCharacterController(void);
     float GetActorHeight(void) const;
-    bool FUN_008b2f90(const NiPoint3& targetPos, float radius, bool addCharRadius, bool check3D);
+    bool IsAtPoint(const NiPoint3& targetPos, float radius, bool addCharRadius, bool check3D);
 };
 
 int __fastcall FUN_005c0880(bhkCharacterController*);
@@ -320,7 +320,7 @@ extern double gModifierZero;
 extern double DAT_0101db88;
 
 // @fnv 0x008b2f90
-bool MobileObject::FUN_008b2f90(const NiPoint3& targetPos, float radius, bool addCharRadius, bool check3D)
+bool MobileObject::IsAtPoint(const NiPoint3& targetPos, float radius, bool addCharRadius, bool check3D)
 {
     bhkCharacterController* charCtrl;
     {

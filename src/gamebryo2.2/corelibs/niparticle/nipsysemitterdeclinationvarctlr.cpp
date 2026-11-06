@@ -106,11 +106,11 @@ struct FUN_00c2b8d0_cls
 {
     void FUN_00c32de0(SpawnedObject* obj, void* arg);
 
-    SpawnedObject* FUN_00c2b8d0(void* arg);
+    SpawnedObject* CreateClone(void* arg);
 };
 
 // @fnv 0x00c2b8d0
-SpawnedObject* FUN_00c2b8d0_cls::FUN_00c2b8d0(void* arg)
+SpawnedObject* FUN_00c2b8d0_cls::CreateClone(void* arg)
 {
     SpawnedObject* obj = (SpawnedObject*)FUN_00aa13e0(0x40);
     if (obj != 0)

@@ -164,11 +164,11 @@ FUN_0051d1c0::~FUN_0051d1c0()
 
 struct FUN_0051b830_shell
 {
-    unsigned int __thiscall FUN_0051b830();
+    unsigned int __thiscall GetMaxAllowedSize();
 };
 
 // @fnv 0x0051b830
-unsigned int __thiscall FUN_0051b830_shell::FUN_0051b830()
+unsigned int __thiscall FUN_0051b830_shell::GetMaxAllowedSize()
 {
     return 1024;
 }
@@ -338,12 +338,12 @@ extern unsigned int __cdecl DialogueRandom(void);
 
 struct FUN_0051c360_shell
 {
-    unsigned int FUN_0051c360();
+    unsigned int GetRandomSeed();
 };
 
 // Returns a random element from the Arr at offset 0x5c, or 0 when that Arr is empty.
 // @fnv 0x0051c360
-unsigned int FUN_0051c360_shell::FUN_0051c360()
+unsigned int FUN_0051c360_shell::GetRandomSeed()
 {
     unsigned int index = reinterpret_cast<Arr*>(reinterpret_cast<char*>(this) + 0x5c)->GetSize();
     if (!index)
@@ -400,10 +400,10 @@ unsigned int __thiscall FUN_009b0900_shell::GetFieldE0()
 
 struct FUN_0051b8a0_shell
 {
-    void FUN_0051b8a0(float f);
+    void SetShadowRadius(float f);
 };
 // @fnv 0x0051b8a0
-void FUN_0051b8a0_shell::FUN_0051b8a0(float afValue)
+void FUN_0051b8a0_shell::SetShadowRadius(float afValue)
 {
     *(int*)((char*)this + 0x80) = (int)afValue;
 }

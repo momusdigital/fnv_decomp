@@ -103,11 +103,11 @@ struct TransformOwner
     TransformObj* m_pSource;
 
     void ReleaseObject(TransformObj* pkObj, int iArg);
-    void FUN_00cc85b0(TransformObj* pkObj, int iArg);
+    void CloneData(TransformObj* pkObj, int iArg);
 };
 
 // @fnv 0x00cc85b0
-void TransformOwner::FUN_00cc85b0(TransformObj* pkObj, int iArg)
+void TransformOwner::CloneData(TransformObj* pkObj, int iArg)
 {
     MemContextGuard kGuard(0x10);
     TransformObj* pkSource = m_pSource;
@@ -421,12 +421,12 @@ class Cc6830Self
     int unk00;
     Cc6830Motion* m_pMotionState;
 
-    void FUN_00cc6830(Cc6830Motion* dst, const Cc6830Src* src);
+    void CloneData(Cc6830Motion* dst, const Cc6830Src* src);
     void ReleaseObject(Cc6830Motion* m, const Cc6830Src* src);
 };
 
 // @fnv 0x00cc6830
-void Cc6830Self::FUN_00cc6830(Cc6830Motion* dst, const Cc6830Src* src)
+void Cc6830Self::CloneData(Cc6830Motion* dst, const Cc6830Src* src)
 {
     Cc6830Motion* m = m_pMotionState;
     if (!dst)
@@ -738,11 +738,11 @@ class Cd2Owner
     {
         return this ? m_pShapeCollection : 0;
     }
-    bool FUN_00cd2f10(void* key);
+    bool CanShare(void* key);
 };
 
 // @fnv 0x00cd2f10
-bool Cd2Owner::FUN_00cd2f10(void* key)
+bool Cd2Owner::CanShare(void* key)
 {
     __declspec(align(16)) char buffer[512];
     bool ok = FUN_00c84ec0(key);
@@ -1065,12 +1065,12 @@ struct FUN_00cc5f30_cls
     int unk00;
     FUN_00d4f2a0* m_pSrc;
 
-    void FUN_00cc5f30(FUN_00d4f2a0* dst, int a2);
+    void CloneData(FUN_00d4f2a0* dst, int a2);
     void ReleaseObject(FUN_00d4f2a0* dst, int a2);
 };
 
 // @fnv 0x00cc5f30
-void FUN_00cc5f30_cls::FUN_00cc5f30(FUN_00d4f2a0* dst, int a2)
+void FUN_00cc5f30_cls::CloneData(FUN_00d4f2a0* dst, int a2)
 {
     FUN_00d4f2a0* src = m_pSrc;
     if (dst == 0)
@@ -2116,14 +2116,14 @@ struct RotationOwner525
 {
     unsigned int unk00, unk04;
     RotationSource525* source;
-    void FUN_00d54ed0(StringArray525*);
+    void GetViewerStrings(StringArray525*);
     void FUN_00ccb810(StringArray525*);
 };
 // @fnv 0x00ccb810
 void RotationOwner525::FUN_00ccb810(StringArray525* stream)
 {
     MemContextGuard guard(16);
-    FUN_00d54ed0(stream);
+    GetViewerStrings(stream);
     char* value = FUN_00a7d330(DAT_01268670);
     stream->append(value);
     // The SDK quaternion default constructor does not initialize its value.
@@ -2374,7 +2374,7 @@ struct Holder
     int unk10;
     int unk14;
     void FUN_00ccbce0(void* p);
-    CachedObj* FUN_00ccbfa0(bool* created);
+    CachedObj* CreateCinfo(bool* created);
 };
 
 inline void* AllocAligned(unsigned int size)
@@ -2387,7 +2387,7 @@ inline void* AllocAligned(unsigned int size)
 }
 
 // @fnv 0x00ccbfa0
-CachedObj* Holder::FUN_00ccbfa0(bool* created)
+CachedObj* Holder::CreateCinfo(bool* created)
 {
     AutoMemContext ctx(0x10);
     bool bCreated = (unk0c == 0);
@@ -2804,10 +2804,10 @@ struct Subject
 {
     int unk00, unk04;
     Body* body;
-    void FUN_00ccf150(ConvexShapeNode*, void*);
+    void BuildDisplayGeometry(ConvexShapeNode*, void*);
 };
 // @fnv 0x00ccf150
-void Subject::FUN_00ccf150(ConvexShapeNode* parent, void* arg)
+void Subject::BuildDisplayGeometry(ConvexShapeNode* parent, void* arg)
 {
     Context context;
     const Transform* src = this && body ? &body->transform : &identity;
@@ -3508,7 +3508,7 @@ class NamedShape
     unsigned int unk00;
     void WriteLimitedHingeData(Blk* b);
     void FUN_00c9fc50(NameArr* arr);
-    void FUN_00ccd960(NameArr* arr);
+    void GetViewerStrings(NameArr* arr);
 };
 
 static void AddName(NameArr* arr, const unsigned int& v)
@@ -3522,7 +3522,7 @@ static void AddName(NameArr* arr, const unsigned int& v)
 }
 
 // @fnv 0x00ccd960
-void NamedShape::FUN_00ccd960(NameArr* arr)
+void NamedShape::GetViewerStrings(NameArr* arr)
 {
     TlsFlagGuard guard;
     FUN_00c9fc50(arr);
@@ -4569,14 +4569,14 @@ class ShapeClonerC97
 {
   public:
     ShapeC97* ReleaseObject(ShapeC97* shape, ShapeCinfoC97* cinfo);
-    ShapeC97* FUN_00cc9790(ShapeC97* dst, ShapeCinfoC97* cinfo);
+    ShapeC97* CloneData(ShapeC97* dst, ShapeCinfoC97* cinfo);
 
     int unk00;
     ShapeC97* m_pCollisionShape;
 };
 
 // @fnv 0x00cc9790
-ShapeC97* ShapeClonerC97::FUN_00cc9790(ShapeC97* dst, ShapeCinfoC97* cinfo)
+ShapeC97* ShapeClonerC97::CloneData(ShapeC97* dst, ShapeCinfoC97* cinfo)
 {
     ::MemContextGuard kContext(0x10);
     ShapeC97* src = m_pCollisionShape;
@@ -5445,11 +5445,11 @@ struct CylinderDisplayOwner
     virtual void vf55(void* pkA, void* pkResult, void* pkB, const char* pcName);
 
     void WriteLimitedHingeData(ShapeCinfo* pkInfo);
-    void FUN_00ccd6f0(void* pkA, void* pkB);
+    void BuildDisplayGeometry(void* pkA, void* pkB);
 };
 
 // @fnv 0x00ccd6f0
-void CylinderDisplayOwner::FUN_00ccd6f0(void* pkA, void* pkB)
+void CylinderDisplayOwner::BuildDisplayGeometry(void* pkA, void* pkB)
 {
     ::MemContextGuard guard(16);
     ShapeCinfo info;

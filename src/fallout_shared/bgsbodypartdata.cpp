@@ -217,11 +217,11 @@ struct FUN_005e5130_Class
     int unk00, unk04, unk08, unk0c, unk10, unk14, unk18, unk1c;
     int unk20, unk24, unk28, unk2c, unk30;
     FUN_005e5130_Elem* entries[15];
-    FUN_005e5130_Elem* FUN_005e5130(int value);
+    FUN_005e5130_Elem* GetBodyPart(int value);
 };
 // Searches the entries array for an element whose GetByte63 matches value and returns it, or null if none found.
 // @fnv 0x005e5130
-FUN_005e5130_Elem* FUN_005e5130_Class::FUN_005e5130(int value)
+FUN_005e5130_Elem* FUN_005e5130_Class::GetBodyPart(int value)
 {
     FUN_005e5130_Elem* pFound = 0;
     for (int index = 0; index < 15; ++index)

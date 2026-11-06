@@ -151,7 +151,7 @@ struct FUN_00a4b900_V
 };
 struct FUN_00a4b900_Holder
 {
-    void FUN_00a4b900();
+    void Collapse();
 };
 struct FakeInterp
 {

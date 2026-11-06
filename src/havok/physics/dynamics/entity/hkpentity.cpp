@@ -2988,11 +2988,11 @@ struct EntityRebuild
     FnvSmall actions;
     int localFrame;
     FnvTwo* extended;
-    void FUN_00c9c8f0();
+    void deallocateInternalArrays();
 };
 // Deletes p98 after FUN_00c9c140, then frees storage of p60, master, slave, runtime, contact, actions and extended when each is empty.
 // @fnv 0x00c9c8f0
-void EntityRebuild::FUN_00c9c8f0()
+void EntityRebuild::deallocateInternalArrays()
 {
     FnvRef* old = p98;
     if (old)

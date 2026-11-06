@@ -21,10 +21,10 @@ struct FUN_00e89ac0_Class
     int unk2c;
     int unk30;
     int unk34;
-    void FUN_00e89ac0();
+    void DestroyRendererData();
 };
 // @fnv 0x00e89ac0
-void FUN_00e89ac0_Class::FUN_00e89ac0()
+void FUN_00e89ac0_Class::DestroyRendererData()
 {
     if (unk34 != 0)
     {

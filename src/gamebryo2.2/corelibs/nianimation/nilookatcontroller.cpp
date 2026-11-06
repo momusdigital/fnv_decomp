@@ -133,10 +133,10 @@ struct S00a4c860
 {
     char _p[0x38];
     FakeAV* m;
-    bool __thiscall FUN_00a4c860(NiStream&);
+    bool __thiscall RegisterStreamables(NiStream&);
 };
 // @fnv 0x00a4c860
-bool __thiscall S00a4c860::FUN_00a4c860(NiStream& s)
+bool __thiscall S00a4c860::RegisterStreamables(NiStream& s)
 {
     if (!((TCReg*)this)->FUN_00a6d0f0(s))
         return false;
@@ -341,10 +341,10 @@ struct LookAt : BaseLoad
     unsigned int unk2c;
     unsigned int unk30;
     unsigned short flags;
-    void FUN_00a4ce20(NiStream& stream);
+    void LoadBinary(NiStream& stream);
 };
 // @fnv 0x00a4ce20
-void LookAt::FUN_00a4ce20(NiStream& stream)
+void LookAt::LoadBinary(NiStream& stream)
 {
     BaseLoad::FUN_00a6d5e0(stream);
     StreamLayout& streamLayout = reinterpret_cast<StreamLayout&>(stream);
@@ -630,7 +630,7 @@ struct LookAtData
     unsigned int unk000;
 };
 
-// The controller that owns FUN_00a4cea0: the look-at data object sits at
+// The controller that owns SaveBinary: the look-at data object sits at
 // +0x34 and the renderer data pointer at +0x38.
 struct Ctl : Base44
 {
@@ -649,11 +649,11 @@ struct Ctl : Base44
     unsigned int unk030;
     LookAtData m34;
     FakeAV* m38;
-    void FUN_00a4cea0(StreamObj* stream);
+    void SaveBinary(StreamObj* stream);
 };
 
 // @fnv 0x00a4cea0
-void Ctl::FUN_00a4cea0(StreamObj* stream)
+void Ctl::SaveBinary(StreamObj* stream)
 {
     Base44::FUN_00a6d730(stream);
     Handler* handler = stream->m250;
@@ -722,7 +722,7 @@ struct Clone_a4c : public FUN_00a6d220
     {
         return (m_34 & usMask) >> usPos;
     }
-    Clone_a4c* FUN_00a4cd60(void* pkCloning);
+    Clone_a4c* CreateClone(void* pkCloning);
     union
     {
         unsigned short m_34;
@@ -737,7 +737,7 @@ struct Clone_a4c : public FUN_00a6d220
 
 // Allocates a Clone_a4c, copies the base data via FUN_00a6cfe0, then copies m_34, bit 1, field 6 and m_38, and returns the clone.
 // @fnv 0x00a4cd60
-Clone_a4c* Clone_a4c::FUN_00a4cd60(void* pkCloning)
+Clone_a4c* Clone_a4c::CreateClone(void* pkCloning)
 {
     Clone_a4c* pkClone = new Clone_a4c;
     FUN_00a6cfe0(pkClone, pkCloning);

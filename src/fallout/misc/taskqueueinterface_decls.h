@@ -762,8 +762,8 @@ class Script
     static void MatchFaceGeometry(TESObjectREFR*, TESObjectREFR*, int);  // @ref 0x005d9bc0 MatchFaceGeometry@Script
     void SetOwnerQuest(TESQuest*);                                       // @ref 0x0087ce80 SetOwnerQuest@Script
 };
-void FUN_005c0740(TESObjectREFR*, unsigned char, float);  // @ref 0x005c0740 FUN_005c0740
-void FUN_005c0b10(TESObjectREFR*, unsigned char, float);  // @ref 0x005c0b10 FUN_005c0b10
+void SetPosBase(TESObjectREFR*, unsigned char, float);  // @ref 0x005c0740 SetPosBase
+void SetAngleBase(TESObjectREFR*, unsigned char, float);  // @ref 0x005c0b10 SetAngleBase
 void FUN_005d3c20(TESObjectREFR*, float);                 // @ref 0x005d3c20 FUN_005d3c20
 void FUN_005d4c20(TESObjectREFR*, float);                 // @ref 0x005d4c20 FUN_005d4c20
 void UpdateSceneGraph(NiAVObject*);                       // @ref 0x005526f0 UpdateSceneGraph

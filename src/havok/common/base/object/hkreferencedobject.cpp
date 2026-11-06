@@ -1268,12 +1268,12 @@ class bhkWorldObjectCC4 : public FUN_00d53200_class
   public:
     hkpWorldObjectCC4* m_pPointer;
 
-    void FUN_00cc4e10(NiStream& kStream);
+    void LoadBinary(NiStream& kStream);
 };
 
 // Reads a shape, attaches it to the hkpWorldObject, and deserializes its layer and flags from the stream.
 // @fnv 0x00cc4e10
-void bhkWorldObjectCC4::FUN_00cc4e10(NiStream& kStream)
+void bhkWorldObjectCC4::LoadBinary(NiStream& kStream)
 {
     FUN_00c8a230(kStream);
     hkpWorldObjectCC4* pkObject = m_pPointer;

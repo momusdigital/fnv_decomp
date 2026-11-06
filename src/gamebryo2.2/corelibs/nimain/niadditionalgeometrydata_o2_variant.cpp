@@ -33,7 +33,7 @@ struct NiAGDDataBlock
     unsigned char m_bFlag;
 };
 // @fnv 0x00a727c0
-NiAGDDataBlock* __cdecl FUN_00a727c0()
+NiAGDDataBlock* __cdecl CreateDataBlock()
 {
     NiAGDDataBlock* block = static_cast<NiAGDDataBlock*>(g_memoryManager.Allocate(16));
     if (block)
@@ -1178,11 +1178,11 @@ struct FUN_00a73370Node
     unsigned short unk24;
     unsigned short childCount;
     void LinkObject(SaveStream* stream);
-    void FUN_00a73370(SaveStream* stream);
+    void SaveBinary(SaveStream* stream);
 };
 
 // @fnv 0x00a73370
-void FUN_00a73370Node::FUN_00a73370(SaveStream* stream)
+void FUN_00a73370Node::SaveBinary(SaveStream* stream)
 {
     LinkObject(stream);
     SerializeValue(stream, flags);

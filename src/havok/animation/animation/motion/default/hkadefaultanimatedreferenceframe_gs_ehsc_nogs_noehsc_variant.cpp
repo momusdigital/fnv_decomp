@@ -401,10 +401,10 @@ struct AnimatedFrame
     int unk04, unk08, unk0c;
     int unk10, unk14, unk18, unk1c, unk20, unk24, unk28, unk2c;
     float m_fAnimationDuration;
-    void FUN_00e413d0(float time, float nextTime, int loops, hkTransform& output) const;
+    void getDeltaReferenceFrame(float time, float nextTime, int loops, hkTransform& output) const;
 };
 // @fnv 0x00e413d0
-void AnimatedFrame::FUN_00e413d0(float time, float nextTime, int loops, hkTransform& output) const
+void AnimatedFrame::getDeltaReferenceFrame(float time, float nextTime, int loops, hkTransform& output) const
 {
     hkTransform start;
     EvaluateTransform(time, start);

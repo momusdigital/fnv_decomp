@@ -92,7 +92,7 @@ struct PresentFlag
 struct FUN_00cf2a60_t : hkpAabbPhantom
 {
     void NotifyAll(hkpCollidable* collidable, PresentFlag wasPresent);
-    void FUN_00cf2a60(hkpCollidable* collidable);
+    void removeOverlappingCollidable(hkpCollidable* collidable);
 };
 class hkClassCF2A;
 extern const hkClassCF2A DAT_0126902c;

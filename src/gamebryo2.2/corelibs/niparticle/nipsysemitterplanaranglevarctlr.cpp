@@ -86,11 +86,11 @@ inline void* __cdecl operator new(unsigned int, void* memory)
 }
 struct C_00c2b480 : FUN_00c32d80
 {
-    CloneShell* FUN_00c2b480(void* volatile argument);
+    CloneShell* CreateClone(void* volatile argument);
 };
 // Allocates a 0x40-byte CloneShell, constructs it, passes the argument to FUN_00c32de0, and returns the clone or null.
 // @fnv 0x00c2b480
-CloneShell* C_00c2b480::FUN_00c2b480(void* volatile argument)
+CloneShell* C_00c2b480::CreateClone(void* volatile argument)
 {
     CloneShell* clone = (CloneShell*)NiMemObject::operator new(0x40);
     if (clone)

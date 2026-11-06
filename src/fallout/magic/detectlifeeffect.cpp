@@ -69,10 +69,10 @@ struct RetObj
 };
 struct DetectLifeEffect : FUN_0082a670_shell
 {
-    void FUN_0080ce60();
+    void Start();
 };
 // @fnv 0x0080ce60
-void DetectLifeEffect::FUN_0080ce60()
+void DetectLifeEffect::Start()
 {
     FUN_0082c000();
     if (((RetObj*)((BSThread*)this)->GetThreadID())->f1() == g_thePlayer)

@@ -5,6 +5,6 @@ class TESFile;
 class ScriptVariableEndian
 {
   public:
-    void FUN_005e2870();
+    void Endian();
 };
 #endif

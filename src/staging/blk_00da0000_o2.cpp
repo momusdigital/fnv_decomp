@@ -15,7 +15,7 @@ struct FUN_00da07b0_class
 };
 
 // @fnv 0x00da07b0
-void __cdecl FUN_00da07b0(void* apObject, void* b)
+void __cdecl finishLoadedObject_hkSimpleLocalFrame(void* apObject, void* b)
 {
     if (apObject)
     {
@@ -40,7 +40,7 @@ void* __cdecl InitAndReturnTail(void* apUnused1, void* apUnused2, void* apStruct
 }
 
 // @fnv 0x00da08c0
-void __cdecl FUN_00da08c0(void** a)
+void __cdecl cleanupLoadedObject_hkpMaxSizeMotion(void** a)
 {
     (**(void(__thiscall**)(void*, int))(*a))(a, 0);
 }
@@ -50,7 +50,7 @@ extern int DAT_010c6bec;
 
 // If a is non-null, sets its vtable pointer to DAT_010c59f4, optionally writes a 16-bit value at offset 0x11e, then sets the vtable to DAT_010c6bec.
 // @fnv 0x00da08e0
-void __cdecl FUN_00da08e0(void* pObject, int bSetField)
+void __cdecl finishLoadedObject_hkpKeyframedRigidMotion(void* pObject, int bSetField)
 {
     if (pObject)
     {
@@ -67,7 +67,7 @@ void __cdecl FUN_00da08e0(void* pObject, int bSetField)
 
 extern int DAT_010c6fd0;
 // @fnv 0x00da0b10
-void __cdecl FUN_00da0b10(int* p)
+void __cdecl finishLoadedObject_hkpSingleShapeContainer(int* p)
 {
     if (p)
         *p = (int)&DAT_010c6fd0;
@@ -185,7 +185,7 @@ struct FUN_00da0740_vt
     virtual void v0(int);
 };
 // @fnv 0x00da0740
-void __cdecl FUN_00da0740(FUN_00da0740_vt* p)
+void __cdecl cleanupLoadedObject_hkSimpleLocalFrame(FUN_00da0740_vt* p)
 {
     p->v0(0);
 }
@@ -195,7 +195,7 @@ struct FUN_00cb0a70_class
     void __thiscall FUN_00cb0a70(int);
 };
 // @fnv 0x00da0760
-void __cdecl FUN_00da0760(void* pObject, void* b)
+void __cdecl finishLoadedObject_hkLocalFrameGroup(void* pObject, void* b)
 {
     if (pObject)
     {
@@ -252,7 +252,7 @@ struct FUN_00da0720_Class
 };
 
 // @fnv 0x00da0720
-void __cdecl FUN_00da0720(FUN_00da0720_Class* param_1)
+void __cdecl cleanupLoadedObject_hkLocalFrameGroup(FUN_00da0720_Class* param_1)
 {
     param_1->vf00(0);
 }
@@ -273,7 +273,7 @@ int* __cdecl FUN_00da0750()
     return &DAT_012696c4;
 }
 
-// FUN_00da08a0 : cdecl, 13 bytes
+// cleanupLoadedObject_hkpKeyframedRigidMotion : cdecl, 13 bytes
 //   mov ecx, [esp+4]
 //   mov eax, [ecx]
 //   mov edx, [eax]
@@ -288,7 +288,7 @@ struct FUN_00da08a0_cls
 };
 
 // @fnv 0x00da08a0
-int __cdecl FUN_00da08a0(FUN_00da08a0_cls* pObj)
+int __cdecl cleanupLoadedObject_hkpKeyframedRigidMotion(FUN_00da08a0_cls* pObj)
 {
     return pObj->v00(0);
 }
@@ -624,7 +624,7 @@ struct FUN_00da0af0_Class
 };
 
 // @fnv 0x00da0af0
-void __cdecl FUN_00da0af0(FUN_00da0af0_Class* param_1)
+void __cdecl cleanupLoadedObject_hkpSingleShapeContainer(FUN_00da0af0_Class* param_1)
 {
     param_1->vf00(0);
 }
@@ -1746,7 +1746,7 @@ struct FUN_00db7c00_obj
 };
 
 // @fnv 0x00db7c00
-void __cdecl FUN_00db7c00(FUN_00db7c00_obj* p)
+void __cdecl cleanupLoadedObject_hkpPhysicsSystem(FUN_00db7c00_obj* p)
 {
     p->vslot00(0);
 }

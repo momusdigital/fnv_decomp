@@ -33,7 +33,7 @@ FNV_STATIC_ASSERT(sizeof(NiQuatTransform) == 32);
 class NiAVObject : public NiObjectNET
 {
   public:
-    bool FUN_004f0140();
+    bool GetSelectiveUpdate();
     void FUN_00440460(const NiPoint3& translate);
     void FUN_004f0160(const NiQuaternion& rotate);
     void FUN_00440490(float scale);

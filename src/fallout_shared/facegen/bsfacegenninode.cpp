@@ -299,11 +299,11 @@ Ret36 FUN_00662a10_shell::GetRet36()
 
 struct FUN_00662a80_shell : BSFaceGenNiNode
 {
-    unsigned char FUN_00662a80();
+    unsigned char GetApplyRotToParent();
 };
 
 // @fnv 0x00662a80
-unsigned char FUN_00662a80_shell::FUN_00662a80()
+unsigned char FUN_00662a80_shell::GetApplyRotToParent()
 {
     return *(unsigned char*)((char*)this + 0xd8);
 }
@@ -904,13 +904,13 @@ class FaceGenNode
     virtual FaceGenAnimData* GetAnimationData();
     bool GetByteAtOffsetE1();
     void UpdateStateByDistance(int);
-    void FUN_00663050(bool);
+    void UpdateAllChildrenMorphData(bool);
 };
 class NiAVObject
 {
   public:
     bool FUN_00456610();
-    bool FUN_004f0140();
+    bool GetSelectiveUpdate();
 };
 class Calendar
 {
@@ -945,7 +945,7 @@ extern ProcessLists DAT_011e0e80;
 unsigned char __cdecl FUN_00663a30();
 unsigned char __fastcall FUN_006639f0(char*);
 unsigned char __fastcall GetByteAt1D(char*);
-void __cdecl FUN_00652510(Actor*);
+void __cdecl CycleFaceGenCoordValue(Actor*);
 
 struct FaceGenUpdateData663510
 {
@@ -994,7 +994,7 @@ void FUN_00663510_t::UpdateFaceGenAnimation(FaceGenUpdateData663510* UpdateData)
         ((MobileObject*)*(Actor**)((char*)this + 0xe8))->GetCurrentAIProcess()->GetCurrentPackage678() &&
         FUN_006639f0((char*)((FaceGenNode*)this)->GetAnimationData()) &&
         ((BSFaceGenNiNode*)this)->bApplyRotationToParent && !*g_011df6d0.GetLifeStateControlFlag() &&
-        ((NiAVObject*)this)->FUN_004f0140())
+        ((NiAVObject*)this)->GetSelectiveUpdate())
     {
         bool beyeTrackingChanged;
         if (GetByteAt1D((char*)&g_timeGlobal))
@@ -1012,7 +1012,7 @@ void FUN_00663510_t::UpdateFaceGenAnimation(FaceGenUpdateData663510* UpdateData)
     {
         int inumallowedtoupdate = 10;
         bool bupdate = false;
-        if (((NiAVObject*)this)->FUN_004f0140())
+        if (((NiAVObject*)this)->GetSelectiveUpdate())
         {
             if (((FaceGenNode*)this)->GetAnimationData()->IsDead() ||
                 DAT_011e0e80.CanAddActorToList(*(Actor**)((char*)this + 0xe8), inumallowedtoupdate) ||
@@ -1028,7 +1028,7 @@ void FUN_00663510_t::UpdateFaceGenAnimation(FaceGenUpdateData663510* UpdateData)
         }
         if (bupdate || *(bool*)((char*)this + 0xe4))
         {
-            ((FaceGenNode*)this)->FUN_00663050(bchanged);
+            ((FaceGenNode*)this)->UpdateAllChildrenMorphData(bchanged);
         }
         else
         {
@@ -1039,7 +1039,7 @@ void FUN_00663510_t::UpdateFaceGenAnimation(FaceGenUpdateData663510* UpdateData)
 
     ((FUN_00663a10_shell*)((FaceGenNode*)this)->GetAnimationData())->FUN_00663a10(true);
     if (*(bool*)((char*)this + 0xec) && *(Actor**)((char*)this + 0xe8))
-        FUN_00652510(*(Actor**)((char*)this + 0xe8));
+        CycleFaceGenCoordValue(*(Actor**)((char*)this + 0xe8));
 }
 }  // namespace fnv_00663510
 
@@ -1089,11 +1089,11 @@ struct FUN_006628c0 : A51BF0Base
 
     unsigned char padding[0xec];
 
-    FUN_006628c0* FUN_00663b80(CloningProcess& cloneData);
+    FUN_006628c0* CreateClone(CloningProcess& cloneData);
 };
 
 // @fnv 0x00663b80
-FUN_006628c0* FUN_006628c0::FUN_00663b80(CloningProcess& cloneData)
+FUN_006628c0* FUN_006628c0::CreateClone(CloningProcess& cloneData)
 {
     FUN_006628c0* pnode = new FUN_006628c0;
 
@@ -1245,12 +1245,12 @@ struct FUN_00662b70_cls
     unsigned char flagD7;
 
     void FUN_0043fa80(unsigned int value);
-    void FUN_00662b70(Block36* src);
+    void SetBaseRotation(Block36* src);
 };
 
 // Copies the 36-byte block from src, sets flagD7 to 1, then calls FUN_0043fa80 with the result of v108(&local).
 // @fnv 0x00662b70
-void FUN_00662b70_cls::FUN_00662b70(Block36* apBlock)
+void FUN_00662b70_cls::SetBaseRotation(Block36* apBlock)
 {
     unsigned int pad1;
     unsigned int pad2;
@@ -1273,7 +1273,7 @@ class FUN_00662bc0_Sub;
 class FUN_00662bc0_Holder
 {
   public:
-    void FUN_00662030(int a0, int a1, void* a2, int a3, float a4);
+    void ApplyMorph(int a0, int a1, void* a2, int a3, float a4);
 };
 class FUN_00662bc0_Obj
 {
@@ -1329,7 +1329,7 @@ class FUN_00662bc0_Param
     int unk18;
     unsigned char m_1c;
 };
-extern "C" void __cdecl FUN_00653340(void* a, void* b);
+extern "C" void __cdecl RefreshMeshFromBaseMorphExtraData(void* a, void* b);
 extern const double DAT_01012060;
 extern const double DAT_01012070;
 class FUN_00662bc0_cls
@@ -1413,10 +1413,10 @@ void FUN_00662bc0_cls::ApplyParamValues(FUN_00662bc0_Param* p)
         {
             if (p->m_1c == 0)
             {
-                FUN_00653340(p->m_00, &p->m_04);
+                RefreshMeshFromBaseMorphExtraData(p->m_00, &p->m_04);
                 p->m_1c = 1;
             }
-            p->m_10->FUN_00662030(1, i, p->m_00, p->m_14, val);
+            p->m_10->ApplyMorph(1, i, p->m_00, p->m_14, val);
         }
     }
 }
@@ -1474,7 +1474,7 @@ struct FUN_00662f70_p
 
 struct Sub10Obj
 {
-    void FUN_00662030(int, int, int, int, float);
+    void ApplyMorph(int, int, int, int, float);
 };
 
 struct FUN_00662f70_arg
@@ -1556,13 +1556,13 @@ struct FUN_00662f70_cls
     virtual void v3E();
     virtual void v3F();
     virtual FUN_00662f70_p* v40();
-    void FUN_00662f70(FUN_00662f70_arg* a1);
+    void ApplyFacialCustomMorphs(FUN_00662f70_arg* a1);
 };
 
-void __cdecl FUN_00653340(int a, int b);
+void __cdecl RefreshMeshFromBaseMorphExtraData(int a, int b);
 
 // @fnv 0x00662f70
-void FUN_00662f70_cls::FUN_00662f70(FUN_00662f70_arg* a1)
+void FUN_00662f70_cls::ApplyFacialCustomMorphs(FUN_00662f70_arg* a1)
 {
     int i;
     float f;
@@ -1573,10 +1573,10 @@ void FUN_00662f70_cls::FUN_00662f70(FUN_00662f70_arg* a1)
         {
             if (a1->m_1c == 0)
             {
-                FUN_00653340(a1->m_00, (int)&a1->m_04);
+                RefreshMeshFromBaseMorphExtraData(a1->m_00, (int)&a1->m_04);
                 a1->m_1c = 1;
             }
-            a1->m_10->FUN_00662030(3, i, a1->m_00, a1->m_14, f);
+            a1->m_10->ApplyMorph(3, i, a1->m_00, a1->m_14, f);
         }
     }
 }
@@ -1597,7 +1597,7 @@ float B663450GetRadius();
 
 class B663450Actor;
 
-void __cdecl FUN_00653e50(B663450Actor* pkActor, int iState);
+void __cdecl ReplaceFaceMeshLOD(B663450Actor* pkActor, int iState);
 
 class B663450Actor
 {
@@ -1607,7 +1607,7 @@ class B663450Actor
     void UpdateStateByDistance(int iState);
 };
 
-// Compares the actor's distance to the center against the radius plus or minus a margin and calls FUN_00653e50 with state 0 or 1 accordingly.
+// Compares the actor's distance to the center against the radius plus or minus a margin and calls ReplaceFaceMeshLOD with state 0 or 1 accordingly.
 // @fnv 0x00663450
 void B663450Actor::UpdateStateByDistance(int iState)
 {
@@ -1615,9 +1615,9 @@ void B663450Actor::UpdateStateByDistance(int iState)
     float fMargin = 10.0f;
     float fDist = (kCenter3 - GetPosition()).Length();
     if ((fDist > B663450GetRadius() + fMargin && !GetByteAtE0()) || iState == 0)
-        FUN_00653e50(this, 0);
+        ReplaceFaceMeshLOD(this, 0);
     else if ((fDist < B663450GetRadius() - fMargin && GetByteAtE0()) || iState == 1)
-        FUN_00653e50(this, 1);
+        ReplaceFaceMeshLOD(this, 1);
 }
 
 struct FUN_00662ca0_Data
@@ -1728,10 +1728,10 @@ void FUN_00662ca0_cls::ApplyParameterValues(FUN_00662bc0_Param* pParam)
         {
             if (!pParam->m_1c)
             {
-                FUN_00653340(pParam->m_00, &pParam->m_04);
+                RefreshMeshFromBaseMorphExtraData(pParam->m_00, &pParam->m_04);
                 pParam->m_1c = 1;
             }
-            pParam->m_10->FUN_00662030(2, iIndex, pParam->m_00, pParam->m_14, aFValue);
+            pParam->m_10->ApplyMorph(2, iIndex, pParam->m_00, pParam->m_14, aFValue);
         }
     }
 }
@@ -2090,15 +2090,15 @@ class FaceGenNode
     NiAVObject* FUN_0043b4a0(unsigned int);
     const NiPoint3& FUN_0045bb80() const;
     FaceGenParent* FUN_009611e0();
-    void FUN_00662e90(FUN_00663430*);
+    void ApplyFacialPhonemes(FUN_00663430*);
     void ApplyParamValues(FUN_00663430*);
     void ApplyParameterValues(FUN_00663430*);
-    void FUN_00662f70(FUN_00663430*);
-    void FUN_00663050(bool);
+    void ApplyFacialCustomMorphs(FUN_00663430*);
+    void UpdateAllChildrenMorphData(bool);
 };
 void* FUN_00653230(void*);
 NiExtraData* GetExtraDataIfPresent(NiAVObject*);
-void FUN_00653340(NiTriBasedGeom*, BSFaceGenMorphData*);
+void RefreshMeshFromBaseMorphExtraData(NiTriBasedGeom*, BSFaceGenMorphData*);
 const NiPoint3& FUN_006633f0();
 float FUN_006633d0();
 float FUN_006633e0();
@@ -2106,7 +2106,7 @@ unsigned char FUN_00525420();
 bool FUN_00702360();
 
 // @fnv 0x00663050
-void FaceGenNode::FUN_00663050(bool update)
+void FaceGenNode::UpdateAllChildrenMorphData(bool update)
 {
     FUN_00663430 context_2;
     unsigned int count4 = FUN_0043b480();
@@ -2139,7 +2139,7 @@ void FaceGenNode::FUN_00663050(bool update)
         kTotal = context_2.geometry->FUN_00456650();
         if (update || resetMorph)
         {
-            FUN_00653340(context_2.geometry, &context_2.morph);
+            RefreshMeshFromBaseMorphExtraData(context_2.geometry, &context_2.morph);
             done2 = true;
             resetMorph = false;
         }
@@ -2165,18 +2165,18 @@ void FaceGenNode::FUN_00663050(bool update)
         }
         if (refreshMorph && !done2)
         {
-            FUN_00653340(context_2.geometry, &context_2.morph);
+            RefreshMeshFromBaseMorphExtraData(context_2.geometry, &context_2.morph);
             done2 = true;
         }
         if (aOverrideFlag_2 && !skipUpdate)
         {
-            FUN_00662e90(&context_2);
+            ApplyFacialPhonemes(&context_2);
             active5 = true;
             if (active)
             {
                 ApplyParamValues(&context_2);
                 ApplyParameterValues(&context_2);
-                FUN_00662f70(&context_2);
+                ApplyFacialCustomMorphs(&context_2);
                 updated4 = true;
             }
         }
@@ -3046,7 +3046,7 @@ struct S_00662e90_Object
 
 struct S_00662e90_Callee
 {
-    void __thiscall FUN_00662030(int, int, void*, int, float);
+    void __thiscall ApplyMorph(int, int, void*, int, float);
 };
 
 struct S_00662e90_Argument
@@ -3064,11 +3064,11 @@ struct S_00662e90_Argument
 class S_00662e90_Class : public S_00662e90_This
 {
   public:
-    void __thiscall FUN_00662e90(S_00662e90_Argument*);
+    void __thiscall ApplyFacialPhonemes(S_00662e90_Argument*);
 };
 
 // @fnv 0x00662e90
-void S_00662e90_Class::FUN_00662e90(S_00662e90_Argument* pArg)
+void S_00662e90_Class::ApplyFacialPhonemes(S_00662e90_Argument* pArg)
 {
     int i8;
     float value;
@@ -3080,10 +3080,10 @@ void S_00662e90_Class::FUN_00662e90(S_00662e90_Argument* pArg)
         {
             if (!pArg->unk1c)
             {
-                FUN_00653340(pArg->unk00, &pArg->unk04);
+                RefreshMeshFromBaseMorphExtraData(pArg->unk00, &pArg->unk04);
                 pArg->unk1c = 1;
             }
-            pArg->unk10->FUN_00662030(0, i8, pArg->unk00, pArg->unk14, value);
+            pArg->unk10->ApplyMorph(0, i8, pArg->unk00, pArg->unk14, value);
         }
     }
 }

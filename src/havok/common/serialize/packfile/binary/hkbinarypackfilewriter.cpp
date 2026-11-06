@@ -15,7 +15,7 @@ extern int DAT_011b7aec;
 extern void* DAT_010d65bc;
 struct FUN_00dbdf30_s
 {
-    void FUN_00dbdf30(GlobalObjectO2_00d472a0*, int);
+    void setSectionForClass(GlobalObjectO2_00d472a0*, int);
 };
 struct FUN_00dbc670
 {
@@ -24,17 +24,17 @@ struct FUN_00dbc670
     FUN_00dbc670();
 };
 extern void FUN_00dbe4d0();
-// Calls FUN_00dbe4d0, sets m_vft, then calls FUN_00dbdef0 and FUN_00dbdf30 on four global objects with DAT_011b7aec.
+// Calls FUN_00dbe4d0, sets m_vft, then calls FUN_00dbdef0 and setSectionForClass on four global objects with DAT_011b7aec.
 // @fnv 0x00dbc670
 FUN_00dbc670::FUN_00dbc670()
 {
     FUN_00dbe4d0();
     m_vft = &DAT_010d65bc;
     FUN_00dbdef0(DAT_011b7a7c);
-    ((FUN_00dbdf30_s*)this)->FUN_00dbdf30(&g_0126cae8, DAT_011b7aec);
-    ((FUN_00dbdf30_s*)this)->FUN_00dbdf30(&g_0126ca58, DAT_011b7aec);
-    ((FUN_00dbdf30_s*)this)->FUN_00dbdf30(&g_0126cab8, DAT_011b7aec);
-    ((FUN_00dbdf30_s*)this)->FUN_00dbdf30(&g_0126ca88, DAT_011b7aec);
+    ((FUN_00dbdf30_s*)this)->setSectionForClass(&g_0126cae8, DAT_011b7aec);
+    ((FUN_00dbdf30_s*)this)->setSectionForClass(&g_0126ca58, DAT_011b7aec);
+    ((FUN_00dbdf30_s*)this)->setSectionForClass(&g_0126cab8, DAT_011b7aec);
+    ((FUN_00dbdf30_s*)this)->setSectionForClass(&g_0126ca88, DAT_011b7aec);
 }
 
 // @fnv 0x00dbd720
@@ -271,11 +271,11 @@ struct FUN_00dbd760_cls
     int unk00;
     int unk04;
     Target* m_08;
-    void FUN_00dbd760();
+    void flush();
 };
 
 // @fnv 0x00dbd760
-void FUN_00dbd760_cls::FUN_00dbd760()
+void FUN_00dbd760_cls::flush()
 {
     m_08->unk14();
 }

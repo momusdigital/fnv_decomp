@@ -14,13 +14,13 @@ void NiBSplineInterpolator::LoadBinary(NiStream& stream)
 
 struct FUN_00a57f70_shell : public NiBSplineInterpolator
 {
-    void* FUN_00a57f70();
+    void* GetRTTI();
 };
 
 extern "C" const char* g_011f3fe4_arg1;
 
 // @fnv 0x00a57f70
-void* FUN_00a57f70_shell::FUN_00a57f70()
+void* FUN_00a57f70_shell::GetRTTI()
 {
     return &g_011f3fe4_arg1;
 }
@@ -95,10 +95,10 @@ struct FUN_00a57d60_holder
     char _pad[12];
     float _st;
     float _en;
-    void FUN_00a57d60(float&, float&);
+    void GetActiveTimeRange(float&, float&);
 };
 // @fnv 0x00a57d60
-void FUN_00a57d60_holder::FUN_00a57d60(float& fBegin, float& m_fEndValue)
+void FUN_00a57d60_holder::GetActiveTimeRange(float& fBegin, float& m_fEndValue)
 {
     if (fBegin == DAT_010231b0 && m_fEndValue == DAT_010241b0)
         m_fEndValue = fBegin = 0.0f;

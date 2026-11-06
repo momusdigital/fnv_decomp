@@ -33,15 +33,15 @@ void Clouds::Update(Sky* sky, float time)
             speed = m_pWeatherObject->GetCloudLayerSpeed(i, DAT_011cca6c.Float()->f, 0.0f);
             if (m_pPreviousWeather)
             {
-                speed *= sky->FUN_006447d0();
-                speed += (1.0f - sky->FUN_006447d0()) *
+                speed *= sky->GetCurrentWeatherPct();
+                speed += (1.0f - sky->GetCurrentWeatherPct()) *
                          m_pPreviousWeather->GetCloudLayerSpeed(i, DAT_011cca6c.Float()->f, 0.0f);
             }
             delta = sky->GetFieldCC() * time * speed;
             AddToFloatArray((unsigned short)i, delta);
         }
     }
-    if (sky->FUN_00634870() || bForceUpdate)
+    if (sky->GetWeatherUpdateFlag() || bForceUpdate)
     {
         bForceUpdate = false;
         if (m_pPreviousWeather)
@@ -79,7 +79,7 @@ void Clouds::Update(Sky* sky, float time)
                     if (raw)
                     {
                         property->SetTexture(raw);
-                        property->FUN_00634900(NiFixedString(path));
+                        property->SetTextureFile(NiFixedString(path));
                         property->FUN_0051b8c0(0.0f);
                     }
                 }
@@ -96,7 +96,7 @@ void Clouds::Update(Sky* sky, float time)
             if (property)
             {
                 property->FUN_00bae930(m_pCloudLayerTexture[i]);
-                property->FUN_0051b8c0(sky->FUN_006447d0());
+                property->FUN_0051b8c0(sky->GetCurrentWeatherPct());
             }
             if (!m_pPreviousWeather)
             {
@@ -152,11 +152,11 @@ void Clouds::SetCloudCount(int count)
 
 struct FUN_00634870_shell : public Sky
 {
-    bool FUN_00634870();
+    bool GetWeatherUpdateFlag();
 };
 
 // @fnv 0x00634870
-bool FUN_00634870_shell::FUN_00634870()
+bool FUN_00634870_shell::GetWeatherUpdateFlag()
 {
     return (0 < (*(unsigned int*)((char*)this + 0x118) & 3));
 }
@@ -174,7 +174,7 @@ SkyTextureManager* FUN_00634890_shell::GetTextureManager()
 
 struct FUN_00634900_shell : public SkyShaderProperty
 {
-    void FUN_00634900(void*);
+    void SetTextureFile(void*);
 };
 
 struct NiFixedString_access : public NiFixedString
@@ -184,7 +184,7 @@ struct NiFixedString_access : public NiFixedString
 
 // Assigns the NiFixedString at aFilename to the BSStringT<char> at offset 0x74 of this shader property.
 // @fnv 0x00634900
-void FUN_00634900_shell::FUN_00634900(void* aFilename)
+void FUN_00634900_shell::SetTextureFile(void* aFilename)
 {
     *(BSStringT<char>*)((char*)this + 0x74) = *(const NiFixedString_access*)aFilename;
 }
@@ -247,14 +247,14 @@ struct FUN_00633e30 : SkyObjectBase633e30
     NiPointer<NiGeometry> m_clouds[4];
     NiPointer<NiTexture> m_transitionTextures[4];
     void FUN_00633d90();
-    void FUN_00634930();
+    void ClearTransTextures();
     ~FUN_00633e30();
 };
 
-// Destructor that calls FUN_00633d90 and FUN_00634930 before returning.
+// Destructor that calls FUN_00633d90 and ClearTransTextures before returning.
 // @fnv 0x00633e30
 FUN_00633e30::~FUN_00633e30()
 {
     FUN_00633d90();
-    FUN_00634930();
+    ClearTransTextures();
 }

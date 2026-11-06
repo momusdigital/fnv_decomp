@@ -1695,13 +1695,13 @@ class BA5EFA0Node : public BA5EFA0AVObject
     virtual ~BA5EFA0Node();
 
     void CopyMemberData(BA5EFA0Node* pkDest, BA5EFA0CloningProcess& kCloning);
-    BA5EFA0Node* FUN_00a5efa0(BA5EFA0CloningProcess& kCloning);
+    BA5EFA0Node* CreateClone(BA5EFA0CloningProcess& kCloning);
 
     BA5EFA0ObjectArray m_kChildList;
 };
 
 // @fnv 0x00a5efa0
-BA5EFA0Node* BA5EFA0Node::FUN_00a5efa0(BA5EFA0CloningProcess& kCloning)
+BA5EFA0Node* BA5EFA0Node::CreateClone(BA5EFA0CloningProcess& kCloning)
 {
     BA5EFA0Node* pkClone = new BA5EFA0Node;
     CopyMemberData(pkClone, kCloning);

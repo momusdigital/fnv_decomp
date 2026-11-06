@@ -193,11 +193,11 @@ int __thiscall FUN_00409130_Class::FUN_00409130()
 
 struct FUN_00409700_Class
 {
-    bool FUN_00409700();
+    bool GetScroll();
 };
 
 // @fnv 0x00409700
-bool FUN_00409700_Class::FUN_00409700()
+bool FUN_00409700_Class::GetScroll()
 {
     return (((const unsigned char*)this)[0xc0] & 1) ? true : false;
 }
@@ -338,11 +338,11 @@ struct BaseExtraList
 
 struct FUN_0041af30_shell : BaseExtraList
 {
-    void FUN_0041af30();
+    void RemovePoison();
 };
 
 // @fnv 0x0041af30
-void FUN_0041af30_shell::FUN_0041af30()
+void FUN_0041af30_shell::RemovePoison()
 {
     RemoveExtra(0x3f);
 }
@@ -431,10 +431,10 @@ void* BSExtraData::FUN_0040ecd0(unsigned int flags)
 
 struct FUN_00401270_Class
 {
-    bool __thiscall FUN_00401270(int, int, int, int, int);
+    bool __thiscall Activate(int, int, int, int, int);
 };
 // @fnv 0x00401270
-bool __thiscall FUN_00401270_Class::FUN_00401270(int a, int b, int c, int d, int e)
+bool __thiscall FUN_00401270_Class::Activate(int a, int b, int c, int d, int e)
 {
     return 0;
 }
@@ -863,11 +863,11 @@ FUN_00411ea0::~FUN_00411ea0()
 struct BaseExtraList_0041af50
 {
     void __thiscall RemoveExtra(unsigned char);
-    void __thiscall FUN_0041af50();
+    void __thiscall RemoveScript();
 };
 
 // @fnv 0x0041af50
-void __thiscall BaseExtraList_0041af50::FUN_0041af50()
+void __thiscall BaseExtraList_0041af50::RemoveScript()
 {
     RemoveExtra(0xd);
 }
@@ -955,11 +955,11 @@ struct ListBase405c
 
 struct EffectList405c : public ListBase405c, public ListNode405c
 {
-    float FUN_00405c00(int iArchetype, int m_eRange, int m_eAssociatedActorValue);
+    float GetEffectScore(int iArchetype, int m_eRange, int m_eAssociatedActorValue);
 };
 
 // @fnv 0x00405c00
-float EffectList405c::FUN_00405c00(int iArchetype, int m_eRange, int m_eAssociatedActorValue)
+float EffectList405c::GetEffectScore(int iArchetype, int m_eRange, int m_eAssociatedActorValue)
 {
     float fTotal = 0.0f;
     EffectList405c* pkList = this;
@@ -1120,11 +1120,11 @@ struct EffectItemListBase4056
 
 struct EffectItemList4056 : public EffectItemListBase4056, public EffectItemNode4056
 {
-    void FUN_004056d0();
+    void Save();
 };
 
 // @fnv 0x004056d0
-void EffectItemList4056::FUN_004056d0()
+void EffectItemList4056::Save()
 {
     EffectItemList4056* pkList = this;
     while (pkList)

@@ -45,11 +45,11 @@ int FnvCpu_FUN_00e34990_CpuObject::FUN_00e34990()
 }
 
 struct FUN_00e349a0_class : hkaDeltaCompressedAnimation {
-    int FUN_00e349a0(unsigned int arg, int unused);
+    int getNumDataChunks(unsigned int arg, int unused);
 };
 
 // @fnv 0x00e349a0
-int FUN_00e349a0_class::FUN_00e349a0(unsigned int auiValue, int unused) {
+int FUN_00e349a0_class::getNumDataChunks(unsigned int auiValue, int unused) {
     unsigned int blk = (unsigned int)m_iDofCount;
     unsigned int r = auiValue % blk;
     return (r + 1 == blk) ? 4 : 3;
@@ -235,13 +235,13 @@ struct S00e34c10_Cache {
 struct S00e34c10_Anim : hkaDeltaCompressedAnimation {
     void __thiscall GetCompressedBlockRange(unsigned int blockIndex, int numBlocks,
                                  S00e34c10_Block* apBlocks);
-    void __thiscall FUN_00e34c10(unsigned int frameIndex, int unused,
+    void __thiscall getDataChunks(unsigned int frameIndex, int unused,
                                  S00e34c10_Cache* cache, int mode);
 };
 
 // Stores animation pointers and alignment in cache, computes block indices, and calls GetCompressedBlockRange to fill cache blocks.
 // @fnv 0x00e34c10
-void __thiscall S00e34c10_Anim::FUN_00e34c10(
+void __thiscall S00e34c10_Anim::getDataChunks(
     unsigned int frameIndex, int unused, S00e34c10_Cache* cache, int mode)
 {
     cache->anim = this;
@@ -1050,7 +1050,7 @@ public:
     virtual hkUint32 getChunkKey(hkUint32 frame) const;
 
     void FUN_00e2f7c0(float time, hkUint32* frame, float* delta) const;
-    void FUN_00e359f0(float time, hkUint32 maxNumTransformTracks, hkQsTransform* transformTracksOut,
+    void samplePartialTracks(float time, hkUint32 maxNumTransformTracks, hkQsTransform* transformTracksOut,
                       hkUint32 maxNumFloatTracks, float* floatTracksOut, ChunkCache* cache) const;
 };
 
@@ -1120,7 +1120,7 @@ __declspec(noinline) void DeltaSampler::FUN_00e2f7c0(float time, hkUint32* frame
     else { *delta = position - *frame; }
 }
 // @fnv 0x00e359f0
-void DeltaSampler::FUN_00e359f0(float time, hkUint32 maxNumTransformTracks, hkQsTransform* transformTracksOut,
+void DeltaSampler::samplePartialTracks(float time, hkUint32 maxNumTransformTracks, hkQsTransform* transformTracksOut,
                                 hkUint32 maxNumFloatTracks, float* floatTracksOut, ChunkCache* cache) const
 {
     TimerBeginList("LtSampleDelta", "StStaticD");

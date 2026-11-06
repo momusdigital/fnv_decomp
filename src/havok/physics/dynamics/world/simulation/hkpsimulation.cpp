@@ -32,11 +32,11 @@ public:
     virtual void vfn14();
     virtual void vfn18();
 
-    hkUint32 __thiscall FUN_00cf8730(hkReal dt);
+    hkUint32 __thiscall stepDeltaTime(hkReal dt);
 };
 
 // @fnv 0x00cf8730
-hkUint32 SimulationDerived::FUN_00cf8730(hkReal afDeltaTime) {
+hkUint32 SimulationDerived::stepDeltaTime(hkReal afDeltaTime) {
     if (!m_uiSimulationType || m_uiSimulationType == 1) {
         vfn10(afDeltaTime);
     }
@@ -594,11 +594,11 @@ struct S00cf8a40_Obj {
     int m_uiContentCount;
 
     float GetClampedSimulationTime();
-    int FUN_00cf8a40();
+    int advanceTime();
 };
 
 // @fnv 0x00cf8a40
-int S00cf8a40_Obj::FUN_00cf8a40()
+int S00cf8a40_Obj::advanceTime()
 {
     m_uiCommandId = GetClampedSimulationTime();
     if (m_uiCommandId >= m_pFreeList && m_node->m_168) {
@@ -949,11 +949,11 @@ static inline SimMonStream& GetMonStream() {
 
 struct SimLocal : hkpSimulation {
     int FUN_00cf8da0(const SimStepInfo& stepInfo);
-    int FUN_00cf9340(float physicsDeltaTime);
+    int integrate(float physicsDeltaTime);
 };
 
 // @fnv 0x00cf9340
-int SimLocal::FUN_00cf9340(float physicsDeltaTime)
+int SimLocal::integrate(float physicsDeltaTime)
 {
     volatile unsigned int t;
     SimMonStream& monStream = GetMonStream();
@@ -2426,7 +2426,7 @@ unsigned int unk05c;
 unsigned int unk060; };
 struct S00cfa080_Obj {
  unsigned int unk00, unk04, unk08; W* m_pOwningWorld;
- void __thiscall FUN_00cfa080(hkVector4* p);
+ void __thiscall collideInternal(hkVector4* p);
 };
 extern "C" void __cdecl FUN_00cf9c60(unsigned int, unsigned int, W*);
 extern "C" void __cdecl FUN_00cff3c0(O*, void*, O*);
@@ -2466,7 +2466,7 @@ __forceinline void done(W* w) {
  }
 }
 // @fnv 0x00cfa080
-void S00cfa080_Obj::FUN_00cfa080(hkVector4* p) {
+void S00cfa080_Obj::collideInternal(hkVector4* p) {
  volatile unsigned int tb, t1, t2, t3;
  stamp(&str_010cc64c, tb);
  memcpy(&m_pOwningWorld->unk1d0, p, sizeof(hkVector4));

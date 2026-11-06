@@ -18,7 +18,7 @@ struct FUN_009ac170_shell
 {
     char m_auiShapeKeys[0xd0];
     NiPointer m_actorCause;
-    void __thiscall FUN_009ac170(ActorCause* apActorCause);
+    void __thiscall SetActorCause(ActorCause* apActorCause);
 };
 struct Explosion
 {
@@ -255,7 +255,7 @@ struct FUN_00cbc650_cls
     virtual void v2C();
     virtual FUN_00cbc650_obj* vGet(FUN_00cbc650_obj* volatile* pp);
     void FUN_00c86790(FUN_00cbc650_obj* a);
-    void FUN_00cbc650(FUN_00cbc650_obj* volatile a1);
+    void LoadBinary(FUN_00cbc650_obj* volatile a1);
 };
 struct FUN_00cbc6a0_Data
 {
@@ -290,7 +290,7 @@ struct FUN_00cbc6a0_Class
     virtual void vf19();
     virtual void vf20();
     virtual void vf21();
-    virtual void FUN_00cbc6a0(unsigned char* arg);
+    virtual void SaveBinary(unsigned char* arg);
     virtual void vf23();
     virtual void vf24();
     virtual void vf25();
@@ -360,7 +360,7 @@ struct FUN_00cbc550_class
 struct FUN_00cbca20_class
 {
     void __thiscall FUN_00c86800(FUN_00cbc550_class* obj, int flags);
-    FUN_00cbc550_class* __thiscall FUN_00cbca20(int flags);
+    FUN_00cbc550_class* __thiscall CreateClone(int flags);
 };
 
 #include <xmmintrin.h>
@@ -1257,8 +1257,8 @@ struct Shape
 struct Drawer
 {
     void FUN_00458e20(Shape* s, float t);
-    int FUN_00457880(const Vec3* p);
-    struct Mgr* FUN_004519d0(Vec3 p);
+    int GetLandMaterialType(const Vec3* p);
+    struct Mgr* GetCellForPoint(Vec3 p);
 };
 extern Drawer* g_drawer;
 
@@ -1314,7 +1314,7 @@ struct Wrap4
 struct RefObj
 {
     virtual void vf00();
-    void* FUN_0043b540();
+    void* getCollisionFilterInfo();
     void* FUN_00559450();
 };
 
@@ -1463,13 +1463,13 @@ struct Weap
     NameHolder unk18;
     void* FUN_006733e0();
     float GetModifierValue();
-    float FUN_004a40a0();
+    float GetDecalMinWidth();
     float GetNestedValue();
-    char FUN_004a4140();
+    char GetAlphaBlending();
     char CallMemberAtOffset54();
-    char FUN_004a4100();
+    char GetIsParallax();
     float FUN_004a41c0();
-    char FUN_004a41e0();
+    char GetDecalParallaxPasses();
     float FUN_004a40e0();
     float FUN_009a9350();
     unsigned int GetNextFromSubobject();
@@ -2247,10 +2247,10 @@ void ProjCls::FUN_009ae6e0()
                                         last = h.unk20[m];
                                     Wrap4 wr;
                                     bool isActor =
-                                        wr.FUN_008c71b0(((RefObj*)h.unk50)->FUN_0043b540())->FUN_004a3a20() == 1;
+                                        wr.FUN_008c71b0(((RefObj*)h.unk50)->getCollisionFilterInfo())->FUN_004a3a20() == 1;
                                     if (isActor)
                                     {
-                                        target = g_drawer->FUN_00457880(&pos);
+                                        target = g_drawer->GetLandMaterialType(&pos);
                                     }
                                     else
                                     {
@@ -2294,7 +2294,7 @@ void ProjCls::FUN_009ae6e0()
                             void* proj = wt->FUN_006733e0();
                             if (proj)
                             {
-                                float spd = FUN_00476b70(wt->FUN_004a40a0(), wt->GetModifierValue());
+                                float spd = FUN_00476b70(wt->GetDecalMinWidth(), wt->GetModifierValue());
                                 Query* qq = FUN_00622a70(spd, 1);
                                 qq->FUN_006233c0(0);
                                 qq->FUN_004a1a10(8, 0);
@@ -2336,7 +2336,7 @@ void ProjCls::FUN_009ae6e0()
                                             {
                                                 Wrap4 wr;
                                                 bool isActor =
-                                                    wr.FUN_008c71b0(ref->FUN_0043b540())->FUN_004a3a20() == 1;
+                                                    wr.FUN_008c71b0(ref->getCollisionFilterInfo())->FUN_004a3a20() == 1;
                                                 Sub* node = 0;
                                                 if (isActor)
                                                 {
@@ -2356,7 +2356,7 @@ void ProjCls::FUN_009ae6e0()
                                                 Proc* u3 = FUN_0056f930(node);
                                                 if (!isActor && (!u3 || !IsAcousticSpaceFormTypeAllowed(u3, 1)))
                                                     continue;
-                                                Mgr* mg = g_drawer->FUN_004519d0(pos);
+                                                Mgr* mg = g_drawer->GetCellForPoint(pos);
                                                 Params prm;
                                                 prm.unk00 = unkE8;
                                                 prm.unk0C = unkF4;
@@ -2367,11 +2367,11 @@ void ProjCls::FUN_009ae6e0()
                                                 prm.unk30 = proj;
                                                 prm.unk44 = fade;
                                                 prm.unk70 = cc;
-                                                prm.unk75 = wt->FUN_004a4140();
+                                                prm.unk75 = wt->GetAlphaBlending();
                                                 prm.unk74 = wt->CallMemberAtOffset54();
-                                                prm.unk73 = wt->FUN_004a4100();
+                                                prm.unk73 = wt->GetIsParallax();
                                                 prm.unk4C = wt->FUN_004a41c0();
-                                                prm.unk76 = wt->FUN_004a41e0();
+                                                prm.unk76 = wt->GetDecalParallaxPasses();
                                                 prm.unk54 = wt->FUN_004a40e0();
                                                 prm.unk58 = wt->FUN_009a9350();
                                                 Color3 col;

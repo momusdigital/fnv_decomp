@@ -148,11 +148,11 @@ struct LNode
 
 struct FUN_005436e0_shell : TESObjectCELL
 {
-    TESForm* FUN_005436e0(bool abCreateEditorID, void* apCopyMap);
+    TESForm* CreateDuplicateForm(bool abCreateEditorID, void* apCopyMap);
 };
 
 // @fnv 0x005436e0
-TESForm* FUN_005436e0_shell::FUN_005436e0(bool abCreateEditorID, void* apCopyMap)
+TESForm* FUN_005436e0_shell::CreateDuplicateForm(bool abCreateEditorID, void* apCopyMap)
 {
     TESObjectCELL* pdupcell = 0;
     if (IsCellInterior())

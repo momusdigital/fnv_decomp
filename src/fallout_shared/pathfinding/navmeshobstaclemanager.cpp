@@ -4953,7 +4953,7 @@ struct DebugSceneObject
     DebugSceneObject(unsigned short);
     static void* operator new(unsigned int);
     static void operator delete(void*, unsigned int);
-    void FUN_004def90();
+    void RemoveAllChildren();
     void AttachProperty(void*);
     void FUN_00a5a040();
     void FUN_00a59c60(const DebugUpdateData&);
@@ -5134,7 +5134,7 @@ void DebugObstacleManager::SetEnabled(bool show)
     {
         if (scene)
         {
-            scene->FUN_004def90();
+            scene->RemoveAllChildren();
         }
         else
         {
@@ -5173,7 +5173,7 @@ void DebugObstacleManager::SetEnabled(bool show)
     {
         if (scene)
         {
-            scene->FUN_004def90();
+            scene->RemoveAllChildren();
         }
         enabled = false;
     }
@@ -6375,7 +6375,7 @@ struct C006c3640
     float time;
     char pad198[8];
     TimerShell timer;
-    void FUN_004538a0(char*);
+    void Enter(char*);
     void FUN_004538c0();
     void FUN_006c47e0();
     void ProcessAddedRefs();
@@ -6401,7 +6401,7 @@ void C006c3640::FUN_006c3640()
     AutoMemHelper mem(0x2e, true, &DAT_0106c3f0, 0x508);
     if (!*((SettingShell*)&DAT_011d73e4)->FUN_00408d60())
         return;
-    FUN_004538a0(&DAT_0106c498);
+    Enter(&DAT_0106c498);
     timer.FUN_00483710();
     bool changed = false;
     time -= ((TimeShell*)&DAT_011f6394)->FUN_0084d030();

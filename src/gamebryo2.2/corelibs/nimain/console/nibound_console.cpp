@@ -277,10 +277,10 @@ struct NiAdditionalGeometryData
 };
 struct BSPackedAdditionalGeometryData : NiAdditionalGeometryData
 {
-    bool __thiscall FUN_00a7f620(const NiAdditionalGeometryData* pkObject);
+    bool __thiscall IsEqual(const NiAdditionalGeometryData* pkObject);
 };
 // @fnv 0x00a7f620
-bool __thiscall BSPackedAdditionalGeometryData::FUN_00a7f620(const NiAdditionalGeometryData* pkObject)
+bool __thiscall BSPackedAdditionalGeometryData::IsEqual(const NiAdditionalGeometryData* pkObject)
 {
     if (FUN_00a727f0(pkObject) && m_uiShaderDeclarationIndex == pkObject->m_uiShaderDeclarationIndex &&
         m_uiUnknownValue == pkObject->m_uiUnknownValue)

@@ -13,11 +13,11 @@ struct FUN_00e3f950_class
     int m_0c;
     int m_10;
     int m_14;
-    int FUN_00e3f950(int a, int b);
+    int getNumDataChunks(int a, int b);
 };
 struct FUN_00e3f970_class
 {
-    int FUN_00e3f970();
+    int getMaxSizeOfCombinedDataChunks();
 };
 struct FUN_00e3f990_class
 {
@@ -34,7 +34,7 @@ struct FUN_00e3f920_class
 struct S00e3fb60_Anim : public hkaInterleavedUncompressedAnimation
 {
     void FUN_00e2f7c0(float time, int& frameIndex, float& weight) const;
-    void FUN_00e3fb60(float time, const short* tracks, int numTracks, float* out);
+    void sampleIndividualFloatTracks(float time, const short* tracks, int numTracks, float* out);
 };
 __declspec(noinline) void S00e3fb60_Anim::FUN_00e2f7c0(float time, int& frameIndex, float& weight) const
 {
@@ -60,7 +60,7 @@ struct S00e3fd20_Desc
     int m_2c;
     int m_30;
     int m_34;
-    void __thiscall FUN_00e3fd20(int scale, int unused1, int* out, int unused2);
+    void __thiscall getDataChunks(int scale, int unused1, int* out, int unused2);
 };
 #include <xmmintrin.h>
 struct QsTransformX
@@ -207,7 +207,7 @@ struct hkaAnimSlot : hkaInterleavedUncompressedAnimation
     virtual void v8();
     virtual void v9();
     virtual void SampleIndividualTracks(int frame, float delta, SampleRec* recs, int n);
-    void FUN_00e3ffc0(float time, unsigned int nT, QsT* tOut, unsigned int nF, float* fOut, int a6);
+    void samplePartialTracks(float time, unsigned int nT, QsT* tOut, unsigned int nF, float* fOut, int a6);
 };
 
 namespace E3fda0Simd {

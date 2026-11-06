@@ -412,11 +412,11 @@ float __cdecl GetWeaponDPSDeficit(CombatController*, int);
 struct FUN_0097b4a0_cls
 {
     float FUN_00979e40(CombatController*, int);
-    float FUN_0097b4a0(CombatController* c, int v);
+    float GetCost(CombatController* c, int v);
 };
 // Returns the sum of FUN_00979e40(c, v) and GetWeaponDPSDeficit(c, 2).
 // @fnv 0x0097b4a0
-float FUN_0097b4a0_cls::FUN_0097b4a0(CombatController* apController, int v)
+float FUN_0097b4a0_cls::GetCost(CombatController* apController, int v)
 {
     return FUN_00979e40(apController, v) + GetWeaponDPSDeficit(apController, 2);
 }
@@ -766,12 +766,12 @@ int __cdecl _sprintf_s(char*, unsigned int, const char*, ...);
 struct CombatActionHideStandIn
 {
     const char* GetCombatActionName();
-    void FUN_0097d370(char* apDebugText, unsigned int aiMaxLength, int aiActionValue);
+    void GetDebugText(char* apDebugText, unsigned int aiMaxLength, int aiActionValue);
 };
 
 // Writes "<name>: <value>" into apDebugText using _sprintf_s, with the name from GetCombatActionName and aiActionValue.
 // @fnv 0x0097d370
-void CombatActionHideStandIn::FUN_0097d370(char* apDebugText, unsigned int aiMaxLength, int aiActionValue)
+void CombatActionHideStandIn::GetDebugText(char* apDebugText, unsigned int aiMaxLength, int aiActionValue)
 {
     _sprintf_s(apDebugText, aiMaxLength, "%s: %i", GetCombatActionName(), aiActionValue);
 }
@@ -1313,11 +1313,11 @@ struct FUN_0097bcc0_cls
 
 struct FUN_0097c8e0_shell : FUN_0097bcc0_cls
 {
-    float FUN_0097c8e0(CombatController* apCombatController, int aiActionValue);
+    float GetCost(CombatController* apCombatController, int aiActionValue);
 };
 
 // @fnv 0x0097c8e0
-float FUN_0097c8e0_shell::FUN_0097c8e0(CombatController* apCombatController, int aiActionValue)
+float FUN_0097c8e0_shell::GetCost(CombatController* apCombatController, int aiActionValue)
 {
     if (((TESAmmoInitCalls*)apCombatController)->GetFieldBC() &&
         ((TESAmmoInitCalls*)apCombatController)->GetFieldBC()->IsPlayerTeammate() &&

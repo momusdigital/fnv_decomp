@@ -107,11 +107,11 @@ struct This308
     unsigned short m50;
     char _52[0x2A];
     Mesh308* m7c;
-    void __thiscall FUN_00c308d0(unsigned short);
+    void __thiscall SetActiveVertexCount(unsigned short);
 };
 // Calls T on m7c for each slot from usActive up to m50, then sets m50 to the smaller of usActive and m08.
 // @fnv 0x00c308d0
-void __thiscall This308::FUN_00c308d0(unsigned short usStartIndex)
+void __thiscall This308::SetActiveVertexCount(unsigned short usStartIndex)
 {
     unsigned short us;
     for (us = usStartIndex; us < m50; us++)
@@ -184,14 +184,14 @@ struct S_00c30a90
     unsigned short us78;
     unsigned short us7a;
     FakeNode00c30a90* sp;
-    void __thiscall FUN_00c30a90();
+    void __thiscall ResolveAddedParticles();
 };
 struct BaseCall00c30a90
 {
-    void __thiscall FUN_00c24d20();
+    void __thiscall ResolveAddedParticles();
 };
 // @fnv 0x00c30a90
-void __thiscall S_00c30a90::FUN_00c30a90()
+void __thiscall S_00c30a90::ResolveAddedParticles()
 {
     unsigned short us;
     NiAVObject* pkMesh;
@@ -201,7 +201,7 @@ void __thiscall S_00c30a90::FUN_00c30a90()
         if (pkMesh)
             pkMesh->m_uiObjectFlags &= ~1;
     }
-    ((BaseCall00c30a90*)this)->FUN_00c24d20();
+    ((BaseCall00c30a90*)this)->ResolveAddedParticles();
 }
 
 struct NiObject;
@@ -220,10 +220,10 @@ struct Hae0
 };
 struct Holder_00c30c50
 {
-    NiObject* __thiscall FUN_00c30c50(CloningProcess&);
+    NiObject* __thiscall CreateClone(CloningProcess&);
 };
 // @fnv 0x00c30c50
-NiObject* __thiscall Holder_00c30c50::FUN_00c30c50(CloningProcess& kCloning)
+NiObject* __thiscall Holder_00c30c50::CreateClone(CloningProcess& kCloning)
 {
     NiMeshPSysData* pkObject;
     void* pMemory = BSFadeNode::operator new(0x98);
@@ -245,12 +245,12 @@ struct StrArr
     void __thiscall SetSize(unsigned int);
     void __thiscall SetAt(unsigned int, char*&);
 };
-void __stdcall FUN_00c255b0(StrArr*);
+void __stdcall GetViewerStrings(StrArr*);
 char* __cdecl _FUN_00a7d330(const char*);
 // @fnv 0x00c31210
 void __stdcall FUN_00c31210(StrArr* pkStrings)
 {
-    FUN_00c255b0(pkStrings);
+    GetViewerStrings(pkStrings);
     char* pszStr = _FUN_00a7d330((const char*)g_012027c0);
     unsigned int uiSize = pkStrings->m_usSize;
     unsigned int uiAlloc = pkStrings->m_usAlloc;
@@ -385,13 +385,13 @@ struct Mesh308Compat
 };
 struct DerivedThis308 : This308
 {
-    char __thiscall FUN_00c24de0(This308*);
+    char __thiscall IsEqual(This308*);
     char __thiscall FUN_00c30970(This308*);
 };
 // @fnv 0x00c30970
 char __thiscall DerivedThis308::FUN_00c30970(This308* other)
 {
-    if (!FUN_00c24de0(other))
+    if (!IsEqual(other))
         return 0;
     Mesh308Compat* thisMesh = reinterpret_cast<Mesh308Compat*>(m7c);
     Mesh308* otherMesh = other->m7c;
@@ -1220,11 +1220,11 @@ struct NiMeshPSysDataSI : NiPSysData_StandIn
     NiNodeSI* m_pMeshNode;
 
     void ReleaseSlotRef(unsigned int uiGeneration, NiAVObjectPtrSI spParticle);
-    void FUN_00c30e80(unsigned short usParticle);
+    void RemoveParticle(unsigned short usParticle);
 };
 
 // @fnv 0x00c30e80
-void NiMeshPSysDataSI::FUN_00c30e80(unsigned short usParticleIndex)
+void NiMeshPSysDataSI::RemoveParticle(unsigned short usParticleIndex)
 {
     unsigned short usLastParticle = m_usActive - 1;
     unsigned short usParticleGeneration = m_pkParticleInfo[usParticleIndex].m_usFirstValue;

@@ -788,7 +788,7 @@ class bhkWorldObjectCC4 : public FUN_00d53200_class
   public:
     hkpWorldObjectCC4* m_pPointer;
 
-    void FUN_00cc4e10(NiStream& kStream);
+    void LoadBinary(NiStream& kStream);
 };
 struct RcObject
 {

@@ -902,7 +902,7 @@ struct MorphEqualData
     MorphEqualTarget* m_10;
     unsigned char m_14;
     bool IsSameAs(MorphEqualData* other);
-    bool FUN_00a418a0(MorphEqualData* other);
+    bool IsEqual(MorphEqualData* other);
 };
 
 __declspec(noinline) bool MorphEqualTarget::Equals(MorphEqualTarget* other, unsigned int val)
@@ -919,7 +919,7 @@ __declspec(noinline) bool MorphEqualTarget::Equals(MorphEqualTarget* other, unsi
 
 // Compares two MorphEqualData instances by checking m_08, m_0c, m_14 and each MorphEqualTarget in m_10 via Equals.
 // @fnv 0x00a418a0
-bool MorphEqualData::FUN_00a418a0(MorphEqualData* other)
+bool MorphEqualData::IsEqual(MorphEqualData* other)
 {
     if (!IsSameAs(other))
     {

@@ -313,8 +313,8 @@ class NiAlphaProperty : public NiProperty
     static void* operator new(size_t);
     static void operator delete(void*);
     void FUN_0049ed90(bool);
-    void FUN_00439340(int);
-    void FUN_00439390(int);
+    void SetSrcBlendMode(int);
+    void SetDestBlendMode(int);
 };
 class FOPipboyManager : public FORenderedMenu
 {

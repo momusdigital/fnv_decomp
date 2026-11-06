@@ -152,11 +152,11 @@ struct FNV_Owner
     FNV_Disp* p20;
     int* p24;
     int n28;
-    void FUN_00e608d0(FNV_V4* pA, FNV_V4* pOut);
+    void getSupportingVertexImpl(FNV_V4* pA, FNV_V4* pOut);
 };
 
 // @fnv 0x00e608d0
-void FNV_Owner::FUN_00e608d0(FNV_V4* pA, FNV_V4* pOut)
+void FNV_Owner::getSupportingVertexImpl(FNV_V4* pA, FNV_V4* pOut)
 {
     ShapeBuffer338 big;
     FNV_V4 buf;

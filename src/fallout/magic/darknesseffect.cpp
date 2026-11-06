@@ -114,11 +114,11 @@ struct FUN_0080c4c0_shell
     void* c;
     void* d;
 
-    ActiveEffect* FUN_0080c4c0();
+    ActiveEffect* Clone();
 };
 
 // @fnv 0x0080c4c0
-ActiveEffect* FUN_0080c4c0_shell::FUN_0080c4c0()
+ActiveEffect* FUN_0080c4c0_shell::Clone()
 {
     ActiveEffect* presult = new FUN_0080c730_shell(*reinterpret_cast<void**>(reinterpret_cast<char*>(this) + 0x28),
                                                    *reinterpret_cast<void**>(reinterpret_cast<char*>(this) + 0x08),
@@ -654,10 +654,10 @@ struct FUN_0080c7b0_helper
 
 struct FUN_0080c7b0_shell : public DarknessEffect
 {
-    void FUN_0080c7b0(Actor*);
+    void FinishInitLoadGame(Actor*);
 };
 
-void FUN_0080c7b0_shell::FUN_0080c7b0(Actor* apActor)
+void FUN_0080c7b0_shell::FinishInitLoadGame(Actor* apActor)
 {
     reinterpret_cast<InvisibilityEffect*>(this)->FUN_0082cd10(apActor);
 

@@ -254,7 +254,7 @@ class S_FileEntry
 class S_Idle
 {
   public:
-    bool FUN_004985f0();
+    bool SpecialIdleDonePlaying();
     bool HasIdleForm(void* form);
     bool FUN_00498f80();
     S_FileEntry* GetFileEntry();
@@ -321,7 +321,7 @@ void C_Ranged::FUN_009ca760()
     {
         if (this->status == 0)
         {
-            if (idle && (!idle->FUN_004985f0() || idle->HasIdleForm(0)))
+            if (idle && (!idle->SpecialIdleDonePlaying() || idle->HasIdleForm(0)))
                 return;
             S_BaseProcess* proc = actor->GetProcess();
             bool ok = proc->FUN_008ff0b0(actor, this->target->GetRefID(), this->target);
@@ -337,7 +337,7 @@ void C_Ranged::FUN_009ca760()
         }
         else if (this->status == 1 || this->status == 3)
         {
-            if (idle && (!idle->FUN_004985f0() || idle->FUN_00498f80()))
+            if (idle && (!idle->SpecialIdleDonePlaying() || idle->FUN_00498f80()))
             {
                 if (this->status == 1)
                 {
@@ -451,12 +451,12 @@ struct CombatProcedureActivateObject : CombatProcedureBase
 {
     TESObjectREFR* m_pReference;  // +0x10
 
-    void FUN_009cab00(TESObjectREFR* apRef);
+    void ClearReferencePointers(TESObjectREFR* apRef);
 };
 
 // If m_pReference matches apRef, clears it and passes a message string to FUN_009caac0.
 // @fnv 0x009cab00
-void CombatProcedureActivateObject::FUN_009cab00(TESObjectREFR* apRef)
+void CombatProcedureActivateObject::ClearReferencePointers(TESObjectREFR* apRef)
 {
     if (m_pReference == apRef)
     {
@@ -622,11 +622,11 @@ struct FUN_009cab30_shell : public CombatProcedure
     TESObjectREFR* pTarget;
     int iUnk14;
     char cAnimState;
-    void FUN_009cab30(FUN_009cab30_TextOutput* apOutput, int aiX, int aiY);
+    void DisplayDebugText(FUN_009cab30_TextOutput* apOutput, int aiX, int aiY);
 };
 // Prints the current animation state and, if pTarget is set, its name, form ID, and position to apOutput at aiX, aiY.
 // @fnv 0x009cab30
-void FUN_009cab30_shell::FUN_009cab30(FUN_009cab30_TextOutput* apOutput, int aiX, int aiY)
+void FUN_009cab30_shell::DisplayDebugText(FUN_009cab30_TextOutput* apOutput, int aiX, int aiY)
 {
     switch (cAnimState)
     {
@@ -690,12 +690,12 @@ extern "C" TESForm* __cdecl FUN_004839c0(TESObjectREFR*);
 struct FUN_009cad70_shell : public CombatProcedure
 {
     TESObjectREFR* m_pReference;
-    void FUN_009cad70(unsigned int);
+    void InitLoadGame(unsigned int);
 };
 
 // Calls FUN_004534f0 with arg, assigns the cast result of FUN_004839c0 to m_pReference, then calls FUN_00564db0(1) if non-null.
 // @fnv 0x009cad70
-void FUN_009cad70_shell::FUN_009cad70(unsigned int arg)
+void FUN_009cad70_shell::InitLoadGame(unsigned int arg)
 {
     ((CPStandIn004534f0*)this)->FUN_004534f0(arg);
     m_pReference = m_pReference ? dynamic_cast<TESObjectREFR*>(FUN_004839c0(m_pReference)) : 0;
@@ -742,11 +742,11 @@ struct ActivateObjectLoadView : CombatProcedure
     TESBoundObject* m_pBaseObject;
     char bFlag;
     void FUN_00996ef0(BGSLoadFormBuffer*);
-    void FUN_009cad00(BGSLoadFormBuffer*);
+    void LoadGame(BGSLoadFormBuffer*);
 };
 // Reads the activate object load view from a form buffer, loading the reference, base object, and flag.
 // @fnv 0x009cad00
-void ActivateObjectLoadView::FUN_009cad00(BGSLoadFormBuffer* apBuffer)
+void ActivateObjectLoadView::LoadGame(BGSLoadFormBuffer* apBuffer)
 {
     FUN_00996ef0(apBuffer);
     apBuffer->ReadFormIdentifier(&m_pReference);

@@ -55,11 +55,11 @@ struct FUN_00ca9440_cls
     unsigned int m_5c;
     HKPCloseNode* m_60;
 
-    void FUN_00ca9440(HKPCloseNode* node, FUN_00ca9440_src* src);
+    void addRayHit(HKPCloseNode* node, FUN_00ca9440_src* src);
 };
 
 // @fnv 0x00ca9440
-void FUN_00ca9440_cls::FUN_00ca9440(HKPCloseNode* node, FUN_00ca9440_src* src)
+void FUN_00ca9440_cls::addRayHit(HKPCloseNode* node, FUN_00ca9440_src* src)
 {
     if (src->m_10 < m_20)
     {

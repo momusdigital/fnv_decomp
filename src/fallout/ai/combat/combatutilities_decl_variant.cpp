@@ -177,7 +177,7 @@ struct PathingRequest
 };
 struct Standin77900
 {
-    float FUN_00477900();
+    float GetRadiusBSUnits();
 };
 float __cdecl ComputeExplosionDamageFalloff(float, float, float);
 bool __cdecl IsExplosionRadiusValid(PathingRequest* apExplosion);
@@ -2585,7 +2585,7 @@ struct TrajVec
 };
 struct TrajWeapon
 {
-    float FUN_00477900();
+    float GetRadiusBSUnits();
     float FUN_006a78f0();
 };
 struct TrajActor

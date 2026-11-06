@@ -198,10 +198,10 @@ struct M76Obj
 {
     void FUN_00a37ec0(M76Stream*);
     char pad[0x30 - 0];
-    void FUN_00a408b0(M76Stream*);
+    void SaveBinary(M76Stream*);
 };
 // @fnv 0x00a408b0
-void __fastcall FUN_00a408b0(M76Obj* self, int, M76Stream* stream)
+void __fastcall SaveBinary(M76Obj* self, int, M76Stream* stream)
 {
     self->FUN_00a37ec0(stream);
     M76Bin* __restrict out = stream->output;
@@ -262,12 +262,12 @@ extern "C" void __fastcall FUN_00a37510(void* source, CopyMembersArguments args)
 
 struct BlendFloatSource : NiBlendFloatInterpolator
 {
-    NiBlendFloatInterpolator* __thiscall FUN_00a405f0(void* cloning);
+    NiBlendFloatInterpolator* __thiscall CreateClone(void* cloning);
 };
 
 // Allocates a NiBlendFloatInterpolator, initialises it, copies members from this via FUN_00a37510, and returns the clone.
 // @fnv 0x00a405f0
-NiBlendFloatInterpolator* BlendFloatSource::FUN_00a405f0(void* pCloningProcess)
+NiBlendFloatInterpolator* BlendFloatSource::CreateClone(void* pCloningProcess)
 {
     NiBlendFloatInterpolator* copy =
         static_cast<NiBlendFloatInterpolator*>(FUN_00aa13e0(sizeof(NiBlendFloatInterpolator)));

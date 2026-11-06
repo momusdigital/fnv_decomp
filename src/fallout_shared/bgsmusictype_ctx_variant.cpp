@@ -40,11 +40,11 @@ class BSDirectoryIterator
 class MusicFileBuilder : public BGSMusicType
 {
   public:
-    void FUN_005917b0();
+    void BuildFileList();
 };
 
 // @fnv 0x005917b0
-void MusicFileBuilder::FUN_005917b0()
+void MusicFileBuilder::BuildFileList()
 {
     AutoMemHelper memContext(11, true, "D:\\_Fallout3\\Platforms\\Common\\Code\\Fallout Shared\\BGSMusicType.cpp", 352);
     const char* soundFile5 = GetSoundFile();

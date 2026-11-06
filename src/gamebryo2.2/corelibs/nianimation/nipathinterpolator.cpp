@@ -12,12 +12,12 @@ void* __cdecl FUN_00a3dab0()
 
 struct FUN_00a3dae0_shell
 {
-    void* __thiscall FUN_00a3dae0(short idx);
+    void* __thiscall GetKeyCount(short idx);
 };
 
 // Returns the pointer stored at offset 8 of the object at this+0x18 for idx 0 or this+0x1c for idx 1, or null if absent.
 // @fnv 0x00a3dae0
-void* __thiscall FUN_00a3dae0_shell::FUN_00a3dae0(short idx)
+void* __thiscall FUN_00a3dae0_shell::GetKeyCount(short idx)
 {
     if (idx == 0)
     {
@@ -223,7 +223,7 @@ struct StrArr
 };
 struct FUN_00a3cbf0_shell
 {
-    void __thiscall FUN_00a3cbf0(StrArr*);
+    void __thiscall GetViewerStrings(StrArr*);
 };
 char* __cdecl _FUN_00a7d330(const char*);
 extern const char* _g_011f3e48;
@@ -235,7 +235,7 @@ struct TargetHolder : FUN_00a3cbf0_shell
 // @fnv 0x00a3f4d0
 void __thiscall TargetHolder::AppendString(StrArr* pkStrings)
 {
-    FUN_00a3cbf0(pkStrings);
+    GetViewerStrings(pkStrings);
     char* pcString = _FUN_00a7d330(_g_011f3e48);
     unsigned int uiIndex = pkStrings->m_usSize;
     if (uiIndex >= pkStrings->m_usMaxSize)
@@ -1313,11 +1313,11 @@ struct PathInterpLink : public NiPathInterp
     }
     void FUN_00a95ca0(NiStream&);
     float GetAccumulatedValue();
-    void FUN_00a3ee80(NiStream&);
+    void LinkObject(NiStream&);
 };
 // Reads path data from a stream, updates constant-velocity state, and computes curvature from the path object's position keys.
 // @fnv 0x00a3ee80
-void PathInterpLink::FUN_00a3ee80(NiStream& stream)
+void PathInterpLink::LinkObject(NiStream& stream)
 {
     FUN_00a95ca0(stream);
     m_pPathObject = (NiPosData*)stream.FUN_00a63430();

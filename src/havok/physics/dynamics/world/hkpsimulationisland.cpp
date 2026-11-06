@@ -320,7 +320,7 @@ struct GlobalObjectO2_00d472a0
 };
 extern GlobalObjectO2_00d472a0 g_012687cc;
 // @fnv 0x00d078d0
-GlobalObjectO2_00d472a0* FUN_00d078d0()
+GlobalObjectO2_00d472a0* getClassType()
 {
     return &g_012687cc;
 }

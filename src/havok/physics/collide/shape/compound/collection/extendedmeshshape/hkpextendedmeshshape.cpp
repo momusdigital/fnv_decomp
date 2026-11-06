@@ -5,7 +5,7 @@
 struct FUN_00d554a0_class
 {
     int m_d0;
-    int __thiscall FUN_00d1f1e0();
+    int __thiscall getNumChildShapes();
     int __thiscall GetOrInitValue();
 };
 
@@ -13,7 +13,7 @@ struct FUN_00d554a0_class
 int __thiscall FUN_00d554a0_class::GetOrInitValue()
 {
     if (*reinterpret_cast<int*>(reinterpret_cast<char*>(this) + 0xd0) < 0)
-        *reinterpret_cast<int*>(reinterpret_cast<char*>(this) + 0xd0) = FUN_00d1f1e0();
+        *reinterpret_cast<int*>(reinterpret_cast<char*>(this) + 0xd0) = getNumChildShapes();
     return *reinterpret_cast<int*>(reinterpret_cast<char*>(this) + 0xd0);
 }
 
@@ -458,11 +458,11 @@ struct FUN_00d55a90_cls
     Group* m_0c0;
     int m_0c4;
 
-    int __thiscall FUN_00d55a90(int a1, int a2);
+    int __thiscall calcSizeForSpu(int a1, int a2);
 };
 
 // @fnv 0x00d55a90
-int FUN_00d55a90_cls::FUN_00d55a90(int a1, int a2)
+int FUN_00d55a90_cls::calcSizeForSpu(int a1, int a2)
 {
     int i = 0;
     if (m_0c4 > 0)
@@ -2139,11 +2139,11 @@ struct MeshOwner
     int m_children;
     S_00d56880_Elem* AppendElement();
     int FUN_00d55520(int);
-    int FUN_00d56900(volatile int);
+    int addShapesSubpart(volatile int);
 };
 // Appends a shape element, expands the owner AABB to include it, and returns the new element index.
 // @fnv 0x00d56900
-int MeshOwner::FUN_00d56900(volatile int key)
+int MeshOwner::addShapesSubpart(volatile int key)
 {
     S_00d56880_Elem* elem = AppendElement();
     ((MeshEntry*)elem)->FUN_00d4ad60(key);
@@ -2243,12 +2243,12 @@ struct FUN_00d56200_cls
     int unkc8;
     SubBuf m_cc;
     unsigned char m_d8;
-    void FUN_00d56200(int a1);
+    void initWeldingInfo(int a1);
 };
 
 // Stores a1 in m_d8; if a1 is 6 frees and resets m_cc, else writes running totals into the 0x60-byte records of m_b4 and grows m_cc to the total.
 // @fnv 0x00d56200
-void FUN_00d56200_cls::FUN_00d56200(int a1)
+void FUN_00d56200_cls::initWeldingInfo(int a1)
 {
     m_d8 = (unsigned char)a1;
     if (a1 != 6)
@@ -2299,7 +2299,7 @@ void FUN_00d56200_cls::FUN_00d56200(int a1)
     return;
 }
 
-// FUN_00d56200 wrapper for the pack
+// initWeldingInfo wrapper for the pack
 }  // namespace fnv_00d56200
 
 struct ChanEntry
@@ -2584,7 +2584,7 @@ class hkpD563Shape
 
     int Vec4(void* arg, int level);
 
-    void FUN_00d563a0(void* arg);
+    void addTrianglesSubpart(void* arg);
 
     unsigned int unk00, unk04, unk08, unk0c, unk10, unk14, unk18, unk1c;
 
@@ -2613,7 +2613,7 @@ class hkpD563Shape
 
 // Updates the shape's AABB by querying the tree, expanding by m_fScalar, and accumulating m_total from FUN_00d56160.
 // @fnv 0x00d563a0
-void hkpD563Shape::FUN_00d563a0(void* arg)
+void hkpD563Shape::addTrianglesSubpart(void* arg)
 {
 
     hkpD563Tree* tree = FUN_00d562f0();
@@ -3061,5 +3061,5 @@ FUN_00d56ab0::FUN_00d56ab0(Src& input) : FUN_00d21410(14, 1)
         arr.m_data[i].a49 = s->arr[i].f18;
     }
     FUN_00d55950();
-    m_ce0 = reinterpret_cast<FUN_00d554a0_class*>(static_cast<Base2*>(this))->FUN_00d1f1e0();
+    m_ce0 = reinterpret_cast<FUN_00d554a0_class*>(static_cast<Base2*>(this))->getNumChildShapes();
 }

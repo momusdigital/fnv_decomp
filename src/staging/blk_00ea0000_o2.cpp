@@ -813,7 +813,7 @@ class Node
 
 // Allocates a new Node object on the heap and returns its pointer.
 // @fnv 0x00ead090
-Node* FUN_00ead090()
+Node* CreateObject()
 {
     return new Node;
 }

@@ -156,7 +156,7 @@ void* __fastcall FUN_00a3a8a0(FUN_00a3a8a0_t* self, int unused, unsigned short i
 
 // Stores pkInterpolator into the morph controller's interpolator slot at usIndex, releasing the old interpolator and incrementing the new one's ref count.
 // @fnv 0x00a3a8b0
-void __fastcall FUN_00a3a8b0(NiGeomMorpherController* self, int, NiInterpolator* pkInterpolator, unsigned short usIndex)
+void __fastcall SetInterpolator(NiGeomMorpherController* self, int, NiInterpolator* pkInterpolator, unsigned short usIndex)
 {
     NiInterpolator** slot = reinterpret_cast<NiInterpolator**>(&self->m_pInterpolatorItems[usIndex]);
     NiInterpolator* pOldInterpolator = *slot;
@@ -289,7 +289,7 @@ struct FUN_00a3adc0_t
     FUN_00a3adc0_md* md;
 };
 // @fnv 0x00a3adc0
-unsigned short __fastcall FUN_00a3adc0(FUN_00a3adc0_t* self, int)
+unsigned short __fastcall GetInterpolatorCount(FUN_00a3adc0_t* self, int)
 {
     if (self->md)
         return self->md->count;
@@ -1467,12 +1467,12 @@ struct FUN_00a3acb0_cls
     FUN_00a3acb0_item* items;
     void FUN_00a6d0c0(void* p);
     unsigned int FUN_008d3ed0();
-    void FUN_00a3acb0(void* p);
+    void ProcessClone(void* p);
 };
 
 // Calls FUN_00a6d0c0(p), then forwards p to Slot26 on each non-null item pointer in items up to FUN_008d3ed0().
 // @fnv 0x00a3acb0
-void FUN_00a3acb0_cls::FUN_00a3acb0(void* p)
+void FUN_00a3acb0_cls::ProcessClone(void* p)
 {
     FUN_00a6d0c0(p);
     unsigned short i;
@@ -2102,11 +2102,11 @@ class NiGeomMorpherControllerA3B : public a3bb::FUN_00a2f8c0
     bool m_bUpdateBounds;
 
     void FUN_00a3ba70(NiGeomMorpherControllerA3B* pkClone, NiCloningProcessA3B& kCloning);
-    NiGeomMorpherControllerA3B* FUN_00a3bb80(NiCloningProcessA3B& kCloning);
+    NiGeomMorpherControllerA3B* CreateClone(NiCloningProcessA3B& kCloning);
 };
 // Allocates a new NiGeomMorpherControllerA3B, calls FUN_00a3ba70 with it and kCloning, and returns it.
 // @fnv 0x00a3bb80
-NiGeomMorpherControllerA3B* NiGeomMorpherControllerA3B::FUN_00a3bb80(NiCloningProcessA3B& kCloning)
+NiGeomMorpherControllerA3B* NiGeomMorpherControllerA3B::CreateClone(NiCloningProcessA3B& kCloning)
 {
     NiGeomMorpherControllerA3B* pkClone = new NiGeomMorpherControllerA3B;
     FUN_00a3ba70(pkClone, kCloning);

@@ -49,11 +49,11 @@ struct RefH
 };
 struct FUN_00811030_shell
 {
-    bool FUN_00811030();
+    bool IsActive();
 };
 // Returns true when the int at offset 0xac is not 2 and the object is not deleted.
 // @fnv 0x00811030
-bool FUN_00811030_shell::FUN_00811030()
+bool FUN_00811030_shell::IsActive()
 {
     return *reinterpret_cast<const int*>(reinterpret_cast<const char*>(this) + 0xac) != 2 &&
            !reinterpret_cast<const RefH*>(this)->IsDeleted();
@@ -151,11 +151,11 @@ struct Owner008cf740
 {
     char _pad[0x88];
     void* f88;
-    void FUN_008cf740(int);
+    void Revert(int);
 };
 // Calls FUN_00932750 with a, then if g_TESSaveLoadGame->FUN_0055f5b0() is true, deallocates f88 and sets it to 0.
 // @fnv 0x008cf740
-void Owner008cf740::FUN_008cf740(int a)
+void Owner008cf740::Revert(int a)
 {
     ((S00932750*)this)->FUN_00932750(a);
     if (g_TESSaveLoadGame->FUN_0055f5b0())
@@ -368,10 +368,10 @@ struct FUN_008cb380_shell
     virtual void v188();
     virtual void v189();
     virtual void v190(float);
-    void FUN_008cb380(float);
+    void Process(float);
 };
 // @fnv 0x008cb380
-void FUN_008cb380_shell::FUN_008cb380(float afUnused)
+void FUN_008cb380_shell::Process(float afUnused)
 {
     float fTime = g_timeGlobal.GetStoredFloatValue();
     v190(fTime);
@@ -399,20 +399,20 @@ struct TESSaveLoadGameHelper
 
 struct FUN_0081e8c0_shell_standin
 {
-    void FUN_0081e8c0(unsigned int);
+    void SaveGame(unsigned int);
 };
 
 struct FUN_00811110_shell
 {
-    void FUN_00811110(unsigned int);
+    void SaveGame(unsigned int);
 };
 
 extern SaveManager* DAT_011de45c;
 
 // @fnv 0x00811110
-void FUN_00811110_shell::FUN_00811110(unsigned int aiFlags)
+void FUN_00811110_shell::SaveGame(unsigned int aiFlags)
 {
-    reinterpret_cast<FUN_0081e8c0_shell_standin*>(this)->FUN_0081e8c0(aiFlags);
+    reinterpret_cast<FUN_0081e8c0_shell_standin*>(this)->SaveGame(aiFlags);
 
     reinterpret_cast<PC7d*>(this)->FUN_00484ce0(reinterpret_cast<char*>(this) + 0xa8, 4);
     reinterpret_cast<PC7d*>(this)->FUN_00484ce0(reinterpret_cast<char*>(this) + 0x88, 4);
@@ -450,7 +450,7 @@ struct STR00
 
 struct Projectile
 {
-    void FUN_0081e980(int, int);
+    void LoadGame2(int, int);
 };
 
 struct SaveManager
@@ -600,7 +600,7 @@ void FUN_008111e0_shell::LoadFromSave(unsigned int aiFlags, unsigned int aiCurre
 
     this->v113();
 
-    reinterpret_cast<Projectile*>(this)->FUN_0081e980(aiFlags, aiCurrentFlags);
+    reinterpret_cast<Projectile*>(this)->LoadGame2(aiFlags, aiCurrentFlags);
 
     reinterpret_cast<STR00*>(this)->FUN_00484d00(reinterpret_cast<void*>(reinterpret_cast<char*>(this) + 0xa8), 4);
 
@@ -1031,10 +1031,10 @@ struct Self
     virtual void s127(int);
     char pad[0x64];
     Obj* m68;
-    bool FUN_008cf7a0();
+    bool StartHighProcess();
 };
 // @fnv 0x008cf7a0
-bool Self::FUN_008cf7a0()
+bool Self::StartHighProcess()
 {
     if (m68 && !m68->FUN_0045cd60())
         return true;
@@ -2021,7 +2021,7 @@ struct Node
     Vec& FUN_0045bb80();
     Vec& FUN_0043c490();
     void FUN_0043fa80(const Matrix*);
-    void FUN_004f00e0(const Vec*);
+    void SetWorldTranslate(const Vec*);
 };
 struct Flags
 {
@@ -2495,7 +2495,7 @@ void Projectile::UpdateMotion(float delta)
         }
     }
     if ((Node*)effect)
-        ((Node*)effect)->FUN_004f00e0(&Position());
+        ((Node*)effect)->SetWorldTranslate(&Position());
     if (((Anim*)animation)->FUN_00813370() || (mode == 1 && GetUnka4() - start > 3.0))
     {
         if (sound.FUN_00ad8ce0())
@@ -3263,11 +3263,11 @@ struct FUN_008ce610_owner : PC7d
 
     void __thiscall ForwardToSaveLoadGame(void*, int);
 
-    void __thiscall FUN_008ce610(int);
+    void __thiscall SaveGame(int);
 };
 
 // @fnv 0x008ce610
-void FUN_008ce610_owner::FUN_008ce610(int arg)
+void FUN_008ce610_owner::SaveGame(int arg)
 {
 
     SaveProcess(arg);
@@ -3651,11 +3651,11 @@ struct Loaded
     void baseLoad(void*, void*);
     void read(void*, unsigned);
     void readRef(unsigned*, unsigned);
-    void FUN_008ceb50(void*, void*);
+    void LoadGame2(void*, void*);
 };
 // Loads the block header, mode, refs, position and extra data (with optional rotation and name) from the loader, then warns on buffer overrun or underrun.
 // @fnv 0x008ceb50
-void Loaded::FUN_008ceb50(void* arg1, void* arg2)
+void Loaded::LoadGame2(void* arg1, void* arg2)
 {
     baseLoad(arg1, arg2);
     unsigned short a = 0;
@@ -4095,11 +4095,11 @@ extern SpinLock_931710 DAT_011f11a0;
 
 struct Self_931710 : Self
 {
-    bool FUN_00931710();
+    bool StartHighProcess();
 };
 
 // @fnv 0x00931710
-bool Self_931710::FUN_00931710()
+bool Self_931710::StartHighProcess()
 {
     int level = this->m68->FUN_0045cd60();
     DAT_011f11a0.Lock(0);
@@ -5793,12 +5793,12 @@ struct Host
     AVObj* m6c;
     bool FUN_00574900();
     Proc* FUN_008d8520();
-    void FUN_00936b20(int);
+    void UpdateAnimationAlt(int);
 };
 
 // If active, finds the controller and sequence for the global time, advances the sequence by the elapsed time, and updates the node.
 // @fnv 0x00936b20
-void Host::FUN_00936b20(int aiUnused)
+void Host::UpdateAnimationAlt(int aiUnused)
 {
     if (FUN_00574900())
     {
@@ -6560,7 +6560,7 @@ struct CleanupHandler
     bool FUN_004226e0();
 };
 extern CleanupHandler* DAT_011c3f2c;
-void FUN_0062ab60(CleanupVector&, void*);
+void RemoveArrowTarget(CleanupVector&, void*);
 struct FUN_008cac60 : CleanupReference
 {
     virtual ~FUN_008cac60();
@@ -6586,7 +6586,7 @@ FUN_008cac60::~FUN_008cac60()
             CleanupVector audioVector;
             audioVector.FUN_006815c0();
             world->GetAudioPosition(audioVector);
-            FUN_0062ab60(audioVector, data->worldHandle);
+            RemoveArrowTarget(audioVector, data->worldHandle);
         }
     }
     if (!detached && data && data->kind == 0 && data->actor && data->actor->IsActor())
@@ -6841,12 +6841,12 @@ struct Cls8112c0
     Ret8d* FUN_008d6f30(Cls8112c0*, int);
     EffA* FUN_004fd400();
     Obj30 PlaySoundByFormID(int, int, int, int);
-    void FUN_008112c0(int, int);
+    void InitLoadGameTES(int, int);
 };
 
 // Calls FUN_0081ea40 and FUN_0080fcf0, updates m_b4 from an Obj30 result, and may allocate C0Obj using the named SpecialIdle_AreaEffect entry.
 // @fnv 0x008112c0
-void Cls8112c0::FUN_008112c0(int aiParam1, int aiParam2)
+void Cls8112c0::InitLoadGameTES(int aiParam1, int aiParam2)
 {
     float f10;
     ResolveMagicReferences(aiParam1, aiParam2);
@@ -8089,7 +8089,7 @@ struct DialogueActor
     bool Ready();
     DialogueActor* Ref();
     struct Extra* ExtraList();
-    void FUN_00933d20();
+    void EndDialogue();
 };
 struct Extra
 {
@@ -8119,7 +8119,7 @@ struct Queue
 extern Queue actorQueue;
 // Cancels the process; for package type 28, handles both participants, frees special idles, and deletes the dialogue package.
 // @fnv 0x00933d20
-void DialogueActor::FUN_00933d20()
+void DialogueActor::EndDialogue()
 {
     if (!process || saveState->GetLoading())
         return;
@@ -8235,7 +8235,7 @@ class MobileObject
   public:
     void SetProcessFlags(unsigned int, unsigned int);
     int FUN_00931850();
-    void FUN_008cf2c0(unsigned int, unsigned int);
+    void InitLoadGameTES(unsigned int, unsigned int);
     unsigned int unk00;
     unsigned int unk04;
     unsigned int unk08;
@@ -8290,7 +8290,7 @@ class ActorDeletionQueue
 };
 // Calls FUN_00932490, resolves three form fields and unk88->unk28 through FUN_004839c0, then calls two functions on DAT_011e0e80.
 // @fnv 0x008cf2c0
-void MobileObject::FUN_008cf2c0(unsigned int auiArg1, unsigned int auiArg2)
+void MobileObject::InitLoadGameTES(unsigned int auiArg1, unsigned int auiArg2)
 {
     SetProcessFlags(auiArg1, auiArg2);
     unsigned int enchantment = (unsigned int)unkA4;

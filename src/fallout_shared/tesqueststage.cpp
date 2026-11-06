@@ -121,7 +121,7 @@ void QuestStage::MarkDone(bool done)
     {
         m_pCompletionDate = new Date(g_calendar.GetGameHour(), g_calendar.GetCurrentMonth(), g_calendar.FUN_00867c60());
 
-        if (FUN_0060fd70())
+        if (GetEndQuest())
         {
             if (m_pSharedOwner)
             {
@@ -261,10 +261,10 @@ struct StageHolder
 {
     bool GetDone();
     BSSimpleList<QuestStage*>* GetConditions();
-    void FUN_0060f4a0(TESQuest* quest, bool done);
+    void SetDone(TESQuest* quest, bool done);
 };
 // @fnv 0x0060f4a0
-void StageHolder::FUN_0060f4a0(TESQuest* quest, bool done)
+void StageHolder::SetDone(TESQuest* quest, bool done)
 {
     QuestStage* stage;
     BSSimpleList<QuestStage*>* list;
@@ -333,11 +333,11 @@ FUN_0060f520::FUN_0060f520()
 
 struct FUN_0060fd70_shell : public PlayerQuestData
 {
-    bool FUN_0060fd70();
+    bool GetEndQuest();
 };
 
 // @fnv 0x0060fd70
-bool FUN_0060fd70_shell::FUN_0060fd70()
+bool FUN_0060fd70_shell::GetEndQuest()
 {
     return (*(unsigned char*)this & 1) != 0;
 }

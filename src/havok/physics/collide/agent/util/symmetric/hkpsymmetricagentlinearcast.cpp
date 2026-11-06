@@ -197,12 +197,12 @@ struct VecHolder
     hkVector4 m_10;
     VecDispatch* m_20;
 
-    void FUN_00da70e0(const VecArg& arg);
+    void addCdPoint(const VecArg& arg);
 };
 
 // Builds a packet with arg.m_00 + m_10 * arg.m_10's w and arg.m_10 negated, dispatches it via m_20, and copies m_20->m_04 to m_04.
 // @fnv 0x00da70e0
-void VecHolder::FUN_00da70e0(const VecArg& arg)
+void VecHolder::addCdPoint(const VecArg& arg)
 {
     VecPacket p(arg.m_24, arg.m_20);
     hkVector4 w;

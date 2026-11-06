@@ -107,6 +107,6 @@ class NiBinaryStream
     unsigned int Read(void*, unsigned int);
 };
 extern "C" void* __cdecl memset(void*, int, unsigned int);
-bool __cdecl FUN_004d5880(NiBinaryStream*, char*, unsigned int);
+bool __cdecl Decompress(NiBinaryStream*, char*, unsigned int);
 
 #endif

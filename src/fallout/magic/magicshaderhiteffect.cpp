@@ -523,7 +523,7 @@ class ShaderLoadView : public MagicShaderHitEffect
 {
   public:
     void SaveLoad(ActiveEffect* effect, TESObjectREFR* target);
-    void FUN_00821ed0(ActiveEffect* effect, TESObjectREFR* target);
+    void LoadGame(ActiveEffect* effect, TESObjectREFR* target);
 };
 
 extern TESSaveLoadGame* g_TESSaveLoadGame;
@@ -756,10 +756,10 @@ struct FUN_0081be80_s
 };
 struct FUN_00822250_shell
 {
-    void FUN_00822250(BGSSaveFormBuffer*);
+    void SaveGameBGS(BGSSaveFormBuffer*);
 };
 // @fnv 0x00822250
-void FUN_00822250_shell::FUN_00822250(BGSSaveFormBuffer* pBuffer)
+void FUN_00822250_shell::SaveGameBGS(BGSSaveFormBuffer* pBuffer)
 {
     reinterpret_cast<FUN_0081be80_s*>(this)->FUN_0081be80(pBuffer);
     pBuffer->SaveData(reinterpret_cast<char*>(this) + 0x28, 1, 0);
@@ -1236,11 +1236,11 @@ struct FUN_00821e40_shell
     char base[0x2c];
     TESForm* m_pAffectedArmorObject;
     void FUN_0081bd80(ActiveEffect*, TESObjectREFR*);
-    void FUN_00821e40(ActiveEffect* a1, TESObjectREFR* a2);
+    void SaveGame(ActiveEffect* a1, TESObjectREFR* a2);
 };
 
 // @fnv 0x00821e40
-void FUN_00821e40_shell::FUN_00821e40(ActiveEffect* pEffect, TESObjectREFR* a2)
+void FUN_00821e40_shell::SaveGame(ActiveEffect* pEffect, TESObjectREFR* a2)
 {
     FUN_0081bd80(pEffect, a2);
     g_TESSaveLoadGame->FUN_008579b0((char*)this + 0x34, 4);
@@ -1270,14 +1270,14 @@ struct FUN_0081bed0_s
 };
 struct FUN_008222f0_s : public FUN_0081bed0_s
 {
-    void FUN_008222f0(BGSLoadGameBuffer*);
+    void LoadGameBGS(BGSLoadGameBuffer*);
 };
 struct TESBoundObject;
 struct TESEffectShader;
 TESForm* GetFormByID(unsigned int);
 // Loads the base form data, then reads several fields from the buffer and resolves two form IDs into a TESBoundObject and a TESEffectShader.
 // @fnv 0x008222f0
-void FUN_008222f0_s::FUN_008222f0(BGSLoadGameBuffer* buffer)
+void FUN_008222f0_s::LoadGameBGS(BGSLoadGameBuffer* buffer)
 {
     LoadFormData((BGSLoadFormBuffer*)buffer);
     ((BGSLoadFormBuffer*)buffer)->ReadTypedData(this + 0x28, 1);
@@ -1738,12 +1738,12 @@ struct FUN_008220c0_cls
     void* m_1c;
     unsigned int unk20, unk24, unk28, unk2c;
     void* m_30;
-    void FUN_008220c0();
+    void SaveGameTES();
 };
 
 // Writes the values returned by FUN_0084e3a0 for m_1c and m_30 to DAT_011de45c, then calls v53(0, m_1c).
 // @fnv 0x008220c0
-void FUN_008220c0_cls::FUN_008220c0()
+void FUN_008220c0_cls::SaveGameTES()
 {
     unsigned int a = (unsigned int)FUN_0084e3a0(m_1c);
     DAT_011de45c->FUN_00857a10(&a, 4);
@@ -3328,11 +3328,11 @@ class Effect
     bool unk14;
     void* unk18;
     Ref* unk1c;
-    bool FUN_00822130();
+    bool LoadGameTES();
 };
 // Reads two 4-byte values, resolves reference and shader forms, calls vfnd8, and calls vfndc and vfne0 when both resolve.
 // @fnv 0x00822130
-bool Effect::FUN_00822130()
+bool Effect::LoadGameTES()
 {
     bool result2 = true;
     void* firstB;
@@ -3388,7 +3388,7 @@ extern TESSaveLoadGame* g_TESSaveLoadGame;
 
 // Reads effect shader scale, particle effects flag, and affected armor object ID from the save stream.
 // @fnv 0x00821ed0
-void ShaderLoadView::FUN_00821ed0(ActiveEffect* effect, TESObjectREFR* target)
+void ShaderLoadView::LoadGame(ActiveEffect* effect, TESObjectREFR* target)
 {
     SaveLoad(effect, target);
     g_TESSaveLoadGame->ReadTypedData(&m_fEffectShaderScale, 4);

@@ -223,7 +223,7 @@ void FUN_00c2aa70_Class::FUN_00c2aa70(NiStream& aStream)
 
 struct FUN_00c322b0_Obj
 {
-    void __thiscall FUN_00c322b0(NiStream* stream);
+    void __thiscall GetViewerStrings(NiStream* stream);
 };
 
 struct FUN_00c2af80_Array
@@ -252,13 +252,13 @@ void* __cdecl FUN_00a7d330(void* value);
 
 struct FUN_00c2af80_Obj
 {
-    void __thiscall FUN_00c2af80(NiStream* stream);
+    void __thiscall GetViewerStrings(NiStream* stream);
 };
 
 // @fnv 0x00c2af80
-void __thiscall FUN_00c2af80_Obj::FUN_00c2af80(NiStream* stream)
+void __thiscall FUN_00c2af80_Obj::GetViewerStrings(NiStream* stream)
 {
-    reinterpret_cast<FUN_00c322b0_Obj*>(this)->FUN_00c322b0(stream);
+    reinterpret_cast<FUN_00c322b0_Obj*>(this)->GetViewerStrings(stream);
 
     FUN_00c2af80_Array* array = reinterpret_cast<FUN_00c2af80_Array*>(stream);
 

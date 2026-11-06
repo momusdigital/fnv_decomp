@@ -81,7 +81,7 @@ extern "C" int _mm_movemask_ps(__m128);
 extern float DAT_010c44d0[4];
 struct S00c9dc40_Box : public hkpBoxShape
 {
-    void __thiscall FUN_00c9dc40(const float* src, float* dst);
+    void __thiscall getSupportingVertexImpl(const float* src, float* dst);
 };
 // @fnv 0x00c9dcb0
 extern "C" void __stdcall ZeroResult(__m128* result)
@@ -113,11 +113,11 @@ struct FUN_00c9dcd0_object
     unsigned char unknown00[0x20];
     __m128 halfExtents;
 
-    void __thiscall FUN_00c9dcd0(const unsigned short* ids, int count, FUN_00c9dcd0_vertex* output);
+    void __thiscall convertVertexIdsToVerticesImpl(const unsigned short* ids, int count, FUN_00c9dcd0_vertex* output);
 };
 
 // @fnv 0x00c9dcd0
-void __thiscall FUN_00c9dcd0_object::FUN_00c9dcd0(const unsigned short* ids, int count, FUN_00c9dcd0_vertex* output)
+void __thiscall FUN_00c9dcd0_object::convertVertexIdsToVerticesImpl(const unsigned short* ids, int count, FUN_00c9dcd0_vertex* output)
 {
     for (int i = count - 1; i >= 0; --i)
     {

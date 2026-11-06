@@ -524,7 +524,7 @@ public:
     ChildPtr<NiNode> m_spNode;
 
     NiNode* GetNode() const { return m_spNode; }
-    TileShaderProperty* FUN_00a0b1f0();
+    TileShaderProperty* GetShaderProperty();
 };
 static inline NiAVObject* A0B1F0GetChild(NiNode* pkNode, unsigned int uiIndex) {
     if (uiIndex >= pkNode->GetChildren().m_usSize)
@@ -675,7 +675,7 @@ public:
     int unk, unk0C, unkCur, unkValue, uNewnk, unk1C, uTmpnk, unk24, unk28;
     ChildPtr<NiNode> m_spNode;
     NiNode* GetNode() const { return m_spNode; }
-    void FUN_00a0b020();
+    void ForceTextureRelease();
 };
 extern int DAT_011f32dc;
 extern void* DAT_011f329c[];

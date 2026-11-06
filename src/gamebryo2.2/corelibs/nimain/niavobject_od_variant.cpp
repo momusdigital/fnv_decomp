@@ -26,7 +26,7 @@ struct NiAVObject
 };
 struct FUN_00a5a030_shell : NiAVObject
 {
-    void __thiscall FUN_00a5a030(NiUpdateData& data);
+    void __thiscall UpdateControllers(NiUpdateData& data);
 };
 extern char const* const g_011f4428_arg1;
 char const* const* __cdecl FUN_00a5a420();

@@ -183,10 +183,10 @@ struct MyCtrl : Base44
 {
     unsigned short m_usValue;
     void* m_pData;
-    void FUN_00a46070(MyStream* kStream);
+    void SaveBinary(MyStream* kStream);
 };
 // @fnv 0x00a46070
-void MyCtrl::FUN_00a46070(MyStream* kStream)
+void MyCtrl::SaveBinary(MyStream* kStream)
 {
     Base44::FUN_00a6d730(kStream);
     kStream->m_pBackingStream->Write(&m_usValue, 2);
@@ -205,10 +205,10 @@ struct BaseCall
 char* _FUN_00a7d330(const char*);
 struct NiUVController
 {
-    void FUN_00a46150(StrArr*);
+    void GetViewerStrings(StrArr*);
 };
 // @fnv 0x00a46150
-void NiUVController::FUN_00a46150(StrArr* pStrArr)
+void NiUVController::GetViewerStrings(StrArr* pStrArr)
 {
     ((BaseCall*)this)->FUN_00a6d830(pStrArr);
     char* s = _FUN_00a7d330((const char*)g_011f3f18);
@@ -260,10 +260,10 @@ struct BasePad
 struct NiUVController : BasePad
 {
     NiUVData* m_pData;
-    bool __thiscall FUN_00a45970(NiStream&);
+    bool __thiscall RegisterStreamables(NiStream&);
 };
 // @fnv 0x00a45970
-bool __thiscall NiUVController::FUN_00a45970(NiStream& kStream)
+bool __thiscall NiUVController::RegisterStreamables(NiStream& kStream)
 {
     if (!FUN_00a6d0f0(kStream))
         return false;
@@ -290,11 +290,11 @@ struct NiUVController
     NiTimeController m_TimeController;
     char _pad[0x4B];
     bool m_bUpdateEnabled;
-    void FUN_00a45cf0(NiUpdateData& UpdateData);
+    void Update(NiUpdateData& UpdateData);
 };
 
 // @fnv 0x00a45cf0
-void NiUVController::FUN_00a45cf0(NiUpdateData& UpdateData)
+void NiUVController::Update(NiUpdateData& UpdateData)
 {
     if (!m_TimeController.AdvanceController(UpdateData.fTime))
         m_bUpdateEnabled = 1;

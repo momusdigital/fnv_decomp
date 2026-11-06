@@ -74,7 +74,7 @@ class __declspec(align(16)) S00dced70_Object
     int unk28;
     int unk2C;
 };
-const void* __cdecl FUN_00dced70();
+const void* __cdecl getVtable_hkpBreakableConstraintData();
 struct __declspec(align(16)) FUN_00dd1f00
 {
     __m128 unk00;

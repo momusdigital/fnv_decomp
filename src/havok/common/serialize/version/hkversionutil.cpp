@@ -150,7 +150,7 @@ class hkClassMemberDC11
 class hkVersionCheckDC11
 {
   public:
-    int FUN_00e032d0(const hkClassMemberDC11* pkOld, const hkClassMemberDC11* pkNew) throw();
+    int areMembersCompatible(const hkClassMemberDC11* pkOld, const hkClassMemberDC11* pkNew) throw();
     int IsMemberCompatible(const hkClassMemberDC11* pkOld, const hkClassMemberDC11* pkNew) throw();
 };
 
@@ -173,7 +173,7 @@ int hkVersionCheckDC11::IsMemberCompatible(const hkClassMemberDC11* pkOld, const
         (pkOld->m_eSubtype == hkClassMemberDC11::TYPE_VARIANT && pkNew->m_eSubtype == hkClassMemberDC11::TYPE_POINTER &&
          pkNew->FUN_00d86920() && FUN_00cb0fa0(g_01268748.FUN_00d46d40(), pkNew->FUN_00d86910().FUN_00d46d40()) == 0);
 
-    if (FUN_00e032d0(pkOld, pkNew) || bCStringToStringPtr || bVariantToPtr ||
+    if (areMembersCompatible(pkOld, pkNew) || bCStringToStringPtr || bVariantToPtr ||
         (bTypeCompatible && (bSubTypeCompatible || bSubVariantToPtr)))
         return 1;
     return 0;

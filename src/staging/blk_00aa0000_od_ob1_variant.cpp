@@ -6399,7 +6399,7 @@ struct FUN_00ac5490 : FUN_00aaaa80
             m40 = 0;
         }
     }
-    unsigned char FUN_00ac5540(std::Str s, int z)
+    unsigned char LoadFile(std::Str s, int z)
     {
         int mode = z ? 0x100 : 1;
         ReaderRef reference(readerDirectory ? readerDirectory->Find(s._Myptr()) : 0);
@@ -6451,7 +6451,7 @@ unsigned char __cdecl FUN_00aafc80(const std::Str& pStr, int* pOut, Arr28* pA, A
     unsigned short* _res;
     {
         FUN_00ac5490 obj4((std::Str(signatureText)));
-        if (!obj4.FUN_00ac5540(pStr, 0))
+        if (!obj4.LoadFile(pStr, 0))
         {
             return 0;
         }
@@ -17920,7 +17920,7 @@ struct FUN_00ac5490 : FUN_00aaaa80
         ClearHolders();
     }
     void ClearHolders();
-    bool FUN_00ac5540(TriString, int);
+    bool LoadFile(TriString, int);
     bool FUN_00ac5e00(void*, unsigned int, unsigned int);
     bool FUN_00ac5cf0(void*, unsigned int, unsigned int);
     template <class T> bool read(T& value)
@@ -18201,7 +18201,7 @@ bool __cdecl FUN_00ab5ec0(const TriString& filename, Geometry* geometry)
     TriHeader triHeader;
     fnv_zlib_memset(&triHeader, 0, 56);
     FUN_00ac5490 reader("FRTRI003");
-    if (!reader.FUN_00ac5540(filename, 0))
+    if (!reader.LoadFile(filename, 0))
         return false;
     if (!reader.FUN_00ac5e00(&triHeader, 1, 56))
         return false;
@@ -21644,7 +21644,7 @@ struct FUN_00ac5490 : ImageReaderTypes::FUN_00aaaa80
     VirtualFile* unk40;
     LoadedFile* unk44;
 
-    bool FUN_00ac5540(ReaderString, int);
+    bool LoadFile(ReaderString, int);
     bool FUN_00ac5e00(void*, unsigned int, unsigned int);
     bool FUN_00ac5cf0(void*, unsigned int, unsigned int);
     inline void ClearHolders()
@@ -21780,7 +21780,7 @@ struct ImageHeader
 bool __cdecl FUN_00ab2640(const ReaderString& filename, unsigned int* format, Images* first, Images* second)
 {
     FUN_00ac5490 stream3((ReaderString(&DAT_010a2d3c)));
-    if (!stream3.FUN_00ac5540(filename, 0))
+    if (!stream3.LoadFile(filename, 0))
         return false;
     ImageHeader kHeader;
     if (!stream3.FUN_00ac5e00(&kHeader, 1, 56))

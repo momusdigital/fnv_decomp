@@ -273,11 +273,11 @@ extern "C" TESForm* __cdecl GetFormByID(unsigned int);
 struct FUN_00504e40_shell
 {
     unsigned int m_0218;
-    TESForm* __thiscall FUN_00504e40();
+    TESForm* __thiscall GetQuest();
 };
 
 // @fnv 0x00504e40
-TESForm* __thiscall FUN_00504e40_shell::FUN_00504e40()
+TESForm* __thiscall FUN_00504e40_shell::GetQuest()
 {
     return GetFormByID(*(unsigned int*)((char*)this + 0x218));
 }
@@ -381,7 +381,7 @@ struct FUN_00504e20_shell
 };
 struct FUN_00504e40_shell
 {
-    TESForm* FUN_00504e40();
+    TESForm* GetQuest();
 };
 struct FUN_00504e60_shell
 {
@@ -423,8 +423,8 @@ void Casino_504cc0::CopyFromCasino(TESForm* apCopy)
     {
         m_kIconTextures[i].SetFullName(((FNStub*)((FUN_00504e20_shell*)pSourceCasino)->FUN_00504e20(i))->GetFullName());
     }
-    if (((FUN_00504e40_shell*)pSourceCasino)->FUN_00504e40())
-        data.unk30 = ((FUN_00504e40_shell*)pSourceCasino)->FUN_00504e40()->GetFormID();
+    if (((FUN_00504e40_shell*)pSourceCasino)->GetQuest())
+        data.unk30 = ((FUN_00504e40_shell*)pSourceCasino)->GetQuest()->GetFormID();
     else
         data.unk30 = 0;
     data = *(Data_504cc0*)((FUN_00504e60_shell*)pSourceCasino)->FUN_00504e60();
@@ -558,12 +558,12 @@ struct FUN_00504640_shell
     Texture m_kIconTextures[11];
     char data[0x38];
 
-    void FUN_00504640();
+    void InitializeData();
 };
 
 // Zeroes the data block, then calls Init on all 10 Model entries and all 11 Texture entries.
 // @fnv 0x00504640
-void FUN_00504640_shell::FUN_00504640()
+void FUN_00504640_shell::InitializeData()
 {
     memset(this->data, 0, sizeof(this->data));
 
@@ -591,7 +591,7 @@ struct DoorPart30
 
 struct FUN_00485e00_shell
 {
-    void FUN_00485e20(int, int);
+    void __SaveData(int, int);
 };
 
 struct DoorPart3c
@@ -632,7 +632,7 @@ void FUN_00504710_shell::FUN_00504710()
         reinterpret_cast<EndianConvertibleData*>(reinterpret_cast<unsigned char*>(this) + 0x1E8)->Endian();
     }
 
-    reinterpret_cast<FUN_00485e00_shell*>(this)->FUN_00485e20(
+    reinterpret_cast<FUN_00485e00_shell*>(this)->__SaveData(
         reinterpret_cast<int>(reinterpret_cast<EndianConvertibleData*>(reinterpret_cast<unsigned char*>(this) + 0x1E8)),
         0x38);
 
@@ -824,7 +824,7 @@ struct CasinoAccess : TESCasino
 {
     TESTexture* FUN_00504e20(int);
     TESModelTextureSwap* FUN_00504e00(int);
-    TESForm* FUN_00504e40();
+    TESForm* GetQuest();
     void* FUN_00504e60();
     bool FUN_00485270(TESForm*);
     bool FUN_00504e80(TESForm* form);
@@ -851,7 +851,7 @@ bool CasinoAccess::FUN_00504e80(TESForm* form)
                          reinterpret_cast<CasinoAccess*>(other)->FUN_00504e00(j)->GetModelFilePath()))
             return true;
     }
-    if (GetFormByID(data.uiChunkType) != reinterpret_cast<CasinoAccess*>(other)->FUN_00504e40())
+    if (GetFormByID(data.uiChunkType) != reinterpret_cast<CasinoAccess*>(other)->GetQuest())
         return true;
     if (memcmp(&data, reinterpret_cast<CasinoAccess*>(other)->FUN_00504e60(), 0x38))
         return true;

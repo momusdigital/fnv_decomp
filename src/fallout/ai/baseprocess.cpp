@@ -226,11 +226,11 @@ bool __thiscall FUN_008d02f0_shell::FUN_008d02f0(MobileObject* apMobile, TESIdle
 
 struct FUN_008d0350_shell
 {
-    void __thiscall FUN_008d0350(int, int, int, int, int, int, int);
+    void __thiscall CreateDetectionEvent(int, int, int, int, int, int, int);
 };
 
 // @fnv 0x008d0350
-void __thiscall FUN_008d0350_shell::FUN_008d0350(int, int, int, int, int, int, int)
+void __thiscall FUN_008d0350_shell::CreateDetectionEvent(int, int, int, int, int, int, int)
 {}
 
 struct ActiveEffect;
@@ -832,10 +832,10 @@ DetectionViewData* FUN_008d0340_s::FUN_008d0340(Actor* apactor, int aedetect, bo
 
 struct FUN_008d0380_s
 {
-    void FUN_008d0380(Actor*, bool, TESBoundObject*, int, ExtraDataList*, bool, bool, bool, bool, bool, bool);
+    void AddQueuedItem(Actor*, bool, TESBoundObject*, int, ExtraDataList*, bool, bool, bool, bool, bool, bool);
 };
 // @fnv 0x008d0380
-void FUN_008d0380_s::FUN_008d0380(Actor* apActor, bool abEquip, TESBoundObject* apObject, int aiNumber,
+void FUN_008d0380_s::AddQueuedItem(Actor* apActor, bool abEquip, TESBoundObject* apObject, int aiNumber,
                                   ExtraDataList* apExtra, bool abNow, bool abForceEquip, bool abFromMenus,
                                   bool abForceUnequip, bool abEquipCalling, bool abPlayPickUpSounds)
 {}
@@ -886,20 +886,20 @@ bool FUN_008d0530_s::FUN_008d0530(Actor* apActor, Actor* apTarget, bool abCheckF
 
 struct FUN_008d0570_s
 {
-    int FUN_008d0570(TESActorBase*, int, Actor*);
+    int GetActorValueI(TESActorBase*, int, Actor*);
 };
 // @fnv 0x008d0570
-int FUN_008d0570_s::FUN_008d0570(TESActorBase* apActorBase, int aiWhich, Actor* apActor)
+int FUN_008d0570_s::GetActorValueI(TESActorBase* apActorBase, int aiWhich, Actor* apActor)
 {
     return -1;
 }
 
 struct FUN_008d0580_s
 {
-    float FUN_008d0580(TESActorBase*, int, Actor*);
+    float GetActorValueF(TESActorBase*, int, Actor*);
 };
 // @fnv 0x008d0580
-float FUN_008d0580_s::FUN_008d0580(TESActorBase* apActorBase, int aiWhich, Actor* apActor)
+float FUN_008d0580_s::GetActorValueF(TESActorBase* apActorBase, int aiWhich, Actor* apActor)
 {
     return 0.0f;
 }
@@ -1587,11 +1587,11 @@ struct FUN_008d0e80_class
     virtual void vfn_27c();
     virtual int vfn_280();
     virtual void vfn_284(int);
-    void FUN_008d0e80(int p1, int p2, void* p3);
+    void FinishInitLoadGame(int p1, int p2, void* p3);
 };
 
 // @fnv 0x008d0e80
-void __thiscall FUN_008d0e80_class::FUN_008d0e80(int aiUnused1, int aiUnused2, void* p3)
+void __thiscall FUN_008d0e80_class::FinishInitLoadGame(int aiUnused1, int aiUnused2, void* p3)
 {
     void* t = FUN_00ec43fb(p3, 0, DAT_01184920, DAT_011846d4, 0);
     if (t != 0 && t != DAT_011dea3c && this->vfn_22c() == 0 && this->vfn_280() == -1)

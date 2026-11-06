@@ -16,7 +16,7 @@ extern GlobalObject_0045cf30 g_011de29c;
 extern void* DAT_011de134;
 // If the global bool is set, calls SetFlagByte on the object at DAT_011de134, then returns true.
 // @fnv 0x005e0160
-bool FUN_005e0160()
+bool Cmd_SystemSave_Execute()
 {
     if (*g_011de29c.Bool())
         reinterpret_cast<FUN_00851d70_shell*>(DAT_011de134)->SetFlagByte();
@@ -665,12 +665,12 @@ int FUN_005f60c0_Class::HasFlag8()
 struct TESChallenge
 {
     void MarkForSave();
-    void FUN_005f60e0(int amount);
+    void IncrementProgress(int amount);
 };
 
 // Adds amount to the int at offset 0x6c of this object and calls MarkForSave.
 // @fnv 0x005f60e0
-void TESChallenge::FUN_005f60e0(int amount)
+void TESChallenge::IncrementProgress(int amount)
 {
     *(int*)((char*)this + 0x6c) += amount;
     MarkForSave();
@@ -1007,10 +1007,10 @@ void __cdecl BSEndian(unsigned char*, EndianSizeTag<0>);
 void __cdecl FUN_004717f0(void*, EndianSizeTag<0>);
 struct T2870
 {
-    void __thiscall FUN_005e2870();
+    void __thiscall Endian();
 };
 // @fnv 0x005e2870
-void __thiscall T2870::FUN_005e2870()
+void __thiscall T2870::Endian()
 {
     BSEndian((unsigned char*)this, EndianSizeTag<0>());
     FUN_004717f0((char*)this + 8, EndianSizeTag<0>());
@@ -1303,10 +1303,10 @@ struct FUN_005f6060_class
     int m6c;
     int m70;
     void MarkForSave();
-    void FUN_005f6060(bool show);
+    void SetCompletedRecurring(bool show);
 };
 // @fnv 0x005f6060
-void FUN_005f6060_class::FUN_005f6060(bool show)
+void FUN_005f6060_class::SetCompletedRecurring(bool show)
 {
     !show ? m70 &= ~4 : m70 |= 4;
     MarkForSave();
@@ -1567,11 +1567,11 @@ extern GlobalObject_0045cfe0 g_011cd538;
 extern GlobalObject_0045cfe0 g_011cdde0;
 struct FUN_005fbeb0_shell
 {
-    int* FUN_005fbeb0();
+    int* GetSoundLevelValue();
 };
 // Returns the int pointed to by one of three global objects, chosen by the value at this+0x154 (2, 1 or 0); otherwise returns null.
 // @fnv 0x005fbeb0
-int* FUN_005fbeb0_shell::FUN_005fbeb0()
+int* FUN_005fbeb0_shell::GetSoundLevelValue()
 {
     int* result = 0;
     switch (*(int*)((char*)this + 0x154))
@@ -1591,7 +1591,7 @@ int* FUN_005fbeb0_shell::FUN_005fbeb0()
 
 struct FUN_005ff520_shell
 {
-    unsigned int FUN_005ff520(unsigned int);
+    unsigned int GetIndexForChild(unsigned int);
 };
 struct FUN_005ff560_shell
 {
@@ -1599,15 +1599,15 @@ struct FUN_005ff560_shell
 };
 struct FUN_005ff5d0_class
 {
-    void FUN_005ff5d0(unsigned int a);
+    void RemoveChild(unsigned int a);
 };
-// If a is nonzero and the object's field at offset 0x40 is set, calls FUN_005ff520(a) and passes its result to RemoveChildAndRelinkNeighbors.
+// If a is nonzero and the object's field at offset 0x40 is set, calls GetIndexForChild(a) and passes its result to RemoveChildAndRelinkNeighbors.
 // @fnv 0x005ff5d0
-void FUN_005ff5d0_class::FUN_005ff5d0(unsigned int uiValue)
+void FUN_005ff5d0_class::RemoveChild(unsigned int uiValue)
 {
     if (uiValue && *(unsigned int*)((char*)this + 0x40))
     {
-        unsigned int r = ((FUN_005ff520_shell*)this)->FUN_005ff520(uiValue);
+        unsigned int r = ((FUN_005ff520_shell*)this)->GetIndexForChild(uiValue);
         ((FUN_005ff560_shell*)this)->RemoveChildAndRelinkNeighbors(r);
     }
 }
@@ -3254,14 +3254,14 @@ struct FUN_005f4db0_cls
     int unk08;
     int unk0c;
     unsigned short m10;
-    bool FUN_005f4db0();
+    bool IsJumpingLandAnim();
 };
 
 extern "C" int __cdecl FUN_005f2440(unsigned short value);
 
 // Returns true if FUN_005f2440(m10) yields one of the codes 0xe5, 0xf1, 0xf2, 0xf3 or 0xf4, otherwise false.
 // @fnv 0x005f4db0
-bool FUN_005f4db0_cls::FUN_005f4db0()
+bool FUN_005f4db0_cls::IsJumpingLandAnim()
 {
     switch (FUN_005f2440(this->m10))
     {
@@ -3286,12 +3286,12 @@ class B5FA120Form
 class B5FA120Checker
 {
   public:
-    bool FUN_005fa120(B5FA120Form* pkForm);
+    bool CanWearItem(B5FA120Form* pkForm);
 };
 
 // Returns true if the form's type is 0x1e, 0x28 or 0x29, or if it is type 0x28 and FUN_0046e8c0 succeeds; otherwise false.
 // @fnv 0x005fa120
-bool B5FA120Checker::FUN_005fa120(B5FA120Form* pkForm)
+bool B5FA120Checker::CanWearItem(B5FA120Form* pkForm)
 {
     switch (pkForm->GetFormType())
     {
@@ -3312,7 +3312,7 @@ struct FUN_005fbdd0_cls
     void* FUN_006815c0();
     int FUN_00401170();
     unsigned char FUN_0046e8c0();
-    int FUN_00522c00();
+    int GetEmbeddedWeaponNode();
     void FUN_00481790(void* item);
     void* FUN_00726070();
 };
@@ -3340,7 +3340,7 @@ void FUN_005fbdd0_cls::FUN_005fbdd0(int a1)
         {
             tmp = ((void**)ptr)[1];
             if (((FUN_005fbdd0_cls*)tmp)->FUN_0046e8c0() &&
-                FUN_004aae30(a1, ((FUN_005fbdd0_cls*)tmp)->FUN_00522c00()) == 0)
+                FUN_004aae30(a1, ((FUN_005fbdd0_cls*)tmp)->GetEmbeddedWeaponNode()) == 0)
             {
                 ((FUN_005fbdd0_cls*)((char*)this + 0x64))->FUN_00481790(ptr);
                 node2 = ((FUN_005fbdd0_cls*)((char*)this + 0x64))->FUN_00717e50();
@@ -3914,7 +3914,7 @@ struct ChallengeView : TESChallenge
     unsigned int GetShortAtOffset64();
     int HasFlag8();
     void ClearField6C();
-    void FUN_005f6060(bool);
+    void SetCompletedRecurring(bool);
     void SetFlagAndMarkForSave(bool);
     int FUN_005f5f80();
 };
@@ -3927,7 +3927,7 @@ extern GlobalObject_0045cf30 g_011cb4d4;
 extern void* DAT_011dea3c;
 void __cdecl FUN_004d5c60(int);
 int __cdecl FUN_00406d00(char*, int, const char*, ...);
-const char* __cdecl FUN_0048e730(ChallengeView*, int);
+const char* __cdecl GetTextureName(ChallengeView*, int);
 bool __cdecl QueueUIMessage(const char*, int, const char*, const char*, float, bool);
 void __cdecl FUN_00706f30(int);
 void __cdecl FUN_005f5880();
@@ -3960,7 +3960,7 @@ bool __cdecl FUN_005f6110(ChallengeView* pSourceChallenge, int amount)
                 pNode = pNode->FUN_00726070();
                 continue;
             }
-            found->FUN_005f60e0(amount);
+            found->IncrementProgress(amount);
             if (found->FUN_005e3fa0() >= found->FUN_006286d0())
             {
                 if (found->rewards.FUN_00726070())
@@ -3972,15 +3972,15 @@ bool __cdecl FUN_005f6110(ChallengeView* pSourceChallenge, int amount)
                     char message[512];
                     FUN_00406d00(message, 512, "%s   %d\\%d\n%s", found->name.FUN_00408da0(), found->FUN_006286d0(),
                                  found->FUN_006286d0(), found->description.GetText(0, 0x43534544));
-                    QueueUIMessage(message, 0, FUN_0048e730(found, 0), 0, 2.0f, false);
+                    QueueUIMessage(message, 0, GetTextureName(found, 0), 0, 2.0f, false);
                     FUN_00706f30(21);
                 }
                 if (found->FUN_005f5f60() && !found->HasFlag8())
                 {
                     int remainder = found->FUN_005e3fa0() - found->FUN_006286d0();
                     found->ClearField6C();
-                    found->FUN_005f6060(true);
-                    found->FUN_005f60e0(remainder);
+                    found->SetCompletedRecurring(true);
+                    found->IncrementProgress(remainder);
                 }
                 else
                 {
@@ -4003,7 +4003,7 @@ bool __cdecl FUN_005f6110(ChallengeView* pSourceChallenge, int amount)
                             FUN_00406d00(message, 512, "%s   %d\\%d\n%s", found->name.FUN_00408da0(),
                                          found->FUN_005e3fa0(), found->FUN_006286d0(),
                                          found->description.GetText(0, 0x43534544));
-                            QueueUIMessage(message, 0, FUN_0048e730(found, 0), 0, 2.0f, false);
+                            QueueUIMessage(message, 0, GetTextureName(found, 0), 0, 2.0f, false);
                         }
                     }
                 }
@@ -4149,11 +4149,11 @@ struct FUN_005e2c30_class
 {
     char m0[0x3c];
     GO m3c;
-    const char* __thiscall FUN_005e2c30();
+    const char* __thiscall GetEditorID();
 };
 // Returns m3c as a string pointer if it is non-null, otherwise returns the fallback string $SG3295.
 // @fnv 0x005e2c30
-const char* FUN_005e2c30_class::FUN_005e2c30()
+const char* FUN_005e2c30_class::GetEditorID()
 {
     return (const char*)(unsigned int)m3c ? (const char*)(unsigned int)m3c : $SG3295;
 }
@@ -4243,7 +4243,7 @@ unsigned char __cdecl FUN_00401500();
 
 struct FUN_005e2fa0_SoundFile
 {
-    void __thiscall FUN_0048cea0();
+    void __thiscall Save();
 };
 
 struct FUN_005e2fa0_SoundData
@@ -4291,7 +4291,7 @@ struct FUN_005e2fa0_standin
 void FUN_005e2fa0_standin::WriteToStream()
 {
     this->FUN_004855a0();
-    this->unk30.FUN_0048cea0();
+    this->unk30.Save();
     FUN_004858f0(0x4d414e52, this->unk68);
 
     if (FUN_00401500() != 0)
@@ -4331,7 +4331,7 @@ extern DataHandler* g_dataHandler;
 
 // Searches the data handler's sound list for a TESSound whose stored name matches filename, returning the first match or null.
 // @fnv 0x005e3570
-TESSound* __cdecl FUN_005e3570(char const* filename)
+TESSound* __cdecl FindSoundByFilename(char const* filename)
 {
     TESSound* result = 0;
     if (filename != 0)
@@ -5529,11 +5529,11 @@ class FUN_005e2d90_TESSound : public TESForm
     unsigned int unk64;
     signed char frequencyVariance;
     bool FUN_00485270(TESForm*);
-    bool FUN_005e2d90(TESForm* other);
+    bool Compare(TESForm* other);
 };
 // Returns true if other is not a TESSound, any compared field differs, or FUN_00485270 reports a difference; otherwise false.
 // @fnv 0x005e2d90
-bool FUN_005e2d90_TESSound::FUN_005e2d90(TESForm* other)
+bool FUN_005e2d90_TESSound::Compare(TESForm* other)
 {
     FUN_005e2d90_TESSound* sound = (FUN_005e2d90_TESSound*)dynamic_cast<TESSound*>(other);
     if (!sound)

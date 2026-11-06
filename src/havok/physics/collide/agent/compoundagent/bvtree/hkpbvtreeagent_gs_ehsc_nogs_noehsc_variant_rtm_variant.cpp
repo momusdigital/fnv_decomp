@@ -1949,7 +1949,7 @@ enum ResultD3 { RES_SUCCESS = 0, RES_FAILURE = 1 };
 class BvTreeAgentD3 : public AgentD3
 {
 	public:
-		void FUN_00d302d0( const CdBodyD3& bodyA, const CdBodyD3& bodyB, const ProcessInputD3& input, ProcessOutputD3& result );
+		void processCollision( const CdBodyD3& bodyA, const CdBodyD3& bodyB, const ProcessInputD3& input, ProcessOutputD3& result );
 		static __forceinline ResultD3 __cdecl BuildCollisionHitList( const CdBodyD3& bodyA, const CdBodyD3& bodyB, const XformD3& bTa,
 			const Vec4D3& linearTimInfo, const ProcessInputD3& input, AabbD3* cachedAabb, ArrayD3<KeyD3>& hitListOut );
 	protected:
@@ -2096,7 +2096,7 @@ inline void BvTreeAgentD3::prepareCollisionPartnersProcess( const CdBodyD3& body
 }
 
 // @fnv 0x00d302d0
-void BvTreeAgentD3::FUN_00d302d0( const CdBodyD3& bodyA, const CdBodyD3& bodyB, const ProcessInputD3& input, ProcessOutputD3& result )
+void BvTreeAgentD3::processCollision( const CdBodyD3& bodyA, const CdBodyD3& bodyB, const ProcessInputD3& input, ProcessOutputD3& result )
 {
 	{
 		MonitorD3& mStream = MonitorD3::GetMonitorStream();

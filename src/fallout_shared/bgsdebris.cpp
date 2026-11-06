@@ -50,7 +50,7 @@ DebrisModelEntry* BGSDebris::AddDebrisModel(char chance, const char* path, char 
     {
         DebrisModelEntry* data = new DebrisModelEntry;
         data->chance = chance;
-        data->FUN_004fa670(path);
+        data->SetFileName(path);
         data->flags = flags;
         InsertDebrisIfValid(data);
         return data;
@@ -212,7 +212,7 @@ bool __fastcall InsertDebrisIfValid(char* self, DArg aDebrisArg)
 
 struct FUN_004fa670_shell : public DebrisModelEntry
 {
-    void FUN_004fa670(char*);
+    void SetFileName(char*);
 };
 
 void* __cdecl operator new(unsigned int);
@@ -225,7 +225,7 @@ class TaskQueueInterface
 };
 
 // @fnv 0x004fa670
-void FUN_004fa670_shell::FUN_004fa670(char* apFileName)
+void FUN_004fa670_shell::SetFileName(char* apFileName)
 {
     if (*(char**)((char*)this + 4))
     {

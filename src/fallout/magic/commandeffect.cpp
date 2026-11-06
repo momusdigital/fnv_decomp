@@ -9,11 +9,11 @@ struct ActorValueInfo
 
 struct FUN_0080b640_shell : ActorValueInfo
 {
-    void FUN_0080b640(const char* apName);
+    void CheckTarget(const char* apName);
 };
 
 // @fnv 0x0080b640
-void FUN_0080b640_shell::FUN_0080b640(const char* apName)
+void FUN_0080b640_shell::CheckTarget(const char* apName)
 {
     ActorValueInfo::SetScriptName(apName);
 }
@@ -176,12 +176,12 @@ struct FUN_0045cd60_shell
 struct FUN_0080b660_class : FUN_0045cd60_shell
 {
     SourceA* FUN_0059bb30();
-    void FUN_0080b660();
+    void Start();
 };
 void __cdecl StartHostilityAndCombat(Actor*, Actor*);
 // Resolves the source actor and magic caster actor, and if both exist calls StartHostilityAndCombat with them.
 // @fnv 0x0080b660
-void FUN_0080b660_class::FUN_0080b660()
+void FUN_0080b660_class::Start()
 {
     Actor* pSourceActor = FUN_0059bb30() ? FUN_0059bb30()->FUN_00822b40() : (Actor*)0;
     Actor* pCasterActor = FUN_0045cd60() ? FUN_0045cd60()->FUN_00815410() : (Actor*)0;
@@ -397,11 +397,11 @@ void __cdecl FUN_0080b8f0(void*, void*);
 struct FUN_0080b6f0_cls
 {
     int unk00;
-    void FUN_0080b6f0(int);
+    void Update(int);
 };
 
 // @fnv 0x0080b6f0
-void FUN_0080b6f0_cls::FUN_0080b6f0(int)
+void FUN_0080b6f0_cls::Update(int)
 {
     EffectHost* a;
     void* b;

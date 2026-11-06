@@ -37,7 +37,7 @@ struct FUN_00c3d0e0_stub
 };
 struct FUN_00ae7480_shell : FUN_00c3d0e0_stub
 {
-    bool __thiscall FUN_00ae7480(char* apDescription, unsigned int aiBufferSize);
+    bool __thiscall GetDescription(char* apDescription, unsigned int aiBufferSize);
 };
 struct FUN_00adcaa0_shell
 {
@@ -5105,11 +5105,11 @@ struct AudioLoadTask7050
     unsigned int unk2C;
     BSGameSound7050* m_pGameSound;
 
-    void FUN_00ae7050();
+    void Run();
 };
 
 // @fnv 0x00ae7050
-void AudioLoadTask7050::FUN_00ae7050()
+void AudioLoadTask7050::Run()
 {
     bool bLoopSound = (m_pGameSound->GetAudioFlags() & 0x8000) != 0;
     bool bResult = false;

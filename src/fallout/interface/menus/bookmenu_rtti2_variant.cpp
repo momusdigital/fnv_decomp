@@ -29,7 +29,7 @@ struct FUN_0073acb0 : Menu
 struct BookMenu
 {
     virtual ~BookMenu();  // the original class is polymorphic (rtti_variants.py)
-    int FUN_0073acf0();
+    int GetClass();
 };
 struct FUN_0073af60_shell
 {
@@ -460,7 +460,7 @@ struct FUN_0073b050_shell : Menu
     unsigned int m_0x34;
     float m_fValue;
 
-    void __thiscall FUN_0073b050(int, Tile*);
+    void __thiscall DoStillDown(int, Tile*);
 };
 struct FUN_00a1c520_shell
 {
@@ -732,7 +732,7 @@ struct FUN_0073b0f0_cls
 };
 struct BookInput
 {
-    bool FUN_00409700();
+    bool GetScroll();
     const char* CallInnerFoo();
     bool FUN_0073b460();
 };
@@ -843,7 +843,7 @@ struct LoadBook
 
 struct TESObjectBOOK
 {
-    bool FUN_00409700();
+    bool GetScroll();
 };
 struct Tile_00a01b00 : Tile
 {
@@ -927,7 +927,7 @@ Tile* __cdecl FUN_0073ad50(TESObjectBOOK* apBook, TESObjectREFR* apRef)
         if (((TGF*)ptile)->GetFloat(0xfa7) == 6006.0 || ((TGF*)ptile)->GetFloat(0xfa7) == 102.0)
             ptile->FUN_00a012d0(0xfad, ftop_depth, true);
         ((BookMenuData*)g_pHudMainMenuInstance)->UpdateBookMenu(apBook, apRef);
-        if (((BookMenuData*)g_pHudMainMenuInstance)->m_pObjectToUpdateMenuTile->FUN_00409700())
+        if (((BookMenuData*)g_pHudMainMenuInstance)->m_pObjectToUpdateMenuTile->GetScroll())
             FUN_00717280(0x18);
         else
             FUN_00717280(0x1a);

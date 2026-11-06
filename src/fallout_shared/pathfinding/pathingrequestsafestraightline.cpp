@@ -56,11 +56,11 @@ struct FUN_006e5f50_shell
 };
 struct FUN_006e6110_shell : public PathingRequestSafeStraightLine
 {
-    void FUN_006e6110(BGSLoadFormBuffer* buffer);
+    void LoadGame(BGSLoadFormBuffer* buffer);
 };
 // Calls the base load routine on buffer, then loads the field at offset 0xb8 from the buffer.
 // @fnv 0x006e6110
-void FUN_006e6110_shell::FUN_006e6110(BGSLoadFormBuffer* buffer)
+void FUN_006e6110_shell::LoadGame(BGSLoadFormBuffer* buffer)
 {
     reinterpret_cast<FUN_006e5f50_shell*>(this)->FUN_006e5f50(buffer);
     buffer->ReadFormIdentifier((char*)this + 0xb8);

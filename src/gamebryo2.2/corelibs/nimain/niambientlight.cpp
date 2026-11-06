@@ -94,12 +94,12 @@ class CloneA9B3 : public FUN_00a71f60
     }
 
     void FUN_00a71ec0(CloneA9B3* dest, CloningProcessA9B3& cloning);
-    CloneA9B3* FUN_00a9b3d0(CloningProcessA9B3& cloning);
+    CloneA9B3* CreateClone(CloningProcessA9B3& cloning);
 };
 
 // Allocates a new CloneA9B3, calls FUN_00a71ec0 with the instance and cloning argument, then returns it.
 // @fnv 0x00a9b3d0
-CloneA9B3* CloneA9B3::FUN_00a9b3d0(CloningProcessA9B3& cloning)
+CloneA9B3* CloneA9B3::CreateClone(CloningProcessA9B3& cloning)
 {
     CloneA9B3* p = new CloneA9B3;
     FUN_00a71ec0(p, cloning);

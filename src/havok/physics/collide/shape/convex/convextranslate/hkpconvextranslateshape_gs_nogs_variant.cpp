@@ -134,11 +134,11 @@ struct FUN_00dd5fa0_Object
     FUN_00dd5fa0_VTable* m_sub;
     __m128 m_vTranslation;
 
-    void __thiscall FUN_00dd5fa0(__m128* value);
+    void __thiscall getCentreImpl(__m128* value);
 };
 
 // @fnv 0x00dd5fa0
-void __thiscall FUN_00dd5fa0_Object::FUN_00dd5fa0(__m128* value)
+void __thiscall FUN_00dd5fa0_Object::getCentreImpl(__m128* value)
 {
     m_sub->v44(value);
     *value = _mm_add_ps(m_vTranslation, *value);
@@ -164,11 +164,11 @@ struct Child_dd5fd0
 
 struct Struct_dd5fd0 : public hkpConvexTranslateShape
 {
-    void __thiscall FUN_00dd5fd0(hkVector4* v);
+    void __thiscall getFirstVertex(hkVector4* v);
 };
 
 // @fnv 0x00dd5fd0
-void __thiscall Struct_dd5fd0::FUN_00dd5fd0(hkVector4* v)
+void __thiscall Struct_dd5fd0::getFirstVertex(hkVector4* v)
 {
     Child_dd5fd0* child = (Child_dd5fd0*)m_pContainedShape.m_pContainedShape;
     child->v34(v);

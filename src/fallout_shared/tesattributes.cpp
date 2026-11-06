@@ -50,12 +50,12 @@ unsigned int __fastcall FUN_009d2510(void* p);
 
 struct FUN_00480100_shell
 {
-    unsigned int __thiscall FUN_00480100(void* apData);
+    unsigned int __thiscall Save(void* apData);
 };
 
 // Copies 7 bytes from this+4 into apData, then returns the result of FUN_009d2510(this).
 // @fnv 0x00480100
-unsigned int __thiscall FUN_00480100_shell::FUN_00480100(void* apData)
+unsigned int __thiscall FUN_00480100_shell::Save(void* apData)
 {
     _memcpy(apData, this + 4, 7);
     return FUN_009d2510(this);
@@ -200,11 +200,11 @@ struct AVH
 struct FUN_00480070_shell : public TESAttributes
 {
     unsigned char GetAttributeValue(int index);
-    bool FUN_00480070(BaseFormComponent* component);
+    bool CompareComponent(BaseFormComponent* component);
 };
 // Casts component to TESAttributes and returns false only if all seven attribute values match this object's cAttribute entries; returns true otherwise.
 // @fnv 0x00480070
-bool FUN_00480070_shell::FUN_00480070(BaseFormComponent* component)
+bool FUN_00480070_shell::CompareComponent(BaseFormComponent* component)
 {
     TESAttributes* attributes = dynamic_cast<TESAttributes*>(component);
     if (!attributes)

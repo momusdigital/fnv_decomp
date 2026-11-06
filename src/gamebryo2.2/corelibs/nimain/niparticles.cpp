@@ -20,11 +20,11 @@ struct NiGeometryData
 
 struct NiParticles
 {
-    void FUN_00a9b230(bool bTool);
+    void CalculateConsistency(bool bTool);
 };
 
 // @fnv 0x00a9b230
-void NiParticles::FUN_00a9b230(bool bTool)
+void NiParticles::CalculateConsistency(bool bTool)
 {
     NiGeometryData* p = *(NiGeometryData**)((char*)this + 0xb8);
     p->SetDataConsistency((NiGeometryData::Consistency)0);

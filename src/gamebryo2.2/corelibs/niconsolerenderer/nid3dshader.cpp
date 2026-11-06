@@ -159,11 +159,11 @@ struct bhkNiCollisionObject;
 struct bhkRigidBody;
 struct FUN_00e81420_shell : public NiD3DShader
 {
-    void FUN_00e81420(NiD3DShaderDeclaration*);
+    void SetShaderDecl(NiD3DShaderDeclaration*);
 };
 
 // @fnv 0x00e81420
-void FUN_00e81420_shell::FUN_00e81420(NiD3DShaderDeclaration* pkShaderDecl)
+void FUN_00e81420_shell::SetShaderDecl(NiD3DShaderDeclaration* pkShaderDecl)
 {
     NiRefObject*& pObj = *reinterpret_cast<NiRefObject**>(reinterpret_cast<char*>(this) + 0x28);
     NiRefObject* pNew = reinterpret_cast<NiRefObject*>(pkShaderDecl);
@@ -179,13 +179,13 @@ void FUN_00e81420_shell::FUN_00e81420(NiD3DShaderDeclaration* pkShaderDecl)
 
 struct FUN_00e818c0_shell : public NiD3DShaderInterface
 {
-    void* FUN_00e818c0();
+    void* GetRTTI();
 };
 
 extern const char* const g_0126f754_arg1;
 
 // @fnv 0x00e818c0
-void* FUN_00e818c0_shell::FUN_00e818c0()
+void* FUN_00e818c0_shell::GetRTTI()
 {
     return (void*)&g_0126f754_arg1;
 }
@@ -483,10 +483,10 @@ struct UnkShader
     bool b10;
     char _11[7];
     int i18;
-    void FUN_00e814b0();
+    void RecreateRendererData();
 };
 // @fnv 0x00e814b0
-void UnkShader::FUN_00e814b0()
+void UnkShader::RecreateRendererData()
 {
     if (i18)
     {
@@ -1994,10 +1994,10 @@ struct FnvCpu_FUN_00eea530_CpuObject
     unsigned int unk20;
     unsigned int unk24;
     int value;
-    int FUN_00eea530();
+    int GetShaderDecl();
 };
 // @fnv 0x00eea530
-int FnvCpu_FUN_00eea530_CpuObject::FUN_00eea530()
+int FnvCpu_FUN_00eea530_CpuObject::GetShaderDecl()
 {
     return value;
 }

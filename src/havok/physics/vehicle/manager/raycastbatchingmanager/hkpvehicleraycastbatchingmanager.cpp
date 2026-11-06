@@ -102,11 +102,11 @@ struct BatchOutputs { WheelCommand* commands; void* temporary; unsigned char* fl
 struct RayBatchManager {
  unsigned field00, field04; Vehicle** vehicles; int vehicleCount; unsigned field10; hkUint16 wheels, field16;
  void ComputeBufferLayout(WheelCommand*, void*, BatchOutputs*);
- void FUN_00e42da0(void* input, void* world, WheelCommand* commands);
+ void stepVehiclesUsingCastResults(void* input, void* world, WheelCommand* commands);
 };
 // Records timer entries TtDoVehicles and Et around a loop that casts or skips each wheel per vehicle via its caster and passes the results to FUN_00e39030.
 // @fnv 0x00e42da0
-void RayBatchManager::FUN_00e42da0(void* input, void* world, WheelCommand* commands)
+void RayBatchManager::stepVehiclesUsingCastResults(void* input, void* world, WheelCommand* commands)
 {
  TimerStream* timer = (TimerStream*)TlsGetValue(DAT_0126835c);
  TimerRecord* record = timer->current;
@@ -405,11 +405,11 @@ struct VehicleRayCastBatchingManager
     VRVehicle** registeredVehicles() const { return m_ppVehicles; }
 
     void getBufferBreakdown(void* buffer, int numJobs, VRBatch& batchOut);
-    int FUN_00e42b50(const VRWorld* world, int filterSize, int numJobs, VRJobQueue* jobQueue, void* semaphore, void* buffer);
+    int buildAndAddCastJobs(const VRWorld* world, int filterSize, int numJobs, VRJobQueue* jobQueue, void* semaphore, void* buffer);
 };
 
 // @fnv 0x00e42b50
-int VehicleRayCastBatchingManager::FUN_00e42b50(const VRWorld* world, int filterSize, int numJobs, VRJobQueue* jobQueue, void* semaphore, void* buffer)
+int VehicleRayCastBatchingManager::buildAndAddCastJobs(const VRWorld* world, int filterSize, int numJobs, VRJobQueue* jobQueue, void* semaphore, void* buffer)
 {
     VROutput* outputStorage;
     VRMonitorStream::GetMonitorStream().timerCommand("TtBuildAndAddRaycastJobs");

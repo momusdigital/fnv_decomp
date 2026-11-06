@@ -5,10 +5,10 @@
 extern "C" void __cdecl FUN_00d21a60(void* atom, unsigned short index, unsigned int arg);
 struct FUN_00d927b0_class
 {
-    void FUN_00d927b0(unsigned int arg);
+    void getConstraintInfo(unsigned int arg);
 };
 // @fnv 0x00d927b0
-void FUN_00d927b0_class::FUN_00d927b0(unsigned int arg)
+void FUN_00d927b0_class::getConstraintInfo(unsigned int arg)
 {
     void* atom = *(void**)((char*)this + 0x28);
     FUN_00d21a60(atom, *(unsigned short*)((char*)atom + 2), arg);

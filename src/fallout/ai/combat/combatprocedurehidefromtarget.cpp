@@ -12,11 +12,11 @@ struct CombatProcedure
 
 struct CombatProcedureHideFromTarget : CombatProcedure
 {
-    COMBAT_PROCEDURES FUN_009d60e0();
+    COMBAT_PROCEDURES GetType();
 };
 
 // @fnv 0x009d60e0
-CombatProcedure::COMBAT_PROCEDURES CombatProcedureHideFromTarget::FUN_009d60e0()
+CombatProcedure::COMBAT_PROCEDURES CombatProcedureHideFromTarget::GetType()
 {
     return eHideFromTarget;
 }

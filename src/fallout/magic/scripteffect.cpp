@@ -232,11 +232,11 @@ struct FUN_00827880_CopyFrom
 
 struct FUN_00827880_shell : ScriptEffect
 {
-    ActiveEffect* FUN_00827880();
+    ActiveEffect* Clone();
 };
 
 // @fnv 0x00827880
-ActiveEffect* FUN_00827880_shell::FUN_00827880()
+ActiveEffect* FUN_00827880_shell::Clone()
 {
     ScriptEffect* pEffect =
         new FUN_00827a40_shell(*reinterpret_cast<MagicCaster**>(reinterpret_cast<unsigned char*>(this) + 0x28),
@@ -260,11 +260,11 @@ struct TargetContext
 struct ScriptEffectShell : ScriptEffect
 {
     TargetContext* FUN_0059bb30();
-    void FUN_00827ac0();
+    void Start();
 };
 // If pScript is set, gets its ScriptLocals and passes the actor from the target context to ScriptExtended::RunScriptOnTarget.
 // @fnv 0x00827ac0
-void ScriptEffectShell::FUN_00827ac0()
+void ScriptEffectShell::Start()
 {
     if (pScript != 0)
     {
@@ -404,15 +404,15 @@ struct S_00827e10_Foo : TESForm
     int unk48;
     Actor* unk4c;
 
-    void FUN_00806230(Actor* apActor);
+    void SaveGameBGS(Actor* apActor);
     void FUN_00827e10(Actor* apActor);
 };
 
-// Calls FUN_00806230, passes a bool derived from unk4c to the actor, and if it stays true calls FUN_005a9db0 on unk4c.
+// Calls SaveGameBGS, passes a bool derived from unk4c to the actor, and if it stays true calls FUN_005a9db0 on unk4c.
 // @fnv 0x00827e10
 void S_00827e10_Foo::FUN_00827e10(Actor* apActor)
 {
-    this->FUN_00806230(apActor);
+    this->SaveGameBGS(apActor);
 
     bool bValue = this->unk4c;
     apActor->FUN_00865e50(&bValue, 1, 0);

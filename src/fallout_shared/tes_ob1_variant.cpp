@@ -610,7 +610,7 @@ char const* FNStub::GetFullName() const
 }
 struct FUN_00454b50_shell
 {
-    char const* FUN_00454b50() const;
+    char const* GetWaterNoiseTextureName() const;
 };
 struct TESFaction_RankDataView
 {
@@ -942,7 +942,7 @@ struct FUN_0045c9a0_shell : public TESObjectCELL
 };
 struct FUN_00557090_shell
 {
-    void FUN_00557090();
+    void IsRefListLocked();
 };
 struct FUN_005570b0_shell
 {
@@ -952,7 +952,7 @@ struct Unk_C44EA0
 {
     void FUN_00c44ed0(float);
     void FUN_00a5e1f0(float*, unsigned int);
-    void FUN_00c44ea0(float*, unsigned int);
+    void UpdateRigidDownwardPass(float*, unsigned int);
 };
 struct FUN_00452390_shell
 {
@@ -1013,7 +1013,7 @@ struct L_GetHitSound
 };
 struct W_00585b30
 {
-    TESObjectCELL* FUN_00585b30(int, int);
+    TESObjectCELL* LoadCell(int, int);
 };
 struct W_00588150
 {
@@ -1037,7 +1037,7 @@ struct GridCellArrayStandin
 };
 struct GridCellArray_Target
 {
-    void FUN_004ba960(NiNode*, unsigned int, unsigned int);
+    void AttachToWorld(NiNode*, unsigned int, unsigned int);
 };
 struct S454b90
 {
@@ -1062,10 +1062,10 @@ struct FakeCell
 };
 struct LAND_x
 {
-    bool FUN_00535b90(bool);
-    void FUN_0053a090(int, int);
+    bool LoadVertices(bool);
+    void UpdateMesh(int, int);
     void FUN_0053f440(NiPoint2*);
-    void FUN_0053fa40(bool);
+    void DrawLandBorder(bool);
 };
 float __fastcall FUN_005471e0(void*);
 struct S451250
@@ -1114,7 +1114,7 @@ struct TES_00451a50
     unsigned int unk58;
     unsigned int unk5C;
     bool m_bHasCurrentRegion;
-    void FUN_00451a50(int aiGridX, int aiGridY, int aiCellX, int aiCellY);
+    void LoadGridCell(int aiGridX, int aiGridY, int aiCellX, int aiCellY);
 };
 struct Setting_S
 {
@@ -1200,7 +1200,7 @@ struct Zt5TES
     Sky* pWeatherSky;
     void FUN_00453860(bool);
     void FUN_004537c0();
-    void FUN_00453550(float afTime);
+    void UpdateCellAnimations(float afTime);
 };
 struct TESForm_0045c6b0
 {
@@ -1274,7 +1274,7 @@ struct TESSaveLoadGame
 };
 struct FUN_00451900_shell
 {
-    TESObjectCELL* FUN_00451900(int aiCellX, int aiCellY);
+    TESObjectCELL* GetGridCellCell(int aiCellX, int aiCellY);
 };
 void* __cdecl _FUN_00ec7230(void*, void*, unsigned int);
 struct FUN_00454fc0_shell
@@ -1488,7 +1488,7 @@ struct TESObjectLAND
 };
 struct FUN_004572e0_shell : public TES
 {
-    TESObjectCELL* FUN_00451900(int cellX, int cellY);
+    TESObjectCELL* GetGridCellCell(int cellX, int cellY);
     bool GetLandHeightAt(const NiPoint3& coord, float& height);
 };
 struct TESCallHelper
@@ -1768,7 +1768,7 @@ struct TES_ExteriorBuffer
 
     bool IsCellBuffered(ExtCell* apCell, bool abCheck);
     WorldSpaceView* GetParentWorldSpace();
-    unsigned int FUN_00455200(bool abSkipLoaded, TESWorldSpace* apWorld);
+    unsigned int FreeExteriorBuffer(bool abSkipLoaded, TESWorldSpace* apWorld);
 };
 struct FUN_0043d4d0_cls
 {
@@ -1956,7 +1956,7 @@ struct SaveSizeOwner
 struct FUN_00459920_reference
 {
     bool FUN_00450ff0();
-    void FUN_005571a0(int changeFlag);
+    void QueueReferences(int changeFlag);
 };
 struct FUN_00459920_grid
 {
@@ -2270,7 +2270,7 @@ struct FUN_0045cb90_cls
     char unk00[0x28];
     FUN_0045cb90_inner* m_28;
 
-    bool FUN_0045cb90();
+    bool HasVertices();
 };
 class B45CDA0Cell
 {
@@ -2304,7 +2304,7 @@ class B45CDA0TES
     int unk30;
     B45CDA0Cell* m_pkInteriorCell;
 
-    void FUN_0045cda0();
+    void ActivateAllSubmergedReferencesIslands();
 };
 struct Grid4512
 {
@@ -2463,7 +2463,7 @@ struct NiPoint3Ex : NiPoint3
     NiPoint3Ex(float, float, float);
 };
 extern NiPoint3Ex DAT_011a9478;
-void FUN_0057d0a0(NiPoint3Ex position, NiPoint3Ex direction, float scale);
+void UpdateGrass(NiPoint3Ex position, NiPoint3Ex direction, float scale);
 struct Setting4512
 {
     float* FUN_00403e20();
@@ -2536,7 +2536,7 @@ struct TES4512
     int unk84;
     World4512* world;
     TESObjectCELL* FUN_005f36f0();
-    void FUN_00455200(bool, TESWorldSpace*);
+    void FreeExteriorBuffer(bool, TESWorldSpace*);
     void FUN_00452490(bool);
     void FUN_00457be0(bool);
     void RefreshGrid();
@@ -2544,7 +2544,7 @@ struct TES4512
     bool FUN_00451530();
     void ProcessItemNodes();
     void FUN_00455490();
-    void FUN_004512c0(const NiPoint3* position, bool reload);
+    void ReloadGridCells(const NiPoint3* position, bool reload);
 };
 struct FUN_004516d0_shell
 {
@@ -3024,7 +3024,7 @@ struct Node
 struct Cell
 {
     int GetByteAtOffset38();
-    void FUN_0054bcf0(bool);
+    void AttachModels(bool);
     Node* GetOrCreateWidget();
 };
 struct Game
@@ -3079,7 +3079,7 @@ struct Grid
     int unk1c;
     int unk20;
     int centerX, centerY;
-    void FUN_00451a50(unsigned int, unsigned int, int, int);
+    void LoadGridCell(unsigned int, unsigned int, int, int);
     World* FUN_004fd3e0();
     void AddCellToBuffer(Cell*);
     CellHandle* FUN_0045bb80(Cell**);
@@ -3108,7 +3108,7 @@ void Grid::RefreshGrid()
     {
         for (unsigned int y = 0; y < *DAT_011c63cc.FUN_0043d4d0(); ++y)
         {
-            FUN_00451a50(x, y, originX + x, originY + y);
+            LoadGridCell(x, y, originX + x, originY + y);
             Cell* cell = DAT_011c3f2c->GetOrCreateCell(originX + x, originY + y, FUN_004fd3e0(), 0);
             if (DAT_011dea10->FUN_00453490(cell))
                 AddCellToBuffer(cell);
@@ -3152,7 +3152,7 @@ void Grid::RefreshGrid()
                 {
                     if (cell2->GetByteAtOffset38() == 5)
                     {
-                        cell2->FUN_0054bcf0(!defer);
+                        cell2->AttachModels(!defer);
                         AddCellToBuffer(cell2);
                         Node* node = cell2->GetOrCreateWidget();
                         node->FUN_00a5a040();
@@ -3252,11 +3252,11 @@ struct FUN_004539a0_cls
     FUN_004539a0_cls* FUN_0045bb80();
     TESObjectCELL* FUN_005f36f0();
     void FUN_00453940();
-    void FUN_00455200(unsigned char a, int b);
+    void FreeExteriorBuffer(unsigned char a, int b);
     bool ContainsCell(TESObjectCELL* cell);
-    void FUN_00454d50(unsigned char a);
+    void FreeInteriorBuffer(unsigned char a);
     void FUN_008d7dc0(int b);
-    void FUN_004539a0(unsigned char a1, unsigned char a2);
+    void ClearAllCells(unsigned char a1, unsigned char a2);
 };
 struct FUN_004539a0_helperA
 {
@@ -3268,7 +3268,7 @@ struct FUN_004539a0_helperB
 };
 struct BufferedCell : TESObjectCELL
 {
-    bool FUN_00557090();
+    bool IsRefListLocked();
 };
 struct BufferMap
 {
@@ -3302,7 +3302,7 @@ struct CellBufferManager
     bool FUN_004511e0(BufferedCell*, bool);
     void FUN_00453940();
     BufferWorld* FUN_004fd3e0();
-    bool FUN_00453a80();
+    bool ClearOldestBufferedCell();
 };
 struct ReloadPoint
 {
@@ -3336,7 +3336,7 @@ struct ReloadTexture
 {
     void* FUN_0044edb0();
     void* FUN_00825c00();
-    void FUN_0063ddb0(void*);
+    void ActivateWeatherSounds(void*);
 };
 struct ReloadInterior;
 struct ReloadRoot;
@@ -3344,7 +3344,7 @@ struct ReloadObject;
 struct ReloadInterior
 {
     ReloadGrid* FUN_009611e0();
-    void FUN_00526270();
+    void DetermineLevel();
 };
 struct ReloadInterior;
 struct ReloadRoot;
@@ -3362,15 +3362,15 @@ struct ReloadScene
     bool FUN_00450fb0();
     void UpdateCellScene(ReloadObject*);
     ReloadRoot* FUN_004543c0();
-    void FUN_0054bcf0(bool);
+    void AttachModels(bool);
     ReloadObject* GetOrCreateWidget();
     void FUN_0054ba80(bool);
-    const char* FUN_004543a0();
+    const char* GetWaterNoiseTextureName();
 };
 struct ReloadName
 {
     void* FUN_006733e0();
-    const char* FUN_00454b50();
+    const char* GetWaterNoiseTextureName();
 };
 struct ReloadRoot
 {
@@ -3424,7 +3424,7 @@ struct ReloadObject
 };
 struct ReloadShader
 {
-    void FUN_004ba7d0();
+    void AttachAllLand3D();
 };
 struct ReloadSetting
 {
@@ -3453,7 +3453,7 @@ struct ReloadNode
 };
 struct TileReloadContext
 {
-    void FUN_0045cda0();
+    void ActivateAllSubmergedReferencesIslands();
     void FUN_004568c0(const char*, ReloadNode&, int, int);
     ReloadZone* FUN_0070ec90();
 };
@@ -3540,7 +3540,7 @@ struct ReloadManager
     unsigned unkb8;
     unsigned unkbc;
     ReloadNode loadedNode;
-    int FUN_00455200(int, int);
+    int FreeExteriorBuffer(int, int);
     void FUN_00453940();
     ReloadScene* GetEntry(int);
     void RemoveEntry(ReloadScene*);
@@ -3554,14 +3554,14 @@ struct ReloadManager
     bool ContainsCell(ReloadScene*);
     void FUN_008d7dc0(int);
     void Pause(int, ReloadPoint*);
-    int FUN_00457620(ReloadPoint*);
+    int GetLandGeometry(ReloadPoint*);
     void FUN_00452580(ReloadPoint*, bool);
-    ReloadCell* FUN_00451900(int, int);
-    void FUN_00457d70(int, ReloadCell*, int);
+    ReloadCell* GetGridCellCell(int, int);
+    void ShowLoadingMenu(int, ReloadCell*, int);
     ReloadShader* FUN_0044ddc0();
     void InitFromMatrix();
     void InitSoundGrid();
-    void FUN_0045cda0();
+    void ActivateAllSubmergedReferencesIslands();
     void GetLandHeightAt(ReloadPoint*, float&);
     bool FUN_00451530();
     void ProcessItemNodes();
@@ -3789,7 +3789,7 @@ struct FUN_00456d00_shell
     FUN_00456fc0_ref** ppRefs;
     FUN_00456fc0_ref** ppOthers;
     FUN_00456fc0_ref* FUN_005f36f0();
-    void FUN_00456d00(int aiType, bool abShow, bool abGrid);
+    void ShowCellNode(int aiType, bool abShow, bool abGrid);
 };
 struct NiPoint3;
 extern const NiPoint3 NiPoint3_ZERO;
@@ -3808,14 +3808,14 @@ struct FUN_004571c0_cls : FUN_004570d0_cls
 };
 struct WS458200_Obj
 {
-    void FUN_00526270();
+    void DetermineLevel();
 };
 struct WS458200_Quest;
 struct WS458200_World
 {
     WS458200_Obj* GetFieldD0();
     WS458200_Quest* FUN_006733e0();
-    const char* FUN_00454b50() const;
+    const char* GetWaterNoiseTextureName() const;
     bool IsFlag4C20Set();
 };
 struct WS458200_Sky
@@ -3873,11 +3873,11 @@ struct WS458200_Shell
 
     void* FUN_005f36f0();
     void FUN_00453940();
-    int FUN_00455200(bool abSkipLoaded, WS458200_World* apWorld);
-    int FUN_00454d50(bool abArg);
+    int FreeExteriorBuffer(bool abSkipLoaded, WS458200_World* apWorld);
+    int FreeInteriorBuffer(bool abArg);
     void FUN_00452490(bool abArg);
     void FUN_00450d80();
-    void FUN_00458200(WS458200_World* apWorld);
+    void SetWorldSpace(WS458200_World* apWorld);
 };
 struct Point458
 {
@@ -4088,7 +4088,7 @@ struct TestWorld
     float FUN_009b88c0();
     unsigned int FUN_0084e3a0();
     EmptyStructPlaceholder* FUN_005875a0(int, int);
-    EmptyStructPlaceholder* FUN_00585b30(int, int);
+    EmptyStructPlaceholder* LoadCell(int, int);
 };
 struct TestWorldList
 {
@@ -4099,7 +4099,7 @@ struct TestWorldList
 struct TestDataHandler
 {
     TestWorldList* FUN_00460140();
-    void FUN_004619b0();
+    void SortInteriorCells();
     unsigned int FUN_00461960();
     EmptyStructPlaceholder* GetCameraPathAt(unsigned int);
 };
@@ -4138,7 +4138,7 @@ struct CellTest
     int unk4c;
     unsigned char unk50;
     bool running, finished;
-    void FUN_00458200(TestWorld*);
+    void SetWorldSpace(TestWorld*);
     void MoveToCell(EmptyStructPlaceholder*, unsigned int, int);
     void FUN_00459ae0(unsigned int);
 };
@@ -4194,7 +4194,7 @@ struct AddonOwner
     unsigned int unk60, unk64, unk68, unk6C, unk70, unk74, unk78, unk7C;
     unsigned int unk80, unk84, unk88, unk8C, unk90, unk94, unk98, unk9C, unkA0;
     AddonQueuePointer queuedFile;
-    void FUN_00459f10();
+    void PreloadAddonNodes();
 };
 struct ModelSetting
 {
@@ -4312,7 +4312,7 @@ extern TESDataHandler45A* g_pkDataHandler45A;
 class Owner45A
 {
   public:
-    NavMeshInfoMap45A* FUN_0045af00();
+    NavMeshInfoMap45A* GetNavMeshInfoMap();
 
     int unk000;
     int unk004;
@@ -4456,7 +4456,7 @@ bool n451::Grid::ContainsPoint(const Pt& pt)
 
 struct FUN_005400e0_obj : FUN_0045cb90_cls
 {
-    void FUN_005400e0();
+    void InitDistantTextureBlending();
 };
 struct FUN_00546fb0_cell : B45CDA0Cell
 {
@@ -4464,11 +4464,11 @@ struct FUN_00546fb0_cell : B45CDA0Cell
 };
 struct FUN_0045cac0_tes : B45CDA0TES
 {
-    void FUN_0045cac0();
+    void InitDistantTextureBlending();
 };
 struct CellHit
 {
-    bool FUN_0053d2e0();
+    bool GetLandNormal();
 };
 struct CellProbe
 {
@@ -4480,8 +4480,8 @@ struct TESCellLookup
 };
 struct FUN_004573f0_shell : public TES
 {
-    TESObjectCELL* FUN_00451900(int cellX, int cellY);
-    bool FUN_004573f0(const NiPoint3* pos, NiPoint3* normal, int flags);
+    TESObjectCELL* GetGridCellCell(int cellX, int cellY);
+    bool GetLandNormal(const NiPoint3* pos, NiPoint3* normal, int flags);
 };
 
 extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(long volatile*);

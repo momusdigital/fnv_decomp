@@ -28,7 +28,7 @@ __m128* __stdcall FUN_00c9e3b0(int aUnused, int bUnused, __m128* p)
 }
 
 // @fnv 0x00c9e3d0
-void __stdcall FUN_00c9e3d0(char* p, int a, int b)
+void __stdcall castRayImpl(char* p, int a, int b)
 {
     *p = 0;
 }

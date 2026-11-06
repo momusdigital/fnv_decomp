@@ -87,10 +87,10 @@ struct ParticleDownwardPassReceiver
     virtual void slot44();
     virtual void slot45();
     virtual void dispatch(void* data);
-    void __thiscall FUN_00c1ad90(void* data, unsigned int value);
+    void __thiscall UpdateDownwardPass(void* data, unsigned int value);
 };
 // @fnv 0x00c1ad90
-void ParticleDownwardPassReceiver::FUN_00c1ad90(void* data, unsigned int value)
+void ParticleDownwardPassReceiver::UpdateDownwardPass(void* data, unsigned int value)
 {
     NiUpdateData* update = (NiUpdateData*)data;
     if (update->deferUpdate != 0)

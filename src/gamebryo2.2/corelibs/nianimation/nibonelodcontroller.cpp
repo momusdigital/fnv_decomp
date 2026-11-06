@@ -136,10 +136,10 @@ struct NiBoneLODController : public NiObject
     unsigned int m_uiNumLODs;
     NiBoneLODController* FUN_00a550b0();
     void FUN_00a6cfe0(NiBoneLODController*, CloningProcess*);
-    NiBoneLODController* FUN_00a552c0(CloningProcess&);
+    NiBoneLODController* CreateClone(CloningProcess&);
 };
 // @fnv 0x00a552c0
-NiBoneLODController* NiBoneLODController::FUN_00a552c0(CloningProcess& kCloning)
+NiBoneLODController* NiBoneLODController::CreateClone(CloningProcess& kCloning)
 {
     NiBoneLODController* pkObject = static_cast<NiBoneLODController*>(BSFadeNode::operator new(0x68));
     if (pkObject)
@@ -1476,7 +1476,7 @@ struct BoneLODSerializer : BaseHack
     NiTPrimitiveArray<NodeCollection*> nodes;
     NiTPrimitiveArray<PairCollection*> skins;
     NodeCollection defaultNodes;
-    virtual void FUN_00a549d0(NiStream& stream);
+    virtual void SaveBinary(NiStream& stream);
 };
 template <class T> inline void SaveStream(NiStream& kStream, const T& value)
 {
@@ -1484,7 +1484,7 @@ template <class T> inline void SaveStream(NiStream& kStream, const T& value)
 }
 // Serializes the LOD level, node groups, skin groups, and default nodes of a bone LOD entry to the stream.
 // @fnv 0x00a549d0
-void BoneLODSerializer::FUN_00a549d0(NiStream& stream)
+void BoneLODSerializer::SaveBinary(NiStream& stream)
 {
     BaseHack::FUN_00a6d730(stream);
     SaveStream(stream, lod);

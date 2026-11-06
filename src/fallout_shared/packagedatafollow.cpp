@@ -117,10 +117,10 @@ class TESFollowPackageData : public TESPackageData
   public:
     FollowPackageField* m_04;
     float m_08;
-    bool FUN_0067c220(TESPackageData* arg);
+    bool Compare(TESPackageData* arg);
 };
 // @fnv 0x0067c220
-bool TESFollowPackageData::FUN_0067c220(TESPackageData* apData)
+bool TESFollowPackageData::Compare(TESPackageData* apData)
 {
     TESFollowPackageData* other = dynamic_cast<TESFollowPackageData*>(apData);
     if (other == 0)
@@ -152,7 +152,7 @@ struct FUN_0067c110_shell : TESPackageData
 {
     FollowPackageField* m_04;
     float m_08;
-    void __thiscall FUN_0067c110(TESPackageData* other);
+    void __thiscall CopyFrom(TESPackageData* other);
 };
 
 struct FUN_0067f030
@@ -166,7 +166,7 @@ struct FUN_0067f030
 
 // For a compatible source, copies m_08, deletes the old m_04, and allocates and initializes m_04 when the source has one.
 // @fnv 0x0067c110
-void __thiscall FUN_0067c110_shell::FUN_0067c110(TESPackageData* other)
+void __thiscall FUN_0067c110_shell::CopyFrom(TESPackageData* other)
 {
     TESFollowPackageData* source = dynamic_cast<TESFollowPackageData*>(other);
     if (source)

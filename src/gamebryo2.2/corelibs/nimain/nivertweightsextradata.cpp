@@ -10,7 +10,7 @@ struct NiObject
 extern "C" char __stdcall FUN_00a7b3d0(NiObject*);
 
 // @fnv 0x00a89b00
-char __stdcall FUN_00a89b00(NiObject* pObject)
+char __stdcall IsEqual(NiObject* pObject)
 {
     char b = FUN_00a7b3d0(pObject);
     return b != 0;
@@ -139,11 +139,11 @@ struct FUN_00a89b30_cls
     unsigned int unk04;
     unsigned int unk08;
     void FUN_00a7b330(void* obj, unsigned int a1);
-    void* FUN_00a89b30(unsigned int a1);
+    void* CreateClone(unsigned int a1);
 };
 
 // @fnv 0x00a89b30
-void* FUN_00a89b30_cls::FUN_00a89b30(unsigned int a1)
+void* FUN_00a89b30_cls::CreateClone(unsigned int a1)
 {
     FUN_00a89b30_cls* p = (FUN_00a89b30_cls*)FUN_00aa13e0(0xc);
     if (p != 0)
@@ -191,7 +191,7 @@ static __forceinline void LoadU32(S_00a89be0_Stream* s, unsigned int* v, unsigne
 }
 
 // @fnv 0x00a89be0
-void __stdcall FUN_00a89be0(S_00a89be0_Stream* s)
+void __stdcall LoadBinary(S_00a89be0_Stream* s)
 {
     if (s->m_uiFormatVersion < 0x5000010)
     {

@@ -605,7 +605,7 @@ struct TESConditionSave
 
 struct FUN_00485e00_shell
 {
-    void FUN_00485e20(int, int);
+    void __SaveData(int, int);
 };
 
 struct FUN_005fea50_shell
@@ -655,7 +655,7 @@ void FUN_005fea50_shell::FUN_005fea50()
     if (_FUN_00401500())
         reinterpret_cast<IdleAnimationData*>(reinterpret_cast<char*>(this) + 0x38)->SwapEndian();
 
-    reinterpret_cast<FUN_00485e00_shell*>(this)->FUN_00485e20(
+    reinterpret_cast<FUN_00485e00_shell*>(this)->__SaveData(
         reinterpret_cast<int>(reinterpret_cast<char*>(this) + 0x38), 8);
 
     if (_FUN_00401500())

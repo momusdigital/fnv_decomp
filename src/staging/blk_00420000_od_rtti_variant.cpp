@@ -117,7 +117,7 @@ struct FUN_004392c0_shell
 struct NiObjectNET
 {
     void FUN_00439360(unsigned short a, unsigned int b, unsigned int c);
-    void FUN_00439340(unsigned short a);
+    void SetSrcBlendMode(unsigned short a);
 };
 struct NiPoint3
 {
@@ -2026,7 +2026,7 @@ class BSMultiBound : public NiMemObject
     BSMultiBound();
     void FUN_004addc0(Bound*);
 };
-BSMultiBound* __cdecl FUN_00439490(TESObjectREFR* reference);
+BSMultiBound* __cdecl CreateMultiBoundForRef(TESObjectREFR* reference);
 int __cdecl FUN_0043b290();
 extern "C" long __stdcall InterlockedCompareExchange(long volatile* Destination, long Exchange, long Comparand);
 typedef long(__stdcall* InterlockedCompareExchange_t)(long volatile*, long, long);

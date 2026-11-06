@@ -781,7 +781,7 @@ __forceinline void add(const MeshVec& b, MeshVec& a)
 class MeshShapeHelper : public hkpMeshShape
 {
   public:
-    void FUN_00dccdd0(const hkTransform& transform, hkReal tolerance, MeshAabb& out) const;
+    void getAabbImpl(const hkTransform& transform, hkReal tolerance, MeshAabb& out) const;
 };
 template <class T> __forceinline const T* hkAddByteOffsetConst(const T* p, long n)
 {
@@ -799,7 +799,7 @@ static __declspec(noinline) void ExpandAabbWithVertex(MeshAabb& b, const hkTrans
 }
 // Computes the world-space AABB of all subpart triangles, then expands it by margin plus m_fSphereRadius.
 // @fnv 0x00dccdd0
-void MeshShapeHelper::FUN_00dccdd0(const hkTransform& placement, hkReal margin, MeshAabb& bounds) const
+void MeshShapeHelper::getAabbImpl(const hkTransform& placement, hkReal margin, MeshAabb& bounds) const
 {
     bounds.m_kMinimumCorner.set(3.402820018375656e+38f, 3.402820018375656e+38f, 3.402820018375656e+38f);
     bounds.m_kMaximumCorner.set(-3.402820018375656e+38f, -3.402820018375656e+38f, -3.402820018375656e+38f);

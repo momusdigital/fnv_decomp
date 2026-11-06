@@ -137,7 +137,7 @@ class TESWorldSpace;
 class TESObjectCELL
 {
   public:
-    bool FUN_005434d0(struct FormGroupQuery* group);
+    bool SavesBefore(struct FormGroupQuery* group);
     bool IsFormTypeBelowThreshold(struct FormGroupQuery* group);
     unsigned int FUN_005441b0();
     unsigned int FUN_00544210();

@@ -14,7 +14,7 @@ struct FUN_00d263f0_t
     char pad20[0x20];
     char m_buf40[0x40];  // +0x40
 
-    int FUN_00d263f0(int a, int b);
+    int calcSizeForSpu(int a, int b);
 };
 struct FUN_00d26760_StandIn
 {
@@ -195,7 +195,7 @@ void* FUN_00c85750(void);
 void FUN_00c908c0(int a1, int a2, int a3, int a4);
 struct FUN_00d267c0_t : FUN_00d26450_S
 {
-    void FUN_00d267c0(int mode);
+    void initWeldingInfo(int mode);
 };
 
 namespace N {

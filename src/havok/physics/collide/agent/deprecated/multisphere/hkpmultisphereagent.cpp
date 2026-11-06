@@ -1034,7 +1034,7 @@ void S_00d45160_Owner::SpawnWithCollectors(unsigned int a1, unsigned int a2, con
 extern "C" __m128 _mm_load_ps(const float*);
 struct S00d44fd0_Base
 {
-    void FUN_00d443e0(int a, int b, int c, unsigned char* obj);
+    void processCollision(int a, int b, int c, unsigned char* obj);
 };
 
 struct S00d44fd0_Agent : S00d44fd0_Base
@@ -1099,13 +1099,13 @@ struct S00d44fd0_Vert
     int u2c;
 };
 
-// Calls FUN_00d443e0, then for each new vertex adds nrm*nrm.w to pos and negates nrm; if obj+0x3030 changed, negates obj+0x3020 and swaps fields of obj+0x3040.
+// Calls processCollision, then for each new vertex adds nrm*nrm.w to pos and negates nrm; if obj+0x3030 changed, negates obj+0x3020 and swaps fields of obj+0x3040.
 // @fnv 0x00d44fd0
 void S00d44fd0_Agent::FUN_00d44fd0(int a1, int a2, int a3, unsigned char* obj)
 {
     float saved = *(float*)(obj + 0x3030);
     S00d44fd0_Vert* pVert = *(S00d44fd0_Vert**)obj;
-    S00d44fd0_Base::FUN_00d443e0(a2, a1, a3, obj);
+    S00d44fd0_Base::processCollision(a2, a1, a3, obj);
     for (; pVert < *(S00d44fd0_Vert**)obj; pVert++)
     {
         pVert->pos.addMul4(pVert->nrm.getW(), pVert->nrm);
@@ -1645,12 +1645,12 @@ struct S00d443e0_S_Owner
     int unk8;
     S00d443e0_S_Entry* arr;
     int count;
-    void FUN_00d443e0(S00d443e0_S_Wrap* in, int a, int b, int d);
+    void processCollision(S00d443e0_S_Wrap* in, int a, int b, int d);
 };
 
 // Iterates entries in reverse, adds a rotation term to the input copy, and dispatches each child's v6 with a shared context.
 // @fnv 0x00d443e0
-void S00d443e0_S_Owner::FUN_00d443e0(S00d443e0_S_Wrap* in, int a, int b, int d)
+void S00d443e0_S_Owner::processCollision(S00d443e0_S_Wrap* in, int a, int b, int d)
 {
     S_V4* base = in->base;
     S00d443e0_S_Input copy(*in->src);

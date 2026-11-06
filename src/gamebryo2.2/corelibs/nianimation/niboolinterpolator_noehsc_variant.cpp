@@ -3,7 +3,7 @@
 // byte only under /MT /O2 /GS /Gy (unit src/gamebryo2.2/corelibs/nianimation/niboolinterpolator.cpp lists /MT /O2 /GS /EHsc /Gy). Declarations copied from that unit's skeleton; move the functions
 // to their real unit once identified.
 
-int __stdcall FUN_00a53070(unsigned short usChannel);
+int __stdcall GetKeyContent(unsigned short usChannel);
 struct FUN_00a53080_shell
 {
     int __thiscall GetThirdValue(int arg);
@@ -74,7 +74,7 @@ struct FUN_00a530a0_shell
     volatile unsigned char unk0c;
     int unk10;
 
-    unsigned char __thiscall FUN_00a530a0(int unused);
+    unsigned char __thiscall GetChannelPosed(int unused);
 };
 extern unsigned char DAT_0109a914;
 struct S_00a53680_Stream;
@@ -287,7 +287,7 @@ struct FUN_00a536d0_self
     unsigned char m_bBoolValue;
     unsigned char unk0d[3];
     void* m_spBoolData;
-    void FUN_00a3cbf0(FUN_00a536d0_arr* pArr);
+    void GetViewerStrings(FUN_00a536d0_arr* pArr);
 };
 void* FUN_00a7d330(int value);
 void* FUN_00a7d410(const char* fmt, unsigned int value);
@@ -295,7 +295,7 @@ void* FUN_00a7d5a0(const char* fmt, void* value);
 extern int DAT_011f404c;
 struct FUN_00a536d0_cls
 {
-    void FUN_00a536d0(FUN_00a536d0_arr* pArr);
+    void GetViewerStrings(FUN_00a536d0_arr* pArr);
 };
 // Based on unverified previous work by another contributor (2026-10-22).
 struct BoolData
@@ -428,7 +428,7 @@ class NiBoolInterpA535 : public FUN_00a3ca10
     unsigned int m_uiLastKeyIndex;
 
     void CloneTo(NiBoolInterpA535* dest, CloningProcessA535& cloning);
-    NiBoolInterpA535* FUN_00a53590(CloningProcessA535& cloning);
+    NiBoolInterpA535* CreateClone(CloningProcessA535& cloning);
 };
 extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(long volatile* p);
 extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volatile* p);

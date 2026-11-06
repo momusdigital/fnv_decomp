@@ -146,7 +146,7 @@ unsigned short Saver::FUN_009f86f0()
 
 struct Base009f8770
 {
-    void FUN_00679340();
+    void InitLoadGameTES();
 };
 struct Helper009f8770
 {
@@ -154,12 +154,12 @@ struct Helper009f8770
 };
 struct Holder009f8770
 {
-    void FUN_009f8770();
+    void InitLoadGameTES();
 };
 // @fnv 0x009f8770
-void Holder009f8770::FUN_009f8770()
+void Holder009f8770::InitLoadGameTES()
 {
-    ((Base009f8770*)this)->FUN_00679340();
+    ((Base009f8770*)this)->InitLoadGameTES();
     ((Helper009f8770*)this)->FUN_00484d00((char*)this + 0x84, 4);
     ((Helper009f8770*)this)->FUN_00484d00((char*)this + 0x88, 4);
 }
@@ -506,7 +506,7 @@ SpectatorThreatInfo62d0& SpectatorThreatInfo62d0::FUN_009f7630(const SpectatorTh
 
 struct FUN_006797c0_shell
 {
-    void __thiscall FUN_006797c0(void*);
+    void __thiscall AppendSaveLoadFormBuffer(void*);
 };
 
 struct GameTimerRecord
@@ -523,18 +523,18 @@ GameTimerRecord g_timeGlobal;
 
 struct SpectatorPackageSave : SpectatorPackage
 {
-    void __thiscall FUN_009f87d0(BGSSaveFormBuffer* apSaveGameBuffer);
+    void __thiscall AppendSaveLoadFormBuffer(BGSSaveFormBuffer* apSaveGameBuffer);
 };
 
 // @fnv 0x009f87d0
-void SpectatorPackageSave::FUN_009f87d0(BGSSaveFormBuffer* apSaveGameBuffer)
+void SpectatorPackageSave::AppendSaveLoadFormBuffer(BGSSaveFormBuffer* apSaveGameBuffer)
 {
     int i;
     unsigned int threatInfo;
     unsigned int ipathTimeDelta;
     SpectatorThreatInfo* isaveGameCount;
 
-    reinterpret_cast<FUN_006797c0_shell*>(this)->FUN_006797c0(apSaveGameBuffer);
+    reinterpret_cast<FUN_006797c0_shell*>(this)->AppendSaveLoadFormBuffer(apSaveGameBuffer);
 
     i = g_timeGlobal.GetTime() - *reinterpret_cast<unsigned int*>(reinterpret_cast<char*>(this) + 0x80);
 
@@ -1773,13 +1773,13 @@ struct FUN_009f7500_class
     } field94;
     ArrSI arrA0;
     void CopyFromPackage(void*);
-    void FUN_009f7500(void*);
+    void CopyFrom(void*);
 };
 extern int DAT_01183028;
 extern int DAT_011a5fd8;
 extern void* __cdecl FUN_00ec43fb(void*, int, int*, int*, int);
 // @fnv 0x009f7500
-void FUN_009f7500_class::FUN_009f7500(void* param_2)
+void FUN_009f7500_class::CopyFrom(void* param_2)
 {
     CopyFromPackage(param_2);
     FUN_009f7500_class* other = (FUN_009f7500_class*)FUN_00ec43fb(param_2, 0, &DAT_01183028, &DAT_011a5fd8, 0);

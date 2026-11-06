@@ -6,7 +6,7 @@ struct TESEatPackageData
 {
     unsigned char base[4];
     void* m_pPackageTarget;
-    void __thiscall FUN_0067bbb0();
+    void __thiscall Save();
 };
 
 void __cdecl _FUN_004856d0(int);
@@ -16,7 +16,7 @@ struct LocationDescriptor
 };
 
 // @fnv 0x0067bbb0
-void __thiscall TESEatPackageData::FUN_0067bbb0()
+void __thiscall TESEatPackageData::Save()
 {
     _FUN_004856d0(0x44454b50);
     if (this->m_pPackageTarget != 0)
@@ -135,11 +135,11 @@ struct TESEatPackageData_StandIn
     unsigned char base[4];
     FUN_0067f600_Obj* m_pPackageTarget;
 
-    unsigned char __thiscall FUN_0067bb40(int arg);
+    unsigned char __thiscall Compare(int arg);
 };
 
 // @fnv 0x0067bb40
-unsigned char __thiscall TESEatPackageData_StandIn::FUN_0067bb40(int arg)
+unsigned char __thiscall TESEatPackageData_StandIn::Compare(int arg)
 {
     FUN_0067bb40_Result* result = (FUN_0067bb40_Result*)FUN_00ec43fb(arg, 0, &DAT_0119bdec, &DAT_0119be3c, 0);
 

@@ -846,7 +846,7 @@ extern TESObjectREFR* DAT_011c9350;
 extern Setting DAT_011c9384, DAT_011d276c, DAT_011d5110;
 extern const float DAT_010162c0;
 void FUN_00519810(TESObjectREFR*, TESObjectREFR*);
-void FUN_00600900(TESBoundObject*);
+void SetUsedItem(TESBoundObject*);
 void FUN_00600920(int);
 void FUN_00600940(bool);
 void FUN_00705830(TESObjectREFR*, int, int);

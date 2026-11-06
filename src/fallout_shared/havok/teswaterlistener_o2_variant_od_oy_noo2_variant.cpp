@@ -153,7 +153,7 @@ extern InterfaceE* g_pkInterfaceE;
 
 bool __cdecl FUN_008c7aa0();
 AudioE* __cdecl FUN_004537b0();
-ImpactObjE* __cdecl FUN_0062b4e0(void* pvObj);
+ImpactObjE* __cdecl GetCdBodyRef(void* pvObj);
 
 class BodyE;
 class RefE
@@ -443,7 +443,7 @@ void SpawnManagerE::FUN_0062ee60(float fTimeDelta)
                 iResult = Update(pkBody, fFoundHeight, fTimeDelta, 0);
             if (iResult)
             {
-                ImpactObjE* pkObj = FUN_0062b4e0(pkRef->GetObject());
+                ImpactObjE* pkObj = GetCdBodyRef(pkRef->GetObject());
                 if (pkObj)
                 {
                     fFoundHeight = FUN_004587d0(fFoundHeight);
@@ -725,7 +725,7 @@ extern const __m128 DAT_010c71e0;
 
 struct FUN_00630bb0_shell
 {
-    void FUN_00458880(FUN_006815c0* pkA, FUN_006815c0* pkB);
+    void setAdd4(FUN_006815c0* pkA, FUN_006815c0* pkB);
     void FUN_00630bb0(Source630* pkSource, void* pvParam);
 };
 
@@ -747,7 +747,7 @@ void FUN_00630bb0_shell::FUN_00630bb0(Source630* pkSource, void* pvParam)
     FUN_006815c0 kF;
     kF.FUN_00630df0((FUN_006815c0*)pkSource->FUN_006815c0_transform(), pvParam);
     kD.FUN_00630d30(&kB, &kF);
-    FUN_00458880(&kD, &kD);
+    setAdd4(&kD, &kD);
 }
 
 struct S00630ce0_Vector

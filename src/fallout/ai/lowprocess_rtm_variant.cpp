@@ -204,7 +204,7 @@ class Act907
 class ProjSub907
 {
   public:
-    bool FUN_0047f600(TESBoundObject* item);
+    bool SellBuysItem(TESBoundObject* item);
 };
 
 class AcquireBase907
@@ -318,7 +318,7 @@ void Proc907::FUN_00907d90(Act907* arg)
                     if (pNPCA)
                         pProjQ = (Projectile907*)DAT_011e0e80.GetValueFromForm(pNPCA, false);
                 }
-                if (pProjQ && bA7 && pProjQ->FUN_004181e0()->sub90.FUN_0047f600(pItemR))
+                if (pProjQ && bA7 && pProjQ->FUN_004181e0()->sub90.SellBuysItem(pItemR))
                 {
                     if (!arg->FUN_00493bb0())
                     {

@@ -3,7 +3,7 @@
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
 
 // @fnv 0x00de1d10
-void __cdecl FUN_00de1d10()
+void __cdecl buildGeometry()
 {}
 
 #include <xmmintrin.h>

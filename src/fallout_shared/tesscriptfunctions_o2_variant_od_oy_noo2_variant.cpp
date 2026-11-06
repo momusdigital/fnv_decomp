@@ -460,7 +460,7 @@ struct NodeS
     S36* FUN_00461130();
 };
 unsigned int FUN_0045c670();
-NiPoint3* __fastcall FUN_005df5b0(void*);
+NiPoint3* __fastcall GetCachedWorldCameraPos(void*);
 struct StrSrc
 {
     void* FUN_00931ed0(int*);
@@ -961,7 +961,7 @@ extern TESX* g_TES;
 extern DataHandlerS* g_dataHandler;
 
 // @fnv 0x005df040
-bool FUN_005df040(const ScriptParameter* a0, const char* a1, TESObjectREFR* a2, TESObjectREFR* a3, Script* a4,
+bool Cmd_PlaceAtReticle_Execute(const ScriptParameter* a0, const char* a1, TESObjectREFR* a2, TESObjectREFR* a3, Script* a4,
                   ScriptLocals* a5, double& result, unsigned int& a7)
 {
     result = 0.0;
@@ -987,7 +987,7 @@ bool FUN_005df040(const ScriptParameter* a0, const char* a1, TESObjectREFR* a2, 
     p134.FUN_005df510(1, &p140);
     s36.GetRowFloats(2, &p140.y, &p140.z, &p140.x);
     p134.FUN_005df510(2, &p140);
-    pos = *FUN_005df5b0(g_thePlayer);
+    pos = *GetCachedWorldCameraPos(g_thePlayer);
     pt = p134.FUN_004b4500(&pt) + pos;
     int out15c;
     ((StrSrc*)g_thePlayer)->FUN_00931ed0(&out15c);
@@ -1153,7 +1153,7 @@ Q_FUN_005dbf20::Q_FUN_005dbf20(float f)
 
 namespace fnv_005df040 {
 // @fnv 0x005df040
-bool FUN_005df040(const ScriptParameter* a0, const char* a1, TESObjectREFR* a2, TESObjectREFR* a3, Script* a4,
+bool Cmd_PlaceAtReticle_Execute(const ScriptParameter* a0, const char* a1, TESObjectREFR* a2, TESObjectREFR* a3, Script* a4,
                   ScriptLocals* a5, double& result, unsigned int& a7)
 {
     result = 0.0;
@@ -1179,7 +1179,7 @@ bool FUN_005df040(const ScriptParameter* a0, const char* a1, TESObjectREFR* a2, 
     p134.FUN_005df510(1, &p140);
     s36.GetRowFloats(2, &p140.y, &p140.z, &p140.x);
     p134.FUN_005df510(2, &p140);
-    pos = *FUN_005df5b0(g_thePlayer);
+    pos = *GetCachedWorldCameraPos(g_thePlayer);
     pt = p134.FUN_004b4500(&pt) + pos;
     int out15c;
     ((StrSrc*)g_thePlayer)->FUN_00931ed0(&out15c);

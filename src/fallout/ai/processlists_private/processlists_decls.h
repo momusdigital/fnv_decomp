@@ -135,7 +135,7 @@ class MersenneTwister
 };
 }
 void FUN_004ee7d0();
-void FUN_004a42a0();
+void RemoveAllDecals();
 class MagicShaderHitEffect;
 class NiAVObject;
 class BGSTerrainManager

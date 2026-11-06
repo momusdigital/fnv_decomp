@@ -10,11 +10,11 @@ struct FUN_00e3b720_s
     int m_iElementCount;  // +0xc
     int pad1[3];
     int m_uiItemCount;  // +0x1c
-    void FUN_00e3b720(int* info) const;
+    void getConstraintInfo(int* info) const;
 };
 
 // @fnv 0x00e3b720
-void FUN_00e3b720_s::FUN_00e3b720(int* info) const
+void FUN_00e3b720_s::getConstraintInfo(int* info) const
 {
     info[4] = (int)&m_iElementCount;
     int zero = 0;
@@ -270,11 +270,11 @@ struct S00e3b770_Obj
     int unk18;
     int m_iElementCount;
 
-    void __thiscall FUN_00e3b770(int unused, S00e3b770_Result* result);
+    void __thiscall getRuntimeInfo(int unused, S00e3b770_Result* result);
 };
 
 // @fnv 0x00e3b770
-void __thiscall S00e3b770_Obj::FUN_00e3b770(int unused, S00e3b770_Result* result)
+void __thiscall S00e3b770_Obj::getRuntimeInfo(int unused, S00e3b770_Result* result)
 {
     int size = m_iElementCount;
     int stride = size * 6;

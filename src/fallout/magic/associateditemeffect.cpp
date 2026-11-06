@@ -220,12 +220,12 @@ struct AssociatedItemBaseCopyCall
 
 struct AssociatedItemCopyEntry : ::AssociatedItemEffect
 {
-    void FUN_00806d50(::ActiveEffect* target);
+    void CopyData(::ActiveEffect* target);
 };
 
 // Calls the base routine with target, obtains an AssociatedItemEffect from target, and copies _p48 into it.
 // @fnv 0x00806d50
-void AssociatedItemCopyEntry::FUN_00806d50(::ActiveEffect* target)
+void AssociatedItemCopyEntry::CopyData(::ActiveEffect* target)
 {
     reinterpret_cast<AssociatedItemBaseCopyCall*>(this)->FUN_00804090(target);
     ::AssociatedItemEffect* destination =

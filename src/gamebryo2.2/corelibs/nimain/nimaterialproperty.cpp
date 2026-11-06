@@ -94,10 +94,10 @@ struct EqBase
 };
 struct FUN_00a75960_shell : public EqBase
 {
-    bool FUN_00a75960(NiObject* o);
+    bool IsEqual(NiObject* o);
 };
 // @fnv 0x00a75960
-bool FUN_00a75960_shell::FUN_00a75960(NiObject* apObject)
+bool FUN_00a75960_shell::IsEqual(NiObject* apObject)
 {
     if (FUN_00a62140(apObject))
     {
@@ -160,7 +160,7 @@ class FUN_00a75730_cls : public BA75730Object
 {
   public:
     FUN_00a75730_cls() throw();
-    BA75730Object* FUN_00a75730(BA75730Cloning& kCloning);
+    BA75730Object* CreateClone(BA75730Cloning& kCloning);
     void CopyMemberData(FUN_00a75730_cls* pkDest, BA75730Cloning& kCloning);
 
     int unk00;
@@ -185,7 +185,7 @@ class FUN_00a75730_cls : public BA75730Object
 };
 
 // @fnv 0x00a75730
-BA75730Object* FUN_00a75730_cls::FUN_00a75730(BA75730Cloning& kCloning)
+BA75730Object* FUN_00a75730_cls::CreateClone(BA75730Cloning& kCloning)
 {
     if (m_iArrayLength)
     {

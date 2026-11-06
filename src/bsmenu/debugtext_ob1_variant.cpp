@@ -25,7 +25,7 @@ struct VCall_00a0e470 {
     virtual int f3();
     virtual int f4(int, int, int, const char*, char*, int);
 };
-int __cdecl FUN_00a0e470(DebugText* a1, int aiX, const char* apFormatString, ...);
+int __cdecl PrintX(DebugText* a1, int aiX, const char* apFormatString, ...);
 struct FakeV_00a0e4b0 {
     virtual void f0() {}
     virtual void f1() {}
@@ -43,7 +43,7 @@ struct FUN_00a0e580_VTab {
     virtual int m5();
     virtual int __thiscall m6(int, int, const char*, char*, int);
 };
-int __cdecl FUN_00a0e580(FUN_00a0e580_VTab* pThis, int aeLocation, int aeJustify, const char* apFormatString, ...);
+int __cdecl PrintLine(FUN_00a0e580_VTab* pThis, int aeLocation, int aeJustify, const char* apFormatString, ...);
 struct RgbaColor { float r; float g; float b; float a; };
 struct FakeCall {
     virtual void f0();
@@ -52,7 +52,7 @@ struct FakeCall {
     virtual void f3();
     virtual int f4(int, int, int, const char*, char*, const RgbaColor&);
 };
-int FUN_00a0e690(DebugText* aObj, int aiX, const RgbaColor& apTextColor, const char* apFormatString, ...);
+int PrintXC(DebugText* aObj, int aiX, const RgbaColor& apTextColor, const char* apFormatString, ...);
 struct FUN_00a0e6d0_this {
     virtual int f0();
     virtual int f1();

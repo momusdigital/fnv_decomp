@@ -11,7 +11,7 @@ struct FUN_0051b070_shell
 {
     void FUN_00484c20(unsigned int aiFlags);
     void FUN_0048e9e0(unsigned int aiFlags);
-    void FUN_0051b070(unsigned int aiFlags);
+    void SaveGame(unsigned int aiFlags);
 };
 struct FUN_00484bf0
 {

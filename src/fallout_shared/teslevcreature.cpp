@@ -225,12 +225,12 @@ namespace LevCreatureCopyImplementation {
 struct Entry : public TESLevCreature
 {
     void FUN_004851b0(TESForm*);
-    void FUN_0050b2e0(TESForm*);
+    void CopyFrom(TESForm*);
 };
 
 // Casts source to TESLevCreature and, if valid, calls FUN_004851b0 to copy data from it.
 // @fnv 0x0050b2e0
-void Entry::FUN_0050b2e0(TESForm* source)
+void Entry::CopyFrom(TESForm* source)
 {
     TESLevCreature* creature;
     creature = dynamic_cast<TESLevCreature*>(source);
@@ -246,12 +246,12 @@ namespace LevCreatureComparisonImplementation {
 struct Entry : public TESLevCreature
 {
     bool FUN_00485270(TESForm*);
-    bool FUN_0050b320(TESForm*);
+    bool Compare(TESForm*);
 };
 
 // Returns true if the other form is not a TESLevCreature or if FUN_00485270(creature) is true, otherwise false.
 // @fnv 0x0050b320
-bool Entry::FUN_0050b320(TESForm* other)
+bool Entry::Compare(TESForm* other)
 {
     TESLevCreature* creature;
     creature = dynamic_cast<TESLevCreature*>(other);

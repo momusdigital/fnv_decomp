@@ -64,12 +64,12 @@ void NiPSysCollider::LinkObject(NiStream& stream)
 
 struct FUN_00c327e0_shell : public NiPSysCollider
 {
-    void* FUN_00c327e0();
+    void* GetRTTI();
 };
 
 extern const char* const g_012026a0_arg1;
 // @fnv 0x00c327e0
-void* FUN_00c327e0_shell::FUN_00c327e0()
+void* FUN_00c327e0_shell::GetRTTI()
 {
     return (void*)&g_012026a0_arg1;
 }

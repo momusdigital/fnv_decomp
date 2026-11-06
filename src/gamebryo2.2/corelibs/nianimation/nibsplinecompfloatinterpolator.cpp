@@ -219,7 +219,7 @@ struct FObj : FBase
         pfScalars[1] = kMaxCompScalar;
     }
     virtual void LoadBinary(NiStream&);
-    FObj* __thiscall FUN_00a515c0(int arg);
+    FObj* __thiscall CreateClone(int arg);
 };
 
 struct FUN_00a50aa0_shell
@@ -228,7 +228,7 @@ struct FUN_00a50aa0_shell
 };
 
 // @fnv 0x00a515c0
-FObj* __thiscall FObj::FUN_00a515c0(int arg)
+FObj* __thiscall FObj::CreateClone(int arg)
 {
     FObj* p = (FObj*)FUN_00aa13e0(0x2c);
     if (p)

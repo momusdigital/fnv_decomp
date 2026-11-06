@@ -1159,12 +1159,12 @@ class ConvexChildShape : public hkpConvexShape
 
 struct ConvexListShapeQ : hkpConvexListShape
 {
-    void FUN_00d5e300(const hkVector4q& direction, hkVector4q& supportingVertex) const;
+    void getSupportingVertexImpl(const hkVector4q& direction, hkVector4q& supportingVertex) const;
 };
 
 // Finds the child convex shape with the maximum dot product against direction, sets supportingVertex, and encodes the child index into the vertex's w component.
 // @fnv 0x00d5e300
-void ConvexListShapeQ::FUN_00d5e300(const hkVector4q& direction, hkVector4q& supportingVertex) const
+void ConvexListShapeQ::getSupportingVertexImpl(const hkVector4q& direction, hkVector4q& supportingVertex) const
 {
     hkReal maxDot = DAT_0104e148;
     int subShape = 0;

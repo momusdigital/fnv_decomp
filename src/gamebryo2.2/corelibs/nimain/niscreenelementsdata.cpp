@@ -647,12 +647,12 @@ struct TriShapeDataEq : public NiTriShapeData
 
 struct FUN_00a87980_shell : public NiScreenElementsData
 {
-    bool FUN_00a87980(const FUN_00a87980_shell* pkOther);
+    bool IsEqual(const FUN_00a87980_shell* pkOther);
 };
 
 // Compares this NiScreenElementsData with pkOther, checking base equality, quantity fields, polygon data, and polygon index arrays.
 // @fnv 0x00a87980
-bool FUN_00a87980_shell::FUN_00a87980(const FUN_00a87980_shell* pkOther)
+bool FUN_00a87980_shell::IsEqual(const FUN_00a87980_shell* pkOther)
 {
     if (!((TriShapeDataEq*)this)->IsEqualBase((const TriShapeDataEq*)pkOther))
         return false;

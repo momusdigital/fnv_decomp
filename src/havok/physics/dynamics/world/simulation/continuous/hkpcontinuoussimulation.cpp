@@ -2220,7 +2220,7 @@ void PartitionMotionPairs(PairEntryArray* apEntryArray, int* apiFixedCount, int 
 
 extern "C" void _ReadBarrier(void);
 extern "C" void _WriteBarrier(void);
-// FUN_00d0ef40 v1 - Havok collide step: monitor ticks, reverse vcall loop, two ctx array loops
+// collideInternal v1 - Havok collide step: monitor ticks, reverse vcall loop, two ctx array loops
 extern char DAT_010cc64c[]; // TtCollide
 extern char DAT_010cc634[]; // TtIslandPostCollideCb
 extern char DAT_010c41f8[]; // Et
@@ -2605,7 +2605,7 @@ struct ThisFull {
 union StepArg { Param* step; volatile unsigned int tick; };
 // Calls vcall8 on queued elements, stores the step parameters in the context, then loops items calling FUN_00d0d3f0, then FUN_00d0d8b0 and FUN_00d01650.
 // @fnv 0x00d0ef40
-void __fastcall FUN_00d0ef40(ThisFull* th, void* edx_unused, StepArg arg)
+void __fastcall collideInternal(ThisFull* th, void* edx_unused, StepArg arg)
 {
     volatile unsigned int tA;
     TickWrite<0>(DAT_010cc64c, tA);
@@ -3666,12 +3666,12 @@ struct D0FE00Simulation {
     int m_iActorEntryCount;
 
     int FUN_00d0ed10();
-    int FUN_00d0fe00();
+    int advanceTime();
 };
 
 // Calls FUN_00d0ed10; once elapsed time reaches the frame marker time, marks entities, returns 3 if the state is 1, else fires post-simulation callbacks.
 // @fnv 0x00d0fe00
-int D0FE00Simulation::FUN_00d0fe00()
+int D0FE00Simulation::advanceTime()
 {
     int result = FUN_00d0ed10();
     if (m_fElapsedSimulationTime >= m_frameMarkerTime) {

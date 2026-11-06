@@ -85,7 +85,7 @@ struct S_00487010
 {
     void FUN_00487010();
 };
-void __fastcall FUN_004056d0(void*);
+void __fastcall Save(void*);
 struct V18
 {
     virtual void v0();
@@ -109,7 +109,7 @@ struct FUN_0040c1d0_obj
 {
     void FUN_0040c1d0();
 };
-// Calls M on the object, runs FUN_00487010 and v14/v15 on the sub-object at offset 0x18, then FUN_004056d0 on offset 0x24 and M again.
+// Calls M on the object, runs FUN_00487010 and v14/v15 on the sub-object at offset 0x18, then Save on offset 0x24 and M again.
 // @fnv 0x0040c1d0
 void FUN_0040c1d0_obj::FUN_0040c1d0()
 {
@@ -117,7 +117,7 @@ void FUN_0040c1d0_obj::FUN_0040c1d0()
     ((S_00487010*)((char*)this + 0x18))->FUN_00487010();
     ((V18*)((char*)this + 0x18))->v14();
     ((V18*)((char*)this + 0x18))->v15();
-    FUN_004056d0((void*)((char*)this + 0x24));
+    Save((void*)((char*)this + 0x24));
     ((FUN_00485680*)this)->M();
 }
 

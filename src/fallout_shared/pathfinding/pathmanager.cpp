@@ -403,12 +403,12 @@ struct FUN_006ebc70_shell : public PathManager
     void FUN_006ebc70();
 };
 
-void __fastcall FUN_006eb310(void*);
+void __fastcall Pause(void*);
 
 // @fnv 0x006ebc70
 void FUN_006ebc70_shell::FUN_006ebc70()
 {
-    FUN_006eb310(*reinterpret_cast<void**>(this));
+    Pause(*reinterpret_cast<void**>(this));
 }
 
 struct FUN_006ebc90_shell : public PathManager
@@ -429,12 +429,12 @@ struct FUN_006ebcd0_shell : public PathManager
     void FUN_006ebcd0();
 };
 
-void __fastcall FUN_006eb3b0(void*);
+void __fastcall Resume(void*);
 
 // @fnv 0x006ebcd0
 void FUN_006ebcd0_shell::FUN_006ebcd0()
 {
-    FUN_006eb3b0(*reinterpret_cast<void**>(this));
+    Resume(*reinterpret_cast<void**>(this));
 }
 
 struct T006ebd10
@@ -3930,7 +3930,7 @@ class B6EB310Lock
 class B6EB310Manager
 {
   public:
-    void FUN_006eb310();
+    void Pause();
 
     int unk000;
     int unk004;
@@ -4718,7 +4718,7 @@ class B6EB310Manager
 };
 
 // @fnv 0x006eb310
-void B6EB310Manager::FUN_006eb310()
+void B6EB310Manager::Pause()
 {
     m_kLock.Lock(g_acB6EB310Name);
     switch (m_eAnimationState)
@@ -4747,7 +4747,7 @@ class B6EB3B0Lock
 class B6EB3B0Manager
 {
   public:
-    void FUN_006eb3b0();
+    void Resume();
 
     int unk000;
     int unk004;
@@ -5535,7 +5535,7 @@ class B6EB3B0Manager
 };
 
 // @fnv 0x006eb3b0
-void B6EB3B0Manager::FUN_006eb3b0()
+void B6EB3B0Manager::Resume()
 {
     m_kLock.Lock(g_acB6EB3B0Name);
     switch (m_eAnimationState)

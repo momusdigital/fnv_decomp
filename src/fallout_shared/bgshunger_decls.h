@@ -41,7 +41,7 @@ class BGSDehydrationStage
   public:
     static BGSDehydrationStage** AllocateStageArray(unsigned int);
     void* FUN_00500940(unsigned int size);
-    void FUN_004861f0(TESFile* file, void* data);
+    void LoadData(TESFile* file, void* data);
     unsigned int FUN_00441110();
     void FUN_0050f9a0(SpellItem* spell);
 };

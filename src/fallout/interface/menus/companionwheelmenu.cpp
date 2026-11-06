@@ -292,7 +292,7 @@ void __cdecl FUN_00717280(int);
 
 struct FUN_007552e0_shell
 {
-    void __thiscall FUN_007552e0(int, Tile*);
+    void __thiscall DoClick(int, Tile*);
     void __thiscall SelectTile(int, bool);
     void __thiscall ToggleAggressive();
     void __thiscall ToggleRelatedTopic();
@@ -305,7 +305,7 @@ struct FUN_007552e0_shell
 };
 
 // @fnv 0x007552e0
-void FUN_007552e0_shell::FUN_007552e0(int aiID, Tile* apTarget)
+void FUN_007552e0_shell::DoClick(int aiID, Tile* apTarget)
 {
     if (!apTarget && aiID >= 0 && aiID < 16)
         apTarget = m_pTiles[aiID];
@@ -731,13 +731,13 @@ struct WheelHost
     char unk00[0x28];
     int m_aiIndexedValues[16];
     void __thiscall SelectTile(int, bool);
-    void __thiscall FUN_00755760(int a, int b);
+    void __thiscall HandleMouseover(int a, int b);
 };
 
 bool __cdecl FUN_00702450(int);
 
 // @fnv 0x00755760
-void __thiscall WheelHost::FUN_00755760(int aiSlot, int aiValue)
+void __thiscall WheelHost::HandleMouseover(int aiSlot, int aiValue)
 {
     if (aiValue == 0 && aiSlot >= 0 && aiSlot < 16)
     {
@@ -1281,7 +1281,7 @@ struct InteractionActor
     InteractionActor* FUN_008d8520();
     bool FUN_00493bb0();
     bool FUN_00566950();
-    bool FUN_00608d80();
+    bool IsReanimated();
     bool FUN_0087f3d0();
     TESPackage* FUN_009344a0();
     bool FUN_004997b0();
@@ -1376,7 +1376,7 @@ void InteractionMenu::UpdateCompanionInteraction()
              aTarget->GetState() == 4 ||
              (aTarget->FUN_008d8520()->GetLevelInfo() && aTarget->FUN_008d8520()->GetLevelInfo()->level > 19)))
         {
-            if (aTarget->FUN_00608d80())
+            if (aTarget->IsReanimated())
                 return;
             if (!aTarget->IsUnavailable(0))
             {
@@ -2659,10 +2659,10 @@ extern const char DAT_011846d4, DAT_011841cc;
 Actor* FUN_00ec43fb(Reference*, int, const void*, const void*, int);
 void FUN_005ac750(Idle*, unsigned int, int);
 Reference* FUN_00564480(int, int);
-bool FUN_005accb0(void*, void*, void*, Reference*, void*, void*, void*, Idle**, int*, void**, int*, int*);
+bool ParseParameters(void*, void*, void*, Reference*, void*, void*, void*, Idle**, int*, void**, int*, int*);
 // Plays an idle animation on the source actor or reference, choosing the sequence and dispatching play events, then restores the previous setting value.
 // @fnv 0x005c8a50
-bool FUN_005c8a50(void* paramInfo, void* scriptData, Reference* source, void* containing, void* script, void* locals,
+bool Cmd_Say_Execute(void* paramInfo, void* scriptData, Reference* source, void* containing, void* script, void* locals,
                   double* result, void* offset)
 {
     *result = 0.0;
@@ -2671,7 +2671,7 @@ bool FUN_005c8a50(void* paramInfo, void* scriptData, Reference* source, void* co
     void* object4 = 0;
     int immediateA = 0;
     int _usePriority = 0;
-    if (!FUN_005accb0(paramInfo, scriptData, offset, source, containing, script, locals, &idleVal, &force, &object4,
+    if (!ParseParameters(paramInfo, scriptData, offset, source, containing, script, locals, &idleVal, &force, &object4,
                       &immediateA, &_usePriority))
         return false;
     bool forceFlag4 = false;

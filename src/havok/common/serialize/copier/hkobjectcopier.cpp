@@ -6,7 +6,7 @@
 
 // Compares byte 0xc of two entries and returns 1 if equal and byte 0xd also matches or byte 0xc is 0x18, otherwise 0.
 // @fnv 0x00e032d0
-int __stdcall FUN_00e032d0(const void* a, const void* b)
+int __stdcall areMembersCompatible(const void* a, const void* b)
 {
     const unsigned char* pa = static_cast<const unsigned char*>(a);
     const unsigned char* pb = static_cast<const unsigned char*>(b);

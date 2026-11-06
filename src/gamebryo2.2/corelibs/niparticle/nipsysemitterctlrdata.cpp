@@ -317,12 +317,12 @@ class NiPSysEmitterCtlrDataStub : public NiObjectStub
     void* m_pVisibilityKeys;
     unsigned int m_uiNumVisibilityKeys;
 
-    void FUN_00c2bdf0(NiStream& kStream);
+    void SaveBinary(NiStream& kStream);
 };
 
 // Loads the emitter controller data from kStream: key count and keys via DAT_011f3a50, then a loop reading values via DAT_011f3ac8.
 // @fnv 0x00c2bdf0
-void NiPSysEmitterCtlrDataStub::FUN_00c2bdf0(NiStream& kStream)
+void NiPSysEmitterCtlrDataStub::SaveBinary(NiStream& kStream)
 {
     NiObjectStub::LoadBinary(kStream);
 

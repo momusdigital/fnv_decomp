@@ -1810,12 +1810,12 @@ struct S00d11470_Object {
 };
 
 struct S00d11470_Owner {
-    bool __thiscall FUN_00d11470(int* first, int* second);
+    bool __thiscall areAabbsOverlapping(int* first, int* second);
 };
 
 // Takes the 16-byte records at unkA0 indexed by *first and *second and returns true if none of their field cross-differences has a sign bit set.
 // @fnv 0x00d11470
-bool __thiscall S00d11470_Owner::FUN_00d11470(int* first, int* second)
+bool __thiscall S00d11470_Owner::areAabbsOverlapping(int* first, int* second)
 {
     S00d11470_Object* object =
         reinterpret_cast<S00d11470_Object*>(this);
@@ -1966,11 +1966,11 @@ struct d11Sweep {
     int unkcc;
     int m_iBase;
 
-    void FUN_00d11fa0(d11Out& __restrict out);
+    void getAllAabbs(d11Out& __restrict out);
 };
 
 // @fnv 0x00d11fa0
-void d11Sweep::FUN_00d11fa0(d11Out& __restrict out)
+void d11Sweep::getAllAabbs(d11Out& __restrict out)
 {
     d11Out* pOut = &out;
     int iCount = m_iArrayLength - m_iBase;
@@ -2788,12 +2788,12 @@ struct AxisSweep {
     int unkA8;
     SweepType* types;
     void FUN_00d112c0(int numRecords, unsigned short code, SweepRecord* rec, int index, void* buffer);
-    void FUN_00d14100(int* index, EventList* events);
+    void reQuerySingleObject(int* index, EventList* events);
 };
 
 // Iterates sweep records matching a bitmask, appending those whose f0c value is even to the events list, growing it when full.
 // @fnv 0x00d14100
-void AxisSweep::FUN_00d14100(int* index, EventList* events)
+void AxisSweep::reQuerySingleObject(int* index, EventList* events)
 {
     int count = numRecords;
     int blocks = (count >> 5) + 8;
@@ -2964,11 +2964,11 @@ struct SweepOwnerX {
  void FUN_00d112c0(int count,int key,SweepNodeX* node,unsigned int index,unsigned int* bits);
  void FUN_00d10d10(SweepNodeX* base,int count,SweepNodeX* node);
  void FixNodeEdges(unsigned int index);
- void FUN_00d14600(unsigned int* handle,SweepPairsX* pairs);
+ void removeObject(unsigned int* handle,SweepPairsX* pairs);
 };
 // Removes the node at handle from the sweep structure, updating axes, groups, and node storage.
 // @fnv 0x00d14600
-void SweepOwnerX::FUN_00d14600(unsigned int* handle,SweepPairsX* pairs) {
+void SweepOwnerX::removeObject(unsigned int* handle,SweepPairsX* pairs) {
  unsigned long base=*handle;
  unsigned long count;
  count = nodes.size;
@@ -3098,12 +3098,12 @@ struct CacheOwner {
     int unkA4, unkA8;
     SweepArray<SweepEndpoint> axis[3];
     __declspec(noinline) void FUN_00d13950(Blk* array, unsigned int a2);
-    void FUN_00d15f10(ItemList* a1, unsigned int a2);
+    void calcAabbCache(ItemList* a1, unsigned int a2);
 };
 
 // Fills a pool array with (item->m_14 << 4) + m_a0 per item, calls FUN_00d13950 with it and a2, then restores the pool pointer and frees the array.
 // @fnv 0x00d15f10
-void CacheOwner::FUN_00d15f10(ItemList* apItemList, unsigned int a2)
+void CacheOwner::calcAabbCache(ItemList* apItemList, unsigned int a2)
 {
     CacheOwner* volatile self = this;
     Blk blk;
@@ -3224,7 +3224,7 @@ struct Sweep {
     char* m_markerBase;
     __declspec(noinline) void FUN_00d10b30(Node16* buf, int index, Node16* node);
     void FUN_00d112c0(int a1, unsigned int a2, Node16* node, int a4, void* buf);
-    void FUN_00d142b0(int* handle, Input* input, PairArr* outPairs);
+    void addObject(int* handle, Input* input, PairArr* outPairs);
 };
 
 
@@ -3261,7 +3261,7 @@ struct __declspec(align(16)) BoundVector {
 };
 // Inserts a node into m_kNodeCollection, updates axis bounds, and collects overlapping node handles into outPairs.
 // @fnv 0x00d142b0
-void Sweep::FUN_00d142b0(int* handle, Input* input, PairArr* outPairs) {
+void Sweep::addObject(int* handle, Input* input, PairArr* outPairs) {
     BoundVector mins, maxs;
     mins.x = input->v0 >> 15;
     mins.y = input->v4 >> 15;
@@ -3434,11 +3434,11 @@ struct SweepManager {
     int markerCount, fieldD4;
     void* markers;
     __forceinline void update(unsigned id, const SweepBounds& bounds, void* added, SweepList& removed);
-    void FUN_00d175f0(const SweepVector* shift, SweepVector* effective, void* added);
+    void shiftAllObjects(const SweepVector* shift, SweepVector* effective, void* added);
 };
 // Rounds a shift vector to integer scale, updates sweep axis values, and calls update for nodes crossing sweep boundaries.
 // @fnv 0x00d175f0
-void SweepManager::FUN_00d175f0(const SweepVector* shift, SweepVector* effective, void* added) {
+void SweepManager::shiftAllObjects(const SweepVector* shift, SweepVector* effective, void* added) {
     SweepVector rounded = *shift;
     __int64 delta[3];
     for (int a=0; a<3; ++a) {
@@ -3990,11 +3990,11 @@ struct AssignedSweep {
     Node* nodes;
     void BuildBroadPhasePairs(Box*, int, Box*, int, int, int);
     void FixNodeEdges(int);
-    void FUN_00d193e0(RemovedHandleList*, int);
+    void removeObjectBatch(RemovedHandleList*, int);
 };
 // Removes the listed boxes by moving the last boxes into their slots, calls FUN_00d138a0 and FUN_00d13620, and remaps node index arrays.
 // @fnv 0x00d193e0
-void AssignedSweep::FUN_00d193e0(RemovedHandleList* apRemoved, int arg2)
+void AssignedSweep::removeObjectBatch(RemovedHandleList* apRemoved, int arg2)
 {
     int count = apRemoved->count;
     int total = boxes.size;

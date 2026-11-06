@@ -670,13 +670,13 @@ struct hkpSimpleConstraintContactMgr
     hkpRigidBody* m_pEntityB;
     unsigned short m_nextProcessCollideDelay;
 
-    unsigned int FUN_00cfc5f0(const hkpCdBody& a, const hkpCdBody& b, const GskAgentInput& input,
+    unsigned int addContactPointImpl(const hkpCdBody& a, const hkpCdBody& b, const GskAgentInput& input,
                               WorldOperationEntry& output, const ConvexFeaturePairCache* contactCache, hkContactPoint& cp);
 };
 
 // Computes projected velocity at the contact point, dispatches a ContactPointProcessingData event, and removes the contact point if the result code is 1.
 // @fnv 0x00cfc5f0
-unsigned int hkpSimpleConstraintContactMgr::FUN_00cfc5f0(const hkpCdBody& a, const hkpCdBody& b,
+unsigned int hkpSimpleConstraintContactMgr::addContactPointImpl(const hkpCdBody& a, const hkpCdBody& b,
                                                          const GskAgentInput& input, WorldOperationEntry& output,
                                                          const ConvexFeaturePairCache* contactCache, hkContactPoint& cp)
 {

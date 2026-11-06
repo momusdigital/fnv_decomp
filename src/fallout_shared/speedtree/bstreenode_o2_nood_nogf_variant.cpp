@@ -79,7 +79,7 @@ struct FUN_0066d610_shell
 };
 struct bhkCapsuleShape
 {
-    unsigned int __thiscall FUN_0066d730() const;
+    unsigned int __thiscall QCinfoSize() const;
 };
 struct FUN_0066da50_t
 {
@@ -952,7 +952,7 @@ struct S_0066d880_List
 };
 struct S_0066d880_Obj
 {
-    unsigned char FUN_00666f00();
+    unsigned char IsInstance();
     int FUN_008d6f30();
 };
 struct S_0066d880_Holder
@@ -1100,7 +1100,7 @@ struct TreePointer
 };
 struct TreeLists
 {
-    unsigned short FUN_00669990();
+    unsigned short GetNumBranchLODLevels();
     unsigned short FUN_006699d0();
     void* ConvertFloatToUInt();
 };
@@ -1583,7 +1583,7 @@ struct FnvScopedContext
 };
 struct FnvModelElement
 {
-    unsigned short __thiscall FUN_00669990();
+    unsigned short __thiscall GetNumBranchLODLevels();
 };
 struct FnvModelReference
 {
@@ -1798,11 +1798,11 @@ class SceneObjectC8C
     int unk00, unk04;
     BodyC8C* m_pkBody;
 
-    void FUN_00c8c860(ParentC8C* pkParent, ArgC8C* iValue);
+    void BuildDisplayGeometry(ParentC8C* pkParent, ArgC8C* iValue);
 };
 
 // @fnv 0x00c8c860
-void SceneObjectC8C::FUN_00c8c860(ParentC8C* pkParent, ArgC8C* iValue)
+void SceneObjectC8C::BuildDisplayGeometry(ParentC8C* pkParent, ArgC8C* iValue)
 {
     AutoMemContextC8C kContext(0x10);
 

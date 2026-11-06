@@ -118,11 +118,11 @@ struct A51BF0Property : A51BF0Base
         pkDest->m_iFlags = m_iFlags;
     }
 
-    A51BF0Base* FUN_00a51bf0(A51BF0CloningProcess& kCloning);
+    A51BF0Base* CreateClone(A51BF0CloningProcess& kCloning);
 };
 
 // @fnv 0x00a51bf0
-A51BF0Base* A51BF0Property::FUN_00a51bf0(A51BF0CloningProcess& kCloning)
+A51BF0Base* A51BF0Property::CreateClone(A51BF0CloningProcess& kCloning)
 {
     A51BF0Property* pkClone = new A51BF0Property;
     CopyMemberData(pkClone, kCloning);
@@ -603,12 +603,12 @@ struct A51D30ColorLoader
 
 struct A51D30Loader : FnvBSplineColorInterpolator
 {
-    void __thiscall FUN_00a51d30(NiStream* stream);
+    void __thiscall LoadBinary(NiStream* stream);
 };
 
 // Loads spline data from a NiStream by calling base and color loader functions, then reading a key value into m_iKey.
 // @fnv 0x00a51d30
-void A51D30Loader::FUN_00a51d30(NiStream* stream)
+void A51D30Loader::LoadBinary(NiStream* stream)
 {
     reinterpret_cast<A51D30BaseLoader*>(this)->FUN_00a58080(*stream);
     reinterpret_cast<A51D30ColorLoader*>(&m_kDiffuseColor)->FUN_00a69800(stream);

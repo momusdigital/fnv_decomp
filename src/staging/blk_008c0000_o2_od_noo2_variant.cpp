@@ -472,7 +472,7 @@ void FUN_00cb9650(Node8*);
 void FUN_00c6a350(Node8*, int, int, int, int);
 void FUN_004a3e00(void*, const void*);
 void SetCollisionScale(Node8*, const hkVector4&, float, int);
-void FUN_00525340(NiPoint3*);
+void UnitizeVector(NiPoint3*);
 Node8* FUN_008cfbc0(Node8*, NiPoint3, NiPoint3, float*, bool);
 Form8* FUN_004b5260(Node8*);
 bool IsTargetInCone(Ref8*, Ref8*, int);
@@ -553,7 +553,7 @@ void Ref8::FUN_008cba30(const NiPoint3* start, const NiPoint3* end, Ref8* victim
         heading.FUN_00524ac0(FUN_00931d70());
         pitch = pitch.FUN_0043f8d0(heading);
         pitch.FUN_00439f50(1, &direction);
-        FUN_00525340(&direction);
+        UnitizeVector(&direction);
         NiPoint3 ray = *v1f4() - (direction * range).FUN_0053d280(DAT_010162c0);
         bool found = false;
         Node8* hit = FUN_008cfbc0(victim->v1d0(), ray, direction, &range, !victim->v22c(1));

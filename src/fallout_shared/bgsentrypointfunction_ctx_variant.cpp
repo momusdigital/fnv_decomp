@@ -58,7 +58,7 @@ class FUN_005d43c0_
 class FUN_005aae70_shell
 {
   public:
-    void FUN_005aae70(unsigned int, char*);
+    void SetCompileData(unsigned int, char*);
 };
 
 class FUN_00472840_impl
@@ -129,7 +129,7 @@ bool ActivateChoice::FUN_005e6ee0(TESFile* file)
         scdaData = _alloca(scdaSize4);
         memset(scdaData, 0, scdaSize4);
         file->GetChunkData(scdaData, 0);
-        reinterpret_cast<FUN_005aae70_shell*>(formStorage)->FUN_005aae70(scdaSize4, reinterpret_cast<char*>(scdaData));
+        reinterpret_cast<FUN_005aae70_shell*>(formStorage)->SetCompileData(scdaSize4, reinterpret_cast<char*>(scdaData));
         break;
 
     case 0x4f524353:  // 'SCRO'

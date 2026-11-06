@@ -19,10 +19,10 @@ struct FUN_00d1f1e0_class
         return -1;
     }
 
-    int FUN_00d1f1e0();
+    int getNumChildShapes();
 };
 
-int FUN_00d1f1e0_class::FUN_00d1f1e0()
+int FUN_00d1f1e0_class::getNumChildShapes()
 {
     int count = 0;
     int child = FUN_00d1f1e0_2();

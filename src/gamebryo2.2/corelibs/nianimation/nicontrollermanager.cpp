@@ -100,7 +100,7 @@ struct HashObj
 
 // Looks up a key in the hash table by key modulo hash size, walking the bucket chain and returning the matching item's value or 0.
 // @fnv 0x00a2ee00
-void* __fastcall FUN_00a2ee00(HashObj* pThis, int, const unsigned int* pKey)
+void* __fastcall GetAVObject(HashObj* pThis, int, const unsigned int* pKey)
 {
     unsigned int key = *pKey;
     if (key)
@@ -400,7 +400,7 @@ struct Stub
 typedef NiTFixedStringMapBase<DFALL<NiTMapItem<NiFixedString, const char*> >, const char*> Map;
 
 // @fnv 0x00a2ee40
-void __fastcall FUN_00a2ee40(char* self, int edx, NiFixedString& name, const char* obj)
+void __fastcall SetAVObject(char* self, int edx, NiFixedString& name, const char* obj)
 {
     if (!obj)
     {
@@ -483,7 +483,7 @@ struct CloningProcess
 typedef char _sizecheck_NiCloningProcess[sizeof(CloningProcess) == 16 ? 1 : -1];
 struct FUN_00a2f850_shell : public NiControllerManager
 {
-    NiObject* FUN_00a2f850(CloningProcess*);
+    NiObject* CreateClone(CloningProcess*);
 };
 
 struct BSFadeNode
@@ -500,7 +500,7 @@ struct FUN_00a2f380_shell
 };
 
 // @fnv 0x00a2f850
-NiObject* FUN_00a2f850_shell::FUN_00a2f850(CloningProcess* kCloning)
+NiObject* FUN_00a2f850_shell::CreateClone(CloningProcess* kCloning)
 {
     FUN_00a2eed0_tgt* mem = (FUN_00a2eed0_tgt*)BSFadeNode::operator new(0x7c);
     NiObject* pkObject;
@@ -1176,12 +1176,12 @@ class FUN_00a2e9f0_cls
     char unk69[0x78 - 0x69];
     void* m_pkLast;
     void FUN_00a6d730(NiStreamImpl& stream);
-    void FUN_00a2e9f0(NiStreamImpl& stream);
+    void SaveBinary(NiStreamImpl& stream);
 };
 
 // Calls FUN_00a6d730, writes m_bFlag and m_usArraySize, saves link IDs for each non-null m_ppArray entry and for m_pkLast.
 // @fnv 0x00a2e9f0
-void FUN_00a2e9f0_cls::FUN_00a2e9f0(NiStreamImpl& stream)
+void FUN_00a2e9f0_cls::SaveBinary(NiStreamImpl& stream)
 {
     FUN_00a6d730(stream);
     bool bFlag = m_bFlag;
@@ -1211,10 +1211,10 @@ struct SequenceNotifier
 };
 struct NiControllerManagerFacade : NiControllerManager
 {
-    void FUN_00a2eaa0(NiAVObject* source);
+    void LoadBinary(NiAVObject* source);
 };
 // @fnv 0x00a2eaa0
-void NiControllerManagerFacade::FUN_00a2eaa0(NiAVObject* source)
+void NiControllerManagerFacade::LoadBinary(NiAVObject* source)
 {
     FUN_00a6d5e0(source);
     SequenceNotifier* notifier = *reinterpret_cast<SequenceNotifier**>(reinterpret_cast<char*>(source) + 0x24c);
@@ -1280,11 +1280,11 @@ void* __cdecl FUN_00aa13e0(unsigned int size);
 
 struct FUN_00a2f610_cls : public NiControllerManager
 {
-    bool FUN_00a2f610(int arg);
+    bool RegisterStreamables(int arg);
 };
 
 // @fnv 0x00a2f610
-bool FUN_00a2f610_cls::FUN_00a2f610(int arg)
+bool FUN_00a2f610_cls::RegisterStreamables(int arg)
 {
     if (!((FnvStandInA*)this)->FUN_00a6d0f0(arg))
     {
@@ -1457,12 +1457,12 @@ struct FNV_EqualBase
 };
 struct FUN_00a2e320_shell : NiControllerManager
 {
-    bool FUN_00a2e320(FUN_00a2e320_shell* rhs);
+    bool IsEqual(FUN_00a2e320_shell* rhs);
 };
 
 // Compares this controller manager with rhs: base equality, map entries by key, then each object pointer pair, returning false on any mismatch.
 // @fnv 0x00a2e320
-bool FUN_00a2e320_shell::FUN_00a2e320(FUN_00a2e320_shell* apOther)
+bool FUN_00a2e320_shell::IsEqual(FUN_00a2e320_shell* apOther)
 {
     FUN_00a2e320_shell* other = apOther;
     if (!reinterpret_cast<FNV_EqualBase*>(this)->FUN_00a6cc80(reinterpret_cast<FNV_EqualBase*>(other)))

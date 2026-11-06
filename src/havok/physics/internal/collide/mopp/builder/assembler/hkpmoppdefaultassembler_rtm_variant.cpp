@@ -1181,7 +1181,7 @@ struct FUN_00e07b90_vector
 {
     float x, y, z, w;
 };
-void __stdcall FUN_00e07b90(const FUN_00e07b90_bounds* bounds, FUN_00e07b90_vector* result);
+void __stdcall getScaleInfo(const FUN_00e07b90_bounds* bounds, FUN_00e07b90_vector* result);
 struct S_00e07d60_Info
 {
     float x;
@@ -1728,7 +1728,7 @@ struct Tree : public FUN_00e09640_class
     virtual void vf08() throw();
     virtual void vf0c() throw();
     virtual void vf10() throw();
-    virtual void FUN_00e08cc0(S_00e07da0_Node* node, int arg2, int arg3);
+    virtual void assemble(S_00e07da0_Node* node, int arg2, int arg3);
     virtual void vf18(S_00e07da0_Node* node, void* p) throw();
 
     int unk08;

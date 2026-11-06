@@ -723,10 +723,10 @@ struct NiStream
 struct HC1Base
 {
     bool FUN_00aa0ad0(NiStream*);
-    bool FUN_00ca54c0(NiStream*);
+    bool RegisterStreamables(NiStream*);
 };
 // @fnv 0x00ca54c0
-bool HC1Base::FUN_00ca54c0(NiStream* stream)
+bool HC1Base::RegisterStreamables(NiStream* stream)
 {
     NiStream* s = this ? *(NiStream**)((char*)this + 8) : 0;
     (*(NiStream**)((char*)s + 0x84))->v54(stream);
@@ -874,10 +874,10 @@ struct BaseThunk
 };
 struct FUN_00cac070_Stub : BaseThunk
 {
-    void FUN_00cac070(NiStream&);
+    void RegisterStreamables(NiStream&);
 };
 // @fnv 0x00cac070
-void FUN_00cac070_Stub::FUN_00cac070(NiStream& stream)
+void FUN_00cac070_Stub::RegisterStreamables(NiStream& stream)
 {
     if (m_8)
     {
@@ -3250,12 +3250,12 @@ struct S_00ca6810_Class
     S_00ca6810_Inner* unk08;
 
     void __thiscall FUN_00aa0ad0(int arg);
-    void __thiscall FUN_00ca6810(int arg);
+    void __thiscall RegisterStreamables(int arg);
 };
 
 // Calls slot54(arg) on each callable in unk08->unk98 up to unk08->unkA0 entries, then calls FUN_00aa0ad0(arg).
 // @fnv 0x00ca6810
-void S_00ca6810_Class::FUN_00ca6810(int aiValue)
+void S_00ca6810_Class::RegisterStreamables(int aiValue)
 {
     int count;
 
@@ -6390,12 +6390,12 @@ class FUN_00cb9c70_cls
     FUN_00cb9c70_item** m_ppItems;
     unsigned int m_uiCount;
     bool Check(int a1);
-    bool FUN_00cb9c70(int a1);
+    bool RegisterStreamables(int a1);
 };
 
 // Calls Check(a1); if it returns true, calls v21(a1) on each of the m_uiCount items in m_ppItems and returns the Check result.
 // @fnv 0x00cb9c70
-bool FUN_00cb9c70_cls::FUN_00cb9c70(int aiValue)
+bool FUN_00cb9c70_cls::RegisterStreamables(int aiValue)
 {
     bool result = Check(aiValue);
     if (result)
@@ -11338,13 +11338,13 @@ struct Holder_ca9e60
 
 struct Host_ca9e60
 {
-    void* __thiscall FUN_00ca9e60(void* arg);
+    void* __thiscall CreateClone(void* arg);
     void __thiscall FUN_00c89730(void* a, void* b);
 };
 
 // Allocates a bhkRefObject, initializes it, increments two global counters, passes it and arg to FUN_00c89730, and returns it.
 // @fnv 0x00ca9e60
-void* Host_ca9e60::FUN_00ca9e60(void* arg)
+void* Host_ca9e60::CreateClone(void* arg)
 {
     ScopedMemContext_ca9e60 context(0x10);
     FUN_00c876f0();
@@ -11599,7 +11599,7 @@ void BufferOwnerC5E0::FreeBuffer(bool bFree)
 }
 
 namespace fnv_00cac6b0 {
-// ---- FUN_00cac6b0 candidate ----
+// ---- GetViewerStrings candidate ----
 
 struct NiRTTI
 {
@@ -11671,7 +11671,7 @@ struct ProxyOwner
     FUN_00cac910_shell* m_8;
 
     void FUN_00c878c0(SArr046* pkStrings);
-    void FUN_00cac6b0(SArr046* pkStrings);
+    void GetViewerStrings(SArr046* pkStrings);
 };
 
 static const char kCac6b0Pos[] = "Pos";
@@ -11679,7 +11679,7 @@ static const char kCac6b0Vel[] = "Vel";
 
 // Appends to pkStrings the class name, then the Pos and Vel vectors read from the proxy m_8 when it is present.
 // @fnv 0x00cac6b0
-void ProxyOwner::FUN_00cac6b0(SArr046* pkStrings)
+void ProxyOwner::GetViewerStrings(SArr046* pkStrings)
 {
     TlsGuard_t guard;
 
@@ -12398,7 +12398,7 @@ class bhkNiTriStripsShape
     int unk04;
     StripsShape* m_pShape;
     float GetScaleValue();
-    void FUN_00ca6b60(NiNode* parent, int arg);
+    void BuildDisplayGeometry(NiNode* parent, int arg);
 };
 
 static inline int GetNumStrips(bhkNiTriStripsShape* shape)
@@ -12423,7 +12423,7 @@ static inline bool IsTriStripsData(NiObject* obj)
 
 // For each strip entry with NiTriStripsData, creates a NiTriStrips, sets its scale, calls SetupCollisionGeometry, and attaches it to parent.
 // @fnv 0x00ca6b60
-void bhkNiTriStripsShape::FUN_00ca6b60(NiNode* parent, int arg)
+void bhkNiTriStripsShape::BuildDisplayGeometry(NiNode* parent, int arg)
 {
     ScopedMemContext context(0x10);
     int count = GetNumStrips(this);
@@ -12949,7 +12949,7 @@ void* S00cb87e0_Obj::GetNode(bool* abCreated)
 }
 
 namespace fnv_00cb96c0 {
-// FUN_00cb96c0: CloneSpec::Clone(void* param) - allocate 0x70, 16-align with pad byte,
+// CreateClone: CloneSpec::Clone(void* param) - allocate 0x70, 16-align with pad byte,
 // construct, run base clone-into helper, copy cloneable fields, return the new object.
 
 struct CloneableObj
@@ -13013,12 +13013,12 @@ struct CloneSpec : public CloneableObj
         m_f50 = 0.0f;
     }
 
-    CloneSpec* FUN_00cb96c0(void* param);
+    CloneSpec* CreateClone(void* param);
 };
 
 // Allocates a new CloneSpec, calls FUN_00a6cfe0 on this with the new object and param, then copies m_u40 and m_f50 into it and returns it.
 // @fnv 0x00cb96c0
-CloneSpec* CloneSpec::FUN_00cb96c0(void* param)
+CloneSpec* CloneSpec::CreateClone(void* param)
 {
     CloneSpec* obj = new CloneSpec();
     FUN_00a6cfe0(obj, param);
@@ -13664,11 +13664,11 @@ struct FUN_00ca6780_cls
     virtual void v2B();
     virtual void v2C();
     virtual volatile unsigned int* v2D(unsigned char* out);
-    int FUN_00ca6780(FUN_00ca6780_arg* a1);
+    int LoadCInfo(FUN_00ca6780_arg* a1);
 };
 
 // @fnv 0x00ca6780
-int FUN_00ca6780_cls::FUN_00ca6780(FUN_00ca6780_arg* a1)
+int FUN_00ca6780_cls::LoadCInfo(FUN_00ca6780_arg* a1)
 {
     unsigned int tmp;
     volatile unsigned int* p = v2D((unsigned char*)&tmp + 3);
@@ -15174,12 +15174,12 @@ struct Owner9bd0
     int u;
     Ctx9bd0* ctx;
     void ReleaseObject(Rec9bd0*, int);
-    void FUN_00ca9bd0(Rec9bd0* r, Key9bd0 key);
+    void CloneData(Rec9bd0* r, Key9bd0 key);
 };
 extern "C" void _ReadWriteBarrier();
 // Uses r or allocates a Rec9bd0, attaches an item made by CreateF4A30Result from ctx->coll and key, copies ctx->score, then calls ReleaseObject(rec, key).
 // @fnv 0x00ca9bd0
-void Owner9bd0::FUN_00ca9bd0(Rec9bd0* apRecord, Key9bd0 key)
+void Owner9bd0::CloneData(Rec9bd0* apRecord, Key9bd0 key)
 {
     TlsGuard_t s;
     Ctx9bd0* c = ctx;
@@ -16014,12 +16014,12 @@ struct FUN_00cb86f0_class
     virtual void v48();
     virtual void v49();
     virtual void v50(void* obj, int param);
-    cb86f0_obj* FUN_00cb86f0(int a1);
+    cb86f0_obj* CreateClone(int a1);
 };
 
 // Allocates a cb86f0_obj, calls v50 on it with a1, and returns the new object.
 // @fnv 0x00cb86f0
-cb86f0_obj* FUN_00cb86f0_class::FUN_00cb86f0(int a1)
+cb86f0_obj* FUN_00cb86f0_class::CreateClone(int a1)
 {
     TlsGuard_t guard;
     FUN_00c876f0();

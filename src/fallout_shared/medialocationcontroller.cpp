@@ -453,7 +453,7 @@ struct TESClimate
 };
 
 // @fnv 0x00595ea0
-float __fastcall FUN_00595ea0(char* apThis)
+float __fastcall GetSunriseBegin(char* apThis)
 {
     if ((*(unsigned int*)(apThis + 0x118) & 0x100) && *(TESClimate**)(apThis + 0xc))
     {
@@ -514,7 +514,7 @@ struct TESClimate
 };
 
 // @fnv 0x00595f50
-float __fastcall FUN_00595f50(Sky* pThis)
+float __fastcall GetSunriseEnd(Sky* pThis)
 {
     if ((*(unsigned int*)((char*)pThis + 0x118) & 0x200) && *(TESClimate**)((char*)pThis + 0xc))
     {
@@ -535,7 +535,7 @@ struct TESClimate
 
 // If the 0x400 flag is set and a TESClimate is present, stores its value for index 2 divided by 6.0 in DAT_011ca9f0 and clears the flag; returns DAT_011ca9f0.
 // @fnv 0x00595fc0
-float __fastcall FUN_00595fc0(char* pThis)
+float __fastcall GetSunsetBegin(char* pThis)
 {
     if ((*(unsigned int*)(pThis + 0x118) & 0x400) && *(TESClimate**)(pThis + 0xc))
     {
@@ -558,10 +558,10 @@ struct FUN_00596030_cls
     Inner* inner;
     char pad1[0x118 - 0x10];
     unsigned int flags;
-    float FUN_00596030();
+    float GetSunsetEnd();
 };
 // @fnv 0x00596030
-float FUN_00596030_cls::FUN_00596030()
+float FUN_00596030_cls::GetSunsetEnd()
 {
     if ((flags & 0x800) && inner)
     {
@@ -1081,9 +1081,9 @@ bool FUN_00596d70_shell::FUN_00596d70(TESForm* apForm)
 
 struct ObjT
 {
-    float FUN_00595f50();
-    float FUN_00595fc0();
-    float FUN_00596030();
+    float GetSunriseEnd();
+    float GetSunsetBegin();
+    float GetSunsetEnd();
 };
 struct GlobT
 {
@@ -1091,7 +1091,7 @@ struct GlobT
 };
 extern GlobT* DAT_011dea10;
 extern double DAT_01034200;
-float __fastcall FUN_00595ea0(char* apThis);
+float __fastcall GetSunriseBegin(char* apThis);
 float __fastcall GetFieldEC(const char* pThis);
 
 struct ThisT
@@ -1141,8 +1141,8 @@ bool ThisT::IsWithinRange()
     p = DAT_011dea10->FUN_008d8520();
     if (FUN_00595e80())
     {
-        return (p != 0) ? (((FUN_00595ea0((char*)p) + p->FUN_00595f50()) / 2.0 <= GetFieldEC((const char*)p)) &&
-                           (GetFieldEC((const char*)p) <= (p->FUN_00595fc0() + p->FUN_00596030()) / 2.0))
+        return (p != 0) ? (((GetSunriseBegin((char*)p) + p->GetSunriseEnd()) / 2.0 <= GetFieldEC((const char*)p)) &&
+                           (GetFieldEC((const char*)p) <= (p->GetSunsetBegin() + p->GetSunsetEnd()) / 2.0))
                         : true;
     }
     else

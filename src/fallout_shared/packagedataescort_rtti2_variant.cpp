@@ -78,11 +78,11 @@ struct EscortComparison
     LocationDescriptor* m_pPackageTarget;
     int m_iValue;
 
-    bool __thiscall FUN_0067be40(TESPackageData* compare);
+    bool __thiscall Compare(TESPackageData* compare);
 };
 
 // @fnv 0x0067be40
-bool EscortComparison::FUN_0067be40(TESPackageData* compare)
+bool EscortComparison::Compare(TESPackageData* compare)
 {
     EscortComparison* other = reinterpret_cast<EscortComparison*>(dynamic_cast<TESEscortPackageData*>(compare));
     if (!other)

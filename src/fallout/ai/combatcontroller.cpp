@@ -651,11 +651,11 @@ struct CombatController
     void UpdatePointer();
     void FUN_0097d9d0();
     void UpdateActorValues();
-    void FUN_00982310(BGSLoadFormBuffer* apLoadGameBuffer);
+    void FinishLoadGame(BGSLoadFormBuffer* apLoadGameBuffer);
 };
 // Reverts the combat controller from the load buffer, then calls FUN_0097f390, UpdatePointer, FUN_0097d9d0 and UpdateActorValues.
 // @fnv 0x00982310
-void CombatController::FUN_00982310(BGSLoadFormBuffer* apLoadGameBuffer)
+void CombatController::FinishLoadGame(BGSLoadFormBuffer* apLoadGameBuffer)
 {
     ((TESNPC*)this)->Revert(apLoadGameBuffer);
     this->FUN_0097f390();
@@ -875,7 +875,7 @@ struct InventoryStackRecord
 };
 struct FUN_004bfba0_shell
 {
-    InventoryStackRecord* FUN_004bfba0(TESBoundObject*, int, int);
+    InventoryStackRecord* GetObjectInList(TESBoundObject*, int, int);
 };
 // Returns the original container count for apObject plus the change-list index, treating an empty change entry as one item.
 // @fnv 0x004c8f30
@@ -888,7 +888,7 @@ int FUN_004c8f30_shell::FUN_004c8f30(int apObject)
     if (icount < 0)
         icount *= -1;
     InventoryStackRecord* pchange =
-        reinterpret_cast<FUN_004bfba0_shell*>(this)->FUN_004bfba0(reinterpret_cast<TESBoundObject*>(apObject), 1, 0);
+        reinterpret_cast<FUN_004bfba0_shell*>(this)->GetObjectInList(reinterpret_cast<TESBoundObject*>(apObject), 1, 0);
     if (pchange)
     {
         if (icount == 0 && !reinterpret_cast<BSSimpleListRef*>(pchange)->GetItem())
@@ -901,7 +901,7 @@ int FUN_004c8f30_shell::FUN_004c8f30(int apObject)
 
 struct FUN_00666f00_shell
 {
-    bool FUN_00666f00();
+    bool IsInstance();
 };
 struct FUN_009804d0_shell
 {
@@ -910,9 +910,9 @@ struct FUN_009804d0_shell
 // @fnv 0x009804d0
 bool FUN_009804d0_shell::FUN_009804d0()
 {
-    if (*((int*)this + 0x21) && ((FUN_00666f00_shell*)*((int*)this + 0x21))->FUN_00666f00())
+    if (*((int*)this + 0x21) && ((FUN_00666f00_shell*)*((int*)this + 0x21))->IsInstance())
         return true;
-    if (*((int*)this + 0x22) && ((FUN_00666f00_shell*)*((int*)this + 0x22))->FUN_00666f00())
+    if (*((int*)this + 0x22) && ((FUN_00666f00_shell*)*((int*)this + 0x22))->IsInstance())
         return true;
     if (!*((int*)this + 0x21) && !*((int*)this + 0x22))
         return true;
@@ -1387,7 +1387,7 @@ struct BSThread
 };
 struct FUN_006797c0_shell
 {
-    void FUN_006797c0(void*);
+    void AppendSaveLoadFormBuffer(void*);
 };
 struct FUN_009a5eb0_shell
 {
@@ -1438,12 +1438,12 @@ struct CombatController
     char pad143;
     int i144, i148;
     void FUN_00982350(CombatProcedure** p, BGSSaveFormBuffer* buf);
-    void FUN_009819f0(BGSSaveFormBuffer* apSaveGameBuffer);
+    void AppendSaveLoadFormBuffer(BGSSaveFormBuffer* apSaveGameBuffer);
 };
 // @fnv 0x009819f0
-void CombatController::FUN_009819f0(BGSSaveFormBuffer* apSaveGameBuffer)
+void CombatController::AppendSaveLoadFormBuffer(BGSSaveFormBuffer* apSaveGameBuffer)
 {
-    ((FUN_006797c0_shell*)this)->FUN_006797c0(apSaveGameBuffer);
+    ((FUN_006797c0_shell*)this)->AppendSaveLoadFormBuffer(apSaveGameBuffer);
     apSaveGameBuffer->SerializeFormData(m_pkAttacker, 0);
     apSaveGameBuffer->SerializeFormData(pTarget, 0);
     unsigned int icombatGroupID = m_pCombatData->GetCenterX();
@@ -2140,7 +2140,7 @@ struct PlayerCharacter
 
 struct CombatManagerSaveLoad
 {
-    ActorCombatGroup* FUN_00991f80(Actor*);
+    ActorCombatGroup* SplitPlayerCombatGroup(Actor*);
 };
 
 extern void* _g_thePlayer;
@@ -2168,7 +2168,7 @@ void FUN_0097f930_shell::FUN_0097f930(Actor* apTarget, int iPriority, bool abHig
         ((PlayerCharacter*)_g_thePlayer)->FUN_00967220(m_pkAttacker, 1);
         if (m_pCombatData == ((PlayerCharacter*)_g_thePlayer)->GetCombatGroup())
         {
-            m_pCombatData = ((CombatManagerSaveLoad*)BGSSaveLoadGlobalDataWorldspacePtr)->FUN_00991f80(m_pkAttacker);
+            m_pCombatData = ((CombatManagerSaveLoad*)BGSSaveLoadGlobalDataWorldspacePtr)->SplitPlayerCombatGroup(m_pkAttacker);
         }
     }
 
@@ -2623,12 +2623,12 @@ struct TES
 
 struct ExtraH
 {
-    void FUN_005c1ae0();
+    void ForceStopCombat();
 };
 
 struct FUN_0067a700_shell
 {
-    bool FUN_0067a700();
+    bool GetContinueDuringCombat();
 };
 
 struct FUN_0067a720_shell
@@ -2714,13 +2714,13 @@ class CombatController
 void CombatController::FUN_00981380()
 {
     bool bResult;
-    if (((FUN_00981300_shell*)this)->FUN_00981300() || ((FUN_0067a700_shell*)this)->FUN_0067a700())
+    if (((FUN_00981300_shell*)this)->FUN_00981300() || ((FUN_0067a700_shell*)this)->GetContinueDuringCombat())
     {
         TESPackage* package = 0;
         bResult = ((AIProcess*)pActor->GetLogDate())->MethodB4(pActor, &package);
         if (bResult)
         {
-            ((ExtraH*)this)->FUN_005c1ae0();
+            ((ExtraH*)this)->ForceStopCombat();
         }
         else if (package)
         {
@@ -4205,7 +4205,7 @@ struct UpdateAction
     virtual void Slot2c();
     virtual void Slot30();
     bool IsField8One();
-    bool FUN_00666f00();
+    bool IsInstance();
 };
 struct UpdateProcess
 {
@@ -5310,7 +5310,7 @@ void CombatUpdater::FUN_0097da50()
     {
         UpdateAction* item = actions.FUN_006a7ad0(i);
         item->Update();
-        if (item->FUN_00666f00() || item->IsField8One())
+        if (item->IsInstance() || item->IsField8One())
         {
             if (item->IsField8One())
                 InitFromArg(item);

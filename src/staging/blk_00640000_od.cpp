@@ -1658,7 +1658,7 @@ struct Holder00aad6b0
     void __thiscall FUN_00aad6b0();
 };
 // @fnv 0x00652fc0
-void __cdecl FUN_00652fc0(float a1, int a2, int a3)
+void __cdecl RandomizeFaceGenetic(float a1, int a2, int a3)
 {
     if (a3 != 0 && a2 != 0)
     {
@@ -2732,7 +2732,7 @@ struct PropHelper
 struct SkyShaderProperty
 {
     void SetTexture(NiTexture*);
-    void FUN_00634900(int*);
+    void SetTextureFile(int*);
 };
 void* DynamicCastByRTTI(const NiRTTI*, NiProperty*);
 extern int DAT_011f49e0;
@@ -2767,14 +2767,14 @@ void FUN_00642940_class::FUN_00642940()
     if (obj)
     {
         obj->SetTexture(0);
-        obj->FUN_00634900(&DAT_011f49e0);
+        obj->SetTextureFile(&DAT_011f49e0);
     }
     pProperty = ((PropHelper*)((Flt*)((char*)this + 0x14))->operator unsigned int())->GetProperty(3);
     obj = (SkyShaderProperty*)DynamicCastByRTTI((const NiRTTI*)&DAT_012005b8, (NiProperty*)pProperty);
     if (obj)
     {
         obj->SetTexture(0);
-        obj->FUN_00634900(&DAT_011f49e0);
+        obj->SetTextureFile(&DAT_011f49e0);
     }
 }
 
@@ -3618,7 +3618,7 @@ extern FloatSetting_646400 gs_011ce808;
 unsigned int DialogueRandom();
 
 // @fnv 0x00646400
-bool FUN_00646400(AVOwnerStub_646400* owner, int value)
+bool CheckKnockdown(AVOwnerStub_646400* owner, int value)
 {
     bool result2 = false;
     float current4 = owner->GetCurAV(16);
@@ -4542,19 +4542,19 @@ struct S_006503b0_List
     void FUN_00559120(int* pos, int* out, S_006503b0_Slot* slot);
     void RemoveKey(int item);
 };
-void __cdecl FUN_00652140();
-void __cdecl FUN_00652190();
+void __cdecl LockFaceGenAccess();
+void __cdecl UnlockFaceGenAccess();
 struct S_006503b0_Owner
 {
     int unk00;
     S_006503b0_List list04;
     void FUN_006503b0();
 };
-// Iterates list04, removing each item whose nested slot reports 1, then calls FUN_00652140 and FUN_00652190 around the loop.
+// Iterates list04, removing each item whose nested slot reports 1, then calls LockFaceGenAccess and UnlockFaceGenAccess around the loop.
 // @fnv 0x006503b0
 void S_006503b0_Owner::FUN_006503b0()
 {
-    FUN_00652140();
+    LockFaceGenAccess();
     int pos2 = list04.FUN_004b9ba0();
     int item3;
     S_006503b0_Slot slot(0);
@@ -4567,7 +4567,7 @@ void S_006503b0_Owner::FUN_006503b0()
         }
         slot.FUN_0066b0d0(0);
     }
-    FUN_00652190();
+    UnlockFaceGenAccess();
 }
 
 struct ModelHelper
@@ -4594,11 +4594,11 @@ struct NPX
 struct FileNames
 {
     const char* GetFloatValue();
-    const char* FUN_00650600();
+    const char* GetEGTFilename();
 };
 unsigned FUN_0044a670(const char*);
-void FUN_00652140();
-void FUN_00652190();
+void LockFaceGenAccess();
+void UnlockFaceGenAccess();
 unsigned gm_GetTickCount();
 struct CacheMap
 {
@@ -4611,18 +4611,18 @@ struct Target
     CacheMap map;
     bool dirty;
     void FUN_00650ba0(ModelRecord*);
-    bool FUN_00650480(FileNames*);
+    bool LoadEGMData(FileNames*);
 };
 // @fnv 0x00650480
-bool Target::FUN_00650480(FileNames* pFileNames)
+bool Target::LoadEGMData(FileNames* pFileNames)
 {
     NPX a(0);
     if (!pFileNames || !pFileNames->GetFloatValue() || !FUN_0044a670(pFileNames->GetFloatValue()))
         return false;
     bool p = false;
-    FUN_00652140();
+    LockFaceGenAccess();
     if (map.FUN_006c62d0(pFileNames->GetFloatValue(), a) ||
-        (pFileNames->FUN_00650600() && map.FUN_006c62d0(pFileNames->FUN_00650600(), a)))
+        (pFileNames->GetEGTFilename() && map.FUN_006c62d0(pFileNames->GetEGTFilename(), a)))
     {
         a.FUN_00559450()->time = gm_GetTickCount();
         FUN_00650ba0(a.FUN_00559450());
@@ -4630,7 +4630,7 @@ bool Target::FUN_00650480(FileNames* pFileNames)
         dirty = true;
         p = true;
     }
-    FUN_00652190();
+    UnlockFaceGenAccess();
     return p;
 }
 
@@ -6765,10 +6765,10 @@ struct FUN_00649680 : NiMemObject
     int value1b8;
     int value1bc;
     FUN_00649680();
-    FUN_00649680* FUN_0064c5a0();
+    FUN_00649680* CreateCopyBS();
 };
 // @fnv 0x0064c5a0
-FUN_00649680* FUN_00649680::FUN_0064c5a0()
+FUN_00649680* FUN_00649680::CreateCopyBS()
 {
     FUN_00649680* copy = new FUN_00649680;
     copy->member10.CopyFrom(&member10);

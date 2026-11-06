@@ -308,11 +308,11 @@ bool TESObjectARMO::Load(TESFile* file)
 
 struct FUN_00514450_shell : public TESBipedModelForm
 {
-    bool FUN_00514450();
+    bool IsMedium();
 };
 
 // @fnv 0x00514450
-bool FUN_00514450_shell::FUN_00514450()
+bool FUN_00514450_shell::IsMedium()
 {
     return *((unsigned char*)this + 8) & 8;
 }

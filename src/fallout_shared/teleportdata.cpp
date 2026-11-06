@@ -210,14 +210,14 @@ struct UnkArg
 };
 struct UnkThis : BaseProcess
 {
-    int FUN_0043a3f0();
-    UnkArg* FUN_0043a390(UnkArg*);
+    int GetTeleportSpace();
+    UnkArg* GetTeleportWorldLocation(UnkArg*);
 };
-// Calls a->FUN_0043a3c0 with GetCurrentProcessData() and FUN_0043a3f0(), then returns a.
+// Calls a->FUN_0043a3c0 with GetCurrentProcessData() and GetTeleportSpace(), then returns a.
 // @fnv 0x0043a390
-UnkArg* UnkThis::FUN_0043a390(UnkArg* apArg)
+UnkArg* UnkThis::GetTeleportWorldLocation(UnkArg* apArg)
 {
-    apArg->FUN_0043a3c0(GetCurrentProcessData(), FUN_0043a3f0());
+    apArg->FUN_0043a3c0(GetCurrentProcessData(), GetTeleportSpace());
     return apArg;
 }
 
@@ -242,11 +242,11 @@ struct Callee_575ca0
 struct Caller_43a3f0
 {
     Callee_575ca0* p;
-    int FUN_0043a3f0();
+    int GetTeleportSpace();
 };
 // Returns the result of calling FUN_00575ca0 on p when p is non-null, otherwise returns 0.
 // @fnv 0x0043a3f0
-int Caller_43a3f0::FUN_0043a3f0()
+int Caller_43a3f0::GetTeleportSpace()
 {
     return p ? p->FUN_00575ca0() : 0;
 }

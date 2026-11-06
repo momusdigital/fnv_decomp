@@ -37,11 +37,11 @@ struct S_00d49600
     int unk64;
     int unk68;
     float unk6C;
-    float FUN_00d49600(int x, int z);
+    float getHeightAtImpl(int x, int z);
 };
 // Returns the z component of the vector at unk60 indexed by (unk68 - z) * unk10 + x, plus unk6C.
 // @fnv 0x00d49600
-float S_00d49600::FUN_00d49600(int x, int z)
+float S_00d49600::getHeightAtImpl(int x, int z)
 {
     return unk60[(unk68 - z) * unk10 + x].z + unk6C;
 }

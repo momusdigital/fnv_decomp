@@ -93,7 +93,7 @@ struct FakeRenderer
 };
 struct FUN_00e898c0_shell : NiD3DPixelShader
 {
-    void FUN_00e898c0();
+    void DestroyRendererData();
 };
 
 struct FakeD3DDevice9

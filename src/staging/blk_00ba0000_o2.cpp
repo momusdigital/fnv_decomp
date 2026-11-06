@@ -565,7 +565,7 @@ int __cdecl GetTableValue(int aiIndex)
 
 struct LodShaderBase
 {
-    void __thiscall FUN_00e814b0();
+    void __thiscall RecreateRendererData();
 };
 struct FUN_00ba5100_Class
 {
@@ -576,7 +576,7 @@ struct FUN_00ba5100_Class
     void* m_0x80;
     void __thiscall FUN_00ba5100();
 };
-// If m_0x28_flag is set, calls virtual methods 40 and 34 on m_0x7c and m_0x80, then calls FUN_00e814b0 on this.
+// If m_0x28_flag is set, calls virtual methods 40 and 34 on m_0x7c and m_0x80, then calls RecreateRendererData on this.
 // @fnv 0x00ba5100
 void __thiscall FUN_00ba5100_Class::FUN_00ba5100()
 {
@@ -585,7 +585,7 @@ void __thiscall FUN_00ba5100_Class::FUN_00ba5100()
         ((void(__thiscall*)(void*))(void*)((*reinterpret_cast<void***>(m_0x7c))[40]))(m_0x7c);
         ((void(__thiscall*)(void*))(void*)((*reinterpret_cast<void***>(m_0x80))[34]))(m_0x80);
     }
-    ((LodShaderBase*)this)->FUN_00e814b0();
+    ((LodShaderBase*)this)->RecreateRendererData();
 }
 
 struct NiD3DPass;
@@ -1377,7 +1377,7 @@ void FUN_00bb9660_Class::FUN_00bb9660()
         if (p)
             (*(void(__thiscall**)(void*))(*(int*)p + 0x88))(p);
     }
-    FUN_00e814b0();
+    RecreateRendererData();
 }
 
 extern char DAT_01200863;
@@ -13666,7 +13666,7 @@ extern int DAT_011f91e4;
 extern bool DAT_011f9ef0;
 extern float DAT_01200550, DAT_01200554;
 extern RgbaColor DAT_01200570, DAT_01200520, DAT_01200510;
-D3DXMATRIXBB2* __stdcall FUN_00ee6dda(D3DXMATRIXBB2*, float*, const D3DXMATRIXBB2*);
+D3DXMATRIXBB2* __stdcall D3DXMatrixInverse(D3DXMATRIXBB2*, float*, const D3DXMATRIXBB2*);
 NiPoint3* __stdcall FUN_00ee6df2(NiPoint3*, const NiPoint3*, const D3DXMATRIXBB2*);
 NiPoint3* __stdcall FUN_00ee6dec(NiPoint3*, const NiPoint3*);
 struct ACList
@@ -13848,7 +13848,7 @@ int ACShader::FUN_00baac10(int a, int b, int c, int d, ACObject* object, int f, 
     D3DXMATRIXBB2 world, inverse;
     GetD3DFromNiBB2(world, *transform);
     unsigned int flags = DAT_011f91e4;
-    FUN_00ee6dda(&inverse, 0, &world);
+    D3DXMatrixInverse(&inverse, 0, &world);
     UpPair upPair;
     upPair.up.x = 0.0f;
     upPair.up.y = 1.0f;

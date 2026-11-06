@@ -200,12 +200,12 @@ struct NiSkinInstanceStub : NiObjectBaseStub
 
     bool IsCloneable(NiCloningProcessStub& kCloning);
     void CopyMemberData(NiSkinInstanceStub* pkDest, NiCloningProcessStub& kCloning);
-    NiSkinInstanceStub* FUN_00a86830(NiCloningProcessStub& kCloning);
+    NiSkinInstanceStub* CreateClone(NiCloningProcessStub& kCloning);
 };
 
 // Clones the skin instance when cloneable, remapping the skin root and bone objects through the cloning map and copying the bone pointer array.
 // @fnv 0x00a86830
-NiSkinInstanceStub* NiSkinInstanceStub::FUN_00a86830(NiCloningProcessStub& kCloning)
+NiSkinInstanceStub* NiSkinInstanceStub::CreateClone(NiCloningProcessStub& kCloning)
 {
     if (!IsCloneable(kCloning))
         return this;
@@ -435,11 +435,11 @@ struct Skin
     Root* partition;
     Named* parent;
     BonePtr* bones;
-    void FUN_00a86920(Strings*);
+    void GetViewerStrings(Strings*);
 };
 // Adds skin and parent labels, hardware partition and bone count values, sorted bone labels, then calls partition->Describe.
 // @fnv 0x00a86920
-void Skin::FUN_00a86920(Strings* apStrings)
+void Skin::GetViewerStrings(Strings* apStrings)
 {
     ClearStrings(apStrings);
     apStrings->Add(CopyName(globalName));

@@ -160,11 +160,11 @@ struct FUN_00a344f0_shell
 
 struct FUN_004eec20_shell
 {
-    NiObject* __thiscall FUN_004eec20(CloningProcess* arCloneData);
+    NiObject* __thiscall CreateClone(CloningProcess* arCloneData);
 };
 
 // @fnv 0x004eec20
-NiObject* __thiscall FUN_004eec20_shell::FUN_004eec20(CloningProcess* arCloneData)
+NiObject* __thiscall FUN_004eec20_shell::CreateClone(CloningProcess* arCloneData)
 {
     return ((FUN_00a344f0_shell*)this)->FUN_00a344f0(arCloneData);
 }
@@ -182,11 +182,11 @@ void FUN_00a34540_shell::FUN_00a34540(NiTPrimitiveArray_char_ptr* pkStrings)
 
 struct FUN_004eec40_shell : BSAnimGroupSequence
 {
-    void FUN_004eec40(NiTPrimitiveArray_char_ptr* pkStrings);
+    void GetViewerStrings(NiTPrimitiveArray_char_ptr* pkStrings);
 };
 
 // @fnv 0x004eec40
-void FUN_004eec40_shell::FUN_004eec40(NiTPrimitiveArray_char_ptr* pkStrings)
+void FUN_004eec40_shell::GetViewerStrings(NiTPrimitiveArray_char_ptr* pkStrings)
 {
     ((FUN_00a34540_shell*)this)->FUN_00a34540(pkStrings);
 }

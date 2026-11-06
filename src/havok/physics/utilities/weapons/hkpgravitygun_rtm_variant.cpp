@@ -398,7 +398,7 @@ struct hkpGravityGunEx : public hkpGravityGun
     void FUN_00e45fb0(GunTransform* a4, GunArg3* a3, DDCC60World* world);
     void FUN_00e45c90(hkReal dt, GunTransform* a4, GunArg3* a3);
 
-    void FUN_00e46140(hkReal dt, DDCC60World* world, GunArg3* a3, GunTransform* a4, bool b1, bool b2);
+    void stepGun(hkReal dt, DDCC60World* world, GunArg3* a3, GunTransform* a4, bool b1, bool b2);
 };
 extern "C" __m128 _mm_shuffle_ps(__m128 _A, __m128 _B, unsigned int _Imm8);
 extern "C" void _mm_store_ss(float* _V, __m128 _A);

@@ -9,11 +9,11 @@ struct MagicCaster
 };
 struct TESObjectCLOT
 {
-    void FUN_005156b0();
+    void InitializeData();
 };
 
 // @fnv 0x005156b0
-void TESObjectCLOT::FUN_005156b0()
+void TESObjectCLOT::InitializeData()
 {
     ((MagicCaster*)((char*)this + 0x48))->SetSelectedMagicItem(3);
 }
@@ -58,11 +58,11 @@ struct FUN_00479350_shell
 
 struct TESObjectCLOT
 {
-    void FUN_00515f40();
+    void SaveForm();
 };
 
 // @fnv 0x00515f40
-void TESObjectCLOT::FUN_00515f40()
+void TESObjectCLOT::SaveForm()
 {
     reinterpret_cast<FUN_004855a0*>(this)->M();
     reinterpret_cast<S_00487010*>(reinterpret_cast<char*>(this) + 0x30)->FUN_00487010();
@@ -203,7 +203,7 @@ struct FUN_00515440 : B1_4fe,
     FUN_00515440();
 };
 
-// Initializes the vtable pointers of all base classes, sets the form type to 0x1a, and calls FUN_005156b0 on the object.
+// Initializes the vtable pointers of all base classes, sets the form type to 0x1a, and calls InitializeData on the object.
 // @fnv 0x00515440
 FUN_00515440::FUN_00515440()
 {
@@ -218,7 +218,7 @@ FUN_00515440::FUN_00515440()
     this->BGSEquipType::vtable = DAT_0102ab5c;
 
     reinterpret_cast<SFTX*>(this)->SetFormType(0x1a);
-    reinterpret_cast<TESObjectCLOT*>(this)->FUN_005156b0();
+    reinterpret_cast<TESObjectCLOT*>(this)->InitializeData();
 }
 
 namespace fnv_005156d0 {
@@ -493,7 +493,7 @@ struct TextureSegment
     int flags;
     int lastUpdate;
     int size;
-    void FUN_0047a380(char*);
+    void SetMessageIconTextureName(char*);
 };
 struct BipedView
 {
@@ -612,7 +612,7 @@ struct ClothingLoader
 
     void CallWithThis(RecordReader*);
     void FUN_00484ab0(int);
-    void FUN_004861f0(RecordReader*, int, int);
+    void LoadData(RecordReader*, int, int);
     bool ReadFromStream(RecordReader*);
 };
 // @fnv 0x00515760
@@ -733,13 +733,13 @@ bool ClothingLoader::ReadFromStream(RecordReader* reader)
         case 0x4f43494d: {
             char* buffer = (char*)_alloca(reader->GetField25C());
             reader->FUN_00472890(buffer, 0);
-            (&this->biped)->firstTexture.FUN_0047a380(buffer);
+            (&this->biped)->firstTexture.SetMessageIconTextureName(buffer);
             break;
         }
         case 0x3243494d: {
             char* buffer = (char*)_alloca(reader->GetField25C());
             reader->FUN_00472890(buffer, 0);
-            (&this->biped)->secondTexture.FUN_0047a380(buffer);
+            (&this->biped)->secondTexture.SetMessageIconTextureName(buffer);
             break;
         }
         case 0x33444f4d: {
@@ -788,7 +788,7 @@ bool ClothingLoader::ReadFromStream(RecordReader* reader)
             break;
         }
         case 0x41544144: {
-            FUN_004861f0(reader, 0, 0);
+            LoadData(reader, 0, 0);
             break;
         }
         default:
@@ -811,12 +811,12 @@ struct FUN_005092f0_obj
 
 struct ClothingCopyView : TESObjectCLOT
 {
-    void FUN_00515fb0(TESForm* apCopy);
+    void CopyFrom(TESForm* apCopy);
 };
 
 // Dynamic-casts apCopy to TESObjectCLOT and, if valid, forwards the copy to the base class via FUN_004851b0.
 // @fnv 0x00515fb0
-void ClothingCopyView::FUN_00515fb0(TESForm* apCopy)
+void ClothingCopyView::CopyFrom(TESForm* apCopy)
 {
     TESObjectCLOT* pSourceClothing = dynamic_cast<TESObjectCLOT*>(apCopy);
     if (!pSourceClothing)
@@ -827,11 +827,11 @@ void ClothingCopyView::FUN_00515fb0(TESForm* apCopy)
 struct ClothingComparison
 {
     bool FUN_00485270(TESForm*);
-    bool FUN_00515ff0(TESForm*);
+    bool Compare(TESForm*);
 };
 // Returns true if the given form is not a clothing item or if it passes the FUN_00485270 check.
 // @fnv 0x00515ff0
-bool ClothingComparison::FUN_00515ff0(TESForm* apForm)
+bool ClothingComparison::Compare(TESForm* apForm)
 {
     TESObjectCLOT* clothing = dynamic_cast<TESObjectCLOT*>(apForm);
     if (!clothing)

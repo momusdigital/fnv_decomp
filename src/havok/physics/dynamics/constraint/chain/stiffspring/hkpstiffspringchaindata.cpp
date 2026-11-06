@@ -7,11 +7,11 @@
 struct hkStiffSpringChainData
 {
     unsigned int m_uiCurrentValue;
-    void FUN_00e3af80(bool bFlag, unsigned int* pOut);
+    void getRuntimeInfo(bool bFlag, unsigned int* pOut);
 };
 
 // @fnv 0x00e3af80
-void hkStiffSpringChainData::FUN_00e3af80(bool bFlag, unsigned int* pOut)
+void hkStiffSpringChainData::getRuntimeInfo(bool bFlag, unsigned int* pOut)
 {
     if (bFlag)
     {
@@ -45,11 +45,11 @@ struct ConstraintInfo
 class hkpStiffSpringChain : public hkpStiffSpringChainData
 {
   public:
-    void FUN_00e3af40(ConstraintInfo& info);
+    void getConstraintInfo(ConstraintInfo& info);
 };
 
 // @fnv 0x00e3af40
-void hkpStiffSpringChain::FUN_00e3af40(ConstraintInfo& info)
+void hkpStiffSpringChain::getConstraintInfo(ConstraintInfo& info)
 {
     info.m_kBridgeAtoms = &m_kBridgeAtoms;
     info.m_iSolverResultCount = 0;
@@ -393,9 +393,9 @@ static __forceinline hkReal hkNormalizeWithLength3(hkVector4q& v)
 struct hkpStiffSpringChainDataEx : public hkpStiffSpringChainData
 {
 // @fnv 0x00e3b0f0
-    void FUN_00e3b0f0(const SixteenWordFloatRecord& inNonConst, QueryResultSchema& out) volatile;
+    void buildJacobian(const SixteenWordFloatRecord& inNonConst, QueryResultSchema& out) volatile;
 };
-void hkpStiffSpringChainDataEx::FUN_00e3b0f0(const SixteenWordFloatRecord& inNonConst, QueryResultSchema& out) volatile
+void hkpStiffSpringChainDataEx::buildJacobian(const SixteenWordFloatRecord& inNonConst, QueryResultSchema& out) volatile
 {
     AppendEventRecord(inNonConst, out, inNonConst.m_pByteBuffer, 8);
     SixteenWordFloatRecord in = inNonConst;

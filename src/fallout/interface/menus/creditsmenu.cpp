@@ -5,11 +5,11 @@
 struct CreditsMenu
 {
     virtual ~CreditsMenu();  // polymorphic: its RTTI is used (rtti_fix.py)
-    int FUN_0075f1c0();
+    int GetClass();
 };
 
 // @fnv 0x0075f1c0
-int CreditsMenu::FUN_0075f1c0()
+int CreditsMenu::GetClass()
 {
     return 0x417;
 }

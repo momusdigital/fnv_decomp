@@ -18,7 +18,7 @@ struct FUN_009ac170_shell
 {
     char m_auiShapeKeys[0xd0];
     NiPointer m_actorCause;
-    void __thiscall FUN_009ac170(ActorCause* apActorCause);
+    void __thiscall SetActorCause(ActorCause* apActorCause);
 };
 struct Explosion
 {
@@ -255,7 +255,7 @@ struct FUN_00cbc650_cls
     virtual void v2C();
     virtual FUN_00cbc650_obj* vGet(FUN_00cbc650_obj* volatile* pp);
     void FUN_00c86790(FUN_00cbc650_obj* a);
-    void FUN_00cbc650(FUN_00cbc650_obj* volatile a1);
+    void LoadBinary(FUN_00cbc650_obj* volatile a1);
 };
 struct FUN_00cbc6a0_Data
 {
@@ -290,7 +290,7 @@ struct FUN_00cbc6a0_Class
     virtual void vf19();
     virtual void vf20();
     virtual void vf21();
-    virtual void FUN_00cbc6a0(unsigned char* arg);
+    virtual void SaveBinary(unsigned char* arg);
     virtual void vf23();
     virtual void vf24();
     virtual void vf25();
@@ -360,7 +360,7 @@ struct FUN_00cbc550_class
 struct FUN_00cbca20_class
 {
     void __thiscall FUN_00c86800(FUN_00cbc550_class* obj, int flags);
-    FUN_00cbc550_class* __thiscall FUN_00cbca20(int flags);
+    FUN_00cbc550_class* __thiscall CreateClone(int flags);
 };
 struct HavokAllocator
 {
@@ -537,7 +537,7 @@ class FUN_00cbd650_base
 class FUN_00cbd650_cls : public FUN_00cbd650_base
 {
   public:
-    void FUN_00cbd650(NiViewerStringArray* pkStrings);
+    void GetViewerStrings(NiViewerStringArray* pkStrings);
 };
 char* __cdecl FUN_00a7d330(const char* pcString);
 extern const char* DAT_01268420;
@@ -573,7 +573,7 @@ struct StateOwner
     float unk1c;
     float unk20;
     void __thiscall FUN_00c867d0(SmallAlignedState* state);
-    SmallAlignedState* FUN_00cbcad0(bool* created);
+    SmallAlignedState* CreateCinfo(bool* created);
 };
 
 #include <xmmintrin.h>

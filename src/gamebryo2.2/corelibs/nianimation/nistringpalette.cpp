@@ -113,12 +113,12 @@ void S_00a47210::WriteToStream(NiStream& kStream)
 struct S_00a470c0 : S_00a47190
 {
     bool IsSameAs(S_00a470c0* other);
-    bool FUN_00a470c0(S_00a470c0* other);
+    bool IsEqual(S_00a470c0* other);
 };
 
 // Compares this object with another: checks the base comparison, matching m_0C and m_10, then byte-compares m_0C bytes at m_08; returns true if all match.
 // @fnv 0x00a470c0
-bool S_00a470c0::FUN_00a470c0(S_00a470c0* other)
+bool S_00a470c0::IsEqual(S_00a470c0* other)
 {
     if (IsSameAs(other) && other->m_0C == m_0C && other->m_10 == m_10)
     {

@@ -343,7 +343,7 @@ struct FUN_00cb0780_class
     int unk04;
     int unk08;
     void* memory;
-    void FUN_00cb0780(bool release);
+    void KillCinfo(bool release);
 };
 struct ThreadState
 {
@@ -542,7 +542,7 @@ extern GlobalString g_01268350;
 char* __cdecl FUN_00a7d330(const char* text);
 struct StringBuilder
 {
-    void FUN_00ca5190(NiStringArray* array);
+    void GetViewerStrings(NiStringArray* array);
     void FUN_00cb09b0(NiStringArray* array);
 };
 struct ThreadStateGuard
@@ -728,7 +728,7 @@ class FUN_00ca4fd0_cls
     int unk04;
     Node* m_pReferencedNode;
 
-    void FUN_00ca4fd0(int first, int second);
+    void BuildDisplayGeometry(int first, int second);
 };
 extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(long volatile* lpAddend);
 void FUN_00ca5080();
@@ -827,7 +827,7 @@ struct FUN_00cb05d0_cls
     virtual void v47();
     virtual void v48();
     virtual void v49(SpawnedObject* obj, int a1);
-    SpawnedObject* FUN_00cb05d0(int a1);
+    SpawnedObject* CreateClone(int a1);
 };
 struct FUN_00cb06c0_Alloc
 {
@@ -853,7 +853,7 @@ struct FUN_00cb06c0_cls
     void* unk08;
     void* unk0c;
     void FUN_00cb0030(void* value);
-    void* FUN_00cb06c0(bool* out);
+    void* CreateCinfo(bool* out);
 };
 struct S00cb0820_Alloc
 {

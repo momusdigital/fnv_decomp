@@ -208,7 +208,7 @@ void* __fastcall FUN_00c37ec0(void* this_ptr)
 }
 
 // @fnv 0x004a6100
-int __fastcall FUN_004a6100(int this_)
+int __fastcall QDebugGeomShapeSize(int this_)
 {
     return 0x1e;
 }
@@ -235,28 +235,28 @@ extern int g_01202818;
 
 struct FUN_004a70f0_shell
 {
-    int* __thiscall FUN_004a70f0();
+    int* __thiscall GetRTTI();
 };
 
 // @fnv 0x004a70f0
-int* __thiscall FUN_004a70f0_shell::FUN_004a70f0()
+int* __thiscall FUN_004a70f0_shell::GetRTTI()
 {
     return &g_01202818;
 }
 
 // @fnv 0x00c365e0
-int __fastcall FUN_00c365e0(int)
+int __fastcall GetType(int)
 {
     return 2;
 }
 
 struct FUN_00c382a0_shell
 {
-    int FUN_00c382a0();
+    int GetType();
 };
 
 // @fnv 0x00c382a0
-int FUN_00c382a0_shell::FUN_00c382a0()
+int FUN_00c382a0_shell::GetType()
 {
     return 1;
 }
@@ -276,11 +276,11 @@ void* __thiscall FUN_00c4f8d0_shell::GetGlobalPtr()
 
 struct FUN_00c4fec0_shell
 {
-    int __thiscall FUN_00c4fec0();
+    int __thiscall GetType();
 };
 
 // @fnv 0x00c4fec0
-int __thiscall FUN_00c4fec0_shell::FUN_00c4fec0()
+int __thiscall FUN_00c4fec0_shell::GetType()
 {
     return 3;
 }
@@ -346,11 +346,11 @@ struct FUN_00c335d0 : NiRefObject
 struct FUN_00c33730_shell
 {
     void CopyStateTo(FUN_00c335d0* pkDest, CloningProcess& kCloning);
-    FUN_00c335d0* FUN_00c33730(CloningProcess& kCloning);
+    FUN_00c335d0* CreateClone(CloningProcess& kCloning);
 };
 
 // @fnv 0x00c33730
-FUN_00c335d0* FUN_00c33730_shell::FUN_00c33730(CloningProcess& kCloning)
+FUN_00c335d0* FUN_00c33730_shell::CreateClone(CloningProcess& kCloning)
 {
     FUN_00c335d0* pkObject = new FUN_00c335d0;
     CopyStateTo(pkObject, kCloning);
@@ -381,11 +381,11 @@ struct FUN_00c36310 : NiRefObject
 struct FUN_00c36330_shell
 {
     void FUN_00c363c0(FUN_00c36310* pkDest, CloningProcess& kCloning);
-    FUN_00c36310* FUN_00c36330(CloningProcess& kCloning);
+    FUN_00c36310* CreateClone(CloningProcess& kCloning);
 };
 
 // @fnv 0x00c36330
-FUN_00c36310* FUN_00c36330_shell::FUN_00c36330(CloningProcess& kCloning)
+FUN_00c36310* FUN_00c36330_shell::CreateClone(CloningProcess& kCloning)
 {
     FUN_00c36310* pkObject = new FUN_00c36310;
     FUN_00c363c0(pkObject, kCloning);
@@ -412,11 +412,11 @@ struct FUN_00c37ec0 : NiRefObject
 struct FUN_00c37ee0_shell
 {
     void FUN_00c37f70(FUN_00c37ec0* pkDest, CloningProcess& kCloning);
-    FUN_00c37ec0* FUN_00c37ee0(CloningProcess& kCloning);
+    FUN_00c37ec0* CreateClone(CloningProcess& kCloning);
 };
 
 // @fnv 0x00c37ee0
-FUN_00c37ec0* FUN_00c37ee0_shell::FUN_00c37ee0(CloningProcess& kCloning)
+FUN_00c37ec0* FUN_00c37ee0_shell::CreateClone(CloningProcess& kCloning)
 {
     FUN_00c37ec0* pkObject = new FUN_00c37ec0;
     FUN_00c37f70(pkObject, kCloning);
@@ -443,11 +443,11 @@ struct FUN_00c4fb10 : NiRefObject
 struct FUN_00c4fb30_shell
 {
     void FUN_00c4fbc0(FUN_00c4fb10* pkDest, CloningProcess& kCloning);
-    FUN_00c4fb10* FUN_00c4fb30(CloningProcess& kCloning);
+    FUN_00c4fb10* CreateClone(CloningProcess& kCloning);
 };
 
 // @fnv 0x00c4fb30
-FUN_00c4fb10* FUN_00c4fb30_shell::FUN_00c4fb30(CloningProcess& kCloning)
+FUN_00c4fb10* FUN_00c4fb30_shell::CreateClone(CloningProcess& kCloning)
 {
     FUN_00c4fb10* pkObject = new FUN_00c4fb10;
     FUN_00c4fbc0(pkObject, kCloning);
@@ -459,24 +459,24 @@ extern char const* const g_012030b0_arg1;
 
 struct FUN_004a60e0_shell
 {
-    char const* const* __thiscall FUN_004a60e0();
+    char const* const* __thiscall GetRTTI();
 };
 
 // @fnv 0x004a60e0
-char const* const* __thiscall FUN_004a60e0_shell::FUN_004a60e0()
+char const* const* __thiscall FUN_004a60e0_shell::GetRTTI()
 {
     return &g_012030b0_arg1;
 }
 
 struct FUN_004a62c0_shell
 {
-    int* FUN_004a62c0();
+    int* GetRTTI();
 };
 
 extern int g_012030b0;
 
 // @fnv 0x004a62c0
-int* FUN_004a62c0_shell::FUN_004a62c0()
+int* FUN_004a62c0_shell::GetRTTI()
 {
     return &g_012030b0;
 }
@@ -484,11 +484,11 @@ int* FUN_004a62c0_shell::FUN_004a62c0()
 namespace fnv_004a7030 {
 struct BSMultiBoundAABB
 {
-    int FUN_004a7030();
+    int QDebugGeomShapeSize();
 };
 
 // @fnv 0x004a7030
-int BSMultiBoundAABB::FUN_004a7030()
+int BSMultiBoundAABB::QDebugGeomShapeSize()
 {
     return 0x24;
 }
@@ -497,11 +497,11 @@ int BSMultiBoundAABB::FUN_004a7030()
 struct BGSPrimitiveSphere
 {
     void SetRadius(float radius);
-    void FUN_004a71d0(NiPoint3& akRadii);
+    void SetRadii(NiPoint3& akRadii);
 };
 
 // @fnv 0x004a71d0
-void BGSPrimitiveSphere::FUN_004a71d0(NiPoint3& aPoint)
+void BGSPrimitiveSphere::SetRadii(NiPoint3& aPoint)
 {
     SetRadius(aPoint.x);
 }
@@ -680,11 +680,11 @@ extern char const* const g_01202820_arg1;
 
 struct FUN_00c4fb00_shell
 {
-    char const* const* FUN_00c4fb00();
+    char const* const* GetRTTI();
 };
 
 // @fnv 0x00c4fb00
-char const* const* FUN_00c4fb00_shell::FUN_00c4fb00()
+char const* const* FUN_00c4fb00_shell::GetRTTI()
 {
     return &g_01202820_arg1;
 }
@@ -823,10 +823,10 @@ struct TESCombatStyle
 };
 struct BGSPrimitiveSphere
 {
-    bool FUN_004a7240(TESCombatStyle& aPoint);
+    bool IsInside(TESCombatStyle& aPoint);
 };
 // @fnv 0x004a7240
-bool BGSPrimitiveSphere::FUN_004a7240(TESCombatStyle& aPoint)
+bool BGSPrimitiveSphere::IsInside(TESCombatStyle& aPoint)
 {
     return (double)*(float*)((char*)this + 0x18) * *(float*)((char*)this + 0x18) > aPoint.UpdateCombatStyle();
 }
@@ -1041,10 +1041,10 @@ struct BSMultiBoundAABB
     char pad0[12];
     Vec3 v;
     Pt pt;
-    void FUN_00c389e0(Vec4* p);
+    void GetNiBound(Vec4* p);
 };
 // @fnv 0x00c389e0
-void BSMultiBoundAABB::FUN_00c389e0(Vec4* apOut)
+void BSMultiBoundAABB::GetNiBound(Vec4* apOut)
 {
     int pad;
     {
@@ -1185,11 +1185,11 @@ extern char const* const g_01202818_arg1;
 
 struct FUN_004a7020_shell
 {
-    char const* const* __thiscall FUN_004a7020();
+    char const* const* __thiscall GetRTTI();
 };
 
 // @fnv 0x004a7020
-char const* const* __thiscall FUN_004a7020_shell::FUN_004a7020()
+char const* const* __thiscall FUN_004a7020_shell::GetRTTI()
 {
     return &g_01202818_arg1;
 }
@@ -1308,11 +1308,11 @@ void* FUN_00c4f9a0_shell::GetSelf(void* apUnused)
 struct FUN_00c4fab0_shell
 {
     void __thiscall AppendCameraPathEntries(int);
-    void __thiscall FUN_00c4fab0(int a);
+    void __thiscall GetViewerStrings(int a);
 };
 
 // @fnv 0x00c4fab0
-void __thiscall FUN_00c4fab0_shell::FUN_00c4fab0(int a)
+void __thiscall FUN_00c4fab0_shell::GetViewerStrings(int a)
 {
     AppendCameraPathEntries(a);
 }
@@ -1330,11 +1330,11 @@ void __thiscall FUN_00c4fa10_shell::FUN_00c4fc50(int a)
 
 struct FUN_00c50370_shell
 {
-    void FUN_00c50370(int a, int b, int c, int d, int e, int f);
+    void CreateDebugGeometry(int a, int b, int c, int d, int e, int f);
 };
 
 // @fnv 0x00c50370
-void FUN_00c50370_shell::FUN_00c50370(int a, int b, int c, int d, int e, int f)
+void FUN_00c50370_shell::CreateDebugGeometry(int a, int b, int c, int d, int e, int f)
 {}
 
 extern float _DAT_010162c0;
@@ -1454,11 +1454,11 @@ struct Obj364
     char pad[36];
     Mat364 m;
     bool __thiscall FUN_00c38090(Obj364*);
-    bool __thiscall FUN_00c364b0(Obj364*);
+    bool __thiscall IsEqual(Obj364*);
 };
 // Calls FUN_00c38090 on other; if it returns true, also compares m with other's m via _Call_4d9ae0 and returns that result.
 // @fnv 0x00c364b0
-bool __thiscall Obj364::FUN_00c364b0(Obj364* other)
+bool __thiscall Obj364::IsEqual(Obj364* other)
 {
     bool ret = FUN_00c38090(other);
     if (ret)
@@ -1768,7 +1768,7 @@ BSPortal* FUN_004a6150_shell::CreateBSPortal()
 namespace fnv_00c38220 {
 struct FUN_00c4fab0_shell
 {
-    void FUN_00c4fab0(int);
+    void GetViewerStrings(int);
 };
 
 struct NiTPrimitiveArray_unsigned_int_
@@ -1797,7 +1797,7 @@ void FUN_00c38220_shell::AddPropertyNames(NiTPrimitiveArray_unsigned_int_* array
     char unused[0x20];
     char* denter;
 
-    FUN_00c4fab0_shell::FUN_00c4fab0(reinterpret_cast<int>(array));
+    FUN_00c4fab0_shell::GetViewerStrings(reinterpret_cast<int>(array));
 
     char const* volatile property = g_01202818_arg1;
     void* propertyId = _FUN_00a7d330(property);
@@ -1831,12 +1831,12 @@ struct FUN_00c4f460 : public A51BF0Base
 struct FUN_00c4f6c0_shell
 {
     void FUN_00c4f6c0(int, int);
-    FUN_00c4f460* FUN_00c4f620(int);
+    FUN_00c4f460* CreateClone(int);
 };
 
 // Allocates a FUN_00c4f460 using the int at this+0xc0, passes it and arg to FUN_00c4f6c0, and returns the new object.
 // @fnv 0x00c4f620
-FUN_00c4f460* FUN_00c4f6c0_shell::FUN_00c4f620(int arg)
+FUN_00c4f460* FUN_00c4f6c0_shell::CreateClone(int arg)
 {
     FUN_00c4f460* object = new FUN_00c4f460(*(int*)((char*)this + 0xc0));
 
@@ -2288,12 +2288,12 @@ struct FUN_004a7aa0_cls
 {
     char _00[0x18];
     float m_f18;
-    void* FUN_004a7aa0(int a1);
+    void* MakeMultiBoundShape(int a1);
 };
 
 // Allocates a new object constructed from a color built with the class's m_f18 value and returns it.
 // @fnv 0x004a7aa0
-void* FUN_004a7aa0_cls::FUN_004a7aa0(int aiUnused)
+void* FUN_004a7aa0_cls::MakeMultiBoundShape(int aiUnused)
 {
     return new FUN_004a7aa0_obj(FUN_004a7aa0_color(0.0f, 0.0f, 0.0f, m_f18));
 }
@@ -2434,12 +2434,12 @@ struct FUN_0049da80_shell
 struct FUN_00c38920_cls
 {
     void __thiscall FUN_00c39270(Vec12* a);
-    bool __thiscall FUN_00c38920(ProbeSet* other);
+    bool __thiscall CompletelyWithinFrustum(ProbeSet* other);
 };
 
 // Builds eight box points, then for each masked element tests all eight points and returns false if any test returns 2, otherwise true.
 // @fnv 0x00c38920
-bool __thiscall FUN_00c38920_cls::FUN_00c38920(ProbeSet* pProbeSet)
+bool __thiscall FUN_00c38920_cls::CompletelyWithinFrustum(ProbeSet* pProbeSet)
 {
     Vec12 boxPts[8];
     int i;
@@ -3411,12 +3411,12 @@ class FUN_00c4fed0_cls
     int unk04;
     int unk08;
     NiBound m_kBound;
-    int FUN_00c4fed0(const NiBound& kBound);
+    int CheckBound(const NiBound& kBound);
 };
 
 // Returns 2 when center distance is at most the radius difference plus DAT_01012060, 1 when at most the radius sum plus that value, otherwise 0.
 // @fnv 0x00c4fed0
-int FUN_00c4fed0_cls::FUN_00c4fed0(const NiBound& kBound)
+int FUN_00c4fed0_cls::CheckBound(const NiBound& kBound)
 {
     NiPoint3Ex kDiff = static_cast<const NiPoint3Ex&>(m_kBound.m_kCenter) - kBound.m_kCenter;
     float fCenterDist = kDiff.Length();

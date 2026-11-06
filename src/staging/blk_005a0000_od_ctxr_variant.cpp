@@ -11,7 +11,7 @@ struct FUN_005a3790Class
 {
     bool FUN_005a3790();
 };
-bool __cdecl FUN_005a3760(void* reference, void* b, void* c, double& result);
+bool __cdecl Cmd_GetIgnoreFriendlyHits_Eval(void* reference, void* b, void* c, double& result);
 struct FUN_005a7840_Class
 {
     void ClearFlag(unsigned char bFlag);
@@ -32,14 +32,14 @@ struct FUN_00456a60_class
 {
     void __thiscall FUN_00456a60();
 };
-bool FUN_005b9220();
+bool Cmd_ToggleCollisionGeometry_Execute();
 extern int g_TES;
 extern char DAT_012680fc;
 struct FUN_00456a60_Class
 {
     void __thiscall FUN_00456a60();
 };
-char __cdecl FUN_005b9240();
+char __cdecl Cmd_ToggleMaterialGeometry_Execute();
 struct FUN_005b92e0_class
 {
     int __thiscall GetField59C();
@@ -178,7 +178,7 @@ struct FUN_00483710_shell
 };
 struct FUN_00485e20_shell
 {
-    void FUN_00485e20(int, int);
+    void __SaveData(int, int);
 };
 struct FUN_00485680_shell
 {
@@ -203,7 +203,7 @@ struct FUN_005a7a90_shell
     int unk34;
     int unk38;
     int unk3c;
-    void FUN_005a7a90();
+    void SaveForm();
 };
 struct FUN_005a7b00_Record
 {
@@ -265,7 +265,7 @@ class FUN_005a7b60_cls
     int unk00, unk04, unk08, unk0C, unk10, unk14, unk18, unk1C, unk20;
     unsigned char m_data;
 
-    bool FUN_005a7b60(TESForm* pkForm);
+    bool Compare(TESForm* pkForm);
 };
 void __cdecl operator delete(void*);
 struct DeletingObject
@@ -284,7 +284,7 @@ struct Script
                                  TESObjectREFR* reference2, Script* script, ScriptLocals* locals, bool evaluate);
 };
 void* memset(void* destination, int value, unsigned int size);
-bool __cdecl FUN_005b4960(int unused, char const* data, TESObjectREFR* reference1, TESObjectREFR* reference2,
+bool __cdecl BuildMessageBoxStringFromParameters(int unused, char const* data, TESObjectREFR* reference1, TESObjectREFR* reference2,
                           Script* script, ScriptLocals* locals, int unused2, unsigned int& value, char const* format,
                           BSStringT<char>* string);
 

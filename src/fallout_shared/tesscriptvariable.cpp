@@ -12,7 +12,7 @@ void ScriptVariableInfo::Load(TESFile* file)
     {
         file->GetChunkData(this, 24);
         if (file->IsEndianConversionRequired())
-            reinterpret_cast<ScriptVariableEndian*>(this)->FUN_005e2870();
+            reinterpret_cast<ScriptVariableEndian*>(this)->Endian();
     }
 }
 

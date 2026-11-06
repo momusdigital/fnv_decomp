@@ -318,10 +318,10 @@ struct FUN_00781b10_shell
 };
 struct FUN_00781620_shell : public InventoryMenu
 {
-    void __thiscall FUN_00781620(int aiID, Tile* apTarget);
+    void __thiscall DoLeave(int aiID, Tile* apTarget);
 };
 // @fnv 0x00781620
-void __thiscall FUN_00781620_shell::FUN_00781620(int aiID, Tile* apTarget)
+void __thiscall FUN_00781620_shell::DoLeave(int aiID, Tile* apTarget)
 {
     if (aiID == 0x1D || aiID == 0x1E)
     {
@@ -1676,7 +1676,7 @@ struct VTPoint3
 struct VTItemData
 {
     bool FUN_00418b10();
-    bool FUN_00418ab0(int iFlag);
+    bool GetWorn(int iFlag);
 };
 struct VTItemNode
 {
@@ -2332,7 +2332,7 @@ class VTPlayer
     virtual void PlayAttack(VTAnim* pkAnimOut, int iType, bool bLeft, int iFlag);  // +0x3ec
     void FUN_00950030();
     VTProcess* FUN_008d8520();
-    VTWeapon* FUN_006044c0();
+    VTWeapon* GetFaceNPC();
     VTAnim* FUN_008a1710();
     void PlayActorSound(VTForm* pkTargetNum, int iA, int iB);
     int FUN_008a7570();
@@ -2418,7 +2418,7 @@ class VTMenu
     VTTile* FUN_00726070();
     void ClearActionPointSource();
     void FUN_00780d60();
-    void FUN_00780140(int m_uiSoundID, VTTile* pkTile);
+    void DoClick(int m_uiSoundID, VTTile* pkTile);
 };
 
 extern VTTarget* DAT_011d9ea8;
@@ -2451,7 +2451,7 @@ void IsNotFormType2E();
 
 // Dispatches by the integer argument, handling mode changes and menu actions including item, drop, and attack paths with state checks.
 // @fnv 0x00780140
-void VTMenu::FUN_00780140(int m_uiSoundID, VTTile* pkTile)
+void VTMenu::DoClick(int m_uiSoundID, VTTile* pkTile)
 {
     if (!pkTile && m_uiSoundID >= 0 && m_uiSoundID < 0x17)
         pkTile = m_apTiles[m_uiSoundID];
@@ -2561,7 +2561,7 @@ void VTMenu::FUN_00780140(int m_uiSoundID, VTTile* pkTile)
                 break;
             VTAction* pkAction = new VTAction(DAT_011d9ea8->FUN_0044ddc0(), DAT_011d9ea8->FUN_00726070());
             VTProcess* pkProcess = ((VTPlayer*)DAT_011dea3c)->FUN_008d8520();
-            VTWeapon* pkWeaponOut = ((VTPlayer*)DAT_011dea3c)->FUN_006044c0();
+            VTWeapon* pkWeaponOut = ((VTPlayer*)DAT_011dea3c)->GetFaceNPC();
             VTAnim* pkAnimOut = ((VTPlayer*)DAT_011dea3c)->FUN_008a1710();
             pkProcess->PerformAction(pkAction);
             pkProcess->GetActionList(0)->FUN_006ecd40();
@@ -2609,7 +2609,7 @@ void VTMenu::FUN_00780140(int m_uiSoundID, VTTile* pkTile)
                 DispatchMessageToSink(DAT_011d22c8.FUN_00403df0(), 2, 0, 0, 2.0f, 0);
             else if (((VTPlayer*)DAT_011dea3c)->FUN_009337b0())
                 DispatchMessageToSink(DAT_011d43e4.FUN_00403df0(), 2, 0, 0, 2.0f, 0);
-            else if (pkItem && pkItem->FUN_00418b10() && pkItem->FUN_00418ab0(0))
+            else if (pkItem && pkItem->FUN_00418b10() && pkItem->GetWorn(0))
                 DispatchMessageToSink(DAT_011d31f8.FUN_00403df0(), 2, 0, 0, 2.0f, 0);
             else if (!((VTPlayer*)DAT_011dea3c)->FUN_009614b0(pkRefOut, &kPos, 1, 1))
                 DispatchMessageToSink(DAT_011d3d30.FUN_00403df0(), 2, 0, 0, 2.0f, 0);
@@ -2674,9 +2674,9 @@ class TESBipedModelForm
 {
   public:
     static TESBipedModelForm* GetFormAsBipedModel(TESForm*);
-    bool FUN_00480d90();
+    bool GetPlayable();
 };
-bool __cdecl FUN_00481f10(FilterForm*);
+bool __cdecl IsGold(FilterForm*);
 struct FilterPlayer
 {
     unsigned char GetByteAt240();
@@ -2700,7 +2700,7 @@ bool __cdecl FUN_00782620(Entry* entry)
             return tab3 != 27;
         int type = form4->FUN_00401170();
         TESBipedModelForm* biped3 = TESBipedModelForm::GetFormAsBipedModel((TESForm*)form4);
-        if ((biped3 && !biped3->FUN_00480d90()) || FUN_00481f10(form4) ||
+        if ((biped3 && !biped3->GetPlayable()) || IsGold(form4) ||
             (form4->IsQuestItem() && !((FilterPlayer*)DAT_011dea3c)->GetByteAt240()) || type == 46)
             return true;
         switch (tab3)

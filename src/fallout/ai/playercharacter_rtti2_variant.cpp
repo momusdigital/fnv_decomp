@@ -196,7 +196,7 @@ struct Alloc10
 struct Alloc63C
 {
     Alloc63C();
-    void FUN_004624b0(int);
+    void BuildFileList(int);
     unsigned int unk000;
     unsigned int unk004;
     unsigned int unk008;
@@ -821,7 +821,7 @@ extern void __cdecl FUN_004504e0(int);
 extern void __cdecl FUN_00450670(float);
 extern void __cdecl FUN_00450680(float);
 extern void __cdecl FUN_00450690(float);
-extern void __cdecl FUN_004506b0();
+extern void __cdecl InitFadeOutMultipliers();
 extern void __cdecl SetFloatAt(unsigned int, float);
 extern void __cdecl FUN_00450540(float);
 extern void __cdecl FUN_00450530(float);
@@ -970,7 +970,7 @@ struct Data451
 };
 extern Data451* g_dataHandler;
 int TruncateFloatToInt(float);
-void FUN_0062f460();
+void RefreshExteriorWaterHeights();
 struct Point451
 {
     float x, y, z;
@@ -981,9 +981,9 @@ struct Shell451
     int x, y, oldX, oldY;
     int FUN_005f36f0();
     int FUN_004fd3e0();
-    void FUN_00458200(int);
-    void FUN_004512c0(Point451*, bool);
-    void FUN_004515a0(Point451*, bool);
+    void SetWorldSpace(int);
+    void ReloadGridCells(Point451*, bool);
+    void InitGridCells(Point451*, bool);
 };
 struct FUN_00493bb0_Class
 {
@@ -1015,7 +1015,7 @@ struct FUN_00572270_shell
 };
 struct FUN_00572230_shell : public TESObjectREFR
 {
-    void FUN_00572230();
+    void MarkAsPickedUp();
 };
 class ArgObj
 {
@@ -1645,11 +1645,11 @@ struct FUN_009396c0_Class
 };
 struct FUN_00939730_Class
 {
-    void FUN_00939730(int value);
+    void SetAdvanceNumber(int value);
 };
 struct FUN_00939750_class
 {
-    unsigned int FUN_00939750();
+    unsigned int GetAdvanceNumber();
 };
 struct FUN_00939770_Class
 {
@@ -1657,15 +1657,15 @@ struct FUN_00939770_Class
 };
 struct FUN_009397b0_shell
 {
-    char* FUN_009397b0(bool bFlag);
+    char* GetPerkRankList(bool bFlag);
 };
 struct FUN_005a03f0_obj
 {
-    bool FUN_005a03f0(unsigned int);
+    bool GetControlsDisabled(unsigned int);
 };
 struct FUN_009397e0_obj
 {
-    bool FUN_009397e0();
+    bool GetIsImmobileCreature();
 };
 struct FUN_00939820_Class
 {
@@ -2827,7 +2827,7 @@ class B93AB80Actor
     virtual void vfunc0EA();
     virtual void ModActorValue(int eValue, float fAmount, int iUnused);
 
-    void FUN_0093ab80(float fAmount);
+    void DamageActionPoints(float fAmount);
 };
 // Stand-in for the game class that owns this routine (the real class is not
 // part of the pack, but only the call shape matters here).
@@ -5146,7 +5146,7 @@ class NiPoint2
 struct CellWorld
 {
     TESWorldSpace* FUN_004fd3e0();
-    TESObjectCELL* FUN_00451900(int x, int y);
+    TESObjectCELL* GetGridCellCell(int x, int y);
     TESObjectCELL** FUN_004516d0();
 };
 extern CellWorld* DAT_011dea10;
@@ -7462,7 +7462,7 @@ struct AimPart
 struct AimBody
 {
     unsigned int* FUN_006a9540();
-    AimPart* FUN_005e5130(int);
+    AimPart* GetBodyPart(int);
     AimPart* GetValueByIndex(int);
 };
 struct AimBase
@@ -8763,7 +8763,7 @@ struct AimPlayer : AimObject
     bool FUN_0093a740();
     bool FUN_004eaf60();
     AimScale* FUN_00950a60(bool);
-    bool FUN_005a03f0(int);
+    bool GetControlsDisabled(int);
     bool FUN_00967ae0();
     void FUN_00950110(bool);
     int FUN_004f8960();
@@ -9763,7 +9763,7 @@ struct FUN_0094c680_Class
 {
     void OnSpellRemoved(SpellItem* spell);
     bool RemoveSpell(SpellItem* spell);
-    bool FUN_0094c680(SpellItem* spell);
+    bool AddActorEffect(SpellItem* spell);
 };
 class xTypedE
 {
@@ -12363,7 +12363,7 @@ bool FUN_009526b0(void);
 class FUN_009508b0_cls
 {
   public:
-    bool FUN_00891360(int a, float f, bool b);
+    bool DamageItem(int a, float f, bool b);
     bool FUN_009508b0(int a, float f, bool b);
 };
 class TimeGlobal
@@ -12858,7 +12858,7 @@ class BaseProcessStandIn
 class PlayerCharacterUpdate : public PlayerCharacter
 {
   public:
-    void FUN_00950930();
+    void UpdateAnimation();
 };
 struct FUN_00950a10_shell
 {
@@ -12963,7 +12963,7 @@ class TESChallenge
 {
   public:
     int GetProgressValue();
-    bool FUN_0060fd70();
+    bool GetEndQuest();
     TESQuest* FUN_004fd380();
 };
 struct ChallengeNode
@@ -13630,7 +13630,7 @@ struct FUN_00953fb0_Class
 {
     char __thiscall FUN_00953fb0();
 };
-// FUN_00954610: /MT /Od thiscall, 5 stack params (callee pops 0x14).
+// DropItem: /MT /Od thiscall, 5 stack params (callee pops 0x14).
 // Stand-in classes: Obj (generic callee object), FUN_00954610_cls (owner).
 struct Vec3
 {
@@ -13773,13 +13773,13 @@ class Obj
     virtual void v126();
     virtual void v127();
     void FUN_009c8950(int a, int b);
-    Obj* FUN_00551110();
+    Obj* GetLootBag();
     Obj* FUN_00551180(void* a);
     int FUN_00401170();
     Obj* FUN_00525980();
     void FUN_006ecd40();
     void FUN_00450f90(int a);
-    bool FUN_00418ab0(int a);
+    bool GetWorn(int a);
     Obj* FUN_0043d450();
     void* FUN_006815c0();
     void FUN_00a59c60(void* a);
@@ -14456,7 +14456,7 @@ class FUN_00954610_cls
     unsigned int unk844;
     unsigned int unk848;
     unsigned int unk84c;
-    void* FUN_00954610(Obj* a1, Obj* a2, void* a3, void* a4, void* a5);
+    void* DropItem(Obj* a1, Obj* a2, void* a3, void* a4, void* a5);
 };
 extern void* DAT_011dea3c;
 bool FUN_007043c0();
@@ -15021,7 +15021,7 @@ class FUN_00958ec0_cls
     int unk870;
     int unk874;
     Sub878 unk878;
-    void FUN_008aa9a0(int a1, int a2);
+    void FinishInitLoadGameTES(int a1, int a2);
     int FUN_00950bb0(int flag);
     void FUN_00950110(bool flag);
     void FUN_00950340(int flag);
@@ -15424,7 +15424,7 @@ struct PlayerX
     void SaveFormData(BufferX* apBuffer);
     char FUN_005a6050();
     void* GetAtIfValid(int aiSlot);
-    void FUN_009590f0(BufferX* apBuffer);
+    void AppendSaveLoadFormBuffer(BufferX* apBuffer);
 };
 struct Flags957
 {
@@ -16427,7 +16427,7 @@ struct Shell957
     int unk6c0;
     int unk6c4;
     int unk6c8;
-    void FUN_008d34d0(Buffer957*);
+    void FinishLoadGame(Buffer957*);
     float GetScale();
     void SetScale(float);
     void* FUN_00950bb0(int);
@@ -16935,7 +16935,7 @@ class FUN_0095d3f0_cls
     virtual void v249();
     virtual void v250(EffectTarget* target, int a2, unsigned char a3);
     void FUN_0095d450(EffectTarget* target, int a2, unsigned char a3, unsigned char a4);
-    void FUN_0095d3f0(EffectTarget* target, int a2, unsigned char a3, unsigned char a4);
+    void Reload2(EffectTarget* target, int a2, unsigned char a3, unsigned char a4);
 };
 struct MgrObj;
 struct GObj;
@@ -17985,7 +17985,7 @@ class C95DDC0Actor : public C95DDC0ActorBase
     int unk64;
     C95DDC0Process* m_pkProcess;
 
-    int FUN_0095ddc0(int iType);
+    int UseAmmo(int iType);
 };
 struct FUN_004543c0_cls;
 struct FUN_00621440_cls;
@@ -27164,7 +27164,7 @@ struct RMExtraList
 {
     RMExtraHolder* FUN_00418520();
 };
-void __fastcall FUN_005de9b0(void* apThis);
+void __fastcall DisableHardcoreTracking(void* apThis);
 bool __cdecl FUN_007d6e60();
 struct RMPlayer
 {
@@ -29238,12 +29238,12 @@ struct InputPlayer : InputCharacter
     int GetVtbl20Result();
     bool FUN_009445b0(float, int, unsigned short*, int);
     float FUN_00931d70();
-    bool FUN_005a03f0(int);
+    bool GetControlsDisabled(int);
     bool FUN_008843a0();
     int FUN_008a7570();
     bool FUN_008a6970();
     void FUN_008a6840(bool);
-    bool FUN_00437bf0();
+    bool IsRestrained();
     bool FUN_00437bd0();
     const InputPoint& FUN_00436aa0();
     bool FUN_0050d4a0();
@@ -29264,7 +29264,7 @@ struct InputPlayer : InputCharacter
     int SetAnimationGroupFromFlags(unsigned char);
     void FUN_0095f6a0();
     void FUN_00895110(float, float);
-    bool FUN_005a1e50();
+    bool IsSleeping();
     void FUN_0094df80();
     void FUN_00693ef0(int);
     void FUN_005610f0(const InputPoint&);
@@ -29926,7 +29926,7 @@ struct PlayerLoadView
     void FUN_0093a5f0(bool);
     void FUN_0093a6f0(bool);
     void FUN_0095f590(unsigned char);
-    void FUN_00958990(void*, void*);
+    void InitLoadGameTES(void*, void*);
 };
 struct WkObj
 {
@@ -31283,7 +31283,7 @@ struct PlayerLoadState : PlayerCharacter
     void FUN_00967290();
     void FUN_00969ac0();
     void FUN_00969e90(unsigned char a, int b);
-    void FUN_005de9b0();
+    void DisableHardcoreTracking();
     void SetIdleAt(int i, void* form);
     void FUN_009462c0(int a, int b);
 };
@@ -33677,7 +33677,7 @@ struct TESObjectREFR_Helper : public TESObjectREFR
 class LoadActorBaseView
 {
   public:
-    void FUN_006047c0(PlayerCharacter* player, int a1, int a2, int a3, int a4);
+    void InitDefaultWorn(PlayerCharacter* player, int a1, int a2, int a3, int a4);
 };
 struct PCStandin
 {
@@ -34551,7 +34551,7 @@ class NiCamera;
 extern NiCamera* DAT_011e07d0;
 struct PlayerCharacterEx : public PlayerCharacter
 {
-    void FUN_0095c0a0(BGSLoadFormBuffer* buffer);
+    void InitLoadGame(BGSLoadFormBuffer* buffer);
 };
 struct ProcStandIn
 {
@@ -35325,7 +35325,7 @@ struct ActorStandIn
     void F5cc7a0(int a);
     void F950340(int a);
     AIProcStandIn* F8d8520();
-    void FUN_00969260(struct SandmanTargetActor* a1, int a2, int a3, bool a4);
+    void InitiateSandmanPackage(struct SandmanTargetActor* a1, int a2, int a3, bool a4);
 };
 struct ProcessListsStandIn
 {
@@ -35948,7 +35948,7 @@ struct PlayerXP_
 };
 struct PlayerProgressionEntry : PlayerCharacter
 {
-    void FUN_0094fd10(int a);
+    void RewardXP(int a);
 };
 extern float DAT_011e07bc;
 extern float DAT_011e07dc;
@@ -36112,7 +36112,7 @@ struct FormRecord
     unsigned int unk04;
     unsigned short unk08;
     unsigned int FUN_0084e3a0();
-    unsigned int FUN_0040a1e0();
+    unsigned int GetMagicItemFormID();
     unsigned int RefreshItem();
     FormRecord* FUN_00575d70();
     FormRecord* FUN_008d6f30();
@@ -37093,7 +37093,7 @@ void PlayerSave::FUN_00955620(unsigned int flags)
             ForwardToSaveLoadGame(&spellID, 4);
             unsigned int id4 = 0;
             if (unk214)
-                id4 = unk214->FUN_0040a1e0();
+                id4 = unk214->GetMagicItemFormID();
             ForwardToSaveLoadGame(&id4, 4);
             unsigned int id8 = 0;
             if (unk218)

@@ -8,7 +8,7 @@ struct TESObjectCELL
 struct CoordinateTriple
 {
     bool FUN_00527a00();
-    TESObjectCELL* FUN_00527900();
+    TESObjectCELL* GetCell();
 };
 struct TES
 {
@@ -19,7 +19,7 @@ extern TES* g_TES;
 // @fnv 0x00527a00
 bool CoordinateTriple::FUN_00527a00()
 {
-    TESObjectCELL* pcell = FUN_00527900();
+    TESObjectCELL* pcell = GetCell();
     if (!pcell)
         return false;
     return g_TES->IsCellBuffered(pcell, false);
@@ -38,11 +38,11 @@ struct CoordinateTriple
     NiPoint3 pos;
     // +0x0c
     void* m_pPathingCell;
-    float FUN_00527a40(const CoordinateTriple& arWorldLocation);
+    float GetDistanceSquared(const CoordinateTriple& arWorldLocation);
 };
 
 // @fnv 0x00527a40
-float CoordinateTriple::FUN_00527a40(const CoordinateTriple& arWorldLocation)
+float CoordinateTriple::GetDistanceSquared(const CoordinateTriple& arWorldLocation)
 {
     if (this->m_pPathingCell != arWorldLocation.m_pPathingCell)
     {
@@ -130,10 +130,10 @@ struct FUN_00527990_shell
 {
     char _pad[12];
     TESForm* pForm;
-    bool FUN_00527990(int* apID, int* apType);
+    bool GetCellOrWorld(int* apID, int* apType);
 };
 // @fnv 0x00527990
-bool FUN_00527990_shell::FUN_00527990(int* apID, int* apType)
+bool FUN_00527990_shell::GetCellOrWorld(int* apID, int* apType)
 {
     if (!pForm)
         return false;
@@ -221,12 +221,12 @@ struct FUN_00527900_shell
     int unk8;
     TESForm* pForm;
 
-    TESObjectCELL* FUN_00527900();
+    TESObjectCELL* GetCell();
 };
 
 // Returns pForm for type 0x39, resolves type 0x41 using m_f0 and m_f4, and otherwise returns null.
 // @fnv 0x00527900
-TESObjectCELL* FUN_00527900_shell::FUN_00527900()
+TESObjectCELL* FUN_00527900_shell::GetCell()
 {
     if (pForm == 0)
         return 0;

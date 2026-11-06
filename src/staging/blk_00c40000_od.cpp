@@ -510,10 +510,10 @@ void __thiscall FUN_00c4adc0_class::FUN_00c4adc0(int arg)
 
 struct FUN_00c4ade0_class {
     unsigned char FUN_00c452c0(int);
-    unsigned char FUN_00c4ade0(int);
+    unsigned char RegisterStreamables(int);
 };
 // @fnv 0x00c4ade0
-unsigned char FUN_00c4ade0_class::FUN_00c4ade0(int a)
+unsigned char FUN_00c4ade0_class::RegisterStreamables(int a)
 {
     if (!FUN_00c452c0(a))
         return 0;
@@ -1308,10 +1308,10 @@ struct NiTPrimitiveArray_unsigned_int_ {
 };
 struct FUN_00c4ab00_Class {
     void __thiscall FUN_00c454c0(int);
-    void __thiscall FUN_00c4ab00(int a);
+    void __thiscall GetViewerStrings(int a);
 };
 // @fnv 0x00c4ab00
-void __thiscall FUN_00c4ab00_Class::FUN_00c4ab00(int pArray)
+void __thiscall FUN_00c4ab00_Class::GetViewerStrings(int pArray)
 {
     void* v;
     unsigned int x8;
@@ -10771,12 +10771,12 @@ struct W5Self {
     int f14;
     W5Sub sub18;
     void __thiscall FUN_00a7b580(ArrC43220* a1);
-    void __thiscall FUN_00c550f0(ArrC43220* a1);
+    void __thiscall GetViewerStrings(ArrC43220* a1);
 };
 
 // Calls FUN_00a7b580(a1), then a1->FUN_0096a610 with FUN_00a7d330(g_012031e8), then with the results of FUN_00a59af0 on subC and sub18.
 // @fnv 0x00c550f0
-void W5Self::FUN_00c550f0(ArrC43220* a1) {
+void W5Self::GetViewerStrings(ArrC43220* a1) {
     FUN_00a7b580(a1);
     unsigned int r1;
     unsigned int p;
@@ -10958,12 +10958,12 @@ struct S00c5cd80_Owner {
     int m_5c;
     unsigned short m_60;
     void FUN_00c1ce70(NiTPrimitiveArray_unsigned_int_* a);
-    void FUN_00c5cd80(NiTPrimitiveArray_unsigned_int_* arg);
+    void GetViewerStrings(NiTPrimitiveArray_unsigned_int_* arg);
 };
 
 // Calls FUN_00c1ce70, then appends to arg a global-derived entry, one for "Master Particle System" with m_5c, and one for "Max Full Emitters" with m_60.
 // @fnv 0x00c5cd80
-void S00c5cd80_Owner::FUN_00c5cd80(NiTPrimitiveArray_unsigned_int_* apArray) {
+void S00c5cd80_Owner::GetViewerStrings(NiTPrimitiveArray_unsigned_int_* apArray) {
     S00c5cd80_Scratch j;
     FUN_00c1ce70(apArray);
     int global = g_01203340;

@@ -135,7 +135,7 @@ struct __declspec(align(16)) FilterStorage402
     unsigned unk18, unk1c;
     unsigned filterType;
 };
-unsigned FUN_00e00a60();
+unsigned getVtable_hkpNullCollisionFilter();
 class __declspec(align(16)) S00e000e0_Object
 {
   public:
@@ -165,7 +165,7 @@ class __declspec(align(16)) S00e000e0_Object
     int unk58;
     int unk5C;
 };
-const void* __cdecl FUN_00e000e0();
+const void* __cdecl getVtable_hkpGenericConstraintData();
 struct Handle_e00290
 {
     int m_v;
@@ -303,7 +303,7 @@ class __declspec(align(16)) S00e003b0_Object
     int unk168;
     int unk16C;
 };
-const void* __cdecl FUN_00e003b0();
+const void* __cdecl getVtable_hkpCachingShapePhantom();
 class __declspec(align(16)) S00e004d0_Object
 {
   public:
@@ -365,7 +365,7 @@ class __declspec(align(16)) S00e004d0_Object
     int unkD8;
     int unkDC;
 };
-const void* __cdecl FUN_00e004d0();
+const void* __cdecl getVtable_hkpAabbPhantom();
 class __declspec(align(16)) S00e006b0_Object
 {
   public:
@@ -383,7 +383,7 @@ class __declspec(align(16)) S00e006b0_Object
     int unk28;
     int unk2C;
 };
-const void* __cdecl FUN_00e006b0();
+const void* __cdecl getVtable_hkpTriSampledHeightFieldBvTreeShape();
 class __declspec(align(16)) S00e00b80_Object
 {
   public:
@@ -453,7 +453,7 @@ class __declspec(align(16)) S00e00b80_Object
     int unkF8;
     int unkFC;
 };
-const void* __cdecl FUN_00e00b80();
+const void* __cdecl getVtable_hkpGroupFilter();
 class __declspec(align(16)) S00e00f90_Object
 {
   public:
@@ -471,7 +471,7 @@ class __declspec(align(16)) S00e00f90_Object
     int unk28;
     int unk2C;
 };
-const void* __cdecl FUN_00e00f90();
+const void* __cdecl getVtable_hkpConvexPieceMeshShape();
 class __declspec(align(16)) S00e01230_Object
 {
   public:
@@ -493,7 +493,7 @@ class __declspec(align(16)) S00e01230_Object
     int unk38;
     int unk3C;
 };
-const void* __cdecl FUN_00e01230();
+const void* __cdecl getVtable_hkpCollisionFilterList();
 struct FinishLoadedObjectFlag
 {
     int m_bFinishing;
@@ -513,7 +513,7 @@ struct __declspec(align(16)) LoadedObject
     LoadedObject(FinishLoadedObjectFlag flag) : m_pHeadNode(flag), m_iSecondInteger(flag), m_third(flag)
     {}
 };
-const void* FUN_00e01830();
+const void* getVtable_hkxTextureFile();
 class __declspec(align(16)) S00e01e50_Object
 {
   public:
@@ -527,7 +527,7 @@ class __declspec(align(16)) S00e01e50_Object
     int unk18;
     int unk1C;
 };
-const void* __cdecl FUN_00e01e50();
+const void* __cdecl getVtable_hkxMesh();
 class __declspec(align(16)) S00e020f0_Object
 {
   public:
@@ -541,7 +541,7 @@ class __declspec(align(16)) S00e020f0_Object
     int unk18;
     int unk1C;
 };
-const void* __cdecl FUN_00e020f0();
+const void* __cdecl getVtable_hkxMaterialShaderSet();
 struct Handle_e02180
 {
     int m_v;
@@ -567,7 +567,7 @@ struct __declspec(align(16)) FUN_00e02180_obj
     int unk28;
     int unk2C;
 };
-int* __cdecl FUN_00e02180();
+int* __cdecl getVtable_hkxMaterialShader();
 class __declspec(align(16)) S00e02730_Object
 {
   public:
@@ -581,7 +581,7 @@ class __declspec(align(16)) S00e02730_Object
     int unk18;
     int unk1C;
 };
-const void* __cdecl FUN_00e02730();
+const void* __cdecl getVtable_hkAlignSceneToNodeOptions();
 #include <xmmintrin.h>
 struct S_00e11530_Node
 {
@@ -672,7 +672,7 @@ struct __declspec(align(16)) S00e00d70_Object
     int unk5c;
     void FUN_00d57b20(S00e00d70_Arg arg);
 };
-int __cdecl FUN_00e00d70();
+int __cdecl getVtable_hkpCylinderShape();
 namespace N {
 union __declspec(intrin_type) __declspec(align(16)) __m128
 {

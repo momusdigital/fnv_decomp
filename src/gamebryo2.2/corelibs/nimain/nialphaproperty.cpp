@@ -502,12 +502,12 @@ struct S00a5ce30_cls
     unsigned char unk1a;
     void FUN_00a5c200();
     void FUN_00a5d7a0(S00a5ce30_cls* dst, int proc);
-    S00a5ce30_cls* FUN_00a5ce30(int a0);
+    S00a5ce30_cls* CreateClone(int a0);
 };
 void __stdcall CreateVertexBufferSet(S00a5ce30_cls* self, int proc);
 
 // @fnv 0x00a5ce30
-S00a5ce30_cls* S00a5ce30_cls::FUN_00a5ce30(int a0)
+S00a5ce30_cls* S00a5ce30_cls::CreateClone(int a0)
 {
     if (unk0c == 0 && DAT_011f4404 == 0)
     {

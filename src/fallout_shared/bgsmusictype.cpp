@@ -140,7 +140,7 @@ void MusicTypeFileList_005913b0::FUN_005913b0()
 
 struct MusicSoundWriter : TESSoundFile
 {
-    void FUN_0048cea0();
+    void Save();
 };
 
 struct MusicSaveComponents
@@ -163,7 +163,7 @@ struct MusicTypeWriter : BGSMusicType
 void MusicTypeWriter::FUN_005916b0()
 {
     FUN_004855a0();
-    reinterpret_cast<MusicSaveComponents*>(this)->soundFile.FUN_0048cea0();
+    reinterpret_cast<MusicSaveComponents*>(this)->soundFile.Save();
     FUN_00485910(0x4d414e41, fVolumeScale);
     FUN_00485680();
 }

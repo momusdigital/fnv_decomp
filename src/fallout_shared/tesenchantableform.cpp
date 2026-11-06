@@ -142,12 +142,12 @@ struct TESImageSpaceModifiableForm : public BaseFormComponent
 typedef char _sizecheck_TESImageSpaceModifiableForm[sizeof(TESImageSpaceModifiableForm) == 8 ? 1 : -1];
 struct FUN_004830d0_shell : public TESEnchantableForm
 {
-    void FUN_004830d0();
+    void InitializeDataComponent();
 };
 
 // Clears the enchantment form's fields, setting the casting type to 4 and zeroing the other two members.
 // @fnv 0x004830d0
-void FUN_004830d0_shell::FUN_004830d0()
+void FUN_004830d0_shell::InitializeDataComponent()
 {
     m_pEnchantment = 0;
     m_usEnchantmentAmount = 0;
@@ -166,12 +166,12 @@ struct TESFormList
 
 struct FUN_00483190_shell : public TESEnchantableForm
 {
-    bool FUN_00483190(BaseFormComponent* component);
+    bool CompareComponent(BaseFormComponent* component);
 };
 
 // Compares the enchantable form against component by first entry and fatigue, returning true when they differ or the cast fails.
 // @fnv 0x00483190
-bool FUN_00483190_shell::FUN_00483190(BaseFormComponent* component)
+bool FUN_00483190_shell::CompareComponent(BaseFormComponent* component)
 {
     TESEnchantableForm* other = dynamic_cast<TESEnchantableForm*>(component);
     if (!other)

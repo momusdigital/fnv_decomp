@@ -45,7 +45,7 @@ struct FUN_00c31ff0 : NiPSysPositionModifier
     FUN_00c31ff0();
 };
 extern "C" char __stdcall FUN_00c32060(void*);
-unsigned char __stdcall FUN_00c285a0(void* p);
+unsigned char __stdcall IsEqual(void* p);
 struct S_00c28a90_Arr
 {
     int unk00;
@@ -71,7 +71,7 @@ struct S_00c28a90_Base
     int unk24;
     int unk28;
     int unk2c;
-    void FUN_00c322b0(S_00c28a90_Arr* a);
+    void GetViewerStrings(S_00c28a90_Arr* a);
 };
 extern const char* DAT_012026b0;
 char* __cdecl FUN_00a7d330(const char* s);
@@ -233,11 +233,11 @@ struct FUN_00c285d0_cls
 {
     int unk0;
     void FUN_00c32020(void* obj, unsigned int a1);
-    void* FUN_00c285d0(unsigned int a1);
+    void* CreateClone(unsigned int a1);
 };
 
 // @fnv 0x00c285d0
-void* FUN_00c285d0_cls::FUN_00c285d0(unsigned int a1)
+void* FUN_00c285d0_cls::CreateClone(unsigned int a1)
 {
     RadialFieldObject_00c285d0* p = new (FUN_00aa13e0(0x34)) RadialFieldObject_00c285d0;
     FUN_00c32020(p, a1);

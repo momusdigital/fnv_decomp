@@ -3572,7 +3572,7 @@ struct ResourceUpdate
 ResourceUpdate* FUN_004b5260(SceneNode*);
 void FUN_00c6a350(SceneNode*, int, bool, bool, bool);
 NiPoint3 FUN_004a3760(float, const NiPoint3&);
-void FUN_00525340(NiPoint3&);
+void UnitizeVector(NiPoint3&);
 double FUN_00408820(float);
 float SignOfFloat(float);
 struct MovementState
@@ -4198,7 +4198,7 @@ struct LiveCallback
 };
 struct SourceData
 {
-    int __thiscall FUN_0043b540();
+    int __thiscall getCollisionFilterInfo();
 };
 struct StateHandle
 {
@@ -4269,7 +4269,7 @@ void __cdecl FUN_008d12e0(TargetOwner* target, SourceData* source, int arg0, int
         }
     }
     StateHandle state;
-    state.FUN_008c71b0(source->FUN_0043b540());
+    state.FUN_008c71b0(source->getCollisionFilterInfo());
     if (state.FUN_004a3a20() == GetCachedValue())
         return;
     if (owner && owner == DAT_011dea3c->FUN_0089f4e0())

@@ -1207,12 +1207,12 @@ void* FUN_008ca710_shell::FUN_008ca710(unsigned int flags)
 
 struct AnimationTaskData
 {
-    void FUN_008c8910(MobileObject* apMob);
+    void HandleMobMessage(MobileObject* apMob);
 };
 
 // If apMob is an actor with a flag at offset 0xbc set, or a talking activator, calls Unk_9A with 0.0f.
 // @fnv 0x008c8910
-void AnimationTaskData::FUN_008c8910(MobileObject* apMob)
+void AnimationTaskData::HandleMobMessage(MobileObject* apMob)
 {
     MobileObject* pmob = apMob;
     if (pmob && pmob->IsActor())
@@ -1284,11 +1284,11 @@ struct ActorsScriptTaskData
 {
     unsigned char _pad[0x3C];
     int m_3C;
-    void FUN_008c9110(MobileObject* apMob);
+    void HandleMobMessage(MobileObject* apMob);
 };
 // If apMob is an actor and the script check passes, calls FUN_00565870 on it and increments m_3C.
 // @fnv 0x008c9110
-void ActorsScriptTaskData::FUN_008c9110(MobileObject* apMob)
+void ActorsScriptTaskData::HandleMobMessage(MobileObject* apMob)
 {
     MobileObject* pmob = apMob;
     if (pmob && pmob->IsActor() && Script::IsConsolePlatform())
@@ -1368,11 +1368,11 @@ struct MobileObjectTaskletData
     MsgQueue m_kMessageQueue;
     int eType;
     bool ProcessMessage(void*, int);
-    void FUN_008c8130();
+    void Process();
 };
 // Drains messages from the queue, stops if ProcessMessage rejects one, otherwise calls FUN_006ea330 on this as PathingTaskData.
 // @fnv 0x008c8130
-void MobileObjectTaskletData::FUN_008c8130()
+void MobileObjectTaskletData::Process()
 {
     MobileObjectTaskletContext msg;
     while (m_kMessageQueue.GetMsg(&msg))

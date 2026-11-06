@@ -88,19 +88,19 @@ struct FUN_00e059d0_cls
     int m_0c;
     int unk10;
     int m_14;
-    unsigned char* FUN_00e059d0(unsigned char* supported);
+    unsigned char* setMark(unsigned char* supported);
 };
 
 // @fnv 0x00e059d0
-unsigned char* FUN_00e059d0_cls::FUN_00e059d0(unsigned char* supported)
+unsigned char* FUN_00e059d0_cls::setMark(unsigned char* supported)
 {
     m_14 = m_0c;
     return 0;
 }
 
-// FUN_00e05a00: sets the flag byte pointed to by the argument to 1 and returns the argument.
+// seekTellSupported: sets the flag byte pointed to by the argument to 1 and returns the argument.
 // @fnv 0x00e05a00
-unsigned char* __stdcall FUN_00e05a00(unsigned char* supported)
+unsigned char* __stdcall seekTellSupported(unsigned char* supported)
 {
     *supported = 1;
     return supported;
@@ -135,11 +135,11 @@ hkBoolE059 hkObjectE059::IsNotAtEnd() const
 
 struct FUN_00e05a10_cls : hkMemoryStreamReader
 {
-    int __thiscall FUN_00e05a10(int arg4, int mode);
+    int __thiscall seek(int arg4, int mode);
 };
 // Computes a new stream position from arg4 and mode, clamps it to [0, m_10], stores it in m_0c and returns whether clamping occurred.
 // @fnv 0x00e05a10
-int __thiscall FUN_00e05a10_cls::FUN_00e05a10(int aiOffset, int mode)
+int __thiscall FUN_00e05a10_cls::seek(int aiOffset, int mode)
 {
     int edx = -1;
     switch (mode)

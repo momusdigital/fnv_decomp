@@ -90,16 +90,16 @@ Tile* TileMenu::SetTraitValue(int valueID, float floatValue, const char* strValu
 class TileMenuStub : public TileMenu
 {
   public:
-    void FUN_00a0b020();
+    void ForceTextureRelease();
     void FUN_00a1f310();
 };
 
-// Returns early if pMenu's ID is 0x3ec or 0x3ef, otherwise calls FUN_00a0b020.
+// Returns early if pMenu's ID is 0x3ec or 0x3ef, otherwise calls ForceTextureRelease.
 // @fnv 0x00a1f310
 void TileMenuStub::FUN_00a1f310()
 {
     if (pMenu && (pMenu->GetID() == 0x3ec || pMenu->GetID() == 0x3ef))
         return;
     else
-        FUN_00a0b020();
+        ForceTextureRelease();
 }

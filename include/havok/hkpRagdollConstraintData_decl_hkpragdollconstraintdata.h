@@ -10,7 +10,7 @@
 class hkpRagdollConstraintData : public hkpConstraintData
 {
   public:
-    hkBool FUN_00cdf090() const;  // declared for the original code (decl_variants.py)
+    hkBool isValid() const;  // declared for the original code (decl_variants.py)
 
   public:
     enum MotorIndex

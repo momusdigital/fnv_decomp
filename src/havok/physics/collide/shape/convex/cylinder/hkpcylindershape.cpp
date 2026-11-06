@@ -202,12 +202,12 @@ struct S00d57830 {
     __m128 m_kVertexA;
     __m128 m_kVertexB;
 
-    void FUN_00d57830(__m128* out);
+    void getCentreImpl(__m128* out);
 };
 
 // Stores (m_kVertexA + m_kVertexB) scaled by DAT_01016248 into *out.
 // @fnv 0x00d57830
-void S00d57830::FUN_00d57830(__m128* out)
+void S00d57830::getCentreImpl(__m128* out)
 {
     __m128 a = this->m_kVertexA;
     __m128 b = this->m_kVertexB;

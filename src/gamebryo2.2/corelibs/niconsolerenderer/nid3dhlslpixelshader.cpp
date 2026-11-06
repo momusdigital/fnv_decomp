@@ -4,7 +4,7 @@
 struct BaseFake
 {
     char _b[0x38];
-    void __thiscall FUN_00e898c0();
+    void __thiscall DestroyRendererData();
 };
 struct CT
 {
@@ -25,7 +25,7 @@ void __thiscall FUN_00e96cd0_shell::ReleaseAndReset()
         m_pShaderConstantTable->Release();
         m_pShaderConstantTable = 0;
     }
-    FUN_00e898c0();
+    DestroyRendererData();
 }
 
 struct _D3DXCONSTANTTABLE_DESC
@@ -47,10 +47,10 @@ struct NiD3DHLSLPixelShader
 {
     char _pad00[0x38];
     FakeConstantTable00e96d10* m_pShaderConstantTable;
-    unsigned int FUN_00e96d10();
+    unsigned int GetVariableCount();
 };
 // @fnv 0x00e96d10
-unsigned int NiD3DHLSLPixelShader::FUN_00e96d10()
+unsigned int NiD3DHLSLPixelShader::GetVariableCount()
 {
     _D3DXCONSTANTTABLE_DESC kDesc;
     if (!m_pShaderConstantTable)
@@ -2874,12 +2874,12 @@ struct Player
     int unk34;
     Library* m_library;
 
-    bool FUN_00e96da0(Entry* entry, int arg, int extra);
+    bool SetShaderConstant(Entry* entry, int arg, int extra);
 };
 
 // Resolves an Entry's sound info via m_library if needed, then dispatches playback through m_handler based on the entry's type.
 // @fnv 0x00e96da0
-bool Player::FUN_00e96da0(Entry* entry, int arg, int extra)
+bool Player::SetShaderConstant(Entry* entry, int arg, int extra)
 {
     SoundInfo info;
     if (m_library == 0 || m_pPointerAt20 == 0)

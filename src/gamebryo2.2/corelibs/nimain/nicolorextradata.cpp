@@ -166,13 +166,13 @@ class A89400ColorExtraData : public A89400ExtraData
         A89400ExtraData::CopyMemberData(pkDest, kCloning);
         pkDest->m_kFogTint = m_kFogTint;
     }
-    A89400ColorExtraData* FUN_00a89400(A89400CloningProcess& kCloning);
+    A89400ColorExtraData* CreateClone(A89400CloningProcess& kCloning);
 
     A89400ColorA m_kFogTint;
 };
 
 // @fnv 0x00a89400
-A89400ColorExtraData* A89400ColorExtraData::FUN_00a89400(A89400CloningProcess& kCloning)
+A89400ColorExtraData* A89400ColorExtraData::CreateClone(A89400CloningProcess& kCloning)
 {
     A89400ColorExtraData* pkDest = new A89400ColorExtraData;
     CopyMemberData(pkDest, kCloning);
@@ -193,11 +193,11 @@ struct S_00a89590
     int unk04;
     int unk08;
     S_00a89590_Member m_unk0c;
-    bool FUN_00a89590(S_00a89590* other);
+    bool IsEqual(S_00a89590* other);
 };
 
 // @fnv 0x00a89590
-bool S_00a89590::FUN_00a89590(S_00a89590* other)
+bool S_00a89590::IsEqual(S_00a89590* other)
 {
     if (!other)
         return false;

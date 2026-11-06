@@ -581,7 +581,7 @@ struct BipedModelForm
 };
 struct FUN_00485e00_shell
 {
-    void FUN_00485e20(int, int);
+    void __SaveData(int, int);
 };
 struct FUN_00485680
 {
@@ -592,7 +592,7 @@ struct FUN_0059ba80_shell : public FUN_004855a0
 {
     BSSimpleList<TESCaravanCard*>* m_pCardListHeadCur;
     BipedModelForm data;
-    void FUN_00485e20(int, int);
+    void __SaveData(int, int);
     void M();
     void FUN_0059ba80();
 };
@@ -610,7 +610,7 @@ void FUN_0059ba80_shell::FUN_0059ba80()
     }
     if (FUN_00401500())
         ((BipedModelForm*)((char*)this + 0x28))->Endian();
-    FUN_00485e20((int)((char*)this + 0x28), 4);
+    __SaveData((int)((char*)this + 0x28), 4);
     if (FUN_00401500())
         ((BipedModelForm*)((char*)this + 0x28))->Endian();
     ((FUN_00485680*)this)->M();

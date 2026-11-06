@@ -4410,7 +4410,7 @@ struct MotionBase : RefHeader31
     void FUN_00c905b0();
     void FUN_00d1dff0();
     void SetFlagBits(int a, int b, int c);
-    void FUN_00c86610(MotionBase* p);
+    void getMotionStateAndVelocitiesAndDeactivationType(MotionBase* p);
     float FUN_00c86430();
     __forceinline static void* operator new(unsigned int nbytes)
     {

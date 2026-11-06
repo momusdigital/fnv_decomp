@@ -213,12 +213,12 @@ struct __declspec(novtable) LinesCloneObject : NiLinesBaseCtor
 struct LinesCloneSource : NiLines
 {
     void FUN_00a80400(NiLines* result, CloningProcess& process);
-    NiLines* FUN_00a747e0(CloningProcess& process);
+    NiLines* CreateClone(CloningProcess& process);
 };
 
 // Allocates a LinesCloneObject, calls FUN_00a80400 with it and process, and returns it as NiLines.
 // @fnv 0x00a747e0
-NiLines* LinesCloneSource::FUN_00a747e0(CloningProcess& process)
+NiLines* LinesCloneSource::CreateClone(CloningProcess& process)
 {
     NiLines* result = new LinesCloneObject;
     FUN_00a80400(result, process);

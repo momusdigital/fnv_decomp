@@ -116,11 +116,11 @@ class hkpBallGunE46E : public hkpFirstPersonGunE46E
     hkReal m_kBulletDirection[4];
     hkQueueE46E<hkpRigidBodyE46E*>* m_pBulletQueue;
 
-    void FUN_00e46ea0(hkpWorldE46E* pkWorld) throw();
+    void reset(hkpWorldE46E* pkWorld) throw();
 };
 
 // @fnv 0x00e46ea0
-void hkpBallGunE46E::FUN_00e46ea0(hkpWorldE46E* pkWorld) throw()
+void hkpBallGunE46E::reset(hkpWorldE46E* pkWorld) throw()
 {
     while (!m_pBulletQueue->isEmpty())
     {

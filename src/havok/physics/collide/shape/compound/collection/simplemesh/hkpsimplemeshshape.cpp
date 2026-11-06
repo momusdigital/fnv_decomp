@@ -79,10 +79,10 @@ struct CpuObject
     unsigned int unk38;
     unsigned int unk3c;
     unsigned char value;
-    void FUN_00e3c260(unsigned char arg0);
+    void initWeldingInfo(unsigned char arg0);
 };
 // @fnv 0x00e3c260
-void CpuObject::FUN_00e3c260(unsigned char arg0)
+void CpuObject::initWeldingInfo(unsigned char arg0)
 {
     value = arg0;
 }
@@ -469,12 +469,12 @@ struct MeshShapeE3C
     ArrE3C<TriE3C> m_uiTriangleCount;
     ArrE3C<unsigned char> m_materialIds;
     void FUN_00d213e0(StatsCollectorE3C* collector, const void* cls) const;
-    void FUN_00e3c4e0(StatsCollectorE3C* collector, const void* cls) const;
+    void calcContentStatistics(StatsCollectorE3C* collector, const void* cls) const;
 };
 
 // Reports the vertex, triangle and material-id arrays to the StatsCollector and then calls FUN_00d213e0 with DAT_01269198.
 // @fnv 0x00e3c4e0
-void MeshShapeE3C::FUN_00e3c4e0(StatsCollectorE3C* collector, const void* cls) const
+void MeshShapeE3C::calcContentStatistics(StatsCollectorE3C* collector, const void* cls) const
 {
     collector->addArray("Vertices", 3, m_kVertices);
     collector->addArray("Triangles", 3, m_uiTriangleCount);

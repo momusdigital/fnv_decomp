@@ -62,7 +62,7 @@ struct Holder_00a55f80
     void* __thiscall FUN_00a55f80(int, float, int);
 };
 // @fnv 0x00a4fa70
-void* __stdcall FUN_00a4fa70(int a1, int a2, int a3, float a4, int a5)
+void* __stdcall CreateBlendInterpolator(int a1, int a2, int a3, float a4, int a5)
 {
     void* p = BSFadeNode::operator new(0x44);
     if (p)
@@ -87,10 +87,10 @@ struct Ctrl9
 {
     char _0[0x3c];
     Holder9* fld3c;
-    void* __thiscall FUN_00a4fb30(unsigned short);
+    void* __thiscall CreatePoseInterpolator(unsigned short);
 };
 // @fnv 0x00a4fb30
-void* __thiscall Ctrl9::FUN_00a4fb30(unsigned short usIndex)
+void* __thiscall Ctrl9::CreatePoseInterpolator(unsigned short usIndex)
 {
     void* mem = BSFadeNode::operator new(0x24);
     if (mem)

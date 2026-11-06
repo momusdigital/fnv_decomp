@@ -535,12 +535,12 @@ struct FUN_00e878c0_cls
     int unk30;
     int m_34;
 
-    int FUN_00e878c0(NiRefObj* apObj);
+    int InsertEntry(NiRefObj* apObj);
 };
 
 // Holds a reference on apObj while calling FUN_00e87800 on the sub-object at unk0c; sets m_34 to 0x30 if it returns -1, and returns m_34.
 // @fnv 0x00e878c0
-int FUN_00e878c0_cls::FUN_00e878c0(NiRefObj* apObj)
+int FUN_00e878c0_cls::InsertEntry(NiRefObj* apObj)
 {
     NiRefObj* pObj = apObj;
     *(NiRefObj* volatile*)&apObj = pObj;

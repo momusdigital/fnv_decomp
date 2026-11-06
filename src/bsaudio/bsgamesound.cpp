@@ -748,11 +748,11 @@ extern "C" int __cdecl strcat_s(char*, unsigned int, const char*);
 
 struct AudioPathFixer
 {
-    void FUN_00aea640(char* apName);
+    void PrependDataSoundPath(char* apName);
 };
 // If apName starts with "fx" or "song", copies it to a buffer, then rewrites apName to "data\sound\" followed by the original name.
 // @fnv 0x00aea640
-void AudioPathFixer::FUN_00aea640(char* apName)
+void AudioPathFixer::PrependDataSoundPath(char* apName)
 {
     char acBuffer[260];
     if (apName && ((apName[0] == 102 && apName[1] == 120) ||

@@ -69,11 +69,11 @@ void* LBList::FindItemData(Tile* apTile)
 
 struct FUN_00784b80_shell
 {
-    int __thiscall FUN_00784b80();
+    int __thiscall GetClass();
 };
 
 // @fnv 0x00784b80
-int __thiscall FUN_00784b80_shell::FUN_00784b80()
+int __thiscall FUN_00784b80_shell::GetClass()
 {
     return 0x403;
 }
@@ -885,11 +885,11 @@ struct LevelView
     int unk60;
     SkillList skills;
     SkillList perks;
-    void FUN_00785280(int, ViewTile*);
+    void HandleMouseover(int, ViewTile*);
 };
 // Handles hover for ids 11-14: fills the skill or perk name/description tiles, toggles their visibility and notifies, or selects the parent skill list.
 // @fnv 0x00785280
-void LevelView::FUN_00785280(int id, ViewTile* tile)
+void LevelView::HandleMouseover(int id, ViewTile* tile)
 {
     char description[512];
     switch (id)
@@ -1327,7 +1327,7 @@ struct Perk
     int unk10;
     int unk14;
     PerkName name;
-    unsigned char FUN_005d4ee0();
+    unsigned char GetNumRanks();
 };
 struct FallbackSetting
 {
@@ -1412,7 +1412,7 @@ void SkillsMenu::UpdateSkillsAndPerks()
                 strcpy_s(acPerkLabel, 64, ((Perk*)*node->_ref_006815c0())->name.FUN_00408da0());
                 if (!FUN_0044a670(acPerkLabel))
                     strcpy_s(acPerkLabel, 64, DAT_011d35b8.FUN_00403df0());
-                if (((Perk*)*node->_ref_006815c0())->FUN_005d4ee0() > 1 && iPerkRank > 0)
+                if (((Perk*)*node->_ref_006815c0())->GetNumRanks() > 1 && iPerkRank > 0)
                     FUN_00406d00(acPerkLabel, 64, str_0106eb00, acPerkLabel, iPerkRank + 1);
                 perkTile = perks.AddItemTile(*node->_ref_006815c0(), acPerkLabel, 0, 0);
                 perkTile->FUN_00700320(0xfaa, 12);
@@ -3816,7 +3816,7 @@ struct ConditionList_t
 };
 struct FUN_00460fb0_class
 {
-    void* FUN_00460fb0();
+    void* GetPerkList();
 };
 struct FUN_006aabf0_shell
 {
@@ -3824,7 +3824,7 @@ struct FUN_006aabf0_shell
 };
 struct FUN_005d4ee0Class
 {
-    char FUN_005d4ee0();
+    char GetNumRanks();
 };
 struct FUN_005eb5e0_t
 {
@@ -3899,14 +3899,14 @@ int FUN_00784c80()
         if (FUN_0087f9f0((void*)(unsigned int)DAT_011dea3c) % FUN_0043d4d0(&DAT_011cd074) == 0)
         {
             ContNode* node;
-            for (node = (ContNode*)((FUN_00460fb0_class*)(void*)(unsigned int)DAT_011c3f2c)->FUN_00460fb0();
+            for (node = (ContNode*)((FUN_00460fb0_class*)(void*)(unsigned int)DAT_011c3f2c)->GetPerkList();
                  node && *((ConditionList_t*)node)->FUN_006815c0(); node = FUN_00726070(node))
             {
                 TESConditionItem* item = *((ConditionList_t*)node)->FUN_006815c0();
                 if ((char)((FUN_006aabf0_shell*)item)->GetByteAt39() > 0)
                 {
                     if (((ActorV*)(void*)(unsigned int)DAT_011dea3c)->FUN_v4a0(item, 0) <
-                            (int)(unsigned char)((FUN_005d4ee0Class*)item)->FUN_005d4ee0() &&
+                            (int)(unsigned char)((FUN_005d4ee0Class*)item)->GetNumRanks() &&
                         !(unsigned char)GetByteAtOffset56((char*)item) && ((ItemO*)item)->FUN_005eba00(DAT_011dea3c) &&
                         ((FUN_005eb5e0_t*)item)->CheckPlayerConditions())
                     {
@@ -4090,7 +4090,7 @@ class LevelGamepadView
     virtual void vfunc11();
     virtual void vfunc12();
     virtual void vfunc13();
-    virtual bool FUN_00785ed0(int code, float val);
+    virtual bool HandleSpecialKeyInput(int code, float val);
 
     int unk04;
     int unk08;
@@ -4122,7 +4122,7 @@ class LevelGamepadView
 
 // Processes gamepad button codes to select and activate level-up tiles, returning whether the input was handled.
 // @fnv 0x00785ed0
-bool LevelGamepadView::FUN_00785ed0(int aiButtonCode, float afValue)
+bool LevelGamepadView::HandleSpecialKeyInput(int aiButtonCode, float afValue)
 {
     bool bHandled = false;
     switch (aiButtonCode)
@@ -4160,7 +4160,7 @@ bool LevelGamepadView::FUN_00785ed0(int aiButtonCode, float afValue)
         }
         else if (this->unk28 == 0)
         {
-            bHandled = this->FUN_00785ed0(3, 1.0f);
+            bHandled = this->HandleSpecialKeyInput(3, 1.0f);
         }
         break;
     case 10:
@@ -4172,7 +4172,7 @@ bool LevelGamepadView::FUN_00785ed0(int aiButtonCode, float afValue)
         }
         else if (this->unk28 == 0)
         {
-            bHandled = this->FUN_00785ed0(4, 1.0f);
+            bHandled = this->HandleSpecialKeyInput(4, 1.0f);
         }
         break;
     }

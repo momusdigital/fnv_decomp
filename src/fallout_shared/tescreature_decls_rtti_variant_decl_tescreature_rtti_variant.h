@@ -359,7 +359,7 @@ class TESCreature : public TESActorBase, public TESAttackDamageForm, public TESM
     virtual BGSBodyPartData* GetBodyPartData();
     virtual void C97();
     virtual TESCombatStyle* GetCombatStyle();
-    bool FUN_005f9b90(TESForm* otherForm);
+    bool Compare(TESForm* otherForm);
     bool FUN_00485270(TESCreature* other);
     const void* GetOffset12C();
     bool FUN_005f9ad0();

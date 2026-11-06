@@ -91,10 +91,10 @@ struct FUN_009d1c30_shell
 };
 struct FUN_009d09a0_shell
 {
-    void __thiscall FUN_009d09a0();
+    void __thiscall Shutdown();
 };
 // @fnv 0x009d09a0
-void __thiscall FUN_009d09a0_shell::FUN_009d09a0()
+void __thiscall FUN_009d09a0_shell::Shutdown()
 {
     Actor* pattacker;
     pattacker = ((FUN_009cc4d0_shell*)this)->FUN_00996de0();
@@ -1230,7 +1230,7 @@ struct RWeaponInfo
 struct RWeapon
 {
     RWeaponInfo* WeaponInfo(RActor*);
-    bool FUN_00524b40();
+    bool IsAutomaticWeapon();
     bool IsFlagSet();
     float GetTarget();
     float Range();
@@ -1352,7 +1352,7 @@ void RAttack::UpdateAttack()
         return;
     }
     RWeaponInfo* info1 = weapon0->WeaponInfo(actor);
-    bool automatic77 = weapon0->FUN_00524b40();
+    bool automatic77 = weapon0->IsAutomaticWeapon();
     bool burstWeapon = automatic77 || weapon0->IsFlagSet();
     bool tooClose34 = false;
     RPoint destination;

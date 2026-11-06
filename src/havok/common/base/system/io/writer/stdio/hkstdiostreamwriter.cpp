@@ -43,7 +43,7 @@ void __thiscall FUN_00d2bfb0_class::FUN_00d2bfb0()
 
 void __cdecl FUN_00ecda70(void*);
 // @fnv 0x00d2bec0
-void __fastcall FUN_00d2bec0(void* self, int)
+void __fastcall flush(void* self, int)
 {
     void* p = *(void**)((char*)self + 8);
     if (p)
@@ -55,10 +55,10 @@ struct FUN_00d2bf20_class
 {
     char m0[8];
     void* m8;
-    long FUN_00d2bf20();
+    long tell();
 };
 // @fnv 0x00d2bf20
-long FUN_00d2bf20_class::FUN_00d2bf20()
+long FUN_00d2bf20_class::tell()
 {
     return _ftell(m8);
 }

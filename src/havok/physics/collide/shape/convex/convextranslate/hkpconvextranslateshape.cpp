@@ -196,12 +196,12 @@ struct ClsDD5F50
     int m_1c;
     hkVector4D5F m_vTranslation;  // +0x20
 
-    void __thiscall FUN_00dd5f50(const unsigned short* ids, int numIds, hkVector4D5F* verticesOut);
+    void __thiscall convertVertexIdsToVerticesImpl(const unsigned short* ids, int numIds, hkVector4D5F* verticesOut);
 };
 
 // Calls the contained shape's virtual vertex generator, then adds m_vTranslation to each output vertex.
 // @fnv 0x00dd5f50
-void ClsDD5F50::FUN_00dd5f50(const unsigned short* ids, int numIds, hkVector4D5F* verticesOut)
+void ClsDD5F50::convertVertexIdsToVerticesImpl(const unsigned short* ids, int numIds, hkVector4D5F* verticesOut)
 {
     m_pContainedShape->FUN_00dd5f50_v(ids, numIds, verticesOut);
     for (int i = 0; i < numIds; i++)

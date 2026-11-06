@@ -1277,12 +1277,12 @@ struct S_0080ca50_Effect
     char unk48;
     S_0080ca50_Caster* FUN_0059bb30();
     S_0080ca50_Target* FUN_0045cd60();
-    void FUN_0080ca50();
+    void Start();
 };
 
 // Resolves caster and target actors; if both exist, either runs the caster's v428 path or calls FUN_00881680 and v410 on the caster, then sets unk48 to 1.
 // @fnv 0x0080ca50
-void S_0080ca50_Effect::FUN_0080ca50()
+void S_0080ca50_Effect::Start()
 {
     S_0080ca50_Actor* caster = FUN_0059bb30() ? FUN_0059bb30()->FUN_00822b40() : 0;
     S_0080ca50_Actor* target2 = FUN_0045cd60() ? FUN_0045cd60()->FUN_00815410() : 0;
@@ -1500,17 +1500,17 @@ struct Actor_80c980
     virtual bool vba();
     Actor_80c980* FUN_00822b40();
     unsigned short FUN_0087f9f0();
-    bool FUN_00608d80();
+    bool IsReanimated();
 };
 
 struct FUN_0080c980_cls
 {
     float GetFloatAtOffset1C();
-    bool FUN_0080c980(Actor_80c980* apActor);
+    bool CheckTarget(Actor_80c980* apActor);
 };
 
 // @fnv 0x0080c980
-bool FUN_0080c980_cls::FUN_0080c980(Actor_80c980* apActor)
+bool FUN_0080c980_cls::CheckTarget(Actor_80c980* apActor)
 {
     Actor_80c980* Actor_80c980 = apActor ? apActor->FUN_00822b40() : 0;
     if (Actor_80c980 != 0 && !Actor_80c980->v8b(0) && !Actor_80c980->vba() &&
@@ -1522,7 +1522,7 @@ bool FUN_0080c980_cls::FUN_0080c980(Actor_80c980* apActor)
         }
         else
         {
-            if (Actor_80c980->FUN_00608d80())
+            if (Actor_80c980->IsReanimated())
                 return false;
         }
         return true;

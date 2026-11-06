@@ -4,11 +4,11 @@
 
 struct FUN_00ee8220_shell
 {
-    void* __thiscall FUN_00ee8220();
+    void* __thiscall GetWidth();
 };
 
 // @fnv 0x00ee8220
-void* __thiscall FUN_00ee8220_shell::FUN_00ee8220()
+void* __thiscall FUN_00ee8220_shell::GetWidth()
 {
     void* p = *(void**)(this + 0x4C);
     return *(void**)((char*)p + 8);
@@ -16,11 +16,11 @@ void* __thiscall FUN_00ee8220_shell::FUN_00ee8220()
 
 struct FUN_00ee8230_shell
 {
-    int __thiscall FUN_00ee8230();
+    int __thiscall GetHeight();
 };
 
 // @fnv 0x00ee8230
-int __thiscall FUN_00ee8230_shell::FUN_00ee8230()
+int __thiscall FUN_00ee8230_shell::GetHeight()
 {
     int* p = *(int**)((char*)this + 0x4c);
     return *(int*)((char*)p + 0xc);

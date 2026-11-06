@@ -1324,7 +1324,7 @@ struct FUN_00a712f0
     static void operator delete(void*, unsigned int);
     FUN_00a712f0();
     void FUN_00712e60(const ImageSpaceEffectParam&);
-    void FUN_00507700(float);
+    void SetMaxFarNearRatio(float);
     void FUN_00a6faf0(const NiFrustum&);
     void FUN_004bc1f0(float, float, float);
     void FUN_00a59c60(NiUpdateData&);
@@ -1432,7 +1432,7 @@ FUN_00a712f0* CameraContext::CreateSurgery3DCamera()
     NiFrustum angle(false);  // Perspective frustum.
     angle.farPlane = FUN_0045c670()->GetScale();
     angle.nearPlane = *DAT_01203144.Float();
-    distance->FUN_00507700(angle.farPlane / angle.nearPlane);
+    distance->SetMaxFarNearRatio(angle.farPlane / angle.nearPlane);
     frustum = float(DAT_011f9426 ? DAT_011f9434 : FUN_004dc200()) / FUN_004dc1f0();
     float camera = 0.75f;  // Frustum scale.
     float update = *DAT_01203150.Float() * 0.01745329238474369 * 0.15000000596046448;
@@ -2262,7 +2262,7 @@ BookInterface* FUN_004b7210();
 int FUN_007c6110();
 void FUN_005b5e40(const char*, ...);
 void FUN_007037e0();
-void FUN_005cfcb0(bool);
+void ForceObjectiveReminders(bool);
 struct BookMenu
 {
     virtual ~BookMenu();
@@ -2334,7 +2334,7 @@ extern "C" void FUN_007c5fc0(int value)
         reinterpret_cast<BookMenu*>(DAT_011daa38)->bookValue = value;
         reinterpret_cast<BookMenu*>(DAT_011daa38)->InitMenu();
         DAT_011daa9c.FUN_0066b0d0(reinterpret_cast<BookMenu*>(DAT_011daa38)->CreateSurgery3DCamera());
-        FUN_005cfcb0(true);
+        ForceObjectiveReminders(true);
         tile->FUN_00a1dc20(false);
     }
     else if (tile && tile->FUN_00726070())

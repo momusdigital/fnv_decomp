@@ -79,7 +79,7 @@ struct FUN_0066d610_shell
 };
 struct bhkCapsuleShape
 {
-    unsigned int __thiscall FUN_0066d730() const;
+    unsigned int __thiscall QCinfoSize() const;
 };
 struct FUN_0066da50_t
 {
@@ -952,7 +952,7 @@ struct S_0066d880_List
 };
 struct S_0066d880_Obj
 {
-    unsigned char FUN_00666f00();
+    unsigned char IsInstance();
     int FUN_008d6f30();
 };
 struct S_0066d880_Holder
@@ -1506,7 +1506,7 @@ struct Obj
     int unk04;
     Data8* unk08;
     void FUN_00c9fb70(Output*);
-    void FUN_00cab1b0(void*, void*);
+    void BuildDisplayGeometry(void*, void*);
 };
 extern unsigned int DAT_0126fd98;
 extern float DAT_010c72bc;
@@ -1536,7 +1536,7 @@ struct TlsRestore
     }
 };
 // @fnv 0x00cab1b0
-void Obj::FUN_00cab1b0(void* a1, void* a2)
+void Obj::BuildDisplayGeometry(void* a1, void* a2)
 {
     TlsRestore guard;
     Output out;
@@ -2134,7 +2134,7 @@ struct RecordCollection
 
     void FUN_00ca05b0(NiStrArr* a);
 
-    void FUN_00cb7d80(NiStrArr* a1);
+    void GetViewerStrings(NiStrArr* a1);
 };
 
 inline float getX(__m128 v)
@@ -2180,7 +2180,7 @@ inline Point scale(__m128 v, float k)
 char* __cdecl FUN_00a7d550(const char* buf, float f);
 
 // @fnv 0x00cb7d80
-void RecordCollection::FUN_00cb7d80(NiStrArr* a1)
+void RecordCollection::GetViewerStrings(NiStrArr* a1)
 {
     TlsGuard_t guard(0x10);
     FUN_00ca05b0(a1);

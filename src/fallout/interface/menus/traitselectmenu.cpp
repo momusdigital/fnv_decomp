@@ -4,11 +4,11 @@
 
 struct TraitSelectMenu
 {
-    int __thiscall FUN_007e7ac0();
+    int __thiscall GetClass();
 };
 
 // @fnv 0x007e7ac0
-int __thiscall TraitSelectMenu::FUN_007e7ac0()
+int __thiscall TraitSelectMenu::GetClass()
 {
     return 0x434;
 }
@@ -130,11 +130,11 @@ extern float const runtimeFloatSettingDefault275;
 struct FUN_007e82b0_shell
 {
     void __thiscall FUN_007e8310(float);
-    void __thiscall FUN_007e82b0(int, int);
+    void __thiscall HandleMousewheel(int, int);
 };
 // Reads a value from FUN_004b7210 and calls FUN_007e8310 with 0.05f when it is negative or with runtimeFloatSettingDefault275 when it is positive.
 // @fnv 0x007e82b0
-void __thiscall FUN_007e82b0_shell::FUN_007e82b0(int, int)
+void __thiscall FUN_007e82b0_shell::HandleMousewheel(int, int)
 {
     if (((FUN_0070ec70_This*)FUN_004b7210())->FUN_0070ec70() < 0)
         FUN_007e8310(0.05f);
@@ -181,10 +181,10 @@ struct TraitSelectMenuStandIn
 {
     char _pad[0x28];
     Tile* m_pTiles[18];
-    void __thiscall FUN_007e8280(int aiID, Tile* apTarget);
+    void __thiscall HandleMouseover(int aiID, Tile* apTarget);
 };
 // @fnv 0x007e8280
-void __thiscall TraitSelectMenuStandIn::FUN_007e8280(int aiID, Tile* apTarget)
+void __thiscall TraitSelectMenuStandIn::HandleMouseover(int aiID, Tile* apTarget)
 {
     if (apTarget == 0 && aiID >= 0 && aiID < 0x12)
         apTarget = m_pTiles[aiID];
@@ -197,11 +197,11 @@ struct FUN_007e7e30_shell
 {
     char _pad[0x28];
     Tile* m_pTiles[18];
-    void __thiscall FUN_007e7e30(int aiID, Tile* apTarget);
+    void __thiscall DoClick(int aiID, Tile* apTarget);
 };
 
 // @fnv 0x007e7e30
-void FUN_007e7e30_shell::FUN_007e7e30(int aiID, Tile* apTarget)
+void FUN_007e7e30_shell::DoClick(int aiID, Tile* apTarget)
 {
     if (apTarget == 0 && aiID >= 0 && aiID < 0x12)
     {

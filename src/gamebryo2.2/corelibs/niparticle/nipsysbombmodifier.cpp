@@ -720,11 +720,11 @@ struct C2E570_Modifier : C2E570_Base
         m_34 = 0;
     }
     void FUN_00c31780(C2E570_Modifier* clone, int arg);
-    C2E570_Modifier* FUN_00c2e570(int arg);
+    C2E570_Modifier* CreateClone(int arg);
 };
 // Creates a new modifier, calls FUN_00c31780 on it, copies m_1C, m_20, m_24, m_28, m_2C, m_30, and m_34, then returns it.
 // @fnv 0x00c2e570
-C2E570_Modifier* C2E570_Modifier::FUN_00c2e570(int arg)
+C2E570_Modifier* C2E570_Modifier::CreateClone(int arg)
 {
     C2E570_Modifier* clone = new C2E570_Modifier;
     FUN_00c31780(clone, arg);

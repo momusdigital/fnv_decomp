@@ -72,11 +72,11 @@ class hkpConstraintFramesD52F
     hkRotationD52F m_kRotationA;
     hkRotationD52F m_kRotationB;
 
-    hkBoolD52F FUN_00d52f50() const;
+    hkBoolD52F isValid() const;
 };
 
 // @fnv 0x00d52f50
-hkBoolD52F hkpConstraintFramesD52F::FUN_00d52f50() const
+hkBoolD52F hkpConstraintFramesD52F::isValid() const
 {
     return m_kRotationA.IsOrthonormal(0.001f) && m_kRotationB.IsOrthonormal(0.001f);
 }

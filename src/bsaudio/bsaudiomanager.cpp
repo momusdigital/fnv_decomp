@@ -116,11 +116,11 @@ struct FUN_00c3d0e0_stub
 
 struct FUN_00ae7480_shell : FUN_00c3d0e0_stub
 {
-    bool __thiscall FUN_00ae7480(char* apDescription, unsigned int aiBufferSize);
+    bool __thiscall GetDescription(char* apDescription, unsigned int aiBufferSize);
 };
 
 // @fnv 0x00ae7480
-bool __thiscall FUN_00ae7480_shell::FUN_00ae7480(char* apDescription, unsigned int aiBufferSize)
+bool __thiscall FUN_00ae7480_shell::GetDescription(char* apDescription, unsigned int aiBufferSize)
 {
     return this->FUN_00c3d0e0(apDescription, aiBufferSize, "audio load task");
 }
@@ -2274,12 +2274,12 @@ extern int DAT_01202d98;
 
 struct AudioThreadEntry : BSAudioManagerThread
 {
-    int FUN_00ae74b0();
+    int ThreadProc();
 };
 
 // Waits on doneSemaphore30, then loops calling FUN_00addc00 on the update object when DAT_01202d98 is set, sleeping 1 ms each iteration.
 // @fnv 0x00ae74b0
-int AudioThreadEntry::FUN_00ae74b0()
+int AudioThreadEntry::ThreadProc()
 {
     BSSemaphore_adf080* semaphore = &doneSemaphore30;
     WaitForSingleObject(semaphore->semaphore, 0xFFFFFFFF);

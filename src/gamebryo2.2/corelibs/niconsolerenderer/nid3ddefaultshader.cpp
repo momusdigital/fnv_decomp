@@ -111,11 +111,11 @@ struct FakeShader
     RendererFake* m_pOwnerShader;
     char _pad1[0x2c];
     unsigned int m_uiOld;
-    unsigned int FUN_00e7c580(void*, void*, void*, void*, void*, void*, void*);
+    unsigned int PostProcessPipeline(void*, void*, void*, void*, void*, void*, void*);
 };
 // Calls Set(0x89, m_uiOld, 0, 0) on the renderer, then forwards all arguments to FUN_00e805f0 and returns its result.
 // @fnv 0x00e7c580
-unsigned int FakeShader::FUN_00e7c580(void* a1, void* a2, void* a3, void* a4, void* a5, void* a6, void* a7)
+unsigned int FakeShader::PostProcessPipeline(void* a1, void* a2, void* a3, void* a4, void* a5, void* a6, void* a7)
 {
     m_pOwnerShader->Set(0x89, m_uiOld, 0, 0);
     return ((BaseFake*)this)->FUN_00e805f0(a1, a2, a3, a4, a5, a6, a7);
@@ -781,11 +781,11 @@ struct S_00e7c720_Shader
     int unk48;
     unsigned int unk4c;
     unsigned int FUN_00e81170(void*, void*, void*, S_00e7c720_State*, void*, void*, void*);
-    unsigned int FUN_00e7c720(void*, void*, void*, S_00e7c720_State*, void*, void*, void*);
+    unsigned int PreProcessPipeline(void*, void*, void*, S_00e7c720_State*, void*, void*, void*);
 };
 // Calls f02 on unk1c, invokes ApplyRenderModes on unk18->unk8c8 with a5 and a4->unk14, runs FUN_00e81170, stores unk1c->f27(0x89) in unk4c and returns its result.
 // @fnv 0x00e7c720
-unsigned int S_00e7c720_Shader::FUN_00e7c720(void* apArg1, void* apArg2, void* apArg3, S_00e7c720_State* apState,
+unsigned int S_00e7c720_Shader::PreProcessPipeline(void* apArg1, void* apArg2, void* apArg3, S_00e7c720_State* apState,
                                              void* apArg5, void* apArg6, void* apArg7)
 {
     unk1c->f02(apState);

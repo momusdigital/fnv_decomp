@@ -56,11 +56,11 @@ bool __fastcall FUN_00e88fa0(void* pThis, int, NiGeometryGroup* pkGroup, NiGeome
 
 struct FUN_00e88c90_shell : public NiD3DGeometryGroupManager
 {
-    bool FUN_00e88c90(NiGeometryGroup*);
+    bool IsGroupEmpty(NiGeometryGroup*);
 };
 
 // @fnv 0x00e88c90
-bool FUN_00e88c90_shell::FUN_00e88c90(NiGeometryGroup* pkGroup)
+bool FUN_00e88c90_shell::IsGroupEmpty(NiGeometryGroup* pkGroup)
 {
     return *(unsigned int*)((char*)pkGroup + 4) == 0;
 }

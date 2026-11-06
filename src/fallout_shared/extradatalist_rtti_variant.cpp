@@ -95,7 +95,7 @@ struct ResQ
 void __cdecl FUN_00806130(int a, int b);
 struct OwnQ
 {
-    ResQ* FUN_00418460();
+    ResQ* GetTeleport();
     BSExtraData* FUN_00410220(int iType);
     void FUN_00426720(unsigned int uiFlags, int a2, P3Q* p3);
 };
@@ -109,7 +109,7 @@ void OwnQ::FUN_00426720(unsigned int uiFlags, int a2, P3Q* p3)
     {
         if (uiFlags & 0x20000)
         {
-            ResQ* pRes = FUN_00418460();
+            ResQ* pRes = GetTeleport();
             pRes->FUN_00483710();
         }
         if (uiFlags & 0)

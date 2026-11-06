@@ -12,11 +12,11 @@ struct FUN_00d1e670_StandIn
     virtual void f3() = 0;
     virtual void f4(float) = 0;
 
-    void FUN_00d1e670(float);
+    void setMass(float);
 };
 
 // @fnv 0x00d1e670
-void FUN_00d1e670_StandIn::FUN_00d1e670(float value)
+void FUN_00d1e670_StandIn::setMass(float value)
 {
     f4(1.0f / value);
 }
@@ -504,12 +504,12 @@ struct hkpMotionB
     hkVec4Q m_kTranslationalVelocity;  // 0xd0
     hkVec4Q m_kAngularVelocity;        // 0xe0
 
-    void FUN_00d1e9f0(const hkVec4Q& imp, const hkVec4Q& p);
+    void applyPointImpulse(const hkVec4Q& imp, const hkVec4Q& p);
 };
 
 // Adds translational and angular velocity changes to the rigid body from an impulse imp applied at point p.
 // @fnv 0x00d1e9f0
-void hkpMotionB::FUN_00d1e9f0(const hkVec4Q& imp, const hkVec4Q& p)
+void hkpMotionB::applyPointImpulse(const hkVec4Q& imp, const hkVec4Q& p)
 {
     m_kTranslationalVelocity.addMul4(m_kInertiaAndMassInv.getSimdAt(3), imp);
 
@@ -544,11 +544,11 @@ struct Vec
 };
 struct Motion
 {
-    void FUN_00d1eaf0(const Vec& impulse);
+    void applyAngularImpulse(const Vec& impulse);
 };
 // Transforms impulse through the rotation matrix, scales by inverse inertia, and accumulates into the angular velocity at offset 0xe0.
 // @fnv 0x00d1eaf0
-void Motion::FUN_00d1eaf0(const Vec& impulse)
+void Motion::applyAngularImpulse(const Vec& impulse)
 {
     const Mat& r = *(const Mat*)((char*)this + 0x10);
     __m128 a = r.c0, b = r.c1, c = r.c2;
@@ -714,7 +714,7 @@ class hkReferencedObjectD1E6F : public hkBaseObjectD1E6F
 class hkpSphereMotionD1E6F : public hkReferencedObjectD1E6F
 {
   public:
-    void FUN_00d1e6f0(hkMatrix3D1E6F& kInertiaInv) const;
+    void getInertiaLocal(hkMatrix3D1E6F& kInertiaInv) const;
 
     unsigned char m_type;
     unsigned char m_ucDeactivationIntegrateCounter;
@@ -726,7 +726,7 @@ class hkpSphereMotionD1E6F : public hkReferencedObjectD1E6F
 
 // Clamps m_kInertiaAndMassInv components to a minimum, then writes their reciprocals to the diagonal of kInertiaInv.
 // @fnv 0x00d1e6f0
-void hkpSphereMotionD1E6F::FUN_00d1e6f0(hkMatrix3D1E6F& kInertiaInv) const
+void hkpSphereMotionD1E6F::getInertiaLocal(hkMatrix3D1E6F& kInertiaInv) const
 {
     __declspec(align(16)) float afInertia[4];
     __m128 m = m_kInertiaAndMassInv.m_vComponents;

@@ -50,7 +50,7 @@ struct FUN_00da2e60_cls
     void* m_vft;  // +0x00
     char m_auiShapeKeys[0x1c];
     int m_pSocket;  // +0x20
-    int FUN_00da2e60(int, int);
+    int write(int, int);
 };
 int __stdcall FUN_00ee6d4a(int, int, int);
 struct FUN_00da2de0_class
@@ -70,7 +70,7 @@ struct FUN_00da2f90_cls
 {
     char m_auiShapeKeys[0x20];
     int m_pSocket;
-    bool FUN_00da2f90(int a, int b, int c);
+    bool asyncSelect(int a, int b, int c);
 };
 extern "C" int __stdcall FUN_00ee6d7a(int, int, int, int);
 // FUN_00ee6d9e: 6-byte 'jmp [IAT]' forwarder to WSOCK32 ordinal 21 (setsockopt, stdcall, 5 args).
@@ -242,11 +242,11 @@ struct SockD32
     int unk00, unk04, unk08, unk0C, unk10, unk14, unk18, unk1C;
     unsigned int m_pSocket;
 
-    void* FUN_00da3230();
+    void* pollForNewClient();
 };
 
 // @fnv 0x00da3230
-void* SockD32::FUN_00da3230()
+void* SockD32::pollForNewClient()
 {
     if (m_pSocket != -1)
     {

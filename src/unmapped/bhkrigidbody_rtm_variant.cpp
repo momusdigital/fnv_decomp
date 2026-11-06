@@ -13,7 +13,7 @@ struct bhkRigidBody
 {
     void FUN_00c859e0(NiStream*);
     void FUN_00c8ef80(NiObject*);
-    void FUN_00c8f3c0(NiStream*);
+    void LinkObject(NiStream*);
 };
 char* __cdecl FUN_00a7d5e0(const char*, const char*);
 struct NiTPrimitiveArray_unsigned_int_
@@ -42,7 +42,7 @@ void __cdecl AddMotionTypeName(StrArr* arr, int type);
 struct FUN_00c8eb00_s
 {
     void __thiscall ProcessListNodes();
-    void __thiscall FUN_00c9d590();
+    void __thiscall Remove();
     void __thiscall FUN_00c8eb00();
 };
 struct LinkedRecord
@@ -132,7 +132,7 @@ struct S_00c8d440_Target
     virtual void v4(unsigned int id, S_00c8d440_Arg arg);
 };
 extern S_00c8d440_Target* DAT_01268360;
-void __stdcall FUN_00c8d440(bool flag);
+void __stdcall SetHavokAssertState(bool flag);
 struct NativeData
 {
     unsigned int unk00, unk04, unk08, unk0c, unk10, unk14;
@@ -619,7 +619,7 @@ struct SpawnedObject : public ChainB_cls
         DAT_012681bc += 1;
     }
 };
-SpawnedObject* __cdecl FUN_00c8ed70();
+SpawnedObject* __cdecl CreateObject();
 struct NiNode;
 struct HavokShape
 {

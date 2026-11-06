@@ -16,7 +16,7 @@ extern int DAT_010cf78c;
 struct FUN_00d479e0_class
 {
     void* __thiscall GetValue(const void* key, const void* def);
-    void* __thiscall FUN_00d479e0(const void* key);
+    void* __thiscall getTypeInfo(const void* key);
 };
 struct FUN_00d47a80_class
 {
@@ -44,7 +44,7 @@ struct FUN_00d47aa0_s
     int a;
     int b;
     int c;
-    void FUN_00d47aa0(int a, const char* name);
+    void registerClass(int a, const char* name);
 };
 struct FUN_00d87440_Class
 {
@@ -178,7 +178,7 @@ struct FUN_00d47940_Obj
     int unk00;
     int unk04;
     FUN_00d47940_Registry unk08;
-    void* __thiscall FUN_00d47940(int param1, int param2);
+    void* __thiscall cleanupLoadedObject(int param1, int param2);
 };
 struct FUN_00d87430_Class
 {
@@ -190,7 +190,7 @@ struct FUN_00d47970_Class
     int unk04;
     FUN_00d874d0_s m_map08;
 
-    void FUN_00d47970(void* iterator);
+    void merge(void* iterator);
 };
 class hkObjD47A
 {

@@ -67,15 +67,15 @@ void BGSPickupPutdownSounds::InitItem(TESForm* owner)
 }
 
 extern int DAT_0101abd8;
-void __fastcall FUN_0047b540(void* pThis);
+void __fastcall InitializeDataComponent(void* pThis);
 
-// Initialises the BaseFormComponent base, installs the vtable from DAT_0101abd8, calls FUN_0047b540, and returns pThis.
+// Initialises the BaseFormComponent base, installs the vtable from DAT_0101abd8, calls InitializeDataComponent, and returns pThis.
 // @fnv 0x0047b4f0
 void* __fastcall FUN_0047b4f0(BaseFormComponent* apComponent)
 {
     apComponent->BaseFormComponent::BaseFormComponent();
     *(int**)apComponent = &DAT_0101abd8;
-    FUN_0047b540(apComponent);
+    InitializeDataComponent(apComponent);
     return apComponent;
 }
 
@@ -183,11 +183,11 @@ struct BGSEquipType : public BaseFormComponent
 typedef char _sizecheck_BGSEquipType[sizeof(BGSEquipType) == 8 ? 1 : -1];
 struct FUN_0047b540_shell : public BGSClipRoundsForm
 {
-    void FUN_0047b540();
+    void InitializeDataComponent();
 };
 
 // @fnv 0x0047b540
-void FUN_0047b540_shell::FUN_0047b540()
+void FUN_0047b540_shell::InitializeDataComponent()
 {
     *(int*)((char*)this + 4) = 0;
     *(int*)((char*)this + 8) = 0;
@@ -211,11 +211,11 @@ struct CombatNode
 };
 struct FUN_0047b5d0_cls
 {
-    void FUN_0047b5d0(BaseFormComponent* component);
+    void CopyComponent(BaseFormComponent* component);
 };
 // If component casts to BGSPickupPutdownSounds, initializes this as TESRaceForm from its FUN_00726070 result and sets TESObjectREFR flags from its GetFlags.
 // @fnv 0x0047b5d0
-void FUN_0047b5d0_cls::FUN_0047b5d0(BaseFormComponent* component)
+void FUN_0047b5d0_cls::CopyComponent(BaseFormComponent* component)
 {
     BGSPickupPutdownSounds* source = dynamic_cast<BGSPickupPutdownSounds*>(component);
     if (!source)

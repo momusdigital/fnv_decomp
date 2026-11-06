@@ -95,11 +95,11 @@ extern bool(__cdecl* DAT_011f3b28[])(ColorAnimationKey*, ColorAnimationKey*);
 
 struct FUN_00a3d190_shell : public NiColorData
 {
-    bool FUN_00a3d190(NiColorData* other);
+    bool IsEqual(NiColorData* other);
 };
 
 // @fnv 0x00a3d190
-bool FUN_00a3d190_shell::FUN_00a3d190(NiColorData* other)
+bool FUN_00a3d190_shell::IsEqual(NiColorData* other)
 {
     if (!IsSameAs(other))
         return false;
@@ -570,11 +570,11 @@ class FUN_00a3d490_cls
     unsigned int unk04;
     void* m_p08;  // +0x8
     void AppendCameraPathEntries(FUN_00a3d490_arr* a);
-    void FUN_00a3d490(FUN_00a3d490_arr* arr);
+    void GetViewerStrings(FUN_00a3d490_arr* arr);
 };
 
 // @fnv 0x00a3d490
-void FUN_00a3d490_cls::FUN_00a3d490(FUN_00a3d490_arr* arr)
+void FUN_00a3d490_cls::GetViewerStrings(FUN_00a3d490_arr* arr)
 {
     AppendCameraPathEntries(arr);
     void* item = FUN_00a7d330(DAT_011f3750);

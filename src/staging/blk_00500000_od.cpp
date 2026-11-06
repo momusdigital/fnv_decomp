@@ -538,7 +538,7 @@ struct TESForm;
 TESForm* __cdecl GetFormByID(unsigned int id);
 
 // @fnv 0x00505000
-TESForm* __cdecl FUN_00505000()
+TESForm* __cdecl GetDefaultCombatStyle()
 {
     return GetFormByID(0x3d);
 }
@@ -674,10 +674,10 @@ struct AVH
 };
 struct FUN_00514fd0_class
 {
-    int __thiscall FUN_00514fd0();
+    int __thiscall GetTeaches();
 };
 // @fnv 0x00514fd0
-int __thiscall FUN_00514fd0_class::FUN_00514fd0()
+int __thiscall FUN_00514fd0_class::GetTeaches()
 {
     if (reinterpret_cast<const signed char*>(this)[0xc1] == -1)
         return -1;
@@ -1084,7 +1084,7 @@ struct FUN_00505b80_cls
 {
     unsigned char DispatchByType(int aType);
     unsigned char FUN_0073cb80();
-    unsigned char FUN_00505c00();
+    unsigned char GetFaceTargetAtGoal();
     unsigned char GetByteAtOffset9A();
     unsigned char GetByteAtOffset9B();
     unsigned char FUN_009e8670();
@@ -1099,7 +1099,7 @@ unsigned char FUN_00505b80_cls::DispatchByType(int aType)
     case 0x5c:
         return FUN_0073cb80();
     case 0x5d:
-        return FUN_00505c00();
+        return GetFaceTargetAtGoal();
     case 0x5e:
         return GetByteAtOffset9A();
     case 0x5f:
@@ -2027,7 +2027,7 @@ struct NiUpdateData
 struct Obj
 {
     float FUN_004e4600();
-    float FUN_006447d0();
+    float GetCurrentWeatherPct();
     float FUN_004e4620();
     void FUN_0050c630(float v);
     void FUN_0050c660(float v);
@@ -2134,7 +2134,7 @@ bool Host::FUN_0050de60(Ptr p1, float* apTime, P3* p3)
             if (s)
             {
                 b = s->FUN_004e4600();
-                flag = s->FUN_006447d0();
+                flag = s->GetCurrentWeatherPct();
                 x = s->FUN_004e4620();
             }
             if (m_a8 & 0x40)

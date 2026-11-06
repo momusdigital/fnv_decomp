@@ -116,11 +116,11 @@ struct NiNode
 void __cdecl FUN_00578170(NiNode*);
 struct DetachHost : BSTempEffectParticle
 {
-    void FUN_006896c0();
+    void Detach();
 };
 // Gets the node from m_flt via f3 and, if non-null, passes it to FUN_00578170.
 // @fnv 0x006896c0
-void DetachHost::FUN_006896c0()
+void DetachHost::Detach()
 {
     NiNode* pnode = m_flt ? ((NiNode*)(unsigned int)m_flt)->f3() : 0;
     if (pnode)
@@ -295,7 +295,7 @@ struct Sub5c
 };
 struct Mgr
 {
-    void FUN_00445300(Tgt*, int, int);
+    void ReleaseModel(Tgt*, int, int);
 };
 extern Mgr* DAT_011c3b3c;
 struct Fn
@@ -322,7 +322,7 @@ FUN_00689720::~FUN_00689720()
 {
     StopSounds();
     if (a.m1)
-        DAT_011c3b3c->FUN_00445300(a.m1, 0, 1);
+        DAT_011c3b3c->ReleaseModel(a.m1, 0, 1);
     if (a.FUN_00559450())
     {
         if (((Fn*)a.FUN_00559450())->FUN_009611e0())
@@ -820,7 +820,7 @@ struct NodeX
 };
 struct ArrP
 {
-    unsigned int FUN_004d7d50();
+    unsigned int GetModifierCount();
     void* GetByIndex(int);
 };
 struct ObjQ
@@ -846,7 +846,7 @@ void __thiscall ThisT::CollectUniqueChildValues(NiNode* apNode, ArrQ* apValues, 
         if (p)
         {
             unsigned int i;
-            for (i = 0; i < p->FUN_004d7d50(); ++i)
+            for (i = 0; i < p->GetModifierCount(); ++i)
             {
                 ObjQ* pObj = (ObjQ*)FUN_00653270(&DAT_01202548, p->GetByIndex(i));
                 if (pObj)
@@ -914,7 +914,7 @@ struct R01ParticleTransform
 {
     float x, y, z, w;
     void Init();
-    void FUN_004f0180(R01Matrix3*);
+    void ToRotation(R01Matrix3*);
 };
 
 struct NiUpdateData
@@ -1132,7 +1132,7 @@ struct R01FxPlayer
     R01NodeRef m_nodeRef;
     R01Node* m_node;
 
-    bool FUN_00682990();
+    bool LoadGameTES();
     bool LoadFromSave();
 };
 
@@ -1177,7 +1177,7 @@ bool R01FxPlayer::LoadFromSave()
             a1c2 = reinterpret_cast<R01SaveReader*>(DAT_011de45c)->FUN_00825c00();
             reinterpret_cast<R01SaveReader*>(DAT_011de45c)->FUN_008579e0(&aA2, 2);
         }
-        aA4 = FUN_00682990();
+        aA4 = LoadGameTES();
         reinterpret_cast<R01SaveReader*>(DAT_011de45c)->FUN_008579e0(&aAF8, 1);
         char aActive8[0x104];
         memset(aActive8, 0, sizeof(aActive8));
@@ -1185,7 +1185,7 @@ bool R01FxPlayer::LoadFromSave()
         a1c4_2.Init();
         reinterpret_cast<R01SaveReader*>(DAT_011de45c)->FUN_008579e0(&a1c4_2, 0x10);
         aAccuracy5.Init();
-        a1c4_2.FUN_004f0180(&aAccuracy5);
+        a1c4_2.ToRotation(&aAccuracy5);
         aAPGeom.Init();
         reinterpret_cast<R01SaveReader*>(DAT_011de45c)->FUN_008579e0(&aAPGeom, 0xc);
         reinterpret_cast<R01SaveReader*>(DAT_011de45c)->FUN_008579e0(&aAction2, 4);
@@ -1585,7 +1585,7 @@ struct SGTempEffectParticle
     int unk14;
     SGNodePtr spParticle;
     const char* pFilename;
-    void FUN_00682920();
+    void SaveGameTES();
     void FUN_00689cb0();
 };
 
@@ -1608,7 +1608,7 @@ void SGTempEffectParticle::FUN_00689cb0()
         DAT_011de45c->FUN_008579b0(&usBlockLen, 2);
     }
 
-    FUN_00682920();
+    SaveGameTES();
     unsigned char ucLength = (unsigned char)FUN_0044a670(pFilename);
     DAT_011de45c->FUN_008579b0(&ucLength, 1);
     DAT_011de45c->FUN_008579b0((void*)pFilename, ucLength);

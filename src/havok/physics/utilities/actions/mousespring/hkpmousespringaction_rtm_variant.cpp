@@ -20,7 +20,7 @@ struct FUN_00cbb1b0_Class
     void __thiscall FUN_00cbb1b0(hkReal a);
 };
 extern "C" int DAT_01268a14;
-int __cdecl FUN_00cbb8a0();
+int __cdecl getClassType();
 union __declspec(intrin_type) __declspec(align(16)) __m128
 {
     float m128_f32[4];
@@ -539,11 +539,11 @@ typedef void(__cdecl* MouseSpringCallback)(hkpMouseSpringAction*, const hkStepIn
 
 struct MouseSpringActionExt : hkpMouseSpringAction
 {
-    void __thiscall FUN_00cbb1e0(const hkStepInfo& stepInfo);
+    void __thiscall applyAction(const hkStepInfo& stepInfo);
 };
 
 // @fnv 0x00cbb1e0
-void __thiscall MouseSpringActionExt::FUN_00cbb1e0(const hkStepInfo& stepInfo)
+void __thiscall MouseSpringActionExt::applyAction(const hkStepInfo& stepInfo)
 {
     Vector4Ext impulse;
     Vector4Ext worldPos;

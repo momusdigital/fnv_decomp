@@ -129,12 +129,12 @@ struct FUN_0051b070_shell
 {
     void FUN_00484c20(unsigned int aiFlags);
     void FUN_0048e9e0(unsigned int aiFlags);
-    void FUN_0051b070(unsigned int aiFlags);
+    void SaveGame(unsigned int aiFlags);
 };
 
 // Calls FUN_00484c20 with aiFlags, then calls FUN_0048e9e0 with aiFlags on the object at this+0x74.
 // @fnv 0x0051b070
-void FUN_0051b070_shell::FUN_0051b070(unsigned int aiFlags)
+void FUN_0051b070_shell::SaveGame(unsigned int aiFlags)
 {
     FUN_00484c20(aiFlags);
     reinterpret_cast<FUN_0051b070_shell*>(reinterpret_cast<char*>(this) + 0x74)->FUN_0048e9e0(aiFlags);
@@ -251,10 +251,10 @@ struct FUN_00485680
 void FUN_00485910(unsigned int, unsigned int);
 struct FUN_0051ae80_shell
 {
-    void FUN_0051ae80();
+    void SaveForm();
 };
 // @fnv 0x0051ae80
-void FUN_0051ae80_shell::FUN_0051ae80()
+void FUN_0051ae80_shell::SaveForm()
 {
     ((FUN_004855a0*)this)->M();
     ((S_00487010*)((char*)this + 0x30))->FUN_00487010();
@@ -283,10 +283,10 @@ struct FUN_008cdd90_shell
 };
 struct FUN_0051af50_shell
 {
-    void __thiscall FUN_0051af50(TESForm* apCopy);
+    void __thiscall CopyFrom(TESForm* apCopy);
 };
 // @fnv 0x0051af50
-void __thiscall FUN_0051af50_shell::FUN_0051af50(TESForm* apCopy)
+void __thiscall FUN_0051af50_shell::CopyFrom(TESForm* apCopy)
 {
     TESObjectMISC* pmisc = dynamic_cast<TESObjectMISC*>(apCopy);
     if (!pmisc)
@@ -342,10 +342,10 @@ struct FUN_005e79a0_t
 };
 struct FUN_0051afb0_shell : public FUN_008cdd90_shell
 {
-    bool FUN_0051afb0(TESForm* apCompare);
+    bool Compare(TESForm* apCompare);
 };
 // @fnv 0x0051afb0
-bool FUN_0051afb0_shell::FUN_0051afb0(TESForm* apCompare)
+bool FUN_0051afb0_shell::Compare(TESForm* apCompare)
 {
     TESObjectMISC* pcomp = dynamic_cast<TESObjectMISC*>(apCompare);
     if (!pcomp)

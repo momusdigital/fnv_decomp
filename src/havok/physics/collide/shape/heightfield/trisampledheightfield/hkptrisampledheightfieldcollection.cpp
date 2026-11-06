@@ -12,12 +12,12 @@ struct FUN_00d263f0_t
     char pad20[0x20];
     char m_buf40[0x40];  // +0x40
 
-    int FUN_00d263f0(int a, int b);
+    int calcSizeForSpu(int a, int b);
 };
 
 // Calls a virtual function on m_obj with a and b-0x40, then maps the result to an offset in m_buf40 or stores it in m_field1c, returning -1 when out of range.
 // @fnv 0x00d263f0
-int FUN_00d263f0_t::FUN_00d263f0(int a, int aiLimit)
+int FUN_00d263f0_t::calcSizeForSpu(int a, int aiLimit)
 {
     int iAdjusted = aiLimit - 0x40;
     void* obj = m_obj;
@@ -323,12 +323,12 @@ void FUN_00c908c0(int a1, int a2, int a3, int a4);
 
 struct FUN_00d267c0_t : FUN_00d26450_S
 {
-    void FUN_00d267c0(int mode);
+    void initWeldingInfo(int mode);
 };
 
 // Resizes the internal buffer to the computed index when mode is not 6, otherwise frees the buffer and resets its state fields.
 // @fnv 0x00d267c0
-void FUN_00d267c0_t::FUN_00d267c0(int mode)
+void FUN_00d267c0_t::initWeldingInfo(int mode)
 {
     if (mode != 6)
     {

@@ -100,7 +100,7 @@ FloatIntPair* S00B3F240::FUN_00b3f240(FloatIntPair* pValue)
 
 struct FUN_00b3f280_shell
 {
-    int FUN_00b3f280();
+    int Next();
 };
 
 struct FUN_00b433a0_shell
@@ -109,7 +109,7 @@ struct FUN_00b433a0_shell
 };
 
 // @fnv 0x00b3f280
-int FUN_00b3f280_shell::FUN_00b3f280()
+int FUN_00b3f280_shell::Next()
 {
     return ((FUN_00b433a0_shell*)this)->GetRandomSample();
 }
@@ -117,11 +117,11 @@ int FUN_00b3f280_shell::FUN_00b3f280()
 extern double _gModifierZero;
 struct Uniform
 {
-    float FUN_00b3f2a0(float x) const;
+    float Density(float x) const;
 };
 // Returns 1.0f when x is within [_gModifierZero, 1.0], otherwise 0.0f.
 // @fnv 0x00b3f2a0
-float Uniform::FUN_00b3f2a0(float afValue) const
+float Uniform::Density(float afValue) const
 {
     return (afValue < _gModifierZero || afValue > 1.0) ? 0.0f : 1.0f;
 }

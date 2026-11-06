@@ -62,11 +62,11 @@ struct NiPSysGravityModifier : NiPSysModifier
     bool m_bFieldFlag;
     void* operator new(unsigned int);
     NiPSysGravityModifier* InitDefaults();
-    NiPSysGravityModifier* FUN_00c22b00(CloningProcess&);
+    NiPSysGravityModifier* CreateClone(CloningProcess&);
 };
 // Allocates and constructs a copy of this gravity modifier, copies its fields, runs the base clone step with process, and returns the clone.
 // @fnv 0x00c22b00
-NiPSysGravityModifier* NiPSysGravityModifier::FUN_00c22b00(CloningProcess& process)
+NiPSysGravityModifier* NiPSysGravityModifier::CreateClone(CloningProcess& process)
 {
     NiPSysGravityModifier* clone = static_cast<NiPSysGravityModifier*>(operator new(0x40));
     if (clone)

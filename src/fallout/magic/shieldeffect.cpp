@@ -112,11 +112,11 @@ extern TESSaveLoadGame* g_TESSaveLoadGame;
 
 struct FUN_00828430_shell : ShieldEffect
 {
-    void FUN_00828430(ActiveEffect* actor);
+    void LoadGame(ActiveEffect* actor);
 };
 
 // @fnv 0x00828430
-void FUN_00828430_shell::FUN_00828430(ActiveEffect* pEffect)
+void FUN_00828430_shell::LoadGame(ActiveEffect* pEffect)
 {
     ((Base00802dd0*)this)->FUN_00802dd0((Actor*)pEffect);
     if ((unsigned char)g_TESSaveLoadGame->FUN_008df040() >= 0x6e)
@@ -224,11 +224,11 @@ struct FUN_00827fa0_vtable : ActiveEffect
 
 struct FUN_00827fa0_shell : ShieldEffect
 {
-    ActiveEffect* FUN_00827fa0();
+    ActiveEffect* Clone();
 };
 
 // @fnv 0x00827fa0
-ActiveEffect* FUN_00827fa0_shell::FUN_00827fa0()
+ActiveEffect* FUN_00827fa0_shell::Clone()
 {
     ShieldEffect* pNewEffect = new ShieldEffectCtor(pad9, pad1, pad2);
     reinterpret_cast<FUN_00827fa0_vtable*>(this)->CopyFrom(pNewEffect);
@@ -281,12 +281,12 @@ struct FUN_00828120_z
 
 struct FUN_00828120_cls : ShieldEffect
 {
-    void FUN_00828120();
+    void Start();
 };
 
 // Calls FUN_0082c000, then if a flag check or gModifierZero matches, resolves an Actor and calls FUN_008282e0 with it and pad6.
 // @fnv 0x00828120
-void FUN_00828120_cls::FUN_00828120()
+void FUN_00828120_cls::Start()
 {
     Actor* actor;
     ((FUN_00828120_a*)this)->FUN_0082c000();

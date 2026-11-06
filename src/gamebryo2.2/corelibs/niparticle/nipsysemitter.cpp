@@ -39,13 +39,13 @@ void* __thiscall FUN_00c220a0_shell::FUN_00c220a0(unsigned int flags)
 
 struct FUN_00c21fd0_shell : public NiPSysEmitter
 {
-    void* FUN_00c21fd0();
+    void* GetRTTI();
 };
 
 extern char const* const g_01202500_arg1;
 
 // @fnv 0x00c21fd0
-void* __thiscall FUN_00c21fd0_shell::FUN_00c21fd0()
+void* __thiscall FUN_00c21fd0_shell::GetRTTI()
 {
     return (void*)&g_01202500_arg1;
 }
@@ -89,11 +89,11 @@ extern char const str_010bdfd0[];
 
 struct FUN_00c22780_shell : public Base00c319e0
 {
-    void FUN_00c22780(StrArr* pkStrings);
+    void GetViewerStrings(StrArr* pkStrings);
 };
 
 // @fnv 0x00c22780
-void FUN_00c22780_shell::FUN_00c22780(StrArr* pkStrings)
+void FUN_00c22780_shell::GetViewerStrings(StrArr* pkStrings)
 {
     char* pString;
     unsigned int index;
@@ -438,7 +438,7 @@ class Emitter : public NiPSysEmitter
     virtual void slot40();
     virtual void slot41();
     virtual void GetPositionAndDirection(NiPoint3& kPosition, NiPoint3& kMotionVelocity);
-    void FUN_00c220c0(float fTime, unsigned short usNumParticles, const float* afAges);
+    void EmitParticles(float fTime, unsigned short usNumParticles, const float* afAges);
 };
 inline float NiFastSin(float fAngleDifference)
 {
@@ -449,7 +449,7 @@ inline float NiFastCos(float fAngleDifference)
     return DAT_011f4ae0[(int)(fAngleDifference * (512.0 / DAT_011aeae8)) & 511];
 }
 // @fnv 0x00c220c0
-void Emitter::FUN_00c220c0(float fTime, unsigned short usNumParticles, const float* afAges)
+void Emitter::EmitParticles(float fTime, unsigned short usNumParticles, const float* afAges)
 {
     NiPSysData* pkData = m_pkTarget->m_spGeometryData;
     NiPoint3* pkVertex = pkData->m_pkVertex;

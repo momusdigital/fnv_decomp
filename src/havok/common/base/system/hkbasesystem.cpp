@@ -648,7 +648,7 @@ extern const char*(__cdecl* DAT_011b3dc0)(const char* name, S_00cbbde0_StringBuf
 
 // Creates a StdioReader from the resolved path, wraps it in a 4096-byte BufferedReader when vfn18() is false, and returns the resulting reader.
 // @fnv 0x00cbbde0
-S_00cbbde0_Reader* __stdcall FUN_00cbbde0(const char* name) throw()
+S_00cbbde0_Reader* __stdcall openReader(const char* name) throw()
 {
     S_00cbbde0_StringBuf buf;
     S_00cbbde0_Reader* reader = new S_00cbbde0_StdioReader(DAT_011b3dc0(name, buf));

@@ -179,18 +179,18 @@ bool FUN_00403e80_shell::FUN_00403e80()
 
 struct FUN_00403ee0_shell : public EffectItem
 {
-    bool FUN_00403ee0();
+    bool IsActorValueUsed();
 };
 
 // @fnv 0x00403ee0
-bool FUN_00403ee0_shell::FUN_00403ee0()
+bool FUN_00403ee0_shell::IsActorValueUsed()
 {
     return (*(EffectSetting**)((char*)this + 0x14))->IsAssociatedActorValueUsed();
 }
 
 struct FUN_00403f00_shell : public EffectItem
 {
-    float FUN_00403f00();
+    float GetRawCost();
 };
 
 class TESGrass
@@ -202,7 +202,7 @@ class TESGrass
 float __cdecl CalcEffectCost(float, int, int, int, bool);
 
 // @fnv 0x00403f00
-float FUN_00403f00_shell::FUN_00403f00()
+float FUN_00403f00_shell::GetRawCost()
 {
     if (m_fCost < 0.0)
     {
@@ -278,7 +278,7 @@ struct FUN_00403f80_shell : public EffectItem
     float GetModifiedCost(Actor*);
 };
 
-float __fastcall FUN_00403f00(EffectItem*);
+float __fastcall GetRawCost(EffectItem*);
 float __cdecl ScaleBySettingBlend(float, int, int);
 float __cdecl FUN_00404040(float);
 float __cdecl FUN_00404010(float, float);
@@ -286,7 +286,7 @@ float __cdecl FUN_00404010(float, float);
 // @fnv 0x00403f80
 float FUN_00403f80_shell::GetModifiedCost(Actor* apActor)
 {
-    float fcost = FUN_00403f00(this);
+    float fcost = GetRawCost(this);
     if (apActor != 0)
     {
         fcost = ScaleBySettingBlend(fcost,
@@ -603,11 +603,11 @@ void FUN_004040b0_shell::Save()
 
 struct EffectItem_shell : EffectItem
 {
-    bool FUN_00404470(int range);
+    bool SetArea(int range);
 };
 
 // @fnv 0x00404470
-bool EffectItem_shell::FUN_00404470(int range)
+bool EffectItem_shell::SetArea(int range)
 {
     bool result = false;
     if (!m_pEffectSetting->IsFlagSet(0x200))
@@ -656,10 +656,10 @@ FUN_00403d50::~FUN_00403d50()
 
 struct Unk004043d0
 {
-    bool FUN_004043d0(int);
+    bool SetMagnitude(int);
 };
 // @fnv 0x004043d0
-bool Unk004043d0::FUN_004043d0(int a)
+bool Unk004043d0::SetMagnitude(int a)
 {
     bool result = false;
     if (!(*(EffectSetting**)((char*)this + 0x14))->IsFlagSet(0x100))
@@ -681,11 +681,11 @@ struct S00404510
     char _0C[8];
     EffectSetting* m14;
     float m18;
-    bool FUN_00404510(int);
+    bool SetDuration(int);
 };
 // If m14 lacks flag 0x80 and a is non-negative, stores a in m08 and sets m18 to -1.0f, returning true; otherwise returns false.
 // @fnv 0x00404510
-bool S00404510::FUN_00404510(int aiValue)
+bool S00404510::SetDuration(int aiValue)
 {
     bool b = false;
     if (!m14->IsFlagSet(0x80) && aiValue >= 0)
@@ -943,11 +943,11 @@ struct FUN_00404210_t
     S3e60* unk14;
     float unk18;
 
-    bool __thiscall FUN_00404560(unsigned int value);
+    bool __thiscall SetRange(unsigned int value);
 };
 
 // @fnv 0x00404560
-bool __thiscall FUN_00404210_t::FUN_00404560(unsigned int value)
+bool __thiscall FUN_00404210_t::SetRange(unsigned int value)
 {
     bool result = false;
 

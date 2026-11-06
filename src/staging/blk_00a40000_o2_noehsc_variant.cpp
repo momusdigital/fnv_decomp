@@ -1853,7 +1853,7 @@ void __cdecl FUN_00a420e0(float a0, float a1, float* p2, float a3, float a4, flo
                           float* p9);
 struct FUN_00a44840_stub
 {
-    void* __thiscall FUN_00a44840(unsigned int);
+    void* __thiscall CreateClone(unsigned int);
 };
 namespace a47 {
 struct Obj

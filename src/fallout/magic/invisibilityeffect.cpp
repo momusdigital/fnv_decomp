@@ -1118,10 +1118,10 @@ struct Effect
     int unk48;
     Target* FUN_0059bb30();
     void FUN_0082c000();
-    void FUN_0080e110();
+    void Start();
 };
 // @fnv 0x0080e110
-void Effect::FUN_0080e110()
+void Effect::Start()
 {
     ActorData* actor = FUN_0059bb30() ? FUN_0059bb30()->FUN_00822b40() : 0;
     FUN_0082c000();

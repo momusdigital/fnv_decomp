@@ -1030,10 +1030,10 @@ struct ImageSpaceModifierInstanceRB
     float fStart;
     float m_fRampDown;
     float m_fRampDownStart;
-    void FUN_0052a530(char* apBuffer);
+    void PrintInfo(char* apBuffer);
 };
 // @fnv 0x0052a530
-void ImageSpaceModifierInstanceRB::FUN_0052a530(char* apBuffer)
+void ImageSpaceModifierInstanceRB::PrintInfo(char* apBuffer)
 {
     _sprintf_s(apBuffer, 0x800, str_0102d408, m_fRampUp, fStart, m_fRampDown, m_fRampDownStart, fWaterLevelItem);
 }

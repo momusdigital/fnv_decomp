@@ -384,7 +384,7 @@ struct FUN_00cad900_cls {
     int m9c;
     int ma0;
 
-    void FUN_00cad900(FUN_00cad900_arg* a1, int a2);
+    void calcContentStatistics(FUN_00cad900_arg* a1, int a2);
 };
 extern char str_0102f13c[];
 extern char DAT_0104e3d0[];
@@ -902,7 +902,7 @@ struct S_00caf4d0_Tracker : S_00caf4d0_TrackerBase, S_00caf4d0_EntityListener, S
     void FUN_00cad480(const S_00caf4d0_Point* p) throw();
     int FUN_00cacf10(const S_00caf4d0_Point* p) throw();
 
-    void FUN_00caf4d0(const S_00caf4d0_Collector* input, const S_00caf4d0_Collector* extra, bool keepListeners) throw();
+    void updateManifold(const S_00caf4d0_Collector* input, const S_00caf4d0_Collector* extra, bool keepListeners) throw();
 };
 struct ContactQuery {
     void FUN_00cae900(void*, unsigned, S_Collector*) throw();

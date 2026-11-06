@@ -1964,7 +1964,7 @@ struct ControllerA606
     bool m_bUnk41;
     bool m_bUseFirst;
     void FUN_00a5d7b0(NiStream& kStream);
-    void FUN_00a60600(NiStream& kStream);
+    void SaveBinary(NiStream& kStream);
 };
 class FUN_00a5e3a0_Helper
 {
@@ -2107,7 +2107,7 @@ struct FUN_00a727b0_Class
 };
 extern void __cdecl FUN_00a8a9b0();
 void __cdecl FUN_00a75f00();
-unsigned short __fastcall FUN_00a75f20(char* p, int);
+unsigned short __fastcall GetActiveTriangleCount(char* p, int);
 class FileA609
 {
   public:
@@ -2330,7 +2330,7 @@ struct NiSourceTexture : SourceTextureBase
     bool isStatic;
     bool loadDirect;
     bool persistent;
-    void FUN_00a60180(TextureLoadStream& stream);
+    void LoadBinary(TextureLoadStream& stream);
 };
 extern bool DAT_011f4780;
 void __cdecl FUN_00a76960(void*, void*);
@@ -2359,7 +2359,7 @@ struct StrArr
 };
 struct FUN_00a62a40_this
 {
-    void FUN_00a62a40(StrArr* pkStrings);
+    void GetViewerStrings(StrArr* pkStrings);
 };
 struct FUN_00a60770_shell : FUN_00a62a40_this
 {

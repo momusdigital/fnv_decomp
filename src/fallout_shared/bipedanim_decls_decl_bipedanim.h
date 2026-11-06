@@ -237,7 +237,7 @@ class NiNode : public NiAVObject
     NiAVObject* FUN_0043b4a0(int);
     void DetachAllChildren();
     int FUN_00453470();
-    void FUN_004add70();
+    void CompactChildArray();
 };
 class BSFadeNode : public NiNode
 {
@@ -260,7 +260,7 @@ class NiTriBasedGeom : public NiGeometry
     virtual void vfn_dc();
     virtual void vfn_e0();
     virtual void ReplaceModelData(NiGeometryData*);
-    void FUN_004adde0(NiSkinInstance*);
+    void SetSkinInstance(NiSkinInstance*);
     NiSkinInstance* FUN_0043fad0();
 };
 class TESForm
@@ -864,7 +864,7 @@ class BipedAnimObject
 class BipedAnim
 {
   public:
-    void FUN_004abd30(IO_TASK_PRIORITY priority, NiPointer<QueuedHelmet>& queuedHelmet,
+    void QueueBipedParts(IO_TASK_PRIORITY priority, NiPointer<QueuedHelmet>& queuedHelmet,
                       QueuedFile* file);  // declared for the original code (decl_variants.py) public:
     NiNode* root;
     BipedAnimBone bone[5];

@@ -99,7 +99,7 @@ class hkReferencedObjectD1EE : public hkBaseObjectD1EE
 class hkpSphereMotionD1EE : public hkReferencedObjectD1EE
 {
   public:
-    void FUN_00d1ee40(hkMatrix3D1EE& kInertiaInv) const;
+    void getInertiaInvLocal(hkMatrix3D1EE& kInertiaInv) const;
 
     unsigned char m_type;
     unsigned char m_ucDeactivationIntegrateCounter;
@@ -117,7 +117,7 @@ struct FUN_00d1ecc0_Class
     unsigned char m_Padding[0xc0];
     float m_InertiaLocal;
 
-    void FUN_00d1ecc0(FUN_00d1ecc0_Matrix& inertia) const;
+    void getInertiaLocal(FUN_00d1ecc0_Matrix& inertia) const;
 };
 struct FUN_00d1ed00_t
 {
@@ -185,7 +185,7 @@ class hkpSphereMotionX
     hkVector4X m_kTranslationalVelocity;
     hkVector4X m_kAngularVelocity;
 
-    void FUN_00d1eec0(const hkVector4X& imp, const hkVector4X& p);
+    void applyPointImpulse(const hkVector4X& imp, const hkVector4X& p);
 };
 extern "C" __m128 _mm_set_ps1(float);
 extern "C" __m128 _mm_set_ss(float);
@@ -259,7 +259,7 @@ class Motion
     Vec mass, velocity;
 
   public:
-    void FUN_00d1ef80(float s, const Vec& force);
+    void applyForce(float s, const Vec& force);
 };
 
 extern "C" __m128 _mm_load_ss(const float* p);
@@ -290,11 +290,11 @@ class FUN_00d1efd0_cls
     virtual void v18();
     virtual void v19();
     virtual void v20(hkVector4& out, int arg3);
-    void FUN_00d1efd0(float s, const hkVector4& v, int arg3);
+    void applyForce(float s, const hkVector4& v, int arg3);
 };
 
 // @fnv 0x00d1efd0
-void FUN_00d1efd0_cls::FUN_00d1efd0(float s, const hkVector4& v, int arg3)
+void FUN_00d1efd0_cls::applyForce(float s, const hkVector4& v, int arg3)
 {
     __declspec(align(16)) hkVector4 t;
     __m128 x = _mm_load_ss(&s);

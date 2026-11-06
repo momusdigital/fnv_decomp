@@ -112,18 +112,18 @@ int* __cdecl FUN_00a50e40()
 
 struct FUN_00a501b0_caller
 {
-    bool FUN_00a501b0(NiObject*);
+    bool IsEqual(NiObject*);
 };
 struct FUN_00a50e00_shell : NiBSplineCompTransformInterpolator
 {
-    bool FUN_00a50e00(NiObject* pkObject);
+    bool IsEqual(NiObject* pkObject);
 };
 // @fnv 0x00a50e00
-bool FUN_00a50e00_shell::FUN_00a50e00(NiObject* pkObject)
+bool FUN_00a50e00_shell::IsEqual(NiObject* pkObject)
 {
     NiBSplineCompTransformInterpolator* pkDest;
     unsigned int ui;
-    if (!((FUN_00a501b0_caller*)this)->FUN_00a501b0(pkObject))
+    if (!((FUN_00a501b0_caller*)this)->IsEqual(pkObject))
         return false;
     pkDest = (NiBSplineCompTransformInterpolator*)pkObject;
     for (ui = 0; ui < 6; ui++)
@@ -369,13 +369,13 @@ class A50E70Object : public A50E70Base
         pkDest->m_kRange.m_fMax1 = m_kRange.m_fMax1;
         pkDest->m_kRange.m_fMax2 = m_kRange.m_fMax2;
     }
-    A50E70Object* FUN_00a50e70(A50E70CloningProcess& kCloning);
+    A50E70Object* CreateClone(A50E70CloningProcess& kCloning);
 
     A50E70Range m_kRange;
 };
 
 // @fnv 0x00a50e70
-A50E70Object* A50E70Object::FUN_00a50e70(A50E70CloningProcess& kCloning)
+A50E70Object* A50E70Object::CreateClone(A50E70CloningProcess& kCloning)
 {
     A50E70Object* pkDest = new A50E70Object;
     CopyMemberData(pkDest, kCloning);

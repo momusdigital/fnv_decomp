@@ -61,16 +61,16 @@ class NiRenderer;
 class NiParticleMeshesData;
 struct HackBase
 {
-    void FUN_00a809b0(NiRenderer*);
+    void PurgeRendererData(NiRenderer*);
 };
 struct FUN_00a99090_shell : public NiParticleMeshes
 {
-    void FUN_00a99090(NiRenderer* pkRenderer);
+    void PurgeRendererData(NiRenderer* pkRenderer);
 };
 // @fnv 0x00a99090
-void FUN_00a99090_shell::FUN_00a99090(NiRenderer* pkRenderer)
+void FUN_00a99090_shell::PurgeRendererData(NiRenderer* pkRenderer)
 {
-    ((HackBase*)this)->FUN_00a809b0(pkRenderer);
+    ((HackBase*)this)->PurgeRendererData(pkRenderer);
     NiParticleMeshesData* pkPMData = *(NiParticleMeshesData**)((char*)this + 0xb8);
     if (pkPMData)
     {
@@ -309,10 +309,10 @@ struct S_00a98e30
     float unkC4;
     bool unkC8;
     void FUN_00a59f90(S_00a98e30_Val* p, int x);
-    void FUN_00a98e30(S_00a98e30_Val* p, int x);
+    void UpdateDownwardPass(S_00a98e30_Val* p, int x);
 };
 // @fnv 0x00a98e30
-void S_00a98e30::FUN_00a98e30(S_00a98e30_Val* apVal, int x)
+void S_00a98e30::UpdateDownwardPass(S_00a98e30_Val* apVal, int x)
 {
     unkC4 = apVal->f;
     unkC8 = apVal->b;

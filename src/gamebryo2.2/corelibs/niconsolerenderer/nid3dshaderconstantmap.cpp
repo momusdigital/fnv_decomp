@@ -128,7 +128,7 @@ char* __fastcall FUN_00bc5c20(char* self)
 }
 
 // @fnv 0x00e826c0
-void* __fastcall FUN_00e826c0(char* self, int unused, unsigned int i)
+void* __fastcall GetEntryAtIndex(char* self, int unused, unsigned int i)
 {
     return (*(void***)(self + 0x10))[i];
 }
@@ -214,7 +214,7 @@ struct FUN_00e84b60_prog
 const void* __stdcall GetConstantData(void*);
 // Looks up data for entry via GetConstantData and, if found, calls prog->SetConstant with it, returning 0 on success, 1 if no data, or 0x50 on failure.
 // @fnv 0x00e84b60
-unsigned int __stdcall FUN_00e84b60(FUN_00e84b60_prog* prog, void* entry, unsigned int pass)
+unsigned int __stdcall SetConstantConstant(FUN_00e84b60_prog* prog, void* entry, unsigned int pass)
 {
     const void* pvData = GetConstantData(entry);
     if (!pvData)
@@ -574,7 +574,7 @@ unsigned int FUN_00e81d70_t::FUN_00e81d70(const char* pszKey, unsigned int uiFla
 
 struct FUN_00e81f10_shell : public NiD3DShaderConstantMap
 {
-    unsigned int FUN_00e81f10(char*, unsigned int, unsigned int, char*, unsigned int, unsigned int, void*, bool);
+    unsigned int AddPredefinedEntry(char*, unsigned int, unsigned int, char*, unsigned int, unsigned int, void*, bool);
 };
 
 struct BSFadeNode
@@ -642,7 +642,7 @@ struct EntryLayout
 
 // Allocates and fills an entry, copies or references constant data, then passes it to a virtual call and conditionally another.
 // @fnv 0x00e81f10
-unsigned int FUN_00e81f10_shell::FUN_00e81f10(char* pszKey, unsigned int uiExtra, unsigned int uiShaderRegister,
+unsigned int FUN_00e81f10_shell::AddPredefinedEntry(char* pszKey, unsigned int uiExtra, unsigned int uiShaderRegister,
                                               char* pszVariableName, unsigned int uiConstantDataSize,
                                               unsigned int uiDataStride, void* pvDataSource, bool bCopyData)
 {
@@ -2033,7 +2033,7 @@ extern float DAT_0126f7e0[12];
 
 // For supported uiType values, copies or passes pkEntry->data to SetConstant, returning 0x50 if that call fails.
 // @fnv 0x00e84d00
-unsigned int __stdcall FUN_00e84d00(FUN_00e84b60_prog* pkProgram, NiShaderConstantMapEntry* pkEntry,
+unsigned int __stdcall SetGlobalConstant(FUN_00e84b60_prog* pkProgram, NiShaderConstantMapEntry* pkEntry,
                                     unsigned int uiPass)
 {
     unsigned int uiResult = 0;
@@ -3425,14 +3425,14 @@ struct FUN_00e87220_shell
     unsigned int LoadConstant(bool bSecond, OpCEntry* pkEntry, void* pkGeometry, const void* pkSkin,
                               const void* pkState, const void* kWorld, const void* kWorldBound, unsigned int uiPass);
 
-    unsigned int FUN_00e87220(void* pkShaderProgram, OpCEntry* pkEntry, void* pkGeometry, const void* pkSkin,
+    unsigned int SetOperatorConstant(void* pkShaderProgram, OpCEntry* pkEntry, void* pkGeometry, const void* pkSkin,
                               const void* pkState, const void* pkEffects, const void* kWorld, const void* kWorldBound,
                               unsigned int uiPass);
 };
 
 // Resolves two operand entries, dispatches their evaluation by type, then applies the operator to the shader program and returns the result.
 // @fnv 0x00e87220
-unsigned int FUN_00e87220_shell::FUN_00e87220(void* pkShaderProgram, OpCEntry* pkEntry, void* pkGeometry,
+unsigned int FUN_00e87220_shell::SetOperatorConstant(void* pkShaderProgram, OpCEntry* pkEntry, void* pkGeometry,
                                               const void* pkSkin, const void* pkState, const void* pkEffects,
                                               const void* kWorld, const void* kWorldBound, unsigned int uiPass)
 {
@@ -3541,7 +3541,7 @@ struct __declspec(align(16)) Vec4
 {
     float x, y, z, w;
 };
-S83_Matrix* __stdcall FUN_00ee6dda(S83_Matrix*, float*, const S83_Matrix*);
+S83_Matrix* __stdcall D3DXMatrixInverse(S83_Matrix*, float*, const S83_Matrix*);
 S83_Matrix* __stdcall FUN_00ee6dd4(S83_Matrix*, const S83_Matrix*);
 S83_Matrix* __stdcall FUN_00ee6de0(S83_Matrix*, const S83_Matrix*, const S83_Matrix*);
 S83_Matrix* __stdcall FUN_00ee6dfe(S83_Matrix*, const S83_Matrix*, const S83_Matrix*);
@@ -4363,12 +4363,12 @@ struct ConstantMap
     unsigned int u34;
     unsigned int u38;
     Renderer* renderer;
-    unsigned int FUN_00e83db0(Program*, Entry*, Geometry*, Skin*, Partition*, void*, Properties*, Effects*, const void*,
+    unsigned int SetDefinedConstant(Program*, Entry*, Geometry*, Skin*, Partition*, void*, Properties*, Effects*, const void*,
                               const void*, unsigned int);
 };
 // Writes a shader constant (matrix, vector, or scalar) to the program based on the entry type, applying optional inverse or transpose to renderer matrices.
 // @fnv 0x00e83db0
-unsigned int ConstantMap::FUN_00e83db0(Program* prog, Entry* entry, Geometry* geom, Skin* skin, Partition* partition,
+unsigned int ConstantMap::SetDefinedConstant(Program* prog, Entry* entry, Geometry* geom, Skin* skin, Partition* partition,
                                        void* buffer, Properties* props, Effects* effects, const void* transform,
                                        const void* bound, unsigned int pass)
 {
@@ -4398,7 +4398,7 @@ unsigned int ConstantMap::FUN_00e83db0(Program* prog, Entry* entry, Geometry* ge
         matResult = renderer->world;
         ptr = &matResult;
         if (bInverse)
-            FUN_00ee6dda(ptr, 0, ptr);
+            D3DXMatrixInverse(ptr, 0, ptr);
         if (bTranspose)
             FUN_00ee6dd4(ptr, ptr);
         if (!prog->SetConstant(entry, &matResult, 0))
@@ -4418,7 +4418,7 @@ unsigned int ConstantMap::FUN_00e83db0(Program* prog, Entry* entry, Geometry* ge
         matResult = renderer->projection;
         ptr = &matResult;
         if (bInverse)
-            FUN_00ee6dda(ptr, 0, ptr);
+            D3DXMatrixInverse(ptr, 0, ptr);
         if (bTranspose)
             FUN_00ee6dd4(ptr, ptr);
         if (!prog->SetConstant(entry, &matResult, 0))
@@ -4438,7 +4438,7 @@ unsigned int ConstantMap::FUN_00e83db0(Program* prog, Entry* entry, Geometry* ge
         matResult = renderer->view;
         ptr = &matResult;
         if (bInverse)
-            FUN_00ee6dda(ptr, 0, ptr);
+            D3DXMatrixInverse(ptr, 0, ptr);
         if (bTranspose)
             FUN_00ee6dd4(ptr, ptr);
         if (!prog->SetConstant(entry, &matResult, 0))
@@ -4462,7 +4462,7 @@ unsigned int ConstantMap::FUN_00e83db0(Program* prog, Entry* entry, Geometry* ge
         FUN_00ee6de0(&matResult, &matA, &matB);
         ptr = &matResult;
         if (bInverse)
-            FUN_00ee6dda(ptr, 0, ptr);
+            D3DXMatrixInverse(ptr, 0, ptr);
         if (bTranspose)
             FUN_00ee6dd4(ptr, ptr);
         if (!prog->SetConstant(entry, &matResult, 0))
@@ -4484,7 +4484,7 @@ unsigned int ConstantMap::FUN_00e83db0(Program* prog, Entry* entry, Geometry* ge
         FUN_00ee6de0(&matResult, &matB, &matA);
         ptr = &matResult;
         if (bInverse)
-            FUN_00ee6dda(ptr, 0, ptr);
+            D3DXMatrixInverse(ptr, 0, ptr);
         if (bTranspose)
             FUN_00ee6dd4(ptr, ptr);
         if (!prog->SetConstant(entry, &matResult, 0))
@@ -4515,7 +4515,7 @@ unsigned int ConstantMap::FUN_00e83db0(Program* prog, Entry* entry, Geometry* ge
         matResult = renderer->projection;
         ptr = &matResult;
         if (bInverse)
-            FUN_00ee6dda(ptr, 0, ptr);
+            D3DXMatrixInverse(ptr, 0, ptr);
         if (bTranspose)
             FUN_00ee6dd4(ptr, ptr);
         if (!prog->SetConstant(entry, &matResult, 0))
@@ -4539,7 +4539,7 @@ unsigned int ConstantMap::FUN_00e83db0(Program* prog, Entry* entry, Geometry* ge
         FUN_00ee6de0(&matResult, &matB, &matA);
         ptr = &matResult;
         if (bInverse)
-            FUN_00ee6dda(ptr, 0, ptr);
+            D3DXMatrixInverse(ptr, 0, ptr);
         if (bTranspose)
             FUN_00ee6dd4(ptr, ptr);
         if (!prog->SetConstant(entry, &matResult, 0))
@@ -4564,7 +4564,7 @@ unsigned int ConstantMap::FUN_00e83db0(Program* prog, Entry* entry, Geometry* ge
             bTranspose = true;
         ptr = &matResult;
         if (bInverse)
-            FUN_00ee6dda(ptr, 0, ptr);
+            D3DXMatrixInverse(ptr, 0, ptr);
         if (bTranspose)
             FUN_00ee6dd4(ptr, ptr);
         if (!prog->SetConstant(entry, &matResult, 0))
@@ -5154,7 +5154,7 @@ struct __declspec(align(16)) MapMatrix
 };
 
 extern "C" void __stdcall FUN_00ee6de0(MapMatrix*, const MapMatrix*, const MapMatrix*);
-extern "C" void __stdcall FUN_00ee6dda(MapMatrix*, float*, const MapMatrix*);
+extern "C" void __stdcall D3DXMatrixInverse(MapMatrix*, float*, const MapMatrix*);
 extern "C" void __stdcall FUN_00ee6dd4(MapMatrix*, const MapMatrix*);
 void __cdecl SetAffineMatrix(MapMatrix*, const char*, bool, bool, unsigned int);
 struct Renderer
@@ -5983,7 +5983,7 @@ unsigned int ConstantMapView::FUN_00e85d10(unsigned int slot, Mapping* apMapping
         work.a = renderer->projection;
         reinterpret_cast<MapMatrix*>(&DAT_0126f820)[slot] = work.a;
         if (inverse)
-            FUN_00ee6dda(&reinterpret_cast<MapMatrix*>(&DAT_0126f820)[slot], 0,
+            D3DXMatrixInverse(&reinterpret_cast<MapMatrix*>(&DAT_0126f820)[slot], 0,
                          &reinterpret_cast<MapMatrix*>(&DAT_0126f820)[slot]);
         if (transpose)
             FUN_00ee6dd4(&reinterpret_cast<MapMatrix*>(&DAT_0126f820)[slot],
@@ -6003,7 +6003,7 @@ unsigned int ConstantMapView::FUN_00e85d10(unsigned int slot, Mapping* apMapping
         work.a = renderer->view;
         reinterpret_cast<MapMatrix*>(&DAT_0126f820)[slot] = work.a;
         if (inverse)
-            FUN_00ee6dda(&reinterpret_cast<MapMatrix*>(&DAT_0126f820)[slot], 0,
+            D3DXMatrixInverse(&reinterpret_cast<MapMatrix*>(&DAT_0126f820)[slot], 0,
                          &reinterpret_cast<MapMatrix*>(&DAT_0126f820)[slot]);
         if (transpose)
             FUN_00ee6dd4(&reinterpret_cast<MapMatrix*>(&DAT_0126f820)[slot],
@@ -6022,7 +6022,7 @@ unsigned int ConstantMapView::FUN_00e85d10(unsigned int slot, Mapping* apMapping
             transpose = true;
         reinterpret_cast<MapMatrix*>(&DAT_0126f820)[slot] = renderer->world;
         if (inverse)
-            FUN_00ee6dda(&reinterpret_cast<MapMatrix*>(&DAT_0126f820)[slot], 0,
+            D3DXMatrixInverse(&reinterpret_cast<MapMatrix*>(&DAT_0126f820)[slot], 0,
                          &reinterpret_cast<MapMatrix*>(&DAT_0126f820)[slot]);
         if (transpose)
             FUN_00ee6dd4(&reinterpret_cast<MapMatrix*>(&DAT_0126f820)[slot],
@@ -6049,7 +6049,7 @@ unsigned int ConstantMapView::FUN_00e85d10(unsigned int slot, Mapping* apMapping
         FUN_00ee6de0(&work.f, &work.b, &work.a);
         reinterpret_cast<MapMatrix*>(&DAT_0126f820)[slot] = work.f;
         if (inverse)
-            FUN_00ee6dda(&reinterpret_cast<MapMatrix*>(&DAT_0126f820)[slot], 0,
+            D3DXMatrixInverse(&reinterpret_cast<MapMatrix*>(&DAT_0126f820)[slot], 0,
                          &reinterpret_cast<MapMatrix*>(&DAT_0126f820)[slot]);
         if (transpose)
             FUN_00ee6dd4(&reinterpret_cast<MapMatrix*>(&DAT_0126f820)[slot],
@@ -6076,7 +6076,7 @@ unsigned int ConstantMapView::FUN_00e85d10(unsigned int slot, Mapping* apMapping
         FUN_00ee6de0(&work.e, &work.a, &work.b);
         reinterpret_cast<MapMatrix*>(&DAT_0126f820)[slot] = work.e;
         if (inverse)
-            FUN_00ee6dda(&reinterpret_cast<MapMatrix*>(&DAT_0126f820)[slot], 0,
+            D3DXMatrixInverse(&reinterpret_cast<MapMatrix*>(&DAT_0126f820)[slot], 0,
                          &reinterpret_cast<MapMatrix*>(&DAT_0126f820)[slot]);
         if (transpose)
             FUN_00ee6dd4(&reinterpret_cast<MapMatrix*>(&DAT_0126f820)[slot],
@@ -6105,7 +6105,7 @@ unsigned int ConstantMapView::FUN_00e85d10(unsigned int slot, Mapping* apMapping
         FUN_00ee6de0(&work.g, &work.c, &work.d);
         reinterpret_cast<MapMatrix*>(&DAT_0126f820)[slot] = work.g;
         if (inverse)
-            FUN_00ee6dda(&reinterpret_cast<MapMatrix*>(&DAT_0126f820)[slot], 0,
+            D3DXMatrixInverse(&reinterpret_cast<MapMatrix*>(&DAT_0126f820)[slot], 0,
                          &reinterpret_cast<MapMatrix*>(&DAT_0126f820)[slot]);
         if (transpose)
             FUN_00ee6dd4(&reinterpret_cast<MapMatrix*>(&DAT_0126f820)[slot],
@@ -6129,7 +6129,7 @@ unsigned int ConstantMapView::FUN_00e85d10(unsigned int slot, Mapping* apMapping
         FUN_00ee6de0(&reinterpret_cast<MapMatrix*>(&DAT_0126f820)[slot],
                      &reinterpret_cast<MapMatrix*>(&DAT_0126f820)[slot], &work.c);
         if (inverse)
-            FUN_00ee6dda(&reinterpret_cast<MapMatrix*>(&DAT_0126f820)[slot], 0,
+            D3DXMatrixInverse(&reinterpret_cast<MapMatrix*>(&DAT_0126f820)[slot], 0,
                          &reinterpret_cast<MapMatrix*>(&DAT_0126f820)[slot]);
         if (transpose)
             FUN_00ee6dd4(&reinterpret_cast<MapMatrix*>(&DAT_0126f820)[slot],
@@ -6156,7 +6156,7 @@ unsigned int ConstantMapView::FUN_00e85d10(unsigned int slot, Mapping* apMapping
         FUN_00ee6de0(&reinterpret_cast<MapMatrix*>(&DAT_0126f820)[slot],
                      &reinterpret_cast<MapMatrix*>(&DAT_0126f820)[slot], &work.d);
         if (inverse)
-            FUN_00ee6dda(&reinterpret_cast<MapMatrix*>(&DAT_0126f820)[slot], 0,
+            D3DXMatrixInverse(&reinterpret_cast<MapMatrix*>(&DAT_0126f820)[slot], 0,
                          &reinterpret_cast<MapMatrix*>(&DAT_0126f820)[slot]);
         if (transpose)
             FUN_00ee6dd4(&reinterpret_cast<MapMatrix*>(&DAT_0126f820)[slot],
@@ -6189,7 +6189,7 @@ unsigned int ConstantMapView::FUN_00e85d10(unsigned int slot, Mapping* apMapping
             transpose = true;
 
         if (inverse)
-            FUN_00ee6dda(&reinterpret_cast<MapMatrix*>(&DAT_0126f820)[slot], 0,
+            D3DXMatrixInverse(&reinterpret_cast<MapMatrix*>(&DAT_0126f820)[slot], 0,
                          &reinterpret_cast<MapMatrix*>(&DAT_0126f820)[slot]);
         if (transpose)
             FUN_00ee6dd4(&reinterpret_cast<MapMatrix*>(&DAT_0126f820)[slot],

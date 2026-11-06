@@ -655,11 +655,11 @@ struct S_00a7d960_base : NiPointLightLayout
 
 struct FUN_00a7d960_cls : S_00a7d960_base
 {
-    void FUN_00a7d960(S_00a7d960_arg* p);
+    void GetViewerStrings(S_00a7d960_arg* p);
 };
 
 // @fnv 0x00a7d960
-void FUN_00a7d960_cls::FUN_00a7d960(S_00a7d960_arg* pBuffer)
+void FUN_00a7d960_cls::GetViewerStrings(S_00a7d960_arg* pBuffer)
 {
     AppendEffectProperties(pBuffer);
     S_Push(pBuffer, FUN_00a7d330(DAT_011f4a98));

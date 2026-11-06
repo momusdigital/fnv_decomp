@@ -29,7 +29,7 @@ class TESObjectSTAT : public TESBoundObject
 extern TESObjectSTAT* DAT_011ca238;
 extern TESObjectSTAT* DAT_011ca230;
 // @fnv 0x005571a0
-void TESObjectCELL::FUN_005571a0(bool active)
+void TESObjectCELL::QueueReferences(bool active)
 {
     CellRefLockEnter();
     void* list = g_TES->FUN_00458be0(this, 0);

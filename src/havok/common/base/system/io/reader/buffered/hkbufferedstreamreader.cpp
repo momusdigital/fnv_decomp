@@ -34,10 +34,10 @@ struct FUN_00d2bb40_cls
     int m_14;
     int m_18;
     int m_1c;
-    int FUN_00d2bb40();
+    int rewindToMark();
 };
 // @fnv 0x00d2bb40
-int FUN_00d2bb40_cls::FUN_00d2bb40()
+int FUN_00d2bb40_cls::rewindToMark()
 {
     if (m_1c >= 0)
     {
@@ -198,7 +198,7 @@ struct FUN_00d2bb60_cls
 };
 
 // @fnv 0x00d2bb60
-int __fastcall FUN_00d2bb60(FUN_00d2bb60_cls* self, int unused, int value)
+int __fastcall seekTellSupported(FUN_00d2bb60_cls* self, int unused, int value)
 {
     self->m_pObject->v9(value);
     return value;
@@ -304,10 +304,10 @@ struct Stream
     int a, b;
     Reader* reader;
     int c, pos, end;
-    hkBool FUN_00d2bad0();
+    hkBool isOk();
 };
 // @fnv 0x00d2bad0
-hkBool Stream::FUN_00d2bad0()
+hkBool Stream::isOk()
 {
     unsigned char byte;
     return hkBool(pos != end || *reader->v3(&byte) != 0);

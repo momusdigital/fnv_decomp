@@ -1798,7 +1798,7 @@ bool FUN_00518f00(ActivateObject*, ActivateObject*, int, int);
 void FUN_005e58f0(int, ActivateObject*, float*);
 void FUN_00706f30(int);
 void FUN_00705830(ActivateObject*, int, int);
-void FUN_00600900(ActivateKey*);
+void SetUsedItem(ActivateKey*);
 void FUN_00600940(int);
 void FUN_00600920(int);
 int FUN_00406d00(char*, unsigned, const char*, ...);
@@ -1906,11 +1906,11 @@ bool DoorActivation::ActivateDoor(ActivateObject* reference, ActivateObject* act
                         ActivateAnimation* animationPart1 = actor->Animation();
                         if (animationPart1)
                             animationPart1->FUN_00498910(1, 0);
-                        FUN_00600900(DAT_011ca268);
+                        SetUsedItem(DAT_011ca268);
                         FUN_00600940(1);
                         FUN_00600920(1);
                         process1->Open(actor, 0, 2, 1, 0, 1);
-                        FUN_00600900((ActivateKey*)0);
+                        SetUsedItem((ActivateKey*)0);
                         FUN_00600940(0);
                         FUN_00600920(-1);
                         ActivateOpenState* statePart2 = reference->FUN_005691f0();
@@ -1966,11 +1966,11 @@ bool DoorActivation::ActivateDoor(ActivateObject* reference, ActivateObject* act
                     ActivateAnimation* animationPart2 = actor->Animation();
                     if (animationPart2)
                         animationPart2->FUN_00498910(1, 0);
-                    FUN_00600900(DAT_011ca268);
+                    SetUsedItem(DAT_011ca268);
                     FUN_00600940(1);
                     FUN_00600920(1);
                     process1->Open(actor, 0, 2, 1, 0, 1);
-                    FUN_00600900((ActivateKey*)0);
+                    SetUsedItem((ActivateKey*)0);
                     FUN_00600940(0);
                     FUN_00600920(-1);
                     ActivateOpenState* statePart5 = reference->FUN_005691f0();

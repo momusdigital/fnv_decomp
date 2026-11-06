@@ -144,7 +144,7 @@ struct TESAmmoInitCalls
 };
 struct FUN_00666f00_shell
 {
-    bool FUN_00666f00();
+    bool IsInstance();
 };
 struct CombatProcedure
 {
@@ -157,7 +157,7 @@ struct CombatProcedureEngageTarget
 struct FUN_009d6c00_shell : CombatProcedureEngageTarget
 {
     Actor* GetFieldBC();
-    bool FUN_00666f00();
+    bool IsInstance();
     void UpdateCombatMovement();
 };
 // @fnv 0x009d6c00
@@ -166,7 +166,7 @@ void FUN_009d6c00_shell::UpdateCombatMovement()
     Actor* attacker = ((TESAmmoInitCalls*)*(void**)((char*)this + 4))->GetFieldBC();
     if (*(int*)((char*)this + 0x10) == 1 || *(int*)((char*)this + 0x10) == 2)
     {
-        if (!FUN_00666f00())
+        if (!IsInstance())
             attacker->StopMoving();
     }
     else if (*(int*)((char*)this + 0x10) == 3)
@@ -2104,12 +2104,12 @@ struct ProcedureController
 
     void FUN_004534f0(unsigned int);
 
-    void FUN_009d8ad0(unsigned int);
+    void InitLoadGame(unsigned int);
 };
 
 // Calls FUN_004534f0, resolves currentForm through FUN_004839c0 and dynamic_cast, then refreshes the command target from context when refresh is set.
 // @fnv 0x009d8ad0
-void ProcedureController::FUN_009d8ad0(unsigned int value)
+void ProcedureController::InitLoadGame(unsigned int value)
 
 {
 

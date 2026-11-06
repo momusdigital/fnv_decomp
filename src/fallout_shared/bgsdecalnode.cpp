@@ -47,11 +47,11 @@ struct NiNode
 };
 struct BGSDecalNode : NiNode
 {
-    virtual void FUN_004ee4d0(NiAVObject* apAVObj, bool abFirstAvailableSlot);
+    virtual void AttachChild(NiAVObject* apAVObj, bool abFirstAvailableSlot);
 };
 
 // @fnv 0x004ee4d0
-void BGSDecalNode::FUN_004ee4d0(NiAVObject* apAVObj, bool abFirstAvailableSlot)
+void BGSDecalNode::AttachChild(NiAVObject* apAVObj, bool abFirstAvailableSlot)
 {
     NiNode::AttachChildInAvailableSlot(apAVObj, abFirstAvailableSlot);
 }
@@ -285,14 +285,14 @@ struct FUN_004ee050 : public A51BF0Base
 
 struct FUN_004ee6f0_shell : public A51BF0Base
 {
-    NiObject* FUN_004ee6f0(CloningProcess& arCloneData);
+    NiObject* CreateClone(CloningProcess& arCloneData);
 };
 
 extern int _data_011c16bc;
 
 // Allocates and constructs a new FUN_004ee050 object and returns it as a NiObject pointer.
 // @fnv 0x004ee6f0
-NiObject* FUN_004ee6f0_shell::FUN_004ee6f0(CloningProcess& arCloneData)
+NiObject* FUN_004ee6f0_shell::CreateClone(CloningProcess& arCloneData)
 {
     FUN_004ee050* pNewNode = new FUN_004ee050;
     return pNewNode;
@@ -413,11 +413,11 @@ struct FUN_004ee610_cls
     FUN_004ee610_node* m_ac;
 
     int FUN_004b2960();
-    void FUN_004ee610(int a1);
+    void OnVisible(int a1);
 };
 
 // @fnv 0x004ee610
-void FUN_004ee610_cls::FUN_004ee610(int a1)
+void FUN_004ee610_cls::OnVisible(int a1)
 {
     if (FUN_004b2960())
     {

@@ -2209,11 +2209,11 @@ class FUN_00aed420_cls
     S_Subsys* m_198;
     S_Subsys* m_19c;
     S_Subsys* m_1a0;
-    bool FUN_00aed420();
+    bool Pause();
 };
 
 // @fnv 0x00aed420
-bool FUN_00aed420_cls::FUN_00aed420()
+bool FUN_00aed420_cls::Pause()
 {
     int hr = (int)0x80004005;
     if (m_19c != 0 && m_198 != 0)
@@ -2558,11 +2558,11 @@ struct S_00af01e0_Cls
     int unk194;
     int unk198;
     S_00af01e0_Snd* unk19c;
-    int FUN_00af01e0(float f);
+    int SetFrameFrequencyPerc(float f);
 };
 // Scales unk15a by f, clamps the result to 100..200000, and if unk19c and unk198 are set calls unk19c->v44 with it; returns whether the result was non-negative.
 // @fnv 0x00af01e0
-int S_00af01e0_Cls::FUN_00af01e0(float afScale)
+int S_00af01e0_Cls::SetFrameFrequencyPerc(float afScale)
 {
     int hr = 0x80004005;
     unsigned int v = (unsigned int)(unk15a * afScale);
@@ -4107,11 +4107,11 @@ struct SoundObj
     bool is3D;
 
     bool IsPlaying();
-    void FUN_00aefda0(float maxDist, float minDist);
+    void SetDistances(float maxDist, float minDist);
 };
 
 // @fnv 0x00aefda0
-void SoundObj::FUN_00aefda0(float maxDist, float minDist)
+void SoundObj::SetDistances(float maxDist, float minDist)
 {
     float fScaledValue = maxDist;
     if (minDist != minDistance || maxDist != maxDistance)
@@ -6420,12 +6420,12 @@ class AudioBuffer
     {
         return (m_flags & 0x4000000) || (m_flags & 0x2000000);
     }
-    void __thiscall FUN_00af0630(AudioBuffer*, bool);
+    void __thiscall CopyFrom(AudioBuffer*, bool);
 };
 
 // Copies audio data and state from a previous AudioBuffer, creates a new device buffer, and optionally triggers OnCopied.
 // @fnv 0x00af0630
-void __thiscall AudioBuffer::FUN_00af0630(AudioBuffer* apSource, bool notify)
+void __thiscall AudioBuffer::CopyFrom(AudioBuffer* apSource, bool notify)
 {
     AudioBuffer* source0;
     U32 dst2Bytes3;

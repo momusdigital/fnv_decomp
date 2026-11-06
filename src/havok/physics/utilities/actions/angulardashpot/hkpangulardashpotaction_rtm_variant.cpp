@@ -230,11 +230,11 @@ struct S00d4dcb0_DashpotEntRec : public DashpotReferencedBaseD4DCB0
 class S00d4dcb0_DashpotAct_shell : public DashpotActionBaseD4DCB0
 {
   public:
-    void FUN_00d4dcb0(const S00d4dcb0_DashpotInputRec& input);
+    void applyAction(const S00d4dcb0_DashpotInputRec& input);
 };
 
 // @fnv 0x00d4dcb0
-void S00d4dcb0_DashpotAct_shell::FUN_00d4dcb0(const S00d4dcb0_DashpotInputRec& input)
+void S00d4dcb0_DashpotAct_shell::applyAction(const S00d4dcb0_DashpotInputRec& input)
 {
     float w = input.m_stepDt * DAT_010179e0;
     S00d4dcb0_DashpotEntRec* aEnt = (S00d4dcb0_DashpotEntRec*)m_pEntityA;

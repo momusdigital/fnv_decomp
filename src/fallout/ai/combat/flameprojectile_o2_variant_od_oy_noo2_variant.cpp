@@ -26,7 +26,7 @@ struct BeamProjectile
 struct FlameProjectile : BeamProjectile
 {
     FlameProjectile();
-    void FUN_009b3f00(BGSLoadFormBuffer* apLoadGameBuffer);
+    void LoadGame(BGSLoadFormBuffer* apLoadGameBuffer);
 };
 // placeholder declarations
 struct FUN_009b32b0_shell
@@ -489,14 +489,14 @@ struct ProjectileEffect
     GameObject* FUN_004181e0();
     double GetFirstLightParameter();
     double FUN_00508070();
-    bool FUN_009b36f0();
+    bool RunTargetPick();
 };
 struct EmitterProperties
 {
     float FUN_009a7c40();
 };
 // @fnv 0x009b36f0
-bool ProjectileEffect::FUN_009b36f0()
+bool ProjectileEffect::RunTargetPick()
 {
     if (!FUN_008d6f30() || !FUN_008d6f30()->FUN_004543c0())
         return false;

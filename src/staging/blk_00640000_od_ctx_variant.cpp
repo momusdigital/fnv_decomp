@@ -627,7 +627,7 @@ struct Holder00aad6b0
 {
     void __thiscall FUN_00aad6b0();
 };
-void __cdecl FUN_00652fc0(float a1, int a2, int a3);
+void __cdecl RandomizeFaceGenetic(float a1, int a2, int a3);
 struct Class_00658100
 {
     unsigned int __thiscall FUN_00658100();
@@ -989,7 +989,7 @@ struct PropHelper
 struct SkyShaderProperty
 {
     void SetTexture(NiTexture*);
-    void FUN_00634900(int*);
+    void SetTextureFile(int*);
 };
 void* DynamicCastByRTTI(const NiRTTI*, NiProperty*);
 extern int DAT_011f49e0;
@@ -1370,7 +1370,7 @@ extern FloatSetting_646400 g_011ceecc;
 extern FloatSetting_646400 gs_011cecd0;
 extern FloatSetting_646400 gs_011ce808;
 unsigned int DialogueRandom();
-bool FUN_00646400(AVOwnerStub_646400* owner, int value);
+bool CheckKnockdown(AVOwnerStub_646400* owner, int value);
 extern double DAT_01012060;
 extern double DAT_01016408;
 extern double DAT_01017a40;
@@ -1960,8 +1960,8 @@ struct S_006503b0_List
     void FUN_00559120(int* pos, int* out, S_006503b0_Slot* slot);
     void RemoveKey(int item);
 };
-void __cdecl FUN_00652140();
-void __cdecl FUN_00652190();
+void __cdecl LockFaceGenAccess();
+void __cdecl UnlockFaceGenAccess();
 struct S_006503b0_Owner
 {
     int unk00;
@@ -1992,11 +1992,11 @@ struct NPX
 struct FileNames
 {
     const char* GetFloatValue();
-    const char* FUN_00650600();
+    const char* GetEGTFilename();
 };
 unsigned FUN_0044a670(const char*);
-void FUN_00652140();
-void FUN_00652190();
+void LockFaceGenAccess();
+void UnlockFaceGenAccess();
 unsigned gm_GetTickCount();
 struct CacheMap
 {
@@ -2009,7 +2009,7 @@ struct Target
     CacheMap map;
     bool dirty;
     void FUN_00650ba0(ModelRecord*);
-    bool FUN_00650480(FileNames*);
+    bool LoadEGMData(FileNames*);
 };
 struct Holder_657c50
 {
@@ -2940,7 +2940,7 @@ struct FUN_00649680 : NiMemObject
     int value1b8;
     int value1bc;
     FUN_00649680();
-    FUN_00649680* FUN_0064c5a0();
+    FUN_00649680* CreateCopyBS();
 };
 template <class T> struct FGPointer
 {

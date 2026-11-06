@@ -17,7 +17,7 @@ struct FUN_00d08350 {
     void* __thiscall Set(void* arg);
 };
 struct FUN_00d083a0_class {
-    void __thiscall FUN_00d083a0(int a);
+    void __thiscall setWorkingBuffer(int a);
 };
 struct FUN_00d08ff0_t {
     int a;
@@ -803,7 +803,7 @@ struct UpdateOwner {
     bool dirty;
     void FUN_00d09df0(void*, void*);
     void FUN_00d099d0(void*, void*);
-    void FUN_00d0a060(void*, void*);
+    void updateFromWorld(void*, void*);
 };
 // FUN_00d0a200 : MSVC this-adjusting thunk  (sub ecx, 0x14 ; jmp <impl>)
 struct A1_00d0a200 {
@@ -994,7 +994,7 @@ struct __declspec(align(16)) S00d094a0_Build {
 struct S00d094a0_Fallback {
     int m_00; int m_04; int m_08;
     void InitWalker(S00d094a0_Input*, S00d094a0_Ctx*);
-    int FUN_00d9e000();
+    int getNumPrimitives();
 };
 void __cdecl FUN_00d9d950(S00d094a0_Tree*, int, void*, void*);
 void __cdecl FillAabbArray(S00d094a0_Fallback*, int, int, void*);

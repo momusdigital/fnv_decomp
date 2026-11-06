@@ -56,7 +56,7 @@ struct FUN_00489860_shell
     unsigned char* __thiscall FUN_00489860(unsigned char a, unsigned char b, unsigned char c, unsigned char d, int e);
 };
 
-// sub ecx,0x30; jmp FUN_004029f0  ==  MSVC adjustor thunk (multiple inheritance,
+// sub ecx,0x30; jmp SetAutoCalc  ==  MSVC adjustor thunk (multiple inheritance,
 // primary base occupies 0x30 bytes; both bases declare the same virtual, the derived
 // class only defines its constructor so the compiler emits the this-adjusting thunk).
 struct PrimaryBase

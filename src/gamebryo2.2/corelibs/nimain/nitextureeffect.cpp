@@ -125,10 +125,10 @@ struct RegHolder54
 };
 struct FUN_00a92a30_shell : NiTextureEffect
 {
-    bool FUN_00a92a30(NiStream&);
+    bool RegisterStreamables(NiStream&);
 };
 // @fnv 0x00a92a30
-bool FUN_00a92a30_shell::FUN_00a92a30(NiStream& kStream)
+bool FUN_00a92a30_shell::RegisterStreamables(NiStream& kStream)
 {
     if (!((FUN_00a6ff10_holder*)this)->FUN_00a6ff10(kStream))
         return false;
@@ -351,10 +351,10 @@ struct CallTarget_00a92c40
 };
 struct SearchObject
 {
-    int FUN_00a92ef0(unsigned int arg0);
+    int UpdateWorldData(unsigned int arg0);
 };
 // @fnv 0x00a92ef0
-int SearchObject::FUN_00a92ef0(unsigned int arg0)
+int SearchObject::UpdateWorldData(unsigned int arg0)
 {
     unsigned int callResult0 = (unsigned int)((CallTarget_00a68c60*)this)->FUN_00a68c60((int)arg0);
     unsigned int callResult1 = (unsigned int)((CallTarget_00a92c40*)this)->UpdateWorldProjection();
@@ -379,7 +379,7 @@ class SubCmpC
 class FUN_00a93040_cls
 {
   public:
-    bool FUN_00a68d80(FUN_00a93040_cls* other);
+    bool IsEqual(FUN_00a93040_cls* other);
     bool FUN_00a93040(FUN_00a93040_cls* other);
     unsigned int unk_000;
     unsigned int unk_004;
@@ -464,11 +464,11 @@ class FUN_00a93040_cls
     unsigned short unk_13a;
     unsigned int unk_13c;
 };
-// Returns true when FUN_00a68d80 succeeds, the unk_0c4 subobjects match, the unk_0e8 and unk_13c subobjects differ, and m_128 through m_138 are equal.
+// Returns true when IsEqual succeeds, the unk_0c4 subobjects match, the unk_0e8 and unk_13c subobjects differ, and m_128 through m_138 are equal.
 // @fnv 0x00a93040
 bool FUN_00a93040_cls::FUN_00a93040(FUN_00a93040_cls* other)
 {
-    if (FUN_00a68d80(other) != 0 && reinterpret_cast<SubCmpA*>(&other->unk_0c4)->Equal(&unk_0c4) != 0 &&
+    if (IsEqual(other) != 0 && reinterpret_cast<SubCmpA*>(&other->unk_0c4)->Equal(&unk_0c4) != 0 &&
         reinterpret_cast<SubCmpB*>(&other->unk_0e8)->Equal(&unk_0e8) == 0 && other->m_128 == m_128 &&
         other->m_12c == m_12c && other->m_130 == m_130 && other->m_134 == m_134 && other->m_138 == m_138 &&
         reinterpret_cast<SubCmpC*>(&other->unk_13c)->Equal(&unk_13c) == 0)
@@ -925,7 +925,7 @@ struct StrArr
 };
 struct DynamicEffectViewer : NiDynamicEffectStub
 {
-    void FUN_00a69140(StrArr& strings);
+    void GetViewerStrings(StrArr& strings);
 };
 struct MatrixViewer : NiMatrix3Stub
 {
@@ -963,7 +963,7 @@ struct TextureEffectViewer : DynamicEffectViewer
 // @fnv 0x00a93400
 void TextureEffectViewer::AppendToStrings(StrArr& strings)
 {
-    FUN_00a69140(strings);
+    GetViewerStrings(strings);
     strings.Add(FUN_00a7d330(reinterpret_cast<const char*>(g_011f5e94)));
     strings.Add(modelProjMat.ToString("m_kModelProjMat"));
     strings.Add(modelProjTrans.FUN_00a59af0("m_kModelProjTrans"));

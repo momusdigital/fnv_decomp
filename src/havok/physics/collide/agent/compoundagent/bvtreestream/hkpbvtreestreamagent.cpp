@@ -489,7 +489,7 @@ int SearchObject::CallTarget(unsigned int arg0, unsigned int arg1, unsigned int 
 namespace fnv_00d2ed70 {
 struct CallTarget_00d43f10
 {
-    int FUN_00d43f10(int, int, int, int);
+    int updateShapeCollectionFilter(int, int, int, int);
 };
 struct SearchObject
 {
@@ -499,7 +499,7 @@ struct SearchObject
 int SearchObject::FUN_00d2ed70(unsigned int arg0, unsigned int arg1, unsigned int arg2, unsigned int arg3)
 {
     unsigned int callResult0 =
-        (unsigned int)((CallTarget_00d43f10*)this)->FUN_00d43f10((int)arg1, (int)arg0, (int)arg2, (int)arg3);
+        (unsigned int)((CallTarget_00d43f10*)this)->updateShapeCollectionFilter((int)arg1, (int)arg0, (int)arg2, (int)arg3);
     return (int)callResult0;
 }
 }  // namespace fnv_00d2ed70
@@ -745,7 +745,7 @@ struct Simplex
 
 struct AgentBase
 {
-    void FUN_00d2df90(int a, int b, int c, Simplex* s);
+    void processCollision(int a, int b, int c, Simplex* s);
 };
 
 struct Agent : AgentBase
@@ -753,13 +753,13 @@ struct Agent : AgentBase
     void FUN_00d2ec50(int a, int b, int c, Simplex* s);
 };
 
-// Calls base FUN_00d2df90 with a and b swapped, post-processes the new simplex vertices, and swaps the dimension fields and ids if the closest distance changed.
+// Calls base processCollision with a and b swapped, post-processes the new simplex vertices, and swaps the dimension fields and ids if the closest distance changed.
 // @fnv 0x00d2ec50
 void Agent::FUN_00d2ec50(int a, int b, int c, Simplex* apSimplex)
 {
     SimplexVertex* v = apSimplex->m_kRayEnd;
     float oldDistance = apSimplex->m_fClosestPointDistanceSquared;
-    AgentBase::FUN_00d2df90(b, a, c, apSimplex);
+    AgentBase::processCollision(b, a, c, apSimplex);
     for (; v < apSimplex->m_kRayEnd; v++)
     {
         const __m128* pb = &v->m_kPointB;

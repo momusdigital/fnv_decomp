@@ -437,10 +437,10 @@ struct ReorientApplyActionView
     ReorientApplyVector m_vRotationAxis;
     ReorientApplyVector m_vUpAxis;
     float m_fSpringStrength, m_fMotorDamping;
-    __declspec(noinline) void FUN_00e445b0(const ReorientApplyStepInfo& info);
+    __declspec(noinline) void applyAction(const ReorientApplyStepInfo& info);
 };
 // @fnv 0x00e445b0
-__declspec(noinline) void ReorientApplyActionView::FUN_00e445b0(const ReorientApplyStepInfo& info)
+__declspec(noinline) void ReorientApplyActionView::applyAction(const ReorientApplyStepInfo& info)
 {
     ReorientApplyBodyView* body = m_pEntity;
     ReorientApplyVector up;

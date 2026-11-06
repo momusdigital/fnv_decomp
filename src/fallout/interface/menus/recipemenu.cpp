@@ -4,11 +4,11 @@
 
 struct RecipeMenu
 {
-    int FUN_00726f00();
+    int GetClass();
 };
 
 // @fnv 0x00726f00
-int RecipeMenu::FUN_00726f00()
+int RecipeMenu::GetClass()
 {
     return 0x435;
 }
@@ -3592,7 +3592,7 @@ extern RecipeData* DAT_011d8e94;
 int __cdecl FUN_00406d00(char*, int, const char*, ...);
 const char* __cdecl FUN_00464f30(const char*, bool);
 const char* __cdecl FUN_0066e950(int);
-int __cdecl FUN_00480f80(TESObjectARMO*, FNVAuxController*);
+int __cdecl GetMessageIcon(TESObjectARMO*, FNVAuxController*);
 struct SexData
 {
     int FUN_0087f4c0();
@@ -3612,11 +3612,11 @@ struct RecipeEnterMenu
     int unk68;
     RecipeBox first, second;
     void FUN_00728da0(TESForm*, RecipeTiles*);
-    void FUN_00727b10(int, RecipeTiles*);
+    void HandleMouseover(int, RecipeTiles*);
 };
 // Handles actions 3, 6, and 15 to switch recipe views, rebuild ingredient details, and update selected item tiles.
 // @fnv 0x00727b10
-void RecipeEnterMenu::FUN_00727b10(int id, RecipeTiles* tile)
+void RecipeEnterMenu::HandleMouseover(int id, RecipeTiles* tile)
 {
     if (!tile && id >= 0 && id < 14)
         tile = tiles[id];
@@ -3743,7 +3743,7 @@ void RecipeEnterMenu::FUN_00727b10(int id, RecipeTiles* tile)
             else
             {
                 TESObjectARMO* armor = dynamic_cast<TESObjectARMO*>(selected->FUN_00726070());
-                if (armor && FUN_00480f80(armor, DAT_011dea3c))
+                if (armor && GetMessageIcon(armor, DAT_011dea3c))
                 {
                     tiles[9]->FUN_00a01350(0xfcc, armor->names.FUN_00481280(((SexData*)DAT_011dea3c)->FUN_0087f4c0()),
                                            true);

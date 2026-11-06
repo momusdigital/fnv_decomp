@@ -333,7 +333,7 @@ struct FUN_00cd8140_Obj
     int unk0C;
     float unk10;
 
-    void FUN_00cd8140(FUN_00cd8140_Result* result);
+    void getCollisionSpheresImpl(FUN_00cd8140_Result* result);
 };
 void __stdcall FUN_00cd80e0(float* output);
 

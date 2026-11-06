@@ -28,14 +28,14 @@ struct FUN_00e483d0_Object
 
 struct FUN_00e483d0_Class
 {
-    void FUN_00e483d0();
+    void clone();
 };
 
 FUN_00e483d0_Router* __cdecl _D1A0E0GetMemoryRouter();
 
 // Allocates a 0x28-byte object via the memory router's allocator, sets its type to 0x28, and passes this to its FUN_00e48400 method.
 // @fnv 0x00e483d0
-void FUN_00e483d0_Class::FUN_00e483d0()
+void FUN_00e483d0_Class::clone()
 {
     FUN_00e483d0_Router* router = _D1A0E0GetMemoryRouter();
     FUN_00e483d0_Object* object = static_cast<FUN_00e483d0_Object*>(router->allocator->allocate(0x28));

@@ -113,14 +113,14 @@ ScrapHeapBuffer* MemoryManager::GetGeneralAllocator()
 
 struct FUN_00473960_shell : public TESFile
 {
-    void FUN_00473960();
+    void FreeDecompressedBuffer();
 };
 
 void __cdecl Deallocate(void*);
 
 // If the pointer at offset 0x420 is non-null, deallocates it and clears the pointer and the count at offset 0x424.
 // @fnv 0x00473960
-void FUN_00473960_shell::FUN_00473960()
+void FUN_00473960_shell::FreeDecompressedBuffer()
 {
     if (*(void**)((char*)this + 0x420) != 0)
     {

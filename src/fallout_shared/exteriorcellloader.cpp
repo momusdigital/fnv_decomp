@@ -217,7 +217,7 @@ struct LoaderDummy
 };
 struct CellRefDummy
 {
-    void FUN_005571a0(int i);
+    void QueueReferences(int i);
 };
 struct MyCellEx
 {
@@ -235,7 +235,7 @@ struct FUN_00527cb0_shell
 void FUN_00527cb0_shell::FUN_00527cb0()
 {
     pLoader->FUN_00528620(m_pGridCoordinates);
-    ((MyCellEx*)m_pGridCoordinates)->pObj->FUN_005571a0(1);
+    ((MyCellEx*)m_pGridCoordinates)->pObj->QueueReferences(1);
 }
 
 bool __fastcall FUN_00449130(int*);
@@ -245,11 +245,11 @@ struct FUN_00527d00_shell
     char _pad[0x18];
     FUN_005287b0_shell* pLoader;
     char* m_pGridCoordinates;
-    void FUN_00527d00();
+    void PostProcess();
 };
 
 // @fnv 0x00527d00
-void FUN_00527d00_shell::FUN_00527d00()
+void FUN_00527d00_shell::PostProcess()
 {
     if (!FUN_00449130((int*)this))
     {
@@ -273,12 +273,12 @@ struct NiPoint2
 };
 struct WorldSpaceAccess : TESWorldSpace
 {
-    CellEffects* __thiscall FUN_00585b30(int x, int y);
+    CellEffects* __thiscall LoadCell(int x, int y);
 };
 struct NodeEffects : NiNode
 {
-    void __thiscall FUN_00535b90(bool value);
-    void __thiscall FUN_0053fa40(unsigned char value);
+    void __thiscall LoadVertices(bool value);
+    void __thiscall DrawLandBorder(unsigned char value);
     void __thiscall FUN_0053f440();
 };
 struct CellEffects : TESObjectCELL
@@ -294,7 +294,7 @@ struct CellEffects : TESObjectCELL
 };
 struct GameWorld : TES
 {
-    CellEffects* __thiscall FUN_00461330(int mode, int x, int y, WorldSpaceAccess* worldSpace);
+    CellEffects* __thiscall NewCell(int mode, int x, int y, WorldSpaceAccess* worldSpace);
 };
 extern GameWorld* DAT_011c3f2c;
 extern FUN_00528790_shell* DAT_011dea10;
@@ -320,15 +320,15 @@ void CellLoader::FUN_00528620(CellLoadData* pLoadData)
     if (pLoadData != 0)
     {
         if (pLoadData->cell == 0)
-            pLoadData->cell = pLoadData->worldSpace->FUN_00585b30(pLoadData->iX, pLoadData->iY);
+            pLoadData->cell = pLoadData->worldSpace->LoadCell(pLoadData->iX, pLoadData->iY);
         if (pLoadData->cell == 0)
-            pLoadData->cell = DAT_011c3f2c->FUN_00461330(0, pLoadData->iX, pLoadData->iY, pLoadData->worldSpace);
+            pLoadData->cell = DAT_011c3f2c->NewCell(0, pLoadData->iX, pLoadData->iY, pLoadData->worldSpace);
         pLoadData->cell->GetOrCreateWidget();
         NodeEffects* pNode = pLoadData->cell->FUN_00546fb0();
         if (pNode != 0)
         {
-            pNode->FUN_00535b90(true);
-            pNode->FUN_0053fa40(DAT_011dea10->GetUnk60Byte());
+            pNode->LoadVertices(true);
+            pNode->DrawLandBorder(DAT_011dea10->GetUnk60Byte());
         }
         if (!pLoadData->cell->FUN_00451cd0())
         {

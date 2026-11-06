@@ -93,11 +93,11 @@ class NiPSysOwnerC2B
 {
   public:
     void CopyMemberData(NiPSysBaseC2B* pkDest, void* pvProcess);
-    NiPSysBaseC2B* FUN_00c2b780(void* pvProcess);
+    NiPSysBaseC2B* CreateClone(void* pvProcess);
 };
 
 // @fnv 0x00c2b780
-NiPSysBaseC2B* NiPSysOwnerC2B::FUN_00c2b780(void* pvProcess)
+NiPSysBaseC2B* NiPSysOwnerC2B::CreateClone(void* pvProcess)
 {
     NiPSysDerivedC2B* pkClone = new NiPSysDerivedC2B;
     CopyMemberData(pkClone, pvProcess);

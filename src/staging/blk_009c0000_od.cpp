@@ -2917,13 +2917,13 @@ struct ImpImpact
     char pad00[0x18];
     ImpTexture kTexture;
     void* FUN_006733e0();
-    float FUN_004a40a0();
+    float GetDecalMinWidth();
     float GetModifierValue();
     float GetNestedValue();
-    unsigned char FUN_004a4140();
+    unsigned char GetAlphaBlending();
     unsigned char CallMemberAtOffset54();
-    unsigned char FUN_004a4100();
-    unsigned char FUN_004a41e0();
+    unsigned char GetIsParallax();
+    unsigned char GetDecalParallaxPasses();
     float FUN_004a41c0();
     float FUN_004a40e0();
     float FUN_009a9350();
@@ -2937,13 +2937,13 @@ struct ImpImpact
 
 struct ImpImpactSet
 {
-    ImpImpact* FUN_00522ba0(int aiMaterial);
+    ImpImpact* GetImpactData(int aiMaterial);
 };
 
 struct ImpSurface
 {
     void* FUN_00559450();
-    void* FUN_0043b540();
+    void* getCollisionFilterInfo();
 };
 
 struct ImpHit
@@ -3160,7 +3160,7 @@ struct ImpDecalManager
 
 struct ImpDecalSystem
 {
-    ImpDecalManager* FUN_004519d0(ImpPoint kPosOut);
+    ImpDecalManager* GetCellForPoint(ImpPoint kPosOut);
 };
 
 struct ImpShooterProcess
@@ -3403,7 +3403,7 @@ void ImpProjectile::ApplyImpact(ImpTarget* apTarget, ImpPoint* apPos, ImpPoint* 
                 FUN_005ac750(pImpacts, apTarget->FUN_005d43c0(), 0x100);
         }
         int iMaterial = aiMaterial;
-        ImpImpact* pImpactTmp = pImpacts ? pImpacts->FUN_00522ba0(iMaterial) : 0;
+        ImpImpact* pImpactTmp = pImpacts ? pImpacts->GetImpactData(iMaterial) : 0;
         if (pImpactTmp)
         {
             void* m_pDecalData = pImpactTmp->FUN_006733e0();
@@ -3413,7 +3413,7 @@ void ImpProjectile::ApplyImpact(ImpTarget* apTarget, ImpPoint* apPos, ImpPoint* 
                 kNormal.FUN_004a0c10();
                 ImpPoint kPosOut = *apPos;
                 if (m_fLifetime == 0.0)
-                    m_fLifetime = FUN_00476b70(pImpactTmp->FUN_004a40a0(), pImpactTmp->GetModifierValue());
+                    m_fLifetime = FUN_00476b70(pImpactTmp->GetDecalMinWidth(), pImpactTmp->GetModifierValue());
                 ImpDecal* pNewDecal = FUN_00622a70(m_fLifetime, 1);
                 pNewDecal->FUN_006233c0(0);
                 pNewDecal->FUN_004a1a10(8, 0);
@@ -3455,7 +3455,7 @@ void ImpProjectile::ApplyImpact(ImpTarget* apTarget, ImpPoint* apPos, ImpPoint* 
                             if (iSurfaceMaterialCur == aiMaterial && pSurfaceInfo != pLastSurface)
                             {
                                 pLastSurface = pSurfaceInfo;
-                                bool bHasAnimation = ImpSkin(pSurfaceInfo->FUN_0043b540()).FUN_004a3a20() == 1;
+                                bool bHasAnimation = ImpSkin(pSurfaceInfo->getCollisionFilterInfo()).FUN_004a3a20() == 1;
                                 ImpAttach* pAttach = 0;
                                 if (bHasAnimation)
                                 {
@@ -3475,7 +3475,7 @@ void ImpProjectile::ApplyImpact(ImpTarget* apTarget, ImpPoint* apPos, ImpPoint* 
                                 if (!bHasAnimation &&
                                     (!pGeometryRef || !IsAcousticSpaceFormTypeAllowed(pGeometryRef, 1)))
                                     continue;
-                                ImpDecalManager* pManager = DAT_011dea10->FUN_004519d0(*apPos);
+                                ImpDecalManager* pManager = DAT_011dea10->GetCellForPoint(*apPos);
                                 ImpDecalParams kParamsCur;
                                 kParamsCur.kPosOut = kPosOut;
                                 kParamsCur.kNormal = kNormal;
@@ -3486,11 +3486,11 @@ void ImpProjectile::ApplyImpact(ImpTarget* apTarget, ImpPoint* apPos, ImpPoint* 
                                 kParamsCur.m_pDecalData = m_pDecalData;
                                 kParamsCur.fPathHeading = fPathHeading;
                                 kParamsCur.m_ucClipIdentifier = m_ucClipIdentifier;
-                                kParamsCur.ucFlagC = pImpactTmp->FUN_004a4140();
+                                kParamsCur.ucFlagC = pImpactTmp->GetAlphaBlending();
                                 kParamsCur.ucFlagB = pImpactTmp->CallMemberAtOffset54();
-                                kParamsCur.ucFlagA = pImpactTmp->FUN_004a4100();
+                                kParamsCur.ucFlagA = pImpactTmp->GetIsParallax();
                                 kParamsCur.fParallax = pImpactTmp->FUN_004a41c0();
-                                kParamsCur.ucFlagD = pImpactTmp->FUN_004a41e0();
+                                kParamsCur.ucFlagD = pImpactTmp->GetDecalParallaxPasses();
                                 kParamsCur.m_fShininess = pImpactTmp->FUN_004a40e0();
                                 kParamsCur.m_fSpecularStrength = pImpactTmp->FUN_009a9350();
                                 kParamsCur.kColor = ImpPoint(

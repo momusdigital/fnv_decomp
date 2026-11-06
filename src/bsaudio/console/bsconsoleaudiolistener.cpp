@@ -26,11 +26,11 @@ struct NiPoint3
 
 struct BSAudioListener
 {
-    NiPoint3* FUN_00aeaaf0();
+    NiPoint3* GetFrontOrientation();
 };
 
 // @fnv 0x00aeaaf0
-NiPoint3* BSAudioListener::FUN_00aeaaf0()
+NiPoint3* BSAudioListener::GetFrontOrientation()
 {
     return reinterpret_cast<NiPoint3*>(reinterpret_cast<char*>(this) + 0x10);
 }
@@ -44,11 +44,11 @@ struct NiPoint3
 
 struct BSAudioListener
 {
-    NiPoint3& FUN_00aeab10();
+    NiPoint3& GetTopOrientation();
 };
 
 // @fnv 0x00aeab10
-NiPoint3& BSAudioListener::FUN_00aeab10()
+NiPoint3& BSAudioListener::GetTopOrientation()
 {
     return *(NiPoint3*)((char*)this + 0x1c);
 }
@@ -59,11 +59,11 @@ struct BSAudioListener
 {
     char pad[0x40];
     float m_fDistanceScale;
-    void FUN_00aeab30(float afGain);
+    void SetGain(float afGain);
 };
 
 // @fnv 0x00aeab30
-void BSAudioListener::FUN_00aeab30(float afGain)
+void BSAudioListener::SetGain(float afGain)
 {
     m_fDistanceScale = afGain;
 }

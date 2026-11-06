@@ -58,10 +58,10 @@ struct VirtualObj
 };
 struct NightEyeEffect
 {
-    void FUN_00825810();
+    void Start();
 };
 // @fnv 0x00825810
-void NightEyeEffect::FUN_00825810()
+void NightEyeEffect::Start()
 {
     FUN_00804cb0(this, 1.0f);
     ((FUN_0082a670_shell*)this)->FUN_0082c000();

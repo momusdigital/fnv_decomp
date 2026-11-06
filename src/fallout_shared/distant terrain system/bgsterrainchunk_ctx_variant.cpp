@@ -36,7 +36,7 @@ struct BGSTerrainChunkLoadTask : QueuedFileEntry
     int iX;
     int iY;
     int iLevel;
-    bool FUN_006fc400(char* apDescription, unsigned int aiBufferSize);
+    bool GetDescription(char* apDescription, unsigned int aiBufferSize);
 };
 extern int _sprintf_s(char*, unsigned int, const char*, ...);
 extern "C" void __cdecl UpdateListItems();
@@ -371,7 +371,7 @@ struct ModelLoader
 };
 struct FUN_0043cc60_shell
 {
-    int FUN_0043cc60();
+    int GetIOTaskPriority();
 };
 struct FUN_006fbbd0_virtual
 {
@@ -938,7 +938,7 @@ class SelfX
     PN m54;
     int FUN_00c3cff0(int a, int b);
     int FUN_0045cd60(int a);
-    void FUN_006fbd00();
+    void Run();
 };
 
 struct G3
@@ -1117,7 +1117,7 @@ extern D6Manager* DAT_011dea10;
 extern SettingX g_kSetting;
 
 // @fnv 0x006fbd00
-void SelfX::FUN_006fbd00()
+void SelfX::Run()
 {
     AutoMemX kMemVal(
         0x23, 1, "D:\\_Fallout3\\Platforms\\Common\\Code\\Fallout Shared\\Distant Terrain System\\BGSTerrainChunk.cpp",

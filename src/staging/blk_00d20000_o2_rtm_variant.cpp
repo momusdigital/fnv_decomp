@@ -192,7 +192,7 @@ void __cdecl FUN_00d31110();
 void __cdecl FUN_00d2f0d0();
 void __cdecl CreateAgentForBodyPair();
 void __cdecl FUN_00d2f2c0(D2F2C0Dispatcher* dispatcher);
-struct CallTarget_00d2f760 { int FUN_00d2f760(int, int, int, int); };
+struct CallTarget_00d2f760 { int updateShapeCollectionFilter(int, int, int, int); };
 struct SearchObject {
     int FUN_00d2f3d0(unsigned int arg0, unsigned int arg1, unsigned int arg2, unsigned int arg3);
 };
@@ -565,7 +565,7 @@ const char* __cdecl FUN_00d2b360(const char* path, PathHelper* aPathHelper);
 struct FnvCpu_FUN_00d2c7d0_CpuInterface {
     virtual void Invoke(int value);
 };
-void __cdecl FUN_00d2c7d0(FnvCpu_FUN_00d2c7d0_CpuInterface* object);
+void __cdecl cleanupLoadedObject_hkLiquidAction(FnvCpu_FUN_00d2c7d0_CpuInterface* object);
 class FUN_00d2c7e0 {
 public:
     virtual ~FUN_00d2c7e0();
@@ -1996,11 +1996,11 @@ struct hkOrientHingedBodyAction {
     float m_fConeAngle;
     bool m_bSlotEnabled;
 
-    void __thiscall FUN_00d2ad50(const hkStepInfo& stepInfo);
+    void __thiscall applyAction(const hkStepInfo& stepInfo);
 };
 
 // @fnv 0x00d2ad50
-void hkOrientHingedBodyAction::FUN_00d2ad50(const hkStepInfo& stepInfo)
+void hkOrientHingedBodyAction::applyAction(const hkStepInfo& stepInfo)
 {
     if (m_bSlotEnabled)
     {

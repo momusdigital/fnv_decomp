@@ -14,7 +14,7 @@ struct FUN_00cd06a0
 {
     void* m_p00;
     FUN_00cd06a0(int aiArg);
-    void FUN_00d2c7a0();
+    void releaseCachedMemory();
     void FUN_00cbf1a0();
 };
 struct Inner
@@ -1307,7 +1307,7 @@ extern int DAT_010cad74;
 extern int DAT_010cad0c;
 extern int DAT_010cacd0;
 
-void __fastcall FUN_00d2c7a0(void* self);
+void __fastcall releaseCachedMemory(void* self);
 void __fastcall FUN_00cbf1a0(void* self);
 void __fastcall ResetVftableAndDeleteCriticalSection(void* self);
 void __fastcall FUN_00d5ffd0(void* self);
@@ -1463,7 +1463,7 @@ struct Block_cd09d0
     ~Block_cd09d0()
     {
         m_vptr = &DAT_010cacd0;
-        FUN_00d2c7a0(this);
+        releaseCachedMemory(this);
         FUN_00cbf1a0(this);
     }
 };

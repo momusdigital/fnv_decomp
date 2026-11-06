@@ -451,12 +451,12 @@ class NiUnsharedGeometryGroupE94
     void* m_ppVirtualMethodTable;
     int unk04;
     IDirect3DDevice9_E94* m_pDirect3DDevice;
-    NiVBChipE94* FUN_00e94e30(NiBuffDataE94* pkBuffData, unsigned int uiStream);
+    NiVBChipE94* CreateChip(NiBuffDataE94* pkBuffData, unsigned int uiStream);
 };
 
 // Creates a D3D vertex buffer sized for the stream and returns a new NiVBChipE94 wrapping it with the given size and owning stream.
 // @fnv 0x00e94e30
-NiVBChipE94* NiUnsharedGeometryGroupE94::FUN_00e94e30(NiBuffDataE94* pkBuffData, unsigned int uiStream)
+NiVBChipE94* NiUnsharedGeometryGroupE94::CreateChip(NiBuffDataE94* pkBuffData, unsigned int uiStream)
 {
     unsigned int uiVertexCount = pkBuffData->m_uiVertexCount;
     unsigned int uiVBSize = pkBuffData->GetVertexStride(uiStream) * uiVertexCount;

@@ -184,7 +184,7 @@ void FUN_009ec850_shell::FUN_009ec850(unsigned int a, Actor* pActor)
 
 struct List005fda50
 {
-    void FUN_00616c20(int);
+    void CommitCrime(int);
 };
 struct Crime005fda50
 {
@@ -211,14 +211,14 @@ struct Crime005fda50
     List005fda50* pList38;
     char _pad3C[8];
     int i44;
-    void FUN_005fda50(int, bool);
+    void AddMajorCrime(int, bool);
 };
 // @fnv 0x005fda50
-void Crime005fda50::FUN_005fda50(int aiAmount, bool b)
+void Crime005fda50::AddMajorCrime(int aiAmount, bool b)
 {
     i44 += aiAmount;
     if (pList38 && b)
-        pList38->FUN_00616c20(1);
+        pList38->CommitCrime(1);
     v18(0x80000000);
 }
 
@@ -253,7 +253,7 @@ struct FUN_009eba30_xl
 };
 struct FUN_0041cf00_shell
 {
-    FUN_009eba30_xl* FUN_0041cf00();
+    FUN_009eba30_xl* GetPlayerCrimeList();
 };
 struct XActor
 {
@@ -278,7 +278,7 @@ void FUN_009eba30_t::FUN_009eba30()
     while (pnode && *pnode->FUN_006815c0())
     {
         XActor* pActor = *pnode->FUN_006815c0();
-        FUN_009eba30_xl* pList = pActor->GetExtra()->FUN_0041cf00();
+        FUN_009eba30_xl* pList = pActor->GetExtra()->GetPlayerCrimeList();
         if (pList)
             pList->Remove(this);
         pnode = pnode->FUN_00726070();

@@ -17,7 +17,7 @@ extern GcRefList g_kPendingRefs_011de8bc;
 
 struct GcManager
 {
-    void FUN_00445570(void* pkRef);
+    void CancelReference(void* pkRef);
     bool FUN_00868250();
     void FUN_004aaf10();
 };
@@ -320,7 +320,7 @@ class GcRef
 
     unsigned int FUN_0084e3a0();
     void FUN_0056fcb0();
-    void FUN_00483c70();
+    void RemoveFromDataStructures();
     GcBaseForm* FUN_007af430();
     GcExtra* FUN_00575d70();
     void FUN_00420ba0(int i);
@@ -354,8 +354,8 @@ void __cdecl FUN_00867f90(GcRef* pkRef)
             pkDead->FUN_00420ba0(0);
             pkDead->FUN_005de0a0(0x400, 0);
         }
-        g_pkGcManager_011c3b3c->FUN_00445570(pkRef);
-        pkRef->FUN_00483c70();
+        g_pkGcManager_011c3b3c->CancelReference(pkRef);
+        pkRef->RemoveFromDataStructures();
         if (pkRef->FUN_007af430()->FUN_00549580())
         {
             GcExtra* pkExtra = pkRef->FUN_00575d70();

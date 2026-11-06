@@ -126,14 +126,14 @@ void FUN_008d4490_shell::SetRagdoll(bool bRagDoll)
 struct S008d48a0
 {
     int FUN_008d4a80(int, int);
-    void FUN_008806d0(int);
-    void FUN_008d48a0(int, int);
+    void SetActorValueInt(int);
+    void SetActorValueInt(int, int);
 };
-// Calls FUN_008d4a80 with a and b, then passes the result to FUN_008806d0.
+// Calls FUN_008d4a80 with a and b, then passes the result to SetActorValueInt.
 // @fnv 0x008d48a0
-void S008d48a0::FUN_008d48a0(int aiFirst, int aiSecond)
+void S008d48a0::SetActorValueInt(int aiFirst, int aiSecond)
 {
-    this->FUN_008806d0(this->FUN_008d4a80(aiFirst, aiSecond));
+    this->SetActorValueInt(this->FUN_008d4a80(aiFirst, aiSecond));
 }
 
 struct FUN_008d48d0_This
@@ -165,14 +165,14 @@ void Unk008d49::FUN_008d4900(int aiArg1, int aiArg2, int aiArg3)
 struct FUN_008d4960_CLASS
 {
     int FUN_008d4a80(int, int, int);
-    void FUN_00880c70(int);
-    void FUN_008d4960(int, int, int);
+    void ModActorValueInt(int);
+    void ModActorValueInt(int, int, int);
 };
-// Computes a value from the three arguments via FUN_008d4a80 and passes the result to FUN_00880c70.
+// Computes a value from the three arguments via FUN_008d4a80 and passes the result to ModActorValueInt.
 // @fnv 0x008d4960
-void FUN_008d4960_CLASS::FUN_008d4960(int aiArg1, int aiArg2, int aiArg3)
+void FUN_008d4960_CLASS::ModActorValueInt(int aiArg1, int aiArg2, int aiArg3)
 {
-    FUN_00880c70(FUN_008d4a80(aiArg1, aiArg2, aiArg3));
+    ModActorValueInt(FUN_008d4a80(aiArg1, aiArg2, aiArg3));
 }
 
 struct Unk008d4a50
@@ -296,11 +296,11 @@ struct Holder
 {
     int FUN_008d4a80(int, float, void*);
     void ApplyActorValueDelta(int);
-    void FUN_008d49f0(int, float, void*);
+    void DamageActorValue(int, float, void*);
 };
 // Calls FUN_008d4a80 with the given arguments and passes its result to ApplyActorValueDelta.
 // @fnv 0x008d49f0
-void Holder::FUN_008d49f0(int aiArg, float afValue, void* a3)
+void Holder::DamageActorValue(int aiArg, float afValue, void* a3)
 {
     ApplyActorValueDelta(FUN_008d4a80(aiArg, afValue, a3));
 }

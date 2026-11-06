@@ -163,7 +163,7 @@ class TESObjectIMOD : public TESBoundObject,
 };
 struct FUN_0051a5d0_shell
 {
-    void __thiscall FUN_0051a5d0(unsigned int, unsigned int);
+    void __thiscall LoadGame2(unsigned int, unsigned int);
 };
 struct TESFormStub
 {
@@ -214,7 +214,7 @@ struct FUN_0051b070_shell
 };
 struct FUN_0051a5a0_shell
 {
-    void __thiscall FUN_0051a5a0(unsigned int aiFlags);
+    void __thiscall SaveGame(unsigned int aiFlags);
 };
 struct BGSSaveFormBuffer;
 struct FUN_00484d60_holder
@@ -227,7 +227,7 @@ struct FUN_0048ea40_holder
 };
 struct FUN_0051a600_shell
 {
-    void __thiscall FUN_0051a600(BGSSaveFormBuffer* buffer);
+    void __thiscall AppendSaveLoadFormBuffer(BGSSaveFormBuffer* buffer);
 };
 struct S_00477f20
 {
@@ -275,7 +275,7 @@ struct FUN_0048e370_holder
 };
 struct FUN_0051a420_shell : public TESObjectIMOD
 {
-    void FUN_0051a420();
+    void SaveForm();
 };
 
 struct B1

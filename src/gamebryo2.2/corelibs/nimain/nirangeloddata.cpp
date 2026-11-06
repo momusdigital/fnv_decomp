@@ -272,11 +272,11 @@ class BA97CE0Controller : public BA97CE0Object
     void* m_pkSecond;
 
     void CopyMemberData(BA97CE0Controller* pkDest, BA97CE0Cloning& kCloning);
-    BA97CE0Object* FUN_00a97ce0(BA97CE0Cloning& kCloning);
+    BA97CE0Object* CreateClone(BA97CE0Cloning& kCloning);
 };
 
 // @fnv 0x00a97ce0
-BA97CE0Object* BA97CE0Controller::FUN_00a97ce0(BA97CE0Cloning& kCloning)
+BA97CE0Object* BA97CE0Controller::CreateClone(BA97CE0Cloning& kCloning)
 {
     BA97CE0Controller* pkClone = new BA97CE0Controller;
     CopyMemberData(pkClone, kCloning);
@@ -851,12 +851,12 @@ struct A97EF0RangeLODData
     A97EF0Point3 m_kWorldCenter;
     unsigned int m_uiRangeCount;
     A97EF0Range* m_pRanges;
-    void FUN_00a97ef0(A97EF0Strings* pkStrings);
+    void GetViewerStrings(A97EF0Strings* pkStrings);
 };
 
 // Appends formatted strings for m_kCenter, m_kWorldCenter, and each range entry to pkStrings.
 // @fnv 0x00a97ef0
-void A97EF0RangeLODData::FUN_00a97ef0(A97EF0Strings* pkStrings)
+void A97EF0RangeLODData::GetViewerStrings(A97EF0Strings* pkStrings)
 {
     pkStrings->Add(A97EF0GetViewerString(DAT_011f5ef8));
     pkStrings->Add(m_kCenter.FormatToBuffer("m_kCenter"));
@@ -967,12 +967,12 @@ struct WorldRangeLODData
     WPoint3 m_kWorldCenter;
     unsigned int m_uiRangeCount;
     WorldRange* m_pRanges;
-    void FUN_00a97780(const LODObject* pkLOD);
+    void UpdateWorldData(const LODObject* pkLOD);
 };
 
 // Transforms m_kCenter into m_kWorldCenter and scales each range's near and far planes by the LOD object's world scale.
 // @fnv 0x00a97780
-void WorldRangeLODData::FUN_00a97780(const LODObject* pkLOD)
+void WorldRangeLODData::UpdateWorldData(const LODObject* pkLOD)
 {
     const WTransform& kWorld = pkLOD->m_kWorldSpaceTransform;
     m_kWorldCenter = kWorld.m_kOrientation * (kWorld.m_fScale * m_kCenter) + kWorld.m_kTranslation;

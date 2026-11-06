@@ -2988,7 +2988,7 @@ void FUN_0099cb70_struct::CollectCastSoundPositions(Arr_006cee30* array)
 namespace fnv_009a02a0 {
 struct CoordinateTriple
 {
-    double FUN_00527a40(CoordinateTriple*);
+    double GetDistanceSquared(CoordinateTriple*);
 };
 
 struct LocationTarget
@@ -3025,7 +3025,7 @@ bool FUN_009a02a0_struct::FUN_009a02a0(const CoordinateTriple& arWorldLocation, 
             (pAssociatedObject->type == 3 && !abIgnoreCombatAreaCheck))
         {
             float fmaxDistance = GetIdleAdjustedValue();
-            if (((CoordinateTriple&)arWorldLocation).FUN_00527a40(&pAssociatedObject->location) >
+            if (((CoordinateTriple&)arWorldLocation).GetDistanceSquared(&pAssociatedObject->location) >
                 fmaxDistance * fmaxDistance)
             {
                 return false;
@@ -3320,7 +3320,7 @@ extern const float runtimeFloatSettingDefault1296;
 
 struct CoordinateTriple
 {
-    double FUN_00527a40(const CoordinateTriple*);
+    double GetDistanceSquared(const CoordinateTriple*);
 };
 
 struct CTSHelper
@@ -3375,7 +3375,7 @@ bool FUN_009a0f40_struct::HasItemWithinRadius(const CoordinateTriple* arWorldLoc
             --i;
             continue;
         }
-        if (item->FUN_00527a40(arWorldLocation) < maxDistSq)
+        if (item->GetDistanceSquared(arWorldLocation) < maxDistSq)
         {
             return true;
         }
@@ -5266,7 +5266,7 @@ struct CombatWorld
     int a, b, c, d;
     void* FUN_0084e3a0();
     float ComputeWeightedDistance(const CombatWorld&, const NiPoint3Ex&);
-    float FUN_00527a40(const CombatWorld&);
+    float GetDistanceSquared(const CombatWorld&);
 };
 struct CombatActor
 {
@@ -5444,7 +5444,7 @@ struct CombatController
     CombatPackage* FUN_004f9bf0();
     bool FUN_00981940(int);
     bool FUN_00981300();
-    bool FUN_0067a700();
+    bool GetContinueDuringCombat();
     void FUN_00981380();
     bool FUN_00998a30();
     void SetFieldC7(unsigned char);
@@ -5796,7 +5796,7 @@ void CombatUpdate::FUN_00997cf0()
             distance_1 = mode->world.ComputeWeightedDistance(*owner_21->FUN_00575650(&worldB), weights_26);
             fleeing_3 = false;
             if ((mode->type == 0 || mode->type == 1) && target4 && controller->FUN_00981300() &&
-                !controller->FUN_0067a700())
+                !controller->GetContinueDuringCombat())
                 fleeing_3 = true;
             if (fleeing_3)
                 mode->active = true;
@@ -5885,7 +5885,7 @@ void CombatUpdate::FUN_00997cf0()
         {
             owner_21->FUN_00575650(&ownLocation3);
             target4->FUN_00575650(&targetLocation);
-            if (ownLocation3.FUN_00527a40(targetLocation) < chaseDistance * chaseDistance)
+            if (ownLocation3.GetDistanceSquared(targetLocation) < chaseDistance * chaseDistance)
                 chaseTimer.FUN_0097f220();
         }
         if (updateNow || (chaseTimer.FUN_0097fa50() && chaseTimer.FUN_008d7f80()))
@@ -6420,11 +6420,11 @@ struct Location
 {
     Point point;
     void* cell;
-    float FUN_00527a40(const Location&);
+    float GetDistanceSquared(const Location&);
 };
 struct Effects
 {
-    float FUN_00405c00(int, int, int);
+    float GetEffectScore(int, int, int);
 };
 struct Item
 {
@@ -6922,7 +6922,7 @@ void Manager::EvaluateWeaponScores()
     {
         Location sourcePointSlot0 = actor->FUN_00575650();
         Location targetPointSlot14 = target->FUN_00575650();
-        distance = sourcePointSlot0.FUN_00527a40(targetPointSlot14);
+        distance = sourcePointSlot0.GetDistanceSquared(targetPointSlot14);
     }
     FUN_0099a2a0();
     flag = 0;
@@ -6955,12 +6955,12 @@ void Manager::EvaluateWeaponScores()
                 switch (effect)
                 {
                 case 17:
-                    scoreSlot25 = aid->effects.FUN_00405c00(0, 0, 16);
-                    scoreSlot25 += aid->effects.FUN_00405c00(34, 0, 16);
+                    scoreSlot25 = aid->effects.GetEffectScore(0, 0, 16);
+                    scoreSlot25 += aid->effects.GetEffectScore(34, 0, 16);
                     break;
                 case 18:
                     if (!dataSlot17->HasCombatFlag(256))
-                        scoreSlot25 = aid->effects.FUN_00405c00(12, 0, 77);
+                        scoreSlot25 = aid->effects.GetEffectScore(12, 0, 77);
                     break;
                 }
                 if (scoreSlot25 > aidScoresSlot19[n])
@@ -8317,7 +8317,7 @@ struct PickLoc
 {
     float x, y, z;
     unsigned space;
-    float FUN_00527a40(PickLoc*);
+    float GetDistanceSquared(PickLoc*);
 };
 struct PickBase
 {
@@ -8842,7 +8842,7 @@ bool WeaponSearch::SelectBestWeaponTarget()
         if (aFB)
         {
             PickLoc bpA = aFB->FUN_00575650();
-            if (aI4.FUN_00527a40(&bpA) < 589824.0)
+            if (aI4.GetDistanceSquared(&bpA) < 589824.0)
                 apX = true;
         }
         if (!apX && unk05c > 0.0 && unk058 > 0.0)
@@ -8889,7 +8889,7 @@ bool WeaponSearch::SelectBestWeaponTarget()
             cbA = b10 * b10;
         }
         PickLoc aPH = aFC->FUN_00575650();
-        float aM4 = aPH.FUN_00527a40(&aI4);
+        float aM4 = aPH.GetDistanceSquared(&aI4);
         if (aM4 >= cbA)
             continue;
         if (!FUN_009a02a0(&aPH, 1, 0))
@@ -8930,7 +8930,7 @@ bool WeaponSearch::SelectBestWeaponTarget()
                 while (DAT_011c95c8->FindNextRef(&dy9, &cbB, &e2x, 3))
                 {
                     PickLoc fA8 = cbB->FUN_00575650();
-                    float fEA = fA8.FUN_00527a40(&aI4) + fA8.FUN_00527a40(&aPH);
+                    float fEA = fA8.GetDistanceSquared(&aI4) + fA8.GetDistanceSquared(&aPH);
                     if (fEA > cbA || fEA > cb3)
                         continue;
                     if (!FUN_009a02a0(&fA8, 1, 0))
@@ -10228,7 +10228,7 @@ struct Pos9f48
 {
     float x, y, z;
     float w;
-    float FUN_00527a40(const Pos9f48& kOther);
+    float GetDistanceSquared(const Pos9f48& kOther);
 };
 
 struct Tile9f48
@@ -10590,7 +10590,7 @@ bool Planner9f48::TryAssignAllyTarget(Request9f48* pkRequest, int iUnused)
             continue;
         Pos9f48 kPos;
         pkMember->FUN_00575650(&kPos);
-        float fDistance = kPos.FUN_00527a40(kOwnerPos);
+        float fDistance = kPos.GetDistanceSquared(kOwnerPos);
         if (fDistance >= fClosest)
             continue;
         if (!FUN_009a02a0(&kPos, 1, 0))

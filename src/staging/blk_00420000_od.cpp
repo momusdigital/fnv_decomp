@@ -339,11 +339,11 @@ void FUN_004392c0_shell::FUN_00439320()
 struct NiObjectNET
 {
     void FUN_00439360(unsigned short a, unsigned int b, unsigned int c);
-    void FUN_00439340(unsigned short a);
+    void SetSrcBlendMode(unsigned short a);
 };
 
 // @fnv 0x00439340
-void NiObjectNET::FUN_00439340(unsigned short a)
+void NiObjectNET::SetSrcBlendMode(unsigned short a)
 {
     FUN_00439360(a, 0x1e, 1);
 }
@@ -352,12 +352,12 @@ namespace fnv_00439390 {
 struct NiObjectNET
 {
     void FUN_00439360(unsigned short a, unsigned int b, unsigned int c);
-    void FUN_00439390(unsigned short a);
+    void SetDestBlendMode(unsigned short a);
 };
 
 // Calls FUN_00439360 with the given unsigned short and the constants 0x1e0 and 5.
 // @fnv 0x00439390
-void NiObjectNET::FUN_00439390(unsigned short ausValue)
+void NiObjectNET::SetDestBlendMode(unsigned short ausValue)
 {
     FUN_00439360(ausValue, 0x1e0, 5);
 }
@@ -3428,7 +3428,7 @@ class BSMultiBound : public NiMemObject
     void FUN_004addc0(Bound*);
 };
 // @fnv 0x00439490
-BSMultiBound* __cdecl FUN_00439490(TESObjectREFR* reference)
+BSMultiBound* __cdecl CreateMultiBoundForRef(TESObjectREFR* reference)
 {
     BSMultiBound* result = 0;
     if (reference)

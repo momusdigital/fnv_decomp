@@ -37,11 +37,11 @@ struct FUNClass
     virtual void unused();
     virtual unsigned int generate(int value);
     SlowPath* unk04;
-    void FUN_00d2c030(int* output, int count, int value);
+    void blockAllocBatch(int* output, int count, int value);
 };
 // If value is at most 0x2000, fills output with count values from generate(value); otherwise delegates to unk04->process.
 // @fnv 0x00d2c030
-void FUNClass::FUN_00d2c030(int* output, int count, int value)
+void FUNClass::blockAllocBatch(int* output, int count, int value)
 {
     if (value <= 0x2000)
     {
@@ -263,12 +263,12 @@ struct Allocator : FUN_00d2c3a0_class
     int unkD4;
     signed char bucketForSmallSize[44];
     int bucketForLargeSize[8];
-    FreeNode* FUN_00d2c5a0(int size);
+    FreeNode* blockAlloc(int size);
 };
 // The target helper ignores EDX; this ABI-compatible signature keeps its this pointer in ECX and bucket on the stack.
 extern "C" FreeNode* __fastcall AllocateBlock(Allocator* self, int unused, int bucket);
 // @fnv 0x00d2c5a0
-FreeNode* Allocator::FUN_00d2c5a0(int size)
+FreeNode* Allocator::blockAlloc(int size)
 {
     if (size <= 0x2000)
     {
@@ -299,11 +299,11 @@ struct SelfCls
     virtual void* vslot1(void* p);
     virtual void vslot2(int a, int b);
 
-    void* FUN_00d2c6d0(int a1, int a2, FUN_00d2c3a0_class* a3);
+    void* bufRealloc(int a1, int a2, FUN_00d2c3a0_class* a3);
 };
 
 // @fnv 0x00d2c6d0
-void* SelfCls::FUN_00d2c6d0(int a1, int a2, FUN_00d2c3a0_class* a3)
+void* SelfCls::bufRealloc(int a1, int a2, FUN_00d2c3a0_class* a3)
 {
     void* res = this->vslot1(a3->m0);
     int n = (int)a3->m0 < a2 ? (int)a3->m0 : a2;
@@ -326,12 +326,12 @@ struct FUN_00d2c7a0_class
     int unk0c;
     FUN_00d2c7a0_Slot slots[17];
     void __thiscall FUN_00d2c520(int index);
-    void __thiscall FUN_00d2c7a0();
+    void __thiscall releaseCachedMemory();
 };
 
 // Iterates the 17 slots backwards and calls FUN_00d2c520 on each index whose slot holds an object.
 // @fnv 0x00d2c7a0
-void FUN_00d2c7a0_class::FUN_00d2c7a0()
+void FUN_00d2c7a0_class::releaseCachedMemory()
 {
     int index = 16;
     FUN_00d2c7a0_Slot* slot = slots + 16;
@@ -410,10 +410,10 @@ struct FnvCpu_FUN_00d2c0f0_CpuOwner
 {
     unsigned int unk00;
     FnvCpu_FUN_00d2c0f0_CpuInterface* target;
-    void FUN_00d2c0f0(int arg0);
+    void getMemoryStatistics(int arg0);
 };
 // @fnv 0x00d2c0f0
-void FnvCpu_FUN_00d2c0f0_CpuOwner::FUN_00d2c0f0(int arg0)
+void FnvCpu_FUN_00d2c0f0_CpuOwner::getMemoryStatistics(int arg0)
 {
     target->Invoke(arg0);
 }
@@ -670,11 +670,11 @@ struct S_00d2c680_Cls
     int unkd4;
     signed char m_d8[0x2c];
     int m_104[8];
-    int FUN_00d2c680(int a0, int a1);
+    int getAllocatedSize(int a0, int a1);
 };
 
 // @fnv 0x00d2c680
-int S_00d2c680_Cls::FUN_00d2c680(int aiArg, int a1)
+int S_00d2c680_Cls::getAllocatedSize(int aiArg, int a1)
 {
     if (a1 <= 0x2000)
     {

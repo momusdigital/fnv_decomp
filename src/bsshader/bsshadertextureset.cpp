@@ -71,17 +71,17 @@ void FUN_00ba88d0_shell::LoadTextureSet(NiStream* kStream)
 
 struct FUN_00ba89e0_shell : public BSShaderTextureSet
 {
-    void FUN_00ba89e0(int, char*);
+    void SetTexturePath(int, char*);
 };
 
 // @fnv 0x00ba89e0
-void FUN_00ba89e0_shell::FUN_00ba89e0(int aiType, char* apFilename)
+void FUN_00ba89e0_shell::SetTexturePath(int aiType, char* apFilename)
 {
     reinterpret_cast<BSStringT<char>*>(reinterpret_cast<char*>(this) + 8)[aiType].Set(apFilename, 0);
 }
 
 // @fnv 0x00ba87e0
-int __fastcall FUN_00ba87e0(int* self, int unused, int index)
+int __fastcall GetTexturePath(int* self, int unused, int index)
 {
     return self[index * 2 + 2];
 }

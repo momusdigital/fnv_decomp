@@ -683,7 +683,7 @@ struct Location16
     int unk0c;
     void* FUN_006815c0();
     void* FUN_0084e3a0();
-    double FUN_00527a40(const Location16*);
+    double GetDistanceSquared(const Location16*);
 };
 
 struct Obj0049f1c0;
@@ -716,7 +716,7 @@ struct SearchRef : S00568fa0
     void* FUN_00575ca0();
     void* FUN_00568e50();
     Location16 FUN_00575650();
-    void* FUN_0043a3f0();
+    void* GetTeleportSpace();
     void* FUN_00717e50();
     void FUN_006dd6f0(int);
 };
@@ -740,7 +740,7 @@ struct ContextSub
     void UpdateProximityTimers(Location16*);
     void FUN_0098c710(void*);
     void FUN_0098c6e0(void*);
-    void FUN_00915d20(int);
+    void SetWantWeaponDrawn(int);
     RangeSub* FUN_009d9f40();
 };
 
@@ -1173,7 +1173,7 @@ void SearchProcedure::UpdateSearchState()
                     if (m_pPortalConnectivityGraphInfo == 0 || loc1ac.FUN_0084e3a0() != pActor2->FUN_00575ca0())
                     {
                         Location16 loc1bc = pActor2->FUN_00575650();
-                        if (loc1bc.FUN_00527a40(&loc1ac) > DAT_0106cd60)
+                        if (loc1bc.GetDistanceSquared(&loc1ac) > DAT_0106cd60)
                         {
                             PathingRequestHelper req;
                             if (pTile2->FUN_009a02a0(&loc1ac, 1, 0))
@@ -1261,7 +1261,7 @@ void SearchProcedure::UpdateSearchState()
             if (this->state == 1 && this->timer14.FUN_008d7f80())
             {
                 Location16 loc374 = pActor2->FUN_00575650();
-                if (loc374.FUN_00527a40(&this->location) <
+                if (loc374.GetDistanceSquared(&this->location) <
                     originalRuntimeFloatSetting460.Float()->f * originalRuntimeFloatSetting460.Float()->f)
                 {
                     PathingLocation loc39c(&this->location);
@@ -1316,7 +1316,7 @@ void SearchProcedure::UpdateSearchState()
                     {
                         break;
                     }
-                    pActor2->BuildPathingRequest(&req, p3a0->FUN_00717e50(), p3a0->FUN_0043a3f0(), 0.0f, 0);
+                    pActor2->BuildPathingRequest(&req, p3a0->FUN_00717e50(), p3a0->GetTeleportSpace(), 0.0f, 0);
                     if (!pActor2->SetPathingRequestAvoidNodes(&req))
                     {
                         this->FUN_009caac0("Cannot setup path through search door");
@@ -1345,7 +1345,7 @@ void SearchProcedure::UpdateSearchState()
                 {
                     p45c->FUN_006dd6f0(0);
                     m_pPortalConnectivityGraphInfo->FUN_006e0bc0(p45c, 1);
-                    pContext->FUN_00915d20(1);
+                    pContext->SetWantWeaponDrawn(1);
                 }
             }
             this->FUN_009caac0(pActor2->FUN_008b3960() ? "Pathing failed while searching"

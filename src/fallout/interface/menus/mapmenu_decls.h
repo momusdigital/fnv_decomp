@@ -471,9 +471,9 @@ class BGSNote
 {
   public:
     int GetNoteType();
-    TESForm* FUN_005e9100();
-    TESTopic* FUN_005e9240();
-    TESBoundObject* FUN_005e92a0();
+    TESForm* GetNoteSound();
+    TESTopic* GetNoteTopic();
+    TESBoundObject* GetNoteSpeaker();
     bool GetUnk7d();
     void SetSoundNotePlayed(bool);
 };

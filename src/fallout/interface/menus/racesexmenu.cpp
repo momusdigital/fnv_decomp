@@ -4,11 +4,11 @@
 
 struct RaceSexMenu
 {
-    int __thiscall FUN_007ac4f0();
+    int __thiscall GetClass();
 };
 
 // @fnv 0x007ac4f0
-int __thiscall RaceSexMenu::FUN_007ac4f0()
+int __thiscall RaceSexMenu::GetClass()
 {
     return 0x40c;
 }
@@ -502,7 +502,7 @@ struct MenuOption2
     void SetTileEnabled(bool);
     void FUN_007b3890(int, int);
 };
-void __cdecl FUN_00603280(HairResult*, int, GlobalObject_00869f00*);
+void __cdecl FillCharGenPresetList(HairResult*, int, GlobalObject_00869f00*);
 struct FUN_007af610_shell
 {
     void UpdateHairMenuOption();
@@ -511,7 +511,7 @@ struct FUN_007af610_shell
 void FUN_007af610_shell::UpdateHairMenuOption()
 {
     ((GlobalObject_00869f00*)((char*)this + 0xdc))->Clear(false);
-    FUN_00603280(((FUN_004ac110_shell*)*((FUN_004ac110_shell**)((char*)this + 0xd8)))->FUN_004ac110(),
+    FillCharGenPresetList(((FUN_004ac110_shell*)*((FUN_004ac110_shell**)((char*)this + 0xd8)))->FUN_004ac110(),
                  ((TESActorBase*)*((TESActorBase**)((char*)this + 0xd8)))->GetSex(),
                  (GlobalObject_00869f00*)((char*)this + 0xdc));
     MenuOption2* popt = ((MenuOption2*)*((MenuOption2**)((char*)this + 0x30)))->FindByColor(0x18);
@@ -554,7 +554,7 @@ struct HairNode
 };
 struct TESRace
 {
-    TESHair* FUN_00613870(int);
+    TESHair* GetDefaultHair(int);
     TESEyes* GetReferencedValue();
 };
 struct FUN_004ac110_shell
@@ -586,7 +586,7 @@ void FUN_007b1ca0_t::UpdateHairAndEyes()
 {
     if (!pNPC->GetHair()->IsValidForNPC(pNPC))
     {
-        TESHair* m_pHair = ((FUN_004ac110_shell*)pNPC)->FUN_004ac110()->FUN_00613870(((TESActorBase*)pNPC)->GetSex());
+        TESHair* m_pHair = ((FUN_004ac110_shell*)pNPC)->FUN_004ac110()->GetDefaultHair(((TESActorBase*)pNPC)->GetSex());
         for (HairNode* pNode = FUN_0045bb80(((FUN_004ac110_shell*)pNPC)->FUN_004ac110());
              m_pHair == 0 && pNode && *pNode->_ref_006815c0(); pNode = pNode->_ref_00726070())
         {
@@ -1280,7 +1280,7 @@ class StatsMenu7AE
 {
   public:
     int GetCurrentPage();
-    void FUN_007ae1b0(int iType, HighProcess7AE* pkProcess);
+    void HandleLeftClickPress(int iType, HighProcess7AE* pkProcess);
 
     int unk00, unk04, unk08, unk0C, unk10, unk14, unk18, unk1C;
     int unk20, unk24;
@@ -1297,7 +1297,7 @@ class StatsMenu7AE
 
 // For type 0x69 stores the process and its level tile value; for type 1 stores the interface timer time.
 // @fnv 0x007ae1b0
-void StatsMenu7AE::FUN_007ae1b0(int iType, HighProcess7AE* pkProcess)
+void StatsMenu7AE::HandleLeftClickPress(int iType, HighProcess7AE* pkProcess)
 {
     switch (iType)
     {
@@ -2451,7 +2451,7 @@ struct DataB50
     virtual void v044();
     virtual void v048(int);
     unsigned FUN_004169d0();
-    float FUN_00602130();
+    float GetHairLength();
 };
 struct HostB50
 {
@@ -2520,7 +2520,7 @@ ObjectB50* __cdecl FUN_00653270(unsigned*, void*);
 void __cdecl FUN_00b57e30(NodeB50*, int, int);
 unsigned __cdecl FUN_0044a670(const char*);
 int __cdecl FUN_004564f0(const char*, const char*, unsigned);
-void __cdecl FUN_00653470(NodeB50*, float);
+void __cdecl ApplyHairMorph(NodeB50*, float);
 // @fnv 0x007b2b50
 bool HostB50::RebuildFaceGen(bool rebuild)
 {
@@ -2599,7 +2599,7 @@ bool HostB50::RebuildFaceGen(bool rebuild)
                 if ((NodeB50*)eb)
                 {
                     if (hair)
-                        FUN_00653470(eb, data->FUN_00602130());
+                        ApplyHairMorph(eb, data->GetHairLength());
                     PropertyB50* color = ((NodeB50*)eb)->FUN_00a59d30(3);
                     PropertyB50* typed = (!color ? false : color->FUN_00441110() == 8) ? color : 0;
                     if (typed)
@@ -3109,7 +3109,7 @@ struct InitForm
     {
         const char* FUN_00408da0();
     } name;
-    bool FUN_0059f610();
+    bool GetPlayable();
     bool FUN_005e7a60();
 };
 struct InitNode
@@ -3625,7 +3625,7 @@ void InitRaceMenu::SetupRaceMenu(int mode)
                         for (InitNode* pRaceNode = ((InitData*)DAT_011c3f2c)->FUN_004ea950();
                              pRaceNode && *pRaceNode->FUN_006815c0(); pRaceNode = pRaceNode->FUN_00726070())
                         {
-                            if ((*pRaceNode->FUN_006815c0())->FUN_0059f610())
+                            if ((*pRaceNode->FUN_006815c0())->GetPlayable())
                                 ((InitOptions*)options[1])
                                     ->FUN_007b3b80((*pRaceNode->FUN_006815c0())->name.FUN_00408da0(), 23)
                                     ->FUN_00403550(*pRaceNode->FUN_006815c0());
@@ -3816,11 +3816,11 @@ struct RaceSexMenu7
     void HandleOptionSelection();
     bool FUN_007b1970(float afAngle, int a2);
     void FUN_007adc60(int aiID, bool abVal);
-    void FUN_007ae240(int aiID, Tile7* apTile);
+    void DoStillDown(int aiID, Tile7* apTile);
 };
 
 // @fnv 0x007ae240
-void RaceSexMenu7::FUN_007ae240(int aiID, Tile7* apTile)
+void RaceSexMenu7::DoStillDown(int aiID, Tile7* apTile)
 {
     float fDelta2 = GetInterfaceMgr7()->FUN_007697f0() - fLastTime;
     if (fDelta2 != 0.0)
@@ -4776,7 +4776,7 @@ struct FaceActor
 };
 void FUN_00652af0(void*, void*, MorphData*, int, float);
 void* FUN_00651b30();
-int FUN_006521b0(int, int);
+int GetMaxControlID(int, int);
 float GetMorphCoordinateValue(MorphData*, int, int, int);
 float FUN_0040ebd0(float, float);
 float FUN_00404010(float, float);
@@ -4910,7 +4910,7 @@ void FaceMorphMenu::BuildMorphOptions()
     MorphData morphs[4];
     FUN_00652af0(actor->race.FUN_00726070()->FUN_005d9fb0(actor->FUN_005f0cc0()), actor->FUN_00601800(), morphs, 0,
                  0.0f);
-    for (int index = 0; index < (FUN_00651b30(), FUN_006521b0(0, 0)); ++index)
+    for (int index = 0; index < (FUN_00651b30(), GetMaxControlID(0, 0)); ++index)
     {
         if (shape[index].group < 20 && shape[index].name)
         {
@@ -5285,7 +5285,7 @@ struct FaceModel
     virtual void slot090();
     virtual FaceModel* AsFaceModel();
     unsigned char FUN_007b2570();
-    void FUN_0065a840();
+    void ForceLoadModelTexture();
     void ApplyShape(void*, AppearanceObject*, int);
     bool ApplyTextureCoordinate(void*, struct TexturePointer&, unsigned int);
 };
@@ -6088,7 +6088,7 @@ extern AppearancePlayer* appearancePlayer;
 extern "C" unsigned int __cdecl strlen(const char*);
 int __cdecl _mbsnicmp(const char*, const char*, unsigned int);
 void __cdecl FUN_00a6e8e0(SkinRoot*, void*);
-void __cdecl FUN_00652e00(void*, void*, void*, int);
+void __cdecl OffsetFaceGenCoord(void*, void*, void*, int);
 unsigned int __cdecl FUN_006151d0();
 struct AppearanceMenu
 {
@@ -6216,7 +6216,7 @@ void AppearanceMenu::UpdateFaceGen(bool remove, bool shape, bool texture)
         FaceCoordinate modified[4];
         npc->FUN_00603ad0(coordinates);
         if (shape)
-            FUN_00652e00(&faceData, coordinates, modified, 0);
+            OffsetFaceGenCoord(&faceData, coordinates, modified, 0);
         SkinRoot* controller = appearancePlayer->RootA(0);
         for (int pass = 0; pass < 2; pass++)
         {
@@ -6249,7 +6249,7 @@ void AppearanceMenu::UpdateFaceGen(bool remove, bool shape, bool texture)
                         continue;
                     TexturePointer pkTexture(0);
                     if (!object->FUN_007b2570())
-                        object->FUN_0065a840();
+                        object->ForceLoadModelTexture();
                     object->ApplyTextureCoordinate(coordinates, pkTexture, FUN_006151d0());
                     generated->SetTexture(1, pkTexture);
                 }
@@ -7304,11 +7304,11 @@ struct Menu7
 };
 
 void FUN_006521f0(FUN_00449610*);
-float FUN_00652440(FUN_00449610*, int, int);
-void FUN_00652470(FUN_00449610*, int, int, float);
-void FUN_00652e00(char*, FUN_00449610*, FUN_00449610*, int);
-bool FUN_00652900(FUN_00449610*, void*);
-void FUN_006529a0(FUN_00449610*, void*, int, int);
+float GetFaceCoordAttribute(FUN_00449610*, int, int);
+void SetFaceCoordAttribute(FUN_00449610*, int, int, float);
+void OffsetFaceGenCoord(char*, FUN_00449610*, FUN_00449610*, int);
+bool CompareFaceGenCoord(FUN_00449610*, void*);
+void CopyFaceGenCoord(FUN_00449610*, void*, int, int);
 // Handles the selected menu option by page and option type, updating lists, NPC face data and menu flags.
 // @fnv 0x007b4b50
 void Menu7::HandleOptionSelection()
@@ -7363,17 +7363,17 @@ void Menu7::HandleOptionSelection()
         FUN_006521f0(result6);
         npc->FUN_00603ad0(base3);
         npc->FUN_00603ad0(face);
-        float first2 = FUN_00652440(base3, 0, 0);
-        float second_ = FUN_00652440(base3, 0, 1);
+        float first2 = GetFaceCoordAttribute(base3, 0, 0);
+        float second_ = GetFaceCoordAttribute(base3, 0, 1);
         float remaining = second_ - (first2 - amount7);
         amount7 = (int)(((amount7 > 15.0 ? (float)amount7 : 15.0f) < 65.0) ? (amount7 > 15.0 ? (float)amount7 : 15.0f)
                                                                            : 65.0f);
         remaining = ((remaining > 15.0 ? remaining : 15.0f) < 65.0) ? (remaining > 15.0 ? remaining : 15.0f) : 65.0f;
-        FUN_00652470(base3, 0, 0, (float)amount7);
-        FUN_00652470(base3, 0, 1, remaining);
-        FUN_00652e00(npc->race.FUN_00726070()->FUN_005d9fb0(npc->GetSex()), base3, result6, 0);
-        if (FUN_00652900(result6, npc->FUN_00601800()))
-            FUN_006529a0(result6, npc->FUN_00601800(), 0, 0);
+        SetFaceCoordAttribute(base3, 0, 0, (float)amount7);
+        SetFaceCoordAttribute(base3, 0, 1, remaining);
+        OffsetFaceGenCoord(npc->race.FUN_00726070()->FUN_005d9fb0(npc->GetSex()), base3, result6, 0);
+        if (CompareFaceGenCoord(result6, npc->FUN_00601800()))
+            CopyFaceGenCoord(result6, npc->FUN_00601800(), 0, 0);
         ((Menu7*)DAT_011da634)->FUN_007adc60(7, true);
         ((Menu7*)DAT_011da634)->HandleMenuKey(34);
         ((Menu7*)DAT_011da634)->HandleMenuKey(35);
@@ -7586,11 +7586,11 @@ class HCMenuView
     void FUN_007adc60(int m_uiSoundID, int iValue);
     void HandlePendingTileAction();
     void UpdateMinusPlusTiles();
-    void FUN_007adce0(int aiIndex, HCTile* pkTile);
+    void DoClick(int aiIndex, HCTile* pkTile);
 };
 
 // @fnv 0x007adce0
-void HCMenuView::FUN_007adce0(int aiIndex, HCTile* pkTile)
+void HCMenuView::DoClick(int aiIndex, HCTile* pkTile)
 {
     if (!pkTile && aiIndex < 6)
         pkTile = m_apDefaultTiles[aiIndex];
@@ -8434,16 +8434,16 @@ struct FGGeometry
 };
 struct FGModel
 {
-    bool FUN_0065a910(FUN_00449610* pkCoords, FGPtr<FGNode>* pspNode);
+    bool ApplyCoordinateToNewMesh(FUN_00449610* pkCoords, FGPtr<FGNode>* pspNode);
 };
 struct FGGenerator;
 
 int FUN_00408b20(const char* pcA, const char* pcB);
 FGGeometry* FUN_006530e0(void* pvData);
 FGGenerator* FUN_006521e0();
-void FUN_006529a0(FGGenerator* pkGeneratorCur, FUN_00449610* pkCoords, int iA, int iB);
+void CopyFaceGenCoord(FGGenerator* pkGeneratorCur, FUN_00449610* pkCoords, int iA, int iB);
 void GetModelNifFilename(BSStringTChar* pkOut, const char* pcPath);
-void FUN_00653a10(BSStringTChar* pkOut, const char* pcPath);
+void GetAsNIFFileLowLOD(BSStringTChar* pkOut, const char* pcPath);
 void BuildModelFilename(BSStringTChar* pkOut, const char* pcPath);
 void HashPathComponents(const char* pcPath, FGPoint2* pkA, FGPoint2* pkB);
 int FindFileEntryInArchives(int iFlag, FGPoint2* pkA, FGPoint2* pkB, const char* pcPath);
@@ -8457,7 +8457,7 @@ void ComputeBoundingSphere(void* pvData, FGLink* pkLink, unsigned short usFlags)
 
 // For each non-FaceGenFace child, loads a model, builds a FaceGenFace node, copies transforms and shape properties, then replaces the child.
 // @fnv 0x00653e50
-void FUN_00653e50(FGRoot* pkRoot, int iMode)
+void ReplaceFaceMeshLOD(FGRoot* pkRoot, int iMode)
 {
     for (unsigned int i = 0; i < pkRoot->FUN_0043b480(); i++)
     {
@@ -8479,12 +8479,12 @@ void FUN_00653e50(FGRoot* pkRoot, int iMode)
                 BSStringTChar kUnusedCur;
                 FUN_00449610 akCoordsLocal[4];
                 FGGenerator* pkGeneratorCur = FUN_006521e0();
-                FUN_006529a0(pkGeneratorCur, akCoordsLocal, 0, 0);
+                CopyFaceGenCoord(pkGeneratorCur, akCoordsLocal, 0, 0);
                 GetModelNifFilename(&kModelPath, pkSampleGeom->GetFloatValue());
                 switch (iMode)
                 {
                 case 0:
-                    FUN_00653a10(&kPathLast, kModelPath.FUN_00559450());
+                    GetAsNIFFileLowLOD(&kPathLast, kModelPath.FUN_00559450());
                     break;
                 case 1:
                     BuildModelFilename(&kPathLast, kModelPath.FUN_00559450());
@@ -8501,7 +8501,7 @@ void FUN_00653e50(FGRoot* pkRoot, int iMode)
                     BuildEgmFilename(&kTriPathData, kPathLast.FUN_00559450(), -1), kPathLast.FUN_00559450(),
                     BuildTriPathAndSet(&kEgmPathEntry, kPathLast.FUN_00559450(), -1),
                     GetModelEgtFilename(&kEgtPath, kPathLast.FUN_00559450()), 1, -1, 0));
-                if (!m_pRenderedNodeEntry->FUN_0065a910(akCoordsLocal, &spFaceTmp) || !spFaceTmp)
+                if (!m_pRenderedNodeEntry->ApplyCoordinateToNewMesh(akCoordsLocal, &spFaceTmp) || !spFaceTmp)
                     return;
                 spFaceTmp->AssignFixedString(FGFixedString("FaceGenFace"));
                 pkFaceInfo = spFaceTmp;

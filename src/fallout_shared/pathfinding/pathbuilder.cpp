@@ -596,7 +596,7 @@ extern const NiPoint3 _NiPoint3_ZERO;
 struct PathingRequestS
 {
     const void* GetString() const;
-    bool FUN_00505c00();
+    bool GetFaceTargetAtGoal();
     bool FUN_006a7980() const;
     bool GetByteAtOffset9B();
     float GetCenterRadius() const;
@@ -661,7 +661,7 @@ int FUN_006cc5e0_shell::FUN_006cc5e0(PathingLocation* aStartLocation, PathingLoc
                                      unsigned int aiFirstVirtualNodeIndex, unsigned int aiLastVirtualNodeIndex)
 {
     if (*g_011d73d8.GetLifeStateControlFlag() && !((PathingRequestS*)pRequest)->GetString() &&
-        !((PathingRequestS*)pRequest)->FUN_00505c00() && !((PathingRequestS*)pRequest)->FUN_006a7980() &&
+        !((PathingRequestS*)pRequest)->GetFaceTargetAtGoal() && !((PathingRequestS*)pRequest)->FUN_006a7980() &&
         ((PathBuilderS*)this)->FUN_006cd1f0(aStartLocation, aGoalLocation))
         return 0;
 
@@ -7843,7 +7843,7 @@ class PathingRequestExt : public PathingRequest
     bool FUN_006ca4c0();
     float GetFloatAtOffset68();
     float GetField90Float();
-    bool FUN_00505c00();
+    bool GetFaceTargetAtGoal();
     float FUN_00507e10();
 };
 
@@ -7924,7 +7924,7 @@ bool PathBuilder_Child::FUN_006ca0e0(Actor* apActor, unsigned int aiSegmentIndex
             }
         }
 
-        if (bResult && ((PathingRequestExt*)this->pRequest)->FUN_00505c00() &&
+        if (bResult && ((PathingRequestExt*)this->pRequest)->GetFaceTargetAtGoal() &&
             ((PathingSolutionExt*)this->m_pOutputSolution)->FUN_00441110() ==
                 ((PathingSolutionExt*)this->m_pOutputSolution)->FUN_005a4320() - 1)
         {

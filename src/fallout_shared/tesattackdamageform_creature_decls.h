@@ -597,7 +597,7 @@ class TESCreature : public TESActorBase, public TESAttackDamageForm, public TESM
     ~TESCreature();
     virtual void CopyFromTemplateForm(TESActorBase*);
     void SetCombatStyle(TESCombatStyle*);
-    void FUN_0050eaa0(TESCreature*);           // CopyBounds (inferred from field access)
+    void CopyBoundData(TESCreature*);           // CopyBounds (inferred from field access)
     BGSImpactDataSet* GetImpactDataSet();      // GetImpactDataSet (inferred from field access)
     void SetImpactDataSet(BGSImpactDataSet*);  // SetImpactDataSet (inferred from field access)
     CreatureSoundCollection* GetCreatureSounds();
@@ -684,5 +684,5 @@ class TESResponse
     void SetSpeakerIdle(TESIdleForm*);
     void GetListenerIdle(TESIdleForm*);
 };
-TESCombatStyle* FUN_00505000();
+TESCombatStyle* GetDefaultCombatStyle();
 #endif

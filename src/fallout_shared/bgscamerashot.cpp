@@ -92,7 +92,7 @@ bool BGSCameraShot::Load(TESFile* file)
                 memset(&legacyData, 0, 32);
                 ((BGSImpactData*)this)->ReadTypedData(file, &legacyData, 32);
                 if (file->IsEndianConversionRequired())
-                    legacyData.FUN_0058c2e0();
+                    legacyData.Endian();
                 Data.m_eAction = (BGSCameraShot__CAM_ACTION)legacyData.action;
                 Data.pInputFile = (BGSCameraShot__CAM_OBJECT)legacyData.location;
                 Data.m_eAttacker = (BGSCameraShot__CAM_OBJECT)legacyData.target;
@@ -107,7 +107,7 @@ bool BGSCameraShot::Load(TESFile* file)
                 memset(&Data, 0, 40);
                 file->GetChunkData(&Data, 40);
                 if (file->IsEndianConversionRequired())
-                    Data.FUN_0058c3c0();
+                    Data.Endian();
             }
             break;
         }
@@ -132,12 +132,12 @@ struct FUN_0058c2e0_shell
     int field_0x14;
     int field_0x18;
     int field_0x1c;
-    void FUN_0058c2e0();
+    void Endian();
 };
 
 // Byte-swaps all eight 32-bit fields of the object via BSEndian, in the order 0x10, 0x14, 0x00, 0x04, 0x08, 0x0c, 0x18, 0x1c.
 // @fnv 0x0058c2e0
-void FUN_0058c2e0_shell::FUN_0058c2e0()
+void FUN_0058c2e0_shell::Endian()
 {
     BSEndian(&field_0x10, EndianSizeTag<3>());
     BSEndian(&field_0x14, EndianSizeTag<3>());
@@ -249,7 +249,7 @@ struct FUN_004891d0_obj
 };
 struct FUN_00487450_shell
 {
-    void FUN_00487450();
+    void Save();
 };
 struct FUN_00485680
 {
@@ -257,7 +257,7 @@ struct FUN_00485680
 };
 struct FUN_00485e00_shell
 {
-    void FUN_00485e20(int, int);
+    void __SaveData(int, int);
 };
 bool __cdecl FUN_00401500();
 
@@ -272,11 +272,11 @@ void FUN_0058c4d0_shell::FUN_0058c4d0()
     ((FUN_004855a0*)this)->M();
     ((FUN_004891d0_obj*)((char*)this + 0x18))->WriteToBuffer(0x4C444F4D, 0x54444F4D);
     if (FUN_00401500())
-        ((BGSCameraShot__CAMERA_SHOT_DATA*)((char*)this + 0x38))->FUN_0058c3c0();
-    ((FUN_00485e00_shell*)this)->FUN_00485e20((int)((char*)this + 0x38), 0x28);
+        ((BGSCameraShot__CAMERA_SHOT_DATA*)((char*)this + 0x38))->Endian();
+    ((FUN_00485e00_shell*)this)->__SaveData((int)((char*)this + 0x38), 0x28);
     if (FUN_00401500())
-        ((BGSCameraShot__CAMERA_SHOT_DATA*)((char*)this + 0x38))->FUN_0058c3c0();
-    ((FUN_00487450_shell*)((char*)this + 0x30))->FUN_00487450();
+        ((BGSCameraShot__CAMERA_SHOT_DATA*)((char*)this + 0x38))->Endian();
+    ((FUN_00487450_shell*)((char*)this + 0x30))->Save();
     ((FUN_00485680*)this)->M();
 }
 
@@ -293,12 +293,12 @@ struct FUN_0058c3c0_shell
     int field_0x20;
     int field_0x24;
 
-    void FUN_0058c3c0();
+    void Endian();
 };
 
 // Byte-swaps each of the ten 32-bit fields of the object via BSEndian.
 // @fnv 0x0058c3c0
-void FUN_0058c3c0_shell::FUN_0058c3c0()
+void FUN_0058c3c0_shell::Endian()
 {
     BSEndian(&field_0x10, EndianSizeTag<3>());
     BSEndian(&field_0x14, EndianSizeTag<3>());

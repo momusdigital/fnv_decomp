@@ -2475,12 +2475,12 @@ struct PlaybackContinueState : MoviePlayer
     bool unk20;
     unsigned char interrupted;
 
-    bool __thiscall FUN_00ec1840(bool allowInterruption);
+    bool __thiscall CheckContinuePlaying(bool allowInterruption);
 };
 
 // Pumps pending Windows messages and returns false if the playback was interrupted, otherwise true.
 // @fnv 0x00ec1840
-bool __thiscall PlaybackContinueState::FUN_00ec1840(bool allowInterruption)
+bool __thiscall PlaybackContinueState::CheckContinuePlaying(bool allowInterruption)
 {
     PlaybackMessage msg;
     while (PeekMessageA(&msg, 0, 0, 0, 1))

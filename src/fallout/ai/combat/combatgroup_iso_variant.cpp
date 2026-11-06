@@ -1857,7 +1857,7 @@ struct CombatMemberData_985520
 };
 struct TimeInput
 {
-    float __thiscall FUN_00527a40(FUN_00985bb0_Class* owner);
+    float __thiscall GetDistanceSquared(FUN_00985bb0_Class* owner);
 };
 extern float _DAT_0108d5a0;
 extern double _DAT_0108d598;
@@ -2254,7 +2254,7 @@ struct AvoidPosition
 {
     AvoidVector point;
     unsigned space;
-    float FUN_00527a40(const AvoidPosition&);
+    float GetDistanceSquared(const AvoidPosition&);
     AvoidVector& FUN_006815c0();
 };
 struct AvoidActor
@@ -5124,7 +5124,7 @@ struct PositionData
     Point point;
     int cell;
     void FUN_0097ede0();
-    float FUN_00527a40(Position*);
+    float GetDistanceSquared(Position*);
     void SetTripleAndValue(Point*, void*);
     int FUN_0084e3a0();
 };
@@ -5917,7 +5917,7 @@ void Group::UpdateTargetPerception(Actor* selected, Actor* subject, int* result,
                 {
                     memberLocal19->FUN_00575650(&originLocal30);
                     subject->FUN_00575650(&destinationLocal23);
-                    if (originLocal30.FUN_00527a40(&destinationLocal23) < 67108864.0)
+                    if (originLocal30.GetDistanceSquared(&destinationLocal23) < 67108864.0)
                     {
                         fallbackLocal15.score = 1;
                         senseLocal1 = &fallbackLocal15;
@@ -6255,7 +6255,7 @@ struct Location
 {
     unsigned int unk00, unk04, unk08, unk0c;
     bool FUN_00527a00();
-    bool FUN_00527990(unsigned int*, unsigned int*);
+    bool GetCellOrWorld(unsigned int*, unsigned int*);
     void* FUN_006815c0();
     void* FUN_0084e3a0();
 };
@@ -6784,7 +6784,7 @@ void Group::FUN_0098a580()
                 {
                     unsigned int endSlot0 = 0;
                     unsigned int start = 0;
-                    if (location.FUN_00527990(&start, &endSlot0))
+                    if (location.GetCellOrWorld(&start, &endSlot0))
                     {
                         Vec selected;
                         if (FUN_006d6f80(endSlot0, start, position, selected))
@@ -7496,7 +7496,7 @@ struct PoseData
     float a, b, c;
     int d;
     int FUN_0084e3a0();
-    float FUN_00527a40(const PoseData*);
+    float GetDistanceSquared(const PoseData*);
 };
 struct MovementPose;
 struct OtherState
@@ -7796,7 +7796,7 @@ struct ActorSelect
     int FUN_004030b0();
     OtherState* FUN_00586150();
     MovementPose* FUN_00980070();
-    int FUN_00567d90();
+    int GetLocationEncounterZone();
     bool FUN_00566950();
     bool IsHostileTo(ActorSelect*, int, int*, int);
     void FUN_00575650(PoseData*);

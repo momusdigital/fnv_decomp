@@ -1,6 +1,6 @@
 
 // src/fallout_shared/tesobjectcell_rtti_variant_decl_variant.cpp - declaration variant unit created 2026-10-26 by decl_variants.py for paused function 0x005434d0: the skeleton of src/fallout_shared/tesobjectcell_rtti_variant.cpp
-// with declarations corrected to what the original code does (tesobjectcell_packet_rtti_variant.h: public: virtual ~TESObjectCELL(); -> public: virtual ~TESObjectCELL(); virtual void Vir; tesobjectcell_packet_rtti_variant.h: TESObjectCELL += bool FUN_005434d0(struct FormGroupQuery* group); bool IsFormTypeBelowThreshold(struct FormGroupQuery* group); unsigned int FUN_00544). Move the function to its real unit once
+// with declarations corrected to what the original code does (tesobjectcell_packet_rtti_variant.h: public: virtual ~TESObjectCELL(); -> public: virtual ~TESObjectCELL(); virtual void Vir; tesobjectcell_packet_rtti_variant.h: TESObjectCELL += bool SavesBefore(struct FormGroupQuery* group); bool IsFormTypeBelowThreshold(struct FormGroupQuery* group); unsigned int FUN_00544). Move the function to its real unit once
 // that unit declares it this way.
 
 // src/fallout_shared/tesobjectcell_rtti_variant.cpp - RTTI variant unit created 2026-10-24 by rtti_variants.py for paused functions whose original code needs
@@ -193,7 +193,7 @@ extern RefList DAT_011ca144;
 class CellNavHandler
 {
   public:
-    void FUN_00587d10(RefView* pkRef);
+    void AddToPersistentRefData(RefView* pkRef);
 };
 class CellDataHandler
 {
@@ -407,7 +407,7 @@ bool __fastcall FUN_00477ba0(TESObjectREFR* reference);
 void* __fastcall FUN_00568e50(TESObjectREFR* reference);
 void __fastcall FUN_00541ae0(TESObjectCELL* cell);
 unsigned int __cdecl GetRandomNumberInRange(int low, int high);
-TESObjectREFR* __cdecl FUN_0054afb0(TESForm* source, TESForm* destination, void* context);
+TESObjectREFR* __cdecl PickRandomTeleportDoorInSpace(TESForm* source, TESForm* destination, void* context);
 
 struct FormGroupQuery
 {
@@ -416,7 +416,7 @@ struct FormGroupQuery
 extern unsigned int DAT_01187020;
 TESForm* FUN_004839c0(unsigned int);
 // @fnv 0x005434d0
-bool TESObjectCELL::FUN_005434d0(FormGroupQuery* group)
+bool TESObjectCELL::SavesBefore(FormGroupQuery* group)
 {
 
     bool matched = false;

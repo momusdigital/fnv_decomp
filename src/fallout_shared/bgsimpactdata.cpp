@@ -399,12 +399,12 @@ struct FUN_004891d0_obj
 
 struct FUN_00485e00_shell
 {
-    void FUN_00485e20(int, int);
+    void __SaveData(int, int);
 };
 
 struct FUN_00593320_shell
 {
-    void FUN_00593320(void*);
+    void Save(void*);
 };
 
 struct FUN_0058e450_shell
@@ -434,7 +434,7 @@ void FUN_0058e450_shell::FUN_0058e450()
         reinterpret_cast<BGSImpactData__IMPACT_DATA_DATA*>(reinterpret_cast<unsigned char*>(this) + 0x30)->Endian();
     }
 
-    reinterpret_cast<FUN_00485e00_shell*>(this)->FUN_00485e20(
+    reinterpret_cast<FUN_00485e00_shell*>(this)->__SaveData(
         reinterpret_cast<int>(reinterpret_cast<unsigned char*>(this) + 0x30), 0x18);
 
     if (_FUN_00401500())
@@ -445,7 +445,7 @@ void FUN_0058e450_shell::FUN_0058e450()
     if (!reinterpret_cast<FUN_0058de80_shell*>(this)->IsFlagSet())
     {
         reinterpret_cast<FUN_00593320_shell*>(reinterpret_cast<unsigned char*>(this) + 0x54)
-            ->FUN_00593320(reinterpret_cast<void*>(0x54444f44));
+            ->Save(reinterpret_cast<void*>(0x54444f44));
     }
 
     {

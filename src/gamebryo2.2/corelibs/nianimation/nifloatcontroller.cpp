@@ -218,10 +218,10 @@ struct Holder
 {
     char pad[0x38];
     FloatIface* ptr;
-    bool FUN_00a57ad0(NiStream&);
+    bool RegisterStreamables(NiStream&);
 };
 // @fnv 0x00a57ad0
-bool Holder::FUN_00a57ad0(NiStream& stream)
+bool Holder::RegisterStreamables(NiStream& stream)
 {
     if (!((BaseCall*)this)->FUN_00a6d0f0(stream))
         return false;
@@ -253,10 +253,10 @@ struct FakeController
 {
     char _pad[0x38];
     void* m_pData;
-    void __thiscall FUN_00a57b00(NiStream&);
+    void __thiscall SaveBinary(NiStream&);
 };
 // @fnv 0x00a57b00
-void __thiscall FakeController::FUN_00a57b00(NiStream& stream)
+void __thiscall FakeController::SaveBinary(NiStream& stream)
 {
     ((BaseHack*)this)->FUN_00a6d730(stream);
     ((StreamHack*)&stream)->SaveLink(m_pData);
@@ -441,12 +441,12 @@ struct FUN_00a57b20_cls
     int unk34;
     Iface57b20* m_38;
     bool FUN_00a6cc80(FUN_00a57b20_cls* other);
-    bool FUN_00a57b20(FUN_00a57b20_cls* other);
+    bool IsEqual(FUN_00a57b20_cls* other);
 };
 
 // Checks FUN_00a6cc80(other), then calls v23 on m_38 with other's m_38 and returns whether it is nonzero.
 // @fnv 0x00a57b20
-bool FUN_00a57b20_cls::FUN_00a57b20(FUN_00a57b20_cls* other)
+bool FUN_00a57b20_cls::IsEqual(FUN_00a57b20_cls* other)
 {
     if (!FUN_00a6cc80(other))
     {

@@ -748,14 +748,14 @@ struct NiShadeProperty : NiProperty
     unsigned short m_uiObjectFlags;
     char _pad1[2];
     int m_iShaderType;
-    NiObject* FUN_00a81480(CloningProcess&);
+    NiObject* CreateClone(CloningProcess&);
 };
 inline void* __cdecl operator new(unsigned int, void* p)
 {
     return p;
 }
 // @fnv 0x00a81480
-NiObject* NiShadeProperty::FUN_00a81480(CloningProcess& kCloning)
+NiObject* NiShadeProperty::CreateClone(CloningProcess& kCloning)
 {
     NiShadeProperty* pkObject = (NiShadeProperty*)BSFadeNode::operator new(32);
     if (pkObject)

@@ -8,7 +8,7 @@
 struct FUN_00d554a0_class
 {
     int m_d0;
-    int __thiscall FUN_00d1f1e0();
+    int __thiscall getNumChildShapes();
     int __thiscall GetOrInitValue();
 };
 void __cdecl FUN_00d26230(void* first, void* second, void* third, float value, int last);
@@ -381,7 +381,7 @@ struct FUN_00d55a90_cls
     Group* m_0c0;
     int m_0c4;
 
-    int __thiscall FUN_00d55a90(int a1, int a2);
+    int __thiscall calcSizeForSpu(int a1, int a2);
 };
 struct __declspec(align(16)) S_00d55bd0_Vector4
 {

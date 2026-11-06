@@ -23,7 +23,7 @@ struct FUN_00dbdf30_s
 {
     int m_kPointA;
     int m_kPointB;
-    void __thiscall FUN_00dbdf30(int a, int b);
+    void __thiscall setSectionForClass(int a, int b);
 };
 struct MemoryRouter
 {

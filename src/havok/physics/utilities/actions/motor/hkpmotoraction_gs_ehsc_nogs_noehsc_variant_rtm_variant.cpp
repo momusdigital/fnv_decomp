@@ -160,11 +160,11 @@ struct RigidBody
 
 struct MotorAction : hkpMotorAction
 {
-    void FUN_00d4d860(const TimeInterval& stepInfo);
+    void applyAction(const TimeInterval& stepInfo);
 };
 
 // @fnv 0x00d4d860
-void MotorAction::FUN_00d4d860(const TimeInterval& stepInfo)
+void MotorAction::applyAction(const TimeInterval& stepInfo)
 {
     if (!m_bSlotEnabled)
         return;

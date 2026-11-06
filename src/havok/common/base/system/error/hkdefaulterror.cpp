@@ -11,10 +11,10 @@ struct FUN_00d2b3b0_Class
     int unk00;
     int unk04;
     FUN_00626490_Class helper;
-    unsigned char* FUN_00d2b3b0(unsigned char* result, int value);
+    unsigned char* isEnabled(unsigned char* result, int value);
 };
 // @fnv 0x00d2b3b0
-unsigned char* FUN_00d2b3b0_Class::FUN_00d2b3b0(unsigned char* result, int value)
+unsigned char* FUN_00d2b3b0_Class::isEnabled(unsigned char* result, int value)
 {
     *result = (helper.LookupHashEntry(value, 0) == 0);
     return result;
@@ -31,11 +31,11 @@ struct D2B3D0Owner
     int unk04;
     D2B3D0Map m_map;
 
-    void FUN_00d2b3d0();
+    void enableAll();
 };
 
 // @fnv 0x00d2b3d0
-void D2B3D0Owner::FUN_00d2b3d0()
+void D2B3D0Owner::enableAll()
 {
     m_map.clear();
 }
@@ -59,11 +59,11 @@ struct FUN_00d2b5c0_class
     int unk00;
     int unk04;
     FUN_00cb18f0_t sub;
-    void FUN_00d2b5c0(int value, char flag);
+    void setEnabled(int value, char flag);
 };
 // If flag is set, forwards value to sub.FUN_00cb1fb0; otherwise passes manager->unk10 and value to sub.FUN_00cb1870.
 // @fnv 0x00d2b5c0
-void FUN_00d2b5c0_class::FUN_00d2b5c0(int value, char flag)
+void FUN_00d2b5c0_class::setEnabled(int value, char flag)
 {
     if (flag != 0)
     {
@@ -353,10 +353,10 @@ struct FUN_00d2b5b0_Class
     int unk10;
     int unk14;
     int unk18;
-    void FUN_00d2b5b0();
+    void sectionEnd();
 };
 // @fnv 0x00d2b5b0
-void FUN_00d2b5b0_Class::FUN_00d2b5b0()
+void FUN_00d2b5b0_Class::sectionEnd()
 {
     unk18--;
 }

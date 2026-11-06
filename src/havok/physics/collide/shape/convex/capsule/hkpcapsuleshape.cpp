@@ -111,11 +111,11 @@ struct FUN_00d224a0_Data
     __m128 unk20;
     __m128 unk30;
 
-    void __thiscall FUN_00d224a0(__m128* result);
+    void __thiscall getCollisionSpheresImpl(__m128* result);
 };
 
 // @fnv 0x00d224a0
-void __thiscall FUN_00d224a0_Data::FUN_00d224a0(__m128* result)
+void __thiscall FUN_00d224a0_Data::getCollisionSpheresImpl(__m128* result)
 {
     result[0] = unk20;
     result[1] = unk30;
@@ -344,7 +344,7 @@ class hkReferencedObjectD223 : public hkBaseObjectD223
 class hkpCapsuleShapeD223 : public hkReferencedObjectD223
 {
   public:
-    void FUN_00d22370(const hkVector4D223& kDirection, hkVector4D223& kSupportingVertexOut) const;
+    void getSupportingVertexImpl(const hkVector4D223& kDirection, hkVector4D223& kSupportingVertexOut) const;
 
     unsigned int m_ulUserData;
     unsigned int m_type;
@@ -356,7 +356,7 @@ class hkpCapsuleShapeD223 : public hkReferencedObjectD223
 
 // Picks vertex A or B by the sign of (B - A) dot kDirection, writes it to kSupportingVertexOut, and stores the vertex id (0 or 16) in W.
 // @fnv 0x00d22370
-void hkpCapsuleShapeD223::FUN_00d22370(const hkVector4D223& kDirection, hkVector4D223& kSupportingVertexOut) const
+void hkpCapsuleShapeD223::getSupportingVertexImpl(const hkVector4D223& kDirection, hkVector4D223& kSupportingVertexOut) const
 {
     hkVector4D223 kDelta;
     kDelta.setSub4(m_kVertexB, m_kVertexA);

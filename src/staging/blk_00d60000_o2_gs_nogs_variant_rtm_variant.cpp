@@ -95,21 +95,21 @@ struct S_00d6adf0_Obj
 {
     virtual void vfn00(int arg);
 };
-void __cdecl FUN_00d6adf0(S_00d6adf0_Obj* obj);
+void __cdecl cleanupLoadedObject_hkpConstraintInstance(S_00d6adf0_Obj* obj);
 extern int DAT_0126908c;
 int* __cdecl FUN_00d6ae00();
 struct FUN_00c90e00_Obj
 {
     void __thiscall FUN_00c90e00(int value);
 };
-void __cdecl FUN_00d6ae90(FUN_00c90e00_Obj* param_1, int param_2);
+void __cdecl finishLoadedObject_hkpWorldCinfo(FUN_00c90e00_Obj* param_1, int param_2);
 // 13-byte cdecl forwarder: loads the object pointer, fetches its vtable and
 // calls the first virtual slot with a literal 0 argument.
 struct VtblForwarder
 {
     virtual int v0(int);
 };
-int __cdecl FUN_00d6aeb0(VtblForwarder* p);
+int __cdecl cleanupLoadedObject_hkpWorldCinfo(VtblForwarder* p);
 extern int DAT_01269104;
 void* __cdecl FUN_00d6aee0();
 struct ResultFlag

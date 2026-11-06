@@ -42,7 +42,7 @@ class TESActorBase : public TESBoundObject
     virtual bool SetPlayable();
     void NotifyFormIDChanged(int);
     virtual void LoadGame(BGSLoadFormBuffer*);
-    void FUN_005f20a0(bool);
+    void Reset3DForLoadedActors(bool);
 };
 
 class MissileProjectile

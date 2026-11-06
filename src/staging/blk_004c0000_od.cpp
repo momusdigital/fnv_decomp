@@ -81,10 +81,10 @@ struct ArrSI
 };
 struct FUN_004d7d50_StandIn
 {
-    unsigned int __thiscall FUN_004d7d50();
+    unsigned int __thiscall GetModifierCount();
 };
 // @fnv 0x004d7d50
-unsigned int __thiscall FUN_004d7d50_StandIn::FUN_004d7d50()
+unsigned int __thiscall FUN_004d7d50_StandIn::GetModifierCount()
 {
     return ((ArrSI*)((char*)this + 0xC8))->GetFlags();
 }
@@ -346,11 +346,11 @@ struct GlobalObject_004aff00
 
 struct FUN_004def90_Class
 {
-    void FUN_004def90();
+    void RemoveAllChildren();
 };
 
 // @fnv 0x004def90
-void FUN_004def90_Class::FUN_004def90()
+void FUN_004def90_Class::RemoveAllChildren()
 {
     ((GlobalObject_004aff00*)((char*)this + 0x9c))->RemoveAll();
 }
@@ -1780,7 +1780,7 @@ void __thiscall HostClass::SendModifierMessages(int a1, NiObject* apObject)
 
         bo = ((DAT_00fdf28c_fn)DAT_00fdf28c)(this->unk0C, 0x1100, 0, &n3);
 
-        for (cnt2 = 0; cnt2 < res->FUN_004d7d50(); ++cnt2)
+        for (cnt2 = 0; cnt2 < res->GetModifierCount(); ++cnt2)
         {
             qB = res->GetByIndex(cnt2);
             if (qB)
@@ -2886,7 +2886,7 @@ struct FUN_00559450_Helper
 };
 struct FUN_0066b0d0_Helper
 {
-    void FUN_004def90();
+    void RemoveAllChildren();
     void FUN_0066b0d0(int);
 };
 
@@ -2895,7 +2895,7 @@ void FUN_004def20()
 {
     if ((unsigned char)DAT_011c77e8)
     {
-        ((FUN_0066b0d0_Helper*)((FUN_00559450_Helper*)&DAT_011c7810)->FUN_00559450())->FUN_004def90();
+        ((FUN_0066b0d0_Helper*)((FUN_00559450_Helper*)&DAT_011c7810)->FUN_00559450())->RemoveAllChildren();
         ((FUN_0066b0d0_Helper*)&DAT_011c7810)->FUN_0066b0d0(0);
         ((FUN_0066b0d0_Helper*)&DAT_011c781c)->FUN_0066b0d0(0);
     }

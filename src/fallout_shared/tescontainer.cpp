@@ -309,7 +309,7 @@ void FUN_00482040_shell::ScaleEntryCounts(int aiMult)
 namespace fnv_00482090 {
 struct FUN_00482090_shell : public TESContainer
 {
-    void FUN_00482090(float);
+    void ApplyHealthPercentToContainer(float);
 };
 
 class NiPoint3;
@@ -329,7 +329,7 @@ struct ContainerItemExtra_helper
 
 // Walks the container's item list, creating each item's extra data if missing, applies afHealthPerc to it, and deletes extras that become default.
 // @fnv 0x00482090
-void FUN_00482090_shell::FUN_00482090(float afHealthPerc)
+void FUN_00482090_shell::ApplyHealthPercentToContainer(float afHealthPerc)
 {
     void* pCurrentElementNext = (void*)&((TeleportableReference*)this)->GetPosition();
     while (pCurrentElementNext && !_ref_008256d0(pCurrentElementNext))
@@ -576,7 +576,7 @@ struct FUN_0084e3a0_shell
 };
 
 // @fnv 0x00481f10
-bool __cdecl FUN_00481f10(TESObject* pObj)
+bool __cdecl IsGold(TESObject* pObj)
 {
     if (pObj && ((FUN_0084e3a0_shell*)pObj)->FUN_0084e3a0() == 0xF)
         return true;
@@ -1237,10 +1237,10 @@ bool QueueUIMessage(const char*, int, const char*, const char*, float, bool);
 struct ContainerOperation
 {
     Node* FUN_00717e50();
-    void FUN_004821a0(TESObjectREFR*, bool);
+    void AddContainerToReference(TESObjectREFR*, bool);
 };
 // @fnv 0x004821a0
-void ContainerOperation::FUN_004821a0(TESObjectREFR* target, bool silent)
+void ContainerOperation::AddContainerToReference(TESObjectREFR* target, bool silent)
 {
     if (target)
     {
@@ -1390,13 +1390,13 @@ FUN_00482910_rec* FUN_00482910_cls::FindBestRecord(FUN_00482910_obj* pScorer)
 
 struct FUN_00481d10_shell : TESContainer
 {
-    bool FUN_00481d10(BaseFormComponent* other);
+    bool CompareComponent(BaseFormComponent* other);
 };
 void* __fastcall _ref_00717e50(void*);
 int __fastcall _ref_005ae380(void*);
 // Compares this container's entries against another TESContainer's entries, returning true when they differ or the counts do not match.
 // @fnv 0x00481d10
-bool FUN_00481d10_shell::FUN_00481d10(BaseFormComponent* other)
+bool FUN_00481d10_shell::CompareComponent(BaseFormComponent* other)
 {
     TESContainer* otherContainer = dynamic_cast<TESContainer*>(other);
     if (otherContainer == 0)
@@ -1856,8 +1856,8 @@ struct WeaponFormOps
 struct RecipeContainerOps : TESContainer
 {
     void FUN_004818e0(TESForm* form, int count, ContainerItemExtra* extra);
-    void FUN_00482090(float health);
-    void FUN_004821a0(void* target, int a2);
+    void ApplyHealthPercentToContainer(float health);
+    void AddContainerToReference(void* target, int a2);
 };
 
 struct RecipeStringOps : BSStringT<char>
@@ -1989,8 +1989,8 @@ void CraftRecipe(int count)
                                             ((RecipeContainerOps*)&tempCont1)
                                                 ->FUN_004818e0((TESForm*)itemForm, compQty * count, 0);
                                         }
-                                        ((RecipeContainerOps*)&tempCont1)->FUN_00482090(DAT_01030ff0);
-                                        ((RecipeContainerOps*)&tempCont1)->FUN_004821a0(DAT_011d8e90->crafterRef, 0);
+                                        ((RecipeContainerOps*)&tempCont1)->ApplyHealthPercentToContainer(DAT_01030ff0);
+                                        ((RecipeContainerOps*)&tempCont1)->AddContainerToReference(DAT_011d8e90->crafterRef, 0);
                                     }
                                 }
                                 else if (itemForm->FUN_00401170() == 0x18 || itemForm->FUN_00401170() == 0x1a)
@@ -2001,8 +2001,8 @@ void CraftRecipe(int count)
                                         ((RecipeContainerOps*)&tempCont2)
                                             ->FUN_004818e0((TESForm*)itemForm, compQty * count, 0);
                                     }
-                                    ((RecipeContainerOps*)&tempCont2)->FUN_00482090(DAT_01030ff0);
-                                    ((RecipeContainerOps*)&tempCont2)->FUN_004821a0(DAT_011d8e90->crafterRef, 0);
+                                    ((RecipeContainerOps*)&tempCont2)->ApplyHealthPercentToContainer(DAT_01030ff0);
+                                    ((RecipeContainerOps*)&tempCont2)->AddContainerToReference(DAT_011d8e90->crafterRef, 0);
                                 }
                                 else
                                 {

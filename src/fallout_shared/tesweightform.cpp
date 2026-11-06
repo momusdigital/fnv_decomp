@@ -150,11 +150,11 @@ void Modifier::SetWeight(BaseFormComponent* component)
 
 struct WeightComparison : TESWeightForm
 {
-    bool FUN_0048eb60(BaseFormComponent* component);
+    bool CompareComponent(BaseFormComponent* component);
 };
 // Returns true if the other form is not a TESWeightForm or its weight differs from this form's weight.
 // @fnv 0x0048eb60
-bool WeightComparison::FUN_0048eb60(BaseFormComponent* component)
+bool WeightComparison::CompareComponent(BaseFormComponent* component)
 {
     TESWeightForm* other = dynamic_cast<TESWeightForm*>(component);
     if (!other)

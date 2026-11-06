@@ -13,7 +13,7 @@ struct FUN_00d1e670_StandIn
     virtual void f3() = 0;
     virtual void f4(float) = 0;
 
-    void FUN_00d1e670(float);
+    void setMass(float);
 };
 union __declspec(intrin_type) __declspec(align(16)) __m128
 {
@@ -259,7 +259,7 @@ struct hkpMotionB
     hkVec4Q m_kTranslationalVelocity;  // 0xd0
     hkVec4Q m_kAngularVelocity;        // 0xe0
 
-    void FUN_00d1e9f0(const hkVec4Q& imp, const hkVec4Q& p);
+    void applyPointImpulse(const hkVec4Q& imp, const hkVec4Q& p);
 };
 extern "C" __m128 _mm_unpacklo_ps(__m128, __m128);
 extern "C" __m128 _mm_unpackhi_ps(__m128, __m128);
@@ -279,7 +279,7 @@ struct Vec
 };
 struct Motion
 {
-    void FUN_00d1eaf0(const Vec& impulse);
+    void applyAngularImpulse(const Vec& impulse);
 };
 extern "C" __m128 _mm_setr_ps(float, float, float, float);
 inline void* operator new(unsigned int, void* p)
@@ -385,7 +385,7 @@ class hkReferencedObjectD1E6F : public hkBaseObjectD1E6F
 class hkpSphereMotionD1E6F : public hkReferencedObjectD1E6F
 {
   public:
-    void FUN_00d1e6f0(hkMatrix3D1E6F& kInertiaInv) const;
+    void getInertiaLocal(hkMatrix3D1E6F& kInertiaInv) const;
 
     unsigned char m_type;
     unsigned char m_ucDeactivationIntegrateCounter;
@@ -422,11 +422,11 @@ class FUN_00d1e970_cls
     virtual void v18();
     virtual void v19();
     virtual void v20(hkVector4& out, int arg3);
-    void FUN_00d1e970(float s, const hkVector4& v, int arg3);
+    void applyForce(float s, const hkVector4& v, int arg3);
 };
 
 // @fnv 0x00d1e970
-void FUN_00d1e970_cls::FUN_00d1e970(float s, const hkVector4& v, int arg3)
+void FUN_00d1e970_cls::applyForce(float s, const hkVector4& v, int arg3)
 {
     __declspec(align(16)) hkVector4 t;
     __m128 x = _mm_load_ss(&s);
@@ -496,10 +496,10 @@ extern "C" void _ReadWriteBarrier();
 class BoxMotionCandidate : public hkpBoxMotion
 {
   public:
-    void FUN_00d1e920(float amount, const hkVector4* direction);
+    void applyForce(float amount, const hkVector4* direction);
 };
 // @fnv 0x00d1e920
-void BoxMotionCandidate::FUN_00d1e920(float amount, const hkVector4* direction)
+void BoxMotionCandidate::applyForce(float amount, const hkVector4* direction)
 {
     N::__m128 a = N::_mm_load_ss(&amount);
     a = N::_mm_shuffle_ps(a, a, 0);

@@ -315,8 +315,8 @@ struct DHShell : public TESDataHandler
     bool FUN_00469860(unsigned int id);
 };
 extern Calendar g_calendar;
-unsigned int __cdecl FUN_00526100();
-bool __fastcall FUN_005262a0(void* zone);
+unsigned int __cdecl GetHoursToRespawnCell();
+bool __fastcall ShouldReset(void* zone);
 Obj34* __cdecl FUN_00475400(void* p);
 void __cdecl FUN_005ac190(RefrShell* refr, ExtraShell* extra);
 bool __cdecl FUN_005ac750(RefrShell* refr, ExtraShell* extra, unsigned int a);
@@ -328,10 +328,10 @@ struct CellShell : public FUN_00546af0_shell
     void SetDetachTime(unsigned int a, bool b);
     void* FUN_0054ddd0();
     bool FUN_00550200(ExpiredRefPosition3* p);
-    bool FUN_0054df30();
+    bool HandleExpiredReferences();
 };
 // @fnv 0x0054df30
-bool CellShell::FUN_0054df30()
+bool CellShell::HandleExpiredReferences()
 {
     if (g_BGSSaveLoadGame->FUN_0042ce10())
         return false;
@@ -391,11 +391,11 @@ bool CellShell::FUN_0054df30()
     }
     else
     {
-        if (_oldState - _type > FUN_00526100())
+        if (_oldState - _type > GetHoursToRespawnCell())
             _allowed = 1;
         if (0 != _special)
         {
-            if (FUN_005262a0(_special))
+            if (ShouldReset(_special))
                 _changed = _special->FUN_00526120(this);
             else
                 _changed = 0;
@@ -447,7 +447,7 @@ bool CellShell::FUN_0054df30()
                 {
                     if (q)
                     {
-                        if (!FUN_005262a0(q))
+                        if (!ShouldReset(q))
                             continue;
                     }
                 }

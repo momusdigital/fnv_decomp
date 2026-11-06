@@ -102,11 +102,11 @@ struct FUN_00a98a30_This
     unsigned short m50;
     char _p2[0x1E];
     Helper00a98a30* p70;
-    void FUN_00a98a30(unsigned short);
+    void SetActiveVertexCount(unsigned short);
 };
 // Calls Target on p70 for each index from usActive up to m50, then clamps m50 to the smaller of usActive and m8.
 // @fnv 0x00a98a30
-void FUN_00a98a30_This::FUN_00a98a30(unsigned short usActive)
+void FUN_00a98a30_This::SetActiveVertexCount(unsigned short usActive)
 {
     unsigned short i;
     for (i = usActive; i < m50; ++i)
@@ -183,10 +183,10 @@ struct FakeStream
 };
 struct FUN_00a98ab0_shell : NiParticleMeshesData
 {
-    void FUN_00a98ab0(NiStream&);
+    void SaveBinary(NiStream&);
 };
 // @fnv 0x00a98ab0
-void FUN_00a98ab0_shell::FUN_00a98ab0(NiStream& kStream)
+void FUN_00a98ab0_shell::SaveBinary(NiStream& kStream)
 {
     NiNode* pkNode;
     ((FUN_00a97290_holder*)this)->FUN_00a97290(kStream);
@@ -557,7 +557,7 @@ struct A98BF0ParticlesData
     int unk4C;
     unsigned short m_usActiveVertices;
 
-    void FUN_00a964c0(unsigned short usParticle);
+    void RemoveParticle(unsigned short usParticle);
 };
 
 struct A98BF0ParticleMeshesData : A98BF0ParticlesData
@@ -591,7 +591,7 @@ void A98BF0ParticleMeshesData::RemoveParticleMesh(unsigned short usParticle)
         if (pkFinal)
             pkFinal->DecRefCount();
     }
-    FUN_00a964c0(usParticle);
+    RemoveParticle(usParticle);
 }
 
 extern "C" double __cdecl fabs(double);
@@ -607,7 +607,7 @@ struct NiMatrix3_a98
 struct NiQuaternion_a98
 {
     float w, x, y, z;
-    void FUN_004f0180(NiMatrix3_a98& kRot) const;
+    void ToRotation(NiMatrix3_a98& kRot) const;
 };
 
 struct Mesh_a98
@@ -729,7 +729,7 @@ void FUN_00a98c90_shell::UpdateParticleMeshes()
         {
             pkMesh->m_kTranslate = m_pkVertex[i];
             if (m_pkRotations)
-                m_pkRotations[i].FUN_004f0180(pkMesh->m_kRotate);
+                m_pkRotations[i].ToRotation(pkMesh->m_kRotate);
             pkMesh->m_fScale = fabs(m_pfSizes[i] * m_pfRadii[i]);
         }
     }
@@ -767,7 +767,7 @@ void __stdcall FUN_00a97420(void*);
 void* __cdecl FUN_00a7d330(void*);
 // Calls FUN_00a97420 on p, fetches an item via FUN_00a7d330, grows the container if count reaches capacity, then stores the item at index count.
 // @fnv 0x00a98de0
-void __stdcall FUN_00a98de0(FUN_0096ad30_This* pContainer)
+void __stdcall GetViewerStrings(FUN_0096ad30_This* pContainer)
 {
     FUN_00a97420(pContainer);
     void* item = FUN_00a7d330(*(void**)&g_011f5f0c);

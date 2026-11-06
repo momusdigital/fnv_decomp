@@ -95,18 +95,18 @@ struct FileX
 };
 struct FUN_00485b60
 {
-    unsigned int FUN_00485bc0();
+    unsigned int GetFormIDWithoutIndex();
     FileX* GetFile(int);
     unsigned int Go();
 };
-// Calls FUN_00485bc0, checks whether the first file's list is non-empty, and ORs that flag into bit 24 of the result.
+// Calls GetFormIDWithoutIndex, checks whether the first file's list is non-empty, and ORs that flag into bit 24 of the result.
 // @fnv 0x00485b60
 unsigned int FUN_00485b60::Go()
 {
     char flag;
     unsigned int result;
     FileX* file;
-    result = FUN_00485bc0();
+    result = GetFormIDWithoutIndex();
     flag = 0;
     file = GetFile(0);
     if (!file->FUN_00464df0()->IsEmpty())
@@ -793,7 +793,7 @@ struct SceneUpdate
     virtual void v46() = 0;
     virtual void Refresh() = 0;
     void SetTaskFlag2000(bool);
-    void FUN_00507700(float);
+    void SetMaxFarNearRatio(float);
     void FUN_00450f90(bool);
 };
 struct WorldUpdate
@@ -908,7 +908,7 @@ void TerrainUpdate::UpdateTerrainNode(void* arg, bool update)
             if (chunk->GetInitialized() && !chunk->FUN_00759d80() && (!parent || parent->FUN_006fe920(true)))
             {
                 chunk->FUN_006facb0();
-                chunk->FUN_0056c7f0()->FUN_00507700((float)((level / 4.0) * *g_011d86f8.Float()));
+                chunk->FUN_0056c7f0()->SetMaxFarNearRatio((float)((level / 4.0) * *g_011d86f8.Float()));
                 SceneUpdate* root7 = Get()->GetMenuRoot();
                 root7->SetTaskFlag2000(false);
                 root7->Refresh();

@@ -87,11 +87,11 @@ struct C_00a7d7a0
 };
 struct S_00a94d90
 {
-    void __thiscall FUN_00a94d90(NiUpdateData&);
+    void __thiscall UpdateWorldData(NiUpdateData&);
 };
 // Calls the base update, copies three floats from offsets 0x68/0x74/0x80 to 0xFC/0x100/0x104, and increments the counter at 0xA8.
 // @fnv 0x00a94d90
-void __thiscall S_00a94d90::FUN_00a94d90(NiUpdateData& UpdateData)
+void __thiscall S_00a94d90::UpdateWorldData(NiUpdateData& UpdateData)
 {
     ((C_00a7d7a0*)this)->FUN_00a7d7a0(UpdateData);
     *(volatile float*)((char*)this + 0xFC) = *(volatile float*)((char*)this + 0x68);
@@ -119,7 +119,7 @@ struct NiPoint3
 
 struct NiPointLightViewerStrings
 {
-    void __thiscall FUN_00a7d960(StrArr* strings);
+    void __thiscall GetViewerStrings(StrArr* strings);
 };
 
 char* __cdecl _FUN_00a7d330(void* object);
@@ -137,7 +137,7 @@ void FUN_00a94f70_shell::AppendViewerStrings(StrArr* strings)
     char* value;
     unsigned int index;
 
-    reinterpret_cast<NiPointLightViewerStrings*>(this)->FUN_00a7d960(strings);
+    reinterpret_cast<NiPointLightViewerStrings*>(this)->GetViewerStrings(strings);
 
     value = _FUN_00a7d330(*reinterpret_cast<void**>(&g_011f5ec4));
 
@@ -355,7 +355,7 @@ struct FUN_00a94e40_cls
     float m_f010c;
     float m_f0110;
     void __thiscall SaveToStream(FUN_00a94e40_arg* a);
-    void __thiscall FUN_00a94e40(FUN_00a94e40_arg* a);
+    void __thiscall LoadBinary(FUN_00a94e40_arg* a);
 };
 
 struct StreamCb
@@ -518,7 +518,7 @@ struct FUN_00a94e40_arg
 };
 
 // @fnv 0x00a94e40
-void __thiscall FUN_00a94e40_cls::FUN_00a94e40(FUN_00a94e40_arg* apArg)
+void __thiscall FUN_00a94e40_cls::LoadBinary(FUN_00a94e40_arg* apArg)
 {
     SaveToStream(apArg);
     StreamCb* s = apArg->m_024c;
@@ -681,7 +681,7 @@ class NiStream;
 extern "C" void __cdecl FUN_00a9b360(void* thisPtr, NiStream& stream);
 
 // @fnv 0x00a94c60
-void __cdecl FUN_00a94c60(void* thisPtr, NiStream& stream)
+void __cdecl LinkObject(void* thisPtr, NiStream& stream)
 {
     FUN_00a9b360(thisPtr, stream);
 }

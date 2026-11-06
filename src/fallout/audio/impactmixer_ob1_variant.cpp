@@ -241,7 +241,7 @@ struct NavQueryResult
 struct CellNavInfo
 {
     void FUN_0053b550(NavQueryResult* pkResult, NiPoint3* pkPos, int iFlag);
-    MaterialRecord* FUN_0053a630(unsigned char ucA, unsigned short usB);
+    MaterialRecord* GetMainTexture(unsigned char ucA, unsigned short usB);
 };
 struct FootstepCell
 {

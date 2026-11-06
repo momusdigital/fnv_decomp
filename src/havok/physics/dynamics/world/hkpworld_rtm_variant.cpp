@@ -534,7 +534,7 @@ struct FUN_00c98250_Class {
     void* m_iWordAt00;
     void* m_iWordAt04;
     void* m_8;
-    void* __thiscall FUN_00c98250(int, int, int);
+    void* __thiscall createContactMgr(int, int, int);
 };
 void __stdcall FUN_00c982a0(char* pFlag, int a2, int a3, int a4, int a5, int a6);
 void __stdcall FUN_00c982b0(unsigned char* flag, int a2, int a3, int a4, int a5, int a6, int a7, int a8);
@@ -8459,7 +8459,7 @@ public:
     caa4a0_TblHost* unk08;
     caa4a0_TblFirst* unk0c;
     void FUN_00c89730(bhkRefObject* obj, unsigned int param);
-    bhkRefObject* FUN_00caa4a0(unsigned int param);
+    bhkRefObject* CreateClone(unsigned int param);
 };
 static inline void** AddBack(hkArray<void*>* arr, void* listener) {
     ThreadMemHolder* mem = (ThreadMemHolder*)FUN_00c85750();
@@ -8847,7 +8847,7 @@ void __cdecl FUN_00cbd9e0(float scale, ShapeCAA* shape);
 class ShapeClonerCAA {
 public:
     ShapeCAA* ReleaseObject(ShapeCAA* shape, ShapeCinfoCAA* cinfo);
-    ShapeCAA* FUN_00caa250(ShapeCAA* dst, ShapeCinfoCAA* cinfo);
+    ShapeCAA* CloneData(ShapeCAA* dst, ShapeCinfoCAA* cinfo);
 
     int unk00;
     ShapeCAA* m_pCollisionShape;

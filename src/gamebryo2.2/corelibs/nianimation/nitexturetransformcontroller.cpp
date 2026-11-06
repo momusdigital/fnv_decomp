@@ -153,14 +153,14 @@ void NiTextureTransformController::Update(NiUpdateData* data) throw()
 
 struct FUN_00a46480_shell : public NiTextureTransformController
 {
-    void* FUN_00a46480();
+    void* GetRTTI();
 };
 
 struct GlobalObjectO2_00a7b610;
 extern GlobalObjectO2_00a7b610 g_011f3f20;
 
 // @fnv 0x00a46480
-void* FUN_00a46480_shell::FUN_00a46480()
+void* FUN_00a46480_shell::GetRTTI()
 {
     return &g_011f3f20;
 }
@@ -196,11 +196,11 @@ void __thiscall FUN_00a461a0_shell::FUN_00a461a0(NiObjectNET* target)
 bool __stdcall FUN_00a57c10(NiObject*);
 struct FUN_00a461e0_shell : public NiTextureTransformController
 {
-    bool FUN_00a461e0(NiObject* pkObject);
+    bool IsEqual(NiObject* pkObject);
 };
 // Returns true if pkObject passes FUN_00a57c10 and its four fields match the expected values.
 // @fnv 0x00a461e0
-bool FUN_00a461e0_shell::FUN_00a461e0(NiObject* pkObject)
+bool FUN_00a461e0_shell::IsEqual(NiObject* pkObject)
 {
     NiTextureTransformController* pkCtrl = (NiTextureTransformController*)pkObject;
     if (FUN_00a57c10(pkObject) && pkCtrl->m_uiLastKeyIndex == m_uiLastKeyIndex &&
@@ -733,10 +733,10 @@ struct S00a46970_StreamFix
 };
 struct S00a46970_Ctlr : public NiTextureTransformController
 {
-    void FUN_00a46970(S00a46970_Stream& kStream);
+    void LoadBinary(S00a46970_Stream& kStream);
 };
 // @fnv 0x00a46970
-void S00a46970_Ctlr::FUN_00a46970(S00a46970_Stream& kStream)
+void S00a46970_Ctlr::LoadBinary(S00a46970_Stream& kStream)
 {
     reinterpret_cast<S00a46970_Base*>(this)->FUN_00a57c70(kStream);
     bool bShaderMap;

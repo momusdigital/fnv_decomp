@@ -5907,7 +5907,7 @@ void FUN_00b97e30(int, int);
 void FUN_00c4c2d0(void* sub, int b, Mat* m);
 Flags164* FUN_00b4f5c0();
 Mat* __stdcall FUN_00ee6de0(Mat* o, Mat* a, Mat* b);
-Mat* __stdcall FUN_00ee6dda(Mat* o, float* det, Mat* a);
+Mat* __stdcall D3DXMatrixInverse(Mat* o, float* det, Mat* a);
 Mat* __stdcall FUN_00ee6dd4(Mat* o, Mat* a);
 Plane* __stdcall FUN_00ee6dce(Plane* o, Plane* a);
 Plane* __stdcall FUN_00ee6dc8(Plane* o, Plane* a, Mat* m);
@@ -6065,7 +6065,7 @@ __forceinline Shadow* Shadow::UpdateFrustum(ClipFull* clip, Plane* src, Shadow* 
     Mat proj = projectionRenderer->projection;
     MatA vp, inv;
     FUN_00ee6de0(&vp, &view, &proj);
-    FUN_00ee6dda(&inv, 0, &vp);
+    D3DXMatrixInverse(&inv, 0, &vp);
     FUN_00ee6dd4(&vp, &inv);
     Plane out[6];
     for (int i = 0; i < 6; i++)

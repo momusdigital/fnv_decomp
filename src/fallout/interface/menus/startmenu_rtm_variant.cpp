@@ -23,7 +23,7 @@ struct MainMenuResetAccess
 };
 struct MainMenuWorldAccess
 {
-    void FUN_00457d70(int, int, int);
+    void ShowLoadingMenu(int, int, int);
 };
 struct MainMenuPlayerAccess
 {
@@ -64,7 +64,7 @@ void FUN_007d0a70()
     }
     DAT_011daacd = true;
     ((MainMenuResetAccess*)g_osGlobals)->FUN_007d0b90();
-    ((MainMenuWorldAccess*)g_TES)->FUN_00457d70(1, 0, 0);
+    ((MainMenuWorldAccess*)g_TES)->ShowLoadingMenu(1, 0, 0);
     memset(acMusicPath, 0, 64);
     sprintf_s(acMusicPath, 64, "Data\\Music\\Special\\MainTitle.mp3");
     FUN_00761460(true);

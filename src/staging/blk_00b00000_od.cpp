@@ -2047,11 +2047,11 @@ extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volati
 
 struct FUN_00b02920_class
 {
-    void __thiscall FUN_00b02920(int unused);
+    void __thiscall WaitForCompletion(int unused);
 };
 
 // @fnv 0x00b02920
-void __thiscall FUN_00b02920_class::FUN_00b02920(int unused)
+void __thiscall FUN_00b02920_class::WaitForCompletion(int unused)
 {
     if (*(int*)((char*)this + 0x38) != *(int*)((char*)this + 0x34))
     {

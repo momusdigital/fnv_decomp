@@ -9,7 +9,7 @@
 class hkpVehicleDefaultTransmission : public hkpVehicleTransmission
 {
   public:
-    float FUN_00e43d40(const struct Vehicle* vehicle,
+    float calcTransmissionRPM(const struct Vehicle* vehicle,
                        const void* input);  // declared for the original code (decl_variants.py)
 
   public:

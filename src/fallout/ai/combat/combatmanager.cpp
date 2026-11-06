@@ -2877,10 +2877,10 @@ extern const char UNK_0108dab0[];
 void __cdecl FUN_005b5e40(const char*, unsigned int, unsigned int);
 struct FUN_00991f80_shell : CombatManager
 {
-    FUN_00985d10* FUN_00991f80(Actor* actor);
+    FUN_00985d10* SplitPlayerCombatGroup(Actor* actor);
 };
 // @fnv 0x00991f80
-FUN_00985d10* FUN_00991f80_shell::FUN_00991f80(Actor* apActor)
+FUN_00985d10* FUN_00991f80_shell::SplitPlayerCombatGroup(Actor* apActor)
 {
     ActorCombatGroup* pGroup = g_thePlayer->GetCombatGroup();
     ((CombatGroupShell_00991f80*)pGroup)->FUN_009869a0(apActor);
@@ -3037,7 +3037,7 @@ struct ThreatActor
     int unk9c;
     int unka0;
     ThreatValueOwner values;
-    float FUN_00477900();
+    float GetRadiusBSUnits();
     float FUN_006a78f0();
     ThreatState* FUN_008a7f80();
 };
@@ -3057,7 +3057,7 @@ bool ThreatManager::IsThreatWithinLimits(ThreatActor* actor, ThreatActor* target
 {
     if (!target)
         return true;
-    float strength = target->FUN_00477900();
+    float strength = target->GetRadiusBSUnits();
     float distance = target->FUN_006a78f0();
     if (distance < *DAT_011cf3f0.FUN_00403e20())
         return true;

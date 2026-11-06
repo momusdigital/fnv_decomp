@@ -203,11 +203,11 @@ class NiCullingProcess
     int unk08;
     NiNodeX* unk0c;
     void FUN_00a694a0(void* p);
-    void FUN_00c4f070(NiNodeX* a, NiAVObject* b, int c);
+    void Process(NiNodeX* a, NiAVObject* b, int c);
 };
 
 // @fnv 0x00c4f070
-void NiCullingProcess::FUN_00c4f070(NiNodeX* a, NiAVObject* b, int c)
+void NiCullingProcess::Process(NiNodeX* a, NiAVObject* b, int c)
 {
     if (!a || !b)
         return;
@@ -327,11 +327,11 @@ class BSCullingProcess : public NiCullingProcess
     int unkC0;
     NiPtr<NiAccumulator> m_acRendererDataA;
 
-    void FUN_00c4f1d0(NiGeometry& kVisible);
+    void AppendVirtual(NiGeometry& kVisible);
 };
 
 // @fnv 0x00c4f1d0
-void BSCullingProcess::FUN_00c4f1d0(NiGeometry& kVisible)
+void BSCullingProcess::AppendVirtual(NiGeometry& kVisible)
 {
     bool bRegistered = false;
     if (m_acRendererDataA)

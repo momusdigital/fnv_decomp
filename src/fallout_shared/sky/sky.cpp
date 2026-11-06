@@ -17,12 +17,12 @@ unsigned char TESObjectCELL::GetFakeExterior()
 }
 }  // namespace fnv_00454b10
 
-// Updates sky colors, calls FUN_0063bce0, updates the two optional sky objects with time, and sets the renderer background color.
+// Updates sky colors, calls UpdateFog, updates the two optional sky objects with time, and sets the renderer background color.
 // @fnv 0x0063b0a0
 void Sky::UpdateWeatherTransition(float time)
 {
     UpdateColors();
-    FUN_0063bce0();
+    UpdateFog();
     if (m_pAtmosphere)
         m_pAtmosphere->Update(this, time);
     if (m_pSun)
@@ -171,7 +171,7 @@ struct FUN_0063b9b0_shell : public Sky
 };
 
 float __cdecl FUN_00404010(float, float);
-float __fastcall FUN_00595ea0(void*);
+float __fastcall GetSunriseBegin(void*);
 extern SettingT_GameSettingCollection_ originalRuntimeFloatSetting78;
 extern float DAT_011cccfc;
 
@@ -180,7 +180,7 @@ float FUN_0063b9b0_shell::FUN_0063b9b0()
 {
     if (*(unsigned int*)((char*)this + 0x118) & 0x1000)
     {
-        DAT_011cccfc = FUN_00404010(0.0f, FUN_00595ea0(this) - originalRuntimeFloatSetting78.Float()->f);
+        DAT_011cccfc = FUN_00404010(0.0f, GetSunriseBegin(this) - originalRuntimeFloatSetting78.Float()->f);
         *(unsigned int*)((char*)this + 0x118) &= ~0x1000u;
     }
     return DAT_011cccfc;
@@ -192,17 +192,17 @@ struct FUN_0063ba30_shell : public Sky
 };
 
 float __cdecl FUN_0040ebd0(float, float);
-float __fastcall FUN_00596030(void*);
+float __fastcall GetSunsetEnd(void*);
 extern SettingT_GameSettingCollection_ originalRuntimeFloatSetting78;
 extern float DAT_011ccd00;
 
-// If the 0x2000 flag is set, clears it and recomputes DAT_011ccd00 from a setting plus FUN_00596030(this); returns DAT_011ccd00.
+// If the 0x2000 flag is set, clears it and recomputes DAT_011ccd00 from a setting plus GetSunsetEnd(this); returns DAT_011ccd00.
 // @fnv 0x0063ba30
 float FUN_0063ba30_shell::FUN_0063ba30()
 {
     if (*(unsigned int*)((char*)this + 0x118) & 0x2000)
     {
-        DAT_011ccd00 = FUN_0040ebd0(23.989999771118164f, FUN_00596030(this) + originalRuntimeFloatSetting78.Float()->f);
+        DAT_011ccd00 = FUN_0040ebd0(23.989999771118164f, GetSunsetEnd(this) + originalRuntimeFloatSetting78.Float()->f);
         *(unsigned int*)((char*)this + 0x118) &= ~0x2000;
     }
     return DAT_011ccd00;
@@ -212,11 +212,11 @@ struct FUN_0063bb40_stand
 {
     char pad[0x108];
     int tbl[4][6];
-    int FUN_0063bb40(int a, int b);
+    int GetColor(int a, int b);
 };
 // Returns the int stored at tbl[a][b].
 // @fnv 0x0063bb40
-int FUN_0063bb40_stand::FUN_0063bb40(int aiRow, int aiColumn)
+int FUN_0063bb40_stand::GetColor(int aiRow, int aiColumn)
 {
     return tbl[aiRow][aiColumn];
 }
@@ -244,7 +244,7 @@ struct NiPoint2
 typedef char _sizecheck_NiPoint2[sizeof(NiPoint2) == 8 ? 1 : -1];
 struct FUN_0063c490_shell : public Sky
 {
-    void FUN_0063c490();
+    void UpdateWind();
 };
 
 float __cdecl FUN_00452e70(bool);
@@ -267,7 +267,7 @@ struct TESWeatherEx : public TESWeather
 };
 
 // @fnv 0x0063c490
-void FUN_0063c490_shell::FUN_0063c490()
+void FUN_0063c490_shell::UpdateWind()
 {
     float fperiod;
     float fscale;
@@ -350,22 +350,22 @@ void FUN_0063c9f0_shell::FUN_0063c9f0()
 
 struct FUN_0063d000_shell : public TESClimate
 {
-    bool FUN_0063d000();
+    bool GetUsesMasser();
 };
 
 // @fnv 0x0063d000
-bool FUN_0063d000_shell::FUN_0063d000()
+bool FUN_0063d000_shell::GetUsesMasser()
 {
     return (*((unsigned char*)this + 0x55) & 0x80) != 0;
 }
 
 struct FUN_0063d020_shell : public TESClimate
 {
-    bool FUN_0063d020();
+    bool GetUsesSecunda();
 };
 
 // @fnv 0x0063d020
-bool FUN_0063d020_shell::FUN_0063d020()
+bool FUN_0063d020_shell::GetUsesSecunda()
 {
     return (*((unsigned char*)this + 0x55) & 0x40) != 0;
 }
@@ -399,12 +399,12 @@ void FUN_0063d060_shell::FUN_0063d060()
     UpdateHDRValues();
 }
 
-void __fastcall FUN_005827d0(char*);
+void __fastcall GetRandomWeather(char*);
 
 // @fnv 0x0063d5c0
 void __fastcall FUN_0063d5c0(char* p)
 {
-    FUN_005827d0(p + 0x30);
+    GetRandomWeather(p + 0x30);
 }
 
 struct FUN_0063dd50_shell
@@ -444,20 +444,20 @@ void __fastcall FUN_0063e010(char* pThis)
 
 struct FUN_0063e210_shell : public Sky
 {
-    void FUN_0063e210();
+    void UnloadAllTextures();
 };
 
-void __fastcall FUN_006349e0(void*);
+void __fastcall RemoveTextures(void*);
 void __fastcall FUN_006369a0(void*);
 void __fastcall FUN_00642940(void*);
 void __fastcall FUN_0063e290(void*);
 
 // @fnv 0x0063e210
-void FUN_0063e210_shell::FUN_0063e210()
+void FUN_0063e210_shell::UnloadAllTextures()
 {
     if (*reinterpret_cast<Clouds**>(reinterpret_cast<char*>(this) + 0x2c))
     {
-        FUN_006349e0(*reinterpret_cast<Clouds**>(reinterpret_cast<char*>(this) + 0x2c));
+        RemoveTextures(*reinterpret_cast<Clouds**>(reinterpret_cast<char*>(this) + 0x2c));
         (*reinterpret_cast<Clouds**>(reinterpret_cast<char*>(this) + 0x2c))->ClearCloudLayers();
     }
     if (*reinterpret_cast<void**>(reinterpret_cast<char*>(this) + 0x30))
@@ -592,26 +592,26 @@ void FUN_0063e860_stand::FUN_0063e860(bool abEnabled)
 namespace fnv_0063bab0 {
 struct FUN_0063bab0_shell : public Sky
 {
-    void FUN_0063bab0(void*, TESWeather*, TESWeather*, int, int*, int*);
+    void FillColorBlendColors(void*, TESWeather*, TESWeather*, int, int*, int*);
 };
 
 struct FUN_0063bb40_stand
 {
-    int FUN_0063bb40(int, int);
+    int GetColor(int, int);
 };
 // Fills a four-int blend from the current and last weather's color lookup at two times, zeroing the last-weather entries when there is no last weather.
 // @fnv 0x0063bab0
-void FUN_0063bab0_shell::FUN_0063bab0(void* aColorBlend, TESWeather* apCurrentWeather, TESWeather* apLastWeather,
+void FUN_0063bab0_shell::FillColorBlendColors(void* aColorBlend, TESWeather* apCurrentWeather, TESWeather* apLastWeather,
                                       int aeColorType, int* aeTime1, int* aeTime2)
 {
     if (!apCurrentWeather)
         return;
-    ((int*)aColorBlend)[0] = ((FUN_0063bb40_stand*)apCurrentWeather)->FUN_0063bb40(aeColorType, *aeTime1);
-    ((int*)aColorBlend)[1] = ((FUN_0063bb40_stand*)apCurrentWeather)->FUN_0063bb40(aeColorType, *aeTime2);
+    ((int*)aColorBlend)[0] = ((FUN_0063bb40_stand*)apCurrentWeather)->GetColor(aeColorType, *aeTime1);
+    ((int*)aColorBlend)[1] = ((FUN_0063bb40_stand*)apCurrentWeather)->GetColor(aeColorType, *aeTime2);
     if (apLastWeather)
     {
-        ((int*)aColorBlend)[2] = ((FUN_0063bb40_stand*)apLastWeather)->FUN_0063bb40(aeColorType, *aeTime1);
-        ((int*)aColorBlend)[3] = ((FUN_0063bb40_stand*)apLastWeather)->FUN_0063bb40(aeColorType, *aeTime2);
+        ((int*)aColorBlend)[2] = ((FUN_0063bb40_stand*)apLastWeather)->GetColor(aeColorType, *aeTime1);
+        ((int*)aColorBlend)[3] = ((FUN_0063bb40_stand*)apLastWeather)->GetColor(aeColorType, *aeTime2);
     }
     else
     {
@@ -625,11 +625,11 @@ struct FUN_0063c420_shell
 {
     unsigned char pad[0xf0];
     float arr[0x100];
-    float __thiscall FUN_0063c420(int index);
+    float __thiscall GetFogData(int index);
 };
 
 // @fnv 0x0063c420
-float __thiscall FUN_0063c420_shell::FUN_0063c420(int index)
+float __thiscall FUN_0063c420_shell::GetFogData(int index)
 {
     return arr[index];
 }
@@ -790,8 +790,8 @@ struct FUN_00634830_shell
 
 struct FUN_0063b630_shell
 {
-    void FUN_0063b630(void* cb, void* weather, float f, int* t1, int* t2);
-    void FUN_0063bab0(void* cb, void* w1, void* w2, int i, int* t1, int* t2);
+    void FillColorBlend(void* cb, void* weather, float f, int* t1, int* t2);
+    void FillColorBlendColors(void* cb, void* w1, void* w2, int i, int* t1, int* t2);
     void QueryTwoSources(void* cb, void* w1, void* w2, int i, int* t1, int* t2);
     void FUN_0063c690(void* out, void* cb, float flash);
 };
@@ -843,11 +843,11 @@ void FUN_0063b120_shell::FUN_0063b120()
         int aeTime2;
         int aeTime1;
         ((FUN_0063b630_shell*)this)
-            ->FUN_0063b630(&cb, *(void**)((char*)this + 0x10), *(float*)((char*)this + 0xf4), &aeTime1, &aeTime2);
+            ->FillColorBlend(&cb, *(void**)((char*)this + 0x10), *(float*)((char*)this + 0xf4), &aeTime1, &aeTime2);
         for (int i = 0; i < 10; i++)
         {
             ((FUN_0063b630_shell*)this)
-                ->FUN_0063bab0(&cb, *(void**)((char*)this + 0x10), *(void**)((char*)this + 0x14), i, &aeTime1,
+                ->FillColorBlendColors(&cb, *(void**)((char*)this + 0x10), *(void**)((char*)this + 0x14), i, &aeTime1,
                                &aeTime2);
             float fCurrentFlash = 0;
             if (*(void**)((char*)this + 0x14) == 0)
@@ -936,10 +936,10 @@ struct PC7d
 extern PC7d* g_thePlayer;
 struct FUN_0063d0e0_shell : public Sky
 {
-    void FUN_0063d0e0(TESWeather* w, bool b);
+    void ForceWeather(TESWeather* w, bool b);
 };
 // @fnv 0x0063d0e0
-void FUN_0063d0e0_shell::FUN_0063d0e0(TESWeather* apWeather, bool b)
+void FUN_0063d0e0_shell::ForceWeather(TESWeather* apWeather, bool b)
 {
     if (b)
     {
@@ -989,11 +989,11 @@ struct S63cfa0
 {
     char _pad[0x38];
     char _items[2][12];
-    void* FUN_0063cfa0(int);
+    void* GetTexture(int);
 };
 // Returns a pointer to the item at index a1 if a1 is less than 2, otherwise returns null.
 // @fnv 0x0063cfa0
-void* S63cfa0::FUN_0063cfa0(int aiIndex)
+void* S63cfa0::GetTexture(int aiIndex)
 {
     return aiIndex < 2 ? (void*)_items[aiIndex] : 0;
 }
@@ -1046,19 +1046,19 @@ struct Precipitation_FUN_00636ed0
 };
 struct FUN_0063ca20_t
 {
-    void FUN_0063ca20();
+    void HandleClimateChange();
 };
 struct FUN_0063d1d0_t
 {
-    void FUN_0063d1d0();
+    void UpdateWeather();
 };
 struct FUN_0063c490_shell
 {
-    void FUN_0063c490();
+    void UpdateWind();
 };
 struct FUN_0063d5e0_t
 {
-    void FUN_0063d5e0();
+    void UpdateSound();
 };
 extern PC7d* g_thePlayer;
 extern Calendar g_calendar;
@@ -1089,14 +1089,14 @@ void FUN_0063ac70_shell::FUN_0063ac70(float afSecondsPassed)
         return;
     }
 
-    ((FUN_0063ca20_t*)this)->FUN_0063ca20();
+    ((FUN_0063ca20_t*)this)->HandleClimateChange();
     if (((BGSSaveLoadGame_FUN_0042ce10*)g_BGSSaveLoadGame)->FUN_0042ce10())
         flags |= 1;
-    ((FUN_0063d1d0_t*)this)->FUN_0063d1d0();
+    ((FUN_0063d1d0_t*)this)->UpdateWeather();
     UpdateColors();
-    FUN_0063bce0();
-    ((FUN_0063c490_shell*)this)->FUN_0063c490();
-    ((FUN_0063d5e0_t*)this)->FUN_0063d5e0();
+    UpdateFog();
+    ((FUN_0063c490_shell*)this)->UpdateWind();
+    ((FUN_0063d5e0_t*)this)->UpdateSound();
 
     if (m_pAtmosphere)
         m_pAtmosphere->Update(this, afSecondsPassed);
@@ -1157,7 +1157,7 @@ struct SkySound
 typedef char _sizecheck_SkySound[sizeof(SkySound) == 28 ? 1 : -1];
 struct FUN_0063d5e0_shell : public Sky
 {
-    void FUN_0063d5e0();
+    void UpdateSound();
 };
 
 struct SndX
@@ -1200,8 +1200,8 @@ struct SL
 };
 struct SkyEx
 {
-    bool FUN_00634870();
-    void FUN_0063ddb0(TESWeather*);
+    bool GetWeatherUpdateFlag();
+    void ActivateWeatherSounds(TESWeather*);
     bool FUN_0063e060(unsigned int, TESWeather*);
 };
 struct AnimIdle
@@ -1214,7 +1214,7 @@ extern bool DAT_011ccd04;
 unsigned int DialogueRandom();
 
 // @fnv 0x0063d5e0
-void FUN_0063d5e0_shell::FUN_0063d5e0()
+void FUN_0063d5e0_shell::UpdateSound()
 {
     SkySoundObj* m_pkActiveSoundList;
     SL* pCurrentNode = (SL*)m_pSkySounds;
@@ -1271,8 +1271,8 @@ void FUN_0063d5e0_shell::FUN_0063d5e0()
         pCurrentNode = pSaveList;
         DAT_011ccd04 = false;
     }
-    if (((SkyEx*)this)->FUN_00634870())
-        ((SkyEx*)this)->FUN_0063ddb0(m_pRegionWeather);
+    if (((SkyEx*)this)->GetWeatherUpdateFlag())
+        ((SkyEx*)this)->ActivateWeatherSounds(m_pRegionWeather);
     while (pCurrentNode && (m_pkActiveSoundList = *pCurrentNode->FUN_006815c0()))
     {
         if (!m_pkActiveSoundList->hSound.IsValid())
@@ -1400,11 +1400,11 @@ unsigned short FUN_0063e940_shell::FUN_0063e940()
 
 struct FUN_0063bc60_shell
 {
-    int FUN_0063bc60(int b, int a);
+    int GetCloudColor(int b, int a);
 };
 
 // @fnv 0x0063bc60
-int FUN_0063bc60_shell::FUN_0063bc60(int iIndex, int a)
+int FUN_0063bc60_shell::GetCloudColor(int iIndex, int a)
 {
     int color;
     if (a == 1)
@@ -1592,12 +1592,12 @@ class FUN_00634930_cls
     int unk04;
     ElemA_b9476 m_08[4];
     ElemA_b9476 m_18[4];
-    void FUN_00634930();
+    void ClearTransTextures();
 };
 
 // For each item, clears m_18[i], and if m_08[i] passes Test, looks up its resolved element and resets the result's flag and scale.
 // @fnv 0x00634930
-void FUN_00634930_cls::FUN_00634930()
+void FUN_00634930_cls::ClearTransTextures()
 {
     for (int i = 0; i < CountItems(); i++)
     {
@@ -1672,7 +1672,7 @@ struct FogClouds
 };
 struct FogWeather
 {
-    float FUN_0063c420(int);
+    float GetFogData(int);
 };
 struct FogWater
 {
@@ -1832,14 +1832,14 @@ struct FogSky
     FogCelestial* FUN_007af430();
     FogCelestial* FUN_0045cd60();
     float FUN_0063b9b0();
-    float FUN_00595f50();
-    float FUN_00595fc0();
+    float GetSunriseEnd();
+    float GetSunsetBegin();
     float FUN_0063ba30();
     void FUN_0063c690(FogVector*, FogBlend*, float);
-    void FUN_0063bce0();
+    void UpdateFog();
 };
 int FUN_0063c470();
-bool FUN_004e2180();
+bool GetPlayerUnderwater();
 bool FUN_004e3c40();
 FogCamera* FUN_0045c670();
 float FUN_0063c480();
@@ -1852,10 +1852,10 @@ extern FogSetting DAT_01203144;
 extern const double DAT_01012070, DAT_01011588, DAT_01012060, DAT_0103a480, DAT_0104ee90;
 extern const float DAT_010317c4;
 // @fnv 0x0063bce0
-void FogSky::FUN_0063bce0()
+void FogSky::UpdateFog()
 {
     FogWater* water = (FogWater*)FUN_0063c470();
-    if (FUN_004e2180() || FUN_004e3c40())
+    if (GetPlayerUnderwater() || FUN_004e3c40())
     {
         float height = FUN_0045c670()->FUN_00558310()->FUN_0045bb80().z;
         if (water && (FUN_004e3c40() || height < DAT_011dea3c->FUN_008d6f30()->FUN_005471e0()))
@@ -1895,8 +1895,8 @@ void FogSky::FUN_0063bce0()
     if (currentWeather && (mode == 3 || mode == 2))
     {
         float sunriseStart1411 = FUN_0063b9b0();
-        float sunriseEnd119 = FUN_00595f50();
-        float sunsetStart2312 = FUN_00595fc0();
+        float sunriseEnd119 = GetSunriseEnd();
+        float sunsetStart2312 = GetSunsetBegin();
         float sunsetEnd544 = FUN_0063ba30();
         float day1270;
         if (hour > sunriseStart1411 && hour < sunriseEnd119)
@@ -1908,20 +1908,20 @@ void FogSky::FUN_0063bce0()
         else
             day1270 = 0.0f;
         float night12 = 1.0f - day1270;
-        nearDistance = currentWeather->FUN_0063c420(0) * day1270 + currentWeather->FUN_0063c420(2) * night12;
-        farDistance = currentWeather->FUN_0063c420(1) * day1270 + currentWeather->FUN_0063c420(3) * night12;
-        power = currentWeather->FUN_0063c420(4) * day1270 + currentWeather->FUN_0063c420(5) * night12;
+        nearDistance = currentWeather->GetFogData(0) * day1270 + currentWeather->GetFogData(2) * night12;
+        farDistance = currentWeather->GetFogData(1) * day1270 + currentWeather->GetFogData(3) * night12;
+        power = currentWeather->GetFogData(4) * day1270 + currentWeather->GetFogData(5) * night12;
         if (lastWeather)
         {
             nearDistance *= transition;
             nearDistance +=
-                (1.0f - transition) * (lastWeather->FUN_0063c420(0) * day1270 + lastWeather->FUN_0063c420(2) * night12);
+                (1.0f - transition) * (lastWeather->GetFogData(0) * day1270 + lastWeather->GetFogData(2) * night12);
             farDistance *= transition;
             farDistance +=
-                (1.0f - transition) * (lastWeather->FUN_0063c420(1) * day1270 + lastWeather->FUN_0063c420(3) * night12);
+                (1.0f - transition) * (lastWeather->GetFogData(1) * day1270 + lastWeather->GetFogData(3) * night12);
             power *= transition;
             power +=
-                (1.0f - transition) * (lastWeather->FUN_0063c420(4) * day1270 + lastWeather->FUN_0063c420(5) * night12);
+                (1.0f - transition) * (lastWeather->GetFogData(4) * day1270 + lastWeather->GetFogData(5) * night12);
         }
     }
     else if (mode == 1 && DAT_011dea10 && DAT_011dea10->FUN_005f36f0())
@@ -1999,7 +1999,7 @@ struct Property
 };
 struct Visible
 {
-    void FUN_00635fe0(bool);
+    void SetDisplayObject(bool);
 };
 struct Cloud
 {
@@ -2023,13 +2023,13 @@ struct Model
 struct Weather
 {
     void* FUN_0063cfe0();
-    Model* FUN_0063cfa0(int);
-    bool FUN_0063d000();
-    bool FUN_0063d020();
+    Model* GetTexture(int);
+    bool GetUsesMasser();
+    bool GetUsesSecunda();
 };
 struct Atmosphere
 {
-    void FUN_0063fdb0(void*);
+    void LoadGeometry(void*);
 };
 struct Particle
 {
@@ -2163,21 +2163,21 @@ struct Sky
     unsigned int unk110;
     unsigned int unk114;
     unsigned int flags;
-    void FUN_0063ca20();
+    void HandleClimateChange();
 };
 // @fnv 0x0063ca20
-void Sky::FUN_0063ca20()
+void Sky::HandleClimateChange()
 {
     if (flags & 0x40)
     {
         if (atmosphere && (mode == 3 || mode == 2))
-            atmosphere->FUN_0063fdb0(weather->FUN_0063cfe0());
+            atmosphere->LoadGeometry(weather->FUN_0063cfe0());
         if (cloud && (mode == 3 || mode == 2))
         {
             String name;
             Texture* texture = cloud->FUN_006fa820(3)->FUN_00a59d30();
             Object* objectSlot0 = 0;
-            Model* modelSlot14 = weather->FUN_0063cfa0(0);
+            Model* modelSlot14 = weather->GetTexture(0);
             if (modelSlot14 && modelSlot14->FUN_0048cee0())
             {
                 Pointer pointer(0);
@@ -2188,9 +2188,9 @@ void Sky::FUN_0063ca20()
                 if (objectSlot0)
                     texture->FUN_006348e0(objectSlot0);
             }
-            cloud->FUN_005585e0()->FUN_00635fe0(objectSlot0 != 0);
+            cloud->FUN_005585e0()->SetDisplayObject(objectSlot0 != 0);
             texture = cloud->FUN_0063d040(3)->FUN_00a59d30();
-            modelSlot14 = weather->FUN_0063cfa0(1);
+            modelSlot14 = weather->GetTexture(1);
             if (modelSlot14 && modelSlot14->FUN_0048cee0())
             {
                 if (!DAT_011f941e && !FUN_00404dc0(modelSlot14->FUN_00408da0(), &DAT_0102d7c4))
@@ -2206,28 +2206,28 @@ void Sky::FUN_0063ca20()
                 if (objectSlot0)
                     texture->FUN_006348e0(objectSlot0);
             }
-            cloud->FUN_0043b230()->FUN_00635fe0(objectSlot0 != 0);
+            cloud->FUN_0043b230()->SetDisplayObject(objectSlot0 != 0);
         }
-        if (weather->FUN_0063d000() && !rain)
+        if (weather->GetUsesMasser() && !rain)
         {
             rain = new Particle(&DAT_0104eeb0, *DAT_011cccb8.FUN_00403e20(), *DAT_011ccc94.FUN_00403e20(),
                                 *DAT_011ccba4.FUN_00403e20(), *DAT_011ccbfc.FUN_00403e20(),
                                 *DAT_011ccc54.FUN_00403e20(), *DAT_011ccc18.FUN_0043d4d0());
             rain->Attach(root.FUN_00559450(), &DAT_0104eeb0);
         }
-        else if (!weather->FUN_0063d000())
+        else if (!weather->GetUsesMasser())
         {
             delete rain;
             rain = 0;
         }
-        if (weather->FUN_0063d020() && !snow)
+        if (weather->GetUsesSecunda() && !snow)
         {
             snow = new Particle(&DAT_0104eea8, *DAT_011ccb98.FUN_00403e20(), *DAT_011ccbe8.FUN_00403e20(),
                                 *DAT_011ccc64.FUN_00403e20(), *DAT_011ccbcc.FUN_00403e20(),
                                 *DAT_011ccc7c.FUN_00403e20(), *DAT_011cccec.FUN_0043d4d0());
             snow->Attach(root.FUN_00559450(), &DAT_0104eea8);
         }
-        else if (!weather->FUN_0063d020())
+        else if (!weather->GetUsesSecunda())
         {
             delete snow;
             snow = 0;
@@ -2326,7 +2326,7 @@ class Node139
 {
   public:
     Property139* FUN_00a59d30(unsigned int);
-    void FUN_00635fe0(bool);
+    void SetDisplayObject(bool);
 };
 class Model139
 {
@@ -2344,7 +2344,7 @@ class Model139
 class Weather139
 {
   public:
-    Model139* FUN_006347a0(int);
+    Model139* GetCloudTexture(int);
 };
 class Clouds139
 {
@@ -2372,13 +2372,13 @@ class Sun139
 class Climate139
 {
   public:
-    Model139* FUN_0063cfa0(int);
+    Model139* GetTexture(int);
     int FUN_0063cfe0();
 };
 class Stars139
 {
   public:
-    void FUN_0063fdb0(int);
+    void LoadGeometry(int);
 };
 class Save139
 {
@@ -2397,10 +2397,10 @@ int __cdecl FUN_00404dc0(const char*, const char*);
 extern unsigned char DAT_011f941e;
 struct FUN_0063e2f0_shell : Sky
 {
-    void FUN_0063e2f0();
+    void ReloadAllTextures();
 };
 // @fnv 0x0063e2f0
-void FUN_0063e2f0_shell::FUN_0063e2f0()
+void FUN_0063e2f0_shell::ReloadAllTextures()
 {
     AutoMemContext mem(MEM_CONTEXT_MEM_CONTEXT_SKY, true,
                        "D:\\_Fallout3\\Platforms\\Common\\Code\\Fallout Shared\\Sky\\Sky.cpp", 2268);
@@ -2408,12 +2408,12 @@ void FUN_0063e2f0_shell::FUN_0063e2f0()
     {
         for (int i = 0; i < ((Clouds139*)m_pClouds)->GetOffset58(); i++)
         {
-            if (((Weather139*)m_pRegionWeather)->FUN_006347a0(i) &&
-                ((Weather139*)m_pRegionWeather)->FUN_006347a0(i)->FUN_0048cee0())
+            if (((Weather139*)m_pRegionWeather)->GetCloudTexture(i) &&
+                ((Weather139*)m_pRegionWeather)->GetCloudTexture(i)->FUN_0048cee0())
             {
                 BSStringT<char> path;
-                FUN_00406f60(&path, "%s%s", ((Weather139*)m_pRegionWeather)->FUN_006347a0(i)->Path(),
-                             ((Weather139*)m_pRegionWeather)->FUN_006347a0(i)->FUN_00408da0());
+                FUN_00406f60(&path, "%s%s", ((Weather139*)m_pRegionWeather)->GetCloudTexture(i)->Path(),
+                             ((Weather139*)m_pRegionWeather)->GetCloudTexture(i)->FUN_00408da0());
                 if (FUN_00456a20(path.String(), 0, 0, -1) && ((Clouds139*)m_pClouds)->FUN_0063c440(i)->FUN_00a59d30(5))
                 {
                     NiPointer<Texture139> texture(0);
@@ -2431,7 +2431,7 @@ void FUN_0063e2f0_shell::FUN_0063e2f0()
         Texture139* tex = prop;
         if (tex)
             ptr->FUN_006348e0(tex);
-        ((Moon139*)m_pPrimaryMoon)->node->FUN_00635fe0(tex != 0);
+        ((Moon139*)m_pPrimaryMoon)->node->SetDisplayObject(tex != 0);
         ((Moon139*)m_pPrimaryMoon)->phase = 2;
     }
     if (m_pSecondaryMoon)
@@ -2442,7 +2442,7 @@ void FUN_0063e2f0_shell::FUN_0063e2f0()
         Texture139* tex = prop;
         if (tex)
             ptr->FUN_006348e0(tex);
-        ((Moon139*)m_pSecondaryMoon)->node->FUN_00635fe0(tex != 0);
+        ((Moon139*)m_pSecondaryMoon)->node->SetDisplayObject(tex != 0);
         ((Moon139*)m_pSecondaryMoon)->phase = 2;
     }
     if (m_pSun && m_pCurrentClimate)
@@ -2451,7 +2451,7 @@ void FUN_0063e2f0_shell::FUN_0063e2f0()
         Property139* ptr = ((Sun139*)m_pSun)->FUN_006fa820()->FUN_00a59d30(3);
         Texture139* tex = 0;
         NiPointer<Texture139> prop(0);
-        Model139* model = ((Climate139*)m_pCurrentClimate)->FUN_0063cfa0(0);
+        Model139* model = ((Climate139*)m_pCurrentClimate)->GetTexture(0);
         if (model && model->FUN_0048cee0())
         {
             path = model->Path();
@@ -2461,9 +2461,9 @@ void FUN_0063e2f0_shell::FUN_0063e2f0()
             if (tex)
                 ptr->FUN_006348e0(tex);
         }
-        ((Sun139*)m_pSun)->FUN_005585e0()->FUN_00635fe0(tex != 0);
+        ((Sun139*)m_pSun)->FUN_005585e0()->SetDisplayObject(tex != 0);
         ptr = ((Sun139*)m_pSun)->FUN_0063d040()->FUN_00a59d30(3);
-        model = ((Climate139*)m_pCurrentClimate)->FUN_0063cfa0(0);
+        model = ((Climate139*)m_pCurrentClimate)->GetTexture(0);
         if (model && model->FUN_0048cee0())
         {
             if (!DAT_011f941e && !FUN_00404dc0(model->FUN_00408da0(), "Sky\\SunGlare.dds"))
@@ -2479,10 +2479,10 @@ void FUN_0063e2f0_shell::FUN_0063e2f0()
             if (tex)
                 ptr->FUN_006348e0(tex);
         }
-        ((Sun139*)m_pSun)->FUN_0043b230()->FUN_00635fe0(tex != 0);
+        ((Sun139*)m_pSun)->FUN_0043b230()->SetDisplayObject(tex != 0);
     }
     if (m_pStars && m_pCurrentClimate)
-        ((Stars139*)m_pStars)->FUN_0063fdb0(((Climate139*)m_pCurrentClimate)->FUN_0063cfe0());
+        ((Stars139*)m_pStars)->LoadGeometry(((Climate139*)m_pCurrentClimate)->FUN_0063cfe0());
 }
 
 namespace fnv_0063ef20 {
@@ -2547,8 +2547,8 @@ struct WeatherX
 };
 
 void* __cdecl FUN_00532ff0();
-float __fastcall FUN_00595f50(Sky*);
-float __fastcall FUN_00595fc0(Sky*);
+float __fastcall GetSunriseEnd(Sky*);
+float __fastcall GetSunsetBegin(Sky*);
 void __cdecl FNV_Warning(const char*, ...);
 extern char DAT_0104ee38;
 
@@ -2608,8 +2608,8 @@ void FUN_0063ef20_shell::FUN_0063ef20()
                 p = false;
                 tmp = 1.0f;
                 val = ((FUN_0063b9b0_shell*)this)->FUN_0063b9b0();
-                tB = FUN_00595f50(this);
-                y = FUN_00595fc0(this);
+                tB = GetSunriseEnd(this);
+                y = GetSunsetBegin(this);
                 pct3 = ((FUN_0063ba30_shell*)this)->FUN_0063ba30();
                 if (m_fFogFarDistance > val && m_fFogFarDistance < tB)
                 {
@@ -2872,11 +2872,11 @@ struct ThisCls
     int mf4;
     int mf8;
     NodeList* m_fc;
-    void FUN_0063ddb0(ParamObj* arg);
+    void ActivateWeatherSounds(ParamObj* arg);
 };
 
 // @fnv 0x0063ddb0
-void ThisCls::FUN_0063ddb0(ParamObj* pParamObj)
+void ThisCls::ActivateWeatherSounds(ParamObj* pParamObj)
 {
     if (!pParamObj)
         return;
@@ -2943,13 +2943,13 @@ void FNV_Warning(const char*);
 class SkyHelper : public Sky
 {
   public:
-    float FUN_00595f50();
-    float FUN_00595fc0();
-    void FUN_0063b630(SkyInterpolationData* pData, TESWeather* m_pWeatherObject, float fPct, int* pPhase, int* pNextPhase);
+    float GetSunriseEnd();
+    float GetSunsetBegin();
+    void FillColorBlend(SkyInterpolationData* pData, TESWeather* m_pWeatherObject, float fPct, int* pPhase, int* pNextPhase);
 };
 
 // @fnv 0x0063b630
-void SkyHelper::FUN_0063b630(SkyInterpolationData* pData, TESWeather* m_pWeatherObject, float fPct, int* pPhase,
+void SkyHelper::FillColorBlend(SkyInterpolationData* pData, TESWeather* m_pWeatherObject, float fPct, int* pPhase,
                              int* pNextPhase)
 {
     if (!m_pWeatherObject)
@@ -2967,8 +2967,8 @@ void SkyHelper::FUN_0063b630(SkyInterpolationData* pData, TESWeather* m_pWeather
     float halfSunsetNight5;
 
     fSunrise4 = reinterpret_cast<FUN_0063b9b0_shell*>(this)->FUN_0063b9b0();
-    fDayX = FUN_00595f50();
-    _fSunset = FUN_00595fc0();
+    fDayX = GetSunriseEnd();
+    _fSunset = GetSunsetBegin();
     fNight3 = reinterpret_cast<FUN_0063ba30_shell*>(this)->FUN_0063ba30();
 
     if (m_fFogFarDistance > fSunrise4 && m_fFogFarDistance < fDayX)
@@ -3129,7 +3129,7 @@ class WeatherValues : public TESWeather
 class WeatherRegion
 {
   public:
-    void FUN_004f1050();
+    void UpdateWeather();
 };
 class TESRegionList : public BSSimpleList<WeatherRegion*>
 {
@@ -3165,13 +3165,13 @@ TESForm* FUN_004839c0(unsigned int);
 class SkyWeatherUpdate : public Sky
 {
   public:
-    void FUN_0063d1d0();
+    void UpdateWeather();
     void FUN_0063e860(bool);
 };
 
 // Selects the current weather from the climate, cell or override, updates transition state and fade, and refreshes HDR values.
 // @fnv 0x0063d1d0
-void SkyWeatherUpdate::FUN_0063d1d0()
+void SkyWeatherUpdate::UpdateWeather()
 {
     if (!m_pCurrentClimate)
         return;
@@ -3186,7 +3186,7 @@ void SkyWeatherUpdate::FUN_0063d1d0()
         BSSimpleList<WeatherRegion*>* region = g_dataHandler->FUN_004169d0();
         while (region && region->GetItem())
         {
-            region->GetItem()->FUN_004f1050();
+            region->GetItem()->UpdateWeather();
             region = region->GetNext();
         }
     }
@@ -3451,10 +3451,10 @@ class NiAlphaProperty
     static void* operator new(unsigned int);
     static void operator delete(void*, unsigned int);
     NiAlphaProperty();
-    void FUN_00439340(int);
-    void FUN_00439390(int);
+    void SetSrcBlendMode(int);
+    void SetDestBlendMode(int);
     void FUN_0049ed90(bool);
-    void FUN_00636000(bool);
+    void SetNoSorter(bool);
 };
 struct RootPointer
 {
@@ -3525,10 +3525,10 @@ void ThisCls::FUN_0063a630(NiNode* apRootNode, int arg)
     m2c->Init(m04);
     {
         NiPointer<NiAlphaProperty> alpha = new NiAlphaProperty;
-        alpha->FUN_00439340(6);
-        alpha->FUN_00439390(7);
+        alpha->SetSrcBlendMode(6);
+        alpha->SetDestBlendMode(7);
         alpha->FUN_0049ed90(true);
-        alpha->FUN_00636000(true);
+        alpha->SetNoSorter(true);
         m04->FUN_00439410(alpha);
         alpha = 0;
     }
@@ -3569,13 +3569,13 @@ void FUN_0063bb70_shell::QueryTwoSources(FUN_0063bb70_result* result, FUN_0063bc
     if (first == 0)
         return;
 
-    result->value0 = first->FUN_0063bc60(value, source1->value);
-    result->value1 = first->FUN_0063bc60(value, source2->value);
+    result->value0 = first->GetCloudColor(value, source1->value);
+    result->value1 = first->GetCloudColor(value, source2->value);
 
     if (second != 0)
     {
-        result->value2 = second->FUN_0063bc60(value, source1->value);
-        result->value3 = second->FUN_0063bc60(value, source2->value);
+        result->value2 = second->GetCloudColor(value, source1->value);
+        result->value3 = second->GetCloudColor(value, source2->value);
 
         if (result->value0 == 0)
             result->value0 = result->value2;

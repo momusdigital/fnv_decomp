@@ -22,7 +22,7 @@ struct FUN_00c54d60_shell
 };
 struct FUN_00c54030_shell
 {
-    int __thiscall FUN_00c54030(int param_1);
+    int __thiscall CreateClone(int param_1);
 };
 
 extern char const* const g_012043a4_arg1;
@@ -287,11 +287,11 @@ class NiPSysOwnerA99
 {
   public:
     void CopyMemberData(NiPSysBaseA99* pkDest, void* pvProcess);
-    NiPSysBaseA99* FUN_00a999b0(void* pvProcess);
+    NiPSysBaseA99* CreateClone(void* pvProcess);
 };
 
 // @fnv 0x00a999b0
-NiPSysBaseA99* NiPSysOwnerA99::FUN_00a999b0(void* pvProcess)
+NiPSysBaseA99* NiPSysOwnerA99::CreateClone(void* pvProcess)
 {
     NiPSysDerivedA99* pkClone = new NiPSysDerivedA99;
     CopyMemberData(pkClone, pvProcess);

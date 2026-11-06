@@ -197,11 +197,11 @@ struct FUN_00e60730_cls {
     int unk1c;
     Holder* m_p20;
     void** m_p24;
-    void FUN_00e60730(const unsigned short* apIndices, int aiCount, Vec4* apOut);
+    void convertVertexIdsToVerticesImpl(const unsigned short* apIndices, int aiCount, Vec4* apOut);
 };
 
 // @fnv 0x00e60730
-void FUN_00e60730_cls::FUN_00e60730(const unsigned short* apIndices, int aiCount, Vec4* apOut)
+void FUN_00e60730_cls::convertVertexIdsToVerticesImpl(const unsigned short* apIndices, int aiCount, Vec4* apOut)
 {
     Scratch scratch;
     for (int i = aiCount - 1; i >= 0; i--) {

@@ -46,7 +46,7 @@ FUN_009b3fa0::FUN_009b3fa0(bool abFlag) : FUN_009bbc70(abFlag)
 
 struct S4700
 {
-    bool FUN_009c43e0(int, bool);
+    bool TurnOff(int, bool);
     bool FUN_009b4700(int, bool);
     virtual void f0(), f1(), f2(), f3(), f4(), f5(), f6(), f7(), f8(), f9(), f10(), f11(), f12(), f13(), f14(), f15(),
         f16(), f17(), f18(), f19(), f20(), f21(), f22(), f23(), f24(), f25(), f26(), f27(), f28(), f29(), f30(), f31(),
@@ -65,11 +65,11 @@ struct S4700
         f185(), f186(), f187(), f188(), f189(), f190(), f191(), f192(), f193(), f194();
     virtual void At30C();
 };
-// Calls FUN_009c43e0 with the given arguments, then invokes At30C, returning the result of the first call.
+// Calls TurnOff with the given arguments, then invokes At30C, returning the result of the first call.
 // @fnv 0x009b4700
 bool S4700::FUN_009b4700(int aiArg, bool b)
 {
-    bool r = FUN_009c43e0(aiArg, b);
+    bool r = TurnOff(aiArg, b);
     At30C();
     return r;
 }
@@ -1323,7 +1323,7 @@ struct Resource
 struct EventStatus
 {
 
-    bool FUN_004fd360();
+    bool GetHasExplosion();
 
     bool FUN_00975300();
 
@@ -1539,7 +1539,7 @@ bool ImpactProjectile::ProcessHits()
             if (!aTarget || !(aTarget->FUN_0044ddc0() & 0x20))
             {
 
-                if (!FUN_004181e0()->FUN_004fd360() || FUN_004181e0()->FUN_00975300() || FUN_004181e0()->FUN_005de080())
+                if (!FUN_004181e0()->GetHasExplosion() || FUN_004181e0()->FUN_00975300() || FUN_004181e0()->FUN_005de080())
                 {
 
                     if (!aChanged)

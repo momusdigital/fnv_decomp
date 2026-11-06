@@ -114,11 +114,11 @@ void* __fastcall InitEscortPackageData(void* thisPtr)
 
 struct FUN_009f2a30_shell : public PatrolActorPackageData
 {
-    int FUN_009f2a30();
+    int GetPackageType();
 };
 
 // @fnv 0x009f2a30
-int FUN_009f2a30_shell::FUN_009f2a30()
+int FUN_009f2a30_shell::GetPackageType()
 {
     return 0xd;
 }
@@ -539,11 +539,11 @@ struct BSSimpleArray
 };
 struct FUN_009f33d0_shell
 {
-    void FUN_009f33d0(BGSSaveFormBuffer* apSaveGameBuffer);
+    void SaveGame(BGSSaveFormBuffer* apSaveGameBuffer);
 };
 
 // @fnv 0x009f33d0
-void FUN_009f33d0_shell::FUN_009f33d0(BGSSaveFormBuffer* apSaveGameBuffer)
+void FUN_009f33d0_shell::SaveGame(BGSSaveFormBuffer* apSaveGameBuffer)
 {
     apSaveGameBuffer->SaveData((char*)this + 0x4, 4, 0);
     apSaveGameBuffer->SaveData((char*)this + 0x8, 4, 0);

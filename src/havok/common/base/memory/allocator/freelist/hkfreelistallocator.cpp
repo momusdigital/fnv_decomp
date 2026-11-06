@@ -297,11 +297,11 @@ void FUN_00d5f970_cls::FUN_00d5f970(int a)
 
 struct FUN_00d5fba0_cls
 {
-    int FUN_00d5fba0();
+    int getMemorySoftLimit();
 };
 
 // @fnv 0x00d5fba0
-int FUN_00d5fba0_cls::FUN_00d5fba0()
+int FUN_00d5fba0_cls::getMemorySoftLimit()
 {
     return *(int*)((char*)this + 0xa94);
 }
@@ -1351,7 +1351,7 @@ struct DynamicMemoryAllocator
 
     int m_a94;
 
-    void FUN_00d5fd70(void** apOut, int aCount, int aSize);
+    void blockAllocBatch(void** apOut, int aCount, int aSize);
 };
 
 struct ScopedCs
@@ -1361,7 +1361,7 @@ struct ScopedCs
 };
 
 // @fnv 0x00d5fd70
-void DynamicMemoryAllocator::FUN_00d5fd70(void** apOut, int aCount, int aSize)
+void DynamicMemoryAllocator::blockAllocBatch(void** apOut, int aCount, int aSize)
 {
     ScopedCs guard;
     guard.owner = this;
@@ -1645,12 +1645,12 @@ class hkFreeListAllocatorW
     hkFreeListW* m_pFreeLists[41];
     int m_iFreeListCount;
 
-    int FUN_00d600c0(hkMemoryWalkCallback callback, void* param);
+    int walkMemory(hkMemoryWalkCallback callback, void* param);
 };
 
 // Collects free-list nodes, calls callback for other large-block chunks, then asks each free list to invoke its callback.
 // @fnv 0x00d600c0
-int hkFreeListAllocatorW::FUN_00d600c0(hkMemoryWalkCallback callback, void* apContext)
+int hkFreeListAllocatorW::walkMemory(hkMemoryWalkCallback callback, void* apContext)
 {
     int numBlocks = 0;
     for (int i = 0; i < m_iFreeListCount; i++)
@@ -1787,12 +1787,12 @@ struct FUN_00d5f980_cls
     int unk0e8;
     PoolFreeList* m_apLists[41];
 
-    void FUN_00d5f980(void* apBlock, int aiNumBytes);
+    void blockFree(void* apBlock, int aiNumBytes);
 };
 
 // Returns apBlock to the pool free list for sizes up to 0x280 bytes, or to m_kFallback for larger sizes, updating m_iTotal.
 // @fnv 0x00d5f980
-void FUN_00d5f980_cls::FUN_00d5f980(void* apBlock, int aiNumBytes)
+void FUN_00d5f980_cls::blockFree(void* apBlock, int aiNumBytes)
 {
     if (apBlock == 0)
         return;
@@ -2492,12 +2492,12 @@ struct S_00d5fb70
     int unkA8C;
     int unkA90;
     int unkA94;
-    void FUN_00d5fb70(int value);
+    void setMemorySoftLimit(int value);
 };
 
 // Sets unkA94 to value while holding m_kCriticalSection.
 // @fnv 0x00d5fb70
-void S_00d5fb70::FUN_00d5fb70(int value)
+void S_00d5fb70::setMemorySoftLimit(int value)
 {
     EnterCriticalSection(&m_kCriticalSection);
     unkA94 = value;
@@ -2506,7 +2506,7 @@ void S_00d5fb70::FUN_00d5fb70(int value)
 
 // ---- stand-in models of the objects the original code touches -------------
 // The unit file only names hkFreeListAllocator, so the layout below is
-// derived from the disassembly of FUN_00d5f750 itself.
+// derived from the disassembly of getMemoryStatistics itself.
 
 struct HkFLA_CritSec
 {  // +0x04 : a CRITICAL_SECTION
@@ -2591,12 +2591,12 @@ struct HkFLA_StandIn
     HkFLA_Sub f28;             // +0x28
     HkFLA_Elem* m_pElems[41];  // +0x190
     int m_uiItemCount;         // +0x234
-    void FUN_00d5f750(HkFLA_Stats* out);
+    void getMemoryStatistics(HkFLA_Stats* out);
 };
 
 // Gathers aggregate statistics from all elements into out while holding the critical section.
 // @fnv 0x00d5f750
-void HkFLA_StandIn::FUN_00d5f750(HkFLA_Stats* apStats)
+void HkFLA_StandIn::getMemoryStatistics(HkFLA_Stats* apStats)
 {
     HkFLA_CritSec* cs = &m_cs;
     EnterCriticalSection((void*)cs);
@@ -2738,12 +2738,12 @@ struct AllocModel
     ItemObj* m_items[41];
     int m_uiItemCount;
 
-    bool* __thiscall FUN_00d5f890(bool* __restrict p);
+    bool* __thiscall isOk(bool* __restrict p);
 };
 
 // Locks m_cs, sets *p to 1, calls each item's method until its output byte is zero, then returns p.
 // @fnv 0x00d5f890
-bool* __thiscall AllocModel::FUN_00d5f890(bool* __restrict pbSuccess)
+bool* __thiscall AllocModel::isOk(bool* __restrict pbSuccess)
 {
     EnterCriticalSection(&m_cs);
     *pbSuccess = 1;
@@ -2883,12 +2883,12 @@ struct FUN_00d5fac0_cls
     int unk18C;
     FUN_00d5fac0_item* m_items[41];
     int m_uiItemCount;
-    void FUN_00d5fac0();
+    void garbageCollect();
 };
 
 // Locks m_lock, iterates m_items calling FUN_00dd7360 and accumulating m_1c, retrying while flag and retry are set, then calls m_28.FUN_00dd8790.
 // @fnv 0x00d5fac0
-void FUN_00d5fac0_cls::FUN_00d5fac0()
+void FUN_00d5fac0_cls::garbageCollect()
 {
     void* cs = &m_lock;
     EnterCriticalSection(cs);
@@ -2927,7 +2927,7 @@ struct CRITICAL_SECTION
     unsigned long SpinCount;
 };
 
-// Stand-in for the Fallout: New Vegas pool allocator that owns FUN_00d5fca0.
+// Stand-in for the Fallout: New Vegas pool allocator that owns bufAlloc.
 
 void __cdecl FUN_00d88040(int);
 
@@ -3076,12 +3076,12 @@ struct hkPool
     int unka6c, unka70, unka74, unka78, unka7c, unka80;
     int unka84, unka88, unka8c, unka90;
     unsigned int m_pFreeList;  // +0xa94
-    void* FUN_00d5fca0(int* p);
+    void* bufAlloc(int* p);
 };
 
 // Allocates a block of the requested size from the pool's free list, bump allocator, or large allocator, and updates the high-water mark for free memory.
 // @fnv 0x00d5fca0
-void* hkPool::FUN_00d5fca0(int* apSize)
+void* hkPool::bufAlloc(int* apSize)
 {
     int size = *apSize;
     EnterCriticalSection(&this->m_lock);
@@ -3137,12 +3137,12 @@ struct QuitLargeBlockView
 
 struct QuitAllocator : hkFreeListAllocatorW
 {
-    void FUN_00d5ff50();
+    void quit();
 };
 
 // Frees each non-null free list, nulls later matching pointers, then calls the large-block allocator's cleanup.
 // @fnv 0x00d5ff50
-void QuitAllocator::FUN_00d5ff50()
+void QuitAllocator::quit()
 {
     if (m_iFreeListCount > 0)
     {
@@ -3190,7 +3190,7 @@ struct EmbeddedMember
 struct FUN_00d5ffd0_class
 {
     void* vtable;
-    void __thiscall FUN_00d5ff50();
+    void __thiscall quit();
     void __thiscall FUN_00cbf1a0();
     void __thiscall FUN_00d5ffd0();
 };
@@ -3199,7 +3199,7 @@ struct FUN_00d5ffd0_class
 void FUN_00d5ffd0_class::FUN_00d5ffd0()
 {
     vtable = &DAT_010d1464;
-    FUN_00d5ff50();
+    quit();
     EmbeddedItem* end = reinterpret_cast<EmbeddedItem*>(reinterpret_cast<char*>(this) + 0xa94);
     for (int i = 40; i >= 0; --i)
     {

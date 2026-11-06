@@ -121,11 +121,11 @@ struct RegionPoint
 
 struct FUN_004a40a0_Class
 {
-    float FUN_004a40a0();
+    float GetDecalMinWidth();
 };
 
 // @fnv 0x004a40a0
-float FUN_004a40a0_Class::FUN_004a40a0()
+float FUN_004a40a0_Class::GetDecalMinWidth()
 {
     return ((RegionPoint*)((char*)this + 0x54))->GetX();
 }
@@ -679,12 +679,12 @@ extern double g_d100;
 
 struct FUN_004be080_Class
 {
-    float FUN_004be080();
+    float GetCalculatedArmorRating();
 };
 
 // Returns the unsigned short at offset 0x178 divided by g_d100, cast to float.
 // @fnv 0x004be080
-float FUN_004be080_Class::FUN_004be080()
+float FUN_004be080_Class::GetCalculatedArmorRating()
 {
     return (float)((double)*(unsigned short*)((char*)this + 0x178) / g_d100);
 }
@@ -1057,11 +1057,11 @@ void* __thiscall FUN_004b9980_Class::FUN_004b9980(unsigned int flags)
 
 struct FUN_004a0e50_Class
 {
-    bool __thiscall FUN_004a0e50();
+    bool __thiscall GetInsideFrameState();
 };
 // Returns true when the int at offset 0x200 of this object equals 1 or 2.
 // @fnv 0x004a0e50
-bool __thiscall FUN_004a0e50_Class::FUN_004a0e50()
+bool __thiscall FUN_004a0e50_Class::GetInsideFrameState()
 {
     return *(int*)((char*)this + 0x200) == 1 || *(int*)((char*)this + 0x200) == 2;
 }
@@ -1521,17 +1521,17 @@ struct FUN_004b0da0_Class
     void* a;
     void* b;
     int c;
-    void __thiscall FUN_004b0eb0();
+    void __thiscall MakeClones();
     FUN_004b0da0_Class* __thiscall FUN_004b0da0(void* a, void* b);
 };
-// Stores the two given pointers into the object, resets the counter to zero, calls FUN_004b0eb0, and returns this.
+// Stores the two given pointers into the object, resets the counter to zero, calls MakeClones, and returns this.
 // @fnv 0x004b0da0
 FUN_004b0da0_Class* __thiscall FUN_004b0da0_Class::FUN_004b0da0(void* pFirst, void* pSecond)
 {
     this->a = pFirst;
     this->b = pSecond;
     this->c = 0;
-    FUN_004b0eb0();
+    MakeClones();
     return this;
 }
 
@@ -1582,11 +1582,11 @@ struct FUN_004b0eb0_class
 {
     void* f0;
     void* f4;
-    void __thiscall FUN_004b0eb0();
+    void __thiscall MakeClones();
 };
 // If both f0 and f4 are set, obtains an object via GetOrCreateInstance(1) and calls AddKeyedItems with f0 and f4.
 // @fnv 0x004b0eb0
-void __thiscall FUN_004b0eb0_class::FUN_004b0eb0()
+void __thiscall FUN_004b0eb0_class::MakeClones()
 {
     if (f0 && f4)
         ((FUN_004b0910_This*)GetOrCreateInstance(1))->AddKeyedItems(f0, f4);
@@ -1645,7 +1645,7 @@ FUN_004b0fc0_Struct* __thiscall FUN_004b0fc0_Struct::FUN_004b0fc0(unsigned short
 }
 
 // @fnv 0x004b12d0
-int __cdecl FUN_004b12d0(char* pcString)
+int __cdecl IsStringFloat(char* pcString)
 {
     char bDotSeen = 0;
     char c = *pcString;
@@ -1758,7 +1758,7 @@ void* __thiscall Holder_004b9db0::FUN_004b9db0(unsigned int flags)
 
 struct FUN_00418630_Class
 {
-    void* FUN_00418630();
+    void* GetOriginalReference();
 };
 struct FUN_00418600_Class
 {
@@ -1781,7 +1781,7 @@ void __thiscall FUN_004bcbd0_Class::ProcessNodes()
     while (node && *node->_ref_006815c0())
     {
         FUN_004bcbd0_Node* item = (FUN_004bcbd0_Node*)*node->_ref_006815c0();
-        if (item && ((FUN_00418630_Class*)item)->FUN_00418630())
+        if (item && ((FUN_00418630_Class*)item)->GetOriginalReference())
             ((FUN_00418600_Class*)item)->FUN_00418600();
         node = node->GetNext();
     }
@@ -2329,7 +2329,7 @@ struct FUN_004ed900_cls
 };
 
 // @fnv 0x004a42a0
-void __cdecl FUN_004a42a0()
+void __cdecl RemoveAllDecals()
 {
     DAT_011c57e4 = 0;
     DAT_011c57e8 = 0;
@@ -2700,7 +2700,7 @@ Obj2_cls* __cdecl FUN_00450b80(int a);
 void __cdecl FUN_00c69ee0(Ref_cls* p, int a, int b);
 
 // @fnv 0x004ab0c0
-void __cdecl FUN_004ab0c0(Ref_cls* apRef)
+void __cdecl RunBiped3DDetach(Ref_cls* apRef)
 {
     Vt_cls* v;
     if (apRef == 0)
@@ -4051,11 +4051,11 @@ struct Owner4a4
 {
     void* pad[2];
     List4a4 m_kNode;
-    void FUN_004a4340();
+    void ClearPendingQueries();
 };
 
 // @fnv 0x004a4340
-void Owner4a4::FUN_004a4340()
+void Owner4a4::ClearPendingQueries()
 {
     if (m_kNode.FUN_0044ddc0() > 0)
     {
@@ -4103,7 +4103,7 @@ struct Target004a4d40
 extern void* __cdecl FUN_004a5100(float value, NiColorA004a4d40* color);
 
 // @fnv 0x004a4d40
-void* __cdecl FUN_004a4d40(Target004a4d40* pTarget)
+void* __cdecl Copy(Target004a4d40* pTarget)
 {
     {
         void* bResult = 0;
@@ -4190,11 +4190,11 @@ struct ExtraAB
 struct BipedAB
 {
     AVObjAB* FUN_004ab230(int iIndex);
-    void FUN_004ab130(AVObjAB* pkObject);
+    void RecursivelyRemoveAllDecalPlacementVectorDataFromWeaponBone(AVObjAB* pkObject);
 };
 
 // @fnv 0x004ab130
-void BipedAB::FUN_004ab130(AVObjAB* pkObject)
+void BipedAB::RecursivelyRemoveAllDecalPlacementVectorDataFromWeaponBone(AVObjAB* pkObject)
 {
     if (!pkObject)
         return;
@@ -4218,7 +4218,7 @@ void BipedAB::FUN_004ab130(AVObjAB* pkObject)
         if (pkNode)
         {
             for (unsigned int i = 0; i < pkNode->FUN_0043b480(); i++)
-                FUN_004ab130(pkNode->FUN_0043b4a0(i));
+                RecursivelyRemoveAllDecalPlacementVectorDataFromWeaponBone(pkNode->FUN_0043b4a0(i));
         }
     }
 }
@@ -4241,11 +4241,11 @@ struct AGList : AGNode
 struct AGOwner
 {
     AGList* m_pEntries;
-    void* FUN_004bcd10();
+    void* RemoveLeveledItemExtra();
 };
 
 // @fnv 0x004bcd10
-void* AGOwner::FUN_004bcd10()
+void* AGOwner::RemoveLeveledItemExtra()
 {
     AGNode* pNode = m_pEntries;
     void* pResult = 0;

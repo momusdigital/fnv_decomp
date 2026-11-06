@@ -3190,10 +3190,10 @@ void __cdecl FUN_00a420e0(float a0, float a1, float* p2, float a3, float a4, flo
 
 struct FUN_00a44840_stub
 {
-    void* __thiscall FUN_00a44840(unsigned int);
+    void* __thiscall CreateClone(unsigned int);
 };
 // @fnv 0x00a44840
-void* __thiscall FUN_00a44840_stub::FUN_00a44840(unsigned int)
+void* __thiscall FUN_00a44840_stub::CreateClone(unsigned int)
 {
     return this;
 }
@@ -4975,11 +4975,11 @@ struct Owner
     Ref68* m_pkRef68;
     Ref58* m_pkRef58;
 
-    int FUN_00a5f970();
+    int GetHeight();
 };
 
 // @fnv 0x00a5f970
-int Owner::FUN_00a5f970()
+int Owner::GetHeight()
 {
     if (m_pkSource)
         return m_pkSource->m_iValue;

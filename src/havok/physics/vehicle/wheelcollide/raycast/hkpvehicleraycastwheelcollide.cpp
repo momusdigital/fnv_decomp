@@ -24,11 +24,11 @@ struct FUN_00c936a0_host
 
 struct FUN_00e41ef0_self
 {
-    void* FUN_00e41ef0(void* world);
+    void* addToWorld(void* world);
 };
 
 // @fnv 0x00e41ef0
-void* FUN_00e41ef0_self::FUN_00e41ef0(void* world)
+void* FUN_00e41ef0_self::addToWorld(void* world)
 {
     return ((FUN_00c936a0_host*)world)->FUN_00c936a0(*(void**)((char*)this + 0x10));
 }
@@ -63,11 +63,11 @@ struct FUN_00e41e70_host
     void* m_reserved[3];
     FUN_00cf24a0_host* m_pPhantom;
 
-    void FUN_00e41e70(unsigned int shape);
+    void updateBeforeCollisionDetection(unsigned int shape);
 };
 
 // @fnv 0x00e41e70
-void FUN_00e41e70_host::FUN_00e41e70(unsigned int shape)
+void FUN_00e41e70_host::updateBeforeCollisionDetection(unsigned int shape)
 {
     hkAabb aabb;
     this->FUN_00e41034(shape, &aabb);
@@ -80,10 +80,10 @@ struct FUN_00c92c70_host
 };
 struct FUN_00e41f00_self
 {
-    void FUN_00e41f00();
+    void removeFromWorld();
 };
 // @fnv 0x00e41f00
-void FUN_00e41f00_self::FUN_00e41f00()
+void FUN_00e41f00_self::removeFromWorld()
 {
     void* p = *(void**)((char*)this + 0x10);
     ((FUN_00c92c70_host*)*(void**)((char*)p + 8))->FUN_00c92c70(p);
@@ -677,12 +677,12 @@ struct __declspec(align(16)) FUN_00e41eb0_Input
 
 struct FUN_00e41eb0_Host : public hkpVehicleRayCastWheelCollide
 {
-    void __thiscall FUN_00e41eb0(const void* source, void* output);
+    void __thiscall castSingleWheel(const void* source, void* output);
 };
 
 // Builds an input from vectors at source offsets 0x50 and 0x60 (filter info = m_uiWheelCount) and passes it with output to m_pPhantom's FUN_00cf26b0.
 // @fnv 0x00e41eb0
-void __thiscall FUN_00e41eb0_Host::FUN_00e41eb0(const void* source, void* output)
+void __thiscall FUN_00e41eb0_Host::castSingleWheel(const void* source, void* output)
 {
     FUN_00e41eb0_Input input;
     *(__m128*)&input.m_vFrom = *(__m128*)((const char*)source + 0x50);
@@ -778,13 +778,13 @@ struct S00e420c0_Self
     virtual void FinalizeWheelCollisionOutput(const hkpVehicleInstanceE420* vehicle, unsigned char wheelIndex,
                                               CollisionDetectionWheelOutputE420& cdInfo);
 
-    void FUN_00e420c0(float deltaTime, const hkpVehicleInstanceE420* vehicle,
+    void collideWheels(float deltaTime, const hkpVehicleInstanceE420* vehicle,
                       CollisionDetectionWheelOutputE420* cdInfoOut);
 };
 
 // Iterates over vehicle wheels, casts a ray for each, and processes or finalizes the collision output based on whether the ray hit.
 // @fnv 0x00e420c0
-void S00e420c0_Self::FUN_00e420c0(float deltaTime, const hkpVehicleInstanceE420* vehicle,
+void S00e420c0_Self::collideWheels(float deltaTime, const hkpVehicleInstanceE420* vehicle,
                                   CollisionDetectionWheelOutputE420* cdInfoOut)
 {
     const unsigned char numWheels = vehicle->m_data->m_iWheelCount;
@@ -902,7 +902,7 @@ struct FUN_00e42010_self
 
 // Computes the min/max AABB from the m_kBounds of all items in the self->unk48 array, storing the result into aabb.
 // @fnv 0x00e42010
-void __stdcall FUN_00e42010(FUN_00e42010_self* self, hkAabb* aabb)
+void __stdcall calcWheelsAABB(FUN_00e42010_self* self, hkAabb* aabb)
 {
     _mm_store_ps(&aabb->m_data[0], _mm_min_ps(_mm_load_ps(&self->unk48[0].m_kBounds.m_data[0]),
                                               _mm_load_ps(&self->unk48[0].m_kBounds.m_data[4])));
@@ -1043,14 +1043,14 @@ struct S00e42460_RayCastCommand
 class S00e42460_RayCastWheelCollide : public hkpVehicleRayCastWheelCollide
 {
   public:
-    int FUN_00e42460(const S00e42460_VehicleInstance* vehicle, const hkpCollisionFilter* collisionFilter,
+    int buildRayCastCommands(const S00e42460_VehicleInstance* vehicle, const hkpCollisionFilter* collisionFilter,
                      hkInt32 filterSize, S00e42460_RayCastCommand* commandStorage,
                      S00e42460_WorldRayCastOutput* outputStorage) const;
 };
 
 // Sets up one ray-cast command per wheel from the vehicle instance and returns the wheel count, or 0 when no collidables overlap.
 // @fnv 0x00e42460
-int S00e42460_RayCastWheelCollide::FUN_00e42460(const S00e42460_VehicleInstance* vehicle,
+int S00e42460_RayCastWheelCollide::buildRayCastCommands(const S00e42460_VehicleInstance* vehicle,
                                                 const hkpCollisionFilter* collisionFilter, hkInt32 filterSize,
                                                 S00e42460_RayCastCommand* commandStorage,
                                                 S00e42460_WorldRayCastOutput* outputStorage) const

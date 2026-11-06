@@ -350,7 +350,7 @@ struct Owner
     unsigned int unk00, unk04, unk08, unk0c, unk10;
     OutCollection* collection;
     int count;
-    void FUN_00dd55f0(OutRecord* out);
+    void getPrimitives(OutRecord* out);
 };
 
 struct Entry
@@ -370,11 +370,11 @@ struct IntervalSet : Obj_00dd5b00
         hi = m_kNode.m_pData[e.index].m_ranges[axis].m_fHi;
     }
 
-    void FUN_00dd5670(int a1, int axis, Entry* entries, int count, float* outMin, float* outMax);
+    void projectPrimitives(int a1, int axis, Entry* entries, int count, float* outMin, float* outMax);
 };
 
 // @fnv 0x00dd5670
-void IntervalSet::FUN_00dd5670(int a1, int axis, Entry* entries, int count, float* outMin, float* outMax)
+void IntervalSet::projectPrimitives(int a1, int axis, Entry* entries, int count, float* outMin, float* outMax)
 {
     float lo, hi;
     GetRange(entries[0], axis, lo, hi);
@@ -406,10 +406,10 @@ struct Lst
 };
 struct CachedRangeMediator : Obj_00dd5b00
 {
-    void __thiscall FUN_00dd58d0(int unused, int k, Lst* l, int count, float* outMin, float* outMax);
+    void __thiscall findExtents(int unused, int k, Lst* l, int count, float* outMin, float* outMax);
 };
 // @fnv 0x00dd58d0
-void CachedRangeMediator::FUN_00dd58d0(int unused, int k, Lst* l, int count, float* outMin, float* outMax)
+void CachedRangeMediator::findExtents(int unused, int k, Lst* l, int count, float* outMin, float* outMax)
 {
     float mn = m_kNode.m_pData[l->e[0].idx].m_ranges[k].m_fLo;
     float mx = m_kNode.m_pData[l->e[0].idx].m_ranges[k].m_fHi;

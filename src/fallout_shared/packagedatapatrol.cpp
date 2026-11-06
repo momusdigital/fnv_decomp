@@ -209,11 +209,11 @@ void __cdecl AppendChunk(unsigned int id, void* p, unsigned int size);
 
 struct FUN_0067c570_shell
 {
-    void FUN_0067c570();
+    void Save();
 };
 
 // @fnv 0x0067c570
-void FUN_0067c570_shell::FUN_0067c570()
+void FUN_0067c570_shell::Save()
 {
     unsigned char patrolData[2];
     memset(patrolData, 0, 2);
@@ -267,11 +267,11 @@ struct PatrolComparisonEntry67 : TESPatrolPackageData
     virtual ~PatrolComparisonEntry67();
     bool m_bPrimaryComparisonFlag;
     bool m_bSecondaryComparisonFlag;
-    bool FUN_0067c500(TESPackageData* apCompare);
+    bool Compare(TESPackageData* apCompare);
 };
 
 // @fnv 0x0067c500
-bool PatrolComparisonEntry67::FUN_0067c500(TESPackageData* apCompare)
+bool PatrolComparisonEntry67::Compare(TESPackageData* apCompare)
 {
     PatrolComparisonEntry67* pcomp =
         reinterpret_cast<PatrolComparisonEntry67*>(dynamic_cast<TESPatrolPackageData*>(apCompare));
@@ -290,11 +290,11 @@ struct PatrolCopyAccess : TESPatrolPackageData
     virtual ~PatrolCopyAccess();
     bool m_bPrimaryComparisonFlag;
     bool m_bSecondaryComparisonFlag;
-    void FUN_0067c4b0(TESPackageData* apCopy);
+    void CopyFrom(TESPackageData* apCopy);
 };
 // Copies the two boolean fields from a TESPatrolPackageData source into this PatrolCopyAccess instance.
 // @fnv 0x0067c4b0
-void PatrolCopyAccess::FUN_0067c4b0(TESPackageData* apCopy)
+void PatrolCopyAccess::CopyFrom(TESPackageData* apCopy)
 {
     PatrolCopyAccess* pcopy;
     pcopy = reinterpret_cast<PatrolCopyAccess*>(dynamic_cast<TESPatrolPackageData*>(apCopy));

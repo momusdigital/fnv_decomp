@@ -39,10 +39,10 @@ struct MyHolder
 {
     char _pad0[0x44];
     MyConstTable* m_pShaderConstantTable;
-    void FUN_00e89ac0();
+    void DestroyRendererData();
     void ReleaseConstTable();
 };
-// Releases the held const table if present, clears the pointer, then calls FUN_00e89ac0.
+// Releases the held const table if present, clears the pointer, then calls DestroyRendererData.
 // @fnv 0x00e97210
 void MyHolder::ReleaseConstTable()
 {
@@ -51,7 +51,7 @@ void MyHolder::ReleaseConstTable()
         m_pShaderConstantTable->Release();
         m_pShaderConstantTable = 0;
     }
-    FUN_00e89ac0();
+    DestroyRendererData();
 }
 
 struct MyDesc
@@ -396,11 +396,11 @@ struct VS_00e972e0_Shader
     {
         return m_pShaderObject->SetVSF(uiReg, pv, ItemUpdateArray);
     }
-    bool FUN_00e972e0(VS_00e972e0_Entry* pkEntry, const void* pvDataSource, unsigned int uiFlags);
+    bool SetShaderConstant(VS_00e972e0_Entry* pkEntry, const void* pvDataSource, unsigned int uiFlags);
 };
 
 // @fnv 0x00e972e0
-bool VS_00e972e0_Shader::FUN_00e972e0(VS_00e972e0_Entry* pkEntry, const void* pvDataSource, unsigned int uiFlags)
+bool VS_00e972e0_Shader::SetShaderConstant(VS_00e972e0_Entry* pkEntry, const void* pvDataSource, unsigned int uiFlags)
 {
     if (!m_pShaderConstantTable || !m_pD3DPixelShader)
         return false;

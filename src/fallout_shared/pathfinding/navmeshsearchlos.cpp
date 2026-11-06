@@ -531,10 +531,10 @@ struct FUN_006ab180_shell
     SeqObj* m_pkFound;
     SeqObj* m_pkClosest;
     float m_fClosest;
-    bool FUN_006ab180(SeqObj* pkObj);
+    bool IsGoalNode(SeqObj* pkObj);
 };
 // @fnv 0x006ab180
-bool FUN_006ab180_shell::FUN_006ab180(SeqObj* pkObj)
+bool FUN_006ab180_shell::IsGoalNode(SeqObj* pkObj)
 {
     char cLineOfSightValue = ((LOSTarget*)(BSFadeNode*)m_spReferencedObject)
                                  ->GetLOSValue(pkObj->m_kNode.m_pkMesh->FUN_0084e3a0(), pkObj->m_kNode.m_usTriangle);

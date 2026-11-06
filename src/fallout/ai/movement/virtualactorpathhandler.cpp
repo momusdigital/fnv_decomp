@@ -698,11 +698,11 @@ extern "C" float __cdecl FUN_00404010(float, float);
 
 struct FUN_009eb070_shell : VirtualActorPathHandler
 {
-    float FUN_009eb070();
+    float GetDistanceRemaining();
 };
 
 // @fnv 0x009eb070
-float FUN_009eb070_shell::FUN_009eb070()
+float FUN_009eb070_shell::GetDistanceRemaining()
 {
     float flength = ((float*)this)[7] - ((float*)this)[6];
     flength = FUN_00404010(flength, 0.0f);
@@ -789,10 +789,10 @@ struct FUN_009eb0b0_shell
     float m_fPathValue16;
     float m_fPathValue2;
     Flt mFlt;
-    float FUN_009eb0b0();
+    float GetPercentTraveled();
 };
 // @fnv 0x009eb0b0
-float FUN_009eb0b0_shell::FUN_009eb0b0()
+float FUN_009eb0b0_shell::GetPercentTraveled()
 {
     if (!reinterpret_cast<Flt*>(reinterpret_cast<char*>(this) + 0xc)->operator unsigned int())
         return 0.0f;

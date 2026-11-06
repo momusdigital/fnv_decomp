@@ -357,10 +357,10 @@ struct FUN_00d46ca0_Class
     int unk00, unk04;
     Counters* counters;
     int position;
-    State FUN_00d46ca0();
+    State isOk();
 };
 // @fnv 0x00d46ca0
-State FUN_00d46ca0_Class::FUN_00d46ca0()
+State FUN_00d46ca0_Class::isOk()
 {
     State result;
     result.status = position <= (counters->length - 1) * counters->step + counters->base;

@@ -382,12 +382,12 @@ extern float DAT_0104da4c;
 
 struct FUN_00d1e1d0_cls : hkpSphereMotion
 {
-    void FUN_00d1e1d0(int out);
+    void getInertiaLocal(int out);
 };
 
 // Reads m_kInertiaAndMassInv.x (replaced by DAT_0104da4c if below DAT_010c9300) and writes a matrix at out with its reciprocal on the diagonal, zeros elsewhere.
 // @fnv 0x00d1e1d0
-void FUN_00d1e1d0_cls::FUN_00d1e1d0(int out)
+void FUN_00d1e1d0_cls::getInertiaLocal(int out)
 {
     hkReal x = m_kInertiaAndMassInv.x;
     hkReal y = (double)x < DAT_010c9300 ? DAT_0104da4c : x;
@@ -407,12 +407,12 @@ extern "C" __m128 _mm_setzero_ps();
 class SphereInverseWorld : public hkpSphereMotion
 {
   public:
-    void FUN_00d1e3d0(hkMatrix3* out) const;
+    void getInertiaInvWorld(hkMatrix3* out) const;
 };
 
 // Writes a diagonal hkMatrix3 with m_kInertiaAndMassInv.x on the diagonal and zeros elsewhere into out.
 // @fnv 0x00d1e3d0
-void SphereInverseWorld::FUN_00d1e3d0(hkMatrix3* out) const
+void SphereInverseWorld::getInertiaInvWorld(hkMatrix3* out) const
 {
     float inverse = m_kInertiaAndMassInv.x;
     __m128 zero = _mm_setzero_ps();
@@ -430,12 +430,12 @@ extern "C" __m128 _mm_setzero_ps();
 
 struct TestMotion : public hkpSphereMotion
 {
-    void FUN_00d1e390(hkMatrix3& inertiaInvOut);
+    void getInertiaInvLocal(hkMatrix3& inertiaInvOut);
 };
 
 // Zeroes the 3x3 matrix and sets its diagonal entries to the scalar m_kInertiaAndMassInv.x value.
 // @fnv 0x00d1e390
-void TestMotion::FUN_00d1e390(hkMatrix3& inertiaInvOut)
+void TestMotion::getInertiaInvLocal(hkMatrix3& inertiaInvOut)
 {
     hkReal val = m_kInertiaAndMassInv.x;
     __m128 zero = _mm_setzero_ps();

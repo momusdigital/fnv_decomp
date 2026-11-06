@@ -23,7 +23,7 @@ class BSFaceGenManager
     static const char* BuildFaceGenModelPath(BSStringT<char>&, const char*);
 };
 extern BSFaceGenManager* DAT_011d59e8;
-void FUN_006519f0();
+void InitializeSystem();
 extern "C" void* memset(void*, int, unsigned int);
 struct BGSTextureModel
 {

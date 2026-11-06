@@ -64,11 +64,11 @@ struct NiObject
 struct NiSwitchNode : public NiObject
 {
     bool __thiscall FUN_00a5e600(NiObject*);
-    bool __thiscall FUN_00a94000(NiObject*);
+    bool __thiscall IsEqual(NiObject*);
 };
 // Calls FUN_00a5e600, then returns true only if m_0b0 matches and the low bit of m_0ac matches the other object's.
 // @fnv 0x00a94000
-bool __thiscall NiSwitchNode::FUN_00a94000(NiObject* other)
+bool __thiscall NiSwitchNode::IsEqual(NiObject* other)
 {
     if (!FUN_00a5e600(other) || m_0b0 != other->m_0b0 || (m_0ac ^ other->m_0ac) & 1)
         return false;
@@ -322,10 +322,10 @@ struct Target : NiObject
     unsigned int unkBC;
     RefObj** arr;
     unsigned short capacity, length, count;
-    void __thiscall FUN_00a93ca0(RefObj*, RefPtr&);
+    void __thiscall DetachChild(RefObj*, RefPtr&);
 };
 // @fnv 0x00a93ca0
-void Target::FUN_00a93ca0(RefObj* child, RefPtr& out)
+void Target::DetachChild(RefObj* child, RefPtr& out)
 {
     unkB8 = 1;
     unsigned int uiIndex = 0;
@@ -855,11 +855,11 @@ class FUN_00a94130_cls
     SwitchSubX m_bc;
 
     void FUN_00a5ded0(NiUpdateData& upd, bool flag);
-    void FUN_00a94130(NiUpdateData& upd, bool flag);
+    void UpdateSelectedDownwardPass(NiUpdateData& upd, bool flag);
 };
 
 // @fnv 0x00a94130
-void FUN_00a94130_cls::FUN_00a94130(NiUpdateData& upd, bool flag)
+void FUN_00a94130_cls::UpdateSelectedDownwardPass(NiUpdateData& upd, bool flag)
 {
     unsigned char* pUpdBytes = (unsigned char*)&upd;
     m_b4 = upd.fTime;
@@ -1047,12 +1047,12 @@ struct Node_a94440
     volatile int m_b8;
     Arr_a94440 m_kArrBC;
     void FUN_00a5ed10(void* a1, int a2);
-    void FUN_00a94440(void* a1, int a2);
+    void AttachChild(void* a1, int a2);
 };
 
 // Calls FUN_00a5ed10 with the given arguments, sets m_b8 to 1, and appends a null entry to m_kArrBC.
 // @fnv 0x00a94440
-void Node_a94440::FUN_00a94440(void* a1, int a2)
+void Node_a94440::AttachChild(void* a1, int a2)
 {
     FUN_00a5ed10(a1, a2);
     m_b8 = 1;
@@ -1514,11 +1514,11 @@ class SwitchNodeUpdate : public SwitchNodeBase
     unsigned int m_uiRevID;        // +0xb8
     SwitchRevList m_kRevList;      // +0xbc
 
-    void FUN_00a94220(FNV_UpdateFlags* apData, unsigned int auiFlags);
+    void UpdateRigidDownwardPass(FNV_UpdateFlags* apData, unsigned int auiFlags);
 };
 
 // @fnv 0x00a94220
-void SwitchNodeUpdate::FUN_00a94220(FNV_UpdateFlags* apData, unsigned int auiFlags)
+void SwitchNodeUpdate::UpdateRigidDownwardPass(FNV_UpdateFlags* apData, unsigned int auiFlags)
 {
     m_fSwitchValue = apData->time;
     if (m_uiSwitchFlags & 1)

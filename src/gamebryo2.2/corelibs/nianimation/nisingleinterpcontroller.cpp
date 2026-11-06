@@ -182,10 +182,10 @@ struct FUN_00a38df0_shell
     void* m_pe4;
     void* m_pe8;
     void* m_p1e8;
-    void FUN_00a38df0();
+    void TargetIsRequiredType();
 };
 // @fnv 0x00a38df0
-void FUN_00a38df0_shell::FUN_00a38df0()
+void FUN_00a38df0_shell::TargetIsRequiredType()
 {
     ((void(__thiscall*)(void*, void*))(*reinterpret_cast<void***>(this))[0xe8 / 4])(this, m_p2c);
 }
@@ -245,10 +245,10 @@ struct FakeInterpGuarantee
 };
 struct FUN_00a38e90_shell
 {
-    void FUN_00a38e90(float, float);
+    void GuaranteeTimeRange(float, float);
 };
 // @fnv 0x00a38e90
-void FUN_00a38e90_shell::FUN_00a38e90(float m_fStartTime, float m_fMaximumDistance)
+void FUN_00a38e90_shell::GuaranteeTimeRange(float m_fStartTime, float m_fMaximumDistance)
 {
     NiInterpolator* p = ((NiSingleInterpController*)this)->m_spControllerInterpolator;
     if (p)
@@ -372,12 +372,12 @@ void Holder00a390a0::FUN_00a390a0(StrArr* pkStrings)
 
 struct FUN_00a38e40_cls : public NiSingleInterpController
 {
-    void FUN_00a38e40(NiInterpolator* pNew, unsigned int unused);
+    void SetInterpolator(NiInterpolator* pNew, unsigned int unused);
 };
 
 // Replaces the stored interpolator pointer, releasing the old one and incrementing the new one's reference count.
 // @fnv 0x00a38e40
-void FUN_00a38e40_cls::FUN_00a38e40(NiInterpolator* apNewInterpolator, unsigned int unused)
+void FUN_00a38e40_cls::SetInterpolator(NiInterpolator* apNewInterpolator, unsigned int unused)
 {
     NiInterpolator* pOld = m_spControllerInterpolator;
     if (pOld == apNewInterpolator)
@@ -699,11 +699,11 @@ class BSMultiTargetTreadTransfControllerStandIn
     int unk34;
     unsigned short unk38;
 
-    virtual unsigned short FUN_00a35890();
+    virtual unsigned short GetInterpolatorCount();
 };
 
 // @fnv 0x00a35890
-unsigned short BSMultiTargetTreadTransfControllerStandIn::FUN_00a35890()
+unsigned short BSMultiTargetTreadTransfControllerStandIn::GetInterpolatorCount()
 {
     return unk38;
 }

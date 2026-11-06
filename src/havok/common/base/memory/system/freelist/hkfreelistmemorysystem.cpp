@@ -19,7 +19,7 @@ struct FUN_00cd06a0
 {
     void* m_p00;
     FUN_00cd06a0(int aiArg);
-    void FUN_00d2c7a0();
+    void releaseCachedMemory();
     void FUN_00cbf1a0();
 };
 
@@ -27,7 +27,7 @@ struct FUN_00cd06a0
 FUN_00cd06a0::FUN_00cd06a0(int aiArg)
 {
     m_p00 = &DAT_010cacd0;
-    FUN_00d2c7a0();
+    releaseCachedMemory();
     FUN_00cbf1a0();
 }
 
@@ -1655,12 +1655,12 @@ struct CtorLocal
 struct FUN_00cd0b30_cls
 {
     void FUN_00cbc220(int a1, CtorLocal* pLocal);
-    void FUN_00cd0b30(int a1);
+    void printStatistics(int a1);
 };
 
 // Calls FUN_00cc01c0 twice, collects slot pointers and values, passes the local to FUN_00cbc220, then calls its FUN_00cd0c80 method.
 // @fnv 0x00cd0b30
-void FUN_00cd0b30_cls::FUN_00cd0b30(int apTarget)
+void FUN_00cd0b30_cls::printStatistics(int apTarget)
 {
     char* self = (char*)this;
     ((Target_cc01*)apTarget)->FUN_00cc01c0(&str_010cade0);

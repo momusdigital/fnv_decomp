@@ -11,11 +11,11 @@ struct ValueModifierEffect
 
 struct FrenzyEffect : ValueModifierEffect
 {
-    unsigned short __thiscall FUN_0080df90(Actor* apActor);
+    unsigned short __thiscall GetSaveSize(Actor* apActor);
 };
 
 // @fnv 0x0080df90
-unsigned short FrenzyEffect::FUN_0080df90(Actor* apActor)
+unsigned short FrenzyEffect::GetSaveSize(Actor* apActor)
 {
     unsigned short isize = 0;
     isize += ValueModifierEffect::FUN_00802d90(apActor);
@@ -60,11 +60,11 @@ extern TESSaveLoadGame* g_TESSaveLoadGame;
 struct FUN_0080dfd0_shell : ValueModifierEffect
 {
     void __thiscall FUN_00802db0(Actor*);
-    void __thiscall FUN_0080dfd0(Actor* actor);
+    void __thiscall SaveGame(Actor* actor);
 };
 // Calls FUN_00802db0 on the actor, then passes this+0x4c and 1 to TESSaveLoadGame::FUN_008579b0.
 // @fnv 0x0080dfd0
-void __thiscall FUN_0080dfd0_shell::FUN_0080dfd0(Actor* actor)
+void __thiscall FUN_0080dfd0_shell::SaveGame(Actor* actor)
 {
     FUN_00802db0(actor);
     g_TESSaveLoadGame->FUN_008579b0((char*)this + 0x4c, 1);
@@ -82,10 +82,10 @@ struct TESSaveLoadGame
 extern TESSaveLoadGame* g_TESSaveLoadGame;
 struct FUN_0080e000_shell : Base00802dd0
 {
-    void FUN_0080e000(Actor* apActor);
+    void LoadGame(Actor* apActor);
 };
 // @fnv 0x0080e000
-void FUN_0080e000_shell::FUN_0080e000(Actor* apActor)
+void FUN_0080e000_shell::LoadGame(Actor* apActor)
 {
     FUN_00802dd0(apActor);
     g_TESSaveLoadGame->ReadTypedData((char*)this + 0x4c, 1);
@@ -120,11 +120,11 @@ struct FUN_0080dd30_shell : ValueModifierEffect
     void* GetNext();
     Actor* GetOwnerActor() const;
     Actor* GetCasterActor();
-    void FUN_0080dd30();
+    void Start();
 };
 // Calls FUN_0082c000, resolves target and caster, and sets byte at offset 0x4c to 1 when both exist and the target check passes.
 // @fnv 0x0080dd30
-void FUN_0080dd30_shell::FUN_0080dd30()
+void FUN_0080dd30_shell::Start()
 {
     FUN_0082c000();
     Actor* target = GetThreadID() ? ((MagicTarget*)(void*)GetThreadID())->GetOwnerActor() : 0;
@@ -202,11 +202,11 @@ struct EffectCloneSource : ValueModifierEffect
     int unk44;
     int unk48;
     unsigned char flag4c;
-    FrenzyEffectCopy* FUN_0080dbf0();
+    FrenzyEffectCopy* Clone();
 };
 // Allocates a FrenzyEffectCopy from unk28, unk08 and unk0c, copies flag4c into u4c, calls OnClone and returns the copy.
 // @fnv 0x0080dbf0
-FrenzyEffectCopy* EffectCloneSource::FUN_0080dbf0()
+FrenzyEffectCopy* EffectCloneSource::Clone()
 {
     FrenzyEffectCopy* copy = new FrenzyEffectCopy(unk28, unk08, unk0c);
     copy->u4c = flag4c;
@@ -516,12 +516,12 @@ bool FUN_006494d0(int aiLevel, float afMagnitude);
 struct FrenzyCheckEffectView : FrenzyEffect
 {
     float GetFloatAtOffset1C();
-    bool FUN_0080dca0(MagicTarget* apTarget);
+    bool CheckTarget(MagicTarget* apTarget);
 };
 
 // Checks whether apTarget is a valid, non-dead, non-immune character that passes the level and magnitude check for the Frenzy effect.
 // @fnv 0x0080dca0
-bool FrenzyCheckEffectView::FUN_0080dca0(MagicTarget* apTarget)
+bool FrenzyCheckEffectView::CheckTarget(MagicTarget* apTarget)
 {
     FrenzyCheckCharacter* pChar =
         static_cast<FrenzyCheckCharacter*>(FUN_00ec43fb(apTarget, 0, &DAT_011a0ef8, &DAT_011a0f14, 0));

@@ -325,11 +325,11 @@ class NiPSysOwnerA46
 {
   public:
     void CopyMemberData(NiPSysBaseA46* pkDest, void* pvProcess);
-    NiPSysBaseA46* FUN_00a46da0(void* pvProcess);
+    NiPSysBaseA46* CreateClone(void* pvProcess);
 };
 
 // @fnv 0x00a46da0
-NiPSysBaseA46* NiPSysOwnerA46::FUN_00a46da0(void* pvProcess)
+NiPSysBaseA46* NiPSysOwnerA46::CreateClone(void* pvProcess)
 {
     NiPSysDerivedA46* pkClone = new NiPSysDerivedA46;
     CopyMemberData(pkClone, pvProcess);
@@ -537,14 +537,14 @@ class S00a46cf0_Base
 class S00a46cf0_Object : public S00a46cf0_Base
 {
   public:
-    void FUN_00a46cf0(S00a46cf0_Stream& kStream);  // LoadBinary
+    void SaveBinary(S00a46cf0_Stream& kStream);  // LoadBinary
     unsigned int m_uiCount;
     S00a46cf0_Entry* m_pEntries;
 };
 
 // Calls the base LoadBinary, reads m_uiCount from kStream, then loads each of the m_uiCount entries via their LoadBinary method.
 // @fnv 0x00a46cf0
-void S00a46cf0_Object::FUN_00a46cf0(S00a46cf0_Stream& kStream)
+void S00a46cf0_Object::SaveBinary(S00a46cf0_Stream& kStream)
 {
     S00a46cf0_Base::LoadBinary(kStream);
     ReadBinaryValue(kStream, m_uiCount);

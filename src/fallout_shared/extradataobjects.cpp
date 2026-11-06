@@ -1358,13 +1358,13 @@ char FUN_00437bd0_stub::FUN_00437bd0()
 
 struct FUN_00437bf0_shell : public Actor
 {
-    bool FUN_00437bf0();
+    bool IsRestrained();
 };
 
 int __fastcall FUN_004f8960(void*);
 
 // @fnv 0x00437bf0
-bool FUN_00437bf0_shell::FUN_00437bf0()
+bool FUN_00437bf0_shell::IsRestrained()
 {
     return FUN_004f8960(this) == 5 ? true : false;
 }
@@ -1941,7 +1941,7 @@ FUN_00431260::~FUN_00431260()
 
 struct FUN_00437ab0_shell : public ExtraPatrolRefInUseData
 {
-    bool FUN_00437ab0(void*);
+    bool GetCanBeUsedBy(void*);
 };
 
 struct RefX
@@ -2095,12 +2095,12 @@ struct MobileObject : public RefX
 struct ActorX : public MobileObject
 {
     bool FUN_00437bd0();
-    bool FUN_00437bf0();
+    bool IsRestrained();
 };
 TESForm* GetFormByID(unsigned int);
 bool __fastcall FUN_00437bb0(ActorX*);
 // @fnv 0x00437ab0
-bool FUN_00437ab0_shell::FUN_00437ab0(void* apPotentialUser)
+bool FUN_00437ab0_shell::GetCanBeUsedBy(void* apPotentialUser)
 {
     if (apPotentialUser && ((TESForm*)apPotentialUser)->GetFormID() == *(unsigned int*)((char*)this + 0xc))
         return true;
@@ -2113,7 +2113,7 @@ bool FUN_00437ab0_shell::FUN_00437ab0(void* apPotentialUser)
     if (pref->IsX())
     {
         ActorX* pactor = (ActorX*)pref;
-        if (pactor->FUN_00437bf0() || pactor->FUN_00437bd0() ||
+        if (pactor->IsRestrained() || pactor->FUN_00437bd0() ||
             (pactor->GetCurrentProcessLevel() && !FUN_00437bb0(pactor)))
         {
             *(unsigned int*)((char*)this + 0xc) = 0;
@@ -2511,11 +2511,11 @@ extern "C" int memcmp(const void*, const void*, unsigned int);
 struct ExtraPackageStartLocation : BSExtraData
 {
     ExtraPackageStartLocation(unsigned char aEtype);
-    bool FUN_00432770(BSExtraData*);
+    bool Differs(BSExtraData*);
 };
 
 // @fnv 0x00432770
-bool ExtraPackageStartLocation::FUN_00432770(BSExtraData* apCompare)
+bool ExtraPackageStartLocation::Differs(BSExtraData* apCompare)
 {
     ExtraPackageStartLocation* pComp = dynamic_cast<ExtraPackageStartLocation*>(apCompare);
     if (pComp == 0)
@@ -2643,11 +2643,11 @@ bool FUN_00432dd0_shell::CompareRagDollData(BSExtraData* apCompare)
 struct ExtraRandomTeleportMarker : BSExtraData
 {
     TESObjectREFR* pTeleportMarker;
-    bool __thiscall FUN_004334e0(BSExtraData* apCompare);
+    bool __thiscall Differs(BSExtraData* apCompare);
 };
 
 // @fnv 0x004334e0
-bool __thiscall ExtraRandomTeleportMarker::FUN_004334e0(BSExtraData* apCompare)
+bool __thiscall ExtraRandomTeleportMarker::Differs(BSExtraData* apCompare)
 {
     ExtraRandomTeleportMarker* pcomp = dynamic_cast<ExtraRandomTeleportMarker*>(apCompare);
     if (!pcomp)
@@ -2680,11 +2680,11 @@ void* __thiscall ExtraLinkedRefChildren::FUN_004335a0(unsigned int flags)
 struct ExtraLinkedRef : BSExtraData
 {
     TESObjectREFR* m_pLinkedReference;
-    bool __thiscall FUN_00433670(BSExtraData* apCompare);
+    bool __thiscall Differs(BSExtraData* apCompare);
 };
 
 // @fnv 0x00433670
-bool __thiscall ExtraLinkedRef::FUN_00433670(BSExtraData* apCompare)
+bool __thiscall ExtraLinkedRef::Differs(BSExtraData* apCompare)
 {
     ExtraLinkedRef* pcomp = dynamic_cast<ExtraLinkedRef*>(apCompare);
     if (!pcomp)
@@ -2757,11 +2757,11 @@ bool __thiscall ExtraPoison::IsDifferent(BSExtraData* apCompare)
 struct ExtraMultiBoundRef : public BSExtraData
 {
     TESObjectREFR* m_pReference;
-    bool FUN_00435540(BSExtraData* apCompare);
+    bool Differs(BSExtraData* apCompare);
 };
 
 // @fnv 0x00435540
-bool ExtraMultiBoundRef::FUN_00435540(BSExtraData* apCompare)
+bool ExtraMultiBoundRef::Differs(BSExtraData* apCompare)
 {
     ExtraMultiBoundRef* pcomp = dynamic_cast<ExtraMultiBoundRef*>(apCompare);
     if (!pcomp)
@@ -2870,11 +2870,11 @@ struct Str6a70
 struct FUN_00438280_class
 {
     Str6a70 m_str;  // at offset 0x14
-    void FUN_00438280(char const* s);
+    void SetMood(char const* s);
 };
 
 // @fnv 0x00438280
-void FUN_00438280_class::FUN_00438280(char const* acString)
+void FUN_00438280_class::SetMood(char const* acString)
 {
     *(Str6a70*)((char*)this + 0x14) = acString;
 }
@@ -2883,11 +2883,11 @@ struct ExtraSpecialRenderFlags : public BSExtraData
 {
     unsigned int uiFlags;
     float m_fRenderValue;
-    bool FUN_004382a0(BSExtraData* apCompare);
+    bool Differs(BSExtraData* apCompare);
 };
 // Compares against another ExtraSpecialRenderFlags: returns true if the cast fails, base compare matches, form IDs differ, or the float field differs.
 // @fnv 0x004382a0
-bool ExtraSpecialRenderFlags::FUN_004382a0(BSExtraData* apCompare)
+bool ExtraSpecialRenderFlags::Differs(BSExtraData* apCompare)
 {
     ExtraSpecialRenderFlags* pComp;
 
@@ -2993,14 +2993,14 @@ class ExtraStartingPosition : public BSExtraData
 {
   public:
     ExtraStartingPosition();
-    bool FUN_00430850(BSExtraData*);
+    bool Differs(BSExtraData*);
 };
 
 extern "C" int __cdecl _memcmp(const void*, const void*, unsigned int);
 
 // Casts apCompare to ExtraStartingPosition, returns true if the cast fails, the base Compare succeeds, or the 0x18 bytes at offset 0xC differ; otherwise false.
 // @fnv 0x00430850
-bool __thiscall ExtraStartingPosition::FUN_00430850(BSExtraData* apCompare)
+bool __thiscall ExtraStartingPosition::Differs(BSExtraData* apCompare)
 {
     ExtraStartingPosition* pComp = (ExtraStartingPosition*)dynamic_cast<ExtraStartingPosition*>(apCompare);
     if (!pComp)
@@ -3025,11 +3025,11 @@ struct ExtraAudioBuoyMarker : BSExtraData
 {
     ActorValueInfo* m_pActorValueInfo;
     bool Compare(BSExtraData*);
-    bool FUN_00431710(BSExtraData* apCompare);
+    bool Differs(BSExtraData* apCompare);
 };
 
 // @fnv 0x00431710
-bool ExtraAudioBuoyMarker::FUN_00431710(BSExtraData* apCompare)
+bool ExtraAudioBuoyMarker::Differs(BSExtraData* apCompare)
 {
     ExtraAudioBuoyMarker* pComp =
         (ExtraAudioBuoyMarker*)_FNV_DynamicCast(apCompare, 0, &DAT_01183b2c, &DAT_011845b8, 0);
@@ -3073,11 +3073,11 @@ class ExtraHealthPerc : public BSExtraData
     float m_fHealthPercentage;
     ExtraHealthPerc();
     bool Compare(BSExtraData*);
-    bool FUN_00431db0(BSExtraData*);
+    bool Differs(BSExtraData*);
 };
 
 // @fnv 0x00431db0
-bool __thiscall ExtraHealthPerc::FUN_00431db0(BSExtraData* apCompare)
+bool __thiscall ExtraHealthPerc::Differs(BSExtraData* apCompare)
 {
     ExtraHealthPerc* pComp = dynamic_cast<ExtraHealthPerc*>(apCompare);
     if (!pComp)
@@ -3096,11 +3096,11 @@ class ExtraTimeLeft : public BSExtraData
 {
   public:
     float fTime;  // +0x0c
-    bool FUN_00431ef0(BSExtraData*);
+    bool Differs(BSExtraData*);
 };
 
 // @fnv 0x00431ef0
-bool __thiscall ExtraTimeLeft::FUN_00431ef0(BSExtraData* apCompare)
+bool __thiscall ExtraTimeLeft::Differs(BSExtraData* apCompare)
 {
     ExtraTimeLeft* pComp = dynamic_cast<ExtraTimeLeft*>(apCompare);
     if (!pComp)
@@ -3134,11 +3134,11 @@ struct ExtraRadius : BSExtraData
 {
     float fRadius;
     ExtraRadius();
-    virtual bool FUN_00436bd0(BSExtraData*);
+    virtual bool Differs(BSExtraData*);
 };
 
 // @fnv 0x00436bd0
-bool __thiscall ExtraRadius::FUN_00436bd0(BSExtraData* apCompare)
+bool __thiscall ExtraRadius::Differs(BSExtraData* apCompare)
 {
     ExtraRadius* pComp;
     pComp = dynamic_cast<ExtraRadius*>(apCompare);
@@ -3182,7 +3182,7 @@ struct BSExtraData;
 struct ExtraPrimitive : BSExtraData
 {
     BGSPrimitive* m_pPrimitive;
-    bool __thiscall FUN_00437370(BSExtraData* apCompare);
+    bool __thiscall Differs(BSExtraData* apCompare);
 };
 
 extern BGSPrimitive* DAT_011842b0;
@@ -3190,7 +3190,7 @@ extern char DAT_01183b2c;
 
 // Casts apCompare to ExtraPrimitive and returns true if the cast fails or the primitive pointers differ, false otherwise.
 // @fnv 0x00437370
-bool __thiscall ExtraPrimitive::FUN_00437370(BSExtraData* apCompare)
+bool __thiscall ExtraPrimitive::Differs(BSExtraData* apCompare)
 {
     ExtraPrimitive* pcomp = dynamic_cast<ExtraPrimitive*>(apCompare);
     if (!pcomp)
@@ -3349,12 +3349,12 @@ struct FUN_00437a30_Class
     unsigned int m_04;
     unsigned int m_08;
     unsigned int m_0c;
-    bool FUN_00437a30(FUN_00437a30_Class* other);
+    bool Differs(FUN_00437a30_Class* other);
 };
 
 // Returns true when m_0c differs from the other object's m_0c, otherwise false.
 // @fnv 0x00437a30
-bool FUN_00437a30_Class::FUN_00437a30(FUN_00437a30_Class* other)
+bool FUN_00437a30_Class::Differs(FUN_00437a30_Class* other)
 {
     FUN_00437a30_Class* pOther = other;
     if (m_0c != pOther->m_0c)
@@ -3650,10 +3650,10 @@ struct FUN_00431030_BSSimpleArray
 };
 struct FUN_00431030_shell : BSExtraData
 {
-    bool FUN_00431030(BSExtraData* apCompare);
+    bool Differs(BSExtraData* apCompare);
 };
 // @fnv 0x00431030
-bool FUN_00431030_shell::FUN_00431030(BSExtraData* apCompare)
+bool FUN_00431030_shell::Differs(BSExtraData* apCompare)
 {
     if (!Compare(apCompare))
         return true;
@@ -3674,11 +3674,11 @@ bool FUN_00431030_shell::FUN_00431030(BSExtraData* apCompare)
 struct ExtraOriginalReference : BSExtraData
 {
     TESObjectREFR* m_pWorldReferenceInfo;
-    bool FUN_004319d0(BSExtraData* apCompare);
+    bool Differs(BSExtraData* apCompare);
 };
 
 // @fnv 0x004319d0
-bool ExtraOriginalReference::FUN_004319d0(BSExtraData* apCompare)
+bool ExtraOriginalReference::Differs(BSExtraData* apCompare)
 {
     ExtraOriginalReference* pComp = dynamic_cast<ExtraOriginalReference*>(apCompare);
     if (!pComp)
@@ -3693,11 +3693,11 @@ bool ExtraOriginalReference::FUN_004319d0(BSExtraData* apCompare)
 struct ExtraOwnership : BSExtraData
 {
     char* pOwner;
-    bool FUN_00431a70(BSExtraData* apCompare);
+    bool Differs(BSExtraData* apCompare);
 };
 
 // @fnv 0x00431a70
-bool ExtraOwnership::FUN_00431a70(BSExtraData* apCompare)
+bool ExtraOwnership::Differs(BSExtraData* apCompare)
 {
     ExtraOwnership* pComp = dynamic_cast<ExtraOwnership*>(apCompare);
     if (!pComp)
@@ -3712,11 +3712,11 @@ bool ExtraOwnership::FUN_00431a70(BSExtraData* apCompare)
 struct ExtraRank : public BSExtraData
 {
     int m_iRank;
-    bool FUN_00431bb0(BSExtraData* apCompare);
+    bool Differs(BSExtraData* apCompare);
 };
 
 // @fnv 0x00431bb0
-bool ExtraRank::FUN_00431bb0(BSExtraData* apCompare)
+bool ExtraRank::Differs(BSExtraData* apCompare)
 {
     ExtraRank* pComp;
     pComp = dynamic_cast<ExtraRank*>(apCompare);
@@ -3732,10 +3732,10 @@ bool ExtraRank::FUN_00431bb0(BSExtraData* apCompare)
 struct ExtraUses : BSExtraData
 {
     unsigned char m_ucUses;  // +0xc
-    bool FUN_00431e50(BSExtraData* apCompare);
+    bool Differs(BSExtraData* apCompare);
 };
 // @fnv 0x00431e50
-bool ExtraUses::FUN_00431e50(BSExtraData* apCompare)
+bool ExtraUses::Differs(BSExtraData* apCompare)
 {
     ExtraUses* pComp = dynamic_cast<ExtraUses*>(apCompare);
     if (!pComp)
@@ -3750,11 +3750,11 @@ bool ExtraUses::FUN_00431e50(BSExtraData* apCompare)
 struct ExtraCharge : BSExtraData
 {
     float m_fCharge;
-    bool FUN_00431f90(BSExtraData*);
+    bool Differs(BSExtraData*);
 };
 
 // @fnv 0x00431f90
-bool ExtraCharge::FUN_00431f90(BSExtraData* apCompare)
+bool ExtraCharge::Differs(BSExtraData* apCompare)
 {
     ExtraCharge* pComp = dynamic_cast<ExtraCharge*>(apCompare);
     if (!pComp)
@@ -3769,10 +3769,10 @@ bool ExtraCharge::FUN_00431f90(BSExtraData* apCompare)
 struct ExtraWeaponModFlags : BSExtraData
 {
     unsigned char m_ucWeaponModFlags;  // +0xc
-    bool FUN_00432140(BSExtraData*);
+    bool Differs(BSExtraData*);
 };
 // @fnv 0x00432140
-bool ExtraWeaponModFlags::FUN_00432140(BSExtraData* apCompare)
+bool ExtraWeaponModFlags::Differs(BSExtraData* apCompare)
 {
     ExtraWeaponModFlags* pComp = dynamic_cast<ExtraWeaponModFlags*>(apCompare);
     if (!pComp)
@@ -3787,11 +3787,11 @@ bool ExtraWeaponModFlags::FUN_00432140(BSExtraData* apCompare)
 struct ExtraScale : BSExtraData
 {
     float fScale;
-    bool FUN_00432250(BSExtraData* apCompare);
+    bool Differs(BSExtraData* apCompare);
 };
 
 // @fnv 0x00432250
-bool ExtraScale::FUN_00432250(BSExtraData* apCompare)
+bool ExtraScale::Differs(BSExtraData* apCompare)
 {
     ExtraScale* pComp = dynamic_cast<ExtraScale*>(apCompare);
     if (!pComp)
@@ -3841,11 +3841,11 @@ FUN_00432870::FUN_00432870(unsigned int aiData, unsigned int aiFlags, unsigned i
 
 struct ExtraEncounterZone : BSExtraData
 {
-    bool FUN_00432e90(BSExtraData*);
+    bool Differs(BSExtraData*);
 };
 
 // @fnv 0x00432e90
-bool ExtraEncounterZone::FUN_00432e90(BSExtraData* apCompare)
+bool ExtraEncounterZone::Differs(BSExtraData* apCompare)
 {
     ExtraEncounterZone* pcomp = dynamic_cast<ExtraEncounterZone*>(apCompare);
     if (!pcomp)
@@ -4057,11 +4057,11 @@ FUN_00435bb0::~FUN_00435bb0()
 
 struct ExtraRadiation : BSExtraData
 {
-    bool FUN_00436c40(BSExtraData* apCompare);
+    bool Differs(BSExtraData* apCompare);
 };
 // Casts apCompare to ExtraRadiation, returns true if the cast fails, base compare passes, or the float at offset 0xc differs; otherwise false.
 // @fnv 0x00436c40
-bool ExtraRadiation::FUN_00436c40(BSExtraData* apCompare)
+bool ExtraRadiation::Differs(BSExtraData* apCompare)
 {
     ExtraRadiation* pComp = dynamic_cast<ExtraRadiation*>(apCompare);
     if (!pComp)
@@ -4097,10 +4097,10 @@ extern char DAT_01183b2c;
 struct ExtraCombatStyle : BSExtraData
 {
     void* m_pCombatStyle;
-    bool FUN_00437300(BSExtraData* apCompare);
+    bool Differs(BSExtraData* apCompare);
 };
 // @fnv 0x00437300
-bool ExtraCombatStyle::FUN_00437300(BSExtraData* apCompare)
+bool ExtraCombatStyle::Differs(BSExtraData* apCompare)
 {
     ExtraCombatStyle* pComp = dynamic_cast<ExtraCombatStyle*>(apCompare);
     if (!pComp)
@@ -4114,11 +4114,11 @@ bool ExtraCombatStyle::FUN_00437300(BSExtraData* apCompare)
 
 struct ExtraAmmo : BSExtraData
 {
-    bool FUN_004373c0(BSExtraData* apCompare);
+    bool Differs(BSExtraData* apCompare);
 };
 
 // @fnv 0x004373c0
-bool ExtraAmmo::FUN_004373c0(BSExtraData* apCompare)
+bool ExtraAmmo::Differs(BSExtraData* apCompare)
 {
     ExtraAmmo* pComp = dynamic_cast<ExtraAmmo*>(apCompare);
     if (!pComp)
@@ -4884,7 +4884,7 @@ struct FUN_00431450_cls
     FUN_00431450_callee* m_0c;
 
     bool Probe(int a1);
-    bool FUN_00431450(int a1);
+    bool Differs(int a1);
 };
 
 struct FUN_00431450_callee
@@ -4895,7 +4895,7 @@ struct FUN_00431450_callee
 void* __cdecl FUN_00ec43fb(int a1, int a2, void* a3, void* a4, int a5);
 
 // @fnv 0x00431450
-bool FUN_00431450_cls::FUN_00431450(int a1)
+bool FUN_00431450_cls::Differs(int a1)
 {
     FUN_00431450_cls* p = (FUN_00431450_cls*)FUN_00ec43fb(a1, 0, &DAT_01183b2c, &DAT_011845fc, 0);
     if (p == 0)
@@ -4915,10 +4915,10 @@ bool FUN_00431450_cls::FUN_00431450(int a1)
 
 struct ExtraCountShim : public ExtraCount
 {
-    bool FUN_00431c50(BSExtraData* compare);
+    bool Differs(BSExtraData* compare);
 };
 // @fnv 0x00431c50
-bool ExtraCountShim::FUN_00431c50(BSExtraData* compare)
+bool ExtraCountShim::Differs(BSExtraData* compare)
 {
     ExtraCount* other = dynamic_cast<ExtraCount*>(compare);
     if (other == 0)
@@ -5020,7 +5020,7 @@ struct FNV_00432900_Data
 struct FNV_00432900_Manager
 {
     bool FUN_0047c850();
-    void FUN_0085a2e0(FNV_00432900_Data* data);
+    void DeleteForm(FNV_00432900_Data* data);
 };
 extern FNV_00432900_Manager* DAT_011de45c;
 
@@ -5037,7 +5037,7 @@ FUN_00432900::~FUN_00432900()
         pData->SetFlag800(1);
         if (DAT_011de45c->FUN_0047c850())
         {
-            DAT_011de45c->FUN_0085a2e0(pData);
+            DAT_011de45c->DeleteForm(pData);
         }
         else
         {
@@ -5194,12 +5194,12 @@ class FUN_004341e0_cls
     FUN_004341e0_node m_0c;
 
     void* FUN_00434410(void* a);
-    bool FUN_004341e0(void* a1);
+    bool Differs(void* a1);
 };
 
 // Compares this object's node list against a1's resolved list, returning true on any mismatch or missing item and false when all match.
 // @fnv 0x004341e0
-bool FUN_004341e0_cls::FUN_004341e0(void* a1)
+bool FUN_004341e0_cls::Differs(void* a1)
 {
     FUN_004341e0_cls* other;
     FUN_004341e0_node* node7;
@@ -5329,14 +5329,14 @@ struct FUN_00434620_cls
     unsigned int unk08;
     FUN_00434620_key key;
     void* FUN_00434410(unsigned int a);
-    bool FUN_00434620(unsigned int a1);
+    bool Differs(unsigned int a1);
 };
 
 FUN_00434620_rec* __cdecl FUN_00ec43fb(unsigned int a1, unsigned int a2, void* a3, void* a4, unsigned int a5);
 int __cdecl FUN_00ec4835(void* a1, void* a2, unsigned int a3);
 
 // @fnv 0x00434620
-bool FUN_00434620_cls::FUN_00434620(unsigned int uiKey)
+bool FUN_00434620_cls::Differs(unsigned int uiKey)
 {
     FUN_00434620_rec* rec = FUN_00ec43fb(uiKey, 0, &DAT_01183b2c, &DAT_01183fec, 0);
     if (rec == 0)
@@ -5386,11 +5386,11 @@ class ExtraReflectorRefs : public BSExtraData
   public:
     S_00434bb0_Node list;
     S_00434bb0_Item* FUN_00434410(unsigned int key);
-    bool FUN_00434bb0(BSExtraData* apCompare);
+    bool Differs(BSExtraData* apCompare);
 };
 // Compares this ExtraReflectorRefs against apCompare: returns true if the cast fails, list sizes differ, or any item is missing or differs; false otherwise.
 // @fnv 0x00434bb0
-bool ExtraReflectorRefs::FUN_00434bb0(BSExtraData* apCompare)
+bool ExtraReflectorRefs::Differs(BSExtraData* apCompare)
 {
     ExtraReflectorRefs* other = dynamic_cast<ExtraReflectorRefs*>(apCompare);
     if (!other)
@@ -5466,11 +5466,11 @@ int __cdecl FUN_00408b20(char const* a, char const* b);
 struct ExtraLastFinishedSequence : BSExtraData
 {
     char* m_name;
-    bool FUN_00435310(BSExtraData* arg);
+    bool Differs(BSExtraData* arg);
 };
 // Casts arg to ExtraLastFinishedSequence and returns whether its m_name differs from this object's m_name, or true if the cast fails.
 // @fnv 0x00435310
-bool ExtraLastFinishedSequence::FUN_00435310(BSExtraData* apExtra)
+bool ExtraLastFinishedSequence::Differs(BSExtraData* apExtra)
 {
     ExtraLastFinishedSequence* p = dynamic_cast<ExtraLastFinishedSequence*>(apExtra);
     if (p == 0)
@@ -5529,11 +5529,11 @@ class Point3Offset
 class FUN_00435630_shell : public ExtraMultiBoundData
 {
   public:
-    bool FUN_00435630(BSExtraData* apCompare);
+    bool Differs(BSExtraData* apCompare);
 };
 
 // @fnv 0x00435630
-bool FUN_00435630_shell::FUN_00435630(BSExtraData* apCompare)
+bool FUN_00435630_shell::Differs(BSExtraData* apCompare)
 {
     ExtraMultiBoundData* pOther = dynamic_cast<ExtraMultiBoundData*>(apCompare);
     if (pOther == 0)
@@ -6120,11 +6120,11 @@ FUN_00431620::FUN_00431620(ExtraRecordData* apData) : BE431(0x91), pData(apData)
 class ExtraGlobalCompare431 : public ExtraGlobal
 {
   public:
-    bool FUN_00431b10(BSExtraData* pkOther);
+    bool Differs(BSExtraData* pkOther);
 };
 
 // @fnv 0x00431b10
-bool ExtraGlobalCompare431::FUN_00431b10(BSExtraData* pkOther)
+bool ExtraGlobalCompare431::Differs(BSExtraData* pkOther)
 {
     ExtraGlobal* pkGlobal = dynamic_cast<ExtraGlobal*>(pkOther);
     if (!pkGlobal)
@@ -6343,11 +6343,11 @@ class ExtraActivateRef : public BSExtraData
     unsigned char unk15, unk16, unk17;
     ActivateString334 text;
     ActivateEntry334* Find(TESObjectREFR*);
-    bool FUN_00433a20(BSExtraData*);
+    bool Differs(BSExtraData*);
 };
 // Compares this ExtraActivateRef with another: returns true if reference lists, flags or text differ, false if equal.
 // @fnv 0x00433a20
-bool ExtraActivateRef::FUN_00433a20(BSExtraData* pOther)
+bool ExtraActivateRef::Differs(BSExtraData* pOther)
 {
     ExtraActivateRef* node = dynamic_cast<ExtraActivateRef*>(pOther);
     if (!node)
@@ -7272,11 +7272,11 @@ class FUN_00430ce0_D : public BSExtraData
 {
   public:
     LockExtraData* lock;
-    bool FUN_00430ce0(BSExtraData* other);
+    bool Differs(BSExtraData* other);
 };
 
 // @fnv 0x00430ce0
-bool FUN_00430ce0_D::FUN_00430ce0(BSExtraData* other)
+bool FUN_00430ce0_D::Differs(BSExtraData* other)
 {
     ExtraLock* otherLock = dynamic_cast<ExtraLock*>(other);
     if (otherLock == 0)
@@ -7987,12 +7987,12 @@ void FUN_00433b70_shell::FUN_00433b70(BSExtraData* apSource)
 
 struct ActionCompare : ExtraAction
 {
-    bool FUN_004317c0(BSExtraData* apCompare);
+    bool Differs(BSExtraData* apCompare);
 };
 
 // Returns true if the cast fails, BSExtraData::Compare returns true, or the eAction values differ.
 // @fnv 0x004317c0
-bool ActionCompare::FUN_004317c0(BSExtraData* apCompare)
+bool ActionCompare::Differs(BSExtraData* apCompare)
 {
     ExtraAction* pComp = dynamic_cast<ExtraAction*>(apCompare);
     if (!pComp)
@@ -8008,12 +8008,12 @@ class ExtraHotKey : public BSExtraData
 {
   public:
     char cHotKey;
-    bool FUN_00432540(BSExtraData* apCompare);
+    bool Differs(BSExtraData* apCompare);
 };
 
 // Returns true if the cast fails, BSExtraData::Compare returns true, or the cHotKey values differ.
 // @fnv 0x00432540
-bool ExtraHotKey::FUN_00432540(BSExtraData* apCompare)
+bool ExtraHotKey::Differs(BSExtraData* apCompare)
 {
     ExtraHotKey* pComp = dynamic_cast<ExtraHotKey*>(apCompare);
     if (!pComp)
@@ -8033,11 +8033,11 @@ struct LitWaterRefList : BSSimpleList<TESObjectREFR*>
 struct ExtraLitWaterRefs : public BSExtraData
 {
     LitWaterRefList kRefs;
-    bool FUN_00434e30(BSExtraData* apCompare);
+    bool Differs(BSExtraData* apCompare);
 };
 // Returns true if the compared ExtraLitWaterRefs has a different ref count or any ref not present in this list.
 // @fnv 0x00434e30
-bool ExtraLitWaterRefs::FUN_00434e30(BSExtraData* apCompare)
+bool ExtraLitWaterRefs::Differs(BSExtraData* apCompare)
 {
     ExtraLitWaterRefs* pcomp = (ExtraLitWaterRefs*)dynamic_cast<ExtraLitWaterRefs*>(apCompare);
     if (!pcomp)
@@ -8056,12 +8056,12 @@ bool ExtraLitWaterRefs::FUN_00434e30(BSExtraData* apCompare)
 
 struct FUN_00435070_shell : public ExtraLevCreaModifier
 {
-    bool FUN_00435070(BSExtraData* apCompare);
+    bool Differs(BSExtraData* apCompare);
 };
 
 // Compares m_iModifier with the same field of a cast ExtraLevCreaModifier and returns true when they differ or the cast fails.
 // @fnv 0x00435070
-bool FUN_00435070_shell::FUN_00435070(BSExtraData* apCompare)
+bool FUN_00435070_shell::Differs(BSExtraData* apCompare)
 {
     ExtraLevCreaModifier* pcomp = dynamic_cast<ExtraLevCreaModifier*>(apCompare);
     if (pcomp == 0)
@@ -8075,12 +8075,12 @@ class ExtraWaterLightRefs : public BSExtraData
 {
   public:
     LitWaterRefList kRefs;
-    bool FUN_004349c0(BSExtraData* apCompare);
+    bool Differs(BSExtraData* apCompare);
 };
 
 // Returns true if the cast fails, the FUN_005ae380 results differ, or FUN_005f65d0 returns false for an item in the other list.
 // @fnv 0x004349c0
-bool ExtraWaterLightRefs::FUN_004349c0(BSExtraData* apCompare)
+bool ExtraWaterLightRefs::Differs(BSExtraData* apCompare)
 {
     ExtraWaterLightRefs* pOther = dynamic_cast<ExtraWaterLightRefs*>(apCompare);
     if (pOther == 0)
@@ -8103,12 +8103,12 @@ struct TeleportDataComparison
 };
 struct TeleportComparison : ::ExtraTeleport
 {
-    bool FUN_004312f0(BSExtraData* apCompare);
+    bool Differs(BSExtraData* apCompare);
 };
 
 // Returns true if the cast fails, BSExtraData::Compare returns true, or the teleport-data comparison returns true.
 // @fnv 0x004312f0
-bool TeleportComparison::FUN_004312f0(BSExtraData* apCompare)
+bool TeleportComparison::Differs(BSExtraData* apCompare)
 {
     ::ExtraTeleport* pComp = dynamic_cast< ::ExtraTeleport*>(apCompare);
     if (!pComp)
@@ -8127,11 +8127,11 @@ struct AudioMarkerComparisonData
 };
 struct AudioMarkerComparison : ::ExtraAudioMarker
 {
-    bool FUN_004315b0(BSExtraData*);
+    bool Differs(BSExtraData*);
 };
 // Returns true if the cast fails, BSExtraData::Compare returns true, or the audio-data comparison returns true.
 // @fnv 0x004315b0
-bool AudioMarkerComparison::FUN_004315b0(BSExtraData* apCompare)
+bool AudioMarkerComparison::Differs(BSExtraData* apCompare)
 {
     ::ExtraAudioMarker* pComp = dynamic_cast< ::ExtraAudioMarker*>(apCompare);
     if (!pComp)
@@ -8148,11 +8148,11 @@ class ExtraSeed : public BSExtraData
 {
   public:
     unsigned char seed;
-    bool FUN_004325e0(BSExtraData* apCompare);
+    bool Differs(BSExtraData* apCompare);
 };
 // Returns true if the cast fails, Compare returns true, or the seed values differ.
 // @fnv 0x004325e0
-bool ExtraSeed::FUN_004325e0(BSExtraData* apCompare)
+bool ExtraSeed::Differs(BSExtraData* apCompare)
 {
     ExtraSeed* pcomp = dynamic_cast<ExtraSeed*>(apCompare);
     if (!pcomp)
@@ -8169,12 +8169,12 @@ class ExtraEnableStateParent : public BSExtraData
   public:
     TESObjectREFR* pParent;
     unsigned char cFlags;
-    bool FUN_00433340(BSExtraData* apCompare);
+    bool Differs(BSExtraData* apCompare);
 };
 
 // Returns true if the casted ExtraEnableStateParent differs in pParent or cFlags, or if the cast fails; returns false when both match.
 // @fnv 0x00433340
-bool ExtraEnableStateParent::FUN_00433340(BSExtraData* apCompare)
+bool ExtraEnableStateParent::Differs(BSExtraData* apCompare)
 {
     ExtraEnableStateParent* pcomp = dynamic_cast<ExtraEnableStateParent*>(apCompare);
     if (!pcomp)
@@ -8188,12 +8188,12 @@ bool ExtraEnableStateParent::FUN_00433340(BSExtraData* apCompare)
 
 struct MerchantContainerComparison : ExtraMerchantContainer
 {
-    bool __thiscall FUN_00434ff0(BSExtraData* apCompare);
+    bool __thiscall Differs(BSExtraData* apCompare);
 };
 
 // Returns true if apCompare is not an ExtraMerchantContainer or its pContainer differs from this->pContainer, otherwise false.
 // @fnv 0x00434ff0
-bool __thiscall MerchantContainerComparison::FUN_00434ff0(BSExtraData* apCompare)
+bool __thiscall MerchantContainerComparison::Differs(BSExtraData* apCompare)
 {
     ExtraMerchantContainer* pcomp = dynamic_cast<ExtraMerchantContainer*>(apCompare);
     if (!pcomp)
@@ -8205,12 +8205,12 @@ bool __thiscall MerchantContainerComparison::FUN_00434ff0(BSExtraData* apCompare
 
 struct FUN_004353f0_shell : ExtraXTarget
 {
-    bool FUN_004353f0(BSExtraData* apCompare);
+    bool Differs(BSExtraData* apCompare);
 };
 
 // Casts apCompare to ExtraXTarget and returns true if the cast fails or if pTarget differs from the other's pTarget, otherwise false.
 // @fnv 0x004353f0
-bool FUN_004353f0_shell::FUN_004353f0(BSExtraData* apCompare)
+bool FUN_004353f0_shell::Differs(BSExtraData* apCompare)
 {
     ExtraXTarget* pcomp = dynamic_cast<ExtraXTarget*>(apCompare);
     if (!pcomp)
@@ -8228,12 +8228,12 @@ class ExtraEmittanceSource;
 struct EmittanceSourceComparison : BSExtraData
 {
     TESForm* pSource;
-    bool __thiscall FUN_004354c0(BSExtraData* apCompare);
+    bool __thiscall Differs(BSExtraData* apCompare);
 };
 
 // Returns true if apCompare is not an ExtraEmittanceSource or if its pSource differs from this->pSource, otherwise false.
 // @fnv 0x004354c0
-bool __thiscall EmittanceSourceComparison::FUN_004354c0(BSExtraData* apCompare)
+bool __thiscall EmittanceSourceComparison::Differs(BSExtraData* apCompare)
 {
     EmittanceSourceComparison* pcomp = (EmittanceSourceComparison*)dynamic_cast<ExtraEmittanceSource*>(apCompare);
     if (!pcomp)

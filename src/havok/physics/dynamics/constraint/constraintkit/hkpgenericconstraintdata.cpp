@@ -737,10 +737,10 @@ struct FUN_00d50520_s
     int zx;
     int zy;
     int zz;
-    void FUN_00d50520(int* o);
+    void getConstraintInfo(int* o);
 };
 // @fnv 0x00d50520
-void FUN_00d50520_s::FUN_00d50520(int* aiOut)
+void FUN_00d50520_s::getConstraintInfo(int* aiOut)
 {
     aiOut[4] = (int)((char*)this + 0xc);
     aiOut[0] = 0;

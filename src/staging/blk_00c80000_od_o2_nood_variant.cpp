@@ -785,7 +785,7 @@ struct KeyData : BaseCall
     NiPoint3* keys;
     unsigned int unk40, unk44;
     unsigned int count;
-    void FUN_00c9bbb0(StrArr* strings);
+    void GetViewerStrings(StrArr* strings);
 };
 class GlobalObjectO2_00a7b610
 {
@@ -805,7 +805,7 @@ class MemoryManager
 extern MemoryManager g_memoryManager;
 
 // @fnv 0x00c9bbb0
-void KeyData::FUN_00c9bbb0(StrArr* strings)
+void KeyData::GetViewerStrings(StrArr* strings)
 {
     MemContextGuard kGuard(16);
     FUN_00a6d830(strings);
@@ -1777,7 +1777,7 @@ struct hkLimitedHingeConstraintCinfo : hkConstraintCinfo
     virtual __forceinline ~hkLimitedHingeConstraintCinfo()
     {}
 
-    void FUN_00caa3f0();
+    void CreateData();
 
     void FUN_009ba320(PhysicsObject*, PhysicsObject*);
 };
@@ -1949,7 +1949,7 @@ void __cdecl FUN_00c88a40(bool create, Filter filter, SceneNode* first, SceneNod
 
                 ConstraintInfo info;
 
-                info.FUN_00caa3f0();
+                info.CreateData();
 
                 if (force)
                     sourceBody->SetMotion(4);

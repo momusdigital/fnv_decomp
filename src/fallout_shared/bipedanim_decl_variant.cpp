@@ -1,12 +1,12 @@
 
 // src/fallout_shared/bipedanim_decl_variant.cpp - declaration variant unit created 2026-10-26 by decl_variants.py for paused function 0x004abd30: the skeleton of src/fallout_shared/bipedanim.cpp
-// with declarations corrected to what the original code does (bipedanim_decls.h: BipedAnim += void FUN_004abd30(IO_TASK_PRIORITY priority, NiPointer<QueuedHelmet>& queuedHelmet, QueuedFile* file);). Move the function to its real unit once
+// with declarations corrected to what the original code does (bipedanim_decls.h: BipedAnim += void QueueBipedParts(IO_TASK_PRIORITY priority, NiPointer<QueuedHelmet>& queuedHelmet, QueuedFile* file);). Move the function to its real unit once
 // that unit declares it this way.
 
 #include "bipedanim_decls_decl_bipedanim.h"
 
 // @fnv 0x004abd30
-void BipedAnim::FUN_004abd30(IO_TASK_PRIORITY priority, NiPointer<QueuedHelmet>& queuedHelmet, QueuedFile* file)
+void BipedAnim::QueueBipedParts(IO_TASK_PRIORITY priority, NiPointer<QueuedHelmet>& queuedHelmet, QueuedFile* file)
 {
     unsigned int modelFlags;
     TESNPC* npc;

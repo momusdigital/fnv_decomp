@@ -63,12 +63,12 @@ struct FUN_00c2b070_cls
     unsigned int unk04;
     unsigned int unk08;
     void FUN_00c32de0(void* obj, unsigned int a1);
-    void* FUN_00c2b070(unsigned int a1);
+    void* CreateClone(unsigned int a1);
 };
 
 // Allocates a 0x40-byte object, runs its base constructor and sets its vtable, then passes it with a1 to FUN_00c32de0 and returns it.
 // @fnv 0x00c2b070
-void* FUN_00c2b070_cls::FUN_00c2b070(unsigned int a1)
+void* FUN_00c2b070_cls::CreateClone(unsigned int a1)
 {
     FUN_00c2b070_cls* p = (FUN_00c2b070_cls*)FUN_00aa13e0(0x40);
     if (p != 0)

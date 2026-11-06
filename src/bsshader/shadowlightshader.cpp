@@ -486,7 +486,7 @@ struct FUN_00b79da0_obj
 
 // Stores the given boolean value into the flag field of the object.
 // @fnv 0x00b79da0
-void __fastcall FUN_00b79da0(FUN_00b79da0_obj* self, int edx, bool value)
+void __fastcall SetIsBestImplementation(FUN_00b79da0_obj* self, int edx, bool value)
 {
     self->flag = value;
 }
@@ -12111,11 +12111,11 @@ struct C00b79d90
 {
     char pad00[0x20];
     unsigned char m20;
-    unsigned char FUN_00b79d90();
+    unsigned char GetIsBestImplementation();
 };
 
 // @fnv 0x00b79d90
-unsigned char C00b79d90::FUN_00b79d90()
+unsigned char C00b79d90::GetIsBestImplementation()
 {
     return m20;
 }

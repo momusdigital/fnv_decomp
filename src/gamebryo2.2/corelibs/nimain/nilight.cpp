@@ -24,13 +24,13 @@ void NiLight::CopyMemberData(NiLight* clone, CloningProcess& process)
 
 struct FUN_00a72000_shell : public NiLight
 {
-    void* FUN_00a72000();
+    void* GetRTTI();
 };
 
 extern const char* const g_011f4a68_arg1;
 
 // @fnv 0x00a72000
-void* FUN_00a72000_shell::FUN_00a72000()
+void* FUN_00a72000_shell::GetRTTI()
 {
     return (void*)&g_011f4a68_arg1;
 }
@@ -135,12 +135,12 @@ struct Call_439090_tgt
 };
 struct FUN_00a68d80_shell
 {
-    bool __thiscall FUN_00a68d80(NiObject*);
+    bool __thiscall IsEqual(NiObject*);
 };
 // @fnv 0x00a72160
 bool FUN_00a72160_shell::FUN_00a72160(NiObject* pObject)
 {
-    if (((FUN_00a68d80_shell*)this)->FUN_00a68d80(pObject) &&
+    if (((FUN_00a68d80_shell*)this)->IsEqual(pObject) &&
         *(float*)((char*)this + 0xc4) == *(float*)((char*)pObject + 0xc4) &&
         !((Call_439090_tgt*)((char*)this + 0xc8))->Call_439090(*(const NiPoint3*)((char*)pObject + 0xc8)) &&
         !((Call_439090_tgt*)((char*)this + 0xd4))->Call_439090(*(const NiPoint3*)((char*)pObject + 0xd4)) &&
@@ -157,7 +157,7 @@ struct StrArr
 
 struct Zx3Effect
 {
-    void FUN_00a69140(StrArr*);
+    void GetViewerStrings(StrArr*);
 };
 
 struct FUN_00a696c0_shell
@@ -179,7 +179,7 @@ void FUN_00a721e0_shell::AppendEffectProperties(StrArr* pArray)
 {
     char* pString;
 
-    reinterpret_cast<Zx3Effect*>(this)->FUN_00a69140(pArray);
+    reinterpret_cast<Zx3Effect*>(this)->GetViewerStrings(pArray);
 
     pString = _FUN_00a7d330(g_011f4a68_arg1);
     {

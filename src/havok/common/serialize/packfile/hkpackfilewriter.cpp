@@ -27,10 +27,10 @@ struct FUN_00dbdf30_s
 {
     int m_kPointA;
     int m_kPointB;
-    void __thiscall FUN_00dbdf30(int a, int b);
+    void __thiscall setSectionForClass(int a, int b);
 };
 // @fnv 0x00dbdf30
-void __thiscall FUN_00dbdf30_s::FUN_00dbdf30(int pNameSource, int a)
+void __thiscall FUN_00dbdf30_s::setSectionForClass(int pNameSource, int a)
 {
     int idx = ((FUN_00dbdd40_s*)this)->GetOrAddString(a);
     const char* name = ((FUN_00d46d40_s*)(void*)pNameSource)->FUN_00d46d40();
@@ -80,12 +80,12 @@ FUN_00dbdf00_router* __cdecl _D1A0E0GetMemoryRouter();
 
 struct FUN_00dbdf00_s
 {
-    void __thiscall FUN_00dbdf00(void*, int);
+    void __thiscall setSectionForPointer(void*, int);
 };
 
 // Calls GetOrAddString with b, then passes the result and a to FUN_00cb1870 on the DepthLimit at this+0x9c using the memory router's m_p.
 // @fnv 0x00dbdf00
-void FUN_00dbdf00_s::FUN_00dbdf00(void* a, int b)
+void FUN_00dbdf00_s::setSectionForPointer(void* a, int b)
 {
     int result = reinterpret_cast<FUN_00dbdd40_s*>(this)->GetOrAddString(b);
     FUN_00dbdf00_router* router = _D1A0E0GetMemoryRouter();

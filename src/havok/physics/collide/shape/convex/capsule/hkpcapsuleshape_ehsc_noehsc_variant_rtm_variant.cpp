@@ -60,7 +60,7 @@ struct FUN_00d224a0_Data {
     __m128 unk20;
     __m128 unk30;
 
-    void __thiscall FUN_00d224a0(__m128* result);
+    void __thiscall getCollisionSpheresImpl(__m128* result);
 };
 extern int DAT_010ce25c;
 union __declspec(align(16)) AlignedHKVector4 { __m128 simd; struct {float x,y,z,w;}; };

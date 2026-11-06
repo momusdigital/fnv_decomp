@@ -172,7 +172,7 @@ struct PhysicsReference
     void FUN_00483710();
     const PhysicsVector* FUN_00460140();
     const PhysicsVector* FUN_00560dc0();
-    float FUN_004b4ea0();
+    float getMass();
     int FUN_00c9c380();
     const PhysicsVector* FUN_006310c0();
     void FUN_00631140(float, const PhysicsVector*, const PhysicsVector*);
@@ -200,11 +200,11 @@ struct ReferenceMap
 extern ReferenceMap DAT_011cc584;
 struct PhysicsController
 {
-    int FUN_00630170(PhysicsReference*, float, float, bool);
+    int ProcessRigidBody(PhysicsReference*, float, float, bool);
     void SpawnWaterSplash(PhysicsBody*, float);
 };
 // @fnv 0x00630170
-int PhysicsController::FUN_00630170(PhysicsReference* reference, float height, float deltaTime, bool alternate)
+int PhysicsController::ProcessRigidBody(PhysicsReference* reference, float height, float deltaTime, bool alternate)
 {
     int result = 0;
     PhysicsVector position;
@@ -226,7 +226,7 @@ int PhysicsController::FUN_00630170(PhysicsReference* reference, float height, f
                 direction.FUN_004a3c90(state->FUN_00460140());
                 PhysicsVector velocity;
                 velocity.FUN_004a3c90(reference->FUN_00560dc0());
-                float mass = reference->FUN_004b4ea0();
+                float mass = reference->getMass();
                 float extent = bounds.maximum.FUN_00560d30(2) - bounds.minimum.FUN_00560d30(2);
                 float lower = extent * 0.25 + bounds.minimum.FUN_00560d30(2);
                 float upper = extent * 0.8500000238418579 + bounds.minimum.FUN_00560d30(2);

@@ -1,12 +1,12 @@
 
 // src/fallout_shared/tesnpc_decl_variant.cpp - declaration variant unit created 2026-10-26 by decl_variants.py for paused function 0x006047c0: the skeleton of src/fallout_shared/tesnpc.cpp
-// with declarations corrected to what the original code does (tesnpc_pc_decls.h: TESNPC += void FUN_006047c0(TESObjectREFR* pRef, bool b1, bool b2, bool b3, bool b4);). Move the function to its real unit once
+// with declarations corrected to what the original code does (tesnpc_pc_decls.h: TESNPC += void InitDefaultWorn(TESObjectREFR* pRef, bool b1, bool b2, bool b3, bool b4);). Move the function to its real unit once
 // that unit declares it this way.
 
 #include "tesnpc_pc_decls_decl_tesnpc.h"
 
 // @fnv 0x006047c0
-void TESNPC::FUN_006047c0(TESObjectREFR* a2, bool a3, bool a4, bool a5, bool a6)
+void TESNPC::InitDefaultWorn(TESObjectREFR* a2, bool a3, bool a4, bool a5, bool a6)
 {
     InventoryChanges* j;
     InventoryStackRecord* item;

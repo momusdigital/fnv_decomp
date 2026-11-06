@@ -83,7 +83,7 @@ void PathSmootherPOVSearch::AddPathPoints(bool addGoal)
         }
         m_pOutputSolution->ReserveIndex(Location, Dir);
     }
-    if (pRequest->FUN_00505c00() && !Links.FUN_0076b610())
+    if (pRequest->GetFaceTargetAtGoal() && !Links.FUN_0076b610())
     {
         NiPoint3 Dir = m_pOutputSolution->FUN_006b05a0()->FUN_005d8a70();
         float fStartAngle = GetDirectionAngle(Dir);
@@ -798,11 +798,11 @@ bool PathSmootherPOVSearch::FindPathToPoint(const POVNode* node, PathSmootherPOV
 
 struct FUN_00505c00_shell : public PathingRequest
 {
-    bool FUN_00505c00();
+    bool GetFaceTargetAtGoal();
 };
 
 // @fnv 0x00505c00
-bool FUN_00505c00_shell::FUN_00505c00()
+bool FUN_00505c00_shell::GetFaceTargetAtGoal()
 {
     return *((bool*)((char*)this + 0x99));
 }

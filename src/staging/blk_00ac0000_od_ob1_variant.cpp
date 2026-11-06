@@ -33366,11 +33366,11 @@ struct C43B0
 
     void FUN_00ac5430();
     bool FUN_00ac52b0(void* pv, unsigned int size, unsigned int count);
-    bool FUN_00ac43b0(Str43B0 name);
+    bool openForRead(Str43B0 name);
 };
 
 // @fnv 0x00ac43b0
-bool C43B0::FUN_00ac43b0(Str43B0 name)
+bool C43B0::openForRead(Str43B0 name)
 {
     FUN_00ac5430();
     m_file = fopen(name._Myptr(), "rb");
@@ -41002,7 +41002,7 @@ struct S5540_Stream
     void* m_40;
     S5540_File* m_44;
     bool FUN_00ac5e00(char* buf, unsigned int len, bool flag);
-    bool FUN_00ac5540(S5540_String name, bool flag);
+    bool LoadFile(S5540_String name, bool flag);
 };
 
 // These dead inline locals retain the scratch space of the original STL
@@ -41022,7 +41022,7 @@ static __forceinline void HeaderCleanupScratch()
 }
 
 // @fnv 0x00ac5540
-bool S5540_Stream::FUN_00ac5540(S5540_String name, bool flag)
+bool S5540_Stream::LoadFile(S5540_String name, bool flag)
 {
     int archive = 1;
     if (flag)

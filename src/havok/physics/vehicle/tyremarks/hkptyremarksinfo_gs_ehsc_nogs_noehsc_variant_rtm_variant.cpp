@@ -118,7 +118,7 @@ struct S00e39e90_Info
     int unk0C;
     hkArrayWheel m_kTyremarksWheels;
 
-    void __thiscall FUN_00e39e90(int arg1, int wheelIndex, hkpTyremark* out);
+    void __thiscall getWheelTyremarksStrips(int arg1, int wheelIndex, hkpTyremark* out);
 };
 
 struct Scalar4
@@ -467,7 +467,7 @@ struct InfoS : hkReferencedObject
     float m_fMinTyremarkPointDistance;
     float m_fMaxTyremarkPointDistance;
     hkArray<WheelQ*> m_kTyremarksWheels;
-    void FUN_00e39fd0(float p1, P2* p2);
+    void updateTyremarksInfo(float p1, P2* p2);
 };
 
 __declspec(noinline) Seg* Seg::FUN_00e39e50()
@@ -505,7 +505,7 @@ __forceinline float toFloat(__m128 v)
 }
 
 // @fnv 0x00e39fd0
-void InfoS::FUN_00e39fd0(float p1, P2* p2)
+void InfoS::updateTyremarksInfo(float p1, P2* p2)
 {
     V4 A;
     A.scaled(p1, p2->f18->f_1b0);

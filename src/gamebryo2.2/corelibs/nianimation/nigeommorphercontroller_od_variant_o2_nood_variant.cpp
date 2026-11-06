@@ -131,10 +131,10 @@ struct MorphViewer : NiGeomMorpherController
     virtual void slot47();
     virtual void slot48();
     virtual InterpolatorView* GetInterpolator(unsigned int);
-    void FUN_00a3b700(StrArr*);
+    void GetViewerStrings(StrArr*);
 };
 // @fnv 0x00a3b700
-void MorphViewer::FUN_00a3b700(StrArr* array)
+void MorphViewer::GetViewerStrings(StrArr* array)
 {
     union HeaderScratch
     {

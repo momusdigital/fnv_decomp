@@ -137,11 +137,11 @@ struct FUN_0080d540_cls
     Holder48* m_48;
 
     void FUN_008050d0(unsigned int a);
-    void FUN_0080d540(unsigned int arg);
+    void SaveGame(unsigned int arg);
 };
 
 // @fnv 0x0080d540
-void FUN_0080d540_cls::FUN_0080d540(unsigned int arg)
+void FUN_0080d540_cls::SaveGame(unsigned int arg)
 {
     unsigned int i2;
     TESObjectARMO* obj;
@@ -208,11 +208,11 @@ struct FUN_0080d610_cls
     unsigned int unk00, unk04, unk08, unk0c, unk10, unk14, unk18, unk1c, unk20, unk24, unk28, unk2c, unk30, unk34,
         unk38, unk3c, unk40, unk44;
     void* unk48;
-    void FUN_0080d610(Node* arg);
+    void LoadGame(Node* arg);
 };
 
 // @fnv 0x0080d610
-void FUN_0080d610_cls::FUN_0080d610(Node* pNode)
+void FUN_0080d610_cls::LoadGame(Node* pNode)
 {
     reinterpret_cast<Ctl*>(this)->Apply(pNode);
     if (DAT_011de45c->Check() >= 0x37)
@@ -504,11 +504,11 @@ struct FUN_0080d340_cls
     Node* FUN_0059bb30();
     float GetFloatAtOffset1C(int a);
     float GetFloatAtOffset1C();
-    void FUN_0080d340();
+    void Start();
 };
 
 // @fnv 0x0080d340
-void FUN_0080d340_cls::FUN_0080d340()
+void FUN_0080d340_cls::Start()
 {
     Result* p;
     Sub* t;

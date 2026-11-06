@@ -12,13 +12,13 @@ struct hkpCachingShapePhantomStandIn
     char m_padding168[4];
     unsigned char m_bOrderDirty;
 
-    void FUN_00d4d090();
+    void ensureDeterministicOrder();
 };
 
 void __cdecl SortEntriesByCollisionKey(void*, int, int, int);
 
 // @fnv 0x00d4d090
-void hkpCachingShapePhantomStandIn::FUN_00d4d090()
+void hkpCachingShapePhantomStandIn::ensureDeterministicOrder()
 {
     if (m_bOrderDirty)
     {
@@ -589,13 +589,13 @@ class FUN_00d4ce10 : public hkpWorldObjectD4D0
 
     FUN_00d4ce10(const hkpShapeD4D0* pkShape, const hkTransformD4D0& kTransform,
                  hkUint32 uiCollisionFilterInfo) throw();
-    hkpWorldObjectD4D0* FUN_00d4d0d0() const throw();
+    hkpWorldObjectD4D0* clone() const throw();
 };
 
 typedef char fnv_check_d4d0d0[(sizeof(FUN_00d4ce10) == 0x170) ? 1 : -1];
 
 // @fnv 0x00d4d0d0
-hkpWorldObjectD4D0* FUN_00d4ce10::FUN_00d4d0d0() const throw()
+hkpWorldObjectD4D0* FUN_00d4ce10::clone() const throw()
 {
     const hkpCollidableD4D0* pkCollidable = getCollidable();
     FUN_00d4ce10* pkPhantom =
@@ -740,17 +740,17 @@ struct FUN_00d4cc50_cls
     __m128 output0;
     __m128 output1;
     __m128 output2;
-    void FUN_00d4cab0(const void* additional, int a, int b, int c);
+    void setPositionAndLinearCast(const void* additional, int a, int b, int c);
     void CopyFrom(const Aligned_00d4cc50* source, int a, int b, int c);
 };
-// Copies source's three __m128 columns into output0..2, then calls FUN_00d4cab0 with source + 0x30 and a, b, c.
+// Copies source's three __m128 columns into output0..2, then calls setPositionAndLinearCast with source + 0x30 and a, b, c.
 // @fnv 0x00d4cc50
 void FUN_00d4cc50_cls::CopyFrom(const Aligned_00d4cc50* source, int a, int b, int c)
 {
     output0 = source->column0;
     output1 = source->column1;
     output2 = source->column2;
-    FUN_00d4cab0(reinterpret_cast<const char*>(source) + 0x30, a, b, c);
+    setPositionAndLinearCast(reinterpret_cast<const char*>(source) + 0x30, a, b, c);
 }
 
 extern int DAT_010ccebc;
@@ -915,12 +915,12 @@ struct World_d4cc
     hkArray_d4cc<Entry_d4cc> m_entries;
     unsigned char m_bValueAt0C;
     void NotifyAll(Owned_d4cc* obj, hkBool_d4cc found);
-    void FUN_00d4cca0(Owned_d4cc* obj);
+    void removeOverlappingCollidable(Owned_d4cc* obj);
 };
 
 // Removes the first entry whose m_object matches obj, notifying listeners via NotifyAll and visit, and sets m_bValueAt0C on success.
 // @fnv 0x00d4cca0
-void World_d4cc::FUN_00d4cca0(Owned_d4cc* apOwned)
+void World_d4cc::removeOverlappingCollidable(Owned_d4cc* apOwned)
 {
     Visitor_d4cc visitor;
     visitor.m_sReferenceCount = 1;
@@ -1106,11 +1106,11 @@ class hkpCachingShapePhantomD4CF : public hkpShapePhantom
     hkBool m_bOrderDirty;
 
     int FUN_00ca94c0(hkpCollidable* pkCollidable) throw();
-    void FUN_00d4cf10(hkpCollidable* pkCollidable) throw();
+    void addOverlappingCollidable(hkpCollidable* pkCollidable) throw();
 };
 
 // @fnv 0x00d4cf10
-void hkpCachingShapePhantomD4CF::FUN_00d4cf10(hkpCollidable* pkCollidable) throw()
+void hkpCachingShapePhantomD4CF::addOverlappingCollidable(hkpCollidable* pkCollidable) throw()
 {
     if (pkCollidable->m_pCollisionShape != 0 && FUN_00ca94c0(pkCollidable) == 0)
     {
@@ -1367,7 +1367,7 @@ struct LinearCastParameters
 struct hkpCachingShapePhantomLocal : public hkpCachingShapePhantom
 {
     void FUN_00d07ec0(const hkAabb& aabb);
-    void FUN_00d4cab0(const hkVector4& position, const LinearCastParameters& input, hkpCdPointCollector& castCollector,
+    void setPositionAndLinearCast(const hkVector4& position, const LinearCastParameters& input, hkpCdPointCollector& castCollector,
                       hkpCdPointCollector* startCollector);
 };
 
@@ -1380,7 +1380,7 @@ class hkpCollisionAgentLinear : public hkpCollisionAgent
 
 // Performs a linear cast against collidables by computing an expanded AABB and invoking linearCast on each collision agent pair.
 // @fnv 0x00d4cab0
-void hkpCachingShapePhantomLocal::FUN_00d4cab0(const hkVector4& position, const LinearCastParameters& input,
+void hkpCachingShapePhantomLocal::setPositionAndLinearCast(const hkVector4& position, const LinearCastParameters& input,
                                                hkpCdPointCollector& castCollector, hkpCdPointCollector* startCollector)
 {
     *(CastSimd::__m128*)&m_kMotionState.m_kMotionTransform.m_vTranslation = *(CastSimd::__m128*)&position;

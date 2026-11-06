@@ -19,11 +19,11 @@ class FnvVehicleState
 class FnvVehicleDefaultVelocityDamper : public hkpVehicleDefaultVelocityDamper
 {
   public:
-    void FUN_00e43ae0(float timeStep, const void* data);
+    void applyVelocityDamping(float timeStep, const void* data);
 };
 
 // @fnv 0x00e43ae0
-void __thiscall FnvVehicleDefaultVelocityDamper::FUN_00e43ae0(float timeStep, const void* data)
+void __thiscall FnvVehicleDefaultVelocityDamper::applyVelocityDamping(float timeStep, const void* data)
 {
     const char* dataBase = reinterpret_cast<const char*>(data);
     const float* state = *reinterpret_cast<const float* const*>(dataBase + 0x18);

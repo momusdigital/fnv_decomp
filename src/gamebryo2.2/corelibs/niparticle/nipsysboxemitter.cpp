@@ -23,7 +23,7 @@ struct GlobalObjectO2_00a7b618
 extern GlobalObjectO2_00a7b618 g_01202518;
 
 // @fnv 0x00c201c0
-GlobalObjectO2_00a7b618* __cdecl FUN_00c201c0()
+GlobalObjectO2_00a7b618* __cdecl GetRTTI()
 {
     return &g_01202518;
 }
@@ -172,12 +172,12 @@ struct NiPSysVolumeEmitterStand
 
 struct FUN_00c20440_cls : NiPSysBoxEmitter
 {
-    void FUN_00c20440(NiStream& stream);
+    void SaveBinary(NiStream& stream);
 };
 
 // Loads the volume emitter base stream, then reads width, height and depth from the stream.
 // @fnv 0x00c20440
-void FUN_00c20440_cls::FUN_00c20440(NiStream& stream)
+void FUN_00c20440_cls::SaveBinary(NiStream& stream)
 {
     reinterpret_cast<NiPSysVolumeEmitterStand*>(this)->LoadStream(stream);
     BoxEmitterStreamView* s = reinterpret_cast<BoxEmitterStreamView*>(&stream);
@@ -213,11 +213,11 @@ struct VolumeViewer : NiPSysVolumeEmitter
 };
 struct BoxViewer : NiPSysBoxEmitter
 {
-    void FUN_00c204d0(StrArr*);
+    void GetViewerStrings(StrArr*);
 };
 // Appends the base volume emitter's debug strings, then the box emitter's width, height and depth values to the string array.
 // @fnv 0x00c204d0
-void BoxViewer::FUN_00c204d0(StrArr* strings)
+void BoxViewer::GetViewerStrings(StrArr* strings)
 {
     ((VolumeViewer*)this)->FUN_00c31db0(strings);
     strings->Add(FUN_00a7d330(DAT_01202518));
@@ -284,12 +284,12 @@ struct ThreeByThreeMatrix
 
 struct BoxEmitterInit : NiPSysBoxEmitter
 {
-    void FUN_00c201d0(const ThreeByThreeMatrix& kRot, NiPoint3& kPos, NiPoint3& kWorldPosition);
+    void ComputeVolumeInitialPositionAndVelocity(const ThreeByThreeMatrix& kRot, NiPoint3& kPos, NiPoint3& kWorldPosition);
 };
 
 // Generates a random point from the box dimensions, rotates it with kRot, and computes row dot products of kRot with kWorldPosition.
 // @fnv 0x00c201d0
-void BoxEmitterInit::FUN_00c201d0(const ThreeByThreeMatrix& kRot, NiPoint3& kPos, NiPoint3& kWorldPosition)
+void BoxEmitterInit::ComputeVolumeInitialPositionAndVelocity(const ThreeByThreeMatrix& kRot, NiPoint3& kPos, NiPoint3& kWorldPosition)
 {
     float fX = rand() / DAT_01029790;
     float fY = rand() / DAT_01029790;

@@ -8,17 +8,17 @@ extern "C" void __cdecl FUN_00d21a60(void* p, unsigned int x, unsigned int y);
 
 struct FUN_00d4f130_StandIn
 {
-    void FUN_00d4f130(unsigned int a);
+    void getConstraintInfo(unsigned int a);
 };
 
 // @fnv 0x00d4f130
-void FUN_00d4f130_StandIn::FUN_00d4f130(unsigned int auiValue)
+void FUN_00d4f130_StandIn::getConstraintInfo(unsigned int auiValue)
 {
     FUN_00d21a60((char*)this + 0x10, 0xac, auiValue);
 }
 
 // @fnv 0x00d4f150
-void __stdcall FUN_00d4f150(int aiUnused, int* b)
+void __stdcall getRuntimeInfo(int aiUnused, int* b)
 {
     b[1] = 3;
     b[0] = 0x1c;
@@ -73,11 +73,11 @@ struct S00d4f170_StandIn : public hkpConstraintData
     hkpConeLimitConstraintAtom m_kConeLimit;
     hkpConeLimitConstraintAtom m_kPlaneLimit;
 
-    virtual char* __thiscall FUN_00d4f170(char* result);
+    virtual char* __thiscall isValid(char* result);
 };
 // Sets *result to whether both rotations pass IsOrthonormal and the cone, plane and twist limit angles satisfy the checked comparisons; returns result.
 // @fnv 0x00d4f170
-char* __thiscall S00d4f170_StandIn::FUN_00d4f170(char* result)
+char* __thiscall S00d4f170_StandIn::isValid(char* result)
 {
     char* __restrict out = result;
     char* p;

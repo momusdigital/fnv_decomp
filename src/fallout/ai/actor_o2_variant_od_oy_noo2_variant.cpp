@@ -599,7 +599,7 @@ class BCB9810Registry
 {
   public:
     void AppendTailPair(void* pvOwner, BCB9810Node* pkNode);
-    void FUN_00cb9810(void* pvOwner, BCB9810Node* pkNode);
+    void addCdBodyPair(void* pvOwner, BCB9810Node* pkNode);
 
     int unk00;
     int unk04;
@@ -1239,13 +1239,13 @@ class RefT8
     RefT8* GetPlayerTarget();
     char m_acPad[0xa4 - 4];
     AVOwnerT8 m_kAVOwner;
-    void FUN_00890610(HitT8* pkHit, WeapT8* pkWeap);
+    void DoTrap(HitT8* pkHit, WeapT8* pkWeap);
 };
 extern RefT8* g_pkPlayerT8;
 extern const double g_dMaxDeathPushBackT8;
 
 // @fnv 0x00890610
-void RefT8::FUN_00890610(HitT8* pkHit, WeapT8* pkWeap)
+void RefT8::DoTrap(HitT8* pkHit, WeapT8* pkWeap)
 {
     float afDamageAmount = 0.0f;
     float fPushBack = 0.0f;
@@ -4375,7 +4375,7 @@ class RefC7
     OwnerC7* GetOwner();
     char m_acPad[0x68 - 4];
     ProcessC7* m_pkProcess;
-    void FUN_00930c70();
+    void InitHavok();
 };
 
 class ActorC7 : public RefC7
@@ -4394,7 +4394,7 @@ class ActorC7 : public RefC7
 extern RefC7* g_pkPlayerC7;
 
 // @fnv 0x00930c70
-void RefC7::FUN_00930c70()
+void RefC7::InitHavok()
 {
     PreUpdate(0);
     if (!m_pkProcess || (m_pkProcess->GetLevel() && m_pkProcess->GetLevel() != 1))
@@ -6092,16 +6092,16 @@ struct kSelf
     };
     X5* FUN_005d43c0(int a);
     bool FUN_00437bd0();
-    bool FUN_005a1e50();
+    bool IsSleeping();
     kArea* FUN_00891170();
     void* FUN_00575d70();
     void FUN_00947d80();
     void FUN_009480c0();
-    void FUN_0094cae0(kActor* p);
+    void SetParentCell(kActor* p);
 };
 
 // @fnv 0x0094cae0
-void kSelf::FUN_0094cae0(kActor* p)
+void kSelf::SetParentCell(kActor* p)
 {
     if (p == FUN_008d6f30())
         return;
@@ -6146,7 +6146,7 @@ void kSelf::FUN_0094cae0(kActor* p)
         }
         mdec.FUN_00559450()->v9c(FUN_008d6f30()->FUN_004543c0());
         bool busy = FUN_00437bd0() || v22c(0) || v2e8() || v230();
-        bool idle = !busy && !FUN_005a1e50();
+        bool idle = !busy && !IsSleeping();
         if (idle)
             v494();
         DAT_011c3b3c->UpdateRelationStates(0);

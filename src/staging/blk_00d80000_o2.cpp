@@ -9,7 +9,7 @@
 extern int DAT_010cc4f4;
 
 // @fnv 0x00d9f6d0
-void __cdecl FUN_00d9f6d0(int* p)
+void __cdecl finishLoadedObject_hkpSimulation(int* p)
 {
     if (p)
         *p = (int)&DAT_010cc4f4;
@@ -2130,7 +2130,7 @@ struct FnvCpu_FUN_00d9f6b0_CpuInterface {
     virtual void Invoke(int value);
 };
 // @fnv 0x00d9f6b0
-void __cdecl FUN_00d9f6b0(FnvCpu_FUN_00d9f6b0_CpuInterface* object)
+void __cdecl cleanupLoadedObject_hkpSimulation(FnvCpu_FUN_00d9f6b0_CpuInterface* object)
 {
     object->Invoke(0);
 }
@@ -2446,12 +2446,12 @@ struct FUN_00d86470_cls {
     int unk00;
     FUN_00dee750* m_04;
 
-    unsigned int FUN_00d86470();
+    unsigned int CreateData();
 };
 
 // Inside an AutoMemContext scope, allocates a FUN_00dee750 into m_04 if it is null, and returns 0xb0.
 // @fnv 0x00d86470
-unsigned int FUN_00d86470_cls::FUN_00d86470()
+unsigned int FUN_00d86470_cls::CreateData()
 {
     AutoMemContext ctx;
     if (m_04 == 0) {

@@ -32,7 +32,7 @@ class QuestStage
     ~QuestStage();
     unsigned char GetIndex();
     void MarkDone(bool done);
-    bool FUN_0060fd70();
+    bool GetEndQuest();
     bool IsFlag2Set();
     Script* GetOffsetC();
     unsigned char m_done;

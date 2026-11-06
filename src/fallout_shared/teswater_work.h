@@ -286,7 +286,7 @@ class TES
     TESObjectCELL* IsCellInterior();
     TESObjectCELL* GetDetailedActorPathHandler();
     void RefreshWorldState(int, int, int);
-    void FUN_004515a0(const NiPoint3*, bool);
+    void InitGridCells(const NiPoint3*, bool);
     unsigned int GetInteriorBufferCount(bool);
     void SetTESActive(bool);
     TESObjectCELL* FindCellByGridCoordinates(int, int);

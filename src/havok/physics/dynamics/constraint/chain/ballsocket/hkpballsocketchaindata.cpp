@@ -720,11 +720,11 @@ extern "C"
 }
 struct ProbeRoot : public hkpBallSocketChainData
 {
-    void FUN_00d53e80(const PortQuery&, QueryResultSchema&);
+    void buildJacobian(const PortQuery&, QueryResultSchema&);
 };
 // Iterates a rigid-body constraint chain, computing transformed pivot positions and accumulating query results into the output schema.
 // @fnv 0x00d53e80
-void ProbeRoot::FUN_00d53e80(const PortQuery& input, QueryResultSchema& output)
+void ProbeRoot::buildJacobian(const PortQuery& input, QueryResultSchema& output)
 {
     void* solver = input.m_pByteBuffer.val();
     AppendEventRecord(&input, &output, solver, 8);

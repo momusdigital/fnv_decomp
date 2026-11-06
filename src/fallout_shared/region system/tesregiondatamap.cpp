@@ -118,10 +118,10 @@ struct FUN_004f3e40Shell
         Flt f;
         H4280 h;
     } u;
-    void FUN_004f3e40();
+    void Save();
 };
 // @fnv 0x004f3e40
-void FUN_004f3e40Shell::FUN_004f3e40()
+void FUN_004f3e40Shell::Save()
 {
     ((H14c0*)this)->WriteSaveData();
     if (u.s.Length())
@@ -141,11 +141,11 @@ struct S004f3f10
 {
     char _p[8];
     Flt _f;
-    void FUN_004f3f10(BSStr&);
+    void GetMapName(BSStr&);
 };
 // Calls Set on the BSStr with the float value converted to unsigned int as the string pointer and length 0.
 // @fnv 0x004f3f10
-void S004f3f10::FUN_004f3f10(BSStr& a)
+void S004f3f10::GetMapName(BSStr& a)
 {
     a.Set((const char*)(unsigned int)_f, 0);
 }
@@ -161,10 +161,10 @@ struct FUN_004f3f40_shell
 {
     char _pad[8];
     BSStr str;
-    bool FUN_004f3f40(char const*);
+    bool SetMapName(char const*);
 };
 // @fnv 0x004f3f40
-bool FUN_004f3f40_shell::FUN_004f3f40(char const* apMapName)
+bool FUN_004f3f40_shell::SetMapName(char const* apMapName)
 {
     if (str.StrCmp(apMapName, true))
     {

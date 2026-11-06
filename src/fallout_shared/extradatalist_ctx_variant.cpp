@@ -699,11 +699,11 @@ class ExtraDataListEx : public ExtraDataList
     void SetIgnoredBySandbox(bool abIgnored);
     ExtraFollowerSwimBreadcrumbs* GetFollowerSwimBreadcrumbsExtra();
     void RemoveExtraByType(unsigned char acSlot);
-    void FUN_004103d0(BSExtraDataEx* apExtra);
+    void CopyExtra(BSExtraDataEx* apExtra);
 };
 
 // @fnv 0x004103d0
-void ExtraDataListEx::FUN_004103d0(BSExtraDataEx* apExtra)
+void ExtraDataListEx::CopyExtra(BSExtraDataEx* apExtra)
 {
     if (!apExtra || !AttachExtraData(apExtra))
         return;

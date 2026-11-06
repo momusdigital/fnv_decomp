@@ -159,7 +159,7 @@ extern int DAT_011ae754;
 extern int DAT_011ae758;
 
 // @fnv 0x00c1ba50
-const char* const* __stdcall FUN_00c1ba50(unsigned short usIndex)
+const char* const* __stdcall GetInterpolatorID(unsigned short usIndex)
 {
     if (usIndex == 0)
         return reinterpret_cast<const char* const*>(DAT_011ae754);
@@ -408,7 +408,7 @@ void S_00c1beb0::FUN_00c1beb0(unsigned int uiNewCapacity)
 
 struct A00c1bff0
 {
-    bool FUN_00a38df0();
+    bool TargetIsRequiredType();
 };
 struct B00c1bff0
 {
@@ -427,13 +427,13 @@ struct H00c1bff0
     B00c1bff0* _b;
     char _c[8];
     int _d;
-    bool FUN_00c1bff0();
+    bool TargetIsRequiredType();
 };
-// Checks FUN_00a38df0, resolves a modifier via _b->FUN_00c1b0f0(&_d), then scans its RTTI chain for g_01202500_arg1 and returns whether it is found.
+// Checks TargetIsRequiredType, resolves a modifier via _b->FUN_00c1b0f0(&_d), then scans its RTTI chain for g_01202500_arg1 and returns whether it is found.
 // @fnv 0x00c1bff0
-bool H00c1bff0::FUN_00c1bff0()
+bool H00c1bff0::TargetIsRequiredType()
 {
-    if (!((A00c1bff0*)this)->FUN_00a38df0())
+    if (!((A00c1bff0*)this)->TargetIsRequiredType())
         return false;
     M00c1bff0* pkModifier = (M00c1bff0*)_b->FUN_00c1b0f0(&_d);
     if (!pkModifier)
@@ -554,7 +554,7 @@ bool Holder00c2b7d0::FUN_00c2b7d0(void* pkTarget)
 
 struct CallBase
 {
-    void FUN_00a38e90(float m_fStartTime, float m_fMaximumDistance);
+    void GuaranteeTimeRange(float m_fStartTime, float m_fMaximumDistance);
 };
 struct InterpDummy
 {
@@ -611,12 +611,12 @@ struct InterpDummy
 };
 struct MyCtlr
 {
-    void FUN_00c1bbc0(float m_fStartTime, float m_fMaximumDistance);
+    void GuaranteeTimeRange(float m_fStartTime, float m_fMaximumDistance);
 };
 // @fnv 0x00c1bbc0
-void MyCtlr::FUN_00c1bbc0(float afValue1, float afValue2)
+void MyCtlr::GuaranteeTimeRange(float afValue1, float afValue2)
 {
-    ((CallBase*)this)->FUN_00a38e90(afValue1, afValue2);
+    ((CallBase*)this)->GuaranteeTimeRange(afValue1, afValue2);
     InterpDummy* pk = *(InterpDummy**)((char*)this + 0x40);
     if (pk)
         pk->v49(afValue1, afValue2);
@@ -637,7 +637,7 @@ struct FUN_00a56560_shell
 };
 // Allocates a 0x34-byte NiBlendInterpolator and constructs variant 0 or 1 based on usIndex, returning null otherwise.
 // @fnv 0x00c1bb20
-NiBlendInterpolator* __stdcall FUN_00c1bb20(unsigned short usVariant, bool bAccumulateAnimations,
+NiBlendInterpolator* __stdcall CreateBlendInterpolator(unsigned short usVariant, bool bAccumulateAnimations,
                                             bool bManagerControlled, float fWeightThreshold, unsigned char ucArraySize)
 {
     if (usVariant == 0)
@@ -1487,12 +1487,12 @@ class NiPSysEmitterCtlrC1C5 : public FUN_00c31260
     } m_kRequests;
 
     void FUN_00c1bd30(NiPSysEmitterCtlrC1C5* pkDest, CloningProcessC1C5& kCloning);
-    NiPSysEmitterCtlrC1C5* FUN_00c1c570(CloningProcessC1C5& kCloning);
+    NiPSysEmitterCtlrC1C5* CreateClone(CloningProcessC1C5& kCloning);
 };
 
 // Allocates a new NiPSysEmitterCtlrC1C5, calls FUN_00c1bd30 with it and kCloning, then returns it.
 // @fnv 0x00c1c570
-NiPSysEmitterCtlrC1C5* NiPSysEmitterCtlrC1C5::FUN_00c1c570(CloningProcessC1C5& kCloning)
+NiPSysEmitterCtlrC1C5* NiPSysEmitterCtlrC1C5::CreateClone(CloningProcessC1C5& kCloning)
 {
     NiPSysEmitterCtlrC1C5* pkClone = new NiPSysEmitterCtlrC1C5;
     FUN_00c1bd30(pkClone, kCloning);

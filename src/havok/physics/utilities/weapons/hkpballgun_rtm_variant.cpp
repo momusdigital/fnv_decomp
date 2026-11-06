@@ -108,7 +108,7 @@ class hkpBallGunE46E : public hkpFirstPersonGunE46E
     hkReal m_kBulletDirection[4];
     hkQueueE46E<hkpRigidBodyE46E*>* m_pBulletQueue;
 
-    void FUN_00e46ea0(hkpWorldE46E* pkWorld) throw();
+    void reset(hkpWorldE46E* pkWorld) throw();
 };
 union __declspec(intrin_type) __declspec(align(16)) __m128
 {
@@ -534,11 +534,11 @@ void FUN_00e463d0(const hkQuadVector4& position, const hkQuadVector4& target, co
 
 struct hkpBallGunEx : public hkpBallGun
 {
-    void FUN_00e470d0(hkpWorld* world, const hkQuadTransform& viewTransform);
+    void fireGun(hkpWorld* world, const hkQuadTransform& viewTransform);
 };
 
 // @fnv 0x00e470d0
-void hkpBallGunEx::FUN_00e470d0(hkpWorld* world, const hkQuadTransform& viewTransform)
+void hkpBallGunEx::fireGun(hkpWorld* world, const hkQuadTransform& viewTransform)
 {
     hkQuadVector4 forward = viewTransform.m_kColumn0;
     hkQuadVector4 eye = viewTransform.m_vTranslation;

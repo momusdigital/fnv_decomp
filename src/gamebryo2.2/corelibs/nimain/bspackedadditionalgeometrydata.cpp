@@ -79,7 +79,7 @@ void Owner::AppendNameStrings(StringList* list)
 
 struct S_00a7f680_Base
 {
-    void FUN_00a73370(void* p);
+    void SaveBinary(void* p);
 };
 struct S_00a7f680_Out
 {
@@ -116,7 +116,7 @@ struct FUN_00a7f680_cls : S_00a7f680_Base
 // @fnv 0x00a7f680
 void FUN_00a7f680_cls::SaveFields(void* p)
 {
-    FUN_00a73370(p);
+    SaveBinary(p);
     S_00a7f680_Save(*(S_00a7f680_Out**)((char*)p + 0x250), &unk2c);
     S_00a7f680_Save(*(S_00a7f680_Out**)((char*)p + 0x250), &unk30);
 }

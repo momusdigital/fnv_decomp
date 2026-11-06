@@ -54,12 +54,12 @@ struct FUN_00c27160_cls
     float m_14;
     float m_18;
     void FUN_00a6cfe0(void* obj, unsigned int a1);
-    void* FUN_00c27160(unsigned int a1);
+    void* CreateClone(unsigned int a1);
 };
 
 // Allocates a 0x34-byte object, runs its base constructor, zeroes m_14/m_18, sets its vtable, then passes it to FUN_00a6cfe0 with a1 and returns it.
 // @fnv 0x00c27160
-void* FUN_00c27160_cls::FUN_00c27160(unsigned int a1)
+void* FUN_00c27160_cls::CreateClone(unsigned int a1)
 {
     FUN_00c27160_cls* p = (FUN_00c27160_cls*)FUN_00aa13e0(0x34);
     if (p != 0)
@@ -468,7 +468,7 @@ struct SpawnedController
     float m_24;
     float m_28;
     SpawnedOwner* m_2C;
-    void FUN_00c271c0(const float* pos);
+    void Update(const float* pos);
 };
 
 struct KindRtti
@@ -505,7 +505,7 @@ __forceinline bool StaticIsKindOf(const KindRtti* rtti, SpawnedItem* obj)
 }
 
 // @fnv 0x00c271c0
-void SpawnedController::FUN_00c271c0(const float* apPosition)
+void SpawnedController::Update(const float* apPosition)
 {
     unsigned short flags = m_08;
     m_14 = g_01015f5c;

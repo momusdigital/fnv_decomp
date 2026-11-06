@@ -286,7 +286,7 @@ struct DATST
 };
 extern DATST DAT_011e0e80;
 // @fnv 0x005c1b00
-bool FUN_005c1b00(int a, int b, TESObjectREFR* c)
+bool Cmd_StopCombatAlarmOnActor_Execute(int a, int b, TESObjectREFR* c)
 {
     if (c)
     {

@@ -272,7 +272,7 @@ struct NiCamera
 };
 struct FUN_00507700_cls : NiCamera
 {
-    void FUN_00507700(float f);
+    void SetMaxFarNearRatio(float f);
 };
 struct Stub_00a6faf0 : FUN_00507700_cls
 {
@@ -539,7 +539,7 @@ void Atm::UpdateAtmosphere(Node* node, float f)
                             if (farv != tmp.unk14)
                             {
                                 tmp.unk14 = farv;
-                                u->FUN_00507700(farv / tmp.unk10);
+                                u->SetMaxFarNearRatio(farv / tmp.unk10);
                                 u->FUN_00a6faf0(&tmp);
                             }
                         }
@@ -583,16 +583,16 @@ struct FUN_00633cc0 : FUN_00633cc0_SkyObject
     unsigned char m_5a;
 
     void FUN_00633d90();
-    void FUN_00634930();
+    void ClearTransTextures();
     FUN_00633cc0();
     virtual void vf();
 };
 
-// Initializes the object: clears m_58, calls FUN_00633d90 and FUN_00634930, then sets m_5a to 0.
+// Initializes the object: clears m_58, calls FUN_00633d90 and ClearTransTextures, then sets m_5a to 0.
 // @fnv 0x00633cc0
 FUN_00633cc0::FUN_00633cc0() : m_58(0)
 {
     FUN_00633d90();
-    FUN_00634930();
+    ClearTransTextures();
     m_5a = 0;
 }

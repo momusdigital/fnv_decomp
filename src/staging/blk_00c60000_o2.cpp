@@ -15615,11 +15615,11 @@ namespace fnv_00c66240 {
 struct NiAVObject
 {
     void FUN_00c87c50(NiObject* a);
-    void FUN_00c66240(NiObject* a);
+    void SethkObject(NiObject* a);
 };
 // Calls FUN_00c87c50 with the given NiObject.
 // @fnv 0x00c66240
-void NiAVObject::FUN_00c66240(NiObject* a)
+void NiAVObject::SethkObject(NiObject* a)
 {
     FUN_00c87c50(a);
 }

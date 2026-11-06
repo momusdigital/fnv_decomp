@@ -57,7 +57,7 @@ void __fastcall FUN_00a8d590(char* this_ptr, int, unsigned char* pSrcIndices, un
 
 int __cdecl NiStricmp(const char*, const char*);
 // @fnv 0x00a8c0e0
-bool __stdcall FUN_00a8c0e0(const char* extension)
+bool __stdcall CanReadFile(const char* extension)
 {
     if (NiStricmp(extension, ".dds") != 0)
         return false;

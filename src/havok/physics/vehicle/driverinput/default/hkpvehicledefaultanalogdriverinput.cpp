@@ -298,12 +298,12 @@ class hkCloneE43A : public hkRefObjE43A
     bool m_11;
 
     virtual ~hkCloneE43A();
-    hkCloneE43A* FUN_00e43a60() const;
+    hkCloneE43A* clone() const;
 };
 
 // Allocates a new hkCloneE43A, copies the current object into it, and returns the pointer to the copy.
 // @fnv 0x00e43a60
-hkCloneE43A* hkCloneE43A::FUN_00e43a60() const
+hkCloneE43A* hkCloneE43A::clone() const
 {
     hkCloneE43A* p = new hkCloneE43A;
     *p = *this;

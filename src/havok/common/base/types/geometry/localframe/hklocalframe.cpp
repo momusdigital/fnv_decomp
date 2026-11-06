@@ -35,11 +35,11 @@ struct FUN_00df6690_StandIn
     char pad[0x50];
     int** m_table;
 
-    int* FUN_00df6690(int index);
+    int* getChildFrame(int index);
 };
 
 // @fnv 0x00df6690
-int* FUN_00df6690_StandIn::FUN_00df6690(int index)
+int* FUN_00df6690_StandIn::getChildFrame(int index)
 {
     return m_table[index];
 }
@@ -213,7 +213,7 @@ class hkpDF65Base
 class hkpDF65Node : public hkpDF65Base
 {
   public:
-    void FUN_00df65d0(const hkVector4DF65& kPos, float fRadius, hkpDF65Collector* pkCollector);
+    void getNearbyFrames(const hkVector4DF65& kPos, float fRadius, hkpDF65Collector* pkCollector);
 
     unsigned int unk04, unk08, unk0C;
     hkTransformDF65 m_kMotionTransform;
@@ -221,7 +221,7 @@ class hkpDF65Node : public hkpDF65Base
 };
 
 // @fnv 0x00df65d0
-void hkpDF65Node::FUN_00df65d0(const hkVector4DF65& kPos, float afRadius, hkpDF65Collector* pkCollector)
+void hkpDF65Node::getNearbyFrames(const hkVector4DF65& kPos, float afRadius, hkpDF65Collector* pkCollector)
 {
     hkVector4DF65 kDiff;
     kDiff.setSub4(kPos, m_kMotionTransform.m_vTranslation);

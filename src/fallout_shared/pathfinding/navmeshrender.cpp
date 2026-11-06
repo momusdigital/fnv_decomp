@@ -179,7 +179,7 @@ struct NiUpdateData
 struct NiNode
 {
     void Update(const NiUpdateData&);
-    void FUN_004def90();
+    void RemoveAllChildren();
 };
 
 struct NiAVObject : public NiNode
@@ -218,7 +218,7 @@ void PaddedBooleanState::FUN_006a36e0(bool abDraw)
     }
     else
     {
-        reinterpret_cast<NiNode*>(g_011d6e5c.operator unsigned int())->FUN_004def90();
+        reinterpret_cast<NiNode*>(g_011d6e5c.operator unsigned int())->RemoveAllChildren();
         reinterpret_cast<NiAVObject*>(g_011d6e5c.operator unsigned int())->UpdateSceneObject();
 
         NiUpdateData UpdateData(0.0f, false, false);

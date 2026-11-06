@@ -12,7 +12,7 @@ struct FUN_004600f0_class
 };
 struct FUN_00460fb0_class
 {
-    void* FUN_00460fb0();
+    void* GetPerkList();
 };
 struct FUN_00460fd0_class
 {
@@ -191,22 +191,22 @@ struct FUN_0047b4d0_Class
 };
 struct S47
 {
-    void __thiscall FUN_0047e2a0(int);
-    void __thiscall FUN_0047dea0(short);
+    void __thiscall AddFormChange(int);
+    void __thiscall SetBaseDisposition(short);
 };
 struct FUN_0047ebb0_Class
 {
     void FUN_005fc970(int, char);
-    void FUN_0047ebb0(int value);
+    void SetPCMurdered(int value);
 };
 struct FUN_0047ebd0_Class
 {
     void __thiscall FUN_005fc970(int b, int a);
-    void __thiscall FUN_0047ebd0(bool value);
+    void __thiscall SetPCAttacked(bool value);
 };
 struct FUN_0047ff50_class
 {
-    void FUN_0047ff50(unsigned short value);
+    void SetAttackDamage(unsigned short value);
 };
 extern "C" void __cdecl NiFreeAlias(void*);
 extern void* DAT_0101a364;
@@ -526,7 +526,7 @@ struct FUN_00474a00
 {
     TESForm* GetForm();
 };
-struct FUN_00474a40
+struct GetAmmoFormList
 {
     ScriptS* GetScript();
 };
@@ -558,7 +558,7 @@ void __cdecl FUN_00476ec0(NiAVObject*, int);
 void __cdecl FUN_00476ec0(NiAVObject* object, int flag);
 struct FUN_00478130_class
 {
-    void __thiscall FUN_00478130();
+    void __thiscall Endian();
 };
 struct FUN_00462e10_Class
 {
@@ -612,8 +612,8 @@ struct TESAttackDamageForm : public BaseFormComponent
     virtual void v1();
     virtual void v2();
     virtual unsigned short GetDamage();
-    void FUN_0047ff50(unsigned short value);
-    void FUN_0047fe30(BaseFormComponent* apCopyFC);
+    void SetAttackDamage(unsigned short value);
+    void CopyComponent(BaseFormComponent* apCopyFC);
 };
 struct FUN_0046eb20_Class
 {
@@ -651,7 +651,7 @@ struct FUN_0047bcf0_class
 struct FUN_0047eb90_Class
 {
     void FUN_005fc970(int, char);
-    void FUN_0047eb90(int value);
+    void SetPCAnEnemy(int value);
 };
 class FUN_00462dc0_cls
 {
@@ -1129,9 +1129,9 @@ struct FUN_0047ead0_cls
     FUN_0047ead0_cls* FUN_004181e0(FUN_0047ead0_cls* a, int b);
     int GetFactionRank();
     FUN_0047ead0_cls* FUN_00726070();
-    void FUN_0047ebd0(int v);
-    void FUN_0047ebb0(int v);
-    void FUN_0047eb90(int v);
+    void SetPCAttacked(int v);
+    void SetPCMurdered(int v);
+    void SetPCAnEnemy(int v);
     void FUN_0047ead0(int mode);
 };
 extern FUN_0047ead0_cls* DAT_011dea3c;
@@ -1147,7 +1147,7 @@ extern double DAT_01017a40;
 extern const float DAT_01012054;
 struct Standin77900
 {
-    float FUN_00477900();
+    float GetRadiusBSUnits();
 };
 class PathingRequest
 {
@@ -1737,7 +1737,7 @@ class TESFile
     bool FUN_00472890(void*, unsigned int);
     bool FUN_004726f0();
     bool IsEndianConversionRequired();
-    void FUN_00471130();
+    void CloseTES();
 };
 
 // XCLC chunk payload: two dwords swapped by the endian pass plus a trailing bool.
@@ -1970,7 +1970,7 @@ int TESFileArray::FUN_00461cf0(char* name, int* out1, int* out2)
                                 hdr = 0;
                         }
                     }
-                    f->FUN_00471130();
+                    f->CloseTES();
                     if (!got)
                         result = 0;
                     else

@@ -318,11 +318,11 @@ struct FUN_00dca2b0_Class
     int m_iWordAt04;
     int m_8;
     __int64* m_iThirdValue;
-    __int64 __thiscall FUN_00dca2b0(int index);
+    __int64 __thiscall asInt64(int index);
 };
 
 // @fnv 0x00dca2b0
-__int64 FUN_00dca2b0_Class::FUN_00dca2b0(int index)
+__int64 FUN_00dca2b0_Class::asInt64(int index)
 {
     return m_iThirdValue[index];
 }
@@ -1090,11 +1090,11 @@ struct FUN_00dc8a20_class
     FUN_00dc8a20_impl* m_20;
     int m_24;
 
-    void FUN_00dc8a20(int value);
+    void setSize(int value);
 };
 
 // @fnv 0x00dc8a20
-void FUN_00dc8a20_class::FUN_00dc8a20(int value)
+void FUN_00dc8a20_class::setSize(int value)
 {
     m_20->FUN_00dc8a20_4(value * m_24);
 }
@@ -1113,7 +1113,7 @@ struct FUN_00dc8a40_Inner
     int m24;
     int m28;
     int m2c;
-    virtual int FUN_00dc8a40();
+    virtual int getSize();
     virtual int FUN_00dc8a40_b();
     virtual int FUN_00dc8a40_c();
     virtual int FUN_00dc8a40_d();
@@ -1126,11 +1126,11 @@ struct FUN_00dc8a40_Class
     char m_data[0x20];
     FUN_00dc8a40_Inner* m_p20;
     int m_24;
-    int FUN_00dc8a40();
+    int getSize();
 };
 
 // @fnv 0x00dc8a40
-int FUN_00dc8a40_Class::FUN_00dc8a40()
+int FUN_00dc8a40_Class::getSize()
 {
     int r = m_p20->FUN_00dc8a40_f();
     return r / m_24;
@@ -1381,10 +1381,10 @@ struct FUN_00dca280_Class
     int m_iWordAt04;
     int m_8;
     __int64* m_iThirdValue;
-    int __thiscall FUN_00dca280(int index);
+    int __thiscall asInt(int index);
 };
 // @fnv 0x00dca280
-int __thiscall FUN_00dca280_Class::FUN_00dca280(int index)
+int __thiscall FUN_00dca280_Class::asInt(int index)
 {
     return (int)m_iThirdValue[index];
 }
@@ -2217,11 +2217,11 @@ struct FUN_00dc9b00_cls
     int m_14;
     int m_18;
     int m_1c;
-    int FUN_00dc9b00();
+    int getSize();
 };
 
 // @fnv 0x00dc9b00
-int FUN_00dc9b00_cls::FUN_00dc9b00()
+int FUN_00dc9b00_cls::getSize()
 {
     return m_10 / m_18;
 }
@@ -3666,12 +3666,12 @@ class hkObjDC99C
     hkEntryDC99C* m_entries;
 
     hkResultDC99C FUN_00dc9710(int iKey, int iType) throw();
-    void FUN_00dc99c0(int iKey, __int64 iValue) throw();
+    void assign(int iKey, __int64 iValue) throw();
 };
 
 // Looks up the entry for iKey, then stores iValue into it as an integer or float depending on the member type.
 // @fnv 0x00dc99c0
-void hkObjDC99C::FUN_00dc99c0(int iKey, __int64 iValue) throw()
+void hkObjDC99C::assign(int iKey, __int64 iValue) throw()
 {
     hkResultDC99C kRes = FUN_00dc9710(iKey, 0);
     hkEntryDC99C& kEntry = m_entries[kRes.m_uiEdgeIndex];
@@ -4540,12 +4540,12 @@ class hkInt64ArrayDCA4
     int unk08;
     hkArrayDCA4<__int64> m_iSlotIds;
 
-    void FUN_00dca3c0(const unsigned char* pSrc, int iCount);
+    void setAll(const unsigned char* pSrc, int iCount);
 };
 
 // Reserves room for iCount elements in the array and copies each byte of pSrc into it as an __int64 element.
 // @fnv 0x00dca3c0
-void hkInt64ArrayDCA4::FUN_00dca3c0(const unsigned char* pSrc, int iCount)
+void hkInt64ArrayDCA4::setAll(const unsigned char* pSrc, int iCount)
 {
     m_iSlotIds.SetSizeAndGrow(iCount);
     for (int i = 0; i < iCount; i++)
@@ -6001,12 +6001,12 @@ struct FUN_00dcba40_class
     int m_0c;
     int m_10;
     int FUN_00dcba40(int* out, int a, int b);
-    int FUN_00dcbbf0(int a);
+    int asArray(int a);
 };
 
 // Calls FUN_00dcba40 with a and 0x10, then returns the int at index out[1]*4+2 in the array at m_10.
 // @fnv 0x00dcbbf0
-int FUN_00dcba40_class::FUN_00dcbbf0(int a)
+int FUN_00dcba40_class::asArray(int a)
 {
     int out[2];
     FUN_00dcba40(out, a, 0x10);
@@ -7781,7 +7781,7 @@ class ClassADA0
     virtual void v1c();
     virtual void v20();
     virtual int GetMemberBase() const;
-    int FUN_00dcada0(const char* pcName) const;
+    int getMemberIndexByName(const char* pcName) const;
 
     int unk04;
     int unk08;
@@ -7798,7 +7798,7 @@ class ClassADA0
 
 // Searches the class hierarchy for a member by name and returns its computed index, or -1 if not found.
 // @fnv 0x00dcada0
-int ClassADA0::FUN_00dcada0(const char* pcName) const
+int ClassADA0::getMemberIndexByName(const char* pcName) const
 {
     RegistryADA0* pkRegistry = m_pkHolder->m_pkRegistry;
     const char* pcPooled = pcName ? pkRegistry->GetPooled(pcName) : 0;
@@ -8363,12 +8363,12 @@ struct Builder_dc7c
 {
     int unk00, unk04;
     Registry_dc7c* m_registry;
-    Node_dc7c* FUN_00dc7c40(RefCounted_dc7c* const& parent);
+    Node_dc7c* newObject(RefCounted_dc7c* const& parent);
 };
 
 // Allocates a Node_dc7c under parent, registers it in the registry's NameMap by name, and sets it as the head node if the registry is empty.
 // @fnv 0x00dc7c40
-Node_dc7c* Builder_dc7c::FUN_00dc7c40(RefCounted_dc7c* const& parent)
+Node_dc7c* Builder_dc7c::newObject(RefCounted_dc7c* const& parent)
 {
     Node_dc7c* node = new Node_dc7c(parent);
     node->RetainReference();
@@ -8757,7 +8757,7 @@ struct S00dc9950_cls
     int m_8;
     int m_iThirdValue;
     char* m_10;
-    void __thiscall FUN_00dc9950(int a, int b, int c);
+    void __thiscall assign(int a, int b, int c);
 };
 struct S00dc9950_9710
 {
@@ -8766,7 +8766,7 @@ struct S00dc9950_9710
 };
 // Calls FUN_00dc9710, allocates c*4 bytes, copies b there, and stores the pointer through m_10 at an indexed offset.
 // @fnv 0x00dc9950
-void __thiscall S00dc9950_cls::FUN_00dc9950(int a, int apSource, int aiCount)
+void __thiscall S00dc9950_cls::assign(int a, int apSource, int aiCount)
 {
     S00dc9950_pair out;
     ((S00dc9950_9710*)this)->FUN_00dc9710(&out, a, FUN_00dc73e0(aiCount));
@@ -8961,12 +8961,12 @@ struct Table_dca4
 {
     int unk00, unk04, unk08;
     hkArray_dca4<__int64> m_iSlotIds;
-    void FUN_00dca480(const unsigned short* src, int n);
+    void setAll(const unsigned short* src, int n);
 };
 
 // Grows m_iSlotIds to n elements and copies n unsigned short values from src into it.
 // @fnv 0x00dca480
-void Table_dca4::FUN_00dca480(const unsigned short* src, int aiCount)
+void Table_dca4::setAll(const unsigned short* src, int aiCount)
 {
     m_iSlotIds.SetSizeAndGrow(aiCount);
     for (int i = 0; i < aiCount; i++)
@@ -9986,7 +9986,7 @@ void hkDataWorldDictTrackerDCA::FUN_00dca890(hkDataObjectImplDCA* pkObject) thro
 }
 
 namespace fnv_00dc95d0 {
-// FUN_00dc95d0: string-table lookup + registered-entry scan.
+// hasMember: string-table lookup + registered-entry scan.
 
 struct FUN_00d874d0_s
 {
@@ -10054,7 +10054,7 @@ struct Ctx_dc95d0
     ChainA_dc95d0* m_0c;
     Entry_dc95d0* m_10;
     int m_14;
-    int FUN_00dc95d0(void const* key);
+    int hasMember(void const* key);
 };
 
 extern "C" void* FUN_00cb1410(void const* key);
@@ -10078,7 +10078,7 @@ inline void* Intern_dc95d0(Holder_dc95d0* holder, const void* key)
 
 // Interns the key via Intern_dc95d0 and returns 1 if the interned value matches any entry key in the m_10 array, else 0.
 // @fnv 0x00dc95d0
-int Ctx_dc95d0::FUN_00dc95d0(void const* key)
+int Ctx_dc95d0::hasMember(void const* key)
 {
     void* value = Intern_dc95d0(m_0c->m_0c->m_08, key);
     int count = m_14;
@@ -10865,12 +10865,12 @@ struct S00dcbd40_Destination
 
     S00dcbd40_Result __thiscall FUN_00dcba40(S00dcbd40_Handle key, int flags) throw();
 
-    void __thiscall FUN_00dcbd40(int target, S00dcbd40_Id* id) throw();
+    void __thiscall assign(int target, S00dcbd40_Id* id) throw();
 };
 
 // Copies source entry data into a destination entry and increments its object reference count when flags & 0x18 is nonzero.
 // @fnv 0x00dcbd40
-void S00dcbd40_Destination::FUN_00dcbd40(int target, S00dcbd40_Id* apSourceId)
+void S00dcbd40_Destination::assign(int target, S00dcbd40_Id* apSourceId)
 
 {
 

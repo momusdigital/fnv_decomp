@@ -162,7 +162,7 @@ class TESSpellList : public BaseFormComponent
   public:
     TESSpellList();
     void InitItem(TESForm*);
-    void FUN_0048d210(TESLevSpell*);
+    void AddSpell(TESLevSpell*);
     virtual void InitializeComponent();
     BSSimpleList<InventoryStackRecord*> spells;
     BSSimpleList<InventoryStackRecord*> leveledSpells;

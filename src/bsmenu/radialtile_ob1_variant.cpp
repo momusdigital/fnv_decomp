@@ -163,7 +163,7 @@ struct Tile
     float FUN_00a011b0(int trait);
     void* FUN_00a00f30(int trait);
 
-    bool FUN_00a216b0(float x, float y);
+    bool SpecialBoundsCheck(float x, float y);
 };
 
 extern float FUN_00706e40();
@@ -172,7 +172,7 @@ extern int FUN_00406f60(BSString*, const char*, ...);
 extern void FUN_005b5e40(const char*);
 
 // @fnv 0x00a216b0
-bool Tile::FUN_00a216b0(float x, float y)
+bool Tile::SpecialBoundsCheck(float x, float y)
 {
     float a = this->FUN_00a011b0(0x1004);
     float h = this->FUN_00a011b0(0x1005);

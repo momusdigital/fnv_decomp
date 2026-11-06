@@ -236,7 +236,7 @@ extern RefList DAT_011ca144;
 class CellNavHandler
 {
   public:
-    void FUN_00587d10(RefView* pkRef);
+    void AddToPersistentRefData(RefView* pkRef);
 };
 class CellDataHandler
 {
@@ -424,7 +424,7 @@ void CellView::FUN_00548230(RefView* pkRef, bool bArg)
         pkRef->FUN_005d43c0()->FUN_0041d390(this);
         CellNavHandler* pkHandler = FUN_0054ddd0();
         if (pkHandler)
-            pkHandler->FUN_00587d10(pkRef);
+            pkHandler->AddToPersistentRefData(pkRef);
         if (!DAT_011c3f2c->FUN_004516b0())
             Unk_0c8(1);
         return;
@@ -545,7 +545,7 @@ void* __fastcall FUN_00568e50(TESObjectREFR* reference);
 void __fastcall FUN_00541ae0(TESObjectCELL* cell);
 unsigned int __cdecl GetRandomNumberInRange(int low, int high);
 // @fnv 0x0054afb0
-TESObjectREFR* __cdecl FUN_0054afb0(TESForm* source, TESForm* destination, void* context)
+TESObjectREFR* __cdecl PickRandomTeleportDoorInSpace(TESForm* source, TESForm* destination, void* context)
 {
     TESObjectREFR* result = 0;
     if (source && destination && context && source != destination)
@@ -1346,8 +1346,8 @@ struct SkyColorData
 class Sky
 {
   public:
-    void FUN_0063b630(SkyColorData* pkData, TESWeather* pkWeather, float fBlendRes, float* pfOut, int* piOut);
-    void FUN_0063bab0(SkyColorData* pkData, TESWeather* pkWeather, int iA, int iB, float* pfOut, int* piOut);
+    void FillColorBlend(SkyColorData* pkData, TESWeather* pkWeather, float fBlendRes, float* pfOut, int* piOut);
+    void FillColorBlendColors(SkyColorData* pkData, TESWeather* pkWeather, int iA, int iB, float* pfOut, int* piOut);
     float FUN_00644950();
     void FUN_0063c690(NiColor* pkColorPos, SkyColorData* pkData, float fValue);
 };
@@ -1650,8 +1650,8 @@ void CellUpdateView::FUN_00551890(float fTimeSinceScaleStart, bool bSkipLoaded)
                             SkyColorData kSkyDataOut;
                             float fBlendRes;
                             int iIndexNew;
-                            pkSky->FUN_0063b630(&kSkyDataOut, pkWeather, 1.0f, &fBlendRes, &iIndexNew);
-                            pkSky->FUN_0063bab0(&kSkyDataOut, pkWeather, 0, 4, &fBlendRes, &iIndexNew);
+                            pkSky->FillColorBlend(&kSkyDataOut, pkWeather, 1.0f, &fBlendRes, &iIndexNew);
+                            pkSky->FillColorBlendColors(&kSkyDataOut, pkWeather, 0, 4, &fBlendRes, &iIndexNew);
                             float fValue = pkSky->FUN_00644950() * *DAT_011ccccc.FUN_00403e20();
                             pkSky->FUN_0063c690(pkColorPos, &kSkyDataOut, fValue);
                         }
@@ -1696,8 +1696,8 @@ void CellUpdateView::FUN_00551890(float fTimeSinceScaleStart, bool bSkipLoaded)
                                 SkyColorData kSkyDataOut;
                                 float fBlendRes;
                                 int iIndexNew;
-                                pkSky->FUN_0063b630(&kSkyDataOut, pkWeather, 1.0f, &fBlendRes, &iIndexNew);
-                                pkSky->FUN_0063bab0(&kSkyDataOut, pkWeather, 0, 4, &fBlendRes, &iIndexNew);
+                                pkSky->FillColorBlend(&kSkyDataOut, pkWeather, 1.0f, &fBlendRes, &iIndexNew);
+                                pkSky->FillColorBlendColors(&kSkyDataOut, pkWeather, 0, 4, &fBlendRes, &iIndexNew);
                                 float fValue = pkSky->FUN_00644950() * *DAT_011ccccc.FUN_00403e20();
                                 pkSky->FUN_0063c690(&kColor, &kSkyDataOut, fValue);
                             }

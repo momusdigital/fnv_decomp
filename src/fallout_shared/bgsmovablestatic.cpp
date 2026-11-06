@@ -168,7 +168,7 @@ struct FUN_00485680
 };
 struct FUN_00485e00_shell
 {
-    void FUN_00485e20(Date*, int);
+    void __SaveData(Date*, int);
 };
 struct SoundH
 {
@@ -190,7 +190,7 @@ void FUN_004fbf20_shell::Destroy()
     ((DoorPart68*)((char*)this - 8))->FUN_00477f20();
     if (FUN_00401500())
         ((Date*)((char*)this + 0x5c))->Date::~Date();
-    ((FUN_00485e00_shell*)this)->FUN_00485e20((Date*)((char*)this + 0x5c), 1);
+    ((FUN_00485e00_shell*)this)->__SaveData((Date*)((char*)this + 0x5c), 1);
     if (FUN_00401500())
         ((Date*)((char*)this + 0x5c))->Date::~Date();
     if (*(void**)((char*)this + 0x58))
@@ -371,7 +371,7 @@ struct StaticRecord
     unsigned int unk28;
     unsigned int unk2c;
     void LoadRecordHeader(TESFile*);
-    void FUN_004861f0(TESFile*, void*, unsigned short);
+    void LoadData(TESFile*, void*, unsigned short);
 };
 struct RecordName
 {
@@ -432,7 +432,7 @@ bool MovableRecord::LoadRecordChunks(TESFile* file)
             FUN_004781e0(reinterpret_cast<AlchDestr*>(static_cast<RecordDestruct*>(this)), file);
             break;
         case 0x41544144:
-            FUN_004861f0(file, &this->data, 1);
+            LoadData(file, &this->data, 1);
             break;
         case 0x4d414e53:
             f = 0;

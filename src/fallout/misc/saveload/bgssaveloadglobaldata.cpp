@@ -928,7 +928,7 @@ struct LLD_WorldSpaceHelper
     bool IsFlag8Set();
     bool ContainsPoint(LLD_Point3*);
     LLD_Cell* GetCellAtGridPosition(int, int);
-    LLD_Cell* FUN_00585b30(int, int);
+    LLD_Cell* LoadCell(int, int);
 };
 struct LLD_TESHelper
 {
@@ -938,14 +938,14 @@ struct LLD_TESHelper
     int FindCellAtPosition(const LLD_Point3*, bool);
     void RefreshWorldState(int, TESForm*, int);
     void FUN_00454450(LLD_Point3*);
-    void FUN_004539a0(bool, int);
+    void ClearAllCells(bool, int);
 };
 class LLD_DataHandler
 {
   public:
     BSSimpleList<LLD_Quest*>* GetTESQuestList();
     LLD_Cell* GetOrCreateCell(int, int, TESWorldSpace*, bool);
-    LLD_Cell* FUN_00461330(int, int, int, TESWorldSpace*);
+    LLD_Cell* NewCell(int, int, int, TESWorldSpace*);
 };
 class LLD_SaveLoadGame
 {
@@ -1096,20 +1096,20 @@ void LoadPlayerLocation(BGSLoadGameBuffer* apLoadGameBuffer)
             {
                 LLD_Cell* pcell = ((LLD_WorldSpaceHelper*)pworld)->GetCellAtGridPosition(-18, 0);
                 if (!pcell)
-                    pcell = ((LLD_WorldSpaceHelper*)pworld)->FUN_00585b30(-18, 0);
+                    pcell = ((LLD_WorldSpaceHelper*)pworld)->LoadCell(-18, 0);
                 if (!pcell)
                     pcell = ((LLD_WorldSpaceHelper*)pworld)->GetCellAtGridPosition(0, 0);
                 if (!pcell)
-                    pcell = ((LLD_WorldSpaceHelper*)pworld)->FUN_00585b30(0, 0);
+                    pcell = ((LLD_WorldSpaceHelper*)pworld)->LoadCell(0, 0);
                 if (!pcell)
-                    pcell = ((LLD_DataHandler*)g_dataHandler)->FUN_00461330(0, 0, 0, pworld);
+                    pcell = ((LLD_DataHandler*)g_dataHandler)->NewCell(0, 0, 0, pworld);
                 if (pcell)
                     ((LLD_PlayerCharacter*)g_thePlayer)->FUN_0093db60(0, pcell);
             }
         }
     }
 
-    ((LLD_TESHelper*)g_TES)->FUN_004539a0(true, 0);
+    ((LLD_TESHelper*)g_TES)->ClearAllCells(true, 0);
     FUN_00868d70(0);
     FUN_00c459d0(0);
 }

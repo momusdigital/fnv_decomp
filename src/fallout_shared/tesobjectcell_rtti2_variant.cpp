@@ -231,7 +231,7 @@ class SceneB54
   public:
     ControllerB54* GetOrCreateWidget();
     void FUN_0054c740(int a, int b);
-    bool FUN_0054df30();
+    bool HandleExpiredReferences();
     void RecalcLeveledActorBases(bool b);
     void ProcessCellReferences();
     void FUN_00541ac0();
@@ -240,15 +240,15 @@ class SceneB54
     void FUN_00548880(TESObjectREFRB54* pRef, int i);
     void FUN_005535f0();
     void SetState(int i);
-    void FUN_0054bcf0(bool bArg);
+    void AttachModels(bool bArg);
 };
 
 // @fnv 0x0054bcf0
-void SceneB54::FUN_0054bcf0(bool bArg)
+void SceneB54::AttachModels(bool bArg)
 {
     ControllerB54* pController2 = GetOrCreateWidget();
     FUN_0054c740(0, 0);
-    bool bState5 = FUN_0054df30();
+    bool bState5 = HandleExpiredReferences();
     RecalcLeveledActorBases(bState5);
     if (((ManagerB54*)DAT_011dea10)->FUN_00453490(this))
     {

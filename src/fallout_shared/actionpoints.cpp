@@ -49,7 +49,7 @@ float ActionPoints::GetActionPoints()
 
 // Returns true for action codes 0-8, 16, 17, 19, 20 and 21, and false for any other code.
 // @fnv 0x0066dde0
-bool FUN_0066dde0(int aeAction)
+bool IsAttackAction(int aeAction)
 {
     switch (aeAction)
     {
@@ -74,7 +74,7 @@ bool FUN_0066dde0(int aeAction)
 }
 
 // @fnv 0x0066dba0
-int FUN_0066dba0(int aeWeaponType)
+int GetAttackAction(int aeWeaponType)
 {
     int result = 22;
     if (aeWeaponType >= 0 && aeWeaponType < 14)

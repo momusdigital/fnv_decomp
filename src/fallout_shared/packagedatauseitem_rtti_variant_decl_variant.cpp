@@ -27,7 +27,7 @@ struct TESUseItemPackageData : TESPackageData
     virtual ~TESUseItemPackageData();  // the original class is polymorphic (rtti_variants.py)
     LocationDescriptor* m_pPackageTarget;
     void FUN_0067c9d0();
-    void FUN_0067c860(TESPackageData* source);
+    void CopyFrom(TESPackageData* source);
 };
 struct FUN_0067c7a0_shell : TESUseItemPackageData
 {
@@ -49,7 +49,7 @@ struct FUN_0067c7d0 : FUN_0067ad70
 };
 
 // @fnv 0x0067c860
-void TESUseItemPackageData::FUN_0067c860(TESPackageData* source)
+void TESUseItemPackageData::CopyFrom(TESPackageData* source)
 {
     TESUseItemPackageData* copy = dynamic_cast<TESUseItemPackageData*>(source);
     if (copy)

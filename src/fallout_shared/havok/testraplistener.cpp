@@ -308,16 +308,16 @@ struct MyCollector
 {
     void* __vftable;
     InnerMember m_04;
-    void FUN_0062d330();
+    void reset();
     void* FUN_0062d3c0();
 };
-// Sets the vtable pointer, calls m_04._ref_006815c0(), then FUN_0062d330(), and returns this.
+// Sets the vtable pointer, calls m_04._ref_006815c0(), then reset(), and returns this.
 // @fnv 0x0062d3c0
 void* MyCollector::FUN_0062d3c0()
 {
     __vftable = (void*)&DAT_0104e328;
     m_04._ref_006815c0();
-    FUN_0062d330();
+    reset();
     return this;
 }
 
@@ -735,7 +735,7 @@ FUN_0062c6e0_shell::FUN_0062c6e0_shell()
 }
 
 // @fnv 0x0062d330
-void MyCollector::FUN_0062d330()
+void MyCollector::reset()
 {
     ((CalleeObj*)((char*)this + 4))->FUN_00622570(false);
 }
@@ -891,7 +891,7 @@ FUN_0062d840_shell* FUN_0062d7c0_shell::FUN_0062d7c0(unsigned int a, unsigned in
 }
 
 struct TESObjectREFR;
-TESObjectREFR* __cdecl FUN_0062b4e0(void*);
+TESObjectREFR* __cdecl GetCdBodyRef(void*);
 struct RootContactPoint
 {
     void* m_p0;
@@ -928,8 +928,8 @@ bool FUN_0062dc80_shell::FUN_0062dc80(RootContactPoint* arPoint)
     bool bres = false;
     TESObjectREFR* ptrapRef = 0;
     TESObjectREFR* m_pReference = 0;
-    ptrapRef = FUN_0062b4e0(arPoint->m_p48);
-    m_pReference = FUN_0062b4e0(arPoint->m_p20);
+    ptrapRef = GetCdBodyRef(arPoint->m_p48);
+    m_pReference = GetCdBodyRef(arPoint->m_p20);
     if (ptrapRef && m_pReference && ((bool(__thiscall*)(void*))(*(void***)m_pReference)[0x40])(m_pReference))
     {
         ZoneEntry* ptrap =
@@ -1033,7 +1033,7 @@ struct FUN_0062d310_shell : MyCollector
 void FUN_0062d310_shell::FUN_0062d310()
 {
     FUN_00626870((char*)this + 8);
-    FUN_0062d330();
+    reset();
 }
 
 struct BSAudio
@@ -1267,8 +1267,8 @@ bool FUN_0062dd20_shell::FUN_0062dd20(RootContactPoint& arPoint)
     TESObjectREFR* ptrapRef = 0;
     TESObjectREFR* m_pReference = 0;
 
-    ptrapRef = FUN_0062b4e0(*reinterpret_cast<void**>(reinterpret_cast<char*>(&arPoint) + 0x48));
-    m_pReference = FUN_0062b4e0(*reinterpret_cast<void**>(reinterpret_cast<char*>(&arPoint) + 0x20));
+    ptrapRef = GetCdBodyRef(*reinterpret_cast<void**>(reinterpret_cast<char*>(&arPoint) + 0x48));
+    m_pReference = GetCdBodyRef(*reinterpret_cast<void**>(reinterpret_cast<char*>(&arPoint) + 0x20));
 
     if (ptrapRef && m_pReference && reinterpret_cast<FUN_0062dd20_vtable*>(m_pReference)->f64())
     {
@@ -1711,7 +1711,7 @@ struct World62
 struct CollisionObject62;
 struct Broad62
 {
-    CollisionObject62* FUN_004b59d0();
+    CollisionObject62* getOwner();
 };
 struct CollisionObject62
 {
@@ -1777,7 +1777,7 @@ bool Subject62::ProcessCollisionPairs(int arg)
     if (!owner || owner->FUN_00440da0() || owner->FUN_00440d80() || !owner->Active())
         return world;
     Broad62* pending = FUN_0044ddc0();
-    CollisionObject62* kind = pending->FUN_004b59d0();
+    CollisionObject62* kind = pending->getOwner();
     World62* broad = kind->FUN_0044ddc0();
     if (broad)
         broad->FUN_00483710();
@@ -1805,7 +1805,7 @@ bool Subject62::ProcessCollisionPairs(int arg)
                     void* body = array->FUN_0062e150(i)->bodyC;
                     if (body)
                     {
-                        TESObjectREFR* ref = FUN_0062b4e0(body);
+                        TESObjectREFR* ref = GetCdBodyRef(body);
                         if (ref)
                         {
                             bool flag = ref->IsActor() && FUN_004b59f0(body);
@@ -1837,7 +1837,7 @@ bool Subject62::ProcessCollisionPairs(int arg)
                 void* body = array->FUN_00629ab0(i)->bodyA;
                 if (body)
                 {
-                    TESObjectREFR* ref = FUN_0062b4e0(body);
+                    TESObjectREFR* ref = GetCdBodyRef(body);
                     if (ref)
                     {
                         bool flag = ref->IsActor() && FUN_004b59f0(body);
@@ -1879,10 +1879,10 @@ bool Subject62::ProcessCollisionPairs(int arg)
 }
 
 struct TESObjectREFR;
-TESObjectREFR* __cdecl FUN_0062b4e0(void* object);
+TESObjectREFR* __cdecl GetCdBodyRef(void* object);
 struct EventContext
 {
-    void* FUN_0043b540();
+    void* getCollisionFilterInfo();
 };
 struct InputBody
 {
@@ -1909,11 +1909,11 @@ void FUN_0062da00_Class::HandleTrapEvent(InputBody* pInputBody)
 {
     EventContext* resolvedBody = pInputBody->FUN_00460140();
     EventCode notification;
-    notification.FUN_008c71b0(resolvedBody->FUN_0043b540());
+    notification.FUN_008c71b0(resolvedBody->getCollisionFilterInfo());
     int category = notification.FUN_0043b4d0();
     if (category == 14 || category == 16 || category == 30)
     {
-        TESObjectREFR* reference = FUN_0062b4e0(resolvedBody);
+        TESObjectREFR* reference = GetCdBodyRef(resolvedBody);
         if (reference != 0)
         {
             if (category == 14 || category == 16)
@@ -1930,7 +1930,7 @@ void FUN_0062da00_Class::HandleTrapEvent(InputBody* pInputBody)
 
 struct LocalClass
 {
-    int FUN_0043b540();
+    int getCollisionFilterInfo();
 };
 
 struct ArgClass
@@ -1972,7 +1972,7 @@ struct TargetClass
 void TargetClass::RemoveMatchingListEntry(ArgClass* arg)
 {
     LocalClass* v8 = arg->FUN_00460140();
-    GlobalObject_008c71b0 v4(v8->FUN_0043b540());
+    GlobalObject_008c71b0 v4(v8->getCollisionFilterInfo());
 
     if (unk04)
     {
@@ -2022,7 +2022,7 @@ struct CollisionArgument
 };
 struct CollisionBody
 {
-    unsigned int FUN_0043b540();
+    unsigned int getCollisionFilterInfo();
 };
 struct FilterWord
 {
@@ -2057,11 +2057,11 @@ struct TrapListener
 void TrapListener::AddListener(CollisionArgument* apCollisionArgument)
 {
     CollisionBody* body = apCollisionArgument->FUN_00460140();
-    FilterWord filter(body->FUN_0043b540());
+    FilterWord filter(body->getCollisionFilterInfo());
     int layer = filter.FUN_0043b4d0();
     if (layer == 12 || layer == 22 || layer == 24)
     {
-        TESObjectREFR* reference = FUN_0062b4e0(body);
+        TESObjectREFR* reference = GetCdBodyRef(body);
         if (reference)
         {
             ListenerNode* node = new ListenerNode(reference, body);
@@ -2165,12 +2165,12 @@ struct EventNode_62c5a0 : EventCaller_62c5a0, EventLink_62c5a0
 struct EventCollection_62c5a0
 {
     EventNode_62c5a0* FUN_00825c00();
-    void FUN_0062c5a0();
+    void Run();
 };
 
 // Iterates through the linked list of event nodes and invokes each one with the collection as context.
 // @fnv 0x0062c5a0
-void EventCollection_62c5a0::FUN_0062c5a0()
+void EventCollection_62c5a0::Run()
 {
     EventNode_62c5a0* node = FUN_00825c00();
     while (node != 0)

@@ -104,11 +104,11 @@ class C2B680Object : public C2B680Base
     virtual ~C2B680Object();
 
     void CopyMemberData(C2B680Object* pkDest, void* pvCloning);
-    C2B680Object* FUN_00c2b680(void* pvCloning);
+    C2B680Object* CreateClone(void* pvCloning);
 };
 
 // @fnv 0x00c2b680
-C2B680Object* C2B680Object::FUN_00c2b680(void* pvCloning)
+C2B680Object* C2B680Object::CreateClone(void* pvCloning)
 {
     C2B680Object* pkClone = new C2B680Object;
     CopyMemberData(pkClone, pvCloning);

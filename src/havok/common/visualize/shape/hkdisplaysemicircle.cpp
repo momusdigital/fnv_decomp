@@ -70,11 +70,11 @@ struct Geometry
     int unk98;
     int unk9c;
     void __thiscall FUN_00de4af0(VectorArray*);
-    void __thiscall FUN_00de4c40(VectorArray*, void*);
+    void __thiscall getWireframeGeometry(VectorArray*, void*);
 };
 // Fills a temporary array via FUN_00de4af0, then writes consecutive pairs (i, i+1) from it into destination, 2*unk9c entries, growing destination as needed.
 // @fnv 0x00de4c40
-void __thiscall Geometry::FUN_00de4c40(VectorArray* destination, void* allocator)
+void __thiscall Geometry::getWireframeGeometry(VectorArray* destination, void* allocator)
 {
     VectorArray temporary = {0, 0, 0x80000000u};
     FUN_00de4af0(&temporary);
@@ -216,12 +216,12 @@ struct S_de4d20_Context
     int m9c;
 
     void FUN_00de4af0(S_de4d20_Grid* g) throw();
-    void FUN_00de4d20() throw();
+    void buildGeometry() throw();
 };
 
 // Allocates a grid, stores it in m8, calls FUN_00de4af0, appends m80 to the grid data, and fills m9c cells with index ranges.
 // @fnv 0x00de4d20
-void S_de4d20_Context::FUN_00de4d20() throw()
+void S_de4d20_Context::buildGeometry() throw()
 {
     S_de4d20_Grid* g = new S_de4d20_Grid;
     m8 = g;

@@ -4,7 +4,7 @@
 
 
 #include "fnv_asm_helpers.h"
-int __stdcall FUN_00e032d0(const void* a, const void* b);
+int __stdcall areMembersCompatible(const void* a, const void* b);
 int __cdecl FUN_00e049c0(int a, int b);
 extern int DAT_0102e388;
 struct Object {

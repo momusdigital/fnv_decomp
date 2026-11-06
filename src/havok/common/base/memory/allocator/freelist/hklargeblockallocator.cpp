@@ -16,7 +16,7 @@ void* __thiscall FUN_00dd74b0_cls::FUN_00dd7650(int a, int b, int c, int d)
 }
 
 // @fnv 0x00dd8a80
-void* __stdcall FUN_00dd8a80(void* p, void* apUnused)
+void* __stdcall getAllocatedSize(void* p, void* apUnused)
 {
     return reinterpret_cast<char*>(reinterpret_cast<size_t*>(p)[-3] & 0xfffffffc) - 0x10;
 }
@@ -45,7 +45,7 @@ void hkLargeBlockAllocator::FUN_00dd91f0()
 
 // Returns the value at a[-3] with the low two bits cleared.
 // @fnv 0x00dd8a90
-int __stdcall FUN_00dd8a90(int* pValues, int iUnused)
+int __stdcall getAllocatedSizeWithOverhead(int* pValues, int iUnused)
 {
     return (pValues[-3] & 0xfffffffc);
 }
@@ -1592,7 +1592,7 @@ struct Allocator_dd84c0
     void FUN_00dd83a0();
     void InsertChunk(void* chunk, unsigned int size);
 
-    void* FUN_00dd84c0(unsigned int size);
+    void* alloc(unsigned int size);
 };
 
 inline char* alignUp(char* p)
@@ -1607,7 +1607,7 @@ inline void alignEnd(char*& p)
 
 // Rounds the requested size, tries allocation, then may extend the segment or request a page before allocating.
 // @fnv 0x00dd84c0
-void* Allocator_dd84c0::FUN_00dd84c0(unsigned int size)
+void* Allocator_dd84c0::alloc(unsigned int size)
 {
     unsigned int uiAlignedSize;
     uiAlignedSize = (size + 31) & ~15;

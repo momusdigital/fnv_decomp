@@ -550,10 +550,10 @@ struct ColliderInfo
     InfoName* info;
     float radius;
     void AppendProperties(StrArr*);
-    void FUN_00c282d0(StrArr* strings);
+    void GetViewerStrings(StrArr* strings);
 };
 // @fnv 0x00c282d0
-void ColliderInfo::FUN_00c282d0(StrArr* strings)
+void ColliderInfo::GetViewerStrings(StrArr* strings)
 {
     AppendProperties(strings);
     strings->Add(FUN_00a7d330(g_012026a0));

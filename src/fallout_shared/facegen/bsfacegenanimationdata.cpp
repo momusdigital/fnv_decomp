@@ -871,12 +871,12 @@ struct FUN_00649a50_shell
 
 struct FUN_00649c10_shell
 {
-    void FUN_00649c10(BS_FACEGEN_MODIFIER aeModifier, float afValue);
+    void SetAnimModifierValue(BS_FACEGEN_MODIFIER aeModifier, float afValue);
 };
 
 // If the modifier index is below 0x11, forwards the index and value to the object at offset 0x38.
 // @fnv 0x00649c10
-void FUN_00649c10_shell::FUN_00649c10(BS_FACEGEN_MODIFIER aeModifier, float afValue)
+void FUN_00649c10_shell::SetAnimModifierValue(BS_FACEGEN_MODIFIER aeModifier, float afValue)
 {
     if (aeModifier.m < 0x11)
     {
@@ -894,11 +894,11 @@ struct FUN_00649a20_shell
 {
     char _pad[16];
     FUN_00649a50_shell m;
-    void FUN_00649a20(int, float);
+    void SetExpressionValue(int, float);
 };
 // If aeExpression is below 15, forwards aeExpression and afValue to the contained SetArrayElement handler.
 // @fnv 0x00649a20
-void FUN_00649a20_shell::FUN_00649a20(int aeExpression, float afValue)
+void FUN_00649a20_shell::SetExpressionValue(int aeExpression, float afValue)
 {
     if (aeExpression < 15)
         m.SetArrayElement(aeExpression, afValue);
@@ -912,11 +912,11 @@ struct FUN_00649a50_shell
 };
 struct FUN_00649a70_shell
 {
-    void FUN_00649a70(int, float);
+    void SetModifierValue(int, float);
 };
 // Forwards aeModifier and afValue to the SetArrayElement handler at offset 0x94 when aeModifier is below 0x11.
 // @fnv 0x00649a70
-void FUN_00649a70_shell::FUN_00649a70(int aeModifier, float afValue)
+void FUN_00649a70_shell::SetModifierValue(int aeModifier, float afValue)
 {
     if (aeModifier < 0x11)
         ((FUN_00649a50_shell*)((char*)this + 0x94))->SetArrayElement(aeModifier, afValue);
@@ -932,11 +932,11 @@ struct FUN_00649ae0_shell
 {
     char _pad[0xC8];
     FUN_00649a50_shell m;
-    void FUN_00649ae0(int, float);
+    void SetPhonemeValue(int, float);
 };
 // If aePhoneme is below 0x10, forwards aePhoneme and afValue to m.SetArrayElement.
 // @fnv 0x00649ae0
-void FUN_00649ae0_shell::FUN_00649ae0(int aePhoneme, float afValue)
+void FUN_00649ae0_shell::SetPhonemeValue(int aePhoneme, float afValue)
 {
     if (aePhoneme < 0x10)
     {
@@ -960,10 +960,10 @@ struct FUN_00649b50_Pad
 };
 struct FUN_00649b50_shell : FUN_00649b50_Pad, FUN_00649a50_shell
 {
-    void FUN_00649b50(BS_FACEGEN_CUSTOM_MORPH, float);
+    void SetCustomMorphValue(BS_FACEGEN_CUSTOM_MORPH, float);
 };
 // @fnv 0x00649b50
-void FUN_00649b50_shell::FUN_00649b50(BS_FACEGEN_CUSTOM_MORPH aeCustomMorph, float afValue)
+void FUN_00649b50_shell::SetCustomMorphValue(BS_FACEGEN_CUSTOM_MORPH aeCustomMorph, float afValue)
 {
     if (aeCustomMorph < 1)
         FUN_00649a50_shell::SetArrayElement(aeCustomMorph, afValue);
@@ -979,11 +979,11 @@ struct FUN_00649be0_shell
 {
     char pad[0x24];
     FUN_00649a50_shell obj;
-    void FUN_00649be0(int, float);
+    void SetAnimExpressionValue(int, float);
 };
 // If aeExpression is below 15, forwards aeExpression and afValue to SetArrayElement on the member object.
 // @fnv 0x00649be0
-void FUN_00649be0_shell::FUN_00649be0(int aeExpression, float afValue)
+void FUN_00649be0_shell::SetAnimExpressionValue(int aeExpression, float afValue)
 {
     if (aeExpression < 15)
         obj.SetArrayElement(aeExpression, afValue);
@@ -997,11 +997,11 @@ struct FUN_00649a50_shell
 };
 struct FUN_00649c40_shell
 {
-    void FUN_00649c40(int, float);
+    void SetAnimPhonemeValue(int, float);
 };
 // If aePhoneme is below 0x10, forwards the phoneme index and value to the SetArrayElement object at offset 0x4C.
 // @fnv 0x00649c40
-void FUN_00649c40_shell::FUN_00649c40(int aePhoneme, float afValue)
+void FUN_00649c40_shell::SetAnimPhonemeValue(int aePhoneme, float afValue)
 {
     if (aePhoneme < 0x10)
     {
@@ -1019,11 +1019,11 @@ struct FUN_00649c70_shell
 {
     char _pad[0x60];
     FUN_00649a50_shell m;
-    void FUN_00649c70(int, float);
+    void SetAnimCustomMorphValue(int, float);
 };
 // If aeCustomMorph is less than 1, forwards aeCustomMorph and afValue to m.SetArrayElement.
 // @fnv 0x00649c70
-void FUN_00649c70_shell::FUN_00649c70(int aeCustomMorph, float afValue)
+void FUN_00649c70_shell::SetAnimCustomMorphValue(int aeCustomMorph, float afValue)
 {
     if (aeCustomMorph < 1)
         m.SetArrayElement(aeCustomMorph, afValue);
@@ -1132,11 +1132,11 @@ struct NiPlane
 };
 struct FUN_0064bcc0_shell
 {
-    void FUN_0064bcc0(float, float, float, int);
+    void SetHeadTrackVector(float, float, float, int);
 };
 // Tests the stored plane and the incoming point against zero, updates the flag at 0x174 and value at 0x178, stores the point at 0x124 and sets the byte at 0x189.
 // @fnv 0x0064bcc0
-void FUN_0064bcc0_shell::FUN_0064bcc0(float afX, float afY, float afZ, int)
+void FUN_0064bcc0_shell::SetHeadTrackVector(float afX, float afY, float afZ, int)
 {
     if (((NiPlane*)((char*)this + 0x124))->FUN_004390c0(_NiPoint3_ZERO))
     {

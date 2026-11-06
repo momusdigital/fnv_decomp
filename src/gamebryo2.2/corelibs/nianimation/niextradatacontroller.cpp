@@ -165,11 +165,11 @@ struct FUN_00a57150_cls
     void* m_3c;
 
     void FUN_00a38f50(void* arg);
-    void FUN_00a57150(void* arg);
+    void ProcessClone(void* arg);
 };
 
 // @fnv 0x00a57150
-void FUN_00a57150_cls::FUN_00a57150(void* arg)
+void FUN_00a57150_cls::ProcessClone(void* arg)
 {
     void* src = arg;
     FUN_00a38f50(src);

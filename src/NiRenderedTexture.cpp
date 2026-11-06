@@ -104,24 +104,24 @@ void* __fastcall DestroyRenderedTexture(NiRenderedTexture* self, int, unsigned c
 
 struct FUN_00a7fbd0_shell : public NiRenderedTexture
 {
-    void* FUN_00a7fbd0();
+    void* GetRTTI();
 };
 
 extern char const* const g_012708e4_arg1[];
 
 // @fnv 0x00a7fbd0
-void* FUN_00a7fbd0_shell::FUN_00a7fbd0()
+void* FUN_00a7fbd0_shell::GetRTTI()
 {
     return reinterpret_cast<void*>(const_cast<char const**>(g_012708e4_arg1));
 }
 
 struct FUN_00a7fbe0_shell : public NiRenderedTexture
 {
-    unsigned int FUN_00a7fbe0();
+    unsigned int GetWidth();
 };
 
 // @fnv 0x00a7fbe0
-unsigned int FUN_00a7fbe0_shell::FUN_00a7fbe0()
+unsigned int FUN_00a7fbe0_shell::GetWidth()
 {
     void* p = *reinterpret_cast<void**>(reinterpret_cast<unsigned char*>(this) + 0x30);
     if (p)
@@ -131,11 +131,11 @@ unsigned int FUN_00a7fbe0_shell::FUN_00a7fbe0()
 
 struct FUN_00a7fbf0_shell : public NiRenderedTexture
 {
-    unsigned int FUN_00a7fbf0();
+    unsigned int GetHeight();
 };
 
 // @fnv 0x00a7fbf0
-unsigned int FUN_00a7fbf0_shell::FUN_00a7fbf0()
+unsigned int FUN_00a7fbf0_shell::GetHeight()
 {
     NiRenderedTexture* this_ = static_cast<NiRenderedTexture*>(this);
     void* ptr = *reinterpret_cast<void**>(reinterpret_cast<unsigned char*>(this_) + 0x30);

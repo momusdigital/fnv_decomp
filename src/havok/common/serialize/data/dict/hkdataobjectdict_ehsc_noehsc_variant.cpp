@@ -168,7 +168,7 @@ struct FUN_00dca2b0_Class
     int m_iWordAt04;
     int m_8;
     __int64* m_iThirdValue;
-    __int64 __thiscall FUN_00dca2b0(int index);
+    __int64 __thiscall asInt64(int index);
 };
 struct FUN_00dcb0c0_class
 {
@@ -739,7 +739,7 @@ struct FUN_00dc8a20_class
     FUN_00dc8a20_impl* m_20;
     int m_24;
 
-    void FUN_00dc8a20(int value);
+    void setSize(int value);
 };
 struct FUN_00dc8a40_Inner
 {
@@ -755,7 +755,7 @@ struct FUN_00dc8a40_Inner
     int m24;
     int m28;
     int m2c;
-    virtual int FUN_00dc8a40();
+    virtual int getSize();
     virtual int FUN_00dc8a40_b();
     virtual int FUN_00dc8a40_c();
     virtual int FUN_00dc8a40_d();
@@ -767,7 +767,7 @@ struct FUN_00dc8a40_Class
     char m_data[0x20];
     FUN_00dc8a40_Inner* m_p20;
     int m_24;
-    int FUN_00dc8a40();
+    int getSize();
 };
 struct FUN_00dc9a20_Allocator
 {
@@ -827,7 +827,7 @@ struct FUN_00dca280_Class
     int m_iWordAt04;
     int m_8;
     __int64* m_iThirdValue;
-    int __thiscall FUN_00dca280(int index);
+    int __thiscall asInt(int index);
 };
 struct FUN_00dca290_StandIn
 {
@@ -1233,7 +1233,7 @@ struct FUN_00dc9b00_cls
     int m_14;
     int m_18;
     int m_1c;
-    int FUN_00dc9b00();
+    int getSize();
 };
 struct FUN_00dc9b10_cls
 {
@@ -1895,7 +1895,7 @@ class hkObjDC99C
     hkEntryDC99C* m_entries;
 
     hkResultDC99C FUN_00dc9710(int iKey, int iType) throw();
-    void FUN_00dc99c0(int iKey, __int64 iValue) throw();
+    void assign(int iKey, __int64 iValue) throw();
 };
 class hkBaseDC9A
 {
@@ -3082,7 +3082,7 @@ struct FUN_00dcba40_class
     int m_0c;
     int m_10;
     int FUN_00dcba40(int* out, int a, int b);
-    int FUN_00dcbbf0(int a);
+    int asArray(int a);
 };
 struct hkResultDCB
 {
@@ -4143,7 +4143,7 @@ class ClassADA0
     virtual void v1c();
     virtual void v20();
     virtual int GetMemberBase() const;
-    int FUN_00dcada0(const char* pcName) const;
+    int getMemberIndexByName(const char* pcName) const;
 
     int unk04;
     int unk08;

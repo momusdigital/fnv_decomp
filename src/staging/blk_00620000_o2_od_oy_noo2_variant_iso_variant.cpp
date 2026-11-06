@@ -1817,7 +1817,7 @@ class SmoothListV
     void AddHead(SmoothEntryV* const& rpkEntry);
 };
 extern SmoothListV g_kSmoothListV;
-void __cdecl FUN_0062a7e0(const hkVector4V& kTarget, void* pvRef);
+void __cdecl AddArrowTarget(const hkVector4V& kTarget, void* pvRef);
 struct hkVector4
 {
     __m128 m_vComponents;

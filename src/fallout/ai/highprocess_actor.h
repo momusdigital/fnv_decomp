@@ -32,7 +32,7 @@ class TESBoundObject : public TESForm
 {
   public:
     void FUN_0050eb90(NiPoint3*);
-    NiPoint3* FUN_0050ead0(NiPoint3*);
+    NiPoint3* GetBoundMin(NiPoint3*);
 };
 class TESTopicInfo
 {
@@ -416,7 +416,7 @@ class Actor : public MobileObject
 {
   public:
     bool FUN_008c0050();
-    bool FUN_00608d80();
+    bool IsReanimated();
     bool IsCombatTargetHostile(Actor*);
     bool IsCurrentlyAlerted();
     bool FUN_00579670();
@@ -450,7 +450,7 @@ class Actor : public MobileObject
     static float GetActorScale();
     unsigned char layout88[0x1c];
     ActorValueOwner actorValueOwner;
-    bool FUN_00437bf0();
+    bool IsRestrained();
     bool IsCombatEngaged();
     bool HasIdleInFormArray(TESIdleForm*);
     int GetAnimAction();

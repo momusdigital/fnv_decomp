@@ -63,10 +63,10 @@ DummyObj* __fastcall InitFromGlobals(DummyObj* pThis)
 
 struct FUN_00a43350_shell
 {
-    unsigned int FUN_00a43350(unsigned short usChannel);
+    unsigned int GetKeyContent(unsigned short usChannel);
 };
 // @fnv 0x00a43350
-unsigned int FUN_00a43350_shell::FUN_00a43350(unsigned short usChannel)
+unsigned int FUN_00a43350_shell::GetKeyContent(unsigned short usChannel)
 {
     return usChannel ? 6 : 0;
 }
@@ -182,12 +182,12 @@ bool FUN_00a9b510_shell::FUN_00a9b510(NiObject* pkObject)
 
 struct FUN_00a9b530_shell : public NiAlphaAccumulator
 {
-    void* FUN_00a9b530();
+    void* GetRTTI();
 };
 
 extern const char* const g_011fa000_arg1;
 // @fnv 0x00a9b530
-void* FUN_00a9b530_shell::FUN_00a9b530()
+void* FUN_00a9b530_shell::GetRTTI()
 {
     return (void*)&g_011fa000_arg1;
 }
@@ -545,12 +545,12 @@ struct S00a9b570_Acc
     bool m_bSkipObjectsWithFlag14;
     bool m_bInterface;
 
-    void FUN_00a9b570();
+    void Sort();
     void FUN_00aa0b40(int start, int finish);
 };
 
 // @fnv 0x00a9b570
-void S00a9b570_Acc::FUN_00a9b570()
+void S00a9b570_Acc::Sort()
 {
     if (!m_pkList)
         m_pkList = &m_kUnsortedGeometryList;
@@ -872,12 +872,12 @@ struct CloneCopyHelper
 };
 struct CloneAccumulator : NiAlphaAccumulator
 {
-    NiObject* FUN_00a9b730(CloningProcess*);
+    NiObject* CreateClone(CloningProcess*);
 };
 
 // Allocates a NiAlphaAccumulator clone, initializes it, copies skip flags, and returns the new object.
 // @fnv 0x00a9b730
-NiObject* CloneAccumulator::FUN_00a9b730(CloningProcess* cloning)
+NiObject* CloneAccumulator::CreateClone(CloningProcess* cloning)
 {
     NiAlphaAccumulator* clone = (NiAlphaAccumulator*)FUN_00aa13e0(sizeof(NiAlphaAccumulator));
     if (clone)

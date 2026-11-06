@@ -64,7 +64,7 @@ struct FUN_00dbbb20_Class
     int m_08;
     int m_0C;
     void* m_10;
-    int __thiscall FUN_00dbbb20(int a);
+    int __thiscall isValid(int a);
 };
 
 struct FUN_00d46f00_Class
@@ -73,7 +73,7 @@ struct FUN_00d46f00_Class
 };
 
 // @fnv 0x00dbbb20
-int __thiscall FUN_00dbbb20_Class::FUN_00dbbb20(int a)
+int __thiscall FUN_00dbbb20_Class::isValid(int a)
 {
     return (a < ((FUN_00d46f00_Class*)m_10)->FUN_00d46f00()) ? 1 : 0;
 }
@@ -178,11 +178,11 @@ struct hkDataClassNative
     FUN_00d46d50_s* m_0C;
     FUN_00dbb940_VirtualClass* m_10;
 
-    int __thiscall FUN_00dbb940();
+    int __thiscall getParent();
 };
 
 // @fnv 0x00dbb940
-int __thiscall hkDataClassNative::FUN_00dbb940()
+int __thiscall hkDataClassNative::getParent()
 {
     D481D0Class* parent = m_0C->FUN_00d46d50();
 
@@ -207,10 +207,10 @@ struct FUN_00dbb9d0_Class
     int m_04;
     int m_08;
     int m_0C;
-    int FUN_00dbb9d0();
+    int getNumDeclaredMembers();
 };
 // @fnv 0x00dbb9d0
-int FUN_00dbb9d0_Class::FUN_00dbb9d0()
+int FUN_00dbb9d0_Class::getNumDeclaredMembers()
 {
     return ((TypeNode*)*(int*)((char*)this + 0xC))->FUN_00d46f70();
 }
@@ -286,12 +286,12 @@ struct FUN_00dbbc20_Class : D481D0Class
     int m_1C;
     D481D0Class* m_20;
 
-    int FUN_00dbbc20();
+    int getClass();
 };
 
 // If m_20 is set, returns the result of calling FUN_00dbbc20_10 on m_0C with m_20's name; otherwise returns 0.
 // @fnv 0x00dbbc20
-int FUN_00dbbc20_Class::FUN_00dbbc20()
+int FUN_00dbbc20_Class::getClass()
 {
     if (m_20)
         return m_0C->FUN_00dbbc20_10(m_20->getName());
@@ -402,12 +402,12 @@ struct FUN_00dbbfa0_Class
     Container* m_0c;
 
     void __thiscall GetMemberInfo(Shape const*, int);
-    void __thiscall FUN_00dbbfa0(int, int);
+    void __thiscall getDeclaredMemberInfo(int, int);
 };
 
 // Retrieves the shape at index a from the container m_0c and passes it with b to GetMemberInfo.
 // @fnv 0x00dbbfa0
-void FUN_00dbbfa0_Class::FUN_00dbbfa0(int a, int b)
+void FUN_00dbbfa0_Class::getDeclaredMemberInfo(int a, int b)
 {
     GetMemberInfo(m_0c->FUN_00d46f80(a), b);
 }
@@ -941,10 +941,10 @@ struct FUN_00dbbae0_Class
     int unk04;
     int unk08;
     int unk0C;
-    int FUN_00dbbae0(int argument);
+    int hasMember(int argument);
 };
 // @fnv 0x00dbbae0
-int FUN_00dbbae0_Class::FUN_00dbbae0(int iKey)
+int FUN_00dbbae0_Class::hasMember(int iKey)
 {
     FUN_00d871a0_Data lookup;
     lookup.FUN_00d871a0(&unk0C, iKey);
@@ -990,11 +990,11 @@ struct FUN_00dbbca0_class
     int m_00, m_04, m_08, m_0c;
     char* m_10;
     int m_14, m_18, m_1c;
-    float FUN_00dbbca0(int index);
+    float asReal(int index);
 };
 // Reads a value at m_10 + m_18*index, as float when m_1c==11, as sign-extended short shifted left 16 when m_1c==32, else 0.0f.
 // @fnv 0x00dbbca0
-float FUN_00dbbca0_class::FUN_00dbbca0(int index)
+float FUN_00dbbca0_class::asReal(int index)
 {
     volatile float& fValue = *reinterpret_cast<volatile float*>(&index);
     if (m_1c != 11)
@@ -1951,7 +1951,7 @@ struct Owner680
     int unk00;
     int unk04;
     Dispatch680* dispatch;
-    void FUN_00dbb680(Input680* input);
+    void newObject(Input680* input);
 };
 struct RawDispatch680;
 typedef void*(__thiscall* DispatchFn680)(RawDispatch680*, void*);
@@ -1965,7 +1965,7 @@ struct RawDispatch680
 };
 // Allocates a block using the first dispatch result's size, invokes an available callback, then passes the block and second result to FUN_00dbb260.
 // @fnv 0x00dbb680
-void Owner680::FUN_00dbb680(Input680* input)
+void Owner680::newObject(Input680* input)
 {
     RawDispatch680* pRawDispatch = (RawDispatch680*)dispatch;
     Pair680 p;
@@ -2213,12 +2213,12 @@ struct S00dbc150_Obj
     int unk10;
     int m_14;
 
-    FUN_00dbbb90* FUN_00dbc150(const char* name);
+    FUN_00dbbb90* asArray(const char* name);
 };
 
 // Resolves a named member on this object, determines its type, tuple size, and class, and returns a new FUN_00dbbb90 descriptor.
 // @fnv 0x00dbc150
-FUN_00dbbb90* S00dbc150_Obj::FUN_00dbc150(const char* name)
+FUN_00dbbb90* S00dbc150_Obj::asArray(const char* name)
 {
     S00dbc150_Pair pair(&this->unk0c, name);
     S00dbc150_Member* member = pair.FUN_00d87370();
@@ -2469,11 +2469,11 @@ struct FUN_00dbc4d0_Class
     int m_10;
     int* m_14;
 
-    int __thiscall FUN_00dbc4d0(int name);
+    int __thiscall asObject(int name);
 };
 // Looks up a member by name, extracts its value based on type, and returns a native object via FUN_00dbb260.
 // @fnv 0x00dbc4d0
-int FUN_00dbc4d0_Class::FUN_00dbc4d0(int name)
+int FUN_00dbc4d0_Class::asObject(int name)
 {
     MemberC4D0* member;
     VariantC4D0 v;
@@ -2676,12 +2676,12 @@ struct C_dbbab0
     int m_08;
     int m_0C;
 
-    NativeMemberReferenceDBBA __thiscall FUN_00dbbab0(int param_1);
+    NativeMemberReferenceDBBA __thiscall accessByName(int param_1);
 };
 
 // Calls FUN_00d871a0 on m_0C with param_1, then returns a NativeMemberReferenceDBBA pairing this object with param_1.
 // @fnv 0x00dbbab0
-NativeMemberReferenceDBBA C_dbbab0::FUN_00dbbab0(int aiMemberName)
+NativeMemberReferenceDBBA C_dbbab0::accessByName(int aiMemberName)
 {
     FUN_00d871a0 member(&m_0C, aiMemberName);
     return NativeMemberReferenceDBBA((int)this, aiMemberName);

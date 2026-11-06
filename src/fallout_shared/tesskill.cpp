@@ -102,7 +102,7 @@ struct FUN_0048e370_obj
 };
 struct FUN_00485e00_shell
 {
-    void __thiscall FUN_00485e20(int, int);
+    void __thiscall __SaveData(int, int);
 };
 struct FUN_00485680
 {
@@ -113,10 +113,10 @@ void __cdecl WriteDescChunk(void*, int);
 int __cdecl FUN_00401500();
 struct FUN_00617fc0_shell
 {
-    void __thiscall FUN_00617fc0();
+    void __thiscall SaveForm();
 };
 // @fnv 0x00617fc0
-void __thiscall FUN_00617fc0_shell::FUN_00617fc0()
+void __thiscall FUN_00617fc0_shell::SaveForm()
 {
     ((FUN_004855a0*)this)->M();
     FUN_00485910(0x58444e49, *(int*)((char*)this + 0x2c));
@@ -124,7 +124,7 @@ void __thiscall FUN_00617fc0_shell::FUN_00617fc0()
     ((FUN_0048e370_obj*)((char*)this + 0x20))->FUN_0048e370(0x4e4f4349);
     if ((unsigned char)FUN_00401500())
         ((FUN_006180a0_shell*)((char*)this + 0x2c))->SwapEndian();
-    ((FUN_00485e00_shell*)this)->FUN_00485e20((int)((char*)this + 0x2c), 0x14);
+    ((FUN_00485e00_shell*)this)->__SaveData((int)((char*)this + 0x2c), 0x14);
     if ((unsigned char)FUN_00401500())
         ((FUN_006180a0_shell*)((char*)this + 0x2c))->SwapEndian();
     WriteDescChunk((char*)this + 0x40, 0x4d414e41);
@@ -331,12 +331,12 @@ struct TESForm
 
 struct TESSkill : public TESForm
 {
-    bool __thiscall FUN_00618130(TESFile*);
+    bool __thiscall Load(TESFile*);
 };
 
 // Reads a skill record from apFile: checks the record type, loads the base form, then dispatches each chunk to its handler until the file ends.
 // @fnv 0x00618130
-bool TESSkill::FUN_00618130(TESFile* apFile)
+bool TESSkill::Load(TESFile* apFile)
 {
     CHUNK_ID chunkID;
 
@@ -484,13 +484,13 @@ struct SkillV : public FUN_005e79a0_t
     unsigned char data[0x14];
     DescQ m_kDescriptions[4];
 
-    bool FUN_00618430(TESForm*);
+    bool Compare(TESForm*);
 };
 
 int __cdecl _memcmp(const void*, const void*, unsigned int);
 
 // @fnv 0x00618430
-bool SkillV::FUN_00618430(TESForm* apCompare)
+bool SkillV::Compare(TESForm* apCompare)
 {
     SkillV* pOther = reinterpret_cast<SkillV*>(dynamic_cast<TESSkill*>(apCompare));
     if (!pOther)

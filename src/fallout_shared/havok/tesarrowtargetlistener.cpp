@@ -173,11 +173,11 @@ int FUN_0056f930(Obj* o_tmp);
 
 struct FUN_0062a510_cls
 {
-    void FUN_0062a510(int a1);
+    void entityRemovedCallback(int a1);
 };
 
 // @fnv 0x0062a510
-void FUN_0062a510_cls::FUN_0062a510(int a1)
+void FUN_0062a510_cls::entityRemovedCallback(int a1)
 {
     Obj* o_tmp = FUN_004b5a80(a1);
     Obj* p = FUN_00653270(&DAT_012681c0, o_tmp);

@@ -266,7 +266,7 @@ class B479FB0IdleList
     short unk06;
     B479FB0Idle** m_ppkIdles;
 
-    bool FUN_00479fb0(B479FB0Actor* pkActor, int iArg);
+    bool HasIdleForActor(B479FB0Actor* pkActor, int iArg);
 };
 struct FUN_00488fd0_shell
 {
@@ -552,7 +552,7 @@ class BGSDestructibleObjectForm : public BaseFormComponent
   public:
     DestructibleData* pkData;
     void EnsureCurrentEntry();
-    void FUN_00478690();
+    void ClearDataComponent();
     DestructibleData* FUN_00726070();
     DestructionStage** AllocateSpawnedItemArray(unsigned int);
 };
@@ -575,7 +575,7 @@ struct DestructionStageChunk
     TESForm* explosion;
     TESForm* debris;
     unsigned int debrisCount;
-    void FUN_00478130();
+    void Endian();
 };
 extern "C" void* __cdecl _alloca(unsigned int);
 extern "C" void* __cdecl memset(void*, int, unsigned int);
@@ -599,7 +599,7 @@ void __cdecl FUN_004781e0(BGSDestructibleObjectForm* component, TESFile* file)
             TESForm* form = dynamic_cast<TESForm*>(component);
             FUN_005b5e40("MASTERFILE: Old Destruction data found on form %08X %s.  It needs to be resaved.",
                          form->GetFormID(), form->GetName());
-            component->FUN_00478690();
+            component->ClearDataComponent();
             return;
         }
         file->GetChunkData(&header, 0);
@@ -617,7 +617,7 @@ void __cdecl FUN_004781e0(BGSDestructibleObjectForm* component, TESFile* file)
         memset(&stage, 0, sizeof(stage));
         file->GetChunkData(&stage, sizeof(stage));
         if (file->IsEndianConversionRequired())
-            stage.FUN_00478130();
+            stage.Endian();
         unsigned char index = stage.index;
         if (index < pkData->stageCount)
         {

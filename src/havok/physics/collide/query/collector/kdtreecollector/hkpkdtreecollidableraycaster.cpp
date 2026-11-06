@@ -4,10 +4,10 @@
 
 struct FUN_00d97a10_Class
 {
-    void FUN_00d97a10(float* p) const;
+    void getHitFractions(float* p) const;
 };
 // @fnv 0x00d97a10
-void FUN_00d97a10_Class::FUN_00d97a10(float* afOut) const
+void FUN_00d97a10_Class::getHitFractions(float* afOut) const
 {
     const float* m = *(const float**)((const char*)this + 0x10);
     afOut[0] = m[0x10 / 4];

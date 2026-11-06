@@ -92,7 +92,7 @@ class BGSMoviePlayer
     unsigned int GetScreenWidthOverride();
     unsigned int GetFirstInterfaceFloat();
     bool IsDeviceReady();
-    bool FUN_00ec1840(bool);
+    bool CheckContinuePlaying(bool);
     bool FUN_00ec17c0();
     void FUN_00ec29b0();
     bool UpdateMoviePlayback(bool);

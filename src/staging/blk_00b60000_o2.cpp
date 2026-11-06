@@ -4534,7 +4534,7 @@ struct FUN_00b71b90_class
     int unk28;
 
     void FUN_00b71b90();
-    void FUN_00e814b0();
+    void RecreateRendererData();
 };
 
 // @fnv 0x00b71b90
@@ -4567,7 +4567,7 @@ void FUN_00b71b90_class::FUN_00b71b90()
         }
     }
 
-    this->FUN_00e814b0();
+    this->RecreateRendererData();
 }
 
 struct S_00b7ac20_Node

@@ -63,11 +63,11 @@ void FUN_00409a10_shell::FUN_00409a10()
 
 struct FUN_00409a50_shell : FUN_00409a30_shell
 {
-    bool FUN_00409a50();
+    bool IsAutoCalc();
 };
 
 // @fnv 0x00409a50
-bool FUN_00409a50_shell::FUN_00409a50()
+bool FUN_00409a50_shell::IsAutoCalc()
 {
     return !FUN_00409a30(1);
 }

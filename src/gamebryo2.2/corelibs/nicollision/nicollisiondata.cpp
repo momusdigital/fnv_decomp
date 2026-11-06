@@ -243,10 +243,10 @@ struct NiCollisionObject
 struct NiCollisionData : NiCollisionObject
 {
     int m_eCollisionMode;
-    void FUN_00ead330(NiAVObject* pkSceneObject);
+    void SetSceneGraphObject(NiAVObject* pkSceneObject);
 };
 // @fnv 0x00ead330
-void NiCollisionData::FUN_00ead330(NiAVObject* pkSceneObject)
+void NiCollisionData::SetSceneGraphObject(NiAVObject* pkSceneObject)
 {
     SetSceneObject(pkSceneObject);
     int iMode = m_eCollisionMode;
@@ -1674,11 +1674,11 @@ struct FUN_00eacd60_shell
 struct FUN_00eada20_cls
 {
     void __thiscall CloneCollisionData(void* a, void* b);
-    void* __thiscall FUN_00eada20(void* arg);
+    void* __thiscall CreateClone(void* arg);
 };
 
 // @fnv 0x00eada20
-void* __thiscall FUN_00eada20_cls::FUN_00eada20(void* arg)
+void* __thiscall FUN_00eada20_cls::CreateClone(void* arg)
 {
     void* result;
     void* mem = FUN_00aa13e0(0x50);
@@ -1897,12 +1897,12 @@ struct FUN_00ead8d0_shell : FUN_00a81160_base
     NiCollisionModel* m_pkModelABV;
     char* FormatName(const char* pcPrefix, unsigned int eMode);
     char* FUN_00eacef0(const char* pcPrefix, unsigned int eMode);
-    void FUN_00ead8d0(StrArr* pkStrings);
+    void AddViewerStrings(StrArr* pkStrings);
 };
 
 // Appends viewer strings for propagation/collision modes, the ABV model and local/world velocities to pkStrings.
 // @fnv 0x00ead8d0
-void FUN_00ead8d0_shell::FUN_00ead8d0(StrArr* pkStrings)
+void FUN_00ead8d0_shell::AddViewerStrings(StrArr* pkStrings)
 {
     WriteToStream(pkStrings);
     pkStrings->Add(FUN_00a7d330((char*)g_0126fab4));

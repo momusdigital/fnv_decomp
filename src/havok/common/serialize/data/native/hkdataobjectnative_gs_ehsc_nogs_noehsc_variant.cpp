@@ -23,7 +23,7 @@ struct FUN_00dbbb20_Class
     int m_08;
     int m_0C;
     void* m_10;
-    int __thiscall FUN_00dbbb20(int a);
+    int __thiscall isValid(int a);
 };
 struct FUN_00d46f00_Class
 {
@@ -72,7 +72,7 @@ struct FUN_00dbb9d0_Class
     int m_04;
     int m_08;
     int m_0C;
-    int FUN_00dbb9d0();
+    int getNumDeclaredMembers();
 };
 struct hkDataArrayNative
 {
@@ -112,7 +112,7 @@ struct FUN_00dbbfa0_Class
     Container* m_0c;
 
     void __thiscall GetMemberInfo(Shape const*, int);
-    void __thiscall FUN_00dbbfa0(int, int);
+    void __thiscall getDeclaredMemberInfo(int, int);
 };
 struct FUN_00d46f20_Class
 {
@@ -461,7 +461,7 @@ struct FUN_00dbbae0_Class
     int unk04;
     int unk08;
     int unk0C;
-    int FUN_00dbbae0(int argument);
+    int hasMember(int argument);
 };
 class hkOwnerDBBB;
 struct hkRefDBBB
@@ -492,7 +492,7 @@ struct FUN_00dbbca0_class
     int m_00, m_04, m_08, m_0c;
     char* m_10;
     int m_14, m_18, m_1c;
-    float FUN_00dbbca0(int index);
+    float asReal(int index);
 };
 class hkMemoryAllocatorDBBD
 {
@@ -1056,10 +1056,10 @@ struct ArrayDBC
     int stride;
     int type;
     TypeDBC* pClassInfo;
-    NativeDBC* FUN_00dbc000(int index);
+    NativeDBC* asObject(int index);
 };
 // @fnv 0x00dbc000
-NativeDBC* ArrayDBC::FUN_00dbc000(int index)
+NativeDBC* ArrayDBC::asObject(int index)
 {
     PairDBC value = {0, 0};
     unsigned high = 0;

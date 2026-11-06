@@ -30,7 +30,7 @@ struct S_0062a320_Key
 
 struct S_0062a320_Node
 {
-    unsigned int FUN_0043b540();
+    unsigned int getCollisionFilterInfo();
 };
 
 struct S_0062a320_Arg
@@ -53,7 +53,7 @@ struct S_0062a320
     S_0062a320_Key unk70;
     float unk74;
     void FUN_0062a320(S_0062a320_Arg* arg, S_0062a320_Data* data);
-    void FUN_00ca9440(S_0062a320_Arg* arg, S_0062a320_Data* data);
+    void addRayHit(S_0062a320_Arg* arg, S_0062a320_Data* data);
 };
 
 // @fnv 0x0062a320
@@ -62,12 +62,12 @@ void S_0062a320::FUN_0062a320(S_0062a320_Arg* arg, S_0062a320_Data* data)
     S_0062a320_Node* node = arg->GetLastNode();
     if (node)
     {
-        S_0062a320_Key nodeKey(node->FUN_0043b540());
+        S_0062a320_Key nodeKey(node->getCollisionFilterInfo());
         if (nodeKey.FUN_0043b4d0() != unk70.FUN_0043b4d0() || nodeKey.FUN_004a3a20() == unk70.FUN_004a3a20())
         {
             if (unk74 <= data->unk10)
             {
-                FUN_00ca9440(arg, data);
+                addRayHit(arg, data);
             }
         }
     }

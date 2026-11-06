@@ -163,10 +163,10 @@ struct Own_dd5f10
     Sub_dd5f10* m_sub;
     int unk1C;
     __m128 m_trans;
-    void __thiscall FUN_00dd5f10(float* a, float* b);
+    void __thiscall getSupportingVertexImpl(float* a, float* b);
 };
 // @fnv 0x00dd5f10
-void __thiscall Own_dd5f10::FUN_00dd5f10(float* a, float* b)
+void __thiscall Own_dd5f10::getSupportingVertexImpl(float* a, float* b)
 {
     Sub_dd5f10* s = m_sub;
     s->v38(a, b);
@@ -214,11 +214,11 @@ class hkpTranslateShapeDD60
     int unk1C;
     hkVector4DD60 m_vTranslation;
 
-    hkVector4DD60* FUN_00dd6000(hkVector4DD60* pBuffer) const;
+    hkVector4DD60* getCollisionSpheresImpl(hkVector4DD60* pBuffer) const;
 };
 
 // @fnv 0x00dd6000
-hkVector4DD60* hkpTranslateShapeDD60::FUN_00dd6000(hkVector4DD60* pBuffer) const
+hkVector4DD60* hkpTranslateShapeDD60::getCollisionSpheresImpl(hkVector4DD60* pBuffer) const
 {
     hkVector4DD60* pDst = pBuffer;
     const hkVector4DD60* m_pkDeltas = m_pContainedShape->GetIndexedVertices(pDst);

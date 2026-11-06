@@ -218,7 +218,7 @@ struct S_00de58c0_Obj
     int unk7c;
     int m_80;
     void FUN_00de54b0(struct S_00de58c0_Local* out);
-    void FUN_00de58c0(struct S_00de58c0_Arr* out, struct S_00de58c0_Alloc* alloc);
+    void getWireframeGeometry(struct S_00de58c0_Arr* out, struct S_00de58c0_Alloc* alloc);
 };
 
 static inline __m128& Q(S_00de58c0_V4& v)
@@ -228,7 +228,7 @@ static inline __m128& Q(S_00de58c0_V4& v)
 
 // Fills a local array via FUN_00de54b0, then writes four vectors per entry to out (m_60, entry i twice, entry i+1 mod m_80), growing out as needed.
 // @fnv 0x00de58c0
-void S_00de58c0_Obj::FUN_00de58c0(S_00de58c0_Arr* out, S_00de58c0_Alloc* alloc)
+void S_00de58c0_Obj::getWireframeGeometry(S_00de58c0_Arr* out, S_00de58c0_Alloc* alloc)
 {
     S_00de58c0_Local tmp;
     tmp.m_data = (S_00de58c0_V4*)tmp.m_buf;

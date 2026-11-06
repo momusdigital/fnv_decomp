@@ -233,12 +233,12 @@ class NiPSysCylinderEmitterX
     float m_fCylinderRadius;
     float m_fCylinderHeight;
 
-    void FUN_00c1fa50(ThreeByThreeMatrix& kRotate, NiPoint3& kPosition, NiPoint3& kMotionVelocity);
+    void ComputeVolumeInitialPositionAndVelocity(ThreeByThreeMatrix& kRotate, NiPoint3& kPosition, NiPoint3& kMotionVelocity);
 };
 
 // Fills kPosition with a random point inside the cylinder and rotates both kPosition and kMotionVelocity by kRotate.
 // @fnv 0x00c1fa50
-void NiPSysCylinderEmitterX::FUN_00c1fa50(ThreeByThreeMatrix& kRotate, NiPoint3& kPosition, NiPoint3& kMotionVelocity)
+void NiPSysCylinderEmitterX::ComputeVolumeInitialPositionAndVelocity(ThreeByThreeMatrix& kRotate, NiPoint3& kPosition, NiPoint3& kMotionVelocity)
 {
     float fRadius = m_fCylinderRadius * RandomFloat0To1();
     float fAngleDifference = NI_TWO_PI_F * RandomFloat0To1();

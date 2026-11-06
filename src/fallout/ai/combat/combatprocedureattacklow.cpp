@@ -362,11 +362,11 @@ struct FUN_009cbb70_shell
     FUN_009cbb70_actor* FUN_00996de0();
     FUN_009cbb70_actor* FUN_00996e00();
     void FUN_009caac0(const char* apReason);
-    void FUN_009cbb70();
+    void Update();
 };
 
 // @fnv 0x009cbb70
-void FUN_009cbb70_shell::FUN_009cbb70()
+void FUN_009cbb70_shell::Update()
 {
     FUN_009cbb70_actor* kActor = FUN_00996de0();
     FUN_009cbb70_actor* pTarget = FUN_00996e00();

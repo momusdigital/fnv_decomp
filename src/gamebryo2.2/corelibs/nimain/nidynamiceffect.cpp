@@ -170,11 +170,11 @@ struct Zx3Effect : public NiAVObject
     Zx3ListNode* m_pkAffectedTail;
     int m_uiAffectedCount;
     Zx3ListNode* m_pkUnaffectedHead;
-    void FUN_00a69140(StrArr* pkStrings);
+    void GetViewerStrings(StrArr* pkStrings);
 };
 
 // @fnv 0x00a69140
-void Zx3Effect::FUN_00a69140(StrArr* pkStrings)
+void Zx3Effect::GetViewerStrings(StrArr* pkStrings)
 {
     ((FUN_00a5ea70_t*)this)->FUN_00a5ad00(pkStrings);
     pkStrings->Add(FUN_00a7d330(g_011f4a28_arg1));
@@ -251,11 +251,11 @@ class FNVEffect : public NiDynamicEffect
 {
   public:
     bool __thiscall FUN_00a5a260(FNVEffect* other);
-    bool __thiscall FUN_00a68d80(FNVEffect* other);
+    bool __thiscall IsEqual(FNVEffect* other);
 };
 // Returns false if counts differ or paired entries differ in nullness; otherwise returns true if FUN_00a5a260 succeeds.
 // @fnv 0x00a68d80
-bool __thiscall FNVEffect::FUN_00a68d80(FNVEffect* other)
+bool __thiscall FNVEffect::IsEqual(FNVEffect* other)
 {
     if (!FUN_00a5a260(other))
         return false;

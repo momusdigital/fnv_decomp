@@ -1536,14 +1536,14 @@ class RefP9
     BaseFormP9* GetBaseForm();
     bool CheckHits(PickQueryP9& kQuery, float& fDistance);
     void OnHit();
-    bool FUN_009c03f0();
+    bool RunTargetPick();
     char m_acPad[0x11c - 4];
     CollSrcP9 m_kCollSrc;
 };
 int __cdecl FUN_009c0d80(PickQueryP9& kQuery, RefP9* pkRef, BaseFormP9* pkBase, int iA, int iB, float fDistance);
 
 // @fnv 0x009c03f0
-bool RefP9::FUN_009c03f0()
+bool RefP9::RunTargetPick()
 {
     if (!GetParentCell() || !GetParentCell()->GetWorld())
         return false;

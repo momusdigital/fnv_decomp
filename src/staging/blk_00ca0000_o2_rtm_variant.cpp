@@ -259,7 +259,7 @@ struct NiStream
 struct HC1Base
 {
     bool FUN_00aa0ad0(NiStream*);
-    bool FUN_00ca54c0(NiStream*);
+    bool RegisterStreamables(NiStream*);
 };
 float __fastcall FUN_00ca6620(void* p, int);
 float __cdecl FUN_00ca98e0();
@@ -285,7 +285,7 @@ struct BaseThunk
 };
 struct FUN_00cac070_Stub : BaseThunk
 {
-    void FUN_00cac070(NiStream&);
+    void RegisterStreamables(NiStream&);
 };
 struct hkpShapePhantom
 {
@@ -1996,7 +1996,7 @@ struct S_00ca6810_Class
     S_00ca6810_Inner* unk08;
 
     void __thiscall FUN_00aa0ad0(int arg);
-    void __thiscall FUN_00ca6810(int arg);
+    void __thiscall RegisterStreamables(int arg);
 };
 struct S_00ca6880_Node
 {
@@ -3104,7 +3104,7 @@ class FUN_00cb9c70_cls
     FUN_00cb9c70_item** m_ppItems;
     unsigned int m_uiCount;
     bool Check(int a1);
-    bool FUN_00cb9c70(int a1);
+    bool RegisterStreamables(int a1);
 };
 struct RefCountedStandIn
 {
@@ -6096,7 +6096,7 @@ struct Holder_ca9e60
 };
 struct Host_ca9e60
 {
-    void* __thiscall FUN_00ca9e60(void* arg);
+    void* __thiscall CreateClone(void* arg);
     void __thiscall FUN_00c89730(void* a, void* b);
 };
 void __cdecl DispatchToTarget();
@@ -7113,7 +7113,7 @@ struct FUN_00ca6780_cls
     virtual void v2B();
     virtual void v2C();
     virtual volatile unsigned int* v2D(unsigned char* out);
-    int FUN_00ca6780(FUN_00ca6780_arg* a1);
+    int LoadCInfo(FUN_00ca6780_arg* a1);
 };
 struct BlockData
 {
@@ -8267,7 +8267,7 @@ struct Owner9bd0
     int u;
     Ctx9bd0* ctx;
     void ReleaseObject(Rec9bd0*, int);
-    void FUN_00ca9bd0(Rec9bd0* r, Key9bd0 key);
+    void CloneData(Rec9bd0* r, Key9bd0 key);
 };
 extern "C" void _ReadWriteBarrier();
 // 0x00cabcd0  340 B  /MT /O2 /GS /EHsc /Gy  - HSV ramp helper.
@@ -8777,7 +8777,7 @@ struct FUN_00cb86f0_class
     virtual void v48();
     virtual void v49();
     virtual void v50(void* obj, int param);
-    cb86f0_obj* FUN_00cb86f0(int a1);
+    cb86f0_obj* CreateClone(int a1);
 };
 class RagdollRaycastCleanup
 {
@@ -9078,7 +9078,7 @@ struct World
 };
 
 // @fnv 0x00ca0b70
-void __stdcall FUN_00ca0b70(void* a1, Collidable* a2, void* a3)
+void __stdcall phantomEnterEvent(void* a1, Collidable* a2, void* a3)
 {
     LocalEvent ev;
     ev.m_a1 = a1;
@@ -11289,12 +11289,12 @@ struct S00ca5da0_Builder
     int unk00;
     int unk04;
     S00ca5da0_Data* m_08;
-    void FUN_00ca5da0(S00ca5da0_Node* parent, S00ca5da0_Pt* pt);
+    void BuildDisplayGeometry(S00ca5da0_Node* parent, S00ca5da0_Pt* pt);
 };
 double __fastcall GetField24Float(S00ca5da0_Builder* self);
 
 // @fnv 0x00ca5da0
-void S00ca5da0_Builder::FUN_00ca5da0(S00ca5da0_Node* parent, S00ca5da0_Pt* pt)
+void S00ca5da0_Builder::BuildDisplayGeometry(S00ca5da0_Node* parent, S00ca5da0_Pt* pt)
 {
     TlsGuard_t guard;
     S00ca5da0_Geom* geom = (this ? m_08 : 0)->m_84;

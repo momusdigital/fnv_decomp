@@ -139,10 +139,10 @@ struct FUN_005a8e20_cls
     int pad[2];
     int* actionList;
     Act5a* FUN_005a90b0(void* form, bool create);
-    bool FUN_005a8e20(void* form, unsigned int flag);
+    bool SetActionFlag(void* form, unsigned int flag);
 };
 // @fnv 0x005a8e20
-bool FUN_005a8e20_cls::FUN_005a8e20(void* form, unsigned int flag)
+bool FUN_005a8e20_cls::SetActionFlag(void* form, unsigned int flag)
 {
     bool result = false;
     if (!actionList)
@@ -350,7 +350,7 @@ extern ATM g_011cacf8;
 bool FUN_005aa680(int p);
 // Queries the performance counter, and if value is non-zero references it and adds it to a list unless FUN_005aa680 accepts it, then waits for rendering tasks.
 // @fnv 0x005aa580
-void FUN_005aa580(int value)
+void AddPendingEnabledReference(int value)
 {
     g_011cacf8.QueryPerformanceCounter(0);
     if (value)
@@ -406,7 +406,7 @@ extern ActorTaskManager g_011cacf8;
 
 // Checks whether apRef is non-null and present in g_011cac98, bracketing the check with calls on g_011cacf8, and returns the result.
 // @fnv 0x005aa630
-bool __cdecl FUN_005aa630(Actor* apRef)
+bool __cdecl IsPendingDisabledReference(Actor* apRef)
 {
     bool bretval = false;
     g_011cacf8.QueryPerformanceCounter(0);
@@ -459,7 +459,7 @@ extern BSSimpleList<TESObjectREFR*> g_011cace8;
 extern BSSimpleList<TESObjectREFR*> g_011cacb8;
 
 // @fnv 0x005aa720
-void FUN_005aa720()
+void RunDelayedScriptActionsOnReferences()
 {
     BSSimpleList<TESObjectREFR*>* pCurrentElementNext;
     g_011cacf8.QueryPerformanceCounter(0);
@@ -505,7 +505,7 @@ void FUN_005aa720()
 
 struct FUN_005aae70_shell : public Script
 {
-    void FUN_005aae70(unsigned int, char*);
+    void SetCompileData(unsigned int, char*);
 };
 
 void __cdecl Deallocate(void*);
@@ -513,7 +513,7 @@ char* __cdecl AllocateZeroed(unsigned int, unsigned int);
 
 // Frees m_data, stores auiDataSize at offset 0x20, and if nonzero allocates that many bytes and copies apCompileData into m_data.
 // @fnv 0x005aae70
-void FUN_005aae70_shell::FUN_005aae70(unsigned int auiDataSize, char* apCompileData)
+void FUN_005aae70_shell::SetCompileData(unsigned int auiDataSize, char* apCompileData)
 {
     Deallocate(m_data);
     m_data = 0;
@@ -634,7 +634,7 @@ void __cdecl FUN_005ac190(TESObjectREFR* ownerObject, ExtraDataList* apExtra)
         ScriptLocals* locals = apExtra->FUN_00418830();
         if (!locals->m_pLocalVariableList)
         {
-            ScriptExecutor::Instance()->FUN_005e2730(locals->m_pOwnerScript, ownerObject, locals);
+            ScriptExecutor::Instance()->InitActionList(locals->m_pOwnerScript, ownerObject, locals);
         }
     }
 }
@@ -693,7 +693,7 @@ struct ScriptLocals_shell : public ScriptLocals
     double FUN_005a9140(unsigned int auiIndex, Script* apScript);
 };
 
-void __cdecl FUN_005acc90(unsigned int* apFormID, double* apValue);
+void __cdecl GetNumericIDFromDouble(unsigned int* apFormID, double* apValue);
 bool __fastcall _ref_008256d0(void* pList);
 void* __fastcall _ref_00726070(void* pList);
 ScriptReferencedObject** __fastcall _ref_006815c0(void* pList);
@@ -741,7 +741,7 @@ ScriptReferencedObject* FUN_005ac4f0_shell::GetNthRefByIndex(unsigned int aiInde
         double dtemp =
             ((ScriptLocals_shell*)apScriptLocals)->FUN_005a9140(*(unsigned int*)((char*)pExtraDataEntry + 0xc), this);
         unsigned int formID = 0;
-        FUN_005acc90(&formID, &dtemp);
+        GetNumericIDFromDouble(&formID, &dtemp);
         if (formID != 0)
         {
             *(TESForm**)((char*)pExtraDataEntry + 8) = TESForm::GetFormByID(formID);
@@ -756,7 +756,7 @@ ScriptReferencedObject* FUN_005ac4f0_shell::GetNthRefByIndex(unsigned int aiInde
 }
 }  // namespace fnv_005ac4f0
 
-// If apExtra has script locals, forwards apActionForm and aiFlag to the locals' FUN_005a8e20 and returns its result; otherwise returns false.
+// If apExtra has script locals, forwards apActionForm and aiFlag to the locals' SetActionFlag and returns its result; otherwise returns false.
 // @fnv 0x005ac750
 bool __cdecl FUN_005ac750(TESForm* apActionForm, ExtraDataList* apExtra, unsigned int aiFlag)
 {
@@ -764,13 +764,13 @@ bool __cdecl FUN_005ac750(TESForm* apActionForm, ExtraDataList* apExtra, unsigne
     if (apExtra && apExtra->FUN_00418830())
     {
         ScriptLocals* locals = apExtra->FUN_00418830();
-        bres = locals->FUN_005a8e20(apActionForm, aiFlag);
+        bres = locals->SetActionFlag(apActionForm, aiFlag);
     }
     return bres;
 }
 
 // @fnv 0x005acc90
-void __cdecl FUN_005acc90(unsigned int* aiID, const double* adVal)
+void __cdecl GetNumericIDFromDouble(unsigned int* aiID, const double* adVal)
 {
     memcpy(aiID, adVal, sizeof(unsigned int));
 }
@@ -1341,11 +1341,11 @@ void FUN_005a9f20_shell::FUN_005a9f20(BGSLoadFormBuffer* apLoadGameBuffer)
     if (apLoadGameBuffer->GetVersion() >= 0x15)
         apLoadGameBuffer->ReadTypedData((void*)&bonLoadFlagSet, 1);
     if (*(void**)((char*)this + 8) == 0)
-        ScriptExecutor::Instance()->FUN_005e2730(*(Script**)this, apLoadGameBuffer->GetReference(), this);
+        ScriptExecutor::Instance()->InitActionList(*(Script**)this, apLoadGameBuffer->GetReference(), this);
     else
         ((FUN_005a8ea0_shell*)this)->FUN_005a8ea0();
     if (bonLoadFlagSet)
-        FUN_005a8e20(0, 0x1000);
+        SetActionFlag(0, 0x1000);
 }
 }  // namespace fnv_005a9f20
 
@@ -1575,11 +1575,11 @@ extern G2 g_011caca8;
 extern G2 g_011cac98;
 extern GlobalObject2_0096a2d0 g_011cace8;
 
-bool __cdecl FUN_005aa630(int);
+bool __cdecl IsPendingDisabledReference(int);
 bool __cdecl FUN_005aa6d0(int);
 
 // @fnv 0x005aa500
-void __cdecl FUN_005aa500(int aiTask, unsigned char abAlternate)
+void __cdecl AddPendingDisabledReference(int aiTask, unsigned char abAlternate)
 {
     g_011cacf8.QueryPerformanceCounter(0);
 
@@ -1589,7 +1589,7 @@ void __cdecl FUN_005aa500(int aiTask, unsigned char abAlternate)
 
         if (abAlternate == 0)
         {
-            if (!FUN_005aa630(aiTask))
+            if (!IsPendingDisabledReference(aiTask))
                 g_011cac98.AddHead(&aiTask);
         }
         else
@@ -1812,7 +1812,7 @@ enum COMPILER_NAME
 class ScriptCompiler
 {
   public:
-    bool FUN_005aedb0(Script* script, TESObjectREFR* ownerObject, COMPILER_NAME compilerIndex, bool flag);
+    bool CompilePartialScript(Script* script, TESObjectREFR* ownerObject, COMPILER_NAME compilerIndex, bool flag);
 };
 
 class AutoMemHelper
@@ -1830,18 +1830,18 @@ __declspec(thread) unsigned char FUN_005ac400_tls[0x269];
 
 struct ScriptCompileAndRun
 {
-    void FUN_005ac400(ScriptCompiler* compiler, COMPILER_NAME compilerIndex, TESObjectREFR* ownerObject);
+    void CompileAndRun(ScriptCompiler* compiler, COMPILER_NAME compilerIndex, TESObjectREFR* ownerObject);
 };
 
 // Compiles the script with the given compiler index and owner object, and if compilation succeeds and the script has data, runs it with the owner's locals.
 // @fnv 0x005ac400
-void ScriptCompileAndRun::FUN_005ac400(ScriptCompiler* compiler, COMPILER_NAME compilerIndex,
+void ScriptCompileAndRun::CompileAndRun(ScriptCompiler* compiler, COMPILER_NAME compilerIndex,
                                        TESObjectREFR* ownerObject)
 {
     AutoMemHelper tempMemContext(0x15, true, "D:\\_Fallout3\\Platforms\\Common\\Code\\Fallout Shared\\TESScript.cpp",
                                  0xd53);
 
-    if (compiler->FUN_005aedb0((Script*)this, ownerObject, compilerIndex, false) &&
+    if (compiler->CompilePartialScript((Script*)this, ownerObject, compilerIndex, false) &&
         ((Script*)this)->m_kHeader.dataSize != 0)
     {
         if (compilerIndex == 1)
@@ -2015,7 +2015,7 @@ class BGSSaveFormBuffer
     void FUN_00865ff0(int count, unsigned int offset);
 };
 
-void __cdecl FUN_005acc90(unsigned int* aiID, const double* adVal);
+void __cdecl GetNumericIDFromDouble(unsigned int* aiID, const double* adVal);
 
 struct SaveLocals9db0 : public ScriptLocals
 {
@@ -2038,7 +2038,7 @@ void SaveLocals9db0::FUN_005a9db0(BGSSaveFormBuffer* buffer)
             if (FUN_005a9480(local_->uiID))
             {
                 unsigned int value7 = 0;
-                FUN_005acc90(&value7, &local_->fValue);
+                GetNumericIDFromDouble(&value7, &local_->fValue);
                 unsigned int id3 = local_->uiID | 0x80000000;
                 buffer->FUN_00865e50(&id3, 4, 0);
                 buffer->FUN_00865db0(value7, 0);
@@ -2350,7 +2350,7 @@ void ThisX::WriteScriptLocals()
             if (FUN_005a9480(pCur->id))
             {
                 converted = 0;
-                FUN_005acc90(&converted, &pCur->value);
+                GetNumericIDFromDouble(&converted, &pCur->value);
                 tagged = pCur->id | 0x80000000;
                 ((StateX*)DAT_011de45c)->FUN_008579b0(&tagged, 4);
                 ((StateX*)DAT_011de45c)->FUN_00857a10(&converted, 4);
@@ -2450,7 +2450,7 @@ void __cdecl WriteReferenceLists(BGSSaveFormBuffer* buffer)
 
             TESObjectREFR* item6;
 
-            DAT_011cacf8.FUN_004538a0(0);
+            DAT_011cacf8.Enter(0);
 
             count1 = 0;
 
@@ -2651,7 +2651,7 @@ struct InventoryRead : TESObjectREFR
 };
 void FUN_005acc70(const unsigned int*, double*);
 ScriptFunctionInfo* FUN_005b1120(int);
-void FUN_005accb0(const ScriptParameter*, const char*, unsigned int*, TESObjectREFR*, TESObjectREFR*, Script*,
+void ParseParameters(const ScriptParameter*, const char*, unsigned int*, TESObjectREFR*, TESObjectREFR*, Script*,
                   ScriptLocals*);
 void FUN_00401460(void*, const void*, unsigned int);
 // @fnv 0x005ac7a0
@@ -2812,7 +2812,7 @@ bool ReadScriptValue(double* value, const char* data, unsigned int* offset, TESO
             if (skip)
             {
                 if (k)
-                    FUN_005accb0(k, data, offset, ba, container, script, locals);
+                    ParseParameters(k, data, offset, ba, container, script, locals);
             }
             else
             {
@@ -2924,7 +2924,7 @@ extern const char extractUnimplemented[];
 bool ReadScriptValue(double*, const char*, unsigned int*, TESObjectREFR*, TESObjectREFR*, ExtractScript*, ScriptLocals*,
                      bool);
 // @fnv 0x005accb0
-bool __cdecl FUN_005accb0(const ExtractParameter* parameters, const char* data, unsigned int* offset,
+bool __cdecl ParseParameters(const ExtractParameter* parameters, const char* data, unsigned int* offset,
                           TESObjectREFR* reference, TESObjectREFR* container, ExtractScript* script,
                           ScriptLocals* locals, ...)
 {

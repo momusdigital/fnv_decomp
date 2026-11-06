@@ -44,14 +44,14 @@ void NiPSysPlanarCollider::LoadBinary(NiStream& stream)
 
 struct FUN_00c299d0_shell : public NiPSysPlanarCollider
 {
-    void* FUN_00c299d0();
+    void* GetRTTI();
 };
 
 struct GlobalObjectO2_00a7b610;
 extern GlobalObjectO2_00a7b610 g_012026c8;
 
 // @fnv 0x00c299d0
-void* FUN_00c299d0_shell::FUN_00c299d0()
+void* FUN_00c299d0_shell::GetRTTI()
 {
     return &g_012026c8;
 }
@@ -355,12 +355,12 @@ class FUN_00c297f0_cls
     FUN_00c297f0_sub m_38;
     FUN_00c297f0_sub m_44;
     void Pre(FUN_00c297f0_owner* o);
-    void FUN_00c297f0(FUN_00c297f0_owner* o);
+    void SaveBinary(FUN_00c297f0_owner* o);
 };
 
 // Calls Pre, writes m_2c via o->v30, then reads 4 bytes into m_30 and m_34 through o->m_250's read callback, and calls m_38 and m_44.
 // @fnv 0x00c297f0
-void FUN_00c297f0_cls::FUN_00c297f0(FUN_00c297f0_owner* apOwner)
+void FUN_00c297f0_cls::SaveBinary(FUN_00c297f0_owner* apOwner)
 {
     Pre(apOwner);
     apOwner->v30(m_2c);
@@ -734,12 +734,12 @@ struct RotationHelper
 };
 struct PlanarColliderExt : NiPSysPlanarCollider
 {
-    NiPSysCollider* FUN_00c28d10(float time, float* collisionTime, BoundDataBlock* data, unsigned short particleId);
+    NiPSysCollider* Resolve(float time, float* collisionTime, BoundDataBlock* data, unsigned short particleId);
     NiPSysCollider* ResolveTail(float time, float* collisionTime, BoundDataBlock* data, unsigned short particleId);
 };
 // Tests a particle against the planar collider's half-space plane, computes a collision fraction if crossing, and falls back to ResolveTail.
 // @fnv 0x00c28d10
-NiPSysCollider* PlanarColliderExt::FUN_00c28d10(float time, float* collisionTime, BoundDataBlock* data,
+NiPSysCollider* PlanarColliderExt::Resolve(float time, float* collisionTime, BoundDataBlock* data,
                                                 unsigned short particleId)
 {
     bool bCollided = false;

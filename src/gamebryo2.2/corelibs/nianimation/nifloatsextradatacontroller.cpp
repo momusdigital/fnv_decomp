@@ -72,11 +72,11 @@ struct NiFloatsExtraDataController : NiPSysModifierCtlr
     void* m_pVtbl;
     int m_iFloatsExtraDataIndex;
     int m_kCtlrID;
-    NiFloatsExtraDataController* FUN_00a4efb0(CloningProcess&);
+    NiFloatsExtraDataController* CreateClone(CloningProcess&);
 };
 // Allocates and constructs a NiFloatsExtraDataController copy, runs the clone helper, then copies the extra data index from this object.
 // @fnv 0x00a4efb0
-NiFloatsExtraDataController* NiFloatsExtraDataController::FUN_00a4efb0(CloningProcess& kCloning)
+NiFloatsExtraDataController* NiFloatsExtraDataController::CreateClone(CloningProcess& kCloning)
 {
     NiFloatsExtraDataController* pkObject = static_cast<NiFloatsExtraDataController*>(BSFadeNode::operator new(0x48));
     if (pkObject)
@@ -242,11 +242,11 @@ struct ControllerStub
     int unk20, unk24, unk28, unk2C;
     int unk30, unk34, unk38, unk3C;
     void* unk40;
-    void FUN_00a4f1e0(StreamStub* stream);
+    void GetViewerStrings(StreamStub* stream);
 };
 
 // @fnv 0x00a4f1e0
-void ControllerStub::FUN_00a4f1e0(StreamStub* stream)
+void ControllerStub::GetViewerStrings(StreamStub* stream)
 {
     FUN_00a57420(stream);
     void* value = FUN_00a7d330(g_011f3fcc);

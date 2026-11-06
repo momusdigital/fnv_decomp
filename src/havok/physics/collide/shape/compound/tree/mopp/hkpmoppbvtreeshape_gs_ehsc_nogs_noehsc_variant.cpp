@@ -233,7 +233,7 @@ struct S00d54440_Obj
     S00d54440_Vtable* m_34;
     int m_38;
 
-    int FUN_00d54440(int, int);
+    int calcSizeForSpu(int, int);
 };
 #include <xmmintrin.h>
 extern char DAT_010d0d70;
@@ -419,7 +419,7 @@ class hkpMoppBvTreeShapeD546
     int m_iChildSize;
     int m_3c;
 
-    hkVector4ComparisonD546 FUN_00d54610(const hkpShapeRayBundleCastInputD546& kInput,
+    hkVector4ComparisonD546 castRayBundleImpl(const hkpShapeRayBundleCastInputD546& kInput,
                                          hkpShapeRayBundleCastOutputD546& kResults,
                                          const hkVector4ComparisonD546& kRayMask) const throw();
 };
@@ -545,11 +545,11 @@ extern double DAT_01091c00;
 class hkMoppBvTreeShapeBaseQ : public hkMoppBvTreeShapeBase
 {
   public:
-    int FUN_00d54810(const hkAabbq& aabbIn, unsigned int* hits, int maxNumKeys) const;
+    int queryAabbImpl(const hkAabbq& aabbIn, unsigned int* hits, int maxNumKeys) const;
 };
 
 // @fnv 0x00d54810
-int hkMoppBvTreeShapeBaseQ::FUN_00d54810(const hkAabbq& aabbIn, unsigned int* hits, int maxNumKeys) const
+int hkMoppBvTreeShapeBaseQ::queryAabbImpl(const hkAabbq& aabbIn, unsigned int* hits, int maxNumKeys) const
 {
     const hkVector4q& offset = reinterpret_cast<const hkVector4q&>(m_kMoppCodeInfo);
 

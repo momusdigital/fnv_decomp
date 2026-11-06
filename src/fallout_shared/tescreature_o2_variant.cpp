@@ -367,7 +367,7 @@ TESCreatureAdjust::TESCreatureAdjust()
 }  // namespace fnv_005fc030
 
 namespace fnv_005fc040 {
-// Adjustor thunk for FUN_005fc040: sub ecx,0x90; jmp FUN_005fb1e0
+// Adjustor thunk for FUN_005fc040: sub ecx,0x90; jmp SaveGame
 // Primary base = vptr + 35 int fields (0x90 bytes).
 struct PrimaryBase
 {

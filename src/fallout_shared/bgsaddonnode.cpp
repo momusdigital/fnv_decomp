@@ -254,11 +254,11 @@ extern "C" void* g_011c806c;
 
 struct FUN_004f9220_shell
 {
-    void* __thiscall FUN_004f9220();
+    void* __thiscall GetRTTI();
 };
 
 // @fnv 0x004f9220
-void* __thiscall FUN_004f9220_shell::FUN_004f9220()
+void* __thiscall FUN_004f9220_shell::GetRTTI()
 {
     return &g_011c806c;
 }

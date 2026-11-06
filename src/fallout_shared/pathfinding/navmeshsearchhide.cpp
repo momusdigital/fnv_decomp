@@ -675,11 +675,11 @@ struct FUN_006aa470_cls
     char pad20a8[0x20cc - 0x20a8];
     NiPoint3 m_kTargetPos;
 
-    bool FUN_006aa470(NavData6aa4* pkData);
+    bool IsGoalNode(NavData6aa4* pkData);
 };
 
 // @fnv 0x006aa470
-bool FUN_006aa470_cls::FUN_006aa470(NavData6aa4* pkData)
+bool FUN_006aa470_cls::IsGoalNode(NavData6aa4* pkData)
 {
     NavList6aa4* pkList = pkData->FUN_00413f40();
     NavInfo6aa4* pkInfo7 = pkList->FUN_006a78d0();

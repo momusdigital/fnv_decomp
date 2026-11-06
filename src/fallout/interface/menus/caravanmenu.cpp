@@ -15,11 +15,11 @@ void FUN_0073bb10_shell::ClearField()
 
 struct FUN_0073bb30_shell
 {
-    int FUN_0073bb30();
+    int GetClass();
 };
 
 // @fnv 0x0073bb30
-int FUN_0073bb30_shell::FUN_0073bb30()
+int FUN_0073bb30_shell::GetClass()
 {
     return 0x43b;
 }
@@ -19266,7 +19266,7 @@ struct ModelLoader
 };
 struct DataHandler
 {
-    void FUN_0046faf0();
+    void ClearBarterContainer();
 };
 extern GlobalPtr DAT_011d91a8;
 extern ModelLoader* DAT_011c3b3c;
@@ -19626,7 +19626,7 @@ FUN_0073bba0::~FUN_0073bba0()
     m_174.FUN_008454f0(true);
     m_164.FUN_008454f0(true);
     if (DAT_011c3f2c != 0)
-        DAT_011c3f2c->FUN_0046faf0();
+        DAT_011c3f2c->ClearBarterContainer();
     switch (m_028)
     {
     case 0:

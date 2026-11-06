@@ -256,7 +256,7 @@ struct NiStream
 struct HC1Base
 {
     bool FUN_00aa0ad0(NiStream*);
-    bool FUN_00ca54c0(NiStream*);
+    bool RegisterStreamables(NiStream*);
 };
 float __fastcall FUN_00ca6620(void* p, int);
 float __cdecl FUN_00ca98e0();
@@ -282,7 +282,7 @@ struct BaseThunk
 };
 struct FUN_00cac070_Stub : BaseThunk
 {
-    void FUN_00cac070(NiStream&);
+    void RegisterStreamables(NiStream&);
 };
 struct hkpShapePhantom
 {
@@ -1993,7 +1993,7 @@ struct S_00ca6810_Class
     S_00ca6810_Inner* unk08;
 
     void __thiscall FUN_00aa0ad0(int arg);
-    void __thiscall FUN_00ca6810(int arg);
+    void __thiscall RegisterStreamables(int arg);
 };
 struct S_00ca6880_Node
 {
@@ -3101,7 +3101,7 @@ class FUN_00cb9c70_cls
     FUN_00cb9c70_item** m_ppItems;
     unsigned int m_uiCount;
     bool Check(int a1);
-    bool FUN_00cb9c70(int a1);
+    bool RegisterStreamables(int a1);
 };
 struct RefCountedStandIn
 {
@@ -6093,7 +6093,7 @@ struct Holder_ca9e60
 };
 struct Host_ca9e60
 {
-    void* __thiscall FUN_00ca9e60(void* arg);
+    void* __thiscall CreateClone(void* arg);
     void __thiscall FUN_00c89730(void* a, void* b);
 };
 void __cdecl DispatchToTarget();

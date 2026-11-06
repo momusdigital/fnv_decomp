@@ -567,7 +567,7 @@ struct RecursiveSpinLock
 
 struct Zt5TES
 {
-    void FUN_00453550(float);
+    void UpdateCellAnimations(float);
 };
 
 struct TaskQueueInterface
@@ -697,7 +697,7 @@ void __cdecl FUN_008c7bd0()
     BGSDestructibleObjectForm::UpdateDestructionMap();
     DAT_011f11a0.Unlock();
 
-    reinterpret_cast<Zt5TES*>(g_TES)->FUN_00453550(FUN_00453850());
+    reinterpret_cast<Zt5TES*>(g_TES)->UpdateCellAnimations(FUN_00453850());
 
     reinterpret_cast<FUN_008c7d80_shell*>(FUN_00713d80(1))->SetCurrent(6);
     FUN_008c80d0();
@@ -719,7 +719,7 @@ class Sky;
 
 struct Zt5TES
 {
-    void FUN_00453550(float);
+    void UpdateCellAnimations(float);
 };
 
 struct FUN_0096c330_shell
@@ -801,7 +801,7 @@ void FUN_008c7f50()
     reinterpret_cast<FUN_008c79e0_shell*>(FUN_00713d80(1))->SignalThreadEvent(5);
     reinterpret_cast<FUN_008c7a70_shell*>(FUN_00713d80(0))->WaitForEvent(4);
 
-    reinterpret_cast<Zt5TES*>(g_TES)->FUN_00453550(FUN_00453850());
+    reinterpret_cast<Zt5TES*>(g_TES)->UpdateCellAnimations(FUN_00453850());
 
     reinterpret_cast<FUN_008c79e0_shell*>(FUN_00713d80(1))->SignalThreadEvent(6);
     reinterpret_cast<FUN_0087a6d0_shell*>(TaskQueueInterface::GetInstance())->FUN_0087a6d0();

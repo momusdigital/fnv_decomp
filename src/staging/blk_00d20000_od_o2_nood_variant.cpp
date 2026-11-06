@@ -444,7 +444,7 @@ struct LinearCastState
 
 struct CastObj
 {
-    void __thiscall FUN_00d302d0(int a, int b, int c, LinearCastState& s);
+    void __thiscall processCollision(int a, int b, int c, LinearCastState& s);
     void __thiscall FUN_00d31610(int a1, int a2, int a3, LinearCastState& st);
 };
 
@@ -454,7 +454,7 @@ void __thiscall CastObj::FUN_00d31610(int a1, int a2, int a3, LinearCastState& s
     LinearCastState* s = &st;
     float oldDistance = s->m_fClosestPointDistanceSquared;
     LinearCastVertex* v = s->m_kRayEnd;
-    FUN_00d302d0(a2, a1, a3, st);
+    processCollision(a2, a1, a3, st);
     for (; v < s->m_kRayEnd; v++)
     {
         hkVector4q w;
@@ -528,7 +528,7 @@ struct Simplex
 class SimplexProcessor
 {
   public:
-    void FUN_00d369a0(int a, int b, int c, Simplex* s);
+    void processCollision(int a, int b, int c, Simplex* s);
     void FUN_00d36d60(int a, int b, int c, Simplex* s);
 };
 
@@ -537,7 +537,7 @@ void SimplexProcessor::FUN_00d36d60(int a, int b, int c, Simplex* s)
 {
     SimplexVertex* v = s->m_kRayEnd;
     float oldDistance = s->m_fClosestPointDistanceSquared;
-    FUN_00d369a0(b, a, c, s);
+    processCollision(b, a, c, s);
     for (; v < s->m_kRayEnd; v++)
     {
         const __m128* pb = &v->m_kPointB;
@@ -754,7 +754,7 @@ struct Simplex
 
 struct AgentBase
 {
-    void FUN_00d324e0(int a, int b, int c, Simplex* s);
+    void processCollision(int a, int b, int c, Simplex* s);
 };
 
 struct Agent : AgentBase
@@ -767,7 +767,7 @@ void Agent::FUN_00d32850(int a, int b, int c, Simplex* s)
 {
     SimplexVertex* v = s->m_kRayEnd;
     float oldDistance = s->m_fClosestPointDistanceSquared;
-    AgentBase::FUN_00d324e0(b, a, c, s);
+    AgentBase::processCollision(b, a, c, s);
     for (; v < s->m_kRayEnd; v++)
     {
         const __m128* pb = &v->m_kPointB;
@@ -1228,7 +1228,7 @@ struct Simplex
 
 struct AgentBase
 {
-    void FUN_00d3f080(int a, int b, int c, Simplex* s);
+    void processCollision(int a, int b, int c, Simplex* s);
 };
 
 struct Agent : AgentBase
@@ -1241,7 +1241,7 @@ void Agent::FUN_00d3f500(int a, int b, int c, Simplex* s)
 {
     SimplexVertex* v = s->m_kRayEnd;
     float oldDistance = s->m_fClosestPointDistanceSquared;
-    AgentBase::FUN_00d3f080(b, a, c, s);
+    AgentBase::processCollision(b, a, c, s);
     for (; v < s->m_kRayEnd; v++)
     {
         const __m128* pb = &v->m_kPointB;

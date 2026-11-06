@@ -244,8 +244,8 @@ class Actor : public MobileObject,
     bool IsWithinRadius(int radius);
     bool IsHostileToActor(Actor* target, int arg1, int* arg2, bool arg3);
     bool FUN_00437bd0();
-    bool FUN_00437bf0();
-    bool FUN_00608d80();
+    bool IsRestrained();
+    bool IsReanimated();
 };
 #pragma pack(pop)
 FNV_STATIC_ASSERT(sizeof(Actor) == 0x1B4);

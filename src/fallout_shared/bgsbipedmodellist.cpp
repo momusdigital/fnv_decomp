@@ -79,7 +79,7 @@ struct BaseFormComponent
 };
 struct FUN_00474fc0_shell : BGSBipedModelList
 {
-    bool FUN_00474fc0(BaseFormComponent* apCompareFC);
+    bool CompareComponent(BaseFormComponent* apCompareFC);
     BSSimpleList<BGSCameraShot*>* GetNext();
 };
 
@@ -148,7 +148,7 @@ FUN_00474d40_shell::~FUN_00474d40_shell()
 
 // Returns true if apCompareFC is not a BGSBipedModelList or its GetNext differs from this GetNext, otherwise false.
 // @fnv 0x00474fc0
-bool FUN_00474fc0_shell::FUN_00474fc0(BaseFormComponent* apCompareFC)
+bool FUN_00474fc0_shell::CompareComponent(BaseFormComponent* apCompareFC)
 {
     BGSBipedModelList* pcomp = dynamic_cast<BGSBipedModelList*>(apCompareFC);
     if (!pcomp)
@@ -165,12 +165,12 @@ struct TESRaceForm
 
 struct FUN_00474f70_shell : BaseFormComponent
 {
-    void FUN_00474f70(BaseFormComponent* apCopyFC);
+    void CopyComponent(BaseFormComponent* apCopyFC);
 };
 
 // Passes the GetNext() value from apCopyFC to TESRaceForm::Initialize.
 // @fnv 0x00474f70
-void FUN_00474f70_shell::FUN_00474f70(BaseFormComponent* apCopyFC)
+void FUN_00474f70_shell::CopyComponent(BaseFormComponent* apCopyFC)
 {
     BGSBipedModelList* pCopyFC = dynamic_cast<BGSBipedModelList*>(apCopyFC);
     if (!pCopyFC)

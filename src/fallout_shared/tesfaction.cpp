@@ -174,7 +174,7 @@ void FUN_005fcf80_shell::FUN_005fcf80()
 
 struct FUN_005fd3b0_shell : public TESFaction
 {
-    int FUN_005fd3b0(TESFaction*);
+    int GetFactionReaction(TESFaction*);
 };
 
 struct Dummy_0048bf50
@@ -183,7 +183,7 @@ struct Dummy_0048bf50
 };
 
 // @fnv 0x005fd3b0
-int FUN_005fd3b0_shell::FUN_005fd3b0(TESFaction* pFaction)
+int FUN_005fd3b0_shell::GetFactionReaction(TESFaction* pFaction)
 {
     return ((Dummy_0048bf50*)((char*)this + 0x24))->FindValueByKey(pFaction);
 }
@@ -214,14 +214,14 @@ struct F005fd430
     virtual void v11();
     virtual void v12(int);
     char pad[0x24 - 4];
-    void FUN_0048c220(F005fd430*, int);
-    void FUN_005fd430(F005fd430* f, int r);
+    void SetFightReaction(F005fd430*, int);
+    void SetFactionFightReaction(F005fd430* f, int r);
 };
-// Forwards f and r to the object at this+0x24 via FUN_0048c220, then calls v12(4).
+// Forwards f and r to the object at this+0x24 via SetFightReaction, then calls v12(4).
 // @fnv 0x005fd430
-void F005fd430::FUN_005fd430(F005fd430* f, int r)
+void F005fd430::SetFactionFightReaction(F005fd430* f, int r)
 {
-    ((F005fd430*)((char*)this + 0x24))->FUN_0048c220(f, r);
+    ((F005fd430*)((char*)this + 0x24))->SetFightReaction(f, r);
     v12(4);
 }
 
@@ -412,11 +412,11 @@ struct NiFormArray
 
 struct FUN_005ff520_shell
 {
-    unsigned int FUN_005ff520(unsigned int flags);
+    unsigned int GetIndexForChild(unsigned int flags);
 };
 
 // @fnv 0x005ff520
-unsigned int FUN_005ff520_shell::FUN_005ff520(unsigned int apForm)
+unsigned int FUN_005ff520_shell::GetIndexForChild(unsigned int apForm)
 {
     unsigned int index = 0xffffffff;
     if (*reinterpret_cast<NiFormArray**>(reinterpret_cast<char*>(this) + 0x40))
@@ -557,10 +557,10 @@ struct Unk_005fd3d0
     virtual void v18(int v);
     char pad[32];
     HackReact m_hack;
-    void FUN_005fd3d0(struct TESForm* form, int v);
+    void SetFactionReaction(struct TESForm* form, int v);
 };
 // @fnv 0x005fd3d0
-void Unk_005fd3d0::FUN_005fd3d0(struct TESForm* form, int v)
+void Unk_005fd3d0::SetFactionReaction(struct TESForm* form, int v)
 {
     m_hack.SetReactionValue(form, v);
     v18(4);
@@ -568,7 +568,7 @@ void Unk_005fd3d0::FUN_005fd3d0(struct TESForm* form, int v)
 
 struct Helper_48c0b0
 {
-    void FUN_0048c0b0(int, int);
+    void ModReaction(int, int);
 };
 struct Outer_5fd400
 {
@@ -593,13 +593,13 @@ struct Outer_5fd400
     virtual void v18(int);
     int _pad[8];
     Helper_48c0b0 _h;
-    void FUN_005fd400(int, int);
+    void ModFactionReaction(int, int);
 };
-// Calls the helper's FUN_0048c0b0 with a and b, then invokes virtual v18 with 4.
+// Calls the helper's ModReaction with a and b, then invokes virtual v18 with 4.
 // @fnv 0x005fd400
-void Outer_5fd400::FUN_005fd400(int aiArg1, int aiArg2)
+void Outer_5fd400::ModFactionReaction(int aiArg1, int aiArg2)
 {
-    _h.FUN_0048c0b0(aiArg1, aiArg2);
+    _h.ModReaction(aiArg1, aiArg2);
     v18(4);
 }
 
@@ -616,11 +616,11 @@ struct Holder : SkyObject
 {
     char _pad[0x24];
     MidObj mid;
-    void FUN_005fd660(unsigned int, unsigned int);
+    void InitLoadGameTES(unsigned int, unsigned int);
 };
 // Calls SkyObject::Update and then mid.ResolveGroupReactionForms with the same two arguments.
 // @fnv 0x005fd660
-void Holder::FUN_005fd660(unsigned int auiArg1, unsigned int auiArg2)
+void Holder::InitLoadGameTES(unsigned int auiArg1, unsigned int auiArg2)
 {
     SkyObject::Update(auiArg1, auiArg2);
     mid.ResolveGroupReactionForms(auiArg1, auiArg2);
@@ -629,7 +629,7 @@ void Holder::FUN_005fd660(unsigned int auiArg1, unsigned int auiArg2)
 
 struct Unk38
 {
-    void FUN_00616c20(int);
+    void CommitCrime(int);
 };
 struct FakeFaction
 {
@@ -663,7 +663,7 @@ void FakeFaction::ModifyReputation(int aiCount, bool bModRep)
 {
     i48 += aiCount;
     if (p38 != 0 && bModRep)
-        p38->FUN_00616c20(0);
+        p38->CommitCrime(0);
     F18(0x80000000);
 }
 
@@ -740,10 +740,10 @@ struct BGSSaveFormBuffer
 };
 struct FUN_005fd690_s
 {
-    void FUN_005fd690(BGSSaveFormBuffer* buffer);
+    void AppendSaveLoadFormBuffer(BGSSaveFormBuffer* buffer);
 };
 // @fnv 0x005fd690
-void FUN_005fd690_s::FUN_005fd690(BGSSaveFormBuffer* buffer)
+void FUN_005fd690_s::AppendSaveLoadFormBuffer(BGSSaveFormBuffer* buffer)
 {
     ((BGSSaveFormBuffer*)this)->SaveIfChanged(buffer);
     ((BGSSaveFormBuffer*)((char*)this + 0x24))->FUN_0048c9d0(buffer);
@@ -774,7 +774,7 @@ struct _FactionSub
 };
 struct F005fd430
 {
-    void FUN_005fd430(F005fd430*, int);
+    void SetFactionFightReaction(F005fd430*, int);
 };
 struct Reaction_5fd850
 {
@@ -809,7 +809,7 @@ void ValidateFactionReactions()
                             pFaction->GetName(), pFaction->GetFormID(), pOther->GetName(), pOther->GetFormID(),
                             pOther->GetName(), pOther->GetFormID(), pFaction->GetName(), pFaction->GetFormID(),
                             pOther->GetName(), pFaction->GetName(), pFaction->GetName(), pFaction->GetFormID());
-                        ((F005fd430*)pOther)->FUN_005fd430((F005fd430*)pFaction, 3);
+                        ((F005fd430*)pOther)->SetFactionFightReaction((F005fd430*)pFaction, 3);
                     }
                 }
                 pRIter = pRIter->GetNext();

@@ -49,10 +49,10 @@ void __cdecl AppendChunk(unsigned int, void*, unsigned int);
 struct FUN_005f0140_obj : TESForm
 {
     B1_4fe unk18;
-    void FUN_005f0140();
+    void SaveForm();
 };
 // @fnv 0x005f0140
-void FUN_005f0140_obj::FUN_005f0140()
+void FUN_005f0140_obj::SaveForm()
 {
     ((FUN_004855a0*)this)->M();
     if (FUN_00401500())
@@ -126,11 +126,11 @@ struct FUN_004851b0_call
 };
 struct FUN_005f02a0_shell : BGSDehydrationStage
 {
-    void FUN_005f02a0(TESForm* form);
+    void CopyFrom(TESForm* form);
 };
 // If FUN_00ec43fb resolves a source from form, copies its Data member to this and calls FUN_004851b0(form).
 // @fnv 0x005f02a0
-void FUN_005f02a0_shell::FUN_005f02a0(TESForm* form)
+void FUN_005f02a0_shell::CopyFrom(TESForm* form)
 {
     FUN_005f00d0* src = (FUN_005f00d0*)FUN_00ec43fb(form, 0, &DAT_01183028, &DAT_01186318, 0);
     if (!src)
@@ -143,13 +143,13 @@ void FUN_005f02a0_shell::FUN_005f02a0(TESForm* form)
 
 struct BGSVoiceType_shell : BGSVoiceType
 {
-    bool FUN_005f02f0(TESForm* form);
+    bool Compare(TESForm* form);
     bool FUN_00485270(TESForm* form);
 };
 
 // Returns true if form is not a BGSVoiceType, its Data differs, or FUN_00485270(voice) is true; otherwise false.
 // @fnv 0x005f02f0
-bool BGSVoiceType_shell::FUN_005f02f0(TESForm* form)
+bool BGSVoiceType_shell::Compare(TESForm* form)
 {
     BGSVoiceType* voice = dynamic_cast<BGSVoiceType*>(form);
     if (!voice)

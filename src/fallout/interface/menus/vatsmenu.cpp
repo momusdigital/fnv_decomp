@@ -135,11 +135,11 @@ struct FUN_007ef760_Owner
     virtual void vf1();
     virtual void vf2();
     virtual void vf3(int, int);
-    void __thiscall FUN_007ef760(int aiID, Tile* apTarget);
+    void __thiscall HandleMousewheel(int aiID, Tile* apTarget);
 };
 // Calls FUN_0070ec70 on the object from FUN_004b7210 and invokes vf3 with 2 if that value divided by -120 equals 1, otherwise 3.
 // @fnv 0x007ef760
-void __thiscall FUN_007ef760_Owner::FUN_007ef760(int aiID, Tile* apTarget)
+void __thiscall FUN_007ef760_Owner::HandleMousewheel(int aiID, Tile* apTarget)
 {
     if (((FUN_0070ec70_This*)FUN_004b7210())->FUN_0070ec70() / -120 == 1)
         vf3(2, 0);
@@ -333,11 +333,11 @@ struct FUN_007ef8b0_This
     unsigned char flag;
     unsigned char pad2[4];
     int t;
-    void __thiscall FUN_007ef8b0(int aiID, Tile* apTarget);
+    void __thiscall DoStillDown(int aiID, Tile* apTarget);
 };
 // For IDs 2 and 3, if the corresponding flag is unset, stores the current AnimIdle section into t and sets that flag.
 // @fnv 0x007ef8b0
-void __thiscall FUN_007ef8b0_This::FUN_007ef8b0(int aiID, Tile* apTarget)
+void __thiscall FUN_007ef8b0_This::DoStillDown(int aiID, Tile* apTarget)
 {
     switch (aiID)
     {
@@ -1012,7 +1012,7 @@ struct ElemX
 };
 struct RaceX
 {
-    void* FUN_005e5130(int aiIndex);
+    void* GetBodyPart(int aiIndex);
     ElemX** FUN_006a9540();
 };
 struct FormX
@@ -1999,7 +1999,7 @@ void VATSMenuX::Update()
                             CommandX* pCommandA55 = new CommandX;
                             void* pRaceItemNum =
                                 xDAT_011f21cc->IsActor()
-                                    ? xDAT_011f21cc->GetActorBase()->GetRace()->FUN_005e5130(xDAT_011a59f0)
+                                    ? xDAT_011f21cc->GetActorBase()->GetRace()->GetBodyPart(xDAT_011a59f0)
                                     : 0;
                             FormX* pTargetEquippedQ96 =
                                 xDAT_011f21cc->IsActor() ? xDAT_011f21cc->FUN_008d8520()->GetEquippedWeapon() : 0;
@@ -2109,14 +2109,14 @@ void VATSMenuX::Update()
                             if (xDAT_011f2250.IsValidCommand(pCommandA55) && xDAT_011f21cc->IsActor() && !bLimbSetNum)
                             {
                                 RaceX* pRaceB70 = xDAT_011f21cc->GetActorBase()->GetRace();
-                                void* pElement = pRaceB70->FUN_005e5130(0x19);
+                                void* pElement = pRaceB70->GetBodyPart(0x19);
                                 if (pElement)
                                 {
                                     pCommandA55->m_iActionValue = 0x19;
                                 }
                                 else
                                 {
-                                    pElement = pRaceB70->FUN_005e5130(0x1a);
+                                    pElement = pRaceB70->GetBodyPart(0x1a);
                                     if (pElement)
                                     {
                                         pCommandA55->m_iActionValue = 0x1a;
@@ -2223,11 +2223,11 @@ void VATSMenuX::Update()
 
 struct VATSMenu007ef830 : VATSMenu
 {
-    void FUN_007ef830(int aiID, int aiOther);
+    void DoLeave(int aiID, int aiOther);
 };
 
 // @fnv 0x007ef830
-void VATSMenu007ef830::FUN_007ef830(int aiID, int aiOther)
+void VATSMenu007ef830::DoLeave(int aiID, int aiOther)
 {
     _FUN_004b7210();
     if (_FUN_004b71d0())
@@ -5442,7 +5442,7 @@ struct Form1290
 };
 struct Weapon1290
 {
-    float FUN_0050ebf0();
+    float GetBoundSize();
     bool FUN_006450c0();
 };
 struct FUN_006dcd70
@@ -5534,7 +5534,7 @@ float VATSMenu1290::CalculateVATSChance(ListReader1290* targetNode)
     float boundX = 0.0f;  // Effective range.
     if (otherA && !xDAT_011f21cc)
     {
-        boundX = ((Weapon1290*)otherA)->FUN_0050ebf0() * 2.0f;
+        boundX = ((Weapon1290*)otherA)->GetBoundSize() * 2.0f;
     }
     else
     {
@@ -7442,13 +7442,13 @@ void __thiscall FUN_007f6e50_This::AssignActionTiles(TargetList* apTargets)
 
 struct VATSMenu_007ef7b0 : VATSMenu
 {
-    void __thiscall FUN_007ef7b0(int aiID, int aiArg);
+    void __thiscall HandleMouseover(int aiID, int aiArg);
 };
 void* __cdecl FUN_004b7210();
 bool __cdecl _FUN_004b71d0();
 
 // @fnv 0x007ef7b0
-void __thiscall VATSMenu_007ef7b0::FUN_007ef7b0(int aiID, int aiArg)
+void __thiscall VATSMenu_007ef7b0::HandleMouseover(int aiID, int aiArg)
 {
     FUN_004b7210();
     if (_FUN_004b71d0())
@@ -7576,7 +7576,7 @@ struct CombatTarget
 
 struct LimbInfo
 {
-    void* FUN_005e5130(int aiLimb);
+    void* GetBodyPart(int aiLimb);
 };
 
 struct LimbName
@@ -7979,7 +7979,7 @@ struct LimbSelection
 void FUN_00705780();
 bool FUN_009526b0();
 const char* __cdecl FUN_0066ddc0(int aiType);
-bool __cdecl FUN_0066dde0(int aiType);
+bool __cdecl IsAttackAction(int aiType);
 int __cdecl FUN_00408b20(const char* apA, const char* apB);
 int __cdecl FUN_00406d30(char* apDest, unsigned int auiSize, const char* apSrc);
 int __cdecl FUN_00406d50(char* apDest, unsigned int auiSize, const char* apSrc);
@@ -8051,14 +8051,14 @@ void VATSMenuQueue::UpdateQueueEntry(VATSAction* apAction, bool abAddEntry, bool
         Tile* pEntry;
         fCurrentAP = fCurrentAP - apAction->fAPCost;
         char acTextBase[260];
-        if (FUN_0066dde0(apAction->iType))
+        if (IsAttackAction(apAction->iType))
         {
             DAT_011db198++;
             if (DAT_011a59f0 != -1 && DAT_011f21cc->IsActor() && pQueueWeaponTmp && !pQueueWeaponTmp->FUN_006450c0() &&
                 pQueueWeaponTmp->FUN_00446390() != 10)
             {
                 LimbInfo* pLimbInfoTmp = DAT_011f21cc->FUN_004181e0()->FUN_vt180();
-                LimbName* pLimb = (LimbName*)pLimbInfoTmp->FUN_005e5130(FUN_007f3bf0(pLimbs->m_iLimbIndex));
+                LimbName* pLimb = (LimbName*)pLimbInfoTmp->GetBodyPart(FUN_007f3bf0(pLimbs->m_iLimbIndex));
                 if (pLimb)
                 {
                     FUN_00406d30(acTextBase, 260, apAction->pTarget->FUN_0055d520());

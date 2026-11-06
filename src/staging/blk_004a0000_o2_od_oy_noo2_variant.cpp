@@ -147,7 +147,7 @@ struct RefHandle
 struct HitBody
 {
     RefHandle shape;
-    unsigned int FUN_0043b540();
+    unsigned int getCollisionFilterInfo();
 };
 struct Shape
 {
@@ -156,13 +156,13 @@ struct Shape
 struct ImpactData
 {
     float GetModifierValue();
-    float FUN_004a40a0();
+    float GetDecalMinWidth();
     void* FUN_006733e0();
-    bool FUN_004a4100();
+    bool GetIsParallax();
     float FUN_004a41c0();
-    bool FUN_004a41e0();
+    bool GetDecalParallaxPasses();
     bool CallMemberAtOffset54();
-    bool FUN_004a4140();
+    bool GetAlphaBlending();
     float FUN_004a40e0();
     float FUN_009a9350();
     float FUN_00598040();
@@ -203,8 +203,8 @@ void* __cdecl FUN_004b3890(const NiPoint3&, const ImageSpaceEffectParam&, const 
 struct TESView
 {
     void FUN_00458e20(void*, float);
-    Ref* FUN_00457620(const NiPoint3&);
-    Ref* FUN_004519d0(NiPoint3);
+    Ref* GetLandGeometry(const NiPoint3&);
+    Ref* GetCellForPoint(NiPoint3);
 };
 extern TESView* g_TES;
 Shape* __cdecl FUN_004a3a40(Ref*);
@@ -241,7 +241,7 @@ void ImpactTask::FUN_004a2d50()
         reference.FUN_00559450()->FUN_00490e40()->FUN_006a9540()->FUN_00476930(2, direction);
         direction.FUN_004a0c10();
         NiPoint3 origin = reference.FUN_00559450()->FUN_00490e40()->FUN_0043c490();
-        float radius = FUN_00476b70(impact->FUN_004a40a0(), impact->GetModifierValue());
+        float radius = FUN_00476b70(impact->GetDecalMinWidth(), impact->GetModifierValue());
         Splatter* splatter = FUN_00622a70(radius, true);
         splatter->FUN_006233c0(0);
         splatter->FUN_004a1a10(8, 0);
@@ -299,11 +299,11 @@ void ImpactTask::FUN_004a2d50()
                         ray.FUN_008cdd90()->FUN_00460140()->GetEntryAt(hit)->fraction, end.FUN_00439ef0(origin)));
                     NiPoint3 normal;
                     FUN_004a3970(normal, ray.FUN_008cdd90()->FUN_00460140()->GetEntryAt(hit)->normal);
-                    bool landscape = FUN_008c71b0(body->FUN_0043b540()).FUN_004a3a20() == 1;
+                    bool landscape = FUN_008c71b0(body->getCollisionFilterInfo()).FUN_004a3a20() == 1;
                     Ref* target = 0;
                     if (landscape)
                     {
-                        target = g_TES->FUN_00457620(position);
+                        target = g_TES->GetLandGeometry(position);
                         if (target && target->FUN_009611e0())
                             target = target->FUN_009611e0();
                     }
@@ -312,7 +312,7 @@ void ImpactTask::FUN_004a2d50()
                     void* object = FUN_0056f930(target);
                     if (!landscape && (!object || !IsAcousticSpaceFormTypeAllowed(object, true)))
                         continue;
-                    Ref* owner = g_TES->FUN_004519d0(position);
+                    Ref* owner = g_TES->GetCellForPoint(position);
                     FUN_004a37b0 decal;
                     decal.position = position;
                     decal.normal = normal;
@@ -323,11 +323,11 @@ void ImpactTask::FUN_004a2d50()
                     decal.rotation = (unsigned char)(int)FUN_00406cc0(FUN_00476b70(0, DAT_0101e570));
                     decal.reference = target;
                     decal.texture = texture;
-                    decal.flag73 = impact->FUN_004a4100();
+                    decal.flag73 = impact->GetIsParallax();
                     decal.radius = impact->FUN_004a41c0();
-                    decal.flag76 = impact->FUN_004a41e0();
+                    decal.flag76 = impact->GetDecalParallaxPasses();
                     decal.flag74 = impact->CallMemberAtOffset54();
-                    decal.flag75 = impact->FUN_004a4140();
+                    decal.flag75 = impact->GetAlphaBlending();
                     decal.parallax = impact->FUN_004a40e0();
                     decal.shininess = impact->FUN_009a9350();
                     decal.scale = impact->FUN_00598040();

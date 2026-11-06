@@ -546,7 +546,7 @@ struct AmmoSaveCalls
     void FUN_00477f20();
     void LogFormIDs();
     void FUN_00503210();
-    void FUN_00485e20(void*, unsigned int);
+    void __SaveData(void*, unsigned int);
     unsigned int FUN_004048e0();
 };
 struct AmmoSave
@@ -581,7 +581,7 @@ void AmmoSave::Save()
     reinterpret_cast<AmmoSaveCalls&>(sounds).LogFormIDs();
     if (FUN_00401500())
         reinterpret_cast<AmmoSaveCalls&>(data).FUN_00503210();
-    reinterpret_cast<AmmoSaveCalls*>(this)->FUN_00485e20(&data, 8);
+    reinterpret_cast<AmmoSaveCalls*>(this)->__SaveData(&data, 8);
     if (FUN_00401500())
         reinterpret_cast<AmmoSaveCalls&>(data).FUN_00503210();
     BGSProjectile* node = m_kProjectileData.m_pProjectile;

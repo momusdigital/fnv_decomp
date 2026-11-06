@@ -228,11 +228,11 @@ class hkObjCB90
     char unkA3[0x1f];
     bool m_cValid;
 
-    hkBoolCB90 FUN_00cb9020() const;
+    hkBoolCB90 isValid() const;
 };
 
 // @fnv 0x00cb9020
-hkBoolCB90 hkObjCB90::FUN_00cb9020() const
+hkBoolCB90 hkObjCB90::isValid() const
 {
     return m_kPointA.IsOrthonormal(1e-3f) && m_kPointB.IsOrthonormal(1e-3f) && (!m_hasC || m_cValid);
 }

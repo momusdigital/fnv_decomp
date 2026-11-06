@@ -123,7 +123,7 @@ extern void* _g_01202688;
 
 struct C27A30Base
 {
-    void FUN_00c322b0(StrArr*);
+    void GetViewerStrings(StrArr*);
 };
 
 struct FUN_00c27060_shell : C27A30Base
@@ -134,7 +134,7 @@ struct FUN_00c27060_shell : C27A30Base
 // @fnv 0x00c27060
 void FUN_00c27060_shell::AppendNameAndDirection(StrArr* pkStrings)
 {
-    FUN_00c322b0(pkStrings);
+    GetViewerStrings(pkStrings);
     char* pcStr = _FUN_00a7d330(_g_01202688);
     unsigned int uiIdx = pkStrings->m_usSize;
     if (uiIdx >= pkStrings->m_usCapacity)
@@ -179,12 +179,12 @@ struct CloneHost
     char _pad_0[0x30];
     CloneVec3 m_30;
     void FUN_00c32020(CloneItem* pItem, int a);
-    CloneItem* FUN_00c26940(int a);
+    CloneItem* CreateClone(int a);
 };
 
 // Allocates a CloneItem, passes it with a to FUN_00c32020, copies m_30 into the item's m_30, and returns it.
 // @fnv 0x00c26940
-CloneItem* CloneHost::FUN_00c26940(int a)
+CloneItem* CloneHost::CreateClone(int a)
 {
     CloneItem* pItem = new CloneItem;
     this->FUN_00c32020(pItem, a);

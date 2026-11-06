@@ -1983,10 +1983,10 @@ struct Sequence71
     Smart71* notes;
     unsigned short noteCount;
     void ReadGroup(Stream71&);
-    void FUN_00a33e40(Stream71&);
+    void LoadBinary(Stream71&);
 };
 // @fnv 0x00a33e40
-void Sequence71::FUN_00a33e40(Stream71& stream)
+void Sequence71::LoadBinary(Stream71& stream)
 {
     ReadGroup(stream);
     if (stream.version < 0x0a010068)

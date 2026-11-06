@@ -666,7 +666,7 @@ struct ScAVObject
     virtual void FUN_vd8(void* pkArg);
     ScTransform* GetSourceFilesFromForm();
     ScGeom* FUN_005495f0();
-    unsigned int FUN_004d7d50();
+    unsigned int GetModifierCount();
     ScAVObject* GetByIndex(unsigned int uiIndex);
 };
 bool __cdecl FUN_0043b300(ScRTTI* pkRTTI, void* pkObject);
@@ -693,7 +693,7 @@ void ScScaler::ScaleObject(ScAVObject* pkObject, float fScale)
                 if (FUN_0043b300(&g_kRTTI_012024e0, pkObject))
                 {
                     ScAVObject* pkNode = pkObject;
-                    for (unsigned int i = 0; i < pkNode->FUN_004d7d50(); i++)
+                    for (unsigned int i = 0; i < pkNode->GetModifierCount(); i++)
                     {
                         ScAVObject* pkChild = pkNode->GetByIndex(i);
                         if (FUN_0043b300(&g_kRTTI_01202508, pkChild))

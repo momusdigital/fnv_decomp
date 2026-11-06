@@ -291,7 +291,7 @@ void __thiscall VATS_COMMAND_LIST::CreateCommandAndUpdateHUD()
     HUDMainMenu::UpdateVisibilityState(4);
 }
 
-bool __cdecl FUN_0066dde0(int);
+bool __cdecl IsAttackAction(int);
 
 struct ActorX_S
 {
@@ -313,7 +313,7 @@ struct FUN_009c8e00_shell
 // @fnv 0x009c8e00
 void FUN_009c8e00_shell::FUN_009c8e00(VATSCommand* apCommand)
 {
-    if (apCommand && FUN_0066dde0(apCommand->eAction))
+    if (apCommand && IsAttackAction(apCommand->eAction))
     {
         if (apCommand->bSuccess && apCommand->pTarget && !FUN_009c8ea0())
         {
@@ -1178,7 +1178,7 @@ struct ActorObj9c9
 
 struct LightTarget9c9
 {
-    NiAVObject* FUN_004e6540();
+    NiAVObject* GetLight();
 };
 struct LightPtr9c9
 {
@@ -1204,7 +1204,7 @@ struct ShadowSceneNode9c9
 struct NiAVObject
 {
     NiBound9c9 const& FUN_0043d450() const;
-    void FUN_004f00e0(void* pvValue);
+    void SetWorldTranslate(void* pvValue);
     void FUN_0050dd50(NiPoint3 const& krValue);
     void SetEffectColor(NiPoint3 const& krValue);
     void SetAppCulled(bool abCulled);
@@ -1270,7 +1270,7 @@ void VATS9c9::FUN_009c9ae0(ActorObj9c9* apActor)
 
                     float fScaleTmp =
                         FUN_00450b80(0)->FUN_00b5b610(_kSpawn, &iOutVal, &fA9, &fB_, *g_pkPlayer9c9->v125(),
-                                                      m_spVATSLight.FUN_00726070()->FUN_004e6540()) *
+                                                      m_spVATSLight.FUN_00726070()->GetLight()) *
                         100.0;
 
                     float fRadiusTmp;
@@ -1282,10 +1282,10 @@ void VATS9c9::FUN_009c9ae0(ActorObj9c9* apActor)
 
                     fRadiusTmp = (kCenter5 - apActor->v116()->FUN_0043d450().FUN_006815c0()).Length() * 2.0f;
 
-                    m_spVATSLight.FUN_00726070()->FUN_004e6540()->FUN_004f00e0(&kCenter5);
-                    m_spVATSLight.FUN_00726070()->FUN_004e6540()->FUN_0050dd50(NiPoint3(fRadiusTmp, 0.0f, 0.0f));
-                    m_spVATSLight.FUN_00726070()->FUN_004e6540()->SetEffectColor(kOffset5);
-                    m_spVATSLight.FUN_00726070()->FUN_004e6540()->SetAppCulled(false);
+                    m_spVATSLight.FUN_00726070()->GetLight()->SetWorldTranslate(&kCenter5);
+                    m_spVATSLight.FUN_00726070()->GetLight()->FUN_0050dd50(NiPoint3(fRadiusTmp, 0.0f, 0.0f));
+                    m_spVATSLight.FUN_00726070()->GetLight()->SetEffectColor(kOffset5);
+                    m_spVATSLight.FUN_00726070()->GetLight()->SetAppCulled(false);
                 }
             }
         }

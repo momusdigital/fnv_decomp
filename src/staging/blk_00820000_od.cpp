@@ -4054,7 +4054,7 @@ class FUN_00822920 : public FUN_0081dd00
   public:
     FUN_00822920(int iParam1, int iParam2, int iParam3, int iParam4, NiPoint3_8229 kPoint1, NiPoint3_8229 kPoint2);
     virtual ~FUN_00822920();
-    void FUN_00930c70();
+    void InitHavok();
 };
 
 // @fnv 0x00822920
@@ -4062,7 +4062,7 @@ FUN_00822920::FUN_00822920(int iParam1, int iParam2, int iParam3, int iParam4, N
                            NiPoint3_8229 kPoint2)
     : FUN_0081dd00(iParam1, iParam2, iParam3, iParam4, kPoint1, kPoint2)
 {
-    FUN_00930c70();
+    InitHavok();
 }
 
 class List8321E0

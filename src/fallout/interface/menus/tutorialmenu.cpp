@@ -150,12 +150,12 @@ void FUN_007e9010_Owner::FUN_007e9010()
 struct FUN_007e8db0_shell : FUN_007e8e40_shell
 {
     Tile* m_pTiles[32];
-    void FUN_007e8db0(int aiID, Tile* apTarget);
+    void DoClick(int aiID, Tile* apTarget);
 };
 
 // Resolves apTarget from the tile array at offset 0x28 when null and aiID is 0-7, then dispatches on aiID to one of three handlers.
 // @fnv 0x007e8db0
-void FUN_007e8db0_shell::FUN_007e8db0(int aiID, Tile* apTarget)
+void FUN_007e8db0_shell::DoClick(int aiID, Tile* apTarget)
 {
     if (!apTarget && aiID >= 0 && aiID < 8)
         apTarget = ((Tile**)((char*)this + 0x28))[aiID];

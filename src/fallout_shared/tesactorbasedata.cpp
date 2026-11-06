@@ -36,12 +36,12 @@ struct FUN_0047c880
     char pad[0x28];
     IntList list;
     virtual ~FUN_0047c880();
-    void FUN_0047c9b0();
+    void ClearDataComponent();
 };
 // @fnv 0x0047c880
 FUN_0047c880::~FUN_0047c880()
 {
-    FUN_0047c9b0();
+    ClearDataComponent();
 }
 
 struct PackedRecordData;
@@ -243,25 +243,25 @@ struct FUN_0047cdb0_shell : public TESActorBaseData
     bool FUN_0047cdb0();
 };
 
-bool __fastcall FUN_0047cdd0(TESActorBaseData*);
+bool __fastcall IsTemplateLeveled(TESActorBaseData*);
 
 // @fnv 0x0047cdb0
 bool FUN_0047cdb0_shell::FUN_0047cdb0()
 {
-    bool bretval = FUN_0047cdd0(this);
+    bool bretval = IsTemplateLeveled(this);
     return bretval;
 }
 
 struct FUN_0047cdd0_shell : public TESActorBaseData
 {
-    bool FUN_0047cdd0();
+    bool IsTemplateLeveled();
 };
 
 int __fastcall _FNV_GetFormType(void*);
 
 // Returns true if the pointer at offset 0x24 is non-null and its form type is 0x2c or 0x2d.
 // @fnv 0x0047cdd0
-bool FUN_0047cdd0_shell::FUN_0047cdd0()
+bool FUN_0047cdd0_shell::IsTemplateLeveled()
 {
     bool bretval = false;
     if (*reinterpret_cast<void**>(reinterpret_cast<char*>(this) + 0x24))
@@ -378,7 +378,7 @@ struct DummyActorBase : DummyBase1, DummyBase2
 };
 
 // @fnv 0x0047d130
-TESActorBase* __cdecl FUN_0047d130(TESActorBase* apOriginalBase, TESActorBase* apTemplateBase)
+TESActorBase* __cdecl CreateTemplateActorBase(TESActorBase* apOriginalBase, TESActorBase* apTemplateBase)
 {
     DummyActorBase* pnewbase;
     bool breset = g_BGSSaveLoadGame->SetThreadAllowChanges(false);
@@ -622,17 +622,17 @@ int FUN_0047d680_shell::GetFactionRank(TESFaction* apFaction, bool abPC)
 
 struct FUN_0047dd30_shell : public TESActorBaseData
 {
-    void FUN_0047dd30(int);
+    void SetFlags(int);
 };
 
-void FUN_0047e2a0();
+void AddFormChange();
 
-// Stores aiNewFlags into the field at offset 4 of this and calls FUN_0047e2a0 with 2.
+// Stores aiNewFlags into the field at offset 4 of this and calls AddFormChange with 2.
 // @fnv 0x0047dd30
-void FUN_0047dd30_shell::FUN_0047dd30(int aiNewFlags)
+void FUN_0047dd30_shell::SetFlags(int aiNewFlags)
 {
     *(int*)((char*)this + 4) = aiNewFlags;
-    ((void(__thiscall*)(void*, int)) & FUN_0047e2a0)(this, 2);
+    ((void(__thiscall*)(void*, int)) & AddFormChange)(this, 2);
 }
 
 namespace fnv_0047de40 {
@@ -640,15 +640,15 @@ struct TABStub
 {
     char pad[0xe];
     unsigned short v;
-    void FUN_0047e2a0(int);
-    void FUN_0047de40(unsigned short a);
+    void AddFormChange(int);
+    void SetCalcLevelMin(unsigned short a);
 };
-// Stores the given unsigned short into v and calls FUN_0047e2a0 with 2.
+// Stores the given unsigned short into v and calls AddFormChange with 2.
 // @fnv 0x0047de40
-void TABStub::FUN_0047de40(unsigned short ausValue)
+void TABStub::SetCalcLevelMin(unsigned short ausValue)
 {
     v = ausValue;
-    FUN_0047e2a0(2);
+    AddFormChange(2);
 }
 }  // namespace fnv_0047de40
 
@@ -657,15 +657,15 @@ struct TABStub
 {
     char pad[0x10];
     unsigned short v;
-    void FUN_0047e2a0(int);
-    void FUN_0047de70(unsigned short a);
+    void AddFormChange(int);
+    void SetCalcLevelMax(unsigned short a);
 };
-// Stores the given value in v and calls FUN_0047e2a0 with 2.
+// Stores the given value in v and calls AddFormChange with 2.
 // @fnv 0x0047de70
-void TABStub::FUN_0047de70(unsigned short ausValue)
+void TABStub::SetCalcLevelMax(unsigned short ausValue)
 {
     v = ausValue;
-    FUN_0047e2a0(2);
+    AddFormChange(2);
 }
 }  // namespace fnv_0047de70
 
@@ -674,15 +674,15 @@ struct TABStub
 {
     char pad[0xc];
     unsigned short v;
-    void FUN_0047e2a0(int);
-    void FUN_0047dfe0(unsigned short a);
+    void AddFormChange(int);
+    void SetLevel(unsigned short a);
 };
-// Stores the given value in v and calls FUN_0047e2a0 with 2.
+// Stores the given value in v and calls AddFormChange with 2.
 // @fnv 0x0047dfe0
-void TABStub::FUN_0047dfe0(unsigned short ausValue)
+void TABStub::SetLevel(unsigned short ausValue)
 {
     v = ausValue;
-    FUN_0047e2a0(2);
+    AddFormChange(2);
 }
 }  // namespace fnv_0047dfe0
 
@@ -691,15 +691,15 @@ struct TABStub
 {
     char pad[8];
     unsigned short v;
-    void FUN_0047e2a0(int);
-    void FUN_0047e010(unsigned short a);
+    void AddFormChange(int);
+    void SetFatigue(unsigned short a);
 };
-// Stores the given value in v and calls FUN_0047e2a0 with 2.
+// Stores the given value in v and calls AddFormChange with 2.
 // @fnv 0x0047e010
-void TABStub::FUN_0047e010(unsigned short ausValue)
+void TABStub::SetFatigue(unsigned short ausValue)
 {
     v = ausValue;
-    FUN_0047e2a0(2);
+    AddFormChange(2);
 }
 }  // namespace fnv_0047e010
 
@@ -723,7 +723,7 @@ extern StartMenu* DAT_01186d20[][50];
 extern const char DAT_01011584[];
 unsigned int __cdecl FUN_0047e040(float);
 // @fnv 0x0047e0e0
-const char* FUN_0047e0e0(Actor* actor)
+const char* GetKarmicTitle(Actor* actor)
 {
     const char* result = 0;
     if (actor)
@@ -763,10 +763,10 @@ struct S47b
 {
     char pad[0x14];
     float v;
-    void FUN_0047e2a0(int);
+    void AddFormChange(int);
     void SetClampedValue(float a);
 };
-// Stores a into v, clamps v between the two runtime float settings, then calls FUN_0047e2a0(2).
+// Stores a into v, clamps v between the two runtime float settings, then calls AddFormChange(2).
 // @fnv 0x0047e1c0
 void S47b::SetClampedValue(float afValue)
 {
@@ -775,7 +775,7 @@ void S47b::SetClampedValue(float afValue)
         v = *originalRuntimeFloatSetting25.Float();
     else if (v < *originalRuntimeFloatSetting24.Float())
         v = *originalRuntimeFloatSetting24.Float();
-    FUN_0047e2a0(2);
+    AddFormChange(2);
 }
 }  // namespace fnv_0047e1c0
 
@@ -783,15 +783,15 @@ struct S47
 {
     char pad[0xa];
     short v;
-    void FUN_0047e2a0(int);
+    void AddFormChange(int);
     void SetValue(short a);
 };
-// Stores the given short into v and calls FUN_0047e2a0 with 2.
+// Stores the given short into v and calls AddFormChange with 2.
 // @fnv 0x0047e240
 void S47::SetValue(short asValue)
 {
     v = asValue;
-    FUN_0047e2a0(2);
+    AddFormChange(2);
 }
 
 namespace fnv_0047e270 {
@@ -800,14 +800,14 @@ struct FUN_0047e270_shell : public TESActorBaseData
     void SetSpeedMult(unsigned short);
 };
 
-void __fastcall FUN_0047e2a0(void*, int, int);
+void __fastcall AddFormChange(void*, int, int);
 
-// Stores asSpeedMult at offset 0x12 of this object and calls FUN_0047e2a0 with this and 2.
+// Stores asSpeedMult at offset 0x12 of this object and calls AddFormChange with this and 2.
 // @fnv 0x0047e270
 void FUN_0047e270_shell::SetSpeedMult(unsigned short asSpeedMult)
 {
     *(unsigned short*)((char*)this + 0x12) = asSpeedMult;
-    ((void(__thiscall*)(void*, int))FUN_0047e2a0)(this, 2);
+    ((void(__thiscall*)(void*, int))AddFormChange)(this, 2);
 }
 }  // namespace fnv_0047e270
 
@@ -857,11 +857,11 @@ struct blob12
 };
 struct FUN_0047e2a0_shell : public TESActorBaseData
 {
-    void FUN_0047e2a0(int);
+    void AddFormChange(int);
 };
 
 // @fnv 0x0047e2a0
-void FUN_0047e2a0_shell::FUN_0047e2a0(int aiChangeFlags)
+void FUN_0047e2a0_shell::AddFormChange(int aiChangeFlags)
 {
     TESActorBase* pactbase = this ? reinterpret_cast<TESActorBase*>(reinterpret_cast<char*>(this) - 0x30) : 0;
     TESForm* pform = reinterpret_cast<TESForm*>(pactbase);
@@ -1043,11 +1043,11 @@ void __thiscall FUN_0047e360_Cls::ClearFlags(unsigned int mask)
 
 struct ABD_0047c790
 {
-    bool FUN_0047c790() const;
+    bool GetAllowPCDialogue() const;
 };
 
 // @fnv 0x0047c790
-bool ABD_0047c790::FUN_0047c790() const
+bool ABD_0047c790::GetAllowPCDialogue() const
 {
     return ((const TESActorBaseData*)this)->GetFlag(0x200000);
 }
@@ -1055,7 +1055,7 @@ bool ABD_0047c790::FUN_0047c790() const
 struct TESActorBaseData_0047c7b0
 {
     bool GetFlag(unsigned int flag) const;
-    bool FUN_0047c7b0() const;
+    bool GetAllowPickPocket() const;
 };
 
 bool TESActorBaseData_0047c7b0::GetFlag(unsigned int flag) const
@@ -1064,7 +1064,7 @@ bool TESActorBaseData_0047c7b0::GetFlag(unsigned int flag) const
 }
 
 // @fnv 0x0047c7b0
-bool TESActorBaseData_0047c7b0::FUN_0047c7b0() const
+bool TESActorBaseData_0047c7b0::GetAllowPickPocket() const
 {
     return GetFlag(0x10000000);
 }
@@ -1076,10 +1076,10 @@ struct FUN_0047c9d0_shell
 };
 struct FUN_0047c9b0_shell : public FUN_0047c9d0_shell
 {
-    void FUN_0047c9b0();
+    void ClearDataComponent();
 };
 // @fnv 0x0047c9b0
-void FUN_0047c9b0_shell::FUN_0047c9b0()
+void FUN_0047c9b0_shell::ClearDataComponent()
 {
     DeleteRegionColorEntries();
 }
@@ -1157,7 +1157,7 @@ struct TgtOps
 };
 struct FUN_0047dd30_shell
 {
-    void FUN_0047dd30(int);
+    void SetFlags(int);
 };
 struct BSShaderPPLightingProperty
 {
@@ -1166,7 +1166,7 @@ struct BSShaderPPLightingProperty
 struct S47
 {
     void SetValue(short);
-    void FUN_0047dea0(short);
+    void SetBaseDisposition(short);
 };
 struct FUN_0047d370_shell
 {
@@ -1203,11 +1203,11 @@ struct TESRecipe
 };
 struct ABDHelper_47d220
 {
-    void FUN_0047e010(unsigned short);
+    void SetFatigue(unsigned short);
     void SetClampedValue(float);
-    void FUN_0047dfe0(unsigned short);
-    void FUN_0047de40(unsigned short);
-    void FUN_0047de70(unsigned short);
+    void SetLevel(unsigned short);
+    void SetCalcLevelMin(unsigned short);
+    void SetCalcLevelMax(unsigned short);
     void SetSpeedMult(unsigned short);
     void CopyFactionRanks(TESActorBaseData*);
     void FUN_0050f9a0(TESLevItem*);
@@ -1223,15 +1223,15 @@ void ABD_47d220::CopyFromActorBaseData(BaseFormComponent* apCopyFC)
     TESActorBaseData* pCopy = dynamic_cast<TESActorBaseData*>(apCopyFC);
     if (!pCopy)
         return;
-    ((FUN_0047dd30_shell*)this)->FUN_0047dd30(*(int*)((TgtOps*)pCopy)->GetPosition());
-    ((ABDHelper_47d220*)this)->FUN_0047e010(pCopy->GetFatigue());
+    ((FUN_0047dd30_shell*)this)->SetFlags(*(int*)((TgtOps*)pCopy)->GetPosition());
+    ((ABDHelper_47d220*)this)->SetFatigue(pCopy->GetFatigue());
     ((ABDHelper_47d220*)this)->SetClampedValue(pCopy->GetHealthRegeneration());
     ((S47*)this)->SetValue(((BSShaderPPLightingProperty*)pCopy)->GetDiffuseTextureIndex());
-    ((ABDHelper_47d220*)this)->FUN_0047dfe0(((FUN_0047d370_shell*)pCopy)->FUN_0047d370());
-    ((ABDHelper_47d220*)this)->FUN_0047de40(((FUN_0047d390_shell*)pCopy)->FUN_0047d390());
-    ((ABDHelper_47d220*)this)->FUN_0047de70(((FUN_0047d3b0_shell*)pCopy)->FUN_0047d3b0());
+    ((ABDHelper_47d220*)this)->SetLevel(((FUN_0047d370_shell*)pCopy)->FUN_0047d370());
+    ((ABDHelper_47d220*)this)->SetCalcLevelMin(((FUN_0047d390_shell*)pCopy)->FUN_0047d390());
+    ((ABDHelper_47d220*)this)->SetCalcLevelMax(((FUN_0047d3b0_shell*)pCopy)->FUN_0047d3b0());
     ((ABDHelper_47d220*)this)->SetSpeedMult(GetShortAtOffset12((const char*)pCopy));
-    ((S47*)this)->FUN_0047dea0(((FUN_0047d3d0_shell*)pCopy)->FUN_0047d3d0());
+    ((S47*)this)->SetBaseDisposition(((FUN_0047d3d0_shell*)pCopy)->FUN_0047d3d0());
     ((ABDHelper_47d220*)this)->CopyFactionRanks(pCopy);
     ((ABDHelper_47d220*)this)->FUN_0050f9a0((TESLevItem*)((BGSTerrainManager*)pCopy)->GetMinLevel());
     ((RegionPointList*)this)->SetDistanceInsideAtMax((unsigned int)pCopy->GetVoiceType());
@@ -1410,11 +1410,11 @@ struct FUN_0047c770_cls
 {
     int unk00;
     void Helper(unsigned int flags);
-    void FUN_0047c770();
+    void GetNoVATSMelee();
 };
 
 // @fnv 0x0047c770
-void FUN_0047c770_cls::FUN_0047c770()
+void FUN_0047c770_cls::GetNoVATSMelee()
 {
     Helper(0x100000);
 }
@@ -1530,8 +1530,8 @@ struct FlagSet
     unsigned int unk00;
     unsigned int m_04;
     void FUN_0047dd50(int aMask, unsigned char aSet, unsigned char aForce);
-    void FUN_0047e2a0(const char* s);
-    void FUN_0047e2a0(int n);
+    void AddFormChange(const char* s);
+    void AddFormChange(int n);
     void ApplyToForm(const char* s);
 };
 
@@ -1548,7 +1548,7 @@ void FlagSet::FUN_0047dd50(int aMask, unsigned char aSet, unsigned char aForce)
             {
                 if (!DAT_011ddf38->Test(r, NameRef("")))
                 {
-                    FUN_0047e2a0("");
+                    AddFormChange("");
                 }
                 else
                 {
@@ -1558,7 +1558,7 @@ void FlagSet::FUN_0047dd50(int aMask, unsigned char aSet, unsigned char aForce)
         }
         else if (aForce)
         {
-            FUN_0047e2a0(2);
+            AddFormChange(2);
         }
     }
     (aSet ? (m_04 |= aMask) : (m_04 = (~aMask) & m_04));
@@ -1883,7 +1883,7 @@ struct ExtraShell
 {
     int FUN_00418520();
     void FUN_0041aeb0();
-    void FUN_0041af50();
+    void RemoveScript();
 };
 struct FormShell
 {
@@ -1963,7 +1963,7 @@ struct InvShell
 };
 extern "C" char DAT_011ddf38;
 StateShell* GetPathManager();
-void* FUN_0047d130(void*, void*);
+void* CreateTemplateActorBase(void*, void*);
 InvShell* FUN_004bf220(RefShell*);
 struct OwnerShell
 {
@@ -2005,14 +2005,14 @@ void OwnerShell::FUN_0047ce10(RefShell* ref)
         if (GetPathManager()->FUN_00559450())
             GetPathManager()->FUN_006ebd10(ref->FUN_005d43c0()->FUN_00418520());
         ref->FUN_005d43c0()->FUN_0041aeb0();
-        ref->FUN_005d43c0()->FUN_0041af50();
+        ref->FUN_005d43c0()->RemoveScript();
         if (ref->isOther())
         {
             RefShell* other3 = ref;
             other3->FUN_00884f80();
         }
         void* oldbase2 = ref->FUN_007af430();
-        void* newbase = FUN_0047d130(oldbase2, base6);
+        void* newbase = CreateTemplateActorBase(oldbase2, base6);
         ref->FUN_0056b020(oldbase2, base6);
         ref->FUN_00575690(newbase);
         ref->FUN_00565730();

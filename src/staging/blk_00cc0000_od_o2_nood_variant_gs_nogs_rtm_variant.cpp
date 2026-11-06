@@ -96,7 +96,7 @@ struct TransformOwner
     TransformObj* m_pSource;
 
     void ReleaseObject(TransformObj* pkObj, int iArg);
-    void FUN_00cc85b0(TransformObj* pkObj, int iArg);
+    void CloneData(TransformObj* pkObj, int iArg);
 };
 bool __stdcall FUN_00c84ec0(void* key);
 struct Cd2Target
@@ -189,7 +189,7 @@ class Cd2Owner
     {
         return this ? m_pShapeCollection : 0;
     }
-    bool FUN_00cd2f10(void* key);
+    bool CanShare(void* key);
 };
 extern "C"
 {
@@ -475,7 +475,7 @@ struct FUN_00cc5f30_cls
     int unk00;
     FUN_00d4f2a0* m_pSrc;
 
-    void FUN_00cc5f30(FUN_00d4f2a0* dst, int a2);
+    void CloneData(FUN_00d4f2a0* dst, int a2);
     void ReleaseObject(FUN_00d4f2a0* dst, int a2);
 };
 struct S_00ccbce0_Source
@@ -1339,7 +1339,7 @@ struct RotationOwner525
 {
     unsigned int unk00, unk04;
     RotationSource525* source;
-    void FUN_00d54ed0(StringArray525*);
+    void GetViewerStrings(StringArray525*);
     void FUN_00ccb810(StringArray525*);
 };
 struct TlsState
@@ -1570,7 +1570,7 @@ struct Holder
     int unk10;
     int unk14;
     void FUN_00ccbce0(void* p);
-    CachedObj* FUN_00ccbfa0(bool* created);
+    CachedObj* CreateCinfo(bool* created);
 };
 inline void* AllocAligned(unsigned int size)
 {
@@ -1977,7 +1977,7 @@ struct Subject
 {
     int unk00, unk04;
     Body* body;
-    void FUN_00ccf150(ConvexShapeNode*, void*);
+    void BuildDisplayGeometry(ConvexShapeNode*, void*);
 };
 extern "C"
 {
@@ -2559,7 +2559,7 @@ class NamedShape
     unsigned int unk00;
     void WriteLimitedHingeData(Blk* b);
     void FUN_00c9fc50(NameArr* arr);
-    void FUN_00ccd960(NameArr* arr);
+    void GetViewerStrings(NameArr* arr);
 };
 static void AddName(NameArr* arr, const unsigned int& v)
 {

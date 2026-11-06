@@ -5,7 +5,7 @@
 // Fallout: New Vegas decompilation: fallout_shared/bgstextureset.cpp.
 #include "bgstextureset_packet.h"
 void FUN_00593210();
-BGSTextureSet* __cdecl FUN_00593220();
+BGSTextureSet* __cdecl GetNullTextureSet();
 void __cdecl _Deallocate(void*);
 struct S591140
 {
@@ -45,7 +45,7 @@ struct FUN_0048e370_obj
 };
 struct FUN_00593320_shell
 {
-    void FUN_00593320(void*);
+    void Save(void*);
 };
 void __cdecl FUN_00485950(unsigned int, unsigned int);
 extern unsigned int DAT_0118c574[6];

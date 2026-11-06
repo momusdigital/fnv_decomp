@@ -5716,7 +5716,7 @@ struct Actor97
 };
 struct CombatData97
 {
-    unsigned char FUN_00662a80();
+    unsigned char GetApplyRotToParent();
     void FUN_0097f240(float value);
     Equipment97* GetBestWeapon();
     void FUN_00997ba0(int first, int second);
@@ -5820,7 +5820,7 @@ void CombatController97::UpdateCombatEquipment(int first, int second)
     {
         equipmentChanged = false;
         FUN_0097f200();
-        bool active = combat->FUN_00662a80() != 0;
+        bool active = combat->GetApplyRotToParent() != 0;
         actor->GetProcess()->SetWeaponFlag(!active);
         if (active)
         {
@@ -6614,7 +6614,7 @@ struct FloatSetting
 };
 struct CleanupTarget
 {
-    void FUN_005c1ae0();
+    void ForceStopCombat();
 };
 
 extern FloatSetting DAT_011ce3a8;
@@ -7980,7 +7980,7 @@ int CombatController::FUN_00967da0()
         {
             CombatActor* actor = eb->GetIntAt(index);
             if (actor && actor->vtable->GetCleanup(actor))
-                actor->vtable->GetCleanup(actor)->FUN_005c1ae0();
+                actor->vtable->GetCleanup(actor)->ForceStopCombat();
         }
         while (eb->FUN_005a4320() > 0)
         {
@@ -9073,7 +9073,7 @@ FUN_00979070::FUN_00979070(void* a, void* b, void* c, NiPoint3_979 kPos, float f
 struct MovePoint
 {
     float x, y, z, w;
-    double FUN_00527a40(const MovePoint*);
+    double GetDistanceSquared(const MovePoint*);
     void FUN_0097ede0();
 };
 struct MoveTarget
@@ -9087,7 +9087,7 @@ struct MoveTarget
 };
 struct MoveActor
 {
-    void* FUN_00567d90();
+    void* GetLocationEncounterZone();
     MovePoint FUN_00575650();
     unsigned char FUN_008b3bd0();
     void FUN_00575770(float);
@@ -9104,7 +9104,7 @@ struct MoveBrain
     bool FUN_009a1380();
     bool FUN_0097ee90();
     bool IsElapsedTimeAtLeastSetting();
-    unsigned char FUN_00662a80();
+    unsigned char GetApplyRotToParent();
     void FUN_0097ce70(int);
     bool FUN_0099ebe0(int, MoveTarget*, int);
     bool FUN_009a02a0(MovePoint*, int, int);
@@ -9311,7 +9311,7 @@ void CombatMove::FUN_0097e4b0()
     {
         timer.FUN_008d7f40(1.0f);
         elapsed = 0.0f;
-        if (target && *g_011f1840.Bool() && target->FUN_00567d90() != actor->FUN_00567d90())
+        if (target && *g_011f1840.Bool() && target->GetLocationEncounterZone() != actor->GetLocationEncounterZone())
             FUN_00980830(0);
     }
     if (timer.FUN_008d7f80())
@@ -9347,7 +9347,7 @@ void CombatMove::FUN_0097e4b0()
             next = 5;
         else if (brain->FUN_0097ee90())
         {
-            if (origin_.FUN_00527a40(&destination2) <
+            if (origin_.GetDistanceSquared(&destination2) <
                 *originalRuntimeFloatSetting498.Float() * *originalRuntimeFloatSetting498.Float())
                 next = 1;
             else
@@ -9360,14 +9360,14 @@ void CombatMove::FUN_0097e4b0()
         if (next != state)
         {
             FUN_00980250();
-            unsigned char prior = brain->FUN_00662a80();
+            unsigned char prior = brain->GetApplyRotToParent();
             brain->FUN_0097ce70(0);
             switch (next)
             {
             case 5:
                 if (changed && prior)
                     brain->FUN_0097ce70(2);
-                else if (origin_.FUN_00527a40(&destination2) <
+                else if (origin_.GetDistanceSquared(&destination2) <
                          *originalRuntimeFloatSetting498.Float() * *originalRuntimeFloatSetting498.Float())
                 {
                     brain->FUN_0097ce70(1);
@@ -9406,7 +9406,7 @@ void CombatMove::FUN_0097e4b0()
                 if (manager->GetDetectedTargetLocation(target, &position7) && brain->FUN_009a02a0(&position7, 1, 1))
                 {
                     MovePoint current3 = actor->FUN_00575650();
-                    if (current3.FUN_00527a40(&position7) > 100.0)
+                    if (current3.GetDistanceSquared(&position7) > 100.0)
                     {
                         goal.AssignV4(&position7);
                         FUN_009801b0(new TravelAction(&goal, DAT_011a5654, 15));

@@ -298,11 +298,11 @@ struct FUN_00680a70_shell
 };
 struct FUN_00404760_shell
 {
-    void FUN_00404760(PerkEntryConditionSet*);
+    void SetConditions(PerkEntryConditionSet*);
 };
 // Passes source to the object at this+0x1c, or an empty value when source is null.
 // @fnv 0x00404760
-void FUN_00404760_shell::FUN_00404760(PerkEntryConditionSet* source)
+void FUN_00404760_shell::SetConditions(PerkEntryConditionSet* source)
 {
     if (source)
         ((FUN_00680a70_shell*)((char*)this + 0x1c))->CopyConditions(source, 0);

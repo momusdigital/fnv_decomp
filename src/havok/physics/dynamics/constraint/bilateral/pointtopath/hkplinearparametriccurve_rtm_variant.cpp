@@ -19,7 +19,7 @@ struct FUN_00e47e50_class
     Vec* m_pPoints;
     int m_iPointCount;
 
-    void FUN_00e47e50(void const*);
+    void transformPoints(void const*);
 };
 struct CpuObject
 {
@@ -102,7 +102,7 @@ class hkpLinearParametricCurveE474 : public hkBaseObjectE474
   public:
     virtual ~hkpLinearParametricCurveE474() throw();
 
-    void FUN_00e47440(float t, hkVector4E474& kPointOut) const;
+    void getPoint(float t, hkVector4E474& kPointOut) const;
 
     unsigned int unk04, unk08, unk0C, unk10, unk14, unk18, unk1C;
     hkArrayE474<hkVector4E474> m_kPoints;
@@ -331,7 +331,7 @@ struct LinearCurve : public hkpLinearParametricCurve
     virtual hkReal GetStreamStart() const;
     virtual void GetTangentAt(hkReal t, hkVector4& tangent) const;
 
-    void FUN_00e47cb0(hkReal t, hkVector4& up) const;
+    void getBinormal(hkReal t, hkVector4& up) const;
 };
 
 extern "C" __m128 _mm_add_ss(__m128, __m128);

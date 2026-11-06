@@ -10,7 +10,7 @@ extern "C"
 }
 
 // @fnv 0x00a60850
-bool __stdcall FUN_00a60850(NiStream& kStream)
+bool __stdcall RegisterStreamables(NiStream& kStream)
 {
     return AttachToListener(&kStream);
 }
@@ -59,12 +59,12 @@ struct NiObject;
 struct NiSourceCubeMapShell : NiSourceCubeMap
 {
     bool __thiscall FUN_00a5fae0(NiObject*);
-    bool __thiscall FUN_00a60880(NiObject* pkObject);
+    bool __thiscall IsEqual(NiObject* pkObject);
 };
 
 // Calls FUN_00a5fae0 on pkObject, then compares four fields of this and pkObject and returns true only if all match.
 // @fnv 0x00a60880
-bool __thiscall NiSourceCubeMapShell::FUN_00a60880(NiObject* pkObject)
+bool __thiscall NiSourceCubeMapShell::IsEqual(NiObject* pkObject)
 {
     if (FUN_00a5fae0(pkObject))
     {
@@ -1166,11 +1166,11 @@ struct CubeMapLoader : CubeTexBase
     bool m_bIsStatic;
 
     void CreateFaces(char* pc0, char* pc1, char* pc2, char* pc3, char* pc4, char* pc5, int iParam);
-    void FUN_00a612a0(NiStream& kStream);
+    void LoadBinary(NiStream& kStream);
 };
 
 // @fnv 0x00a612a0
-void CubeMapLoader::FUN_00a612a0(NiStream& kStream)
+void CubeMapLoader::LoadBinary(NiStream& kStream)
 {
     if (kStream.m_uiNifVersion < 0x0A030006)
     {
@@ -1210,12 +1210,12 @@ void CubeMapLoader::FUN_00a612a0(NiStream& kStream)
     }
 }
 
-void __cdecl FUN_00a60600();
+void __cdecl SaveBinary();
 
 // @fnv 0x00a60870
 void __cdecl FUN_00a60870()
 {
-    FUN_00a60600();
+    SaveBinary();
 }
 
 struct NiGPUProgram;

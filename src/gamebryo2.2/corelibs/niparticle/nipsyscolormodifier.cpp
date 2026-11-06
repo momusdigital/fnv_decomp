@@ -124,11 +124,11 @@ extern void* _g_01202778;
 
 struct FUN_00c2d2a0_Class : NiPSysColorModifier
 {
-    void FUN_00c2d2a0(StrArr* pkStrings);
+    void GetViewerStrings(StrArr* pkStrings);
 };
 
 // @fnv 0x00c2d2a0
-void FUN_00c2d2a0_Class::FUN_00c2d2a0(StrArr* pkStrings)
+void FUN_00c2d2a0_Class::GetViewerStrings(StrArr* pkStrings)
 {
     ((Base00c319e0*)this)->FUN_00c319e0(pkStrings);
     char* str = _FUN_00a7d330(_g_01202778);

@@ -23,7 +23,7 @@ template <class K, class V> class NiTMap
   public:
     void* NewItem();
     void NewItem(void* item);
-    void FUN_00445370(void* item, int mode);
+    void ReleaseKF(void* item, int mode);
 };
 template <> class NiTMap<TESGlobal*, bool>
 {

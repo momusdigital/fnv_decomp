@@ -21,7 +21,7 @@ void __fastcall TargetClass::FUN_00cbf1d0(void* a2)
  * worker/candidate.cpp — DRAFT ONLY.
  * Not compiled, not compared, no MATCH claimed. Parent owns verification.
  *
- * Unit: pack/pack.json symbol FUN_00cbf280, 67 bytes, __thiscall member of a
+ * Unit: pack/pack.json symbol bufRealloc, 67 bytes, __thiscall member of a
  * five-slot class, three stack parameters, returns a pointer, cleans 0xC.
  *
  * Every identifier below is a placeholder chosen for readability. The binary
@@ -80,7 +80,7 @@ class CFun00cbf280Owner
     virtual void Commit(void* src, int size);
 
     /* The unit itself. Non-virtual: it is entered directly, not through a slot. */
-    void* FUN_00cbf280(void* src, int size, SFun00cbf280Args* args);
+    void* bufRealloc(void* src, int size, SFun00cbf280Args* args);
 };
 
 /*
@@ -105,7 +105,7 @@ class CFun00cbf280Owner
  * established by this unit.
  */
 // @fnv 0x00cbf280
-void* CFun00cbf280Owner::FUN_00cbf280(void* src, int size, SFun00cbf280Args* args)
+void* CFun00cbf280Owner::bufRealloc(void* src, int size, SFun00cbf280Args* args)
 {
     void* dest = this->Reserve(args);
 
@@ -156,12 +156,12 @@ class FUN_00cbf1e0_cls
     virtual void f0();
     virtual void* f1(void* a);
 
-    void FUN_00cbf1e0(void** dest, int count, void* arg);
+    void blockAllocBatch(void** dest, int count, void* arg);
 };
 
 // Calls f1(arg) count times and stores each returned pointer into dest[i].
 // @fnv 0x00cbf1e0
-void FUN_00cbf1e0_cls::FUN_00cbf1e0(void** dest, int count, void* arg)
+void FUN_00cbf1e0_cls::blockAllocBatch(void** dest, int count, void* arg)
 {
     for (int i = 0; i < count; ++i)
     {

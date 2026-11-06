@@ -602,13 +602,13 @@ struct List_009e03e0
 };
 struct FUN_005e78f0_t : public BGSHeadPart
 {
-    void FUN_005e78f0(TESForm* apCopy);
+    void CopyFrom(TESForm* apCopy);
     void FUN_004851b0(TESForm*);
     List_009e03e0* FUN_00624700();
     void FUN_005e7790(BGSHeadPart*);
 };
 // @fnv 0x005e78f0
-void FUN_005e78f0_t::FUN_005e78f0(TESForm* apCopy)
+void FUN_005e78f0_t::CopyFrom(TESForm* apCopy)
 {
     BSSimpleList<BGSHeadPart*>* pCurrentElementNext;
     BGSHeadPart* pSourcePart;
@@ -637,12 +637,12 @@ struct LH
 };
 struct FUN_005e79a0_t : public BGSHeadPart
 {
-    bool FUN_005e79a0(TESForm* apCompare);
+    bool Compare(TESForm* apCompare);
     bool FUN_00485270(TESForm*);
     LH* FUN_00624700();
 };
 // @fnv 0x005e79a0
-bool FUN_005e79a0_t::FUN_005e79a0(TESForm* apCompare)
+bool FUN_005e79a0_t::Compare(TESForm* apCompare)
 {
     BGSHeadPart* pcomp;
     BSSimpleList<BGSHeadPart*>* pCurrentElementNext;
@@ -702,7 +702,7 @@ struct ListX
 struct FUN_005e73a0 : public Base5a, public FUN_00591300, public TESModelTextureSwap
 {
     ~FUN_005e73a0();
-    void FUN_005e7460();
+    void ClearData();
     unsigned char cFlags;
     unsigned char padding[3];
     ListX m_kExtraParts;
@@ -710,7 +710,7 @@ struct FUN_005e73a0 : public Base5a, public FUN_00591300, public TESModelTexture
 // @fnv 0x005e73a0
 FUN_005e73a0::~FUN_005e73a0()
 {
-    FUN_005e7460();
+    ClearData();
 }
 
 // FUN_005e6600: real destructor (__thiscall, no params) of a class with:
@@ -782,7 +782,7 @@ struct HeadPartListOperations
 };
 
 // @fnv 0x005e7460
-void FUN_005e73a0::FUN_005e7460()
+void FUN_005e73a0::ClearData()
 {
     reinterpret_cast<HeadPartListOperations*>(reinterpret_cast<FUN_00624700_shell*>(this)->FUN_00624700())
         ->FUN_00470470();

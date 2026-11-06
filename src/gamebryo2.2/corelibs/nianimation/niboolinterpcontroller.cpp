@@ -144,10 +144,10 @@ class S2
 class NiBoolInterpControllerShim : public NiBoolInterpController
 {
   public:
-    NiInterpolator* FUN_00a57710(int unused);
+    NiInterpolator* CreatePoseInterpolator(int unused);
 };
 // @fnv 0x00a57710
-NiInterpolator* NiBoolInterpControllerShim::FUN_00a57710(int unused)
+NiInterpolator* NiBoolInterpControllerShim::CreatePoseInterpolator(int unused)
 {
     union BoolWord
     {

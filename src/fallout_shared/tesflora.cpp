@@ -28,7 +28,7 @@ struct S_0048cca0
 };
 struct FUN_0048b5c0_shell
 {
-    void FUN_0048b5c0();
+    void Save();
 };
 
 struct FUN_00508920_obj
@@ -45,7 +45,7 @@ void FUN_00508920_obj::FUN_00508920()
         ->ProcessAndFreeData(0x4c444f4d, 0x54444f4d, 0x53444f4d);
     reinterpret_cast<S_0048cca0*>(reinterpret_cast<char*>(this) + 0x5c)->FUN_0048cca0();
     reinterpret_cast<S_00477f20*>(reinterpret_cast<char*>(this) + 0x68)->FUN_00477f20();
-    reinterpret_cast<FUN_0048b5c0_shell*>(reinterpret_cast<char*>(this) - 0xc)->FUN_0048b5c0();
+    reinterpret_cast<FUN_0048b5c0_shell*>(reinterpret_cast<char*>(this) - 0xc)->Save();
     reinterpret_cast<FUN_00485680*>(this)->M();
 }
 

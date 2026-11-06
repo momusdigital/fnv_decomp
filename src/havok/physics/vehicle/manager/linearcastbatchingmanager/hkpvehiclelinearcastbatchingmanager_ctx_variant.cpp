@@ -196,7 +196,7 @@ struct S00e43320_Mgr
 	Vehicle433 **m_ppVehicles;
 	int m_uiItemCount;
 	void FUN_00e43060(void *a, void *b, Out433 *out);
-	void FUN_00e43320(void* param1, void* param2, void* param3);
+	void stepVehiclesUsingCastResults(void* param1, void* param2, void* param3);
 };
 
 extern "C" __declspec(dllimport) void* __stdcall TlsGetValue(unsigned long);
@@ -443,7 +443,7 @@ struct E430B0Mgr
 	E430B0Vehicle** vehicles;
 	int count;
 
-	int __thiscall FUN_00e430b0(E430B0World* world, int filterSize, int numJobs, FUN_00d04b90_class* jobQueue, void* semaphore, void* buffer);
+	int __thiscall buildAndAddCastJobs(E430B0World* world, int filterSize, int numJobs, FUN_00d04b90_class* jobQueue, void* semaphore, void* buffer);
 };
 
 static inline void E430B0Timer(E430B0Mon* mon, const char* name)
@@ -463,7 +463,7 @@ static inline void E430B0Timer(E430B0Mon* mon, const char* name)
 }
 
 // @fnv 0x00e430b0
-int __thiscall E430B0Mgr::FUN_00e430b0(E430B0World* world, int filterSize, int numJobs, FUN_00d04b90_class* jobQueue, void* semaphore, void* buffer)
+int __thiscall E430B0Mgr::buildAndAddCastJobs(E430B0World* world, int filterSize, int numJobs, FUN_00d04b90_class* jobQueue, void* semaphore, void* buffer)
 {
 
 	E430B0Timer((E430B0Mon*)TlsGetValue(DAT_0126835c), "TtBuildAndAddLinearCastJobs");

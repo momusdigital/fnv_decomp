@@ -51,7 +51,7 @@ GlobalObjectO2_00a7b610* __cdecl FUN_00a55af0()
 
 struct FUN_00a55ec0_shell : public NiBlendPoint3Interpolator
 {
-    bool FUN_00a55ec0(NiObject*);
+    bool IsEqual(NiObject*);
 };
 
 struct FUN_00a36fd0_tgt
@@ -65,7 +65,7 @@ struct Call_439090_tgt
 
 // Calls FUN_00a36fd0 on pkObject; if that succeeds, calls _Call_439090 on pkObject+0x30 and returns its negation.
 // @fnv 0x00a55ec0
-bool FUN_00a55ec0_shell::FUN_00a55ec0(NiObject* pkObject)
+bool FUN_00a55ec0_shell::IsEqual(NiObject* pkObject)
 {
     bool r = ((FUN_00a36fd0_tgt*)this)->FUN_00a36fd0(pkObject);
     if (!r)
@@ -205,11 +205,11 @@ struct CloneOwner
 };
 struct FUN_00a55b20_shell : public NiBlendPoint3Interpolator
 {
-    void* FUN_00a55b20(CloningProcess*);
+    void* CreateClone(CloningProcess*);
 };
 // Allocates a NiBlendPoint3Interpolator, initialises it, copies the point3 fields and flag from this, and returns the clone.
 // @fnv 0x00a55b20
-void* FUN_00a55b20_shell::FUN_00a55b20(CloningProcess* kCloning)
+void* FUN_00a55b20_shell::CreateClone(CloningProcess* kCloning)
 {
     NiBlendPoint3Interpolator* pkObject = static_cast<NiBlendPoint3Interpolator*>(BSFadeNode::operator new(0x40));
     if (pkObject)

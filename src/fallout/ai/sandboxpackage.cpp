@@ -2334,7 +2334,7 @@ struct ChoiceMarkerData
 {
     unsigned GetByte5();
     unsigned FUN_00479e80();
-    bool FUN_00479fb0(ChoiceTargetRef*, ChoiceTargetRef*);
+    bool HasIdleForActor(ChoiceTargetRef*, ChoiceTargetRef*);
 };
 struct ChoiceBaseForm
 {
@@ -2413,7 +2413,7 @@ bool __cdecl AddActivationChoice(ChoiceTargetRef* target, ChoiceContext* pContex
             unsigned markerCount2 = markerBase->markers.GetByte5();
             unsigned markerFlags = markerBase->markers.FUN_00479e80();
             bool markerUsed = false;
-            if (markerBase->markers.FUN_00479fb0(actor, target))
+            if (markerBase->markers.HasIdleForActor(actor, target))
                 planner->choices.AppendElement(FUN_009f3800(reinterpret_cast<TESObjectREFRHelper*>(target), 4, 1));
         }
         break;

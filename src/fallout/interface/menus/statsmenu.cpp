@@ -839,7 +839,7 @@ struct ActiveEffectOps : public ActiveEffect
 struct EffectItemOps : public EffectItem
 {
     bool IsScriptBasedEffect();
-    bool FUN_00403ee0();
+    bool IsActorValueUsed();
     int GetAffectedActorValue();
 };
 struct EffectSettingOps : public EffectSetting
@@ -1496,12 +1496,12 @@ struct FUN_00404210_t
     int FUN_004044d0();
     int GetAffectedActorValue();
     PerkEntryConditionSet* GetConditions();
-    void FUN_00404560(unsigned int range);
-    void FUN_004043d0(int magnitude);
-    void FUN_00404470(int area);
-    void FUN_00404510(int duration);
+    void SetRange(unsigned int range);
+    void SetMagnitude(int magnitude);
+    void SetArea(int area);
+    void SetDuration(int duration);
     void SetOwner(int actorValue);
-    void FUN_00404760(PerkEntryConditionSet* conditions);
+    void SetConditions(PerkEntryConditionSet* conditions);
     void CopyFrom(FUN_00404210_t* apSource);
 };
 
@@ -1509,12 +1509,12 @@ struct FUN_00404210_t
 void FUN_00404210_t::CopyFrom(FUN_00404210_t* apSource)
 {
     m_pEffectSetting = apSource->m_pEffectSetting;
-    FUN_00404560(apSource->GetFormID());
-    FUN_004043d0(apSource->FUN_00404390());
-    FUN_00404470(apSource->FUN_00404420());
-    FUN_00404510(apSource->FUN_004044d0());
+    SetRange(apSource->GetFormID());
+    SetMagnitude(apSource->FUN_00404390());
+    SetArea(apSource->FUN_00404420());
+    SetDuration(apSource->FUN_004044d0());
     SetOwner(apSource->GetAffectedActorValue());
-    FUN_00404760(apSource->GetConditions());
+    SetConditions(apSource->GetConditions());
     m_fCost = -1.0f;
 }
 
@@ -1547,7 +1547,7 @@ struct FNStub
 struct TESReputation
 {
     const char* GetReputationName();
-    const char* FUN_00616710();
+    const char* GetReputationTitle();
 };
 struct FUN_007dcb40_t : public StatsMenu
 {
@@ -1564,7 +1564,7 @@ void FUN_007dcb40_t::SetReputationEntry(TESReputation* pRep)
     m_pTiles[48]->Set(0xfa3, 1);
     m_pTiles[51]->Set(0xfa3, 1);
     m_pTiles[51]->Set(0xfc4, ((FNStub*)((char*)pRep + 0x18))->GetFullName(), true);
-    m_pTiles[48]->Set(0xfc4, pRep->FUN_00616710(), true);
+    m_pTiles[48]->Set(0xfc4, pRep->GetReputationTitle(), true);
 }
 }  // namespace fnv_007dcb40
 
@@ -1791,11 +1791,11 @@ namespace fnv_007e0d60 {
 struct MenuH
 {
     void UpdateXboxButtonState();
-    void FUN_007e0d60(bool abHas360Controller);
+    void HandleControllerConnectOrDisconnect(bool abHas360Controller);
 };
 
 // @fnv 0x007e0d60
-void MenuH::FUN_007e0d60(bool abHas360Controller)
+void MenuH::HandleControllerConnectOrDisconnect(bool abHas360Controller)
 {
     MenuH::UpdateXboxButtonState();
 }
@@ -3227,7 +3227,7 @@ struct ClickVirtual
 };
 struct ClickMenu : StatsMenu
 {
-    void FUN_007db380(int id, Tile* tile);
+    void DoClick(int id, Tile* tile);
     bool SetIndexFromType(int, int*);
     bool GetTileIndex(int, int*);
     void SetPage(int);
@@ -3239,7 +3239,7 @@ struct ClickMenu : StatsMenu
     void FUN_007ddf00();
 };
 // @fnv 0x007db380
-void ClickMenu::FUN_007db380(int id, Tile* tile)
+void ClickMenu::DoClick(int id, Tile* tile)
 {
     if (!tile && id >= 0 && id < 60)
         tile = m_pTiles[id];
@@ -5042,7 +5042,7 @@ class StatusMenuOwner
 {
   public:
     void FUN_007e0230();
-    void FUN_007dc490(int iUnused, int iIndex);
+    void DoLeave(int iUnused, int iIndex);
 
     char unk000[0x160];
     Tile* m_pkTile;  // +0x160
@@ -5051,7 +5051,7 @@ class StatusMenuOwner
 };
 
 // @fnv 0x007dc490
-void StatusMenuOwner::FUN_007dc490(int iUnused, int iIndex)
+void StatusMenuOwner::DoLeave(int iUnused, int iIndex)
 {
     if (m_bModifierActive && !FUN_004b71d0())
     {
@@ -5284,7 +5284,7 @@ void StatsMenuActiveEffects::FUN_007ddf00()
                 if (m_pStatusEffectAtIndex3->pForm == pspell)
                     m_pStatusEffectAtIndex3->xEffectData.ApplyParamToEntry(pactiveEffect);
             }
-            if (((EffectItemOps*)((ActiveEffectOps*)pactiveEffect)->GetEffectItem())->FUN_00403ee0() &&
+            if (((EffectItemOps*)((ActiveEffectOps*)pactiveEffect)->GetEffectItem())->IsActorValueUsed() &&
                 FUN_0066eb00(
                     ((EffectItemOps*)((ActiveEffectOps*)pactiveEffect)->GetEffectItem())->GetAffectedActorValue()) &&
                 (pactiveEffect->GetDuration() != 0.0 || ((ActiveEffectOps*)pactiveEffect)->GetSpellType() == 1 ||
@@ -5558,12 +5558,12 @@ struct InputStats : public StatsMenu
     int FUN_007dcc40();
     bool FUN_007e0060(int);
     bool GetTileIndex(int, int*);
-    bool FUN_007db680(int code, float amount);
+    bool HandleSpecialKeyInput(int code, float amount);
 };
 
 // Processes input codes for the stats menu, updating healing options, status values, page navigation, and scrolling effect lists.
 // @fnv 0x007db680
-bool InputStats::FUN_007db680(int code, float amount)
+bool InputStats::HandleSpecialKeyInput(int code, float amount)
 {
     if (!FUN_00702450(1003) || !FUN_00705990()->IsUnk28Set())
         return false;

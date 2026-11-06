@@ -261,14 +261,14 @@ struct FUN_00dced30_cls
 {
     virtual void m_v00(int arg);
 };
-void __cdecl FUN_00dced30(FUN_00dced30_cls* pObject);
+void __cdecl cleanupLoadedObject_hkpBreakableConstraintData(FUN_00dced30_cls* pObject);
 extern int DAT_01269c44;
 int __cdecl FUN_00dced40();
 struct FUN_00d4dfc0_class
 {
     void __thiscall FUN_00d4dfc0(unsigned int value);
 };
-void __cdecl FUN_00dced50(FUN_00d4dfc0_class* object, unsigned int value);
+void __cdecl finishLoadedObject_hkpBreakableConstraintData(FUN_00d4dfc0_class* object, unsigned int value);
 struct S_00dd4bb0_Class
 {
     unsigned char unk00;
@@ -883,7 +883,7 @@ struct S00dcd1b0_Obj
     int unk3C;
     ArrayBlock m_40;
     unsigned char m_4c;
-    void FUN_00dcd1b0(int value);
+    void initWeldingInfo(int value);
 };
 struct S00dcd270_Rec
 {

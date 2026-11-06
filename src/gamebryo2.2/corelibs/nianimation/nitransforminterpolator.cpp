@@ -95,7 +95,7 @@ enum KeyContent
 
 // Maps a channel index to a KeyContent: 0 quaternion, 1 position, 2 none, otherwise tangent.
 // @fnv 0x00a3f570
-KeyContent __stdcall FUN_00a3f570(unsigned short usChannel)
+KeyContent __stdcall GetKeyContent(unsigned short usChannel)
 {
     if (usChannel == 0)
         return KEY_CONTENT_QUATERNION;
@@ -273,11 +273,11 @@ NiInterpolator* FUN_00a3fd10_shell::FUN_00a3fd10(float m_fStartTime, float m_fMa
 
 struct FUN_00a3f5b0_t : public NiTransformInterpolator
 {
-    unsigned int FUN_00a3f5b0(unsigned short usChannel) const;
+    unsigned int GetKeyCount(unsigned short usChannel) const;
 };
 // Returns the unsigned short at offset 0xa, 0x8 or 0xc of the data pointer at this+0x2c for channel 0, 1 or 2, else 0.
 // @fnv 0x00a3f5b0
-unsigned int FUN_00a3f5b0_t::FUN_00a3f5b0(unsigned short usChannel) const
+unsigned int FUN_00a3f5b0_t::GetKeyCount(unsigned short usChannel) const
 {
     if (usChannel == 0)
     {
@@ -378,7 +378,7 @@ struct CloningProcess
 typedef char _sizecheck_NiCloningProcess[sizeof(CloningProcess) == 16 ? 1 : -1];
 struct FUN_00a40460_shell : public NiTransformInterpolator
 {
-    NiObject* FUN_00a40460(CloningProcess*);
+    NiObject* CreateClone(CloningProcess*);
 };
 
 inline void* operator new(unsigned int, void* pkMem)
@@ -399,7 +399,7 @@ struct NiTransformInterpolatorCopy
 };
 // Allocates a new NiTransformInterpolator and copies this interpolator's data into it via FUN_00a40360, returning it as a NiObject.
 // @fnv 0x00a40460
-NiObject* FUN_00a40460_shell::FUN_00a40460(CloningProcess* kCloning)
+NiObject* FUN_00a40460_shell::CreateClone(CloningProcess* kCloning)
 {
     NiTransformInterpolator* pkObject = new (BSFadeNode::operator new(sizeof(NiTransformInterpolator))) FUN_00a3fa30(0);
     ((NiTransformInterpolatorCopy*)this)->FUN_00a40360(pkObject, kCloning);
@@ -535,7 +535,7 @@ struct TransformAnimationData : public TimedRotationKey
 typedef char _sizecheck_NiEulerRotKey[sizeof(TransformAnimationData) == 72 ? 1 : -1];
 struct FUN_00a3fb20_shell : public NiTransformInterpolator
 {
-    void FUN_00a3fb20(float*, float*);
+    void GetActiveTimeRange(float*, float*);
 };
 
 extern float DAT_01097308;
@@ -616,7 +616,7 @@ static inline float TI_Time(char* keys, unsigned int i, unsigned char s)
 
 // Computes the first and last key times across the position, rotation and scale key arrays, defaulting both to 0 when no keys exist.
 // @fnv 0x00a3fb20
-void FUN_00a3fb20_shell::FUN_00a3fb20(float* fBeginKeyTime, float* fEndKeyTime)
+void FUN_00a3fb20_shell::GetActiveTimeRange(float* fBeginKeyTime, float* fEndKeyTime)
 {
     *fBeginKeyTime = DAT_01097308;
     *fEndKeyTime = _DAT_01015f5c;
@@ -717,7 +717,7 @@ struct BSRotAccumTransfInterpolator : public NiTransformInterpolator
 typedef char _sizecheck_BSRotAccumTransfInterpolator[sizeof(BSRotAccumTransfInterpolator) == 88 ? 1 : -1];
 struct FUN_00a404b0_shell : public NiTransformInterpolator
 {
-    void FUN_00a404b0(void*);
+    void GetViewerStrings(void*);
 };
 
 struct StrArr
@@ -727,7 +727,7 @@ struct StrArr
 };
 struct FUN_00a3cbf0_shell
 {
-    void FUN_00a3cbf0(StrArr*);
+    void GetViewerStrings(StrArr*);
 };
 struct FUN_00a38cb0_shell
 {
@@ -736,9 +736,9 @@ struct FUN_00a38cb0_shell
 extern char* _FUN_00a7d330(char*);
 extern char* g_011f3ee0_arg1;
 // @fnv 0x00a404b0
-void FUN_00a404b0_shell::FUN_00a404b0(void* pkStrings)
+void FUN_00a404b0_shell::GetViewerStrings(void* pkStrings)
 {
-    ((FUN_00a3cbf0_shell*)this)->FUN_00a3cbf0((StrArr*)pkStrings);
+    ((FUN_00a3cbf0_shell*)this)->GetViewerStrings((StrArr*)pkStrings);
     char* pString = _FUN_00a7d330(g_011f3ee0_arg1);
     unsigned int count = *(unsigned short*)((char*)pkStrings + 0xa);
     unsigned int size = *(unsigned short*)((char*)pkStrings + 0x8);
@@ -827,12 +827,12 @@ class FUN_00a3f720_cls
     virtual void v55();
     virtual unsigned int v56(unsigned short arg);
 
-    bool FUN_00a3f720(unsigned short mode);
+    bool GetChannelPosed(unsigned short mode);
 };
 
 // For modes 0-2, rejects when m_2c is set and v56(mode) > 0, otherwise compares the mode's float field against DAT_010241b0.
 // @fnv 0x00a3f720
-bool FUN_00a3f720_cls::FUN_00a3f720(unsigned short mode)
+bool FUN_00a3f720_cls::GetChannelPosed(unsigned short mode)
 {
     double value;
     switch (mode)
@@ -1309,11 +1309,11 @@ struct S00a3ffd0_Interp : NiTransformInterpolator
     {
         return (S00a3ffd0_Data*)m_spTransformData.p;
     }
-    void FUN_00a3ffd0();
+    void Collapse();
 };
 // Evaluates position, rotation, and scale keys to determine if they are constant, updating m_kDefaultTransform and clearing m_spTransformData if all are absent.
 // @fnv 0x00a3ffd0
-void S00a3ffd0_Interp::FUN_00a3ffd0()
+void S00a3ffd0_Interp::Collapse()
 {
     if (!m_spTransformData.p)
         return;

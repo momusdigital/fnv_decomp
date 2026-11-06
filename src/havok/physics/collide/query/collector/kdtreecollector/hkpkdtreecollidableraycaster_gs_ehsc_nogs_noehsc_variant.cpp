@@ -7,7 +7,7 @@
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
 struct FUN_00d97a10_Class
 {
-    void FUN_00d97a10(float* p) const;
+    void getHitFractions(float* p) const;
 };
 struct S_00d979e0_Inner
 {
@@ -357,10 +357,10 @@ struct ThisCls
     SubObj* sub;
     int m_0c;
     DestEnt* dest;
-    void FUN_00d97c90(Arg0* a0, __m128* a1);
+    void addMidPhaseHit(Arg0* a0, __m128* a1);
 };
 // @fnv 0x00d97c90
-void ThisCls::FUN_00d97c90(Arg0* a0, __m128* a1)
+void ThisCls::addMidPhaseHit(Arg0* a0, __m128* a1)
 {
     HeadObj* head = a0->head;
     if (head == 0)

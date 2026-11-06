@@ -163,7 +163,7 @@ void FUN_00593210()
 }
 
 // @fnv 0x00593220
-BGSTextureSet* __cdecl FUN_00593220()
+BGSTextureSet* __cdecl GetNullTextureSet()
 {
     return BGSTextureSet::s_pNullTextureSet;
 }
@@ -235,7 +235,7 @@ struct FUN_0048e370_obj
 };
 struct FUN_00593320_shell
 {
-    void FUN_00593320(void*);
+    void Save(void*);
 };
 void __cdecl FUN_00485950(unsigned int, unsigned int);
 extern unsigned int DAT_0118c574[6];
@@ -251,7 +251,7 @@ void FUN_00592810_shell::FUN_00592810()
     for (i = 0; i < 6; ++i)
         ((FUN_0048e370_obj*)((char*)this + 0x38 + i * 0xc))->FUN_0048e370(DAT_0118c574[i]);
     if (*(void**)((char*)this + 0x80))
-        ((FUN_00593320_shell*)*(void**)((char*)this + 0x80))->FUN_00593320((void*)0x54444f44);
+        ((FUN_00593320_shell*)*(void**)((char*)this + 0x80))->Save((void*)0x54444f44);
     FUN_00485950(0x4d414e44, *(unsigned short*)((char*)this + 0x84));
     ((FUN_00485680*)this)->M();
 }

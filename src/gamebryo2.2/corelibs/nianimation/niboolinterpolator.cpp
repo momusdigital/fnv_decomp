@@ -3,7 +3,7 @@
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
 
 // @fnv 0x00a53070
-int __stdcall FUN_00a53070(unsigned short usChannel)
+int __stdcall GetKeyContent(unsigned short usChannel)
 {
     return 5;
 }
@@ -165,13 +165,13 @@ struct FUN_00a530a0_shell
     volatile unsigned char unk0c;
     int unk10;
 
-    unsigned char __thiscall FUN_00a530a0(int unused);
+    unsigned char __thiscall GetChannelPosed(int unused);
 };
 
 extern unsigned char DAT_0109a914;
 
 // @fnv 0x00a530a0
-unsigned char __thiscall FUN_00a530a0_shell::FUN_00a530a0(int unused)
+unsigned char __thiscall FUN_00a530a0_shell::GetChannelPosed(int unused)
 {
     if (unk10 != 0)
         return 0;
@@ -398,7 +398,7 @@ struct FUN_00a536d0_self
     unsigned char m_bBoolValue;
     unsigned char unk0d[3];
     void* m_spBoolData;
-    void FUN_00a3cbf0(FUN_00a536d0_arr* pArr);
+    void GetViewerStrings(FUN_00a536d0_arr* pArr);
 };
 
 void* FUN_00a7d330(int value);
@@ -408,17 +408,17 @@ extern int DAT_011f404c;
 
 struct FUN_00a536d0_cls
 {
-    void FUN_00a536d0(FUN_00a536d0_arr* pArr);
+    void GetViewerStrings(FUN_00a536d0_arr* pArr);
 };
 
 // @fnv 0x00a536d0
-void FUN_00a536d0_cls::FUN_00a536d0(FUN_00a536d0_arr* pArr)
+void FUN_00a536d0_cls::GetViewerStrings(FUN_00a536d0_arr* pArr)
 {
     FUN_00a536d0_self* self = reinterpret_cast<FUN_00a536d0_self*>(this);
     void* v;
     unsigned int idx;
 
-    self->FUN_00a3cbf0(pArr);
+    self->GetViewerStrings(pArr);
     v = FUN_00a7d330(DAT_011f404c);
     idx = pArr->m_usElementCount;
     if (idx >= pArr->m_usCapacity)
@@ -650,12 +650,12 @@ class NiBoolInterpA535 : public FUN_00a3ca10
     unsigned int m_uiLastKeyIndex;
 
     void CloneTo(NiBoolInterpA535* dest, CloningProcessA535& cloning);
-    NiBoolInterpA535* FUN_00a53590(CloningProcessA535& cloning);
+    NiBoolInterpA535* CreateClone(CloningProcessA535& cloning);
 };
 
 // Allocates a new NiBoolInterpA535, copies this object into it via CloneTo, and returns the new instance.
 // @fnv 0x00a53590
-NiBoolInterpA535* NiBoolInterpA535::FUN_00a53590(CloningProcessA535& cloning)
+NiBoolInterpA535* NiBoolInterpA535::CreateClone(CloningProcessA535& cloning)
 {
     NiBoolInterpA535* p = new NiBoolInterpA535;
     CloneTo(p, cloning);

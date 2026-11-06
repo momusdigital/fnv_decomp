@@ -15,7 +15,7 @@ struct bhkCharacterProxy
 extern const NiRTTI g_01268344;
 struct FUN_00806f10_shell
 {
-    unsigned int FUN_00806f10();
+    unsigned int QCinfoSize();
 };
 
 struct FUN_00cbe8d0_class

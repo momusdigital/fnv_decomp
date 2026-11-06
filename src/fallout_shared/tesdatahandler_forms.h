@@ -144,7 +144,7 @@ class TESObject : public TESForm
     TESObject* prev;
     TESObject* next;
     TESObject* GetNext();
-    bool FUN_00409700();
+    bool GetScroll();
 };
 class TESBoundObject : public TESObject
 {

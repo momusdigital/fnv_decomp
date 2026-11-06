@@ -9464,7 +9464,7 @@ class VisibilityPlayer
     virtual void vf20c();
     virtual void vf210();
     virtual int GetMode();
-    bool FUN_005a03f0(unsigned int);
+    bool GetControlsDisabled(unsigned int);
     bool FUN_008bbc10();
     bool FUN_008a16d0();
     NiNode* FUN_007721a0();
@@ -9540,7 +9540,7 @@ void __cdecl FUN_00771700(int aiMenuMode)
                 state = 10;
             else if (DAT_011f2250.FUN_0044ddc0() == 4)
                 state = 8;
-            else if (_g_thePlayer->FUN_005a03f0(1))
+            else if (_g_thePlayer->GetControlsDisabled(1))
                 FUN_00771700(12);
             else if (_g_thePlayer->FUN_008bbc10())
                 state = 22;
@@ -9567,7 +9567,7 @@ void __cdecl FUN_00771700(int aiMenuMode)
     }
     if (state == 22 && DAT_011d9770 && DAT_011d9770->FUN_0045bc00(0) && _g_thePlayer->FUN_008a16d0())
         state = 23;
-    if (state != 24 && state != 4 && state != 5 && _g_thePlayer->FUN_005a03f0(1))
+    if (state != 24 && state != 4 && state != 5 && _g_thePlayer->GetControlsDisabled(1))
     {
         if (FUN_004b7210()->FUN_00719ae0())
             state = 2;
@@ -9582,7 +9582,7 @@ void __cdecl FUN_00771700(int aiMenuMode)
     case 13:
     case 20:
     case 22:
-        if (_g_thePlayer->FUN_005a03f0(32))
+        if (_g_thePlayer->GetControlsDisabled(32))
             HUDMainMenu_pme->m_iHudValueFirstBeforeMode = 0x1fdff;
         else
             HUDMainMenu_pme->m_iHudValueFirstBeforeMode = 0x1ffff;
@@ -9904,7 +9904,7 @@ struct HUDPlayer
     virtual void v89();
     virtual void v8a();
     virtual bool FUN_vt22c(int aiMode);
-    bool FUN_005a03f0(int aiFlag);
+    bool GetControlsDisabled(int aiFlag);
 };
 extern HUDPlayer* DAT_011dea3c;
 
@@ -9964,7 +9964,7 @@ struct HUDHotkeys : HUDMainMenu
 void HUDHotkeys::FUN_0077da60()
 {
     if (!((HUDInterface*)FUN_004b7210())->FUN_007023a0() && !DAT_011dea3c->FUN_vt22c(0) &&
-        !DAT_011dea3c->FUN_005a03f0(4))
+        !DAT_011dea3c->GetControlsDisabled(4))
     {
         if (FUN_004b71d0())
         {

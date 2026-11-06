@@ -78,7 +78,7 @@ struct FUN_0066d610_shell
 };
 struct bhkCapsuleShape
 {
-    unsigned int __thiscall FUN_0066d730() const;
+    unsigned int __thiscall QCinfoSize() const;
 };
 struct FUN_0066da50_t
 {
@@ -149,10 +149,10 @@ struct S_00c8c390
 {
     char _0[8];
     Mid14* p8;
-    bool FUN_00c8c390(NiStream*);
+    bool RegisterStreamables(NiStream*);
 };
 // @fnv 0x00c8c390
-bool S_00c8c390::FUN_00c8c390(NiStream* arStream)
+bool S_00c8c390::RegisterStreamables(NiStream* arStream)
 {
     if (this)
     {
@@ -337,10 +337,10 @@ struct S00cb7750
     int _08;
     int _0C;
     Inner00cb7750* m_10;
-    void __thiscall FUN_00cb7750();
+    void __thiscall hktoNiTransform();
 };
 // @fnv 0x00cb7750
-void __thiscall S00cb7750::FUN_00cb7750()
+void __thiscall S00cb7750::hktoNiTransform()
 {
     if (m_10 && m_10->m_08)
     {
@@ -390,7 +390,7 @@ struct NewObjA : BSFadeNode
     }
 };
 // @fnv 0x00cb7640
-void* FUN_00cb7640()
+void* CreateObject()
 {
     return new NewObjA;
 }
@@ -571,11 +571,11 @@ struct C8CA60Owner
     C8CA60Child* m_pkChild;
 
     void FUN_00c8c410(C8CA60Child* pkChild);
-    C8CA60Child* FUN_00c8ca60(bool* pbCreated);
+    C8CA60Child* CreateCinfo(bool* pbCreated);
 };
 
 // @fnv 0x00c8ca60
-C8CA60Child* C8CA60Owner::FUN_00c8ca60(bool* pbCreated)
+C8CA60Child* C8CA60Owner::CreateCinfo(bool* pbCreated)
 {
     C8CA60AllocTagScope kScope(0x10);
     *pbCreated = (m_pkChild == 0);
@@ -785,11 +785,11 @@ struct CB7800Object : CB7800Base
 {
     static CB7800RTTI ms_kRTTI;
 
-    void FUN_00cb7800(CB7800StringArray* pkStrings);
+    void AddViewerStrings(CB7800StringArray* pkStrings);
 };
 
 // @fnv 0x00cb7800
-void CB7800Object::FUN_00cb7800(CB7800StringArray* pkStrings)
+void CB7800Object::AddViewerStrings(CB7800StringArray* pkStrings)
 {
     CB7800AllocTagScope kScope(0x10);
     CB7800Base::GetViewerStrings(pkStrings);
@@ -916,11 +916,11 @@ struct S_00cb79d0
     virtual void v047();
     virtual void v048();
     virtual void v049(S_00cb79d0_Base* obj, int arg);
-    S_00cb79d0_C* FUN_00cb79d0(int arg);
+    S_00cb79d0_C* CreateClone(int arg);
 };
 
 // @fnv 0x00cb79d0
-S_00cb79d0_C* S_00cb79d0::FUN_00cb79d0(int arg)
+S_00cb79d0_C* S_00cb79d0::CreateClone(int arg)
 {
     FUN_00c876f0();
     S_00cb79d0_C* obj = new S_00cb79d0_C;
@@ -1147,11 +1147,11 @@ struct TlsGuard_t
 struct FUN_00c88210_cls
 {
     void __thiscall FUN_00c6ba30(BSFadeNode* node, unsigned int flags);
-    BSFadeNode* FUN_00c88210(unsigned int flags);
+    BSFadeNode* CreateClone(unsigned int flags);
 };
 
 // @fnv 0x00c88210
-BSFadeNode* FUN_00c88210_cls::FUN_00c88210(unsigned int flags)
+BSFadeNode* FUN_00c88210_cls::CreateClone(unsigned int flags)
 {
     TlsGuard_t guard;
     BSFadeNode* node = new BSFadeNode;
@@ -1210,11 +1210,11 @@ class FUN_00c882c0_cls
 {
   public:
     void C882C0BaseGetViewerStrings(BC882C0StringArray* pkArray);
-    void FUN_00c882c0(BC882C0StringArray* pkArray);
+    void AddViewerStrings(BC882C0StringArray* pkArray);
 };
 
 // @fnv 0x00c882c0
-void FUN_00c882c0_cls::FUN_00c882c0(BC882C0StringArray* pkArray)
+void FUN_00c882c0_cls::AddViewerStrings(BC882C0StringArray* pkArray)
 {
     BC882C0AllocTagScope kScope(0x10);
     C882C0BaseGetViewerStrings(pkArray);
@@ -1576,11 +1576,11 @@ struct S_00caaf40
     virtual void vfn_bc();
     virtual void vfn_c0();
     virtual void vfn_c4(S_00caaf40_Obj* o, int a);
-    S_00caaf40_Obj* FUN_00caaf40(int a);
+    S_00caaf40_Obj* CreateClone(int a);
 };
 
 // @fnv 0x00caaf40
-S_00caaf40_Obj* S_00caaf40::FUN_00caaf40(int a)
+S_00caaf40_Obj* S_00caaf40::CreateClone(int a)
 {
     S_00caaf40_Ctx ctx(0x10);
     FUN_00c876f0();
@@ -1591,7 +1591,7 @@ S_00caaf40_Obj* S_00caaf40::FUN_00caaf40(int a)
 }
 
 namespace fnv_00cab000 {
-// FUN_00cab000 - bhkCapsuleShape::FUN_00cab000 (vtable slot 46 of .?AVbhkCapsuleShape@@)
+// CreateCinfo - bhkCapsuleShape::CreateCinfo (vtable slot 46 of .?AVbhkCapsuleShape@@)
 //
 // The function is a __thiscall member with one 4-byte stack argument (a bool* out flag).
 // It runs under the per-thread recursion guard that lives in the thread-local block at
@@ -1846,11 +1846,11 @@ struct BhkCap_00cab000
     int unk08;
     int unk0c;
     void FUN_00caade0(BhkAllocObj* p);
-    int FUN_00cab000(bool* out);
+    int CreateCinfo(bool* out);
 };
 
 // @fnv 0x00cab000
-int BhkCap_00cab000::FUN_00cab000(bool* out)
+int BhkCap_00cab000::CreateCinfo(bool* out)
 {
     TlsGuard_t guard;
 
@@ -2456,11 +2456,11 @@ struct SpawnedFade
 struct FUN_00cb76a0_cls
 {
     void __thiscall FUN_00c657f0(void* obj, unsigned int arg);
-    void* FUN_00cb76a0(unsigned int arg);
+    void* CreateClone(unsigned int arg);
 };
 
 // @fnv 0x00cb76a0
-void* FUN_00cb76a0_cls::FUN_00cb76a0(unsigned int arg)
+void* FUN_00cb76a0_cls::CreateClone(unsigned int arg)
 {
     TlsGuard_t guard;
     SpawnedFade* obj = new SpawnedFade;
@@ -2524,11 +2524,11 @@ struct FUN_00cb7790_class
     FUN_00cb7790_node* node;
     unsigned int unk0C;
     FUN_00cb7790_receiver* receiver;
-    void __thiscall FUN_00cb7790();
+    void __thiscall NitohkTransform();
 };
 
 // @fnv 0x00cb7790
-void FUN_00cb7790_class::FUN_00cb7790()
+void FUN_00cb7790_class::NitohkTransform()
 {
     FUN_00cb7790_receiver* target = receiver;
     FUN_00cb7790_node* source = node;
@@ -2669,7 +2669,7 @@ struct Shader
     virtual void f44();
     virtual int* f45(struct Pass** pass);
     void FUN_00c84d00(struct Pass* pass);
-    void FUN_00cb7b20(struct Pass* pass);
+    void LoadBinary(struct Pass* pass);
 };
 
 struct Pass
@@ -2682,7 +2682,7 @@ void FUN_00cf0930(int* a, int b, int* c);
 void FUN_00cf0f40(Pass* pass, int* b);
 
 // @fnv 0x00cb7b20
-void Shader::FUN_00cb7b20(Pass* pass)
+void Shader::LoadBinary(Pass* pass)
 {
     Pass* p = pass;
     FUN_00c84d00(p);
@@ -3089,11 +3089,11 @@ struct FUN_00cb8150_cls
     int unk00;
     void FUN_00cb7c60(CbArr8150* p);
 
-    unsigned char FUN_00cb8150(void* a1);
+    unsigned char IsEqual(void* a1);
 };
 
 // @fnv 0x00cb8150
-unsigned char FUN_00cb8150_cls::FUN_00cb8150(void* a1)
+unsigned char FUN_00cb8150_cls::IsEqual(void* a1)
 {
     FUN_00cb8150_cls* other = (FUN_00cb8150_cls*)a1;
     unsigned char r = FUN_00c84dc0(a1);
@@ -3343,10 +3343,10 @@ struct S_00cb8330_cls
     int unk04;
     int unk08;
     S_00cb8330_Obj* m_0c;
-    void FUN_00cb8330(bool bFree);
+    void KillCinfo(bool bFree);
 };
 // @fnv 0x00cb8330
-void S_00cb8330_cls::FUN_00cb8330(bool bFree)
+void S_00cb8330_cls::KillCinfo(bool bFree)
 {
     TlsGuard guard;
     if (bFree)
@@ -3602,11 +3602,11 @@ struct FUN_00cb8010_cls
     virtual OwnerB* v45(unsigned char* pFlag);
 
     void __thiscall FUN_00c84d50(A1Owner* a1);
-    void __thiscall FUN_00cb8010(A1Owner* a1);
+    void __thiscall SaveBinary(A1Owner* a1);
 };
 
 // @fnv 0x00cb8010
-void __thiscall FUN_00cb8010_cls::FUN_00cb8010(A1Owner* a1)
+void __thiscall FUN_00cb8010_cls::SaveBinary(A1Owner* a1)
 {
     unsigned int flagSlot;
     OwnerB* p = this->v45((unsigned char*)&flagSlot);
@@ -4026,11 +4026,11 @@ struct FUN_00c8c1e0_cls
     {}
     virtual FUN_00c8c1e0_rec* GetRec(FUN_00c8c1e0_arg*& a);
     void FUN_00c84d00(FUN_00c8c1e0_arg* a);
-    void FUN_00c8c1e0(FUN_00c8c1e0_arg* a1);
+    void LoadBinary(FUN_00c8c1e0_arg* a1);
 };
 
 // @fnv 0x00c8c1e0
-void FUN_00c8c1e0_cls::FUN_00c8c1e0(FUN_00c8c1e0_arg* a1)
+void FUN_00c8c1e0_cls::LoadBinary(FUN_00c8c1e0_arg* a1)
 {
     FUN_00c8c1e0_rec* r;
     FUN_00c8c1e0_arg* volatile* pa = &a1;
@@ -4295,7 +4295,7 @@ struct C8C260Shader
     C8C260Link* m_link;
 
     void FUN_00c84d50(C8C260Renderer* pkRenderer);
-    void FUN_00c8c260(C8C260Renderer* pkRenderer);
+    void SaveBinary(C8C260Renderer* pkRenderer);
 };
 
 inline void* C8C260GetTarget(C8C260Shader* p)
@@ -4304,7 +4304,7 @@ inline void* C8C260GetTarget(C8C260Shader* p)
 }
 
 // @fnv 0x00c8c260
-void C8C260Shader::FUN_00c8c260(C8C260Renderer* pkRenderer)
+void C8C260Shader::SaveBinary(C8C260Renderer* pkRenderer)
 {
     pkRenderer->SetTarget(C8C260GetTarget(this));
     bool bCreated;
@@ -4805,11 +4805,11 @@ struct FUN_00c8c4d0_cls
     virtual void v47();
     virtual void v48();
     virtual void v49(SpawnedObject* obj, int a1);
-    SpawnedObject* FUN_00c8c4d0(int a1);
+    SpawnedObject* CreateClone(int a1);
 };
 
 // @fnv 0x00c8c4d0
-SpawnedObject* FUN_00c8c4d0_cls::FUN_00c8c4d0(int a1)
+SpawnedObject* FUN_00c8c4d0_cls::CreateClone(int a1)
 {
     TlsGuard_t guard;
     FUN_00c876f0();
@@ -4870,11 +4870,11 @@ struct S_00cb8270
 
     void FUN_00cb7c60(S_00cb8270_Array*);
 
-    S_00cb8270_Array* FUN_00cb8270(bool& outCreated);
+    S_00cb8270_Array* CreateCinfo(bool& outCreated);
 };
 
 // @fnv 0x00cb8270
-S_00cb8270_Array* S_00cb8270::FUN_00cb8270(bool& outCreated)
+S_00cb8270_Array* S_00cb8270::CreateCinfo(bool& outCreated)
 {
     AutoMemContext memContext(0x10);
 

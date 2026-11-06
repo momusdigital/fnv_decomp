@@ -37,7 +37,7 @@ struct BaseFormComponent
 };
 struct FUN_004875c0_shell : BaseFormComponent
 {
-    bool __thiscall FUN_004875c0(BaseFormComponent* apCompareFC);
+    bool __thiscall CompareComponent(BaseFormComponent* apCompareFC);
 };
 
 extern int DAT_0101cbd8;
@@ -59,11 +59,11 @@ struct FUN_00487450_shell
 {
     int m_auiShapeKeys;
     TESForm* m_field_4;
-    void FUN_00487450();
+    void Save();
 };
 
 // @fnv 0x00487450
-void FUN_00487450_shell::FUN_00487450()
+void FUN_00487450_shell::Save()
 {
     if (m_field_4)
     {
@@ -85,12 +85,12 @@ class SpawnedHelper
 class FUN_00487570_cls
 {
   public:
-    void FUN_00487570(unsigned int a1);
+    void CopyComponent(unsigned int a1);
     void Apply(void* p);
 };
 
 // @fnv 0x00487570
-void FUN_00487570_cls::FUN_00487570(unsigned int a1)
+void FUN_00487570_cls::CopyComponent(unsigned int a1)
 {
     SpawnedHelper* pHelper =
         (SpawnedHelper*)FUN_00ec43fb(a1, 0, (unsigned int)&DAT_01183040, (unsigned int)&DAT_01186ae8, 0);
@@ -105,7 +105,7 @@ void FUN_00487570_cls::FUN_00487570(unsigned int a1)
 
 // Returns true if the cast fails or the two calls to _ref_00726070() return different values.
 // @fnv 0x004875c0
-bool __thiscall FUN_004875c0_shell::FUN_004875c0(BaseFormComponent* apCompareFC)
+bool __thiscall FUN_004875c0_shell::CompareComponent(BaseFormComponent* apCompareFC)
 {
     TESImageSpaceModifiableForm* pCompareImageSpaceForm = dynamic_cast<TESImageSpaceModifiableForm*>(apCompareFC);
     if (!pCompareImageSpaceForm)

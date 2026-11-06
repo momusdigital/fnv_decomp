@@ -142,10 +142,10 @@ struct FUN_004f29f0_shell
 {
     char _0[8];
     FUN_0048e370_obj* _8;
-    void __thiscall FUN_004f29f0();
+    void __thiscall Save();
 };
 // @fnv 0x004f29f0
-void __thiscall FUN_004f29f0_shell::FUN_004f29f0()
+void __thiscall FUN_004f29f0_shell::Save()
 {
     WriteSaveData(this);
     _8->FUN_0048e370(0x4E4F4349);
@@ -293,11 +293,11 @@ struct FUN_004f2870
 };
 struct FUN_004f2b10_shell
 {
-    FUN_004f2870* FUN_004f2b10();
+    FUN_004f2870* CreateCopy();
 };
 // Allocates a new FUN_004f2870 constructed from this object and returns the pointer.
 // @fnv 0x004f2b10
-FUN_004f2870* FUN_004f2b10_shell::FUN_004f2b10()
+FUN_004f2870* FUN_004f2b10_shell::CreateCopy()
 {
     FUN_004f2870* pdata = new FUN_004f2870(this);
     return pdata;

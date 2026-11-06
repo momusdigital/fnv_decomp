@@ -53,7 +53,7 @@ extern int DAT_011c4b54[14];
 
 // Returns DAT_011c4b54[a1] when a1 is between 0 and 13, otherwise returns 0.
 // @fnv 0x00479510
-int __cdecl FUN_00479510(int aiIndex)
+int __cdecl GetEquipTypeIcon(int aiIndex)
 {
     int iValue = 0;
     if (aiIndex > -1 && aiIndex < 14)
@@ -74,14 +74,14 @@ struct BGSMenuIcon
     const char* __thiscall GetFullName(void);
 };
 
-extern BGSMenuIcon* __cdecl FUN_00479510(int);
+extern BGSMenuIcon* __cdecl GetEquipTypeIcon(int);
 extern const char $SG5812[];
 
 // Looks up the BGSMenuIcon for aeType and returns its full name, or a fallback string when none exists.
 // @fnv 0x00479540
 const char* __cdecl GetMenuIconName(int aeType)
 {
-    BGSMenuIcon* picon = FUN_00479510(aeType);
+    BGSMenuIcon* picon = GetEquipTypeIcon(aeType);
     if (picon)
         return reinterpret_cast<FNStub*>(picon + 0x18)->GetFullName();
     return $SG5812;
@@ -171,11 +171,11 @@ struct LookupObject
 };
 struct QueryObject
 {
-    bool __thiscall FUN_004793d0(int);
+    bool __thiscall CompareComponent(int);
     int __thiscall FUN_00726070();
 };
 // @fnv 0x004793d0
-bool __thiscall QueryObject::FUN_004793d0(int argument)
+bool __thiscall QueryObject::CompareComponent(int argument)
 {
     void* found = FUN_00ec43fb(argument, 0, DAT_01183040, DAT_01183290, 0);
     if (found == 0)

@@ -181,11 +181,11 @@ extern TESSaveLoadGame* g_TESSaveLoadGame;
 
 struct FUN_00682920_shell
 {
-    void FUN_00682920();
+    void SaveGameTES();
 };
 
 // @fnv 0x00682920
-void FUN_00682920_shell::FUN_00682920()
+void FUN_00682920_shell::SaveGameTES()
 {
     g_TESSaveLoadGame->FUN_008579b0((char*)this + 8, 4);
     g_TESSaveLoadGame->FUN_008579b0((char*)this + 0x10, 4);
@@ -227,12 +227,12 @@ TESForm* FUN_004839c0(unsigned int);
 
 struct FUN_00682990_shell
 {
-    bool FUN_00682990();
+    bool LoadGameTES();
 };
 
 // @fnv 0x00682990
 // @fnv 0x00682990
-bool FUN_00682990_shell::FUN_00682990()
+bool FUN_00682990_shell::LoadGameTES()
 {
     bool result = true;
     unsigned int formID;

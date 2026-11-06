@@ -226,11 +226,11 @@ bool FUN_00616f40_shell::DispatchOnNextFormType(TESObject* obj, int a, int b, in
 
 struct FUN_00619010_shell : public TESTopic
 {
-    void FUN_00619010(char*);
+    void SetDummyPrompt(char*);
 };
 
 // @fnv 0x00619010
-void FUN_00619010_shell::FUN_00619010(char* apPrompt)
+void FUN_00619010_shell::SetDummyPrompt(char* apPrompt)
 {
     m_kDummyPrompt.Set(apPrompt, 0);
 }
@@ -311,11 +311,11 @@ unsigned short FUN_00619a70_shell::FUN_00619a70()
 
 struct FUN_00619b20_shell : public TESTopicInfo
 {
-    bool FUN_00619b20();
+    bool IsSayOnce();
 };
 
 // @fnv 0x00619b20
-bool FUN_00619b20_shell::FUN_00619b20()
+bool FUN_00619b20_shell::IsSayOnce()
 {
     return (bool)(*reinterpret_cast<char*>(reinterpret_cast<char*>(this) + 0x25) & 4);
 }
@@ -638,7 +638,7 @@ namespace fnv_0061a310 {
 class DataHandler;
 extern DataHandler* g_dataHandler;
 
-TESTopicInfoData* __fastcall FUN_004612e0(DataHandler* pThis);
+TESTopicInfoData* __fastcall GetTopicList(DataHandler* pThis);
 TESTopicInfoData* __fastcall _ref_00726070(TESTopicInfoData* pThis);
 
 struct TopicHelper
@@ -650,7 +650,7 @@ struct TopicHelper
 // @fnv 0x0061a310
 TESTopic* __cdecl FindTopicByInfo(TESTopicInfo* pTopicInfo)
 {
-    TESTopicInfoData* pList = FUN_004612e0(g_dataHandler);
+    TESTopicInfoData* pList = GetTopicList(g_dataHandler);
     while (pList && *(TESTopic**)pList->GetLinkFromList())
     {
         TESTopic* pTopic = *(TESTopic**)pList->GetLinkFromList();
@@ -777,7 +777,7 @@ int __fastcall GetSignedByteAtOffset36(signed char* pThis)
 namespace fnv_0061ba10 {
 struct DataHandlerStandin
 {
-    TESTopicInfoData* FUN_004612e0();
+    TESTopicInfoData* GetTopicList();
 };
 extern DataHandlerStandin* g_dataHandler;
 struct TopicStandin
@@ -794,7 +794,7 @@ struct ConvStandin
 bool CheckTopicsForQuest(TESQuest* apQuest)
 {
     bool result = true;
-    TESTopicInfoData* pCurrentElementNext = g_dataHandler->FUN_004612e0();
+    TESTopicInfoData* pCurrentElementNext = g_dataHandler->GetTopicList();
     while (pCurrentElementNext && *(TopicStandin**)pCurrentElementNext->GetLinkFromList() && result)
     {
         if (!apQuest || (*(TopicStandin**)pCurrentElementNext->GetLinkFromList())->HasInfoForQuest(apQuest, 0))
@@ -809,22 +809,22 @@ bool CheckTopicsForQuest(TESQuest* apQuest)
 
 struct FUN_0061bcd0_shell : public TESTopic
 {
-    void FUN_0061bcd0();
+    void InitializeData();
 };
 
 extern int DAT_01011584;
 
 struct FUN_00619010_helper
 {
-    void FUN_00619010(int* pData);
+    void SetDummyPrompt(int* pData);
 };
 
-// Clears the form's data via TESForm::ClearData, then passes DAT_01011584 to FUN_00619010 on this object.
+// Clears the form's data via TESForm::ClearData, then passes DAT_01011584 to SetDummyPrompt on this object.
 // @fnv 0x0061bcd0
-void FUN_0061bcd0_shell::FUN_0061bcd0()
+void FUN_0061bcd0_shell::InitializeData()
 {
     TESForm::ClearData();
-    reinterpret_cast<FUN_00619010_helper*>(this)->FUN_00619010(&DAT_01011584);
+    reinterpret_cast<FUN_00619010_helper*>(this)->SetDummyPrompt(&DAT_01011584);
 }
 
 extern int DAT_0104d458;
@@ -1095,7 +1095,7 @@ struct FUN_0061f280_shell
 };
 struct FUN_00619b20_shell
 {
-    bool FUN_00619b20();
+    bool IsSayOnce();
 };
 struct Arr
 {
@@ -1110,7 +1110,7 @@ struct FUN_00619a90_shell
     void ProcessTopicInfoList(unsigned int param);
 };
 
-// Retrieves a list for param, then for each entry calls FUN_00619b20 and, if true and IsNew, calls FUN_0061f280.
+// Retrieves a list for param, then for each entry calls IsSayOnce and, if true and IsNew, calls FUN_0061f280.
 // @fnv 0x00619a90
 void __thiscall FUN_00619a90_shell::ProcessTopicInfoList(unsigned int param)
 {
@@ -1122,7 +1122,7 @@ void __thiscall FUN_00619a90_shell::ProcessTopicInfoList(unsigned int param)
         for (; i < count; ++i)
         {
             TESTopicInfo* info = *(TESTopicInfo**)((Arr*)list)->GetAt(i);
-            if (info && ((FUN_00619b20_shell*)info)->FUN_00619b20() && ((BSTempEffectDebris*)info)->IsNew())
+            if (info && ((FUN_00619b20_shell*)info)->IsSayOnce() && ((BSTempEffectDebris*)info)->IsNew())
                 ((FUN_0061f280_shell*)info)->FUN_0061f280();
         }
     }
@@ -1136,11 +1136,11 @@ struct FUN_0061a760_shell
 };
 struct FUN_0061a720_shell : FUN_0061a760_shell
 {
-    TESTopicInfo* FUN_0061a720(MobileObject*, PlayerCharacter*);
+    TESTopicInfo* GetMatchingInfo(MobileObject*, PlayerCharacter*);
 };
 // Calls GetTopicInfo with speaker and listener; returns its TESTopicInfo unless the deferred flag was set, in which case returns null.
 // @fnv 0x0061a720
-TESTopicInfo* FUN_0061a720_shell::FUN_0061a720(MobileObject* speaker, PlayerCharacter* listener)
+TESTopicInfo* FUN_0061a720_shell::GetMatchingInfo(MobileObject* speaker, PlayerCharacter* listener)
 {
     bool deferred = false;
     TESTopicInfo* info;
@@ -1262,7 +1262,7 @@ struct FUN_006195d0_shell : public TESTopic
 };
 struct FUN_00619010_shell : public TESTopic
 {
-    void FUN_00619010(char*);
+    void SetDummyPrompt(char*);
 };
 
 extern TESTopic* g_loadingTopic;
@@ -1369,7 +1369,7 @@ bool FUN_00618aa0_t::FUN_00618aa0(::TESFile* pFile)
         case 0x4d554454: {
             char szBuffer[256];
             ((TESFileRef*)pFile)->_ref_00472890(szBuffer, 0x100);
-            ((FUN_00619010_shell*)this)->FUN_00619010(szBuffer);
+            ((FUN_00619010_shell*)this)->SetDummyPrompt(szBuffer);
             break;
         }
         case 0x41544144:
@@ -1482,7 +1482,7 @@ struct DH;
 extern DH* g_dataHandler;
 struct FUN_004612e0_shell
 {
-    void* FUN_004612e0();
+    void* GetTopicList();
 };
 struct ListX
 {
@@ -1524,7 +1524,7 @@ void SortTopicList(bool abSortByPriority, BSSimpleList<TESTopic*>* apTopicList)
 {
     BSSimpleList<TESTopic*>* pBaseList = apTopicList;
     if (!pBaseList)
-        pBaseList = (BSSimpleList<TESTopic*>*)((FUN_004612e0_shell*)g_dataHandler)->FUN_004612e0();
+        pBaseList = (BSSimpleList<TESTopic*>*)((FUN_004612e0_shell*)g_dataHandler)->GetTopicList();
     SL sortlist;
     BSSimpleList<TESTopic*>* pCurrentElementNext = pBaseList;
     BSSimpleList<TESTopic*>* plastlist = 0;

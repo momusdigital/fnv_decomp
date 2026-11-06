@@ -1045,7 +1045,7 @@ struct DumpCell
 };
 struct DumpTES
 {
-    DumpCell* FUN_00457070();
+    DumpCell* GetCurrentCell();
     int FUN_0059bb30();
     int FUN_0045cd60();
 };
@@ -1109,10 +1109,10 @@ void DumpConsole::DumpLoadedTextures()
             sprintf_s(
                 buffer, 1024,
                 "Texture dump for cell: %s grid: (%d, %d) worldspace: %s \n---------------------------------------\n",
-                g_TES->FUN_00457070() ? g_TES->FUN_00457070()->name.FUN_00408da0() : "{unknown}", g_TES->FUN_0059bb30(),
+                g_TES->GetCurrentCell() ? g_TES->GetCurrentCell()->name.FUN_00408da0() : "{unknown}", g_TES->FUN_0059bb30(),
                 g_TES->FUN_0045cd60(),
-                g_TES->FUN_00457070() ? (g_TES->FUN_00457070()->FUN_0054ddd0()
-                                             ? g_TES->FUN_00457070()->FUN_0054ddd0()->name.FUN_00408da0()
+                g_TES->GetCurrentCell() ? (g_TES->GetCurrentCell()->FUN_0054ddd0()
+                                             ? g_TES->GetCurrentCell()->FUN_0054ddd0()->name.FUN_00408da0()
                                              : "{unknown}")
                                       : "{unknown}");
             a8->FUN_00473180(buffer, BSStringLength(buffer));

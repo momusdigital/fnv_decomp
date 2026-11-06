@@ -27,11 +27,11 @@ extern int DAT_00ffffff;
 
 struct FUN_00485bc0_class
 {
-    int __thiscall FUN_00485bc0();
+    int __thiscall GetFormIDWithoutIndex();
 };
 
 // @fnv 0x00485bc0
-int __thiscall FUN_00485bc0_class::FUN_00485bc0()
+int __thiscall FUN_00485bc0_class::GetFormIDWithoutIndex()
 {
     return ((int*)this)[3] & (int)&DAT_00ffffff;
 }
@@ -687,10 +687,10 @@ struct FNStub
 void __cdecl FUN_004856f0(unsigned int, void*, unsigned int);
 struct FUN_0048cea0_shell : TESModel
 {
-    void __thiscall FUN_0048cea0();
+    void __thiscall Save();
 };
 // @fnv 0x0048cea0
-void __thiscall FUN_0048cea0_shell::FUN_0048cea0()
+void __thiscall FUN_0048cea0_shell::Save()
 {
     if (GetModelLength())
         FUN_004856f0(0x4d414e46, reinterpret_cast<FNStub*>(this)->GetFullName(), GetModelLength() + 1);
@@ -706,7 +706,7 @@ struct FUN_00759450_shell
 };
 // Returns 0 if the sequence is null, otherwise the difference between the two values returned by the sequence's FUN_00508100 and FUN_00759450 calls.
 // @fnv 0x00491090
-float __cdecl FUN_00491090(NiControllerSequence* apSequence)
+float __cdecl GetDuration(NiControllerSequence* apSequence)
 {
     if (!apSequence)
         return 0.0f;
@@ -1024,10 +1024,10 @@ struct Animation
 {
     void AssignControllerManager(GO&);
     void SpecialIdleFree(bool, bool);
-    void __thiscall FUN_0048ff50();
+    void __thiscall ShutdownAllAnimIdles();
 };
 // @fnv 0x0048ff50
-void __thiscall Animation::FUN_0048ff50()
+void __thiscall Animation::ShutdownAllAnimIdles()
 {
     ((char*)this)[0xcd] = 1;
     SpecialIdleFree(true, true);
@@ -1279,7 +1279,7 @@ void __cdecl _FUN_00485990(void* destination, void* source, unsigned int size);
 void __cdecl BSEndian(unsigned char* data, EndianSizeTag<8> type);
 
 // @fnv 0x00485820
-void __cdecl FUN_00485820(void* destination, void* source, unsigned int count)
+void __cdecl AddChunkArray16(void* destination, void* source, unsigned int count)
 {
     unsigned int size = count << 1;
 
@@ -1487,7 +1487,7 @@ extern "C" unsigned char DAT_01183978;
 extern "C" FormEntry* __cdecl func_0x00ec43fb(void*, unsigned int, void*, void*, unsigned int);
 // Looks up a FormEntry from source, then returns its model value or a value computed from reference's extra data via FUN_00481190.
 // @fnv 0x00480e60
-unsigned int __cdecl FUN_00480e60(void* source, Reference* reference)
+unsigned int __cdecl GetWorldModel(void* source, Reference* reference)
 {
     FormEntry* form4 = func_0x00ec43fb(source, 0, &DAT_01183028, &DAT_01183978, 0);
     if (form4 == 0)
@@ -2171,7 +2171,7 @@ struct MapObj
 };
 struct Loader
 {
-    void FUN_00445430(void*);
+    void CancelReplacementKFList(void*);
 };
 struct ItemObj
 {
@@ -2260,7 +2260,7 @@ struct FUN_0048fb50
     NP m128;
     NP m12c[2];
     ListX m134;
-    void FUN_0048ff50();
+    void ShutdownAllAnimIdles();
     ~FUN_0048fb50();
 };
 // @fnv 0x0048fb50
@@ -2282,8 +2282,8 @@ FUN_0048fb50::~FUN_0048fb50()
     void* ctrlA_b;
     ListX* nodeA5;
     void* pos5;
-    FUN_0048ff50();
-    DAT_011c3b3c->FUN_00445430(this);
+    ShutdownAllAnimIdles();
+    DAT_011c3b3c->CancelReplacementKFList(this);
     if (mD8.FUN_00559450())
     {
         ctrlA_b = m8.FUN_00559450() ? m8.FUN_00559450()->FUN_00a5c570((void*)&DAT_011f36bc) : 0;
@@ -3670,7 +3670,7 @@ class FUN_0049ec80 : public FUN_00439260
     void FUN_00533fb0(int a);
     void FUN_0049ee10(int a);
     void FUN_0049ede0(int a);
-    void FUN_0049ee30(int a);
+    void SetDrawMode(int a);
 };
 // Constructor that sets the vtable, initialises m_usFlags, m_uiCount and m_iIndex, then calls the member initialisers.
 // @fnv 0x0049ec80
@@ -3685,7 +3685,7 @@ FUN_0049ec80::FUN_0049ec80()
     FUN_00533fb0(0);
     FUN_0049ee10(0);
     FUN_0049ede0(3);
-    FUN_0049ee30(0);
+    SetDrawMode(0);
 }
 
 class AutoMemContext
@@ -3721,7 +3721,7 @@ struct PointChain
 extern PointChain* DAT_011c57ac;
 struct LandView
 {
-    NiPoint3 FUN_00535b30(int);
+    NiPoint3 GetWorldOffsetForBlock(int);
 };
 struct CellView
 {
@@ -3830,7 +3830,7 @@ void __cdecl BuildWaterSurfaces(CellView* cell)
             }
         }
         const int level3 = 0;
-        NiPoint3 originX(cell->FUN_00546fb0()->FUN_00535b30(level3).x, cell->FUN_00546fb0()->FUN_00535b30(level3).y,
+        NiPoint3 originX(cell->FUN_00546fb0()->GetWorldOffsetForBlock(level3).x, cell->FUN_00546fb0()->GetWorldOffsetForBlock(level3).y,
                          cell->FUN_005471e0());
         if (closed2)
         {
@@ -4114,7 +4114,7 @@ FUN_00486ca0::~FUN_00486ca0()
 
 struct Caller300
 {
-    const char* __thiscall FUN_0047a300();
+    const char* __thiscall GetMessageIconTextureName();
 };
 
 struct FUN_00481280_class
@@ -4170,7 +4170,7 @@ struct BipedMessageIconView
 
 // Returns the message icon string for a biped model form, optionally selecting the variant matching the sex of the given reference's owner.
 // @fnv 0x00480f80
-const char* __cdecl FUN_00480f80(TESForm* form, TESObjectREFR* ref)
+const char* __cdecl GetMessageIcon(TESForm* form, TESObjectREFR* ref)
 {
     TESBipedModelForm* pOwner = dynamic_cast<TESBipedModelForm*>(form);
 
@@ -4179,7 +4179,7 @@ const char* __cdecl FUN_00480f80(TESForm* form, TESObjectREFR* ref)
 
     if (ref == 0)
     {
-        return reinterpret_cast<BipedMessageIconView*>(pOwner)->messageIcon.FUN_0047a300();
+        return reinterpret_cast<BipedMessageIconView*>(pOwner)->messageIcon.GetMessageIconTextureName();
     }
 
     TESForm* pBipedModelForm = ref->GetOwner();

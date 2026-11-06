@@ -415,11 +415,11 @@ struct FUN_0064ec10_obj
 };
 struct FUN_0064f530_shell : FUN_0064ec10_obj
 {
-    FUN_0064ec10_obj* FUN_0064f530();
+    FUN_0064ec10_obj* CreateCopy();
 };
 // Allocates a new FUN_0064ec10_obj by copying *this and returns the pointer.
 // @fnv 0x0064f530
-FUN_0064ec10_obj* FUN_0064f530_shell::FUN_0064f530()
+FUN_0064ec10_obj* FUN_0064f530_shell::CreateCopy()
 {
     FUN_0064ec10_obj* preturn;
     preturn = new FUN_0064ec10_obj(*this);

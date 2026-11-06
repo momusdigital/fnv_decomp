@@ -135,11 +135,11 @@ struct BSTreeNode
 {
     BSTreeNode();
     ~BSTreeNode();
-    bool FUN_0066be30(unsigned char acTest);
+    bool SetVisibilityOnBillboard(unsigned char acTest);
 };
 
 // @fnv 0x0066be30
-bool BSTreeNode::FUN_0066be30(unsigned char acTest)
+bool BSTreeNode::SetVisibilityOnBillboard(unsigned char acTest)
 {
     if (!reinterpret_cast<Flt*>(reinterpret_cast<char*>(this) + 0xf0)->operator unsigned int())
     {
@@ -300,11 +300,11 @@ GlobalObjectO2_00a7b610* FUN_0066d610_shell::GetGlobalObject()
 
 struct bhkCapsuleShape
 {
-    unsigned int __thiscall FUN_0066d730() const;
+    unsigned int __thiscall QCinfoSize() const;
 };
 
 // @fnv 0x0066d730
-unsigned int __thiscall bhkCapsuleShape::FUN_0066d730() const
+unsigned int __thiscall bhkCapsuleShape::QCinfoSize() const
 {
     return 0x30;
 }
@@ -1661,7 +1661,7 @@ struct S_0066d880_List
 };
 struct S_0066d880_Obj
 {
-    unsigned char FUN_00666f00();
+    unsigned char IsInstance();
     int FUN_008d6f30();
 };
 struct S_0066d880_Holder
@@ -1745,7 +1745,7 @@ void S_0066d880::FUN_0066d880(S_0066d880_List* list)
     if (m_e4.FUN_00559450())
     {
         text = new char[0x20];
-        if (m_e4.FUN_00559450()->FUN_00666f00())
+        if (m_e4.FUN_00559450()->IsInstance())
             FUN_00406d00(text, 0x20, "Type = Instance");
         else
             FUN_00406d00(text, 0x20, "Type = Base");
@@ -1838,7 +1838,7 @@ struct TreePointer
 };
 struct TreeLists
 {
-    unsigned short FUN_00669990();
+    unsigned short GetNumBranchLODLevels();
     unsigned short FUN_006699d0();
     void* ConvertFloatToUInt();
 };
@@ -2042,7 +2042,7 @@ FUN_0066b120::FUN_0066b120(void* initial, void* external) : m_e4(0), m_f0(0)
     SetChildAt(2, controller);
 
     unsigned short count;
-    unsigned short i = m_e4.FUN_00559450()->FUN_00669990();
+    unsigned short i = m_e4.FUN_00559450()->GetNumBranchLODLevels();
     if (i != 0)
     {
         m_e8 = new FUN_006694e0[i];
@@ -2412,7 +2412,7 @@ struct FnvScopedContext
 };
 struct FnvModelElement
 {
-    unsigned short __thiscall FUN_00669990();
+    unsigned short __thiscall GetNumBranchLODLevels();
 };
 struct FnvModelReference
 {
@@ -2438,7 +2438,7 @@ bool __thiscall FnvElementCollection::SetSlotObject(unsigned short index, int ty
     FnvScopedContext guard;
     if (!m_model.FUN_00559450() || !m_slots || !type)
         return false;
-    unsigned short maxIndex = m_model.FUN_00559450()->FUN_00669990();
+    unsigned short maxIndex = m_model.FUN_00559450()->GetNumBranchLODLevels();
     if (index >= maxIndex)
         return false;
     S_0066ba30_Node* actor = reinterpret_cast<FnvNodeGetter>(

@@ -244,11 +244,11 @@ void __cdecl _FUN_00485910(unsigned int, unsigned int);
 
 struct FUN_005f03a0_shell : public CreatureSoundCollection
 {
-    void FUN_005f03a0();
+    void Save();
 };
 
 // @fnv 0x005f03a0
-void FUN_005f03a0_shell::FUN_005f03a0()
+void FUN_005f03a0_shell::Save()
 {
     for (int i = 0; i < 22; ++i)
     {

@@ -16,7 +16,7 @@ struct FUN_009ac170_shell
 {
     char m_auiShapeKeys[0xd0];
     NiPointer m_actorCause;
-    void __thiscall FUN_009ac170(ActorCause* apActorCause);
+    void __thiscall SetActorCause(ActorCause* apActorCause);
 };
 struct Explosion
 {
@@ -417,7 +417,7 @@ struct RetObj
 struct Actor
 {
     RetObj* _FNV_GetObjectReference();
-    bool FUN_00565690();
+    bool IsQuestObject();
 };
 struct Standin77900
 {
@@ -551,7 +551,7 @@ struct FUN_009b22c0_shell : MobileObject_9b22c0
     float unkE8[3];
     float unkF4[3];
     int unk100;
-    void FUN_009b22c0(BGSLoadFormBuffer* apLoadGameBuffer);
+    void LoadGame(BGSLoadFormBuffer* apLoadGameBuffer);
 };
 struct Vec3f
 {
@@ -1199,7 +1199,7 @@ struct Explosion_9b25b0 : ExplosionBase
     unsigned int unkD4;
     unsigned int unkD8;
     CasterData* m_pEffectInstance;
-    void FUN_009b25b0(void* apBuffer);
+    void InitLoadGame(void* apBuffer);
 };
 struct GlobalObject_00633c90
 {
@@ -1970,7 +1970,7 @@ struct BaseX
     void* FUN_004fd380();
     float GetScaledValue();
     float FUN_008d01e0();
-    int* FUN_004fb810();
+    int* GetSoundLevelValue();
 };
 struct CellX
 {
@@ -2253,7 +2253,7 @@ struct RefX
 extern RefX* DAT_011dea3c;
 struct ExtraX
 {
-    void FUN_00422220(float);
+    void SetRadius(float);
 };
 struct HandlerX
 {

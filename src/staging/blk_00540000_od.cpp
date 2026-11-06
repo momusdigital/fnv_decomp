@@ -661,10 +661,10 @@ struct DoorH
 };
 struct FUN_00547440_Class
 {
-    void FUN_00547440(float f);
+    void SetWaterHeight(float f);
 };
 // @fnv 0x00547440
-void FUN_00547440_Class::FUN_00547440(float afValue)
+void FUN_00547440_Class::SetWaterHeight(float afValue)
 {
     Sky* p = ((DoorH*)this)->GetParentWorldSpace();
     if (p && FUN_0040eb10(p->GetFieldCC(), afValue, 0.001f))
@@ -812,12 +812,12 @@ void __cdecl CallIfPresent()
 struct ExtraDataList
 {
     void* GetRoomId();
-    void __thiscall FUN_00554960(bool);
-    bool __thiscall FUN_00554910();
+    void __thiscall SetCollisionGeometryDisplay(bool);
+    bool __thiscall ToggleCollisionGeometry();
 };
 bool __fastcall FUN_004bae00(char const*);
 // @fnv 0x00554910
-bool __thiscall ExtraDataList::FUN_00554910()
+bool __thiscall ExtraDataList::ToggleCollisionGeometry()
 {
     bool result = false;
     {
@@ -825,7 +825,7 @@ bool __thiscall ExtraDataList::FUN_00554910()
         if (master)
         {
             result = !FUN_004bae00((char const*)master);
-            FUN_00554960(result);
+            SetCollisionGeometryDisplay(result);
         }
     }
     return result;
@@ -842,11 +842,11 @@ struct TESTopicInfo
 struct TESObjectCELL_Ext : public TESObjectCELL
 {
     bool IsInterior();
-    float FUN_00555ad0();
+    float GetNorthRotation();
 };
 // Returns 0.0f for exterior cells, otherwise the value from GetPrompt()->GetExtraFloatValue() when the cell is interior.
 // @fnv 0x00555ad0
-float TESObjectCELL_Ext::FUN_00555ad0()
+float TESObjectCELL_Ext::GetNorthRotation()
 {
     float result = 0.0f;
     if (IsInterior())
@@ -1223,11 +1223,11 @@ struct FUN_00551110_Cell : public TESObjectCELL
     BSSimpleList_551110* FUN_009604f0();
     void CellRefLockEnter();
     void CellRefLockLeave();
-    BGSPerkEntry* FUN_00551110();
+    BGSPerkEntry* GetLootBag();
 };
 // Locks cell refs, walks the list from FUN_009604f0 and returns the first entry whose GetNext equals DAT_011c3f40, then unlocks.
 // @fnv 0x00551110
-BGSPerkEntry* FUN_00551110_Cell::FUN_00551110()
+BGSPerkEntry* FUN_00551110_Cell::GetLootBag()
 {
     BGSPerkEntry* result2 = 0;
     CellRefLockEnter();
@@ -1596,7 +1596,7 @@ struct ExtraStandin
 void __cdecl EnsureLightingProperty(void* p);
 
 // @fnv 0x00554960
-void __thiscall ExtraDataList::FUN_00554960(bool flag)
+void __thiscall ExtraDataList::SetCollisionGeometryDisplay(bool flag)
 {
     void* world = FUN_004543c0(this);
     void* a = ((CellStandin*)this)->FUN_00545cb0();
@@ -1612,7 +1612,7 @@ struct ObjB68;
 struct Cell68
 {
     bool __thiscall FUN_00425fd0();
-    Cell68* __thiscall FUN_00556ef0(int a, int b, int c);
+    Cell68* __thiscall GetIntSeenSection(int a, int b, int c);
     ObjB68* __thiscall FUN_0054ddd0();
     bool __thiscall IsValueSeen(int a, int b);
     Cell68* __thiscall FUN_00555bc0();
@@ -1632,7 +1632,7 @@ void __cdecl WorldToCellOffset(float* pos, int a, int* outY, int* outX);
 
 // Counts how many of the four neighbouring cells around a position pass a cell check, using the player's current cell and grid offsets.
 // @fnv 0x00556870
-int __cdecl FUN_00556870(float* afPosition)
+int __cdecl GetSeenValue(float* afPosition)
 {
     unsigned int outX2;
     outX2 = 0;
@@ -1652,7 +1652,7 @@ int __cdecl FUN_00556870(float* afPosition)
             cellF = 0;
             WorldToCellOffset(afPosition, 1, &flagX, &cellF);
             Cell68* a;
-            a = n->FUN_00556ef0(s, cy, 0);
+            a = n->GetIntSeenSection(s, cy, 0);
             if (a && a->IsValueSeen(flagX, cellF))
                 outX2++;
             Cell68* flagY;
@@ -1661,7 +1661,7 @@ int __cdecl FUN_00556870(float* afPosition)
             if (cellF == 15)
             {
                 res = true;
-                flagY = n->FUN_00556ef0(s, cy + 1, 0);
+                flagY = n->GetIntSeenSection(s, cy + 1, 0);
                 if (flagY && flagY->IsValueSeen(flagX, 0))
                     outX2 += 1;
             }
@@ -1676,7 +1676,7 @@ int __cdecl FUN_00556870(float* afPosition)
             if (flagX == 15)
             {
                 cnt = true;
-                cellY = n->FUN_00556ef0(s + 1, cy, 0);
+                cellY = n->GetIntSeenSection(s + 1, cy, 0);
                 if (cellY && cellY->IsValueSeen(0, cellF))
                     ++outX2;
             }
@@ -1688,7 +1688,7 @@ int __cdecl FUN_00556870(float* afPosition)
             if (res && cnt)
             {
                 Cell68* outY;
-                outY = n->FUN_00556ef0(1 + s, cy + 1, 0);
+                outY = n->GetIntSeenSection(1 + s, cy + 1, 0);
                 if (outY && outY->IsValueSeen(0, 0))
                     outX2 += 1;
             }
@@ -1983,7 +1983,7 @@ struct ItemRef
     bool FUN_00440d80();
     bool FUN_00440da0();
     ExtraListType* FUN_005d43c0();
-    void FUN_00572230();
+    void MarkAsPickedUp();
     void FUN_00574b30(ItemRef*, int, int, int);
 };
 struct ItemList
@@ -2028,7 +2028,7 @@ void FUN_005512f0_shell::FUN_005512f0(ItemRef* dest)
                 if (allowed)
                 {
                     dest->FUN_00574b30(item, item->FUN_005d43c0()->FUN_00418770(), 0, 0);
-                    item->FUN_00572230();
+                    item->MarkAsPickedUp();
                 }
             }
             list = list->FUN_00726070();
@@ -2097,9 +2097,9 @@ struct Cell
     virtual void v17();
     virtual void MarkChanged(unsigned int);
     bool FUN_00425fd0();
-    float FUN_00555ad0();
+    float GetNorthRotation();
     void FUN_00555b10(const Vec3*, Vec3*, bool);
-    LightData* FUN_00556ef0(int, int, bool);
+    LightData* GetIntSeenSection(int, int, bool);
     bool IsFlagSet();
     LightData* FUN_00555bc0();
     Extras* GetExtraDataList();
@@ -2115,7 +2115,7 @@ void Cell::UpdateLightingAtPoint(const Vec3* apPoint)
     if (FUN_00425fd0())
     {
         Vec3 point = *apPoint;
-        if (FUN_00555ad0() != 0.0)
+        if (GetNorthRotation() != 0.0)
         {
             FUN_00555b10(apPoint, &point, true);
             Vec3 centers3[9];
@@ -2129,7 +2129,7 @@ void Cell::UpdateLightingAtPoint(const Vec3* apPoint)
             {
                 for (int dy = -1; dy <= 1; dy++)
                 {
-                    lights[count3] = FUN_00556ef0(x + dx, y + dy, true);
+                    lights[count3] = GetIntSeenSection(x + dx, y + dy, true);
                     centers3[count3] = Vec3(((x + dx) << 12) + 2048, ((y + dy) << 12) + 2048, point.z);
                     count3++;
                 }
@@ -2150,7 +2150,7 @@ void Cell::UpdateLightingAtPoint(const Vec3* apPoint)
             FUN_00403d30(centers2, 0, 48);
             int x2 = (FUN_00406d90(point.x) - 2048) >> 12;
             int y2 = (FUN_00406d90(point.y) - 2048) >> 12;
-            lights2[0] = FUN_00556ef0(x2, y2, true);
+            lights2[0] = GetIntSeenSection(x2, y2, true);
             centers2[0] = Vec3((x2 << 12) + 2048, (y2 << 12) + 2048, point.z);
             Vec2 lowerA((x2 << 12) + 2048, (y2 << 12) + 2048);
             Vec2 upper2(((x2 + 4096) << 12) + 2048, ((y2 + 4096) << 12) + 2048);
@@ -2168,19 +2168,19 @@ void Cell::UpdateLightingAtPoint(const Vec3* apPoint)
             if (dx2)
             {
                 centers2[count9] = Vec3(((x2 + dx2) << 12) + 2048, (y2 << 12) + 2048, point.z);
-                lights2[count9] = FUN_00556ef0(x2 + dx2, y2, true);
+                lights2[count9] = GetIntSeenSection(x2 + dx2, y2, true);
                 count9++;
             }
             if (dy2)
             {
                 centers2[count9] = Vec3((x2 << 12) + 2048, ((y2 + dy2) << 12) + 2048, point.z);
-                lights2[count9] = FUN_00556ef0(x2, y2 + dy2, true);
+                lights2[count9] = GetIntSeenSection(x2, y2 + dy2, true);
                 count9++;
             }
             if (dx2 && dy2)
             {
                 centers2[count9] = Vec3(((x2 + dx2) << 12) + 2048, ((y2 + dy2) << 12) + 2048, point.z);
-                lights2[count9] = FUN_00556ef0(x2 + dx2, y2 + dy2, true);
+                lights2[count9] = GetIntSeenSection(x2 + dx2, y2 + dy2, true);
                 count9++;
             }
             for (int j = 0; j < 4; j++)
@@ -2256,11 +2256,11 @@ struct Target556ef0
     bool FUN_00425fd0();
     SeenData* FUN_00555bc0();
     Result556ef0* GetExtraDataList();
-    IntSeenData* __thiscall FUN_00556ef0(int a, int b, bool create);
+    IntSeenData* __thiscall GetIntSeenSection(int a, int b, bool create);
 };
 // Searches the linked list from FUN_00555bc0 for a node matching a and b, appending a new IntSeenData when create is set and none matches.
 // @fnv 0x00556ef0
-IntSeenData* Target556ef0::FUN_00556ef0(int a, int b, bool create)
+IntSeenData* Target556ef0::GetIntSeenSection(int a, int b, bool create)
 {
     IntSeenData* node = 0;
     if (FUN_00425fd0())

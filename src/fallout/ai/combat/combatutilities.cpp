@@ -283,7 +283,7 @@ struct PathingRequest
 };
 struct Standin77900
 {
-    float FUN_00477900();
+    float GetRadiusBSUnits();
 };
 float __cdecl ComputeExplosionDamageFalloff(float, float, float);
 // @fnv 0x009a9720
@@ -294,7 +294,7 @@ bool __cdecl IsExplosionRadiusValid(PathingRequest* apExplosion)
     float fdamage = apExplosion->GetTargetRadius();
     if (fdamage < *originalRuntimeFloatSetting353.Float())
         return false;
-    float fradius = ((Standin77900*)apExplosion)->FUN_00477900();
+    float fradius = ((Standin77900*)apExplosion)->GetRadiusBSUnits();
     fradius = ComputeExplosionDamageFalloff(fradius, fdamage, *originalRuntimeFloatSetting353.Float());
     if (fradius < *originalRuntimeFloatSetting354.Float())
         return false;
@@ -3326,7 +3326,7 @@ struct TrajVec
 };
 struct TrajWeapon
 {
-    float FUN_00477900();
+    float GetRadiusBSUnits();
     float FUN_006a78f0();
 };
 struct TrajActor
@@ -3379,7 +3379,7 @@ TrajOut* __cdecl ComputeTrajectory(TrajOut* out, TrajRef* target, void* a3, void
         }
         if (w2 != 0)
         {
-            if ((double)w2->FUN_00477900() >=
+            if ((double)w2->GetRadiusBSUnits() >=
                 *reinterpret_cast<SettingT<GameSettingCollection>*>(&DAT_011cf270)->Float())
             {
                 if (!f5)
@@ -3596,7 +3596,7 @@ void FUN_009a9180(S_009a9180_Actor* pActor, S_009a9180_Data* pData, float* pfMin
             *pfDerived = FUN_0040ebd0(*pfDerived, fValue);
             Standin77900* pProjectile = pObj->FUN_004fd3c0();
             if (pProjectile)
-                *pfMin = FUN_00404010(*pfMin, pProjectile->FUN_00477900());
+                *pfMin = FUN_00404010(*pfMin, pProjectile->GetRadiusBSUnits());
             *pfMin = FUN_0040ebd0(*pfMin, *pfMax - 256.0);
             *pfMin = FUN_00404010(*pfMin, 0.0f);
         }

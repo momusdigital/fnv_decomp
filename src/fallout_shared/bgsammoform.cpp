@@ -9,11 +9,11 @@ struct BaseFormComponent
 struct BGSAmmoForm : BaseFormComponent
 {
     void* m_pAmmo;
-    bool FUN_00474b70(BaseFormComponent* apCompareFC);
+    bool CompareComponent(BaseFormComponent* apCompareFC);
 };
 
 // @fnv 0x00474b70
-bool BGSAmmoForm::FUN_00474b70(BaseFormComponent* apCompareFC)
+bool BGSAmmoForm::CompareComponent(BaseFormComponent* apCompareFC)
 {
     BGSAmmoForm* pcompare = dynamic_cast<BGSAmmoForm*>(apCompareFC);
     if (!pcompare)
@@ -30,10 +30,10 @@ struct DeallocHolder
 };
 struct Shell474af0 : BGSAmmoForm
 {
-    void FUN_00474af0();
+    void Save();
 };
 // @fnv 0x00474af0
-void Shell474af0::FUN_00474af0()
+void Shell474af0::Save()
 {
     if (m_pAmmo != 0)
     {
@@ -69,15 +69,15 @@ struct GroupHolder
 };
 struct FUN_00474a80_Class
 {
-    GroupHolder* FUN_00474a40();
+    GroupHolder* GetAmmoFormList();
     bool FUN_00474a80();
 };
 // @fnv 0x00474a80
 bool FUN_00474a80_Class::FUN_00474a80()
 {
-    if (FUN_00474a40())
+    if (GetAmmoFormList())
     {
-        int value = *FUN_00474a40()->FUN_00500940()->FUN_006815c0();
+        int value = *GetAmmoFormList()->FUN_00500940()->FUN_006815c0();
         if (value != 0)
         {
             int result = FUN_00ec43fb(value, 0, &DAT_01183028, &DAT_011840c4, 0);

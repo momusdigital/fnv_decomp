@@ -121,7 +121,7 @@ bool BGSSleepDeprevationStage::Load(TESFile* file)
             reinterpret_cast<TESForm*>(this)->readOBNDSubRecord(file);
             break;
         case 0x41544144:
-            reinterpret_cast<BGSDehydrationStage*>(this)->FUN_004861f0(
+            reinterpret_cast<BGSDehydrationStage*>(this)->LoadData(
                 file, reinterpret_cast<BGSDehydrationStage*>(this)->FUN_00500940(8));
             break;
         }

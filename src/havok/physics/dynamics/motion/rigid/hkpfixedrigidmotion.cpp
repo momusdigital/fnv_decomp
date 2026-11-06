@@ -50,12 +50,12 @@ struct FUN_00c86660_Obj
 
 struct FUN_00d1e190_Obj
 {
-    void FUN_00d1e190(int* motion);
+    void getPositionAndVelocities(int* motion);
 };
 
 // Calls FUN_00c86660 on motion's sub-object at offset 0x10 with this+0x10, then zeroes two 16-byte vectors at float offsets 0x34 and 0x38 of motion.
 // @fnv 0x00d1e190
-void FUN_00d1e190_Obj::FUN_00d1e190(int* motion)
+void FUN_00d1e190_Obj::getPositionAndVelocities(int* motion)
 {
     reinterpret_cast<FUN_00c86660_Obj*>(reinterpret_cast<char*>(motion) + 0x10)
         ->FUN_00c86660(reinterpret_cast<int*>(reinterpret_cast<char*>(this) + 0x10));

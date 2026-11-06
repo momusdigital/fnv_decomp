@@ -56,7 +56,7 @@ struct FUN_00781b10_shell
 };
 struct FUN_00781620_shell : public InventoryMenu
 {
-    void __thiscall FUN_00781620(int aiID, Tile* apTarget);
+    void __thiscall DoLeave(int aiID, Tile* apTarget);
 };
 struct ProxyPipboy
 {

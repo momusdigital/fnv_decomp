@@ -161,10 +161,10 @@ struct Holder00c9d5d0
     virtual CallRet* GetRet();
     void* unk4;
     void* unk8;
-    void FUN_00c9d5d0();
+    void UpdateCollisionFilter();
 };
 // @fnv 0x00c9d5d0
-void Holder00c9d5d0::FUN_00c9d5d0()
+void Holder00c9d5d0::UpdateCollisionFilter()
 {
     CallRet* p = GetRet();
     if (p)
@@ -242,10 +242,10 @@ struct bhkAabbPhantom : PhantomBase
     virtual WorldHolder* GetWorld();
     int m4;
     void* m8;
-    void FUN_00c9f460();
+    void UpdateCollisionFilter();
 };
 // @fnv 0x00c9f460
-void bhkAabbPhantom::FUN_00c9f460()
+void bhkAabbPhantom::UpdateCollisionFilter()
 {
     WorldHolder* w = GetWorld();
     if (w)
@@ -1207,11 +1207,11 @@ inline void* operator new(unsigned int n)
 struct FUN_00c9efa0_cls
 {
     void FUN_00c85900(FUN_00c6d190* p, unsigned int flag);
-    bhkRefObject* FUN_00c9efa0(unsigned int flag);
+    bhkRefObject* CreateClone(unsigned int flag);
 };
 
 // @fnv 0x00c9efa0
-bhkRefObject* FUN_00c9efa0_cls::FUN_00c9efa0(unsigned int flag)
+bhkRefObject* FUN_00c9efa0_cls::CreateClone(unsigned int flag)
 {
     TlsGuard_t guard;
     FUN_00c876f0();
@@ -1629,10 +1629,10 @@ void __cdecl FUN_00c87700();
 struct ProjectileCreator
 {
     void __thiscall FUN_00c85900(Object_00c9f5a0* projectile, int mode);
-    Object_00c9f5a0* __thiscall FUN_00c9f640(int mode);
+    Object_00c9f5a0* __thiscall CreateClone(int mode);
 };
 // @fnv 0x00c9f640
-Object_00c9f5a0* ProjectileCreator::FUN_00c9f640(int mode)
+Object_00c9f5a0* ProjectileCreator::CreateClone(int mode)
 {
     FUN_00c876f0();
     Object_00c9f5a0* projectile = new Object_00c9f5a0;
@@ -2330,11 +2330,11 @@ struct FUN_00ca0090_cls
     void* m08;
     void* m0C;
     void FUN_00c9fb70(void* a);
-    void* FUN_00ca0090(unsigned char* out);
+    void* CreateCinfo(unsigned char* out);
 };
 
 // @fnv 0x00ca0090
-void* FUN_00ca0090_cls::FUN_00ca0090(unsigned char* out)
+void* FUN_00ca0090_cls::CreateCinfo(unsigned char* out)
 {
     TlsGuard_ca0090 guard;
     bool GetObjectKind = (m0C == 0);
@@ -2620,11 +2620,11 @@ class CA0840Constraint
     CA0840Output* m_pkOutput;
 
     void SetOutput(CA0840Output* pkOutput);
-    CA0840Output* FUN_00ca0840(bool* pbCreated);
+    CA0840Output* CreateCinfo(bool* pbCreated);
 };
 
 // @fnv 0x00ca0840
-CA0840Output* CA0840Constraint::FUN_00ca0840(bool* pbCreated)
+CA0840Output* CA0840Constraint::CreateCinfo(bool* pbCreated)
 {
     CA0840MemContext kContext(0x10);
     *pbCreated = m_pkOutput == 0;
@@ -2775,10 +2775,10 @@ struct World
     virtual void m62();
     virtual void m63(int active);
     void FUN_00cb30d0(FUN_00cb3860* object, int flags);
-    FUN_00cb3860* FUN_00cb3a40(int flags);
+    FUN_00cb3860* CreateClone(int flags);
 };
 // @fnv 0x00cb3a40
-FUN_00cb3860* World::FUN_00cb3a40(int flags)
+FUN_00cb3860* World::CreateClone(int flags)
 {
     ThreadRouterScope threadScope;
     FUN_00c876f0();
@@ -2923,7 +2923,7 @@ class NiControllerC9E : public NiObjectC9E
   public:
     NiControllerC9E();
 
-    static NiObjectC9E* FUN_00c9ef30();
+    static NiObjectC9E* CreateObject();
 
     unsigned int m_uiRefCount;
     int unk08;
@@ -2933,7 +2933,7 @@ class NiControllerC9E : public NiObjectC9E
 };
 
 // @fnv 0x00c9ef30
-NiObjectC9E* NiControllerC9E::FUN_00c9ef30()
+NiObjectC9E* NiControllerC9E::CreateObject()
 {
     return new NiControllerC9E;
 }
@@ -3163,11 +3163,11 @@ struct ActionOwnerC9d590
     virtual LinkedObjectC9d590* ResolveLinkedObject();
     int unk4;
     void* handle;
-    bool FUN_00c9d590();
+    bool Remove();
 };
 
 // @fnv 0x00c9d590
-bool ActionOwnerC9d590::FUN_00c9d590()
+bool ActionOwnerC9d590::Remove()
 {
     bool result = false;
     LinkedObjectC9d590* obj = ResolveLinkedObject();
@@ -5297,10 +5297,10 @@ struct CA0780Owner
     virtual void vf47();
     virtual void vf48();
     virtual void vf49(FUN_0094dbb0* object, unsigned int argument);
-    FUN_0094dbb0* FUN_00ca0780(unsigned int argument);
+    FUN_0094dbb0* CreateClone(unsigned int argument);
 };
 // @fnv 0x00ca0780
-FUN_0094dbb0* CA0780Owner::FUN_00ca0780(unsigned int argument)
+FUN_0094dbb0* CA0780Owner::CreateClone(unsigned int argument)
 {
     TlsGuard_t guard;
     FUN_00c876f0();
@@ -6072,10 +6072,10 @@ struct S_00ca09e0_Obj
     int unk0;
     int unk4;
     S_00ca09e0_Inner* unk8;
-    void FUN_00ca09e0(S_00ca09e0_Target* a, int b);
+    void BuildDisplayGeometry(S_00ca09e0_Target* a, int b);
 };
 // @fnv 0x00ca09e0
-void S_00ca09e0_Obj::FUN_00ca09e0(S_00ca09e0_Target* a, int b)
+void S_00ca09e0_Obj::BuildDisplayGeometry(S_00ca09e0_Target* a, int b)
 {
     S_00ca09e0_Shape* s = FUN_00c56680(((this && unk8) ? unk8->unk10 : DAT_010c72bc) * DAT_011b15c8, 10, 10, 0);
     if (s)
@@ -6395,10 +6395,10 @@ struct C9FFD0Owner
     virtual void vf47();
     virtual void vf48();
     virtual void vf49(Q00c9fde0* object, unsigned int argument);
-    Q00c9fde0* FUN_00c9ffd0(unsigned int argument);
+    Q00c9fde0* CreateClone(unsigned int argument);
 };
 // @fnv 0x00c9ffd0
-Q00c9fde0* C9FFD0Owner::FUN_00c9ffd0(unsigned int argument)
+Q00c9fde0* C9FFD0Owner::CreateClone(unsigned int argument)
 {
     TlsGuard_t guard;
     FUN_00c876f0();

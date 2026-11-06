@@ -609,10 +609,10 @@ void __fastcall FUN_004a3b50(void* p);
 void __fastcall FUN_0062a2b0(void* p);
 struct FUN_0062a290_Class
 {
-    void __thiscall FUN_0062a290();
+    void __thiscall reset();
 };
 // @fnv 0x0062a290
-void __thiscall FUN_0062a290_Class::FUN_0062a290()
+void __thiscall FUN_0062a290_Class::reset()
 {
     FUN_0062a2b0((char*)this + 0x10);
     FUN_004a3b50(this);
@@ -811,10 +811,10 @@ struct FUN_006347a0_Class
     void* m_data;
     int m_auiShapeKeys;
     int m_aiIndexedValues[0];
-    int* __thiscall FUN_006347a0(int index);
+    int* __thiscall GetCloudTexture(int index);
 };
 // @fnv 0x006347a0
-int* __thiscall FUN_006347a0_Class::FUN_006347a0(int index)
+int* __thiscall FUN_006347a0_Class::GetCloudTexture(int index)
 {
     return (int*)((char*)this + 0x34 + index * 0xc);
 }
@@ -1586,11 +1586,11 @@ struct S28640
 struct FUN_00629560_Class
 {
     char _pad[16];
-    void __thiscall FUN_00629560(int arg);
+    void __thiscall includePoint(int arg);
 };
 // Forwards arg to FUN_006285e0 on this and to FUN_00628640 on the object at this+0x10.
 // @fnv 0x00629560
-void __thiscall FUN_00629560_Class::FUN_00629560(int aiValue)
+void __thiscall FUN_00629560_Class::includePoint(int aiValue)
 {
     ((S285e0*)this)->FUN_006285e0(this, aiValue);
     ((S28640*)((char*)this + 0x10))->FUN_00628640((void*)((char*)this + 0x10), aiValue);
@@ -2321,7 +2321,7 @@ struct SkyShaderProperty
 };
 struct FUN_00634900_shell
 {
-    void FUN_00634900(void*);
+    void SetTextureFile(void*);
 };
 struct Clouds
 {
@@ -2335,7 +2335,7 @@ extern "C" void* __cdecl DynamicCastByRTTI(void const*, void*);
 extern int DAT_011f49e0;
 extern const char* const DAT_012005b8;
 // @fnv 0x006349e0
-void __fastcall FUN_006349e0(void* self)
+void __fastcall RemoveTextures(void* self)
 {
     int i = 0;
     for (; i < ((Clouds*)self)->GetOffset58(); ++i)
@@ -2347,7 +2347,7 @@ void __fastcall FUN_006349e0(void* self)
             if (obj)
             {
                 ((SkyShaderProperty*)obj)->SetTexture(0);
-                ((FUN_00634900_shell*)obj)->FUN_00634900(&DAT_011f49e0);
+                ((FUN_00634900_shell*)obj)->SetTextureFile(&DAT_011f49e0);
             }
         }
     }
@@ -2361,7 +2361,7 @@ struct SkyShaderProperty
 };
 struct FUN_00634900_shell
 {
-    void FUN_00634900(void*);
+    void SetTextureFile(void*);
 };
 
 struct PropHelper
@@ -2375,7 +2375,7 @@ struct FUN_006369a0_Class
 {
     void FUN_006369a0();
 };
-// For the property at this+0x10 and this+0x14, gets property 3, casts it to a sky shader property, clears its texture and calls FUN_00634900 with DAT_011f49e0.
+// For the property at this+0x10 and this+0x14, gets property 3, casts it to a sky shader property, clears its texture and calls SetTextureFile with DAT_011f49e0.
 // @fnv 0x006369a0
 void FUN_006369a0_Class::FUN_006369a0()
 {
@@ -2386,14 +2386,14 @@ void FUN_006369a0_Class::FUN_006369a0()
     if (s)
     {
         s->SetTexture(0);
-        ((FUN_00634900_shell*)s)->FUN_00634900(&DAT_011f49e0);
+        ((FUN_00634900_shell*)s)->SetTextureFile(&DAT_011f49e0);
     }
     p2 = ((PropHelper*)((Flt*)((char*)this + 0x14))->operator unsigned int())->GetProperty(3);
     s = (SkyShaderProperty*)DynamicCastByRTTI(&DAT_012005b8, p2);
     if (s)
     {
         s->SetTexture(0);
-        ((FUN_00634900_shell*)s)->FUN_00634900(&DAT_011f49e0);
+        ((FUN_00634900_shell*)s)->SetTextureFile(&DAT_011f49e0);
     }
 }
 }  // namespace fnv_006369a0
@@ -3563,10 +3563,10 @@ struct Ref
 struct Me
 {
     void __thiscall FUN_006296d0(Ref* r, void* x);
-    void __thiscall FUN_006295e0(Ref* r);
+    void __thiscall WarpActor(Ref* r);
 };
 // @fnv 0x006295e0
-void __thiscall Me::FUN_006295e0(Ref* apRef)
+void __thiscall Me::WarpActor(Ref* apRef)
 {
     Tmp t;
     t.FUN_006815c0();
@@ -3834,13 +3834,13 @@ class FUN_0062a220_cls : public SpawnedBase_b7276
 
     FUN_0062a220_cls();
     virtual void unk00();
-    void FUN_0062a290();
+    void reset();
 };
 
 // @fnv 0x0062a220
 FUN_0062a220_cls::FUN_0062a220_cls()
 {
-    FUN_0062a290();
+    reset();
 }
 
 struct A3B0Filter
@@ -3917,7 +3917,7 @@ struct FUN_00559450_h
 };
 struct Col_0043b4f0
 {
-    int __thiscall FUN_0043b540();
+    int __thiscall getCollisionFilterInfo();
 };
 struct GlobalObject_008c71b0
 {
@@ -3926,7 +3926,7 @@ struct GlobalObject_008c71b0
 };
 struct FUN_00457880_Class
 {
-    unsigned int __thiscall FUN_00457880(int value);
+    unsigned int __thiscall GetLandMaterialType(int value);
 };
 extern TES* g_TES;
 extern unsigned int __cdecl FUN_004a3a40(TESObjectREFR* value);
@@ -3943,10 +3943,10 @@ unsigned int __cdecl FUN_0062b150(unsigned int param_1, unsigned int uiValue)
     {
         GlobalObject_008c71b0 local(
             reinterpret_cast<Col_0043b4f0*>(reinterpret_cast<FUN_00624020_Class*>(param_1)->GetLastNode())
-                ->FUN_0043b540());
+                ->getCollisionFilterInfo());
         if (reinterpret_cast<H0043b4d0*>(&local)->FUN_0043b4d0() == 0x11)
         {
-            uiResult = reinterpret_cast<FUN_00457880_Class*>(g_TES)->FUN_00457880(uiValue);
+            uiResult = reinterpret_cast<FUN_00457880_Class*>(g_TES)->GetLandMaterialType(uiValue);
         }
         else
         {
@@ -5755,7 +5755,7 @@ struct RainModel
 };
 struct RainWeather
 {
-    float FUN_004ed230(int, float, float);
+    float GetWeatherData(int, float, float);
     RainModel* FUN_006377e0();
 };
 struct RainState
@@ -5763,8 +5763,8 @@ struct RainState
     int FUN_00476c90();
     RainWeather* FUN_0044edb0();
     RainWeather* FUN_00825c00();
-    float FUN_006447d0();
-    bool FUN_00634870();
+    float GetCurrentWeatherPct();
+    bool GetWeatherUpdateFlag();
 };
 RainState* FUN_0046dd00();
 struct RainMain
@@ -5827,9 +5827,9 @@ void RainSystem::FUN_00636ed0(float elapsed)
     bool hide10 = state8->FUN_00476c90() == 1 || state8->FUN_00476c90() == 0;
     RainWeather* weatherA4 = state8->FUN_0044edb0();
     RainWeather* weatherB13 = state8->FUN_00825c00();
-    float blend4 = state8->FUN_006447d0();
-    float thresholdA103 = weatherA4 ? weatherA4->FUN_004ed230(6, 0.999f, 0.0f) : 0.0f;
-    float thresholdB7 = weatherB13 ? weatherB13->FUN_004ed230(7, 1.0f, 0.001f) : 0.001f;
+    float blend4 = state8->GetCurrentWeatherPct();
+    float thresholdA103 = weatherA4 ? weatherA4->GetWeatherData(6, 0.999f, 0.0f) : 0.0f;
+    float thresholdB7 = weatherB13 ? weatherB13->GetWeatherData(7, 1.0f, 0.001f) : 0.001f;
     if (DAT_011de45c->FUN_0047c850())
     {
         if (previous.FUN_00559450())
@@ -5870,7 +5870,7 @@ void RainSystem::FUN_00636ed0(float elapsed)
                 QueuePrecipitationObject(model);
             }
         }
-        else if (state8->FUN_00634870() && weatherA4)
+        else if (state8->GetWeatherUpdateFlag() && weatherA4)
             QueuePrecipitationObject(weatherA4->FUN_006377e0());
     }
     if (blend4 >= 1.0 && previous.FUN_00559450())
@@ -7009,7 +7009,7 @@ struct __declspec(align(16)) Bounds628
     Vec628 min, max;
     void FUN_00437c10();
     void FUN_006295a0();
-    void FUN_00629560(const Vec628*);
+    void includePoint(const Vec628*);
 };
 struct Group628
 {
@@ -7256,7 +7256,7 @@ struct Body628
     Smart628* FUN_00931ed0(Smart628*);
     void GetAabb(Bounds628*);
 };
-Body628* __cdecl FUN_0062b4e0(void*);
+Body628* __cdecl GetCdBodyRef(void*);
 Transform628* __cdecl FUN_00624ad0(Transform628*, PhysicsTransform628*);
 void __cdecl AppendSpawnedPtr(BodyCollection628*, Group628*);
 Body628* __cdecl FUN_004b5a80(const Handle628*);
@@ -7273,7 +7273,7 @@ void Mover628::MoveToDestination(Body628* body, Group628* moved)
 {
     if (body && !body->IsNonZero(32))
     {
-        Body628* reference = FUN_0062b4e0(body->GetSourceFilesFromObject());
+        Body628* reference = GetCdBodyRef(body->GetSourceFilesFromObject());
         Point628 destination;
         destination.FUN_006815c0();
         PhysicsTransform628 world;
@@ -7306,8 +7306,8 @@ void Mover628::MoveToDestination(Body628* body, Group628* moved)
                 itemBounds.FUN_00437c10();
                 Provider628* provider = collision->FUN_006286d0();
                 provider->bounds(group.FUN_00629ab0(index)->FUN_00460140()->FUN_007d6bb0(), &itemBounds);
-                bounds.FUN_00629560(&itemBounds.max);
-                bounds.FUN_00629560(&itemBounds.min);
+                bounds.includePoint(&itemBounds.max);
+                bounds.includePoint(&itemBounds.min);
             }
             delta.FUN_004a51b0(2) += bounds.max.FUN_00560d30(2) - bounds.min.FUN_00560d30(2);
             for (int moveIndex = 0; moveIndex < group.FUN_00726070(); ++moveIndex)

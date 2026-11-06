@@ -113,7 +113,7 @@ struct FUN_005f6e20_shell : public TESClass
 
 struct TESClass_Helper
 {
-    ActorValue::Index FUN_005f6dd0();
+    ActorValue::Index GetTrainingSkill();
     void SetSkillIndex(int);
 };
 
@@ -121,7 +121,7 @@ struct TESClass_Helper
 bool FUN_005f6e20_shell::ValidateSkillActorValue()
 {
     bool bIsSkill = true;
-    if (!ActorValue::IsSkill(((TESClass_Helper*)this)->FUN_005f6dd0()))
+    if (!ActorValue::IsSkill(((TESClass_Helper*)this)->GetTrainingSkill()))
     {
         ((TESClass_Helper*)this)->SetSkillIndex(0x20);
         bIsSkill = false;
@@ -177,11 +177,11 @@ void FUN_005f6c90_shell::SwapEndianData()
 
 struct FUN_005f6dd0_shell
 {
-    int FUN_005f6dd0();
+    int GetTrainingSkill();
 };
 
 // @fnv 0x005f6dd0
-int FUN_005f6dd0_shell::FUN_005f6dd0()
+int FUN_005f6dd0_shell::GetTrainingSkill()
 {
     int result = *(unsigned char*)((char*)this + 0x5c) + 0x20;
     return result;
@@ -250,7 +250,7 @@ struct FUN_00482cb0_shell
 };
 struct FUN_00480100_shell
 {
-    unsigned int __thiscall FUN_00480100(void*);
+    unsigned int __thiscall Save(void*);
 };
 struct FUN_00485680
 {
@@ -286,7 +286,7 @@ void __thiscall FUN_005f6810_shell::FUN_005f6810(void)
     {
         reinterpret_cast<TESClassData*>(reinterpret_cast<char*>(this) + 0x44)->SwapEndian();
     }
-    reinterpret_cast<FUN_00480100_shell*>(reinterpret_cast<char*>(this) + 0x38)->FUN_00480100(cAttribData);
+    reinterpret_cast<FUN_00480100_shell*>(reinterpret_cast<char*>(this) + 0x38)->Save(cAttribData);
     FUN_004856f0(0x52545441, cAttribData, 7);
     reinterpret_cast<FUN_00485680*>(this)->M();
 }

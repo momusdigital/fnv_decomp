@@ -719,13 +719,13 @@ struct blob8
 };
 
 hkpRigidBody* __fastcall FUN_004ae750(void*);
-float __fastcall FUN_004b4ea0(hkpRigidBody*);
+float __fastcall getMass(hkpRigidBody*);
 
 // @fnv 0x004b5400
-float __fastcall FUN_004b5400(void* pThis)
+float __fastcall GetMass(void* pThis)
 {
     hkpRigidBody* pb = FUN_004ae750(pThis);
-    return pb ? FUN_004b4ea0(pb) : 0.0f;
+    return pb ? getMass(pb) : 0.0f;
 }
 
 bool __cdecl FUN_004b5470(const NiPoint3& aPt, float afCompLength);
@@ -780,7 +780,7 @@ void* __cdecl FUN_004b5950(const void* collidable)
 }
 
 // @fnv 0x004b59d0
-const void* __fastcall FUN_004b59d0(const char* apBase)
+const void* __fastcall getOwner(const char* apBase)
 {
     return apBase + apBase[0x10];
 }
@@ -1415,12 +1415,12 @@ int __fastcall FUN_004b5980(int param_1)
     return GetCharAtOffset4(param_1 + 0x14);
 }
 
-void const* __fastcall FUN_004b59d0(char const*);
+void const* __fastcall getOwner(char const*);
 
 // @fnv 0x004b59c0
 void const* __cdecl FUN_004b59c0(char const* arg)
 {
-    return FUN_004b59d0(arg);
+    return getOwner(arg);
 }
 
 namespace fnv_004b4d10 {
@@ -2400,11 +2400,11 @@ class TESDataHandler
 {
   public:
     BSSimpleList_Ragdoll* GetBGSRagdollList(void);
-    float FUN_004b4ea0();
+    float getMass();
 };
 
 // @fnv 0x004b4ea0
-float TESDataHandler::FUN_004b4ea0()
+float TESDataHandler::getMass()
 {
     return GetBGSRagdollList()->GetMassValue();
 }
@@ -3191,7 +3191,7 @@ extern const char* DAT_01189034;
 
 // Returns the type name string for a form type code, looking it up in typeNames, then a switch table, then FNV_FormTypeNames, warning on invalid codes.
 // @fnv 0x004b1b60
-const char* __cdecl FUN_004b1b60(unsigned char type)
+const char* __cdecl GetFormTypeName(unsigned char type)
 {
     int index = LookupType(type);
     if (index >= 0)
@@ -3589,7 +3589,7 @@ struct S4b52f0_Ref
 };
 S4b52f0_Ref* __cdecl FUN_0043b610(void* obj);
 
-// Recursively picks, among an object's list children and its ref target, the one with the greatest FUN_004b5400 value; returns 0 for a null object.
+// Recursively picks, among an object's list children and its ref target, the one with the greatest GetMass value; returns 0 for a null object.
 // @fnv 0x004b52f0
 void* __cdecl FUN_004b52f0(void* object)
 {
@@ -3612,14 +3612,14 @@ void* __cdecl FUN_004b52f0(void* object)
                 child2 = FUN_004b52f0(list6->FUN_0043b4a0(i4));
                 if (child2 != 0)
                 {
-                    if (bestX == 0 || FUN_004b5400(bestX) < FUN_004b5400(child2))
+                    if (bestX == 0 || GetMass(bestX) < GetMass(child2))
                         bestX = child2;
                 }
             }
         }
         ref = FUN_0043b610(object);
         other = ref ? ref->FUN_006fa820() : 0;
-        if (bestX != 0 && (other == 0 || FUN_004b5400(other) < FUN_004b5400(bestX)))
+        if (bestX != 0 && (other == 0 || GetMass(other) < GetMass(bestX)))
         {
             return bestX;
         }

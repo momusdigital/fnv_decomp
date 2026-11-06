@@ -532,11 +532,11 @@ struct FUN_00d5de40_Obj
     hkVector4 unk40;
     hkVector4 unk50;
 
-    void FUN_00d5de40(hkVector4* value);
+    void getCentreImpl(hkVector4* value);
 };
 
 // @fnv 0x00d5de40
-void FUN_00d5de40_Obj::FUN_00d5de40(hkVector4* value)
+void FUN_00d5de40_Obj::getCentreImpl(hkVector4* value)
 {
     unk18->vf44(value);
 
@@ -620,7 +620,7 @@ class hkBaseObjectD5DE
 class hkpTransformShapeD5DE : public hkBaseObjectD5DE
 {
   public:
-    void FUN_00d5dea0(hkVector4D5DE& kCentreOut) const;
+    void getFirstVertex(hkVector4D5DE& kCentreOut) const;
 
     unsigned short m_usMemSizeAndFlags;
     short m_sReferenceCount;
@@ -634,7 +634,7 @@ class hkpTransformShapeD5DE : public hkBaseObjectD5DE
 
 // Gets the centre of the contained shape and transforms it by the motion transform into kCentreOut.
 // @fnv 0x00d5dea0
-void hkpTransformShapeD5DE::FUN_00d5dea0(hkVector4D5DE& kCentreOut) const
+void hkpTransformShapeD5DE::getFirstVertex(hkVector4D5DE& kCentreOut) const
 {
     hkVector4D5DE kChildCentre;
     m_pContainedShape->getCentre(kChildCentre);
@@ -755,7 +755,7 @@ struct TransformHost
     hkVector4 unk40;
     hkVector4 unk50;
 
-    void __thiscall FUN_00d5dd40(int a, int b, float* c);
+    void __thiscall convertVertexIdsToVerticesImpl(int a, int b, float* c);
 };
 
 struct __declspec(align(16)) LocalTransform
@@ -764,7 +764,7 @@ struct __declspec(align(16)) LocalTransform
 };
 // Calls unk18->vf3c(a, b, c), then transforms the b vectors in c in place by the matrix made from unk20, unk30, unk40 and unk50.
 // @fnv 0x00d5dd40
-void __thiscall TransformHost::FUN_00d5dd40(int a, int aiCount, float* apPoints)
+void __thiscall TransformHost::convertVertexIdsToVerticesImpl(int a, int aiCount, float* apPoints)
 {
     unk18->vf3c(a, aiCount, (int)apPoints);
     LocalTransform localTransform;
@@ -830,7 +830,7 @@ class hkpConvexTransformShapeSpheres : public hkpConvexTransformShape
     {
         return (const hkpConvexShapeSpheres*)m_pContainedShape.m_pContainedShape;
     }
-    const hkSphereq* FUN_00d5df10(hkSphereq* sphereBuffer) const;
+    const hkSphereq* getCollisionSpheresImpl(hkSphereq* sphereBuffer) const;
 };
 
 static __forceinline void hkTransformPoints(const hkTransform& t, const hkVector4q* vectorsIn, int numVectors,
@@ -861,7 +861,7 @@ static __forceinline void hkTransformPoints(const hkTransform& t, const hkVector
 
 // Transforms the contained shape's collision spheres by the motion transform and writes them into the provided buffer.
 // @fnv 0x00d5df10
-const hkSphereq* hkpConvexTransformShapeSpheres::FUN_00d5df10(hkSphereq* sphereBuffer) const
+const hkSphereq* hkpConvexTransformShapeSpheres::getCollisionSpheresImpl(hkSphereq* sphereBuffer) const
 {
     const hkSphereq* spheres = GetShapeForKey()->getCollisionSpheres(sphereBuffer);
     int numSpheres = GetShapeForKey()->getNumCollisionSpheres();

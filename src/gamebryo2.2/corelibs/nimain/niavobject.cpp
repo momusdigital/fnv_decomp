@@ -26,11 +26,11 @@ struct NiAVObject
 
 struct FUN_00a5a030_shell : NiAVObject
 {
-    void __thiscall FUN_00a5a030(NiUpdateData& data);
+    void __thiscall UpdateControllers(NiUpdateData& data);
 };
 
 // @fnv 0x00a5a030
-void __thiscall FUN_00a5a030_shell::FUN_00a5a030(NiUpdateData& data)
+void __thiscall FUN_00a5a030_shell::UpdateControllers(NiUpdateData& data)
 {
     NiAVObject::UpdateTimeControllers(data, true);
 }
@@ -709,12 +709,12 @@ struct FUN_00a59d80_cls
     int unk28;
     int unk2C;
     unsigned int m_flags;
-    void __thiscall FUN_00a59d80(void* pArg);
+    void __thiscall UpdateTransformAndBounds(void* pArg);
 };
 
 // If bit 2 of m_flags is set, calls v46 with pArg and then v47.
 // @fnv 0x00a59d80
-void __thiscall FUN_00a59d80_cls::FUN_00a59d80(void* pArg)
+void __thiscall FUN_00a59d80_cls::UpdateTransformAndBounds(void* pArg)
 {
     unsigned char flags = (unsigned char)(m_flags >> 2);
     if (flags & 1)
@@ -943,7 +943,7 @@ struct FUN_00a5a140_cls
     NodeA* m_pFirstNode;
     char _pad_28[0x8];
     unsigned int m_flags;
-    void __thiscall FUN_00a5a140(int unused);
+    void __thiscall UpdatePropertiesDownward(int unused);
 };
 
 inline DataA* const& GetNextData(NodeA*& pos)
@@ -954,7 +954,7 @@ inline DataA* const& GetNextData(NodeA*& pos)
 }
 
 // @fnv 0x00a5a140
-void __thiscall FUN_00a5a140_cls::FUN_00a5a140(int unused)
+void __thiscall FUN_00a5a140_cls::UpdatePropertiesDownward(int unused)
 {
     NodeA* pos = m_pFirstNode;
     while (pos != 0)
@@ -1765,7 +1765,7 @@ inline IndexedElement* const& GetNextIndexed(IndexedNode*& pos)
     pos = pos->next;
     return element;
 }
-void __stdcall FUN_00a5ca80(Stream* stream);
+void __stdcall GetViewerStrings(Stream* stream);
 unsigned int __cdecl FUN_00a7d330(unsigned int source);
 unsigned int __cdecl FUN_00a7d370(const char* name, unsigned int value);
 unsigned int __cdecl FUN_00a7d550(const char* name, float value);
@@ -1799,7 +1799,7 @@ struct FUN_00a5ad00_shell
 // @fnv 0x00a5ad00
 void FUN_00a5ad00_shell::FUN_00a5ad00(Stream* stream)
 {
-    FUN_00a5ca80(stream);
+    GetViewerStrings(stream);
     stream->Add(FUN_00a7d330(DAT_011f4280));
     union FlagWord
     {
@@ -2701,11 +2701,11 @@ struct LoadObject : LoadBase
     Matrix3x3 rotation;
     LoadVector translation;
     float scale;
-    void FUN_00a5a510(LoadStream& stream);
+    void LoadBinary(LoadStream& stream);
 };
 // Reads flags, translation, rotation, and scale, then handles legacy collision data and version-dependent flag updates.
 // @fnv 0x00a5a510
-void LoadObject::FUN_00a5a510(LoadStream& stream)
+void LoadObject::LoadBinary(LoadStream& stream)
 {
     FUN_00a5c080(stream);
     if (stream.format < 28)

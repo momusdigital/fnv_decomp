@@ -125,7 +125,7 @@ struct xProj : xBase
     void FUN_00570f70(void*);
     void FUN_0081e570(int);
     void InitProjectileEffect();
-    void FUN_00819ca0();
+    void InitHavok();
     xCtl* FUN_009306d0();
     xCell* FUN_008d6f30();
     xSound PlaySoundByFormID(void*, int, unsigned int, int);
@@ -148,7 +148,7 @@ xProj::xProj(int a, int b, int c, int d, xP3 kP1, xP3 kP2, void* apE, xOwner* ap
     else
         FUN_0081e570(0);
     InitProjectileEffect();
-    FUN_00819ca0();
+    InitHavok();
     xVec4 V(-xg_107ad40, 0.0f, 0.0f, 0.0f);
     FUN_009306d0()->FUN_0080fb00(&V);
     FUN_008d6f30()->FUN_00548230(this, false);

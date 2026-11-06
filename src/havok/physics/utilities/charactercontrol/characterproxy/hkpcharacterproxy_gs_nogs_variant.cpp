@@ -463,7 +463,7 @@ struct FUN_00cad900_cls
     int m9c;
     int ma0;
 
-    void FUN_00cad900(FUN_00cad900_arg* a1, int a2);
+    void calcContentStatistics(FUN_00cad900_arg* a1, int a2);
 };
 extern char str_0102f13c[];
 extern char DAT_0104e3d0[];

@@ -150,12 +150,12 @@ void FUN_005f8bb0_shell::SetImpactDataSet(BGSImpactDataSet* apSet)
 
 struct FUN_005f9100_shell : public TESCreature
 {
-    TESCreature* FUN_005f9100();
+    TESCreature* GetSoundCreature();
 };
 
 // Returns the TESCreature at offset 0x128 unless the actor base data has flag 0x100 set, in which case it returns 0.
 // @fnv 0x005f9100
-TESCreature* FUN_005f9100_shell::FUN_005f9100()
+TESCreature* FUN_005f9100_shell::GetSoundCreature()
 {
     if (((TESActorBaseData*)((char*)this + 0x30))->GetFlag(0x100))
     {
@@ -169,11 +169,11 @@ TESCreature* FUN_005f9100_shell::FUN_005f9100()
 
 struct FUN_005f91d0_shell : public TESCreature
 {
-    CreatureSoundCollection* FUN_005f91d0();
+    CreatureSoundCollection* GetCreatureSounds();
 };
 
 // @fnv 0x005f91d0
-CreatureSoundCollection* FUN_005f91d0_shell::FUN_005f91d0()
+CreatureSoundCollection* FUN_005f91d0_shell::GetCreatureSounds()
 {
     if (((TESActorBaseData*)((char*)this + 0x30))->GetFlag(0x100))
         return *(CreatureSoundCollection**)((char*)this + 0x128);
@@ -316,13 +316,13 @@ void* DelStandIn::FUN_005f75b0(unsigned int flags)
 
 struct FUN_0050f760_shell
 {
-    int FUN_0050f600(int);
+    int ReplaceModel_5F(int);
     int FUN_0050f760(int);
 };
 // @fnv 0x0050f760
 int FUN_0050f760_shell::FUN_0050f760(int a)
 {
-    return FUN_0050f600(a);
+    return ReplaceModel_5F(a);
 }
 
 struct FUN_0051f4b0_shell
@@ -406,22 +406,22 @@ extern int DAT_01000000;
 
 struct FUN_005f90c0_shell : TESActorBaseData
 {
-    bool FUN_005f90c0();
+    bool GetTiltFrontBack();
 };
 
 // @fnv 0x005f90c0
-bool FUN_005f90c0_shell::FUN_005f90c0()
+bool FUN_005f90c0_shell::GetTiltFrontBack()
 {
     return ((TESActorBaseData*)((char*)this + 0x30))->GetFlag((unsigned int)&DAT_01000000);
 }
 
 struct FUN_005f90e0_shell : TESActorBaseData
 {
-    bool FUN_005f90e0();
+    bool GetTiltLeftRight();
 };
 
 // @fnv 0x005f90e0
-bool FUN_005f90e0_shell::FUN_005f90e0()
+bool FUN_005f90e0_shell::GetTiltLeftRight()
 {
     return ((TESActorBaseData*)((char*)this + 0x30))->GetFlag(0x2000000);
 }
@@ -478,11 +478,11 @@ struct FUN_006078e0_s
     virtual void v17();
     virtual void SetFlags(int);
     void ApplyCommand(ActorValue::Index, int);
-    void FUN_006078e0(ActorValue::Index aiWhich, int aiValue);
+    void SetActorValue(ActorValue::Index aiWhich, int aiValue);
 };
 // Stores a skill actor value as a byte at offset 0x114 and sets flag 0x200, otherwise forwards to ApplyCommand.
 // @fnv 0x006078e0
-void FUN_006078e0_s::FUN_006078e0(ActorValue::Index aiWhich, int aiValue)
+void FUN_006078e0_s::SetActorValue(ActorValue::Index aiWhich, int aiValue)
 {
     if (ActorValue::IsSkill(aiWhich))
     {
@@ -594,10 +594,10 @@ struct FUN_005f16f0_shell
 };
 struct FUN_005fb180_shell : FUN_005f16f0_shell
 {
-    unsigned short FUN_005fb180(unsigned int);
+    unsigned short GetSaveSize(unsigned int);
 };
 // @fnv 0x005fb180
-unsigned short FUN_005fb180_shell::FUN_005fb180(unsigned int aiFlags)
+unsigned short FUN_005fb180_shell::GetSaveSize(unsigned int aiFlags)
 {
     unsigned short isize = 0;
     isize += FUN_005f16f0(aiFlags);
@@ -614,17 +614,17 @@ struct BGSSaveFormBuffer
 };
 struct FUN_005f1f30_shell
 {
-    void __thiscall FUN_005f1f30(BGSSaveFormBuffer*);
+    void __thiscall AppendSaveLoadFormBuffer(BGSSaveFormBuffer*);
 };
 struct FUN_005fb330_shell
 {
-    void FUN_005fb330(BGSSaveFormBuffer* buffer);
+    void AppendSaveLoadFormBuffer(BGSSaveFormBuffer* buffer);
 };
-// Calls FUN_005f1f30, then if change flag 0x200 is set saves three bytes at offsets 0x12d, 0x12e and 0x12f into the buffer.
+// Calls AppendSaveLoadFormBuffer, then if change flag 0x200 is set saves three bytes at offsets 0x12d, 0x12e and 0x12f into the buffer.
 // @fnv 0x005fb330
-void FUN_005fb330_shell::FUN_005fb330(BGSSaveFormBuffer* buffer)
+void FUN_005fb330_shell::AppendSaveLoadFormBuffer(BGSSaveFormBuffer* buffer)
 {
-    ((FUN_005f1f30_shell*)this)->FUN_005f1f30(buffer);
+    ((FUN_005f1f30_shell*)this)->AppendSaveLoadFormBuffer(buffer);
     if (((BGSLoadFormBuffer*)buffer)->GetChangeFlags(0x200))
     {
         buffer->SaveData((char*)this + 0x12d, 1, 0);
@@ -768,11 +768,11 @@ struct FakePrimary
 };
 struct StandIn : FakePrimary, FakeAVOwner
 {
-    void FUN_005f7520(int, float);
+    void ModActorValue(int, float);
 };
 // Adds aiValue to the actor value aiWhich by reading GetAV and writing the sum back with SetAV.
 // @fnv 0x005f7520
-void StandIn::FUN_005f7520(int aiWhich, float aiValue)
+void StandIn::ModActorValue(int aiWhich, float aiValue)
 {
     SetAV(aiWhich, GetAV(aiWhich) + aiValue);
 }
@@ -998,7 +998,7 @@ struct P09AV
 
 struct FUN_0047ff50_class
 {
-    void FUN_0047ff50(unsigned short value);
+    void SetAttackDamage(unsigned short value);
 };
 
 struct FUN_005fa2c0_shell
@@ -1052,11 +1052,11 @@ struct FUN_005fa200_shell
     virtual void vfn_18(int value)
     {}
 
-    void FUN_005fa200(ActorValue::Index index, int value);
+    void SetActorValue(ActorValue::Index index, int value);
 };
 
 // @fnv 0x005fa200
-void FUN_005fa200_shell::FUN_005fa200(ActorValue::Index index, int value)
+void FUN_005fa200_shell::SetActorValue(ActorValue::Index index, int value)
 {
     if (P09AV::GetFlag(index, 0x400))
     {
@@ -1070,16 +1070,16 @@ void FUN_005fa200_shell::FUN_005fa200(ActorValue::Index index, int value)
         case static_cast<ActorValue::Index>(0x38):
             if (value < 0)
             {
-                reinterpret_cast<FUN_0047ff50_class*>(reinterpret_cast<char*>(this) + 0x10c)->FUN_0047ff50(0);
+                reinterpret_cast<FUN_0047ff50_class*>(reinterpret_cast<char*>(this) + 0x10c)->SetAttackDamage(0);
             }
             else if (value > 0xffff)
             {
-                reinterpret_cast<FUN_0047ff50_class*>(reinterpret_cast<char*>(this) + 0x10c)->FUN_0047ff50(0xffff);
+                reinterpret_cast<FUN_0047ff50_class*>(reinterpret_cast<char*>(this) + 0x10c)->SetAttackDamage(0xffff);
             }
             else
             {
                 reinterpret_cast<FUN_0047ff50_class*>(reinterpret_cast<char*>(this) + 0x10c)
-                    ->FUN_0047ff50(static_cast<unsigned short>(value));
+                    ->SetAttackDamage(static_cast<unsigned short>(value));
             }
             break;
 
@@ -1110,11 +1110,11 @@ unsigned int __fastcall _ref_0084e3a0(unsigned int);
 
 struct FUN_005fb1e0_shell
 {
-    void FUN_005fb1e0(unsigned int);
+    void SaveGame(unsigned int);
 };
 
 // @fnv 0x005fb1e0
-void FUN_005fb1e0_shell::FUN_005fb1e0(unsigned int flags)
+void FUN_005fb1e0_shell::SaveGame(unsigned int flags)
 {
     reinterpret_cast<FUN_00608e00_shell*>(this)->FUN_005f18c0(flags);
 
@@ -1298,7 +1298,7 @@ struct FormObj_5f7c20
 
 struct SoundsObj_5f7c20
 {
-    void FUN_005f03a0();
+    void Save();
 };
 
 struct Sub30_5f7c20
@@ -1502,9 +1502,9 @@ struct Host_5f7c20
     FormObj_5f7c20* m_158;
 
     void FUN_004855a0();
-    void FUN_00485e20(void*, int);
-    SoundsObj_5f7c20* FUN_005f91d0();
-    FormObj_5f7c20* FUN_005f9100();
+    void __SaveData(void*, int);
+    SoundsObj_5f7c20* GetCreatureSounds();
+    FormObj_5f7c20* GetSoundCreature();
     void FUN_00485680();
     void Init();
 };
@@ -1524,7 +1524,7 @@ void Host_5f7c20::Init()
     {
         m_12c.FUN_00483710();
     }
-    FUN_00485e20(&m_12c, 4);
+    __SaveData(&m_12c, 4);
     if (FUN_00401500())
     {
         m_12c.FUN_00483710();
@@ -1545,15 +1545,15 @@ void Host_5f7c20::Init()
     FUN_00485910(0x354d414e, m_154);
     if (m_30.FUN_00461580(0x100))
     {
-        SoundsObj_5f7c20* sounds = FUN_005f91d0();
+        SoundsObj_5f7c20* sounds = GetCreatureSounds();
         if (sounds)
         {
-            sounds->FUN_005f03a0();
+            sounds->Save();
         }
     }
     else
     {
-        FormObj_5f7c20* soundCreature = FUN_005f9100();
+        FormObj_5f7c20* soundCreature = GetSoundCreature();
         if (soundCreature)
         {
             unsigned int soundId = soundCreature->FUN_0084e3a0();
@@ -1783,7 +1783,7 @@ struct CreatureTouchComponent
 struct CreatureSpellComponent
 {
     virtual void slot0();
-    void FUN_0048d290(unsigned int);
+    void AddSpell(unsigned int);
     unsigned int unk04;
     unsigned int unk08;
     unsigned int unk0C;
@@ -1903,17 +1903,17 @@ struct CreatureRecord : CreaturePrimary,
     unsigned int bloodMaterial, impactData, unk150, soundLevel, weaponList;
     void CallWithThis(CreatureRecordFile*);
     void FUN_00484ab0(bool);
-    void FUN_004861f0(CreatureRecordFile*, void*, unsigned int);
+    void LoadData(CreatureRecordFile*, void*, unsigned int);
     void FUN_005f9140(unsigned int);
     CreatureSoundsLoad* FUN_005f9210();
     void SetImpactDataSet(unsigned int);
     void FUN_005f8bd0(unsigned int);
     unsigned int FUN_0084e3a0();
-    bool FUN_005f7ec0(CreatureRecordFile*);
+    bool Load(CreatureRecordFile*);
 };
 // Reads a creature record from the file, dispatching each chunk to the matching component loader, and returns true when the record type is 43.
 // @fnv 0x005f7ec0
-bool CreatureRecord::FUN_005f7ec0(CreatureRecordFile* file)
+bool CreatureRecord::Load(CreatureRecordFile* file)
 {
     unsigned char formType = file->FUN_00472660();
     if (formType != 43)
@@ -1979,7 +1979,7 @@ bool CreatureRecord::FUN_005f7ec0(CreatureRecordFile* file)
         case 0x4f4c5053: {
             unsigned int spellID = 0;
             file->ReadChunkInt(&spellID);
-            CreatureSpellComponent::FUN_0048d290(spellID);
+            CreatureSpellComponent::AddSpell(spellID);
             break;
         }
         case 0x4d544945: {
@@ -2089,7 +2089,7 @@ bool CreatureRecord::FUN_005f7ec0(CreatureRecordFile* file)
             FUN_004781e0(this, file);
             break;
         case 0x41544144:
-            FUN_004861f0(file, &type, 4);
+            LoadData(file, &type, 4);
             break;
         case 0x304d414e: {
             if (file->GetField25C())
@@ -2492,12 +2492,12 @@ struct BGSSaveLoadGame
 extern BGSSaveLoadGame* g_BGSSaveLoadGame;
 struct CreatureEquipment : TESCreature
 {
-    bool FUN_005fa120(TESBoundObject*);
-    void FUN_005f9e00(TESObjectREFR*, int, bool, bool);
+    bool CanWearItem(TESBoundObject*);
+    void InitDefaultWorn(TESObjectREFR*, int, bool, bool);
 };
 
 // @fnv 0x005f9e00
-void CreatureEquipment::FUN_005f9e00(TESObjectREFR* reference, int unused, bool equip, bool allowChanges)
+void CreatureEquipment::InitDefaultWorn(TESObjectREFR* reference, int unused, bool equip, bool allowChanges)
 {
     bool savedVal = true;
     if (!allowChanges)
@@ -2519,7 +2519,7 @@ void CreatureEquipment::FUN_005f9e00(TESObjectREFR* reference, int unused, bool 
     float value = 0.0f;
     if (equip && entry)
         weapon = entry->SelectBestWeapon(this, &value, 6, true);
-    if (weapon && FUN_005fa120(weapon->FUN_0044ddc0()) && !reference->FUN_00575400(weapon->FUN_0044ddc0()))
+    if (weapon && CanWearItem(weapon->FUN_0044ddc0()) && !reference->FUN_00575400(weapon->FUN_0044ddc0()))
     {
         reference->EquipItem(weapon->FUN_0044ddc0(), 1, 0, false);
         if (aWeapon && !reference->FUN_00575400(aWeapon->FUN_0044ddc0()))
@@ -3452,7 +3452,7 @@ struct S4870f0
 };
 struct S489430
 {
-    void FUN_00489430(void*);
+    void CopyComponent(void*);
 };
 struct S489db0
 {
@@ -3611,7 +3611,7 @@ struct C005f9820
     virtual void v99(int);
     char pad[0x124];
     Sound* sounds;
-    Sound* FUN_005f91d0();
+    Sound* GetCreatureSounds();
     Sound* FUN_005f9210();
     void* GetOffset12C();
     unsigned char FUN_005f9ad0();
@@ -3622,7 +3622,7 @@ struct C005f9820
     void SetBoltGrowWidth(float);
     float FUN_00821660();
     void SetBoltSmallWidth(float);
-    C005f9820* FUN_005f9100();
+    C005f9820* GetSoundCreature();
     void FUN_005f9140(C005f9820*);
     unsigned int FUN_009c0070();
     void* GetImpactDataSet();
@@ -3638,7 +3638,7 @@ void C005f9820::CopyFrom(void* apSource)
     C005f9820* src2 = (C005f9820*)FUN_00ec43fb(apSource, 0, &DAT_01183028, &DAT_01183a00, 0);
     if (!src2)
         return;
-    if (FUN_005f91d0())
+    if (GetCreatureSounds())
     {
         Sound* snd = sounds;
         Sound* del2 = snd;
@@ -3652,7 +3652,7 @@ void C005f9820::CopyFrom(void* apSource)
     ((S487240*)((char*)this + 0xb0))->CopyHealthForm(apSource);
     ((S480000*)((char*)this + 0xb8))->CopyAttributesFromComponent(apSource);
     ((S4870f0*)((char*)this + 0xd0))->CopyFullNameFrom(apSource);
-    ((S489430*)((char*)this + 0xdc))->FUN_00489430(apSource);
+    ((S489430*)((char*)this + 0xdc))->CopyComponent(apSource);
     ((S489db0*)((char*)this + 0x114))->CopyModelListFromComponent(apSource);
     ((S48cce0*)((char*)this + 0xf4))->CopyFromScriptableForm(apSource);
     ((S481c80*)((char*)this + 0x64))->FUN_00481c80(apSource);
@@ -3665,14 +3665,14 @@ void C005f9820::CopyFrom(void* apSource)
     SetBoltGrowWidth(src2->FUN_00567470());
     SetBoltSmallWidth(src2->FUN_00821660());
     ((Spells*)((char*)this + 0x30))->v23(((Spells*)((char*)src2 + 0x30))->v22());
-    if (src2->FUN_005f91d0())
+    if (src2->GetCreatureSounds())
     {
         ptr = FUN_005f9210();
-        ptr->CopyCreatureSoundLists(src2->FUN_005f91d0());
+        ptr->CopyCreatureSoundLists(src2->GetCreatureSounds());
     }
     else
     {
-        FUN_005f9140(src2->FUN_005f9100());
+        FUN_005f9140(src2->GetSoundCreature());
     }
     *(unsigned int*)((char*)this + 0x154) = src2->FUN_009c0070();
     SetImpactDataSet(src2->GetImpactDataSet());

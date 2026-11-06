@@ -139,11 +139,11 @@ struct FUN_00c2fb10_cls
     SubObject40 m_40;
 
     bool FUN_00c32060(void* other);
-    bool FUN_00c2fb10(void* other);
+    bool IsEqual(void* other);
 };
 
 // @fnv 0x00c2fb10
-bool FUN_00c2fb10_cls::FUN_00c2fb10(void* other)
+bool FUN_00c2fb10_cls::IsEqual(void* other)
 {
     FUN_00c2fb10_cls* p = (FUN_00c2fb10_cls*)other;
     if (FUN_00c32060(other) == false)
@@ -503,7 +503,7 @@ struct FUN_00c303c0_cls
     bool m_62;
     float m_64;
 
-    void FUN_00c322b0(ViewerStrings* s);
+    void GetViewerStrings(ViewerStrings* s);
     void FUN_0096ad30(unsigned int newSize);
     void FUN_0096ae90(unsigned int index, void** value);
     void BuildViewerStrings(ViewerStrings* s);
@@ -523,7 +523,7 @@ static void AddViewerString(ViewerStrings* s, void* value)
 // @fnv 0x00c303c0
 void FUN_00c303c0_cls::BuildViewerStrings(ViewerStrings* s)
 {
-    FUN_00c322b0(s);
+    GetViewerStrings(s);
     void* v = FUN_00a7d330(g_012027a8);
     AddViewerString(s, v);
     v = m_40.FUN_00a59af0("Direction");
@@ -887,11 +887,11 @@ struct S00c30170_Obj : AirTmp
     bool m_62;
     float m_64;
     void __thiscall LoadFromStream(NiStream*);
-    void __thiscall FUN_00c30170(NiStream* stream);
+    void __thiscall LoadBinary(NiStream* stream);
 };
 // Calls LoadFromStream, reads m_40, applies FUN_00c2f500 to it, then reads m_58, m_5c, m_60, m_61, m_62, and m_64.
 // @fnv 0x00c30170
-void __thiscall S00c30170_Obj::FUN_00c30170(NiStream* stream)
+void __thiscall S00c30170_Obj::LoadBinary(NiStream* stream)
 {
     LoadFromStream(stream);
     m_40.FUN_00a59be0(stream);

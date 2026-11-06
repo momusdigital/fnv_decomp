@@ -336,7 +336,7 @@ class TESNPC : public TESActorBase
   public:
     char pad18[0x18];
     TESNPCModelComponent model;
-    TESNPC* FUN_006044c0();
+    TESNPC* GetFaceNPC();
     FaceGenMatrix<float> (*GetOffsetFaceCoord())[2];
 };
 extern "C" int __cdecl sprintf(char*, const char*, ...);

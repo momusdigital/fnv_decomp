@@ -8,11 +8,11 @@ struct NiBinaryStream
 
 struct NiMemStream : NiBinaryStream
 {
-    void __thiscall FUN_00aa2d70(int iNumBytes);
+    void __thiscall Seek(int iNumBytes);
 };
 
 // @fnv 0x00aa2d70
-void __thiscall NiMemStream::FUN_00aa2d70(int iNumBytes)
+void __thiscall NiMemStream::Seek(int iNumBytes)
 {
     int iValue = *(unsigned int*)((char*)this + 0x14) + iNumBytes;
     if (iValue >= 0 && iValue < *(unsigned int*)((char*)this + 0x1c))

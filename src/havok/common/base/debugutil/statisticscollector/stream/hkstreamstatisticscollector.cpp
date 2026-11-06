@@ -504,12 +504,12 @@ struct StrPacker
 {
     int unk00, unk04, unk08, unk0c, unk10;
     hkArrayChar m14;
-    void FUN_00ddf5a0(const char* str);
+    void pushDir(const char* str);
 };
 
 // Packs a string into m14 with a 0x50 header, length, and padding when capacity allows.
 // @fnv 0x00ddf5a0
-void StrPacker::FUN_00ddf5a0(const char* str)
+void StrPacker::pushDir(const char* str)
 {
     if (m14.getCapacity() > m14.m_iElementCount + 0x46)
     {
@@ -594,10 +594,10 @@ FUN_00ddeff0::FUN_00ddeff0()
 
 struct FUN_00ddf640_Cls : Obj
 {
-    unsigned char* FUN_00ddf640();
+    unsigned char* popDir();
 };
 // @fnv 0x00ddf640
-unsigned char* FUN_00ddf640_Cls::FUN_00ddf640()
+unsigned char* FUN_00ddf640_Cls::popDir()
 {
     unsigned char* out = (unsigned char*)m14.getCapacity();
     if ((int)out > m14.m_iElementCount + 0x46)
@@ -845,11 +845,11 @@ struct MonitorStream
     int unk0c;
     int unk10;
     hkArrayChar m_stream;
-    void FUN_00ddf4d0(int unused, const char* name, int size, int id, int tag);
+    void addChunk(int unused, const char* name, int size, int id, int tag);
 };
 // Writes a record with type 0x43, name, id, and allocator result; returns early when capacity is low or both id and tag are zero.
 // @fnv 0x00ddf4d0
-void MonitorStream::FUN_00ddf4d0(int unused, const char* name, int size, int id, int tag)
+void MonitorStream::addChunk(int unused, const char* name, int size, int id, int tag)
 {
     if (m_stream.getCapacity() <= m_stream.m_iElementCount + 0x46)
         return;

@@ -48,10 +48,10 @@ struct Holder
 {
     char _pad[0x20A8];
     bool flag;
-    bool __thiscall FUN_006abb60(const AStarNode<NavMeshTriangleReference, NavMeshTriangleEdgeReference>* apNode);
+    bool __thiscall IsGoalNode(const AStarNode<NavMeshTriangleReference, NavMeshTriangleEdgeReference>* apNode);
 };
 // @fnv 0x006abb60
-bool __thiscall Holder::FUN_006abb60(const AStarNode<NavMeshTriangleReference, NavMeshTriangleEdgeReference>* apNode)
+bool __thiscall Holder::IsGoalNode(const AStarNode<NavMeshTriangleReference, NavMeshTriangleEdgeReference>* apNode)
 {
     if (!flag)
         return false;

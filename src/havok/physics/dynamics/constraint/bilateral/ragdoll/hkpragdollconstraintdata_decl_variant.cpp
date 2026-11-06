@@ -1,24 +1,24 @@
 
 // src/havok/physics/dynamics/constraint/bilateral/ragdoll/hkpragdollconstraintdata_decl_variant.cpp - declaration variant unit created 2026-10-26 by decl_variants.py for paused function 0x00cdf090: the skeleton of src/havok/physics/dynamics/constraint/bilateral/ragdoll/hkpragdollconstraintdata.cpp
-// with declarations corrected to what the original code does (hkBase.h: typedef char hkBool; -> class hkBool { public: __forceinline hkBool() {} _; hkpRagdollConstraintData.h: hkpRagdollConstraintData += hkBool FUN_00cdf090() const;; hkBase.h: struct hkRotation : hkMatrix3 {}; -> struct hkRotation : hkMatrix3 { hkBool FUN_00cb2e7). Move the function to its real unit once
+// with declarations corrected to what the original code does (hkBase.h: typedef char hkBool; -> class hkBool { public: __forceinline hkBool() {} _; hkpRagdollConstraintData.h: hkpRagdollConstraintData += hkBool isValid() const;; hkBase.h: struct hkRotation : hkMatrix3 {}; -> struct hkRotation : hkMatrix3 { hkBool FUN_00cb2e7). Move the function to its real unit once
 // that unit declares it this way.
 
 // src/havok/physics/dynamics/constraint/bilateral/ragdoll/hkpragdollconstraintdata.cpp - unit created 2026-10-16 from the whole-binary attribution (360 source path: d:/projects/fallout/code/havok/source/physics/dynamics/constraint/bilateral/ragdoll/hkpragdollconstraintdata.cpp).
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
 #include "havok/hkpRagdollConstraintData_decl_hkpragdollconstraintdata.h"
-void __stdcall FUN_00cde9d0(int* a, int* b);
+void __stdcall getRuntimeInfo(int* a, int* b);
 struct FUN_00cde980_cls
 {
     void __thiscall FUN_00cde980(int a);
 };
 struct FUN_00cde960_cls
 {
-    void __thiscall FUN_00cde960(float a);
+    void __thiscall setMaxLinearImpulse(float a);
 };
 void* __cdecl FUN_00d21a60(void* a, int b, int c);
 struct FUN_00cde9b0_cls
 {
-    char* FUN_00cde9b0(int a);
+    char* getConstraintInfo(int a);
 };
 extern int DAT_010cb71c;
 extern int _DAT_0102e388;
@@ -115,7 +115,7 @@ struct FUN_00cde970_cls
     int unk134;
     int unk138;
     float m_13c;
-    float FUN_00cde970();
+    float getMaxLinearImpulse();
 };
 // FUN_00cde9a0
 //   movzx eax, byte ptr [ecx + 0x13a]
@@ -187,7 +187,7 @@ struct FnvCpu_FUN_00cdf530_CpuObject
 };
 
 // @fnv 0x00cdf090
-hkBool hkpRagdollConstraintData::FUN_00cdf090() const
+hkBool hkpRagdollConstraintData::isValid() const
 {
     hkBool valid = true;
     valid = valid && m_kBridgeAtoms.m_kTransforms.m_kBodyALocalFrame.m_rotation.IsOrthonormal(0.001f);

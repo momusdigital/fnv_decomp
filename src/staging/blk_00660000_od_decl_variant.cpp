@@ -655,8 +655,8 @@ struct SpawnedObject
 };
 extern int DAT_011ca278;
 extern int DAT_011dea3c;
-int __cdecl FUN_0066dba0(int a);
-float __cdecl FUN_0066dc70(int a);
+int __cdecl GetAttackAction(int a);
+float __cdecl GetBaseActionPoints(int a);
 void __cdecl FUN_005e58f0(int a, int b, int c, float* d);
 float __cdecl GetObjectValue(SpawnedObject* obj);
 extern "C" int __cdecl FUN_004019a0(void*);
@@ -832,10 +832,10 @@ Elem6605* __cdecl CopyConstructRange(Elem6605* _First, Elem6605* _Last, Elem6605
 }
 }
 
-float __cdecl FUN_0066dc70(int value);
+float __cdecl GetBaseActionPoints(int value);
 float* __fastcall FUN_00403e20(void* object);
 extern unsigned char DAT_011d5f88;
-float __cdecl FUN_0066dca0(int value, bool unscaled);
+float __cdecl GetActionPoints(int value, bool unscaled);
 struct Vector3
 {
     float x;

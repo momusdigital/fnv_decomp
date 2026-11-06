@@ -203,11 +203,11 @@ struct PlaneShapeStandIn
     Vec4 m_kAabbCenter;
     Vec4 m_kAabbHalfExtents;
 
-    void FUN_00d55000(const RayInput& input, const CdBody& body, RayCollector& collector) const;
+    void castSphere(const RayInput& input, const CdBody& body, RayCollector& collector) const;
 };
 
 // @fnv 0x00d55000
-void PlaneShapeStandIn::FUN_00d55000(const RayInput& input, const CdBody& body, RayCollector& collector) const
+void PlaneShapeStandIn::castSphere(const RayInput& input, const CdBody& body, RayCollector& collector) const
 {
     float radius = input.m_fSphereRadius;
     float fromDist = m_kTriangleNormal.dot4xyz1(input.m_vFrom) - radius;
@@ -240,10 +240,10 @@ struct FUN_00d55160_Source
 class FUN_00d55160_StandIn : public hkpPlaneShape
 {
   public:
-    void __thiscall FUN_00d55160(FUN_00d55160_Source* source, float* destination);
+    void __thiscall collideSpheres(FUN_00d55160_Source* source, float* destination);
 };
 // @fnv 0x00d55160
-void __thiscall FUN_00d55160_StandIn::FUN_00d55160(FUN_00d55160_Source* source, float* destination)
+void __thiscall FUN_00d55160_StandIn::collideSpheres(FUN_00d55160_Source* source, float* destination)
 {
     float* output = destination;
     float* points = source->points;

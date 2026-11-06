@@ -2468,7 +2468,7 @@ struct b9_nav
 
 struct b9_tab
 {
-    b9_nav* FUN_0045af00(void* p);
+    b9_nav* GetNavMeshInfoMap(void* p);
 };
 
 extern int DAT_011dea10;
@@ -2484,14 +2484,14 @@ struct FUN_006986d0_cls
 // @fnv 0x006986d0
 bool FUN_006986d0_cls::FUN_006986d0()
 {
-    b9_nav* r = ((b9_tab*)DAT_011dea10)->FUN_0045af00(this->FUN_0084e3a0())->FUN_00693d70();
+    b9_nav* r = ((b9_tab*)DAT_011dea10)->GetNavMeshInfoMap(this->FUN_0084e3a0())->FUN_00693d70();
     if (this->FUN_0068efb0() == 0)
     {
         b9_big* q = new b9_big();
         q->InitializeFromMeshSource(this);
         this->FUN_006d3100(q);
         q->SetField54(this);
-        ((b9_tab*)DAT_011dea10)->FUN_0045af00(q)->RegisterNavMeshInfo();
+        ((b9_tab*)DAT_011dea10)->GetNavMeshInfoMap(q)->RegisterNavMeshInfo();
         return true;
     }
     else
@@ -2844,7 +2844,7 @@ struct P507Manager
 };
 struct P507Global
 {
-    P507Manager* FUN_0045af00(SA0*);
+    P507Manager* GetNavMeshInfoMap(SA0*);
 };
 
 struct P507Edge
@@ -2941,7 +2941,7 @@ void __cdecl RemoveNavMeshId(unsigned int id)
     if (!id)
         return;
     SA0 infos;
-    ((P507Global*)DAT_011dea10)->FUN_0045af00(&infos)->FUN_006b7910();
+    ((P507Global*)DAT_011dea10)->GetNavMeshInfoMap(&infos)->FUN_006b7910();
     for (unsigned int i = 0; i < infos.FUN_0044ddc0(); ++i)
     {
         P507Info* firstCount = (P507Info*)*infos.FUN_00877a30(i);

@@ -9,7 +9,7 @@ extern "C" void* g_011f3f68;
 void* __cdecl FUN_00a3dab0();
 struct FUN_00a3dae0_shell
 {
-    void* __thiscall FUN_00a3dae0(short idx);
+    void* __thiscall GetKeyCount(short idx);
 };
 struct FUN_00a3db10_shell
 {
@@ -65,7 +65,7 @@ struct StrArr
 };
 struct FUN_00a3cbf0_shell
 {
-    void __thiscall FUN_00a3cbf0(StrArr*);
+    void __thiscall GetViewerStrings(StrArr*);
 };
 char* __cdecl _FUN_00a7d330(const char*);
 extern const char* _g_011f3e48;

@@ -18,7 +18,7 @@ struct FUN_00c36040_Class
 struct FUN_00c36220_class
 {
     void* __thiscall AppendCameraPathEntries(int);
-    void* __thiscall FUN_00c36220(int arg);
+    void* __thiscall GetViewerStrings(int arg);
 };
 struct S_00c36290
 {
@@ -41,7 +41,7 @@ struct S_00c362c0
 extern "C" void* g_01202810;
 struct FUN_00c36300_Class
 {
-    void* __thiscall FUN_00c36300();
+    void* __thiscall GetRTTI();
 };
 struct BSMultiBound
 {
@@ -53,7 +53,7 @@ struct BSMultiBound
 struct FUN_00c35f50_class
 {
     void __thiscall FUN_00c35fe0(BSMultiBound*, int);
-    BSMultiBound* __thiscall FUN_00c35f50(int);
+    BSMultiBound* __thiscall CreateClone(int);
 };
 extern int _data_011c16bc;
 struct A51BF0Base
@@ -132,11 +132,11 @@ struct Cls
     unsigned int m_u08;
     SP m_sp;
 
-    unsigned char __thiscall FUN_00c36240(int arg);
+    unsigned char __thiscall QPointWithin(int arg);
 };
 
 // @fnv 0x00c36240
-unsigned char Cls::FUN_00c36240(int arg)
+unsigned char Cls::QPointWithin(int arg)
 {
     if (m_sp)
         return m_sp->v45(arg);
@@ -266,11 +266,11 @@ struct FUN_00c360a0_shell
     unsigned int unk08;
     FUN_00c360a0_sp_shell m_sp0c;
 
-    bool __thiscall FUN_00c360a0(void* arg);
+    bool __thiscall RegisterStreamables(void* arg);
 };
 
 // @fnv 0x00c360a0
-bool FUN_00c360a0_shell::FUN_00c360a0(void* arg)
+bool FUN_00c360a0_shell::RegisterStreamables(void* arg)
 {
     if (!((FUN_00a5d2f0_shell*)this)->FUN_00a5d2f0(arg))
         return false;

@@ -4,11 +4,11 @@
 
 struct FUN_007b8f30_shell
 {
-    int FUN_007b8f30();
+    int GetClass();
 };
 
 // @fnv 0x007b8f30
-int FUN_007b8f30_shell::FUN_007b8f30()
+int FUN_007b8f30_shell::GetClass()
 {
     return 0x43a;
 }
@@ -76,11 +76,11 @@ void* __cdecl FUN_004b7210(void);
 
 struct FUN_007bed00_shell
 {
-    void FUN_007bed00(int aiID, Tile* apTarget);
+    void HandleMouseover(int aiID, Tile* apTarget);
 };
 
 // @fnv 0x007bed00
-void FUN_007bed00_shell::FUN_007bed00(int aiID, Tile* apTarget)
+void FUN_007bed00_shell::HandleMouseover(int aiID, Tile* apTarget)
 {
     static_cast<Tile*>(static_cast<Proc_S*>(FUN_004b7210())->GetNext())->Set(0xfa9, 0.0f, true);
 }
@@ -15493,7 +15493,7 @@ struct InventoryStackRecord
     InventoryStackRecord();
     ~InventoryStackRecord();
     void FUN_004818e0(FormX* apForm, int aiCount, int a3);
-    void FUN_004821a0(PlayerX* apPlayer, int a2);
+    void AddContainerToReference(PlayerX* apPlayer, int a2);
 };
 
 struct CasinoStats
@@ -15519,7 +15519,7 @@ struct CasinoX
 {
     FormX* FUN_007316d0();
     int GetFieldAt210();
-    NotifyObj* FUN_00504e40();
+    NotifyObj* GetQuest();
     CasinoLimits* FUN_00504e60();
 };
 extern CasinoX* DAT_011da880;
@@ -15752,11 +15752,11 @@ void RouletteMenuX::FUN_007bd2a0()
                 kChange.FUN_004818e0(DAT_011da880->FUN_007316d0(), iChipDiff, 0);
                 if (DAT_011da87c->iEarnings < DAT_011da880->GetFieldAt210())
                 {
-                    kChange.FUN_004821a0(DAT_011dea3c, 0);
+                    kChange.AddContainerToReference(DAT_011dea3c, 0);
                 }
                 else
                 {
-                    kChange.FUN_004821a0(DAT_011dea3c, 1);
+                    kChange.AddContainerToReference(DAT_011dea3c, 1);
                     BSStringX kWonMsg;
                     FUN_00406f60(&kWonMsg, "%i %s%s %s\n%s", iChipDiff, FUN_00482720(DAT_011da880->FUN_007316d0()),
                                  DAT_011d3114.FUN_00403df0(), DAT_011d4e7c.FUN_00403df0(), DAT_011d3abc.FUN_00403df0());
@@ -15767,7 +15767,7 @@ void RouletteMenuX::FUN_007bd2a0()
             }
             if (m_bLimitUp)
             {
-                NotifyObj* pNotify = DAT_011da880->FUN_00504e40();
+                NotifyObj* pNotify = DAT_011da880->GetQuest();
                 if (pNotify)
                 {
                     pNotify->FUN_0060c9c0(1);

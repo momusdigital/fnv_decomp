@@ -50,11 +50,11 @@ struct LCWheelCollideStandIn
     virtual void v2c();
     virtual void v30();
     virtual int getNumHits(int);
-    LCHitObj* FUN_00e36250(int iWheel, LCHit* pHits);
+    LCHitObj* determineNearestHit(int iWheel, LCHit* pHits);
 };
 
 // @fnv 0x00e36250
-LCHitObj* LCWheelCollideStandIn::FUN_00e36250(int iWheel, LCHit* pHits)
+LCHitObj* LCWheelCollideStandIn::determineNearestHit(int iWheel, LCHit* pHits)
 {
     int numHits = getNumHits(iWheel);
     LCHitObj* nearest = 0;
@@ -119,12 +119,12 @@ struct COMBaseInterface : public FUN_00c936a0_host
 
 struct FUN_00e36870_host
 {
-    void FUN_00e36870(COMBaseInterface*);
+    void addToWorld(COMBaseInterface*);
 };
 
 // Iterates count records at this+0x10 and passes each record's first dword to p->FUN_00c936a0.
 // @fnv 0x00e36870
-void FUN_00e36870_host::FUN_00e36870(COMBaseInterface* apHost)
+void FUN_00e36870_host::addToWorld(COMBaseInterface* apHost)
 {
     int count = *reinterpret_cast<int*>(reinterpret_cast<char*>(this) + 0x14);
 
@@ -141,7 +141,7 @@ void FUN_00e36870_host::FUN_00e36870(COMBaseInterface* apHost)
 
 struct FUN_00e368a0_Class
 {
-    void FUN_00e368a0();
+    void removeFromWorld();
 };
 
 struct FUN_00c92c70_Class
@@ -151,7 +151,7 @@ struct FUN_00c92c70_Class
 
 // Iterates the entries in the array at this+0x10, calling FUN_00c92c70 on each entry's object at offset 8.
 // @fnv 0x00e368a0
-void FUN_00e368a0_Class::FUN_00e368a0()
+void FUN_00e368a0_Class::removeFromWorld()
 {
     int count = *(int*)((char*)this + 0x14);
     if (count > 0)
@@ -1790,14 +1790,14 @@ struct hkpCollisionFilterE363;
 class LinearCastCommandBuilder : public hkpVehicleLinearCastWheelCollideE363
 {
   public:
-    int FUN_00e363d0(const hkpVehicleInstanceE363* pkVehicle, const hkpCollisionFilterE363* pkFilter,
+    int buildLinearCastCommands(const hkpVehicleInstanceE363* pkVehicle, const hkpCollisionFilterE363* pkFilter,
                      hkpCollidableE363* pkCollidableStorage, hkpPairLinearCastCommandE363* pkCommandStorage,
                      hkpRootCdPointE363* pkOutputStorage) const throw();
 };
 
 // Fills one linear cast command for each collidable overlapping each wheel's phantom, creating a collidable per wheel, and returns the command count.
 // @fnv 0x00e363d0
-int LinearCastCommandBuilder::FUN_00e363d0(const hkpVehicleInstanceE363* pkVehicle,
+int LinearCastCommandBuilder::buildLinearCastCommands(const hkpVehicleInstanceE363* pkVehicle,
                                            const hkpCollisionFilterE363* pkFilter,
                                            hkpCollidableE363* pkCollidableStorage,
                                            hkpPairLinearCastCommandE363* pkCommandStorage,
@@ -1839,11 +1839,11 @@ void __cdecl ResizeAudioStream(void* heap, void* arr, int elementSize);
 class WheelPhantomCollector : public hkpVehicleLinearCastWheelCollideE36C
 {
   public:
-    void FUN_00e36ab0(hkArray<hkpPhantomE36C*>* output);
+    void getPhantoms(hkArray<hkpPhantomE36C*>* output);
 };
 // Iterates wheel states and appends each wheel's phantom pointer to the output array, growing it when needed.
 // @fnv 0x00e36ab0
-void WheelPhantomCollector::FUN_00e36ab0(hkArray<hkpPhantomE36C*>* output)
+void WheelPhantomCollector::getPhantoms(hkArray<hkpPhantomE36C*>* output)
 {
     const int wheelCount = m_kWheelStates.GetLogicalSize();
     for (int wheel = 0; wheel < wheelCount; ++wheel)

@@ -118,11 +118,11 @@ void __cdecl AppendNormalMapSuffix(const char* source, char* dest)
 
 struct FUN_00487400_shell
 {
-    const char* __thiscall FUN_00487400();
+    const char* __thiscall GetDefaultPath();
 };
 
 // @fnv 0x00487400
-const char* __thiscall FUN_00487400_shell::FUN_00487400()
+const char* __thiscall FUN_00487400_shell::GetDefaultPath()
 {
     return "Textures";
 }
@@ -134,42 +134,42 @@ struct FNStub
 
 struct FUN_0048e580_shell : FNStub
 {
-    const char* __thiscall FUN_0048e580(BSStringT<char>& result);
+    const char* __thiscall GetNormalMap(BSStringT<char>& result);
 };
 
 // @fnv 0x0048e580
-const char* __thiscall FUN_0048e580_shell::FUN_0048e580(BSStringT<char>& result)
+const char* __thiscall FUN_0048e580_shell::GetNormalMap(BSStringT<char>& result)
 {
     return TESTexture::NormalizeTextureFilePath(result, this->GetFullName());
 }
 
 struct TESTexture_shell
 {
-    const char* FUN_0048e720();
+    const char* GetDefaultPath();
 };
 // @fnv 0x0048e720
-const char* TESTexture_shell::FUN_0048e720()
+const char* TESTexture_shell::GetDefaultPath()
 {
     return "Textures\\";
 }
 
 struct TESEyes
 {
-    void FUN_005fc1b0();
+    void InitializeData();
 };
 // @fnv 0x005fc1b0
-void TESEyes::FUN_005fc1b0()
+void TESEyes::InitializeData()
 {
     ((char*)this)[0x30] = 0;
 }
 
 struct FUN_005fdc30_shell
 {
-    void FUN_005fdc30();
+    void InitializeData();
 };
 
 // @fnv 0x005fdc30
-void FUN_005fdc30_shell::FUN_005fdc30()
+void FUN_005fdc30_shell::InitializeData()
 {
     ((char*)this)[0x48] = 0;
 }
@@ -177,23 +177,23 @@ void FUN_005fdc30_shell::FUN_005fdc30()
 struct TESSkill
 {
     void ResetData();
-    void FUN_00617e80();
+    void InitializeData();
 };
 
 // @fnv 0x00617e80
-void TESSkill::FUN_00617e80()
+void TESSkill::InitializeData()
 {
     ResetData();
 }
 
 struct FUN_005eac70_shell
 {
-    void FUN_005eac70();
+    void InitializeData();
 };
 
 // Clears the bytes at offsets 0x38, 0x39 and 0x3C of this and sets the bytes at 0x3A and 0x3B to 1.
 // @fnv 0x005eac70
-void FUN_005eac70_shell::FUN_005eac70()
+void FUN_005eac70_shell::InitializeData()
 {
     *(unsigned char*)((char*)this + 0x38) = 0;
     *(unsigned char*)((char*)this + 0x39) = 0;
@@ -283,10 +283,10 @@ struct TESModel
 int __cdecl FUN_00404dc0(const char*, const char*);
 struct FUN_0048e4f0_shell : TESModel
 {
-    bool FUN_0048e4f0(BaseFormComponent* apCompareFC);
+    bool CompareComponent(BaseFormComponent* apCompareFC);
 };
 // @fnv 0x0048e4f0
-bool FUN_0048e4f0_shell::FUN_0048e4f0(BaseFormComponent* apCompareFC)
+bool FUN_0048e4f0_shell::CompareComponent(BaseFormComponent* apCompareFC)
 {
     TESTexture* pcompare = dynamic_cast<TESTexture*>(apCompareFC);
     if (!pcompare)
@@ -323,7 +323,7 @@ struct FUN_00480ef0_obj
 };
 
 // @fnv 0x00480ef0
-int __cdecl FUN_00480ef0(FUN_00480ef0_obj* pOwner, int param)
+int __cdecl GetIcon(FUN_00480ef0_obj* pOwner, int param)
 {
     FUN_00480ef0_obj* found = (FUN_00480ef0_obj*)FUN_00ec43fb(pOwner, 0, DAT_01183028, DAT_01183978, 0);
     if (found == 0)

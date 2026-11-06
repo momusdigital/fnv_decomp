@@ -106,7 +106,7 @@ struct MyClass
     float m_1c;
     NiColor m_20;
 
-    void* FUN_00a99f60(int arg);
+    void* CreateClone(int arg);
 };
 
 struct CalleeA5d7a0
@@ -123,7 +123,7 @@ void* __cdecl operator new(unsigned int, void* p)
 }
 
 // @fnv 0x00a99f60
-void* MyClass::FUN_00a99f60(int arg)
+void* MyClass::CreateClone(int arg)
 {
     if (this->m_0c != 0)
     {
@@ -200,11 +200,11 @@ struct NiPlane
 
 struct A9a030Fog : FUN_00a99ed0
 {
-    bool __thiscall FUN_00a9a030(FUN_00a99ed0* other);
+    bool __thiscall IsEqual(FUN_00a99ed0* other);
 };
 
 // @fnv 0x00a9a030
-bool __thiscall A9a030Fog::FUN_00a9a030(FUN_00a99ed0* other)
+bool __thiscall A9a030Fog::IsEqual(FUN_00a99ed0* other)
 {
     EqBase* base = reinterpret_cast<EqBase*>(this);
 
@@ -392,11 +392,11 @@ struct FogViewer : PropertyBase
     {
         return (m_uiObjectFlags & 1) != 0;
     }
-    void FUN_00a9a2a0(ViewerStrings* apViewerStrings);
+    void GetViewerStrings(ViewerStrings* apViewerStrings);
 };
 
 // @fnv 0x00a9a2a0
-void FogViewer::FUN_00a9a2a0(ViewerStrings* pViewerStrings)
+void FogViewer::GetViewerStrings(ViewerStrings* pViewerStrings)
 {
     GetViewerStringsBase(pViewerStrings);
     pViewerStrings->Add(MakeViewerString(g_fogRTTI.m_pcName));
@@ -469,12 +469,12 @@ class SaverA9A2 : public FUN_00a5d7b0_helper
     float m_f1C;
     NiColorA9A2 m_kFogTint;
 
-    void FUN_00a9a230(NiStreamA9A2& kStream);
+    void SaveBinary(NiStreamA9A2& kStream);
 };
 
 // Calls FUN_00a5d7b0, reads m_us18 and m_f1C, then calls m_kFogTint.FUN_00a69780 with kStream.
 // @fnv 0x00a9a230
-void SaverA9A2::FUN_00a9a230(NiStreamA9A2& kStream)
+void SaverA9A2::SaveBinary(NiStreamA9A2& kStream)
 {
     FUN_00a5d7b0(kStream);
     ReadBinaryValue(kStream, m_us18);

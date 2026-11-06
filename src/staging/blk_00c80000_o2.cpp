@@ -527,11 +527,11 @@ struct bhkBlendCollisionObject : FUN_00c6b910
         m_flag14 = 0;
     }
 
-    bhkBlendCollisionObject* FUN_00c81670(int value);
+    bhkBlendCollisionObject* CreateClone(int value);
 };
 
 // @fnv 0x00c81670
-bhkBlendCollisionObject* bhkBlendCollisionObject::FUN_00c81670(int value)
+bhkBlendCollisionObject* bhkBlendCollisionObject::CreateClone(int value)
 {
     bhkBlendCollisionObject* p = new bhkBlendCollisionObject;
 
@@ -2383,12 +2383,12 @@ struct FUN_00c85ac0_cls : BaseThunk
     int unk04;
     A_t* unk08;
 
-    void FUN_00c85ac0(NiStream* a);
+    void RegisterStreamables(NiStream* a);
 };
 
 // Walks this->unk08 to a nested object and calls its v15 with the stream, then calls FUN_00a81fe0 on the stream.
 // @fnv 0x00c85ac0
-void FUN_00c85ac0_cls::FUN_00c85ac0(NiStream* pStream)
+void FUN_00c85ac0_cls::RegisterStreamables(NiStream* pStream)
 {
     if (this)
     {
@@ -4518,12 +4518,12 @@ struct FUN_00c89960_cls
     virtual void v44();
     virtual void* v45(unsigned int* p);
     void __thiscall FUN_00c878c0(unsigned int a);
-    void FUN_00c89960(unsigned int a1);
+    void GetViewerStrings(unsigned int a1);
 };
 
 // Calls FUN_00c878c0 with a1, resolves an inner object via v45, calls its v5 with a1, then v41(1).
 // @fnv 0x00c89960
-void FUN_00c89960_cls::FUN_00c89960(unsigned int uiValue)
+void FUN_00c89960_cls::GetViewerStrings(unsigned int uiValue)
 {
     unsigned int v = *(volatile unsigned int*)&uiValue;
     FUN_00c878c0(v);
@@ -4966,11 +4966,11 @@ class FUN_00c89d10_cls
     int unk04;
     FUN_00c89d10_P* m_08;
     void Helper(int a);
-    void FUN_00c89d10(int arg);
+    void SethkObject(int arg);
 };
 
 // @fnv 0x00c89d10
-void FUN_00c89d10_cls::FUN_00c89d10(int arg)
+void FUN_00c89d10_cls::SethkObject(int arg)
 {
     TlsGuard_t guard;
     FUN_00c89d10_P* p = this != 0 ? m_08 : 0;
@@ -6269,7 +6269,7 @@ struct bhkListShapeStub : bhkShapeCollectionBase
     int unk04;
     hkpListShapeStub* m_pHavokObject;
 
-    void FUN_00c8bcd0(ViewerStrings* pkStrings);
+    void GetViewerStrings(ViewerStrings* pkStrings);
 };
 
 static inline hkpListShapeStub* GetHkListShape(bhkListShapeStub* p)
@@ -6278,7 +6278,7 @@ static inline hkpListShapeStub* GetHkListShape(bhkListShapeStub* p)
 }
 
 // @fnv 0x00c8bcd0
-void bhkListShapeStub::FUN_00c8bcd0(ViewerStrings* pkStrings)
+void bhkListShapeStub::GetViewerStrings(ViewerStrings* pkStrings)
 {
     MemContextScope kScope(0x10);
     GetViewerStrings_base(pkStrings);
@@ -8849,7 +8849,7 @@ struct FUN_00c825b0_cls
     int unk20;
     int m_i24;
 
-    void FUN_00c66060(ViewerStrings* pkStrings);
+    void AddViewerStrings(ViewerStrings* pkStrings);
     void AddToViewerStrings(ViewerStrings* pkStrings);
 };
 
@@ -8857,7 +8857,7 @@ struct FUN_00c825b0_cls
 void FUN_00c825b0_cls::AddToViewerStrings(ViewerStrings* pkStrings)
 {
     TlsGuard_t guard;
-    FUN_00c66060(pkStrings);
+    AddViewerStrings(pkStrings);
     char* pcString;
     pcString = CreateDebugString(g_01267e64_str);
     pkStrings->Add(pcString);
@@ -9495,11 +9495,11 @@ class BC88760Derived : public BC88760Base
     virtual ~BC88760Derived();
 
     void CopyMemberData(BC88760Derived* pkDest, BC88760CloningProcess& kCloning);
-    BC88760Derived* FUN_00c88760(BC88760CloningProcess& kCloning);
+    BC88760Derived* CreateClone(BC88760CloningProcess& kCloning);
 };
 
 // @fnv 0x00c88760
-BC88760Derived* BC88760Derived::FUN_00c88760(BC88760CloningProcess& kCloning)
+BC88760Derived* BC88760Derived::CreateClone(BC88760CloningProcess& kCloning)
 {
     BC88760AllocTagScope kScope(0x10);
     BC88760Derived* pkClone = new BC88760Derived;
@@ -11901,7 +11901,7 @@ struct C817D0Cls
     unsigned int m_28;
 
     void UpdateNodeState(int);
-    void FUN_00c65b00();
+    void NitohkTransform();
 };
 
 // @fnv 0x00c817d0
@@ -11924,7 +11924,7 @@ void C817D0Cls::UpdateNodeState(int)
         {
             if (state != 2)
             {
-                FUN_00c65b00();
+                NitohkTransform();
                 m_0c = (unsigned short)(m_0c & 0xffbf);
                 return;
             }
@@ -12952,12 +12952,12 @@ void __cdecl FUN_00c8ffa0()
     FUN_00cb7610();
 }
 
-extern void __cdecl FUN_00c819f0();
+extern void __cdecl SaveBinary();
 
 // @fnv 0x00c8ffb0
 void __cdecl FUN_00c8ffb0()
 {
-    FUN_00c819f0();
+    SaveBinary();
 }
 
 bool __cdecl FUN_00c815b0(C815B0Constraint* pkOther);
@@ -12985,11 +12985,11 @@ class C90160Derived : public BC88760Base
     virtual ~C90160Derived();
 
     void FUN_00c81580(C90160Derived* destination, BC88760CloningProcess& cloning);
-    C90160Derived* FUN_00c90160(BC88760CloningProcess& cloning);
+    C90160Derived* CreateClone(BC88760CloningProcess& cloning);
 };
 
 // @fnv 0x00c90160
-C90160Derived* C90160Derived::FUN_00c90160(BC88760CloningProcess& cloning)
+C90160Derived* C90160Derived::CreateClone(BC88760CloningProcess& cloning)
 {
     BC88760AllocTagScope allocationCategory(16);
     C90160Derived* destination = new C90160Derived;
@@ -13266,12 +13266,12 @@ class FUN_00c819f0_cls
     unsigned int m_18;
     unsigned int m_1c;
     void Callee65820(int a1);
-    void FUN_00c819f0(int a1);
+    void SaveBinary(int a1);
 };
 
 // Calls Callee65820, then twice calls the m_0c callback of the stream at a1+0x250 on m_18 and m_1c (4 bytes each), adding each result to the stream's m_04.
 // @fnv 0x00c819f0
-void FUN_00c819f0_cls::FUN_00c819f0(int a1)
+void FUN_00c819f0_cls::SaveBinary(int a1)
 {
     char* obj = (char*)a1;
     FUN_00c819f0_stream* __restrict o;
@@ -13920,12 +13920,12 @@ struct FUN_00c8aa80_cls : BaseThunk
     int unk00;
     int unk04;
     Mid* m_08;
-    void FUN_00c8aa80(NiStream* a);
+    void RegisterStreamables(NiStream* a);
 };
 
 // Looks up m_08->m_1c, calls v15(a) on its m_0c object if present, then calls FUN_00a81fe0 on the stream.
 // @fnv 0x00c8aa80
-void FUN_00c8aa80_cls::FUN_00c8aa80(NiStream* apStream)
+void FUN_00c8aa80_cls::RegisterStreamables(NiStream* apStream)
 {
     Node1* node = this && m_08 ? m_08->m_1c : 0;
     _ReadWriteBarrier();
@@ -14646,7 +14646,7 @@ NiObject* __cdecl FUN_00c80c00(WorkNode_cls* apNode, WorkStack_cls* apStack, uns
 extern __declspec(thread) int DAT_tls_0x2c0;  // TLS slot +0x2C0 (module index 0x126fd98)
 struct FUN_00c65b00_holder
 {
-    int __thiscall FUN_00c65b00();
+    int __thiscall NitohkTransform();
 };
 struct FUN_00a68bf0_holder
 {
@@ -14726,7 +14726,7 @@ struct E_T
     int __thiscall FUN_00c81890();
 };
 
-// Returns DAT_tls_0x2c0 if it is 3; otherwise calls FUN_00c65b00 (clearing bit 6), va4, or m_p8->FUN_00a68bf0 depending on bits 6 and 0, else returns it.
+// Returns DAT_tls_0x2c0 if it is 3; otherwise calls NitohkTransform (clearing bit 6), va4, or m_p8->FUN_00a68bf0 depending on bits 6 and 0, else returns it.
 // @fnv 0x00c81890
 int __thiscall E_T::FUN_00c81890()
 {
@@ -14737,7 +14737,7 @@ int __thiscall E_T::FUN_00c81890()
         {
             if (result != 2)
             {
-                result = ((FUN_00c65b00_holder*)this)->FUN_00c65b00();
+                result = ((FUN_00c65b00_holder*)this)->NitohkTransform();
                 ClearBit(6);
                 return result;
             }
@@ -16737,11 +16737,11 @@ struct MemoryCategoryScope
 };
 struct FUN_00c8af10_holder
 {
-    unsigned int* __thiscall FUN_00c8af10(unsigned int param);
+    unsigned int* __thiscall CreateClone(unsigned int param);
 };
 // Allocates and constructs a NewShape, calls this object's virtual at slot 49 with it and param, and returns the new object.
 // @fnv 0x00c8af10
-unsigned int* __thiscall FUN_00c8af10_holder::FUN_00c8af10(unsigned int param)
+unsigned int* __thiscall FUN_00c8af10_holder::CreateClone(unsigned int param)
 {
     MemoryCategoryScope scope;
     FUN_00c876f0();
@@ -17175,12 +17175,12 @@ struct bhkTransformShapeStub : FUN_00c825b0_cls
     int unk28;
     NiMatrix3Stub m_kAdditionalRotation;
 
-    void FUN_00c90240(ViewerStrings* pkStrings);
+    void AddViewerStrings(ViewerStrings* pkStrings);
 };
 
 // Calls AddToViewerStrings, adds a debug string made from DAT_012681cc, then adds m_kAdditionalRotation formatted as AdditionalRotation to pkStrings.
 // @fnv 0x00c90240
-void bhkTransformShapeStub::FUN_00c90240(ViewerStrings* pkStrings)
+void bhkTransformShapeStub::AddViewerStrings(ViewerStrings* pkStrings)
 {
     TlsGuard_t guard;
     AddToViewerStrings(pkStrings);
@@ -18846,12 +18846,12 @@ class ListShapeSharingView : public bhkListShapeStub
         return this != 0 ? (ShareListData*)m_pHavokObject : 0;
     }
 
-    unsigned char FUN_00c8b440(int a1);
+    unsigned char CanShare(int a1);
 };
 
 // Returns FUN_00c84ec0(a1) ANDed with V52(a1) of each non-null child shape in the list, stopping early once the result is zero.
 // @fnv 0x00c8b440
-unsigned char ListShapeSharingView::FUN_00c8b440(int a1)
+unsigned char ListShapeSharingView::CanShare(int a1)
 {
     unsigned char result = (unsigned char)FUN_00c84ec0((void*)a1);
     while (true)

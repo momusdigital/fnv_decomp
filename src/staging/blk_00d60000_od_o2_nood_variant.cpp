@@ -49,7 +49,7 @@ struct __declspec(align(16)) LoadedObject
 };
 
 // @fnv 0x00d6ae50
-const char* FUN_00d6ae50()
+const char* getVtable_hkpConstraintInstance()
 {
     FinishLoadedObjectFlag kFlag;
     kFlag.m_iFinishing = 0;
@@ -131,7 +131,7 @@ __declspec(align(16)) class FUN_00d6aec0_obj
 };
 
 // @fnv 0x00d6aec0
-int FUN_00d6aec0() throw()
+int getVtable_hkpWorldCinfo() throw()
 {
     FUN_00d6aec0_obj obj((FUN_00d6aec0_seed()));
     return obj.unk00;

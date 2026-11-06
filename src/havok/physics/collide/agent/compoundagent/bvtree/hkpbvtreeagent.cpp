@@ -720,13 +720,13 @@ class ShapeCollectionAgent
     ContactMgr* m_pContactManager;
     AgentArray m_pAgents;
 
-    void FUN_00d2f760(const CdBody& bodyA, const CdBody& bodyB, const CollisionInput& input,
+    void updateShapeCollectionFilter(const CdBody& bodyA, const CdBody& bodyB, const CollisionInput& input,
                       ConstraintOwner& constraintOwner);
 };
 
 // Iterates m_pAgents, creating or cleaning up collision agents per shape key based on filter results, and processes contact points when enabled.
 // @fnv 0x00d2f760
-void ShapeCollectionAgent::FUN_00d2f760(const CdBody& bodyA, const CdBody& bodyB, const CollisionInput& input,
+void ShapeCollectionAgent::updateShapeCollectionFilter(const CdBody& bodyA, const CdBody& bodyB, const CollisionInput& input,
                                         ConstraintOwner& constraintOwner)
 {
     const ShapeCollection* collection = static_cast<const ShapeCollection*>(bodyB.getShape());

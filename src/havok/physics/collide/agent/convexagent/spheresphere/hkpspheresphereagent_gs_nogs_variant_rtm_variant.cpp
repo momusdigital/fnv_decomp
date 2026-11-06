@@ -126,7 +126,7 @@ struct S_00d3f780_Obj
     int unk4;
     S_00d3f780_Owner* unk8;
     unsigned short unkC;
-    void FUN_00d3f780(S_00d3f780_In* a, S_00d3f780_In* b, S_00d3f780_C* c, S_00d3f780_D* d);
+    void processCollision(S_00d3f780_In* a, S_00d3f780_In* b, S_00d3f780_C* c, S_00d3f780_D* d);
 };
 
 // ---------------------------------------------------------------------------
@@ -144,7 +144,7 @@ extern "C" double __cdecl sqrt(double);
 // ---------------------------------------------------------------------------
 
 // @fnv 0x00d3f780
-void S_00d3f780_Obj::FUN_00d3f780(S_00d3f780_In* a, S_00d3f780_In* b, S_00d3f780_C* c, S_00d3f780_D* d)
+void S_00d3f780_Obj::processCollision(S_00d3f780_In* a, S_00d3f780_In* b, S_00d3f780_C* c, S_00d3f780_D* d)
 {
     float inv = 1.0f;
     union
@@ -318,7 +318,7 @@ struct Monitor
     Event* end;
 };
 // @fnv 0x00d3f980
-void __stdcall FUN_00d3f980(const Body* a, const Body* b, const Input* input, Collector* collector)
+void __stdcall getClosestPoints(const Body* a, const Body* b, const Input* input, Collector* collector)
 {
     ScalarScratch scratch;
     {

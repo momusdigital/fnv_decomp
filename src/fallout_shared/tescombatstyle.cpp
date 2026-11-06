@@ -7,11 +7,11 @@ TESCombatStyle::TESCombatStyle()
     SetFormType((ENUM_FORM_ID)0x4a);
     ResetFormData();
 }
-// Copies 0x5c, 0x54 and 0x40 bytes from the combat style returned by FUN_00505000 into Data and two other members, or zeroes them if none.
+// Copies 0x5c, 0x54 and 0x40 bytes from the combat style returned by GetDefaultCombatStyle into Data and two other members, or zeroes them if none.
 // @fnv 0x005050d0
 void TESCombatStyle::ResetFormData()
 {
-    TESCombatStyle* style = FUN_00505000();
+    TESCombatStyle* style = GetDefaultCombatStyle();
     if (style)
     {
         memcpy(&Data, &((NiAVObject*)style)->FUN_0043c490(), 0x5c);

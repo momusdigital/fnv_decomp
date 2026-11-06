@@ -463,11 +463,11 @@ struct FUN_005e78f0_t
 };
 struct FUN_005128e0_obj
 {
-    void FUN_005128e0(TESForm* apCopy);
+    void CopyFrom(TESForm* apCopy);
 };
 // If apCopy is a TESObjectARMO, copies 0xc bytes at offset 0x178 from apCopy into this and calls FUN_004851b0(apCopy).
 // @fnv 0x005128e0
-void FUN_005128e0_obj::FUN_005128e0(TESForm* apCopy)
+void FUN_005128e0_obj::CopyFrom(TESForm* apCopy)
 {
     TESObjectARMO* parmo = dynamic_cast<TESObjectARMO*>(apCopy);
     if (parmo == 0)
@@ -504,10 +504,10 @@ bool __cdecl FUN_00401500();
 void __cdecl AppendChunk(unsigned int size, void* apDest, unsigned int flags);
 struct FUN_00512840_shell
 {
-    void FUN_00512840();
+    void SaveForm();
 };
 // @fnv 0x00512840
-void FUN_00512840_shell::FUN_00512840()
+void FUN_00512840_shell::SaveForm()
 {
     ((FUN_004855a0_shell*)this)->M();
     ((S_00487010*)((char*)this + 0x30))->FUN_00487010();
@@ -529,10 +529,10 @@ struct FUN_005e79a0_t
 };
 struct ArmaCompare : TESObjectARMA
 {
-    bool FUN_00512940(TESForm* apCompare);
+    bool Compare(TESForm* apCompare);
 };
 // @fnv 0x00512940
-bool ArmaCompare::FUN_00512940(TESForm* apCompare)
+bool ArmaCompare::Compare(TESForm* apCompare)
 {
     TESObjectARMA* pcomp = dynamic_cast<TESObjectARMA*>(apCompare);
     if (!pcomp)

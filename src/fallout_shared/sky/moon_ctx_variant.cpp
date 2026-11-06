@@ -61,7 +61,7 @@ class NiTriShape : public NiObject
     void FUN_004902f0(bool);
     void AttachProperty(NiObject*);
     SkyShaderProperty* GetProperty(unsigned int);
-    void FUN_00635fe0(bool);
+    void SetDisplayObject(bool);
     void FUN_004bc1f0(float, float, float);
     void FUN_0043fa80(const void*);
     unsigned int unk08;
@@ -222,9 +222,9 @@ class NiAlphaProperty : public NiObject
     NiAlphaProperty();
     unsigned int unk08, unk0c, unk10, unk14, unk18;
     void FUN_0049ed90(bool);
-    void FUN_00439340(int);
-    void FUN_00439390(int);
-    void FUN_00636000(bool);
+    void SetSrcBlendMode(int);
+    void SetDestBlendMode(int);
+    void SetNoSorter(bool);
 };
 class FUN_00baf3c0
 {
@@ -373,9 +373,9 @@ void MoonInit::FUN_00634e20(NiNode* root, const char* name)
     {
         NiPointer<NiAlphaProperty> alpha(new NiAlphaProperty);
         ((NiAlphaProperty*)alpha)->FUN_0049ed90(true);
-        ((NiAlphaProperty*)alpha)->FUN_00439340(6);
-        ((NiAlphaProperty*)alpha)->FUN_00439390(0);
-        ((NiAlphaProperty*)alpha)->FUN_00636000(true);
+        ((NiAlphaProperty*)alpha)->SetSrcBlendMode(6);
+        ((NiAlphaProperty*)alpha)->SetDestBlendMode(0);
+        ((NiAlphaProperty*)alpha)->SetNoSorter(true);
         ((NiTriShape*)m_pMoonShape)->AttachProperty(alpha);
         alpha = 0;
     }
@@ -393,7 +393,7 @@ void MoonInit::FUN_00634e20(NiNode* root, const char* name)
         NiTexture* shader = loaded;
         if (shader)
             texture->SetTexture(shader);
-        ((NiTriShape*)m_pMoonShadowShape)->FUN_00635fe0(shader != 0);
+        ((NiTriShape*)m_pMoonShadowShape)->SetDisplayObject(shader != 0);
         m_eUpdateStatus = US_INITIALIZE;
     }
     m_pMoonNode = new NiNode(0);

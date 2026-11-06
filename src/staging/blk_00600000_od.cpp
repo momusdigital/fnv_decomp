@@ -215,11 +215,11 @@ void* FUN_006130c0_Class::FUN_006130c0(int index)
 
 struct FUN_00613870_Class
 {
-    int FUN_00613870(int index);
+    int GetDefaultHair(int index);
 };
 
 // @fnv 0x00613870
-int FUN_00613870_Class::FUN_00613870(int index)
+int FUN_00613870_Class::GetDefaultHair(int index)
 {
     return *(int*)((char*)this + 0x94 + index * 4);
 }
@@ -686,21 +686,21 @@ void* __thiscall FUN_0060f410_class::FUN_0060f410(unsigned int flags)
 
 struct S_00616a60
 {
-    void __thiscall FUN_00616a20();
-    void __thiscall FUN_00616a40();
-    void __thiscall FUN_00616a60(int);
+    void __thiscall GetPositiveRatio();
+    void __thiscall GetNegativeRatio();
+    void __thiscall GetReputationPct(int);
 };
-// Calls FUN_00616a20 when a equals 1, otherwise calls FUN_00616a40.
+// Calls GetPositiveRatio when a equals 1, otherwise calls GetNegativeRatio.
 // @fnv 0x00616a60
-void __thiscall S_00616a60::FUN_00616a60(int a)
+void __thiscall S_00616a60::GetReputationPct(int a)
 {
     if (a == 1)
     {
-        FUN_00616a20();
+        GetPositiveRatio();
         return;
         return;
     }
-    FUN_00616a40();
+    GetNegativeRatio();
 }
 
 struct FUN_00618890_cls
@@ -937,24 +937,24 @@ struct Setting_S
 };
 struct FUN_00616c20_cls
 {
-    void __thiscall FUN_00615730(int, float);
+    void __thiscall AddReputationValue(int, float);
 };
 extern Setting_S originalRuntimeFloatSetting51;
 extern Setting_S originalRuntimeFloatSetting50;
 struct FUN_00616c20_shell : FUN_00616c20_cls
 {
-    void __thiscall FUN_00616c20(bool b);
+    void __thiscall CommitCrime(bool b);
 };
-// Reads one of two runtime float settings depending on b and passes it to FUN_00615730 with index 0.
+// Reads one of two runtime float settings depending on b and passes it to AddReputationValue with index 0.
 // @fnv 0x00616c20
-void __thiscall FUN_00616c20_shell::FUN_00616c20(bool abUseFirstSetting)
+void __thiscall FUN_00616c20_shell::CommitCrime(bool abUseFirstSetting)
 {
     float f;
     if (abUseFirstSetting)
         f = *originalRuntimeFloatSetting51.Float();
     else
         f = *originalRuntimeFloatSetting50.Float();
-    FUN_00615730(0, f);
+    AddReputationValue(0, f);
 }
 
 struct FUN_00619a90_shell
@@ -969,16 +969,16 @@ struct BSSimpleListShell
 };
 struct DH
 {
-    BSSimpleListShell* FUN_004612e0();
+    BSSimpleListShell* GetTopicList();
 };
 extern DH* g_dataHandler;
 // If a is non-zero, walks the list from g_dataHandler and calls ProcessTopicInfoList(a) on each item until _ref_008256d0 is true.
 // @fnv 0x00619b60
-void FUN_00619b60(int a)
+void ClearAllSaidOnceInfosForQuest(int a)
 {
     if (a)
     {
-        BSSimpleListShell* list = g_dataHandler->FUN_004612e0();
+        BSSimpleListShell* list = g_dataHandler->GetTopicList();
         while (list && !list->_ref_008256d0())
         {
             (*list->GetItem())->ProcessTopicInfoList(a);
@@ -1043,7 +1043,7 @@ struct StartMenu
 struct GlobalObject_0040c150 : public StartMenu
 {
     bool __thiscall GetReputationRank(int value);
-    char const* FUN_006167d0();
+    char const* GetReputationIcon();
 };
 
 extern GlobalObject_0040c150 g_011cba18;
@@ -1064,7 +1064,7 @@ extern GlobalObject_0040c150 g_011cbd38;
 extern GlobalObject_0040c150 g_011cbd44;
 
 // @fnv 0x006167d0
-char const* GlobalObject_0040c150::FUN_006167d0()
+char const* GlobalObject_0040c150::GetReputationIcon()
 {
     StartMenu* menuTable[4][4] = {{&g_011cbbfc, &g_011cbbcc, &g_011cbbaec, &g_011cbd44},
                                   {&g_011cbcf0, &g_011cba4c, &g_011cbb4c, &g_011cbb8c},
@@ -1289,11 +1289,11 @@ class B616A20Meter
     float m_fMaximum;
     float m_fCurrent;
 
-    float FUN_00616a20();
+    float GetPositiveRatio();
 };
 
 // @fnv 0x00616a20
-float B616A20Meter::FUN_00616a20()
+float B616A20Meter::GetPositiveRatio()
 {
     return m_fCurrent / m_fMaximum;
 }
@@ -1320,11 +1320,11 @@ struct FUN_00616a40_cls
     float m_f40;
     float m_f44;
     float m_f48;
-    float __thiscall FUN_00616a40();
+    float __thiscall GetNegativeRatio();
 };
 
 // @fnv 0x00616a40
-float __thiscall FUN_00616a40_cls::FUN_00616a40()
+float __thiscall FUN_00616a40_cls::GetNegativeRatio()
 {
     return m_f48 / m_f40;
 }
@@ -1332,11 +1332,11 @@ float __thiscall FUN_00616a40_cls::FUN_00616a40()
 struct Comparison
 {
     char __thiscall GetReputationRank(int);
-    char __thiscall FUN_00616a90(char mode);
+    char __thiscall GetReputationThreshold(char mode);
 };
 // Reads two comparison results and maps their combination, depending on mode, to a result code (0-6).
 // @fnv 0x00616a90
-char Comparison::FUN_00616a90(char mode)
+char Comparison::GetReputationThreshold(char mode)
 {
     char second = GetReputationRank(1);
     char first = GetReputationRank(0);
@@ -2265,7 +2265,7 @@ class TESRaceForm : public BaseFormComponent
 
 // Casts the form to TESRaceForm and returns its race via FUN_00726070, or null if the cast fails.
 // @fnv 0x00617270
-TESRace* __cdecl FUN_00617270(TESForm* form)
+TESRace* __cdecl GetFormRace(TESForm* form)
 {
     TESRaceForm* pRaceForm;
     pRaceForm = dynamic_cast<TESRaceForm*>(form);

@@ -2448,7 +2448,7 @@ struct Ref
     virtual void v230();
     virtual bool Invalid();
     bool GetDisabled();
-    bool FUN_00437bf0();
+    bool IsRestrained();
     Process* GetCurrentProcess();
     Package* GetAssignedPackage();
     void* GetNext();
@@ -2463,7 +2463,7 @@ struct Controller
 // @fnv 0x00954a70
 bool Controller::IsPlayerTargeted(Ref* actor, bool mode)
 {
-    if (actor->Dead(0) || actor->GetDisabled() || actor->Invalid() || actor->FUN_00437bf0())
+    if (actor->Dead(0) || actor->GetDisabled() || actor->Invalid() || actor->IsRestrained())
         return false;
     actor->GetCurrentProcess()->Set(actor, 1);
     Package* package = actor->GetAssignedPackage();
@@ -3771,7 +3771,7 @@ struct Item
     virtual void itemslot08c();
     virtual void itemslot090();
     virtual int FUN_SLOT94();
-    float FUN_004b5400();
+    float GetMass();
 };
 struct State
 {
@@ -4226,7 +4226,7 @@ void Owner::FUN_0095f6c0(float delta)
                 Item* item = entry ? entry->FUN_006fa820() : 0;
                 if (item && item->FUN_SLOT94())
                 {
-                    float value = item->FUN_004b5400();
+                    float value = item->GetMass();
                     if (*DAT_011d1230.FUN_00403e20() >= value)
                     {
                         FUN_0095f930(actor, 1, 1000.0f);

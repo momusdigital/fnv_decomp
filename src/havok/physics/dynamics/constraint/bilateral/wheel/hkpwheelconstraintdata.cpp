@@ -699,12 +699,12 @@ struct hkpWheelConstraintData_Standin
     hkVector4 m_kAxleDirectionInBodyB;
     hkVector4 m_kSteeringDirectionInBodyB;
 
-    hkBoolRet FUN_00d4eec0();
+    hkBoolRet isValid();
 };
 
 // Returns true if IsOrthonormal passes with 0.001f on both body frames and the two rotation-based transforms and m_suspensionMin <= m_suspensionMax.
 // @fnv 0x00d4eec0
-hkBoolRet hkpWheelConstraintData_Standin::FUN_00d4eec0()
+hkBoolRet hkpWheelConstraintData_Standin::isValid()
 {
     MemFn fn;
     *(void**)&fn = (void*)IsOrthonormal;

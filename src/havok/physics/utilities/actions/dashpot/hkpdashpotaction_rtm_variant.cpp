@@ -238,11 +238,11 @@ struct S00d4da60_DashpotAction
     void* unk48;
     void* unk4C;
     DashpotApplyVector m_fContactImpulse;
-    void FUN_00d4da60(S00d4da60_StepRef stepInfo);
+    void applyAction(S00d4da60_StepRef stepInfo);
 };
 
 // @fnv 0x00d4da60
-void S00d4da60_DashpotAction::FUN_00d4da60(S00d4da60_StepRef stepInfo)
+void S00d4da60_DashpotAction::applyAction(S00d4da60_StepRef stepInfo)
 {
     DashpotApplyTlsGetter pfnTls = TlsGetValue;
 

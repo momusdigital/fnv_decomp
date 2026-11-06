@@ -231,7 +231,7 @@ struct Host_CreatureInit
     unsigned int FUN_0084e3a0();
     void FUN_00565210(bool);
     void FUN_00484ab0(int);
-    void FUN_005f9340();
+    void InitItem();
 };
 
 class TESCreature;
@@ -239,7 +239,7 @@ class BGSBodyPartData;
 extern "C" void __cdecl FUN_00485d50(unsigned int*, void*);
 extern "C" class TESForm* __cdecl FUN_004839c0(unsigned int);
 void __cdecl FUN_005b5e40(const char*, ...);
-TESCombatStyle* __cdecl FUN_00505000();
+TESCombatStyle* __cdecl GetDefaultCombatStyle();
 extern "C" const char DAT_010495e0[], DAT_01049598[], DAT_01049548[], DAT_010494f8[], DAT_0102c740[], DAT_010494bc[];
 class TESCombatStyle
 {
@@ -252,7 +252,7 @@ class BGSListForm
 };
 
 // @fnv 0x005f9340
-void Host_CreatureInit::FUN_005f9340()
+void Host_CreatureInit::InitItem()
 {
     unsigned int formId;
     if (FUN_004013e0())
@@ -304,7 +304,7 @@ void Host_CreatureInit::FUN_005f9340()
         }
     }
     if (!v98())
-        v99(FUN_00505000());
+        v99(GetDefaultCombatStyle());
     if (m_144)
     {
         unsigned int bodyId = (unsigned int)m_144;
@@ -364,12 +364,12 @@ __if_exists(::TESCreature::m_ucField00)
 {
     struct TESCreatureLoad : ::TESCreature
     {
-        void FUN_005fb270(int a1, int a2);
+        void LoadGame2(int a1, int a2);
     };
 }
 
 // @fnv 0x005fb270
-void TESCreatureLoad::FUN_005fb270(int a1, int a2)
+void TESCreatureLoad::LoadGame2(int a1, int a2)
 {
     ((TESCreatureCall_1b30*)this)->FUN_005f1b30(a1, a2);
     if (a1 & 0x200)

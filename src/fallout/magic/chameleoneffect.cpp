@@ -662,7 +662,7 @@ struct FUN_0080b0c0_cls
     int unk44;
     int m_48;
     void FUN_0082cd10(FUN_0080b0c0_arg* a);
-    void FUN_0080b0c0(FUN_0080b0c0_arg* a1);
+    void FinishInitLoadGame(FUN_0080b0c0_arg* a1);
 };
 
 float __cdecl FUN_00404010(float a, float b);
@@ -672,7 +672,7 @@ float __cdecl GetOriginalRuntimeFloatSetting9();
 float __cdecl LinearInterpolate(float a, float b, float c, float d, float e);
 
 // @fnv 0x0080b0c0
-void FUN_0080b0c0_cls::FUN_0080b0c0(FUN_0080b0c0_arg* a1)
+void FUN_0080b0c0_cls::FinishInitLoadGame(FUN_0080b0c0_arg* a1)
 {
     FUN_0082cd10(a1);
     if (FUN_005b9b00())

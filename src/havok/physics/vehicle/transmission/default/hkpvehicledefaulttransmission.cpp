@@ -146,11 +146,11 @@ struct FUN_00e43ea0_Class
     int unk18;
     int unk1C;
     int unk20;
-    void FUN_00e43ea0(float a, int b, FUN_00e43ea0_State* st);
+    void updateCurrentGear(float a, int b, FUN_00e43ea0_State* st);
 };
 
 // @fnv 0x00e43ea0
-void FUN_00e43ea0_Class::FUN_00e43ea0(float afDelta, int aiUnused, FUN_00e43ea0_State* pState)
+void FUN_00e43ea0_Class::updateCurrentGear(float afDelta, int aiUnused, FUN_00e43ea0_State* pState)
 {
     float fRemaining = pState->unk10 - afDelta;
     pState->unk10 = fRemaining;

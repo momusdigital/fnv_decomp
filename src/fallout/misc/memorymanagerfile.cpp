@@ -130,10 +130,10 @@ struct FileSizeInfo
 };
 struct FUN_00878590_shell : FileSizeInfo
 {
-    int __thiscall FUN_00878590();
+    int __thiscall Size();
 };
 // @fnv 0x00878590
-int __thiscall FUN_00878590_shell::FUN_00878590()
+int __thiscall FUN_00878590_shell::Size()
 {
     unsigned __int64 size;
     ((FileSizeInfo*)((char*)this + 4))->FUN_0065c290(size);

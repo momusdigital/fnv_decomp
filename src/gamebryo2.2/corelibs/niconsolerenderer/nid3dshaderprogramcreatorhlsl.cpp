@@ -23,11 +23,11 @@ struct COMUnknownInterface;
 
 struct NiD3DVertexShader
 {
-    void FUN_00be0bd0(COMUnknownInterface* hDecl);
+    void SetVertexDeclaration(COMUnknownInterface* hDecl);
 };
 
 // @fnv 0x00be0bd0
-void NiD3DVertexShader::FUN_00be0bd0(COMUnknownInterface* hDecl)
+void NiD3DVertexShader::SetVertexDeclaration(COMUnknownInterface* hDecl)
 {
     *(COMUnknownInterface**)((char*)this + 0x38) = hDecl;
 }
@@ -101,7 +101,7 @@ const void* __cdecl FUN_00e95df0()
 extern void(__cdecl* DAT_fdf3f0)();
 
 // @fnv 0x00ee6e2e
-void __cdecl FUN_00ee6e2e()
+void __cdecl D3DXGetVertexShaderProfile()
 {
     return DAT_fdf3f0();
 }
@@ -544,11 +544,11 @@ struct FUN_00be0ba0_Class
     int unk2C;
     unsigned int unk30;
 
-    void __thiscall FUN_00be0ba0(unsigned int value);
+    void __thiscall SetUsage(unsigned int value);
 };
 
 // @fnv 0x00be0ba0
-void __thiscall FUN_00be0ba0_Class::FUN_00be0ba0(unsigned int value)
+void __thiscall FUN_00be0ba0_Class::SetUsage(unsigned int value)
 {
     unk30 = value;
 }
@@ -1143,7 +1143,7 @@ NiD3DHLSLPixelShaderStandIn* HLSLCreator_b10814::FUN_00e95f20(void* pvBuffer, un
     }
     if (pcShaderTarget == 0)
     {
-        pcShaderTarget = reinterpret_cast<const char*(__stdcall*)(void*)>(&FUN_00ee6e2e)(g_0126fa28);
+        pcShaderTarget = reinterpret_cast<const char*(__stdcall*)(void*)>(&D3DXGetVertexShaderProfile)(g_0126fa28);
     }
 
     void* pvHandle = this->CreateVertexShaderChecked(((ID3DXBuffer*)pvBuffer)->GetBufferPointer(), (void*)&pcName,
@@ -1495,7 +1495,7 @@ struct S00e96610_CT
     virtual unsigned long __stdcall Release();
 };
 struct D3DDeviceStandIn;
-const char* __stdcall FUN_00ee6e2e(void* pDevice);
+const char* __stdcall D3DXGetVertexShaderProfile(void* pDevice);
 
 int __cdecl FUN_00aa0020(int, bool, const char*, ...);
 
@@ -1509,7 +1509,7 @@ struct ShaderTargetName
 inline void S00e96610_DefaultTarget(const char*& pcTarget)
 {
     if (!pcTarget)
-        pcTarget = FUN_00ee6e2e(DAT_0126fa28);
+        pcTarget = D3DXGetVertexShaderProfile(DAT_0126fa28);
 }
 
 struct S00e96610_VSBase

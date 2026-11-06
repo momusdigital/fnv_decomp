@@ -8,11 +8,11 @@ extern double DAT_01011588;
 
 struct VehicleAerodynamicsStandIn
 {
-    float FUN_00e442e0(float speed);
+    float calcAerodynamicLift(float speed);
 };
 
 // @fnv 0x00e442e0
-float VehicleAerodynamicsStandIn::FUN_00e442e0(float speed)
+float VehicleAerodynamicsStandIn::calcAerodynamicLift(float speed)
 {
     return reinterpret_cast<float*>(this)[2] * DAT_01011588 * reinterpret_cast<float*>(this)[5] *
            reinterpret_cast<float*>(this)[3] * speed * speed;
@@ -64,12 +64,12 @@ class FUN_00e44340_cls
     float unk08;
     float unk0C;
     float unk10;
-    float FUN_00e44340(float v);
+    float calcAerodynamicDrag(float v);
 };
 
 // Returns v times |v| times (unk08 * -0.5 * unk10 * unk0C).
 // @fnv 0x00e44340
-float FUN_00e44340_cls::FUN_00e44340(float v)
+float FUN_00e44340_cls::calcAerodynamicDrag(float v)
 {
     float fAbs = (float)fabs((double)v);
     return v * (fAbs * (unk08 * -0.5 * unk10 * unk0C));

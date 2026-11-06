@@ -70,7 +70,7 @@ class NiNode : public NiAVObject
   public:
     char bytes[0xac];
     NiNode(unsigned short);
-    void FUN_004def90();
+    void RemoveAllChildren();
 };
 class NiCamera : public NiAVObject
 {

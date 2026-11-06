@@ -1114,7 +1114,7 @@ virtual void getPenetrations(const hkpCdBody&bodyA,const hkpCdBody&bodyB,const C
 virtual void getClosestPoints(const hkpCdBody&bodyA,const hkpCdBody&bodyB,const CollisionAgentContext&input,hkpCdPointCollector&collector)=0;
 virtual void linearCast(const hkpCdBody&bodyA,const hkpCdBody&bodyB,const ShapeSweepParameters&input,hkpCdPointCollector&castCollector,hkpCdPointCollector*startCollector)=0;
 public:
-virtual void FUN_00d2df90(const hkpCdBody&a,const hkpCdBody&b,const GskAgentInput&input,WorldOperationEntry&result)=0;
+virtual void processCollision(const hkpCdBody&a,const hkpCdBody&b,const GskAgentInput&input,WorldOperationEntry&result)=0;
 virtual void cleanup(hkpConstraintOwner&info)=0;
 virtual void ProcessContactPoints(const hkpCdBody&bodyA,const hkpCdBody&bodyB,const CollisionAgentContext&input,hkpConstraintOwner&constraintOwner){}
 virtual void RemovePoint(const CollisionAgentContext&input);
@@ -1155,7 +1155,7 @@ virtual void getClosestPoints(const hkpCdBody&bodyA,const hkpCdBody&bodyB,const 
 static void __cdecl m_pVirtualFunction2(const hkpCdBody&bodyA,const hkpCdBody&bodyB,const CollisionAgentContext&input,hkpCdPointCollector&collector);
 virtual void linearCast(const hkpCdBody&bodyA,const hkpCdBody&bodyB,const ShapeSweepParameters&input,hkpCdPointCollector&collector,hkpCdPointCollector*startCollector);
 static void __cdecl m_pVirtualFunction3(const hkpCdBody&bodyA,const hkpCdBody&bodyB,const ShapeSweepParameters&input,hkpCdPointCollector&collector,hkpCdPointCollector*startCollector);
-virtual void FUN_00d2df90(const hkpCdBody&bodyA,const hkpCdBody&bodyB,const GskAgentInput&input,WorldOperationEntry&result);
+virtual void processCollision(const hkpCdBody&bodyA,const hkpCdBody&bodyB,const GskAgentInput&input,WorldOperationEntry&result);
 virtual void cleanup(hkpConstraintOwner&info);
 static void __cdecl setUseAabbCaching(hkBool useIt);
 static hkBool __cdecl getUseAabbCaching();
@@ -1206,7 +1206,7 @@ public:
 static void __cdecl RegisterCapsuleCapsuleAgent(hkpCollisionDispatcher*dispatcher);
 static void __cdecl registerConvexListAgent(hkpCollisionDispatcher*dispatcher);
 static void __cdecl registerMultiRayAgent(hkpCollisionDispatcher*dispatcher);
-virtual void FUN_00d2df90(const hkpCdBody&bodyA,const hkpCdBody&bodyB,const GskAgentInput&input,WorldOperationEntry&result);
+virtual void processCollision(const hkpCdBody&bodyA,const hkpCdBody&bodyB,const GskAgentInput&input,WorldOperationEntry&result);
 virtual void cleanup(hkpConstraintOwner&info);
 virtual void getPenetrations(const hkpCdBody&bodyA,const hkpCdBody&bodyB,const CollisionAgentContext&input,hkpCdBodyPairCollector&collector);
 virtual void getClosestPoints(const hkpCdBody&bodyA,const hkpCdBody&bodyB,const CollisionAgentContext&input,hkpCdPointCollector&collector);
@@ -1371,7 +1371,7 @@ const hkpBvTreeShape*bvB=static_cast<const hkpBvTreeShape*>(bodyB.getShape());
 bvB->GetAabbHits(aabb,hitListOut);
 return HK_SUCCESS;}
 // @fnv 0x00d2df90
-void hkpBvTreeStreamAgent::FUN_00d2df90(const hkpCdBody&bodyA,const hkpCdBody&bodyB,const GskAgentInput&input,WorldOperationEntry&output)
+void hkpBvTreeStreamAgent::processCollision(const hkpCdBody&bodyA,const hkpCdBody&bodyB,const GskAgentInput&input,WorldOperationEntry&output)
 {
 {StringCursor&mStream=StringCursor::GetMonitorStream();if(mStream.memoryAvailable()){StringCursor::TimedNameRecord*h=reinterpret_cast<StringCursor::TimedNameRecord*>(mStream.GetStreamEnd());h->m_pCommandName="L" "t" "BvTree3";h->m_pFirst="S" "t" "QueryTree";h->setTime();mStream.setEnd((char*)(h+1));}};
 AgentSubtypeMarker in3;

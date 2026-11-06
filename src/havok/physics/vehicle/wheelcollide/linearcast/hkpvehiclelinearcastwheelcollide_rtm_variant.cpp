@@ -51,7 +51,7 @@ struct LCWheelCollideStandIn
     virtual void v2c();
     virtual void v30();
     virtual int getNumHits(int);
-    LCHitObj* FUN_00e36250(int iWheel, LCHit* pHits);
+    LCHitObj* determineNearestHit(int iWheel, LCHit* pHits);
 };
 struct FUN_00e363a0_Wheel
 {
@@ -80,11 +80,11 @@ struct COMBaseInterface : public FUN_00c936a0_host
 };
 struct FUN_00e36870_host
 {
-    void FUN_00e36870(COMBaseInterface*);
+    void addToWorld(COMBaseInterface*);
 };
 struct FUN_00e368a0_Class
 {
-    void FUN_00e368a0();
+    void removeFromWorld();
 };
 struct FUN_00c92c70_Class
 {
@@ -1211,7 +1211,7 @@ struct hkpCollisionFilterE363;
 class LinearCastCommandBuilder : public hkpVehicleLinearCastWheelCollideE363
 {
   public:
-    int FUN_00e363d0(const hkpVehicleInstanceE363* pkVehicle, const hkpCollisionFilterE363* pkFilter,
+    int buildLinearCastCommands(const hkpVehicleInstanceE363* pkVehicle, const hkpCollisionFilterE363* pkFilter,
                      hkpCollidableE363* pkCollidableStorage, hkpPairLinearCastCommandE363* pkCommandStorage,
                      hkpRootCdPointE363* pkOutputStorage) const throw();
 };
@@ -1219,7 +1219,7 @@ void __cdecl ResizeAudioStream(void* heap, void* arr, int elementSize);
 class WheelPhantomCollector : public hkpVehicleLinearCastWheelCollideE36C
 {
   public:
-    void FUN_00e36ab0(hkArray<hkpPhantomE36C*>* output);
+    void getPhantoms(hkArray<hkpPhantomE36C*>* output);
 };
 
 void __cdecl FUN_00d26230(int transform, int extents, int center, float tolerance, int output);

@@ -48,7 +48,7 @@ class TESAIForm : public BaseFormComponent
     unsigned char GetAssistance();
     unsigned char GetResponsibility();
     unsigned char FUN_004f6de0();
-    unsigned char FUN_0062f2f0();
+    unsigned char GetMood();
     void SetAggression(unsigned char, bool);
     void SetAssistance(unsigned char);
     void SetConfidence(unsigned char, bool);

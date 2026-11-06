@@ -28,7 +28,7 @@ class NiPoint3
     {
         return NiPoint3(y * pt.z - z * pt.y, z * pt.x - x * pt.z, x * pt.y - y * pt.x);
     }
-    __declspec(noalias) static void __cdecl FUN_00525340(NiPoint3& kPt);
+    __declspec(noalias) static void __cdecl UnitizeVector(NiPoint3& kPt);
     static void __cdecl NormalizePoints(NiPoint3* pkPts, unsigned int uiElementCount, unsigned int uiStride);
 };
 
@@ -126,7 +126,7 @@ void NiTriShapeDataStandIn::RecalculateNormals()
         NiPoint3 kEdge1 = m_pkVertex[usIndex1] - m_pkVertex[usIndex0];
         NiPoint3 kEdge2 = m_pkVertex[usIndex2] - m_pkVertex[usIndex1];
         NiPoint3 kFaceNormal = kEdge1.Cross(kEdge2);
-        NiPoint3::FUN_00525340(kFaceNormal);
+        NiPoint3::UnitizeVector(kFaceNormal);
         m_pkNormal[usIndex0] += kFaceNormal;
         m_pkNormal[usIndex1] += kFaceNormal;
         m_pkNormal[usIndex2] += kFaceNormal;

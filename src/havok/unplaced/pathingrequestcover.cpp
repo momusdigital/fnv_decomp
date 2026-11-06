@@ -167,7 +167,7 @@ struct BGSSaveFormBuffer
 };
 struct FUN_006def40_Class
 {
-    void FUN_006def40(BGSSaveFormBuffer* buffer);
+    void SaveGame(BGSSaveFormBuffer* buffer);
 };
 struct PathingCoverLocation
 {
@@ -177,7 +177,7 @@ struct PathingCoverLocation
 // @fnv 0x006e48a0
 void PathingCoverLocation::SaveToBuffer(BGSSaveFormBuffer* buffer)
 {
-    ((FUN_006def40_Class*)this)->FUN_006def40(buffer);
+    ((FUN_006def40_Class*)this)->SaveGame(buffer);
     buffer->SaveData((char*)this + 0x28, 12, 0);
     buffer->SaveData((char*)this + 0x34, 12, 0);
     buffer->SaveData((char*)this + 0x40, 12, 0);

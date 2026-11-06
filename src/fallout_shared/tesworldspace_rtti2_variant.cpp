@@ -84,10 +84,10 @@ struct WorldCompareView
     void* LODWater();
     float Height();
     void* Map();
-    bool FUN_00585250(TESForm*);
+    bool Compare(TESForm*);
 };
 // @fnv 0x00585250
-bool WorldCompareView::FUN_00585250(TESForm* form)
+bool WorldCompareView::Compare(TESForm* form)
 {
     WorldCompareView* other = (WorldCompareView*)dynamic_cast< ::TESWorldSpace*>(form);
     if (!other)

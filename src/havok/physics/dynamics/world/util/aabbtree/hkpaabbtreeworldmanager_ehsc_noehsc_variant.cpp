@@ -18,7 +18,7 @@ struct FUN_00d08350 {
     void* __thiscall Set(void* arg);
 };
 struct FUN_00d083a0_class {
-    void __thiscall FUN_00d083a0(int a);
+    void __thiscall setWorkingBuffer(int a);
 };
 struct FUN_00d08ff0_t {
     int a;
@@ -804,7 +804,7 @@ struct UpdateOwner {
     bool dirty;
     void FUN_00d09df0(void*, void*);
     void FUN_00d099d0(void*, void*);
-    void FUN_00d0a060(void*, void*);
+    void updateFromWorld(void*, void*);
 };
 // FUN_00d0a200 : MSVC this-adjusting thunk  (sub ecx, 0x14 ; jmp <impl>)
 struct A1_00d0a200 {

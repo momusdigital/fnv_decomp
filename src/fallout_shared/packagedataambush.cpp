@@ -130,14 +130,14 @@ class TESAmbushPackageData : public TESPackageData
 {
   public:
     virtual ~TESAmbushPackageData();
-    bool FUN_0067af50(TESPackageData* pkOtherData);
+    bool Compare(TESPackageData* pkOtherData);
 
     AF50Location* m_pkLocation;
 };
 
 // Casts pkOtherData to TESAmbushPackageData and returns true if the cast fails or the two m_pkLocation values differ, otherwise false.
 // @fnv 0x0067af50
-bool TESAmbushPackageData::FUN_0067af50(TESPackageData* pkOtherData)
+bool TESAmbushPackageData::Compare(TESPackageData* pkOtherData)
 {
     TESAmbushPackageData* pkOther = dynamic_cast<TESAmbushPackageData*>(pkOtherData);
     if (!pkOther)

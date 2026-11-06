@@ -41,7 +41,7 @@ struct FUN_00ccf890_t : BSFadeNode
 };
 // Allocates and constructs a FUN_00ccf890_t object and returns it as a BSFadeNode pointer.
 // @fnv 0x00ccf890
-BSFadeNode* FUN_00ccf890()
+BSFadeNode* CreateObject()
 {
     return new FUN_00ccf890_t;
 }
@@ -1354,12 +1354,12 @@ struct hkVisualDebuggerCD15
     hkStopwatchCD15 m_kFrameTimer;
 
     void AddEntry(char* a, char* b, char* c);
-    void FUN_00cd1520();
+    void pollForNewClients();
 };
 
 // Stops the timer, reports a message and client data when available, then restarts the timer if frame timing is enabled.
 // @fnv 0x00cd1520
-void hkVisualDebuggerCD15::FUN_00cd1520()
+void hkVisualDebuggerCD15::pollForNewClients()
 {
     if (m_shutdown)
         return;

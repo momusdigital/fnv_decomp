@@ -48,7 +48,7 @@ public:
     SpawnedInner* m_pInner;      // +0x08
     unsigned short m_wFlags;     // +0x0C
 
-    void FUN_00d3d200(void* param);
+    void cleanup(void* param);
 };
 struct hkMemory {
     virtual void unk0();
@@ -97,7 +97,7 @@ struct D3DD10Data
 };
 struct D3DD10Object
 {
-    void __thiscall FUN_00d3d2a0(unsigned int a1, unsigned int a2,
+    void __thiscall getPenetrations(unsigned int a1, unsigned int a2,
                                  unsigned int a3, D3DD10Data* data);
 
     void __thiscall FUN_00d3dd10(unsigned int p0, unsigned int p1,
@@ -169,7 +169,7 @@ extern hkVector4q DAT_010c4c00;
 class ParticleSystemOps
 {
 public:
-    void FUN_00d3dd90(int a, int b, int c, ParticleSystemState* state);
+    void processCollision(int a, int b, int c, ParticleSystemState* state);
     void FUN_00d3e150(int a1, int a2, int a3, ParticleSystemState* s);
 };
 typedef unsigned long DWORD;
@@ -251,7 +251,7 @@ class SphereTriAgent {
 public:
     int unk00, unk04, unk08, unk0C;
     float unk10;
-    void FUN_00d3d2a0(BodyHolderB* a, BodyHolderB* b, int c_, Sink* sink);
+    void getPenetrations(BodyHolderB* a, BodyHolderB* b, int c_, Sink* sink);
 };
 // rotate the translation difference by the inverse of B's rotation (HK_TRANSPOSE3), compute the
 // closest point, and report a contact when the distance is below the summed radii.
@@ -582,11 +582,11 @@ static __forceinline int queryContact(const CdBody* bodyA, const CdBody* bodyB, 
 }
 
 struct TargetAgent_Cand : TargetAgent {
-    void FUN_00d3dd90(const CdBody* bodyA, const CdBody* bodyB, const ProcessCollisionInput* input, ProcessCollisionOutput* result);
+    void processCollision(const CdBody* bodyA, const CdBody* bodyB, const ProcessCollisionInput* input, ProcessCollisionOutput* result);
 };
 
 // @fnv 0x00d3dd90
-void TargetAgent_Cand::FUN_00d3dd90(const CdBody* bodyA, const CdBody* bodyB, const ProcessCollisionInput* input, ProcessCollisionOutput* result) {
+void TargetAgent_Cand::processCollision(const CdBody* bodyA, const CdBody* bodyB, const ProcessCollisionInput* input, ProcessCollisionOutput* result) {
     MonitorStream* stream = (MonitorStream*)TlsGetValue(DAT_0126835c);
     MonitorRecord* cur = stream->m_pTileTemplate;
     if (cur < stream->m_pRayCursor) {

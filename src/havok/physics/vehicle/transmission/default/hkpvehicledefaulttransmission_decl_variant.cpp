@@ -1,6 +1,6 @@
 
 // src/havok/physics/vehicle/transmission/default/hkpvehicledefaulttransmission_decl_variant.cpp - declaration variant unit created 2026-10-26 by decl_variants.py for paused function 0x00e43d40: the skeleton of src/havok/physics/vehicle/transmission/default/hkpvehicledefaulttransmission.cpp
-// with declarations corrected to what the original code does (hkpVehicleDefaultTransmission.h: hkpVehicleDefaultTransmission += float FUN_00e43d40(const struct Vehicle* vehicle, const void* input);; hkpVehicleTransmission.h: hkpVehicleTransmission += virtual void T01(); virtual void T02(); virtual void T03(); virtual void T04(); virtual void T05(); virtual voi). Move the function to its real unit once
+// with declarations corrected to what the original code does (hkpVehicleDefaultTransmission.h: hkpVehicleDefaultTransmission += float calcTransmissionRPM(const struct Vehicle* vehicle, const void* input);; hkpVehicleTransmission.h: hkpVehicleTransmission += virtual void T01(); virtual void T02(); virtual void T03(); virtual void T04(); virtual void T05(); virtual voi). Move the function to its real unit once
 // that unit declares it this way.
 
 // src/havok/physics/vehicle/transmission/default/hkpvehicledefaulttransmission.cpp - unit created 2026-10-16 from the whole-binary attribution (360 source path: d:/projects/fallout/code/havok/source/physics/vehicle/transmission/default/hkpvehicledefaulttransmission.cpp).
@@ -102,7 +102,7 @@ struct FUN_00e43ea0_Class
     int unk18;
     int unk1C;
     int unk20;
-    void FUN_00e43ea0(float a, int b, FUN_00e43ea0_State* st);
+    void updateCurrentGear(float a, int b, FUN_00e43ea0_State* st);
 };
 
 extern "C" const double gModifierZero;
@@ -200,7 +200,7 @@ struct Vehicle
     VehicleWheelInfo* wheels;
 };
 // @fnv 0x00e43d40
-float hkpVehicleDefaultTransmission::FUN_00e43d40(const Vehicle* vehicle, const void* input)
+float hkpVehicleDefaultTransmission::calcTransmissionRPM(const Vehicle* vehicle, const void* input)
 {
     float rpm = 0.0f;
     for (int i = 0; i < vehicle->data->numWheels; ++i)

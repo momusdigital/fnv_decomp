@@ -15,7 +15,7 @@ struct FUN_006ffe80_shell
 };
 struct HackingMenu
 {
-    int __thiscall FUN_00765870();
+    int __thiscall GetClass();
 };
 int __cdecl FUN_00766a40();
 struct WeatherEntry;
@@ -41,7 +41,7 @@ struct HackingMenu;
 struct FUN_0076a510_shell : HackingMenu
 {
     void __thiscall FUN_0076a510();
-    void __thiscall FUN_0076a540();
+    void __thiscall TransitionToComputersMenu();
 };
 struct StrMem
 {

@@ -70,11 +70,11 @@ struct FUN_00b5b4a0_holder
 };
 struct FUN_0080e8a0_holder
 {
-    void FUN_0080e8a0(float afSecondsElapsed);
+    void Update(float afSecondsElapsed);
 };
 struct FUN_00805760_shell
 {
-    void FUN_00805760(Actor*);
+    void FinishInitLoadGame(Actor*);
 };
 struct FUN_0080efd0_shell
 {
@@ -99,7 +99,7 @@ struct FUN_0080efd0_shell
     virtual void v18();
     virtual void v19();
     virtual void v20();
-    void FUN_0080efd0(Actor* apActor);
+    void FinishInitLoadGame(Actor* apActor);
 };
 class BGSLoadFormBuffer;
 struct EffectSetting;
@@ -186,7 +186,7 @@ struct FUN_0080e7e0_Class : ActiveEffect
     void* unk44;
     CopiedState state48;
     void FUN_00804090(ActiveEffect* other);
-    void FUN_0080e7e0(ActiveEffect* other);
+    void CopyData(ActiveEffect* other);
 };
 struct Effect
 {
@@ -236,7 +236,7 @@ struct Source
 struct Host
 {
     Source* FUN_0059bb30();
-    void FUN_0080e830();
+    void Start();
 };
 void __cdecl FUN_0080ee50(int* value);
 struct FUN_0080e900_inner

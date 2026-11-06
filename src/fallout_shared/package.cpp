@@ -237,11 +237,11 @@ bool TESPackage::IsMustComplete()
 
 struct FUN_00671a20_shell : public TESPackage
 {
-    void FUN_00671a20(bool);
+    void SetDrawWeaponFlag(bool);
 };
 
 // @fnv 0x00671a20
-void FUN_00671a20_shell::FUN_00671a20(bool enabled)
+void FUN_00671a20_shell::SetDrawWeaponFlag(bool enabled)
 {
     enabled ? *(unsigned int*)((char*)this + 0x1c) |= 0x800000 : *(unsigned int*)((char*)this + 0x1c) &= ~0x800000;
 }
@@ -403,7 +403,7 @@ struct RefArg
     TESObjectREFR* p;
 };
 // @fnv 0x006737a0
-bool __fastcall FUN_006737a0(TESPackage* self, RefArg aRefArg)
+bool __fastcall IsReadyToRun(TESPackage* self, RefArg aRefArg)
 {
     switch (self->GetPackType())
     {
@@ -1091,7 +1091,7 @@ bool FUN_00678d40_shell::IsPackageScheduledForDay(bool bTestPreviousDay)
 
 struct FUN_00678ec0_shell : public TESPackage
 {
-    bool FUN_00678ec0(MobileObject*);
+    bool IsTargetAnActor(MobileObject*);
 };
 
 class TESForm;
@@ -1178,7 +1178,7 @@ struct TESObjectREFR_vtbl
 };
 
 // @fnv 0x00678ec0
-bool FUN_00678ec0_shell::FUN_00678ec0(MobileObject* apActor)
+bool FUN_00678ec0_shell::IsTargetAnActor(MobileObject* apActor)
 {
     bool bHasResultObj = false;
     PackageTargetRecord* pTarget = GetTarget();
@@ -1237,7 +1237,7 @@ struct DummyForm3C
 };
 
 // @fnv 0x00679ba0
-int __cdecl FUN_00679ba0(void* pForm)
+int __cdecl GetObjectTypeFromForm(void* pForm)
 {
     int res = 0;
     if (pForm)
@@ -1365,11 +1365,11 @@ bool FUN_0067a3f0_shell::HasFlag400000()
 
 struct FUN_0067a460_shell : public TESPackage
 {
-    bool FUN_0067a460();
+    bool GetDrawWeaponFlag();
 };
 
 // @fnv 0x0067a460
-bool FUN_0067a460_shell::FUN_0067a460()
+bool FUN_0067a460_shell::GetDrawWeaponFlag()
 {
     return (*(unsigned int*)((char*)this + 0x1c) & 0x800000) ? true : false;
 }
@@ -1409,11 +1409,11 @@ bool FUN_0067a690_shell::HasFlag100000()
 
 struct FUN_0067a700_shell : public TESPackage
 {
-    bool FUN_0067a700();
+    bool GetContinueDuringCombat();
 };
 
 // @fnv 0x0067a700
-bool FUN_0067a700_shell::FUN_0067a700()
+bool FUN_0067a700_shell::GetContinueDuringCombat()
 {
     return (*(unsigned int*)((char*)this + 0x1c) & 0x4000000) ? true : false;
 }
@@ -1600,7 +1600,7 @@ void* DelStandIn::FUN_00670b30(unsigned int flags)
 
 struct FUN_00672fc0_shell : public TESPackage
 {
-    void FUN_00672fc0(PackageTargetRecord*);
+    void SetPackageTarget(PackageTargetRecord*);
 };
 
 struct FUN_006801a0_shell
@@ -1615,7 +1615,7 @@ struct PackageTargetObj
 };
 
 // @fnv 0x00672fc0
-void FUN_00672fc0_shell::FUN_00672fc0(PackageTargetRecord* apPackTarg)
+void FUN_00672fc0_shell::SetPackageTarget(PackageTargetRecord* apPackTarg)
 {
     if (apPackTarg)
     {
@@ -3526,7 +3526,7 @@ struct LocationDescriptor
 typedef char _sizecheck_PackageLocation[sizeof(LocationDescriptor) == 12 ? 1 : -1];
 struct FUN_00671e10_shell : public TESPackage
 {
-    void FUN_00671e10(LocationDescriptor*);
+    void SetPackageSecondLocation(LocationDescriptor*);
 };
 
 // LocationDescriptor constructor / deleting destructor (missing from the prelude struct)
@@ -3596,7 +3596,7 @@ struct FUN_00672d10_shell
 
 // Sets the package location data for the package type, creating the type-specific data and copying or clearing its location.
 // @fnv 0x00671e10
-void FUN_00671e10_shell::FUN_00671e10(LocationDescriptor* apPackLoc)
+void FUN_00671e10_shell::SetPackageSecondLocation(LocationDescriptor* apPackLoc)
 {
     if (GetPackType() == 0xf || GetPackType() == 0x1c)
     {
@@ -3800,12 +3800,12 @@ struct TESUseWeaponPackageData
 
 struct TESPackageShell : TESPackage
 {
-    const TESUseWeaponPackageData* __thiscall FUN_006758f0();
+    const TESUseWeaponPackageData* __thiscall GetUseWeaponPackageData();
 };
 
 // Returns the package data cast to TESUseWeaponPackageData when the pack type is 0x10, otherwise returns null.
 // @fnv 0x006758f0
-const TESUseWeaponPackageData* __thiscall TESPackageShell::FUN_006758f0()
+const TESUseWeaponPackageData* __thiscall TESPackageShell::GetUseWeaponPackageData()
 {
     if (GetPackType() == 0x10)
         return (const TESUseWeaponPackageData*)data;
@@ -4049,7 +4049,7 @@ struct LocationDescriptor
 typedef char _sizecheck_PackageLocation[sizeof(LocationDescriptor) == 12 ? 1 : -1];
 struct FUN_00671d30_shell : public TESPackage
 {
-    void FUN_00671d30(LocationDescriptor*);
+    void SetPackageLocation(LocationDescriptor*);
 };
 
 void* __cdecl operator new(unsigned int);
@@ -4062,7 +4062,7 @@ struct FUN_00670b30 : LocationDescriptor
 
 // Copies apPackLoc into the package's location object at offset 0x2c, allocating it if null, or deletes and clears it when apPackLoc is null.
 // @fnv 0x00671d30
-void FUN_00671d30_shell::FUN_00671d30(LocationDescriptor* apPackLoc)
+void FUN_00671d30_shell::SetPackageLocation(LocationDescriptor* apPackLoc)
 {
     if (apPackLoc)
     {
@@ -4145,11 +4145,11 @@ struct FUN_00672dd0_shell
 };
 struct FUN_00675670_shell : FUN_00672dd0_shell
 {
-    unsigned int __thiscall FUN_00675670();
+    unsigned int __thiscall GetSecondLocationRadius();
 };
 // Calls FUN_00672dd0 to get an object and, if non-null, returns the result of its FUN_0067f1c0; otherwise returns 0.
 // @fnv 0x00675670
-unsigned int __thiscall FUN_00675670_shell::FUN_00675670()
+unsigned int __thiscall FUN_00675670_shell::GetSecondLocationRadius()
 {
     LocationDescriptor* loc = FUN_00672dd0();
     if (loc)
@@ -4169,7 +4169,7 @@ struct PkgProxy
 };
 struct F5670
 {
-    unsigned int FUN_00675670();
+    unsigned int GetSecondLocationRadius();
 };
 struct Proxy758a0
 {
@@ -4180,7 +4180,7 @@ unsigned int Proxy758a0::FUN_006758a0(MobileObject* apMobile)
 {
     int loc = ((PkgProxy*)this)->HasSecondLocation();
     return loc == ((Script*)this)->GetText() ? ((TESPackage*)this)->FUN_00676280(apMobile)
-                                             : ((F5670*)this)->FUN_00675670();
+                                             : ((F5670*)this)->GetSecondLocationRadius();
 }
 
 struct FUN_00675950_host : public TESPackage
@@ -4216,10 +4216,10 @@ struct TESEscortPackageData
 };
 struct FUN_006784c0_shell
 {
-    int FUN_006784c0();
+    int GetEscortFollowDistance();
 };
 // @fnv 0x006784c0
-int FUN_006784c0_shell::FUN_006784c0()
+int FUN_006784c0_shell::GetEscortFollowDistance()
 {
     TESEscortPackageData* pdata;
     if (reinterpret_cast<TESPackage*>(this)->GetPackType() != 2)
@@ -5771,7 +5771,7 @@ void FUN_00674f30_shell::SetFlag10000(bool abSet)
 namespace fnv_0067a1b0 {
 struct FUN_0067a1b0_shell : public TESPackage
 {
-    void FUN_0067a1b0(TESPackage*);
+    void CopyAllFlags(TESPackage*);
 };
 
 struct TESQuest;
@@ -5858,11 +5858,11 @@ struct FUN_0067ac70_shell
 };
 struct FUN_0067a460_shell
 {
-    bool FUN_0067a460();
+    bool GetDrawWeaponFlag();
 };
 struct FUN_00671a20_shell
 {
-    void FUN_00671a20(bool);
+    void SetDrawWeaponFlag(bool);
 };
 struct FUN_0067a690_shell
 {
@@ -5914,7 +5914,7 @@ struct BGSAcousticSpace
 };
 struct FUN_0067a700_shell
 {
-    bool FUN_0067a700();
+    bool GetContinueDuringCombat();
 };
 struct FUN_0067a720_shell
 {
@@ -5951,7 +5951,7 @@ struct FUN_0067a800_shell
 };
 
 // @fnv 0x0067a1b0
-void FUN_0067a1b0_shell::FUN_0067a1b0(TESPackage* apCopy)
+void FUN_0067a1b0_shell::CopyAllFlags(TESPackage* apCopy)
 {
     ((FUN_0067a3a0_shell*)this)->FUN_0067a3a0(((FUN_0067a380_shell*)apCopy)->FUN_0067a380());
     ((Dummy0067a870*)this)->SetFlag(((FUN_0067a850_shell*)apCopy)->FUN_0067a850());
@@ -5963,14 +5963,14 @@ void FUN_0067a1b0_shell::FUN_0067a1b0(TESPackage* apCopy)
     ((FUN_0067ab70_shell*)this)->FUN_0067ab70(((FUN_0067ab50_shell*)apCopy)->HasFlag40());
     ((FUN_0067abf0_shell*)this)->FUN_0067abf0(((Get0067abd0_r1b0*)apCopy)->IsPackageFlag80Set());
     ((FUN_0067ac70_shell*)this)->SetFlag100(((FUN_0067ac50_shell*)apCopy)->FUN_0067ac50());
-    ((FUN_00671a20_shell*)this)->FUN_00671a20(((FUN_0067a460_shell*)apCopy)->FUN_0067a460());
+    ((FUN_00671a20_shell*)this)->SetDrawWeaponFlag(((FUN_0067a460_shell*)apCopy)->GetDrawWeaponFlag());
     ((FUN_0067a6b0_shell*)this)->SetFlag100000(((FUN_0067a690_shell*)apCopy)->HasFlag100000());
     ((FUN_0067a640_shell*)this)->SetFlag200000(((FUN_00441b00_shell*)apCopy)->GetForceUnequipWeapon());
     ((Struct_067A4A0*)this)->FUN_0067a4a0(((FUN_0067a480_shell*)apCopy)->FUN_0067a480());
     ((FUN_0067a510_shell*)this)->SetFlag20000(((FUN_0067a4f0_shell*)apCopy)->FUN_0067a4f0());
     ((Fake067a790*)this)->FUN_0067a790(((FUN_0067a770_shell*)apCopy)->IsNotFlag8000000());
     ((BGSAcousticSpace*)this)->SetRegion((TESRegion*)((TESTopicInfo*)apCopy)->GetParentQuest());
-    ((FUN_0067a720_shell*)this)->SetFlag4000000(((FUN_0067a700_shell*)apCopy)->FUN_0067a700());
+    ((FUN_0067a720_shell*)this)->SetFlag4000000(((FUN_0067a700_shell*)apCopy)->GetContinueDuringCombat());
     ((FUN_0067a410_shell*)this)->SetFlag400000(((FUN_0067a3f0_shell*)apCopy)->HasFlag400000());
     ((FUN_0067a5f0_shell*)this)->SetFlag80000(((FUN_0067a5d0_class*)apCopy)->FUN_0067a5d0());
     ((FUN_0067a580_shell*)this)->SetFlag40000(FUN_0067a560((int)apCopy));
@@ -6105,12 +6105,12 @@ struct FUN_00673200_shell
     unsigned char padding[0x40];
     FUN_00680a70_shell member;
 
-    void FUN_00673200(BGSIdleCollection*);
+    void SetPackageConditions(BGSIdleCollection*);
 };
 
 // If apIdles is non-null, passes it to CopyConditions with null; otherwise passes a default-constructed CondS and null.
 // @fnv 0x00673200
-void FUN_00673200_shell::FUN_00673200(BGSIdleCollection* apIdles)
+void FUN_00673200_shell::SetPackageConditions(BGSIdleCollection* apIdles)
 {
     if (apIdles)
     {
@@ -6869,18 +6869,18 @@ TESPackage* CreatePackageByType(int type)
 
 struct FUN_006757e0_shell : TESPackage
 {
-    int FUN_00672f20();
+    int GetPackageSearchLocation();
     int FUN_0055b980();
     int FUN_00675c20(MobileObject* actor);
     int FUN_006751a0(MobileObject* actor);
-    int FUN_006757e0(MobileObject* actor);
+    int GetSearchLocationCell(MobileObject* actor);
 };
 
-// Calls FUN_00672f20 and FUN_0055b980; if equal, calls FUN_00675c20(actor), otherwise FUN_006751a0(actor), returning that result.
+// Calls GetPackageSearchLocation and FUN_0055b980; if equal, calls FUN_00675c20(actor), otherwise FUN_006751a0(actor), returning that result.
 // @fnv 0x006757e0
-int FUN_006757e0_shell::FUN_006757e0(MobileObject* actor)
+int FUN_006757e0_shell::GetSearchLocationCell(MobileObject* actor)
 {
-    int firstResult = FUN_00672f20();
+    int firstResult = GetPackageSearchLocation();
     return firstResult == FUN_0055b980() ? FUN_00675c20(actor) : FUN_006751a0(actor);
 }
 
@@ -6892,20 +6892,20 @@ struct PackValue12
 };
 struct FUN_00675830_shell : TESPackage
 {
-    int FUN_00672f20();
+    int GetPackageSearchLocation();
     int FUN_0055b980();
     PackValue12* FUN_00675de0(PackValue12* destination, void* actor);
-    PackValue12* FUN_00675360(PackValue12* destination, void* actor);
-    PackValue12* FUN_00675830(PackValue12* output, void* actor);
+    PackValue12* GetSecondLocationCoord(PackValue12* destination, void* actor);
+    PackValue12* GetSearchLocationCoord(PackValue12* output, void* actor);
 };
 // @fnv 0x00675830
-PackValue12* FUN_00675830_shell::FUN_00675830(PackValue12* output, void* actor)
+PackValue12* FUN_00675830_shell::GetSearchLocationCoord(PackValue12* output, void* actor)
 {
-    int packageType = FUN_00672f20();
+    int packageType = GetPackageSearchLocation();
     PackValue12 successful;
     PackValue12 fallback;
     const PackValue12* sourceValue =
-        packageType == FUN_0055b980() ? FUN_00675de0(&successful, actor) : FUN_00675360(&fallback, actor);
+        packageType == FUN_0055b980() ? FUN_00675de0(&successful, actor) : GetSecondLocationCoord(&fallback, actor);
     *output = *sourceValue;
     return output;
 }
@@ -7682,13 +7682,13 @@ struct PackageDataDeletion
 };
 struct PackageResetOps
 {
-    void FUN_00672fc0(void*);
-    void FUN_00671e10(void*);
-    void FUN_00671d30(void*);
+    void SetPackageTarget(void*);
+    void SetPackageSecondLocation(void*);
+    void SetPackageLocation(void*);
     void* FUN_0055b980();
     void* FUN_00671d10();
     void* FUN_00672dd0();
-    void FUN_00671a20(bool);
+    void SetDrawWeaponFlag(bool);
     void FUN_00671ad0(bool);
     void FUN_00671b30(bool);
     void FUN_00671b90(bool);
@@ -7718,11 +7718,11 @@ void PackageEx::SetPackageType(int newType)
         case 5:
         case 6:
         case 13:
-            reinterpret_cast<PackageResetOps*>(this)->FUN_00672fc0(0);
+            reinterpret_cast<PackageResetOps*>(this)->SetPackageTarget(0);
             break;
         case 12:
-            reinterpret_cast<PackageResetOps*>(this)->FUN_00672fc0(0);
-            reinterpret_cast<PackageResetOps*>(this)->FUN_00671e10(0);
+            reinterpret_cast<PackageResetOps*>(this)->SetPackageTarget(0);
+            reinterpret_cast<PackageResetOps*>(this)->SetPackageSecondLocation(0);
             break;
         case 0:
         case 1:
@@ -7733,10 +7733,10 @@ void PackageEx::SetPackageType(int newType)
         case 11:
         case 14:
         case 16:
-            reinterpret_cast<PackageResetOps*>(this)->FUN_00671e10(0);
+            reinterpret_cast<PackageResetOps*>(this)->SetPackageSecondLocation(0);
             break;
         case 7:
-            reinterpret_cast<PackageResetOps*>(this)->FUN_00671d30(0);
+            reinterpret_cast<PackageResetOps*>(this)->SetPackageLocation(0);
             break;
         }
         switch (newType)
@@ -7779,7 +7779,7 @@ void PackageEx::SetPackageType(int newType)
                 f30 = reinterpret_cast<unsigned int>(new PackageTargetObj);
             break;
         case 16:
-            reinterpret_cast<PackageResetOps*>(this)->FUN_00671a20(true);
+            reinterpret_cast<PackageResetOps*>(this)->SetDrawWeaponFlag(true);
             if (!reinterpret_cast<PackageResetOps*>(this)->FUN_00671d10())
                 f30 = reinterpret_cast<unsigned int>(new PackageTargetObj);
             data = reinterpret_cast<TESPatrolPackageData*>(new FUN_0067caa0);
@@ -7820,7 +7820,7 @@ void PackageEx::SetPackageType(int newType)
             if (!reinterpret_cast<PackageResetOps*>(this)->FUN_00672dd0())
             {
                 FUN_0067f030* location = new FUN_0067f030;
-                reinterpret_cast<PackageResetOps*>(this)->FUN_00671e10(location);
+                reinterpret_cast<PackageResetOps*>(this)->SetPackageSecondLocation(location);
                 delete reinterpret_cast<FUN_00670b30*>(location);
             }
         }
@@ -7853,11 +7853,11 @@ struct PackageCopy : TESPackage
 {
     CopyItem item4c, item5c, item6c;
     void FUN_004851b0(TESPackage*);
-    void FUN_00671d30(int);
-    void FUN_00672fc0(int);
+    void SetPackageLocation(int);
+    void SetPackageTarget(int);
     void FUN_00673180(int);
     void FUN_0050f9a0(int);
-    void FUN_00673200(int);
+    void SetPackageConditions(int);
     void CallOrResetObject(int);
     void FUN_00673400(int);
     void SetPackageType(PTYPE);
@@ -7871,12 +7871,12 @@ void PackageCopy::CopyFromPackage(TESForm* form)
     if (!p)
         return;
     FUN_004851b0(p);
-    FUN_00671d30(((PackageAccessor*)p)->FUN_0055b980());
-    FUN_00672fc0(((PackageAccessor*)p)->FUN_00671d10());
+    SetPackageLocation(((PackageAccessor*)p)->FUN_0055b980());
+    SetPackageTarget(((PackageAccessor*)p)->FUN_00671d10());
     FUN_00673180(((PackageAccessor*)p)->FUN_0041d8a0());
     FUN_0050f9a0(((PackageAccessor*)p)->FUN_00441110());
     f22 = p->f22;
-    FUN_00673200(((PackageAccessor*)p)->FUN_0087eaa0());
+    SetPackageConditions(((PackageAccessor*)p)->FUN_0087eaa0());
     CallOrResetObject(((PackageAccessor*)p)->FUN_005f36f0());
     FUN_00673400(((PackageAccessor*)p)->FUN_006733e0());
     SetPackageType(p->GetPackType());
@@ -8123,11 +8123,11 @@ struct PkgLoad
     PkgEvent onBegin, onEnd, onChange;
     void CallWithThis(PkgFile*);
     void SetPackageType(int);
-    void FUN_00671d30(const PkgLocation&);
+    void SetPackageLocation(const PkgLocation&);
     int FUN_0041ca90();
-    void FUN_00671e10(const PkgLocation&);
+    void SetPackageSecondLocation(const PkgLocation&);
     void FUN_00673180(const PkgSchedule&);
-    void FUN_00672fc0(const PkgTarget&);
+    void SetPackageTarget(const PkgTarget&);
     void FUN_00673400(unsigned int);
     PkgConditions* FUN_0087eaa0();
     bool LoadFromFile(PkgFile*);
@@ -8169,7 +8169,7 @@ bool PkgLoad::LoadFromFile(PkgFile* file)
             if (file->FUN_00401680())
                 locationRecord2.FUN_0067eff0();
             PkgLocation location2(locationRecord2);
-            FUN_00671d30(location2);
+            SetPackageLocation(location2);
             break;
         }
         case 0x44444b50: {
@@ -8256,7 +8256,7 @@ bool PkgLoad::LoadFromFile(PkgFile* file)
             }
             default:
                 PkgLocation location(record);
-                FUN_00671e10(location);
+                SetPackageSecondLocation(location);
                 break;
             }
             break;
@@ -8295,7 +8295,7 @@ bool PkgLoad::LoadFromFile(PkgFile* file)
             if (file->FUN_00401680())
                 record.FUN_0067ff10();
             PkgTarget target(record);
-            FUN_00672fc0(target);
+            SetPackageTarget(target);
             break;
         }
         case 0x4d414e43: {
@@ -8856,7 +8856,7 @@ struct Package74
 {
     Location74* FUN_00672dd0();
     int FUN_0041ca90();
-    World74* FUN_00674fd0(Ref74* actor);
+    World74* GetSecondLocationWorld(Ref74* actor);
 };
 struct PlayerPackage74 : Package74
 {
@@ -8902,7 +8902,7 @@ struct PlayerPackage74 : Package74
     Ref74* target;
 };
 // @fnv 0x00674fd0
-World74* Package74::FUN_00674fd0(Ref74* actor)
+World74* Package74::GetSecondLocationWorld(Ref74* actor)
 {
     World74* world = 0;
     Location74* loc3 = FUN_00672dd0();
@@ -9437,7 +9437,7 @@ struct PHost
 {
     Loc* FUN_00672dd0();
     int GetPackType();
-    Vec FUN_00675360(Ref* actor);
+    Vec GetSecondLocationCoord(Ref* actor);
 };
 struct Special : PHost
 {
@@ -9485,7 +9485,7 @@ struct Special : PHost
 extern Ref* _g_thePlayer;
 
 // @fnv 0x00675360
-Vec PHost::FUN_00675360(Ref* actor)
+Vec PHost::GetSecondLocationCoord(Ref* actor)
 {
     Loc* location = FUN_00672dd0();
     Vec position = NiPoint3_ZERO;
@@ -9888,11 +9888,11 @@ struct PkgLocStub
 struct PkgLocShell : public TESPackage
 {
     PkgLocStub* FUN_00672dd0();
-    TESObjectREFR* FUN_006756a0(PkgActorStub* actor);
+    TESObjectREFR* GetSecondLocationReference(PkgActorStub* actor);
 };
 
 // @fnv 0x006756a0
-TESObjectREFR* PkgLocShell::FUN_006756a0(PkgActorStub* actor)
+TESObjectREFR* PkgLocShell::GetSecondLocationReference(PkgActorStub* actor)
 {
     PkgLocStub* loc = FUN_00672dd0();
     TESObjectREFR* result = 0;
@@ -10450,11 +10450,11 @@ struct P070Location
 struct P070Package
 {
     P070Location* FUN_00672dd0();
-    TESWorldSpace* FUN_00674fd0(P070Ref*);
+    TESWorldSpace* GetSecondLocationWorld(P070Ref*);
     TESObjectCELL* FUN_006751a0(P070Ref*);
-    int FUN_00675670();
-    NiPoint3 FUN_00675360(P070Ref*);
-    P070Ref* FUN_006756a0(P070Ref*);
+    int GetSecondLocationRadius();
+    NiPoint3 GetSecondLocationCoord(P070Ref*);
+    P070Ref* GetSecondLocationReference(P070Ref*);
     int FUN_0041ca90();
     bool IsWithinPackageLocation(P070Ref*, P070Ref*, bool, float, bool);
 };
@@ -10477,7 +10477,7 @@ bool P070Package::IsWithinPackageLocation(P070Ref* object, P070Ref* actor, bool 
         return true;
     if (loc3 && loc3->FUN_00678ca0() == 3 && !actor->IsReady())
         return true;
-    TESWorldSpace* aWorld = FUN_00674fd0(actor);
+    TESWorldSpace* aWorld = GetSecondLocationWorld(actor);
     TESObjectCELL* pCell9 = FUN_006751a0(actor);
     if (pCell9 && !pCell9->IsInterior())
         pCell9 = 0;
@@ -10502,7 +10502,7 @@ bool P070Package::IsWithinPackageLocation(P070Ref* object, P070Ref* actor, bool 
     bool locationResult3 = false;
     if (loc3 && loc3->LookupAndStore(actor, object, locationResult3))
         return locationResult3;
-    int radius2 = FUN_00675670();
+    int radius2 = GetSecondLocationRadius();
     if (radius2 > 0)
         useProcess = false;
     if (ignoreRadius)
@@ -10510,12 +10510,12 @@ bool P070Package::IsWithinPackageLocation(P070Ref* object, P070Ref* actor, bool 
     else if (customRadius != -1.0)
         radius2 = (int)customRadius;
     bool exact2 = false;
-    NiPoint3 position = FUN_00675360(actor);
+    NiPoint3 position = GetSecondLocationCoord(actor);
     P070Ref* target8 = 0;
     P070Ref* targetActor;
     float extra6;
     if (loc3)
-        target8 = FUN_006756a0(actor);
+        target8 = GetSecondLocationReference(actor);
     if (radius2 == 0 && loc3)
     {
         if (target8)
@@ -10570,7 +10570,7 @@ bool P070Package::IsWithinPackageLocation(P070Ref* object, P070Ref* actor, bool 
     bool result3 = false;
     if (FUN_0041ca90() == 5 && objectCell4)
     {
-        if (std::abs(object->GetPosition()->z - FUN_00675360(actor).z) > 100.0)
+        if (std::abs(object->GetPosition()->z - GetSecondLocationCoord(actor).z) > 100.0)
             return false;
     }
     bool excluded = false;
@@ -10962,11 +10962,11 @@ struct FUN_006797c0_vt
 
 struct FUN_006797c0_shell : public TESPackage
 {
-    void FUN_006797c0(FUN_006797c0_arg* a);
+    void AppendSaveLoadFormBuffer(FUN_006797c0_arg* a);
 };
 
 // @fnv 0x006797c0
-void FUN_006797c0_shell::FUN_006797c0(FUN_006797c0_arg* a)
+void FUN_006797c0_shell::AppendSaveLoadFormBuffer(FUN_006797c0_arg* a)
 {
     if (!g_dataHandler->FormIDExists(_ref_0084e3a0(this)))
     {
@@ -11336,10 +11336,10 @@ struct FUN_00672f20_cls
     int FUN_0041ca90();
     void* FUN_0055b980();
     PackageScheduleF20* FUN_00672dd0();
-    void* FUN_00672f20();
+    void* GetPackageSearchLocation();
 };
 // @fnv 0x00672f20
-void* FUN_00672f20_cls::FUN_00672f20()
+void* FUN_00672f20_cls::GetPackageSearchLocation()
 {
     PackageScheduleF20* pkSchedule;
     switch (FUN_0041ca90())
@@ -12816,7 +12816,7 @@ struct ListX
 extern ListX DAT_011e0e80;
 struct PackX
 {
-    void FUN_00679340();
+    void InitLoadGameTES();
     void FUN_00484d00(void* pvData, unsigned int uiSize);
     void FUN_009ecbe0();
 };
@@ -12829,7 +12829,7 @@ void PackX::FUN_009ecbe0()
     unsigned short usBlockSize_yfuyr;
     unsigned int uiBlockStart_u;
     unsigned short usCount_qu;
-    FUN_00679340();
+    InitLoadGameTES();
     usBlockSize_yfuyr = 0;
     uiBlockStart_u = 0;
     if (DAT_011de45c->FUN_00862110())
@@ -13630,10 +13630,10 @@ class Package679
     FUN_0067f030* location;
     FUN_0067ff70* target;
     void FUN_00484d00(void*, unsigned int);
-    void FUN_00679340();
+    void InitLoadGameTES();
 };
 // @fnv 0x00679340
-void Package679::FUN_00679340()
+void Package679::InitLoadGameTES()
 {
     unsigned char flags;
     unsigned short blockSize = 0;

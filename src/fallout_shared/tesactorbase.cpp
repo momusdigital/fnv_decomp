@@ -55,7 +55,7 @@ Reset3DMobIterator::Reset3DMobIterator()
 
 // If reset is set, runs the 3D mob iterator over this actor base twice and resets the player's process 3D when this is the player's base.
 // @fnv 0x005f20a0
-void TESActorBase::FUN_005f20a0(bool reset)
+void TESActorBase::Reset3DForLoadedActors(bool reset)
 {
     if (!reset)
         return;
@@ -122,11 +122,11 @@ int FUN_005f0b00_shell::FUN_005f0b00()
 
 struct FUN_005f0b50_shell : public TESActorBase
 {
-    bool FUN_005f0b50();
+    bool DoesSwim();
 };
 
 // @fnv 0x005f0b50
-bool FUN_005f0b50_shell::FUN_005f0b50()
+bool FUN_005f0b50_shell::DoesSwim()
 {
     if (GetFormType() == 0x2b)
     {
@@ -164,7 +164,7 @@ struct BGSBodyPartData
 };
 
 // @fnv 0x005f0f80
-BGSBodyPartData* __fastcall FUN_005f0f80(TESActorBase* apActorBase)
+BGSBodyPartData* __fastcall GetBodyPartData(TESActorBase* apActorBase)
 {
     if (BGSBodyPartData::ms_pBodyPartDataInstance && apActorBase == g_thePlayer->GetActorBase())
         return BGSBodyPartData::ms_pBodyPartDataInstance;
@@ -182,7 +182,7 @@ void FUN_005f0b30_shell::FUN_005f0b30(int aiValue)
     ((Reset3DMobIterator*)((char*)this + 0xb0))->FUN_006ecd40(aiValue);
 }
 
-bool __fastcall FUN_005f0b50(TESActorBase*);
+bool __fastcall DoesSwim(TESActorBase*);
 
 struct FUN_005f0ba0_shell : TESActorBase
 {
@@ -192,7 +192,7 @@ struct FUN_005f0ba0_shell : TESActorBase
 // @fnv 0x005f0ba0
 bool FUN_005f0ba0_shell::FUN_005f0ba0()
 {
-    if (!FUN_005f0b50(this))
+    if (!DoesSwim(this))
         return false;
     if (GetFormType() == 0x2b)
     {
@@ -292,10 +292,10 @@ struct FUN_0047f940_holder
 };
 struct FUN_005f1f30_shell : public BGSLoadFormBuffer
 {
-    void FUN_005f1f30(unsigned int);
+    void AppendSaveLoadFormBuffer(unsigned int);
 };
 // @fnv 0x005f1f30
-void FUN_005f1f30_shell::FUN_005f1f30(unsigned int buffer)
+void FUN_005f1f30_shell::AppendSaveLoadFormBuffer(unsigned int buffer)
 {
     ((FUN_00484d60_holder*)this)->SaveIfChanged(buffer);
     ((FUN_0047ea30_holder*)((char*)this + 0x30))->FUN_0047ea30(buffer);
@@ -313,11 +313,11 @@ struct S005f0bf0
 {
     char _pad[0x30];
     TESActorBaseData abd;
-    bool FUN_005f0bf0();
+    bool DoesWalk();
 };
 // Returns true unless the form type is 0x2B and neither the 0x40 nor the 1 flag is set in abd.
 // @fnv 0x005f0bf0
-bool S005f0bf0::FUN_005f0bf0()
+bool S005f0bf0::DoesWalk()
 {
     if (((TESForm*)this)->GetFormType() == 0x2B)
     {

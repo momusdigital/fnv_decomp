@@ -163,7 +163,7 @@ bool TESWaterForm::Load(TESFile* file)
                 Data.m_fWaterParameter4 = 1.0f;
                 Data.m_fWaterParameter5 = 0.5f;
                 Data.m_fWaterParameter6 = 0.25f;
-                FUN_0047ff50(0);
+                SetAttackDamage(0);
             }
             break;
         }
@@ -257,11 +257,11 @@ struct FUN_0057fef0_shell
 {
     char m_auiShapeKeys[0x74];
     BSStr m_str;
-    void FUN_0057fef0(const char* name);
+    void SetMaterialName(const char* name);
 };
 
 // @fnv 0x0057fef0
-void FUN_0057fef0_shell::FUN_0057fef0(const char* name)
+void FUN_0057fef0_shell::SetMaterialName(const char* name)
 {
     m_str.Set(name, 0);
 }
@@ -461,10 +461,10 @@ struct FUN_005806e0_s
     char pad[0x80];
     void* m_pWaterForm;
     void SaveIfChanged(FUN_00865df0_buf*);
-    void FUN_005806e0(FUN_00865df0_buf* apSaveGameBuffer);
+    void AppendSaveLoadFormBuffer(FUN_00865df0_buf* apSaveGameBuffer);
 };
 // @fnv 0x005806e0
-void FUN_005806e0_s::FUN_005806e0(FUN_00865df0_buf* apSaveGameBuffer)
+void FUN_005806e0_s::AppendSaveLoadFormBuffer(FUN_00865df0_buf* apSaveGameBuffer)
 {
     SaveIfChanged(apSaveGameBuffer);
     if (apSaveGameBuffer->GetChangeFlags(0x80000000))
@@ -540,11 +540,11 @@ struct Holder
 {
     unsigned char _pad[0x74];
     Flt m_kHandle;
-    const char* FUN_0057fda0();
+    const char* GetMaterialName();
 };
 // Returns the stored string pointer if the field is nonzero, otherwise an empty string literal.
 // @fnv 0x0057fda0
-const char* Holder::FUN_0057fda0()
+const char* Holder::GetMaterialName()
 {
     return m_kHandle ? (const char*)(unsigned int)m_kHandle : "";
 }
@@ -605,7 +605,7 @@ void FUN_0057fbf0_shell::SaveWaterForm()
                  ((TESModel*)((char*)this + 0x64))->GetModelLength() + 1);
     FUN_004858f0(0x4d414e41, m_ucOpacity);
     FUN_004858f0(0x4d414e46, cFlags);
-    FUN_004856f0(0x4d414e4d, (void*)((Holder*)this)->FUN_0057fda0(), ((S7010*)((char*)this + 0x74))->Length() + 1);
+    FUN_004856f0(0x4d414e4d, (void*)((Holder*)this)->GetMaterialName(), ((S7010*)((char*)this + 0x74))->Length() + 1);
     if (m_pWaterSound)
     {
         unsigned int itempint = m_pWaterSound->GetFormID();
@@ -685,7 +685,7 @@ bool FUN_0057ff10_shell::FUN_0057ff10(TESForm* apCompare)
     if (((TESPackage*)this)->GetRefCount() != ((TESPackage*)pcomp)->GetRefCount())
         return true;
 
-    if (((Holder*)this)->FUN_0057fda0() != ((Holder*)pcomp)->FUN_0057fda0())
+    if (((Holder*)this)->GetMaterialName() != ((Holder*)pcomp)->GetMaterialName())
         return true;
 
     if (((FUN_0057fed0*)this)->GetMember() != ((FUN_0057fed0*)pcomp)->GetMember())
@@ -723,7 +723,7 @@ struct FUN_00589f50_shell
 
 struct FUN_00580130_shell : public TESWaterForm
 {
-    BGSPlaceableWater* FUN_00580130();
+    BGSPlaceableWater* GetPlaceableAutoWater();
 };
 
 void* __cdecl operator new(unsigned int);
@@ -749,7 +749,7 @@ void FUN_00589f50_shell::SetSound(void*)
 
 // Returns the BGSPlaceableWater stored at offset 0x180, creating and initialising it with editor ID "PlaceableAutoWater" if it is null.
 // @fnv 0x00580130
-BGSPlaceableWater* FUN_00580130_shell::FUN_00580130()
+BGSPlaceableWater* FUN_00580130_shell::GetPlaceableAutoWater()
 {
     char ptempname[260];
 
@@ -820,14 +820,14 @@ struct FUN_00580330_shell
     unsigned char m_auiShapeKeys[0x184];
     BGSPlaceableWater* m_pPlaceableWater;
 
-    BGSPlaceableWater* FUN_00580330();
+    BGSPlaceableWater* GetPlaceableLODWater();
 };
 
 void* __cdecl operator new(unsigned int);
 int __cdecl _sprintf_s(char*, unsigned int, const char*, ...);
 
 // @fnv 0x00580330
-BGSPlaceableWater* FUN_00580330_shell::FUN_00580330()
+BGSPlaceableWater* FUN_00580330_shell::GetPlaceableLODWater()
 {
     char ptempname[260];
 
@@ -1210,5 +1210,5 @@ void WaterEffectSetting::FUN_0057fde0(TESForm* apCopy)
     memcpy(reinterpret_cast<unsigned char*>(this) + 0x148, reinterpret_cast<unsigned char*>(pcopy) + 0x148, 0xc);
     this->m_kNoiseMapTexture.CopyFromBase(
         reinterpret_cast<BaseFormComponent*>(reinterpret_cast<unsigned char*>(pcopy) + 0x64));
-    reinterpret_cast<FUN_0057fef0_shell*>(this)->FUN_0057fef0(reinterpret_cast<Holder*>(pcopy)->FUN_0057fda0());
+    reinterpret_cast<FUN_0057fef0_shell*>(this)->SetMaterialName(reinterpret_cast<Holder*>(pcopy)->GetMaterialName());
 }

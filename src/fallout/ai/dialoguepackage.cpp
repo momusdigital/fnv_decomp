@@ -173,7 +173,7 @@ struct DialogueResponse;
 
 struct FUN_006797c0_shell
 {
-    void FUN_006797c0(void* buf);
+    void AppendSaveLoadFormBuffer(void* buf);
 };
 
 struct BGSSaveFormBuffer
@@ -203,7 +203,7 @@ void DialoguePackage::SaveGame(BGSSaveFormBuffer* apSaveGameBuffer)
 {
     bool bhasConversation;
 
-    ((FUN_006797c0_shell*)this)->FUN_006797c0(apSaveGameBuffer);
+    ((FUN_006797c0_shell*)this)->AppendSaveLoadFormBuffer(apSaveGameBuffer);
     apSaveGameBuffer->SerializeFormData((*(MobileObject**)((char*)this + 0x94)), 0);
     apSaveGameBuffer->SerializeFormData((*(MobileObject**)((char*)this + 0xb0)), 0);
     apSaveGameBuffer->SerializeFormData((*(MobileObject**)((char*)this + 0xb4)), 0);
@@ -1515,7 +1515,7 @@ struct This
     int fac;
     int fb0;
     int fb4;
-    void __thiscall FUN_00679340();
+    void __thiscall InitLoadGameTES();
     void __thiscall FUN_00484d00(void* a, unsigned int b);
     void __thiscall FUN_00484d40(unsigned int* a, int b);
     void __thiscall LoadSaveData();
@@ -1523,7 +1523,7 @@ struct This
 // @fnv 0x009efa50
 void This::LoadSaveData()
 {
-    FUN_00679340();
+    InitLoadGameTES();
     {
         unsigned short w18 = 0;
         int flag = 0;

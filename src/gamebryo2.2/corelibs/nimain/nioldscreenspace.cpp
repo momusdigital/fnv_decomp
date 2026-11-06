@@ -335,12 +335,12 @@ struct BaseCam
 };
 struct Cam : BaseCam
 {
-    void __thiscall FUN_00a91890(StrArr*);
+    void __thiscall GetViewerStrings(StrArr*);
 };
 char* __cdecl _FUN_00a7d330(const char*);
 // Calls the base implementation, then appends the string returned by _FUN_00a7d330 to pkStrings, growing it if needed.
 // @fnv 0x00a91890
-void __thiscall Cam::FUN_00a91890(StrArr* pkStrings)
+void __thiscall Cam::GetViewerStrings(StrArr* pkStrings)
 {
     FUN_00a71920(pkStrings);
     char* tmp = _FUN_00a7d330(*(const char**)&g_011f5e6c);
@@ -1613,11 +1613,11 @@ class NiPSysOwnerA90
 {
   public:
     void CopyMemberData(NiPSysBaseA90* pkDest, void* pvProcess);
-    NiPSysBaseA90* FUN_00a90070(void* pvProcess);
+    NiPSysBaseA90* CreateClone(void* pvProcess);
 };
 
 // @fnv 0x00a90070
-NiPSysBaseA90* NiPSysOwnerA90::FUN_00a90070(void* pvProcess)
+NiPSysBaseA90* NiPSysOwnerA90::CreateClone(void* pvProcess)
 {
     NiPSysDerivedA90* pkClone = new NiPSysDerivedA90;
     CopyMemberData(pkClone, pvProcess);

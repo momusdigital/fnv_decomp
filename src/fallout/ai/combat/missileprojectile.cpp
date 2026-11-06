@@ -53,12 +53,12 @@ struct BeamProjectile
 
 struct MissileProjectile : BeamProjectile
 {
-    void FUN_009baad0(BGSLoadFormBuffer*);
+    void LoadGame(BGSLoadFormBuffer*);
 };
 
 // Calls the base BeamProjectile load routine, then reads 4 bytes from the load buffer into this+0x150.
 // @fnv 0x009baad0
-void MissileProjectile::FUN_009baad0(BGSLoadFormBuffer* apLoadGameBuffer)
+void MissileProjectile::LoadGame(BGSLoadFormBuffer* apLoadGameBuffer)
 {
     BeamProjectile::LoadProjectile(apLoadGameBuffer);
     apLoadGameBuffer->ReadTypedData((void*)((char*)this + 0x150), 4);
@@ -72,14 +72,14 @@ struct Projectile
 };
 struct MissileProjectile : Projectile
 {
-    void FUN_009bab70(BGSLoadFormBuffer* apLoadGameBuffer);
+    void Revert(BGSLoadFormBuffer* apLoadGameBuffer);
 };
 
 void Projectile::FUN_009c58e0(BGSLoadFormBuffer* apLoadGameBuffer)
 {}
 
 // @fnv 0x009bab70
-void MissileProjectile::FUN_009bab70(BGSLoadFormBuffer* apLoadGameBuffer)
+void MissileProjectile::Revert(BGSLoadFormBuffer* apLoadGameBuffer)
 {
     FUN_009c58e0(apLoadGameBuffer);
     ((int*)this)[0x150 / 4] = 0;
@@ -314,10 +314,10 @@ struct BGSSaveFormBuffer
 void __cdecl SaveProjectile(BGSLoadFormBuffer*);
 struct FUN_009baaa0_shell
 {
-    void FUN_009baaa0(BGSLoadFormBuffer* buffer);
+    void AppendSaveLoadFormBuffer(BGSLoadFormBuffer* buffer);
 };
 // @fnv 0x009baaa0
-void FUN_009baaa0_shell::FUN_009baaa0(BGSLoadFormBuffer* buffer)
+void FUN_009baaa0_shell::AppendSaveLoadFormBuffer(BGSLoadFormBuffer* buffer)
 {
     reinterpret_cast<void(__thiscall*)(void*, BGSLoadFormBuffer*)>(SaveProjectile)(this, buffer);
     reinterpret_cast<BGSSaveFormBuffer*>(buffer)->SaveData(reinterpret_cast<char*>(this) + 0x150, 4, 0);
@@ -325,7 +325,7 @@ void FUN_009baaa0_shell::FUN_009baaa0(BGSLoadFormBuffer* buffer)
 
 struct S5870_Holder
 {
-    void FUN_009c5870(BGSLoadFormBuffer*);
+    void FinishLoadGame(BGSLoadFormBuffer*);
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -448,11 +448,11 @@ struct S5870_Holder
     void FUN_009babe0();
     void LoadForm(BGSLoadFormBuffer*);
 };
-// Loads from the buffer via FUN_009c5870, then either calls FUN_009babe0 or sets b154 to 1 depending on v116().
+// Loads from the buffer via FinishLoadGame, then either calls FUN_009babe0 or sets b154 to 1 depending on v116().
 // @fnv 0x009bab20
 void S5870_Holder::LoadForm(BGSLoadFormBuffer* apLoadGameBuffer)
 {
-    FUN_009c5870(apLoadGameBuffer);
+    FinishLoadGame(apLoadGameBuffer);
     if (v116())
         FUN_009babe0();
     else
@@ -1188,7 +1188,7 @@ struct HitList
 };
 struct Collider890
 {
-    int FUN_0043b540();
+    int getCollisionFilterInfo();
 };
 struct CF845
 {
@@ -1294,7 +1294,7 @@ struct Target890
 bool Target890::FUN_009b8900(int aiArg1, int aiArg2, int aiArg3, Collider890* collider, int aiArg5, int aiArg6)
 {
     bool p = hits.FUN_008256d0() || (*hits.FUN_006815c0())->flag;
-    int h = collider ? CF845(collider->FUN_0043b540()).FUN_0043b4d0() : 0;
+    int h = collider ? CF845(collider->getCollisionFilterInfo()).FUN_0043b4d0() : 0;
     if (p && CanProjectileHit(aiArg1, collider, this, GetActorBase()) &&
         (kind != 3 || h == 1 || h == 2 || h == 9 || h == 17 || h == 13 || h == 20) &&
         ProcessHit(aiArg1, aiArg2, aiArg3, collider, aiArg5, aiArg6))
@@ -1797,7 +1797,7 @@ struct Vector
     float DotProduct(const Vector&);
 };
 Vector FUN_004a3760(float, const Vector&);
-void FUN_00525340(Vector&);
+void UnitizeVector(Vector&);
 double FUN_00408820(float);
 double SignOfFloat(float);
 extern const float DAT_01012054, DAT_010162c0;
@@ -2113,8 +2113,8 @@ bool Impact::HandleContactResponse()
             Vector direction3;
             direction3 = FUN_004a3760(DAT_01012054, FUN_009b7010());
             direction3 = direction3;
-            FUN_00525340(direction3);
-            FUN_00525340(contact->normal);
+            UnitizeVector(direction3);
+            UnitizeVector(contact->normal);
             float dot = contact->normal.DotProduct(direction3);
             Vector correctionTmp =
                 FUN_004a3760(DAT_010162c0, FUN_004a3760(dot, contact->normal).FUN_00439ef0(direction3));
@@ -2128,7 +2128,7 @@ bool Impact::HandleContactResponse()
             if (FUN_00408820(local.y) > FUN_00408820(local.z))
                 local.z = FUN_00408820(local.y) * SignOfFloat(local.z);
             local.y = 0.0f;
-            FUN_00525340(local);
+            UnitizeVector(local);
             Vector spin2;
             spin2.FUN_00416870(-local.z, 0.0f, -local.x);
             kAngular = node7->FUN_00461130()->FUN_004b4500(spin2);

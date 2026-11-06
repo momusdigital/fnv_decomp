@@ -457,7 +457,7 @@ void __cdecl FUN_00e8d300()
 __declspec(noreturn) void __cdecl FUN_00e805f0();
 
 // @fnv 0x00e8d310
-void __cdecl FUN_00e8d310()
+void __cdecl PostProcessPipeline()
 {
     FUN_00e805f0();
 }

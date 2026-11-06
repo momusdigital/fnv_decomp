@@ -58,7 +58,7 @@ struct VCall_00a0e470 {
     virtual int f4(int, int, int, const char*, char*, int);
 };
 // @fnv 0x00a0e470
-int __cdecl FUN_00a0e470(DebugText* apDebugText, int aiX, const char* apFormatString, ...)
+int __cdecl PrintX(DebugText* apDebugText, int aiX, const char* apFormatString, ...)
 {
     int iret;
     {
@@ -97,7 +97,7 @@ struct FUN_00a0e580_VTab {
     virtual int __thiscall m6(int, int, const char*, char*, int);
 };
 // @fnv 0x00a0e580
-int __cdecl FUN_00a0e580(FUN_00a0e580_VTab* pThis, int aeLocation, int aeJustify, const char* apFormatString, ...)
+int __cdecl PrintLine(FUN_00a0e580_VTab* pThis, int aeLocation, int aeJustify, const char* apFormatString, ...)
 {
     char* args;
     int iret;
@@ -116,7 +116,7 @@ struct FakeCall {
 };
 // Forwards a format string and its varargs to the object's virtual f4 with x, 0, 1 and a color, returning its result.
 // @fnv 0x00a0e690
-int FUN_00a0e690(DebugText* aObj, int aiX, const RgbaColor& arColor, const char* apFormatString, ...)
+int PrintXC(DebugText* aObj, int aiX, const RgbaColor& arColor, const char* apFormatString, ...)
 {
     char* args;
     int iret;
@@ -161,7 +161,7 @@ struct Thiss {
 };
 // Forwards a format string and its va_list to the virtual vf18 debug-text method and returns its result.
 // @fnv 0x00a0e710
-int FUN_00a0e710(Thiss* pThis, const RgbaColor* apTextColor, DEBUGTEXT_LOCATION aeLocation, DEBUGTEXT_JUSTIFY aeJustify, const char* apFormatString, ...)
+int PrintLineC(Thiss* pThis, const RgbaColor* apTextColor, DEBUGTEXT_LOCATION aeLocation, DEBUGTEXT_JUSTIFY aeJustify, const char* apFormatString, ...)
 {
     va_list args;
     int iret;

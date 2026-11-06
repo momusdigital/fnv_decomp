@@ -107,11 +107,11 @@ struct S_00a9af40 : NiExtraData
         unkC = false;
     }
     void FUN_00a7b330(S_00a9af40* pkClone, CloningProcess* pkCloning);
-    S_00a9af40* FUN_00a9af40(CloningProcess* pkCloning);
+    S_00a9af40* CreateClone(CloningProcess* pkCloning);
 };
 
 // @fnv 0x00a9af40
-S_00a9af40* S_00a9af40::FUN_00a9af40(CloningProcess* pkCloning)
+S_00a9af40* S_00a9af40::CreateClone(CloningProcess* pkCloning)
 {
     S_00a9af40* pkClone = new S_00a9af40;
     FUN_00a7b330(pkClone, pkCloning);
@@ -487,11 +487,11 @@ struct FnVNode
     int unk08;
     unsigned char unk0c;
     void helper_b2c0(FnVArg* a);
-    void FUN_00a9b040(FnVArg* s);
+    void SaveBinary(FnVArg* s);
 };
 
 // @fnv 0x00a9b040
-void FnVNode::FUN_00a9b040(FnVArg* s)
+void FnVNode::SaveBinary(FnVArg* s)
 {
     this->helper_b2c0(s);
     unsigned char ucValue = this->unk0c;

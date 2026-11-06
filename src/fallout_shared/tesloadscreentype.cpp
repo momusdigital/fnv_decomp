@@ -84,7 +84,7 @@ struct FUN_00485680
 };
 struct FUN_00485e00_shell
 {
-    void __thiscall FUN_00485e20(int, int);
+    void __thiscall __SaveData(int, int);
 };
 struct FUN_005a7630_shell
 {
@@ -92,14 +92,14 @@ struct FUN_005a7630_shell
     LoadScreenTypeData _data;
     void __thiscall SwapEndianAndProcess();
 };
-// Calls M, conditionally byte-swaps _data before and after FUN_00485e20, then calls M again.
+// Calls M, conditionally byte-swaps _data before and after __SaveData, then calls M again.
 // @fnv 0x005a7630
 void __thiscall FUN_005a7630_shell::SwapEndianAndProcess()
 {
     ((FUN_004855a0*)this)->M();
     if (FUN_00401500())
         _data.Endian();
-    ((FUN_00485e00_shell*)this)->FUN_00485e20((int)&_data, 0x58);
+    ((FUN_00485e00_shell*)this)->__SaveData((int)&_data, 0x58);
     if (FUN_00401500())
         _data.Endian();
     ((FUN_00485680*)this)->M();

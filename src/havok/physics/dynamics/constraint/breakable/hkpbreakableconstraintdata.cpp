@@ -446,12 +446,12 @@ __forceinline void store3(const hkVector4& v, hkReal* p)
 
 struct S00d4e0f0_Object : hkpBreakableConstraintData
 {
-    void FUN_00d4e0f0(const hkpConstraintQueryInD4E0& in, int out);
+    void buildJacobian(const hkpConstraintQueryInD4E0& in, int out);
 };
 
 // If the runtime flag is clear, saves body velocities and calls FUN_00d72190 or FUN_00d6f460; else calls FUN_00d4de30 and optionally removes the constraint.
 // @fnv 0x00d4e0f0
-void S00d4e0f0_Object::FUN_00d4e0f0(const hkpConstraintQueryInD4E0& in, int out)
+void S00d4e0f0_Object::buildJacobian(const hkpConstraintQueryInD4E0& in, int out)
 {
     RuntimeD4E0* runtime = reinterpret_cast<RuntimeD4E0*>(in.m_pByteBuffer + m_usRuntimeOffset);
 

@@ -197,10 +197,10 @@ struct S00d369a0_ListAgent
     int unk00, unk04;
     void* m08;
     int unk0C, track10;
-    void FUN_00d369a0(S00d369a0_Body* a1, S00d369a0_Body* a2, S00d369a0_Config* a3, int a4);
+    void processCollision(S00d369a0_Body* a1, S00d369a0_Body* a2, S00d369a0_Config* a3, int a4);
 };
 // @fnv 0x00d369a0
-void S00d369a0_ListAgent::FUN_00d369a0(S00d369a0_Body* a1, S00d369a0_Body* a2, S00d369a0_Config* a3, int a4)
+void S00d369a0_ListAgent::processCollision(S00d369a0_Body* a1, S00d369a0_Body* a2, S00d369a0_Config* a3, int a4)
 {
     S00d369a0_ProcessInput input;
     S00d369a0_Bits* bits = a2->m00;

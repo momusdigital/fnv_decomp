@@ -146,7 +146,7 @@ struct FUN_00a3d050_shell
     unsigned int m_uiReserved;
     unsigned int m_uiNumKeys;
 
-    void FUN_00a3d050(StrArr* strings);
+    void GetViewerStrings(StrArr* strings);
 };
 
 extern GlobalObjectO2_00a7b610* g_011f3748;
@@ -156,7 +156,7 @@ char* __cdecl _FUN_00a7d330(GlobalObjectO2_00a7b610* object);
 char* __cdecl FUN_00a7d510(char const* name, unsigned int value);
 
 // @fnv 0x00a3d050
-void FUN_00a3d050_shell::FUN_00a3d050(StrArr* strings)
+void FUN_00a3d050_shell::GetViewerStrings(StrArr* strings)
 {
     AppendCameraPathEntries(strings);
 
@@ -282,12 +282,12 @@ extern FUN_00a3cd40_KeyCmp DAT_011f3ae0[];
 struct FUN_00a3cd40_cls : public NiFloatData
 {
     bool IsSameAs(NiFloatData* other);
-    bool FUN_00a3cd40(NiFloatData* other);
+    bool IsEqual(NiFloatData* other);
 };
 
 // Compares this NiFloatData with another by checking key count, request type, key data size, and each key via a type-specific comparator.
 // @fnv 0x00a3cd40
-bool FUN_00a3cd40_cls::FUN_00a3cd40(NiFloatData* other)
+bool FUN_00a3cd40_cls::IsEqual(NiFloatData* other)
 {
     if (!IsSameAs(other))
     {

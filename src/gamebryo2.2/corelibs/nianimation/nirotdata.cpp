@@ -884,12 +884,12 @@ struct RotDataLink_cls : public NiObject2
     int m_eRequestType;
     unsigned char m_ucKeyDataSize;
 
-    void FUN_00a48440(NiStream2& kStream);
+    void SaveBinary(NiStream2& kStream);
 };
 
 // Loads the object header, key count, request type, and key array from the stream using the key link function table.
 // @fnv 0x00a48440
-void RotDataLink_cls::FUN_00a48440(NiStream2& kStream)
+void RotDataLink_cls::SaveBinary(NiStream2& kStream)
 {
     NiObject2::FUN_00a89af0(kStream);
     NiStreamLoadBinary2(kStream, m_uiNumKeys);

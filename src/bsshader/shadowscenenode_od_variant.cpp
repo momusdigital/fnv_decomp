@@ -129,7 +129,7 @@ struct FUN_00a712f0
     static void operator delete(void*, unsigned int);
     FUN_00a712f0();
     void FUN_00712e60(const Rect2180&);
-    void FUN_00507700(float);
+    void SetMaxFarNearRatio(float);
     void FUN_00a6faf0(const Frustum2180&);
     void SetLookAt(const Point2180&, const Point2180&);
     void FUN_00733fd0(float);
@@ -149,7 +149,7 @@ FUN_00a712f0* Target2180::FUN_007c2180()
     Frustum2180 frustum5(false);
     frustum5.farz = FUN_0045c670()->get();
     frustum5.nearz = *((Setting2180*)&DAT_01203144)->FUN_00403e20();
-    camera5->FUN_00507700(frustum5.farz / frustum5.nearz);
+    camera5->SetMaxFarNearRatio(frustum5.farz / frustum5.nearz);
     float ratio3 = (double)(*(unsigned char*)&DAT_011f9426 ? *(int*)&DAT_011f9434 : FUN_004dc200()) / FUN_004dc1f0();
     float nearz = *(float*)&DAT_01016264;
     float angle = *((Setting2180*)&DAT_01203150)->FUN_00403e20() * *(double*)&DAT_01023128 * *(double*)&DAT_01070c80;

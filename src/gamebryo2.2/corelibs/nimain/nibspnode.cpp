@@ -419,10 +419,10 @@ struct FourInts
 struct NodeOwner
 {
     void FUN_00a5dc80(void*, void*);
-    void* FUN_00a9ae00(void* arg);
+    void* CreateClone(void* arg);
 };
 // @fnv 0x00a9ae00
-void* NodeOwner::FUN_00a9ae00(void* arg)
+void* NodeOwner::CreateClone(void* arg)
 {
     char* memory = (char*)FUN_00aa13e0(0xcc);
     char* result;

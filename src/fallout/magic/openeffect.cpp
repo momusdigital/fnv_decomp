@@ -75,11 +75,11 @@ struct S_00826190_Effect
 {
     MagicTarget* FUN_0059bb30();
     float GetFloatAtOffset1C();
-    void FUN_00826190();
+    void Start();
 };
 
 // @fnv 0x00826190
-void S_00826190_Effect::FUN_00826190()
+void S_00826190_Effect::Start()
 {
     NonActorMagicTarget* target = dynamic_cast<NonActorMagicTarget*>(FUN_0059bb30());
     if (!target || !target->GetRef())

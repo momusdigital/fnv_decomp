@@ -48,7 +48,7 @@ struct D481D0RefVariant
     const void* GetVariantValue() const;
 };
 // @fnv 0x00e2df20
-const void* __fastcall FUN_00e2df20(char* self, int)
+const void* __fastcall getClass(char* self, int)
 {
     return reinterpret_cast<D481D0RefVariant*>(self + 8)->GetVariantValue();
 }
@@ -63,11 +63,11 @@ struct D481D0RefVariant
 
 struct FUN_00e2df30_class
 {
-    void FUN_00e2df30(D481D0ReferencedObject* obj, D481D0Class const* cls);
+    void setObject(D481D0ReferencedObject* obj, D481D0Class const* cls);
 };
 
 // @fnv 0x00e2df30
-void FUN_00e2df30_class::FUN_00e2df30(D481D0ReferencedObject* obj, D481D0Class const* cls)
+void FUN_00e2df30_class::setObject(D481D0ReferencedObject* obj, D481D0Class const* cls)
 {
     ((D481D0RefVariant*)((char*)this + 8))->set(obj, cls);
 }
@@ -244,11 +244,11 @@ struct FUN_00e2df50_Obj
     int unk04;
     int unk08;
 
-    int FUN_00e2df50();
+    int getObject();
 };
 
 // @fnv 0x00e2df50
-int FUN_00e2df50_Obj::FUN_00e2df50()
+int FUN_00e2df50_Obj::getObject()
 {
     return unk08;
 }
@@ -825,7 +825,7 @@ struct S00e2e3f0_Obj
     int unk0c;
     S00e2e3f0_Pair* m_aiIndexedValues;
     int m_uiItemCount;
-    void FUN_00e2e3f0();
+    void clearExternalLinks();
 };
 
 extern "C" __declspec(noinline) void __fastcall FUN_00cb0c00(void* self)
@@ -834,7 +834,7 @@ extern "C" __declspec(noinline) void __fastcall FUN_00cb0c00(void* self)
 }
 
 // @fnv 0x00e2e3f0
-void S00e2e3f0_Obj::FUN_00e2e3f0()
+void S00e2e3f0_Obj::clearExternalLinks()
 {
     S00e2e3f0_Pair* p = m_aiIndexedValues;
     int n = m_uiItemCount;
@@ -877,11 +877,11 @@ struct Container839
     int unk00, unk04, unk08, unk0C;
     Pair839* pairs;
     int size, capacity;
-    void FUN_00e2e430(const char*);
+    void removeExternalLink(const char*);
 };
 // Finds the pair whose name matches name, destroys its strings, decrements size, and copies the last pair into its slot when needed.
 // @fnv 0x00e2e430
-void Container839::FUN_00e2e430(const char* name)
+void Container839::removeExternalLink(const char* name)
 {
     for (int i = 0; i < size; ++i)
     {
@@ -1241,12 +1241,12 @@ struct Container_e2ef
     virtual Resource_e2ef* findResource(const char* name, int flags);
     int unk04, unk08, unk0C, unk10, unk14, unk18;
     hkArray_e2ef<hkRefPtr_e2ef<Resource_e2ef> > m_kResources;
-    Resource_e2ef* FUN_00e2efe0(const char* name);
+    Resource_e2ef* createContainer(const char* name);
 };
 
 // Looks up a resource by name, and if missing, allocates one via FUN_00e2eb70, adds it to m_kResources, sets m_parent, and returns it.
 // @fnv 0x00e2efe0
-Resource_e2ef* Container_e2ef::FUN_00e2efe0(const char* name)
+Resource_e2ef* Container_e2ef::createContainer(const char* name)
 {
     Resource_e2ef* found = findResource(name, 0);
     if (found)
@@ -1513,12 +1513,12 @@ struct ExternalLinkHandle : hkResourceHandle
     void* object;
     hkStringPtr name;
     hkArray<ExternalLinkPair> references;
-    void FUN_00e2e040(const char* memberName, const char* externalId);
+    void addExternalLink(const char* memberName, const char* externalId);
 };
 
 // Appends a new ExternalLinkPair with the given memberName and externalId to the references array, growing capacity if needed.
 // @fnv 0x00e2e040
-void ExternalLinkHandle::FUN_00e2e040(const char* memberName, const char* externalId)
+void ExternalLinkHandle::addExternalLink(const char* memberName, const char* externalId)
 {
     hkArray<ExternalLinkPair>* links = &references;
     MemoryRouter* router = FUN_00c85750();
@@ -1561,11 +1561,11 @@ struct FUN_00e2ed00_class
     int unk08;
     int unk0c;
     ArrQ_e2ed00 unk10;
-    ObjQ_e2e9e0* FUN_00e2ed00(void* p0, void* p1, void* p2);
+    ObjQ_e2e9e0* createResource(void* p0, void* p1, void* p2);
 };
 // Allocates an ObjQ_e2e9e0, initializes it with p0, p1, p2, and appends it to the ArrQ_e2ed00 array at unk10.
 // @fnv 0x00e2ed00
-ObjQ_e2e9e0* FUN_00e2ed00_class::FUN_00e2ed00(void* p0, void* apArg1, void* apArg2)
+ObjQ_e2e9e0* FUN_00e2ed00_class::createResource(void* p0, void* apArg1, void* apArg2)
 {
     ObjQ_e2e9e0* obj = (ObjQ_e2e9e0*)Router_e2ef::FUN_00c85750().heap().AllocateMemoryBlock(0x1c);
     obj->m_usMemSizeAndFlags = 0x1c;

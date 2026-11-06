@@ -99,7 +99,7 @@ void BGSProjectile::InitItem()
         reinterpret_cast<InterfaceManager*>(this)->FUN_00500a20(
             reinterpret_cast<Tile*>(dynamic_cast<TESObjectWEAP*>(TESForm::GetFormByID(formID))));
     }
-    if (!FUN_004fd360())
+    if (!GetHasExplosion())
         reinterpret_cast<EffectSetting*>(this)->SetBoltSound(0);
     SetInitializationState(true);
 }
@@ -224,7 +224,7 @@ struct BGSProjectile_GetFlag_Helper : public BGSProjectile
 };
 
 // @fnv 0x004fd360
-bool BGSProjectile::FUN_004fd360()
+bool BGSProjectile::GetHasExplosion()
 {
     return ((const BGSProjectile_GetFlag_Helper*)this)->GetFlag(2);
 }

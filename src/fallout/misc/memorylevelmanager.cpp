@@ -161,7 +161,7 @@ class NiRenderer
 class IOManager;
 
 NiRenderer* __cdecl FUN_0043c4b0(void);
-void __cdecl FUN_00652190(void);
+void __cdecl UnlockFaceGenAccess(void);
 void __cdecl FUN_008781e0(int);
 void __cdecl FUN_00a5b460(void);
 void __cdecl FUN_00aa7030(void);
@@ -175,7 +175,7 @@ void __cdecl FUN_00878200(unsigned char* aFreeData)
     FUN_00aa7030();
     if (aFreeData[5])
     {
-        FUN_00652190();
+        UnlockFaceGenAccess();
     }
     FUN_008781e0(*(int*)(aFreeData + 8));
     if (aFreeData[3])
@@ -190,7 +190,7 @@ class ShadowSceneNode;
 class ModelLoader
 {
   public:
-    void FUN_00448620(bool);
+    void ClearUnusedModels(bool);
 };
 
 class NiAdditionalGeometryData
@@ -225,7 +225,7 @@ void __cdecl FUN_00878250(bool abRunExtraSteps)
         FUN_00651e30();
         FUN_00651f40();
     }
-    g_modelLoader->FUN_00448620(true);
+    g_modelLoader->ClearUnusedModels(true);
     g_TES->SetTESActive(false);
 }
 

@@ -791,7 +791,7 @@ struct BoltNode
     BoltNode(int);
     static void* operator new(unsigned int);
     static void operator delete(void*);
-    void FUN_004f00e0(const BoltPoint&);
+    void SetWorldTranslate(const BoltPoint&);
     void FUN_00440460(const BoltPoint&);
     BoltProperty* FUN_00a5bdd0(const char*);
     void FUN_00a5bc40(const char*, BoltProperty*);
@@ -1032,7 +1032,7 @@ struct Bolt
 void Bolt::InitEffect()
 {
     root.FUN_0066b0d0(new BoltNode(0));
-    root.FUN_00559450()->FUN_004f00e0(Position());
+    root.FUN_00559450()->SetWorldTranslate(Position());
     emitter.FUN_0066b0d0(new BoltNode(0));
     emitter.FUN_00559450()->FUN_00440460(Position());
     BoltProperty* property = emitter.FUN_00559450()->FUN_00a5bdd0(FUN_00448a80());
@@ -1405,14 +1405,14 @@ struct PlayerCharacter : SaveBaseObj
 extern PlayerCharacter* pPlayer;
 struct LoadObject : ThisObj
 {
-    void FUN_0081e980(int, int);
+    void LoadGame2(int, int);
     void LoadObjectData(int, int);
 };
 // @fnv 0x00814870
 void LoadObject::LoadObjectData(int arg1, int arg2)
 {
     v71();
-    FUN_0081e980(arg1, arg2);
+    LoadGame2(arg1, arg2);
     reinterpret_cast<FUN_008579e0_shell*>(g_TESSaveLoadGame)->FUN_008579e0(&unkAC, 4);
     reinterpret_cast<Helper009f8770*>(this)->FUN_00484d00(&unk88, 4);
     FUN_00814aa0* formID = new FUN_00814aa0;

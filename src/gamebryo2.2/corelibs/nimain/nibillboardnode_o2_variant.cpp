@@ -88,10 +88,10 @@ struct BaseNode
 };
 struct StandIn
 {
-    void FUN_00a7dab0(NiUpdateData&, unsigned int);
+    void UpdateRigidDownwardPass(NiUpdateData&, unsigned int);
 };
 // @fnv 0x00a7dab0
-void StandIn::FUN_00a7dab0(NiUpdateData& UpdateData, unsigned int uFlags)
+void StandIn::UpdateRigidDownwardPass(NiUpdateData& UpdateData, unsigned int uFlags)
 {
     *(float*)((char*)this + 0xb0) = UpdateData.m_fTime;
     ((BaseNode*)this)->FUN_00a5e1f0(UpdateData, uFlags);
@@ -223,10 +223,10 @@ struct BaseForCall
 struct MyNode
 {
     char _pad[0xAD];
-    unsigned char FUN_00a7db30(NiObject* pkObject);
+    unsigned char IsEqual(NiObject* pkObject);
 };
 // @fnv 0x00a7db30
-unsigned char MyNode::FUN_00a7db30(NiObject* pkObject)
+unsigned char MyNode::IsEqual(NiObject* pkObject)
 {
     NiBillboardNode* pkNode = (NiBillboardNode*)pkObject;
     if (!((BaseForCall*)this)->FUN_00a5e600(pkObject))
@@ -254,10 +254,10 @@ struct StandIn
 {
     char _pad[172];
     short m_field;
-    void FUN_00a7e850(NiStream&);
+    void SaveBinary(NiStream&);
 };
 // @fnv 0x00a7e850
-void StandIn::FUN_00a7e850(NiStream& kStream)
+void StandIn::SaveBinary(NiStream& kStream)
 {
     ((NiNodeBase*)this)->FUN_00a5e880(kStream);
     NiBinaryStream* __restrict pkOstr = kStream.m_pBackingStream;
@@ -422,11 +422,11 @@ class Prop
     unsigned short m_usFlags;
 
     void FUN_00a5dd40(NiStreamImpl& stream);
-    void FUN_00a7e7b0(NiStreamImpl& stream);
+    void LoadBinary(NiStreamImpl& stream);
 };
 
 // @fnv 0x00a7e7b0
-void Prop::FUN_00a7e7b0(NiStreamImpl& stream)
+void Prop::LoadBinary(NiStreamImpl& stream)
 {
     FUN_00a5dd40(stream);
     if (stream.GetFileVersion() < 0x0a000102)
@@ -580,11 +580,11 @@ class NiNodeA7E
     int unkA4;
     unsigned short m_usChildCount;
 
-    void FUN_00a7e630();
+    void UpdateWorldBound();
 };
 
 // @fnv 0x00a7e630
-void NiNodeA7E::FUN_00a7e630()
+void NiNodeA7E::UpdateWorldBound()
 {
     if (!m_usChildCount)
         return;
@@ -635,11 +635,11 @@ char* __cdecl FUN_00a7db60(const char* pName, unsigned int uiValue);
 
 struct PropTarget : Prop
 {
-    void FUN_00a7e890(StrArr* array);
+    void GetViewerStrings(StrArr* array);
 };
 
 // @fnv 0x00a7e890
-void PropTarget::FUN_00a7e890(StrArr* array)
+void PropTarget::GetViewerStrings(StrArr* array)
 {
     ((FUN_00a5ea70_t*)this)->FUN_00a5ea70(array);
     array->Add(FUN_00a7d330(g_011f4aa0.m_pString));
@@ -1049,11 +1049,11 @@ struct BillboardClone : StandIn
 struct BillboardCloneSource : StandIn
 {
     void FUN_00a5dc80(BillboardClone* dest, void* context);
-    BillboardClone* FUN_00a7e710(void* context);
+    BillboardClone* CreateClone(void* context);
 };
 
 // @fnv 0x00a7e710
-BillboardClone* BillboardCloneSource::FUN_00a7e710(void* context)
+BillboardClone* BillboardCloneSource::CreateClone(void* context)
 {
     void* storage = FUN_00aa13e0(sizeof(BillboardClone));
     BillboardClone* clone = storage ? new (storage) BillboardClone() : 0;

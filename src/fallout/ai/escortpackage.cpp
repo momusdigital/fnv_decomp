@@ -119,11 +119,11 @@ struct TESObjectREFR
 struct H_9f0b70
 {
     void RemoveActorFromList(Actor*);
-    void FUN_009f0b70(TESObjectREFR*);
+    void HandleDeletedReference(TESObjectREFR*);
 };
 // If the deleted reference is an Actor, casts it to Actor and forwards it to RemoveActorFromList.
 // @fnv 0x009f0b70
-void H_9f0b70::FUN_009f0b70(TESObjectREFR* apDeletedObj)
+void H_9f0b70::HandleDeletedReference(TESObjectREFR* apDeletedObj)
 {
     Actor* pactor;
     if (!apDeletedObj->IsActor())

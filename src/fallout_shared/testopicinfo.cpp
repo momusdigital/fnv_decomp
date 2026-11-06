@@ -1250,7 +1250,7 @@ struct ActorS
 };
 struct FUN_0061e600_t : public TESTopicInfo
 {
-    bool FUN_00619b20();
+    bool IsSayOnce();
     bool IsNew();
     bool FUN_0061e600(bool& rbDeferred, TESQuest* apQuest, TESObjectREFR* apSpeaker, TESObjectREFR* apListener);
 };
@@ -1263,7 +1263,7 @@ bool FUN_0061e600_t::FUN_0061e600(bool& rbDeferred, TESQuest* apQuest, TESObject
     ActorS* pActor;
     if (IsDeleted())
         return false;
-    if (FUN_00619b20() && IsNew())
+    if (IsSayOnce() && IsNew())
         return false;
     {
         int iType = FUN_0061e720((const char*)this);

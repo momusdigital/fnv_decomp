@@ -8,7 +8,7 @@ void FUN_00ee6dd4()
     D3DXMatrixTranspose();
 }
 
-float* __stdcall FUN_00ee6dda(float* pOut, float* pDeterminant, const float* pM);
+float* __stdcall D3DXMatrixInverse(float* pOut, float* pDeterminant, const float* pM);
 float* __stdcall FUN_00ee6dd4(float* pOut, const float* pM);
 
 // Builds a 4x4 matrix from a 2D affine transform (layout depends on iMode), optionally inverts and transposes it, or sets identity when affine is null.
@@ -44,7 +44,7 @@ void __cdecl SetAffineMatrix(float* afMatrix, const float* affine, bool bInvert,
         afMatrix[7] = 0.0f;
         afMatrix[3] = 0.0f;
         if (bInvert)
-            FUN_00ee6dda(afMatrix, 0, afMatrix);
+            D3DXMatrixInverse(afMatrix, 0, afMatrix);
         if (bTranspose)
             FUN_00ee6dd4(afMatrix, afMatrix);
     }

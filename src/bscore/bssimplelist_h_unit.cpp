@@ -188,13 +188,13 @@ struct FUN_00613810_item
 struct FUN_00613810_shell
 {
     int FindByKey(int);
-    void FUN_00613810(char* item);
+    void AddHair(char* item);
 };
 SoundListView* __fastcall FUN_0045bb80(FUN_00613810_shell*);
 
 // Adds item to the list returned by FUN_0045bb80 unless item is null or FindByKey reports it already present.
 // @fnv 0x00613810
-void FUN_00613810_shell::FUN_00613810(char* item)
+void FUN_00613810_shell::AddHair(char* item)
 {
     if (item == 0 || FindByKey(((FUN_00613810_item*)item)->_ref_0084e3a0()))
         return;
@@ -241,13 +241,13 @@ struct FUN_00613910_item
 struct FUN_00613910_shell
 {
     int FindRecipeCategoryById(int);
-    void FUN_00613910(char* item);
+    void AddEyeColor(char* item);
 };
 SoundListView* __fastcall FUN_00503650(FUN_00613910_shell*);
 
 // Adds item to the list returned by FUN_00503650 unless item is null or FindRecipeCategoryById on its _ref_0084e3a0 result is nonzero.
 // @fnv 0x00613910
-void FUN_00613910_shell::FUN_00613910(char* item)
+void FUN_00613910_shell::AddEyeColor(char* item)
 {
     if (item == 0 || FindRecipeCategoryById(((FUN_00613910_item*)item)->_ref_0084e3a0()))
         return;
@@ -602,7 +602,7 @@ struct RegionList : public FUN_004f66c0_node
 };
 
 // @fnv 0x005a6280
-bool FUN_005a6280(void* apUnused, void* apRegion, void* apUnused2, double& result)
+bool Cmd_PlayerInRegion_Eval(void* apUnused, void* apRegion, void* apUnused2, double& result)
 {
     result = 0.0;
     FUN_004f66c0_item* region = (FUN_004f66c0_item*)apRegion;
@@ -1562,13 +1562,13 @@ class TESModelTextureSwap
     BSSimpleList<TextureSwapEntry*>* FUN_00500940();
 };
 
-TESModelTextureSwap* __cdecl FUN_00481010(void* form, int variant);
+TESModelTextureSwap* __cdecl GetWorldTESModel(void* form, int variant);
 
 // @fnv 0x0048b310
-bool FUN_0048b310(void* form, int variant)
+bool HasTextureSwap(void* form, int variant)
 {
     bool bFound = false;
-    TESModelTextureSwap* pkPath = FUN_00481010(form, variant);
+    TESModelTextureSwap* pkPath = GetWorldTESModel(form, variant);
     if (!pkPath)
         pkPath = dynamic_cast<TESModelTextureSwap*>(static_cast<TESForm*>(form));
     if (pkPath && !pkPath->FUN_00500940()->IsEmpty())

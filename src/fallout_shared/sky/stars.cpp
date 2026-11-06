@@ -223,11 +223,11 @@ struct Sky
 };
 struct FUN_00595fc0_shell
 {
-    float FUN_00595fc0();
+    float GetSunsetBegin();
 };
 struct FUN_00595f50_shell
 {
-    float FUN_00595f50();
+    float GetSunriseEnd();
 };
 struct FUN_0063ba30_shell
 {
@@ -239,7 +239,7 @@ struct FUN_0063b9b0_shell
 };
 struct FUN_006366b0_shell
 {
-    bool FUN_006366b0();
+    bool GetDisplayObject();
 };
 struct Call_439090_tgt
 {
@@ -288,14 +288,14 @@ void FUN_00640020_shell::UpdateStars(Sky* apSky, float afSecondsPassed)
     ((SkyObjectS*)this)->Update(apSky, afSecondsPassed);
     if (apSky->FUN_00476c90() == 3 || apSky->FUN_00476c90() == 2)
     {
-        if (!((FUN_006366b0_shell*)(unsigned int)*(const Flt*)((char*)this + 4))->FUN_006366b0())
+        if (!((FUN_006366b0_shell*)(unsigned int)*(const Flt*)((char*)this + 4))->GetDisplayObject())
         {
             ((NiAVObject*)(unsigned int)*(const Flt*)((char*)this + 4))->SetAppCulled(true);
             return;
         }
-        float fSunsetBegin = ((FUN_00595fc0_shell*)apSky)->FUN_00595fc0();
+        float fSunsetBegin = ((FUN_00595fc0_shell*)apSky)->GetSunsetBegin();
         float fSunsetEnd = ((FUN_0063ba30_shell*)apSky)->FUN_0063ba30();
-        float fSunriseEnd = ((FUN_00595f50_shell*)apSky)->FUN_00595f50();
+        float fSunriseEnd = ((FUN_00595f50_shell*)apSky)->GetSunriseEnd();
         float fSunriseBegin = ((FUN_0063b9b0_shell*)apSky)->FUN_0063b9b0();
         float fBeginFadeIn = fSunsetEnd - (fSunsetEnd - fSunsetBegin) * 0.5f;
         float fEndFadeOut = fSunriseEnd - (fSunriseEnd - fSunriseBegin) * 0.5f;
@@ -477,7 +477,7 @@ class NiNode
     virtual void virtual_56();
     virtual void virtual_57();
     virtual void InsertChild(NiNode* child);
-    void FUN_00635fe0(bool enabled);
+    void SetDisplayObject(bool enabled);
     void FUN_004902f0(bool enabled);
     void FUN_00a5a040();
 };
@@ -840,14 +840,14 @@ struct StarsLoader
     unsigned int unk00;
     NiPointer<NiNode> parent;
     NiPointer<NiNode> stars;
-    void FUN_0063fdb0(const char* path);
+    void LoadGeometry(const char* path);
 };
 // @fnv 0x0063fdb0
-void StarsLoader::FUN_0063fdb0(const char* path)
+void StarsLoader::LoadGeometry(const char* path)
 {
     if (!path || !*path)
     {
-        parent->FUN_00635fe0(false);
+        parent->SetDisplayObject(false);
         return;
     }
     BSStringT<char> fileName;
@@ -858,11 +858,11 @@ void StarsLoader::FUN_0063fdb0(const char* path)
             !FUN_0043b300(&DAT_011f4428, stream.GetStringAt(0)))
         {
             FNV_Warning("DEFAULT: Cannot load the stars.");
-            parent->FUN_00635fe0(false);
+            parent->SetDisplayObject(false);
             return;
         }
         Model model(fileName, &stream, true, false);
-        parent->FUN_00635fe0(true);
+        parent->SetDisplayObject(true);
         parent->InsertChild(stars);
         stars = model.GetObject3D();
         stars->FUN_004902f0(true);

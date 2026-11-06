@@ -59,7 +59,7 @@ class __declspec(align(16)) S00da0780_Object
     S00da0780_Member m_kMember;
     int unk0C;
 };
-const void* __cdecl FUN_00da0780();
+const void* __cdecl getVtable_hkLocalFrameGroup();
 #include <xmmintrin.h>
 __declspec(align(16)) struct FUN_00da7180_cls
 {

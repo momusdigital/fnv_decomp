@@ -5,7 +5,7 @@
 #include "havok/hkpWorldObject.h"
 
 // @fnv 0x00cd2930
-int __stdcall FUN_00cd2930(int a1)
+int __stdcall setShape(int a1)
 {
     return 1;
 }

@@ -3,11 +3,11 @@
 
 struct FUN_00e4dd90_shell
 {
-    void __thiscall FUN_00e4dd90(float* output);
+    void __thiscall getHitFractions(float* output);
 };
 // If the object at offset 0x0c is set, writes four floats from its nested structure at offsets 0x10, 0x70, 0xd0 and 0x130 into output.
 // @fnv 0x00e4dd90
-void __thiscall FUN_00e4dd90_shell::FUN_00e4dd90(float* output)
+void __thiscall FUN_00e4dd90_shell::getHitFractions(float* output)
 {
     if (*(int*)((unsigned char*)this + 0x0c) != 0)
     {

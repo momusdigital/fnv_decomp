@@ -437,10 +437,10 @@ struct S3e60
 };
 struct S86a0
 {
-    int FUN_004086a0();
+    int GetProjectileType();
 };
 // @fnv 0x004086a0
-int S86a0::FUN_004086a0()
+int S86a0::GetProjectileType()
 {
     return (((S3e60*)this)->FUN_00403e60(0x2000000) ? 2 : 0) + (((S3e60*)this)->FUN_00403e60(0x4000000) ? 1 : 0);
 }

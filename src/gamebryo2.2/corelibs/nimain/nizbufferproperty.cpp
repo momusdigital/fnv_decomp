@@ -113,13 +113,13 @@ class A5F510FlagProperty : public A5F510Property
     }
     virtual void vfunc00();
 
-    A5F510Property* FUN_00a5f510(CloningProcess& kCloning);
+    A5F510Property* CreateClone(CloningProcess& kCloning);
 
     unsigned short m_usFlags;
 };
 
 // @fnv 0x00a5f510
-A5F510Property* A5F510FlagProperty::FUN_00a5f510(CloningProcess& kCloning)
+A5F510Property* A5F510FlagProperty::CreateClone(CloningProcess& kCloning)
 {
     if (m_pkClonedTarget)
     {

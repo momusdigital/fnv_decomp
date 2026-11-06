@@ -551,7 +551,7 @@ extern RecursiveSpinLock g_011c3920;
 struct EDLStandIn
 {
     void FUN_00411fd0(int);
-    void FUN_004103d0(void*);
+    void CopyExtra(void*);
 };
 // Locks g_011c3920, copies each extra-data node from apCopy into this list, then unlocks.
 // @fnv 0x00411ec0
@@ -565,7 +565,7 @@ void FUN_00411ec0_shell::FUN_00411ec0(ExtraDataList* apCopy)
         pwork = apCopy->pHead;
         while (pwork)
         {
-            ((EDLStandIn*)this)->FUN_004103d0(pwork);
+            ((EDLStandIn*)this)->CopyExtra(pwork);
             pwork = (BSExtraData*)((NodeSI*)pwork)->GetFlags();
         }
     }
@@ -576,7 +576,7 @@ void FUN_00411ec0_shell::FUN_00411ec0(ExtraDataList* apCopy)
 namespace fnv_00411f20 {
 struct FUN_00411f20_shell : public ExtraDataList
 {
-    bool FUN_00411f20(BSExtraData*);
+    bool IsCopyable(BSExtraData*);
 };
 
 struct PatrolActorPackageData
@@ -585,7 +585,7 @@ struct PatrolActorPackageData
 };
 
 // @fnv 0x00411f20
-bool FUN_00411f20_shell::FUN_00411f20(BSExtraData* apExtra)
+bool FUN_00411f20_shell::IsCopyable(BSExtraData* apExtra)
 {
     bool bretval = true;
     if (apExtra)
@@ -1072,12 +1072,12 @@ RadioReferenceData* FUN_004182e0_shell::FUN_004182e0()
 struct TeleportableReference;
 struct FUN_00418460_shell : public ExtraDataList
 {
-    TeleportableReference* FUN_00418460();
+    TeleportableReference* GetTeleport();
 };
 
 // Retrieves the extra data entry with type 0x2b and returns the pointer stored at offset 0xc, or null if absent.
 // @fnv 0x00418460
-TeleportableReference* FUN_00418460_shell::FUN_00418460()
+TeleportableReference* FUN_00418460_shell::GetTeleport()
 {
     BSExtraData* pExtra = GetExtraData(0x2b);
     if (pExtra)
@@ -1469,7 +1469,7 @@ struct SoundPlaybackHandle
 typedef char _sizecheck_BSSoundHandle[sizeof(SoundPlaybackHandle) == 12 ? 1 : -1];
 struct FUN_004189c0_shell : public ExtraDataList
 {
-    void FUN_004189c0(SoundPlaybackHandle*);
+    void GetWeaponIdleSound(SoundPlaybackHandle*);
 };
 
 struct BSSoundHandle_
@@ -1479,7 +1479,7 @@ struct BSSoundHandle_
 };
 
 // @fnv 0x004189c0
-void FUN_004189c0_shell::FUN_004189c0(SoundPlaybackHandle* result)
+void FUN_004189c0_shell::GetWeaponIdleSound(SoundPlaybackHandle* result)
 {
     BSExtraData* SoundAssetTmp = GetExtraData(0x83);
     if (SoundAssetTmp)
@@ -1548,7 +1548,7 @@ struct SoundPlaybackHandle
 typedef char _sizecheck_BSSoundHandle[sizeof(SoundPlaybackHandle) == 12 ? 1 : -1];
 struct FUN_00418a00_shell : public ExtraDataList
 {
-    void FUN_00418a00(SoundPlaybackHandle*);
+    void GetWeaponAttackSound(SoundPlaybackHandle*);
 };
 
 struct SH_00418a00
@@ -1562,7 +1562,7 @@ struct SX_00418a00
     char h[12];
 };
 // @fnv 0x00418a00
-void FUN_00418a00_shell::FUN_00418a00(SoundPlaybackHandle* result)
+void FUN_00418a00_shell::GetWeaponAttackSound(SoundPlaybackHandle* result)
 {
     SX_00418a00* SoundAssetTmp = (SX_00418a00*)GetExtraData(0x86);
     if (SoundAssetTmp)
@@ -1587,11 +1587,11 @@ bool FUN_00418a80_shell::FUN_00418a80()
 
 struct FUN_00418ab0_shell : public ExtraDataList
 {
-    bool FUN_00418ab0(bool);
+    bool GetWorn(bool);
 };
 
 // @fnv 0x00418ab0
-bool FUN_00418ab0_shell::FUN_00418ab0(bool abwornleft)
+bool FUN_00418ab0_shell::GetWorn(bool abwornleft)
 {
     if (abwornleft)
     {
@@ -1720,12 +1720,12 @@ ExtraAction* FUN_004195b0_shell::GetOrCreateExtraAction()
 
 struct FUN_00419ea0_shell : public ExtraDataList
 {
-    TESObjectREFR* FUN_00419ea0();
+    TESObjectREFR* GetHeadTrackTargetExtra();
 };
 
 // Reads extra data of type 0x46 and returns the TESObjectREFR pointer stored at offset 0xc, or null if absent.
 // @fnv 0x00419ea0
-TESObjectREFR* FUN_00419ea0_shell::FUN_00419ea0()
+TESObjectREFR* FUN_00419ea0_shell::GetHeadTrackTargetExtra()
 {
     BSExtraData* pExtraData = GetExtraData(0x46);
     if (pExtraData)
@@ -1899,7 +1899,7 @@ void FUN_0041aa20_shell::SetWornState(bool abWorn, bool abWornLeft)
 
 struct FUN_0041ab70_shell : public ExtraDataList
 {
-    void FUN_0041ab70(bool);
+    void SetCanNotWear(bool);
 };
 
 void* __cdecl operator new(unsigned int);
@@ -1912,7 +1912,7 @@ class ExtraCannotWear : public BSExtraData
 
 // Adds an ExtraCannotWear extra when abCantWear is set and none exists, or removes extra type 0x3e when it is cleared and present.
 // @fnv 0x0041ab70
-void FUN_0041ab70_shell::FUN_0041ab70(bool abCantWear)
+void FUN_0041ab70_shell::SetCanNotWear(bool abCantWear)
 {
     bool bcantwear = HasExtraData(0x3e);
     if (abCantWear && !bcantwear)
@@ -2072,7 +2072,7 @@ struct BaseFormComponent
 typedef char _sizecheck_BaseFormComponent[sizeof(BaseFormComponent) == 4 ? 1 : -1];
 struct FUN_0041b1e0_shell : public ExtraDataList
 {
-    void FUN_0041b1e0(TESForm*);
+    void SetStartingWorldOrCell(TESForm*);
 };
 
 class ExtraStartingWorldOrCell : public BSExtraData
@@ -2085,7 +2085,7 @@ class ExtraStartingWorldOrCell : public BSExtraData
 void __fastcall RemoveExtraType73(ExtraDataList* pThis);
 
 // @fnv 0x0041b1e0
-void FUN_0041b1e0_shell::FUN_0041b1e0(TESForm* apWorldOrCell)
+void FUN_0041b1e0_shell::SetStartingWorldOrCell(TESForm* apWorldOrCell)
 {
     if (!apWorldOrCell)
     {
@@ -2193,7 +2193,7 @@ struct TESTexture : public BaseFormComponent
 typedef char _sizecheck_TESTexture[sizeof(TESTexture) == 12 ? 1 : -1];
 struct FUN_0041b2a0_shell : public ExtraDataList
 {
-    void FUN_0041b2a0(TESObjectREFR*);
+    void SetStartingWorldOrCellForRef(TESObjectREFR*);
 };
 
 struct DoorCell
@@ -2294,19 +2294,19 @@ struct Ref_0041b2a0
 };
 struct H_0041b2a0
 {
-    void FUN_0041b1e0(void*);
+    void SetStartingWorldOrCell(void*);
 };
 // @fnv 0x0041b2a0
-void FUN_0041b2a0_shell::FUN_0041b2a0(TESObjectREFR* ref)
+void FUN_0041b2a0_shell::SetStartingWorldOrCellForRef(TESObjectREFR* ref)
 {
     DoorCell* pcell = ((Ref_0041b2a0*)ref)->sub.v0();
     if (pcell)
     {
         void* pworld = pcell->GetParentWorldSpace();
         if (pworld)
-            ((H_0041b2a0*)this)->FUN_0041b1e0(pworld);
+            ((H_0041b2a0*)this)->SetStartingWorldOrCell(pworld);
         else
-            ((H_0041b2a0*)this)->FUN_0041b1e0(pcell);
+            ((H_0041b2a0*)this)->SetStartingWorldOrCell(pcell);
     }
     else
     {
@@ -2366,7 +2366,7 @@ bool FUN_0041b3a0_shell::FUN_0041b3a0(int aeType)
 
 struct FUN_0041b3d0_shell : public ExtraDataList
 {
-    void FUN_0041b3d0(int);
+    void SetActionFlag(int);
 };
 
 struct Dummy_00410020
@@ -2376,7 +2376,7 @@ struct Dummy_00410020
 };
 
 // @fnv 0x0041b3d0
-void FUN_0041b3d0_shell::FUN_0041b3d0(int aeType)
+void FUN_0041b3d0_shell::SetActionFlag(int aeType)
 {
     BSExtraData* pExtra = GetExtraData(0x0E);
     if (!pExtra)
@@ -2405,22 +2405,22 @@ struct FUN_0041b440_shell : public ExtraDataList
 struct ExtraDataList_Helper
 {
     unsigned int FUN_0041b370();
-    void FUN_0041b3d0(unsigned int);
+    void SetActionFlag(unsigned int);
 };
 
-// Reads the action flags via FUN_0041b370, ORs in aeType, and writes the result back via FUN_0041b3d0.
+// Reads the action flags via FUN_0041b370, ORs in aeType, and writes the result back via SetActionFlag.
 // @fnv 0x0041b440
 void FUN_0041b440_shell::FUN_0041b440(int aeType)
 {
     unsigned int newAction = ((ExtraDataList_Helper*)this)->FUN_0041b370();
     newAction |= aeType;
-    ((ExtraDataList_Helper*)this)->FUN_0041b3d0(newAction);
+    ((ExtraDataList_Helper*)this)->SetActionFlag(newAction);
 }
 
 struct S0041b470
 {
     unsigned int FUN_0041b370();
-    void FUN_0041b3d0(unsigned int);
+    void SetActionFlag(unsigned int);
     void FUN_0041b470(unsigned int a);
 };
 // Reads the current bit field, clears the bits set in a, and writes the result back.
@@ -2429,7 +2429,7 @@ void S0041b470::FUN_0041b470(unsigned int auiMask)
 {
     unsigned int v = FUN_0041b370();
     v = ~auiMask & v;
-    FUN_0041b3d0(v);
+    SetActionFlag(v);
 }
 
 struct FUN_0041b520_shell : public ExtraDataList
@@ -2538,12 +2538,12 @@ TESObjectREFR* FUN_0041cb70_shell::FUN_0041cb70()
 struct TrespassPackage;
 struct FUN_0041cd70_shell : public ExtraDataList
 {
-    TrespassPackage* FUN_0041cd70();
+    TrespassPackage* GetTrespassPackage();
 };
 
 // Retrieves the extra data of type 0x1a and returns the TrespassPackage pointer stored at offset 0xc, or null if absent.
 // @fnv 0x0041cd70
-TrespassPackage* FUN_0041cd70_shell::FUN_0041cd70()
+TrespassPackage* FUN_0041cd70_shell::GetTrespassPackage()
 {
     BSExtraData* pExtra = GetExtraData(0x1a);
     if (pExtra)
@@ -2553,12 +2553,12 @@ TrespassPackage* FUN_0041cd70_shell::FUN_0041cd70()
 
 struct FUN_0041cf00_shell : public ExtraDataList
 {
-    void* FUN_0041cf00();
+    void* GetPlayerCrimeList();
 };
 
 // Looks up extra data of type 0x35 and returns the pointer stored at offset 0xC, or null if absent.
 // @fnv 0x0041cf00
-void* FUN_0041cf00_shell::FUN_0041cf00()
+void* FUN_0041cf00_shell::GetPlayerCrimeList()
 {
     BSExtraData* pExtra = GetExtraData(0x35);
     if (pExtra)
@@ -2705,7 +2705,7 @@ void FUN_0041cf30_shell::FUN_0041cf30(Actor* apActor)
 
 struct FUN_0041d000_shell : public ExtraDataList
 {
-    void FUN_0041d000();
+    void RemoveLevelItemExtra();
 };
 
 struct HX1d000
@@ -2714,7 +2714,7 @@ struct HX1d000
 };
 // Looks up extra data of type 0x2f and, if present, calls FUN_00410020 to remove it with flag 1.
 // @fnv 0x0041d000
-void FUN_0041d000_shell::FUN_0041d000()
+void FUN_0041d000_shell::RemoveLevelItemExtra()
 {
     BSExtraData* pExtra = GetExtraData(0x2f);
     if (pExtra)
@@ -3845,12 +3845,12 @@ TESObjectREFR* FUN_00421b40_shell::FUN_00421b40()
 struct BGSEncounterZone;
 struct FUN_00421c30_shell : public ExtraDataList
 {
-    BGSEncounterZone* FUN_00421c30();
+    BGSEncounterZone* GetEncounterZone();
 };
 
 // Retrieves the extra data of type 0x74 and returns the BGSEncounterZone pointer stored at offset 0xc, or null if absent.
 // @fnv 0x00421c30
-BGSEncounterZone* FUN_00421c30_shell::FUN_00421c30()
+BGSEncounterZone* FUN_00421c30_shell::GetEncounterZone()
 {
     BSExtraData* pextra = GetExtraData(0x74);
     if (pextra)
@@ -3861,12 +3861,12 @@ BGSEncounterZone* FUN_00421c30_shell::FUN_00421c30()
 struct TESForm;
 struct FUN_00421d20_shell : public ExtraDataList
 {
-    TESForm* FUN_00421d20();
+    TESForm* GetEmittanceSource();
 };
 
 // Looks up extra data of type 0x67 and returns the TESForm pointer stored at offset 0xc, or null if absent.
 // @fnv 0x00421d20
-TESForm* FUN_00421d20_shell::FUN_00421d20()
+TESForm* FUN_00421d20_shell::GetEmittanceSource()
 {
     BSExtraData* pextra = GetExtraData(0x67);
     if (pextra)
@@ -4073,7 +4073,7 @@ void FUN_00422150_shell::FUN_00422150(BSOcclusionPlane* apPlane)
 
 struct FUN_00422220_shell : public ExtraDataList
 {
-    void FUN_00422220(float);
+    void SetRadius(float);
 };
 
 struct ExtraRadius_dummy;
@@ -4089,7 +4089,7 @@ struct ExtraRadius_dummy : public BSExtraData
 };
 
 // @fnv 0x00422220
-void FUN_00422220_shell::FUN_00422220(float afRadius)
+void FUN_00422220_shell::SetRadius(float afRadius)
 {
     if (afRadius == 0.0)
     {
@@ -4112,12 +4112,12 @@ void FUN_00422220_shell::FUN_00422220(float afRadius)
 
 struct FUN_00422320_shell : public ExtraDataList
 {
-    float FUN_00422320();
+    float GetRadius();
 };
 
 // Looks up extra data of type 0x5C and returns the float at offset 0xC, or 0.0 if absent.
 // @fnv 0x00422320
-float FUN_00422320_shell::FUN_00422320()
+float FUN_00422320_shell::GetRadius()
 {
     BSExtraData* pextra = GetExtraData(0x5C);
     if (pextra)
@@ -4251,7 +4251,7 @@ struct blob12
 };
 struct FUN_00422480_shell : public ExtraDataList
 {
-    void FUN_00422480(Actor*);
+    void AddFollower(Actor*);
 };
 
 struct PlayerCharacter;
@@ -4272,7 +4272,7 @@ class ExtraFollower : public BSExtraData
 
 // Adds apActor to the ExtraFollower list on this extra data list, creating the ExtraFollower if absent, unless apActor is the player.
 // @fnv 0x00422480
-void FUN_00422480_shell::FUN_00422480(Actor* apActor)
+void FUN_00422480_shell::AddFollower(Actor* apActor)
 {
     if (apActor == (Actor*)pPlayer)
         return;
@@ -5063,7 +5063,7 @@ struct FUN_0042f3d0_shell : public ExtraDataList
 
 struct ExtraPatrolRefInUseData_shell
 {
-    bool FUN_00437ab0(void*);
+    bool GetCanBeUsedBy(void*);
 };
 
 // Looks up the extra data of type 0x88 and returns true if it is absent or its check against apUser succeeds, otherwise false.
@@ -5075,7 +5075,7 @@ bool FUN_0042f3d0_shell::FUN_0042f3d0(void* apUser)
     {
         return true;
     }
-    if (pextra->FUN_00437ab0(apUser))
+    if (pextra->GetCanBeUsedBy(apUser))
     {
         return true;
     }
@@ -6122,7 +6122,7 @@ struct SoundPlaybackHandle
 typedef char _sizecheck_BSSoundHandle[sizeof(SoundPlaybackHandle) == 12 ? 1 : -1];
 struct FUN_00418940_shell : public ExtraDataList
 {
-    void FUN_00418940(SoundPlaybackHandle*);
+    void GetCreatureAwakeSound(SoundPlaybackHandle*);
 };
 
 struct SH_00418890
@@ -6135,7 +6135,7 @@ struct OH3SoundCopy
 };
 // Reads extra data 0x7d; if present copies its sound handle into result, otherwise initialises result via FUN_004188d0.
 // @fnv 0x00418940
-void FUN_00418940_shell::FUN_00418940(SoundPlaybackHandle* result)
+void FUN_00418940_shell::GetCreatureAwakeSound(SoundPlaybackHandle* result)
 {
     BSExtraData* SoundAssetTmp = GetExtraData(0x7d);
     if (SoundAssetTmp)
@@ -6777,11 +6777,11 @@ struct ExtraDataList_Remove_stub
 
 struct FUN_00419dc0_shell2 : public ExtraDataList
 {
-    void FUN_00419dc0(TESObjectREFRHelper*);
+    void SetHeadTrackTargetExtra(TESObjectREFRHelper*);
 };
 
 // @fnv 0x00419dc0
-void FUN_00419dc0_shell2::FUN_00419dc0(TESObjectREFRHelper* apRef)
+void FUN_00419dc0_shell2::SetHeadTrackTargetExtra(TESObjectREFRHelper* apRef)
 {
     ExtraTarget* pextra = (ExtraTarget*)((BaseExtraList*)this)->GetExtraData(0x46);
     if (!apRef && pextra)
@@ -6968,7 +6968,7 @@ struct TESSoundFile : public BaseFormComponent
 typedef char _sizecheck_TESSoundFile[sizeof(TESSoundFile) == 12 ? 1 : -1];
 struct FUN_0041bd10_shell : public ExtraDataList
 {
-    void FUN_0041bd10(BGSMusicType*);
+    void SetMusicType(BGSMusicType*);
 };
 
 struct FUN_0040ef30 : public BSExtraData
@@ -6984,7 +6984,7 @@ struct Dummy_00410020
 
 // Sets or clears the music-type extra data (type 7) on the extra data list, adding a new entry or updating the existing one.
 // @fnv 0x0041bd10
-void FUN_0041bd10_shell::FUN_0041bd10(BGSMusicType* apData)
+void FUN_0041bd10_shell::SetMusicType(BGSMusicType* apData)
 {
     BSExtraData* pExtra = ((BaseExtraList*)this)->GetExtraData(7);
     if (!apData)
@@ -7802,12 +7802,12 @@ BSExtraData* FUN_00418280_Class::FUN_00418280()
 
 struct FUN_004187d0_Class : BaseExtraList
 {
-    BSExtraData* FUN_004187d0();
+    BSExtraData* GetPoison();
 };
 
 // Looks up extra data of type 0x3F and returns the pointer stored at offset 0xC, or null if absent.
 // @fnv 0x004187d0
-BSExtraData* FUN_004187d0_Class::FUN_004187d0()
+BSExtraData* FUN_004187d0_Class::GetPoison()
 {
     BSExtraData* pData = GetExtraData(0x3F);
     if (pData)
@@ -7966,7 +7966,7 @@ struct FUN_004d9330
     void* pBoneData;
     float fRootX, fRootY, fRootZ;
     FUN_004d9330();
-    void FUN_004d9800(TESObjectREFR* apRef);
+    void UpdateDataFromReference(TESObjectREFR* apRef);
 };
 struct ExtraRagDollData : public BSExtraData
 {
@@ -7987,13 +7987,13 @@ void FUN_0041d490_shell::UpdateRagDoll(TESObjectREFR* apRef)
         if (!apRef)
             ((ExtraListRemover*)this)->FUN_00410020(pextra, true);
         else
-            pextra->m_pRagDollData->FUN_004d9800(apRef);
+            pextra->m_pRagDollData->UpdateDataFromReference(apRef);
     }
     else if (apRef)
     {
         pextra = new ExtraRagDollData;
         pextra->m_pRagDollData = new FUN_004d9330;
-        pextra->m_pRagDollData->FUN_004d9800(apRef);
+        pextra->m_pRagDollData->UpdateDataFromReference(apRef);
         AddExtra(pextra);
     }
 }
@@ -8169,11 +8169,11 @@ struct ExtraPatrolRefData
     void* m_auiShapeKeys;
     void* m_pAuxiliaryObject;
     PatrolRefData* pPatrolRefData;
-    bool FUN_0041fd20(ExtraPatrolRefData* apCompare);
+    bool Differs(ExtraPatrolRefData* apCompare);
 };
 
 // @fnv 0x0041fd20
-bool ExtraPatrolRefData::FUN_0041fd20(ExtraPatrolRefData* apCompare)
+bool ExtraPatrolRefData::Differs(ExtraPatrolRefData* apCompare)
 {
     ExtraPatrolRefData* potherExtra = apCompare;
 
@@ -8544,11 +8544,11 @@ struct FUN_0056aac0_t : public TESObjectREFR
 {
     TESObjectREFR* GetEnableParent();
     bool GetInitialized() const;
-    bool FUN_0056aac0();
+    bool CheckEnableParentLoop();
 };
 
 // @fnv 0x0056aac0
-bool FUN_0056aac0_t::FUN_0056aac0()
+bool FUN_0056aac0_t::CheckEnableParentLoop()
 {
     bool result = true;
     FUN_0056aac0_map visited(0x25);
@@ -9156,12 +9156,12 @@ struct ExtraOriginalReference : public BSExtraData
 
 struct FUN_00418630_Class : public BaseExtraList
 {
-    void* FUN_00418630();
+    void* GetOriginalReference();
 };
 
 // Returns the stored pointer from the ExtraOriginalReference extra data (type 0x20), or null if it is absent.
 // @fnv 0x00418630
-void* FUN_00418630_Class::FUN_00418630()
+void* FUN_00418630_Class::GetOriginalReference()
 {
     ExtraOriginalReference* extra = (ExtraOriginalReference*)GetExtraData(0x20);
     if (extra)
@@ -9268,12 +9268,12 @@ struct ExtraScript : BSExtraData
 
 struct FUN_0041afa0_Class : BaseExtraList
 {
-    void FUN_0041afa0();
+    void ClearScriptLocals();
 };
 
 // Retrieves the ExtraScript extra data (type 0xd) from the list and, if present, clears the pointer at offset 0x10.
 // @fnv 0x0041afa0
-void FUN_0041afa0_Class::FUN_0041afa0()
+void FUN_0041afa0_Class::ClearScriptLocals()
 {
     ExtraScript* extra = (ExtraScript*)GetExtraData(0xd);
     if (extra)
@@ -9372,12 +9372,12 @@ unsigned int FUN_0041bce0_class::FUN_0041bce0()
 
 struct FUN_0041bde0_Class : BaseExtraList
 {
-    unsigned int FUN_0041bde0();
+    unsigned int GetMusicType();
 };
 
 // Looks up extra data of type 7 and returns the unsigned int stored at offset 0xc, or 0 if absent.
 // @fnv 0x0041bde0
-unsigned int FUN_0041bde0_Class::FUN_0041bde0()
+unsigned int FUN_0041bde0_Class::GetMusicType()
 {
     BSExtraData* extra = GetExtraData(7);
     if (!extra)
@@ -10183,7 +10183,7 @@ struct SoundPlaybackHandle
 typedef char _sizecheck_BSSoundHandle[sizeof(SoundPlaybackHandle) == 12 ? 1 : -1];
 struct FUN_0041a090_shell : public ExtraDataList
 {
-    void FUN_0041a090(void*);
+    void SetCreatureAwakeSound(void*);
 };
 
 struct BSSoundHandleEx : SoundPlaybackHandle
@@ -10215,7 +10215,7 @@ struct FUN_004361e0 : BSExtraData
 };
 
 // @fnv 0x0041a090
-void FUN_0041a090_shell::FUN_0041a090(void* afSound)
+void FUN_0041a090_shell::SetCreatureAwakeSound(void* afSound)
 {
     BSExtraData* SoundAssetTmp = GetExtraData(0x7d);
     if (SoundAssetTmp)
@@ -10290,7 +10290,7 @@ struct SoundPlaybackHandle
 typedef char _sizecheck_BSSoundHandle[sizeof(SoundPlaybackHandle) == 12 ? 1 : -1];
 struct FUN_0041a3e0_shell : public ExtraDataList
 {
-    void FUN_0041a3e0(void*);
+    void SetWeaponIdleSound(void*);
 };
 
 struct GlobalObject_0041a250
@@ -10325,7 +10325,7 @@ struct FUN_00436420 : BSExtraData
 };
 
 // @fnv 0x0041a3e0
-void FUN_0041a3e0_shell::FUN_0041a3e0(void* afSound)
+void FUN_0041a3e0_shell::SetWeaponIdleSound(void* afSound)
 {
     FUN_00436420* SoundAssetTmp = (FUN_00436420*)GetExtraData(0x83);
     if (SoundAssetTmp)
@@ -10397,7 +10397,7 @@ struct SoundPlaybackHandle
 typedef char _sizecheck_BSSoundHandle[sizeof(SoundPlaybackHandle) == 12 ? 1 : -1];
 struct FUN_0041a540_shell : public ExtraDataList
 {
-    void FUN_0041a540(void*);
+    void SetWeaponAttackSound(void*);
 };
 
 struct FUN_00418900
@@ -10435,7 +10435,7 @@ struct FUN_00436540 : BSExtraData
     FUN_00436540(FUN_00418900);
 };
 // @fnv 0x0041a540
-void FUN_0041a540_shell::FUN_0041a540(void* afSound)
+void FUN_0041a540_shell::SetWeaponAttackSound(void* afSound)
 {
     BSExtraData* SoundAssetTmp = GetExtraData(0x86);
     if (SoundAssetTmp)
@@ -11113,10 +11113,10 @@ struct FUN_00410020_StandIn
 };
 struct FUN_00419fb0_StandIn : BaseExtraList
 {
-    void FUN_00419fb0(float value);
+    void SetScale(float value);
 };
 // @fnv 0x00419fb0
-void FUN_00419fb0_StandIn::FUN_00419fb0(float value)
+void FUN_00419fb0_StandIn::SetScale(float value)
 {
     BSExtraData* extra = GetExtraData(0x30);
     if (extra)
@@ -11147,11 +11147,11 @@ struct ExtraListRemover
 
 struct FUN_0041ac30List : BaseExtraList
 {
-    void FUN_0041ac30(unsigned char);
+    void SetSeedIndex(unsigned char);
 };
 
 // @fnv 0x0041ac30
-void FUN_0041ac30List::FUN_0041ac30(unsigned char type)
+void FUN_0041ac30List::SetSeedIndex(unsigned char type)
 {
     BSExtraData* extra = GetExtraData(0x31);
     if (type != 0xff)
@@ -11236,10 +11236,10 @@ struct Dummy_00410020
 };
 struct ExtraDataList2 : BaseExtraList
 {
-    void FUN_0041c390(void* apImpactSwap);
+    void SetImpactSwap(void* apImpactSwap);
 };
 // @fnv 0x0041c390
-void ExtraDataList2::FUN_0041c390(void* apImpactSwap)
+void ExtraDataList2::SetImpactSwap(void* apImpactSwap)
 {
     BSExtraData* pExtra = GetExtraData(0x8c);
     if (!apImpactSwap)
@@ -12165,10 +12165,10 @@ extern TESSaveLoadGame* g_TESSaveLoadGame;
 struct ExtraDataListRemoveTrespassPackage
 {
     void FUN_00410020(BSExtraData*, bool);
-    void FUN_0041cda0();
+    void RemoveTrespassPackage();
 };
 // @fnv 0x0041cda0
-void ExtraDataListRemoveTrespassPackage::FUN_0041cda0()
+void ExtraDataListRemoveTrespassPackage::RemoveTrespassPackage()
 {
     ExtraTresPassPackage* pExtra = (ExtraTresPassPackage*)reinterpret_cast<BaseExtraList*>(this)->GetExtraData(0x1a);
     if (pExtra)
@@ -12356,12 +12356,12 @@ struct LinkedReferencePair
 struct ExtraPortalRefData : public BSExtraData
 {
     LinkedReferencePair* pData;
-    bool FUN_00420300(BSExtraData* apCompare);
+    bool Differs(BSExtraData* apCompare);
 };
 
 // Compares the two linked-ref pointers of pData with those of apCompare's pData, returning true if they differ or only one side has data.
 // @fnv 0x00420300
-bool ExtraPortalRefData::FUN_00420300(BSExtraData* apCompare)
+bool ExtraPortalRefData::Differs(BSExtraData* apCompare)
 {
     ExtraPortalRefData* potherExtra = (ExtraPortalRefData*)apCompare;
     if (!pData && !potherExtra->pData)
@@ -12459,12 +12459,12 @@ struct FUN_0041b790 : BSExtraData
 
 struct ExtraListHelper : BaseExtraList
 {
-    void FUN_0041b6e0(float value);
+    void SetObjectHealth(float value);
 };
 
 // Finds extra data of type 0x56; if absent, creates a new FUN_0041b790 with value and adds it, otherwise writes value at offset 0xc.
 // @fnv 0x0041b6e0
-void ExtraListHelper::FUN_0041b6e0(float value)
+void ExtraListHelper::SetObjectHealth(float value)
 {
     BSExtraData* extra = GetExtraData(0x56);
     if (!extra)
@@ -12568,7 +12568,7 @@ namespace fnv_004127e0 {
 struct FUN_00411f20_shell
 {
   public:
-    bool FUN_00411f20(BSExtraData* extra);
+    bool IsCopyable(BSExtraData* extra);
 };
 
 struct Crime
@@ -12614,7 +12614,7 @@ bool ExtraDataList_shell::FUN_004127e0(ExtraDataList_shell* apCompare)
         BSExtraData* apExtra;
         while (work != 0)
         {
-            if (reinterpret_cast<FUN_00411f20_shell*>(this)->FUN_00411f20(work))
+            if (reinterpret_cast<FUN_00411f20_shell*>(this)->IsCopyable(work))
             {
                 apExtra = GetExtraData(reinterpret_cast<PatrolActorPackageData*>(work)->IsPatrolling());
                 if (apExtra == 0)
@@ -12642,7 +12642,7 @@ bool ExtraDataList_shell::FUN_004127e0(ExtraDataList_shell* apCompare)
 
         while (work != 0)
         {
-            if (reinterpret_cast<FUN_00411f20_shell*>(this)->FUN_00411f20(work))
+            if (reinterpret_cast<FUN_00411f20_shell*>(this)->IsCopyable(work))
             {
                 apExtra = apCompare->GetExtraData(reinterpret_cast<PatrolActorPackageData*>(work)->IsPatrolling());
                 if (apExtra == 0)
@@ -12671,7 +12671,7 @@ bool ExtraDataList_shell::FUN_004127e0(ExtraDataList_shell* apCompare)
 
         while (work != 0)
         {
-            if (reinterpret_cast<FUN_00411f20_shell*>(this)->FUN_00411f20(work))
+            if (reinterpret_cast<FUN_00411f20_shell*>(this)->IsCopyable(work))
             {
                 apExtra = apCompare->GetExtraData(reinterpret_cast<PatrolActorPackageData*>(work)->IsPatrolling());
                 if (apExtra == 0)
@@ -12795,12 +12795,12 @@ FUN_00431ec0::FUN_00431ec0(float initialValue) : value(initialValue)
 
 struct FUN_00419bb0_cls : public BaseExtraList
 {
-    void FUN_00419bb0(float value);
+    void SetTimeLeft(float value);
 };
 
 // Sets the float at offset 0x0C of extra data type 0x27, creating and adding a new FUN_00431ec0 if none exists.
 // @fnv 0x00419bb0
-void FUN_00419bb0_cls::FUN_00419bb0(float value)
+void FUN_00419bb0_cls::SetTimeLeft(float value)
 {
     BSExtraData* extra = GetExtraData(0x27);
 
@@ -12825,12 +12825,12 @@ struct FUN_00431f60 : BSExtraData
 
 struct FUN_00419c60_cls : BaseExtraList
 {
-    void FUN_00419c60(float value);
+    void SetCharge(float value);
 };
 
 // Updates the float at offset 0x0C of the extra data of type 0x28, creating and adding a new FUN_00431f60 if none exists.
 // @fnv 0x00419c60
-void FUN_00419c60_cls::FUN_00419c60(float value)
+void FUN_00419c60_cls::SetCharge(float value)
 {
     BSExtraData* extra = GetExtraData(0x28);
     if (extra)
@@ -13773,12 +13773,12 @@ struct CollisionData
 struct ExtraCollisionData : BSExtraData
 {
     CollisionData* m_pCollisionData;  // +0x0c
-    bool FUN_004210c0(BSExtraData* apCompare);
+    bool Differs(BSExtraData* apCompare);
 };
 
 // Compares two ExtraCollisionData objects: returns false if both lack collision data or their types match, true otherwise.
 // @fnv 0x004210c0
-bool ExtraCollisionData::FUN_004210c0(BSExtraData* apCompare)
+bool ExtraCollisionData::Differs(BSExtraData* apCompare)
 {
     ExtraCollisionData* potherExtra = (ExtraCollisionData*)apCompare;
     if (!this->m_pCollisionData && !potherExtra->m_pCollisionData)
@@ -14257,7 +14257,7 @@ class Crime
 class ExtraDataListCopyListForContainer
 {
   public:
-    void FUN_004103d0(BSExtraData* data);
+    void CopyExtra(BSExtraData* data);
     void _FUN_00410020(BSExtraData* data, bool remove);
     void FUN_004121e0(ExtraDataList* copy, bool dontRemove);
 };
@@ -14295,7 +14295,7 @@ void ExtraDataListCopyListForContainer::FUN_004121e0(ExtraDataList* copy, bool d
         case 71:
         case 74:
         case 141:
-            FUN_004103d0(work);
+            CopyExtra(work);
 
             if (reinterpret_cast<PatrolActorPackageData*>(work)->IsPatrolling() != 0x30 && !dontRemove)
             {
@@ -14307,7 +14307,7 @@ void ExtraDataListCopyListForContainer::FUN_004121e0(ExtraDataList* copy, bool d
             break;
 
         case 13:
-            FUN_004103d0(work);
+            CopyExtra(work);
 
             if (!dontRemove)
             {
@@ -14345,11 +14345,11 @@ extern RecursiveSpinLock g_011c3920;
 struct FUN_00412380_shell
 {
   public:
-    void FUN_004103d0(BSExtraData*);
+    void CopyExtra(BSExtraData*);
     void FUN_00412380(ExtraDataList* apCopy);
 };
 
-// Locks g_011c3920, walks the extra-data list of apCopy and calls FUN_004103d0 on entries whose type is in a fixed set, then unlocks.
+// Locks g_011c3920, walks the extra-data list of apCopy and calls CopyExtra on entries whose type is in a fixed set, then unlocks.
 // @fnv 0x00412380
 void FUN_00412380_shell::FUN_00412380(ExtraDataList* apCopy)
 {
@@ -14379,7 +14379,7 @@ void FUN_00412380_shell::FUN_00412380(ExtraDataList* apCopy)
         case 71:
         case 74:
         case 141:
-            FUN_004103d0(work);
+            CopyExtra(work);
             break;
         }
 
@@ -14693,12 +14693,12 @@ struct ExtraHolder_00418c40 : public BSExtraData
 
 struct FUN_00418c40_shell : public ExtraDataList
 {
-    ExtraHolder_00418c40* FUN_00418c40(Payload_00418c40* data);
+    ExtraHolder_00418c40* SetAnimPtr(Payload_00418c40* data);
 };
 
 // Replaces the payload of the extra data at type 0x10, creating and adding a new holder if none exists, and returns the holder.
 // @fnv 0x00418c40
-ExtraHolder_00418c40* FUN_00418c40_shell::FUN_00418c40(Payload_00418c40* data)
+ExtraHolder_00418c40* FUN_00418c40_shell::SetAnimPtr(Payload_00418c40* data)
 {
     ExtraHolder_00418c40* extra = static_cast<ExtraHolder_00418c40*>(GetExtraData(0x10));
     if (extra)
@@ -15306,11 +15306,11 @@ struct FUN_00433a00_t
 struct FUN_0041e7b0_cls
 {
     void* FUN_00410220(int type);
-    void* FUN_0041e7b0(void* arg);
+    void* GetActivateData(void* arg);
 };
 
 // @fnv 0x0041e7b0
-void* FUN_0041e7b0_cls::FUN_0041e7b0(void* arg)
+void* FUN_0041e7b0_cls::GetActivateData(void* arg)
 {
     FUN_00433a00_t* p = (FUN_00433a00_t*)FUN_00410220(0x53);
     if (p)
@@ -15558,12 +15558,12 @@ struct FUN_0041ffb0_Obj
     int unk08;
     int* unk0C;
 
-    bool __thiscall FUN_0041ffb0(FUN_0041ffb0_Obj* arg);
+    bool __thiscall Differs(FUN_0041ffb0_Obj* arg);
 };
 
 // Returns false if both objects' unk0C pointers are null or all four pointed-to ints match; otherwise returns true.
 // @fnv 0x0041ffb0
-bool __thiscall FUN_0041ffb0_Obj::FUN_0041ffb0(FUN_0041ffb0_Obj* apOther)
+bool __thiscall FUN_0041ffb0_Obj::Differs(FUN_0041ffb0_Obj* apOther)
 {
     FUN_0041ffb0_Obj* pOther = apOther;
 
@@ -15732,11 +15732,11 @@ struct S_00420530_Cls
     int unk08;
     S_00420530_Data* unk0c;
 
-    bool FUN_00420530(S_00420530_Cls* other);
+    bool Differs(S_00420530_Cls* other);
 };
 
 // @fnv 0x00420530
-bool S_00420530_Cls::FUN_00420530(S_00420530_Cls* other)
+bool S_00420530_Cls::Differs(S_00420530_Cls* other)
 {
     S_00420530_Cls* o4 = other;
     if (!this->unk0c && !o4->unk0c)
@@ -16694,7 +16694,7 @@ struct ExtraCopyData : BSExtraData
 };
 struct ExtraCopyList : ExtraDataList
 {
-    void FUN_004103d0(BSExtraData*);
+    void CopyExtra(BSExtraData*);
     void FUN_00410020(BSExtraData*, bool);
     void FUN_00412490(ExtraCopyList* source, bool transfer);
 };
@@ -16733,7 +16733,7 @@ void ExtraCopyList::FUN_00412490(ExtraCopyList* source, bool transfer)
         case 48:
         case 63:
         case 141:
-            FUN_004103d0(extra);
+            CopyExtra(extra);
             if (transfer)
             {
                 source->FUN_00410020(extra, true);
@@ -16744,7 +16744,7 @@ void ExtraCopyList::FUN_00412490(ExtraCopyList* source, bool transfer)
         case 13:
             if (transfer)
             {
-                FUN_004103d0(extra);
+                CopyExtra(extra);
                 source->FUN_00410020(extra, false);
                 extra = source->pHead;
                 advance = false;
@@ -17971,19 +17971,19 @@ struct RefExtra
 struct List
 {
     void LoadExtraData(File*, void*);
-    void FUN_0041b3d0(int);
+    void SetActionFlag(int);
     void FUN_00419700(int);
     void SetExtraDataValue(int);
     void FUN_004198a0(int);
     void FUN_00419970(float);
     void SetHealthPerc(float);
     void FUN_00419a20(unsigned char);
-    void FUN_00419bb0(float);
+    void SetTimeLeft(float);
     void FUN_00419ad0(unsigned short);
     void SetOwnership(int, int);
-    void FUN_00419c60(float);
+    void SetCharge(float);
     void FUN_00419d10(int);
-    void FUN_0041bd10(int);
+    void SetMusicType(int);
     void SetAcousticSpace(int);
     void SetClimate(int);
     void SetImageSpaceExtra(int);
@@ -17996,14 +17996,14 @@ struct List
     void SetEmittanceSource(int);
     void FUN_00421e40(int);
     void FUN_00421540(int);
-    void FUN_00422220(float);
+    void SetRadius(float);
     void SetRadiation(float);
     void SetIgnoredBySandbox(bool);
     Ammo* GetExtraAmmo();
     void* FUN_00410220(unsigned char);
     void* FUN_0040ff60(void*);
     void SetRadioData(Radio*);
-    Teleport* FUN_00418460();
+    Teleport* GetTeleport();
     void FUN_00419120(Teleport*);
     Marker* FUN_00418490();
     void SetMapMarker(Marker*);
@@ -18011,7 +18011,7 @@ struct List
     void SetAudioMarker(AudioMarker*);
     AcousticMarker* GetEntryValue();
     void FUN_004194b0(AcousticMarker*);
-    void FUN_0041ac30(unsigned char);
+    void SetSeedIndex(unsigned char);
     void SetRegionList(RegionList*);
     void FUN_0041ad00(int, int, void*, float);
     void FUN_00410020(void*, bool);
@@ -18044,7 +18044,7 @@ void loader::List::LoadExtraData(File* file, void* owner)
     case 0x54434158: {
         int value = 0;
         file->ReadChunkInt(&value);
-        FUN_0041b3d0(value);
+        SetActionFlag(value);
         break;
     }
     case 0x4e574f58: {
@@ -18086,7 +18086,7 @@ void loader::List::LoadExtraData(File* file, void* owner)
     case 0x4d495458: {
         float value = 0.0f;
         file->ReadChunkInt(&value);
-        FUN_00419bb0(value);
+        SetTimeLeft(value);
         break;
     }
     case 0x544e4358: {
@@ -18111,7 +18111,7 @@ void loader::List::LoadExtraData(File* file, void* owner)
     case 0x47484358: {
         float value = 0.0f;
         file->ReadChunkInt(&value);
-        FUN_00419c60(value);
+        SetCharge(value);
         break;
     }
     case 0x4e535058: {
@@ -18146,7 +18146,7 @@ void loader::List::LoadExtraData(File* file, void* owner)
         break;
     }
     case 0x4c455458: {
-        Teleport* data = FUN_00418460();
+        Teleport* data = GetTeleport();
         if (!data)
         {
             data = new Teleport;
@@ -18195,7 +18195,7 @@ void loader::List::LoadExtraData(File* file, void* owner)
         }
         else
             file->FUN_00472890(&value, 1);
-        FUN_0041ac30(value);
+        SetSeedIndex(value);
         break;
     }
     case 0x524c4358: {
@@ -18232,7 +18232,7 @@ void loader::List::LoadExtraData(File* file, void* owner)
     case 0x4f4d4358: {
         int value = 0;
         file->ReadChunkInt(&value);
-        FUN_0041bd10(value);
+        SetMusicType(value);
         break;
     }
     case 0x54454358: {
@@ -18481,7 +18481,7 @@ void loader::List::LoadExtraData(File* file, void* owner)
     case 0x53445258: {
         float value = 0.0f;
         file->ReadChunkInt(&value);
-        FUN_00422220(value);
+        SetRadius(value);
         break;
     }
     case 0x44415258: {
@@ -18741,12 +18741,12 @@ struct ExtraSoundX : BSExtraData
 struct SoundExtraList41a : BaseExtraList
 {
     void RemoveExtraX(BSExtraData* apExtra, bool abFree);
-    void FUN_0041a280(const SoundHandle41a& arHandle);
+    void SetCreatureMovementSound(const SoundHandle41a& arHandle);
 };
 
 // Sets the extra sound handle: removes the ExtraSoundX if the handle is empty, updates it if present, otherwise adds a new one.
 // @fnv 0x0041a280
-void SoundExtraList41a::FUN_0041a280(const SoundHandle41a& arHandle)
+void SoundExtraList41a::SetCreatureMovementSound(const SoundHandle41a& arHandle)
 {
     ExtraSoundX* pExtra = (ExtraSoundX*)GetExtraData(0x8a);
     if (pExtra)
@@ -18798,13 +18798,13 @@ struct ExtraVal18 : public BSExtraData
 
 struct ExtraListHolder : public BaseExtraList
 {
-    void FUN_0041a6a0(Val0041a1f0* val);
+    void SetActivateLoopSound(Val0041a1f0* val);
     void FUN_00410020(BSExtraData*, bool);
 };
 
 // Updates or creates extra data of type 0x87 from val, removing it if Equals matches, otherwise storing or adding it.
 // @fnv 0x0041a6a0
-void ExtraListHolder::FUN_0041a6a0(Val0041a1f0* pValue)
+void ExtraListHolder::SetActivateLoopSound(Val0041a1f0* pValue)
 {
     BSExtraData* extra = GetExtraData(0x87);
     if (extra)
@@ -19309,9 +19309,9 @@ struct LoadRef
 {
     LoadRefScriptLocals* FUN_00418830();
     void FUN_005a9d00();
-    void FUN_0041cda0();
+    void RemoveTrespassPackage();
     void FUN_00410140(int aiFlag);
-    void* FUN_00418460();
+    void* GetTeleport();
     void RemoveExtraType43();
     void FUN_00422920();
     void FUN_0041cc60();
@@ -19319,7 +19319,7 @@ struct LoadRef
     void RemoveExtraType0x18();
     void FUN_00422720();
     void RemoveExtra045();
-    void FUN_00419dc0(int aiValue);
+    void SetHeadTrackTargetExtra(int aiValue);
     void RemoveExtra0x1F();
     void FUN_0042e040();
     void FUN_004216b0();
@@ -19342,7 +19342,7 @@ void LoadRef::FUN_004267d0(unsigned int auiFlags, LoadRefForm* apForm)
             pLocals->FUN_005a9d00();
     }
     if ((auiFlags & kLoadRefChange_Unused) && bTargetIsActor)
-        FUN_0041cda0();
+        RemoveTrespassPackage();
     if ((auiFlags & kLoadRefChange_Unused) && !bTargetIsActor)
         FUN_00410140(0x12);
     if (auiFlags & kLoadRefChange_Unused)
@@ -19354,14 +19354,14 @@ void LoadRef::FUN_004267d0(unsigned int auiFlags, LoadRefForm* apForm)
     }
     if ((auiFlags & kLoadRefChange_00020000) && !bTargetIsActor)
     {
-        void* pData = FUN_00418460();
+        void* pData = GetTeleport();
         if (pData)
             RemoveExtraType43();
     }
     if (auiFlags & kLoadRefChange_10000000)
         FUN_00422920();
     if ((auiFlags & kLoadRefChange_Unused) && bTargetIsActor)
-        FUN_0041cda0();
+        RemoveTrespassPackage();
     if ((auiFlags & kLoadRefChange_Unused) && !bTargetIsActor)
         FUN_00410140(0x12);
     if (auiFlags & kLoadRefChange_Unused)
@@ -19377,7 +19377,7 @@ void LoadRef::FUN_004267d0(unsigned int auiFlags, LoadRefForm* apForm)
             FUN_00422720();
             RemoveExtra045();
             FUN_00410140(0x3a);
-            FUN_00419dc0(0);
+            SetHeadTrackTargetExtra(0);
             RemoveExtra0x1F();
             FUN_0042e040();
             FUN_004216b0();
@@ -20340,15 +20340,15 @@ struct Extras
     void FUN_00419970(float);
     void FUN_00419a20(unsigned char);
     void EnsureLeveledListExtra(unsigned char);
-    void FUN_00419bb0(float);
-    void FUN_00419c60(float);
+    void SetTimeLeft(float);
+    void SetCharge(float);
     void FUN_00419050(FUN_00411b00*);
-    void FUN_00419fb0(float);
+    void SetScale(float);
     void FUN_00419700(TESForm*);
     void SetExtraDataValue(TESGlobal*);
     void FUN_004198a0(unsigned int);
     void SetWornState(bool, bool);
-    void FUN_0041ab70(bool);
+    void SetCanNotWear(bool);
     void SetGhost(bool);
     void FUN_00419ed0(Script*);
     ScriptLocals* FUN_00418830();
@@ -20360,7 +20360,7 @@ struct Extras
     void FUN_0041c7f0(unsigned int);
     void FUN_0041d700(TESPackage*, unsigned char);
     void FUN_0041ad00(TESWorldSpace*, TESObjectCELL*, NiPoint3*, float);
-    void FUN_00422480(unsigned int);
+    void AddFollower(unsigned int);
     void FUN_0040ff60(void*);
     void FUN_00419120(FUN_0043a160*);
     void FUN_00419d10(unsigned int);
@@ -20370,12 +20370,12 @@ struct Extras
     void FUN_0041d390(TESObjectCELL*);
     void FUN_0041e000(unsigned int);
     void FUN_0041de40(unsigned int);
-    void FUN_00419dc0(unsigned int);
-    void FUN_0041b1e0(TESForm*);
+    void SetHeadTrackTargetExtra(unsigned int);
+    void SetStartingWorldOrCell(TESForm*);
     void SetHotKey(unsigned char);
     void FUN_0042dee0(FUN_0083da50*);
     void FUN_00421600(unsigned char);
-    void FUN_0041af50();
+    void RemoveScript();
 };
 struct RecordExtra
 {
@@ -20494,7 +20494,7 @@ void Extras::FUN_00424960(unsigned int auiChangeFlags, unsigned int unused, TESO
             {
                 float value;
                 DAT_011de45c->FUN_008579e0(&value, 4);
-                FUN_00419bb0(value);
+                SetTimeLeft(value);
             }
             break;
         }
@@ -20503,7 +20503,7 @@ void Extras::FUN_00424960(unsigned int auiChangeFlags, unsigned int unused, TESO
             {
                 float value;
                 DAT_011de45c->FUN_008579e0(&value, 4);
-                FUN_00419c60(value);
+                SetCharge(value);
             }
             break;
         }
@@ -20536,13 +20536,13 @@ void Extras::FUN_00424960(unsigned int auiChangeFlags, unsigned int unused, TESO
                 if (reference)
                     ((RefHelper*)reference)->FUN_00567490(value);
                 else
-                    FUN_00419fb0(value);
+                    SetScale(value);
             }
             if (DAT_011de45c->FUN_008df040() >= 67 && (auiChangeFlags & 0))
             {
                 float value;
                 DAT_011de45c->FUN_008579e0(&value, 4);
-                FUN_00419fb0(value);
+                SetScale(value);
             }
             break;
         }
@@ -20590,7 +20590,7 @@ void Extras::FUN_00424960(unsigned int auiChangeFlags, unsigned int unused, TESO
         }
         case 62: {
             if (auiChangeFlags & 0)
-                FUN_0041ab70(true);
+                SetCanNotWear(true);
             break;
         }
         case 31: {
@@ -20729,7 +20729,7 @@ void Extras::FUN_00424960(unsigned int auiChangeFlags, unsigned int unused, TESO
             {
                 unsigned int id;
                 DAT_011de45c->FUN_00857aa0(&id, 4);
-                FUN_00422480(id);
+                AddFollower(id);
             }
             break;
         }
@@ -20867,7 +20867,7 @@ void Extras::FUN_00424960(unsigned int auiChangeFlags, unsigned int unused, TESO
             unsigned int id;
             DAT_011de45c->FUN_00857aa0(&id, 4);
             if (id)
-                FUN_00419dc0(id);
+                SetHeadTrackTargetExtra(id);
             break;
         }
         case 73: {
@@ -20879,7 +20879,7 @@ void Extras::FUN_00424960(unsigned int auiChangeFlags, unsigned int unused, TESO
                 {
                     TESForm* form = FUN_004839c0(id);
                     if (dynamic_cast<TESObjectCELL*>(form) || dynamic_cast<TESWorldSpace*>(form))
-                        FUN_0041b1e0(form);
+                        SetStartingWorldOrCell(form);
                 }
             }
             break;
@@ -20914,7 +20914,7 @@ void Extras::FUN_00424960(unsigned int auiChangeFlags, unsigned int unused, TESO
         }
     }
     if (!usBlockSize && (auiChangeFlags & 0))
-        FUN_0041af50();
+        RemoveScript();
     if (DAT_011de45c->FUN_00862110())
     {
         unsigned int qidnYUK = DAT_011de45c->FUN_00825c00();
@@ -21001,7 +21001,7 @@ struct ListNode
 };
 struct ObjA
 {
-    int FUN_0040a1e0();
+    int GetMagicItemFormID();
 };
 struct ObjB
 {
@@ -21560,7 +21560,7 @@ void Owner::WriteNodeList(BufObj* apBuffer)
             }
             case 0x32: {
                 Node* t = node;
-                apBuffer->FUN_00865db0(t->m_18 ? t->m_18->FUN_0040a1e0() : 0, 0);
+                apBuffer->FUN_00865db0(t->m_18 ? t->m_18->GetMagicItemFormID() : 0, 0);
                 apBuffer->FUN_00865db0(t->m_1c ? t->m_1c->RefreshItem() : 0, 0);
                 apBuffer->FUN_00865df0(t->m_20, 0);
                 break;
@@ -21578,7 +21578,7 @@ void Owner::WriteNodeList(BufObj* apBuffer)
             }
             case 0x3f: {
                 Node* t = node;
-                apBuffer->FUN_00865db0(t->m_0c ? ((Sub30*)t->m_0c)->m_30.FUN_0040a1e0() : 0, 0);
+                apBuffer->FUN_00865db0(t->m_0c ? ((Sub30*)t->m_0c)->m_30.GetMagicItemFormID() : 0, 0);
                 break;
             }
             case 0x46: {
@@ -23563,7 +23563,7 @@ struct ResolveList;
 struct ResolveForm : TESForm
 {
     bool FUN_00575d10();
-    bool FUN_0056aac0();
+    bool CheckEnableParentLoop();
     ResolveList* FUN_005d43c0();
     int FUN_00401170();
     void RemapImpactData(TESForm*);
@@ -23904,7 +23904,7 @@ void ResolveExtraOwner::FUN_00416be0(TESForm* owner)
             else
             {
                 TESObjectREFR* ref = dynamic_cast<TESObjectREFR*>(owner);
-                if (ref && static_cast<ResolveForm*>(static_cast<TESForm*>(ref))->FUN_0056aac0())
+                if (ref && static_cast<ResolveForm*>(static_cast<TESForm*>(ref))->CheckEnableParentLoop())
                     static_cast<ResolveForm*>(extra->form)->FUN_005d43c0()->FUN_0041dcd0(ref);
                 else
                 {
@@ -24292,7 +24292,7 @@ extern RecursiveSpinLock g_011c3920;
 void __cdecl ResetTlsBufferIfListMatches(const BaseExtraList*);
 struct S11f20
 {
-    bool FUN_00411f20(BSExtraData*);
+    bool IsCopyable(BSExtraData*);
 };
 // Removes all copyable extra data nodes from the list, optionally deleting them, while holding the ExtraDataList lock.
 // @fnv 0x00411fd0
@@ -24308,7 +24308,7 @@ void CopyableExtraList::FUN_00411fd0(bool abdelete)
     {
         CopyableExtraNode* pcur = pwork;
         pwork = (CopyableExtraNode*)pwork->FUN_0044ddc0();
-        if (((S11f20*)this)->FUN_00411f20((BSExtraData*)pcur))
+        if (((S11f20*)this)->IsCopyable((BSExtraData*)pcur))
         {
             if ((BSExtraData*)pcur == pHead)
                 pHead = (BSExtraData*)pwork;
@@ -24329,14 +24329,14 @@ struct TextureView
     char const* FUN_00408da0();
 };
 void* __cdecl FUN_00ec43fb(void*, int, void*, void*, int);
-char* __cdecl FUN_00480ef0(::TESForm*, int);
+char* __cdecl GetIcon(::TESForm*, int);
 extern unsigned int DAT_01183028;
 extern unsigned int DAT_01183218;
 }
 
 // Returns the view method's string when present; otherwise returns the fallback result or an empty string.
 // @fnv 0x0048e730
-char const* FUN_0048e730(::TESForm* form, int arg)
+char const* GetTextureName(::TESForm* form, int arg)
 {
     texture_lookup::TextureView* pTexture;
     char const* pName;
@@ -24346,7 +24346,7 @@ char const* FUN_0048e730(::TESForm* form, int arg)
                                                                           &texture_lookup::DAT_01183218, 0);
     if (pTexture == 0)
     {
-        pName = texture_lookup::FUN_00480ef0(form, arg);
+        pName = texture_lookup::GetIcon(form, arg);
         if (pName != 0)
             result = pName;
         else

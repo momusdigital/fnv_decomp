@@ -30,7 +30,7 @@ void FnvCpu_FUN_00e063e0_CpuOwner::FUN_00e063e0(int arg0)
 }
 
 // @fnv 0x00e063c0
-void __stdcall FUN_00e063c0(int)
+void __stdcall applyAction(int)
 {}
 
 // @fnv 0x00e063d0

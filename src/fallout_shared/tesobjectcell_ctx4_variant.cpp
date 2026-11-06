@@ -280,11 +280,11 @@ struct Cell : Reference
     Extras* GetExtraDataList();
     bool FUN_005516c0();
     Collection* FUN_0070ec90();
-    void FUN_00542d40();
+    void InitItem();
 };
 
 // @fnv 0x00542d40
-void Cell::FUN_00542d40()
+void Cell::InitItem()
 {
 
     if (!FUN_004013e0())

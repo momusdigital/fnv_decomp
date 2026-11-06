@@ -149,11 +149,11 @@ extern float DAT_010c44d0[4];
 
 struct S00c9dc40_Box : public hkpBoxShape
 {
-    void __thiscall FUN_00c9dc40(const float* src, float* dst);
+    void __thiscall getSupportingVertexImpl(const float* src, float* dst);
 };
 
 // @fnv 0x00c9dc40
-void __thiscall S00c9dc40_Box::FUN_00c9dc40(const float* src, float* dst)
+void __thiscall S00c9dc40_Box::getSupportingVertexImpl(const float* src, float* dst)
 {
     hkVector4 e = m_vHalfExtents;
     __m128 v = _mm_and_ps(_mm_load_ps(src), _mm_load_ps(DAT_010c44d0));
@@ -282,12 +282,12 @@ extern "C" const __m128 DAT_010c7030[8];
 
 struct BoxShapeHelper : public hkpBoxShape
 {
-    void* FUN_00c9dd30(__m128* sphereBuffer) const;
+    void* getCollisionSpheresImpl(__m128* sphereBuffer) const;
 };
 
 // Multiplies the half-extents and sphere radius by DAT_010c7030 coefficients and writes the results into sphereBuffer.
 // @fnv 0x00c9dd30
-void* BoxShapeHelper::FUN_00c9dd30(__m128* sphereBuffer) const
+void* BoxShapeHelper::getCollisionSpheresImpl(__m128* sphereBuffer) const
 {
     __declspec(align(16)) hkVector4 extents = m_vHalfExtents;
     extents.w = m_fSphereRadius;

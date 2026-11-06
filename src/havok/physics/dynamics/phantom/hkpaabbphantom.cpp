@@ -110,11 +110,11 @@ struct PresentFlag
 struct FUN_00cf2a60_t : hkpAabbPhantom
 {
     void NotifyAll(hkpCollidable* collidable, PresentFlag wasPresent);
-    void FUN_00cf2a60(hkpCollidable* collidable);
+    void removeOverlappingCollidable(hkpCollidable* collidable);
 };
 // Searches the phantom's collidable list for the given collidable, notifies via NotifyAll whether it was present, and removes it by swapping in the last entry.
 // @fnv 0x00cf2a60
-void FUN_00cf2a60_t::FUN_00cf2a60(hkpCollidable* collidable)
+void FUN_00cf2a60_t::removeOverlappingCollidable(hkpCollidable* collidable)
 {
     int index;
     int count = m_ppOverlappingCollidables.m_iElementCount;
@@ -810,13 +810,13 @@ class FUN_00cf2cb0 : public hkpWorldObjectCF2D
     char m_padD0[0x10];
 
     FUN_00cf2cb0(const hkAabbCF2D& kAabb, hkUint32 uiCollisionFilterInfo) throw();
-    hkpWorldObjectCF2D* FUN_00cf2d50() const throw();
+    hkpWorldObjectCF2D* clone() const throw();
 };
 
 typedef char fnv_check_cf2d50[(sizeof(FUN_00cf2cb0) == 0xe0) ? 1 : -1];
 
 // @fnv 0x00cf2d50
-hkpWorldObjectCF2D* FUN_00cf2cb0::FUN_00cf2d50() const throw()
+hkpWorldObjectCF2D* FUN_00cf2cb0::clone() const throw()
 {
     FUN_00cf2cb0* pkPhantom = new FUN_00cf2cb0(m_kBounds, getCollidable()->GetFilterInfoForKey());
     pkPhantom->m_kPhantomOverlapListeners = m_kPhantomOverlapListeners;

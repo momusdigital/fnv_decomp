@@ -181,11 +181,11 @@ void BGSMessage::ClearButtons()
 
 struct FUN_00590d00_shell : public BGSMessage
 {
-    bool FUN_00590d00();
+    bool GetIsMessageBox();
 };
 
 // @fnv 0x00590d00
-bool FUN_00590d00_shell::FUN_00590d00()
+bool FUN_00590d00_shell::GetIsMessageBox()
 {
     return (*(unsigned int*)((char*)this + 0x38) & 1) ? true : false;
 }
@@ -415,7 +415,7 @@ struct Target0bc0
     unsigned int flags, time;
     void FUN_004855a0();
     Icon0bc0* FUN_0055b980();
-    bool FUN_00590d00();
+    bool GetIsMessageBox();
     List0bc0* FUN_00436aa0();
     void FUN_00485680();
     void WriteToStream();
@@ -429,7 +429,7 @@ void Target0bc0::WriteToStream()
     unsigned int id = FUN_0055b980() ? FUN_0055b980()->FUN_0084e3a0() : 0;
     FUN_00485910(0x4d414e49, id);
     FUN_00485910(0x4d414e44, flags);
-    if (!FUN_00590d00())
+    if (!GetIsMessageBox())
         FUN_00485910(0x4d414e54, time);
     List0bc0* node = FUN_00436aa0();
     while (node && !node->FUN_008256d0())
@@ -465,7 +465,7 @@ struct ButtonListView
 struct MessageCompare : BGSMessage
 {
     unsigned int FUN_0055b980();
-    bool FUN_00590d00();
+    bool GetIsMessageBox();
     bool IsFlagSet();
     unsigned int FUN_00639b40();
     ButtonListView* FUN_00436aa0();
@@ -480,7 +480,7 @@ bool MessageCompare::IsNotEqual(TESForm* form)
         return true;
     if (FUN_0055b980() != right->FUN_0055b980())
         return true;
-    if (FUN_00590d00() != right->FUN_00590d00())
+    if (GetIsMessageBox() != right->GetIsMessageBox())
         return true;
     if (IsFlagSet() != right->IsFlagSet())
         return true;

@@ -75,11 +75,11 @@ void __cdecl FUN_00485910(unsigned int, unsigned int);
 
 struct FUN_004f9a90_shell : BGSConstructibleObject
 {
-    void __thiscall FUN_004f9a90();
+    void __thiscall SaveForm();
 };
 
 // @fnv 0x004f9a90
-void __thiscall FUN_004f9a90_shell::FUN_004f9a90()
+void __thiscall FUN_004f9a90_shell::SaveForm()
 {
     ((FUN_004855a0*)this)->M();
     ((S_00487010*)((char*)this + 0x30))->FUN_00487010();
@@ -108,12 +108,12 @@ struct BGSConstructibleObject
     char pad[0xac];
     void* m_pCreatedObject;
     void* m_pWorkbenchKeyword;
-    void FUN_004f9570();
+    void InitializeData();
 };
 
 // Sets the two pointer fields at offsets 0xac and 0xb0 to null.
 // @fnv 0x004f9570
-void BGSConstructibleObject::FUN_004f9570()
+void BGSConstructibleObject::InitializeData()
 {
     m_pCreatedObject = 0;
     m_pWorkbenchKeyword = 0;
@@ -336,11 +336,11 @@ struct FUN_004f96f0_cobj : public TESBoundObjectBase,
 {
     BGSListForm* m_pCreatedObject;
     TESBoundObject* m_pWorkbenchKeyword;
-    bool FUN_004f96f0(TESFile* apFile);
+    bool Load(TESFile* apFile);
 };
 // Loads a bound object record from the file, dispatching each chunk to the matching loader and returning true.
 // @fnv 0x004f96f0
-bool FUN_004f96f0_cobj::FUN_004f96f0(TESFile* apFile)
+bool FUN_004f96f0_cobj::Load(TESFile* apFile)
 {
     LoadRecordHeader(apFile);
     SetInitializationState(false);
@@ -420,7 +420,7 @@ void* __cdecl FUN_00ec43fb(unsigned int, unsigned int, void*, void*, unsigned in
 
 struct FUN_0051af50_cls
 {
-    void __thiscall FUN_0051af50(void* p);
+    void __thiscall CopyFrom(void* p);
 };
 
 struct FUN_009ee040_cls
@@ -476,11 +476,11 @@ struct FUN_004f9b80_cls
     unsigned int m_ac;
     unsigned int m_b0;
 
-    void __thiscall FUN_004f9b80(unsigned int a1);
+    void __thiscall CopyFrom(unsigned int a1);
 };
 
 // @fnv 0x004f9b80
-void FUN_004f9b80_cls::FUN_004f9b80(unsigned int a1)
+void FUN_004f9b80_cls::CopyFrom(unsigned int a1)
 {
     void* r = FUN_00ec43fb(a1, 0, &DAT_01183028, &DAT_01189c78, 0);
     if (r == 0)
@@ -488,7 +488,7 @@ void FUN_004f9b80_cls::FUN_004f9b80(unsigned int a1)
     }
     else
     {
-        reinterpret_cast<FUN_0051af50_cls*>(this)->FUN_0051af50(r);
+        reinterpret_cast<FUN_0051af50_cls*>(this)->CopyFrom(r);
         m_ac = reinterpret_cast<FUN_004f9bf0_shell*>(r)->FUN_004f9bf0();
         m_b0 = reinterpret_cast<FUN_009ee040_cls*>(r)->FUN_009ee040();
     }
@@ -669,22 +669,22 @@ void S_004f95a0::LoadFormReferences()
 
 struct BoundObjectComparison
 {
-    bool FUN_0051afb0(void*);
+    bool Compare(void*);
 };
 
 struct ConstructibleComparison : FUN_004f96f0_cobj
 {
-    bool FUN_004f9c10(void* apCompare);
+    bool Compare(void* apCompare);
 };
 
 // Returns true when FUN_00ec43fb returns null, the bound-object comparison succeeds, or either stored pointer differs.
 // @fnv 0x004f9c10
-bool ConstructibleComparison::FUN_004f9c10(void* apCompare)
+bool ConstructibleComparison::Compare(void* apCompare)
 {
     void* pcomp = FUN_00ec43fb((unsigned int)apCompare, 0, &DAT_01183028, &DAT_01189c78, 0);
     if (!pcomp)
         return true;
-    if (((BoundObjectComparison*)this)->FUN_0051afb0(pcomp))
+    if (((BoundObjectComparison*)this)->Compare(pcomp))
         return true;
     if (m_pCreatedObject != (BGSListForm*)((FUN_004f9bf0_shell*)pcomp)->FUN_004f9bf0())
         return true;

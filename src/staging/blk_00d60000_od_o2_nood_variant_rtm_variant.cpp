@@ -50,7 +50,7 @@ struct __declspec(align(16)) LoadedObject
 };
 
 // @fnv 0x00d6ae50
-const char* FUN_00d6ae50()
+const char* getVtable_hkpConstraintInstance()
 {
     FinishLoadedObjectFlag kFlag;
     kFlag.m_iFinishing = 0;
@@ -128,7 +128,7 @@ __declspec(align(16)) class FUN_00d6aec0_obj
     int unkE8;
     int unkEC;
 };
-int FUN_00d6aec0() throw();
+int getVtable_hkpWorldCinfo() throw();
 #include <xmmintrin.h>
 #include <math.h>
 extern float DAT_0104da4c;

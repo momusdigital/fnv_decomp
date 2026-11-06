@@ -23,7 +23,7 @@ struct FUN_00c54d60_shell
 };
 struct FUN_00c54030_shell
 {
-    int __thiscall FUN_00c54030(int param_1);
+    int __thiscall CreateClone(int param_1);
 };
 struct FUN_00a7b290_shell
 {
@@ -31,12 +31,12 @@ struct FUN_00a7b290_shell
 };
 struct FUN_00c54150_shell
 {
-    void __thiscall FUN_00c54150(int param_1);
+    void __thiscall RegisterStreamables(int param_1);
 };
 struct C00c541e0
 {
     bool FUN_00a7b3d0(int);
-    bool FUN_00c541e0(int);
+    bool IsEqual(int);
 };
 class NiStream;
 struct NiColor
@@ -112,7 +112,7 @@ struct FUN_00c54040_cls
 struct S_00c54130
 {
     void FUN_00a7b3b0(int a);
-    void FUN_00c54130(int a);
+    void LinkObject(int a);
 };
 extern double DAT_01012060;
 extern float DAT_012031cc;

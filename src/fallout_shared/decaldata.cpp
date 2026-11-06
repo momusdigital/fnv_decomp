@@ -78,10 +78,10 @@ bool __cdecl FUN_00401500();
 void __cdecl AppendChunk(void*, void*, unsigned int);
 struct FUN_00593320_shell
 {
-    void FUN_00593320(void*);
+    void Save(void*);
 };
 // @fnv 0x00593320
-void FUN_00593320_shell::FUN_00593320(void* a1)
+void FUN_00593320_shell::Save(void* a1)
 {
     if (FUN_00401500())
         ((DecalData*)this)->SwapEndianFields();

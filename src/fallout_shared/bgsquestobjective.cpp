@@ -292,7 +292,7 @@ struct TESFile
 typedef char _sizecheck_TESFile[sizeof(TESFile) == 1068 ? 1 : -1];
 struct FUN_005ec370_shell : public BGSQuestObjective
 {
-    void FUN_005ec370(TESFile*);
+    void Load(TESFile*);
 };
 
 extern "C" void* __cdecl _alloca(unsigned int);
@@ -302,7 +302,7 @@ struct S_005ec440
 };
 // Reads chunks from apFile: stores the QOBJ chunk's int in iIndex, and on the NNAM chunk passes its data (or null) to FUN_005ec440, then returns.
 // @fnv 0x005ec370
-void FUN_005ec370_shell::FUN_005ec370(TESFile* apFile)
+void FUN_005ec370_shell::Load(TESFile* apFile)
 {
     int chunkid;
     while ((chunkid = apFile->ReadCurrentForm()) != 0)

@@ -143,11 +143,11 @@ struct FUN_004f1f70_shell
 };
 struct FUN_004f23d0_shell : FUN_004f1f70_shell
 {
-    FUN_004f1f70_shell* FUN_004f23d0();
+    FUN_004f1f70_shell* CreateCopy();
 };
 // Allocates a new shell object by copy-constructing it from this object and returns the new pointer.
 // @fnv 0x004f23d0
-FUN_004f1f70_shell* FUN_004f23d0_shell::FUN_004f23d0()
+FUN_004f1f70_shell* FUN_004f23d0_shell::CreateCopy()
 {
     FUN_004f1f70_shell* pdata = new FUN_004f1f70_shell((const FUN_004f1f70_shell*)this);
     return pdata;
@@ -244,12 +244,12 @@ class Obj4f11
     char _pad[0x18];
     Head4f11* m_pHead;
     ContNode* m_pNext;
-    bool FUN_004f11e0();
+    bool Validate();
 };
 
 // Returns false if m_pNext or m_pHead is null, m_pHead->FUN_004f3610() fails, or any node's item fails FUN_004f81e0(1); otherwise true.
 // @fnv 0x004f11e0
-bool Obj4f11::FUN_004f11e0()
+bool Obj4f11::Validate()
 {
     ContNode* pNode = m_pNext;
     if (!m_pNext || !m_pHead)

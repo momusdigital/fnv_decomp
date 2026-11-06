@@ -39,7 +39,7 @@ struct ArrSI
 };
 struct FUN_004d7d50_StandIn
 {
-    unsigned int __thiscall FUN_004d7d50();
+    unsigned int __thiscall GetModifierCount();
 };
 struct FUN_004d8510_StandIn
 {
@@ -146,7 +146,7 @@ struct GlobalObject_004aff00
 };
 struct FUN_004def90_Class
 {
-    void FUN_004def90();
+    void RemoveAllChildren();
 };
 struct GO
 {
@@ -1097,7 +1097,7 @@ struct FUN_00559450_Helper
 };
 struct FUN_0066b0d0_Helper
 {
-    void FUN_004def90();
+    void RemoveAllChildren();
     void FUN_0066b0d0(int);
 };
 void FUN_004def20();

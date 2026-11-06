@@ -105,8 +105,8 @@ void FOPipboyManager::FUN_007fc2d0(NiAVObject* object)
         {
             NiAlphaProperty* alpha = new NiAlphaProperty;
             alpha->FUN_0049ed90(false);
-            alpha->FUN_00439340(6);
-            alpha->FUN_00439390(0);
+            alpha->SetSrcBlendMode(6);
+            alpha->SetDestBlendMode(0);
             object->AttachProperty(alpha);
         }
     }
@@ -390,10 +390,10 @@ void FUN_007fb250_owner::FUN_007fb250(float afDuration, float afIntensity)
 namespace fnv_007fb420 {
 struct MenuStub
 {
-    void FUN_007fb420(float afTime);
+    void UpdateBurst(float afTime);
 };
 // @fnv 0x007fb420
-void MenuStub::FUN_007fb420(float afTime)
+void MenuStub::UpdateBurst(float afTime)
 {
     float fintensityValue = afTime - *(float*)((char*)this + 0x50);
     if (fintensityValue > *(float*)((char*)this + 0x54))
@@ -578,10 +578,10 @@ void FUN_007fdf10_shell::SetGo(void* apValue)
 float __cdecl FUN_004e44d0(float);
 struct FUN_007fb3a0_shell
 {
-    void FUN_007fb3a0(float afTime);
+    void UpdateShudder(float afTime);
 };
 // @fnv 0x007fb3a0
-void FUN_007fb3a0_shell::FUN_007fb3a0(float afTime)
+void FUN_007fb3a0_shell::UpdateShudder(float afTime)
 {
     float fdelta = afTime - *(float*)((char*)this + 0x78);
     if (fdelta > *(float*)((char*)this + 0x7c))
@@ -606,11 +606,11 @@ extern GlobalObject_0044f440 g_011db424;
 
 struct FUN_007fb530_shell
 {
-    void FUN_007fb530(float afDuration);
+    void UpdatePulse(float afDuration);
 };
 
 // @fnv 0x007fb530
-void FUN_007fb530_shell::FUN_007fb530(float afDuration)
+void FUN_007fb530_shell::UpdatePulse(float afDuration)
 {
     float f04 = ApplyNoise(afDuration * g_011db408.Float()->f) * 2.0f;
     *(float*)((char*)this + 0x8c) = f04 * g_011db3a4.Float()->f;
@@ -966,7 +966,7 @@ struct CameraView : NiAVObject
     void FUN_00712e60(const Rect4&);
     void FUN_00733fd0(float);
     void SetLookAt(const Point3&, const Point3&);
-    void FUN_00507700(float);
+    void SetMaxFarNearRatio(float);
     void FUN_00a6faf0(const Frustum&);
 };
 struct MenuView
@@ -1822,7 +1822,7 @@ void FUN_007fd6c0_Class::UpdatePlayerFaceScene()
     Frustum RootUpdate(false);
     RootUpdate.farPlane = FUN_0045c670()->GetScalarValue();
     RootUpdate.nearPlane = DAT_01203144.FUN_00403e20();
-    camera->FUN_00507700(RootUpdate.farPlane / RootUpdate.nearPlane);
+    camera->SetMaxFarNearRatio(RootUpdate.farPlane / RootUpdate.nearPlane);
     float angle = (DAT_01203150.FUN_00403e20() * 0.01745329238474369) * DAT_011db5ec.FUN_00403e20();
     RootUpdate.left = -FUN_0057dd70(angle);
     RootUpdate.right = FUN_0057dd70(angle);
@@ -2330,7 +2330,7 @@ struct Audio
 Audio* __cdecl FUN_00453a70();
 struct Anim
 {
-    bool FUN_004985f0();
+    bool SpecialIdleDonePlaying();
     void FUN_00496080(int a, float f);
     void* FUN_00494740(unsigned short group, int flags, int b, int section);
 };
@@ -2490,17 +2490,17 @@ struct Mgr
     bool IsUnk28Set();
     void FUN_007fa010(unsigned int b);
     void ResetMenuState();
-    void FUN_007f8170();
+    void OnMenuClose();
 };
 }
 // @fnv 0x007f8170
-void n7f8::Mgr::FUN_007f8170()
+void n7f8::Mgr::OnMenuClose()
 {
     FUN_007fa8d0(((Player*)DAT_011dea3c)->FUN_008c51c0());
     Anim* anim = ((Player*)DAT_011dea3c)->FUN_00950a60(true);
     if (anim)
     {
-        if (!anim->FUN_004985f0())
+        if (!anim->SpecialIdleDonePlaying())
             anim->FUN_00496080(7, 0.0f);
         anim->FUN_00494740(((Player*)DAT_011dea3c)->FUN_00897910(0, 0, 0, 0), 1, -1, -1);
         ((Player*)DAT_011dea3c)
@@ -2912,10 +2912,10 @@ struct Owner007f
     Node007f* FUN_005585e0();
     void ResetMenuState();
     void UpdateSlotSelection(int);
-    void FUN_007fdf40();
+    void OnMenuClose();
 };
 // @fnv 0x007fdf40
-void Owner007f::FUN_007fdf40()
+void Owner007f::OnMenuClose()
 {
     DAT_011ad884 = 1;
     if (!IsUnk28Set())

@@ -270,7 +270,7 @@ struct FUN_00d5de40_Obj
     hkVector4 unk40;
     hkVector4 unk50;
 
-    void FUN_00d5de40(hkVector4* value);
+    void getCentreImpl(hkVector4* value);
 };
 
 struct __declspec(align(16)) V4
@@ -303,11 +303,11 @@ struct XformShape
     ChildShape* m_pChildAtom;
     int unk1c;
     __m128 m_c0, m_c1, m_c2, m_t;
-    void FUN_00d5dc70(const V4& dir, V4& out);
+    void getSupportingVertexImpl(const V4& dir, V4& out);
 };
 
 // @fnv 0x00d5dc70
-void XformShape::FUN_00d5dc70(const V4& dir, V4& out)
+void XformShape::getSupportingVertexImpl(const V4& dir, V4& out)
 {
     __m128 a = m_c0, b = m_c1, c = m_c2;
     __m128 tmp = _mm_unpacklo_ps(a, b);

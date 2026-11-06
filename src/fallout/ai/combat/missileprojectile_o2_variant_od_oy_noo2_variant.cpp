@@ -31,7 +31,7 @@ struct BeamProjectile
 };
 struct MissileProjectile : BeamProjectile
 {
-    void FUN_009baad0(BGSLoadFormBuffer*);
+    void LoadGame(BGSLoadFormBuffer*);
 };
 struct BGSProjectile
 {
@@ -283,7 +283,7 @@ struct FUN_00cbdd60_cls
     int unk00;
     int unk04;
     void FUN_00c89730(SpawnedObject_t* obj, unsigned int arg);
-    SpawnedObject_t* FUN_00cbdd60(unsigned int arg);
+    SpawnedObject_t* CreateClone(unsigned int arg);
 };
 struct S_cbde40_Tls
 {
@@ -505,7 +505,7 @@ struct S_cbde40
     int unk08;
     S_cbde40_Base* unk0c;
     void CopyFromSource(S_cbde40_Obj* c);
-    S_cbde40_Base* FUN_00cbde40(bool* created);
+    S_cbde40_Base* CreateCinfo(bool* created);
 };
 
 namespace fnv_009b90b0 {

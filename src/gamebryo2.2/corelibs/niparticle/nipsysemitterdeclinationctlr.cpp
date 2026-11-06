@@ -62,11 +62,11 @@ struct ObjArray
 struct FUN_00c2ba10_class
 {
     __declspec(nothrow) void FUN_00c32f60(ObjArray* arr);
-    void FUN_00c2ba10(ObjArray* arr);
+    void GetViewerStrings(ObjArray* arr);
 };
 
 // @fnv 0x00c2ba10
-void FUN_00c2ba10_class::FUN_00c2ba10(ObjArray* pArray)
+void FUN_00c2ba10_class::GetViewerStrings(ObjArray* pArray)
 {
     FUN_00c32f60(pArray);
     NiObject* obj = FUN_00a7d330(g_01202758);

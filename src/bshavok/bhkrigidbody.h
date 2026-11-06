@@ -54,8 +54,8 @@ void bhkRigidBody::SetRotation(const NiQuaternion& p)
 // @fnv 0x0062ab20
 float bhkRigidBody::GetBodyMass()
 {
-    hkpMotion* motion = FUN_005d3d10();
-    return motion ? motion->GetMassValue() : FUN_004b5400();
+    hkpMotion* motion = GetStoredDynamicMotion();
+    return motion ? motion->GetMassValue() : GetMass();
 }
 #pragma optimize("", on)
 __forceinline const __m128& bhkRigidBody::PositionVector()
@@ -93,7 +93,7 @@ BhkRigidBody::BhkRigidBody()
     rigidBody.m_fRestitution = DAT_010c60d8;
 }
 // @fnv 0x00c8d1d0
-void bhkRigidBody::FUN_00c8d1d0(const NiPoint3& p, const NiQuaternion& q)
+void bhkRigidBody::SetPosRot(const NiPoint3& p, const NiQuaternion& q)
 {
     if (this)
     {

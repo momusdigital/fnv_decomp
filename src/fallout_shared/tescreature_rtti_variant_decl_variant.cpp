@@ -10,7 +10,7 @@
 
 #include <string.h>
 // @fnv 0x005f9b90
-bool TESCreature::FUN_005f9b90(TESForm* otherForm)
+bool TESCreature::Compare(TESForm* otherForm)
 {
     TESCreature* other = dynamic_cast<TESCreature*>(otherForm);
     if (!other)

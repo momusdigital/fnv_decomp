@@ -60,10 +60,10 @@ struct Owner
     virtual void v18(unsigned int flag);
     int FUN_007af430();
     ExtraList* FUN_005d43c0();
-    ExtraBase2* FUN_00575f30();
+    ExtraBase2* GetMagicTarget();
 };
 // @fnv 0x00575f30
-ExtraBase2* Owner::FUN_00575f30()
+ExtraBase2* Owner::GetMagicTarget()
 {
     NonActorMagicTarget* p = 0;
     if (FUN_00576040(FUN_007af430()))

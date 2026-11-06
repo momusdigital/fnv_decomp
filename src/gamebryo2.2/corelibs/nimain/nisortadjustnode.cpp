@@ -74,10 +74,10 @@ class NiNode
 };
 struct TargetCls : public NiNode
 {
-    void __thiscall FUN_00a95410(NiStream&);
+    void __thiscall LinkObject(NiStream&);
 };
 // @fnv 0x00a95410
-void __thiscall TargetCls::FUN_00a95410(NiStream& stream)
+void __thiscall TargetCls::LinkObject(NiStream& stream)
 {
     ReadChildListFromStream(stream);
     if (stream.m_uiNifVersion < 0x14000004)
@@ -128,11 +128,11 @@ struct CompareBase
 };
 struct MyOther : CompareBase
 {
-    unsigned char FUN_00a952e0(MyOther* other);
+    unsigned char IsEqual(MyOther* other);
 };
 // Calls FUN_00a5e600(other); if that succeeds, returns whether the int at offset 0xac matches between this and other.
 // @fnv 0x00a952e0
-unsigned char MyOther::FUN_00a952e0(MyOther* other)
+unsigned char MyOther::IsEqual(MyOther* other)
 {
     unsigned char result = FUN_00a5e600(other);
     if (!result)
@@ -205,11 +205,11 @@ struct S_00a953b0_Sort : S_00a953b0_Node
         m_ac = 0;
     }
     virtual void v0();
-    S_00a953b0_Node* FUN_00a953b0(void* process);
+    S_00a953b0_Node* CreateClone(void* process);
 };
 
 // @fnv 0x00a953b0
-S_00a953b0_Node* S_00a953b0_Sort::FUN_00a953b0(void* process)
+S_00a953b0_Node* S_00a953b0_Sort::CreateClone(void* process)
 {
     S_00a953b0_Sort* p = new S_00a953b0_Sort;
     CopyMemberData(p, process);

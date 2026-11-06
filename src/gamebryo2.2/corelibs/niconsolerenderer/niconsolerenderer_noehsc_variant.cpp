@@ -184,7 +184,7 @@ struct FUN_00e695f0_shell
 };
 struct FUN_00e69600_shell
 {
-    unsigned int __thiscall FUN_00e69600();
+    unsigned int __thiscall GetDefaultRenderTargetGroup();
 };
 struct FUN_00e69900_shell
 {
@@ -285,7 +285,7 @@ struct FUN_00e75840_shell
 {
     unsigned int pad[0x5e0 / 4];
     unsigned int color;
-    void FUN_00e75840(float* param);
+    void SetBackgroundColor(float* param);
 };
 extern "C" void* g_01270900;
 void* __cdecl FUN_00e766f0();
@@ -448,7 +448,7 @@ struct Dev
 };
 struct RendererHolder
 {
-    int __thiscall FUN_00e698a0(int a1, int a2, int a3, int a4);
+    int __thiscall DrawIndexedPrimitive_TRIANGLELIST(int a1, int a2, int a3, int a4);
 };
 struct FUN_00e698d0_shell
 {
@@ -465,7 +465,7 @@ extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(void*);
 int __cdecl FUN_00e68ef0(void*, void*);
 struct StandIn_e6dc40
 {
-    bool FUN_00e6dc40(void*);
+    bool CreateSourceTextureRendererData(void*);
 };
 struct NiVBSet
 {
@@ -488,7 +488,7 @@ extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(void*);
 int __cdecl FUN_00e8abf0(void*, void*);
 struct FUN_00e6dcc0_shell
 {
-    bool __thiscall FUN_00e6dcc0(void*);
+    bool __thiscall CreateSourceCubeMapRendererData(void*);
 };
 struct NiTMapBaseStub
 {
@@ -12338,7 +12338,7 @@ struct ResolveRenderer
     unsigned int unk8f8;
     unsigned int unk8fc;
     BoundCache cache;
-    bool FUN_00e74dc0();
+    bool EndUsingRenderTargetGroup();
 };
 unsigned int ConvertVertexComponents(FUN_00e76c30_Info* info);
 extern "C" void* __cdecl FUN_00ec61c0(void*, int, unsigned int);
@@ -15032,12 +15032,12 @@ struct FUN_00e759c0_cls
     unsigned char unk5e1;
     unsigned char unk5e2;
     unsigned char unk5e3;
-    void FUN_00e759c0(float* out);
+    void GetBackgroundColor(float* out);
 };
 unsigned int __cdecl ConvertNormalizedShortsToFloats(NormalizedStream* s);
 
 extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volatile*);
-extern "C" const char* __stdcall FUN_00ee6e2e(void* pDevice);
+extern "C" const char* __stdcall D3DXGetVertexShaderProfile(void* pDevice);
 extern "C" const char* __stdcall FUN_00ee6e28(void* pDevice);
 extern const char* DAT_0109b220;
 const char* __cdecl FUN_00a5b690(const char* name) throw();
@@ -15294,7 +15294,7 @@ struct ShaderRenderer
 // @fnv 0x00e6bdc0
 void ShaderRenderer::FUN_00e6bdc0(ShaderLibrary* lib, int a2, int a3, int a4, int a5, int target)
 {
-    const char* profile = FUN_00ee6e2e(m_pDirectInputDevice);
+    const char* profile = D3DXGetVertexShaderProfile(m_pDirectInputDevice);
     if (target == 0)
         target = GetGlobalDataPtr();
     const char* ln;

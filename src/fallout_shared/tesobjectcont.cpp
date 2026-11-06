@@ -334,7 +334,7 @@ struct DoorPart68
 
 struct FUN_00485e00_shell
 {
-    void FUN_00485e20(TESForm*, int);
+    void __SaveData(TESForm*, int);
 };
 
 bool _FUN_00401500();
@@ -356,7 +356,7 @@ void FUN_00516a20_shell::FUN_00516a20()
         reinterpret_cast<TESForm*>(reinterpret_cast<char*>(this) + 0x98)->TESForm::ClearData();
     }
 
-    reinterpret_cast<FUN_00485e00_shell*>(this)->FUN_00485e20(
+    reinterpret_cast<FUN_00485e00_shell*>(this)->__SaveData(
         reinterpret_cast<TESForm*>(reinterpret_cast<char*>(this) + 0x98), 1);
 
     if (_FUN_00401500())

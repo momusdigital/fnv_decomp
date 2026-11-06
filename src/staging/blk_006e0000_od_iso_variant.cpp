@@ -3854,7 +3854,7 @@ struct TraceFraction
 };
 struct TraceResult
 {
-    void FUN_0062a290();
+    void reset();
     TraceFraction* FUN_00460140();
 };
 struct TraceWorld

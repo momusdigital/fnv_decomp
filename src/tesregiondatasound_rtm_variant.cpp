@@ -17,11 +17,11 @@ int __cdecl FUN_004839c0(unsigned int);
 
 struct FUN_004f4f90_shell : TESRegionDataSound
 {
-    int FUN_004f4f90();
+    int GetRandomBattleMediaSet();
 };
 
 // @fnv 0x004f4f90
-int FUN_004f4f90_shell::FUN_004f4f90()
+int FUN_004f4f90_shell::GetRandomBattleMediaSet()
 {
     unsigned int found;
     FUN_004f4f90_node* node7 = (FUN_004f4f90_node*)&Battle;

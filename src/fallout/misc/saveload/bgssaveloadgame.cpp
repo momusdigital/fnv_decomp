@@ -2988,7 +2988,7 @@ class TES
 {
   public:
     void FUN_00459920();
-    void FUN_0045cda0();
+    void ActivateAllSubmergedReferencesIslands();
 };
 extern TES* g_TES;
 extern TESObjectREFR* _g_thePlayer;
@@ -3087,7 +3087,7 @@ void FUN_008492b0_shell::ResetLoadBuffers(bool resetWorld)
         PhysicsWorld* world = cell ? (PhysicsWorld*)((CellPhysics*)cell)->FUN_004543c0() : 0;
         if (world)
             world->FUN_00c6a870();
-        g_TES->FUN_0045cda0();
+        g_TES->ActivateAllSubmergedReferencesIslands();
     }
     changes->FUN_00865360();
     for (unsigned int j = 0; j < buffers.GetSize(); ++j)
@@ -3521,7 +3521,7 @@ struct ThisHist84
 Form84* __cdecl FUN_004839c0(unsigned int);
 int __cdecl FUN_0084e730(unsigned int, int, unsigned int);
 int __cdecl FUN_0084e930(void*, int, void*);
-unsigned int __cdecl FUN_00526100();
+unsigned int __cdecl GetHoursToRespawnCell();
 int __cdecl PackShortPair(short, short);
 int __cdecl FUN_00406d90(float);
 unsigned int __cdecl FUN_0084e800(int);
@@ -3593,7 +3593,7 @@ void FUN_0084ab20_shell::FUN_0084ab20()
             }
             if (size != 0)
             {
-                if (start - size > FUN_00526100())
+                if (start - size > GetHoursToRespawnCell())
                 {
                     unsigned __int64 key = (unsigned __int64)idCopy;
                     if (maxXA != 0x7fffffff)

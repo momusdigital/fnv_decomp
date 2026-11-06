@@ -949,7 +949,7 @@ struct xCam : xAV
     static void operator delete(void*);
     void FUN_00712e60(const xColorA&);
     void FUN_00733fd0(float);
-    void FUN_00507700(float);
+    void SetMaxFarNearRatio(float);
     void FUN_00a6faf0(const xFrustum&);
     int m_auiShapeKeys[(0x114 - 4) / 4];
 };
@@ -1204,7 +1204,7 @@ void xRenderedMenu::Init()
     xFrustum qnuVZg(false);
     qnuVZg.m_fFarPlane = xF45c670()->GetFar();
     qnuVZg.m_fNearPlane = *xg_f_1203144.FUN_00403e20();
-    qSVM->FUN_00507700(qnuVZg.m_fFarPlane / qnuVZg.m_fNearPlane);
+    qSVM->SetMaxFarNearRatio(qnuVZg.m_fFarPlane / qnuVZg.m_fNearPlane);
     float qvyWyw = (float)(xg_b_11f9426 ? xg_i_11f9434 : xF4dc200()) / xF4dc1f0();
     float qkbsJ = 0.75f;
     qahtre = *xg_f_1203150.FUN_00403e20() * 0.01745329238474369 * *xg_f_11db5ec.FUN_00403e20();
@@ -1354,12 +1354,12 @@ struct RenderToTextureImpl
 
     const RtColor& FUN_00503650();
     void FUN_007fba00(int a1, int a2, RtTexture* pkTexture);
-    void FUN_007fe1f0(int a1, int a2, int a3);
+    void Render(int a1, int a2, int a3);
 };
 
 // Sets a render target and background color, processes m_spScene through render calls, then passes the target to FUN_007fba00.
 // @fnv 0x007fe1f0
-void RenderToTextureImpl::FUN_007fe1f0(int aiUnk, int aiUnk2, int aiUnk3)
+void RenderToTextureImpl::Render(int aiUnk, int aiUnk2, int aiUnk3)
 {
     bool bOverrideTmp = false;
     bOverrideTmp = true;

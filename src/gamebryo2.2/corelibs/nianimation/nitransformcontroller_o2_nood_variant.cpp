@@ -125,7 +125,7 @@ struct FUN_00a367c0_helper
 };
 
 // @fnv 0x00a367c0
-ObjectA36810* __fastcall FUN_00a367c0(ObjectA36810* pThis, void*, CloningProcess& cloning)
+ObjectA36810* __fastcall CreateClone(ObjectA36810* pThis, void*, CloningProcess& cloning)
 {
     ObjectA36810* pNewInstance = new ObjectA36810;
     ((FUN_00a367c0_helper*)pThis)->FUN_00a38ef0(pNewInstance, cloning);

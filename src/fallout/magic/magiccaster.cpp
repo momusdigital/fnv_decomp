@@ -109,7 +109,7 @@ void MagicCaster::RemoveCastingArt()
         if (effect && (unsigned int)effect->FUN_00453470() > 0)
         {
             hadNode = true;
-            effect->FUN_004def90();
+            effect->RemoveAllChildren();
         }
         if (apTargetLight)
         {
@@ -185,13 +185,13 @@ float FUN_008153a0_shell::FUN_008153a0(bool abJustArmor, float afUseThisFatigue)
 
 struct FUN_00818cb0_shell
 {
-    bool __thiscall FUN_00818cb0(MagicItem* apSpell, float* afEffectStrength, MagicItem::CannotCastReason* apReason,
+    bool __thiscall CheckCast(MagicItem* apSpell, float* afEffectStrength, MagicItem::CannotCastReason* apReason,
                                  bool abUseBaseMagicka);
 };
 
 // Initializes the optional effect strength to 1.0 and the reason to 0, then returns true.
 // @fnv 0x00818cb0
-bool __thiscall FUN_00818cb0_shell::FUN_00818cb0(MagicItem* apSpell, float* afEffectStrength,
+bool __thiscall FUN_00818cb0_shell::CheckCast(MagicItem* apSpell, float* afEffectStrength,
                                                  MagicItem::CannotCastReason* apReason, bool abUseBaseMagicka)
 {
     if (afEffectStrength)
@@ -653,11 +653,11 @@ struct FUN_00815670_cls
     virtual void Unk_0F(void);
     virtual void Unk_10(ChildCell* target);
     void FUN_00815d00(float a1, int a2, bool a3, float a4, int a5);
-    void FUN_00815670(RefShell* ref, bool flag);
+    void CastAddiction(RefShell* ref, bool flag);
 };
 
 // @fnv 0x00815670
-void FUN_00815670_cls::FUN_00815670(RefShell* ref, bool flag)
+void FUN_00815670_cls::CastAddiction(RefShell* ref, bool flag)
 {
     if (ref->child.Unk_06() == 10)
     {
@@ -1874,7 +1874,7 @@ class EffectItem
   public:
     int FUN_0084e3a0();
     P142EffectSetting* GetEffectSetting();
-    float FUN_00403f00();
+    float GetRawCost();
 };
 class ActiveEffect
 {
@@ -1897,7 +1897,7 @@ struct P142Prefix
 struct P142EffectList : P142Prefix, P142Node
 {
     EffectItem* FindCostliestEffectItem(int, int);
-    int FUN_004065e0(int, float);
+    int GetAssociatedSkill(int, float);
 };
 struct P142Spell : TESFullName, P142EffectList
 {
@@ -2199,7 +2199,7 @@ struct P142Ref
     virtual void NotifySpell(int);
     P142Caster* FUN_009185e0();
     P142Ref* FUN_004fd400();
-    int FUN_004086a0();
+    int GetProjectileType();
 };
 struct P142Caster : MagicCaster
 {
@@ -2250,7 +2250,7 @@ void P142Caster::ApplySpellEffects(P142Spell* spell, int flags, NiPoint3 positio
                     if ((ref && !modifier && spell->GetSpellType() == 0) || spell->GetSpellType() == 5)
                     {
                         modifier = true;
-                        ref->NotifySpell(spell->FUN_004065e0(1, 0.0f));
+                        ref->NotifySpell(spell->GetAssociatedSkill(1, 0.0f));
                     }
                 }
             }
@@ -2260,7 +2260,7 @@ void P142Caster::ApplySpellEffects(P142Spell* spell, int flags, NiPoint3 positio
         }
         targets = static_cast<P142EffectList*>(targets->FUN_00726070());
     }
-    bool primary = source->FUN_004fd400()->FUN_004086a0() == 3;
+    bool primary = source->FUN_004fd400()->GetProjectileType() == 3;
     EffectItem* secondary = spell->FindCostliestEffectItem(2, 1);
     if (!primary)
     {
@@ -2270,7 +2270,7 @@ void P142Caster::ApplySpellEffects(P142Spell* spell, int flags, NiPoint3 positio
         {
             Actor* actor = (Actor*)target;
             if (CheckHealthDamageKill(actor, spell))
-                ApplyExplosion(actor, position, notified, notified->FUN_00403f00());
+                ApplyExplosion(actor, position, notified, notified->GetRawCost());
         }
     }
     special.RemoveAll();
@@ -3941,7 +3941,7 @@ struct Effect
     EffectSettings* FUN_00825c00();
     int FUN_0084e3a0();
     int FUN_00404420();
-    float FUN_00403f00();
+    float GetRawCost();
     bool FUN_00404710();
     int FUN_00403ea0();
 };
@@ -3968,11 +3968,11 @@ struct UnsignedIntegerValue
 };
 struct EffectList : UnsignedIntegerValue, EffectLink
 {
-    bool FUN_00405da0();
+    bool CanBePoison();
     bool FUN_00405fe0();
     bool HasNonDetrimentalEffect();
     Effect* FindCostliestEffectItem(int, bool);
-    void* FUN_004065e0(bool);
+    void* GetAssociatedSkill(bool);
 };
 struct NameView
 {
@@ -4454,7 +4454,7 @@ struct Target
 };
 struct Loader
 {
-    void FUN_00445300(const char*, bool, int);
+    void ReleaseModel(const char*, bool, int);
 };
 extern Loader* DAT_011c3b3c;
 extern const char DAT_0107acfc[];
@@ -4515,7 +4515,7 @@ void Caster::FUN_00815d00(float power, Source* source, bool immediate, float mul
     Object* casterActorSlot25 = FUN_00815410();
     Target* target6 = 0;
     bool potion = spellB->GetSpellType() == 7;
-    bool touchPotionSlot30 = potion && reinterpret_cast<MagicView*>(spellB)->FUN_00405da0();
+    bool touchPotionSlot30 = potion && reinterpret_cast<MagicView*>(spellB)->CanBePoison();
     AlchemyItem* alchemy2 = potion ? dynamic_cast<AlchemyItem*>(spellB) : 0;
     if (reinterpret_cast<MagicView*>(spellB)->FUN_00405fe0() || touchPotionSlot30)
     {
@@ -4716,16 +4716,16 @@ void Caster::FUN_00815d00(float power, Source* source, bool immediate, float mul
         {
             ActorView* actor = reinterpret_cast<ActorView*>(areaTarget3);
             if (CheckHealthDamageKill(static_cast<TargetPart*>(actor), spellB))
-                ApplyExplosion(actor, position, aTouchEffect, aTouchEffect->FUN_00403f00());
+                ApplyExplosion(actor, position, aTouchEffect, aTouchEffect->GetRawCost());
         }
     }
     contextSlot12.FUN_00470470();
     if (reinterpret_cast<MagicView*>(spellB)->HasNonDetrimentalEffect())
         CastAimEffect();
     else if (didTarget2 && casterActorSlot25 && (spellB->GetSpellType() == 0 || spellB->GetSpellType() == 5))
-        casterActorSlot25->UseSkill(reinterpret_cast<MagicView*>(spellB)->FUN_004065e0(true), 0);
+        casterActorSlot25->UseSkill(reinterpret_cast<MagicView*>(spellB)->GetAssociatedSkill(true), 0);
     if (releaseModel && artSlot15 && artSlot15->model.FUN_0048cee0() > 0)
-        DAT_011c3b3c->FUN_00445300(artSlot15->model.GetModelFilePath(), false, 1);
+        DAT_011c3b3c->ReleaseModel(artSlot15->model.GetModelFilePath(), false, 1);
     SetSpell(0);
     SetMagicTarget(0);
     FUN_00818af0(0, 0);

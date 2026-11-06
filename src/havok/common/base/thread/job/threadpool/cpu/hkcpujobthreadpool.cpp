@@ -27,11 +27,11 @@ struct FUN_00d2d330_shell
 {
     void InitializeWorkerThread();
     void FUN_00d2ce50();
-    void FUN_00d2d330(int desired);
+    void setNumThreads(int desired);
 };
 
 // @fnv 0x00d2d330
-void FUN_00d2d330_shell::FUN_00d2d330(int desired)
+void FUN_00d2d330_shell::setNumThreads(int desired)
 {
     if (desired > 6)
         desired = 6;
@@ -44,11 +44,11 @@ void FUN_00d2d330_shell::FUN_00d2d330(int desired)
 struct FUN_00d2ce30_shell
 {
     unsigned char m_ucValue;
-    bool FUN_00d2ce30();
+    bool isProcessing();
 };
 
 // @fnv 0x00d2ce30
-bool FUN_00d2ce30_shell::FUN_00d2ce30()
+bool FUN_00d2ce30_shell::isProcessing()
 {
     return ((unsigned char*)this)[0x13c] != 0;
 }
@@ -61,13 +61,13 @@ struct FUN_00d2ce90_class
     unsigned char padding_134[0x08];
     bool m_running;
 
-    void FUN_00d2ce90();
+    void waitForCompletion();
 };
 
 int __fastcall FUN_00d04380(void*);
 
 // @fnv 0x00d2ce90
-void FUN_00d2ce90_class::FUN_00d2ce90()
+void FUN_00d2ce90_class::waitForCompletion()
 {
     if (m_running)
     {
@@ -108,11 +108,11 @@ FUN_00d2d380::FUN_00d2d380()
 
 struct FUN_00d2ce40_cls
 {
-    int FUN_00d2ce40();
+    int getNumThreads();
 };
 
 // @fnv 0x00d2ce40
-int FUN_00d2ce40_cls::FUN_00d2ce40()
+int FUN_00d2ce40_cls::getNumThreads()
 {
     return *(int*)((char*)this + 0x130);
 }
@@ -258,7 +258,7 @@ struct ArrBaseD2C
 struct ClsD2C : VBaseD2C, ArrBaseD2C
 {
     int m_uiItemCount;
-    void FUN_00d2ce90();
+    void waitForCompletion();
     void FUN_00d2cf00();
 };
 
@@ -266,7 +266,7 @@ struct ClsD2C : VBaseD2C, ArrBaseD2C
 void ClsD2C::FUN_00d2cf00()
 {
     *(void**)this = (void*)&DAT_010ce774;
-    FUN_00d2ce90();
+    waitForCompletion();
     for (int i = 0; i < m_uiItemCount; ++i)
     {
         ArrBaseD2C::m_threads[i].m_ucState = 1;

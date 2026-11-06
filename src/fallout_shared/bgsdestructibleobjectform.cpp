@@ -160,7 +160,7 @@ int ActorValueOwner::GetActorValue(ActorValue::Index value)
         result = ((TESAIForm*)((char*)this - 0x70))->GetResponsibility();
         break;
     case 4:
-        result = ((TESAIForm*)((char*)this - 0x70))->FUN_0062f2f0();
+        result = ((TESAIForm*)((char*)this - 0x70))->GetMood();
         break;
     case 21:
         result = ((TESActorBaseData*)((char*)this - 0xd0))->GetShortAtOffset12();
@@ -272,13 +272,13 @@ struct FUN_00475380_shell : public BGSDestructibleObjectForm
 };
 
 extern int DAT_0101a6a0;
-void __fastcall FUN_00478690(void* pThis);
+void __fastcall ClearDataComponent(void* pThis);
 
 // @fnv 0x00475380
 void FUN_00475380_shell::FUN_00475380()
 {
     *reinterpret_cast<int**>(this) = &DAT_0101a6a0;
-    FUN_00478690(this);
+    ClearDataComponent(this);
 }
 
 struct DestructionStageData
@@ -587,11 +587,11 @@ extern Setting_S originalRuntimeFloatSetting818;
 struct Standin77900
 {
     bool HasAnyFlags(int);
-    float FUN_00477900();
+    float GetRadiusBSUnits();
 };
 // Returns the float at offset 0x7c, multiplied by originalRuntimeFloatSetting818.Float() when HasAnyFlags(1) is false.
 // @fnv 0x00477900
-float Standin77900::FUN_00477900()
+float Standin77900::GetRadiusBSUnits()
 {
     return (float)(HasAnyFlags(1) ? (double)*(float*)((char*)this + 0x7c)
                                   : (double)(*(float*)((char*)this + 0x7c) * *originalRuntimeFloatSetting818.Float()));
@@ -706,11 +706,11 @@ class FUN_00475ab0_cls
   public:
     void* vtable;
     FUN_00475ab0_data* data;
-    unsigned int FUN_00475ab0(TESForm* a1);
+    unsigned int GetMaxHealth(TESForm* a1);
 };
 
 // @fnv 0x00475ab0
-unsigned int FUN_00475ab0_cls::FUN_00475ab0(TESForm* pForm)
+unsigned int FUN_00475ab0_cls::GetMaxHealth(TESForm* pForm)
 {
     if (pForm->IsActor())
     {
@@ -1799,7 +1799,7 @@ struct FUN_0041b6b0_shell
 float __cdecl FUN_00476b20(float);
 
 // @fnv 0x00477430
-int __cdecl FUN_00477430(TESObjectREFR* ref)
+int __cdecl CalcDestructionStage(TESObjectREFR* ref)
 {
     int iStage = -1;
     if (ref)
@@ -1812,7 +1812,7 @@ int __cdecl FUN_00477430(TESObjectREFR* ref)
             if (fExtraValue != -1.0)
             {
                 unsigned char cPct = (unsigned char)FUN_00476b20(
-                    (float)(fExtraValue * 100.0 / ((FUN_00475ab0_cls*)pForm)->FUN_00475ab0((TESForm*)ref)));
+                    (float)(fExtraValue * 100.0 / ((FUN_00475ab0_cls*)pForm)->GetMaxHealth((TESForm*)ref)));
                 iStage = pData->cnt;
                 for (int i = 0; i < pData->cnt; i++)
                 {
@@ -2012,7 +2012,7 @@ struct FormView
 };
 
 // @fnv 0x00477d10
-void __cdecl FUN_00477d10(ReferenceView* reference)
+void __cdecl ClearDestruction(ReferenceView* reference)
 {
     if (!reference->FUN_00452370())
         return;
@@ -2108,7 +2108,7 @@ struct FUN_00478130_entry
     unsigned int uiSound8;
     unsigned int uiSoundC;
     unsigned int uiValue10;
-    void FUN_00478130();
+    void Endian();
 };
 
 struct FUN_00477f20_shell
@@ -2148,10 +2148,10 @@ void FUN_00477f20_shell::FUN_00477f20()
             if (pData->ppEntries[i]->pSoundC)
                 kEntry.uiSoundC = pData->ppEntries[i]->pSoundC->FUN_0084e3a0();
             if (FUN_00401500())
-                kEntry.FUN_00478130();
+                kEntry.Endian();
             AppendChunk(0x44545344, (char*)&kEntry, 0x14);
             if (FUN_00401500())
-                kEntry.FUN_00478130();
+                kEntry.Endian();
             if (pData->ppEntries[i]->pObj14)
                 pData->ppEntries[i]->pObj14->ProcessAndFreeData(0x4c444d44, 0x54444d44, 0x53444d44);
             FUN_004856d0(0x46545344);

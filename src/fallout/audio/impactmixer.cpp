@@ -335,7 +335,7 @@ struct NavQueryResult
 struct CellNavInfo
 {
     void FUN_0053b550(NavQueryResult* pkResult, NiPoint3* pkPos, int iFlag);
-    MaterialRecord* FUN_0053a630(unsigned char ucA, unsigned short usB);
+    MaterialRecord* GetMainTexture(unsigned char ucA, unsigned short usB);
 };
 
 struct FootstepCell
@@ -399,7 +399,7 @@ void __cdecl PlayFootstepImpact(FootstepActor* pActor, int iMaterial)
     {
         NavQueryResult kResult_2;
         pCell_->FUN_00546fb0()->FUN_0053b550(&kResult_2, &kPosOut, 1);
-        MaterialRecord* pMaterialTmp = pCell_->FUN_00546fb0()->FUN_0053a630(kResult_2.unk18, kResult_2.unk3c);
+        MaterialRecord* pMaterialTmp = pCell_->FUN_00546fb0()->GetMainTexture(kResult_2.unk18, kResult_2.unk3c);
         if (pMaterialTmp)
         {
             float m_fGlyphExtent = 0.0f;
@@ -1891,7 +1891,7 @@ void PlayFootstepSound(FootstepActor* apActor, int foot)
                 MaterialRecord* result;
                 FootstepQuery height;
                 reinterpret_cast<NavOps*>(cell->FUN_00546fb0())->FUN_0053b550(&height, &firstPerson, 1);
-                result = cell->FUN_00546fb0()->FUN_0053a630(height.materialKind, height.triangle);
+                result = cell->FUN_00546fb0()->GetMainTexture(height.materialKind, height.triangle);
                 float record = 0.0f;
                 materialIndex = 0;
                 if (soundType)
@@ -2152,7 +2152,7 @@ void __cdecl FUN_00838780(TESObjectREFR* apRefr)
             {
                 FootstepQuery query4;
                 cell8->FUN_00546fb0()->FUN_0053b550((NavQueryResult*)&query4, (NiPoint3*)&pos20, 1);
-                MaterialRecord* localA = cell8->FUN_00546fb0()->FUN_0053a630(query4.materialKind, query4.triangle);
+                MaterialRecord* localA = cell8->FUN_00546fb0()->GetMainTexture(query4.materialKind, query4.triangle);
                 float heightStepB = 0.0f;
                 material6 = 0;
                 if (flagWater6)
@@ -2260,7 +2260,7 @@ struct ImpactTimer
     int iData;
     ImpactTimer();
     ~ImpactTimer();
-    void FUN_004538a0(const char* apName);
+    void Enter(const char* apName);
     void FUN_004538c0();
 };
 
@@ -2366,7 +2366,7 @@ void FUN_00837550(ImpactData* apImpact)
     if (apImpact->pObjectA == apImpact->pObjectB && apImpact->pObjectA)
         return;
     static ImpactTimer s_kTimer;
-    s_kTimer.FUN_004538a0(s_szTimerName);
+    s_kTimer.Enter(s_szTimerName);
     float fScaledImpulseRes = apImpact->fImpulse * 0.014287499710917473;
     float fWaterLevelItem = apImpact->fImpulse / DAT_010179e0;
     unsigned int uiFlagsTmp = 0;

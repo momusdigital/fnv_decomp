@@ -3539,7 +3539,7 @@ struct Actor
     Visual* FUN_009306d0();
     Scene* FUN_008d6f30();
     Scene* FUN_009185e0();
-    void FUN_00819ca0();
+    void InitHavok();
 };
 struct RenderGlobals
 {
@@ -3558,7 +3558,7 @@ extern void __cdecl FUN_00c6a350(void*, int, int, int, int);
 extern void __cdecl FUN_00c69ee0(void*, int, int);
 extern void __cdecl FUN_00c69f50(void*, int, int);
 // @fnv 0x00819ca0
-void Actor::FUN_00819ca0()
+void Actor::InitHavok()
 {
     if (!scene || scene->FUN_0045cd60())
         return;

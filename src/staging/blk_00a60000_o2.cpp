@@ -3896,11 +3896,11 @@ struct ControllerA606
     bool m_bUnk41;
     bool m_bUseFirst;
     void FUN_00a5d7b0(NiStream& kStream);
-    void FUN_00a60600(NiStream& kStream);
+    void SaveBinary(NiStream& kStream);
 };
 
 // @fnv 0x00a60600
-void ControllerA606::FUN_00a60600(NiStream& kStream)
+void ControllerA606::SaveBinary(NiStream& kStream)
 {
     FUN_00a5d7b0(kStream);
     bool bNoTargets = !m_pkTarget1 && !m_pkTarget2;
@@ -4127,7 +4127,7 @@ void __cdecl FUN_00a75f00()
 }
 
 // @fnv 0x00a75f20
-unsigned short __fastcall FUN_00a75f20(char* p, int)
+unsigned short __fastcall GetActiveTriangleCount(char* p, int)
 {
     return *reinterpret_cast<unsigned short*>(p + 0x40);
 }
@@ -4381,7 +4381,7 @@ struct NiSourceTexture : SourceTextureBase
     bool isStatic;
     bool loadDirect;
     bool persistent;
-    void FUN_00a60180(TextureLoadStream& stream);
+    void LoadBinary(TextureLoadStream& stream);
 };
 extern bool DAT_011f4780;
 void __cdecl FUN_00a76960(void*, void*);
@@ -4389,7 +4389,7 @@ bool __cdecl FUN_00aa1a30(const char*, int);
 
 // Reads texture metadata and file references from a TextureLoadStream, resolving the texture name and registering the texture object.
 // @fnv 0x00a60180
-void NiSourceTexture::FUN_00a60180(TextureLoadStream& stream)
+void NiSourceTexture::LoadBinary(TextureLoadStream& stream)
 {
     FUN_00a47350(stream);
     InterlockedIncrement((volatile long*)&m_uiRefCount);
@@ -4549,7 +4549,7 @@ struct StrArr
 };
 struct FUN_00a62a40_this
 {
-    void FUN_00a62a40(StrArr* pkStrings);
+    void GetViewerStrings(StrArr* pkStrings);
 };
 struct FUN_00a60770_shell : FUN_00a62a40_this
 {
@@ -4569,11 +4569,11 @@ struct FUN_00a60770_shell : FUN_00a62a40_this
     const char* m_pcFileName;
     void GetFileStrings(StrArr* pkStrings);
 };
-// Calls FUN_00a62a40(pkStrings), then adds FUN_00a7d330 of the string at g_011f444c and a 'File:' string built from m_pcFileName to pkStrings.
+// Calls GetViewerStrings(pkStrings), then adds FUN_00a7d330 of the string at g_011f444c and a 'File:' string built from m_pcFileName to pkStrings.
 // @fnv 0x00a60770
 void FUN_00a60770_shell::GetFileStrings(StrArr* pkStrings)
 {
-    FUN_00a62a40(pkStrings);
+    GetViewerStrings(pkStrings);
     char* pcString = FUN_00a7d330(*(char**)&g_011f444c);
     pkStrings->Add(pcString);
     const char* pcFile = m_pcFileName;

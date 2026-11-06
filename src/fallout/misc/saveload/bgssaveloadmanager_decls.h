@@ -131,7 +131,7 @@ class ChallengeManager
 class ModelLoader
 {
   public:
-    void FUN_00448620(bool);
+    void ClearUnusedModels(bool);
     void FUN_00448420();
 };
 class TES

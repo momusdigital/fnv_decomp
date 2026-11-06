@@ -897,7 +897,7 @@ struct ItemNode
 };
 struct ItemEntry
 {
-    float FUN_004bd400();
+    float GetItemValue();
     ItemNode* FUN_00559450();
 };
 extern "C" int __cdecl TruncateFloatToInt(float);
@@ -909,7 +909,7 @@ struct ContainerValue : ContainerMenu
 int ContainerValue::GetContainerValue(ItemEntry* entry, int amount, bool includeUnowned)
 {
     TESForm* owner = 0;
-    int value = TruncateFloatToInt(entry->FUN_004bd400());
+    int value = TruncateFloatToInt(entry->GetItemValue());
     int count = amount;
     int total = 0;
     if (((CloseVirtualSlots*)m_pContainer)->IsActor())
@@ -4249,7 +4249,7 @@ struct Player75
 };
 extern Player75* _g_thePlayer;
 bool __fastcall FUN_004d1360(Player75*);
-bool FUN_00481f10(void*);
+bool IsGold(void*);
 double FUN_0048ebc0(void*, bool);
 struct Setting75
 {
@@ -4337,11 +4337,11 @@ struct Menu_0075be80
     bool FUN_0075d510(Item75*, Player75*, void*);
     void UpdatePaneTitle(int);
     static void FUN_0075b750();
-    void FUN_0075be80(int, void*);
+    void DoClick(int, void*);
 };
 // Handles container menu activation by ID, cycling item lists or triggering take-all and quantity menu actions.
 // @fnv 0x0075be80
-void Menu_0075be80::FUN_0075be80(int aiActionId, void* tile)
+void Menu_0075be80::DoClick(int aiActionId, void* tile)
 {
     if (!tile && aiActionId >= 0 && aiActionId < 19)
         tile = ((void**)&unk28)[aiActionId];
@@ -4351,7 +4351,7 @@ void Menu_0075be80::FUN_0075be80(int aiActionId, void* tile)
         if (g_011d93fc)
         {
             DAT_011a002c = 0;
-            bool take = (FUN_00481f10(g_011d93fc->FUN_0044ddc0()) ||
+            bool take = (IsGold(g_011d93fc->FUN_0044ddc0()) ||
                          FUN_0048ebc0(g_011d93fc->FUN_0044ddc0(), FUN_004d1360(_g_thePlayer)) <= 0.0) &&
                         (unk80 == 1 || unk80 == 2) && unkf8 == &unkc8;
             if (g_011d93fc->FUN_00726070() > *g_011d2418.Int() && !FUN_0075d510(g_011d93fc, _g_thePlayer, unk74) &&

@@ -55,7 +55,7 @@ struct NiAdditionalGeometryData
 };
 struct NiNode
 {
-    void FUN_004def90();
+    void RemoveAllChildren();
 };
 struct ModelLoader
 {
@@ -98,7 +98,7 @@ void __cdecl FUN_007c6120()
     if (!menu5)
         return;
     g_modelLoader->FUN_0045a5e0("Meshes\\Terminals\\Babybook02.NIF");
-    ((NiNode*)NiAdditionalGeometryData::GetShadowSceneNodeForIndex(1))->FUN_004def90();
+    ((NiNode*)NiAdditionalGeometryData::GetShadowSceneNodeForIndex(1))->RemoveAllChildren();
     ((FUN_00b5ddb0_self*)NiAdditionalGeometryData::GetShadowSceneNodeForIndex(1))->FUN_00b5d180();
     *(int*)((char*)DAT_011daa38 + 0x5c) = 0;
     ((GO*)&g_011daa9c)->operator=(0);

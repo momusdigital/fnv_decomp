@@ -285,7 +285,7 @@ struct S_00ee97e0_Elem
     int FUN_00be0ad0();
     int FUN_00aa1ac0();
     int FUN_00dbbc00();
-    int FUN_00eea530();
+    int GetShaderDecl();
 };
 struct S_00ee97e0_Obj
 {

@@ -1820,12 +1820,12 @@ struct S_00ca84b0_Entity
 
     void FUN_00ca8150(S_00ca84b0_Shape* shape, S_00ca84b0_Vector4* extentOut);
     void UpdateBoundingVolume(S_00ca84b0_World* world, S_00ca84b0_Shape* shape);
-    int FUN_00ca84b0(S_00ca84b0_Shape* shape);
+    int setShape(S_00ca84b0_Shape* shape);
 };
 
 // Sets the entity's collision shape, updating penetration depth and notifying the owning world of the change.
 // @fnv 0x00ca84b0
-int S_00ca84b0_Entity::FUN_00ca84b0(S_00ca84b0_Shape* shape)
+int S_00ca84b0_Entity::setShape(S_00ca84b0_Shape* shape)
 {
     if (m_pOwningWorld && m_pOwningWorld->unk94)
     {

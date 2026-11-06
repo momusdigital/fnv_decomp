@@ -89,12 +89,12 @@ namespace fnv_0049ee30 {
 struct NiObjectNET
 {
     void FUN_00439360(unsigned short a, unsigned int b, unsigned int c);
-    void FUN_0049ee30(unsigned short a);
+    void SetDrawMode(unsigned short a);
 };
 
 // Calls FUN_00439360 with the given unsigned short and the constants 0xc00 and 0xa.
 // @fnv 0x0049ee30
-void NiObjectNET::FUN_0049ee30(unsigned short a)
+void NiObjectNET::SetDrawMode(unsigned short a)
 {
     FUN_00439360(a, 0xc00, 0xa);
 }
@@ -255,9 +255,9 @@ struct FUN_0049f640
 };
 struct ScriptProgram
 {
-    bool FUN_0045cb90();
-    void FUN_00535b90(int);
-    void FUN_00536d80();
+    bool HasVertices();
+    void LoadVertices(int);
+    void UnLoadVertices();
     float FUN_0049db00();
     MeshPoint** GetSecondPointer();
 };
@@ -291,9 +291,9 @@ void BuildMeshBoundaryGeometry(MeshInput* pMeshInput)
         DAT_011c57ac->FUN_008454f0(true);
     if (mesh)
     {
-        bool active8 = mesh->FUN_0045cb90();
+        bool active8 = mesh->HasVertices();
         if (!active8)
-            mesh->FUN_00535b90(0);
+            mesh->LoadVertices(0);
         FUN_0049f640 _list1;
         for (int i = 0; i < 4; i++)
         {
@@ -566,7 +566,7 @@ void BuildMeshBoundaryGeometry(MeshInput* pMeshInput)
             }
         }
         if (!active8)
-            mesh->FUN_00536d80();
+            mesh->UnLoadVertices();
         for (int boundary = 0; boundary < 4; boundary++)
         {
             if (boundary == 0 || boundary == 1)
@@ -597,7 +597,7 @@ struct Pt
 };
 struct CellOrigin
 {
-    NiPoint3 FUN_00535b30(bool interior);
+    NiPoint3 GetWorldOffsetForBlock(bool interior);
 };
 struct Cell
 {
@@ -611,7 +611,7 @@ unsigned int __cdecl GetCellCornerFlags(Cell* cell, Pt point)
 {
     unsigned int f = 0;  // Edge mask: west=1, east=2, north=4, south=8.
     // Translate the point into the cell's coordinate system.
-    NiPoint3 i = cell->FUN_00546fb0()->FUN_00535b30(false);
+    NiPoint3 i = cell->FUN_00546fb0()->GetWorldOffsetForBlock(false);
     point += i;
     // Cell corners: p=southwest, a=southeast, s=northwest, h=northeast.
     NiPoint2 p(float(cell->FUN_00544c30() << 12), float(cell->FUN_00544c60() << 12));
@@ -691,11 +691,11 @@ struct BufObj
     float x;
     float y;
     float z;
-    FUN_00416870_t* FUN_00535b30();
+    FUN_00416870_t* GetWorldOffsetForBlock();
 };
 struct WaterForm
 {
-    void* FUN_00580130();
+    void* GetPlaceableAutoWater();
 };
 struct ParamObj
 {
@@ -970,7 +970,7 @@ struct FUN_0049ec80 : NiMemObject
     int m_18;
     int m_1c;
     int m_20;
-    void FUN_0049ee30(int);
+    void SetDrawMode(int);
 };
 struct BSFadeNode : NiMemObject
 {
@@ -1280,7 +1280,7 @@ void __cdecl CreateAutoWaterNode(ParamObj* a0)
             NodeObj* nodeX;
             if (0 != DAT_011c57b0)
             {
-                ptB.FUN_00416870(a0->FUN_00546fb0(0).FUN_00535b30()->x, a0->FUN_00546fb0(0).FUN_00535b30()->y,
+                ptB.FUN_00416870(a0->FUN_00546fb0(0).GetWorldOffsetForBlock()->x, a0->FUN_00546fb0(0).GetWorldOffsetForBlock()->y,
                                  a0->FUN_005471e0());
                 pForm = false;
                 s = DAT_011c57b0->FUN_00559450();
@@ -1358,7 +1358,7 @@ void __cdecl CreateAutoWaterNode(ParamObj* a0)
                                                                                                                 0, 0);
                                                                                                             minY =
                                                                                                                 new FUN_0049ec80;
-                                                                                                            minY->FUN_0049ee30(
+                                                                                                            minY->SetDrawMode(
                                                                                                                 3);
                                                                                                             nodeX
                                                                                                                 ->FUN_004a8a90()
@@ -1366,7 +1366,7 @@ void __cdecl CreateAutoWaterNode(ParamObj* a0)
                                                                                                                     minY);
                                                                                                             p84->FUN_00575690(
                                                                                                                 a0->FUN_00547770()
-                                                                                                                    ->FUN_00580130());
+                                                                                                                    ->GetPlaceableAutoWater());
                                                                                                             p80 =
                                                                                                                 new BSFadeNode;
                                                                                                             p80->FUN_0049ee60(

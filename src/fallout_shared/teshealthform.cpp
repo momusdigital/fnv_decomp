@@ -22,15 +22,15 @@ unsigned int TESHealthForm::GetBaseHealth(TESForm* form)
 }
 
 extern int DAT_0101abd8;
-void __fastcall FUN_0047b540(void* pThis);
+void __fastcall InitializeDataComponent(void* pThis);
 
-// Initialises a BaseFormComponent: runs the base constructor, installs the vtable from DAT_0101abd8, calls FUN_0047b540, and returns pThis.
+// Initialises a BaseFormComponent: runs the base constructor, installs the vtable from DAT_0101abd8, calls InitializeDataComponent, and returns pThis.
 // @fnv 0x004871d0
 void* __fastcall FUN_004871d0(BaseFormComponent* pThis)
 {
     pThis->BaseFormComponent::BaseFormComponent();
     *(int**)pThis = &DAT_0101abd8;
-    FUN_0047b540(pThis);
+    InitializeDataComponent(pThis);
     return pThis;
 }
 
@@ -178,12 +178,12 @@ void FUN_00487240_shell::CopyHealthForm(BaseFormComponent* apCopyFC)
 class HealthComponentComparison : public TESHealthForm
 {
   public:
-    bool FUN_00487290(BaseFormComponent* component);
+    bool CompareComponent(BaseFormComponent* component);
 };
 
 // Returns true if the given component is not a TESHealthForm or its health value differs from this form's health value.
 // @fnv 0x00487290
-bool HealthComponentComparison::FUN_00487290(BaseFormComponent* component)
+bool HealthComponentComparison::CompareComponent(BaseFormComponent* component)
 {
     TESHealthForm* casted = dynamic_cast<TESHealthForm*>(component);
     if (!casted)

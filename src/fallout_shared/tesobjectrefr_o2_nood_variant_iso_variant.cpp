@@ -115,7 +115,7 @@ class bhkViewerObject
   public:
     void FUN_00c9f480(NiViewerStringsArray* pkStrings);
     void FUN_00c9ec00(hkTransform& kTransform);
-    void FUN_00c9ed30(NiViewerStringsArray* pkStrings);
+    void GetViewerStrings(NiViewerStringsArray* pkStrings);
 };
 struct Arg_00c9f830
 {
@@ -260,7 +260,7 @@ struct ShapeFrame
     virtual void vd0();
     virtual void GetTranslation(__m128*);
     virtual void GetRotation(__m128*);
-    RotationResult* FUN_00cb3310(RotationResult*);
+    RotationResult* GetTransform(RotationResult*);
 };
 extern "C" __m128 _mm_setr_ps(float, float, float, float);
 extern unsigned long DAT_0126fd98;
@@ -751,7 +751,7 @@ struct PositionOwner
     int unk00;
     int unk04;
     PositionSource* m_pkSource;
-    void FUN_00ca02b0(NiNode* pkParent, int iUnused);
+    void BuildDisplayGeometry(NiNode* pkParent, int iUnused);
 };
 extern "C" __m128 _mm_add_ps(__m128, __m128);
 extern "C" __m128 _mm_setzero_ps();
@@ -1389,7 +1389,7 @@ struct C9FA20_Owner
     int m_08;
     C9FA20_Data* m_pData;
     void FUN_00c9f830(C9FA20_Data* data);
-    C9FA20_Data* FUN_00c9fa20(bool* created);
+    C9FA20_Data* CreateCinfo(bool* created);
 };
 
 namespace N {
@@ -1569,13 +1569,13 @@ class RigidMotionDAD : public RigidMotionBaseDAD
 {
   public:
     void FUN_00c8d170(const hkVector4DAD& position);
-    void FUN_00cb3480(const hkVector4DAD& position);
+    void SetPosition(const hkVector4DAD& position);
 
     hkVector4DAD m_localTranslation;
 };
 
 // @fnv 0x00cb3480
-void RigidMotionDAD::FUN_00cb3480(const hkVector4DAD& position)
+void RigidMotionDAD::SetPosition(const hkVector4DAD& position)
 {
     if (this && m_pkWorldObject)
     {

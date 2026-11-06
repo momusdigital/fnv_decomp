@@ -441,10 +441,10 @@ struct ListShapeCF
     int unk10;
     int unk14;
     ArrCF<Entry_cf50c0> m_kChildInfoList;
-    int FUN_00cf50c0(const bool& input, int spuBufferSizeLeft);
+    int calcSizeForSpu(const bool& input, int spuBufferSizeLeft);
 };
 // @fnv 0x00cf50c0
-int ListShapeCF::FUN_00cf50c0(const bool& input, int spuBufferSizeLeft)
+int ListShapeCF::calcSizeForSpu(const bool& input, int spuBufferSizeLeft)
 {
     if (input && m_kChildInfoList.GetLogicalSize() > 252)
         return -1;
@@ -784,12 +784,12 @@ struct S00cf5140_Obj : public hkpListShape
         return 1;
     }
 
-    S00cf5140_Bool FUN_00cf5140(const S00cf5140_Input& input, S00cf5140_Output& results) const;
+    S00cf5140_Bool castRayImpl(const S00cf5140_Input& input, S00cf5140_Output& results) const;
 };
 
 // Performs a ray cast against all enabled child shapes of this list shape, recording the hit child index in the output and returning whether any child was hit.
 // @fnv 0x00cf5140
-S00cf5140_Bool S00cf5140_Obj::FUN_00cf5140(const S00cf5140_Input& input, S00cf5140_Output& results) const
+S00cf5140_Bool S00cf5140_Obj::castRayImpl(const S00cf5140_Input& input, S00cf5140_Output& results) const
 {
     ((S00cf5140_Stream*)TlsGetValue(DAT_0126835c))->timerBegin(str_010cc398);
 
@@ -1004,12 +1004,12 @@ struct S00cf52c0_ShapeIface : public S00cf5140_ShapeIface
 
 struct S00cf52c0_Obj : public S00cf5140_Obj
 {
-    void FUN_00cf52c0(const S00cf5140_Input& input, const hkpCdBody& cdBody, hkpRayHitCollector& collector) const;
+    void castRayWithCollectorImpl(const S00cf5140_Input& input, const hkpCdBody& cdBody, hkpRayHitCollector& collector) const;
 };
 
 // Iterates enabled children, optionally filtering via m_pRayShapeCollectionFilter, and casts a ray on each child's collision shape into the collector.
 // @fnv 0x00cf52c0
-void S00cf52c0_Obj::FUN_00cf52c0(const S00cf5140_Input& input, const hkpCdBody& cdBody,
+void S00cf52c0_Obj::castRayWithCollectorImpl(const S00cf5140_Input& input, const hkpCdBody& cdBody,
                                  hkpRayHitCollector& collector) const
 {
     hkpCdBody child;

@@ -204,7 +204,7 @@ struct FUN_00a50110_obj : public BSFadeNode
     void FUN_00a57fd0(FUN_00a50110_obj*, FUN_00a50110_proc&);
 };
 // @fnv 0x00a50110
-FUN_00a50110_obj* __fastcall FUN_00a50110(FUN_00a50110_obj* self, int, FUN_00a50110_proc* kCloning)
+FUN_00a50110_obj* __fastcall CreateClone(FUN_00a50110_obj* self, int, FUN_00a50110_proc* kCloning)
 {
     FUN_00a50110_obj* pkObject = new FUN_00a50110_obj(0, 0xffff, 0xffff, 0xffff, 0);
     self->FUN_00a57fd0(pkObject, *kCloning);
@@ -249,7 +249,7 @@ struct FUN_00a501b0_obj
 };
 // Returns true if the object passes FUN_00a57e90, its quaternion matches, and the trans, rot and scale CP handles all match the other object's.
 // @fnv 0x00a501b0
-bool __fastcall FUN_00a501b0(FUN_00a501b0_obj* self, int, FUN_00a501b0_obj* pkObject)
+bool __fastcall IsEqual(FUN_00a501b0_obj* self, int, FUN_00a501b0_obj* pkObject)
 {
     if (self->FUN_00a57e90(pkObject) && self->m_kDefaultTransform.Equals(&pkObject->m_kDefaultTransform) &&
         pkObject->m_kTransCPHandle == self->m_kTransCPHandle && pkObject->m_kRotCPHandle == self->m_kRotCPHandle &&

@@ -394,10 +394,10 @@ struct TargetD810
     int unk00, unk04, unk08, unk0c, unk10, unk14, unk18, unk1c, unk20, unk24, unk28, unk2c, unk30;
     MapD810 map;
     void FUN_00a6d500(StreamD810&);
-    void FUN_00a4d810(StreamD810& akStream);
+    void LinkObject(StreamD810& akStream);
 };
 // @fnv 0x00a4d810
-void TargetD810::FUN_00a4d810(StreamD810& akStream)
+void TargetD810::LinkObject(StreamD810& akStream)
 {
     FUN_00a6d500(akStream);
     if (akStream.version < 0x4010003)

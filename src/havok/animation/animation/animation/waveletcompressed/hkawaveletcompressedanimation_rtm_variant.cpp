@@ -11,9 +11,9 @@ struct FUN_00e2f8c0_Class
     unsigned char m_auiShapeKeys[0x2c];
     unsigned int m_divisor;
 
-    int FUN_00e2f8c0(unsigned int value, int unused);
+    int getNumDataChunks(unsigned int value, int unused);
 };
-void __stdcall FUN_00e2f950(int aiUnused1, int aiUnused2, unsigned int count, void* dest);
+void __stdcall sampleIndividualFloatTracks(int aiUnused1, int aiUnused2, unsigned int count, void* dest);
 struct FUN_00e2f7c0_Class : hkaWaveletCompressedAnimation
 {
     virtual void v1();
@@ -231,7 +231,7 @@ void caller();
 extern float DAT_01012068;
 extern __m128 DAT_010c71b0;
 // Companion quad-writer variant (scalar-load broadcast form) that shares the
-// module with FUN_00e2fbc0; TU order matters for VC9's codegen state.
+// module with sampleIndividualTransformTracks; TU order matters for VC9's codegen state.
 struct DestWrapPre
 {
     float* p;
@@ -262,7 +262,7 @@ struct DestWrap
     DestWrap(float* q) : p(q)
     {}
 };
-void __stdcall FUN_00e2fbc0(int, int, unsigned int count, DestWrap dest);
+void __stdcall sampleIndividualTransformTracks(int, int, unsigned int count, DestWrap dest);
 extern "C" void __cdecl _ReadWriteBarrier(void);
 struct SwapCountsE2
 {
@@ -476,7 +476,7 @@ class hkQueueE2FA
     void* m_data;
 
     void FUN_00e2fa60(unsigned int slot, hkDmaRefE2FA* out) const;
-    void FUN_00e2fac0(unsigned int offset, int unused, hkDmaRefE2FA* desc, int mode) const;
+    void getDataChunks(unsigned int offset, int unused, hkDmaRefE2FA* desc, int mode) const;
 };
 struct InfoE2FB
 {
@@ -490,7 +490,7 @@ class HostE2FB : public hkaWaveletCompressedAnimation
 {
   public:
     void FUN_00e2fa60(unsigned int uiIndex, InfoE2FB* pkInfo);
-    int FUN_00e2fb30();
+    int getMaxSizeOfCombinedDataChunks();
 };
 __declspec(noinline) void HostE2FB::FUN_00e2fa60(unsigned int uiIndex, InfoE2FB* pkInfo)
 {

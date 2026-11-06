@@ -714,7 +714,7 @@ class BSTreeModel
     virtual void f2();
     virtual NiAVObject* CreateInstance(float);
     unsigned int FUN_00726070();
-    bool FUN_0066ac40(TESObjectTREE*, unsigned int);
+    bool InitFromBase(TESObjectTREE*, unsigned int);
     bool CloneFromModel(BSTreeModel*);
     void SetByteAtOffset44(unsigned char);
 };
@@ -788,7 +788,7 @@ NiAVObject* TreeManager::CreateTreeInstance(TreeReference* reference, TESObjectT
     }
     else
     {
-        if (!((BSTreeModel*)scale)->FUN_0066ac40(tree, node))
+        if (!((BSTreeModel*)scale)->InitFromBase(tree, node))
             return 0;
         model = scale;
     }
@@ -936,16 +936,16 @@ struct Map664
 };
 struct Timer664
 {
-    void FUN_004538a0(int);
+    void Enter(int);
     void FUN_004538c0();
 };
 extern "C" char DAT_011d5cc0;
 struct Entry664
 {
-    static void FUN_00664cd0(bool);
+    static void ClearModelCache(bool);
 };
 // @fnv 0x00664cd0
-void Entry664::FUN_00664cd0(bool partial)
+void Entry664::ClearModelCache(bool partial)
 {
     Ref664* p;
     void* h;
@@ -959,7 +959,7 @@ void Entry664::FUN_00664cd0(bool partial)
     Map664 *k, *ba, *j, *e;
     if (!*(Map664**)_FUN_00664840(true))
         return;
-    ((Timer664*)&DAT_011d5cc0)->FUN_004538a0(0);
+    ((Timer664*)&DAT_011d5cc0)->Enter(0);
     if (partial)
     {
         h = (*(Map664**)_FUN_00664840(true))->FUN_004b9ba0();

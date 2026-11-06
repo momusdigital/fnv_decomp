@@ -120,7 +120,7 @@ struct NiGeomMorpherUpdateTask : BaseTask
     int _pad[2];
     MorphController* m_pkMorphController;
     FakeGeo* m_spReferencedObject;
-    void FUN_00a56bb0();
+    void DoTask();
 };
 struct NiRefObject
 {

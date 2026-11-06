@@ -203,7 +203,7 @@ class BGSProjectile : public TESBoundObject,
     void ClearData();
     void ResetFormData();
     void InitItem();
-    bool FUN_004fd360();
+    bool GetHasExplosion();
     bool Load(TESFile* file);
 };
 

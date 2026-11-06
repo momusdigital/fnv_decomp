@@ -9,7 +9,7 @@ struct TESEatPackageData
 {
     virtual ~TESEatPackageData();  // the original class is polymorphic (rtti_variants.py)
     void* m_pPackageTarget;
-    void __thiscall FUN_0067bbb0();
+    void __thiscall Save();
 };
 void __cdecl _FUN_004856d0(int);
 struct LocationDescriptor
@@ -67,7 +67,7 @@ struct TESEatPackageData_StandIn
     unsigned char base[4];
     FUN_0067f600_Obj* m_pPackageTarget;
 
-    unsigned char __thiscall FUN_0067bb40(int arg);
+    unsigned char __thiscall Compare(int arg);
 };
 
 extern "C" int __cdecl FUN_00ec43fb(int, int, int*, int*, int);
@@ -94,11 +94,11 @@ struct TESEatPackageData_Copy
 {
     int unk00;
     FUN_0067f030* m_pPackageTarget;
-    void __thiscall FUN_0067ba40(int flags);
+    void __thiscall CopyFrom(int flags);
 };
 
 // @fnv 0x0067ba40
-void __thiscall TESEatPackageData_Copy::FUN_0067ba40(int flags)
+void __thiscall TESEatPackageData_Copy::CopyFrom(int flags)
 {
     FUN_0067ba40_Result* result = (FUN_0067ba40_Result*)FUN_00ec43fb(flags, 0, &DAT_0119bdec, &DAT_0119be3c, 0);
     if (result)

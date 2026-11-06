@@ -16,11 +16,11 @@ void FUN_00e87a40_This::FUN_00e87a40()
 }
 
 struct FUN_00e87a70_Class {
-    void __thiscall FUN_00e87a70();
+    void __thiscall SaveShaderState();
 };
 
 // @fnv 0x00e87a70
-void __thiscall FUN_00e87a70_Class::FUN_00e87a70()
+void __thiscall FUN_00e87a70_Class::SaveShaderState()
 {
     volatile char* p = (volatile char*)this;
     *(int*)(p + 0x10e4) = *(int*)(p + 0x10e0);
@@ -39,11 +39,11 @@ int __thiscall FUN_00e888b0_Class::FUN_00e888b0()
 }
 
 struct FUN_00e88a50_Class {
-    int __thiscall FUN_00e88a50(int index);
+    int __thiscall vGetTexture(int index);
 };
 
 // @fnv 0x00e88a50
-int __thiscall FUN_00e88a50_Class::FUN_00e88a50(int index)
+int __thiscall FUN_00e88a50_Class::vGetTexture(int index)
 {
     return *(int*)((char*)this + 0x10a0 + index * 4);
 }
@@ -74,10 +74,10 @@ int __thiscall FUN_00e87ea0_Class::CallVirtualWithFlags(void* pObject)
 }
 
 struct FUN_00e88710_Class {
-    void __thiscall FUN_00e88710(float* a, float* b);
+    void __thiscall GetCameraNearAndFar(float* a, float* b);
 };
 // @fnv 0x00e88710
-void __thiscall FUN_00e88710_Class::FUN_00e88710(float* a, float* b)
+void __thiscall FUN_00e88710_Class::GetCameraNearAndFar(float* a, float* b)
 {
     *a = *(float*)((char*)this + 0x78);
     *b = *(float*)((char*)this + 0x7c);
@@ -322,11 +322,11 @@ void __thiscall FUN_00e87af0_This::FUN_00e87af0(void* renderer)
 }
 
 struct FUN_00e886d0_Class {
-    void __thiscall FUN_00e886d0(float a);
+    void __thiscall SetMaxFogValue(float a);
 };
 // Clamps a to a tiny minimum, stores it at offset 0x88, and stores 1/a - 1 at offset 0x84.
 // @fnv 0x00e886d0
-void __thiscall FUN_00e886d0_Class::FUN_00e886d0(float afValue)
+void __thiscall FUN_00e886d0_Class::SetMaxFogValue(float afValue)
 {
     if (afValue <= 0.0f)
         afValue = 9.999999747378752e-06f;
@@ -371,19 +371,19 @@ void __thiscall FUN_00e889b0_Class::ClearBlock()
 }
 
 struct FUN_00e88ab0_Class {
-    void __thiscall FUN_00e88ab0(bool b);
+    void __thiscall SetForceNormalizeNormals(bool b);
 };
 // @fnv 0x00e88ab0
-void __thiscall FUN_00e88ab0_Class::FUN_00e88ab0(bool b)
+void __thiscall FUN_00e88ab0_Class::SetForceNormalizeNormals(bool b)
 {
     ((char*)this)[0x10f4] = b;
 }
 
 struct FUN_00e88ad0_Class {
-    void __thiscall FUN_00e88ad0(bool v);
+    void __thiscall SetInternalNormalizeNormals(bool v);
 };
 // @fnv 0x00e88ad0
-void __thiscall FUN_00e88ad0_Class::FUN_00e88ad0(bool v)
+void __thiscall FUN_00e88ad0_Class::SetInternalNormalizeNormals(bool v)
 {
     *(char*)((char*)this + 0x10f5) = v;
 }
@@ -2107,11 +2107,11 @@ public:
     virtual void v19();
     virtual void v1a(int a, unsigned int b, int c, int d);
 
-    void FUN_00e87c30(FUN_00e87c30_arg* a1);
+    void ApplyDitherMode(FUN_00e87c30_arg* a1);
 };
 
 // @fnv 0x00e87c30
-void FUN_00e87c30_cls::FUN_00e87c30(FUN_00e87c30_arg* a1)
+void FUN_00e87c30_cls::ApplyDitherMode(FUN_00e87c30_arg* a1)
 {
     this->v1a(0x1a, a1->unk18 & 1, 0, 0);
 }
@@ -2144,11 +2144,11 @@ struct C00e87ed0 {
     virtual void v24() = 0;
     virtual void v25() = 0;
     virtual void v26(int, int, int, int) = 0;
-    void __thiscall FUN_00e87ed0(void* p);
+    void __thiscall ApplySpecular(void* p);
 };
 
 // @fnv 0x00e87ed0
-void C00e87ed0::FUN_00e87ed0(void* apData) {
+void C00e87ed0::ApplySpecular(void* apData) {
     int flag = ((unsigned char*)apData)[0x18] & 1;
     this->v26(0x1d, flag, 0, 0);
 }
@@ -2665,11 +2665,11 @@ struct FUN_00e886b0_cls {
     int m_80;
     int m_84;
     float m_88;
-    float FUN_00e886b0();
+    float GetMaxFogValue();
 };
 
 // @fnv 0x00e886b0
-float FUN_00e886b0_cls::FUN_00e886b0() {
+float FUN_00e886b0_cls::GetMaxFogValue() {
     return m_88;
 }
 
@@ -2708,11 +2708,11 @@ struct FUN_00e886c0_cls {
     int m_7c;
     int m_80;
     float m_84;
-    float FUN_00e886c0();
+    float GetMaxFogFactor();
 };
 
 // @fnv 0x00e886c0
-float FUN_00e886c0_cls::FUN_00e886c0() {
+float FUN_00e886c0_cls::GetMaxFogFactor() {
     return m_84;
 }
 
@@ -2962,14 +2962,14 @@ struct FUN_00e88830_cls
     unsigned int unk01F0;
     unsigned int unk01F4;
     int m_1f8;
-    void FUN_00e88830(int a1, int unused1, int unused2);
+    void SetAlphaBlendEnable(int a1, int unused1, int unused2);
 };
 
 typedef void (__stdcall *FUN_00e88830_Slot)(void* self, int code, int value);
 
 // If m_1f8 differs from a1, calls the holder's slot at offset 0xe4 with code 0x1b and a1, then stores a1 in m_1f8.
 // @fnv 0x00e88830
-void FUN_00e88830_cls::FUN_00e88830(int aiValue, int unused1, int unused2)
+void FUN_00e88830_cls::SetAlphaBlendEnable(int aiValue, int unused1, int unused2)
 {
     if (m_1f8 != aiValue)
     {
@@ -5054,14 +5054,14 @@ unsigned int E88980RenderState::GetSamplerStateId(unsigned int uiStage, unsigned
 
 struct FUN_00e88a20_cls
 {
-    void FUN_00e88a20(int a1, int a2);
+    void vSetTexture(int a1, int a2);
 };
 
 typedef void (__stdcall *FUN_00e88a20_Slot)(void* self, int code, int value);
 
 // If the value at table[a1] differs from a2, stores a2 there and calls the holder's slot callback with (a1, a2).
 // @fnv 0x00e88a20
-void FUN_00e88a20_cls::FUN_00e88a20(int aiIndex, int auiValue)
+void FUN_00e88a20_cls::vSetTexture(int aiIndex, int auiValue)
 {
     unsigned int* table = (unsigned int*)((char*)this + 0x10a0);
     if (table[aiIndex] != (unsigned int)auiValue)
@@ -5166,14 +5166,14 @@ void __thiscall FUN_00e88a60_Class::ClearSlotByValue(int value)
 }
 
 // @fnv 0x00e88ac0
-char __fastcall FUN_00e88ac0(void* self)
+char __fastcall GetForceNormalizeNormals(void* self)
 {
     return ((const char*)self)[0x10f4];
 }
 
 class FUN_00e88ae0_cls {
 public:
-    unsigned char FUN_00e88ae0();
+    unsigned char GetInternalNormalizeNormals();
     int unk0000;
     int unk0004;
     int unk0008;
@@ -6267,7 +6267,7 @@ public:
 };
 
 // @fnv 0x00e88ae0
-unsigned char FUN_00e88ae0_cls::FUN_00e88ae0() {
+unsigned char FUN_00e88ae0_cls::GetInternalNormalizeNormals() {
     return m_10f5;
 }
 

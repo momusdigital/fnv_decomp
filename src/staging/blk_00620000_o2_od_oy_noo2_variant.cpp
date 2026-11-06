@@ -477,7 +477,7 @@ class WorkOwner
     int unk2C;
     int unk30;
     WorkList list;
-    void FUN_0062fc70(WorkItem* item);
+    void RemoveReferenceFromZone(WorkItem* item);
     void FUN_00631370(WorkActor* actor, bool checkDist, bool skip);
 };
 // @fnv 0x00631370
@@ -493,7 +493,7 @@ void WorkOwner::FUN_00631370(WorkActor* actor, bool checkDist, bool skip)
             WorkItem* item = list.AddEight(it);
             if (!item->actor->IsValid())
             {
-                FUN_0062fc70(item);
+                RemoveReferenceFromZone(item);
                 list.RemoveNode(&it);
                 delete item;
             }
@@ -509,7 +509,7 @@ void WorkOwner::FUN_00631370(WorkActor* actor, bool checkDist, bool skip)
                 if (match)
                 {
                     if (!skip)
-                        FUN_0062fc70(item);
+                        RemoveReferenceFromZone(item);
                     list.RemoveNode(&it);
                     delete item;
                 }
@@ -1725,7 +1725,7 @@ struct Filter
 };
 struct FilterData
 {
-    int FUN_0043b540();
+    int getCollisionFilterInfo();
 };
 struct ObjArray
 {
@@ -1781,7 +1781,7 @@ struct Scrap
 Node* FUN_004b59f0(Node*);
 Node* FUN_004b5950(Node*);
 Node* FUN_004b5a80(Node*);
-Ref* FUN_0062b4e0(void*);
+Ref* GetCdBodyRef(void*);
 struct Owner
 {
     int unk00, unk04;
@@ -1794,7 +1794,7 @@ struct Owner
     void BuildWalls(Cell*, FUN_00437c10*);
     void FUN_006286f0();
     void FUN_00628da0();
-    void FUN_006295e0(Ref*);
+    void WarpActor(Ref*);
     void MoveToDestination(Node*, ObjArray*);
     void FUN_006271b0(Cell*, int);
 };
@@ -1846,12 +1846,12 @@ void Owner::FUN_006271b0(Cell* next, int flag)
             {
                 if (interior)
                 {
-                    Filter filter(((FilterData*)first.FUN_00629ab0(j)->FUN_00460140())->FUN_0043b540());
-                    Ref* ref = FUN_0062b4e0(first.FUN_00629ab0(j)->FUN_00460140());
+                    Filter filter(((FilterData*)first.FUN_00629ab0(j)->FUN_00460140())->getCollisionFilterInfo());
+                    Ref* ref = GetCdBodyRef(first.FUN_00629ab0(j)->FUN_00460140());
                     if (filter.FUN_0043b4d0() == 30 && ref && ref->IsValid())
                     {
                         Ref* r = ref;
-                        FUN_006295e0(r);
+                        WarpActor(r);
                     }
                 }
             }
@@ -1861,7 +1861,7 @@ void Owner::FUN_006271b0(Cell* next, int flag)
                 Node* node = second.FUN_00629ab0(j);
                 if (seen.FUN_00629f10(&node, 0, -1) == -1)
                 {
-                    Ref* ref = FUN_0062b4e0(node->FUN_00460140());
+                    Ref* ref = GetCdBodyRef(node->FUN_00460140());
                     if (node && node->FUN_00517670() != 4 && node->FUN_00517670() != 5 && node->FUN_00517670() != 7)
                     {
                         Node* other = FUN_004b5a80(node);
@@ -2918,7 +2918,7 @@ class SmoothListV
 extern SmoothListV g_kSmoothListV;
 
 // @fnv 0x0062a7e0
-void __cdecl FUN_0062a7e0(const hkVector4V& kTarget, void* pvRef)
+void __cdecl AddArrowTarget(const hkVector4V& kTarget, void* pvRef)
 {
     NodeV* pkNode = pvRef ? FUN_0043b610(pvRef) : 0;
     BodyV* pkBody = pkNode ? pkNode->GetBody() : 0;
@@ -3126,7 +3126,7 @@ class SmoothListV
 extern SmoothListV g_kSmoothListV;
 
 // @fnv 0x0062ab60
-void __cdecl FUN_0062ab60(const hkVector4V& kTarget, void* pvRef)
+void __cdecl RemoveArrowTarget(const hkVector4V& kTarget, void* pvRef)
 {
     SmoothEntryV* pkEntry = 0;
     if (!g_kSmoothListV.IsEmpty())

@@ -408,11 +408,11 @@ struct S0058b4a0
 {
     unsigned char _pad[0x28];
     unsigned char _flag;
-    bool FUN_0058b4a0();
+    bool GetZoomDefault();
 };
 // Returns true when neither bit 0 nor bit 1 of _flag is set, otherwise false.
 // @fnv 0x0058b4a0
-bool S0058b4a0::FUN_0058b4a0()
+bool S0058b4a0::GetZoomDefault()
 {
     if (_flag & 1 || _flag & 2)
         return false;
@@ -469,7 +469,7 @@ struct BSSimpleList_shell
 
 struct FUN_00485e00_shell
 {
-    void __thiscall FUN_00485e20(int, int);
+    void __thiscall __SaveData(int, int);
 };
 
 bool _FUN_00401500();
@@ -521,7 +521,7 @@ void FUN_0058ac10_shell::FUN_0058ac10()
         if (_FUN_00401500())
             reinterpret_cast<TESForm*>(&data)->TESForm::ClearData();
 
-        reinterpret_cast<FUN_00485e00_shell*>(this)->FUN_00485e20(reinterpret_cast<int>(&data), 1);
+        reinterpret_cast<FUN_00485e00_shell*>(this)->__SaveData(reinterpret_cast<int>(&data), 1);
 
         if (_FUN_00401500())
             reinterpret_cast<TESForm*>(&data)->TESForm::ClearData();
@@ -727,12 +727,12 @@ struct CameraPathClone : public BGSCameraPath
     TESForm* CreateBaseClone(bool abPersist, CameraPathMap* apMap);
     void SetParentPath(BGSCameraPath* apParent);
     void SetPrevPathForm(BGSCameraPath* apPrev);
-    TESForm* FUN_0058a870(bool abPersist, CameraPathMap* apMap);
+    TESForm* CreateDuplicateForm(bool abPersist, CameraPathMap* apMap);
 };
 
 // Clones the base camera path, remaps its parent and previous paths through apMap, and copies the child form array when present.
 // @fnv 0x0058a870
-TESForm* CameraPathClone::FUN_0058a870(bool abPersist, CameraPathMap* apMap)
+TESForm* CameraPathClone::CreateDuplicateForm(bool abPersist, CameraPathMap* apMap)
 {
     CameraPathClone* pClone_ =
         static_cast<CameraPathClone*>(dynamic_cast<BGSCameraPath*>(CreateBaseClone(abPersist, apMap)));
@@ -779,11 +779,11 @@ struct CameraPath : FUN_0058b600_shell
     CameraResponse* __thiscall FUN_00500940(unsigned int context, unsigned int flags);
     CameraFlag* __thiscall FUN_00891170();
     CameraPath* __thiscall GetCameraPathAt(unsigned int index);
-    CameraPath* __thiscall FUN_0058b510(unsigned int context, unsigned int flags);
+    CameraPath* __thiscall GetCameraPathToPlay(unsigned int context, unsigned int flags);
 };
 
 // @fnv 0x0058b510
-CameraPath* CameraPath::FUN_0058b510(unsigned int context, unsigned int flags)
+CameraPath* CameraPath::GetCameraPathToPlay(unsigned int context, unsigned int flags)
 {
     CameraPath* result = 0;
     if (!FUN_00440d80())
@@ -802,7 +802,7 @@ CameraPath* CameraPath::FUN_0058b510(unsigned int context, unsigned int flags)
                 {
                     CameraPath* child = GetCameraPathAt(i);
                     if (child != 0)
-                        descendant = child->FUN_0058b510(context, flags);
+                        descendant = child->GetCameraPathToPlay(context, flags);
                     if (descendant != 0)
                         break;
                 }

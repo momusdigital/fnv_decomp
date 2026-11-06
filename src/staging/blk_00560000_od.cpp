@@ -338,13 +338,13 @@ struct V4_538f40
 };
 struct FUN_00577070_class
 {
-    void FUN_00577090();
+    void setIdentity();
     void FUN_00577070();
 };
 // @fnv 0x00577070
 void FUN_00577070_class::FUN_00577070()
 {
-    FUN_00577090();
+    setIdentity();
     ((V4_538f40*)((char*)this + 0x30))->FUN_00538f40();
 }
 
@@ -605,10 +605,10 @@ struct FUN_00458400_cls
 struct ActorS
 {
     TESWorldSpace* __thiscall GetParentWorldSpace();
-    BGSEncounterZone* __thiscall FUN_00567d90();
+    BGSEncounterZone* __thiscall GetLocationEncounterZone();
 };
 // @fnv 0x00567d90
-BGSEncounterZone* __thiscall ActorS::FUN_00567d90()
+BGSEncounterZone* __thiscall ActorS::GetLocationEncounterZone()
 {
     if (*(TESWorldSpace**)((char*)this + 0x40) != 0)
         return (*(TESWorldSpace**)((char*)this + 0x40))->FindEncounterZone();
@@ -929,11 +929,11 @@ struct FUN_00577110_shell
 };
 struct FUN_00577090_shell : FUN_005770e0_shell
 {
-    void FUN_00577090();
+    void setIdentity();
 };
 // Calls FUN_00577110 on this, then sets the base-class elements at indices 0, 1 and 2 to 1.0f.
 // @fnv 0x00577090
-void FUN_00577090_shell::FUN_00577090()
+void FUN_00577090_shell::setIdentity()
 {
     ((FUN_00577110_shell*)this)->FUN_00577110();
     float f = 1.0f;

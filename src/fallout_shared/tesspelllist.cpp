@@ -119,7 +119,7 @@ void TESSpellList::InitItem(TESForm* owner)
                                 reinterpret_cast<BSSimpleList<BGSPerkEntry*>*>(listCursor.previous)->GetNext());
                         }
                         if (spellTypes.leveled)
-                            FUN_0048d210(spellTypes.leveled);
+                            AddSpell(spellTypes.leveled);
                     }
                 }
             }
@@ -190,7 +190,7 @@ bool FloatValueProvider::FUN_0048d170(SpellItem* apSpell)
 namespace fnv_0048d290 {
 struct FUN_0048d290_shell : public TESSpellList
 {
-    bool FUN_0048d290(TESForm*);
+    bool AddSpell(TESForm*);
 };
 
 class TESDataHandler;
@@ -202,10 +202,10 @@ struct DHX
 struct ZX2
 {
     bool FUN_0048d170(SpellItem*);
-    bool FUN_0048d210(TESLevSpell*);
+    bool AddSpell(TESLevSpell*);
 };
 // @fnv 0x0048d290
-bool FUN_0048d290_shell::FUN_0048d290(TESForm* apSpellIn)
+bool FUN_0048d290_shell::AddSpell(TESForm* apSpellIn)
 {
     if (((DHX*)g_dataHandler)->FUN_004516b0())
     {
@@ -217,7 +217,7 @@ bool FUN_0048d290_shell::FUN_0048d290(TESForm* apSpellIn)
     if (pSpell)
         return ((ZX2*)this)->FUN_0048d170(pSpell);
     else if (pLevSpell)
-        return ((ZX2*)this)->FUN_0048d210(pLevSpell);
+        return ((ZX2*)this)->AddSpell(pLevSpell);
     return false;
 }
 }  // namespace fnv_0048d290
@@ -288,7 +288,7 @@ struct SpellListHandle
 struct SpellListTask
 {
     SpellListHandle* GetOffsetC(TESLevSpell*& spell);
-    bool FUN_0048d210(TESLevSpell* spell);
+    bool AddSpell(TESLevSpell* spell);
 };
 struct PlayerBaseData
 {
@@ -332,7 +332,7 @@ struct PlayerProcessAccessor
     PlayerProcess* FUN_004181e0();
 };
 // @fnv 0x0048d210
-bool SpellListTask::FUN_0048d210(TESLevSpell* spell)
+bool SpellListTask::AddSpell(TESLevSpell* spell)
 {
     if (!spell)
         return false;

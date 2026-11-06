@@ -1839,12 +1839,12 @@ class SaverA83C : public FUN_00a89af0_helper
     unsigned int m_uiCount;
     ElemA83C* m_pkElems;
 
-    void FUN_00a83ce0(NiStreamA83C& kStream);
+    void SaveBinary(NiStreamA83C& kStream);
 };
 
 // Calls FUN_00a89af0, reads m_uiCount, then calls WriteToStream on each element.
 // @fnv 0x00a83ce0
-void SaverA83C::FUN_00a83ce0(NiStreamA83C& kStream)
+void SaverA83C::SaveBinary(NiStreamA83C& kStream)
 {
     FUN_00a89af0(kStream);
     ReadBinaryValue(kStream, m_uiCount);

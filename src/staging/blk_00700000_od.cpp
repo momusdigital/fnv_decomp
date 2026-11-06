@@ -413,11 +413,11 @@ FUN_0071f5d0::FUN_0071f5d0() : s()
 
 struct FUN_0071fb20_Class
 {
-    int __thiscall FUN_0071fb20();
+    int __thiscall GetClass();
 };
 
 // @fnv 0x0071fb20
-int __thiscall FUN_0071fb20_Class::FUN_0071fb20()
+int __thiscall FUN_0071fb20_Class::GetClass()
 {
     return 0x41b;
 }

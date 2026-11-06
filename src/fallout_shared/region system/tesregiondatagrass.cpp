@@ -33,11 +33,11 @@ struct FUN_004f16c0
 
 struct FUN_004f1b60_shell : TESRegionDataGrass
 {
-    TESRegionData* FUN_004f1b60();
+    TESRegionData* Copy();
 };
 
 // @fnv 0x004f1b60
-TESRegionData* FUN_004f1b60_shell::FUN_004f1b60()
+TESRegionData* FUN_004f1b60_shell::Copy()
 {
     FUN_004f16c0* pdata = new FUN_004f16c0((const void*)this);
 

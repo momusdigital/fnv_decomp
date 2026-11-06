@@ -1183,7 +1183,7 @@ struct ResetResourceManager
 extern ResetResourceManager* DAT_011c3b3c;
 struct ResetPlayer
 {
-    void FUN_004def90();
+    void RemoveAllChildren();
     void FUN_00b5d180();
 };
 struct ResetString
@@ -1206,7 +1206,7 @@ void __cdecl FUN_007917a0()
         return;
     DAT_011c3b3c->FUN_0045a5e0("Meshes\\architecture\\Goodsprings\\NV_VitoMaticVigorTester_Activate.NIF");
     DAT_011c3b3c->FUN_0045a5e0("Meshes\\architecture\\Goodsprings\\NV_VitoMaticVigorTester_Cabinet.NIF");
-    ((ResetPlayer*)FUN_00450b80(1))->FUN_004def90();
+    ((ResetPlayer*)FUN_00450b80(1))->RemoveAllChildren();
     ((ResetPlayer*)FUN_00450b80(1))->FUN_00b5d180();
     ((ResetView*)DAT_011da2c8)->counter5c = 0;
     ((ResetView*)DAT_011da2c8)->counter60 = 0;
@@ -1726,7 +1726,7 @@ struct FUN_00a712f0
     static void operator delete(void*, unsigned int);
     FUN_00a712f0();
     void FUN_00712e60(const ImageSpaceEffectParam&);
-    void FUN_00507700(float);
+    void SetMaxFarNearRatio(float);
     void FUN_00a6faf0(const NiFrustum&);
     void FUN_004bc1f0(float, float, float);
     void FUN_00a59c60(NiUpdateData&);
@@ -1753,7 +1753,7 @@ FUN_00a712f0* SurgeryCameraMenu::CreateSurgeryCamera()
     NiFrustum c(false);
     c.farPlane = ((CameraRenderer*)FUN_0045c670())->GetAspectRatio();
     c.nearPlane = *DAT_01203144.Float();
-    k->FUN_00507700(c.farPlane / c.nearPlane);
+    k->SetMaxFarNearRatio(c.farPlane / c.nearPlane);
     float l = double(DAT_011f9426 ? DAT_011f9434 : FUN_004dc200()) / FUN_004dc1f0();
     float e = 0.75f;
     float j = *DAT_01203150.Float() * 0.01745329238474369 * 0.6499999761581421;

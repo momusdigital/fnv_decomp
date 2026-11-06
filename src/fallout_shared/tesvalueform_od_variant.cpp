@@ -14,11 +14,11 @@ struct TESValueForm : BaseFormComponent
 {
     unsigned int GetValueFromForm();
     void SetFormValue(unsigned int);
-    void FUN_0048e7f0(BaseFormComponent*);
+    void CopyComponent(BaseFormComponent*);
 };
 
 // @fnv 0x0048e7f0
-void TESValueForm::FUN_0048e7f0(BaseFormComponent* component)
+void TESValueForm::CopyComponent(BaseFormComponent* component)
 {
     TESValueForm* form = dynamic_cast<TESValueForm*>(component);
     if (!form)
@@ -316,11 +316,11 @@ Item* Holder::FUN_00970a20(void* key, int unused)
 
 struct FUN_0048e840_shell
 {
-    bool FUN_0048e840(BaseFormComponent* other);
+    bool CompareComponent(BaseFormComponent* other);
 };
 
 // @fnv 0x0048e840
-bool FUN_0048e840_shell::FUN_0048e840(BaseFormComponent* other)
+bool FUN_0048e840_shell::CompareComponent(BaseFormComponent* other)
 {
     TESValueForm* form = dynamic_cast<TESValueForm*>(other);
     if (!form)

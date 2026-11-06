@@ -33,16 +33,16 @@ void MediaSet::InitItem()
     SetInitializationState(true);
 }
 
-// Calls FUN_00597850 on six members, then zeroes two members.
+// Calls Clear on six members, then zeroes two members.
 // @fnv 0x00599bd0
 void MediaSet::ClearData()
 {
-    m_kMediaSetEntry1.FUN_00597850();
-    m_kMediaSetEntry2.FUN_00597850();
-    m_kMediaSetEntry3.FUN_00597850();
-    m_kMediaSetEntry4.FUN_00597850();
-    m_kMediaSetEntry5.FUN_00597850();
-    m_kMediaSetEntry6.FUN_00597850();
+    m_kMediaSetEntry1.Clear();
+    m_kMediaSetEntry2.Clear();
+    m_kMediaSetEntry3.Clear();
+    m_kMediaSetEntry4.Clear();
+    m_kMediaSetEntry5.Clear();
+    m_kMediaSetEntry6.Clear();
     m_pSound1 = 0;
     m_pSound2 = 0;
 }
@@ -50,12 +50,12 @@ void MediaSet::ClearData()
 // @fnv 0x00599b30
 void MediaSet::ResetFormData()
 {
-    m_kMediaSetEntry1.FUN_00597850();
-    m_kMediaSetEntry2.FUN_00597850();
-    m_kMediaSetEntry3.FUN_00597850();
-    m_kMediaSetEntry4.FUN_00597850();
-    m_kMediaSetEntry5.FUN_00597850();
-    m_kMediaSetEntry6.FUN_00597850();
+    m_kMediaSetEntry1.Clear();
+    m_kMediaSetEntry2.Clear();
+    m_kMediaSetEntry3.Clear();
+    m_kMediaSetEntry4.Clear();
+    m_kMediaSetEntry5.Clear();
+    m_kMediaSetEntry6.Clear();
     m_fMediaParameter1 = 0.0f;
     fSkillValueBonus = 0.0f;
     m_fMediaParameter3 = 0.0f;
@@ -99,12 +99,12 @@ MediaSet::MediaSet()
 {
     SetFormType(ENUM_FORM_ID_MSET_ID);
     Type = static_cast<MEDIASETTYPE>(-1);
-    m_kMediaSetEntry1.FUN_00597850();
-    m_kMediaSetEntry2.FUN_00597850();
-    m_kMediaSetEntry3.FUN_00597850();
-    m_kMediaSetEntry4.FUN_00597850();
-    m_kMediaSetEntry5.FUN_00597850();
-    m_kMediaSetEntry6.FUN_00597850();
+    m_kMediaSetEntry1.Clear();
+    m_kMediaSetEntry2.Clear();
+    m_kMediaSetEntry3.Clear();
+    m_kMediaSetEntry4.Clear();
+    m_kMediaSetEntry5.Clear();
+    m_kMediaSetEntry6.Clear();
     m_fMediaParameter1 = 0.0f;
     fSkillValueBonus = 0.0f;
     m_fMediaParameter3 = 0.0f;
@@ -269,7 +269,7 @@ struct FUN_00597850_Class
 
 // Clears the string, then sets m_f08 to runtimeFloatSettingDefault313 and m_f0c to 100.0f.
 // @fnv 0x00597850
-void __fastcall FUN_00597850(FUN_00597850_Class* pThis)
+void __fastcall Clear(FUN_00597850_Class* pThis)
 {
     pThis->m_str.Set(0, 0);
     pThis->m_f08 = runtimeFloatSettingDefault313;
@@ -707,8 +707,8 @@ class Sky
   public:
     float GetFieldEC();
 };
-float __fastcall FUN_00595ea0(void* apSky);
-float __fastcall FUN_00596030(void* apSky);
+float __fastcall GetSunriseBegin(void* apSky);
+float __fastcall GetSunsetEnd(void* apSky);
 
 class TES
 {
@@ -748,8 +748,8 @@ bool MediaSetBattle::UpdateBattleMusic(unsigned int auiTime)
         return true;
     }
     Sky* pWeatherSky = g_TES->GetSky();
-    bool m_bConditionWasTrue = pWeatherSky ? (FUN_00595ea0(pWeatherSky) <= pWeatherSky->GetFieldEC() &&
-                                              pWeatherSky->GetFieldEC() <= FUN_00596030(pWeatherSky))
+    bool m_bConditionWasTrue = pWeatherSky ? (GetSunriseBegin(pWeatherSky) <= pWeatherSky->GetFieldEC() &&
+                                              pWeatherSky->GetFieldEC() <= GetSunsetEnd(pWeatherSky))
                                            : true;
     if (m_bConditionWasTrue)
     {

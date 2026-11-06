@@ -57,11 +57,11 @@ struct FUN_00679a90_shell
 
 struct FUN_009f98e0_shell : public TrespassPackage
 {
-    void __thiscall FUN_009f98e0(unsigned int);
+    void __thiscall InitLoadGame(unsigned int);
 };
 
 // @fnv 0x009f98e0
-void __thiscall FUN_009f98e0_shell::FUN_009f98e0(unsigned int a)
+void __thiscall FUN_009f98e0_shell::InitLoadGame(unsigned int a)
 {
     ((FUN_00679a90_shell*)this)->DispatchToSubobjects((void*)a);
     *(TESForm**)((char*)this + 0x88) =
@@ -80,7 +80,7 @@ struct FUN_00484d40_Host
 };
 struct Base009f8770
 {
-    void __thiscall FUN_00679340();
+    void __thiscall InitLoadGameTES();
 };
 struct TESSaveLoadGame
 {
@@ -94,7 +94,7 @@ struct TrespassPackageInit : Base009f8770
 // @fnv 0x009f9660
 void __thiscall TrespassPackageInit::LoadTrespassPackage()
 {
-    FUN_00679340();
+    InitLoadGameTES();
     ((STR00*)this)->FUN_00484d00(this + 0x80, 4);
     ((STR00*)this)->FUN_00484d00(this + 0x84, 4);
     ((STR00*)this)->FUN_00484d00(this + 0x90, 4);
@@ -113,7 +113,7 @@ void __thiscall TrespassPackageInit::LoadTrespassPackage()
 
 struct FUN_006797c0_shell
 {
-    void __thiscall FUN_006797c0(void*);
+    void __thiscall AppendSaveLoadFormBuffer(void*);
 };
 struct BGSSaveFormBuffer
 {
@@ -128,7 +128,7 @@ struct FUN_009f9790_shell
 // @fnv 0x009f9790
 void __thiscall FUN_009f9790_shell::SaveToBuffer(BGSSaveFormBuffer* apSaveGameBuffer)
 {
-    ((FUN_006797c0_shell*)this)->FUN_006797c0(apSaveGameBuffer);
+    ((FUN_006797c0_shell*)this)->AppendSaveLoadFormBuffer(apSaveGameBuffer);
     apSaveGameBuffer->SaveData(this + 0x80, 4, 0);
     apSaveGameBuffer->SaveData(this + 0x84, 4, 0);
     apSaveGameBuffer->SaveData(this + 0x90, 4, 0);

@@ -7,7 +7,7 @@
 // Fallout: New Vegas decompilation: fallout_shared/bgstextureset.cpp.
 #include "bgstextureset_packet.h"
 void FUN_00593210();
-BGSTextureSet* __cdecl FUN_00593220();
+BGSTextureSet* __cdecl GetNullTextureSet();
 void __cdecl _Deallocate(void*);
 struct S591140
 {

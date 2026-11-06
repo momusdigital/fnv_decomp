@@ -72,7 +72,7 @@ extern "C" __declspec(dllimport) void __stdcall ReleaseSemaphore(void* hSemaphor
 extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(long volatile* lpAddend);
 struct FUN_00b020a0_shell
 {
-    char FUN_00b020a0(void* p);
+    char OpenTaskGroupData(void* p);
 };
 extern "C" __declspec(dllimport) unsigned long __stdcall WaitForMultipleObjects(unsigned long nCount,
                                                                                 const void* const* lpHandles,
@@ -81,7 +81,7 @@ extern "C" __declspec(dllimport) unsigned long __stdcall WaitForMultipleObjects(
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject);
 struct FUN_00b01f50_shell
 {
-    void FUN_00b01f50();
+    void ShutdownAllTasks();
 };
 extern "C" __declspec(dllimport) long __stdcall InterlockedCompareExchange(long volatile*, long, long);
 struct Lock_00b02220
@@ -157,11 +157,11 @@ struct Spawned_b02010
 struct Owner_b02010
 {
     unsigned int unk00;
-    bool FUN_00b02010(Spawned_b02010** out);
+    bool CreateTaskGroupData(Spawned_b02010** out);
 };
 
 // @fnv 0x00b02010
-bool Owner_b02010::FUN_00b02010(Spawned_b02010** out)
+bool Owner_b02010::CreateTaskGroupData(Spawned_b02010** out)
 {
     Spawned_b02010* v = new Spawned_b02010;
     *out = v;

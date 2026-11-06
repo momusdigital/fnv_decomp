@@ -2193,7 +2193,7 @@ struct SoundHandleHelper : SoundPlaybackHandle
 RadioStation* FUN_00832830(RadioRef*);
 struct GlobalObject_0044fae0
 {
-    void FUN_004538a0(const char*);
+    void Enter(const char*);
     void FUN_004538c0();
 };
 extern GlobalObject_0044fae0 g_011dd5e8;
@@ -2206,7 +2206,7 @@ void FUN_008359e0(RadioSource* source, bool enabled)
     if (DAT_011dd436)
         return;
     RadioStation* station = FUN_00832830(source->FUN_007af430());
-    g_011dd5e8.FUN_004538a0("FalloutRadio::SetBroadcastState");
+    g_011dd5e8.Enter("FalloutRadio::SetBroadcastState");
     source->FUN_007af430()->SetRefFlag40000000(enabled);
     if (station)
     {
@@ -3245,7 +3245,7 @@ class RadioUpdateSub4
     bool IsFlag20Set();
     void FUN_008330b0(int);
     bool GetByteAtOffset17();
-    void FUN_00632d20(bool);
+    void SetFrontOnly(bool);
     unsigned char FUN_00833c20();
     bool FUN_00835650();
     bool IsFlag8Set();
@@ -3282,7 +3282,7 @@ class RadioUpdateAudio
 class RadioUpdateProf
 {
   public:
-    void FUN_004538a0(const char*);
+    void Enter(const char*);
     void FUN_004538c0();
 };
 
@@ -3341,7 +3341,7 @@ void __cdecl FUN_00834260(FalloutRadio::RadioStationState* apState)
     float aBound = 3000.0f;
     RadioUpdateVec3 aLight;
     ((RadioUpdateAudio*)::FUN_00453a70())->FUN_00ad78e0(&aLight);
-    DAT_011dd5e8.FUN_004538a0(radioUpdateProfile);
+    DAT_011dd5e8.Enter(radioUpdateProfile);
     RadioUpdateObj* aActor =
         ((RadioUpdateState*)apState)->sub.ptr ? ((RadioUpdateState*)apState)->sub.ptr->FUN_0083c820() : 0;
     RadioUpdateRList* aNext = &((RadioUpdateState*)apState)->list;
@@ -3536,7 +3536,7 @@ void __cdecl FUN_00834260(FalloutRadio::RadioStationState* apState)
         }
     }
 
-    ((RadioUpdateState*)apState)->sub.FUN_00632d20(((RadioUpdateState*)apState)->sub.GetByteAtOffset17());
+    ((RadioUpdateState*)apState)->sub.SetFrontOnly(((RadioUpdateState*)apState)->sub.GetByteAtOffset17());
     aTmp = ((RadioUpdateState*)apState)->sub.FUN_00833c20();
     if (aTmp < 100)
         bFound = true;

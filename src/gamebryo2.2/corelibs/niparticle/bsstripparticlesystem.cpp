@@ -21,10 +21,10 @@ struct NiRenderer
 struct FUN_00a80610_shell
 {
     void __thiscall FUN_00a80610(NiRenderer*);
-    void __thiscall FUN_00c25730(NiRenderer*);
+    void __thiscall RenderImmediate(NiRenderer*);
 };
 // @fnv 0x00c25730
-void __thiscall FUN_00a80610_shell::FUN_00c25730(NiRenderer* apkRenderer)
+void __thiscall FUN_00a80610_shell::RenderImmediate(NiRenderer* apkRenderer)
 {
     this->FUN_00a80610(apkRenderer);
     NiRenderer* pkRenderer = apkRenderer;
@@ -85,11 +85,11 @@ ParticleSystem* ParticleOwner::CreateParticleSystem(unsigned int flags)
     return object;
 }
 
-void __cdecl FUN_00c1b0b0();
+void __cdecl RegisterStreamables();
 // @fnv 0x00c21940
 void __cdecl FUN_00c21940()
 {
-    FUN_00c1b0b0();
+    RegisterStreamables();
 }
 
 struct NiCullingProcess
@@ -110,11 +110,11 @@ void __thiscall FUN_00c256f0_cls::FUN_00c256f0(NiCullingProcess& a)
     NiGeometry::OnVisible(a);
 }
 
-void __cdecl FUN_00c1b3a0();
+void __cdecl LoadBinary();
 // @fnv 0x00c25700
 void __cdecl FUN_00c25700()
 {
-    FUN_00c1b3a0();
+    LoadBinary();
 }
 
 extern "C" void __cdecl LoadModifiers();

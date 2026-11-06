@@ -8,17 +8,17 @@ extern "C" void* __cdecl FUN_00d21a60(void* self, int a, void* b);
 
 struct FUN_00d4f880_class
 {
-    void* __thiscall FUN_00d4f880(int a);
+    void* __thiscall getConstraintInfo(int a);
 };
 
 // @fnv 0x00d4f880
-void* __thiscall FUN_00d4f880_class::FUN_00d4f880(int a)
+void* __thiscall FUN_00d4f880_class::getConstraintInfo(int a)
 {
     return FUN_00d21a60((char*)this + 0x10, 0xc0, (void*)a);
 }
 
 // @fnv 0x00d4f8a0
-void __stdcall FUN_00d4f8a0(int aiUnused, hkpPrismaticConstraintData* apConstraintData)
+void __stdcall getRuntimeInfo(int aiUnused, hkpPrismaticConstraintData* apConstraintData)
 {
     *(int*)((char*)apConstraintData + 4) = 8;
     *(int*)((char*)apConstraintData + 0) = 0x48;

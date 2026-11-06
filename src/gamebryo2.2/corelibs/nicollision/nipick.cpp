@@ -111,7 +111,7 @@ struct NiStream
 void* __cdecl _NiMalloc(unsigned int);
 typedef void(__cdecl* PFN)();
 extern const char g_0126fab4_arg0[];
-NiObject* __cdecl FUN_00ead090();
+NiObject* __cdecl CreateObject();
 void __cdecl FUN_00ea7490();
 int* __cdecl FUN_00e9c7d0(float, int*);
 struct Obj;
@@ -180,7 +180,7 @@ void __cdecl InitNiStreamCallbacks()
     if (DAT_0126fa5c)
         return;
     DAT_0126fa5c = true;
-    NiStream::RegisterObjectLoader(g_0126fab4_arg0, FUN_00ead090);
+    NiStream::RegisterObjectLoader(g_0126fab4_arg0, CreateObject);
     DAT_0126fa80 = FUN_00ea7490;
     DAT_0126fa84 = CreateObjWithArg;
     DAT_0126fa90 = CreateBoundingVolumeAndCall;

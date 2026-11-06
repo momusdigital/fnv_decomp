@@ -110,10 +110,10 @@ struct S86870
     virtual void d44() = 0;
     virtual void* GetLink(char* p) = 0;
     void FUN_00c87670(NiStream* s);
-    void FUN_00c86870(NiStream* s);
+    void LinkObject(NiStream* s);
 };
 // @fnv 0x00c86870
-void S86870::FUN_00c86870(NiStream* s)
+void S86870::LinkObject(NiStream* s)
 {
     char tmp;
     void* p = GetLink(&tmp);
@@ -1906,7 +1906,7 @@ class RefObjC86D : public TESObjectDoorController
 };
 
 // @fnv 0x00c86de0
-RefObjC86D* __cdecl FUN_00c86de0()
+RefObjC86D* __cdecl CreateObject()
 {
     return new RefObjC86D;
 }
@@ -1948,11 +1948,11 @@ class AllocatedNode
 class FUN_00c87010_cls : public FUN_00c86800_Class
 {
   public:
-    AllocatedNode* FUN_00c87010(FUN_00c86800_Table* p);
+    AllocatedNode* CreateClone(FUN_00c86800_Table* p);
 };
 
 // @fnv 0x00c87010
-AllocatedNode* FUN_00c87010_cls::FUN_00c87010(FUN_00c86800_Table* p)
+AllocatedNode* FUN_00c87010_cls::CreateClone(FUN_00c86800_Table* p)
 {
     ScopedAllocationMode mode;
     FUN_00c876f0();
@@ -2175,7 +2175,7 @@ class __declspec(align(16)) Aligned7100
 class Owner7100
 {
   public:
-    Aligned7100* FUN_00c87100(bool* pbCreated);
+    Aligned7100* CreateCinfo(bool* pbCreated);
     void SetObject(Aligned7100* pkObject);
 
     int unk00;
@@ -2185,7 +2185,7 @@ class Owner7100
 };
 
 // @fnv 0x00c87100
-Aligned7100* Owner7100::FUN_00c87100(bool* pbCreated)
+Aligned7100* Owner7100::CreateCinfo(bool* pbCreated)
 {
     AutoMemContext7100 kContext(0x10);
     bool bCreate = m_pPointer == 0;
@@ -2814,10 +2814,10 @@ class FUN_00c86e80_t
     virtual void v43();
     virtual void v44();
     virtual Block86* GetBlock(int* piSize);
-    void FUN_00c86e80(NiStream86* pkStream);
+    void LoadBinary(NiStream86* pkStream);
 };
 // @fnv 0x00c86e80
-void FUN_00c86e80_t::FUN_00c86e80(NiStream86* pkStream)
+void FUN_00c86e80_t::LoadBinary(NiStream86* pkStream)
 {
     ((FUN_00c86790_t*)this)->FUN_00c86790(pkStream);
     if (pkStream->m_bSameEndian == 1)
@@ -3014,11 +3014,11 @@ class FUN_00c86f10_cls
     virtual void v2C();
     virtual volatile unsigned int* vGet(unsigned char* out);
     void FUN_00c868b0(FUN_00c86f10_arg* a);
-    void FUN_00c86f10(FUN_00c86f10_arg* a1);
+    void SaveBinary(FUN_00c86f10_arg* a1);
 };
 
 // @fnv 0x00c86f10
-void FUN_00c86f10_cls::FUN_00c86f10(FUN_00c86f10_arg* a1)
+void FUN_00c86f10_cls::SaveBinary(FUN_00c86f10_arg* a1)
 {
     unsigned int tmp;
     volatile unsigned int* p = vGet((unsigned char*)&tmp + 3);

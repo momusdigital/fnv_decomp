@@ -99,10 +99,10 @@ void Actor::SetActorLifeState(ACTOR_LIFE_STATE state)
         if (sound)
             ((MagicCaster*)sound)->MagicCaster::SetSelectedMagicItem((MagicItem*)this);
         SoundPlaybackHandle face;
-        GetExtraData()->FUN_00418940(&face);
+        GetExtraData()->GetCreatureAwakeSound(&face);
         face.Stop();
         face.Release();
-        GetExtraData()->FUN_0041a090(&face);
+        GetExtraData()->SetCreatureAwakeSound(&face);
         BSAudio::GetSingleton()->FUN_00ad8570(Get3DSimple(), 0.0f, false);
     }
     if (state != 0 && m_pBaseProcess && ((HighProcess*)m_pBaseProcess)->GetProcessLevel() == 0)
@@ -3111,11 +3111,11 @@ struct XHost17 : public XHostVtbl17
 
     void FUN_0088c650(void*, int, int, int, int, int);
 
-    void FUN_00891e00(XRefr17*, int, bool);
+    void PickUpObject(XRefr17*, int, bool);
 };
 
 // @fnv 0x00891e00
-void XHost17::FUN_00891e00(XRefr17* pRefr, int iCount, bool a2)
+void XHost17::PickUpObject(XRefr17* pRefr, int iCount, bool a2)
 
 {
 
@@ -3377,7 +3377,7 @@ class TESPackage
     void SetPackageType(int);
     void SetMustReachLocation(bool);
     void SetMustComplete(bool);
-    void FUN_00671d30(FUN_00670b30*);
+    void SetPackageLocation(FUN_00670b30*);
     void SetProcedureType(PACKAGE_PROCEDURE_TYPE);
 };
 
@@ -3894,7 +3894,7 @@ struct ActorVtbl2f4
 struct FUN_008a75a0_shell : public Actor
 {
     BaseProcessExt* GetCurrentAIProcess() const;
-    bool FUN_00437bf0();
+    bool IsRestrained();
     bool FUN_00437bd0();
     void EnsurePackage26();
 };
@@ -3903,7 +3903,7 @@ struct FUN_008a75a0_shell : public Actor
 void FUN_008a75a0_shell::EnsurePackage26()
 {
     TESPackage* pPkg = GetCurrentAIProcess()->v27c();
-    if (FUN_00437bf0() || FUN_00437bd0() || (pPkg && pPkg->GetPackType() == PTYPE_26))
+    if (IsRestrained() || FUN_00437bd0() || (pPkg && pPkg->GetPackType() == PTYPE_26))
     {
         return;
     }
@@ -3918,7 +3918,7 @@ void FUN_008a75a0_shell::EnsurePackage26()
     pNewPkg3->SetMustComplete(true);
     FUN_00670b30* pLoc = new FUN_00670b30();
     pLoc->FUN_0067f3c0(this);
-    pNewPkg3->FUN_00671d30(pLoc);
+    pNewPkg3->SetPackageLocation(pLoc);
     delete pLoc;
     pNewPkg3->SetProcedureType(PROC_21);
     GetCurrentAIProcess()->v028();
@@ -4851,7 +4851,7 @@ struct Node8c37
     virtual void V059();
     virtual void RemoveChildAt(unsigned int uiIndex);
     unsigned int FUN_00453470();
-    void FUN_004def90();
+    void RemoveAllChildren();
     unsigned int FUN_0043b480();
     Child8c37* FUN_0043b4a0(unsigned int uiIndex);
 };
@@ -5052,7 +5052,7 @@ void Actor8c37::UpdateAnimationState()
     if (pkGroupNode->FUN_00453470() > 0)
     {
         if (!bFound)
-            pkGroupNode->FUN_004def90();
+            pkGroupNode->RemoveAllChildren();
         for (unsigned int i = 0; i < pkGroupNode->FUN_0043b480(); i++)
         {
             Child8c37* pkElem = pkGroupNode->FUN_0043b4a0(i);
@@ -5153,7 +5153,7 @@ struct Node8c39
     virtual void V053();
     virtual void V054();
     virtual void AttachChildInAvailableSlot(Model8c39* pkChild, bool abFirstAvailableSlot);
-    void FUN_004def90();
+    void RemoveAllChildren();
 };
 
 struct LightData8c39
@@ -5230,7 +5230,7 @@ void Actor8c39::AttachMagicEffect(Source8c39* pkSource)
     Node8c39* pkMagicNode = m_kHolder.GetNode();
     if (pkMagicNode && pkModel)
     {
-        pkMagicNode->FUN_004def90();
+        pkMagicNode->RemoveAllChildren();
         pkMagicNode->AttachChildInAvailableSlot(pkModel, true);
         if (pkEffect->FUN_004fd380() && !FUN_00525420())
         {

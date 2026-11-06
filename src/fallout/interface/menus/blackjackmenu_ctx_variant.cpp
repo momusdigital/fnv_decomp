@@ -9,7 +9,7 @@ struct FUN_007316f0_shell
 };
 struct BlackJackMenu
 {
-    int __thiscall FUN_00731790();
+    int __thiscall GetClass();
 };
 int __cdecl FUN_00733f80();
 struct FUN_007399d0_shell
@@ -2879,7 +2879,7 @@ class TESContainer
     TESContainer();
     ~TESContainer();
     void FUN_004818e0(void*, int, void*);
-    void FUN_004821a0(void*, bool);
+    void AddContainerToReference(void*, bool);
 };
 struct BooleanHandler
 {
@@ -2889,7 +2889,7 @@ struct CasinoUpdate
 {
     void* FUN_007316d0();
     int GetFieldAt210();
-    BooleanHandler* FUN_00504e40();
+    BooleanHandler* GetQuest();
     Stats129* FUN_00504e60();
 };
 struct PlayerUpdate
@@ -3203,10 +3203,10 @@ void BlackjackUpdate::FUN_00734db0()
                 TESContainer inventory;
                 inventory.FUN_004818e0(((CasinoUpdate*)DAT_011d9058)->FUN_007316d0(), difference, 0);
                 if (DAT_011d9054->amount < ((CasinoUpdate*)DAT_011d9058)->GetFieldAt210())
-                    inventory.FUN_004821a0(DAT_011dea3c, false);
+                    inventory.AddContainerToReference(DAT_011dea3c, false);
                 else
                 {
-                    inventory.FUN_004821a0(DAT_011dea3c, true);
+                    inventory.AddContainerToReference(DAT_011dea3c, true);
                     BSStringT<char> msg2;
                     FUN_00406f60(&msg2, DAT_01070d8c, difference,
                                  FUN_00482720(((CasinoUpdate*)DAT_011d9058)->FUN_007316d0()),
@@ -3219,7 +3219,7 @@ void BlackjackUpdate::FUN_00734db0()
             }
             if (reward)
             {
-                BooleanHandler* quest = ((CasinoUpdate*)DAT_011d9058)->FUN_00504e40();
+                BooleanHandler* quest = ((CasinoUpdate*)DAT_011d9058)->GetQuest();
                 if (quest)
                     quest->FUN_0060c9c0(true);
             }

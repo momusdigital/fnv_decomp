@@ -60,11 +60,11 @@ struct NiPSysFieldModifier : BSFadeNode
 };
 struct NiPSysDragFieldModifier : NiPSysFieldModifier
 {
-    NiPSysFieldModifier* __thiscall FUN_00c2c8d0(CloningProcess&);
+    NiPSysFieldModifier* __thiscall CreateClone(CloningProcess&);
 };
 // Allocates and initialises a NiPSysDragFieldModifier clone, copies the byte at offset 0x30 and the NiPoint3 at offset 0x34 from this, and returns it.
 // @fnv 0x00c2c8d0
-NiPSysFieldModifier* __thiscall NiPSysDragFieldModifier::FUN_00c2c8d0(CloningProcess& process)
+NiPSysFieldModifier* __thiscall NiPSysDragFieldModifier::CreateClone(CloningProcess& process)
 {
     NiPSysFieldModifier* clone = static_cast<NiPSysFieldModifier*>(BSFadeNode::operator new(0x40));
     if (clone)
@@ -158,7 +158,7 @@ void __fastcall ApplyDragDamping(DragFieldFields* self, void*, float deltaTime, 
     }
 }
 
-// FUN_00c2cae0: /MT /O2 /GS /EHsc /Gy, 56 bytes, __thiscall with one stack argument.
+// IsEqual: /MT /O2 /GS /EHsc /Gy, 56 bytes, __thiscall with one stack argument.
 // Compares this modifier against another one: a shared "compatible" helper, the
 // type tag byte at +0x30, and the drag-field data block at +0x34.
 
@@ -187,11 +187,11 @@ struct FUN_00c2cae0_cls
     unsigned char m_30;
     DragFieldData m_34;
     bool FUN_00c32060(FUN_00c2cae0_cls* other);
-    bool FUN_00c2cae0(FUN_00c2cae0_cls* other);
+    bool IsEqual(FUN_00c2cae0_cls* other);
 };
 
 // @fnv 0x00c2cae0
-bool FUN_00c2cae0_cls::FUN_00c2cae0(FUN_00c2cae0_cls* other)
+bool FUN_00c2cae0_cls::IsEqual(FUN_00c2cae0_cls* other)
 {
     if (FUN_00c32060(other))
     {
@@ -266,14 +266,14 @@ struct FNVMain
     unsigned char enabled30;
     unsigned char state31, state32, state33;
     FNVChild child34;
-    void __thiscall FUN_00c321f0(FNVParameter*);
+    void __thiscall SaveBinary(FNVParameter*);
     void __thiscall FUN_00c2ce70(FNVParameter*);
 };
-// Calls FUN_00c321f0, invokes the owner's callback0c with the enabled byte and adds its result to total04, then calls child34.FUN_00a69780.
+// Calls SaveBinary, invokes the owner's callback0c with the enabled byte and adds its result to total04, then calls child34.FUN_00a69780.
 // @fnv 0x00c2ce70
 void __thiscall FNVMain::FUN_00c2ce70(FNVParameter* pParameter)
 {
-    FUN_00c321f0(pParameter);
+    SaveBinary(pParameter);
     unsigned char enabled = enabled30;
     FNVCallbackOwner* owner = pParameter->owner();
     int(__cdecl * pCallback)(FNVCallbackOwner*, unsigned char*, int, int*, int) = owner->callback0c;
@@ -314,14 +314,14 @@ struct FNVObject195
     int unk20, unk24, unk28, unk2c;
     unsigned char attribute30;
     FNVSubObject195 subobject34;
-    void __thiscall FUN_00c322b0(FNVArray195* storage);
+    void __thiscall GetViewerStrings(FNVArray195* storage);
     void __thiscall FUN_00c2cec0(FNVArray195* storage);
 };
 // @fnv 0x00c2cec0
 void __thiscall FNVObject195::FUN_00c2cec0(FNVArray195* pArray)
 {
     FNVArray195* const array = pArray;
-    FUN_00c322b0(array);
+    GetViewerStrings(array);
     void* value = FUN_00a7d330(g_01202770.object);
     unsigned int uiIndex = array->count;
     if (uiIndex >= array->capacity)
@@ -547,12 +547,12 @@ struct DragModifier
 
     void __thiscall ApplyDragDamping(float fTime, BoundDataBlock* pkData);
     void __thiscall ApplyFieldModToParticles(float fTime, BoundDataBlock* pkData);
-    void __thiscall FUN_00c2cb20(float fTime, BoundDataBlock* pkData);
+    void __thiscall Update(float fTime, BoundDataBlock* pkData);
 };
 
 // Applies a drag field modifier to active particles, scaling or zeroing their velocity based on influence, distance, and motion direction.
 // @fnv 0x00c2cb20
-void __thiscall DragModifier::FUN_00c2cb20(float fTime, BoundDataBlock* pkData)
+void __thiscall DragModifier::Update(float fTime, BoundDataBlock* pkData)
 {
     if (m_fInfluence == 0.0f)
         return;

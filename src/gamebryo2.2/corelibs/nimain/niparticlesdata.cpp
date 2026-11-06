@@ -129,11 +129,11 @@ class NiQuaternion
 };
 struct Candidate : NiParticlesData
 {
-    void FUN_00a964c0(unsigned short index);
+    void RemoveParticle(unsigned short index);
 };
 // Copies the last active particle's vertex, color, normal, radii, sizes, rotation and texture data into the given slot, then decrements m_usActive.
 // @fnv 0x00a964c0
-void Candidate::FUN_00a964c0(unsigned short index)
+void Candidate::RemoveParticle(unsigned short index)
 {
     unsigned short last = m_usActive - 1;
     if (index != last)
@@ -979,12 +979,12 @@ class ParticlesLoadView : public NiGeometryData
     Rot16* m_pkSubTextureOffsets;
     unsigned char m_ucSubTextureOffsetCount;
     unsigned char unk6d, unk6e, unk6f;
-    void __thiscall FUN_00a96cf0(StreamIn* stream);
+    void __thiscall LoadBinary(StreamIn* stream);
 };
 
 // Reads particle-related values and flags from the stream, allocates arrays, and fills several arrays with defaults depending on version.
 // @fnv 0x00a96cf0
-void __thiscall ParticlesLoadView::FUN_00a96cf0(StreamIn* stream)
+void __thiscall ParticlesLoadView::LoadBinary(StreamIn* stream)
 {
     union ReadValue
     {

@@ -12,13 +12,13 @@ void NiBSplineBasisData::LoadBinary(NiStream& stream)
 
 struct FUN_00a52bb0_shell : public NiBSplineBasisData
 {
-    bool FUN_00a52bb0(NiObject*);
+    bool IsEqual(NiObject*);
 };
 
 bool __stdcall IsSameAs(NiObject* pkObject);
 
 // @fnv 0x00a52bb0
-bool FUN_00a52bb0_shell::FUN_00a52bb0(NiObject* pkObject)
+bool FUN_00a52bb0_shell::IsEqual(NiObject* pkObject)
 {
     if (!IsSameAs(pkObject))
         return false;
@@ -69,7 +69,7 @@ struct ArrX
     unsigned short m_usGrowBy;
 };
 // @fnv 0x00a52c90
-void __stdcall FUN_00a52c90(ArrX* pArray)
+void __stdcall GetViewerStrings(ArrX* pArray)
 {
     AppendCameraPathEntries(pArray);
     ActorCombatGroup* pObject = FUN_00a7d330(g_011f403c);
@@ -238,12 +238,12 @@ class FUN_00a52c50_BasisData : public NiObject
   public:
     BSplineBasis<float, 3> m_kBSplineBasis;
     void SaveBinaryBase(NiStream& stream);
-    void FUN_00a52c50(NiStream& stream);
+    void SaveBinary(NiStream& stream);
 };
 
 // Saves the base NiObject data and the BSplineBasis control point count to the given NiStream.
 // @fnv 0x00a52c50
-void FUN_00a52c50_BasisData::FUN_00a52c50(NiStream& stream)
+void FUN_00a52c50_BasisData::SaveBinary(NiStream& stream)
 {
     SaveBinaryBase(stream);
     WriteScalar(static_cast<NiStreamSave&>(stream).m_pBackingStream, m_kBSplineBasis.m_iNumControlPoints);

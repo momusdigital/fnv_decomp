@@ -22,7 +22,7 @@ struct FUN_005a3790Class
 
 // Sets result to 0.0, then to 1.0 if the reference's FUN_005a3790 check succeeds, and returns true.
 // @fnv 0x005a3760
-bool __cdecl FUN_005a3760(void* reference, void* b, void* c, double& result)
+bool __cdecl Cmd_GetIgnoreFriendlyHits_Eval(void* reference, void* b, void* c, double& result)
 {
     result = 0.0;
     if (((FUN_005a3790Class*)reference)->FUN_005a3790())
@@ -82,7 +82,7 @@ struct FUN_00456a60_class
 };
 
 // @fnv 0x005b9220
-bool FUN_005b9220()
+bool Cmd_ToggleCollisionGeometry_Execute()
 {
     ((FUN_00456a60_class*)g_TES)->FUN_00456a60();
     return true;
@@ -96,7 +96,7 @@ struct FUN_00456a60_Class
 };
 // Sets DAT_012680fc to 1, calls FUN_00456a60 on g_TES, resets DAT_012680fc to 0 and returns 1.
 // @fnv 0x005b9240
-char __cdecl FUN_005b9240()
+char __cdecl Cmd_ToggleMaterialGeometry_Execute()
 {
     DAT_012680fc = 1;
     ((FUN_00456a60_Class*)(int)g_TES)->FUN_00456a60();
@@ -389,7 +389,7 @@ struct FUN_00483710_shell
 };
 struct FUN_00485e20_shell
 {
-    void FUN_00485e20(int, int);
+    void __SaveData(int, int);
 };
 struct FUN_00485680_shell
 {
@@ -415,17 +415,17 @@ struct FUN_005a7a90_shell
     int unk34;
     int unk38;
     int unk3c;
-    void FUN_005a7a90();
+    void SaveForm();
 };
 
 // @fnv 0x005a7a90
-void FUN_005a7a90_shell::FUN_005a7a90()
+void FUN_005a7a90_shell::SaveForm()
 {
     ((FUN_004855a0_shell*)this)->FUN_004855a0();
     ((FUN_00487010_shell*)((char*)this + 0x18))->FUN_00487010();
     if (FUN_00401500())
         ((FUN_00483710_shell*)((char*)this + 0x24))->FUN_00483710();
-    ((FUN_00485e20_shell*)this)->FUN_00485e20((int)((char*)this + 0x24), 1);
+    ((FUN_00485e20_shell*)this)->__SaveData((int)((char*)this + 0x24), 1);
     if (FUN_00401500())
         ((FUN_00483710_shell*)((char*)this + 0x24))->FUN_00483710();
     ((FUN_00485680_shell*)this)->FUN_00485680();
@@ -676,12 +676,12 @@ class FUN_005a7b60_cls
     int unk00, unk04, unk08, unk0C, unk10, unk14, unk18, unk1C, unk20;
     unsigned char m_data;
 
-    bool FUN_005a7b60(TESForm* pkForm);
+    bool Compare(TESForm* pkForm);
 };
 
 // Returns true if pkForm is not a TESRecipeCategory, its first data byte differs from m_data, or FUN_00485270 returns true; otherwise false.
 // @fnv 0x005a7b60
-bool FUN_005a7b60_cls::FUN_005a7b60(TESForm* pkForm)
+bool FUN_005a7b60_cls::Compare(TESForm* pkForm)
 {
     TESRecipeCategory* pkCategory = dynamic_cast<TESRecipeCategory*>(pkForm);
     if (!pkCategory)
@@ -728,7 +728,7 @@ class TESForm : public BaseFormComponent
     unsigned int GetFormID();
     void FUN_004855a0();
     void FUN_00485680();
-    void FUN_00485e20(void*, int);
+    void __SaveData(void*, int);
 };
 class TESFullName : public BaseFormComponent
 {
@@ -772,11 +772,11 @@ class TESRecipe : public TESForm, public TESFullName
     RecipeData* FUN_00430830();
     BSSimpleList<RecipeItem*>* FUN_005a8080();
     BSSimpleList<RecipeItem*>* FUN_005d43c0();
-    void FUN_005a8490();
+    void SaveForm();
 };
 // Stores category and subcategory form IDs, then calls FUN_00485910 with the form ID and count of each ingredient and each output item.
 // @fnv 0x005a8490
-void TESRecipe::FUN_005a8490()
+void TESRecipe::SaveForm()
 {
     FUN_004855a0();
     TESFullName::FUN_00487010();
@@ -785,7 +785,7 @@ void TESRecipe::FUN_005a8490()
     FUN_00430830()->subcategory = reinterpret_cast<TESForm*>(FUN_006286d0() ? FUN_006286d0()->GetFormID() : 0);
     if (FUN_00401500())
         data.FUN_00414220();
-    FUN_00485e20(&data, 16);
+    __SaveData(&data, 16);
     if (FUN_00401500())
         data.FUN_00414220();
     BSSimpleList<RecipeItem*>* iter = FUN_005a8080();
@@ -831,7 +831,7 @@ void* memset(void* destination, int value, unsigned int size);
 
 // Reads a short count and that many values from data via Script::GetValue, then formats them into string using format; returns false if any read fails.
 // @fnv 0x005b4960
-bool __cdecl FUN_005b4960(int unused, char const* data, TESObjectREFR* reference1, TESObjectREFR* reference2,
+bool __cdecl BuildMessageBoxStringFromParameters(int unused, char const* data, TESObjectREFR* reference1, TESObjectREFR* reference2,
                           Script* script, ScriptLocals* locals, int unused2, unsigned int& value, char const* format,
                           BSStringT<char>* string)
 {

@@ -1,6 +1,6 @@
 
 // src/fallout/interface/menus/inventorymenu_decl_variant.cpp - declaration variant unit created 2026-10-26 by decl_variants.py for paused function 0x00782190: the skeleton of src/fallout/interface/menus/inventorymenu.cpp
-// with declarations corrected to what the original code does (inventorymenu_decls.h: InventoryMenu += bool FUN_00782190(int input, int unused);; inventorymenu_decls.h: Tile += float FUN_00a011b0(unsigned int id);). Move the function to its real unit once
+// with declarations corrected to what the original code does (inventorymenu_decls.h: InventoryMenu += bool HandleSpecialKeyInput(int input, int unused);; inventorymenu_decls.h: Tile += float FUN_00a011b0(unsigned int id);). Move the function to its real unit once
 // that unit declares it this way.
 
 #include "inventorymenu_decls_decl_inventorymenu.h"
@@ -57,7 +57,7 @@ struct FUN_00781b10_shell
 };
 struct FUN_00781620_shell : public InventoryMenu
 {
-    void __thiscall FUN_00781620(int aiID, Tile* apTarget);
+    void __thiscall DoLeave(int aiID, Tile* apTarget);
 };
 struct ProxyPipboy
 {
@@ -904,7 +904,7 @@ void ShowStatsMenu(int, int);
 void UpdatePipboyMapVisibility(int, int);
 
 // @fnv 0x00782190
-bool InventoryMenu::FUN_00782190(int input, int unused)
+bool InventoryMenu::HandleSpecialKeyInput(int input, int unused)
 {
     if (!FUN_00702450(1002) || !FUN_00705990()->IsUnk28Set())
         return false;

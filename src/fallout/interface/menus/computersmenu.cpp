@@ -1705,7 +1705,7 @@ class TESSound
 class BGSNote
 {
   public:
-    TESSound* FUN_005e9100();
+    TESSound* GetNoteSound();
 };
 
 class BSAudio
@@ -1738,7 +1738,7 @@ struct Shell_759030
 void Shell_759030::PlayNoteSound(BGSNote* apNote)
 {
     ((FUN_00ad73b0_t*)BSAudio::GetSingleton())
-        ->FUN_00ad73b0(apNote->FUN_005e9100()->GetFormID(), 0x101)
+        ->FUN_00ad73b0(apNote->GetNoteSound()->GetFormID(), 0x101)
         .FUN_00ad8830(false);
 }
 
@@ -3440,11 +3440,11 @@ struct HostF
     void FUN_007586e0(int);
     void FUN_00758a80();
     void RefreshDisplay();
-    void __thiscall FUN_00757f70(int a1, TileF* a2);
+    void __thiscall DoClick(int a1, TileF* a2);
 };
 // Processes a tile index and optional tile pointer, updates tile and note display state, and may dispatch a note message to the player.
 // @fnv 0x00757f70
-void __thiscall HostF::FUN_00757f70(int aiTileIndex, TileF* apTile)
+void __thiscall HostF::DoClick(int aiTileIndex, TileF* apTile)
 {
     if (!apTile && aiTileIndex >= 0 && aiTileIndex < 16)
         apTile = m_pTiles[aiTileIndex];

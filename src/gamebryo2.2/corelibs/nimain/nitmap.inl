@@ -13,5 +13,5 @@ void NiTMap<TESGlobal*, bool>::NewItem() {
 template<>
 // @fnv 0x0048eff0
 void NiTMap<unsigned int, CombatThreatRecord*>::NewItem(void* item) {
-    FUN_00445370(item, 1);
+    ReleaseKF(item, 1);
 }

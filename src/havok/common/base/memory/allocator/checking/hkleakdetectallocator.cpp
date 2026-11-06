@@ -5,11 +5,11 @@
 struct FUN_00d5f270_class
 {
     void __thiscall FUN_00d5f150(int c, void* a, unsigned int b);
-    void __thiscall FUN_00d5f270(void* a, unsigned int b);
+    void __thiscall blockFree(void* a, unsigned int b);
 };
 
 // @fnv 0x00d5f270
-void __thiscall FUN_00d5f270_class::FUN_00d5f270(void* a, unsigned int b)
+void __thiscall FUN_00d5f270_class::blockFree(void* a, unsigned int b)
 {
     FUN_00d5f150(0, a, b);
 }
@@ -45,11 +45,11 @@ struct Outer
 {
     int unk00, unk04, unk08, unk0c, unk10, unk14, unk18, unk1c, unk20, unk24, unk28, unk2c;
     Inner* unk30;
-    int FUN_00d5ee60(int a);
+    int getMemoryStatistics(int a);
 };
 
 // @fnv 0x00d5ee60
-int Outer::FUN_00d5ee60(int a)
+int Outer::getMemoryStatistics(int a)
 {
     return unk30->v28(a);
 }
@@ -84,12 +84,12 @@ struct S_00d5ee70
     int unk28;
     int unk2C;
     S_00d5ee70_Inner* unk30;
-    void FUN_00d5ee70(int a0);
+    void getAllocatedSize(int a0);
 };
 
 // Forwards a0 to the virtual function vfn2C of the inner object at unk30.
 // @fnv 0x00d5ee70
-void S_00d5ee70::FUN_00d5ee70(int a0)
+void S_00d5ee70::getAllocatedSize(int a0)
 {
     unk30->vfn2C(a0);
 }
@@ -403,13 +403,13 @@ void FUN_00d5f290_class::CallWithFirstArg(int* piValue)
 struct FUN_00d5f2d0_cls
 {
     int ProcessAndDispatch(int a, int b);
-    int FUN_00d5f2d0(int a1, int a2, int* a3);
+    int bufRealloc(int a1, int a2, int* a3);
 };
 
 void __cdecl FUN_00d2caa0(int a, int b, int c);
 
 // @fnv 0x00d5f2d0
-int FUN_00d5f2d0_cls::FUN_00d5f2d0(int a1, int a2, int* piValue)
+int FUN_00d5f2d0_cls::bufRealloc(int a1, int a2, int* piValue)
 {
     int r = this->ProcessAndDispatch(1, *piValue);
     int m = *piValue;

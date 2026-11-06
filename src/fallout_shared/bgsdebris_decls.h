@@ -24,7 +24,7 @@ class DebrisModelEntry
     FileEntryList model;
     DebrisModelEntry();
     ~DebrisModelEntry();
-    void FUN_004fa670(const char*);
+    void SetFileName(const char*);
 };
 void Deallocate(void*);
 void* Allocate(unsigned int);

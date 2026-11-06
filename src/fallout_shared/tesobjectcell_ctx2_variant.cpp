@@ -404,7 +404,7 @@ struct CellExtra
     unsigned int unk00, unk04, unk08, unk0c, unk10, unk14, unk18, unk1c;
     void LoadExtraData(CellFile*, CellForm*);
     FUN_0058efd0* FUN_0041c460();
-    void FUN_0041c390(FUN_0058efd0*);
+    void SetImpactSwap(FUN_0058efd0*);
 };
 struct CellString
 {
@@ -465,17 +465,17 @@ struct CellLoader : CellForm, CellFullName
     unsigned int lightingTemplate, lightingInheritance;
     void CallWithThis(CellFile*);
     CellExtra* GetExtraDataList();
-    void FUN_00547440(float);
+    void SetWaterHeight(float);
     void ResetCellData();
     bool FUN_00425fd0();
     void SetInteriorDataValue(void*);
     CellExterior* FUN_005445d0();
     CellInterior* FUN_00544600();
     void FUN_00484ab0(bool);
-    bool FUN_005422d0(CellFile* file);
+    bool Load(CellFile* file);
 };
 // @fnv 0x005422d0
-bool CellLoader::FUN_005422d0(CellFile* file)
+bool CellLoader::Load(CellFile* file)
 {
     unsigned char formTypeSlot15 = file->FUN_00472660();
     if (formTypeSlot15 != 0x39)
@@ -598,7 +598,7 @@ bool CellLoader::FUN_005422d0(CellFile* file)
             if (!imageSpace)
             {
                 imageSpace = new ::FUN_0058efd0;
-                GetExtraDataList()->FUN_0041c390(imageSpace);
+                GetExtraDataList()->SetImpactSwap(imageSpace);
             }
             imageSpace->FUN_0058f180(file);
             break;
@@ -639,7 +639,7 @@ bool CellLoader::FUN_005422d0(CellFile* file)
             if (!(flags & 1))
                 flags |= 2;
             if ((flags & 1) && (flags & 0x80))
-                FUN_00547440(DAT_01016970);
+                SetWaterHeight(DAT_01016970);
             if (!DAT_011c3f2c->FUN_00542d20())
                 flags &= ~0x40;
             ResetCellData();

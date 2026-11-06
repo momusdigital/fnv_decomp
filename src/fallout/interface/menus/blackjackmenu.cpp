@@ -15,11 +15,11 @@ void FUN_007316f0_shell::ClearField()
 
 struct BlackJackMenu
 {
-    int __thiscall FUN_00731790();
+    int __thiscall GetClass();
 };
 
 // @fnv 0x00731790
-int __thiscall BlackJackMenu::FUN_00731790()
+int __thiscall BlackJackMenu::GetClass()
 {
     return 0x439;
 }

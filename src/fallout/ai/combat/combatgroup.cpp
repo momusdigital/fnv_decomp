@@ -3082,7 +3082,7 @@ void CombatMemberData_985520::MergeCombatData(CombatMemberData_985520* pOther)
 
 struct TimeInput
 {
-    float __thiscall FUN_00527a40(FUN_00985bb0_Class* owner);
+    float __thiscall GetDistanceSquared(FUN_00985bb0_Class* owner);
 };
 extern float _DAT_0108d5a0;
 extern double _DAT_0108d598;
@@ -3099,7 +3099,7 @@ float CombatClock::GetAdjustedTime(TimeInput* timeInput)
     float elapsed;
     {
         float current = FUN_00985bb0();
-        elapsed = timeInput->FUN_00527a40(this);
+        elapsed = timeInput->GetDistanceSquared(this);
         elapsed = FUN_0040ebd0(elapsed, _DAT_0108d5a0);
         current -= elapsed / _DAT_0108d598;
         if (*reinterpret_cast<int*>(&_ts._pad[4]) != 0)
@@ -3575,7 +3575,7 @@ struct AvoidPosition
 {
     AvoidVector point;
     unsigned space;
-    float FUN_00527a40(const AvoidPosition&);
+    float GetDistanceSquared(const AvoidPosition&);
     AvoidVector& FUN_006815c0();
 };
 struct AvoidActor
@@ -3616,7 +3616,7 @@ PathingAvoidNodeArray* AvoidWork::BuildAvoidNodes(AvoidActor* actor, PathingAvoi
     {
         AvoidActor* other = FUN_00968630(uiIndex);
         AvoidPosition location = other->FUN_00575650();
-        if (i.FUN_00527a40(location) < a)
+        if (i.GetDistanceSquared(location) < a)
         {
             if (!h)
                 h = new PathingAvoidNodeArray;
@@ -7246,7 +7246,7 @@ struct PositionData
     Point point;
     int cell;
     void FUN_0097ede0();
-    float FUN_00527a40(Position*);
+    float GetDistanceSquared(Position*);
     void SetTripleAndValue(Point*, void*);
     int FUN_0084e3a0();
 };
@@ -8039,7 +8039,7 @@ void Group::UpdateTargetPerception(Actor* selected, Actor* subject, int* result,
                 {
                     memberLocal19->FUN_00575650(&originLocal30);
                     subject->FUN_00575650(&destinationLocal23);
-                    if (originLocal30.FUN_00527a40(&destinationLocal23) < 67108864.0)
+                    if (originLocal30.GetDistanceSquared(&destinationLocal23) < 67108864.0)
                     {
                         fallbackLocal15.score = 1;
                         senseLocal1 = &fallbackLocal15;
@@ -8415,7 +8415,7 @@ struct Location
 {
     unsigned int unk00, unk04, unk08, unk0c;
     bool FUN_00527a00();
-    bool FUN_00527990(unsigned int*, unsigned int*);
+    bool GetCellOrWorld(unsigned int*, unsigned int*);
     void* FUN_006815c0();
     void* FUN_0084e3a0();
 };
@@ -8944,7 +8944,7 @@ void Group::FUN_0098a580()
                 {
                     unsigned int endSlot0 = 0;
                     unsigned int start = 0;
-                    if (location.FUN_00527990(&start, &endSlot0))
+                    if (location.GetCellOrWorld(&start, &endSlot0))
                     {
                         Vec selected;
                         if (FUN_006d6f80(endSlot0, start, position, selected))
@@ -9803,7 +9803,7 @@ void UpdateOwner::UpdateElements(unsigned int argument)
 namespace fnv_009a1280 {
 extern double DAT_01017a40;
 extern double DAT_01017a10;
-extern double __cdecl FUN_0047eeb0(unsigned int);
+extern double __cdecl GetConfidenceLevel(unsigned int);
 
 struct FourFloatVector
 {
@@ -9811,7 +9811,7 @@ struct FourFloatVector
 };
 struct TimeoutTimer
 {
-    double __thiscall FUN_00527a40(int result);
+    double __thiscall GetDistanceSquared(int result);
 };
 struct CombatCondition
 {
@@ -10012,7 +10012,7 @@ void CombatLogic::FUN_009a1280(bool update)
 {
     if (phase < 4)
     {
-        if (FUN_0047eeb0(phase) < DAT_01017a40)
+        if (GetConfidenceLevel(phase) < DAT_01017a40)
         {
             ++phase;
         }
@@ -10020,7 +10020,7 @@ void CombatLogic::FUN_009a1280(bool update)
         if (update && condition && condition->mode == 1)
         {
             FourFloatVector values;
-            if (condition->timer.FUN_00527a40(controller->evaluator->FUN_00575650(&values)) < DAT_01017a10)
+            if (condition->timer.GetDistanceSquared(controller->evaluator->FUN_00575650(&values)) < DAT_01017a10)
             {
                 update = false;
             }
@@ -10075,7 +10075,7 @@ struct PoseData
     float a, b, c;
     int d;
     int FUN_0084e3a0();
-    float FUN_00527a40(const PoseData*);
+    float GetDistanceSquared(const PoseData*);
 };
 struct MovementPose;
 struct OtherState
@@ -10375,7 +10375,7 @@ struct ActorSelect
     int FUN_004030b0();
     OtherState* FUN_00586150();
     MovementPose* FUN_00980070();
-    int FUN_00567d90();
+    int GetLocationEncounterZone();
     bool FUN_00566950();
     bool IsHostileTo(ActorSelect*, int, int*, int);
     void FUN_00575650(PoseData*);
@@ -10429,7 +10429,7 @@ ActorSelect* ActorPicker::SelectActor(ActorSelect* actor)
     ActorSelect* firstB8 = (ActorSelect*)centerA->FUN_004030b0();
     OtherState* pkState3 = centerA->FUN_00586150();
     float thresholdA = centerA->FUN_00980070()->FUN_00639aa0();
-    int factionNum = actor->FUN_00567d90();
+    int factionNum = actor->GetLocationEncounterZone();
     bool hactorTypeTmp = FUN_009a9630(actor);
     unsigned int count113 = FUN_005a4320();
     for (unsigned int index = 0; index < count113; ++index)
@@ -10444,7 +10444,7 @@ ActorSelect* ActorPicker::SelectActor(ActorSelect* actor)
         }
         if (*DAT_011f1840.FUN_00408d60())
         {
-            int candidateFaction = candidate18->FUN_00567d90();
+            int candidateFaction = candidate18->GetLocationEncounterZone();
             if (factionNum != candidateFaction)
                 continue;
         }
@@ -10496,7 +10496,7 @@ ActorSelect* ActorPicker::SelectActor(ActorSelect* actor)
                 }
                 else
                 {
-                    pmeasure9 = baactorPose_2.FUN_00527a40(&spose8);
+                    pmeasure9 = baactorPose_2.GetDistanceSquared(&spose8);
                 }
                 pmeasure9 = FUN_0040ebd0(DAT_0108d660, pmeasure9);
                 score += (1.0f - pmeasure9 / DAT_0108d658) * DAT_011a4d60;

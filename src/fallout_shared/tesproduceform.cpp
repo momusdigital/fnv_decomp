@@ -43,10 +43,10 @@ struct FUN_0048b5c0_shell
     int unk0;
     RefObj0084e3a0* unk4;
     int unk8;
-    void FUN_0048b5c0();
+    void Save();
 };
 // @fnv 0x0048b5c0
-void FUN_0048b5c0_shell::FUN_0048b5c0()
+void FUN_0048b5c0_shell::Save()
 {
     unsigned int tmp;
     if (unk4 != 0)
@@ -63,7 +63,7 @@ struct BaseFormComponent
 };
 struct TESProduceForm : BaseFormComponent
 {
-    void FUN_0048b610(BaseFormComponent* apCopyFC);
+    void CopyComponent(BaseFormComponent* apCopyFC);
 };
 struct TESRaceForm
 {
@@ -75,7 +75,7 @@ struct CombatNode
 };
 // Casts apCopyFC to TESProduceForm, initializes this from its combat node value, then copies the data at offset 8.
 // @fnv 0x0048b610
-void TESProduceForm::FUN_0048b610(BaseFormComponent* apCopyFC)
+void TESProduceForm::CopyComponent(BaseFormComponent* apCopyFC)
 {
     TESProduceForm* pCopy = dynamic_cast<TESProduceForm*>(apCopyFC);
     if (!pCopy)
@@ -89,12 +89,12 @@ struct ProduceFormData : BaseFormComponent
 {
     void* pIngredient;
     unsigned char cProdChance[4];
-    bool FUN_0048b6a0(BaseFormComponent* apOther);
+    bool CompareComponent(BaseFormComponent* apOther);
 };
 
 // Compares production chance bytes and a value from FUN_00726070 against another component, returning true when they differ or the other is not a TESProduceForm.
 // @fnv 0x0048b6a0
-bool ProduceFormData::FUN_0048b6a0(BaseFormComponent* apOther)
+bool ProduceFormData::CompareComponent(BaseFormComponent* apOther)
 {
     ProduceFormData* pOther = (ProduceFormData*)dynamic_cast<TESProduceForm*>(apOther);
     if (!pOther)

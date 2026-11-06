@@ -6,7 +6,7 @@
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
 struct FUN_00e4dd90_shell
 {
-    void __thiscall FUN_00e4dd90(float* output);
+    void __thiscall getHitFractions(float* output);
 };
 struct FUN_00e4dde0
 {
@@ -487,11 +487,11 @@ struct Cls
 
     int flags80[4];
 
-    void __thiscall FUN_00e4de10(Param* p1, const Mask& p2);
+    void __thiscall addMidPhaseHit(Param* p1, const Mask& p2);
 };
 
 // @fnv 0x00e4de10
-void __thiscall Cls::FUN_00e4de10(Param* p1, const Mask& p2)
+void __thiscall Cls::addMidPhaseHit(Param* p1, const Mask& p2)
 {
     HeadObj* head = p1->head;
     if (head)

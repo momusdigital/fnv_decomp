@@ -105,7 +105,7 @@ struct FUN_00485680_shell
 };
 struct FUN_00485e00_shell
 {
-    void FUN_00485e20(int, int);
+    void __SaveData(int, int);
 };
 extern "C" bool __cdecl FUN_00401500();
 struct FUN_00526730_obj : FUN_004855a0_shell
@@ -118,7 +118,7 @@ void FUN_00526730_obj::FUN_00526730()
     FUN_004855a0();
     if (FUN_00401500())
         ((InteriorData*)((char*)this + 0x18))->Endian();
-    ((FUN_00485e00_shell*)this)->FUN_00485e20((int)((char*)this + 0x18), 0x2c);
+    ((FUN_00485e00_shell*)this)->__SaveData((int)((char*)this + 0x18), 0x2c);
     if (FUN_00401500())
         ((InteriorData*)((char*)this + 0x18))->Endian();
     ((FUN_00485680_shell*)this)->FUN_00485680();

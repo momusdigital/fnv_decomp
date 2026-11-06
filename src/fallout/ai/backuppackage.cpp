@@ -40,7 +40,7 @@ void* __thiscall BackUpPackage::DestroyOrFree(unsigned int flags)
 
 struct FUN_006797c0_shell
 {
-    void __thiscall FUN_006797c0(void* apBuffer);
+    void __thiscall AppendSaveLoadFormBuffer(void* apBuffer);
 };
 
 struct BGSSaveFormBuffer
@@ -50,13 +50,13 @@ struct BGSSaveFormBuffer
 
 struct FUN_009edb60_shell : public BackUpPackage
 {
-    void __thiscall FUN_009edb60(BGSSaveFormBuffer* apBuffer);
+    void __thiscall AppendSaveLoadFormBuffer(BGSSaveFormBuffer* apBuffer);
 };
 
 // @fnv 0x009edb60
-void __thiscall FUN_009edb60_shell::FUN_009edb60(BGSSaveFormBuffer* apBuffer)
+void __thiscall FUN_009edb60_shell::AppendSaveLoadFormBuffer(BGSSaveFormBuffer* apBuffer)
 {
-    ((FUN_006797c0_shell*)this)->FUN_006797c0(apBuffer);
+    ((FUN_006797c0_shell*)this)->AppendSaveLoadFormBuffer(apBuffer);
     apBuffer->SaveData((char*)this + 0x80, 0xc, 0);
 }
 
@@ -511,11 +511,11 @@ struct Package897 : TESPackage
     void SetPackageType(int);
     void SetMustReachLocation(bool);
     void SetMustComplete(bool);
-    void FUN_00671d30(PackageLocation897*);
-    void FUN_00672fc0(PackageTargetObj*);
+    void SetPackageLocation(PackageLocation897*);
+    void SetPackageTarget(PackageTargetObj*);
     void SetProcedureType(int);
     PackageData897* FUN_00671d10(void*);
-    void FUN_0067a1b0(void*);
+    void CopyAllFlags(void*);
 };
 Package897* CreatePackageStandIn(int);
 struct Process897
@@ -830,16 +830,16 @@ void Actor897::FUN_00897bd0(void* unused)
     value->SetMustComplete(false);
     PackageLocation897* location = new PackageLocation897;
     location->FUN_0067f3c0(this);
-    value->FUN_00671d30(location);
+    value->SetPackageLocation(location);
     delete location;
     PackageTargetObj* target = new PackageTargetObj;
-    value->FUN_00672fc0(target);
+    value->SetPackageTarget(target);
     value->SetProcedureType(41);
     value->FUN_00671d10(0)->FUN_006800b0();
     value->FUN_00671d10(this)->FUN_00680110();
     void* contextTmp = GetProcess()->GetPackageContext();
     if (contextTmp)
-        value->FUN_0067a1b0(contextTmp);
+        value->CopyAllFlags(contextTmp);
     value->FUN_00671d10(GetActorBase()->data.FUN_00825c00())->FUN_00403550();
     delete target;
     GetProcess()->V010();
@@ -855,7 +855,7 @@ struct LoadHeader
 };
 struct PackageReader : OwnerProxy
 {
-    void FUN_00679340();
+    void InitLoadGameTES();
     void FUN_00484d00(void*, unsigned int);
     void LoadPackageBlock();
 };
@@ -871,7 +871,7 @@ struct LoadManager
 // @fnv 0x009ed8d0
 void PackageReader::LoadPackageBlock()
 {
-    FUN_00679340();
+    InitLoadGameTES();
     unsigned short usBlockSize = 0;
     char* pBlockStart = 0;
     if (((LoadManager*)DAT_011de45c)->FUN_00862110())

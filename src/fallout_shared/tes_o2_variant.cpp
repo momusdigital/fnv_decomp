@@ -605,7 +605,7 @@ struct FNStub
 };
 struct FUN_00454b50_shell
 {
-    char const* FUN_00454b50() const;
+    char const* GetWaterNoiseTextureName() const;
 };
 struct TESFaction_RankDataView
 {

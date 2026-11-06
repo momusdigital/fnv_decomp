@@ -314,11 +314,11 @@ struct PatrolData9f3610
 
     bool SetPatrolRefIndex(unsigned int);
     void SelectClosestPatrolPoint(void*);
-    void FUN_009f3610(PatrolLoadBuf* apBuf);
+    void InitLoadGame(PatrolLoadBuf* apBuf);
 };
 
 // @fnv 0x009f3610
-void PatrolData9f3610::FUN_009f3610(PatrolLoadBuf* apBuf)
+void PatrolData9f3610::InitLoadGame(PatrolLoadBuf* apBuf)
 {
     bool bAnyRemoved = false;
     unsigned int ItemUpdateArray = kRefs.GetSize();

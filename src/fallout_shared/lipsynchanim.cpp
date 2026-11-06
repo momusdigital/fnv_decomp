@@ -41,7 +41,7 @@ void* LipSyncAnimation::DeleteThis(unsigned int flags)
 
 // Reads characters from stream into output until size bytes are consumed, expanding zero markers into runs of zero bytes.
 // @fnv 0x004d5880
-bool __cdecl FUN_004d5880(NiBinaryStream* stream, char* output, unsigned int size)
+bool __cdecl Decompress(NiBinaryStream* stream, char* output, unsigned int size)
 {
     bool success = true;
     unsigned int remaining = size;
@@ -98,7 +98,7 @@ struct Header
 };
 
 LipSyncAnimation* __cdecl ReadBufFromMemory(char* buffer, unsigned int size);
-bool __cdecl FUN_004d5880(NiBinaryStream*, char*, unsigned int, unsigned int);
+bool __cdecl Decompress(NiBinaryStream*, char*, unsigned int, unsigned int);
 
 // Reads a 12-byte header from the stream, decompresses or reads the payload into a buffer, parses it into an animation, and deletes the stream and buffer.
 // @fnv 0x004d5350
@@ -151,7 +151,7 @@ LipSyncAnimation* __cdecl ReadAnimationFromStream(Stream* stream)
     buffer_ = new char[headerTmp.uncompressedSize + 16];
     if (headerTmp.flags & 1)
     {
-        FUN_004d5880((NiBinaryStream*)stream, buffer_, streamSize, headerTmp.uncompressedSize);
+        Decompress((NiBinaryStream*)stream, buffer_, streamSize, headerTmp.uncompressedSize);
     }
     else
     {

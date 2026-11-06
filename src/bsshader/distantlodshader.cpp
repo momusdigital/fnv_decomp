@@ -98,9 +98,9 @@ struct LodShaderBase
     char pad1[0x7c - 0x2c];
     LodObj* setA[4];
     LodObj* setB[2];
-    void FUN_00e814b0();
+    void RecreateRendererData();
 };
-// Releases the objects in setA when field28 is set, releases the objects in setB, then calls FUN_00e814b0 on the shader.
+// Releases the objects in setA when field28 is set, releases the objects in setB, then calls RecreateRendererData on the shader.
 // @fnv 0x00bd4ed0
 void __fastcall ReleaseLodObjects(LodShaderBase* shader, int)
 {
@@ -120,7 +120,7 @@ void __fastcall ReleaseLodObjects(LodShaderBase* shader, int)
         if (pObj)
             pObj->Release34();
     }
-    shader->FUN_00e814b0();
+    shader->RecreateRendererData();
 }
 
 extern "C" void* g_012023c8;

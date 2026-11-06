@@ -225,11 +225,11 @@ struct FUN_00a4b900_V
 };
 struct FUN_00a4b900_Holder
 {
-    void FUN_00a4b900();
+    void Collapse();
 };
 // Iterates three pointers starting at offset 0x38 and calls v47 on each non-null one.
 // @fnv 0x00a4b900
-void FUN_00a4b900_Holder::FUN_00a4b900()
+void FUN_00a4b900_Holder::Collapse()
 {
     unsigned int ui;
     FUN_00a4b900_V** pp = (FUN_00a4b900_V**)((char*)this + 0x38);

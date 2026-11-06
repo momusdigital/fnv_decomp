@@ -586,7 +586,7 @@ struct S_00ee97e0_Elem
     int FUN_00be0ad0();
     int FUN_00aa1ac0();
     int FUN_00dbbc00();
-    int FUN_00eea530();
+    int GetShaderDecl();
 };
 
 struct S_00ee97e0_Obj
@@ -685,7 +685,7 @@ bool S_00ee97e0_Cls::WriteToStream(S_00ee97e0_Stream* pStream, S_00ee97e0_Obj* p
         S_00ee97e0_Write(pStream, &b);
         int c = e->FUN_00dbbc00();
         S_00ee97e0_Write(pStream, &c);
-        int iValD = e->FUN_00eea530();
+        int iValD = e->GetShaderDecl();
         S_00ee97e0_Write(pStream, &iValD);
     }
     return true;

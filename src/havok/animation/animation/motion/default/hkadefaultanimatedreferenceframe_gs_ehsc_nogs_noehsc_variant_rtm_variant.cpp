@@ -349,7 +349,7 @@ struct AnimatedFrame
     int unk04, unk08, unk0c;
     int unk10, unk14, unk18, unk1c, unk20, unk24, unk28, unk2c;
     float m_fAnimationDuration;
-    void FUN_00e413d0(float time, float nextTime, int loops, hkTransform& output) const;
+    void getDeltaReferenceFrame(float time, float nextTime, int loops, hkTransform& output) const;
 };
 
 extern __m128 DAT_010ec7f0;
@@ -390,11 +390,11 @@ struct S00e41100_LinearKeyTrack
     int m_numKeys;
     int m_iCapacityState;
 
-    void FUN_00e41100(float time, S00e41100_hkQsTransform& out);
+    void getReferenceFrame(float time, S00e41100_hkQsTransform& out);
 };
 
 // @fnv 0x00e41100
-void S00e41100_LinearKeyTrack::FUN_00e41100(float time, S00e41100_hkQsTransform& out)
+void S00e41100_LinearKeyTrack::getReferenceFrame(float time, S00e41100_hkQsTransform& out)
 {
     int last = m_numKeys - 1;
     float dt = m_fAnimationDuration / last;

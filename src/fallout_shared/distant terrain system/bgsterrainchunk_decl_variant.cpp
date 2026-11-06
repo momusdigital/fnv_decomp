@@ -58,7 +58,7 @@ struct BGSTerrainChunkLoadTask : QueuedFileEntry
     ChunkPtr<void> unk54;
     bool unk58;
     BGSTerrainChunkLoadTask(void* block, TESWorldSpace* space, int x, int y, int level);
-    bool FUN_006fc400(char* apDescription, unsigned int aiBufferSize);
+    bool GetDescription(char* apDescription, unsigned int aiBufferSize);
 };
 extern int _sprintf_s(char*, unsigned int, const char*, ...);
 extern "C" void __cdecl UpdateListItems();
@@ -393,7 +393,7 @@ struct ModelLoader
 };
 struct FUN_0043cc60_shell
 {
-    int FUN_0043cc60();
+    int GetIOTaskPriority();
 };
 struct FUN_006fbbd0_virtual
 {

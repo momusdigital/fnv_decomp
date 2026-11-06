@@ -4,7 +4,7 @@
 
 #include "havok/hkpConvexVerticesConnectivity.h"
 
-// FUN_00e48de0  (hkpConvexVerticesConnectivity, vftable slot 2)
+// clear  (hkpConvexVerticesConnectivity, vftable slot 2)
 //
 //   xor eax, eax
 //   mov dword ptr [ecx + 0x0c], eax
@@ -18,11 +18,11 @@
 // real layout (the pack asserts sizeof(hkpConvexVerticesConnectivity) == 0x20).
 struct hkpCVCStandIn : public hkpConvexVerticesConnectivity
 {
-    void FUN_00e48de0();
+    void clear();
 };
 
 // @fnv 0x00e48de0
-void hkpCVCStandIn::FUN_00e48de0()
+void hkpCVCStandIn::clear()
 {
     m_kVertexIndices.m_iElementCount = 0;
     m_kNumVerticesPerFace.m_iElementCount = 0;

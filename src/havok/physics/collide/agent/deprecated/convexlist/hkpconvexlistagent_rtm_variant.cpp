@@ -48,7 +48,7 @@ extern void* __cdecl FUN_00d34510();
 void __cdecl RegisterConvexListAgentCollisionFuncs(hkpConvexListAgent* self);
 struct FUN_00d337f0_self
 {
-    void __thiscall FUN_00dacb20(int a);
+    void __thiscall removePoint(int a);
     void __thiscall FUN_00d337f0(int a);
 };
 struct hkpGskfAgent

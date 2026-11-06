@@ -1471,7 +1471,7 @@ FUN_00e7ee80_cls::FUN_00e7ee80_cls() : m_bEnableState(false), m_iCount04(0), m_i
 
 struct LodShaderBase
 {
-    void FUN_00e814b0();
+    void RecreateRendererData();
 };
 
 struct FUN_00b71b90_class : LodShaderBase
@@ -1482,7 +1482,7 @@ struct FUN_00b71b90_class : LodShaderBase
 // @fnv 0x00be08b0
 void FUN_00b71b90_class::FUN_00be08b0()
 {
-    FUN_00e814b0();
+    RecreateRendererData();
 }
 
 struct Alpha818

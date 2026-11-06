@@ -13,7 +13,7 @@ struct A5E9C0RTTI
 extern A5E9C0RTTI g_A5E9C0RTTI;
 
 // @fnv 0x00a5e9c0
-const A5E9C0RTTI* __cdecl FUN_00a5e9c0()
+const A5E9C0RTTI* __cdecl GetRTTI()
 {
     return &g_A5E9C0RTTI;
 }

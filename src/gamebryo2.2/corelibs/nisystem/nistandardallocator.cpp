@@ -24,7 +24,7 @@ struct P03MM
 extern P03MM g_memoryManager;
 
 // @fnv 0x00aa3370
-void __stdcall FUN_00aa3370(void* apBlock, int e, unsigned int s)
+void __stdcall DeallocateExternal(void* apBlock, int e, unsigned int s)
 {
     if (apBlock)
     {
@@ -365,13 +365,13 @@ struct StdAllocator
                            bool bProvideAccurateSizeOnDeallocate, const char* pcFile, int iLine,
                            const char* pcFunction);
     virtual void Deallocate(void* pvMemory, int aiAllocationType, unsigned int stSizeinBytes);
-    void* FUN_00aa31b0(void* pvMemory, unsigned int& stSizeInBytes, unsigned int& stAlignment, int aiAllocationType,
+    void* Reallocate(void* pvMemory, unsigned int& stSizeInBytes, unsigned int& stAlignment, int aiAllocationType,
                        bool bProvideAccurateSizeOnDeallocate, unsigned int stSizeCurrent, const char* pcFile, int iLine,
                        const char* pcFunction);
 };
 
 // @fnv 0x00aa31b0
-void* StdAllocator::FUN_00aa31b0(void* pvMemory, unsigned int& stSizeInBytes, unsigned int& stAlignment,
+void* StdAllocator::Reallocate(void* pvMemory, unsigned int& stSizeInBytes, unsigned int& stAlignment,
                                  int aiAllocationType, bool bProvideAccurateSizeOnDeallocate,
                                  unsigned int stSizeCurrent, const char* pcFile, int iLine, const char* pcFunction)
 {
@@ -436,7 +436,7 @@ void* _fnv_zlib_memset(void* pvDest, int iValue, int iCount);
 
 // Allocates memory via the memory manager, applying alignment for type 0xe and zeroing the returned block.
 // @fnv 0x00aa33a0
-void* __stdcall FUN_00aa33a0(void* pvMem, unsigned int* puiSize, unsigned char* pucAlign, int iType, int iUnk,
+void* __stdcall ReallocateExternal(void* pvMem, unsigned int* puiSize, unsigned char* pucAlign, int iType, int iUnk,
                              int iUnkCur, int iUnkValue, int iNewUnk, int iTmpUnk)
 {
     void* pNewMem;

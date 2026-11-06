@@ -4,11 +4,11 @@
 
 struct SlotMachineMenu
 {
-    int FUN_007c0800();
+    int GetClass();
 };
 
 // @fnv 0x007c0800
-int SlotMachineMenu::FUN_007c0800()
+int SlotMachineMenu::GetClass()
 {
     return 0x438;
 }
@@ -3170,7 +3170,7 @@ struct SlotsMenu
     int FUN_007c56e0();
     bool AdjustReels(int);
     int FUN_007c5760();
-    void FUN_007c2460(int, void*);
+    void DoClick(int, void*);
 };
 extern int DAT_011a0828, DAT_011a082c, DAT_011da998;
 extern SlotsMenu* DAT_011da9a4;
@@ -3180,7 +3180,7 @@ int FUN_00406d00(char*, unsigned int, const char*, ...);
 SlotsAudio* FUN_00453a70();
 // Processes input actions for the slots menu, adjusting the bet, starting a spin, or transitioning between states based on the current state.
 // @fnv 0x007c2460
-void SlotsMenu::FUN_007c2460(int action, void* target)
+void SlotsMenu::DoClick(int action, void* target)
 {
     if (state == 6)
     {

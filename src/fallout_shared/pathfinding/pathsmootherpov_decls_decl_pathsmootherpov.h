@@ -267,7 +267,7 @@ class PathingRequest
     BSSimpleArray<void*>* GetString();
     PathingLocation* FUN_006a9540();
     float GetFloatAtOffset68();
-    bool FUN_00505c00();
+    bool GetFaceTargetAtGoal();
     float FUN_00507e10();
 };
 float GetDirectionAngle(const NiPoint3&);

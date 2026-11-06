@@ -544,10 +544,10 @@ struct FUN_00694620_shell : TESForm
 {
     char _pad[0x104 - sizeof(TESForm)];
     TESForm* m_pNavigationMesh;
-    void FUN_00694620(BGSLoadFormBuffer* apLoadGameBuffer);
+    void FinishLoadGame(BGSLoadFormBuffer* apLoadGameBuffer);
 };
 // @fnv 0x00694620
-void FUN_00694620_shell::FUN_00694620(BGSLoadFormBuffer* apLoadGameBuffer)
+void FUN_00694620_shell::FinishLoadGame(BGSLoadFormBuffer* apLoadGameBuffer)
 {
     TESForm::Revert((unsigned int)apLoadGameBuffer);
     if (m_pNavigationMesh != 0)
@@ -809,7 +809,7 @@ struct NavMeshInfoSaveData
 typedef char _sizecheck_EdgeExtraInfoOLD[sizeof(NavMeshInfoSaveData) == 48 ? 1 : -1];
 struct FUN_00692950_shell : public NavMesh
 {
-    bool FUN_00692950(TESFile*);
+    bool Load(TESFile*);
 };
 
 extern "C" void* __cdecl _alloca(unsigned int);
@@ -993,7 +993,7 @@ extern ProcessLists g_011d6ca8;
 
 // Reads a NavMesh record from a TESFile, parsing subrecords, converting old versions, and resolving the parent cell and NavMeshInfo.
 // @fnv 0x00692950
-bool FUN_00692950_shell::FUN_00692950(TESFile* apFile)
+bool FUN_00692950_shell::Load(TESFile* apFile)
 {
     AutoMemHelper tempMemContext(
         0x2e, true, "D:\\_Fallout3\\Platforms\\Common\\Code\\Fallout Shared\\Pathfinding\\NavMesh_LoadSave.cpp", 0x113);
@@ -1751,12 +1751,12 @@ struct FUN_00693fe0_cls
     void* GetC();
     void* GetD();
 
-    void FUN_00693fe0(unsigned char arg);
+    void SetDelete(unsigned char arg);
 };
 
 // If arg differs from GetA, updates state via Foo and v32 based on GetB(0)->Test(); when arg is non-zero, calls Bar(GetC()) and Fin() on g_mgr->Get(GetD()).
 // @fnv 0x00693fe0
-void FUN_00693fe0_cls::FUN_00693fe0(unsigned char arg)
+void FUN_00693fe0_cls::SetDelete(unsigned char arg)
 {
     bool flag;
     if (arg != GetA())
@@ -2058,7 +2058,7 @@ struct Map69
 };
 struct Manager69
 {
-    Map69* FUN_0045af00(unsigned int);
+    Map69* GetNavMeshInfoMap(unsigned int);
 };
 extern Manager69* DAT_011dea10;
 void __cdecl FNV_Warning(const char*, ...);
@@ -2066,7 +2066,7 @@ void __cdecl FNV_Warning(const char*, ...);
 // @fnv 0x00694500
 bool __cdecl FUN_00694500(unsigned int uiNavMeshId, bool disabled)
 {
-    Info69* info = DAT_011dea10->FUN_0045af00(uiNavMeshId)->FUN_00693d70();
+    Info69* info = DAT_011dea10->GetNavMeshInfoMap(uiNavMeshId)->FUN_00693d70();
     if (!info)
     {
         FNV_Warning("DisableNavMesh Script Function: Did not find matching NavMeshInfo for NavMesh ID parameter %08X",

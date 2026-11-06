@@ -13,7 +13,7 @@ struct FUN_00e33330_Class
 extern bool DAT_0126efb8;
 void __cdecl FUN_00e63c60(bool*);
 int __cdecl GetIndexedValueWithOffset(int offset, const int* values, int index, int count);
-int __stdcall FUN_00e32ed0(int a1, int a2);
+int __stdcall getNumDataChunks(int a1, int a2);
 struct FnvAnimation
 {
     virtual void slot00();
@@ -143,7 +143,7 @@ class FUN_00e33400_cls
     int unk74;
     int m_kRayEnd;
 
-    int FUN_00e33400() const;
+    int getMaxSizeOfCombinedDataChunks() const;
 };
 template <typename T> inline T max2E347(T a, T b)
 {
@@ -289,7 +289,7 @@ class hkaSplineCompressedAnimationE344 : public hkaSplineCompressedAnimation
                                              hkUint8& quantizedTimeOut) const;
     void FUN_00e33f10(hkReal blockTime, hkUint8 quantizedTime, hkUint8 mask, int quantization,
                       const hkUint8*& dataInOut, hkReal& out) const;
-    void FUN_00e34490(hkReal time, const hkInt16* tracks, hkUint32 numTracks, hkReal* floatTracksOut) const;
+    void sampleIndividualFloatTracks(hkReal time, const hkInt16* tracks, hkUint32 numTracks, hkReal* floatTracksOut) const;
 };
 extern void* __cdecl FUN_00c85750(void);
 extern void __cdecl FUN_00dfb5a0(int value);

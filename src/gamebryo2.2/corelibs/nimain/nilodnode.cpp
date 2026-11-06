@@ -45,10 +45,10 @@ struct NiLODNode : public NiSwitchNode
 {
     bool __thiscall FUN_00a93c40(NiStream*);
     NiStream* m_pBinaryStream;
-    bool __thiscall FUN_00a992e0(NiStream* stream);
+    bool __thiscall RegisterStreamables(NiStream* stream);
 };
 // @fnv 0x00a992e0
-bool __thiscall NiLODNode::FUN_00a992e0(NiStream* stream)
+bool __thiscall NiLODNode::RegisterStreamables(NiStream* stream)
 {
     if (!FUN_00a93c40(stream))
         return false;
@@ -158,10 +158,10 @@ struct Unk94610
 };
 struct NodeStandIn
 {
-    void __thiscall FUN_00a99310(NiStream&);
+    void __thiscall SaveBinary(NiStream&);
 };
 // @fnv 0x00a99310
-void NodeStandIn::FUN_00a99310(NiStream& kStream)
+void NodeStandIn::SaveBinary(NiStream& kStream)
 {
     ((Unk94610*)this)->FUN_00a94610(kStream);
     kStream.f12(*(int*)((char*)this + 0xCC));
@@ -920,14 +920,14 @@ struct PropObj
 };
 struct Cls : Holder
 {
-    bool FUN_00a94000(Holder* other);
+    bool IsEqual(Holder* other);
     bool FUN_00a99400(Holder* other);
 };
-// Calls FUN_00a94000, checks m_sp nullness, then compares v02 results and calls v23 when they match.
+// Calls IsEqual, checks m_sp nullness, then compares v02 results and calls v23 when they match.
 // @fnv 0x00a99400
 bool Cls::FUN_00a99400(Holder* other)
 {
-    if (!FUN_00a94000(other))
+    if (!IsEqual(other))
         return false;
     PropObj* pOtherProp = (PropObj*)other->m_sp;
     if ((m_sp && !pOtherProp) || (!m_sp && pOtherProp))
@@ -1011,7 +1011,7 @@ struct NiRangeLODData : public Obj
 struct LODLoader : Holder
 {
     void __thiscall FUN_00a94570(NiStream*);
-    void __thiscall FUN_00a994d0(NiStream*);
+    void __thiscall LoadBinary(NiStream*);
     void SetLODData(NiRangeLODData* data)
     {
         if (m_sp != data)
@@ -1024,7 +1024,7 @@ struct LODLoader : Holder
     }
 };
 // @fnv 0x00a994d0
-void __thiscall LODLoader::FUN_00a994d0(NiStream* pStream)
+void __thiscall LODLoader::LoadBinary(NiStream* pStream)
 {
     LODStreamEx* stream = (LODStreamEx*)pStream;
     FUN_00a94570(stream);

@@ -215,12 +215,12 @@ bool __cdecl FUN_006494d0(unsigned short a, float b);
 
 struct FUN_0080b450_cls
 {
-    bool FUN_0080b450(int p);
+    bool CheckTarget(int p);
     int unk0;
 };
 
 // @fnv 0x0080b450
-bool FUN_0080b450_cls::FUN_0080b450(int p)
+bool FUN_0080b450_cls::CheckTarget(int p)
 {
     SpawnedObject* a = p != 0 ? FUN_00822b40(p) : 0;
     SpawnedObject* b = (a != 0 && a->vf87()) ? a : 0;

@@ -5302,12 +5302,12 @@ struct NiStreamLs
     void LoadGroups();
     void Clear();
     void FUN_00a63d10();
-    bool FUN_00a65c60();
+    bool LoadStream();
 };
 
 // Loads a NIF stream by reading the header, objects, and top-level links, then runs post-process functions and cleans up.
 // @fnv 0x00a65c60
-bool NiStreamLs::FUN_00a65c60()
+bool NiStreamLs::LoadStream()
 {
     if (!LoadHeader())
         return false;
@@ -6280,12 +6280,12 @@ struct S_00a66480
         }
         return -1;
     }
-    bool FUN_00a66480(const S_00a66480_Str& str);
+    bool RegisterFixedString(const S_00a66480_Str& str);
 };
 
 // Adds str to names if Find(str) returns -1, then returns true.
 // @fnv 0x00a66480
-bool S_00a66480::FUN_00a66480(const S_00a66480_Str& str)
+bool S_00a66480::RegisterFixedString(const S_00a66480_Str& str)
 {
     if (Find(str) == -1)
         names.FUN_00a65f80(str);
@@ -6852,7 +6852,7 @@ struct NiMemObject
 typedef char _sizecheck_NiMemObject[sizeof(NiMemObject) == 1 ? 1 : -1];
 struct FUN_00a66850_shell : public NiStream
 {
-    bool FUN_00a66850();
+    bool SaveStream();
 };
 
 class TESForm;
@@ -6970,7 +6970,7 @@ struct VStream
 
 // Registers save objects, writes the header and each object's binary data, records per-object sizes, then back-patches and clears the object lists.
 // @fnv 0x00a66850
-bool FUN_00a66850_shell::FUN_00a66850()
+bool FUN_00a66850_shell::SaveStream()
 {
     VStream* pkThis = (VStream*)this;
     pkThis->RegisterSaveObjects();

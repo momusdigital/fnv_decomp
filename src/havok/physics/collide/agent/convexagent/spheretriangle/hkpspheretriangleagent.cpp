@@ -75,12 +75,12 @@ class FUN_00d3d200_cls
     SpawnedInner* m_pInner;   // +0x08
     unsigned short m_wFlags;  // +0x0C
 
-    void FUN_00d3d200(void* param);
+    void cleanup(void* param);
 };
 
 // If m_wFlags is not 0xFFFF, forwards m_wFlags and param to m_pInner->unk14, then calls unk00(1) on this object.
 // @fnv 0x00d3d200
-void FUN_00d3d200_cls::FUN_00d3d200(void* param)
+void FUN_00d3d200_cls::cleanup(void* param)
 {
     if (m_wFlags != 0xFFFF)
     {
@@ -151,12 +151,12 @@ struct D3DD10Data
 
 struct D3DD10Object
 {
-    void __thiscall FUN_00d3d2a0(unsigned int a1, unsigned int a2, unsigned int a3, D3DD10Data* data);
+    void __thiscall getPenetrations(unsigned int a1, unsigned int a2, unsigned int a3, D3DD10Data* data);
 
     void __thiscall FUN_00d3dd10(unsigned int p0, unsigned int p1, unsigned int p2, unsigned int p3);
 };
 
-// Builds a D3DD10Data with value p3, flag 0 and vt DAT_010ce81c, then calls FUN_00d3d2a0 with p1, p0, p2 and that data.
+// Builds a D3DD10Data with value p3, flag 0 and vt DAT_010ce81c, then calls getPenetrations with p1, p0, p2 and that data.
 // @fnv 0x00d3dd10
 void __thiscall D3DD10Object::FUN_00d3dd10(unsigned int p0, unsigned int p1, unsigned int p2, unsigned int uiValue)
 {
@@ -166,7 +166,7 @@ void __thiscall D3DD10Object::FUN_00d3dd10(unsigned int p0, unsigned int p1, uns
     data.flag = 0;
     data.vt = &DAT_010ce81c[0];
 
-    this->FUN_00d3d2a0(p1, p0, p2, &data);
+    this->getPenetrations(p1, p0, p2, &data);
 }
 
 union __declspec(intrin_type) __declspec(align(16)) __m128
@@ -258,11 +258,11 @@ extern hkVector4q DAT_010c4c00;
 class ParticleSystemOps
 {
   public:
-    void FUN_00d3dd90(int a, int b, int c, ParticleSystemState* state);
+    void processCollision(int a, int b, int c, ParticleSystemState* state);
     void FUN_00d3e150(int a1, int a2, int a3, ParticleSystemState* s);
 };
 
-// After FUN_00d3dd90, adds each new particle's w-scaled velocity to its first vector and flips its sign; if m_3030 changed, swaps several info fields.
+// After processCollision, adds each new particle's w-scaled velocity to its first vector and flips its sign; if m_3030 changed, swaps several info fields.
 // @fnv 0x00d3e150
 void ParticleSystemOps::FUN_00d3e150(int a1, int a2, int a3, ParticleSystemState* s)
 {
@@ -270,7 +270,7 @@ void ParticleSystemOps::FUN_00d3e150(int a1, int a2, int a3, ParticleSystemState
     x = s->m_3030;
     SpawnedParticle* t;
     t = s->m_kRayEnd;
-    this->FUN_00d3dd90(a2, a1, a3, s);
+    this->processCollision(a2, a1, a3, s);
     for (; t < s->m_kRayEnd; t++)
     {
         hkVector4q pObj;
@@ -423,12 +423,12 @@ class SphereTriAgent
   public:
     int unk00, unk04, unk08, unk0C;
     float unk10;
-    void FUN_00d3d2a0(BodyHolderB* a, BodyHolderB* b, int c_, Sink* sink);
+    void getPenetrations(BodyHolderB* a, BodyHolderB* b, int c_, Sink* sink);
 };
 
 // Tests sphere-triangle collision between two bodies and calls the sink if the distance is within the combined radii.
 // @fnv 0x00d3d2a0
-void SphereTriAgent::FUN_00d3d2a0(BodyHolderB* apBodyA, BodyHolderB* apBodyB, int aiUnused, Sink* sink)
+void SphereTriAgent::getPenetrations(BodyHolderB* apBodyA, BodyHolderB* apBodyB, int aiUnused, Sink* sink)
 {
     volatile unsigned int lo;
     {

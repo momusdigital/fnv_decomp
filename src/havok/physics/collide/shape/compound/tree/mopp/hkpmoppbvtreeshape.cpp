@@ -379,12 +379,12 @@ struct S00d54440_Obj
     S00d54440_Vtable* m_34;
     int m_38;
 
-    int FUN_00d54440(int, int);
+    int calcSizeForSpu(int, int);
 };
 
 // Returns -1 unless m_14->m_2C is 0 and m_34->v6(a, 0x100) is within 0..0x100; otherwise stores it in m_38 and returns 0x40.
 // @fnv 0x00d54440
-int __thiscall S00d54440_Obj::FUN_00d54440(int a, int aiUnused)
+int __thiscall S00d54440_Obj::calcSizeForSpu(int a, int aiUnused)
 {
     unsigned char c = m_14->m_2C;
 
@@ -544,11 +544,11 @@ struct S54520_Owner
     __m128 m_vComponents;
     int unk30;
     S54520_Sub* m_sub;
-    S54520_Out* FUN_00d54520(S54520_Out* out, int p1, S54520_Params* params);
+    S54520_Out* castRayImpl(S54520_Out* out, int p1, S54520_Params* params);
 };
 // Records start and end timer markers, increments params->m_depth, builds a S54520_Box and calls frame.m_vm.FUN_00dd2df0, then decrements m_depth and returns out.
 // @fnv 0x00d54520
-S54520_Out* S54520_Owner::FUN_00d54520(S54520_Out* out, int p1, S54520_Params* params)
+S54520_Out* S54520_Owner::castRayImpl(S54520_Out* out, int p1, S54520_Params* params)
 {
     S54520_Frame frame;
     {
@@ -775,14 +775,14 @@ class hkpMoppBvTreeShapeD546
     int m_iChildSize;
     int m_3c;
 
-    hkVector4ComparisonD546 FUN_00d54610(const hkpShapeRayBundleCastInputD546& kInput,
+    hkVector4ComparisonD546 castRayBundleImpl(const hkpShapeRayBundleCastInputD546& kInput,
                                          hkpShapeRayBundleCastOutputD546& kResults,
                                          const hkVector4ComparisonD546& kRayMask) const throw();
 };
 
 // Runs the MOPP ray-bundle virtual machine against the contained shape and returns the per-ray hit mask.
 // @fnv 0x00d54610
-hkVector4ComparisonD546 hkpMoppBvTreeShapeD546::FUN_00d54610(const hkpShapeRayBundleCastInputD546& kInput,
+hkVector4ComparisonD546 hkpMoppBvTreeShapeD546::castRayBundleImpl(const hkpShapeRayBundleCastInputD546& kInput,
                                                              hkpShapeRayBundleCastOutputD546& kResults,
                                                              const hkVector4ComparisonD546& kRayMask) const throw()
 {
@@ -951,11 +951,11 @@ struct S00d54720_MoppShape
     S00d54720_Info m_kMoppInfo;
     int unk30;
     S00d54720_ChildShape* m_pContainedShape;
-    void FUN_00d54720(const void* a0, const void* cdBody, void* collector);
+    void castRayWithCollectorImpl(const void* a0, const void* cdBody, void* collector);
 };
 // Wraps a FUN_00dd2ed0 call in two timer records, passing the MOPP data and info, the contained shape's container, a0, a body built from cdBody, and collector.
 // @fnv 0x00d54720
-void S00d54720_MoppShape::FUN_00d54720(const void* apInput, const void* cdBody, void* collector)
+void S00d54720_MoppShape::castRayWithCollectorImpl(const void* apInput, const void* cdBody, void* collector)
 {
     S00d54720_GetFn getMonitor = (S00d54720_GetFn)DAT_00fdf044;
     {
@@ -1106,7 +1106,7 @@ class hkpMoppBvTreeShapeD543 : public hkpBvTreeShapeD543
   public:
     virtual ~hkpMoppBvTreeShapeD543() throw();
 
-    void FUN_00d54380(const hkAabbD543& kAabbIn, hkArrayD543<unsigned int>& kHits) const;
+    void queryAabb(const hkAabbD543& kAabbIn, hkArrayD543<unsigned int>& kHits) const;
 
     const hkpMoppCodeD543* m_pMoppCode;
     void* m_pMoppData;
@@ -1116,7 +1116,7 @@ class hkpMoppBvTreeShapeD543 : public hkpBvTreeShapeD543
 
 // Clips kAabbIn against the MOPP code bounds and queries the BV-tree for hits into kHits.
 // @fnv 0x00d54380
-void hkpMoppBvTreeShapeD543::FUN_00d54380(const hkAabbD543& kAabbIn, hkArrayD543<unsigned int>& kHits) const
+void hkpMoppBvTreeShapeD543::queryAabb(const hkAabbD543& kAabbIn, hkArrayD543<unsigned int>& kHits) const
 {
     hkAabbD543 kAabb;
     kAabb.m_kMinimumCorner.setMax4(m_kMoppCodeInfo, kAabbIn.m_kMinimumCorner);

@@ -110,7 +110,7 @@ class HotkeyWheelDisplay
 class InventoryMenu : public Menu
 {
   public:
-    bool FUN_00782190(int input, int unused);  // declared for the original code (decl_variants.py)
+    bool HandleSpecialKeyInput(int input, int unused);  // declared for the original code (decl_variants.py)
   public:
     InventoryMenu();
     virtual ~InventoryMenu();

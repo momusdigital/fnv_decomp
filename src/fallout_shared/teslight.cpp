@@ -288,11 +288,11 @@ struct FUN_0048ea40_holder
 
 struct FUN_0050e5c0_shell
 {
-    void FUN_0050e5c0(unsigned int aiFlags);
+    void AppendSaveLoadFormBuffer(unsigned int aiFlags);
 };
 
 // @fnv 0x0050e5c0
-void FUN_0050e5c0_shell::FUN_0050e5c0(unsigned int aiFlags)
+void FUN_0050e5c0_shell::AppendSaveLoadFormBuffer(unsigned int aiFlags)
 {
     reinterpret_cast<FUN_00484d60_holder*>(this)->SaveIfChanged(aiFlags);
     reinterpret_cast<FUN_0048ea40_holder*>(reinterpret_cast<char*>(this) + 0x8c)->FUN_0048ea40(aiFlags);
@@ -578,7 +578,7 @@ struct FUN_0047a240_shell
 
 struct FUN_00485e00_shell
 {
-    void FUN_00485e20(int, int);
+    void __SaveData(int, int);
 };
 
 bool _FUN_00401500();
@@ -624,7 +624,7 @@ void FUN_0050cf20_shell::FUN_0050cf20()
     if (_FUN_00401500())
         SwapEndian(&value_009c);
 
-    reinterpret_cast<FUN_00485e00_shell*>(this)->FUN_00485e20(reinterpret_cast<int>(&value_009c), 0x18);
+    reinterpret_cast<FUN_00485e00_shell*>(this)->__SaveData(reinterpret_cast<int>(&value_009c), 0x18);
 
     if (_FUN_00401500())
         SwapEndian(&value_009c);
@@ -689,7 +689,7 @@ struct LightLoader : TESBoundAnimObject,
     float fFadeAmount;
     TESSound* m_pGameSound;
     void FUN_00484ab0(int);
-    void FUN_004861f0(TESFile*, void*, unsigned short);
+    void LoadData(TESFile*, void*, unsigned short);
     bool LoadLight(TESFile*);
 };
 void FUN_004892d0(TESModelTextureSwap*, TESFile*);
@@ -758,7 +758,7 @@ bool LightLoader::LoadLight(TESFile* file)
             FUN_004781e0(this, file);
             break;
         case 0x41544144:
-            FUN_004861f0(file, &data, 24);
+            LoadData(file, &data, 24);
             break;
         case 0x4d414e46:
             file->GetChunkData((unsigned int*)&fFadeAmount);

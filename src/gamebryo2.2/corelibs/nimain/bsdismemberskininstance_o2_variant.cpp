@@ -141,7 +141,7 @@ struct S00a6c7c0 : _Call_a5d3a0
     }
 
     void FUN_00a6c720(S00a6c7c0* pkDest, CloningProcess& kCloning);
-    S00a6c7c0* FUN_00a6c7c0(CloningProcess& kCloning);
+    S00a6c7c0* CreateClone(CloningProcess& kCloning);
 };
 
 S00a6c7c0::S00a6c7c0() throw()
@@ -154,7 +154,7 @@ S00a6c7c0::S00a6c7c0() throw()
 }
 
 // @fnv 0x00a6c7c0
-S00a6c7c0* S00a6c7c0::FUN_00a6c7c0(CloningProcess& kCloning)
+S00a6c7c0* S00a6c7c0::CreateClone(CloningProcess& kCloning)
 {
     S00a6c7c0* pkSkinInstance = new S00a6c7c0();
     FUN_00a6c720(pkSkinInstance, kCloning);
@@ -714,10 +714,10 @@ static inline void Swap32(BodyPartData& value)
 struct DismemberOutput : BSDismemberSkinInstanceStub
 {
     void SaveSkinInstance(OutputStream&);
-    void FUN_00a6c9c0(OutputStream&);
+    void SaveBinary(OutputStream&);
 };
 // @fnv 0x00a6c9c0
-void DismemberOutput::FUN_00a6c9c0(OutputStream& stream)
+void DismemberOutput::SaveBinary(OutputStream& stream)
 {
     SaveSkinInstance(stream);
     {

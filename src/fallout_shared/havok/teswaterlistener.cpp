@@ -809,7 +809,7 @@ struct Body_62e970
     void FUN_00560d50(Vec3_62e970& v);
     void FUN_00560bc0(Vec3_62e970& v);
 };
-float __fastcall FUN_004b5400(void* p);
+float __fastcall GetMass(void* p);
 float FUN_00408820(float f);
 struct FloatSetting_62e970
 {
@@ -835,7 +835,7 @@ struct TaskQueue_62e970
     void QueueSplashFx(float scale, Vec3_62e970* pos);
 };
 bool FUN_008c7aa0();
-void __cdecl FUN_0062eb50(float scale, Vec3_62e970 pos);
+void __cdecl PlaySplashEffects(float scale, Vec3_62e970 pos);
 extern const float kSplashScale_62e970;
 
 struct WaterSplash_62e970
@@ -864,7 +864,7 @@ void WaterSplash_62e970::SpawnWaterSplash(Body_62e970* apBody, float afWaterZ)
         return;
     if (apBody->FUN_0043b4f0(&tmp4)->FUN_0043b4d0() == 8)
         return;
-    fMass = FUN_004b5400(apBody);
+    fMass = GetMass(apBody);
     Vec3_62e970 vel;
     apBody->FUN_00560d50(vel);
     fSpeed = FUN_00408820(vel.z);
@@ -881,7 +881,7 @@ void WaterSplash_62e970::SpawnWaterSplash(Body_62e970* apBody, float afWaterZ)
         return;
     _pos.z = afWaterZ;
     if (!FUN_008c7aa0())
-        FUN_0062eb50(fScale, _pos);
+        PlaySplashEffects(fScale, _pos);
     else
         TaskQueue_62e970::GetInstance()->QueueSplash(fScale, &_pos);
     if (!FUN_008c7aa0())
@@ -1002,7 +1002,7 @@ class TaskQueueInterface
 };
 
 // @fnv 0x0062eb50
-void __cdecl FUN_0062eb50(float a1, NiPoint3 aPosition)
+void __cdecl PlaySplashEffects(float a1, NiPoint3 aPosition)
 {
     float fMult = 1.0f;
     BSSoundHandleEx kSound;
@@ -1406,7 +1406,7 @@ struct TESObjectREFR
     TESBoundObject* GetBase();
     bool IsDeleted();
 };
-TESObjectREFR* __cdecl FUN_0062b4e0(void*);
+TESObjectREFR* __cdecl GetCdBodyRef(void*);
 struct Cell
 {
     float Height();
@@ -1526,8 +1526,8 @@ struct WaterManager
 bool WaterManager::FUN_0062f900(EventWater* event)
 {
     bool f = false;
-    TESObjectREFR* s = FUN_0062b4e0(event->reference);
-    TESObjectREFR* eb = FUN_0062b4e0(event->water);
+    TESObjectREFR* s = GetCdBodyRef(event->reference);
+    TESObjectREFR* eb = GetCdBodyRef(event->water);
     if (!eb)
         return false;
     BGSPlaceableWater* i = dynamic_cast<BGSPlaceableWater*>(eb->GetBase());
@@ -1763,7 +1763,7 @@ struct WaterContactPositionView
     virtual void Virtual124();
     virtual WaterPosition* GetWaterPosition();
 };
-TESObjectREFR* __cdecl FUN_0062b4e0(void* handle);
+TESObjectREFR* __cdecl GetCdBodyRef(void* handle);
 struct PlayerWaterReference
 {
     void* GetSourceFilesFromObject();
@@ -1833,12 +1833,12 @@ struct WaterOwner
 bool WaterOwner::FUN_0062f6b0(WaterRequest* request)
 {
     bool e = false;
-    TESObjectREFR* d = FUN_0062b4e0(request->destination);
+    TESObjectREFR* d = GetCdBodyRef(request->destination);
     if (!d)
     {
         if (request->destination == ((PlayerWater*)_g_thePlayer)->FUN_0061f6c0()->GetSourceFilesFromObject())
         {
-            TESObjectREFR* f = FUN_0062b4e0(request->source);
+            TESObjectREFR* f = GetCdBodyRef(request->source);
             if (!f)
                 return false;
             BGSPlaceableWater* g = dynamic_cast<BGSPlaceableWater*>(f->GetBase());
@@ -1852,7 +1852,7 @@ bool WaterOwner::FUN_0062f6b0(WaterRequest* request)
         }
         return false;
     }
-    TESObjectREFR* b = FUN_0062b4e0(request->source);
+    TESObjectREFR* b = GetCdBodyRef(request->source);
     if (!b)
         return false;
     BGSPlaceableWater* c = dynamic_cast<BGSPlaceableWater*>(b->GetBase());
@@ -2075,11 +2075,11 @@ struct ParamStruct
 
 struct WaterZoneRemoval : WaterSplash_62e970
 {
-    void FUN_0062fc70(ParamStruct* param);
+    void RemoveReferenceFromZone(ParamStruct* param);
 };
 
 // @fnv 0x0062fc70
-void WaterZoneRemoval::FUN_0062fc70(ParamStruct* apParams)
+void WaterZoneRemoval::RemoveReferenceFromZone(ParamStruct* apParams)
 {
     bool b5;
     bool b8 = false;

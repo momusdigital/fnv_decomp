@@ -35,7 +35,7 @@ struct FUN_00dacaf0
 void __cdecl FUN_00dae340(void*, int);
 struct hkpGskfAgent
 {
-    void FUN_00dacb20(unsigned short id);
+    void removePoint(unsigned short id);
 };
 struct FUN_00dacb60_class
 {

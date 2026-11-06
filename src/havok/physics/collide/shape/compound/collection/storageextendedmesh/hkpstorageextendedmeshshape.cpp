@@ -883,13 +883,13 @@ class FUN_00d4aa70 : public FUN_00d569c0
     char m_pad108[0x8];
 
     FUN_00d4aa70(const FUN_00d569c0* pkMesh) throw();
-    void FUN_00d4a2b0(const hkpTrianglesSubpartD4AA& kPart) throw();
-    void FUN_00d49dc0(const hkpShapesSubpartD4AA& kPart) throw();
+    void addTrianglesSubpart(const hkpTrianglesSubpartD4AA& kPart) throw();
+    void addShapesSubpart(const hkpShapesSubpartD4AA& kPart) throw();
 };
 
 typedef char fnv_check_d4aa70_a[(sizeof(FUN_00d4aa70) == 0x110) ? 1 : -1];
 
-// Constructs from pkMesh, copies its half extents, user data and welding data, calls FUN_00d4a2b0 and FUN_00d49dc0 per subpart, then FUN_00d55950.
+// Constructs from pkMesh, copies its half extents, user data and welding data, calls addTrianglesSubpart and addShapesSubpart per subpart, then FUN_00d55950.
 // @fnv 0x00d4aa70
 FUN_00d4aa70::FUN_00d4aa70(const FUN_00d569c0* pkMesh) throw()
     : FUN_00d569c0(pkMesh->m_fSphereRadius, pkMesh->m_iNumBitsForSubpartIndex)
@@ -899,9 +899,9 @@ FUN_00d4aa70::FUN_00d4aa70(const FUN_00d569c0* pkMesh) throw()
     m_bDisableWelding = pkMesh->m_bDisableWelding;
 
     for (int i = 0; i < pkMesh->m_kTrianglesSubparts.GetLogicalSize(); i++)
-        FUN_00d4a2b0(pkMesh->m_kTrianglesSubparts[i]);
+        addTrianglesSubpart(pkMesh->m_kTrianglesSubparts[i]);
     for (int i = 0; i < pkMesh->m_kShapesSubparts.GetLogicalSize(); i++)
-        FUN_00d49dc0(pkMesh->m_kShapesSubparts[i]);
+        addShapesSubpart(pkMesh->m_kShapesSubparts[i]);
 
     m_kWeldingInfo = pkMesh->m_kWeldingInfo;
     m_eWeldingType = pkMesh->m_eWeldingType;
@@ -1418,12 +1418,12 @@ class StorageMeshShape
     void FUN_00d55950();
     int FUN_00d55520(TrianglesSubpart& part);
 
-    int FUN_00d49dc0(const TrianglesSubpart& partIn);
+    int addShapesSubpart(const TrianglesSubpart& partIn);
 };
 
 // Copies partIn into a new TrianglesSubpart, copies its vertex and material index data into MeshSubpartStorage, and returns the new subpart index.
 // @fnv 0x00d49dc0
-int StorageMeshShape::FUN_00d49dc0(const TrianglesSubpart& partIn)
+int StorageMeshShape::addShapesSubpart(const TrianglesSubpart& partIn)
 {
     TrianglesSubpart& part = *AppendElement();
     m_kMeshSubparts.AddBack(new MeshSubpartStorage());

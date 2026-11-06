@@ -715,7 +715,7 @@ class BSFaceGenKeyframe
     double GetTime();
     double FUN_00621b00();
     bool FUN_006828a0(float fArg);
-    bool FUN_006830a0(float fArg);
+    bool Update(float fArg);
 
     unsigned int unk04;
     float unk08;
@@ -731,7 +731,7 @@ class BSFaceGenKeyframe
 void __cdecl FUN_00b6bb30(void* pForm, float fValue);
 
 // @fnv 0x006830a0
-bool BSFaceGenKeyframe::FUN_006830a0(float fArg)
+bool BSFaceGenKeyframe::Update(float fArg)
 {
     bool result5 = FUN_006828a0(fArg);
     if (byte21)

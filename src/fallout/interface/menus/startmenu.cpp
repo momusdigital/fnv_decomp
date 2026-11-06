@@ -144,7 +144,7 @@ struct TileShaderProperty;
 struct MenuValueDescriptor;
 struct FUN_007cf8e0_shell : public StartMenu
 {
-    void FUN_007cf8e0(int, Tile*);
+    void DoLeave(int, Tile*);
 };
 
 struct Tile
@@ -163,7 +163,7 @@ bool __cdecl FUN_004b71d0(void);
 void __fastcall UpdateTargetInfo(StartMenu*);
 
 // @fnv 0x007cf8e0
-void FUN_007cf8e0_shell::FUN_007cf8e0(int aiID, Tile* apTarget)
+void FUN_007cf8e0_shell::DoLeave(int aiID, Tile* apTarget)
 {
     bool barrow = (aiID == 100 || aiID == 101);
     if (apTarget && barrow)
@@ -206,7 +206,7 @@ void FUN_007cfd20_shell::SetTileValues()
 
 struct FUN_007cfd60_shell : public StartMenu
 {
-    bool FUN_007cfd60(int);
+    bool HandleKeyboardInput(int);
 };
 
 class BSSystemUtility
@@ -219,7 +219,7 @@ bool __fastcall UpdateLoadingScreen(int);
 
 // Returns true if FLAG_IIS_PREFADE is set, s_iUpdateEnabled is nonzero, and UpdateLoadingScreen accepts s_iUpdateEnabled.
 // @fnv 0x007cfd60
-bool FUN_007cfd60_shell::FUN_007cfd60(int aiKey)
+bool FUN_007cfd60_shell::HandleKeyboardInput(int aiKey)
 {
     return IsFlagSet(FLAG_IIS_PREFADE) && BSSystemUtility::s_iUpdateEnabled != 0 &&
            UpdateLoadingScreen(BSSystemUtility::s_iUpdateEnabled);
@@ -995,12 +995,12 @@ void FUN_007d61e0_shell::FadeTile(int aeIndex, bool abFadeIn, int aiTrait, float
 struct FUN_007d6510_shell
 {
     int FUN_007d76e0(int aiButton);
-    int FUN_007d6510(int aiButton);
+    int GetHighlightTarget(int aiButton);
 };
 
 // Returns 0 for buttons 0xF and 0x10, otherwise forwards the button to FUN_007d76e0 and returns its result.
 // @fnv 0x007d6510
-int FUN_007d6510_shell::FUN_007d6510(int aiButton)
+int FUN_007d6510_shell::GetHighlightTarget(int aiButton)
 {
     return (aiButton != 0xF && aiButton != 0x10) ? FUN_007d76e0(aiButton) : 0;
 }
@@ -1742,12 +1742,12 @@ class Tile
 
 struct FUN_007cf670_Class
 {
-    void FUN_007cf670(int aiID, Tile* apTarget);
+    void HandleLeftClickPress(int aiID, Tile* apTarget);
 };
 
 // If apTarget is non-null and aiID is 0x64 or 0x65, calls apTarget->Set(0xFF5, -1).
 // @fnv 0x007cf670
-void FUN_007cf670_Class::FUN_007cf670(int aiID, Tile* apTarget)
+void FUN_007cf670_Class::HandleLeftClickPress(int aiID, Tile* apTarget)
 {
     if (apTarget && (aiID == 0x64 || aiID == 0x65))
         apTarget->Set(0xFF5, -1);
@@ -5826,13 +5826,13 @@ struct TargetSM
     void BuildMenuList();
     void FUN_007d5f80();
     void FadeTile(int, int, unsigned int, float);
-    void FUN_007ce9b0(int, TileX*);
+    void DoClick(int, TileX*);
 };
 
 void __fastcall UpdateTargetInfo(TargetSM*);
 
 // @fnv 0x007ce9b0
-void TargetSM::FUN_007ce9b0(int reason, TileX* tile)
+void TargetSM::DoClick(int reason, TileX* tile)
 {
     if (reason == 5)
         HandleBackAction();
@@ -7520,7 +7520,7 @@ struct SetObj
 };
 struct PlayerT
 {
-    bool FUN_005a03f0(unsigned int a);
+    bool GetControlsDisabled(unsigned int a);
 };
 struct SMGlob
 {
@@ -7608,7 +7608,7 @@ void ThisT::PopulateList(int flags)
                     }
                     if ((*DAT_011dab50.FUN_00877a30(p))->f2c == (int)FUN_007d13a0)
                     {
-                        node = !FUN_0070edf0() && 0 != DAT_011dea3c && !DAT_011dea3c->FUN_005a03f0(4);
+                        node = !FUN_0070edf0() && 0 != DAT_011dea3c && !DAT_011dea3c->GetControlsDisabled(4);
                         res->FUN_00700320(0xfaf, node);
                         res->FUN_00700320(((SMGlob*)DAT_011daac0)->f1d0, node);
                         flag = res->list.FUN_00559450();
@@ -9799,12 +9799,12 @@ struct EnterMenuView : public ::StartMenu
 {
     int unk1b0;
     ::StartMenu::UserOption* pHoveredOption;
-    void FUN_007cf7e0(int aiID, ::Tile* apTile);
+    void HandleMouseover(int aiID, ::Tile* apTile);
 };
 
 // May highlight a tile in the download options list, invoke a function, and set a trait on tile 17 based on option comparisons.
 // @fnv 0x007cf7e0
-void EnterMenuView::FUN_007cf7e0(int aiID, ::Tile* apTile)
+void EnterMenuView::HandleMouseover(int aiID, ::Tile* apTile)
 {
     if (apTile && ((EnterTileOps*)apTile)->FUN_0045cd60())
     {

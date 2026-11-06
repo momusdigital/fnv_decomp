@@ -864,12 +864,12 @@ struct NiUVDataLB : NiObjectLB
     unsigned int m_uiNumVTilingKeys;
     void* m_pVTilingKeys;
     unsigned int m_uiVTilingKeyStride;
-    void FUN_00a45610(NiStreamX& kStream);
+    void SaveBinary(NiStreamX& kStream);
 };
 
 // Loads the base object, then reads the U/V offset and tiling key counts and, when nonzero, reads each key array via the key-type loader table.
 // @fnv 0x00a45610
-void NiUVDataLB::FUN_00a45610(NiStreamX& kStream)
+void NiUVDataLB::SaveBinary(NiStreamX& kStream)
 {
     NiObjectLB::LoadBinary(kStream);
     ReadBinaryValue(kStream, m_uiNumUOffsetKeys);

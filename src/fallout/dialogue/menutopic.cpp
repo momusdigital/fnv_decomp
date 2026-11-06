@@ -636,7 +636,7 @@ struct FUN_0083e0c0_shell
 
 struct FUN_00619b20_shell
 {
-    bool FUN_00619b20();
+    bool IsSayOnce();
 };
 
 struct FUN_009611e0_shell
@@ -751,7 +751,7 @@ void FUN_0083ed50_shell::BuildMenuTopics(BSSimpleList<TESTopic*>* apList, bool a
                 delete (FUN_00425ff0*)pMenuTopic;
                 pMenuTopic = 0;
             }
-            if (bSave && pMenuTopic && !((FUN_009611e0_shell*)pMenuTopic)->FUN_009611e0()->FUN_00619b20())
+            if (bSave && pMenuTopic && !((FUN_009611e0_shell*)pMenuTopic)->FUN_009611e0()->IsSayOnce())
             {
                 FUN_005d43c0(m_pDialogueSpeaker)->FUN_0042dee0(pMenuTopic);
                 ((FUN_0083ed50_ref*)m_pDialogueSpeaker)->v12(0x80000000);
@@ -1178,7 +1178,7 @@ struct InfoShell
 {
     bool IsChallengeFlagSet();
     void MarkAsRefusal();
-    bool FUN_00619b20();
+    bool IsSayOnce();
     bool IsSayOnceADay();
     int FUN_0061f2b0();
     int GetType();
@@ -1279,7 +1279,7 @@ bool Mgr::CheckTopicInfoChance(MenuTopic* pTopic)
                                                 (MobileObject*)m_pDialogueSpeaker, false);
                 pNew->FillResponseList();
                 ((InfoShell*)pTopic->GetTopicInfo())->MarkAsRefusal();
-                if (((InfoShell*)pTopic->GetTopicInfo())->FUN_00619b20() ||
+                if (((InfoShell*)pTopic->GetTopicInfo())->IsSayOnce() ||
                     ((InfoShell*)pTopic->GetTopicInfo())->IsSayOnceADay())
                 {
                     if (((InfoShell*)pTopic->GetTopicInfo())->IsSayOnceADay() && m_pDialogueSpeaker->v63())

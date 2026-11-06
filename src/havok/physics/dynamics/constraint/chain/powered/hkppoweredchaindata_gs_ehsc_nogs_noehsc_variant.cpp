@@ -12,7 +12,7 @@ struct FUN_00e3b720_s
     int m_iElementCount;  // +0xc
     int pad1[3];
     int m_uiItemCount;  // +0x1c
-    void FUN_00e3b720(int* info) const;
+    void getConstraintInfo(int* info) const;
 };
 struct FUN_00e3b7d0_first
 {
@@ -473,10 +473,10 @@ struct PoweredChain : hkpPoweredChainData
     {
         return reinterpret_cast<ConstraintInfo*>(m_pConstraintInfo.m_data)[i];
     }
-    void FUN_00e3ba40(const QueryInput&, QueryOutput&);
+    void buildJacobian(const QueryInput&, QueryOutput&);
 };
 // @fnv 0x00e3ba40
-void PoweredChain::FUN_00e3ba40(const QueryInput& input, QueryOutput& output)
+void PoweredChain::buildJacobian(const QueryInput& input, QueryOutput& output)
 {
     AppendEventRecord(&input, &output, input.runtime, 8);
     QueryInput query = input;

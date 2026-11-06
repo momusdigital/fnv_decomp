@@ -387,10 +387,10 @@ static __forceinline __m128 direction(const Matrix& m, __m128 v) {
 }
 struct AgentD {
     void* vtable; int unk04; ManagerD* manager; unsigned short* ids; int count; int capacity;
-    void FUN_00d324e0(const BodyD& a, const BodyD& b, const InputD& input, OutputD& output);
+    void processCollision(const BodyD& a, const BodyD& b, const InputD& input, OutputD& output);
 };
 // @fnv 0x00d324e0
-void AgentD::FUN_00d324e0(const BodyD& a, const BodyD& b, const InputD& input, OutputD& output) {
+void AgentD::processCollision(const BodyD& a, const BodyD& b, const InputD& input, OutputD& output) {
     timer(DAT_010ceae0);
     ShapeD* shapeA = a.shape;
     ShapeD* shapeB = b.shape;

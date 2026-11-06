@@ -84,7 +84,7 @@ void TESAIForm::CopyAISettings(TESAIForm* source)
     SetConfidence(source->FUN_004f6de0(), true);
     SetEnergy(reinterpret_cast<BSAudio*>(source)->FUN_005bb4d0(), true);
     SetResponsibility(source->GetResponsibility(), true);
-    SetAIMood(source->FUN_0062f2f0());
+    SetAIMood(source->GetMood());
     SetHasAggroRadius(reinterpret_cast<ActiveEffect*>(source)->FUN_00705cf0());
     SetAggroRadius(reinterpret_cast<TimeGlobal*>(source)->GetTimeStamp());
     SetServiceFlags(reinterpret_cast<TESForm*>(source)->GetFormID(), true);
@@ -296,12 +296,12 @@ void FUN_0047ef50_shell::FUN_0047ef50(unsigned char acResponsibility, bool abAdd
 
 struct FUN_0047ef80_shell : public TESAIForm
 {
-    void FUN_0047ef80(unsigned char);
+    void SetMood(unsigned char);
 };
 
 // If acMood is below 8, stores it in mood and calls DispatchToOuter with 8.
 // @fnv 0x0047ef80
-void FUN_0047ef80_shell::FUN_0047ef80(unsigned char acMood)
+void FUN_0047ef80_shell::SetMood(unsigned char acMood)
 {
     if (acMood < 8)
     {
@@ -419,11 +419,11 @@ void FUN_0047f500_shell::FUN_0047f500(TESPackage* apPack)
 
 struct FUN_0062f2f0_shell : public TESAIForm
 {
-    unsigned char FUN_0062f2f0();
+    unsigned char GetMood();
 };
 
 // @fnv 0x0062f2f0
-unsigned char FUN_0062f2f0_shell::FUN_0062f2f0()
+unsigned char FUN_0062f2f0_shell::GetMood()
 {
     return *((unsigned char*)this + 8);
 }
@@ -484,7 +484,7 @@ FUN_0047ecb0::~FUN_0047ecb0()
 extern float DAT_011c52a8;
 
 // @fnv 0x0047eeb0
-float __cdecl FUN_0047eeb0(unsigned char a)
+float __cdecl GetConfidenceLevel(unsigned char a)
 {
     if (a >= 5)
         return 0.0f;
@@ -493,11 +493,11 @@ float __cdecl FUN_0047eeb0(unsigned char a)
 
 struct FUN_0047f7e0_shell
 {
-    unsigned short __thiscall FUN_0047f7e0(unsigned int aiFlags);
+    unsigned short __thiscall GetSaveSize(unsigned int aiFlags);
 };
 
 // @fnv 0x0047f7e0
-unsigned short __thiscall FUN_0047f7e0_shell::FUN_0047f7e0(unsigned int aiFlags)
+unsigned short __thiscall FUN_0047f7e0_shell::GetSaveSize(unsigned int aiFlags)
 {
     unsigned short isize = 0;
     if (aiFlags & 8)
@@ -628,12 +628,12 @@ struct FUN_0067e4a0_shell
 
 struct FUN_0047f300_shell
 {
-    bool FUN_0047f300(BaseFormComponent* apCompareFC);
+    bool CompareComponent(BaseFormComponent* apCompareFC);
 };
 
 // Compares this object with apCompareFC via a TESAIForm cast and many field getters, returning true if any differ or the cast fails.
 // @fnv 0x0047f300
-bool FUN_0047f300_shell::FUN_0047f300(BaseFormComponent* apCompareFC)
+bool FUN_0047f300_shell::CompareComponent(BaseFormComponent* apCompareFC)
 {
     TESAIForm* pCompare = dynamic_cast<TESAIForm*>(apCompareFC);
     if (!pCompare)
@@ -655,7 +655,7 @@ bool FUN_0047f300_shell::FUN_0047f300(BaseFormComponent* apCompareFC)
     if (reinterpret_cast<TESAIForm*>(this)->GetResponsibility() != pCompare->GetResponsibility())
         return true;
 
-    if (reinterpret_cast<TESAIForm*>(this)->FUN_0062f2f0() != pCompare->FUN_0062f2f0())
+    if (reinterpret_cast<TESAIForm*>(this)->GetMood() != pCompare->GetMood())
         return true;
 
     if (reinterpret_cast<TimeGlobal*>(this)->GetTimeStamp() != reinterpret_cast<TimeGlobal*>(pCompare)->GetTimeStamp())
@@ -689,7 +689,7 @@ struct AIFormFlags
     int m_pAuxiliaryObject;
     int m_flags;
     bool HasFlags(int arg);
-    bool FUN_0047f600(TESForm* apForm);
+    bool SellBuysItem(TESForm* apForm);
 };
 
 struct FormTypeStub
@@ -707,7 +707,7 @@ struct BGSEquipType
 
 // Maps the form's type (and equip type for type 0x2f) to a flag bit and returns the result of HasFlags for that bit.
 // @fnv 0x0047f600
-bool AIFormFlags::FUN_0047f600(TESForm* apForm)
+bool AIFormFlags::SellBuysItem(TESForm* apForm)
 {
     bool bResult2 = false;
     int iType8 = ((FormTypeStub*)apForm)->GetFormType();

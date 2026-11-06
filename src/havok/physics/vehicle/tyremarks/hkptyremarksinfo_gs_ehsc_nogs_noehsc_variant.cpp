@@ -122,11 +122,11 @@ struct S00e39e90_Info
     int unk0C;
     hkArrayWheel m_kTyremarksWheels;
 
-    void __thiscall FUN_00e39e90(int arg1, int wheelIndex, hkpTyremark* out);
+    void __thiscall getWheelTyremarksStrips(int arg1, int wheelIndex, hkpTyremark* out);
 };
 
 // @fnv 0x00e39e90
-void __thiscall S00e39e90_Info::FUN_00e39e90(int arg1, int wheelIndex, hkpTyremark* out)
+void __thiscall S00e39e90_Info::getWheelTyremarksStrips(int arg1, int wheelIndex, hkpTyremark* out)
 {
     hkpTyremarksWheel* wheel = m_kTyremarksWheels.m_data[wheelIndex];
     int n = wheel->m_numTyremarks;

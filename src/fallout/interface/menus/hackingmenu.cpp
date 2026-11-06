@@ -20,11 +20,11 @@ void FUN_006ffe80_shell::FUN_006ffe80(int aiFirst, int aiSecond)
 
 struct HackingMenu
 {
-    int __thiscall FUN_00765870();
+    int __thiscall GetClass();
 };
 
 // @fnv 0x00765870
-int __thiscall HackingMenu::FUN_00765870()
+int __thiscall HackingMenu::GetClass()
 {
     return 0x41f;
 }
@@ -82,14 +82,14 @@ struct HackingMenu
 {
     HackingMenu();
     void ClearTilePayloadPair();
-    void FUN_00767ff0(int, void*);
+    void DoLeave(int, void*);
     // ...
     bool m_bHackingInProgress;
     void* coordinate;
 };
 
 // @fnv 0x00767ff0
-void HackingMenu::FUN_00767ff0(int aiID, void* apTarget)
+void HackingMenu::DoLeave(int aiID, void* apTarget)
 {
     ClearTilePayloadPair();
     ((char*)this)[0x1d8] = 0;
@@ -151,16 +151,16 @@ struct HackingMenu;
 struct FUN_0076a510_shell : HackingMenu
 {
     void __thiscall FUN_0076a510();
-    void __thiscall FUN_0076a540();
+    void __thiscall TransitionToComputersMenu();
 };
 
-// Calls FUN_0076a540 when gm_GetTickCount() exceeds the tick value stored at this+0x1d0.
+// Calls TransitionToComputersMenu when gm_GetTickCount() exceeds the tick value stored at this+0x1d0.
 // @fnv 0x0076a510
 void __thiscall FUN_0076a510_shell::FUN_0076a510()
 {
     if (gm_GetTickCount() > *(unsigned int*)((char*)this + 0x1d0))
     {
-        FUN_0076a540();
+        TransitionToComputersMenu();
     }
 }
 
@@ -3604,7 +3604,7 @@ void H769Menu::FUN_00769830()
     }
 }
 
-// FUN_0076a540 - HackingMenu: open a hacking terminal menu tile.
+// TransitionToComputersMenu - HackingMenu: open a hacking terminal menu tile.
 // Adapted to the current pack (HackingMenu is fieldless; shell types by address).
 extern char DAT_01072b00;
 void __cdecl FNV_Warning(const char* format);
@@ -3693,7 +3693,7 @@ FORenderedMenu* __cdecl FUN_00707ad0();
 
 // Creates a computer menu tile, updates tile statics, and attaches it to a rendered terminal, creating a new FTerminalPX if none exists.
 // @fnv 0x0076a540
-void FUN_0076a510_shell::FUN_0076a540()
+void FUN_0076a510_shell::TransitionToComputersMenu()
 {
     (*(Tile**)((char*)this + 4))->Set(0x1772, 1);
     ((FUN_00766aa0_Menu*)this)->FUN_00a1d910();
@@ -4846,11 +4846,11 @@ struct HackMenu
     void Fill();
     void Display(unsigned int, const char**);
     void Update();
-    void FUN_00766b80(int index, HackTile* tile);
+    void DoClick(int index, HackTile* tile);
 };
 // Handles a tile click by comparing the entered word to the password, updating the display, and triggering success or failure outcomes based on the match result.
 // @fnv 0x00766b80
-void HackMenu::FUN_00766b80(int aiButtonIndex, HackTile* tile)
+void HackMenu::DoClick(int aiButtonIndex, HackTile* tile)
 {
     FUN_004b7210();
     if (FUN_004b71d0())

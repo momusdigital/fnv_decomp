@@ -764,11 +764,11 @@ struct TileImageShim
     float FUN_00a011b0(unsigned int, int);
     void FUN_00a037e0(unsigned int, float);
     void FUN_00a07530(unsigned int);
-    NiNode* FUN_00a1fd50();
+    NiNode* MakeNode();
 };
 // Builds a quad geometry object, attaches it beneath a node returned by FUN_00a089c0() or a fallback, and returns the containing node.
 // @fnv 0x00a1fd50
-NiNode* TileImageShim::FUN_00a1fd50()
+NiNode* TileImageShim::MakeNode()
 {
     NiNode* cnt_lgft;
     cnt_lgft = GetNiNode();

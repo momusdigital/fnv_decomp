@@ -112,11 +112,11 @@ int* __thiscall FUN_00c54d60_shell::FUN_00c54d60()
 
 struct FUN_00c54030_shell
 {
-    int __thiscall FUN_00c54030(int param_1);
+    int __thiscall CreateClone(int param_1);
 };
 
 // @fnv 0x00c54030
-int __thiscall FUN_00c54030_shell::FUN_00c54030(int param_1)
+int __thiscall FUN_00c54030_shell::CreateClone(int param_1)
 {
     return (int)this;
 }
@@ -127,10 +127,10 @@ struct FUN_00a7b290_shell
 };
 struct FUN_00c54150_shell
 {
-    void __thiscall FUN_00c54150(int param_1);
+    void __thiscall RegisterStreamables(int param_1);
 };
 // @fnv 0x00c54150
-void __thiscall FUN_00c54150_shell::FUN_00c54150(int param_1)
+void __thiscall FUN_00c54150_shell::RegisterStreamables(int param_1)
 {
     ((FUN_00a7b290_shell*)this)->FUN_00a7b290(param_1);
 }
@@ -138,11 +138,11 @@ void __thiscall FUN_00c54150_shell::FUN_00c54150(int param_1)
 struct C00c541e0
 {
     bool FUN_00a7b3d0(int);
-    bool FUN_00c541e0(int);
+    bool IsEqual(int);
 };
 // Calls FUN_00a7b3d0 with the given int and returns its bool result.
 // @fnv 0x00c541e0
-bool C00c541e0::FUN_00c541e0(int a)
+bool C00c541e0::IsEqual(int a)
 {
     bool b = FUN_00a7b3d0(a);
     return b;
@@ -289,11 +289,11 @@ void FUN_00c54040_cls::FUN_00c54040(NiStream& stream, unsigned int flags)
 struct S_00c54130
 {
     void FUN_00a7b3b0(int a);
-    void FUN_00c54130(int a);
+    void LinkObject(int a);
 };
 
 // @fnv 0x00c54130
-void S_00c54130::FUN_00c54130(int a)
+void S_00c54130::LinkObject(int a)
 {
     FUN_00a7b3b0(a);
 }
@@ -489,7 +489,7 @@ struct FUN_00c542a0_shell : NiExtraData
     unsigned short count;
 
     void FUN_00a7b580(ViewerStringsArray*);
-    void FUN_00c542a0(ViewerStringsArray*);
+    void GetViewerStrings(ViewerStringsArray*);
 };
 
 extern int g_012031c4;
@@ -499,7 +499,7 @@ extern char* __cdecl FUN_00a7d550(char const*, float);
 
 // Appends marker count and per-marker number, position, and heading strings to the viewer strings array.
 // @fnv 0x00c542a0
-void FUN_00c542a0_shell::FUN_00c542a0(ViewerStringsArray* strings)
+void FUN_00c542a0_shell::GetViewerStrings(ViewerStringsArray* strings)
 {
     unsigned long iMarkers;
     unsigned int aIndex;

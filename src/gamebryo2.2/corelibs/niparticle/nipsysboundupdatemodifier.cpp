@@ -76,7 +76,7 @@ struct NiPSysBoundUpdateModifier : NiPSysPositionModifier
     void* m_pkBounds;
     NiPSysBoundUpdateModifier() throw();
     void SetUpdateSkipCounter(int);
-    NiObject* FUN_00c2dec0(CloningProcess&);
+    NiObject* CreateClone(CloningProcess&);
 };
 inline NiPSysBoundUpdateModifier::NiPSysBoundUpdateModifier() throw()
 {
@@ -86,7 +86,7 @@ inline NiPSysBoundUpdateModifier::NiPSysBoundUpdateModifier() throw()
     m_pkBounds = 0;
 }
 // @fnv 0x00c2dec0
-NiObject* NiPSysBoundUpdateModifier::FUN_00c2dec0(CloningProcess& kCloning)
+NiObject* NiPSysBoundUpdateModifier::CreateClone(CloningProcess& kCloning)
 {
     NiPSysBoundUpdateModifier* pkObject = new NiPSysBoundUpdateModifier;
     CopyMemberData(pkObject, kCloning);
@@ -116,10 +116,10 @@ struct NiPSysModifier
 struct NiPSysBoundUpdateModifier : NiPSysModifier
 {
     short m_s;
-    void FUN_00c2e3f0(NiStream&);
+    void SaveBinary(NiStream&);
 };
 // @fnv 0x00c2e3f0
-void NiPSysBoundUpdateModifier::FUN_00c2e3f0(NiStream& stream)
+void NiPSysBoundUpdateModifier::SaveBinary(NiStream& stream)
 {
     FUN_00c31950(stream);
     NiBinaryStream* __restrict out = stream.m_pBackingStream;
@@ -382,11 +382,11 @@ extern "C" char* __cdecl FUN_00a7d450(const char* key, unsigned short value);
 
 struct FUN_00c2e430_shell : Base00c319e0, NiPSysBoundUpdateModifier
 {
-    void FUN_00c2e430(NiStream& stream);
+    void GetViewerStrings(NiStream& stream);
 };
 
 // @fnv 0x00c2e430
-void FUN_00c2e430_shell::FUN_00c2e430(NiStream& stream)
+void FUN_00c2e430_shell::GetViewerStrings(NiStream& stream)
 {
     Base00c319e0::FUN_00c319e0(reinterpret_cast<StrArr*>(&stream));
     reinterpret_cast<NiStrTable&>(stream).Add(FUN_00a7d330((char*)g_01202788));

@@ -598,10 +598,10 @@ class FUN_00a6e7b0_class
     int unk04;
     PaletteMap m_map;
     bool FUN_00a88a50(FUN_00a6e7b0_class* other);
-    bool FUN_00a6e7b0(FUN_00a6e7b0_class* other);
+    bool IsEqual(FUN_00a6e7b0_class* other);
 };
 // @fnv 0x00a6e7b0
-bool FUN_00a6e7b0_class::FUN_00a6e7b0(FUN_00a6e7b0_class* other)
+bool FUN_00a6e7b0_class::IsEqual(FUN_00a6e7b0_class* other)
 {
     if (!FUN_00a88a50(other))
         return false;
@@ -644,7 +644,7 @@ struct StreamSaveShell : public NiStream
 
 struct PaletteSaveShell : public NiDefaultAVObjectPalette
 {
-    void FUN_00a6e6c0(NiStream& kStream);
+    void SaveBinary(NiStream& kStream);
     void FUN_00a724d0(NiStream& kStream);
 };
 
@@ -657,7 +657,7 @@ template <class T> void WriteBinaryArray(NiBinaryStream& kOstr, const T* pValue,
 }
 
 // @fnv 0x00a6e6c0
-void PaletteSaveShell::FUN_00a6e6c0(NiStream& kStream)
+void PaletteSaveShell::SaveBinary(NiStream& kStream)
 {
     FUN_00a724d0(kStream);
 
@@ -959,11 +959,11 @@ struct Palette
     int refs;
     Map map;
     void __thiscall CloneBase(void*);
-    void __thiscall FUN_00a6eb60(void*);
+    void __thiscall LinkObject(void*);
 };
 // Clones the base object, then renames palette entries whose key differs from the object name by moving them in the map under the new key.
 // @fnv 0x00a6eb60
-void Palette::FUN_00a6eb60(void* apDest)
+void Palette::LinkObject(void* apDest)
 {
     CloneBase(apDest);
     Map changes;

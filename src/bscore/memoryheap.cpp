@@ -127,10 +127,10 @@ struct FUN_00aa7d60_cls
 {
     char pad0[0x10];
     unsigned int m_uiPage;
-    void FUN_00aa7d60(FUN_00aa7d60_blk* pBlock);
+    void DecommitPages(FUN_00aa7d60_blk* pBlock);
 };
 // @fnv 0x00aa7d60
-void FUN_00aa7d60_cls::FUN_00aa7d60(FUN_00aa7d60_blk* pBlock)
+void FUN_00aa7d60_cls::DecommitPages(FUN_00aa7d60_blk* pBlock)
 {
     unsigned int uiSize = pBlock->flags & 0xFFFFFFF;
     if (uiSize >= m_uiPage)
@@ -220,11 +220,11 @@ struct FUN_00aa7ca0_cls
     char pad0[0x20f0];
     bool m_bFlag;
     unsigned int WriteBucketInfo(FUN_00aa7ca0_obj* p);
-    unsigned int FUN_00aa7ca0(FUN_00aa7ca0_obj* p);
+    unsigned int OutputBucketInfo(FUN_00aa7ca0_obj* p);
 };
 
 // @fnv 0x00aa7ca0
-unsigned int FUN_00aa7ca0_cls::FUN_00aa7ca0(FUN_00aa7ca0_obj* pObj)
+unsigned int FUN_00aa7ca0_cls::OutputBucketInfo(FUN_00aa7ca0_obj* pObj)
 {
     unsigned int r = 0;
     if (!m_bFlag)

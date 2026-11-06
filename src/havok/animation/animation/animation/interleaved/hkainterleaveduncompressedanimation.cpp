@@ -12,11 +12,11 @@ struct FUN_00e3f950_class
     int m_0c;
     int m_10;
     int m_14;
-    int FUN_00e3f950(int a, int b);
+    int getNumDataChunks(int a, int b);
 };
 
 // @fnv 0x00e3f950
-int FUN_00e3f950_class::FUN_00e3f950(int aiUnused1, int aiUnused2)
+int FUN_00e3f950_class::getNumDataChunks(int aiUnused1, int aiUnused2)
 {
     int result = 1;
     if (m_10 > 0)
@@ -28,10 +28,10 @@ int FUN_00e3f950_class::FUN_00e3f950(int aiUnused1, int aiUnused2)
 
 struct FUN_00e3f970_class
 {
-    int FUN_00e3f970();
+    int getMaxSizeOfCombinedDataChunks();
 };
 // @fnv 0x00e3f970
-int FUN_00e3f970_class::FUN_00e3f970()
+int FUN_00e3f970_class::getMaxSizeOfCombinedDataChunks()
 {
     int* p = (int*)this;
     int a = p[5];
@@ -72,7 +72,7 @@ void FUN_00e3f920_class::FUN_00e3f920(float afValue, int b, int c, int d)
 struct S00e3fb60_Anim : public hkaInterleavedUncompressedAnimation
 {
     void FUN_00e2f7c0(float time, int& frameIndex, float& weight) const;
-    void FUN_00e3fb60(float time, const short* tracks, int numTracks, float* out);
+    void sampleIndividualFloatTracks(float time, const short* tracks, int numTracks, float* out);
 };
 
 __declspec(noinline) void S00e3fb60_Anim::FUN_00e2f7c0(float time, int& frameIndex, float& weight) const
@@ -86,7 +86,7 @@ __declspec(noinline) void S00e3fb60_Anim::FUN_00e2f7c0(float time, int& frameInd
 
 // Interpolates float animation tracks between two frames at the given time, writing results to out.
 // @fnv 0x00e3fb60
-void S00e3fb60_Anim::FUN_00e3fb60(float time, const short* tracks, int numTracks, float* out)
+void S00e3fb60_Anim::sampleIndividualFloatTracks(float time, const short* tracks, int numTracks, float* out)
 {
     int frameIndex;
     FUN_00e2f7c0(time, frameIndex, time);
@@ -122,12 +122,12 @@ struct S00e3fd20_Desc
     int m_2c;
     int m_30;
     int m_34;
-    void __thiscall FUN_00e3fd20(int scale, int unused1, int* out, int unused2);
+    void __thiscall getDataChunks(int scale, int unused1, int* out, int unused2);
 };
 
 // Writes a descriptor into out, storing this pointer, a 0x40 size, and optional segment and alignment data based on m_10 and m_14.
 // @fnv 0x00e3fd20
-void __thiscall S00e3fd20_Desc::FUN_00e3fd20(int scale, int unused1, int* out, int unused2)
+void __thiscall S00e3fd20_Desc::getDataChunks(int scale, int unused1, int* out, int unused2)
 {
     out[0] = (int)this;
     out[1] = 0x40;
@@ -361,12 +361,12 @@ struct hkaAnimSlot : hkaInterleavedUncompressedAnimation
     virtual void v8();
     virtual void v9();
     virtual void SampleIndividualTracks(int frame, float delta, SampleRec* recs, int n);
-    void FUN_00e3ffc0(float time, unsigned int nT, QsT* tOut, unsigned int nF, float* fOut, int a6);
+    void samplePartialTracks(float time, unsigned int nT, QsT* tOut, unsigned int nF, float* fOut, int a6);
 };
 
 // Samples the animation into tOut and fOut, using the last frame when time is at or beyond the animation duration.
 // @fnv 0x00e3ffc0
-void hkaAnimSlot::FUN_00e3ffc0(float time, unsigned int nT, QsT* tOut, unsigned int nF, float* fOut, int a6)
+void hkaAnimSlot::samplePartialTracks(float time, unsigned int nT, QsT* tOut, unsigned int nF, float* fOut, int a6)
 {
     TlsGetValueFn pfnTlsGetValue = &TlsGetValue;
     union

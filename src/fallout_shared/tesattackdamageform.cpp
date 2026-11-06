@@ -40,7 +40,7 @@ void TESCreature::CopyFromTemplateForm(TESActorBase* selectedForm)
     } templateSelection;
     {
         TESCreature defaultCreature;
-        defaultCreature.TESCreature::SetCombatStyle(FUN_00505000());
+        defaultCreature.TESCreature::SetCombatStyle(GetDefaultCombatStyle());
         templateSelection.creature = 0;
         if (!IsTemplateLeveled())
             templateSelection.creature =
@@ -90,7 +90,7 @@ void TESCreature::CopyFromTemplateForm(TESActorBase* selectedForm)
             TESModelList::BaseFormRecord((TESModelList*)templateSelection.creature);
             TESAnimation::BaseFormRecord((TESAnimation*)templateSelection.creature);
             SetBodyPartData(templateSelection.creature->GetBodyPartData());
-            FUN_0050eaa0(templateSelection.creature);
+            CopyBoundData(templateSelection.creature);
             SetImpactDataSet(templateSelection.creature->GetImpactDataSet());
             SetBloodImpactMaterial(templateSelection.creature->GetBloodImpactMaterial());
             BGSDestructibleObjectForm::BaseFormRecord((BGSDestructibleObjectForm*)templateSelection.creature);
@@ -195,11 +195,11 @@ void TESCreature::CopyFromTemplateForm(TESActorBase* selectedForm)
 
 struct FUN_0047fe10_shell : public TESAttackDamageForm
 {
-    void FUN_0047fe10();
+    void InitializeDataComponent();
 };
 
 // @fnv 0x0047fe10
-void FUN_0047fe10_shell::FUN_0047fe10()
+void FUN_0047fe10_shell::InitializeDataComponent()
 {
     m_usAttackDamage = 0;
 }

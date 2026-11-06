@@ -647,10 +647,10 @@ struct NiFormArray
 };
 struct FUN_0058b680_Class
 {
-    unsigned int __thiscall FUN_0058b680(TESForm* form);
+    unsigned int __thiscall GetIndexForChild(TESForm* form);
 };
 // @fnv 0x0058b680
-unsigned int __thiscall FUN_0058b680_Class::FUN_0058b680(TESForm* form)
+unsigned int __thiscall FUN_0058b680_Class::GetIndexForChild(TESForm* form)
 {
     unsigned int result = 0xFFFFFFFF;
     if (reinterpret_cast<NiFormArray**>(reinterpret_cast<char*>(this) + 0x2C)[0])
@@ -695,7 +695,7 @@ void FUN_0058b6c0_shell::RemoveSoundAt(unsigned int index)
 
 struct Holder680
 {
-    int __thiscall FUN_0058b680(int);
+    int __thiscall GetIndexForChild(int);
 };
 struct Holder6c0
 {
@@ -705,16 +705,16 @@ struct Holder730
 {
     char _pad[0x2c];
     int m_2c;
-    void __thiscall FUN_0058b730(int);
+    void __thiscall RemoveChild(int);
 };
-// If a1 and m_2c are both nonzero, calls FUN_0058b680 with a1 and passes its result to RemoveSoundAt.
+// If a1 and m_2c are both nonzero, calls GetIndexForChild with a1 and passes its result to RemoveSoundAt.
 // @fnv 0x0058b730
-void __thiscall Holder730::FUN_0058b730(int a1)
+void __thiscall Holder730::RemoveChild(int a1)
 {
     int v;
     if (a1 != 0 && m_2c != 0)
     {
-        v = ((Holder680*)this)->FUN_0058b680(a1);
+        v = ((Holder680*)this)->GetIndexForChild(a1);
         ((Holder6c0*)this)->RemoveSoundAt(v);
     }
 }
@@ -800,12 +800,12 @@ int __thiscall FUN_0058cb60_Class::FUN_0058cb60(unsigned int* a, int* piValue, u
 
 struct FUN_0058f7f0_Class
 {
-    int* __thiscall FUN_0058f7f0(int a);
+    int* __thiscall GetAltFootstepMaterialName(int a);
 };
 
 // Returns a pointer to the entry at offset 0x30 plus a*0x1e if its first byte is nonzero, otherwise returns 0.
 // @fnv 0x0058f7f0
-int* __thiscall FUN_0058f7f0_Class::FUN_0058f7f0(int aiIndex)
+int* __thiscall FUN_0058f7f0_Class::GetAltFootstepMaterialName(int aiIndex)
 {
     if (*(char*)((char*)this + 0x30 + aiIndex * 0x1e))
         return (int*)((char*)this + 0x30 + aiIndex * 0x1e);

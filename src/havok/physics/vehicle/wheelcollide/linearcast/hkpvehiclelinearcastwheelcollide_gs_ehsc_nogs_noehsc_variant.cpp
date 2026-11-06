@@ -52,7 +52,7 @@ struct LCWheelCollideStandIn
     virtual void v2c();
     virtual void v30();
     virtual int getNumHits(int);
-    LCHitObj* FUN_00e36250(int iWheel, LCHit* pHits);
+    LCHitObj* determineNearestHit(int iWheel, LCHit* pHits);
 };
 struct FUN_00e363a0_Wheel
 {
@@ -81,11 +81,11 @@ struct COMBaseInterface : public FUN_00c936a0_host
 };
 struct FUN_00e36870_host
 {
-    void FUN_00e36870(COMBaseInterface*);
+    void addToWorld(COMBaseInterface*);
 };
 struct FUN_00e368a0_Class
 {
-    void FUN_00e368a0();
+    void removeFromWorld();
 };
 struct FUN_00c92c70_Class
 {
@@ -1128,7 +1128,7 @@ inline float dot3(__m128 a, __m128 b)
 }
 
 // @fnv 0x00e36510
-void __stdcall FUN_00e36510(VehicleInstanceStandIn* vehicle, unsigned char wheelIndex, HitStandIn* hit,
+void __stdcall getCollisionOutputFromCastResult(VehicleInstanceStandIn* vehicle, unsigned char wheelIndex, HitStandIn* hit,
                             WheelCollideOutputStandIn* out)
 {
     float velChassis = vehicle->m_pSuspension->m_wheelData[wheelIndex].m_fRestLength;

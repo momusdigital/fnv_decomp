@@ -28,11 +28,11 @@ unsigned int FUN_005224e0_class::GetField230()
 
 struct FUN_00524b40_class
 {
-    bool FUN_00524b40();
+    bool IsAutomaticWeapon();
 };
 
 // @fnv 0x00524b40
-bool FUN_00524b40_class::FUN_00524b40()
+bool FUN_00524b40_class::IsAutomaticWeapon()
 {
     return reinterpret_cast<unsigned char*>(this)[0x100] & 2;
 }
@@ -96,11 +96,11 @@ extern "C" int __cdecl sprintf_s(char*, int, const char*, ...);
 
 struct FUN_0052a980_Class
 {
-    int __thiscall FUN_0052a980(char* dst);
+    int __thiscall PrintInfo(char* dst);
 };
 
 // @fnv 0x0052a980
-int __thiscall FUN_0052a980_Class::FUN_0052a980(char* pcBuffer)
+int __thiscall FUN_0052a980_Class::PrintInfo(char* pcBuffer)
 {
     return sprintf_s(pcBuffer, 0x800, "  Temp");
 }
@@ -736,7 +736,7 @@ struct FUN_00526c90
 void* __cdecl operator new(unsigned int);
 
 // @fnv 0x00526e10
-void FUN_00526e10()
+void Create()
 {
     AutoMemHelper context(
         0x2c, true, "D:\\_Fallout3\\Platforms\\Common\\Code\\Fallout Shared\\BGSLoadedReferenceCollection.cpp", 0x58);
@@ -1839,11 +1839,11 @@ struct TerrainInput
 };
 struct TerrainOwner
 {
-    NiPoint3 FUN_0053b450(unsigned char, unsigned short, int*, int*);
+    NiPoint3 GetVertexLocation(unsigned char, unsigned short, int*, int*);
     void FUN_00534240(unsigned int, unsigned int, NiPoint3&);
-    void FUN_00534390(unsigned int, unsigned int, NiPoint3&);
-    float FUN_00534080();
-    float FUN_00534050();
+    void GetNormal(unsigned int, unsigned int, NiPoint3&);
+    float GetWorldCellY();
+    float GetWorldCellX();
     bool ComputeTerrainNormalAndTangent(TerrainInput*, NiPoint3*, NiPoint3*);
 };
 // Computes a terrain normal and tangent at input->position, blending edge/u/c samples by flip flags, and returns true.
@@ -1851,15 +1851,15 @@ struct TerrainOwner
 bool TerrainOwner::ComputeTerrainNormalAndTangent(TerrainInput* input, NiPoint3* normal, NiPoint3* tangent)
 {
     NiPoint3 origin;
-    NiPoint3 position = FUN_0053b450((unsigned char)input->region, (unsigned short)input->position, 0, 0);
+    NiPoint3 position = GetVertexLocation((unsigned char)input->region, (unsigned short)input->position, 0, 0);
     FUN_00534240(input->region, input->position, origin);
     NiPoint3 location;
-    location = NiPoint3(FUN_00534050() + 2048.0, FUN_00534080() + 2048.0, 0.0f);
+    location = NiPoint3(GetWorldCellX() + 2048.0, GetWorldCellY() + 2048.0, 0.0f);
     NiPoint3 center = origin + location;
     center.z = 0.0f;
     if (center.FUN_004390c0(position))
     {
-        FUN_00534390(input->region, input->position, *normal);
+        GetNormal(input->region, input->position, *normal);
         *tangent = *normal;
     }
     else
@@ -1870,9 +1870,9 @@ bool TerrainOwner::ComputeTerrainNormalAndTangent(TerrainInput* input, NiPoint3*
         NiPoint3 u;
         NiPoint3 c;
         NiPoint3 v = DAT_011a9484;
-        FUN_00534390(input->region, input->edgeA, edgeA);
-        FUN_00534390(input->region, input->u, u);
-        FUN_00534390(input->region, input->c, c);
+        GetNormal(input->region, input->edgeA, edgeA);
+        GetNormal(input->region, input->u, u);
+        GetNormal(input->region, input->c, c);
         if (!input->flipA && !input->flipB)
             v = ((1.0f - blended) * u + blended * edgeA) * (1.0f - pointB) + pointB * c;
         if (!input->flipA && input->flipB)

@@ -248,7 +248,7 @@ void BGSSaveLoadManager::FinishLoadingGame()
     ChallengeManager::CheckCompletedChallenges();
     reinterpret_cast<Main*>(g_osGlobals)->OnGameLoaded();
     reinterpret_cast<Main*>(g_osGlobals)->RunScripts();
-    g_modelLoader->FUN_00448620(false);
+    g_modelLoader->ClearUnusedModels(false);
     g_TES->FUN_00459a00();
     reinterpret_cast<ActorMover*>(g_osGlobals)->RefreshMovementState();
     reinterpret_cast<GridCellArray*>(reinterpret_cast<BSSimpleArray<unsigned int, 1024>*>(g_TES)->GetSize())

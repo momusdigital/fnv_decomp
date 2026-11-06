@@ -1482,11 +1482,11 @@ struct This
 
     void __thiscall FUN_00806e30(Actor* a);
 
-    void __thiscall FUN_00809e60(Actor* param);
+    void __thiscall LoadGame(Actor* param);
 };
 
 // @fnv 0x00809e60
-void This::FUN_00809e60(Actor* apActor)
+void This::LoadGame(Actor* apActor)
 
 {
 
@@ -1818,7 +1818,7 @@ void SaveEffect::FUN_00809bd0(void* arg)
 struct BIItemData
 {
     void FUN_0041b040();
-    void FUN_0041afa0();
+    void ClearScriptLocals();
 };
 struct BIItemNode
 {
@@ -2357,7 +2357,7 @@ class BIShader
 
 struct BIModelLoader
 {
-    void FUN_00445300(const char* pcPath, int iA, int iB);
+    void ReleaseModel(const char* pcPath, int iA, int iB);
 };
 struct BIShaderManager
 {
@@ -2426,11 +2426,11 @@ void BIEffect::StopEffect()
                     TESBoundObject* pkBase = m_pkWeaponEntry->FUN_0044ddc0();
                     TESObjectWEAP* pkOldWeapon = dynamic_cast<TESObjectWEAP*>(pkBase);
                     if (pkOldWeapon && pkOldWeapon->model.GetModelLength() > 0)
-                        DAT_011c3b3c->FUN_00445300(pkOldWeapon->model.GetModelPath(), 0, 1);
+                        DAT_011c3b3c->ReleaseModel(pkOldWeapon->model.GetModelPath(), 0, 1);
                     m_bLoadWeaponModel = false;
                 }
                 if (pkData)
-                    pkData->FUN_0041afa0();
+                    pkData->ClearScriptLocals();
                 m_pkWeaponEntry->ClearExtraDataList();
                 delete m_pkWeaponEntry;
                 m_pkWeaponEntry = 0;
@@ -2475,10 +2475,10 @@ void BIEffect::StopEffect()
                         {
                             TESBipedModelForm* pkBiped = dynamic_cast<TESBipedModelForm*>(pkEntry->FUN_0044ddc0());
                             if (pkBiped)
-                                DAT_011c3b3c->FUN_00445300(pkBiped->GetBipedModel(iSexCur), 0, 1);
+                                DAT_011c3b3c->ReleaseModel(pkBiped->GetBipedModel(iSexCur), 0, 1);
                         }
                         if (pkEntryData)
-                            pkEntryData->FUN_0041afa0();
+                            pkEntryData->ClearScriptLocals();
                         pkEntry->ClearExtraDataList();
                         delete pkEntry;
                         pkEntry = 0;
@@ -2505,7 +2505,7 @@ void BIEffect::StopEffect()
                         delete pkShader;
                     if (m_bShowShader)
                     {
-                        DAT_011c3b3c->FUN_00445300(pkModelOut->m_kModel.GetModelPath(), 0, 1);
+                        DAT_011c3b3c->ReleaseModel(pkModelOut->m_kModel.GetModelPath(), 0, 1);
                         m_bShowShader = false;
                     }
                 }
@@ -2566,7 +2566,7 @@ class ModelLoaderQ
 {
   public:
     NiNode* LoadFile(const char* pPath, int iLOD, bool bUnk1, bool bUnk2, bool bUnk3, bool bUnk4);
-    void FUN_00445300(char* pPath, bool bUnk, unsigned int uiUnk);
+    void ReleaseModel(char* pPath, bool bUnk, unsigned int uiUnk);
 };
 extern const char kMagicModelHitEffectName[];
 extern const char g_011d4c84_arg1[];
@@ -2585,7 +2585,7 @@ class ActiveEffect
     float fHitEffectTime;
 };
 
-// Loads the model, sets fHitEffectTime from FUN_004b6220 for non-type-4 items with a node, and calls FUN_00445300 when the selected range item differs.
+// Loads the model, sets fHitEffectTime from FUN_004b6220 for non-type-4 items with a node, and calls ReleaseModel when the selected range item differs.
 // @fnv 0x00808680
 void ActiveEffect::FUN_00808680()
 {
@@ -2614,7 +2614,7 @@ void ActiveEffect::FUN_00808680()
                 fHitEffectTime = 0.0f;
             }
             if (FUN_0084e3a0() != pRangeItem)
-                ((ModelLoaderQ*)g_modelLoader)->FUN_00445300(pBaseEffect->kModel.GetModelPath(), false, 1);
+                ((ModelLoaderQ*)g_modelLoader)->ReleaseModel(pBaseEffect->kModel.GetModelPath(), false, 1);
         }
     }
 }
@@ -2631,7 +2631,7 @@ struct ExtraP
 {
     unsigned int FUN_0040fe20();
     short FUN_00418770();
-    void FUN_0041ab70(int);
+    void SetCanNotWear(int);
     void FUN_0041b010(int);
     bool FUN_004bca60();
 };
@@ -3213,7 +3213,7 @@ void EffectP::FUN_00808a30()
             weapon->FUN_008d8520()->Equipped()->FUN_00559450())
         {
             newExtra = *weapon->FUN_008d8520()->Equipped()->FUN_00559450()->FUN_006815c0();
-            newExtra->FUN_0041ab70(1);
+            newExtra->SetCanNotWear(1);
         }
         else
             unka8 = true;
@@ -3265,7 +3265,7 @@ void EffectP::FUN_00808a30()
         EquipManagerP* preload = FUN_004bf220(weapon);
         npc = preload->FUN_004bfda0(armor, 1);
         if (npc)
-            npc->FUN_0041ab70(1);
+            npc->SetCanNotWear(1);
         else
             unka8 = true;
     }
@@ -3554,11 +3554,11 @@ struct BoundLoadEffectView : BaseEffectS
     void FUN_00806e70(int);
     TargetA* FUN_0059bb30();
     TESForm* FUN_006733e0();
-    void FUN_0080a2d0(int);
+    void InitLoadGame(int);
 };
 // Loads weapon and armor models when a4 is set, copies their entries below version 0x61, and conditionally equips the bound object.
 // @fnv 0x0080a2d0
-void BoundLoadEffectView::FUN_0080a2d0(int arg)
+void BoundLoadEffectView::InitLoadGame(int arg)
 {
     int actor;
     FUN_00806e70(arg);

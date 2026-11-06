@@ -188,11 +188,11 @@ struct FUN_00c1f5f0_shell : NiPSysMeshEmitter
     void __thiscall FUN_00c1e4e0(NiSkinInstance*, NiGeometry*, NiPoint3&, NiPoint3&);
     void __thiscall EmitFromMesh(NiGeometry*, NiPoint3&, NiPoint3&);
 
-    void __thiscall FUN_00c1f5f0(NiPoint3& kPosition, NiPoint3& kMotionVelocity);
+    void __thiscall ComputeInitialPositionAndVelocity(NiPoint3& kPosition, NiPoint3& kMotionVelocity);
 };
 
 // @fnv 0x00c1f5f0
-void __thiscall FUN_00c1f5f0_shell::FUN_00c1f5f0(NiPoint3& kPosition, NiPoint3& kMotionVelocity)
+void __thiscall FUN_00c1f5f0_shell::ComputeInitialPositionAndVelocity(NiPoint3& kPosition, NiPoint3& kMotionVelocity)
 {
     unsigned int uiEmitterIndex;
     NiGeometry* pkGeomEmitter;
@@ -757,11 +757,11 @@ struct Emit_c1f880
     Vec3_c1f880 vec7C;
     Emit_c1f880* FUN_00c1f550();
     void CopyTo(Emit_c1f880* pkEmitter, unsigned int uiArg);
-    Emit_c1f880* FUN_00c1f880(unsigned int uiArg);
+    Emit_c1f880* CreateClone(unsigned int uiArg);
 };
 
 // @fnv 0x00c1f880
-Emit_c1f880* Emit_c1f880::FUN_00c1f880(unsigned int uiArg)
+Emit_c1f880* Emit_c1f880::CreateClone(unsigned int uiArg)
 {
     Emit_c1f880* pkNew = (Emit_c1f880*)FUN_00aa13e0(0x88);
     Emit_c1f880* pkResult;
@@ -1277,7 +1277,7 @@ bool SkinEmitter::GetRandomEmitterParticle(SkinInst* skin, SkinGeometry* geometr
 
 int __cdecl FUN_00ecadb8();
 float __cdecl FUN_00639780();
-void __cdecl FUN_00525340(NiPoint3*);
+void __cdecl UnitizeVector(NiPoint3*);
 NiPoint3 __cdecl FUN_004a3760(float, const NiPoint3&);
 extern NiPoint3 NiPoint3_ZERO;
 
@@ -1469,7 +1469,7 @@ bool EmitterAccessor::FUN_00c1e4e0(NiSkinInstance* pkSkinInstance, NiGeometry* p
     if (this->m_iEmissionDirection == 0)
     {
         NiPoint3 kNormal = ((MyPoint3&)kNorm0 + (MyPoint3&)kNorm1).FUN_0053d280(2.0f);
-        FUN_00525340(&kNormal);
+        UnitizeVector(&kNormal);
         float fSpeed = ((MyPoint3*)&kMotionVelocity)->FUN_00457990();
         kMotionVelocity = FUN_004a3760(fSpeed, kNormal);
     }
@@ -1546,7 +1546,7 @@ char* __cdecl FUN_00a7d550(const char*, float);
 
 struct Standin_VolumeEmitter
 {
-    void FUN_00c22780(NiViewerStringsArray* pkStrings);
+    void GetViewerStrings(NiViewerStringsArray* pkStrings);
 };
 
 struct MeshEmitter
@@ -1604,7 +1604,7 @@ struct MeshEmitter
 // @fnv 0x00c1f050
 void MeshEmitter::WriteToViewerStrings(NiViewerStringsArray* pkStrings)
 {
-    ((Standin_VolumeEmitter*)this)->FUN_00c22780(pkStrings);
+    ((Standin_VolumeEmitter*)this)->GetViewerStrings(pkStrings);
 
     pkStrings->Add(FUN_00a7d330((char*)g_01202500));
 
@@ -1927,7 +1927,7 @@ struct GeometryRuntimeType
 };
 
 extern GeometryRuntimeType DAT_011f4a48;
-extern "C" void __cdecl FUN_00525340(MeshPoint* point);
+extern "C" void __cdecl UnitizeVector(MeshPoint* point);
 
 typedef int(__thiscall* GeometryTestFn)(NiGeometry*);
 typedef GeometryRuntimeType*(__thiscall* GeometryRTTIFn)(NiGeometry*);
@@ -2017,7 +2017,7 @@ bool MeshEmitterCandidate::PickEmitterParticle(NiGeometry* geometry, MeshPoint& 
         MeshPoint normal0 = normals[vertex0];
         MeshPoint normal1 = normals[vertex1];
         MeshPoint normal = (normal0 + normal1) * 0.5f;
-        FUN_00525340(&normal);
+        UnitizeVector(&normal);
         float magnitude = sqrtf(velocity.x * velocity.x + velocity.y * velocity.y + velocity.z * velocity.z);
         velocity = normal * magnitude;
     }
@@ -2405,7 +2405,7 @@ struct GeometryRuntimeType
 };
 extern GeometryRuntimeType DAT_011f4a48;
 extern const double DAT_01099ee0;
-extern "C" void __cdecl FUN_00525340(MeshPoint* point);
+extern "C" void __cdecl UnitizeVector(MeshPoint* point);
 typedef int(__thiscall* GeometryTestFn)(NiGeometry*);
 typedef GeometryRuntimeType*(__thiscall* GeometryRTTIFn)(NiGeometry*);
 typedef unsigned short(__thiscall* GetTriangleCountFn)(void*);
@@ -2463,7 +2463,7 @@ bool MeshEmitterCandidate::EmitFromMesh(NiGeometry* geometry, MeshPoint& positio
                 MeshPoint normal2 = normals[vertex2];
                 MeshPoint normalSum = normal0 + normal1 + normal2;
                 MeshPoint normal = normalSum * oneThird;
-                FUN_00525340(&normal);
+                UnitizeVector(&normal);
                 float magnitude = sqrtf(velocity.x * velocity.x + velocity.y * velocity.y + velocity.z * velocity.z);
                 velocity = normal * magnitude;
             }
@@ -2937,7 +2937,7 @@ bool MeshReconstruction::FUN_00c1e080(NiSkinInstance* apSkinInstance, NiGeometry
         scratch.z = triangle.v1.z + triangle.v0.z;
         AddAccumulator(triangle.accumulator, scratch, triangle.v2);
         reinterpret_cast<MeshVectorOps*>(&triangle.accumulator)->FUN_0053d280(&triangle.v2, DAT_01017718);
-        FUN_00525340(&triangle.v2);
+        UnitizeVector(&triangle.v2);
         float magnitude = reinterpret_cast<MeshVectorOps*>(&velocity)->FUN_00457990();
         NiPoint3* result = FUN_004a3760(&triangle.accumulator, magnitude, &triangle.v2);
         velocity = *result;

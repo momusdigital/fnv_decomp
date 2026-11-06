@@ -31,7 +31,7 @@ class FUN_009b3fa0 : public FUN_009bbc70
 };
 struct S4700
 {
-    bool FUN_009c43e0(int, bool);
+    bool TurnOff(int, bool);
     bool FUN_009b4700(int, bool);
     virtual void f0(), f1(), f2(), f3(), f4(), f5(), f6(), f7(), f8(), f9(), f10(), f11(), f12(), f13(), f14(), f15(),
         f16(), f17(), f18(), f19(), f20(), f21(), f22(), f23(), f24(), f25(), f26(), f27(), f28(), f29(), f30(), f31(),
@@ -1165,7 +1165,7 @@ struct Resource
 struct EventStatus
 {
 
-    bool FUN_004fd360();
+    bool GetHasExplosion();
 
     bool FUN_00975300();
 
@@ -1313,7 +1313,7 @@ class TESSaveLoadGame
 };
 extern TESSaveLoadGame* DAT_011de45c;
 void FUN_00c69f50(NiAVObject*, bool, bool);
-void FUN_00525340(NiPoint3*);
+void UnitizeVector(NiPoint3*);
 NiPoint3 operator*(float, const NiPoint3&);
 void FUN_0062b8d0(NiAVObject*, const NiPoint3&, bool);
 
@@ -1334,8 +1334,8 @@ bool GrenadeProjectile::FUN_009b4740()
             NiPoint3 forward1;
             node1->FUN_00461130().FUN_00439f50(1, forward1);
             forward1 *= -1.0f;
-            FUN_00525340(&forward1);
-            FUN_00525340(&impact->normal);
+            UnitizeVector(&forward1);
+            UnitizeVector(&impact->normal);
             float dot0 = impact->normal.Dot(forward1);
             NiPoint3 deflection = 2.0f * (dot0 * impact->normal - forward1);
             velocity6 = forward1 + deflection;

@@ -249,11 +249,11 @@ class A4b0Cls : public FUN_00c31720
         m_24 = 0;
         m_28 = 0.0f;
     }
-    FUN_00c31720* __thiscall FUN_00c2a4b0(A4b0Clone* cloning);
+    FUN_00c31720* __thiscall CreateClone(A4b0Clone* cloning);
 };
 // Allocates an A4b0Cls, copies the base via FUN_00c31780, then copies m_18, m_1c, m_20, m_24 and m_28 from this object and returns it.
 // @fnv 0x00c2a4b0
-FUN_00c31720* A4b0Cls::FUN_00c2a4b0(A4b0Clone* cloning)
+FUN_00c31720* A4b0Cls::CreateClone(A4b0Clone* cloning)
 {
     void* mem = FUN_00aa13e0(sizeof(A4b0Cls));
     A4b0Cls* p = mem ? new (mem) A4b0Cls : 0;

@@ -213,11 +213,11 @@ class BC28C60GravityModifier : public BC28C60Modifier
     virtual ~BC28C60GravityModifier();
 
     void CopyMemberData(BC28C60GravityModifier* pkDest, BC28C60CloningProcess& kCloning);
-    BC28C60GravityModifier* FUN_00c28c60(BC28C60CloningProcess& kCloning);
+    BC28C60GravityModifier* CreateClone(BC28C60CloningProcess& kCloning);
 };
 
 // @fnv 0x00c28c60
-BC28C60GravityModifier* BC28C60GravityModifier::FUN_00c28c60(BC28C60CloningProcess& kCloning)
+BC28C60GravityModifier* BC28C60GravityModifier::CreateClone(BC28C60CloningProcess& kCloning)
 {
     BC28C60GravityModifier* pkClone = new BC28C60GravityModifier;
     CopyMemberData(pkClone, kCloning);

@@ -495,11 +495,11 @@ struct FUN_00552970_Call
 };
 struct GridCellArray_Target : public GridCellArray
 {
-    void FUN_004ba960(NiNode* apRoot, unsigned int aiX, unsigned int aiY);
+    void AttachToWorld(NiNode* apRoot, unsigned int aiX, unsigned int aiY);
 };
 // Gets the grid cell at (aiX, aiY) and, if it has a cell, forwards apRoot to that cell's UpdateCellScene.
 // @fnv 0x004ba960
-void GridCellArray_Target::FUN_004ba960(NiNode* apRoot, unsigned int aiX, unsigned int aiY)
+void GridCellArray_Target::AttachToWorld(NiNode* apRoot, unsigned int aiX, unsigned int aiY)
 {
     GridCell* pgridcell;
     pgridcell = Get(aiX, aiY);
@@ -547,12 +547,12 @@ void FUN_004bc480_shell::FUN_004bc480(int arg)
 struct bhkWorld;
 struct ExtraDataList
 {
-    void FUN_00554960(bool);
+    void SetCollisionGeometryDisplay(bool);
 };
 bool __fastcall FUN_004bae00(char const*);
 struct FUN_004bad40_shell : GridCellArray
 {
-    void FUN_004bad40();
+    void ToggleCollisionGeometry();
     unsigned int _ref_0084e3a0();
 };
 struct CellExt
@@ -561,7 +561,7 @@ struct CellExt
     bool IsOutdoorCell();
 };
 // @fnv 0x004bad40
-void FUN_004bad40_shell::FUN_004bad40()
+void FUN_004bad40_shell::ToggleCollisionGeometry()
 {
     bhkWorld* pWorld = ((CellExt*)0)->GetExteriorbhkWorld();
     if (pWorld)
@@ -572,7 +572,7 @@ void FUN_004bad40_shell::FUN_004bad40()
             {
                 GridCell* cell = Get(i, j);
                 if (cell->pCell && ((CellExt*)cell->pCell)->IsOutdoorCell())
-                    ((ExtraDataList*)cell->pCell)->FUN_00554960(b);
+                    ((ExtraDataList*)cell->pCell)->SetCollisionGeometryDisplay(b);
             }
     }
 }
@@ -672,18 +672,18 @@ struct FakeCell
 };
 struct LAND_x
 {
-    void FUN_0053fa40(bool);
+    void DrawLandBorder(bool);
 };
 struct GridCellArrayHelper
 {
     unsigned int _ref_0084e3a0();
     GridCell* Get(unsigned int, unsigned int);
-    void FUN_004baca0(bool abShow);
+    void ShowLandBorders(bool abShow);
 };
 
-// Iterates every grid cell and, for cells whose cell has a LAND, calls FUN_0053fa40 with abShow.
+// Iterates every grid cell and, for cells whose cell has a LAND, calls DrawLandBorder with abShow.
 // @fnv 0x004baca0
-void GridCellArrayHelper::FUN_004baca0(bool abShow)
+void GridCellArrayHelper::ShowLandBorders(bool abShow)
 {
     for (unsigned int x = 0; x < _ref_0084e3a0(); ++x)
     {
@@ -694,7 +694,7 @@ void GridCellArrayHelper::FUN_004baca0(bool abShow)
             {
                 TESObjectLAND* pland = reinterpret_cast<FakeCell*>(pgridcell->pCell)->GetLandscape();
                 if (pland)
-                    reinterpret_cast<LAND_x*>(pland)->FUN_0053fa40(abShow);
+                    reinterpret_cast<LAND_x*>(pland)->DrawLandBorder(abShow);
             }
         }
     }
@@ -723,16 +723,16 @@ struct FUN_005535f0_shell
 
 extern char const str_010206c0[];
 
-void __fastcall FUN_005374f0(TESObjectLAND* land);
+void __fastcall Attach3D(TESObjectLAND* land);
 
 struct FUN_004ba7d0_shell : public GridCellArray
 {
     unsigned int _ref_0084e3a0();
-    void FUN_004ba7d0();
+    void AttachAllLand3D();
 };
 
 // @fnv 0x004ba7d0
-void FUN_004ba7d0_shell::FUN_004ba7d0()
+void FUN_004ba7d0_shell::AttachAllLand3D()
 {
     if (*reinterpret_cast<bool*>(reinterpret_cast<char*>(this) + 0x20))
         return;
@@ -748,7 +748,7 @@ void FUN_004ba7d0_shell::FUN_004ba7d0()
             GridCell* pgc = Get(ix, iy);
             if (pgc && pgc->pCell)
             {
-                FUN_005374f0(static_cast<FakeCell*>(pgc->pCell)->GetLandscape());
+                Attach3D(static_cast<FakeCell*>(pgc->pCell)->GetLandscape());
 
                 reinterpret_cast<FUN_005535f0_shell*>(pgc->pCell)->FUN_005535f0();
             }

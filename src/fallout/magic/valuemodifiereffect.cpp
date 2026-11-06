@@ -178,10 +178,10 @@ FUN_0080a900::FUN_0080a900(void* apArg1, void* apArg2, void* apArg3) : ValueModi
 struct FUN_0082ccb0_Cls : ActiveEffect
 {
     EffectSetting* GetEffectSetting();
-    bool FUN_0082ccb0();
+    bool IsCausingDamage();
 };
 // @fnv 0x0082ccb0
-bool FUN_0082ccb0_Cls::FUN_0082ccb0()
+bool FUN_0082ccb0_Cls::IsCausingDamage()
 {
     return *(int*)((char*)this + 0x48) == 16 && GetEffectSetting()->IsFlagSet(4) && !GetEffectSetting()->IsFlagSet(2);
 }

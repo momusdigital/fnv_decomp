@@ -235,7 +235,7 @@ struct BGSLoadFormBuffer : public BGSLoadGameBuffer
 typedef char _sizecheck_BGSLoadFormBuffer[sizeof(BGSLoadFormBuffer) == 48 ? 1 : -1];
 struct FUN_0092eaa0_shell : public MiddleLowProcess
 {
-    void FUN_0092eaa0(BGSLoadFormBuffer*);
+    void LoadGameBGS(BGSLoadFormBuffer*);
 };
 
 struct BGSChangeFlagsCall
@@ -260,7 +260,7 @@ struct ModifierListCall
 };
 
 // @fnv 0x0092eaa0
-void FUN_0092eaa0_shell::FUN_0092eaa0(BGSLoadFormBuffer* apLoadGameBuffer)
+void FUN_0092eaa0_shell::LoadGameBGS(BGSLoadFormBuffer* apLoadGameBuffer)
 {
     reinterpret_cast<LowProcessCall*>(this)->LoadGame(apLoadGameBuffer);
     apLoadGameBuffer->ReadTypedData(reinterpret_cast<void*>(&m_iValueB4), 4);
@@ -360,7 +360,7 @@ struct BGSLoadFormBuffer : public BGSLoadGameBuffer
 typedef char _sizecheck_BGSLoadFormBuffer[sizeof(BGSLoadFormBuffer) == 48 ? 1 : -1];
 struct FUN_0092eb00_shell : public MiddleLowProcess
 {
-    void FUN_0092eb00(BGSLoadFormBuffer*);
+    void RevertBGS(BGSLoadFormBuffer*);
 };
 
 struct BGSChangeFlags_helper
@@ -385,7 +385,7 @@ struct ModifierList_helper
 };
 
 // @fnv 0x0092eb00
-void FUN_0092eb00_shell::FUN_0092eb00(BGSLoadFormBuffer* apLoadGameBuffer)
+void FUN_0092eb00_shell::RevertBGS(BGSLoadFormBuffer* apLoadGameBuffer)
 {
     reinterpret_cast<LowProcess_helper*>(this)->Revert(apLoadGameBuffer);
     if (reinterpret_cast<BGSLoadFormBuffer_helper*>(apLoadGameBuffer)->GetOldChangeFlags(0x100000))
@@ -475,10 +475,10 @@ struct FUN_0092cf10_shell
 {
     char _pad[0xB8];
     ML_0092ce00 _m;
-    float FUN_0092cf10(char);
+    float GetTemporaryModifier(char);
 };
 // @fnv 0x0092cf10
-float FUN_0092cf10_shell::FUN_0092cf10(char aWhich)
+float FUN_0092cf10_shell::GetTemporaryModifier(char aWhich)
 {
     return _m.GetActorValueModifierAmount(aWhich);
 }
@@ -508,10 +508,10 @@ struct FUN_00937b30_shell
 };
 struct FUN_0092e9f0_shell
 {
-    void FUN_0092e9f0(unsigned int, class MobileObject*);
+    void RevertTES(unsigned int, class MobileObject*);
 };
 // @fnv 0x0092e9f0
-void FUN_0092e9f0_shell::FUN_0092e9f0(unsigned int aiFlags, class MobileObject* pmob)
+void FUN_0092e9f0_shell::RevertTES(unsigned int aiFlags, class MobileObject* pmob)
 {
     ((FUN_00910310_shell*)this)->ResetAndClear(aiFlags, pmob);
     if (aiFlags & 0x100000)
@@ -611,11 +611,11 @@ struct ModHack
 
 struct FUN_0092cf30_shell
 {
-    void FUN_0092cf30(Actor* apActor, int aiWhich, float afValue);
+    void DamageModActorValue(Actor* apActor, int aiWhich, float afValue);
 };
 
 // @fnv 0x0092cf30
-void FUN_0092cf30_shell::FUN_0092cf30(Actor* apActor, int aiWhich, float afValue)
+void FUN_0092cf30_shell::DamageModActorValue(Actor* apActor, int aiWhich, float afValue)
 {
     if (P09AV::GetFlag(aiWhich, 0x100))
         return;
@@ -932,7 +932,7 @@ struct MiddleLowProcess_92e560 : LowProcessBase_92e560
     int unkB4;
     SaveSizePart_92e560 unkB8;
 
-    void FUN_0092e560(unsigned int auiFlags, int aiArg);
+    void SaveGameTES(unsigned int auiFlags, int aiArg);
 };
 
 extern SaveLoadGame_92e560* g_TESSaveLoadGame;
@@ -942,7 +942,7 @@ void __cdecl DebugPrintf_92e560(const char* apFmt, ...);
 void __cdecl SaveWarning_92e560(const char* apFmt, ...);
 
 // @fnv 0x0092e560
-void MiddleLowProcess_92e560::FUN_0092e560(unsigned int auiFlags, int aiArg)
+void MiddleLowProcess_92e560::SaveGameTES(unsigned int auiFlags, int aiArg)
 {
     LowProcessBase_92e560::SaveGame(auiFlags, aiArg);
     unsigned short usBlockSize = 0;
@@ -1139,11 +1139,11 @@ struct Target92
     char pad[0xb4];
     unsigned field;
     Sub92 sub;
-    void FUN_0092e730(unsigned, unsigned, unsigned);
+    void LoadGameTES(unsigned, unsigned, unsigned);
 };
 // Calls the base handler, reads a 4-byte field from the save stream, logs a mismatch record, and compares stream position against a stored offset.
 // @fnv 0x0092e730
-void Target92::FUN_0092e730(unsigned flags, unsigned arg2, unsigned arg3)
+void Target92::LoadGameTES(unsigned flags, unsigned arg2, unsigned arg3)
 {
     ((Base92*)this)->FUN_0090fd80(flags, arg2, arg3);
     unsigned short a = 0;
@@ -1264,12 +1264,12 @@ struct Owner0092cec0
     int unkB4;
     Sub0092cec0 unkB8;
 
-    void FUN_0092cec0(int aiUnused, int aiIndex, float afValue);
+    void TempModActorValueF(int aiUnused, int aiIndex, float afValue);
 };
 
 // Returns when FUN_00406d70(aiIndex, 0x100) is true; otherwise calls unkB8.FUN_00937480(aiIndex, afValue, 2).
 // @fnv 0x0092cec0
-void Owner0092cec0::FUN_0092cec0(int aiUnused, int aiIndex, float afValue)
+void Owner0092cec0::TempModActorValueF(int aiUnused, int aiIndex, float afValue)
 {
     if (FUN_00406d70(aiIndex, 0x100))
         return;

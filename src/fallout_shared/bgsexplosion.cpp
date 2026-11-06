@@ -233,33 +233,33 @@ void* ScalarHelper::FUN_004facf0(unsigned int flags)
     return this;
 }
 
-int __cdecl FUN_0058e8f0(int);
+int __cdecl GetImpactMaterialType(int);
 struct Proxy804
 {
     BGSImpactData* GetImpactDataForMaterial(int);
-    BGSImpactData* FUN_004fb7a0(int);
+    BGSImpactData* GetImpactData(int);
 };
 // @fnv 0x004fb7a0
-BGSImpactData* Proxy804::FUN_004fb7a0(int a)
+BGSImpactData* Proxy804::GetImpactData(int a)
 {
-    return GetImpactDataForMaterial(FUN_0058e8f0(a));
+    return GetImpactDataForMaterial(GetImpactMaterialType(a));
 }
 
 struct FUN_004fb7a0_obj
 {
-    int FUN_004fb7a0(int);
+    int GetImpactData(int);
 };
 struct FUN_004fb7d0_shell
 {
     int FUN_004fb7d0(int);
 };
-// If the explosion object returned by FUN_00516bf0 exists, forwards a to its FUN_004fb7a0 and returns the result; otherwise returns 0.
+// If the explosion object returned by FUN_00516bf0 exists, forwards a to its GetImpactData and returns the result; otherwise returns 0.
 // @fnv 0x004fb7d0
 int FUN_004fb7d0_shell::FUN_004fb7d0(int a)
 {
     int result = 0;
     if (((BGSExplosion*)this)->FUN_00516bf0())
-        result = ((FUN_004fb7a0_obj*)((BGSExplosion*)this)->FUN_00516bf0())->FUN_004fb7a0(a);
+        result = ((FUN_004fb7a0_obj*)((BGSExplosion*)this)->FUN_00516bf0())->GetImpactData(a);
     return result;
 }
 
@@ -321,10 +321,10 @@ GlobalObject2_0040c150 g_011cdde0;
 struct FUN_004fb810_shell
 {
     int m_00a4;
-    int* FUN_004fb810();
+    int* GetSoundLevelValue();
 };
 // @fnv 0x004fb810
-int* FUN_004fb810_shell::FUN_004fb810()
+int* FUN_004fb810_shell::GetSoundLevelValue()
 {
     int result = 0;
     switch (*reinterpret_cast<int*>(reinterpret_cast<char*>(this) + 0xa4))
@@ -364,7 +364,7 @@ struct FUN_0047bd70_shell
 
 struct FUN_00487450_shell
 {
-    void FUN_00487450();
+    void Save();
 };
 
 struct FUN_00485680
@@ -374,7 +374,7 @@ struct FUN_00485680
 
 struct FUN_00485e00_shell
 {
-    void FUN_00485e20(EndianConvertibleData*, int);
+    void __SaveData(EndianConvertibleData*, int);
 };
 
 struct FUN_004fd380_shell
@@ -404,7 +404,7 @@ void FUN_004fb3b0_shell::FUN_004fb3b0()
     reinterpret_cast<FUN_004891d0_obj*>(reinterpret_cast<unsigned char*>(this) + 0x3C)
         ->WriteToBuffer(0x4C444F4D, 0x54444F4D);
     reinterpret_cast<FUN_0047bd70_shell*>(reinterpret_cast<unsigned char*>(this) + 0x54)->FUN_0047bd70();
-    reinterpret_cast<FUN_00487450_shell*>(reinterpret_cast<unsigned char*>(this) + 0x68)->FUN_00487450();
+    reinterpret_cast<FUN_00487450_shell*>(reinterpret_cast<unsigned char*>(this) + 0x68)->Save();
 
     psaveLight = reinterpret_cast<EffectSetting*>(this)->GetCastSound();
     reinterpret_cast<EffectSetting*>(this)->SetCastSound(
@@ -433,7 +433,7 @@ void FUN_004fb3b0_shell::FUN_004fb3b0()
     if (_FUN_00401500())
         reinterpret_cast<EndianConvertibleData*>(reinterpret_cast<unsigned char*>(this) + 0x74)->Endian();
 
-    reinterpret_cast<FUN_00485e00_shell*>(this)->FUN_00485e20(
+    reinterpret_cast<FUN_00485e00_shell*>(this)->__SaveData(
         reinterpret_cast<EndianConvertibleData*>(reinterpret_cast<unsigned char*>(this) + 0x74), 0x34);
 
     if (_FUN_00401500())

@@ -194,7 +194,7 @@ class NiPSysOwnerA46
 {
   public:
     void CopyMemberData(NiPSysBaseA46* pkDest, void* pvProcess);
-    NiPSysBaseA46* FUN_00a46da0(void* pvProcess);
+    NiPSysBaseA46* CreateClone(void* pvProcess);
 };
 
 struct MemoryManager
@@ -321,7 +321,7 @@ struct NiTextKeyExtraDataStub : NiExtraDataBase
 {
     unsigned int m_uiNumKeys;
     TimedTextEntry* m_pKeys;
-    void __thiscall FUN_00a46e00(NiStream& stream);
+    void __thiscall LoadBinary(NiStream& stream);
 };
 
 struct BsStream
@@ -485,7 +485,7 @@ struct NiStream
 };
 
 // @fnv 0x00a46e00
-void __thiscall NiTextKeyExtraDataStub::FUN_00a46e00(NiStream& stream)
+void __thiscall NiTextKeyExtraDataStub::LoadBinary(NiStream& stream)
 {
     LoadBinaryBase(stream);
 

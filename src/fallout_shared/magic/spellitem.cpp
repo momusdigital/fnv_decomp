@@ -379,7 +379,7 @@ struct ActorValues
 float __cdecl ScaleBySettingBlend(float cost, int value, int adjustment);
 struct FUN_0040e520_shell
 {
-    int FUN_004065e0();
+    int GetAssociatedSkill();
     float GetTotalCost(Actor* caster);
     float FUN_0040e520(Actor* caster);
 };
@@ -397,7 +397,7 @@ float FUN_0040e520_shell::FUN_0040e520(Actor* caster)
         if (effectiveCaster)
         {
             cost =
-                ScaleBySettingBlend(cost, ((ActorValues*)((char*)effectiveCaster + 0xa4))->FUN_0066ef20(FUN_004065e0()),
+                ScaleBySettingBlend(cost, ((ActorValues*)((char*)effectiveCaster + 0xa4))->FUN_0066ef20(GetAssociatedSkill()),
                                     ((ActorValues*)((char*)effectiveCaster + 0xa4))->FUN_0066ef20(11));
         }
     }

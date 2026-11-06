@@ -36,7 +36,7 @@ struct MemoryManager
 };
 extern MemoryManager g_memoryManager;
 // @fnv 0x00aa23e0
-void __stdcall FUN_00aa23e0(void* pvMemory, int aiAllocationType, unsigned int stSizeInBytes)
+void __stdcall DeallocateExternal(void* pvMemory, int aiAllocationType, unsigned int stSizeInBytes)
 {
     if (aiAllocationType == 0x10)
     {
@@ -196,7 +196,7 @@ class BAA2420MemoryManager
 extern BAA2420MemoryManager g_kAA2420MemoryManager;
 
 // @fnv 0x00aa2420
-void* __stdcall FUN_00aa2420(void* pvMem, unsigned int& uiSize, unsigned char& ucAlignment, int aiAllocationType,
+void* __stdcall ReallocateExternal(void* pvMem, unsigned int& uiSize, unsigned char& ucAlignment, int aiAllocationType,
                              bool bProvideSize, unsigned int uiCurrentSize, const char* pcFile, int iLine,
                              const char* pcFunction)
 {

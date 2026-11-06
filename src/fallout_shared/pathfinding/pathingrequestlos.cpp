@@ -157,11 +157,11 @@ struct TESObjectREFR_GetFlags_Helper
 
 struct FUN_006e5b20_shell : public PathingRequestLOS_
 {
-    void FUN_006e5b20(BGSSaveFormBuffer* apSaveGameBuffer);
+    void SaveGame(BGSSaveFormBuffer* apSaveGameBuffer);
 };
 
 // @fnv 0x006e5b20
-void FUN_006e5b20_shell::FUN_006e5b20(BGSSaveFormBuffer* apSaveGameBuffer)
+void FUN_006e5b20_shell::SaveGame(BGSSaveFormBuffer* apSaveGameBuffer)
 {
     reinterpret_cast<StandIn5740*>(this)->FUN_006e3230(apSaveGameBuffer);
 

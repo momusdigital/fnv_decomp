@@ -70,7 +70,7 @@ void __cdecl FUN_007e65b0();
 struct FUN_007e66a0_cls
 {
     char _0[0x28];
-    void __thiscall FUN_007e66a0(int a, int b);
+    void __thiscall DoClick(int a, int b);
 };
 void __cdecl DestroyList(void*);
 struct FUN_007f69d0_Class

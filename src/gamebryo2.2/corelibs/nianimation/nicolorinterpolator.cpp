@@ -131,13 +131,13 @@ NiColorInterpolator* __fastcall NiColorInterpolatorConstructor(NiColorInterpolat
 
 struct FUN_00a3bd70_shell : public NiColorInterpolator
 {
-    void* FUN_00a3bd70();
+    void* GetRTTI();
 };
 
 extern "C" void* g_011f3730;
 
 // @fnv 0x00a3bd70
-void* FUN_00a3bd70_shell::FUN_00a3bd70()
+void* FUN_00a3bd70_shell::GetRTTI()
 {
     return &g_011f3730;
 }
@@ -511,14 +511,14 @@ struct FUN_00a3c270_cls
     unsigned int m_unk14;
     unsigned int m_unk18;
     unsigned int m_uiFilterValue;
-    void FUN_00a3cbf0(ViewerArray* out);
+    void GetViewerStrings(ViewerArray* out);
     void AppendColorProperties(ViewerArray* out);
 };
 
 // @fnv 0x00a3c270
 void FUN_00a3c270_cls::AppendColorProperties(ViewerArray* out)
 {
-    this->FUN_00a3cbf0(out);
+    this->GetViewerStrings(out);
     void* pValue = FUN_00a7d330(g_011f3730);
     unsigned int uiIndex = out->m_usNext;
     if (uiIndex >= out->m_usMax)

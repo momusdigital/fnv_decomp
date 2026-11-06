@@ -113,13 +113,13 @@ struct FUN_00aa14d0_cls : NiBinaryStreamBase
     unsigned char m_bGood;
 
     FUN_00aa14d0_cls(const char* name, unsigned int mode, unsigned int bufSize);
-    void FUN_00aa1b30(unsigned int);
+    void SetEndianSwap(unsigned int);
 };
 
 // @fnv 0x00aa14d0
 FUN_00aa14d0_cls::FUN_00aa14d0_cls(const char* name, unsigned int mode, unsigned int bufSize)
 {
-    FUN_00aa1b30(0);
+    SetEndianSwap(0);
     m_uiTotalFileSize = 0;
     m_eMode = mode;
     const char* openMode;

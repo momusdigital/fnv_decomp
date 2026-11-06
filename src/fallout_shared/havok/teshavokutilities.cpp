@@ -37,7 +37,7 @@ struct NiNode : public NiAVObject
 };
 struct bhkWorldObject
 {
-    float FUN_004b5400();
+    float GetMass();
 };
 struct bhkCollisionObject
 {
@@ -54,7 +54,7 @@ float FUN_0062c300(NiAVObject* object)
         bhkCollisionObject* pCollisionObject = bhkCollisionObject::GetFromNiAVObject(object);
         bhkWorldObject* pWorldObject = pCollisionObject ? pCollisionObject->FUN_006fa820() : 0;
         if (pWorldObject)
-            fmass += pWorldObject->FUN_004b5400();
+            fmass += pWorldObject->GetMass();
         NiNode* pnode = (NiNode*)object->GetAsNiNode();
         if (pnode && pnode->GetNumChildren())
         {
@@ -90,7 +90,7 @@ struct TESObjectREFR
 extern "C" void* __cdecl FUN_00c7fa90(void*);
 
 // @fnv 0x0062b4e0
-TESObjectREFR* __cdecl FUN_0062b4e0(void* object)
+TESObjectREFR* __cdecl GetCdBodyRef(void* object)
 {
     TESObjectREFR* result = 0;
     if (object)
@@ -116,7 +116,7 @@ struct W_0043b4f0
 {
     H0043b4d0 FUN_0043b4f0();
 };
-float __fastcall FUN_004b5400(void*);
+float __fastcall GetMass(void*);
 extern Setting_S originalRuntimeFloatSetting1034;
 extern Setting_S originalRuntimeFloatSetting1035;
 extern Setting_S originalRuntimeFloatSetting1036;
@@ -153,7 +153,7 @@ float FUN_0062b520(float value, bhkWorldObject* object, bool scale)
     }
     if (scale)
     {
-        float f = FUN_004b5400(object);
+        float f = GetMass(object);
         if (f < *originalRuntimeFloatSetting1038.Float())
             fMultiplier *= f / *originalRuntimeFloatSetting1038.Float();
     }

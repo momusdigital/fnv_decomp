@@ -8,13 +8,13 @@
 #include "../../include/layout_support.h"
 struct FUN_00c3a090_Class
 {
-    char __thiscall FUN_00c3a090(void* arg);
+    char __thiscall IsEqual(void* arg);
     char __thiscall IsSameAs(void* arg);
 };
 extern "C" void* g_01202828;
 struct FUN_00c3a610_Class
 {
-    void* __thiscall FUN_00c3a610();
+    void* __thiscall GetRTTI();
 };
 struct P03MM
 {
@@ -33,7 +33,7 @@ struct FUN_00c3b9e0_Class
 extern "C" void* g_012043e4;
 struct FUN_00c3ba70_Class
 {
-    void* __thiscall FUN_00c3ba70();
+    void* __thiscall GetRTTI();
 };
 int __cdecl FUN_00c3c200();
 extern const void* DAT_010c14e8;
@@ -78,7 +78,7 @@ struct FUN_00c35980_Class
 };
 struct FUN_00c3a080_Class
 {
-    void* __thiscall FUN_00c3a080(int arg);
+    void* __thiscall CreateClone(int arg);
 };
 struct NiTPrimitiveArray_unsigned_int_
 {
@@ -92,19 +92,19 @@ struct FUN_00c3a0c0_Class
 };
 struct FUN_00c3a100_Class
 {
-    void __thiscall FUN_00c3a100(int);
+    void __thiscall LinkObject(int);
 };
 struct FUN_00c3a110_Class
 {
-    void __thiscall FUN_00c3a110(int arg);
+    void __thiscall LoadBinary(int arg);
 };
 struct FUN_00c3a120_Class
 {
-    void __thiscall FUN_00c3a120(int);
+    void __thiscall SaveBinary(int);
 };
 struct FUN_00c3a130_Class
 {
-    char __thiscall FUN_00c3a130(void* arg);
+    char __thiscall RegisterStreamables(void* arg);
 };
 extern "C" void __cdecl operator delete(void*, unsigned int);
 struct FUN_00c3a140_Class
@@ -2771,7 +2771,7 @@ struct Owner39
     Node39* head;
     int tail;
     unsigned int count;
-    unsigned char FUN_00c39b00(void* arg);
+    unsigned char QPointWithin(void* arg);
 };
 
 inline Handler39* Pass39(Handler39* p)
@@ -2780,7 +2780,7 @@ inline Handler39* Pass39(Handler39* p)
 }
 
 // @fnv 0x00c39b00
-unsigned char Owner39::FUN_00c39b00(void* arg)
+unsigned char Owner39::QPointWithin(void* arg)
 {
     unsigned char Dir;
     Node39* CN;
@@ -2905,7 +2905,7 @@ class OwnerC39B
         HolderC39B* p = m_pkHolder;
         return p;
     }
-    int FUN_00c39bb0(void* pvArg);
+    int CheckBound(void* pvArg);
 
     int unk00;
     int unk04;
@@ -2962,7 +2962,7 @@ class OwnerC39B
 };
 
 // @fnv 0x00c39bb0
-int OwnerC39B::FUN_00c39bb0(void* pvArg)
+int OwnerC39B::CheckBound(void* pvArg)
 {
     int iResult = GetHolder()->GetTarget()->Process(pvArg);
     if (iResult != 1 && !m_kChildList.IsEmpty())
@@ -3102,14 +3102,14 @@ struct Node144
     int unkD4;
     unsigned int count;
     void FUN_005467e0();
-    void FUN_00c39d50();
+    void UpdateWorldBound();
     bool Flag80000()
     {
         return (unk30 & 0x80000) ? 1 : 0;
     }
 };
 // @fnv 0x00c39d50
-void Node144::FUN_00c39d50()
+void Node144::UpdateWorldBound()
 {
     const Bound144* a0;
     float aAcoustic;

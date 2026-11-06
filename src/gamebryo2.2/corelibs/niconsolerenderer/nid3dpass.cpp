@@ -3393,12 +3393,12 @@ struct TextureStageParameter
 };
 struct PassUpdate : NiD3DPass
 {
-    unsigned int FUN_00e7f990(unsigned int p1, unsigned int p2, unsigned int p3, unsigned int p4, unsigned int p5,
+    unsigned int SetupShaderPrograms(unsigned int p1, unsigned int p2, unsigned int p3, unsigned int p4, unsigned int p5,
                               unsigned int p6, unsigned int p7, unsigned int p8, unsigned int p9);
 };
 // Sets pixel and vertex shader programs and constants, configures texture stage states, and falls back to render entry or value when no vertex shader is present.
 // @fnv 0x00e7f990
-unsigned int PassUpdate::FUN_00e7f990(unsigned int apContext, unsigned int p2, unsigned int ap3, unsigned int ap4,
+unsigned int PassUpdate::SetupShaderPrograms(unsigned int apContext, unsigned int p2, unsigned int ap3, unsigned int ap4,
                                       unsigned int p5, unsigned int p6, unsigned int p7, unsigned int p8,
                                       unsigned int p9)
 {

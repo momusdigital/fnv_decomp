@@ -222,7 +222,7 @@ struct VUC_VehicleTarget
     virtual void f6() = 0;
     virtual void f7() = 0;
     virtual void f8() = 0;
-    virtual void FUN_00e378e0(void* world) = 0;
+    virtual void addToWorld(void* world) = 0;
 };
 
 struct VUC_VehicleInstance
@@ -239,14 +239,14 @@ struct VUC_VehicleInstance
     unsigned char m_auiShapeKeys[0x1c];
     VUC_VehicleTarget* m_target;
 
-    void FUN_00e378e0(void* world);
+    void addToWorld(void* world);
 };
 
 // @fnv 0x00e378e0
-void VUC_VehicleInstance::FUN_00e378e0(void* world)
+void VUC_VehicleInstance::addToWorld(void* world)
 {
     reinterpret_cast<VUC_World*>(world)->FUN_00c914d0(m_pEntity, 1);
-    m_target->FUN_00e378e0(world);
+    m_target->addToWorld(world);
 }
 
 struct VUC_DeltaTime
@@ -1135,7 +1135,7 @@ FUN_00e38b20* hkSourceE392::FUN_00e39210(const hkInputE392* pkInput, int iFlags)
 void __cdecl FUN_00e39190();
 
 // @fnv 0x00e392f0
-void __cdecl FUN_00e392f0()
+void __cdecl applyAction()
 {
     FUN_00e39190();
 }
@@ -1145,7 +1145,7 @@ struct VUC_TransmissionTarget10
     virtual void f1() = 0;
     virtual void f2() = 0;
     virtual void f3() = 0;
-    virtual void FUN_00e378e0(float dt, void* instance, void* transmission) = 0;
+    virtual void addToWorld(float dt, void* instance, void* transmission) = 0;
 };
 
 struct VUC_Transmission8
@@ -1160,7 +1160,7 @@ struct VUC_Transmission8
     float m_extra;
 };
 
-// Copies gear fields into the transmission, calls the target's FUN_00e378e0 with dt, this and the transmission, then copies four fields back.
+// Copies gear fields into the transmission, calls the target's addToWorld with dt, this and the transmission, then copies four fields back.
 // @fnv 0x00e36fa0
 void VUC_Instance::FUN_00e36fa0(float dt, VUC_Transmission& t) throw()
 {
@@ -1175,7 +1175,7 @@ void VUC_Instance::FUN_00e36fa0(float dt, VUC_Transmission& t) throw()
     s.m_extra = *reinterpret_cast<float*>(base + 0xd0);
 
     VUC_TransmissionTarget10* target = *reinterpret_cast<VUC_TransmissionTarget10**>(base + 0x2c);
-    target->FUN_00e378e0(dt, this, &t);
+    target->addToWorld(dt, this, &t);
 
     *reinterpret_cast<signed char*>(base + 0xcc) = s.m_iGearCapacity;
     *reinterpret_cast<signed char*>(base + 0xcd) = s.m_gear2;
@@ -2770,12 +2770,12 @@ struct S00e37880_Obj
     int unk14;
     S00e37880_Data* m_data;
 
-    float FUN_00e37880();
+    float calcMPH();
 };
 
 // Returns the length of m_data->m_vec scaled by 3600 / 1609.3, a metres-per-second to miles-per-hour conversion.
 // @fnv 0x00e37880
-float S00e37880_Obj::FUN_00e37880()
+float S00e37880_Obj::calcMPH()
 {
     __m128 v = m_data->m_vec.squared();
     __m128 a = _mm_shuffle_ps(v, v, 0x55);

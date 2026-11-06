@@ -225,13 +225,13 @@ bool TESLoadScreen::MatchesFormLocation(TESForm* form)
 
 struct FUN_005a7110_shell : public TESLoadScreen
 {
-    bool FUN_005a7110();
+    bool IsDefaultLoadScreen();
 };
 
 bool __fastcall _ref_008256d0(void*);
 
 // @fnv 0x005a7110
-bool FUN_005a7110_shell::FUN_005a7110()
+bool FUN_005a7110_shell::IsDefaultLoadScreen()
 {
     return _ref_008256d0((char*)this + 0x2c);
 }

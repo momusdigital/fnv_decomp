@@ -5,7 +5,7 @@
 
 #include "tilerect.h"
 
-// Reconstruction of FUN_00a1f3b0 (0x00a1f3b0, 581 bytes) - a TileX method that
+// Reconstruction of MakeNode (0x00a1f3b0, 581 bytes) - a TileX method that
 // builds the node for a tile, names it after the tile, tags it and attaches a
 // Tile__Extra.  Class/field names the pack does not declare are stand-ins,
 // named after their offsets.
@@ -152,14 +152,14 @@ class TileX
     bool IsTraitNonZero(int iParent);
     float FUN_00a011b0(int iWhich, int iUnknown);
     void FUN_00a037e0(int iWhich, float fValue);
-    NiNode* FUN_00a1f3b0();
+    NiNode* MakeNode();
 };
 
 NiNode* FUN_00706d30();
 void FUN_00707930(int iValue);
 
 // @fnv 0x00a1f3b0
-NiNode* TileX::FUN_00a1f3b0()
+NiNode* TileX::MakeNode()
 {
     NiNode* pkParent = GetNiNode();
     unknown_2c = new NiNode(0);

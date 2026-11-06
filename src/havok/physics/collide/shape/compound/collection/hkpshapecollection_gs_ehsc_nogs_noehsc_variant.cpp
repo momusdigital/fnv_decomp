@@ -13,13 +13,13 @@ class hkpShapeCollection_L
 {
   public:
     virtual ~hkpShapeCollection_L();
-    virtual int FUN_00d213d0();
+    virtual int getContainer();
 };
 extern char const* const DAT_01268910;
 void __cdecl FUN_00c90360(char const* const* first, char const* const* second);
 void __cdecl FUN_00d213e0(char const* const* first, char const* const* ignored);
 void __stdcall FUN_00d213f0(int, int);
-void __stdcall FUN_00d21400(int a1);
+void __stdcall initWeldingInfo(int a1);
 struct Allocator
 {
     virtual void vfn0();
@@ -101,7 +101,7 @@ class FUN_00d21450_Class : public hkpShape
     char unk16;
     char unk17;
 
-    hkBoolRet FUN_00d21450(const ShapeRayCastQuery& input, ShapeRayCastOutput& output) const;
+    hkBoolRet castRayImpl(const ShapeRayCastQuery& input, ShapeRayCastOutput& output) const;
 };
 struct ShapeRayCastQuery
 {
@@ -198,7 +198,7 @@ class hkPackedNiTriStripsShape_StandIn : public hkpShapeCollection
     virtual ~hkPackedNiTriStripsShape_StandIn();
     virtual void Unk04();
     virtual int First();
-    virtual float FUN_00d216e0(int arg);
+    virtual float getMaximumProjection(int arg);
     virtual void Unk10();
     virtual void Unk14();
 };

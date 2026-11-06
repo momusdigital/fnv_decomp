@@ -12,7 +12,7 @@ struct FUN_008d34b0_shell : public Character
 };
 struct FUN_008d34d0_shell : public Character
 {
-    void FUN_008d34d0(BGSLoadFormBuffer*);
+    void FinishLoadGame(BGSLoadFormBuffer*);
 };
 struct FUN_008d34f0_shell : public Character
 {
@@ -26,7 +26,7 @@ struct FUN_009dcc80_target
 struct FUN_008b3b30_shell
 {
     NiPoint3* GetAddTopicList();
-    NiPoint3 FUN_008b3b30(float f);
+    NiPoint3 GetAnticipatedLocation(float f);
 };
 struct FUN_008d1e70_t
 {
@@ -38,7 +38,7 @@ struct FUN_008d1f10_shell : public Character
     void FUN_008d2060();
     FUN_008d1f10_shell* FUN_008d1f10(unsigned int aiFlags);
 };
-int __cdecl FUN_00646310(void*, int, float*, float*);
+int __cdecl CalcHandToHandDamage(void*, int, float*, float*);
 struct FUN_008d24a0_shell : public Character
 {
     int FUN_008d24a0();
@@ -82,7 +82,7 @@ struct BGSSaveFormBuffer
 };
 struct FUN_008d33a0_shell : public Character
 {
-    void FUN_008aaf40(BGSSaveFormBuffer*);
+    void AppendSaveLoadFormBuffer(BGSSaveFormBuffer*);
     void SaveFormData(BGSSaveFormBuffer*);
 };
 struct FUN_009396f0_shell
@@ -201,7 +201,7 @@ struct Slot12cHolder
 };
 struct FUN_008b1910_shell
 {
-    TESObjectREFR* FUN_008b1910(TESObjectREFR* apRefr, TESObjectREFR*& apOutRefr);
+    TESObjectREFR* SetUpTalkingActivatorActor(TESObjectREFR* apRefr, TESObjectREFR*& apOutRefr);
 };
 struct TopicH
 {
@@ -226,7 +226,7 @@ struct Point3 : public NiPoint3
 };
 struct FUN_00968690_shell : public Character
 {
-    NiPoint3 FUN_00968690(float f);
+    NiPoint3 GetAnticipatedLocation(float f);
 };
 struct SoundPlaybackHandle
 {
@@ -1739,10 +1739,10 @@ struct XAObj
 {
     void FUN_00826b40(int);
     void FUN_00826b90(int);
-    void FUN_00671d30(void*);
+    void SetPackageLocation(void*);
     void FUN_00984f60(int);
     void* FUN_00671d10(int);
-    void FUN_00672fc0(void*);
+    void SetPackageTarget(void*);
 };
 struct XPObj
 {
@@ -2380,8 +2380,8 @@ struct XObj
     virtual void v2ec();
     virtual void v2f0();
     virtual void Finish(XAObj*, int, int);
-    void FUN_009694d0(void* arg0);
-    void FUN_005cc7a0(int);
+    void CannibalizeActor(void* arg0);
+    void SetAIControlledPackage(int);
     void FUN_00950340(int);
     XUpdatable* FUN_008d8520();
     void* unk04[25];
@@ -2548,7 +2548,7 @@ class TESObjectCLOT : public TESBoundObject
 };
 struct InventoryEntryWeight534
 {
-    double FUN_004bd400();
+    double GetItemValue();
 };
 struct EquipmentList534
 {
@@ -2584,10 +2584,10 @@ float Character534::FUN_008d3110()
                 clothing = dynamic_cast<TESObjectCLOT*>(item9->FUN_0044ddc0());
                 if (armor7)
                     weight +=
-                        ((InventoryEntryWeight534*)item9)->FUN_004bd400() * *DAT_011d0ca8.Get() + *DAT_011d1104.Get();
+                        ((InventoryEntryWeight534*)item9)->GetItemValue() * *DAT_011d0ca8.Get() + *DAT_011d1104.Get();
                 else if (clothing)
                     weight +=
-                        ((InventoryEntryWeight534*)item9)->FUN_004bd400() * *DAT_011d0d14.Get() + *DAT_011d043c.Get();
+                        ((InventoryEntryWeight534*)item9)->GetItemValue() * *DAT_011d0d14.Get() + *DAT_011d043c.Get();
                 // GetEquippedItem returns an owned temporary inventory entry.
                 delete item9;
                 item9 = 0;

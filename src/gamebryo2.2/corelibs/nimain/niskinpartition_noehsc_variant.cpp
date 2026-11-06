@@ -950,7 +950,7 @@ class SaverA83C : public FUN_00a89af0_helper
     unsigned int m_uiCount;
     ElemA83C* m_pkElems;
 
-    void FUN_00a83ce0(NiStreamA83C& kStream);
+    void SaveBinary(NiStreamA83C& kStream);
 };
 
 struct LBBinaryStream

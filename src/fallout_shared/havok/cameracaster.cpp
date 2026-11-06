@@ -155,11 +155,11 @@ void __fastcall FUN_00626870(void*);
 
 struct FUN_00621120_shell : public FUN_00621060_shell
 {
-    void __thiscall FUN_00621120();
+    void __thiscall reset();
 };
 
 // @fnv 0x00621120
-void __thiscall FUN_00621120_shell::FUN_00621120()
+void __thiscall FUN_00621120_shell::reset()
 {
     FUN_00626870(reinterpret_cast<void*>(reinterpret_cast<char*>(this) + 0x10));
     SetValue();
@@ -263,13 +263,13 @@ struct FUN_00620ff0 : Base_620ff0
 
     FUN_00620ff0();
     virtual void v00();
-    void FUN_00621120();
+    void reset();
 };
 
 // @fnv 0x00620ff0
 FUN_00620ff0::FUN_00620ff0() : m_10(0)
 {
-    FUN_00621120();
+    reset();
 }
 
 extern int DAT_0104da28;

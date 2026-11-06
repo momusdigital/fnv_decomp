@@ -26,7 +26,7 @@ class NiPoint3_S
     }
 };
 
-__declspec(noalias) void FUN_00525340(NiPoint3_S& kPt);
+__declspec(noalias) void UnitizeVector(NiPoint3_S& kPt);
 void NormalizePoints(NiPoint3_S* pkV, unsigned int uiElementCount, unsigned int uiStride);
 
 class S_00a8ab40_NiTriStripsData
@@ -93,7 +93,7 @@ void S_00a8ab40_NiTriStripsData::GenerateNormals()
             NiPoint3_S kEdge1 = kVertex1 - kVertex0;
             NiPoint3_S kEdge2 = kVertex2 - kVertex1;
             NiPoint3_S kNormal = kEdge1.Cross(kEdge2);
-            FUN_00525340(kNormal);
+            UnitizeVector(kNormal);
 
             m_pkNormal[usIndex0] += kNormal;
             m_pkNormal[usIndex1] += kNormal;

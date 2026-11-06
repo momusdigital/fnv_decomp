@@ -169,7 +169,7 @@ class TESObjectBound
   public:
     TESBoundPoint min, max;
     void FUN_0050e9c0();
-    void FUN_0050ed30();
+    void Endian();
 };
 class TESObjectREFR;
 class NiAVObject;

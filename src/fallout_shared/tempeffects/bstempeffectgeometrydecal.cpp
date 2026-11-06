@@ -668,12 +668,12 @@ struct DecalEffect_cls
     int unk30;
     Obj_cls m_34;
     bool FUN_006828a0(float f);
-    bool FUN_006888a0(float f);
+    bool Update(float f);
 };
 
 // If m_28 is clear, runs FUN_006828a0(f), sets a node's 0xbc float to m_10/m_08, and when m_10 > m_08 links m_34/m_1c objects and sets m_28.
 // @fnv 0x006888a0
-bool DecalEffect_cls::FUN_006888a0(float afValue)
+bool DecalEffect_cls::Update(float afValue)
 {
     Obj_cls* outTmp;
     bool ok5;
@@ -2324,11 +2324,11 @@ struct NiTriShape
     void AssignFixedString(const NiFixedString& s);
     void FUN_00439410(void* b);
     void* FUN_005495f0(ObjC* c, int a, int b, int d, int e, int f, int g);
-    void FUN_004adde0(ObjD* d);
+    void SetSkinInstance(ObjD* d);
     void FUN_00440460(int v);
     void FUN_0043fa80(int v);
     void FUN_00440490(float v);
-    void FUN_004f00e0(int v);
+    void SetWorldTranslate(int v);
     void FUN_00688430(NineDw* p);
     void SetValue(float v);
     void FUN_00a5a040();
@@ -2542,7 +2542,7 @@ void DDecal::CreateDecalGeometry(DGeometry* geom, unsigned short ausVertexCount,
     if (apNewPartition)
     {
         arr1->FUN_004addc0(apNewPartition);
-        objA->FUN_004adde0(arr1);
+        objA->SetSkinInstance(arr1);
     }
     else
     {
@@ -2551,7 +2551,7 @@ void DDecal::CreateDecalGeometry(DGeometry* geom, unsigned short ausVertexCount,
         if (val->FUN_00a84980(objA->FUN_005495f0(textObj, 0x12, 4, 1, 0, 0, 0)))
         {
             arr1->FUN_004addc0(val);
-            objA->FUN_004adde0(arr1);
+            objA->SetSkinInstance(arr1);
         }
         else
         {
@@ -2562,7 +2562,7 @@ void DDecal::CreateDecalGeometry(DGeometry* geom, unsigned short ausVertexCount,
     objA->FUN_00440460(((GeomX*)geometry.FUN_00559450())->FUN_0043c490());
     objA->FUN_0043fa80(((GeomX*)geometry.FUN_00559450())->FUN_006a9540());
     objA->FUN_00440490(((GeomX*)geometry.FUN_00559450())->GetFloatAt64());
-    objA->FUN_004f00e0(((GeomX*)geometry.FUN_00559450())->FUN_0045bb80());
+    objA->SetWorldTranslate(((GeomX*)geometry.FUN_00559450())->FUN_0045bb80());
     objA->FUN_00688430(((GeomX*)geometry.FUN_00559450())->FUN_00461130());
     objA->SetValue(((GeomX*)geometry.FUN_00559450())->FUN_008d01e0());
     objA->v47();
@@ -2781,12 +2781,12 @@ void __cdecl FUN_005b5e40(const char* pcMessage, const char* pcFile, int iLine);
 
 struct Decal688 : BSTempEffectGeometryDecal
 {
-    void FUN_00688b00();
+    void SaveGameTES();
 };
 
 // Writes a BLOK-tagged save block for the decal, logs the record size and form info, and back-patches the block size.
 // @fnv 0x00688b00
-void Decal688::FUN_00688b00()
+void Decal688::SaveGameTES()
 {
     unsigned short usSize = 0;
     char* pcSizePos = 0;
@@ -2956,12 +2956,12 @@ struct DecalLoad688Runtime
 void __cdecl FUN_005b5e40(const char* format, ...);
 struct DecalLoad688 : BSTempEffectGeometryDecal
 {
-    bool FUN_00688c90();
+    bool LoadGameTES();
 };
 
 // Reads a four-byte marker and two-byte value, then logs when the current buffer position differs from their sum.
 // @fnv 0x00688c90
-bool DecalLoad688::FUN_00688c90()
+bool DecalLoad688::LoadGameTES()
 {
     bool result5 = 1;
     unsigned short count = 0;

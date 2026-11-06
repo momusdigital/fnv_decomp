@@ -4675,7 +4675,7 @@ struct ResourceUpdate
 ResourceUpdate* FUN_004b5260(SceneNode*);
 void FUN_00c6a350(SceneNode*, int, bool, bool, bool);
 NiPoint3 FUN_004a3760(float, const NiPoint3&);
-void FUN_00525340(NiPoint3&);
+void UnitizeVector(NiPoint3&);
 double FUN_00408820(float);
 float SignOfFloat(float);
 struct MovementState
@@ -4918,8 +4918,8 @@ bool MovementController::UpdateAnimation(AnimationOutput* output)
     if (!DAT_011de45c->FUN_0047c850())
     {
         NiPoint3 aRotation = FUN_004a3760(-1.0f, velocity);
-        FUN_00525340(aRotation);
-        FUN_00525340(state->direction);
+        UnitizeVector(aRotation);
+        UnitizeVector(state->direction);
         float scale = state->direction.DotProduct(aRotation);
         NiPoint3 normal7 = FUN_004a3760(2.0f, FUN_004a3760(scale, state->direction) - aRotation);
         aRotation += normal7;
@@ -4931,7 +4931,7 @@ bool MovementController::UpdateAnimation(AnimationOutput* output)
         if (FUN_00408820(normal.y) > FUN_00408820(normal.z))
             normal.z = FUN_00408820(normal.y) * SignOfFloat(normal.z);
         normal.y = 0.0f;
-        FUN_00525340(normal);
+        UnitizeVector(normal);
         NiPoint3 angle(*DAT_011cedac.Float() * normal.z, 0.0f, *DAT_011cedac.Float() * -normal.x);
         output->FUN_00561630(getNode()->FUN_00461130().FUN_004b4500(angle));
     }

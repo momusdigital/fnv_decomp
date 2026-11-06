@@ -554,10 +554,10 @@ struct FNStub
 };
 struct FUN_004543a0_Class
 {
-    const char* FUN_004543a0();
+    const char* GetWaterNoiseTextureName();
 };
 // @fnv 0x004543a0
-const char* FUN_004543a0_Class::FUN_004543a0()
+const char* FUN_004543a0_Class::GetWaterNoiseTextureName()
 {
     return ((FNStub*)((char*)this + 0x58))->GetFullName();
 }
@@ -2250,7 +2250,7 @@ extern GlobalObject_0045d060 g_011c3ec0;
 void __cdecl SetFloatAt(int, float);
 // Reads floats from three global objects and passes them to SetFloatAt with several slot indices.
 // @fnv 0x004506b0
-void FUN_004506b0()
+void InitFadeOutMultipliers()
 {
     float v;
     v = *g_011c3d0c.Float();
@@ -2392,11 +2392,11 @@ struct CP_008c48d0
 };
 struct S554910
 {
-    void FUN_00554910();
+    void ToggleCollisionGeometry();
 };
 struct Sbad40
 {
-    void FUN_004bad40();
+    void ToggleCollisionGeometry();
 };
 struct S_456a60
 {
@@ -2405,18 +2405,18 @@ struct S_456a60
     Sbad40* m8;
     void FUN_00456a60();
 };
-// Gets the previous path object; if it exists it calls FUN_00554910 on it, otherwise calls FUN_004bad40 on m8.
+// Gets the previous path object; if it exists it calls ToggleCollisionGeometry on it, otherwise calls ToggleCollisionGeometry on m8.
 // @fnv 0x00456a60
 void S_456a60::FUN_00456a60()
 {
     S554910* p = (S554910*)((CP_008c48d0*)this)->GetPrevPath();
     if (p)
     {
-        p->FUN_00554910();
+        p->ToggleCollisionGeometry();
     }
     else
     {
-        m8->FUN_004bad40();
+        m8->ToggleCollisionGeometry();
     }
 }
 }  // namespace fnv_00456a60
@@ -2434,16 +2434,16 @@ struct FUN_00541570_shell
 };
 struct FUN_00457880_Class
 {
-    FUN_00541570_shell* __thiscall FUN_00457720(int);
-    unsigned int __thiscall FUN_00457880(int);
+    FUN_00541570_shell* __thiscall GetLandTexture(int);
+    unsigned int __thiscall GetLandMaterialType(int);
 };
 // @fnv 0x00457880
-unsigned int __thiscall FUN_00457880_Class::FUN_00457880(int arg)
+unsigned int __thiscall FUN_00457880_Class::GetLandMaterialType(int arg)
 {
     unsigned int pRes;
     FUN_00541570_shell* pObj;
     pRes = 2;
-    pObj = FUN_00457720(arg);
+    pObj = GetLandTexture(arg);
     if (pObj)
         pRes = pObj->GetField1C();
     return pRes;
@@ -2469,12 +2469,12 @@ struct NiAVObject
 {
     NiAVObject* CloneObject(CloningProcess&);
 };
-void __cdecl FUN_00457a00(NiAVObject*);
+void __cdecl CloneModelData(NiAVObject*);
 struct FUN_00457ba0_class
 {
     NiAVObject* __thiscall FUN_00457ba0(NiAVObject* apObject, CloningProcess* arCloneData);
 };
-// Clones apObject using arCloneData, passes the clone to FUN_00457a00, and returns it (or null if apObject is null).
+// Clones apObject using arCloneData, passes the clone to CloneModelData, and returns it (or null if apObject is null).
 // @fnv 0x00457ba0
 NiAVObject* __thiscall FUN_00457ba0_class::FUN_00457ba0(NiAVObject* apObject, CloningProcess* arCloneData)
 {
@@ -2482,7 +2482,7 @@ NiAVObject* __thiscall FUN_00457ba0_class::FUN_00457ba0(NiAVObject* apObject, Cl
     if (apObject)
     {
         pClonedObject = apObject->CloneObject(*arCloneData);
-        FUN_00457a00(pClonedObject);
+        CloneModelData(pClonedObject);
     }
     return pClonedObject;
 }
@@ -2523,19 +2523,19 @@ struct HelperD0_458840
 };
 struct Helper80_458840
 {
-    void __thiscall FUN_00458880(void* a, void* b);
+    void __thiscall setAdd4(void* a, void* b);
 };
 struct FUN_00458840_Class
 {
     void __thiscall FUN_00458840();
 };
-// If IsSubCallZero returns true, calls FUN_00458880 on the sub-object at offset 0x10 with this and the pointer at offset 0x90.
+// If IsSubCallZero returns true, calls setAdd4 on the sub-object at offset 0x10 with this and the pointer at offset 0x90.
 // @fnv 0x00458840
 void __thiscall FUN_00458840_Class::FUN_00458840()
 {
     if (((HelperD0_458840*)this)->IsSubCallZero())
     {
-        ((Helper80_458840*)((char*)this + 0x10))->FUN_00458880(this, (void*)((char*)this + 0x90));
+        ((Helper80_458840*)((char*)this + 0x10))->setAdd4(this, (void*)((char*)this + 0x90));
     }
 }
 
@@ -2674,15 +2674,15 @@ struct FUN_0045c4e0_This
 {
     unsigned char pad[0xCC];
     int fieldCC;
-    void __thiscall FUN_0045c520();
+    void __thiscall FreeCompoundFrustum();
     void __thiscall SetFieldCC(int);
 };
-// If fieldCC is set and differs from a, calls FUN_0045c520, then stores a into fieldCC.
+// If fieldCC is set and differs from a, calls FreeCompoundFrustum, then stores a into fieldCC.
 // @fnv 0x0045c4e0
 void __thiscall FUN_0045c4e0_This::SetFieldCC(int aiValue)
 {
     if (fieldCC != 0 && fieldCC != aiValue)
-        FUN_0045c520();
+        FreeCompoundFrustum();
     fieldCC = aiValue;
 }
 
@@ -2996,12 +2996,12 @@ struct FUN_004e1650
 
 struct FUN_00450c50_Class
 {
-    void FUN_00450c50();
+    void InitializeWater();
 };
 
 // Constructs a new FUN_004e1650 object and stores its pointer at offset 0x64 of this object.
 // @fnv 0x00450c50
-void FUN_00450c50_Class::FUN_00450c50()
+void FUN_00450c50_Class::InitializeWater()
 {
     AutoMemHelper autoMemHelper(0x1d, true, "D:\\_Fallout3\\Platforms\\Common\\Code\\Fallout Shared\\TES.cpp", 0x286);
     *reinterpret_cast<void**>(reinterpret_cast<unsigned char*>(this) + 0x64) = new FUN_004e1650;
@@ -3087,7 +3087,7 @@ struct Vector3
 
 struct TESObjectLAND
 {
-    Vector3* FUN_0053a5e0();
+    Vector3* GetMainTexture();
 };
 
 struct FakeCell
@@ -3097,8 +3097,8 @@ struct FakeCell
 
 struct FUN_00451900_shell
 {
-    FakeCell* FUN_00451900(int, int);
-    Vector3* __thiscall FUN_00457720(const Vector2*);
+    FakeCell* GetGridCellCell(int, int);
+    Vector3* __thiscall GetLandTexture(const Vector2*);
 };
 
 int __cdecl _TruncateFloatToInt(float);
@@ -3108,7 +3108,7 @@ extern int DAT_0118608c;
 extern Vector3* DAT_011c3ef8;
 
 // @fnv 0x00457720
-Vector3* __thiscall FUN_00451900_shell::FUN_00457720(const Vector2* position)
+Vector3* __thiscall FUN_00451900_shell::GetLandTexture(const Vector2* position)
 {
     Vector3* yBlock = 0;
     int y8 = _TruncateFloatToInt(position->x);
@@ -3133,11 +3133,11 @@ Vector3* __thiscall FUN_00451900_shell::FUN_00457720(const Vector2* position)
     {
         int cellXVal = y8 >> 12;
         int cellY = xBlock >> 12;
-        FakeCell* cell7 = FUN_00451900(cellXVal, cellY);
+        FakeCell* cell7 = GetGridCellCell(cellXVal, cellY);
 
         if (cell7)
         {
-            yBlock = cell7->GetLandscape(position)->FUN_0053a5e0();
+            yBlock = cell7->GetLandscape(position)->GetMainTexture();
 
             if (yBlock)
             {
@@ -3877,7 +3877,7 @@ class B456AA0TES
 {
   public:
     B456AA0Cell* IsCellInterior();
-    void FUN_00456aa0();
+    void TogglePrimitives();
 
     int unk00;
     int unk04;
@@ -3885,7 +3885,7 @@ class B456AA0TES
 };
 
 // @fnv 0x00456aa0
-void B456AA0TES::FUN_00456aa0()
+void B456AA0TES::TogglePrimitives()
 {
     B456AA0Cell* pkCell = IsCellInterior();
     bool bToggled = (*g_kB456AA0Setting.Bool() = !*g_kB456AA0Setting.Bool());
@@ -3911,10 +3911,10 @@ int __cdecl FUN_00406d50(char* dst, unsigned int size, const char* src);
 bhkWorld* __fastcall FUN_004543c0(TESObjectCELL* cell);
 struct Stand_456b10
 {
-    void FUN_00456b10(const char* name);
+    void SaveWorld(const char* name);
 };
 // @fnv 0x00456b10
-void Stand_456b10::FUN_00456b10(const char* name)
+void Stand_456b10::SaveWorld(const char* name)
 {
     if (name)
     {
@@ -4024,7 +4024,7 @@ class NiNodeS : public NiAVObjectV
 };
 
 // @fnv 0x00457a00
-void __cdecl FUN_00457a00(NiAVObject* apObject)
+void __cdecl CloneModelData(NiAVObject* apObject)
 {
     NiPointer<NiGeometryData> spCopy2(0);
     NiGeometry* pGeom = 0;
@@ -4055,7 +4055,7 @@ void __cdecl FUN_00457a00(NiAVObject* apObject)
             {
                 unsigned int i2 = pNode->GetArrayCount();
                 while (i2--)
-                    FUN_00457a00(pNode->GetAt(i2));
+                    CloneModelData(pNode->GetAt(i2));
             }
         }
     }
@@ -4778,7 +4778,7 @@ ShutdownScene* __cdecl FUN_00450b80(int);
 void __cdecl FUN_00b60040();
 void __cdecl FUN_00527f40();
 void __cdecl FUN_00651e30();
-void __cdecl FUN_00664cd0(int);
+void __cdecl ClearModelCache(int);
 void __cdecl FUN_0068b4a0();
 void __cdecl ClearGlobalArray();
 void __cdecl FUN_00c459d0(int);
@@ -4810,7 +4810,7 @@ struct FUN_00450770
     ShutdownQueuePointer queueAC;
     int fieldb0, fieldb4, fieldb8, fieldbc;
     ShutdownPointer pointerC0;
-    void FUN_004539a0(int, int);
+    void ClearAllCells(int, int);
     void ClearList();
     void FUN_00458f90();
     void FUN_0045ac80();
@@ -4833,11 +4833,11 @@ FUN_00450770::~FUN_00450770()
     field1c = 0;
     field68 = 0;
     g_011e0e80.FUN_00977540();
-    FUN_004539a0(0, 0);
+    ClearAllCells(0, 0);
     ClearList();
     FUN_00458f90();
     FUN_00651e30();
-    FUN_00664cd0(0);
+    ClearModelCache(0);
     FUN_0045ac80();
     LoadStartMenuModels();
     ClearQueuedFile();
@@ -4935,8 +4935,8 @@ struct Vec08
 };
 struct Proxy08
 {
-    Vec08& FUN_004585f0(Vec08&);
-    Vec08& FUN_004587f0(Vec08&);
+    Vec08& GetFrom(Vec08&);
+    Vec08& GetTo(Vec08&);
 };
 struct NavMeshPtr
 {
@@ -4971,16 +4971,16 @@ struct GlobalObject_00e98f20
 struct Source08
 {
     void* FUN_0084e3a0();
-    void* FUN_004584d0(Proxy08*);
+    void* PickNI(Proxy08*);
 };
 // @fnv 0x004584d0
-void* Source08::FUN_004584d0(Proxy08* proxy)
+void* Source08::PickNI(Proxy08* proxy)
 {
     Vec08 start;
     Vec08 delta;
     Vec08 pick;
-    proxy->FUN_004585f0(delta);
-    proxy->FUN_004587f0(pick);
+    proxy->GetFrom(delta);
+    proxy->GetTo(pick);
     start = pick - delta;
     GlobalObject_00e98f20 finish(0, 8);
     finish.FUN_00705fc0(FUN_0084e3a0());
@@ -5602,12 +5602,12 @@ struct S_0045c520
     int unkC8;
     FUN_0045c5f0_class* unkCC;
 
-    void FUN_0045c520();
+    void FreeCompoundFrustum();
 };
 
 // Calls FUN_0045c5f0(1) on unkCC if it is non-null, then sets unkCC to 0.
 // @fnv 0x0045c520
-void S_0045c520::FUN_0045c520()
+void S_0045c520::FreeCompoundFrustum()
 {
     FUN_0045c5f0_class* a = unkCC;
     FUN_0045c5f0_class* p = a;
@@ -6925,7 +6925,7 @@ class TESBipedModelForm
 
 struct BoundObjectModelLookup
 {
-    TESModel* __thiscall FUN_00446a60(TESForm* form, TESObjectREFR* reference);
+    TESModel* __thiscall GetModelForBoundObject(TESForm* form, TESObjectREFR* reference);
 };
 
 struct TESForm_GetFormType_Helper
@@ -6965,7 +6965,7 @@ struct TESObjectREFR_GetTESModel_Helper
 
 // Returns a TESModel for form: the reference's model if GetNext equals form, else a weapon, direct or biped model (sex from the reference's owner NPC).
 // @fnv 0x00446a60
-TESModel* BoundObjectModelLookup::FUN_00446a60(TESForm* form, TESObjectREFR* reference)
+TESModel* BoundObjectModelLookup::GetModelForBoundObject(TESForm* form, TESObjectREFR* reference)
 {
     TESModel* m_kModelObjectsItem;
     {

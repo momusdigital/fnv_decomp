@@ -73,10 +73,10 @@ struct HavokOperation
 {
     void FUN_00c8ad40(PrimitiveStringArray*);
     void FUN_00cc3a50(const OperationParameters*);
-    void FUN_00cc4070(PrimitiveStringArray*);
+    void GetViewerStrings(PrimitiveStringArray*);
 };
 // @fnv 0x00cc4070
-void HavokOperation::FUN_00cc4070(PrimitiveStringArray* array)
+void HavokOperation::GetViewerStrings(PrimitiveStringArray* array)
 {
     MemoryContextScope context;
     FUN_00c8ad40(array);

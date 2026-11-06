@@ -228,7 +228,7 @@ struct bhkBlendCollisionObject : FUN_00c6b910
         m_flag14 = 0;
     }
 
-    bhkBlendCollisionObject* FUN_00c81670(int value);
+    bhkBlendCollisionObject* CreateClone(int value);
 };
 struct NiGlobalStringTable
 {
@@ -1216,7 +1216,7 @@ struct FUN_00c85ac0_cls : BaseThunk
     int unk04;
     A_t* unk08;
 
-    void FUN_00c85ac0(NiStream* a);
+    void RegisterStreamables(NiStream* a);
 };
 struct TlsBlock_t
 {
@@ -2962,7 +2962,7 @@ struct FUN_00c89960_cls
     virtual void v44();
     virtual void* v45(unsigned int* p);
     void __thiscall FUN_00c878c0(unsigned int a);
-    void FUN_00c89960(unsigned int a1);
+    void GetViewerStrings(unsigned int a1);
 };
 class FUN_00c899b0_target
 {
@@ -4049,7 +4049,7 @@ struct bhkListShapeStub : bhkShapeCollectionBase
     int unk04;
     hkpListShapeStub* m_pHavokObject;
 
-    void FUN_00c8bcd0(ViewerStrings* pkStrings);
+    void GetViewerStrings(ViewerStrings* pkStrings);
 };
 static inline hkpListShapeStub* GetHkListShape(bhkListShapeStub* p)
 {
@@ -5111,7 +5111,7 @@ struct FUN_00c825b0_cls
     int unk20;
     int m_i24;
 
-    void FUN_00c66060(ViewerStrings* pkStrings);
+    void AddViewerStrings(ViewerStrings* pkStrings);
     void AddToViewerStrings(ViewerStrings* pkStrings);
 };
 struct FUN_00c84900_vtbl
@@ -5596,7 +5596,7 @@ class BC88760Derived : public BC88760Base
     virtual ~BC88760Derived();
 
     void CopyMemberData(BC88760Derived* pkDest, BC88760CloningProcess& kCloning);
-    BC88760Derived* FUN_00c88760(BC88760CloningProcess& kCloning);
+    BC88760Derived* CreateClone(BC88760CloningProcess& kCloning);
 };
 class NiNode;
 class NiAVObject;
@@ -7300,7 +7300,7 @@ struct C817D0Cls
     unsigned int m_28;
 
     void UpdateNodeState(int);
-    void FUN_00c65b00();
+    void NitohkTransform();
 };
 void __cdecl FUN_00c87670(int* param_1, unsigned int param_2);
 void __cdecl FUN_00c84cc0(int* param_1, unsigned int param_2);
@@ -7970,7 +7970,7 @@ struct FUN_00c819a0_holder
 void __cdecl FUN_00c8ff90();
 extern "C" void __cdecl FUN_00cb7610();
 void __cdecl FUN_00c8ffa0();
-extern void __cdecl FUN_00c819f0();
+extern void __cdecl SaveBinary();
 void __cdecl FUN_00c8ffb0();
 bool __cdecl FUN_00c815b0(C815B0Constraint* pkOther);
 bool __cdecl FUN_00c8ffc0(C815B0Constraint* pkOther);
@@ -7990,7 +7990,7 @@ class C90160Derived : public BC88760Base
     virtual ~C90160Derived();
 
     void FUN_00c81580(C90160Derived* destination, BC88760CloningProcess& cloning);
-    C90160Derived* FUN_00c90160(BC88760CloningProcess& cloning);
+    C90160Derived* CreateClone(BC88760CloningProcess& cloning);
 };
 void __cdecl FUN_00c90330();
 void __cdecl FUN_00c90340();
@@ -8139,7 +8139,7 @@ class FUN_00c819f0_cls
     unsigned int m_18;
     unsigned int m_1c;
     void Callee65820(int a1);
-    void FUN_00c819f0(int a1);
+    void SaveBinary(int a1);
 };
 struct MeshMemoryScope
 {
@@ -8573,7 +8573,7 @@ struct FUN_00c8aa80_cls : BaseThunk
     int unk00;
     int unk04;
     Mid* m_08;
-    void FUN_00c8aa80(NiStream* a);
+    void RegisterStreamables(NiStream* a);
 };
 extern unsigned int DAT_010c6234;
 struct Ffd0base
@@ -9032,7 +9032,7 @@ extern __declspec(thread) int DAT_tls_0x2c0;
 // TLS slot +0x2C0 (module index 0x126fd98)
 struct FUN_00c65b00_holder
 {
-    int __thiscall FUN_00c65b00();
+    int __thiscall NitohkTransform();
 };
 struct FUN_00a68bf0_holder
 {
@@ -10642,7 +10642,7 @@ struct bhkTransformShapeStub : FUN_00c825b0_cls
     int unk28;
     NiMatrix3Stub m_kAdditionalRotation;
 
-    void FUN_00c90240(ViewerStrings* pkStrings);
+    void AddViewerStrings(ViewerStrings* pkStrings);
 };
 extern const float DAT_01017870;
 extern const float DAT_010177e8;
@@ -11764,7 +11764,7 @@ class ListShapeSharingView : public bhkListShapeStub
         return this != 0 ? (ShareListData*)m_pHavokObject : 0;
     }
 
-    unsigned char FUN_00c8b440(int a1);
+    unsigned char CanShare(int a1);
 };
 
 union __declspec(intrin_type) __declspec(align(16)) __m128
@@ -12963,7 +12963,7 @@ struct BlendLocal
     TargetLocal* target;
     unsigned int unk28;
     void FUN_00c65f40(unsigned int, BodyLocal*, bool);
-    void FUN_00c65a80();
+    void hktoNiTransform();
     void FUN_00c81aa0();
     void FUN_00c81e30();
 };
@@ -13070,7 +13070,7 @@ void BlendLocal::FUN_00c81e30()
         break;
     }
     case 1:
-        FUN_00c65a80();
+        hktoNiTransform();
         break;
     case 2:
         Reset();
@@ -13746,7 +13746,7 @@ struct PairE610
 };
 
 // @fnv 0x00c9e610
-void __stdcall FUN_00c9e610(void* pvSource, const PairE610* pkPair, void* pvUnused)
+void __stdcall phantomEnterEvent(void* pvSource, const PairE610* pkPair, void* pvUnused)
 {
     EventE610 kEvent;
     kEvent.m_pvSource = pvSource;
@@ -14066,7 +14066,7 @@ inline WaterLeaveUserWorld* WaterLeaveGetUserWorld(WaterLeaveWorldObject* pkObje
 }
 
 // @fnv 0x00c9e670
-void __stdcall FUN_00c9e670(void* pArg, WaterLeaveCollidable* pkCollidable)
+void __stdcall phantomLeaveEvent(void* pArg, WaterLeaveCollidable* pkCollidable)
 {
     WaterLeaveContact kEvent;
     kEvent.rootCollidableA = pArg;
@@ -14176,7 +14176,7 @@ class RayHitCollectorE700
 };
 
 // @fnv 0x00c9e700
-void __stdcall FUN_00c9e700(const RayInputE700& kInput, const CdBodyE700& kBody, RayHitCollectorE700* pkCollector)
+void __stdcall castRayWithCollector(const RayInputE700& kInput, const CdBodyE700& kBody, RayHitCollectorE700* pkCollector)
 {
     ScopedMemoryCategory kScope;
     const ParentE700* pkParent = kBody.m_pParentNode;

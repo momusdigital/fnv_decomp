@@ -377,7 +377,7 @@ struct FUN_0048e370_obj
 
 struct FUN_00485e00_shell
 {
-    void FUN_00485e20(void*, int);
+    void __SaveData(void*, int);
 };
 
 struct TESModel
@@ -452,7 +452,7 @@ void FUN_005060f0Class::FUN_005060f0()
         reinterpret_cast<EffectShaderData*>(reinterpret_cast<char*>(this) + 0x18)->Endian();
     }
 
-    reinterpret_cast<FUN_00485e00_shell*>(this)->FUN_00485e20(reinterpret_cast<char*>(this) + 0x18, 0x134);
+    reinterpret_cast<FUN_00485e00_shell*>(this)->__SaveData(reinterpret_cast<char*>(this) + 0x18, 0x134);
 
     if (_FUN_00401500())
     {
@@ -683,7 +683,7 @@ struct Destination
     void FUN_005076c0(float);
     void FUN_005076e0(float);
     void FUN_00733fd0(float);
-    void FUN_00507700(float);
+    void SetMaxFarNearRatio(float);
     void FUN_00507720(float);
     void FUN_006d30e0(int);
     void FUN_00505e50(int);
@@ -736,7 +736,7 @@ void ShaderSettings::CopySettingsTo(Destination* apDestination, void* apTexture)
     apDestination->FUN_005076c0(Data.m_fShaderFloatParameter16);
     apDestination->FUN_005076e0(Data.m_fShaderFloatParameter7);
     apDestination->FUN_00733fd0(Data.m_fShaderFloatParameter8);
-    apDestination->FUN_00507700(Data.m_fShaderFloatParameter9);
+    apDestination->SetMaxFarNearRatio(Data.m_fShaderFloatParameter9);
     apDestination->FUN_00507720(Data.m_fShaderFloatParameter10);
     apDestination->FUN_006d30e0(Data.m_eAlphaSourceBlend);
     apDestination->FUN_00505e50(Data.m_eAlphaDestinationBlend);

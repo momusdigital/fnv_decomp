@@ -619,11 +619,11 @@ struct FUN_00cad900_cls {
     int m9c;
     int ma0;
 
-    void FUN_00cad900(FUN_00cad900_arg* a1, int a2);
+    void calcContentStatistics(FUN_00cad900_arg* a1, int a2);
 };
 
 // @fnv 0x00cad900
-void FUN_00cad900_cls::FUN_00cad900(FUN_00cad900_arg* apReporter, int aiUnused) {
+void FUN_00cad900_cls::calcContentStatistics(FUN_00cad900_arg* apReporter, int aiUnused) {
     if ((m7c & 0x80000000u) == 0 || apReporter->flag10 != 0) {
         int p = m74;
         int r = FUN_00d06f80(p, (m7c & 0x3fffffff) * 0x70);
@@ -1696,12 +1696,12 @@ struct S_00caf4d0_Tracker : S_00caf4d0_TrackerBase, S_00caf4d0_EntityListener, S
     void FUN_00cad480(const S_00caf4d0_Point* p) throw();
     int FUN_00cacf10(const S_00caf4d0_Point* p) throw();
 
-    void FUN_00caf4d0(const S_00caf4d0_Collector* input, const S_00caf4d0_Collector* extra, bool keepListeners) throw();
+    void updateManifold(const S_00caf4d0_Collector* input, const S_00caf4d0_Collector* extra, bool keepListeners) throw();
 };
 
 // Merges input and extra hit points into m_kPoints, deduplicates close points, and updates entity/phantom listener lists.
 // @fnv 0x00caf4d0
-void S_00caf4d0_Tracker::FUN_00caf4d0(const S_00caf4d0_Collector* input, const S_00caf4d0_Collector* extra, bool keepListeners) throw()
+void S_00caf4d0_Tracker::updateManifold(const S_00caf4d0_Collector* input, const S_00caf4d0_Collector* extra, bool keepListeners) throw()
 {
     if (!keepListeners)
     {
@@ -2263,11 +2263,11 @@ public:
     int unka0;
     int unka4;
     float m_fPenetrationRecoverySpeed;
-    void FUN_00cacd60(const S00cacd60_Hit& hit, S00cacd60_Surface& surface, float timeTravelled) const;
+    void extractSurfaceConstraintInfo(const S00cacd60_Hit& hit, S00cacd60_Surface& surface, float timeTravelled) const;
 };
 // Populates a Surface with friction, velocity and priority from a Hit and the proxy's friction and penetration recovery fields.
 // @fnv 0x00cacd60
-void S00cacd60_Proxy::FUN_00cacd60(const S00cacd60_Hit& hit, S00cacd60_Surface& surface, float timeTravelled) const {
+void S00cacd60_Proxy::extractSurfaceConstraintInfo(const S00cacd60_Hit& hit, S00cacd60_Surface& surface, float timeTravelled) const {
     surface.m_kTriangleNormal = hit.m_kPoint.getSeparatingNormal();
     surface.m_kTriangleNormal(3) -= static_cast<S00cacd60_Real>(m_fKeepDistance);
     surface.m_fStaticFriction = m_staticFriction38;

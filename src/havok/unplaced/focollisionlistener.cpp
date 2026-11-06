@@ -529,7 +529,7 @@ void S_006240f0::ApplyToCharacter(S_006240f0_Form* form, int arg)
 
 struct HitForm
 {
-    float FUN_004b4ea0();
+    float getMass();
 };
 struct HitRefTarget;
 HitRefTarget* __cdecl FUN_004b5a80(HitForm* pkForm);
@@ -729,7 +729,7 @@ void HitTrackerImpl::AddHitEntries(float fAmount, HitForm* pkFormA, HitForm* pkF
     if (pkActorA && pkActorA->FUN_00452370() && !pkActorA->FUN_00477ba0() && !pkActorA->IsDead() &&
         (!pkActorB || !pkActorB->IsDead()))
     {
-        float fScaleX = pkFormB->FUN_004b4ea0();
+        float fScaleX = pkFormB->getMass();
         if (fScaleX == 0.0)
             fScaleX = 10000.0f;
         float fValueVal2 = ComputeDistanceFactor(fScaleX, fAbs);
@@ -745,7 +745,7 @@ void HitTrackerImpl::AddHitEntries(float fAmount, HitForm* pkFormA, HitForm* pkF
     if (pkActorB && pkActorB->FUN_00452370() && !pkActorB->FUN_00477ba0() && !pkActorB->IsDead() &&
         (!pkActorA || !pkActorA->IsDead()))
     {
-        float fScale2 = pkFormA->FUN_004b4ea0();
+        float fScale2 = pkFormA->getMass();
         if (fScale2 == 0.0)
             fScale2 = 10000.0f;
         float fSecondFunctionValue = ComputeDistanceFactor(fScale2, fAbs);
@@ -840,7 +840,7 @@ struct Gen_623cb0
     void* GetLastNode();
     float FUN_00624050();
     int FUN_004b5980();
-    void* FUN_0043b540();
+    void* getCollisionFilterInfo();
     float FUN_00450410();
 };
 
@@ -914,8 +914,8 @@ void Owner_623cb0::ProcessHit(Rec_623cb0* apHitRecord)
         {
             Key_623cb0 key1;
             Key_623cb0 key8;
-            key1.FUN_008c71b0(((Gen_623cb0*)keyTmp)->FUN_0043b540());
-            key8.FUN_008c71b0(((Gen_623cb0*)entry)->FUN_0043b540());
+            key1.FUN_008c71b0(((Gen_623cb0*)keyTmp)->getCollisionFilterInfo());
+            key8.FUN_008c71b0(((Gen_623cb0*)entry)->getCollisionFilterInfo());
             if (key1.FUN_004a3a20() == key8.FUN_004a3a20())
             {
                 if (key1.FUN_00624070())

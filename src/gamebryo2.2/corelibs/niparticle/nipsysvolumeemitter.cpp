@@ -258,14 +258,14 @@ struct FUN_00c31db0_cls
 {
     char unk00[0x54];
     NameHolder_b9457* m_pHolder;
-    void FUN_00c22780(NameArray_b9457* arr);
+    void GetViewerStrings(NameArray_b9457* arr);
     void FUN_00c31db0(NameArray_b9457* arr);
 };
 
 // @fnv 0x00c31db0
 void FUN_00c31db0_cls::FUN_00c31db0(NameArray_b9457* arr)
 {
-    FUN_00c22780(arr);
+    GetViewerStrings(arr);
     void* name = FUN_00a7d330(DAT_012027d8);
     unsigned int uiIndex = arr->m_usNum;
     if (uiIndex >= arr->m_usMax)

@@ -64,10 +64,10 @@ struct S004f51c0
 {
     char pad[8];
     A00582380 lst;
-    void FUN_004f51c0();
+    void Save();
 };
 // @fnv 0x004f51c0
-void S004f51c0::FUN_004f51c0()
+void S004f51c0::Save()
 {
     ((A004f14c0*)this)->WriteSaveData();
     lst.WriteWeatherList(0x54574452);
@@ -81,10 +81,10 @@ struct FUN_004f5140_shell
 };
 struct FUN_004f5260_shell
 {
-    void* __thiscall FUN_004f5260();
+    void* __thiscall CreateCopy();
 };
 // @fnv 0x004f5260
-void* FUN_004f5260_shell::FUN_004f5260()
+void* FUN_004f5260_shell::CreateCopy()
 {
     FUN_004f5140_shell* pdata = new FUN_004f5140_shell(this);
     return pdata;

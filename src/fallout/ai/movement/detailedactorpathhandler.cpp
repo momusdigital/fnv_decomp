@@ -2172,7 +2172,7 @@ class Actor : public MobileObject
 {
   public:
     bool FUN_00437bd0();
-    bool FUN_00437bf0();
+    bool IsRestrained();
     float FUN_00897b50(int iType);
 };
 
@@ -2232,7 +2232,7 @@ bool FUN_009e2aa0_shell::FUN_009e2aa0(float fTimeDelta)
     unsigned int uiMoveFlags3;
     unsigned int uiOldFlagsVal;
 
-    if ((*(Actor**)((char*)this + 4))->FUN_00437bf0() || (*(Actor**)((char*)this + 4))->FUN_00437bd0())
+    if ((*(Actor**)((char*)this + 4))->IsRestrained() || (*(Actor**)((char*)this + 4))->FUN_00437bd0())
     {
         *(unsigned int*)((char*)this + 0x60) = 0;
         return true;
@@ -5240,10 +5240,10 @@ struct S009e2860
     virtual float vf6();
     char _pad[0x68];
     float m_fPathValue2;
-    float FUN_009e2860();
+    float GetDistanceRemaining();
 };
 // @fnv 0x009e2860
-float S009e2860::FUN_009e2860()
+float S009e2860::GetDistanceRemaining()
 {
     float flength;
     flength = m_fPathValue2 - vf6();
@@ -5273,10 +5273,10 @@ struct FakePathHandler
     }
     char _pad[0x68];
     float m_fPathValue2;
-    float FUN_009e28a0();
+    float GetPercentTraveled();
 };
 // @fnv 0x009e28a0
-float FakePathHandler::FUN_009e28a0()
+float FakePathHandler::GetPercentTraveled()
 {
     float fRatio;
     if (m_fPathValue2 <= _gModifierZero)
@@ -5312,11 +5312,11 @@ void FUN_009e3360_Class::SetMode(unsigned int mode)
 
 struct FUN_009e3be0_class
 {
-    bool FUN_009e3be0();
+    bool IsMovementBlocked();
 };
 
 // @fnv 0x009e3be0
-bool FUN_009e3be0_class::FUN_009e3be0()
+bool FUN_009e3be0_class::IsMovementBlocked()
 {
     return *(bool*)((char*)this + 0xde);
 }
@@ -9521,11 +9521,11 @@ struct PFThis
     bool bDD;
     bool bDE;
     bool bDF;
-    void FUN_009e8b50(Ctx* pOutput, int a2, int a3);
+    void PrintCurrentStatus(Ctx* pOutput, int a2, int a3);
 };
 // Writes the actor's position, pathing state, and avoidance state to pOutput using formatted strings.
 // @fnv 0x009e8b50
-void PFThis::FUN_009e8b50(Ctx* pOutput, int a2, int a3)
+void PFThis::PrintCurrentStatus(Ctx* pOutput, int a2, int a3)
 {
     char acDetailText[0x104];
     char acStateText[0x104];
@@ -10382,7 +10382,7 @@ class PathingRequest_1d50
 {
   public:
     unsigned char GetByteAtOffset9F();
-    bool FUN_00505c00();
+    bool GetFaceTargetAtGoal();
     float FUN_00507e10();
 };
 
@@ -10746,7 +10746,7 @@ int PackageProcW_1d50::FUN_009e1d50(int iUnused)
     }
     else
     {
-        if (m_pPathingRequest && ((PathingRequest_1d50*)m_pPathingRequest)->FUN_00505c00() && bAtEnd)
+        if (m_pPathingRequest && ((PathingRequest_1d50*)m_pPathingRequest)->GetFaceTargetAtGoal() && bAtEnd)
         {
             fHeading9 = ((PathingRequest_1d50*)m_pPathingRequest)->FUN_00507e10();
         }
@@ -10796,7 +10796,7 @@ struct EndRotateHandler : DetailedActorPathHandler
 // @fnv 0x009e7550
 bool EndRotateHandler::FUN_009e7550()
 {
-    if (((PathingRequest_1d50*)m_pPathingRequest.operator->())->FUN_00505c00() &&
+    if (((PathingRequest_1d50*)m_pPathingRequest.operator->())->GetFaceTargetAtGoal() &&
         ((MoverW_1d50*)m_pActorMover)->m_usPathCount + 1 ==
             ((PathingSolution_1d50*)pCurrentPathingSolution.operator->())->FUN_005a4320() &&
         pActor->Unk_85() != 4 && pActor->Unk_85() != 9)

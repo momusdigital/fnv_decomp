@@ -76,14 +76,14 @@ struct CStringArgument
     void* currentScript;
     BSSimpleList<void*> lines;
     BSSimpleList<ScriptReferencedObject*>* FUN_005d43c0();
-    bool FUN_005afad0(ScriptToken*, bool, bool);
+    bool GetReferencedObject(ScriptToken*, bool, bool);
 };
 TESForm* FUN_00483a00(const char*);
 TESForm* FUN_004839c0(unsigned int);
 unsigned int FUN_005afe10(const char*, char**, int);
 void ReportScriptError(CStringArgument*, const char*, ...);
 // @fnv 0x005afad0
-bool CStringArgument::FUN_005afad0(ScriptToken* token, bool variable, bool allowUnknown)
+bool CStringArgument::GetReferencedObject(ScriptToken* token, bool variable, bool allowUnknown)
 {
     bool result = false;
     unsigned int index = 1;
@@ -237,7 +237,7 @@ struct CompileState
     unsigned variableCount;
     bool partial;
     CompileVariables* FUN_005a8080();
-    bool FUN_005afad0(CompileWord*, bool, bool);
+    bool GetReferencedObject(CompileWord*, bool, bool);
     CompileReference* GetNodeValue(unsigned);
 };
 
@@ -277,7 +277,7 @@ extern unsigned DAT_011cadbc;
 
 extern const char* DAT_0118c594[];
 
-int FUN_005af5f0(CompileState*, CompileWord*, char*, unsigned*, unsigned char, int);
+int GetNextWord(CompileState*, CompileWord*, char*, unsigned*, unsigned char, int);
 
 int FUN_00404dc0(const char*, const char*);
 
@@ -289,7 +289,7 @@ void* FUN_00401460(void*, const void*, unsigned);
 
 void* FUN_00403d30(void*, int, unsigned);
 
-bool FUN_005afeb0(const char*);
+bool IsValidVariableName(const char*);
 
 bool FUN_005b1a90(const char*, unsigned);
 
@@ -353,7 +353,7 @@ bool LineCompiler::FUN_005aff40(CompileScript* script, CompileState* compiler, C
         break;
 
     case 16:
-        if (FUN_005af5f0(compiler, &word6, line->input, &line->inputOffset, 0, 0))
+        if (GetNextWord(compiler, &word6, line->input, &line->inputOffset, 0, 0))
         {
             int i;
             bool found7 = false;
@@ -456,11 +456,11 @@ bool LineCompiler::FUN_005aff40(CompileScript* script, CompileState* compiler, C
     case 19:
     case 20:
     case 31:
-        if (FUN_005af5f0(compiler, &word6, line->input, &line->inputOffset, 0, 0))
+        if (GetNextWord(compiler, &word6, line->input, &line->inputOffset, 0, 0))
         {
             const char* variableName1 = word6.text;
 
-            if (!FUN_005afeb0(variableName1))
+            if (!IsValidVariableName(variableName1))
             {
                 ReportScriptError(compiler, "Invalid variable name '%s'.\r\nCompiled script not saved!", variableName1);
                 return false;
@@ -484,7 +484,7 @@ bool LineCompiler::FUN_005aff40(CompileScript* script, CompileState* compiler, C
             if (line->kind == 31)
             {
                 word6.variableID = variableInfo0->id;
-                compiler->FUN_005afad0(&word6, true, false);
+                compiler->GetReferencedObject(&word6, true, false);
             }
         }
         else
@@ -495,7 +495,7 @@ bool LineCompiler::FUN_005aff40(CompileScript* script, CompileState* compiler, C
         break;
 
     case 21: {
-        if (!FUN_005af5f0(compiler, &word6, line->input, &line->inputOffset, 1, 1))
+        if (!GetNextWord(compiler, &word6, line->input, &line->inputOffset, 1, 1))
         {
             ReportScriptError(compiler, "Missing variable name in set command.");
             return false;
@@ -507,7 +507,7 @@ bool LineCompiler::FUN_005aff40(CompileScript* script, CompileState* compiler, C
         }
         CompileWord setWord20;
 
-        FUN_005af5f0(compiler, &setWord20, line->input, &line->inputOffset, 0, 0);
+        GetNextWord(compiler, &setWord20, line->input, &line->inputOffset, 0, 0);
 
         if (tolower(setWord20.text[0]) != 't' || tolower(setWord20.text[1]) != 'o')
         {

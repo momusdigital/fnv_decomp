@@ -14,7 +14,7 @@ struct FUN_00d1e670_StandIn
     virtual void f3() = 0;
     virtual void f4(float) = 0;
 
-    void FUN_00d1e670(float);
+    void setMass(float);
 };
 union __declspec(intrin_type) __declspec(align(16)) __m128
 {
@@ -108,7 +108,7 @@ struct PairOutD1E850
 };
 struct ShapeD1E850 : hkpBoxMotion
 {
-    void FUN_00d1e850(int pkOutRaw);
+    void getInertiaInvWorld(int pkOutRaw);
 };
 
 static const __m128& QuadD1E850(const hkVector4& value)
@@ -117,7 +117,7 @@ static const __m128& QuadD1E850(const hkVector4& value)
 }
 
 // @fnv 0x00d1e850
-void ShapeD1E850::FUN_00d1e850(int pkOutRaw)
+void ShapeD1E850::getInertiaInvWorld(int pkOutRaw)
 {
     RotationD1E850 kScaled;
     kScaled.m_kColumn0.Vector4f() =

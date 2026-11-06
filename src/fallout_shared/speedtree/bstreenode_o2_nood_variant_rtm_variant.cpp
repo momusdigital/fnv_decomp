@@ -81,7 +81,7 @@ struct FUN_0066d610_shell
 };
 struct bhkCapsuleShape
 {
-    unsigned int __thiscall FUN_0066d730() const;
+    unsigned int __thiscall QCinfoSize() const;
 };
 struct FUN_0066da50_t
 {
@@ -954,7 +954,7 @@ struct S_0066d880_List
 };
 struct S_0066d880_Obj
 {
-    unsigned char FUN_00666f00();
+    unsigned char IsInstance();
     int FUN_008d6f30();
 };
 struct S_0066d880_Holder
@@ -1369,7 +1369,7 @@ struct Obj
     int unk04;
     Data8* unk08;
     void FUN_00c9fb70(Output*);
-    void FUN_00cab1b0(void*, void*);
+    void BuildDisplayGeometry(void*, void*);
 };
 extern unsigned int DAT_0126fd98;
 extern float DAT_010c72bc;
@@ -1591,14 +1591,14 @@ struct S00c880f0_Cls
     S00c880f0_HolderA* m_08;
     unsigned int m_0c;
     S00c880f0_Node* m_10;
-    void FUN_00c880f0();
+    void NitohkTransform();
 };
 struct S00c880f0_LockObj
 {
     void FUN_0040fbf0(int);
 };
 // @fnv 0x00c880f0
-void S00c880f0_Cls::FUN_00c880f0()
+void S00c880f0_Cls::NitohkTransform()
 {
     S00c880f0_HolderA* a = m_08;
     S00c880f0_Node* b = m_10;

@@ -16,7 +16,7 @@ struct FUN_00851d70_shell
 };
 extern GlobalObject_0045cf30 g_011de29c;
 extern void* DAT_011de134;
-bool FUN_005e0160();
+bool Cmd_SystemSave_Execute();
 extern "C" void __cdecl FUN_004b0220(int);
 extern int DAT_0103d3e8;
 struct FUN_005e02e0
@@ -195,7 +195,7 @@ struct FUN_005f60c0_Class
 struct TESChallenge
 {
     void MarkForSave();
-    void FUN_005f60e0(int amount);
+    void IncrementProgress(int amount);
 };
 struct TESActorBaseData
 {
@@ -347,7 +347,7 @@ void __cdecl BSEndian(unsigned char*, EndianSizeTag<0>);
 void __cdecl FUN_004717f0(void*, EndianSizeTag<0>);
 struct T2870
 {
-    void __thiscall FUN_005e2870();
+    void __thiscall Endian();
 };
 struct FUN_005ec700_shell : TESFaction_RankDataView
 {
@@ -487,7 +487,7 @@ struct FUN_005f6060_class
     int m6c;
     int m70;
     void MarkForSave();
-    void FUN_005f6060(bool show);
+    void SetCompletedRecurring(bool show);
 };
 struct FUN_005f6570 : public TESChallenge
 {
@@ -722,11 +722,11 @@ extern GlobalObject_0045cfe0 g_011cd538;
 extern GlobalObject_0045cfe0 g_011cdde0;
 struct FUN_005fbeb0_shell
 {
-    int* FUN_005fbeb0();
+    int* GetSoundLevelValue();
 };
 struct FUN_005ff520_shell
 {
-    unsigned int FUN_005ff520(unsigned int);
+    unsigned int GetIndexForChild(unsigned int);
 };
 struct FUN_005ff560_shell
 {
@@ -734,7 +734,7 @@ struct FUN_005ff560_shell
 };
 struct FUN_005ff5d0_class
 {
-    void FUN_005ff5d0(unsigned int a);
+    void RemoveChild(unsigned int a);
 };
 char** __cdecl FUN_005e0ba0(unsigned int);
 struct FUN_005e08e0_class
@@ -1533,7 +1533,7 @@ struct FUN_005f4db0_cls
     int unk08;
     int unk0c;
     unsigned short m10;
-    bool FUN_005f4db0();
+    bool IsJumpingLandAnim();
 };
 extern "C" int __cdecl FUN_005f2440(unsigned short value);
 class B5FA120Form
@@ -1545,7 +1545,7 @@ class B5FA120Form
 class B5FA120Checker
 {
   public:
-    bool FUN_005fa120(B5FA120Form* pkForm);
+    bool CanWearItem(B5FA120Form* pkForm);
 };
 struct FUN_005fbdd0_cls
 {
@@ -1554,7 +1554,7 @@ struct FUN_005fbdd0_cls
     void* FUN_006815c0();
     int FUN_00401170();
     unsigned char FUN_0046e8c0();
-    int FUN_00522c00();
+    int GetEmbeddedWeaponNode();
     void FUN_00481790(void* item);
     void* FUN_00726070();
 };
@@ -1941,7 +1941,7 @@ struct ChallengeView : TESChallenge
     unsigned int GetShortAtOffset64();
     int HasFlag8();
     void ClearField6C();
-    void FUN_005f6060(bool);
+    void SetCompletedRecurring(bool);
     void SetFlagAndMarkForSave(bool);
     int FUN_005f5f80();
 };
@@ -1954,7 +1954,7 @@ extern GlobalObject_0045cf30 g_011cb4d4;
 extern void* DAT_011dea3c;
 void __cdecl FUN_004d5c60(int);
 int __cdecl FUN_00406d00(char*, int, const char*, ...);
-const char* __cdecl FUN_0048e730(ChallengeView*, int);
+const char* __cdecl GetTextureName(ChallengeView*, int);
 bool __cdecl QueueUIMessage(const char*, int, const char*, const char*, float, bool);
 void __cdecl FUN_00706f30(int);
 void __cdecl FUN_005f5880();
@@ -2005,7 +2005,7 @@ struct FUN_005e2c30_class
 {
     char m0[0x3c];
     GO m3c;
-    const char* __thiscall FUN_005e2c30();
+    const char* __thiscall GetEditorID();
 };
 struct FUN_005e2ca0_s
 {
@@ -2064,7 +2064,7 @@ void __cdecl AppendChunk(unsigned int chunkId, void* data, unsigned int size);
 unsigned char __cdecl FUN_00401500();
 struct FUN_005e2fa0_SoundFile
 {
-    void __thiscall FUN_0048cea0();
+    void __thiscall Save();
 };
 struct FUN_005e2fa0_SoundData
 {
@@ -2124,7 +2124,7 @@ class DataHandler
     BSSimpleList<TESSound*>* FUN_0045c650();
 };
 extern DataHandler* g_dataHandler;
-TESSound* __cdecl FUN_005e3570(char const* filename);
+TESSound* __cdecl FindSoundByFilename(char const* filename);
 int strcpy_s(char* dst, unsigned int size, const char* src);
 int strcat_s(char* dst, unsigned int size, const char* src);
 bool __cdecl FUN_005e39a0();

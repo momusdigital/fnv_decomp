@@ -635,7 +635,7 @@ struct BlendInterpS : InterpS
     InterpS* m_pSingleInterpolator;
 };
 // @fnv 0x00a36e10
-void __fastcall FUN_00a36e10(BlendInterpS* self, int, float m_fStartTime, float m_fMaximumDistance)
+void __fastcall GuaranteeTimeRange(BlendInterpS* self, int, float m_fStartTime, float m_fMaximumDistance)
 {
     if (self->m_ucInterpCount == 1)
     {

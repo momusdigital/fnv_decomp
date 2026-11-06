@@ -4,10 +4,10 @@
 
 #include "havok/hkpMultiRayShape.h"
 
-// FUN_00e3c610: stores zero byte through first stdcall argument and returns it.
+// castRayImpl: stores zero byte through first stdcall argument and returns it.
 
 // @fnv 0x00e3c610
-unsigned char* __stdcall FUN_00e3c610(unsigned char* out, int a1, int a2)
+unsigned char* __stdcall castRayImpl(unsigned char* out, int a1, int a2)
 {
     *out = 0;
     return out;

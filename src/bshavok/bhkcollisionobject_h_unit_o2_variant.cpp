@@ -20,7 +20,7 @@ struct MyType : BSFadeNode
     }
 };
 // @fnv 0x00c65830
-void* FUN_00c65830()
+void* CreateObject()
 {
     return new MyType;
 }
@@ -36,10 +36,10 @@ extern int DAT_011f4274;
 extern float DAT_01267e30;
 struct WeaponObject
 {
-    void* FUN_00c65ef0(void*);
+    void* GetVelocity(void*);
 };
 // @fnv 0x00c65ef0
-void* WeaponObject::FUN_00c65ef0(void* a1)
+void* WeaponObject::GetVelocity(void* a1)
 {
     void* p = *(void**)((char*)this + 0x10);
     if (p)
@@ -84,11 +84,11 @@ struct ScopedMemoryContext
 struct FUN_00c659d0_shell : bhkCollisionObject
 {
     void FUN_00c6ba30(MyType*, void*);
-    MyType* FUN_00c659d0(void* param);
+    MyType* CreateClone(void* param);
 };
 
 // @fnv 0x00c659d0
-MyType* FUN_00c659d0_shell::FUN_00c659d0(void* param)
+MyType* FUN_00c659d0_shell::CreateClone(void* param)
 {
     ScopedMemoryContext scope(0x10);
     MyType* obj = new MyType;
@@ -631,11 +631,11 @@ class CollisionObj : public CollisionParent
     {
         return (m_usFlags & 0x20) && !(bool)((m_usFlags >> 6) & 1);
     }
-    void FUN_00c66060(ViewerStrings* apViewerStrings);
+    void AddViewerStrings(ViewerStrings* apViewerStrings);
 };
 
 // @fnv 0x00c66060
-void CollisionObj::FUN_00c66060(ViewerStrings* apViewerStrings)
+void CollisionObj::AddViewerStrings(ViewerStrings* apViewerStrings)
 {
     MemContextGuard guard(0x10);
     ParentViewerStrings(apViewerStrings);
@@ -660,7 +660,7 @@ struct Xform
 struct Quat
 {
     float w, x, y, z;
-    void FUN_004f0180(Mat3& a1) const;
+    void ToRotation(Mat3& a1) const;
 };
 struct HkEntity
 {
@@ -792,11 +792,11 @@ struct CollObj
     SceneObj* pObj08;
     int unk0C;
     BhkBody* pBody10;
-    void FUN_00c65a80();
+    void hktoNiTransform();
 };
 
 // @fnv 0x00c65a80
-void CollObj::FUN_00c65a80()
+void CollObj::hktoNiTransform()
 {
     BhkBody* pBody = pBody10;
     if (pBody == 0)
@@ -813,7 +813,7 @@ void CollObj::FUN_00c65a80()
     Quat q;
     Xform t;
     pBody->FUN_00560c20(q);
-    q.FUN_004f0180(t.m_kOrientation);
+    q.ToRotation(t.m_kOrientation);
     pBody->FUN_00560bc0(t.m_kTranslation);
     s46(t);
 }

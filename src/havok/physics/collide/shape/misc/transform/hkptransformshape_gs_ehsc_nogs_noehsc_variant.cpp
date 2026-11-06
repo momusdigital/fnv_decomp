@@ -291,7 +291,7 @@ struct CF5Shape
     int unk28;
     int unk2c;
     CF5Transform m_kMotionTransform;
-    CF5Bool FUN_00cf5b20(const CF5Input& in, CF5Output& out) const;
+    CF5Bool castRayImpl(const CF5Input& in, CF5Output& out) const;
 };
 
 static __forceinline void xfInvPos(CF5Vec& dst, const CF5Transform& xf, const CF5Vec& v)
@@ -327,7 +327,7 @@ static void stamp1(CF5Mon* mon, const char* tag)
 }
 
 // @fnv 0x00cf5b20
-CF5Bool CF5Shape::FUN_00cf5b20(const CF5Input& in, CF5Output& out) const
+CF5Bool CF5Shape::castRayImpl(const CF5Input& in, CF5Output& out) const
 {
     {
         CF5Mon* mon = (CF5Mon*)TlsGetValue(DAT_0126835c);
@@ -464,12 +464,12 @@ class hkpTransformShapeRay : public hkpShape
     int unk1c;
     hkVector4Sse rotation;
     SolTransform m_kMotionTransform;
-    void FUN_00cf5cc0(const hkpShapeRayCastInputSse& input, const hkpCdBodyLocal& cdBody,
+    void castRayWithCollectorImpl(const hkpShapeRayCastInputSse& input, const hkpCdBodyLocal& cdBody,
                       hkpRayHitCollector& collector) const;
 };
 
 // @fnv 0x00cf5cc0
-void hkpTransformShapeRay::FUN_00cf5cc0(const hkpShapeRayCastInputSse& input, const hkpCdBodyLocal& cdBody,
+void hkpTransformShapeRay::castRayWithCollectorImpl(const hkpShapeRayCastInputSse& input, const hkpCdBodyLocal& cdBody,
                                         hkpRayHitCollector& collector) const
 {
     timerCommand("TtrcTransform");

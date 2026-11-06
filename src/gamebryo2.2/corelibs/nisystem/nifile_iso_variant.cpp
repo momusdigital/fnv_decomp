@@ -16,11 +16,11 @@ struct FileTransferCallbacks
     unsigned int bytesProcessed;
     void(__cdecl* readFunction)();
     void(__cdecl* writeFunction)();
-    void FUN_00aa1b30(bool enableSwap);
+    void SetEndianSwap(bool enableSwap);
 };
 
 // @fnv 0x00aa1b30
-void FileTransferCallbacks::FUN_00aa1b30(bool enableSwap)
+void FileTransferCallbacks::SetEndianSwap(bool enableSwap)
 {
     if (enableSwap)
     {

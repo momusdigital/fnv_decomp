@@ -46,7 +46,7 @@ class FUN_0043e480_shell
 class FUN_0043c3d0_shell
 {
   public:
-    bool FUN_0043c3d0();
+    bool GetLoadDegraded();
 };
 
 class TextureNode
@@ -135,11 +135,11 @@ class CQueuedTexture
     const char* GetFilePath();
     MyFileEntry* FUN_00c3cff0(int, int);
 
-    void FUN_0043c150();
+    void Run();
 };
 
 // @fnv 0x0043c150
-void CQueuedTexture::FUN_0043c150()
+void CQueuedTexture::Run()
 {
     AutoMemContext memContext(this->unk18, true,
                               "D:\\_Fallout3\\Platforms\\Common\\Code\\Fallout Shared\\ModelLoader.cpp", 695);
@@ -157,7 +157,7 @@ void CQueuedTexture::FUN_0043c150()
     {
         ((FUN_0043e480_shell*)(void*)this)->FUN_0043e480(true);
         if (((TextureNode*)(void*)(NiNode*)this->unk30)->FUN_0043c430() == 3 &&
-            !((FUN_0043c3d0_shell*)(void*)this)->FUN_0043c3d0())
+            !((FUN_0043c3d0_shell*)(void*)this)->GetLoadDegraded())
         {
             ((TextureNode*)(void*)(NiNode*)this->unk30)->vfn_8c();
         }
@@ -170,7 +170,7 @@ void CQueuedTexture::FUN_0043c150()
         int tlsVal;
         const char* path = fileEntry->vfn_18();
         tlsVal = FUN_0043c410();
-        if (((FUN_0043c3d0_shell*)(void*)this)->FUN_0043c3d0())
+        if (((FUN_0043c3d0_shell*)(void*)this)->GetLoadDegraded())
         {
             FUN_0043c3f0(1);
         }

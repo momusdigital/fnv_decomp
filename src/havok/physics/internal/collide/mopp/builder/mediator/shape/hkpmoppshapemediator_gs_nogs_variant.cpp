@@ -207,12 +207,12 @@ struct ExtentCalculator
     int m_unk04;
     const hkpShapeContainer* m_container;
 
-    void FUN_00dd5440(const hkVector4& direction, int unused, const hkpChildKey* keys, int numKeys, float* minOut,
+    void findExtents(const hkVector4& direction, int unused, const hkpChildKey* keys, int numKeys, float* minOut,
                       float* maxOut) const;
 };
 
 // @fnv 0x00dd5440
-void ExtentCalculator::FUN_00dd5440(const hkVector4& direction, int unused, const hkpChildKey* keys, int numKeys,
+void ExtentCalculator::findExtents(const hkVector4& direction, int unused, const hkpChildKey* keys, int numKeys,
                                     float* minOut, float* maxOut) const
 {
     hkpShapeBuffer buffer;

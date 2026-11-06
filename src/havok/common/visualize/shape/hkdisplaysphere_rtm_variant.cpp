@@ -192,11 +192,11 @@ struct SphereMeshBuilder
     int m_64;
     int m_68;
     float m_6c;
-    void FUN_00e0b360();
+    void buildGeometry();
 };
 
 // @fnv 0x00e0b360
-__declspec(noinline) void SphereMeshBuilder::FUN_00e0b360()
+__declspec(noinline) void SphereMeshBuilder::buildGeometry()
 {
     SphereBuildMemory* holder = FUN_00c85750();
     SphereBuildGeometry* raw = (SphereBuildGeometry*)holder->m_10->Alloc(0x18);

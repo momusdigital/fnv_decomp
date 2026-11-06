@@ -106,7 +106,7 @@ struct FUN_005c1a00
 };
 struct FUN_005a03f0_obj
 {
-    bool FUN_005a03f0(unsigned int a);
+    bool GetControlsDisabled(unsigned int a);
 };
 struct TESObjectREFR_acc
 {
@@ -749,7 +749,7 @@ void MidProc::FUN_00918120(Actor* pActor, int a2, int a3, int a4)
     if (this->pTarget == 0)
         this->v035(pActor);
 
-    if (this->pTarget == g_thePlayer && ((FUN_005a03f0_obj*)g_thePlayer)->FUN_005a03f0(8))
+    if (this->pTarget == g_thePlayer && ((FUN_005a03f0_obj*)g_thePlayer)->GetControlsDisabled(8))
     {
         this->v165(pActor);
         return;

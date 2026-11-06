@@ -275,11 +275,11 @@ struct FUN_008d1720_cls
     int unk28;
     void* m_pIntegerData;
 
-    void FUN_008d1720();
+    void TargetIsRequiredType();
 };
 
 // @fnv 0x008d1720
-void FUN_008d1720_cls::FUN_008d1720()
+void FUN_008d1720_cls::TargetIsRequiredType()
 {
     FUN_0043b300(&DAT_011f4280, m_pIntegerData);
 }

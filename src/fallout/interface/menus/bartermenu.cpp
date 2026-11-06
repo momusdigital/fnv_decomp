@@ -4,11 +4,11 @@
 
 struct FUN_0072d030_shell
 {
-    int __thiscall FUN_0072d030();
+    int __thiscall GetClass();
 };
 
 // @fnv 0x0072d030
-int __thiscall FUN_0072d030_shell::FUN_0072d030()
+int __thiscall FUN_0072d030_shell::GetClass()
 {
     return 0x41d;
 }
@@ -79,11 +79,11 @@ struct Tile
 };
 struct BarterMenu
 {
-    void __thiscall FUN_0072e530(int, Tile*);
+    void __thiscall DoLeave(int, Tile*);
 };
 // Calls Set(0xfa3, 0) on the Tile objects at offsets 0x7c and 0x78 of this BarterMenu.
 // @fnv 0x0072e530
-void BarterMenu::FUN_0072e530(int aiID, Tile* apTarget)
+void BarterMenu::DoLeave(int aiID, Tile* apTarget)
 {
     ((Tile*)*(int**)((char*)this + 0x7c))->Set(0xfa3, 0);
     ((Tile*)*(int**)((char*)this + 0x78))->Set(0xfa3, 0);
@@ -508,14 +508,14 @@ class TESBipedModelForm
 {
   public:
     static TESBipedModelForm* GetFormAsBipedModel(TESBoundObject*);
-    bool FUN_00480d90();
+    bool GetPlayable();
 };
 class InventoryEntry
 {
   public:
     TESBoundObject* FUN_0044ddc0();
 };
-bool FUN_00481f10(TESBoundObject*);
+bool IsGold(TESBoundObject*);
 // @fnv 0x0072e570
 bool FUN_0072e570(InventoryEntry* entry)
 {
@@ -540,7 +540,7 @@ bool FUN_0072e570(InventoryEntry* entry)
                         weapon = entry->FUN_0044ddc0()->FUN_00401170() == 0x29
                                      ? static_cast<TESObjectWEAP*>(entry->FUN_0044ddc0())
                                      : 0;
-                        if (!form || (biped && !biped->FUN_00480d90()) || form->CannotSell() || FUN_00481f10(form) ||
+                        if (!form || (biped && !biped->GetPlayable()) || form->CannotSell() || IsGold(form) ||
                             !name || !name->GetModelLength() || (armor && !armor->IsFlag80Clear()) ||
                             (weapon && !weapon->FUN_004c94d0()) || form->FUN_00401170() == 0x2e)
                             unavailable = true;
@@ -565,12 +565,12 @@ struct FUN_0072f680_cls
     virtual void v04();
     virtual void v08();
     virtual void Notify(int aiCode, int aiFlag);
-    void FUN_0072f680(int aiType, int aiUnused);
+    void HandleMousewheel(int aiType, int aiUnused);
 };
 
 // For type 3 or 8, checks FUN_0070ec70() and calls Notify with 2/7 when negative, otherwise 4/9.
 // @fnv 0x0072f680
-void FUN_0072f680_cls::FUN_0072f680(int aiType, int aiUnused)
+void FUN_0072f680_cls::HandleMousewheel(int aiType, int aiUnused)
 {
     if (aiType == 3 || aiType == 8)
     {
@@ -666,7 +666,7 @@ struct S_Holder
 };
 struct S_Mgr
 {
-    void FUN_0046faf0();
+    void ClearBarterContainer();
 };
 struct S_ListA
 {
@@ -769,7 +769,7 @@ FUN_0072d0a0::~FUN_0072d0a0()
         ((S_Holder*)DAT_011d8fa4)->list1.FUN_00470470();
         ((S_Holder*)DAT_011d8fa4)->list2.FUN_00470470();
     }
-    DAT_011c3f2c->FUN_0046faf0();
+    DAT_011c3f2c->ClearBarterContainer();
     DAT_011d8fa4 = 0;
 }
 
@@ -1122,7 +1122,7 @@ struct BmRef
 
 struct BmExtraList
 {
-    BmRef* FUN_00418630();
+    BmRef* GetOriginalReference();
 };
 struct BmExtraNode
 {
@@ -1223,7 +1223,7 @@ void BarterMenuClick::HandleTileClick(int iTileIndex, BmTile* pkTile)
             {
                 BmRef* pkOrig = g_pkSelectedItem_011d8fa8->FUN_00559450() &&
                                         *g_pkSelectedItem_011d8fa8->FUN_00559450()->FUN_006815c0()
-                                    ? (*g_pkSelectedItem_011d8fa8->FUN_00559450()->FUN_006815c0())->FUN_00418630()
+                                    ? (*g_pkSelectedItem_011d8fa8->FUN_00559450()->FUN_006815c0())->GetOriginalReference()
                                     : 0;
                 if (pkOrig)
                     FUN_00703c00(s_szOrigRef, pkOrig->GetEditorID(), pkOrig->FUN_0084e3a0());
@@ -1715,7 +1715,7 @@ struct S_0072ed00_Settings
 };
 struct S_0072ed00_Item : InventoryEntry
 {
-    float FUN_004bd400();
+    float GetItemValue();
 };
 extern int DAT_011d8fb4;
 void __cdecl FUN_005e58f0(int type, PlayerCharacter* actor, ...);
@@ -1728,7 +1728,7 @@ float __cdecl FUN_004bd510(float, float);
 // @fnv 0x0072ed00
 float __cdecl FUN_0072ed00(S_0072ed00_Tile* tile, S_0072ed00_Item* item)
 {
-    float amount = item->FUN_004bd400();
+    float amount = item->GetItemValue();
     float base = amount;
     bool b5 = ((S_0072ed00_Settings*)DAT_011d8fa4)->list_d8.ContainsKey(tile);
     bool b8 = tile->IsTraitNonZero(DAT_011d8fb4);
@@ -3273,11 +3273,11 @@ struct FUN_007306d0_cls
     int m_6c;
     int m_70;
 
-    void FUN_007306d0();
+    void Update();
 };
 
 // @fnv 0x007306d0
-void FUN_007306d0_cls::FUN_007306d0()
+void FUN_007306d0_cls::Update()
 {
     if (DAT_011d8fc0 == 1)
     {
@@ -3502,7 +3502,7 @@ bool __cdecl IsFilteredFromBarter(EntryObj* apEntry)
     weapon_ = ((InventoryEntry*)apEntry)->FUN_0044ddc0()->FUN_00401170() == 41
                   ? (TESObjectWEAP*)((InventoryEntry*)apEntry)->FUN_0044ddc0()
                   : 0;
-    if (!formTmp || (bipedVal && !bipedVal->FUN_00480d90()) || FUN_00481f10(formTmp) || !name ||
+    if (!formTmp || (bipedVal && !bipedVal->GetPlayable()) || IsGold(formTmp) || !name ||
         !name->GetModelLength() || (armor && !armor->IsFlag80Clear()) || (weapon_ && !weapon_->FUN_004c94d0()))
     {
         filteredVal = true;

@@ -337,11 +337,11 @@ struct xRef
     xPtr m_a0;
     xCell* FUN_008d6f30();
     float FUN_00644930();
-    void FUN_009ae280();
+    void InitHavok();
 };
 
 // @fnv 0x009ae280
-void xRef::FUN_009ae280()
+void xRef::InitHavok()
 {
     if (m_a0 == 0 && FUN_008d6f30() && xFUN_004543c0(FUN_008d6f30()))
     {
@@ -1519,7 +1519,7 @@ class Actor9BE
     bool IsFlagSet(int iFlag);
     Base9BE* GetBaseObject();
     Target9BE* GetOwner();
-    void FUN_009be0a0();
+    void InitHavok();
     unsigned int unk04;
     unsigned int unk08;
     unsigned int unk0c;
@@ -1612,7 +1612,7 @@ void __cdecl FUN_00c69ee0(Node9BE* pkNode, int iA, int iB);
 void __cdecl FUN_00c69f50(Node9BE* pkNode, int iA, int iB);
 
 // @fnv 0x009be0a0
-void Actor9BE::FUN_009be0a0()
+void Actor9BE::InitHavok()
 {
     Node9BE* pkNode = Get3D();
     if (!pkNode || !m_pkProcess || m_pkProcess->IsDead())

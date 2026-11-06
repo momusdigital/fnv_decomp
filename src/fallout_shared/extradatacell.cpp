@@ -372,12 +372,12 @@ struct FUN_0040f3a0_cls
     int m_0c;
 
     bool IsDifferentFrom(void* a1);
-    bool FUN_0040f3a0(void* a1);
+    bool Differs(void* a1);
 };
 
 // Looks up a node via FUN_00ec43fb and returns true if it is null, IsDifferentFrom succeeds, or the node's m_0c differs from this object's m_0c.
 // @fnv 0x0040f3a0
-bool FUN_0040f3a0_cls::FUN_0040f3a0(void* a1)
+bool FUN_0040f3a0_cls::Differs(void* a1)
 {
     FUN_0040f3a0_node* p = (FUN_0040f3a0_node*)FUN_00ec43fb(a1, 0, &DAT_01183b2c, &DAT_01183c38, 0);
     if (p == 0)
@@ -509,12 +509,12 @@ extern int DAT_01183b84;
 struct ExtraMusicTypeShell : BSExtraData
 {
     BGSMusicType* pType;
-    bool FUN_0040ef60(BSExtraData* extra);
+    bool Differs(BSExtraData* extra);
 };
 
 // Returns true if the cast fails, IsDifferentFrom(extra) is true, or the two pType pointers differ; otherwise false.
 // @fnv 0x0040ef60
-bool ExtraMusicTypeShell::FUN_0040ef60(BSExtraData* apOther)
+bool ExtraMusicTypeShell::Differs(BSExtraData* apOther)
 {
     ExtraMusicTypeShell* pOther =
         static_cast<ExtraMusicTypeShell*>(FUN_00ec43fb(apOther, 0, &DAT_01183b2c, &DAT_01183b84, 0));
@@ -532,11 +532,11 @@ extern int DAT_01183ba8;
 struct ExtraCellAcousticSpace : BSExtraData
 {
     BGSAcousticSpace* m_pPathingCell;
-    bool FUN_0040f000(BSExtraData* apCompare);
+    bool Differs(BSExtraData* apCompare);
 };
 // Compares this ExtraCellAcousticSpace against apCompare, returning true if the cast target is null, the base differs, or the acoustic space pointer differs.
 // @fnv 0x0040f000
-bool ExtraCellAcousticSpace::FUN_0040f000(BSExtraData* apCompare)
+bool ExtraCellAcousticSpace::Differs(BSExtraData* apCompare)
 {
     ExtraCellAcousticSpace* pComp =
         static_cast<ExtraCellAcousticSpace*>(FUN_00ec43fb(apCompare, 0, &DAT_01183b2c, &DAT_01183ba8, 0));
@@ -554,11 +554,11 @@ struct FUN_0040f0a0_shell : BSExtraData
 {
     void* pField;
     bool IsDifferentFrom(BSExtraData*);
-    bool FUN_0040f0a0(BSExtraData* extra);
+    bool Differs(BSExtraData* extra);
 };
 // Returns true if the cast fails, IsDifferentFrom(extra) returns true, or the pField pointers differ; otherwise false.
 // @fnv 0x0040f0a0
-bool FUN_0040f0a0_shell::FUN_0040f0a0(BSExtraData* apOther)
+bool FUN_0040f0a0_shell::Differs(BSExtraData* apOther)
 {
     FUN_0040f0a0_shell* cast = (FUN_0040f0a0_shell*)FUN_00ec43fb(apOther, 0, &DAT_01183b2c, &DAT_01183bd0, 0);
     if (!cast)
@@ -581,12 +581,12 @@ struct CellImpactCompare : BSExtraData
 {
     CellImpactSwapValue* m_pCellImpactSwapValue;
 
-    bool FUN_0040f2d0(BSExtraData* apCompare);
+    bool Differs(BSExtraData* apCompare);
 };
 
 // Returns true if the cast fails, IsDifferentFrom(apCompare) is true, or the payload comparison returns true.
 // @fnv 0x0040f2d0
-bool CellImpactCompare::FUN_0040f2d0(BSExtraData* apCompare)
+bool CellImpactCompare::Differs(BSExtraData* apCompare)
 {
     CellImpactCompare* pComp;
 
@@ -615,13 +615,13 @@ extern int DAT_01183bf0;
 struct ExtraCellImageSpace : BSExtraData
 {
     void* m_pImageSpace;
-    bool FUN_0040f140(BSExtraData* extra);
+    bool Differs(BSExtraData* extra);
     bool IsDifferentFrom(BSExtraData* extra);
 };
 
 // Returns true if the cast fails, FUN_0040f700(extra) returns true, or the image-space pointers differ; otherwise false.
 // @fnv 0x0040f140
-bool ExtraCellImageSpace::FUN_0040f140(BSExtraData* extra)
+bool ExtraCellImageSpace::Differs(BSExtraData* extra)
 {
     ExtraCellImageSpace* cast =
         static_cast<ExtraCellImageSpace*>(FUN_00ec43fb(extra, 0, &DAT_01183b2c, &DAT_01183bf0, 0));

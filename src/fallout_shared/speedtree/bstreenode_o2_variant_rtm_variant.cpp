@@ -80,7 +80,7 @@ struct FUN_0066d610_shell
 };
 struct bhkCapsuleShape
 {
-    unsigned int __thiscall FUN_0066d730() const;
+    unsigned int __thiscall QCinfoSize() const;
 };
 struct FUN_0066da50_t
 {
@@ -150,7 +150,7 @@ struct S_00c8c390
 {
     char _0[8];
     Mid14* p8;
-    bool FUN_00c8c390(NiStream*);
+    bool RegisterStreamables(NiStream*);
 };
 struct S_00c8c810_A
 {
@@ -299,7 +299,7 @@ struct S00cb7750
     int _08;
     int _0C;
     Inner00cb7750* m_10;
-    void __thiscall FUN_00cb7750();
+    void __thiscall hktoNiTransform();
 };
 void* __fastcall FUN_00c6b910(void*);
 extern int DAT_01066b94;
@@ -455,7 +455,7 @@ struct C8CA60Owner
     C8CA60Child* m_pkChild;
 
     void FUN_00c8c410(C8CA60Child* pkChild);
-    C8CA60Child* FUN_00c8ca60(bool* pbCreated);
+    C8CA60Child* CreateCinfo(bool* pbCreated);
 };
 struct StrArr
 {
@@ -631,7 +631,7 @@ struct CB7800Object : CB7800Base
 {
     static CB7800RTTI ms_kRTTI;
 
-    void FUN_00cb7800(CB7800StringArray* pkStrings);
+    void AddViewerStrings(CB7800StringArray* pkStrings);
 };
 struct S_00cb78b0_Base
 {
@@ -737,7 +737,7 @@ struct S_00cb79d0
     virtual void v047();
     virtual void v048();
     virtual void v049(S_00cb79d0_Base* obj, int arg);
-    S_00cb79d0_C* FUN_00cb79d0(int arg);
+    S_00cb79d0_C* CreateClone(int arg);
 };
 void SwapByteQuadWords(void* buffer, int words);
 struct Vector3
@@ -943,7 +943,7 @@ struct TlsGuard_t
 struct FUN_00c88210_cls
 {
     void __thiscall FUN_00c6ba30(BSFadeNode* node, unsigned int flags);
-    BSFadeNode* FUN_00c88210(unsigned int flags);
+    BSFadeNode* CreateClone(unsigned int flags);
 };
 extern __declspec(thread) int g_iC882C0AllocTag;
 struct BC882C0AllocTagScope
@@ -991,7 +991,7 @@ class FUN_00c882c0_cls
 {
   public:
     void C882C0BaseGetViewerStrings(BC882C0StringArray* pkArray);
-    void FUN_00c882c0(BC882C0StringArray* pkArray);
+    void AddViewerStrings(BC882C0StringArray* pkArray);
 };
 struct ScaleMatrix
 {
@@ -1322,7 +1322,7 @@ struct S_00caaf40
     virtual void vfn_bc();
     virtual void vfn_c0();
     virtual void vfn_c4(S_00caaf40_Obj* o, int a);
-    S_00caaf40_Obj* FUN_00caaf40(int a);
+    S_00caaf40_Obj* CreateClone(int a);
 };
 struct AudioTlsState
 {
@@ -1485,7 +1485,7 @@ struct FUN_00cb7790_class
     FUN_00cb7790_node* node;
     unsigned int unk0C;
     FUN_00cb7790_receiver* receiver;
-    void __thiscall FUN_00cb7790();
+    void __thiscall NitohkTransform();
 };
 // FUN_00cb7920 - factory for a bhkMultiSphereShape.
 //
@@ -1580,7 +1580,7 @@ struct Shader
     virtual void f44();
     virtual int* f45(struct Pass** pass);
     void FUN_00c84d00(struct Pass* pass);
-    void FUN_00cb7b20(struct Pass* pass);
+    void LoadBinary(struct Pass* pass);
 };
 struct Pass
 {
@@ -1816,7 +1816,7 @@ struct FUN_00cb8010_cls
     virtual OwnerB* v45(unsigned char* pFlag);
 
     void __thiscall FUN_00c84d50(A1Owner* a1);
-    void __thiscall FUN_00cb8010(A1Owner* a1);
+    void __thiscall SaveBinary(A1Owner* a1);
 };
 struct CTarget
 {
@@ -2171,7 +2171,7 @@ struct FUN_00c8c1e0_cls
     {}
     virtual FUN_00c8c1e0_rec* GetRec(FUN_00c8c1e0_arg*& a);
     void FUN_00c84d00(FUN_00c8c1e0_arg* a);
-    void FUN_00c8c1e0(FUN_00c8c1e0_arg* a1);
+    void LoadBinary(FUN_00c8c1e0_arg* a1);
 };
 struct C8C260Block
 {
@@ -2406,7 +2406,7 @@ struct C8C260Shader
     C8C260Link* m_link;
 
     void FUN_00c84d50(C8C260Renderer* pkRenderer);
-    void FUN_00c8c260(C8C260Renderer* pkRenderer);
+    void SaveBinary(C8C260Renderer* pkRenderer);
 };
 inline void* C8C260GetTarget(C8C260Shader* p)
 {
@@ -2723,7 +2723,7 @@ struct ShapeHolder
 
 struct CollisionBoundsUpdater : S00cb7750
 {
-    void FUN_00c88020();
+    void hktoNiTransform();
 };
 
 struct Amount
@@ -2756,7 +2756,7 @@ struct Vector4f
 };
 
 // @fnv 0x00c88020
-void CollisionBoundsUpdater::FUN_00c88020()
+void CollisionBoundsUpdater::hktoNiTransform()
 {
     ShapeHolder* shape = reinterpret_cast<ShapeHolder*>(m_10);
     if (shape != 0)

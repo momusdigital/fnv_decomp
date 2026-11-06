@@ -127,11 +127,11 @@ class bhkViewerObject
   public:
     void FUN_00c9f480(NiViewerStringsArray* pkStrings);
     void FUN_00c9ec00(hkTransform& kTransform);
-    void FUN_00c9ed30(NiViewerStringsArray* pkStrings);
+    void GetViewerStrings(NiViewerStringsArray* pkStrings);
 };
 
 // @fnv 0x00c9ed30
-void bhkViewerObject::FUN_00c9ed30(NiViewerStringsArray* pkStrings)
+void bhkViewerObject::GetViewerStrings(NiViewerStringsArray* pkStrings)
 {
     MemContextGuard kGuard(16);
 
@@ -345,8 +345,8 @@ struct Owner
     unsigned int unk1c;
     Vec4 rotation;
     Vec4 vec30;
-    void FUN_00c8d2f0(Body*);
-    void FUN_00cb3650(ArgObj* arg);
+    void CreateDisplayGeometry(Body*);
+    void CreateDisplayGeometry(ArgObj* arg);
 };
 
 static __forceinline Body* NewNode()
@@ -358,7 +358,7 @@ static __forceinline void SetNameStr(Body* b, const char* s)
     b->AssignFixedString(FixedString(s));
 }
 // @fnv 0x00cb3650
-void Owner::FUN_00cb3650(ArgObj* arg)
+void Owner::CreateDisplayGeometry(ArgObj* arg)
 {
     TlsScope scope(0x10);
     Body* body = 0;
@@ -392,7 +392,7 @@ void Owner::FUN_00cb3650(ArgObj* arg)
         FUN_00458620(&t.m_kTranslation, &hk.position);
         body->f34 = t.m_kOrientation;
         body->position = t.m_kTranslation;
-        FUN_00c8d2f0(body);
+        CreateDisplayGeometry(body);
     }
 }
 }  // namespace fnv_00cb3650
@@ -593,10 +593,10 @@ struct ShapeFrame
     virtual void vd0();
     virtual void GetTranslation(__m128*);
     virtual void GetRotation(__m128*);
-    RotationResult* FUN_00cb3310(RotationResult*);
+    RotationResult* GetTransform(RotationResult*);
 };
 // @fnv 0x00cb3310
-RotationResult* ShapeFrame::FUN_00cb3310(RotationResult* result)
+RotationResult* ShapeFrame::GetTransform(RotationResult* result)
 {
     __m128 rotation;
     GetTranslation(&result->translation);
@@ -1126,11 +1126,11 @@ struct PositionOwner
     int unk00;
     int unk04;
     PositionSource* m_pkSource;
-    void FUN_00ca02b0(NiNode* pkParent, int iUnused);
+    void BuildDisplayGeometry(NiNode* pkParent, int iUnused);
 };
 
 // @fnv 0x00ca02b0
-void PositionOwner::FUN_00ca02b0(NiNode* pkParent, int iUnused)
+void PositionOwner::BuildDisplayGeometry(NiNode* pkParent, int iUnused)
 {
     MemContextGuard kGuard(16);
     hkVector4 kPosition;
@@ -1809,10 +1809,10 @@ struct C9FA20_Owner
     int m_08;
     C9FA20_Data* m_pData;
     void FUN_00c9f830(C9FA20_Data* data);
-    C9FA20_Data* FUN_00c9fa20(bool* created);
+    C9FA20_Data* CreateCinfo(bool* created);
 };
 // @fnv 0x00c9fa20
-C9FA20_Data* C9FA20_Owner::FUN_00c9fa20(bool* created)
+C9FA20_Data* C9FA20_Owner::CreateCinfo(bool* created)
 {
     C9FA20_TlsGuard guard;
     *created = m_pData == 0;
@@ -2006,7 +2006,7 @@ class BhkWrapperBaseDAD
 class BhkWrapperDAD : public BhkWrapperBaseDAD
 {
   public:
-    void FUN_00c8d960(int a);
+    void SaveBinary(int a);
     void FUN_00cb3150(int a);
 
     hkVector4DAD m_v20;
@@ -2020,7 +2020,7 @@ void BhkWrapperDAD::FUN_00cb3150(int a)
     PhantomDataDAD* pkData = GetData(&iToken);
     pkData->m_v30 = m_v30;
     pkData->m_v40 = m_v20;
-    FUN_00c8d960(a);
+    SaveBinary(a);
     ReleaseData(iToken);
 }
 
@@ -2123,12 +2123,12 @@ class Position : public PositionBase
 {
   public:
     OffsetVector& GetVec(OffsetVector& out);
-    OffsetVector& FUN_00cb32a0(OffsetVector& out);
+    OffsetVector& GetCenterOfMassInWorld(OffsetVector& out);
     hkVector4 localTranslation;
 };
 
 // @fnv 0x00cb32a0
-OffsetVector& Position::FUN_00cb32a0(OffsetVector& out)
+OffsetVector& Position::GetCenterOfMassInWorld(OffsetVector& out)
 {
     GetVec(out);
     if (this && worldObject)
@@ -2366,11 +2366,11 @@ class hkpEntityCB3 : public hkReferencedObjectCB3
     hkVector4CB3 m_vCenterOfMassLocal;
 
     void getPosition(hkVector4CB3& kPositionOut) const;
-    hkVector4CB3& FUN_00cb3370(hkVector4CB3& kOut) const;
+    hkVector4CB3& GetPosition(hkVector4CB3& kOut) const;
 };
 
 // @fnv 0x00cb3370
-hkVector4CB3& hkpEntityCB3::FUN_00cb3370(hkVector4CB3& kOut) const
+hkVector4CB3& hkpEntityCB3::GetPosition(hkVector4CB3& kOut) const
 {
     if (this && m_pOwningWorld)
     {

@@ -65,7 +65,7 @@ struct FUN_00a7b720_T
 
 // Reads three consecutive unsigned shorts from self->c at offset i*3 and writes them to the three output pointers.
 // @fnv 0x00a7b720
-void __fastcall FUN_00a7b720(FUN_00a7b720_T* self, int, unsigned short i, unsigned short* i0, unsigned short* i1,
+void __fastcall GetTriangleIndices(FUN_00a7b720_T* self, int, unsigned short i, unsigned short* i0, unsigned short* i1,
                              unsigned short* i2)
 {
     unsigned int j = i * 3;
@@ -83,7 +83,7 @@ struct FUN_00a7b760_T
 };
 
 // @fnv 0x00a7b760
-void __fastcall FUN_00a7b760(FUN_00a7b760_T* self, int, unsigned short* p1, unsigned int* p2, unsigned short** p3,
+void __fastcall GetStripData(FUN_00a7b760_T* self, int, unsigned short* p1, unsigned int* p2, unsigned short** p3,
                              unsigned int* p4)
 {
     *p1 = self->a;
@@ -95,7 +95,7 @@ void __fastcall FUN_00a7b760(FUN_00a7b760_T* self, int, unsigned short* p1, unsi
 extern const char* const g_011f5af4_arg1;
 
 // @fnv 0x00a7b860
-const char* const* __fastcall FUN_00a7b860(void* self, int)
+const char* const* __fastcall GetRTTI(void* self, int)
 {
     return &g_011f5af4_arg1;
 }

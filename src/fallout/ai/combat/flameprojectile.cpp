@@ -31,12 +31,12 @@ struct BeamProjectile
 struct FlameProjectile : BeamProjectile
 {
     FlameProjectile();
-    void FUN_009b3f00(BGSLoadFormBuffer* apLoadGameBuffer);
+    void LoadGame(BGSLoadFormBuffer* apLoadGameBuffer);
 };
 
 // Loads the base BeamProjectile data, then reads two 4-byte values from the buffer into this+0x150 and this+0x154.
 // @fnv 0x009b3f00
-void FlameProjectile::FUN_009b3f00(BGSLoadFormBuffer* apLoadGameBuffer)
+void FlameProjectile::LoadGame(BGSLoadFormBuffer* apLoadGameBuffer)
 {
     BeamProjectile::LoadProjectile(apLoadGameBuffer);
     apLoadGameBuffer->ReadTypedData((char*)this + 0x150, 4);
@@ -51,12 +51,12 @@ struct Projectile
 };
 struct FlameProjectile : Projectile
 {
-    void FUN_009b3f50(BGSLoadFormBuffer* apLoadGameBuffer);
+    void Revert(BGSLoadFormBuffer* apLoadGameBuffer);
 };
 
 // Calls the base Projectile load routine, then zeroes the two floats at offsets 0x150 and 0x154.
 // @fnv 0x009b3f50
-void FlameProjectile::FUN_009b3f50(BGSLoadFormBuffer* apLoadGameBuffer)
+void FlameProjectile::Revert(BGSLoadFormBuffer* apLoadGameBuffer)
 {
     Projectile::FUN_009c58e0(apLoadGameBuffer);
     *(float*)((char*)this + 0x150) = 0.0f;
@@ -175,7 +175,7 @@ struct NiAVObject : NiNode
 
 struct Particle
 {
-    unsigned int FUN_004d7d50();
+    unsigned int GetModifierCount();
     Object* GetByIndex(unsigned int index);
 };
 
@@ -205,7 +205,7 @@ float GetMaxParticleGlobalValue(NiNode* node)
         {
             Particle* particle = reinterpret_cast<Particle*>(node);
 
-            for (unsigned int i = 0; result == _DAT_01012060 && i < particle->FUN_004d7d50(); ++i)
+            for (unsigned int i = 0; result == _DAT_01012060 && i < particle->GetModifierCount(); ++i)
             {
                 Object* object = particle->GetByIndex(i);
 

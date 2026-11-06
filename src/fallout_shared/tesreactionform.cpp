@@ -178,7 +178,7 @@ struct Args_0048bfc0
     int aiReaction;
 };
 // @fnv 0x0048bfc0
-void __fastcall FUN_0048bfc0(BaseProcess* self, Args_0048bfc0 args)
+void __fastcall SetReaction(BaseProcess* self, Args_0048bfc0 args)
 {
     if (!args.apForm)
         return;
@@ -414,11 +414,11 @@ struct ReactionAccess
 };
 struct ReactionCompare : TESReactionForm
 {
-    bool FUN_0048be40(BaseFormComponent*);
+    bool CompareComponent(BaseFormComponent*);
 };
 // Compares this reaction form's list against another TESReactionForm's list entry by entry, returning true when they differ or the other list is longer.
 // @fnv 0x0048be40
-bool ReactionCompare::FUN_0048be40(BaseFormComponent* component)
+bool ReactionCompare::CompareComponent(BaseFormComponent* component)
 {
     TESReactionForm* right = dynamic_cast<TESReactionForm*>(component);
     if (!right)
@@ -479,11 +479,11 @@ class C0B0Owner
 {
   public:
     C0B0List* GetList();
-    void FUN_0048c0b0(C0B0Form* pkForm, int iDelta);
+    void ModReaction(C0B0Form* pkForm, int iDelta);
 };
 
 // @fnv 0x0048c0b0
-void C0B0Owner::FUN_0048c0b0(C0B0Form* pkForm, int iDelta)
+void C0B0Owner::ModReaction(C0B0Form* pkForm, int iDelta)
 {
     if (!pkForm || !iDelta)
         return;
@@ -523,11 +523,11 @@ void C0B0Owner::FUN_0048c0b0(C0B0Form* pkForm, int iDelta)
 struct FUN_0048c220_shell
 {
     void* FUN_00717e50();
-    void FUN_0048c220(TESForm* apForm, int aiReaction);
+    void SetFightReaction(TESForm* apForm, int aiReaction);
 };
 // If apForm is non-null, updates the matching list entry's reaction or appends a new entry when aiReaction is non-zero.
 // @fnv 0x0048c220
-void FUN_0048c220_shell::FUN_0048c220(TESForm* apForm, int aiReaction)
+void FUN_0048c220_shell::SetFightReaction(TESForm* apForm, int aiReaction)
 {
     if (apForm == 0)
     {

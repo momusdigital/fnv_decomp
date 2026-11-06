@@ -1101,11 +1101,11 @@ struct FUN_00c98250_Class {
     void* m_iWordAt00;
     void* m_iWordAt04;
     void* m_8;
-    void* __thiscall FUN_00c98250(int, int, int);
+    void* __thiscall createContactMgr(int, int, int);
 };
 
 // @fnv 0x00c98250
-void* __thiscall FUN_00c98250_Class::FUN_00c98250(int, int, int)
+void* __thiscall FUN_00c98250_Class::createContactMgr(int, int, int)
 {
     return (void*)((char*)this + 8);
 }
@@ -13789,11 +13789,11 @@ public:
 };
 class LimitedHingeWrapper {
 public: unsigned int unk00;hkpLimitedHingeConstraintData* data;
- unsigned int FUN_00caa3f0();
+ unsigned int CreateData();
 };
 // Ensures the hkpLimitedHingeConstraintData is allocated and returns its size.
 // @fnv 0x00caa3f0
-unsigned int LimitedHingeWrapper::FUN_00caa3f0()
+unsigned int LimitedHingeWrapper::CreateData()
 {
  AutoMemoryContext context(0x10);
  if(!data) data=new hkpLimitedHingeConstraintData;
@@ -14078,12 +14078,12 @@ public:
     caa4a0_TblHost* unk08;
     caa4a0_TblFirst* unk0c;
     void FUN_00c89730(bhkRefObject* obj, unsigned int param);
-    bhkRefObject* FUN_00caa4a0(unsigned int param);
+    bhkRefObject* CreateClone(unsigned int param);
 };
 
 // Allocates a bhkRefObject, calls FUN_00c89730, and if a table entry is set, invokes slot04 on the object from slotb4.
 // @fnv 0x00caa4a0
-bhkRefObject* caa4a0_Target::FUN_00caa4a0(unsigned int param) {
+bhkRefObject* caa4a0_Target::CreateClone(unsigned int param) {
     TlsGuard_caa4a0 guard;
     FUN_00c876f0();
     bhkRefObject* obj = new bhkRefObject();
@@ -14712,7 +14712,7 @@ void __cdecl FUN_00cbd9e0(float scale, ShapeCAA* shape);
 class ShapeClonerCAA {
 public:
     ShapeCAA* ReleaseObject(ShapeCAA* shape, ShapeCinfoCAA* cinfo);
-    ShapeCAA* FUN_00caa250(ShapeCAA* dst, ShapeCinfoCAA* cinfo);
+    ShapeCAA* CloneData(ShapeCAA* dst, ShapeCinfoCAA* cinfo);
 
     int unk00;
     ShapeCAA* m_pCollisionShape;
@@ -14720,7 +14720,7 @@ public:
 
 // Copies fields from m_pCollisionShape into dst (new if null), applies cinfo->m_vScale if not 1.0, copies the child atom, and returns FUN_00c8a1b0(dst, cinfo).
 // @fnv 0x00caa250
-ShapeCAA* ShapeClonerCAA::FUN_00caa250(ShapeCAA* apDstShape, ShapeCinfoCAA* cinfo)
+ShapeCAA* ShapeClonerCAA::CloneData(ShapeCAA* apDstShape, ShapeCinfoCAA* cinfo)
 {
     AutoMemContextCAA kContext(0x10);
     ShapeCAA* src = m_pCollisionShape;

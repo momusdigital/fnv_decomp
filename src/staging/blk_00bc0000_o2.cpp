@@ -282,7 +282,7 @@ void* __thiscall FUN_00bd8480_Class::FUN_00bd8480(int flags)
 
 struct LodShaderBase
 {
-    void FUN_00e814b0();
+    void RecreateRendererData();
 };
 struct FUN_00bc0970_class : LodShaderBase
 {
@@ -298,7 +298,7 @@ void FUN_00bc0970_class::FUN_00bc0970()
         void(__thiscall * f2)(void*) = (void(__thiscall*)(void*))(*(int**)(*(int*)((char*)this + 0x190)))[0x22];
         f2(*(void**)((char*)this + 0x190));
     }
-    FUN_00e814b0();
+    RecreateRendererData();
 }
 
 extern "C" void __cdecl FUN_00c5f570();
@@ -3985,7 +3985,7 @@ struct FUN_00bc4640_cls : LodShaderBase
     LodChildB* m_bc;
     void FUN_00bc4640();
 };
-// If m_28 is nonzero, calls v28 on m_b8 and v22 on m_bc, then calls LodShaderBase::FUN_00e814b0.
+// If m_28 is nonzero, calls v28 on m_b8 and v22 on m_bc, then calls LodShaderBase::RecreateRendererData.
 // @fnv 0x00bc4640
 void FUN_00bc4640_cls::FUN_00bc4640()
 {
@@ -3994,7 +3994,7 @@ void FUN_00bc4640_cls::FUN_00bc4640()
         m_b8->v28();
         m_bc->v22();
     }
-    LodShaderBase::FUN_00e814b0();
+    LodShaderBase::RecreateRendererData();
 }
 
 void* __cdecl FUN_00ec61c0(void*, int, unsigned int);

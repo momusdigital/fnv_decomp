@@ -98,7 +98,7 @@ struct GlobalObjectO2_00a7b610;
 extern GlobalObjectO2_00a7b610 g_011f3f38;
 // Returns a pointer to the global object g_011f3f38, ignoring both arguments.
 // @fnv 0x00a47370
-GlobalObjectO2_00a7b610* __fastcall FUN_00a47370(void*, int)
+GlobalObjectO2_00a7b610* __fastcall GetRTTI(void*, int)
 {
     return &g_011f3f38;
 }
@@ -133,14 +133,14 @@ typedef NiTArray<ActorCombatGroup*, NiTMallocInterface<ActorCombatGroup*> > CGAr
 extern const char* const g_011f444c_arg1;
 struct FUN_00a62a40_this
 {
-    void FUN_00a5ca80(CGArray*);
+    void GetViewerStrings(CGArray*);
 };
 ActorCombatGroup* __cdecl FUN_00a7d330(const char*);
 ActorCombatGroup* __cdecl FUN_00a7d4d0(const char*, unsigned int);
 // @fnv 0x00a62a40
-void __fastcall FUN_00a62a40(FUN_00a62a40_this* self, int, CGArray* apArray)
+void __fastcall GetViewerStrings(FUN_00a62a40_this* self, int, CGArray* apArray)
 {
-    self->FUN_00a5ca80(apArray);
+    self->GetViewerStrings(apArray);
     ActorCombatGroup* pEntry = FUN_00a7d330(g_011f444c_arg1);
     unsigned int n = apArray->m_usESize;
     if (n >= apArray->m_usMaxSize)
@@ -179,11 +179,11 @@ class FUN_00a62670_cls
     int m_i1C;
     int m_i20;
     TexInfo* m_pObjectInfo;
-    int FUN_00a62670();
+    int GetMemorySize();
 };
 
 // @fnv 0x00a62670
-int FUN_00a62670_cls::FUN_00a62670()
+int FUN_00a62670_cls::GetMemorySize()
 {
     unsigned int result = 0;
     if (m_pObjectInfo != 0)
@@ -383,12 +383,12 @@ class Elements : public ElementsBase
     int unk068;
     unsigned short m_usNumElements;
 
-    void FUN_00a912d0(ViewerStrings* pkStrings);
+    void GetViewerStrings(ViewerStrings* pkStrings);
 };
 
 // Calls base RegisterFields, then adds class name, m_bPixelAccurate, and m_usNumElements to pkStrings.
 // @fnv 0x00a912d0
-void Elements::FUN_00a912d0(ViewerStrings* pkStrings)
+void Elements::GetViewerStrings(ViewerStrings* pkStrings)
 {
     ElementsBase::RegisterFields(pkStrings);
     pkStrings->Add(FUN_00a7d330(DAT_011f5e54));

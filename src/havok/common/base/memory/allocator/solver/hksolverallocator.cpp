@@ -105,7 +105,7 @@ int __stdcall FUN_00d5e880(int arg0)
 }
 
 // @fnv 0x00d5e890
-void __stdcall FUN_00d5e890(void* context, unsigned int flags)
+void __stdcall blockFree(void* context, unsigned int flags)
 {}
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(void* cs);

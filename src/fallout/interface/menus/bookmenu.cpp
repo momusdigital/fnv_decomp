@@ -37,10 +37,10 @@ FUN_0073acb0::FUN_0073acb0() : Menu()
 
 struct BookMenu
 {
-    int FUN_0073acf0();
+    int GetClass();
 };
 // @fnv 0x0073acf0
-int BookMenu::FUN_0073acf0()
+int BookMenu::GetClass()
 {
     return 0x402;
 }
@@ -522,11 +522,11 @@ struct FUN_0073afd0_shell
     Tile* _p28;
     char _pad30[8];
     float _f38;
-    void FUN_0073afd0(int aiID, Tile* apTarget);
+    void HandleLeftClickPress(int aiID, Tile* apTarget);
 };
 // For tile ID 12, sets _f38 to the difference between the current tile's value and the interface manager's value.
 // @fnv 0x0073afd0
-void FUN_0073afd0_shell::FUN_0073afd0(int aiID, Tile* apTarget)
+void FUN_0073afd0_shell::HandleLeftClickPress(int aiID, Tile* apTarget)
 {
     InterfaceManager* pim;
     if (aiID == 12)
@@ -576,7 +576,7 @@ struct Tile
 
 struct TESObject
 {
-    bool FUN_00409700();
+    bool GetScroll();
 };
 
 struct FUN_0073b480_shell
@@ -589,7 +589,7 @@ struct FUN_0073b480_shell
 Tile* __cdecl FindMenuById(int);
 void __cdecl FUN_00717280(int);
 
-// Gets tile 0x402, sets it to 0x1772/1, invokes its menu, then calls FUN_00717280 with 0x19 or 0x1b depending on FUN_00409700.
+// Gets tile 0x402, sets it to 0x1772/1, invokes its menu, then calls FUN_00717280 with 0x19 or 0x1b depending on GetScroll.
 // @fnv 0x0073b480
 void FUN_0073b480_shell::UpdateMenuTile()
 {
@@ -598,7 +598,7 @@ void FUN_0073b480_shell::UpdateMenuTile()
     {
         ptile->Set(0x1772, 1);
         ptile->GetMenu()->LoadMenuData();
-        if (m_pObjectToUpdateMenuTile->FUN_00409700())
+        if (m_pObjectToUpdateMenuTile->GetScroll())
             FUN_00717280(0x19);
         else
             FUN_00717280(0x1b);
@@ -645,11 +645,11 @@ struct FUN_0073b050_shell : Menu
     unsigned int m_0x34;
     float m_fValue;
 
-    void __thiscall FUN_0073b050(int, Tile*);
+    void __thiscall DoStillDown(int, Tile*);
 };
 
 // @fnv 0x0073b050
-void FUN_0073b050_shell::FUN_0073b050(int aiID, Tile* apTarget)
+void FUN_0073b050_shell::DoStillDown(int aiID, Tile* apTarget)
 {
     float imarker;
     FUN_0073b020_shell* pim;
@@ -961,7 +961,7 @@ void __thiscall FUN_0073b0f0_cls::HandleMessage(int msg, int unused)
 
 struct BookInput
 {
-    bool FUN_00409700();
+    bool GetScroll();
     const char* CallInnerFoo();
     bool FUN_0073b460();
 };
@@ -990,7 +990,7 @@ struct BookTarget : Menu
 // @fnv 0x0073b2f0
 void BookTarget::UpdateBookMenu(BookInput* input, int value)
 {
-    if (input->FUN_00409700())
+    if (input->GetScroll())
         FUN_00726070()->FUN_00700320(0x1004, 0);
     else
         FUN_00726070()->FUN_00700320(0x1004, 1);

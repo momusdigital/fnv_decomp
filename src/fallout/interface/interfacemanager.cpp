@@ -2354,7 +2354,7 @@ struct PCH
     virtual void pv224();
     virtual void pv228();
     virtual bool vf22c(bool);
-    bool FUN_005a03f0(unsigned int);
+    bool GetControlsDisabled(unsigned int);
     bool FUN_00950090();
     bool IsAlert();
     void FUN_0095d090();
@@ -2592,7 +2592,7 @@ void FUN_0070c4a0_shell::UpdateInterface()
             }
             else if (FUN_00458030() != 0x18)
             {
-                if (g_thePlayer->FUN_005a03f0(1))
+                if (g_thePlayer->GetControlsDisabled(1))
                 {
                     HUDH::UpdateVisibilityState(0xc);
                 }
@@ -3406,9 +3406,9 @@ class MenuAlphaProperty
     static void operator delete(void* apMem, unsigned int);
     MenuAlphaProperty();
     void FUN_0049ed90(bool abEnable);
-    void FUN_00636000(bool abEnable);
-    void FUN_00439340(int aeMode);
-    void FUN_00439390(int aeMode);
+    void SetNoSorter(bool abEnable);
+    void SetSrcBlendMode(int aeMode);
+    void SetDestBlendMode(int aeMode);
     char m_data[0x1c];
 };
 
@@ -3666,9 +3666,9 @@ InterfaceManager_FUN_0070a130::InterfaceManager_FUN_0070a130()
     {
         spAlpha = new MenuAlphaProperty;
         spAlpha->FUN_0049ed90(true);
-        spAlpha->FUN_00636000(false);
-        spAlpha->FUN_00439340(6);
-        spAlpha->FUN_00439390(7);
+        spAlpha->SetNoSorter(false);
+        spAlpha->SetSrcBlendMode(6);
+        spAlpha->SetDestBlendMode(7);
     }
 
     spMenu3DRoot = FUN_00712e90(FUN_005bac70("Menu3DRoot", 1));
@@ -4472,7 +4472,7 @@ struct ActivatePickHelper
     bhkWorld* FUN_00621440();
     void FUN_00631ca0(bhkWorld*);
     unsigned int GetFlags();
-    void FUN_00631c50(unsigned int);
+    void SetShapeGroup(unsigned int);
     TESObjectREFR* FUN_00631d60(Vec3&, Vec3&, float, float*, int*);
 };
 
@@ -4587,7 +4587,7 @@ void FUN_0070bc20_shell::UpdateActivatePick()
                 DAT_011d8a90 = 0x22;
                 unsigned int igroup = g_thePlayer->GetVectorElement().FUN_004a3a20();
                 if ((*(ActivatePickHelper**)((char*)this + 0x13c))->GetFlags() != igroup)
-                    (*(ActivatePickHelper**)((char*)this + 0x13c))->FUN_00631c50(igroup);
+                    (*(ActivatePickHelper**)((char*)this + 0x13c))->SetShapeGroup(igroup);
 
                 DAT_011d8a90 = 0x23;
                 ppick_ref = (*(ActivatePickHelper**)((char*)this + 0x13c))
@@ -10909,7 +10909,7 @@ struct PlayerStub
     virtual void v08a();
     virtual bool v22c(int);
     virtual bool v230();
-    bool FUN_005a03f0(unsigned int);
+    bool GetControlsDisabled(unsigned int);
     bool FUN_004eaf60();
     bool GetUnderAIControl();
     bool FUN_005721e0();
@@ -11248,7 +11248,7 @@ struct IMStub
 // @fnv 0x0070f4e0
 void IMStub::QueueHudCallback(void (*cb)(), int value)
 {
-    if (!((PlayerStub*)_g_thePlayer)->FUN_005a03f0(4) && !((PlayerStub*)_g_thePlayer)->v22c(0) &&
+    if (!((PlayerStub*)_g_thePlayer)->GetControlsDisabled(4) && !((PlayerStub*)_g_thePlayer)->v22c(0) &&
         FUN_005737e0((PlayerStub*)_g_thePlayer) == ((PlayerStub*)_g_thePlayer)->FUN_004eaf60() &&
         !((PlayerStub*)_g_thePlayer)->GetUnderAIControl() && !((PlayerStub*)_g_thePlayer)->FUN_005721e0() &&
         (!HUDMainMenu_pme || !HUDMainMenu_pme->GetVisible()) && FUN_00716910(0) &&
@@ -13253,7 +13253,7 @@ class PickNode
 {
   public:
     PickAVObject* FUN_0043b4a0(int iIndex);
-    void FUN_004add70();
+    void CompactChildArray();
     void* FUN_0045bc00(int iIndex);
 };
 
@@ -13341,7 +13341,7 @@ class NiPick
     int unk30;
     NiPick(int iA, int iB);
     ~NiPick();
-    void FUN_00632d20(bool bValue);
+    void SetFrontOnly(bool bValue);
     void SetByteAtOffset17(bool bValue);
     void FUN_00705fc0(PickNode* pkRootLoc);
     bool FUN_00e98e20(NiPoint3* pkOrigin, NiPoint3* pkDir, int iValue);
@@ -13734,7 +13734,7 @@ PickTile* IMView::FUN_007126c0(bool bAny)
     if (m_pkController && m_pkController->GetMode()->IsStartMenuFlag1Set())
         pkRootLoc = FUN_00a09030(FUN_00714f00())->FUN_0056c7f0();
     NiPick kPickOut(0, 8);
-    kPickOut.FUN_00632d20(false);
+    kPickOut.SetFrontOnly(false);
     kPickOut.SetByteAtOffset17(true);
     kPickOut.FUN_00705fc0(pkRootLoc);
     NiPoint3 kOriginVal;
@@ -13779,7 +13779,7 @@ PickTile* IMView::FUN_007126c0(bool bAny)
                 if (pkTileTmp->IsTraitNonZero(0xfae) && pkTileTmp->FUN_0056c7f0())
                 {
                     bool bScaled = pkTileTmp->FUN_00a03c90(0xfaa)->FUN_00726070()->FUN_00a011b0() == 112.0f ? 1 : 0;
-                    pkTileTmp->FUN_0056c7f0()->FUN_004add70();
+                    pkTileTmp->FUN_0056c7f0()->CompactChildArray();
                     if (pkTileTmp->FUN_0056c7f0()->FUN_0045bc00(0))
                     {
                         PickProperty* pkProperty =

@@ -559,7 +559,7 @@ class TESAIForm
     bool GetAssistance();
     bool GetResponsibility();
     bool FUN_004f6de0();
-    bool FUN_0062f2f0();
+    bool GetMood();
 };
 class PatrolActorPackageData
 {

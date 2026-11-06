@@ -147,7 +147,7 @@ class NiNode
 {
   public:
     int FUN_00453470();
-    void FUN_004def90();
+    void RemoveAllChildren();
 };
 class MagicEffectCollection
 {

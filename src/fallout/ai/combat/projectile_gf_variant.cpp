@@ -64,8 +64,8 @@ struct EventEntity
 struct Scene
 {
     EventStream* FUN_008cdd90();
-    void FUN_004585f0(Vec3* out);
-    void FUN_004587f0(Vec3* out);
+    void GetFrom(Vec3* out);
+    void GetTo(Vec3* out);
     void FUN_005dbe60(Vec3* out);
     void FUN_009c1a20(Vec3* out);
     Filter* ConstructCF845(Filter* out);
@@ -217,7 +217,7 @@ int __cdecl FUN_009c0d80(Scene* scene, Controller* player, int eventOwner, float
     {
         Vec3 initialPosition;
         Vec3 initialDirection;
-        scene->FUN_004585f0(&initialPosition);
+        scene->GetFrom(&initialPosition);
         scene->FUN_009c1a20(&initialDirection);
         bool partialMatch = false;
         EventEntity* lastReference = 0;
@@ -263,7 +263,7 @@ int __cdecl FUN_009c0d80(Scene* scene, Controller* player, int eventOwner, float
                                 {
                                     AnimationPacket anim;
                                     Vec3 origin;
-                                    scene->FUN_004585f0(&origin);
+                                    scene->GetFrom(&origin);
                                     Vec3 direction;
                                     scene->FUN_009c1a20(&direction);
                                     initialDirection.FUN_00439180(DAT_010162c0);
@@ -379,8 +379,8 @@ int __cdecl FUN_009c0d80(Scene* scene, Controller* player, int eventOwner, float
                 if (lastReference != 0)
                     saved = *((GetPositionFn)lastReference->vtable[0x1f4 / 4])(lastReference);
                 else
-                    scene->FUN_004587f0(&saved);
-                scene->FUN_004585f0(&at);
+                    scene->GetTo(&saved);
+                scene->GetFrom(&at);
                 direction = saved.FUN_00439ef0(at);
                 extra = position.FUN_00439ef0(at);
                 float mag = extra.DotProduct(direction);

@@ -258,11 +258,11 @@ struct FUN_0048ea40_holder
 
 struct FUN_00515340_shell
 {
-    void FUN_00515340(BGSSaveFormBuffer* buffer);
+    void AppendSaveLoadFormBuffer(BGSSaveFormBuffer* buffer);
 };
 
 // @fnv 0x00515340
-void FUN_00515340_shell::FUN_00515340(BGSSaveFormBuffer* buffer)
+void FUN_00515340_shell::AppendSaveLoadFormBuffer(BGSSaveFormBuffer* buffer)
 {
     reinterpret_cast<FUN_00484d60_holder*>(this)->SaveIfChanged(buffer);
     reinterpret_cast<FUN_0048ea40_holder*>(reinterpret_cast<char*>(this) + 0x84)->FUN_0048ea40(buffer);
@@ -303,10 +303,10 @@ struct FUN_00515290_shell
     FUN_0051b070_shell m84;
     char _pad1[0x3C];
     char bC1;
-    void FUN_00515290(unsigned int);
+    void SaveGame(unsigned int);
 };
 // @fnv 0x00515290
-void FUN_00515290_shell::FUN_00515290(unsigned int aiFlags)
+void FUN_00515290_shell::SaveGame(unsigned int aiFlags)
 {
     base.FUN_00484c20(aiFlags);
     m84.FUN_0048e9e0(aiFlags);
@@ -334,10 +334,10 @@ struct FUN_005152e0_shell : TESFormStub
     TESValueFormStub val;
     char _pad1[0x3C];
     char byteC1;
-    void FUN_005152e0(unsigned int, unsigned int);
+    void LoadGame2(unsigned int, unsigned int);
 };
 // @fnv 0x005152e0
-void FUN_005152e0_shell::FUN_005152e0(unsigned int aiFlags, unsigned int aiCurrentFlags)
+void FUN_005152e0_shell::LoadGame2(unsigned int aiFlags, unsigned int aiCurrentFlags)
 {
     TESFormStub::FUN_00484c50(aiFlags, aiCurrentFlags);
     val.FUN_0048ea10(aiFlags, aiCurrentFlags);
@@ -392,7 +392,7 @@ struct Date
 };
 struct FUN_00485e00_shell
 {
-    void FUN_00485e20(Date*, int);
+    void __SaveData(Date*, int);
 };
 struct FUN_00485680
 {
@@ -419,7 +419,7 @@ void FUN_00514de0_shell::Destroy()
     ((FUN_0047b560_holder*)((char*)this + 0xb4))->LogFormIDs();
     if (FUN_00401500())
         ((Date*)((char*)this + 0xc0))->Date::~Date();
-    ((FUN_00485e00_shell*)this)->FUN_00485e20((Date*)((char*)this + 0xc0), 2);
+    ((FUN_00485e00_shell*)this)->__SaveData((Date*)((char*)this + 0xc0), 2);
     if (FUN_00401500())
         ((Date*)((char*)this + 0xc0))->Date::~Date();
     ((FUN_00485680*)this)->M();
@@ -561,10 +561,10 @@ class FUN_005153a0_cls
     unsigned char unkC0;
     unsigned char bC1;
     void FUN_00484da0(FUN_005153a0_arg* a);
-    void FUN_005153a0(FUN_005153a0_arg* a1);
+    void LoadGame(FUN_005153a0_arg* a1);
 };
 // @fnv 0x005153a0
-void FUN_005153a0_cls::FUN_005153a0(FUN_005153a0_arg* a1)
+void FUN_005153a0_cls::LoadGame(FUN_005153a0_arg* a1)
 {
     unsigned int local;
     FUN_00484da0(a1);
@@ -610,7 +610,7 @@ class TESObjectWEAP : public TESBoundObject
 struct InventoryItem
 {
     TESBoundObject* GetObject();
-    void* FUN_004bdcc0();
+    void* GetPoison();
 };
 class BaseProcess
 {
@@ -1210,7 +1210,7 @@ void Actor::FUN_0095e6f0(int action)
                          0);
             return;
         }
-        if (item->FUN_004bdcc0())
+        if (item->GetPoison())
         {
             FUN_00703e80(g_011d2814.FUN_00403df0(), 0, 0, FUN_0095e900, 1, 23, 0.0f, 0.0f, g_011d38b8.FUN_00403df0(),
                          0);
@@ -1228,14 +1228,14 @@ extern "C" int __cdecl _memcmp(const void*, const void*, unsigned int);
 class BookComparison : public TESObjectBOOK
 {
   public:
-    bool FUN_00514f50(TESForm* other);
+    bool Compare(TESForm* other);
     bool FUN_00485270(TESForm* other);
     BookData* FUN_00514f30();
 };
 
 // Returns true if other is not a TESObjectBOOK or if FUN_00485270 or the BookData comparison is nonzero.
 // @fnv 0x00514f50
-bool BookComparison::FUN_00514f50(TESForm* other)
+bool BookComparison::Compare(TESForm* other)
 {
     TESObjectBOOK* book = dynamic_cast<TESObjectBOOK*>(other);
     if (!book)

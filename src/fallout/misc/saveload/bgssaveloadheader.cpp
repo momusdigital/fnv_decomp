@@ -121,7 +121,7 @@ struct HeaderBuffer
 };
 struct HeaderManager
 {
-    unsigned int FUN_0066d730();
+    unsigned int QCinfoSize();
     bool FUN_00424940();
     unsigned int FUN_0044ddc0();
     void CopyPlayerName(char*);
@@ -152,14 +152,14 @@ int FUN_00406d30(char*, unsigned int, const char*);
 int FUN_004dc200();
 int FUN_004dc1f0();
 HeaderPixels* FUN_00878f60(int*, int*, const char*);
-const char* FUN_0047e0e0(HeaderPlayer*);
+const char* GetKarmicTitle(HeaderPlayer*);
 // @fnv 0x0084d4b0
 void FUN_0084d4b0(HeaderFile* file)
 {
     file->WriteToFile(DAT_011a2224, strlen(DAT_011a2224));
     HeaderBuffer buffer_;
     HeaderBuffer* stream = &buffer_;
-    unsigned int version = DAT_011de134->FUN_0066d730();
+    unsigned int version = DAT_011de134->QCinfoSize();
     stream->FUN_00865e50(&version, 4, false);
     char playerName3[64];
     FUN_00403d30(playerName3, 0, 64);
@@ -190,7 +190,7 @@ void FUN_0084d4b0(HeaderFile* file)
     unsigned int numberVal = DAT_011de134->FUN_0044ddc0();
     stream->FUN_00865e50(&numberVal, 4, false);
     stream->FUN_00865e70(DAT_011dea3c->FUN_0055d520(), false);
-    stream->FUN_00865e70(FUN_0047e0e0(DAT_011dea3c), false);
+    stream->FUN_00865e70(GetKarmicTitle(DAT_011dea3c), false);
     unsigned int level2 = DAT_011dea3c->FUN_0087f9f0();
     stream->FUN_00865e50(&level2, 4, false);
     char location9[260];

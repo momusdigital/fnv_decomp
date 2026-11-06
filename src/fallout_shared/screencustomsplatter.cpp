@@ -22,7 +22,7 @@ void ScreenCustomSplatter::Clear()
 {
     if (DAT_011c77e8)
     {
-        DAT_011c7810->FUN_004def90();
+        DAT_011c7810->RemoveAllChildren();
         DAT_011c77dc = 0;
         DAT_011c77ec = 0.0f;
         DAT_011c77e9 = 0;

@@ -214,11 +214,11 @@ class BGSNote : public TESBoundObject,
     void InitItem();
     bool Load(TESFile*);
     TESTexture* GetNoteTexture();
-    TESSound* FUN_005e9100();
+    TESSound* GetNoteSound();
     void SetNoteSound(TESSound*);
-    TESTopic* FUN_005e9240();
+    TESTopic* GetNoteTopic();
     void SetNoteTopic(TESTopic*);
-    TESActorBase* FUN_005e92a0();
+    TESActorBase* GetNoteSpeaker();
     void SetNoteSpeaker(TESActorBase*);
     void ResetFormData();
     int GetNoteType();

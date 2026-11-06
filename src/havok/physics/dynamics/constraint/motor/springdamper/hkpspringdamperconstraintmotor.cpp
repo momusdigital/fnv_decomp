@@ -92,12 +92,12 @@ class S00d862a0_Spring : public S00d862a0_Limited
         : S00d862a0_Limited(o), m_fSpringConstant(o.m_fSpringConstant), m_fSpringDamping(o.m_fSpringDamping)
     {}
 
-    S00d862a0_Spring* FUN_00d862a0() const;
+    S00d862a0_Spring* clone() const;
 };
 
 // Allocates a new S00d862a0_Spring via the Havok heap and initializes it as a copy of the current object.
 // @fnv 0x00d862a0
-S00d862a0_Spring* S00d862a0_Spring::FUN_00d862a0() const
+S00d862a0_Spring* S00d862a0_Spring::clone() const
 {
     return new S00d862a0_Spring(*this);
 }

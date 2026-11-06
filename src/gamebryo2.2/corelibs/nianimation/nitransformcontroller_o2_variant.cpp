@@ -90,7 +90,7 @@ void __stdcall FUN_00a390a0(StrArr*);
 char* __cdecl FUN_00a7d330(const char*);
 extern const char* g_011f36ec;
 // @fnv 0x00a36840
-void __stdcall FUN_00a36840(StrArr* pkStrings)
+void __stdcall GetViewerStrings(StrArr* pkStrings)
 {
     FUN_00a390a0(pkStrings);
     char* pszString = FUN_00a7d330(g_011f36ec);
@@ -124,11 +124,11 @@ struct S00a36100
     char _pad[0x2c];
     NiAVObject* m_spReferencedObject;
 
-    NiTransformInterpolator* FUN_00a36100(unsigned short usIndex);
+    NiTransformInterpolator* CreatePoseInterpolator(unsigned short usIndex);
 };
 
 // @fnv 0x00a36100
-NiTransformInterpolator* S00a36100::FUN_00a36100(unsigned short usIndex)
+NiTransformInterpolator* S00a36100::CreatePoseInterpolator(unsigned short usIndex)
 {
     NiAVObject* pkTarget = m_spReferencedObject;
     NiQuaternion kRotate;
@@ -435,7 +435,7 @@ class NiTransformInitB
 };
 
 // @fnv 0x00a36620
-void* __stdcall FUN_00a36620(int a1, int a2, unsigned char a3, float a4, int a5)
+void* __stdcall CreateBlendInterpolator(int a1, int a2, unsigned char a3, float a4, int a5)
 {
     void* obj;
     if (a3 != 0)

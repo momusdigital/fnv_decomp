@@ -16,11 +16,11 @@ struct CombatProcedureEngageTarget : public CombatProcedure
 {
     void FUN_00996e40();
     Actor* FUN_00996de0();
-    void FUN_009d3b50();
+    void Shutdown();
 };
 
 // @fnv 0x009d3b50
-void CombatProcedureEngageTarget::FUN_009d3b50()
+void CombatProcedureEngageTarget::Shutdown()
 {
     FUN_00996e40();
     FUN_00996de0()->StopMoving();

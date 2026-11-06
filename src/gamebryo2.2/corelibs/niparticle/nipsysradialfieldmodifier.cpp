@@ -99,7 +99,7 @@ FUN_00c31ff0::FUN_00c31ff0() : _m18(0), _m1c(0.0f), _m20(0.0f), _m24(0), _m28(0.
 extern "C" char __stdcall FUN_00c32060(void*);
 
 // @fnv 0x00c285a0
-unsigned char __stdcall FUN_00c285a0(void* p)
+unsigned char __stdcall IsEqual(void* p)
 {
     return FUN_00c32060(p) != 0;
 }
@@ -129,7 +129,7 @@ struct S_00c28a90_Base
     int unk24;
     int unk28;
     int unk2c;
-    void FUN_00c322b0(S_00c28a90_Arr* a);
+    void GetViewerStrings(S_00c28a90_Arr* a);
 };
 extern const char* DAT_012026b0;
 char* __cdecl FUN_00a7d330(const char* s);
@@ -149,7 +149,7 @@ __forceinline void S_00c28a90_Add(S_00c28a90_Arr* a, char* s)
 // @fnv 0x00c28a90
 void S_00c28a90::WriteToArray(S_00c28a90_Arr* pArray)
 {
-    FUN_00c322b0(pArray);
+    GetViewerStrings(pArray);
     S_00c28a90_Add(pArray, FUN_00a7d330(DAT_012026b0));
     S_00c28a90_Add(pArray, FUN_00a7d550("RadialType", m30));
 }

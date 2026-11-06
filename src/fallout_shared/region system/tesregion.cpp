@@ -147,12 +147,12 @@ TESRegionDataManager* FUN_00740940_shell::GetRegionDataManager()
     return *(TESRegionDataManager**)((char*)this + 0x624);
 }
 
-void __fastcall FUN_005827d0(char*);
+void __fastcall GetRandomWeather(char*);
 
 // @fnv 0x004f10b0
 void __fastcall FUN_004f10b0(char* param_1)
 {
-    FUN_005827d0(param_1 + 8);
+    GetRandomWeather(param_1 + 8);
 }
 
 struct FUN_004f0890_shell
@@ -381,12 +381,12 @@ class B4F1050Region
     int unk20;
     void* m_pvWeatherTypes;
 
-    void FUN_004f1050();
+    void UpdateWeather();
 };
 
 // Clears m_pvWeatherTypes, then if m_pkDataList exists, gets the type-3 region data and stores its weather types.
 // @fnv 0x004f1050
-void B4F1050Region::FUN_004f1050()
+void B4F1050Region::UpdateWeather()
 {
     m_pvWeatherTypes = 0;
     if (m_pkDataList)

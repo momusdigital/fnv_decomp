@@ -14,7 +14,7 @@ void __cdecl FinalizeEntries();
 void __cdecl FUN_00a745c0();
 
 // @fnv 0x00a87120
-void __cdecl FUN_00a87120()
+void __cdecl RenderImmediate()
 {
     FinalizeEntries();
     FUN_00a745c0();

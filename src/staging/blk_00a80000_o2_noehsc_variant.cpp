@@ -1471,10 +1471,10 @@ struct BmpReader
     unsigned short bpp;
     unsigned int colorCount, dataOffset;
     bool flip;
-    NiPixelData* FUN_00a8e810(BmpStream& stream, NiPixelData* optional);
+    NiPixelData* ReadFile(BmpStream& stream, NiPixelData* optional);
 };
 // @fnv 0x00a8e810
-NiPixelData* BmpReader::FUN_00a8e810(BmpStream& stream, NiPixelData* optional)
+NiPixelData* BmpReader::ReadFile(BmpStream& stream, NiPixelData* optional)
 {
     bool mipmap;
     unsigned int w, h, faces;

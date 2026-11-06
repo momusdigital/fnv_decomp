@@ -241,7 +241,7 @@ struct UCICombatProcess
 };
 struct UCIAmmo
 {
-    bool FUN_004985f0();
+    bool SpecialIdleDonePlaying();
     bool HasIdleForm(int aiUnk);
 };
 struct UCIActor
@@ -409,7 +409,7 @@ void FUN_009daab0_Proc::UpdateCombatItemUse()
     if (!pActor2->FUN_008d8520()->FUN_0045cd60())
     {
         pAmmo = pActor2->GetAmmo();
-        if (pAmmo && (!pAmmo->FUN_004985f0() || pAmmo->HasIdleForm(0)))
+        if (pAmmo && (!pAmmo->SpecialIdleDonePlaying() || pAmmo->HasIdleForm(0)))
             return;
         if (!m_bItemFlag)
         {

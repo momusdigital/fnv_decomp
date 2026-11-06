@@ -137,11 +137,11 @@ struct NiRenderer
 };
 struct FUN_007ff7c0_shell : public BSAudio, public FUN_00440460_S
 {
-    void FUN_007ff7c0(BSRenderedTexture* apTarget, NiRenderer::ClearFlags aeClearMode, BSRenderedTexture* apSwapTarget);
+    void Render(BSRenderedTexture* apTarget, NiRenderer::ClearFlags aeClearMode, BSRenderedTexture* apSwapTarget);
     void FUN_007fba00(BSRenderedTexture*, int, int);
 };
 // @fnv 0x007ff7c0
-void FUN_007ff7c0_shell::FUN_007ff7c0(BSRenderedTexture* apTarget, NiRenderer::ClearFlags aeClearMode,
+void FUN_007ff7c0_shell::Render(BSRenderedTexture* apTarget, NiRenderer::ClearFlags aeClearMode,
                                       BSRenderedTexture* apSwapTarget)
 {
     NiAVObject* proot = (NiAVObject*)GetSynchTime();

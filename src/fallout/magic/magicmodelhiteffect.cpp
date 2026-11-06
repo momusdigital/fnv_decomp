@@ -665,10 +665,10 @@ struct Flt
 void __cdecl FUN_00563f30(NiControllerManager*, BGSSaveGameBuffer*, float);
 struct FUN_0081d800_t
 {
-    void FUN_0081d800(BGSSaveGameBuffer* apSaveGameBuffer);
+    void SaveGameBGS(BGSSaveGameBuffer* apSaveGameBuffer);
 };
 // @fnv 0x0081d800
-void FUN_0081d800_t::FUN_0081d800(BGSSaveGameBuffer* apSaveGameBuffer)
+void FUN_0081d800_t::SaveGameBGS(BGSSaveGameBuffer* apSaveGameBuffer)
 {
     NiControllerManager* pmanager;
     ((FUN_0081be80_s*)this)->FUN_0081be80((BGSSaveFormBuffer*)apSaveGameBuffer);
@@ -909,12 +909,12 @@ struct FUN_0081d640_cls
     int unk28;
     unsigned int m_2c;
 
-    void FUN_0081d640();
+    void SaveGameTES();
 };
 
 // Reads the key of the object at m_1c, adds it to g_mgr, queries m_2c for a flag, sets it, and calls v53(0, m_1c).
 // @fnv 0x0081d640
-void FUN_0081d640_cls::FUN_0081d640()
+void FUN_0081d640_cls::SaveGameTES()
 {
     unsigned int uiKey = ((FUN_0081d640_target*)m_1c)->GetKey();
     g_mgr->Add(&uiKey, 4);
@@ -1000,7 +1000,7 @@ class B81D920Base
 class FUN_0081d920_cls : public B81D920Base
 {
   public:
-    void FUN_0081d920(B81D920LoadBuffer* pkBuffer);
+    void LoadGameBGS(B81D920LoadBuffer* pkBuffer);
 
     int unk00;
     int unk04;
@@ -1020,7 +1020,7 @@ class FUN_0081d920_cls : public B81D920Base
 };
 
 // @fnv 0x0081d920
-void FUN_0081d920_cls::FUN_0081d920(B81D920LoadBuffer* pkBuffer)
+void FUN_0081d920_cls::LoadGameBGS(B81D920LoadBuffer* pkBuffer)
 {
     B81D920Base::LoadGame(pkBuffer);
     m_pcName = pkBuffer->LoadString(0);
@@ -1989,13 +1989,13 @@ TESForm* GetFormByID(unsigned int aiID);
 
 struct FUN_0081d6c0_shell : public MagicModelHitEffect
 {
-    bool FUN_0081d6c0();
+    bool LoadGameTES();
 };
 
 // MagicModelHitEffect::LoadGame (vB4)
 // Validates a form ID and target cell, reads a string, then calls LoadGame, InitLoadGame and FinishLoadGameTES on the target.
 // @fnv 0x0081d6c0
-bool FUN_0081d6c0_shell::FUN_0081d6c0()
+bool FUN_0081d6c0_shell::LoadGameTES()
 {
     bool bSuccess = true;
     unsigned int iformID;

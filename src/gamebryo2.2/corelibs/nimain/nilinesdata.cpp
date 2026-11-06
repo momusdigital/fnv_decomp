@@ -91,7 +91,7 @@ bool NiLinesDataStandIn::IsEqual(NiLinesDataStandIn* other)
 }
 
 namespace fnv_00a8a850 {
-// NiLinesData::FUN_00a8a850  --  the save path of the "lines" data object.
+// NiLinesData::SaveBinary  --  the save path of the "lines" data object.
 //
 // The object keeps a name buffer (m_pName40) and its length (m_nameLen08).
 // Saving writes that buffer into the sub-stream that the target object holds
@@ -279,11 +279,11 @@ struct NiLinesDataStandIn
     int unk3c;
     char* m_pName40;
     void FUN_00a68520(NiStreamStandIn& stream);
-    void FUN_00a8a850(NiStreamStandIn& stream);
+    void SaveBinary(NiStreamStandIn& stream);
 };
 
 // @fnv 0x00a8a850
-void NiLinesDataStandIn::FUN_00a8a850(NiStreamStandIn& stream)
+void NiLinesDataStandIn::SaveBinary(NiStreamStandIn& stream)
 {
     this->FUN_00a68520(stream);
     NiStreamIOStandIn* io = stream.unk250;
@@ -327,11 +327,11 @@ struct S_00a8a890_Obj
     int unk00[16];
     int unk40;
     void RegisterFields(S_00a8a890_Arr* arr);
-    void FUN_00a8a890(S_00a8a890_Arr* arr);
+    void GetViewerStrings(S_00a8a890_Arr* arr);
 };
 
 // @fnv 0x00a8a890
-void S_00a8a890_Obj::FUN_00a8a890(S_00a8a890_Arr* arr)
+void S_00a8a890_Obj::GetViewerStrings(S_00a8a890_Arr* arr)
 {
     RegisterFields(arr);
     arr->Add(FUN_00a7d330(DAT_011f5b88));
@@ -397,12 +397,12 @@ class GeomDataA8A8 : public FUN_00a67ea0_helper
     int unk0C[13];
     unsigned char* m_pucFlags;
 
-    void FUN_00a8a800(NiStreamA8A8& kStream);
+    void LoadBinary(NiStreamA8A8& kStream);
 };
 
 // Calls ReadBinary, allocates m_pucFlags for m_usVertices bytes, and reads that data from kStream.
 // @fnv 0x00a8a800
-void GeomDataA8A8::FUN_00a8a800(NiStreamA8A8& kStream)
+void GeomDataA8A8::LoadBinary(NiStreamA8A8& kStream)
 {
     ReadBinary(kStream);
     m_pucFlags = (unsigned char*)NiMalloc(m_usVertices);

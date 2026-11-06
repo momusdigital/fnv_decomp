@@ -443,7 +443,7 @@ class Ref56D
     Middle56D* GetMiddle();
     void SetScale(float fScale);
     Matrix56D GetRotation();
-    void FUN_0056d7e0();
+    void InitHavokForPrimitiveTrigger();
     unsigned int unk04;
     unsigned int unk08;
     unsigned int unk0c;
@@ -472,7 +472,7 @@ class Ref56D
 };
 
 // @fnv 0x0056d7e0
-void Ref56D::FUN_0056d7e0()
+void Ref56D::InitHavokForPrimitiveTrigger()
 {
     Bound56D* pkBound = GetExtraData()->GetBound();
     World56D* pkWorld = GetMiddle() ? GetMiddle()->GetWorld() : 0;

@@ -134,7 +134,7 @@ struct hkpWheelConstraintData_Standin
     hkVector4 m_kAxleDirectionInBodyB;
     hkVector4 m_kSteeringDirectionInBodyB;
 
-    hkBoolRet FUN_00d4eec0();
+    hkBoolRet isValid();
 };
 
 struct WheelSteeringView : hkpConstraintData

@@ -71,7 +71,7 @@ struct NiTexture;
 struct NiThread;
 struct FUN_00a39720_shell : public NiBlendAccumTransformInterpolator
 {
-    void FUN_00a39720(NiStream*);
+    void SaveBinary(NiStream*);
 };
 struct FUN_00a37ec0_tgt
 {
@@ -93,7 +93,7 @@ struct NiMemObject
 typedef char _sizecheck_NiMemObject[sizeof(NiMemObject) == 1 ? 1 : -1];
 struct FUN_00a39780_shell : public NiBlendAccumTransformInterpolator
 {
-    bool FUN_00a39780(NiObject*);
+    bool IsEqual(NiObject*);
 };
 struct STUB_6FD0
 {
@@ -195,10 +195,10 @@ extern const AccumRotationMatrix DAT_011a9448;
 struct FUN_00a393c0_cls : NiBlendAccumTransformInterpolator
 {
     void FUN_00a36a90(unsigned char);
-    void FUN_00a393c0(unsigned char idx);
+    void RemoveInterpInfo(unsigned char idx);
 };
 // @fnv 0x00a393c0
-void FUN_00a393c0_cls::FUN_00a393c0(unsigned char idx)
+void FUN_00a393c0_cls::RemoveInterpInfo(unsigned char idx)
 {
     if (m_ucInterpCount == 1 && idx == m_ucSingleIdx && !m_kAccumulatedTransform.IsMarkedInvalid())
     {

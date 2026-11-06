@@ -27,11 +27,11 @@ struct NiKeyBasedInterpolator
 
 struct NiQuaternionInterpolator : NiKeyBasedInterpolator
 {
-    AnimationKey::KeyContent __stdcall FUN_00a487e0();
+    AnimationKey::KeyContent __stdcall GetKeyContent();
 };
 
 // @fnv 0x00a487e0
-AnimationKey::KeyContent __stdcall NiQuaternionInterpolator::FUN_00a487e0()
+AnimationKey::KeyContent __stdcall NiQuaternionInterpolator::GetKeyContent()
 {
     return kCONTENT_FLOAT;
 }
@@ -185,7 +185,7 @@ void* __thiscall FUN_00a48dd0_shell::Release(unsigned int uiDeleteFlags)
 }
 
 // Stand-in for the game's NiBound (a 4 x float bounding volume) and for the
-// interpolator object that owns FUN_00a48800.
+// interpolator object that owns GetChannelPosed.
 //
 // Object layout taken from the disassembly of the original:
 //   +0x00 .. +0x0b   the NiKeyBasedInterpolator part of the object
@@ -212,11 +212,11 @@ struct NiQuaternionInterpolatorStandIn
     int unk08;
     NiBound m_bound;
     RefObj* m_pKeyData;
-    bool __thiscall FUN_00a48800(unsigned int nTime);
+    bool __thiscall GetChannelPosed(unsigned int nTime);
 };
 
 // @fnv 0x00a48800
-bool NiQuaternionInterpolatorStandIn::FUN_00a48800(unsigned int nTime)
+bool NiQuaternionInterpolatorStandIn::GetChannelPosed(unsigned int nTime)
 {
     if (m_pKeyData != 0)
         return false;
@@ -523,14 +523,14 @@ struct QuaternionInterpolator
     Storage unk0c;
     void* unk1c;
 
-    void __thiscall FUN_00a3cbf0(Stream* stream);
+    void __thiscall GetViewerStrings(Stream* stream);
     void __thiscall FUN_00a48ea0(Stream* stream);
 };
 
 // @fnv 0x00a48ea0
 void QuaternionInterpolator::FUN_00a48ea0(Stream* stream)
 {
-    FUN_00a3cbf0(stream);
+    GetViewerStrings(stream);
     void* value = FUN_00a7d330(g_011f3f60);
     unsigned int index = stream->unk0a;
     if (index >= stream->unk08)

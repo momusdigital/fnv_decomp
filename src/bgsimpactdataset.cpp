@@ -600,7 +600,7 @@ void SomeClass::RemapImpactData(TESForm* apForm)
 
 // Maps selected integer values to integers 0–9; returns 4 for all other values.
 // @fnv 0x0058e8f0
-int FUN_0058e8f0(int value)
+int GetImpactMaterialType(int value)
 {
     int result = 4;
     switch (value)
@@ -703,11 +703,11 @@ extern "C" void* __cdecl memcpy(void*, const void*, size_t);
 struct ImpactSwapMaps
 {
     MapX* m_pData[12];
-    void FUN_0058f4c0(ImpactSwapMaps* apSwap);
+    void Copy(ImpactSwapMaps* apSwap);
 };
 // Deletes this object's 12 map entries, adds entries from apSwap's maps, then copies 300 bytes from offset 0x30.
 // @fnv 0x0058f4c0
-void ImpactSwapMaps::FUN_0058f4c0(ImpactSwapMaps* apSwap)
+void ImpactSwapMaps::Copy(ImpactSwapMaps* apSwap)
 {
     for (int i = 0; i < 12; i++)
     {

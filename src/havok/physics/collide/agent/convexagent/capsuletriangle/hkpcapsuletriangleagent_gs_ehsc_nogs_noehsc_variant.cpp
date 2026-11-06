@@ -140,7 +140,7 @@ struct Buffer_d3b260 {
     unsigned char m_ucHighNibble : 4;
 };
 struct Agent_d3b260 {
-    void FUN_00d3ad70(int b, int a, int c, Buffer_d3b260* buf);
+    void processCollision(int b, int a, int c, Buffer_d3b260* buf);
     void FUN_00d3b260(int a, int b, int c, Buffer_d3b260* buf);
 };
 struct __declspec(align(16)) FourWord {
@@ -1226,10 +1226,10 @@ static __forceinline void capsuleTriClosest(const hkpCdBody_S& a,const hkpCdBody
     CollideCapsuleWithTriangle(ends,capsule->getRadius(),vertices,triangle->getRadius(),cache,input.getTolerance(),manifold,points,features);
 }
 struct CapsuleTriProcess : hkpCapsuleTriangleAgent {
-    void FUN_00d3ad70(const hkpCdBody_S&,const hkpCdBody_S&,const GskAgentInput&,WorldOperationEntry&);
+    void processCollision(const hkpCdBody_S&,const hkpCdBody_S&,const GskAgentInput&,WorldOperationEntry&);
 };
 // @fnv 0x00d3ad70
-void CapsuleTriProcess::FUN_00d3ad70(const hkpCdBody_S&bodyA,const hkpCdBody_S&bodyB,const GskAgentInput&input,WorldOperationEntry&result)
+void CapsuleTriProcess::processCollision(const hkpCdBody_S&bodyA,const hkpCdBody_S&bodyB,const GskAgentInput&input,WorldOperationEntry&result)
 {
 ;
 {StringCursor&mStream=StringCursor::GetMonitorStream();if(mStream.memoryAvailable()){StringCursor::CommandTimingEntry*h=reinterpret_cast<StringCursor::CommandTimingEntry*>(mStream.GetStreamEnd());h->m_pCommandName="T" "t" "CapsuleTri";h->setTime();mStream.setEnd((char*)(h+1));}};

@@ -49,7 +49,7 @@ struct FUN_00ce4a20_cls
     int __thiscall FUN_00ce4a20(int a);
 };
 extern int DAT_0102e378;
-void __cdecl FUN_00cf69a0(int* a);
+void __cdecl finishLoadedObject_hkReferencedObject(int* a);
 struct FUN_00cf69c0_class
 {
     int m_kPointA;
@@ -535,9 +535,9 @@ class FUN_00cf4f70_cls
 };
 struct FUN_00cf6980_class
 {
-    virtual void FUN_00cf6980(int);
+    virtual void cleanupLoadedObject_hkReferencedObject(int);
 };
-void __cdecl FUN_00cf6980(FUN_00cf6980_class* object);
+void __cdecl cleanupLoadedObject_hkReferencedObject(FUN_00cf6980_class* object);
 extern int DAT_01268748;
 int* __cdecl FUN_00cf6990();
 extern int DAT_0102e378;

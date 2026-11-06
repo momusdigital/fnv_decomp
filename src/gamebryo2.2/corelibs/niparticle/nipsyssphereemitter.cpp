@@ -70,10 +70,10 @@ struct Base00c1fde0
 struct Holder00c1fde0 : Base00c1fde0
 {
     float m_fCylinderRadius;
-    bool __thiscall FUN_00c1fde0(void* pkObject);
+    bool __thiscall IsEqual(void* pkObject);
 };
 // @fnv 0x00c1fde0
-bool __thiscall Holder00c1fde0::FUN_00c1fde0(void* pkObject)
+bool __thiscall Holder00c1fde0::IsEqual(void* pkObject)
 {
     Holder00c1fde0* pkDest = (Holder00c1fde0*)pkObject;
     if (!FUN_00c31b80(pkObject))
@@ -109,7 +109,7 @@ BSFadeNode* FUN_00c1ffa0_s::CreateFadeNode(void* pkCloningProcess)
     return pkObject;
 }
 
-// FUN_00c20080 - the sphere emitter's stream loader.
+// SaveBinary - the sphere emitter's stream loader.
 //
 // The pack's NiStream / NiBinaryStream declarations do not match the original
 // code: the original takes the binary stream from stream+0x250 (the pack says
@@ -155,11 +155,11 @@ struct PSysVolumeEmitter
 struct PSysSphereEmitter : PSysVolumeEmitter
 {
     float m_fBoundRadius;  // +0x58
-    void FUN_00c20080(GameStream& stream);
+    void SaveBinary(GameStream& stream);
 };
 
 // @fnv 0x00c20080
-void PSysSphereEmitter::FUN_00c20080(GameStream& stream)
+void PSysSphereEmitter::SaveBinary(GameStream& stream)
 {
     PSysVolumeEmitter::LoadBinary(stream);
     BinaryStream* input = stream.input;

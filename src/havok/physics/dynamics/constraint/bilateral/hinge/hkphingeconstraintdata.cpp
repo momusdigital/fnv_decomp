@@ -6,11 +6,11 @@
 
 struct FUN_00cbe1b0_class
 {
-    void FUN_00cbe1b0(int index);
+    void setBodyToNotify(int index);
 };
 
 // @fnv 0x00cbe1b0
-void FUN_00cbe1b0_class::FUN_00cbe1b0(int index)
+void FUN_00cbe1b0_class::setBodyToNotify(int index)
 {
     reinterpret_cast<unsigned char*>(this)[0xa6] = (unsigned char)(1 << index);
 }
@@ -202,11 +202,11 @@ class FUN_00cbe750_C
     hkTransformCBE7 m_kPointA;
     hkTransformCBE7 m_kPointB;
 
-    hkBoolCBE7 FUN_00cbe750() const;
+    hkBoolCBE7 isValid() const;
 };
 
 // @fnv 0x00cbe750
-hkBoolCBE7 FUN_00cbe750_C::FUN_00cbe750() const
+hkBoolCBE7 FUN_00cbe750_C::isValid() const
 {
     return m_kPointA.IsOrthonormal(0.001f) && m_kPointB.IsOrthonormal(0.001f);
 }

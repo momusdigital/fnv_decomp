@@ -23,11 +23,11 @@ struct FUN_00533fd0_Class {
 };
 struct FUN_00534050_Class {
     int FUN_00533fd0();
-    float FUN_00534050();
+    float GetWorldCellX();
 };
 struct FUN_00534080_Class {
     int FUN_00534010();
-    double FUN_00534080();
+    double GetWorldCellY();
 };
 struct TESWorldSpace;
 struct DoorH { TESWorldSpace* GetParentWorldSpace(); };
@@ -66,10 +66,10 @@ template<int> struct EndianSizeTag {};
 void BSEndian(int*, EndianSizeTag<2>);
 void BSEndian(unsigned short*, EndianSizeTag<2>);
 struct FUN_00535a60_Class {
-    void FUN_00535a60();
+    void Endian();
 };
 extern int DAT_011c9f04;
-int FUN_00535ae0();
+int GetDefaultTexture();
 extern "C" void __cdecl _Deallocate(void*);
 struct FUN_00537100_Class {
     void __thiscall FUN_00537130();
@@ -78,7 +78,7 @@ struct FUN_00537100_Class {
 extern const char* const g_011f4aac_arg1;
 struct FUN_00537ca0_class
 {
-    const char* const* FUN_00537ca0();
+    const char* const* GetRTTI();
 };
 struct FUN_00a73080_holder { void FUN_00a73080(); };
 void __cdecl operator delete(void* p, unsigned int size);
@@ -91,7 +91,7 @@ struct FUN_00540800_Class {
 };
 extern "C" void* g_011f4aac;
 struct FUN_00537d00_Class {
-    void* __thiscall FUN_00537d00();
+    void* __thiscall GetRTTI();
 };
 struct FUN_00537d10_Class {
     void FUN_00537d40();
@@ -153,13 +153,13 @@ struct FUN_005394c0_Class {
     int m_14;
     int m_18;
     int m_1c;
-    void FUN_005394c0(bool value);
+    void MarkLoaded(bool value);
 };
 struct GlobalObjectO2_00a7b610;
 extern GlobalObjectO2_00a7b610 g_011f4ab8;
 struct FUN_00539fc0_Class
 {
-    GlobalObjectO2_00a7b610* FUN_00539fc0();
+    GlobalObjectO2_00a7b610* GetRTTI();
 };
 void __cdecl operator delete(void* p, unsigned int size);
 struct FUN_0053a000 {
@@ -199,9 +199,9 @@ struct FUN_0053a760_Class {
     void FUN_0053a760(unsigned char a, unsigned short b, int c);
 };
 struct FUN_0053ae30_class {
-    int __thiscall FUN_0053a700(unsigned char, unsigned short);
-    float __thiscall FUN_0053a830(unsigned char, unsigned short, unsigned short);
-    float __thiscall FUN_0053ae30(unsigned char type, unsigned short id);
+    int __thiscall GetTexture(unsigned char, unsigned short);
+    float __thiscall GetTexturePercent(unsigned char, unsigned short, unsigned short);
+    float __thiscall GetTextureUsePercent(unsigned char type, unsigned short id);
 };
 struct GlobalObject_0044f440 {
     float* Float();
@@ -223,7 +223,7 @@ struct Owner
 {
     bool FUN_0053b550(Buf50*, int, int);
     bool ComputeTerrainNormalAndTangent(Buf50*, int, int);
-    bool FUN_0053d2e0(int, int, int);
+    bool GetLandNormal(int, int, int);
 };
 struct FUN_0053df00_Class {
     int __thiscall FUN_0053df00();
@@ -282,7 +282,7 @@ struct LandscapeColorData
 struct TESObjectLAND
 {
     bool __thiscall FUN_0053b550(LandscapeColorData&, const LandscapeColorData&, int);
-    float __thiscall FUN_0053a550();
+    float __thiscall GetDefaultWorldHeight();
     bool __thiscall FUN_0053f1e0(LandscapeColorData&, float&);
     bool __thiscall FUN_0053f180(const LandscapeColorData&, float&);
 };
@@ -291,12 +291,12 @@ struct BGSTextureSet {
     void LoadTextures(int, QueuedFile*, bool);
 };
 struct FUN_00541540_Class {
-    void FUN_00541540(int a, QueuedFile* b);
+    void QueueTexture(int a, QueuedFile* b);
 };
 struct FUN_00541590_Class {
     char FUN_00541590();
 };
-struct S_00592cf0 { void* FUN_00592cf0(); };
+struct S_00592cf0 { void* GetAsShaderTextureSet(); };
 struct Param5380d0 {
 	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03(); virtual void v04();
 	virtual void v05(); virtual void v06(); virtual void v07(); virtual void v08(); virtual void v09();
@@ -343,11 +343,11 @@ struct FUN_0053a700_Mid {
 struct FUN_0053a700_Holder {
     unsigned char pad[0x28];
     FUN_0053a700_Mid* p;
-    int FUN_0053a700(unsigned char, unsigned short);
+    int GetTexture(unsigned char, unsigned short);
 };
 extern float DAT_01015f5c;
 struct FUN_0053a630_Class : public FUN_0053ae30_class {
-    int FUN_0053a630(unsigned char type, unsigned short id);
+    int GetMainTexture(unsigned char type, unsigned short id);
 };
 struct A51BF0Base {
     static void* operator new(unsigned int); static void operator delete(void*, unsigned int);
@@ -378,7 +378,7 @@ extern int DAT_0102dcd4;
 extern int DAT_0102dccc;
 extern unsigned char DAT_011c9efc;
 extern int DAT_011c9f00;
-void __cdecl FUN_00533420();
+void __cdecl InitializeStatics();
 void __cdecl FUN_00403d30(void* p, int value, unsigned int size);
 struct FUN_00483370 {
     void* m_vt;
@@ -424,7 +424,7 @@ struct LandForm : TESPackage {
     int unk24;
     LandData* unk28;
 
-    bool FUN_00535b90(bool bFlag);
+    bool LoadVertices(bool bFlag);
     bool IsLoaded();
     TESFile* GetFile(int index);
     void SetLoadState(bool value);
@@ -487,7 +487,7 @@ void __cdecl FUN_004856f0(unsigned int fourcc, void* buf, unsigned int size);
 int __cdecl FUN_00ec7d40(int v);
 void __cdecl FNV_Warning(const char* fmt, ...);
 void __cdecl CompressSaveLoadRecord();
-int FUN_00535ae0();
+int GetDefaultTexture();
 void __fastcall FUN_00503210(void* p);
 struct FUN_0084e3a0_Class { int FUN_0084e3a0(); };
 struct FUN_00535aa0_Class { void FUN_00535aa0(); };
@@ -527,7 +527,7 @@ struct Entry538110 {
     float m_04;
 };
 struct FUN_0053db20_Class { void FUN_0053db20(); };
-struct FUN_0053a940_Class { void FUN_0053a940(); };
+struct FUN_0053a940_Class { void AdjustTextureArrays(); };
 struct This538110 {
     int m_00;
     int m_04;
@@ -540,7 +540,7 @@ struct This538110 {
     int m_20;
     int m_24;
     Data538110* m_28;
-    void FUN_00538110();
+    void SaveForm();
 };
 struct Base8ef0 { virtual void v0(); int a; int b; int c; Base8ef0(); ~Base8ef0(); };
 struct MA { int x[4]; MA(); void Go(); };
@@ -632,11 +632,11 @@ struct S_00539280_Obj {
 };
 struct S_00539280_Owner {
     S_00539280_Obj* FUN_007af430();
-    bool FUN_00539280(S_00539280_Arg* a, bool b, bool c);
+    bool BelongsInGroup(S_00539280_Arg* a, bool b, bool c);
 };
 struct Mem960 {int value;Mem960(int,bool,const char*,int);~Mem960();};
 struct Color960 {float r,g,b,a;Color960(float,float,float,float);};
-struct Texture960 {Texture960* FUN_009611e0();void* FUN_00592cf0();unsigned char FUN_00541590();};
+struct Texture960 {Texture960* FUN_009611e0();void* GetAsShaderTextureSet();unsigned char FUN_00541590();};
 struct Property960 {virtual void v000();virtual void v004();virtual void v008();virtual void v00c();virtual void v010();virtual void v014();virtual void v018();virtual void v01c();virtual void v020();virtual void v024();virtual void v028();virtual void v02c();virtual void v030();virtual void v034();virtual void v038();virtual void v03c();virtual void v040();virtual void v044();virtual void v048();virtual void v04c();virtual void v050();virtual void v054();virtual void v058();virtual void v05c();virtual void v060();virtual void v064();virtual void v068();virtual void v06c();virtual void v070();virtual void v074();virtual void v078();virtual void v07c();virtual void v080();virtual void v084();virtual void v088();virtual void v08c();virtual void v090();virtual void v094();virtual void v098();virtual void v09c();virtual void v0a0();virtual void v0a4();virtual void v0a8();virtual void v0ac();virtual void v0b0();virtual void v0b4();virtual void v0b8();virtual void v0bc();virtual void v0c0();virtual void v0c4();virtual void v0c8();virtual void v0cc();virtual void v0d0();virtual void* vd4(void*);unsigned unk004;unsigned unk008;unsigned unk00c;unsigned unk010;unsigned unk014;unsigned unk018;unsigned unk01c;unsigned unk020;unsigned unk024;unsigned unk028;unsigned unk02c;unsigned unk030;unsigned unk034;unsigned unk038;unsigned unk03c;unsigned unk040;unsigned unk044;unsigned unk048;unsigned unk04c;unsigned unk050;unsigned unk054;unsigned unk058;unsigned unk05c;unsigned unk060;unsigned unk064;unsigned unk068;unsigned unk06c;unsigned unk070;unsigned unk074;unsigned unk078;unsigned unk07c;unsigned unk080;unsigned unk084;unsigned unk088;unsigned unk08c;unsigned unk090;unsigned unk094;unsigned unk098;unsigned unk09c;unsigned unk0a0;unsigned unk0a4;unsigned unk0a8;unsigned unk0ac;unsigned unk0b0;unsigned unk0b4;unsigned unk0b8;unsigned unk0bc;unsigned unk0c0;unsigned unk0c4;unsigned unk0c8;unsigned unk0cc;unsigned unk0d0;unsigned unk0d4;unsigned unk0d8;unsigned unk0dc;unsigned unk0e0;unsigned unk0e4;unsigned unk0e8;unsigned unk0ec;unsigned unk0f0;unsigned unk0f4;unsigned unk0f8;unsigned unk0fc;unsigned unk100;Property960();static void* operator new(unsigned); static void operator delete(void*, unsigned int);void FUN_005a8060(int);void FUN_00b68660(int,void*);void FUN_00b66640(unsigned char,unsigned char,unsigned char,unsigned char,unsigned char,unsigned char,unsigned char,int,int,int);void FUN_00539f20(void*);};
 struct Binary960 {unsigned unk00,unk04,unk08,unk0c,unk10;Binary960(unsigned,unsigned char*);static void* operator new(unsigned); static void operator delete(void*, unsigned int);};
 const char* __cdecl FUN_00539f40();
@@ -645,7 +645,7 @@ struct Node960 {void FUN_00a5bc40(const char*,Binary960*);Geometry960* FUN_0045b
 void* __cdecl FUN_00b54b60(Geometry960*);
 void __cdecl FUN_00b57e30(Node960*,int,int);
 struct Data960 {Node960** nodes;unsigned unk04,unk08;Color960** colors;unsigned unk10,unk14,unk18,unk1c;Texture960* base[4];Texture960** layers[4];unsigned char** binary[4];};
-struct Host960 {unsigned unk00,unk04,unk08,unk0c,unk10,unk14,unk18,flags,unk20,unk24;Data960* data;void FUN_005394c0(bool);bool FUN_00539960();};
+struct Host960 {unsigned unk00,unk04,unk08,unk0c,unk10,unk14,unk18,flags,unk20,unk24;Data960* data;void MarkLoaded(bool);bool InitLandscape();};
 void __cdecl NiFree(void* pvMem);
 class B53A000ExtraData {
 public:
@@ -691,8 +691,8 @@ struct LocalObj53a5e0 {
 };
 struct FUN_0053a5e0_cls {
     bool FUN_0053b550(LocalObj53a5e0* p, int a, int b);
-    int FUN_0053a630(unsigned char type, unsigned short id);
-    int FUN_0053a5e0(int arg);
+    int GetMainTexture(unsigned char type, unsigned short id);
+    int GetMainTexture(int arg);
 };
 struct FUN_0053a7a0_Tbl {
     char pad[0x40];
@@ -737,7 +737,7 @@ struct FUN_0053a830_cls {
     int m20;
     int m24;
     FUN_0053a830_Mid* m_28;
-    float FUN_0053a830(unsigned char type, unsigned short id, unsigned short idx);
+    float GetTexturePercent(unsigned char type, unsigned short id, unsigned short idx);
 };
 extern "C" double gModifierZero;
 struct C53A8A0Data {
@@ -812,7 +812,7 @@ struct FNv53b450_Point {
 struct FNv53b450_Source {
     int FUN_00533fd0();
     int FUN_00534010();
-    FNv53b450_Point* FUN_0053b450(FNv53b450_Point* output, unsigned char flags, unsigned short cellIndex, const int* x, const int* y);
+    FNv53b450_Point* GetVertexLocation(FNv53b450_Point* output, unsigned char flags, unsigned short cellIndex, const int* x, const int* y);
 };
 class B3CA80Map {
 public:
@@ -866,8 +866,8 @@ public:
 struct TESWorldSpace;
 struct TESObjectCELL;
 struct Obj53 {
-    bool FUN_0045cb90();
-    void FUN_00535b90(int a);
+    bool HasVertices();
+    void LoadVertices(int a);
 };
 struct Cell53 {
     Obj53* FUN_00546fb0();
@@ -917,7 +917,7 @@ struct FUN_0053f390_v3 {
 };
 struct FUN_0053f390_cls {
     void FUN_00534240(int n, int i, FUN_0053f390_v3* out);
-    FUN_0053f390_v2* FUN_0053f390(FUN_0053f390_v2* out, int n);
+    FUN_0053f390_v2* GetMinMaxBlockHeight(FUN_0053f390_v2* out, int n);
 };
 class NiPoint2 { public: float x,y; NiPoint2(float,float); };
 struct UVBounds { float x,y,z,w; };
@@ -1089,7 +1089,7 @@ struct Surface {
  int unk20;
  int unk24;
  TESFileRecordLoader* data;
- void FUN_005400e0();
+ void InitDistantTextureBlending();
 };
 struct FUN_00538ef0 {
     virtual void VirtualMethod();
@@ -1222,7 +1222,7 @@ struct VertOwner {
     int unk14; int unk18; int unk1c; int unk20; int unk24;
     VertTables* tables;
     bool IsLoaded();
-    void FUN_00534390(unsigned int index, unsigned int vert, VertPt& out);
+    void GetNormal(unsigned int index, unsigned int vert, VertPt& out);
 };
 struct Color_5345c0 { float r, g, b, a; };
 extern Color_5345c0 DAT_011a9be0;
@@ -1301,8 +1301,8 @@ struct FUN_005345c0_shell {
     int unk20;
     int unk24;
     Store_5345c0* store;
-    bool FUN_0045cb90();
-    void FUN_005345c0(unsigned int group, unsigned int index, Color_5345c0& out);
+    bool HasVertices();
+    void GetColorA(unsigned int group, unsigned int index, Color_5345c0& out);
 };
 struct RgbaColor {
     float r;
@@ -1338,12 +1338,12 @@ struct LandCopy : TESPackage {
     void* cell;
     int unk24;
     LandCopyData* data;
-    void FUN_00535b90(int);
+    void LoadVertices(int);
     void* FUN_007af430();
-    void FUN_00539500(LandCopy*);
-    void FUN_00536d80();
-    void FUN_005394c0(bool);
-    void FUN_005348c0(TESForm* form);
+    void CreateLandscape(LandCopy*);
+    void UnLoadVertices();
+    void MarkLoaded(bool);
+    void CopyFrom(TESForm* form);
 };
 struct CleanupMap {
     int unk00, unk04, unk08, unk0c;
@@ -1380,7 +1380,7 @@ struct CleanupOwner {
     CleanupData* data;
     void SetLoaded(bool);
     void Finish();
-    bool FUN_00536d80();
+    bool UnLoadVertices();
 };
 void* __cdecl operator new(unsigned int);
 void __cdecl FUN_00403d30(void*, int, unsigned int);
@@ -1579,10 +1579,10 @@ int unk10;
 int unk14;
 int unk18;
 int unk1c; Cell* cell; int unk24; Data* data;
-Scene* FUN_00535af0(int); Shape* FUN_005371b0(unsigned char);
-Range* FUN_0053f390(Range*,int); float FUN_00534050(); double FUN_00534080();
-void FUN_0053bc10(); void FUN_0053aeb0(); void FUN_00539960();
-Other* FUN_007af430(); bool FUN_00534140(); void FUN_005374f0();};
+Scene* FUN_00535af0(int); Shape* MakeLandTriStrips(unsigned char);
+Range* GetMinMaxBlockHeight(Range*,int); float GetWorldCellX(); double GetWorldCellY();
+void CalculateGrassParams(); void FUN_0053aeb0(); void InitLandscape();
+Other* FUN_007af430(); bool FUN_00534140(); void Attach3D();};
 struct SceneObject {
     virtual void Unknown00();
     virtual void Unknown01();
@@ -1715,7 +1715,7 @@ struct SceneCleanup {
     SceneSource* source;
     QueuePointer queued;
     BoneTransformData* data;
-    void FUN_00537eb0();
+    void Detach3D();
 };
 struct ShadowSceneNode {
     void FUN_00b5b1c0(SceneObject* object);
@@ -1770,12 +1770,12 @@ struct FUN_00538c00_Class
 
 {
 
-    char __thiscall FUN_00538c00(const void* source, unsigned int size, Output538c00** result);
+    char __thiscall ReadMoppCodeFromBuffer(const void* source, unsigned int size, Output538c00** result);
 
 };
 struct Mesh53;
 struct Buffer53 { void ComputeBoundingSphere(); };
-struct Texture53Data { void* FUN_00592cf0(); };
+struct Texture53Data { void* GetAsShaderTextureSet(); };
 struct Texture53 { Texture53Data* FUN_009611e0(); unsigned char FUN_00541590(); };
 struct GeoData53 { void* FUN_0059bb30(); void FUN_00a67090(int); void FUN_00a66a60(int); };
 struct NiTimeController {
@@ -1851,14 +1851,14 @@ struct Worker53 {
  int unk00; int unk04; int unk08; int unk0c; int unk10; int unk14; int unk18; int unk1c; int unk20; int unk24;
  Config53* config;
  Node53* FUN_00535af0(int);
- void FUN_0053fa40(char); void FUN_00539500(int); void FUN_005374f0();
- void FUN_0053a090(bool update, int unused);
+ void DrawLandBorder(char); void CreateLandscape(int); void Attach3D();
+ void UpdateMesh(bool update, int unused);
 };
 void* __cdecl FUN_00401000(unsigned int size);
 void __cdecl FUN_00401030(void* memory);
 struct LayerOwner53a940 : Owner53ace0 {
     void FUN_0053abb0(unsigned char quadrant, unsigned short layer);
-    void FUN_0053a940();
+    void AdjustTextureArrays();
 };
 struct ShiftTableData {
     int unk00[12];
@@ -2065,7 +2065,7 @@ extern unsigned long DAT_011c9f6c;
 struct TerrainOwner {
  int u00,u04,u08,u0c,u10,u14,u18,u1c,u20,u24; TerrainData* data;
  float FUN_0053a7a0(unsigned char,unsigned short);
- bool FUN_0053bc10();
+ bool CalculateGrassParams();
 };
 struct Pt53d8f0 {
     float x;
@@ -2116,7 +2116,7 @@ struct NormalPoint {
 };
 extern NormalPoint NiPoint3_ZERO;
 extern unsigned short* DAT_011c9ee8;
-void __cdecl FUN_00525340(NormalPoint*);
+void __cdecl UnitizeVector(NormalPoint*);
 void __cdecl NormalizePoints(NormalPoint*, int, int);
 struct NormalData {
  int unk00;
@@ -2184,8 +2184,8 @@ struct FUN_0053f440_shell
     char pad20[8];
     LandData53f* pkData;
 
-    float FUN_0053a550();
-    NiPoint2 FUN_0053f390(int iQuad);
+    float GetDefaultWorldHeight();
+    NiPoint2 GetMinMaxBlockHeight(int iQuad);
     NiPoint2 FUN_0053f440();
 };
 #include "fnv_asm_helpers.h"   // project x87 helpers (fnv_SinCos, fnv_FloatToInt), kept last so earlier code is unchanged
@@ -2313,7 +2313,7 @@ static const char s_szLandscapeFormat[] = "Landscape\\%s";
 static const char s_szTilingWarning[] = "DEFAULT: INI setting fLandTextureTilingMult cannot be 0.";
 
 // @fnv 0x00533420
-void __cdecl FUN_00533420() {
+void __cdecl InitializeStatics() {
     LandMemContext kMemContext(0x1b, true, s_szSourceFile, 0xc6);
     DAT_011c9f08 = new LandTexturing();
     char acPath[260];
@@ -2429,9 +2429,9 @@ struct Vec3 {
 };
 struct CoordProcessor { int x, y, z; Vec3 FUN_00439e90(const Vec3& arOrigin); };
 struct Grid53 { int count; CoordProcessor** processors; Vec3** positions; int unknown0c; unsigned char** evaluated; };
-struct FNV53WorkerProxy { bool FUN_0053d2e0(Vec3* apCoord, Vec3* apAxis, Vec3* apAux); bool FUN_0053e210(Vec3* apCoord); };
+struct FNV53WorkerProxy { bool GetLandNormal(Vec3* apCoord, Vec3* apAxis, Vec3* apAux); bool FUN_0053e210(Vec3* apCoord); };
 struct WorkerTable53 { FNV53WorkerProxy* southwest; FNV53WorkerProxy* northwest; FNV53WorkerProxy* southeast; FNV53WorkerProxy* northCount; FNV53WorkerProxy* east; FNV53WorkerProxy* west; FNV53WorkerProxy* upper; FNV53WorkerProxy* northeast; };
-struct Region53 { int m00,m04,m08,m0c,m10,m14,m18,m1c,m20,m24; Grid53* grid; float FUN_00534080(); float FUN_00534050(); void FUN_0053e290(int,int,Vec3*,WorkerTable53*); };
+struct Region53 { int m00,m04,m08,m0c,m10,m14,m18,m1c,m20,m24; Grid53* grid; float GetWorldCellY(); float GetWorldCellX(); void FUN_0053e290(int,int,Vec3*,WorkerTable53*); };
 struct NiP2 { float x, y; NiP2(); };
 struct NiPoint3_ext { float x, y, z; NiPoint3_ext(); };
 class NiFixedString {
@@ -2505,8 +2505,8 @@ struct Land5371 {
     int unk00; int unk04; int unk08; int unk0c; int unk10;
     int unk14; int unk18; int unk1c; int unk20; int unk24;
     MeshData5371* data;
-    void FUN_00535b30(NiPoint3*, unsigned char);
-    Geometry5371* FUN_005371b0(unsigned char index);
+    void GetWorldOffsetForBlock(NiPoint3*, unsigned char);
+    Geometry5371* MakeLandTriStrips(unsigned char index);
 };
 extern NiP2* DAT_011c9ef4;
 extern unsigned short DAT_0118ae90[];
@@ -2593,8 +2593,8 @@ struct GeometryOwner {
     Resource* resource;
     int unknown24;
     FUN_005405a0* geometry;
-    float FUN_0053a550();
-    bool FUN_00539500(GeometryOwner* source);
+    float GetDefaultWorldHeight();
+    bool CreateLandscape(GeometryOwner* source);
 };
 
 extern void* DAT_011c9ed4[4];
@@ -2604,7 +2604,7 @@ extern void* DAT_011c9ef8;
 extern float DAT_0102dcc4;
 
 // @fnv 0x00539500
-bool GeometryOwner::FUN_00539500(GeometryOwner* source)
+bool GeometryOwner::CreateLandscape(GeometryOwner* source)
 {
     if (geometry != 0 && geometry->positions != 0)
         return false;
@@ -2618,14 +2618,14 @@ bool GeometryOwner::FUN_00539500(GeometryOwner* source)
     geometry->normals = new FUN_006815c0*[4];
     geometry->tags = new unsigned char*[4];
 
-    float height = FUN_0053a550();
+    float height = GetDefaultWorldHeight();
     for (int i = 0; i < 4; ++i) {
         geometry->positions[i] = new FUN_006815c0[0x121];
         geometry->transforms[i] = new FUN_004a7800[0x121];
         geometry->normals[i] = new FUN_006815c0[0x121];
         geometry->tags[i] = new unsigned char[0x121];
         geometry->vertexRows[i] = new float*[0x121];
-        geometry->resources[i] = (void*)FUN_00535ae0();
+        geometry->resources[i] = (void*)GetDefaultTexture();
         geometry->metadata[i] = new unsigned char[0x18];
 
         if (!source || !source->geometry) {

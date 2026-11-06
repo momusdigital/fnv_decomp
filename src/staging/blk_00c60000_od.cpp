@@ -8,11 +8,11 @@ extern "C" void* g_01204388;
 
 struct FUN_00c600f0_Class
 {
-    void* __thiscall FUN_00c600f0();
+    void* __thiscall GetRTTI();
 };
 
 // @fnv 0x00c600f0
-void* __thiscall FUN_00c600f0_Class::FUN_00c600f0()
+void* __thiscall FUN_00c600f0_Class::GetRTTI()
 {
     return &g_01204388;
 }
@@ -51,22 +51,22 @@ extern "C" void* g_01204390;
 
 struct FUN_00c60d40_Class
 {
-    void* __thiscall FUN_00c60d40();
+    void* __thiscall GetRTTI();
 };
 
 // @fnv 0x00c60d40
-void* __thiscall FUN_00c60d40_Class::FUN_00c60d40()
+void* __thiscall FUN_00c60d40_Class::GetRTTI()
 {
     return &g_01204390;
 }
 
 struct FUN_00c61420_Class
 {
-    void* __thiscall FUN_00c61420(void* p);
+    void* __thiscall CreateClone(void* p);
 };
 
 // @fnv 0x00c61420
-void* __thiscall FUN_00c61420_Class::FUN_00c61420(void* apUnused)
+void* __thiscall FUN_00c61420_Class::CreateClone(void* apUnused)
 {
     return this;
 }
@@ -174,22 +174,22 @@ extern "C" void* g_012043a4;
 
 struct FUN_00c61810_class
 {
-    void* FUN_00c61810();
+    void* GetRTTI();
 };
 
 // @fnv 0x00c61810
-void* FUN_00c61810_class::FUN_00c61810()
+void* FUN_00c61810_class::GetRTTI()
 {
     return &g_012043a4;
 }
 
 struct FUN_00c61820_class
 {
-    void* FUN_00c61820(int);
+    void* CreateClone(int);
 };
 
 // @fnv 0x00c61820
-void* FUN_00c61820_class::FUN_00c61820(int)
+void* FUN_00c61820_class::CreateClone(int)
 {
     return this;
 }
@@ -291,11 +291,11 @@ extern "C" void* g_012043b8;
 
 struct FUN_00c632e0_Class
 {
-    void* __thiscall FUN_00c632e0();
+    void* __thiscall GetRTTI();
 };
 
 // @fnv 0x00c632e0
-void* __thiscall FUN_00c632e0_Class::FUN_00c632e0()
+void* __thiscall FUN_00c632e0_Class::GetRTTI()
 {
     return &g_012043b8;
 }
@@ -338,11 +338,11 @@ extern GlobalObject_00a7b610 g_012043c8;
 
 struct FUN_00c63aa0_class
 {
-    GlobalObject_00a7b610* FUN_00c63aa0();
+    GlobalObject_00a7b610* GetRTTI();
 };
 
 // @fnv 0x00c63aa0
-GlobalObject_00a7b610* FUN_00c63aa0_class::FUN_00c63aa0()
+GlobalObject_00a7b610* FUN_00c63aa0_class::GetRTTI()
 {
     return &g_012043c8;
 }
@@ -825,11 +825,11 @@ extern GlobalObject_00a7b610 g_012043b0;
 
 struct FUN_00c63320_Class
 {
-    GlobalObject_00a7b610* __thiscall FUN_00c63320();
+    GlobalObject_00a7b610* __thiscall GetRTTI();
 };
 
 // @fnv 0x00c63320
-GlobalObject_00a7b610* FUN_00c63320_Class::FUN_00c63320()
+GlobalObject_00a7b610* FUN_00c63320_Class::GetRTTI()
 {
     return &g_012043b0;
 }
@@ -1319,12 +1319,12 @@ FUN_00c63ab0::FUN_00c63ab0(int value)
 struct BSDecalPlacementVectorExtraData_StandIn
 {
     void* __thiscall FUN_00c640f0(void* pObject, int value);
-    void* __thiscall FUN_00c64060(int value);
+    void* __thiscall CreateClone(int value);
 };
 
 // Allocates a FUN_00c63ab0 with value 0, passes it to FUN_00c640f0 with value, and returns the new object.
 // @fnv 0x00c64060
-void* __thiscall BSDecalPlacementVectorExtraData_StandIn::FUN_00c64060(int value)
+void* __thiscall BSDecalPlacementVectorExtraData_StandIn::CreateClone(int value)
 {
     FUN_00c63ab0* pObject = new FUN_00c63ab0(0);
     this->FUN_00c640f0(pObject, value);

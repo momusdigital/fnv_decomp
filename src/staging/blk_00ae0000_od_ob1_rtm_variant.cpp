@@ -1325,7 +1325,7 @@ class FUN_00aed420_cls
     S_Subsys* m_198;
     S_Subsys* m_19c;
     S_Subsys* m_1a0;
-    bool FUN_00aed420();
+    bool Pause();
 };
 struct IDSBufStub
 {
@@ -1622,7 +1622,7 @@ struct S_00af01e0_Cls
     int unk194;
     int unk198;
     S_00af01e0_Snd* unk19c;
-    int FUN_00af01e0(float f);
+    int SetFrameFrequencyPerc(float f);
 };
 extern "C" void* fnv_zlib_memset(void* dst, int c, int n);
 void FUN_005b5e40(const char* pcFormat, ...);
@@ -2742,7 +2742,7 @@ struct SoundObj
     bool is3D;
 
     bool IsPlaying();
-    void FUN_00aefda0(float maxDist, float minDist);
+    void SetDistances(float maxDist, float minDist);
 };
 extern const double DAT_010a3e68;
 extern const double DAT_010a3e60;
@@ -4129,7 +4129,7 @@ class AudioBuffer
     {
         return (m_flags & 0x4000000) || (m_flags & 0x2000000);
     }
-    void __thiscall FUN_00af0630(AudioBuffer*, bool);
+    void __thiscall CopyFrom(AudioBuffer*, bool);
 };
 struct FUN_00aea020_cls
 {

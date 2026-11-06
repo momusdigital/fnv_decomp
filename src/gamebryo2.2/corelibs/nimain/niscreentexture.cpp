@@ -934,12 +934,12 @@ struct ScreenTextureClone : ScreenTextureBase
 
 struct ScreenHost : ScreenCopy
 {
-    ScreenTextureClone* FUN_00a95c10(void* cloning);
+    ScreenTextureClone* CreateClone(void* cloning);
 };
 
 // Allocates a ScreenTextureClone, copies the source ScreenCopy into it via CopyTo, and returns the new object.
 // @fnv 0x00a95c10
-ScreenTextureClone* ScreenHost::FUN_00a95c10(void* apSource)
+ScreenTextureClone* ScreenHost::CreateClone(void* apSource)
 {
     ScreenTextureClone* object = new ScreenTextureClone;
     CopyTo(reinterpret_cast<ScreenCopy*>(object), apSource);

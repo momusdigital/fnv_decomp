@@ -212,7 +212,7 @@ struct FUN_00c4ada0_Class
 struct FUN_00c4ade0_class
 {
     unsigned char FUN_00c452c0(int);
-    unsigned char FUN_00c4ade0(int);
+    unsigned char RegisterStreamables(int);
 };
 struct FUN_00c4ae10_Class
 {
@@ -513,7 +513,7 @@ struct NiTPrimitiveArray_unsigned_int_
 struct FUN_00c4ab00_Class
 {
     void __thiscall FUN_00c454c0(int);
-    void __thiscall FUN_00c4ab00(int a);
+    void __thiscall GetViewerStrings(int a);
 };
 struct FUN_00c4f2d0_class
 {

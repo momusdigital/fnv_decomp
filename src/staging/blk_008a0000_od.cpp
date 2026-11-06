@@ -1288,8 +1288,8 @@ struct Pkg
     void SetPackageType(int);
     void SetMustReachLocation(bool);
     void SetMustComplete(bool);
-    void FUN_00671d30(PkgLoc*);
-    void FUN_00672fc0(PkgTarget*);
+    void SetPackageLocation(PkgLoc*);
+    void SetPackageTarget(PkgTarget*);
     void FUN_00984f60(unsigned int);
     PkgData* GetData();
     void SetFlag200000(bool);
@@ -2137,10 +2137,10 @@ void Me::FUN_008bf500(void* arg)
     pNewPkg->SetMustComplete(true);
     PkgLoc* pLocation = new PkgLoc;
     pLocation->FUN_0067f3c0(arg);
-    pNewPkg->FUN_00671d30(pLocation);
+    pNewPkg->SetPackageLocation(pLocation);
     delete pLocation;
     PkgTarget* target = new PkgTarget;
-    pNewPkg->FUN_00672fc0(target);
+    pNewPkg->SetPackageTarget(target);
     delete target;
     pNewPkg->FUN_00984f60(0x2b);
     pNewPkg->GetData()->FUN_006800b0(0);

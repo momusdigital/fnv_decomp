@@ -244,7 +244,7 @@ extern const char* DAT_01197794[];
 extern const char* DAT_011977a4[];
 
 // @fnv 0x005f38d0
-void __cdecl FUN_005f38d0(const char* apModelName, unsigned int* aeMove, unsigned int* aeWeapon, bool* abPowerArmor)
+void __cdecl ParseAnimGroupFilename(const char* apModelName, unsigned int* aeMove, unsigned int* aeWeapon, bool* abPowerArmor)
 {
     unsigned int n;
     const char* plastSlash = _strrchr(apModelName, '\\');
@@ -421,7 +421,7 @@ bool __cdecl IsNine(int);
 
 // Returns false for type 0xff, otherwise looks up the type's entry and returns the result of IsNine on its stored value.
 // @fnv 0x005f25d0
-bool FUN_005f25d0(unsigned short ausType)
+bool IsAttackSpinAction(unsigned short ausType)
 {
     if (ausType == 0xff)
         return false;
@@ -493,7 +493,7 @@ void FUN_005f2820_shell::FUN_005f2820(unsigned int count)
 int __cdecl GetType(unsigned short);
 // Returns true when GetType(a) is 0, 1 or 0xAA, otherwise false.
 // @fnv 0x005f4cc0
-bool __cdecl FUN_005f4cc0(unsigned short ausType)
+bool __cdecl IsIdleAnim(unsigned short ausType)
 {
     switch (GetType(ausType))
     {

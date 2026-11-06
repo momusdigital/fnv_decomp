@@ -87,11 +87,11 @@ struct FUN_00a53ba0_shell
     void* _pad00[2];
     unsigned int m_uiNumKeys;
 
-    void FUN_00a53ba0(StrArr*);
+    void GetViewerStrings(StrArr*);
 };
 
 // @fnv 0x00a53ba0
-void FUN_00a53ba0_shell::FUN_00a53ba0(StrArr* apViewerStrings)
+void FUN_00a53ba0_shell::GetViewerStrings(StrArr* apViewerStrings)
 {
     AppendCameraPathEntries(apViewerStrings);
 

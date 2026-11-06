@@ -6,11 +6,11 @@
 
 struct FUN_005c1ae0_class
 {
-    void FUN_005c1ae0();
+    void ForceStopCombat();
 };
 
 // @fnv 0x005c1ae0
-void FUN_005c1ae0_class::FUN_005c1ae0()
+void FUN_005c1ae0_class::ForceStopCombat()
 {
     *reinterpret_cast<char*>(this + 0x125) = 1;
 }
@@ -32,7 +32,7 @@ struct EffectSetting
     unsigned int GetEffectID();
 };
 // @fnv 0x005d2a50
-unsigned char FUN_005d2a50()
+unsigned char Cmd_ToggleWaterRadius_Execute()
 {
     ((EffectSetting*)g_TES)->GetEffectID();
     if (FUN_005d2a40())

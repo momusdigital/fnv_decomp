@@ -119,7 +119,7 @@ extern TESDataHandler* g_dataHandler;
 extern const char* g_iconNames[14];
 extern BGSMenuIcon* DAT_011c4b54[14];
 // @fnv 0x00479570
-void FUN_00479570()
+void GenerateDefaultMenuIcons()
 {
     static unsigned int prefixLength = FUN_0044a670("MenuIconEquipType");
     for (int i = 0; i < 14; ++i)

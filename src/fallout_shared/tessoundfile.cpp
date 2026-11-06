@@ -16,11 +16,11 @@ struct TESSoundFile : public BaseFormComponent
     virtual void v1();
     virtual void v2();
     virtual void SetName(const char* name);
-    void FUN_0048cf00(BaseFormComponent* apCopyFC);
+    void CopyComponent(BaseFormComponent* apCopyFC);
 };
 // Casts apCopyFC to TESSoundFile and, if successful, copies its full name via SetName.
 // @fnv 0x0048cf00
-void TESSoundFile::FUN_0048cf00(BaseFormComponent* apCopyFC)
+void TESSoundFile::CopyComponent(BaseFormComponent* apCopyFC)
 {
     TESSoundFile* pcopy = dynamic_cast<TESSoundFile*>(apCopyFC);
     if (!pcopy)
@@ -35,10 +35,10 @@ struct TESModel
 int _stricmp(const char*, const char*);
 struct FUN_0048cf50_shell : public TESSoundFile
 {
-    bool FUN_0048cf50(BaseFormComponent* apCompareFC);
+    bool CompareComponent(BaseFormComponent* apCompareFC);
 };
 // @fnv 0x0048cf50
-bool FUN_0048cf50_shell::FUN_0048cf50(BaseFormComponent* apCompareFC)
+bool FUN_0048cf50_shell::CompareComponent(BaseFormComponent* apCompareFC)
 {
     TESSoundFile* pcompare = dynamic_cast<TESSoundFile*>(apCompareFC);
     if (!pcompare)

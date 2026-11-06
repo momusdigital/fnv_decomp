@@ -369,7 +369,7 @@ struct blob16
 };
 struct FUN_00a80930_shell : public NiGeometry
 {
-    void FUN_00a80930(bool);
+    void CalculateConsistency(bool);
 };
 
 struct TimeCtrlView
@@ -477,7 +477,7 @@ struct NiRenderer
 };
 // Scans the controller list and skin partition, then passes a consistency flag (0x4000 or 0) to the object at offset 0xb8.
 // @fnv 0x00a80930
-void FUN_00a80930_shell::FUN_00a80930(bool bTool)
+void FUN_00a80930_shell::CalculateConsistency(bool bTool)
 {
     int eConsistency = 0x4000;
     TimeCtrlView* pkController = *(TimeCtrlView**)((char*)this + 0xc);
@@ -644,10 +644,10 @@ struct BaseStub
 };
 struct GeomStub : BaseStub
 {
-    void FUN_00a809b0(NiRenderer*);
+    void PurgeRendererData(NiRenderer*);
 };
 // @fnv 0x00a809b0
-void GeomStub::FUN_00a809b0(NiRenderer* pkRenderer)
+void GeomStub::PurgeRendererData(NiRenderer* pkRenderer)
 {
     BaseStub::FUN_00a59e50(pkRenderer);
     pkRenderer->UnkF0(*(void**)((char*)this + 0xb8));
@@ -1645,11 +1645,11 @@ struct S00a7ff70_Geom : NiAVObject
     {
         return *(const S00a7ff70_Xf*)&m_kLocalTransform;
     }
-    void FUN_00a7ff70(const ThreeByThreeMatrix& kMat, const S00a7ff70_P3& kTrn, bool bOnLeft);
+    void ApplyTransform(const ThreeByThreeMatrix& kMat, const S00a7ff70_P3& kTrn, bool bOnLeft);
 };
 // Updates vertex and normal arrays using kMat and kTrn, with a different calculation when bOnLeft is true, then calls FUN_00a7ee30.
 // @fnv 0x00a7ff70
-void S00a7ff70_Geom::FUN_00a7ff70(const ThreeByThreeMatrix& kMat, const S00a7ff70_P3& kTrn, bool bOnLeft)
+void S00a7ff70_Geom::ApplyTransform(const ThreeByThreeMatrix& kMat, const S00a7ff70_P3& kTrn, bool bOnLeft)
 {
     unsigned short usVertices = m_spGeometryData->GetActiveVertexQuantity();
     S00a7ff70_P3* pkVertex = m_spGeometryData->m_pkVertex;

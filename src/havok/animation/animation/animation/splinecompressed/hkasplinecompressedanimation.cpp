@@ -34,7 +34,7 @@ int __cdecl GetIndexedValueWithOffset(int offset, const int* values, int index, 
 }
 
 // @fnv 0x00e32ed0
-int __stdcall FUN_00e32ed0(int a1, int a2)
+int __stdcall getNumDataChunks(int a1, int a2)
 {
     return 3;
 }
@@ -228,11 +228,11 @@ class FUN_00e33400_cls
     int unk74;
     int m_kRayEnd;
 
-    int FUN_00e33400() const;
+    int getMaxSizeOfCombinedDataChunks() const;
 };
 
 // @fnv 0x00e33400
-int FUN_00e33400_cls::FUN_00e33400() const
+int FUN_00e33400_cls::getMaxSizeOfCombinedDataChunks() const
 {
     int iMaxGap = 0;
     int iPrev = m_kRayEnd;
@@ -598,12 +598,12 @@ class hkaSplineCompressedAnimationE343 : public hkaSplineCompressedAnimation
                       const hkUint8*& dataInOut, hkQuaternion& out) const;
     void FUN_00e33e90(hkReal blockTime, hkUint8 quantizedTime, hkUint8 mask, int quantization,
                       const hkUint8*& dataInOut, hkVector4& out) const;
-    void FUN_00e34310(hkReal time, const hkInt16* tracks, hkUint32 numTracks, hkQsTransform* transformTracksOut) const;
+    void sampleIndividualTransformTracks(hkReal time, const hkInt16* tracks, hkUint32 numTracks, hkQsTransform* transformTracksOut) const;
 };
 
 // Evaluates spline-compressed transform tracks at the given time, writing translation, rotation, and scale into transformTracksOut for each valid track index.
 // @fnv 0x00e34310
-void hkaSplineCompressedAnimationE343::FUN_00e34310(hkReal time, const hkInt16* tracks, hkUint32 numTracks,
+void hkaSplineCompressedAnimationE343::sampleIndividualTransformTracks(hkReal time, const hkInt16* tracks, hkUint32 numTracks,
                                                     hkQsTransform* transformTracksOut) const
 {
     hkUint32 frame;
@@ -663,11 +663,11 @@ class hkaSplineCompressedAnimationE344 : public hkaSplineCompressedAnimation
                                              hkUint8& quantizedTimeOut) const;
     void FUN_00e33f10(hkReal blockTime, hkUint8 quantizedTime, hkUint8 mask, int quantization,
                       const hkUint8*& dataInOut, hkReal& out) const;
-    void FUN_00e34490(hkReal time, const hkInt16* tracks, hkUint32 numTracks, hkReal* floatTracksOut) const;
+    void sampleIndividualFloatTracks(hkReal time, const hkInt16* tracks, hkUint32 numTracks, hkReal* floatTracksOut) const;
 };
 
 // @fnv 0x00e34490
-void hkaSplineCompressedAnimationE344::FUN_00e34490(hkReal time, const hkInt16* tracks, hkUint32 numTracks,
+void hkaSplineCompressedAnimationE344::sampleIndividualFloatTracks(hkReal time, const hkInt16* tracks, hkUint32 numTracks,
                                                     hkReal* floatTracksOut) const
 {
     hkUint32 frame;

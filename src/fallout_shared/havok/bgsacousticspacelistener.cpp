@@ -88,7 +88,7 @@ struct W_0043b4f0
     unsigned int GetSourceFilesFromObject();
 };
 struct TESObjectREFR;
-TESObjectREFR* __cdecl FUN_0062b4e0(void*);
+TESObjectREFR* __cdecl GetCdBodyRef(void*);
 struct RootContactPoint
 {
     unsigned int pad0[8];
@@ -112,13 +112,13 @@ bool BGSAcousticSpaceListenerX::CheckAcousticSpaceListener(RootContactPoint* pPo
         if (pPoint->m_48 ==
             reinterpret_cast<W_0043b4f0*>(reinterpret_cast<PlayerCharacter*>(_g_thePlayer)->FUN_0061f6c0())
                 ->GetSourceFilesFromObject())
-            apTestRef = FUN_0062b4e0((void*)pPoint->m_20);
+            apTestRef = GetCdBodyRef((void*)pPoint->m_20);
     }
     else
     {
-        TESObjectREFR* pAcousticSpaceLeft = FUN_0062b4e0((void*)pPoint->m_48);
+        TESObjectREFR* pAcousticSpaceLeft = GetCdBodyRef((void*)pPoint->m_48);
         if (pAcousticSpaceLeft == reinterpret_cast<TESObjectREFR*>(_g_thePlayer))
-            apTestRef = FUN_0062b4e0((void*)pPoint->m_20);
+            apTestRef = GetCdBodyRef((void*)pPoint->m_20);
     }
     if (apTestRef)
     {
@@ -201,7 +201,7 @@ void FUN_0061f630_shell::CheckPlayerReference(TESObjectREFR* apEntity)
     }
     else
     {
-        TESObjectREFR* apTestRef = FUN_0062b4e0(((TgtOps*)apEntity)->GetSourceFiles());
+        TESObjectREFR* apTestRef = GetCdBodyRef(((TgtOps*)apEntity)->GetSourceFiles());
         if (apTestRef == (TESObjectREFR*)_g_thePlayer)
             SoundPlaybackManager::ResetAcousticSpace(0);
     }
@@ -234,15 +234,15 @@ bool __thiscall FUN_0061f6e0_shell::CheckAcousticSpaceEntered(RootContactPoint* 
     {
         if (pPoint->m_48 == reinterpret_cast<W_0043b4f0*>(_g_thePlayer->FUN_0061f6c0())->GetSourceFilesFromObject())
         {
-            pAcousticSpaceRef = FUN_0062b4e0(reinterpret_cast<void*>(pPoint->m_20));
+            pAcousticSpaceRef = GetCdBodyRef(reinterpret_cast<void*>(pPoint->m_20));
         }
     }
     else
     {
-        TESObjectREFR* apTestRef = FUN_0062b4e0(reinterpret_cast<void*>(pPoint->m_48));
+        TESObjectREFR* apTestRef = GetCdBodyRef(reinterpret_cast<void*>(pPoint->m_48));
         if (apTestRef == reinterpret_cast<TESObjectREFR*>(_g_thePlayer))
         {
-            pAcousticSpaceRef = FUN_0062b4e0(reinterpret_cast<void*>(pPoint->m_20));
+            pAcousticSpaceRef = GetCdBodyRef(reinterpret_cast<void*>(pPoint->m_20));
         }
     }
 

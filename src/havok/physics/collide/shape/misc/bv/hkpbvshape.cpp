@@ -232,12 +232,12 @@ struct Rs_c9d9e0_Self
     int unk10;
     int unk14;
     Rs_c9d9e0_Shape* m_pChildAtom;
-    char* FUN_00c9d9e0(char* ret, int a, Rs_c9d9e0_Input* o);
+    char* castRayImpl(char* ret, int a, Rs_c9d9e0_Input* o);
 };
 
 // Wraps m_pChildAtom->V20 in timer records and a counter increment/decrement on o; zeroes o->unk00[counter + 8] afterwards if *ret is nonzero; returns ret.
 // @fnv 0x00c9d9e0
-char* Rs_c9d9e0_Self::FUN_00c9d9e0(char* ret, int a, Rs_c9d9e0_Input* o)
+char* Rs_c9d9e0_Self::castRayImpl(char* ret, int a, Rs_c9d9e0_Input* o)
 {
     static_cast<Rs_c9d9e0_Stream*>(TlsGetValue(DAT_0126835c))->timer(str_010c7024);
     o->m_iValueAtOffset04++;
@@ -312,11 +312,11 @@ struct FUN_00c9da80_cls
     int unk10;
     int unk14;
     const hkpShape_c9da80* m_pChildShape;
-    void FUN_00c9da80(const void* pkInput, const hkpCdBody_c9da80& kParent, void* pkCollector) const;
+    void castRayWithCollectorImpl(const void* pkInput, const hkpCdBody_c9da80& kParent, void* pkCollector) const;
 };
 // Builds a temporary hkpCdBody wrapping m_pChildShape with kParent as parent and forwards the ray cast to the child shape's castRayWithCollector.
 // @fnv 0x00c9da80
-void FUN_00c9da80_cls::FUN_00c9da80(const void* pkInput, const hkpCdBody_c9da80& kParent, void* pkCollector) const
+void FUN_00c9da80_cls::castRayWithCollectorImpl(const void* pkInput, const hkpCdBody_c9da80& kParent, void* pkCollector) const
 {
     TimerCommand_c9da80("TtrcBvShape");
     hkpCdBody_c9da80 kBody;

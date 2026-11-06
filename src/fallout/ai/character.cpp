@@ -113,11 +113,11 @@ void FUN_008d34b0_shell::FUN_008d34b0(BGSLoadFormBuffer* apLoadGameBuffer)
 
 struct FUN_008d34d0_shell : public Character
 {
-    void FUN_008d34d0(BGSLoadFormBuffer*);
+    void FinishLoadGame(BGSLoadFormBuffer*);
 };
 
 // @fnv 0x008d34d0
-void FUN_008d34d0_shell::FUN_008d34d0(BGSLoadFormBuffer* apLoadGameBuffer)
+void FUN_008d34d0_shell::FinishLoadGame(BGSLoadFormBuffer* apLoadGameBuffer)
 {
     ((CharacterActorCalls*)this)->ApplyLoadBuffer(apLoadGameBuffer);
 }
@@ -147,11 +147,11 @@ struct FUN_009dcc80_target
 struct FUN_008b3b30_shell
 {
     NiPoint3* GetAddTopicList();
-    NiPoint3 FUN_008b3b30(float f);
+    NiPoint3 GetAnticipatedLocation(float f);
 };
 // Returns the stored point when f is not above _gModifierZero, otherwise delegates to the object at offset 0x190 with f.
 // @fnv 0x008b3b30
-NiPoint3 FUN_008b3b30_shell::FUN_008b3b30(float f)
+NiPoint3 FUN_008b3b30_shell::GetAnticipatedLocation(float f)
 {
     if (f <= _gModifierZero)
     {
@@ -188,18 +188,18 @@ FUN_008d1f10_shell* FUN_008d1f10_shell::FUN_008d1f10(unsigned int aiFlags)
     return this;
 }
 
-int __cdecl FUN_00646310(void*, int, float*, float*);
+int __cdecl CalcHandToHandDamage(void*, int, float*, float*);
 struct FUN_008d24a0_shell : public Character
 {
     int FUN_008d24a0();
 };
-// Calls FUN_00646310 on the object at offset 0xa4 to fill fx and fy, then returns fx as an int.
+// Calls CalcHandToHandDamage on the object at offset 0xa4 to fill fx and fy, then returns fx as an int.
 // @fnv 0x008d24a0
 int FUN_008d24a0_shell::FUN_008d24a0()
 {
     float fx = 0.0f;
     float fy = 0.0f;
-    FUN_00646310(this ? (char*)this + 0xa4 : 0, 0, &fx, &fy);
+    CalcHandToHandDamage(this ? (char*)this + 0xa4 : 0, 0, &fx, &fy);
     return (int)fx;
 }
 
@@ -280,14 +280,14 @@ struct BGSSaveFormBuffer
 };
 struct FUN_008d33a0_shell : public Character
 {
-    void FUN_008aaf40(BGSSaveFormBuffer*);
+    void AppendSaveLoadFormBuffer(BGSSaveFormBuffer*);
     void SaveFormData(BGSSaveFormBuffer*);
 };
-// Calls FUN_008aaf40, then saves the two bytes at offsets 0x1c0 and 0x1c1 of this into the save buffer.
+// Calls AppendSaveLoadFormBuffer, then saves the two bytes at offsets 0x1c0 and 0x1c1 of this into the save buffer.
 // @fnv 0x008d33a0
 void FUN_008d33a0_shell::SaveFormData(BGSSaveFormBuffer* apSaveGameBuffer)
 {
-    FUN_008aaf40(apSaveGameBuffer);
+    AppendSaveLoadFormBuffer(apSaveGameBuffer);
     apSaveGameBuffer->SaveData((char*)this + 0x1c0, 1, 0);
     apSaveGameBuffer->SaveData((char*)this + 0x1c1, 1, 0);
 }
@@ -444,11 +444,11 @@ struct Slot12cHolder
 
 struct FUN_008b1910_shell
 {
-    TESObjectREFR* FUN_008b1910(TESObjectREFR* apRefr, TESObjectREFR*& apOutRefr);
+    TESObjectREFR* SetUpTalkingActivatorActor(TESObjectREFR* apRefr, TESObjectREFR*& apOutRefr);
 };
 
 // @fnv 0x008b1910
-TESObjectREFR* FUN_008b1910_shell::FUN_008b1910(TESObjectREFR* apRefr, TESObjectREFR*& apOutRefr)
+TESObjectREFR* FUN_008b1910_shell::SetUpTalkingActivatorActor(TESObjectREFR* apRefr, TESObjectREFR*& apOutRefr)
 {
     BGSTalkingActivator* m_pLinkedReference = ((TESObject*)apRefr)->GetNext();
     ((ExtraDataList_Accessor*)apRefr->GetExtraData())->FUN_0042e060(m_pLinkedReference, apRefr);
@@ -494,11 +494,11 @@ struct Point3 : public NiPoint3
 
 struct FUN_00968690_shell : public Character
 {
-    NiPoint3 FUN_00968690(float f);
+    NiPoint3 GetAnticipatedLocation(float f);
 };
 
 // @fnv 0x00968690
-NiPoint3 FUN_00968690_shell::FUN_00968690(float f)
+NiPoint3 FUN_00968690_shell::GetAnticipatedLocation(float f)
 {
     Point3 kPos = *(Point3*)((TopicH*)this)->GetAddTopicList();
     Point3 kMotionVelocity;
@@ -2202,10 +2202,10 @@ struct XAObj
 {
     void FUN_00826b40(int);
     void FUN_00826b90(int);
-    void FUN_00671d30(void*);
+    void SetPackageLocation(void*);
     void FUN_00984f60(int);
     void* FUN_00671d10(int);
-    void FUN_00672fc0(void*);
+    void SetPackageTarget(void*);
 };
 struct XPObj
 {
@@ -2843,8 +2843,8 @@ struct XObj
     virtual void v2ec();
     virtual void v2f0();
     virtual void Finish(XAObj*, int, int);
-    void FUN_009694d0(void* arg0);
-    void FUN_005cc7a0(int);
+    void CannibalizeActor(void* arg0);
+    void SetAIControlledPackage(int);
     void FUN_00950340(int);
     XUpdatable* FUN_008d8520();
     void* unk04[25];
@@ -2852,11 +2852,11 @@ struct XObj
 };
 
 // @fnv 0x009694d0
-void XObj::FUN_009694d0(void* arg0)
+void XObj::CannibalizeActor(void* arg0)
 {
     if (((XA8a*)arg0)->GetExtraDataVersion())
         return;
-    FUN_005cc7a0(1);
+    SetAIControlledPackage(1);
     FUN_00950340(1);
     member68->Attach(0, this);
     member68->Detach(0);
@@ -2866,10 +2866,10 @@ void XObj::FUN_009694d0(void* arg0)
     XPObj* P = new XPObj;
     P->FUN_0067f140(0);
     P->FUN_0067f3c0(this);
-    A5->FUN_00671d30(P);
+    A5->SetPackageLocation(P);
     delete P;
     XVObj* X = new XVObj;
-    A5->FUN_00672fc0(X);
+    A5->SetPackageTarget(X);
     delete X;
     A5->FUN_00984f60(0x2F);
     ((XTmpObj*)A5->FUN_00671d10(0))->FUN_006800b0();
@@ -2937,8 +2937,8 @@ struct PackBF
     void SetPackageType(int);
     void FUN_00826b40(bool);
     void FUN_00826b90(bool);
-    void FUN_00671d30(LocBF*);
-    void FUN_00672fc0(DataBF*);
+    void SetPackageLocation(LocBF*);
+    void SetPackageTarget(DataBF*);
     void FUN_00984f60(int);
     DataBF* FUN_00671d10();
 };
@@ -2978,10 +2978,10 @@ void ActorBF::FUN_008bf7b0(void* arg, int unused)
     pack->FUN_00826b90(true);
     LocBF* loc = new LocBF;
     loc->FUN_0067f3c0(arg);
-    pack->FUN_00671d30(loc);
+    pack->SetPackageLocation(loc);
     delete loc;
     DataBF* kDat = new DataBF;
-    pack->FUN_00672fc0(kDat);
+    pack->SetPackageTarget(kDat);
     delete kDat;
     pack->FUN_00984f60(0x2a);
     pack->FUN_00671d10()->FUN_006800b0(0);
@@ -3640,10 +3640,10 @@ void AssignedCharacter::FUN_008d2a80(AssignedArgument* argument)
     package = new XPObj;
     package->FUN_0067f140(0);
     package->FUN_0067f3c0(this);
-    location->FUN_00671d30(package);
+    location->SetPackageLocation(package);
     delete package;
     XVObj* target = new XVObj;
-    location->FUN_00672fc0(target);
+    location->SetPackageTarget(target);
     delete target;
     location->FUN_00984f60(47);
     ((AssignedPackageDataView*)location)->FUN_00671d10()->FUN_006800b0(0);

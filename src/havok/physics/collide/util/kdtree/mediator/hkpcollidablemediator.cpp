@@ -3,9 +3,9 @@
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
 
 struct Child { unsigned int unk00; unsigned int unk04; };
-struct Owner { unsigned int unk00; unsigned int unk04; Child* child; unsigned int FUN_00d9e000(); };
+struct Owner { unsigned int unk00; unsigned int unk04; Child* child; unsigned int getNumPrimitives(); };
 // @fnv 0x00d9e000
-unsigned int Owner::FUN_00d9e000() { return child->unk04; }
+unsigned int Owner::getNumPrimitives() { return child->unk04; }
 
 // InitWalker: thiscall (2 stack args). Stores vptr, flag word and list, walks the item list when ctx != 0, returns this.
 
@@ -136,11 +136,11 @@ struct FUN_00d9e010_cls {
     unsigned int unk00;
     unsigned int unk04;
     Child* child;
-    unsigned int FUN_00d9e010(unsigned int index);
+    unsigned int getPrimitiveId(unsigned int index);
 };
 
 // @fnv 0x00d9e010
-unsigned int FUN_00d9e010_cls::FUN_00d9e010(unsigned int index)
+unsigned int FUN_00d9e010_cls::getPrimitiveId(unsigned int index)
 {
     unsigned int* table = (unsigned int*)child->unk00;
     return table[index];

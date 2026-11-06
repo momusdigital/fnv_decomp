@@ -5,10 +5,10 @@ struct DAFc80
 {
     int unk00;
     unsigned char unk04;
-    void FUN_00dafc80(int a, int b);
+    void addCdBodyPair(int a, int b);
 };
 // @fnv 0x00dafc80
-void DAFc80::FUN_00dafc80(int a, int b)
+void DAFc80::addCdBodyPair(int a, int b)
 {
     unk04 = 1;
 }

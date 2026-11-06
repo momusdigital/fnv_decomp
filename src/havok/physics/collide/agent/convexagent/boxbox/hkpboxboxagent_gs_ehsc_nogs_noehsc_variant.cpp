@@ -269,7 +269,7 @@ class Manager
     void* data08;
     void* unk0C;
     Callback callback10;
-    void FUN_00d40280(Input* a, Input* b, Parameters* parameters, void* p4);
+    void processCollision(Input* a, Input* b, Parameters* parameters, void* p4);
 };
 inline void timer(const char* tag)
 {
@@ -289,7 +289,7 @@ inline __m128 splat(float v)
     return _mm_set1_ps(v);
 }
 // @fnv 0x00d40280
-void Manager::FUN_00d40280(Input* a, Input* b, Parameters* parameters, void* p4)
+void Manager::processCollision(Input* a, Input* b, Parameters* parameters, void* p4)
 {
     timer("TtBoxBox");
     Shape* kIter;

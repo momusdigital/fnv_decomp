@@ -10,11 +10,11 @@ struct FUN_00c3d0e0_stub
 struct LipTask
 {
     virtual ~LipTask();
-    bool FUN_00905e00(char* apDescription, unsigned int aiBufferSize);
+    bool GetDescription(char* apDescription, unsigned int aiBufferSize);
 };
 
 // @fnv 0x00905e00
-bool LipTask::FUN_00905e00(char* apDescription, unsigned int aiBufferSize)
+bool LipTask::GetDescription(char* apDescription, unsigned int aiBufferSize)
 {
     return reinterpret_cast<FUN_00c3d0e0_stub*>(this)->FUN_00c3d0e0(apDescription, aiBufferSize, "liptask");
 }

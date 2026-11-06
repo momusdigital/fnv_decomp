@@ -56,13 +56,13 @@ void ScreenSplatter::Init()
     }
 }
 
-// If DAT_011c7834 is set, calls FUN_004def90 on the NiNode from DAT_011c786c and clears DAT_011c7828.
+// If DAT_011c7834 is set, calls RemoveAllChildren on the NiNode from DAT_011c786c and clears DAT_011c7828.
 // @fnv 0x004e0870
 void ScreenSplatter::Clear()
 {
     if (DAT_011c7834)
     {
-        reinterpret_cast<NiNode*>(DAT_011c786c.operator->())->FUN_004def90();
+        reinterpret_cast<NiNode*>(DAT_011c786c.operator->())->RemoveAllChildren();
         DAT_011c7828 = 0;
     }
 }
@@ -175,7 +175,7 @@ void FUN_004e0800()
 {
     if (DAT_011c7834)
     {
-        ((NiNode*)((Flt*)&DAT_011c786c)->operator unsigned int())->FUN_004def90();
+        ((NiNode*)((Flt*)&DAT_011c786c)->operator unsigned int())->RemoveAllChildren();
         ((GO*)&DAT_011c786c)->operator=(0);
         ((GO*)&DAT_011c7840)->operator=(0);
     }

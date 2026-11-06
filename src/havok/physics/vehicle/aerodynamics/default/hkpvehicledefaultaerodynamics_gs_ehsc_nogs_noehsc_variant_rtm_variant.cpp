@@ -11,7 +11,7 @@
 extern double DAT_01011588;
 struct VehicleAerodynamicsStandIn
 {
-    float FUN_00e442e0(float speed);
+    float calcAerodynamicLift(float speed);
 };
 
 #include <xmmintrin.h>
@@ -245,12 +245,12 @@ class hkpVehicleDefaultAerodynamicsE443 : public hkpVehicleDefaultAerodynamics
     virtual float calcDragForce(float m_fGain) throw();
     virtual float calcLiftForce(float m_fGain) throw();
 
-    void FUN_00e44370(const float fMoveElapsedTime, const hkpVehicleInstanceE443* pkVehicle,
+    void calcAerodynamics(const float fMoveElapsedTime, const hkpVehicleInstanceE443* pkVehicle,
                       AerodynamicsDragOutputE443& kDragInfoOut) throw();
 };
 
 // @fnv 0x00e44370
-void hkpVehicleDefaultAerodynamicsE443::FUN_00e44370(const float fMoveElapsedTime,
+void hkpVehicleDefaultAerodynamicsE443::calcAerodynamics(const float fMoveElapsedTime,
                                                      const hkpVehicleInstanceE443* pkVehicle,
                                                      AerodynamicsDragOutputE443& kDragInfoOut) throw()
 {

@@ -278,9 +278,9 @@ class BSFaceGenManager
   public:
     static FaceGenCoordinate* GetFaceGenCoordinates();
 };
-void FUN_00652140();
-void FUN_00652190();
-bool FUN_00651f70(BSFaceGenModel*);
+void LockFaceGenAccess();
+void UnlockFaceGenAccess();
+bool LoadEGMData(BSFaceGenModel*);
 BSFaceGenBaseMorphExtraData* GetExtraDataIfPresent(NiTriBasedGeom*);
 class CloningProcess
 {

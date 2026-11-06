@@ -507,10 +507,10 @@ struct BSFadeNode
 struct CloneSource
 {
     void __thiscall FUN_00c1b6f0(BSFadeNode*, unsigned int);
-    BSFadeNode* __thiscall FUN_00c1b9e0(unsigned int);
+    BSFadeNode* __thiscall CreateClone(unsigned int);
 };
 // @fnv 0x00c1b9e0
-BSFadeNode* CloneSource::FUN_00c1b9e0(unsigned int flags)
+BSFadeNode* CloneSource::CreateClone(unsigned int flags)
 {
     void* memory = BSFadeNode::operator new(0x110);
     BSFadeNode* node;
@@ -616,12 +616,12 @@ struct FUN_00c1add0_cls
     Block13 m_blockB;
 
     void FUN_00a68c60(void* apValue);
-    void FUN_00c1add0(void* apValue);
+    void UpdateWorldData(void* apValue);
 };
 
 // Calls FUN_00a68c60, copies m_blockA into m_blockB, and when m_bFlag is set overwrites m_blockA's tail fields and head with the DAT globals.
 // @fnv 0x00c1add0
-void FUN_00c1add0_cls::FUN_00c1add0(void* apValue)
+void FUN_00c1add0_cls::UpdateWorldData(void* apValue)
 {
     FUN_00a68c60(apValue);
     m_blockB = m_blockA;
@@ -893,11 +893,11 @@ struct FUN_00c1af60_cls
     unsigned char unkDB;
     unsigned int m_unkDC;
 
-    void __thiscall FUN_00c1af60();
+    void __thiscall UpdateWorldBound();
 };
 
 // @fnv 0x00c1af60
-void __thiscall FUN_00c1af60_cls::FUN_00c1af60()
+void __thiscall FUN_00c1af60_cls::UpdateWorldBound()
 {
     ((S_00a80710*)this)->FUN_00a80710();
     if (m_bC4 == 0)
@@ -1219,11 +1219,11 @@ struct S_00c1b260_System : NiParticleSystem
     float m_fLastTime;
     bool m_bHasAccumulation;
     void FUN_00c1b120();
-    void FUN_00c1b260(float fTime);
+    void Do_UpdateSystem(float fTime);
 };
 
 // @fnv 0x00c1b260
-void S_00c1b260_System::FUN_00c1b260(float fTime)
+void S_00c1b260_System::Do_UpdateSystem(float fTime)
 {
     S_00c1b260_Data* pkData = m_pUserData;
     bool bWasEmpty = false;
@@ -1270,7 +1270,7 @@ void S_00c1b260_System::FUN_00c1b260(float fTime)
     }
 }
 
-// Stand-in model for the objects touched by FUN_00c1b3a0.
+// Stand-in model for the objects touched by LoadBinary.
 // The "sub" object is the per-object callback holder; the callback at +8 is
 // invoked with (self, &outFlag, 1, &outCount, 1) and returns a byte count.
 
@@ -1487,11 +1487,11 @@ struct Nps_c1b3a0
     int unkc0;
     unsigned char m_c4;
     void __thiscall FUN_00a9b180(Obj_c1b3a0* pObj);
-    void __thiscall FUN_00c1b3a0(Obj_c1b3a0* pObj);
+    void __thiscall LoadBinary(Obj_c1b3a0* pObj);
 };
 
 // @fnv 0x00c1b3a0
-void Nps_c1b3a0::FUN_00c1b3a0(Obj_c1b3a0* pObj)
+void Nps_c1b3a0::LoadBinary(Obj_c1b3a0* pObj)
 {
     FUN_00a9b180(pObj);
     Sub_c1b3a0* pSub = pObj->m_24c;
@@ -2792,11 +2792,11 @@ struct Ref_00c258e0
     unsigned int unkb0;
     unsigned int unkb4;
     BoundDataBlock* data;
-    void FUN_00c1ae40(float time);
+    void UpdateSystem(float time);
 };
 // When the task manager is enabled, data time is positive, and the current thread matches the stored ID, it tries to queue a task; otherwise it calls Update.
 // @fnv 0x00c1ae40
-void Ref_00c258e0::FUN_00c1ae40(float time)
+void Ref_00c258e0::UpdateSystem(float time)
 {
     if (DAT_012024d8 && DAT_011f5b04 && ((TaskManager*)DAT_011f5b04)->enabled && data->time > 0.0f &&
         GetCurrentThreadId() == DAT_012024dc)
@@ -2907,12 +2907,12 @@ struct FUN_00c1b0b0_cls : S_00c1b0b0_Base
     int unkC4;
     S_00c1b0b0_Item* unkC8;
 
-    bool __thiscall FUN_00c1b0b0(S_00c1b0b0_Stream* kStream);
+    bool __thiscall RegisterStreamables(S_00c1b0b0_Stream* kStream);
 };
 
 // Calls the base routine, then invokes v21 on each linked element with kStream, and returns true if the base routine succeeds.
 // @fnv 0x00c1b0b0
-bool __thiscall FUN_00c1b0b0_cls::FUN_00c1b0b0(S_00c1b0b0_Stream* kStream)
+bool __thiscall FUN_00c1b0b0_cls::RegisterStreamables(S_00c1b0b0_Stream* kStream)
 {
     if (!FUN_00a9b190(kStream))
         return false;

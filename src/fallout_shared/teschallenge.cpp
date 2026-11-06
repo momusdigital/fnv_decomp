@@ -511,7 +511,7 @@ struct FUN_0047a240_shell
 };
 struct FUN_00485e00_shell
 {
-    void __thiscall FUN_00485e20(int, int);
+    void __thiscall __SaveData(int, int);
 };
 struct FUN_00485680
 {
@@ -532,7 +532,7 @@ void __thiscall FUN_005f5540_shell::Initialize()
     ((FUN_00482cb0_shell*)((char*)this + 0x24))->FUN_00482cb0();
     if (FUN_00401500())
         ((ChallengeData*)((char*)this + 0x54))->SwapEndianFields();
-    ((FUN_00485e00_shell*)this)->FUN_00485e20((int)((char*)this + 0x54), 0x18);
+    ((FUN_00485e00_shell*)this)->__SaveData((int)((char*)this + 0x54), 0x18);
     if (FUN_00401500())
         ((ChallengeData*)((char*)this + 0x54))->SwapEndianFields();
     if (*(unsigned int*)((char*)this + 0x74))
@@ -583,11 +583,11 @@ struct FUN_00484d60_holder
 };
 struct FUN_005f5780_holder
 {
-    void __thiscall FUN_005f5780(BGSSaveFormBuffer*);
+    void __thiscall AppendSaveLoadFormBuffer(BGSSaveFormBuffer*);
 };
 // Calls the base save routine, then writes the 4-byte values at offsets 0x6C and 0x70 into the save buffer.
 // @fnv 0x005f5780
-void __thiscall FUN_005f5780_holder::FUN_005f5780(BGSSaveFormBuffer* apBuffer)
+void __thiscall FUN_005f5780_holder::AppendSaveLoadFormBuffer(BGSSaveFormBuffer* apBuffer)
 {
     ((FUN_00484d60_holder*)this)->SaveIfChanged(apBuffer);
     apBuffer->SaveData((char*)this + 0x6C, 4, 0);

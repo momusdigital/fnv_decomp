@@ -82,12 +82,12 @@ class hkpVelocityConstraintMotor_d861 : public hkpLimitedForceConstraintMotor_d8
           m_bUseVelocityTarget(o.m_bUseVelocityTarget)
     {}
 
-    hkpVelocityConstraintMotor_d861* FUN_00d861c0() const;
+    hkpVelocityConstraintMotor_d861* clone() const;
 };
 
 // Allocates a chunk from the thread memory holder and constructs a copy of this hkpVelocityConstraintMotor_d861 in it.
 // @fnv 0x00d861c0
-hkpVelocityConstraintMotor_d861* hkpVelocityConstraintMotor_d861::FUN_00d861c0() const
+hkpVelocityConstraintMotor_d861* hkpVelocityConstraintMotor_d861::clone() const
 {
     void* mem = Router_d861::FUN_00c85750().heap().allocateChunk(sizeof(hkpVelocityConstraintMotor_d861));
     __assume(mem != 0);

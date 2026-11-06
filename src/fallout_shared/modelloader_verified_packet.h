@@ -183,7 +183,7 @@ class IOTask
     bool FUN_00449130();
     bool FUN_0043caa0();
     bool FUN_0043caf0();
-    IO_TASK_PRIORITY FUN_0043cc60();
+    IO_TASK_PRIORITY GetIOTaskPriority();
     void AddToPostProcessQueue();
 };
 class QueuedFile : public IOTask

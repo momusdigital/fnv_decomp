@@ -1388,7 +1388,7 @@ struct ActorB
     void* FUN_008a1710();
     bool FUN_00437bd0();
     bool FUN_00579670();
-    bool FUN_00437bf0();
+    bool IsRestrained();
 };
 struct Proc
 {
@@ -1785,7 +1785,7 @@ void This::FUN_009cc510()
         if (!s44 && t45 != DAT_011dea3c)
             n44 += 100.0;
         m2 = FUN_00644580(m_04->FUN_00980070(), 50, 50, false, s33);
-        v29 = t45->V141() || t45->V140() || t45->FUN_00437bd0() || t45->FUN_00579670() || t45->FUN_00437bf0();
+        v29 = t45->V141() || t45->V140() || t45->FUN_00437bd0() || t45->FUN_00579670() || t45->IsRestrained();
         m33 = t45->FUN_008a1710();
         if (v29 || !FUN_008a16d0(t45) || (m33 != 0 && FUN_004c0c30(m33)))
             m2 = 0.0f;
@@ -1867,7 +1867,7 @@ struct FUN_009cced0_cls
 
 unsigned short __fastcall FUN_004301b0(AnimDataV* p);
 unsigned char __cdecl FUN_005f2540(int v);
-unsigned char __cdecl FUN_005f25d0(unsigned int v);
+unsigned char __cdecl IsAttackSpinAction(unsigned int v);
 
 // @fnv 0x009cced0
 void FUN_009cced0_cls::FUN_009cced0()
@@ -1889,7 +1889,7 @@ void FUN_009cced0_cls::FUN_009cced0()
         int pResult = FUN_007031c0(m_04);
         if (pResult != 0)
         {
-            if (FUN_005f25d0(reinterpret_cast<FUN_0051f5f0_shell*>(pResult)->GetByteAt11D()))
+            if (IsAttackSpinAction(reinterpret_cast<FUN_0051f5f0_shell*>(pResult)->GetByteAt11D()))
             {
                 reinterpret_cast<FUN_008935f0_shell*>(a)->TryAttack(
                     reinterpret_cast<FUN_0051f5f0_shell*>(pResult)->GetByteAt11D());
@@ -2915,7 +2915,7 @@ struct CombatNode
     signed char GetByteAtOffset8C();
     bool HasCombatFlag(int);
     signed char FUN_0073cb80();
-    signed char FUN_00505c00();
+    signed char GetFaceTargetAtGoal();
     signed char GetByteAtOffset9A();
     signed char GetByteAtOffset9B();
     signed char FUN_009e8670();
@@ -2949,7 +2949,7 @@ bool MeleeProcedure::IsActionAvailable(unsigned action)
                 result = context->FUN_00980070()->FUN_0073cb80() > 0;
                 break;
             case 93:
-                result = context->FUN_00980070()->FUN_00505c00() > 0;
+                result = context->FUN_00980070()->GetFaceTargetAtGoal() > 0;
                 break;
             case 94:
                 result = context->FUN_00980070()->GetByteAtOffset9A() > 0;
@@ -5374,7 +5374,7 @@ struct Actor150
     int FUN_008a7570();
     unsigned char FUN_00437bd0();
     bool FUN_00579670();
-    bool FUN_00437bf0();
+    bool IsRestrained();
 };
 unsigned int FUN_00487f50();
 struct C150
@@ -5417,7 +5417,7 @@ void C150::FUN_009cd150()
         float limit = FUN_009ce560();
         bool flag_ = false;
         bool blocked = target7->check234() || target7->V230() || target7->FUN_00437bd0() || target7->FUN_00579670() ||
-                       target7->FUN_00437bf0();
+                       target7->IsRestrained();
         if (!(!(elapsedTmp > limit) && !blocked && !action && !state2 &&
               (FUN_00487f50() % 100 >= 5 || (active && !flag_)) && actor2->FUN_00894d60()))
         {
@@ -6629,7 +6629,7 @@ struct Obj641
     float FUN_004e4600();
     float GetFieldEC();
     signed char GetUnk7d();
-    float FUN_006447d0();
+    float GetCurrentWeatherPct();
     float FUN_004e4620();
     float FUN_006447f0();
 };
@@ -6645,7 +6645,7 @@ float __cdecl CalculateWeightedValue(Obj641* object, int percent, int unused, bo
     float third = useThird ? object->FUN_0051b8e0() : 0.0f;
     float weighted = object->FUN_004e4600() + object->GetFieldEC() * ratio;
     value = object->GetUnk7d() + modifier1 + second + third + weighted;
-    value *= useMult ? object->FUN_006447d0() : object->FUN_004e4620();
+    value *= useMult ? object->GetCurrentWeatherPct() : object->FUN_004e4620();
     value *= useLast ? object->FUN_006447f0() : 1.0f;
     return value;
 }

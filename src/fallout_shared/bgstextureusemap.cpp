@@ -4,19 +4,19 @@
 
 struct FUN_004aa3d0_shell
 {
-    void FUN_004aa3d0(int a, char b);
+    void CollectTexUseDataRecursive(int a, char b);
     void SetValueAndCall(int a, int b, char c);
 };
 
-void FUN_004aa3d0_shell::FUN_004aa3d0(int a, char b)
+void FUN_004aa3d0_shell::CollectTexUseDataRecursive(int a, char b)
 {}
 
-// Stores b into the object's first field and forwards a and c to FUN_004aa3d0.
+// Stores b into the object's first field and forwards a and c to CollectTexUseDataRecursive.
 // @fnv 0x004aa3a0
 void FUN_004aa3d0_shell::SetValueAndCall(int aiArg, int aiValue, char c)
 {
     *(int*)this = aiValue;
-    FUN_004aa3d0(aiArg, c);
+    CollectTexUseDataRecursive(aiArg, c);
 }
 
 struct NiTMap
@@ -279,12 +279,12 @@ extern GlobalObject_0045cfe0 g_011c63cc;
 
 struct FUN_004aabb0_shell : public FUN_004aa3d0_shell
 {
-    void FUN_004aabb0(char a1);
+    void CollectTextureUseDataForLoadedArea(char a1);
 };
 
 // If a previous path exists, processes its cell; otherwise iterates the 5x5 grid around half the global int and processes each occupied cell.
 // @fnv 0x004aabb0
-void FUN_004aabb0_shell::FUN_004aabb0(char a1)
+void FUN_004aabb0_shell::CollectTextureUseDataForLoadedArea(char a1)
 {
     LLD_Cell* inner5;
     unsigned int center3;
@@ -517,10 +517,10 @@ struct TexUseMap
 {
     unsigned int m1;
     NiTMap m_kEntryMap;
-    bool FUN_004aa900(const char* name);
+    bool WriteToFile(const char* name);
 };
 // @fnv 0x004aa900
-bool TexUseMap::FUN_004aa900(const char* apFileName)
+bool TexUseMap::WriteToFile(const char* apFileName)
 {
     bool result5 = false;
     BSFile file9(apFileName, true, 0x400, true);
@@ -681,12 +681,12 @@ struct WalkCtx
 struct TextureWalker
 {
     int m0;
-    void FUN_004aa3d0(NiAVObject* obj, bool b);
+    void CollectTexUseDataRecursive(NiAVObject* obj, bool b);
 };
 
 // Recursively walks a NiAVObject tree, tracking the current WalkRef from fade nodes and invoking a texture callback on geometry properties.
 // @fnv 0x004aa3d0
-void TextureWalker::FUN_004aa3d0(NiAVObject* obj, bool b)
+void TextureWalker::CollectTexUseDataRecursive(NiAVObject* obj, bool b)
 {
     if (obj && !obj->IsCulledFlag())
     {
@@ -726,7 +726,7 @@ void TextureWalker::FUN_004aa3d0(NiAVObject* obj, bool b)
                 for (unsigned int i = 0; i < count; i++)
                 {
                     NiAVObject* child = node->GetChildAt(i);
-                    FUN_004aa3d0(child, b);
+                    CollectTexUseDataRecursive(child, b);
                 }
             }
             if (bSet)

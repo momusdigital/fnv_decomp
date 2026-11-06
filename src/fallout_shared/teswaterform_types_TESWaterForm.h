@@ -20,7 +20,7 @@ class TESAttackDamageForm : public BaseFormComponent
 {
   public:
     // base BaseFormComponent at +0x0, size 4
-    void FUN_0047ff50(unsigned short);
+    void SetAttackDamage(unsigned short);
     unsigned short m_usAttackDamage;  // +0x4, 2 bytes
     unsigned char layoutPadding6[2];
     // TESAttackDamageForm

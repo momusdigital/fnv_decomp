@@ -421,11 +421,11 @@ struct FUN_00484020_shell
 };
 struct FUN_006b6910_shell
 {
-    bool FUN_006b6910(TESForm* apForm);
+    bool Sort(TESForm* apForm);
 };
 // Returns true if apForm's form type is 0x43, otherwise delegates to IsLessThan.
 // @fnv 0x006b6910
-bool FUN_006b6910_shell::FUN_006b6910(TESForm* apForm)
+bool FUN_006b6910_shell::Sort(TESForm* apForm)
 {
     if (_FNV_GetFormType(apForm) == 0x43)
         return true;

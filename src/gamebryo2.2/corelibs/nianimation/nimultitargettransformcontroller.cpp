@@ -73,11 +73,11 @@ NiInterpolator* NiMultiTargetTransformController::GetInterpolatorAtIndex(unsigne
 
 struct FUN_00a2fd40_shell : public NiMultiTargetTransformController
 {
-    char* FUN_00a2fd40(unsigned short);
+    char* GetInterpolatorID(unsigned short);
 };
 
 // @fnv 0x00a2fd40
-char* FUN_00a2fd40_shell::FUN_00a2fd40(unsigned short usIndex)
+char* FUN_00a2fd40_shell::GetInterpolatorID(unsigned short usIndex)
 {
     return *((char**)m_ppTargetObjects[usIndex] + 2);
 }
@@ -283,7 +283,7 @@ struct Blend34
     char* p;
 };
 // @fnv 0x00a2fa50
-char* __fastcall FUN_00a2fa50(Blend34* self, int, unsigned short ausIndex, bool a, bool b, float c, unsigned char d)
+char* __fastcall CreateBlendInterpolator(Blend34* self, int, unsigned short ausIndex, bool a, bool b, float c, unsigned char d)
 {
     return self->p + ausIndex * 0x30;
 }
@@ -351,7 +351,7 @@ struct Ctl
     unsigned short num;
 };
 // @fnv 0x00a2fa70
-void __fastcall FUN_00a2fa70(Ctl* self, int, float afValueA, float afValueB)
+void __fastcall GuaranteeTimeRange(Ctl* self, int, float afValueA, float afValueB)
 {
     for (unsigned short us = 0; us < self->num; us++)
         self->blends[us].SetActiveTimeRange(afValueA, afValueB);
@@ -449,7 +449,7 @@ struct CloningProcess
 typedef char _sizecheck_NiCloningProcess[sizeof(CloningProcess) == 16 ? 1 : -1];
 struct FUN_00a302d0_shell : public NiMultiTargetTransformController
 {
-    NiObject* FUN_00a302d0(CloningProcess*);
+    NiObject* CreateClone(CloningProcess*);
 };
 
 struct FUN_00a30070_shell
@@ -481,7 +481,7 @@ struct CloneCtl : CloneBase
 };
 // Allocates a CloneCtl, passes it with kCloning to CloneTo, and returns it as a NiObject.
 // @fnv 0x00a302d0
-NiObject* FUN_00a302d0_shell::FUN_00a302d0(CloningProcess* kCloning)
+NiObject* FUN_00a302d0_shell::CreateClone(CloningProcess* kCloning)
 {
     CloneCtl* pkObject = new CloneCtl;
     reinterpret_cast<FUN_00a30070_shell*>(this)->CloneTo(reinterpret_cast<NiMultiTargetTransformController*>(pkObject),
@@ -1160,7 +1160,7 @@ struct FUN_00a304b0_cls
     unsigned short m_usNumInterps;
 
     void WriteManagerControlledFlag(FUN_00a304b0_arr* pArr);
-    void FUN_00a304b0(FUN_00a304b0_arr* pArr);
+    void GetViewerStrings(FUN_00a304b0_arr* pArr);
 };
 
 void* __cdecl FUN_00a7d330(int);
@@ -1168,7 +1168,7 @@ void* __cdecl FUN_00a7d490(const char*, unsigned short);
 extern int DAT_011f36bc;
 
 // @fnv 0x00a304b0
-void FUN_00a304b0_cls::FUN_00a304b0(FUN_00a304b0_arr* pArr)
+void FUN_00a304b0_cls::GetViewerStrings(FUN_00a304b0_arr* pArr)
 {
     WriteManagerControlledFlag(pArr);
     void* pItem = FUN_00a7d330(DAT_011f36bc);
@@ -1238,11 +1238,11 @@ unsigned short BA2FD60Controller::FindItemIndexByName(const char* pcName) const
 
 struct NiMultiTargetTransformControllerStandIn : public NiMultiTargetTransformController
 {
-    unsigned short __thiscall FUN_00a2fa20();
+    unsigned short __thiscall GetInterpolatorCount();
 };
 
 // @fnv 0x00a2fa20
-unsigned short __thiscall NiMultiTargetTransformControllerStandIn::FUN_00a2fa20()
+unsigned short __thiscall NiMultiTargetTransformControllerStandIn::GetInterpolatorCount()
 {
     return *reinterpret_cast<unsigned short*>(reinterpret_cast<unsigned char*>(this) + 0x3C);
 }
@@ -1431,11 +1431,11 @@ class NiMultiTargetTransformControllerA30 : public NiMultiTargetTransformControl
     unsigned short m_usNumInterps;
     void FUN_00a2f910(NiStream& kStream);
     void FUN_00a2feb0(unsigned short ausNumInterps);
-    void FUN_00a303d0(NiStream& kStream);
+    void LoadBinary(NiStream& kStream);
 };
 // Calls FUN_00a2f910, reads m_usNumInterps, passes it to FUN_00a2feb0, then assigns returned pointers to m_ppTargetObjects.
 // @fnv 0x00a303d0
-void NiMultiTargetTransformControllerA30::FUN_00a303d0(NiStream& kStream)
+void NiMultiTargetTransformControllerA30::LoadBinary(NiStream& kStream)
 {
     FUN_00a2f910(kStream);
     ReadBinaryValue(kStream, m_usNumInterps);

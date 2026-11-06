@@ -284,7 +284,7 @@ struct FUN_005609f0_shell
 
 struct Type8
 {
-    int FUN_0043b540();
+    int getCollisionFilterInfo();
 };
 
 struct ArgType
@@ -617,7 +617,7 @@ void FUN_00624340_shell::ProcessArgType(ArgType* apArg)
         }
         else
         {
-            if (CF845(apArg->FUN_00460140()->FUN_0043b540()).FUN_0043b4d0() == 0x14)
+            if (CF845(apArg->FUN_00460140()->getCollisionFilterInfo()).FUN_0043b4d0() == 0x14)
             {
                 var2 = FUN_004b5a50(apArg);
                 var1C8 = var2 ? var2->FUN_0044ddc0() : 0;

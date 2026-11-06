@@ -5,7 +5,7 @@
 extern char const* const g_01201f7c_arg1;
 
 // @fnv 0x00a693f0
-char const* const* const __cdecl FUN_00a693f0()
+char const* const* const __cdecl GetRTTI()
 {
     return &g_01201f7c_arg1;
 }

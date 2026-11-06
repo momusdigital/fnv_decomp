@@ -95,7 +95,7 @@ struct Pos
     float x, y, z, w;
     Pos();
     Vec* FUN_006815c0();
-    double FUN_00527a40(const Pos&);
+    double GetDistanceSquared(const Pos&);
 };
 struct RefType
 {
@@ -134,7 +134,7 @@ struct Form
     virtual int Type();
     bool IsField8One();
     void* FUN_0044edb0();
-    bool FUN_00666f00();
+    bool IsInstance();
 };
 struct BasePart
 {
@@ -452,7 +452,7 @@ struct State
     bool FUN_0097fd40();
     bool FUN_009a02a0(Pos*, int, int);
     RefType* FUN_007058c0();
-    unsigned char FUN_00662a80();
+    unsigned char GetApplyRotToParent();
     float FUN_00644790();
     void* FUN_00407820();
     bool FUN_0097ee90();
@@ -548,7 +548,7 @@ void WorldStateManager::UpdateWorldState(Context* context)
             }
         }
     }
-    if (target9 && targetPositions5.FUN_00527a40(position6) < DAT_0108cb08 && !stateB->FUN_0097fd40() &&
+    if (target9 && targetPositions5.GetDistanceSquared(position6) < DAT_0108cb08 && !stateB->FUN_0097fd40() &&
         stateB->FUN_009a02a0(&targetPositions5, 1, 0))
         q |= 2;
     q |= 128;
@@ -577,9 +577,9 @@ void WorldStateManager::UpdateWorldState(Context* context)
             break;
         }
     }
-    if (stateB->FUN_00662a80() == 2)
+    if (stateB->GetApplyRotToParent() == 2)
         q |= 4096;
-    if (localX && localX->Type() == 9 && !localX->IsField8One() && !localX->FUN_00666f00())
+    if (localX && localX->Type() == 9 && !localX->IsField8One() && !localX->IsInstance())
         q |= 1024;
     FUN_009aad00(1, q);
     FUN_009aad00(2, ~q);

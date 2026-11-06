@@ -106,12 +106,12 @@ void MyHolder::CopyFrom(BaseFormComponent* apCopyFC)
 
 struct RepairListComparison : BGSRepairItemList
 {
-    bool FUN_0047ba20(BaseFormComponent* component);
+    bool CompareComponent(BaseFormComponent* component);
 };
 
 // Returns true if the component is not a BGSRepairItemList or if its _ref_00726070 differs from this list's _ref_00726070.
 // @fnv 0x0047ba20
-bool RepairListComparison::FUN_0047ba20(BaseFormComponent* component)
+bool RepairListComparison::CompareComponent(BaseFormComponent* component)
 {
     BGSRepairItemList* other = dynamic_cast<BGSRepairItemList*>(component);
     if (!other)

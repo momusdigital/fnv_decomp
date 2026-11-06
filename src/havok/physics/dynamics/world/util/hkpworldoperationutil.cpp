@@ -7254,7 +7254,7 @@ struct MotionBase : RefHeader31
     void FUN_00c905b0();
     void FUN_00d1dff0();
     void SetFlagBits(int a, int b, int c);
-    void FUN_00c86610(MotionBase* p);
+    void getMotionStateAndVelocitiesAndDeactivationType(MotionBase* p);
     float FUN_00c86430();
     __forceinline static void* operator new(unsigned int nbytes)
     {
@@ -7681,7 +7681,7 @@ void __cdecl FUN_00cb4230(ThisObj* self, S00cb4230_MotionType mode, MotionFlag31
             float j = pStateData->m_fSurfaceFriction;
             FUN_00ca8240(mode, &localState.getPosition(), &localState.getRotation(), localState.FUN_00c86430(),
                          &inertiaTensor, &localState.getCenterOfMassLocal(), j, fRestitution, &self->m_pMotionState);
-            localState.FUN_00c86610(pMotionBase);
+            localState.getMotionStateAndVelocitiesAndDeactivationType(pMotionBase);
             pMotionBase->setLinearDamping(localState.getLinearDamping());
             pMotionBase->setAngularDamping(localState.getAngularDamping());
             localState.FUN_00d1dff0();
@@ -7710,7 +7710,7 @@ void __cdecl FUN_00cb4230(ThisObj* self, S00cb4230_MotionType mode, MotionFlag31
         else
         {
             pObj = new (&self->m_pMotionState) S00cb4230_Keyframed(self->getPosition(), self->getRotation());
-            localState.FUN_00c86610(pObj);
+            localState.getMotionStateAndVelocitiesAndDeactivationType(pObj);
         }
 
         if (flagB)

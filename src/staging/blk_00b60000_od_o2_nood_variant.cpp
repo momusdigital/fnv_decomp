@@ -337,7 +337,7 @@ struct ClipManager
     ClipRenderData* renderer;
     void FUN_00b7be00(unsigned int state);
 };
-extern ClipMatrix* __stdcall FUN_00ee6dda(ClipMatrix*, float*, const ClipMatrix*);
+extern ClipMatrix* __stdcall D3DXMatrixInverse(ClipMatrix*, float*, const ClipMatrix*);
 extern ClipPlane16* __stdcall FUN_00ee6dce(ClipPlane16*, const ClipPlane16*);
 extern ClipPlane16* __stdcall FUN_00ee6dc8(ClipPlane16*, const ClipPlane16*, const ClipMatrix*);
 extern "C" void* __cdecl FUN_00ec44d0(void*, const void*, unsigned int);
@@ -363,7 +363,7 @@ void ClipManager::FUN_00b7be00(unsigned int state)
             ClipMatrix inverse;
             ClipPlane16 transformed[6];
             FUN_00ee6de0((Matrix132*)&transform, (const Matrix132*)&view, (const Matrix132*)&projection);
-            FUN_00ee6dda(&inverse, 0, &transform);
+            D3DXMatrixInverse(&inverse, 0, &transform);
             FUN_00ee6dd4((Matrix132*)&transform, (const Matrix132*)&inverse);
 
             for (int i = 0; i < 6; ++i)

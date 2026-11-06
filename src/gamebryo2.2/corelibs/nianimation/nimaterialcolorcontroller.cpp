@@ -50,7 +50,7 @@ char* __cdecl FUN_00a7d330(char const*);
 
 // Appends the string returned by FUN_00a7d330(g_011f3f88.m_str) to pkStrings, growing it when the length reaches the count.
 // @fnv 0x00a4b880
-void __stdcall FUN_00a4b880(StrArr* pkStrings)
+void __stdcall GetViewerStrings(StrArr* pkStrings)
 {
     FUN_00a57d10(pkStrings);
     char* pStr = FUN_00a7d330(g_011f3f88.m_str);
@@ -348,11 +348,11 @@ struct FUN_00a4b4b0_cls : StreamableBase
 {
     ThingPtr m_spThing;
 
-    void FUN_00a4b4b0(NiStreamLike* apStream);
+    void LinkObject(NiStreamLike* apStream);
 };
 
 // @fnv 0x00a4b4b0
-void FUN_00a4b4b0_cls::FUN_00a4b4b0(NiStreamLike* apStream)
+void FUN_00a4b4b0_cls::LinkObject(NiStreamLike* apStream)
 {
     StreamableBase::FUN_00a57630(apStream);
 

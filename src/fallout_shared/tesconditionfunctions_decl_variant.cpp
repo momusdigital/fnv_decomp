@@ -36,7 +36,7 @@ class TESWorldSpace
     void* GetFieldD0();
 };
 // @fnv 0x0059c010
-bool __cdecl FUN_0059c010(TESObjectREFR* reference, void* parameter, void* unused, double& result)
+bool __cdecl Cmd_GetInZone_Eval(TESObjectREFR* reference, void* parameter, void* unused, double& result)
 {
     result = 0.0;
     void* zone = parameter;

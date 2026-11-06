@@ -5,7 +5,7 @@
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
 struct FUN_007b8f30_shell
 {
-    int FUN_007b8f30();
+    int GetClass();
 };
 struct Tile
 {

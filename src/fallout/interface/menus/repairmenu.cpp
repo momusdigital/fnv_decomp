@@ -124,11 +124,11 @@ struct Standin007b6a00
     Tile_Set_Helper* _4c;
     char _50[0x0C];
     Box071ae60 _5c;
-    void FUN_007b6a00(int aiID, Tile* apTarget);
+    void DoLeave(int aiID, Tile* apTarget);
 };
 // For ID 14, clears tile 0xFA3 on _4c and, when _5c.FUN_0071ae60() returns more than 1, also clears it on _48.
 // @fnv 0x007b6a00
-void Standin007b6a00::FUN_007b6a00(int aiID, Tile* apTarget)
+void Standin007b6a00::DoLeave(int aiID, Tile* apTarget)
 {
     if (aiID == 14)
     {
@@ -1015,7 +1015,7 @@ struct RepairInventoryItem : HealthOwner
 };
 struct RepairInventoryChanges
 {
-    RepairInventoryItem* FUN_004bfba0(TESBoundObject*, bool, bool);
+    RepairInventoryItem* GetObjectInList(TESBoundObject*, bool, bool);
 };
 RepairInventoryChanges* __cdecl FUN_004bf220(PlayerStub*);
 unsigned int __cdecl FUN_004873d0(TESBoundObject*);
@@ -1039,7 +1039,7 @@ void RepairAction::ApplyRepair(HealthOwner* source)
     else
         repairVal *= FUN_004873d0(((RepairInventoryItem*)DAT_011da760)->FUN_0044ddc0());
     RepairInventoryItem* entryTmp =
-        FUN_004bf220(g_thePlayer)->FUN_004bfba0(((RepairInventoryItem*)DAT_011da760)->FUN_0044ddc0(), true, false);
+        FUN_004bf220(g_thePlayer)->GetObjectInList(((RepairInventoryItem*)DAT_011da760)->FUN_0044ddc0(), true, false);
     ExtraDataList* extra7 = ((RepairInventoryItem*)DAT_011da760)->FUN_00559450()
                                 ? ((RepairInventoryItem*)DAT_011da760)->FUN_00559450()->FUN_006815c0()
                                 : 0;

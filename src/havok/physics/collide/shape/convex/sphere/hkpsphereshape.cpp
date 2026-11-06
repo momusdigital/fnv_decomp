@@ -582,11 +582,11 @@ struct FUN_00cd8140_Obj
     int unk0C;
     float unk10;
 
-    void FUN_00cd8140(FUN_00cd8140_Result* result);
+    void getCollisionSpheresImpl(FUN_00cd8140_Result* result);
 };
 
 // @fnv 0x00cd8140
-void FUN_00cd8140_Obj::FUN_00cd8140(FUN_00cd8140_Result* result)
+void FUN_00cd8140_Obj::getCollisionSpheresImpl(FUN_00cd8140_Result* result)
 {
     _mm_store_ps(reinterpret_cast<float*>(result), _mm_setzero_ps());
     result->unk0C = unk10;

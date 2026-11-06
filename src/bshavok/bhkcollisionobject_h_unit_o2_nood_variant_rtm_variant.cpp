@@ -144,11 +144,11 @@ struct Cls_00c658c0
     int unk08;
     int unk0C;
     Owner_00c658c0* m_pOwnerObject;
-    void FUN_00c658c0();
+    void ClearVelocities();
 };
 
 // @fnv 0x00c658c0
-void Cls_00c658c0::FUN_00c658c0()
+void Cls_00c658c0::ClearVelocities()
 {
     Owner_00c658c0* o = m_pOwnerObject;
     if (o)
@@ -454,7 +454,7 @@ struct CollisionSync
     {
         return (flags >> bit) & 1;
     }
-    void FUN_00c65b00();
+    void NitohkTransform();
 };
 __declspec(noinline) FourFloatVector* Body::FUN_00560e10()
 {
@@ -487,7 +487,7 @@ __declspec(noinline) FourFloatVector* Body::FUN_00560e10()
     return _mm_movemask_ps(_mm_cmpeq_ps(total, DAT_01267e30.quad)) == 15 ? &DAT_01267e30 : p;
 }
 // @fnv 0x00c65b00
-void CollisionSync::FUN_00c65b00()
+void CollisionSync::NitohkTransform()
 {
 
     FourFloatVector forcedPos;

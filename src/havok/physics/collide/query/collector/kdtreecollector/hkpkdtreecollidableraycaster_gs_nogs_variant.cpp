@@ -7,7 +7,7 @@
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
 struct FUN_00d97a10_Class
 {
-    void FUN_00d97a10(float* p) const;
+    void getHitFractions(float* p) const;
 };
 struct S_00d979e0_Inner
 {

@@ -69,7 +69,7 @@ struct BGSSaveFormBuffer
 };
 struct Unk0080F320
 {
-    void FUN_00806230(BGSSaveFormBuffer*);
+    void SaveGameBGS(BGSSaveFormBuffer*);
     void SaveToBuffer(BGSSaveFormBuffer*);
     char _pad[0x4C];
     int _m4C;
@@ -77,7 +77,7 @@ struct Unk0080F320
 // @fnv 0x0080f320
 void Unk0080F320::SaveToBuffer(BGSSaveFormBuffer* apBuffer)
 {
-    FUN_00806230(apBuffer);
+    SaveGameBGS(apBuffer);
     apBuffer->SaveData(&_m4C, 4, 0);
 }
 
@@ -174,10 +174,10 @@ struct LimbConditionEffect_0080f220
 {
     char _pad[0x4C];
     int m_4C;
-    void __thiscall FUN_0080f220(Actor* apActor, float afModifier, ActorValue::Index aeOverrideActorValue);
+    void __thiscall ModifyActorValue(Actor* apActor, float afModifier, ActorValue::Index aeOverrideActorValue);
 };
 // @fnv 0x0080f220
-void __thiscall LimbConditionEffect_0080f220::FUN_0080f220(Actor* apActor, float afModifier,
+void __thiscall LimbConditionEffect_0080f220::ModifyActorValue(Actor* apActor, float afModifier,
                                                            ActorValue::Index aeOverrideActorValue)
 {
     if (m_4C != ActorValue::None)
@@ -257,7 +257,7 @@ struct FUN_0080f0a0_Class
     void* _p28;
 };
 
-ActiveEffect* __fastcall FUN_0080f0a0(FUN_0080f0a0_Class* self)
+ActiveEffect* __fastcall Clone(FUN_0080f0a0_Class* self)
 {
     ActiveEffect* presult = (ActiveEffect*)new FUN_0080f1a0_StandIn(self->_p28, self->_p8, self->_pC);
 

@@ -391,7 +391,7 @@ struct Cell
 struct World
 {
     void* FUN_005f36f0();
-    Cell* FUN_00451900(int, int);
+    Cell* GetGridCellCell(int, int);
 };
 struct Setting
 {
@@ -407,10 +407,10 @@ TerrainNode* FUN_00450b80(int);
 void FUN_00b62970();
 void UpdateTerrainLODMaxRange();
 void FUN_00b60120(float, float, float, float);
-void FUN_0057d4f0(Cell*, TerrainNode*, Point3, Point3, float, float, float);
+void UpdateGrassForCell(Cell*, TerrainNode*, Point3, Point3, float, float, float);
 void FUN_00b61570(int, int);
 // @fnv 0x0057d0a0
-void FUN_0057d0a0(Point3 position, Point3 direction, float scale)
+void UpdateGrass(Point3 position, Point3 direction, float scale)
 {
     AutoMemContext contextSlot1(28, true, DAT_010310d8, 177);
     if (DAT_011dea10->FUN_005f36f0() || !*DAT_011ca4f0.FUN_00408d60() || !DAT_0118c000)
@@ -448,7 +448,7 @@ void FUN_0057d0a0(Point3 position, Point3 direction, float scale)
             --cellXSlot13;
         if (position.y < 0.0)
             --cellYSlot13;
-        Cell* cellSlot17 = DAT_011dea10->FUN_00451900(cellXSlot13, cellYSlot13);
+        Cell* cellSlot17 = DAT_011dea10->GetGridCellCell(cellXSlot13, cellYSlot13);
         TwoComponentVector relativeSlot42(position.x, position.y);
         relativeSlot42.x -= float(cellXSlot13 << 12);
         relativeSlot42.y -= float(cellYSlot13 << 12);
@@ -456,14 +456,14 @@ void FUN_0057d0a0(Point3 position, Point3 direction, float scale)
         {
             for (int column = 0; column < 5; ++column)
             {
-                cellSlot17 = DAT_011dea10->FUN_00451900(cellXSlot13 + row - 2, cellYSlot13 + column - 2);
+                cellSlot17 = DAT_011dea10->GetGridCellCell(cellXSlot13 + row - 2, cellYSlot13 + column - 2);
                 if (cellSlot17)
                 {
                     bool skip = true;
                     if (row != 0 && row != 4 && column != 0 && column != 4 &&
                         farDistanceSlot0 > cellSlot17->FUN_0054fb70(&position))
                     {
-                        FUN_0057d4f0(cellSlot17, DAT_011ca438, position, direction, nearDistanceSlot2, farDistanceSlot0,
+                        UpdateGrassForCell(cellSlot17, DAT_011ca438, position, direction, nearDistanceSlot2, farDistanceSlot0,
                                      scale);
                         skip = false;
                     }
@@ -577,7 +577,7 @@ struct CellObj
 };
 struct Obj30
 {
-    NiPoint3 FUN_0053b450(unsigned char, unsigned short, int, int);
+    NiPoint3 GetVertexLocation(unsigned char, unsigned short, int, int);
     int** FUN_0053ca80(int, int);
 };
 struct NiNodeHelper
@@ -610,7 +610,7 @@ void __cdecl GenerateGrassPositions(int, int, int, Obj30*, int, const NiPoint3*,
                                     float, unsigned short, int, float, unsigned char, unsigned char);
 
 // @fnv 0x0057d4f0
-void __cdecl FUN_0057d4f0(Mgr* apMgr, int aiParam, NiPoint3 akPos, NiPoint3 akDir, float afParam1, float afRadius,
+void __cdecl UpdateGrassForCell(Mgr* apMgr, int aiParam, NiPoint3 akPos, NiPoint3 akDir, float afParam1, float afRadius,
                           float afFov)
 {
     int iQuad;
@@ -662,7 +662,7 @@ void __cdecl FUN_0057d4f0(Mgr* apMgr, int aiParam, NiPoint3 akPos, NiPoint3 akDi
         CellObj* pCell = apMgr->GetCellNodeAt(iQuad);
         if (pCell)
         {
-            NiPoint3 kStartPt = pData30->FUN_0053b450(0, 0, 0, 0);
+            NiPoint3 kStartPt = pData30->GetVertexLocation(0, 0, 0, 0);
             int iV1b8 = 0;
             NiBound kBounds = pCell->FUN_0043d450();
             NiPoint3 kNone = __NiPoint3_ZERO;
@@ -677,7 +677,7 @@ void __cdecl FUN_0057d4f0(Mgr* apMgr, int aiParam, NiPoint3 akPos, NiPoint3 akDi
                     for (int iY = iStart4; iY < 0x10; iY += iDelta)
                     {
                         iSampleIdx = iY * 0x11 + iX;
-                        kPos = pData30->FUN_0053b450((unsigned char)iQuad, (unsigned short)iSampleIdx, 0, 0);
+                        kPos = pData30->GetVertexLocation((unsigned char)iQuad, (unsigned short)iSampleIdx, 0, 0);
                         kPos.z = akPos.z;
                         kPos.x = kPos.x - 256.0;
                         kPos.y = kPos.y - 256.0;
@@ -715,7 +715,7 @@ void __cdecl FUN_0057d4f0(Mgr* apMgr, int aiParam, NiPoint3 akPos, NiPoint3 akDi
                     for (int iY2 = iStart4; iY2 < 0x10; iY2 += iDelta)
                     {
                         iSampleIdx = iY2 * 0x11 + iX2;
-                        kPos = pData30->FUN_0053b450((unsigned char)iQuad, (unsigned short)iSampleIdx, 0, 0);
+                        kPos = pData30->GetVertexLocation((unsigned char)iQuad, (unsigned short)iSampleIdx, 0, 0);
                         kPos.x = kPos.x - 256.0;
                         kPos.y = kPos.y - 256.0;
                         int iSample = PackFloatPairToInt(&kPos.x);
@@ -807,15 +807,15 @@ class LODLand
     bool FUN_005394a0();
     bool FUN_0053b550(FUN_0053a510_LandData* pkData, NiPoint3* pkPos, int iUnused);
     void ComputeTerrainNormalAndTangent(FUN_0053a510_LandData* pkData, NiPoint3* pkNormal, NiPoint3* pkSlope);
-    void FUN_0053fa10(FUN_0053a510_LandData* pkData, FUN_00414430_Color* pkColor);
+    void GetLandColor(FUN_0053a510_LandData* pkData, FUN_00414430_Color* pkColor);
 };
 
 class LODWorld
 {
   public:
     void GetLandHeightAt(NiPoint3* pkPos, float* pfHeight);
-    void FUN_004573f0(NiPoint3* pkPos, NiPoint3* pkNormal, NiPoint3* pkSlope);
-    void FUN_00457520(NiPoint3* pkPos, FUN_00414430_Color* pkColor);
+    void GetLandNormal(NiPoint3* pkPos, NiPoint3* pkNormal, NiPoint3* pkSlope);
+    void GetLandColor(NiPoint3* pkPos, FUN_00414430_Color* pkColor);
 };
 extern LODWorld* DAT_011dea10;
 
@@ -976,7 +976,7 @@ void GenerateGrassPositions(int iA, int iB, int iUnused08, LODLand* pkLand, void
                 if (bOnLand)
                     pkLand->ComputeTerrainNormalAndTangent(&kTheLandData, &kNormal, &kSlopeValue);
                 else
-                    DAT_011dea10->FUN_004573f0(&kPosPos, &kNormal, &kSlopeValue);
+                    DAT_011dea10->GetLandNormal(&kPosPos, &kNormal, &kSlopeValue);
                 if (pkSettings->bUseSlope && pkSettings->bSlopeOnly)
                     kNormal = kSlopeValue;
                 else if (pkSettings->bUseSlope && !pkSettings->bSlopeOnly)
@@ -1000,9 +1000,9 @@ void GenerateGrassPositions(int iA, int iB, int iUnused08, LODLand* pkLand, void
                 kPosPos.z += kNormal.z;
                 FUN_00414430_Color kColor(0.0f, 0.0f, 0.0f, 0.0f);
                 if (bOnLand)
-                    pkLand->FUN_0053fa10(&kTheLandData, &kColor);
+                    pkLand->GetLandColor(&kTheLandData, &kColor);
                 else
-                    DAT_011dea10->FUN_00457520(&kPosPos, &kColor);
+                    DAT_011dea10->GetLandColor(&kPosPos, &kColor);
                 float fLuminanceNum = kColor.r * 0.31 + kColor.g * 0.37 + kColor.b * 0.32;
                 kOffsetOld = kPosPos - akStart;
                 DAT_011ca43c[usCountOld] = kPosPos;

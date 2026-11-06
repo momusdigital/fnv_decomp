@@ -228,11 +228,11 @@ struct BoxBuild2190BoxShell
     int unk58;
     int unk5c;
     hkVector4 m_vHalfExtents;
-    void FUN_00de2190();
+    void buildGeometry();
 };
 
 // @fnv 0x00de2190
-void BoxBuild2190BoxShell::FUN_00de2190()
+void BoxBuild2190BoxShell::buildGeometry()
 {
     BoxBuild2190Router* router = FUN_00c85750();
     BoxBuild2190Geom* mem = (BoxBuild2190Geom*)router->m_10->alloc(sizeof(BoxBuild2190Geom));

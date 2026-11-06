@@ -28,7 +28,7 @@ struct FnvCpu_FUN_00e34990_CpuObject
 };
 struct FUN_00e349a0_class : hkaDeltaCompressedAnimation
 {
-    int FUN_00e349a0(unsigned int arg, int unused);
+    int getNumDataChunks(unsigned int arg, int unused);
 };
 struct AnimDispatch
 {
@@ -158,7 +158,7 @@ struct S00e34c10_Cache
 struct S00e34c10_Anim : hkaDeltaCompressedAnimation
 {
     void __thiscall GetCompressedBlockRange(unsigned int blockIndex, int numBlocks, S00e34c10_Block* apBlocks);
-    void __thiscall FUN_00e34c10(unsigned int frameIndex, int unused, S00e34c10_Cache* cache, int mode);
+    void __thiscall getDataChunks(unsigned int frameIndex, int unused, S00e34c10_Cache* cache, int mode);
 };
 // FUN_00e34d80 - hkaDeltaCompressedAnimation block decode launcher (Havok timer-wrapped)
 // Per-TU private conventions: anim arrives in eax; callee FUN_00e349c0 takes dst in eax.
@@ -431,7 +431,7 @@ extern float DAT_01012068;
 extern __m128 DAT_010c71b0;
 
 // @fnv 0x00e34d30
-void __stdcall FUN_00e34d30(int a, int b, unsigned int count, unsigned int* target)
+void __stdcall sampleIndividualTransformTracks(int a, int b, unsigned int count, unsigned int* target)
 {
     if (count > 0)
     {

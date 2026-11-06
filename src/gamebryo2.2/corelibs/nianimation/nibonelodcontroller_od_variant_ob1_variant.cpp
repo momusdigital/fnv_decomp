@@ -23,7 +23,7 @@ GlobalObjectO2_00a7b610* __cdecl FUN_00a55120();
 struct Unknown_00c536a0
 {
     bool FUN_00a6d0f0(int);
-    bool FUN_00c536a0(int);
+    bool RegisterStreamables(int);
 };
 struct NiStream
 {
@@ -41,7 +41,7 @@ struct NiBSBoneLODController : NiObject
 extern GlobalObjectO2_00a7b610 g_012031b8;
 struct FUN_00c53e00_shell
 {
-    GlobalObjectO2_00a7b610* __thiscall FUN_00c53e00();
+    GlobalObjectO2_00a7b610* __thiscall GetRTTI();
 };
 class NiControllerManager
 {
@@ -79,7 +79,7 @@ struct S_00c53ed0
 {
     char _pad[0x2C];
     Inner_00c53ed0* m_ptr;
-    bool FUN_00c53ed0();
+    bool TargetIsRequiredType();
 };
 extern "C" void __cdecl CallAnimCallback(void*, const void*);
 extern "C" void __cdecl FUN_0044adf0(void*, const void*);
@@ -125,7 +125,7 @@ struct BoneLODControllerSave : NiBSBoneLODController
     unsigned short unk44;
     unsigned short groupCount;
     void __thiscall FUN_00a6d730(NiStream*);
-    void __thiscall FUN_00c536d0(NiStream*);
+    void __thiscall SaveBinary(NiStream*);
 };
 struct RefList
 {
@@ -369,10 +369,10 @@ class SelfW
     unsigned short m44;
     unsigned short m_usElementCount;
     void FUN_00a6d0c0(StreamW* p);
-    void FUN_00c53430(StreamW* pkStream);
+    void ProcessClone(StreamW* pkStream);
 };
 // @fnv 0x00c53430
-void SelfW::FUN_00c53430(StreamW* pkStream)
+void SelfW::ProcessClone(StreamW* pkStream)
 {
     int iSaved;
     {
@@ -831,7 +831,7 @@ class TimeController
 class BoneLODController : public TimeController
 {
   public:
-    void FUN_00c53870(NiStreamLoader& kStream);
+    void LoadBinary(NiStreamLoader& kStream);
 
     int m_iLOD;
     unsigned int m_uiNumLODs;
@@ -839,7 +839,7 @@ class BoneLODController : public TimeController
 };
 
 // @fnv 0x00c53870
-void BoneLODController::FUN_00c53870(NiStreamLoader& kStream)
+void BoneLODController::LoadBinary(NiStreamLoader& kStream)
 {
     TimeController::FUN_00a6d5e0(kStream);
 
@@ -897,10 +897,10 @@ class FUN_00c53d70 : public NiControllerManager, public NiMemObject
 class CloneOwner_c53360 : public CloneableObj
 {
   public:
-    NiControllerManager* FUN_00c53360(CloningProcess* process);
+    NiControllerManager* CreateClone(CloningProcess* process);
 };
 // @fnv 0x00c53360
-NiControllerManager* CloneOwner_c53360::FUN_00c53360(CloningProcess* process)
+NiControllerManager* CloneOwner_c53360::CreateClone(CloningProcess* process)
 {
     NiControllerManager* result = new FUN_00c53d70;
     this->FUN_00c533f0(result, process);

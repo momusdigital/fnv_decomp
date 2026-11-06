@@ -17,11 +17,11 @@ struct FUN_004f0180_Class
     float y;
     float z;
 
-    void FUN_004f0180(M3_* rot);
+    void ToRotation(M3_* rot);
 };
 
 // @fnv 0x004f0180
-void FUN_004f0180_Class::FUN_004f0180(M3_* rot)
+void FUN_004f0180_Class::ToRotation(M3_* rot)
 {
     float tx;
     float twy;

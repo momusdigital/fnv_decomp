@@ -1086,11 +1086,11 @@ struct S
         return unk08;
     }
     void AppendCameraPathEntries(StrArray* arr);
-    void FUN_00a5ca80(StrArray* arr);
+    void GetViewerStrings(StrArray* arr);
 };
 // Appends camera path entries, a string from DAT_011f4304, and a formatted m_kName string to the given StrArray.
 // @fnv 0x00a5ca80
-void S::FUN_00a5ca80(StrArray* apArray)
+void S::GetViewerStrings(StrArray* apArray)
 {
     AppendCameraPathEntries(apArray);
     char* str = FUN_00a7d330(DAT_011f4304);

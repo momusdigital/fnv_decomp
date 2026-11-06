@@ -597,13 +597,13 @@ struct SceneObject
 };
 struct AnimationObject
 {
-    void FUN_0048ff50();
+    void ShutdownAllAnimIdles();
     AnimationManager* FUN_00496940();
     SceneObject* FUN_005585e0();
 };
 struct AnimationLoader
 {
-    void FUN_00445430(AnimationObject*);
+    void CancelReplacementKFList(AnimationObject*);
 };
 struct AnimationQueue
 {
@@ -615,7 +615,7 @@ extern int g_011f36e4;
 void AddAnimationToGarbageCollector(AnimationObject* object)
 {
     TwoPointerRecord event(8, "GarbageCollector::Add(Animation)");
-    object->FUN_0048ff50();
+    object->ShutdownAllAnimIdles();
     if (object->FUN_00496940())
         object->FUN_00496940()->FUN_0048fef0(0.0f);
     SceneObject* pRoot = object->FUN_005585e0();
@@ -628,7 +628,7 @@ void AddAnimationToGarbageCollector(AnimationObject* object)
         if (controller)
             pRoot->FUN_00a5c480(controller);
     }
-    ((AnimationLoader*)g_modelLoader)->FUN_00445430(object);
+    ((AnimationLoader*)g_modelLoader)->CancelReplacementKFList(object);
     if (!DAT_tlsFlag || (g_BGSSaveLoadGame && g_BGSSaveLoadGame->FUN_0042ce10()))
     {
         delete (GarbageCollectorDeleteA*)object;

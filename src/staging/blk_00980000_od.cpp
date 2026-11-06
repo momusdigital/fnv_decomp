@@ -4227,7 +4227,7 @@ struct ClusterPosition
     unsigned cell;
     ClusterVec& FUN_006815c0();
     unsigned FUN_0084e3a0();
-    float FUN_00527a40(const ClusterPosition&);
+    float GetDistanceSquared(const ClusterPosition&);
 };
 struct ClusterRef
 {
@@ -4380,7 +4380,7 @@ void ClusterWork::UpdateGroups()
         c[i].nearest = -1;
         if (c[i].member->group)
         {
-            if (c[i].member->group->FUN_00527a40(c[i].position) > DAT_011a4d2c * DAT_011a4d2c * 4.0)
+            if (c[i].member->group->GetDistanceSquared(c[i].position) > DAT_011a4d2c * DAT_011a4d2c * 4.0)
             {
                 --c[i].member->group->count;
                 c[i].member->group = 0;
@@ -4409,7 +4409,7 @@ void ClusterWork::UpdateGroups()
                 continue;
             if (aDistances[k][iIndex] == 0.0)
             {
-                float distance = c[k].position.FUN_00527a40(c[iIndex].position);
+                float distance = c[k].position.GetDistanceSquared(c[iIndex].position);
                 aDistances[k][iIndex] = distance;
                 aDistances[iIndex][k] = distance;
             }
@@ -4442,7 +4442,7 @@ void ClusterWork::UpdateGroups()
         for (unsigned q = p + 1; q < groups.FUN_0044ddc0(); ++q)
         {
             FUN_0098dc00* second = groups.FUN_006a7ad0(q);
-            if (first->FUN_00527a40(*second) < DAT_011a4d2c * DAT_011a4d2c)
+            if (first->GetDistanceSquared(*second) < DAT_011a4d2c * DAT_011a4d2c)
             {
                 for (unsigned r = 0; r < j; ++r)
                 {
@@ -4466,7 +4466,7 @@ void ClusterWork::UpdateGroups()
             j = c[e].member->group;
             e = c[e].nearest;
         }
-        if (c[t].position.FUN_00527a40(*j) < DAT_011a4d2c * DAT_011a4d2c)
+        if (c[t].position.GetDistanceSquared(*j) < DAT_011a4d2c * DAT_011a4d2c)
         {
             c[t].member->group = j;
             e = c[t].nearest;
@@ -5852,7 +5852,7 @@ struct P029Position
 {
     float x, y, z;
     unsigned cell;
-    float FUN_00527a40(const P029Position&);
+    float GetDistanceSquared(const P029Position&);
 };
 struct P029Sound
 {
@@ -6098,7 +6098,7 @@ bool P029Manager::TryStartDialogue(P029Actor* apSpeaker, void* other, int type, 
             if (candidatePosition && candidatePosition->FUN_0041ca90() == 28)
                 continue;
             P029Position action = candidate->FUN_00575650();
-            float distance = action.FUN_00527a40(position);
+            float distance = action.GetDistanceSquared(position);
             if (distance < count)
             {
                 f = candidate;
@@ -6207,7 +6207,7 @@ bool GroupReset_98afb0::UpdateAndCheckChanged()
     bool bChanged = false;
     if (fValue + 128.0 < fOldValue || fValue - 128.0 > fOldValue)
         bChanged = true;
-    else if (kOldPosVal.FUN_00527a40(kPos) > 4096.0)
+    else if (kOldPosVal.GetDistanceSquared(kPos) > 4096.0)
         bChanged = true;
     if (bChanged)
         CollectNearbyRefs();
@@ -6228,7 +6228,7 @@ struct Position
     void* cell;
     Vec& FUN_006815c0();
     void* FUN_0084e3a0();
-    float FUN_00527a40(const Position&);
+    float GetDistanceSquared(const Position&);
     void SetTripleAndValue(const Vec&, void*);
 };
 struct Threat : Position
@@ -6352,7 +6352,7 @@ void Center::UpdateCenter()
             for (unsigned int j = 0; j < countSlot11; j++)
             {
                 Threat* nearbySlot9 = ForwardToMember(j);
-                if (strongestSlot10->FUN_00527a40(*nearbySlot9) > maximumSlot1 * maximumSlot1)
+                if (strongestSlot10->GetDistanceSquared(*nearbySlot9) > maximumSlot1 * maximumSlot1)
                     continue;
                 float value = nearbySlot9->FUN_00985bb0();
                 weightedSlot17.FUN_0063c8a0(nearbySlot9->FUN_006815c0().ApplyScaled(value));
@@ -6367,7 +6367,7 @@ void Center::UpdateCenter()
                 Threat* other = ForwardToMember(k);
                 if (other->FUN_0084e3a0() != center.FUN_0084e3a0())
                     continue;
-                float distance = center.FUN_00527a40(*other);
+                float distance = center.GetDistanceSquared(*other);
                 if (distance > farthestSlot1)
                 {
                     farthestSlot1 = distance;
@@ -6421,7 +6421,7 @@ void Center::UpdateCenter()
             {
                 Actor* subjectBSlot11 = GetIntAt(b);
                 Position positionB = subjectBSlot11->FUN_00575650();
-                if (seedSlot0.FUN_00527a40(positionB) > maximumSlot1 * maximumSlot1)
+                if (seedSlot0.GetDistanceSquared(positionB) > maximumSlot1 * maximumSlot1)
                     continue;
                 sumSlot20.FUN_0063c8a0(positionB.FUN_006815c0());
                 includedSlot1++;
@@ -6436,7 +6436,7 @@ void Center::UpdateCenter()
                 Position positionCSlot0 = subjectCSlot0->FUN_00575650();
                 if (positionCSlot0.FUN_0084e3a0() != center.FUN_0084e3a0())
                     continue;
-                float distanceCSlot0 = center.FUN_00527a40(positionCSlot0);
+                float distanceCSlot0 = center.GetDistanceSquared(positionCSlot0);
                 if (distanceCSlot0 > extentSlot1)
                 {
                     extentSlot1 = distanceCSlot0;
@@ -9003,14 +9003,14 @@ bool FindCombatPosition(Actor* owner, float range, bool quiet)
 struct Pos99
 {
     float x, y, z;
-    float FUN_00527a40(const Pos99&);
+    float GetDistanceSquared(const Pos99&);
     Pos99 operator-(const Pos99&) const;
     float FUN_004a7290() const;
 };
 struct Loc99
 {
     float x, y, z, w;
-    float FUN_00527a40(const Loc99&);
+    float GetDistanceSquared(const Loc99&);
 };
 struct Set99
 {
@@ -9209,7 +9209,7 @@ struct Ref99
 struct Link99
 {
     Ref99* FUN_00559450();
-    Loc99 FUN_0043a390();
+    Loc99 GetTeleportWorldLocation();
     void* FUN_0043a320();
     void* FUN_0043a2b0();
     void* FUN_00717e50();
@@ -9418,14 +9418,14 @@ bool Self99::FUN_0099ebe0(void* arg, Out99* output, int mode)
                 continue;
             Ref99* candidate2 = entry47;
             Loc99 pos1 = candidate2->FUN_00575650();
-            float distance11 = origin13.FUN_00527a40(pos1);
+            float distance11 = origin13.GetDistanceSquared(pos1);
             if (distance11 <
                 *originalRuntimeFloatSetting433.FUN_00403e20() * *originalRuntimeFloatSetting433.FUN_00403e20())
                 continue;
             if (distance11 > bestDist18)
                 continue;
-            float targetDistance11 = targetPos51.FUN_00527a40(pos1);
-            float originDistance22 = targetPos51.FUN_00527a40(origin13);
+            float targetDistance11 = targetPos51.GetDistanceSquared(pos1);
+            float originDistance22 = targetPos51.GetDistanceSquared(origin13);
             if (originDistance22 > targetDistance11)
                 continue;
             if (!FUN_009a02a0(&pos1, 1, 0))
@@ -9490,7 +9490,7 @@ bool Self99::FUN_0099ebe0(void* arg, Out99* output, int mode)
                     Loc99 objectLocation6 = object21->FUN_00575650();
                     if (!FUN_009a02a0(&objectLocation6, 1, 0))
                         continue;
-                    if (!FUN_009a02a0(&link36->FUN_0043a390(), 1, 1))
+                    if (!FUN_009a02a0(&link36->GetTeleportWorldLocation(), 1, 1))
                         continue;
                     if (((Cast99*)context->FUN_004fb070())
                             ->FindRefInRadius(&objectLocation6, *originalRuntimeFloatSetting446.FUN_00403e20(), 0))

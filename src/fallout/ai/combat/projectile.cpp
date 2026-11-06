@@ -333,10 +333,10 @@ NiPoint3& __cdecl SetNiPoint3FromHkVector4(NiPoint3&, hkVector4 const&);
 struct Proxy
 {
     hkVector4 const& _ref_006815c0();
-    NiPoint3& FUN_004585f0(NiPoint3&);
+    NiPoint3& GetFrom(NiPoint3&);
 };
 // @fnv 0x004585f0
-NiPoint3& Proxy::FUN_004585f0(NiPoint3& aPoint)
+NiPoint3& Proxy::GetFrom(NiPoint3& aPoint)
 {
     return SetNiPoint3FromHkVector4(aPoint, _ref_006815c0());
 }
@@ -348,11 +348,11 @@ NiPoint3& __cdecl SetNiPoint3FromHkVector4(NiPoint3&, hkVector4 const&);
 struct FUN_004587f0_shell
 {
     hkVector4& FUN_00458820();
-    NiPoint3& FUN_004587f0(NiPoint3& a);
+    NiPoint3& GetTo(NiPoint3& a);
 };
 
 // @fnv 0x004587f0
-NiPoint3& FUN_004587f0_shell::FUN_004587f0(NiPoint3& aPoint)
+NiPoint3& FUN_004587f0_shell::GetTo(NiPoint3& aPoint)
 {
     return SetNiPoint3FromHkVector4(aPoint, FUN_00458820());
 }
@@ -602,7 +602,7 @@ struct S5870_Impact
 };
 struct S5870_Base
 {
-    void FUN_00932d60(S5870_Buf*);
+    void FinishLoadGame(S5870_Buf*);
 };
 struct S5870_List
 {
@@ -611,13 +611,13 @@ struct S5870_List
 };
 struct S5870_Holder
 {
-    void FUN_009c5870(S5870_Buf*);
+    void FinishLoadGame(S5870_Buf*);
 };
 // @fnv 0x009c5870
-void S5870_Holder::FUN_009c5870(S5870_Buf* pBuffer)
+void S5870_Holder::FinishLoadGame(S5870_Buf* pBuffer)
 {
     S5870_List* pCurrentElementNext;
-    ((S5870_Base*)this)->FUN_00932d60(pBuffer);
+    ((S5870_Base*)this)->FinishLoadGame(pBuffer);
     if (pBuffer->V0() >= 14)
     {
         pCurrentElementNext = (S5870_List*)((char*)this + 0x88);
@@ -2361,12 +2361,12 @@ struct _ref_006815c0
 
 struct Proxy
 {
-    NiPoint3& FUN_004585f0(NiPoint3&);
+    NiPoint3& GetFrom(NiPoint3&);
 };
 
 struct FUN_004587f0_shell
 {
-    NiPoint3& FUN_004587f0(NiPoint3&);
+    NiPoint3& GetTo(NiPoint3&);
 };
 
 struct NiPoint3Ex
@@ -2387,9 +2387,9 @@ bool FUN_009c5af0_shell::GetWaterPlaneIntersection(Proxy* apProxy, float* apWate
     {
         float fRate = FUN_005471e0(cell5);
         _ref_006815c0 kPos9;
-        apProxy->FUN_004585f0(*(NiPoint3*)&kPos9);
+        apProxy->GetFrom(*(NiPoint3*)&kPos9);
         _ref_006815c0 kPos2;
-        ((FUN_004587f0_shell*)apProxy)->FUN_004587f0(*(NiPoint3*)&kPos2);
+        ((FUN_004587f0_shell*)apProxy)->GetTo(*(NiPoint3*)&kPos2);
 
         if (kPos9.z > fRate && kPos2.z <= fRate)
         {
@@ -4553,11 +4553,11 @@ struct Mob9c
     int unk60;
     int unk64;
     BaseProcess9c* process;
-    bool FUN_009c47d0();
+    bool StartHighProcess();
 };
 
 // @fnv 0x009c47d0
-bool Mob9c::FUN_009c47d0()
+bool Mob9c::StartHighProcess()
 {
     g_lock9c.Lock(0);
     if (process)
@@ -4685,11 +4685,11 @@ struct Owner_9c4a40
     int unk60;
     int unk64;
     BaseProcess_9c4a40* process;
-    bool FUN_009c4a40();
+    bool MoveToMiddleLow();
 };
 
 // @fnv 0x009c4a40
-bool Owner_9c4a40::FUN_009c4a40()
+bool Owner_9c4a40::MoveToMiddleLow()
 {
     g_projectileLock_9c4a40.Lock(0);
     if (process)
@@ -4708,13 +4708,13 @@ bool Owner_9c4a40::FUN_009c4a40()
 
 struct ExplosionSource
 {
-    float FUN_00477900();
+    float GetRadiusBSUnits();
     float FUN_006a78f0();
 };
 struct ProjectileBaseCalls
 {
     ExplosionSource* FUN_004fd3c0();
-    bool FUN_004fd360();
+    bool GetHasExplosion();
     bool FUN_00975300();
 };
 struct ProjectileCalls
@@ -4739,9 +4739,9 @@ void FUN_009a52f0_shell::UpdateExplosion(ProjectileCalls* projectile)
         return;
     ProjectileBaseCalls* base = projectile->FUN_004181e0();
     ExplosionSource* source = base->FUN_004fd3c0();
-    if (base->FUN_004fd360() && source)
+    if (base->GetHasExplosion() && source)
     {
-        float length = source->FUN_00477900();
+        float length = source->GetRadiusBSUnits();
         float radius = source->FUN_006a78f0();
         if (radius >= *setting11cf3f0.Float())
         {
@@ -7450,8 +7450,8 @@ struct Shape
 };
 struct Buffer
 {
-    int FUN_0043b540();
-    void* FUN_004b59d0();
+    int getCollisionFilterInfo();
+    void* getOwner();
     int FUN_004b5980();
     void* FUN_00559450();
 };
@@ -7500,7 +7500,7 @@ struct Impact
 };
 struct TESProxy
 {
-    int FUN_00457880(Vec const&);
+    int GetLandMaterialType(Vec const&);
     Impact* FUN_0070ec90(Vec, float);
     void FUN_00458e20(Node*, float);
 };
@@ -7837,12 +7837,12 @@ bool ProjectileHit::ProcessHit(Obj* object, Vec const& point, Vec const& normal,
         hit->ref = object;
         hit->point = point;
         hit->normal = normal;
-        hit->collision = buffer ? buffer->FUN_004b59d0() : 0;
+        hit->collision = buffer ? buffer->getOwner() : 0;
         if (hit->collision)
         {
             ((WorldObject*)hit->collision)->FUN_00c90510();
             if (object && object->IsActor() && buffer->FUN_004b5980() == 1 &&
-                CF845(buffer->FUN_0043b540()).FUN_00624070())
+                CF845(buffer->getCollisionFilterInfo()).FUN_00624070())
             {
                 Body* body = FUN_004b5820(buffer);
                 Obj* actor = object;
@@ -7852,16 +7852,16 @@ bool ProjectileHit::ProcessHit(Obj* object, Vec const& point, Vec const& normal,
         int hitMaterial = material;
         if (buffer && material == 0x24)
         {
-            bool special = CF845(buffer->FUN_0043b540()).FUN_004a3a20() == 1;
+            bool special = CF845(buffer->getCollisionFilterInfo()).FUN_004a3a20() == 1;
             if (special)
-                hitMaterial = g_TES->FUN_00457880(point);
+                hitMaterial = g_TES->GetLandMaterialType(point);
             else
             {
                 Shape* shape = FUN_004a3a40(buffer->FUN_00559450());
                 if (shape)
                     hitMaterial = shape->FUN_00c84f10(index);
             }
-            if (CF845(buffer->FUN_0043b540()).FUN_0043b4d0() == 11)
+            if (CF845(buffer->getCollisionFilterInfo()).FUN_0043b4d0() == 11)
                 hitMaterial = 8;
         }
         hit->material = hitMaterial;
@@ -7967,11 +7967,11 @@ struct ZScene
 struct ZExplosion
 {
     float FUN_006a78f0();
-    void* FUN_004fb810();
+    void* GetSoundLevelValue();
 };
 struct ZBase
 {
-    bool FUN_004fd360();
+    bool GetHasExplosion();
     ZExplosion* FUN_004fd3c0();
     bool GetHasExplosionAltTrigger() const;
     float GetExplosionProximity() const;
@@ -8768,7 +8768,7 @@ void FUN_004d5c60(int);
 // @fnv 0x009c3190
 void ZProjectile::UpdateDetonation(float elapsed)
 {
-    if (FUN_004181e0()->FUN_004fd360() && FUN_004181e0()->FUN_004fd3c0() && !FUN_00444d00(0x200))
+    if (FUN_004181e0()->GetHasExplosion() && FUN_004181e0()->FUN_004fd3c0() && !FUN_00444d00(0x200))
     {
         bool detonate2 = false;
         if (FUN_004181e0()->GetHasExplosionAltTrigger())
@@ -8850,7 +8850,7 @@ void ZProjectile::UpdateDetonation(float elapsed)
                 }
                 victim->Kill(killer3, 0.0f);
                 _g_thePlayer->FUN_008d8520()->event(_g_thePlayer, *victim->GetPosition(),
-                                                    FUN_004181e0()->FUN_004fd3c0()->FUN_004fb810(), 2, victim);
+                                                    FUN_004181e0()->FUN_004fd3c0()->GetSoundLevelValue(), 2, victim);
             }
         }
     }
@@ -8942,11 +8942,11 @@ extern RecursiveSpinLock DAT_011f11a0;
 extern ActorDeletionQueue DAT_011e0e80;
 struct FUN_009c4b60_shell : public MobileObject
 {
-    bool FUN_009c4b60();
+    bool MoveToLow();
 };
 
 // @fnv 0x009c4b60
-bool FUN_009c4b60_shell::FUN_009c4b60()
+bool FUN_009c4b60_shell::MoveToLow()
 {
     ((GlobalObject_0096a2d0*)&DAT_011f11a0)->Lock(0);
     if (this->word68 != 0)
@@ -9880,7 +9880,7 @@ class PVPackageData
 class PVPackage
 {
   public:
-    PVPackageData* FUN_006758f0();
+    PVPackageData* GetUseWeaponPackageData();
 };
 
 class PVOwner
@@ -10073,8 +10073,8 @@ extern PVOwner* DAT_011dea3c;
 
 struct PVWeaponStats
 {
-    float FUN_00524b80(bool bFlag);
-    float FUN_00524be0(bool bFlag);
+    float GetMinSpreadDegrees(bool bFlag);
+    float GetSpreadDegrees(bool bFlag);
     bool IsFlag4Set();
 };
 struct PVFloatSetting
@@ -10437,7 +10437,7 @@ void PVProjectile::FUN_009ab390(float fTimeSinceScaleStart)
             PVPackage* pkPackageTmp = pkActor ? pkActor->FUN_009344a0() : 0;
             if (pkPackageTmp)
             {
-                PVPackageData* pkData = pkPackageTmp->FUN_006758f0();
+                PVPackageData* pkData = pkPackageTmp->GetUseWeaponPackageData();
                 if (pkData)
                     bNoSpread = pkData->FUN_00424940();
             }
@@ -10452,7 +10452,7 @@ void PVProjectile::FUN_009ab390(float fTimeSinceScaleStart)
                 if (pkActor && pkActor->FUN_008d8520() && pkWeaponCur && pkWeaponCur->HasEffect(3))
                     bScopedVal = true;
                 float fBodyPartChance =
-                    (FUN_00476c90()->FUN_00524b80(bScopedVal) + FUN_00476c90()->FUN_00524be0(bScopedVal) * fSkill) *
+                    (FUN_00476c90()->GetMinSpreadDegrees(bScopedVal) + FUN_00476c90()->GetSpreadDegrees(bScopedVal) * fSkill) *
                     0.017453292f;
                 float fUnusedTmp = pkActor->GetCachedSpeed(2);
                 float fExtraOut = pkActor->FUN_008d8520()->GetSpread();
@@ -10973,7 +10973,7 @@ class ListNodeHelper
 class ProjectileHelper : public Projectile
 {
   public:
-    void FUN_00932880(BGSSaveFormBuffer* buf);
+    void AppendSaveLoadFormBuffer(BGSSaveFormBuffer* buf);
     void SaveProjectile(BGSSaveFormBuffer* buf);
 };
 
@@ -10981,7 +10981,7 @@ class ProjectileHelper : public Projectile
 // @fnv 0x009c4ff0
 void ProjectileHelper::SaveProjectile(BGSSaveFormBuffer* buf)
 {
-    this->FUN_00932880(buf);
+    this->AppendSaveLoadFormBuffer(buf);
     buf->FUN_00865e50(&this->wordC8, 4, 0);
     buf->FUN_00865e50(&this->floatCC, 4, 0);
     buf->FUN_00865e50(&this->floatD4, 4, 0);

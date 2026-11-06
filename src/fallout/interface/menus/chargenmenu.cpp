@@ -2126,11 +2126,11 @@ struct CharGenInputMenu
     int unk54;
     SubList list;
 
-    bool FUN_00754150(int a1, float amount);
+    bool HandleSpecialKeyInput(int a1, float amount);
 };
 
 // @fnv 0x00754150
-bool CharGenInputMenu::FUN_00754150(int a1, float amount)
+bool CharGenInputMenu::HandleSpecialKeyInput(int a1, float amount)
 {
     bool result = false;
 

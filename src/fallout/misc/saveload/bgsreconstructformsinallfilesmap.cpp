@@ -2817,8 +2817,8 @@ struct WorldSpaceView
 };
 struct ActorBaseView
 {
-    void FUN_005f9e00(ReferenceView*, bool, bool, bool);
-    void FUN_006047c0(ReferenceView*, bool, bool, bool, bool);
+    void InitDefaultWorn(ReferenceView*, bool, bool, bool);
+    void InitDefaultWorn(ReferenceView*, bool, bool, bool, bool);
 };
 struct ProcessView
 {
@@ -3071,12 +3071,12 @@ void ReconstructionWorker::ReconstructForm(ReconstructDataView* data)
                     if (actor->IsCreature())
                     {
                         ActorBaseView* creatureBase = actor->FUN_004181e0();
-                        creatureBase->FUN_005f9e00(actor, true, true, true);
+                        creatureBase->InitDefaultWorn(actor, true, true, true);
                     }
                     else
                     {
                         ActorBaseView* npcBase = actor->FUN_004181e0();
-                        npcBase->FUN_006047c0(actor, true, true, false, true);
+                        npcBase->InitDefaultWorn(actor, true, true, false, true);
                     }
                 }
             }

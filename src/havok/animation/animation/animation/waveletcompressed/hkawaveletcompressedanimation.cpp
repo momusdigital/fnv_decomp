@@ -23,18 +23,18 @@ struct FUN_00e2f8c0_Class
     unsigned char m_auiShapeKeys[0x2c];
     unsigned int m_divisor;
 
-    int FUN_00e2f8c0(unsigned int value, int unused);
+    int getNumDataChunks(unsigned int value, int unused);
 };
 
 // @fnv 0x00e2f8c0
-int FUN_00e2f8c0_Class::FUN_00e2f8c0(unsigned int value, int unused)
+int FUN_00e2f8c0_Class::getNumDataChunks(unsigned int value, int unused)
 {
     return (value % m_divisor + 1 == m_divisor) ? 4 : 3;
 }
 
 // If count is greater than zero, writes count zero ints into dest.
 // @fnv 0x00e2f950
-void __stdcall FUN_00e2f950(int aiUnused1, int aiUnused2, unsigned int count, void* dest)
+void __stdcall sampleIndividualFloatTracks(int aiUnused1, int aiUnused2, unsigned int count, void* dest)
 {
     if (count > 0)
     {
@@ -464,7 +464,7 @@ extern float DAT_01012068;
 extern __m128 DAT_010c71b0;
 
 // Companion quad-writer variant (scalar-load broadcast form) that shares the
-// module with FUN_00e2fbc0; TU order matters for VC9's codegen state.
+// module with sampleIndividualTransformTracks; TU order matters for VC9's codegen state.
 struct DestWrapPre { float* p; DestWrapPre(float* q) : p(q) {} };
 void __stdcall sse_preload_quad(int, int, unsigned int count, DestWrapPre dest)
 {
@@ -488,7 +488,7 @@ void __stdcall sse_preload_quad(int, int, unsigned int count, DestWrapPre dest)
 struct DestWrap { float* p; DestWrap(float* q) : p(q) {} };
 // Writes a repeating pattern of zero, DAT_010c71b0, and one into the float array at dest.p for count iterations.
 // @fnv 0x00e2fbc0
-void __stdcall FUN_00e2fbc0(int, int, unsigned int count, DestWrap dest)
+void __stdcall sampleIndividualTransformTracks(int, int, unsigned int count, DestWrap dest)
 {
     if (count > 0)
     {
@@ -879,12 +879,12 @@ public:
     void* m_data;
 
     void FUN_00e2fa60(unsigned int slot, hkDmaRefE2FA* out) const;
-    void FUN_00e2fac0(unsigned int offset, int unused, hkDmaRefE2FA* desc, int mode) const;
+    void getDataChunks(unsigned int offset, int unused, hkDmaRefE2FA* desc, int mode) const;
 };
 
 // Populates a job descriptor with queue, data, and slot references, optionally including the next slot when mode is 4.
 // @fnv 0x00e2fac0
-void hkQueueE2FA::FUN_00e2fac0(unsigned int offset, int unused, hkDmaRefE2FA* desc, int mode) const
+void hkQueueE2FA::getDataChunks(unsigned int offset, int unused, hkDmaRefE2FA* desc, int mode) const
 {
 
     desc[0].m_ptr = this;
@@ -914,7 +914,7 @@ struct InfoE2FB {
 class HostE2FB : public hkaWaveletCompressedAnimation {
 public:
     void FUN_00e2fa60(unsigned int uiIndex, InfoE2FB* pkInfo);
-    int FUN_00e2fb30();
+    int getMaxSizeOfCombinedDataChunks();
 };
 
 __declspec(noinline) void HostE2FB::FUN_00e2fa60(unsigned int uiIndex, InfoE2FB* pkInfo)
@@ -932,7 +932,7 @@ __declspec(noinline) void HostE2FB::FUN_00e2fa60(unsigned int uiIndex, InfoE2FB*
 
 // Iterates over m_uiNumIndices, calling FUN_00e2fa60 to compute per-index sizes and returns the largest iSize found.
 // @fnv 0x00e2fb30
-int HostE2FB::FUN_00e2fb30()
+int HostE2FB::getMaxSizeOfCombinedDataChunks()
 {
     int iMax = 0;
     unsigned int i = 0;
@@ -1347,12 +1347,12 @@ void __cdecl FUN_00e4e610(const unsigned short*, const unsigned short*, int, int
 
 
 struct WaveletSamplerE30 : FUN_00e2f7c0_Class {
-    void FUN_00e30980(float time, unsigned int transformCount, hkQsTransform* transforms,
+    void samplePartialTracks(float time, unsigned int transformCount, hkQsTransform* transforms,
                       unsigned int floatCount, float* floats, CacheCtrlE30* cache);
 };
 
 // @fnv 0x00e30980
-void WaveletSamplerE30::FUN_00e30980(float time, unsigned int transformCount, hkQsTransform* transforms,
+void WaveletSamplerE30::samplePartialTracks(float time, unsigned int transformCount, hkQsTransform* transforms,
                                      unsigned int floatCount, float* floats, CacheCtrlE30* cache)
 {
     MonBeginE30(DAT_010eb3a8, DAT_010eb338);

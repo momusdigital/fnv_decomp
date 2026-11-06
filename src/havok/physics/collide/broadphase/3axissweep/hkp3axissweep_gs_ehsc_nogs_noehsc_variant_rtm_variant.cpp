@@ -1387,7 +1387,7 @@ Obj8* ep=&current;
 
     }
 
-    void FUN_00d12040(int** a0, unsigned int a1, int a2, unsigned int volatile a3, unsigned int volatile a4);
+    void updateAabbs(int** a0, unsigned int a1, int a2, unsigned int volatile a3, unsigned int volatile a4);
 };
 #include <xmmintrin.h>
 static unsigned int* FUN_00d11000(unsigned int* dst, int n);
@@ -1451,7 +1451,7 @@ struct SweepShift
     Vec4 m_highRounded;
     Vec4 m_highScale;
 
-    void FUN_00d10f00(const Vec4& distance, Vec4& appliedOut, SweepShiftPairs& pairs);
+    void shiftBroadPhase(const Vec4& distance, Vec4& appliedOut, SweepShiftPairs& pairs);
 };
 void __cdecl ResizeAudioStream(void* allocator,void* array,int elementSize);
 struct S4ef0Allocator {
@@ -1879,7 +1879,7 @@ struct Sweep15 : public BroadPhaseBase {
     BatchMarker* m_pOverlappingMarkerInfo;
 
     __forceinline void collectSweepCandidates(const BatchAabb& spl,Arr& local);
-    void FUN_00d18400(In1* p1, In2* p2, int p3);
+    void addObjectBatch(In1* p1, In2* p2, int p3);
     int BuildBroadPhasePairs(void* a, int b, void* c, int d, int e, int f);
 };
 void __cdecl FUN_00c908c0(void* a, void* b, int c, int d);
@@ -2025,11 +2025,11 @@ struct Sweep3Axis {
     OffsetScaleVector m_kVectorAt80;
     OffsetScaleVector m_kVectorAt90;
 
-    void FUN_00d11020(const OffsetScaleVector& offsetLow, const OffsetScaleVector& offsetHigh, const OffsetScaleVector& scale);
+    void set32BitOffsetAndScale(const OffsetScaleVector& offsetLow, const OffsetScaleVector& offsetHigh, const OffsetScaleVector& scale);
 };
 
 // @fnv 0x00d11020
-void Sweep3Axis::FUN_00d11020(const OffsetScaleVector& offsetLow, const OffsetScaleVector& offsetHigh, const OffsetScaleVector& scale)
+void Sweep3Axis::set32BitOffsetAndScale(const OffsetScaleVector& offsetLow, const OffsetScaleVector& offsetHigh, const OffsetScaleVector& scale)
 {
     m_kVectorAt70 = offsetLow;
     m_kVectorAt80 = offsetHigh;

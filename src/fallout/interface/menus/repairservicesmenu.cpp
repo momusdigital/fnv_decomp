@@ -4,11 +4,11 @@
 
 struct RepairServicesMenu
 {
-    int FUN_007b74c0();
+    int GetClass();
 };
 
 // @fnv 0x007b74c0
-int RepairServicesMenu::FUN_007b74c0()
+int RepairServicesMenu::GetClass()
 {
     return 0x422;
 }
@@ -302,7 +302,7 @@ struct Obj
     int FUN_00401170();
     double FUN_004be060();
     double FUN_004be180();
-    bool FUN_00480d90();
+    bool GetPlayable();
 };
 
 struct Holder
@@ -321,7 +321,7 @@ extern double DAT_01020758;
 extern double DAT_01012060;
 
 Obj* __cdecl FUN_00480db0(Obj*);
-bool __cdecl FUN_00481f10(Obj*);
+bool __cdecl IsGold(Obj*);
 int __cdecl GetHealthForm(Obj*);
 
 // Checks the holder's object and its state, comparing a value against config thresholds and returning whether the condition holds.
@@ -331,7 +331,7 @@ bool __cdecl FUN_007b7b40(Holder* pHolder)
     bool result2 = true;
     Obj* a7 = pHolder->FUN_0044ddc0();
     Obj* b = FUN_00480db0(a7);
-    if (a7 == 0 || (b != 0 && !b->FUN_00480d90()) || FUN_00481f10(a7) || a7->v94())
+    if (a7 == 0 || (b != 0 && !b->GetPlayable()) || IsGold(a7) || a7->v94())
     {
         result2 = true;
     }
@@ -1040,7 +1040,7 @@ struct RepairEntry
 struct RepairInventory
 {
     static RepairInventory* __cdecl GetOrAddInventoryChanges(void* apRef);
-    RepairEntry* FUN_004bfba0(TESBoundObject* apForm, int aiUnk1, int aiUnk2);
+    RepairEntry* GetObjectInList(TESBoundObject* apForm, int aiUnk1, int aiUnk2);
 };
 
 class RepairMenuData
@@ -1077,7 +1077,7 @@ void RepairMenuData::ApplyRepair(RepairEntry* apEntry)
         fHealthPercent *= pWeapon->GetModdedValue(apEntry->HasEffect(10));
     else
         fHealthPercent *= FUN_004873d0(apEntry->FUN_0044ddc0());
-    pPlayerEntry = RepairInventory::GetOrAddInventoryChanges(DAT_011dea3c)->FUN_004bfba0(apEntry->FUN_0044ddc0(), 1, 0);
+    pPlayerEntry = RepairInventory::GetOrAddInventoryChanges(DAT_011dea3c)->GetObjectInList(apEntry->FUN_0044ddc0(), 1, 0);
     pOldListOut = apEntry->GetExtraLists() ? *apEntry->GetExtraLists()->GetItem() : 0;
     pNewList4 = new ExtraDataList;
     iCount8 = -1;

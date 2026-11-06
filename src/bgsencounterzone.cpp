@@ -264,16 +264,16 @@ struct FUN_00526070_shell
     virtual void v16();
     virtual void v17();
     virtual void v18(unsigned int f);
-    void FUN_00526070(unsigned int arg);
+    void SetDetachTime(unsigned int arg);
 };
 // @fnv 0x00526070
-void FUN_00526070_shell::FUN_00526070(unsigned int arg)
+void FUN_00526070_shell::SetDetachTime(unsigned int arg)
 {
     *(unsigned int*)((char*)this + 0x20) = arg;
     v18(0x80000000);
 }
 
-unsigned int __cdecl FUN_00526100();
+unsigned int __cdecl GetHoursToRespawnCell();
 struct FUN_005260a0_shell
 {
     virtual void v0();
@@ -295,15 +295,15 @@ struct FUN_005260a0_shell
     virtual void v16();
     virtual void v17();
     virtual void v18(unsigned int f);
-    void FUN_005260a0(unsigned int arg);
+    void SetAttachTime(unsigned int arg);
 };
 // @fnv 0x005260a0
-void FUN_005260a0_shell::FUN_005260a0(unsigned int uiValue)
+void FUN_005260a0_shell::SetAttachTime(unsigned int uiValue)
 {
     *(unsigned int*)((char*)this + 0x24) = uiValue;
     if (*(unsigned int*)((char*)this + 0x20) != 0)
     {
-        if (*(unsigned int*)((char*)this + 0x24) - *(unsigned int*)((char*)this + 0x20) > FUN_00526100())
+        if (*(unsigned int*)((char*)this + 0x24) - *(unsigned int*)((char*)this + 0x20) > GetHoursToRespawnCell())
             *(unsigned int*)((char*)this + 0x28) = uiValue;
     }
     v18(0x80000000);
@@ -318,7 +318,7 @@ struct GlobalObject2_0040c150
 GlobalObject2_0040c150 g_011ca160;
 
 // @fnv 0x00526100
-int __cdecl FUN_00526100()
+int __cdecl GetHoursToRespawnCell()
 {
     return *g_011ca160.Int();
 }
@@ -365,10 +365,10 @@ struct FUN_00526160_shell
     virtual void v16();
     virtual void v17();
     virtual void v18(unsigned int f);
-    void FUN_00526160(unsigned short arg);
+    void SetZoneLevel(unsigned short arg);
 };
 // @fnv 0x00526160
-void FUN_00526160_shell::FUN_00526160(unsigned short arg)
+void FUN_00526160_shell::SetZoneLevel(unsigned short arg)
 {
     *(unsigned short*)((char*)this + 0x2c) = arg;
     v18(0x80000000);
@@ -376,22 +376,22 @@ void FUN_00526160_shell::FUN_00526160(unsigned short arg)
 
 struct FUN_00526160_s
 {
-    void FUN_00526160(unsigned short a);
+    void SetZoneLevel(unsigned short a);
 };
 struct FUN_00526270_shell : BGSEncounterZone
 {
-    void FUN_00526270();
+    void DetermineLevel();
 };
 // @fnv 0x00526270
-void FUN_00526270_shell::FUN_00526270()
+void FUN_00526270_shell::DetermineLevel()
 {
     if (*(unsigned short*)((char*)this + 0x2c) == 0)
-        reinterpret_cast<FUN_00526160_s*>(this)->FUN_00526160(GetCalculatedLevel());
+        reinterpret_cast<FUN_00526160_s*>(this)->SetZoneLevel(GetCalculatedLevel());
 }
 
 struct Zone81
 {
-    bool FUN_00526320();
+    bool QNeverReset();
 };
 struct TESObject
 {
@@ -402,14 +402,14 @@ struct Calendar
     unsigned int GetGameHoursPassed();
 };
 extern Calendar g_calendar;
-unsigned int __cdecl FUN_00526100();
+unsigned int __cdecl GetHoursToRespawnCell();
 // @fnv 0x005262a0
-bool __fastcall FUN_005262a0(BGSEncounterZone* apZone)
+bool __fastcall ShouldReset(BGSEncounterZone* apZone)
 {
     bool result = true;
     if (apZone != BGSEncounterZone::ms_pDefaultEncounterZone && *(unsigned short*)((char*)apZone + 0x2c))
     {
-        if (reinterpret_cast<Zone81*>(apZone)->FUN_00526320())
+        if (reinterpret_cast<Zone81*>(apZone)->QNeverReset())
         {
             result = false;
         }
@@ -419,7 +419,7 @@ bool __fastcall FUN_005262a0(BGSEncounterZone* apZone)
             if (next)
             {
                 unsigned int now = g_calendar.GetGameHoursPassed();
-                if (now - next <= FUN_00526100())
+                if (now - next <= GetHoursToRespawnCell())
                     result = false;
             }
             else
@@ -433,10 +433,10 @@ bool __fastcall FUN_005262a0(BGSEncounterZone* apZone)
 
 struct FUN_00526320_shell
 {
-    bool FUN_00526320();
+    bool QNeverReset();
 };
 // @fnv 0x00526320
-bool FUN_00526320_shell::FUN_00526320()
+bool FUN_00526320_shell::QNeverReset()
 {
     return (*(signed char*)((char*)this + 0x1e) & 1) ? true : false;
 }

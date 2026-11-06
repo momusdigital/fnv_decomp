@@ -392,7 +392,7 @@ struct TESObjectREFR
 };
 struct FUN_00632d20_shell
 {
-    void FUN_00632d20(bool);
+    void SetFrontOnly(bool);
 };
 struct RadioSignal
 {
@@ -551,7 +551,7 @@ void FUN_00640810_t::FUN_00640810(NiNode* apSkyRoot)
     ((Sun*)this)->m_pSunGlarePick = new GlobalObject_00e98f20(0, 8);
     ((QuantityData*)((Sun*)this)->m_pSunGlarePick)->SetQuantity(1);
     ((TESObjectREFR*)((Sun*)this)->m_pSunGlarePick)->SetFlags(1);
-    ((FUN_00632d20_shell*)((Sun*)this)->m_pSunGlarePick)->FUN_00632d20(true);
+    ((FUN_00632d20_shell*)((Sun*)this)->m_pSunGlarePick)->SetFrontOnly(true);
     ((RadioSignal*)((Sun*)this)->m_pSunGlarePick)->SetByteAtOffset17(1);
 
     ((FUN_00baf3c0_S*)&bsshaderdata)->FUN_00baf3c0();
@@ -848,7 +848,7 @@ struct NiAVObject
     void SetLocalRotation(const H::ThreeByThreeMatrix&);
     void FUN_00440490(float);
     void SetAppCulled(bool);
-    bool FUN_006366b0();
+    bool GetDisplayObject();
 };
 struct FUN_00440460_S
 {
@@ -922,14 +922,14 @@ struct Sun_S
 };
 float __cdecl FUN_00408860(float);
 float __cdecl FUN_004dd130(float, float);
-bool FUN_004e2180();
+bool GetPlayerUnderwater();
 NiAVObject* __fastcall FUN_00558310(NiNode_00558310*);
 NiNode_00558310* FUN_0045c670();
-float __fastcall FUN_00595ea0(char*);
-float __fastcall FUN_00595f50(char*);
-float __fastcall FUN_00595fc0(char*);
-float __fastcall FUN_00596030(void*);
-float __fastcall FUN_006447d0(const char*);
+float __fastcall GetSunriseBegin(char*);
+float __fastcall GetSunriseEnd(char*);
+float __fastcall GetSunsetBegin(char*);
+float __fastcall GetSunsetEnd(void*);
+float __fastcall GetCurrentWeatherPct(const char*);
 float __fastcall GetFieldEC(const char*);
 void __fastcall _ref_006815c0(void*);
 int __fastcall _ref_0084e3a0(TES*);
@@ -1006,9 +1006,9 @@ void FUN_00641830_shell::UpdateSun(Sky* apSky, float afSecondsPassed)
     else if (apSky->FUN_00476c90() == 3 || apSky->FUN_00476c90() == 2)
     {
         ((NiAVObject*)(unsigned int)*(Flt*)((char*)this + 4))
-            ->SetAppCulled(!((NiAVObject*)(unsigned int)*(Flt*)((char*)this + 4))->FUN_006366b0());
-        float fSunriseBegin = (FUN_00595f50((char*)apSky) + FUN_00595ea0((char*)apSky)) / 2.0;
-        float fSunsetEnd = (FUN_00596030(apSky) + FUN_00595fc0((char*)apSky)) / 2.0;
+            ->SetAppCulled(!((NiAVObject*)(unsigned int)*(Flt*)((char*)this + 4))->GetDisplayObject());
+        float fSunriseBegin = (GetSunriseEnd((char*)apSky) + GetSunriseBegin((char*)apSky)) / 2.0;
+        float fSunsetEnd = (GetSunsetEnd(apSky) + GetSunsetBegin((char*)apSky)) / 2.0;
         float fhalftrans = *originalRuntimeFloatSetting82.Float() * DAT_01011588;
         float fAlphaInBegin = fSunriseBegin - fhalftrans;
         float fAlphaInEnd = fSunriseBegin + fhalftrans;
@@ -1029,7 +1029,7 @@ void FUN_00641830_shell::UpdateSun(Sky* apSky, float afSecondsPassed)
         }
         TESWeather* pCurr = (TESWeather*)((BSAudio*)apSky)->GetAudioBackendData();
         TESWeather* pLast = (TESWeather*)((AnimIdle*)apSky)->GetSection();
-        float fCurrPct = FUN_006447d0((const char*)apSky);
+        float fCurrPct = GetCurrentWeatherPct((const char*)apSky);
         float fGlareAlpha = (pCurr ? pCurr->GetWeatherData(4, fCurrPct * fDiscAlpha, 0.0f) : fDiscAlpha) +
                             (pLast ? pLast->GetWeatherData(4, (1.0f - fCurrPct) * fDiscAlpha, 0.0f) : 0.0f);
         void* pshadeProperty =
@@ -1106,7 +1106,7 @@ void FUN_00641830_shell::UpdateSun(Sky* apSky, float afSecondsPassed)
             float fscaleChange = *originalRuntimeFloatSetting81.Float() * afSecondsPassed;
             ((H::NiPoint3*)&direction)->ComputeMagnitude();
             bool bblocked =
-                ((Sun_S*)this)->FUN_006427c0() >= 1.0 || (((EffectSetting*)g_TES)->GetEffectID(), FUN_004e2180());
+                ((Sun_S*)this)->FUN_006427c0() >= 1.0 || (((EffectSetting*)g_TES)->GetEffectID(), GetPlayerUnderwater());
             float fscale = FUN_004dd130(1.0f - ((Sun_S*)this)->FUN_006427c0(), _DAT_010162c0);
             ((Sun_S*)this)->FUN_00642890();
             if (bblocked || fscale < *originalRuntimeFloatSetting80.Float())
@@ -1139,7 +1139,7 @@ void FUN_00641830_shell::UpdateSun(Sky* apSky, float afSecondsPassed)
                 ((NiAVObject*)(unsigned int)*(Flt*)((char*)this + 0xc))
                     ->FUN_00440490(((Sun_S*)this)->m_fSunGlareIntensity);
             }
-            if (!((NiAVObject*)(unsigned int)*(Flt*)((char*)this + 0xc))->FUN_006366b0())
+            if (!((NiAVObject*)(unsigned int)*(Flt*)((char*)this + 0xc))->GetDisplayObject())
             {
                 ((NiAVObject*)(unsigned int)*(Flt*)((char*)this + 0xc))->SetAppCulled(true);
             }

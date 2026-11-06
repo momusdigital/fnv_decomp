@@ -23,7 +23,7 @@ void __thiscall hkpKdTreeWorldManager::FUN_00d0a2b0(void* p)
 }
 
 // @fnv 0x00d0ad90
-void __fastcall FUN_00d0ad90(char* self, int unused, char flag)
+void __fastcall setUpToDate(char* self, int unused, char flag)
 {
     self[0x20] = flag == 0;
 }
@@ -155,11 +155,11 @@ struct FUN_00d0ad80_This
 class FUN_00d0ad80_Class : public FUN_00d0ad80_This
 {
   public:
-    bool __thiscall FUN_00d0ad80();
+    bool __thiscall isUpToDate();
 };
 
 // @fnv 0x00d0ad80
-bool FUN_00d0ad80_Class::FUN_00d0ad80()
+bool FUN_00d0ad80_Class::isUpToDate()
 {
     return this->unk20 == '\0';
 }
@@ -1002,7 +1002,7 @@ struct FUN_00d9e000_Obj
 {
     int unk00;
     int unk04;
-    int FUN_00d9e000();
+    int getNumPrimitives();
 };
 
 struct FUN_00d976d0_Obj
@@ -1135,7 +1135,7 @@ void S00d0a560_Owner::FUN_00d0a560(int* out, int ch)
         v->ClearBuffers();
         fnvc_adapt::FUN_00c85750()->heap().slot2(v, 0x50);
     }
-    int t2 = f.s24.FUN_00d9e000();
+    int t2 = f.s24.getNumPrimitives();
     ((FUN_00d976d0_Obj*)&f.s30)->FUN_00d976d0();
     unk1C->unk58->slot16(&f.s44, &f.s50);
     f.s30.unk00 = t2;

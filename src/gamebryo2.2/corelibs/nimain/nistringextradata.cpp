@@ -252,11 +252,11 @@ extern "C" char* __cdecl FUN_00a7d5e0(const char* key, char* value);
 struct FUN_00a74380_shell : NiStringExtraData
 {
     void FUN_00a7b580(NiStream& stream);
-    void FUN_00a74380(NiStream& stream);
+    void GetViewerStrings(NiStream& stream);
 };
 
 // @fnv 0x00a74380
-void FUN_00a74380_shell::FUN_00a74380(NiStream& stream)
+void FUN_00a74380_shell::GetViewerStrings(NiStream& stream)
 {
     FUN_00a7b580(stream);
     reinterpret_cast<NiStrTable&>(stream).Add(FUN_00a7d330((char*)DAT_011f4a38));

@@ -48,7 +48,7 @@ class VATS
 class LightTarget
 {
   public:
-    class NiAVObject* FUN_004e6540();
+    class NiAVObject* GetLight();
 };
 class Interface
 {

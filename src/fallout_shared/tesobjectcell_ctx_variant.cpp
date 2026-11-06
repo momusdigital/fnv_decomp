@@ -99,7 +99,7 @@ class FUN_00545960_shell
 class FUN_00587870_shell
 {
   public:
-    BSSimpleList<TESObjectREFR*>* FUN_00587870(TESObjectCELL*);
+    BSSimpleList<TESObjectREFR*>* GetOverlappedMultiBoundRefs(TESObjectCELL*);
 };
 
 class BSSimpleList_standin
@@ -301,7 +301,7 @@ void Cell_Sub::FUN_00544ce0()
     TESWorldSpace* extra9 = GetParentWorldSpace();
     if (extra9 != 0)
     {
-        iter = ((FUN_00587870_shell*)extra9)->FUN_00587870(this);
+        iter = ((FUN_00587870_shell*)extra9)->GetOverlappedMultiBoundRefs(this);
         while (iter != 0 && !iter->FUN_008256d0())
         {
             ((FUN_00545740_shell*)this)->GetOrCreateFaceGenNode(iter->GetItem());

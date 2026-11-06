@@ -36,13 +36,13 @@ void NiBSplineTransformInterpolator::CopyUnknownFields(NiBSplineTransformInterpo
 
 struct FUN_00a506b0_shell : public NiBSplinePoint3Interpolator
 {
-    void* FUN_00a506b0();
+    void* GetRTTI();
 };
 
 extern char const* const g_011f4014_arg1;
 
 // @fnv 0x00a506b0
-void* FUN_00a506b0_shell::FUN_00a506b0()
+void* FUN_00a506b0_shell::GetRTTI()
 {
     return (void*)&g_011f4014_arg1;
 }

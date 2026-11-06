@@ -205,7 +205,7 @@ void __fastcall DestroyDynamicEffect(NiDynamicEffect* apEffect)
 bool __fastcall VisitSkinGraphLinks(void* pThis, int, NiStream& kStream);
 
 // @fnv 0x00a6c680
-bool __fastcall FUN_00a6c680(void* pThis, int edx, NiStream& kStream)
+bool __fastcall RegisterStreamables(void* pThis, int edx, NiStream& kStream)
 {
     if (!VisitSkinGraphLinks(pThis, edx, kStream))
         return false;
@@ -2013,16 +2013,16 @@ void LinkProperty::LoadFromStream(LinkStream& stream)
 struct NiStream;
 struct NiSkinInstance
 {
-    virtual void FUN_00a6c670(NiStream&);
+    virtual void LinkObject(NiStream&);
 };
 struct BSDismemberSkinInstance : NiSkinInstance
 {
-    virtual void FUN_00a6c670(NiStream&);
+    virtual void LinkObject(NiStream&);
 };
 // @fnv 0x00a6c670
-void BSDismemberSkinInstance::FUN_00a6c670(NiStream& stream)
+void BSDismemberSkinInstance::LinkObject(NiStream& stream)
 {
-    NiSkinInstance::FUN_00a6c670(stream);
+    NiSkinInstance::LinkObject(stream);
 }
 
 // @fnv 0x00e7cd40

@@ -4,12 +4,12 @@
 
 struct NiTriStripsDynamicData
 {
-    void FUN_00a923c0(unsigned short& usStrips, const unsigned short*& pusStripLengths,
+    void GetStripData(unsigned short& usStrips, const unsigned short*& pusStripLengths,
                       const unsigned short*& pusTriList, unsigned int& uiStripLengthSum);
 };
 
 // @fnv 0x00a923c0
-void NiTriStripsDynamicData::FUN_00a923c0(unsigned short& usStrips, const unsigned short*& pusStripLengths,
+void NiTriStripsDynamicData::GetStripData(unsigned short& usStrips, const unsigned short*& pusStripLengths,
                                           const unsigned short*& pusTriList, unsigned int& uiStripLengthSum)
 {
     usStrips = 1;
@@ -58,11 +58,11 @@ void* __cdecl FUN_00a92470()
 
 struct FUN_00a92480_shell
 {
-    void __thiscall FUN_00a92480(short value);
+    void __thiscall SetActiveVertexCount(short value);
 };
 
 // @fnv 0x00a92480
-void __thiscall FUN_00a92480_shell::FUN_00a92480(short value)
+void __thiscall FUN_00a92480_shell::SetActiveVertexCount(short value)
 {
     *(short*)((char*)this + 0x50) = value;
 }
@@ -483,11 +483,11 @@ struct NiTriStripsStandin
     unsigned short m_usActiveVertices;
     unsigned short m_usActiveTriangles;
     void __thiscall FUN_00a76340(unsigned int);
-    void __thiscall FUN_00a92530(void*);
+    void __thiscall SaveBinary(void*);
 };
 
 // @fnv 0x00a92530
-void __thiscall NiTriStripsStandin::FUN_00a92530(void* stream)
+void __thiscall NiTriStripsStandin::SaveBinary(void* stream)
 {
     this->FUN_00a76340((unsigned int)stream);
     NiStreamBufferStandin* pBuffer = *(NiStreamBufferStandin**)((char*)stream + 0x250);
@@ -532,10 +532,10 @@ struct TriStrips_A923B0
     unsigned int unk4c;
     unsigned short m_usActiveVertices;
     unsigned short m_usActiveTriangles;
-    unsigned short FUN_00a923b0() const;
+    unsigned short GetActiveTriangleCount() const;
 };
 // @fnv 0x00a923b0
-unsigned short TriStrips_A923B0::FUN_00a923b0() const
+unsigned short TriStrips_A923B0::GetActiveTriangleCount() const
 {
     return m_usActiveTriangles;
 }

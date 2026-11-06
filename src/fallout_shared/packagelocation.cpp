@@ -366,7 +366,7 @@ class TESBoundObject : public TESForm
 class TESNPC : public TESBoundObject
 {
   public:
-    void FUN_0060a950(TESEyes*);
+    void SwapEyes(TESEyes*);
 };
 class P01ObjA
 {
@@ -1199,7 +1199,7 @@ void FUN_00826be0_shell::FUN_00826be0(float afSecondsElapsed)
                     Creature::SetNodeFlagsRecursive(pNode, 4, true, false, true);
                 TESNPC* pnpc = dynamic_cast<TESNPC*>((TESBoundObject*)((P01ObjA*)ptarget)->GetNext());
                 if (pnpc)
-                    pnpc->FUN_0060a950(DAT_011cb600);
+                    pnpc->SwapEyes(DAT_011cb600);
                 BSFaceGenAnimationData* pFaceGenAnimData = ptarget->GetActorFaceGenData();
                 if (pFaceGenAnimData)
                     pFaceGenAnimData->Unk_36(false, false);

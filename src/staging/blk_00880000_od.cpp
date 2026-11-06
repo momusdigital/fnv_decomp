@@ -131,7 +131,7 @@ struct TESPackage
 {
     static TESPackage* CreatePackageForType(int);
     void SetPackageType(int);
-    void FUN_00671d30(LocationDescriptor*);
+    void SetPackageLocation(LocationDescriptor*);
     void SetTargetFromReference(TESObjectREFR*);
     void SetMustReachLocation(bool);
     void SetMustComplete(bool);
@@ -546,7 +546,7 @@ void TESObjectREFR::FUN_008984c0()
 
     LocationDescriptor* package = new LocationDescriptor;
     package->FUN_0067f3c0(this);
-    packageLocation->FUN_00671d30(package);
+    packageLocation->SetPackageLocation(package);
 
     delete package;
 
@@ -954,13 +954,13 @@ struct BipedView
 };
 struct EffectView
 {
-    float FUN_004a40a0();
+    float GetDecalMinWidth();
     float GetModifierValue();
     float FUN_004a40e0();
     float FUN_00598040();
     float FUN_009a9350();
     bool CallMemberAtOffset54();
-    bool FUN_004a4140();
+    bool GetAlphaBlending();
     unsigned int GetNextFromSubobject();
 };
 struct ProjectileView : EffectView
@@ -1629,7 +1629,7 @@ void SpellActor::FUN_0088fb00(float distance, HitSource* hit, SpellActor* target
             }
             char randomIndex2 = (char)(int)FUN_00406cc0(FUN_00476b70(0.0f, 4.0f));
             float global = FUN_004a4240();
-            float size = FUN_00476b70(_projectile->FUN_004a40a0(), _projectile->GetModifierValue());
+            float size = FUN_00476b70(_projectile->GetDecalMinWidth(), _projectile->GetModifierValue());
             NiPoint3 normal9;
             if (this == DAT_011dea3c)
                 normal9 = playerNormal4;
@@ -1653,7 +1653,7 @@ void SpellActor::FUN_0088fb00(float distance, HitSource* hit, SpellActor* target
             data.f58 = _projectile->FUN_009a9350();
             data.f77 = 1;
             data.f74 = _projectile->CallMemberAtOffset54();
-            data.f75 = _projectile->FUN_004a4140();
+            data.f75 = _projectile->GetAlphaBlending();
             data.color =
                 NiPoint3((unsigned char)(_projectile->GetNextFromSubobject() & 0xff) / 255.0,
                          (unsigned char)(((unsigned short)_projectile->GetNextFromSubobject() >> 8) & 0xff) / 255.0,
@@ -1794,7 +1794,7 @@ struct FnvActorProxy
     virtual int vfn_01D0();
 
     FnvHolder* FUN_008d6f30();
-    void FUN_00572230();
+    void MarkAsPickedUp();
 };
 
 struct FnvHolder
@@ -1822,7 +1822,7 @@ void __cdecl FUN_00892460(FnvActorProxy* a1, unsigned char a2)
     }
     else
     {
-        a1->FUN_00572230();
+        a1->MarkAsPickedUp();
     }
 }
 

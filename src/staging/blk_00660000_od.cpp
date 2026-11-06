@@ -1343,15 +1343,15 @@ struct SpawnedObject
 extern int DAT_011ca278;
 extern int DAT_011dea3c;
 
-int __cdecl FUN_0066dba0(int a);
-float __cdecl FUN_0066dc70(int a);
+int __cdecl GetAttackAction(int a);
+float __cdecl GetBaseActionPoints(int a);
 void __cdecl FUN_005e58f0(int a, int b, int c, float* d);
 
 // Returns the object's value if it is ready, otherwise a value derived from its ref pointer, and passes it to FUN_005e58f0.
 // @fnv 0x0066dce0
 float __cdecl GetObjectValue(SpawnedObject* obj)
 {
-    int b = FUN_0066dba0(obj ? obj->GetRefPtr() : 0);
+    int b = GetAttackAction(obj ? obj->GetRefPtr() : 0);
     float f = 0.0f;
     if (obj != 0 && obj->IsReady())
     {
@@ -1359,7 +1359,7 @@ float __cdecl GetObjectValue(SpawnedObject* obj)
     }
     else
     {
-        f = FUN_0066dc70(b);
+        f = GetBaseActionPoints(b);
     }
     FUN_005e58f0(0x28, DAT_011dea3c, obj ? (int)obj : DAT_011ca278, &f);
     return f;
@@ -1798,15 +1798,15 @@ Elem6605* __cdecl CopyConstructRange(Elem6605* _First, Elem6605* _Last, Elem6605
 }
 }
 
-float __cdecl FUN_0066dc70(int value);
+float __cdecl GetBaseActionPoints(int value);
 float* __fastcall FUN_00403e20(void* object);
 extern unsigned char DAT_011d5f88;
 
-// Returns FUN_0066dc70(value), multiplied by the value from FUN_00403e20(&DAT_011d5f88) unless unscaled is set.
+// Returns GetBaseActionPoints(value), multiplied by the value from FUN_00403e20(&DAT_011d5f88) unless unscaled is set.
 // @fnv 0x0066dca0
-float __cdecl FUN_0066dca0(int value, bool unscaled)
+float __cdecl GetActionPoints(int value, bool unscaled)
 {
-    float baseValue = FUN_0066dc70(value);
+    float baseValue = GetBaseActionPoints(value);
     if (!unscaled)
     {
         return baseValue * *FUN_00403e20(&DAT_011d5f88);

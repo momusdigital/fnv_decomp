@@ -1182,7 +1182,7 @@ struct FUN_00e07b90_vector
 {
     float x, y, z, w;
 };
-void __stdcall FUN_00e07b90(const FUN_00e07b90_bounds* bounds, FUN_00e07b90_vector* result);
+void __stdcall getScaleInfo(const FUN_00e07b90_bounds* bounds, FUN_00e07b90_vector* result);
 struct S_00e07d60_Info
 {
     float x;

@@ -17,11 +17,11 @@ unsigned char FUN_004600f0_class::GetByteAt618()
 
 struct FUN_00460fb0_class
 {
-    void* FUN_00460fb0();
+    void* GetPerkList();
 };
 
 // @fnv 0x00460fb0
-void* FUN_00460fb0_class::FUN_00460fb0()
+void* FUN_00460fb0_class::GetPerkList()
 {
     return reinterpret_cast<char*>(this) + 0x178;
 }
@@ -559,26 +559,26 @@ bool __thiscall FUN_0047b4d0_Class::FUN_0047b4d0(unsigned short flags)
 
 struct S47
 {
-    void __thiscall FUN_0047e2a0(int);
-    void __thiscall FUN_0047dea0(short);
+    void __thiscall AddFormChange(int);
+    void __thiscall SetBaseDisposition(short);
 };
 
-// Stores p at offset 0x18 of this and calls FUN_0047e2a0 with 2.
+// Stores p at offset 0x18 of this and calls AddFormChange with 2.
 // @fnv 0x0047dea0
-void __thiscall S47::FUN_0047dea0(short asValue)
+void __thiscall S47::SetBaseDisposition(short asValue)
 {
     *(short*)((char*)this + 0x18) = asValue;
-    FUN_0047e2a0(2);
+    AddFormChange(2);
 }
 
 struct FUN_0047ebb0_Class
 {
     void FUN_005fc970(int, char);
-    void FUN_0047ebb0(int value);
+    void SetPCMurdered(int value);
 };
 
 // @fnv 0x0047ebb0
-void FUN_0047ebb0_Class::FUN_0047ebb0(int value)
+void FUN_0047ebb0_Class::SetPCMurdered(int value)
 {
     FUN_005fc970(0x40, (char)value);
 }
@@ -586,22 +586,22 @@ void FUN_0047ebb0_Class::FUN_0047ebb0(int value)
 struct FUN_0047ebd0_Class
 {
     void __thiscall FUN_005fc970(int b, int a);
-    void __thiscall FUN_0047ebd0(bool value);
+    void __thiscall SetPCAttacked(bool value);
 };
 
 // @fnv 0x0047ebd0
-void __thiscall FUN_0047ebd0_Class::FUN_0047ebd0(bool value)
+void __thiscall FUN_0047ebd0_Class::SetPCAttacked(bool value)
 {
     FUN_005fc970(0x20, value);
 }
 
 struct FUN_0047ff50_class
 {
-    void FUN_0047ff50(unsigned short value);
+    void SetAttackDamage(unsigned short value);
 };
 
 // @fnv 0x0047ff50
-void FUN_0047ff50_class::FUN_0047ff50(unsigned short value)
+void FUN_0047ff50_class::SetAttackDamage(unsigned short value)
 {
     *(unsigned short*)((char*)this + 4) = value;
 }
@@ -1202,11 +1202,11 @@ struct FUN_00474a40_shell
 {
     unsigned int vtbl;
     TESForm* form;
-    TESForm* FUN_00474a40();
+    TESForm* GetAmmoFormList();
 };
 // Returns form if it is non-null and its FNV_GetFormType() equals 0x55, otherwise returns null.
 // @fnv 0x00474a40
-TESForm* FUN_00474a40_shell::FUN_00474a40()
+TESForm* FUN_00474a40_shell::GetAmmoFormList()
 {
     return form && form->FNV_GetFormType() == 0x55 ? form : 0;
 }
@@ -1408,7 +1408,7 @@ struct FUN_00474a00
 {
     TESForm* GetForm();
 };
-struct FUN_00474a40
+struct GetAmmoFormList
 {
     ScriptS* GetScript();
 };
@@ -1423,19 +1423,19 @@ TESForm* FUN_00474920_shell::GetFormOrScriptForm()
     TESForm* result = 0;
     if (((FUN_00474a00*)this)->GetForm())
         result = ((FUN_00474a00*)this)->GetForm();
-    else if (((FUN_00474a40*)this)->GetScript())
+    else if (((GetAmmoFormList*)this)->GetScript())
     {
-        unsigned int count = ((TESObject*)((FUN_00474a40*)this)->GetScript())->GetNext();
-        if (((BSSimpleListTESRaceSize*)((FUN_00474a40*)this)->GetScript()->GetHeader())->GetSize() > count)
+        unsigned int count = ((TESObject*)((GetAmmoFormList*)this)->GetScript())->GetNext();
+        if (((BSSimpleListTESRaceSize*)((GetAmmoFormList*)this)->GetScript()->GetHeader())->GetSize() > count)
         {
-            BSSimpleList<TESForm*>* node = (BSSimpleList<TESForm*>*)((FUN_00474a40*)this)->GetScript()->GetHeader();
+            BSSimpleList<TESForm*>* node = (BSSimpleList<TESForm*>*)((GetAmmoFormList*)this)->GetScript()->GetHeader();
             for (unsigned int i = 0; i < count; ++i)
                 node = node->GetNext();
             result = node->GetItem();
         }
         else
         {
-            result = ((BSSimpleList<TESForm*>*)((FUN_00474a40*)this)->GetScript()->GetHeader())->GetItem();
+            result = ((BSSimpleList<TESForm*>*)((GetAmmoFormList*)this)->GetScript()->GetHeader())->GetItem();
         }
     }
     return result;
@@ -1481,11 +1481,11 @@ void __cdecl FUN_00476ec0(NiAVObject* object, int flag)
 
 struct FUN_00478130_class
 {
-    void __thiscall FUN_00478130();
+    void __thiscall Endian();
 };
 // Applies BSEndian to the four fields at offsets 4, 8, 12 and 16 of this object.
 // @fnv 0x00478130
-void __thiscall FUN_00478130_class::FUN_00478130()
+void __thiscall FUN_00478130_class::Endian()
 {
     BSEndian((unsigned char*)this + 4, EndianSizeTag<0>());
     BSEndian((unsigned char*)this + 8, EndianSizeTag<0>());
@@ -1659,17 +1659,17 @@ struct TESAttackDamageForm : public BaseFormComponent
     virtual void v1();
     virtual void v2();
     virtual unsigned short GetDamage();
-    void FUN_0047ff50(unsigned short value);
-    void FUN_0047fe30(BaseFormComponent* apCopyFC);
+    void SetAttackDamage(unsigned short value);
+    void CopyComponent(BaseFormComponent* apCopyFC);
 };
-// Casts apCopyFC to TESAttackDamageForm and, if the cast succeeds, copies its damage value via FUN_0047ff50.
+// Casts apCopyFC to TESAttackDamageForm and, if the cast succeeds, copies its damage value via SetAttackDamage.
 // @fnv 0x0047fe30
-void TESAttackDamageForm::FUN_0047fe30(BaseFormComponent* apCopyFC)
+void TESAttackDamageForm::CopyComponent(BaseFormComponent* apCopyFC)
 {
     TESAttackDamageForm* pCopy = dynamic_cast<TESAttackDamageForm*>(apCopyFC);
     if (!pCopy)
         return;
-    FUN_0047ff50(pCopy->GetDamage());
+    SetAttackDamage(pCopy->GetDamage());
 }
 
 struct FUN_0046eb20_Class
@@ -1754,10 +1754,10 @@ bool FUN_0047bcf0_class::IsFlag80Clear()
 struct FUN_0047eb90_Class
 {
     void FUN_005fc970(int, char);
-    void FUN_0047eb90(int value);
+    void SetPCAnEnemy(int value);
 };
 // @fnv 0x0047eb90
-void FUN_0047eb90_Class::FUN_0047eb90(int value)
+void FUN_0047eb90_Class::SetPCAnEnemy(int value)
 {
     FUN_005fc970(0x10, (char)value);
 }
@@ -2553,9 +2553,9 @@ struct FUN_0047ead0_cls
     FUN_0047ead0_cls* FUN_004181e0(FUN_0047ead0_cls* a, int b);
     int GetFactionRank();
     FUN_0047ead0_cls* FUN_00726070();
-    void FUN_0047ebd0(int v);
-    void FUN_0047ebb0(int v);
-    void FUN_0047eb90(int v);
+    void SetPCAttacked(int v);
+    void SetPCMurdered(int v);
+    void SetPCAnEnemy(int v);
     void FUN_0047ead0(int mode);
 };
 
@@ -2577,13 +2577,13 @@ void FUN_0047ead0_cls::FUN_0047ead0(int mode)
                     switch (mode)
                     {
                     case 1:
-                        vt->FUN_0047ebd0(1);
+                        vt->SetPCAttacked(1);
                         break;
                     case 0:
-                        vt->FUN_0047ebb0(1);
+                        vt->SetPCMurdered(1);
                         break;
                     case 2:
-                        vt->FUN_0047eb90(1);
+                        vt->SetPCAnEnemy(1);
                         break;
                     }
                 }
@@ -2622,7 +2622,7 @@ extern double DAT_01017a40;
 extern const float DAT_01012054;
 struct Standin77900
 {
-    float FUN_00477900();
+    float GetRadiusBSUnits();
 };
 class PathingRequest
 {
@@ -2667,7 +2667,7 @@ float FUN_00477a50_shell::GetHourlyWeightedTime(unsigned char aucHour, float afM
             float fTime = (float)pSearchEntries->uiTotal * pEntry->ucHour / DAT_01017a40;
             fTotal += (fPriorKeyTime - fTime) / uiLastNum;
             fPriorKeyTime = fTime;
-            if (pEntry->pData && afMin <= pEntry->pData->FUN_00477900() &&
+            if (pEntry->pData && afMin <= pEntry->pData->GetRadiusBSUnits() &&
                 afMinB <= ((PathingRequest*)pEntry->pData)->FUN_006a78f0())
             {
                 if (appData)
@@ -3448,7 +3448,7 @@ struct xBSFile
 bool __fastcall xIsOpen(xBSFile*);
 struct FUN_004624b0_cls
 {
-    bool FUN_004624b0(const char*);
+    bool BuildFileList(const char*);
     xList* GetFileList();
     xFile* FindFile(const char*);
     int GetIndex(const char*);
@@ -3457,7 +3457,7 @@ struct FUN_004624b0_cls
 };
 
 // @fnv 0x004624b0
-bool FUN_004624b0_cls::FUN_004624b0(const char* DIR)
+bool FUN_004624b0_cls::BuildFileList(const char* DIR)
 {
     xList* qfTOqo;
     char qsSDDgz[0x104];
@@ -4257,7 +4257,7 @@ struct LoadFile
     unsigned int FUN_008d8ac0();
     const char* FUN_00891170();
     bool FUN_00472150(bool);
-    bool FUN_00471130();
+    bool CloseTES();
 };
 struct LoadForm
 {
@@ -4886,7 +4886,7 @@ bool LoadHandler::FUN_00467780(LoadFile* file, bool mode)
         if (advance4)
             more6 = file->FUN_00472150(true);
     } while (more6);
-    if (!file->FUN_00471130())
+    if (!file->CloseTES())
         ReportDataHandlerError(4);
     return result5;
 }
@@ -5111,11 +5111,11 @@ struct DestructionStage
 class DestructibleComparison : public BGSDestructibleObjectForm
 {
   public:
-    bool FUN_00478900(BaseFormComponent* other);
+    bool CompareComponent(BaseFormComponent* other);
 };
 // Compares destruction data of two destructible forms and returns true if their health, flags, count, or any destruction stage field differs.
 // @fnv 0x00478900
-bool DestructibleComparison::FUN_00478900(BaseFormComponent* other)
+bool DestructibleComparison::CompareComponent(BaseFormComponent* other)
 {
     BGSDestructibleObjectForm* form4 = dynamic_cast<BGSDestructibleObjectForm*>(other);
     if (!form4)

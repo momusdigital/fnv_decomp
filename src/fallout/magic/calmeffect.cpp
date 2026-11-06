@@ -34,11 +34,11 @@ struct FUN_0080a900
 };
 struct FUN_0080a930_shell : ActiveEffect
 {
-    FUN_0080a900* FUN_0080a930();
+    FUN_0080a900* Clone();
 };
 // Allocates a FUN_0080a900 from this object's fields at offsets 0x28, 0x8 and 0xc, passes it to virtual method 17, and returns it.
 // @fnv 0x0080a930
-FUN_0080a900* FUN_0080a930_shell::FUN_0080a930()
+FUN_0080a900* FUN_0080a930_shell::Clone()
 {
     FUN_0080a900* presult =
         new FUN_0080a900(*(void**)((char*)this + 0x28), *(void**)((char*)this + 8), *(void**)((char*)this + 0xc));
@@ -556,11 +556,11 @@ bool __cdecl FUN_006494d0(unsigned short a, float b);
 
 struct FUN_0080a9e0_cls
 {
-    bool FUN_0080a9e0(MagicCaster* caster);
+    bool CheckTarget(MagicCaster* caster);
 };
 
 // @fnv 0x0080a9e0
-bool FUN_0080a9e0_cls::FUN_0080a9e0(MagicCaster* caster)
+bool FUN_0080a9e0_cls::CheckTarget(MagicCaster* caster)
 {
     FUN_0080a9e0_Effect* pEffect;
     pEffect = (caster != 0) ? ((FUN_0080a9e0_Caster*)caster)->FUN_00822b40() : 0;
@@ -862,12 +862,12 @@ class FUN_0080aa90_cls
     void FUN_0082c000();
     FUN_0080aa90_Holder* FUN_0059bb30();
 
-    void FUN_0080aa90();
+    void Start();
 };
 
 // Calls FUN_0082c000, then if the holder's object and its Virt266 result are non-null, calls StopActorMoving on that result.
 // @fnv 0x0080aa90
-void FUN_0080aa90_cls::FUN_0080aa90()
+void FUN_0080aa90_cls::Start()
 {
     FUN_0080aa90_Obj* pObject;
 
@@ -1161,11 +1161,11 @@ struct FUN_0080ab10_cls
     void FUN_0082c660(float);
     void FUN_00804210(int);
     FUN_0080ab10_obj* FUN_0059bb30();
-    void FUN_0080ab10(float a1);
+    void Update(float a1);
 };
 
 // @fnv 0x0080ab10
-void FUN_0080ab10_cls::FUN_0080ab10(float afValue)
+void FUN_0080ab10_cls::Update(float afValue)
 {
     unsigned char flag;
     FUN_0080ab10_obj* obj;

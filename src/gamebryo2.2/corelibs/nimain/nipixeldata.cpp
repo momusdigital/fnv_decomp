@@ -165,11 +165,11 @@ class FUN_00a7bee0_cls
     FUN_00a7bee0_target* m_pFlagTarget;
 
     bool FUN_00a5d2f0(unsigned int flags);
-    bool FUN_00a7bee0(unsigned int flags);
+    bool RegisterStreamables(unsigned int flags);
 };
 
 // @fnv 0x00a7bee0
-bool FUN_00a7bee0_cls::FUN_00a7bee0(unsigned int flags)
+bool FUN_00a7bee0_cls::RegisterStreamables(unsigned int flags)
 {
     bool ok = FUN_00a5d2f0(flags);
     if (!ok)
@@ -493,12 +493,12 @@ struct NiPixelFormatLoad : NiPixelFormat
 
 struct NiPixelDataLoad : NiPixelData
 {
-    void FUN_00a7c470(NiStreamLoad& stream);
+    void LoadBinary(NiStreamLoad& stream);
 };
 
 // Loads pixel format, mipmap levels, per-mipmap width/height/offset, faces and pixel data from the stream, then allocates and copies them.
 // @fnv 0x00a7c470
-void NiPixelDataLoad::FUN_00a7c470(NiStreamLoad& stream)
+void NiPixelDataLoad::LoadBinary(NiStreamLoad& stream)
 {
     ((NiObjectLoad*)this)->LoadBinaryBase(stream);
     ((NiPixelFormatLoad*)&m_kPixelFormat)->LoadBinaryFormat(stream);

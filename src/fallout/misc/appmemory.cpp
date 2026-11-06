@@ -12,8 +12,8 @@ extern OSGlobals* g_osGlobals;
 struct TES
 {
     void FUN_00452490(int);
-    bool FUN_00453a80();
-    void FUN_004539a0(int, int);
+    bool ClearOldestBufferedCell();
+    void ClearAllCells(int, int);
 };
 extern TES* g_TES;
 extern unsigned int DAT_011de70c;
@@ -30,7 +30,7 @@ struct Worker
 Worker* FUN_00652110();
 bool FUN_00652160();
 int FUN_00652130();
-void FUN_00652190();
+void UnlockFaceGenAccess();
 void SetTlsFlag(int);
 void FUN_00868d70(int);
 void FUN_00c459d0(int);
@@ -151,17 +151,17 @@ int StateMachine::RunStep(void* context, unsigned int step, bool* finished)
         {
             if (FUN_00652130() == 1)
                 FUN_00652110()->PurgeUnusedModels(0);
-            FUN_00652190();
+            UnlockFaceGenAccess();
         }
         break;
     case 5:
         if (mainThread)
         {
             SetTlsFlag(0);
-            if (g_TES->FUN_00453a80())
+            if (g_TES->ClearOldestBufferedCell())
                 step = step - 1;
             else
-                g_TES->FUN_004539a0(1, 0);
+                g_TES->ClearAllCells(1, 0);
             g_TES->FUN_00452490(0);
             SetTlsFlag(1);
             FUN_00868d70(1);

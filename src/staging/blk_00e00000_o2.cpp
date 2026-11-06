@@ -9,7 +9,7 @@ extern int DAT_010c749c;
 
 // If a is non-null, sets *a to DAT_010305a8, clears a[3] when b is set, then sets *a to DAT_010c749c and a[3] to 3.
 // @fnv 0x00e00570
-void __cdecl FUN_00e00570(int* pObject, int b)
+void __cdecl finishLoadedObject_hkpTriangleShape(int* pObject, int b)
 {
     if (pObject)
     {
@@ -25,7 +25,7 @@ extern int DAT_010305a8;
 extern int DAT_010cb5ac;
 
 // @fnv 0x00e007b0
-void FUN_00e007b0(int* pObject, int flag)
+void finishLoadedObject_hkpSphereShape(int* pObject, int flag)
 {
     if (pObject)
     {
@@ -49,7 +49,7 @@ struct FUN_00e009e0_T
 };
 // If p is non-null, sets p->a to DAT_010305a8, optionally clears p->d, then sets p->a to DAT_010d0e18 and p->d to 0x1c.
 // @fnv 0x00e009e0
-void __cdecl FUN_00e009e0(FUN_00e009e0_T* pObject, int flag)
+void __cdecl finishLoadedObject_hkpPlaneShape(FUN_00e009e0_T* pObject, int flag)
 {
     if (pObject)
     {
@@ -66,7 +66,7 @@ extern int DAT_010305a8;
 extern int DAT_010ce4bc;
 
 // @fnv 0x00e00b00
-void FUN_00e00b00(int* pObject, int flag)
+void finishLoadedObject_hkpMultiSphereShape(int* pObject, int flag)
 {
     if (pObject)
     {
@@ -82,7 +82,7 @@ extern int DAT_010305a8;
 extern int DAT_010ce25c;
 // If a is non-null, sets *a to &DAT_010305a8, optionally clears a[3] when b is set, then sets *a to &DAT_010ce25c and a[3] to 5.
 // @fnv 0x00e01340
-void FUN_00e01340(int* pObject, int b)
+void finishLoadedObject_hkpCapsuleShape(int* pObject, int b)
 {
     if (pObject)
     {
@@ -99,7 +99,7 @@ extern int DAT_010c70b4;
 
 // If p is non-null, sets p[0] to DAT_010305a8, clears p[3] when a is set, then sets p[0] to DAT_010c70b4 and p[3] to 4.
 // @fnv 0x00e01410
-void __cdecl FUN_00e01410(int* pObject, int a)
+void __cdecl finishLoadedObject_hkpBoxShape(int* pObject, int a)
 {
     if (pObject)
     {
@@ -117,7 +117,7 @@ struct FUN_00cb0a70
     void __thiscall m(int);
 };
 // @fnv 0x00e01c30
-void FUN_00e01c30(void* apObject, void* aValue)
+void finishLoadedObject_hkxScene(void* apObject, void* aValue)
 {
     if (apObject)
     {
@@ -130,7 +130,7 @@ void FUN_00e01c30(void* apObject, void* aValue)
 extern int DAT_010c9314;
 
 // @fnv 0x00e02780
-void FUN_00e02780(void* apObject)
+void finishLoadedObject_hkOstream(void* apObject)
 {
     if (apObject)
     {
@@ -240,7 +240,7 @@ struct FUN_00e000a0_vt
     virtual void m(int);
 };
 // @fnv 0x00e000a0
-void __cdecl FUN_00e000a0(FUN_00e000a0_vt* p)
+void __cdecl cleanupLoadedObject_hkpGenericConstraintData(FUN_00e000a0_vt* p)
 {
     p->m(0);
 }
@@ -248,7 +248,7 @@ void __cdecl FUN_00e000a0(FUN_00e000a0_vt* p)
 extern int DAT_010c59f4;
 extern int DAT_010c6cdc;
 // @fnv 0x00e00120
-void __cdecl FUN_00e00120(int* pObject, int bSetHalf)
+void __cdecl finishLoadedObject_hkpFixedRigidMotion(int* pObject, int bSetHalf)
 {
     if (pObject)
     {
@@ -264,7 +264,7 @@ void __cdecl FUN_00e00120(int* pObject, int bSetHalf)
 
 extern int DAT_010e81a4;
 // @fnv 0x00e00180
-void __cdecl FUN_00e00180(int* p)
+void __cdecl finishLoadedObject_hkpDefaultWorldMemoryWatchDog(int* p)
 {
     if (p)
         *p = (int)&DAT_010e81a4;
@@ -272,18 +272,18 @@ void __cdecl FUN_00e00180(int* p)
 
 struct FUN_00e002d0_vt
 {
-    virtual void FUN_00e002d0(int);
+    virtual void cleanupLoadedObject_hkpCharacterMotion(int);
 };
 // @fnv 0x00e002d0
-void __cdecl FUN_00e002d0(FUN_00e002d0_vt* p)
+void __cdecl cleanupLoadedObject_hkpCharacterMotion(FUN_00e002d0_vt* p)
 {
-    p->FUN_00e002d0(0);
+    p->cleanupLoadedObject_hkpCharacterMotion(0);
 }
 
 extern int DAT_010c59f4;
 extern int DAT_010c6ea4;
 // @fnv 0x00e002f0
-void __cdecl FUN_00e002f0(int* pObject, int bSetValue)
+void __cdecl finishLoadedObject_hkpCharacterMotion(int* pObject, int bSetValue)
 {
     if (pObject)
     {
@@ -299,14 +299,14 @@ void __cdecl FUN_00e002f0(int* pObject, int bSetValue)
 
 extern int DAT_010e83b4;
 // @fnv 0x00e00350
-void __cdecl FUN_00e00350(int* a)
+void __cdecl finishLoadedObject_hkpCallbackConstraintMotor(int* a)
 {
     if (a)
         *a = (int)&DAT_010e83b4;
 }
 
 // @fnv 0x00e00720
-void __cdecl FUN_00e00720(void* p)
+void __cdecl cleanupLoadedObject_hkpTransformShape(void* p)
 {
     ((void(__thiscall*)(void*, int))(*((int**)p))[0])(p, 0);
 }
@@ -316,7 +316,7 @@ extern int DAT_010c6fd0;
 extern int DAT_010cc41c;
 
 // @fnv 0x00e00740
-void __cdecl FUN_00e00740(int* pObject, int bClear)
+void __cdecl finishLoadedObject_hkpTransformShape(int* pObject, int bClear)
 {
     if (pObject)
     {
@@ -331,7 +331,7 @@ void __cdecl FUN_00e00740(int* pObject, int bClear)
 
 extern int DAT_010e8824;
 // @fnv 0x00e00810
-void __cdecl FUN_00e00810(int* p)
+void __cdecl finishLoadedObject_hkpShapeInfo(int* p)
 {
     if (p)
         *p = (int)&DAT_010e8824;
@@ -342,13 +342,13 @@ struct FUN_00e00930_vt
     virtual void __thiscall m0(int);
 };
 // @fnv 0x00e00930
-void __cdecl FUN_00e00930(FUN_00e00930_vt* p)
+void __cdecl cleanupLoadedObject_hkpRemoveTerminalsMoppModifier(FUN_00e00930_vt* p)
 {
     p->m0(0);
 }
 
 // @fnv 0x00e00b40
-void __cdecl FUN_00e00b40(int* p)
+void __cdecl cleanupLoadedObject_hkpGroupFilter(int* p)
 {
     ((void(__thiscall*)(void*, int)) * (int*)*p)(p, 0);
 }
@@ -358,7 +358,7 @@ struct FUN_00e00c70_vt
     virtual void __thiscall m0(int);
 };
 // @fnv 0x00e00c70
-void __cdecl FUN_00e00c70(FUN_00e00c70_vt* p)
+void __cdecl cleanupLoadedObject_hkpFastMeshShape(FUN_00e00c70_vt* p)
 {
     p->m0(0);
 }
@@ -366,14 +366,14 @@ void __cdecl FUN_00e00c70(FUN_00e00c70_vt* p)
 extern int DAT_010c63cc;
 
 // @fnv 0x00e00d10
-void __cdecl FUN_00e00d10(int* p)
+void __cdecl finishLoadedObject_hkpDefaultConvexListFilter(int* p)
 {
     if (p)
         *p = (int)&DAT_010c63cc;
 }
 
 // @fnv 0x00e00d30
-int __cdecl FUN_00e00d30(int* p)
+int __cdecl cleanupLoadedObject_hkpCylinderShape(int* p)
 {
     return (*(int(__thiscall**)(int*, int))(*p))(p, 0);
 }
@@ -381,7 +381,7 @@ int __cdecl FUN_00e00d30(int* p)
 extern int DAT_010e8d8c;
 
 // @fnv 0x00e00db0
-void __cdecl FUN_00e00db0(int* a)
+void __cdecl finishLoadedObject_hkpConvexVerticesConnectivity(int* a)
 {
     if (a)
         *a = (int)&DAT_010e8d8c;
@@ -392,7 +392,7 @@ extern int DAT_010c6fd0;
 extern int DAT_010d0e5c;
 
 // @fnv 0x00e00e90
-void __cdecl FUN_00e00e90(int* pObject, int bClear)
+void __cdecl finishLoadedObject_hkpConvexTranslateShape(int* pObject, int bClear)
 {
     if (pObject)
     {
@@ -411,7 +411,7 @@ extern int DAT_010d102c;
 
 // If a is non-null, stores pointers to three globals into a and sets a[3] to 12 (or 0 first when b is set).
 // @fnv 0x00e00f00
-void __cdecl FUN_00e00f00(int** a, int abReset)
+void __cdecl finishLoadedObject_hkpConvexTransformShape(int** a, int abReset)
 {
     if (a)
     {
@@ -428,7 +428,7 @@ extern int DAT_010305a8;
 extern int DAT_010ce31c;
 extern int DAT_010e901c;
 // @fnv 0x00e010e0
-void __cdecl FUN_00e010e0(int* pObject, int abFlag)
+void __cdecl finishLoadedObject_hkpCompressedSampledHeightFieldShape(int* pObject, int abFlag)
 {
     if (pObject)
     {
@@ -446,7 +446,7 @@ void __cdecl FUN_00e010e0(int* pObject, int abFlag)
 }
 
 // @fnv 0x00e011f0
-void __cdecl FUN_00e011f0(void* a)
+void __cdecl cleanupLoadedObject_hkpCollisionFilterList(void* a)
 {
     ((void(__thiscall*)(void*, int))(*reinterpret_cast<void***>(a))[0])(a, 0);
 }
@@ -455,7 +455,7 @@ extern int DAT_010305a8;
 extern int DAT_010c6ff8;
 extern int DAT_010c6fd0;
 // @fnv 0x00e013a0
-void __cdecl FUN_00e013a0(int** p, int abClear)
+void __cdecl finishLoadedObject_hkpBvShape(int** p, int abClear)
 {
     if (p)
     {
@@ -470,7 +470,7 @@ void __cdecl FUN_00e013a0(int** p, int abClear)
 
 extern int DAT_010e9300;
 // @fnv 0x00e01530
-void FUN_00e01530(int* p)
+void finishLoadedObject_hkxVertexVectorDataChannel(int* p)
 {
     if (p)
         *p = (int)&DAT_010e9300;
@@ -478,7 +478,7 @@ void FUN_00e01530(int* p)
 
 extern int DAT_010e9358;
 // @fnv 0x00e01570
-void FUN_00e01570(int* p)
+void finishLoadedObject_hkxVertexSelectionChannel(int* p)
 {
     if (p)
         *p = (int)&DAT_010e9358;
@@ -486,7 +486,7 @@ void FUN_00e01570(int* p)
 
 extern int DAT_010e93ac;
 // @fnv 0x00e015b0
-void FUN_00e015b0(int** p)
+void finishLoadedObject_hkxVertexIntDataChannel(int** p)
 {
     if (p)
         *p = &DAT_010e93ac;
@@ -494,14 +494,14 @@ void FUN_00e015b0(int** p)
 
 typedef void(__thiscall* Fn)(void*, int);
 // @fnv 0x00e01640
-void __cdecl FUN_00e01640(int* p)
+void __cdecl cleanupLoadedObject_hkxVertexFloatDataChannel(int* p)
 {
     (*(Fn**)p)[0](p, 0);
 }
 
 extern int DAT_010e943c;
 // @fnv 0x00e01660
-void __cdecl FUN_00e01660(int* p)
+void __cdecl finishLoadedObject_hkxVertexFloatDataChannel(int* p)
 {
     if (p)
         *p = (int)&DAT_010e943c;
@@ -509,7 +509,7 @@ void __cdecl FUN_00e01660(int* p)
 
 extern int DAT_010e9494;
 // @fnv 0x00e016a0
-void __cdecl FUN_00e016a0(int* p)
+void __cdecl finishLoadedObject_hkxTriangleSelectionChannel(int* p)
 {
     if (p)
         *p = (int)&DAT_010e9494;
@@ -517,19 +517,19 @@ void __cdecl FUN_00e016a0(int* p)
 
 struct FUN_00e017d0_vt
 {
-    virtual void FUN_00e017d0(int);
+    virtual void cleanupLoadedObject_hkxTextureFile(int);
 };
 
 // @fnv 0x00e017d0
-void __cdecl FUN_00e017d0(FUN_00e017d0_vt* p)
+void __cdecl cleanupLoadedObject_hkxTextureFile(FUN_00e017d0_vt* p)
 {
-    p->FUN_00e017d0(0);
+    p->cleanupLoadedObject_hkxTextureFile(0);
 }
 
 extern int DAT_010e95b4;
 // If a is non-null, stores &DAT_010e95b4 at its start and calls m(b) on the objects at offsets 8, 12 and 16.
 // @fnv 0x00e017f0
-void FUN_00e017f0(FUN_00cb0a70** apObject, int aiValue)
+void finishLoadedObject_hkxTextureFile(FUN_00cb0a70** apObject, int aiValue)
 {
     if (apObject)
     {
@@ -542,7 +542,7 @@ void FUN_00e017f0(FUN_00cb0a70** apObject, int aiValue)
 
 extern int DAT_010e9614;
 // @fnv 0x00e018e0
-void FUN_00e018e0(int* a)
+void finishLoadedObject_hkxSparselyAnimatedString(int* a)
 {
     if (a)
         *a = (int)&DAT_010e9614;
@@ -550,7 +550,7 @@ void FUN_00e018e0(int* a)
 
 extern int DAT_010e350c;
 // @fnv 0x00e019f0
-void __cdecl FUN_00e019f0(int* p)
+void __cdecl finishLoadedObject_hkxSparselyAnimatedInt(int* p)
 {
     if (p)
         *p = (int)&DAT_010e350c;
@@ -559,7 +559,7 @@ void __cdecl FUN_00e019f0(int* p)
 extern int DAT_010e96c8;
 
 // @fnv 0x00e01a30
-void __cdecl FUN_00e01a30(int* p)
+void __cdecl finishLoadedObject_hkxSparselyAnimatedBool(int* p)
 {
     if (p)
         *p = (int)&DAT_010e96c8;
@@ -567,7 +567,7 @@ void __cdecl FUN_00e01a30(int* p)
 
 extern int DAT_010e977c;
 // @fnv 0x00e01b10
-void __cdecl FUN_00e01b10(int* a)
+void __cdecl finishLoadedObject_hkxSkinBinding(int* a)
 {
     if (a)
         *a = (int)&DAT_010e977c;
@@ -575,7 +575,7 @@ void __cdecl FUN_00e01b10(int* a)
 
 extern int DAT_010e9b7c;
 // @fnv 0x00e01f50
-void __cdecl FUN_00e01f50(int* p)
+void __cdecl finishLoadedObject_hkxMeshSection(int* p)
 {
     if (p)
         *p = (int)&DAT_010e9b7c;
@@ -583,19 +583,19 @@ void __cdecl FUN_00e01f50(int* p)
 
 struct FUN_00e020e0_vt
 {
-    virtual int FUN_00e020e0(int);
+    virtual int cleanupLoadedObject_hkxMaterialShaderSet(int);
 };
 // @fnv 0x00e020e0
-int __cdecl FUN_00e020e0(FUN_00e020e0_vt* c)
+int __cdecl cleanupLoadedObject_hkxMaterialShaderSet(FUN_00e020e0_vt* c)
 {
-    return c->FUN_00e020e0(0);
+    return c->cleanupLoadedObject_hkxMaterialShaderSet(0);
 }
 
 extern int DAT_010e9ccc;
 
 // If a is non-null, stores the address of DAT_010e9ccc at a[0] and calls m(b) on the objects at a+2, a+4, a+5 and a+6.
 // @fnv 0x00e02140
-void __cdecl FUN_00e02140(int* pObject, int iValue)
+void __cdecl finishLoadedObject_hkxMaterialShader(int* pObject, int iValue)
 {
     if (pObject)
     {
@@ -608,21 +608,21 @@ void __cdecl FUN_00e02140(int* pObject, int iValue)
 }
 
 // @fnv 0x00e02260
-void __cdecl FUN_00e02260(int** p)
+void __cdecl cleanupLoadedObject_hkxMaterialEffect(int** p)
 {
     ((void(__thiscall*)(void*, int))(*p)[0])(p, 0);
 }
 
 typedef int(__thiscall* FUN_00e02340_fn)(void*, int);
 // @fnv 0x00e02340
-int __cdecl FUN_00e02340(void* obj)
+int __cdecl cleanupLoadedObject_hkxLight(void* obj)
 {
     return ((FUN_00e02340_fn*)(*(int**)obj))[0](obj, 0);
 }
 
 extern int DAT_010e9e74;
 // @fnv 0x00e02360
-void __cdecl FUN_00e02360(int* p)
+void __cdecl finishLoadedObject_hkxLight(int* p)
 {
     if (p)
         *p = (int)&DAT_010e9e74;
@@ -630,7 +630,7 @@ void __cdecl FUN_00e02360(int* p)
 
 extern int DAT_010e9f48;
 // @fnv 0x00e023a0
-void FUN_00e023a0(int* p)
+void finishLoadedObject_hkxIndexBuffer(int* p)
 {
     if (p)
         *p = (int)&DAT_010e9f48;
@@ -639,7 +639,7 @@ void FUN_00e023a0(int* p)
 extern int DAT_010e9fa4;
 
 // @fnv 0x00e02480
-void FUN_00e02480(int* p)
+void finishLoadedObject_hkxEdgeSelectionChannel(int* p)
 {
     if (p)
         *p = (int)&DAT_010e9fa4;
@@ -647,7 +647,7 @@ void FUN_00e02480(int* p)
 
 extern int DAT_010ea0a4;
 // @fnv 0x00e024c0
-void __cdecl FUN_00e024c0(int* p)
+void __cdecl finishLoadedObject_hkxCamera(int* p)
 {
     if (p)
         *p = (int)&DAT_010ea0a4;
@@ -655,14 +655,14 @@ void __cdecl FUN_00e024c0(int* p)
 
 typedef int(__thiscall* VFunc0)(void*, int);
 // @fnv 0x00e024e0
-int __cdecl FUN_00e024e0(void* p)
+int __cdecl cleanupLoadedObject_hkxAttributeHolder(void* p)
 {
     return ((VFunc0*)*(void**)p)[0](p, 0);
 }
 
 extern int DAT_010e310c;
 // @fnv 0x00e02500
-void FUN_00e02500(int* a)
+void finishLoadedObject_hkxAttributeHolder(int* a)
 {
     if (a)
         *a = (int)&DAT_010e310c;
@@ -670,7 +670,7 @@ void FUN_00e02500(int* a)
 
 extern int DAT_010ea10c;
 // @fnv 0x00e02540
-void __cdecl FUN_00e02540(int** p)
+void __cdecl finishLoadedObject_hkxAnimatedVector(int** p)
 {
     if (p)
         *p = &DAT_010ea10c;
@@ -678,7 +678,7 @@ void __cdecl FUN_00e02540(int** p)
 
 extern int DAT_010ea154;
 // @fnv 0x00e02580
-void __cdecl FUN_00e02580(int* a)
+void __cdecl finishLoadedObject_hkxAnimatedQuaternion(int* a)
 {
     if (a)
         *a = (int)&DAT_010ea154;
@@ -686,7 +686,7 @@ void __cdecl FUN_00e02580(int* a)
 
 extern int DAT_010ea188;
 // @fnv 0x00e02630
-void FUN_00e02630(int* p)
+void finishLoadedObject_hkxAnimatedMatrix(int* p)
 {
     if (p)
         *p = (int)&DAT_010ea188;
@@ -697,14 +697,14 @@ struct FUN_00e026c0_vtbl
     virtual int v0(int);
 };
 // @fnv 0x00e026c0
-int __cdecl FUN_00e026c0(FUN_00e026c0_vtbl* p)
+int __cdecl cleanupLoadedObject_hkxAnimatedFloat(FUN_00e026c0_vtbl* p)
 {
     return p->v0(0);
 }
 
 extern int DAT_010ea1ac;
 // @fnv 0x00e026e0
-void __cdecl FUN_00e026e0(int* p)
+void __cdecl finishLoadedObject_hkxAnimatedFloat(int* p)
 {
     if (p)
         *p = (int)&DAT_010ea1ac;
@@ -715,14 +715,14 @@ struct FUN_00e02720_vtbl
     virtual void m0(int);
 };
 // @fnv 0x00e02720
-void FUN_00e02720(FUN_00e02720_vtbl* p)
+void cleanupLoadedObject_hkAlignSceneToNodeOptions(FUN_00e02720_vtbl* p)
 {
     p->m0(0);
 }
 
 typedef void(__thiscall* vt)(void*, int);
 // @fnv 0x00e02760
-void __cdecl FUN_00e02760(void* p)
+void __cdecl cleanupLoadedObject_hkOstream(void* p)
 {
     ((vt*)(*(int*)p))[0](p, 0);
 }
@@ -774,13 +774,13 @@ void __thiscall FUN_00e11dc0_class::FUN_00e11dc0()
 }
 
 // @fnv 0x00e00100
-int __cdecl FUN_00e00100(void* p)
+int __cdecl cleanupLoadedObject_hkpFixedRigidMotion(void* p)
 {
     return ((int(__thiscall*)(void*, int))(*reinterpret_cast<void***>(p))[0])(p, 0);
 }
 
 // @fnv 0x00e00160
-void FUN_00e00160(FUN_00e000a0_vt* p)
+void cleanupLoadedObject_hkpDefaultWorldMemoryWatchDog(FUN_00e000a0_vt* p)
 {
     ((void(__thiscall*)(void*, int))(*(void***)p)[0])(p, 0);
 }
@@ -790,7 +790,7 @@ struct FUN_00e001a0_vt
     virtual void m(int);
 };
 // @fnv 0x00e001a0
-void __cdecl FUN_00e001a0(FUN_00e001a0_vt* p)
+void __cdecl cleanupLoadedObject_hkpConstraintChainInstanceAction(FUN_00e001a0_vt* p)
 {
     p->m(0);
 }
@@ -798,7 +798,7 @@ void __cdecl FUN_00e001a0(FUN_00e001a0_vt* p)
 extern int DAT_010cc2fc;
 extern int DAT_010d79c4;
 // @fnv 0x00e001c0
-void FUN_00e001c0(FUN_00cb0a70* obj, int aiValue)
+void finishLoadedObject_hkpConstraintChainInstanceAction(FUN_00cb0a70* obj, int aiValue)
 {
     if (obj)
     {
@@ -819,7 +819,7 @@ struct FUN_00e00330_vt
     virtual void m(int);
 };
 // @fnv 0x00e00330
-void __cdecl FUN_00e00330(FUN_00e00330_vt* p)
+void __cdecl cleanupLoadedObject_hkpCallbackConstraintMotor(FUN_00e00330_vt* p)
 {
     p->m(0);
 }
@@ -829,7 +829,7 @@ struct FUN_00e00370_vt
     virtual void m0(int);
 };
 // @fnv 0x00e00370
-void __cdecl FUN_00e00370(FUN_00e00370_vt* p)
+void __cdecl cleanupLoadedObject_hkpCachingShapePhantom(FUN_00e00370_vt* p)
 {
     p->m0(0);
 }
@@ -840,7 +840,7 @@ struct FUN_00e00430_vt
 };
 
 // @fnv 0x00e00430
-void __cdecl FUN_00e00430(FUN_00e00430_vt* p)
+void __cdecl cleanupLoadedObject_hkpBoxMotion(FUN_00e00430_vt* p)
 {
     p->m0(0);
 }
@@ -848,7 +848,7 @@ void __cdecl FUN_00e00430(FUN_00e00430_vt* p)
 extern int DAT_010c59f4;
 extern int DAT_010c6dc4;
 // @fnv 0x00e00450
-void __cdecl FUN_00e00450(void* apObject, int flag)
+void __cdecl finishLoadedObject_hkpBoxMotion(void* apObject, int flag)
 {
     if (apObject)
     {
@@ -864,7 +864,7 @@ void __cdecl FUN_00e00450(void* apObject, int flag)
 
 typedef void(__thiscall* VFn)(void*, int);
 // @fnv 0x00e00550
-void __cdecl FUN_00e00550(void* p)
+void __cdecl cleanupLoadedObject_hkpTriangleShape(void* p)
 {
     VFn fn = ((VFn*)*(void**)p)[0];
     fn(p, 0);
@@ -875,7 +875,7 @@ struct FUN_00e005b0_vt
     virtual void m(int);
 };
 // @fnv 0x00e005b0
-void __cdecl FUN_00e005b0(FUN_00e005b0_vt* p)
+void __cdecl cleanupLoadedObject_hkpTriSampledHeightFieldCollection(FUN_00e005b0_vt* p)
 {
     p->m(0);
 }
@@ -885,7 +885,7 @@ struct FUN_00e00670_vt
     virtual void m0(int);
 };
 // @fnv 0x00e00670
-void __cdecl FUN_00e00670(FUN_00e00670_vt* p)
+void __cdecl cleanupLoadedObject_hkpTriSampledHeightFieldBvTreeShape(FUN_00e00670_vt* p)
 {
     p->m0(0);
 }
@@ -896,7 +896,7 @@ struct FUN_00e00790_vt
 };
 
 // @fnv 0x00e00790
-void __cdecl FUN_00e00790(FUN_00e00790_vt* p)
+void __cdecl cleanupLoadedObject_hkpSphereShape(FUN_00e00790_vt* p)
 {
     p->m(0);
 }
@@ -906,7 +906,7 @@ struct FUN_00e007f0_vt
     virtual void m0(int);
 };
 // @fnv 0x00e007f0
-void __cdecl FUN_00e007f0(FUN_00e007f0_vt* p)
+void __cdecl cleanupLoadedObject_hkpShapeInfo(FUN_00e007f0_vt* p)
 {
     p->m0(0);
 }
@@ -916,13 +916,13 @@ struct FUN_00e00a20_vt
     virtual void m0(int);
 };
 // @fnv 0x00e00a20
-void __cdecl FUN_00e00a20(FUN_00e00a20_vt* p)
+void __cdecl cleanupLoadedObject_hkpNullCollisionFilter(FUN_00e00a20_vt* p)
 {
     p->m0(0);
 }
 
 // @fnv 0x00e00ae0
-void __cdecl FUN_00e00ae0(FUN_00e00930_vt* p)
+void __cdecl cleanupLoadedObject_hkpMultiSphereShape(FUN_00e00930_vt* p)
 {
     p->m0(0);
 }
@@ -934,7 +934,7 @@ struct FUN_00dcd380_cls
 extern int DAT_010e8a90;
 extern int DAT_010e8ab0;
 // @fnv 0x00e00c90
-void __cdecl FUN_00e00c90(void* pObject, int b)
+void __cdecl finishLoadedObject_hkpFastMeshShape(void* pObject, int b)
 {
     if (pObject)
     {
@@ -951,7 +951,7 @@ struct FUN_00e00cf0_vt
     virtual void m(int);
 };
 // @fnv 0x00e00cf0
-void __cdecl FUN_00e00cf0(FUN_00e00cf0_vt* p)
+void __cdecl cleanupLoadedObject_hkpDefaultConvexListFilter(FUN_00e00cf0_vt* p)
 {
     p->m(0);
 }
@@ -961,23 +961,23 @@ struct FUN_00e00d90_vt
     virtual void m(int);
 };
 // @fnv 0x00e00d90
-void __cdecl FUN_00e00d90(FUN_00e00d90_vt* p)
+void __cdecl cleanupLoadedObject_hkpConvexVerticesConnectivity(FUN_00e00d90_vt* p)
 {
     p->m(0);
 }
 
 struct FUN_00e00e70_vt
 {
-    virtual int FUN_00e00e70(int);
+    virtual int cleanupLoadedObject_hkpConvexTranslateShape(int);
 };
 // @fnv 0x00e00e70
-int __cdecl FUN_00e00e70(FUN_00e00e70_vt* p)
+int __cdecl cleanupLoadedObject_hkpConvexTranslateShape(FUN_00e00e70_vt* p)
 {
-    return p->FUN_00e00e70(0);
+    return p->cleanupLoadedObject_hkpConvexTranslateShape(0);
 }
 
 // @fnv 0x00e010c0
-void __cdecl FUN_00e010c0(FUN_00e000a0_vt* p)
+void __cdecl cleanupLoadedObject_hkpCompressedSampledHeightFieldShape(FUN_00e000a0_vt* p)
 {
     ((void(__thiscall*)(void*, int))(*reinterpret_cast<void***>(p))[0])(p, 0);
 }
@@ -988,14 +988,14 @@ struct FUN_00e01380_vt
 };
 
 // @fnv 0x00e01380
-void __cdecl FUN_00e01380(FUN_00e01380_vt* p)
+void __cdecl cleanupLoadedObject_hkpBvShape(FUN_00e01380_vt* p)
 {
     p->m(0);
 }
 
 typedef void(__thiscall* Fn0)(void*, int);
 // @fnv 0x00e013f0
-void __cdecl FUN_00e013f0(void* p)
+void __cdecl cleanupLoadedObject_hkpBoxShape(void* p)
 {
     Fn0 fn = *(Fn0*)*(void**)p;
     fn(p, 0);
@@ -1003,7 +1003,7 @@ void __cdecl FUN_00e013f0(void* p)
 
 typedef int(__thiscall* Vfn)(void*, int);
 // @fnv 0x00e01450
-int __cdecl FUN_00e01450(void* p)
+int __cdecl cleanupLoadedObject_hkMemoryMeshShape(void* p)
 {
     return (*(Vfn*)*(void**)p)(p, 0);
 }
@@ -1033,7 +1033,7 @@ struct FUN_00e01470_s
     FUN_00cb0a70* m_2c;
 };
 // @fnv 0x00e01470
-void __cdecl FUN_00e01470(FUN_00e01470_s* pObject, int iValue)
+void __cdecl finishLoadedObject_hkMemoryMeshShape(FUN_00e01470_s* pObject, int iValue)
 {
     if (pObject)
     {
@@ -1043,7 +1043,7 @@ void __cdecl FUN_00e01470(FUN_00e01470_s* pObject, int iValue)
 }
 
 // @fnv 0x00e01510
-void __cdecl FUN_00e01510(FUN_00cb0a70* p)
+void __cdecl cleanupLoadedObject_hkxVertexVectorDataChannel(FUN_00cb0a70* p)
 {
     ((Fn)(void**)(*(int**)p)[0])(p, 0);
 }
@@ -1053,20 +1053,20 @@ struct FUN_00e01550_vt
     virtual void m0(int);
 };
 // @fnv 0x00e01550
-void __cdecl FUN_00e01550(FUN_00e01550_vt* p)
+void __cdecl cleanupLoadedObject_hkxVertexSelectionChannel(FUN_00e01550_vt* p)
 {
     p->m0(0);
 }
 
 // @fnv 0x00e018c0
-void __cdecl FUN_00e018c0(int* p)
+void __cdecl cleanupLoadedObject_hkxSparselyAnimatedString(int* p)
 {
     ((void(__thiscall*)(void*, int)) * (void**)*p)(p, 0);
 }
 
 typedef void(__thiscall* Fn)(void*, int);
 // @fnv 0x00e019d0
-void __cdecl FUN_00e019d0(void* p)
+void __cdecl cleanupLoadedObject_hkxSparselyAnimatedInt(void* p)
 {
     Fn fn = *(Fn*)(*(char**)p);
     fn(p, 0);
@@ -1077,14 +1077,14 @@ struct FUN_00e01a10_vt
     virtual void m0(int);
 };
 // @fnv 0x00e01a10
-void __cdecl FUN_00e01a10(FUN_00e01a10_vt* p)
+void __cdecl cleanupLoadedObject_hkxSparselyAnimatedBool(FUN_00e01a10_vt* p)
 {
     p->m0(0);
 }
 
 typedef void(__thiscall* Fn)(void*, int);
 // @fnv 0x00e01af0
-void __cdecl FUN_00e01af0(void* p)
+void __cdecl cleanupLoadedObject_hkxSkinBinding(void* p)
 {
     Fn* vt = (Fn*)*(void**)p;
     vt[0](p, 0);
@@ -1095,7 +1095,7 @@ struct FUN_00e01c10_vt
     virtual void m(int);
 };
 // @fnv 0x00e01c10
-void __cdecl FUN_00e01c10(FUN_00e01c10_vt* p)
+void __cdecl cleanupLoadedObject_hkxScene(FUN_00e01c10_vt* p)
 {
     p->m(0);
 }
@@ -1105,7 +1105,7 @@ struct FUN_00e01cd0_vt
     virtual void m(int);
 };
 // @fnv 0x00e01cd0
-void __cdecl FUN_00e01cd0(FUN_00e01cd0_vt* p)
+void __cdecl cleanupLoadedObject_hkxNodeSelectionSet(FUN_00e01cd0_vt* p)
 {
     p->m(0);
 }
@@ -1113,7 +1113,7 @@ void __cdecl FUN_00e01cd0(FUN_00e01cd0_vt* p)
 extern int DAT_010e9a34;
 
 // @fnv 0x00e01cf0
-void FUN_00e01cf0(void* pObject, void* b)
+void finishLoadedObject_hkxNodeSelectionSet(void* pObject, void* b)
 {
     if (pObject)
     {
@@ -1127,13 +1127,13 @@ struct FUN_00e01e40_vt
     virtual void m0(int);
 };
 // @fnv 0x00e01e40
-void __cdecl FUN_00e01e40(FUN_00e01e40_vt* p)
+void __cdecl cleanupLoadedObject_hkxMesh(FUN_00e01e40_vt* p)
 {
     p->m0(0);
 }
 
 // @fnv 0x00e01f30
-void __cdecl FUN_00e01f30(int* p)
+void __cdecl cleanupLoadedObject_hkxMeshSection(int* p)
 {
     ((void(__thiscall*)(void*, int))(*(*reinterpret_cast<void***>(p))))(p, 0);
 }
@@ -1147,7 +1147,7 @@ struct FUN_00cb0a70_00e02280
     void __thiscall m(int);
 };
 // @fnv 0x00e02280
-void __cdecl FUN_00e02280(int* pObject, int iValue)
+void __cdecl finishLoadedObject_hkxMaterialEffect(int* pObject, int iValue)
 {
     if (pObject)
     {
@@ -1159,14 +1159,14 @@ void __cdecl FUN_00e02280(int* pObject, int iValue)
 typedef void(__thiscall* VFn)(void*, int);
 
 // @fnv 0x00e02380
-void __cdecl FUN_00e02380(void* p)
+void __cdecl cleanupLoadedObject_hkxIndexBuffer(void* p)
 {
     ((VFn**)(void*)p)[0][0](p, 0);
 }
 
 typedef int(__thiscall* Vf0)(void*, int);
 // @fnv 0x00e024a0
-int __cdecl FUN_00e024a0(void* p)
+int __cdecl cleanupLoadedObject_hkxCamera(void* p)
 {
     return (*(Vf0*)*(void**)p)(p, 0);
 }
@@ -1182,13 +1182,13 @@ struct FUN_00e02560_vt
     virtual int m(int);
 };
 // @fnv 0x00e02560
-int __cdecl FUN_00e02560(FUN_00e02560_vt* p)
+int __cdecl cleanupLoadedObject_hkxAnimatedQuaternion(FUN_00e02560_vt* p)
 {
     return p->m(0);
 }
 
 // @fnv 0x00e02610
-int __cdecl FUN_00e02610(FUN_00e026c0_vtbl* p)
+int __cdecl cleanupLoadedObject_hkxAnimatedMatrix(FUN_00e026c0_vtbl* p)
 {
     return p->v0(0);
 }
@@ -1368,7 +1368,7 @@ struct FUN_00d50c00_cls
 };
 
 // @fnv 0x00e000c0
-void __cdecl FUN_00e000c0(FUN_00d50c00_cls* pOwner, int value)
+void __cdecl finishLoadedObject_hkpGenericConstraintData(FUN_00d50c00_cls* pOwner, int value)
 {
     if (pOwner != 0)
         pOwner->FUN_00d50c00(value);
@@ -1420,7 +1420,7 @@ struct FUN_00e00220_Class
 };
 
 // @fnv 0x00e00220
-void __cdecl FUN_00e00220(FUN_00e00220_Class* param_1)
+void __cdecl cleanupLoadedObject_hkpConstraintChainInstance(FUN_00e00220_Class* param_1)
 {
     param_1->VF00(0);
 }
@@ -1482,7 +1482,7 @@ class E00390Object
 };
 
 // @fnv 0x00e00390
-void FUN_00e00390(void* apMemory, int aiFinishFlag)
+void finishLoadedObject_hkpCachingShapePhantom(void* apMemory, int aiFinishFlag)
 {
     if (apMemory)
     {
@@ -1624,7 +1624,7 @@ struct S_00e00490_vt
     virtual void m(int);
 };
 // @fnv 0x00e00490
-void __cdecl FUN_00e00490(S_00e00490_vt* p)
+void __cdecl cleanupLoadedObject_hkpAabbPhantom(S_00e00490_vt* p)
 {
     p->m(0);
 }
@@ -1642,7 +1642,7 @@ struct FUN_00e004f0_class
 };
 
 // @fnv 0x00e004b0
-void __cdecl FUN_00e004b0(FUN_00e004f0_class* object, int value)
+void __cdecl finishLoadedObject_hkpAabbPhantom(FUN_00e004f0_class* object, int value)
 {
     if (object != 0)
     {
@@ -1680,7 +1680,7 @@ struct Handler_cls
 };
 
 // @fnv 0x00e005d0
-void __cdecl FUN_00e005d0(Handler_cls* pHandler, int value)
+void __cdecl finishLoadedObject_hkpTriSampledHeightFieldCollection(Handler_cls* pHandler, int value)
 {
     if (pHandler != 0)
         pHandler->Handle(value);
@@ -1749,7 +1749,7 @@ int* FUN_00e00680()
     return &DAT_0126dd00;
 }
 
-// FUN_00e00690: null-guarded forwarding of a second argument to a
+// finishLoadedObject_hkpTriSampledHeightFieldBvTreeShape: null-guarded forwarding of a second argument to a
 // member function of the first (object) argument.
 class FUN_00e00690_cls
 {
@@ -1758,7 +1758,7 @@ class FUN_00e00690_cls
 };
 
 // @fnv 0x00e00690
-void __cdecl FUN_00e00690(FUN_00e00690_cls* pObject, int aiValue)
+void __cdecl finishLoadedObject_hkpTriSampledHeightFieldBvTreeShape(FUN_00e00690_cls* pObject, int aiValue)
 {
     if (pObject != 0)
     {
@@ -1988,7 +1988,7 @@ extern int DAT_010e88b4;
 extern int DAT_010e88a4;
 
 // @fnv 0x00e00950
-void __cdecl FUN_00e00950(int* pObject)
+void __cdecl finishLoadedObject_hkpRemoveTerminalsMoppModifier(int* pObject)
 {
     if (pObject)
     {
@@ -2058,7 +2058,7 @@ extern "C" struct FUN_00e009c0_vt
 };
 
 // @fnv 0x00e009c0
-extern "C" void __cdecl FUN_00e009c0(FUN_00e009c0_vt* p)
+extern "C" void __cdecl cleanupLoadedObject_hkpPlaneShape(FUN_00e009c0_vt* p)
 {
     p->m0(0);
 }
@@ -2092,7 +2092,7 @@ struct FUN_00e00a40_cls
 };
 
 // @fnv 0x00e00a40
-void __cdecl FUN_00e00a40(FUN_00e00a40_cls* pObject, int a)
+void __cdecl finishLoadedObject_hkpNullCollisionFilter(FUN_00e00a40_cls* pObject, int a)
 {
     if (pObject != 0)
         pObject->FUN_00e00a80(a);
@@ -2288,7 +2288,7 @@ struct FUN_00d57b20_class
 };
 
 // @fnv 0x00e00d50
-void __cdecl FUN_00e00d50(FUN_00d57b20_class* pObject, int value)
+void __cdecl finishLoadedObject_hkpCylinderShape(FUN_00d57b20_class* pObject, int value)
 {
     if (pObject)
         pObject->FUN_00d57b20(value);
@@ -2330,7 +2330,7 @@ struct S_00e00ee0_vt
     virtual void m0(int a);
 };
 // @fnv 0x00e00ee0
-void __cdecl FUN_00e00ee0(S_00e00ee0_vt* p)
+void __cdecl cleanupLoadedObject_hkpConvexTransformShape(S_00e00ee0_vt* p)
 {
     p->m0(0);
 }
@@ -2351,7 +2351,7 @@ void* FUN_00e00f40()
     return &DAT_010d102c;
 }
 
-// FUN_00e00f50: calls the first virtual (slot 0) of the object passed in the
+// cleanupLoadedObject_hkpConvexPieceMeshShape: calls the first virtual (slot 0) of the object passed in the
 // first stack argument, with a single 0 argument.
 struct FUN_00e00f50_cls
 {
@@ -2359,7 +2359,7 @@ struct FUN_00e00f50_cls
 };
 
 // @fnv 0x00e00f50
-void __cdecl FUN_00e00f50(FUN_00e00f50_cls* pObj)
+void __cdecl cleanupLoadedObject_hkpConvexPieceMeshShape(FUN_00e00f50_cls* pObj)
 {
     pObj->m_fn(0);
 }
@@ -2371,7 +2371,7 @@ int* __cdecl FUN_00e00f60()
     return &DAT_0126e138;
 }
 
-// FUN_00e00f70: forwards a value to a helper on the passed-in object
+// finishLoadedObject_hkpConvexPieceMeshShape: forwards a value to a helper on the passed-in object
 // when that object is present.
 struct FUN_00e00f70_cls
 {
@@ -2379,7 +2379,7 @@ struct FUN_00e00f70_cls
 };
 
 // @fnv 0x00e00f70
-void __cdecl FUN_00e00f70(FUN_00e00f70_cls* pObject, int value)
+void __cdecl finishLoadedObject_hkpConvexPieceMeshShape(FUN_00e00f70_cls* pObject, int value)
 {
     if (pObject != 0)
     {
@@ -2435,7 +2435,7 @@ struct VirtualSlotObject
 };
 
 // @fnv 0x00e01050
-void __cdecl FUN_00e01050(VirtualSlotObject* p)
+void __cdecl cleanupLoadedObject_hkpConvexListShape(VirtualSlotObject* p)
 {
     p->unk00(0);
 }
@@ -2575,7 +2575,7 @@ struct FUN_00e01320_cls
 };
 
 // @fnv 0x00e01320
-void __cdecl FUN_00e01320(FUN_00e01320_cls* pObject)
+void __cdecl cleanupLoadedObject_hkpCapsuleShape(FUN_00e01320_cls* pObject)
 {
     pObject->m_v00(0);
 }
@@ -2660,7 +2660,7 @@ struct FnvCpu_FUN_00e01590_CpuInterface
     virtual void Invoke(int value);
 };
 // @fnv 0x00e01590
-void __cdecl FUN_00e01590(FnvCpu_FUN_00e01590_CpuInterface* object)
+void __cdecl cleanupLoadedObject_hkxVertexIntDataChannel(FnvCpu_FUN_00e01590_CpuInterface* object)
 {
     object->Invoke(0);
 }
@@ -2703,7 +2703,7 @@ struct CallerVtbl
 };
 
 // @fnv 0x00e01680
-int __cdecl FUN_00e01680(CallerVtbl* p)
+int __cdecl cleanupLoadedObject_hkxTriangleSelectionChannel(CallerVtbl* p)
 {
     return p->v0(0);
 }
@@ -2733,7 +2733,7 @@ struct FUN_00e016c0_cls
 // Calls the first virtual of the object passed in as the only argument,
 // passing the literal 0 to it.
 // @fnv 0x00e016c0
-void __cdecl FUN_00e016c0(FUN_00e016c0_cls* pObject)
+void __cdecl cleanupLoadedObject_hkxTextureInplace(FUN_00e016c0_cls* pObject)
 {
     pObject->m0(0);
 }
@@ -2768,7 +2768,7 @@ struct EffectHolder
 
 // If p is non-null, constructs the EffectHolder and releases its two sub-objects with the given flags.
 // @fnv 0x00e016e0
-void __cdecl FUN_00e016e0(EffectHolder* apHolder, int flags)
+void __cdecl finishLoadedObject_hkxTextureInplace(EffectHolder* apHolder, int flags)
 {
     if (apHolder != 0)
     {
@@ -3125,7 +3125,7 @@ struct FUN_00e01e00_vt
 };
 
 // @fnv 0x00e01e00
-void __cdecl FUN_00e01e00(FUN_00e01e00_vt* p)
+void __cdecl cleanupLoadedObject_hkxMeshUserChannelInfo(FUN_00e01e00_vt* p)
 {
     p->m(0);
 }
@@ -3210,7 +3210,7 @@ struct FUN_00e4ae80_Obj
 };
 
 // @fnv 0x00e020c0
-void __cdecl FUN_00e020c0(FUN_00e4ae80_Obj* pObj, int iValue)
+void __cdecl finishLoadedObject_hkxMaterialShaderSet(FUN_00e4ae80_Obj* pObj, int iValue)
 {
     if (pObj != 0)
     {
@@ -3226,7 +3226,7 @@ void* __cdecl FUN_00e02110()
     return &g_unk0126e7f8;
 }
 
-// FUN_00e02120: cdecl, takes a pointer, calls virtual slot 0 with argument 0.
+// cleanupLoadedObject_hkxMaterialShader: cdecl, takes a pointer, calls virtual slot 0 with argument 0.
 
 class FUN_00e02120_cls
 {
@@ -3235,7 +3235,7 @@ class FUN_00e02120_cls
 };
 
 // @fnv 0x00e02120
-void FUN_00e02120(FUN_00e02120_cls* obj)
+void cleanupLoadedObject_hkxMaterialShader(FUN_00e02120_cls* obj)
 {
     obj->v00(0);
 }
@@ -3437,7 +3437,7 @@ struct E02460Object
 };
 
 // @fnv 0x00e02460
-void FUN_00e02460(E02460Object* pkObject)
+void cleanupLoadedObject_hkxEdgeSelectionChannel(E02460Object* pkObject)
 {
     pkObject->Destroy(false);
 }
@@ -3488,7 +3488,7 @@ struct E02520Object
 };
 
 // @fnv 0x00e02520
-void FUN_00e02520(E02520Object* pkObject)
+void cleanupLoadedObject_hkxAnimatedVector(E02520Object* pkObject)
 {
     pkObject->Destroy(false);
 }
@@ -3630,7 +3630,7 @@ class E02700Object
 };
 
 // @fnv 0x00e02700
-void __cdecl FUN_00e02700(E02700Object* pkObject, void* pvData)
+void __cdecl finishLoadedObject_hkAlignSceneToNodeOptions(E02700Object* pkObject, void* pvData)
 {
     if (pkObject)
         pkObject->Process(pvData);

@@ -959,7 +959,7 @@ struct TESObjectREFR
     virtual bool vfunc_0x100();
 };
 
-TESObjectREFR* __cdecl FUN_0062b4e0(void* p);
+TESObjectREFR* __cdecl GetCdBodyRef(void* p);
 
 struct PickedObj
 {
@@ -977,7 +977,7 @@ struct ItemObj
     void* FUN_00460140();
     const char* operator_str();
     void* FUN_007d6bb0();
-    void* FUN_0043b540();
+    void* getCollisionFilterInfo();
 };
 
 struct Arg2Item
@@ -1019,10 +1019,10 @@ struct Arg3
 struct FUN_00628df0_class
 {
     void FUN_00628df0(Arg1* a1, Arg2* a2, Arg3* a3);
-    void FUN_006295e0(TESObjectREFR* r);
+    void WarpActor(TESObjectREFR* r);
 };
 
-// For each a2 item with a string, calls a3's target vfunc_0x3c; if the a1 checks fail and the item type is 0x1e, passes its REFR to FUN_006295e0.
+// For each a2 item with a string, calls a3's target vfunc_0x3c; if the a1 checks fail and the item type is 0x1e, passes its REFR to WarpActor.
 // @fnv 0x00628df0
 void FUN_00628df0_class::FUN_00628df0(Arg1* a1, Arg2* apItems, Arg3* apTarget)
 {
@@ -1037,14 +1037,14 @@ void FUN_00628df0_class::FUN_00628df0(Arg1* a1, Arg2* apItems, Arg3* apTarget)
             char flag;
             if (!a1->FUN_00628d10(&flag, &tmp)->FUN_005609f0() || !a1->FUN_00628c50(&tmp))
             {
-                CF845 filter(p38->FUN_0043b540());
+                CF845 filter(p38->getCollisionFilterInfo());
                 if (filter.FUN_0043b4d0() == 0x1e)
                 {
-                    TESObjectREFR* refr = FUN_0062b4e0(p38);
+                    TESObjectREFR* refr = GetCdBodyRef(p38);
                     if (refr && refr->vfunc_0x100())
                     {
                         TESObjectREFR* pRefr = refr;
-                        this->FUN_006295e0(pRefr);
+                        this->WarpActor(pRefr);
                     }
                 }
             }

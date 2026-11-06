@@ -211,7 +211,7 @@ void __cdecl FUN_00ee6dbc()
 extern "C" __declspec(dllimport) void __cdecl ImportedFunction();
 
 // @fnv 0x00ee6dc2
-void __cdecl FUN_00ee6dc2()
+void __cdecl D3DXSaveTextureToFileA()
 {
     ImportedFunction();
 }
@@ -240,7 +240,7 @@ typedef void(__cdecl* PFN_D3DXMatrixInverse)(void);
 extern "C" PFN_D3DXMatrixInverse __imp__D3DXMatrixInverse;
 
 // @fnv 0x00ee6dda
-void __cdecl FUN_00ee6dda()
+void __cdecl D3DXMatrixInverse()
 {
     __imp__D3DXMatrixInverse();
 }
@@ -379,7 +379,7 @@ void* __cdecl FUN_00ee81f8(void* vf, int link)
 extern "C" void(__cdecl* const FUN_00fdf438)();
 
 // @fnv 0x00ee81fe
-__declspec(noreturn) void __cdecl FUN_00ee81fe()
+__declspec(noreturn) void __cdecl ov_open_callbacks()
 {
     typedef void(__cdecl * noreturn_func_t)();
     noreturn_func_t func = (noreturn_func_t)FUN_00fdf438;

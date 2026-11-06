@@ -235,7 +235,7 @@ struct EncodeWord
 
 struct EncodeCompiler
 {
-    bool FUN_005afad0(EncodeWord*, bool, bool);
+    bool GetReferencedObject(EncodeWord*, bool, bool);
 };
 
 struct EncodeParameter
@@ -259,7 +259,7 @@ extern TESForm* DAT_011ca224;
 
 bool FUN_00481f30(int);
 
-int FUN_005af5f0(EncodeCompiler*, EncodeWord*, char*, unsigned*, unsigned char, int);
+int GetNextWord(EncodeCompiler*, EncodeWord*, char*, unsigned*, unsigned char, int);
 
 void FUN_005aea90(EncodeCompiler*, const char*, ...);
 
@@ -269,7 +269,7 @@ int FUN_00404dc0(const char*, const char*);
 
 void* FUN_00401460(void*, const void*, unsigned);
 
-int FUN_004b12d0(const char*);
+int IsStringFloat(const char*);
 
 int FUN_004b1230(const char*);
 
@@ -329,7 +329,7 @@ bool __cdecl FUN_005b1ba0(unsigned short count, const EncodeParameter* parameter
 
         EncodeWord word7;
 
-        int lengthVal = FUN_005af5f0(compiler, &word7, line->cLine, &line->uiElapsedMilliseconds, kindX, 0);
+        int lengthVal = GetNextWord(compiler, &word7, line->cLine, &line->uiElapsedMilliseconds, kindX, 0);
 
         if (!lengthVal)
         {
@@ -355,7 +355,7 @@ bool __cdecl FUN_005b1ba0(unsigned short count, const EncodeParameter* parameter
         }
 
         if (DAT_0118cdd0[parameters[index4].type].isReference &&
-            (!compiler->FUN_005afad0(&word7, false, false) || !word7.refIndex))
+            (!compiler->GetReferencedObject(&word7, false, false) || !word7.refIndex))
         {
             FUN_005aea90(compiler, "Item '%s' not found for parameter %s.\r\nCompiled script not saved!", &word7,
                          parameters[index4].name);
@@ -1088,7 +1088,7 @@ bool __cdecl FUN_005b1ba0(unsigned short count, const EncodeParameter* parameter
                     else
                     {
 
-                        if (!FUN_004b12d0(word7.text))
+                        if (!IsStringFloat(word7.text))
                         {
                             FUN_005aea90(compiler,
                                          "Unknown variable '%s' for parameter %s.\r\nCompiled script not saved!",
