@@ -212,7 +212,7 @@ extern bool DAT_011de958;
 extern __declspec(thread) bool bCollecting;
 
 // @fnv 0x00868d70
-void FUN_00868d70(bool abTryLock)
+void ClearAll(bool abTryLock)
 {
     if (DAT_011de958)
         return;

@@ -1003,8 +1003,8 @@ class ListQ
 class ThisQ
 {
   public:
-    E* FUN_00410220(int);
-    void FUN_00410140(int);
+    E* GetExtraData(int);
+    void RemoveExtra(int);
     void FUN_0041c900();
     void FUN_00419d10(G*);
     ListQ* FUN_00422700();
@@ -1026,7 +1026,7 @@ void ThisQ::FUN_00426020(unsigned int a1, int a2, O* a3, void* a4)
             b = true;
         if (a1 & 0)
         {
-            E* e = FUN_00410220(0xd);
+            E* e = GetExtraData(0xd);
             if (e && a4)
             {
                 G* c = (G*)FUN_00ec43fb(a4, 0, &DAT_01183028, &DAT_01183254, 0);
@@ -1044,13 +1044,13 @@ void ThisQ::FUN_00426020(unsigned int a1, int a2, O* a3, void* a4)
                 if (c)
                 {
                     if (!c->FUN_00726070() || c->FUN_00726070()->FUN_0084e3a0() != id)
-                        FUN_00410140(0xd);
+                        RemoveExtra(0xd);
                 }
             }
         }
         if (a1 & 0)
         {
-            E* e2 = FUN_00410220(0x1c);
+            E* e2 = GetExtraData(0x1c);
             if (e2)
             {
                 G* f2 = e2->m0c;
@@ -1061,7 +1061,7 @@ void ThisQ::FUN_00426020(unsigned int a1, int a2, O* a3, void* a4)
         }
         if (a1 & 0)
         {
-            E* e3 = FUN_00410220(0x3f);
+            E* e3 = GetExtraData(0x3f);
             if (e3)
             {
                 G* f3 = e3->m0c;
@@ -1072,7 +1072,7 @@ void ThisQ::FUN_00426020(unsigned int a1, int a2, O* a3, void* a4)
         }
         if (b)
         {
-            E* e4 = FUN_00410220(0x19);
+            E* e4 = GetExtraData(0x19);
             if (e4)
             {
                 if (DAT_011c3f2c->FUN_00469860(e4->m0c->FUN_0084e3a0()))
@@ -1086,7 +1086,7 @@ void ThisQ::FUN_00426020(unsigned int a1, int a2, O* a3, void* a4)
             }
             if (a1 & 0)
             {
-                E* e5 = FUN_00410220(0x1a);
+                E* e5 = GetExtraData(0x1a);
                 if (e5 && e5->m0c)
                     e5->m0c->v86();
             }
@@ -1115,7 +1115,7 @@ void ThisQ::FUN_00426020(unsigned int a1, int a2, O* a3, void* a4)
         {
             if (a1 & 0)
             {
-                NonActorMagicCaster* x = dynamic_cast<NonActorMagicCaster*>((BSExtraData*)FUN_00410220(0x32));
+                NonActorMagicCaster* x = dynamic_cast<NonActorMagicCaster*>((BSExtraData*)GetExtraData(0x32));
                 if (x)
                 {
                     G* v5c = (G*)x->GetSelectedMagicItem();
@@ -1128,7 +1128,7 @@ void ThisQ::FUN_00426020(unsigned int a1, int a2, O* a3, void* a4)
                     if (v58)
                         ((CasterReferenceSetter*)x)->FUN_0050f9c0(dynamic_cast<TESObjectREFR*>(FUN_004839c0(v58)));
                 }
-                NonActorMagicTarget* y = dynamic_cast<NonActorMagicTarget*>((BSExtraData*)FUN_00410220(0x33));
+                NonActorMagicTarget* y = dynamic_cast<NonActorMagicTarget*>((BSExtraData*)GetExtraData(0x33));
                 if (y)
                 {
                     G* v64 = (G*)y->GetMagicTargetReference();

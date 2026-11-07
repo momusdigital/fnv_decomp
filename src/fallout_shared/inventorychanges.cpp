@@ -127,9 +127,9 @@ public:
     int FUN_00418520();
     bool FUN_00418750();
     short FUN_00418770();
-    bool FUN_004127e0(ExtraShell_inventorychanges*);
+    bool CompareList(ExtraShell_inventorychanges*);
     void FUN_00419ad0(int);
-    void FUN_00411ec0(ExtraShell_inventorychanges*);
+    void CopyList(ExtraShell_inventorychanges*);
     signed char GetExtraByteValue();
     void FUN_0042dec0();
     OpacityFadeState* GetOffsetC();
@@ -320,7 +320,7 @@ void InventoryStackRecord::ClearExtraDataList()
     while (pkCurrentObject && *pkCurrentObject->_ref_006815c0())
     {
         ExtraDataList* pExtra = *pkCurrentObject->_ref_006815c0();
-        pExtra->FUN_0040fae0(true);
+        pExtra->RemoveAll(true);
         pkCurrentObject->_ref_00905330(&pExtra);
         delete reinterpret_cast<ExtraDataListVirtualDeletion*>(pExtra);
         pkCurrentObject = pkCurrentObject->_ref_00726070();
@@ -399,7 +399,7 @@ int InventoryStackRecord::CountAndPruneEntries()
             icount = icount + 1;
         }
         pkCurrentObject = pkCurrentObject->_ref_00726070();
-        if (pExtra->FUN_0040fe20() == 1 && sValue > 1)
+        if (pExtra->ItemsInList() == 1 && sValue > 1)
         {
             pExtra->RemoveExtra24();
             (*(ListHelper_004bca80**)this)->_ref_00905330(&pExtra);
@@ -927,7 +927,7 @@ struct ExtraDataListAccess
     virtual ~ExtraDataListAccess();
     TESObjectREFR* GetReplacementReference();
     void FUN_0041c7f0(TESObjectREFR*);
-    bool FUN_004126c0(ExtraDataList*, bool, bool);
+    bool CompareListForContainer(ExtraDataList*, bool, bool);
     short FUN_00418770() const;
     void FUN_00419ad0(int);
 };
@@ -998,8 +998,8 @@ void InventoryChanges::AddChangeEntry(InventoryStackRecord* apChange, bool abDel
                     ExtraDataList* pCurrent = pChangeFirst->GetItem();
                     bool bcomp = true;
                     if (pcompare)
-                        bcomp = ((ExtraDataListAccess*)pcompare)->FUN_004126c0(pCurrent, false, bIsThrown) ||
-                                ((ExtraDataListAccess*)pCurrent)->FUN_004126c0(pcompare, false, bIsThrown);
+                        bcomp = ((ExtraDataListAccess*)pcompare)->CompareListForContainer(pCurrent, false, bIsThrown) ||
+                                ((ExtraDataListAccess*)pCurrent)->CompareListForContainer(pcompare, false, bIsThrown);
                     if (!bcomp)
                     {
                         ((ExtraDataListAccess*)pCurrent)
@@ -3697,7 +3697,7 @@ struct Weapon : Form
 };
 struct Extra
 {
-    void* FUN_00410220(int);
+    void* GetExtraData(int);
     float FUN_004186f0();
     bool FUN_00418b10();
 };
@@ -3970,7 +3970,7 @@ FUN_0076b630* Target::SelectBestWeapon(ActorStand* subject, float* apfScore, int
                                                                                                                                             {
                                                                                                                                                 health =
                                                                                                                                                     extra
-                                                                                                                                                        ->FUN_00410220(
+                                                                                                                                                        ->GetExtraData(
                                                                                                                                                             37);
                                                                                                                                                 itemHealth =
                                                                                                                                                     0.0f;
@@ -4171,7 +4171,7 @@ FUN_0076b630* Target::SelectBestWeapon(ActorStand* subject, float* apfScore, int
                                                                                                                                                 ->FUN_006815c0();
                                                                                                                                         health =
                                                                                                                                             extra
-                                                                                                                                                ->FUN_00410220(
+                                                                                                                                                ->GetExtraData(
                                                                                                                                                     37);
                                                                                                                                         itemHealth =
                                                                                                                                             0.0f;
@@ -5652,9 +5652,9 @@ struct EquipExtra
     int unk1c;
     EquipExtra();
     bool FUN_00418750();
-    bool FUN_004127e0(EquipExtra*);
+    bool CompareList(EquipExtra*);
     short FUN_00418770();
-    void FUN_00411ec0(EquipExtra*);
+    void CopyList(EquipExtra*);
     void FUN_00419ad0(unsigned short);
     signed char GetExtraByteValue();
     void FUN_0042dec0();
@@ -6380,7 +6380,7 @@ void EquipInv::AddItemToInventory(EquipForm* form, int count, EquipActor* actor,
             while (scan && *scan->FUN_006815c0())
             {
                 EquipExtra* candidate = *scan->FUN_006815c0();
-                if (candidate && !candidate->FUN_004127e0(extra))
+                if (candidate && !candidate->CompareList(extra))
                 {
                     extra = candidate;
                     found = true;
@@ -6419,7 +6419,7 @@ void EquipInv::AddItemToInventory(EquipForm* form, int count, EquipActor* actor,
                 if (selected9->FUN_00418770() > 1 && form->FUN_00401170() != 0x29 && !special)
                 {
                     extra = new EquipExtra;
-                    extra->FUN_00411ec0(selected9);
+                    extra->CopyList(selected9);
                     extra->FUN_00419ad0(1);
                     selected9->FUN_00419ad0(selected9->FUN_00418770() - 1);
                     if (selected9->GetExtraByteValue() >= 0)
@@ -6442,7 +6442,7 @@ void EquipInv::AddItemToInventory(EquipForm* form, int count, EquipActor* actor,
                     if (selected9->FUN_00418770() > 1 && form->FUN_00401170() != 0x29 && !special)
                     {
                         extra = new EquipExtra;
-                        extra->FUN_00411ec0(selected9);
+                        extra->CopyList(selected9);
                         extra->FUN_00419ad0(1);
                         selected9->FUN_00419ad0(selected9->FUN_00418770() - 1);
                         if (selected9->GetExtraByteValue() >= 0)
@@ -6684,7 +6684,7 @@ void ChangesShell::AddItemExtraData(BoundShell* item, int number, int unknown, E
 
                 ExtraShell_inventorychanges* possible = *cursor->_ref_006815c0();
 
-                if (possible && !possible->FUN_004127e0(selection))
+                if (possible && !possible->CompareList(selection))
                 {
                     selection = possible;
                     found = true;
@@ -6744,7 +6744,7 @@ void ChangesShell::AddItemExtraData(BoundShell* item, int number, int unknown, E
 
                     selection = new ExtraShell_inventorychanges();
 
-                    selection->FUN_00411ec0(chosen);
+                    selection->CopyList(chosen);
 
                     selection->FUN_00419ad0(1);
 
@@ -6780,7 +6780,7 @@ void ChangesShell::AddItemExtraData(BoundShell* item, int number, int unknown, E
 
                         selection = new ExtraShell_inventorychanges();
 
-                        selection->FUN_00411ec0(chosen);
+                        selection->CopyList(chosen);
 
                         selection->FUN_00419ad0(1);
 
@@ -6875,8 +6875,8 @@ struct W20Extra
     short FUN_00418770();
     void FUN_00419ad0(short);
     void FUN_00419fb0(float);
-    void FUN_004121e0(W20Extra*, bool);
-    bool FUN_004126c0(W20Extra*, bool, bool);
+    void CopyListForContainer(W20Extra*, bool);
+    bool CompareListForContainer(W20Extra*, bool, bool);
     W20Form* GetOwner();
     void FUN_0041aed0();
     void RemoveExtra24();
@@ -7090,7 +7090,7 @@ void W20Inventory::FUN_004c1c90(W20Ref* ref, int count, int unused, bool mark)
             weapon = ref->FUN_007af430();
             c = weapon->FUN_004c0bf0();
         }
-        e->FUN_004121e0(ref->GetExtra(), false);
+        e->CopyListForContainer(ref->GetExtra(), false);
         if (ref->FUN_007af430()->FNV_GetFormType() != 41 && (!weapon || !weapon->FUN_004c0bf0()))
             e->FUN_00419fb0(ref->GetScale());
         if (e->GetOwner() == (W20Form*)g_thePlayer && owner == (W20Ref*)g_thePlayer)
@@ -7120,7 +7120,7 @@ void W20Inventory::FUN_004c1c90(W20Ref* ref, int count, int unused, bool mark)
                 W20Extra* i = e;
                 bool a = true;
                 if (i)
-                    a = i->FUN_004126c0(pExistingExtra, false, c) || pExistingExtra->FUN_004126c0(i, false, c);
+                    a = i->CompareListForContainer(pExistingExtra, false, c) || pExistingExtra->CompareListForContainer(i, false, c);
                 if (a)
                     p = p->_ref_00726070();
                 else
@@ -7229,7 +7229,7 @@ struct AddExtra
     bool FUN_00418750();
     short FUN_00418770();
     void FUN_00419ad0(short);
-    bool FUN_004126c0(AddExtra*, bool, bool);
+    bool CompareListForContainer(AddExtra*, bool, bool);
 };
 struct AddNode
 {
@@ -7526,8 +7526,8 @@ void AddInventory::FUN_004c29a0(AddForm* form, AddExtra* extra, int count)
                 AddExtra* incomingVal = extra;
                 bool different2 = true;
                 if (incomingVal)
-                    different2 = incomingVal->FUN_004126c0(existing7, false, equipped) ||
-                                 existing7->FUN_004126c0(incomingVal, false, equipped);
+                    different2 = incomingVal->CompareListForContainer(existing7, false, equipped) ||
+                                 existing7->CompareListForContainer(incomingVal, false, equipped);
                 if (different2)
                     node7 = node7->FUN_00726070();
                 else
@@ -8649,10 +8649,10 @@ struct FUN_00410360
     FUN_00410360();
     static void* operator new(unsigned int);
     static void operator delete(void*);
-    void* FUN_00410220(int);
-    void FUN_00410020(void*, int);
-    void FUN_004121e0(FUN_00410360*, int);
-    void FUN_0040ff60(void*);
+    void* GetExtraData(int);
+    void RemoveExtra(void*, int);
+    void CopyListForContainer(FUN_00410360*, int);
+    void AddExtra(void*);
 };
 typedef FUN_00410360 Extra;
 struct ExtraNode
@@ -8770,13 +8770,13 @@ void Inventory::FUN_004cd9c0(void* source, void* destination)
                             while (nodeA && *nodeA->FUN_006815c0())
                             {
                                 Extra* extraASlot11 = new Extra;
-                                void* removedASlot21 = (*nodeA->FUN_006815c0())->FUN_00410220(0xd);
+                                void* removedASlot21 = (*nodeA->FUN_006815c0())->GetExtraData(0xd);
                                 if (removedASlot21)
-                                    (*nodeA->FUN_006815c0())->FUN_00410020(removedASlot21, 0);
-                                extraASlot11->FUN_004121e0(*nodeA->FUN_006815c0(), 1);
+                                    (*nodeA->FUN_006815c0())->RemoveExtra(removedASlot21, 0);
+                                extraASlot11->CopyListForContainer(*nodeA->FUN_006815c0(), 1);
                                 copySlot14->FUN_00559450()->FUN_00905820(&extraASlot11);
                                 if (removedASlot21)
-                                    (*nodeA->FUN_006815c0())->FUN_0040ff60(removedASlot21);
+                                    (*nodeA->FUN_006815c0())->AddExtra(removedASlot21);
                                 nodeA = nodeA->FUN_00726070();
                             }
                         }
@@ -8793,7 +8793,7 @@ void Inventory::FUN_004cd9c0(void* source, void* destination)
                             while (nodeB && *nodeB->FUN_006815c0())
                             {
                                 Extra* extraB = new Extra;
-                                extraB->FUN_004121e0(*nodeB->FUN_006815c0(), 1);
+                                extraB->CopyListForContainer(*nodeB->FUN_006815c0(), 1);
                                 copySlot14->FUN_00559450()->FUN_00905820(&extraB);
                                 nodeB = nodeB->FUN_00726070();
                             }
@@ -8831,13 +8831,13 @@ void Inventory::FUN_004cd9c0(void* source, void* destination)
                         while (nodeC && *nodeC->FUN_006815c0())
                         {
                             Extra* extraCSlot22 = new Extra;
-                            void* removedCSlot8 = (*nodeC->FUN_006815c0())->FUN_00410220(0xd);
+                            void* removedCSlot8 = (*nodeC->FUN_006815c0())->GetExtraData(0xd);
                             if (removedCSlot8)
-                                (*nodeC->FUN_006815c0())->FUN_00410020(removedCSlot8, 0);
-                            extraCSlot22->FUN_004121e0(*nodeC->FUN_006815c0(), 1);
+                                (*nodeC->FUN_006815c0())->RemoveExtra(removedCSlot8, 0);
+                            extraCSlot22->CopyListForContainer(*nodeC->FUN_006815c0(), 1);
                             copySlot14->FUN_00559450()->FUN_00905820(&extraCSlot22);
                             if (removedCSlot8)
-                                (*nodeC->FUN_006815c0())->FUN_0040ff60(removedCSlot8);
+                                (*nodeC->FUN_006815c0())->AddExtra(removedCSlot8);
                             nodeC = nodeC->FUN_00726070();
                         }
                     }
@@ -8854,7 +8854,7 @@ void Inventory::FUN_004cd9c0(void* source, void* destination)
                         while (nodeD && *nodeD->FUN_006815c0())
                         {
                             Extra* extraD = new Extra;
-                            extraD->FUN_004121e0(*nodeD->FUN_006815c0(), 1);
+                            extraD->CopyListForContainer(*nodeD->FUN_006815c0(), 1);
                             copySlot14->FUN_00559450()->FUN_00905820(&extraD);
                             nodeD = nodeD->FUN_00726070();
                         }
@@ -8923,7 +8923,7 @@ struct MoveExtra
     MoveExtra();
     static void* operator new(unsigned int);
     static void operator delete(void*);
-    unsigned int FUN_0040fe20();
+    unsigned int ItemsInList();
     void* FUN_00418660();
     short FUN_00418770();
     void FUN_00419700(void*);
@@ -9148,7 +9148,7 @@ float InventoryMove::FUN_004ce380(MoveOwner* owner, MoveOwner* destination, bool
                             while (nodeScope1 && *nodeScope1->FUN_006815c0() && !lastScope1)
                             {
                                 MoveExtra* extraScope1 = *nodeScope1->FUN_006815c0();
-                                if (extraScope1->FUN_0040fe20() < 1)
+                                if (extraScope1->ItemsInList() < 1)
                                 {
                                     nodeScope1->FUN_0063f7b0();
                                     if (nodeScope1->FUN_008256d0())
@@ -9186,7 +9186,7 @@ float InventoryMove::FUN_004ce380(MoveOwner* owner, MoveOwner* destination, bool
                                     }
                                     else if (clearOwner)
                                     {
-                                        int sizeScope1 = extraScope1->FUN_0040fe20();
+                                        int sizeScope1 = extraScope1->ItemsInList();
                                         if (extraScope1->FUN_00418660() &&
                                             ((extraScope1->FUN_00418770() > 1 && sizeScope1 <= 2) || sizeScope1 <= 1))
                                         {
@@ -9393,7 +9393,7 @@ float InventoryMove::FUN_004ce380(MoveOwner* owner, MoveOwner* destination, bool
                                     break;
                                 }
                             }
-                            else if (extraScope3->FUN_0040fe20() < 1)
+                            else if (extraScope3->ItemsInList() < 1)
                             {
                                 nodeScope2->FUN_0063f7b0();
                                 if (nodeScope2->FUN_008256d0())
@@ -9430,7 +9430,7 @@ float InventoryMove::FUN_004ce380(MoveOwner* owner, MoveOwner* destination, bool
                                 }
                                 else if (clearOwner)
                                 {
-                                    int sizeScope2 = extraScope3->FUN_0040fe20();
+                                    int sizeScope2 = extraScope3->ItemsInList();
                                     if (extraScope3->FUN_00418660() &&
                                         ((extraScope3->FUN_00418770() > 1 && sizeScope2 <= 2) || sizeScope2 <= 1))
                                     {
@@ -10105,7 +10105,7 @@ struct Extra
     Extra();
     static void* operator new(unsigned int);
     static void operator delete(void*);
-    void* FUN_00410220(int);
+    void* GetExtraData(int);
     void SetOriginalReference(void*);
     void FUN_00418600();
     short FUN_00418770();
@@ -10314,7 +10314,7 @@ void Inventory::FUN_004d26d0(Inventory* target, void* owner, bool exclude)
                 bool hasSpecialSlot4 = false;
                 while (walkSlot1 && *walkSlot1->FUN_006815c0())
                 {
-                    if ((*walkSlot1->FUN_006815c0())->FUN_00410220(0x2f))
+                    if ((*walkSlot1->FUN_006815c0())->GetExtraData(0x2f))
                         hasSpecialSlot4 = true;
                     walkSlot1 = walkSlot1->FUN_00726070();
                 }
@@ -10442,7 +10442,7 @@ struct CleanupExtra
     virtual ~CleanupExtra();
     CleanupReference* FUN_00418630();
     void FUN_00418600();
-    unsigned int FUN_0040fe20();
+    unsigned int ItemsInList();
     short FUN_00418770();
     void RemoveExtra24();
     void* FUN_00418800();
@@ -10502,7 +10502,7 @@ void CleanupInventory::RemoveAllItems()
                 if (ref->FUN_0055d310())
                 {
                     extra->FUN_00418600();
-                    if (extra->FUN_0040fe20() < 2 && extra->FUN_00418770() != 0)
+                    if (extra->ItemsInList() < 2 && extra->FUN_00418770() != 0)
                         extra->RemoveExtra24();
                     node->FUN_00559450()->FUN_00905330(extra);
                     CleanupInventory* inventory = ref->FUN_005d43c0()->FUN_00418520();
@@ -11470,10 +11470,10 @@ struct InvExtra
     int unk1c;
     InvExtra();
     bool HasOnlyAllowedExtraData(int);
-    bool FUN_004126c0(InvExtra*, int, int);
+    bool CompareListForContainer(InvExtra*, int, int);
     short FUN_00418770();
     void FUN_00419ad0(unsigned short);
-    void FUN_00412380(InvExtra*);
+    void DuplicateExtraListForContainer(InvExtra*);
 };
 struct InvNode
 {
@@ -12431,8 +12431,8 @@ void InvHost::FUN_009687b0(void* object, InvExtra* extra, int amount)
                 for (InvNode* node = entry->FUN_00559450(); !found && node && *node->FUN_006815c0();
                      node = node->FUN_00726070())
                 {
-                    if (!(*node->FUN_006815c0())->FUN_004126c0(extra, 1, 0) &&
-                        !extra->FUN_004126c0(*node->FUN_006815c0(), 1, 0))
+                    if (!(*node->FUN_006815c0())->CompareListForContainer(extra, 1, 0) &&
+                        !extra->CompareListForContainer(*node->FUN_006815c0(), 1, 0))
                     {
                         entry->FUN_006ecd40(entries.FUN_00877a30(index)->FUN_00726070() + amount);
                         (*node->FUN_006815c0())->FUN_00419ad0((*node->FUN_006815c0())->FUN_00418770() + amount);
@@ -12442,7 +12442,7 @@ void InvHost::FUN_009687b0(void* object, InvExtra* extra, int amount)
                 if (!found && extra->HasOnlyAllowedExtraData(0) && empty)
                 {
                     InvExtra* copy = new InvExtra;
-                    copy->FUN_00412380(extra);
+                    copy->DuplicateExtraListForContainer(extra);
                     copy->FUN_00419ad0((unsigned short)amount);
                     if (!entry->FUN_00559450())
                         entry->list = new InvNode;
@@ -12459,7 +12459,7 @@ void InvHost::FUN_009687b0(void* object, InvExtra* extra, int amount)
         if (extra)
         {
             InvExtra* pExtraCopy2 = new InvExtra;
-            pExtraCopy2->FUN_00412380(extra);
+            pExtraCopy2->DuplicateExtraListForContainer(extra);
             pExtraCopy2->FUN_00419ad0((unsigned short)amount);
             added->FUN_00559450()->FUN_005ae3d0(pExtraCopy2);
         }
@@ -12935,8 +12935,8 @@ struct Transfer4c37C37Obj
 struct Transfer4c37Form4
 {
     virtual ~Transfer4c37Form4();
-    int FUN_0040fe20();
-    int FUN_00410220(int a);
+    int ItemsInList();
+    int GetExtraData(int a);
     short FUN_00418770();
     void FUN_0042dec0();
 };
@@ -12972,10 +12972,10 @@ struct Transfer4c37Obj20
     int unk04, unk08, unk0c, unk10, unk14, unk18, unk1c;
     void SetLeveledItemIndex(int a);
     int FUN_0041d000();
-    void FUN_00412490(void* a, int b);
+    void CopyListForReference(void* a, int b);
     void FUN_00419700(void* a);
     void FUN_00419ad0(int a);
-    int FUN_0040fe20();
+    int ItemsInList();
     short FUN_00418770();
     void FUN_0041aed0();
     void* FUN_00418660();
@@ -13008,7 +13008,7 @@ struct Transfer4c37CurHead
 };
 struct Transfer4c37MidObj
 {
-    void FUN_00412490(void* a, int b);
+    void CopyListForReference(void* a, int b);
     void RemoveExtraData30();
     void FUN_0041c900();
     int FUN_0041b320();
@@ -13097,7 +13097,7 @@ struct Transfer4c37T70Obj
 void __cdecl FUN_005ac750(void* a, void* b, int c);
 struct Transfer4c37ItemObj
 {
-    int FUN_0040fe20();
+    int ItemsInList();
     short FUN_00418770();
     bool FUN_00418ab0(int a);
     void* FUN_00418660();
@@ -13360,7 +13360,7 @@ int Transfer4c37C37This::FUN_004c37d0(Transfer4c37C37Obj* apSource, int p1, unsi
     {
         if (apExtra != 0)
         {
-            if (apExtra->FUN_00410220(0x4a))
+            if (apExtra->GetExtraData(0x4a))
             {
                 if (aiCount == (int)apExtra->FUN_00418770())
                     apExtra->FUN_0042dec0();
@@ -13369,7 +13369,7 @@ int Transfer4c37C37This::FUN_004c37d0(Transfer4c37C37Obj* apSource, int p1, unsi
     }
     if (apExtra != 0)
     {
-        if (!apExtra->FUN_0040fe20())
+        if (!apExtra->ItemsInList())
         {
             if (itemChange7 != 0 && itemChange7->m00 != 0)
                 ((Transfer4c37FirstObj*)itemChange7->m00)->_ref_00905330(&apExtra);
@@ -13425,7 +13425,7 @@ int Transfer4c37C37This::FUN_004c37d0(Transfer4c37C37Obj* apSource, int p1, unsi
         void* extraNode6 = itemChange7->m00;
         bool searchExtra78 = 1;
 
-        if (((apExtra != 0 && apExtra->FUN_0040fe20()) || abRecurse != 0) && extraNode6 != 0 &&
+        if (((apExtra != 0 && apExtra->ItemsInList()) || abRecurse != 0) && extraNode6 != 0 &&
             *((Transfer4c37EntryFirst*)extraNode6)->_ref_006815c0() != 0)
         {
             while (extraNode6 != 0 && *((Transfer4c37EntryFirst*)extraNode6)->_ref_006815c0() != 0 && searchExtra78)
@@ -13448,9 +13448,9 @@ int Transfer4c37C37This::FUN_004c37d0(Transfer4c37C37Obj* apSource, int p1, unsi
                     bool onlyWorn39;
                     bool didUnequip10;
                     onlyWorn39 = 0;
-                    if ((unsigned int)sourceExtra3->FUN_0040fe20() <= 1 ||
-                        (sourceExtra3->FUN_0040fe20() == 2 && (int)sourceExtra3->FUN_00418770() > 1) ||
-                        (sourceExtra3->FUN_00418750() && sourceExtra3->FUN_0040fe20() == 2))
+                    if ((unsigned int)sourceExtra3->ItemsInList() <= 1 ||
+                        (sourceExtra3->ItemsInList() == 2 && (int)sourceExtra3->FUN_00418770() > 1) ||
+                        (sourceExtra3->FUN_00418750() && sourceExtra3->ItemsInList() == 2))
                         onlyWorn39 = 1;
                     didUnequip10 = 0;
                     if (apSource->Vcall100())
@@ -13542,11 +13542,11 @@ int Transfer4c37C37This::FUN_004c37d0(Transfer4c37C37Obj* apSource, int p1, unsi
                             {
                                 transferExtra18 = new Transfer4c37Obj20;
                             }
-                            transferExtra18->FUN_00412490(sourceExtra3, 0);
+                            transferExtra18->CopyListForReference(sourceExtra3, 0);
                             transferExtra18->FUN_0041d000();
                             transferExtra18->FUN_00419ad0((unsigned short)aiCount);
-                            if ((transferExtra18->FUN_0040fe20() == 1 && (int)transferExtra18->FUN_00418770() > 1) ||
-                                transferExtra18->FUN_0040fe20() == 0)
+                            if ((transferExtra18->ItemsInList() == 1 && (int)transferExtra18->FUN_00418770() > 1) ||
+                                transferExtra18->ItemsInList() == 0)
                             {
                                 delete transferExtra18;
                                 transferExtra18 = 0;
@@ -13605,7 +13605,7 @@ int Transfer4c37C37This::FUN_004c37d0(Transfer4c37C37Obj* apSource, int p1, unsi
                 }
                 if (transferExtra18 != 0)
                 {
-                    if (((Transfer4c37ItemObj*)transferExtra18)->FUN_0040fe20())
+                    if (((Transfer4c37ItemObj*)transferExtra18)->ItemsInList())
                     {
                         if (!transferEntry7->FUN_00559450())
                         {
@@ -13625,7 +13625,7 @@ int Transfer4c37C37This::FUN_004c37d0(Transfer4c37C37Obj* apSource, int p1, unsi
                         ((Transfer4c37ResObj*)resultRef6)->Vcall48(0x400);
                         if (transferExtra18 != 0)
                         {
-                            if (((Transfer4c37ItemObj*)transferExtra18)->FUN_0040fe20())
+                            if (((Transfer4c37ItemObj*)transferExtra18)->ItemsInList())
                             {
                                 bool flag69 = 1;
                                 if (sourceExtra3 != 0)
@@ -13635,7 +13635,7 @@ int Transfer4c37C37This::FUN_004c37d0(Transfer4c37C37Obj* apSource, int p1, unsi
                                     ->FUN_00567490(((Transfer4c37ItemObj*)transferExtra18)->FUN_00418860());
                                 ((Transfer4c37ResObj*)resultRef6)
                                     ->FUN_005d43c0()
-                                    ->FUN_00412490((void*)transferExtra18, 1);
+                                    ->CopyListForReference((void*)transferExtra18, 1);
                                 ((Transfer4c37ResObj*)resultRef6)->FUN_005d43c0()->RemoveExtraData30();
                             }
                         }
@@ -13701,7 +13701,7 @@ int Transfer4c37C37This::FUN_004c37d0(Transfer4c37C37Obj* apSource, int p1, unsi
                                 ->FUN_00567490(((Transfer4c37ItemObj*)transferExtra18)->FUN_00418860());
                             ((Transfer4c37ResObj*)resultRef6)
                                 ->FUN_005d43c0()
-                                ->FUN_00412490((void*)transferExtra18, (int)copyExtra1);
+                                ->CopyListForReference((void*)transferExtra18, (int)copyExtra1);
                             ((Transfer4c37ResObj*)resultRef6)->FUN_005d43c0()->RemoveExtraData30();
                             ((Transfer4c37ResObj*)resultRef6)->FUN_005d43c0()->FUN_0041c900();
                             if (((Transfer4c37ResObj*)resultRef6)->FUN_005d43c0()->FUN_0041b320() == 0)
@@ -14078,8 +14078,8 @@ int Transfer4c37C37This::FUN_004c37d0(Transfer4c37C37Obj* apSource, int p1, unsi
                     else if (sourceList32->FUN_00418ab0(0) && (int)sourceList32->FUN_00418770() <= 1)
                     {
                         bool onlyWornFlag14 = 0;
-                        if ((unsigned int)sourceList32->FUN_0040fe20() <= 1 ||
-                            (sourceList32->FUN_0040fe20() == 2 && (int)sourceList32->FUN_00418770() > 1))
+                        if ((unsigned int)sourceList32->ItemsInList() <= 1 ||
+                            (sourceList32->ItemsInList() == 2 && (int)sourceList32->FUN_00418770() > 1))
                         {
                             apExtra = 0;
                             onlyWornFlag14 = 1;
@@ -14131,7 +14131,7 @@ int Transfer4c37C37This::FUN_004c37d0(Transfer4c37C37Obj* apSource, int p1, unsi
                             {
                                 destinationList14 = (int)new Transfer4c37Obj20;
                             }
-                            ((Transfer4c37Obj20*)destinationList14)->FUN_00412490(sourceList32, 0);
+                            ((Transfer4c37Obj20*)destinationList14)->CopyListForReference(sourceList32, 0);
                             ((Transfer4c37Obj20*)destinationList14)->FUN_0041d000();
                             if (transferCount2 < aiCount)
                                 ((Transfer4c37Obj20*)destinationList14)->FUN_00419ad0((unsigned short)transferCount2);
@@ -14226,13 +14226,13 @@ int Transfer4c37C37This::FUN_004c37d0(Transfer4c37C37Obj* apSource, int p1, unsi
                                 }
                                 if (destinationList14 != 0)
                                 {
-                                    if (((Transfer4c37ItemObj*)destinationList14)->FUN_0040fe20())
+                                    if (((Transfer4c37ItemObj*)destinationList14)->ItemsInList())
                                     {
                                         ((Transfer4c37ResObj*)resultRef6)
                                             ->FUN_00567490(((Transfer4c37ItemObj*)destinationList14)->FUN_00418860());
                                         ((Transfer4c37ResObj*)resultRef6)
                                             ->FUN_005d43c0()
-                                            ->FUN_00412490((void*)destinationList14, 1);
+                                            ->CopyListForReference((void*)destinationList14, 1);
                                         ((Transfer4c37ResObj*)resultRef6)->FUN_005d43c0()->RemoveExtraData30();
                                     }
                                 }
@@ -14268,7 +14268,7 @@ int Transfer4c37C37This::FUN_004c37d0(Transfer4c37C37Obj* apSource, int p1, unsi
                                             ->FUN_00567490(((Transfer4c37ItemObj*)destinationList14)->FUN_00418860());
                                         ((Transfer4c37ResObj*)resultRef6)
                                             ->FUN_005d43c0()
-                                            ->FUN_00412490((void*)destinationList14, (int)flag41);
+                                            ->CopyListForReference((void*)destinationList14, (int)flag41);
                                     }
                                     ((Transfer4c37ResObj*)resultRef6)->FUN_005d43c0()->RemoveExtraData30();
                                     ((Transfer4c37ResObj*)resultRef6)->FUN_005d43c0()->FUN_0041c900();
@@ -15374,7 +15374,7 @@ struct Sh00419f80
 };
 struct Sh00411fd0
 {
-    void FUN_00411fd0(void* p);
+    void RemoveAllCopyableExtra(void* p);
 };
 struct Sh00418830
 {
@@ -15453,7 +15453,7 @@ bool C004d2480::FUN_004d2480(TESObjectREFR* apRef)
                                     reinterpret_cast<ScriptLocals*>(((Sh00418830*)pExtra)->FUN_00418830()), apRef, false))
                                 bRan = true;
                             ((Sh00419f80*)((Sh005d43c0*)DAT_011c6444)->FUN_005d43c0())->FUN_00419f80((void*)0);
-                            ((Sh00411fd0*)((Sh005d43c0*)DAT_011c6444)->FUN_005d43c0())->FUN_00411fd0((void*)1);
+                            ((Sh00411fd0*)((Sh005d43c0*)DAT_011c6444)->FUN_005d43c0())->RemoveAllCopyableExtra((void*)1);
                         }
                         if (m_bChanged)
                             break;
@@ -15598,11 +15598,11 @@ struct XExtra17
     bool FUN_00418b10();
     bool FUN_00418ab0(bool);
     void SetWornState(bool, bool);
-    int FUN_0040fe20();
+    int ItemsInList();
     char GetExtraByteValue();
     void FUN_00419ad0(short);
     bool FUN_004bca60();
-    bool FUN_004126c0(XExtra17*, int, bool);
+    bool CompareListForContainer(XExtra17*, int, bool);
     short FUN_00418770();
     void SetHotKey(unsigned char);
     XDism17* FUN_0042e8c0();
@@ -16378,7 +16378,7 @@ bool XHost17::FUN_004c0cf0(bool* a0, unsigned int a1, int iCount, XActor17* apAc
                 }
             }
             extra->SetWornState(false, abWorn);
-            if ((unsigned int)extra->FUN_0040fe20() <= 1)
+            if ((unsigned int)extra->ItemsInList() <= 1)
             {
                 if ((char)extra->GetExtraByteValue() >= 0)
                 {
@@ -16410,8 +16410,8 @@ bool XHost17::FUN_004c0cf0(bool* a0, unsigned int a1, int iCount, XActor17* apAc
                     bool different2 = true;
                     if (savedState3 != 0)
                     {
-                        different2 = savedState3->FUN_004126c0(extra1, 0, weapon3) ||
-                                     extra1->FUN_004126c0(savedState3, 0, weapon3);
+                        different2 = savedState3->CompareListForContainer(extra1, 0, weapon3) ||
+                                     extra1->CompareListForContainer(savedState3, 0, weapon3);
                     }
                     if (different2 || extra == extra1)
                     {
@@ -16874,14 +16874,14 @@ struct CleanExtra
     CleanEvent* FUN_00418830();
     void FUN_0041aed0();
     bool FUN_00418ab0(bool);
-    void FUN_0040fae0(bool);
-    void FUN_00412380(CleanExtra*);
+    void RemoveAll(bool);
+    void DuplicateExtraListForContainer(CleanExtra*);
     void SetWornState(bool, bool);
-    unsigned int FUN_0040fe20();
+    unsigned int ItemsInList();
     CleanDatum* FUN_00726070();
-    void* FUN_00410220(unsigned char);
-    void FUN_00410020(CleanDatum*, bool);
-    void FUN_0040ff60(CleanDatum*);
+    void* GetExtraData(unsigned char);
+    void RemoveExtra(CleanDatum*, bool);
+    void AddExtra(CleanDatum*);
 };
 struct CleanNode
 {
@@ -17120,8 +17120,8 @@ void InventoryClean::FUN_004cbbc0()
                                 wornScope25 = extraScope29;
                             else if (wornScope25)
                             {
-                                wornScope25->FUN_0040fae0(true);
-                                wornScope25->FUN_00412380(extraScope29);
+                                wornScope25->RemoveAll(true);
+                                wornScope25->DuplicateExtraListForContainer(extraScope29);
                                 wornScope25->SetWornState(true, false);
                                 itemScope4Local28->FUN_00559450()->FUN_00470470();
                                 itemScope4Local28->FUN_00559450()->FUN_005ae3d0(&wornScope25);
@@ -17173,15 +17173,15 @@ void InventoryClean::FUN_004cbbc0()
                             CleanDatum* dataScope37 = extraScope35->FUN_00726070();
                             while (dataScope37)
                             {
-                                if (destinationScope36->FUN_00410220(dataScope37->FUN_004f1540()))
+                                if (destinationScope36->GetExtraData(dataScope37->FUN_004f1540()))
                                 {
-                                    extraScope35->FUN_00410020(dataScope37, true);
+                                    extraScope35->RemoveExtra(dataScope37, true);
                                     dataScope37 = extraScope35->FUN_00726070();
                                 }
                                 else
                                 {
-                                    extraScope35->FUN_00410020(dataScope37, false);
-                                    destinationScope36->FUN_0040ff60(dataScope37);
+                                    extraScope35->RemoveExtra(dataScope37, false);
+                                    destinationScope36->AddExtra(dataScope37);
                                     dataScope37 = extraScope35->FUN_00726070();
                                 }
                             }
@@ -17203,7 +17203,7 @@ void InventoryClean::FUN_004cbbc0()
                     while (nodeScope34 && *nodeScope34->FUN_006815c0())
                     {
                         CleanExtra* extraScope38 = *nodeScope34->FUN_006815c0();
-                        if (extraScope38->FUN_0040fe20() < 1)
+                        if (extraScope38->ItemsInList() < 1)
                         {
                             nodeScope34->FUN_0063f7b0();
                             extraScope38 = 0;
@@ -17439,15 +17439,15 @@ void InventoryClean::FUN_004cbbc0()
                             CleanDatum* dataScope80 = extraScope78->FUN_00726070();
                             while (dataScope80)
                             {
-                                if (destinationScope79->FUN_00410220(dataScope80->FUN_004f1540()))
+                                if (destinationScope79->GetExtraData(dataScope80->FUN_004f1540()))
                                 {
-                                    extraScope78->FUN_00410020(dataScope80, true);
+                                    extraScope78->RemoveExtra(dataScope80, true);
                                     dataScope80 = extraScope78->FUN_00726070();
                                 }
                                 else
                                 {
-                                    extraScope78->FUN_00410020(dataScope80, false);
-                                    destinationScope79->FUN_0040ff60(dataScope80);
+                                    extraScope78->RemoveExtra(dataScope80, false);
+                                    destinationScope79->AddExtra(dataScope80);
                                     dataScope80 = extraScope78->FUN_00726070();
                                 }
                             }
@@ -17466,7 +17466,7 @@ void InventoryClean::FUN_004cbbc0()
                 while (nodeScope77 && *nodeScope77->FUN_006815c0())
                 {
                     CleanExtra* extraScope81 = *nodeScope77->FUN_006815c0();
-                    if (extraScope81->FUN_0040fe20() < 1)
+                    if (extraScope81->ItemsInList() < 1)
                     {
                         nodeScope77->FUN_0063f7b0();
                         extraScope81 = 0;

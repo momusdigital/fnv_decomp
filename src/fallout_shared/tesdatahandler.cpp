@@ -6883,8 +6883,8 @@ struct FNVObject
     void* FUN_00418630();
     void FUN_00418600();
     int FUN_0055d310();
-    unsigned int FUN_0040fe20();
-    int FUN_00410220(int mode);
+    unsigned int ItemsInList();
+    int GetExtraData(int mode);
     int FUN_00418800();
     struct FNVCursor* FUN_005d43c0();
 };
@@ -6975,9 +6975,9 @@ void TESDataHandlerUnitOperations::ProcessInventoryRecords(FNVFile* file, int re
                 if (reinterpret_cast<FNVObject*>(processed)->FUN_0055d310())
                 {
                     FNVObject* input = 0;
-                    if (current->FUN_0040fe20())
+                    if (current->ItemsInList())
                     {
-                        if (current->FUN_0040fe20() != 1 || !current->FUN_00410220(0x24))
+                        if (current->ItemsInList() != 1 || !current->GetExtraData(0x24))
                             input = current;
                     }
                     typedef void(__thiscall * SendFunc)(void*, FNVRecordGroup*);
@@ -7017,7 +7017,7 @@ void TESDataHandlerUnitOperations::ProcessInventoryRecords(FNVFile* file, int re
                             }
                         }
                     }
-                    if (unique && current && current->FUN_0040fe20() < 2 && current->FUN_00418770() <= 1 &&
+                    if (unique && current && current->ItemsInList() < 2 && current->FUN_00418770() <= 1 &&
                         !current->FUN_00418800())
                     {
                         group->owner->FUN_00905330(&current);
@@ -7026,7 +7026,7 @@ void TESDataHandlerUnitOperations::ProcessInventoryRecords(FNVFile* file, int re
                         current = 0;
                     }
                     if (current &&
-                        ((current->FUN_00418770() > 1 && current->FUN_0040fe20() < 2) || current->FUN_0040fe20() < 1))
+                        ((current->FUN_00418770() > 1 && current->ItemsInList() < 2) || current->ItemsInList() < 1))
                         current = 0;
                 }
                 else
@@ -7038,7 +7038,7 @@ void TESDataHandlerUnitOperations::ProcessInventoryRecords(FNVFile* file, int re
                         _DAT_011dea3c, processed, count, 0);
                     group->owner->FUN_00905330(&current);
                     node = group->FUN_00559450();
-                    if (current->FUN_0040fe20() < 2 && current->FUN_00418770() <= 1 && !current->FUN_00418800())
+                    if (current->ItemsInList() < 2 && current->FUN_00418770() <= 1 && !current->FUN_00418800())
                     {
                         delete current;
                     }

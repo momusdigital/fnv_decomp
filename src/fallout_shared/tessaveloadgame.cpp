@@ -822,7 +822,7 @@ struct ChangeData
 typedef char _sizecheck_ChangeData[sizeof(ChangeData) == 8 ? 1 : -1];
 struct FUN_00858730_shell : public TESSaveLoadGame
 {
-    bool FUN_00858730(TESForm*);
+    bool LoadForm(TESForm*);
 };
 
 struct FUN_00485d50_slg
@@ -931,7 +931,7 @@ struct LoadFormHeader_s
 };
 
 // @fnv 0x00858730
-bool FUN_00858730_shell::FUN_00858730(TESForm* apForm)
+bool FUN_00858730_shell::LoadForm(TESForm* apForm)
 {
     if (!((FUN_00485d50_slg*)this)->GetLoading())
         return false;
@@ -6009,7 +6009,7 @@ struct B006815c0
 };
 struct Extra624
 {
-    void* FUN_00410220(unsigned char);
+    void* GetExtraData(unsigned char);
     void* FUN_0041b320();
 };
 // Retained for the repair routine: slot 0xA4 returns bool here, whereas
@@ -6227,7 +6227,7 @@ void Repair624::FUN_008624e0(Ref624* reference)
                     FUN_00573800(reference, cell, world);
                 }
             }
-            else if (reference->FUN_005d43c0()->FUN_00410220(15))
+            else if (reference->FUN_005d43c0()->GetExtraData(15))
             {
                 B006815c0 startRotation = reference->GetStartingPosition();
                 B006815c0 uiTimestamp = reference->GetStartingAngle();

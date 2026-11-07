@@ -17,7 +17,7 @@ extern unsigned int DAT_011de70c;
 struct ScrapHeapManager
 {
     static ScrapHeapManager& Instance();
-    void FUN_00aa5c80();
+    void FreeAllBuffers();
 };
 struct Worker
 {
@@ -29,7 +29,7 @@ bool FUN_00652160();
 int FUN_00652130();
 void FUN_00652190();
 void SetTlsFlag(int);
-void FUN_00868d70(int);
+void ClearAll(int);
 void FUN_00c459d0(int);
 void FUN_00aa7030();
 #include "../../../include/RecursiveSpinLock.h"
@@ -132,7 +132,7 @@ int StateMachine::RunStep(void* context, unsigned int step, bool* finished)
             g_TES->FUN_00452490(0);
         break;
     case 1:
-        ScrapHeapManager::Instance().FUN_00aa5c80();
+        ScrapHeapManager::Instance().FreeAllBuffers();
         break;
     case 2:
         if (FUN_00652110() && FUN_00652110()->FUN_00529ea0() && FUN_00652160())
@@ -152,14 +152,14 @@ int StateMachine::RunStep(void* context, unsigned int step, bool* finished)
                 g_TES->FUN_004539a0(1, 0);
             g_TES->FUN_00452490(0);
             SetTlsFlag(1);
-            FUN_00868d70(1);
+            ClearAll(1);
         }
         else
             break;
     case 4:
         if (DAT_011f11a0.FUN_0078d200())
         {
-            FUN_00868d70(1);
+            ClearAll(1);
             DAT_011f11a0.FUN_0040fba0();
         }
     case 3:

@@ -683,8 +683,8 @@ void RepairServicesMenu::ApplyRepair(RepairEntry* apEntry)
     {
         if (apEntry->FUN_0044ddc0()->FUN_00401170() == 0x18 && apEntry->FUN_004bde40())
             break;
-        if (!(*pNodeOut->GetItem())->FUN_004126c0(pNewList4, 1, 0) &&
-            !pNewList4->FUN_004126c0(*pNodeOut->GetItem(), 1, 0))
+        if (!(*pNodeOut->GetItem())->CompareListForContainer(pNewList4, 1, 0) &&
+            !pNewList4->CompareListForContainer(*pNodeOut->GetItem(), 1, 0))
         {
             (*pNodeOut->GetItem())->SetCount((*pNodeOut->GetItem())->GetCount() + 1);
             bMergedTmp = true;

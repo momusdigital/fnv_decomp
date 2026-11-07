@@ -10811,7 +10811,7 @@ struct FUN_00b631d0_obj
 FUN_00ad8780_audio* FUN_00453a70();
 void __cdecl FUN_008324e0(int aiValue);
 FUN_006c09f0_mgr* GetNavMeshObstacleManager();
-void FUN_00868d70(int aiValue);
+void ClearAll(int aiValue);
 void FUN_00c459d0(int aiValue);
 FUN_00b631d0_obj* FUN_00b4f5c0();
 void __cdecl FUN_0040fbe0();
@@ -10858,7 +10858,7 @@ void FUN_008774a0_shell::FUN_008774a0(bool abFlag)
     DAT_011dea10->FUN_007037c0(0x7fffffff);
     DAT_011dea10->FUN_0061cc40(0x7fffffff);
     GetNavMeshObstacleManager()->FUN_006c09f0();
-    FUN_00868d70(0);
+    ClearAll(0);
     FUN_00c459d0(0);
     DAT_011dea3c->v115(0, 0);
     DAT_011ddf38->FUN_0084a840();

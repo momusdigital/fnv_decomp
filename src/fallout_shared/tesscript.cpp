@@ -135,7 +135,7 @@ bool Script::IsConsolePlatform()
 // @fnv 0x006ebc50
 void __fastcall ProcessPendingTasks(ScriptLocals* locals)
 {
-    locals->m_pOwnerScript->FUN_006eae40();
+    locals->m_pOwnerScript->Update();
 }
 
 // @fnv 0x005ab7d0

@@ -5825,7 +5825,7 @@ struct Obj
     Obj* FUN_009344a0();
     void FUN_00881680(int a);
     void FUN_008c4f10(int a);
-    Obj* FUN_00410220(unsigned char a);
+    Obj* GetExtraData(unsigned char a);
     bool FUN_008a6650(int a);
     Obj* FUN_005e3fc0();
     void FUN_00994ef0(int a);
@@ -6018,7 +6018,7 @@ void Host::FUN_00976680(Obj* apObject)
                     }
                     baseB->v47c(apObject);
                     baseB->v7b0(apObject);
-                    extra = objB4->FUN_005d43c0()->FUN_00410220(0x19);
+                    extra = objB4->FUN_005d43c0()->GetExtraData(0x19);
                     if (extra != 0)
                     {
                         if (extra->f14 == apObject)
@@ -6165,7 +6165,7 @@ void Host::FUN_00976680(Obj* apObject)
                     }
                 }
                 base16->v47c(apObject);
-                extra2 = item5->FUN_005d43c0()->FUN_00410220(0x19);
+                extra2 = item5->FUN_005d43c0()->GetExtraData(0x19);
                 if (extra2 != 0)
                 {
                     if (extra2->f14 == apObject)

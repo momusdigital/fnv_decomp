@@ -2533,7 +2533,7 @@ struct ReloadContext
 };
 struct ReloadPathing
 {
-    void FUN_006c39c0();
+    void ForceUpdate();
 };
 ReloadPathing* ReloadPathingGet();
 extern ReloadPlayer* reloadPlayer;

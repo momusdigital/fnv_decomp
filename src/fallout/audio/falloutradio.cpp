@@ -2081,7 +2081,7 @@ void FUN_008304a0();
 void FUN_008304c0();
 void PlayAudioMedia(int, const char*, unsigned int, bool, bool, float, unsigned int);
 // @fnv 0x008359e0
-void FUN_008359e0(RadioSource* source, bool enabled)
+void SetBroadcastState(RadioSource* source, bool enabled)
 {
     if (DAT_011dd436)
         return;

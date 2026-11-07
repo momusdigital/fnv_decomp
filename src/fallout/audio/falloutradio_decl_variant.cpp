@@ -52,7 +52,7 @@ class ATM
 };
 extern ATM g_011dd5e8;
 // @fnv 0x00835be0
-void FUN_00835be0(BGSTalkingActivator* form, TESTopic* topic)
+void StartRadioConversation(BGSTalkingActivator* form, TESTopic* topic)
 {
     TESTopic* a = 0;
     FalloutRadio::RadioStationState* station = 0;

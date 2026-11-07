@@ -119,10 +119,10 @@ public:
     void Set3DObject(NiAVObject* object);
     BSExtraData* GetExtraData(unsigned char type);
 
-    unsigned int FUN_0040fe20();
+    unsigned int ItemsInList();
     void RemoveExtra24();
 
-    void FUN_0040fae0(bool flag);
+    void RemoveAll(bool flag);
     InventoryChanges* FUN_0041db00();
     bool FUN_0041d030();
     void* FUN_0041db50(unsigned char type);
@@ -132,11 +132,11 @@ public:
     ExtraContainerChanges* FUN_00418520();
     SeenData* FUN_00421910();
     short FUN_00418770();
-    void FUN_00412380(ExtraDataList* source);
+    void DuplicateExtraListForContainer(ExtraDataList* source);
     void FUN_00419ad0(int count);
     void FUN_00419ad0(unsigned short count);
-    bool FUN_004126c0(ExtraDataList* other, bool first, bool second);
-    bool FUN_004126c0(ExtraDataList* other, int first, int second);
+    bool CompareListForContainer(ExtraDataList* other, bool first, bool second);
+    bool CompareListForContainer(ExtraDataList* other, int first, int second);
     void FUN_00419f80(void* data);
     void FUN_00419f80(int data);
     void FUN_00419f80(ScriptLocals* locals);

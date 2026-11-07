@@ -225,7 +225,7 @@ extern World* DAT_011ddf38;
 
 struct Manager
 {
-    void FUN_00858730(Reference*);
+    void LoadForm(Reference*);
     bool FUN_0047c850();
     void FUN_00859690(Cell*);
     bool FUN_008727b0();
@@ -329,7 +329,7 @@ void Cell::FUN_00542d40()
         if (!reference->FUN_004013e0())
         {
             reference->Load();
-            DAT_011de45c->FUN_00858730(reference);
+            DAT_011de45c->LoadForm(reference);
             DAT_011ddf38->ApplyUnloadedChanges(reference);
         }
 

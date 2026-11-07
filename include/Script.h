@@ -101,7 +101,7 @@ public:
     static void SetScriptLocalsFromExtraData(TESObjectREFR* ref, ExtraDataList* extra);
     void FUN_005aa2e0();
     void FUN_005ae2e0();
-    void FUN_006eae40();
+    void Update();
     ScriptHeaderView* FUN_00500940();
     void InitFromCompileData(CStringArgument*);
     static bool OnHitWithFunction(const ScriptParameter*, const char*, TESObjectREFR*, TESObjectREFR*, Script*, ScriptLocals*, double&, unsigned int&);
