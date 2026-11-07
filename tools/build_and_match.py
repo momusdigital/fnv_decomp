@@ -7,6 +7,9 @@ usage: python3 tools/build_and_match.py --image <your FalloutNV executable> [--j
 build/units.json lists every translation unit: its source file, the compiler and flags it is built with, and the
 functions it must reproduce (original address, decorated symbol, size). Each unit is compiled with tools/msvc.py and
 every listed function is compared byte for byte, relocations included, with the same function in the image you supply.
+Data the unit defines itself and a function refers to is compared too: a floating-point or string literal must hold the
+bytes the game holds where the original refers (literals are placed by their bytes, never by a binding in
+build/units.json), and so must a global's initializer.
 
 A unit's eh_tails are the exception-handling code its functions produce: the unwind funclets and the __ehhandler$ stub
 that the compiler puts in a separate .text$x section and the linker places away from the function. Each such section
@@ -38,7 +41,7 @@ import tempfile
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / 'tools'))
-from compare import Coff, Pe, compare          # noqa: E402
+from compare import Coff, LITERAL, Pe, compare, data_differs, own_data   # noqa: E402
 from function_spans import FunctionSpans       # noqa: E402
 
 NEED = 12   # reference functions that must match; leaves room for a few that differ between equivalent copies
@@ -152,12 +155,17 @@ def eh_sections(coff, pe, unit, rows, names):
                     observed = (at + rel + 4 + struct.unpack_from('<i', original, rel)[0]) & 0xffffffff
                 else:
                     ok = False; errors.append('%s: relocation kind %d in a tail' % (parent, kind)); continue
+                own = own_data(coff, target) if LITERAL.match(target['name']) else None
                 if target['section'] == index:   # a jump to another piece of the same tail
                     tv = target['value'] + (addend if kind == 0x06 else 0)
                     expected = where.get(tv, base + tv) + (0 if kind == 0x06 else addend)
+                elif own is not None:   # a literal: placed by its bytes, as in compare.py
+                    expected = observed if data_differs(pe, own, (observed - addend) & 0xffffffff) == [] else None
                 else:
                     expected = resolve(target, addend)
-                if expected is None and target['section'] > 0:
+                if own is not None:
+                    pass
+                elif expected is None and target['section'] > 0:
                     at_ = (observed - target['value'] - addend) & 0xffffffff
                     expected = observed if data_bases.setdefault(target['section'], at_) == at_ else None
                 elif expected is None and target['section'] == 0 and kind == 0x14:
@@ -206,7 +214,8 @@ def check_unit(unit, pe, spans, scratch, names):
                     errors=x['errors'][:2]) for x in rows if x['verdict'] != 'match']
         matched = [x for x in rows if x['verdict'] == 'match']
         result = dict(base, status='ok' if not bad else 'mismatch', matched_functions=len(matched),
-                      matched_bytes=sum(x['size'] for x in matched), mismatches=bad)
+                      matched_bytes=sum(x['size'] for x in matched), mismatches=bad,
+                      data_warnings=sorted({w for x in rows for w in x.get('warnings', [])}))
         if unit.get('eh_tails'):
             try:
                 sections, inferred, errors = eh_sections(coff, pe, unit, rows, names)
@@ -299,7 +308,8 @@ def main():
                    eh_tails=len(tails), matched_eh_tails=len(tails) - len(tail_bad),
                    eh_tail_bytes=sum(tails.values()), matched_eh_tail_bytes=sum(tails.values()) - sum(tail_bad.values()),
                    eh_tail_mismatches=sorted(tail_bad), eh_tails_by_inferred_binding=len(tail_inferred),
-                   eh_inferred_names=n_inferred, eh_inferred_conflicts=n_conflict)
+                   eh_inferred_names=n_inferred, eh_inferred_conflicts=n_conflict,
+                   data_warnings=sum(len(r.get('data_warnings', [])) for r in done))
     if a.out:
         Path(a.out).write_text(json.dumps(dict(summary=summary, units=done), indent=1) + '\n')
     print('%d units: %s' % (len(done), ', '.join('%s %d' % kv for kv in sorted(summary['status'].items()))))
@@ -308,6 +318,9 @@ def main():
         print('EH tails matched: %d of %d; bytes %d of %d (%d through %d names bound from the original, %d conflicting)'
               % (summary['matched_eh_tails'], len(tails), summary['matched_eh_tail_bytes'], sum(tails.values()),
                  len(tail_inferred), n_inferred, n_conflict))
+    if summary['data_warnings']:
+        print('RTTI type descriptors whose name differs from the game (a class written as a struct, or another '
+              'namespace; not counted as mismatches yet): %d' % summary['data_warnings'])
     return 0 if matched_f == functions and not tail_bad else 1
 
 

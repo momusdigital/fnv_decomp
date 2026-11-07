@@ -66,8 +66,13 @@ before.
 
 `build/units.json` lists every function by its original address and its decorated (mangled) name. When you rename a
 function, put its new decorated name at the same address, in every unit that lists it; otherwise the check reports
-the old name as unbound. Adding a declaration or a string literal can renumber the compiler's string labels
-(`$SG...`) that `build/units.json` names; the check says so when that is the cause.
+the old name as unbound.
+
+String and floating-point literals (`$SG...`, `??_C@...`, `__real@...`) need no binding in `build/units.json`: both
+checks find a literal by its bytes, the bindings it still has for them are ignored, and a new one is refused. A
+literal has to hold exactly the value the game uses where the original refers to it, so writing `1.1` where the game
+loads `0.01` fails, and so does a string with other characters. The same goes for the initial value of a global that a
+unit defines at a bound address.
 
 A unit may also bind a name to an address it refers to, for example a global or a vtable that the code used to write
 as a number: the check builds the unit again and the bytes at every function's address have to stay the same.

@@ -5,7 +5,10 @@ main matches the game byte for byte (tools/build_and_match.py proves it with you
 true when every function it can affect compiles to exactly what the unchanged tree compiles to, at its original
 address: the same bytes once every relocation is resolved through build/units.json as build_and_match.py resolves it
 (a global named in code and the same address written as a constant are the same bytes in the game), only padding
-after it, and the same EH code in the units that list EH tails. Renaming a function, a parameter or a type therefore
+after it, and the same EH code in the units that list EH tails. A string or floating-point literal counts by its bytes,
+never by an address (build_and_match.py finds it in the game by its bytes, and build/units.json may not bind it), and
+data the unit defines at a bound address (a global's initializer) counts by its bytes as well: a change to a literal's
+value or to an initializer is a change, whatever build/units.json says. Renaming a function, a parameter or a type therefore
 passes, as long as build/units.json gets the new decorated names at the same addresses; changing what any function
 compiles to fails.
 
@@ -59,7 +62,7 @@ import tempfile
 
 TOOLS = Path(__file__).resolve().parent
 sys.path.insert(0, str(TOOLS))
-from compare import Coff                       # noqa: E402
+from compare import Coff, LITERAL, own_data    # noqa: E402
 from build_and_match import recipe_names       # noqa: E402
 
 RECIPE = 'build/units.json'
@@ -231,6 +234,13 @@ def recipe_problems(a, b, head_files):
         if not isinstance(y.get('symbols', {}), dict) or \
                 not all(isinstance(v, str) and re.fullmatch(r'0x[0-9a-fA-F]{1,8}', v) for v in y.get('symbols', {}).values()):
             problems.append('%s: symbols must map names to addresses written 0x...' % where)
+        else:
+            # a literal is placed by its bytes (compare.py): a binding would only claim a value nothing checks. Bindings
+            # main still has may stay or go; a new one is refused
+            added = sorted(k for k in y.get('symbols', {}) if LITERAL.match(k) and k not in (x or {}).get('symbols', {}))
+            if added:
+                problems.append('%s: binds a string or floating-point literal (%s); literals are found in the game by '
+                                'their bytes, leave them out of symbols' % (where, added[0]))
         for field in ('eh_tails', 'literal_symbols'):
             if (x or {}).get(field) != y.get(field):
                 problems.append('%s: %s changed' % (where, field))
@@ -385,6 +395,8 @@ def linked(data, relocs, resolve, at=None):
         if t[0] == 'address' and (k in (0x06, 0x07) or (k == 0x14 and at is not None)):
             value = t[1] - (IMAGE_BASE if k == 0x07 else 0) - (at + o + 4 if k == 0x14 else 0)
             struct.pack_into('<I', data, o, value & 0xffffffff)
+            if len(t) > 2:   # data the unit defines at that address: its bytes count too
+                rest.append((o, k, t[2]))
         else:
             struct.pack_into('<I', data, o, 0)
             rest.append((o, k, t))
@@ -416,7 +428,13 @@ def fingerprint(obj, unit, names, unwind=None):
     def target(sym, mappings, addend=0):
         """What a relocation to sym + addend resolves to, in the order compare.py and build_and_match.py resolve it:
         ('address', the original address including the addend) or a description."""
+        own = own_data(coff, sym)
+        if own is not None and LITERAL.match(sym['name']):
+            # a literal is placed by its bytes, as compare.py places it: its value is what counts, never a binding
+            return ('literal', own[0], addend)
         if sym['name'] in mappings:
+            if own is not None:   # data the unit defines (a global's initializer): its bytes are part of the code's
+                return ('address', mappings[sym['name']] + addend, ('data', own[0]))   # meaning
             return ('address', mappings[sym['name']] + addend)
         sec = sym['section']
         if sec > 0:
@@ -454,7 +472,7 @@ def fingerprint(obj, unit, names, unwind=None):
                             lambda sym, addend: target(sym, local, addend), address)
         # as compare.py: the compiled function is at least as long as the original, and only padding follows
         padded = end - start >= size and all(b in (0xcc, 0x90) for b in sec['data'][start + size:end])
-        unbound = sorted({sym['name'] for o, k, sym in relocs if target(sym, local)[0] != 'address'})
+        unbound = sorted({sym['name'] for o, k, sym in relocs if target(sym, local)[0] not in ('address', 'literal')})
         eh = any(sym['section'] > 0 and coff.sections[sym['section']]['name'].startswith('.text$x') for o, k, sym in relocs)
         return [digest(code, size, rest, padded, [(o, k, r['name']) for o, k, r in relocs if o >= size]),
                 digest(sec['data'][start:end]), unbound, eh]
@@ -649,8 +667,7 @@ def report(plan_data, results, shard=None):
                         lines.append('  - the code bytes are the same in %d of these; only what they refer to changed'
                                      % len(r['same_bytes']))
                     if r.get('unbound'):
-                        lines.append('  - names build/units.json does not bind for this unit: %s (string literals '
-                                     '`$SG...` are numbered in order, so a new or removed literal renumbers the rest)'
+                        lines.append('  - names build/units.json does not bind for this unit: %s'
                                      % ', '.join('`%s`' % n for n in r['unbound']))
                 else:
                     lines += ['- `%s`' % r['source'], '', '```', r['error'].strip()[-1500:], '```', '']
