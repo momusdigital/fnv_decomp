@@ -198,7 +198,7 @@ float FUN_00647d10(ActorValueOwner* pActor, TESObjectWEAP* pWeapon, TESObjectARM
         fBase = originalRuntimeFloatSetting1088.Float()->f;
     if (!bIgnoreSkill && pActor->GetActorValue((ActorValue::Index)0x48))
         fBase = 1.0f;
-    float fResult = pActor->GetCurrentActorValue((ActorValue::Index)0x15) * 1.1;
+    float fResult = pActor->GetCurrentActorValue((ActorValue::Index)0x15) * 0.01;
     float fCrippled = fResult * originalRuntimeFloatSetting833.Float()->f * fBase;
     float fSkill = fCrippled;
     if (bScoped && bIsPlayer)

@@ -1721,7 +1721,7 @@ void BSTempEffectGeometryDecal::BuildDecalGeometry()
         texcoords_0[projectionVertex].x = projected_8.x / m_50 + 0.5f;
         texcoords_0[projectionVertex].y = projected_8.y / m_50 + 0.5f;
         float opacity_6 = 1.0f - FUN_00404010(0.0f, normalDirection_1.DotProduct(normal_35));
-        texcoords_0[projectionVertex].z = DecalPower(opacity_6, 10) * (1.0f - FloatAbs(projected_8.z) / 200.0f);
+        texcoords_0[projectionVertex].z = DecalPower(opacity_6, 10) * (1.0f - FloatAbs(projected_8.z) / 256.0f);
     }
     indexCount_11 = 0;
     outputVertexCount_4 = 0;

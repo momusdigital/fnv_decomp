@@ -37394,7 +37394,7 @@ float ::Creature::FUN_008d4f10()
     float speed = 0.0f;
     typedef bool(__thiscall * IsOverencumberedFn)(Creature*);
     if (!((IsOverencumberedFn)(*(void***)(this))[214])(this))
-        speed = GetCurrentActorValue((::ActorValue::Index)21) * 1.1 * Creature::GetAnimationSpeedMultiplier((::ANIM_GROUP_ENUM)7);
+        speed = GetCurrentActorValue((::ActorValue::Index)21) * 0.01 * Creature::GetAnimationSpeedMultiplier((::ANIM_GROUP_ENUM)7);
     return speed;
 }
 
