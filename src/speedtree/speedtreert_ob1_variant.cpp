@@ -1653,10 +1653,10 @@ struct SpdCompQ
     M5cQ* m_p5c;
     GeoQ* m_p60;
     unsigned short m_w64;
-    void FUN_00b08cc0();
+    void ComputeLeafStaticLighting();
     void FUN_00b0cdd0();
     void InitBoundingBoxCorners();
-    bool FUN_00b044a0(const float* pTransform, int nSeed, bool bStrips);
+    bool Compute(const float* pTransform, int nSeed, bool bStrips);
 };
 inline void SetCur(M5cQ* p)
 {
@@ -1671,7 +1671,7 @@ inline void InitBr(BrQ* b, O94Q* o, int ec, unsigned short d8)
     b->FUN_00b28480(d8, ec, o);
 }
 // @fnv 0x00b044a0
-bool SpdCompQ::FUN_00b044a0(const float* pTransform, int nSeed, bool bStrips)
+bool SpdCompQ::Compute(const float* pTransform, int nSeed, bool bStrips)
 {
     try
     {
@@ -1684,7 +1684,7 @@ bool SpdCompQ::FUN_00b044a0(const float* pTransform, int nSeed, bool bStrips)
             m_w64 = m_p60->GetW20();
             InitLeaves(m_p0);
             if (m_pC->Get38() == 1)
-                FUN_00b08cc0();
+                ComputeLeafStaticLighting();
             int* p10c_iipp = &m_p0->o10c;
             m_p10->SetFromSource(p10c_iipp);
             m_p8->FUN_00b28480(m_p0->GetD8(), m_p0->GetEC(), m_p0->GetO94());
@@ -1992,7 +1992,7 @@ struct SpeedTreeRTB05210
         g_kMemoryB05210.Deallocate(pvMem);
     }
     SpeedTreeRTB05210(const SpeedTreeRTB05210* pOriginal);
-    SpeedTreeRTB05210* FUN_00b05210();
+    SpeedTreeRTB05210* MakeInstance();
     int unk00;
     int unk04;
     int unk08;
@@ -2036,7 +2036,7 @@ struct SpeedTreeRTB05210
 };
 
 // @fnv 0x00b05210
-SpeedTreeRTB05210* SpeedTreeRTB05210::FUN_00b05210()
+SpeedTreeRTB05210* SpeedTreeRTB05210::MakeInstance()
 {
     SpeedTreeRTB05210* pInstance = 0;
     try
@@ -2196,11 +2196,11 @@ inline void operator delete[](void* p)
 }
 struct SpdLoadQ
 {
-    bool FUN_00b059e0(const char*, int);
-    bool FUN_00b05420(const char*);
+    bool LoadTree(const char*, int);
+    bool LoadTree(const char*);
 };
 // @fnv 0x00b05420
-bool SpdLoadQ::FUN_00b05420(const char* path)
+bool SpdLoadQ::LoadTree(const char* path)
 {
     bool bOk_dt = false;
     char* contents_lmol = 0;
@@ -2221,7 +2221,7 @@ bool SpdLoadQ::FUN_00b05420(const char* path)
                     int count = file_cswij->Read(contents_lmol, length);
                     if (count == length)
                     {
-                        bOk_dt = FUN_00b059e0(contents_lmol, length);
+                        bOk_dt = LoadTree(contents_lmol, length);
                         delete[] contents_lmol;
                         contents_lmol = 0;
                     }
@@ -2592,7 +2592,7 @@ struct Tree59
     int unk54;
     int unk58;
     Sub5c* m_p5c;
-    bool FUN_00b059e0(int p1, int p2);
+    bool LoadTree(int p1, int p2);
     __forceinline SubC* engine()
     {
         return m_p0c;
@@ -2604,9 +2604,9 @@ struct Tree59
     void FUN_00b0cd40(FUN_00b06090* r);
     void FUN_00b0d500(FUN_00b06090* r);
     void FUN_00b0d810(FUN_00b06090* r);
-    void FUN_00b06660(int x);
-    void FUN_00b06810(int x);
-    void FUN_00b069c0(int x);
+    void SetBranchLightingMethod(int x);
+    void SetLeafLightingMethod(int x);
+    void SetFrondLightingMethod(int x);
 };
 struct Exc59
 {
@@ -2705,7 +2705,7 @@ struct StrCalls
 };
 
 // @fnv 0x00b059e0
-bool Tree59::FUN_00b059e0(int p1, int p2)
+bool Tree59::LoadTree(int p1, int p2)
 {
     bool result5 = false;
     try
@@ -2789,9 +2789,9 @@ bool Tree59::FUN_00b059e0(int p1, int p2)
                     }
                 } while (!done4);
             }
-            FUN_00b06660(engine()->first());
-            FUN_00b06810(m_p0c->second());
-            FUN_00b069c0(m_p0c->third());
+            SetBranchLightingMethod(engine()->first());
+            SetLeafLightingMethod(m_p0c->second());
+            SetFrondLightingMethod(m_p0c->third());
             m_48 = m_p00->count();
             m_3c = m_p5c->FUN_00b18300();
             if (m_18 == 2)
@@ -3045,11 +3045,11 @@ struct EngineB06280
 struct SpeedTreeRTB06280
 {
     EngineB06280* m_pFirstPointer;
-    void FUN_00b06280(float fSize, float fVariance);
+    void SetTreeSize(float fSize, float fVariance);
 };
 
 // @fnv 0x00b06280
-void SpeedTreeRTB06280::FUN_00b06280(float fSize, float fVariance)
+void SpeedTreeRTB06280::SetTreeSize(float fSize, float fVariance)
 {
     try
     {
@@ -3388,11 +3388,11 @@ struct SpeedTreeRTB06660
     int unk40;
     char unk44;
     bool m_bComputed;
-    void FUN_00b06660(int eMethod);
+    void SetBranchLightingMethod(int eMethod);
 };
 
 // @fnv 0x00b06660
-void SpeedTreeRTB06660::FUN_00b06660(int eMethod)
+void SpeedTreeRTB06660::SetBranchLightingMethod(int eMethod)
 {
     try
     {
@@ -3575,11 +3575,11 @@ struct SpeedTreeRTB06810
     int unk40;
     char unk44;
     bool m_bComputed;
-    void FUN_00b06810(int eMethod);
+    void SetLeafLightingMethod(int eMethod);
 };
 
 // @fnv 0x00b06810
-void SpeedTreeRTB06810::FUN_00b06810(int eMethod)
+void SpeedTreeRTB06810::SetLeafLightingMethod(int eMethod)
 {
     try
     {
@@ -3788,11 +3788,11 @@ struct SpeedTreeRTB069C0
     int unk58;
     int unk5C;
     FrondFlagsB069C0* m_pFrondFlags;
-    void FUN_00b069c0(int eMethod);
+    void SetFrondLightingMethod(int eMethod);
 };
 
 // @fnv 0x00b069c0
-void SpeedTreeRTB069C0::FUN_00b069c0(int eMethod)
+void SpeedTreeRTB069C0::SetFrondLightingMethod(int eMethod)
 {
     try
     {
@@ -3900,7 +3900,7 @@ extern float DAT_011ad11c;
 extern float DAT_011ad120;
 extern const float DAT_010a4d88;
 extern const float DAT_01023cd8;
-void __cdecl FUN_00b08ec0(int i);
+void __cdecl NotifyAllTreesOfEvent(int i);
 void __cdecl FUN_00b27080(const CamV* p);
 float __cdecl FUN_00ec9610(double d);
 inline float RadToDeg(float fRad)
@@ -3913,10 +3913,10 @@ inline float VAsin(float f)
 }
 struct SpdTreeQ
 {
-    static void __cdecl FUN_00b06c10(const float* pPos, const float* pDir);
+    static void __cdecl SetCamera(const float* pPos, const float* pDir);
 };
 // @fnv 0x00b06c10
-void __cdecl SpdTreeQ::FUN_00b06c10(const float* pPos, const float* pDir)
+void __cdecl SpdTreeQ::SetCamera(const float* pPos, const float* pDir)
 {
     try
     {
@@ -3932,9 +3932,9 @@ void __cdecl SpdTreeQ::FUN_00b06c10(const float* pPos, const float* pDir)
             {
                 *(CamV*)&DAT_011f8e9c = kPos;
                 *(CamV*)&DAT_011f8eac = kWorldPosition;
-                FUN_00b08ec0(1);
+                NotifyAllTreesOfEvent(1);
                 FUN_00b27080(&kWorldPosition);
-                FUN_00b08ec0(1);
+                NotifyAllTreesOfEvent(1);
                 CamR x;
                 x = kWorldPosition;
                 float s;
@@ -4086,17 +4086,17 @@ class ExceptionB07
 };
 
 extern float g_fSpeedTreeTimeB07;
-void __cdecl FUN_00b08ec0(int iValue);
+void __cdecl NotifyAllTreesOfEvent(int iValue);
 stdb07::string __cdecl FUN_00b18860(const char* pcFormat, ...);
 void __cdecl AssignString(const char* pcError);
 
 // @fnv 0x00b07060
-void __cdecl FUN_00b07060(float fTime)
+void __cdecl SetTime(float fTime)
 {
     try
     {
         g_fSpeedTreeTimeB07 = fTime;
-        FUN_00b08ec0(0);
+        NotifyAllTreesOfEvent(0);
     }
     catch (ExceptionB07& e)
     {
@@ -4475,11 +4475,11 @@ struct SpeedTreeRTB07510
     int unk40;
     char unk44;
     bool m_bComputed;
-    void FUN_00b07510(int eMode);
+    void SetLeafWindMethod(int eMode);
 };
 
 // @fnv 0x00b07510
-void SpeedTreeRTB07510::FUN_00b07510(int eMode)
+void SpeedTreeRTB07510::SetLeafWindMethod(int eMode)
 {
     try
     {
@@ -4673,11 +4673,11 @@ struct SpeedTreeRTB076E0
     int unk40;
     char unk44;
     bool m_bComputed;
-    void FUN_00b076e0(int eMode);
+    void SetBranchWindMethod(int eMode);
 };
 
 // @fnv 0x00b076e0
-void SpeedTreeRTB076E0::FUN_00b076e0(int eMode)
+void SpeedTreeRTB076E0::SetBranchWindMethod(int eMode)
 {
     try
     {
@@ -4886,11 +4886,11 @@ struct SpeedTreeRTB07900
     int unk58;
     int unk5C;
     LeafB07900* m_pLeafData;
-    void FUN_00b07900(int eMode);
+    void SetFrondWindMethod(int eMode);
 };
 
 // @fnv 0x00b07900
-void SpeedTreeRTB07900::FUN_00b07900(int eMode)
+void SpeedTreeRTB07900::SetFrondWindMethod(int eMode)
 {
     try
     {
@@ -4998,10 +4998,10 @@ struct SpdTreeQ
     {
         return pWind->b14;
     }
-    float FUN_00b07b00(float fWaterLevelItem, float fLeaf, float fBranch);
+    float SetWindStrength(float fWaterLevelItem, float fLeaf, float fBranch);
 };
 // @fnv 0x00b07b00
-float SpdTreeQ::FUN_00b07b00(float fWaterLevelItem, float fLeaf, float fBranch)
+float SpdTreeQ::SetWindStrength(float fWaterLevelItem, float fLeaf, float fBranch)
 {
     float fResult = 0.0f;
     try
@@ -5202,7 +5202,7 @@ stdb07::string __cdecl FUN_00b18860(const char* pcFormat, ...);
 void __cdecl AssignString(const char* pcError);
 
 // @fnv 0x00b07db0
-void __cdecl FUN_00b07db0(unsigned short usMode)
+void __cdecl SetNumWindMatrices(unsigned short usMode)
 {
     try
     {
@@ -5356,11 +5356,11 @@ struct SpeedTreeRTB08050
     int unk40;
     char unk44;
     bool m_bComputed;
-    void FUN_00b08050(unsigned int uiStart, unsigned int ItemUpdateArray);
+    void SetLocalMatrices(unsigned int uiStart, unsigned int ItemUpdateArray);
 };
 
 // @fnv 0x00b08050
-void SpeedTreeRTB08050::FUN_00b08050(unsigned int uiStart, unsigned int ItemUpdateArray)
+void SpeedTreeRTB08050::SetLocalMatrices(unsigned int uiStart, unsigned int ItemUpdateArray)
 {
     try
     {
@@ -5449,10 +5449,10 @@ struct SpdTreeQ
     TreeEngine* pEngine;
     int ai[12];
     LodInfo* pLod;
-    void FUN_00b08200();
+    void ComputeLodLevel();
 };
 // @fnv 0x00b08200
-void SpdTreeQ::FUN_00b08200()
+void SpdTreeQ::ComputeLodLevel()
 {
     try
     {
@@ -6106,7 +6106,7 @@ void __cdecl AssignString(const char* pcError);
 class CSpeedTreeRT
 {
   public:
-    void FUN_00b088d0();
+    void DeleteBranchGeometry();
     TreeInfoB08* m_pkTreeInfo;
     BranchGeometryB08* m_pkBranchGeometry;
     char m_acPad[0x30 - 8];
@@ -6117,7 +6117,7 @@ class CSpeedTreeRT
 };
 
 // @fnv 0x00b088d0
-void CSpeedTreeRT::FUN_00b088d0()
+void CSpeedTreeRT::DeleteBranchGeometry()
 {
     try
     {
@@ -6255,11 +6255,11 @@ struct SpeedTreeRTB08AF0
     int unk00;
     int unk04;
     LeafGeometryB08AF0* m_pLodData;
-    const float* FUN_00b08af0(int iIndex);
+    const float* GetLeafBillboardTable(int iIndex);
 };
 
 // @fnv 0x00b08af0
-const float* SpeedTreeRTB08AF0::FUN_00b08af0(int iIndex)
+const float* SpeedTreeRTB08AF0::GetLeafBillboardTable(int iIndex)
 {
     const float* pSearchEntries = 0;
     try
@@ -7853,11 +7853,11 @@ struct SpeedTreeRTB0A7A0
     int unk58;
     int unk5C;
     FrondGeometryB0A7A0* m_pFrondGeometryData;
-    void FUN_00b0a7a0();
+    void DeleteFrondGeometry();
 };
 
 // @fnv 0x00b0a7a0
-void SpeedTreeRTB0A7A0::FUN_00b0a7a0()
+void SpeedTreeRTB0A7A0::DeleteFrondGeometry()
 {
     try
     {
@@ -9647,10 +9647,10 @@ struct SpdTreeQ
     int i28;
     float* pafLodSizes;
     unsigned short FUN_00b08710();
-    const float* FUN_00b0cb10();
+    const float* GetLeafLodSizeAdjustments();
 };
 // @fnv 0x00b0cb10
-const float* SpdTreeQ::FUN_00b0cb10()
+const float* SpdTreeQ::GetLeafLodSizeAdjustments()
 {
     try
     {
@@ -14007,11 +14007,11 @@ struct CSpeedTreeRT
     LightingEngine* m_pLighting;
     void FUN_00b08c80(float* box);
     unsigned short FUN_00b08710();
-    void FUN_00b08cc0();
+    void ComputeLeafStaticLighting();
 };
 
 // @fnv 0x00b08cc0
-void CSpeedTreeRT::FUN_00b08cc0()
+void CSpeedTreeRT::ComputeLeafStaticLighting()
 {
     int a;
     try
@@ -14087,12 +14087,12 @@ struct SpeedTreeImpl
     void FUN_00b0c050(void* m_pShaderGeometry, unsigned long ulGeometryFlags);
     void FillSpeedTreeOutput(void* m_pShaderGeometry);
 
-    void FUN_00b0ab20(void* m_pShaderGeometry, unsigned long ulGeometryFlags, unsigned short nBranchLodLevel,
+    void GetGeometry(void* m_pShaderGeometry, unsigned long ulGeometryFlags, unsigned short nBranchLodLevel,
                       unsigned short nFrondLodLevel, unsigned short nLeafLodLevel);
 };
 
 // @fnv 0x00b0ab20
-void SpeedTreeImpl::FUN_00b0ab20(void* m_pShaderGeometry, unsigned long ulGeometryFlags, unsigned short nBranchLodLevel,
+void SpeedTreeImpl::GetGeometry(void* m_pShaderGeometry, unsigned long ulGeometryFlags, unsigned short nBranchLodLevel,
                                  unsigned short nFrondLodLevel, unsigned short nLeafLodLevel)
 {
     try
@@ -14381,7 +14381,7 @@ inline void AssignString(const char* s)
 }
 
 // @fnv 0x00b08ec0
-void FUN_00b08ec0(int param_1)
+void NotifyAllTreesOfEvent(int param_1)
 {
     try
     {
@@ -14808,7 +14808,7 @@ struct STexturesD04
 class CSpeedTreeRT
 {
   public:
-    void FUN_00b0d040(STexturesD04& sTextures);
+    void GetTextures(STexturesD04& sTextures);
     TreeD04* m_pLeafTreeRuntime;
     char m_acPad[0x4c - 4];
     SelfShadowD04* m_pSelfShadow;
@@ -14818,7 +14818,7 @@ class CSpeedTreeRT
 };
 
 // @fnv 0x00b0d040
-void CSpeedTreeRT::FUN_00b0d040(STexturesD04& sTextures)
+void CSpeedTreeRT::GetTextures(STexturesD04& sTextures)
 {
     try
     {

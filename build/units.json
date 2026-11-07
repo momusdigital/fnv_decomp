@@ -215383,8 +215383,8 @@
     "?FUN_00726070@BSTreeModel@@QAEIXZ": "0x00726070",
     "?FUN_0084d030@Time6658@@QAEMXZ": "0x0084d030",
     "?FUN_00a5ff10@fnv_00665610@@YAPAVNiSourceTexture@@PAVNiPixelData@@PBDABUTextureFormatPrefs@1@@Z": "0x00a5ff10",
-    "?FUN_00b06c10@fnv_006652e0@@YAXPAM0@Z": "0x00b06c10",
-    "?FUN_00b07060@fnv_006652e0@@YAXM@Z": "0x00b07060",
+    "?SetCamera@fnv_006652e0@@YAXPAM0@Z": "0x00b06c10",
+    "?SetTime@fnv_006652e0@@YAXM@Z": "0x00b07060",
     "?FUN_00bb1390@@YAXMMMM@Z": "0x00bb1390",
     "?FUN_00bb2fc0@@YAXHMM@Z": "0x00bb2fc0",
     "?Float@Setting@@QAEPAMXZ": "0x00403e20",
@@ -215928,28 +215928,28 @@
     "?FUN_00a67050@NiAVObject@@QAEXI@Z": "0x00a67050",
     "?FUN_00a67050@StripsDataX@@QAEXI@Z": "0x00a67050",
     "?FUN_00b03b30@S_00666910@@QAEXXZ": "0x00b03b30",
-    "?FUN_00b044a0@CSpeedTreeRT_Load@fnv_0066ac40@@QAE_NHH_N@Z": "0x00b044a0",
+    "?Compute@CSpeedTreeRT_Load@fnv_0066ac40@@QAE_NHH_N@Z": "0x00b044a0",
     "?FUN_00b051e0@RuntimeOps@@QAEPAU1@XZ": "0x00b051e0",
-    "?FUN_00b05210@TreeRuntimeCopy@@QAEPAU1@XZ": "0x00b05210",
+    "?MakeInstance@TreeRuntimeCopy@@QAEPAU1@XZ": "0x00b05210",
     "?FUN_00b053e0@CSpeedTreeRT_Load@fnv_0066ac40@@QAEXXZ": "0x00b053e0",
-    "?FUN_00b05420@CSpeedTreeRT_Load@fnv_0066ac40@@QAE_NPBD@Z": "0x00b05420",
+    "?LoadTree@CSpeedTreeRT_Load@fnv_0066ac40@@QAE_NPBD@Z": "0x00b05420",
     "?FUN_00b06260@CSpeedTreeRT_Load@fnv_0066ac40@@QAEXPAM0@Z": "0x00b06260",
-    "?FUN_00b06280@CSpeedTreeRT_Load@fnv_0066ac40@@QAEXMM@Z": "0x00b06280",
+    "?SetTreeSize@CSpeedTreeRT_Load@fnv_0066ac40@@QAEXMM@Z": "0x00b06280",
     "?FUN_00b06440@CSpeedTreeRT_Load@fnv_0066ac40@@QAEIXZ": "0x00b06440",
     "?FUN_00b065e0@RuntimeOps@@QAEXMMM@Z": "0x00b065e0",
-    "?FUN_00b06660@CSpeedTreeRT_Load@fnv_0066ac40@@QAEXH@Z": "0x00b06660",
-    "?FUN_00b06810@CSpeedTreeRT_Load@fnv_0066ac40@@QAEXH@Z": "0x00b06810",
-    "?FUN_00b069c0@CSpeedTreeRT_Load@fnv_0066ac40@@QAEXH@Z": "0x00b069c0",
+    "?SetBranchLightingMethod@CSpeedTreeRT_Load@fnv_0066ac40@@QAEXH@Z": "0x00b06660",
+    "?SetLeafLightingMethod@CSpeedTreeRT_Load@fnv_0066ac40@@QAEXH@Z": "0x00b06810",
+    "?SetFrondLightingMethod@CSpeedTreeRT_Load@fnv_0066ac40@@QAEXH@Z": "0x00b069c0",
     "?FUN_00b071f0@CSpeedTreeRT_Load@fnv_0066ac40@@QAEXH@Z": "0x00b071f0",
     "?FUN_00b073f0@CSpeedTreeRT_Load@fnv_0066ac40@@QAEMXZ": "0x00b073f0",
     "?FUN_00b07440@CSpeedTreeRT_Load@fnv_0066ac40@@QAEMXZ": "0x00b07440",
     "?FUN_00b07490@TreeRuntime@@QAEXM@Z": "0x00b07490",
-    "?FUN_00b07510@CSpeedTreeRT_Load@fnv_0066ac40@@QAEXH@Z": "0x00b07510",
-    "?FUN_00b076e0@CSpeedTreeRT_Load@fnv_0066ac40@@QAEXH@Z": "0x00b076e0",
-    "?FUN_00b07900@CSpeedTreeRT_Load@fnv_0066ac40@@QAEXH@Z": "0x00b07900",
-    "?FUN_00b07b00@CSpeedTreeRT_Load@fnv_0066ac40@@QAEMMMM@Z": "0x00b07b00",
-    "?FUN_00b08050@CSpeedTreeRT_Load@fnv_0066ac40@@QAEXHH@Z": "0x00b08050",
-    "?FUN_00b08200@RuntimeOps@@QAEXXZ": "0x00b08200",
+    "?SetLeafWindMethod@CSpeedTreeRT_Load@fnv_0066ac40@@QAEXH@Z": "0x00b07510",
+    "?SetBranchWindMethod@CSpeedTreeRT_Load@fnv_0066ac40@@QAEXH@Z": "0x00b076e0",
+    "?SetFrondWindMethod@CSpeedTreeRT_Load@fnv_0066ac40@@QAEXH@Z": "0x00b07900",
+    "?SetWindStrength@CSpeedTreeRT_Load@fnv_0066ac40@@QAEMMMM@Z": "0x00b07b00",
+    "?SetLocalMatrices@CSpeedTreeRT_Load@fnv_0066ac40@@QAEXHH@Z": "0x00b08050",
+    "?ComputeLodLevel@RuntimeOps@@QAEXXZ": "0x00b08200",
     "?FUN_00b08440@RuntimeOps@@QAEMXZ": "0x00b08440",
     "?FUN_00b08480@RuntimeOps@@QAEXM@Z": "0x00b08480",
     "?FUN_00b08500@CSpeedTreeRT_Load@fnv_0066ac40@@QAEXMM@Z": "0x00b08500",
@@ -215957,16 +215957,16 @@
     "?FUN_00b08780@SpeedTreeX@@QAEXXZ": "0x00b08780",
     "?FUN_00b087d0@CSpeedTreeRT_Load@fnv_0066ac40@@QAEXXZ": "0x00b087d0",
     "?FUN_00b088b0@SpeedTreeRT@fnv_00668500@@QAEXXZ": "0x00b088b0",
-    "?FUN_00b088d0@CSpeedTreeRT_Load@fnv_0066ac40@@QAEXXZ": "0x00b088d0",
-    "?FUN_00b08af0@RuntimeOps@@QAEPAU1@PAX@Z": "0x00b08af0",
-    "?FUN_00b0a7a0@CSpeedTreeRT_Load@fnv_0066ac40@@QAEXXZ": "0x00b0a7a0",
-    "?FUN_00b0ab20@SpeedTreeRT@fnv_00668500@@QAEXPAUFUN_00b029f0@2@IFFF@Z": "0x00b0ab20",
-    "?FUN_00b0ab20@SpeedTreeX@@QAEXAAUGeometryX@@HHHH@Z": "0x00b0ab20",
+    "?DeleteBranchGeometry@CSpeedTreeRT_Load@fnv_0066ac40@@QAEXXZ": "0x00b088d0",
+    "?GetLeafBillboardTable@RuntimeOps@@QAEPAU1@PAX@Z": "0x00b08af0",
+    "?DeleteFrondGeometry@CSpeedTreeRT_Load@fnv_0066ac40@@QAEXXZ": "0x00b0a7a0",
+    "?GetGeometry@SpeedTreeRT@fnv_00668500@@QAEXPAUFUN_00b029f0@2@IFFF@Z": "0x00b0ab20",
+    "?GetGeometry@SpeedTreeX@@QAEXAAUGeometryX@@HHHH@Z": "0x00b0ab20",
     "?FUN_00b0ad00@RuntimeOps@@QAEXPAUTreeEval@@M@Z": "0x00b0ad00",
-    "?FUN_00b0cb10@SpeedTreeRT@fnv_00668500@@QAEPAMXZ": "0x00b0cb10",
-    "?FUN_00b0d040@CSpeedTreeRT_Load@fnv_0066ac40@@QAEXPAUFUN_00b02e20@2@@Z": "0x00b0d040",
-    "?FUN_00b0d040@SpeedTreeRT@fnv_00668500@@QAEXPAUFUN_00b02e20@2@@Z": "0x00b0d040",
-    "?FUN_00b0d040@TreeRuntime@@QAEXPAUFUN_00b02e20@@@Z": "0x00b0d040",
+    "?GetLeafLodSizeAdjustments@SpeedTreeRT@fnv_00668500@@QAEPAMXZ": "0x00b0cb10",
+    "?GetTextures@CSpeedTreeRT_Load@fnv_0066ac40@@QAEXPAUFUN_00b02e20@2@@Z": "0x00b0d040",
+    "?GetTextures@SpeedTreeRT@fnv_00668500@@QAEXPAUFUN_00b02e20@2@@Z": "0x00b0d040",
+    "?GetTextures@TreeRuntime@@QAEXPAUFUN_00b02e20@@@Z": "0x00b0d040",
     "?FUN_00b4f5e0@@YAXPADPBD1_N@Z": "0x00b4f5e0",
     "?FUN_00b55560@TreeBuild@@YAPAXH@Z": "0x00b55560",
     "?FUN_00b57e30@TreeBuild@@YAXPAUGeometry@1@HH@Z": "0x00b57e30",
@@ -542294,7 +542294,7 @@
     },
     {
      "address": "0x00b044a0",
-     "symbol": "?FUN_00b044a0@SpdCompQ@fnv_00b044a0@@QAE_NPBMH_N@Z",
+     "symbol": "?Compute@SpdCompQ@fnv_00b044a0@@QAE_NPBMH_N@Z",
      "size": 2205
     },
     {
@@ -542309,17 +542309,17 @@
     },
     {
      "address": "0x00b05210",
-     "symbol": "?FUN_00b05210@SpeedTreeRTB05210@fnv_00b05210@@QAEPAU12@XZ",
+     "symbol": "?MakeInstance@SpeedTreeRTB05210@fnv_00b05210@@QAEPAU12@XZ",
      "size": 458
     },
     {
      "address": "0x00b05420",
-     "symbol": "?FUN_00b05420@SpdLoadQ@fnv_00b05420@@QAE_NPBD@Z",
+     "symbol": "?LoadTree@SpdLoadQ@fnv_00b05420@@QAE_NPBD@Z",
      "size": 1464
     },
     {
      "address": "0x00b059e0",
-     "symbol": "?FUN_00b059e0@Tree59@fnv_00b059e0@@QAE_NHH@Z",
+     "symbol": "?LoadTree@Tree59@fnv_00b059e0@@QAE_NHH@Z",
      "size": 1698
     },
     {
@@ -542339,7 +542339,7 @@
     },
     {
      "address": "0x00b06280",
-     "symbol": "?FUN_00b06280@SpeedTreeRTB06280@fnv_00b06280@@QAEXMM@Z",
+     "symbol": "?SetTreeSize@SpeedTreeRTB06280@fnv_00b06280@@QAEXMM@Z",
      "size": 441
     },
     {
@@ -542349,27 +542349,27 @@
     },
     {
      "address": "0x00b06660",
-     "symbol": "?FUN_00b06660@SpeedTreeRTB06660@fnv_00b06660@@QAEXH@Z",
+     "symbol": "?SetBranchLightingMethod@SpeedTreeRTB06660@fnv_00b06660@@QAEXH@Z",
      "size": 420
     },
     {
      "address": "0x00b06810",
-     "symbol": "?FUN_00b06810@SpeedTreeRTB06810@fnv_00b06810@@QAEXH@Z",
+     "symbol": "?SetLeafLightingMethod@SpeedTreeRTB06810@fnv_00b06810@@QAEXH@Z",
      "size": 420
     },
     {
      "address": "0x00b069c0",
-     "symbol": "?FUN_00b069c0@SpeedTreeRTB069C0@fnv_00b069c0@@QAEXH@Z",
+     "symbol": "?SetFrondLightingMethod@SpeedTreeRTB069C0@fnv_00b069c0@@QAEXH@Z",
      "size": 421
     },
     {
      "address": "0x00b06c10",
-     "symbol": "?FUN_00b06c10@SpdTreeQ@fnv_00b06c10@@SAXPBM0@Z",
+     "symbol": "?SetCamera@SpdTreeQ@fnv_00b06c10@@SAXPBM0@Z",
      "size": 1104
     },
     {
      "address": "0x00b07060",
-     "symbol": "?FUN_00b07060@fnv_00b07060@@YAXM@Z",
+     "symbol": "?SetTime@fnv_00b07060@@YAXM@Z",
      "size": 348
     },
     {
@@ -542379,37 +542379,37 @@
     },
     {
      "address": "0x00b07510",
-     "symbol": "?FUN_00b07510@SpeedTreeRTB07510@fnv_00b07510@@QAEXH@Z",
+     "symbol": "?SetLeafWindMethod@SpeedTreeRTB07510@fnv_00b07510@@QAEXH@Z",
      "size": 421
     },
     {
      "address": "0x00b076e0",
-     "symbol": "?FUN_00b076e0@SpeedTreeRTB076E0@fnv_00b076e0@@QAEXH@Z",
+     "symbol": "?SetBranchWindMethod@SpeedTreeRTB076E0@fnv_00b076e0@@QAEXH@Z",
      "size": 508
     },
     {
      "address": "0x00b07900",
-     "symbol": "?FUN_00b07900@SpeedTreeRTB07900@fnv_00b07900@@QAEXH@Z",
+     "symbol": "?SetFrondWindMethod@SpeedTreeRTB07900@fnv_00b07900@@QAEXH@Z",
      "size": 508
     },
     {
      "address": "0x00b07b00",
-     "symbol": "?FUN_00b07b00@SpdTreeQ@fnv_00b07b00@@QAEMMMM@Z",
+     "symbol": "?SetWindStrength@SpdTreeQ@fnv_00b07b00@@QAEMMMM@Z",
      "size": 683
     },
     {
      "address": "0x00b07db0",
-     "symbol": "?FUN_00b07db0@fnv_00b07db0@@YAXG@Z",
+     "symbol": "?SetNumWindMatrices@fnv_00b07db0@@YAXG@Z",
      "size": 365
     },
     {
      "address": "0x00b08050",
-     "symbol": "?FUN_00b08050@SpeedTreeRTB08050@fnv_00b08050@@QAEXII@Z",
+     "symbol": "?SetLocalMatrices@SpeedTreeRTB08050@fnv_00b08050@@QAEXII@Z",
      "size": 424
     },
     {
      "address": "0x00b08200",
-     "symbol": "?FUN_00b08200@SpdTreeQ@fnv_00b08200@@QAEXXZ",
+     "symbol": "?ComputeLodLevel@SpdTreeQ@fnv_00b08200@@QAEXXZ",
      "size": 573
     },
     {
@@ -542424,22 +542424,22 @@
     },
     {
      "address": "0x00b088d0",
-     "symbol": "?FUN_00b088d0@CSpeedTreeRT@fnv_00b088d0@@QAEXXZ",
+     "symbol": "?DeleteBranchGeometry@CSpeedTreeRT@fnv_00b088d0@@QAEXXZ",
      "size": 530
     },
     {
      "address": "0x00b08af0",
-     "symbol": "?FUN_00b08af0@SpeedTreeRTB08AF0@fnv_00b08af0@@QAEPBMH@Z",
+     "symbol": "?GetLeafBillboardTable@SpeedTreeRTB08AF0@fnv_00b08af0@@QAEPBMH@Z",
      "size": 389
     },
     {
      "address": "0x00b08cc0",
-     "symbol": "?FUN_00b08cc0@CSpeedTreeRT@st@fnv_00b08cc0@@QAEXXZ",
+     "symbol": "?ComputeLeafStaticLighting@CSpeedTreeRT@st@fnv_00b08cc0@@QAEXXZ",
      "size": 511
     },
     {
      "address": "0x00b08ec0",
-     "symbol": "?FUN_00b08ec0@fnv_00b08ec0@@YAXH@Z",
+     "symbol": "?NotifyAllTreesOfEvent@fnv_00b08ec0@@YAXH@Z",
      "size": 931
     },
     {
@@ -542484,7 +542484,7 @@
     },
     {
      "address": "0x00b0a7a0",
-     "symbol": "?FUN_00b0a7a0@SpeedTreeRTB0A7A0@fnv_00b0a7a0@@QAEXXZ",
+     "symbol": "?DeleteFrondGeometry@SpeedTreeRTB0A7A0@fnv_00b0a7a0@@QAEXXZ",
      "size": 506
     },
     {
@@ -542499,7 +542499,7 @@
     },
     {
      "address": "0x00b0ab20",
-     "symbol": "?FUN_00b0ab20@SpeedTreeImpl@fnv_00b0ab20@@QAEXPAXKGGG@Z",
+     "symbol": "?GetGeometry@SpeedTreeImpl@fnv_00b0ab20@@QAEXPAXKGGG@Z",
      "size": 475
     },
     {
@@ -542584,7 +542584,7 @@
     },
     {
      "address": "0x00b0cb10",
-     "symbol": "?FUN_00b0cb10@SpdTreeQ@fnv_00b0cb10@@QAEPBMXZ",
+     "symbol": "?GetLeafLodSizeAdjustments@SpdTreeQ@fnv_00b0cb10@@QAEPBMXZ",
      "size": 547
     },
     {
@@ -542594,7 +542594,7 @@
     },
     {
      "address": "0x00b0d040",
-     "symbol": "?FUN_00b0d040@CSpeedTreeRT@fnv_00b0d040@@QAEXAAUSTexturesD04@2@@Z",
+     "symbol": "?GetTextures@CSpeedTreeRT@fnv_00b0d040@@QAEXAAUSTexturesD04@2@@Z",
      "size": 1099
     },
     {
@@ -542779,13 +542779,13 @@
     "?FUN_00b04d40@V3B@fnv_00b044a0@@QBEMABUV3Q@2@@Z": "0x00b04d40",
     "?FUN_00b04db0@M58Q@fnv_00b044a0@@QAEXABUMatQ@2@@Z": "0x00b04db0",
     "?FUN_00b053e0@SpeedTreeRelease@@QAEXXZ": "0x00b053e0",
-    "?FUN_00b059e0@SpdLoadQ@fnv_00b05420@@QAE_NPBDH@Z": "0x00b059e0",
+    "?LoadTree@SpdLoadQ@fnv_00b05420@@QAE_NPBDH@Z": "0x00b059e0",
     "?FUN_00b06180@FUN_00b06090@fnv_00b059e0@@QAE_NXZ": "0x00b06180",
     "?FUN_00b06180@Parser@fnv_00b09960@@QAE_NXZ": "0x00b06180",
     "?FUN_00b06180@Parser@fnv_00b0d810@@QAE_NXZ": "0x00b06180",
-    "?FUN_00b06660@Tree59@fnv_00b059e0@@QAEXH@Z": "0x00b06660",
-    "?FUN_00b06810@Tree59@fnv_00b059e0@@QAEXH@Z": "0x00b06810",
-    "?FUN_00b069c0@Tree59@fnv_00b059e0@@QAEXH@Z": "0x00b069c0",
+    "?SetBranchLightingMethod@Tree59@fnv_00b059e0@@QAEXH@Z": "0x00b06660",
+    "?SetLeafLightingMethod@Tree59@fnv_00b059e0@@QAEXH@Z": "0x00b06810",
+    "?SetFrondLightingMethod@Tree59@fnv_00b059e0@@QAEXH@Z": "0x00b069c0",
     "?FUN_00b076c0@SpdTreeQ@fnv_00b07b00@@QAEHXZ": "0x00b076c0",
     "?FUN_00b08440@FUN_00b036d0@@QAEMXZ": "0x00b08440",
     "?FUN_00b08440@FUN_00b08440_shell@@QAEMXZ": "0x00b08440",
@@ -542797,9 +542797,9 @@
     "?FUN_00b08710@S0b@@QAEGXZ": "0x00b08710",
     "?FUN_00b08710@SpdTreeQ@fnv_00b0cb10@@QAEGXZ": "0x00b08710",
     "?FUN_00b08c80@CSpeedTreeRT@st@fnv_00b08cc0@@QAEXPAM@Z": "0x00b08c80",
-    "?FUN_00b08cc0@SpdCompQ@fnv_00b044a0@@QAEXXZ": "0x00b08cc0",
-    "?FUN_00b08ec0@fnv_00b06c10@@YAXH@Z": "0x00b08ec0",
-    "?FUN_00b08ec0@fnv_00b07060@@YAXH@Z": "0x00b08ec0",
+    "?ComputeLeafStaticLighting@SpdCompQ@fnv_00b044a0@@QAEXXZ": "0x00b08cc0",
+    "?NotifyAllTreesOfEvent@fnv_00b06c10@@YAXH@Z": "0x00b08ec0",
+    "?NotifyAllTreesOfEvent@fnv_00b07060@@YAXH@Z": "0x00b08ec0",
     "?FUN_00b092a0@Tree59@fnv_00b059e0@@QAEXPAUFUN_00b06090@2@@Z": "0x00b092a0",
     "?FUN_00b097e0@Tree59@fnv_00b059e0@@QAEXPAUFUN_00b06090@2@@Z": "0x00b097e0",
     "?FUN_00b09960@Tree59@fnv_00b059e0@@QAEXPAUFUN_00b06090@2@@Z": "0x00b09960",
@@ -543019,40 +543019,40 @@
     "__ehhandler$??0FUN_00b0dfb0@fnv_00b0dfb0@@QAE@XZ": "0x00f24466",
     "__ehhandler$??1FUN_00b061e0@@QAE@XZ": "0x00f23cb0",
     "__ehhandler$?FUN_00b03b30@SpeedTreeRelease@@QAEXXZ": "0x00f23adc",
-    "__ehhandler$?FUN_00b044a0@SpdCompQ@fnv_00b044a0@@QAE_NPBMH_N@Z": "0x00f23b26",
-    "__ehhandler$?FUN_00b05210@SpeedTreeRTB05210@fnv_00b05210@@QAEPAU12@XZ": "0x00f23b9b",
-    "__ehhandler$?FUN_00b05420@SpdLoadQ@fnv_00b05420@@QAE_NPBD@Z": "0x00f23bf4",
-    "__ehhandler$?FUN_00b059e0@Tree59@fnv_00b059e0@@QAE_NHH@Z": "0x00f23c4e",
-    "__ehhandler$?FUN_00b06280@SpeedTreeRTB06280@fnv_00b06280@@QAEXMM@Z": "0x00f23ce0",
+    "__ehhandler$?Compute@SpdCompQ@fnv_00b044a0@@QAE_NPBMH_N@Z": "0x00f23b26",
+    "__ehhandler$?MakeInstance@SpeedTreeRTB05210@fnv_00b05210@@QAEPAU12@XZ": "0x00f23b9b",
+    "__ehhandler$?LoadTree@SpdLoadQ@fnv_00b05420@@QAE_NPBD@Z": "0x00f23bf4",
+    "__ehhandler$?LoadTree@Tree59@fnv_00b059e0@@QAE_NHH@Z": "0x00f23c4e",
+    "__ehhandler$?SetTreeSize@SpeedTreeRTB06280@fnv_00b06280@@QAEXMM@Z": "0x00f23ce0",
     "__ehhandler$?FUN_00b06440@SpeedTreeRTB06440@fnv_00b06440@@QAEHXZ": "0x00f23d10",
-    "__ehhandler$?FUN_00b06660@SpeedTreeRTB06660@fnv_00b06660@@QAEXH@Z": "0x00f23d40",
-    "__ehhandler$?FUN_00b06810@SpeedTreeRTB06810@fnv_00b06810@@QAEXH@Z": "0x00f23d70",
-    "__ehhandler$?FUN_00b069c0@SpeedTreeRTB069C0@fnv_00b069c0@@QAEXH@Z": "0x00f23da0",
-    "__ehhandler$?FUN_00b06c10@SpdTreeQ@fnv_00b06c10@@SAXPBM0@Z": "0x00f23dd3",
-    "__ehhandler$?FUN_00b07060@fnv_00b07060@@YAXM@Z": "0x00f23e10",
+    "__ehhandler$?SetBranchLightingMethod@SpeedTreeRTB06660@fnv_00b06660@@QAEXH@Z": "0x00f23d40",
+    "__ehhandler$?SetLeafLightingMethod@SpeedTreeRTB06810@fnv_00b06810@@QAEXH@Z": "0x00f23d70",
+    "__ehhandler$?SetFrondLightingMethod@SpeedTreeRTB069C0@fnv_00b069c0@@QAEXH@Z": "0x00f23da0",
+    "__ehhandler$?SetCamera@SpdTreeQ@fnv_00b06c10@@SAXPBM0@Z": "0x00f23dd3",
+    "__ehhandler$?SetTime@fnv_00b07060@@YAXM@Z": "0x00f23e10",
     "__ehhandler$?FUN_00b071f0@SpeedTreeRTB071F0@fnv_00b071f0@@QAEXH@Z": "0x00f23e40",
-    "__ehhandler$?FUN_00b07510@SpeedTreeRTB07510@fnv_00b07510@@QAEXH@Z": "0x00f23e70",
-    "__ehhandler$?FUN_00b076e0@SpeedTreeRTB076E0@fnv_00b076e0@@QAEXH@Z": "0x00f23ea0",
-    "__ehhandler$?FUN_00b07900@SpeedTreeRTB07900@fnv_00b07900@@QAEXH@Z": "0x00f23ed0",
-    "__ehhandler$?FUN_00b07b00@SpdTreeQ@fnv_00b07b00@@QAEMMMM@Z": "0x00f23f00",
-    "__ehhandler$?FUN_00b07db0@fnv_00b07db0@@YAXG@Z": "0x00f23f30",
-    "__ehhandler$?FUN_00b08050@SpeedTreeRTB08050@fnv_00b08050@@QAEXII@Z": "0x00f23f60",
-    "__ehhandler$?FUN_00b08200@SpdTreeQ@fnv_00b08200@@QAEXXZ": "0x00f23f90",
-    "__ehhandler$?FUN_00b088d0@CSpeedTreeRT@fnv_00b088d0@@QAEXXZ": "0x00f23fc0",
-    "__ehhandler$?FUN_00b08af0@SpeedTreeRTB08AF0@fnv_00b08af0@@QAEPBMH@Z": "0x00f23ff0",
-    "__ehhandler$?FUN_00b08cc0@CSpeedTreeRT@st@fnv_00b08cc0@@QAEXXZ": "0x00f24020",
-    "__ehhandler$?FUN_00b08ec0@fnv_00b08ec0@@YAXH@Z": "0x00f24050",
+    "__ehhandler$?SetLeafWindMethod@SpeedTreeRTB07510@fnv_00b07510@@QAEXH@Z": "0x00f23e70",
+    "__ehhandler$?SetBranchWindMethod@SpeedTreeRTB076E0@fnv_00b076e0@@QAEXH@Z": "0x00f23ea0",
+    "__ehhandler$?SetFrondWindMethod@SpeedTreeRTB07900@fnv_00b07900@@QAEXH@Z": "0x00f23ed0",
+    "__ehhandler$?SetWindStrength@SpdTreeQ@fnv_00b07b00@@QAEMMMM@Z": "0x00f23f00",
+    "__ehhandler$?SetNumWindMatrices@fnv_00b07db0@@YAXG@Z": "0x00f23f30",
+    "__ehhandler$?SetLocalMatrices@SpeedTreeRTB08050@fnv_00b08050@@QAEXII@Z": "0x00f23f60",
+    "__ehhandler$?ComputeLodLevel@SpdTreeQ@fnv_00b08200@@QAEXXZ": "0x00f23f90",
+    "__ehhandler$?DeleteBranchGeometry@CSpeedTreeRT@fnv_00b088d0@@QAEXXZ": "0x00f23fc0",
+    "__ehhandler$?GetLeafBillboardTable@SpeedTreeRTB08AF0@fnv_00b08af0@@QAEPBMH@Z": "0x00f23ff0",
+    "__ehhandler$?ComputeLeafStaticLighting@CSpeedTreeRT@st@fnv_00b08cc0@@QAEXXZ": "0x00f24020",
+    "__ehhandler$?NotifyAllTreesOfEvent@fnv_00b08ec0@@YAXH@Z": "0x00f24050",
     "__ehhandler$?FUN_00b092a0@S00b092a0_cls@@QAEXPAUS00b092a0_Reader@@@Z": "0x00f24083",
     "__ehhandler$?FUN_00b097e0@SpdWindReader@@QAEXPAUSpdParser@@@Z": "0x00f24183",
     "__ehhandler$?FUN_00b09960@Tree@fnv_00b09960@@QAEXPAUParser@2@@Z": "0x00f241e1",
     "__ehhandler$?FUN_00b09f90@IdvFilename@fnv_00b09f90@@QBE?AU12@XZ": "0x00f2424b",
     "__ehhandler$?FUN_00b0a2a0@SpeedTreeRTB0A2A0@fnv_00b0a2a0@@QAEXIAAHPAM1@Z": "0x00f24288",
     "__ehhandler$?FUN_00b0a490@Tree@fnv_00b0a490@@QAEXPAUParser@2@@Z": "0x00f242dc",
-    "__ehhandler$?FUN_00b0a7a0@SpeedTreeRTB0A7A0@fnv_00b0a7a0@@QAEXXZ": "0x00f24310",
-    "__ehhandler$?FUN_00b0ab20@SpeedTreeImpl@fnv_00b0ab20@@QAEXPAXKGGG@Z": "0x00f24340",
-    "__ehhandler$?FUN_00b0cb10@SpdTreeQ@fnv_00b0cb10@@QAEPBMXZ": "0x00f24370",
+    "__ehhandler$?DeleteFrondGeometry@SpeedTreeRTB0A7A0@fnv_00b0a7a0@@QAEXXZ": "0x00f24310",
+    "__ehhandler$?GetGeometry@SpeedTreeImpl@fnv_00b0ab20@@QAEXPAXKGGG@Z": "0x00f24340",
+    "__ehhandler$?GetLeafLodSizeAdjustments@SpdTreeQ@fnv_00b0cb10@@QAEPBMXZ": "0x00f24370",
     "__ehhandler$?FUN_00b0cd40@TrackOwner_b0cd@@QAEXH@Z": "0x00eed64b",
-    "__ehhandler$?FUN_00b0d040@CSpeedTreeRT@fnv_00b0d040@@QAEXAAUSTexturesD04@2@@Z": "0x00f243a0",
+    "__ehhandler$?GetTextures@CSpeedTreeRT@fnv_00b0d040@@QAEXAAUSTexturesD04@2@@Z": "0x00f243a0",
     "__ehhandler$?FUN_00b0d500@UserDataOwner@@QAEXPAUTreeFileReader@@@Z": "0x00f243c8",
     "__ehhandler$?FUN_00b0d810@Tree@fnv_00b0d810@@QAEXPAUParser@2@@Z": "0x00f24421",
     "__ehhandler$?FUN_00b10990@@YAXPAUElQ@@IABU1@@Z": "0x00f244f0",
