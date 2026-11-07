@@ -628,8 +628,8 @@ class hkDisplayGeometry;
 class VehicleViewerPostSimulationListener : public hkpWorldPostSimulationListener
 {
 public:
-virtual void FUN_00d63680(hkpWorld* world)=0;
-virtual void postSimulationCallback(hkpWorld* world) { FUN_00d63680(world); }
+virtual void step(hkpWorld* world)=0;
+virtual void postSimulationCallback(hkpWorld* world) { step(world); }
 };
 class hkpVehicleViewer:
 public hkpWorldViewerBase,
@@ -648,7 +648,7 @@ hkpVehicleViewer(const hkArray<hkProcessContext*>&contexts);
 virtual ~hkpVehicleViewer() throw();
 virtual void WorldAddedCallback(hkpWorld*world);
 virtual void WorldRemovedCallback(hkpWorld*world);
-virtual void FUN_00d63680(hkpWorld*world);
+virtual void step(hkpWorld*world);
 virtual void ActionAddedCallback(hkpAction*action);
 virtual void ActionRemovedCallback(hkpAction*action);
 protected:
@@ -690,7 +690,7 @@ __forceinline T&PointerArrayView<T>::operator[](int i)
 return m_data[i];
 }
 // @fnv 0x00d63680
-void hkpVehicleViewer::FUN_00d63680(hkpWorld*world)
+void hkpVehicleViewer::step(hkpWorld*world)
 {
 {hkMonitorStream&mStream=hkMonitorStream::getInstance();if(mStream.memoryAvailable()){hkMonitorStream::TimerCommand*h=reinterpret_cast<hkMonitorStream::TimerCommand*>(mStream.getEnd());h->m_commandAndMonitor="T" "t" "hkpVehicleViewer::step";h->setTime();mStream.setEnd((char*)(h+1));}};ScopedTimer timeblock14;
 const int numVehicles=m_ppVehicles.m_iElementCount;

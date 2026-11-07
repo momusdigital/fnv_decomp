@@ -224,7 +224,7 @@ public:
     void RegisterAgentType(signed char (*table)[32], signed char agentType, int typeA, int typeB,
                            signed char origA, signed char origB, CollisionAgentEntry (*entries)[32], int depth);
     void FUN_00cfbf60(int primaryType, int alternateType);
-    void FUN_00cfc1d0();
+    void debugPrintTable();
     void updateShapeInheritance(int primaryType, int alternateType, bool recurse);
 
     void Set(bool b);

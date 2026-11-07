@@ -880,7 +880,7 @@ __forceinline hkError& hkErrorInstance()
     return *hkError::s_instance;
 }
 
-// Using shared hkOstream here changes FUN_00ce61c0 from 13246 to 13278 bytes.
+// Using shared hkOstream here changes createMapping from 13246 to 13278 bytes.
 // Retain this stream interface until the shared declaration preserves that code.
 class FUN_00cc00e0 : public hkReferencedObject
 {
@@ -1021,7 +1021,7 @@ __forceinline bool __cdecl checkRotation(const HkMapperParams& params, short bon
 }
 
 // @fnv 0x00ce61c0
-__declspec(nothrow) void __cdecl FUN_00ce61c0(const HkMapperParams& originalParams, hkaSkeletonMapperData& originalAToB,
+__declspec(nothrow) void __cdecl createMapping(const HkMapperParams& originalParams, hkaSkeletonMapperData& originalAToB,
                                               hkaSkeletonMapperData& originalBToA) throw()
 {
     hkErrorInstance().beginSection(0x54e4323e, "hkaSkeletonMapperUtils::createMapping");

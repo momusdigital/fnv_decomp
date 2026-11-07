@@ -42285,7 +42285,7 @@
     "?FUN_00ce3a00@@YAXPAX00PAUTransform48@@H@Z": "0x00ce3a00",
     "?FUN_00ce5310@PoseBuffer@@QAEXXZ": "0x00ce5310",
     "?FUN_00ce5370@PoseBuffer@@QAEXXZ": "0x00ce5370",
-    "?FUN_00ce61c0@@YAXPAUPoseState@@PAUPoseBuffer@@1@Z": "0x00ce61c0",
+    "?createMapping@@YAXPAUPoseState@@PAUPoseBuffer@@1@Z": "0x00ce61c0",
     "?FUN_00cea030@@YAHPAUArrayStorage@@0@Z": "0x00cea030",
     "?FUN_00cea810@@YAPAXPAUBoneTransformData@@PAUArrayStorage@@1@Z": "0x00cea810",
     "?FUN_00ceb2c0@@YAPAUBoneTransformData@@PAUArrayStorage@@0@Z": "0x00ceb2c0",
@@ -477725,7 +477725,7 @@
     },
     {
      "address": "0x00ce61c0",
-     "symbol": "?FUN_00ce61c0@@YAXABUHkMapperParams@@AAVhkaSkeletonMapperData@@1@Z",
+     "symbol": "?createMapping@@YAXABUHkMapperParams@@AAVhkaSkeletonMapperData@@1@Z",
      "size": 13246
     }
    ],
@@ -506526,7 +506526,7 @@
    "functions": [
     {
      "address": "0x00cfc1d0",
-     "symbol": "?FUN_00cfc1d0@hkpCollisionDispatcher@@QAEXXZ",
+     "symbol": "?debugPrintTable@hkpCollisionDispatcher@@QAEXXZ",
      "size": 884
     }
    ],
@@ -533764,7 +533764,7 @@
    "functions": [
     {
      "address": "0x00d63680",
-     "symbol": "?FUN_00d63680@hkpVehicleViewer@@MAEXPAVhkpWorld@@@Z",
+     "symbol": "?step@hkpVehicleViewer@@MAEXPAVhkpWorld@@@Z",
      "size": 1486
     }
    ],
