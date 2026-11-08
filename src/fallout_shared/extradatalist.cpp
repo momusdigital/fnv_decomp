@@ -8284,11 +8284,12 @@ void __cdecl _Deallocate(void*);
 struct FUN_00418d20_class
 {
     void __thiscall FUN_0048fb50();
-    void* __thiscall FUN_00418d20(unsigned int flags);
+    void* __thiscall Destroy(unsigned int flags);
 };
 // Calls FUN_0048fb50, then deallocates this when flags has bit 0 set, and returns this.
 // @fnv 0x00418d20
-void* __thiscall FUN_00418d20_class::FUN_00418d20(unsigned int flags)
+// src: COMMUNITY 0x00418d20
+void* __thiscall FUN_00418d20_class::Destroy(unsigned int flags)
 {
     FUN_0048fb50();
     if (flags & 1)
@@ -8302,11 +8303,12 @@ void __cdecl _Deallocate(void*);
 struct FUN_004aae50_shell
 {
     void CompleteModelLoadTask_Thunk();
-    void* FUN_00418e00(unsigned int flags);
+    void* Destroy(unsigned int flags);
 };
 // Calls FUN_004aae50, then deallocates this when flags has bit 0 set, and returns this.
 // @fnv 0x00418e00
-void* FUN_004aae50_shell::FUN_00418e00(unsigned int flags)
+// src: COMMUNITY 0x00418e00
+void* FUN_004aae50_shell::Destroy(unsigned int flags)
 {
     CompleteModelLoadTask_Thunk();
     if (flags & 1)

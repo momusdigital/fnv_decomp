@@ -165719,7 +165719,7 @@
     },
     {
      "address": "0x00418d20",
-     "symbol": "?FUN_00418d20@FUN_00418d20_class@fnv_00418d20@@QAEPAXI@Z",
+     "symbol": "?Destroy@FUN_00418d20_class@fnv_00418d20@@QAEPAXI@Z",
      "size": 44
     },
     {
@@ -165729,7 +165729,7 @@
     },
     {
      "address": "0x00418e00",
-     "symbol": "?FUN_00418e00@FUN_004aae50_shell@fnv_00418e00@@QAEPAXI@Z",
+     "symbol": "?Destroy@FUN_004aae50_shell@fnv_00418e00@@QAEPAXI@Z",
      "size": 44
     },
     {
