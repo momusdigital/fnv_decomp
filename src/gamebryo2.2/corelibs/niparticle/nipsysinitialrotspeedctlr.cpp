@@ -33,7 +33,7 @@ void __thiscall NiPSysInitialRotSpeedCtlr::AppendString(StrArr* pkStrings)
 }
 
 extern "C" void* __cdecl Object_DispatchCommandFour(unsigned int);
-extern char DAT_010bedbc[];
+extern char vftable_NiPSysInitialRotSpeedCtlr[];
 
 struct CtorBase_cls
 {
@@ -58,7 +58,7 @@ void* FUN_00c29fb0_cls::NiPSysInitialRotSpeedCtlr_CreateClone(unsigned int a1)
     if (p != 0)
     {
         ((CtorBase_cls*)p)->ctorBase();
-        p->m_vtbl = (void*)&DAT_010bedbc;
+        p->m_vtbl = (void*)&vftable_NiPSysInitialRotSpeedCtlr;
     }
     else
     {

@@ -32,8 +32,8 @@ void hkpMoppBvTreeShape::CalculateAabb(const hkTransform& transform, hkReal tole
     m_pChildAtom.m_pContainedShape->CalculateAabb(transform, tolerance, out);
 }
 
-extern int DAT_010c6fd0;
-extern int DAT_010d0dac;
+extern int vftable_hkpSingleShapeContainer;
+extern int vftable_hkpMoppBvTreeShape;
 
 // The shared headers have no constructor declarations. These initializers take the real objects;
 // the unused EDX parameter preserves the original ECX-this, stack-argument calling convention.
@@ -45,8 +45,8 @@ hkpMoppBvTreeShape* __fastcall InitializeMoppTree(hkpMoppBvTreeShape* self, void
 {
     typedef hkMoppBvTreeShapeBase* (__thiscall* BaseInitializer)(hkMoppBvTreeShapeBase*, int, const hkpMoppCode&);
     reinterpret_cast<BaseInitializer>(&InitializeMoppBase)(self, 10, code);
-    *reinterpret_cast<int**>(self) = &DAT_010d0dac;
-    *reinterpret_cast<int**>(&self->m_pChildAtom) = &DAT_010c6fd0;
+    *reinterpret_cast<int**>(self) = &vftable_hkpMoppBvTreeShape;
+    *reinterpret_cast<int**>(&self->m_pChildAtom) = &vftable_hkpSingleShapeContainer;
     self->m_pChildAtom.m_pContainedShape = child;
 
     child->addReference();
@@ -174,7 +174,7 @@ int hkpMoppBvTreeShape::CalcSizeForSpu(const PhysicsShape& input, int spuBufferS
 }
 
 #include <xmmintrin.h>
-extern char DAT_010d0d70;
+extern char vftable_hkMoppBvTreeShapeBase;
 // @fnv 0x00d54490
 __declspec(noinline) hkMoppBvTreeShapeBase* __fastcall InitializeMoppBase(hkMoppBvTreeShapeBase* self, void*, int type, const hkpMoppCode& code)
 {
@@ -183,7 +183,7 @@ __declspec(noinline) hkMoppBvTreeShapeBase* __fastcall InitializeMoppBase(hkMopp
     reinterpret_cast<volatile hkUlong&>(self->m_ulUserData) = 0;
     reinterpret_cast<int&>(self->m_type) = type;
     reinterpret_cast<volatile unsigned char&>(self->m_uiUserData) = 0;
-    *reinterpret_cast<void* volatile*>(self) = &DAT_010d0d70;
+    *reinterpret_cast<void* volatile*>(self) = &vftable_hkMoppBvTreeShapeBase;
     self->m_pMoppCode = src;
     const_cast<hkpMoppCode*>(src)->addReference();
     self->m_kMoppCodeInfo.m_vComponents = src->m_info.m_offset.m_vComponents;

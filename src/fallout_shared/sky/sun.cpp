@@ -237,8 +237,8 @@ struct FUN_00bb0180_S
 };
 void* __cdecl _NiMalloc(unsigned int);
 
-extern Setting g_011cce7c;
-extern Setting g_011cce50;
+extern Setting fSunBaseSize_Weather;
+extern Setting fSunGlareSize_Weather;
 extern NiColor DAT_011a9b7c;
 extern NiPoint3 _NiPoint3_ZERO;
 
@@ -268,10 +268,10 @@ void Sun::Init(NiNode* apSkyRoot)
     ((Sun*)this)->SkyObject::Initialize(apSkyRoot);
 
     psunVertices = new NiPoint3[4];
-    psunVertices[0] = NiPoint3(-1.0 * *g_011cce7c.Float(), *g_011cce7c.Float(), 0.0f);
-    psunVertices[1] = NiPoint3(-1.0 * *g_011cce7c.Float(), -1.0 * *g_011cce7c.Float(), 0.0f);
-    psunVertices[2] = NiPoint3(*g_011cce7c.Float(), *g_011cce7c.Float(), 0.0f);
-    psunVertices[3] = NiPoint3(*g_011cce7c.Float(), -1.0 * *g_011cce7c.Float(), 0.0f);
+    psunVertices[0] = NiPoint3(-1.0 * *fSunBaseSize_Weather.Float(), *fSunBaseSize_Weather.Float(), 0.0f);
+    psunVertices[1] = NiPoint3(-1.0 * *fSunBaseSize_Weather.Float(), -1.0 * *fSunBaseSize_Weather.Float(), 0.0f);
+    psunVertices[2] = NiPoint3(*fSunBaseSize_Weather.Float(), *fSunBaseSize_Weather.Float(), 0.0f);
+    psunVertices[3] = NiPoint3(*fSunBaseSize_Weather.Float(), -1.0 * *fSunBaseSize_Weather.Float(), 0.0f);
 
     psunNormals = new NiPoint3[4];
     psunNormals[0] = _NiPoint3_ZERO;
@@ -280,10 +280,10 @@ void Sun::Init(NiNode* apSkyRoot)
     psunNormals[3] = _NiPoint3_ZERO;
 
     pglareVertices = new NiPoint3[4];
-    pglareVertices[0] = NiPoint3(-1.0 * *g_011cce50.Float(), *g_011cce50.Float(), 0.0f);
-    pglareVertices[1] = NiPoint3(-1.0 * *g_011cce50.Float(), -1.0 * *g_011cce50.Float(), 0.0f);
-    pglareVertices[2] = NiPoint3(*g_011cce50.Float(), *g_011cce50.Float(), 0.0f);
-    pglareVertices[3] = NiPoint3(*g_011cce50.Float(), -1.0 * *g_011cce50.Float(), 0.0f);
+    pglareVertices[0] = NiPoint3(-1.0 * *fSunGlareSize_Weather.Float(), *fSunGlareSize_Weather.Float(), 0.0f);
+    pglareVertices[1] = NiPoint3(-1.0 * *fSunGlareSize_Weather.Float(), -1.0 * *fSunGlareSize_Weather.Float(), 0.0f);
+    pglareVertices[2] = NiPoint3(*fSunGlareSize_Weather.Float(), *fSunGlareSize_Weather.Float(), 0.0f);
+    pglareVertices[3] = NiPoint3(*fSunGlareSize_Weather.Float(), -1.0 * *fSunGlareSize_Weather.Float(), 0.0f);
 
     pglareNormals = new NiPoint3[4];
     pglareNormals[0] = _NiPoint3_ZERO;

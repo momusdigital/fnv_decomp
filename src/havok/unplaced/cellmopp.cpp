@@ -187,7 +187,7 @@ void* __thiscall CellMopp::Destroy(unsigned int flags)
     return this;
 }
 
-extern "C" void* DAT_0104dbac;
+extern "C" void* vftable_bhkBvTreeShape;
 extern "C" int DAT_012682cc;
 struct FUN_00622390_Class
 {
@@ -199,7 +199,7 @@ struct FUN_00622390_Class
 void* __thiscall FUN_00622390_Class::bhkBvTreeShape_bhkBvTreeShape()
 {
     FUN_0056e6f0();
-    *(void**)this = &DAT_0104dbac;
+    *(void**)this = &vftable_bhkBvTreeShape;
     ++DAT_012682cc;
     return this;
 }
@@ -207,12 +207,13 @@ void* __thiscall FUN_00622390_Class::bhkBvTreeShape_bhkBvTreeShape()
 struct FUN_00622440_Class
 {
     void __thiscall FUN_00caff80();
-    void* __thiscall FUN_00622440(unsigned int flags);
+    void* __thiscall bhkTriSampledHeightFieldBvTreeShape_ScalarDeletingDestructor(unsigned int flags);
     static void operator delete(void* p, unsigned int size);
 };
 
 // @fnv 0x00622440
-void* __thiscall FUN_00622440_Class::FUN_00622440(unsigned int flags)
+// src: EXE 0x00622440
+void* __thiscall FUN_00622440_Class::bhkTriSampledHeightFieldBvTreeShape_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00caff80();
     if (flags & 1)

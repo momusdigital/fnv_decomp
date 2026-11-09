@@ -54,7 +54,7 @@ bool FUN_00a44310_shell::Equals(const void* pOther)
     return false;
 }
 
-extern int DAT_01097d34;
+extern int vftable_BSGrabIKNote;
 
 struct ViewerStrings;
 
@@ -87,7 +87,7 @@ void* __cdecl BSGrabIKNote_CreateObject()
         node->m_fTime = 0.0f;
         node->m_eType = 1;
         node->m_fGain = 0.0f;
-        node->m_ppVirtualMethodTable = &DAT_01097d34;
+        node->m_ppVirtualMethodTable = &vftable_BSGrabIKNote;
         node->m_eAnimationState = 0;
         return node;
     }
@@ -125,7 +125,7 @@ void* BSGrabIKNote::Clone(CloningProcess* process)
         node->m_fTime = 0.0f;
         node->m_eType = 1;
         node->m_fGain = 0.0f;
-        node->m_ppVirtualMethodTable = (void*)&DAT_01097d34;
+        node->m_ppVirtualMethodTable = (void*)&vftable_BSGrabIKNote;
         node->m_eAnimationState = 0;
     }
     else

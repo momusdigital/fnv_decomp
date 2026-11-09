@@ -37,7 +37,7 @@ GlobalObjectO2_00a7b610* __cdecl NiLightDimmerController_GetRTTI()
     return &g_011f3fa0;
 }
 
-extern int DAT_01098ccc;
+extern int vftable_NiLightDimmerController;
 inline void* __cdecl operator new(unsigned int, void* p)
 {
     return p;
@@ -50,7 +50,7 @@ void* NiLightDimmerController_CreateObject()
     if (p)
     {
         ::new (p) NiFloatInterpController();
-        *(void**)p = &DAT_01098ccc;
+        *(void**)p = &vftable_NiLightDimmerController;
         return p;
     }
     return 0;
@@ -86,7 +86,7 @@ void* FloatInterpOwner::CreateFloatInterpController(int arg)
     if (obj != 0)
     {
         obj->NiFloatInterpController::NiFloatInterpController();
-        *(int*)obj = (int)&DAT_01098ccc;
+        *(int*)obj = (int)&vftable_NiLightDimmerController;
     }
     else
     {
@@ -141,7 +141,7 @@ void NiLightDimmerController_LoadBinary()
 }
 
 #include <windows.h>
-extern int DAT_01098ccc;
+extern int vftable_NiLightDimmerController;
 
 void __cdecl FUN_00aa1460(void* apMemory, unsigned int auiSize);
 extern void BaseCleanup();
@@ -150,7 +150,7 @@ extern void BaseCleanup();
 // @fnv 0x00a4d030
 NiLightDimmerController* __fastcall FUN_00a4d030(NiLightDimmerController* controller, void*, unsigned char acFlags)
 {
-    *(volatile int*)controller = (int)&DAT_01098ccc;
+    *(volatile int*)controller = (int)&vftable_NiLightDimmerController;
     NiInterpolator* pCounted = *(NiInterpolator* volatile*)&controller->m_spControllerInterpolator.m_pObject;
     if (pCounted != 0)
     {

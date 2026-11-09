@@ -20,6 +20,6 @@ public:
     int GetCullResult();
     int IsNotCulled();
     void TESObjectCELL_ClearLocationMarkers();
-    void* FUN_004a6110(unsigned int);
+    void* ScalarDeletingDestructor(unsigned int);
     CellPoint3* FUN_00413f40();
 };

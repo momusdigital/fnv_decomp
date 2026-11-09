@@ -23,7 +23,7 @@ int __cdecl Object_ComputeValue_00dc9bc0()
     return 8;
 }
 
-extern void* DAT_010a0f6c;
+extern void* vftable_NiDitherProperty;
 
 // @fnv 0x00a9a640
 // src: EXE 0x00a9a640
@@ -35,7 +35,7 @@ void* __cdecl NiDitherProperty_CreateObject()
         NiProperty* property = static_cast<NiProperty*>(p);
         property->NiProperty::NiProperty();
         *(short*)((char*)p + 0x18) = 0;
-        *(void**)((char*)p + 0) = &DAT_010a0f6c;
+        *(void**)((char*)p + 0) = &vftable_NiDitherProperty;
         return p;
     }
     return 0;
@@ -50,7 +50,7 @@ NiCullingProperty* NiCullingProperty::NiDitherProperty_CreateClone(CloningProces
     if (copy)
     {
         copy->NiProperty::NiProperty();
-        *(void**)copy = &DAT_010a0f6c;
+        *(void**)copy = &vftable_NiDitherProperty;
         copy->m_usFlags = 0;
     }
     else

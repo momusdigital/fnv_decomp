@@ -429,11 +429,12 @@ void __cdecl _Deallocate(void*);
 struct FUN_005fe130_shell
 {
     void FUN_005fe180();
-    void* FUN_005fe130(unsigned int);
+    void* TESIdleForm_ScalarDeletingDestructor(unsigned int);
 };
 // Calls FUN_005fe180, then deallocates this when bit 0 of flags is set, and returns this.
 // @fnv 0x005fe130
-void* FUN_005fe130_shell::FUN_005fe130(unsigned int flags)
+// src: EXE 0x005fe130
+void* FUN_005fe130_shell::TESIdleForm_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_005fe180();
     if (flags & 1)

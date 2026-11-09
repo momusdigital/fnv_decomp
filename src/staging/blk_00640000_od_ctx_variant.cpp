@@ -51,13 +51,13 @@ struct Helper_00644400
 {
     void BSSimpleArray_NavMeshTriangle_1024_InitialSetup(int, int);
 };
-extern int DAT_0104f3e8;
+extern int vftable_BSSimpleArray_0104f3e8;
 struct FUN_006442b0_class
 {
     void* vftable;
     void* BSSimpleArray_FollowerDist_1024_BSSimpleArray_FollowerDist_1024(int a);
 };
-extern int DAT_0104f3e8;
+extern int vftable_BSSimpleArray_0104f3e8;
 struct GlobalObject_00869f00
 {
     int* p;
@@ -231,7 +231,7 @@ struct FUN_00658930_class
     unsigned int GetShortAtOffsetA() const;
 };
 extern "C" void __cdecl FUN_00659230(int, int);
-extern int DAT_01065870;
+extern int vftable_BSTCaseInsensitiveStringMap_01065870;
 struct FUN_00658aa0_class
 {
     void* vtbl;
@@ -263,7 +263,7 @@ struct FUN_00659310_
     void __thiscall ForwardCall_00659310(void*);
 };
 void __cdecl ForEachItem(void* obj, void* end, FUN_00659310_* item);
-extern int DAT_010658b0;
+extern int vftable_NiTMap_010658b0;
 struct FUN_00659490_cls
 {
     void InitArray(int);
@@ -503,7 +503,7 @@ struct FUN_0065f930_Class
     void __thiscall ForwardCall_0065f930(int a, int b, int c);
 };
 extern "C" void _NiFreeAlias(void*);
-extern void* DAT_010658d0;
+extern void* vftable_NiTMapBase_010658d0;
 struct FUN_00658e70_cls : public NiTPointerMap<int, int>
 {
     void SetVtableAndProcessState_00658e70();
@@ -670,7 +670,7 @@ struct FUN_00659140_Class
 {
     void* __thiscall FUN_00659140(unsigned int flags);
 };
-extern int DAT_010658f0;
+extern int vftable_NiTStringMap_010658f0;
 struct FUN_00659230
 {
     void* vptr;
@@ -682,7 +682,7 @@ struct S_006592c0
 {
     void* FUN_006592c0(unsigned int flags);
 };
-extern int DAT_01065890;
+extern int vftable_NiTStringTemplateMap_01065890;
 struct FUN_00659330_class
 {
     void* m_iWordAt00;

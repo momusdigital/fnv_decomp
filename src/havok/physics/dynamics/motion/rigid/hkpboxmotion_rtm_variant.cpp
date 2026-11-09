@@ -314,7 +314,7 @@ inline void* operator new(unsigned int, void* p)
 {
     return p;
 }
-extern const char DAT_010c6dc4[];
+extern const char vftable_hkpBoxMotion[];
 extern const float DAT_01012068;
 struct FUN_00c86530_Obj
 {

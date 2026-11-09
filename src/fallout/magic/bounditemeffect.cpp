@@ -670,7 +670,7 @@ struct GlobalObject_0045cf30
     unsigned char* __thiscall Bool();
 };
 
-extern GlobalObject_0045cf30 g_011de4e8;
+extern GlobalObject_0045cf30 bDebugSaveBuffer_Debug;
 
 extern TESForm* __cdecl TESForm_GetFormByNumericID(unsigned int formID);
 
@@ -724,7 +724,7 @@ unsigned short __thiscall BoundItemEffect::GetSaveSize(::Actor* apActor)
         }
     }
 
-    if (g_011de4e8.Bool()[0] != 0)
+    if (bDebugSaveBuffer_Debug.Bool()[0] != 0)
 
     {
 
@@ -1157,7 +1157,7 @@ struct GlobalObject_0045cf30
 {
     unsigned char* Bool();
 };
-extern GlobalObject_0045cf30 g_011de4e8;
+extern GlobalObject_0045cf30 bDebugSaveBuffer_Debug;
 struct ValueReferencePair
 {
     void ItemChange_SaveGameTES();
@@ -1177,7 +1177,7 @@ void BoundItemEffect::SaveGame(Actor* arg)
     unsigned int blockStart = 0;
     {
         unsigned int uiTimestamp = g_TESSaveLoadGame->FUN_00825c00();
-        if (*g_011de4e8.Bool())
+        if (*bDebugSaveBuffer_Debug.Bool())
             uiTimestamp = g_TESSaveLoadGame->FUN_00825c00();
         if (g_TESSaveLoadGame->TESSaveLoadGame_UseSaveGameBlocks())
         {
@@ -1208,7 +1208,7 @@ void BoundItemEffect::SaveGame(Actor* arg)
         }
         if (g_TESSaveLoadGame->FUN_008df040() >= 107)
             g_TESSaveLoadGame->TESSaveLoadGame_SaveGameDataOLD(&pending, 1);
-        if (*g_011de4e8.Bool())
+        if (*bDebugSaveBuffer_Debug.Bool())
         {
             unsigned int uiHeaderPos = g_TESSaveLoadGame->FUN_00825c00();
             SaveHeader* pSaveHeader = (SaveHeader*)g_TESSaveLoadGame->FUN_004fd3e0();

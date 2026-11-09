@@ -100,19 +100,19 @@ void __stdcall NiStaticGeometryGroup_ReleaseChip(NiGeometryBufferData* pkBuffDat
 
 void __cdecl _NiFreeAlias(void*);
 void __cdecl _delete(void*, unsigned int);
-extern int DAT_010f0f94;
-extern int DAT_010f0fb4;
-extern int DAT_010f0fd4;
+extern int vftable_NiTMapBase_010f0f94;
+extern int vftable_NiTPointerMap_010f0fb4;
+extern int vftable_NiStaticGeometryGroup;
 // Resets vtables, clears the map at offset 12, frees its buffer, calls cleanup, and optionally deletes the object.
 // @fnv 0x00e94890
 void* NiStaticGeometryGroup::Destroy(unsigned int flag)
 {
-    *reinterpret_cast<void**>(this) = &DAT_010f0fd4;
+    *reinterpret_cast<void**>(this) = &vftable_NiStaticGeometryGroup;
     Purge_00e946b0();
     GeometryMapBase* pSets = reinterpret_cast<GeometryMapBase*>(&map);
-    *reinterpret_cast<void**>(pSets) = &DAT_010f0fb4;
+    *reinterpret_cast<void**>(pSets) = &vftable_NiTPointerMap_010f0fb4;
     pSets->RemoveAll();
-    *reinterpret_cast<void**>(pSets) = &DAT_010f0f94;
+    *reinterpret_cast<void**>(pSets) = &vftable_NiTMapBase_010f0f94;
     pSets->RemoveAll();
     _NiFreeAlias(pSets->m_ppkHashTable);
     FUN_00e98710();
@@ -127,19 +127,19 @@ struct MM
 };
 extern MM g_memoryManager;
 void __cdecl _NiFreeAlias(void*);
-extern int DAT_010f0f84;
+extern int vftable_NiTArray_010f0f84;
 struct S
 {
     void* f0;
     void* f4;
     void* FUN_00e94a80(unsigned int);
 };
-// Sets f0 to DAT_010f0f84, frees f4, and if flag bit 0 is set deallocates this via g_memoryManager, returning this.
+// Sets f0 to vftable_NiTArray_010f0f84, frees f4, and if flag bit 0 is set deallocates this via g_memoryManager, returning this.
 // @fnv 0x00e94a80
 void* S::FUN_00e94a80(unsigned int flag)
 {
     void* tmp = f4;
-    f0 = &DAT_010f0f84;
+    f0 = &vftable_NiTArray_010f0f84;
     _NiFreeAlias(tmp);
     if (flag & 1)
         g_memoryManager._DeallocateAlias(this);

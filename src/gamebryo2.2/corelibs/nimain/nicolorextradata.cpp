@@ -26,12 +26,12 @@ void* __cdecl NiColorExtraData_GetRTTI()
 
 extern "C" void __cdecl _FUN_00a7b300();
 extern void __cdecl _delete(void*, unsigned int);
-extern int DAT_0109eccc;
+extern int vftable_NiColorExtraData;
 
 // @fnv 0x00a89560
 NiColorExtraData* __fastcall DestroyColorExtraData(NiColorExtraData* self, void*, unsigned int flags)
 {
-    *reinterpret_cast<int**>(self) = &DAT_0109eccc;
+    *reinterpret_cast<int**>(self) = &vftable_NiColorExtraData;
     _FUN_00a7b300();
     if (flags & 1)
         _delete(self, 0x1c);
@@ -44,7 +44,7 @@ extern const NiColorA kBlackColor;
 static __forceinline NiColorExtraData* InitializeColorExtraData(NiColorExtraData* self) throw()
 {
     self->NiExtraData::FUN_00a7b2e0();
-    *reinterpret_cast<int**>(self) = &DAT_0109eccc;
+    *reinterpret_cast<int**>(self) = &vftable_NiColorExtraData;
     volatile float* pColor = &self->m_kFogTint.r;
     pColor[0] = 0.0f;
     pColor[1] = 0.0f;
@@ -153,7 +153,7 @@ void __fastcall WriteColorToStream(NiColorExtraData* self, void*, StreamShell& k
 }
 
 extern "C" void* __cdecl Object_DispatchCommandFour(unsigned int size);
-extern int DAT_0109eccc;
+extern int vftable_NiColorExtraData;
 extern int DAT_011a9bd0;
 extern int DAT_011a9bd4;
 extern int DAT_011a9bd8;
@@ -170,7 +170,7 @@ unsigned int* __cdecl NiColorExtraData_CreateObject()
     {
         ((NiExtraData*)ptr)->FUN_00a7b2e0();
 
-        ptr[0] = (unsigned int)&DAT_0109eccc;
+        ptr[0] = (unsigned int)&vftable_NiColorExtraData;
 
         float f[4];
         f[0] = 0.0f;

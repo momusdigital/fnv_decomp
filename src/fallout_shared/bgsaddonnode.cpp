@@ -171,10 +171,11 @@ void _Deallocate(void*);
 struct Proxy_004f8b90
 {
     void FUN_004f8bc0();
-    void* FUN_004f8b90(unsigned int);
+    void* BGSAddonNode_ScalarDeletingDestructor(unsigned int);
 };
 // @fnv 0x004f8b90
-void* Proxy_004f8b90::FUN_004f8b90(unsigned int flags)
+// src: EXE 0x004f8b90
+void* Proxy_004f8b90::BGSAddonNode_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_004f8bc0();
     if (flags & 1)
@@ -185,7 +186,8 @@ void* Proxy_004f8b90::FUN_004f8b90(unsigned int flags)
 void _delete(void*, unsigned int);
 // Calls FUN_004f9270, deletes this with size 24 when bit 0 of flags is set, and returns this.
 // @fnv 0x004f9240
-void* BGSAddonNodeSoundHandleExtra::FUN_004f9240(unsigned int flags)
+// src: EXE 0x004f9240
+void* BGSAddonNodeSoundHandleExtra::ScalarDeletingDestructor(unsigned int flags)
 {
     this->FUN_004f9270();
     if (flags & 1)

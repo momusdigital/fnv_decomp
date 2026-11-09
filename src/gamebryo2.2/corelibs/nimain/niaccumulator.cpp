@@ -13,13 +13,13 @@ char const* const* __cdecl NiAccumulator_GetRTTI()
 }
 
 void __cdecl _delete(void*, unsigned int);
-extern int DAT_010a2304;
-// Sets the vtable to DAT_010a2304, runs the NiRefObject destructor, and frees this with _delete when a1 has bit 0 set.
+extern int vftable_NiAccumulator;
+// Sets the vtable to vftable_NiAccumulator, runs the NiRefObject destructor, and frees this with _delete when a1 has bit 0 set.
 // Preserve the scalar deleting destructor's register ABI without a synthetic class member.
 // @fnv 0x00aa0b10
 void* __fastcall DestroyAccumulator(NiAccumulator* self, void*, unsigned int auiFlags)
 {
-    *(void**)self = (void*)&DAT_010a2304;
+    *(void**)self = (void*)&vftable_NiAccumulator;
     self->NiRefObject::~NiRefObject();
     if (auiFlags & 1)
         _delete(self, 12);

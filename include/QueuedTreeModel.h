@@ -31,7 +31,7 @@ public:
     void QueueTreeModelLoad();
     void Run_0043da00();
     void SetVtableAndProcessState_0043d8f0();
-    void* FUN_0043d8c0(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 
     unsigned char padding[0x48 - sizeof(QueuedModel)];
     TESObjectREFR* pRef;

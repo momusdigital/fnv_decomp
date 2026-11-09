@@ -62,7 +62,7 @@ class GlobalObject_00719b80
 // @fnv 0x00719B80
 GlobalObject_00719b80::GlobalObject_00719b80()
 {
-    vtable = &DAT_0106f798;
+    vtable = &vftable_BSSimpleArray_0106f798;
     reinterpret_cast<BSSimpleArray<NavMeshInfo*, 1024>*>(this)->BSSimpleArray_float_1024_InitialSetup(0, false);
 }
 
@@ -76,7 +76,7 @@ class GlobalObject_00788300
 // @fnv 0x00788300
 GlobalObject_00788300::GlobalObject_00788300()
 {
-    vtable = &DAT_01073e50;
+    vtable = &vftable_BSSimpleArray_01073e50;
     reinterpret_cast<BSSimpleArrayPacketEffect*>(this)->FUN_007883b0(0, false);
 }
 

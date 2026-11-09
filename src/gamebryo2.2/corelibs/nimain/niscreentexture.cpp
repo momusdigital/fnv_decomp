@@ -42,14 +42,14 @@ bool NiScreenTexture::RegisterStreamables(NiStream& kStream)
     return true;
 }
 
-extern int DAT_010a048c;
+extern int vftable_NiScreenTexture;
 void __cdecl _NiFreeAlias(void*);
 extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(volatile long*);
 // @fnv 0x00a95590
 // src: GUESS 0x00a95590 (confidence: medium)
 void NiScreenTexture::ReleaseReference_00a95590()
 {
-    *reinterpret_cast<void**>(this) = (void*)&DAT_010a048c;
+    *reinterpret_cast<void**>(this) = (void*)&vftable_NiScreenTexture;
     NiRenderer* r = NiRenderer::ms_pRenderer;
     if (r)
     {
@@ -230,7 +230,7 @@ void* __cdecl Object_DispatchCommandFour(unsigned int size);
 static inline void InitScreenTextureBase(NiScreenTexture* p) throw()
 {
     ::new (p) NiObject;
-    *reinterpret_cast<void**>(p) = &DAT_010a048c;
+    *reinterpret_cast<void**>(p) = &vftable_NiScreenTexture;
 }
 
 // @fnv 0x00a958b0
@@ -241,7 +241,7 @@ NiScreenTexture* __cdecl NiScreenTexture_CreateObject()
     if (p != 0)
     {
         ::new (p) NiObject;
-        *reinterpret_cast<void* volatile*>(p) = (void*)&DAT_010a048c;
+        *reinterpret_cast<void* volatile*>(p) = (void*)&vftable_NiScreenTexture;
         *(RendererDataRecord* volatile*)&p->m_pBase = 0;
         *(volatile unsigned int*)&p->m_uiElementCount = 0;
         *(volatile unsigned int*)&p->m_uiAllocatedCapacity = 0;

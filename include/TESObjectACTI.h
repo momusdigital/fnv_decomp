@@ -50,7 +50,7 @@ public:
     StringX GetActivateText();
 
     TESSound* TESChallenge_GetFormOne();
-    void* FUN_005105f0(unsigned int flags);
+    void* TESObjectACTI_ScalarDeletingDestructor(unsigned int flags);
     void TESObjectACTI_InitItem();
     void TESObjectACTI_SetActivationPrompt(BSStringT<char> prompt);
     bool TESObjectACTI_Compare(TESForm* form);

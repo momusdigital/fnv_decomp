@@ -67,23 +67,23 @@ D107A0RTTI* __cdecl Runtime_GetD107A0RTTIAddress()
     return &g_D107A0RTTI;
 }
 
-extern int DAT_010cd54c;
+extern int vftable_hkpNullAgent;
 
-struct FUN_00d107b0
+struct hkpNullAgent
 {
     void** vft;
     unsigned short a;
     unsigned short b;
     int c;
-    FUN_00d107b0();
+    hkpNullAgent();
 };
 
 // @fnv 0x00d107b0
-FUN_00d107b0::FUN_00d107b0()
+hkpNullAgent::hkpNullAgent()
 {
     b = 1;
     c = 0;
-    vft = (void**)&DAT_010cd54c;
+    vft = (void**)&vftable_hkpNullAgent;
 }
 
 struct FUN_00c9ce00_cls
@@ -954,9 +954,9 @@ unsigned char* __stdcall hkpContinuousSimulation_fireEarliestToiCallbacksAndChec
     return result;
 }
 
-extern int DAT_010c63bc;
-extern int DAT_010cd588;
-extern int DAT_010cd598;
+extern int vftable_hkpBroadPhaseListener;
+extern int vftable_hkpEntityEntityBroadPhaseListener_for_hkpBroadPhaseListener;
+extern int vftable_hkpEntityEntityBroadPhaseListener;
 
 struct FUN_00d107d0_t
 {
@@ -972,15 +972,15 @@ struct FUN_00d107d0_t
     FUN_00d107d0_t* InitializeFields_00d107d0(int v);
 };
 
-// Sets b to 1, points p8a/p0/p8b at DAT_010c63bc/DAT_010cd598/DAT_010cd588, stores v in c, and returns this.
+// Sets b to 1, points p8a/p0/p8b at vftable_hkpBroadPhaseListener/vftable_hkpEntityEntityBroadPhaseListener/vftable_hkpEntityEntityBroadPhaseListener_for_hkpBroadPhaseListener, stores v in c, and returns this.
 // @fnv 0x00d107d0
 // src: GUESS 0x00d107d0 (confidence: low)
 FUN_00d107d0_t* FUN_00d107d0_t::InitializeFields_00d107d0(int v)
 {
     b = 1;
-    p8a = &DAT_010c63bc;
-    p0 = &DAT_010cd598;
-    p8b = &DAT_010cd588;
+    p8a = &vftable_hkpBroadPhaseListener;
+    p0 = &vftable_hkpEntityEntityBroadPhaseListener;
+    p8b = &vftable_hkpEntityEntityBroadPhaseListener_for_hkpBroadPhaseListener;
     c = v;
     return this;
 }

@@ -20,7 +20,7 @@ public:
     void AssignPathingLocation(PathingLocation*);
     void PathingRequestClosePoint_SetMinDistance(float);
     void SetMaxDistance_006e5ee0(float);
-    void* __thiscall FUN_006e3f70(unsigned int);
+    void* __thiscall ScalarDeletingDestructor(unsigned int);
     void __thiscall PathingRequestOptimalLocation_SaveGame(BGSSaveFormBuffer*);
     void PathingRequestOptimalLocation_LoadGame(BGSLoadFormBuffer*);
     void __thiscall CopyToWithClosePoint(PathingRequest*);

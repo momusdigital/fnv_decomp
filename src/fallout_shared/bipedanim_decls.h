@@ -480,7 +480,7 @@ struct BipedSkinTextureTarget
 class GlobalObject_0045cf30
 {
 };
-extern GlobalObject_0045cf30 g_011d5a10, g_011d5a44;
+extern GlobalObject_0045cf30 bUseMultiThreadedFaceGen_BackgroundLoad, bUseFaceGenHeads_General;
 class GlobalObject_0044fae0
 {
 };

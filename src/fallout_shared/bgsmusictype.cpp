@@ -85,12 +85,13 @@ void BGSMusicType::InitItem()
 
 struct MusicTypeDeletion : public BGSMusicType
 {
-    void* FUN_005912a0(unsigned int flags);
+    void* BGSMusicType_ScalarDeletingDestructor(unsigned int flags);
 };
 
 // Calls the BGSMusicType destructor and frees the object with operator delete when the low bit of flags is set.
 // @fnv 0x005912a0
-void* MusicTypeDeletion::FUN_005912a0(unsigned int flags)
+// src: EXE 0x005912a0
+void* MusicTypeDeletion::BGSMusicType_ScalarDeletingDestructor(unsigned int flags)
 {
     this->BGSMusicType::~BGSMusicType();
     if (flags & 1)

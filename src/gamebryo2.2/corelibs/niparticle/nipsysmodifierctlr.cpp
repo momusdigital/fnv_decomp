@@ -63,7 +63,7 @@ unsigned char __fastcall IsModifierControllerEquivalent(NiPSysModifierCtlr* cont
     return controller->m_kTargetModifierName.m_kHandle == other->m_kTargetModifierName.m_kHandle;
 }
 
-extern int DAT_010c08ac;
+extern int vftable_NiPSysModifierCtlr;
 extern int DAT_0109b220;
 extern int(__stdcall* DAT_00fdf1c4)(void* apMemory);
 void __cdecl FUN_00aa1460(void* apMemory, unsigned int auiSize);
@@ -75,7 +75,7 @@ void __fastcall DestroyTimeController(NiTimeController* controller);
 NiPSysModifierCtlr* __fastcall DestroyModifierController(NiPSysModifierCtlr* controller, void*, unsigned char acFlags)
 {
     int(__stdcall * pfnFree)(void*) = DAT_00fdf1c4;
-    *(volatile int*)controller = (int)&DAT_010c08ac;
+    *(volatile int*)controller = (int)&vftable_NiPSysModifierCtlr;
     char* pName = *(char* volatile*)&controller->m_kTargetModifierName.m_kHandle;
     if (pName != (char*)DAT_0109b220)
     {

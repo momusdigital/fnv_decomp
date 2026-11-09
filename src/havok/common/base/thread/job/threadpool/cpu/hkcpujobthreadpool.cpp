@@ -228,8 +228,8 @@ void OwnerD2CD::hkCpuJobThreadPool_processAllJobs(int value, int unused)
         m_pElements[i].FUN_00d04390(1);
 }
 
-extern char DAT_010ce774;
-extern char DAT_0102e388;
+extern char vftable_hkCpuJobThreadPool;
+extern char vftable_hkBaseObject;
 void hkReferencedObject_setLockMode(int);
 
 struct EventObjD2C
@@ -280,7 +280,7 @@ struct ClsD2C : VBaseD2C, ArrBaseD2C
 // src: GUESS 0x00d2cf00 (confidence: low)
 void ClsD2C::ProcessEntries_00d2cf00()
 {
-    *(void**)this = (void*)&DAT_010ce774;
+    *(void**)this = (void*)&vftable_hkCpuJobThreadPool;
     hkCpuJobThreadPool_waitForCompletion();
     for (int i = 0; i < m_uiItemCount; ++i)
     {
@@ -303,7 +303,7 @@ void ClsD2C::ProcessEntries_00d2cf00()
         th->m_evt.ForwardCall_00d04370();
         th->hkThread_stopThread_ForwardCall_00d87a70();
     } while (--k >= 0);
-    *(void**)this = (void*)&DAT_0102e388;
+    *(void**)this = (void*)&vftable_hkBaseObject;
 }
 
 namespace fnv_00d2d110 {

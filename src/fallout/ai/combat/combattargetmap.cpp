@@ -68,11 +68,12 @@ struct DtorStandIn
 };
 struct DelStandIn
 {
-    void* FUN_009a3ec0(unsigned int flags);
+    void* CombatTargetMap_ScalarDeletingDestructor(unsigned int flags);
 };
 // Runs the destructor, then frees this object when flags has bit 0 set, and returns this.
 // @fnv 0x009a3ec0
-void* DelStandIn::FUN_009a3ec0(unsigned int flags)
+// src: EXE 0x009a3ec0
+void* DelStandIn::CombatTargetMap_ScalarDeletingDestructor(unsigned int flags)
 {
     ((DtorStandIn*)this)->FUN_0083dec0();
     if (flags & 1)
@@ -151,7 +152,7 @@ void FUN_009a3fe0_struct::AddAttackerToTarget(void* apTarget, void* apAttacker)
 }
 }  // namespace fnv_009a3fe0
 
-extern void* DAT_0108e1e8;
+extern void* vftable_CombatTargetMap;
 
 struct ActorCombatTargetData;
 

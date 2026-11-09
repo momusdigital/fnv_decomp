@@ -21,8 +21,8 @@ struct C00d573e0 {
     void SetValue(float v);
 };
 #include "fnv_asm_helpers.h"   // project x87 helpers (fnv_SinCos, fnv_FloatToInt), kept last so earlier code is unchanged
-extern char DAT_010305a8;
-extern char DAT_010d0f1c;
+extern char vftable_hkpShape;
+extern char vftable_hkpCylinderShape;
 extern float DAT_011b5be8;
 // src: HAVOK_LIB 0x00d571d0
 static __declspec(noinline) float minValueRoundedUpTo1()
@@ -40,7 +40,7 @@ struct S00d57b20_Obj {
 
 #include <xmmintrin.h>
 namespace fnv_00d57aa0 {
-extern int DAT_010d0f1c;
+extern int vftable_hkpCylinderShape;
 extern float DAT_011b5be8;
 extern float DAT_01030ff0;
 
@@ -99,7 +99,7 @@ void* __thiscall S00d57aa0_Obj::hkpCylinderShape_hkpCylinderShape(
     unk06 = 1;
     unk08 = 0;
     unk0c = 2;
-    vft = &DAT_010d0f1c;
+    vft = &vftable_hkpCylinderShape;
 
     if (DAT_011b5be8 < 0.0f) {
         DAT_011b5be8 = 1.0f - minValueRoundedUpTo1();

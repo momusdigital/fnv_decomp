@@ -30,9 +30,9 @@ void FUN_00d2b1f0::EntityRemovedCallback(int)
         static_cast<UnaryActionWorld*>(m1)->RemoveAction(reinterpret_cast<hkpAction*>(this));
 }
 
-extern int DAT_010cc2fc;
-extern int DAT_010ce528;
-extern int _DAT_0102e388;
+extern int vftable_hkpAction;
+extern int vftable_hkpUnaryAction;
+extern int vftable_hkBaseObject;
 
 struct S_00d49310_Lock
 {
@@ -54,7 +54,7 @@ struct FUN_00d2b2b0_class
 // src: GUESS 0x00d2b2b0 (confidence: medium)
 void FUN_00d2b2b0_class::ReleaseReference_00d2b2b0()
 {
-    vptr = &DAT_010ce528;
+    vptr = &vftable_hkpUnaryAction;
 
     if (entity)
     {
@@ -62,9 +62,9 @@ void FUN_00d2b2b0_class::ReleaseReference_00d2b2b0()
         entity = 0;
     }
 
-    vptr = &DAT_010cc2fc;
+    vptr = &vftable_hkpAction;
     lock.~S_00d49310_Lock();
-    vptr = &_DAT_0102e388;
+    vptr = &vftable_hkBaseObject;
 }
 
 void ReleaseReference_00d2b2b0();
@@ -141,11 +141,11 @@ FUN_00d2b260::FUN_00d2b260(hkpEntity* apEntity, unsigned int auiUserData)
 {
     referenceCount = 1;
     userData = auiUserData;
-    vptr = &DAT_010cc2fc;
+    vptr = &vftable_hkpAction;
     world = 0;
     island = 0;
     name.initialize();
-    vptr = &DAT_010ce528;
+    vptr = &vftable_hkpUnaryAction;
     entity = apEntity;
     if (apEntity)
         apEntity->RetainReference();

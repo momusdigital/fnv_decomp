@@ -134,7 +134,7 @@ struct CloningProcess
 extern float DAT_01015f5c;
 extern float DAT_01022958;
 extern double DAT_01032980;
-extern int DAT_010be774;
+extern int vftable_NiPSysTurbulenceFieldModifier;
 // @fnv 0x00c27670
 NiPSysTurbulenceFieldModifier* __fastcall CloneFieldModifier(NiPSysTurbulenceFieldModifier* self, int,
                                                             CloningProcess* kCloning)
@@ -144,7 +144,7 @@ NiPSysTurbulenceFieldModifier* __fastcall CloneFieldModifier(NiPSysTurbulenceFie
     {
         pkObject->NiPSysFieldModifier::NiPSysFieldModifier();
         pkObject->m_fFrequency = 0.0f;
-        *(int**)pkObject = &DAT_010be774;
+        *(int**)pkObject = &vftable_NiPSysTurbulenceFieldModifier;
         pkObject->m_fFieldDistance = DAT_01015f5c;
         pkObject->m_fFieldMagnitude = DAT_01022958;
     }

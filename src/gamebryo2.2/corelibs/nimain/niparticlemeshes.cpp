@@ -120,7 +120,7 @@ void NiParticleMeshes::RenderTarget(NiRenderer* pkRenderer)
 }
 
 extern void* __cdecl Object_DispatchCommandFour(unsigned int size);
-extern const char DAT_010a0a6c;
+extern const char vftable_NiParticleMeshes;
 
 
 
@@ -132,7 +132,7 @@ NiParticleMeshes* NiParticleMeshes::CreateAndInitObj(void* pArg)
     if (pObj != 0)
     {
         pObj->Init();
-        *(const char**)pObj = &DAT_010a0a6c;
+        *(const char**)pObj = &vftable_NiParticleMeshes;
         pObj->m_bUpdate = true;
     }
     else

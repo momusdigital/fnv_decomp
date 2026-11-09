@@ -86,11 +86,11 @@ void FUN_00d682a0_cls::InvokeTargetWithSelfOffset(Target* apTarget)
     apTarget->hkpWorld_removeContactListener(((char*)this - 0x20) != 0 ? (char*)this + 8 : 0);
 }
 
-extern char DAT_0104dd7c[];
-extern char DAT_010d1f0c[];
-extern char DAT_010d1eec[];
-extern char DAT_010d1edc[];
-extern char DAT_010d1ebc[];
+extern char vftable_hkpContactListener[];
+extern char vftable_hkpToiContactPointViewer[];
+extern char vftable_hkpToiContactPointViewer_for_hkProcess[];
+extern char vftable_hkpToiContactPointViewer_for_hkpPhysicsContextWorldListener[];
+extern char vftable_hkpToiContactPointViewer_for_hkpContactListener[];
 
 void __stdcall FUN_00ddccb0(int a1);
 
@@ -116,11 +116,11 @@ struct FUN_00d682d0_cls {
 void* FUN_00d682d0_cls::hkpToiContactPointViewer_hkpToiContactPointViewer(int aiArg)
 {
     FUN_00ddccb0(aiArg);
-    *(void* volatile*)((char*)this + 0x28) = (void*)&DAT_0104dd7c;
-    *(void* volatile*)((char*)this + 0x00) = (void*)&DAT_010d1f0c;
-    *(void* volatile*)((char*)this + 0x08) = (void*)&DAT_010d1eec;
-    *(void* volatile*)((char*)this + 0x20) = (void*)&DAT_010d1edc;
-    *(void* volatile*)((char*)this + 0x28) = (void*)&DAT_010d1ebc;
+    *(void* volatile*)((char*)this + 0x28) = (void*)&vftable_hkpContactListener;
+    *(void* volatile*)((char*)this + 0x00) = (void*)&vftable_hkpToiContactPointViewer;
+    *(void* volatile*)((char*)this + 0x08) = (void*)&vftable_hkpToiContactPointViewer_for_hkProcess;
+    *(void* volatile*)((char*)this + 0x20) = (void*)&vftable_hkpToiContactPointViewer_for_hkpPhysicsContextWorldListener;
+    *(void* volatile*)((char*)this + 0x28) = (void*)&vftable_hkpToiContactPointViewer_for_hkpContactListener;
     return this;
 }
 

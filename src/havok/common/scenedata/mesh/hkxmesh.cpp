@@ -45,7 +45,7 @@ FUN_00e4ae20_Object* FUN_00e4ae20_Object::FUN_00e4ae20(unsigned int flags)
     return this;
 }
 
-extern int DAT_010ec1dc;
+extern int vftable_hkxMesh;
 
 struct FUN_00e4ad00_cls
 {
@@ -58,7 +58,7 @@ struct FUN_00e4ad00_cls
 // src: GUESS 0x00e4ad00 (confidence: low)
 FUN_00e4ad00_cls* FUN_00e4ad00_cls::SetVirtualTable_00e4ad00(unsigned int unusedArg)
 {
-    m_vptr = (int)&DAT_010ec1dc;
+    m_vptr = (int)&vftable_hkxMesh;
     return this;
 }
 
@@ -106,8 +106,8 @@ struct FUN_00cce530
 FUN_00cce530::~FUN_00cce530()
 {}
 
-extern "C" int DAT_010ec1dc;
-extern "C" int DAT_0102e388;
+extern "C" int vftable_hkxMesh;
+extern "C" int vftable_hkBaseObject;
 struct FNV_00e4ad10_Ref
 {
     void FUN_00c905b0();
@@ -138,7 +138,7 @@ extern "C" FUN_00e4ae20_Router* __cdecl hkMemoryRouter_getInstance();
 void FUN_00e4ae20_Object::ClearArrays()
 {
     FNV_00e4ad10_Layout* object = reinterpret_cast<FNV_00e4ad10_Layout*>(this);
-    object->vtable = &DAT_010ec1dc;
+    object->vtable = &vftable_hkxMesh;
     FNV_00e4ad10_Allocator* heap = reinterpret_cast<FNV_00e4ad10_Allocator*>(hkMemoryRouter_getInstance()->m_pMemoryManager);
     int count = object->second.length;
     FNV_00e4ad10_Ref** ppItems = object->second.objects;
@@ -171,7 +171,7 @@ void FUN_00e4ae20_Object::ClearArrays()
         heap->Free(object->first.objects, (size & 0x3fffffff) * 4);
     object->first.objects = 0;
     object->first.capacity = 0x80000000;
-    object->vtable = &DAT_0102e388;
+    object->vtable = &vftable_hkBaseObject;
 }
 
 class hkObjectE4AE

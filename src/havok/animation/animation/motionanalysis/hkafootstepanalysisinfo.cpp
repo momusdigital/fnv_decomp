@@ -153,8 +153,8 @@ FUN_00e40fa0::FUN_00e40fa0()
 {}
 
 namespace fnv_00e40fd0 {
-extern int DAT_010e56d4;
-extern int DAT_0102e388;
+extern int vftable_hkaFootstepAnalysisInfoContainer;
+extern int vftable_hkBaseObject;
 void* __cdecl hkMemoryRouter_getInstance();
 struct Allocator;
 typedef void(__thiscall* FreeFunction)(Allocator*, void*, unsigned int);
@@ -182,7 +182,7 @@ struct Owner
 // @fnv 0x00e40fd0
 void Owner::ClearItems()
 {
-    vtable = &DAT_010e56d4;
+    vtable = &vftable_hkaFootstepAnalysisInfoContainer;
     Allocator* allocator = (Allocator*)((hkMemoryRouter*)hkMemoryRouter_getInstance())->m_heap;
     hkReferencedObject** pItems = items;
     int n = count;
@@ -204,7 +204,7 @@ void Owner::ClearItems()
     }
     items = 0;
     size = 0x80000000;
-    vtable = &DAT_0102e388;
+    vtable = &vftable_hkBaseObject;
 }
 }  // namespace fnv_00e40fd0
 
@@ -409,7 +409,7 @@ FUN_00e40800::FUN_00e40800(int aiSize, float afValue1, float afValue2, float afV
 }  // namespace fnv_00e40800
 
 namespace fnv_00e40ca0 {
-extern "C" char DAT_010ebd64;
+extern "C" char vftable_hkaFootstepAnalysisInfo;
 struct Obj
 {
     const void* vptr;
@@ -420,7 +420,7 @@ struct Obj
 // src: GUESS 0x00e40ca0 (confidence: low)
 Obj* Obj::InitializeFields_00e40ca0(int unused)
 {
-    vptr = &DAT_010ebd64;
+    vptr = &vftable_hkaFootstepAnalysisInfo;
     return this;
 }
 }  // namespace fnv_00e40ca0
@@ -464,8 +464,8 @@ inline void FreeAudioArray(hkMemoryAllocator* allocator, void* memory, unsigned 
 
 
 hkMemoryRouter* __cdecl hkMemoryRouter_getInstance() throw();
-extern int DAT_010e58c8;
-extern int DAT_0102e388;
+extern int vftable_hkaAnimationPreviewColorContainer;
+extern int vftable_hkBaseObject;
 
 struct FUN_00e41e20_cls
 {
@@ -483,7 +483,7 @@ struct FUN_00e41e20_cls
 // src: GUESS 0x00e41e20 (confidence: medium)
 void FUN_00e41e20_cls::ReleaseOwnedArray()
 {
-    m_vptr00 = (int)&DAT_010e58c8;
+    m_vptr00 = (int)&vftable_hkaAnimationPreviewColorContainer;
     hkMemoryRouter* pHolder = hkMemoryRouter_getInstance();
     hkMemoryAllocator* pAllocator = reinterpret_cast<hkMemoryAllocator*>(pHolder->m_heap);
     unsigned int uCapBits = m_uCapBits;
@@ -494,6 +494,6 @@ void FUN_00e41e20_cls::ReleaseOwnedArray()
     }
     m_pData = 0;
     m_uCapBits = 0x80000000u;
-    m_vptr00 = (int)&DAT_0102e388;
+    m_vptr00 = (int)&vftable_hkBaseObject;
 }
 }  // namespace fnv_00e41e20

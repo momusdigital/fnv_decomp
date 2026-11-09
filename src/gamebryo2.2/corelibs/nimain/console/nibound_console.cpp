@@ -9,7 +9,7 @@ struct P03MM
     void* __thiscall Allocate(unsigned int);
 };
 extern P03MM g_memoryManager;
-extern void* DAT_0109ded8;
+extern void* vftable_BSPackedAdditionalGeometryData__NiBSPackedAGDDataBlock;
 
 struct NiAGDDataBlock
 {
@@ -30,7 +30,7 @@ NiAGDDataBlock* __cdecl CreateNiAGDDataBlock()
         pDataBlock->m_uiRef = 0;
         pDataBlock->m_uiSize = 0;
         pDataBlock->m_bFlag = 0;
-        *(void**)(void*)pDataBlock = (void*)&DAT_0109ded8;
+        *(void**)(void*)pDataBlock = (void*)&vftable_BSPackedAdditionalGeometryData__NiBSPackedAGDDataBlock;
         pDataBlock->m_bFlag2 = 0;
         return pDataBlock;
     }

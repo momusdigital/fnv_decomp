@@ -11,7 +11,7 @@ class TESFile;
 
 
 
-extern unsigned int DAT_0106b0dc;
+extern unsigned int vftable_BSSimpleArray_0106b0dc;
 
 class EdgeExtraInfo
 {

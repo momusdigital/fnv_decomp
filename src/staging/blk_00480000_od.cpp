@@ -120,7 +120,7 @@ void* FUN_00486e80_Class::DestroyIfFlagged(unsigned int flags)
     return this;
 }
 
-extern "C" void* __cdecl DAT_0101cb38;
+extern "C" void* __cdecl vftable_NiTStringMap_0101cb38;
 
 struct FUN_00486f40
 {
@@ -133,17 +133,17 @@ struct FUN_00486ee0
     void* __thiscall Init(void* a, bool b);
 };
 
-// Calls Call with the given arguments, then stores the address of DAT_0101cb38 in this object and returns this.
+// Calls Call with the given arguments, then stores the address of vftable_NiTStringMap_0101cb38 in this object and returns this.
 // @fnv 0x00486ee0
 void* __thiscall FUN_00486ee0::Init(void* apArg, bool abFlag)
 {
     ((FUN_00486f40*)this)->Call(apArg, abFlag);
-    *(void**)this = &DAT_0101cb38;
+    *(void**)this = &vftable_NiTStringMap_0101cb38;
     return this;
 }
 
 extern "C" void __cdecl FUN_00486fa0(int);
-extern int DAT_0101caf8;
+extern int vftable_NiTMap_0101caf8;
 
 struct FUN_00486f70_class
 {
@@ -152,12 +152,12 @@ struct FUN_00486f70_class
     void* __thiscall InitializeWithGlobal(int a);
 };
 
-// Calls FUN_00486fa0 with a, stores the address of DAT_0101caf8 in m_p, and returns this.
+// Calls FUN_00486fa0 with a, stores the address of vftable_NiTMap_0101caf8 in m_p, and returns this.
 // @fnv 0x00486f70
 void* __thiscall FUN_00486f70_class::InitializeWithGlobal(int a)
 {
     FUN_00486fa0(a);
-    m_p = &DAT_0101caf8;
+    m_p = &vftable_NiTMap_0101caf8;
     return this;
 }
 
@@ -194,21 +194,21 @@ struct FUN_008c6060_shell
 {
     void FUN_008c6060();
 };
-extern int DAT_0101d398;
+extern int vftable_TESRaceForm;
 struct FUN_0048b800 : BFC_s
 {
     FUN_0048b800();
 };
-// Sets the object's vtable pointer to DAT_0101d398 and then calls FUN_008c6060 on this object.
+// Sets the object's vtable pointer to vftable_TESRaceForm and then calls FUN_008c6060 on this object.
 // @fnv 0x0048b800
 FUN_0048b800::FUN_0048b800()
 {
-    *(int*)this = (int)&DAT_0101d398;
+    *(int*)this = (int)&vftable_TESRaceForm;
     ((FUN_008c6060_shell*)this)->FUN_008c6060();
 }
 
 namespace fnv_0048e7a0 {
-extern int DAT_0101d81c;
+extern int vftable_TESValueForm;
 struct FUN_008c6060_shell
 {
     void FUN_008c6060();
@@ -222,11 +222,11 @@ struct FUN_0048e7a0 : BFC_s
     void FUN_008c6060();
     FUN_0048e7a0();
 };
-// Sets the object's first field to point at DAT_0101d81c, then calls FUN_008c6060.
+// Sets the object's first field to point at vftable_TESValueForm, then calls FUN_008c6060.
 // @fnv 0x0048e7a0
 FUN_0048e7a0::FUN_0048e7a0()
 {
-    *reinterpret_cast<int*>(this) = reinterpret_cast<int>(&DAT_0101d81c);
+    *reinterpret_cast<int*>(this) = reinterpret_cast<int>(&vftable_TESValueForm);
     FUN_008c6060();
 }
 }  // namespace fnv_0048e7a0
@@ -301,26 +301,26 @@ void GlobalObject_00869f00::UpdateState_0049f1f0()
     Clear(true);
 }
 
-extern void* DAT_0101e128;
+extern void* vftable_BSSimpleArray_0101e128;
 struct FUN_0049f640_class
 {
     void* vtable;
     void UpdateState_0049fbf0(int, int);
     FUN_0049f640_class* SetVirtualTableAndProcessState_0049f640();
 };
-// Sets the vtable to DAT_0101e128, calls FUN_0049fbf0(0, 0), and returns this.
+// Sets the vtable to vftable_BSSimpleArray_0101e128, calls FUN_0049fbf0(0, 0), and returns this.
 // @fnv 0x0049f640
 // src: GUESS 0x0049f640 (confidence: low)
 FUN_0049f640_class* FUN_0049f640_class::SetVirtualTableAndProcessState_0049f640()
 {
-    vtable = &DAT_0101e128;
+    vtable = &vftable_BSSimpleArray_0101e128;
     UpdateState_0049fbf0(0, 0);
     return this;
 }
 
 namespace fnv_0049f670 {
 extern "C" void __cdecl FUN_0049faf0(int);
-extern int DAT_0101e128;
+extern int vftable_BSSimpleArray_0101e128;
 
 struct FUN_0049f670_Class
 {
@@ -332,7 +332,7 @@ struct FUN_0049f670_Class
 // src: GUESS 0x0049f670 (confidence: low)
 void FUN_0049f670_Class::UpdateState_0049f670()
 {
-    p = &DAT_0101e128;
+    p = &vftable_BSSimpleArray_0101e128;
     ((void(__thiscall*)(void*, int))FUN_0049faf0)(this, 1);
 }
 }  // namespace fnv_0049f670
@@ -416,7 +416,7 @@ void __thiscall FUN_0048b500_Class::ResetAndDeallocate(int pObject)
 }  // namespace fnv_0048b500
 
 namespace fnv_0049c570 {
-extern int DAT_0101def0;
+extern int vftable_NiTMapBase_0101def0;
 void __cdecl NiFreeAlias(void*);
 struct FUN_0049c570 : NiTPointerMap<int, int>
 {
@@ -425,7 +425,7 @@ struct FUN_0049c570 : NiTPointerMap<int, int>
 // @fnv 0x0049c570
 void __thiscall FUN_0049c570::Reset()
 {
-    *reinterpret_cast<void**>(this) = &DAT_0101def0;
+    *reinterpret_cast<void**>(this) = &vftable_NiTMapBase_0101def0;
     NiTPointerMap::RemoveAll();
     NiFreeAlias(reinterpret_cast<void*>(reinterpret_cast<unsigned int*>(this)[2]));
 }
@@ -578,18 +578,18 @@ void* __thiscall S_486eb0::FUN_00486eb0(unsigned int flags)
     return this;
 }
 
-extern int DAT_0101cad8;
+extern int vftable_NiTStringTemplateMap_0101cad8;
 struct S486f40 : FUN_00486f70_class
 {
     void* __thiscall InitializeFields_00486f40(int a, bool b);
 };
-// Calls the base constructor, installs DAT_0101cad8 as the vtable pointer, stores b at offset 0x10, and returns this.
+// Calls the base constructor, installs vftable_NiTStringTemplateMap_0101cad8 as the vtable pointer, stores b at offset 0x10, and returns this.
 // @fnv 0x00486f40
 // src: GUESS 0x00486f40 (confidence: low)
 void* __thiscall S486f40::InitializeFields_00486f40(int aiArg, bool abFlag)
 {
     InitializeWithGlobal(aiArg);
-    *(void**)this = (void*)&DAT_0101cad8;
+    *(void**)this = (void*)&vftable_NiTStringTemplateMap_0101cad8;
     *(bool*)((char*)this + 0x10) = abFlag;
     return this;
 }
@@ -630,7 +630,7 @@ bool TESModel_IsModelChunk(int chunk)
     }
 }
 
-extern int DAT_0101d274;
+extern int vftable_BSMapBase_0101d274;
 void __cdecl Deallocate(void*);
 struct FUN_0048b4c0_Class
 {
@@ -643,7 +643,7 @@ struct FUN_0048b4c0_Class
 // @fnv 0x0048b4c0
 FUN_0048b4c0_Class::~FUN_0048b4c0_Class()
 {
-    m_vtbl = &DAT_0101d274;
+    m_vtbl = &vftable_BSMapBase_0101d274;
     if (m_data)
     {
         void* tmp = m_data;
@@ -655,16 +655,16 @@ struct FUN_0048b590_shell
 {
     void __thiscall ClearFields();
 };
-extern int DAT_0101d2a4;
+extern int vftable_TESProduceForm;
 struct FUN_0048b560 : BFC_s
 {
     FUN_0048b560();
 };
-// Sets the object's vtable pointer to DAT_0101d2a4 and then calls ClearFields on this.
+// Sets the object's vtable pointer to vftable_TESProduceForm and then calls ClearFields on this.
 // @fnv 0x0048b560
 FUN_0048b560::FUN_0048b560() : BFC_s()
 {
-    *(int*)this = (int)&DAT_0101d2a4;
+    *(int*)this = (int)&vftable_TESProduceForm;
     ((FUN_0048b590_shell*)this)->ClearFields();
 }
 
@@ -945,7 +945,7 @@ TESModelTextureSwap* GetBipedModelTextureSwap(TESForm* form, TESObjectREFR* refr
     return model2->GetBipedModel((SEX)aSex);
 }
 
-extern int DAT_0101d274;
+extern int vftable_BSMapBase_0101d274;
 void* __cdecl operator new(unsigned int);
 void* _fnv_zlib_memset(void* p, int c, unsigned int n);
 struct FUN_0048b3e0_t
@@ -962,7 +962,7 @@ FUN_0048b3e0_t::FUN_0048b3e0_t(int aiCount)
 {
     int size;
     void* p3;
-    vtbl = &DAT_0101d274;
+    vtbl = &vftable_BSMapBase_0101d274;
     count = aiCount;
     pad = 0;
     if (aiCount)
@@ -2884,7 +2884,7 @@ FUN_0049c510::~FUN_0049c510()
     RemoveAll();
 }
 
-extern void* DAT_0101e07c;
+extern void* vftable_NiStencilProperty;
 class FUN_00439260
 {
   public:
@@ -2910,7 +2910,7 @@ class FUN_0049ec80 : public FUN_00439260
 // @fnv 0x0049ec80
 FUN_0049ec80::FUN_0049ec80()
 {
-    *(void**)this = &DAT_0101e07c;
+    *(void**)this = &vftable_NiStencilProperty;
     m_usFlags = 0;
     m_uiCount = 0;
     m_iIndex = -1;

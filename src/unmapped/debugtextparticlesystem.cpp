@@ -18,15 +18,15 @@ void* __cdecl hkPackedNiTriStripsData_GetRTTI()
     return &g_012682bc;
 }
 
-extern int DAT_0102e388;
-extern int DAT_010c6fb0;
+extern int vftable_hkBaseObject;
+extern int vftable_hkpShapeContainer;
 
 // @fnv 0x00ca3560
 // src: GUESS 0x00ca3560 (confidence: low)
 void __fastcall Object_UpdateFields_00ca3560(int** self, int)
 {
-    self[4] = &DAT_010c6fb0;
-    self[0] = &DAT_0102e388;
+    self[4] = &vftable_hkpShapeContainer;
+    self[0] = &vftable_hkBaseObject;
 }
 
 class CA34C0Object
@@ -168,7 +168,7 @@ extern const __m128 DAT_010c4c00;
 extern const __m128 DAT_010c4c10;
 extern const __m128 DAT_010c71b0;
 extern const float DAT_01012068;
-extern void* DAT_010c4dec;
+extern void* vftable_hkaSkeleton;
 struct SimdScalar
 {
     __m128 value;
@@ -1225,9 +1225,9 @@ struct Appender
 {
     unsigned int BSSimpleArray_GetNextIndex_2();
 };
-extern int DAT_01071aec;
-extern int DAT_010c7310;
-extern int DAT_0104e190;
+extern int vftable_BSSimpleArray_01071aec;
+extern int vftable_BSSimpleArray_010c7310;
+extern int vftable_BSSimpleArray_0104e190;
 extern float DAT_0104e148;
 extern float DAT_0104da48;
 struct Pair8;
@@ -1422,15 +1422,15 @@ template <class T> __forceinline LocalArray<T>::~LocalArray()
         this->clear();
     release_stack(last);
 }
-__forceinline SourceVec::SourceVec() : vtbl(&DAT_01071aec), data(0), count(0), capacity(0)
+__forceinline SourceVec::SourceVec() : vtbl(&vftable_BSSimpleArray_01071aec), data(0), count(0), capacity(0)
 {}
-__forceinline PointerVec::PointerVec() : vtbl(&DAT_010c7310), data(0), size(0), capacity(0)
+__forceinline PointerVec::PointerVec() : vtbl(&vftable_BSSimpleArray_010c7310), data(0), size(0), capacity(0)
 {}
-__forceinline Builder::Builder() : vtable(&DAT_0104e190), handle(0), count(0), capacity(0)
+__forceinline Builder::Builder() : vtable(&vftable_BSSimpleArray_0104e190), handle(0), count(0), capacity(0)
 {}
 __forceinline SourceVec::~SourceVec()
 {
-    vtbl = &DAT_01071aec;
+    vtbl = &vftable_BSSimpleArray_01071aec;
     if (data)
     {
         ((VecTable*)vtbl)->free(this, data);
@@ -1438,7 +1438,7 @@ __forceinline SourceVec::~SourceVec()
 }
 __forceinline PointerVec::~PointerVec()
 {
-    vtbl = &DAT_010c7310;
+    vtbl = &vftable_BSSimpleArray_010c7310;
     if (data)
     {
         ((VecTable*)vtbl)->free(this, data);
@@ -1448,7 +1448,7 @@ __forceinline PointerVec::~PointerVec()
 }
 __forceinline Builder::~Builder()
 {
-    vtable = &DAT_0104e190;
+    vtable = &vftable_BSSimpleArray_0104e190;
     if (handle)
     {
         ((VecTable*)vtable)->free(this, (void*)handle);

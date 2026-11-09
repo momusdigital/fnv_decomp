@@ -10,8 +10,8 @@
 
 extern "C" void* g_01202580;
 void* __cdecl NiPSysUpdateTask_GetRTTI();
-extern int DAT_010be45c;
-extern int DAT_01069674;
+extern int vftable_NiPSysUpdateTask;
+extern int vftable_NiTask;
 extern int(__stdcall* DAT_00fdf1c4)(void*);
 extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(volatile long*);
 extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(volatile long*);

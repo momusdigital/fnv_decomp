@@ -55,7 +55,7 @@ extern int DAT_010eb3b8[];
 extern int DAT_010eb3d0[];
 int __cdecl hkaSplineCompressedAnimation_handleEndianQuaternion(int a, int b);
 void __cdecl AlignAndAdvance(char flags, int aiCount, int aiIndex, int* p);
-extern int DAT_010eb770;
+extern int vftable_hkaMeshBinding;
 struct FUN_00e34800
 {
     int vtbl;
@@ -1169,7 +1169,7 @@ class FUN_00e33910_cls
     bool* AreAllItemsValid(bool* out);
 };
 extern "C" void _ReadWriteBarrier(void);
-extern int DAT_010eb770;
+extern int vftable_hkaMeshBinding;
 struct SubObj_b4888
 {
     SubObj_b4888();
@@ -1184,7 +1184,7 @@ struct Base_b4888
     Base_b4888()
     {
         m_06 = 1;
-        *(int**)this = &DAT_010eb770;
+        *(int**)this = &vftable_hkaMeshBinding;
         m_08 = 0;
     }
 };
@@ -1213,7 +1213,7 @@ struct S_00e34950_Foo
 
     S_00e34950_Foo* Init();
 };
-extern int DAT_010df9f4;
+extern int vftable_hkpVehicleDefaultBrake;
 class FUN_00e39a80
 {
   public:
@@ -1251,7 +1251,7 @@ struct S_00e3ae70_cls
     void CollectSlotValues(unsigned int a1, unsigned int a2, hkArray<S_00e3ae70_Item*>* pOut);
     void SetItemValues(unsigned int a1, unsigned int a2, float a3, float a4);
 };
-extern void* DAT_010eb98c;
+extern void* vftable_hkpStiffSpringChainData;
 union ReleaseFlags
 {
     int releaseHandle;
@@ -1775,7 +1775,7 @@ struct S3b010Obj
 
     void* hkpStiffSpringChainData_hkpStiffSpringChainData();
 };
-extern int DAT_010e11ec;
+extern int vftable_hkpRotationalConstraintData;
 struct M3
 {
     V4 c0;
@@ -2037,7 +2037,7 @@ struct __declspec(align(16)) CastCollector
     int unk78;
     int unk7c;
 };
-extern int DAT_010dbaf8, DAT_010dbae4, DAT_010dbad8, DAT_010dbacc, DAT_010dbb04;
+extern int vftable_hkCpuWorldRayCastCollector, vftable_hkCpuWorldRayCastCollector_for_hkKdTreeCastCollector, vftable_hkCpuWorldRayCastCollector_for_hkAabbTreeQueryUtils__Collector_010dbad8, vftable_hkCpuWorldRayCastCollector_for_hkAabbTreeQueryUtils__Collector_010dbacc, vftable_hkpFixedBufferRayHitCollector;
 void __cdecl hkKdTreeUtils_castRayIterative(void*, void*, S_00df8990_Obj*, void*, void*);
 void __cdecl hkTreeRayCastJobUtil_castRayKdTree(void* caster, S_00df8990_Obj* source, int value, CastOutput* output);
 void __cdecl nullsub_334();
@@ -2413,7 +2413,7 @@ int FanBuilder::AllocateTriangleFan(int count, FanEdge* chain, FanVertex* apex)
 }
 #include <xmmintrin.h>
 #include <math.h>
-extern int DAT_010e00dc;
+extern int vftable_hkpTyremarksInfo;
 struct TyremarkWheelView : FUN_00e3a270
 {
     TyremarkWheelView* FUN_00e3a270();

@@ -71,7 +71,7 @@ unsigned int NiD3DShaderInterface::InitializeShaderRenderer(GraphicsRenderer* re
 }
 
 extern int vftable_NiRefObject;
-extern int DAT_0109f584;
+extern int vftable_NiShader;
 extern long volatile DAT_011f4400;
 extern int EmptyFS;
 extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(long volatile*);
@@ -84,7 +84,7 @@ void* __fastcall NiShader_NiShader(void* apObject)
     *(int**)apObject = &vftable_NiRefObject;
     *((int*)apObject + 1) = 0;
     InterlockedIncrement(&DAT_011f4400);
-    *(int**)apObject = &DAT_0109f584;
+    *(int**)apObject = &vftable_NiShader;
     *((int*)apObject + 2) = EmptyFS;
     *((int*)apObject + 3) = 0;
     *((char*)apObject + 16) = 0;
@@ -129,7 +129,7 @@ int NiD3DShaderInterface_ShutdownShaderSystem()
     return 0;
 }
 
-extern int DAT_010ef39c;
+extern int vftable_NiD3DShaderInterface;
 struct Rel
 {
     virtual void a();
@@ -142,7 +142,7 @@ void __fastcall FUN_00a8f490(NiD3DShaderInterface*);
 // src: GUESS 0x00e81a50 (confidence: high)
 void __fastcall NiD3DShaderInterface_ReleaseD3DDeviceAndClearRendererState(NiD3DShaderInterface* pObj, int)
 {
-    *(int**)pObj = &DAT_010ef39c;
+    *(int**)pObj = &vftable_NiD3DShaderInterface;
     Rel* d = (Rel*)pObj->m_pkD3DDevice;
     pObj->m_pkD3DRenderer = 0;
     pObj->m_pkD3DRenderState = 0;
@@ -153,7 +153,7 @@ void __fastcall NiD3DShaderInterface_ReleaseD3DDeviceAndClearRendererState(NiD3D
 }
 
 namespace fnv_00e81ab0 {
-extern int DAT_010ef39c;
+extern int vftable_NiD3DShaderInterface;
 struct Rel
 {
     virtual void a();
@@ -165,7 +165,7 @@ void __cdecl __Dummy_00b6fef0(void*, unsigned int);
 // @fnv 0x00e81ab0
 NiD3DShaderInterface* __fastcall FUN_00e81ab0(NiD3DShaderInterface* o, int, unsigned int flags)
 {
-    *(int**)o = &DAT_010ef39c;
+    *(int**)o = &vftable_NiD3DShaderInterface;
     Rel* d = (Rel*)o->m_pkD3DDevice;
     o->m_pkD3DRenderer = 0;
     o->m_pkD3DRenderState = 0;
@@ -211,7 +211,7 @@ void NiD3DShaderProgramCreator_SetD3DRenderer(void* apObject)
 }
 
 // Ni2DBuffer constructor: base constructor and initial state.
-extern int DAT_0109f4dc;
+extern int vftable_Ni2DBuffer;
 
 struct FUN_00a8f190_cls
 {
@@ -232,6 +232,6 @@ FUN_00a8f190_cls::FUN_00a8f190_cls()
     Init();
     m_i08 = 0;
     m_i0C = 0;
-    *(void* volatile*)&m_pVTable = &DAT_0109f4dc;
+    *(void* volatile*)&m_pVTable = &vftable_Ni2DBuffer;
     *(int volatile*)&m_i10 = 0;
 }

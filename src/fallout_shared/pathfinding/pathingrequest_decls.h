@@ -38,8 +38,8 @@ class PathingLocationLoadView
     virtual void LoadGame(BGSLoadFormBuffer*);
 };
 template <class T, unsigned int N> class BSSimpleArray;
-extern unsigned char DAT_0106d1d8;
-extern unsigned char DAT_0106d1e4;
+extern unsigned char vftable_PathingAvoidNodeArray_for_NiRefObject;
+extern unsigned char vftable_PathingAvoidNodeArray;
 // PathingAvoidNodeArray as this unit's constructor (0x006e3850), destructor (0x006e38b0) and deleting destructor
 // (0x006e3880) build it: 24 raw bytes whose two vtable pointers the constructor stores by hand after FUN_006e3960;
 // the shared PathingAvoidNodeArray (a BSSimpleArrayRefCounted with virtuals) would install them itself.

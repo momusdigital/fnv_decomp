@@ -263,7 +263,7 @@ struct FUN_00ec78f1_t
 };
 void __stdcall FUN_00ec7894(FUN_00ec78f1_t* info, const char* fmt);
 void* __cdecl operator new(unsigned int);
-extern int DAT_010176f8;
+extern int vftable_std__bad_alloc;
 extern int DAT_01140ef8;
 void* __cdecl Object_AllocateElementStorage_00b23980(unsigned int n);
 void __cdecl CopyObjects(CopyableStateBlock* dst, unsigned int n, const CopyableStateBlock* src);

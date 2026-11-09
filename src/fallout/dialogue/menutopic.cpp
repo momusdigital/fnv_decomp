@@ -493,7 +493,7 @@ struct GlobalObject_0045cf30
 {
     unsigned char* Bool();
 };
-extern GlobalObject_0045cf30 g_011de4e8;
+extern GlobalObject_0045cf30 bDebugSaveBuffer_Debug;
 // Exe 0x0083f280: unit-local MenutopicInterfaceView view used by this matched implementation.
 struct MenutopicInterfaceView
 {
@@ -528,7 +528,7 @@ unsigned short FUN_0083f280_t::MenuTopic_GetSaveSize()
         isize += 4;
         isize += 4;
         isize += 4;
-        if (*g_011de4e8.Bool())
+        if (*bDebugSaveBuffer_Debug.Bool())
         {
             SaveFormHeader* pheader = (SaveFormHeader*)g_TESSaveLoadGame->FUN_004fd3e0();
             if (pheader)
@@ -1299,7 +1299,7 @@ struct GlobalObject_0045cf30
 {
     bool* FUN_00408d60();
 };
-extern GlobalObject_0045cf30 g_011de4e8;
+extern GlobalObject_0045cf30 bDebugSaveBuffer_Debug;
 
 TESForm* __cdecl TESForm_GetFormByNumericID(unsigned int auiFormId);
 void __cdecl ProgramFlow(const char* pcFormat, ...);
@@ -1315,7 +1315,7 @@ void MenuTopic::SaveTopic()
     unsigned short usLen = 0;
     char* pcSizeLoc = 0;
     char* pcStart = (char*)fnv_0083f3e0::g_TESSaveLoadGame->FUN_00825c00();
-    if (*fnv_0083f3e0::g_011de4e8.FUN_00408d60())
+    if (*fnv_0083f3e0::bDebugSaveBuffer_Debug.FUN_00408d60())
         pcStart = (char*)fnv_0083f3e0::g_TESSaveLoadGame->FUN_00825c00();
     if (fnv_0083f3e0::g_TESSaveLoadGame->TESSaveLoadGame_UseSaveGameBlocks())
     {
@@ -1344,7 +1344,7 @@ void MenuTopic::SaveTopic()
     if (pInfo)
         uiResp = pInfo->GetHavokWorldObjectCountInSceneGraph_0084e3a0();
     fnv_0083f3e0::g_TESSaveLoadGame->TESSaveLoadGame_SaveNumericID((void*)&uiResp, 4);
-    if (*fnv_0083f3e0::g_011de4e8.FUN_00408d60())
+    if (*fnv_0083f3e0::bDebugSaveBuffer_Debug.FUN_00408d60())
     {
         char* pcEnd = (char*)fnv_0083f3e0::g_TESSaveLoadGame->FUN_00825c00();
         SaveFormHeader* pkHeader = (SaveFormHeader*)fnv_0083f3e0::g_TESSaveLoadGame->FUN_004fd3e0();

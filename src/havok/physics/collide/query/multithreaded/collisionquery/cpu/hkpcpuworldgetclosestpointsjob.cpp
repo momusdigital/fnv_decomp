@@ -332,7 +332,7 @@ unsigned char* FUN_00df6b30_cls::hkCpuWorldGetClosestPointsCollector_addMidPhase
 }
 
 extern float DAT_0104da48;
-extern int DAT_0108f288;
+extern int vftable_hkpFixedBufferCdPointCollector;
 extern "C" __declspec(dllimport) long __stdcall DAT_00fdf1ec(long volatile*, long);
 
 struct CopyQuad
@@ -378,7 +378,7 @@ struct QueryCollector
     int capacity;
     int count;
     QueryCollector(QueryPoint* b, int c)
-        : earlyOut(DAT_0104da48), base(b), next(b), capacity(c), count(0), table(&DAT_0108f288)
+        : earlyOut(DAT_0104da48), base(b), next(b), capacity(c), count(0), table(&vftable_hkpFixedBufferCdPointCollector)
     {}
 };
 struct QueryJob
@@ -441,7 +441,7 @@ void hkCpuPairGetClosestPointsImplementation(const QueryJob* job, const QueryInp
         collector.base = buffer;
         collector.next = buffer;
         collector.capacity = command->capacity;
-        collector.table = &DAT_0108f288;
+        collector.table = &vftable_hkpFixedBufferCdPointCollector;
         collector.count = 0;
         QueryFunction pQueryFunc =
             (QueryFunction)source->dispatcher->getLinearCastFunc(pShapeA->m_type, pShapeB->m_type);

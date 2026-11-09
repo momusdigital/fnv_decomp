@@ -202,12 +202,13 @@ void __thiscall S004f4350::SetMediaSet(MediaSet* pMediaSet)
 struct F4390_standin
 {
     void FUN_004f4520();
-    void* FUN_004f4390(unsigned int);
+    void* TESRegionDataSound_ScalarDeletingDestructor(unsigned int);
 };
 void _Deallocate(void*);
 // Calls FUN_004f4520, then frees this via _Deallocate when flags has bit 1 set, and returns this.
 // @fnv 0x004f4390
-void* F4390_standin::FUN_004f4390(unsigned int flags)
+// src: EXE 0x004f4390
+void* F4390_standin::TESRegionDataSound_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_004f4520();
     if (flags & 1)

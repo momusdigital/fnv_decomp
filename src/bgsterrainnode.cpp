@@ -514,7 +514,7 @@ void FUN_006fda10_shell::BGSTerrainNode_DestroyRecurse()
 
 extern GameTimerRecord g_timeGlobal;
 
-extern SettingT_GameSettingCollection_ g_011d8740;
+extern SettingT_GameSettingCollection_ uTerrainTextureFadeTime_TerrainManager;
 
 struct FUN_006ff3f0_shell : FUN_006ff380_shell
 {
@@ -532,13 +532,13 @@ void FUN_006ff3f0_shell::BGSTerrainNode_UpdateFadeParameters()
     if (!tile || !tile->GetModel_0056c7f0())
         return;
 
-    if (delta > (unsigned int)*g_011d8740.Setting_Int())
+    if (delta > (unsigned int)*uTerrainTextureFadeTime_TerrainManager.Setting_Int())
     {
         BGSTerrainNode_EndFade();
     }
     else
     {
-        float f = (double)delta / (unsigned int)*g_011d8740.Setting_Int();
+        float f = (double)delta / (unsigned int)*uTerrainTextureFadeTime_TerrainManager.Setting_Int();
         NiPoint2 pt = ((FUN_006ff210_shell*)this)->BGSTerrainNode_SetFloatPairForLinkID();
         tile->GetModel_0056c7f0()->BSShaderPPLightingProperty_SetLODTexParams(pt.x, pt.y, f);
     }
@@ -702,7 +702,7 @@ struct WorldRefUpdate
     SceneUpdate* GetMenuRoot();
 };
 extern TES* g_TES;
-extern SettingT_GameSettingCollection_ g_011d86f8;
+extern SettingT_GameSettingCollection_ fDetailTextureScale_TerrainManager;
 struct TerrainUpdate
 {
     TerrainMgrUpdate* manager;
@@ -779,7 +779,7 @@ void TerrainUpdate::UpdateTerrainNode(void* arg, bool update)
             if (chunk->GetInitialized() && !chunk->AnimatingText_IsDisplayFinished() && (!parent || parent->BGSTerrainNode_CheckMeshSolidUnderMe(true)))
             {
                 chunk->BGSTerrainChunk_Attach();
-                chunk->GetModel_0056c7f0()->NiCamera_SetMaxFarNearRatio((float)((level / 4.0) * g_011d86f8.Float()->f));
+                chunk->GetModel_0056c7f0()->NiCamera_SetMaxFarNearRatio((float)((level / 4.0) * fDetailTextureScale_TerrainManager.Float()->f));
                 SceneUpdate* root7 = Get()->GetMenuRoot();
                 root7->SetTaskFlag2000(false);
                 root7->Refresh();

@@ -60,7 +60,7 @@ void __fastcall LoadBinaryWithVersionCheck(NiPSysModifierCtlr* pThis, int, NiStr
     }
 }
 
-extern int DAT_0109aa14;
+extern int vftable_NiExtraDataController;
 extern int EmptyFS;
 
 struct NiTimeController_Call
@@ -72,7 +72,7 @@ struct NiTimeController_Call
 int* __fastcall InitTimeController(int* pThis)
 {
     reinterpret_cast<NiTimeController_Call*>(pThis)->SetControllerActive();
-    pThis[0] = reinterpret_cast<int>(&DAT_0109aa14);
+    pThis[0] = reinterpret_cast<int>(&vftable_NiExtraDataController);
     pThis[14] = EmptyFS;
     pThis[15] = 0;
     return pThis;
@@ -116,7 +116,7 @@ void* __fastcall CreateFadeNodeFromFloatSource(void* self, int edx, unsigned sho
 }
 
 namespace fnv_00a41280 {
-extern void* DAT_010975fc;
+extern void* vftable_NiFloatExtraDataController;
 int* __fastcall InitTimeController(int*);
 struct CopyHelper
 {
@@ -126,7 +126,7 @@ struct CopyHelper
 static void* Init(void* p)
 {
     InitTimeController((int*)p);
-    *(void**)p = &DAT_010975fc;
+    *(void**)p = &vftable_NiFloatExtraDataController;
     return p;
 }
 

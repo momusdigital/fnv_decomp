@@ -43,7 +43,7 @@ struct FUN_009afc30_shell
 struct FUN_009afbb0_shell
 {
     virtual ~FUN_009afbb0_shell();
-    void* FUN_009afbb0(unsigned int flags);
+    void* hkpFixedBufferCdPointCollector_ScalarDeletingDestructor(unsigned int flags);
     void ForwardCall_009afc10();
 };
 extern "C" void __cdecl Object_UpdateFields_009afbe0(void*);
@@ -74,7 +74,7 @@ struct FUN_00cbc920_shell
 };
 struct StandIn
 {
-    void* __thiscall FUN_009ae250(unsigned int);
+    void* __thiscall bhkLiquidAction_ScalarDeletingDestructor(unsigned int);
 };
 struct Twin_0084d030
 {

@@ -179,8 +179,8 @@ void S_d264d0_Coll::hkpTriSampledHeightFieldCollection_setWeldingInfo(unsigned i
     m_kWeldingInfo.m_data[idx] = value;
 }
 
-extern int DAT_010ce390;
-extern int DAT_010ce370;
+extern int vftable_hkpTriSampledHeightFieldCollection;
+extern int vftable_hkpTriSampledHeightFieldCollection_for_hkpShapeContainer;
 
 void __stdcall FUN_00d21410(int a, int b);
 
@@ -213,8 +213,8 @@ struct FUN_00d26700
 FUN_00d26700::FUN_00d26700(void* p, float f)
 {
     FUN_00d21410(7, 2);
-    m_vptr1 = &DAT_010ce390;
-    m_vptr2 = &DAT_010ce370;
+    m_vptr1 = &vftable_hkpTriSampledHeightFieldCollection;
+    m_vptr2 = &vftable_hkpTriSampledHeightFieldCollection_for_hkpShapeContainer;
     m_uiX = 0;
     m_uiY = 0;
     m_uiZ = 0x80000000;

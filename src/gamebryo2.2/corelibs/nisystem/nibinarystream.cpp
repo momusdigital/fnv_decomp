@@ -16,13 +16,13 @@ unsigned char __cdecl NiBinaryStream_GetEndianMatchHint()
 
 extern void* __cdecl _DeallocateAlias(void*);
 extern MemoryManager g_memoryManager;
-extern int DAT_010a24b8;
+extern int vftable_NiBinaryStream;
 
-// Sets the vtable pointer to DAT_010a24b8 and, if fFree has bit 0 set, deallocates this via g_memoryManager, returning this.
+// Sets the vtable pointer to vftable_NiBinaryStream and, if fFree has bit 0 set, deallocates this via g_memoryManager, returning this.
 // @fnv 0x00aa1db0
 void* __thiscall NiBinaryStream::Destroy(unsigned int fFree)
 {
-    *reinterpret_cast<void**>(this) = &DAT_010a24b8;
+    *reinterpret_cast<void**>(this) = &vftable_NiBinaryStream;
     if (fFree & 1)
     {
         g_memoryManager.Deallocate(this);

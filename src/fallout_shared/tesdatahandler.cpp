@@ -2920,8 +2920,8 @@ void __cdecl CheckTopicsForQuest(int);
 void __cdecl SortTopicList(int, int);
 int __cdecl FindArchiveByName(char*);
 void __cdecl LoadBSAFileHook(char*, int, int);
-extern StartMenu g_011c4024;
-extern StartMenu g_011c4048;
+extern StartMenu sMasterMismatchWarning_GeneralWarnings;
+extern StartMenu sGeneralMasterMismatchWarning_GeneralWarnings;
 struct LC3_FindData
 {
     unsigned int dwFileAttributes;
@@ -3103,7 +3103,7 @@ bool TESDataHandler::LoadPluginFiles(bool abDownloadedContentOnly)
             if (!pfile->IsMasterFile() && !((LC3_DH*)this)->b618 && pfile->HasMasterFileChanged())
             {
                 badmaster = true;
-                Warning(static_cast<const StartMenu&>(g_011c4024).GetMenuTitle(), PrepareScriptMessage(pfile->GetName(), false));
+                Warning(static_cast<const StartMenu&>(sMasterMismatchWarning_GeneralWarnings).GetMenuTitle(), PrepareScriptMessage(pfile->GetName(), false));
             }
             if (pfile->GetActive())
             {
@@ -3141,7 +3141,7 @@ bool TESDataHandler::LoadPluginFiles(bool abDownloadedContentOnly)
     }
     ((LC3_DH*)this)->u208 = 0xff000800;
     if (badmaster)
-        Warning(static_cast<const StartMenu&>(g_011c4048).GetMenuTitle());
+        Warning(static_cast<const StartMenu&>(sGeneralMasterMismatchWarning_GeneralWarnings).GetMenuTitle());
     MessageHandler_IncDisableWarningCount(false);
     if (((LC3_DH*)this)->m_pActiveFile)
     {
@@ -4287,12 +4287,12 @@ FUN_0087d4a0::FUN_0087d4a0(bool)
 FUN_0087d4a0::~FUN_0087d4a0()
 {}
 
-extern int DAT_01086f9c;
-extern int DAT_01086fe4;
-extern int DAT_01087014;
-extern int DAT_0108704c;
-extern int DAT_010870a0;
-extern int vftable_FUN_008d4500;
+extern int vftable_Creature_for_CachedValuesOwner;
+extern int vftable_Creature_for_ActorValueOwner;
+extern int vftable_Creature_for_MagicTarget;
+extern int vftable_Creature_for_MagicCaster;
+extern int vftable_Creature_for_TESChildCell;
+extern int vftable_Creature;
 
 struct FUN_008d43a0 : public FUN_0087d4a0
 {
@@ -4302,12 +4302,12 @@ struct FUN_008d43a0 : public FUN_0087d4a0
 // @fnv 0x008d43a0
 FUN_008d43a0::FUN_008d43a0() : FUN_0087d4a0(true)
 {
-    *reinterpret_cast<int*>(this) = reinterpret_cast<int>(&vftable_FUN_008d4500);
-    *reinterpret_cast<int*>(reinterpret_cast<char*>(this) + 0x18) = reinterpret_cast<int>(&DAT_010870a0);
-    *reinterpret_cast<int*>(reinterpret_cast<char*>(this) + 0x88) = reinterpret_cast<int>(&DAT_0108704c);
-    *reinterpret_cast<int*>(reinterpret_cast<char*>(this) + 0x94) = reinterpret_cast<int>(&DAT_01087014);
-    *reinterpret_cast<int*>(reinterpret_cast<char*>(this) + 0xa4) = reinterpret_cast<int>(&DAT_01086fe4);
-    *reinterpret_cast<int*>(reinterpret_cast<char*>(this) + 0xa8) = reinterpret_cast<int>(&DAT_01086f9c);
+    *reinterpret_cast<int*>(this) = reinterpret_cast<int>(&vftable_Creature);
+    *reinterpret_cast<int*>(reinterpret_cast<char*>(this) + 0x18) = reinterpret_cast<int>(&vftable_Creature_for_TESChildCell);
+    *reinterpret_cast<int*>(reinterpret_cast<char*>(this) + 0x88) = reinterpret_cast<int>(&vftable_Creature_for_MagicCaster);
+    *reinterpret_cast<int*>(reinterpret_cast<char*>(this) + 0x94) = reinterpret_cast<int>(&vftable_Creature_for_MagicTarget);
+    *reinterpret_cast<int*>(reinterpret_cast<char*>(this) + 0xa4) = reinterpret_cast<int>(&vftable_Creature_for_ActorValueOwner);
+    *reinterpret_cast<int*>(reinterpret_cast<char*>(this) + 0xa8) = reinterpret_cast<int>(&vftable_Creature_for_CachedValuesOwner);
 
     reinterpret_cast<TESForm*>(this)->SetFormType(static_cast<ENUM_FORM_ID>(0x3c));
 
@@ -5905,9 +5905,9 @@ class GlobalObject_0045cf30
   public:
     unsigned char* FUN_00408d60();
 };
-extern GlobalObject_0045cf30 g_011c3f98;
-extern GlobalObject_0045cf30 g_011c3f80;
-extern GlobalObject_0045cf30 g_011c4060;
+extern GlobalObject_0045cf30 bFileSkipIconChecks_TestAllCells;
+extern GlobalObject_0045cf30 bFileShowIcons_TestAllCells;
+extern GlobalObject_0045cf30 bFileShowTextures_TestAllCells;
 
 struct FormMap_46ec10
 {
@@ -5938,7 +5938,7 @@ extern const char str_010198b8[];
 // @fnv 0x0046ec10
 void TESDataHandlerUnitOperations::ValidateFormIcons()
 {
-    if (*g_011c3f98.FUN_00408d60())
+    if (*bFileSkipIconChecks_TestAllCells.FUN_00408d60())
         return;
     if (DAT_011c54c0 == 0)
         return;
@@ -5955,7 +5955,7 @@ void TESDataHandlerUnitOperations::ValidateFormIcons()
             TESBipedModelForm* biped = dynamic_cast<TESBipedModelForm*>(form);
             if (tex)
             {
-                if (*g_011c3f80.FUN_00408d60())
+                if (*bFileShowIcons_TestAllCells.FUN_00408d60())
                 {
                     if (form->GetFormType() != 0x1e || ((TESObjectLIGH*)form)->GetCanCarry())
                     {
@@ -5976,7 +5976,7 @@ void TESDataHandlerUnitOperations::ValidateFormIcons()
             }
             else if (icon)
             {
-                if (*g_011c4060.FUN_00408d60())
+                if (*bFileShowTextures_TestAllCells.FUN_00408d60())
                 {
                     if (icon->GetTextureNameLength() == 0)
                     {
@@ -6013,7 +6013,7 @@ void TESDataHandlerUnitOperations::ValidateFormIcons()
             }
             else if (biped)
             {
-                if (*g_011c3f80.FUN_00408d60())
+                if (*bFileShowIcons_TestAllCells.FUN_00408d60())
                 {
                     const char* iconPath = ((BipedHelper_46ec10*)biped)->FUN_00481230(0);
                     if (BSStringLength(iconPath) == 0)
@@ -6658,7 +6658,7 @@ struct TestSetting
 {
     bool* Bool();
 };
-extern TestSetting g_011c408c, g_011c3fa8, g_011c4080, g_011c3fd4, g_011c4054;
+extern TestSetting bFileSkipModelChecks_TestAllCells, bFileTestLoad_TestAllCells, bFileCheckModelCollision_TestAllCells, bFileGoneMessage_TestAllCells, bFileNeededMessage_TestAllCells;
 struct TestAudio
 {
     void Begin();
@@ -6706,12 +6706,12 @@ struct ModelTest : TESDataHandler
 // src: COMMUNITY 0x0046ddb0
 void ModelTest::TESDataHandler_CheckModels(bool force)
 {
-    if (*g_011c408c.Bool())
+    if (*bFileSkipModelChecks_TestAllCells.Bool())
         return;
     SetTesting(1);
-    if (*g_011c3fa8.Bool())
+    if (*bFileTestLoad_TestAllCells.Bool())
         g_osGlobals->Begin();
-    if (*g_011c4080.Bool())
+    if (*bFileCheckModelCollision_TestAllCells.Bool())
         LogFile(
             "TestModels - Collision Info.xls",
             "Model\tModel Bound\tDisplay Triangle Count\tConvex Vertices Count\tConvex Vertices / Size Ratio\tConvex Vertices / Display Geometry Ratio\tTriangle Collection Count\tTriangle Collection / Size Ratio\tTriangle Collection / Display Geometry Ratio");
@@ -6773,7 +6773,7 @@ void ModelTest::TESDataHandler_CheckModels(bool force)
                                 _sprintf_s(path, 260, "Meshes\\%s", model->GetModelFilePath());
                             if (!FileExists(path, 0, 0, -1))
                             {
-                                if (*g_011c3fd4.Bool())
+                                if (*bFileGoneMessage_TestAllCells.Bool())
                                 {
                                     char extn[256];
                                     char szDir[260];
@@ -6793,7 +6793,7 @@ void ModelTest::TESDataHandler_CheckModels(bool force)
                                         RecordPath(path);
                                 }
                             }
-                            else if (bound && (*g_011c3fa8.Bool() || force || *g_011c4080.Bool()))
+                            else if (bound && (*bFileTestLoad_TestAllCells.Bool() || force || *bFileCheckModelCollision_TestAllCells.Bool()))
                             {
                                 char message[260];
                                 sprintf(message, "Loading %smodel \"%s\" for %s \"%s\".", label,
@@ -6813,7 +6813,7 @@ void ModelTest::TESDataHandler_CheckModels(bool force)
                                 case 42: {
                                 }
                                 case 43:
-                                    if (*g_011c4080.Bool() && !*g_011c3fa8.Bool() && !force)
+                                    if (*bFileCheckModelCollision_TestAllCells.Bool() && !*bFileTestLoad_TestAllCells.Bool() && !force)
                                         break;
                                     {
                                         unsigned short flags = 0;
@@ -6835,7 +6835,7 @@ void ModelTest::TESDataHandler_CheckModels(bool force)
                                 }
                                 if (ref->Get3D())
                                     CheckNode(ref->Get3D(), model->GetModelFilePath());
-                                if (*g_011c4080.Bool() && bound->GetFormType() != 42 && bound->GetFormType() != 43)
+                                if (*bFileCheckModelCollision_TestAllCells.Bool() && bound->GetFormType() != 42 && bound->GetFormType() != 43)
                                 {
                                     int nConvex = 0;
                                     int triangles = 0;
@@ -6860,7 +6860,7 @@ void ModelTest::TESDataHandler_CheckModels(bool force)
                                 }
                             }
                         }
-                        else if (index != 12 && index != 6 && *g_011c4054.Bool())
+                        else if (index != 12 && index != 6 && *bFileNeededMessage_TestAllCells.Bool())
                         {
                             switch (index)
                             {

@@ -15,6 +15,6 @@ public:
 
     void ExtraOcclusionPlaneRefData_Clear();
     bool Compare_00420300(BSExtraData* apCompare);
-    void* __thiscall FUN_00420380(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
     void __thiscall FUN_004203b0();
 };

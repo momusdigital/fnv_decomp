@@ -40,7 +40,7 @@ class TaskQueueInterface
 class GlobalObject_0045cf30
 {
 };
-extern GlobalObject_0045cf30 g_011d7188;
+extern GlobalObject_0045cf30 bCutDoors_Pathfinding;
 extern const char DAT_01011f30[];
 extern const char g_011d22b0_arg1[];
 extern float DAT_0101ab70;
@@ -174,7 +174,7 @@ bool BGSOpenCloseForm::SetOpenState(TESObjectREFR* ref, bool open, bool immediat
             else
                 ref->TESObjectREFR_SetLastFinishedSequence(g_011d22b0_arg1);
         }
-        if (immediate && *((Setting*)&g_011d7188)->FUN_00408d60() &&
+        if (immediate && *((Setting*)&bCutDoors_Pathfinding)->FUN_00408d60() &&
             static_cast<const TESForm*>(ref->GetObjectReference())->GetFormType() == ENUM_FORM_ID_DOOR_ID && ref->GetNiNode() &&
             !ref->GetExtraRadioData())
         {

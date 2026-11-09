@@ -222,13 +222,13 @@ void TESRace::ClearFaceGenUndo()
     }
 }
 
-extern int DAT_0104b5f8;
+extern int vftable_BGSTextureModel;
 
 // @fnv 0x006104a0
 TESModel* __fastcall ConstructTESModel(TESModel* pThis)
 {
     pThis->TESModel::TESModel();
-    *(int**)pThis = &DAT_0104b5f8;
+    *(int**)pThis = &vftable_BGSTextureModel;
     return pThis;
 }
 
@@ -303,13 +303,13 @@ bool TESRace::BuildBodyModTexturePath(TESNPC* apNPC, char* apName, char* apFileN
     return true;
 }
 
-extern Setting g_011d5a50;
+extern Setting uiEGTClampSize_General;
 
 // @fnv 0x006151d0
 // src: COMMUNITY 0x006151d0
 int General_uiEGTClampSize_Get()
 {
-    return *g_011d5a50.Setting_Int();
+    return *uiEGTClampSize_General.Setting_Int();
 }
 
 // Subtracts 2 from aePart and returns the result if it is in [0,3), otherwise returns -1.
@@ -1521,7 +1521,7 @@ bool RaceFaceGenAccess::CreateFaceGenNodes(FUN_006628c0_C** pA, FUN_006628c0_C**
 namespace fnv_006149b0 {
 extern TES* g_TES;
 
-extern Setting g_011cb99c;
+extern Setting bFaceGenTexturing_General;
 
 class TextureAccess
 {
@@ -1576,7 +1576,7 @@ bool RaceTexture::ApplyBodyTexture(NiPointer<NiSourceTexture>& source, NiPointer
     g_TES->CreateTextureImage(static_cast<const char*>(path20), source, false, false);
     if (!source)
         return false;
-    if (!*g_011cb99c.FUN_00408d60())
+    if (!*bFaceGenTexturing_General.FUN_00408d60())
         return true;
     BuildBodyTexturePath(npc, buf26);
     if (BuildBodyModTexturePath(npc, buf26, path3) && !force)

@@ -94,7 +94,7 @@ public:
 #define FNV_TRANSFORM_NO_SSE
 #include "../../include/Transform.h"
 #undef FNV_TRANSFORM_NO_SSE
-extern "C" void* DAT_010c9314;
+extern "C" void* vftable_hkOstream;
 extern "C" void __cdecl _delete(void* p, int flags);
 void __cdecl FUN_00cc1520();
 struct FUN_00cc1710_Class
@@ -114,7 +114,7 @@ struct FUN_00cc1990_class : FUN_00a7b290_shell
     bool bhkExtraData_RegisterStreamables(NiStream* apStream);
 };
 extern "C" void NiFreeAlias(void*);
-extern int DAT_010c9490;
+extern int vftable_NiTLargeArray_010c9490;
 struct FUN_00cc1ab0_class
 {
     void __thiscall DestroyAndFreeAlias();
@@ -209,10 +209,10 @@ extern int DAT_0126810c;
 extern int DAT_01268238;
 extern int DAT_01268208;
 extern int DAT_012685a0;
-extern int DAT_01030394;
-extern int DAT_0103078c;
-extern int DAT_010306b4;
-extern int DAT_010c4694;
+extern int vftable_bhkWorldObject;
+extern int vftable_bhkPhantom;
+extern int vftable_bhkShapePhantom;
+extern int vftable_bhkCachingShapePhantom;
 struct FUN_00cc23c0_class
 {
     bhkRefObject* __thiscall InitializeRefObject();
@@ -232,7 +232,7 @@ struct FUN_00cc66b0 : bhkConstraint
 };
 extern "C" void __cdecl FUN_00d54e60();
 extern "C" void __cdecl _delete(void*, int);
-extern int DAT_010ca4dc;
+extern int vftable_bhkPlaneShape;
 extern int DAT_0126866c;
 struct FUN_00ccb180_class
 {
@@ -295,9 +295,9 @@ struct FUN_00ccf100_class : H_00c8c810
     void* m_pData;
     void bhkConvexTransformShape_Link(bool flag);
 };
-extern int DAT_0102016c;
-extern int DAT_010c5ef4;
-extern int DAT_010c955c;
+extern int vftable_bhkAction;
+extern int vftable_bhkBinaryAction;
+extern int vftable_bhkSpringAction;
 extern int DAT_01268154;
 extern int DAT_01268194;
 extern int DAT_012685ac;
@@ -319,12 +319,12 @@ struct DerivedStandin : A51BF0Base, S_00cb79d0_Base
     DerivedStandin() : S_00cb79d0_Base()
     {
         unsigned int count = 1;
-        m_pVtable = reinterpret_cast<void*>(&DAT_0102016c);
+        m_pVtable = reinterpret_cast<void*>(&vftable_bhkAction);
         m_uiField3 = 0;
         DAT_01268154 += count;
-        m_pVtable = reinterpret_cast<void*>(&DAT_010c5ef4);
+        m_pVtable = reinterpret_cast<void*>(&vftable_bhkBinaryAction);
         DAT_01268194 += count;
-        m_pVtable = reinterpret_cast<void*>(&DAT_010c955c);
+        m_pVtable = reinterpret_cast<void*>(&vftable_bhkSpringAction);
         DAT_012685ac += count;
     }
 };
@@ -478,7 +478,7 @@ struct FUN_00ccf5b0_shell
     void __thiscall FUN_00ccf4f0();
     FUN_00ccf5b0_shell* __thiscall FUN_00ccf5b0(bool flag);
 };
-extern int DAT_010cb3c4;
+extern int vftable_bhkCharacterStateSwimming;
 struct FUN_00cd44c0_cls
 {
     int m_vft;
@@ -486,7 +486,7 @@ struct FUN_00cd44c0_cls
     unsigned short m_kPointB;
     FUN_00cd44c0_cls* SetVirtualTable_00cd44c0();
 };
-extern int DAT_010cb3f0;
+extern int vftable_bhkCharacterStateOnGround;
 struct FUN_00cd47e0_t
 {
     void* m_pVtable;
@@ -2215,7 +2215,7 @@ class FUN_00cc39b0 : public FUN_00cc39b0_base
 };
 extern int DAT_012685c8;
 void* __cdecl bhkDashpotAction_GetRTTI();
-extern int DAT_010c970c;
+extern int vftable_bhkDashpotAction;
 extern int DAT_012685c4;
 struct DerivedStandin2 : A51BF0Base, S_00cb79d0_Base
 {
@@ -2224,12 +2224,12 @@ struct DerivedStandin2 : A51BF0Base, S_00cb79d0_Base
     DerivedStandin2() : S_00cb79d0_Base()
     {
         unsigned int count = 1;
-        m_pVtable = reinterpret_cast<void*>(&DAT_0102016c);
+        m_pVtable = reinterpret_cast<void*>(&vftable_bhkAction);
         m_uiField3 = 0;
         DAT_01268154 += count;
-        m_pVtable = reinterpret_cast<void*>(&DAT_010c5ef4);
+        m_pVtable = reinterpret_cast<void*>(&vftable_bhkBinaryAction);
         DAT_01268194 += count;
-        m_pVtable = reinterpret_cast<void*>(&DAT_010c970c);
+        m_pVtable = reinterpret_cast<void*>(&vftable_bhkDashpotAction);
         DAT_012685c4 += count;
     }
 };
@@ -3205,8 +3205,8 @@ class FUN_00cc58c0 : public FUN_00cc58c0_base
     virtual ~FUN_00cc58c0();
     void unk08();
 };
-extern int DAT_0108febc;
-extern int DAT_010c52bc;
+extern int vftable_bhkConstraint;
+extern int vftable_bhkStiffSpringConstraint;
 extern int DAT_01268188;
 extern int DAT_012685f4;
 struct CC5930_Base
@@ -3224,10 +3224,10 @@ struct CC5930_Obj : CC5930_Base
     CC5930_Obj()
     {
         unsigned int count = 1;
-        m_pVtable = reinterpret_cast<void*>(&DAT_0108febc);
+        m_pVtable = reinterpret_cast<void*>(&vftable_bhkConstraint);
         m_uiData0C = 0;
         DAT_01268188 += count;
-        m_pVtable = reinterpret_cast<void*>(&DAT_010c52bc);
+        m_pVtable = reinterpret_cast<void*>(&vftable_bhkStiffSpringConstraint);
         DAT_012685f4 += count;
     }
 };
@@ -4329,8 +4329,8 @@ struct FUN_00cc9640 : bhkConstraint
 {
     ~FUN_00cc9640();
 };
-extern int DAT_0108febc;
-extern int DAT_010c8b0c;
+extern int vftable_bhkConstraint;
+extern int vftable_bhkBallAndSocketConstraint;
 extern int DAT_01268188;
 extern int DAT_01268648;
 struct PhysicsAllocator
@@ -4351,10 +4351,10 @@ struct PhysicsObject : PhysicsAllocator, PhysicsReference
     PhysicsObject() : PhysicsReference()
     {
         unsigned int count = 1;
-        m_pVtable = &DAT_0108febc;
+        m_pVtable = &vftable_bhkConstraint;
         m_uiData = 0;
         DAT_01268188 += count;
-        m_pVtable = &DAT_010c8b0c;
+        m_pVtable = &vftable_bhkBallAndSocketConstraint;
         DAT_01268648 += count;
     }
 };
@@ -5539,9 +5539,9 @@ void* __cdecl bhkPlaneShape_GetRTTI();
 int __cdecl _sub_CCB140_GetCinfoSize();
 extern int g_unk01268f90;
 void* bhkHeightFieldShape_GetRTTI();
-extern int DAT_01030bf4;
-extern int DAT_010ca5c4;
-extern int DAT_010ca4dc;
+extern int vftable_bhkShape;
+extern int vftable_bhkHeightFieldShape;
+extern int vftable_bhkPlaneShape;
 extern int DAT_012680f8;
 extern int DAT_01268f8c;
 extern int DAT_0126866c;
@@ -5562,14 +5562,14 @@ struct TargetObject : AllocationBase, S_00c87c30_Base
 {
     TargetObject() : S_00c87c30_Base()
     {
-        m_pVtable = &DAT_01030bf4;
+        m_pVtable = &vftable_bhkShape;
         unsigned int count = 1;
         m_uiData1 = 0;
         m_uiData2 = 0;
         DAT_012680f8 += count;
-        m_pVtable = &DAT_010ca5c4;
+        m_pVtable = &vftable_bhkHeightFieldShape;
         DAT_01268f8c += count;
-        m_pVtable = &DAT_010ca4dc;
+        m_pVtable = &vftable_bhkPlaneShape;
         DAT_0126866c += count;
     }
 };
@@ -8210,7 +8210,7 @@ extern void __cdecl hkArrayUtil__reserve(void* allocator, void* array, int newCa
 extern void __cdecl hkMemUtil_memMove(void* dest, const void* src, unsigned int byteCount);
 void __stdcall nullsub_36(int a, int b, int c, int d);
 int __cdecl Object_ReturnSix();
-extern int DAT_010cb344;
+extern int vftable_bhkCharacterStateProjectile;
 struct FUN_00cd3c90_cls
 {
     void* m_pVtable;
@@ -8238,7 +8238,7 @@ struct FUN_00cd3f90 : SpawnedObjectBase
 
     FUN_00cd3f90();
 };
-extern char DAT_010cb398[];
+extern char vftable_bhkCharacterStateJumping[];
 struct FUN_00cd4260_cls
 {
     void* m_vptr;
@@ -10953,21 +10953,21 @@ struct CCADB0Owner
 };
 extern int DAT_012686d0;
 extern int DAT_01268678;
-extern int DAT_010c44e4;
-extern int DAT_010ca744;
+extern int vftable_bhkShapeCollection;
+extern int vftable_bhkExtendedMeshShape;
 struct BccObj : S_00c87c30_Base
 {
     unsigned int m_14;
     BccObj() : S_00c87c30_Base()
     {
-        m_pVtable = &DAT_01030bf4;
+        m_pVtable = &vftable_bhkShape;
         unsigned int* q = &m_uiData1;
         q[0] = 0;
         q[1] = 0;
         DAT_012680f8 += 1;
-        m_pVtable = &DAT_010c44e4;
+        m_pVtable = &vftable_bhkShapeCollection;
         DAT_012686d0 += 1;
-        m_pVtable = &DAT_010ca744;
+        m_pVtable = &vftable_bhkExtendedMeshShape;
         m_14 = 0;
         DAT_01268678 += 1;
     }
@@ -12189,9 +12189,9 @@ struct StateResetTarget
 
     StateResetPart* ResetStates();
 };
-extern int DAT_0102016c;
-extern int DAT_0102009c;
-extern int DAT_010c9634;
+extern int vftable_bhkAction;
+extern int vftable_bhkUnaryAction;
+extern int vftable_bhkMotorAction;
 extern int DAT_01268154;
 extern int DAT_01268118;
 extern int DAT_012685b8;
@@ -12215,12 +12215,12 @@ struct C200125Object : C200125Base
     {
         unsigned int count = 1;
         UpdateState_00c87c30();
-        m_pVtable = &DAT_0102016c;
+        m_pVtable = &vftable_bhkAction;
         m_0c = 0;
         DAT_01268154 += count;
-        m_pVtable = &DAT_0102009c;
+        m_pVtable = &vftable_bhkUnaryAction;
         DAT_01268118 += count;
-        m_pVtable = &DAT_010c9634;
+        m_pVtable = &vftable_bhkMotorAction;
         DAT_012685b8 += count;
     }
 };
@@ -12783,7 +12783,7 @@ struct FUN_00cc0370_Class : hkOstream
 {
     FUN_00cc0370_Class& WriteInt64(__int64 val);
 };
-extern "C" void* DAT_010c9314;
+extern "C" void* vftable_hkOstream;
 struct OwnerManager
 {
     virtual void* Reserved0();
@@ -12823,7 +12823,7 @@ struct FUN_00cc0550_Allocated
     void* m_pField08;
     int m_iField0C;
 };
-extern "C" void* DAT_010c933c;
+extern "C" void* vftable_hkMemoryTrackStreamWriter;
 struct FUN_00cc0550_class
 {
     void* m_pVtable;

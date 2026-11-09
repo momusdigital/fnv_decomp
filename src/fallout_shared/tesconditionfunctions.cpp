@@ -909,14 +909,14 @@ void __fastcall Object_ForwardCall_0059cee0(void* this_ptr)
     Object_UpdateFields_0059cf00(this_ptr);
 }
 
-extern int DAT_01034ec4;
+extern int vftable_hkpClosestRayHitCollector;
 void __fastcall SetVirtualTable_004a3ae0(void*);
 
 // @fnv 0x0059cf00
 // src: GUESS 0x0059cf00 (confidence: low)
 void __fastcall Object_UpdateFields_0059cf00(void** pThis)
 {
-    *pThis = &DAT_01034ec4;
+    *pThis = &vftable_hkpClosestRayHitCollector;
     SetVirtualTable_004a3ae0(pThis);
 }
 
@@ -7360,7 +7360,7 @@ struct GlobalObject_0045cf30
 {
     unsigned char* Bool();
 };
-extern GlobalObject_0045cf30 g_011df7f8;
+extern GlobalObject_0045cf30 bDisableAllGore_General;
 void __cdecl _DebugLog(const char* format, ...);
 extern __declspec(thread) bool _tlsDebugLogEnabled;
 // Sets result to 1.0 when the global bool is 1, logs it if debug logging is enabled, and returns true.
@@ -7369,7 +7369,7 @@ extern __declspec(thread) bool _tlsDebugLogEnabled;
 bool __cdecl Script_IsGoreDisabledConditionFunction(TESObjectREFR* reference, void* apUnused1, void* apUnused2, double& result)
 {
     result = 0.0;
-    if (*g_011df7f8.Bool() == 1)
+    if (*bDisableAllGore_General.Bool() == 1)
         result = 1.0;
     if (_tlsDebugLogEnabled)
         _DebugLog("IsGoreDisabled >> %0.2f", result);

@@ -4258,7 +4258,7 @@ void FUN_00904160_shell::ClearAndDeleteList()
 }
 }  // namespace fnv_00904160
 
-extern int DAT_010883f8;
+extern int vftable_BSTCommonLLMessageQueue_010883f8;
 struct S5580
 {
     int vt;
@@ -4269,13 +4269,13 @@ struct S5580
     void FUN_00905990();
     S5580* BSTCommonLLMessageQueue_ActorPathingMessage_BSTCommonLLMessageQueue(int x);
 };
-// Calls FUN_00905990, sets the vtable to DAT_010883f8, stores x in a, zeroes b, points c at b, and returns this.
+// Calls FUN_00905990, sets the vtable to vftable_BSTCommonLLMessageQueue_010883f8, stores x in a, zeroes b, points c at b, and returns this.
 // @fnv 0x00905580
 // src: EXE 0x00905580
 S5580* S5580::BSTCommonLLMessageQueue_ActorPathingMessage_BSTCommonLLMessageQueue(int aiValue)
 {
     FUN_00905990();
-    *reinterpret_cast<int**>(this) = &DAT_010883f8;
+    *reinterpret_cast<int**>(this) = &vftable_BSTCommonLLMessageQueue_010883f8;
     a = aiValue;
     b = 0;
     c = &b;

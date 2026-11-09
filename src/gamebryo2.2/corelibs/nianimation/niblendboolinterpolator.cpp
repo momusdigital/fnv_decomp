@@ -36,7 +36,7 @@ bool __fastcall SupportsBoolInterpolator(NiBlendBoolInterpolator* self, int, NiI
 }
 
 void __fastcall NiBlendInterpolator_NiBlendInterpolator(void* pThis);
-extern int DAT_0109a67c;
+extern int vftable_NiBlendBoolInterpolator;
 
 // @fnv 0x00a565c0
 // src: EXE 0x00a565c0
@@ -46,7 +46,7 @@ void* __cdecl NiBlendBoolInterpolator_CreateObject()
     if (p)
     {
         NiBlendInterpolator_NiBlendInterpolator(p);
-        *reinterpret_cast<void**>(p) = &DAT_0109a67c;
+        *reinterpret_cast<void**>(p) = &vftable_NiBlendBoolInterpolator;
         reinterpret_cast<unsigned char*>(p)[0x30] = DAT_0109a914;
         return p;
     }
@@ -62,13 +62,13 @@ void NiBlendBoolInterpolator::LoadBinary(NiStream& stream)
     input->m_uiAbsoluteCurrentPos += input->m_pfnRead(input, &m_bBoolValue, 1, &size, 1);
 }
 
-// Constructs a NiBlendInterpolator with the given arguments, installs the vtable at DAT_0109a67c and sets byte 0x30 from DAT_0109a914.
+// Constructs a NiBlendInterpolator with the given arguments, installs the vtable at vftable_NiBlendBoolInterpolator and sets byte 0x30 from DAT_0109a914.
 // @fnv 0x00a56560
 NiBlendInterpolator* __fastcall ConstructBlendInterpolator(NiBlendInterpolator* self, int unused, bool a, float b,
                                                            unsigned char c)
 {
     self->NiBlendInterpolator::NiBlendInterpolator(a, b, c);
-    *(int**)self = &DAT_0109a67c;
+    *(int**)self = &vftable_NiBlendBoolInterpolator;
     *((unsigned char*)self + 0x30) = DAT_0109a914;
     return self;
 }
@@ -113,7 +113,7 @@ NiBlendBoolInterpolator* __fastcall CloneBoolInterpolator(NiBlendBoolInterpolato
     if (object)
     {
         NiBlendInterpolator_NiBlendInterpolator(object);
-        *reinterpret_cast<void**>(object) = &DAT_0109a67c;
+        *reinterpret_cast<void**>(object) = &vftable_NiBlendBoolInterpolator;
         object->m_bBoolValue = DAT_0109a914;
     }
     else

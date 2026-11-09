@@ -20,28 +20,28 @@
 #include "../../include/FinishingFlag.h"
 #include "../../include/hkSmallArray.h"
 #include "../../include/Vec4.h"
-extern int DAT_010305a8;
-extern int DAT_010c749c;
+extern int vftable_hkpShape;
+extern int vftable_hkpTriangleShape;
 void __cdecl finishLoadedObjecthkpTriangleShape(int* pObject, int b);
-extern int DAT_010305a8;
-extern int DAT_010cb5ac;
+extern int vftable_hkpShape;
+extern int vftable_hkpSphereShape;
 void finishLoadedObjecthkpSphereShape(int* pObject, int flag);
-extern int DAT_010305a8;
-extern int DAT_010ce4bc;
+extern int vftable_hkpShape;
+extern int vftable_hkpMultiSphereShape;
 void hkpMultiSphereShape_hkpMultiSphereShape_0(int* pObject, int flag);
-extern int DAT_010305a8;
-extern int DAT_010ce25c;
+extern int vftable_hkpShape;
+extern int vftable_hkpCapsuleShape;
 void finishLoadedObjecthkpCapsuleShape(int* pObject, int b);
-extern int DAT_010305a8;
-extern int DAT_010c70b4;
+extern int vftable_hkpShape;
+extern int vftable_hkpBoxShape;
 void __cdecl finishLoadedObjecthkpBoxShape(int* pObject, int a);
-extern int DAT_010e99d8;
+extern int vftable_hkxScene;
 struct FUN_00cb0a70
 {
     void __thiscall m(int);
 };
 void Object_UpdateState_00e01c30(void* apObject, void* aValue);
-extern int DAT_010c9314;
+extern int vftable_hkOstream;
 void Object_UpdateFields_00e02780(void* apObject);
 int IsInRange(int aiValue, int aiLowerBound, int aiUpperBound);
 void Object_UpdateFields_00e04a60(void* pData);
@@ -74,27 +74,27 @@ struct FUN_00e000a0_vt
     virtual void m(int);
 };
 void __cdecl Object_InvokeVirtualMethod_00e000a0(FUN_00e000a0_vt* p);
-extern int DAT_010c59f4;
-extern int DAT_010c6cdc;
+extern int vftable_hkpMotion;
+extern int vftable_hkpFixedRigidMotion;
 void __cdecl Object_UpdateFields_00e00120(int* pObject, int bSetHalf);
-extern int DAT_010e81a4;
+extern int vftable_hkpDefaultWorldMemoryWatchDog;
 void __cdecl Object_UpdateFields_00e00180(int* p);
 struct FUN_00e002d0_vt
 {
     virtual void Runtime_ForwardCall_00e002d0(int);
 };
 void __cdecl Runtime_ForwardCall_00e002d0(FUN_00e002d0_vt* p);
-extern int DAT_010c59f4;
-extern int DAT_010c6ea4;
+extern int vftable_hkpMotion;
+extern int vftable_hkpCharacterMotion;
 void __cdecl Object_UpdateState_00e002f0(int* pObject, int bSetValue);
-extern int DAT_010e83b4;
+extern int vftable_hkpCallbackConstraintMotor;
 void __cdecl Runtime_UpdateState_00e00350(int* a);
 void __cdecl Object_InvokeVirtualMethod_00e00720(void* p);
-extern int DAT_010305a8;
-extern int DAT_010c6fd0;
-extern int DAT_010cc41c;
+extern int vftable_hkpShape;
+extern int vftable_hkpSingleShapeContainer;
+extern int vftable_hkpTransformShape;
 void __cdecl finishLoadedObjecthkpTransformShape(int* pObject, int bClear);
-extern int DAT_010e8824;
+extern int vftable_hkpShapeInfo;
 void __cdecl Runtime_UpdateState_00e00810(int* p);
 struct FUN_00e00930_vt
 {
@@ -107,91 +107,91 @@ struct FUN_00e00c70_vt
     virtual void __thiscall m0(int);
 };
 void __cdecl Runtime_ForwardCall_00e00c70(FUN_00e00c70_vt* p);
-extern int DAT_010c63cc;
+extern int vftable_hkpDefaultConvexListFilter;
 void __cdecl Runtime_UpdateState_00e00d10(int* p);
 int __cdecl Runtime_EvaluateValue_00e00d30(int* p);
-extern int DAT_010e8d8c;
+extern int vftable_hkpConvexVerticesConnectivity;
 void __cdecl Runtime_UpdateState_00e00db0(int* a);
-extern int DAT_010305a8;
-extern int DAT_010c6fd0;
-extern int DAT_010d0e5c;
+extern int vftable_hkpShape;
+extern int vftable_hkpSingleShapeContainer;
+extern int vftable_hkpConvexTranslateShape;
 void __cdecl finishLoadedObjecthkpConvexTranslateShape(int* pObject, int bClear);
-extern int DAT_010305a8;
-extern int DAT_010c6fd0;
-extern int DAT_010d102c;
+extern int vftable_hkpShape;
+extern int vftable_hkpSingleShapeContainer;
+extern int vftable_hkpConvexTransformShape;
 void __cdecl finishLoadedObjecthkpConvexTransformShape(int** a, int abReset);
-extern int DAT_010305a8;
-extern int DAT_010ce31c;
-extern int DAT_010e901c;
+extern int vftable_hkpShape;
+extern int vftable_hkpSampledHeightFieldShape;
+extern int vftable_hkpCompressedSampledHeightFieldShape;
 void __cdecl Object_UpdateFields_00e010e0(int* pObject, int abFlag);
 void __cdecl Runtime_Helper_00e011f0(void* a);
-extern int DAT_010305a8;
-extern int DAT_010c6ff8;
-extern int DAT_010c6fd0;
+extern int vftable_hkpShape;
+extern int vftable_hkpBvShape;
+extern int vftable_hkpSingleShapeContainer;
 void __cdecl Object_UpdateFields_00e013a0(int** p, int abClear);
-extern int DAT_010e9300;
+extern int vftable_hkxVertexVectorDataChannel;
 void Runtime_UpdateState_00e01530(int* p);
-extern int DAT_010e9358;
+extern int vftable_hkxVertexSelectionChannel;
 void Runtime_UpdateState_00e01570(int* p);
-extern int DAT_010e93ac;
+extern int vftable_hkxVertexIntDataChannel;
 void Runtime_UpdateState_00e015b0(int** p);
 typedef void(__thiscall* Fn)(void*, int);
 void __cdecl Object_ProcessState_00e01640(int* p);
-extern int DAT_010e943c;
+extern int vftable_hkxVertexFloatDataChannel;
 void __cdecl Object_UpdateFields_00e01660(int* p);
-extern int DAT_010e9494;
+extern int vftable_hkxTriangleSelectionChannel;
 void __cdecl Object_UpdateFields_00e016a0(int* p);
 struct FUN_00e017d0_vt
 {
     virtual void Runtime_ForwardCall_00e017d0(int);
 };
 void __cdecl Runtime_ForwardCall_00e017d0(FUN_00e017d0_vt* p);
-extern int DAT_010e95b4;
+extern int vftable_hkxTextureFile;
 void Object_UpdateState_00e017f0(FUN_00cb0a70** apObject, int aiValue);
-extern int DAT_010e9614;
+extern int vftable_hkxSparselyAnimatedString;
 void Object_UpdateFields_00e018e0(int* a);
-extern int DAT_010e350c;
+extern int vftable_hkxSparselyAnimatedInt;
 void __cdecl Runtime_UpdateState_00e019f0(int* p);
-extern int DAT_010e96c8;
+extern int vftable_hkxSparselyAnimatedBool;
 void __cdecl Runtime_UpdateState_00e01a30(int* p);
-extern int DAT_010e977c;
+extern int vftable_hkxSkinBinding;
 void __cdecl Runtime_UpdateState_00e01b10(int* a);
-extern int DAT_010e9b7c;
+extern int vftable_hkxMeshSection;
 void __cdecl Runtime_UpdateState_00e01f50(int* p);
 struct FUN_00e020e0_vt
 {
     virtual int Object_ForwardCall_00e020e0(int);
 };
 int __cdecl Object_ForwardCall_00e020e0(FUN_00e020e0_vt* c);
-extern int DAT_010e9ccc;
+extern int vftable_hkxMaterialShader;
 void __cdecl Object_UpdateFields_00e02140(int* pObject, int iValue);
 void __cdecl Object_InvokeVirtualMethod_00e02260(int** p);
 typedef int(__thiscall* FUN_00e02340_fn)(void*, int);
 int __cdecl Object_GetIndexedValue_00e02340(void* obj);
-extern int DAT_010e9e74;
+extern int vftable_hkxLight;
 void __cdecl Object_UpdateFields_00e02360(int* p);
-extern int DAT_010e9f48;
+extern int vftable_hkxIndexBuffer;
 void Object_UpdateFields_00e023a0(int* p);
-extern int DAT_010e9fa4;
+extern int vftable_hkxEdgeSelectionChannel;
 void Object_UpdateFields_00e02480(int* p);
-extern int DAT_010ea0a4;
+extern int vftable_hkxCamera;
 void __cdecl Object_UpdateFields_00e024c0(int* p);
 typedef int(__thiscall* VFunc0)(void*, int);
 int __cdecl Object_GetIndexedValue_00e024e0(void* p);
-extern int DAT_010e310c;
+extern int vftable_hkxAttributeHolder;
 void Object_UpdateFields_00e02500(int* a);
-extern int DAT_010ea10c;
+extern int vftable_hkxAnimatedVector;
 void __cdecl Object_UpdateFields_00e02540(int** p);
-extern int DAT_010ea154;
+extern int vftable_hkxAnimatedQuaternion;
 void __cdecl Object_UpdateFields_00e02580(int* a);
-extern int DAT_010ea188;
+extern int vftable_hkxAnimatedMatrix;
 void Runtime_UpdateState_00e02630(int* p);
 struct FUN_00e026c0_vtbl
 {
     virtual int v0(int);
 };
 int __cdecl Object_InvokeVirtualMethod_00e026c0(FUN_00e026c0_vtbl* p);
-extern int DAT_010ea1ac;
+extern int vftable_hkxAnimatedFloat;
 void __cdecl Object_UpdateFields_00e026e0(int* p);
 struct FUN_00e02720_vtbl
 {
@@ -230,8 +230,8 @@ struct FUN_00e001a0_vt
     virtual void m(int);
 };
 void __cdecl Object_InvokeVirtualMethod_00e001a0(FUN_00e001a0_vt* p);
-extern int DAT_010cc2fc;
-extern int DAT_010d79c4;
+extern int vftable_hkpAction;
+extern int vftable_hkpConstraintChainInstanceAction;
 void Object_UpdateFields_00e001c0(FUN_00cb0a70* obj, int aiValue);
 int* __cdecl Object_GetGlobalObjectAddress_00e00320();
 struct FUN_00e00330_vt
@@ -249,8 +249,8 @@ struct FUN_00e00430_vt
     virtual void __thiscall m0(int);
 };
 void __cdecl Runtime_ForwardCall_00e00430(FUN_00e00430_vt* p);
-extern int DAT_010c59f4;
-extern int DAT_010c6dc4;
+extern int vftable_hkpMotion;
+extern int vftable_hkpBoxMotion;
 void __cdecl Object_UpdateState_00e00450(void* apObject, int flag);
 typedef void(__thiscall* VFn)(void*, int);
 void __cdecl Runtime_UpdateState_00e00550(void* p);
@@ -284,8 +284,8 @@ struct FUN_00dcd380_cls
 {
     void __thiscall FUN_00dcd380(int b);
 };
-extern int DAT_010e8a90;
-extern int DAT_010e8ab0;
+extern int vftable_hkpFastMeshShape_for_hkpShapeContainer;
+extern int vftable_hkpFastMeshShape;
 void __cdecl Object_UpdateState_00e00c90(void* pObject, int b);
 struct FUN_00e00cf0_vt
 {
@@ -314,7 +314,7 @@ typedef int(__thiscall* Vfn)(void*, int);
 int __cdecl Runtime_EvaluateValue_00e01450(void* p);
 extern int DAT_0126e330;
 int* __cdecl Object_GetGlobalObjectAddress_00e01460();
-extern int DAT_010e929c;
+extern int vftable_hkMemoryMeshShape;
 struct FUN_00e01470_s
 {
     int m_iWordAt00;
@@ -357,7 +357,7 @@ struct FUN_00e01cd0_vt
     virtual void m(int);
 };
 void __cdecl Runtime_ForwardCall_00e01cd0(FUN_00e01cd0_vt* p);
-extern int DAT_010e9a34;
+extern int vftable_hkxNodeSelectionSet;
 void finishLoadedObjecthkpSerializedAgentNnEntry_00e01cf0(void* pObject, void* b);
 struct FUN_00e01e40_vt
 {
@@ -365,7 +365,7 @@ struct FUN_00e01e40_vt
 };
 void __cdecl Object_InvokeVirtualMethod_00e01e40(FUN_00e01e40_vt* p);
 void __cdecl Runtime_Helper_00e01f30(int* p);
-extern int DAT_010e9dec;
+extern int vftable_hkxMaterialEffect;
 struct FUN_00cb0a70_00e02280
 {
     int* vt;
@@ -425,7 +425,7 @@ struct FUN_00e11d60_class
     void __thiscall hkgpMesh_setPartId(int val);
 };
 BSAudio* __cdecl hkMemoryRouter_getInstance();
-extern int DAT_0102e388;
+extern int vftable_hkBaseObject;
 struct FUN_00e00000_cls
 {
     int m_vptr00;
@@ -456,11 +456,11 @@ void __cdecl Object_ProcessState_00e000c0(FUN_00d50c00_cls* pOwner, int value);
 struct CpuOpaque;
 extern CpuOpaque DAT_0126d9e8;
 CpuOpaque* __cdecl Runtime_GetDAT0126d9e8Address();
-extern int DAT_010c6cdc;
+extern int vftable_hkpFixedRigidMotion;
 int* Runtime_GetDAT010c6cdcAddress();
 extern int DAT_0126da30;
 int* __cdecl Runtime_GetDAT0126da30Address();
-extern int DAT_010e81a4;
+extern int vftable_hkpDefaultWorldMemoryWatchDog;
 void* __cdecl Runtime_GetDAT010e81a4Address();
 extern int DAT_0126da78;
 int* __cdecl Runtime_GetDAT0126da78Address();
@@ -476,7 +476,7 @@ extern int g_target_00e002e0;
 void* Object_GetGlobalObjectAddress_00e002e0();
 extern int g_unk0126db50;
 void* __cdecl Object_GetGlobalObjectAddress_00e00340();
-extern int DAT_010e83b4;
+extern int vftable_hkpCallbackConstraintMotor;
 int* __cdecl Object_GetGlobalObjectAddress_00e00360();
 extern unsigned char DAT_0126db98;
 void* __cdecl Object_GetGlobalObjectAddress_00e00380();
@@ -603,7 +603,7 @@ void S_00e003d0_Base::unk00()
 {}
 extern int DAT_0126dbe0;
 int* __cdecl Object_GetGlobalObjectAddress_00e00440(void);
-extern int DAT_010c6dc4;
+extern int vftable_hkpBoxMotion;
 void* Object_GetGlobalObjectAddress_00e00480();
 struct S_00e00490_vt
 {
@@ -619,7 +619,7 @@ struct FUN_00e004f0_class
 void __cdecl Runtime_ProcessState_00e004b0(FUN_00e004f0_class* object, int value);
 extern int DAT_0126dc70;
 int* __cdecl Object_GetGlobalObjectAddress_00e00560();
-extern int DAT_010c749c;
+extern int vftable_hkpTriangleShape;
 int* Object_GetGlobalObjectAddress_00e005a0();
 extern int DAT_0126dcb8;
 void* __cdecl Object_GetGlobalObjectAddress_00e005c0();
@@ -682,7 +682,7 @@ class FUN_00e00690_cls
     void FUN_00e006d0(int a1);
 };
 void __cdecl Object_ProcessState_00e00690(FUN_00e00690_cls* pObject, int aiValue);
-extern int DAT_010c6fd0;
+extern int vftable_hkpSingleShapeContainer;
 struct S_00e006d0_A
 {
     virtual void v0();
@@ -716,17 +716,17 @@ struct FUN_00e006d0 : S_00e006d0_B
 };
 extern int DAT_0126dd48;
 int __cdecl Runtime_EvaluateValue_00e00730();
-extern int DAT_010cc41c;
+extern int vftable_hkpTransformShape;
 int* __cdecl Object_GetGlobalObjectAddress_00e00780();
 struct CpuOpaque;
 extern CpuOpaque DAT_0126dd90;
 CpuOpaque* __cdecl Object_GetGlobalObjectAddress_00e007a0();
-extern int DAT_010cb5ac;
+extern int vftable_hkpSphereShape;
 int* __cdecl Object_GetGlobalObjectAddress_00e007e0();
 struct CpuOpaque;
 extern CpuOpaque DAT_0126ddd8;
 CpuOpaque* __cdecl Object_GetGlobalObjectAddress_00e00800();
-extern int DAT_010e8824;
+extern int vftable_hkpShapeInfo;
 int* Object_GetGlobalObjectAddress_00e00820();
 struct S_00e00830_Allocator
 {
@@ -838,11 +838,11 @@ extern int g_target_00e00940;
 void* Object_GetGlobalObjectAddress_00e00940();
 // Resets an object to the "script terminal" class layout: it installs the
 // secondary base vtable, the primary vtable and finally the derived vtable.
-extern int DAT_010e8894;
-extern int DAT_010e88b4;
-extern int DAT_010e88a4;
+extern int vftable_hkpMoppModifier;
+extern int vftable_hkpRemoveTerminalsMoppModifier;
+extern int vftable_hkpRemoveTerminalsMoppModifier_for_hkpMoppModifier;
 void __cdecl Object_UpdateState_00e00950(int* pObject);
-extern int DAT_010e88b4;
+extern int vftable_hkpRemoveTerminalsMoppModifier;
 int __cdecl Runtime_EvaluateValue_00e00970();
 extern "C" struct FUN_00e009c0_vt
 {
@@ -857,7 +857,7 @@ extern "C" void __cdecl Object_InvokeVirtualMethod_00e009c0(FUN_00e009c0_vt* p)
 struct CpuOpaque;
 extern CpuOpaque DAT_0126de68;
 CpuOpaque* __cdecl Runtime_GetDAT0126de68Address();
-extern int DAT_010d0e18;
+extern int vftable_hkpPlaneShape;
 int* __cdecl Runtime_GetDAT010d0e18Address();
 // FUN_00e00a30 : a one-line function - getter
 extern int g_target_00e00a30;
@@ -914,7 +914,7 @@ class FUN_00e00a80_cls : public BE00A80Base,
 };
 extern char DAT_0126def8;
 char* __cdecl Runtime_GetDAT0126def8Address(void);
-extern int DAT_010ce4bc;
+extern int vftable_hkpMultiSphereShape;
 void* Runtime_GetDAT010ce4bcAddress();
 extern int g_unk0126df40;
 void* __cdecl Runtime_GetUnk0126df40Address();
@@ -971,7 +971,7 @@ CpuOpaque* __cdecl Object_GetGlobalObjectAddress_00e00c80();
 extern int DAT_0126dfd0;
 int* __cdecl Object_GetGlobalObjectAddress_00e00d00();
 // FUN_00e00d20: cdecl, returns the address of a global object.
-extern int DAT_010c63cc;
+extern int vftable_hkpDefaultConvexListFilter;
 int* __cdecl Object_GetGlobalObjectAddress_00e00d20();
 extern int DAT_0126e018;
 int* __cdecl Object_GetGlobalObjectAddress_00e00d40();
@@ -982,11 +982,11 @@ struct FUN_00d57b20_class
 void __cdecl hkpCylinderShape_hkpCylinderShape_00d57b20_ProcessState_00e00d50(FUN_00d57b20_class* pObject, int value);
 extern int DAT_0126e060;
 void* __cdecl Object_GetGlobalObjectAddress_00e00da0();
-extern int DAT_010e8d8c;
+extern int vftable_hkpConvexVerticesConnectivity;
 int* __cdecl Object_GetGlobalObjectAddress_00e00dc0();
 extern int DAT_0126e0a8;
 void* __cdecl Object_GetGlobalObjectAddress_00e00e80();
-extern int DAT_010d0e5c;
+extern int vftable_hkpConvexTranslateShape;
 int* __cdecl Runtime_GetDAT010d0e5cAddress();
 struct S_00e00ee0_vt
 {
@@ -995,7 +995,7 @@ struct S_00e00ee0_vt
 void __cdecl Object_InvokeVirtualMethod_00e00ee0(S_00e00ee0_vt* p);
 extern int DAT_0126e0f0;
 void* __cdecl Runtime_GetDAT0126e0f0Address();
-extern int DAT_010d102c;
+extern int vftable_hkpConvexTransformShape;
 void* Object_GetGlobalObjectAddress_00e00f40();
 // FUN_00e00f50: calls the first virtual (slot 0) of the object passed in the
 // first stack argument, with a single 0 argument.
@@ -1013,12 +1013,12 @@ struct FUN_00e00f70_cls
     void __thiscall FUN_00e00fb0(int value);
 };
 void __cdecl Object_ProcessState_00e00f70(FUN_00e00f70_cls* pObject, int value);
-extern int DAT_010305a8;
-extern int DAT_010c6fb0;
-extern int DAT_010cc364;
-extern int DAT_010cc344;
-extern int DAT_010e8e94;
-extern int DAT_010e8e74;
+extern int vftable_hkpShape;
+extern int vftable_hkpShapeContainer;
+extern int vftable_hkpShapeCollection;
+extern int vftable_hkpShapeCollection_for_hkpShapeContainer;
+extern int vftable_hkpConvexPieceMeshShape;
+extern int vftable_hkpConvexPieceMeshShape_for_hkpShapeContainer;
 class FUN_00e00fb0
 {
   public:
@@ -1039,9 +1039,9 @@ struct VirtualSlotObject
 void __cdecl Runtime_ForwardCall_00e01050(VirtualSlotObject* p);
 extern int DAT_0126e180;
 int* __cdecl Object_GetGlobalObjectAddress_00e01060();
-extern int DAT_010c6fb0;
-extern int DAT_010d10c4;
-extern int DAT_010d10a4;
+extern int vftable_hkpShapeContainer;
+extern int vftable_hkpConvexListShape;
+extern int vftable_hkpConvexListShape_for_hkpShapeContainer;
 struct InitObject
 {
     void* m_pVTable;  // +0x00
@@ -1052,11 +1052,11 @@ struct InitObject
     void* m_pSlot;    // +0x14
 };
 void __cdecl InitObjectFields(volatile InitObject* pObject, int iFlag);
-extern int DAT_010d10c4;
+extern int vftable_hkpConvexListShape;
 void* __cdecl Runtime_GetDAT010d10c4Address();
 extern int DAT_0126e1c8;
 void* __cdecl Runtime_GetDAT0126e1c8Address(void);
-extern int DAT_010e901c;
+extern int vftable_hkpCompressedSampledHeightFieldShape;
 void* __cdecl Runtime_GetDAT010e901cAddress();
 extern int DAT_0126e210;
 void* __cdecl Object_GetGlobalObjectAddress_00e01200();
@@ -1099,23 +1099,23 @@ struct FUN_00e01320_cls
 void __cdecl Object_InvokeVirtualMethod_00e01320(FUN_00e01320_cls* pObject);
 extern int DAT_0126e258;
 int* __cdecl Runtime_GetDAT0126e258Address(void);
-extern int DAT_010ce25c;
+extern int vftable_hkpCapsuleShape;
 int* __cdecl Runtime_GetDAT010ce25cAddress();
 extern int DAT_0126e2a0;
 int __cdecl Runtime_EvaluateValue_00e01390();
 void* __cdecl Object_GetGlobalObjectAddress_00e013e0();
 extern int DAT_0126e2e8;
 int* __cdecl Object_GetGlobalObjectAddress_00e01400();
-extern int DAT_010c70b4;
+extern int vftable_hkpBoxShape;
 int* __cdecl Object_GetGlobalObjectAddress_00e01440();
 // FUN_00e01520 : a one-line function - getter
 extern int g_target_00e01520;
 void* Object_GetGlobalObjectAddress_00e01520();
-extern int DAT_010e9300;
+extern int vftable_hkxVertexVectorDataChannel;
 int* Object_GetGlobalObjectAddress_00e01540();
 extern int DAT_0126e3c0;
 void* __cdecl Object_GetGlobalObjectAddress_00e01560();
-extern int DAT_010e9358;
+extern int vftable_hkxVertexSelectionChannel;
 int* __cdecl Object_GetGlobalObjectAddress_00e01580();
 struct FnvCpu_FUN_00e01590_CpuInterface
 {
@@ -1124,12 +1124,12 @@ struct FnvCpu_FUN_00e01590_CpuInterface
 void __cdecl Runtime_ForwardCall_00e01590(FnvCpu_FUN_00e01590_CpuInterface* object);
 extern int DAT_0126e408;
 int* __cdecl Object_GetGlobalObjectAddress_00e015a0();
-extern int DAT_010e93ac;
+extern int vftable_hkxVertexIntDataChannel;
 void* __cdecl Object_GetGlobalObjectAddress_00e015c0();
 struct CpuOpaque;
 extern CpuOpaque DAT_0126e450;
 CpuOpaque* __cdecl Runtime_GetDAT0126e450Address();
-extern int DAT_010e943c;
+extern int vftable_hkxVertexFloatDataChannel;
 void* __cdecl Runtime_GetDAT010e943cAddress();
 struct CallerVtbl
 {
@@ -1138,7 +1138,7 @@ struct CallerVtbl
 int __cdecl Object_InvokeVirtualMethod_00e01680(CallerVtbl* p);
 extern int DAT_0126e498;
 void* __cdecl Runtime_GetDAT0126e498Address();
-extern int DAT_010e9494;
+extern int vftable_hkxTriangleSelectionChannel;
 int* __cdecl Runtime_GetDAT010e9494Address();
 // Stand-in for the object whose first virtual slot is invoked with the constant 0.
 struct FUN_00e016c0_cls
@@ -1171,20 +1171,20 @@ extern int DAT_0126e528;
 int* __cdecl Object_GetGlobalObjectAddress_00e017e0();
 extern int DAT_0126e570;
 int* __cdecl Runtime_GetDAT0126e570Address();
-extern int DAT_010e9614;
+extern int vftable_hkxSparselyAnimatedString;
 void* __cdecl Runtime_GetDAT010e9614Address();
 extern int DAT_0126e5b8;
 int __cdecl Object_ComputeValue_00e019e0();
-extern int DAT_010e350c;
+extern int vftable_hkxSparselyAnimatedInt;
 int* __cdecl Object_GetGlobalObjectAddress_00e01a00();
 struct CpuOpaque;
 extern CpuOpaque DAT_0126e600;
 CpuOpaque* __cdecl Object_GetGlobalObjectAddress_00e01a20();
-extern int DAT_010e96c8;
+extern int vftable_hkxSparselyAnimatedBool;
 void* __cdecl Object_GetGlobalObjectAddress_00e01a40();
 extern int g_unk0126e648;
 void* __cdecl Object_GetGlobalObjectAddress_00e01b00();
-extern int DAT_010e977c;
+extern int vftable_hkxSkinBinding;
 int* Object_GetGlobalObjectAddress_00e01b20();
 extern int DAT_0126e690;
 void* __cdecl Object_GetGlobalObjectAddress_00e01c20();
@@ -1208,7 +1208,7 @@ class FUN_00e01e20_cls
 void __cdecl CallHandleIfNotNull(FUN_00e01e20_cls* pObject, int aiValue);
 extern int DAT_0126e768;
 int* __cdecl Runtime_GetDAT0126e768Address();
-extern int DAT_010e9acc;
+extern int vftable_hkxMesh__UserChannelInfo;
 struct FUN_00e01e80_obj
 {
     int unk00;
@@ -1222,7 +1222,7 @@ struct FUN_00e01e80_obj
 void __cdecl Object_UpdateFields_00e01e80(FUN_00e01e80_obj* pObj, int aiValue);
 extern int DAT_0126e7b0;
 int* __cdecl Object_GetGlobalObjectAddress_00e01f40();
-extern int DAT_010e9b7c;
+extern int vftable_hkxMeshSection;
 unsigned int __cdecl Object_ComputeValue_00e01f60();
 struct FUN_00e4ae80_Obj
 {
@@ -1249,11 +1249,11 @@ GlobalObject* __cdecl Runtime_GetGlobalAddress_00e02270();
 struct Data_0126e8d0;
 extern Data_0126e8d0 DAT_0126e8d0;
 Data_0126e8d0* __cdecl Runtime_GetDAT0126e8d0Address();
-extern int DAT_010e9e74;
+extern int vftable_hkxLight;
 void* __cdecl Runtime_GetDAT010e9e74Address();
 extern int DAT_0126e918;
 int* __cdecl Runtime_GetDAT0126e918Address();
-extern int DAT_010e9f48;
+extern int vftable_hkxIndexBuffer;
 int* __cdecl Runtime_GetDAT010e9f48Address();
 struct E02460Object
 {
@@ -1262,12 +1262,12 @@ struct E02460Object
 void Object_Destroy_Thunk_00e02460(E02460Object* pkObject);
 extern int DAT_0126e960;
 int* __cdecl Runtime_GetDAT0126e960Address();
-extern int DAT_010e9fa4;
+extern int vftable_hkxEdgeSelectionChannel;
 void* __cdecl Runtime_GetDAT010e9fa4Address();
 // FUN_00e024b0 : a one-line function - getter
 extern int g_target_00e024b0;
 void* Runtime_GetTarget00e024b0Address();
-extern int DAT_010ea0a4;
+extern int vftable_hkxCamera;
 int __cdecl Runtime_EvaluateValue_00e024d0();
 extern int DAT_0126e9f0;
 int* __cdecl Runtime_GetDAT0126e9f0Address();
@@ -1276,19 +1276,19 @@ struct E02520Object
     virtual void Destroy(bool bFree);
 };
 void Object_Destroy_Thunk_00e02520(E02520Object* pkObject);
-extern int DAT_010ea10c;
+extern int vftable_hkxAnimatedVector;
 void* Runtime_GetDAT010ea10cAddress();
 extern unsigned char DAT_0126ea80;
 void* __cdecl Runtime_GetDAT0126ea80Address();
-extern int DAT_010ea154;
+extern int vftable_hkxAnimatedQuaternion;
 int __cdecl Runtime_EvaluateValue_00e02590();
 extern int DAT_0126eac8;
 void* Object_GetGlobalObjectAddress_00e02620();
-extern int DAT_010ea188;
+extern int vftable_hkxAnimatedMatrix;
 int __cdecl Object_ComputeValue_00e02640();
 extern unsigned char DAT_0126eb10;
 unsigned char* __cdecl Runtime_GetDAT0126eb10Address();
-extern int DAT_010ea1ac;
+extern int vftable_hkxAnimatedFloat;
 int* Runtime_GetDAT010ea1acAddress();
 class E02700Object
 {
@@ -1300,7 +1300,7 @@ extern int g_0126eb58;
 int* __cdecl Runtime_GetField0126eb58Address();
 extern int DAT_0126eba0;
 int* __cdecl Runtime_GetDAT0126eba0Address();
-extern int DAT_010c9314;
+extern int vftable_hkOstream;
 void* __cdecl Object_GetGlobalObjectAddress_00e027a0();
 int __cdecl ReadIntAtOffset(int index, int* data);
 void __cdecl UpdateStateFlags(void* pData);

@@ -857,14 +857,14 @@ class GlobalObject_0045cf30
     bool IOTask_SetPriority_Thunk(bool b);
 };
 
-extern GlobalObject_0044f440 g_011c8fb0;
-extern GlobalObject_0044f440 g_011c9000;
-extern GlobalObject_0044f440 g_011c9040;
-extern GlobalObject_0044f440 g_011c906c;
-extern GlobalObject_0044f440 g_011c908c;
-extern GlobalObject_0045cfe0 g_011c9054;
-extern GlobalObject_0045cfe0 g_011c907c;
-extern GlobalObject_0045cf30 g_011c8fc0;
+extern GlobalObject_0044f440 fLinearRadiusMult_bLightAttenuation;
+extern GlobalObject_0044f440 fConstantValue_bLightAttenuation;
+extern GlobalObject_0044f440 fQuadraticValue_bLightAttenuation;
+extern GlobalObject_0044f440 fQuadraticRadiusMult_bLightAttenuation;
+extern GlobalObject_0044f440 fLinearValue_bLightAttenuation;
+extern GlobalObject_0045cfe0 uLinearMethod_bLightAttenuation;
+extern GlobalObject_0045cfe0 uQuadraticMethod_bLightAttenuation;
+extern GlobalObject_0045cf30 bOutQuadInLin_bLightAttenuation;
 extern unsigned char DAT_011c8fa0;
 extern NiRTTI DAT_011f4a98;
 
@@ -878,40 +878,40 @@ void ConfigurePointLight(NiAVObject* object, unsigned int count)
     NiPointLight* light = (NiPointLight*)NiDynamicCast(&DAT_011f4a98, object);
     if (light)
     {
-        light->SetConstantAttenuation((DAT_011c8fa0 & 1) ? *g_011c9000.Float() : 0.0f);
+        light->SetConstantAttenuation((DAT_011c8fa0 & 1) ? *fConstantValue_bLightAttenuation.Float() : 0.0f);
         light->SetLinearAttenuation(0.0f);
         light->SetQuadraticAttenuation(0.0f);
 
-        if ((DAT_011c8fa0 & 2) || (g_TES->GetPrevPath() != 0 && g_011c8fc0.IOTask_SetPriority_Thunk(true)))
+        if ((DAT_011c8fa0 & 2) || (g_TES->GetPrevPath() != 0 && bOutQuadInLin_bLightAttenuation.IOTask_SetPriority_Thunk(true)))
         {
-            float a = (double)count * *g_011c8fb0.Float();
-            switch (*g_011c9054.Int())
+            float a = (double)count * *fLinearRadiusMult_bLightAttenuation.Float();
+            switch (*uLinearMethod_bLightAttenuation.Int())
             {
             case 0:
-                light->SetLinearAttenuation(*g_011c908c.Float());
+                light->SetLinearAttenuation(*fLinearValue_bLightAttenuation.Float());
                 break;
             default:
-                light->SetLinearAttenuation((a != 0.0) ? ((1.0 / a) * *g_011c908c.Float()) : 0.01f);
+                light->SetLinearAttenuation((a != 0.0) ? ((1.0 / a) * *fLinearValue_bLightAttenuation.Float()) : 0.01f);
                 break;
             case 2:
-                light->SetLinearAttenuation((a != 0.0) ? (*g_011c908c.Float() / (a * a)) : 0.01f);
+                light->SetLinearAttenuation((a != 0.0) ? (*fLinearValue_bLightAttenuation.Float() / (a * a)) : 0.01f);
                 break;
             }
         }
 
-        if ((DAT_011c8fa0 & 4) || (g_TES->GetPrevPath() == 0 && g_011c8fc0.IOTask_SetPriority_Thunk(true)))
+        if ((DAT_011c8fa0 & 4) || (g_TES->GetPrevPath() == 0 && bOutQuadInLin_bLightAttenuation.IOTask_SetPriority_Thunk(true)))
         {
-            float b = (double)count * *g_011c906c.Float();
-            switch (*g_011c907c.Int())
+            float b = (double)count * *fQuadraticRadiusMult_bLightAttenuation.Float();
+            switch (*uQuadraticMethod_bLightAttenuation.Int())
             {
             case 0:
-                light->SetQuadraticAttenuation(*g_011c9040.Float());
+                light->SetQuadraticAttenuation(*fQuadraticValue_bLightAttenuation.Float());
                 break;
             case 1:
-                light->SetQuadraticAttenuation((b != 0.0) ? ((1.0 / (double)count) * g_011c9040.FUN_00450410()) : 0.01f);
+                light->SetQuadraticAttenuation((b != 0.0) ? ((1.0 / (double)count) * fQuadraticValue_bLightAttenuation.FUN_00450410()) : 0.01f);
                 break;
             default:
-                light->SetQuadraticAttenuation((b != 0.0) ? (g_011c9040.FUN_00450410() / (b * b)) : 0.01f);
+                light->SetQuadraticAttenuation((b != 0.0) ? (fQuadraticValue_bLightAttenuation.FUN_00450410() / (b * b)) : 0.01f);
                 break;
             }
         }

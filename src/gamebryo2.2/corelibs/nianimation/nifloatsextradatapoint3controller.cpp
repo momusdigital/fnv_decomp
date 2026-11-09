@@ -11,7 +11,7 @@
 #include "../../../../include/StrArr.h"
 
 int* __fastcall InitTimeController(int*);
-extern "C" int DAT_0109917c;
+extern "C" int vftable_NiFloatsExtraDataPoint3Controller;
 extern int EmptyFS;
 
 // @fnv 0x00a4ecd0
@@ -22,7 +22,7 @@ int* __cdecl NiFloatsExtraDataPoint3Controller_CreateObject()
     if (p)
     {
         InitTimeController(p);
-        p[0] = (int)&DAT_0109917c;
+        p[0] = (int)&vftable_NiFloatsExtraDataPoint3Controller;
         p[0x40 / 4] = -1;
         p[0x44 / 4] = EmptyFS;
         return p;
@@ -39,7 +39,7 @@ NiFloatsExtraDataPoint3Controller* __fastcall ClonePoint3Controller(
     NiFloatsExtraDataPoint3Controller* p = (NiFloatsExtraDataPoint3Controller*)BSFadeNode::operator new(0x48);
     if (p) {
         p->InitTimeController();
-        *(int**)p = &DAT_0109917c;
+        *(int**)p = &vftable_NiFloatsExtraDataPoint3Controller;
         p->m_iFloatsExtraDataIndex = -1;
         *(int*)&p->m_kCtlrID.m_kHandle = EmptyFS;
     } else {
@@ -148,7 +148,7 @@ void __fastcall DestroyExtraDataController(NiExtraDataController* self);
 NiFloatsExtraDataPoint3Controller* __fastcall DestroyPoint3Controller(
     NiFloatsExtraDataPoint3Controller* self, int, unsigned char acFlags)
 {
-    *(void* volatile*)self = (void*)&DAT_0109917c;
+    *(void* volatile*)self = (void*)&vftable_NiFloatsExtraDataPoint3Controller;
     char* volatile* pm44 = (char* volatile*)&self->m_kCtlrID.m_kHandle;
     char* p = *pm44;
     if (p != DAT_0109b220) {

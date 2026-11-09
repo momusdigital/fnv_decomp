@@ -48,9 +48,9 @@ struct FUN_00db7860
     ~FUN_00db7860() throw();
 };
 
-struct FUN_00db7870 : public FUN_00db7860
+struct hkCrc32StreamWriter : public FUN_00db7860
 {
-    FUN_00db7870(int n) throw();
+    hkCrc32StreamWriter(int n) throw();
 };
 
 struct hkObjDB76
@@ -59,12 +59,12 @@ struct hkObjDB76
     void hkClassEnum_getSignature();
 };
 
-// Constructs a temporary FUN_00db7870 with 0 and passes it to FUN_00db7600.
+// Constructs a temporary hkCrc32StreamWriter with 0 and passes it to FUN_00db7600.
 // @fnv 0x00db76c0
 // src: HAVOK_LIB 0x00db76c0
 void hkObjDB76::hkClassEnum_getSignature()
 {
-    FUN_00db7870 tmp(0);
+    hkCrc32StreamWriter tmp(0);
     writeSignature(&tmp);
 }
 

@@ -724,65 +724,104 @@ extern const char g_011c39a8_arg1[];
 extern const char g_011c3a40_arg0[];
 extern const char g_011c3a40_arg1[];
 extern const char g_011c3a7c_arg0[];
-extern const char g_011c3be4_arg0[];
+// src: EXE 0x01017700
+extern const char fLODBoundRadiusMult_LOD_key[];
 extern const float g_011c3be4_arg1;
-extern const char g_011c3bb8_arg0[];
+// src: EXE 0x010177d0
+extern const char fLODFadeOutPercent_LOD_key[];
 extern const float g_011c3bb8_arg1;
-extern const char g_011c3d40_arg0[];
+// src: EXE 0x01017fb8
+extern const char bPreemptivelyUnloadCells_General_key[];
 extern const char g_011c3e38_arg0[];
-extern const char g_011c3ea4_arg0[];
-extern const char g_011c3dbc_arg0[];
-extern const char g_011c3cf4_arg0[];
-extern const char g_011c3c30_arg0[];
-extern const char g_011c3d4c_arg0[];
+// src: EXE 0x0101801c
+extern const char iNumHWThreads_General_key[];
+// src: EXE 0x01018034
+extern const char bShowLoadingAreaMessage_General_key[];
+// src: EXE 0x010180ac
+extern const char fAlphaReduce_Weather_key[];
+// src: EXE 0x010180c4
+extern const char iUpdateType_HAVOK_key[];
+// src: EXE 0x010180d8
+extern const char fMoveLimitMass_HAVOK_key[];
 extern const float g_011c3d4c_arg1;
-extern const char g_011c3da0_arg0[];
-extern const char g_011c3e54_arg0[];
+// src: EXE 0x010180f4
+extern const char bAddBipedWhenKeyframed_HAVOK_key[];
+// src: EXE 0x01018114
+extern const char fMaxPickTime_HAVOK_key[];
 extern const float g_011c3e54_arg1;
-extern const char g_011c3e94_arg0[];
+// src: EXE 0x0101812c
+extern const char fMaxPickTimeVATS_HAVOK_key[];
 extern const float g_011c3e94_arg1;
-extern const char g_011c3dd8_arg0[];
+// src: EXE 0x01018148
+extern const char fMaxPickTimeDebug_HAVOK_key[];
 extern const float g_011c3dd8_arg1;
-extern const char g_011c3dcc_arg0[];
+// src: EXE 0x01018164
+extern const char fMaxPickTimeDebugVATS_HAVOK_key[];
 extern const float g_011c3dcc_arg1;
-extern const char g_011c3c3c_arg0[];
-extern const char g_011c3d28_arg0[];
+// src: EXE 0x01018184
+extern const char iEntityBatchRemoveRate_HAVOK_key[];
+// src: EXE 0x010181a4
+extern const char fChaseDeltaMult_HAVOK_key[];
 extern const float g_011c3d28_arg1;
-extern const char g_011c3d60_arg0[];
+// src: EXE 0x010181ec
+extern const char fDistanceMultiplier_LOD_key[];
 extern const float g_011c3d60_arg1;
-extern const char g_011c3e18_arg0[];
+// src: EXE 0x01018208
+extern const char fFadeOutThreshold_LOD_key[];
 extern const float g_011c3e18_arg1;
-extern const char g_011c3d00_arg0[];
+// src: EXE 0x01018220
+extern const char fFadeInThreshold_LOD_key[];
 extern const float g_011c3d00_arg1;
-extern const char g_011c3df4_arg0[];
+// src: EXE 0x0101823c
+extern const char fFadeInTime_LOD_key[];
 extern const float g_011c3df4_arg1;
-extern const char g_011c3c5c_arg0[];
+// src: EXE 0x0101824c
+extern const char fFadeOutTime_LOD_key[];
 extern const float g_011c3c5c_arg1;
-extern const char g_011c3ccc_arg0[];
-extern const char g_011c3e64_arg0[];
-extern const char g_011c3d1c_arg0[];
-extern const char g_011c3c10_arg0[];
-extern const char g_011c3ec0_arg0[];
+// src: EXE 0x01018260
+extern const char bCheckPurgedTextureList_General_key[];
+// src: EXE 0x01018280
+extern const char bQueueWarnings_General_key[];
+// src: EXE 0x01018298
+extern const char bUseMultiThreadedTrees_BackgroundLoad_key[];
+// src: EXE 0x010182c0
+extern const char bSelectivePurgeUnusedOnFastTravel_BackgroundLoad_key[];
+// src: EXE 0x010184d8
+extern const char fLODFadeOutMultActors_LOD_key[];
 extern const float g_011c3ec0_arg1;
-extern const char g_011c3d0c_arg0[];
+// src: EXE 0x01018530
+extern const char fLODFadeOutMultItems_LOD_key[];
 extern const float g_011c3d0c_arg1;
-extern const char g_011c3d78_arg0[];
+// src: EXE 0x0101854c
+extern const char fLODFadeOutMultObjects_LOD_key[];
 extern const float g_011c3d78_arg1;
 extern const char g_011c3c0f_arg0[];
 extern const char g_011c3c0f_arg1[];
-extern const char g_011c3f58_arg0[];
+// src: EXE 0x01019a40
+extern const char bDisableDuplicateReferenceCheck_General_key[];
 extern const char g_011c3ff4_arg0[];
-extern const char g_011c408c_arg0[];
-extern const char g_011c4080_arg0[];
-extern const char g_011c3fd4_arg0[];
-extern const char g_011c4054_arg0[];
-extern const char g_011c3fa8_arg0[];
-extern const char g_011c4074_arg0[];
-extern const char g_011c3f98_arg0[];
-extern const char g_011c3f80_arg0[];
-extern const char g_011c4060_arg0[];
-extern const char g_011c4098_arg0[];
-extern const char g_011c4c64_arg0[];
+// src: EXE 0x01019c28
+extern const char bFileSkipModelChecks_TestAllCells_key[];
+// src: EXE 0x01019c4c
+extern const char bFileCheckModelCollision_TestAllCells_key[];
+// src: EXE 0x01019c74
+extern const char bFileGoneMessage_TestAllCells_key[];
+// src: EXE 0x01019c94
+extern const char bFileNeededMessage_TestAllCells_key[];
+// src: EXE 0x01019cb4
+extern const char bFileTestLoad_TestAllCells_key[];
+// src: EXE 0x01019cd0
+extern const char bFileUnusedObject_TestAllCells_key[];
+// src: EXE 0x01019cf0
+extern const char bFileSkipIconChecks_TestAllCells_key[];
+// src: EXE 0x01019d14
+extern const char bFileShowIcons_TestAllCells_key[];
+// src: EXE 0x01019d30
+extern const char bFileShowTextures_TestAllCells_key[];
+// src: EXE 0x01019d50
+extern const char bKeepPluginWhenMerging_General_key[];
+// src: EXE 0x0101abb4
+extern const char bAnimateDoorPhysics_General_key[];
 extern const char g_011c5074_arg0[];
 extern const char g_011c4e64_arg0[];
 extern const char g_011c4e64_arg1[];
@@ -964,229 +1003,384 @@ extern const char g_011c503c_arg0[];
 extern const char g_011c503c_arg1[];
 extern const char g_011c4f58_arg0[];
 extern const char g_011c4f58_arg1[];
-extern const char g_011c5348_arg0[];
+// src: EXE 0x0101beb4
+extern const char bFixAIPackagesOnLoad_General_key[];
 extern const char g_011c52e4_arg0[];
 extern const char g_011c52fc_arg0[];
-extern const char g_011c555c_arg0[];
-extern const char g_011c5574_arg0[];
-extern const char g_011c5724_arg0[];
-extern const char g_011c56fc_arg0[];
+// src: EXE 0x0101d07c
+extern const char bWarnOnMissingFileEntry_General_key[];
+// src: EXE 0x0101d09c
+extern const char bUseOptimizedTextureLoading_General_key[];
+// src: EXE 0x0101df0c
+extern const char fAnimationMult_General_key[];
+// src: EXE 0x0101df24
+extern const char fAnimationDefaultBlend_General_key[];
 extern const float g_011c56fc_arg1;
-extern const char g_011c5740_arg0[];
-extern const char g_011c5778_arg0[];
-extern const char g_011c5734_arg0[];
-extern const char g_011c5750_arg0[];
-extern const char g_011c5874_arg0[];
+// src: EXE 0x0101df48
+extern const char fMenuModeAnimBlend_Interface_key[];
+// src: EXE 0x0101df68
+extern const char iAnimationClonePerLoop_BackgroundLoad_key[];
+// src: EXE 0x0101df90
+extern const char bClampWarning_AnimationWarning_key[];
+// src: EXE 0x0101dfb0
+extern const char bPriorityWarning_AnimationWarning_key[];
+// src: EXE 0x0101e5a8
+extern const char fDecalLifetime_Display_key[];
 extern const float g_011c5874_arg1;
-extern const char g_011c5890_arg0[];
-extern const char g_011c5858_arg0[];
-extern const char g_011c57fc_arg0[];
-extern const char g_011c58e4_arg0[];
-extern const char g_011c589c_arg0[];
-extern const char g_011c5884_arg0[];
-extern const char g_011c5904_arg0[];
-extern const char g_011c58a8_arg0[];
-extern const char g_011c58d0_arg0[];
-extern const char g_011c5834_arg0[];
-extern const char g_011c58bc_arg0[];
-extern const char g_011c5a1c_arg0[];
-extern const char g_011c5a40_arg0[];
-extern const char g_011c5af0_arg0[];
-extern const char g_011c5c24_arg0[];
-extern const char g_011c5b3c_arg0[];
-extern const char g_011c5a64_arg0[];
-extern const char g_011c5a58_arg0[];
-extern const char g_011c59ec_arg0[];
-extern const char g_011c5a10_arg0[];
-extern const char g_011c5b5c_arg0[];
-extern const char g_011c5b80_arg0[];
-extern const char g_011c5a90_arg0[];
-extern const char g_011c5bdc_arg0[];
-extern const char g_011c59a0_arg0[];
-extern const char g_011c5afc_arg0[];
-extern const char g_011c5bf8_arg0[];
-extern const char g_011c5a84_arg0[];
-extern const char g_011c5984_arg0[];
-extern const char g_011c5b8c_arg0[];
-extern const char g_011c5b08_arg0[];
-extern const char g_011c5954_arg0[];
-extern const char g_011c5a9c_arg0[];
-extern const char g_011c5ac4_arg0[];
-extern const char g_011c5c60_arg0[];
-extern const char g_011c5bcc_arg0[];
-extern const char g_011c5ba0_arg0[];
-extern const char g_011c59b8_arg0[];
-extern const char g_011c5994_arg0[];
-extern const char g_011c5bb0_arg0[];
+// src: EXE 0x0101e5c0
+extern const char iMaxDecalsPerFrame_Display_key[];
+// src: EXE 0x0101e5dc
+extern const char iMaxSkinDecalsPerFrame_Display_key[];
+// src: EXE 0x0101e5fc
+extern const char uMaxDecals_Decals_key[];
+// src: EXE 0x0101e610
+extern const char uMaxSkinDecals_Decals_key[];
+// src: EXE 0x0101e628
+extern const char uMaxSkinDecalPerActor_Decals_key[];
+// src: EXE 0x0101e648
+extern const char bProfileDecals_Decals_key[];
+// src: EXE 0x0101e660
+extern const char bDebugDecals_Decals_key[];
+// src: EXE 0x0101e674
+extern const char bDecalOcclusionQuery_Decals_key[];
+// src: EXE 0x0101e690
+extern const char bDecalMultithreaded_Decals_key[];
+// src: EXE 0x0101e6ac
+extern const char bDecals_Decals_key[];
+// src: EXE 0x0101e6bc
+extern const char bSkinnedDecals_Decals_key[];
+// src: EXE 0x0101ee7c
+extern const char uRefCount_BudgetCaps_key[];
+// src: EXE 0x0101ee94
+extern const char uActorRefCount_BudgetCaps_key[];
+// src: EXE 0x0101eeb0
+extern const char uActiveRefCount_BudgetCaps_key[];
+// src: EXE 0x0101eecc
+extern const char uAnimatedObjectsCount_BudgetCaps_key[];
+// src: EXE 0x0101eef0
+extern const char uParticlesCount_BudgetCaps_key[];
+// src: EXE 0x0101ef0c
+extern const char uEmittersCount_BudgetCaps_key[];
+// src: EXE 0x0101ef28
+extern const char uGeometryCount_BudgetCaps_key[];
+// src: EXE 0x0101ef44
+extern const char uTriangleCount_BudgetCaps_key[];
+// src: EXE 0x0101ef60
+extern const char uWaterCount_BudgetCaps_key[];
+// src: EXE 0x0101ef94
+extern const char uTextureMemory_BudgetCaps_key[];
+// src: EXE 0x0101efc8
+extern const char uLightCount_BudgetCaps_key[];
+// src: EXE 0x0101efe0
+extern const char uLightExcessGeometry_BudgetCaps_key[];
+// src: EXE 0x0101f000
+extern const char uDecalCount_BudgetCaps_key[];
+// src: EXE 0x0101f018
+extern const char uHavokTriCount_BudgetCaps_key[];
+// src: EXE 0x0101f034
+extern const char uRefCountInterior_BudgetCaps_key[];
+// src: EXE 0x0101f054
+extern const char uActorRefCountInterior_BudgetCaps_key[];
+// src: EXE 0x0101f078
+extern const char uActiveRefCountInterior_BudgetCaps_key[];
+// src: EXE 0x0101f09c
+extern const char uAnimatedObjectsCountInterior_BudgetCaps_key[];
+// src: EXE 0x0101f0c8
+extern const char uParticlesCountInterior_BudgetCaps_key[];
+// src: EXE 0x0101f0ec
+extern const char uEmittersCountInterior_BudgetCaps_key[];
+// src: EXE 0x0101f110
+extern const char uGeometryCountInterior_BudgetCaps_key[];
+// src: EXE 0x0101f134
+extern const char uTriangleCountInterior_BudgetCaps_key[];
+// src: EXE 0x0101f158
+extern const char uWaterCountInterior_BudgetCaps_key[];
+// src: EXE 0x0101f19c
+extern const char uTextureMemoryInterior_BudgetCaps_key[];
+// src: EXE 0x0101f1e0
+extern const char uLightCountInterior_BudgetCaps_key[];
+// src: EXE 0x0101f200
+extern const char uLightExcessGeometryInterior_BudgetCaps_key[];
+// src: EXE 0x0101f228
+extern const char uDecalCountInterior_BudgetCaps_key[];
+// src: EXE 0x0101f248
+extern const char uHavokTriCountInterior_BudgetCaps_key[];
+// src: EXE 0x0101f26c
+extern const char fMsRefCount_BudgetCaps_key[];
 extern const float g_011c5bb0_arg1;
-extern const char g_011c5a2c_arg0[];
+// src: EXE 0x0101f288
+extern const char fMsActorRefCount_BudgetCaps_key[];
 extern const float g_011c5a2c_arg1;
-extern const char g_011c5b14_arg0[];
+// src: EXE 0x0101f2a8
+extern const char fMsActiveRefCount_BudgetCaps_key[];
 extern const float g_011c5b14_arg1;
-extern const char g_011c5968_arg0[];
+// src: EXE 0x0101f2c8
+extern const char fMsAnimatedObjectsCount_BudgetCaps_key[];
 extern const float g_011c5968_arg1;
-extern const char g_011c5a04_arg0[];
+// src: EXE 0x0101f2ec
+extern const char fMsParticlesCount_BudgetCaps_key[];
 extern const float g_011c5a04_arg1;
-extern const char g_011c59ac_arg0[];
+// src: EXE 0x0101f30c
+extern const char fMsEmittersCount_BudgetCaps_key[];
 extern const float g_011c59ac_arg1;
-extern const char g_011c5c34_arg0[];
+// src: EXE 0x0101f328
+extern const char fMsGeometryCount_BudgetCaps_key[];
 extern const float g_011c5c34_arg1;
-extern const char g_011c5aa8_arg0[];
+// src: EXE 0x0101f344
+extern const char fMsTriangleCount_BudgetCaps_key[];
 extern const float g_011c5aa8_arg1;
-extern const char g_011c5c70_arg0[];
+// src: EXE 0x0101f360
+extern const char fMsWaterCount_BudgetCaps_key[];
 extern const float g_011c5c70_arg1;
-extern const char g_011c59f8_arg0[];
+// src: EXE 0x0101f37c
+extern const char fMsLightExcessGeometry_BudgetCaps_key[];
 extern const float g_011c59f8_arg1;
-extern const char g_011c59cc_arg0[];
+// src: EXE 0x0101f3a0
+extern const char fMsLightCount_BudgetCaps_key[];
 extern const float g_011c59cc_arg1;
-extern const char g_011c5c10_arg0[];
+// src: EXE 0x0101f3bc
+extern const char fMsDecalCount_BudgetCaps_key[];
 extern const float g_011c5c10_arg1;
-extern const char g_011c5b68_arg0[];
+// src: EXE 0x0101f3d8
+extern const char fMsHavokTriCount_BudgetCaps_key[];
 extern const float g_011c5b68_arg1;
-extern const char g_011c5b74_arg0[];
+// src: EXE 0x0101f3f4
+extern const char fMaxMsUsagePerFrame_BudgetCaps_key[];
 extern const float g_011c5b74_arg1;
-extern const char g_011c5b20_arg0[];
-extern const char g_011c5ae0_arg0[];
-extern const char g_011c5978_arg0[];
+// src: EXE 0x0101f418
+extern const char uLoadedAreaNonActorMemoryBudgetCap_BudgetCaps_key[];
+// src: EXE 0x0101f448
+extern const char uWastelandLODBudgetAdjustment_BudgetCaps_key[];
+// src: EXE 0x0101f4bc
+extern const char bIncludeWaterInMNumberCalculations_BudgetCaps_key[];
 extern const char g_011c5cc8_arg0[];
 extern const char g_011c5cc8_arg1[];
-extern const char g_011c5ef0_arg0[];
-extern const char g_011c629c_arg0[];
+// src: EXE 0x0101fc48
+extern const char bLoadHelmetsInBackground_BackgroundLoad_key[];
+// src: EXE 0x010205f0
+extern const char fSD_HAVOK_key[];
 extern const float g_011c629c_arg1;
-extern const char g_011c62c0_arg0[];
+// src: EXE 0x01020600
+extern const char fSE_HAVOK_key[];
 extern const float g_011c62c0_arg1;
-extern const char g_011c62a8_arg0[];
+// src: EXE 0x0102060c
+extern const char fOD_HAVOK_key[];
 extern const float g_011c62a8_arg1;
-extern const char g_011c62fc_arg0[];
+// src: EXE 0x01020618
+extern const char fRF_HAVOK_key[];
 extern const float g_011c62fc_arg1;
-extern const char g_011c63cc_arg0[];
-extern const char g_011c6528_arg0[];
+// src: EXE 0x01020700
+extern const char uGridsToLoad_General_key[];
+// src: EXE 0x010209b8
+extern const char fDialogueHeadPitchExaggeration_Audio_key[];
 extern const float g_011c6528_arg1;
-extern const char g_011c6534_arg0[];
+// src: EXE 0x010209e0
+extern const char fDialogueHeadRollExaggeration_Audio_key[];
 extern const float g_011c6534_arg1;
-extern const char g_011c651c_arg0[];
+// src: EXE 0x01020a04
+extern const char fDialogueHeadYawExaggeration_Audio_key[];
 extern const float g_011c651c_arg1;
-extern const char g_011c738c_arg0[];
+// src: EXE 0x01021930
+extern const char iAdapter_Display_key[];
 extern const char g_011c73dc_arg0[];
 extern const char g_011c718c_arg0[];
-extern const char g_011c732c_arg0[];
+// src: EXE 0x01021964
+extern const char bIgnoreResolutionCheck_Display_key[];
 extern const char g_011c77b4_arg0[];
 extern const char g_011c75d4_arg0[];
 extern const char g_011c7654_arg0[];
-extern const char g_011c7100_arg0[];
-extern const char g_011c7470_arg0[];
-extern const char g_011c75ec_arg0[];
+// src: EXE 0x010219c4
+extern const char iNPatches_Display_key[];
+// src: EXE 0x010219d8
+extern const char iNPatchPOrder_Display_key[];
+// src: EXE 0x010219f0
+extern const char iNPatchNOrder_Display_key[];
 extern const char g_011c726c_arg0[];
-extern const char g_011c7504_arg0[];
-extern const char g_011c74d4_arg0[];
-extern const char g_011c752c_arg0[];
-extern const char g_011c75a4_arg0[];
-extern const char g_011c7154_arg0[];
-extern const char g_011c7544_arg0[];
-extern const char g_011c712c_arg0[];
-extern const char g_011c7180_arg0[];
-extern const char g_011c7368_arg0[];
-extern const char g_011c7380_arg0[];
-extern const char g_011c7248_arg0[];
-extern const char g_011c71c4_arg0[];
-extern const char g_011c73f4_arg0[];
-extern const char g_011c7284_arg0[];
-extern const char g_011c7784_arg0[];
-extern const char g_011c7680_arg0[];
-extern const char g_011c7790_arg0[];
-extern const char g_011c7418_arg0[];
-extern const char g_011c779c_arg0[];
-extern const char g_011c7254_arg0[];
-extern const char g_011c7768_arg0[];
-extern const char g_011c723c_arg0[];
-extern const char g_011c73b8_arg0[];
-extern const char g_011c761c_arg0[];
+// src: EXE 0x01021a20
+extern const char bUseRefractionShader_Display_key[];
+// src: EXE 0x01021a40
+extern const char bDrawShadows_Display_key[];
+// src: EXE 0x01021a58
+extern const char iShadowMode_Display_key[];
+// src: EXE 0x01021a6c
+extern const char bDoCanopyShadowPass_Display_key[];
+// src: EXE 0x01021a88
+extern const char bDoAmbientPass_Display_key[];
+// src: EXE 0x01021aa0
+extern const char bDoDiffusePass_Display_key[];
+// src: EXE 0x01021ab8
+extern const char bDoSpecularPass_Display_key[];
+// src: EXE 0x01021ad0
+extern const char bDoTexturePass_Display_key[];
+// src: EXE 0x01021ae8
+extern const char bDoActorShadows_Display_key[];
+// src: EXE 0x01021b00
+extern const char bDoStaticAndArchShadows_Display_key[];
+// src: EXE 0x01021b20
+extern const char bForceMultiPass_Display_key[];
+// src: EXE 0x01021b38
+extern const char bDoTallGrassEffect_Display_key[];
+// src: EXE 0x01021b54
+extern const char iMultiSample_Display_key[];
+// src: EXE 0x01021b6c
+extern const char iWaterMultiSamples_Display_key[];
+// src: EXE 0x01021b88
+extern const char iWaterReflectWidth_Water_key[];
+// src: EXE 0x01021ba4
+extern const char iWaterReflectHeight_Water_key[];
+// src: EXE 0x01021bc0
+extern const char bTransparencyMultisampling_Display_key[];
+// src: EXE 0x01021be4
+extern const char bAllowScreenShot_Display_key[];
+// src: EXE 0x01021c00
+extern const char iTexMipMapSkip_Display_key[];
+// src: EXE 0x01021c18
+extern const char iTexMipMapMinimum_Display_key[];
+// src: EXE 0x01021c34
+extern const char bUseBlurShader_BlurShader_key[];
+// src: EXE 0x01021c50
+extern const char iBlendType_BlurShader_key[];
+// src: EXE 0x01021c68
+extern const char iNumBlurpasses_BlurShader_key[];
+// src: EXE 0x01021c84
+extern const char fBlurRadius_BlurShader_key[];
 extern const float g_011c761c_arg1;
-extern const char g_011c740c_arg0[];
-extern const char g_011c74f8_arg0[];
+// src: EXE 0x01021ca0
+extern const char iBlurTexSize_BlurShader_key[];
+// src: EXE 0x01021cb8
+extern const char fAlphaAddInterior_BlurShader_key[];
 extern const float g_011c74f8_arg1;
-extern const char g_011c71f4_arg0[];
+// src: EXE 0x01021cd8
+extern const char fAlphaAddExterior_BlurShader_key[];
 extern const float g_011c71f4_arg1;
-extern const char g_011c72a0_arg0[];
-extern const char g_011c774c_arg0[];
+// src: EXE 0x01021cf8
+extern const char fSunBrightness_BlurShader_key[];
+// src: EXE 0x01021d14
+extern const char fSkyBrightness_BlurShader_key[];
 extern const float g_011c774c_arg1;
-extern const char g_011c7314_arg0[];
-extern const char g_011c768c_arg0[];
-extern const char g_011c7710_arg0[];
+// src: EXE 0x01021d30
+extern const char fSISpecularMult_BlurShader_key[];
+// src: EXE 0x01021d4c
+extern const char fSIEmmisiveMult_BlurShader_key[];
+// src: EXE 0x01021d68
+extern const char fHitTexOffset_GethitShader_key[];
 extern const float g_011c7710_arg1;
-extern const char g_011c7350_arg0[];
+// src: EXE 0x01021d88
+extern const char fBlockedTexOffset_GethitShader_key[];
 extern const float g_011c7350_arg1;
-extern const char g_011c7338_arg0[];
+// src: EXE 0x01021da8
+extern const char fBlurAmmount_GethitShader_key[];
 extern const float g_011c7338_arg1;
 extern const char g_011c73a4_arg0[];
 extern const char g_011c7138_arg0[];
 extern const char g_011c74e0_arg0[];
 extern const char g_011c7538_arg0[];
-extern const char g_011c7550_arg0[];
-extern const char g_011c7670_arg0[];
-extern const char g_011c7224_arg0[];
-extern const char g_011c7170_arg0[];
-extern const char g_011c76c0_arg0[];
-extern const char g_011c71a0_arg0[];
-extern const char g_011c7398_arg0[];
-extern const char g_011c74c4_arg0[];
+// src: EXE 0x01021e2c
+extern const char bStaticMenuBackground_Display_key[];
+// src: EXE 0x01021e4c
+extern const char bReportBadTangentSpace_Display_key[];
+// src: EXE 0x01021e6c
+extern const char bEquippedTorchesCastShadows_Display_key[];
+// src: EXE 0x01021e90
+extern const char fSunlightDimmer_BlurShader_key[];
+// src: EXE 0x01021eac
+extern const char bDoHighDynamicRange_BlurShaderHDR_key[];
+// src: EXE 0x01021ed0
+extern const char iBlendType_BlurShaderHDR_key[];
+// src: EXE 0x01021eec
+extern const char iNumBlurpasses_BlurShaderHDR_key[];
+// src: EXE 0x01021f0c
+extern const char fBlurRadius_BlurShaderHDR_key[];
 extern const float g_011c74c4_arg1;
-extern const char g_011c7200_arg0[];
+// src: EXE 0x01021f28
+extern const char fBrightClamp_BlurShaderHDR_key[];
 extern const float g_011c7200_arg1;
-extern const char g_011c7230_arg0[];
+// src: EXE 0x01021f48
+extern const char fBrightScale_BlurShaderHDR_key[];
 extern const float g_011c7230_arg1;
-extern const char g_011c7758_arg0[];
-extern const char g_011c75bc_arg0[];
+// src: EXE 0x01021f64
+extern const char fSunBrightness_BlurShaderHDR_key[];
+// src: EXE 0x01021f84
+extern const char fSkyBrightness_BlurShaderHDR_key[];
 extern const float g_011c75bc_arg1;
-extern const char g_011c7458_arg0[];
-extern const char g_011c74a0_arg0[];
-extern const char g_011c7488_arg0[];
+// src: EXE 0x01021fa4
+extern const char fSISpecularMult_BlurShaderHDR_key[];
+// src: EXE 0x01021fc4
+extern const char fSIEmmisiveMult_BlurShaderHDR_key[];
+// src: EXE 0x01021fe4
+extern const char fSunlightDimmer_BlurShaderHDR_key[];
 extern const float g_011c7488_arg1;
-extern const char g_011c7260_arg0[];
+// src: EXE 0x01022008
+extern const char fEyeAdaptSpeed_BlurShaderHDR_key[];
 extern const float g_011c7260_arg1;
-extern const char g_011c7698_arg0[];
-extern const char g_011c7574_arg0[];
+// src: EXE 0x01022028
+extern const char fEmissiveHDRMult_BlurShaderHDR_key[];
+// src: EXE 0x01022048
+extern const char fTreeDimmer_BlurShaderHDR_key[];
 extern const float g_011c7574_arg1;
-extern const char g_011c7510_arg0[];
+// src: EXE 0x01022064
+extern const char fGrassDimmer_BlurShaderHDR_key[];
 extern const float g_011c7510_arg1;
-extern const char g_011c76d8_arg0[];
-extern const char g_011c71e8_arg0[];
+// src: EXE 0x01022080
+extern const char fUpperLUMClamp_BlurShaderHDR_key[];
+// src: EXE 0x010220a0
+extern const char fTargetLUM_BlurShaderHDR_key[];
 extern const float g_011c71e8_arg1;
-extern const char g_011c7434_arg0[];
-extern const char g_011c76e8_arg0[];
+// src: EXE 0x010220bc
+extern const char iNumBlurpasses_BlurShaderHDRInterior_key[];
+// src: EXE 0x010220e4
+extern const char fBlurRadius_BlurShaderHDRInterior_key[];
 extern const float g_011c76e8_arg1;
-extern const char g_011c76a4_arg0[];
+// src: EXE 0x01022108
+extern const char fBrightClamp_BlurShaderHDRInterior_key[];
 extern const float g_011c76a4_arg1;
-extern const char g_011c74ac_arg0[];
+// src: EXE 0x01022130
+extern const char fBrightScale_BlurShaderHDRInterior_key[];
 extern const float g_011c74ac_arg1;
-extern const char g_011c720c_arg0[];
+// src: EXE 0x01022158
+extern const char fEyeAdaptSpeed_BlurShaderHDRInterior_key[];
 extern const float g_011c720c_arg1;
-extern const char g_011c755c_arg0[];
-extern const char g_011c7148_arg0[];
-extern const char g_011c73c4_arg0[];
-extern const char g_011c744c_arg0[];
+// src: EXE 0x01022180
+extern const char fEmissiveHDRMult_BlurShaderHDRInterior_key[];
+// src: EXE 0x010221a8
+extern const char fUpperLUMClamp_BlurShaderHDRInterior_key[];
+// src: EXE 0x010221d0
+extern const char fTargetLUM_BlurShaderHDRInterior_key[];
+// src: EXE 0x010221f4
+extern const char fLightLODDefaultStartFade_Display_key[];
 extern const float g_011c744c_arg1;
-extern const char g_011c76b4_arg0[];
+// src: EXE 0x01022234
+extern const char fLightLODRange_Display_key[];
 extern const float g_011c76b4_arg1;
-extern const char g_011c72ac_arg0[];
+// src: EXE 0x0102224c
+extern const char fLightLODMinStartFade_Display_key[];
 extern const float g_011c72ac_arg1;
-extern const char g_011c74ec_arg0[];
+// src: EXE 0x01022270
+extern const char fLightLODMaxStartFade_Display_key[];
 extern const float g_011c74ec_arg1;
-extern const char g_011c7278_arg0[];
+// src: EXE 0x01022294
+extern const char fShadowLODDefaultStartFade_Display_key[];
 extern const float g_011c7278_arg1;
-extern const char g_011c7400_arg0[];
+// src: EXE 0x010222d4
+extern const char fShadowLODRange_Display_key[];
 extern const float g_011c7400_arg1;
-extern const char g_011c7294_arg0[];
+// src: EXE 0x010222ec
+extern const char fShadowLODMinStartFade_Display_key[];
 extern const float g_011c7294_arg1;
-extern const char g_011c71b8_arg0[];
+// src: EXE 0x0102230c
+extern const char fShadowLODMaxStartFade_Display_key[];
 extern const float g_011c71b8_arg1;
-extern const char g_011c7494_arg0[];
+// src: EXE 0x0102232c
+extern const char fSpecularLODDefaultStartFade_Display_key[];
 extern const float g_011c7494_arg1;
-extern const char g_011c7634_arg0[];
+// src: EXE 0x01022374
+extern const char fSpecularLODRange_Display_key[];
 extern const float g_011c7634_arg1;
-extern const char g_011c7440_arg0[];
+// src: EXE 0x01022390
+extern const char fSpecularLODMinStartFade_Display_key[];
 extern const float g_011c7440_arg1;
-extern const char g_011c71d0_arg0[];
+// src: EXE 0x010223b4
+extern const char fSpecularLODMaxStartFade_Display_key[];
 extern const float g_011c71d0_arg1;
 extern const char g_011c7374_arg0[];
 extern const float g_011c7374_arg1;
@@ -1208,45 +1402,71 @@ extern const char g_011c72fc_arg0[];
 extern const float g_011c72fc_arg1;
 extern const char g_011c7344_arg0[];
 extern const float g_011c7344_arg1;
-extern const char g_011c710c_arg0[];
-extern const char g_011c7774_arg0[];
-extern const char g_011c7464_arg0[];
-extern const char g_011c75e0_arg0[];
+// src: EXE 0x010224d4
+extern const char bMTRendering_Display_key[];
+// src: EXE 0x010224ec
+extern const char bLODNoiseAniso_Display_key[];
+// src: EXE 0x01022504
+extern const char fLODNoiseMipBias_Display_key[];
+// src: EXE 0x01022520
+extern const char fLandLOFadeSeconds_Display_key[];
 extern const float g_011c75e0_arg1;
-extern const char g_011c72e4_arg0[];
-extern const char g_011c72d8_arg0[];
-extern const char g_011c7664_arg0[];
-extern const char g_011c71dc_arg0[];
-extern const char g_011c7520_arg0[];
-extern const char g_011c7704_arg0[];
-extern const char g_011c76cc_arg0[];
-extern const char g_011c747c_arg0[];
-extern const char g_011c75b0_arg0[];
+// src: EXE 0x0102253c
+extern const char iActorShadowCountExt_Display_key[];
+// src: EXE 0x0102255c
+extern const char iActorShadowCountInt_Display_key[];
+// src: EXE 0x0102257c
+extern const char bActorSelfShadowing_Display_key[];
+// src: EXE 0x01022598
+extern const char bShadowsOnGrass_Display_key[];
+// src: EXE 0x010225b0
+extern const char iShadowMapResolution_Display_key[];
+// src: EXE 0x010225d0
+extern const char bAllowPartialPrecision_Display_key[];
+// src: EXE 0x010225f0
+extern const char iShadowFilter_Display_key[];
+// src: EXE 0x01022608
+extern const char bUseResolvableDepth_Display_key[];
+// src: EXE 0x01022624
+extern const char bUseFakeFullScreenMotionBlur_Display_key[];
 extern const char g_011c7308_arg0[];
 extern const char g_011c7604_arg0[];
 extern const char g_011c7640_arg0[];
 extern const char g_011c7320_arg0[];
 extern const char g_011c75c8_arg0[];
-extern const char g_011c76f8_arg0[];
-extern const char g_011c71ac_arg0[];
-extern const char g_011c7628_arg0[];
-extern const char g_011c7610_arg0[];
-extern const char g_011c735c_arg0[];
-extern const char g_011c7218_arg0[];
-extern const char g_011c75f8_arg0[];
+// src: EXE 0x01022700
+extern const char bDecalsOnSkinnedGeometry_Display_key[];
+// src: EXE 0x01022724
+extern const char fGamma_Display_key[];
+// src: EXE 0x0102276c
+extern const char iPresentInterval_Display_key[];
+// src: EXE 0x01022788
+extern const char bCreateShaderPackage_General_key[];
+// src: EXE 0x010227a8
+extern const char fShadowFadeTime_Display_key[];
+// src: EXE 0x010227c0
+extern const char bTintMipMaps_General_key[];
+// src: EXE 0x010227ec
+extern const char fInterfaceTintR_Interface_key[];
 extern const float g_011c75f8_arg1;
-extern const char g_011c77cc_arg0[];
+// src: EXE 0x0102280c
+extern const char fInterfaceTintG_Interface_key[];
 extern const float g_011c77cc_arg1;
-extern const char g_011c73d0_arg0[];
+// src: EXE 0x0102282c
+extern const char fInterfaceTintB_Interface_key[];
 extern const float g_011c73d0_arg1;
-extern const char g_011c711c_arg0[];
-extern const char g_011c771c_arg0[];
+// src: EXE 0x0102284c
+extern const char bDynamicWindowReflections_Display_key[];
+// src: EXE 0x01022870
+extern const char bEnableEyefinity_Display_key[];
 extern const char g_011c7820_arg0[];
 extern const char g_011c7820_arg1[];
-extern const char g_011c77f4_arg0[];
+// src: EXE 0x010229e4
+extern const char bCustomSplatterEnabled_ScreenSplatter_key[];
 extern const char g_011c7844_arg0[];
 extern const char g_011c7844_arg1[];
-extern const char g_011c784c_arg0[];
+// src: EXE 0x01022b14
+extern const char bBloodSplatterEnabled_ScreenSplatter_key[];
 extern const char g_011c7a24_arg0[];
 extern const char g_011c7a24_arg1[];
 extern const char g_011c794c_arg0[];
@@ -1323,54 +1543,88 @@ extern const char g_011c7988_arg0[];
 extern const char g_011c7988_arg1[];
 extern const char g_011c7964_arg0[];
 extern const char g_011c7964_arg1[];
-extern const char g_011c7b14_arg0[];
+// src: EXE 0x010232d0
+extern const char fSurfaceTileSize_Water_key[];
 extern const float g_011c7b14_arg1;
-extern const char g_011c7ccc_arg0[];
+// src: EXE 0x010232e8
+extern const char fTileTextureDivisor_Water_key[];
 extern const float g_011c7ccc_arg1;
-extern const char g_011c7adc_arg0[];
-extern const char g_011c7b20_arg0[];
-extern const char g_011c7b48_arg0[];
+// src: EXE 0x01023308
+extern const char bUseWater_Water_key[];
+// src: EXE 0x01023318
+extern const char bUseWaterShader_Water_key[];
+// src: EXE 0x01023330
+extern const char bUseWaterHiRes_Water_key[];
 extern const char g_011c7b08_arg0[];
-extern const char g_011c7bbc_arg0[];
-extern const char g_011c7b98_arg0[];
-extern const char g_011c7b6c_arg0[];
-extern const char g_011c7c48_arg0[];
-extern const char g_011c7c1c_arg0[];
-extern const char g_011c7c60_arg0[];
-extern const char g_011c7ae8_arg0[];
-extern const char g_011c7a90_arg0[];
-extern const char g_011c7c00_arg0[];
-extern const char g_011c7aa8_arg0[];
-extern const char g_011c7cc0_arg0[];
-extern const char g_011c7b54_arg0[];
+// src: EXE 0x01023358
+extern const char bUseWaterDepth_Water_key[];
+// src: EXE 0x01023370
+extern const char bUsePerWorldSpaceWaterNoise_Water_key[];
+// src: EXE 0x01023394
+extern const char bUseWaterReflections_Water_key[];
+// src: EXE 0x010233b0
+extern const char bUseWaterReflectionBlur_Water_key[];
+// src: EXE 0x010233d0
+extern const char iWaterBlurAmount_Water_key[];
+// src: EXE 0x010233e8
+extern const char bUseWaterRefractions_Water_key[];
+// src: EXE 0x01023404
+extern const char bReflectExplosions_Water_key[];
+// src: EXE 0x01023420
+extern const char bAutoWaterSilhouetteReflections_Water_key[];
+// src: EXE 0x01023448
+extern const char bForceHighDetailReflections_Water_key[];
+// src: EXE 0x0102346c
+extern const char bForceLowDetailReflections_Water_key[];
+// src: EXE 0x01023490
+extern const char bForceHighDetailLandReflections_Water_key[];
+// src: EXE 0x010234b8
+extern const char fWadingWaterQuadSize_Water_key[];
 extern const float g_011c7b54_arg1;
-extern const char g_011c7ca4_arg0[];
+// src: EXE 0x010234d4
+extern const char fWadingWaterTextureRes_Water_key[];
 extern const float g_011c7ca4_arg1;
-extern const char g_011c7a7c_arg0[];
+// src: EXE 0x010234f4
+extern const char fWaterGroupHeightRange_Water_key[];
 extern const float g_011c7a7c_arg1;
-extern const char g_011c7bec_arg0[];
-extern const char g_011c7afc_arg0[];
-extern const char g_011c7ab8_arg0[];
+// src: EXE 0x01023514
+extern const char uMaxExteriorWaterReflections_Water_key[];
+// src: EXE 0x01023538
+extern const char uMaxInteriorWaterReflections_Water_key[];
+// src: EXE 0x0102355c
+extern const char fExteriorWaterReflectionThreshold_Water_key[];
 extern const float g_011c7ab8_arg1;
-extern const char g_011c7c3c_arg0[];
+// src: EXE 0x01023584
+extern const char fInteriorWaterReflectionThreshold_Water_key[];
 extern const float g_011c7c3c_arg1;
 extern const char g_011c7b78_arg0[];
 extern const char g_011c7b78_arg1[];
-extern const char g_011c7ac4_arg0[];
-extern const char g_011c7c80_arg0[];
-extern const char g_011c7c54_arg0[];
-extern const char g_011c7a9c_arg0[];
-extern const char g_011c7b2c_arg0[];
-extern const char g_011c7bb0_arg0[];
-extern const char g_011c7c6c_arg0[];
+// src: EXE 0x010235bc
+extern const char bUseWaterDisplacements_Water_key[];
+// src: EXE 0x010235dc
+extern const char bUseBulletWaterDisplacements_Water_key[];
+// src: EXE 0x01023600
+extern const char bUseWaterLOD_Water_key[];
+// src: EXE 0x01023614
+extern const char uSurfaceFPS_Water_key[];
+// src: EXE 0x01023628
+extern const char uNearWaterRadius_Water_key[];
+// src: EXE 0x01023640
+extern const char uNearWaterPoints_Water_key[];
+// src: EXE 0x01023658
+extern const char fNearWaterUnderwaterFreq_Water_key[];
 extern const float g_011c7c6c_arg1;
-extern const char g_011c7cd8_arg0[];
+// src: EXE 0x01023678
+extern const char fNearWaterUnderwaterVolume_Water_key[];
 extern const float g_011c7cd8_arg1;
-extern const char g_011c7bd8_arg0[];
+// src: EXE 0x0102369c
+extern const char fNearWaterIndoorTolerance_Water_key[];
 extern const float g_011c7bd8_arg1;
-extern const char g_011c7ba4_arg0[];
+// src: EXE 0x010236bc
+extern const char fNearWaterOutdoorTolerance_Water_key[];
 extern const float g_011c7ba4_arg1;
-extern const char g_011c7c10_arg0[];
+// src: EXE 0x01023704
+extern const char fRefractionWaterPlaneBias_Water_key[];
 extern const float g_011c7c10_arg1;
 extern const char g_011c7d34_arg0[];
 extern const char g_011c7d34_arg1[];
@@ -1566,23 +1820,36 @@ extern const char g_011c8a54_arg0[];
 extern const char g_011c88b0_arg0[];
 extern const char g_011c8ae4_arg0[];
 extern const char g_011c8cb4_arg0[];
-extern const char g_011c8dcc_arg0[];
+// src: EXE 0x01028340
+extern const char fWaveOffsetRange_Grass_key[];
 extern const float g_011c8dcc_arg1;
-extern const char g_011c9060_arg0[];
-extern const char g_011c8ff0_arg0[];
-extern const char g_011c9028_arg0[];
-extern const char g_011c8fcc_arg0[];
+// src: EXE 0x01029108
+extern const char bUseConstant_bLightAttenuation_key[];
+// src: EXE 0x01029128
+extern const char bUseLinear_bLightAttenuation_key[];
+// src: EXE 0x01029148
+extern const char bUseQuadratic_bLightAttenuation_key[];
+// src: EXE 0x01029168
+extern const char fFlickerMovement_bLightAttenuation_key[];
 extern const float g_011c8fcc_arg1;
-extern const char g_011c9054_arg0[];
-extern const char g_011c907c_arg0[];
-extern const char g_011c908c_arg0[];
+// src: EXE 0x01029190
+extern const char uLinearMethod_bLightAttenuation_key[];
+// src: EXE 0x010291b0
+extern const char uQuadraticMethod_bLightAttenuation_key[];
+// src: EXE 0x010291d4
+extern const char fLinearValue_bLightAttenuation_key[];
 extern const float g_011c908c_arg1;
-extern const char g_011c9040_arg0[];
+// src: EXE 0x010291f4
+extern const char fQuadraticValue_bLightAttenuation_key[];
 extern const float g_011c9040_arg1;
-extern const char g_011c9000_arg0[];
-extern const char g_011c8fc0_arg0[];
-extern const char g_011c8fb0_arg0[];
-extern const char g_011c906c_arg0[];
+// src: EXE 0x01029218
+extern const char fConstantValue_bLightAttenuation_key[];
+// src: EXE 0x0102923c
+extern const char bOutQuadInLin_bLightAttenuation_key[];
+// src: EXE 0x0102925c
+extern const char fLinearRadiusMult_bLightAttenuation_key[];
+// src: EXE 0x01029280
+extern const char fQuadraticRadiusMult_bLightAttenuation_key[];
 extern const char g_011c9210_arg0[];
 extern const char g_011c9210_arg1[];
 extern const char g_011c9204_arg0[];
@@ -1592,17 +1859,27 @@ extern const char g_011c91e0_arg1[];
 extern const char g_011c9284_arg0[];
 extern const char g_011c9384_arg0[];
 extern const char g_011c9384_arg1[];
-extern const char g_011c94a0_arg0[];
-extern const char g_011c94b0_arg0[];
-extern const char g_011c94d0_arg0[];
-extern const char g_011c9670_arg0[];
-extern const char g_011c9f2c_arg0[];
+// src: EXE 0x0102cb34
+extern const char bLaserSights_Combat_key[];
+// src: EXE 0x0102cb48
+extern const char bAimSights_Combat_key[];
+// src: EXE 0x0102cb5c
+extern const char bForceNPCsUseAmmo_Combat_key[];
+// src: EXE 0x0102d0cc
+extern const char bBackgroundCellLoads_BackgroundLoad_key[];
+// src: EXE 0x0102e498
+extern const char fLandTextureTilingMult_Landscape_key[];
 extern const float g_011c9f2c_arg1;
-extern const char g_011c9f80_arg0[];
-extern const char g_011c9f60_arg0[];
-extern const char g_011c9f74_arg0[];
-extern const char g_011c9fb8_arg0[];
-extern const char g_011c9f38_arg0[];
+// src: EXE 0x0102e4bc
+extern const char bPreventSafetyCheck_Landscape_key[];
+// src: EXE 0x0102e4dc
+extern const char bCurrentCellOnly_Landscape_key[];
+// src: EXE 0x0102e4f8
+extern const char iMaxGrassTypesPerTexure_Grass_key[];
+// src: EXE 0x0102e518
+extern const char iGrassDensityEvalSize_Grass_key[];
+// src: EXE 0x0102e534
+extern const char fTexturePctThreshold_Grass_key[];
 extern const float g_011c9f38_arg1;
 extern const char g_011c9f20_arg0[];
 extern const char g_011c9f9c_arg0[];
@@ -1612,30 +1889,47 @@ extern const char g_011ca024_arg0[];
 extern const char g_011c9fac_arg0[];
 extern const char g_011ca130_arg0[];
 extern const char g_011ca130_arg1[];
-extern const char g_011ca118_arg0[];
-extern const char g_011ca0a8_arg0[];
-extern const char g_011ca3ec_arg0[];
-extern const char g_011ca394_arg0[];
+// src: EXE 0x0102f4d0
+extern const char bUseMultibounds_General_key[];
+// src: EXE 0x0102f4e8
+extern const char bDefaultCOCPlacement_General_key[];
+// src: EXE 0x01030ff8
+extern const char bPreventHavokAddClutter_HAVOK_key[];
+// src: EXE 0x01031018
+extern const char bPreventHavokAddAll_HAVOK_key[];
 extern const char g_011ca2dc_arg0[];
-extern const char g_011ca3ac_arg0[];
-extern const char g_011ca4f0_arg0[];
-extern const char g_011ca480_arg0[];
-extern const char g_011ca4ac_arg0[];
+// src: EXE 0x01031044
+extern const char bFileControllerOnRoot_TestAllCells_key[];
+// src: EXE 0x01031150
+extern const char bDrawShaderGrass_Grass_key[];
+// src: EXE 0x01031168
+extern const char bGrassPointLighting_Grass_key[];
+// src: EXE 0x01031184
+extern const char fGrassMinStartFadeDistance_Grass_key[];
 extern const float g_011ca4ac_arg1;
-extern const char g_011ca4d8_arg0[];
+// src: EXE 0x010311ac
+extern const char fGrassMaxStartFadeDistance_Grass_key[];
 extern const float g_011ca4d8_arg1;
-extern const char g_011ca4cc_arg0[];
+// src: EXE 0x010311d4
+extern const char fGrassDefaultStartFadeDistance_Grass_key[];
 extern const float g_011ca4cc_arg1;
-extern const char g_011ca498_arg0[];
+// src: EXE 0x01031200
+extern const char fGrassFadeRange_Grass_key[];
 extern const float g_011ca498_arg1;
-extern const char g_011ca524_arg0[];
-extern const char g_011ca48c_arg0[];
+// src: EXE 0x01031238
+extern const char iMinGrassSize_Grass_key[];
+// src: EXE 0x0103124c
+extern const char fGrassWindMagnitudeMin_Grass_key[];
 extern const float g_011ca48c_arg1;
-extern const char g_011ca510_arg0[];
+// src: EXE 0x0103126c
+extern const char fGrassWindMagnitudeMax_Grass_key[];
 extern const float g_011ca510_arg1;
-extern const char g_011ca570_arg0[];
-extern const char g_011ca62c_arg0[];
-extern const char g_011ca63c_arg0[];
+// src: EXE 0x01031644
+extern const char iWaterNoiseResolution_Water_key[];
+// src: EXE 0x01032068
+extern const char bExternalLODDataFiles_General_key[];
+// src: EXE 0x01032088
+extern const char bCheckCellOffsetsOnInit_General_key[];
 extern const char g_011ca79c_arg0[];
 extern const char g_011ca7c0_arg0[];
 extern const char g_011caa94_arg0[];
@@ -1650,16 +1944,20 @@ extern const char g_011caaac_arg0[];
 extern const char g_011caaac_arg1[];
 extern const char g_011caab8_arg0[];
 extern const char g_011caab8_arg1[];
-extern const char g_011cac68_arg0[];
+// src: EXE 0x01037400
+extern const char fQuestScriptDelayTime_MAIN_key[];
 extern const float g_011cac68_arg1;
 extern const char g_011cb3d4_arg0[];
 extern const char g_011cb3d4_arg1[];
 extern const char g_011cb4f4_arg0[];
 extern const char g_011cb4f4_arg1[];
-extern const char g_011cb4d4_arg0[];
+// src: EXE 0x01048afc
+extern const char bShowChallengeUpdates_GamePlay_key[];
 extern const char g_011cb58c_arg0[];
-extern const char g_011cb81c_arg0[];
-extern const char g_011cb99c_arg0[];
+// src: EXE 0x0104adfc
+extern const char bActivateAllQuestScripts_General_key[];
+// src: EXE 0x0104b980
+extern const char bFaceGenTexturing_General_key[];
 extern const char g_011cbc88_arg0[];
 extern const char g_011cbd68_arg0[];
 extern const char g_011cbce4_arg0[];
@@ -1786,141 +2084,207 @@ extern const char g_011cbe9c_arg0[];
 extern const char g_011cbe9c_arg1[];
 extern const char g_011cbe8c_arg0[];
 extern const char g_011cbe8c_arg1[];
-extern const char g_011cc188_arg0[];
+// src: EXE 0x0104da50
+extern const char fCameraCasterFadeSittingRadius_HAVOK_key[];
 extern const float g_011cc188_arg1;
-extern const char g_011cc1d8_arg0[];
+// src: EXE 0x0104dca0
+extern const char fLandFriction_Landscape_key[];
 extern const float g_011cc1d8_arg1;
-extern const char g_011cc270_arg0[];
+// src: EXE 0x0104dd98
+extern const char fMinSoundVel_Audio_key[];
 extern const float g_011cc270_arg1;
-extern const char g_011cc2e8_arg0[];
-extern const char g_011cc5a8_arg0[];
-extern const char g_011cc628_arg0[];
-extern const char g_011cc668_arg0[];
-extern const char g_011cc61c_arg0[];
-extern const char g_011cc644_arg0[];
-extern const char g_011cc7e8_arg0[];
-extern const char g_011cc788_arg0[];
+// src: EXE 0x0104e080
+extern const char iSimType_HAVOK_key[];
+// src: EXE 0x0104e4cc
+extern const char bAutoWaterUsesHavokShapes_HAVOK_key[];
+// src: EXE 0x0104e5d0
+extern const char bUseFuzzyPicking_Interface_key[];
+// src: EXE 0x0104e5ec
+extern const char iMaxViewCasterPicksFuzzy_Interface_key[];
+// src: EXE 0x0104e610
+extern const char iMaxViewCasterPicksHavok_Interface_key[];
+// src: EXE 0x0104e634
+extern const char iMaxViewCasterPicksGamebryo_Interface_key[];
+// src: EXE 0x0104e6d4
+extern const char fGetUpTime_HIT_key[];
+// src: EXE 0x0104e6f0
+extern const char fKnockDownTime_HIT_key[];
 extern const float g_011cc788_arg1;
-extern const char g_011cc6cc_arg0[];
+// src: EXE 0x0104e704
+extern const char fMinVelGain_HIT_key[];
 extern const float g_011cc6cc_arg1;
-extern const char g_011cc944_arg0[];
+// src: EXE 0x0104e714
+extern const char fMinHeirGain_HIT_key[];
 extern const float g_011cc944_arg1;
-extern const char g_011cc86c_arg0[];
-extern const char g_011cc77c_arg0[];
-extern const char g_011cc7dc_arg0[];
-extern const char g_011cc860_arg0[];
-extern const char g_011cc8cc_arg0[];
+// src: EXE 0x0104e728
+extern const char fHFMin_HIT_key[];
+// src: EXE 0x0104e734
+extern const char fHFMax_HIT_key[];
+// src: EXE 0x0104e740
+extern const char fBFMin_HIT_key[];
+// src: EXE 0x0104e74c
+extern const char fBFMax_HIT_key[];
+// src: EXE 0x0104e758
+extern const char sHitSpot_HIT_key[];
 extern const char g_011cc8cc_arg1[];
-extern const char g_011cc83c_arg0[];
+// src: EXE 0x0104e768
+extern const char sHitStart_HIT_key[];
 extern const char g_011cc83c_arg1[];
-extern const char g_011cc830_arg0[];
+// src: EXE 0x0104e778
+extern const char sRHand_HIT_key[];
 extern const char g_011cc830_arg1[];
-extern const char g_011cc8a8_arg0[];
+// src: EXE 0x0104e790
+extern const char sRForeArm_HIT_key[];
 extern const char g_011cc8a8_arg1[];
-extern const char g_011cc8d8_arg0[];
+// src: EXE 0x0104e7a0
+extern const char sRUpperArm_HIT_key[];
 extern const char g_011cc8d8_arg1[];
-extern const char g_011cc770_arg0[];
+// src: EXE 0x0104e7bc
+extern const char sLHand_HIT_key[];
 extern const char g_011cc770_arg1[];
-extern const char g_011cc794_arg0[];
+// src: EXE 0x0104e7c8
+extern const char sLForeArm_HIT_key[];
 extern const char g_011cc794_arg1[];
-extern const char g_011cc8e4_arg0[];
+// src: EXE 0x0104e7d8
+extern const char sLUpperArm_HIT_key[];
 extern const char g_011cc8e4_arg1[];
 extern const char g_011cc6c0_arg0[];
 extern const char g_011cc6c0_arg1[];
 extern const char g_011cc6b4_arg0[];
 extern const char g_011cc6b4_arg1[];
-extern const char g_011cc758_arg0[];
+// src: EXE 0x0104e818
+extern const char sBody_HIT_key[];
 extern const char g_011cc758_arg1[];
-extern const char g_011cc914_arg0[];
+// src: EXE 0x0104e824
+extern const char sHead_HIT_key[];
 extern const char g_011cc914_arg1[];
-extern const char g_011cc95c_arg0[];
+// src: EXE 0x0104e83c
+extern const char sHitSpot_QUADHIT_key[];
 extern const char g_011cc95c_arg1[];
-extern const char g_011cc89c_arg0[];
+// src: EXE 0x0104e850
+extern const char sHitStart_QUADHIT_key[];
 extern const char g_011cc89c_arg1[];
-extern const char g_011cc878_arg0[];
+// src: EXE 0x0104e864
+extern const char sRCalf_QUADHIT_key[];
 extern const char g_011cc878_arg1[];
-extern const char g_011cc6f8_arg0[];
+// src: EXE 0x0104e874
+extern const char sRThigh_QUADHIT_key[];
 extern const char g_011cc6f8_arg1[];
-extern const char g_011cc7bc_arg0[];
+// src: EXE 0x0104e884
+extern const char sRForeArm_QUADHIT_key[];
 extern const char g_011cc7bc_arg1[];
-extern const char g_011cc6e4_arg0[];
+// src: EXE 0x0104e898
+extern const char sRUpperArm_QUADHIT_key[];
 extern const char g_011cc6e4_arg1[];
-extern const char g_011cc968_arg0[];
+// src: EXE 0x0104e8ac
+extern const char sLCalf_QUADHIT_key[];
 extern const char g_011cc968_arg1[];
-extern const char g_011cc938_arg0[];
+// src: EXE 0x0104e8bc
+extern const char sLThigh_QUADHIT_key[];
 extern const char g_011cc938_arg1[];
-extern const char g_011cc848_arg0[];
+// src: EXE 0x0104e8cc
+extern const char sLForeArm_QUADHIT_key[];
 extern const char g_011cc848_arg1[];
-extern const char g_011cc728_arg0[];
+// src: EXE 0x0104e8e0
+extern const char sLUpperArm_QUADHIT_key[];
 extern const char g_011cc728_arg1[];
 extern const char g_011cc8c0_arg0[];
 extern const char g_011cc8c0_arg1[];
 extern const char g_011cc740_arg0[];
 extern const char g_011cc740_arg1[];
-extern const char g_011cc920_arg0[];
+// src: EXE 0x0104e914
+extern const char sBody_QUADHIT_key[];
 extern const char g_011cc920_arg1[];
-extern const char g_011cc7f4_arg0[];
+// src: EXE 0x0104e924
+extern const char sHead_QUADHIT_key[];
 extern const char g_011cc7f4_arg1[];
-extern const char g_011cc7a0_arg0[];
+// src: EXE 0x0104e940
+extern const char sHead_DEFAULT_key[];
 extern const char g_011cc7a0_arg1[];
-extern const char g_011cc7b0_arg0[];
+// src: EXE 0x0104e950
+extern const char sBody_DEFAULT_key[];
 extern const char g_011cc7b0_arg1[];
 extern const char g_011cc818_arg0[];
 extern const char g_011cc818_arg1[];
 extern const char g_011cc764_arg0[];
 extern const char g_011cc764_arg1[];
-extern const char g_011cc800_arg0[];
+// src: EXE 0x0104e980
+extern const char sLUpperArm_DEFAULT_key[];
 extern const char g_011cc800_arg1[];
-extern const char g_011cc8b4_arg0[];
+// src: EXE 0x0104e994
+extern const char sLForeArm_DEFAULT_key[];
 extern const char g_011cc8b4_arg1[];
-extern const char g_011cc884_arg0[];
+// src: EXE 0x0104e9a8
+extern const char sLHand_DEFAULT_key[];
 extern const char g_011cc884_arg1[];
-extern const char g_011cc6a8_arg0[];
+// src: EXE 0x0104e9b8
+extern const char sLThigh_DEFAULT_key[];
 extern const char g_011cc6a8_arg1[];
-extern const char g_011cc854_arg0[];
+// src: EXE 0x0104e9c8
+extern const char sLCalf_DEFAULT_key[];
 extern const char g_011cc854_arg1[];
-extern const char g_011cc908_arg0[];
+// src: EXE 0x0104e9d8
+extern const char sLFoot_DEFAULT_key[];
 extern const char g_011cc908_arg1[];
-extern const char g_011cc734_arg0[];
+// src: EXE 0x0104e9e8
+extern const char sRUpperArm_DEFAULT_key[];
 extern const char g_011cc734_arg1[];
-extern const char g_011cc92c_arg0[];
+// src: EXE 0x0104e9fc
+extern const char sRForeArm_DEFAULT_key[];
 extern const char g_011cc92c_arg1[];
-extern const char g_011cc704_arg0[];
+// src: EXE 0x0104ea10
+extern const char sRHand_DEFAULT_key[];
 extern const char g_011cc704_arg1[];
-extern const char g_011cc824_arg0[];
+// src: EXE 0x0104ea2c
+extern const char sRThigh_DEFAULT_key[];
 extern const char g_011cc824_arg1[];
-extern const char g_011cc80c_arg0[];
+// src: EXE 0x0104ea3c
+extern const char sRCalf_DEFAULT_key[];
 extern const char g_011cc80c_arg1[];
-extern const char g_011cc710_arg0[];
+// src: EXE 0x0104ea4c
+extern const char sRFoot_DEFAULT_key[];
 extern const char g_011cc710_arg1[];
-extern const char g_011cc7c8_arg0[];
+// src: EXE 0x0104ea5c
+extern const char sTail_DEFAULT_key[];
 extern const char g_011cc7c8_arg1[];
-extern const char g_011cc698_arg0[];
+// src: EXE 0x0104ea6c
+extern const char sShield_DEFAULT_key[];
 extern const char g_011cc698_arg1[];
-extern const char g_011cc74c_arg0[];
+// src: EXE 0x0104ea7c
+extern const char sQuiver_DEFAULT_key[];
 extern const char g_011cc74c_arg1[];
-extern const char g_011cc6d8_arg0[];
+// src: EXE 0x0104ea8c
+extern const char sPonyTail_DEFAULT_key[];
 extern const char g_011cc6d8_arg1[];
-extern const char g_011cc8fc_arg0[];
+// src: EXE 0x0104eaa0
+extern const char fHighTrans_DEFAULT_key[];
 extern const float g_011cc8fc_arg1;
-extern const char g_011cc890_arg0[];
+// src: EXE 0x0104eab8
+extern const char fHighRot_DEFAULT_key[];
 extern const float g_011cc890_arg1;
-extern const char g_011cc950_arg0[];
+// src: EXE 0x0104eacc
+extern const char fLowTrans_DEFAULT_key[];
 extern const float g_011cc950_arg1;
-extern const char g_011cc71c_arg0[];
+// src: EXE 0x0104eae0
+extern const char fLowRot_DEFAULT_key[];
 extern const float g_011cc71c_arg1;
-extern const char g_011cc8f0_arg0[];
+// src: EXE 0x0104eaf0
+extern const char fPassOutTime_DEFAULT_key[];
 extern const float g_011cc8f0_arg1;
-extern const char g_011cc974_arg0[];
+// src: EXE 0x0104eb08
+extern const char fPassOutForce_DEFAULT_key[];
 extern const float g_011cc974_arg1;
 extern const char g_011ccccc_arg0[];
-extern const char g_011ccb8c_arg0[];
+// src: EXE 0x0104f0a8
+extern const char bPrecipitation_Weather_key[];
 extern const char g_011ccdc4_arg0[];
 extern const char g_011cce30_arg0[];
 extern const char g_011ccddc_arg0[];
-extern const char g_011cce7c_arg0[];
+// src: EXE 0x0104f370
+extern const char fSunBaseSize_Weather_key[];
 extern const float g_011cce7c_arg1;
-extern const char g_011cce50_arg0[];
+// src: EXE 0x0104f388
+extern const char fSunGlareSize_Weather_key[];
 extern const float g_011cce50_arg1;
 extern const char g_011cdc80_arg0[];
 extern const char g_011cd080_arg0[];
@@ -2737,8 +3101,10 @@ extern const char g_011d4cfc_arg1[];
 extern const char g_011d505c_arg0[];
 extern const char g_011d505c_arg1[];
 extern const char g_011d47bc_arg0[];
-extern const char g_011d3bc8_arg0[];
-extern const char g_011d3174_arg0[];
+// src: EXE 0x0105c0d0
+extern const char fPopUpBackgroundOpacity_Interface_key[];
+// src: EXE 0x0105c0f4
+extern const char fMenuBackgroundOpacity_Interface_key[];
 extern const float g_011d3174_arg1;
 extern const char g_011d37ec_arg0[];
 extern const char g_011d37ec_arg1[];
@@ -4269,23 +4635,38 @@ extern const char g_011d5840_arg0[];
 extern const char g_011d5850_arg0[];
 extern const char g_011d57e0_arg0[];
 extern const char g_011d5828_arg0[];
-extern const char g_011d59ac_arg0[];
-extern const char g_011d5a44_arg0[];
-extern const char g_011d5a30_arg0[];
-extern const char g_011d5a5c_arg0[];
-extern const char g_011d5b28_arg0[];
+// src: EXE 0x010653cc
+extern const char bFaceMipMaps_General_key[];
+// src: EXE 0x0106590c
+extern const char bUseFaceGenHeads_General_key[];
+// src: EXE 0x01065928
+extern const char bFixFaceNormals_General_key[];
+// src: EXE 0x01065940
+extern const char bUseFaceGenLOD_LOD_key[];
+// src: EXE 0x01065954
+extern const char fLodDistance_LOD_key[];
 extern const float g_011d5b28_arg1;
-extern const char g_011d5b34_arg0[];
+// src: EXE 0x01065968
+extern const char fTalkingDistance_LOD_key[];
 extern const float g_011d5b34_arg1;
-extern const char g_011d5a10_arg0[];
-extern const char g_011d5ab4_arg0[];
-extern const char g_011d59f4_arg0[];
-extern const char g_011d5afc_arg0[];
-extern const char g_011d5a50_arg0[];
-extern const char g_011d5ac4_arg0[];
-extern const char g_011d5a74_arg0[];
-extern const char g_011d5a24_arg0[];
-extern const char g_011d5adc_arg0[];
+// src: EXE 0x01065980
+extern const char bUseMultiThreadedFaceGen_BackgroundLoad_key[];
+// src: EXE 0x010659a8
+extern const char bUseEyeEnvMapping_General_key[];
+// src: EXE 0x010659c4
+extern const char uiFaceGenMaxEGMDataSize_General_key[];
+// src: EXE 0x010659e4
+extern const char uiFaceGenMaxEGTDataSize_General_key[];
+// src: EXE 0x01065a04
+extern const char uiEGTClampSize_General_key[];
+// src: EXE 0x01065a1c
+extern const char bDebugFaceGenMultithreading_Debug_key[];
+// src: EXE 0x01065a40
+extern const char bDebugFaceGenCriticalSection_Debug_key[];
+// src: EXE 0x01065a64
+extern const char bLoadBackgroundFaceGen_BackgroundLoad_key[];
+// src: EXE 0x01065a8c
+extern const char bLoadFaceGenHeadEGTFiles_General_key[];
 extern const char g_011d5b58_arg0[];
 extern const char g_011d5b58_arg1[];
 extern const char g_011d5ba0_arg0[];
@@ -4300,24 +4681,36 @@ extern const char g_011d5c68_arg0[];
 extern const char g_011d5c74_arg0[];
 extern const char g_011d5dc4_arg0[];
 extern const char g_011d5d3c_arg0[];
-extern const char g_011d5ce8_arg0[];
-extern const char g_011d5d00_arg0[];
-extern const char g_011d5ca8_arg0[];
-extern const char g_011d5d8c_arg0[];
+// src: EXE 0x010665e4
+extern const char bEnableTrees_SpeedTree_key[];
+// src: EXE 0x010665fc
+extern const char bForceFullLOD_SpeedTree_key[];
+// src: EXE 0x01066614
+extern const char fTreeLODExponent_SpeedTree_key[];
+// src: EXE 0x01066630
+extern const char fTreeForceLLA_SpeedTree_key[];
 extern const float g_011d5d8c_arg1;
-extern const char g_011d5d14_arg0[];
+// src: EXE 0x01066648
+extern const char fTreeForceCS_SpeedTree_key[];
 extern const float g_011d5d14_arg1;
-extern const char g_011d5db8_arg0[];
+// src: EXE 0x01066660
+extern const char fTreeForceBranchDimming_SpeedTree_key[];
 extern const float g_011d5db8_arg1;
-extern const char g_011d5d24_arg0[];
+// src: EXE 0x01066684
+extern const char fTreeForceLeafDimming_SpeedTree_key[];
 extern const float g_011d5d24_arg1;
-extern const char g_011d5c9c_arg0[];
+// src: EXE 0x010666a4
+extern const char fTreeForceMinBudAngle_SpeedTree_key[];
 extern const float g_011d5c9c_arg1;
-extern const char g_011d5c80_arg0[];
+// src: EXE 0x010666c4
+extern const char fTreeForceMaxBudAngle_SpeedTree_key[];
 extern const float g_011d5c80_arg1;
-extern const char g_011d5d98_arg0[];
-extern const char g_011d5d4c_arg0[];
-extern const char g_011d5e84_arg0[];
+// src: EXE 0x010666e4
+extern const char iCanopyShadowScale_SpeedTree_key[];
+// src: EXE 0x01066704
+extern const char fCanopyShadowGrassMult_SpeedTree_key[];
+// src: EXE 0x01066f4c
+extern const char bTreeTops_HAVOK_key[];
 extern const char g_011d5e70_arg0[];
 extern const char g_011d5e70_arg1[];
 extern const char g_011d5ed4_arg0[];
@@ -4391,168 +4784,276 @@ extern const char g_011d6b84_arg0[];
 extern const char g_011d6b84_arg1[];
 extern const char g_011d6bf0_arg0[];
 extern const char g_011d6bf0_arg1[];
-extern const char g_011d6ca8_arg0[];
-extern const char g_011d6e40_arg0[];
-extern const char g_011d7084_arg0[];
+// src: EXE 0x0106b0ec
+extern const char bGlobalNavMeshCheck_NavMeshGeneration_key[];
+// src: EXE 0x0106b5d0
+extern const char bSelectedPathDrawAvoidNodes_Pathfinding_key[];
+// src: EXE 0x0106baa4
+extern const char fPOVSmootherAvoidNodeCost_Pathfinding_key[];
 extern const float g_011d7084_arg1;
-extern const char g_011d71a0_arg0[];
-extern const char g_011d71b0_arg0[];
-extern const char g_011d7194_arg0[];
+// src: EXE 0x0106c718
+extern const char bBackgroundNavmeshUpdate_Pathfinding_key[];
+// src: EXE 0x0106c740
+extern const char fObstacleUpdateDeltaWhenMoving_Pathfinding_key[];
+// src: EXE 0x0106c76c
+extern const char fObstacleUpdateDeltaWhenUnknown_Pathfinding_key[];
 extern const float g_011d7194_arg1;
-extern const char g_011d7188_arg0[];
-extern const char g_011d73d8_arg0[];
-extern const char g_011d73e4_arg0[];
-extern const char g_011d73f0_arg0[];
-extern const char g_011d7450_arg0[];
-extern const char g_011d7428_arg0[];
-extern const char g_011d7434_arg0[];
-extern const char g_011d7404_arg0[];
-extern const char g_011d7444_arg0[];
-extern const char g_011d74dc_arg0[];
+// src: EXE 0x0106c798
+extern const char bCutDoors_Pathfinding_key[];
+// src: EXE 0x0106ca04
+extern const char bUseStraightLineCheckFirst_Pathfinding_key[];
+// src: EXE 0x0106ca2c
+extern const char bUseObstacleAvoidance_Pathfinding_key[];
+// src: EXE 0x0106ca50
+extern const char bUsePathSmoothing_Pathfinding_key[];
+// src: EXE 0x0106ca70
+extern const char bCreateDebugInfo_Pathfinding_key[];
+// src: EXE 0x0106ca90
+extern const char bRebuildPathIfSmootherFailed_Pathfinding_key[];
+// src: EXE 0x0106cabc
+extern const char bUseOldPathSmoothing_Pathfinding_key[];
+// src: EXE 0x0106cae0
+extern const char bUseRayCasts_Pathfinding_key[];
+// src: EXE 0x0106cafc
+extern const char bUseAlternateSmoothingForPrime_Pathfinding_key[];
+// src: EXE 0x0106ccb0
+extern const char fFindClosestEdgesRadius_Pathing_key[];
 extern const float g_011d74dc_arg1;
-extern const char g_011d77cc_arg0[];
-extern const char g_011d846c_arg0[];
-extern const char g_011d85a8_arg0[];
-extern const char g_011d86ac_arg0[];
-extern const char g_011d869c_arg0[];
-extern const char g_011d8680_arg0[];
-extern const char g_011d86e0_arg0[];
+// src: EXE 0x0106d774
+extern const char bBackgroundPathing_Pathfinding_key[];
+// src: EXE 0x0106d89c
+extern const char bDrawPathBounds_Pathfinding_key[];
+// src: EXE 0x0106dff0
+extern const char uDistantTreeBlockCacheSizePerCell_TerrainManager_key[];
+// src: EXE 0x0106e398
+extern const char bUseNewTerrainSystem_TerrainManager_key[];
+// src: EXE 0x0106e3bc
+extern const char bUseDistantObjectBlocks_TerrainManager_key[];
+// src: EXE 0x0106e3e4
+extern const char bUseDistantTrees_TerrainManager_key[];
+// src: EXE 0x0106e53c
+extern const char fSplitDistanceMult_TerrainManager_key[];
 extern const float g_011d86e0_arg1;
-extern const char g_011d8754_arg0[];
+// src: EXE 0x0106e560
+extern const char fMorphStartDistanceMult_TerrainManager_key[];
 extern const float g_011d8754_arg1;
-extern const char g_011d86d4_arg0[];
+// src: EXE 0x0106e588
+extern const char fMorphEndDistanceMult_TerrainManager_key[];
 extern const float g_011d86d4_arg1;
-extern const char g_011d877c_arg0[];
+// src: EXE 0x0106e5b0
+extern const char fBlockLoadDistance_TerrainManager_key[];
 extern const float g_011d877c_arg1;
-extern const char g_011d870c_arg0[];
+// src: EXE 0x0106e5d8
+extern const char fDefaultBlockLoadDistanceLow_TerrainManager_key[];
 extern const float g_011d870c_arg1;
-extern const char g_011d86c4_arg0[];
+// src: EXE 0x0106e604
+extern const char fLowBlockLoadDistanceLow_TerrainManager_key[];
 extern const float g_011d86c4_arg1;
-extern const char g_011d86ec_arg0[];
+// src: EXE 0x0106e630
+extern const char fHighBlockLoadDistanceLow_TerrainManager_key[];
 extern const float g_011d86ec_arg1;
-extern const char g_011d8770_arg0[];
+// src: EXE 0x0106e688
+extern const char fDefaultTreeLoadDistance_TerrainManager_key[];
 extern const float g_011d8770_arg1;
-extern const char g_011d8734_arg0[];
+// src: EXE 0x0106e6b0
+extern const char fLowTreeLoadDistance_TerrainManager_key[];
 extern const float g_011d8734_arg1;
-extern const char g_011d8718_arg0[];
+// src: EXE 0x0106e6d4
+extern const char fHighTreeLoadDistance_TerrainManager_key[];
 extern const float g_011d8718_arg1;
-extern const char g_011d86f8_arg0[];
+// src: EXE 0x0106e724
+extern const char fDetailTextureScale_TerrainManager_key[];
 extern const float g_011d86f8_arg1;
-extern const char g_011d8740_arg0[];
-extern const char g_011d8760_arg0[];
-extern const char g_011d87f0_arg0[];
+// src: EXE 0x0106e748
+extern const char uTerrainTextureFadeTime_TerrainManager_key[];
+// src: EXE 0x0106e770
+extern const char bKeepLowDetailTerrain_TerrainManager_key[];
+// src: EXE 0x0106e8e0
+extern const char fMenuPackerBufferSize_InterfaceFX_key[];
 extern const float g_011d87f0_arg1;
-extern const char g_011d87dc_arg0[];
+// src: EXE 0x0106e904
+extern const char fMenuPackerBufferOverflowZone_InterfaceFX_key[];
 extern const float g_011d87dc_arg1;
-extern const char g_011d8934_arg0[];
-extern const char g_011d8928_arg0[];
-extern const char g_011d8a38_arg0[];
-extern const char g_011d89f0_arg0[];
-extern const char g_011d8974_arg0[];
-extern const char g_011d8980_arg0[];
-extern const char g_011d8a20_arg0[];
-extern const char g_011d8a0c_arg0[];
-extern const char g_011d898c_arg0[];
-extern const char g_011d8c5c_arg0[];
+// src: EXE 0x0106edfc
+extern const char bDialogueSubtitles_GamePlay_key[];
+// src: EXE 0x0106ee18
+extern const char bGeneralSubtitles_GamePlay_key[];
+// src: EXE 0x0106ee34
+extern const char bCrossHair_GamePlay_key[];
+// src: EXE 0x0106ee48
+extern const char bSaveOnRest_GamePlay_key[];
+// src: EXE 0x0106ee60
+extern const char bSaveOnWait_GamePlay_key[];
+// src: EXE 0x0106ee78
+extern const char bSaveOnTravel_GamePlay_key[];
+// src: EXE 0x0106ee90
+extern const char bSaveOnInteriorExteriorSwitch_GamePlay_key[];
+// src: EXE 0x0106eeb8
+extern const char bDisableDynamicCrosshair_GamePlay_key[];
+// src: EXE 0x0106eedc
+extern const char bTrueIronSights_GamePlay_key[];
+// src: EXE 0x0106f4a0
+extern const char fXenonMenuMouseXYMult_Controls_key[];
 extern const float g_011d8c5c_arg1;
-extern const char g_011d8b5c_arg0[];
-extern const char g_011d8b14_arg0[];
+// src: EXE 0x0106f4c4
+extern const char iXenonMenuStickDeadZone_Controls_key[];
+// src: EXE 0x0106f4e8
+extern const char fXenonMenuStickSpeed_Controls_key[];
 extern const float g_011d8b14_arg1;
-extern const char g_011d8aa4_arg0[];
+// src: EXE 0x0106f508
+extern const char fXenonMenuDpadRepeatSpeed_Controls_key[];
 extern const float g_011d8aa4_arg1;
-extern const char g_011d8b78_arg0[];
+// src: EXE 0x0106f52c
+extern const char fActivatePickSphereRadius_Interface_key[];
 extern const float g_011d8b78_arg1;
-extern const char g_011d8afc_arg0[];
-extern const char g_011d8b38_arg0[];
+// src: EXE 0x0106f550
+extern const char bActivatePickUseGamebryoPick_Interface_key[];
+// src: EXE 0x0106f578
+extern const char fKeyRepeatTime_Interface_key[];
 extern const float g_011d8b38_arg1;
-extern const char g_011d8b88_arg0[];
+// src: EXE 0x0106f594
+extern const char fKeyRepeatInterval_Interface_key[];
 extern const float g_011d8b88_arg1;
-extern const char g_011d8b94_arg0[];
-extern const char g_011d8be4_arg0[];
+// src: EXE 0x0106f5b4
+extern const char bAllowConsole_Interface_key[];
+// src: EXE 0x0106f5cc
+extern const char fMenuPlayerLightAmbientRed_Interface_key[];
 extern const float g_011d8be4_arg1;
-extern const char g_011d8b6c_arg0[];
+// src: EXE 0x0106f5f4
+extern const char fMenuPlayerLightAmbientGreen_Interface_key[];
 extern const float g_011d8b6c_arg1;
-extern const char g_011d8b08_arg0[];
+// src: EXE 0x0106f61c
+extern const char fMenuPlayerLightAmbientBlue_Interface_key[];
 extern const float g_011d8b08_arg1;
-extern const char g_011d8c40_arg0[];
+// src: EXE 0x0106f644
+extern const char fMenuPlayerLightDiffuseRed_Interface_key[];
 extern const float g_011d8c40_arg1;
-extern const char g_011d8bb0_arg0[];
+// src: EXE 0x0106f66c
+extern const char fMenuPlayerLightDiffuseGreen_Interface_key[];
 extern const float g_011d8bb0_arg1;
-extern const char g_011d8abc_arg0[];
+// src: EXE 0x0106f694
+extern const char fMenuPlayerLightDiffuseBlue_Interface_key[];
 extern const float g_011d8abc_arg1;
-extern const char g_011d8bd8_arg0[];
-extern const char g_011d8bf0_arg0[];
-extern const char g_011d8bfc_arg0[];
-extern const char g_011d8bc0_arg0[];
-extern const char g_011d8ac8_arg0[];
+// src: EXE 0x0106f6bc
+extern const char iSafeZoneX_Interface_key[];
+// src: EXE 0x0106f6d4
+extern const char iSafeZoneY_Interface_key[];
+// src: EXE 0x0106f6ec
+extern const char iSafeZoneXWide_Interface_key[];
+// src: EXE 0x0106f708
+extern const char iSafeZoneYWide_Interface_key[];
+// src: EXE 0x0106f724
+extern const char fXenonMenuStickSpeedMaxMod_Controls_key[];
 extern const float g_011d8ac8_arg1;
-extern const char g_011d8ba0_arg0[];
-extern const char g_011d8ab0_arg0[];
+// src: EXE 0x0106f748
+extern const char bUseImageSpaceMenuFX_InterfaceFX_key[];
+// src: EXE 0x0106f76c
+extern const char bEnableMenuRenderDebugMode_InterfaceFX_key[];
 extern const char g_011d8c4c_arg0[];
-extern const char g_011d8ad4_arg0[];
-extern const char g_011d8ae4_arg0[];
-extern const char g_011d8cf0_arg0[];
-extern const char g_011d8cfc_arg0[];
-extern const char g_011d8d38_arg0[];
-extern const char g_011d8d44_arg0[];
-extern const char g_011d8d08_arg0[];
-extern const char g_011d8d1c_arg0[];
-extern const char g_011d94e4_arg0[];
+// src: EXE 0x0106f7c8
+extern const char uHUDColor_Interface_key[];
+// src: EXE 0x0106f7dc
+extern const char uPipboyColor_Interface_key[];
+// src: EXE 0x0106fe90
+extern const char iConsoleHistorySize_Menu_key[];
+// src: EXE 0x0106feac
+extern const char iConsoleVisibleLines_Menu_key[];
+// src: EXE 0x0106fec8
+extern const char iConsoleFont_Menu_key[];
+// src: EXE 0x0106fedc
+extern const char iConsoleTextXPos_Menu_key[];
+// src: EXE 0x0106fef4
+extern const char iConsoleTextYPos_Menu_key[];
+// src: EXE 0x0106ff0c
+extern const char iConsoleLineSpacing_Menu_key[];
+// src: EXE 0x01072524
+extern const char fCreditsScrollSpeed_Menu_key[];
 extern const float g_011d94e4_arg1;
-extern const char g_011d961c_arg0[];
-extern const char g_011d9660_arg0[];
+// src: EXE 0x01072ba8
+extern const char fHackingMinSkillVeryEasy_Hacking_key[];
+// src: EXE 0x01072bcc
+extern const char fHackingMinSkillEasy_Hacking_key[];
 extern const float g_011d9660_arg1;
-extern const char g_011d9684_arg0[];
+// src: EXE 0x01072bec
+extern const char fHackingMinSkillAverage_Hacking_key[];
 extern const float g_011d9684_arg1;
-extern const char g_011d95d4_arg0[];
+// src: EXE 0x01072c0c
+extern const char fHackingMinSkillHard_Hacking_key[];
 extern const float g_011d95d4_arg1;
-extern const char g_011d9640_arg0[];
+// src: EXE 0x01072c2c
+extern const char fHackingMinSkillVeryHard_Hacking_key[];
 extern const float g_011d9640_arg1;
-extern const char g_011d97a8_arg0[];
+// src: EXE 0x010738dc
+extern const char fXenonMenuStickSpeedPlayerRotMod_Controls_key[];
 extern const float g_011d97a8_arg1;
-extern const char g_011d9748_arg0[];
+// src: EXE 0x01073908
+extern const char fHUDShakeMult_Interface_key[];
 extern const float g_011d9748_arg1;
-extern const char g_011d9774_arg0[];
-extern const char g_011da034_arg0[];
-extern const char g_011da138_arg0[];
+// src: EXE 0x01073920
+extern const char fHudOpacity_Interface_key[];
+// src: EXE 0x01073e60
+extern const char bHideUnavailablePerks_Interface_key[];
+// src: EXE 0x0107426c
+extern const char iMaxScreens_Loading_key[];
 extern const char g_011da124_arg0[];
-extern const char g_011da118_arg0[];
+// src: EXE 0x010742a0
+extern const char fLoadingTextUpdateInterval_Loading_key[];
 extern const float g_011da118_arg1;
-extern const char g_011da1a0_arg0[];
+// src: EXE 0x010742c4
+extern const char fLoadingBkgdUpdateInterval_Loading_key[];
 extern const float g_011da1a0_arg1;
-extern const char g_011da190_arg0[];
+// src: EXE 0x010742e8
+extern const char fMainMenuBkgdUpdateInterval_Loading_key[];
 extern const float g_011da190_arg1;
-extern const char g_011da158_arg0[];
+// src: EXE 0x0107430c
+extern const char fLoadingInitUpdateInterval_Loading_key[];
 extern const float g_011da158_arg1;
-extern const char g_011da108_arg0[];
-extern const char g_011da3b8_arg0[];
-extern const char g_011da6cc_arg0[];
+// src: EXE 0x01074330
+extern const char iNumLocationSpecificScreens_Loading_key[];
+// src: EXE 0x01075608
+extern const char bRenderLocalMapContinually_General_key[];
+// src: EXE 0x01075ba8
+extern const char fRSMStartingZoom_Interface_key[];
 extern const float g_011da6cc_arg1;
-extern const char g_011da6a4_arg0[];
+// src: EXE 0x01075bc4
+extern const char fRSMFaceSliderDefaultMin_Interface_key[];
 extern const float g_011da6a4_arg1;
-extern const char g_011da6dc_arg0[];
+// src: EXE 0x01075be8
+extern const char fRSMFaceSliderDefaultMax_Interface_key[];
 extern const float g_011da6dc_arg1;
-extern const char g_011dab98_arg0[];
+// src: EXE 0x010770dc
+extern const char fGammaMin_Display_key[];
 extern const float g_011dab98_arg1;
-extern const char g_011dab60_arg0[];
+// src: EXE 0x010770f0
+extern const char fGammaMax_Display_key[];
 extern const float g_011dab60_arg1;
-extern const char g_011dab30_arg0[];
-extern const char g_011dab78_arg0[];
+// src: EXE 0x01077104
+extern const char fObjectLODMin_LOD_key[];
+// src: EXE 0x01077118
+extern const char fObjectLODMax_LOD_key[];
 extern const float g_011dab78_arg1;
-extern const char g_011dab6c_arg0[];
+// src: EXE 0x0107712c
+extern const char fObjectLODDefault_LOD_key[];
 extern const float g_011dab6c_arg1;
-extern const char g_011dabf0_arg0[];
-extern const char g_011dac24_arg0[];
+// src: EXE 0x01077144
+extern const char fItemLODMin_LOD_key[];
+// src: EXE 0x01077154
+extern const char fItemLODMax_LOD_key[];
 extern const float g_011dac24_arg1;
-extern const char g_011dabc0_arg0[];
+// src: EXE 0x01077164
+extern const char fItemLODDefault_LOD_key[];
 extern const float g_011dabc0_arg1;
-extern const char g_011dab1c_arg0[];
+// src: EXE 0x01077178
+extern const char fActorLODMin_LOD_key[];
 extern const float g_011dab1c_arg1;
-extern const char g_011daaf4_arg0[];
+// src: EXE 0x0107718c
+extern const char fActorLODMax_LOD_key[];
 extern const float g_011daaf4_arg1;
-extern const char g_011dac38_arg0[];
+// src: EXE 0x010771a0
+extern const char fActorLODDefault_LOD_key[];
 extern const float g_011dac38_arg1;
-extern const char g_011dabb0_arg0[];
+// src: EXE 0x010771b8
+extern const char bFadeInScreenShot_General_key[];
 extern const char g_011dae80_arg0[];
 extern const float g_011dae80_arg1;
 extern const char g_011dae6c_arg0[];
@@ -4568,177 +5069,270 @@ extern const char g_011dadf0_arg0[];
 extern const float g_011dadf0_arg1;
 extern const char g_011dadfc_arg0[];
 extern const float g_011dadfc_arg1;
-extern const char g_011db094_arg0[];
-extern const char g_011db114_arg0[];
-extern const char g_011db1e0_arg0[];
-extern const char g_011db224_arg0[];
+// src: EXE 0x01077c10
+extern const char bHelpEnabled_Interface_key[];
+// src: EXE 0x01077eb8
+extern const char bVatsAlwaysHit_Combat_key[];
+// src: EXE 0x01077edc
+extern const char bUseOptimizedMenuRendering_InterfaceFX_key[];
+// src: EXE 0x01077f04
+extern const char fHUDShudderDefaultFrequencyX_InterfaceFX_key[];
 extern const float g_011db224_arg1;
-extern const char g_011db1d4_arg0[];
+// src: EXE 0x01077f30
+extern const char fHUDShudderDefaultFrequencyY_InterfaceFX_key[];
 extern const float g_011db1d4_arg1;
-extern const char g_011db244_arg0[];
+// src: EXE 0x01077f5c
+extern const char fHUDShudderDefaultDuration_InterfaceFX_key[];
 extern const float g_011db244_arg1;
-extern const char g_011db250_arg0[];
+// src: EXE 0x01077f84
+extern const char fHUDShudderDefaultIntensity_InterfaceFX_key[];
 extern const float g_011db250_arg1;
-extern const char g_011db25c_arg0[];
-extern const char g_011db200_arg0[];
+// src: EXE 0x01077fac
+extern const char fScanlineFrequencyHUD_InterfaceFX_key[];
+// src: EXE 0x01077fd0
+extern const char fBlurRadiusHUD_InterfaceFX_key[];
 extern const float g_011db200_arg1;
-extern const char g_011db238_arg0[];
+// src: EXE 0x01077fec
+extern const char fBlurIntensityHUD_InterfaceFX_key[];
 extern const float g_011db238_arg1;
-extern const char g_011db20c_arg0[];
-extern const char g_011db1f0_arg0[];
+// src: EXE 0x0107800c
+extern const char fScanlineFrequencyMenus_InterfaceFX_key[];
+// src: EXE 0x01078030
+extern const char fBlurRadiusMenus_InterfaceFX_key[];
 extern const float g_011db1f0_arg1;
-extern const char g_011db218_arg0[];
+// src: EXE 0x01078050
+extern const char fBlurIntensityMenus_InterfaceFX_key[];
 extern const float g_011db218_arg1;
-extern const char g_011db2cc_arg0[];
-extern const char g_011db2a4_arg0[];
-extern const char g_011db274_arg0[];
+// src: EXE 0x01078280
+extern const char bUsePipboyMode_Pipboy_key[];
+// src: EXE 0x01078298
+extern const char bEnableFlickerPipboy_Pipboy_key[];
+// src: EXE 0x010782b4
+extern const char fScanlineFrequencyPipboy_Pipboy_key[];
 extern const float g_011db274_arg1;
-extern const char g_011db2dc_arg0[];
-extern const char g_011db328_arg0[];
+// src: EXE 0x010782d4
+extern const char fBlurIntensityPipboy_Pipboy_key[];
+// src: EXE 0x010782f0
+extern const char fBlurRadiusPipboy_Pipboy_key[];
 extern const float g_011db328_arg1;
-extern const char g_011db288_arg0[];
+// src: EXE 0x0107830c
+extern const char fTabKnobMoveRate_Pipboy_key[];
 extern const float g_011db288_arg1;
-extern const char g_011db33c_arg0[];
+// src: EXE 0x01078328
+extern const char fTabKnobMinPosition_Pipboy_key[];
 extern const float g_011db33c_arg1;
-extern const char g_011db34c_arg0[];
+// src: EXE 0x01078344
+extern const char fTabKnobMaxPosition_Pipboy_key[];
 extern const float g_011db34c_arg1;
-extern const char g_011db2f0_arg0[];
+// src: EXE 0x01078360
+extern const char fScrollKnobIncrement_Pipboy_key[];
 extern const float g_011db2f0_arg1;
-extern const char g_011db358_arg0[];
+// src: EXE 0x0107837c
+extern const char fScrollKnobRate_Pipboy_key[];
 extern const float g_011db358_arg1;
-extern const char g_011db2bc_arg0[];
+// src: EXE 0x01078398
+extern const char fLightEffectFadeDuration_Pipboy_key[];
 extern const float g_011db2bc_arg1;
-extern const char g_011db308_arg0[];
+// src: EXE 0x010783b8
+extern const char fLightEffectLightFadeDuration_Pipboy_key[];
 extern const float g_011db308_arg1;
-extern const char g_011db480_arg0[];
+// src: EXE 0x010785d8
+extern const char fDefaultBurstDuration_InterfaceFX_key[];
 extern const float g_011db480_arg1;
-extern const char g_011db43c_arg0[];
+// src: EXE 0x010785fc
+extern const char fDefaultBurstIntensity_InterfaceFX_key[];
 extern const float g_011db43c_arg1;
-extern const char g_011db458_arg0[];
+// src: EXE 0x01078620
+extern const char fMiniBurstDuration_InterfaceFX_key[];
 extern const float g_011db458_arg1;
-extern const char g_011db37c_arg0[];
+// src: EXE 0x01078640
+extern const char fMiniBurstIntensity_InterfaceFX_key[];
 extern const float g_011db37c_arg1;
-extern const char g_011db4ec_arg0[];
+// src: EXE 0x01078660
+extern const char fDefaultVertHoldDuration_InterfaceFX_key[];
 extern const float g_011db4ec_arg1;
-extern const char g_011db3fc_arg0[];
+// src: EXE 0x01078688
+extern const char fDefaultVertHoldSpeed_InterfaceFX_key[];
 extern const float g_011db3fc_arg1;
-extern const char g_011db414_arg0[];
+// src: EXE 0x010786ac
+extern const char fDefaultShudderDuration_InterfaceFX_key[];
 extern const float g_011db414_arg1;
-extern const char g_011db3bc_arg0[];
+// src: EXE 0x010786d0
+extern const char fDefaultShudderIntensity_InterfaceFX_key[];
 extern const float g_011db3bc_arg1;
-extern const char g_011db3b0_arg0[];
+// src: EXE 0x010786f8
+extern const char fDefaultShudderFrequency_InterfaceFX_key[];
 extern const float g_011db3b0_arg1;
-extern const char g_011db3a4_arg0[];
+// src: EXE 0x01078720
+extern const char fPulseBrightenIntensity_InterfaceFX_key[];
 extern const float g_011db3a4_arg1;
-extern const char g_011db424_arg0[];
+// src: EXE 0x01078744
+extern const char fPulseRadiusIntensity_InterfaceFX_key[];
 extern const float g_011db424_arg1;
-extern const char g_011db408_arg0[];
+// src: EXE 0x01078768
+extern const char fPulseRate_InterfaceFX_key[];
 extern const float g_011db408_arg1;
-extern const char g_011db4b4_arg0[];
+// src: EXE 0x01078784
+extern const char fVertHoldChance_InterfaceFX_key[];
 extern const float g_011db4b4_arg1;
-extern const char g_011db4e0_arg0[];
+// src: EXE 0x010787a0
+extern const char fShudderChance_InterfaceFX_key[];
 extern const float g_011db4e0_arg1;
-extern const char g_011db430_arg0[];
+// src: EXE 0x010787bc
+extern const char fScreenLightBurstModifier_InterfaceFX_key[];
 extern const float g_011db430_arg1;
-extern const char g_011db4a4_arg0[];
-extern const char g_011db3e8_arg0[];
+// src: EXE 0x010787e4
+extern const char fScreenLightPulseModifier_InterfaceFX_key[];
+// src: EXE 0x0107880c
+extern const char fScreenLightVertHoldRate_InterfaceFX_key[];
 extern const float g_011db3e8_arg1;
-extern const char g_011db394_arg0[];
+// src: EXE 0x01078834
+extern const char fScreenLightBaseIntensity_InterfaceFX_key[];
 extern const float g_011db394_arg1;
-extern const char g_011db514_arg0[];
+// src: EXE 0x0107885c
+extern const char fScreenLightRadius_InterfaceFX_key[];
 extern const float g_011db514_arg1;
-extern const char g_011db44c_arg0[];
+// src: EXE 0x0107887c
+extern const char fDefaultBlurRadius_InterfaceFX_key[];
 extern const float g_011db44c_arg1;
-extern const char g_011db470_arg0[];
+// src: EXE 0x0107889c
+extern const char fDefaultBlurIntensity_InterfaceFX_key[];
 extern const float g_011db470_arg1;
-extern const char g_011db490_arg0[];
+// src: EXE 0x010788c0
+extern const char fDefaultScanlineFrequency_InterfaceFX_key[];
 extern const float g_011db490_arg1;
-extern const char g_011db520_arg0[];
+// src: EXE 0x010788e8
+extern const char fDistortVerticalScale_InterfaceFX_key[];
 extern const float g_011db520_arg1;
-extern const char g_011db464_arg0[];
-extern const char g_011db4d0_arg0[];
+// src: EXE 0x0107890c
+extern const char fDistortHorizontalScale_InterfaceFX_key[];
+// src: EXE 0x01078930
+extern const char fDistortDuration_InterfaceFX_key[];
 extern const float g_011db4d0_arg1;
-extern const char g_011db4f8_arg0[];
-extern const char g_011db5b4_arg0[];
+// src: EXE 0x01078950
+extern const char iDistortMaxInterval_InterfaceFX_key[];
+// src: EXE 0x01078abc
+extern const char fRaceSexMenuDistortDuration_RenderedMenus_key[];
 extern const float g_011db5b4_arg1;
-extern const char g_011db5cc_arg0[];
-extern const char g_011db594_arg0[];
+// src: EXE 0x01078ae8
+extern const char fRaceSexMenuHPos_RenderedTerminal_key[];
+// src: EXE 0x01078b0c
+extern const char fRaceSexMenuVPos_RenderedTerminal_key[];
 extern const float g_011db594_arg1;
-extern const char g_011db570_arg0[];
+// src: EXE 0x01078b34
+extern const char fRaceSexMenuZoom_RenderedTerminal_key[];
 extern const float g_011db570_arg1;
-extern const char g_011db544_arg0[];
+// src: EXE 0x01078b5c
+extern const char fRaceSexMenuScale_RenderedTerminal_key[];
 extern const float g_011db544_arg1;
-extern const char g_011db674_arg0[];
+// src: EXE 0x01078be8
+extern const char fRenderedTerminalScanlineScale_RenderedTerminal_key[];
 extern const float g_011db674_arg1;
-extern const char g_011db65c_arg0[];
+// src: EXE 0x01078c1c
+extern const char fRenderedTerminalZoom_RenderedTerminal_key[];
 extern const float g_011db65c_arg1;
-extern const char g_011db62c_arg0[];
-extern const char g_011db614_arg0[];
+// src: EXE 0x01078c44
+extern const char fRenderedTerminalHPos_RenderedTerminal_key[];
+// src: EXE 0x01078c6c
+extern const char fRenderedTerminalVPos_RenderedTerminal_key[];
 extern const float g_011db614_arg1;
-extern const char g_011db5ec_arg0[];
+// src: EXE 0x01078c94
+extern const char fRenderedTerminalFOV_RenderedTerminal_key[];
 extern const float g_011db5ec_arg1;
-extern const char g_011db620_arg0[];
-extern const char g_011db650_arg0[];
+// src: EXE 0x01078cbc
+extern const char bUseRenderedTerminals_RenderedTerminal_key[];
+// src: EXE 0x01078ce4
+extern const char fScreenLightBaseIntensity_RenderedTerminal_key[];
 extern const float g_011db650_arg1;
-extern const char g_011db644_arg0[];
+// src: EXE 0x01078d10
+extern const char fScreenLightRadius_RenderedTerminal_key[];
 extern const float g_011db644_arg1;
-extern const char g_011db608_arg0[];
-extern const char g_011db668_arg0[];
-extern const char g_011db5f8_arg0[];
-extern const char g_011db778_arg0[];
+// src: EXE 0x01078d34
+extern const char fScreenLightColorR_RenderedTerminal_key[];
+// src: EXE 0x01078d58
+extern const char fScreenLightColorG_RenderedTerminal_key[];
+// src: EXE 0x01078d7c
+extern const char fScreenLightColorB_RenderedTerminal_key[];
+// src: EXE 0x01078f40
+extern const char fScanlineFrequency_VATS_key[];
 extern const float g_011db778_arg1;
-extern const char g_011db720_arg0[];
+// src: EXE 0x01078f58
+extern const char fBlurRadius_VATS_key[];
 extern const float g_011db720_arg1;
-extern const char g_011db714_arg0[];
+// src: EXE 0x01078f6c
+extern const char fBlurIntensity_VATS_key[];
 extern const float g_011db714_arg1;
-extern const char g_011db6e4_arg0[];
+// src: EXE 0x01078f80
+extern const char fDistortVerticalScale_VATS_key[];
 extern const float g_011db6e4_arg1;
-extern const char g_011db79c_arg0[];
-extern const char g_011db6bc_arg0[];
+// src: EXE 0x01078f9c
+extern const char fDistortHorizontalScale_VATS_key[];
+// src: EXE 0x01078fbc
+extern const char fDistortDuration_VATS_key[];
 extern const float g_011db6bc_arg1;
-extern const char g_011db75c_arg0[];
-extern const char g_011db730_arg0[];
+// src: EXE 0x01078fd4
+extern const char iDistortMaxInterval_VATS_key[];
+// src: EXE 0x01078ff0
+extern const char fScanModeDuration_VATS_key[];
 extern const float g_011db730_arg1;
-extern const char g_011db7b4_arg0[];
+// src: EXE 0x01079008
+extern const char fScanModeVerticalScale_VATS_key[];
 extern const float g_011db7b4_arg1;
-extern const char g_011db694_arg0[];
+// src: EXE 0x01079024
+extern const char fScanModeScanlineFrequency_VATS_key[];
 extern const float g_011db694_arg1;
-extern const char g_011db6d8_arg0[];
+// src: EXE 0x01079044
+extern const char fBurstDuration_VATS_key[];
 extern const float g_011db6d8_arg1;
-extern const char g_011db750_arg0[];
+// src: EXE 0x01079058
+extern const char fBurstIntensity_VATS_key[];
 extern const float g_011db750_arg1;
-extern const char g_011db7c4_arg0[];
+// src: EXE 0x01079070
+extern const char fPulseIntensity_VATS_key[];
 extern const float g_011db7c4_arg1;
-extern const char g_011db6c8_arg0[];
+// src: EXE 0x01079088
+extern const char fPulseRadius_VATS_key[];
 extern const float g_011db6c8_arg1;
-extern const char g_011db7d8_arg0[];
+// src: EXE 0x0107909c
+extern const char fPulseRate_VATS_key[];
 extern const float g_011db7d8_arg1;
-extern const char g_011db78c_arg0[];
+// src: EXE 0x010790b0
+extern const char fVATSTargetPulseRate_VATS_key[];
 extern const float g_011db78c_arg1;
-extern const char g_011db6f4_arg0[];
+// src: EXE 0x010790cc
+extern const char fVATSColorR_VATS_key[];
 extern const float g_011db6f4_arg1;
-extern const char g_011db768_arg0[];
+// src: EXE 0x010790e4
+extern const char fVATSColorG_VATS_key[];
 extern const float g_011db768_arg1;
-extern const char g_011db700_arg0[];
+// src: EXE 0x010790fc
+extern const char fVATSColorB_VATS_key[];
 extern const float g_011db700_arg1;
-extern const char g_011dbaa4_arg0[];
+// src: EXE 0x010796c4
+extern const char bDrawSpellContact_General_key[];
 extern const char g_011dc6b4_arg0[];
 extern const char g_011dc6b4_arg1[];
 extern const char g_011dc724_arg0[];
 extern const char g_011dc724_arg1[];
 extern const char g_011dc804_arg0[];
 extern const char g_011dc804_arg1[];
-extern const char g_011dd084_arg0[];
+// src: EXE 0x0107c8e8
+extern const char fMainMenuMusicVolume_Audio_key[];
 extern const float g_011dd084_arg1;
-extern const char g_011dd094_arg0[];
+// src: EXE 0x0107c904
+extern const char fASFadeInTime_Audio_key[];
 extern const float g_011dd094_arg1;
-extern const char g_011dd050_arg0[];
+// src: EXE 0x0107c918
+extern const char fASFadeOutTime_Audio_key[];
 extern const float g_011dd050_arg1;
-extern const char g_011dd044_arg0[];
+// src: EXE 0x0107c930
+extern const char fASFadeStartTime_Audio_key[];
 extern const float g_011dd044_arg1;
-extern const char g_011dd06c_arg0[];
+// src: EXE 0x0107c948
+extern const char fRegionLoopFadeInTime_Audio_key[];
 extern const float g_011dd06c_arg1;
-extern const char g_011dcfe4_arg0[];
+// src: EXE 0x0107c964
+extern const char fRegionLoopFadeOutTime_Audio_key[];
 extern const char g_011dd008_arg0[];
 extern const char g_011dd0ac_arg0[];
 extern const float g_011dd0ac_arg1;
@@ -4746,164 +5340,280 @@ extern const char g_011dd034_arg0[];
 extern const float g_011dd034_arg1;
 extern const char g_011dcff4_arg0[];
 extern const float g_011dcff4_arg1;
-extern const char g_011dd060_arg0[];
-extern const char g_011dcfd4_arg0[];
-extern const char g_011dd5cc_arg0[];
-extern const char g_011dd614_arg0[];
-extern const char g_011dd580_arg0[];
+// src: EXE 0x0107ca08
+extern const char iMusicTransitionInMS_Audio_key[];
+// src: EXE 0x0107ca24
+extern const char iMusicSynchOverride_Audio_key[];
+// src: EXE 0x0107cf64
+extern const char iRadioUpdateInterval_Audio_key[];
+// src: EXE 0x0107cf80
+extern const char iRadioStationTimeout_Audio_key[];
+// src: EXE 0x0107cf9c
+extern const char fRadioStaticAtOuterRadiusPct_Audio_key[];
 extern const float g_011dd580_arg1;
-extern const char g_011dd5a4_arg0[];
+// src: EXE 0x0107cfc0
+extern const char fRadioDialogMute_Audio_key[];
 extern const float g_011dd5a4_arg1;
-extern const char g_011dd5b0_arg0[];
+// src: EXE 0x0107cfd8
+extern const char fCreatureRadioMin_Audio_key[];
 extern const float g_011dd5b0_arg1;
-extern const char g_011dd62c_arg0[];
+// src: EXE 0x0107cff0
+extern const char fCreatureRadioMax_Audio_key[];
 extern const float g_011dd62c_arg1;
-extern const char g_011dd968_arg0[];
-extern const char g_011dd930_arg0[];
+// src: EXE 0x0107d734
+extern const char iCollisionSoundTimeDelta_Audio_key[];
+// src: EXE 0x0107d754
+extern const char fWoodMediumMassMin_Audio_key[];
 extern const float g_011dd930_arg1;
-extern const char g_011dd9d8_arg0[];
+// src: EXE 0x0107d770
+extern const char fWoodLargeMassMin_Audio_key[];
 extern const float g_011dd9d8_arg1;
-extern const char g_011dd9c8_arg0[];
+// src: EXE 0x0107d788
+extern const char fStoneMediumMassMin_Audio_key[];
 extern const float g_011dd9c8_arg1;
-extern const char g_011dd9b0_arg0[];
+// src: EXE 0x0107d7a4
+extern const char fStoneLargeMassMin_Audio_key[];
 extern const float g_011dd9b0_arg1;
-extern const char g_011dd918_arg0[];
+// src: EXE 0x0107d7c0
+extern const char fEarthMediumMassMin_Audio_key[];
 extern const float g_011dd918_arg1;
-extern const char g_011dd9bc_arg0[];
+// src: EXE 0x0107d7dc
+extern const char fEarthLargeMassMin_Audio_key[];
 extern const float g_011dd9bc_arg1;
-extern const char g_011dd9a0_arg0[];
+// src: EXE 0x0107d7f8
+extern const char fSkinMediumMassMin_Audio_key[];
 extern const float g_011dd9a0_arg1;
-extern const char g_011dd924_arg0[];
+// src: EXE 0x0107d814
+extern const char fSkinLargeMassMin_Audio_key[];
 extern const float g_011dd924_arg1;
-extern const char g_011ddcec_arg0[];
+// src: EXE 0x0107d82c
+extern const char fChainMediumMassMin_Audio_key[];
 extern const float g_011ddcec_arg1;
-extern const char g_011ddd0c_arg0[];
+// src: EXE 0x0107d848
+extern const char fChainLargeMassMin_Audio_key[];
 extern const float g_011ddd0c_arg1;
-extern const char g_011dd8f4_arg0[];
+// src: EXE 0x0107d864
+extern const char fMetalMediumMassMin_Audio_key[];
 extern const float g_011dd8f4_arg1;
-extern const char g_011dd8cc_arg0[];
+// src: EXE 0x0107d880
+extern const char fMetalLargeMassMin_Audio_key[];
 extern const float g_011dd8cc_arg1;
-extern const char g_011ddcc4_arg0[];
+// src: EXE 0x0107d89c
+extern const char fGlassMediumMassMin_Audio_key[];
 extern const float g_011ddcc4_arg1;
-extern const char g_011dd93c_arg0[];
+// src: EXE 0x0107d8b8
+extern const char fGlassLargeMassMin_Audio_key[];
 extern const float g_011dd93c_arg1;
-extern const char g_011ddcb8_arg0[];
+// src: EXE 0x0107d8d4
+extern const char fMediumWeaponWeightMin_Audio_key[];
 extern const float g_011ddcb8_arg1;
-extern const char g_011ddcd4_arg0[];
+// src: EXE 0x0107d8f4
+extern const char fLargeWeaponWeightMin_Audio_key[];
 extern const float g_011ddcd4_arg1;
-extern const char g_011dd8bc_arg0[];
+// src: EXE 0x0107d910
+extern const char fMediumWeaponSpeedMax_Audio_key[];
 extern const float g_011dd8bc_arg1;
-extern const char g_011dd97c_arg0[];
+// src: EXE 0x0107d92c
+extern const char fLargeWeaponSpeedMax_Audio_key[];
 extern const float g_011dd97c_arg1;
-extern const char g_011dd8e8_arg0[];
+// src: EXE 0x0107d948
+extern const char fCollisionSoundHeavyThreshold_Audio_key[];
 extern const float g_011dd8e8_arg1;
-extern const char g_011dd988_arg0[];
+// src: EXE 0x0107d96c
+extern const char fPlayerFootVolume_Audio_key[];
 extern const float g_011dd988_arg1;
-extern const char g_011dd900_arg0[];
+// src: EXE 0x0107d984
+extern const char fMaxFootstepDistance_Audio_key[];
 extern const float g_011dd900_arg1;
-extern const char g_011ddce0_arg0[];
-extern const char g_011de0a4_arg0[];
-extern const char g_011de29c_arg0[];
-extern const char g_011de2b8_arg0[];
-extern const char g_011de2c8_arg0[];
-extern const char g_011de280_arg0[];
-extern const char g_011de2fc_arg0[];
-extern const char g_011de308_arg0[];
-extern const char g_011de248_arg0[];
-extern const char g_011de4e8_arg0[];
-extern const char g_011dee3c_arg0[];
-extern const char g_011deed8_arg0[];
-extern const char g_011deb54_arg0[];
-extern const char g_011deab0_arg0[];
-extern const char g_011deacc_arg0[];
-extern const char g_011dee60_arg0[];
-extern const char g_011dedbc_arg0[];
-extern const char g_011deaec_arg0[];
-extern const char g_011ded20_arg0[];
-extern const char g_011decbc_arg0[];
-extern const char g_011deb60_arg0[];
-extern const char g_011decd8_arg0[];
-extern const char g_011dee00_arg0[];
-extern const char g_011deecc_arg0[];
-extern const char g_011ded68_arg0[];
-extern const char g_011ded80_arg0[];
-extern const char g_011deee8_arg0[];
-extern const char g_011deea8_arg0[];
-extern const char g_011dec18_arg0[];
+// src: EXE 0x0107d9a4
+extern const char iMaxImpactSoundCount_Audio_key[];
+// src: EXE 0x0107f7c0
+extern const char bUseSaveGameHistory_SaveGame_key[];
+// src: EXE 0x0107fd98
+extern const char bAllowScriptedAutosave_SaveGame_key[];
+// src: EXE 0x0107fdb8
+extern const char bAllowScriptedForceSave_SaveGame_key[];
+// src: EXE 0x0107fe04
+extern const char iSaveGameBackupCount_SaveGame_key[];
+// src: EXE 0x0107fe24
+extern const char bAllowProfileTransfer_SaveGame_key[];
+// src: EXE 0x0107fe44
+extern const char bOutputSaveGameScreenshot_SaveGame_key[];
+// src: EXE 0x0107fe68
+extern const char bCopySaveGameToHostOrMemStick_SaveGame_key[];
+// src: EXE 0x0107fe90
+extern const char bDisplayMissingContentDialogue_SaveGame_key[];
+// src: EXE 0x01081fcc
+extern const char bDebugSaveBuffer_Debug_key[];
+// src: EXE 0x01082f58
+extern const char bUseArchives_Archive_key[];
+// src: EXE 0x01082f70
+extern const char bAlwaysActive_General_key[];
+// src: EXE 0x01082f88
+extern const char bCRTMemoryChecks_General_key[];
+// src: EXE 0x010832c0
+extern const char bUseMyGamesDirectory_General_key[];
+// src: EXE 0x01083328
+extern const char bRunVTuneTest_General_key[];
+// src: EXE 0x01083340
+extern const char iFPSClamp_General_key[];
+// src: EXE 0x01083354
+extern const char bChangeTimeMultSlowly_General_key[];
+// src: EXE 0x01083374
+extern const char bUseThreadedParticleSystem_General_key[];
+// src: EXE 0x01083398
+extern const char bUseThreadedMorpher_General_key[];
+// src: EXE 0x010833b4
+extern const char bUseThreadedTempEffects_General_key[];
+// src: EXE 0x010833d4
+extern const char bDisplayBoundingVolumes_General_key[];
+// src: EXE 0x010833f4
+extern const char bEnableBoundingVolumeOcclusion_General_key[];
+// src: EXE 0x01083440
+extern const char iFPS_CameraPath_key[];
+// src: EXE 0x0108347c
+extern const char iTake_CameraPath_key[];
+// src: EXE 0x01083490
+extern const char bUseHardDriveCache_General_key[];
+// src: EXE 0x010834ac
+extern const char bPreCullActors_General_key[];
+// src: EXE 0x010834c4
+extern const char fLODLandVerticalBias_LOD_key[];
+// src: EXE 0x010834e0
+extern const char bDisplayLODLand_LOD_key[];
+// src: EXE 0x010834f4
+extern const char fLocalTreeMipMapLODBias_SpeedTree_key[];
 extern const float g_011dec18_arg1;
-extern const char g_011deb70_arg0[];
+// src: EXE 0x01083518
+extern const char fLODTreeMipMapLODBias_SpeedTree_key[];
 extern const float g_011deb70_arg1;
-extern const char g_011dedc8_arg0[];
+// src: EXE 0x01083538
+extern const char fLODLandDropAmount_LOD_key[];
 extern const float g_011dedc8_arg1;
-extern const char g_011dede8_arg0[];
+// src: EXE 0x01083554
+extern const char fMenuBGBlurRadius_Interface_key[];
 extern const float g_011dede8_arg1;
-extern const char g_011dec24_arg0[];
-extern const char g_011deb10_arg0[];
-extern const char g_011ded8c_arg0[];
-extern const char g_011dec7c_arg0[];
-extern const char g_011dee54_arg0[];
-extern const char g_011ded98_arg0[];
-extern const char g_011dea80_arg0[];
-extern const char g_011deddc_arg0[];
-extern const char g_011decc8_arg0[];
-extern const char g_011decac_arg0[];
-extern const char g_011debdc_arg0[];
-extern const char g_011deb24_arg0[];
-extern const char g_011deaa0_arg0[];
-extern const char g_011dec40_arg0[];
-extern const char g_011dec4c_arg0[];
-extern const char g_011dee6c_arg0[];
-extern const char g_011dec98_arg0[];
-extern const char g_011debac_arg0[];
-extern const char g_011deec0_arg0[];
-extern const char g_011deadc_arg0[];
-extern const char g_011dea8c_arg0[];
+// src: EXE 0x01083570
+extern const char fLODFadeOutObjectMultComplex_LOD_key[];
+// src: EXE 0x01083594
+extern const char fLODFadeOutItemMultComplex_LOD_key[];
+// src: EXE 0x010835b4
+extern const char fLODFadeOutActorMultComplex_LOD_key[];
+// src: EXE 0x010835d4
+extern const char fLODFadeOutObjectMultCity_LOD_key[];
+// src: EXE 0x010835f4
+extern const char fLODFadeOutItemMultCity_LOD_key[];
+// src: EXE 0x01083610
+extern const char fLODFadeOutActorMultCity_LOD_key[];
+// src: EXE 0x01083630
+extern const char fLODFadeOutObjectMultInterior_LOD_key[];
+// src: EXE 0x01083654
+extern const char fLODFadeOutItemMultInterior_LOD_key[];
+// src: EXE 0x01083674
+extern const char fLODFadeOutActorMultInterior_LOD_key[];
+// src: EXE 0x010837d0
+extern const char bUseBackgroundFileLoader_BackgroundLoad_key[];
+// src: EXE 0x010837f8
+extern const char bCheckRuntimeCollisions_Archive_key[];
+// src: EXE 0x01083818
+extern const char iRetainDirectoryStringTable_Archive_key[];
+// src: EXE 0x0108383c
+extern const char iRetainFilenameStringTable_Archive_key[];
+// src: EXE 0x01083860
+extern const char iRetainFilenameOffsetTable_Archive_key[];
+// src: EXE 0x010838b8
+extern const char bInvalidateOlderFiles_Archive_key[];
+// src: EXE 0x010838d8
+extern const char iFileLogging_MESSAGES_key[];
+// src: EXE 0x01083904
+extern const char bShowMenuTextureUse_Display_key[];
+// src: EXE 0x01083920
+extern const char iDebugTextTopBottomOffset_Display_key[];
+// src: EXE 0x01083944
+extern const char iDebugTextLeftRightOffset_Display_key[];
+// src: EXE 0x01083968
+extern const char bUseSunbeams_Display_key[];
+// src: EXE 0x01083980
+extern const char fScopeScissorAmount_Display_key[];
 extern const float g_011dea8c_arg1;
 extern const char g_011dece4_arg0[];
 extern const char g_011dece4_arg1[];
-extern const char g_011deb3c_arg0[];
-extern const char g_011dedf4_arg0[];
-extern const char g_011dec58_arg0[];
+// src: EXE 0x010839b4
+extern const char bBlockMessageBoxes_MESSAGES_key[];
+// src: EXE 0x010839d0
+extern const char bUseWindowsMessageBox_MESSAGES_key[];
+// src: EXE 0x010839f0
+extern const char fUpgradeTexturesDistance_General_key[];
 extern const float g_011dec58_arg1;
-extern const char g_011deba0_arg0[];
+// src: EXE 0x01083a14
+extern const char fDegradeTexturesDistance_General_key[];
 extern const float g_011deba0_arg1;
-extern const char g_011dec88_arg0[];
-extern const char g_011dee20_arg0[];
-extern const char g_011ded74_arg0[];
-extern const char g_011defdc_arg0[];
+// src: EXE 0x01083a38
+extern const char bAllowYesToAll_MESSAGES_key[];
+// src: EXE 0x01083a50
+extern const char bSkipProgramFlows_MESSAGES_key[];
+// src: EXE 0x01083a6c
+extern const char bSkipInitializationFlows_MESSAGES_key[];
+// src: EXE 0x01083ac4
+extern const char bShowCheckMemoryOutput_General_key[];
 extern const char g_011df0c0_arg0[];
 extern const char g_011df0c0_arg1[];
-extern const char g_011df124_arg0[];
-extern const char g_011df198_arg0[];
-extern const char g_011df214_arg0[];
-extern const char g_011df1b8_arg0[];
-extern const char g_011df868_arg0[];
-extern const char g_011df858_arg0[];
-extern const char g_011df690_arg0[];
-extern const char g_011df838_arg0[];
-extern const char g_011df754_arg0[];
+// src: EXE 0x01083f74
+extern const char iScreenShotIndex_Display_key[];
+// src: EXE 0x01084000
+extern const char iNumBitsForFullySeen_General_key[];
+// src: EXE 0x01084084
+extern const char bTaskletActorHavokSync_General_key[];
+// src: EXE 0x010840a4
+extern const char bTaskletCellTransformsUpdate_General_key[];
+// src: EXE 0x01084ffc
+extern const char bVATSSmartCameraCheckDebug_VATS_key[];
+// src: EXE 0x0108501c
+extern const char bDismemberOneLimb_Combat_key[];
+// src: EXE 0x01085038
+extern const char bTrackAllDeaths_General_key[];
+// src: EXE 0x01085050
+extern const char iShowHitVector_Combat_key[];
+// src: EXE 0x01085068
+extern const char fHitVectorDelay_Combat_key[];
 extern const float g_011df754_arg1;
-extern const char g_011df748_arg0[];
-extern const char g_011df780_arg0[];
-extern const char g_011df72c_arg0[];
+// src: EXE 0x01085080
+extern const char fMinBloodDamage_Combat_key[];
+// src: EXE 0x01085098
+extern const char iMaxHiPerfCombatCount_Combat_key[];
+// src: EXE 0x010850b8
+extern const char fJumpAnimDelay_HAVOK_key[];
 extern const float g_011df72c_arg1;
-extern const char g_011df804_arg0[];
+// src: EXE 0x010850d0
+extern const char iDetectionPicks_GamePlay_key[];
 extern const char g_011df6e0_arg0[];
-extern const char g_011df720_arg0[];
-extern const char g_011df760_arg0[];
-extern const char g_011df6c4_arg0[];
-extern const char g_011df7f8_arg0[];
-extern const char g_011df6b0_arg0[];
-extern const char g_011df6d0_arg0[];
-extern const char g_011df848_arg0[];
-extern const char g_011df810_arg0[];
-extern const char g_011df828_arg0[];
+// src: EXE 0x01085104
+extern const char bPlayStaggers_Combat_key[];
+// src: EXE 0x0108511c
+extern const char bPlayHitLocationIdles_Combat_key[];
+// src: EXE 0x0108513c
+extern const char bDisableNPCAttacks_Combat_key[];
+// src: EXE 0x01085158
+extern const char bDisableAllGore_General_key[];
+// src: EXE 0x01085170
+extern const char bUseMovementBlockedPackage_General_key[];
+// src: EXE 0x01085194
+extern const char bDisableHeadTracking_HeadTracking_key[];
+// src: EXE 0x010851b8
+extern const char iUpdateActorsPerFrame_HeadTracking_key[];
+// src: EXE 0x010851dc
+extern const char fUpdateDelaySecondsMin_HeadTracking_key[];
+// src: EXE 0x01085200
+extern const char fUpdateDelaySecondsMax_HeadTracking_key[];
 extern const float g_011df828_arg1;
-extern const char g_011df700_arg0[];
+// src: EXE 0x01085224
+extern const char fUpdateDelayNewTargetSecondsMin_HeadTracking_key[];
 extern const float g_011df700_arg1;
-extern const char g_011df78c_arg0[];
+// src: EXE 0x01085254
+extern const char fUpdateDelayNewTargetSecondsMax_HeadTracking_key[];
 extern const float g_011df78c_arg1;
-extern const char g_011df6ec_arg0[];
+// src: EXE 0x01085284
+extern const char fHardLandingDamageThreshold_Audio_key[];
 extern const float g_011df6ec_arg1;
 extern const char g_011df71c_arg0[];
 extern const char g_011df71c_arg1[];
@@ -4917,16 +5627,22 @@ extern const char g_011df69d_arg0[];
 extern const char g_011df69d_arg1[];
 extern const char g_011df69f_arg0[];
 extern const char g_011df69f_arg1[];
-extern const char g_011df73c_arg0[];
+// src: EXE 0x01085308
+extern const char fDialogHitSoundCooldownMin_Audio_key[];
 extern const float g_011df73c_arg1;
-extern const char g_011df70c_arg0[];
+// src: EXE 0x0108532c
+extern const char fDialogHitSoundCooldownMax_Audio_key[];
 extern const float g_011df70c_arg1;
-extern const char g_011df93c_arg0[];
+// src: EXE 0x01085404
+extern const char bActorLookWithHavok_General_key[];
 extern const char g_011dfb34_arg0[];
 extern const char g_011dfb18_arg0[];
-extern const char g_011dfc70_arg0[];
-extern const char g_011dfb88_arg0[];
-extern const char g_011dfb68_arg0[];
+// src: EXE 0x01085898
+extern const char bRunDetectionDuringRendering_General_key[];
+// src: EXE 0x010858c0
+extern const char bRunActorMovementDuringRendering_General_key[];
+// src: EXE 0x010858ec
+extern const char bUseThreadedAI_General_key[];
 extern const char g_011dfe40_arg0[];
 extern const char g_011dfe40_arg1[];
 extern const char g_011dfeac_arg0[];
@@ -4937,224 +5653,352 @@ extern const char g_011e0245_arg0[];
 extern const char g_011e0245_arg1[];
 extern const char g_011e0246_arg0[];
 extern const char g_011e0246_arg1[];
-extern const char g_011e0218_arg0[];
+// src: EXE 0x01088494
+extern const char fHealthBarWidth_GamePlay_key[];
 extern const float g_011e0218_arg1;
-extern const char g_011e0200_arg0[];
+// src: EXE 0x010884b0
+extern const char fHealthBarHeight_GamePlay_key[];
 extern const float g_011e0200_arg1;
-extern const char g_011e024c_arg0[];
+// src: EXE 0x010884cc
+extern const char fHealthBarSpeed_GamePlay_key[];
 extern const float g_011e024c_arg1;
-extern const char g_011e0288_arg0[];
-extern const char g_011e02c4_arg0[];
+// src: EXE 0x010884e8
+extern const char fHealthBarFadeOutSpeed_GamePlay_key[];
+// src: EXE 0x01088508
+extern const char fHealthBarEmittanceTime_GamePlay_key[];
 extern const float g_011e02c4_arg1;
-extern const char g_011e01f4_arg0[];
+// src: EXE 0x0108852c
+extern const char fHealthBarEmittanceFadeTime_GamePlay_key[];
 extern const float g_011e01f4_arg1;
-extern const char g_011e029c_arg0[];
+// src: EXE 0x01088554
+extern const char fINIDetectDoorsForPathingTime_Pathing_key[];
 extern const float g_011e029c_arg1;
 extern const char g_011e0361_arg0[];
 extern const char g_011e0361_arg1[];
-extern const char g_011e048c_arg0[];
+// src: EXE 0x01089b2c
+extern const char fAimUpDegrees_Combat_key[];
 extern const float g_011e048c_arg1;
-extern const char g_011e0498_arg0[];
+// src: EXE 0x01089b44
+extern const char fAimDownDegrees_Combat_key[];
 extern const float g_011e0498_arg1;
-extern const char g_011e0474_arg0[];
+// src: EXE 0x01089b5c
+extern const char fAimChaseLookingMult_Combat_key[];
 extern const float g_011e0474_arg1;
 extern const char g_011e0460_arg0[];
 extern const char g_011e0460_arg1[];
 extern const char g_011e0528_arg0[];
 extern const char g_011e0528_arg1[];
 extern const char g_011e060c_arg0[];
-extern const char g_011e05ec_arg0[];
-extern const char g_011e0574_arg0[];
-extern const char g_011e05b4_arg0[];
-extern const char g_011e0894_arg0[];
-extern const char g_011e09b0_arg0[];
-extern const char g_011e0988_arg0[];
-extern const char g_011e0888_arg0[];
-extern const char g_011e0b1c_arg0[];
-extern const char g_011e0a10_arg0[];
-extern const char g_011e0a30_arg0[];
-extern const char g_011e0b00_arg0[];
-extern const char g_011e087c_arg0[];
-extern const char g_011e0940_arg0[];
-extern const char g_011e07f0_arg0[];
-extern const char g_011e0934_arg0[];
+// src: EXE 0x0108a81c
+extern const char bBackgroundLoadLipFiles_BackgroundLoad_key[];
+// src: EXE 0x0108a844
+extern const char fQuadrupedPitchMult_HAVOK_key[];
+// src: EXE 0x0108a860
+extern const char iHavokSkipFrameCountTEST_Havok_key[];
+// src: EXE 0x0108b4e8
+extern const char bSetDemigodMode_GamePlay_key[];
+// src: EXE 0x0108b504
+extern const char bInstantLevelUp_GamePlay_key[];
+// src: EXE 0x0108b520
+extern const char bHealthBarShowing_GamePlay_key[];
+// src: EXE 0x0108b53c
+extern const char bEssentialTakeNoDamage_GamePlay_key[];
+// src: EXE 0x0108b55c
+extern const char bAllowHavokGrabTheLiving_GamePlay_key[];
+// src: EXE 0x0108b580
+extern const char iActorsDismemberedPerFrame_GamePlay_key[];
+// src: EXE 0x0108b5a4
+extern const char bTrackProgress_GamePlay_key[];
+// src: EXE 0x0108b5bc
+extern const char uiRedeemedContent_GamePlay_key[];
+// src: EXE 0x0108b5d8
+extern const char iKillCamera_GamePlay_key[];
+// src: EXE 0x0108b5f0
+extern const char iDifficulty_GamePlay_key[];
+// src: EXE 0x0108b608
+extern const char bShowQuestMarkers_GamePlay_key[];
+// src: EXE 0x0108b65c
+extern const char fCameraCasterSize_HAVOK_key[];
 extern const float g_011e0934_arg1;
-extern const char g_011e09c8_arg0[];
-extern const char g_011e090c_arg0[];
-extern const char g_011e0a50_arg0[];
-extern const char g_011e085c_arg0[];
+// src: EXE 0x0108b674
+extern const char fCameraCasterPlayerSize_HAVOK_key[];
+// src: EXE 0x0108b694
+extern const char fUFOCamSpeedMult_Controls_key[];
+// src: EXE 0x0108b6b0
+extern const char bShowGunTarget_General_key[];
+// src: EXE 0x0108b6c8
+extern const char fAnalogMaxRunZonePercent_Controls_key[];
 extern const float g_011e085c_arg1;
-extern const char g_011e0a78_arg0[];
+// src: EXE 0x0108b6ec
+extern const char fAnalogRunZonePercent_Controls_key[];
 extern const float g_011e0a78_arg1;
-extern const char g_011e08ac_arg0[];
+// src: EXE 0x0108b70c
+extern const char fMinAnalogWalkSpeed_Controls_key[];
 extern const float g_011e08ac_arg1;
-extern const char g_011e0b78_arg0[];
+// src: EXE 0x0108b72c
+extern const char fMaxAnalogWalkSpeed_Controls_key[];
 extern const float g_011e0b78_arg1;
-extern const char g_011e09bc_arg0[];
+// src: EXE 0x0108b74c
+extern const char fMinAnalogRunSpeed_Controls_key[];
 extern const float g_011e09bc_arg1;
-extern const char g_011e091c_arg0[];
-extern const char g_011e0a20_arg0[];
-extern const char g_011e09a4_arg0[];
-extern const char g_011e0adc_arg0[];
-extern const char g_011e0830_arg0[];
-extern const char g_011e0a6c_arg0[];
+// src: EXE 0x0108b768
+extern const char fMaxAnalogRunSpeed_Controls_key[];
+// src: EXE 0x0108b784
+extern const char iJoystickMoveFrontBack_Controls_key[];
+// src: EXE 0x0108b7a4
+extern const char iJoystickMoveLeftRight_Controls_key[];
+// src: EXE 0x0108b7c4
+extern const char iJoystickLookUpDown_Controls_key[];
+// src: EXE 0x0108b7e4
+extern const char iJoystickLookLeftRight_Controls_key[];
+// src: EXE 0x0108b804
+extern const char fMouseSensitivity_Controls_key[];
 extern const float g_011e0a6c_arg1;
-extern const char g_011e0b40_arg0[];
-extern const char g_011e0868_arg0[];
-extern const char g_011e0af0_arg0[];
+// src: EXE 0x0108b820
+extern const char fJoystickMoveFBMult_Controls_key[];
+// src: EXE 0x0108b840
+extern const char fJoystickMoveLRMult_Controls_key[];
+// src: EXE 0x0108b860
+extern const char fJoystickLookUDMult_Controls_key[];
 extern const float g_011e0af0_arg1;
-extern const char g_011e0840_arg0[];
+// src: EXE 0x0108b880
+extern const char fJoystickLookLRMult_Controls_key[];
 extern const float g_011e0840_arg1;
 extern const char g_011e0994_arg0[];
 extern const float g_011e0994_arg1;
 extern const char g_011e0824_arg0[];
 extern const float g_011e0824_arg1;
-extern const char g_011e0a5c_arg0[];
-extern const char g_011e0b84_arg0[];
+// src: EXE 0x0108b8e0
+extern const char bInvertYValues_Controls_key[];
+// src: EXE 0x0108b8f8
+extern const char fDlgFocus_Interface_key[];
 extern const float g_011e0b84_arg1;
-extern const char g_011e094c_arg0[];
+// src: EXE 0x0108b910
+extern const char fDlgLookDegStart_Interface_key[];
 extern const float g_011e094c_arg1;
-extern const char g_011e0900_arg0[];
+// src: EXE 0x0108b930
+extern const char fDlgLookDegStop_Interface_key[];
 extern const float g_011e0900_arg1;
-extern const char g_011e0b28_arg0[];
+// src: EXE 0x0108b94c
+extern const char fDlgHeadingDegStart_Interface_key[];
 extern const float g_011e0b28_arg1;
-extern const char g_011e08c4_arg0[];
+// src: EXE 0x0108b96c
+extern const char fDlgHeadingDegStop_Interface_key[];
 extern const float g_011e08c4_arg1;
-extern const char g_011e08d0_arg0[];
+// src: EXE 0x0108b98c
+extern const char fDlgLookAdj_Interface_key[];
 extern const float g_011e08d0_arg1;
-extern const char g_011e0958_arg0[];
+// src: EXE 0x0108b9a4
+extern const char fDlgLookMult_Interface_key[];
 extern const float g_011e0958_arg1;
-extern const char g_011e0b64_arg0[];
-extern const char g_011e097c_arg0[];
-extern const char g_011e0970_arg0[];
+// src: EXE 0x0108b9bc
+extern const char bDisablePlayerCollision_HAVOK_key[];
+// src: EXE 0x0108b9dc
+extern const char bIronSightsZoomEnable_Combat_key[];
+// src: EXE 0x0108b9fc
+extern const char fIronSightsZoomDefault_Combat_key[];
 extern const float g_011e0970_arg1;
 extern const char g_011e0a84_arg0[];
 extern const float g_011e0a84_arg1;
-extern const char g_011e0a9c_arg0[];
-extern const char g_011e08e0_arg0[];
-extern const char g_011e0850_arg0[];
-extern const char g_011e0b94_arg0[];
+// src: EXE 0x0108ba3c
+extern const char iHoursToSleep_General_key[];
+// src: EXE 0x0108ba54
+extern const char bBorderRegionsEnabled_General_key[];
+// src: EXE 0x0108ba74
+extern const char bGamePadRumble_Controls_key[];
+// src: EXE 0x0108ba8c
+extern const char fForwardBias_Controls_key[];
 extern const float g_011e0b94_arg1;
-extern const char g_011e0818_arg0[];
+// src: EXE 0x0108baa4
+extern const char fXenonMinLookSpeed_Controls_key[];
 extern const float g_011e0818_arg1;
-extern const char g_011e0928_arg0[];
+// src: EXE 0x0108bac0
+extern const char fXenonHorizLookSpeed_Controls_key[];
 extern const float g_011e0928_arg1;
-extern const char g_011e08b8_arg0[];
+// src: EXE 0x0108bae0
+extern const char fXenonVertLookSpeed_Controls_key[];
 extern const float g_011e08b8_arg1;
-extern const char g_011e0a90_arg0[];
-extern const char g_011e08a0_arg0[];
-extern const char g_011e0b4c_arg0[];
-extern const char g_011e0964_arg0[];
+// src: EXE 0x0108bb00
+extern const char iXenonHorizLookAccel_Controls_key[];
+// src: EXE 0x0108bb20
+extern const char iXenonVertLookAccel_Controls_key[];
+// src: EXE 0x0108bb40
+extern const char bAlwaysRunByDefault_Controls_key[];
+// src: EXE 0x0108bb60
+extern const char fPlayerCharacterTurnMult_Controls_key[];
 extern const float g_011e0964_arg1;
-extern const char g_011e09e0_arg0[];
+// src: EXE 0x0108bb84
+extern const char bDisableAutoVanityMode_General_key[];
 extern const char g_011e0e64_arg0[];
-extern const char g_011e0e4c_arg0[];
-extern const char g_011f1260_arg0[];
-extern const char g_011f126c_arg0[];
-extern const char g_011f127c_arg0[];
+// src: EXE 0x0108c2a4
+extern const char bRunMiddleLowLevelProcess_General_key[];
+// src: EXE 0x0108c2c8
+extern const char bTaskletActorSceneGraphUpdates_General_key[];
+// src: EXE 0x0108c2f0
+extern const char bTaskletActorAnimMovementUpdates_General_key[];
+// src: EXE 0x0108c31c
+extern const char bTaskletTempEffectsUpdate_General_key[];
 extern const char g_011f15cc_arg0[];
 extern const char g_011f15cc_arg1[];
-extern const char g_011f15a4_arg0[];
-extern const char g_011f15b0_arg0[];
-extern const char g_011f15ec_arg0[];
-extern const char g_011f15d0_arg0[];
-extern const char g_011f1680_arg0[];
-extern const char g_011f16c0_arg0[];
-extern const char g_011f1674_arg0[];
-extern const char g_011f16e0_arg0[];
+// src: EXE 0x0108d020
+extern const char bDebugCombatAttackerText_Combat_key[];
+// src: EXE 0x0108d040
+extern const char bDebugCombatGuardRadius_Combat_key[];
+// src: EXE 0x0108d060
+extern const char bDebugCombatArea_Combat_key[];
+// src: EXE 0x0108d078
+extern const char bDebugCombatUnreachableLocations_Combat_key[];
+// src: EXE 0x0108d154
+extern const char bDebugCombatCoverReservations_Combat_key[];
+// src: EXE 0x0108d17c
+extern const char bDebugCombatCoverReservationsText_Combat_key[];
+// src: EXE 0x0108d1a8
+extern const char bDebugCombatCoverSearch_Combat_key[];
+// src: EXE 0x0108d1c8
+extern const char bDebugCombatCoverSearchText_Combat_key[];
 extern const char g_011f168c_arg0[];
-extern const char g_011f1764_arg0[];
-extern const char g_011f1878_arg0[];
+// src: EXE 0x0108d274
+extern const char bDisableCombatDialogue_Combat_key[];
+// src: EXE 0x0108d768
+extern const char bDebugCombatGroups_Combat_key[];
 extern const char g_011f1858_arg0[];
-extern const char g_011f1824_arg0[];
-extern const char g_011f1814_arg0[];
-extern const char g_011f1840_arg0[];
-extern const char g_011f18d8_arg0[];
-extern const char g_011f197c_arg0[];
-extern const char g_011f1a78_arg0[];
-extern const char g_011f1a1c_arg0[];
-extern const char g_011f1a4c_arg0[];
+// src: EXE 0x0108d7a0
+extern const char bDebugCombatGroupClusters_Combat_key[];
+// src: EXE 0x0108d7c4
+extern const char bDebugCombatSearch_Combat_key[];
+// src: EXE 0x0108d7e0
+extern const char bEncounterZoneTargetRestrict_Combat_key[];
+// src: EXE 0x0108d988
+extern const char bDisableCombatGroupStrategies_Combat_key[];
+// src: EXE 0x0108db78
+extern const char bDebugCombatDetectionEvents_Combat_key[];
+// src: EXE 0x0108e0b4
+extern const char iMaxHiPerfPCTargetCount_Combat_key[];
+// src: EXE 0x0108e0d4
+extern const char iMaxHiPerfNPCTargetCount_Combat_key[];
+// src: EXE 0x0108e0f4
+extern const char fHiPerfPCTargetLOSTimer_Combat_key[];
 extern const float g_011f1a4c_arg1;
-extern const char g_011f1ab0_arg0[];
+// src: EXE 0x0108e114
+extern const char fLowPerfPCTargetLOSTimer_Combat_key[];
 extern const float g_011f1ab0_arg1;
-extern const char g_011f1a38_arg0[];
+// src: EXE 0x0108e134
+extern const char fHiPerfNPCTargetLOSTimer_Combat_key[];
 extern const float g_011f1a38_arg1;
-extern const char g_011f1ad4_arg0[];
+// src: EXE 0x0108e154
+extern const char fLowPerfNPCTargetLOSTimer_Combat_key[];
 extern const char g_011f1a61_arg0[];
 extern const char g_011f1a61_arg1[];
 extern const char g_011f1a63_arg0[];
 extern const char g_011f1a63_arg1[];
 extern const char g_011f1a60_arg0[];
 extern const char g_011f1a60_arg1[];
-extern const char g_011f1b24_arg0[];
-extern const char g_011f1ba0_arg0[];
+// src: EXE 0x0108e294
+extern const char bDebugCombatTargets_Combat_key[];
+// src: EXE 0x0108e344
+extern const char bDebugCombatThreats_Combat_key[];
 extern const char g_011f1c94_arg0[];
 extern const float g_011f1c94_arg1;
-extern const char g_011f1c30_arg0[];
-extern const char g_011f1c70_arg0[];
+// src: EXE 0x0108e3c4
+extern const char bDebugCombatTextColorDark_Combat_key[];
+// src: EXE 0x0108e3e8
+extern const char fDebugCombatTextSize_Combat_key[];
 extern const float g_011f1c70_arg1;
-extern const char g_011f1c4c_arg0[];
-extern const char g_011f1c24_arg0[];
+// src: EXE 0x0108e404
+extern const char bDebugCombatProjectileLOS_Combat_key[];
+// src: EXE 0x0108e428
+extern const char fDebugCombatProjectileLOSTime_Combat_key[];
 extern const float g_011f1c24_arg1;
 extern const char g_011f1c7c_arg0[];
 extern const char g_011f1c7c_arg1[];
-extern const char g_011f20ec_arg0[];
-extern const char g_011f210c_arg0[];
+// src: EXE 0x010904d4
+extern const char bProjectileDebug_Combat_key[];
+// src: EXE 0x010904ec
+extern const char fProjectileDebugDuration_Combat_key[];
 extern const float g_011f210c_arg1;
-extern const char g_011f20b8_arg0[];
-extern const char g_011f2298_arg0[];
+// src: EXE 0x0109050c
+extern const char bVATSProjectileDebug_Combat_key[];
+// src: EXE 0x01090724
+extern const char fVATSLightLevelMin_VATS_key[];
 extern const float g_011f2298_arg1;
-extern const char g_011f2200_arg0[];
+// src: EXE 0x0109073c
+extern const char fVATSLightLevelMax_VATS_key[];
 extern const float g_011f2200_arg1;
-extern const char g_011f2304_arg0[];
-extern const char g_011f222c_arg0[];
+// src: EXE 0x01090754
+extern const char fVATSLightAngle_VATS_key[];
+// src: EXE 0x0109076c
+extern const char fVATSLightDistance_VATS_key[];
 extern const float g_011f222c_arg1;
-extern const char g_011f220c_arg0[];
+// src: EXE 0x01090784
+extern const char fVATSLightElevation_VATS_key[];
 extern const float g_011f220c_arg1;
-extern const char g_011f21f4_arg0[];
-extern const char g_011f22a8_arg0[];
-extern const char g_011f22cc_arg0[];
+// src: EXE 0x010907a0
+extern const char fVatsLightColorR_VATS_key[];
+// src: EXE 0x010907b8
+extern const char fVatsLightColorG_VATS_key[];
+// src: EXE 0x010907d0
+extern const char fVatsLightColorB_VATS_key[];
 extern const char g_011f24e4_arg0[];
 extern const char g_011f24e4_arg1[];
-extern const char g_011f2bb8_arg0[];
-extern const char g_011f2be0_arg0[];
-extern const char g_011f2b74_arg0[];
+// src: EXE 0x01092650
+extern const char bUseActorAvoidance_Pathfinding_key[];
+// src: EXE 0x01092670
+extern const char bUseFartherCheckForAvoidance_Pathfinding_key[];
+// src: EXE 0x0109269c
+extern const char fAvoidanceDefaultWaitTime_Pathfinding_key[];
 extern const float g_011f2b74_arg1;
-extern const char g_011f2b2c_arg0[];
+// src: EXE 0x010926c4
+extern const char fAvoidanceMinWaitTime_Pathfinding_key[];
 extern const float g_011f2b2c_arg1;
-extern const char g_011f2b3c_arg0[];
+// src: EXE 0x010926e8
+extern const char fAvoidanceIgnoreTime_Pathfinding_key[];
 extern const float g_011f2b3c_arg1;
-extern const char g_011f2bc4_arg0[];
+// src: EXE 0x0109270c
+extern const char fAvoidanceIgnoreMinTime_Pathfinding_key[];
 extern const float g_011f2bc4_arg1;
-extern const char g_011f2b98_arg0[];
+// src: EXE 0x01092730
+extern const char fAvoidanceTimeCheck_Pathfinding_key[];
 extern const float g_011f2b98_arg1;
-extern const char g_011f2b1c_arg0[];
+// src: EXE 0x01092750
+extern const char fAvoidanceDetectionTime_Pathfinding_key[];
 extern const float g_011f2b1c_arg1;
-extern const char g_011f2ba8_arg0[];
+// src: EXE 0x01092774
+extern const char fAvoidanceConeAngle_Pathfinding_key[];
 extern const float g_011f2ba8_arg1;
-extern const char g_011f2af8_arg0[];
+// src: EXE 0x01092794
+extern const char fAvoidanceWiderConeAngle_Pathfinding_key[];
 extern const float g_011f2af8_arg1;
-extern const char g_011f2b04_arg0[];
+// src: EXE 0x010927bc
+extern const char fRunningWiderConeAngle_Pathfinding_key[];
 extern const float g_011f2b04_arg1;
-extern const char g_011f2b68_arg0[];
+// src: EXE 0x010927e0
+extern const char fRepathingWaitDistance_Pathfinding_key[];
 extern const float g_011f2b68_arg1;
 extern const char g_011f2b5c_arg0[];
 extern const float g_011f2b5c_arg1;
-extern const char g_011f2b8c_arg0[];
+// src: EXE 0x0109281c
+extern const char fAvoidanceAvoidAllRadius_Pathfinding_key[];
 extern const float g_011f2b8c_arg1;
-extern const char g_011f2ad8_arg0[];
+// src: EXE 0x01092844
+extern const char fAITurnSpeedScale_Pathfinding_key[];
 extern const float g_011f2ad8_arg1;
-extern const char g_011f2ac4_arg0[];
+// src: EXE 0x01092864
+extern const char fAICombatTurnSpeedScale_Pathfinding_key[];
 extern const float g_011f2ac4_arg1;
-extern const char g_011f2c10_arg0[];
+// src: EXE 0x01092888
+extern const char fCreatureTurnSpeedScale_Pathfinding_key[];
 extern const float g_011f2c10_arg1;
-extern const char g_011f2b10_arg0[];
+// src: EXE 0x010928ac
+extern const char fCreatureCombatTurnSpeedScale_Pathfinding_key[];
 extern const float g_011f2b10_arg1;
-extern const char g_011f2bd0_arg0[];
+// src: EXE 0x010928d8
+extern const char fLODActorAvoidanceDistance_General_key[];
 extern const float g_011f2bd0_arg1;
-extern const char g_011f2ab4_arg0[];
+// src: EXE 0x010928fc
+extern const char fRotationSpeedIncrease_Pathfinding_key[];
 extern const float g_011f2ab4_arg1;
-extern const char g_011f31c8_arg0[];
+// src: EXE 0x01093990
+extern const char bDebugSpectatorThreats_General_key[];
 extern const char g_011f33d4_arg0[];
 extern const char g_011f33d4_arg1[];
 extern const char g_01202804_arg0[];
@@ -5318,57 +6162,57 @@ extern GlobalObject_0040c150 g_011c3a94;
 extern GlobalObject_00a2e180 g_011c3aa8;
 extern GlobalObject_0044fae0 g_011c3b6c;
 extern GlobalObject_0044fae0 g_011c3b88;
-extern GlobalObject_0044f440 g_011c3bb8;
+extern GlobalObject_0044f440 fLODFadeOutPercent_LOD;
 extern GlobalObject_00a2e180 g_011c3bd8;
-extern GlobalObject_0044f440 g_011c3be4;
+extern GlobalObject_0044f440 fLODBoundRadiusMult_LOD;
 extern GlobalObject_00c1ad50 g_011c3c0e;
 extern GlobalObject_0045d260 g_011c3c0f;
-extern GlobalObject_0045cf30 g_011c3c10;
-extern GlobalObject_0045cfe0 g_011c3c30;
-extern GlobalObject_0045cfe0 g_011c3c3c;
-extern GlobalObject_0044f440 g_011c3c5c;
-extern GlobalObject_0045cf30 g_011c3ccc;
-extern GlobalObject_0044f440 g_011c3cf4;
-extern GlobalObject_0044f440 g_011c3d00;
-extern GlobalObject_0045d060 g_011c3d0c;
-extern GlobalObject_0045cf30 g_011c3d1c;
-extern GlobalObject_0044f440 g_011c3d28;
-extern GlobalObject_0045cf30 g_011c3d40;
-extern GlobalObject_0044f440 g_011c3d4c;
-extern GlobalObject_0044f440 g_011c3d60;
-extern GlobalObject_0045d060 g_011c3d78;
+extern GlobalObject_0045cf30 bSelectivePurgeUnusedOnFastTravel_BackgroundLoad;
+extern GlobalObject_0045cfe0 iUpdateType_HAVOK;
+extern GlobalObject_0045cfe0 iEntityBatchRemoveRate_HAVOK;
+extern GlobalObject_0044f440 fFadeOutTime_LOD;
+extern GlobalObject_0045cf30 bCheckPurgedTextureList_General;
+extern GlobalObject_0044f440 fAlphaReduce_Weather;
+extern GlobalObject_0044f440 fFadeInThreshold_LOD;
+extern GlobalObject_0045d060 fLODFadeOutMultItems_LOD;
+extern GlobalObject_0045cf30 bUseMultiThreadedTrees_BackgroundLoad;
+extern GlobalObject_0044f440 fChaseDeltaMult_HAVOK;
+extern GlobalObject_0045cf30 bPreemptivelyUnloadCells_General;
+extern GlobalObject_0044f440 fMoveLimitMass_HAVOK;
+extern GlobalObject_0044f440 fDistanceMultiplier_LOD;
+extern GlobalObject_0045d060 fLODFadeOutMultObjects_LOD;
 extern GlobalObject_0044fae0 g_011c3d84;
-extern GlobalObject_0045cf30 g_011c3da0;
-extern GlobalObject_0045cf30 g_011c3dbc;
-extern GlobalObject_0044f440 g_011c3dcc;
-extern GlobalObject_0044f440 g_011c3dd8;
-extern GlobalObject_0044f440 g_011c3df4;
-extern GlobalObject_0044f440 g_011c3e18;
+extern GlobalObject_0045cf30 bAddBipedWhenKeyframed_HAVOK;
+extern GlobalObject_0045cf30 bShowLoadingAreaMessage_General;
+extern GlobalObject_0044f440 fMaxPickTimeDebugVATS_HAVOK;
+extern GlobalObject_0044f440 fMaxPickTimeDebug_HAVOK;
+extern GlobalObject_0044f440 fFadeInTime_LOD;
+extern GlobalObject_0044f440 fFadeOutThreshold_LOD;
 extern GlobalObject_00a2e180 g_011c3e34;
 extern GlobalObject_0045cfe0 g_011c3e38;
-extern GlobalObject_0044f440 g_011c3e54;
-extern GlobalObject_0045cf30 g_011c3e64;
-extern GlobalObject_0044f440 g_011c3e94;
-extern GlobalObject_0045cfe0 g_011c3ea4;
-extern GlobalObject_0045d060 g_011c3ec0;
-extern GlobalObject_0045cf30 g_011c3f58;
-extern GlobalObject_0045cf30 g_011c3f80;
-extern GlobalObject_0045cf30 g_011c3f98;
-extern GlobalObject_0045cf30 g_011c3fa8;
-extern GlobalObject_0045cf30 g_011c3fd4;
+extern GlobalObject_0044f440 fMaxPickTime_HAVOK;
+extern GlobalObject_0045cf30 bQueueWarnings_General;
+extern GlobalObject_0044f440 fMaxPickTimeVATS_HAVOK;
+extern GlobalObject_0045cfe0 iNumHWThreads_General;
+extern GlobalObject_0045d060 fLODFadeOutMultActors_LOD;
+extern GlobalObject_0045cf30 bDisableDuplicateReferenceCheck_General;
+extern GlobalObject_0045cf30 bFileShowIcons_TestAllCells;
+extern GlobalObject_0045cf30 bFileSkipIconChecks_TestAllCells;
+extern GlobalObject_0045cf30 bFileTestLoad_TestAllCells;
+extern GlobalObject_0045cf30 bFileGoneMessage_TestAllCells;
 extern GlobalObject_0045cf30 g_011c3ff4;
 extern GlobalObject_0096a2d0 g_011c4000;
 extern GlobalObject_00a2e180 g_011c403c;
-extern GlobalObject_0045cf30 g_011c4054;
-extern GlobalObject_0045cf30 g_011c4060;
-extern GlobalObject_0045cf30 g_011c4074;
-extern GlobalObject_0045cf30 g_011c4080;
-extern GlobalObject_0045cf30 g_011c408c;
-extern GlobalObject_0045cf30 g_011c4098;
+extern GlobalObject_0045cf30 bFileNeededMessage_TestAllCells;
+extern GlobalObject_0045cf30 bFileShowTextures_TestAllCells;
+extern GlobalObject_0045cf30 bFileUnusedObject_TestAllCells;
+extern GlobalObject_0045cf30 bFileCheckModelCollision_TestAllCells;
+extern GlobalObject_0045cf30 bFileSkipModelChecks_TestAllCells;
+extern GlobalObject_0045cf30 bKeepPluginWhenMerging_General;
 extern GlobalObject_00479190 g_011c4104;
 extern GlobalObject_00a2e180 g_011c4168;
 extern GlobalObject_00a2e180 g_011c4c04;
-extern GlobalObject_0045cf30 g_011c4c64;
+extern GlobalObject_0045cf30 bAnimateDoorPhysics_General;
 extern GlobalObject_00a2e180 g_011c4ca4;
 extern GlobalObject_00a2e180 g_011c4d24;
 extern GlobalObject_0040c150 g_011c4d6c;
@@ -5466,244 +6310,244 @@ extern GlobalObject_0040c150 g_011c5284;
 extern GlobalObject_00a2e180 g_011c52c1;
 extern GlobalObject_0040e0b0 g_011c52e4;
 extern GlobalObject_0040e0b0 g_011c52fc;
-extern GlobalObject_0045cf30 g_011c5348;
+extern GlobalObject_0045cf30 bFixAIPackagesOnLoad_General;
 extern GlobalObject_00a2e180 g_011c5400;
 extern GlobalObject_00a2e180 g_011c5478;
 extern GlobalObject_004037b0 g_011c5498;
-extern GlobalObject_0045cf30 g_011c555c;
-extern GlobalObject_0045cf30 g_011c5574;
+extern GlobalObject_0045cf30 bWarnOnMissingFileEntry_General;
+extern GlobalObject_0045cf30 bUseOptimizedTextureLoading_General;
 extern GlobalObject_00a2e180 g_011c567c;
-extern GlobalObject_0044f440 g_011c56fc;
-extern GlobalObject_0044f440 g_011c5724;
-extern GlobalObject_0045cf30 g_011c5734;
-extern GlobalObject_0044f440 g_011c5740;
-extern GlobalObject_0045cf30 g_011c5750;
-extern GlobalObject_0045cfe0 g_011c5778;
+extern GlobalObject_0044f440 fAnimationDefaultBlend_General;
+extern GlobalObject_0044f440 fAnimationMult_General;
+extern GlobalObject_0045cf30 bClampWarning_AnimationWarning;
+extern GlobalObject_0044f440 fMenuModeAnimBlend_Interface;
+extern GlobalObject_0045cf30 bPriorityWarning_AnimationWarning;
+extern GlobalObject_0045cfe0 iAnimationClonePerLoop_BackgroundLoad;
 extern GlobalObject_00a2e180 g_011c5790;
-extern GlobalObject_004a4a40 g_011c57fc;
-extern GlobalObject_0045cf30 g_011c5834;
-extern GlobalObject_004a4a40 g_011c5858;
-extern GlobalObject_0044f440 g_011c5874;
-extern GlobalObject_0045cf30 g_011c5884;
-extern GlobalObject_004a4a40 g_011c5890;
-extern GlobalObject_0045cfe0 g_011c589c;
-extern GlobalObject_0045cf30 g_011c58a8;
-extern GlobalObject_0045cf30 g_011c58bc;
-extern GlobalObject_0045cf30 g_011c58d0;
+extern GlobalObject_004a4a40 uMaxDecals_Decals;
+extern GlobalObject_0045cf30 bDecals_Decals;
+extern GlobalObject_004a4a40 iMaxSkinDecalsPerFrame_Display;
+extern GlobalObject_0044f440 fDecalLifetime_Display;
+extern GlobalObject_0045cf30 bProfileDecals_Decals;
+extern GlobalObject_004a4a40 iMaxDecalsPerFrame_Display;
+extern GlobalObject_0045cfe0 uMaxSkinDecalPerActor_Decals;
+extern GlobalObject_0045cf30 bDecalOcclusionQuery_Decals;
+extern GlobalObject_0045cf30 bSkinnedDecals_Decals;
+extern GlobalObject_0045cf30 bDecalMultithreaded_Decals;
 extern GlobalObject_00633c90 g_011c58e0;
-extern GlobalObject_0045cfe0 g_011c58e4;
-extern GlobalObject_0045cf30 g_011c5904;
+extern GlobalObject_0045cfe0 uMaxSkinDecals_Decals;
+extern GlobalObject_0045cf30 bDebugDecals_Decals;
 extern GlobalObject_00a2e180 g_011c5910;
-extern GlobalObject_0045cfe0 g_011c5954;
-extern GlobalObject_0044f440 g_011c5968;
-extern GlobalObject_0045cf30 g_011c5978;
-extern GlobalObject_0045cfe0 g_011c5984;
-extern GlobalObject_0045cfe0 g_011c5994;
-extern GlobalObject_0045cfe0 g_011c59a0;
-extern GlobalObject_0044f440 g_011c59ac;
-extern GlobalObject_0045cfe0 g_011c59b8;
-extern GlobalObject_0044f440 g_011c59cc;
-extern GlobalObject_0045cfe0 g_011c59ec;
-extern GlobalObject_0044f440 g_011c59f8;
-extern GlobalObject_0044f440 g_011c5a04;
-extern GlobalObject_0045cfe0 g_011c5a10;
-extern GlobalObject_0045cfe0 g_011c5a1c;
-extern GlobalObject_0044f440 g_011c5a2c;
-extern GlobalObject_0045cfe0 g_011c5a40;
-extern GlobalObject_0045cfe0 g_011c5a58;
-extern GlobalObject_0045cfe0 g_011c5a64;
+extern GlobalObject_0045cfe0 uGeometryCountInterior_BudgetCaps;
+extern GlobalObject_0044f440 fMsAnimatedObjectsCount_BudgetCaps;
+extern GlobalObject_0045cf30 bIncludeWaterInMNumberCalculations_BudgetCaps;
+extern GlobalObject_0045cfe0 uAnimatedObjectsCountInterior_BudgetCaps;
+extern GlobalObject_0045cfe0 uHavokTriCountInterior_BudgetCaps;
+extern GlobalObject_0045cfe0 uHavokTriCount_BudgetCaps;
+extern GlobalObject_0044f440 fMsEmittersCount_BudgetCaps;
+extern GlobalObject_0045cfe0 uDecalCountInterior_BudgetCaps;
+extern GlobalObject_0044f440 fMsLightCount_BudgetCaps;
+extern GlobalObject_0045cfe0 uTriangleCount_BudgetCaps;
+extern GlobalObject_0044f440 fMsLightExcessGeometry_BudgetCaps;
+extern GlobalObject_0044f440 fMsParticlesCount_BudgetCaps;
+extern GlobalObject_0045cfe0 uWaterCount_BudgetCaps;
+extern GlobalObject_0045cfe0 uRefCount_BudgetCaps;
+extern GlobalObject_0044f440 fMsActorRefCount_BudgetCaps;
+extern GlobalObject_0045cfe0 uActorRefCount_BudgetCaps;
+extern GlobalObject_0045cfe0 uGeometryCount_BudgetCaps;
+extern GlobalObject_0045cfe0 uEmittersCount_BudgetCaps;
 extern GlobalObject_004aa020 g_011c5a70;
-extern GlobalObject_0045cfe0 g_011c5a84;
-extern GlobalObject_0045cfe0 g_011c5a90;
-extern GlobalObject_0045cfe0 g_011c5a9c;
-extern GlobalObject_0044f440 g_011c5aa8;
+extern GlobalObject_0045cfe0 uActiveRefCountInterior_BudgetCaps;
+extern GlobalObject_0045cfe0 uLightExcessGeometry_BudgetCaps;
+extern GlobalObject_0045cfe0 uTriangleCountInterior_BudgetCaps;
+extern GlobalObject_0044f440 fMsTriangleCount_BudgetCaps;
 extern GlobalObject_004a9d80 g_011c5ab4;
-extern GlobalObject_0045cfe0 g_011c5ac4;
+extern GlobalObject_0045cfe0 uWaterCountInterior_BudgetCaps;
 extern GlobalObject_004aa1b0 g_011c5ad0;
-extern GlobalObject_0045cfe0 g_011c5ae0;
-extern GlobalObject_0045cfe0 g_011c5af0;
-extern GlobalObject_0045cfe0 g_011c5afc;
-extern GlobalObject_0045cfe0 g_011c5b08;
-extern GlobalObject_0044f440 g_011c5b14;
-extern GlobalObject_0045cfe0 g_011c5b20;
-extern GlobalObject_0045cfe0 g_011c5b3c;
-extern GlobalObject_0045cfe0 g_011c5b5c;
-extern GlobalObject_0044f440 g_011c5b68;
-extern GlobalObject_0044f440 g_011c5b74;
-extern GlobalObject_0045cfe0 g_011c5b80;
-extern GlobalObject_0045cfe0 g_011c5b8c;
-extern GlobalObject_0045cfe0 g_011c5ba0;
-extern GlobalObject_0044f440 g_011c5bb0;
-extern GlobalObject_0045cfe0 g_011c5bcc;
-extern GlobalObject_0045cfe0 g_011c5bdc;
+extern GlobalObject_0045cfe0 uWastelandLODBudgetAdjustment_BudgetCaps;
+extern GlobalObject_0045cfe0 uActiveRefCount_BudgetCaps;
+extern GlobalObject_0045cfe0 uRefCountInterior_BudgetCaps;
+extern GlobalObject_0045cfe0 uEmittersCountInterior_BudgetCaps;
+extern GlobalObject_0044f440 fMsActiveRefCount_BudgetCaps;
+extern GlobalObject_0045cfe0 uLoadedAreaNonActorMemoryBudgetCap_BudgetCaps;
+extern GlobalObject_0045cfe0 uParticlesCount_BudgetCaps;
+extern GlobalObject_0045cfe0 uTextureMemory_BudgetCaps;
+extern GlobalObject_0044f440 fMsHavokTriCount_BudgetCaps;
+extern GlobalObject_0044f440 fMaxMsUsagePerFrame_BudgetCaps;
+extern GlobalObject_0045cfe0 uLightCount_BudgetCaps;
+extern GlobalObject_0045cfe0 uParticlesCountInterior_BudgetCaps;
+extern GlobalObject_0045cfe0 uLightExcessGeometryInterior_BudgetCaps;
+extern GlobalObject_0044f440 fMsRefCount_BudgetCaps;
+extern GlobalObject_0045cfe0 uLightCountInterior_BudgetCaps;
+extern GlobalObject_0045cfe0 uDecalCount_BudgetCaps;
 extern GlobalObject_004a9e90 g_011c5be8;
-extern GlobalObject_0045cfe0 g_011c5bf8;
-extern GlobalObject_0044f440 g_011c5c10;
+extern GlobalObject_0045cfe0 uActorRefCountInterior_BudgetCaps;
+extern GlobalObject_0044f440 fMsDecalCount_BudgetCaps;
 extern GlobalObject_00a2e180 g_011c5c1c;
-extern GlobalObject_0045cfe0 g_011c5c24;
-extern GlobalObject_0044f440 g_011c5c34;
+extern GlobalObject_0045cfe0 uAnimatedObjectsCount_BudgetCaps;
+extern GlobalObject_0044f440 fMsGeometryCount_BudgetCaps;
 extern GlobalObject_004a9bf0 g_011c5c40;
-extern GlobalObject_0045cfe0 g_011c5c60;
-extern GlobalObject_0044f440 g_011c5c70;
+extern GlobalObject_0045cfe0 uTextureMemoryInterior_BudgetCaps;
+extern GlobalObject_0044f440 fMsWaterCount_BudgetCaps;
 extern GlobalObject_00a2e180 g_011c5cb5;
 extern GlobalObject_0040c150 g_011c5cc8;
 extern GlobalObject_0044fae0 g_011c5cf0;
-extern GlobalObject_0045cf30 g_011c5ef0;
+extern GlobalObject_0045cf30 bLoadHelmetsInBackground_BackgroundLoad;
 extern GlobalObject_00c3bcf0 g_011c5f68;
 extern GlobalObject_0096a2d0 g_011c5f80;
-extern GlobalObject_0044f440 g_011c629c;
-extern GlobalObject_0044f440 g_011c62a8;
-extern GlobalObject_0044f440 g_011c62c0;
-extern GlobalObject_0044f440 g_011c62fc;
+extern GlobalObject_0044f440 fSD_HAVOK;
+extern GlobalObject_0044f440 fOD_HAVOK;
+extern GlobalObject_0044f440 fSE_HAVOK;
+extern GlobalObject_0044f440 fRF_HAVOK;
 extern GlobalObject_00a2e180 g_011c6308;
-extern GlobalObject_0045cfe0 g_011c63cc;
+extern GlobalObject_0045cfe0 uGridsToLoad_General;
 extern GlobalObject_00a2e180 g_011c6414;
 extern GlobalObject_00a2e180 g_011c64c0;
 extern GlobalObject_0096a2d0 g_011c64e0;
-extern GlobalObject_0044f440 g_011c651c;
-extern GlobalObject_0044f440 g_011c6528;
-extern GlobalObject_0044f440 g_011c6534;
+extern GlobalObject_0044f440 fDialogueHeadYawExaggeration_Audio;
+extern GlobalObject_0044f440 fDialogueHeadPitchExaggeration_Audio;
+extern GlobalObject_0044f440 fDialogueHeadRollExaggeration_Audio;
 extern GlobalObject_004d5c80 g_011c6e04;
 extern GlobalObject_00a2e180 g_011c6f78;
 extern GlobalObject_00a2e180 g_011c70f9;
-extern GlobalObject_0045cfe0 g_011c7100;
-extern GlobalObject_0045cf30 g_011c710c;
-extern GlobalObject_0045cf30 g_011c711c;
-extern GlobalObject_0045cf30 g_011c712c;
+extern GlobalObject_0045cfe0 iNPatches_Display;
+extern GlobalObject_0045cf30 bMTRendering_Display;
+extern GlobalObject_0045cf30 bDynamicWindowReflections_Display;
+extern GlobalObject_0045cf30 bDoSpecularPass_Display;
 extern GlobalObject_0045cf30 g_011c7138;
-extern GlobalObject_0044f440 g_011c7148;
-extern GlobalObject_0045cf30 g_011c7154;
+extern GlobalObject_0044f440 fUpperLUMClamp_BlurShaderHDRInterior;
+extern GlobalObject_0045cf30 bDoAmbientPass_Display;
 extern GlobalObject_0044f440 g_011c7160;
-extern GlobalObject_0044f440 g_011c7170;
-extern GlobalObject_0045cf30 g_011c7180;
+extern GlobalObject_0044f440 fSunlightDimmer_BlurShader;
+extern GlobalObject_0045cf30 bDoTexturePass_Display;
 extern GlobalObject_004a4a40 g_011c718c;
-extern GlobalObject_0045cfe0 g_011c71a0;
-extern GlobalObject_004de370 g_011c71ac;
-extern GlobalObject_0044f440 g_011c71b8;
-extern GlobalObject_0045cf30 g_011c71c4;
-extern GlobalObject_0044f440 g_011c71d0;
-extern GlobalObject_0045cf30 g_011c71dc;
-extern GlobalObject_0044f440 g_011c71e8;
-extern GlobalObject_0044f440 g_011c71f4;
-extern GlobalObject_0044f440 g_011c7200;
-extern GlobalObject_0044f440 g_011c720c;
-extern GlobalObject_0045cf30 g_011c7218;
-extern GlobalObject_0045cf30 g_011c7224;
-extern GlobalObject_0044f440 g_011c7230;
-extern GlobalObject_0045cfe0 g_011c723c;
-extern GlobalObject_0045cf30 g_011c7248;
-extern GlobalObject_004a4a40 g_011c7254;
-extern GlobalObject_0044f440 g_011c7260;
+extern GlobalObject_0045cfe0 iBlendType_BlurShaderHDR;
+extern GlobalObject_004de370 fGamma_Display;
+extern GlobalObject_0044f440 fShadowLODMaxStartFade_Display;
+extern GlobalObject_0045cf30 bDoTallGrassEffect_Display;
+extern GlobalObject_0044f440 fSpecularLODMaxStartFade_Display;
+extern GlobalObject_0045cf30 bShadowsOnGrass_Display;
+extern GlobalObject_0044f440 fTargetLUM_BlurShaderHDR;
+extern GlobalObject_0044f440 fAlphaAddExterior_BlurShader;
+extern GlobalObject_0044f440 fBrightClamp_BlurShaderHDR;
+extern GlobalObject_0044f440 fEyeAdaptSpeed_BlurShaderHDRInterior;
+extern GlobalObject_0045cf30 bTintMipMaps_General;
+extern GlobalObject_0045cf30 bEquippedTorchesCastShadows_Display;
+extern GlobalObject_0044f440 fBrightScale_BlurShaderHDR;
+extern GlobalObject_0045cfe0 iBlendType_BlurShader;
+extern GlobalObject_0045cf30 bForceMultiPass_Display;
+extern GlobalObject_004a4a40 iTexMipMapMinimum_Display;
+extern GlobalObject_0044f440 fEyeAdaptSpeed_BlurShaderHDR;
 extern GlobalObject_0045cf30 g_011c726c;
-extern GlobalObject_0044f440 g_011c7278;
-extern GlobalObject_004a4a40 g_011c7284;
-extern GlobalObject_0044f440 g_011c7294;
-extern GlobalObject_0044f440 g_011c72a0;
-extern GlobalObject_0044f440 g_011c72ac;
+extern GlobalObject_0044f440 fShadowLODDefaultStartFade_Display;
+extern GlobalObject_004a4a40 iWaterMultiSamples_Display;
+extern GlobalObject_0044f440 fShadowLODMinStartFade_Display;
+extern GlobalObject_0044f440 fSunBrightness_BlurShader;
+extern GlobalObject_0044f440 fLightLODMinStartFade_Display;
 extern GlobalObject_0045d060 g_011c72cc;
-extern GlobalObject_004a4a40 g_011c72d8;
-extern GlobalObject_004a4a40 g_011c72e4;
+extern GlobalObject_004a4a40 iActorShadowCountInt_Display;
+extern GlobalObject_004a4a40 iActorShadowCountExt_Display;
 extern GlobalObject_0044f440 g_011c72f0;
 extern GlobalObject_0044f440 g_011c72fc;
 extern GlobalObject_004de2f0 g_011c7308;
-extern GlobalObject_0044f440 g_011c7314;
+extern GlobalObject_0044f440 fSISpecularMult_BlurShader;
 extern GlobalObject_0045cfe0 g_011c7320;
-extern GlobalObject_0045cf30 g_011c732c;
-extern GlobalObject_0044f440 g_011c7338;
+extern GlobalObject_0045cf30 bIgnoreResolutionCheck_Display;
+extern GlobalObject_0044f440 fBlurAmmount_GethitShader;
 extern GlobalObject_0044f440 g_011c7344;
-extern GlobalObject_0044f440 g_011c7350;
-extern GlobalObject_0044f440 g_011c735c;
-extern GlobalObject_0045cf30 g_011c7368;
+extern GlobalObject_0044f440 fBlockedTexOffset_GethitShader;
+extern GlobalObject_0044f440 fShadowFadeTime_Display;
+extern GlobalObject_0045cf30 bDoActorShadows_Display;
 extern GlobalObject_0044f440 g_011c7374;
-extern GlobalObject_0045cf30 g_011c7380;
-extern GlobalObject_004a4a40 g_011c738c;
-extern GlobalObject_0045cfe0 g_011c7398;
+extern GlobalObject_0045cf30 bDoStaticAndArchShadows_Display;
+extern GlobalObject_004a4a40 iAdapter_Display;
+extern GlobalObject_0045cfe0 iNumBlurpasses_BlurShaderHDR;
 extern GlobalObject_0045cf30 g_011c73a4;
 extern GlobalObject_00633c90 g_011c73b4;
-extern GlobalObject_0045cfe0 g_011c73b8;
-extern GlobalObject_0044f440 g_011c73c4;
-extern GlobalObject_0044f440 g_011c73d0;
+extern GlobalObject_0045cfe0 iNumBlurpasses_BlurShader;
+extern GlobalObject_0044f440 fTargetLUM_BlurShaderHDRInterior;
+extern GlobalObject_0044f440 fInterfaceTintB_Interface;
 extern GlobalObject_004a4a40 g_011c73dc;
 extern GlobalObject_0044f440 g_011c73e8;
-extern GlobalObject_004a4a40 g_011c73f4;
-extern GlobalObject_0044f440 g_011c7400;
-extern GlobalObject_0045cfe0 g_011c740c;
-extern GlobalObject_0045cf30 g_011c7418;
+extern GlobalObject_004a4a40 iMultiSample_Display;
+extern GlobalObject_0044f440 fShadowLODRange_Display;
+extern GlobalObject_0045cfe0 iBlurTexSize_BlurShader;
+extern GlobalObject_0045cf30 bAllowScreenShot_Display;
 extern GlobalObject_0045d060 g_011c7428;
-extern GlobalObject_0045cfe0 g_011c7434;
-extern GlobalObject_0044f440 g_011c7440;
-extern GlobalObject_0044f440 g_011c744c;
-extern GlobalObject_0044f440 g_011c7458;
-extern GlobalObject_0044f440 g_011c7464;
-extern GlobalObject_0045cfe0 g_011c7470;
-extern GlobalObject_0045cf30 g_011c747c;
-extern GlobalObject_0044f440 g_011c7488;
-extern GlobalObject_0044f440 g_011c7494;
-extern GlobalObject_0044f440 g_011c74a0;
-extern GlobalObject_0044f440 g_011c74ac;
-extern GlobalObject_0044f440 g_011c74c4;
-extern GlobalObject_004de2f0 g_011c74d4;
+extern GlobalObject_0045cfe0 iNumBlurpasses_BlurShaderHDRInterior;
+extern GlobalObject_0044f440 fSpecularLODMinStartFade_Display;
+extern GlobalObject_0044f440 fLightLODDefaultStartFade_Display;
+extern GlobalObject_0044f440 fSISpecularMult_BlurShaderHDR;
+extern GlobalObject_0044f440 fLODNoiseMipBias_Display;
+extern GlobalObject_0045cfe0 iNPatchPOrder_Display;
+extern GlobalObject_0045cf30 bUseResolvableDepth_Display;
+extern GlobalObject_0044f440 fSunlightDimmer_BlurShaderHDR;
+extern GlobalObject_0044f440 fSpecularLODDefaultStartFade_Display;
+extern GlobalObject_0044f440 fSIEmmisiveMult_BlurShaderHDR;
+extern GlobalObject_0044f440 fBrightScale_BlurShaderHDRInterior;
+extern GlobalObject_0044f440 fBlurRadius_BlurShaderHDR;
+extern GlobalObject_004de2f0 bDrawShadows_Display;
 extern GlobalObject_0045cf30 g_011c74e0;
-extern GlobalObject_0044f440 g_011c74ec;
-extern GlobalObject_0044f440 g_011c74f8;
-extern GlobalObject_0045cf30 g_011c7504;
-extern GlobalObject_0044f440 g_011c7510;
-extern GlobalObject_004a4a40 g_011c7520;
-extern GlobalObject_004a4a40 g_011c752c;
+extern GlobalObject_0044f440 fLightLODMaxStartFade_Display;
+extern GlobalObject_0044f440 fAlphaAddInterior_BlurShader;
+extern GlobalObject_0045cf30 bUseRefractionShader_Display;
+extern GlobalObject_0044f440 fGrassDimmer_BlurShaderHDR;
+extern GlobalObject_004a4a40 iShadowMapResolution_Display;
+extern GlobalObject_004a4a40 iShadowMode_Display;
 extern GlobalObject_0045cf30 g_011c7538;
-extern GlobalObject_0045cf30 g_011c7544;
-extern GlobalObject_0045cf30 g_011c7550;
-extern GlobalObject_0044f440 g_011c755c;
-extern GlobalObject_0044f440 g_011c7574;
+extern GlobalObject_0045cf30 bDoDiffusePass_Display;
+extern GlobalObject_0045cf30 bStaticMenuBackground_Display;
+extern GlobalObject_0044f440 fEmissiveHDRMult_BlurShaderHDRInterior;
+extern GlobalObject_0044f440 fTreeDimmer_BlurShaderHDR;
 extern GlobalObject_0044f440 g_011c7588;
-extern GlobalObject_0045cf30 g_011c75a4;
-extern GlobalObject_0045cf30 g_011c75b0;
-extern GlobalObject_0044f440 g_011c75bc;
+extern GlobalObject_0045cf30 bDoCanopyShadowPass_Display;
+extern GlobalObject_0045cf30 bUseFakeFullScreenMotionBlur_Display;
+extern GlobalObject_0044f440 fSkyBrightness_BlurShaderHDR;
 extern GlobalObject_0045cfe0 g_011c75c8;
 extern GlobalObject_0045cfe0 g_011c75d4;
-extern GlobalObject_0044f440 g_011c75e0;
-extern GlobalObject_0045cfe0 g_011c75ec;
-extern GlobalObject_0044f440 g_011c75f8;
+extern GlobalObject_0044f440 fLandLOFadeSeconds_Display;
+extern GlobalObject_0045cfe0 iNPatchNOrder_Display;
+extern GlobalObject_0044f440 fInterfaceTintR_Interface;
 extern GlobalObject_0045cfe0 g_011c7604;
-extern GlobalObject_0045cf30 g_011c7610;
-extern GlobalObject_0044f440 g_011c761c;
-extern GlobalObject_0045cfe0 g_011c7628;
-extern GlobalObject_0044f440 g_011c7634;
+extern GlobalObject_0045cf30 bCreateShaderPackage_General;
+extern GlobalObject_0044f440 fBlurRadius_BlurShader;
+extern GlobalObject_0045cfe0 iPresentInterval_Display;
+extern GlobalObject_0044f440 fSpecularLODRange_Display;
 extern GlobalObject_0045cfe0 g_011c7640;
 extern GlobalObject_0045cfe0 g_011c7654;
-extern GlobalObject_0045cf30 g_011c7664;
-extern GlobalObject_0045cf30 g_011c7670;
-extern GlobalObject_004a4a40 g_011c7680;
-extern GlobalObject_0044f440 g_011c768c;
-extern GlobalObject_0044f440 g_011c7698;
-extern GlobalObject_0044f440 g_011c76a4;
-extern GlobalObject_0044f440 g_011c76b4;
-extern GlobalObject_004de2f0 g_011c76c0;
-extern GlobalObject_004a4a40 g_011c76cc;
-extern GlobalObject_0044f440 g_011c76d8;
-extern GlobalObject_0044f440 g_011c76e8;
-extern GlobalObject_0045cf30 g_011c76f8;
-extern GlobalObject_0045cf30 g_011c7704;
-extern GlobalObject_0044f440 g_011c7710;
-extern GlobalObject_004de2f0 g_011c771c;
+extern GlobalObject_0045cf30 bActorSelfShadowing_Display;
+extern GlobalObject_0045cf30 bReportBadTangentSpace_Display;
+extern GlobalObject_004a4a40 iWaterReflectHeight_Water;
+extern GlobalObject_0044f440 fSIEmmisiveMult_BlurShader;
+extern GlobalObject_0044f440 fEmissiveHDRMult_BlurShaderHDR;
+extern GlobalObject_0044f440 fBrightClamp_BlurShaderHDRInterior;
+extern GlobalObject_0044f440 fLightLODRange_Display;
+extern GlobalObject_004de2f0 bDoHighDynamicRange_BlurShaderHDR;
+extern GlobalObject_004a4a40 iShadowFilter_Display;
+extern GlobalObject_0044f440 fUpperLUMClamp_BlurShaderHDR;
+extern GlobalObject_0044f440 fBlurRadius_BlurShaderHDRInterior;
+extern GlobalObject_0045cf30 bDecalsOnSkinnedGeometry_Display;
+extern GlobalObject_0045cf30 bAllowPartialPrecision_Display;
+extern GlobalObject_0044f440 fHitTexOffset_GethitShader;
+extern GlobalObject_004de2f0 bEnableEyefinity_Display;
 extern GlobalObject_0044fae0 g_011c7728;
-extern GlobalObject_0044f440 g_011c774c;
-extern GlobalObject_0044f440 g_011c7758;
-extern GlobalObject_004de2f0 g_011c7768;
-extern GlobalObject_0045cf30 g_011c7774;
-extern GlobalObject_004a4a40 g_011c7784;
-extern GlobalObject_004de2f0 g_011c7790;
-extern GlobalObject_004a4a40 g_011c779c;
+extern GlobalObject_0044f440 fSkyBrightness_BlurShader;
+extern GlobalObject_0044f440 fSunBrightness_BlurShaderHDR;
+extern GlobalObject_004de2f0 bUseBlurShader_BlurShader;
+extern GlobalObject_0045cf30 bLODNoiseAniso_Display;
+extern GlobalObject_004a4a40 iWaterReflectWidth_Water;
+extern GlobalObject_004de2f0 bTransparencyMultisampling_Display;
+extern GlobalObject_004a4a40 iTexMipMapSkip_Display;
 extern GlobalObject_0044f440 g_011c77a8;
 extern GlobalObject_004de2f0 g_011c77b4;
-extern GlobalObject_0044f440 g_011c77cc;
-extern GlobalObject_0045cf30 g_011c77f4;
+extern GlobalObject_0044f440 fInterfaceTintG_Interface;
+extern GlobalObject_0045cf30 bCustomSplatterEnabled_ScreenSplatter;
 extern GlobalObject_00633c90 g_011c7810;
 extern GlobalObject_00633c90 g_011c781c;
 extern GlobalObject_00a7b610 g_011c7820;
 extern GlobalObject_00633c90 g_011c7840;
 extern GlobalObject_00a7b610 g_011c7844;
-extern GlobalObject_0045cf30 g_011c784c;
+extern GlobalObject_0045cf30 bBloodSplatterEnabled_ScreenSplatter;
 extern GlobalObject_00633c90 g_011c786c;
 extern GlobalObject_0040c150 g_011c7874;
 extern GlobalObject_0040c150 g_011c7880;
@@ -5743,56 +6587,56 @@ extern GlobalObject_0040c150 g_011c7a0c;
 extern GlobalObject_0040c150 g_011c7a18;
 extern GlobalObject_0040c150 g_011c7a24;
 extern GlobalObject_0040c150 g_011c7a30;
-extern GlobalObject_0044f440 g_011c7a7c;
-extern GlobalObject_004de2f0 g_011c7a90;
-extern GlobalObject_0045cfe0 g_011c7a9c;
-extern GlobalObject_0045cf30 g_011c7aa8;
-extern GlobalObject_0044f440 g_011c7ab8;
-extern GlobalObject_004de2f0 g_011c7ac4;
+extern GlobalObject_0044f440 fWaterGroupHeightRange_Water;
+extern GlobalObject_004de2f0 bAutoWaterSilhouetteReflections_Water;
+extern GlobalObject_0045cfe0 uSurfaceFPS_Water;
+extern GlobalObject_0045cf30 bForceLowDetailReflections_Water;
+extern GlobalObject_0044f440 fExteriorWaterReflectionThreshold_Water;
+extern GlobalObject_004de2f0 bUseWaterDisplacements_Water;
 extern GlobalObject_00633c90 g_011c7ad4;
-extern GlobalObject_0045cf30 g_011c7adc;
-extern GlobalObject_0045cf30 g_011c7ae8;
-extern GlobalObject_0045cfe0 g_011c7afc;
+extern GlobalObject_0045cf30 bUseWater_Water;
+extern GlobalObject_0045cf30 bReflectExplosions_Water;
+extern GlobalObject_0045cfe0 uMaxInteriorWaterReflections_Water;
 extern GlobalObject_0045cf30 g_011c7b08;
-extern GlobalObject_0044f440 g_011c7b14;
-extern GlobalObject_0045cf30 g_011c7b20;
-extern GlobalObject_0045cfe0 g_011c7b2c;
+extern GlobalObject_0044f440 fSurfaceTileSize_Water;
+extern GlobalObject_0045cf30 bUseWaterShader_Water;
+extern GlobalObject_0045cfe0 uNearWaterRadius_Water;
 extern GlobalObject_00633c90 g_011c7b44;
-extern GlobalObject_0045cf30 g_011c7b48;
-extern GlobalObject_0044f440 g_011c7b54;
+extern GlobalObject_0045cf30 bUseWaterHiRes_Water;
+extern GlobalObject_0044f440 fWadingWaterQuadSize_Water;
 extern GlobalObject_00633c90 g_011c7b64;
 extern GlobalObject_00633c90 g_011c7b68;
-extern GlobalObject_004de2f0 g_011c7b6c;
+extern GlobalObject_004de2f0 bUseWaterReflections_Water;
 extern GlobalObject_0045d260 g_011c7b78;
 extern GlobalObject_00a2e180 g_011c7b79;
 extern GlobalObject_0048f200 g_011c7b80;
 extern GlobalObject_0048f200 g_011c7b8c;
-extern GlobalObject_0045cf30 g_011c7b98;
-extern GlobalObject_0044f440 g_011c7ba4;
-extern GlobalObject_0045cfe0 g_011c7bb0;
-extern GlobalObject_004de2f0 g_011c7bbc;
+extern GlobalObject_0045cf30 bUsePerWorldSpaceWaterNoise_Water;
+extern GlobalObject_0044f440 fNearWaterOutdoorTolerance_Water;
+extern GlobalObject_0045cfe0 uNearWaterPoints_Water;
+extern GlobalObject_004de2f0 bUseWaterDepth_Water;
 extern GlobalObject_0048f200 g_011c7bcc;
-extern GlobalObject_0044f440 g_011c7bd8;
+extern GlobalObject_0044f440 fNearWaterIndoorTolerance_Water;
 extern GlobalObject_00633c90 g_011c7be8;
-extern GlobalObject_0045cfe0 g_011c7bec;
-extern GlobalObject_004de2f0 g_011c7c00;
-extern GlobalObject_0044f440 g_011c7c10;
-extern GlobalObject_004a4a40 g_011c7c1c;
+extern GlobalObject_0045cfe0 uMaxExteriorWaterReflections_Water;
+extern GlobalObject_004de2f0 bForceHighDetailReflections_Water;
+extern GlobalObject_0044f440 fRefractionWaterPlaneBias_Water;
+extern GlobalObject_004a4a40 iWaterBlurAmount_Water;
 extern GlobalObject_00633c90 g_011c7c28;
 extern GlobalObject_00633c90 g_011c7c2c;
 extern GlobalObject_0048f200 g_011c7c30;
-extern GlobalObject_0044f440 g_011c7c3c;
-extern GlobalObject_004de2f0 g_011c7c48;
-extern GlobalObject_0045cf30 g_011c7c54;
-extern GlobalObject_004de2f0 g_011c7c60;
-extern GlobalObject_0044f440 g_011c7c6c;
-extern GlobalObject_0045cf30 g_011c7c80;
-extern GlobalObject_0044f440 g_011c7ca4;
+extern GlobalObject_0044f440 fInteriorWaterReflectionThreshold_Water;
+extern GlobalObject_004de2f0 bUseWaterReflectionBlur_Water;
+extern GlobalObject_0045cf30 bUseWaterLOD_Water;
+extern GlobalObject_004de2f0 bUseWaterRefractions_Water;
+extern GlobalObject_0044f440 fNearWaterUnderwaterFreq_Water;
+extern GlobalObject_0045cf30 bUseBulletWaterDisplacements_Water;
+extern GlobalObject_0044f440 fWadingWaterTextureRes_Water;
 extern GlobalObject_00633c90 g_011c7cb8;
 extern GlobalObject_00633c90 g_011c7cbc;
-extern GlobalObject_0045cf30 g_011c7cc0;
-extern GlobalObject_0044f440 g_011c7ccc;
-extern GlobalObject_0044f440 g_011c7cd8;
+extern GlobalObject_0045cf30 bForceHighDetailLandReflections_Water;
+extern GlobalObject_0044f440 fTileTextureDivisor_Water;
+extern GlobalObject_0044f440 fNearWaterUnderwaterVolume_Water;
 extern GlobalObject_0048f200 g_011c7ce4;
 extern GlobalObject_00a7b610 g_011c7d34;
 extern GlobalObject_00a7b610 g_011c7d74;
@@ -5985,23 +6829,23 @@ extern GlobalObject_0040e0b0 g_011c8d88;
 extern GlobalObject_0040e0b0 g_011c8d94;
 extern GlobalObject_0040e0b0 g_011c8da0;
 extern GlobalObject_0040e0b0 g_011c8dac;
-extern GlobalObject_0044f440 g_011c8dcc;
+extern GlobalObject_0044f440 fWaveOffsetRange_Grass;
 extern GlobalObject_00a2e180 g_011c8e4c;
 extern GlobalObject_00a2e180 g_011c8ec8;
 extern GlobalObject_00a2e180 g_011c8f80;
 extern GlobalObject_00a2e180 g_011c8fa2;
-extern GlobalObject_0044f440 g_011c8fb0;
-extern GlobalObject_0045cf30 g_011c8fc0;
-extern GlobalObject_0044f440 g_011c8fcc;
-extern GlobalObject_0045cf30 g_011c8ff0;
-extern GlobalObject_0044f440 g_011c9000;
-extern GlobalObject_0045cf30 g_011c9028;
-extern GlobalObject_0044f440 g_011c9040;
-extern GlobalObject_0045cfe0 g_011c9054;
-extern GlobalObject_0045cf30 g_011c9060;
-extern GlobalObject_0044f440 g_011c906c;
-extern GlobalObject_0045cfe0 g_011c907c;
-extern GlobalObject_0044f440 g_011c908c;
+extern GlobalObject_0044f440 fLinearRadiusMult_bLightAttenuation;
+extern GlobalObject_0045cf30 bOutQuadInLin_bLightAttenuation;
+extern GlobalObject_0044f440 fFlickerMovement_bLightAttenuation;
+extern GlobalObject_0045cf30 bUseLinear_bLightAttenuation;
+extern GlobalObject_0044f440 fConstantValue_bLightAttenuation;
+extern GlobalObject_0045cf30 bUseQuadratic_bLightAttenuation;
+extern GlobalObject_0044f440 fQuadraticValue_bLightAttenuation;
+extern GlobalObject_0045cfe0 uLinearMethod_bLightAttenuation;
+extern GlobalObject_0045cf30 bUseConstant_bLightAttenuation;
+extern GlobalObject_0044f440 fQuadraticRadiusMult_bLightAttenuation;
+extern GlobalObject_0045cfe0 uQuadraticMethod_bLightAttenuation;
+extern GlobalObject_0044f440 fLinearValue_bLightAttenuation;
 extern GlobalObject_00a2e180 g_011c910c;
 extern GlobalObject_00a2e180 g_011c9190;
 extern GlobalObject_0040c150 g_011c91e0;
@@ -6012,61 +6856,61 @@ extern GlobalObject_00a2e180 g_011c92a8;
 extern GlobalObject_00a2e180 g_011c9330;
 extern GlobalObject_00a2e180 g_011c9355;
 extern GlobalObject_0040c150 g_011c9384;
-extern GlobalObject_0045cf30 g_011c94a0;
-extern GlobalObject_0045cf30 g_011c94b0;
-extern GlobalObject_0045cf30 g_011c94d0;
+extern GlobalObject_0045cf30 bLaserSights_Combat;
+extern GlobalObject_0045cf30 bAimSights_Combat;
+extern GlobalObject_0045cf30 bForceNPCsUseAmmo_Combat;
 extern GlobalObject_00a2e180 g_011c94f0;
 extern GlobalObject_00a2e180 g_011c958c;
-extern GlobalObject_0045cf30 g_011c9670;
+extern GlobalObject_0045cf30 bBackgroundCellLoads_BackgroundLoad;
 extern GlobalObject_00a2e180 g_011c9684;
 extern GlobalObject_0052b8f0 g_011c9750;
 extern GlobalObject_00a2e180 g_011c9e9c;
 extern GlobalObject_0045cfe0 g_011c9f20;
-extern GlobalObject_0044f440 g_011c9f2c;
-extern GlobalObject_0044f440 g_011c9f38;
-extern GlobalObject_0045cf30 g_011c9f60;
-extern GlobalObject_0045cfe0 g_011c9f74;
-extern GlobalObject_0045cf30 g_011c9f80;
+extern GlobalObject_0044f440 fLandTextureTilingMult_Landscape;
+extern GlobalObject_0044f440 fTexturePctThreshold_Grass;
+extern GlobalObject_0045cf30 bCurrentCellOnly_Landscape;
+extern GlobalObject_0045cfe0 iMaxGrassTypesPerTexure_Grass;
+extern GlobalObject_0045cf30 bPreventSafetyCheck_Landscape;
 extern GlobalObject_0045cfe0 g_011c9f9c;
 extern GlobalObject_0045cfe0 g_011c9fac;
-extern GlobalObject_0045cfe0 g_011c9fb8;
+extern GlobalObject_0045cfe0 iGrassDensityEvalSize_Grass;
 extern GlobalObject_0045cfe0 g_011c9fc8;
 extern GlobalObject_0045cfe0 g_011c9ff4;
 extern GlobalObject_00633c90 g_011ca000;
 extern GlobalObject_00a2e180 g_011ca010;
 extern GlobalObject_0045cfe0 g_011ca024;
 extern GlobalObject_00a2e180 g_011ca091;
-extern GlobalObject_0045cf30 g_011ca0a8;
+extern GlobalObject_0045cf30 bDefaultCOCPlacement_General;
 extern GlobalObject_00633c90 g_011ca0d8;
 extern GlobalObject_00559cc0 g_011ca0e0;
 extern GlobalObject_00559e50 g_011ca0f4;
-extern GlobalObject_0045cf30 g_011ca118;
+extern GlobalObject_0045cf30 bUseMultibounds_General;
 extern GlobalObject_0040c150 g_011ca130;
 extern GlobalObject_004ee810 g_011ca174;
 extern GlobalObject_0096a2d0 g_011ca1a0;
 extern GlobalObject_0045cf30 g_011ca2dc;
 extern GlobalObject_00559cc0 g_011ca304;
-extern GlobalObject_0045cf30 g_011ca394;
-extern GlobalObject_0045cf30 g_011ca3ac;
+extern GlobalObject_0045cf30 bPreventHavokAddAll_HAVOK;
+extern GlobalObject_0045cf30 bFileControllerOnRoot_TestAllCells;
 extern GlobalObject_006815c0 g_011ca3b8;
 extern GlobalObject_006815c0 g_011ca3d4;
 extern GlobalObject_00a2e180 g_011ca3e0;
-extern GlobalObject_0045cf30 g_011ca3ec;
-extern GlobalObject_0045cf30 g_011ca480;
-extern GlobalObject_0044f440 g_011ca48c;
-extern GlobalObject_0044f440 g_011ca498;
-extern GlobalObject_0044f440 g_011ca4ac;
-extern GlobalObject_0044f440 g_011ca4cc;
-extern GlobalObject_0044f440 g_011ca4d8;
-extern GlobalObject_0045cf30 g_011ca4f0;
+extern GlobalObject_0045cf30 bPreventHavokAddClutter_HAVOK;
+extern GlobalObject_0045cf30 bGrassPointLighting_Grass;
+extern GlobalObject_0044f440 fGrassWindMagnitudeMin_Grass;
+extern GlobalObject_0044f440 fGrassFadeRange_Grass;
+extern GlobalObject_0044f440 fGrassMinStartFadeDistance_Grass;
+extern GlobalObject_0044f440 fGrassDefaultStartFadeDistance_Grass;
+extern GlobalObject_0044f440 fGrassMaxStartFadeDistance_Grass;
+extern GlobalObject_0045cf30 bDrawShaderGrass_Grass;
 extern GlobalObject_00a2e180 g_011ca504;
-extern GlobalObject_0044f440 g_011ca510;
-extern GlobalObject_0045cfe0 g_011ca524;
-extern GlobalObject_0045cfe0 g_011ca570;
+extern GlobalObject_0044f440 fGrassWindMagnitudeMax_Grass;
+extern GlobalObject_0045cfe0 iMinGrassSize_Grass;
+extern GlobalObject_0045cfe0 iWaterNoiseResolution_Water;
 extern GlobalObject_00a2e180 g_011ca5a8;
 extern GlobalObject_0044fae0 g_011ca60c;
-extern GlobalObject_0045cf30 g_011ca62c;
-extern GlobalObject_0045cf30 g_011ca63c;
+extern GlobalObject_0045cf30 bExternalLODDataFiles_General;
+extern GlobalObject_0045cf30 bCheckCellOffsetsOnInit_General;
 extern GlobalObject_00a2e180 g_011ca6c4;
 extern GlobalObject_0040e0b0 g_011ca79c;
 extern GlobalObject_0040e0b0 g_011ca7c0;
@@ -6083,7 +6927,7 @@ extern GlobalObject_0040c150 g_011caaac;
 extern GlobalObject_0040c150 g_011caab8;
 extern GlobalObject_00a2e180 g_011cab25;
 extern GlobalObject_00a2e180 g_011cac48;
-extern GlobalObject_0044f440 g_011cac68;
+extern GlobalObject_0044f440 fQuestScriptDelayTime_MAIN;
 extern GlobalObject_00a2e180 g_011cacf0;
 extern GlobalObject_0044fae0 g_011cacf8;
 extern GlobalObject_00a2e180 g_011cada4;
@@ -6098,7 +6942,7 @@ extern GlobalObject_00a2e180 g_011cb268;
 extern GlobalObject_00a2e180 g_011cb318;
 extern GlobalObject_00a2e180 g_011cb390;
 extern GlobalObject_0040c150 g_011cb3d4;
-extern GlobalObject_0045cf30 g_011cb4d4;
+extern GlobalObject_0045cf30 bShowChallengeUpdates_GamePlay;
 extern GlobalObject_0040c150 g_011cb4f4;
 extern GlobalObject_00a2e180 g_011cb514;
 extern GlobalObject_0040e0b0 g_011cb58c;
@@ -6106,12 +6950,12 @@ extern GlobalObject_00a2e180 g_011cb5e0;
 extern GlobalObject_00a2e180 g_011cb684;
 extern GlobalObject_00a2e180 g_011cb6a9;
 extern GlobalObject_00a2e180 g_011cb79c;
-extern GlobalObject_0045cf30 g_011cb81c;
+extern GlobalObject_0045cf30 bActivateAllQuestScripts_General;
 extern GlobalObject_00a2e180 g_011cb850;
 extern GlobalObject_004037b0 g_011cb8a0;
 extern GlobalObject_00a2e180 g_011cb8d4;
 extern GlobalObject_00a2e180 g_011cb950;
-extern GlobalObject_0045cf30 g_011cb99c;
+extern GlobalObject_0045cf30 bFaceGenTexturing_General;
 extern GlobalObject_00e99300 g_011cb9e4;
 extern GlobalObject_00a2e180 g_011cb9e5;
 extern GlobalObject_0040c150 g_011cba00;
@@ -6186,89 +7030,89 @@ extern GlobalObject_00a2e180 g_011cbf20;
 extern GlobalObject_0044dee0 g_011cc07c;
 extern GlobalObject_00a2e180 g_011cc088;
 extern GlobalObject_00a2e180 g_011cc108;
-extern GlobalObject_0044f440 g_011cc188;
+extern GlobalObject_0044f440 fCameraCasterFadeSittingRadius_HAVOK;
 extern GlobalObject_00a2e180 g_011cc1ac;
-extern GlobalObject_0044f440 g_011cc1d8;
-extern GlobalObject_0044f440 g_011cc270;
+extern GlobalObject_0044f440 fLandFriction_Landscape;
+extern GlobalObject_0044f440 fMinSoundVel_Audio;
 extern GlobalObject_00a2e180 g_011cc290;
-extern GlobalObject_0045cfe0 g_011cc2e8;
+extern GlobalObject_0045cfe0 iSimType_HAVOK;
 extern GlobalObject_00a2e180 g_011cc3a0;
 extern GlobalObject_00a2e180 g_011cc440;
 extern GlobalObject_00a2e180 g_011cc4b8;
 extern GlobalObject_00a2e180 g_011cc530;
 extern GlobalObject_00631850 g_011cc584;
-extern GlobalObject_0045cf30 g_011cc5a8;
+extern GlobalObject_0045cf30 bAutoWaterUsesHavokShapes_HAVOK;
 extern GlobalObject_00a2e180 g_011cc5c8;
-extern GlobalObject_0045cfe0 g_011cc61c;
-extern GlobalObject_0045cf30 g_011cc628;
-extern GlobalObject_0045cfe0 g_011cc644;
-extern GlobalObject_0045cfe0 g_011cc668;
+extern GlobalObject_0045cfe0 iMaxViewCasterPicksHavok_Interface;
+extern GlobalObject_0045cf30 bUseFuzzyPicking_Interface;
+extern GlobalObject_0045cfe0 iMaxViewCasterPicksGamebryo_Interface;
+extern GlobalObject_0045cfe0 iMaxViewCasterPicksFuzzy_Interface;
 extern GlobalObject_00a2e180 g_011cc67c;
-extern GlobalObject_00633000 g_011cc698;
-extern GlobalObject_00633000 g_011cc6a8;
+extern GlobalObject_00633000 sShield_DEFAULT;
+extern GlobalObject_00633000 sLThigh_DEFAULT;
 extern GlobalObject_00633000 g_011cc6b4;
 extern GlobalObject_00633000 g_011cc6c0;
-extern GlobalObject_00632ee0 g_011cc6cc;
-extern GlobalObject_00633000 g_011cc6d8;
-extern GlobalObject_00633000 g_011cc6e4;
-extern GlobalObject_00633000 g_011cc6f8;
-extern GlobalObject_00633000 g_011cc704;
-extern GlobalObject_00633000 g_011cc710;
-extern GlobalObject_00632ee0 g_011cc71c;
-extern GlobalObject_00633000 g_011cc728;
-extern GlobalObject_00633000 g_011cc734;
+extern GlobalObject_00632ee0 fMinVelGain_HIT;
+extern GlobalObject_00633000 sPonyTail_DEFAULT;
+extern GlobalObject_00633000 sRUpperArm_QUADHIT;
+extern GlobalObject_00633000 sRThigh_QUADHIT;
+extern GlobalObject_00633000 sRHand_DEFAULT;
+extern GlobalObject_00633000 sRFoot_DEFAULT;
+extern GlobalObject_00632ee0 fLowRot_DEFAULT;
+extern GlobalObject_00633000 sLUpperArm_QUADHIT;
+extern GlobalObject_00633000 sRUpperArm_DEFAULT;
 extern GlobalObject_00633000 g_011cc740;
-extern GlobalObject_00633000 g_011cc74c;
-extern GlobalObject_00633000 g_011cc758;
+extern GlobalObject_00633000 sQuiver_DEFAULT;
+extern GlobalObject_00633000 sBody_HIT;
 extern GlobalObject_00633000 g_011cc764;
-extern GlobalObject_00633000 g_011cc770;
-extern GlobalObject_00632ee0 g_011cc77c;
-extern GlobalObject_00632ee0 g_011cc788;
-extern GlobalObject_00633000 g_011cc794;
-extern GlobalObject_00633000 g_011cc7a0;
-extern GlobalObject_00633000 g_011cc7b0;
-extern GlobalObject_00633000 g_011cc7bc;
-extern GlobalObject_00633000 g_011cc7c8;
-extern GlobalObject_00632ee0 g_011cc7dc;
-extern GlobalObject_00632ee0 g_011cc7e8;
-extern GlobalObject_00633000 g_011cc7f4;
-extern GlobalObject_00633000 g_011cc800;
-extern GlobalObject_00633000 g_011cc80c;
+extern GlobalObject_00633000 sLHand_HIT;
+extern GlobalObject_00632ee0 fHFMax_HIT;
+extern GlobalObject_00632ee0 fKnockDownTime_HIT;
+extern GlobalObject_00633000 sLForeArm_HIT;
+extern GlobalObject_00633000 sHead_DEFAULT;
+extern GlobalObject_00633000 sBody_DEFAULT;
+extern GlobalObject_00633000 sRForeArm_QUADHIT;
+extern GlobalObject_00633000 sTail_DEFAULT;
+extern GlobalObject_00632ee0 fBFMin_HIT;
+extern GlobalObject_00632ee0 fGetUpTime_HIT;
+extern GlobalObject_00633000 sHead_QUADHIT;
+extern GlobalObject_00633000 sLUpperArm_DEFAULT;
+extern GlobalObject_00633000 sRCalf_DEFAULT;
 extern GlobalObject_00633000 g_011cc818;
-extern GlobalObject_00633000 g_011cc824;
-extern GlobalObject_00633000 g_011cc830;
-extern GlobalObject_00633000 g_011cc83c;
-extern GlobalObject_00633000 g_011cc848;
-extern GlobalObject_00633000 g_011cc854;
-extern GlobalObject_00632ee0 g_011cc860;
-extern GlobalObject_00632ee0 g_011cc86c;
-extern GlobalObject_00633000 g_011cc878;
-extern GlobalObject_00633000 g_011cc884;
-extern GlobalObject_00632ee0 g_011cc890;
-extern GlobalObject_00633000 g_011cc89c;
-extern GlobalObject_00633000 g_011cc8a8;
-extern GlobalObject_00633000 g_011cc8b4;
+extern GlobalObject_00633000 sRThigh_DEFAULT;
+extern GlobalObject_00633000 sRHand_HIT;
+extern GlobalObject_00633000 sHitStart_HIT;
+extern GlobalObject_00633000 sLForeArm_QUADHIT;
+extern GlobalObject_00633000 sLCalf_DEFAULT;
+extern GlobalObject_00632ee0 fBFMax_HIT;
+extern GlobalObject_00632ee0 fHFMin_HIT;
+extern GlobalObject_00633000 sRCalf_QUADHIT;
+extern GlobalObject_00633000 sLHand_DEFAULT;
+extern GlobalObject_00632ee0 fHighRot_DEFAULT;
+extern GlobalObject_00633000 sHitStart_QUADHIT;
+extern GlobalObject_00633000 sRForeArm_HIT;
+extern GlobalObject_00633000 sLForeArm_DEFAULT;
 extern GlobalObject_00633000 g_011cc8c0;
-extern GlobalObject_00633000 g_011cc8cc;
-extern GlobalObject_00633000 g_011cc8d8;
-extern GlobalObject_00633000 g_011cc8e4;
-extern GlobalObject_00632ee0 g_011cc8f0;
-extern GlobalObject_00632ee0 g_011cc8fc;
-extern GlobalObject_00633000 g_011cc908;
-extern GlobalObject_00633000 g_011cc914;
-extern GlobalObject_00633000 g_011cc920;
-extern GlobalObject_00633000 g_011cc92c;
-extern GlobalObject_00633000 g_011cc938;
-extern GlobalObject_00632ee0 g_011cc944;
-extern GlobalObject_00632ee0 g_011cc950;
-extern GlobalObject_00633000 g_011cc95c;
-extern GlobalObject_00633000 g_011cc968;
-extern GlobalObject_00632ee0 g_011cc974;
+extern GlobalObject_00633000 sHitSpot_HIT;
+extern GlobalObject_00633000 sRUpperArm_HIT;
+extern GlobalObject_00633000 sLUpperArm_HIT;
+extern GlobalObject_00632ee0 fPassOutTime_DEFAULT;
+extern GlobalObject_00632ee0 fHighTrans_DEFAULT;
+extern GlobalObject_00633000 sLFoot_DEFAULT;
+extern GlobalObject_00633000 sHead_HIT;
+extern GlobalObject_00633000 sBody_QUADHIT;
+extern GlobalObject_00633000 sRForeArm_DEFAULT;
+extern GlobalObject_00633000 sLThigh_QUADHIT;
+extern GlobalObject_00632ee0 fMinHeirGain_HIT;
+extern GlobalObject_00632ee0 fLowTrans_DEFAULT;
+extern GlobalObject_00633000 sHitSpot_QUADHIT;
+extern GlobalObject_00633000 sLCalf_QUADHIT;
+extern GlobalObject_00632ee0 fPassOutForce_DEFAULT;
 extern GlobalObject_00a2e180 g_011cc9e0;
 extern GlobalObject_00a2e180 g_011cca58;
 extern GlobalObject_00a2e180 g_011ccae0;
 extern GlobalObject_00a2e180 g_011ccb58;
-extern GlobalObject_0045cf30 g_011ccb8c;
+extern GlobalObject_0045cf30 bPrecipitation_Weather;
 extern GlobalObject_0040e0b0 g_011ccccc;
 extern GlobalObject_00a2e180 g_011cccd8;
 extern GlobalObject_00a2e180 g_011ccd68;
@@ -6276,8 +7120,8 @@ extern GlobalObject_0040e0b0 g_011ccdc4;
 extern GlobalObject_0040e0b0 g_011ccddc;
 extern GlobalObject_00a2e180 g_011cce18;
 extern GlobalObject_0040e0b0 g_011cce30;
-extern GlobalObject_0044f440 g_011cce50;
-extern GlobalObject_0044f440 g_011cce7c;
+extern GlobalObject_0044f440 fSunGlareSize_Weather;
+extern GlobalObject_0044f440 fSunBaseSize_Weather;
 extern GlobalObject_00a2e180 g_011ccf00;
 extern GlobalObject_0040e0b0 g_011ccfa0;
 extern GlobalObject_0040e0b0 g_011cd080;
@@ -6973,7 +7817,7 @@ extern GlobalObject_0040c150 g_011d3144;
 extern GlobalObject_0040c150 g_011d3150;
 extern GlobalObject_0040c150 g_011d315c;
 extern GlobalObject_0040c150 g_011d3168;
-extern GlobalObject_0044f440 g_011d3174;
+extern GlobalObject_0044f440 fMenuBackgroundOpacity_Interface;
 extern GlobalObject_0040c150 g_011d3180;
 extern GlobalObject_0040c150 g_011d3198;
 extern GlobalObject_0040c150 g_011d31a4;
@@ -7176,7 +8020,7 @@ extern GlobalObject_0040c150 g_011d3b8c;
 extern GlobalObject_0040c150 g_011d3b98;
 extern GlobalObject_0040c150 g_011d3ba4;
 extern GlobalObject_0040c150 g_011d3bb0;
-extern GlobalObject_0044f440 g_011d3bc8;
+extern GlobalObject_0044f440 fPopUpBackgroundOpacity_Interface;
 extern GlobalObject_0040c150 g_011d3bd4;
 extern GlobalObject_0040c150 g_011d3be0;
 extern GlobalObject_0040c150 g_011d3bec;
@@ -7605,25 +8449,25 @@ extern GlobalObject_0040e0b0 g_011d5828;
 extern GlobalObject_0040e0b0 g_011d5840;
 extern GlobalObject_0040e0b0 g_011d5850;
 extern GlobalObject_00a2e180 g_011d5920;
-extern GlobalObject_0045cf30 g_011d59ac;
-extern GlobalObject_0045cfe0 g_011d59f4;
-extern GlobalObject_0045cf30 g_011d5a10;
-extern GlobalObject_0045cf30 g_011d5a24;
-extern GlobalObject_0045cf30 g_011d5a30;
-extern GlobalObject_0045cf30 g_011d5a44;
-extern GlobalObject_0045cfe0 g_011d5a50;
-extern GlobalObject_0045cf30 g_011d5a5c;
-extern GlobalObject_0045cf30 g_011d5a74;
+extern GlobalObject_0045cf30 bFaceMipMaps_General;
+extern GlobalObject_0045cfe0 uiFaceGenMaxEGMDataSize_General;
+extern GlobalObject_0045cf30 bUseMultiThreadedFaceGen_BackgroundLoad;
+extern GlobalObject_0045cf30 bLoadBackgroundFaceGen_BackgroundLoad;
+extern GlobalObject_0045cf30 bFixFaceNormals_General;
+extern GlobalObject_0045cf30 bUseFaceGenHeads_General;
+extern GlobalObject_0045cfe0 uiEGTClampSize_General;
+extern GlobalObject_0045cf30 bUseFaceGenLOD_LOD;
+extern GlobalObject_0045cf30 bDebugFaceGenCriticalSection_Debug;
 extern GlobalObject_0044fae0 g_011d5a84;
 extern GlobalObject_0044fae0 g_011d5a9c;
-extern GlobalObject_0045cf30 g_011d5ab4;
-extern GlobalObject_0045cf30 g_011d5ac4;
+extern GlobalObject_0045cf30 bUseEyeEnvMapping_General;
+extern GlobalObject_0045cf30 bDebugFaceGenMultithreading_Debug;
 extern GlobalObject_00659500 g_011d5ad0;
-extern GlobalObject_0045cf30 g_011d5adc;
-extern GlobalObject_0045cfe0 g_011d5afc;
+extern GlobalObject_0045cf30 bLoadFaceGenHeadEGTFiles_General;
+extern GlobalObject_0045cfe0 uiFaceGenMaxEGTDataSize_General;
 extern GlobalObject_00a2e180 g_011d5b1c;
-extern GlobalObject_0044f440 g_011d5b28;
-extern GlobalObject_0044f440 g_011d5b34;
+extern GlobalObject_0044f440 fLodDistance_LOD;
+extern GlobalObject_0044f440 fTalkingDistance_LOD;
 extern GlobalObject_00a7b610 g_011d5b58;
 extern GlobalObject_00a7b610 g_011d5ba0;
 extern GlobalObject_00a7b610 g_011d5ba8;
@@ -7632,25 +8476,25 @@ extern GlobalObject_00a7b610 g_011d5bf8;
 extern GlobalObject_00a2e180 g_011d5c28;
 extern GlobalObject_0040e0b0 g_011d5c68;
 extern GlobalObject_0040e0b0 g_011d5c74;
-extern GlobalObject_0044f440 g_011d5c80;
-extern GlobalObject_0044f440 g_011d5c9c;
-extern GlobalObject_0044f440 g_011d5ca8;
+extern GlobalObject_0044f440 fTreeForceMaxBudAngle_SpeedTree;
+extern GlobalObject_0044f440 fTreeForceMinBudAngle_SpeedTree;
+extern GlobalObject_0044f440 fTreeLODExponent_SpeedTree;
 extern GlobalObject_0044fae0 g_011d5cc0;
-extern GlobalObject_0045cf30 g_011d5ce8;
-extern GlobalObject_0045cf30 g_011d5d00;
-extern GlobalObject_0044f440 g_011d5d14;
-extern GlobalObject_0044f440 g_011d5d24;
+extern GlobalObject_0045cf30 bEnableTrees_SpeedTree;
+extern GlobalObject_0045cf30 bForceFullLOD_SpeedTree;
+extern GlobalObject_0044f440 fTreeForceCS_SpeedTree;
+extern GlobalObject_0044f440 fTreeForceLeafDimming_SpeedTree;
 extern GlobalObject_0040e0b0 g_011d5d3c;
-extern GlobalObject_0044f440 g_011d5d4c;
+extern GlobalObject_0044f440 fCanopyShadowGrassMult_SpeedTree;
 extern GlobalObject_00a2e180 g_011d5d80;
-extern GlobalObject_0044f440 g_011d5d8c;
-extern GlobalObject_0045cfe0 g_011d5d98;
-extern GlobalObject_0044f440 g_011d5db8;
+extern GlobalObject_0044f440 fTreeForceLLA_SpeedTree;
+extern GlobalObject_0045cfe0 iCanopyShadowScale_SpeedTree;
+extern GlobalObject_0044f440 fTreeForceBranchDimming_SpeedTree;
 extern GlobalObject_0040e0b0 g_011d5dc4;
 extern GlobalObject_0044fae0 g_011d5df8;
 extern GlobalObject_008c71b0 g_011d5e34;
 extern GlobalObject_00a7b610 g_011d5e70;
-extern GlobalObject_0045cf30 g_011d5e84;
+extern GlobalObject_0045cf30 bTreeTops_HAVOK;
 extern GlobalObject_0040c150 g_011d5eb8;
 extern GlobalObject_0040e0b0 g_011d5ec4;
 extern GlobalObject_0040e0b0 g_011d5ed4;
@@ -7714,116 +8558,116 @@ extern GlobalObject_00a2e180 g_011d6bc8;
 extern GlobalObject_00a7b610 g_011d6bf0;
 extern GlobalObject_00528cb0 g_011d6c40;
 extern GlobalObject_00a2e180 g_011d6c50;
-extern GlobalObject_0045cf30 g_011d6ca8;
+extern GlobalObject_0045cf30 bGlobalNavMeshCheck_NavMeshGeneration;
 extern GlobalObject_00633c90 g_011d6ddc;
-extern GlobalObject_0045cf30 g_011d6e40;
+extern GlobalObject_0045cf30 bSelectedPathDrawAvoidNodes_Pathfinding;
 extern GlobalObject_00633c90 g_011d6e5c;
 extern GlobalObject_00a2e180 g_011d6ea8;
 extern GlobalObject_00633c90 g_011d707c;
-extern GlobalObject_0044f440 g_011d7084;
-extern GlobalObject_0045cf30 g_011d7188;
-extern GlobalObject_0044f440 g_011d7194;
-extern GlobalObject_0045cf30 g_011d71a0;
-extern GlobalObject_0044f440 g_011d71b0;
-extern GlobalObject_0045cf30 g_011d73d8;
-extern GlobalObject_0045cf30 g_011d73e4;
-extern GlobalObject_0045cf30 g_011d73f0;
-extern GlobalObject_0045cf30 g_011d7404;
-extern GlobalObject_0045cf30 g_011d7428;
-extern GlobalObject_0045cf30 g_011d7434;
-extern GlobalObject_0045cf30 g_011d7444;
-extern GlobalObject_0045cf30 g_011d7450;
+extern GlobalObject_0044f440 fPOVSmootherAvoidNodeCost_Pathfinding;
+extern GlobalObject_0045cf30 bCutDoors_Pathfinding;
+extern GlobalObject_0044f440 fObstacleUpdateDeltaWhenUnknown_Pathfinding;
+extern GlobalObject_0045cf30 bBackgroundNavmeshUpdate_Pathfinding;
+extern GlobalObject_0044f440 fObstacleUpdateDeltaWhenMoving_Pathfinding;
+extern GlobalObject_0045cf30 bUseStraightLineCheckFirst_Pathfinding;
+extern GlobalObject_0045cf30 bUseObstacleAvoidance_Pathfinding;
+extern GlobalObject_0045cf30 bUsePathSmoothing_Pathfinding;
+extern GlobalObject_0045cf30 bUseRayCasts_Pathfinding;
+extern GlobalObject_0045cf30 bRebuildPathIfSmootherFailed_Pathfinding;
+extern GlobalObject_0045cf30 bUseOldPathSmoothing_Pathfinding;
+extern GlobalObject_0045cf30 bUseAlternateSmoothingForPrime_Pathfinding;
+extern GlobalObject_0045cf30 bCreateDebugInfo_Pathfinding;
 extern GlobalObject_00a2e180 g_011d74c8;
-extern GlobalObject_0044f440 g_011d74dc;
+extern GlobalObject_0044f440 fFindClosestEdgesRadius_Pathing;
 extern GlobalObject_00a2e180 g_011d7590;
 extern GlobalObject_00a2e180 g_011d7698;
 extern GlobalObject_00633c90 g_011d7764;
-extern GlobalObject_0045cf30 g_011d77cc;
+extern GlobalObject_0045cf30 bBackgroundPathing_Pathfinding;
 extern GlobalObject_006ece90 g_011d77f0;
 extern GlobalObject_00a2e180 g_011d8444;
-extern GlobalObject_0045cf30 g_011d846c;
+extern GlobalObject_0045cf30 bDrawPathBounds_Pathfinding;
 extern GlobalObject_00a2e180 g_011d857c;
-extern GlobalObject_0045cfe0 g_011d85a8;
+extern GlobalObject_0045cfe0 uDistantTreeBlockCacheSizePerCell_TerrainManager;
 extern GlobalObject_00633c90 g_011d85bc;
 extern GlobalObject_00633c90 g_011d85c4;
 extern GlobalObject_006fa100 g_011d85d0;
 extern GlobalObject_00633c90 g_011d85e0;
 extern GlobalObject_00a2e180 g_011d8654;
-extern GlobalObject_0045cf30 g_011d8680;
+extern GlobalObject_0045cf30 bUseDistantTrees_TerrainManager;
 extern GlobalObject_00633c90 g_011d8690;
-extern GlobalObject_0045cf30 g_011d869c;
+extern GlobalObject_0045cf30 bUseDistantObjectBlocks_TerrainManager;
 extern GlobalObject_00633c90 g_011d86a8;
-extern GlobalObject_0045cf30 g_011d86ac;
+extern GlobalObject_0045cf30 bUseNewTerrainSystem_TerrainManager;
 extern GlobalObject_00633c90 g_011d86bc;
-extern GlobalObject_0044f440 g_011d86c4;
-extern GlobalObject_0044f440 g_011d86d4;
-extern GlobalObject_0045d060 g_011d86e0;
-extern GlobalObject_0044f440 g_011d86ec;
-extern GlobalObject_0044f440 g_011d86f8;
-extern GlobalObject_0044f440 g_011d870c;
-extern GlobalObject_0044f440 g_011d8718;
-extern GlobalObject_0044f440 g_011d8734;
-extern GlobalObject_0045cfe0 g_011d8740;
-extern GlobalObject_0044f440 g_011d8754;
-extern GlobalObject_0045cf30 g_011d8760;
-extern GlobalObject_0044f440 g_011d8770;
-extern GlobalObject_0045d060 g_011d877c;
+extern GlobalObject_0044f440 fLowBlockLoadDistanceLow_TerrainManager;
+extern GlobalObject_0044f440 fMorphEndDistanceMult_TerrainManager;
+extern GlobalObject_0045d060 fSplitDistanceMult_TerrainManager;
+extern GlobalObject_0044f440 fHighBlockLoadDistanceLow_TerrainManager;
+extern GlobalObject_0044f440 fDetailTextureScale_TerrainManager;
+extern GlobalObject_0044f440 fDefaultBlockLoadDistanceLow_TerrainManager;
+extern GlobalObject_0044f440 fHighTreeLoadDistance_TerrainManager;
+extern GlobalObject_0044f440 fLowTreeLoadDistance_TerrainManager;
+extern GlobalObject_0045cfe0 uTerrainTextureFadeTime_TerrainManager;
+extern GlobalObject_0044f440 fMorphStartDistanceMult_TerrainManager;
+extern GlobalObject_0045cf30 bKeepLowDetailTerrain_TerrainManager;
+extern GlobalObject_0044f440 fDefaultTreeLoadDistance_TerrainManager;
+extern GlobalObject_0045d060 fBlockLoadDistance_TerrainManager;
 extern GlobalObject_006ffc90 g_011d8798;
 extern GlobalObject_006ffcf0 g_011d87a0;
 extern GlobalObject_006ffcf0 g_011d87a8;
 extern GlobalObject_006ffcf0 g_011d87b0;
 extern GlobalObject_006ffcf0 g_011d87b8;
-extern GlobalObject_0044f440 g_011d87dc;
-extern GlobalObject_0044f440 g_011d87f0;
+extern GlobalObject_0044f440 fMenuPackerBufferOverflowZone_InterfaceFX;
+extern GlobalObject_0044f440 fMenuPackerBufferSize_InterfaceFX;
 extern GlobalObject_00a2e180 g_011d88dc;
-extern GlobalObject_00709f00 g_011d8928;
-extern GlobalObject_00709f00 g_011d8934;
+extern GlobalObject_00709f00 bGeneralSubtitles_GamePlay;
+extern GlobalObject_00709f00 bDialogueSubtitles_GamePlay;
 extern GlobalObject_00709f80 g_011d8950;
-extern GlobalObject_00709f00 g_011d8974;
-extern GlobalObject_00709f00 g_011d8980;
-extern GlobalObject_00709f00 g_011d898c;
+extern GlobalObject_00709f00 bSaveOnWait_GamePlay;
+extern GlobalObject_00709f00 bSaveOnTravel_GamePlay;
+extern GlobalObject_00709f00 bTrueIronSights_GamePlay;
 extern GlobalObject_00709f80 g_011d8998;
 extern GlobalObject_0096a2d0 g_011d89c0;
-extern GlobalObject_00709f00 g_011d89f0;
-extern GlobalObject_00709f00 g_011d8a0c;
+extern GlobalObject_00709f00 bSaveOnRest_GamePlay;
+extern GlobalObject_00709f00 bDisableDynamicCrosshair_GamePlay;
 extern GlobalObject_00a2e180 g_011d8a18;
-extern GlobalObject_00709f00 g_011d8a20;
-extern GlobalObject_00709f00 g_011d8a38;
-extern GlobalObject_0044f440 g_011d8aa4;
-extern GlobalObject_0045cf30 g_011d8ab0;
-extern GlobalObject_0044f440 g_011d8abc;
-extern GlobalObject_0044f440 g_011d8ac8;
-extern GlobalObject_00719c00 g_011d8ad4;
-extern GlobalObject_00719c00 g_011d8ae4;
-extern GlobalObject_0045cf30 g_011d8afc;
-extern GlobalObject_0044f440 g_011d8b08;
-extern GlobalObject_0044f440 g_011d8b14;
+extern GlobalObject_00709f00 bSaveOnInteriorExteriorSwitch_GamePlay;
+extern GlobalObject_00709f00 bCrossHair_GamePlay;
+extern GlobalObject_0044f440 fXenonMenuDpadRepeatSpeed_Controls;
+extern GlobalObject_0045cf30 bEnableMenuRenderDebugMode_InterfaceFX;
+extern GlobalObject_0044f440 fMenuPlayerLightDiffuseBlue_Interface;
+extern GlobalObject_0044f440 fXenonMenuStickSpeedMaxMod_Controls;
+extern GlobalObject_00719c00 uHUDColor_Interface;
+extern GlobalObject_00719c00 uPipboyColor_Interface;
+extern GlobalObject_0045cf30 bActivatePickUseGamebryoPick_Interface;
+extern GlobalObject_0044f440 fMenuPlayerLightAmbientBlue_Interface;
+extern GlobalObject_0044f440 fXenonMenuStickSpeed_Controls;
 extern GlobalObject_0048f200 g_011d8b2c;
-extern GlobalObject_0044f440 g_011d8b38;
+extern GlobalObject_0044f440 fKeyRepeatTime_Interface;
 extern GlobalObject_00719b80 g_011d8b44;
-extern GlobalObject_0045cfe0 g_011d8b5c;
-extern GlobalObject_0044f440 g_011d8b6c;
-extern GlobalObject_0044f440 g_011d8b78;
-extern GlobalObject_0044f440 g_011d8b88;
-extern GlobalObject_0045cf30 g_011d8b94;
-extern GlobalObject_0045cf30 g_011d8ba0;
-extern GlobalObject_0044f440 g_011d8bb0;
-extern GlobalObject_0045cfe0 g_011d8bc0;
-extern GlobalObject_0045cfe0 g_011d8bd8;
-extern GlobalObject_0044f440 g_011d8be4;
-extern GlobalObject_0045cfe0 g_011d8bf0;
-extern GlobalObject_0045cfe0 g_011d8bfc;
+extern GlobalObject_0045cfe0 iXenonMenuStickDeadZone_Controls;
+extern GlobalObject_0044f440 fMenuPlayerLightAmbientGreen_Interface;
+extern GlobalObject_0044f440 fActivatePickSphereRadius_Interface;
+extern GlobalObject_0044f440 fKeyRepeatInterval_Interface;
+extern GlobalObject_0045cf30 bAllowConsole_Interface;
+extern GlobalObject_0045cf30 bUseImageSpaceMenuFX_InterfaceFX;
+extern GlobalObject_0044f440 fMenuPlayerLightDiffuseGreen_Interface;
+extern GlobalObject_0045cfe0 iSafeZoneYWide_Interface;
+extern GlobalObject_0045cfe0 iSafeZoneX_Interface;
+extern GlobalObject_0044f440 fMenuPlayerLightAmbientRed_Interface;
+extern GlobalObject_0045cfe0 iSafeZoneY_Interface;
+extern GlobalObject_0045cfe0 iSafeZoneXWide_Interface;
 extern GlobalObject_0044fae0 g_011d8c18;
 extern GlobalObject_00a2e180 g_011d8c34;
-extern GlobalObject_0044f440 g_011d8c40;
+extern GlobalObject_0044f440 fMenuPlayerLightDiffuseRed_Interface;
 extern GlobalObject_00709f00 g_011d8c4c;
-extern GlobalObject_0044f440 g_011d8c5c;
-extern GlobalObject_0045cfe0 g_011d8cf0;
-extern GlobalObject_0045cfe0 g_011d8cfc;
-extern GlobalObject_0045cfe0 g_011d8d08;
-extern GlobalObject_0045cfe0 g_011d8d1c;
-extern GlobalObject_0045cfe0 g_011d8d38;
-extern GlobalObject_0045cfe0 g_011d8d44;
+extern GlobalObject_0044f440 fXenonMenuMouseXYMult_Controls;
+extern GlobalObject_0045cfe0 iConsoleHistorySize_Menu;
+extern GlobalObject_0045cfe0 iConsoleVisibleLines_Menu;
+extern GlobalObject_0045cfe0 iConsoleTextYPos_Menu;
+extern GlobalObject_0045cfe0 iConsoleLineSpacing_Menu;
+extern GlobalObject_0045cfe0 iConsoleFont_Menu;
+extern GlobalObject_0045cfe0 iConsoleTextXPos_Menu;
 extern GlobalObject_00a2e180 g_011d8db4;
 extern GlobalObject_0072ce30 g_011d8f08;
 extern GlobalObject_00a2e180 g_011d8f2c;
@@ -7840,53 +8684,53 @@ extern GlobalObject_00a2e180 g_011d9318;
 extern GlobalObject_00a2e180 g_011d93a8;
 extern GlobalObject_00a2e180 g_011d945c;
 extern GlobalObject_00a2e180 g_011d947d;
-extern GlobalObject_0044f440 g_011d94e4;
+extern GlobalObject_0044f440 fCreditsScrollSpeed_Menu;
 extern GlobalObject_00a2e180 g_011d957c;
-extern GlobalObject_0044f440 g_011d95d4;
+extern GlobalObject_0044f440 fHackingMinSkillHard_Hacking;
 extern GlobalObject_0076b930 g_011d9604;
-extern GlobalObject_0044f440 g_011d961c;
-extern GlobalObject_0044f440 g_011d9640;
+extern GlobalObject_0044f440 fHackingMinSkillVeryEasy_Hacking;
+extern GlobalObject_0044f440 fHackingMinSkillVeryHard_Hacking;
 extern GlobalObject_00a2e180 g_011d9654;
-extern GlobalObject_0044f440 g_011d9660;
-extern GlobalObject_0044f440 g_011d9684;
+extern GlobalObject_0044f440 fHackingMinSkillEasy_Hacking;
+extern GlobalObject_0044f440 fHackingMinSkillAverage_Hacking;
 extern GlobalObject_00a2e180 g_011d96c6;
 extern GlobalObject_0044fae0 g_011d96cc;
 extern GlobalObject_0044fae0 g_011d96f0;
 extern GlobalObject_0044fae0 g_011d9730;
-extern GlobalObject_0044f440 g_011d9748;
+extern GlobalObject_0044f440 fHUDShakeMult_Interface;
 extern GlobalObject_00633c90 g_011d975c;
 extern GlobalObject_00633c90 g_011d9770;
-extern GlobalObject_004de370 g_011d9774;
-extern GlobalObject_0044f440 g_011d97a8;
+extern GlobalObject_004de370 fHudOpacity_Interface;
+extern GlobalObject_0044f440 fXenonMenuStickSpeedPlayerRotMod_Controls;
 extern GlobalObject_00a2e180 g_011d9f1c;
 extern GlobalObject_00a2e180 g_011d9fb8;
-extern GlobalObject_0045cf30 g_011da034;
+extern GlobalObject_0045cf30 bHideUnavailablePerks_Interface;
 extern GlobalObject_00788300 g_011da050;
 extern GlobalObject_00a2e180 g_011da078;
 extern GlobalObject_00a2e180 g_011da0ca;
-extern GlobalObject_0045cfe0 g_011da108;
-extern GlobalObject_0044f440 g_011da118;
+extern GlobalObject_0045cfe0 iNumLocationSpecificScreens_Loading;
+extern GlobalObject_0044f440 fLoadingTextUpdateInterval_Loading;
 extern GlobalObject_0045cfe0 g_011da124;
-extern GlobalObject_0045cfe0 g_011da138;
-extern GlobalObject_0044f440 g_011da158;
+extern GlobalObject_0045cfe0 iMaxScreens_Loading;
+extern GlobalObject_0044f440 fLoadingInitUpdateInterval_Loading;
 extern GlobalObject_0078d900 g_011da168;
-extern GlobalObject_0044f440 g_011da190;
-extern GlobalObject_0044f440 g_011da1a0;
+extern GlobalObject_0044f440 fMainMenuBkgdUpdateInterval_Loading;
+extern GlobalObject_0044f440 fLoadingBkgdUpdateInterval_Loading;
 extern GlobalObject_00633c90 g_011da224;
 extern GlobalObject_00633c90 g_011da24c;
 extern GlobalObject_00a2e180 g_011da274;
 extern GlobalObject_00633c90 g_011da2f4;
 extern GlobalObject_00a2e180 g_011da32c;
-extern GlobalObject_0045cf30 g_011da3b8;
+extern GlobalObject_0045cf30 bRenderLocalMapContinually_General;
 extern GlobalObject_00a2e180 g_011da3e8;
 extern GlobalObject_007ab610 g_011da524;
 extern GlobalObject_007ab590 g_011da53c;
 extern GlobalObject_00a2e180 g_011da574;
 extern GlobalObject_00a2e180 g_011da5f8;
 extern GlobalObject_00a2e180 g_011da689;
-extern GlobalObject_0044f440 g_011da6a4;
-extern GlobalObject_0044f440 g_011da6cc;
-extern GlobalObject_0044f440 g_011da6dc;
+extern GlobalObject_0044f440 fRSMFaceSliderDefaultMin_Interface;
+extern GlobalObject_0044f440 fRSMStartingZoom_Interface;
+extern GlobalObject_0044f440 fRSMFaceSliderDefaultMax_Interface;
 extern GlobalObject_004037b0 g_011da6f4;
 extern GlobalObject_004037b0 g_011da700;
 extern GlobalObject_004037b0 g_011da70c;
@@ -7904,27 +8748,27 @@ extern GlobalObject_00633c90 g_011daa9c;
 extern GlobalObject_00a2e180 g_011daacf;
 extern GlobalObject_004037b0 g_011daad0;
 extern GlobalObject_007da090 g_011daae0;
-extern GlobalObject_0044f440 g_011daaf4;
+extern GlobalObject_0044f440 fActorLODMax_LOD;
 extern GlobalObject_006ffc90 g_011dab04;
-extern GlobalObject_0044f440 g_011dab1c;
+extern GlobalObject_0044f440 fActorLODMin_LOD;
 extern GlobalObject_006ffcf0 g_011dab28;
-extern GlobalObject_0044f440 g_011dab30;
+extern GlobalObject_0044f440 fObjectLODMin_LOD;
 extern GlobalObject_006ffcf0 g_011dab3c;
 extern GlobalObject_007da010 g_011dab50;
-extern GlobalObject_0044f440 g_011dab60;
-extern GlobalObject_0044f440 g_011dab6c;
-extern GlobalObject_0044f440 g_011dab78;
+extern GlobalObject_0044f440 fGammaMax_Display;
+extern GlobalObject_0044f440 fObjectLODDefault_LOD;
+extern GlobalObject_0044f440 fObjectLODMax_LOD;
 extern GlobalObject_007d9f90 g_011dab88;
-extern GlobalObject_0044f440 g_011dab98;
+extern GlobalObject_0044f440 fGammaMin_Display;
 extern GlobalObject_006ffcf0 g_011daba8;
-extern GlobalObject_0045cf30 g_011dabb0;
-extern GlobalObject_0044f440 g_011dabc0;
+extern GlobalObject_0045cf30 bFadeInScreenShot_General;
+extern GlobalObject_0044f440 fItemLODDefault_LOD;
 extern GlobalObject_004037b0 g_011dabcc;
 extern GlobalObject_0048f200 g_011dabd8;
-extern GlobalObject_0044f440 g_011dabf0;
+extern GlobalObject_0044f440 fItemLODMin_LOD;
 extern GlobalObject_006ffcf0 g_011dac14;
-extern GlobalObject_0044f440 g_011dac24;
-extern GlobalObject_0044f440 g_011dac38;
+extern GlobalObject_0044f440 fItemLODMax_LOD;
+extern GlobalObject_0044f440 fActorLODDefault_LOD;
 extern GlobalObject_00a2e180 g_011dad44;
 extern GlobalObject_00633c90 g_011dadb4;
 extern GlobalObject_0044f440 g_011dadbc;
@@ -7943,104 +8787,104 @@ extern GlobalObject_00a2e180 g_011daf40;
 extern GlobalObject_00a2e180 g_011dafdc;
 extern GlobalObject_00788300 g_011daff0;
 extern GlobalObject_00a2e180 g_011db06c;
-extern GlobalObject_00709f00 g_011db094;
-extern GlobalObject_0045cf30 g_011db114;
+extern GlobalObject_00709f00 bHelpEnabled_Interface;
+extern GlobalObject_0045cf30 bVatsAlwaysHit_Combat;
 extern GlobalObject_00a2e180 g_011db164;
-extern GlobalObject_0044f440 g_011db1d4;
-extern GlobalObject_0045cf30 g_011db1e0;
-extern GlobalObject_0044f440 g_011db1f0;
-extern GlobalObject_0044f440 g_011db200;
-extern GlobalObject_0044f440 g_011db20c;
-extern GlobalObject_0044f440 g_011db218;
-extern GlobalObject_0044f440 g_011db224;
-extern GlobalObject_0044f440 g_011db238;
-extern GlobalObject_0044f440 g_011db244;
-extern GlobalObject_0044f440 g_011db250;
-extern GlobalObject_0044f440 g_011db25c;
-extern GlobalObject_0044f440 g_011db274;
-extern GlobalObject_0044f440 g_011db288;
-extern GlobalObject_0045cf30 g_011db2a4;
-extern GlobalObject_0044f440 g_011db2bc;
-extern GlobalObject_0045cf30 g_011db2cc;
-extern GlobalObject_0044f440 g_011db2dc;
-extern GlobalObject_0044f440 g_011db2f0;
-extern GlobalObject_0044f440 g_011db308;
-extern GlobalObject_0044f440 g_011db328;
+extern GlobalObject_0044f440 fHUDShudderDefaultFrequencyY_InterfaceFX;
+extern GlobalObject_0045cf30 bUseOptimizedMenuRendering_InterfaceFX;
+extern GlobalObject_0044f440 fBlurRadiusMenus_InterfaceFX;
+extern GlobalObject_0044f440 fBlurRadiusHUD_InterfaceFX;
+extern GlobalObject_0044f440 fScanlineFrequencyMenus_InterfaceFX;
+extern GlobalObject_0044f440 fBlurIntensityMenus_InterfaceFX;
+extern GlobalObject_0044f440 fHUDShudderDefaultFrequencyX_InterfaceFX;
+extern GlobalObject_0044f440 fBlurIntensityHUD_InterfaceFX;
+extern GlobalObject_0044f440 fHUDShudderDefaultDuration_InterfaceFX;
+extern GlobalObject_0044f440 fHUDShudderDefaultIntensity_InterfaceFX;
+extern GlobalObject_0044f440 fScanlineFrequencyHUD_InterfaceFX;
+extern GlobalObject_0044f440 fScanlineFrequencyPipboy_Pipboy;
+extern GlobalObject_0044f440 fTabKnobMoveRate_Pipboy;
+extern GlobalObject_0045cf30 bEnableFlickerPipboy_Pipboy;
+extern GlobalObject_0044f440 fLightEffectFadeDuration_Pipboy;
+extern GlobalObject_0045cf30 bUsePipboyMode_Pipboy;
+extern GlobalObject_0044f440 fBlurIntensityPipboy_Pipboy;
+extern GlobalObject_0044f440 fScrollKnobIncrement_Pipboy;
+extern GlobalObject_0044f440 fLightEffectLightFadeDuration_Pipboy;
+extern GlobalObject_0044f440 fBlurRadiusPipboy_Pipboy;
 extern GlobalObject_00a2e180 g_011db334;
-extern GlobalObject_0044f440 g_011db33c;
-extern GlobalObject_0044f440 g_011db34c;
-extern GlobalObject_0044f440 g_011db358;
+extern GlobalObject_0044f440 fTabKnobMinPosition_Pipboy;
+extern GlobalObject_0044f440 fTabKnobMaxPosition_Pipboy;
+extern GlobalObject_0044f440 fScrollKnobRate_Pipboy;
 extern GlobalObject_00a2e180 g_011db379;
-extern GlobalObject_0044f440 g_011db37c;
-extern GlobalObject_0044f440 g_011db394;
-extern GlobalObject_0044f440 g_011db3a4;
-extern GlobalObject_0044f440 g_011db3b0;
-extern GlobalObject_0044f440 g_011db3bc;
-extern GlobalObject_0044f440 g_011db3e8;
-extern GlobalObject_0044f440 g_011db3fc;
-extern GlobalObject_0044f440 g_011db408;
-extern GlobalObject_0044f440 g_011db414;
-extern GlobalObject_0044f440 g_011db424;
-extern GlobalObject_0044f440 g_011db430;
-extern GlobalObject_0044f440 g_011db43c;
-extern GlobalObject_0044f440 g_011db44c;
-extern GlobalObject_0044f440 g_011db458;
-extern GlobalObject_0044f440 g_011db464;
-extern GlobalObject_0044f440 g_011db470;
-extern GlobalObject_0044f440 g_011db480;
-extern GlobalObject_0044f440 g_011db490;
-extern GlobalObject_0044f440 g_011db4a4;
-extern GlobalObject_0044f440 g_011db4b4;
-extern GlobalObject_0044f440 g_011db4d0;
-extern GlobalObject_0044f440 g_011db4e0;
-extern GlobalObject_0044f440 g_011db4ec;
-extern GlobalObject_0045cfe0 g_011db4f8;
-extern GlobalObject_0044f440 g_011db514;
-extern GlobalObject_0044f440 g_011db520;
-extern GlobalObject_0044f440 g_011db544;
-extern GlobalObject_0044f440 g_011db570;
-extern GlobalObject_0044f440 g_011db594;
-extern GlobalObject_0044f440 g_011db5b4;
+extern GlobalObject_0044f440 fMiniBurstIntensity_InterfaceFX;
+extern GlobalObject_0044f440 fScreenLightBaseIntensity_InterfaceFX;
+extern GlobalObject_0044f440 fPulseBrightenIntensity_InterfaceFX;
+extern GlobalObject_0044f440 fDefaultShudderFrequency_InterfaceFX;
+extern GlobalObject_0044f440 fDefaultShudderIntensity_InterfaceFX;
+extern GlobalObject_0044f440 fScreenLightVertHoldRate_InterfaceFX;
+extern GlobalObject_0044f440 fDefaultVertHoldSpeed_InterfaceFX;
+extern GlobalObject_0044f440 fPulseRate_InterfaceFX;
+extern GlobalObject_0044f440 fDefaultShudderDuration_InterfaceFX;
+extern GlobalObject_0044f440 fPulseRadiusIntensity_InterfaceFX;
+extern GlobalObject_0044f440 fScreenLightBurstModifier_InterfaceFX;
+extern GlobalObject_0044f440 fDefaultBurstIntensity_InterfaceFX;
+extern GlobalObject_0044f440 fDefaultBlurRadius_InterfaceFX;
+extern GlobalObject_0044f440 fMiniBurstDuration_InterfaceFX;
+extern GlobalObject_0044f440 fDistortHorizontalScale_InterfaceFX;
+extern GlobalObject_0044f440 fDefaultBlurIntensity_InterfaceFX;
+extern GlobalObject_0044f440 fDefaultBurstDuration_InterfaceFX;
+extern GlobalObject_0044f440 fDefaultScanlineFrequency_InterfaceFX;
+extern GlobalObject_0044f440 fScreenLightPulseModifier_InterfaceFX;
+extern GlobalObject_0044f440 fVertHoldChance_InterfaceFX;
+extern GlobalObject_0044f440 fDistortDuration_InterfaceFX;
+extern GlobalObject_0044f440 fShudderChance_InterfaceFX;
+extern GlobalObject_0044f440 fDefaultVertHoldDuration_InterfaceFX;
+extern GlobalObject_0045cfe0 iDistortMaxInterval_InterfaceFX;
+extern GlobalObject_0044f440 fScreenLightRadius_InterfaceFX;
+extern GlobalObject_0044f440 fDistortVerticalScale_InterfaceFX;
+extern GlobalObject_0044f440 fRaceSexMenuScale_RenderedTerminal;
+extern GlobalObject_0044f440 fRaceSexMenuZoom_RenderedTerminal;
+extern GlobalObject_0044f440 fRaceSexMenuVPos_RenderedTerminal;
+extern GlobalObject_0044f440 fRaceSexMenuDistortDuration_RenderedMenus;
 extern GlobalObject_00a2e180 g_011db5c0;
-extern GlobalObject_0044f440 g_011db5cc;
-extern GlobalObject_0044f440 g_011db5ec;
-extern GlobalObject_0044f440 g_011db5f8;
-extern GlobalObject_0044f440 g_011db608;
-extern GlobalObject_0044f440 g_011db614;
-extern GlobalObject_0045cf30 g_011db620;
-extern GlobalObject_0044f440 g_011db62c;
+extern GlobalObject_0044f440 fRaceSexMenuHPos_RenderedTerminal;
+extern GlobalObject_0044f440 fRenderedTerminalFOV_RenderedTerminal;
+extern GlobalObject_0044f440 fScreenLightColorB_RenderedTerminal;
+extern GlobalObject_0044f440 fScreenLightColorR_RenderedTerminal;
+extern GlobalObject_0044f440 fRenderedTerminalVPos_RenderedTerminal;
+extern GlobalObject_0045cf30 bUseRenderedTerminals_RenderedTerminal;
+extern GlobalObject_0044f440 fRenderedTerminalHPos_RenderedTerminal;
 extern GlobalObject_00633c90 g_011db63c;
-extern GlobalObject_0044f440 g_011db644;
-extern GlobalObject_0044f440 g_011db650;
-extern GlobalObject_0044f440 g_011db65c;
-extern GlobalObject_0044f440 g_011db668;
-extern GlobalObject_0044f440 g_011db674;
-extern GlobalObject_0044f440 g_011db694;
-extern GlobalObject_0044f440 g_011db6bc;
-extern GlobalObject_0044f440 g_011db6c8;
-extern GlobalObject_0044f440 g_011db6d8;
-extern GlobalObject_0044f440 g_011db6e4;
-extern GlobalObject_0044f440 g_011db6f4;
-extern GlobalObject_0044f440 g_011db700;
-extern GlobalObject_0044f440 g_011db714;
-extern GlobalObject_0044f440 g_011db720;
-extern GlobalObject_0044f440 g_011db730;
-extern GlobalObject_0044f440 g_011db750;
-extern GlobalObject_0045cfe0 g_011db75c;
-extern GlobalObject_0044f440 g_011db768;
-extern GlobalObject_0044f440 g_011db778;
-extern GlobalObject_0044f440 g_011db78c;
-extern GlobalObject_0044f440 g_011db79c;
+extern GlobalObject_0044f440 fScreenLightRadius_RenderedTerminal;
+extern GlobalObject_0044f440 fScreenLightBaseIntensity_RenderedTerminal;
+extern GlobalObject_0044f440 fRenderedTerminalZoom_RenderedTerminal;
+extern GlobalObject_0044f440 fScreenLightColorG_RenderedTerminal;
+extern GlobalObject_0044f440 fRenderedTerminalScanlineScale_RenderedTerminal;
+extern GlobalObject_0044f440 fScanModeScanlineFrequency_VATS;
+extern GlobalObject_0044f440 fDistortDuration_VATS;
+extern GlobalObject_0044f440 fPulseRadius_VATS;
+extern GlobalObject_0044f440 fBurstDuration_VATS;
+extern GlobalObject_0044f440 fDistortVerticalScale_VATS;
+extern GlobalObject_0044f440 fVATSColorR_VATS;
+extern GlobalObject_0044f440 fVATSColorB_VATS;
+extern GlobalObject_0044f440 fBlurIntensity_VATS;
+extern GlobalObject_0044f440 fBlurRadius_VATS;
+extern GlobalObject_0044f440 fScanModeDuration_VATS;
+extern GlobalObject_0044f440 fBurstIntensity_VATS;
+extern GlobalObject_0045cfe0 iDistortMaxInterval_VATS;
+extern GlobalObject_0044f440 fVATSColorG_VATS;
+extern GlobalObject_0044f440 fScanlineFrequency_VATS;
+extern GlobalObject_0044f440 fVATSTargetPulseRate_VATS;
+extern GlobalObject_0044f440 fDistortHorizontalScale_VATS;
 extern GlobalObject_00a2e180 g_011db7ac;
-extern GlobalObject_0044f440 g_011db7b4;
-extern GlobalObject_0044f440 g_011db7c4;
-extern GlobalObject_0044f440 g_011db7d8;
+extern GlobalObject_0044f440 fScanModeVerticalScale_VATS;
+extern GlobalObject_0044f440 fPulseIntensity_VATS;
+extern GlobalObject_0044f440 fPulseRate_VATS;
 extern GlobalObject_00a2e180 g_011db874;
 extern GlobalObject_00a2e180 g_011db8ec;
 extern GlobalObject_00a2e180 g_011db964;
 extern GlobalObject_00a2e180 g_011db9bd;
 extern GlobalObject_00a2e180 g_011dba58;
-extern GlobalObject_0045cf30 g_011dbaa4;
+extern GlobalObject_0045cf30 bDrawSpellContact_General;
 extern GlobalObject_00a2e180 g_011dbaec;
 extern GlobalObject_00a2e180 g_011dbb64;
 extern GlobalObject_00a2e180 g_011dbbc9;
@@ -8089,18 +8933,18 @@ extern GlobalObject_00a2e180 g_011dce20;
 extern GlobalObject_00a2e180 g_011dce51;
 extern GlobalObject_00a2e180 g_011dcee5;
 extern GlobalObject_00a2e180 g_011dcf75;
-extern GlobalObject_0045cfe0 g_011dcfd4;
-extern GlobalObject_0044f440 g_011dcfe4;
+extern GlobalObject_0045cfe0 iMusicSynchOverride_Audio;
+extern GlobalObject_0044f440 fRegionLoopFadeOutTime_Audio;
 extern GlobalObject_0044f440 g_011dcff4;
 extern GlobalObject_0044f440 g_011dd008;
 extern GlobalObject_0082ee80 g_011dd014;
 extern GlobalObject_0044f440 g_011dd034;
-extern GlobalObject_0044f440 g_011dd044;
-extern GlobalObject_0044f440 g_011dd050;
-extern GlobalObject_0045cfe0 g_011dd060;
-extern GlobalObject_0044f440 g_011dd06c;
-extern GlobalObject_0044f440 g_011dd084;
-extern GlobalObject_0044f440 g_011dd094;
+extern GlobalObject_0044f440 fASFadeStartTime_Audio;
+extern GlobalObject_0044f440 fASFadeOutTime_Audio;
+extern GlobalObject_0045cfe0 iMusicTransitionInMS_Audio;
+extern GlobalObject_0044f440 fRegionLoopFadeInTime_Audio;
+extern GlobalObject_0044f440 fMainMenuMusicVolume_Audio;
+extern GlobalObject_0044f440 fASFadeInTime_Audio;
 extern GlobalObject_0041a250 g_011dd0a0;
 extern GlobalObject_0044f440 g_011dd0ac;
 extern GlobalObject_00a2e180 g_011dd0cc;
@@ -8108,67 +8952,67 @@ extern GlobalObject_0041a250 g_011dd0d8;
 extern GlobalObject_0096a2d0 g_011dd3c4;
 extern GlobalObject_0044fae0 g_011dd3d8;
 extern GlobalObject_00a2e180 g_011dd404;
-extern GlobalObject_0044f440 g_011dd580;
-extern GlobalObject_0044f440 g_011dd5a4;
-extern GlobalObject_0044f440 g_011dd5b0;
+extern GlobalObject_0044f440 fRadioStaticAtOuterRadiusPct_Audio;
+extern GlobalObject_0044f440 fRadioDialogMute_Audio;
+extern GlobalObject_0044f440 fCreatureRadioMin_Audio;
 extern GlobalObject_0041a250 g_011dd5bc;
-extern GlobalObject_0045cfe0 g_011dd5cc;
+extern GlobalObject_0045cfe0 iRadioUpdateInterval_Audio;
 extern GlobalObject_0044fae0 g_011dd5e8;
-extern GlobalObject_0045cfe0 g_011dd614;
+extern GlobalObject_0045cfe0 iRadioStationTimeout_Audio;
 extern GlobalObject_00a2e180 g_011dd620;
-extern GlobalObject_0044f440 g_011dd62c;
+extern GlobalObject_0044f440 fCreatureRadioMax_Audio;
 extern GlobalObject_0041a250 g_011dd638;
-extern GlobalObject_0044f440 g_011dd8bc;
-extern GlobalObject_0044f440 g_011dd8cc;
-extern GlobalObject_0044f440 g_011dd8e8;
-extern GlobalObject_0044f440 g_011dd8f4;
-extern GlobalObject_0044f440 g_011dd900;
-extern GlobalObject_0044f440 g_011dd918;
-extern GlobalObject_0044f440 g_011dd924;
-extern GlobalObject_0044f440 g_011dd930;
-extern GlobalObject_0044f440 g_011dd93c;
+extern GlobalObject_0044f440 fMediumWeaponSpeedMax_Audio;
+extern GlobalObject_0044f440 fMetalLargeMassMin_Audio;
+extern GlobalObject_0044f440 fCollisionSoundHeavyThreshold_Audio;
+extern GlobalObject_0044f440 fMetalMediumMassMin_Audio;
+extern GlobalObject_0044f440 fMaxFootstepDistance_Audio;
+extern GlobalObject_0044f440 fEarthMediumMassMin_Audio;
+extern GlobalObject_0044f440 fSkinLargeMassMin_Audio;
+extern GlobalObject_0044f440 fWoodMediumMassMin_Audio;
+extern GlobalObject_0044f440 fGlassLargeMassMin_Audio;
 extern GlobalObject_0083b5e0 g_011dd948;
 extern GlobalObject_006815c0 g_011dd958;
-extern GlobalObject_0045cfe0 g_011dd968;
-extern GlobalObject_0044f440 g_011dd97c;
-extern GlobalObject_0044f440 g_011dd988;
-extern GlobalObject_0044f440 g_011dd9a0;
-extern GlobalObject_0044f440 g_011dd9b0;
-extern GlobalObject_0044f440 g_011dd9bc;
-extern GlobalObject_0044f440 g_011dd9c8;
-extern GlobalObject_0044f440 g_011dd9d8;
-extern GlobalObject_0044f440 g_011ddcb8;
-extern GlobalObject_0044f440 g_011ddcc4;
-extern GlobalObject_0044f440 g_011ddcd4;
-extern GlobalObject_0045cfe0 g_011ddce0;
-extern GlobalObject_0044f440 g_011ddcec;
+extern GlobalObject_0045cfe0 iCollisionSoundTimeDelta_Audio;
+extern GlobalObject_0044f440 fLargeWeaponSpeedMax_Audio;
+extern GlobalObject_0044f440 fPlayerFootVolume_Audio;
+extern GlobalObject_0044f440 fSkinMediumMassMin_Audio;
+extern GlobalObject_0044f440 fStoneLargeMassMin_Audio;
+extern GlobalObject_0044f440 fEarthLargeMassMin_Audio;
+extern GlobalObject_0044f440 fStoneMediumMassMin_Audio;
+extern GlobalObject_0044f440 fWoodLargeMassMin_Audio;
+extern GlobalObject_0044f440 fMediumWeaponWeightMin_Audio;
+extern GlobalObject_0044f440 fGlassMediumMassMin_Audio;
+extern GlobalObject_0044f440 fLargeWeaponWeightMin_Audio;
+extern GlobalObject_0045cfe0 iMaxImpactSoundCount_Audio;
+extern GlobalObject_0044f440 fChainMediumMassMin_Audio;
 extern GlobalObject_00a2e180 g_011ddd00;
-extern GlobalObject_0044f440 g_011ddd0c;
+extern GlobalObject_0044f440 fChainLargeMassMin_Audio;
 extern GlobalObject_00a2e180 g_011dddc0;
 extern GlobalObject_00a2e180 g_011dde44;
 extern GlobalObject_00a2e180 g_011ddee8;
 extern GlobalObject_00a2e180 g_011ddf98;
 extern GlobalObject_00a2e180 g_011de010;
 extern GlobalObject_00a2e180 g_011de088;
-extern GlobalObject_0045cf30 g_011de0a4;
+extern GlobalObject_0045cf30 bUseSaveGameHistory_SaveGame;
 extern GlobalObject_00a2e180 g_011de114;
 extern GlobalObject_00a2e180 g_011de23d;
-extern GlobalObject_0045cf30 g_011de248;
+extern GlobalObject_0045cf30 bDisplayMissingContentDialogue_SaveGame;
 extern GlobalObject_006ffc90 g_011de268;
-extern GlobalObject_0045cf30 g_011de280;
+extern GlobalObject_0045cf30 bAllowProfileTransfer_SaveGame;
 extern GlobalObject_006ffcf0 g_011de28c;
 extern GlobalObject_006ffcf0 g_011de294;
-extern GlobalObject_0045cf30 g_011de29c;
-extern GlobalObject_0045cf30 g_011de2b8;
-extern GlobalObject_0045cfe0 g_011de2c8;
+extern GlobalObject_0045cf30 bAllowScriptedAutosave_SaveGame;
+extern GlobalObject_0045cf30 bAllowScriptedForceSave_SaveGame;
+extern GlobalObject_0045cfe0 iSaveGameBackupCount_SaveGame;
 extern GlobalObject_006ffcf0 g_011de2d4;
-extern GlobalObject_0045cf30 g_011de2fc;
-extern GlobalObject_0045cf30 g_011de308;
+extern GlobalObject_0045cf30 bOutputSaveGameScreenshot_SaveGame;
+extern GlobalObject_0045cf30 bCopySaveGameToHostOrMemStick_SaveGame;
 extern GlobalObject_006ffcf0 g_011de320;
 extern GlobalObject_00a2e180 g_011de440;
 extern GlobalObject_0044fae0 g_011de494;
 extern GlobalObject_00a2e180 g_011de4dc;
-extern GlobalObject_0045cf30 g_011de4e8;
+extern GlobalObject_0045cf30 bDebugSaveBuffer_Debug;
 extern GlobalObject_00a2e180 g_011de564;
 extern GlobalObject_00a2e180 g_011de5ec;
 extern GlobalObject_00a2e180 g_011de664;
@@ -8188,123 +9032,123 @@ extern GlobalObject_0096a2d0 g_011de8e0;
 extern GlobalObject_00869b10 g_011de910;
 extern GlobalObject_00869f00 g_011de924;
 extern GlobalObject_00a2e180 g_011de940;
-extern GlobalObject_0044f440 g_011dea80;
-extern GlobalObject_0044f440 g_011dea8c;
+extern GlobalObject_0044f440 fLODFadeOutObjectMultInterior_LOD;
+extern GlobalObject_0044f440 fScopeScissorAmount_Display;
 extern GlobalObject_006ffc90 g_011dea98;
-extern GlobalObject_0045cfe0 g_011deaa0;
-extern GlobalObject_0045cf30 g_011deab0;
-extern GlobalObject_0045cf30 g_011deacc;
-extern GlobalObject_0045cf30 g_011deadc;
-extern GlobalObject_0045cf30 g_011deaec;
+extern GlobalObject_0045cfe0 iRetainFilenameStringTable_Archive;
+extern GlobalObject_0045cf30 bUseMyGamesDirectory_General;
+extern GlobalObject_0045cf30 bRunVTuneTest_General;
+extern GlobalObject_0045cf30 bUseSunbeams_Display;
+extern GlobalObject_0045cf30 bUseThreadedParticleSystem_General;
 extern GlobalObject_006ffcf0 g_011deaf8;
 extern GlobalObject_00633c90 g_011deb00;
-extern GlobalObject_0044f440 g_011deb10;
+extern GlobalObject_0044f440 fLODFadeOutItemMultComplex_LOD;
 extern GlobalObject_006ffcf0 g_011deb1c;
-extern GlobalObject_0045cfe0 g_011deb24;
+extern GlobalObject_0045cfe0 iRetainDirectoryStringTable_Archive;
 extern GlobalObject_00633c90 g_011deb30;
 extern GlobalObject_00633c90 g_011deb34;
 extern GlobalObject_00633c90 g_011deb38;
-extern GlobalObject_0045cf30 g_011deb3c;
-extern GlobalObject_0045cf30 g_011deb54;
-extern GlobalObject_0045cf30 g_011deb60;
-extern GlobalObject_0044f440 g_011deb70;
+extern GlobalObject_0045cf30 bBlockMessageBoxes_MESSAGES;
+extern GlobalObject_0045cf30 bCRTMemoryChecks_General;
+extern GlobalObject_0045cf30 bDisplayBoundingVolumes_General;
+extern GlobalObject_0044f440 fLODTreeMipMapLODBias_SpeedTree;
 extern GlobalObject_00633c90 g_011deb7c;
-extern GlobalObject_0044f440 g_011deba0;
-extern GlobalObject_0045cfe0 g_011debac;
-extern GlobalObject_0045cf30 g_011debdc;
+extern GlobalObject_0044f440 fDegradeTexturesDistance_General;
+extern GlobalObject_0045cfe0 iDebugTextTopBottomOffset_Display;
+extern GlobalObject_0045cf30 bCheckRuntimeCollisions_Archive;
 extern GlobalObject_00448e00 g_011dec08;
-extern GlobalObject_0044f440 g_011dec18;
-extern GlobalObject_0044f440 g_011dec24;
-extern GlobalObject_0045cfe0 g_011dec40;
-extern GlobalObject_0045cf30 g_011dec4c;
-extern GlobalObject_0044f440 g_011dec58;
+extern GlobalObject_0044f440 fLocalTreeMipMapLODBias_SpeedTree;
+extern GlobalObject_0044f440 fLODFadeOutObjectMultComplex_LOD;
+extern GlobalObject_0045cfe0 iRetainFilenameOffsetTable_Archive;
+extern GlobalObject_0045cf30 bInvalidateOlderFiles_Archive;
+extern GlobalObject_0044f440 fUpgradeTexturesDistance_General;
 extern GlobalObject_00633c90 g_011dec64;
 extern GlobalObject_006ffcf0 g_011dec74;
-extern GlobalObject_0044f440 g_011dec7c;
-extern GlobalObject_0045cf30 g_011dec88;
+extern GlobalObject_0044f440 fLODFadeOutObjectMultCity_LOD;
+extern GlobalObject_0045cf30 bAllowYesToAll_MESSAGES;
 extern GlobalObject_00633c90 g_011dec94;
-extern GlobalObject_0045cf30 g_011dec98;
+extern GlobalObject_0045cf30 bShowMenuTextureUse_Display;
 extern GlobalObject_00633c90 g_011deca4;
-extern GlobalObject_0045cf30 g_011decac;
-extern GlobalObject_0045cf30 g_011decbc;
-extern GlobalObject_0044f440 g_011decc8;
-extern GlobalObject_0045cf30 g_011decd8;
+extern GlobalObject_0045cf30 bUseBackgroundFileLoader_BackgroundLoad;
+extern GlobalObject_0045cf30 bUseThreadedTempEffects_General;
+extern GlobalObject_0044f440 fLODFadeOutActorMultInterior_LOD;
+extern GlobalObject_0045cf30 bEnableBoundingVolumeOcclusion_General;
 extern GlobalObject_00877f10 g_011dece4;
-extern GlobalObject_0045cf30 g_011ded20;
+extern GlobalObject_0045cf30 bUseThreadedMorpher_General;
 extern GlobalObject_00633c90 g_011ded3c;
 extern GlobalObject_00633c90 g_011ded58;
-extern GlobalObject_0045cf30 g_011ded68;
-extern GlobalObject_0045cf30 g_011ded74;
-extern GlobalObject_0045cf30 g_011ded80;
-extern GlobalObject_0044f440 g_011ded8c;
-extern GlobalObject_0044f440 g_011ded98;
+extern GlobalObject_0045cf30 bUseHardDriveCache_General;
+extern GlobalObject_0045cf30 bSkipInitializationFlows_MESSAGES;
+extern GlobalObject_0045cf30 bPreCullActors_General;
+extern GlobalObject_0044f440 fLODFadeOutActorMultComplex_LOD;
+extern GlobalObject_0044f440 fLODFadeOutActorMultCity_LOD;
 extern GlobalObject_00633c90 g_011deda4;
 extern GlobalObject_006ffcf0 g_011dedb4;
-extern GlobalObject_0045cf30 g_011dedbc;
-extern GlobalObject_0044f440 g_011dedc8;
-extern GlobalObject_0044f440 g_011deddc;
-extern GlobalObject_0044f440 g_011dede8;
-extern GlobalObject_0045cf30 g_011dedf4;
-extern GlobalObject_0045cfe0 g_011dee00;
+extern GlobalObject_0045cf30 bChangeTimeMultSlowly_General;
+extern GlobalObject_0044f440 fLODLandDropAmount_LOD;
+extern GlobalObject_0044f440 fLODFadeOutItemMultInterior_LOD;
+extern GlobalObject_0044f440 fMenuBGBlurRadius_Interface;
+extern GlobalObject_0045cf30 bUseWindowsMessageBox_MESSAGES;
+extern GlobalObject_0045cfe0 iFPS_CameraPath;
 extern GlobalObject_00a2e180 g_011dee18;
-extern GlobalObject_0045cf30 g_011dee20;
-extern GlobalObject_0045cf30 g_011dee3c;
-extern GlobalObject_0044f440 g_011dee54;
-extern GlobalObject_0045cfe0 g_011dee60;
-extern GlobalObject_0045cfe0 g_011dee6c;
+extern GlobalObject_0045cf30 bSkipProgramFlows_MESSAGES;
+extern GlobalObject_0045cf30 bUseArchives_Archive;
+extern GlobalObject_0044f440 fLODFadeOutItemMultCity_LOD;
+extern GlobalObject_0045cfe0 iFPSClamp_General;
+extern GlobalObject_0045cfe0 iFileLogging_MESSAGES;
 extern GlobalObject_00633c90 g_011dee84;
-extern GlobalObject_0045cf30 g_011deea8;
-extern GlobalObject_0045cfe0 g_011deec0;
-extern GlobalObject_0045cfe0 g_011deecc;
-extern GlobalObject_0045cf30 g_011deed8;
-extern GlobalObject_0044f440 g_011deee8;
-extern GlobalObject_0045cf30 g_011defdc;
+extern GlobalObject_0045cf30 bDisplayLODLand_LOD;
+extern GlobalObject_0045cfe0 iDebugTextLeftRightOffset_Display;
+extern GlobalObject_0045cfe0 iTake_CameraPath;
+extern GlobalObject_0045cf30 bAlwaysActive_General;
+extern GlobalObject_0044f440 fLODLandVerticalBias_LOD;
+extern GlobalObject_0045cf30 bShowCheckMemoryOutput_General;
 extern GlobalObject_00878030 g_011deffc;
 extern GlobalObject_00a2e180 g_011df050;
 extern GlobalObject_00a7b610 g_011df0c0;
 extern GlobalObject_00a2e180 g_011df0d0;
-extern GlobalObject_00719c00 g_011df124;
+extern GlobalObject_00719c00 iScreenShotIndex_Display;
 extern GlobalObject_00a2e180 g_011df160;
-extern GlobalObject_0045cfe0 g_011df198;
-extern GlobalObject_0045cf30 g_011df1b8;
+extern GlobalObject_0045cfe0 iNumBitsForFullySeen_General;
+extern GlobalObject_0045cf30 bTaskletCellTransformsUpdate_General;
 extern GlobalObject_0087d420 g_011df1c4;
-extern GlobalObject_0045cf30 g_011df214;
+extern GlobalObject_0045cf30 bTaskletActorHavokSync_General;
 extern GlobalObject_00a2e180 g_011df23c;
 extern GlobalObject_0087d2c0 g_011df244;
-extern GlobalObject_0045cf30 g_011df690;
+extern GlobalObject_0045cf30 bTrackAllDeaths_General;
 extern GlobalObject_0045d260 g_011df69c;
 extern GlobalObject_0045d260 g_011df69d;
 extern GlobalObject_0045d260 g_011df69e;
 extern GlobalObject_0045d260 g_011df69f;
-extern GlobalObject_0045cf30 g_011df6b0;
-extern GlobalObject_0045cf30 g_011df6c4;
-extern GlobalObject_0045cf30 g_011df6d0;
+extern GlobalObject_0045cf30 bUseMovementBlockedPackage_General;
+extern GlobalObject_0045cf30 bDisableNPCAttacks_Combat;
+extern GlobalObject_0045cf30 bDisableHeadTracking_HeadTracking;
 extern GlobalObject_0045cfe0 g_011df6e0;
-extern GlobalObject_0044f440 g_011df6ec;
-extern GlobalObject_0044f440 g_011df700;
-extern GlobalObject_0044f440 g_011df70c;
+extern GlobalObject_0044f440 fHardLandingDamageThreshold_Audio;
+extern GlobalObject_0044f440 fUpdateDelayNewTargetSecondsMin_HeadTracking;
+extern GlobalObject_0044f440 fDialogHitSoundCooldownMax_Audio;
 extern GlobalObject_0045d260 g_011df71c;
 extern GlobalObject_0045d260 g_011df71d;
 extern GlobalObject_00a2e180 g_011df71e;
-extern GlobalObject_0045cf30 g_011df720;
-extern GlobalObject_0044f440 g_011df72c;
-extern GlobalObject_0044f440 g_011df73c;
-extern GlobalObject_0044f440 g_011df748;
-extern GlobalObject_0044f440 g_011df754;
-extern GlobalObject_0045cf30 g_011df760;
-extern GlobalObject_0045cfe0 g_011df780;
-extern GlobalObject_0044f440 g_011df78c;
+extern GlobalObject_0045cf30 bPlayStaggers_Combat;
+extern GlobalObject_0044f440 fJumpAnimDelay_HAVOK;
+extern GlobalObject_0044f440 fDialogHitSoundCooldownMin_Audio;
+extern GlobalObject_0044f440 fMinBloodDamage_Combat;
+extern GlobalObject_0044f440 fHitVectorDelay_Combat;
+extern GlobalObject_0045cf30 bPlayHitLocationIdles_Combat;
+extern GlobalObject_0045cfe0 iMaxHiPerfCombatCount_Combat;
+extern GlobalObject_0044f440 fUpdateDelayNewTargetSecondsMax_HeadTracking;
 extern GlobalObject_0044fae0 g_011df7e0;
-extern GlobalObject_0045cf30 g_011df7f8;
-extern GlobalObject_0045cfe0 g_011df804;
-extern GlobalObject_0044f440 g_011df810;
-extern GlobalObject_0044f440 g_011df828;
-extern GlobalObject_0045cfe0 g_011df838;
-extern GlobalObject_0045cfe0 g_011df848;
-extern GlobalObject_0045cf30 g_011df858;
-extern GlobalObject_0045cf30 g_011df868;
+extern GlobalObject_0045cf30 bDisableAllGore_General;
+extern GlobalObject_0045cfe0 iDetectionPicks_GamePlay;
+extern GlobalObject_0044f440 fUpdateDelaySecondsMin_HeadTracking;
+extern GlobalObject_0044f440 fUpdateDelaySecondsMax_HeadTracking;
+extern GlobalObject_0045cfe0 iShowHitVector_Combat;
+extern GlobalObject_0045cfe0 iUpdateActorsPerFrame_HeadTracking;
+extern GlobalObject_0045cf30 bDismemberOneLimb_Combat;
+extern GlobalObject_0045cf30 bVATSSmartCameraCheckDebug_VATS;
 extern GlobalObject_00a2e180 g_011df8e4;
-extern GlobalObject_0045cf30 g_011df93c;
+extern GlobalObject_0045cf30 bActorLookWithHavok_General;
 extern GlobalObject_00a2e180 g_011df968;
 extern GlobalObject_00a2e180 g_011df9e0;
 extern GlobalObject_00a2e180 g_011dfa1a;
@@ -8312,14 +9156,14 @@ extern GlobalObject_008c71d0 g_011dfa50;
 extern GlobalObject_0078d3b0 g_011dfafc;
 extern GlobalObject_0045cfe0 g_011dfb18;
 extern GlobalObject_0045cfe0 g_011dfb34;
-extern GlobalObject_0045cf30 g_011dfb68;
-extern GlobalObject_0045cf30 g_011dfb88;
+extern GlobalObject_0045cf30 bUseThreadedAI_General;
+extern GlobalObject_0045cf30 bRunActorMovementDuringRendering_General;
 extern GlobalObject_008caab0 g_011dfb98;
 extern GlobalObject_0044fae0 g_011dfbe8;
 extern GlobalObject_0044fae0 g_011dfc04;
 extern GlobalObject_008caae0 g_011dfc24;
 extern GlobalObject_0044fae0 g_011dfc38;
-extern GlobalObject_0045cf30 g_011dfc70;
+extern GlobalObject_0045cf30 bRunDetectionDuringRendering_General;
 extern GlobalObject_00a2e180 g_011dfc7c;
 extern GlobalObject_00a2e180 g_011dfcfc;
 extern GlobalObject_00a2e180 g_011dfd74;
@@ -8333,18 +9177,18 @@ extern GlobalObject_00a2e180 g_011dffcc;
 extern GlobalObject_00a2e180 g_011e0048;
 extern GlobalObject_00a2e180 g_011e00c8;
 extern GlobalObject_00a2e180 g_011e01bc;
-extern GlobalObject_0044f440 g_011e01f4;
-extern GlobalObject_0044f440 g_011e0200;
-extern GlobalObject_0044f440 g_011e0218;
+extern GlobalObject_0044f440 fHealthBarEmittanceFadeTime_GamePlay;
+extern GlobalObject_0044f440 fHealthBarHeight_GamePlay;
+extern GlobalObject_0044f440 fHealthBarWidth_GamePlay;
 extern GlobalObject_006815c0 g_011e0234;
 extern GlobalObject_0045d260 g_011e0244;
 extern GlobalObject_0045d260 g_011e0245;
 extern GlobalObject_0045d260 g_011e0246;
 extern GlobalObject_00a2e180 g_011e0247;
-extern GlobalObject_0044f440 g_011e024c;
-extern GlobalObject_0044f440 g_011e0288;
-extern GlobalObject_0044f440 g_011e029c;
-extern GlobalObject_0044f440 g_011e02c4;
+extern GlobalObject_0044f440 fHealthBarSpeed_GamePlay;
+extern GlobalObject_0044f440 fHealthBarFadeOutSpeed_GamePlay;
+extern GlobalObject_0044f440 fINIDetectDoorsForPathingTime_Pathing;
+extern GlobalObject_0044f440 fHealthBarEmittanceTime_GamePlay;
 extern GlobalObject_00a2e180 g_011e0334;
 extern GlobalObject_0045d260 g_011e0361;
 extern GlobalObject_00a2e180 g_011e0362;
@@ -8353,131 +9197,131 @@ extern GlobalObject_0044fae0 g_011e03a8;
 extern GlobalObject_0044fae0 g_011e043c;
 extern GlobalObject_0045d260 g_011e0460;
 extern GlobalObject_00a2e180 g_011e0461;
-extern GlobalObject_0044f440 g_011e0474;
-extern GlobalObject_0044f440 g_011e048c;
-extern GlobalObject_0044f440 g_011e0498;
+extern GlobalObject_0044f440 fAimChaseLookingMult_Combat;
+extern GlobalObject_0044f440 fAimUpDegrees_Combat;
+extern GlobalObject_0044f440 fAimDownDegrees_Combat;
 extern GlobalObject_0045d260 g_011e0528;
 extern GlobalObject_00a2e180 g_011e0529;
 extern GlobalObject_00a2e180 g_011e0551;
-extern GlobalObject_0044f440 g_011e0574;
-extern GlobalObject_0045cfe0 g_011e05b4;
+extern GlobalObject_0044f440 fQuadrupedPitchMult_HAVOK;
+extern GlobalObject_0045cfe0 iHavokSkipFrameCountTEST_Havok;
 extern GlobalObject_006815c0 g_011e05d0;
 extern GlobalObject_006815c0 g_011e05e0;
-extern GlobalObject_0045cf30 g_011e05ec;
+extern GlobalObject_0045cf30 bBackgroundLoadLipFiles_BackgroundLoad;
 extern GlobalObject_0044f440 g_011e060c;
-extern GlobalObject_00709f00 g_011e07f0;
-extern GlobalObject_0044f440 g_011e0818;
+extern GlobalObject_00709f00 bShowQuestMarkers_GamePlay;
+extern GlobalObject_0044f440 fXenonMinLookSpeed_Controls;
 extern GlobalObject_0044f440 g_011e0824;
-extern GlobalObject_0045cfe0 g_011e0830;
-extern GlobalObject_0044f440 g_011e0840;
-extern GlobalObject_00709f00 g_011e0850;
-extern GlobalObject_0044f440 g_011e085c;
-extern GlobalObject_0044f440 g_011e0868;
-extern GlobalObject_00719c00 g_011e087c;
-extern GlobalObject_0045cf30 g_011e0888;
-extern GlobalObject_0045cf30 g_011e0894;
-extern GlobalObject_0045cfe0 g_011e08a0;
-extern GlobalObject_0044f440 g_011e08ac;
-extern GlobalObject_004de370 g_011e08b8;
-extern GlobalObject_0044f440 g_011e08c4;
-extern GlobalObject_0044f440 g_011e08d0;
-extern GlobalObject_0045cf30 g_011e08e0;
-extern GlobalObject_0044f440 g_011e0900;
-extern GlobalObject_0044f440 g_011e090c;
-extern GlobalObject_0044f440 g_011e091c;
-extern GlobalObject_004de370 g_011e0928;
-extern GlobalObject_0044f440 g_011e0934;
-extern GlobalObject_00719c00 g_011e0940;
-extern GlobalObject_0044f440 g_011e094c;
-extern GlobalObject_0044f440 g_011e0958;
-extern GlobalObject_0044f440 g_011e0964;
-extern GlobalObject_0044f440 g_011e0970;
-extern GlobalObject_0045cf30 g_011e097c;
-extern GlobalObject_0045cf30 g_011e0988;
+extern GlobalObject_0045cfe0 iJoystickLookLeftRight_Controls;
+extern GlobalObject_0044f440 fJoystickLookLRMult_Controls;
+extern GlobalObject_00709f00 bGamePadRumble_Controls;
+extern GlobalObject_0044f440 fAnalogMaxRunZonePercent_Controls;
+extern GlobalObject_0044f440 fJoystickMoveLRMult_Controls;
+extern GlobalObject_00719c00 iKillCamera_GamePlay;
+extern GlobalObject_0045cf30 bEssentialTakeNoDamage_GamePlay;
+extern GlobalObject_0045cf30 bSetDemigodMode_GamePlay;
+extern GlobalObject_0045cfe0 iXenonVertLookAccel_Controls;
+extern GlobalObject_0044f440 fMinAnalogWalkSpeed_Controls;
+extern GlobalObject_004de370 fXenonVertLookSpeed_Controls;
+extern GlobalObject_0044f440 fDlgHeadingDegStop_Interface;
+extern GlobalObject_0044f440 fDlgLookAdj_Interface;
+extern GlobalObject_0045cf30 bBorderRegionsEnabled_General;
+extern GlobalObject_0044f440 fDlgLookDegStop_Interface;
+extern GlobalObject_0044f440 fUFOCamSpeedMult_Controls;
+extern GlobalObject_0044f440 fMaxAnalogRunSpeed_Controls;
+extern GlobalObject_004de370 fXenonHorizLookSpeed_Controls;
+extern GlobalObject_0044f440 fCameraCasterSize_HAVOK;
+extern GlobalObject_00719c00 iDifficulty_GamePlay;
+extern GlobalObject_0044f440 fDlgLookDegStart_Interface;
+extern GlobalObject_0044f440 fDlgLookMult_Interface;
+extern GlobalObject_0044f440 fPlayerCharacterTurnMult_Controls;
+extern GlobalObject_0044f440 fIronSightsZoomDefault_Combat;
+extern GlobalObject_0045cf30 bIronSightsZoomEnable_Combat;
+extern GlobalObject_0045cf30 bHealthBarShowing_GamePlay;
 extern GlobalObject_0044f440 g_011e0994;
-extern GlobalObject_0045cfe0 g_011e09a4;
-extern GlobalObject_0045cf30 g_011e09b0;
-extern GlobalObject_0044f440 g_011e09bc;
-extern GlobalObject_0044f440 g_011e09c8;
-extern GlobalObject_0045cf30 g_011e09e0;
-extern GlobalObject_0045cfe0 g_011e0a10;
-extern GlobalObject_0045cfe0 g_011e0a20;
-extern GlobalObject_0045cf30 g_011e0a30;
-extern GlobalObject_0045cf30 g_011e0a50;
-extern GlobalObject_00709f00 g_011e0a5c;
-extern GlobalObject_004de370 g_011e0a6c;
-extern GlobalObject_0044f440 g_011e0a78;
+extern GlobalObject_0045cfe0 iJoystickMoveLeftRight_Controls;
+extern GlobalObject_0045cf30 bInstantLevelUp_GamePlay;
+extern GlobalObject_0044f440 fMinAnalogRunSpeed_Controls;
+extern GlobalObject_0044f440 fCameraCasterPlayerSize_HAVOK;
+extern GlobalObject_0045cf30 bDisableAutoVanityMode_General;
+extern GlobalObject_0045cfe0 iActorsDismemberedPerFrame_GamePlay;
+extern GlobalObject_0045cfe0 iJoystickMoveFrontBack_Controls;
+extern GlobalObject_0045cf30 bTrackProgress_GamePlay;
+extern GlobalObject_0045cf30 bShowGunTarget_General;
+extern GlobalObject_00709f00 bInvertYValues_Controls;
+extern GlobalObject_004de370 fMouseSensitivity_Controls;
+extern GlobalObject_0044f440 fAnalogRunZonePercent_Controls;
 extern GlobalObject_0044f440 g_011e0a84;
-extern GlobalObject_0045cfe0 g_011e0a90;
-extern GlobalObject_0045cfe0 g_011e0a9c;
+extern GlobalObject_0045cfe0 iXenonHorizLookAccel_Controls;
+extern GlobalObject_0045cfe0 iHoursToSleep_General;
 extern GlobalObject_00e98f20 g_011e0aa8;
-extern GlobalObject_0045cfe0 g_011e0adc;
-extern GlobalObject_0044f440 g_011e0af0;
-extern GlobalObject_00719c00 g_011e0b00;
-extern GlobalObject_0045cf30 g_011e0b1c;
-extern GlobalObject_0044f440 g_011e0b28;
+extern GlobalObject_0045cfe0 iJoystickLookUpDown_Controls;
+extern GlobalObject_0044f440 fJoystickLookUDMult_Controls;
+extern GlobalObject_00719c00 uiRedeemedContent_GamePlay;
+extern GlobalObject_0045cf30 bAllowHavokGrabTheLiving_GamePlay;
+extern GlobalObject_0044f440 fDlgHeadingDegStart_Interface;
 extern GlobalObject_00a2e180 g_011e0b34;
-extern GlobalObject_0044f440 g_011e0b40;
-extern GlobalObject_0045cf30 g_011e0b4c;
-extern GlobalObject_0045cf30 g_011e0b64;
-extern GlobalObject_0044f440 g_011e0b78;
-extern GlobalObject_0044f440 g_011e0b84;
-extern GlobalObject_0044f440 g_011e0b94;
+extern GlobalObject_0044f440 fJoystickMoveFBMult_Controls;
+extern GlobalObject_0045cf30 bAlwaysRunByDefault_Controls;
+extern GlobalObject_0045cf30 bDisablePlayerCollision_HAVOK;
+extern GlobalObject_0044f440 fMaxAnalogWalkSpeed_Controls;
+extern GlobalObject_0044f440 fDlgFocus_Interface;
+extern GlobalObject_0044f440 fForwardBias_Controls;
 extern GlobalObject_00a2e180 g_011e0dec;
-extern GlobalObject_0045cf30 g_011e0e4c;
+extern GlobalObject_0045cf30 bRunMiddleLowLevelProcess_General;
 extern GlobalObject_0045cfe0 g_011e0e64;
 extern GlobalObject_0096d020 g_011e0e80;
-extern GlobalObject_0045cf30 g_011f1260;
-extern GlobalObject_0045cf30 g_011f126c;
-extern GlobalObject_0045cf30 g_011f127c;
+extern GlobalObject_0045cf30 bTaskletActorSceneGraphUpdates_General;
+extern GlobalObject_0045cf30 bTaskletActorAnimMovementUpdates_General;
+extern GlobalObject_0045cf30 bTaskletTempEffectsUpdate_General;
 extern GlobalObject_00a2e180 g_011f12c0;
 extern GlobalObject_00a2e180 g_011f133c;
 extern GlobalObject_00c1ad50 g_011f1388;
 extern GlobalObject_00a2e180 g_011f1389;
 extern GlobalObject_00a2e180 g_011f14ec;
 extern GlobalObject_00a2e180 g_011f1570;
-extern GlobalObject_0045cf30 g_011f15a4;
-extern GlobalObject_0045cf30 g_011f15b0;
+extern GlobalObject_0045cf30 bDebugCombatAttackerText_Combat;
+extern GlobalObject_0045cf30 bDebugCombatGuardRadius_Combat;
 extern GlobalObject_0045d260 g_011f15cc;
 extern GlobalObject_00a2e180 g_011f15cd;
-extern GlobalObject_0045cf30 g_011f15d0;
-extern GlobalObject_0045cf30 g_011f15ec;
-extern GlobalObject_0045cf30 g_011f1674;
-extern GlobalObject_0045cf30 g_011f1680;
+extern GlobalObject_0045cf30 bDebugCombatUnreachableLocations_Combat;
+extern GlobalObject_0045cf30 bDebugCombatArea_Combat;
+extern GlobalObject_0045cf30 bDebugCombatCoverSearch_Combat;
+extern GlobalObject_0045cf30 bDebugCombatCoverReservations_Combat;
 extern GlobalObject_0045cf30 g_011f168c;
-extern GlobalObject_0045cf30 g_011f16c0;
-extern GlobalObject_0045cf30 g_011f16e0;
+extern GlobalObject_0045cf30 bDebugCombatCoverReservationsText_Combat;
+extern GlobalObject_0045cf30 bDebugCombatCoverSearchText_Combat;
 extern GlobalObject_00a2e180 g_011f16ec;
-extern GlobalObject_0045cf30 g_011f1764;
+extern GlobalObject_0045cf30 bDisableCombatDialogue_Combat;
 extern GlobalObject_00a2e180 g_011f1784;
-extern GlobalObject_0045cf30 g_011f1814;
-extern GlobalObject_0045cf30 g_011f1824;
-extern GlobalObject_0045cf30 g_011f1840;
+extern GlobalObject_0045cf30 bDebugCombatSearch_Combat;
+extern GlobalObject_0045cf30 bDebugCombatGroupClusters_Combat;
+extern GlobalObject_0045cf30 bEncounterZoneTargetRestrict_Combat;
 extern GlobalObject_0045cf30 g_011f1858;
-extern GlobalObject_0045cf30 g_011f1878;
+extern GlobalObject_0045cf30 bDebugCombatGroups_Combat;
 extern GlobalObject_00a2e180 g_011f1898;
-extern GlobalObject_0045cf30 g_011f18d8;
+extern GlobalObject_0045cf30 bDisableCombatGroupStrategies_Combat;
 extern GlobalObject_00a2e180 g_011f193c;
-extern GlobalObject_0045cf30 g_011f197c;
+extern GlobalObject_0045cf30 bDebugCombatDetectionEvents_Combat;
 extern GlobalObject_00a2e180 g_011f19d0;
-extern GlobalObject_0045cfe0 g_011f1a1c;
-extern GlobalObject_0044f440 g_011f1a38;
-extern GlobalObject_0044f440 g_011f1a4c;
+extern GlobalObject_0045cfe0 iMaxHiPerfNPCTargetCount_Combat;
+extern GlobalObject_0044f440 fHiPerfNPCTargetLOSTimer_Combat;
+extern GlobalObject_0044f440 fHiPerfPCTargetLOSTimer_Combat;
 extern GlobalObject_0045d260 g_011f1a60;
 extern GlobalObject_0045d260 g_011f1a61;
 extern GlobalObject_00a2e180 g_011f1a62;
 extern GlobalObject_0045d260 g_011f1a63;
-extern GlobalObject_0045cfe0 g_011f1a78;
-extern GlobalObject_0044f440 g_011f1ab0;
-extern GlobalObject_0044f440 g_011f1ad4;
-extern GlobalObject_0045cf30 g_011f1b24;
+extern GlobalObject_0045cfe0 iMaxHiPerfPCTargetCount_Combat;
+extern GlobalObject_0044f440 fLowPerfPCTargetLOSTimer_Combat;
+extern GlobalObject_0044f440 fLowPerfNPCTargetLOSTimer_Combat;
+extern GlobalObject_0045cf30 bDebugCombatTargets_Combat;
 extern GlobalObject_00a2e180 g_011f1b54;
-extern GlobalObject_0045cf30 g_011f1ba0;
+extern GlobalObject_0045cf30 bDebugCombatThreats_Combat;
 extern GlobalObject_00a2e180 g_011f1bd8;
-extern GlobalObject_0044f440 g_011f1c24;
-extern GlobalObject_0045cf30 g_011f1c30;
-extern GlobalObject_0045cf30 g_011f1c4c;
-extern GlobalObject_0044f440 g_011f1c70;
+extern GlobalObject_0044f440 fDebugCombatProjectileLOSTime_Combat;
+extern GlobalObject_0045cf30 bDebugCombatTextColorDark_Combat;
+extern GlobalObject_0045cf30 bDebugCombatProjectileLOS_Combat;
+extern GlobalObject_0044f440 fDebugCombatTextSize_Combat;
 extern GlobalObject_0045d260 g_011f1c7c;
 extern GlobalObject_00a2e180 g_011f1c7d;
 extern GlobalObject_0044f440 g_011f1c94;
@@ -8491,20 +9335,20 @@ extern GlobalObject_00a2e180 g_011f1f88;
 extern GlobalObject_00a2e180 g_011f2000;
 extern GlobalObject_00a2e180 g_011f2088;
 extern GlobalObject_00a2e180 g_011f20a5;
-extern GlobalObject_0045cf30 g_011f20b8;
-extern GlobalObject_0045cf30 g_011f20ec;
-extern GlobalObject_0044f440 g_011f210c;
+extern GlobalObject_0045cf30 bVATSProjectileDebug_Combat;
+extern GlobalObject_0045cf30 bProjectileDebug_Combat;
+extern GlobalObject_0044f440 fProjectileDebugDuration_Combat;
 extern GlobalObject_00a2e180 g_011f219c;
-extern GlobalObject_0044f440 g_011f21f4;
-extern GlobalObject_0044f440 g_011f2200;
-extern GlobalObject_0044f440 g_011f220c;
-extern GlobalObject_0044f440 g_011f222c;
+extern GlobalObject_0044f440 fVatsLightColorR_VATS;
+extern GlobalObject_0044f440 fVATSLightLevelMax_VATS;
+extern GlobalObject_0044f440 fVATSLightElevation_VATS;
+extern GlobalObject_0044f440 fVATSLightDistance_VATS;
 extern GlobalObject_009c6a30 g_011f2250;
-extern GlobalObject_0044f440 g_011f2298;
-extern GlobalObject_0044f440 g_011f22a8;
-extern GlobalObject_0044f440 g_011f22cc;
+extern GlobalObject_0044f440 fVATSLightLevelMin_VATS;
+extern GlobalObject_0044f440 fVatsLightColorG_VATS;
+extern GlobalObject_0044f440 fVatsLightColorB_VATS;
 extern GlobalObject_00a2e180 g_011f22f8;
-extern GlobalObject_0044f440 g_011f2304;
+extern GlobalObject_0044f440 fVATSLightAngle_VATS;
 extern GlobalObject_00a2e180 g_011f2384;
 extern GlobalObject_00a2e180 g_011f23fc;
 extern GlobalObject_00a2e180 g_011f2474;
@@ -8521,28 +9365,28 @@ extern GlobalObject_00a2e180 g_011f290c;
 extern GlobalObject_00a2e180 g_011f2984;
 extern GlobalObject_00a2e180 g_011f2a08;
 extern GlobalObject_00a2e180 g_011f2a80;
-extern GlobalObject_0044f440 g_011f2ab4;
-extern GlobalObject_0044f440 g_011f2ac4;
-extern GlobalObject_0044f440 g_011f2ad8;
-extern GlobalObject_0044f440 g_011f2af8;
-extern GlobalObject_0044f440 g_011f2b04;
-extern GlobalObject_0044f440 g_011f2b10;
-extern GlobalObject_0044f440 g_011f2b1c;
-extern GlobalObject_0044f440 g_011f2b2c;
-extern GlobalObject_0044f440 g_011f2b3c;
+extern GlobalObject_0044f440 fRotationSpeedIncrease_Pathfinding;
+extern GlobalObject_0044f440 fAICombatTurnSpeedScale_Pathfinding;
+extern GlobalObject_0044f440 fAITurnSpeedScale_Pathfinding;
+extern GlobalObject_0044f440 fAvoidanceWiderConeAngle_Pathfinding;
+extern GlobalObject_0044f440 fRunningWiderConeAngle_Pathfinding;
+extern GlobalObject_0044f440 fCreatureCombatTurnSpeedScale_Pathfinding;
+extern GlobalObject_0044f440 fAvoidanceDetectionTime_Pathfinding;
+extern GlobalObject_0044f440 fAvoidanceMinWaitTime_Pathfinding;
+extern GlobalObject_0044f440 fAvoidanceIgnoreTime_Pathfinding;
 extern GlobalObject_0044f440 g_011f2b5c;
-extern GlobalObject_0044f440 g_011f2b68;
-extern GlobalObject_0044f440 g_011f2b74;
-extern GlobalObject_0044f440 g_011f2b8c;
-extern GlobalObject_0044f440 g_011f2b98;
-extern GlobalObject_0044f440 g_011f2ba8;
-extern GlobalObject_0045cf30 g_011f2bb8;
-extern GlobalObject_0044f440 g_011f2bc4;
-extern GlobalObject_0044f440 g_011f2bd0;
-extern GlobalObject_0045cf30 g_011f2be0;
+extern GlobalObject_0044f440 fRepathingWaitDistance_Pathfinding;
+extern GlobalObject_0044f440 fAvoidanceDefaultWaitTime_Pathfinding;
+extern GlobalObject_0044f440 fAvoidanceAvoidAllRadius_Pathfinding;
+extern GlobalObject_0044f440 fAvoidanceTimeCheck_Pathfinding;
+extern GlobalObject_0044f440 fAvoidanceConeAngle_Pathfinding;
+extern GlobalObject_0045cf30 bUseActorAvoidance_Pathfinding;
+extern GlobalObject_0044f440 fAvoidanceIgnoreMinTime_Pathfinding;
+extern GlobalObject_0044f440 fLODActorAvoidanceDistance_General;
+extern GlobalObject_0045cf30 bUseFartherCheckForAvoidance_Pathfinding;
 extern GlobalObject_00a2e180 g_011f2bf4;
 extern GlobalObject_009e9bb0 g_011f2bf8;
-extern GlobalObject_0044f440 g_011f2c10;
+extern GlobalObject_0044f440 fCreatureTurnSpeedScale_Pathfinding;
 extern GlobalObject_00a2e180 g_011f2c88;
 extern GlobalObject_00a2e180 g_011f2d00;
 extern GlobalObject_00a2e180 g_011f2d84;
@@ -8554,7 +9398,7 @@ extern GlobalObject_00a2e180 g_011f3000;
 extern GlobalObject_00a2e180 g_011f3078;
 extern GlobalObject_00a2e180 g_011f30fc;
 extern GlobalObject_00a2e180 g_011f3180;
-extern GlobalObject_0045cf30 g_011f31c8;
+extern GlobalObject_0045cf30 bDebugSpectatorThreats_General;
 extern GlobalObject_00a2e180 g_011f3204;
 extern GlobalObject_00a2e180 g_011f327c;
 extern GlobalObject_00a7b610 g_011f33d4;

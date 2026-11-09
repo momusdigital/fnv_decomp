@@ -28,16 +28,16 @@ public:
     void NotifyCallback(C9D8F0Callback* callback, int flags);
 };
 
-extern int DAT_010c6fb0;
-extern int DAT_010c6fd0;
+extern int vftable_hkpShapeContainer;
+extern int vftable_hkpSingleShapeContainer;
 // @fnv 0x00c9d8c0
 hkpSingleShapeContainer* __fastcall ReleaseSingleShapeContainer(hkpSingleShapeContainer* self, void*, int flags)
 {
     const hkpShape* pOldWorld = self->m_pContainedShape;
-    *(int**)self = (int*)&DAT_010c6fd0;
+    *(int**)self = (int*)&vftable_hkpSingleShapeContainer;
     if (pOldWorld)
         pOldWorld->removeReference();
-    *(int**)self = (int*)&DAT_010c6fb0;
+    *(int**)self = (int*)&vftable_hkpShapeContainer;
     return self;
 }
 
@@ -96,8 +96,8 @@ hkpSingleShapeContainer* hkpBvShape::GetContainer()
     return &m_pContainedShape;
 }
 
-extern int DAT_010c6ff8;
-extern int DAT_010c6fd0;
+extern int vftable_hkpBvShape;
+extern int vftable_hkpSingleShapeContainer;
 // Explicit constructor entry: initialize the existing storage without calling shared base constructors.
 // @fnv 0x00c9d990
 hkpBvShape* __fastcall ConstructBvShape(hkpBvShape* self, void*, hkpShape* apBoundingVolume, hkpShape* childShape)
@@ -106,8 +106,8 @@ hkpBvShape* __fastcall ConstructBvShape(hkpBvShape* self, void*, hkpShape* apBou
     self->m_pBvShapeReference = apBoundingVolume;
     self->m_ulUserData = 0;
     *reinterpret_cast<unsigned int*>(&self->m_type) = 27;
-    *(void**)self = &DAT_010c6ff8;
-    *(void**)&self->m_pContainedShape = &DAT_010c6fd0;
+    *(void**)self = &vftable_hkpBvShape;
+    *(void**)&self->m_pContainedShape = &vftable_hkpSingleShapeContainer;
     self->m_pContainedShape.m_pContainedShape = childShape;
     childShape->addReference();
     self->m_pBvShapeReference->addReference();
@@ -183,7 +183,7 @@ void hkpBvShape::CastRayWithCollector(const ShapeRayCastQuery& input, const hkpC
     TimerCommand_c9da80("Et");
 }
 
-extern int DAT_0102e388;
+extern int vftable_hkBaseObject;
 
 // Releases the held shape reference and the contained shape (if non-null), rewriting the object's two vtable pointers to fixed addresses around the calls.
 // @fnv 0x00c9d930
@@ -193,14 +193,14 @@ void hkpBvShape::ReleaseReference_00c9d930()
     hkpBvShape* self = (hkpBvShape*)this;
 
     hkpShape* bv = self->m_pBvShapeReference;
-    *(void**)self = &DAT_010c6ff8;
+    *(void**)self = &vftable_hkpBvShape;
     bv->removeReference();
 
     hkpShape* child = const_cast<hkpShape*>(self->m_pContainedShape.m_pContainedShape);
-    *(void**)&self->m_pContainedShape = &DAT_010c6fd0;
+    *(void**)&self->m_pContainedShape = &vftable_hkpSingleShapeContainer;
     if (child)
         child->removeReference();
 
-    *(void**)self = &DAT_0102e388;
-    *(void**)&self->m_pContainedShape = &DAT_010c6fb0;
+    *(void**)self = &vftable_hkBaseObject;
+    *(void**)&self->m_pContainedShape = &vftable_hkpShapeContainer;
 }

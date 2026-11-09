@@ -1791,7 +1791,7 @@ class FUN_00c4f8e0 : public FUN_00c335d0
     FUN_00c4f8e0();
     virtual void vf0();
 };
-extern void* DAT_0101e82c;
+extern void* vftable_BSPortal;
 // @fnv 0x00c4f8e0
 FUN_00c4f8e0::FUN_00c4f8e0()
 {

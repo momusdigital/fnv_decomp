@@ -998,7 +998,7 @@ void hkFreeListAllocator::quit_00d5ff50()
     reinterpret_cast<QuitLargeBlockView*>(unk28)->ProcessAllItems();
 }
 
-extern "C" int DAT_010d1464;
+extern "C" int vftable_hkFreeListAllocator;
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(void*);
 
 struct EmbeddedMember
@@ -1011,7 +1011,7 @@ struct EmbeddedMember
 // src: GUESS 0x00d5ffd0 (confidence: low)
 void hkFreeListAllocator::SetVtableAndProcessState_00d5ffd0()
 {
-    *reinterpret_cast<void**>(this) = &DAT_010d1464;
+    *reinterpret_cast<void**>(this) = &vftable_hkFreeListAllocator;
     hkFreeListAllocator::quit_00d5ff50();
     FreeList* end = m_items + 41;
     for (int i = 40; i >= 0; --i)

@@ -568,7 +568,7 @@ void* __fastcall Object_InitializeFields_0050f7a0(void* pThis)
 }
 }  // namespace fnv_0050f7a0
 
-extern int DAT_01029b1c;
+extern int vftable_TESObject;
 void __fastcall FUN_00483370(void*);
 
 // @fnv 0x0050f8c0
@@ -576,7 +576,7 @@ void __fastcall FUN_00483370(void*);
 TESObject* __fastcall TESObject_TESObject(TESObject* apObject)
 {
     FUN_00483370(apObject);
-    *reinterpret_cast<int**>(apObject) = &DAT_01029b1c;
+    *reinterpret_cast<int**>(apObject) = &vftable_TESObject;
     reinterpret_cast<int*>(apObject)[7] = 0;
     reinterpret_cast<int*>(apObject)[8] = 0;
     reinterpret_cast<int*>(apObject)[6] = 0;
@@ -766,14 +766,15 @@ namespace fnv_0050f710 {
 struct FUN_0050f740_shell
 {
     void UpdateFields_0050f740(void);
-    void* FUN_0050f710(unsigned int flags);
+    void* TESBoundAnimObject_ScalarDeletingDestructor(unsigned int flags);
 };
 
 void* _Deallocate(void* p);
 
 // Calls FUN_0050f740, then deallocates this when flags has bit 0 set, and returns this.
 // @fnv 0x0050f710
-void* FUN_0050f740_shell::FUN_0050f710(unsigned int flags)
+// src: EXE 0x0050f710
+void* FUN_0050f740_shell::TESBoundAnimObject_ScalarDeletingDestructor(unsigned int flags)
 {
     UpdateFields_0050f740();
     if (flags & 1)
@@ -787,12 +788,13 @@ void _Deallocate(void* obj);
 
 struct FUN_0050f900_Class
 {
-    void* __thiscall FUN_0050f900(unsigned int flags);
+    void* __thiscall TESObject_ScalarDeletingDestructor(unsigned int flags);
 };
 
 // Calls FUN_0050f930 on this, deallocates this when bit 0 of flags is set, and returns this.
 // @fnv 0x0050f900
-void* __thiscall FUN_0050f900_Class::FUN_0050f900(unsigned int flags)
+// src: EXE 0x0050f900
+void* __thiscall FUN_0050f900_Class::TESObject_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_0050f930(this);
     if (flags & 1)
@@ -838,8 +840,8 @@ void FUN_006055d0_class::TESNPC_UnClone3D(int a)
 }
 
 extern "C" void __cdecl FUN_00ec3205(int);
-extern void* DAT_010a2f9c;
-extern void* DAT_010a2fa4;
+extern void* vftable_std__ios_base;
+extern void* vftable_std__basic_ios_010a2fa4;
 
 struct FUN_00aca4b0_class
 {
@@ -851,8 +853,8 @@ struct FUN_00aca4b0_class
 // src: GUESS 0x00aca4b0 (confidence: low)
 void __thiscall FUN_00aca4b0_class::SetVtableAndProcessState_00aca4b0()
 {
-    vtbl = &DAT_010a2fa4;
-    vtbl = &DAT_010a2f9c;
+    vtbl = &vftable_std__basic_ios_010a2fa4;
+    vtbl = &vftable_std__ios_base;
     FUN_00ec3205((int)this);
 }
 
@@ -1490,7 +1492,7 @@ float ShortPoint3::GetFloatY()
     return (float)(int)y;
 }
 
-extern char DAT_01029994;
+extern char vftable_TESBoundTreeObject;
 extern void __fastcall UpdateState_0050e9f0(void*);
 
 struct FUN_0050f7f0_shell
@@ -1502,7 +1504,7 @@ struct FUN_0050f7f0_shell
 // src: GUESS 0x0050f7f0 (confidence: low)
 void FUN_0050f7f0_shell::SetVtableAndProcessState_0050f7f0()
 {
-    *reinterpret_cast<void**>(this) = reinterpret_cast<void*>(&DAT_01029994);
+    *reinterpret_cast<void**>(this) = reinterpret_cast<void*>(&vftable_TESBoundTreeObject);
     UpdateState_0050e9f0(this);
 }
 

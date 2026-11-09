@@ -1,4 +1,4 @@
-extern "C" void* const DAT_010d460c[];
+extern "C" void* const vftable_hkLocalFrameGroup[];
 
 #define FNV64_HKVECTOR4_PACKET_BODIES
 #define FNV64_HKVECTOR4_OWN_CONVERSION
@@ -22,7 +22,7 @@ extern "C" void* const DAT_010d460c[];
 #include "../../include/hkMemoryAllocator.h"
 
 extern "C" void __cdecl ReturnSelf(void*);
-extern int DAT_010d461c;
+extern int vftable_hkSimpleLocalFrame;
 
 struct FUN_00da07b0_class
 {
@@ -35,7 +35,7 @@ void __cdecl finishLoadedObjecthkSimpleLocalFrame(void* apObject, void* b)
 {
     if (apObject)
     {
-        *(int*)apObject = (int)&DAT_010d461c;
+        *(int*)apObject = (int)&vftable_hkSimpleLocalFrame;
         ((FUN_00da07b0_class*)((char*)apObject + 0x64))->ReturnSelf(b);
     }
 }
@@ -62,50 +62,50 @@ void __cdecl Object_InvokeVirtualMethod_00da08c0(void** a)
     (**(void(__thiscall**)(void*, int))(*a))(a, 0);
 }
 
-extern int DAT_010c59f4;
-extern int DAT_010c6bec;
+extern int vftable_hkpMotion;
+extern int vftable_hkpKeyframedRigidMotion;
 
-// If a is non-null, sets its vtable pointer to DAT_010c59f4, optionally writes a 16-bit value at offset 0x11e, then sets the vtable to DAT_010c6bec.
+// If a is non-null, sets its vtable pointer to vftable_hkpMotion, optionally writes a 16-bit value at offset 0x11e, then sets the vtable to vftable_hkpKeyframedRigidMotion.
 // @fnv 0x00da08e0
 // src: GUESS 0x00da08e0 (confidence: low)
 void __cdecl Object_UpdateFields_00da08e0(void* pObject, int bSetField)
 {
     if (pObject)
     {
-        *(void**)pObject = &DAT_010c59f4;
+        *(void**)pObject = &vftable_hkpMotion;
         if (bSetField)
         {
             float f = 1.0f;
             *(float*)&f = f;
             *(unsigned short*)((char*)pObject + 0x11e) = (unsigned short)(*(int*)&f >> 0x10);
         }
-        *(void**)pObject = &DAT_010c6bec;
+        *(void**)pObject = &vftable_hkpKeyframedRigidMotion;
     }
 }
 
-extern int DAT_010c6fd0;
+extern int vftable_hkpSingleShapeContainer;
 // @fnv 0x00da0b10
 // src: GUESS 0x00da0b10 (confidence: low)
 void __cdecl Runtime_UpdateState_00da0b10(int* p)
 {
     if (p)
-        *p = (int)&DAT_010c6fd0;
+        *p = (int)&vftable_hkpSingleShapeContainer;
 }
 
-extern int DAT_010d6014;
+extern int vftable_hkStaticClassNameRegistry;
 
-struct FUN_00db7ab0_class
+struct hkStaticClassNameRegistry
 {
     void* __thiscall SetVtableAndProcessState_00db7ab0(void* a, void* b, void* c);
 };
 
 // @fnv 0x00db7ab0
 // src: GUESS 0x00db7ab0 (confidence: low)
-void* __thiscall FUN_00db7ab0_class::SetVtableAndProcessState_00db7ab0(void* a, void* b, void* c)
+void* __thiscall hkStaticClassNameRegistry::SetVtableAndProcessState_00db7ab0(void* a, void* b, void* c)
 {
     *(short*)((char*)this + 6) = 1;
     *(int*)((char*)this + 12) = (int)a;
-    *(int*)this = (int)&DAT_010d6014;
+    *(int*)this = (int)&vftable_hkStaticClassNameRegistry;
     *(int*)((char*)this + 16) = (int)b;
     *(int*)((char*)this + 20) = 1;
     *(int*)((char*)this + 8) = (int)c;
@@ -223,7 +223,7 @@ void __cdecl Object_UpdateFields_00da0760(void* pObject, void* b)
 {
     if (pObject)
     {
-        *(void**)((char*)pObject + 0) = (void*)DAT_010d460c;
+        *(void**)((char*)pObject + 0) = (void*)vftable_hkLocalFrameGroup;
         ((FUN_00cb0a70_class*)((char*)pObject + 8))->ReturnSelf((int)b);
     }
 }
@@ -344,13 +344,13 @@ void* __cdecl Runtime_GetDAT01269754Address(void)
     return &DAT_01269754;
 }
 
-extern int DAT_010c6bec;
+extern int vftable_hkpKeyframedRigidMotion;
 
 // @fnv 0x00da0910
 // src: GUESS 0x00da0910 (confidence: low)
 void* __cdecl Runtime_GetDAT010c6becAddress(void)
 {
-    return &DAT_010c6bec;
+    return &vftable_hkpKeyframedRigidMotion;
 }
 
 struct DA0920FinishFlag
@@ -688,13 +688,13 @@ void* __cdecl Object_GetGlobalObjectAddress_00da0b00()
     return &DAT_01269a0c;
 }
 
-extern int DAT_010c6fd0;
+extern int vftable_hkpSingleShapeContainer;
 
 // @fnv 0x00da0b20
 // src: GUESS 0x00da0b20 (confidence: low)
 void* __cdecl Object_GetGlobalObjectAddress_00da0b20()
 {
-    return &DAT_010c6fd0;
+    return &vftable_hkpSingleShapeContainer;
 }
 
 // Compares the first three ints in values and writes 1 to result if any two are equal, otherwise 0.
@@ -929,7 +929,7 @@ void MapHolder::CopyMapEntries(const MapHolder& other)
 
 namespace fnv_00db7960 {
 extern "C" void* __cdecl hkMemoryRouter_getInstance();
-extern int DAT_010cf844;
+extern int vftable_hkVtableClassRegistry;
 
 struct FUN_00db7960_Data
 {
@@ -958,7 +958,7 @@ void* __cdecl CreateAudioResult()
 
     result->unk04 = 0x14;
     result->unk06 = 1;
-    result->unk00 = &DAT_010cf844;
+    result->unk00 = &vftable_hkVtableClassRegistry;
 
     int* data = reinterpret_cast<int*>(reinterpret_cast<char*>(allocated) + 8);
     data[0] = 0;
@@ -1551,7 +1551,7 @@ void FUN_00da2b30_Class::InvokeCallback()
     }
 }
 
-extern int DAT_010d4de4;
+extern int vftable_hkStackTracer;
 extern int DAT_01269a9c;
 
 struct FUN_00da2840_Obj
@@ -1559,7 +1559,7 @@ struct FUN_00da2840_Obj
     void __thiscall hkStackTracerWin32Data_init();
 };
 
-struct FUN_00da2b90_Obj
+struct hkStackTracer
 {
     int unk00;
     short unk04;
@@ -1569,12 +1569,12 @@ struct FUN_00da2b90_Obj
     unsigned int* __thiscall Initialize();
 };
 
-// Sets unk06 to 1, stores pointers to DAT_010d4de4 and DAT_01269a9c, calls FUN_00da2840 on DAT_01269a9c, and returns this.
+// Sets unk06 to 1, stores pointers to vftable_hkStackTracer and DAT_01269a9c, calls FUN_00da2840 on DAT_01269a9c, and returns this.
 // @fnv 0x00da2b90
-unsigned int* __thiscall FUN_00da2b90_Obj::Initialize()
+unsigned int* __thiscall hkStackTracer::Initialize()
 {
     unk06 = 1;
-    unk00 = reinterpret_cast<int>(&DAT_010d4de4);
+    unk00 = reinterpret_cast<int>(&vftable_hkStackTracer);
     unk08 = &DAT_01269a9c;
 
     reinterpret_cast<FUN_00da2840_Obj*>(&DAT_01269a9c)->hkStackTracerWin32Data_init();
@@ -1629,8 +1629,8 @@ void* __cdecl Runtime_ForwardCall_00da6e10(void* apUnused, void* b, void* c)
     return hkpAgent1nSector_ProcessEntries_00da3510(b, c);
 }
 
-extern int DAT_010cf7d4;
-extern int DAT_010cf804;
+extern int vftable_hkDynamicClassNameRegistry;
+extern int vftable_hkDefaultClassNameRegistry;
 extern char str_010cf830[];
 
 struct SubObject
@@ -1663,10 +1663,10 @@ struct CreatedObject
         flag.byte = 0;
         unsigned int arg = flag.word;
 
-        vtable = &DAT_010cf7d4;
+        vtable = &vftable_hkDynamicClassNameRegistry;
         typeName = str_010cf830;
         base.FUN_00d87790(arg);
-        vtable = &DAT_010cf804;
+        vtable = &vftable_hkDefaultClassNameRegistry;
     }
 };
 
@@ -1703,7 +1703,7 @@ int* Runtime_GetDAT01269b28Address()
     return &DAT_01269b28;
 }
 
-extern int DAT_010cce28;
+extern int vftable_hkpPhysicsSystem;
 
 struct hkLoadedObjectDB7C
 {
@@ -1730,14 +1730,14 @@ void __cdecl InitLoadedObject(void* pvObject, int iFinishing)
     if (pvObject)
     {
         hkLoadedObjectDB7C* pkObject = static_cast<hkLoadedObjectDB7C*>(pvObject);
-        pkObject->m_ppVirtualMethodTable = &DAT_010cce28;
+        pkObject->m_ppVirtualMethodTable = &vftable_hkpPhysicsSystem;
         pkObject->m_name.ReturnSelf(iFinishing);
     }
 }
 
 extern "C" void __cdecl FUN_00ec658f(const void*);
 extern unsigned char DAT_01269b80;
-extern void* DAT_010d6260;
+extern void* vftable_hkSerializeDeprecated;
 extern void* DAT_01269b78;
 extern void* FUN_00fde2a0;
 extern unsigned short DAT_01269b7e;
@@ -1750,7 +1750,7 @@ void* __cdecl hkLogger_nullLogger()
     {
         *(unsigned int*)&DAT_01269b80 |= iInitFlag;
         DAT_01269b7e = iInitFlag;
-        DAT_01269b78 = &DAT_010d6260;
+        DAT_01269b78 = &vftable_hkSerializeDeprecated;
         FUN_00ec658f(&FUN_00fde2a0);
     }
     return &DAT_01269b78;
@@ -3560,9 +3560,9 @@ void drive_slab()
 }
 }  // namespace fnv_00db48a0
 
-extern int DAT_010d4de4;
+extern int vftable_hkStackTracer;
 
-extern int DAT_0102e388;
+extern int vftable_hkBaseObject;
 
 struct StackTraceModule
 {
@@ -3594,7 +3594,7 @@ void StackTraceOwner::ReleaseStackTraceModule()
 
     StackTraceModule* p = loader;
 
-    vtable = &DAT_010d4de4;
+    vtable = &vftable_hkStackTracer;
 
     if (p->hModule)
     {
@@ -3621,7 +3621,7 @@ void StackTraceOwner::ReleaseStackTraceModule()
         p->hModule = 0;
     }
 
-    vtable = &DAT_0102e388;
+    vtable = &vftable_hkBaseObject;
 }
 
 

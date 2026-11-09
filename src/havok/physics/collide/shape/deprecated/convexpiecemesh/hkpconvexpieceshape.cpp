@@ -10,9 +10,9 @@
 // src/havok/physics/collide/shape/deprecated/convexpiecemesh/hkpconvexpieceshape.cpp - unit created 2026-10-16 from the whole-binary attribution (360 source path: d:/projects/fallout/code/havok/source/physics/collide/shape/deprecated/convexpiecemesh/hkpconvexpieceshape.cpp).
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
 
-extern int DAT_010c6fb0;
-extern int DAT_010ece2c;
-extern int DAT_010ece08;
+extern int vftable_hkpShapeContainer;
+extern int vftable_hkpConvexPieceShape;
+extern int vftable_hkpConvexPieceShape_for_hkpShapeContainer;
 
 struct FUN_00e607c0
 {
@@ -35,9 +35,9 @@ FUN_00e607c0::FUN_00e607c0(float afValue)
     m_s06 = 1;
     m_i08 = 0;
     m_i0C = 0x14;
-    m_p14 = &DAT_010c6fb0;
-    m_p00 = &DAT_010ece2c;
-    m_p14 = &DAT_010ece08;
+    m_p14 = &vftable_hkpShapeContainer;
+    m_p00 = &vftable_hkpConvexPieceShape;
+    m_p14 = &vftable_hkpConvexPieceShape_for_hkpShapeContainer;
 }
 
 struct FUN_00e60680_class {
@@ -61,8 +61,8 @@ struct FUN_00e60690_owner { int unk00; int unk04; int unk08; Dispatch* unk0c; in
 // @fnv 0x00e60690
 void FUN_00e60690_owner::DispatchToInner(int index,int value) { unk0c->inner.run(unk10[index],value); }
 
-extern int DAT_010c6fb0;
-extern int DAT_0102e388;
+extern int vftable_hkpShapeContainer;
+extern int vftable_hkBaseObject;
 
 hkMemoryRouter* __cdecl hkMemoryRouter_getInstance() throw();
 
@@ -83,8 +83,8 @@ struct FUN_00e60c30_cls {
 // @fnv 0x00e60c30
 FUN_00e60c30_cls* FUN_00e60c30_cls::Destroy(unsigned char acFlags)
 {
-    m_p14 = (void*)&DAT_010c6fb0;
-    m_vptr = (int)&DAT_0102e388;
+    m_p14 = (void*)&vftable_hkpShapeContainer;
+    m_vptr = (int)&vftable_hkBaseObject;
     if (acFlags & 1) {
         hkMemoryRouter* pHolder = hkMemoryRouter_getInstance();
         hkMemoryAllocator* pAllocator = reinterpret_cast<hkMemoryAllocator*>(pHolder->m_heap);

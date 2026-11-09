@@ -1801,7 +1801,7 @@ struct LocalContext
 {
     void* vtable;
 };
-extern int DAT_010d77c0;
+extern int vftable_hkEntitySelectorAll_010d77c0;
 extern "C" void __cdecl hkpSaveContactPointsUtil_loadContactPointsInternal(int, int, int, LocalContext*);
 void __cdecl RunWithLocalContext(int first, int second, int third);
 void __cdecl hkpSaveContactPointsUtil_loadContactPointsInternal(int, int, int, void*);

@@ -73,7 +73,7 @@ class PathManagerImpl
 
 class INISettingCollection;
 
-extern SettingT<INISettingCollection> g_011d77cc;
+extern SettingT<INISettingCollection> bBackgroundPathing_Pathfinding;
 
 struct DummyTimer
 {

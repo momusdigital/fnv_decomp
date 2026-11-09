@@ -4206,8 +4206,8 @@ int* S_00d75600_Obj::hkgpConvexHull_getCenterOfMass()
 }  // namespace fnv_00d75600
 
 namespace fnv_00d76940 {
-extern int DAT_010d36e0;
-extern int DAT_0102e388;
+extern int vftable_hkgpConvexHull;
+extern int vftable_hkBaseObject;
 
 hkMemoryRouter* __cdecl hkMemoryRouter_getInstance() throw();
 
@@ -4234,7 +4234,7 @@ struct FUN_00d76940_cls {
 // src: GUESS 0x00d76940 (confidence: medium)
 void FUN_00d76940_cls::ReleaseStorage_00d76940()
 {
-    m_vptr = (int)&DAT_010d36e0;
+    m_vptr = (int)&vftable_hkgpConvexHull;
     FUN_00d7ce20_cls* pObj = m_08;
     if (pObj != 0) {
         pObj->FUN_00d7ce20();
@@ -4247,7 +4247,7 @@ void FUN_00d76940_cls::ReleaseStorage_00d76940()
         pMember->vDtor(1);
     }
     m_10 = 0;
-    m_vptr = (int)&DAT_0102e388;
+    m_vptr = (int)&vftable_hkBaseObject;
 }
 }  // namespace fnv_00d76940
 

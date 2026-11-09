@@ -98,7 +98,7 @@ int __thiscall FUN_00e2df60_class::hkMemoryResourceContainer_getName(int)
     return *(int*)((char*)this + 8) & 0xfffffffe;
 }
 
-extern int DAT_010eb19c;
+extern int vftable_hkResourceMap;
 void __cdecl Deallocate(void*);
 struct FUN_00e2def0_class
 {
@@ -108,7 +108,7 @@ struct FUN_00e2def0_class
 // @fnv 0x00e2def0
 int __thiscall FUN_00e2def0_class::InitAndMaybeFree(int flags)
 {
-    m_p = &DAT_010eb19c;
+    m_p = &vftable_hkResourceMap;
     if (flags & 1)
         Deallocate(this);
     return (int)this;
@@ -195,7 +195,7 @@ int __thiscall FUN_00e2df80_class::hkContainerResourceMap_findObjectByName(void*
     return obj->FUN_00e2df80_v18();
 }
 
-extern int DAT_010eb288;
+extern int vftable_hkMemoryResourceHandle;
 struct FUN_00e2ea20_class
 {
     int m_p;
@@ -208,7 +208,7 @@ struct FUN_00e2ea20_class
 // src: HAVOK_LIB 0x00e2ea20
 FUN_00e2ea20_class* FUN_00e2ea20_class::hkaMeshBinding_hkaMeshBinding(int aiValue)
 {
-    m_p = (int)&DAT_010eb288;
+    m_p = (int)&vftable_hkMemoryResourceHandle;
     m_h.hkStringPtr::hkStringPtr(FinishingFlag(aiValue));
     return this;
 }
@@ -229,7 +229,7 @@ struct FUN_00e2f1e0_class
 void* __thiscall FUN_00e2f1e0_class::Destroy(int flags)
 {
     m_base.~S_00e028e0_Base();
-    m_p = &DAT_010eb19c;
+    m_p = &vftable_hkResourceMap;
     if (flags & 1)
         Deallocate(this);
     return this;
@@ -252,12 +252,13 @@ hkMemoryRouter* _D1A0E0GetMemoryRouter();
 struct FUN_00e2f210_class : public FUN_00e2ea40_class
 {
     unsigned short m_handle;
-    void* __thiscall FUN_00e2f210(unsigned int flags);
+    void* __thiscall hkMemoryResourceHandle_ScalarDeletingDestructor(unsigned int flags);
 };
 
 // Runs the base constructor, and if flags has bit 0 set, releases m_handle through the memory router's manager, then returns this.
 // @fnv 0x00e2f210
-void* FUN_00e2f210_class::FUN_00e2f210(unsigned int flags)
+// src: EXE 0x00e2f210
+void* FUN_00e2f210_class::hkMemoryResourceHandle_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00e2ea40_class::FUN_00e2ea40();
 
@@ -432,8 +433,8 @@ void __stdcall hkMemoryResourceContainer_tryToResolveLinks(int aiValue)
 }
 
 namespace fnv_00e2ec00 {
-extern "C" int DAT_010eb2c4;
-extern "C" int DAT_0102e388;
+extern "C" int vftable_hkMemoryResourceContainer;
+extern "C" int vftable_hkBaseObject;
 struct MemoryAllocator
 {
     virtual void Slot00();
@@ -460,7 +461,7 @@ struct AnimationResource
 // @fnv 0x00e2ec00
 void AnimationResource::ClearItems()
 {
-    m_ppVirtualMethodTable = &DAT_010eb2c4;
+    m_ppVirtualMethodTable = &vftable_hkMemoryResourceContainer;
     hkMemoryRouter* router = reinterpret_cast<hkMemoryRouter*>(hkMemoryRouter_getInstance());
     int count = m_secondCount;
     MemoryAllocator* allocator = reinterpret_cast<MemoryAllocator*>(router->m_heap);
@@ -500,7 +501,7 @@ void AnimationResource::ClearItems()
     m_firstItems = 0;
     m_firstCapacity = 0x80000000;
     m_handle.~hkStringPtr();
-    m_ppVirtualMethodTable = &DAT_0102e388;
+    m_ppVirtualMethodTable = &vftable_hkBaseObject;
 }
 }  // namespace fnv_00e2ec00
 
@@ -885,14 +886,14 @@ struct FUN_00e2e9e0_class
     void* __thiscall Ctor();
 };
 
-extern int DAT_010eb288;
+extern int vftable_hkMemoryResourceHandle;
 
 // Initializes the object handle, class pointer, reference count, target, and flags, then returns this.
 // @fnv 0x00e2e9e0
 void* __thiscall FUN_00e2e9e0_class::Ctor()
 {
     m_handle = 1;
-    m_class = &DAT_010eb288;
+    m_class = &vftable_hkMemoryResourceHandle;
     m_iObjectReferenceCount = 0;
     m_target.Init();
     m_uiStandInValue = 0;
@@ -901,7 +902,7 @@ void* __thiscall FUN_00e2e9e0_class::Ctor()
     return this;
 }
 
-extern int DAT_010eb2c4;
+extern int vftable_hkMemoryResourceContainer;
 // The shared string header has no const-char constructor; retain its call here.
 void __cdecl ConstructResourceName(hkStringPtr*, const char*);
 
@@ -927,14 +928,14 @@ struct FUN_00e2eb70 : public hkReferencedObject
 FUN_00e2eb70* FUN_00e2eb70::Init(const char* pcName) throw()
 {
     m_sReferenceCount = 1;
-    *reinterpret_cast<void**>(this) = &DAT_010eb2c4;
+    *reinterpret_cast<void**>(this) = &vftable_hkMemoryResourceContainer;
     reinterpret_cast<void (__thiscall*)(hkStringPtr*, const char*)>(ConstructResourceName)(&m_kName, pcName);
     // MSVC supports explicit construction of this member without a placement-new null check.
     m_arrays.ResourceArrays::ResourceArrays();
     return this;
 }
 
-extern int DAT_010eb2c4;
+extern int vftable_hkMemoryResourceContainer;
 
 struct Item_e2ebc0
 {
@@ -963,11 +964,11 @@ struct FUN_00e2ebc0_class
     FUN_00e2ebc0_class* Init(F_e2ebc0 flags);
 };
 
-// Initializes the object by setting unk00 to DAT_010eb2c4, calling FUN_00cb0a70 with flags.v, and back-linking items when flags.v is set.
+// Initializes the object by setting unk00 to vftable_hkMemoryResourceContainer, calling FUN_00cb0a70 with flags.v, and back-linking items when flags.v is set.
 // @fnv 0x00e2ebc0
 FUN_00e2ebc0_class* FUN_00e2ebc0_class::Init(F_e2ebc0 flags)
 {
-    unk00 = (int)&DAT_010eb2c4;
+    unk00 = (int)&vftable_hkMemoryResourceContainer;
     reinterpret_cast<hkStringPtr*>((char*)this + 8)->hkStringPtr::hkStringPtr(FinishingFlag(flags.v));
     if (flags.v)
     {

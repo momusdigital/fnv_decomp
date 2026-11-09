@@ -57,7 +57,7 @@ void __stdcall NiPSysEmitterSpeedCtlr_GetViewerStrings(StrArr* pkStrings)
 }
 
 extern "C" void* __cdecl Object_DispatchCommandFour(unsigned int);
-extern char DAT_010bf654[];
+extern char vftable_NiPSysEmitterSpeedCtlr[];
 
 // Allocates a 0x40-byte object, runs its base constructor and sets its vtable, then passes it to FUN_00c32de0 with a1 and returns it.
 // @fnv 0x00c2b380
@@ -68,7 +68,7 @@ void* NiPSysEmitterSpeedCtlr::CreateClone_00c2b380(unsigned int a1)
     if (p != 0)
     {
         ::new (static_cast<NiPSysModifierFloatCtlr*>(p)) NiPSysModifierFloatCtlr;
-        *(void**)p = (void*)&DAT_010bf654;
+        *(void**)p = (void*)&vftable_NiPSysEmitterSpeedCtlr;
     }
     else
     {

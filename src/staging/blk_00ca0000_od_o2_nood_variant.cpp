@@ -225,7 +225,7 @@ addRadius:
 }
 }  // namespace fnv_00ca37e0
 
-extern unsigned int DAT_010c74ec;
+extern unsigned int vftable_hkNormalTriangleShape;
 
 class FUN_00ca39a0
 {
@@ -255,7 +255,7 @@ FUN_00ca39a0::FUN_00ca39a0(float x)
     m_b16 = 6;
     m_quad50 = _mm_setzero_ps();
     m_b17 = 0;
-    m_vtbl = (unsigned int)&DAT_010c74ec;
+    m_vtbl = (unsigned int)&vftable_hkNormalTriangleShape;
 }
 
 extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(volatile long*);

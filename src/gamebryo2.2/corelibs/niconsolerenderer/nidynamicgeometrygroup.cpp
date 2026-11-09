@@ -63,7 +63,7 @@ void __stdcall NiDynamicGeometryGroup_ReleaseChip(NiGeometryBufferData* pkBuffDa
 
 
 extern NiGeometryGroup* DAT_0126fa34;
-extern void* DAT_010f1008;
+extern void* vftable_NiUnsharedGeometryGroup;
 
 // Returns the cached NiGeometryGroup singleton, constructing it with BSFadeNode::operator new and initialising it if DAT_0126fa34 is null.
 // @fnv 0x00e94d70
@@ -76,7 +76,7 @@ NiGeometryGroup* __cdecl GetGeometryGroup()
         if (pkGroup != 0)
         {
             pkGroup->NiGeometryGroup::NiGeometryGroup();
-            *reinterpret_cast<void**>(pkGroup) = &DAT_010f1008;
+            *reinterpret_cast<void**>(pkGroup) = &vftable_NiUnsharedGeometryGroup;
             DAT_0126fa34 = pkGroup;
         }
         else
@@ -89,13 +89,13 @@ NiGeometryGroup* __cdecl GetGeometryGroup()
 
 void __cdecl _NiFreeAlias(void*);
 extern MemoryManager g_memoryManager;
-extern int DAT_010f1034;
-// Frees the stored pointer via _NiFreeAlias, sets the first field to &DAT_010f1034, and deallocates this when f has bit 0 set.
+extern int vftable_NiTArray_010f1034;
+// Frees the stored pointer via _NiFreeAlias, sets the first field to &vftable_NiTArray_010f1034, and deallocates this when f has bit 0 set.
 // @fnv 0x00e95780
 void* __fastcall DestroySetArray(DynamicSetArray* array, void*, unsigned int auiFlags)
 {
     void* tmp = array->m_pBase;
-    *reinterpret_cast<void**>(array) = &DAT_010f1034;
+    *reinterpret_cast<void**>(array) = &vftable_NiTArray_010f1034;
     _NiFreeAlias(tmp);
     if (auiFlags & 1)
         g_memoryManager._DeallocateAlias(array);
@@ -117,15 +117,15 @@ extern MemoryManager _g_memoryManager;
 
 void __cdecl _NiFree(void*);
 
-extern void* vftable_DynamicMap;
-extern void* vftable_DynamicMapBase;
+extern void* vftable_NiTPointerMap_010f109c;
+extern void* vftable_NiTMapBase_010f105c;
 
 // @fnv 0x00e95380
 void* __fastcall DestroyChipMap(NiTPointerMap<unsigned int, NiVBChip*>* map, void*, unsigned int uiFlags)
 {
-    *reinterpret_cast<void**>(map) = &vftable_DynamicMap;
+    *reinterpret_cast<void**>(map) = &vftable_NiTPointerMap_010f109c;
     map->RemoveAll();
-    *reinterpret_cast<void**>(map) = &vftable_DynamicMapBase;
+    *reinterpret_cast<void**>(map) = &vftable_NiTMapBase_010f105c;
     map->RemoveAll();
     _NiFree(map->m_ppkHashTable);
     if (uiFlags & 1)
@@ -156,15 +156,15 @@ inline T NiTArray<T, TAlloc>::RemoveAt(unsigned int uiIndex)
 
 template NiVBDynamicSet* DynamicSetArray::RemoveAt(unsigned int);
 
-extern void* DAT_010f107c;
-extern void* DAT_010f103c;
+extern void* vftable_NiTPointerMap_010f107c;
+extern void* vftable_NiTMapBase_010f103c;
 
 // @fnv 0x00e95300
 void* __fastcall DestroySetMap(NiTPointerMap<unsigned int, NiVBDynamicSet*>* map, void*, unsigned int uiFlags)
 {
-    *reinterpret_cast<void**>(map) = &DAT_010f107c;
+    *reinterpret_cast<void**>(map) = &vftable_NiTPointerMap_010f107c;
     map->RemoveAll();
-    *reinterpret_cast<void**>(map) = &DAT_010f103c;
+    *reinterpret_cast<void**>(map) = &vftable_NiTMapBase_010f103c;
     map->RemoveAll();
     _NiFree(map->m_ppkHashTable);
     if (uiFlags & 1)
@@ -446,7 +446,7 @@ MemoryAllocationProvider* __cdecl CreateBufferSetData(unsigned int size, void* b
 void* __fastcall DestroySetMapBase(NiTMapBase<NiTPointerAllocator<unsigned int>, unsigned int, NiVBDynamicSet*>* map,
                                  void*, unsigned int uiFlags)
 {
-    *reinterpret_cast<void**>(map) = &DAT_010f103c;
+    *reinterpret_cast<void**>(map) = &vftable_NiTMapBase_010f103c;
     map->RemoveAll();
     _NiFree(map->m_ppkHashTable);
     if (uiFlags & 1)
@@ -458,7 +458,7 @@ void* __fastcall DestroySetMapBase(NiTMapBase<NiTPointerAllocator<unsigned int>,
 void* __fastcall DestroyChipMapBase(NiTMapBase<NiTPointerAllocator<unsigned int>, unsigned int, NiVBChip*>* map,
                                   void*, unsigned int uiFlags)
 {
-    *reinterpret_cast<void**>(map) = &vftable_DynamicMapBase;
+    *reinterpret_cast<void**>(map) = &vftable_NiTMapBase_010f105c;
     map->RemoveAll();
     _NiFree(map->m_ppkHashTable);
     if (uiFlags & 1)
@@ -562,8 +562,8 @@ L_00b3:
     return *ppStream;
 }
 
-extern unsigned int DAT_010f10c4;
-extern unsigned int DAT_010f0f7c;
+extern unsigned int vftable_NiDynamicGeometryGroup;
+extern unsigned int vftable_NiTArray_010f0f7c;
 extern unsigned int DAT_010f109c;
 extern unsigned int DAT_010f105c;
 
@@ -651,7 +651,7 @@ inline void DestroyPointerMap(NiTPointerMap<TKEY, TVAL>& map, void* derivedVtabl
 // copy of the group.  The shared base destructor completes its destruction.
 void __fastcall DestroyDynamicGeometryGroup(NiDynamicGeometryGroup* group, void*)
 {
-    *reinterpret_cast<void**>(group) = &DAT_010f10c4;
+    *reinterpret_cast<void**>(group) = &vftable_NiDynamicGeometryGroup;
     unsigned int key;
     DynamicSetData* set;
     DynamicChipData* chip;
@@ -688,11 +688,11 @@ void __fastcall DestroyDynamicGeometryGroup(NiDynamicGeometryGroup* group, void*
     }
     if (group == (void*)DAT_0126fa38)
         DAT_0126fa38 = 0;
-    *reinterpret_cast<void**>(&group->streamChips) = &DAT_010f0f7c;
+    *reinterpret_cast<void**>(&group->streamChips) = &vftable_NiTArray_010f0f7c;
     _NiFree(reinterpret_cast<DynamicChipArray&>(group->streamChips).m_pBase);
-    *reinterpret_cast<void**>(&group->streamSets) = &DAT_010f1034;
+    *reinterpret_cast<void**>(&group->streamSets) = &vftable_NiTArray_010f1034;
     _NiFree(reinterpret_cast<DynamicSetArray&>(group->streamSets).m_pBase);
     DestroyPointerMap(reinterpret_cast<NiTPointerMap<unsigned int, NiVBChip*>&>(group->chips), &DAT_010f109c, &DAT_010f105c);
-    DestroyPointerMap(reinterpret_cast<NiTPointerMap<unsigned int, NiVBDynamicSet*>&>(group->sets), &DAT_010f107c, &DAT_010f103c);
+    DestroyPointerMap(reinterpret_cast<NiTPointerMap<unsigned int, NiVBDynamicSet*>&>(group->sets), &vftable_NiTPointerMap_010f107c, &vftable_NiTMapBase_010f103c);
     group->NiGeometryGroup::~NiGeometryGroup();
 }

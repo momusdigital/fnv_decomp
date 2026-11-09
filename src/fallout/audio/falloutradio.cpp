@@ -552,7 +552,7 @@ void __cdecl FalloutRadio_TunePipboyToStation(void* apForm, bool abUnk);
 void __cdecl FalloutRadio_UpdateStation(FalloutRadio::RadioStationState* apStation);
 extern unsigned char DAT_011a179c;
 extern SettingString g_011d4348;
-extern SettingFloat g_011dd580;
+extern SettingFloat fRadioStaticAtOuterRadiusPct_Audio;
 
 // Updates radio station signal strength and static from player distances, queues a UI alert for newly found stations, and clears the temporary station lists.
 // @fnv 0x00833d00
@@ -607,7 +607,7 @@ void UpdateRadioSignals(bool abUpdateSignals)
     fradioRadius = 0.0f;
     fstaticRatio = 0.0f;
     isignalPower = 0;
-    fstaticDistance = 1.0f - *g_011dd580.Float();
+    fstaticDistance = 1.0f - *fRadioStaticAtOuterRadiusPct_Audio.Float();
     pactStations = &DAT_011dd554;
     while (pactStations && !pactStations->IsEmpty())
     {

@@ -415,7 +415,7 @@ void bhkLimitedHingeVectorSet::bhkMatrix3_Renormalize()
     v2.SetQuaternionComponentsFromVector((const float*)&c);
 }
 
-extern int DAT_010c69f4;
+extern int vftable_bhkWorldM;
 
 struct FUN_00c99ff0_base
 {
@@ -436,7 +436,7 @@ struct FUN_00c99ff0_cls : FUN_00c99ff0_base
 FUN_00c99ff0_cls* FUN_00c99ff0_cls::SetVtableAndProcessState_00c99ff0(void* a1, __m128* a2, __m128* a3)
 {
     ((FUN_00c99ff0_base*)this)->FUN_00c69010(a1);
-    *(int*)this = (int)&DAT_010c69f4;
+    *(int*)this = (int)&vftable_bhkWorldM;
     m_a0 = *a2;
     m_b0 = *a3;
     m_c0 = *(__m128*)((char*)a1 + 0x40);

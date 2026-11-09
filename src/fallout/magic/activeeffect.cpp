@@ -933,7 +933,7 @@ struct GlobalObject_0045cf30
 {
     unsigned char* Bool();
 };
-extern GlobalObject_0045cf30 g_011de4e8;
+extern GlobalObject_0045cf30 bDebugSaveBuffer_Debug;
 
 struct SaveSizeForm
 {
@@ -1044,7 +1044,7 @@ unsigned short ActiveEffect_GetActiveEffectListSaveSize(SaveSizeListNode* pNodeL
         uiSize += ActiveEffect_UpdateState_00805810(*pNodeList->_ref_006815c0(), pArg);
         pNodeList = pNodeList->_ref_00726070();
     }
-    if (*g_011de4e8.Bool())
+    if (*bDebugSaveBuffer_Debug.Bool())
     {
         SaveChangeHeader* pHeader = static_cast<SaveChangeHeader*>(g_pSaveLoadGameStub->FUN_004fd3e0());
         if (pHeader)
@@ -1626,7 +1626,7 @@ class GlobalObject_0045cf30
   public:
     unsigned char* Bool();
 };
-extern GlobalObject_0045cf30 g_011de4e8;
+extern GlobalObject_0045cf30 bDebugSaveBuffer_Debug;
 struct FormIDEntry
 {
     unsigned int formID;
@@ -1733,7 +1733,7 @@ void ActiveEffect_SaveActiveEffectList(AENode* apList, Actor* apActor)
     unsigned short usZero6 = 0;
     char* pSizePos8 = 0;
     char* pStart4 = reinterpret_cast<char*>(g_SaveLoadMgr->FUN_00825c00());
-    if (*g_011de4e8.Bool())
+    if (*bDebugSaveBuffer_Debug.Bool())
         pStart4 = reinterpret_cast<char*>(g_SaveLoadMgr->FUN_00825c00());
     if (g_SaveLoadMgr->TESSaveLoadGame_UseSaveGameBlocks())
     {
@@ -1752,7 +1752,7 @@ void ActiveEffect_SaveActiveEffectList(AENode* apList, Actor* apActor)
         apList = apList->GetNext();
     }
     *(unsigned short*)pCountPos3 = usCount2;
-    if (*g_011de4e8.Bool())
+    if (*bDebugSaveBuffer_Debug.Bool())
     {
         char* pEnd6 = reinterpret_cast<char*>(g_SaveLoadMgr->FUN_00825c00());
         FormIDEntry* pHeader2 = static_cast<FormIDEntry*>(g_SaveLoadMgr->FUN_004fd3e0());

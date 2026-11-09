@@ -13,7 +13,7 @@ public:
     virtual ~PathingRequestOptimalLocation();
     virtual void CopyTo(PathingRequest* apDest);
 
-    void* FUN_006e5d70(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
     float GetFloatAtOffsetB0();
     float GetFieldB4Float();
     float GetFieldB8Float();

@@ -56,7 +56,7 @@ void NiPSysRadialFieldModifier::LoadBinary_00c28760(NiStream& stream)
             input, &m_fBoundRadius, 4, &size, 1);
 }
 
-extern int DAT_010c0b5c;
+extern int vftable_NiPSysFieldModifier;
 // The shared modifier base has no constructor declaration. Keep its original
 // initialization call through the existing position-modifier constructor.
 // @fnv 0x00c31ff0
@@ -69,7 +69,7 @@ NiPSysFieldModifier* __fastcall ConstructFieldModifier(NiPSysFieldModifier* modi
     modifier->m_bEnableMaxDistance = false;
     modifier->m_fDistanceLimit = 0.0f;
     modifier->m_fFieldStrength = 0.0f;
-    *(int*)modifier = (int)&DAT_010c0b5c;
+    *(int*)modifier = (int)&vftable_NiPSysFieldModifier;
     return modifier;
 }
 

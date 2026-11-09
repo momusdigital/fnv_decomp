@@ -7,7 +7,7 @@
 #include "../../../../include/NiBinaryStream.h"
 #include "../../../../include/NiStream.h"
 
-extern int DAT_0102e394;
+extern int vftable_NiBinaryExtraData;
 
 // @fnv 0x00a7f8e0
 // src: EXE 0x00a7f8e0
@@ -17,7 +17,7 @@ void* __cdecl NiBinaryExtraData_CreateObject()
     if (p)
     {
         ((NiExtraData*)p)->FUN_00a7b2e0();
-        *reinterpret_cast<void**>(p) = &DAT_0102e394;
+        *reinterpret_cast<void**>(p) = &vftable_NiBinaryExtraData;
         *reinterpret_cast<int*>(reinterpret_cast<char*>(p) + 0x10) = 0;
         *reinterpret_cast<int*>(reinterpret_cast<char*>(p) + 0xc) = 0;
         return p;

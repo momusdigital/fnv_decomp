@@ -165,7 +165,7 @@ struct MenuTime
     float FUN_0084d030();
 };
 extern MenuOS* g_osGlobals;
-extern MenuLocale g_011c3cb4;
+extern MenuLocale sLanguage_General;
 extern MenuTime g_timeGlobal;
 extern bool DAT_011a0854;
 extern const char* DAT_011a0858[];
@@ -186,7 +186,7 @@ void SPECIALBookMenu::DoIdle_007c6200()
         NiTimeController* pController;
         {
             int scanCode = 30;
-            if (BSstrcmp(g_011c3cb4.FUN_00403df0(), "FRENCH") == 0)
+            if (BSstrcmp(sLanguage_General.FUN_00403df0(), "FRENCH") == 0)
                 scanCode = 16;
             if (pInput->Controls_GetKeyboardButton(scanCode, 1))
             {

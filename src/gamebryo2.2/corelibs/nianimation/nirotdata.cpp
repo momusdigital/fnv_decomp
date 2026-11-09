@@ -44,7 +44,7 @@ void NiRotData::SetKeys(TimedRotationKey* pkKeys, unsigned int uiNumKeys, NiAnim
 }
 
 void __cdecl ReleaseObjectArray(void*);
-extern int DAT_0109844c;
+extern int vftable_NiTArray_0109844c;
 struct MM00a47ba0
 {
     void __thiscall _DeallocateAlias(void*);
@@ -60,21 +60,21 @@ struct Struct00a47ba0
 void* Struct00a47ba0::FUN_00a47ba0(unsigned int auiFlags)
 {
     void* p = _4;
-    ((void**)this)[0] = (void*)&DAT_0109844c;
+    ((void**)this)[0] = (void*)&vftable_NiTArray_0109844c;
     ReleaseObjectArray(p);
     if (auiFlags & 1)
         g_memoryManager._DeallocateAlias(this);
     return this;
 }
 
-extern int DAT_010984ec;
+extern int vftable_NiRotData;
 void __cdecl _delete(void*, unsigned int);
 
 // @fnv 0x00a481e0
 void* __fastcall DestroyRotData(NiRotData* self, int, unsigned int auiFlags)
 {
     TimedRotationKey* pk = self->m_pKeyArray;
-    *(void**)self = (void*)&DAT_010984ec;
+    *(void**)self = (void*)&vftable_NiRotData;
     if (pk)
         DAT_011f38d0[self->m_eRequestType](pk);
     ((NiRefObject*)self)->NiRefObject::~NiRefObject();

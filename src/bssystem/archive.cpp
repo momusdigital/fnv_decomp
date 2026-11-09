@@ -498,7 +498,7 @@ struct FUN_00afbfe0_shell : public CompressedArchiveFile
 };
 
 extern MemoryManager g_memoryManager;
-extern int DAT_010a464c;
+extern int vftable_CompressedArchiveFile;
 int __cdecl _inflateEnd(ZlibStream* kReadStream);
 void __fastcall FUN_00afb520(void* pThis);
 
@@ -507,7 +507,7 @@ void __fastcall FUN_00afb520(void* pThis);
 void FUN_00afbfe0_shell::DestroyCompressedArchiveFile()
 {
     ZlibStream* pzstream;
-    *(int**)this = &DAT_010a464c;
+    *(int**)this = &vftable_CompressedArchiveFile;
     if (*(ZlibStream**)((char*)this + 0x160) != 0)
     {
         pzstream = *(ZlibStream**)((char*)this + 0x160);
@@ -858,7 +858,7 @@ namespace fnv_00afc430 {
 extern MemoryManager g_memoryManager;
 int __cdecl _inflateInit_(void*, const char*, int);
 int __cdecl _inflateEnd(void*);
-extern int DAT_010a464c;
+extern int vftable_CompressedArchiveFile;
 extern unsigned int DAT_011f8164;
 struct S_afbb
 {
@@ -896,7 +896,7 @@ struct FUN_00afc430 : public FUN_00afb300
 // @fnv 0x00afc430
 FUN_00afc430::FUN_00afc430(int a, int b, int c, int d, int e) : FUN_00afb300(a, b, c, d, e)
 {
-    *(int**)this = &DAT_010a464c;
+    *(int**)this = &vftable_CompressedArchiveFile;
     ((CompressedArchiveFile*)this)->CompressedArchiveFile::SetEndianSwap(false);
     ((S_afbb*)this)->ArchiveFile_ReadF((char*)this + 0x168, 4);
     char* pStream;
@@ -1595,7 +1595,7 @@ bool __cdecl ArchiveManager_WildCardMatch(const char* path, FUN_00afcf00_class* 
 }  // namespace fnv_00af7e80
 
 namespace fnv_00afcce0 {
-extern int DAT_010a469c;
+extern int vftable_BSSimpleArray_010a469c;
 
 struct FUN_00afcde0_shell
 {
@@ -1604,14 +1604,14 @@ struct FUN_00afcde0_shell
     void* InitializeFields_00afcce0();
 };
 
-// Sets the vtable pointer to DAT_010a469c, calls InitArray with 0 and 0, and returns this.
+// Sets the vtable pointer to vftable_BSSimpleArray_010a469c, calls InitArray with 0 and 0, and returns this.
 // @fnv 0x00afcce0
 // src: GUESS 0x00afcce0 (confidence: low)
 void* FUN_00afcde0_shell::InitializeFields_00afcce0()
 {
     int a;
     int b;
-    vptr = &DAT_010a469c;
+    vptr = &vftable_BSSimpleArray_010a469c;
     InitArray(0, 0);
     return this;
 }
@@ -1769,7 +1769,7 @@ int ArchiveEntryIndexLookup::FindEntryIndex(unsigned int uiAddress)
 }
 }  // namespace fnv_00af9ad0
 
-extern int DAT_010a469c;
+extern int vftable_BSSimpleArray_010a469c;
 
 struct _BSAHelper
 {
@@ -1782,13 +1782,13 @@ struct FUN_00afcdc0_StandIn
     void ResetVirtualTableAndClear_00afcdc0();
 };
 
-// Sets the object's vtable pointer to DAT_010a469c and calls Clear(true) on it.
+// Sets the object's vtable pointer to vftable_BSSimpleArray_010a469c and calls Clear(true) on it.
 // @fnv 0x00afcdc0
 // src: GUESS 0x00afcdc0 (confidence: medium)
 void FUN_00afcdc0_StandIn::ResetVirtualTableAndClear_00afcdc0()
 {
     int _t;
-    *(void**)this = &DAT_010a469c;
+    *(void**)this = &vftable_BSSimpleArray_010a469c;
     ((_BSAHelper*)this)->Clear(true);
 }
 

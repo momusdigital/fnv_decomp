@@ -497,7 +497,7 @@ FUN_00e49f40::~FUN_00e49f40() throw()
         filters.data[i]->RemoveReference();
 }
 
-extern int DAT_0102e388;
+extern int vftable_hkBaseObject;
 
 class FilterListAE90
 {
@@ -510,7 +510,7 @@ class FilterListAE90
     void ProcessEntries_00e4ae90();
 };
 
-// Releases each FilterRefE4 reference, deallocates m_data, empties the list and sets the vftable pointer to DAT_0102e388.
+// Releases each FilterRefE4 reference, deallocates m_data, empties the list and sets the vftable pointer to vftable_hkBaseObject.
 // @fnv 0x00e4ae90
 // src: GUESS 0x00e4ae90 (confidence: low)
 void FilterListAE90::ProcessEntries_00e4ae90()
@@ -533,5 +533,5 @@ void FilterListAE90::ProcessEntries_00e4ae90()
     }
     m_data = 0;
     m_iCapacityState = (int)0x80000000;
-    vftable = (int)&DAT_0102e388;
+    vftable = (int)&vftable_hkBaseObject;
 }

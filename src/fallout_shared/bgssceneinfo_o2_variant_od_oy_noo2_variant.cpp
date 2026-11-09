@@ -54,7 +54,7 @@ struct GlobalObject2_0045cfe0
 {
     int* Int();
 };
-extern GlobalObject2_0045cfe0 g_011c59e0;
+extern GlobalObject2_0045cfe0 uActorMemoryBudgetCap_BudgetCaps;
 int BGSSceneInfo_GetActorMemoryBudgetCap();
 struct DummyArr
 {

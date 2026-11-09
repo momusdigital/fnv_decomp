@@ -1,4 +1,4 @@
-extern "C" void* DAT_0109babc;
+extern "C" void* vftable_NiSourceCubeMap;
 
 // NiNode.h and NiTexturingProperty.h currently declare incompatible NiTArray
 #include "../../../../include/BSFadeNode.h"
@@ -96,7 +96,7 @@ NiSourceCubeMap* __cdecl CreateNiSourceCubeMap()
     {
         NiSourceCubeMap* n = static_cast<NiSourceCubeMap*>(p);
         n->NiSourceTexture::NiSourceTexture();
-        *(unsigned int*)(n) = (int)&DAT_0109babc;
+        *(unsigned int*)(n) = (int)&vftable_NiSourceCubeMap;
         n->m_uiFace = 0;
         return n;
     }
@@ -579,7 +579,7 @@ void NiSourceCubeMap::LoadResources(char* apName0, char* apName1, char* apName2,
     S00a60cc0_ReleaseAll(res);
 }
 
-extern "C" void* DAT_0109babc;
+extern "C" void* vftable_NiSourceCubeMap;
 extern "C" void __cdecl FUN_00aa1460(void*, unsigned int);
 extern "C" void _ReadWriteBarrier();
 
@@ -587,7 +587,7 @@ extern "C" void _ReadWriteBarrier();
 // @fnv 0x00a61250
 void* NiSourceCubeMap::FUN_00a61250(unsigned int flags)
 {
-    *(void**)this = &DAT_0109babc;
+    *(void**)this = &vftable_NiSourceCubeMap;
     _ReadWriteBarrier();
     NiRefObject* old = (NiRefObject*)m_spSrcPixelData.m_pObject;
     if (old)

@@ -34,13 +34,13 @@ struct FUN_009d5b40_shell
 {
     void UpdateFields_009d5b40(void);
 };
-extern int DAT_01091984;
+extern int vftable_CombatProcedureEvade;
 
 // @fnv 0x009d5b40
 // src: GUESS 0x009d5b40 (confidence: low)
 void FUN_009d5b40_shell::UpdateFields_009d5b40(void)
 {
-    *reinterpret_cast<int**>(this) = &DAT_01091984;
+    *reinterpret_cast<int**>(this) = &vftable_CombatProcedureEvade;
     reinterpret_cast<FUN_009ca6c0_shell*>(this)->SetVirtualTable_009ca6c0();
 }
 

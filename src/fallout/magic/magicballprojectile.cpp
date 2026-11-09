@@ -108,7 +108,8 @@ void FUN_00822a20_shell::CheckModifierNonZero(float a)
 void _Deallocate(void*);
 
 // @fnv 0x0080f7e0
-void* MagicBallProjectile::FUN_0080f7e0(unsigned int flags)
+// src: EXE 0x0080f7e0
+void* MagicBallProjectile::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_0080fb30();
     if (flags & 1)
@@ -166,12 +167,13 @@ unsigned short FUN_00811070_shell::MagicBallProjectile_GetSaveSize(unsigned int 
 struct FUN_008229d0_shell
 {
     void ForwardCall_00822a00();
-    void* FUN_008229d0(unsigned int);
+    void* MagicSprayProjectile_ScalarDeletingDestructor(unsigned int);
 };
 void _Deallocate(void*);
 // Calls FUN_00822a00, then deallocates this when bit 0 of flags is set, and returns this.
 // @fnv 0x008229d0
-void* FUN_008229d0_shell::FUN_008229d0(unsigned int flags)
+// src: EXE 0x008229d0
+void* FUN_008229d0_shell::MagicSprayProjectile_ScalarDeletingDestructor(unsigned int flags)
 {
     ForwardCall_00822a00();
     if (flags & 1)
@@ -196,11 +198,12 @@ void FUN_00822a00_shell::ForwardCall_00822a00()
 
 struct FUN_008cac30_shell
 {
-    void* FUN_008cac30(unsigned int flags);
+    void* ArrowProjectile_ScalarDeletingDestructor(unsigned int flags);
     void FUN_008cac60();
 };
 // @fnv 0x008cac30
-void* FUN_008cac30_shell::FUN_008cac30(unsigned int flags)
+// src: EXE 0x008cac30
+void* FUN_008cac30_shell::ArrowProjectile_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_008cac60();
     if (flags & 1)
@@ -3735,7 +3738,7 @@ struct SaveSetting
 {
     bool* Bool();
 };
-extern SaveSetting g_011de4e8;
+extern SaveSetting bDebugSaveBuffer_Debug;
 struct SaveForm
 {
     virtual void v0();
@@ -3908,7 +3911,7 @@ unsigned short ArrowSave::ArrowProjectile_GetSaveSize(unsigned flags)
         size7 += 1;
     if (((SaveState*)g_TESSaveLoadGame)->FUN_008df040() >= 85)
         size7 += 1;
-    if (*g_011de4e8.Bool())
+    if (*bDebugSaveBuffer_Debug.Bool())
     {
         ValueReferencePair* entry = ((SaveState*)g_TESSaveLoadGame)->GetHitSound();
         if (entry)
@@ -5039,7 +5042,7 @@ bool Actor::TESObjectREFR_IsDead(int iUnused)
 
 #include <xmmintrin.h>
 // Destruction of the reference and its transient physics/actor state.
-extern int DAT_01085954, DAT_01085948;
+extern int vftable_ArrowProjectile, vftable_ArrowProjectile_for_TESChildCell;
 extern int DAT_011dfc98;
 struct __declspec(align(16)) CleanupVector
 {

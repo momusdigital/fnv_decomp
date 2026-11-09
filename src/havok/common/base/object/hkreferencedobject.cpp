@@ -35,13 +35,13 @@ void __cdecl hkReferencedObject_setLockMode(int v)
     *(int*)(*(int**)(void*)&DAT_012681d4 + 2) = v;
 }
 
-extern int DAT_0102e388;
+extern int vftable_hkBaseObject;
 
 // @fnv 0x00c903d0
 // src: GUESS 0x00c903d0 (confidence: low)
 int* __cdecl hkReferencedObject_GetDAT0102e388Address()
 {
-    return &DAT_0102e388;
+    return &vftable_hkBaseObject;
 }
 
 struct DDCC60World

@@ -12,17 +12,17 @@ class __declspec(novtable) InvisibilityEffect;
 #include "../../../include/TESForm.h"
 #include "../../../include/ValueModifierEffect.h"
 
-extern int DAT_0107a21c;
+extern int vftable_InvisibilityEffect;
 void* __cdecl FormHeap_Allocate(unsigned int uiSize);
 inline void* InvisibilityEffect::operator new(unsigned int uiSize)
 {
     return FormHeap_Allocate(uiSize);
 }
-// Constructs the object by calling the ValueModifierEffect base constructor and installing the DAT_0107a21c vtable pointer.
+// Constructs the object by calling the ValueModifierEffect base constructor and installing the vftable_InvisibilityEffect vtable pointer.
 // @fnv 0x0080e030
 InvisibilityEffect::InvisibilityEffect(void* a, void* b, void* c) : ValueModifierEffect(a, b, c)
 {
-    *(int*)this = (int)&DAT_0107a21c;
+    *(int*)this = (int)&vftable_InvisibilityEffect;
 }
 
 extern float DAT_0107a214;

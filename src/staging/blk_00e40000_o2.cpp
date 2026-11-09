@@ -381,7 +381,7 @@ int __cdecl Factorial(int count)
 extern const float runtimeFloatSettingDefault132;
 extern const float runtimeFloatSettingDefault255;
 extern const float g_011c7344_arg1;
-extern int DAT_010e62a4;
+extern int vftable_hkpVehicleDefaultEngine;
 
 struct FUN_00e44280_struct {
     int* m_00;
@@ -405,7 +405,7 @@ FUN_00e44280_struct* __thiscall FUN_00e44280_struct::InitializeDefaults()
     m_08 = 1000.0f;
     m_0c = runtimeFloatSettingDefault132;
     *(unsigned short*)((char*)this + 6) = 1;
-    m_00 = &DAT_010e62a4;
+    m_00 = &vftable_hkpVehicleDefaultEngine;
     m_10 = runtimeFloatSettingDefault255;
     m_14 = g_011c7344_arg1;
     m_1c = m_18 = 1.0f;
@@ -468,7 +468,7 @@ void __thiscall FUN_00e4ab50_class::ApplyToAll(int aiValue)
         ((FUN_00e61480_class*)m_08[i])->hkxMeshSection_collectVertexPositions(aiValue);
 }
 
-extern int DAT_010ec1fc;
+extern int vftable_hkAlignSceneToNodeOptions;
 struct FUN_00cb0a70 {
     void m(int);
 };
@@ -483,7 +483,7 @@ struct FUN_00e4af80 {
 // @fnv 0x00e4af80
 FUN_00e4af80* FUN_00e4af80::Set(int aiValue)
 {
-    *reinterpret_cast<int*>(this) = reinterpret_cast<int>(&DAT_010ec1fc);
+    *reinterpret_cast<int*>(this) = reinterpret_cast<int>(&vftable_hkAlignSceneToNodeOptions);
     reinterpret_cast<FUN_00cb0a70*>(reinterpret_cast<char*>(this) + 0x14)->m(aiValue);
     return this;
 }
@@ -694,7 +694,7 @@ void FUN_00e42680_cls::CallItemsVirtual() {
     }
 }
 
-extern "C" int DAT_010e5e9c;
+extern "C" int vftable_hkpVehicleDefaultVelocityDamper;
 
 struct FUN_00e43ac0_cls {
     void* m_00;
@@ -711,7 +711,7 @@ FUN_00e43ac0_cls::FUN_00e43ac0_cls() {
     m_08 = 0.0f;
     m_0c = 0.0f;
     m_06 = 1;
-    m_00 = (void*)&DAT_010e5e9c;
+    m_00 = (void*)&vftable_hkpVehicleDefaultVelocityDamper;
     m_10 = 1.0f;
 }
 
@@ -730,7 +730,7 @@ float __cdecl ComputeScaledRatio(float param_1, float afDivisor, float afValue, 
     return afValue / denominator / afScale;
 }
 
-extern "C" int DAT_010e5ff4;
+extern "C" int vftable_hkpVehicleDefaultTransmission;
 
 struct FUN_00e43f30_cls {
     void* volatile m_00;
@@ -753,7 +753,7 @@ struct FUN_00e43f30_cls {
 // @fnv 0x00e43f30
 FUN_00e43f30_cls::FUN_00e43f30_cls() {
     m_06 = 1;
-    m_00 = (void*)&DAT_010e5ff4;
+    m_00 = (void*)&vftable_hkpVehicleDefaultTransmission;
     m_1c = 0;
     m_20 = 0;
     m_24 = 0x80000000;
@@ -993,14 +993,14 @@ struct S_00e4af60_class {
     S_00e4af60_class* InitializeFields_00e4af60();
 };
 
-extern int DAT_010ec1fc;
+extern int vftable_hkAlignSceneToNodeOptions;
 
 // @fnv 0x00e4af60
 // src: GUESS 0x00e4af60 (confidence: low)
 S_00e4af60_class* S_00e4af60_class::InitializeFields_00e4af60()
 {
     this->unk06 = 1;
-    this->unk00 = &DAT_010ec1fc;
+    this->unk00 = &vftable_hkAlignSceneToNodeOptions;
     this->unk14.FUN_00cb0a60();
     return this;
 }
@@ -2911,7 +2911,7 @@ void VSim::RunVehicleSync(VWorld* world, VCollector* coll, VInfo* info, int aiCo
 }
 }  // namespace fnv_00e42960
 
-extern int DAT_010e60c4;
+extern int vftable_hkpVehicleDefaultSteering;
 
 struct FUN_00e44070 {
     int* volatile m_00;
@@ -2930,7 +2930,7 @@ struct FUN_00e44070 {
 FUN_00e44070::FUN_00e44070()
 {
     m_06 = 1;
-    m_00 = &DAT_010e60c4;
+    m_00 = &vftable_hkpVehicleDefaultSteering;
     m_10 = 0;
     m_14 = 0;
     m_18 = 0x80000000u;
@@ -3441,13 +3441,13 @@ void UnpackQuaternion(const unsigned int* packed, float* quat)
         quat[3] = -w;
 }
 
-extern int DAT_010e7874;
-extern int DAT_010e7868;
-extern int DAT_010e7854;
-extern int DAT_010e7848;
-extern int DAT_010e783c;
-extern int DAT_010e781c;
-extern int DAT_010cb1e4;
+extern int vftable_hkpConstrainedSystemFilter;
+extern int vftable_hkpConstrainedSystemFilter_for_hkpCollidableCollidableFilter;
+extern int vftable_hkpConstrainedSystemFilter_for_hkpShapeCollectionFilter;
+extern int vftable_hkpConstrainedSystemFilter_for_hkpRayShapeCollectionFilter;
+extern int vftable_hkpConstrainedSystemFilter_for_hkpRayCollidableFilter;
+extern int vftable_hkpConstrainedSystemFilter_for_hkpConstraintListener;
+extern int vftable_hkpConstraintListener;
 
 struct FUN_00cbfba0_Base {
     void FUN_00cbfba0();
@@ -3479,13 +3479,13 @@ struct FUN_00e46b30_Class : FUN_00e46b30_Layout {
 FUN_00e46b30_Class* FUN_00e46b30_Class::InitializeWithReference(FUN_00c90510_Reference* value)
 {
     reinterpret_cast<FUN_00cbfba0_Base*>(this)->FUN_00cbfba0();
-    listenerVtable = &DAT_010cb1e4;
-    primaryVtable = &DAT_010e7874;
-    secondaryVtable = &DAT_010e7868;
-    thirdVtable = &DAT_010e7854;
-    fourthVtable = &DAT_010e7848;
-    fifthVtable = &DAT_010e783c;
-    listenerVtable = &DAT_010e781c;
+    listenerVtable = &vftable_hkpConstraintListener;
+    primaryVtable = &vftable_hkpConstrainedSystemFilter;
+    secondaryVtable = &vftable_hkpConstrainedSystemFilter_for_hkpCollidableCollidableFilter;
+    thirdVtable = &vftable_hkpConstrainedSystemFilter_for_hkpShapeCollectionFilter;
+    fourthVtable = &vftable_hkpConstrainedSystemFilter_for_hkpRayShapeCollectionFilter;
+    fifthVtable = &vftable_hkpConstrainedSystemFilter_for_hkpRayCollidableFilter;
+    listenerVtable = &vftable_hkpConstrainedSystemFilter_for_hkpConstraintListener;
     reference = value;
     if (value) {
         value->FUN_00c90510();
@@ -3497,18 +3497,18 @@ struct FUN_00c905b0_class {
     void __thiscall FUN_00c905b0();
 };
 
-extern int DAT_010e7874;
-extern int DAT_010e7868;
-extern int DAT_010e7854;
-extern int DAT_010e7848;
-extern int DAT_010e783c;
-extern int DAT_010e781c;
-extern int DAT_010cb1e4;
-extern int DAT_010c3b8c;
-extern int DAT_010c3bac;
-extern int DAT_010c3b98;
-extern int DAT_010c3b80;
-extern int DAT_0102e388;
+extern int vftable_hkpConstrainedSystemFilter;
+extern int vftable_hkpConstrainedSystemFilter_for_hkpCollidableCollidableFilter;
+extern int vftable_hkpConstrainedSystemFilter_for_hkpShapeCollectionFilter;
+extern int vftable_hkpConstrainedSystemFilter_for_hkpRayShapeCollectionFilter;
+extern int vftable_hkpConstrainedSystemFilter_for_hkpRayCollidableFilter;
+extern int vftable_hkpConstrainedSystemFilter_for_hkpConstraintListener;
+extern int vftable_hkpConstraintListener;
+extern int vftable_hkpRayCollidableFilter;
+extern int vftable_hkpRayShapeCollectionFilter;
+extern int vftable_hkpShapeCollectionFilter;
+extern int vftable_hkpCollidableCollidableFilter;
+extern int vftable_hkBaseObject;
 
 struct FUN_00e46b80_class {
     int* unk00;
@@ -3534,22 +3534,22 @@ struct FUN_00e46b80_class {
 // src: GUESS 0x00e46b80 (confidence: low)
 void __thiscall FUN_00e46b80_class::UpdateFields_00e46b80()
 {
-    unk00 = &DAT_010e7874;
-    unk08 = &DAT_010e7868;
-    unk0C = &DAT_010e7854;
-    unk10 = &DAT_010e7848;
-    unk14 = &DAT_010e783c;
-    unk30 = &DAT_010e781c;
+    unk00 = &vftable_hkpConstrainedSystemFilter;
+    unk08 = &vftable_hkpConstrainedSystemFilter_for_hkpCollidableCollidableFilter;
+    unk0C = &vftable_hkpConstrainedSystemFilter_for_hkpShapeCollectionFilter;
+    unk10 = &vftable_hkpConstrainedSystemFilter_for_hkpRayShapeCollectionFilter;
+    unk14 = &vftable_hkpConstrainedSystemFilter_for_hkpRayCollidableFilter;
+    unk30 = &vftable_hkpConstrainedSystemFilter_for_hkpConstraintListener;
 
     if (unk34)
         unk34->FUN_00c905b0();
 
-    unk30 = &DAT_010cb1e4;
-    unk14 = &DAT_010c3b8c;
-    unk10 = &DAT_010c3bac;
-    unk0C = &DAT_010c3b98;
-    unk08 = &DAT_010c3b80;
-    unk00 = &DAT_0102e388;
+    unk30 = &vftable_hkpConstraintListener;
+    unk14 = &vftable_hkpRayCollidableFilter;
+    unk10 = &vftable_hkpRayShapeCollectionFilter;
+    unk0C = &vftable_hkpShapeCollectionFilter;
+    unk08 = &vftable_hkpCollidableCollidableFilter;
+    unk00 = &vftable_hkBaseObject;
 }
 
 struct FUN_00e46e80 {
@@ -3615,7 +3615,7 @@ void FnvCpu_FUN_00e473f0_CpuObject::SetValue(unsigned char arg0)
     value = arg0;
 }
 
-extern int DAT_010e81a4;
+extern int vftable_hkpDefaultWorldMemoryWatchDog;
 
 struct FUN_00e48240 {
     void* m_vTable;
@@ -3629,13 +3629,13 @@ struct FUN_00e48240 {
 FUN_00e48240::FUN_00e48240(int value)
 {
     m_sState = 1;
-    m_vTable = &DAT_010e81a4;
+    m_vTable = &vftable_hkpDefaultWorldMemoryWatchDog;
     m_uiFilterValue = value;
 }
 
-extern int DAT_010cb76c;
-extern int DAT_010cb780;
-extern int DAT_010e83b4;
+extern int vftable_hkpConstraintMotor;
+extern int vftable_hkpLimitedForceConstraintMotor;
+extern int vftable_hkpCallbackConstraintMotor;
 
 struct SourceData {
     void* m_ppVirtualMethodTable;
@@ -3654,16 +3654,16 @@ struct FUN_00e48400 {
 };
 // @fnv 0x00e48400
 FUN_00e48400::FUN_00e48400(const SourceData* source) {
-    m_ppVirtualMethodTable = &DAT_010cb76c;
+    m_ppVirtualMethodTable = &vftable_hkpConstraintMotor;
     m_flags = 1;
 
     unsigned char state = source->m_uiContentCount;
-    *reinterpret_cast<int* volatile*>(&m_ppVirtualMethodTable) = &DAT_010cb780;
+    *reinterpret_cast<int* volatile*>(&m_ppVirtualMethodTable) = &vftable_hkpLimitedForceConstraintMotor;
     m_uiContentCount = state;
 
     m_pHeadNode = source->m_pHeadNode;
     m_iSecondInteger = source->m_iSecondInteger;
-    m_ppVirtualMethodTable = &DAT_010e83b4;
+    m_ppVirtualMethodTable = &vftable_hkpCallbackConstraintMotor;
 
     m_third = source->m_third;
     m_fourth = source->m_fourth;
@@ -3737,8 +3737,8 @@ void FUN_00e484e0_class::ScatterBytes(FUN_00e484e0_dst* dst) {
     }
 }
 
-extern "C" int DAT_010e8ab0;
-extern "C" int DAT_010e8a90;
+extern "C" int vftable_hkpFastMeshShape;
+extern "C" int vftable_hkpFastMeshShape_for_hkpShapeContainer;
 struct FUN_00e48db0_holder {
     void FUN_00dcd310(float f, void* p);
 };
@@ -3750,13 +3750,13 @@ struct FUN_00e48db0_class {
     int m_10;
     FUN_00e48db0_class* __thiscall InitFromFloatAndPointer(float f, void* p);
 };
-// Calls FUN_00dcd310 with f and p, then stores pointers to DAT_010e8ab0 and DAT_010e8a90 in m_00 and m_10, returning this.
+// Calls FUN_00dcd310 with f and p, then stores pointers to vftable_hkpFastMeshShape and vftable_hkpFastMeshShape_for_hkpShapeContainer in m_00 and m_10, returning this.
 // @fnv 0x00e48db0
 FUN_00e48db0_class* FUN_00e48db0_class::InitFromFloatAndPointer(float f, void* p)
 {
     ((FUN_00e48db0_holder*)this)->FUN_00dcd310(f, p);
-    m_00 = &DAT_010e8ab0;
-    m_10 = (int)&DAT_010e8a90;
+    m_00 = &vftable_hkpFastMeshShape;
+    m_10 = (int)&vftable_hkpFastMeshShape_for_hkpShapeContainer;
     return this;
 }
 
@@ -4295,7 +4295,7 @@ void FUN_00e40740_cls::UpdateMinMax(int index, float value)
 }
 
 #include <xmmintrin.h>
-extern int DAT_010e6834;
+extern int vftable_hkpReorientAction;
 struct MotorObject {
     int* vtable;
     unsigned short flags;
@@ -4313,7 +4313,7 @@ struct MotorObject {
     void FUN_00d2b260(void*, int);
     MotorObject* hkpReorientAction_hkpReorientAction();
 };
-// Zeroes value40, value44, vector20 and vector30, sets vtable to DAT_010e6834, calls FUN_00d2b260(0, 0) and returns this.
+// Zeroes value40, value44, vector20 and vector30, sets vtable to vftable_hkpReorientAction, calls FUN_00d2b260(0, 0) and returns this.
 // @fnv 0x00e444c0
 // src: EXE 0x00e444c0
 MotorObject* MotorObject::hkpReorientAction_hkpReorientAction()
@@ -4321,14 +4321,14 @@ MotorObject* MotorObject::hkpReorientAction_hkpReorientAction()
     FUN_00d2b260(0, 0);
     value40 = 0.0f;
     value44 = 0.0f;
-    vtable = &DAT_010e6834;
+    vtable = &vftable_hkpReorientAction;
     vector20 = _mm_setzero_ps();
     vector30 = _mm_setzero_ps();
     return this;
 }
 
 struct LoadedFlag { int finishing; };
-extern "C" int DAT_010ec004;
+extern "C" int vftable_hkpMountedBallGun;
 struct LoadedObject {
     void* vtable;
     int unk04;
@@ -4336,12 +4336,12 @@ struct LoadedObject {
     void FUN_00e46f20(LoadedFlag flag);
     LoadedObject* Initialize(LoadedFlag flag);
 };
-// Calls FUN_00e46f20, sets vtable to DAT_010ec004, sets type to 4 when flag.finishing is true, and returns this.
+// Calls FUN_00e46f20, sets vtable to vftable_hkpMountedBallGun, sets type to 4 when flag.finishing is true, and returns this.
 // @fnv 0x00e45120
 LoadedObject* LoadedObject::Initialize(LoadedFlag flag)
 {
     FUN_00e46f20(flag);
-    vtable = &DAT_010ec004;
+    vtable = &vftable_hkpMountedBallGun;
     if (flag.finishing) type = 4;
     return this;
 }
@@ -4427,8 +4427,8 @@ void BitLinks::SetLink(int aiIndexA, int aiIndexB)
 
 namespace se49080 {
 
-extern "C" const char DAT_010e8e94[];
-extern "C" const char DAT_010e8e74[];
+extern "C" const char vftable_hkpConvexPieceMeshShape[];
+extern "C" const char vftable_hkpConvexPieceMeshShape_for_hkpShapeContainer[];
 
 void __fastcall FUN_00c90510(void* pvObject);
 
@@ -4460,8 +4460,8 @@ KeyedPointerEntry* KeyedPointerEntry::InitializeFields_00e49080(Shape* pkShapeA,
 {
     FUN_00d21410(7, 3);
     m_fBoundRadius = afBoundRadius;
-    m_pVtbl = DAT_010e8e94;
-    m_pVtbl2 = DAT_010e8e74;
+    m_pVtbl = vftable_hkpConvexPieceMeshShape;
+    m_pVtbl2 = vftable_hkpConvexPieceMeshShape_for_hkpShapeContainer;
     m_pkShapeB = pkShapeB;
     m_pkShapeA = pkShapeA;
     FUN_00c90510(pkShapeA);

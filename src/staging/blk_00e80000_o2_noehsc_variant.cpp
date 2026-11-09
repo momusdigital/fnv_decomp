@@ -70,7 +70,7 @@ struct FUN_00e891f0_Class
     void __thiscall NiD3DTextureStageGroup_RemoveAllStageStates();
 };
 extern "C" void __cdecl operator delete(void* p, unsigned int size);
-extern int DAT_010efc34;
+extern int vftable_NiDX9SourceCubeMapData;
 void __cdecl FUN_00e68830();
 struct FUN_00e8aa40_Class
 {
@@ -94,7 +94,7 @@ struct FUN_00e97790_Class
 };
 int __cdecl NiDX9ShaderConstantManager_Create(int a, int b);
 extern "C" void __cdecl NiFreeAlias(void*);
-extern int DAT_010f0f7c;
+extern int vftable_NiTArray_010f0f7c;
 struct FUN_00e98640_Class
 {
     void __thiscall ReleaseStorage_00e98640();
@@ -175,13 +175,13 @@ struct FUN_00e91b90_Class : NiD3DShaderProgramCreator
 };
 extern FUN_00e91b90_Class* DAT_0126fa54;
 extern const unsigned char DAT_010bc868[];
-extern int DAT_010f0af4;
+extern int vftable_NiD3DShaderProgramCreatorObj;
 void __cdecl NiD3DShaderProgramCreatorObj__SDMInit();
-extern int DAT_010f0e50;
-extern int DAT_010f0e70;
+extern int vftable_NiTMapBase_010f0e50;
+extern int vftable_NiTPointerMap_010f0e70;
 extern "C" void __cdecl NiFree(void*);
-extern int DAT_010f0eb0;
-extern int DAT_010f0ed0;
+extern int vftable_NiTMapBase_010f0eb0;
+extern int vftable_NiTPointerMap_010f0ed0;
 void __cdecl NiFree(void*);
 struct FUN_00e941d0_Node
 {
@@ -271,7 +271,7 @@ struct FUN_00e8a1f0_Class
 {
     char __thiscall GetEntryData(int b, int* c, int* d, char* e, char* f);
 };
-extern int DAT_010f0ac0;
+extern int vftable_NiD3DShaderProgramCreatorAsm;
 extern int DAT_0126fa50;
 void __cdecl NiD3DShaderProgramCreatorAsm__SDMInit();
 struct FUN_00e879e0_Class
@@ -297,15 +297,15 @@ struct FUN_00e88b00_Class
 };
 unsigned int __fastcall NiPixelFormat_GetNumComponents(char* self, int);
 void __cdecl _NiFree(void* p);
-extern int DAT_010efdd8;
-extern int DAT_010efdf8;
-extern int DAT_010efdd8;
+extern int vftable_NiTMapBase_010efdd8;
+extern int vftable_NiTPointerMap_010efdf8;
+extern int vftable_NiTMapBase_010efdd8;
 void __cdecl _NiFree(void* p);
 void __cdecl _NiFree(void* p);
-extern int DAT_010efe54;
+extern int vftable_NiTMapBase_010efe54;
 extern MemoryManager _g_memoryManager;
-extern int DAT_010efe54;
-extern int DAT_010efe74;
+extern int vftable_NiTMapBase_010efe54;
+extern int vftable_NiTPointerMap_010efe74;
 extern MemoryManager _g_memoryManager;
 void __cdecl _NiFree(void*);
 extern "C" void __cdecl operator delete(void*, unsigned int);
@@ -314,8 +314,8 @@ struct FUN_00e8ceb0_Class
     void __thiscall ReleaseStorage_00e8ceb0();
     void* __thiscall FUN_00e8d200(bool flag);
 };
-extern unsigned char DAT_010f02b0[];
-extern unsigned char DAT_010f02d0[];
+extern unsigned char vftable_NiTMapBase_010f02b0[];
+extern unsigned char vftable_NiTPointerMap_010f02d0[];
 extern MemoryManager _g_memoryManager;
 void __cdecl _NiFree(void* p);
 extern int DAT_0126fa04;
@@ -332,19 +332,19 @@ struct FUN_00e92080_This
     virtual void Release(int);
 };
 void NiD3DShaderFactory__SDMShutdown();
-extern int DAT_010f0df0;
-extern int DAT_010f0e10;
-extern int DAT_010f0e30;
+extern int vftable_NiTMapBase_010f0df0;
+extern int vftable_NiTPointerMap_010f0e10;
+extern int vftable_NiTStringTemplateMap_010f0e30;
 void __cdecl _NiFree(void* p);
-extern int DAT_010f0e90;
+extern int vftable_NiTStringTemplateMap_010f0e90;
 void _NiFree(void* p);
-extern int DAT_010f0df0;
+extern int vftable_NiTMapBase_010f0df0;
 extern "C" void __cdecl NiFree(void*);
-extern int DAT_010f0df0;
-extern int DAT_010f0e10;
+extern int vftable_NiTMapBase_010f0df0;
+extern int vftable_NiTPointerMap_010f0e10;
 extern MemoryManager _g_memoryManager;
 void __cdecl NiFree(void* p);
-extern int DAT_010f0e50;
+extern int vftable_NiTMapBase_010f0e50;
 extern MemoryManager g_memoryManager;
 void __cdecl FUN_00e934d0();
 void __cdecl _NiFree(void* p);
@@ -399,11 +399,11 @@ struct FUN_00e94390_Class
 
     void* __thiscall FUN_00e94390(int flags);
 };
-extern int DAT_010f0f94;
-extern int DAT_010f0fb4;
+extern int vftable_NiTMapBase_010f0f94;
+extern int vftable_NiTPointerMap_010f0fb4;
 extern MemoryManager _g_memoryManager;
 void __cdecl _NiFree(void*);
-extern int DAT_010f10f4;
+extern int vftable_NiD3DHLSLPixelShader;
 struct FUN_00e89970_Object
 {
     virtual void FUN_00e89970_Object_0();
@@ -423,7 +423,7 @@ struct FUN_00e96c90_Class
 };
 extern "C" void __cdecl operator delete(void* p, unsigned int size);
 void __cdecl FUN_00e989c0();
-extern int DAT_010f1550;
+extern int vftable_NiDX9ShaderConstantManager;
 struct FUN_00e97870_Class
 {
     void* m_ppVirtualMethodTable;
@@ -442,7 +442,7 @@ struct FUN_00e98b10_Class
     void* m_data;
     FUN_00e98b10_Class* __thiscall FUN_00e98b10(unsigned char flag);
 };
-extern void** DAT_010f16dc;
+extern void** vftable_NiTArray_010f16dc;
 extern MemoryManager _g_memoryManager;
 struct SpawnedObject
 {
@@ -4744,8 +4744,8 @@ struct ScalarDeletingObject
     void* DestroyScalarObject(unsigned char flags);
 };
 extern "C" void __cdecl _NiFree_00aa10f0(void*);
-extern int DAT_010ef73c;
-extern int DAT_0101dce4;
+extern int vftable_NiD3DShaderProgram;
+extern int vftable_NiRefObject;
 extern volatile long DAT_011f4400;
 extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(volatile long*);
 struct ReleaseInterface
@@ -7059,8 +7059,8 @@ class E89B40Renderer
 
     bool SetDeviceState(unsigned int uiA, unsigned int uiB, unsigned int uiC, unsigned int uiUnused);
 };
-extern int DAT_010efb7c;
-extern int DAT_010a080c;
+extern int vftable_NiDX9TextureData;
+extern int vftable_NiTexture__RendererData;
 void __cdecl FUN_00aa1460(void* apMemory, unsigned int auiSize);
 struct FUN_00e8a9e0_mgr
 {
@@ -7484,8 +7484,8 @@ struct Target
     Item* NiTMapIterator_GetFirstPos();
     void ProcessEntries_00e8b630();
 };
-extern int DAT_010efdd8;
-extern int DAT_010efdf8;
+extern int vftable_NiTMapBase_010efdd8;
+extern int vftable_NiTPointerMap_010efdf8;
 extern "C" void* __cdecl _NiMalloc_00aa1070(unsigned int);
 extern "C" void* __cdecl FUN_00ec61c0(void*, int, unsigned int);
 struct Observer
@@ -8118,7 +8118,7 @@ struct LightState
     bool UpdateFromSource(LightSource* source);
 };
 extern "C" void __cdecl _NiFree_00aa10f0(void* p);
-extern int DAT_010f0ef0;
+extern int vftable_NiTStringTemplateMap_010f0ef0;
 struct FUN_00e89740_Obj
 {
     int unk00;

@@ -90,7 +90,7 @@ bool NiPSysMeshUpdateModifier::RegisterStreamables_00c20f80(NiStream& kStream)
     return true;
 }
 
-extern int DAT_0101fbcc;
+extern int vftable_NiTArray_0101fbcc;
 void __cdecl j_Deallocate_NiTNewInterface_V_NiPointer_VNiAVObject_SAXPAV_NiPointer_VNiAVObject_Z(void*);
 struct Holder31750
 {
@@ -109,7 +109,7 @@ struct Unk21730
 void* Unk21730::DestroyIfFlagged(unsigned int auiFlags)
 {
     void* tmp = b;
-    a = &DAT_0101fbcc;
+    a = &vftable_NiTArray_0101fbcc;
     j_Deallocate_NiTNewInterface_V_NiPointer_VNiAVObject_SAXPAV_NiPointer_VNiAVObject_Z(tmp);
     ((Holder31750*)this)->FUN_00c31750();
     if (auiFlags & 1)

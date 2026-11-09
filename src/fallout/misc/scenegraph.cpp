@@ -19,7 +19,7 @@ const NiRTTI* SceneGraph::GetRTTI() const
     return &ms_kRTTI;
 }
 
-extern int DAT_01083b5c;
+extern int vftable_SceneGraph;
 
 struct Base_00c517b0
 {
@@ -36,7 +36,7 @@ struct Wrapper_00878610 : Base_00c517b0
 void* Wrapper_00878610::SceneGraph_SceneGraph(char* apSceneGraphName, bool abMenuSceneGraph, void* apCamera)
 {
     FUN_00c517b0(apSceneGraphName, abMenuSceneGraph, apCamera);
-    *(int**)this = &DAT_01083b5c;
+    *(int**)this = &vftable_SceneGraph;
     return this;
 }
 
@@ -115,7 +115,7 @@ void* StandIn::DestroyIfFlagged(unsigned int flags)
     return this;
 }
 
-extern int DAT_01083b5c;
+extern int vftable_SceneGraph;
 
 struct FUN_00878690_shell
 {
@@ -127,6 +127,6 @@ struct FUN_00878690_shell
 // src: GUESS 0x00878690 (confidence: low)
 void FUN_00878690_shell::SetVtableAndProcessState_00878690()
 {
-    *(int*)this = (int)&DAT_01083b5c;
+    *(int*)this = (int)&vftable_SceneGraph;
     FUN_00c51df0();
 }

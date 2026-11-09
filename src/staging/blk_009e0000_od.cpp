@@ -15,7 +15,7 @@
 #include "../../include/TESObjectREFR.h"
 #include "../../include/TESPackage.h"
 
-extern "C" void* DAT_010939ec;
+extern "C" void* vftable_TrespassPackage;
 
 struct FUN_009f91b0 : TESPackage
 {
@@ -45,7 +45,7 @@ void FUN_009e9c10::Call()
     SetVtableAndProcessState_009e9c30();
 }
 
-extern "C" void* DAT_010939ec;
+extern "C" void* vftable_TrespassPackage;
 
 struct FUN_009f2970_Class
 {
@@ -62,22 +62,22 @@ void FUN_009f2970_Class::GuardActorPackageData_SetTarget(void* arg)
     ((TESObjectREFR*)m_8)->TESObjectREFR_SetTargeted(true);
 }
 
-extern "C" void* DAT_01093614;
+extern "C" void* vftable_BSSimpleArray_01093614;
 struct FUN_009f61b0
 {
     void* vtbl;
     void ResetAndWrite(int, int);
     FUN_009f61b0();
 };
-// Sets the vtable pointer to DAT_01093614 and calls ResetAndWrite with 0, 0.
+// Sets the vtable pointer to vftable_BSSimpleArray_01093614 and calls ResetAndWrite with 0, 0.
 // @fnv 0x009f61b0
 FUN_009f61b0::FUN_009f61b0()
 {
-    vtbl = &DAT_01093614;
+    vtbl = &vftable_BSSimpleArray_01093614;
     ResetAndWrite(0, 0);
 }
 
-extern "C" void* DAT_01093614;
+extern "C" void* vftable_BSSimpleArray_01093614;
 struct GlobalObject_00869f00
 {
     void Clear(bool);
@@ -89,7 +89,7 @@ struct FUN_009f61e0 : GlobalObject_00869f00
 // @fnv 0x009f61e0
 void FUN_009f61e0::Init()
 {
-    *(void**)this = &DAT_01093614;
+    *(void**)this = &vftable_BSSimpleArray_01093614;
     Clear(true);
 }
 
@@ -314,7 +314,7 @@ FUN_009e9af0_Class::FUN_009e9af0_Class()
     m_iWordAt04 = DAT_01015f5c;
 }
 
-extern int DAT_01092928;
+extern int vftable_NiTPrimitiveArray_01092928;
 struct FUN_009e9c90
 {
     FUN_009e9c90(int a, int b);
@@ -324,11 +324,11 @@ struct FUN_009e9bb0 : FUN_009e9c90
     int* vtbl;
     FUN_009e9bb0(int a, int b);
 };
-// Calls the base constructor with a and b, then sets vtbl to point at DAT_01092928.
+// Calls the base constructor with a and b, then sets vtbl to point at vftable_NiTPrimitiveArray_01092928.
 // @fnv 0x009e9bb0
 FUN_009e9bb0::FUN_009e9bb0(int a, int b) : FUN_009e9c90(a, b)
 {
-    vtbl = &DAT_01092928;
+    vtbl = &vftable_NiTPrimitiveArray_01092928;
 }
 
 extern "C" void* Deallocate(void*);
@@ -350,13 +350,13 @@ void* GlobalObject_009e9bb0::ReleaseIfFlagged(unsigned int flags)
     return this;
 }
 
-extern int DAT_01092930;
+extern int vftable_NiTArray_01092930;
 
 // @fnv 0x009e9c30
 // src: GUESS 0x009e9c30 (confidence: low)
 void FUN_009e9c10::SetVtableAndProcessState_009e9c30()
 {
-    *(void**)this = &DAT_01092930;
+    *(void**)this = &vftable_NiTArray_01092930;
     NiTMallocInterface<Actor*>::Deallocate(*(Actor***)((char*)this + 4));
 }
 
@@ -377,7 +377,7 @@ void* FUN_009e9c60_Class::FUN_009e9c60(unsigned int flags)
     return this;
 }
 
-extern int DAT_01092930;
+extern int vftable_NiTArray_01092930;
 
 struct FUN_009e9c90_Class
 {
@@ -393,7 +393,7 @@ struct FUN_009e9c90_Class
 // @fnv 0x009e9c90
 FUN_009e9c90_Class::FUN_009e9c90_Class(unsigned short a, unsigned short b)
 {
-    vtbl = &DAT_01092930;
+    vtbl = &vftable_NiTArray_01092930;
     m_8 = a;
     m_usTrailingValue = b;
     m_kPointA = 0;
@@ -404,7 +404,7 @@ FUN_009e9c90_Class::FUN_009e9c90_Class(unsigned short a, unsigned short b)
         m_iWordAt04 = 0;
 }
 
-extern int DAT_01092d84;
+extern int vftable_BackUpPackage;
 struct FUN_009ed330 : TESPackage
 {
     ~FUN_009ed330();

@@ -244,7 +244,7 @@ class FUN_00ce1680_Ragdoll : public hkReferencedObject
 
     int addToWorld(void* world, unsigned char flag);
 };
-extern int DAT_010cb830;
+extern int vftable_hkaRagdollInstance;
 struct RagdollInstance_ce24
 {
     int* m_vtbl;
@@ -297,7 +297,7 @@ template <class T> struct InitArray : ObjectArray<T>
         this->m_iCapacityState = 0x80000000;
     }
 };
-extern "C" int DAT_010cb830;
+extern "C" int vftable_hkaRagdollInstance;
 struct FUN_00ce2510
 {
     void* m_vptr;

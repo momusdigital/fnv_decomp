@@ -55,20 +55,20 @@ void __thiscall FUN_00800a90::SetOcclusionDisabled()
     ((char*)this)[0x118] = 0;
 }
 
-extern int DAT_01079170;
+extern int vftable_NiTMap_01079170;
 struct FUN_00802b20_class
 {
     int* p;
     void __thiscall InitBuffer(int);
     int __thiscall NiTMap_unsigned_int_IDebugTextPage_NiTMap(int a);
 };
-// Calls InitBuffer with a, sets p to point at DAT_01079170, and returns this.
+// Calls InitBuffer with a, sets p to point at vftable_NiTMap_01079170, and returns this.
 // @fnv 0x00802b20
 // src: EXE 0x00802b20
 int __thiscall FUN_00802b20_class::NiTMap_unsigned_int_IDebugTextPage_NiTMap(int a)
 {
     InitBuffer(a);
-    p = &DAT_01079170;
+    p = &vftable_NiTMap_01079170;
     return (int)this;
 }
 
@@ -212,7 +212,7 @@ void FUN_00819a70_class::NiPSysSpawnModifier_SetLifeSpan(float value)
     *(float*)((char*)this + 0x2c) = value;
 }
 
-extern int DAT_01079190;
+extern int vftable_NiTMapBase_01079190;
 extern "C" void* __cdecl NiFreeAlias(void*);
 
 struct FUN_00802c50
@@ -227,7 +227,7 @@ struct FUN_00802c50
 // @fnv 0x00802c50
 void FUN_00802c50::Init()
 {
-    vft = &DAT_01079190;
+    vft = &vftable_NiTMapBase_01079190;
     ((NiTPointerMap<int, int>*)this)->RemoveAll();
     NiFreeAlias((void*)b);
 }
@@ -272,9 +272,9 @@ struct GlobalObject_0044f440
 {
     float* Float();
 };
-extern GlobalObject_0044f440 g_011db6c8;
-extern GlobalObject_0044f440 g_011db7c4;
-extern GlobalObject_0044f440 g_011db7d8;
+extern GlobalObject_0044f440 fPulseRadius_VATS;
+extern GlobalObject_0044f440 fPulseIntensity_VATS;
+extern GlobalObject_0044f440 fPulseRate_VATS;
 float __cdecl ApplyNoise(float);
 
 struct FUN_008007b0_Class
@@ -285,9 +285,9 @@ struct FUN_008007b0_Class
 // @fnv 0x008007b0
 void __thiscall FUN_008007b0_Class::SetScaledValues(float value)
 {
-    float result = ApplyNoise(value * *g_011db7d8.Float()) * 2.0f;
-    *(float*)((char*)this + 0x2ac) = result * *g_011db7c4.Float();
-    *(float*)((char*)this + 0x2b0) = result * *g_011db6c8.Float();
+    float result = ApplyNoise(value * *fPulseRate_VATS.Float()) * 2.0f;
+    *(float*)((char*)this + 0x2ac) = result * *fPulseIntensity_VATS.Float();
+    *(float*)((char*)this + 0x2b0) = result * *fPulseRadius_VATS.Float();
 }
 
 struct FUN_00800d10_class
@@ -334,7 +334,7 @@ struct FUN_00802b80_t
 // @fnv 0x00802b80
 void* __thiscall FUN_00802b80_t::InitBuffer(int aiCount)
 {
-    *(int*)this = (int)&DAT_01079190;
+    *(int*)this = (int)&vftable_NiTMapBase_01079190;
     *(int*)((char*)this + 4) = aiCount;
     *(int*)((char*)this + 12) = 0;
     int s = *(int*)((char*)this + 4) * 4;
@@ -458,12 +458,13 @@ extern "C" void __cdecl Deallocate(void*);
 struct FUN_0081de70_shell
 {
     void __thiscall FUN_0081de70();
-    void* __thiscall FUN_0081dcd0(unsigned int flags);
+    void* __thiscall MagicProjectile_ScalarDeletingDestructor(unsigned int flags);
 };
 
 // Calls FUN_0081de70, then frees this via Deallocate when flags has bit 1 set, and returns this.
 // @fnv 0x0081dcd0
-void* __thiscall FUN_0081de70_shell::FUN_0081dcd0(unsigned int flags)
+// src: EXE 0x0081dcd0
+void* __thiscall FUN_0081de70_shell::MagicProjectile_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_0081de70();
     if (flags & 1)
@@ -628,19 +629,19 @@ void FUN_008006b0_Class::FOVATSEffectManager_TriggerDistort()
 }
 }  // namespace fnv_008006b0
 
-extern Setting g_011db78c;
+extern Setting fVATSTargetPulseRate_VATS;
 extern double DAT_01011588;
 float __cdecl FUN_004e44d0(float);
 struct FUN_00800820_Class
 {
     void __thiscall FOVATSEffectManager_UpdateTargetPulse(float a);
 };
-// Computes (FUN_004e44d0(a * g_011db78c.Float()[0]) + 1.0) * DAT_01011588 and stores the result at this+0x2c0.
+// Computes (FUN_004e44d0(a * fVATSTargetPulseRate_VATS.Float()[0]) + 1.0) * DAT_01011588 and stores the result at this+0x2c0.
 // @fnv 0x00800820
 // src: COMMUNITY 0x00800820
 void __thiscall FUN_00800820_Class::FOVATSEffectManager_UpdateTargetPulse(float afValue)
 {
-    float f = (FUN_004e44d0(afValue * g_011db78c.Float()[0]) + 1.0) * DAT_01011588;
+    float f = (FUN_004e44d0(afValue * fVATSTargetPulseRate_VATS.Float()[0]) + 1.0) * DAT_01011588;
     *(float*)((char*)this + 0x2c0) = f;
 }
 
@@ -772,17 +773,17 @@ struct EffectStorage
 {
     EffectStorage(MagicCaster*, MagicItem*, EffectItem*);
 };
-extern int DAT_01079b3c;
-struct FUN_0080ba90 : EffectStorage
+extern int vftable_CommandHumanoidEffect;
+struct CommandHumanoidEffect : EffectStorage
 {
-    FUN_0080ba90(MagicCaster* a, MagicItem* b, EffectItem* c);
+    CommandHumanoidEffect(MagicCaster* a, MagicItem* b, EffectItem* c);
 };
-// Constructs the EffectStorage base from the caster, item and effect item, then sets the object's vtable pointer to DAT_01079b3c.
+// Constructs the EffectStorage base from the caster, item and effect item, then sets the object's vtable pointer to vftable_CommandHumanoidEffect.
 // @fnv 0x0080ba90
-FUN_0080ba90::FUN_0080ba90(MagicCaster* a, MagicItem* pItem, EffectItem* pEffectItem)
+CommandHumanoidEffect::CommandHumanoidEffect(MagicCaster* a, MagicItem* pItem, EffectItem* pEffectItem)
     : EffectStorage(a, pItem, pEffectItem)
 {
-    *(int*)this = (int)&DAT_01079b3c;
+    *(int*)this = (int)&vftable_CommandHumanoidEffect;
 }
 
 struct S_0080bac0_Obj
@@ -2701,7 +2702,7 @@ struct FUN_0080f390_shell : ActiveEffect
 {
     FUN_0080f390_shell(MagicCaster* a, MagicItem* b, EffectItem* c);
 };
-// Constructs a FUN_0080f390_shell ActiveEffect, passing a, b, c to the base and setting the vtable to DAT_0107a4ac.
+// Constructs a FUN_0080f390_shell ActiveEffect, passing a, b, c to the base and setting the vtable to vftable_LockEffect.
 // @fnv 0x0080f390
 FUN_0080f390_shell::FUN_0080f390_shell(MagicCaster* apCaster, MagicItem* apItem, EffectItem* apEffect)
     : ActiveEffect(apCaster, apItem, apEffect)

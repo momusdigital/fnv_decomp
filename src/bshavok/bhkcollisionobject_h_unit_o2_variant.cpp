@@ -33,7 +33,7 @@ bhkCollisionObject* bhkCollisionObject::GetFromRigidBody(const hkpRigidBody* bod
 }
 
 void* __fastcall NiRTTI_UpdateState_00c6b910(void*);
-extern int DAT_0103046c;
+extern int vftable_bhkCollisionObject;
 struct MyType
 {
     // This collision object shares the allocator, not the BSFadeNode layout.
@@ -45,7 +45,7 @@ struct MyType
     MyType()
     {
         NiRTTI_UpdateState_00c6b910(this);
-        *(void**)this = (void*)&DAT_0103046c;
+        *(void**)this = (void*)&vftable_bhkCollisionObject;
     }
 };
 // @fnv 0x00c65830

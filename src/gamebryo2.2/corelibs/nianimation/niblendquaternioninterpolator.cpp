@@ -96,7 +96,7 @@ extern int DAT_011f4208;
 extern int DAT_011f420c;
 extern int DAT_011f4210;
 extern int DAT_011f4214;
-extern int DAT_0109a3ac;
+extern int vftable_NiBlendQuaternionInterpolator;
 
 // @fnv 0x00a55470
 // src: EXE 0x00a55470
@@ -106,7 +106,7 @@ void* __cdecl NiBlendQuaternionInterpolator_CreateObject()
     if (p)
     {
         NiBlendInterpolator_NiBlendInterpolator(p);
-        *(int**)((char*)p + 0) = &DAT_0109a3ac;
+        *(int**)((char*)p + 0) = &vftable_NiBlendQuaternionInterpolator;
         *(int*)((char*)p + 0x30) = DAT_011f4208;
         *(int*)((char*)p + 0x34) = DAT_011f420c;
         *(int*)((char*)p + 0x38) = DAT_011f4210;
@@ -131,7 +131,7 @@ void* NiBlendQuaternionInterpolator::CloneInterpolator(void* kCloning)
     if (pkObject)
     {
         NiBlendInterpolator_NiBlendInterpolator(pkObject);
-        *(int*)pkObject = (int)&DAT_0109a3ac;
+        *(int*)pkObject = (int)&vftable_NiBlendQuaternionInterpolator;
         *(NiQuadWords*)((char*)pkObject + 0x30) = *(NiQuadWords*)&DAT_011f4208;
     }
     else

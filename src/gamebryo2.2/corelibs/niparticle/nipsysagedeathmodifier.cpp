@@ -139,7 +139,7 @@ struct FUN_00c32d80
 {
     FUN_00c32d80();
 };
-extern int DAT_010c03cc;
+extern int vftable_NiPSysAirFieldSpreadCtlr;
 inline void* __cdecl operator new(unsigned int, void* p)
 {
     return p;
@@ -152,7 +152,7 @@ FUN_00c32d80* __cdecl NiPSysAirFieldSpreadCtlr_CreateObject()
     if (p)
     {
         new (p) FUN_00c32d80();
-        *(int*)p = (int)&DAT_010c03cc;
+        *(int*)p = (int)&vftable_NiPSysAirFieldSpreadCtlr;
         return p;
     }
     return 0;
@@ -188,7 +188,7 @@ void NiPSysAgeDeathModifier::GetViewerStrings_00c2f2c0(StrArr* pkStrings)
     pkStrings->SetAt(uiIndex, pcString);
 }
 
-extern int DAT_010c0304;
+extern int vftable_NiPSysAgeDeathModifier;
 // @fnv 0x00c2f150
 // src: XBOX_PDB 0x00c2f150
 NiPSysAgeDeathModifier* NiPSysAgeDeathModifier::CreateClone_00c2f150(CloningProcess& kCloning)
@@ -197,7 +197,7 @@ NiPSysAgeDeathModifier* NiPSysAgeDeathModifier::CreateClone_00c2f150(CloningProc
     if (pkObject)
     {
         pkObject->NiPSysModifier::NiPSysModifier();
-        *reinterpret_cast<void**>(pkObject) = &DAT_010c0304;
+        *reinterpret_cast<void**>(pkObject) = &vftable_NiPSysAgeDeathModifier;
         pkObject->m_bSpawnOnDeath = false;
         pkObject->m_pSpawnModifier = 0;
     }
@@ -433,7 +433,7 @@ FUN_00c32d80* Host2f440::CreateAndInit(int arg)
     if (p)
     {
         new (p) FUN_00c32d80;
-        *(int**)p = &DAT_010c03cc;
+        *(int**)p = &vftable_NiPSysAirFieldSpreadCtlr;
     }
     else
     {

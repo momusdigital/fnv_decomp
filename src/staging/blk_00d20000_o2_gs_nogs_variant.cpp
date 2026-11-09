@@ -126,7 +126,7 @@ struct FUN_00d2be30
     void SetFile(const char* a, const char* b);
 };
 extern "C" void __stdcall FUN_00d2f980(int);
-extern int DAT_010ce930;
+extern int vftable_hkpMoppAgent;
 struct FUN_00d2f220_class
 {
     int* p;
@@ -245,13 +245,13 @@ struct SearchObject {
 };
 struct FnvCpu_FUN_00d31730_CpuCallData { void* descriptor; float bound; unsigned int value; };
 extern float DAT_0104da48;
-extern unsigned char DAT_010ce7fc;
+extern unsigned char vftable_hkpSymmetricAgentFlipCollector;
 struct FnvCpu_FUN_00d31730_CpuObject {
     void hkpBvTreeAgent_getClosestPoints(void*, void*, unsigned int, FnvCpu_FUN_00d31730_CpuCallData*);
     void UpdateState_00d31730(void*, void*, unsigned int, unsigned int);
 };
 extern "C" void __cdecl InitBlockPool(void* p);
-extern int DAT_010ced34;
+extern int vftable_hkpListAgent;
 struct FUN_00d36b20_Class {
     void* unk00;
     unsigned short unk04;
@@ -270,7 +270,7 @@ struct FUN_00d36cc0_Obj {
 };
 struct FnvCpu_FUN_00d36ce0_CpuCallData { void* descriptor; float bound; unsigned int value; };
 extern float DAT_0104da48;
-extern unsigned char DAT_010ce7fc;
+extern unsigned char vftable_hkpSymmetricAgentFlipCollector;
 struct FnvCpu_FUN_00d36ce0_CpuObject {
     void hkpListAgent_getClosestPoints(void*, void*, unsigned int, FnvCpu_FUN_00d36ce0_CpuCallData*);
     void UpdateFields_00d36ce0(void*, void*, unsigned int, unsigned int);
@@ -293,7 +293,7 @@ void __cdecl ReleaseHandles(int a1, int a2, int a3, int a4);
 void __cdecl Runtime_ReleaseHandles_Thunk(int a1, int a2, int a3, int a4, int a5);
 struct FnvCpu_FUN_00d3f480_CpuCallData { void* descriptor; float bound; unsigned int value; };
 extern float DAT_0104da48;
-extern unsigned char DAT_010ce7fc;
+extern unsigned char vftable_hkpSymmetricAgentFlipCollector;
 struct FnvCpu_FUN_00d3f480_CpuObject {
     void hkpSphereCapsuleAgent_getClosestPoints(void*, void*, unsigned int, FnvCpu_FUN_00d3f480_CpuCallData*);
     void hkpSymmetricAgentLinearCast_hkpSphereCapsuleAgent_getClosestPoints(void*, void*, unsigned int, unsigned int);
@@ -371,7 +371,7 @@ public:
     virtual void ResetAgent(unsigned short id, void* pkInfo);
 };
 D3FE10Entry* __cdecl ResetEntryAgents(D3FE10Header* pkHeader, D3FE10Entry* pkEntry, D3FE10Manager* pkManager, void* pkInfo);
-extern int DAT_010ce81c;
+extern int vftable_hkpSymmetricAgentFlipBodyCollector;
 struct SpawnedBuf { void* m_iWordAt00; unsigned char m_iWordAt04; int m_8; };
 struct Wrapper {
     void ForwardToFunction(int,int,int,SpawnedBuf*);
@@ -531,7 +531,7 @@ struct FUN_00d219e0_cls
     int unk14;
     void __thiscall SetLists(FUN_00d219e0_node* a, FUN_00d219e0_node* b);
 };
-extern int DAT_0101e594;
+extern int vftable_hkpRayHitCollector;
 struct VtblStub_0101e594 { void* m_ppVirtualMethodTable; };
 extern "C" void __cdecl FormHeapFreeAndLog_00401030(VtblStub_0101e594*);
 struct FUN_00d26210
@@ -640,14 +640,14 @@ struct C_d2cda0 {
 };
 struct FnvCpu_FUN_00d329b0_CpuCallData { void* descriptor; float bound; unsigned int value; };
 extern float DAT_0104da48;
-extern unsigned char DAT_010ce7fc;
+extern unsigned char vftable_hkpSymmetricAgentFlipCollector;
 struct FnvCpu_FUN_00d329b0_CpuObject {
     void hkpHeightFieldAgent_getClosestPoints(void*, void*, unsigned int, FnvCpu_FUN_00d329b0_CpuCallData*);
     void DispatchWithBound(void*, void*, unsigned int, unsigned int);
 };
 int __cdecl Object_ComputeValue_00d32ac0(int param_1, int param_2);
 void* __cdecl Runtime_EvaluateValue_00d32ad0(int unused, char* p);
-extern int DAT_010ce81c;
+extern int vftable_hkpSymmetricAgentFlipBodyCollector;
 void __cdecl hkpConvexListAgent_staticGetPenetrations(int b, int a, int c, SpawnedBuf* buffer);
 void __cdecl InitSpawnedBuffer(int a, int b, int c, int d);
 struct FUN_00d34aa0_Obj {
@@ -665,7 +665,7 @@ struct FUN_00d34aa0_Obj {
 };
 struct FnvCpu_FUN_00d34b00_CpuCallData { void* descriptor; float bound; unsigned int value; };
 extern float DAT_0104da48;
-extern unsigned char DAT_010ce7fc;
+extern unsigned char vftable_hkpSymmetricAgentFlipCollector;
 struct FnvCpu_FUN_00d34b00_CpuObject {
     void hkpConvexListAgent_getClosestPoints(void*, void*, unsigned int, FnvCpu_FUN_00d34b00_CpuCallData*);
     void DispatchCpuCall(void*, void*, unsigned int, unsigned int);
@@ -753,7 +753,7 @@ public:
 };
 void __cdecl DispatchFuncs(D3FD30Dispatcher* pkDispatcher);
 void nullsub_16();
-extern int DAT_0102e388;
+extern int vftable_hkBaseObject;
 struct Foo00d24660 {
     void SetVirtualTable_00d24660();
 };
@@ -780,7 +780,7 @@ void __cdecl Runtime_UpdateState_00d2f530(unsigned char* p);
 extern unsigned char DAT_011b4284;
 void __cdecl Object_SetDAT_011b4284_00d2f540(unsigned char value);
 extern float DAT_0104da48;
-extern unsigned char DAT_010ce7fc;
+extern unsigned char vftable_hkpSymmetricAgentFlipCollector;
 extern "C" void __cdecl GetClosestPointsShapeCollection();
 struct D347D0Query {
     const unsigned char* descriptor;
@@ -789,7 +789,7 @@ struct D347D0Query {
 };
 void __cdecl QueryClosestPoints(void* a, void* b, void* c, unsigned int filter);
 extern float DAT_0104da48;
-extern unsigned char DAT_010ce7fc;
+extern unsigned char vftable_hkpSymmetricAgentFlipCollector;
 struct D34970Context {
     void* pointer;
     float maxDistance;
@@ -797,7 +797,7 @@ struct D34970Context {
 };
 extern "C" void __cdecl hkpConvexListAgent_QueryClosestPointsAfterHullTest(int first, int second, int third, D34970Context* context);
 void __cdecl Runtime_UpdateState_00d34970(int arg0, int arg1, int arg2, int arg3);
-extern int DAT_010ce81c;
+extern int vftable_hkpSymmetricAgentFlipBodyCollector;
 struct D34ac0Struct {
     void* e;
     unsigned char f;
@@ -818,7 +818,7 @@ struct D3C380_Obj {
     int i8;
     unsigned short wC;
 };
-extern unsigned int DAT_010cefdc;
+extern unsigned int vftable_hkpSphereBoxAgent;
 D3C380_Obj* __cdecl CreateD3C380Obj(int a1, int a2, int a3, int a4);
 // CreateRetObj: builds a 0x20-byte record from the audio allocation pool.
 struct IAlloc
@@ -845,10 +845,10 @@ struct AllocMgr
     int unk00, unk04, unk08, unk0c;
     IAlloc* allocator;
 };
-extern int DAT_010cf060;
+extern int vftable_hkpSphereTriangleAgent;
 extern void __cdecl hkpCollideTriangleUtil_setupClosestPointTriangleCache(void* src, void* dst);
 void* __cdecl CreateRetObj(int a1, char** a2, int a3, int a4);
-extern int DAT_010cf0e4;
+extern int vftable_hkpSphereCapsuleAgent;
 struct D3E270_obj;
 struct D3E270_alloc {
     virtual void v00();

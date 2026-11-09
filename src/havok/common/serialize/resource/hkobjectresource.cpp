@@ -155,7 +155,7 @@ struct FUN_00e04f10_Manager
     virtual hkReferencedObject* GetFirst();
 };
 extern "C" FUN_00e04f10_Manager* DAT_01268b08;
-extern "C" void* DAT_010ea4dc[];
+extern "C" void* vftable_hkObjectResource[];
 struct FUN_00e04f10_Values
 {
     int first, second;
@@ -174,7 +174,7 @@ class FUN_00e04f10_Class
 FUN_00e04f10_Class* FUN_00e04f10_Class::Initialize(const FUN_00e04f10_Values* pInitValues)
 {
     refCount = 1;
-    vtable = DAT_010ea4dc;
+    vtable = vftable_hkObjectResource;
     values = *pInitValues;
     hkReferencedObject* resource = DAT_01268b08->GetFirst();
     if (resource)
@@ -216,8 +216,8 @@ struct Registry_00e04f80
 };
 
 extern Registry_00e04f80 DAT_01268748;
-extern char DAT_010ea4dc;
-extern char DAT_0102e388;
+extern char vftable_hkObjectResource;
+extern char vftable_hkBaseObject;
 
 struct FUN_00e04f80_class
 {
@@ -236,7 +236,7 @@ struct FUN_00e04f80_class
 void FUN_00e04f80_class::ReleaseResource()
 {
     Resource_00e04f80* oldResource = resource;
-    vtable = &DAT_010ea4dc;
+    vtable = &vftable_hkObjectResource;
     if (oldResource)
     {
         char status;
@@ -270,7 +270,7 @@ void FUN_00e04f80_class::ReleaseResource()
     if (pRemainingContext)
         pRemainingContext->removeReference();
     ((volatile FUN_00e04f80_class*)this)->context = 0;
-    ((volatile FUN_00e04f80_class*)this)->vtable = &DAT_0102e388;
+    ((volatile FUN_00e04f80_class*)this)->vtable = &vftable_hkBaseObject;
 }
 }  // namespace fnv_00e04f80
 

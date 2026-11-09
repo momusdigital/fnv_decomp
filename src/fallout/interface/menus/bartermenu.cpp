@@ -71,7 +71,8 @@ void __cdecl _Deallocate(void*);
 
 // Calls FUN_0072d0a0, then frees this when flags has bit 0 set, and returns this.
 // @fnv 0x0072d070
-void* BarterMenu::FUN_0072d070(unsigned int flags)
+// src: EXE 0x0072d070
+void* BarterMenu::ScalarDeletingDestructor(unsigned int flags)
 {
     this->BarterMenu::~BarterMenu();
     if (flags & 1)

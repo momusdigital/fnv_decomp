@@ -75,7 +75,7 @@ public:
     void DecrementEntryCount(int);
     void AddOrUpdateEntryCount(int);
 
-    void* __thiscall FUN_0072d070(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
     void __thiscall FUN_0072d0a0();
     void __thiscall UpdateCapsLabels();
     void __thiscall DoLeave(int, void*);

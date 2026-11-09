@@ -256,7 +256,7 @@ struct FormIDEntry
     unsigned char cVersion;
 };
 unsigned short __fastcall GetDialogueItemSaveSize(DialogueItem*);
-extern Setting g_011de4e8;
+extern Setting bDebugSaveBuffer_Debug;
 TESForm* LookupFormByID(unsigned int);
 void SaveWarning(const char*, ...);
 static const char kConversationFile[] = "D:\\_Fallout3\\Platforms\\Common\\Code\\Fallout\\Dialogue\\Conversation.cpp";
@@ -284,7 +284,7 @@ unsigned short Conversation::GetSaveSize_0083bb30()
         node5 = node5->GetNext();
     }
     size3 += 2;
-    if (*g_011de4e8.Bool())
+    if (*bDebugSaveBuffer_Debug.Bool())
     {
         FormIDEntry* header3 = static_cast<FormIDEntry*>(g_TESSaveLoadGame->GetHitSound());
         if (header3)
@@ -348,7 +348,7 @@ void Conversation::SaveConversation()
     short sCount_ = 0;                                  // slot -0x10
     short* pSizeTmp = 0;                                // slot -0x04
     unsigned int pCount7 = g_TESSaveLoadGame->GetTimeStamp();  // slot -0x14
-    if (*g_011de4e8.Bool())
+    if (*bDebugSaveBuffer_Debug.Bool())
         pCount7 = g_TESSaveLoadGame->GetTimeStamp();
     if (g_TESSaveLoadGame->TESSaveLoadGame_UseSaveGameBlocks())
     {
@@ -373,7 +373,7 @@ void Conversation::SaveConversation()
     if (m_pCurrentDialogueNode)
         pNode2 = GetDialogueItemIndex(m_pCurrentDialogueNode->GetItem());
     g_TESSaveLoadGame->TESSaveLoadGame_SaveGameDataOLD(&pNode2, 2);
-    if (*g_011de4e8.Bool())
+    if (*bDebugSaveBuffer_Debug.Bool())
     {
         unsigned int uiEndTime4 = g_TESSaveLoadGame->GetTimeStamp();  // slot -0x2c
         void* _pWorld = g_TESSaveLoadGame->GetHitSound();             // slot -0x28

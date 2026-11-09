@@ -22,7 +22,7 @@ struct DismemberOperations : BSDismemberSkinInstance
     void AppendViewerStrings(NiTPrimitiveArray<char*>* strings);
 };
 
-extern int DAT_01069a84;
+extern int vftable_BSDismemberSkinInstance;
 inline void* __cdecl operator new(unsigned int, void* p)
 {
     return p;
@@ -47,7 +47,7 @@ BSDismemberSkinInstance* BSDismemberSkinInstance_CreateObject()
         p->unk34 = 0;
         p->unk38 = 0;
         p->unk18 = -1;
-        *(void**)p = (void*)&DAT_01069a84;
+        *(void**)p = (void*)&vftable_BSDismemberSkinInstance;
         return p;
     }
     return 0;
@@ -116,7 +116,7 @@ static inline BSDismemberSkinInstance* InitializeDismember(BSDismemberSkinInstan
     p->unk24 = 0;
     p->unk28 = 0;
     p->unk30 = 0;
-    *(void**)p = &DAT_01069a84;
+    *(void**)p = &vftable_BSDismemberSkinInstance;
     p->unk34 = 0;
     p->unk38 = 0;
     return p;

@@ -215,7 +215,7 @@ int* __fastcall NiTMap_TESFile_BGSReconstructFormsInFileMap_NiTMap(int* self, FU
     return self;
 }
 
-extern int DAT_0107ed08;
+extern int vftable_BSSimpleArray_0107ed08;
 
 class SaveGameSizeState
 {
@@ -226,7 +226,7 @@ class SaveGameSizeState
 // @fnv 0x00844a90
 void* __fastcall SaveGameSizeStateConstructor(void* pThis)
 {
-    *reinterpret_cast<int**>(pThis) = &DAT_0107ed08;
+    *reinterpret_cast<int**>(pThis) = &vftable_BSSimpleArray_0107ed08;
     reinterpret_cast<SaveGameSizeState*>(pThis)->RecordRequestedSize(0, 0);
     return pThis;
 }
@@ -237,13 +237,13 @@ class GlobalObject_00869f00
     void Clear(bool);
 };
 
-extern int DAT_0107ed08;
+extern int vftable_BSSimpleArray_0107ed08;
 
 // @fnv 0x00844ac0
 // src: GUESS 0x00844ac0 (confidence: medium)
 void __fastcall Object_ResetVirtualTableAndClear_00844ac0(GlobalObject_00869f00* _this)
 {
-    *(int**)_this = &DAT_0107ed08;
+    *(int**)_this = &vftable_BSSimpleArray_0107ed08;
     _this->Clear(true);
 }
 
@@ -328,7 +328,8 @@ extern "C" void _Deallocate(void*);
 
 // Calls FUN_008411f0, then deallocates this when flags has bit 0 set, and returns this.
 // @fnv 0x008411c0
-void* BGSReconstructFormsMap::FUN_008411c0(unsigned int flags)
+// src: EXE 0x008411c0
+void* BGSReconstructFormsMap::ScalarDeletingDestructor(unsigned int flags)
 {
     this->FUN_008411f0();
     if (flags & 1)
@@ -437,7 +438,7 @@ struct GlobalObject_00869f00
     void __thiscall Clear(bool);
 };
 
-extern int DAT_0107ed50;
+extern int vftable_BSSimpleArray_0107ed50;
 
 struct FUN_00844fa0_shell
 {
@@ -448,7 +449,7 @@ struct FUN_00844fa0_shell
 // @fnv 0x00844fa0
 void __thiscall FUN_00844fa0_shell::InitGlobalObject()
 {
-    m_p = &DAT_0107ed50;
+    m_p = &vftable_BSSimpleArray_0107ed50;
     ((GlobalObject_00869f00*)this)->Clear(true);
 }
 }  // namespace fnv_00844fa0
@@ -660,7 +661,7 @@ TESFile* ReconstructFilesSourceLookup::BGSReconstructFormsInAllFilesMap_GetFileF
 }
 
 namespace fnv_00844040 {
-extern int DAT_0107eba8;
+extern int vftable_NiTMap_0107eba8;
 struct S008442a0
 {
     void NiTMapBase_DFALL_NiTMapItem_unsigned_int_ReconstructFormData_unsigned_int_ReconstructFormData_NiTMapBase(int);
@@ -670,79 +671,79 @@ struct FUN_00844040
     int vfptr;
     FUN_00844040(int);
 };
-// Calls FUN_008442a0 on this with a, then sets vfptr to the address of DAT_0107eba8.
+// Calls FUN_008442a0 on this with a, then sets vfptr to the address of vftable_NiTMap_0107eba8.
 // @fnv 0x00844040
 FUN_00844040::FUN_00844040(int a)
 {
     ((S008442a0*)this)->NiTMapBase_DFALL_NiTMapItem_unsigned_int_ReconstructFormData_unsigned_int_ReconstructFormData_NiTMapBase(a);
-    vfptr = (int)&DAT_0107eba8;
+    vfptr = (int)&vftable_NiTMap_0107eba8;
 }
 }  // namespace fnv_00844040
 
-extern int DAT_0107ebc8;
+extern int vftable_NiTMap_0107ebc8;
 struct S_844070
 {
     void FUN_00844590(int);
     S_844070* NiTMap_unsigned_int_BGSReconstructFormsMap_NiTMap(int);
 };
-// Calls FUN_00844590 with a, stores the address of DAT_0107ebc8 into this, and returns this.
+// Calls FUN_00844590 with a, stores the address of vftable_NiTMap_0107ebc8 into this, and returns this.
 // @fnv 0x00844070
 // src: EXE 0x00844070
 S_844070* S_844070::NiTMap_unsigned_int_BGSReconstructFormsMap_NiTMap(int a)
 {
     FUN_00844590(a);
-    *(int*)this = (int)&DAT_0107ebc8;
+    *(int*)this = (int)&vftable_NiTMap_0107ebc8;
     return this;
 }
 
-extern int DAT_0107ebe8;
+extern int vftable_NiTMap_0107ebe8;
 struct C008440a0
 {
     int m0;
     void NiTMapBase_DFALL_NiTMapItem_unsigned_int_BGSReconstructCellsMap_unsigned_int_BGSReconstructCellsMap_NiTMapBase(int);
     C008440a0* NiTMap_unsigned_int_BGSReconstructCellsMap_NiTMap(int);
 };
-// Calls FUN_00844690 with a, stores the address of DAT_0107ebe8 in m0, and returns this.
+// Calls FUN_00844690 with a, stores the address of vftable_NiTMap_0107ebe8 in m0, and returns this.
 // @fnv 0x008440a0
 // src: EXE 0x008440a0
 C008440a0* C008440a0::NiTMap_unsigned_int_BGSReconstructCellsMap_NiTMap(int a)
 {
     NiTMapBase_DFALL_NiTMapItem_unsigned_int_BGSReconstructCellsMap_unsigned_int_BGSReconstructCellsMap_NiTMapBase(a);
-    m0 = (int)&DAT_0107ebe8;
+    m0 = (int)&vftable_NiTMap_0107ebe8;
     return this;
 }
 
-extern int DAT_0107ec08;
+extern int vftable_NiTMap_0107ec08;
 struct S008440d0
 {
     int field0;
     void FUN_00844870(int);
     S008440d0* NiTMap_unsigned_int_BGSReconstructCellSubBlocksMap_NiTMap(int);
 };
-// Calls FUN_00844870 with a, stores the address of DAT_0107ec08 in field0, and returns this.
+// Calls FUN_00844870 with a, stores the address of vftable_NiTMap_0107ec08 in field0, and returns this.
 // @fnv 0x008440d0
 // src: EXE 0x008440d0
 S008440d0* S008440d0::NiTMap_unsigned_int_BGSReconstructCellSubBlocksMap_NiTMap(int a)
 {
     FUN_00844870(a);
-    field0 = (int)&DAT_0107ec08;
+    field0 = (int)&vftable_NiTMap_0107ec08;
     return this;
 }
 
-extern int DAT_0107ec28;
+extern int vftable_NiTMap_0107ec28;
 struct C844100
 {
     int* f0;
     void FUN_00844970(int);
     C844100* NiTMap_unsigned_int_BGSReconstructCellBlocksMap_NiTMap(int);
 };
-// Calls FUN_00844970 with a, sets f0 to point at DAT_0107ec28, and returns this.
+// Calls FUN_00844970 with a, sets f0 to point at vftable_NiTMap_0107ec28, and returns this.
 // @fnv 0x00844100
 // src: EXE 0x00844100
 C844100* C844100::NiTMap_unsigned_int_BGSReconstructCellBlocksMap_NiTMap(int a)
 {
     FUN_00844970(a);
-    f0 = &DAT_0107ec28;
+    f0 = &vftable_NiTMap_0107ec28;
     return this;
 }
 
@@ -810,7 +811,7 @@ void* C844240::FUN_00844240(unsigned int flags)
     return this;
 }
 
-extern int DAT_0107ec68;
+extern int vftable_NiTMapBase_0107ec68;
 void _NiFreeAlias(void*);
 struct Unk008444d0
 {
@@ -824,12 +825,12 @@ struct Unk008444d0
 // src: GUESS 0x008444d0 (confidence: low)
 void Unk008444d0::SetVtableAndProcessState_008444d0()
 {
-    *(void**)this = (void*)&DAT_0107ec68;
+    *(void**)this = (void*)&vftable_NiTMapBase_0107ec68;
     ((NiTPointerMap<unsigned int, unsigned int>*)this)->RemoveAll();
     _NiFreeAlias(_8);
 }
 
-extern int DAT_0107ed1c;
+extern int vftable_NiTMapBase_0107ed1c;
 void _NiFreeAlias(void*);
 struct S_00844e80
 {
@@ -842,7 +843,7 @@ struct S_00844e80
 // src: GUESS 0x00844e80 (confidence: medium)
 void S_00844e80::ReleaseStorage_00844e80()
 {
-    *(void**)this = (void*)&DAT_0107ed1c;
+    *(void**)this = (void*)&vftable_NiTMapBase_0107ed1c;
     ((NiTPointerMap<unsigned int, unsigned int>*)this)->RemoveAll();
     _NiFreeAlias(this->_8);
 }
@@ -912,7 +913,7 @@ void MyHost::SetEntryKeyAndValue(MyItem* pkItem, unsigned int key, MyVal val)
 
 extern "C" void* __cdecl memset(void* dst, int c, unsigned int n);
 extern "C" void* __cdecl _NiMalloc(unsigned int size);
-extern int DAT_0107ec68;
+extern int vftable_NiTMapBase_0107ec68;
 
 struct FUN_008442a0_shell
 {
@@ -927,7 +928,7 @@ struct FUN_008442a0_shell
 // src: EXE 0x008442a0
 int __thiscall FUN_008442a0_shell::NiTMapBase_DFALL_NiTMapItem_unsigned_int_ReconstructFormData_unsigned_int_ReconstructFormData_NiTMapBase(int aiCount)
 {
-    p1 = &DAT_0107ec68;
+    p1 = &vftable_NiTMapBase_0107ec68;
     p2 = aiCount;
     p4 = 0;
     int iByteSize = p2 * 4;
@@ -938,7 +939,7 @@ int __thiscall FUN_008442a0_shell::NiTMapBase_DFALL_NiTMapItem_unsigned_int_Reco
 
 void* __cdecl _NiMalloc(unsigned int);
 void* __cdecl memset(void*, int, unsigned int);
-extern int DAT_0107ed1c;
+extern int vftable_NiTMapBase_0107ed1c;
 
 struct FUN_00844db0_shell
 {
@@ -949,13 +950,13 @@ struct FUN_00844db0_shell
     FUN_00844db0_shell* __thiscall NiTMapBase_DFALL_NiTMapItem_TESFile_BGSReconstructFormsInFileMap_TESFile_BGSReconstructFormsInFileMap_NiTMapBase(int param);
 };
 
-// Sets p to DAT_0107ed1c, stores param in count, allocates count*4 bytes into data, zeroes them, and returns this.
+// Sets p to vftable_NiTMapBase_0107ed1c, stores param in count, allocates count*4 bytes into data, zeroes them, and returns this.
 // @fnv 0x00844db0
 // src: EXE 0x00844db0
 FUN_00844db0_shell* __thiscall FUN_00844db0_shell::NiTMapBase_DFALL_NiTMapItem_TESFile_BGSReconstructFormsInFileMap_TESFile_BGSReconstructFormsInFileMap_NiTMapBase(int aiCount)
 {
     unsigned int size;
-    p = &DAT_0107ed1c;
+    p = &vftable_NiTMapBase_0107ed1c;
     count = aiCount;
     pad = 0;
     size = count << 2;
@@ -1015,7 +1016,7 @@ void __thiscall BGSSaveLoadGame::SetFlag4(bool bSet)
         DAT_00843c10_tls &= 0xfffffffb;
 }
 
-extern int DAT_0107ec08;
+extern int vftable_NiTMap_0107ec08;
 struct FUN_00844940_class
 {
     virtual ~FUN_00844940_class();
@@ -3119,12 +3120,13 @@ extern "C" void _Deallocate(void*);
 
 struct ReconstructMapDeletingView : BGSReconstructFormsInAllFilesMap
 {
-    void* __thiscall FUN_00843440(unsigned int flags);
+    void* __thiscall BGSReconstructFormsInAllFilesMap_ScalarDeletingDestructor(unsigned int flags);
 };
 
 // Destroys the BGSReconstructFormsInAllFilesMap base and deallocates the object when flags has bit 0 set.
 // @fnv 0x00843440
-void* __thiscall ReconstructMapDeletingView::FUN_00843440(unsigned int flags)
+// src: EXE 0x00843440
+void* __thiscall ReconstructMapDeletingView::BGSReconstructFormsInAllFilesMap_ScalarDeletingDestructor(unsigned int flags)
 {
     BGSReconstructFormsInAllFilesMap::~BGSReconstructFormsInAllFilesMap();
     if (flags & 1)

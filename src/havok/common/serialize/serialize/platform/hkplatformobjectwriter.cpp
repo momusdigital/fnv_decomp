@@ -80,7 +80,7 @@ class Allocator
     virtual void* Alloc(unsigned int size);
 };
 
-extern char DAT_010ea370[];
+extern char vftable_hkPlatformObjectWriter[];
 extern char DAT_011b7b88[4];
 
 struct IntTemp
@@ -132,7 +132,7 @@ struct FUN_00e02bb0_cls
 FUN_00e02bb0_cls* FUN_00e02bb0_cls::hkPlatformObjectWriter_hkPlatformObjectWriter(int a1)
 {
     m_w06 = 1;
-    m_vptr = DAT_010ea370;
+    m_vptr = vftable_hkPlatformObjectWriter;
     hkMemoryRouter* pAllocHolder = (hkMemoryRouter*)hkMemoryRouter_getInstance();
     SpawnedBlob* blob = (SpawnedBlob*)pAllocHolder->m_heap->blockAlloc(0x18);
     blob->m_w04 = 0x18;

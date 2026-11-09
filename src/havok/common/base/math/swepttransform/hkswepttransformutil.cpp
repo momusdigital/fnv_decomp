@@ -467,7 +467,7 @@ struct BlobStream
     NiBinaryStream* istr;
 };
 
-extern char DAT_0102e368[];
+extern char vftable_hkpMoppCode[];
 
 struct __declspec(align(16)) BlobVec
 {
@@ -519,7 +519,7 @@ struct BlobObject
 
     void Init()
     {
-        m_vtbl = DAT_0102e368;
+        m_vtbl = vftable_hkpMoppCode;
         m_usMemSizeAndFlags = 0x30;
         m_sReferenceCount = 1;
         m_data.init();

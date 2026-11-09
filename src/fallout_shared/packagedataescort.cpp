@@ -17,14 +17,14 @@ void* TESEscortPackageData::DestroyIfFlagged(unsigned int flags)
     return this;
 }
 
-extern int DAT_01068960;
+extern int vftable_TESEscortPackageData;
 
-// Calls the base constructor, sets the vtable to DAT_01068960, clears m_pPackageTarget, stores *pForm into m_iValue and returns this.
+// Calls the base constructor, sets the vtable to vftable_TESEscortPackageData, clears m_pPackageTarget, stores *pForm into m_iValue and returns this.
 // @fnv 0x0067bc60
 TESEscortPackageData* __thiscall TESEscortPackageData::ConstructFromForm(TESForm** pForm)
 {
     ((TESPackageData*)this)->TESPackageData::TESPackageData();
-    *(void**)this = &DAT_01068960;
+    *(void**)this = &vftable_TESEscortPackageData;
     m_pPackageTarget = 0;
     m_iValue = reinterpret_cast<int>(*pForm);
     return this;

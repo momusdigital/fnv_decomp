@@ -49,9 +49,9 @@ void FUN_00d66cb0_class::hkpMousePickingViewer_worldRemovedCallback(int aiValue)
         ((FUN_00d66c10_class*)((char*)this - 0x20))->RemoveAmbientLight();
 }
 
-extern int DAT_010d1cb4;
-extern int DAT_010d1cc4;
-extern int DAT_010d1ce4;
+extern int vftable_hkpMousePickingViewer_for_hkpPhysicsContextWorldListener;
+extern int vftable_hkpMousePickingViewer_for_hkProcess;
+extern int vftable_hkpMousePickingViewer;
 // The approved base header does not yet declare its context constructor.
 extern "C" void ConstructWorldViewerBase();
 typedef void (__thiscall* WorldViewerBaseConstructor)(hkpWorldViewerBase*, const void*);
@@ -76,9 +76,9 @@ hkpMousePickingViewer* hkpMousePickingViewer::Initialize(int contexts)
     m_fMaxRelativeForce = 1000.0f;
     m_iValueAtOffset0C = 0;
     unk20 = 0;
-    *(int*)this = (int)&DAT_010d1ce4;
-    *(int*)((char*)this + 8) = (int)&DAT_010d1cc4;
-    *(int*)((char*)this + 0x20) = (int)&DAT_010d1cb4;
+    *(int*)this = (int)&vftable_hkpMousePickingViewer;
+    *(int*)((char*)this + 8) = (int)&vftable_hkpMousePickingViewer_for_hkProcess;
+    *(int*)((char*)this + 0x20) = (int)&vftable_hkpMousePickingViewer_for_hkpPhysicsContextWorldListener;
     return this;
 }
 }

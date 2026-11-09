@@ -1850,9 +1850,9 @@ void FUN_00c868b0_cls::bhkUnaryAction_SaveBinary(C868_Iface* a1)
 extern int DAT_01268154;
 extern int DAT_01268118;
 extern int DAT_01268124;
-extern int DAT_0102016c;
-extern int DAT_0102009c;
-extern int DAT_0101ffcc;
+extern int vftable_bhkAction;
+extern int vftable_bhkUnaryAction;
+extern int vftable_bhkMouseSpringAction;
 
 
 class TESObjectDoorController
@@ -1873,12 +1873,12 @@ class RefObjC86D : public TESObjectDoorController
     __forceinline RefObjC86D()
     {
         ((bhkRefObject*)this)->Initialize();
-        m_vptr = &DAT_0102016c;
+        m_vptr = &vftable_bhkAction;
         unk0C = 0;
         DAT_01268154++;
-        m_vptr = &DAT_0102009c;
+        m_vptr = &vftable_bhkUnaryAction;
         DAT_01268118++;
-        m_vptr = &DAT_0101ffcc;
+        m_vptr = &vftable_bhkMouseSpringAction;
         DAT_01268124++;
     }
 };
@@ -1893,9 +1893,9 @@ RefObjC86D* __cdecl bhkMouseSpringAction_CreateObject()
 void bhkSerializable_CloneCritLock();
 void bhkSerializable_CloneCritUnlock();
 void* __cdecl Object_DispatchCommandFour(unsigned int bytes);
-extern int DAT_0102016c;
-extern int DAT_0102009c;
-extern int DAT_0101ffcc;
+extern int vftable_bhkAction;
+extern int vftable_bhkUnaryAction;
+extern int vftable_bhkMouseSpringAction;
 
 class AllocatedNode
 {
@@ -1914,12 +1914,12 @@ class AllocatedNode
     AllocatedNode()
     {
         UpdateState_00c87c30();
-        vtable = &DAT_0102016c;
+        vtable = &vftable_bhkAction;
         unk0c = 0;
         ++DAT_01268154;
-        vtable = &DAT_0102009c;
+        vtable = &vftable_bhkUnaryAction;
         ++DAT_01268118;
-        vtable = &DAT_0101ffcc;
+        vtable = &vftable_bhkMouseSpringAction;
         ++DAT_01268124;
     }
 };

@@ -17,7 +17,7 @@ struct Holder
     unsigned int m_uiCount;
     bool ContainsSortedSubset(const Holder* pkOther);
 };
-extern int DAT_0109e47c;
+extern int vftable_NiSkinPartition;
 struct P03MM
 {
     void __thiscall _DeallocateAlias(void* p);
@@ -84,7 +84,7 @@ struct MyCls
     void NiSkinData_ComputeBoneBounds(int);
     MyCls* InitFromData(int, int, const Dummy13&, int);
 };
-extern int DAT_0109e574;
+extern int vftable_NiSkinData;
 int __cdecl NiSkinData_ComputeBoneBounds();
 void* __cdecl _NiMalloc(unsigned int);
 void __cdecl _NiFree(void*);

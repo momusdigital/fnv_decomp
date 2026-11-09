@@ -41,9 +41,9 @@ void* __fastcall FUN_00a4fb10(NiColorExtraDataController* self, void*, int aiFla
 
 int* __fastcall InitTimeController(int* p);
 
-extern int DAT_0109947c;
+extern int vftable_NiColorExtraDataController;
 
-// Allocates a 0x40-byte BSFadeNode, initialises it via InitTimeController, sets its vtable to DAT_0109947c, and returns it (or null on allocation failure).
+// Allocates a 0x40-byte BSFadeNode, initialises it via InitTimeController, sets its vtable to vftable_NiColorExtraDataController, and returns it (or null on allocation failure).
 // @fnv 0x00a4fac0
 // src: EXE 0x00a4fac0
 void* __cdecl NiColorExtraDataController_CreateObject()
@@ -52,7 +52,7 @@ void* __cdecl NiColorExtraDataController_CreateObject()
     if (mem)
     {
         int* p = InitTimeController((int*)mem);
-        *(int**)(int*)mem = &DAT_0109947c;
+        *(int**)(int*)mem = &vftable_NiColorExtraDataController;
         return mem;
     }
     return 0;
@@ -180,7 +180,7 @@ bool __stdcall NiColorExtraDataController_InterpolatorIsCorrectType(NiInterpolat
 }
 
 void* __cdecl Object_DispatchCommandFour(unsigned int size);
-extern int DAT_0109947c;
+extern int vftable_NiColorExtraDataController;
 
 extern "C" void FUN_00c312f0();
 
@@ -192,7 +192,7 @@ NiColorExtraDataController* __fastcall CreateObject(NiColorExtraDataController* 
     if (p != 0)
     {
         InitTimeController((int*)p);
-        *reinterpret_cast<void**>(p) = (void*)&DAT_0109947c;
+        *reinterpret_cast<void**>(p) = (void*)&vftable_NiColorExtraDataController;
     }
     else
     {

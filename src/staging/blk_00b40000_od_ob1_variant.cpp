@@ -30,7 +30,7 @@ struct FUN_00b40800_t
     int pad;
     char GetNextChar();
 };
-extern int DAT_010a58fc;
+extern int vftable_CBillboardLeaf;
 struct FUN_00b40070_Class
 {
     void* unk00;
@@ -219,7 +219,7 @@ class FUN_00b420a0_cls
     int CompareAndGetDelta(FUN_00b42980 const& arg);
 };
 void* operator new(unsigned int);
-extern char DAT_010176f8[];
+extern char vftable_std__bad_alloc[];
 extern char DAT_01140ef8[];
 struct FnvThrowObj
 {
@@ -2175,7 +2175,7 @@ void RecordVector::InsertFilledElements_00b42180(void* iteratorState, FUN_00b429
 }
 
 extern char str_010a5950[];
-extern int DAT_010173dc;
+extern int vftable_std__length_error;
 
 namespace std {
 template <class T> struct char_traits
@@ -2280,7 +2280,7 @@ class length_error : public logic_error
   public:
     explicit length_error(const basic_string<char>& m) : logic_error(m)
     {
-        vptr = &DAT_010173dc;
+        vptr = &vftable_std__length_error;
     }
     ~length_error()
     {}

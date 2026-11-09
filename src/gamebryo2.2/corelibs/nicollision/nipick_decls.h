@@ -8,8 +8,8 @@
 
 extern MemoryManager g_memoryManager;
 void NiFree(void*);
-extern void* DAT_010f16ec[];
-extern void* DAT_010f16dc[];
+extern void* vftable_NiPick__Results[];
+extern void* vftable_NiTArray_010f16dc[];
 
 namespace NiPickIntersections {
 bool FindIntersections(const NiPoint3&, const NiPoint3&, NiPick&, NiAVObject*);

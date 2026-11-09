@@ -99,7 +99,7 @@ int BSOcclusionPlane::IsNotCulled()
 struct FUN_009afbb0_shell
 {
     virtual ~FUN_009afbb0_shell();
-    void* FUN_009afbb0(unsigned int flags);
+    void* hkpFixedBufferCdPointCollector_ScalarDeletingDestructor(unsigned int flags);
     void ForwardCall_009afc10();
 };
 
@@ -107,7 +107,8 @@ extern "C" void __cdecl Object_UpdateFields_009afbe0(void*);
 
 // Calls FUN_009afc10, then if bit 0 of flags is set calls FUN_009afbe0 on this, and returns this.
 // @fnv 0x009afbb0
-void* FUN_009afbb0_shell::FUN_009afbb0(unsigned int flags)
+// src: EXE 0x009afbb0
+void* FUN_009afbb0_shell::hkpFixedBufferCdPointCollector_ScalarDeletingDestructor(unsigned int flags)
 {
     ForwardCall_009afc10();
     if (flags & 1)
@@ -169,11 +170,12 @@ struct FUN_00cbc920_shell
 };
 struct StandIn
 {
-    void* __thiscall FUN_009ae250(unsigned int);
+    void* __thiscall bhkLiquidAction_ScalarDeletingDestructor(unsigned int);
 };
 // Calls FUN_00cbc920 on this, then frees this with _delete when flags has bit 0 set, and returns this.
 // @fnv 0x009ae250
-void* StandIn::FUN_009ae250(unsigned int flags)
+// src: EXE 0x009ae250
+void* StandIn::bhkLiquidAction_ScalarDeletingDestructor(unsigned int flags)
 {
     ((FUN_00cbc920_shell*)this)->FUN_00cbc920();
     if (flags & 1)

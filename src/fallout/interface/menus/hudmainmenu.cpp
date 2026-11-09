@@ -1307,7 +1307,7 @@ void* __thiscall FUN_0076be00_Class::DestroyIfFlagged(unsigned int flags)
 }
 
 namespace fnv_007728f0 {
-extern Setting g_011d9774;
+extern Setting fHudOpacity_Interface;
 struct RegionDisplayInfo
 {
     unsigned int uiRegionID;
@@ -1342,7 +1342,7 @@ void __cdecl ShowRegionData(const RegionDisplayInfo* aRegionData)
             if (!bshowRegion)
             {
                 g_pHudMainMenuInstance->m_pTiles[15]
-                    ->SetTraitFade(4009, 0.0f, *g_011d9774.Float() * 255.0, 2.0f, static_cast<Tile::TILE_FADE_CONTROL_TYPE>(0));
+                    ->SetTraitFade(4009, 0.0f, *fHudOpacity_Interface.Float() * 255.0, 2.0f, static_cast<Tile::TILE_FADE_CONTROL_TYPE>(0));
                 g_pHudMainMenuInstance->m_pTiles[15]
                     ->Set(4100, (unsigned int)g_timeGlobal.GetSection());
             }
@@ -3851,7 +3851,7 @@ struct MarkerEvent772
     bool force;
 };
 extern MarkerRef772* DAT_011d9af0;
-extern Setting g_011d9774;
+extern Setting fHudOpacity_Interface;
 // @fnv 0x00772aa0
 void __cdecl UpdateMapMarkerHUD(MarkerEvent772* event)
 {
@@ -3868,7 +3868,7 @@ void __cdecl UpdateMapMarkerHUD(MarkerEvent772* event)
                 ((Tile*)HUDMainMenu_pme->m_pTiles[16])
                     ->Tile_Set_00a01350(0xfc4, event->reference->GetMapMarkerData()->MapMarkerData_GetLocationName(), true);
                 ((Tile*)HUDMainMenu_pme->m_pTiles[16])
-                    ->StartFade(0xfa9, 0.0f, (float)(*g_011d9774.Setting_Float_00403e20() * 255.0), 2.0f, 0);
+                    ->StartFade(0xfa9, 0.0f, (float)(*fHudOpacity_Interface.Setting_Float_00403e20() * 255.0), 2.0f, 0);
                 ((Tile*)HUDMainMenu_pme->m_pTiles[16])->Set(0x1004, (unsigned int)g_timeGlobal.GetSection());
             }
             ((Tile*)HUDMainMenu_pme->m_pTiles[15])->Stop(0xfa9);
@@ -3893,8 +3893,8 @@ class GlobalObject_0045cf30
 class GlobalObject_00709f00 : public GlobalObject_0045cf30
 {
 };
-extern GlobalObject_00709f00 g_011d8a0c;
-extern GlobalObject_00709f00 g_011d898c;
+extern GlobalObject_00709f00 bDisableDynamicCrosshair_GamePlay;
+extern GlobalObject_00709f00 bTrueIronSights_GamePlay;
 struct HealthActor : RefX
 {
     int unk004;
@@ -3969,8 +3969,8 @@ void __cdecl UpdateTargetHealthHUD(HealthActor* target, unsigned char enabled)
     bool isHostile = false;
     {
         bool isDead = true;
-        if (target && HUDMainMenu_pme && !*g_011d8a0c.Bool() && enabled &&
-            (!*g_011d898c.Bool() || !((HealthActor*)pPlayer)->Actor_GetIronSights()))
+        if (target && HUDMainMenu_pme && !*bDisableDynamicCrosshair_GamePlay.Bool() && enabled &&
+            (!*bTrueIronSights_GamePlay.Bool() || !((HealthActor*)pPlayer)->Actor_GetIronSights()))
         {
             HealthActor* actor;
             {
@@ -4019,7 +4019,7 @@ class GlobalObject_0045cf30
   public:
     unsigned char* Bool();
 };
-extern GlobalObject_0045cf30 g_011e0988;
+extern GlobalObject_0045cf30 bHealthBarShowing_GamePlay;
 struct EnemyListCount
 {
     unsigned int FUN_0044ddc0();
@@ -4249,7 +4249,7 @@ struct EnemyTimer
 // src: XBOX_PDB 0x00773190
 void HUDMainMenu_SetEnemyActor(EnemyRefV* pkRef)
 {
-    if (*g_011e0988.Bool())
+    if (*bHealthBarShowing_GamePlay.Bool())
         return;
     if (pkRef && pkRef->IsUnseen(0))
         return;
@@ -6078,7 +6078,7 @@ struct CompassSetting
     float* Setting_Float_00403e20();
 };
 extern CompassSetting g_011d45dc;
-extern CompassSetting g_011d9774;
+extern CompassSetting fHudOpacity_Interface;
 struct CompassUpdate
 {
     float time;
@@ -6150,7 +6150,7 @@ void CompassHUD::UpdateCompassMarkers()
                 {
                     h = ((CompassTileOwner*)m_pTiles[73])->tiles.NiTPointerListBase_NiTPointerAllocator_unsigned_int_Tile_GetNext(position);
                     if (h->Tile_GetFadeFinished(4009) && h->FUN_00a011b0(4009) == 0.0)
-                        h->StartFade(4009, 0.0f, (float)(*g_011d9774.Setting_Float_00403e20() * 255.0), 0.5f, false);
+                        h->StartFade(4009, 0.0f, (float)(*fHudOpacity_Interface.Setting_Float_00403e20() * 255.0), 0.5f, false);
                 }
                 else
                 {
@@ -10303,9 +10303,9 @@ __if_not_exists(g_011d27b4)
 {
     extern GlobalObject_0040c150 g_011d27b4;
 }
-__if_not_exists(g_011d9774)
+__if_not_exists(fHudOpacity_Interface)
 {
-    extern GlobalObject_004de370 g_011d9774;
+    extern GlobalObject_004de370 fHudOpacity_Interface;
 }
 __if_not_exists(_g_thePlayer)
 {
@@ -10390,16 +10390,16 @@ void HUDInteraction::HUDMainMenu_UpdateSneak()
         if (active && !((InteractionTile*)HUDMainMenu_pme->m_pTiles[24])->IsTraitNonZero(0x1004))
         {
             ((InteractionTile*)HUDMainMenu_pme->m_pTiles[24])
-                ->StartFade(0xfa9, 0.0f, *((SneakFloatSetting*)&g_011d9774)->Setting_Float_00403e20() * 255.0, 0.5f, 2);
+                ->StartFade(0xfa9, 0.0f, *((SneakFloatSetting*)&fHudOpacity_Interface)->Setting_Float_00403e20() * 255.0, 0.5f, 2);
         }
         else if ((!active && ((InteractionTile*)HUDMainMenu_pme->m_pTiles[24])->FindValueByKey(0xfa9) == 2) ||
                  (((InteractionTile*)HUDMainMenu_pme->m_pTiles[24])->Tile_GetFadeFinished(0xfa9) &&
                   ((InteractionTile*)HUDMainMenu_pme->m_pTiles[24])->FUN_00a011b0(0xfa9) !=
-                      *((SneakFloatSetting*)&g_011d9774)->Setting_Float_00403e20() * 255.0))
+                      *((SneakFloatSetting*)&fHudOpacity_Interface)->Setting_Float_00403e20() * 255.0))
         {
             ((InteractionTile*)HUDMainMenu_pme->m_pTiles[24])
                 ->StartFade(0xfa9, ((InteractionTile*)HUDMainMenu_pme->m_pTiles[24])->FUN_00a011b0(0xfa9),
-                               *((SneakFloatSetting*)&g_011d9774)->Setting_Float_00403e20() * 255.0, 0.5f, 0);
+                               *((SneakFloatSetting*)&fHudOpacity_Interface)->Setting_Float_00403e20() * 255.0, 0.5f, 0);
         }
         ((InteractionTile*)HUDMainMenu_pme->m_pTiles[24])->FUN_00700320(0x1004, active);
     }

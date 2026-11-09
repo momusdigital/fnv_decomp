@@ -954,14 +954,14 @@ void FUN_00c26410_cls::BSStripPSysData_LoadBinary(S_00c26410_Stream* pkStream)
     }
 }
 
-extern const void* DAT_010be514[];
+extern const void* vftable_BSStripPSysData[];
 void* __cdecl Object_DispatchCommandFour(unsigned int size);
 
 struct StripCloneC263 : S_00c26000_Strip
 {
     StripCloneC263() throw()
     {
-        *reinterpret_cast<const void***>(this) = DAT_010be514;
+        *reinterpret_cast<const void***>(this) = vftable_BSStripPSysData;
         unk7c = 0;
     }
 

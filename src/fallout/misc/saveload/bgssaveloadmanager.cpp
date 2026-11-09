@@ -96,7 +96,7 @@ class GlobalObject_0045cf30
 {
 };
 extern GlobalObject_0040c150 g_011d2100, g_011d34f8, g_011d3684;
-extern GlobalObject_0045cf30 g_011de248;
+extern GlobalObject_0045cf30 bDisplayMissingContentDialogue_SaveGame;
 class OSGlobals;
 class Main
 {
@@ -351,7 +351,7 @@ bool BGSSaveLoadManager::LoadGame(const char* name, int deviceID, bool recent, b
         if (file)
         {
             bool consoleWasVisible = SaveLoadInterface::IsConsoleActive();
-            if (!*reinterpret_cast<const bool*>(reinterpret_cast<SettingT<INISettingCollection>*>(&g_011de248)->Bool()))
+            if (!*reinterpret_cast<const bool*>(reinterpret_cast<SettingT<INISettingCollection>*>(&bDisplayMissingContentDialogue_SaveGame)->Bool()))
                 allowMissing = true;
             if (reinterpret_cast<BGSLoadGameBuffer*>(file)->BGSSaveLoadFile_Open())
             {

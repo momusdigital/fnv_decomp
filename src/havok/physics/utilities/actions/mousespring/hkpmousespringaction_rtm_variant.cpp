@@ -34,8 +34,8 @@ int __cdecl hkpUnaryAction_getClassType();
 // Exe 0x00cbb1e0 FUN_00cbb1e0: retain this LocalM128 view; the CRT type does not preserve this unit.
 // VC9 requires the __m128 compatibility typedef for its native SIMD ABI (renamed tags fail C2719).
 
-extern int DAT_010c8e94;
-extern int DAT_010c476c;
+extern int vftable_hkpMouseSpringAction;
+extern int vftable_hkpClosestCdPointCollector;
 extern float DAT_0101b2d0;
 extern float DAT_0104da48;
 extern const char str_011b1f3c[];

@@ -113,7 +113,7 @@ struct MM
     void _DeallocateAlias(void* p);
 };
 extern MM g_memoryManager;
-extern int DAT_010c0134;
+extern int vftable_NiPSysBoundUpdateModifier;
 void __cdecl _delete(void* p, unsigned int s);
 
 // Restores the vtable, releases the bounds, destroys the base, and optionally deletes this.
@@ -121,7 +121,7 @@ void __cdecl _delete(void* p, unsigned int s);
 void* NiPSysBoundUpdateModifier::Destroy(unsigned int auiFlags)
 {
     void* p = m_pkBounds;
-    *(void**)this = (void*)&DAT_010c0134;
+    *(void**)this = (void*)&vftable_NiPSysBoundUpdateModifier;
     g_memoryManager._DeallocateAlias(p);
     reinterpret_cast<NiPSysPositionModifier*>(this)->NiPSysPositionModifier::~NiPSysPositionModifier();
     if (auiFlags & 1)
@@ -135,7 +135,7 @@ inline NiPSysBoundUpdateModifier* InitializeBoundUpdateModifier(void* memory) th
     // the bound-update vtable and initializing the shared extension fields.
     ::new (memory) NiPSysPositionModifier;
     NiPSysBoundUpdateModifier* object = static_cast<NiPSysBoundUpdateModifier*>(memory);
-    *(void**)object = (void*)&DAT_010c0134;
+    *(void**)object = (void*)&vftable_NiPSysBoundUpdateModifier;
     object->m_usUpdateSkip = 0;
     object->m_usUpdateSkipCounter = 0;
     object->m_pkBounds = 0;

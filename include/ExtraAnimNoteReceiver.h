@@ -10,7 +10,7 @@ public:
 
     ExtraAnimNoteReceiver(void* receiver);
     void FUN_0057a8d0();
-    void* FUN_0057a8a0(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 
     BSAnimNoteReceiver* m_pReceiver;
 };

@@ -848,7 +848,7 @@ extern float DAT_010d51c4;
 extern double DAT_01021928;
 extern double DAT_010290b0;
 extern double DAT_0109cc78;
-extern int DAT_010eb000;
+extern int vftable_hkgpMesh;
 extern int DAT_011bdee0;
 struct FUN_00d9c110_object
 {
@@ -1917,10 +1917,10 @@ struct FUN_00e23860_cls
 {
     void FreeAllBlocks();
 };
-extern int DAT_010eb000;
-extern int DAT_010eaf50;
-extern int DAT_0102e388;
-extern int DAT_010d40a4;
+extern int vftable_hkgpMesh;
+extern int vftable_hkgpAbstractMesh_010eaf50;
+extern int vftable_hkBaseObject;
+extern int vftable_hkAabbTree_010d40a4;
 struct FUN_00e18a50_cls
 {
     int m_vptr00;

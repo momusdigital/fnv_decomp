@@ -135,7 +135,7 @@ struct FUN_00a929d0_Holder : NiDynamicEffect
 };
 }  // namespace fnv_00a929d0
 
-extern int DAT_0109fd0c;
+extern int vftable_NiTextureEffect;
 extern float DAT_011a9448[32];
 extern float DAT_011a946c;
 
@@ -151,7 +151,7 @@ void* NiTextureEffect::InitializeEffect()
 {
     __assume(this != 0);
     ::new (static_cast<NiDynamicEffect*>(this)) NiDynamicEffect;
-    *reinterpret_cast<int*>(this) = (int)&DAT_0109fd0c;
+    *reinterpret_cast<int*>(this) = (int)&vftable_NiTextureEffect;
     m_mat1 = *(NiMatrix3*)&DAT_011a9448[0];
     m_e8 = 0.0f;
     m_ec = 0.0f;
@@ -207,7 +207,7 @@ bool FindTexTypeIndex(const NiFixedString& kType, unsigned int& uiType)
 }
 
 namespace fnv_00a92bd0 {
-extern "C" void* DAT_0109fd0c;
+extern "C" void* vftable_NiTextureEffect;
 
 struct RegistrationManager
 {
@@ -238,7 +238,7 @@ struct TextureEffectMatch
 // @fnv 0x00a92bd0
 TextureEffectMatch* TextureEffectMatch::FUN_00a92bd0(unsigned int flags)
 {
-    m_ppVirtualMethodTable = reinterpret_cast<void**>(&DAT_0109fd0c);
+    m_ppVirtualMethodTable = reinterpret_cast<void**>(&vftable_NiTextureEffect);
     if (DAT_011f4748)
         DAT_011f4748->Deregister(this);
     NiObject* resource = *reinterpret_cast<NiObject**>(reinterpret_cast<char*>(this) + 0x124);

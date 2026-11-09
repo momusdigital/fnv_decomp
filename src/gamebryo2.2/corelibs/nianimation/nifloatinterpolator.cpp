@@ -109,7 +109,7 @@ void FUN_00a3c500_shell::SetFloatValue(float value)
     *reinterpret_cast<float*>(reinterpret_cast<char*>(this) + 0xc) = value;
 }
 
-extern char DAT_01096f34;
+extern char vftable_NiFloatInterpolator;
 extern float DAT_0109a918;
 
 extern void(__stdcall* FUN_00fdf1c0)(int);
@@ -132,7 +132,7 @@ S_00a3c340_Class* S_00a3c340_Class::Initialize(int arg)
 {
     FUN_00a3ca10();
 
-    unk00 = &DAT_01096f34;
+    unk00 = &vftable_NiFloatInterpolator;
     unk0c = DAT_0109a918;
     unk10 = (void*)arg;
 

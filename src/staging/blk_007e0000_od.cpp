@@ -666,7 +666,7 @@ struct GlobalObject_0044f440
     float* Float();
 };
 
-extern GlobalObject_0044f440 g_011db288;
+extern GlobalObject_0044f440 fTabKnobMoveRate_Pipboy;
 
 extern bool g_burstSoundEnabled;
 
@@ -676,7 +676,7 @@ void FOPipboyManager::SetValue(int index, bool play)
     if (m_fChartSecondPoint[2] != m_fTabKnobPositions[index])
     {
         m_fChartSecondPoint[2] = m_fTabKnobPositions[index];
-        m_fGaugeValues2[2] = *g_011db288.Float();
+        m_fGaugeValues2[2] = *fTabKnobMoveRate_Pipboy.Float();
         if (g_burstSoundEnabled && play)
         {
             BSSoundHandle handle;
@@ -1255,9 +1255,9 @@ struct StringSetting
 {
     const char* String();
 };
-extern FloatSetting g_011db6bc;
-extern IntSetting g_011db75c;
-extern StringSetting g_011db744;
+extern FloatSetting fDistortDuration_VATS;
+extern IntSetting iDistortMaxInterval_VATS;
+extern StringSetting sScanlineTexture_VATS;
 extern "C" int __cdecl rand();
 
 void __cdecl LoadTexture(const char*, bool, Ref&, bool, bool);
@@ -1360,19 +1360,19 @@ FUN_007ffec0::FUN_007ffec0()
     unk118 = false;
     unk129 = true;
     unk28c = 0.0f;
-    unk290 = *g_011db6bc.Float();
+    unk290 = *fDistortDuration_VATS.Float();
     unk298 = false;
     unk284 = false;
     unk2ac = 0.0f;
     unk2b0 = 0.0f;
     unk2c0 = 0.0f;
-    unk294 = (double)g_timeGlobal.GetTime() + rand() % *g_011db75c.Int();
+    unk294 = (double)g_timeGlobal.GetTime() + rand() % *iDistortMaxInterval_VATS.Int();
     unk2b4 = false;
     unk2b5 = false;
     unk240 = 0;
     first.value = 0;
     first.node = 0;
-    LoadTexture(g_011db744.String(), true, unk2c4, false, false);
+    LoadTexture(sScanlineTexture_VATS.String(), true, unk2c4, false, false);
     unk000 = 0;
     unk00c = 0;
     unk010 = -1;

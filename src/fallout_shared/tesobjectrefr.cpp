@@ -2641,11 +2641,12 @@ void FUN_00c8e9c0();
 struct Obj56d550
 {
     void FUN_00c8e9c0();
-    void* FUN_0056d550(unsigned int);
+    void* bhkRigidBody_ScalarDeletingDestructor(unsigned int);
 };
 // Calls FUN_00c8e9c0, then if flags has bit 1 set frees this via NiMemObject::operator delete with size 0x1c, and returns this.
 // @fnv 0x0056d550
-void* Obj56d550::FUN_0056d550(unsigned int flags)
+// src: EXE 0x0056d550
+void* Obj56d550::bhkRigidBody_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00c8e9c0();
     if (flags & 1)
@@ -2703,7 +2704,7 @@ void FUN_0056e120_shell::bhkTransform_setIdentity()
 }
 
 void __fastcall bhkSphereRepShape_bhkSphereRepShape(void* pThis);
-extern int DAT_01030a24;
+extern int vftable_bhkConvexShape;
 extern int DAT_01268250;
 
 // @fnv 0x0056e690
@@ -2711,7 +2712,7 @@ extern int DAT_01268250;
 void* __fastcall bhkConvexShape_bhkConvexShape(int* pObject)
 {
     bhkSphereRepShape_bhkSphereRepShape(pObject);
-    *pObject = (int)&DAT_01030a24;
+    *pObject = (int)&vftable_bhkConvexShape;
     DAT_01268250 = DAT_01268250 + 1;
     return pObject;
 }
@@ -4994,7 +4995,7 @@ void FUN_0057a3c0_shell::TESObjectREFR_UpdateAddonNodeSounds(bool abDetachAll)
 }
 }  // namespace fnv_0057a3c0
 
-extern int DAT_01030f14;
+extern int vftable_ExtraAnimNoteReceiver;
 
 using ::BSExtraData;
 
@@ -5031,13 +5032,13 @@ FUN_0057a960::FUN_0057a960()
     unk8.FUN_0057c700(0, 1);
 }
 
-extern int DAT_0101fc80;
+extern int vftable_IBSAnimNoteReceiver;
 
 // @fnv 0x0057a9d0
 // src: GUESS 0x0057a9d0 (confidence: low)
 void* __fastcall TESObjectREFR_UpdateState_0057a9d0(void** pThis)
 {
-    *pThis = &DAT_0101fc80;
+    *pThis = &vftable_IBSAnimNoteReceiver;
     return pThis;
 }
 
@@ -5513,14 +5514,14 @@ using ::TESTexture;
 typedef char _sizecheck_TESTexture[sizeof(TESTexture) == 12 ? 1 : -1];
 
 
-extern int DAT_0102583c;
+extern int vftable_PathingLocation;
 void __fastcall _ref_006815c0(void* pThis);
 
 // @fnv 0x006dcbb0
 // src: GUESS 0x006dcbb0 (confidence: low)
 PathingLocation* __fastcall TESObjectREFR_UpdateState_006dcbb0(PathingLocation* pThis)
 {
-    *(int**)pThis = &DAT_0102583c;
+    *(int**)pThis = &vftable_PathingLocation;
     (fnv_006dcbb0::_ref_006815c0)(&pThis->Location);
     *(float*)((char*)&pThis->Location + 0) = 3.4028234663852886e+38f;
     *(float*)((char*)&pThis->Location + 4) = 3.4028234663852886e+38f;
@@ -7655,7 +7656,7 @@ struct RefHelper
 using ::BSOcclusionPlane;
 struct fnv_006dcbb0
 {
-    static int DAT_0102583c;
+    static int vftable_PathingLocation;
 };
 void __fastcall _ref_006815c0(void* pThis);
 extern TES* g_TES;
@@ -7664,7 +7665,7 @@ extern PC7d* g_thePlayer;
 // src: GUESS 0x006dcd70 (confidence: low)
 PathingLocation* __fastcall BSOcclusionPlane_UpdateState_006dcd70(PathingLocation* pPathingLocation, RefArg aRefArg)
 {
-    *(int**)pPathingLocation = &fnv_006dcbb0::DAT_0102583c;
+    *(int**)pPathingLocation = &fnv_006dcbb0::vftable_PathingLocation;
     _ref_006815c0((char*)pPathingLocation + 4);
     int pcell = ((BSOcclusionPlane*)aRefArg.p)->GetCullResult();
     TESWorldSpace* pworld = aRefArg.p->GetParentWorldSpace();
@@ -7738,11 +7739,12 @@ struct DtorStandIn
 };
 struct DelStandIn
 {
-    void* FUN_0055a3d0(unsigned int flags);
+    void* TESObjectREFR_ScalarDeletingDestructor(unsigned int flags);
 };
 // Calls the destructor on this object, frees it with Deallocate when flags has bit 0 set, and returns this.
 // @fnv 0x0055a3d0
-void* DelStandIn::FUN_0055a3d0(unsigned int flags)
+// src: EXE 0x0055a3d0
+void* DelStandIn::TESObjectREFR_ScalarDeletingDestructor(unsigned int flags)
 {
     ((DtorStandIn*)this)->FUN_0083dec0();
     if (flags & 1)
@@ -9280,7 +9282,8 @@ extern "C" void __cdecl __Dummy_00b6fef0(void* ptr, unsigned int size);
 
 
 // @fnv 0x0056e420
-void* bhkPhantom::FUN_0056e420(unsigned int flags)
+// src: EXE 0x0056e420
+void* bhkPhantom::ScalarDeletingDestructor(unsigned int flags)
 {
     this->FUN_00c9f3b0();
     if (flags & 1)
@@ -9290,7 +9293,7 @@ void* bhkPhantom::FUN_0056e420(unsigned int flags)
 
 struct FUN_0056e4b0_Class
 {
-    void* FUN_0056e4b0(unsigned int flags);
+    void* bhkSimpleShapePhantom_ScalarDeletingDestructor(unsigned int flags);
 };
 
 struct FUN_00c9eec0_Class
@@ -9301,7 +9304,8 @@ struct FUN_00c9eec0_Class
 void __cdecl __Dummy_00b6fef0(void* obj, unsigned int size);
 
 // @fnv 0x0056e4b0
-void* FUN_0056e4b0_Class::FUN_0056e4b0(unsigned int flags)
+// src: EXE 0x0056e4b0
+void* FUN_0056e4b0_Class::bhkSimpleShapePhantom_ScalarDeletingDestructor(unsigned int flags)
 {
     reinterpret_cast<FUN_00c9eec0_Class*>(this)->FUN_00c9eec0();
     if (flags & 1)
@@ -9312,14 +9316,15 @@ void* FUN_0056e4b0_Class::FUN_0056e4b0(unsigned int flags)
 struct FUN_0056e780_Class
 {
     void FUN_00ca0540();
-    void* FUN_0056e780(unsigned int flags);
+    void* bhkSphereRepShape_ScalarDeletingDestructor(unsigned int flags);
 };
 
 void FUN_00ca0540(void* p);
 extern "C" void __cdecl __Dummy_00b6fef0(void* p, unsigned int flags);
 
 // @fnv 0x0056e780
-void* FUN_0056e780_Class::FUN_0056e780(unsigned int flags)
+// src: EXE 0x0056e780
+void* FUN_0056e780_Class::bhkSphereRepShape_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00ca0540();
     if (flags & 1)
@@ -9332,11 +9337,12 @@ extern "C" void __cdecl __Dummy_00b6fef0(void* obj, unsigned int size);
 struct FUN_0056e7c0_Class
 {
     void FUN_00c9fb00();
-    void* FUN_0056e7c0(unsigned int flags);
+    void* bhkConvexShape_ScalarDeletingDestructor(unsigned int flags);
 };
 
 // @fnv 0x0056e7c0
-void* FUN_0056e7c0_Class::FUN_0056e7c0(unsigned int flags)
+// src: EXE 0x0056e7c0
+void* FUN_0056e7c0_Class::bhkConvexShape_ScalarDeletingDestructor(unsigned int flags)
 {
     this->FUN_00c9fb00();
     if (flags & 1)
@@ -9563,7 +9569,8 @@ extern "C" void* __cdecl _delete(void* ptr, unsigned int size);
 
 // Calls FUN_00c85790, deletes this with size 20 when flags has bit 0 set, and returns this.
 // @fnv 0x0056d4c0
-void* bhkWorldObject::FUN_0056d4c0(unsigned int flags)
+// src: EXE 0x0056d4c0
+void* bhkWorldObject::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00c85790();
     if (flags & 1)
@@ -9588,7 +9595,8 @@ FUN_0056e2a0::FUN_0056e2a0()
 
 // Calls FUN_00c9f530, then frees this with operator delete when flags has bit 0 set, and returns this.
 // @fnv 0x0056e5e0
-void* bhkAabbPhantom::FUN_0056e5e0(unsigned int flags)
+// src: EXE 0x0056e5e0
+void* bhkAabbPhantom::ScalarDeletingDestructor(unsigned int flags)
 {
     this->FUN_00c9f530();
     if (flags & 1)
@@ -9602,7 +9610,8 @@ extern void __cdecl _delete(void* p, unsigned int size);
 
 
 // @fnv 0x0056e740
-void* bhkShape::FUN_0056e740(unsigned int flags)
+// src: EXE 0x0056e740
+void* bhkShape::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00c84c50();
     if (flags & 1)
@@ -9842,7 +9851,7 @@ void FUN_0056d490_class::bhkWorldObject_ForceAdd(void* arg)
     vfn_9c(arg);
 }
 
-extern int DAT_0103046c;
+extern int vftable_bhkCollisionObject;
 struct FUN_00c6b950
 {
     void Init(void* arg);
@@ -9856,7 +9865,7 @@ struct FUN_0056d580
 void* FUN_0056d580::Init(void* arg)
 {
     ((FUN_00c6b950*)this)->Init(arg);
-    m_ptr = &DAT_0103046c;
+    m_ptr = &vftable_bhkCollisionObject;
     return this;
 }
 
@@ -11175,8 +11184,8 @@ struct GlobalObject_0045cf30
 {
     unsigned char* Bool();
 };
-extern GlobalObject_0045cf30 g_011ca394;
-extern GlobalObject_0045cf30 g_011ca3ec;
+extern GlobalObject_0045cf30 bPreventHavokAddAll_HAVOK;
+extern GlobalObject_0045cf30 bPreventHavokAddClutter_HAVOK;
 using ::NiAVObject;
 
 struct TaskQueueInterface
@@ -11214,11 +11223,11 @@ void bhkWorld_AddObject(TesobjectrefrOffset08View*, UpdateArg*);
 // src: COMMUNITY 0x005764f0
 void TESObjectREFR_FilteredAddObject(TesobjectrefrOffset08View* apObj, UpdateArg* apArg)
 {
-    if (!*g_011ca394.Bool())
+    if (!*bPreventHavokAddAll_HAVOK.Bool())
     {
         bool bQueue = true;
         RefOps* pRef;
-        if (*g_011ca3ec.Bool() && apObj)
+        if (*bPreventHavokAddClutter_HAVOK.Bool() && apObj)
         {
             NiNode* pNiNode = apObj->GetFlags();
             pRef = (RefOps*)GetReferenceFromNiAVObject((NiAVObject*)pNiNode);
@@ -14901,7 +14910,8 @@ void _Deallocate(void*);
 
 // Calls FUN_0057a8d0 on this, frees this when flags has bit 0 set, and returns this.
 // @fnv 0x0057a8a0
-void* ExtraAnimNoteReceiver::FUN_0057a8a0(unsigned int flags)
+// src: EXE 0x0057a8a0
+void* ExtraAnimNoteReceiver::ScalarDeletingDestructor(unsigned int flags)
 {
     this->FUN_0057a8d0();
 
@@ -17350,7 +17360,7 @@ FUN_0056e1e0::FUN_0056e1e0()
 // `this`, installs the class vtable pointer into the object and bumps a
 // global counter, then returns itself.
 
-extern int DAT_0103078c;
+extern int vftable_bhkPhantom;
 extern int DAT_01268238;
 
 struct FUN_0056e3e0_cls
@@ -17360,13 +17370,13 @@ struct FUN_0056e3e0_cls
     FUN_0056e3e0_cls* bhkPhantom_bhkPhantom();
 };
 
-// Calls FUN_0056d440, sets m_pVTable to &DAT_0103078c, increments DAT_01268238, and returns this.
+// Calls FUN_0056d440, sets m_pVTable to &vftable_bhkPhantom, increments DAT_01268238, and returns this.
 // @fnv 0x0056e3e0
 // src: EXE 0x0056e3e0
 FUN_0056e3e0_cls* FUN_0056e3e0_cls::bhkPhantom_bhkPhantom()
 {
     FUN_0056d440();
-    m_pVTable = (void*)&DAT_0103078c;
+    m_pVTable = (void*)&vftable_bhkPhantom;
     DAT_01268238++;
     return this;
 }
@@ -17396,7 +17406,7 @@ void* FUN_0056e460_cls::FUN_0056e460(int iFlags)
 // `this`, installs the class vtable pointer into the object, bumps a global
 // counter and returns itself.
 
-extern int DAT_01030b0c;
+extern int vftable_bhkSphereRepShape;
 extern int DAT_01268274;
 
 struct FUN_0056e6c0_cls
@@ -17411,7 +17421,7 @@ struct FUN_0056e6c0_cls
 FUN_0056e6c0_cls* FUN_0056e6c0_cls::bhkSphereRepShape_bhkSphereRepShape()
 {
     FUN_0056e6f0();
-    m_pVTable = (void*)&DAT_01030b0c;
+    m_pVTable = (void*)&vftable_bhkSphereRepShape;
     DAT_01268274++;
     return this;
 }
@@ -19918,16 +19928,16 @@ struct S_0094dbb0_Foo
     S_0094dbb0_Foo* UpdateState_0094dbb0();
 };
 
-extern void* DAT_01030cdc;
+extern void* vftable_bhkSphereShape;
 extern int DAT_01268280;
 
-// Calls FUN_0056e690, sets unk00 to &DAT_01030cdc, increments DAT_01268280, and returns this.
+// Calls FUN_0056e690, sets unk00 to &vftable_bhkSphereShape, increments DAT_01268280, and returns this.
 // @fnv 0x0094dbb0
 // src: GUESS 0x0094dbb0 (confidence: low)
 S_0094dbb0_Foo* S_0094dbb0_Foo::UpdateState_0094dbb0()
 {
     bhkConvexShape_bhkConvexShape();
-    unk00 = &DAT_01030cdc;
+    unk00 = &vftable_bhkSphereShape;
     ++DAT_01268280;
     return this;
 }
@@ -22246,7 +22256,7 @@ struct GlobalObject_0045cf30
 {
     unsigned char* Bool();
 };
-extern GlobalObject_0045cf30 g_011de4e8;
+extern GlobalObject_0045cf30 bDebugSaveBuffer_Debug;
 struct SaveInventory
 {
     unsigned short InventoryChanges_GetSaveSize();
@@ -22365,7 +22375,7 @@ unsigned short SaveReference::TESObjectREFR_GetSaveSize(unsigned int flags)
     {
         uiTotalSize += 4;
     }
-    if (*g_011de4e8.Bool())
+    if (*bDebugSaveBuffer_Debug.Bool())
     {
         SaveChangeRecord* record = static_cast<SaveChangeRecord*>(g_TESSaveLoadGame->FUN_004fd3e0());
         if (record)
@@ -22397,7 +22407,7 @@ struct GlobalObject_0045cf30
 {
     unsigned char* Bool();
 };
-extern GlobalObject_0045cf30 g_011de4e8;
+extern GlobalObject_0045cf30 bDebugSaveBuffer_Debug;
 struct SaveExtras;
 struct ScriptSaveData
 {
@@ -22594,7 +22604,7 @@ void SaveReference::TESObjectREFR_SaveGame(unsigned int flags)
         pusBlockSize = 0;
         {
             unsigned int start = g_TESSaveLoadGame->FUN_00825c00();
-            if (*g_011de4e8.Bool())
+            if (*bDebugSaveBuffer_Debug.Bool())
                 start = g_TESSaveLoadGame->FUN_00825c00();
             if (g_TESSaveLoadGame->TESSaveLoadGame_UseSaveGameBlocks())
             {
@@ -22629,7 +22639,7 @@ void SaveReference::TESObjectREFR_SaveGame(unsigned int flags)
             }
             if (g_TESSaveLoadGame->FUN_008df040() >= 0x43 && (flags & 0x10))
                 TESForm_SaveGameDataOLD(&referenceScale, 4);
-            if (*g_011de4e8.Bool())
+            if (*bDebugSaveBuffer_Debug.Bool())
             {
                 SavedChangeRecord* record;
                 {

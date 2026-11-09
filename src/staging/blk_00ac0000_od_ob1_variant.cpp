@@ -42,8 +42,8 @@ struct FUN_00acbb60_Class
 {
     void* __thiscall GetSelf(void*, void*);
 };
-extern int DAT_010a2f9c;
-extern int DAT_010a2fa4;
+extern int vftable_std__ios_base;
+extern int vftable_std__basic_ios_010a2fa4;
 void __cdecl Deallocate(void*);
 void __cdecl FUN_00ec3205(void*);
 struct FUN_00acdfa0_class
@@ -59,7 +59,7 @@ struct FUN_00ad4080_Class
     unsigned char __thiscall GetParam(unsigned char param, int extra);
 };
 extern int DAT_010a31f4;
-extern int DAT_010a31fc;
+extern int vftable_std__locale__facet;
 struct FUN_00ad41a0_cls
 {
     void UpdateFields_00ad41a0();
@@ -78,7 +78,7 @@ extern double DAT_010a2f90;
 int __cdecl Runtime_UpdateState_00ac7990(int a, int b);
 void __cdecl Deallocate(void*);
 void __cdecl FUN_00ec3205(void*);
-extern int DAT_010a2f9c;
+extern int vftable_std__ios_base;
 struct FUN_00ac9c30_class
 {
     void* m_p;
@@ -133,16 +133,16 @@ struct FUN_00ad41c0_Class
 {
     void __thiscall std_ctype_char_Tidy();
 };
-extern int DAT_010a3228;
-extern int DAT_010a31fc;
+extern int vftable_std__codecvt_base;
+extern int vftable_std__locale__facet;
 void __cdecl Deallocate(void*);
 struct FUN_00ad5670_class
 {
     int* __thiscall FUN_00ad5670(int a);
 };
-extern int DAT_010a3204;
-extern int DAT_010a3228;
-extern int DAT_010a31fc;
+extern int vftable_std__codecvt_010a3204;
+extern int vftable_std__codecvt_base;
+extern int vftable_std__locale__facet;
 void __cdecl Deallocate(void*);
 struct FUN_00ad5730_Class
 {
@@ -297,7 +297,7 @@ struct FUN_00ac1720_pool
     void* Game_DoHeapAlloc(unsigned int size);
 };
 extern "C" FUN_00ac1720_pool DAT_011f6238;
-extern "C" char DAT_010176f8[];
+extern "C" char vftable_std__bad_alloc[];
 extern "C" char DAT_01140ef8[];
 extern "C" void __stdcall FUN_00ec7894(void* err2, const char* msg);
 struct FUN_00ac1720_err
@@ -746,8 +746,8 @@ struct SpawnedObject
 
     void InitSub();
 };
-extern int DAT_010a2f9c;
-extern int DAT_010a2fa4;
+extern int vftable_std__ios_base;
+extern int vftable_std__basic_ios_010a2fa4;
 void __cdecl FUN_00ec3205(void* p);
 struct Sub58
 {
@@ -939,7 +939,7 @@ struct FUN_00acb1a0_cls
     void ProcessEntries_00acf0b0(void* p);
     void ResetListSentinel();
 };
-extern int DAT_010a30fc;
+extern int vftable_std__basic_streambuf_010a30fc;
 void __cdecl FormHeapFreeAndLog_00401030(void*);
 class Sub_00acb6b0
 {
@@ -1172,8 +1172,8 @@ struct FUN_00acdff0_cls
 };
 void __cdecl Deallocate(void*);
 void __cdecl FUN_00ec3205(void*);
-extern int DAT_010a2f9c;
-extern int DAT_010a2fa4;
+extern int vftable_std__ios_base;
+extern int vftable_std__basic_ios_010a2fa4;
 struct FUN_00acdeb0_cls
 {
     void FUN_00acdeb0();
@@ -18621,8 +18621,8 @@ FUN_00ac9cf0::~FUN_00ac9cf0()
     _Tidy();
 }
 
-extern int DAT_010a2f9c;
-extern int DAT_010a2fa4;
+extern int vftable_std__ios_base;
+extern int vftable_std__basic_ios_010a2fa4;
 
 void __cdecl FUN_00ec3205(void*);
 
@@ -18637,8 +18637,8 @@ struct S_00acdeb0_class
         int t2;
         int t3;
         int t4;
-        m_vptr = &DAT_010a2fa4;
-        m_vptr = &DAT_010a2f9c;
+        m_vptr = &vftable_std__basic_ios_010a2fa4;
+        m_vptr = &vftable_std__ios_base;
         FUN_00ec3205(this);
     }
 };
@@ -21642,7 +21642,7 @@ int FUN_00acc070_SB::UpdateState_00acc070()
     }
 }
 
-extern int DAT_010a3138;
+extern int vftable_std__basic_filebuf_010a3138;
 struct Tracked970
 {
     ~Tracked970()
@@ -21742,7 +21742,7 @@ inline void* __thiscall S_00acfb90_Class::UpdateState_00acfb90()
 // src: GUESS 0x00acc970 (confidence: low)
 void C970::UpdateState_00acc970()
 {
-    m_vft = (void*)&DAT_010a3138;
+    m_vft = (void*)&vftable_std__basic_filebuf_010a3138;
     {
         Tracked970 obj;
         if (m_48)

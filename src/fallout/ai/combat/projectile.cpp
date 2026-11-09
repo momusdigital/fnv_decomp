@@ -5469,12 +5469,12 @@ struct DebugSetting
 {
     unsigned char* FUN_00408d60();
 };
-extern DebugSetting g_011f20b8, g_011f20ec;
+extern DebugSetting bVATSProjectileDebug_Combat, bProjectileDebug_Combat;
 struct FloatSetting
 {
     float* Setting_Float_00403e20();
 };
-extern FloatSetting g_011f210c;
+extern FloatSetting fProjectileDebugDuration_Combat;
 struct Impact
 {
     void SpawnGroupNodeNearPlayer();
@@ -5847,7 +5847,7 @@ bool ProjectileHit::ProcessHit(Obj* object, NiPoint3 const& point, NiPoint3 cons
         }
     }
     bool valid = true;
-    if (*g_011f20b8.FUN_00408d60() && MiddleHighProcess_GetCurrentFurniture())
+    if (*bVATSProjectileDebug_Combat.FUN_00408d60() && MiddleHighProcess_GetCurrentFurniture())
     {
         Body* expectedObject = GetAVObjectForCollidable(buffer);
         Ref* ref = FindFirstCollisionObject(MiddleHighProcess_GetCurrentFurniture()->node.Modelloader_GetReferencedThis());
@@ -5888,7 +5888,7 @@ bool ProjectileHit::ProcessHit(Obj* object, NiPoint3 const& point, NiPoint3 cons
                 hit->unk29 = false;
         }
     }
-    if (*g_011f20ec.FUN_00408d60() || *g_011f20b8.FUN_00408d60())
+    if (*bProjectileDebug_Combat.FUN_00408d60() || *bVATSProjectileDebug_Combat.FUN_00408d60())
     {
         NiColorA color(0, 0, 1, 0.1f);
         if (hit->ref && hit->ref->IsActor())
@@ -5900,9 +5900,9 @@ bool ProjectileHit::ProcessHit(Obj* object, NiPoint3 const& point, NiPoint3 cons
         Node* node = CreateOctahedron(5.0f, color, true);
         node->UpdateProperties();
         node->NiAVObject_SetTranslate(hit->point);
-        g_TES->FUN_00458e20(node, *g_011f210c.Setting_Float_00403e20());
+        g_TES->FUN_00458e20(node, *fProjectileDebugDuration_Combat.Setting_Float_00403e20());
         node = MakeLine(hit->point, color, hit->point + hit->normal * 24.0f, color, true);
-        g_TES->FUN_00458e20(node, *g_011f210c.Setting_Float_00403e20());
+        g_TES->FUN_00458e20(node, *fProjectileDebugDuration_Combat.Setting_Float_00403e20());
     }
     hits.FUN_005ae3d0(hit);
     return true;

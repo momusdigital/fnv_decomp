@@ -57,7 +57,7 @@ struct FUN_00d60830 : RefObj
     __declspec(nothrow) FUN_00d60830(RefObj* o, hkBool b);
 };
 
-extern "C" char DAT_010d7db8[];
+extern "C" char vftable_hkDisplaySerializeOStream[];
 
 struct FUN_00dda6e0 : FUN_00d60830
 {
@@ -68,7 +68,7 @@ struct FUN_00dda6e0 : FUN_00d60830
 // @fnv 0x00dda6e0
 FUN_00dda6e0::FUN_00dda6e0(int a) : FUN_00d60830(new(hkAlloc(sizeof(FUN_00d27460))) FUN_00d27460(a, 0x2000), false)
 {
-    m_vtbl = DAT_010d7db8;
+    m_vtbl = vftable_hkDisplaySerializeOStream;
     m_8->FUN_00c905b0();
 }
 

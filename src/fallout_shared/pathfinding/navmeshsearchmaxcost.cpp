@@ -111,7 +111,7 @@ void* __thiscall FUN_006abce0_shell::BSScrapArray_NavMeshSearchNode_1024_Realloc
 }
 }  // namespace fnv_006abce0
 
-extern int DAT_0106b8c8;
+extern int vftable_BSSimpleArray_0106b8c8;
 
 struct GlobalObject_00869f00
 {
@@ -128,7 +128,7 @@ struct FUN_006abdc0_shell
 // src: GUESS 0x006abdc0 (confidence: medium)
 void __thiscall FUN_006abdc0_shell::ResetVirtualTableAndClear_006abdc0()
 {
-    p = &DAT_0106b8c8;
+    p = &vftable_BSSimpleArray_0106b8c8;
     ((GlobalObject_00869f00*)this)->Clear(true);
 }
 
@@ -158,7 +158,7 @@ struct GlobalObject_00869f00
 {
     void __thiscall Clear(bool);
 };
-extern void* DAT_0106b8a0;
+extern void* vftable_BSSimpleArray_0106b8a0;
 
 struct FUN_006abc30_shell
 {
@@ -169,7 +169,7 @@ struct FUN_006abc30_shell
 // src: GUESS 0x006abc30 (confidence: low)
 void __thiscall FUN_006abc30_shell::SetVtableAndProcessState_006abc30()
 {
-    *(void**)this = &DAT_0106b8a0;
+    *(void**)this = &vftable_BSSimpleArray_0106b8a0;
     ((GlobalObject_00869f00*)this)->Clear(true);
 }
 }  // namespace fnv_006abc30

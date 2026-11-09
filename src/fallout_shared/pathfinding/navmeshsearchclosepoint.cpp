@@ -13,7 +13,7 @@
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
 
 
-extern int DAT_0106b6fc;
+extern int vftable_NavMeshSearchClosePoint;
 
 struct FUN_006a8b40_shell : NavMeshSearch
 {
@@ -24,7 +24,7 @@ struct FUN_006a8b40_shell : NavMeshSearch
 // src: GUESS 0x006a8b40 (confidence: medium)
 void FUN_006a8b40_shell::DestroyFields_006a8b40()
 {
-    reinterpret_cast<int**>(this)[0] = &DAT_0106b6fc;
+    reinterpret_cast<int**>(this)[0] = &vftable_NavMeshSearchClosePoint;
     NavMeshSearch::~NavMeshSearch();
 }
 

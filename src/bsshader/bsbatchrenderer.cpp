@@ -3015,8 +3015,8 @@ namespace fnv_00b9a5b0 {
 extern void* __cdecl NiMalloc(unsigned int);
 extern "C" void* __cdecl fnv_zlib_memset(void*, int, unsigned int);
 extern "C" void _ReadWriteBarrier();
-extern const void* DAT_0106cf88[];
-extern const void* DAT_0106cf68[];
+extern const void* vftable_NiTMapBase_0106cf88[];
+extern const void* vftable_NiTMap_0106cf68[];
 
 struct FUN_00bd9120
 {
@@ -3253,7 +3253,7 @@ struct MemGuard
 
 inline NiTMap_unsigned_int_unsigned_int_::NiTMap_unsigned_int_unsigned_int_(int)
 {
-    *reinterpret_cast<const void***>(this) = fnv_00b9a5b0::DAT_0106cf88;
+    *reinterpret_cast<const void***>(this) = fnv_00b9a5b0::vftable_NiTMapBase_0106cf88;
     m_uiHashSize = 37;
     m_kItemCount.m_uiCount = 0;
     m_ppkHashTable = reinterpret_cast<NiTMapItem<unsigned int, unsigned int>**>(
@@ -3263,7 +3263,7 @@ inline NiTMap_unsigned_int_unsigned_int_::NiTMap_unsigned_int_unsigned_int_(int)
         unsigned int size;
     } bytes = {m_uiHashSize * sizeof(void*)};
     fnv_00b9a5b0::fnv_zlib_memset(m_ppkHashTable, 0, bytes.size);
-    *reinterpret_cast<const void***>(this) = fnv_00b9a5b0::DAT_0106cf68;
+    *reinterpret_cast<const void***>(this) = fnv_00b9a5b0::vftable_NiTMap_0106cf68;
 }
 
 // @fnv 0x00b9a5b0

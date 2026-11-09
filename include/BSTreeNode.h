@@ -48,7 +48,7 @@ class BSTreeNode : public BSFadeNode
     NiAVObject* __thiscall FUN_0066b5e0();
     NiAVObject* FUN_0066b600();
     void __thiscall FUN_0066b6c0();
-    void* __thiscall FUN_0066b680(unsigned int);
+    void* __thiscall ScalarDeletingDestructor(unsigned int);
     bool FUN_0066be30(unsigned char);
 
     union

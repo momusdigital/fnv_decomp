@@ -64,12 +64,12 @@ struct SFTX
 {
     void SetFormType(int);
 };
-extern int DAT_01086f9c;
-extern int DAT_01086fe4;
-extern int DAT_01087014;
-extern int DAT_0108704c;
-extern int DAT_010870a0;
-extern int DAT_010870ac;
+extern int vftable_Creature_for_CachedValuesOwner;
+extern int vftable_Creature_for_ActorValueOwner;
+extern int vftable_Creature_for_MagicTarget;
+extern int vftable_Creature_for_MagicCaster;
+extern int vftable_Creature_for_TESChildCell;
+extern int vftable_Creature;
 struct FUN_0087d4a0
 {
     FUN_0087d4a0(bool);
@@ -83,11 +83,11 @@ struct FUN_008d4500 : public FUN_0087d4a0
 // @fnv 0x008d4500
 FUN_008d4500::FUN_008d4500(bool abUnk) : FUN_0087d4a0(abUnk)
 {
-    *(void**)((char*)this + 0x18) = &DAT_010870a0;
-    *(void**)((char*)this + 0x88) = &DAT_0108704c;
-    *(void**)((char*)this + 0x94) = &DAT_01087014;
-    *(void**)((char*)this + 0xa4) = &DAT_01086fe4;
-    *(void**)((char*)this + 0xa8) = &DAT_01086f9c;
+    *(void**)((char*)this + 0x18) = &vftable_Creature_for_TESChildCell;
+    *(void**)((char*)this + 0x88) = &vftable_Creature_for_MagicCaster;
+    *(void**)((char*)this + 0x94) = &vftable_Creature_for_MagicTarget;
+    *(void**)((char*)this + 0xa4) = &vftable_Creature_for_ActorValueOwner;
+    *(void**)((char*)this + 0xa8) = &vftable_Creature_for_CachedValuesOwner;
     ((SFTX*)this)->SetFormType(0x3c);
     *((char*)this + 0x1b4) = 0;
     *(float*)((char*)this + 0x1b8) = -1.0f;
@@ -205,11 +205,12 @@ void _Deallocate(void*);
 struct S
 {
     void FUN_008d45f0();
-    void* FUN_008d44d0(unsigned int);
+    void* Creature_ScalarDeletingDestructor(unsigned int);
 };
 // Calls FUN_008d45f0, then deallocates this if bit 0 of flags is set, and returns this.
 // @fnv 0x008d44d0
-void* S::FUN_008d44d0(unsigned int flags)
+// src: EXE 0x008d44d0
+void* S::Creature_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_008d45f0();
     if (flags & 1)

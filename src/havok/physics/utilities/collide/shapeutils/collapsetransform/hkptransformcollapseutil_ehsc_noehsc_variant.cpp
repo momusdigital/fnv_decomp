@@ -308,7 +308,7 @@ __forceinline void setTransformedPos(hkVector4& result, const hkTransform& t, co
     result.m_vComponents = _mm_add_ps(_mm_add_ps(r0, r1), _mm_add_ps(r2, t.getTranslation().m_vComponents));
 }
 extern hkTransform DAT_01268370;
-extern int DAT_010d0e5c;
+extern int vftable_hkpConvexTranslateShape;
 extern float DAT_011b153c;
 extern const double DAT_01032980;
 
@@ -362,7 +362,7 @@ __forceinline hkpConvexTranslateShape* hkpConvexTranslateShape::init(const hkpCo
     // The base initializer returns through the original constructor ABI.
     extern void __cdecl initializeConvexTransformBase();
     reinterpret_cast<void(__thiscall*)(hkpConvexTransformShapeBase*, int, float, const hkpConvexShape*, int)>(initializeConvexTransformBase)(this, 11, child->m_fSphereRadius, child, 1);
-    *reinterpret_cast<void**>(this) = &DAT_010d0e5c;
+    *reinterpret_cast<void**>(this) = &vftable_hkpConvexTranslateShape;
     m_vTranslation.m_vComponents = _mm_and_ps(translation.m_vComponents, DAT_010c4c10);
     m_iChildShapeSize = 0;
     return this;

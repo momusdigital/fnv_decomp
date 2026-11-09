@@ -128,19 +128,19 @@ int __thiscall FUN_005822a0_cls::TESImageSpaceModifiableCountForm_6_GetFormImage
     return *(int*)((char*)this + index * 4 + 4);
 }
 
-extern int DAT_01031fcc;
+extern int vftable_NiTMap_01031fcc;
 struct FUN_00588fd0Class
 {
     void FUN_005891c0(int);
     int* NiTMap_TESFile_TESWorldSpace_OFFSET_DATA_NiTMap(int a);
 };
-// Calls FUN_005891c0 with a, stores the address of DAT_01031fcc into this, and returns this.
+// Calls FUN_005891c0 with a, stores the address of vftable_NiTMap_01031fcc into this, and returns this.
 // @fnv 0x00588fd0
 // src: EXE 0x00588fd0
 int* FUN_00588fd0Class::NiTMap_TESFile_TESWorldSpace_OFFSET_DATA_NiTMap(int a)
 {
     FUN_005891c0(a);
-    *reinterpret_cast<int*>(this) = reinterpret_cast<int>(&DAT_01031fcc);
+    *reinterpret_cast<int*>(this) = reinterpret_cast<int>(&vftable_NiTMap_01031fcc);
     return reinterpret_cast<int*>(this);
 }
 
@@ -220,7 +220,7 @@ bool FUN_0058ce30_Class::IsFlag2Set() const
                                                                                                            : false;
 }
 
-extern int DAT_01033470;
+extern int vftable_BSMap_01033470;
 struct FUN_0058f820_class
 {
     int m_iWordAt00;
@@ -232,7 +232,7 @@ struct FUN_0058f820_class
 int __thiscall FUN_0058f820_class::ProcessAndReturnValue_0058f820(int a)
 {
     InitContainerItemExtra(a);
-    m_iWordAt00 = (int)&DAT_01033470;
+    m_iWordAt00 = (int)&vftable_BSMap_01033470;
     return (int)this;
 }
 
@@ -297,7 +297,7 @@ unsigned char FUN_00598020_Class::GetByteAtOffset55()
 }
 
 extern "C" void _NiFreeAlias(void*);
-extern int DAT_0103200c;
+extern int vftable_NiTMapBase_0103200c;
 struct FUN_00589190 : NiTPointerMap<int, int>
 {
     void Init();
@@ -306,7 +306,7 @@ struct FUN_00589190 : NiTPointerMap<int, int>
 // @fnv 0x00589190
 void FUN_00589190::Init()
 {
-    *(int*)((char*)this + 0) = (int)&DAT_0103200c;
+    *(int*)((char*)this + 0) = (int)&vftable_NiTMapBase_0103200c;
     RemoveAll();
     _NiFreeAlias(*(void**)((char*)this + 8));
 }
@@ -354,7 +354,7 @@ struct BFC_s
 {
     BFC_s();
 };
-extern int DAT_01031838;
+extern int vftable_TESImageSpaceModifiableCountForm_01031838;
 struct S82000
 {
     void __thiscall ClearArray();
@@ -363,11 +363,11 @@ struct FUN_00581fd0 : BFC_s
 {
     FUN_00581fd0();
 };
-// Sets the object's vtable pointer to DAT_01031838, then calls ClearArray on this.
+// Sets the object's vtable pointer to vftable_TESImageSpaceModifiableCountForm_01031838, then calls ClearArray on this.
 // @fnv 0x00581fd0
 FUN_00581fd0::FUN_00581fd0()
 {
-    *(int*)this = (int)&DAT_01031838;
+    *(int*)this = (int)&vftable_TESImageSpaceModifiableCountForm_01031838;
     ((S82000*)this)->ClearArray();
 }
 
@@ -487,7 +487,7 @@ struct FUN_005890c0
 // @fnv 0x005890c0
 FUN_005890c0::FUN_005890c0(unsigned int size)
 {
-    pVTable = &DAT_0103200c;
+    pVTable = &vftable_NiTMapBase_0103200c;
     uiSize = size;
     ItemUpdateArray = 0;
     unsigned int uiAllocBytes = uiSize * 4;
@@ -498,7 +498,7 @@ FUN_005890c0::FUN_005890c0(unsigned int size)
 namespace fnv_005891c0 {
 extern "C" void* __cdecl _NiMalloc(unsigned int size);
 void* __cdecl memset(void* dst, int c, unsigned int n);
-extern int DAT_0103202c;
+extern int vftable_NiTMapBase_0103202c;
 struct FUN_005891c0_Class
 {
     int* pVTable;
@@ -511,7 +511,7 @@ struct FUN_005891c0_Class
 // @fnv 0x005891c0
 FUN_005891c0_Class::FUN_005891c0_Class(int aiCount)
 {
-    pVTable = &DAT_0103202c;
+    pVTable = &vftable_NiTMapBase_0103202c;
     count = aiCount;
     zero = 0;
     int size = count * 4;
@@ -521,7 +521,7 @@ FUN_005891c0_Class::FUN_005891c0_Class(int aiCount)
 }  // namespace fnv_005891c0
 
 void __cdecl _NiFree(void*);
-extern int DAT_0103202c;
+extern int vftable_NiTMapBase_0103202c;
 struct FUN_00589290_Class
 {
     void __thiscall SetVtableAndProcessState_00589290();
@@ -530,7 +530,7 @@ struct FUN_00589290_Class
 // src: GUESS 0x00589290 (confidence: low)
 void __thiscall FUN_00589290_Class::SetVtableAndProcessState_00589290()
 {
-    *(void**)this = (void*)&DAT_0103202c;
+    *(void**)this = (void*)&vftable_NiTMapBase_0103202c;
     ((NiTPointerMap<int, int>*)this)->RemoveAll();
     _NiFree(*((void**)(((char*)this) + 8)));
 }
@@ -538,7 +538,7 @@ void __thiscall FUN_00589290_Class::SetVtableAndProcessState_00589290()
 namespace fnv_005892c0 {
 extern "C" void* NiMalloc(unsigned int);
 extern "C" void* memset(void*, int, unsigned int);
-extern int DAT_0103204c;
+extern int vftable_NiTMapBase_0103204c;
 struct FUN_005892c0_t
 {
     void* __thiscall InitArray(unsigned int count);
@@ -548,7 +548,7 @@ struct FUN_005892c0_t
 void* __thiscall FUN_005892c0_t::InitArray(unsigned int count)
 {
     unsigned int size;
-    *(int*)this = (int)&DAT_0103204c;
+    *(int*)this = (int)&vftable_NiTMapBase_0103204c;
     ((unsigned int*)this)[1] = count;
     ((unsigned int*)this)[3] = 0;
     size = ((unsigned int*)this)[1] << 2;
@@ -558,7 +558,7 @@ void* __thiscall FUN_005892c0_t::InitArray(unsigned int count)
 }
 }  // namespace fnv_005892c0
 
-extern int DAT_0103204c;
+extern int vftable_NiTMapBase_0103204c;
 void __cdecl _NiFree(void*);
 struct FUN_00589390_Holder
 {
@@ -568,7 +568,7 @@ struct FUN_00589390_Holder
 // src: GUESS 0x00589390 (confidence: low)
 void __thiscall FUN_00589390_Holder::SetVtableAndProcessState_00589390()
 {
-    *(int*)this = (int)&DAT_0103204c;
+    *(int*)this = (int)&vftable_NiTMapBase_0103204c;
     ((NiTPointerMap<int, int>*)this)->RemoveAll();
     _NiFree(*(void**)((char*)this + 8));
 }
@@ -825,7 +825,7 @@ void* __thiscall FUN_0058f850_class::FUN_0058f850(unsigned int flags)
     return this;
 }
 
-extern int DAT_01033490;
+extern int vftable_BSMapBase_01033490;
 void __cdecl _Deallocate(void* p);
 struct FUN_0058f960_Obj
 {
@@ -838,7 +838,7 @@ struct FUN_0058f960_Obj
 // src: GUESS 0x0058f960 (confidence: low)
 void __thiscall FUN_0058f960_Obj::UpdateFields_0058f960()
 {
-    m_iWordAt00 = (int)&DAT_01033490;
+    m_iWordAt00 = (int)&vftable_BSMapBase_01033490;
     if (m_8 != 0)
     {
         void* p = m_8;
@@ -995,7 +995,7 @@ struct ContainerItemExtra
 // @fnv 0x0058f880
 void* __thiscall ContainerItemExtra::InitContainerItemExtra(int count)
 {
-    this->pVTable = &DAT_01033490;
+    this->pVTable = &vftable_BSMapBase_01033490;
     this->iCount = count;
     this->m_0c = 0;
     if (count)

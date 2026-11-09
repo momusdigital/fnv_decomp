@@ -2428,7 +2428,7 @@ void Interface_CreateLockPickMenu(int a1, int a2, unsigned char a3)
 }
 }  // namespace fnv_00705830
 
-extern Setting g_011c3ea4;
+extern Setting iNumHWThreads_General;
 extern int g_011d8950;
 extern int DAT_011d8960;
 
@@ -2442,7 +2442,7 @@ void Interface_CreateRaceSexMenu(int arg)
     if (DialogMenu_IsDialogActive())
         DialogMenu_ServiceStart();
 
-    if (*g_011c3ea4.Int() > 1 && g_011d8950 == 0)
+    if (*iNumHWThreads_General.Int() > 1 && g_011d8950 == 0)
     {
         g_011d8950 = 5;
         DAT_011d8960 = arg;

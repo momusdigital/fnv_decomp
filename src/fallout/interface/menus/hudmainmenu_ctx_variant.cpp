@@ -787,7 +787,7 @@ struct SubtitleSettingFloat
 {
     float* Float();
 };
-extern SubtitleSettingBool g_011d8928;
+extern SubtitleSettingBool bGeneralSubtitles_GamePlay;
 extern SubtitleSettingFloat originalRuntimeFloatSetting1229;
 extern TESObjectREFR* g_thePlayer;
 // HUDMainMenu.h does not yet declare this subtitle method. Keep its declaration
@@ -804,7 +804,7 @@ bool SubtitleHUD::HUDMainMenu_ShowSubtitle(const char* text, BSSoundHandle sound
 {
     bool added = false;
     Actor* actor = speaker && speaker->IsActor() ? dynamic_cast<Actor*>(speaker) : 0;
-    if (text && (*g_011d8928.Bool() || (actor && actor->BSSoundHandle_BSSoundHandle_008c1bc0())))
+    if (text && (*bGeneralSubtitles_GamePlay.Bool() || (actor && actor->BSSoundHandle_BSSoundHandle_008c1bc0())))
     {
         SubtitleRecord* record = new SubtitleRecord;
         FUN_00406d30(record->text, 260, text);

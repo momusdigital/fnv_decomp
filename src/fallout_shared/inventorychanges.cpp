@@ -5260,7 +5260,7 @@ struct DebugSettingStub
 {
     unsigned char* Bool();
 };
-extern DebugSettingStub g_011de4e8;
+extern DebugSettingStub bDebugSaveBuffer_Debug;
 
 void __cdecl ProgramFlow(const char* fmt, ...);
 
@@ -5287,7 +5287,7 @@ unsigned short InventoryChanges::GetSaveSize()
         size3 += itemB->ExtraDataList_GetSaveSize(0, 0);
         node5 = node5->_ref_00726070();
     }
-    if (*g_011de4e8.Bool())
+    if (*bDebugSaveBuffer_Debug.Bool())
     {
         SaveChangeRecord* pChangeRecord = fnv_004be5a0::g_TESSaveLoadGame->GetCurrentChangeRecord();
         if (pChangeRecord)
@@ -10630,7 +10630,7 @@ struct DebugSetting
 {
     unsigned char* Bool();
 };
-extern DebugSetting g_011de4e8;
+extern DebugSetting bDebugSaveBuffer_Debug;
 void __cdecl DebugPrintf(const char* fmt, ...);
 
 struct InventorySaveList
@@ -10659,7 +10659,7 @@ unsigned short InventorySaveList::InventoryChanges_GetSaveSize()
             size3 += itemB->GetSaveSize();
         node5 = node5->Next();
     }
-    if (*g_011de4e8.Bool())
+    if (*bDebugSaveBuffer_Debug.Bool())
     {
         SaveFormRecord* pRecord = g_TESSaveLoadGame->GetCurrentRecord();
         if (pRecord)
@@ -17943,7 +17943,7 @@ struct DebugSetting
 {
     bool* Bool();
 };
-extern DebugSetting g_011de4e8;
+extern DebugSetting bDebugSaveBuffer_Debug;
 struct SavedItem
 {
     void Save(int, int);
@@ -18057,7 +18057,7 @@ void SaveInventory::ItemChange_SaveGameTES()
     unsigned short blockSize_ = 0;
     unsigned int blockStart6 = 0;
     unsigned int start2 = g_TESSaveLoadGame->Position();
-    if (*g_011de4e8.Bool())
+    if (*bDebugSaveBuffer_Debug.Bool())
         start2 = g_TESSaveLoadGame->Position();
     if (g_TESSaveLoadGame->IsBlock())
     {
@@ -18081,7 +18081,7 @@ void SaveInventory::ItemChange_SaveGameTES()
         nodeB = nodeB->Next();
     }
     *countPos_ = count4;
-    if (*g_011de4e8.Bool())
+    if (*bDebugSaveBuffer_Debug.Bool())
     {
         unsigned int end_2 = g_TESSaveLoadGame->Position();
         SaveRecord* record_ = g_TESSaveLoadGame->CurrentRecord();

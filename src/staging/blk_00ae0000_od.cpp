@@ -10,7 +10,7 @@
 #include "../../include/BSFile.h"
 #include "../../include/NiPoint3.h"
 
-extern int DAT_010a42b4;
+extern int vftable_BSSystemUtility;
 void* __cdecl _fnv_zlib_memset(void* p, int c, unsigned int n);
 
 struct FUN_00af30a0_Class
@@ -30,7 +30,7 @@ struct FUN_00af30a0_Class
 // src: XBOX_PDB 0x00af30a0
 void* FUN_00af30a0_Class::BSSystemUtility_BSSystemUtility()
 {
-    vtbl = &DAT_010a42b4;
+    vtbl = &vftable_BSSystemUtility;
     m_pObjectAt84 = 0;
     m_pObjectAt88 = 0;
     bVisible = 0;
@@ -64,7 +64,7 @@ long __cdecl Object_SeekStreamIfPresent(void* stream, long offset, int whence, i
     return _fseek(stream, offset, iWhenceArg);
 }
 
-extern int DAT_010a39d8;
+extern int vftable_BSWin32Audio;
 // The shared BSAudio header does not declare its non-virtual destructor.
 void DestroyBSAudio();
 struct FUN_00aea210_Class
@@ -76,7 +76,7 @@ struct FUN_00aea210_Class
 // src: GUESS 0x00aea210 (confidence: low)
 void FUN_00aea210_Class::SetVtableAndProcessState_00aea210()
 {
-    *reinterpret_cast<int**>(this) = &DAT_010a39d8;
+    *reinterpret_cast<int**>(this) = &vftable_BSWin32Audio;
     reinterpret_cast<void (__thiscall*)(BSAudio*)>(&DestroyBSAudio)(reinterpret_cast<BSAudio*>(this));
 }
 
@@ -95,7 +95,7 @@ int* FUN_00aea890_Class::BSWin32AudioListener_GetPosition()
     return &m_kPointA;
 }
 
-extern int DAT_010a3bb4;
+extern int vftable_BSAudioListener;
 struct FUN_00aeaab0_Class
 {
     void* vtbl;
@@ -110,7 +110,7 @@ struct FUN_00aeaab0_Class
 // src: GUESS 0x00aeaab0 (confidence: low)
 void FUN_00aeaab0_Class::SetVtableAndProcessState_00aeaab0()
 {
-    vtbl = &DAT_010a3bb4;
+    vtbl = &vftable_BSAudioListener;
     *(int*)((char*)this + 0x44) = 0;
 }
 
@@ -126,7 +126,7 @@ long __cdecl Runtime_SeekStreamOrFail_00af1cf0(void* stream, long offset, int wh
     return _fseek(stream, offset, iWhenceArg);
 }
 
-extern int DAT_010a4288;
+extern int vftable_BSSaveDataSystemUtility;
 
 struct FUN_00af2f20_Class
 {
@@ -137,7 +137,7 @@ struct FUN_00af2f20_Class
 // src: GUESS 0x00af2f20 (confidence: low)
 void __thiscall FUN_00af2f20_Class::SetVirtualTable_00af2f20()
 {
-    *(int*)this = (int)&DAT_010a4288;
+    *(int*)this = (int)&vftable_BSSaveDataSystemUtility;
 }
 
 struct FUN_00af3120_Class
@@ -149,27 +149,27 @@ struct FUN_00af3120_Class
 // src: GUESS 0x00af3120 (confidence: low)
 void __thiscall FUN_00af3120_Class::SetVirtualTable_00af3120()
 {
-    *reinterpret_cast<void**>(this) = &DAT_010a42b4;
+    *reinterpret_cast<void**>(this) = &vftable_BSSystemUtility;
 }
 
-extern int DAT_010a42cc;
+extern int vftable_BSMsgDialogSystemUtility;
 struct FUN_00af33f0_Class
 {
     void* vtbl;
     int x;
     void* SetVtableAndProcessState_00af33f0();
 };
-// Sets the object's vtbl to DAT_010a42cc, clears x to 0, and returns this.
+// Sets the object's vtbl to vftable_BSMsgDialogSystemUtility, clears x to 0, and returns this.
 // @fnv 0x00af33f0
 // src: GUESS 0x00af33f0 (confidence: low)
 void* FUN_00af33f0_Class::SetVtableAndProcessState_00af33f0()
 {
-    vtbl = &DAT_010a42cc;
+    vtbl = &vftable_BSMsgDialogSystemUtility;
     x = 0;
     return this;
 }
 
-extern int DAT_010a42cc;
+extern int vftable_BSMsgDialogSystemUtility;
 struct FUN_00af3420_Class
 {
     void* vtbl;
@@ -179,10 +179,10 @@ struct FUN_00af3420_Class
 // src: GUESS 0x00af3420 (confidence: low)
 void __thiscall FUN_00af3420_Class::SetVirtualTable_00af3420()
 {
-    vtbl = &DAT_010a42cc;
+    vtbl = &vftable_BSMsgDialogSystemUtility;
 }
 
-extern int DAT_010a42dc;
+extern int vftable_BSSystemUtilitiesStrings;
 struct FUN_00af35c0_Class
 {
     void* vtbl;
@@ -192,10 +192,10 @@ struct FUN_00af35c0_Class
 // src: GUESS 0x00af35c0 (confidence: low)
 void FUN_00af35c0_Class::SetVirtualTable_00af35c0()
 {
-    vtbl = &DAT_010a42dc;
+    vtbl = &vftable_BSSystemUtilitiesStrings;
 }
 
-extern int DAT_010a42ec;
+extern int vftable_BSCacheDriveSystemUtility;
 
 struct FUN_00af38d0_Class
 {
@@ -209,13 +209,13 @@ struct FUN_00af38d0_Class
 // src: COMMUNITY 0x00af38d0
 void* FUN_00af38d0_Class::BSCacheDriveSystemUtility_BSCacheDriveSystemUtility()
 {
-    vtbl = &DAT_010a42ec;
+    vtbl = &vftable_BSCacheDriveSystemUtility;
     bVisible = 0;
     m_pObjectAt84 = 0;
     return this;
 }
 
-extern int DAT_010a42fc;
+extern int vftable_BSGameDataSystemUtility;
 
 struct FUN_00af39c0_Class
 {
@@ -227,10 +227,10 @@ struct FUN_00af39c0_Class
 // src: GUESS 0x00af39c0 (confidence: low)
 void FUN_00af39c0_Class::SetVirtualTable_00af39c0()
 {
-    vtbl = &DAT_010a42fc;
+    vtbl = &vftable_BSGameDataSystemUtility;
 }
 
-extern int DAT_010a4318;
+extern int vftable_BSDiscBootSystemUtility;
 
 struct FUN_00af3a80_Class
 {
@@ -241,27 +241,27 @@ struct FUN_00af3a80_Class
 // @fnv 0x00af3a80
 void FUN_00af3a80_Class::InitPointer()
 {
-    p = &DAT_010a4318;
+    p = &vftable_BSDiscBootSystemUtility;
 }
 
-extern int DAT_010a4328;
+extern int vftable_BSSysInfoSystemUtility;
 struct FUN_00af3b20_Class
 {
     void* vtbl;
     int i;
     void* __thiscall BSSysInfoSystemUtility_BSSysInfoSystemUtility();
 };
-// Sets the object's vtbl to DAT_010a4328 and its i field to 0x10, then returns this.
+// Sets the object's vtbl to vftable_BSSysInfoSystemUtility and its i field to 0x10, then returns this.
 // @fnv 0x00af3b20
 // src: COMMUNITY 0x00af3b20
 void* __thiscall FUN_00af3b20_Class::BSSysInfoSystemUtility_BSSysInfoSystemUtility()
 {
-    vtbl = &DAT_010a4328;
+    vtbl = &vftable_BSSysInfoSystemUtility;
     i = 0x10;
     return this;
 }
 
-extern int DAT_010a4328;
+extern int vftable_BSSysInfoSystemUtility;
 
 struct FUN_00af3b50_Class
 {
@@ -271,7 +271,7 @@ struct FUN_00af3b50_Class
 // @fnv 0x00af3b50
 void __thiscall FUN_00af3b50_Class::SetVTable()
 {
-    *reinterpret_cast<void**>(this) = &DAT_010a4328;
+    *reinterpret_cast<void**>(this) = &vftable_BSSysInfoSystemUtility;
 }
 
 void __cdecl SwapByteQuadWords(void* p, int a2);
@@ -303,7 +303,7 @@ void __cdecl FileFinder_GetFile_(const char* apPath, int b, unsigned int c)
     FileFinder::GetFile(apPath, b, c, 0xffff);
 }
 
-extern int DAT_010a39d8;
+extern int vftable_BSWin32Audio;
 struct FUN_00aea1b0_Class
 {
     void* vtbl;
@@ -311,19 +311,19 @@ struct FUN_00aea1b0_Class
     void* FUN_00ad6f40();
     FUN_00aea1b0_Class();
 };
-// Calls FUN_00ad6f40, sets vtbl to &DAT_010a39d8, zeroes offsets 0x38, 0x3c and 0xa0, and memsets 0x60 bytes at offset 0x40.
+// Calls FUN_00ad6f40, sets vtbl to &vftable_BSWin32Audio, zeroes offsets 0x38, 0x3c and 0xa0, and memsets 0x60 bytes at offset 0x40.
 // @fnv 0x00aea1b0
 FUN_00aea1b0_Class::FUN_00aea1b0_Class()
 {
     FUN_00ad6f40();
-    vtbl = (void*)&DAT_010a39d8;
+    vtbl = (void*)&vftable_BSWin32Audio;
     *(int*)((char*)this + 0x38) = 0;
     *(int*)((char*)this + 0x3c) = 0;
     *(int*)((char*)this + 0xa0) = 0;
     _fnv_zlib_memset((char*)this + 0x40, 0, 0x60);
 }
 
-extern int DAT_010a3b7c;
+extern int vftable_BSWin32AudioListener;
 struct FUN_00aea730_Class
 {
     void* vtbl;
@@ -336,8 +336,8 @@ struct FUN_00aea730_Class
 // src: COMMUNITY 0x00aea730
 FUN_00aea730_Class* FUN_00aea730_Class::BSWin32AudioListener_BSWin32AudioListener(int aiValue)
 {
-    vtbl = (void*)&DAT_010a3bb4;
-    vtbl = (void*)&DAT_010a3b7c;
+    vtbl = (void*)&vftable_BSAudioListener;
+    vtbl = (void*)&vftable_BSWin32AudioListener;
     *(int*)((char*)this + 0x48) = 0;
     *(float*)((char*)this + 0x3c) = 0.0f;
     *(int*)((char*)this + 0x48) = aiValue;
@@ -446,19 +446,19 @@ bool FUN_00af2c50_Class::return_0_5(int a, int b)
     return false;
 }
 
-extern int DAT_010a42dc;
+extern int vftable_BSSystemUtilitiesStrings;
 struct FUN_00af3570_Class
 {
     void* vtbl;
     int a[8];
     void* __thiscall BSSystemUtilitiesStrings_BSSystemUtilitiesStrings();
 };
-// Sets vtbl to &DAT_010a42dc and zeroes the eight-element array a, then returns this.
+// Sets vtbl to &vftable_BSSystemUtilitiesStrings and zeroes the eight-element array a, then returns this.
 // @fnv 0x00af3570
 // src: COMMUNITY 0x00af3570
 void* __thiscall FUN_00af3570_Class::BSSystemUtilitiesStrings_BSSystemUtilitiesStrings()
 {
-    vtbl = &DAT_010a42dc;
+    vtbl = &vftable_BSSystemUtilitiesStrings;
     for (unsigned int i = 0; i < 8; ++i)
         a[i] = 0;
     return this;
@@ -500,7 +500,7 @@ bool FUN_00afdbc0_Class::IsIndexInRange(int idx)
     return false;
 }
 
-extern int DAT_010a3370;
+extern int vftable_NiTMapBase_010a3370;
 void* __cdecl _NiMalloc(unsigned int);
 struct FUN_00ae7b40_Class
 {
@@ -514,7 +514,7 @@ struct FUN_00ae7b40_Class
 // @fnv 0x00ae7b40
 FUN_00ae7b40_Class::FUN_00ae7b40_Class(int aiCount)
 {
-    vtbl = (void*)&DAT_010a3370;
+    vtbl = (void*)&vftable_NiTMapBase_010a3370;
     iCount = aiCount;
     iCapacity = 0;
     int size7 = iCount * 4;
@@ -524,7 +524,7 @@ FUN_00ae7b40_Class::FUN_00ae7b40_Class(int aiCount)
     _fnv_zlib_memset(tmp, 0, size2);
 }
 
-extern int DAT_010a3390;
+extern int vftable_NiTMapBase_010a3390;
 void* __cdecl _NiMalloc(unsigned int);
 struct FUN_00ae7bc0_Class
 {
@@ -538,7 +538,7 @@ struct FUN_00ae7bc0_Class
 // @fnv 0x00ae7bc0
 FUN_00ae7bc0_Class::FUN_00ae7bc0_Class(int count)
 {
-    vtbl = &DAT_010a3390;
+    vtbl = &vftable_NiTMapBase_010a3390;
     m_uiItemCount = count;
     m_auiShapeKeys = 0;
     unsigned int uiAllocSize = m_uiItemCount << 2;
@@ -548,7 +548,7 @@ FUN_00ae7bc0_Class::FUN_00ae7bc0_Class(int count)
     _fnv_zlib_memset(p2, 0, size2);
 }
 
-extern int DAT_010a33b0;
+extern int vftable_NiTMapBase_010a33b0;
 void* __cdecl NiMalloc(unsigned int size);
 struct FUN_00ae7c40_Class
 {
@@ -558,7 +558,7 @@ struct FUN_00ae7c40_Class
 // @fnv 0x00ae7c40
 void* __thiscall FUN_00ae7c40_Class::InitBuffer(int size)
 {
-    *(int*)this = (int)&DAT_010a33b0;
+    *(int*)this = (int)&vftable_NiTMapBase_010a33b0;
     ((int*)this)[1] = size;
     ((int*)this)[3] = 0;
     int s3 = ((int*)this)[1] << 2;
@@ -667,7 +667,7 @@ void S00a0d390::SetVtableAndProcessState_00ae8c30()
     int p;
     int P;
 
-    this->vtbl = (void*)&DAT_010a3370;
+    this->vtbl = (void*)&vftable_NiTMapBase_010a3370;
     ClearAll();
     _NiFree(this->p);
 }
@@ -721,7 +721,7 @@ struct FUN_00af2ed0_Class
 FUN_00af2ed0_Class* FUN_00af2ed0_Class::BSSaveDataSystemUtility_BSSaveDataSystemUtility()
 {
     char* p;
-    vtbl = &DAT_010a4288;
+    vtbl = &vftable_BSSaveDataSystemUtility;
     b1 = 0;
     i1 = 0;
     p = &b2;
@@ -731,7 +731,7 @@ FUN_00af2ed0_Class* FUN_00af2ed0_Class::BSSaveDataSystemUtility_BSSaveDataSystem
     return this;
 }
 
-extern int DAT_010a42ec;
+extern int vftable_BSCacheDriveSystemUtility;
 struct FUN_00af3900_Class
 {
     void __thiscall SetVirtualTable_00af3900();
@@ -740,7 +740,7 @@ struct FUN_00af3900_Class
 // src: GUESS 0x00af3900 (confidence: low)
 void FUN_00af3900_Class::SetVirtualTable_00af3900()
 {
-    *(void**)this = &DAT_010a42ec;
+    *(void**)this = &vftable_BSCacheDriveSystemUtility;
 }
 
 struct FUN_00af3980_Class
@@ -756,7 +756,7 @@ struct FUN_00af3980_Class
 // @fnv 0x00af3980
 FUN_00af3980_Class::FUN_00af3980_Class()
 {
-    vtbl = (void*)&DAT_010a42fc;
+    vtbl = (void*)&vftable_BSGameDataSystemUtility;
     bVisible = 0;
     m_cValueAt95 = 0;
     iCount = 0;
@@ -781,7 +781,7 @@ struct FUN_00af3a40_Class
 // @fnv 0x00af3a40
 void* __thiscall FUN_00af3a40_Class::ResetState()
 {
-    vtbl = &DAT_010a4318;
+    vtbl = &vftable_BSDiscBootSystemUtility;
     *(int*)((char*)this + 0x44) = 0;
     *((char*)this + 0x48) = 0;
     *(int*)((char*)this + 0x4c) = 0;
@@ -808,7 +808,7 @@ void* BSFileDelete::FUN_00afff20(unsigned int flags)
 
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject);
 
-extern int DAT_010a33d0;
+extern int vftable_BSAudioManagerThread;
 
 struct FUN_00ae78a0_cls
 {
@@ -838,7 +838,7 @@ struct FUN_00ae78a0_cls
 // src: GUESS 0x00ae78a0 (confidence: medium)
 void FUN_00ae78a0_cls::CloseAudioManagerHandles()
 {
-    m_vtbl = (void*)&DAT_010a33d0;
+    m_vtbl = (void*)&vftable_BSAudioManagerThread;
     CloseHandle(m_h40);
     CloseHandle(m_h34);
     FUN_00aa63c0();
@@ -3937,7 +3937,7 @@ FUN_00ae8d90::~FUN_00ae8d90()
 {
     unsigned int i;
     void* node;
-    m_vtbl = &DAT_010a33b0;
+    m_vtbl = &vftable_NiTMapBase_010a33b0;
     ((S00a0d390*)this)->ClearAll();
     _NiFree(m_data);
 }
@@ -5598,7 +5598,7 @@ void FUN_00afdb20_Class::UpdateFields_00afdb20()
     *ptr1 = FUN_00ec3bad(*ptr1);
 }
 
-extern "C" int DAT_010472d0;
+extern "C" int vftable_BSSimpleArray_010472d0;
 
 struct FUN_009b7940_shell
 {
@@ -5610,14 +5610,14 @@ struct FUN_00afe9f0_Class : public FUN_009b7940_shell
     void* SetVtableAndProcessState_00afe9f0(unsigned int a);
 };
 
-// Sets the vtable pointer to DAT_010472d0 and calls FUN_006b3eb0 with a twice, returning this.
+// Sets the vtable pointer to vftable_BSSimpleArray_010472d0 and calls FUN_006b3eb0 with a twice, returning this.
 // @fnv 0x00afe9f0
 // src: GUESS 0x00afe9f0 (confidence: low)
 void* FUN_00afe9f0_Class::SetVtableAndProcessState_00afe9f0(unsigned int a)
 {
     int x;
     int y;
-    *(int*)this = (int)&DAT_010472d0;
+    *(int*)this = (int)&vftable_BSSimpleArray_010472d0;
     BSSimpleArray_float_1024_InitialSetup(a, a);
     return this;
 }

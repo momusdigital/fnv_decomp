@@ -125,7 +125,7 @@ class FUN_00e402e0 : public BaseAnimX
     FloatArrayX m_kFloats;
 };
 void* hkMemoryRouter_getInstance();
-extern int DAT_010e5474;
+extern int vftable_hkaInterleavedUncompressedAnimation;
 extern "C" unsigned __int64 __rdtsc(void);
 extern "C" void _ReadWriteBarrier(void);
 extern "C" __declspec(dllimport) void* __stdcall TlsGetValue(unsigned long);

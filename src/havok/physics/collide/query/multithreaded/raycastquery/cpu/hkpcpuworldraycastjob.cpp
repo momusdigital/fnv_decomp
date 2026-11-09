@@ -115,7 +115,7 @@ float FUN_00df8db0_cls::GetResult(ParamBlock* apParam)
     return m_fResult;
 }
 
-extern int DAT_0101e594;
+extern int vftable_hkpRayHitCollector;
 
 hkMemoryRouter* __cdecl hkMemoryRouter_getInstance() throw();
 
@@ -130,7 +130,7 @@ struct FUN_00df8960_cls
 // @fnv 0x00df8960
 FUN_00df8960_cls* FUN_00df8960_cls::FUN_00df8960(unsigned char acFlags)
 {
-    m_vptr = (int)&DAT_0101e594;
+    m_vptr = (int)&vftable_hkpRayHitCollector;
     if (acFlags & 1)
     {
         hkMemoryRouter* pHolder = hkMemoryRouter_getInstance();
@@ -305,7 +305,7 @@ Derived::Derived()
 {}
 
 #include <xmmintrin.h>
-extern char DAT_010dbb04[];
+extern char vftable_hkpFixedBufferRayHitCollector[];
 extern void(__cdecl* DAT_0126ec04)(void* a, void* b, struct S_00df8990_Obj* obj);
 struct S_00df8990_Obj;
 void __cdecl Runtime_ProcessEntries_00e2b9b0(void* a, void* b, S_00df8990_Obj* obj);
@@ -344,7 +344,7 @@ struct Spawned
         return p;
     }
     Spawned(unsigned int first, unsigned int last)
-        : m_00((unsigned int)DAT_010dbb04), m_04(1.0f), m_08(first), m_0c(first), m_10(last), m_14(0), m_18(0)
+        : m_00((unsigned int)vftable_hkpFixedBufferRayHitCollector), m_04(1.0f), m_08(first), m_0c(first), m_10(last), m_14(0), m_18(0)
     {}
 };
 

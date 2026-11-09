@@ -11,7 +11,7 @@
 #include "../../../../include/NiPSysData.h"
 
 extern "C" void* g_01202780;
-extern int DAT_010c008c;
+extern int vftable_NiPSysColliderManager;
 extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volatile*);
 extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(long volatile*);
 void __cdecl _delete(void*, unsigned int);
@@ -53,7 +53,7 @@ NiPSysColliderManager* __cdecl NiPSysColliderManager_CreateObject()
     if (p)
     {
         reinterpret_cast<NiPSysPositionModifier*>(p)->NiPSysPositionModifier::NiPSysPositionModifier();
-        *(int**)p = &DAT_010c008c;
+        *(int**)p = &vftable_NiPSysColliderManager;
         p->m_pFirstCollider = 0;
         return p;
     }
@@ -190,7 +190,7 @@ NiObject* NiPSysColliderManager::MakeClone(CloningProcess& cp)
     if (pkNew != 0)
     {
         reinterpret_cast<NiPSysPositionModifier*>(pkNew)->NiPSysPositionModifier::NiPSysPositionModifier();
-        *(int**)pkNew = &DAT_010c008c;
+        *(int**)pkNew = &vftable_NiPSysColliderManager;
     }
     else
     {

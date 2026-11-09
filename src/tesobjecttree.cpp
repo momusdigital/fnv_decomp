@@ -259,12 +259,12 @@ struct GlobalObject_0045cf30 : Setting
 {
 };
 
-extern GlobalObject_0045cf30 g_011d5ce8;
+extern GlobalObject_0045cf30 bEnableTrees_SpeedTree;
 
 // @fnv 0x0051d740
 unsigned char GetFirstProcessListByte()
 {
-    return g_011d5ce8.FUN_00408d60()[0];
+    return bEnableTrees_SpeedTree.FUN_00408d60()[0];
 }
 
 struct FUN_006447b0_shell
@@ -325,7 +325,7 @@ void FUN_0051b8c0_shell::SkyShaderProperty_SetBlendValue(float value)
     *reinterpret_cast<float*>(reinterpret_cast<char*>(this) + 0x84) = value;
 }
 
-extern int DAT_0102be94;
+extern int vftable_TESIconTree;
 
 struct FUN_0051b970_shell : TESTexture1024
 {
@@ -416,12 +416,13 @@ void FUN_0051b8a0_shell::TESObjectTREE_SetShadowRadius(float afValue)
 struct S_0051b900
 {
     void FUN_0051b9d0();
-    void* FUN_0051b900(unsigned int);
+    void* TESObjectTREE_ScalarDeletingDestructor(unsigned int);
 };
 void _Deallocate(void*);
 // Calls FUN_0051b9d0, then deallocates this when flags has bit 0 set, and returns this.
 // @fnv 0x0051b900
-void* S_0051b900::FUN_0051b900(unsigned int flags)
+// src: EXE 0x0051b900
+void* S_0051b900::TESObjectTREE_ScalarDeletingDestructor(unsigned int flags)
 {
     this->FUN_0051b9d0();
     if (flags & 1)
@@ -1152,7 +1153,7 @@ FUN_0051b930::FUN_0051b930() : SpawnedBase()
 
 // FUN_0051b9b0 - TESTexture1024::TESTexture1024()
 // Runs the base TESTexture constructor, then installs the class vtable pointer.
-extern int DAT_0102beb4;  // vtable of TESTexture1024
+extern int vftable_TESTexture1024;  // vtable of TESTexture1024
 
 class TESTextureBase
 {
@@ -1170,7 +1171,7 @@ class FUN_0051b9b0_cls : public TESTextureBase
 // @fnv 0x0051b9b0
 FUN_0051b9b0_cls::FUN_0051b9b0_cls() : TESTextureBase()
 {
-    m_pVTable = &DAT_0102beb4;
+    m_pVTable = &vftable_TESTexture1024;
 }
 
 extern double DAT_01012060;

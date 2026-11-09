@@ -183,7 +183,7 @@ struct SStream;
 struct SObj;
 void __cdecl WriteFloatToStream(SStream*, SObj*);
 void __cdecl NiAnimationKey_SaveToStream(SStream* a, SObj* b, unsigned int c);
-extern int DAT_01096114;
+extern int vftable_NiTFixedStringMapBase_01096114;
 extern void __cdecl _NiFree(void*);
 extern MemoryManager _g_memoryManager;
 struct FUN_00a2e790_StandIn : public NiTFixedStringMap_NiAVObject___

@@ -47,7 +47,8 @@ struct Dummy_0051d160
 {
     // Calls FUN_0051d1c0 on this, then frees this (0x38 bytes) via NiMemObject::operator delete when bit 0 of flags is set, returning this.
 // @fnv 0x0051d160
-    void* __thiscall FUN_0051d160(unsigned int flags)
+// src: EXE 0x0051d160
+    void* __thiscall BSShaderTextureSet_ScalarDeletingDestructor(unsigned int flags)
     {
         FUN_0051d1c0(this);
         if ((flags & 1) != 0)
@@ -58,4 +59,4 @@ struct Dummy_0051d160
     }
 };
 
-static void* (__thiscall Dummy_0051d160::*p_0051d160)(unsigned int) = &Dummy_0051d160::FUN_0051d160;
+static void* (__thiscall Dummy_0051d160::*p_0051d160)(unsigned int) = &Dummy_0051d160::BSShaderTextureSet_ScalarDeletingDestructor;

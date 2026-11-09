@@ -236,15 +236,15 @@ void __thiscall FUN_0094c380_Class::CameraCaster_Remove()
 
 namespace fnv_0094c3a0 {
 extern "C" void* _pme;
-extern Setting g_011d9748;
+extern Setting fHUDShakeMult_Interface;
 
-// If _pme is set, stores value multiplied by the float from g_011d9748 into the field at offset 0x274 of _pme.
+// If _pme is set, stores value multiplied by the float from fHUDShakeMult_Interface into the field at offset 0x274 of _pme.
 // @fnv 0x0094c3a0
 void SetScaledValue(float value)
 {
     if (_pme)
     {
-        *(float*)((char*)_pme + 0x274) = value * *(float*)g_011d9748.Float();
+        *(float*)((char*)_pme + 0x274) = value * *(float*)fHUDShakeMult_Interface.Float();
     }
 }
 }  // namespace fnv_0094c3a0

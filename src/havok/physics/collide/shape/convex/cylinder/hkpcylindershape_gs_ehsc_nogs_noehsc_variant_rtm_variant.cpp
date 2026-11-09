@@ -36,8 +36,8 @@ void __cdecl hkReferencedObject_calcContentStatistics(void* item, const char* ty
 void __cdecl hkpCylinderShape_calcContentStatistics(void* item, const char*);
 
 #include "fnv_asm_helpers.h"   // project x87 helpers (fnv_SinCos, fnv_FloatToInt), kept last so earlier code is unchanged
-extern char DAT_010305a8;
-extern char DAT_010d0f1c;
+extern char vftable_hkpShape;
+extern char vftable_hkpCylinderShape;
 extern float DAT_011b5be8;
 // src: HAVOK_LIB 0x00d571d0
 static __declspec(noinline) float minValueRoundedUpTo1()

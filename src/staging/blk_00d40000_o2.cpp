@@ -63,7 +63,7 @@ struct FUN_00c9ce00_cls
 {
     void __thiscall FUN_00c9ce00(int);
 };
-extern int DAT_010c7888;
+extern int vftable_hkpRigidBody;
 
 // @fnv 0x00d49530
 // src: HAVOK_LIB 0x00d49530
@@ -72,7 +72,7 @@ void __cdecl finishLoadedObjecthkpRigidBody(FUN_00c9ce00_cls* pObject, int aiVal
     if (pObject)
     {
         pObject->FUN_00c9ce00(aiValue);
-        *(int*)pObject = (int)&DAT_010c7888;
+        *(int*)pObject = (int)&vftable_hkpRigidBody;
     }
 }
 
@@ -151,13 +151,13 @@ void __cdecl hkPredGskAgent3_initAgentFunc(int* pObject)
     *(unsigned char*)(pObject + 12) = 1;
 }
 
-extern int DAT_010cf9a4;
+extern int vftable_hkpPhysicsData;
 // @fnv 0x00d48350
 // src: GUESS 0x00d48350 (confidence: low)
 void __cdecl Runtime_UpdateState_00d48350(int* p)
 {
     if (p)
-        *p = (int)&DAT_010cf9a4;
+        *p = (int)&vftable_hkpPhysicsData;
 }
 
 struct FUN_00d49580_vtbl
@@ -172,9 +172,9 @@ void __cdecl Object_InvokeVirtualMethod_00d49580(FUN_00d49580_vtbl* p)
     p->v0(0);
 }
 
-extern int DAT_010305a8;
-extern int DAT_010ce31c;
-extern int DAT_010cfb34;
+extern int vftable_hkpShape;
+extern int vftable_hkpSampledHeightFieldShape;
+extern int vftable_hkpStorageSampledHeightFieldShape;
 
 // @fnv 0x00d495a0
 // src: GUESS 0x00d495a0 (confidence: low)
@@ -182,14 +182,14 @@ void __cdecl Object_UpdateFields_00d495a0(int* pObject, int b)
 {
     if (pObject)
     {
-        *pObject = (int)&DAT_010305a8;
+        *pObject = (int)&vftable_hkpShape;
         if (b)
             pObject[3] = 0;
         pObject[3] = 0x19;
-        *pObject = (int)&DAT_010ce31c;
+        *pObject = (int)&vftable_hkpSampledHeightFieldShape;
         if (b)
             pObject[3] = 0xd;
-        *pObject = (int)&DAT_010cfb34;
+        *pObject = (int)&vftable_hkpStorageSampledHeightFieldShape;
         if (b)
             ((char*)pObject)[0x1d] = 0;
     }
@@ -419,7 +419,7 @@ struct SpawnLarge
     void __thiscall FUN_00dacbd0(int, int, int);
 };
 
-extern char DAT_010ceb94[];
+extern char vftable_hkpPredGskfAgent[];
 
 hkMemoryRouter* __cdecl hkMemoryRouter_getInstance();
 
@@ -443,7 +443,7 @@ void* __cdecl CreateSpawnObject(int a1, int a2, int a3, int a4)
         SpawnLarge* obj = (SpawnLarge*)allocator->blockAlloc(0x80);
         obj->m_w04 = 0x80;
         obj->FUN_00dacbd0(a1, a2, a4);
-        obj->m_vptr = DAT_010ceb94;
+        obj->m_vptr = vftable_hkpPredGskfAgent;
         return obj;
     }
     hkMemoryRouter* holder = hkMemoryRouter_getInstance();
@@ -740,12 +740,12 @@ void* __cdecl Object_GetGlobalObjectAddress_00d48340()
     return &DAT_01268b9c;
 }
 
-extern int DAT_010cf9a4;
+extern int vftable_hkpPhysicsData;
 // @fnv 0x00d48360
 // src: GUESS 0x00d48360 (confidence: low)
 int* __cdecl Object_GetGlobalObjectAddress_00d48360()
 {
-    return &DAT_010cf9a4;
+    return &vftable_hkpPhysicsData;
 }
 
 struct S_00d483a0_Result
@@ -834,13 +834,13 @@ int __cdecl Runtime_EvaluateValue_00d49590()
     return (int)&DAT_01268c14;
 }
 
-extern int DAT_010cfb34;
+extern int vftable_hkpStorageSampledHeightFieldShape;
 
 // @fnv 0x00d495f0
 // src: GUESS 0x00d495f0 (confidence: low)
 int __cdecl Runtime_EvaluateValue_00d495f0()
 {
-    return reinterpret_cast<int>(&DAT_010cfb34);
+    return reinterpret_cast<int>(&vftable_hkpStorageSampledHeightFieldShape);
 }
 
 extern int DAT_010cfd10;
@@ -860,8 +860,8 @@ FnvVtObj* FnvVtObj::SetVirtualTable_00d49c40(unsigned int unusedArg)
     return this;
 }
 
-extern int DAT_010cfd44;
-extern int DAT_010cfd20;
+extern int vftable_hkpStorageExtendedMeshShape;
+extern int vftable_hkpStorageExtendedMeshShape_for_hkpShapeContainer;
 
 struct FUN_00d49c50_cls
 {
@@ -941,8 +941,8 @@ struct FUN_00d49c50_cls
 void* FUN_00d49c50_cls::hkpStorageExtendedMeshShape_hkpStorageExtendedMeshShape(float afValue, int i)
 {
     FUN_00d569c0(afValue, i);
-    m_pVtbl = (void*)&DAT_010cfd44;
-    m_pVtblAlt = (void*)&DAT_010cfd20;
+    m_pVtbl = (void*)&vftable_hkpStorageExtendedMeshShape;
+    m_pVtblAlt = (void*)&vftable_hkpStorageExtendedMeshShape_for_hkpShapeContainer;
     m_iF0 = 0;
     m_iF4 = 0;
     m_iF8 = 0x80000000u;
@@ -1132,8 +1132,8 @@ FnvVtObj* FnvVtObj::SetVptr(unsigned int unusedArg)
 // Constructor of a scene-graph style node: initialises the base node
 // (FUN_00dcd310) and then the derived node's own vtable pointers and
 // member state.
-extern int DAT_010d055c;
-extern int DAT_010d053c;
+extern int vftable_hkpStorageMeshShape;
+extern int vftable_hkpStorageMeshShape_for_hkpShapeContainer;
 
 struct FUN_00d4b3c0_cls
 {
@@ -1173,8 +1173,8 @@ struct FUN_00d4b3c0_cls
 void* FUN_00d4b3c0_cls::hkpStorageMeshShape_hkpStorageMeshShape(float afValue, int aiValue)
 {
     FUN_00dcd310(afValue, aiValue);
-    m_pVtbl = (void*)&DAT_010d055c;
-    m_pVtblAlt = (void*)&DAT_010d053c;
+    m_pVtbl = (void*)&vftable_hkpStorageMeshShape;
+    m_pVtblAlt = (void*)&vftable_hkpStorageMeshShape_for_hkpShapeContainer;
     m_i60 = 0;
     m_i64 = 0;
     m_i68 = 0x80000000u;
@@ -4549,17 +4549,17 @@ struct S_00d49660_Foo
     S_00d49660_Foo* __thiscall hkpStorageSampledHeightFieldShape_hkpStorageSampledHeightFieldShape(int, int, float);
 };
 
-extern int DAT_010cfb34;
+extern int vftable_hkpStorageSampledHeightFieldShape;
 extern double DAT_01012070;
 int __cdecl FUN_00ec62c0();
 
-// Calls FUN_00d248a0(a, 0), sets unk00 to the address of DAT_010cfb34, stores b in unk60 and c in unk6c, derives unk68 from unk14, and returns this.
+// Calls FUN_00d248a0(a, 0), sets unk00 to the address of vftable_hkpStorageSampledHeightFieldShape, stores b in unk60 and c in unk6c, derives unk68 from unk14, and returns this.
 // @fnv 0x00d49660
 // src: EXE 0x00d49660
 S_00d49660_Foo* __thiscall S_00d49660_Foo::hkpStorageSampledHeightFieldShape_hkpStorageSampledHeightFieldShape(int a, int b, float c)
 {
     ProcessAndReturnValue_00d248a0(a, 0);
-    unk00 = reinterpret_cast<int>(&DAT_010cfb34);
+    unk00 = reinterpret_cast<int>(&vftable_hkpStorageSampledHeightFieldShape);
     unk64 = 0;
     unk70 = 0;
     unk60 = b;
@@ -5848,7 +5848,7 @@ FUN_00d4f2a0::FUN_00d4f2a0()
     m_kBridgeAtoms.m_kPlaneLimit.m_fAngularLimitsTauFactor = 0.8f;
 }
 
-extern int DAT_010d0be4;
+extern int vftable_hkpHingeLimitsData;
 extern float DAT_0106b648;
 extern float DAT_0102b3c8;
 
@@ -5909,7 +5909,7 @@ class FUN_00d52fc0
 // @fnv 0x00d52fc0
 FUN_00d52fc0::FUN_00d52fc0()
 {
-    m_vptr = &DAT_010d0be4;
+    m_vptr = &vftable_hkpHingeLimitsData;
     m_06 = 1;
     m_08 = 0;
     m_10 = 4;
@@ -5925,7 +5925,7 @@ FUN_00d52fc0::FUN_00d52fc0()
     m_8C = 1.0f;
 }
 
-extern int DAT_010d0cd4;
+extern int vftable_hkpBallAndSocketConstraintData;
 extern float DAT_0104da48;
 struct FUN_00ca9360_sub
 {
@@ -5958,7 +5958,7 @@ FUN_00d54290::FUN_00d54290()
     float one = 1.0f;
     m_word06 = 1;
     m_value08 = 0;
-    m_vptr = &DAT_010d0cd4;
+    m_vptr = &vftable_hkpBallAndSocketConstraintData;
     m_word10 = 3;
     m_byte42 = 0;
     m_word40 = 5;

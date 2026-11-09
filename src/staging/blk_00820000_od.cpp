@@ -246,7 +246,7 @@ unsigned int __thiscall TESSound::GetPriority_0082d720()
     return data.unk18 & 0xff;
 }
 
-extern int DAT_0107ca44;
+extern int vftable_NiTPointerMap_0107ca44;
 void __cdecl InitArray(int);
 struct FUN_0082ee80_class
 {
@@ -254,16 +254,16 @@ struct FUN_0082ee80_class
     void InitArray(int);
     FUN_0082ee80_class* InitializeWithGlobal(int a);
 };
-// Calls InitArray with the argument, stores the address of DAT_0107ca44 in m_p, and returns this.
+// Calls InitArray with the argument, stores the address of vftable_NiTPointerMap_0107ca44 in m_p, and returns this.
 // @fnv 0x0082ee80
 FUN_0082ee80_class* FUN_0082ee80_class::InitializeWithGlobal(int a)
 {
     InitArray(a);
-    m_p = &DAT_0107ca44;
+    m_p = &vftable_NiTPointerMap_0107ca44;
     return this;
 }
 
-extern "C" void* DAT_0107cb6c;
+extern "C" void* vftable_CAsyncStream;
 
 struct FUN_0082f140_class
 {
@@ -274,7 +274,7 @@ struct FUN_0082f140_class
 // src: GUESS 0x0082f140 (confidence: low)
 void __thiscall FUN_0082f140_class::SetVirtualTable_0082f140()
 {
-    *reinterpret_cast<void**>(this) = &DAT_0107cb6c;
+    *reinterpret_cast<void**>(this) = &vftable_CAsyncStream;
 }
 
 void __fastcall NiCriticalSection_Lock(void*);
@@ -299,7 +299,7 @@ void CBSAStream::Unlock_0082f1d0()
 }
 
 namespace fnv_0082f240 {
-extern int DAT_0107cb6c;
+extern int vftable_CAsyncStream;
 
 struct FUN_0082f240_class
 {
@@ -310,7 +310,7 @@ struct FUN_0082f240_class
 // @fnv 0x0082f240
 FUN_0082f240_class::FUN_0082f240_class()
 {
-    vtbl = &DAT_0107cb6c;
+    vtbl = &vftable_CAsyncStream;
 }
 }  // namespace fnv_0082f240
 
@@ -431,7 +431,7 @@ void ResetFootstepSounds()
     FalloutAudio_FUN_00839ab0();
 }
 
-extern "C" void* DAT_0107d9c4;
+extern "C" void* vftable_NiTPointerMap_0107d9c4;
 
 struct FUN_0083b5e0_class
 {
@@ -440,13 +440,13 @@ struct FUN_0083b5e0_class
     void* NiTPointerMap_int_unsigned_int_NiTPointerMap(int a);
 };
 
-// Calls InitBuffer with the argument, sets m_ptr to DAT_0107d9c4, and returns this.
+// Calls InitBuffer with the argument, sets m_ptr to vftable_NiTPointerMap_0107d9c4, and returns this.
 // @fnv 0x0083b5e0
 // src: EXE 0x0083b5e0
 void* FUN_0083b5e0_class::NiTPointerMap_int_unsigned_int_NiTPointerMap(int a)
 {
     InitBuffer(a);
-    m_ptr = &DAT_0107d9c4;
+    m_ptr = &vftable_NiTPointerMap_0107d9c4;
     return this;
 }
 
@@ -482,7 +482,7 @@ unsigned int FUN_0083e0a0_Class::GetLength()
 }  // namespace fnv_0083e0a0
 
 extern "C" void* __cdecl _NiFreeAlias(void*);
-extern void* DAT_0107ca64;
+extern void* vftable_NiTMapBase_0107ca64;
 
 struct FUN_0082efb0
 {
@@ -494,14 +494,14 @@ struct FUN_0082efb0
 // src: GUESS 0x0082efb0 (confidence: low)
 void FUN_0082efb0::SetVtableAndProcessState_0082efb0()
 {
-    *(void**)((char*)this + 0) = (void*)&DAT_0107ca64;
+    *(void**)((char*)this + 0) = (void*)&vftable_NiTMapBase_0107ca64;
     ((NiTPointerMap<int, int>*)this)->RemoveAll();
     _NiFreeAlias(*(void**)(this + 8));
 }
 
 namespace fnv_0083b710 {
 extern "C" void __cdecl _NiFreeAlias(void*);
-extern void* DAT_0107d9e4;
+extern void* vftable_NiTMapBase_0107d9e4;
 
 struct FUN_0083b710_cls : public NiTPointerMap<int, int>
 {
@@ -512,7 +512,7 @@ struct FUN_0083b710_cls : public NiTPointerMap<int, int>
 // src: GUESS 0x0083b710 (confidence: low)
 void FUN_0083b710_cls::SetVtableAndProcessState_0083b710()
 {
-    *reinterpret_cast<void**>(this) = &DAT_0107d9e4;
+    *reinterpret_cast<void**>(this) = &vftable_NiTMapBase_0107d9e4;
     RemoveAll();
     _NiFreeAlias(reinterpret_cast<void*>(reinterpret_cast<int*>(this)[2]));
 }
@@ -556,7 +556,7 @@ struct FUN_0082eee0_class
 // @fnv 0x0082eee0
 void* __thiscall FUN_0082eee0_class::InitArray(int aiCount)
 {
-    *(void***)this = &DAT_0107ca64;
+    *(void***)this = &vftable_NiTMapBase_0107ca64;
     ((int*)this)[1] = aiCount;
     ((int*)this)[3] = 0;
     unsigned int len = ((int*)this)[1] << 2;
@@ -581,9 +581,9 @@ void* __thiscall FUN_00831f80_class::FUN_00831f80(unsigned int flags)
     return this;
 }
 
-extern int DAT_0107cd54;
-extern int DAT_0107cd6c;
-extern int DAT_0107cdac;
+extern int vftable_CBSAReader_for_IAMovieSetup;
+extern int vftable_CBSAReader_for_IBaseFilter;
+extern int vftable_CBSAReader;
 extern "C" void __fastcall FUN_009fdc10(void*);
 struct FUN_00831fb0_class
 {
@@ -599,9 +599,9 @@ struct FUN_00831fb0_class
 // src: GUESS 0x00831fb0 (confidence: low)
 void __thiscall FUN_00831fb0_class::SetVtableAndProcessState_00831fb0()
 {
-    vtbl = &DAT_0107cdac;
-    c = (int)&DAT_0107cd6c;
-    d = (int)&DAT_0107cd54;
+    vtbl = &vftable_CBSAReader;
+    c = (int)&vftable_CBSAReader_for_IBaseFilter;
+    d = (int)&vftable_CBSAReader_for_IAMovieSetup;
     FUN_009fdc10(this);
 }
 
@@ -633,7 +633,7 @@ char FUN_00837280_Class::RadioConvTask_GetFileIndex()
 namespace fnv_0083b640 {
 extern "C" void* _NiMalloc(unsigned int size);
 void* memset(void* dest, int c, unsigned int count);
-extern "C" void* DAT_0107d9e4;
+extern "C" void* vftable_NiTMapBase_0107d9e4;
 struct FUN_0083b640_class
 {
     void* m_vt;
@@ -646,7 +646,7 @@ struct FUN_0083b640_class
 // @fnv 0x0083b640
 FUN_0083b640_class* __thiscall FUN_0083b640_class::InitBuffer(int aiCount)
 {
-    m_vt = &DAT_0107d9e4;
+    m_vt = &vftable_NiTMapBase_0107d9e4;
     m_uiItemCount = aiCount;
     m_auiShapeKeys = 0;
     unsigned int size = m_uiItemCount * 4;
@@ -934,11 +934,11 @@ struct FUN_00822a40_Class
     FUN_00822a40_Class();
 };
 
-extern int DAT_0107bc28;
+extern int vftable_MagicTarget;
 
-// Initializes the object's vtable pointer to DAT_0107bc28 and clears flag4 and flag5.
+// Initializes the object's vtable pointer to vftable_MagicTarget and clears flag4 and flag5.
 // @fnv 0x00822a40
-FUN_00822a40_Class::FUN_00822a40_Class() : vtbl(&DAT_0107bc28)
+FUN_00822a40_Class::FUN_00822a40_Class() : vtbl(&vftable_MagicTarget)
 {
     flag4 = 0;
     flag5 = 0;
@@ -976,8 +976,8 @@ struct BCaster_S
     ~BCaster_S();
 };
 
-extern int DAT_0107be2c;
-extern int DAT_0107be80;
+extern int vftable_NonActorMagicCaster_for_MagicCaster;
+extern int vftable_NonActorMagicCaster;
 extern int _data_011c16bc;
 
 struct FUN_00825a10 : BE
@@ -994,8 +994,8 @@ struct FUN_00825a10 : BE
 // @fnv 0x00825a10
 FUN_00825a10::FUN_00825a10() : BE((unsigned char)0x32), m_caster()
 {
-    this->vtable = reinterpret_cast<void*>(&DAT_0107be80);
-    this->m_caster.vtable = reinterpret_cast<void*>(&DAT_0107be2c);
+    this->vtable = reinterpret_cast<void*>(&vftable_NonActorMagicCaster);
+    this->m_caster.vtable = reinterpret_cast<void*>(&vftable_NonActorMagicCaster_for_MagicCaster);
     this->m_20 = 0;
     this->m_18 = 0;
     this->m_1c = 0;
@@ -1005,7 +1005,7 @@ struct FUN_008260b0 : ActiveEffect
 {
     FUN_008260b0(MagicCaster* caster, MagicItem* item, EffectItem* effect);
 };
-// Constructs the ActiveEffect base from caster, item and effect, then sets the vtable pointer to DAT_0107bf1c.
+// Constructs the ActiveEffect base from caster, item and effect, then sets the vtable pointer to vftable_OpenEffect.
 // @fnv 0x008260b0
 FUN_008260b0::FUN_008260b0(MagicCaster* caster, MagicItem* item, EffectItem* effect)
     : ActiveEffect(caster, item, effect)
@@ -3560,9 +3560,9 @@ void SoundTimer::RadioEntry_Data_Save(BGSSaveFormBuffer* buffer)
         m_queue->SaveGame(buffer);
 }
 
-extern int DAT_0107cdac;
-extern int DAT_0107cd6c;
-extern int DAT_0107cd54;
+extern int vftable_CBSAReader;
+extern int vftable_CBSAReader_for_IBaseFilter;
+extern int vftable_CBSAReader_for_IAMovieSetup;
 
 struct FUN_009f9d10_cls
 {
@@ -3588,9 +3588,9 @@ struct FUN_00831e20 : SpawnedBase
 // @fnv 0x00831e20
 FUN_00831e20::FUN_00831e20(int aiArg1, int aiArg2, int aiArg3) : SpawnedBase(0, 0, aiArg1, aiArg3)
 {
-    unk00 = &DAT_0107cdac;
-    unk0C = &DAT_0107cd6c;
-    unk10 = &DAT_0107cd54;
+    unk00 = &vftable_CBSAReader;
+    unk0C = &vftable_CBSAReader_for_IBaseFilter;
+    unk10 = &vftable_CBSAReader_for_IAMovieSetup;
     reinterpret_cast<FUN_009f9d10_cls*>(reinterpret_cast<char*>(this) + 0x1a0)->CallAndReturnThis(aiArg2);
 }
 

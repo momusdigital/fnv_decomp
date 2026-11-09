@@ -250,11 +250,12 @@ struct S0092ca00
 void __cdecl _Deallocate(void*);
 struct FUN_0092c9d0_shell
 {
-    void* FUN_0092c9d0(unsigned int);
+    void* MiddleLowProcess_ScalarDeletingDestructor(unsigned int);
 };
 // Calls FUN_0092ca00 on this, frees this when bit 0 of flags is set, and returns this.
 // @fnv 0x0092c9d0
-void* FUN_0092c9d0_shell::FUN_0092c9d0(unsigned int flags)
+// src: EXE 0x0092c9d0
+void* FUN_0092c9d0_shell::MiddleLowProcess_ScalarDeletingDestructor(unsigned int flags)
 {
     ((S0092ca00*)this)->FUN_0092ca00();
     if (flags & 1)
@@ -457,7 +458,7 @@ struct HitSoundData_0092e420
     unsigned char pad;
 };
 
-extern Setting g_011de4e8;
+extern Setting bDebugSaveBuffer_Debug;
 extern TESSaveLoadGame* DAT_011de45c;
 
 TESForm* _GetFormByNumericID(unsigned int);
@@ -502,7 +503,7 @@ unsigned short FUN_0092e420_shell::MiddleLowProcess_GetSaveSize(unsigned int fla
         usSize += this->saveSizePart.ModifierList_GetSaveSize();
     }
 
-    if (*g_011de4e8.Bool())
+    if (*bDebugSaveBuffer_Debug.Bool())
     {
         hitSound = static_cast<HitSoundData_0092e420*>(DAT_011de45c->GetHitSound());
 

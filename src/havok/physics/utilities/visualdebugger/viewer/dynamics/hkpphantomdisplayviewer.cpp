@@ -347,7 +347,7 @@ void* __cdecl hkpPhantomDisplayViewer_create(unsigned int value)
 
 namespace fnv_00e015d0 {
 hkMemoryRouter* __cdecl hkMemoryRouter_getInstance();
-extern char DAT_0102e388;
+extern char vftable_hkBaseObject;
 struct HavokArrayOwner : hkReferencedObject
 {
     hkArray<unsigned int> m_items;
@@ -367,7 +367,7 @@ HavokArrayOwner* HavokArrayOwner::DestroyHavokArrayOwner(unsigned int deletionFl
     }
     m_items.m_data = 0;
     m_items.m_iCapacityState = 0x80000000;
-    *reinterpret_cast<void**>(this) = &DAT_0102e388;
+    *reinterpret_cast<void**>(this) = &vftable_hkBaseObject;
     if (deletionFlags & 1)
     {
         hkMemoryRouter* router2 = hkMemoryRouter_getInstance();

@@ -66,7 +66,7 @@ void FUN_00625bd0_class::ForwardCall_00625bd0()
     FUN_006264f0();
 }
 
-extern int DAT_0104dfb4;
+extern int vftable_hkStreamReader;
 struct FUN_00538ef0_class
 {
     void* UpdateState_00538ef0();
@@ -80,11 +80,11 @@ struct FUN_00625fc0_class : FUN_00538ef0_class
 FUN_00625fc0_class::FUN_00625fc0_class()
 {
     UpdateState_00538ef0();
-    vtbl = (void*)&DAT_0104dfb4;
+    vtbl = (void*)&vftable_hkStreamReader;
 }
 
 namespace fnv_00625fe0 {
-extern int DAT_0104dfe8;
+extern int vftable_hkStreamWriter;
 struct FUN_00538ef0_class
 {
     void* UpdateState_00538ef0();
@@ -95,7 +95,7 @@ struct FUN_00538ef0_class
 void* FUN_00538ef0_class::InitializeFields_00625fe0()
 {
     UpdateState_00538ef0();
-    *(int**)this = &DAT_0104dfe8;
+    *(int**)this = &vftable_hkStreamWriter;
     return this;
 }
 }  // namespace fnv_00625fe0
@@ -207,11 +207,12 @@ void __cdecl Tesland_UpdateState_00538eb0(void*);
 struct FUN_00626030_class
 {
     void __thiscall FUN_00626060();
-    void* __thiscall FUN_00626030(unsigned int flags);
+    void* __thiscall HavokFileStreambufReader_ScalarDeletingDestructor(unsigned int flags);
 };
 // Calls FUN_00626060, then if the low flag bit is set calls FUN_00538eb0 on this, and returns this.
 // @fnv 0x00626030
-void* __thiscall FUN_00626030_class::FUN_00626030(unsigned int flags)
+// src: EXE 0x00626030
+void* __thiscall FUN_00626030_class::HavokFileStreambufReader_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00626060();
     if (flags & 1)
@@ -223,11 +224,12 @@ void __cdecl Tesland_UpdateState_00538eb0(void*);
 struct FUN_00626250_class
 {
     void __thiscall FUN_00626280();
-    void* __thiscall FUN_00626250(unsigned int flags);
+    void* __thiscall HavokFileStreambufWriter_ScalarDeletingDestructor(unsigned int flags);
 };
 // Calls FUN_00626280, then if bit 0 of flags is set calls FUN_00538eb0 on this, and returns this.
 // @fnv 0x00626250
-void* __thiscall FUN_00626250_class::FUN_00626250(unsigned int flags)
+// src: EXE 0x00626250
+void* __thiscall FUN_00626250_class::HavokFileStreambufWriter_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00626280();
     if (flags & 1)
@@ -334,10 +336,11 @@ void __thiscall HavokError::ReportError(const char* apDescription, int aiID, con
 struct FUN_00625b40_class : HavokError
 {
     virtual ~FUN_00625b40_class();
-    void* __thiscall FUN_00625b10(unsigned int flags);
+    void* __thiscall HavokError_ScalarDeletingDestructor(unsigned int flags);
 };
 // @fnv 0x00625b10
-void* __thiscall FUN_00625b40_class::FUN_00625b10(unsigned int flags)
+// src: EXE 0x00625b10
+void* __thiscall FUN_00625b40_class::HavokError_ScalarDeletingDestructor(unsigned int flags)
 {
     this->FUN_00625b40_class::~FUN_00625b40_class();
     if (flags & 1)

@@ -149,12 +149,12 @@ void Actor::UpdateActorMovement(float delta)
         UpdateAnimationMovement(pCurrentAnimation, delta);
         if (!((ActorPacketView*)this)->IsDead())
             speed = ((PlayerCharacter*)this)->HasCombatState()
-                        ? *(float*)((SettingT_GameSettingCollection_*)&g_011f2ac4)->Float()
-                        : *(float*)((SettingT_GameSettingCollection_*)&g_011f2ad8)->Float();
+                        ? *(float*)((SettingT_GameSettingCollection_*)&fAICombatTurnSpeedScale_Pathfinding)->Float()
+                        : *(float*)((SettingT_GameSettingCollection_*)&fAITurnSpeedScale_Pathfinding)->Float();
         else
             speed = ((PlayerCharacter*)this)->HasCombatState()
-                        ? *(float*)((SettingT_GameSettingCollection_*)&g_011f2b10)->Float()
-                        : *(float*)((SettingT_GameSettingCollection_*)&g_011f2c10)->Float();
+                        ? *(float*)((SettingT_GameSettingCollection_*)&fCreatureCombatTurnSpeedScale_Pathfinding)->Float()
+                        : *(float*)((SettingT_GameSettingCollection_*)&fCreatureTurnSpeedScale_Pathfinding)->Float();
         PickAnimations(1.0f, speed);
     }
     g_011df69c.IsInCombat();

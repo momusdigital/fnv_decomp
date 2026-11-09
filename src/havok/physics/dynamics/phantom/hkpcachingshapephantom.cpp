@@ -368,7 +368,7 @@ void hkpCachingShapePhantom::CopyFrom(const hkTransform& transform, const Linear
     setPositionAndLinearCast(*reinterpret_cast<const hkVector4*>(&transform.m_vTranslation), input, collector, startCollector);
 }
 
-extern int DAT_010ccebc;
+extern int vftable_hkpConstraintOwner;
 
 // Stack constraint owner: cleanup slot 7 receives the object with vtable 0x010ccebc.
 struct PhantomConstraintOwner
@@ -405,7 +405,7 @@ void hkpCachingShapePhantom::removeOverlappingCollidable(hkpCollidable* apOwned)
 {
     PhantomConstraintOwner visitor;
     visitor.m_sReferenceCount = 1;
-    visitor.m_vtbl = &DAT_010ccebc;
+    visitor.m_vtbl = &vftable_hkpConstraintOwner;
     if (!apOwned->m_pCollisionShape)
         return;
     for (int i = m_kCollisionDetails.GetLogicalSize() - 1; i >= 0; i--)
@@ -534,7 +534,7 @@ void hkpCachingShapePhantom::QueryCollisionDetails()
     memcpy(buffer, src, 0x50);
 
     query.m_type = 1;
-    query.m_pOwningWorld = (int)&DAT_010ccebc;
+    query.m_pOwningWorld = (int)&vftable_hkpConstraintOwner;
 
     for (int i = 0; i < m_kCollisionDetails.m_iElementCount; ++i)
     {

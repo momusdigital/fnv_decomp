@@ -19,7 +19,7 @@ public:
     virtual void BuildTriShape(unsigned int unused, SourceMesh* mesh, unsigned int arg, const char* name);
 
     void FUN_00c84c50();
-    void* FUN_0056e740(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
     int bhkShape_QMaterial();
 
     int m_0c;

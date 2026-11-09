@@ -785,7 +785,7 @@ class SettingT_GameSettingCollection_
     SETTING_VALUE* Float();
 };
 extern GlobalObject_0045d260 g_011df69c;
-extern GlobalObject_0044f440 g_011f2ac4, g_011f2ad8, g_011f2b10, g_011f2c10;
+extern GlobalObject_0044f440 fAICombatTurnSpeedScale_Pathfinding, fAITurnSpeedScale_Pathfinding, fCreatureCombatTurnSpeedScale_Pathfinding, fCreatureTurnSpeedScale_Pathfinding;
 extern VATS DAT_011f2250;
 extern TimeGlobal g_timeGlobal;
 extern Actor* DAT_011f21cc;

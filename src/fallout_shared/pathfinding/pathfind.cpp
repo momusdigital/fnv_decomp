@@ -386,7 +386,7 @@ void ArrHelper::ConstructParentSpaceNodes(ParentSpaceNode* apNodes, unsigned int
     }
 }
 
-extern SettingT_GameSettingCollection_ g_011f2af8, g_011f2b04, g_011f2ba8;
+extern SettingT_GameSettingCollection_ fAvoidanceWiderConeAngle_Pathfinding, fRunningWiderConeAngle_Pathfinding, fAvoidanceConeAngle_Pathfinding;
 extern const double DAT_01023128;
 extern float DAT_011a5cf4, DAT_011a5cf8, DAT_011a5cfc;
 float __cdecl NiCos(float);
@@ -394,9 +394,9 @@ float __cdecl NiCos(float);
 // src: COMMUNITY 0x006d0870
 bool Pathing_Init()
 {
-    DAT_011a5cf4 = NiCos(g_011f2ba8.Float()->f * DAT_01023128);
-    DAT_011a5cf8 = NiCos(g_011f2af8.Float()->f * DAT_01023128);
-    DAT_011a5cfc = NiCos(g_011f2b04.Float()->f * DAT_01023128);
+    DAT_011a5cf4 = NiCos(fAvoidanceConeAngle_Pathfinding.Float()->f * DAT_01023128);
+    DAT_011a5cf8 = NiCos(fAvoidanceWiderConeAngle_Pathfinding.Float()->f * DAT_01023128);
+    DAT_011a5cfc = NiCos(fRunningWiderConeAngle_Pathfinding.Float()->f * DAT_01023128);
     return true;
 }
 
@@ -592,7 +592,7 @@ float FUN_0099e040_shell::BSSceneGraph_GetCameraFOV()
     return *(float*)((char*)this + 0xbc);
 }
 
-extern int DAT_0106c9e0;
+extern int vftable_BSSimpleArray_0106c9e0;
 struct FUN_006dc440_class
 {
     void BSSimpleArray_NavMeshTriHandle_1024_InitialSetup(int, int);
@@ -603,12 +603,12 @@ struct FUN_006d04e0_shell
     void* BSSimpleArray_FastNavMeshTriHandle_1024_BSSimpleArray_FastNavMeshTriHandle_1024();
 };
 
-// Sets the object's vtable pointer to DAT_0106c9e0, calls FUN_006dc440(0, 0) on it, and returns this.
+// Sets the object's vtable pointer to vftable_BSSimpleArray_0106c9e0, calls FUN_006dc440(0, 0) on it, and returns this.
 // @fnv 0x006d04e0
 // src: COMMUNITY 0x006d04e0
 void* FUN_006d04e0_shell::BSSimpleArray_FastNavMeshTriHandle_1024_BSSimpleArray_FastNavMeshTriHandle_1024()
 {
-    *(int*)this = (int)&DAT_0106c9e0;
+    *(int*)this = (int)&vftable_BSSimpleArray_0106c9e0;
     reinterpret_cast<FUN_006dc440_class*>(this)->BSSimpleArray_NavMeshTriHandle_1024_InitialSetup(0, 0);
     return this;
 }
@@ -786,7 +786,7 @@ void __cdecl Pathing_FindConnectedNavmeshesForLocation(void* p, float f, int i)
     Pathing_FindNavmeshesForLocation(p, f, i, 1);
 }
 
-extern "C" void* DAT_0106cbec;
+extern "C" void* vftable_BSSimpleArray_0106cbec;
 
 struct FUN_006dae60_shell
 {
@@ -794,12 +794,12 @@ struct FUN_006dae60_shell
     void* __thiscall InitializeFields_006dae60();
 };
 
-// Sets the object's vtable pointer to DAT_0106cbec, calls FUN_006dc070(0, 0), and returns this.
+// Sets the object's vtable pointer to vftable_BSSimpleArray_0106cbec, calls FUN_006dc070(0, 0), and returns this.
 // @fnv 0x006dae60
 // src: GUESS 0x006dae60 (confidence: low)
 void* __thiscall FUN_006dae60_shell::InitializeFields_006dae60()
 {
-    *(void**)this = &DAT_0106cbec;
+    *(void**)this = &vftable_BSSimpleArray_0106cbec;
     BSSimpleArray_PathingCoverLocation_1024_InitialSetup(0, 0);
     return this;
 }
@@ -810,7 +810,7 @@ struct FUN_006dbde0_shell
     void __thiscall FUN_006dbde0(int);
 };
 
-extern int DAT_0106cbec;
+extern int vftable_BSSimpleArray_0106cbec;
 
 struct FUN_006dae90_shell
 {
@@ -822,7 +822,7 @@ struct FUN_006dae90_shell
 // src: GUESS 0x006dae90 (confidence: low)
 void FUN_006dae90_shell::UpdateState_006dae90()
 {
-    m = &DAT_0106cbec;
+    m = &vftable_BSSimpleArray_0106cbec;
     ((FUN_006dbde0_shell*)this)->FUN_006dbde0(1);
 }
 }  // namespace fnv_006dae90
@@ -865,18 +865,18 @@ void __thiscall FUN_006d0540_shell::CopyOverlappingElements30(void* dst, void* s
     }
 }
 
-extern int DAT_0106b1cc;
+extern int vftable_BSSimpleArray_0106b1cc;
 struct S006d0420
 {
     void __thiscall BSSimpleArray_char_1024_InitialSetup(int, int);
     S006d0420* BSSimpleArray_bool_1024_BSSimpleArray_bool_1024();
 };
-// Sets the object's vtable pointer to DAT_0106b1cc, calls FUN_0069b940 with 0, 0, and returns this.
+// Sets the object's vtable pointer to vftable_BSSimpleArray_0106b1cc, calls FUN_0069b940 with 0, 0, and returns this.
 // @fnv 0x006d0420
 // src: COMMUNITY 0x006d0420
 S006d0420* S006d0420::BSSimpleArray_bool_1024_BSSimpleArray_bool_1024()
 {
-    *(void**)this = (void*)&DAT_0106b1cc;
+    *(void**)this = (void*)&vftable_BSSimpleArray_0106b1cc;
     BSSimpleArray_char_1024_InitialSetup(0, 0);
     return this;
 }

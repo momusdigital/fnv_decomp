@@ -21,7 +21,7 @@ public:
     bhkShape* bhkWorldObject_GetShape();
     bhkFilter bhkWorldObject_GetCollisionFilter();
     void FUN_00c85790();
-    void* FUN_0056d4c0(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
     void* Bipedanim_GetReferenceFlagsOrZero();
     float bhkRigidBody_GetMass();
 

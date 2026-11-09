@@ -254,13 +254,13 @@ struct FUN_00d63c50 : public hkpWorldViewerBase {
     volatile int m_38;        // +0x38
 };
 // the vftables of the class and of its bases
-extern int DAT_010cb1d4;
-extern int DAT_010ccf7c;
-extern int DAT_010d1854;
-extern int DAT_010d1834;
-extern int DAT_010d1824;
-extern int DAT_010d1814;
-extern int DAT_010d1804;
+extern int vftable_hkpActionListener;
+extern int vftable_hkpWorldPostSimulationListener;
+extern int vftable_hkpVehicleViewer;
+extern int vftable_hkpVehicleViewer_for_hkProcess;
+extern int vftable_hkpVehicleViewer_for_hkpPhysicsContextWorldListener;
+extern int vftable_hkpVehicleViewer_for_hkpActionListener;
+extern int vftable_hkpVehicleViewer_for_hkpWorldPostSimulationListener;
 void* __cdecl hkMemoryRouter_getInstance() throw();
 struct S_D { virtual ~S_D() throw() {} };
 struct S_E { virtual ~S_E() throw() {} };

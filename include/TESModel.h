@@ -40,7 +40,7 @@ public:
     void LoadTextureSwapList(void* buffer, unsigned int size, unsigned int version);
     unsigned int TESModel_GetSkinFlags();
     bool TESModel_QHasFacegenData();
-    void* FUN_00489010(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
     void SetFlags_004893c0(unsigned char flags);
 
     static void LoadModelData(TESModel* model, TESFile* file);

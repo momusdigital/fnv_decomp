@@ -18,7 +18,7 @@ void NiGeometryBufferData::ReleaseBuffers()
 }
 
 extern void* NiGeometryBufferData_vtable;
-extern int DAT_010f0170;
+extern int vftable_NiGeometryData__RendererData;
 void __cdecl _NiFreeAlias(void*);
 
 struct UnknownVtable08
@@ -65,7 +65,7 @@ void __fastcall DestroyGeometryBufferData(NiGeometryBufferData* apData)
         pDecl->Release();
     }
 
-    *reinterpret_cast<void**>(apData) = &DAT_010f0170;
+    *reinterpret_cast<void**>(apData) = &vftable_NiGeometryData__RendererData;
 }
 
 namespace fnv_00e8f170 {
@@ -82,12 +82,12 @@ void* __fastcall FUN_00e8f170(void* _this, int, unsigned int auiFlags)
 }  // namespace fnv_00e8f170
 
 extern MemoryManager g_memoryManager;
-extern int DAT_010f0170;
-// Sets the object's vtable pointer to DAT_010f0170 and, if bit 0 of a1 is set, deallocates the object via g_memoryManager, then returns this.
+extern int vftable_NiGeometryData__RendererData;
+// Sets the object's vtable pointer to vftable_NiGeometryData__RendererData and, if bit 0 of a1 is set, deallocates the object via g_memoryManager, then returns this.
 // @fnv 0x00e8ee80
 void* __fastcall DestroyRendererData(NiGeometryData::RendererData* apData, int, unsigned int auiFlags)
 {
-    *(void**)apData = (void*)&DAT_010f0170;
+    *(void**)apData = (void*)&vftable_NiGeometryData__RendererData;
     if (auiFlags & 1)
         g_memoryManager._DeallocateAlias(apData);
     return apData;

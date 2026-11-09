@@ -29,7 +29,7 @@ public:
 
     ExtraReflectedRefs();
     void FUN_00434560();
-    void* FUN_00411bb0(unsigned int);
+    void* ScalarDeletingDestructor(unsigned int);
     void InitItem(TESForm*);
     void Copy(BSExtraData*);
     void Copy(BSExtraDataEx* apSource);

@@ -97,7 +97,7 @@ void* S_00a53280_Foo::NiBoolInterpolator_NiBoolInterpolator(void* arg)
 {
     FUN_00a3ca10();
 
-    unk00 = (void*)&DAT_0109a0b4;
+    unk00 = (void*)&vftable_NiBoolInterpolator;
     unk0c = DAT_0109a914;
     unk10 = arg;
 

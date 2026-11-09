@@ -49,7 +49,7 @@ void __cdecl FUN_00a38e00();
 void __cdecl FUN_00a57c70();
 void __cdecl ReadLinkID();
 void __cdecl NiLight_SetAmbientColor();
-extern int DAT_0109ad74;
+extern int vftable_NiPoint3InterpController;
 __declspec(noinline) NiPoint3InterpController* __fastcall InitializePoint3Controller(NiPoint3InterpController* self);
 
 extern "C" bool __stdcall FUN_00a57780(void*);
@@ -83,7 +83,7 @@ GlobalObjectO2_00a7b610* __cdecl NiLightColorController_GetRTTI()
     return &g_011f3fa8;
 }
 
-extern int DAT_01098dd4;
+extern int vftable_NiLightColorController;
 
 // @fnv 0x00a4d500
 // src: EXE 0x00a4d500
@@ -95,7 +95,7 @@ void* __cdecl NiLightColorController_CreateObject()
         NiLightColorController* pController = (NiLightColorController*)p;
         ((void(__thiscall*)(NiLightColorController*))InitializePoint3Controller)(pController);
         *(short*)((char*)p + 0x38) = 0;
-        *(void**)p = &DAT_01098dd4;
+        *(void**)p = &vftable_NiLightColorController;
         return p;
     }
     return 0;
@@ -156,7 +156,7 @@ extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volati
 // @fnv 0x00a4d460
 void* __fastcall DestroyAndFree(NiLightColorController* self, void*, unsigned int auiFlags)
 {
-    *(void* volatile*)self = (void*)&DAT_01098dd4;
+    *(void* volatile*)self = (void*)&vftable_NiLightColorController;
     void* p = *(void* volatile*)((char*)self + 0x34);
     if (p)
     {
@@ -181,7 +181,7 @@ void* __fastcall NiLightColorController_CreateClone(NiLightColorController* self
     if (pkObject)
     {
         ((void(__thiscall*)(NiLightColorController*))InitializePoint3Controller)(pkObject);
-        *(void**)pkObject = (void*)&DAT_01098dd4;
+        *(void**)pkObject = (void*)&vftable_NiLightColorController;
         LightColorFlags(pkObject) = 0;
     }
     else
@@ -373,7 +373,7 @@ void NiTimeController::EvaluateAndApplyOutput(float& parameter)
 __declspec(noinline) NiPoint3InterpController* __fastcall InitializePoint3Controller(NiPoint3InterpController* self)
 {
     ((void(__thiscall*)(NiPoint3InterpController*))FUN_00a38e00)(self);
-    *(void**)self = &DAT_0109ad74;
+    *(void**)self = &vftable_NiPoint3InterpController;
     return self;
 }
 

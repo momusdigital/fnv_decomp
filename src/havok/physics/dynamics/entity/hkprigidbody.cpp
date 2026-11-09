@@ -1057,7 +1057,7 @@ void CA92A0Object::CopyEntriesFrom(const CA92A0Object* other)
     m_entries = other->m_entries;
 }
 
-extern int DAT_010c6c64;
+extern int vftable_hkpMaxSizeMotion;
 
 static __forceinline void memCpy16NonEmpty(void* dst, const void* src, int numQuads)
 {
@@ -1168,7 +1168,7 @@ FUN_00ca90c0_cls* FUN_00ca90c0_cls::Clone()
         char* pObj = (char*)heapAllocator(hkMemoryRouter_getInstance()).blockAlloc(0x120);
         *(unsigned short*)(pObj + 4) = 0x120;
         *(int*)(pObj + 0x118) = 0;
-        *(int*)pObj = (int)&DAT_010c6c64;
+        *(int*)pObj = (int)&vftable_hkpMaxSizeMotion;
         *(char**)((char*)pCopy + 0x1f8) = pObj;
         memCpy16NonEmpty(pObj, *(char**)((char*)this + 0x1f8), 0x12);
     }

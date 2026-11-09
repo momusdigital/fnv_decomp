@@ -311,7 +311,7 @@ void BSTempEffectSimpleDecal::CleanUpMemory()
     reinterpret_cast<BSSimpleArray<DecalPointRecord*>*>(m_aucByteBuffer)->Clear(true);
 }
 
-extern Setting g_011c57fc;
+extern Setting uMaxDecals_Decals;
 extern int DAT_0119c298;
 extern float DAT_0119c29c;
 
@@ -426,7 +426,7 @@ FUN_0068ad20::FUN_0068ad20(int p1, float m_fParticleParameter5, SimpleDecalParam
     unk30 = pData->unk30;
     if (DAT_0119c298 == -1)
     {
-        DAT_0119c298 = *g_011c57fc.Int();
+        DAT_0119c298 = *uMaxDecals_Decals.Int();
     }
     unk108 = p1;
     spNode10C = pData->pNode;
@@ -1225,7 +1225,7 @@ extern int DAT_011c57f4, DAT_011d6a20, DAT_0119c298;
 extern float DAT_011c3c08;
 extern EffectList g_011d6a30;
 extern Manager DAT_011e0e80;
-extern Setting g_011c5904;
+extern Setting bDebugDecals_Decals;
 extern int g_011c7d34;
 NiFixedString* __cdecl FixedStrings_GetPermanentDecal();
 void* __cdecl FixedStrings_GetDecal();
@@ -1331,7 +1331,7 @@ bool BSTempEffectSimpleDecal::CreateDecalTexture()
                     DAT_011e0e80.remove((BSTempEffectSimpleDecal*)(Graph*)g_011d6a30.head());
                     g_011d6a30.removeHead();
                     DAT_011d6a20--;
-                    if (*g_011c5904.Bool())
+                    if (*bDebugDecals_Decals.Bool())
                         warning("DECAL: Reached Max Decal Limit of %d! Removing oldest decal...", DAT_0119c298);
                 }
             }

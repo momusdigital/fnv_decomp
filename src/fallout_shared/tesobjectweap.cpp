@@ -1480,11 +1480,12 @@ char FUN_00524d50_shell::GetByteAtOffset1F8()
 void __cdecl _Deallocate(void*);
 struct FUN_0051dad0_This {
     void FUN_0051db00();
-    void* FUN_0051dad0(unsigned int);
+    void* TESObjectWEAP_ScalarDeletingDestructor(unsigned int);
 };
 // Calls FUN_0051db00 on this, frees this with _Deallocate when flags has bit 1 set, and returns this.
 // @fnv 0x0051dad0
-void* FUN_0051dad0_This::FUN_0051dad0(unsigned int flags)
+// src: EXE 0x0051dad0
+void* FUN_0051dad0_This::TESObjectWEAP_ScalarDeletingDestructor(unsigned int flags)
 {
     this->FUN_0051db00();
     if (flags & 1)
@@ -3503,7 +3504,7 @@ struct FireFace {
 struct FireTransform { FirePoint ComputeValue_00524c40(const FirePoint&); };
 
 struct FireSetting { float* Float(); unsigned char* Bool(); };
-extern FireSetting g_011c94a0, g_011c94b0, g_011ce23c;
+extern FireSetting bLaserSights_Combat, bAimSights_Combat, g_011ce23c;
 struct FireSmart {
  FireNode* ptr;
  FireSmart(FireNode*); ~FireSmart();
@@ -3625,7 +3626,7 @@ void FireWeapon::TESObjectWEAP_Fire(FireRef* reference) {
      float roll4;
      ((FireNode*)muzzle11->NiAVObject_GetWorldRotate())->NiMatrix3_ToEulerAnglesZXY(&yaw21,&pitch37,&roll4);
     }
-    if (*g_011c94a0.Bool()) {
+    if (*bLaserSights_Combat.Bool()) {
      FireNode* root = muzzle11->node();
      if (!root) root = muzzle11->NiAVObject_GetParent()->node();
      if (root) {
@@ -3670,7 +3671,7 @@ void FireWeapon::TESObjectWEAP_Fire(FireRef* reference) {
     FirePoint direction = targetPosition-position6;
     yaw21 = FUN_004b1550(&direction);
     pitch37 = -NiASin_004b54c0(direction.z/direction.Length());
-    if (*g_011c94b0.Bool()) {
+    if (*bAimSights_Combat.Bool()) {
      FireNode* cellNode = (FireNode*)TESObjectCELL_GetMarkerNode((TESObjectCELL*)actor19->FUN_008d6f30());
      if (cellNode) {
       FireSmart cellMarker31(cellNode->find((void*)get_g_AimSight()));

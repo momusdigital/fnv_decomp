@@ -28,7 +28,7 @@
 
 extern "C" void* __cdecl _NiMalloc(unsigned int);
 extern "C" void* __cdecl memset(void*, int, unsigned int);
-extern int DAT_0104e510;
+extern int vftable_NiTMapBase_0104e510;
 
 struct FUN_006318b0_Class
 {
@@ -44,7 +44,7 @@ struct FUN_006318b0_Class
 // src: COMMUNITY 0x006318b0
 FUN_006318b0_Class* __thiscall FUN_006318b0_Class::NiTMapBase_DFALL_NiTMapItem_hkpRigidBody_bool_hkpRigidBody_bool_NiTMapBase_DFALL_NiTMapItem_hkpRigidBody_bool_hkpRigidBody_bool(int count)
 {
-    m_vtbl = &DAT_0104e510;
+    m_vtbl = &vftable_NiTMapBase_0104e510;
     m_uiItemCount = count;
     m_auiShapeKeys = 0;
     unsigned int bytes = m_uiItemCount * 4;
@@ -65,7 +65,7 @@ NiPoint3* NiPoint3::ScaleTo(NiPoint3* dst, float scale)
     return dst;
 }
 
-extern int DAT_0104d9e0;
+extern int vftable_BGSZoneTargetListener;
 struct FUN_00620110_Class
 {
     int* m_vtbl;
@@ -76,7 +76,7 @@ struct FUN_00620110_Class
 // src: GUESS 0x00620110 (confidence: low)
 void FUN_00620110_Class::UpdateState_00620110()
 {
-    m_vtbl = (int*)&DAT_0104d9e0;
+    m_vtbl = (int*)&vftable_BGSZoneTargetListener;
     BGSZoneTargetListener_EmptyList();
 }
 
@@ -206,7 +206,7 @@ FUN_00621c40_Class* __thiscall FUN_00621c40_Class::ProcessAndReturnValue_00621c4
 }
 
 extern "C" void __cdecl j_Deallocate_NiTNewInterface_V_NiPointer_VNiAVObject_SAXPAV_NiPointer_VNiAVObject_Z(int);
-extern int DAT_0104dc94;
+extern int vftable_NiTArray_0104dc94;
 
 struct FUN_00622780_Class
 {
@@ -219,7 +219,7 @@ struct FUN_00622780_Class
 // src: GUESS 0x00622780 (confidence: low)
 void __thiscall FUN_00622780_Class::SetVirtualTable_00622780()
 {
-    m_vtbl = &DAT_0104dc94;
+    m_vtbl = &vftable_NiTArray_0104dc94;
     j_Deallocate_NiTNewInterface_V_NiPointer_VNiAVObject_SAXPAV_NiPointer_VNiAVObject_Z(m_uiItemCount);
 }
 
@@ -285,7 +285,7 @@ void __thiscall FUN_006232f0_Class::DecalCaster_GetCollision(int aiIndex)
 }
 }  // namespace fnv_006232f0
 
-extern int DAT_0104dd5c;
+extern int vftable_bhkContactListener;
 
 struct FUN_006234b0_Class
 {
@@ -299,7 +299,7 @@ struct FUN_006234b0_Class
 FUN_006234b0_Class* __thiscall FUN_006234b0_Class::UpdateState_006234b0()
 {
     hkpContactListener_hkpContactListener();
-    m_vtbl = &DAT_0104dd5c;
+    m_vtbl = &vftable_bhkContactListener;
     return this;
 }
 
@@ -540,7 +540,7 @@ FUN_00629a80_Class* __thiscall FUN_00629a80_Class::ProcessAndReturnValue_006299a
     return this;
 }
 
-extern int DAT_0104e150;
+extern int vftable_NiTMap_0104e150;
 
 struct FUN_00629ba0_Class
 {
@@ -562,7 +562,7 @@ struct FUN_006299f0_Class
 FUN_006299f0_Class* __thiscall FUN_006299f0_Class::Construct(int aiValue)
 {
     InitArray(aiValue);
-    m_vtbl = &DAT_0104e150;
+    m_vtbl = &vftable_NiTMap_0104e150;
     return this;
 }
 
@@ -602,7 +602,7 @@ void __thiscall FUN_00629ee0_Class::ReleaseStorage_00629ee0(void* param)
     ((Unk6b*)((char*)this + 0xc))->FreeMemory(param);
 }
 
-extern int DAT_0104e190;
+extern int vftable_BSSimpleArray_0104e190;
 struct AX
 {
     void __thiscall BSSimpleArray_float_1024_InitialSetup(unsigned int, unsigned int);
@@ -611,17 +611,17 @@ struct FUN_00629fd0_Class : public AX
 {
     AX* __thiscall BSSimpleArray_bhkRigidBody_1024_BSSimpleArray_bhkRigidBody_1024();
 };
-// Sets the object's vtable pointer to DAT_0104e190, calls FUN_006b3eb0 with 0, 0, and returns this.
+// Sets the object's vtable pointer to vftable_BSSimpleArray_0104e190, calls FUN_006b3eb0 with 0, 0, and returns this.
 // @fnv 0x00629fd0
 // src: COMMUNITY 0x00629fd0
 AX* __thiscall FUN_00629fd0_Class::BSSimpleArray_bhkRigidBody_1024_BSSimpleArray_bhkRigidBody_1024()
 {
-    *reinterpret_cast<int**>(this) = &DAT_0104e190;
+    *reinterpret_cast<int**>(this) = &vftable_BSSimpleArray_0104e190;
     BSSimpleArray_float_1024_InitialSetup(0, 0);
     return this;
 }
 
-extern int DAT_0104e190;
+extern int vftable_BSSimpleArray_0104e190;
 struct GlobalObject_00869f00
 {
     int* m_vtbl;
@@ -632,7 +632,7 @@ struct GlobalObject_00869f00
 // src: GUESS 0x0062a000 (confidence: medium)
 void __thiscall GlobalObject_00869f00::ResetVirtualTableAndClear_0062a000()
 {
-    m_vtbl = &DAT_0104e190;
+    m_vtbl = &vftable_BSSimpleArray_0104e190;
     Clear(true);
 }
 
@@ -680,7 +680,7 @@ void __thiscall FUN_0062a2d0_Class::hkpShapeRayCastOutput_reset()
     hkpShapeRayCastOutput__reset(this);
 }
 
-extern int DAT_0104e254;
+extern int vftable_bhkArrowTargetListener;
 struct FUN_0062a480_Class
 {
     int* m_vtbl;
@@ -688,18 +688,18 @@ struct FUN_0062a480_Class
     void __thiscall FUN_0061f4d0(int);
     FUN_0062a480_Class* __thiscall bhkArrowTargetListener_bhkArrowTargetListener();
 };
-// Calls FUN_0061f4d0(0), sets m_vtbl to &DAT_0104e254, and returns this.
+// Calls FUN_0061f4d0(0), sets m_vtbl to &vftable_bhkArrowTargetListener, and returns this.
 // @fnv 0x0062a480
 // src: EXE 0x0062a480
 FUN_0062a480_Class* __thiscall FUN_0062a480_Class::bhkArrowTargetListener_bhkArrowTargetListener()
 {
     FUN_0061f4d0(0);
-    m_vtbl = &DAT_0104e254;
+    m_vtbl = &vftable_bhkArrowTargetListener;
     return this;
 }
 
 namespace fnv_00631780 {
-extern int DAT_0104e4bc;
+extern int vftable_BSSimpleArray_0104e4bc;
 
 struct GlobalObject_00869f00
 {
@@ -716,7 +716,7 @@ struct FUN_00631780_Class
 // src: GUESS 0x00631780 (confidence: medium)
 void __thiscall FUN_00631780_Class::ResetVirtualTableAndClear_00631780()
 {
-    m_vtbl = (int*)&DAT_0104e4bc;
+    m_vtbl = (int*)&vftable_BSSimpleArray_0104e4bc;
     ((GlobalObject_00869f00*)this)->Clear(true);
 }
 }  // namespace fnv_00631780
@@ -977,7 +977,7 @@ Holder* Holder::hkAabb_hkAabb(Holder* apFirst, Holder* apSecond)
 }
 
 extern "C" void __cdecl NiFreeAlias(void*);
-extern int DAT_0104e170;
+extern int vftable_NiTMapBase_0104e170;
 // RTTI at vtable 0x0104e170 identifies NiTMapBase<DFALL<NiTMapItem<bhkRigidBody*, unsigned short> >, bhkRigidBody*, unsigned short>.
 // @fnv 0x00629eb0
 template <>
@@ -1001,7 +1001,7 @@ struct FUN_00631980_Map
 // @fnv 0x00631980
 void __thiscall FUN_00631980_Map::DestroyMap()
 {
-    m_vtbl = &DAT_0104e510;
+    m_vtbl = &vftable_NiTMapBase_0104e510;
     RemoveAll();
     NiFreeAlias(m_data);
 }
@@ -1471,8 +1471,8 @@ bool __fastcall CFilter_QBipLayer(bhkFilter* filter)
     return el == 8 || el == 0x1d;
 }
 
-extern int DAT_0104dde4;
-extern int DAT_0104de00;
+extern int vftable_FOIslandActivationListener_for_hkpEntityListener;
+extern int vftable_FOIslandActivationListener;
 struct FUN_006c0210_shell
 {
     void __thiscall ComputeValue_0061f580();
@@ -1481,19 +1481,19 @@ struct FUN_006241c0_shell
 {
     void __thiscall FUN_006241c0();
 };
-struct FUN_00624150_Class
+struct FOIslandActivationListener
 {
     int m_vtbl;
     int m_kPointA;
-    FUN_00624150_Class();
+    FOIslandActivationListener();
 };
 // @fnv 0x00624150
-FUN_00624150_Class::FUN_00624150_Class()
+FOIslandActivationListener::FOIslandActivationListener()
 {
     ((FUN_006241c0_shell*)this)->FUN_006241c0();
     ((FUN_006c0210_shell*)((char*)this + 4))->ComputeValue_0061f580();
-    m_vtbl = (int)&DAT_0104de00;
-    m_kPointA = (int)&DAT_0104dde4;
+    m_vtbl = (int)&vftable_FOIslandActivationListener;
+    m_kPointA = (int)&vftable_FOIslandActivationListener_for_hkpEntityListener;
 }
 
 // Copies two consecutive ints from src into dst using a do-while loop.
@@ -1669,12 +1669,12 @@ FUN_00629b40::~FUN_00629b40()
 }
 }  // namespace fnv_00629b40
 
-extern int DAT_0104e170;
+extern int vftable_NiTMapBase_0104e170;
 // Sets the vtable, stores count at offset 4, allocates count*4 bytes at offset 8, zeroes them, and clears offset 0xc.
 // @fnv 0x00629ba0
 void* FUN_00629ba0_Class::InitArray(int count)
 {
-    m_vtbl = &DAT_0104e170;
+    m_vtbl = &vftable_NiTMapBase_0104e170;
     *(int*)((char*)this + 4) = count;
     *(int*)((char*)this + 0xc) = 0;
     unsigned int size = *(int*)((char*)this + 4) << 2;
@@ -1771,11 +1771,12 @@ struct FUN_005545b0
 };
 struct FUN_0062a4b0_Class : public FUN_005545b0
 {
-    void* __thiscall FUN_0062a4b0(unsigned int flags);
+    void* __thiscall bhkArrowTargetListener_ScalarDeletingDestructor(unsigned int flags);
 };
 // Calls FUN_005545d0, then deallocates this when flags has bit 0 set, and returns this.
 // @fnv 0x0062a4b0
-void* __thiscall FUN_0062a4b0_Class::FUN_0062a4b0(unsigned int flags)
+// src: EXE 0x0062a4b0
+void* __thiscall FUN_0062a4b0_Class::bhkArrowTargetListener_ScalarDeletingDestructor(unsigned int flags)
 {
     ForwardCall_005545d0();
     if (flags & 1)
@@ -1818,8 +1819,8 @@ FUN_0062aae0::FUN_0062aae0(void* apArg, Holder* apHolder)
     ((FUN_008cd6a0_Class*)this)->hkRotation_set(apArg);
 }
 
-extern int DAT_0104e38c;
-extern int DAT_0104e3a4;
+extern int vftable_bhkTrapListener_for_hkpPhantomListener;
+extern int vftable_bhkTrapListener;
 
 struct FUN_0062d6f0_shell
 {
@@ -1866,8 +1867,8 @@ void* __thiscall FUN_0062d680_Class::InitializeFields_0062d680()
 {
     ((FUN_0062a480_Class*)this)->FUN_0061f4d0(0);
     ((FUN_0062d6f0_shell*)((char*)this + 0x14))->hkpPhantomListener_hkpPhantomListener();
-    m_vtbl = (int*)&DAT_0104e3a4;
-    *(int*)((char*)this + 0x14) = (int)&DAT_0104e38c;
+    m_vtbl = (int*)&vftable_bhkTrapListener;
+    *(int*)((char*)this + 0x14) = (int)&vftable_bhkTrapListener_for_hkpPhantomListener;
     return this;
 }
 
@@ -1921,18 +1922,18 @@ void* __thiscall FUN_006317c0_Class::FUN_006317c0(unsigned int flags)
     return this;
 }
 
-extern int DAT_0104e4f0;
+extern int vftable_NiTMap_0104e4f0;
 struct FUN_00631850_Class : FUN_006318b0_Class
 {
     FUN_00631850_Class* __thiscall NiTMap_hkpRigidBody_bool_NiTMap(int);
 };
-// Calls the base constructor with count, installs DAT_0104e4f0 as the vtable pointer, and returns this.
+// Calls the base constructor with count, installs vftable_NiTMap_0104e4f0 as the vtable pointer, and returns this.
 // @fnv 0x00631850
 // src: EXE 0x00631850
 FUN_00631850_Class* __thiscall FUN_00631850_Class::NiTMap_hkpRigidBody_bool_NiTMap(int count)
 {
     NiTMapBase_DFALL_NiTMapItem_hkpRigidBody_bool_hkpRigidBody_bool_NiTMapBase_DFALL_NiTMapItem_hkpRigidBody_bool_hkpRigidBody_bool(count);
-    *(int*)this = (int)&DAT_0104e4f0;
+    *(int*)this = (int)&vftable_NiTMap_0104e4f0;
     return this;
 }
 
@@ -2300,7 +2301,7 @@ struct FUN_00622870_Class
 // src: EXE 0x00622870
 FUN_00622870_Class* __thiscall FUN_00622870_Class::NiTArray_NiPointer_bhkRigidBody_NiTNewInterface_NiPointer_bhkRigidBody_NiTArray(unsigned short count, unsigned short a)
 {
-    m_vtbl = &DAT_0104dc94;
+    m_vtbl = &vftable_NiTArray_0104dc94;
     m_uiItemCount = count;
     m_kPointB = a;
     m_auiShapeKeys = 0;
@@ -2531,7 +2532,7 @@ void* FUN_00621930_Class::hkpCollisionInput_hkpCollisionInput(void)
     return this;
 }
 
-extern int DAT_0104dea4;
+extern int vftable_HavokStreambufFactory;
 struct FUN_00624e00_Class
 {
     int* m_vtbl;
@@ -2546,20 +2547,20 @@ struct FUN_00624de0_Class : FUN_00624e00_Class
 FUN_00624de0_Class* __thiscall FUN_00624de0_Class::SetVirtualTableAndProcessState_00624de0()
 {
     FUN_00624e00();
-    m_vtbl = (int*)&DAT_0104dea4;
+    m_vtbl = (int*)&vftable_HavokStreambufFactory;
     return this;
 }
 
-extern int DAT_0104e228;
-struct FUN_0062a460_Class : FUN_0062a480_Class
+extern int vftable_TESArrowTargetListener;
+struct TESArrowTargetListener : FUN_0062a480_Class
 {
-    FUN_0062a460_Class();
+    TESArrowTargetListener();
 };
 // @fnv 0x0062a460
-FUN_0062a460_Class::FUN_0062a460_Class()
+TESArrowTargetListener::TESArrowTargetListener()
 {
     FUN_0062a480_Class::bhkArrowTargetListener_bhkArrowTargetListener();
-    m_vtbl = (int*)&DAT_0104e228;
+    m_vtbl = (int*)&vftable_TESArrowTargetListener;
 }
 
 extern int DAT_011cc694;
@@ -3433,7 +3434,7 @@ void Runtime_ReleaseStorage_00626f10()
     g_pD626F10Second = 0;
 }
 
-extern "C" int DAT_0104e130;
+extern "C" int vftable_LoadedAreaBound;
 
 struct ObjBase_cls
 {
@@ -3477,7 +3478,7 @@ struct FUN_00626fd0 : ObjBase_cls
 };
 
 // @fnv 0x00626fd0
-FUN_00626fd0::FUN_00626fd0(float a, float b, float c, float d) : m_vptr(&DAT_0104e130), m_20(0), m_24(0x25)
+FUN_00626fd0::FUN_00626fd0(float a, float b, float c, float d) : m_vptr(&vftable_LoadedAreaBound), m_20(0), m_24(0x25)
 {
     m_34 = a;
     m_38 = b;
@@ -4001,9 +4002,9 @@ float TESHavokUtilities_GetMaterialBuoyancy(unsigned int uiIndex)
     }
 }
 
-extern "C" int DAT_0104e37c;
-extern "C" int DAT_0104e350;
-extern "C" int DAT_0104e338;
+extern "C" int vftable_TESTrapListener;
+extern "C" int vftable_TESTrapListener_for_bhkTrapListener;
+extern "C" int vftable_TESTrapListener_for_hkpPhantomListener;
 
 struct FUN_0061ffb0
 {
@@ -4034,9 +4035,9 @@ struct FUN_0062d5c0 : FUN_0061ffb0
 // @fnv 0x0062d5c0
 FUN_0062d5c0::FUN_0062d5c0() : FUN_0061ffb0(), m_part08()
 {
-    m_ppVirtualMethodTable = &DAT_0104e37c;
-    m_part08.m_ppVirtualMethodTable = &DAT_0104e350;
-    m_vtable1c = &DAT_0104e338;
+    m_ppVirtualMethodTable = &vftable_TESTrapListener;
+    m_part08.m_ppVirtualMethodTable = &vftable_TESTrapListener_for_bhkTrapListener;
+    m_vtable1c = &vftable_TESTrapListener_for_hkpPhantomListener;
     m_count20 = 0;
 }
 
@@ -7421,7 +7422,7 @@ struct Member34
     ~Member34();
 };
 
-extern GlobalObject_0045cfe0 g_011c63cc;
+extern GlobalObject_0045cfe0 uGridsToLoad_General;
 
 struct FUN_0062e780 : CB75D0Base, SecBase14
 {
@@ -7436,11 +7437,11 @@ struct FUN_0062e780 : CB75D0Base, SecBase14
     virtual ~FUN_0062e780();
 };
 
-// Initializes m_1c to 1.0f, reads a size from g_011c63cc into m_28, and allocates an int array of m_28 squared elements into m_20.
+// Initializes m_1c to 1.0f, reads a size from uGridsToLoad_General into m_28, and allocates an int array of m_28 squared elements into m_20.
 // @fnv 0x0062e780
 FUN_0062e780::FUN_0062e780() : m_1c(1.0f)
 {
-    m_28 = *g_011c63cc.Int();
+    m_28 = *uGridsToLoad_General.Int();
     int iSize = m_28 * m_28;
     m_20 = new int[iSize];
 }

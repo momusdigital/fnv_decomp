@@ -787,7 +787,7 @@ void __thiscall TESLeveledList::SetUseAll(bool abSet)
 }
 
 extern void __fastcall FUN_00c4f980(void*);
-extern int DAT_010c34ac;
+extern int vftable_BSMultiBoundCapsule;
 
 // Initialize the capsule without introducing calls to its empty point constructors.
 // @fnv 0x00c60d50
@@ -795,7 +795,7 @@ extern int DAT_010c34ac;
 BSMultiBoundCapsule* __fastcall BSMultiBoundCapsule_BSMultiBoundCapsule(BSMultiBoundCapsule* capsule)
 {
     FUN_00c4f980(capsule);
-    *reinterpret_cast<int**>(capsule) = &DAT_010c34ac;
+    *reinterpret_cast<int**>(capsule) = &vftable_BSMultiBoundCapsule;
     return capsule;
 }
 

@@ -172,7 +172,7 @@ inline NiBinaryStream* WriteStreamBuffer(NiStream& stream)
     return *(NiBinaryStream**)((char*)&stream + 0x250);
 }
 
-extern int DAT_010c53dc;
+extern int vftable_bhkBlendCollisionObject;
 extern int DAT_01267e60;
 
 struct FUN_00c6c290_holder
@@ -189,7 +189,7 @@ struct FUN_00c81550_holder
 // src: GUESS 0x00c81550 (confidence: low)
 void FUN_00c81550_holder::SetVtableAndProcessState_00c81550()
 {
-    *(int*)this = (int)&DAT_010c53dc;
+    *(int*)this = (int)&vftable_bhkBlendCollisionObject;
     --DAT_01267e60;
     ((FUN_00c6c290_holder*)this)->FUN_00c6c290();
 }
@@ -340,7 +340,7 @@ void* FUN_00c9af20_class::FUN_00c9af20(int aiFlags)
     return this;
 }
 
-extern int DAT_010c53b4;
+extern int vftable_BSSimpleArray_010c53b4;
 extern void(__stdcall* DAT_010c53bc)(int*);
 struct FUN_00c80630_holder
 {
@@ -354,7 +354,7 @@ struct FUN_00c80630_holder
 void FUN_00c80630_holder::ResetHolder()
 {
     int* old = m_p4;
-    m_vtbl = (int*)&DAT_010c53b4;
+    m_vtbl = (int*)&vftable_BSSimpleArray_010c53b4;
     if (old)
     {
         DAT_010c53bc(old);
@@ -372,7 +372,7 @@ struct FUN_00c81640_cls
 // @fnv 0x00c81640
 void* __thiscall FUN_00c81640_cls::FUN_00c81640(bool abFree)
 {
-    *reinterpret_cast<void**>(this) = &DAT_010c53dc;
+    *reinterpret_cast<void**>(this) = &vftable_bhkBlendCollisionObject;
     --DAT_01267e60;
     reinterpret_cast<FUN_00c6c290_holder*>(this)->FUN_00c6c290();
     if (abFree & 1)
@@ -402,19 +402,19 @@ void bhkSerializable_CloneCritLock()
     ((void(__stdcall*)(void*))g_pEnterCriticalSection)(&DAT_0126813c);
 }
 
-extern int DAT_010c69f4;
+extern int vftable_bhkWorldM;
 struct FUN_00c6aca0_holder
 {
     void* __thiscall FUN_00c6aca0();
 };
-struct FUN_00c9a040_cls
+struct bhkWorldM
 {
     void* __thiscall FUN_00c9a040(bool b);
 };
 // @fnv 0x00c9a040
-void* __thiscall FUN_00c9a040_cls::FUN_00c9a040(bool abFree)
+void* __thiscall bhkWorldM::FUN_00c9a040(bool abFree)
 {
-    *(void**)this = (void*)&DAT_010c69f4;
+    *(void**)this = (void*)&vftable_bhkWorldM;
     ((FUN_00c6aca0_holder*)this)->FUN_00c6aca0();
     if (abFree & 1)
         g_memoryManager.Deallocate(this - *(unsigned char*)(this - 1));
@@ -508,7 +508,7 @@ void FUN_00c9a2c0_shell::AppendWorldSizeStrings(StrArr* pkStrings)
 }
 }  // namespace fnv_00c9a2c0
 
-extern int DAT_010c6b04;
+extern int vftable_NiTLargeArray_010c6b04;
 extern "C" void __cdecl NiFree(void*);
 // Scalar deletion wrapper for the shared large-array layout; no copied fields.
 struct LargeArrayDeletingView : NiTLargeArray<BLENDKEY, NiTMallocInterface<BLENDKEY> >
@@ -520,7 +520,7 @@ struct LargeArrayDeletingView : NiTLargeArray<BLENDKEY, NiTMallocInterface<BLEND
 void* __thiscall LargeArrayDeletingView::FUN_00c9ae80(unsigned char abFree)
 {
     void* p = m_pBase;
-    *reinterpret_cast<void**>(this) = &DAT_010c6b04;
+    *reinterpret_cast<void**>(this) = &vftable_NiTLargeArray_010c6b04;
     NiFree(p);
     if (abFree & 1)
         g_memoryManager.Deallocate(this);
@@ -540,7 +540,7 @@ struct FUN_00c80660_t
 void* __thiscall FUN_00c80660_t::FUN_00c80660(bool abFree)
 {
     int* p = m_p4;
-    m_p0 = &DAT_010c53b4;
+    m_p0 = &vftable_BSSimpleArray_010c53b4;
     if (p)
     {
         DAT_010c53bc(p);
@@ -636,7 +636,7 @@ __forceinline bhkBlendCollisionObject* AllocateBlendCollisionObject()
     if (object)
     {
         ((void(__thiscall*)(bhkBlendCollisionObject*))&ConstructNiCollisionObject)(object);
-        *(void**)object = &DAT_010c53dc;
+        *(void**)object = &vftable_bhkBlendCollisionObject;
         ++DAT_01267e60;
         object->m_f18 = 0.0f;
         *(unsigned short*)object->unk0C &= 0xfeff;
@@ -895,8 +895,8 @@ struct S_00cb79d0_Base : public A51BF0Base
     int m_p8;
 };
 
-extern int DAT_01030bf4;
-extern int DAT_01066d44;
+extern int vftable_bhkShape;
+extern int vftable_bhkTransformShape;
 extern int DAT_012680f8;
 extern int DAT_012681b0;
 
@@ -907,11 +907,11 @@ struct Object_00c8c090 : public S_00cb79d0_Base
 
     Object_00c8c090()
     {
-        m_p0 = (int*)&DAT_01030bf4;
+        m_p0 = (int*)&vftable_bhkShape;
         m_iThirdValue = 0;
         m_10 = 0;
         ++DAT_012680f8;
-        m_p0 = (int*)&DAT_01066d44;
+        m_p0 = (int*)&vftable_bhkTransformShape;
         ++DAT_012681b0;
     }
 
@@ -928,18 +928,18 @@ S_00cb79d0_Base* bhkTransformShape_CreateObject()
 }
 }  // namespace fnv_00c8c090
 
-extern int DAT_010c6fb0;
+extern int vftable_hkpShapeContainer;
 struct FUN_00c9d890_t
 {
     int* m_p0;
     FUN_00c9d890_t(char b);
     ~FUN_00c9d890_t();
 };
-// Sets m_p0 to point at DAT_010c6fb0 and, if bit 0 of b is set, deletes this object.
+// Sets m_p0 to point at vftable_hkpShapeContainer and, if bit 0 of b is set, deletes this object.
 // @fnv 0x00c9d890
 FUN_00c9d890_t::FUN_00c9d890_t(char abDelete)
 {
-    m_p0 = &DAT_010c6fb0;
+    m_p0 = &vftable_hkpShapeContainer;
     if (abDelete & 1)
         operator delete(this);
 }
@@ -1361,7 +1361,7 @@ bool C815B0Constraint::bhkBlendCollisionObject_IsEqual(C815B0Constraint* pkOther
     return bEqual;
 }
 
-extern int DAT_010c53dc;
+extern int vftable_bhkBlendCollisionObject;
 extern int DAT_01267e60;
 
 struct FUN_00c6b910_holder
@@ -1394,7 +1394,7 @@ struct FUN_00c81600_cls
 FUN_00c81600_cls* FUN_00c81600_cls::Initialize()
 {
     reinterpret_cast<FUN_00c6b910_holder*>(this)->NiRTTI_UpdateState_00c6b910();
-    *(int**)this = &DAT_010c53dc;
+    *(int**)this = &vftable_bhkBlendCollisionObject;
     DAT_01267e60++;
     m_18 = 0.0f;
     m_1c = 1.0f;
@@ -8281,9 +8281,9 @@ void RefChainOwner::DispatchChainNodes(Dispatcher* pDispatcher)
 }
 
 extern void* __cdecl Object_DispatchCommandFour(unsigned int size);
-extern int DAT_01030bf4;
-extern int DAT_010c44e4;
-extern int DAT_010c485c;
+extern int vftable_bhkShape;
+extern int vftable_bhkShapeCollection;
+extern int vftable_bhkListShape;
 extern int DAT_012680f8;
 extern int DAT_012686d0;
 extern int DAT_012681a0;
@@ -8309,13 +8309,13 @@ struct Object_00c8ae60 : Base_00c8ae60
     }
     Object_00c8ae60()
     {
-        vtable = &DAT_01030bf4;
+        vtable = &vftable_bhkShape;
         unk0c = 0;
         unk10 = 0;
         ++DAT_012680f8;
-        vtable = &DAT_010c44e4;
+        vtable = &vftable_bhkShapeCollection;
         ++DAT_012686d0;
-        vtable = &DAT_010c485c;
+        vtable = &vftable_bhkListShape;
         ++DAT_012681a0;
     }
 };
@@ -10412,7 +10412,7 @@ void* __thiscall FUN_00c87a40_obj::bhkWorldObject_GethkWorld()
 }
 
 extern void __cdecl FUN_00a5d3a0();
-extern int DAT_010c5b54;
+extern int vftable_bhkRefObject;
 struct FUN_00c87c30_t
 {
     int* pVTable;
@@ -10425,7 +10425,7 @@ struct FUN_00c87c30_t
 FUN_00c87c30_t* FUN_00c87c30_t::UpdateState_00c87c30()
 {
     FUN_00a5d3a0();
-    pVTable = &DAT_010c5b54;
+    pVTable = &vftable_bhkRefObject;
     unk08 = 0;
     return this;
 }
@@ -11432,7 +11432,7 @@ void __thiscall FunctionContext::hkReferencedObject_calcContentStatistics(void* 
 }
 
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(void* lpCriticalSection);
-extern int DAT_0102e388;
+extern int vftable_hkBaseObject;
 
 struct FUN_00c90880_Srv
 {
@@ -11446,14 +11446,15 @@ struct FUN_00c90880_Class
     void* m_00;
     unsigned short m_04;
 
-    void* FUN_00c90880(unsigned int flags);
+    void* hkReferencedObjectLock_ScalarDeletingDestructor(unsigned int flags);
 };
 
 // @fnv 0x00c90880
-void* FUN_00c90880_Class::FUN_00c90880(unsigned int flags)
+// src: EXE 0x00c90880
+void* FUN_00c90880_Class::hkReferencedObjectLock_ScalarDeletingDestructor(unsigned int flags)
 {
     DeleteCriticalSection((char*)this + 0x18);
-    m_00 = &DAT_0102e388;
+    m_00 = &vftable_hkBaseObject;
     if (flags & 1)
     {
         void* holder = hkMemoryRouter_getInstance();
@@ -12238,7 +12239,7 @@ void FUN_00c8aa80_cls::bhkBinaryAction_RegisterStreamables(NiStream* apStream)
     BSTextureSet_RegisterStreamables(*apStream);
 }
 
-extern unsigned int DAT_010c6234;
+extern unsigned int vftable_bhkBlendCollisionObjectAddRotation;
 
 struct Ffd0base
 {
@@ -12272,12 +12273,12 @@ struct FUN_00c8ffd0
 FUN_00c8ffd0::FUN_00c8ffd0()
 {
     ((Ffd0base*)this)->Initialize();
-    m_vtbl = &DAT_010c6234;
+    m_vtbl = &vftable_bhkBlendCollisionObjectAddRotation;
     tab = *(const Arr9*)&DAT_011a9448;
 }
 
 namespace fnv_00c90000 {
-extern int DAT_010c6234;
+extern int vftable_bhkBlendCollisionObjectAddRotation;
 void __cdecl FUN_00aa1460(void* object, unsigned int size);
 struct FUN_00c90000_Object
 {
@@ -12285,11 +12286,11 @@ struct FUN_00c90000_Object
     void __thiscall SetVtableAndProcessState_00c81550();
     FUN_00c90000_Object* __thiscall FUN_00c90000(unsigned int flags);
 };
-// Sets m_vftable to DAT_010c6234, calls FUN_00c81550, and if bit 0 of flags is set calls FUN_00aa1460(this, 0x50); returns this.
+// Sets m_vftable to vftable_bhkBlendCollisionObjectAddRotation, calls FUN_00c81550, and if bit 0 of flags is set calls FUN_00aa1460(this, 0x50); returns this.
 // @fnv 0x00c90000
 FUN_00c90000_Object* FUN_00c90000_Object::FUN_00c90000(unsigned int flags)
 {
-    m_vftable = &DAT_010c6234;
+    m_vftable = &vftable_bhkBlendCollisionObjectAddRotation;
     SetVtableAndProcessState_00c81550();
     if (flags & 1)
         FUN_00aa1460(this, 0x50);
@@ -14836,7 +14837,7 @@ bool C8AC00_Self::bhkBinaryAction_Remove()
 
 namespace fnv_00c8af10 {
 extern __declspec(thread) unsigned int memoryCategory;
-extern int DAT_01030bf4, DAT_010c44e4, DAT_010c485c;
+extern int vftable_bhkShape, vftable_bhkShapeCollection, vftable_bhkListShape;
 extern int DAT_012680f8, DAT_012686d0, DAT_012681a0;
 void __cdecl bhkSerializable_CloneCritLock();
 void __cdecl bhkSerializable_CloneCritUnlock();
@@ -14853,13 +14854,13 @@ struct NewShape
     NewShape()
     {
         UpdateState_00c87c30();
-        vtable = &DAT_01030bf4;
+        vtable = &vftable_bhkShape;
         field0c = 0;
         field10 = 0;
         ++DAT_012680f8;
-        vtable = &DAT_010c44e4;
+        vtable = &vftable_bhkShapeCollection;
         ++DAT_012686d0;
-        vtable = &DAT_010c485c;
+        vtable = &vftable_bhkListShape;
         ++DAT_012681a0;
     }
 };
@@ -16138,7 +16139,7 @@ void __thiscall FUN_00c90030_holder::bhkBlendCollisionObjectAddRotation_UpdateWo
     memcpy(reinterpret_cast<char*>(source) + 0x68, matrix, 9 * sizeof(int));
 }
 
-extern char DAT_010c6b0c[];
+extern char vftable_NiTLargePrimitiveArray_010c6b0c[];
 
 void* __cdecl NiMalloc(unsigned int size);
 

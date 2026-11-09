@@ -329,16 +329,16 @@ void FUN_00d5f640_cls::FreeStorage(Deallocator* apAllocator)
 }
 
 namespace fnv_00da2bc0 {
-struct FUN_00da2b90_class
+struct hkStackTracer
 {
     void* vtbl;
     short unk04;
     short unk06;
     void* unk08;
-    FUN_00da2b90_class* Initialize();
+    hkStackTracer* Initialize();
 };
 
-extern FUN_00da2b90_class DAT_01269a90;
+extern hkStackTracer DAT_01269a90;
 
 // @fnv 0x00da2bc0
 // src: XBOX_PDB 0x00da2bc0

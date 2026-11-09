@@ -535,7 +535,7 @@ void FnvCpu_FUN_00d5d770_CpuObject::CopyFromCpuData(hkTransform* apCpuData)
     this->field50 = reinterpret_cast<const ShapeQuad&>(apCpuData->m_vTranslation);
 }
 
-extern int DAT_010d102c;
+extern int vftable_hkpConvexTransformShape;
 
 struct BaseHelper
 {
@@ -563,7 +563,7 @@ struct Standin
 Standin* Standin::hkpConvexTransformShape_hkpConvexTransformShape(const hkpConvexShape* childShape, const hkTransform& transform, int refPolicy)
 {
     ((BaseHelper*)this)->FUN_00c9e340(0xc, childShape->m_fSphereRadius, childShape, refPolicy);
-    this->vtable = &DAT_010d102c;
+    this->vtable = &vftable_hkpConvexTransformShape;
     reinterpret_cast<ShapeQuad&>(this->m_kMotionTransform.m_kColumn0) = reinterpret_cast<const ShapeQuad&>(transform.m_kColumn0);
     reinterpret_cast<ShapeQuad&>(this->m_kMotionTransform.m_kColumn1) = reinterpret_cast<const ShapeQuad&>(transform.m_kColumn1);
     reinterpret_cast<ShapeQuad&>(this->m_kMotionTransform.m_kColumn2) = reinterpret_cast<const ShapeQuad&>(transform.m_kColumn2);

@@ -17,7 +17,8 @@ PathingRequestClosePoint::PathingRequestClosePoint() : PathingRequest()
 
 // Runs the destructor and, when bit 0 of flags is set, frees the object with operator delete; returns this.
 // @fnv 0x006e3f70
-void* __thiscall PathingRequestClosePoint::FUN_006e3f70(unsigned int flags)
+// src: EXE 0x006e3f70
+void* __thiscall PathingRequestClosePoint::ScalarDeletingDestructor(unsigned int flags)
 {
     this->PathingRequestClosePoint::~PathingRequestClosePoint();
     if (flags & 1)

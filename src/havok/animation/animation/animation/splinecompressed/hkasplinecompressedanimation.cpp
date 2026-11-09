@@ -478,8 +478,8 @@ extern void* __cdecl hkMemoryRouter_getInstance(void);
 extern void __cdecl UpdateFields_00dfb5a0(int value);
 extern void __cdecl FUN_00c905b0(void);
 
-extern int DAT_010de0ec;
-extern int DAT_0102e388;
+extern int vftable_hkaSplineCompressedAnimation;
+extern int vftable_hkBaseObject;
 
 // hkMemoryRouter::heap is the allocator pointer at offset 0x10.
 struct SplineMemoryRouter
@@ -500,7 +500,7 @@ void __fastcall DestroySplineCompressedAnimation(hkaSplineCompressedAnimation* a
     int zero = 0;
     int flag = 0x80000000;
 
-    *reinterpret_cast<int**>(animation) = &DAT_010de0ec;
+    *reinterpret_cast<int**>(animation) = &vftable_hkaSplineCompressedAnimation;
 
     {
         SplineMemoryRouter* manager = static_cast<SplineMemoryRouter*>(hkMemoryRouter_getInstance());

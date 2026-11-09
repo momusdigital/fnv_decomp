@@ -1,4 +1,4 @@
-extern "C" void* const DAT_010ce81c[];
+extern "C" void* const vftable_hkpSymmetricAgentFlipBodyCollector[];
 
 #define FNV64_HKVECTOR4_OWN_ASSIGN
 #define FNV64_HKVECTOR4_OWN_DEFAULT
@@ -361,26 +361,26 @@ void __cdecl RunSymmetricAgentFlipCollector(void* arg1, void* arg2, int arg3, in
 }
 
 struct CallData { void* descriptor; float bound; unsigned int value; };
-extern unsigned char DAT_010ce7fc;
+extern unsigned char vftable_hkpSymmetricAgentFlipCollector;
 extern float DAT_0104da48;
 struct Wrapper {
     void hkpTransformAgent_getClosestPoints(void*, void*, unsigned int, CallData*);
     void UpdateFields_00d434a0(void*, void*, unsigned int, unsigned int);
 };
-// Builds a CallData from fourth and DAT_0104da48 with descriptor DAT_010ce7fc, then calls FUN_00d42de0 with second, first and third.
+// Builds a CallData from fourth and DAT_0104da48 with descriptor vftable_hkpSymmetricAgentFlipCollector, then calls FUN_00d42de0 with second, first and third.
 // @fnv 0x00d434a0
 // src: GUESS 0x00d434a0 (confidence: low)
 void Wrapper::UpdateFields_00d434a0(void* first, void* second, unsigned int third, unsigned int fourth) {
     CallData data;
     data.value = fourth;
     data.bound = DAT_0104da48;
-    data.descriptor = &DAT_010ce7fc;
+    data.descriptor = &vftable_hkpSymmetricAgentFlipCollector;
     hkpTransformAgent_getClosestPoints(second, first, third, &data);
 }
 
 extern "C" __m128 _mm_xor_ps(__m128 a, __m128 b);
 
-extern char DAT_010ce80c[];
+extern char vftable_hkpSymmetricAgentFlipCastCollector[];
 extern const __m128 DAT_010c44d0;
 
 struct Input_d43620 {
@@ -398,7 +398,7 @@ struct Collector_d43620 {
 
     Collector_d43620* Init(const __m128& dir, int value)
     {
-        m_vtbl = DAT_010ce80c;
+        m_vtbl = vftable_hkpSymmetricAgentFlipCastCollector;
         m_fHitFraction = 3.40282e+38f;
         m_dir = *(const hkVector4*)&dir;
         m_uiFilterValue = value;
@@ -539,7 +539,7 @@ void FnvCpu_FUN_00d42a50_CpuOwner::hkpTransformAgent_commitPotential(int arg0)
     target->Invoke(arg0);
 }
 
-extern char DAT_010cf280[];
+extern char vftable_hkpTransformAgent[];
 struct Header {
     const char* tag;
     unsigned short byteCount;
@@ -596,7 +596,7 @@ Header* __cdecl BuildHeaderAndDispatchHandler(InputA* pSource,InputB* pPathInput
     header->byteCount=16;
     header->format=1;
     header->userValue=value;
-    header->tag=DAT_010cf280;
+    header->tag=vftable_hkpTransformAgent;
     Root* root=pSource->root;
     Meta* meta=root->meta;
     WorkArea workspace;
@@ -1407,14 +1407,14 @@ void __cdecl hkVector4_UpdateState_00d43370(int a2, int a1, const Input_d2e9* in
     local.m_vComponents = _mm_xor_ps(input->m_vComponents, DAT_010c44d0);
 
     Record_d2e9 rec;
-    rec.m_vtbl = (const unsigned int*)DAT_010ce80c;
+    rec.m_vtbl = (const unsigned int*)vftable_hkpSymmetricAgentFlipCastCollector;
     rec.m_fScalar = DAT_0104da48;
     rec.m_key = *(const hkVector4*)&input->m_vComponents;
     rec.m_uiFilterValue = a4;
 
     if (a5 != 0) {
         Record_d2e9 rec2;
-        rec2.m_vtbl = (const unsigned int*)DAT_010ce80c;
+        rec2.m_vtbl = (const unsigned int*)vftable_hkpSymmetricAgentFlipCastCollector;
         rec2.m_fScalar = DAT_0104da48;
         rec2.m_key = *(const hkVector4*)&input->m_vComponents;
         rec2.m_uiFilterValue = a5;
@@ -1626,7 +1626,7 @@ struct TtShapeCollection : TtTransform {
 void TtShapeCollection::UpdateFields_00d43460(int a, int b, int c, int d) {
     SectorDesc s;
     s.unk04 = false;
-    s.sectorPtrs = (void*)DAT_010ce81c;
+    s.sectorPtrs = (void*)vftable_hkpSymmetricAgentFlipBodyCollector;
     s.unk08 = d;
     TtTransform::hkpTransformAgent_getPenetrations(b, a, c, &s);
 }

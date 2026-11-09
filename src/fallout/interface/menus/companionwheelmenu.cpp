@@ -113,12 +113,13 @@ bool __thiscall FUN_00755680_shell::InterfaceManager_GetMouseVisible()
 struct MyStandin754c30
 {
     void __thiscall FUN_00754c60();
-    void* __thiscall FUN_00754c30(unsigned int);
+    void* __thiscall CompanionWheelMenu_ScalarDeletingDestructor(unsigned int);
 };
 void __cdecl _Deallocate(void*);
 // Calls FUN_00754c60, then frees this with _Deallocate when flags has bit 1 set, and returns this.
 // @fnv 0x00754c30
-void* __thiscall MyStandin754c30::FUN_00754c30(unsigned int flags)
+// src: EXE 0x00754c30
+void* __thiscall MyStandin754c30::CompanionWheelMenu_ScalarDeletingDestructor(unsigned int flags)
 {
     this->FUN_00754c60();
     if (flags & 1)

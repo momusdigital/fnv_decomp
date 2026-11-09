@@ -48,7 +48,7 @@ public:
     void SetCullMode(unsigned int mode);
     void SetCompoundFrustum(TaskArg1* frustum);
     void FUN_004a0f60();
-    void* FUN_004a0ff0(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
     void AppendVirtual(NiGeometry& kVisible);
 
     int unk90;

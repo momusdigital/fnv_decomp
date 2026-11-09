@@ -745,8 +745,8 @@ struct Owner_Ext : public Owner
 extern "C" void* __cdecl Object_DispatchCommandFour(unsigned int);
 extern "C" void __cdecl bhkSerializable_CloneCritLock();
 extern "C" void __cdecl bhkSerializable_CloneCritUnlock();
-extern "C" char DAT_01030bf4[];
-extern "C" char DAT_0104dbac[];
+extern "C" char vftable_bhkShape[];
+extern "C" char vftable_bhkBvTreeShape[];
 extern "C" int DAT_012680f8;
 extern "C" int DAT_012682cc;
 extern "C" int DAT_0126834c;
@@ -761,11 +761,11 @@ struct SpawnedObject
     SpawnedObject()
     {
         ctorBase();
-        m_vtbl = (void*)DAT_01030bf4;
+        m_vtbl = (void*)vftable_bhkShape;
         unk0C = 0;
         unk10 = 0;
         DAT_012680f8++;
-        m_vtbl = (void*)DAT_0104dbac;
+        m_vtbl = (void*)vftable_bhkBvTreeShape;
         DAT_012682cc++;
         m_vtbl = (void*)"@$b";
         DAT_0126834c++;
@@ -912,7 +912,7 @@ struct S00cb0820_Outer
     int unk0c;
     S00cb0820_Src src;
 };
-extern char DAT_010c853c;
+extern char vftable_hkBSHeightFieldShape;
 extern double DAT_01012070;
 extern float DAT_01016248;
 struct S00cb0820_Shape : S00cb0820_Ref
@@ -950,7 +950,7 @@ struct S00cb0820_Shape70 : S00cb0820_Shape
     S00cb0820_Shape70(S00cb0820_Src* src)
     {
         ProcessAndReturnValue_00d248a0(src, 2);
-        m_vtbl = &DAT_010c853c;
+        m_vtbl = &vftable_hkBSHeightFieldShape;
         double d = unk14 - DAT_01012070;
         unk60 = src->unk30;
         unk64 = (int)d;

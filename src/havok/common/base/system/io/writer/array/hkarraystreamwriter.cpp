@@ -132,8 +132,8 @@ void FUN_00d46c80_cls::hkMemoryTrackStreamReader_skip(int aiDelta)
     m_0c += aiDelta;
 }
 
-extern int DAT_010cf734;
-struct FUN_00d466e0
+extern int vftable_hkMemoryTrackStreamReader;
+struct hkMemoryTrackStreamReader
 {
     void* unk00;
     short unk04;
@@ -141,14 +141,14 @@ struct FUN_00d466e0
     int unk08;
     int unk0C;
     int unk10;
-    FUN_00d466e0(int a, int b);
+    hkMemoryTrackStreamReader(int a, int b);
 };
-// Initializes the object: sets unk06 to 1, points unk00 at DAT_010cf734, stores b in unk10 and a in unk08, and clears unk0C.
+// Initializes the object: sets unk06 to 1, points unk00 at vftable_hkMemoryTrackStreamReader, stores b in unk10 and a in unk08, and clears unk0C.
 // @fnv 0x00d466e0
-FUN_00d466e0::FUN_00d466e0(int a, int b)
+hkMemoryTrackStreamReader::hkMemoryTrackStreamReader(int a, int b)
 {
     unk06 = 1;
-    unk00 = &DAT_010cf734;
+    unk00 = &vftable_hkMemoryTrackStreamReader;
     unk10 = b;
     unk08 = a;
     unk0C = 0;

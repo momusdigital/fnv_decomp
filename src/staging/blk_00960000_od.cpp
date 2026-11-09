@@ -182,7 +182,7 @@ TESForm* __thiscall TESRace::AudioMarker_GetMediaLocationController()
     return GetFormByID(*(int*)((char*)this + 0x24));
 }
 
-extern "C" void* __cdecl DAT_0108b474;
+extern "C" void* __cdecl vftable_NiTMap_0108b474;
 struct FUN_0096a280_class
 {
     void* m_ppVirtualMethodTable;
@@ -194,7 +194,7 @@ struct FUN_0096a280_class
 void* __thiscall FUN_0096a280_class::NiTMap_unsigned_int_unsigned_char_NiTMap(void* p)
 {
     Init(p);
-    m_ppVirtualMethodTable = &DAT_0108b474;
+    m_ppVirtualMethodTable = &vftable_NiTMap_0108b474;
     return this;
 }
 
@@ -240,7 +240,7 @@ void FUN_0096a540_class::ReleaseStorage_0096a540(void* arg)
     ((Unk6b*)((char*)this + 0xc))->FreeMemory(arg);
 }
 
-extern "C" void* DAT_0108b4b4;
+extern "C" void* vftable_BSSimpleArray_0108b4b4;
 struct AX
 {
     void BSSimpleArray_float_1024_InitialSetup(unsigned int, unsigned int);
@@ -250,18 +250,18 @@ struct FUN_0096a570_Class
     void* vtable;
     AX* BSSimpleArray_ItemChange_1024_BSSimpleArray();
 };
-// Sets the vtable to DAT_0108b4b4, calls FUN_006b3eb0 with 0, 0 on this, and returns this as an AX pointer.
+// Sets the vtable to vftable_BSSimpleArray_0108b4b4, calls FUN_006b3eb0 with 0, 0 on this, and returns this as an AX pointer.
 // @fnv 0x0096a570
 // src: EXE 0x0096a570
 AX* FUN_0096a570_Class::BSSimpleArray_ItemChange_1024_BSSimpleArray()
 {
-    vtable = &DAT_0108b4b4;
+    vtable = &vftable_BSSimpleArray_0108b4b4;
     reinterpret_cast<AX*>(this)->BSSimpleArray_float_1024_InitialSetup(0, 0);
     return reinterpret_cast<AX*>(this);
 }
 
 namespace fnv_0096a5a0 {
-extern int DAT_0108b4b4;
+extern int vftable_BSSimpleArray_0108b4b4;
 
 struct GlobalObject_00869f00
 {
@@ -274,13 +274,13 @@ struct GlobalObject_00869f00
 // src: GUESS 0x0096a5a0 (confidence: medium)
 void GlobalObject_00869f00::ResetVirtualTableAndClear_0096a5a0()
 {
-    p = &DAT_0108b4b4;
+    p = &vftable_BSSimpleArray_0108b4b4;
     Clear(true);
 }
 }  // namespace fnv_0096a5a0
 
 namespace fnv_0096a5c0 {
-extern void* DAT_0108b4c8;
+extern void* vftable_BSSimpleArray_0108b4c8;
 
 struct AX
 {
@@ -293,16 +293,16 @@ struct FUN_0096a5c0 : AX
     FUN_0096a5c0();
 };
 
-// Sets the vtable pointer to DAT_0108b4c8 and calls FUN_006b3eb0 with 0, 0.
+// Sets the vtable pointer to vftable_BSSimpleArray_0108b4c8 and calls FUN_006b3eb0 with 0, 0.
 // @fnv 0x0096a5c0
 FUN_0096a5c0::FUN_0096a5c0()
 {
-    vtable = &DAT_0108b4c8;
+    vtable = &vftable_BSSimpleArray_0108b4c8;
     BSSimpleArray_float_1024_InitialSetup(0, 0);
 }
 }  // namespace fnv_0096a5c0
 
-extern int DAT_0108b4c8;
+extern int vftable_BSSimpleArray_0108b4c8;
 
 struct GlobalObject_00869f00
 {
@@ -315,11 +315,11 @@ struct GlobalObject_00869f00
 // src: GUESS 0x0096a5f0 (confidence: low)
 void GlobalObject_00869f00::SetVtableAndProcessState_0096a5f0()
 {
-    *(int*)this = (int)&DAT_0108b4c8;
+    *(int*)this = (int)&vftable_BSSimpleArray_0108b4c8;
     Clear(true);
 }
 
-extern int DAT_0108b4dc;
+extern int vftable_NiTPrimitiveArray_0108b4dc;
 
 struct FUN_0096a640_Class
 {
@@ -327,12 +327,12 @@ struct FUN_0096a640_Class
     int __thiscall InitVtable(int a, int b);
 };
 
-// Calls Initialize with the two arguments, then stores the address of DAT_0108b4dc into this and returns this.
+// Calls Initialize with the two arguments, then stores the address of vftable_NiTPrimitiveArray_0108b4dc into this and returns this.
 // @fnv 0x0096a640
 int __thiscall FUN_0096a640_Class::InitVtable(int a, int b)
 {
     Initialize(a, b);
-    *(int**)this = &DAT_0108b4dc;
+    *(int**)this = &vftable_NiTPrimitiveArray_0108b4dc;
     return (int)this;
 }
 
@@ -377,7 +377,7 @@ void FUN_0096a930_class::ForwardCall_0096a950()
 }
 }  // namespace fnv_0096a950
 
-extern int DAT_0108c0d0;
+extern int vftable_NiTPrimitiveArray_0108c0d0;
 
 struct FUN_0096afe0_base
 {
@@ -389,12 +389,12 @@ struct FUN_0096af30 : public FUN_0096afe0_base
     FUN_0096af30* __thiscall init(int a, int b);
 };
 
-// Calls the base initializer with a and b, stores the address of DAT_0108c0d0 in this, and returns this.
+// Calls the base initializer with a and b, stores the address of vftable_NiTPrimitiveArray_0108c0d0 in this, and returns this.
 // @fnv 0x0096af30
 FUN_0096af30* __thiscall FUN_0096af30::init(int aiArg1, int aiArg2)
 {
     FUN_0096afe0(aiArg1, aiArg2);
-    *reinterpret_cast<int*>(this) = reinterpret_cast<int>(&DAT_0108c0d0);
+    *reinterpret_cast<int*>(this) = reinterpret_cast<int>(&vftable_NiTPrimitiveArray_0108c0d0);
     return this;
 }
 
@@ -449,7 +449,7 @@ void FUN_00977c90_class::HighProcess_SetRadiationLevel(float value)
 }
 
 namespace fnv_00978a60 {
-extern int DAT_0108c23c;
+extern int vftable_BSSimpleArray_0108c23c;
 
 struct GlobalObject_00869f00
 {
@@ -461,13 +461,13 @@ struct GlobalObject_00869f00
 // @fnv 0x00978a60
 void GlobalObject_00869f00::ResetToGlobalData()
 {
-    data = &DAT_0108c23c;
+    data = &vftable_BSSimpleArray_0108c23c;
     Clear(true);
 }
 }  // namespace fnv_00978a60
 
 namespace fnv_00978cd0 {
-extern int DAT_0108c278;
+extern int vftable_BSSimpleArray_0108c278;
 
 struct GlobalObject_00869f00
 {
@@ -483,12 +483,12 @@ struct FUN_00978cd0_Class
 // src: GUESS 0x00978cd0 (confidence: low)
 void __thiscall FUN_00978cd0_Class::SetVtableAndProcessState_00978cd0()
 {
-    *(int**)this = (int*)&DAT_0108c278;
+    *(int**)this = (int*)&vftable_BSSimpleArray_0108c278;
     ((GlobalObject_00869f00*)this)->Clear(true);
 }
 }  // namespace fnv_00978cd0
 
-extern int DAT_0108c278;
+extern int vftable_BSSimpleArray_0108c278;
 struct Dummy_0061bf20
 {
     void BSSimpleArray_NavMeshPOVSearchNode_1024_InitialSetup(int, int);
@@ -498,7 +498,7 @@ struct Dummy_0061bf20
 // src: GUESS 0x00978ea0 (confidence: low)
 Dummy_0061bf20* Dummy_0061bf20::InitializeFields_00978ea0()
 {
-    *(int*)this = (int)&DAT_0108c278;
+    *(int*)this = (int)&vftable_BSSimpleArray_0108c278;
     BSSimpleArray_NavMeshPOVSearchNode_1024_InitialSetup(0, 0);
     return this;
 }
@@ -529,7 +529,7 @@ void FUN_0097f220_Class::CombatTimer_ForceTrigger()
     m_iWordAt04 = -1.0f;
 }
 
-extern "C" void* DAT_0108b494;
+extern "C" void* vftable_NiTMapBase_0108b494;
 extern "C" void* NiFreeAlias(void*);
 
 struct FUN_0096a510_Class
@@ -545,7 +545,7 @@ struct FUN_0096a510_Class
 // src: GUESS 0x0096a510 (confidence: low)
 void __thiscall FUN_0096a510_Class::UpdateState_0096a510()
 {
-    m_vtbl = &DAT_0108b494;
+    m_vtbl = &vftable_NiTMapBase_0108b494;
     ((NiTPointerMap<int, int>*)this)->RemoveAll();
     NiFreeAlias(m_q);
 }
@@ -719,7 +719,7 @@ struct FUN_0096a390_Class
 // @fnv 0x0096a390
 void* __thiscall FUN_0096a390_Class::Init(unsigned int auiCount)
 {
-    m_vtbl = &DAT_0108b494;
+    m_vtbl = &vftable_NiTMapBase_0108b494;
     m_p = auiCount;
     m_r = 0;
     unsigned int size = m_p << 2;
@@ -797,7 +797,7 @@ void __thiscall FUN_0096ac30_Class::ProcessArray_CheckNextUpdateBounds()
     }
 }
 
-extern "C" void* DAT_0108c250;
+extern "C" void* vftable_BSScrapArray_0108c250;
 struct FUN_008c1cb0
 {
     virtual ~FUN_008c1cb0();
@@ -980,7 +980,7 @@ void* __thiscall FUN_0097ab00_Class::FUN_0097ab00(unsigned int flags)
     return this;
 }
 
-extern int DAT_0108b4e4;
+extern int vftable_NiTArray_0108b4e4;
 struct FUN_0096a7b0_Class
 {
     void* m_vtbl;
@@ -994,7 +994,7 @@ struct FUN_0096a7b0_Class
 // @fnv 0x0096a7b0
 void* __thiscall FUN_0096a7b0_Class::Initialize(unsigned short ausCapacity, unsigned short b)
 {
-    m_vtbl = &DAT_0108b4e4;
+    m_vtbl = &vftable_NiTArray_0108b4e4;
     m_kPointA = ausCapacity;
     m_iFourthElementInteger = b;
     m_kPointB = 0;
@@ -1052,7 +1052,7 @@ void FUN_0096aa40_Class::ProcessArray_RemoveActor(int aiIndex)
 }
 
 
-extern "C" void* DAT_0108c0c8;
+extern "C" void* vftable_NiTArray_0108c0c8;
 struct FUN_0096afe0
 {
     void* vtbl;
@@ -1067,7 +1067,7 @@ struct FUN_0096afe0
 // @fnv 0x0096afe0
 FUN_0096afe0::FUN_0096afe0(unsigned short x, unsigned short y)
 {
-    vtbl = &DAT_0108c0c8;
+    vtbl = &vftable_NiTArray_0108c0c8;
     a = x;
     c = y;
     b = 0;
@@ -1339,12 +1339,12 @@ struct FUN_0096a750_layout
     void** p;
 };
 
-// Sets the object's vtable to DAT_0108b4e4 and deallocates its p pointer via NiTMallocInterface<void*>::Deallocate.
+// Sets the object's vtable to vftable_NiTArray_0108b4e4 and deallocates its p pointer via NiTMallocInterface<void*>::Deallocate.
 // @fnv 0x0096a750
 // src: GUESS 0x0096a750 (confidence: low)
 void FUN_0096a730_class::SetVtableAndProcessState_0096a750()
 {
-    reinterpret_cast<FUN_0096a750_layout*>(this)->vtable = &DAT_0108b4e4;
+    reinterpret_cast<FUN_0096a750_layout*>(this)->vtable = &vftable_NiTArray_0108b4e4;
     NiTMallocInterface<void*>::Deallocate(reinterpret_cast<FUN_0096a750_layout*>(this)->p);
 }
 
@@ -1807,7 +1807,7 @@ PAVActor::~PAVActor()
 // @fnv 0x00978ae0
 FUN_00978ae0::FUN_00978ae0()
 {
-    *(void**)this = &DAT_0108c250;
+    *(void**)this = &vftable_BSScrapArray_0108c250;
     this->m_10 = MemoryManager_Instance()->GetContextTracker();
     ((AX*)this)->BSSimpleArray_float_1024_InitialSetup(0, 0);
 }
@@ -7436,7 +7436,7 @@ struct MoveBoolSetting
 {
     bool* Bool();
 };
-extern MoveBoolSetting g_011f1840;
+extern MoveBoolSetting bEncounterZoneTargetRestrict_Combat;
 extern float DAT_011a56b4, DAT_011a5654;
 void* __cdecl operator new(unsigned int);
 void __cdecl operator delete(void*);
@@ -7616,7 +7616,7 @@ void CombatMove::CombatController_UpdateLow()
     {
         timer.FUN_008d7f40(1.0f);
         elapsed = 0.0f;
-        if (target && *g_011f1840.Bool() && target->TESObjectREFR_GetLocationEncounterZone() != actor->TESObjectREFR_GetLocationEncounterZone())
+        if (target && *bEncounterZoneTargetRestrict_Combat.Bool() && target->TESObjectREFR_GetLocationEncounterZone() != actor->TESObjectREFR_GetLocationEncounterZone())
             SetTarget_00980830(0);
     }
     if (timer.FUN_008d7f80())

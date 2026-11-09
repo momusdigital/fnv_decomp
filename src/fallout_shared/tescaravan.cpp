@@ -521,12 +521,13 @@ void TESCaravanMoney::ClearData()
 struct FUN_0059b910_shell
 {
     void FUN_0059b940();
-    void* FUN_0059b910(unsigned int);
+    void* TESCaravanDeck_ScalarDeletingDestructor(unsigned int);
 };
 void _Deallocate(void*);
 // Calls FUN_0059b940, then frees this object with _Deallocate when bit 0 of flags is set, and returns this.
 // @fnv 0x0059b910
-void* FUN_0059b910_shell::FUN_0059b910(unsigned int flags)
+// src: EXE 0x0059b910
+void* FUN_0059b910_shell::TESCaravanDeck_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_0059b940();
     if (flags & 1)

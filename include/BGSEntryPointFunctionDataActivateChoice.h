@@ -54,7 +54,7 @@ public:
     bool Compare_005e6d80(BGSEntryPointFunctionData* other);
     void Save_005e6e50();
     void FUN_005e6600();
-    void* FUN_005e65d0(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
     EntryPointScriptOperations* FUN_00413f40();
     Script& GetName();
 };

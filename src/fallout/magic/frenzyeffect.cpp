@@ -35,17 +35,17 @@ void _11DC778_Subtract(float value)
     DAT_011dc778 = DAT_011dc778 - BSMAX_00404010(0.0f, value);
 }
 
-extern int DAT_0107a16c;
+extern int vftable_FrenzyEffect;
 struct ValueModifierEffectCtor
 {
     void __thiscall FUN_0080dbb0_ctor(void* a, void* b, void* c);
 };
-// Runs the ValueModifierEffect constructor, installs the vtable pointer at DAT_0107a16c, clears the byte at offset 0x4c, and returns this.
+// Runs the ValueModifierEffect constructor, installs the vtable pointer at vftable_FrenzyEffect, clears the byte at offset 0x4c, and returns this.
 // @fnv 0x0080dbb0
 void* FrenzyEffect::ConstructFrenzyEffect(void* apArg1, void* apArg2, void* apArg3)
 {
     ((ValueModifierEffectCtor*)this)->FUN_0080dbb0_ctor(apArg1, apArg2, apArg3);
-    *reinterpret_cast<void**>(this) = &DAT_0107a16c;
+    *reinterpret_cast<void**>(this) = &vftable_FrenzyEffect;
     exhausted = 0;
     return this;
 }

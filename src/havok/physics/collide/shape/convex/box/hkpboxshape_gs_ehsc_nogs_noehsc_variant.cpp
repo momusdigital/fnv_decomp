@@ -12,7 +12,7 @@ typedef ::__m128 LocalM128;
 #include "../../../../../../../include/hkMemoryRouter.h"
 int __cdecl hkpBoxShape_ReturnConstant_8();
 float __cdecl NiMin(float a, float b);
-extern "C" void* DAT_0102e388;
+extern "C" void* vftable_hkBaseObject;
 struct FUN_00c9db80_class
 {
     void __thiscall FUN_00c9db80();
@@ -37,7 +37,7 @@ struct FUN_00c9dc10_class : public hkpBoxShape
 {
     void __thiscall GetAabb(const hkTransform& transform, hkReal tolerance, hkAabb& out) const;
 };
-extern void* DAT_010c70b4;
+extern void* vftable_hkpBoxShape;
 struct VectorExtents
 {
     float x, y, z, w;

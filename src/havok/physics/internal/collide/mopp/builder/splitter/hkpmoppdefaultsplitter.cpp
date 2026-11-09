@@ -39,9 +39,9 @@ void FUN_00e0a070::VisitNode(void* node)
     }
 }
 
-extern "C" void* DAT_010ea610;
+extern "C" void* vftable_hkpMoppDefaultSplitter;
 
-struct FUN_00e09ba0
+struct hkpMoppDefaultSplitter
 {
     void* m_00;
     unsigned short m_04;
@@ -53,15 +53,15 @@ struct FUN_00e09ba0
     int m_18;
     int m_1c;
 
-    FUN_00e09ba0();
+    hkpMoppDefaultSplitter();
 };
 
-// Initializes the object: sets m_06 to 1, points m_00 at DAT_010ea610, and zeroes m_10, m_14, m_18, m_1c, m_08 and m_0c.
+// Initializes the object: sets m_06 to 1, points m_00 at vftable_hkpMoppDefaultSplitter, and zeroes m_10, m_14, m_18, m_1c, m_08 and m_0c.
 // @fnv 0x00e09ba0
-FUN_00e09ba0::FUN_00e09ba0()
+hkpMoppDefaultSplitter::hkpMoppDefaultSplitter()
 {
     m_06 = 1;
-    m_00 = &DAT_010ea610;
+    m_00 = &vftable_hkpMoppDefaultSplitter;
     m_10 = 0;
     m_14 = 0;
     m_18 = 0;
@@ -70,12 +70,12 @@ FUN_00e09ba0::FUN_00e09ba0()
     m_0c = 0;
 }
 
-extern int DAT_0102e388;
+extern int vftable_hkBaseObject;
 // @fnv 0x00e09bd0
 // src: GUESS 0x00e09bd0 (confidence: low)
 void __fastcall Hkpmoppdefaultsplitter_UpdateState_00e09bd0(void* p, int)
 {
-    *reinterpret_cast<void**>(p) = &DAT_0102e388;
+    *reinterpret_cast<void**>(p) = &vftable_hkBaseObject;
 }
 
 struct S_00e0a0a0

@@ -12,7 +12,7 @@ void* __cdecl NiPSysInitialRotSpeedVarCtlr_GetRTTI()
 }
 
 void __cdecl NiPSysModifierCtlr_NiPSysModifierCtlr(void);
-extern int DAT_010c0e44;
+extern int vftable_NiPSysModifierFloatCtlr;
 
 struct FUN_00c32d80
 {
@@ -23,7 +23,7 @@ struct FUN_00c32d80
 FUN_00c32d80::FUN_00c32d80()
 {
     NiPSysModifierCtlr_NiPSysModifierCtlr();
-    *(int*)this = (int)&DAT_010c0e44;
+    *(int*)this = (int)&vftable_NiPSysModifierFloatCtlr;
 }
 
 extern "C" void* g_012026d8;
@@ -55,7 +55,7 @@ void __stdcall NiPSysInitialRotSpeedVarCtlr_GetViewerStrings(FUN_00c29f00_Array*
     arr->FUN_0096ae90(count, &item);
 }
 
-extern "C" char DAT_010becbc;
+extern "C" char vftable_NiPSysInitialRotSpeedVarCtlr;
 extern "C" void* __cdecl Object_DispatchCommandFour(unsigned int size);
 
 struct SpawnedCtlr
@@ -78,7 +78,7 @@ SpawnedCtlr* SpawnedHost::CreateSpawnedCtlr(void* a1)
     if (obj != 0)
     {
         obj->FUN_00c32d80();
-        *(void* volatile*)obj = &DAT_010becbc;
+        *(void* volatile*)obj = &vftable_NiPSysInitialRotSpeedVarCtlr;
     }
     else
     {

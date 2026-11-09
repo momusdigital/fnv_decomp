@@ -189,21 +189,21 @@ hkpGunProjectile* hkpProjectileGun::FindFirstUnflaggedObject()
     return 0;
 }
 
-extern int DAT_010ebf74;
-extern int DAT_010ebf94;
-extern int _DAT_0102e388;
-extern int DAT_0104dd7c;
+extern int vftable_hkpGunProjectile_for_hkpContactListener;
+extern int vftable_hkpGunProjectile;
+extern int vftable_hkBaseObject;
+extern int vftable_hkpContactListener;
 
 // @fnv 0x00e44e70
 void hkpGunProjectile::ResetVtables()
 {
-    *reinterpret_cast<void**>(this) = reinterpret_cast<void*>(&DAT_010ebf94);
-    *reinterpret_cast<void**>(reinterpret_cast<char*>(this) + 8) = reinterpret_cast<void*>(&DAT_010ebf74);
+    *reinterpret_cast<void**>(this) = reinterpret_cast<void*>(&vftable_hkpGunProjectile);
+    *reinterpret_cast<void**>(reinterpret_cast<char*>(this) + 8) = reinterpret_cast<void*>(&vftable_hkpGunProjectile_for_hkpContactListener);
 
     ReleaseWorld();
 
-    *reinterpret_cast<void**>(reinterpret_cast<char*>(this) + 8) = reinterpret_cast<void*>(&DAT_0104dd7c);
-    *reinterpret_cast<void**>(this) = reinterpret_cast<void*>(&_DAT_0102e388);
+    *reinterpret_cast<void**>(reinterpret_cast<char*>(this) + 8) = reinterpret_cast<void*>(&vftable_hkpContactListener);
+    *reinterpret_cast<void**>(this) = reinterpret_cast<void*>(&vftable_hkBaseObject);
 }
 
 // Calls ApplyToAll with a, then ClearProjectileFlags, then FUN_00e44ef0; b through f are unused.

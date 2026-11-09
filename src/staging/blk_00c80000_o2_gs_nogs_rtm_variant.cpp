@@ -68,7 +68,7 @@ public:
 #include "../../include/bhkBoxShape.h"
 #include "../../include/bhkRefObject.h"
 #include "../../include/hkReferencedObject.h"
-extern int DAT_010c53dc;
+extern int vftable_bhkBlendCollisionObject;
 extern int DAT_01267e60;
 struct FUN_00c6c290_holder
 {
@@ -125,7 +125,7 @@ struct FUN_00c9af20_class
     void FUN_00c9ad60();
     void* FUN_00c9af20(int flag);
 };
-extern int DAT_010c53b4;
+extern int vftable_BSSimpleArray_010c53b4;
 extern void(__stdcall* DAT_010c53bc)(int*);
 struct FUN_00c80630_holder
 {
@@ -145,7 +145,7 @@ extern "C" void __stdcall EnterCriticalSection(void*);
 extern int DAT_0126813c;
 extern void* g_pEnterCriticalSection;
 void bhkSerializable_CloneCritLock();
-extern int DAT_010c69f4;
+extern int vftable_bhkWorldM;
 struct FUN_00c6aca0_holder
 {
     void* __thiscall FUN_00c6aca0();
@@ -181,7 +181,7 @@ struct FUN_00c9a070_shell
     float fHi[3];
     void AdjustVector(float* p);
 };
-extern int DAT_010c6b04;
+extern int vftable_NiTLargeArray_010c6b04;
 extern "C" void __cdecl NiFree(void*);
 struct FUN_00c9ae80_class
 {
@@ -360,7 +360,7 @@ struct H_00c8c810
     void ReleaseReferencedObjects();
     void bhkListShape_Link(bool b);
 };
-extern int DAT_010c6fb0;
+extern int vftable_hkpShapeContainer;
 struct FUN_00c9d890_t
 {
     int* m_p0;
@@ -582,7 +582,7 @@ class C815B0Constraint : public C815B0Base
 
     bool bhkBlendCollisionObject_IsEqual(C815B0Constraint* pkOther);
 };
-extern int DAT_010c53dc;
+extern int vftable_bhkBlendCollisionObject;
 extern int DAT_01267e60;
 struct FUN_00c6b910_holder
 {
@@ -5352,9 +5352,9 @@ class RefChainOwner
     void DispatchChainNodes(Dispatcher* arg);
 };
 extern void* __cdecl Object_DispatchCommandFour(unsigned int size);
-extern int DAT_01030bf4;
-extern int DAT_010c44e4;
-extern int DAT_010c485c;
+extern int vftable_bhkShape;
+extern int vftable_bhkShapeCollection;
+extern int vftable_bhkListShape;
 extern int DAT_012680f8;
 extern int DAT_012686d0;
 extern int DAT_012681a0;
@@ -5379,13 +5379,13 @@ struct Object_00c8ae60 : Base_00c8ae60
     }
     Object_00c8ae60()
     {
-        vtable = &DAT_01030bf4;
+        vtable = &vftable_bhkShape;
         unk0c = 0;
         unk10 = 0;
         ++DAT_012680f8;
-        vtable = &DAT_010c44e4;
+        vtable = &vftable_bhkShapeCollection;
         ++DAT_012686d0;
-        vtable = &DAT_010c485c;
+        vtable = &vftable_bhkListShape;
         ++DAT_012681a0;
     }
 };
@@ -6778,7 +6778,7 @@ struct FUN_00c87a40_obj
     void* __thiscall bhkWorldObject_GethkWorld();
 };
 extern void __cdecl FUN_00a5d3a0();
-extern int DAT_010c5b54;
+extern int vftable_bhkRefObject;
 struct FUN_00c87c30_t
 {
     int* pVTable;
@@ -7446,7 +7446,7 @@ struct FunctionContext
     void __thiscall hkReferencedObject_calcContentStatistics(void* context, void* object);
 };
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(void* lpCriticalSection);
-extern int DAT_0102e388;
+extern int vftable_hkBaseObject;
 struct FUN_00c90880_Srv
 {
     virtual void m_00();
@@ -7458,7 +7458,7 @@ struct FUN_00c90880_Class
     void* m_00;
     unsigned short m_04;
 
-    void* FUN_00c90880(unsigned int flags);
+    void* hkReferencedObjectLock_ScalarDeletingDestructor(unsigned int flags);
 };
 int __stdcall Runtime_ReturnZero_00c90e30(int arg0, int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7, int arg8);
 struct FUN_00c92b00_Entry
@@ -7915,7 +7915,7 @@ struct FUN_00c8aa80_cls : BaseThunk
     Mid* m_08;
     void bhkBinaryAction_RegisterStreamables(NiStream* a);
 };
-extern unsigned int DAT_010c6234;
+extern unsigned int vftable_bhkBlendCollisionObjectAddRotation;
 struct Ffd0base
 {
     void Initialize();
@@ -10490,7 +10490,7 @@ struct FUN_00c90030_holder
 };
 // Vtable 0x010c6b0c identifies NiTLargePrimitiveArray<BLENDKEY>.
 struct BLENDKEY;
-extern char DAT_010c6b0c[];
+extern char vftable_NiTLargePrimitiveArray_010c6b0c[];
 void* __cdecl NiMalloc(unsigned int size);
 struct BaseC9
 {

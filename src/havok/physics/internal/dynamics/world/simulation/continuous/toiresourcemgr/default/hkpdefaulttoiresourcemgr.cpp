@@ -54,13 +54,13 @@ class hkpDefaultToiResourceMgr
                                     hkpToiResources& resourcesOut);
 };
 
-extern int DAT_010d4310;
+extern int vftable_hkpDefaultToiResourceMgr;
 
 // @fnv 0x00d9fb90
 hkpDefaultToiResourceMgr::hkpDefaultToiResourceMgr()
 {
     m_sReferenceCount = 1;
-    *(void**)this = (void*)&DAT_010d4310;
+    *(void**)this = (void*)&vftable_hkpDefaultToiResourceMgr;
     m_iMaxNumToiResources = 0x20000;
 }
 

@@ -23,7 +23,7 @@ void* __cdecl NiFloatsExtraDataController_GetRTTI()
 }
 
 int* __fastcall InitTimeController(int*);
-extern int DAT_0109928c;
+extern int vftable_NiFloatsExtraDataController;
 extern int EmptyFS;
 
 // @fnv 0x00a4f000
@@ -34,7 +34,7 @@ int* __cdecl NiFloatsExtraDataController_CreateObject()
     if (p)
     {
         InitTimeController(p);
-        p[0] = reinterpret_cast<int>(&DAT_0109928c);
+        p[0] = reinterpret_cast<int>(&vftable_NiFloatsExtraDataController);
         p[0x10] = 0xffffffff;
         p[0x11] = EmptyFS;
         return p;
@@ -66,7 +66,7 @@ NiFloatsExtraDataController* __fastcall CloneFloatsExtraDataController(
     if (pkObject)
     {
         InitTimeController(reinterpret_cast<int*>(pkObject));
-        *reinterpret_cast<int**>(pkObject) = &DAT_0109928c;
+        *reinterpret_cast<int**>(pkObject) = &vftable_NiFloatsExtraDataController;
         pkObject->m_iFloatsExtraDataIndex = -1;
         pkObject->m_kCtlrID.m_kHandle = reinterpret_cast<char*>(EmptyFS);
     }
@@ -236,7 +236,7 @@ void __cdecl FUN_00aa1460(void*, unsigned int);
 NiFloatsExtraDataController* __fastcall DestroyFloatsExtraDataController(
     NiFloatsExtraDataController* controller, void*, unsigned int destroyFlag)
 {
-    *reinterpret_cast<void* volatile*>(controller) = &DAT_0109928c;
+    *reinterpret_cast<void* volatile*>(controller) = &vftable_NiFloatsExtraDataController;
     controller->m_kCtlrID.~NiFixedString();
     reinterpret_cast<void (__thiscall*)(NiFloatsExtraDataController*)>(&FUN_00a572d0)(controller);
     if ((destroyFlag & 1) != 0)

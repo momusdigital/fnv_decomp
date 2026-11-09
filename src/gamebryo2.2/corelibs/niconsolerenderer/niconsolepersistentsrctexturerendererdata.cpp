@@ -42,8 +42,8 @@ extern "C" void* __cdecl fnv_zlib_memset(void* destination, int value, unsigned 
 extern volatile long DAT_011f4400;
 extern unsigned char kVtbl_NiRefObject;
 extern unsigned char kVtbl_NiDX9IndexBufferManager;
-extern unsigned char DAT_010f02b0;
-extern unsigned char DAT_010f02d0;
+extern unsigned char vftable_NiTMapBase_010f02b0;
+extern unsigned char vftable_NiTPointerMap_010f02d0;
 
 typedef NiTMapBase<NiTPointerAllocator<unsigned int>, const char*, NiShader*> FnvMap;
 
@@ -82,28 +82,28 @@ FnvTextureData* FnvTextureData::AllocateData(FnvTextureReference* texture)
     m_ppVirtualMethodTable = reinterpret_cast<void**>(&kVtbl_NiDX9IndexBufferManager);
 
     FnvMap* map1 = &m_map1;
-    *reinterpret_cast<void***>(map1) = reinterpret_cast<void**>(&DAT_010f02b0);
+    *reinterpret_cast<void***>(map1) = reinterpret_cast<void**>(&vftable_NiTMapBase_010f02b0);
     map1->m_uiHashSize = 0x25;
     map1->m_kItemCount.m_uiCount = 0;
     map1->m_ppkHashTable = static_cast<FnvMap::EntryType**>(_NiMalloc(0x94));
     fnv_zlib_memset(map1->m_ppkHashTable, 0, map1->m_uiHashSize * 4);
-    *reinterpret_cast<void***>(map1) = reinterpret_cast<void**>(&DAT_010f02d0);
+    *reinterpret_cast<void***>(map1) = reinterpret_cast<void**>(&vftable_NiTPointerMap_010f02d0);
 
     FnvMap* map2 = &m_map2;
-    *reinterpret_cast<void***>(map2) = reinterpret_cast<void**>(&DAT_010f02b0);
+    *reinterpret_cast<void***>(map2) = reinterpret_cast<void**>(&vftable_NiTMapBase_010f02b0);
     map2->m_uiHashSize = 0x25;
     map2->m_kItemCount.m_uiCount = 0;
     map2->m_ppkHashTable = static_cast<FnvMap::EntryType**>(_NiMalloc(0x94));
     fnv_zlib_memset(map2->m_ppkHashTable, 0, map2->m_uiHashSize * 4);
-    *reinterpret_cast<void***>(map2) = reinterpret_cast<void**>(&DAT_010f02d0);
+    *reinterpret_cast<void***>(map2) = reinterpret_cast<void**>(&vftable_NiTPointerMap_010f02d0);
 
     FnvMap* map3 = &m_map3;
-    *reinterpret_cast<void***>(map3) = reinterpret_cast<void**>(&DAT_010f02b0);
+    *reinterpret_cast<void***>(map3) = reinterpret_cast<void**>(&vftable_NiTMapBase_010f02b0);
     map3->m_uiHashSize = 0x25;
     map3->m_kItemCount.m_uiCount = 0;
     map3->m_ppkHashTable = static_cast<FnvMap::EntryType**>(_NiMalloc(0x94));
     fnv_zlib_memset(map3->m_ppkHashTable, 0, map3->m_uiHashSize * 4);
-    *reinterpret_cast<void***>(map3) = reinterpret_cast<void**>(&DAT_010f02d0);
+    *reinterpret_cast<void***>(map3) = reinterpret_cast<void**>(&vftable_NiTPointerMap_010f02d0);
 
     m_pkTexture = texture;
     reinterpret_cast<void(__stdcall*)(FnvTextureReference*)>(texture->m_ppVirtualMethodTable[1])(texture);
@@ -119,7 +119,7 @@ FnvTextureData* FnvTextureData::AllocateData(FnvTextureReference* texture)
 
 struct NiD3DShaderProgramCreator;
 
-extern int DAT_010f0a90;
+extern int vftable_NiD3DShaderProgramCreatorHLSL;
 extern NiD3DShaderProgramCreator* DAT_0126fa3c;
 
 struct CreatorHLSL
@@ -132,7 +132,7 @@ struct CreatorHLSL
     }
     CreatorHLSL()
     {
-        vtbl = (int)&DAT_010f0a90;
+        vtbl = (int)&vftable_NiD3DShaderProgramCreatorHLSL;
         field4 = 0;
     }
 };
@@ -324,7 +324,7 @@ namespace fnv_00e90560 {
 extern "C" void __cdecl _delete(void*, int);
 extern void __cdecl FUN_00e806c0();
 extern int DAT_0126f74c;
-extern int DAT_010f0764;
+extern int vftable_NiDX9ErrorShader;
 
 struct FUN_00e90560_shell
 {
@@ -335,7 +335,7 @@ struct FUN_00e90560_shell
 // @fnv 0x00e90560
 void* __thiscall FUN_00e90560_shell::FUN_00e90560(int aiFlags)
 {
-    *(int*)this = (int)&DAT_010f0764;
+    *(int*)this = (int)&vftable_NiDX9ErrorShader;
     DAT_0126f74c = 0;
     FUN_00e806c0();
     if (aiFlags & 1)
@@ -398,8 +398,8 @@ struct _Call_a5d3a0
     _Call_a5d3a0();
 };
 
-extern int DAT_010a080c;
-extern int DAT_010efb7c;
+extern int vftable_NiTexture__RendererData;
+extern int vftable_NiDX9TextureData;
 struct FUN_00e8a260 : _Call_a5d3a0
 {
     int m_00;
@@ -420,7 +420,7 @@ struct FUN_00e8a260 : _Call_a5d3a0
 };
 // Initializes the object's fields: stores a1 in m_08, a2 in m_60, sets m_58-m_5a to 0xff, m_5b/m_64/m_68/m_0c/m_10 to 0, and installs two vtable pointers.
 // @fnv 0x00e8a260
-FUN_00e8a260::FUN_00e8a260(unsigned int a1, unsigned int a2) : m_00((int)&DAT_010a080c), m_08((int)a1), m_0c(0), m_10(0)
+FUN_00e8a260::FUN_00e8a260(unsigned int a1, unsigned int a2) : m_00((int)&vftable_NiTexture__RendererData), m_08((int)a1), m_0c(0), m_10(0)
 {
     m_58 = 0xff;
     m_59 = 0xff;
@@ -428,11 +428,11 @@ FUN_00e8a260::FUN_00e8a260(unsigned int a1, unsigned int a2) : m_00((int)&DAT_01
     m_5b = 0;
     m_64 = 0;
     m_68 = 0;
-    m_00 = (int)&DAT_010efb7c;
+    m_00 = (int)&vftable_NiDX9TextureData;
     m_60 = (int)a2;
 }
 
-extern int DAT_010f02fc;
+extern int vftable_NiDX9RenderedTextureData;
 
 struct FUN_00e8fd60_shell
 {
@@ -445,11 +445,11 @@ struct FUN_00e8fd60_shell
 void* FUN_00e8fd60_shell::InitWithArgs(int aiArg1, int aiArg2, int aiArg3)
 {
     FUN_00e8a260(aiArg1, aiArg2);
-    m_iWordAt00 = &DAT_010f02fc;
+    m_iWordAt00 = &vftable_NiDX9RenderedTextureData;
     return this;
 }
 
-extern int DAT_010f02fc;
+extern int vftable_NiDX9RenderedTextureData;
 struct S_00e8fd80
 {
     void SetVtableAndProcessState_00e8a2b0();
@@ -461,7 +461,7 @@ void S_00e8fd80::ProcessAndReturnValue_00e8fd80()
 {
     void* v0 = *(void**)((char*)this + 0x60);
     int v1 = *(int*)((char*)this + 8);
-    *(void**)this = (void*)&DAT_010f02fc;
+    *(void**)this = (void*)&vftable_NiDX9RenderedTextureData;
     ((void(__thiscall*)(void*, int))(*(void***)v0)[0x15c / 4])(v0, v1);
     void* v2 = *(void**)((char*)this + 0x6c);
     if (v2)
@@ -472,7 +472,7 @@ void S_00e8fd80::ProcessAndReturnValue_00e8fd80()
     return SetVtableAndProcessState_00e8a2b0();
 }
 
-extern int DAT_010f049c;
+extern int vftable_NiDX9RenderedCubeMapData;
 void __cdecl _delete(void*, unsigned int);
 
 // @fnv 0x00e90080
@@ -480,7 +480,7 @@ void* __fastcall DestroyRenderedCubeMapData(NiDX9RenderedCubeMapData* data, int,
 {
     void* p = data->m_iWordAt04;
     int a = data->unk08;
-    *(void**)data = (void*)&DAT_010f049c;
+    *(void**)data = (void*)&vftable_NiDX9RenderedCubeMapData;
     ((void(__thiscall*)(void*, int))(*(void***)p)[86])(p, a);
     reinterpret_cast<S_00e8fd80*>(data)->ProcessAndReturnValue_00e8fd80();
     if (flags & 1)
@@ -488,7 +488,7 @@ void* __fastcall DestroyRenderedCubeMapData(NiDX9RenderedCubeMapData* data, int,
     return data;
 }
 
-extern int DAT_010f05ec;
+extern int vftable_NiDX9DynamicTextureData;
 void __cdecl _delete(void*, unsigned int);
 struct TextureDataTeardown
 {
@@ -501,7 +501,7 @@ void* __fastcall DestroyDynamicTextureData(NiDX9DynamicTextureData* data, int, u
 {
     void* o = data->m_pOwnerShader;
     int a = data->unk08;
-    *(void**)data = (void*)&DAT_010f05ec;
+    *(void**)data = (void*)&vftable_NiDX9DynamicTextureData;
     (*(Fn00e90300**)o)[0x58](o, a);
     ((TextureDataTeardown*)data)->SetVtableAndProcessState_00e8a2b0();
     if (auiFlags & 1)
@@ -529,7 +529,7 @@ bool NiDX9ErrorShader::Initialize()
     return true;
 }
 
-extern int DAT_010f086c;
+extern int vftable_NiDX9TextureManager;
 extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(volatile long*);
 struct Dev00e90a80
 {
@@ -551,7 +551,7 @@ void* S00e90a80::NiDX9TextureManager_NiDX9TextureManager(void* p)
     f0 = &kVtbl_NiRefObject;
     f4 = 0;
     InterlockedIncrement(&DAT_011f4400);
-    f0 = &DAT_010f086c;
+    f0 = &vftable_NiDX9TextureManager;
     fc = p;
     void* dev = *(void**)((char*)p + 0x288);
     f8 = dev;
@@ -921,7 +921,7 @@ void FUN_00e91120_shell::NiDX9RenderState_RestoreSamplerState(int a1, int a2)
 
 namespace fnv_00e91160 {
 extern "C" void __cdecl _delete(void*, int);
-extern int DAT_010f088c;
+extern int vftable_NiDX9RenderState;
 void __cdecl UpdateFields_00e88b00();
 
 struct FUN_00e91160_shell
@@ -933,7 +933,7 @@ struct FUN_00e91160_shell
 // @fnv 0x00e91160
 void* __thiscall FUN_00e91160_shell::FUN_00e91160(int aiFlags)
 {
-    m_p = &DAT_010f088c;
+    m_p = &vftable_NiDX9RenderState;
     UpdateFields_00e88b00();
     if (aiFlags & 1)
         _delete(this, 0x1248);
@@ -962,7 +962,7 @@ void FUN_00e91190_Holder::SetFlag(bool b)
 
 namespace fnv_00e916d0 {
 
-extern int DAT_010f099c;
+extern int vftable_NiDX9PersistentSrcTextureRendererData;
 
 // @fnv 0x00e916d0
 // src: EXE 0x00e916d0
@@ -972,14 +972,14 @@ void* NiPersistentSrcTextureRendererData_CreateObject_00e916d0()
     if (p)
     {
         p->FUN_00a981d0();
-        *reinterpret_cast<int*>(p) = reinterpret_cast<int>(&DAT_010f099c);
+        *reinterpret_cast<int*>(p) = reinterpret_cast<int>(&vftable_NiDX9PersistentSrcTextureRendererData);
         return p;
     }
     return 0;
 }
 }  // namespace fnv_00e916d0
 
-extern int DAT_010f099c;
+extern int vftable_NiDX9PersistentSrcTextureRendererData;
 void __cdecl UpdateFields_00a98240();
 void __cdecl _delete(void*, int);
 struct FUN_00e91750_shell
@@ -987,11 +987,11 @@ struct FUN_00e91750_shell
     void* m_pvt;
     void* __thiscall FUN_00e91750(int flags);
 };
-// Sets m_pvt to DAT_010f099c, calls FUN_00a98240, and if flags has bit 1 set, deletes this with size 0x94; returns this.
+// Sets m_pvt to vftable_NiDX9PersistentSrcTextureRendererData, calls FUN_00a98240, and if flags has bit 1 set, deletes this with size 0x94; returns this.
 // @fnv 0x00e91750
 void* __thiscall FUN_00e91750_shell::FUN_00e91750(int flags)
 {
-    m_pvt = &DAT_010f099c;
+    m_pvt = &vftable_NiDX9PersistentSrcTextureRendererData;
     UpdateFields_00a98240();
     if (flags & 1)
         _delete(this, 0x94);
@@ -1058,8 +1058,8 @@ void __stdcall NiDX9PersistentSrcTextureRendererData_GetViewerStrings(StrArr* pk
 }
 }  // namespace fnv_00e91a90
 
-extern int DAT_010efb7c;
-extern int DAT_010a080c;
+extern int vftable_NiDX9TextureData;
+extern int vftable_NiTexture__RendererData;
 struct Tex00
 {
     virtual long __stdcall Q(void*, void*);
@@ -1136,18 +1136,18 @@ struct S_00e8a2b0 : NiRefObject
 void S_00e8a2b0::SetVtableAndProcessState_00e8a2b0()
 {
     Tex00* a = *(Tex00**)((char*)this + 0x64);
-    *(void**)this = (void*)&DAT_010efb7c;
+    *(void**)this = (void*)&vftable_NiDX9TextureData;
     if (a)
     {
         (*(Rnd00**)((char*)*(void**)((char*)this + 0x60) + 0x8b8))->Purge(a);
         (*(Tex00**)((char*)this + 0x64))->Release();
         *(Tex00**)((char*)this + 0x64) = 0;
     }
-    *(void**)this = (void*)&DAT_010a080c;
+    *(void**)this = (void*)&vftable_NiTexture__RendererData;
     NiRefObject::~NiRefObject();
 }
 
-extern int DAT_010f02fc;
+extern int vftable_NiDX9RenderedTextureData;
 void __cdecl _delete(void*, unsigned int);
 struct R
 {
@@ -1264,7 +1264,7 @@ struct Host00
 // @fnv 0x00e8fdc0
 void* __thiscall Host00::FUN_00e8fdc0(unsigned int auiFlags)
 {
-    *(void**)this = (void*)&DAT_010f02fc;
+    *(void**)this = (void*)&vftable_NiDX9RenderedTextureData;
     _60->At15C(_08);
     if (_6c)
     {
@@ -1449,7 +1449,7 @@ struct FUN_00e8a260
     char pad[0x70];
 };
 char* __cdecl GetHRESULTText(unsigned int);
-extern int DAT_010f02fc;
+extern int vftable_NiDX9RenderedTextureData;
 extern int DAT_01101014;
 struct RTD_Tex
 {
@@ -1462,7 +1462,7 @@ struct RTD_Obj : FUN_00e8a260
 {
     RTD_Obj(unsigned int a, unsigned int b) throw() : FUN_00e8a260(a, b)
     {
-        *(void**)this = &DAT_010f02fc;
+        *(void**)this = &vftable_NiDX9RenderedTextureData;
     }
     int NiDX9RenderedTextureData_CreateSurf(unsigned int, unsigned int);
 };
@@ -1870,8 +1870,8 @@ bool ErrorShaderStandIn::InitErrorShaderPass()
     return true;
 }
 
-extern int DAT_010f086c;
-extern int DAT_0101dce4;
+extern int vftable_NiDX9TextureManager;
+extern int vftable_NiRefObject;
 extern volatile long DAT_011f4400;
 
 void __cdecl FUN_00aa1460(void* apMemory, unsigned int auiSize);
@@ -1898,10 +1898,10 @@ struct FUN_00e90ac0_cls
 FUN_00e90ac0_cls* FUN_00e90ac0_cls::FUN_00e90ac0(unsigned char acFlags)
 {
     FUN_00e90ac0_Sub* pSub = m_pSub;
-    m_vptr = (int)&DAT_010f086c;
+    m_vptr = (int)&vftable_NiDX9TextureManager;
     pSub->Release();
     m_pSub = 0;
-    m_vptr = (int)&DAT_0101dce4;
+    m_vptr = (int)&vftable_NiRefObject;
     InterlockedDecrement(&DAT_011f4400);
     if (acFlags & 1)
     {
@@ -2036,7 +2036,7 @@ TexRecord* __cdecl CreateDynamicTexture(TexOwner* owner)
     if (pRecord != 0)
     {
         new (pRecord) FUN_00e8a260((unsigned int)owner, (unsigned int)dev);
-        pRecord->m_ppVirtualMethodTable = (void**)&DAT_010f05ec;
+        pRecord->m_ppVirtualMethodTable = (void**)&vftable_NiDX9DynamicTextureData;
         pRecord->m_6c = 0;
         pRecord->m_70 = 0;
     }
@@ -2091,7 +2091,7 @@ struct FUN_00e909e0_cls
 };
 
 extern int DAT_0109b220;
-extern int DAT_010f0764;
+extern int vftable_NiDX9ErrorShader;
 extern void* __cdecl FUN_00a5b690(const char* s);
 
 // @fnv 0x00e909e0
@@ -2106,7 +2106,7 @@ FUN_00e909e0_cls* FUN_00e909e0_cls::NiDX9ErrorShader_NiDX9ErrorShader()
     m_30 = 0;
     m_34 = 0;
     *(volatile int*)&m_38 = 0;
-    m_vtbl = (void*)&DAT_010f0764;
+    m_vtbl = (void*)&vftable_NiDX9ErrorShader;
     InitErrorShaderPass();
     void* p = FUN_00a5b690("NiDX9ErrorShader");
     AssignFixedString(&p);
@@ -5871,7 +5871,7 @@ struct FnvD3dDevice
     virtual long __stdcall CreateTexture(unsigned a, unsigned b, unsigned c, int d, int e, int source);
 };
 extern "C" unsigned char DAT_011f4454;
-extern "C" unsigned char DAT_010ed37c;
+extern "C" unsigned char vftable_NiDX9SourceTextureData;
 extern "C" unsigned char DAT_010ed4dc;
 extern "C" unsigned char DAT_011f4509;
 extern "C" unsigned char DAT_011f4508;
@@ -6867,7 +6867,7 @@ struct FnvOutput : SourceTextureConstruction::FUN_00e8a260
     FnvOutput(FnvSource* source, FnvDevice* device)
         : SourceTextureConstruction::FUN_00e8a260((unsigned int)source, (unsigned int)device)
     {
-        m_00 = (int)&DAT_010ed37c;
+        m_00 = (int)&vftable_NiDX9SourceTextureData;
         m_failure = 0;
         m_hasMipmaps = 0;
         m_totalSize = 0;
@@ -7112,7 +7112,7 @@ struct CubeMapBaseInit
     int* m_iWordAt00;
     void* InitWithArgs(int, int, int);
 };
-extern int DAT_010f049c;
+extern int vftable_NiDX9RenderedCubeMapData;
 
 // Allocates a NiDX9RenderedCubeMapData, creates six D3D cube faces, and accumulates texture memory usage into global counters.
 // @fnv 0x00e901a0
@@ -7123,7 +7123,7 @@ NiDX9RenderedCubeMapData* __cdecl NiDX9RenderedCubeMapData_Create(NiRenderedCube
     if (pkShell)
     {
         pkShell->InitWithArgs((int)pkTexture, (int)pkRenderer, 0);
-        pkShell->m_iWordAt00 = &DAT_010f049c;
+        pkShell->m_iWordAt00 = &vftable_NiDX9RenderedCubeMapData;
     }
     else
     {

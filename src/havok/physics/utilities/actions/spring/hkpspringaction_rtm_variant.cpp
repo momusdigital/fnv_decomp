@@ -129,7 +129,7 @@ struct FUN_00cf4d80
     bool m_bEnableState;
     FUN_00cf4d80(void* a, void* b, unsigned long c);
 };
-extern int DAT_010d08f4;
+extern int vftable_hkpSpringAction;
 extern float DAT_01013974;
 extern float DAT_0101e2bc;
 struct FUN_00d4d340 : FUN_00cf4d80

@@ -10,9 +10,9 @@ struct MotorAllocator
     virtual void Release(void*);
     virtual void* Allocate(unsigned int size);
 };
-extern int DAT_010cb76c;
-extern int DAT_010cb780;
-extern int DAT_010cb798;
+extern int vftable_hkpConstraintMotor;
+extern int vftable_hkpLimitedForceConstraintMotor;
+extern int vftable_hkpPositionConstraintMotor;
 struct ReferencedMotorView
 {
     void* m_ppVirtualMethodTable;
@@ -50,16 +50,16 @@ PositionConstraintMotor* __thiscall PositionConstraintMotor::Clone()
     hkMemoryRouter* router = (&hkMemoryRouter::getInstance());
     PositionConstraintMotor* copy = (PositionConstraintMotor*)reinterpret_cast<MotorAllocator*>(router->m_heap)->Allocate(0x24);
     ReferencedMotorView* referenced = (ReferencedMotorView*)copy;
-    referenced->m_ppVirtualMethodTable = &DAT_010cb76c;
+    referenced->m_ppVirtualMethodTable = &vftable_hkpConstraintMotor;
     referenced->m_memorySizeAndFlags = 0x24;
     referenced->m_sReferenceCount = 1;
     const unsigned char motorType = m_motorType;
     ConstraintMotorView* pConstraintMotor = (ConstraintMotorView*)copy;
-    pConstraintMotor->m_ppVirtualMethodTable = &DAT_010cb780;
+    pConstraintMotor->m_ppVirtualMethodTable = &vftable_hkpLimitedForceConstraintMotor;
     pConstraintMotor->m_motorType = motorType;
     copy->m_fMinForce = m_fMinForce;
     copy->m_fMaxForce = m_fMaxForce;
-    copy->m_ppVirtualMethodTable = &DAT_010cb798;
+    copy->m_ppVirtualMethodTable = &vftable_hkpPositionConstraintMotor;
     copy->m_fTau = m_fTau;
     copy->m_fMotorDamping = m_fMotorDamping;
     copy->m_fProportionalRecoveryVelocity = m_fProportionalRecoveryVelocity;

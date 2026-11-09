@@ -233,12 +233,12 @@ class FUN_00e402e0 : public BaseAnimX
 };
 
 void* hkMemoryRouter_getInstance();
-extern int DAT_010e5474;
+extern int vftable_hkaInterleavedUncompressedAnimation;
 
 // Copies transform and float track arrays from src into m_kTransforms and m_kFloats, resizing via the audio service heap manager when capacity is insufficient.
 // @fnv 0x00e402e0
 FUN_00e402e0::FUN_00e402e0(SrcAnimX* apSrcAnim)
-    : BaseAnimX(apSrcAnim), m_vfptr((void*)&DAT_010e5474), m_kTransforms(), m_kFloats()
+    : BaseAnimX(apSrcAnim), m_vfptr((void*)&vftable_hkaInterleavedUncompressedAnimation), m_kTransforms(), m_kFloats()
 {
     {
         HeapMgrX* pHeapMgr = ((AudioSvcX*)hkMemoryRouter_getInstance())->m_pStreamAllocator;

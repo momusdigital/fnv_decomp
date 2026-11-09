@@ -25,39 +25,39 @@ FUN_00b274a0_class* __thiscall FUN_00b274a0_class::ResetState()
 }
 
 extern "C" void FUN_0044a450(int);
-extern int DAT_010a57fc;
+extern int vftable_std__out_of_range;
 
-struct FUN_00b3c440_class
+struct std__out_of_range
 {
     int* vtbl;
     int std_out_of_range_out_of_range(int a);
 };
 
-// Calls FUN_0044a450 on this and a, installs the DAT_010a57fc vtable pointer, and returns this.
+// Calls FUN_0044a450 on this and a, installs the vftable_std__out_of_range vtable pointer, and returns this.
 // @fnv 0x00b3c440
 // src: EXE 0x00b3c440
-int FUN_00b3c440_class::std_out_of_range_out_of_range(int aiValue)
+int std__out_of_range::std_out_of_range_out_of_range(int aiValue)
 {
     int pad[24];
-    reinterpret_cast<void(__thiscall*)(FUN_00b3c440_class*, int)>(FUN_0044a450)(this, aiValue);
-    *reinterpret_cast<int**>(this) = &DAT_010a57fc;
+    reinterpret_cast<void(__thiscall*)(std__out_of_range*, int)>(FUN_0044a450)(this, aiValue);
+    *reinterpret_cast<int**>(this) = &vftable_std__out_of_range;
     return reinterpret_cast<int>(this);
 }
 
-extern int DAT_010a31fc;
+extern int vftable_std__locale__facet;
 
-struct FUN_00b3c910_class
+struct std__locale__facet
 {
     void InitVTable();
 };
 
 // @fnv 0x00b3c910
-void FUN_00b3c910_class::InitVTable()
+void std__locale__facet::InitVTable()
 {
-    *reinterpret_cast<int*>(this) = reinterpret_cast<int>(&DAT_010a31fc);
+    *reinterpret_cast<int*>(this) = reinterpret_cast<int>(&vftable_std__locale__facet);
 }
 
-extern int DAT_010a5890;
+extern int vftable_CIdvCamera;
 
 struct FUN_00b3f0a0_Class
 {
@@ -68,7 +68,7 @@ struct FUN_00b3f0a0_Class
 // src: GUESS 0x00b3f0a0 (confidence: low)
 void __thiscall FUN_00b3f0a0_Class::SetVirtualTable_00b3f0a0()
 {
-    *(int*)this = (int)&DAT_010a5890;
+    *(int*)this = (int)&vftable_CIdvCamera;
 }
 
 // Adds other's x, y and z to this point's components and returns this point.
@@ -404,11 +404,11 @@ struct FUN_00b3f030_Class
     FUN_00b3f030_Class();
 };
 
-// Constructor: sets vtbl to DAT_010a5890 and zeroes three floats stored after the object.
+// Constructor: sets vtbl to vftable_CIdvCamera and zeroes three floats stored after the object.
 // @fnv 0x00b3f030
 FUN_00b3f030_Class::FUN_00b3f030_Class()
 {
-    vtbl = &DAT_010a5890;
+    vtbl = &vftable_CIdvCamera;
     float* p = (float*)(this + 1);
     p[0] = 0.0f;
     p[1] = 0.0f;
@@ -857,7 +857,7 @@ struct Hldr0044
 extern "C" void __stdcall FUN_00ec7894(Hldr0044* p, void* dat);
 extern "C" void __cdecl FormHeap_Allocate(unsigned int scaled);
 extern "C" int DAT_01140ef8;
-extern "C" int DAT_010176f8;
+extern "C" int vftable_std__bad_alloc;
 
 // @fnv 0x00b35f00
 // src: GUESS 0x00b35f00 (confidence: low)
@@ -876,7 +876,7 @@ extern "C" void __cdecl Object_UpdateFields_00b35f00(unsigned int n)
         {
             tmp = 0;
             h.Init(&tmp);
-            h.m_iWordAt00 = (int)&DAT_010176f8;
+            h.m_iWordAt00 = (int)&vftable_std__bad_alloc;
             FUN_00ec7894(&h, &DAT_01140ef8);
         }
     }
@@ -1325,7 +1325,7 @@ void __thiscall FUN_00b3fdd0_class::UpdateState_00b3fdd0(FUN_00b37880_class* val
     }
 }
 
-extern int DAT_010173e8;
+extern int vftable_std__logic_error;
 
 struct FUN_00b3c3b0_Sub
 {
@@ -1343,7 +1343,7 @@ struct FUN_00b3c3b0_Class
     void __thiscall Initialize();
 };
 
-// Sets unk00 to DAT_010173e8, calls FUN_0044a730(1, 0) on unk0c, then calls FUN_00ec79a1.
+// Sets unk00 to vftable_std__logic_error, calls FUN_0044a730(1, 0) on unk0c, then calls FUN_00ec79a1.
 // @fnv 0x00b3c3b0
 void FUN_00b3c3b0_Class::Initialize()
 {
@@ -1353,8 +1353,8 @@ void FUN_00b3c3b0_Class::Initialize()
     int unused10;
     int unused14;
 
-    this->unk00 = &DAT_010a57fc;
-    this->unk00 = &DAT_010173e8;
+    this->unk00 = &vftable_std__out_of_range;
+    this->unk00 = &vftable_std__logic_error;
     this->unk0c.fopen_0044a730(1, 0);
     this->FUN_00ec79a1();
 }

@@ -30,14 +30,14 @@ bool __fastcall IsBSplineBasisDataEqual(NiBSplineBasisData* pkThis, void*, NiObj
            pkThis->m_kBSplineBasis.m_iNumControlPoints;
 }
 
-extern int DAT_01099f24;
+extern int vftable_NiBSplineBasisData;
 void __fastcall FUN_00a5d3d0(void* pThis);
 void __cdecl FUN_00aa1460(void* pMem, unsigned int uiSize);
 
 // @fnv 0x00a52be0
 void* __fastcall FUN_00a52be0(void* pThis, int, unsigned char flags)
 {
-    *reinterpret_cast<int**>(pThis) = &DAT_01099f24;
+    *reinterpret_cast<int**>(pThis) = &vftable_NiBSplineBasisData;
     FUN_00a5d3d0(pThis);
     if (flags & 1)
     {
@@ -86,7 +86,7 @@ void __stdcall NiBSplineBasisData_GetViewerStrings(ArrX* pArray)
 }
 }  // namespace fnv_00a52c90
 
-extern int DAT_01099d3c;
+extern int vftable_NiBSplineColorInterpolator;
 
 struct FUN_00a51ab0_base
 {
@@ -117,7 +117,7 @@ struct FUN_00a51ab0_cls : FUN_00a51ab0_base
 FUN_00a51ab0_cls* FUN_00a51ab0_cls::NiBSplineColorInterpolator_NiBSplineColorInterpolator(int a1, int a2, int a3)
 {
     InitBase(a1, a3);
-    m_vptr00 = (int)&DAT_01099d3c;
+    m_vptr00 = (int)&vftable_NiBSplineColorInterpolator;
     *(volatile float*)&m_1c = 0.0f;
     m_20 = 0.0f;
     m_24 = 0.0f;
@@ -178,7 +178,7 @@ void __fastcall SaveBSplineBasisData(NiBSplineBasisData* pkThis, void*, NiStream
     WriteScalar(stream.m_pkOstr, pkThis->m_kBSplineBasis.m_iNumControlPoints);
 }
 
-extern int DAT_0109a2a4;
+extern int vftable_NiTArray_0109a2a4;
 void* NiMalloc(unsigned int size);
 
 struct FUN_00a54190_cls
@@ -197,7 +197,7 @@ struct FUN_00a54190_cls
 // src: GUESS 0x00a54190 (confidence: low)
 FUN_00a54190_cls* FUN_00a54190_cls::UpdateState_00a54190(int n, short a2)
 {
-    m_vt = (int)&DAT_0109a2a4;
+    m_vt = (int)&vftable_NiTArray_0109a2a4;
     m_08 = n;
     m_0e = a2;
     m_0a = 0;

@@ -331,7 +331,7 @@ int FUN_0098de60_shell::GetArrayItem(char index)
     return arr.GetAt(index);
 }
 
-extern int DAT_0108d6f4;
+extern int vftable_BSSimpleArray_0108d6f4;
 
 struct FUN_0098ed30_class
 {
@@ -340,12 +340,12 @@ struct FUN_0098ed30_class
     void* BSSimpleArray_CombatTarget_1024_BSSimpleArray_CombatTarget_1024();
 };
 
-// Sets the vtable to DAT_0108d6f4, calls FUN_0098fab0 with 0 and 0, and returns this.
+// Sets the vtable to vftable_BSSimpleArray_0108d6f4, calls FUN_0098fab0 with 0 and 0, and returns this.
 // @fnv 0x0098ed30
 // src: XBOX_PDB 0x0098ed30
 void* FUN_0098ed30_class::BSSimpleArray_CombatTarget_1024_BSSimpleArray_CombatTarget_1024()
 {
-    vtable = &DAT_0108d6f4;
+    vtable = &vftable_BSSimpleArray_0108d6f4;
     BSSimpleArray_CombatTarget_1024_InitialSetup(0, 0);
     return this;
 }
@@ -383,7 +383,7 @@ struct GlobalObject_00869f00
     void Clear(bool);
 };
 
-extern int DAT_0108d708;
+extern int vftable_BSSimpleArray_0108d708;
 
 struct FUN_0098f020_shell
 {
@@ -394,7 +394,7 @@ struct FUN_0098f020_shell
 // @fnv 0x0098f020
 void FUN_0098f020_shell::ResetGlobalObject()
 {
-    m_iWordAt00 = (int)&DAT_0108d708;
+    m_iWordAt00 = (int)&vftable_BSSimpleArray_0108d708;
     ((GlobalObject_00869f00*)this)->Clear(true);
 }
 }  // namespace fnv_0098f020
@@ -465,7 +465,7 @@ unsigned int __thiscall BSSimpleArray<CombatTarget>::Add(const CombatTarget& aVa
     return iElementIndex;
 }
 
-extern int DAT_0108d708;
+extern int vftable_BSSimpleArray_0108d708;
 struct FUN_0098fbe0_shell
 {
     void BSSimpleArray_CombatMember_1024_InitialSetup(int, int);
@@ -476,12 +476,12 @@ struct FUN_0098eff0_shell
     void* __thiscall BSSimpleArray_CombatMember_1024_BSSimpleArray_CombatMember_1024();
 };
 
-// Sets the vtable pointer to DAT_0108d708, calls FUN_0098fbe0 with 0, 0, and returns this.
+// Sets the vtable pointer to vftable_BSSimpleArray_0108d708, calls FUN_0098fbe0 with 0, 0, and returns this.
 // @fnv 0x0098eff0
 // src: XBOX_PDB 0x0098eff0
 void* __thiscall FUN_0098eff0_shell::BSSimpleArray_CombatMember_1024_BSSimpleArray_CombatMember_1024()
 {
-    vtable = (void*)&DAT_0108d708;
+    vtable = (void*)&vftable_BSSimpleArray_0108d708;
     reinterpret_cast<FUN_0098fbe0_shell*>(this)->BSSimpleArray_CombatMember_1024_InitialSetup(0, 0);
     return this;
 }
@@ -1313,7 +1313,7 @@ struct FUN_0098ed60_shell : GlobalObject_00869f00
 // src: GUESS 0x0098ed60 (confidence: medium)
 void __thiscall FUN_0098ed60_shell::ResetVirtualTableAndClear_0098ed60()
 {
-    *(void**)this = &DAT_0108d6f4;
+    *(void**)this = &vftable_BSSimpleArray_0108d6f4;
     Clear(true);
 }
 
@@ -1571,7 +1571,7 @@ struct S00992700
     void CombatManager_NotifyCombatGroupAddedMember(void*, ActorV*);
 };
 
-extern Setting g_011f1878;
+extern Setting bDebugCombatGroups_Combat;
 int __cdecl BSTestObjects_GetColor(unsigned int);
 
 
@@ -1614,7 +1614,7 @@ bool CombatMemberInsertionView::CombatGroup_AddMember(ActorV* apActor)
             ->Add(*(const CombatClusterMember*)member.CombatMember_CombatMember(apActor));
     }
     ((S00992700*)BGSSaveLoadGlobalDataWorldspacePtr)->CombatManager_NotifyCombatGroupAddedMember(this, apActor);
-    if (*g_011f1878.Bool() && apActor->V1d0())
+    if (*bDebugCombatGroups_Combat.Bool() && apActor->V1d0())
     {
         *reinterpret_cast<NiColorA*>(colorA) = *(NiColorA*)BSTestObjects_GetColor(m_uiActorFormID);
         reinterpret_cast<NiPoint3*>(color)->Set(colorA[0], colorA[1], colorA[2]);
@@ -2068,7 +2068,7 @@ void FUN_009869a0_shell::CombatGroup_RemoveMember(Actor* apActor)
             if (*reinterpret_cast<Actor**>(reinterpret_cast<unsigned char*>(this) + 0xEC) == apActor)
                 *reinterpret_cast<Actor**>(reinterpret_cast<unsigned char*>(this) + 0xEC) = 0;
 
-            if (*g_011f1878.Bool())
+            if (*bDebugCombatGroups_Combat.Bool())
             {
                 if (reinterpret_cast<ActorDispatch*>(apActor)->M117())
                     UnTintScenegraph(reinterpret_cast<ActorDispatch*>(apActor)->M117());

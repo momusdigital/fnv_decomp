@@ -290,34 +290,34 @@ bool FUN_0046fe90_Class::HasFlag(signed char flag)
     return (reinterpret_cast<const signed char*>(this)[0] & flag) != 0;
 }
 
-extern int DAT_01019a1c;
+extern int vftable_NiTPrimitiveArray_01019a1c;
 struct FUN_00470040_class
 {
     int m_vft;
     void FUN_004704e0(int a, int b);
     FUN_00470040_class(int a, int b);
 };
-// Calls FUN_004704e0 with the two arguments, then sets m_vft to the address of DAT_01019a1c.
+// Calls FUN_004704e0 with the two arguments, then sets m_vft to the address of vftable_NiTPrimitiveArray_01019a1c.
 // @fnv 0x00470040
 FUN_00470040_class::FUN_00470040_class(int aiFirst, int aiSecond)
 {
     FUN_004704e0(aiFirst, aiSecond);
-    m_vft = (int)&DAT_01019a1c;
+    m_vft = (int)&vftable_NiTPrimitiveArray_01019a1c;
 }
 
-extern int DAT_01019a2c;
+extern int vftable_NiTPrimitiveArray_01019a2c;
 struct FUN_004700a0
 {
     void* vtbl;
     void __thiscall FUN_00470550(int a, int b);
     FUN_004700a0(int a, int b);
 };
-// Calls FUN_00470550 with the two arguments, then sets the object's vtbl to DAT_01019a2c.
+// Calls FUN_00470550 with the two arguments, then sets the object's vtbl to vftable_NiTPrimitiveArray_01019a2c.
 // @fnv 0x004700a0
 FUN_004700a0::FUN_004700a0(int aiFirst, int aiSecond)
 {
     FUN_00470550(aiFirst, aiSecond);
-    vtbl = &DAT_01019a2c;
+    vtbl = &vftable_NiTPrimitiveArray_01019a2c;
 }
 
 void* __fastcall ImpactImpactMap_NewItem(void*);
@@ -411,7 +411,7 @@ struct FUN_004748f0 : BaseFormComponent
 {
     FUN_004748f0();
 };
-// Sets the vtable pointer to DAT_0101a3b8 and then calls FUN_008c6060 on this object.
+// Sets the vtable pointer to vftable_BGSAmmoForm and then calls FUN_008c6060 on this object.
 // @fnv 0x004748f0
 FUN_004748f0::FUN_004748f0()
 {
@@ -431,7 +431,7 @@ struct FUN_004750b0 : BaseFormComponent
     FUN_004750b0();
 };
 
-// Sets the object's vtable pointer to DAT_0101a644, then calls SetClipRounds on this object.
+// Sets the object's vtable pointer to vftable_BGSClipRoundsForm, then calls SetClipRounds on this object.
 // @fnv 0x004750b0
 FUN_004750b0::FUN_004750b0()
 {
@@ -541,7 +541,7 @@ struct FUN_004791f0_holder
 {
     void __thiscall InitArrayHolder(int a);
 };
-extern int DAT_0101a8fc;
+extern int vftable_NiTMap_0101a8fc;
 
 struct FUN_00479190_holder
 {
@@ -553,7 +553,7 @@ struct FUN_00479190_holder
 FUN_00479190_holder* __thiscall FUN_00479190_holder::Construct(int a)
 {
     ((FUN_004791f0_holder*)this)->InitArrayHolder(a);
-    m_iWordAt00 = (int)&DAT_0101a8fc;
+    m_iWordAt00 = (int)&vftable_NiTMap_0101a8fc;
     return this;
 }
 
@@ -641,7 +641,7 @@ NiTMapBase<NiTPointerAllocator<unsigned int>, unsigned int, TESFile*>::~NiTMapBa
 }
 
 namespace fnv_00474730 {
-extern void* DAT_0101a384;
+extern void* vftable_NiTMapBase_0101a384;
 extern void* __cdecl NiFreeAlias(void*);
 
 struct FUN_00474730_Map
@@ -658,14 +658,14 @@ struct FUN_00474730_Map
 // src: GUESS 0x00474730 (confidence: low)
 void FUN_00474730_Map::UpdateState_00474730()
 {
-    m_vtbl = &DAT_0101a384;
+    m_vtbl = &vftable_NiTMapBase_0101a384;
     RemoveAll();
     NiFreeAlias(m_ptr);
 }
 }  // namespace fnv_00474730
 
 extern "C" void __cdecl _NiFreeAlias(void*);
-extern int DAT_0101a91c;
+extern int vftable_NiTMapBase_0101a91c;
 
 class TESObjectREFR;
 
@@ -679,7 +679,7 @@ struct FUN_004792c0_Class
 // src: GUESS 0x004792c0 (confidence: medium)
 void __thiscall FUN_004792c0_Class::ReleaseStorage_004792c0()
 {
-    *(void**)this = (void*)&DAT_0101a91c;
+    *(void**)this = (void*)&vftable_NiTMapBase_0101a91c;
     this->RemoveAll();
     _NiFreeAlias(*(void**)((char*)this + 8));
 }
@@ -951,12 +951,12 @@ void __thiscall FUN_0046e8e0_This::TESDataHandler_PrintTextureInfo(KFModel* a, i
     }
 }
 
-extern int DAT_01019a14;
+extern int vftable_NiTArray_01019a14;
 // @fnv 0x0046ffd0
 // src: GUESS 0x0046ffd0 (confidence: low)
 void __thiscall FUN_0045d930_class::SetVtableAndProcessState_0046ffd0()
 {
-    *(void**)this = (void*)&DAT_01019a14;
+    *(void**)this = (void*)&vftable_NiTArray_01019a14;
     NiTMallocInterface<void*>::Deallocate(*(void***)((char*)this + 4));
 }
 
@@ -1073,7 +1073,7 @@ NiTMapBase<NiTPointerAllocator<unsigned int>, unsigned int, TESFile*>::NiTMapBas
     memset(m_ppkHashTable, 0, m_uiHashSize << 2);
 }
 
-extern int DAT_0101a384;
+extern int vftable_NiTMapBase_0101a384;
 void* __cdecl _NiMalloc(unsigned int);
 void* __cdecl memset(void*, int, unsigned int);
 struct FUN_00474660_class
@@ -1088,7 +1088,7 @@ struct FUN_00474660_class
 // @fnv 0x00474660
 FUN_00474660_class::FUN_00474660_class(int aiCount)
 {
-    vtbl = &DAT_0101a384;
+    vtbl = &vftable_NiTMapBase_0101a384;
     count = aiCount;
     pad = 0;
     int size = count * 4;
@@ -1268,7 +1268,7 @@ struct FUN_004791f0_holder2
 // @fnv 0x004791f0
 void* __thiscall FUN_004791f0_holder2::InitArrayHolder(int aiCount)
 {
-    *(int*)this = (int)&DAT_0101a91c;
+    *(int*)this = (int)&vftable_NiTMapBase_0101a91c;
     *(int*)(this + 4) = aiCount;
     *(int*)(this + 0xc) = 0;
     unsigned int uiSize = *(int*)(this + 4) << 2;
@@ -1436,7 +1436,7 @@ struct FUN_004704e0
 // @fnv 0x004704e0
 FUN_004704e0::FUN_004704e0(unsigned short ausCount, unsigned short y)
 {
-    vtbl = &DAT_01019a14;
+    vtbl = &vftable_NiTArray_01019a14;
     a = ausCount;
     f = y;
     c = 0;
@@ -1448,7 +1448,7 @@ FUN_004704e0::FUN_004704e0(unsigned short ausCount, unsigned short y)
 }
 
 namespace fnv_00470550 {
-extern int DAT_01019a24;
+extern int vftable_NiTArray_01019a24;
 struct FUN_00470550_t
 {
     void* vtbl;
@@ -1462,7 +1462,7 @@ struct FUN_00470550_t
 // @fnv 0x00470550
 FUN_00470550_t::FUN_00470550_t(unsigned short ausCapacity, unsigned short y)
 {
-    vtbl = &DAT_01019a24;
+    vtbl = &vftable_NiTArray_01019a24;
     a = ausCapacity;
     d = y;
     b = 0;
@@ -1598,17 +1598,17 @@ char FUN_0046fdd0_Class::IsFieldEqual(int aiValue)
     return m_38 == aiValue;
 }
 
-extern int DAT_01019a24;
+extern int vftable_NiTArray_01019a24;
 
 // @fnv 0x00470070
 // src: GUESS 0x00470070 (confidence: low)
 void __thiscall FUN_0045d950_Class::SetVtableAndProcessState_00470070()
 {
-    *(int*)this = (int)&DAT_01019a24;
+    *(int*)this = (int)&vftable_NiTArray_01019a24;
     NiTMallocInterface<ActorCombatGroup*>::Deallocate(*(ActorCombatGroup***)((char*)this + 4));
 }
 
-extern int DAT_0101a644;
+extern int vftable_BGSClipRoundsForm;
 struct Date
 {
     virtual ~Date();
@@ -1679,7 +1679,7 @@ int __cdecl ConvertFromUni(int a)
     return a;
 }
 
-extern int DAT_01019a34;
+extern int vftable_NiTLargeArray_01019a34;
 extern void* __cdecl FUN_0096afc0(unsigned int count);
 struct ResourceDescriptor
 {
@@ -1696,7 +1696,7 @@ struct ResourceDescriptor
 // src: EXE 0x004705e0
 ResourceDescriptor* ResourceDescriptor::NiTLargeArray_TESForm_NiTMallocInterface_TESForm_NiTLargeArray(unsigned int initialCount, unsigned int initialOptions)
 {
-    vtable = &DAT_01019a34;
+    vtable = &vftable_NiTLargeArray_01019a34;
     count = initialCount;
     options = initialOptions;
     capacity = 0;
@@ -2582,7 +2582,7 @@ struct NamedObject_47ab40
 {
     NiFixedString& GetName();
 };
-extern Setting g_011c4c64;
+extern Setting bAnimateDoorPhysics_General;
 int FUN_00ec6da0(const char*, const char*);
 bool AILinearTaskThreadManager_ShouldQueue3DTask();
 
@@ -2782,7 +2782,7 @@ bool BGSOpenCloseForm_HandleAnimEndHavok(Ref_47ab40* ref, NamedObject_47ab40* ob
     {
         if (!FUN_00ec6da0(obj->GetName(), "Open") || !FUN_00ec6da0(obj->GetName(), "Close"))
             result = true;
-        if (!*g_011c4c64.Bool() && result && !*g_011c4c64.Bool())
+        if (!*bAnimateDoorPhysics_General.Bool() && result && !*bAnimateDoorPhysics_General.Bool())
         {
             NiNode* node = ref->Get3D();
             if (node)
@@ -4964,6 +4964,6 @@ bool BGSDestructibleObjectForm::IsEqualToBase(BaseFormComponent* other)
 // src: GUESS 0x00470110 (confidence: low)
 void __thiscall FUN_00464f40_class::SetVtableAndProcessState_00470110()
 {
-    *reinterpret_cast<void***>(this) = reinterpret_cast<void**>(&DAT_01019a34);
+    *reinterpret_cast<void***>(this) = reinterpret_cast<void**>(&vftable_NiTLargeArray_01019a34);
     NiTMallocInterface<void*>::Deallocate(reinterpret_cast<FNVPointerArray*>(this)->m_pBase);
 }

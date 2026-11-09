@@ -52,17 +52,17 @@ void __fastcall SetLimitedHingeMotor(hkpLimitedHingeConstraintData* self, void*,
     *(hkReferencedObject**)((char*)self + 0xb0) = pObject;
 }
 
-extern int DAT_010c89e4;
-extern int DAT_0102e388;
+extern int vftable_hkpLimitedHingeConstraintData;
+extern int vftable_hkBaseObject;
 
 // @fnv 0x00cb8b40
 void __fastcall DestroyLimitedHingeMotor(hkpLimitedHingeConstraintData* self, void*)
 {
     hkReferencedObject* p = (hkReferencedObject*)*((int*)self + 44);
-    *((int*)self) = (int)&DAT_010c89e4;
+    *((int*)self) = (int)&vftable_hkpLimitedHingeConstraintData;
     if (p)
         p->removeReference();
-    *((int*)self) = (int)&DAT_0102e388;
+    *((int*)self) = (int)&vftable_hkBaseObject;
 }
 
 // Stores b at self+0xa2 and its negation at self+0xb6; if a is non-null, zeroes four floats at a->0x30->0x1c.

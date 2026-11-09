@@ -86,7 +86,7 @@ void hkpMultiRayConvexAgent_staticGetPenetrations(void* b, void* a, void* c, S_0
 void Object_ProcessState_00d37860(void* a, void* b, void* c, int filter);
 struct Payload { const char* name; float value; int id; };
 extern float DAT_0104da48;
-extern const char DAT_010ce7fc[];
+extern const char vftable_hkpSymmetricAgentFlipCollector[];
 void hkpMultiRayConvexAgent_staticGetClosestPoints(int, int, int, Payload*);
 void Object_UpdateFields_00d378a0(int aiArg1, int aiArg2, int aiArg3, int aiId);
 struct D376B0Allocator;

@@ -166,7 +166,7 @@ void Object::ProcessEntries(int* entries, int count, int option, unsigned int fl
     }
 }
 
-extern int DAT_010cd45c;
+extern int vftable_hkpContinuousSimulation;
 struct Callback { virtual void Invoke(int value); };
 struct Receiver {
     virtual void Slot00();
@@ -194,7 +194,7 @@ struct FUN_00d0d0d0_cls {
 };
 // @fnv 0x00d0d0d0
 void FUN_00d0d0d0_cls::Destroy() {
-    unk00 = (int)&DAT_010cd45c;
+    unk00 = (int)&vftable_hkpContinuousSimulation;
     if (sub3c.unk0c)
         sub3c.unk0c->Invoke(1);
     sub3c.ProcessArgument((void*)hkMemoryRouter_getInstance()->m_heap);
@@ -5452,7 +5452,7 @@ struct Owner {
     int m_334;
 };
 
-extern int DAT_010cd45c;
+extern int vftable_hkpContinuousSimulation;
 
 hkMemoryRouter *__cdecl hkMemoryRouter_getInstance();
 void __cdecl hkArrayUtil__reserve(Allocator *allocator, void *data, unsigned int capacity, unsigned int elemSize);
@@ -5502,7 +5502,7 @@ struct FUN_00d0d020_cls {
 FUN_00d0d020_cls *FUN_00d0d020_cls::InitializeFields_00d0d020(Owner *apOwner) {
     // the base constructor (0x00cf87c0) takes the owner pointer as its argument
     ((Stub_cf87c0 *)this)->FUN_00cf87c0(apOwner);
-    m_vptr = (int)&DAT_010cd45c;
+    m_vptr = (int)&vftable_hkpContinuousSimulation;
     unsigned int zero = 0;
     // the two {data, ?, capacity} holders; the capacity's top bit is a flag
     unsigned int *arr = (unsigned int *)&m_30;

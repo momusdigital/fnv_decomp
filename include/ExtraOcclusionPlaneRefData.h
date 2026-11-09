@@ -14,7 +14,7 @@ public:
     void Reset();
     void SetSelectedMagicItem(PatrolReferenceData*);
     void FUN_00420060();
-    void* FUN_00420030(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 
     PatrolReferenceData* pData;
 };

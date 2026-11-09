@@ -18,7 +18,7 @@
 
 // src/havok/physics/collide/agent/heightfieldagent/hkpheightfieldagent.cpp - unit created 2026-10-16 from the whole-binary attribution (360 source path: d:/projects/fallout/code/havok/source/physics/collide/agent/heightfieldagent/hkpheightfieldagent.cpp).
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
-extern char DAT_010ceaa8[];
+extern char vftable_hkpHeightFieldAgent[];
 
 
 BSAudio* hkMemoryRouter_getInstance();
@@ -114,7 +114,7 @@ extern "C" void __stdcall hkpHeightFieldAgent_getPenetrations(void* arg0, void* 
 {
     hkpHeightFieldAgent_staticGetPenetrations(arg0, arg1, arg2, arg3);
 }
-extern char DAT_010ce81c;
+extern char vftable_hkpSymmetricAgentFlipBodyCollector;
 void __cdecl hkpHeightFieldAgent_staticGetPenetrations(int a1, int a2, int a3, void* a4);
 struct FUN_00d32370_cls {
     void* vt;

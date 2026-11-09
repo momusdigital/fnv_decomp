@@ -19,7 +19,7 @@ void FUN_00726d50_class::AnimatingText_SetFlash(bool a)
     SetFlags(2, a);
 }
 
-extern int DAT_01070660;
+extern int vftable_BSSimpleArray_01070660;
 
 struct GlobalObject_00869f00
 {
@@ -34,7 +34,7 @@ void GlobalObject_00869f00::Clear(bool)
 // @fnv 0x0072ce90
 void GlobalObject_00869f00::InitFromGlobal()
 {
-    p = &DAT_01070660;
+    p = &vftable_BSSimpleArray_01070660;
     Clear(true);
 }
 
@@ -79,11 +79,11 @@ struct StandIn
     void* vtable;
     StandIn* Initialize();
 };
-// Sets the vtable to DAT_01070660, calls FUN_006b3eb0 with 0 and 0, and returns this.
+// Sets the vtable to vftable_BSSimpleArray_01070660, calls FUN_006b3eb0 with 0 and 0, and returns this.
 // @fnv 0x0072ce30
 StandIn* StandIn::Initialize()
 {
-    vtable = &DAT_01070660;
+    vtable = &vftable_BSSimpleArray_01070660;
     reinterpret_cast<AX*>(this)->BSSimpleArray_float_1024_InitialSetup(0, 0);
     return this;
 }

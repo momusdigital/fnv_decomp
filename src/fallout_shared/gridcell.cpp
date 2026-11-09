@@ -167,13 +167,13 @@ void NiDynamicEffect::SetEffectColor(const NiColor& color)
 
 
 
-extern Setting g_011c75a4;
+extern Setting bDoCanopyShadowPass_Display;
 
 // @fnv 0x004bc400
 // src: COMMUNITY 0x004bc400
 unsigned char TESRenderer_GetDoCanopyShadowPass()
 {
-    return *g_011c75a4.FUN_00408d60();
+    return *bDoCanopyShadowPass_Display.FUN_00408d60();
 }
 
 namespace fnv_004bc450 {

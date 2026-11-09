@@ -1044,7 +1044,7 @@ struct SaveOption
 {
     bool* Bool();
 };
-extern SaveOption g_011de4e8;
+extern SaveOption bDebugSaveBuffer_Debug;
 struct FormRecord;
 // Exe 0x00955620: unit-local ListNode view; declarations and layout are preserved.
 struct PlayercharacterListNodeView
@@ -1866,7 +1866,7 @@ void PlayerSave::PlayerCharacter_SaveGame(unsigned int flags)
         unsigned short blockSize3 = 0;
         unsigned char* blockStart9 = 0;
         unsigned char* initialPosition3 = reinterpret_cast<SaveStream*>(g_TESSaveLoadGame)->FUN_00825c00();
-        if (*g_011de4e8.Bool())
+        if (*bDebugSaveBuffer_Debug.Bool())
             initialPosition3 = reinterpret_cast<SaveStream*>(g_TESSaveLoadGame)->FUN_00825c00();
         if (reinterpret_cast<SaveStream*>(g_TESSaveLoadGame)->TESSaveLoadGame_UseSaveGameBlocks())
         {
@@ -1880,7 +1880,7 @@ void PlayerSave::PlayerCharacter_SaveGame(unsigned int flags)
         if (reinterpret_cast<SaveStream*>(g_TESSaveLoadGame)->FUN_008df040() >= 0x31)
             TESForm_SaveGameDataOLD(&unk4b0, 0x134);
         TESForm_SaveGameDataOLD(&unk4ac, 4);
-        if (*g_011de4e8.Bool())
+        if (*bDebugSaveBuffer_Debug.Bool())
         {
             unsigned char* endPosition4 = reinterpret_cast<SaveStream*>(g_TESSaveLoadGame)->FUN_00825c00();
             SaveReference* reference = ((StreamView*)g_TESSaveLoadGame)->GetHitSound();
@@ -1911,7 +1911,7 @@ void PlayerSave::PlayerCharacter_SaveGame(unsigned int flags)
         unsigned short blockSize3 = 0;
         unsigned char* blockStart9 = 0;
         unsigned char* initialPosition3 = reinterpret_cast<SaveStream*>(g_TESSaveLoadGame)->FUN_00825c00();
-        if (*g_011de4e8.Bool())
+        if (*bDebugSaveBuffer_Debug.Bool())
             initialPosition3 = reinterpret_cast<SaveStream*>(g_TESSaveLoadGame)->FUN_00825c00();
         if (reinterpret_cast<SaveStream*>(g_TESSaveLoadGame)->TESSaveLoadGame_UseSaveGameBlocks())
         {
@@ -2282,7 +2282,7 @@ void PlayerSave::PlayerCharacter_SaveGame(unsigned int flags)
                 id740 = unk740->GetHavokWorldObjectCountInSceneGraph_0084e3a0();
             ForwardToSaveLoadGame(&id740, 4);
         }
-        if (*g_011de4e8.Bool())
+        if (*bDebugSaveBuffer_Debug.Bool())
         {
             unsigned char* endPosition2 = reinterpret_cast<SaveStream*>(g_TESSaveLoadGame)->FUN_00825c00();
             SaveReference* reference4 = ((StreamView*)g_TESSaveLoadGame)->GetHitSound();

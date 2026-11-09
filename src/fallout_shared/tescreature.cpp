@@ -313,11 +313,12 @@ struct DtorStandIn
 };
 struct DelStandIn
 {
-    void* FUN_005f75b0(unsigned int flags);
+    void* TESCreature_ScalarDeletingDestructor(unsigned int flags);
 };
 // Runs the destructor on this object, then frees it with Deallocate when flags has bit 0 set, and returns this.
 // @fnv 0x005f75b0
-void* DelStandIn::FUN_005f75b0(unsigned int flags)
+// src: EXE 0x005f75b0
+void* DelStandIn::TESCreature_ScalarDeletingDestructor(unsigned int flags)
 {
     ((DtorStandIn*)this)->FUN_0083dec0();
     if (flags & 1)
@@ -1694,7 +1695,7 @@ struct GlobalObject_0045cf30
 {
     bool* Bool();
 };
-extern GlobalObject_0045cf30 g_011df7f8, g_011df858;
+extern GlobalObject_0045cf30 bDisableAllGore_General, bDismemberOneLimb_Combat;
 struct Queue
 {
     void TaskQueueInterface_QueueDismemberLimb(void*, int, int, bool, bool);
@@ -1711,7 +1712,7 @@ void Actor::ApplyEffectToBodyParts(Effect* effect, int type, int part, void* sou
 {
     using namespace fnv_008b4d10;
     TESCreature* eb = dynamic_cast<TESCreature*>(GetActorBase());
-    if (((eb && eb->IsHumanoidCreature()) || IsCharacter()) && *g_011df7f8.Bool())
+    if (((eb && eb->IsHumanoidCreature()) || IsCharacter()) && *bDisableAllGore_General.Bool())
         return;
     switch (type)
     {
@@ -1776,7 +1777,7 @@ void Actor::ApplyEffectToBodyParts(Effect* effect, int type, int part, void* sou
         return;
     for (ba = 0; ba < 15; ba++)
     {
-        if (*g_011df858.Bool() && ba != -1)
+        if (*bDismemberOneLimb_Combat.Bool() && ba != -1)
             ba = part;
         l = reinterpret_cast<BaseView*>(GetActorBase())->GetBody();
         c = l ? reinterpret_cast<Part*>(l->GetValueByIndex(ba)) : 0;
@@ -1794,7 +1795,7 @@ void Actor::ApplyEffectToBodyParts(Effect* effect, int type, int part, void* sou
             Actor_DismemberLimb(type, ba, a, !flag, true, false);
         else
             FUN_004537b0()->TaskQueueInterface_QueueDismemberLimb(this, type, ba, a, !flag);
-        if (*g_011df858.Bool() && ba != -1)
+        if (*bDismemberOneLimb_Combat.Bool() && ba != -1)
             break;
     }
 }

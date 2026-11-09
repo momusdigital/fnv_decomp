@@ -595,7 +595,7 @@ void PlanarColliderUpdate::Update()
 }
 
 extern const ColliderMatrix DAT_011f4248;
-extern const char DAT_010be834[];
+extern const char vftable_NiPSysSphericalCollider[];
 // The shared collider has no constructor entry point for this initializer.
 extern "C" void InitializeColliderBase();
 
@@ -611,7 +611,7 @@ Collider* Collider::NiPSysSphericalCollider_NiPSysSphericalCollider(float fBounc
     p->node = (NiAVObject*)pkColliderObj;
     p->radius = 1.0f;
     p->squaredRadius = 1.0f;
-    *(const void**)this = DAT_010be834;
+    *(const void**)this = vftable_NiPSysSphericalCollider;
     p->center = reinterpret_cast<const ColliderPoint&>(NiPoint3_ZERO);
     if (fRadius >= 0.0f)
         p->radius = fRadius;

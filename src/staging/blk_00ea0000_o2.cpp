@@ -384,7 +384,7 @@ struct S_00eae9e0_P2
     float unk10;
 };
 
-extern char DAT_010f1aa0;
+extern char vftable_NiCapsuleSphereIntersector;
 extern float DAT_010f1a98;
 
 struct FUN_00eae9e0_cls
@@ -418,7 +418,7 @@ FUN_00eae9e0_cls* FUN_00eae9e0_cls::InitFromParams(S_00eae9e0_P1* a1, S_00eae9e0
 {
     FUN_00eae720(a3, a4, a5, a6);
     unk38 = a1;
-    unk00 = (void*)&DAT_010f1aa0;
+    unk00 = (void*)&vftable_NiCapsuleSphereIntersector;
     unk3c = a2;
     float s = a1->unk38 + a2->unk10;
     unk40 = 1.0f / (s * s);
@@ -739,7 +739,7 @@ namespace fnv_00eae6d0 {
 // an undefined extern makes the store a plain DIR32 relocation with addend 0;
 // the checker then binds it to 0x010f1a84 from the original's own bytes.
 
-extern int DAT_010f1a84;
+extern int vftable_NiIntersector;
 
 struct Isect
 {
@@ -751,7 +751,7 @@ struct Isect
 // src: GUESS 0x00eae6d0 (confidence: low)
 void Isect::SetVtbl()
 {
-    m_pVtbl = &DAT_010f1a84;
+    m_pVtbl = &vftable_NiIntersector;
 }
 }  // namespace fnv_00eae6d0
 
@@ -1064,7 +1064,7 @@ Node* Runtime_CreateNode()
 
 }
 
-extern int DAT_010f1abc;
+extern int vftable_NiCapsuleCapsuleIntersector;
 static const float DAT_010f1ab4 = 3.402823466e+38f;
 
 extern "C" void __stdcall FUN_00eae720(float a3, float a4, float a5, int a6);
@@ -1100,7 +1100,7 @@ S_00eaedc0_Class* S_00eaedc0_Class::Initialize(int a1, int a2, float a3, float a
 {
     FUN_00eae720(a3, a4, a5, a6);
     m_38 = a1;
-    m_00 = (void*)&DAT_010f1abc;
+    m_00 = (void*)&vftable_NiCapsuleCapsuleIntersector;
     m_3c = a2;
 
     float s = *reinterpret_cast<float*>(m_38 + 0x38) + *reinterpret_cast<float*>(m_3c + 0x38);

@@ -16,7 +16,7 @@ public:
 };
 #include "../../include/PathingAvoidNode.h"
 
-extern int DAT_01088438;
+extern int vftable_BSTMessageQueue_01088438;
 
 struct FUN_00905670_Class
 {
@@ -26,7 +26,7 @@ struct FUN_00905670_Class
 // @fnv 0x00905670
 void __thiscall FUN_00905670_Class::SetVTable()
 {
-    *(int*)this = (int)&DAT_01088438;
+    *(int*)this = (int)&vftable_BSTMessageQueue_01088438;
 }
 
 extern int DAT_010159d4;
@@ -49,7 +49,7 @@ void GlobalObject_00869f00::InitFromGlobal()
 }
 
 extern "C" void __cdecl FUN_009059f0();
-extern void* DAT_01088418;
+extern void* vftable_BSTCommonMessageQueue_01088418;
 
 struct FUN_00905990_Class
 {
@@ -59,16 +59,16 @@ struct FUN_00905990_Class
     FUN_00905990_Class();
 };
 
-// Calls FUN_009059f0, sets the vtable pointer to DAT_01088418 and initializes field_4 to 0.
+// Calls FUN_009059f0, sets the vtable pointer to vftable_BSTCommonMessageQueue_01088418 and initializes field_4 to 0.
 // @fnv 0x00905990
 FUN_00905990_Class::FUN_00905990_Class()
 {
     FUN_009059f0();
-    vtbl = &DAT_01088418;
+    vtbl = &vftable_BSTCommonMessageQueue_01088418;
     field_4 = 0;
 }
 
-extern int DAT_01088438;
+extern int vftable_BSTMessageQueue_01088438;
 
 struct FUN_009059f0_Class
 {
@@ -79,7 +79,7 @@ struct FUN_009059f0_Class
 // @fnv 0x009059f0
 FUN_009059f0_Class::FUN_009059f0_Class()
 {
-    pVftable = (int*)&DAT_01088438;
+    pVftable = (int*)&vftable_BSTMessageQueue_01088438;
 }
 
 namespace p07 {
@@ -97,7 +97,7 @@ void* p07::DelStandIn::Destroy_Thunk()
     return Destroy(0);
 }
 
-extern "C" void __cdecl DAT_01088640();
+extern "C" void __cdecl vftable_LockFreeMap__LockFreeMapIterator_01088640();
 
 struct FUN_00906110_Class
 {
@@ -108,10 +108,10 @@ struct FUN_00906110_Class
 // src: GUESS 0x00906110 (confidence: low)
 void __thiscall FUN_00906110_Class::SetVtableAndProcessState_00906110()
 {
-    *reinterpret_cast<void**>(this) = &DAT_01088640;
+    *reinterpret_cast<void**>(this) = &vftable_LockFreeMap__LockFreeMapIterator_01088640;
 }
 
-extern int DAT_01088fd4;
+extern int vftable_NiTMap_01088fd4;
 struct FUN_00913810_t
 {
     void FUN_00913810(int a);
@@ -121,12 +121,12 @@ struct FUN_009137b0_t
     int* m;
     FUN_009137b0_t* Construct(int a);
 };
-// Calls FUN_00913810 with a, sets m to point at DAT_01088fd4, and returns this.
+// Calls FUN_00913810 with a, sets m to point at vftable_NiTMap_01088fd4, and returns this.
 // @fnv 0x009137b0
 FUN_009137b0_t* FUN_009137b0_t::Construct(int a)
 {
     ((FUN_00913810_t*)this)->FUN_00913810(a);
-    m = &DAT_01088fd4;
+    m = &vftable_NiTMap_01088fd4;
     return this;
 }
 
@@ -385,7 +385,7 @@ struct FUN_00906690_t
 // @fnv 0x00906690
 FUN_00906690_t::FUN_00906690_t()
 {
-    m_iWordAt00 = (void*)&DAT_01088640;
+    m_iWordAt00 = (void*)&vftable_LockFreeMap__LockFreeMapIterator_01088640;
     m_iWordAt04 = 0;
     m_8 = 0;
     m_iThirdValue = 0;
@@ -422,7 +422,7 @@ void* GlobalObject_009137b0::FUN_009137e0(unsigned int flags)
 }
 
 extern void __cdecl NiFree(void*);
-extern int DAT_01088ff4;
+extern int vftable_NiTMapBase_01088ff4;
 struct FUN_009138e0_Class
 {
     void* m_iWordAt00;
@@ -435,7 +435,7 @@ struct FUN_009138e0_Class
 // src: GUESS 0x009138e0 (confidence: low)
 void FUN_009138e0_Class::UpdateFields_009138e0()
 {
-    m_iWordAt00 = (void*)&DAT_01088ff4;
+    m_iWordAt00 = (void*)&vftable_NiTMapBase_01088ff4;
     FUN_008448e0();
     NiFree(m_8);
 }
@@ -454,13 +454,13 @@ void* FUN_00913950_Class::UpdateState_00913950(int a)
     return this;
 }
 
-extern void* DAT_01088418;
+extern void* vftable_BSTCommonMessageQueue_01088418;
 
 // @fnv 0x00905650
 // src: GUESS 0x00905650 (confidence: low)
 void FUN_00905690_Class::SetVtableAndProcessState_00905650()
 {
-    *reinterpret_cast<int*>(this) = reinterpret_cast<int>(&DAT_01088418);
+    *reinterpret_cast<int*>(this) = reinterpret_cast<int>(&vftable_BSTCommonMessageQueue_01088418);
     reinterpret_cast<FUN_00905670_Class*>(this)->SetVTable();
 }
 

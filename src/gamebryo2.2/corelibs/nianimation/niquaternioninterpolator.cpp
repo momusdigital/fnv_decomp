@@ -35,7 +35,7 @@ const void* __cdecl NiQuaternionInterpolator_GetRTTI()
     return &g_011f3f60;
 }
 
-extern int DAT_010986f4;
+extern int vftable_NiQuaternionInterpolator;
 extern int DAT_011f4208;
 extern int DAT_011f420c;
 extern int DAT_011f4210;
@@ -48,7 +48,7 @@ NiQuaternionInterpolator* __cdecl CreateNiQuaternionInterpolator()
     if (p)
     {
         p->NiKeyBasedInterpolator::NiKeyBasedInterpolator();
-        *(int*)(p) = (int)&DAT_010986f4;
+        *(int*)(p) = (int)&vftable_NiQuaternionInterpolator;
         *reinterpret_cast<int*>(&p->m_kQuaternionValue.m_fVectorX) = DAT_011f4208;
         *reinterpret_cast<int*>(&p->m_kQuaternionValue.m_fVectorY) = DAT_011f420c;
         *reinterpret_cast<int*>(&p->m_kQuaternionValue.m_fVectorZ) = DAT_011f4210;
@@ -420,7 +420,7 @@ void CopyQuaternionInterpolator();
 inline NiQuaternionInterpolator* InitializeQuaternionInterpolator(NiQuaternionInterpolator* object)
 {
     object->NiKeyBasedInterpolator::NiKeyBasedInterpolator();
-    *(void**)object = &DAT_010986f4;
+    *(void**)object = &vftable_NiQuaternionInterpolator;
     CopyQuaternionValue(object->m_kQuaternionValue, *reinterpret_cast<const NiQuaternion*>(&DAT_011f4208));
     object->m_spQuaternionData.m_pObject = 0;
     *(volatile unsigned int*)&object->m_uiLastKeyIndex = 0;

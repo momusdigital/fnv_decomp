@@ -33,7 +33,7 @@ struct __declspec(align(16)) FinishedObject
 void* __cdecl Runtime_EvaluateValue_00e005f0();
 // Havok type-registration helper: construct the class in finish-loading mode (flag 0) on the stack,
 // then return its static registration data.
-extern char DAT_010e8ab0[];
+extern char vftable_hkpFastMeshShape[];
 struct __declspec(align(16)) S_00e00cd0_Obj
 {
     void* m_vtbl;
@@ -158,8 +158,8 @@ struct FUN_00e00290_sub
     void ReturnSelf(Handle_e00290 kHandle);
     int m_00;
 };
-extern int DAT_010cc040;
-extern int DAT_010d79e8;
+extern int vftable_hkpConstraintInstance;
+extern int vftable_hkpConstraintChainInstance;
 struct SmallArray_e00290
 {
     void* m_pData;
@@ -530,7 +530,7 @@ struct FUN_00e02180_sub
     void ReturnSelf(Handle_e02180 kHandle);
     int m_00;
 };
-extern int DAT_010e9ccc;
+extern int vftable_hkxMaterialShader;
 struct __declspec(align(16)) FUN_00e02180_obj
 {
     int* m_pVtbl;

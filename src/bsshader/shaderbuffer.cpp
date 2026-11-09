@@ -77,7 +77,7 @@ struct FUN_00aa4060_Manager
 };
 
 extern FUN_00aa4060_Manager DAT_011f6238;
-extern void* DAT_010ef53c;
+extern void* vftable_NiTArray_010ef53c;
 
 extern void FUN_0045cec0(void* object);
 extern void __stdcall FUN_00ec5fce(void* base, unsigned int elementSize, unsigned int count, void (*destructor)(void*));
@@ -95,7 +95,7 @@ struct FUN_00b7e2b0_Class
 void* FUN_00b7e2b0_Class::Destroy(unsigned char flags)
 {
     void* base = unk04;
-    *reinterpret_cast<void**>(this) = &DAT_010ef53c;
+    *reinterpret_cast<void**>(this) = &vftable_NiTArray_010ef53c;
 
     if (base != 0)
     {

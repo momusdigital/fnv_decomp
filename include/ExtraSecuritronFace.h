@@ -10,7 +10,7 @@ class ExtraSecuritronFace : public BSExtraData
 public:
     virtual ~ExtraSecuritronFace();
 
-    void* __thiscall FUN_0042cd40(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
     void __thiscall FUN_0042cd70();
 
     BSStringT<char> GetStr1();

@@ -92,7 +92,7 @@ struct Helper_00644400
     void BSSimpleArray_NavMeshTriangle_1024_InitialSetup(int, int);
 };
 
-extern int DAT_0104f3e8;
+extern int vftable_BSSimpleArray_0104f3e8;
 
 struct FUN_006442b0_class
 {
@@ -100,17 +100,17 @@ struct FUN_006442b0_class
     void* BSSimpleArray_FollowerDist_1024_BSSimpleArray_FollowerDist_1024(int a);
 };
 
-// Sets the vftable to DAT_0104f3e8, calls FUN_00644400 with the argument twice, and returns this.
+// Sets the vftable to vftable_BSSimpleArray_0104f3e8, calls FUN_00644400 with the argument twice, and returns this.
 // @fnv 0x006442b0
 // src: COMMUNITY 0x006442b0
 void* FUN_006442b0_class::BSSimpleArray_FollowerDist_1024_BSSimpleArray_FollowerDist_1024(int aiValue)
 {
-    vftable = &DAT_0104f3e8;
+    vftable = &vftable_BSSimpleArray_0104f3e8;
     ((Helper_00644400*)this)->BSSimpleArray_NavMeshTriangle_1024_InitialSetup(aiValue, aiValue);
     return this;
 }
 
-extern int DAT_0104f3e8;
+extern int vftable_BSSimpleArray_0104f3e8;
 
 struct GlobalObject_00869f00
 {
@@ -129,7 +129,7 @@ void GlobalObject_00869f00::Clear(bool b)
 // @fnv 0x006442e0
 void GlobalObject_00869f00::ResetPointer()
 {
-    p = &DAT_0104f3e8;
+    p = &vftable_BSSimpleArray_0104f3e8;
     Clear(true);
 }
 
@@ -558,7 +558,7 @@ unsigned int FUN_00658930_class::GetShortAtOffsetA() const
 }
 
 extern "C" void __cdecl FUN_00659230(int, int);
-extern int DAT_01065870;
+extern int vftable_BSTCaseInsensitiveStringMap_01065870;
 
 struct FUN_00658aa0_class
 {
@@ -567,12 +567,12 @@ struct FUN_00658aa0_class
     FUN_00658aa0_class* __thiscall Initialize(int a, unsigned char b);
 };
 
-// Calls FUN_00659230 with the two arguments, sets vtbl to &DAT_01065870, and returns this.
+// Calls FUN_00659230 with the two arguments, sets vtbl to &vftable_BSTCaseInsensitiveStringMap_01065870, and returns this.
 // @fnv 0x00658aa0
 FUN_00658aa0_class* __thiscall FUN_00658aa0_class::Initialize(int a, unsigned char b)
 {
     FUN_00659230(a, b);
-    vtbl = &DAT_01065870;
+    vtbl = &vftable_BSTCaseInsensitiveStringMap_01065870;
     return this;
 }
 
@@ -653,7 +653,7 @@ void __cdecl ForEachItem(void* apBegin, void* end, FUN_00659310_* apVisitor)
         apVisitor->ForwardCall_00659310(apBegin);
 }
 
-extern int DAT_010658b0;
+extern int vftable_NiTMap_010658b0;
 
 struct FUN_00659490_cls
 {
@@ -666,12 +666,12 @@ struct FUN_00659460_cls
     FUN_00659460_cls* Construct(int a);
 };
 
-// Calls InitArray with a, sets m to point at DAT_010658b0, and returns this.
+// Calls InitArray with a, sets m to point at vftable_NiTMap_010658b0, and returns this.
 // @fnv 0x00659460
 FUN_00659460_cls* FUN_00659460_cls::Construct(int a)
 {
     ((FUN_00659490_cls*)this)->InitArray(a);
-    m = &DAT_010658b0;
+    m = &vftable_NiTMap_010658b0;
     return this;
 }
 
@@ -1304,7 +1304,7 @@ void __thiscall FUN_0065f930_Class::ForwardCall_0065f930(int aiArg1, int aiArg2,
 }
 
 extern "C" void _NiFreeAlias(void*);
-extern void* DAT_010658d0;
+extern void* vftable_NiTMapBase_010658d0;
 
 struct FUN_00658e70_cls : public NiTPointerMap<int, int>
 {
@@ -1315,7 +1315,7 @@ struct FUN_00658e70_cls : public NiTPointerMap<int, int>
 // src: GUESS 0x00658e70 (confidence: low)
 void FUN_00658e70_cls::SetVtableAndProcessState_00658e70()
 {
-    *reinterpret_cast<void**>(this) = &DAT_010658d0;
+    *reinterpret_cast<void**>(this) = &vftable_NiTMapBase_010658d0;
     RemoveAll();
     _NiFreeAlias(reinterpret_cast<void*>(*reinterpret_cast<void**>(reinterpret_cast<char*>(this) + 8)));
 }
@@ -1844,19 +1844,19 @@ void* __thiscall FUN_00659140_Class::FUN_00659140(unsigned int flags)
     return this;
 }
 
-extern int DAT_010658f0;
+extern int vftable_NiTStringMap_010658f0;
 struct FUN_00659230
 {
     void* vptr;
     void __thiscall InitializeWithGlobal(int a, unsigned char b);
     FUN_00659230(int a, unsigned char b);
 };
-// Calls InitializeWithGlobal with the two arguments, then sets the vtable pointer to DAT_010658f0.
+// Calls InitializeWithGlobal with the two arguments, then sets the vtable pointer to vftable_NiTStringMap_010658f0.
 // @fnv 0x00659230
 FUN_00659230::FUN_00659230(int a, unsigned char b)
 {
     InitializeWithGlobal(a, b);
-    vptr = (void*)&DAT_010658f0;
+    vptr = (void*)&vftable_NiTStringMap_010658f0;
 }
 
 void _Deallocate(void*);
@@ -1873,7 +1873,7 @@ void* S_006592c0::FUN_006592c0(unsigned int flags)
     return this;
 }
 
-extern int DAT_01065890;
+extern int vftable_NiTStringTemplateMap_01065890;
 struct FUN_00659330_class
 {
     void* m_iWordAt00;
@@ -1883,12 +1883,12 @@ struct FUN_00659330_class
     unsigned char m_10;
     void* __thiscall InitializeWithGlobal(int a, unsigned char b);
 };
-// Calls Construct on this, then stores a pointer to DAT_01065890 and the byte b into the object's fields.
+// Calls Construct on this, then stores a pointer to vftable_NiTStringTemplateMap_01065890 and the byte b into the object's fields.
 // @fnv 0x00659330
 void* __thiscall FUN_00659330_class::InitializeWithGlobal(int a, unsigned char b)
 {
     ((FUN_00659460_cls*)this)->Construct(a);
-    m_iWordAt00 = &DAT_01065890;
+    m_iWordAt00 = &vftable_NiTStringTemplateMap_01065890;
     m_10 = b;
     return this;
 }
@@ -3101,7 +3101,7 @@ struct FUN_00659490_cls2
 FUN_00659490_cls2* FUN_00659490_cls2::InitArray(int count)
 {
     unsigned int size;
-    m_vtbl = &DAT_010658d0;
+    m_vtbl = &vftable_NiTMapBase_010658d0;
     m_uiItemCount = count;
     m_auiShapeKeys = 0;
     size = m_uiItemCount << 2;
@@ -3298,7 +3298,7 @@ struct FUN_00658bb0 : FUN_00658d30_class
 // @fnv 0x00658bb0
 FUN_00658bb0::~FUN_00658bb0()
 {
-    *(void**)this = &DAT_01065870;
+    *(void**)this = &vftable_BSTCaseInsensitiveStringMap_01065870;
     FUN_00658d30_class::ForwardCall_00658d30();
 }
 

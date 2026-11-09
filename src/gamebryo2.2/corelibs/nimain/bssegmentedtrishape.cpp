@@ -44,7 +44,7 @@ void __thiscall FUN_00a86ff0_shell::SetEntryActive(unsigned int index)
 void __fastcall FUN_00a89760(void*);
 void __cdecl _delete(void*, unsigned int);
 extern "C" MemoryManager g_memoryManager;
-extern "C" void* DAT_0109e834;
+extern "C" void* vftable_BSSegmentedTriShape;
 
 struct FUN_00a87290_shell
 {
@@ -56,7 +56,7 @@ struct FUN_00a87290_shell
 void* __thiscall FUN_00a87290_shell::FUN_00a87290(unsigned int flags)
 {
     void* old = *(void**)((char*)this + 0xc4);
-    *(void**)this = &DAT_0109e834;
+    *(void**)this = &vftable_BSSegmentedTriShape;
     g_memoryManager.DeallocateAlias(old);
     FUN_00a89760(this);
     if (flags & 1)
@@ -297,7 +297,7 @@ void FUN_00a871a0_cls::CopyEntries(Target* apDst, unsigned int aFlag)
     }
 }
 
-extern "C" void* DAT_0109e834;
+extern "C" void* vftable_BSSegmentedTriShape;
 
 void* __cdecl Object_DispatchCommandFour(unsigned int size);
 
@@ -324,7 +324,7 @@ Target* FUN_00a87340_cls::CreateTarget(unsigned int volatile flags)
     if (obj != 0)
     {
         reinterpret_cast<FUN_00a744a0_shell*>(obj)->FUN_00a744a0();
-        obj->unk00 = (int)&DAT_0109e834;
+        obj->unk00 = (int)&vftable_BSSegmentedTriShape;
         obj->entries = 0;
         obj->unkC8 = 0;
         obj->active = 0;

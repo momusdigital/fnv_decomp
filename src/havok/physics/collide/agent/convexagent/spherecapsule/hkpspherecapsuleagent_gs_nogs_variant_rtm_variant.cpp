@@ -106,12 +106,12 @@ struct SmallRecord
     int m_i08;
     unsigned short m_w0C;
 };
-extern char DAT_010cf018[];
+extern char vftable_hkpSymmetricAgentLinearCast_010cf018[];
 hkMemoryRouter* hkMemoryRouter_getInstance();
 void __cdecl hkpSphereCapsuleAgent_createCapsuleSphereAgent(int a, int b, int c, int d);
 void __cdecl hkpSphereCapsuleAgent_staticGetPenetrations(int a, int b, int c, int d);
 void __stdcall hkpSphereCapsuleAgent_getPenetrations(int a, int b, int c, int d);
-extern char DAT_010ce81c;
+extern char vftable_hkpSymmetricAgentFlipBodyCollector;
 struct FUN_00d3f040_tmp
 {
     const char* str;

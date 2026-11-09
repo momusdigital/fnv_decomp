@@ -196,7 +196,7 @@ struct CpuCallData
     unsigned int value;
 };
 extern float DAT_0104da48;
-extern unsigned char DAT_010ce7fc;
+extern unsigned char vftable_hkpSymmetricAgentFlipCollector;
 struct CpuObject
 {
     void FUN_00d2dd50(void*, void*, unsigned int, CpuCallData*);

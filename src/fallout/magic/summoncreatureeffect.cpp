@@ -15,7 +15,8 @@ void __cdecl _Deallocate(void*);
 
 // Calls FUN_00828590, then deallocates this if bit 0 of flags is set, and returns this.
 // @fnv 0x00828560
-void* SummonCreatureEffect::FUN_00828560(unsigned int flags)
+// src: EXE 0x00828560
+void* SummonCreatureEffect::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00828590();
     if (flags & 1)

@@ -217,7 +217,7 @@ found:
 }
 
 extern const LocalM128 g_hkQuadXYZMask;
-extern int DAT_010d0e5c;
+extern int vftable_hkpConvexTranslateShape;
 // Inline implementations retain this unit's original code generation.
 __forceinline float& hkVector4::operator()(int i) { return m_vComponents.m128_f32[i]; }
 __forceinline void hkVector4::setZero4() { m_vComponents = _mm_setzero_ps(); }
@@ -263,7 +263,7 @@ __forceinline void* hkReferencedObject::operator new(std::size_t nbytes)
 __forceinline hkpConvexTranslateShape* hkpConvexTranslateShape::init(const hkpConvexShape* child, const hkVector4& translation)
 {
     reinterpret_cast<void(__thiscall*)(hkpConvexTransformShapeBase*, int, float, const hkpConvexShape*, int)>(FUN_00c9e340)(this, HK_SHAPE_CONVEX_TRANSLATE, child->getRadius(), child, 1);
-    *reinterpret_cast<void**>(this) = &DAT_010d0e5c;
+    *reinterpret_cast<void**>(this) = &vftable_hkpConvexTranslateShape;
     m_vTranslation.setXYZ0(translation);
     m_iChildShapeSize = 0;
     return this;
@@ -417,7 +417,7 @@ hkpShape* __cdecl ProcessShape(hkpShape* shape, void* context, Cache_d74480* cac
             hkpConvexTranslateShape* pNewConvex = (hkpConvexTranslateShape*)hkMemoryRouter::getInstance().heap().blockAlloc(0x30);
             pNewConvex->m_usMemSizeAndFlags = 0x30;
             reinterpret_cast<void(__thiscall*)(hkpConvexTransformShapeBase*, int, float, const hkpConvexShape*, int)>(FUN_00c9e340)(pNewConvex, 11, static_cast<hkpConvexShape*>(n)->m_fSphereRadius, static_cast<hkpConvexShape*>(n), 1);
-            *reinterpret_cast<void**>(pNewConvex) = &DAT_010d0e5c;
+            *reinterpret_cast<void**>(pNewConvex) = &vftable_hkpConvexTranslateShape;
             pNewConvex->m_vTranslation.m_vComponents = _mm_and_ps(static_cast<hkpConvexTranslateShape*>(cv)->m_vTranslation.m_vComponents, DAT_010c4c10);
             pNewConvex->m_iChildShapeSize = 0;
             v = pNewConvex;

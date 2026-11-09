@@ -18,7 +18,7 @@ void* __cdecl NiStringPalette_GetRTTI()
 
 void __cdecl _NiFreeAlias(void*);
 void __cdecl _delete(void*, unsigned int);
-extern int DAT_0109832c;
+extern int vftable_NiStringPalette;
 struct S_00a47190 : NiObject
 {
     void* m_08;
@@ -31,7 +31,7 @@ struct S_00a47190 : NiObject
 void* S_00a47190::DestroyAndFree(unsigned int auiFlags)
 {
     void* p = m_08;
-    *(void**)this = (void*)&DAT_0109832c;
+    *(void**)this = (void*)&vftable_NiStringPalette;
     _NiFreeAlias(p);
     this->NiRefObject::~NiRefObject();
     if (auiFlags & 1)

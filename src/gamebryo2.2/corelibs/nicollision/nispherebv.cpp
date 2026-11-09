@@ -149,13 +149,13 @@ int __fastcall SphereBVIsEqual(const NiSphereBV* self, void*, const NiBoundingVo
         self->m_kBoundingSphere);
 }
 
-extern int DAT_010f1854;
+extern int vftable_NiSphereBV;
 // The unused EDX argument keeps these file-local helpers compatible with the original thiscall entry points.
 // Initializes the sphere vtable, center and radius.
 // @fnv 0x00eab8a0
 NiSphereBV* __fastcall InitSphereFromParams(NiSphereBV* self, void*, float afValue, int const* paiParams)
 {
-    *(int*)self = (int)&DAT_010f1854;
+    *(int*)self = (int)&vftable_NiSphereBV;
     ((int*)self)[1] = paiParams[0];
     ((int*)self)[2] = paiParams[1];
     ((int*)self)[3] = paiParams[2];
@@ -164,7 +164,7 @@ NiSphereBV* __fastcall InitSphereFromParams(NiSphereBV* self, void*, float afVal
 }
 
 extern NiPoint3 _NiPoint3_ZERO;
-extern int DAT_010f1854;
+extern int vftable_NiSphereBV;
 struct P03MM
 {
     void* Allocate(unsigned int);
@@ -178,7 +178,7 @@ NiSphereBV* NiSphereBV_CreateFromStream(NiStream& kStream)
     NiSphereBV* p;
     if (mem)
     {
-        *(void**)mem = (void*)&DAT_010f1854;
+        *(void**)mem = (void*)&vftable_NiSphereBV;
         reinterpret_cast<NiPoint3&>(((NiSphereBV*)mem)->m_kBoundingSphere) = _NiPoint3_ZERO;
         ((NiSphereBV*)mem)->m_kBoundingSphere.r = 1.0f;
         p = (NiSphereBV*)mem;
@@ -192,7 +192,7 @@ NiSphereBV* NiSphereBV_CreateFromStream(NiStream& kStream)
 }
 
 namespace fnv_00eac1d0 {
-extern int DAT_010f16f4;
+extern int vftable_NiBoundingVolume;
 struct P03MM
 {
     void __thiscall Deallocate(void*);
@@ -202,7 +202,7 @@ extern P03MM g_memoryManager;
 // @fnv 0x00eac1d0
 void* __fastcall InitAndMaybeFree(NiBoundingVolume* self, void*, bool abFree)
 {
-    *(void**)self = &DAT_010f16f4;
+    *(void**)self = &vftable_NiBoundingVolume;
     if (abFree & 1)
         g_memoryManager.Deallocate(self);
     return self;
@@ -215,7 +215,7 @@ struct P03MM
     void* Allocate(unsigned int);
 };
 extern P03MM g_memoryManager;
-extern int DAT_010f1854;
+extern int vftable_NiSphereBV;
 extern int _NiPoint3_ZERO;
 extern int DAT_011f4270;
 extern int DAT_011f4274;
@@ -226,7 +226,7 @@ NiBoundingVolume* CreateNiBoundingVolume()
     void* p = g_memoryManager.Allocate(0x14);
     if (p)
     {
-        *(void**)p = (void*)&DAT_010f1854;
+        *(void**)p = (void*)&vftable_NiSphereBV;
         *(int*)((char*)p + 4) = _NiPoint3_ZERO;
         *(int*)((char*)p + 8) = DAT_011f4270;
         int k = DAT_011f4274;
@@ -244,7 +244,7 @@ struct P03MM
     void* Allocate(unsigned int);
 };
 extern P03MM g_memoryManager;
-extern int DAT_010f1854;
+extern int vftable_NiSphereBV;
 }  // namespace fnv_00eacac0
 
 // @fnv 0x00eacac0
@@ -253,7 +253,7 @@ NiSphereBV* __fastcall CloneSphere(NiSphereBV* self, void*)
     NiSphereBV* pkClone = (NiSphereBV*)fnv_00eacac0::g_memoryManager.Allocate(20);
     if (pkClone)
     {
-        *(int*)pkClone = (int)&fnv_00eacac0::DAT_010f1854;
+        *(int*)pkClone = (int)&fnv_00eacac0::vftable_NiSphereBV;
         pkClone->m_kBoundingSphere = self->m_kBoundingSphere;
         return pkClone;
     }
@@ -639,7 +639,7 @@ inline void ReadRawData(BinStrB0* p, float& f)
 
 inline NiSphereBV* __fastcall ConstructSphere(NiSphereBV* self, void*, const NiPoint3& center, float radius)
 {
-    *(void**)self = &DAT_010f1854;
+    *(void**)self = &vftable_NiSphereBV;
     reinterpret_cast<NiPoint3&>(self->m_kBoundingSphere) = center;
     self->m_kBoundingSphere.r = radius;
     return self;

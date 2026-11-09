@@ -64,7 +64,7 @@ void ParticleShaderProperty::GetViewerStrings_00ba7f20(NiTPrimitiveArray<char*>*
 }
 
 extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volatile*);
-extern int DAT_0101fbcc;
+extern int vftable_NiTArray_0101fbcc;
 extern int DAT_01016ca4;
 extern int DAT_01200424;
 char** __cdecl NiTObjectArray_NiPointer_NiTexture_NiTObjectArray_NiPointer_NiTexture(unsigned int);
@@ -121,7 +121,7 @@ struct GlobalObject_004aff00
     unsigned short m_usMaxSize, m_usSize, m_usESize, m_usGrowBy;
     GlobalObject_004aff00(unsigned int uiMaxSize, unsigned int uiGrowBy)
     {
-        vt = &DAT_0101fbcc;
+        vt = &vftable_NiTArray_0101fbcc;
         m_usMaxSize = (unsigned short)uiMaxSize;
         m_usGrowBy = (unsigned short)uiGrowBy;
         m_usSize = 0;
@@ -1282,7 +1282,7 @@ template <class T> NiPointer<T>::~NiPointer()
 }
 GlobalObject_004aff00::~GlobalObject_004aff00()
 {
-    vt = &DAT_0101fbcc;
+    vt = &vftable_NiTArray_0101fbcc;
     delete[] reinterpret_cast<NiPointer<NiNode>*>(m_pBase);
 }
 struct BaseParticle

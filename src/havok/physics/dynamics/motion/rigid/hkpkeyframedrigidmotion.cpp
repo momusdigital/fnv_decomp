@@ -28,16 +28,16 @@ void __fastcall SetAndAddReference(hkpKeyframedRigidMotion* motion, void*, hkRef
     motion->m_pSavedMotion = reinterpret_cast<hkpMaxSizeMotion*>(apObject);
 }
 
-extern int DAT_010c6bec;
-extern int _DAT_0102e388;
-// Sets the vtable to DAT_010c6bec, releases the reference at offset 0x118 if present, then sets the vtable to _DAT_0102e388.
+extern int vftable_hkpKeyframedRigidMotion;
+extern int vftable_hkBaseObject;
+// Sets the vtable to vftable_hkpKeyframedRigidMotion, releases the reference at offset 0x118 if present, then sets the vtable to vftable_hkBaseObject.
 // @fnv 0x00d1dff0
 void __fastcall ReleaseSavedMotion(hkpKeyframedRigidMotion* motion, void*)
 {
-    *reinterpret_cast<void**>(motion) = (void*)&DAT_010c6bec;
+    *reinterpret_cast<void**>(motion) = (void*)&vftable_hkpKeyframedRigidMotion;
     if (motion->m_pSavedMotion)
         reinterpret_cast<hkReferencedObject*>(motion->m_pSavedMotion)->removeReference();
-    *reinterpret_cast<void**>(motion) = (void*)&_DAT_0102e388;
+    *reinterpret_cast<void**>(motion) = (void*)&vftable_hkBaseObject;
 }
 
 // @fnv 0x00d1dec0

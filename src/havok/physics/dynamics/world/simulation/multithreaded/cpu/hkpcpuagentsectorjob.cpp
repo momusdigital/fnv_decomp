@@ -111,7 +111,7 @@ struct CommandBuffer {
     void hkpFixedSizePhysicsCommandQueue_256_hkpFixedSizePhysicsCommandQueue_256();
     PhysicsCommand *end() { return (PhysicsCommand *)((char *)this + offset + size); }
 };
-extern int DAT_010d3df8, DAT_0102e388;
+extern int vftable_hkpDeferredConstraintOwner, vftable_hkBaseObject;
 struct AddCommand { char type; int object, critical; };
 struct RemoveCommand { char type; int object; };
 struct __declspec(align(16)) Owner {
@@ -268,7 +268,7 @@ int hkCpuAgentSectorJob(Globals *globals, Queue *queue, Job *job) {
     memcpy(&context.time, &job->time, sizeof(context.time));
     Owner owner;
     owner.references = 1;
-    owner.dispatch = &DAT_010d3df8;
+    owner.dispatch = &vftable_hkpDeferredConstraintOwner;
     owner.commands.hkpFixedSizePhysicsCommandQueue_256_hkpFixedSizePhysicsCommandQueue_256();
     Output output;
     output.toi.time = 3.402820018375656e38f;
@@ -355,7 +355,7 @@ int hkCpuAgentSectorJob(Globals *globals, Queue *queue, Job *job) {
         profile(str_010d3e14, DAT_0126835c);
     }
     int result = queue->ProcessCallback(job, job, 0);
-    owner.dispatch = &DAT_0102e388;
+    owner.dispatch = &vftable_hkBaseObject;
     if (context.allocation) { Memory *m = hkMemoryRouter_getInstance(); Allocator *a = m->allocator; a->release(context.allocation, 512); }
     return result;
 }

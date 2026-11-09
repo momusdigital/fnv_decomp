@@ -22,7 +22,7 @@ GlobalObjectO2_00a7b610* __cdecl NiPSysSphereEmitter_GetRTTI()
     return &g_01202510;
 }
 
-extern int DAT_010bd974;
+extern int vftable_NiPSysSphereEmitter;
 // @fnv 0x00c1fff0
 // src: EXE 0x00c1fff0
 BSFadeNode* __cdecl NiPSysSphereEmitter_CreateObject()
@@ -32,7 +32,7 @@ BSFadeNode* __cdecl NiPSysSphereEmitter_CreateObject()
     {
         p->FUN_00c31af0();
         *reinterpret_cast<float*>(reinterpret_cast<char*>(p) + 0x58) = 0.0f;
-        *reinterpret_cast<void**>(p) = &DAT_010bd974;
+        *reinterpret_cast<void**>(p) = &vftable_NiPSysSphereEmitter;
         return p;
     }
     return 0;
@@ -91,7 +91,7 @@ BSFadeNode* SphereEmitterCloneView::CreateFadeNode(void* pkCloningProcess)
     {
         pkObject->FUN_00c31af0();
         *reinterpret_cast<float*>(reinterpret_cast<char*>(pkObject) + 0x58) = 0.0f;
-        *reinterpret_cast<void**>(pkObject) = &DAT_010bd974;
+        *reinterpret_cast<void**>(pkObject) = &vftable_NiPSysSphereEmitter;
     }
     else
     {

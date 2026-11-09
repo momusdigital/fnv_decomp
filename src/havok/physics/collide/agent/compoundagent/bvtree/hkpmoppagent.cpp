@@ -7,8 +7,8 @@
 
 hkMemoryRouter* __cdecl hkMemoryRouter_getInstance() throw();
 
-extern int DAT_010ce8f4;
-extern int DAT_0102e388;
+extern int vftable_hkpBvTreeAgent;
+extern int vftable_hkBaseObject;
 
 struct FUN_00d2f380_cls
 {
@@ -26,7 +26,7 @@ struct FUN_00d2f380_cls
 // @fnv 0x00d2f380
 void FUN_00d2f380_cls::DestroyArray()
 {
-    m_vptr00 = (int)&DAT_010ce8f4;
+    m_vptr00 = (int)&vftable_hkpBvTreeAgent;
     hkMemoryRouter* pHolder = hkMemoryRouter_getInstance();
     hkMemoryAllocator* pAllocator = reinterpret_cast<hkMemoryAllocator*>(pHolder->m_heap);
     unsigned int uCapBits = m_uCapBits;
@@ -39,5 +39,5 @@ void FUN_00d2f380_cls::DestroyArray()
     }
     m_pData = 0;
     m_uCapBits = 0x80000000u;
-    m_vptr00 = (int)&DAT_0102e388;
+    m_vptr00 = (int)&vftable_hkBaseObject;
 }

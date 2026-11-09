@@ -48,7 +48,7 @@ void __stdcall NiPSysEmitterDeclinationVarCtlr_GetViewerStrings(StrArr* pStringA
     pStringArray->SetAt(uiIndex, s);
 }
 
-extern int DAT_010bfb54;
+extern int vftable_NiPSysEmitterDeclinationVarCtlr;
 
 void* __cdecl Object_DispatchCommandFour(unsigned int size);
 
@@ -89,7 +89,7 @@ SpawnedObject* FUN_00c2b8d0_cls::NiPSysEmitterDeclinationVarCtlr_CreateClone(voi
     if (obj != 0)
     {
         obj->FUN_00c32d80();
-        obj->m_vtbl = &DAT_010bfb54;
+        obj->m_vtbl = &vftable_NiPSysEmitterDeclinationVarCtlr;
     }
     else
     {

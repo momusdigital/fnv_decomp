@@ -8,14 +8,14 @@
 #include "../../../../include/NiPoint3.h"
 #include "../../../../include/NiGeometry.h"
 #include "../../../../include/NiTriStrips.h"
-extern unsigned int DAT_0109ed94;
+extern unsigned int vftable_NiTriBasedGeom;
 
 // The shared base has no default constructor declaration.
 // @fnv 0x00a89740
 __declspec(noinline) NiTriBasedGeom* __fastcall InitTriBasedGeom(NiTriBasedGeom* self, void*)
 {
     self->NiGeometry::NiGeometry();
-    *reinterpret_cast<unsigned int**>(self) = &DAT_0109ed94;
+    *reinterpret_cast<unsigned int**>(self) = &vftable_NiTriBasedGeom;
     return self;
 }
 
@@ -143,7 +143,7 @@ void __fastcall RenderTriStripsAlt(NiTriStrips* self, void*, NiRenderer* apkRend
 }
 
 void* __cdecl Object_DispatchCommandFour(unsigned int size);
-extern "C" void* DAT_0109cd44;
+extern "C" void* vftable_NiTriStrips;
 void __fastcall CopyTriStrips(NiTriStrips* self, void*, NiTriStrips* strips, int value);
 // @fnv 0x00a71db0
 NiTriStrips* __fastcall CreateTriStripsObject(NiTriStrips* self, void*, int value)
@@ -152,7 +152,7 @@ NiTriStrips* __fastcall CreateTriStripsObject(NiTriStrips* self, void*, int valu
     if (strips)
     {
         reinterpret_cast<NiTriBasedGeom*(__thiscall*)(NiTriBasedGeom*)>(InitTriBasedGeom)(strips);
-        *reinterpret_cast<void**>(strips) = &DAT_0109cd44;
+        *reinterpret_cast<void**>(strips) = &vftable_NiTriStrips;
     }
     else
     {

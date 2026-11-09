@@ -10,12 +10,12 @@ void __thiscall NiD3DShaderProgramCreatorHLSL::SetCompileFlags(unsigned int uiFl
 }
 
 extern "C" void* __cdecl __Dummy_00b6fef0(void* obj, unsigned int flags);
-extern int DAT_010f0a68;
+extern int vftable_NiD3DShaderProgramCreator;
 
 // @fnv 0x00e91c10
 void* __thiscall NiD3DShaderProgramCreatorHLSL::Destroy(unsigned int flags)
 {
-    *(void**)this = (void*)&DAT_010f0a68;
+    *(void**)this = (void*)&vftable_NiD3DShaderProgramCreator;
     if (flags & 1)
     {
         __Dummy_00b6fef0(this, 8);
@@ -24,11 +24,11 @@ void* __thiscall NiD3DShaderProgramCreatorHLSL::Destroy(unsigned int flags)
 }
 
 void __cdecl _delete(void*, unsigned int);
-extern int DAT_010f0a68;
+extern int vftable_NiD3DShaderProgramCreator;
 // @fnv 0x00e91be0
 void* __fastcall DestroyShaderProgramCreator(NiD3DShaderProgramCreator* pThis, void*, unsigned int flags)
 {
-    *(void**)pThis = (void*)&DAT_010f0a68;
+    *(void**)pThis = (void*)&vftable_NiD3DShaderProgramCreator;
     if (flags & 1)
         _delete(pThis, 4);
     return pThis;
@@ -36,8 +36,8 @@ void* __fastcall DestroyShaderProgramCreator(NiD3DShaderProgramCreator* pThis, v
 
 void __cdecl _NiFreeAlias(void*);
 void __cdecl _delete(void*, unsigned int);
-extern int DAT_010f0a68;
-extern int DAT_010f0ac0;
+extern int vftable_NiD3DShaderProgramCreator;
+extern int vftable_NiD3DShaderProgramCreatorAsm;
 struct Holder00e91c40
 {
     int m0;
@@ -50,9 +50,9 @@ struct Holder00e91c40
 void* Holder00e91c40::DestroyHolder(unsigned int auiFlags)
 {
     void* p = m8;
-    *(void**)this = (void*)&DAT_010f0ac0;
+    *(void**)this = (void*)&vftable_NiD3DShaderProgramCreatorAsm;
     _NiFreeAlias(p);
-    *(void**)this = (void*)&DAT_010f0a68;
+    *(void**)this = (void*)&vftable_NiD3DShaderProgramCreator;
     if (auiFlags & 1)
         _delete(this, 0x10);
     return this;

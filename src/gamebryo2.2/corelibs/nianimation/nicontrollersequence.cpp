@@ -90,7 +90,7 @@ struct MM_00a34450
     void __thiscall _DeallocateAlias(void*);
 };
 extern MM_00a34450 g_memoryManager;
-extern int DAT_01096620;
+extern int vftable_NiTArray_01096620;
 struct FUN_00a34450_shell
 {
     void* __thiscall FUN_00a34450(unsigned int);
@@ -99,7 +99,7 @@ struct FUN_00a34450_shell
 void* __thiscall FUN_00a34450_shell::FUN_00a34450(unsigned int auiFlags)
 {
     void* p = *(void**)((char*)this + 4);
-    *(void**)this = (void*)&DAT_01096620;
+    *(void**)this = (void*)&vftable_NiTArray_01096620;
     ReleaseObjectArray(p);
     if (auiFlags & 1)
         g_memoryManager._DeallocateAlias(this);
@@ -267,7 +267,7 @@ void* __cdecl NiControllerSequence_CreateObject()
     return 0;
 }
 
-extern char DAT_01096584;
+extern char vftable_NiControllerSequence;
 extern void* _EmptyFS;
 extern int(__stdcall* DAT_00fdf1c4)(void*);
 
@@ -291,7 +291,7 @@ struct FUN_00a31740_shell
 // src: GUESS 0x00a35640 (confidence: low)
 void NiControllerSequence::ProcessState_00a35640()
 {
-    *reinterpret_cast<void**>(this) = &DAT_01096584;
+    *reinterpret_cast<void**>(this) = &vftable_NiControllerSequence;
 
     if (*reinterpret_cast<int*>(reinterpret_cast<unsigned char*>(this) + 0x44) != 0)
     {
@@ -2096,7 +2096,7 @@ extern const char* DAT_011f36c4;
 extern const char* DAT_011f36cc;
 extern const char DAT_01096564, DAT_0101e460;
 extern unsigned short DAT_01096320;
-extern void* DAT_01096444;
+extern void* vftable_NiMultiTargetTransformController;
 char* __cdecl FUN_00a5b690(const char*);
 void __cdecl FUN_00fdad60();
 void __cdecl FUN_00fdad80();
@@ -2109,7 +2109,7 @@ static inline NiMultiTargetTransformController* ConstructMultiTargetController(
     NiMultiTargetTransformController* controller, unsigned short count)
 {
     NiInterpController_NiInterpController(controller);
-    *reinterpret_cast<void**>(controller) = &DAT_01096444;
+    *reinterpret_cast<void**>(controller) = &vftable_NiMultiTargetTransformController;
     controller->m_usNumInterps = 0;
     controller->m_pkBlendInterpolators = 0;
     controller->m_ppTargetObjects = 0;

@@ -159,12 +159,12 @@ const NiRTTI* NiFloatsExtraDataPoint3Controller::GetRTTI() const
     return &ms_kRTTI;
 }
 
-extern int DAT_01099004;
+extern int vftable_NiTransformData;
 
 // @fnv 0x00a4e270
 void TransformDataOperations::DestroyTransformData()
 {
-    *reinterpret_cast<int**>(this) = &DAT_01099004;
+    *reinterpret_cast<int**>(this) = &vftable_NiTransformData;
     TimedRotationKey* pkRotKeys = m_pkRotationKeys;
     if (pkRotKeys)
     {
@@ -236,7 +236,7 @@ inline TransformDataOperations::TransformDataOperations() throw()
     m_pkScaleKeyArray = 0;
     m_eScaleKeyType = NiAnimationKey::NOINTERP;
     m_ucScaleKeySize = 0;
-    *reinterpret_cast<int**>(this) = &DAT_01099004;
+    *reinterpret_cast<int**>(this) = &vftable_NiTransformData;
     m_usNumPosKeys = 0;
     m_usNumScaleKeys = 0;
 }

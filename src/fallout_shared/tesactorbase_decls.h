@@ -21,7 +21,7 @@ extern BGSSaveLoadGame* g_BGSSaveLoadGame;
 
 extern ProcessLists g_kProcessLists;
 extern PlayerCharacter* g_thePlayer;
-extern "C" void* DAT_01047670;
+extern "C" void* vftable_Reset3DMobIterator;
 class GlobalObject_008c71b0
 {
   public:

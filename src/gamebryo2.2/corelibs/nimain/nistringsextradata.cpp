@@ -16,7 +16,7 @@ void* __cdecl NiStringsExtraData_GetRTTI()
     return &g_011f5ebc;
 }
 
-extern int DAT_010a0134;
+extern int vftable_NiStringsExtraData;
 
 // @fnv 0x00a94930
 // src: EXE 0x00a94930
@@ -27,7 +27,7 @@ void* __cdecl NiStringsExtraData_CreateObject()
     {
         NiExtraData* pExtraData = static_cast<NiExtraData*>(p);
         pExtraData->FUN_00a7b2e0();
-        *static_cast<void**>(p) = &DAT_010a0134;
+        *static_cast<void**>(p) = &vftable_NiStringsExtraData;
         *(static_cast<int*>(p) + 4) = 0;
         *(static_cast<int*>(p) + 3) = 0;
         return p;
@@ -39,7 +39,7 @@ void __cdecl NiFreeAlias(void*);
 // @fnv 0x00a94830
 void __thiscall NiStringsExtraData::FreeStrings()
 {
-    *reinterpret_cast<void**>(this) = &DAT_010a0134;
+    *reinterpret_cast<void**>(this) = &vftable_NiStringsExtraData;
     for (unsigned int i = 0; i < m_uiItemCount; ++i)
         NiFreeAlias(m_ppData[i]);
     NiFreeAlias(m_ppData);
@@ -196,13 +196,13 @@ void NiStringsExtraData::GetViewerStrings_00a94ae0(ViewerStringArray* pViewerStr
 }
 
 void* __cdecl Object_DispatchCommandFour(unsigned int size);
-extern int DAT_010a0134;
+extern int vftable_NiStringsExtraData;
 
 static __forceinline NiStringsExtraData* InitializeStringsExtraData(void* memory) throw()
 {
     NiStringsExtraData* p = static_cast<NiStringsExtraData*>(memory);
     p->NiExtraData::FUN_00a7b2e0();
-    *reinterpret_cast<void**>(p) = &DAT_010a0134;
+    *reinterpret_cast<void**>(p) = &vftable_NiStringsExtraData;
     p->m_ppData = 0;
     p->m_uiItemCount = 0;
     return p;

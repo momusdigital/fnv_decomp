@@ -53,7 +53,7 @@ void* __cdecl NiMeshParticleSystem_GetRTTI()
     return &g_01202538;
 }
 
-extern int DAT_010bdd84;
+extern int vftable_NiMeshParticleSystem;
 // @fnv 0x00c21e90
 // src: XBOX_PDB 0x00c21e90
 void* __cdecl NiMeshParticleSystem_CreateObject()
@@ -63,7 +63,7 @@ void* __cdecl NiMeshParticleSystem_CreateObject()
     {
         static_cast<NiParticleSystem*>(p)->NiParticleSystem_00c1b5c0();
         *(float*)((char*)p + 0x110) = 0.0f;
-        *(void**)((char*)p + 0) = &DAT_010bdd84;
+        *(void**)((char*)p + 0) = &vftable_NiMeshParticleSystem;
         *(char*)((char*)p + 0x114) = 1;
         return p;
     }
@@ -202,7 +202,7 @@ NiMeshParticleSystemClone* __thiscall NiMeshParticleSystemClone::NiMeshParticleS
     {
         result->NiParticleSystem::NiParticleSystem_00c1b5c0();
         result->m_f110 = 0.0f;
-        *(unsigned int*)result = (unsigned int)&DAT_010bdd84;
+        *(unsigned int*)result = (unsigned int)&vftable_NiMeshParticleSystem;
         *(unsigned char*)((char*)result + 0x114) = 1;
     }
     else

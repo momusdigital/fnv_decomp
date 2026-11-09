@@ -5,7 +5,7 @@
 #include "havok/hkpMotorAction.h"
 
 #include <xmmintrin.h>
-extern int DAT_010d0944;
+extern int vftable_hkpMotorAction;
 
 struct FUN_00d2b260_Obj
 {
@@ -56,7 +56,7 @@ struct FUN_00d4d720
 FUN_00d4d720::FUN_00d4d720(int entity, const float* axis, float spinRate, float gain)
 {
     reinterpret_cast<FUN_00d2b260_Obj*>(this)->FUN_00d2b260(entity, 0);
-    m_vtbl = &DAT_010d0944;
+    m_vtbl = &vftable_hkpMotorAction;
     m_kAxisEndPoints.quad = _mm_load_ps(axis);
     m_fSpinRate = spinRate;
     m_fGain = gain;

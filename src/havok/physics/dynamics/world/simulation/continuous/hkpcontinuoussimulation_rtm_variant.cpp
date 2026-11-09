@@ -299,7 +299,7 @@ struct Object : Base {
     void hkpContinuousSimulation_removeToiEventsOfEntity(int);
     void ProcessEntries(int*, int, int, unsigned int);
 };
-extern int DAT_010cd45c;
+extern int vftable_hkpContinuousSimulation;
 struct Callback { virtual void Invoke(int value); };
 struct Receiver {
     virtual void Slot00();

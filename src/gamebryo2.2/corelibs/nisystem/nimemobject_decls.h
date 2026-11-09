@@ -29,5 +29,5 @@ class FixedStringHandle
     const char* value;
 };
 extern FixedStringHandle EmptyFS;
-extern unsigned char DAT_0109b244[];
+extern unsigned char vftable_NiObjectNET[];
 extern unsigned char DAT_011f4304[];

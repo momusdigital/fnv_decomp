@@ -32,6 +32,6 @@ public:
     virtual void AddCdBodyPair(const hkpCdBody& bodyA, const hkpCdBody& bodyB);
     virtual void hkpCdBodyPairCollector_reset();
 
-    void* FUN_0062d440(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
     void reset_0062d310();
 };

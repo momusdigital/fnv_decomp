@@ -279,7 +279,7 @@ FUN_00b3d720_Class* __thiscall FUN_00b3d720_Class::SIdvLeafTexture_SIdvLeafTextu
     return this;
 }
 
-extern int DAT_010a5670;
+extern int vftable_CTreeEngine;
 extern const float DAT_01012054;
 extern float DAT_01016248;
 extern const float DAT_01017870;
@@ -360,7 +360,7 @@ struct FUN_00b2ac80
 
 // @fnv 0x00b2ac80
 FUN_00b2ac80::FUN_00b2ac80(int param)
-    : base00(), f10((base00.vfptr = &DAT_010a5670, 1.0f)), f14(1.0f), f18(DAT_01012054), f1c(0.0f), go20(), b21(1),
+    : base00(), f10((base00.vfptr = &vftable_CTreeEngine, 1.0f)), f14(1.0f), f18(DAT_01012054), f1c(0.0f), go20(), b21(1),
       s24(), i58(0), i5c(0), s60(), i78(6), s7c(), s94(), iec(0), bf0(0), ff4(DAT_01016248), ff8(1.0f),
       ffc(DAT_01017870), f100(0.0f), f104(DAT_010181bc), i108(1), s10c()
 {

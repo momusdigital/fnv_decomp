@@ -25,7 +25,7 @@ struct ScreenSize
 {
     int* Setting_Int();
 };
-extern ScreenSize g_011c63cc;
+extern ScreenSize uGridsToLoad_General;
 
 struct HitRect
 {
@@ -42,9 +42,9 @@ bool HitRect::BGSTerrainNode_CheckIntersectsLoadedRange()
 {
     int y;
     int x;
-    x = g_011dea10->FUN_0059bb30() - (int)((unsigned int)*g_011c63cc.Setting_Int() >> 1);
-    y = g_011dea10->FUN_0045cd60() - (int)((unsigned int)*g_011c63cc.Setting_Int() >> 1);
-    if (x + *g_011c63cc.Setting_Int() >= left && x <= left + extent && y + *g_011c63cc.Setting_Int() >= top &&
+    x = g_011dea10->FUN_0059bb30() - (int)((unsigned int)*uGridsToLoad_General.Setting_Int() >> 1);
+    y = g_011dea10->FUN_0045cd60() - (int)((unsigned int)*uGridsToLoad_General.Setting_Int() >> 1);
+    if (x + *uGridsToLoad_General.Setting_Int() >= left && x <= left + extent && y + *uGridsToLoad_General.Setting_Int() >= top &&
         y <= top + extent)
     {
         return true;

@@ -9,12 +9,12 @@
 // src/havok/common/serialize/util/hkbuiltintyperegistry.cpp - unit created 2026-10-16 from the whole-binary attribution (360 source path: d:/projects/fallout/code/havok/source/common/serialize/util/hkbuiltintyperegistry.cpp).
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
 
-extern int DAT_010cf78c;
+extern int vftable_hkDefaultBuiltinTypeRegistry;
 // @fnv 0x00d478c0
 hkDefaultBuiltinTypeRegistry* hkDefaultBuiltinTypeRegistry::Initialize()
 {
     *(unsigned short*)((char*)this + 6) = 1;
-    *(void**)this = &DAT_010cf78c;
+    *(void**)this = &vftable_hkDefaultBuiltinTypeRegistry;
     RegisterBuiltinTypes();
     return this;
 }
@@ -451,7 +451,7 @@ void D47Owner::AppendEntryValues(hkArray<int>* values)
 }  // namespace fnv_00d47bb0
 
 namespace fnv_00d47c90 {
-extern int DAT_0102e388;
+extern int vftable_hkBaseObject;
 struct Sub
 {
     int q;
@@ -471,7 +471,7 @@ FUN_00d47c90_cls* FUN_00d47c90_cls::Destroy(unsigned char flags)
 {
     sub.ProcessArgument((hkMemoryAllocator*)hkMemoryRouter_getInstance()->m_heap);
     sub.Object_DoNothing();
-    vptr = &DAT_0102e388;
+    vptr = &vftable_hkBaseObject;
     hkMemoryRouter* h;
     if (flags & 1)
     {
@@ -596,10 +596,10 @@ void FUN_00d47ce0_class::CollectMapValues(hkArray<int>& kValuesOut) const
 }  // namespace fnv_00d47ce0
 
 namespace fnv_00d47d70 {
-extern int DAT_010cf7d4;
-extern int DAT_010cf804;
-extern int DAT_010cf7b0;
-extern int DAT_010cf844;
+extern int vftable_hkDynamicClassNameRegistry;
+extern int vftable_hkDefaultClassNameRegistry;
+extern int vftable_hkTypeInfoRegistry;
+extern int vftable_hkVtableClassRegistry;
 extern const char str_010cf830[];
 
 __forceinline void* AllocateRegistryMemory(hkMemoryRouter* router, int size)
@@ -664,11 +664,11 @@ void hkDefaultBuiltinTypeRegistry::InitGlobalObjects()
     p = (Obj1*)AllocateRegistryMemory(hkMemoryRouter_getInstance(), 0x20);
     p->GetAllocationSize = 0x20;
     p->refCount = 1;
-    p->vtable = &DAT_010cf7d4;
+    p->vtable = &vftable_hkDynamicClassNameRegistry;
     p->name = str_010cf830;
     u.c = 0;
     p->map.FUN_00d87790(u.i);
-    p->vtable = &DAT_010cf804;
+    p->vtable = &vftable_hkDefaultClassNameRegistry;
 
     if (DAT_01269b14)
     {
@@ -681,7 +681,7 @@ void hkDefaultBuiltinTypeRegistry::InitGlobalObjects()
     n->GetAllocationSize = 0x1c;
     n->refCount = 1;
     u.c = 0;
-    n->vtable = &DAT_010cf7b0;
+    n->vtable = &vftable_hkTypeInfoRegistry;
     n->map.FUN_00d87790(u.i);
     n->flag = 1;
 
@@ -695,7 +695,7 @@ void hkDefaultBuiltinTypeRegistry::InitGlobalObjects()
     kIter = (Obj3*)AllocateRegistryMemory(hkMemoryRouter_getInstance(), 0x14);
     kIter->GetAllocationSize = 0x14;
     kIter->refCount = 1;
-    kIter->vtable = &DAT_010cf844;
+    kIter->vtable = &vftable_hkVtableClassRegistry;
     DepthHelper* pDepth;
     pDepth = &kIter->depth;
     pDepth->d0 = 0;

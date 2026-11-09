@@ -124,7 +124,7 @@ PathingLocation::PathingLocation(const CoordinateTriple& location, NavMeshInfo* 
     m_usTriangleID = triangle;
 }
 
-extern int DAT_01014618;
+extern int vftable_ExtraNavMeshPortal;
 // @fnv 0x00416ad0
 ExtraNavMeshPortal::ExtraNavMeshPortal(TwoIntRecord v) : BSExtraData(0x5a), handle(v)
 {}

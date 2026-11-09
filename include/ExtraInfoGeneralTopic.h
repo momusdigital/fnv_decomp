@@ -13,7 +13,7 @@ public:
     ExtraInfoGeneralTopic(void* topic);
     virtual ~ExtraInfoGeneralTopic();
 
-    void* FUN_00432440(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 
     extra_save::SForm* topic;
 };

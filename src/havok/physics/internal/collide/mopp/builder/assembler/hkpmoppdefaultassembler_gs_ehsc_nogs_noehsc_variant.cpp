@@ -824,8 +824,8 @@ struct S_00e07da0_Tree
     void hkpMoppDefaultAssembler_findPlanes(S_00e07da0_Node* node, S_00e07da0_Region* region, int* lo, int* hi);
 };
 struct BSAudio;
-extern int DAT_010ea5dc;
-extern int DAT_0102e388;
+extern int vftable_hkpMoppDefaultAssembler;
+extern int vftable_hkBaseObject;
 struct FUN_00e09450_cls
 {
     int m_vptr00;

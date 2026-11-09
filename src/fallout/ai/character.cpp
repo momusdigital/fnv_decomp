@@ -466,22 +466,22 @@ struct CharacterCallStandin
     void FUN_008d4e80();
 };
 
-extern int DAT_0108695c;
-extern int DAT_010869a4;
-extern int DAT_010869d4;
-extern int DAT_01086a0c;
-extern int DAT_01086a60;
-extern int DAT_01086a6c;
+extern int vftable_Character_for_CachedValuesOwner;
+extern int vftable_Character_for_ActorValueOwner;
+extern int vftable_Character_for_MagicTarget;
+extern int vftable_Character_for_MagicCaster;
+extern int vftable_Character_for_TESChildCell;
+extern int vftable_Character;
 
 // @fnv 0x008d1f40
 FUN_008d1f40_t::FUN_008d1f40_t(bool abadd) : FUN_0087d4a0(abadd)
 {
-    *reinterpret_cast<int*>(this) = reinterpret_cast<int>(&DAT_01086a6c);
-    *reinterpret_cast<int*>(reinterpret_cast<char*>(this) + 0x18) = reinterpret_cast<int>(&DAT_01086a60);
-    *reinterpret_cast<int*>(reinterpret_cast<char*>(this) + 0x88) = reinterpret_cast<int>(&DAT_01086a0c);
-    *reinterpret_cast<int*>(reinterpret_cast<char*>(this) + 0x94) = reinterpret_cast<int>(&DAT_010869d4);
-    *reinterpret_cast<int*>(reinterpret_cast<char*>(this) + 0xA4) = reinterpret_cast<int>(&DAT_010869a4);
-    *reinterpret_cast<int*>(reinterpret_cast<char*>(this) + 0xA8) = reinterpret_cast<int>(&DAT_0108695c);
+    *reinterpret_cast<int*>(this) = reinterpret_cast<int>(&vftable_Character);
+    *reinterpret_cast<int*>(reinterpret_cast<char*>(this) + 0x18) = reinterpret_cast<int>(&vftable_Character_for_TESChildCell);
+    *reinterpret_cast<int*>(reinterpret_cast<char*>(this) + 0x88) = reinterpret_cast<int>(&vftable_Character_for_MagicCaster);
+    *reinterpret_cast<int*>(reinterpret_cast<char*>(this) + 0x94) = reinterpret_cast<int>(&vftable_Character_for_MagicTarget);
+    *reinterpret_cast<int*>(reinterpret_cast<char*>(this) + 0xA4) = reinterpret_cast<int>(&vftable_Character_for_ActorValueOwner);
+    *reinterpret_cast<int*>(reinterpret_cast<char*>(this) + 0xA8) = reinterpret_cast<int>(&vftable_Character_for_CachedValuesOwner);
 
     reinterpret_cast<TESForm*>(this)->SetFormType(static_cast<ENUM_FORM_ID>(0x3B));
 

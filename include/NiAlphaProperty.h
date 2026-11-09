@@ -37,7 +37,7 @@ class NiAlphaProperty : public NiProperty
     void NiAlphaProperty_SetBit(bool enable, unsigned short flags);
     void NiAlphaProperty_SetBit(bool enable, unsigned int flags);
     void ForwardCall_00439320();
-    void* FUN_004392f0(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 
 
     unsigned short m_usAlphaArg;

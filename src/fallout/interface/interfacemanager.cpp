@@ -1341,8 +1341,8 @@ class GlobalObject2_0040c150
     int* Int(void);
 };
 
-extern GlobalObject2_0040c150 g_011d8bd8;
-extern GlobalObject2_0040c150 g_011d8bfc;
+extern GlobalObject2_0040c150 iSafeZoneX_Interface;
+extern GlobalObject2_0040c150 iSafeZoneXWide_Interface;
 
 struct Interface_shell : public InterfaceLocalInterface
 {
@@ -1355,7 +1355,7 @@ float __cdecl InterfaceManager_GetScreenSafeX(void)
 {
     if (IsEyefinity())
         return Get_1280_() * 0.4f;
-    return (float)(Interface_shell::IsInterfaceOpen() ? *g_011d8bfc.Int() : *g_011d8bd8.Int());
+    return (float)(Interface_shell::IsInterfaceOpen() ? *iSafeZoneXWide_Interface.Int() : *iSafeZoneX_Interface.Int());
 }
 
 namespace fnv_00717820 {
@@ -1365,8 +1365,8 @@ class GlobalObject2_0040c150
     int* Int(void);
 };
 
-extern GlobalObject2_0040c150 g_011d8bc0;
-extern GlobalObject2_0040c150 g_011d8bf0;
+extern GlobalObject2_0040c150 iSafeZoneYWide_Interface;
+extern GlobalObject2_0040c150 iSafeZoneY_Interface;
 
 struct Interface_Wrap : public InterfaceLocalInterface
 {
@@ -1377,7 +1377,7 @@ struct Interface_Wrap : public InterfaceLocalInterface
 // src: XBOX_PDB 0x00717820
 float __cdecl InterfaceManager_GetScreenSafeY()
 {
-    return ((bool(__cdecl*)()) & Interface_Wrap::IsInterfaceOpen)() ? *g_011d8bc0.Int() : *g_011d8bf0.Int();
+    return ((bool(__cdecl*)()) & Interface_Wrap::IsInterfaceOpen)() ? *iSafeZoneYWide_Interface.Int() : *iSafeZoneY_Interface.Int();
 }
 }  // namespace fnv_00717820
 
@@ -2374,7 +2374,7 @@ extern GSet g_011d2760;
 extern GSet g_011d475c;
 extern GSet g_011d4cb4;
 extern GSet g_011d3fd0;
-extern GInt g_011c3ea4;
+extern GInt iNumHWThreads_General;
 extern PCH* g_thePlayer;
 extern ArrSIH DAT_011f2250;
 extern const char g_011cba18_arg1[];
@@ -3085,7 +3085,7 @@ void FUN_0070c4a0_shell::UpdateInterface()
         }
         else if (DAT_0119f348)
         {
-            if (*g_011c3ea4.Int() == 1)
+            if (*iNumHWThreads_General.Int() == 1)
             {
                 SMH::Create(true, false);
             }
@@ -3582,9 +3582,9 @@ struct GlobalObject_0045cfe0
 };
 struct Dummy_00718c90;
 
-extern Setting g_011d3174;
-extern GlobalObject_0045cfe0 g_011deec0;
-extern GlobalObject_0045cfe0 g_011d8d44;
+extern Setting fMenuBackgroundOpacity_Interface;
+extern GlobalObject_0045cfe0 iDebugTextLeftRightOffset_Display;
+extern GlobalObject_0045cfe0 iConsoleTextXPos_Menu;
 extern const double DAT_0106efa0;
 extern const double DAT_010290b8;
 
@@ -3628,7 +3628,7 @@ void FUN_0070adb0_shell::InitInterface(bool abInitialLoad)
     MenuH::ReadMenuDefinition("Data\\Menus\\globals.xml", 0);
     (*(Tile**)((char*)this + 0xa0))->SetParent(0, 0);
     (*(Tile**)((char*)this + 0xa0))
-        ->Set(Tile::GetTraitID("_background_fill_alpha"), *g_011d3174.Float() * 255.0, true);
+        ->Set(Tile::GetTraitID("_background_fill_alpha"), *fMenuBackgroundOpacity_Interface.Float() * 255.0, true);
     (*(Tile**)((char*)this + 0xa0))->Set(Tile::GetTraitID("_Has360Controller"), InterfaceManager_Has360Controller());
 
     *(InterfaceLocalNiNode**)((char*)this + 0xa4) = new InterfaceNodeAccess(0);
@@ -3644,8 +3644,8 @@ void FUN_0070adb0_shell::InitInterface(bool abInitialLoad)
     faspect = InterfaceManager_GetRealScreenWidth() / InterfaceManager_GetRealScreenHeight();
     if (faspect == DAT_0106efa0 || 1.0f / faspect == DAT_010290b8)
     {
-        g_011deec0.ProcessAndReturnValue_0045ce80(0x50);
-        g_011d8d44.ProcessAndReturnValue_0045ce80(0x50);
+        iDebugTextLeftRightOffset_Display.ProcessAndReturnValue_0045ce80(0x50);
+        iConsoleTextXPos_Menu.ProcessAndReturnValue_0045ce80(0x50);
     }
 
     NiPointer<BSFogProperty> m_spFogProperty(new BSFogProperty);
@@ -3843,10 +3843,10 @@ extern PlayerCharacter* g_thePlayer;
 extern TES* g_TES;
 extern NiCamera* DAT_011e07d0;
 extern int DAT_011d8a90;
-extern Setting g_011d8afc;
-extern Setting g_011ca3ec;
-extern Setting g_011ca394;
-extern Setting g_011d8b78;
+extern Setting bActivatePickUseGamebryoPick_Interface;
+extern Setting bPreventHavokAddClutter_HAVOK;
+extern Setting bPreventHavokAddAll_HAVOK;
+extern Setting fActivatePickSphereRadius_Interface;
 
 // @fnv 0x0070bc20
 void FUN_0070bc20_shell::UpdateActivatePick()
@@ -3886,7 +3886,7 @@ void FUN_0070bc20_shell::UpdateActivatePick()
         DAT_011d8a90 = 1;
         TESObjectREFR* ppick_ref = 0;
         float fdistanceToRef = 0.0f;
-        if (*g_011d8afc.Bool() || *g_011ca3ec.Bool() || *g_011ca394.Bool())
+        if (*bActivatePickUseGamebryoPick_Interface.Bool() || *bPreventHavokAddClutter_HAVOK.Bool() || *bPreventHavokAddAll_HAVOK.Bool())
         {
             NiPick activatePick(0, 8);
             CollisionFilter icolFilter = g_thePlayer->GetVectorElement();
@@ -3919,7 +3919,7 @@ void FUN_0070bc20_shell::UpdateActivatePick()
                 {
                     CollisionFilter icolFilter = pcon->bhkCharacterController_GetCollisionFilter();
                     unsigned int igroup = icolFilter.CFilter_GetGroup();
-                    (*(ActivatePickHelper**)((char*)this + 0x13c))->ViewCaster_Init(*g_011d8b78.Float(), igroup);
+                    (*(ActivatePickHelper**)((char*)this + 0x13c))->ViewCaster_Init(*fActivatePickSphereRadius_Interface.Float(), igroup);
                 }
             }
             DAT_011d8a90 = 3;
@@ -4561,7 +4561,7 @@ struct IntHolder0
 {
     char c;
 };
-extern IntHolder0 g_011c3ea4;
+extern IntHolder0 iNumHWThreads_General;
 struct IntHolder
 {
     int* Int();
@@ -4604,7 +4604,7 @@ extern bool DAT_011d8908;
 void FUN_00713c70_shell::InterfaceManager_LastMinuteUpdate()
 {
     InterfaceLocalNiNode* pscene_graph;
-    if (*((IntHolder*)&g_011c3ea4)->Int() > 1)
+    if (*((IntHolder*)&iNumHWThreads_General)->Int() > 1)
     {
         AILinearTaskThreadManager_GetSingleton();
         if (AILinearTaskThreadManager_QRunningThreads())
@@ -4869,8 +4869,8 @@ struct GlobalObject_0048f200
     ~GlobalObject_0048f200();
 };
 struct GlobalObject_00719c00;
-extern GlobalObject_00719c00 g_011d8ad4;
-extern GlobalObject_00719c00 g_011d8ae4;
+extern GlobalObject_00719c00 uHUDColor_Interface;
+extern GlobalObject_00719c00 uPipboyColor_Interface;
 struct FUN_00718c90 : public GlobalObject_0048f200
 {
     int pad[3];
@@ -4883,10 +4883,10 @@ struct FUN_00718c90 : public GlobalObject_0048f200
 FUN_00718c90::FUN_00718c90()
 {
     m_uiFormCount = 1;
-    SystemColorManager_Add("HUDMain", 0xff, 0xb6, 0x42, &g_011d8ad4, 1);
+    SystemColorManager_Add("HUDMain", 0xff, 0xb6, 0x42, &uHUDColor_Interface, 1);
     AddColor("HUDAlt", 0xff, 0x43, 0x2a, 2);
     AddColor("Terminal", 0x21, 0xe7, 0x79, 3);
-    SystemColorManager_Add("Pipboy", 0xff, 0xb6, 0x42, &g_011d8ae4, 4);
+    SystemColorManager_Add("Pipboy", 0xff, 0xb6, 0x42, &uPipboyColor_Interface, 4);
     AddColor("MainMenu", 0xff, 0xb6, 0x42, -1);
     AddColor("System", 0xff, 0xb6, 0x42, -1);
 }
@@ -5430,8 +5430,8 @@ struct S0042fa20
 struct GlobalObject_0045cfe0
 {
 };
-extern GlobalObject_0045cfe0 g_011d8bd8;
-extern GlobalObject_0045cfe0 g_011d8bf0;
+extern GlobalObject_0045cfe0 iSafeZoneX_Interface;
+extern GlobalObject_0045cfe0 iSafeZoneY_Interface;
 float __cdecl InterfaceManager_GetScreenHeight(void);
 float __cdecl InterfaceManager_GetScreenSafeX();
 float __cdecl InterfaceManager_GetScreenSafeY();
@@ -5441,17 +5441,17 @@ struct FUN_00715e00_t
     void SetTileValues(int aiWidth, int aiHeight);
 };
 
-// If aiWidth is positive, calls FUN_0045ce80 on g_011d8bd8 and on g_011d8bf0 (with aiHeight or aiWidth), then sets four tile values on the tile at this+0x9c.
+// If aiWidth is positive, calls FUN_0045ce80 on iSafeZoneX_Interface and on iSafeZoneY_Interface (with aiHeight or aiWidth), then sets four tile values on the tile at this+0x9c.
 // @fnv 0x00715e00
 void FUN_00715e00_t::SetTileValues(int aiWidth, int aiHeight)
 {
     if (aiWidth > 0)
     {
-        ((S0042fa20*)&g_011d8bd8)->ProcessAndReturnValue_0045ce80(aiWidth);
+        ((S0042fa20*)&iSafeZoneX_Interface)->ProcessAndReturnValue_0045ce80(aiWidth);
         if (aiHeight > 0)
-            ((S0042fa20*)&g_011d8bf0)->ProcessAndReturnValue_0045ce80(aiHeight);
+            ((S0042fa20*)&iSafeZoneY_Interface)->ProcessAndReturnValue_0045ce80(aiHeight);
         else
-            ((S0042fa20*)&g_011d8bf0)->ProcessAndReturnValue_0045ce80(aiWidth);
+            ((S0042fa20*)&iSafeZoneY_Interface)->ProcessAndReturnValue_0045ce80(aiWidth);
     }
     ((Tile*)*(Tile**)((char*)this + 0x9c))->Set(0xfc0, InterfaceManager_GetScreenSafeX(), true);
     ((Tile*)*(Tile**)((char*)this + 0x9c))->Set(0xfbf, InterfaceManager_GetScreenSafeY(), true);
@@ -5578,8 +5578,8 @@ struct GlobalObject_0044f440
 {
 };
 extern TimeGlobal g_timeGlobal;
-extern GlobalObject_0044f440 g_011d8b38;
-extern GlobalObject_0044f440 g_011d8b88;
+extern GlobalObject_0044f440 fKeyRepeatTime_Interface;
+extern GlobalObject_0044f440 fKeyRepeatInterval_Interface;
 
 struct FUN_00716730_t : public InterfaceManager
 {
@@ -5592,7 +5592,7 @@ int FUN_00716730_t::GetShouldKeyBeRepeated(float afScale)
 {
     bool bReset;
     unsigned int uiSection = ((AnimIdle*)&g_timeGlobal)->GetSection();
-    if (*((Setting*)&g_011d8b38)->Float() < 0.0)
+    if (*((Setting*)&fKeyRepeatTime_Interface)->Float() < 0.0)
         return 0;
     bReset = false;
     if (*(int*)((char*)this + 0x150) == 0x80000001 &&
@@ -5614,7 +5614,7 @@ int FUN_00716730_t::GetShouldKeyBeRepeated(float afScale)
     }
     if (*(unsigned int*)((char*)this + 0x158) == 0)
     {
-        if ((double)(uiSection - *(unsigned int*)((char*)this + 0x154)) < *((Setting*)&g_011d8b38)->Float())
+        if ((double)(uiSection - *(unsigned int*)((char*)this + 0x154)) < *((Setting*)&fKeyRepeatTime_Interface)->Float())
             return 0;
         else
         {
@@ -5624,7 +5624,7 @@ int FUN_00716730_t::GetShouldKeyBeRepeated(float afScale)
     }
     else
     {
-        if ((double)(uiSection - *(unsigned int*)((char*)this + 0x158)) < *((Setting*)&g_011d8b88)->Float() / afScale)
+        if ((double)(uiSection - *(unsigned int*)((char*)this + 0x158)) < *((Setting*)&fKeyRepeatInterval_Interface)->Float() / afScale)
             return 0;
         else
         {
@@ -5797,7 +5797,7 @@ struct GlobalObject2_0040c150
 struct GlobalObject_0045cfe0
 {
 };
-extern GlobalObject_0045cfe0 g_011d8cfc;
+extern GlobalObject_0045cfe0 iConsoleVisibleLines_Menu;
 
 struct FUN_0071d380_t
 {
@@ -5811,9 +5811,9 @@ void FUN_0071d380_t::ClampIndexByDelta(int aiDelta)
     int iIndex = *(int*)((char*)this + 0x24) + aiDelta;
     if (iIndex > (int)((InterfacemanagerOffset08View*)((char*)this + 4))->GetFlags())
         iIndex = ((InterfacemanagerOffset08View*)((char*)this + 4))->GetFlags();
-    int iTop = iIndex - *((GlobalObject2_0040c150*)&g_011d8cfc)->Int();
+    int iTop = iIndex - *((GlobalObject2_0040c150*)&iConsoleVisibleLines_Menu)->Int();
     if (iTop <= 0)
-        iIndex = *((GlobalObject2_0040c150*)&g_011d8cfc)->Int();
+        iIndex = *((GlobalObject2_0040c150*)&iConsoleVisibleLines_Menu)->Int();
     if (iIndex > (int)((InterfacemanagerOffset08View*)((char*)this + 4))->GetFlags())
         iIndex = ((InterfacemanagerOffset08View*)((char*)this + 4))->GetFlags();
     *(int*)((char*)this + 0x24) = iIndex;
@@ -6347,9 +6347,9 @@ struct CrimeFlag_007134d0
 {
     unsigned char* GetLifeStateControlFlag();
 };
-extern CrimeFlag_007134d0 g_011d8ab0;
-extern CrimeFlag_007134d0 g_011d8ba0;
-extern CrimeFlag_007134d0 g_011db2cc;
+extern CrimeFlag_007134d0 bEnableMenuRenderDebugMode_InterfaceFX;
+extern CrimeFlag_007134d0 bUseImageSpaceMenuFX_InterfaceFX;
+extern CrimeFlag_007134d0 bUsePipboyMode_Pipboy;
 struct Camera_007134d0;
 struct Accum_007134d0;
 
@@ -6418,7 +6418,7 @@ void FUN_007134d0_shell::InterfaceManager_DrawInterface_Screen(BSCullingProcess*
 {
     reinterpret_cast<FUN_00c4f270_shell*>(apCuller)->BSCullingProcess_PushCullMode(1);
     NiRenderer* pr = NiXenonRenderer_GetRenderer();
-    if (*g_011d8ba0.GetLifeStateControlFlag() && *g_011db2cc.GetLifeStateControlFlag())
+    if (*bUseImageSpaceMenuFX_InterfaceFX.GetLifeStateControlFlag() && *bUsePipboyMode_Pipboy.GetLifeStateControlFlag())
     {
         ::InterfaceLocalNiNode* pscene_graph = reinterpret_cast<InterfaceLocalInterface*>(this)->GetRoot();
         if (*((unsigned char*)this + 0x148))
@@ -6472,7 +6472,7 @@ void FUN_007134d0_shell::InterfaceManager_DrawInterface_Screen(BSCullingProcess*
             phackingMenu->GetModel_0056c7f0()->SetAppCulled(false);
         if (reinterpret_cast<FUN_007079f0_shell*>(this)->InterfaceManager_IsInRenderedMenu() && !Interface_Helper::IsInterfaceActive())
             UpdateMenuTileVisibility();
-        if (*g_011d8ab0.GetLifeStateControlFlag())
+        if (*bEnableMenuRenderDebugMode_InterfaceFX.GetLifeStateControlFlag())
         {
             Interface_IsolateMenuElements(true, false);
             ::InterfaceLocalNiNode* pscene_graph = reinterpret_cast<InterfaceLocalInterface*>(this)->GetRoot();
@@ -6487,7 +6487,7 @@ void FUN_007134d0_shell::InterfaceManager_DrawInterface_Screen(BSCullingProcess*
             UpdateMenuTileVisibility();
         }
     }
-    else if (!*g_011d8ba0.GetLifeStateControlFlag() && !*g_011db2cc.GetLifeStateControlFlag())
+    else if (!*bUseImageSpaceMenuFX_InterfaceFX.GetLifeStateControlFlag() && !*bUsePipboyMode_Pipboy.GetLifeStateControlFlag())
     {
         if (*((unsigned char*)this + 0x148))
             reinterpret_cast<MTRenderingSystem_Helper*>(MTRender_007134d0::GetSingleton())->MTRenderingSystem_WaitOnThreadStage(1, 0x17);
@@ -6505,7 +6505,7 @@ void FUN_007134d0_shell::InterfaceManager_DrawInterface_Screen(BSCullingProcess*
             (Accum_007134d0*)(unsigned int)*reinterpret_cast<Flt_Helper*>((char*)this + 0x8c), false);
         reinterpret_cast<FUN_004a0fd0_shell*>(apCuller)->BSCullingProcess_SetAccumulator(0);
     }
-    else if (!*g_011d8ba0.GetLifeStateControlFlag())
+    else if (!*bUseImageSpaceMenuFX_InterfaceFX.GetLifeStateControlFlag())
     {
         if (*((unsigned char*)this + 0x148))
             reinterpret_cast<MTRenderingSystem_Helper*>(MTRender_007134d0::GetSingleton())->MTRenderingSystem_WaitOnThreadStage(1, 0x17);
@@ -6536,7 +6536,7 @@ void FUN_007134d0_shell::InterfaceManager_DrawInterface_Screen(BSCullingProcess*
         reinterpret_cast<FUN_004a0fd0_shell*>(apCuller)->BSCullingProcess_SetAccumulator(0);
         UpdateMenuTileVisibility();
     }
-    else if (!*g_011db2cc.GetLifeStateControlFlag())
+    else if (!*bUsePipboyMode_Pipboy.GetLifeStateControlFlag())
     {
         if (*((unsigned char*)this + 0x148))
             reinterpret_cast<MTRenderingSystem_Helper*>(MTRender_007134d0::GetSingleton())->MTRenderingSystem_WaitOnThreadStage(1, 0x17);
@@ -12702,16 +12702,16 @@ struct GlobalObject2_0040c150
 };
 void* __cdecl operator new(unsigned int);
 unsigned int __cdecl PackRgba(unsigned int, unsigned int, unsigned int, unsigned int);
-struct FUN_007192e0
+struct SystemColorManager__SoftSystemColor
 {
     int a, b, c, d;
-    FUN_007192e0(char*, SystemColorInfo*, int);
+    SystemColorManager__SoftSystemColor(char*, SystemColorInfo*, int);
 };
 struct M788
 {
     void NiTPointerListBase_NiTPointerAllocator_unsigned_int_BSMultiBoundRoom_AddTail(void*);
 };
-// When apSetting->Int() is zero, stores FUN_00718e90(...) there; allocates and passes a FUN_007192e0 entry to FUN_004ed8c0, then stores aiID + 1 at offset 0xc.
+// When apSetting->Int() is zero, stores FUN_00718e90(...) there; allocates and passes a SystemColorManager__SoftSystemColor entry to FUN_004ed8c0, then stores aiID + 1 at offset 0xc.
 // @fnv 0x00718db0
 // src: COMMUNITY 0x00718db0
 void FUN_00718db0_shell::SystemColorManager_Add(char* apName, unsigned int aiRed, unsigned int aiGreen, unsigned int aiBlue,
@@ -12719,7 +12719,7 @@ void FUN_00718db0_shell::SystemColorManager_Add(char* apName, unsigned int aiRed
 {
     if (*((GlobalObject2_0040c150*)apSetting)->Int() == 0)
         *((GlobalObject2_0040c150*)apSetting)->Int() = PackRgba(aiRed, aiGreen, aiBlue, 0xff);
-    FUN_007192e0* pColor = new FUN_007192e0(apName, apSetting, aiID);
+    SystemColorManager__SoftSystemColor* pColor = new SystemColorManager__SoftSystemColor(apName, apSetting, aiID);
     ((M788*)this)->NiTPointerListBase_NiTPointerAllocator_unsigned_int_BSMultiBoundRoom_AddTail(&pColor);
     *(int*)((char*)this + 0xc) = aiID + 1;
 }

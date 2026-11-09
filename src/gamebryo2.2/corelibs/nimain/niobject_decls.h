@@ -96,7 +96,7 @@ extern MemoryManager g_memoryManager;
 extern unsigned int DAT_011c16bc;
 extern unsigned int DAT_0126fd98;
 extern unsigned char DAT_00f31ee0, DAT_00f31f10, DAT_00f306c8;
-extern unsigned char DAT_0102023c, DAT_010c5b54, DAT_010c5dc0, DAT_01268160;
+extern unsigned char vftable_bhkSerializable, vftable_bhkRefObject, DAT_010c5dc0, DAT_01268160;
 extern unsigned char DAT_011f426c, DAT_011f4270, DAT_011f4274, DAT_011a9448;
 extern "C" void Call_a5d3a0();
 

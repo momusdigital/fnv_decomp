@@ -7,7 +7,7 @@
 
 hkMemoryRouter* __cdecl hkMemoryRouter_getInstance() throw();
 
-extern int DAT_0102e388;
+extern int vftable_hkBaseObject;
 
 struct FreeableItem
 {
@@ -93,7 +93,7 @@ void FUN_00e01f70_cls::Destroy()
         pItem08->FUN_00c905b0();
     }
     m_pObj08 = 0;
-    m_vptr = (int)&DAT_0102e388;
+    m_vptr = (int)&vftable_hkBaseObject;
 }
 
 namespace fnv_00e02090 {

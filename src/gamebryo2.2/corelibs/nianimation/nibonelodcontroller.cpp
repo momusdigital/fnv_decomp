@@ -40,7 +40,7 @@ public:
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
 
 extern "C" void __cdecl _NiFreeAlias(void*);
-extern int DAT_0109a2a4;
+extern int vftable_NiTArray_0109a2a4;
 
 struct FUN_00a543f0_shell
 {
@@ -54,7 +54,7 @@ struct FUN_00a543f0_shell
 void FUN_00a543f0_shell::ReleaseStorage_00a543f0()
 {
     void* p = m_ptr;
-    m_kPointA = &DAT_0109a2a4;
+    m_kPointA = &vftable_NiTArray_0109a2a4;
     _NiFreeAlias(p);
 }
 
@@ -119,7 +119,7 @@ void NiStreamLinkIDSet_nibonelodcontroller::Add(Item* item)
 }
 
 namespace fnv_00a54410 {
-extern int DAT_0109a2ac;
+extern int vftable_NiTArray_0109a2ac;
 extern MemoryManager g_memoryManager;
 struct FUN_00a54410_shell
 {
@@ -131,7 +131,7 @@ struct FUN_00a54410_shell
 void* FUN_00a54410_shell::FreeAndMaybeDeallocate(unsigned int flags)
 {
     void* tmp = m_ptr;
-    m_kPointA = (void*)&DAT_0109a2ac;
+    m_kPointA = (void*)&vftable_NiTArray_0109a2ac;
     _NiFreeAlias(tmp);
     if (flags & 1)
         g_memoryManager.Deallocate(this);
@@ -154,22 +154,22 @@ NiBoneLODController* NiBoneLODController::CreateClone_00a552c0(CloningProcess& k
     return pkObject;
 }
 
-extern int DAT_0109a2ac;
-extern int DAT_0109a2d4;
+extern int vftable_NiTArray_0109a2ac;
+extern int vftable_NiBoneLODController;
 
 void _delete(void*, unsigned int);
 
 // @fnv 0x00a553f0
 void* NiBoneLODController::FUN_00a553f0(unsigned int flags)
 {
-    *(void**)this = (void*)&DAT_0109a2d4;
+    *(void**)this = (void*)&vftable_NiBoneLODController;
     ClearEntries();
     _NiFreeAlias(*(void**)((char*)this + 0x5c));
     void* p1 = *(void**)((char*)this + 0x50);
-    *(void**)((char*)this + 0x4c) = (void*)&DAT_0109a2ac;
+    *(void**)((char*)this + 0x4c) = (void*)&vftable_NiTArray_0109a2ac;
     _NiFreeAlias(p1);
     void* p2 = *(void**)((char*)this + 0x40);
-    *(void**)((char*)this + 0x3c) = (void*)&DAT_0109a2a4;
+    *(void**)((char*)this + 0x3c) = (void*)&vftable_NiTArray_0109a2a4;
     _NiFreeAlias(p2);
     reinterpret_cast<NiTimeController*>(this)->NiTimeController::~NiTimeController();
     if (flags & 1)
@@ -889,7 +889,7 @@ template <class T, class TAlloc> __declspec(nothrow) inline NiTSet<T, TAlloc>::N
 template <class T> __declspec(nothrow) inline NiTPrimitiveSet<T>::NiTPrimitiveSet(unsigned int size)
     : NiTSet<T, NiTMallocInterface<T> >(size) {}
 
-extern int DAT_0109a2c8;
+extern int vftable_NiTPrimitiveArray_0109a2c8;
 
 template <>
 __declspec(nothrow) inline NiTPrimitiveArray<NiBoneLODController::SkinInfoSet*>::NiTPrimitiveArray(unsigned int size, unsigned int grow)
@@ -902,7 +902,7 @@ __declspec(nothrow) inline NiTPrimitiveArray<NiBoneLODController::SkinInfoSet*>:
         m_pBase = (NiBoneLODController::SkinInfoSet**)_NiMalloc_00aa1070(m_usMaxSize * sizeof(NiBoneLODController::SkinInfoSet*));
     else
         m_pBase = 0;
-    *reinterpret_cast<void**>(this) = &DAT_0109a2c8;
+    *reinterpret_cast<void**>(this) = &vftable_NiTPrimitiveArray_0109a2c8;
 }
 
 // @fnv 0x00a550b0

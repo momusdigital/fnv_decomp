@@ -25,8 +25,8 @@ void __cdecl Object_ForwardCall_00d48660(int a, int b, int c)
     Object_ProcessAndReturnValue_00d485a0(a, b, c, 1, 0);
 }
 
-extern int DAT_0102e388;
-extern int DAT_010d7540;
+extern int vftable_hkBaseObject;
+extern int vftable_hkIstream;
 
 struct FUN_00dcc160_cls
 {
@@ -41,10 +41,10 @@ struct FUN_00dcc160_cls
 void FUN_00dcc160_cls::SetVirtualTable_00dcc160()
 {
     hkReferencedObject* old = b;
-    vtbl = &DAT_010d7540;
+    vtbl = &vftable_hkIstream;
     if (old)
         old->removeReference();
-    vtbl = &DAT_0102e388;
+    vtbl = &vftable_hkBaseObject;
 }
 
 struct FUN_00dbc670_storage
@@ -762,7 +762,7 @@ struct StringMapState
         FreeBuffer();
     }
 };
-extern void* DAT_010cf7b0[];
+extern void* vftable_hkTypeInfoRegistry[];
 struct RegistryBase
 {
     void** dispatch;
@@ -770,7 +770,7 @@ struct RegistryBase
     unsigned short references;
     RegistryBase() throw() : references(1)
     {
-        dispatch = DAT_010cf7b0;
+        dispatch = vftable_hkTypeInfoRegistry;
     }
 };
 struct TypeRegistry : RegistryBase

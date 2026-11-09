@@ -238,8 +238,8 @@ hkpConstraintInstance* hkpConstraintInstance::clone_00cf3fa0(hkpEntity* pkEntity
 }
 
 namespace fnv_00cf40b0 {
-extern void* DAT_010cc040;
-extern void* DAT_0102e388;
+extern void* vftable_hkpConstraintInstance;
+extern void* vftable_hkBaseObject;
 
 void __cdecl hkpConstraintCallbackUtil_fireConstraintDeleted(void*) throw();
 static inline void hkDeallocate(void* p, int size) throw()
@@ -251,7 +251,7 @@ static inline void hkDeallocate(void* p, int size) throw()
 // src: GUESS 0x00cf40b0 (confidence: low)
 __declspec(noinline) void __fastcall hkpConstraintInstance_ProcessEntries_00cf40b0(hkpConstraintInstance* self)
 {
-    *(void**)self = &DAT_010cc040;
+    *(void**)self = &vftable_hkpConstraintInstance;
     hkpConstraintCallbackUtil_fireConstraintDeleted(self);
     if (self->m_kActorEntries[0])
         reinterpret_cast<hkReferencedObject*>(self->m_kActorEntries[0])->removeReference();
@@ -275,7 +275,7 @@ __declspec(noinline) void __fastcall hkpConstraintInstance_ProcessEntries_00cf40
         int capacity = self->m_kListeners.m_iCapacityState & 0x3fff;
         hkDeallocate(self->m_kListeners.m_data, capacity * 4);
     }
-    *(void**)self = &DAT_0102e388;
+    *(void**)self = &vftable_hkBaseObject;
 }
 }  // namespace fnv_00cf40b0
 
@@ -654,7 +654,7 @@ void __fastcall SetVec4Pair(hkpConstraintInstance* self, int, FUN_00cf3d00_Vec4*
     hkpWorldConstraintUtil_addModifier(self, self->m_pOwnerObject, buf);
 }
 
-extern char DAT_010cc040;
+extern char vftable_hkpConstraintInstance;
 
 // Sets the vtable pointer, zeroes most fields, sets m_6 to 1, m_1c to flag, m_1d to 1, m_26 to 0x8000, m_34 to -16, and calls m_28.Init().
 // @fnv 0x00cf3f40
@@ -662,7 +662,7 @@ extern char DAT_010cc040;
 hkpConstraintInstance* __fastcall hkpConstraintInstance_hkpConstraintInstance(hkpConstraintInstance* self, int, bool flag)
 {
     int z = 0;
-    *(void* volatile*)&*reinterpret_cast<void**>(self) = (void*)&DAT_010cc040;
+    *(void* volatile*)&*reinterpret_cast<void**>(self) = (void*)&vftable_hkpConstraintInstance;
     self->m_pOwnerObject = 0;
     self->m_pConstraintModifier = 0;
     *(volatile short*)&self->m_sReferenceCount = 1;

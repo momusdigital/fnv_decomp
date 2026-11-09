@@ -303,7 +303,7 @@ inline void* operator new(unsigned int, void* p)
 {
     return p;
 }
-extern const char DAT_010c6dc4[];
+extern const char vftable_hkpBoxMotion[];
 extern const float DAT_01012068;
 // @fnv 0x00d1e690
 hkpBoxMotion* hkpBoxMotion::InitializeBoxMotion(int a1, int a2)
@@ -311,7 +311,7 @@ hkpBoxMotion* hkpBoxMotion::InitializeBoxMotion(int a1, int a2)
     __assume(this != 0);
     ::new (this) hkpMotion(*reinterpret_cast<const hkVector4*>(a1), *reinterpret_cast<const hkQuaternion*>(a2), false);
     *(LocalM128*)&m_kInertiaAndMassInv = _mm_setr_ps(DAT_01012068, DAT_01012068, DAT_01012068, DAT_01012068);
-    *(const char**)this = DAT_010c6dc4;
+    *(const char**)this = vftable_hkpBoxMotion;
     m_type = MOTION_BOX_INERTIA;
     return this;
 }

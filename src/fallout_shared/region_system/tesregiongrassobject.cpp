@@ -48,15 +48,15 @@ struct FUN_004f5600_shell
     FUN_004f5600_shell();
 };
 
-extern int DAT_01023ee4;
+extern int vftable_TESRegionObjectBase;
 
 // @fnv 0x004f5600
 FUN_004f5600_shell::FUN_004f5600_shell()
 {
-    m_vftable = (int)&DAT_01023ee4;
+    m_vftable = (int)&vftable_TESRegionObjectBase;
 }
 
-extern int DAT_01023ec4;
+extern int vftable_TESRegionGrassObject;
 
 struct FUN_004f5920_shell
 {
@@ -67,7 +67,7 @@ struct FUN_004f5920_shell
 // src: GUESS 0x004f5920 (confidence: low)
 void FUN_004f5920_shell::SetVirtualTable_004f5920()
 {
-    *reinterpret_cast<int**>(this) = &DAT_01023ec4;
+    *reinterpret_cast<int**>(this) = &vftable_TESRegionGrassObject;
 }
 
 namespace fnv_004f55d0 {
@@ -78,11 +78,12 @@ struct FUN_004f5920_shell
 void __cdecl _Deallocate(void*);
 struct FUN_004f55d0_shell
 {
-    void* FUN_004f55d0(unsigned int);
+    void* TESRegionGrassObject_ScalarDeletingDestructor(unsigned int);
 };
 // Calls FUN_004f5920 on this, frees this with _Deallocate when flags has bit 0 set, and returns this.
 // @fnv 0x004f55d0
-void* FUN_004f55d0_shell::FUN_004f55d0(unsigned int flags)
+// src: EXE 0x004f55d0
+void* FUN_004f55d0_shell::TESRegionGrassObject_ScalarDeletingDestructor(unsigned int flags)
 {
     ((FUN_004f5920_shell*)this)->SetVirtualTable_004f5920();
     if (flags & 1)

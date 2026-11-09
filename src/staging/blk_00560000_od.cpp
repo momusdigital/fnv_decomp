@@ -282,7 +282,7 @@ void FUN_0056d360_Class::bhkRigidBodyCinfo_SetMotionType(int aiValue)
     ((FUN_005407b0_Class*)((char*)this + 0xd4))->UpdateState_005407b0(aiValue);
 }
 
-extern "C" void* DAT_01030534;
+extern "C" void* vftable_bhkWaterPhantomCallbackShape;
 
 struct FUN_0056d610_base
 {
@@ -300,11 +300,11 @@ struct FUN_0056d5f0_class : FUN_0056d610_base
 void* FUN_0056d5f0_class::bhkWaterPhantomCallbackShape_bhkWaterPhantomCallbackShape()
 {
     SetVtableAndProcessState_0056d610();
-    *reinterpret_cast<void**>(this) = &DAT_01030534;
+    *reinterpret_cast<void**>(this) = &vftable_bhkWaterPhantomCallbackShape;
     return this;
 }
 
-extern int DAT_01030570;
+extern int vftable_hkpPhantomCallbackShape;
 
 struct FUN_0056d610Class
 {
@@ -312,13 +312,13 @@ struct FUN_0056d610Class
     FUN_0056d610Class* __thiscall SetVtableAndProcessState_0056d610();
 };
 
-// Calls FUN_0056d640 with 0x1d, stores the address of DAT_01030570 at the start of this, and returns this.
+// Calls FUN_0056d640 with 0x1d, stores the address of vftable_hkpPhantomCallbackShape at the start of this, and returns this.
 // @fnv 0x0056d610
 // src: GUESS 0x0056d610 (confidence: low)
 FUN_0056d610Class* __thiscall FUN_0056d610Class::SetVtableAndProcessState_0056d610()
 {
     FUN_0056d640(0x1d);
-    *reinterpret_cast<int**>(this) = &DAT_01030570;
+    *reinterpret_cast<int**>(this) = &vftable_hkpPhantomCallbackShape;
     return this;
 }
 
@@ -406,7 +406,7 @@ FUN_0056df00_class* __thiscall FUN_0056df00_class::hkRotation_hkRotation()
     return this;
 }
 
-extern int DAT_01030dc0;
+extern int vftable_bhkAcousticSpacePhantomCallbackShape;
 struct FUN_0056d610
 {
     void __thiscall Init();
@@ -419,7 +419,7 @@ struct FUN_0056f690
 FUN_0056f690::FUN_0056f690()
 {
     ((FUN_0056d610*)this)->Init();
-    *(int*)this = (int)&DAT_01030dc0;
+    *(int*)this = (int)&vftable_bhkAcousticSpacePhantomCallbackShape;
 }
 
 struct FUN_00456630_helper
@@ -521,20 +521,20 @@ float& FUN_005770e0_shell::GetCharacterControllerValue(unsigned int a, unsigned 
     return ((bhkCharacterController*)FUN_004b4cf0(b))->GetVectorElement(a);
 }
 
-extern int DAT_01030f6c;
+extern int vftable_NiTPointerMap_01030f6c;
 struct FUN_0057c470Class
 {
     int m;
     void __thiscall InitArray(int);
     int* __thiscall NiTPointerMap_TESObjectREFR_bool_NiTPointerMap(int);
 };
-// Calls InitArray with a, stores the address of DAT_01030f6c in m, and returns &m.
+// Calls InitArray with a, stores the address of vftable_NiTPointerMap_01030f6c in m, and returns &m.
 // @fnv 0x0057c470
 // src: EXE 0x0057c470
 int* __thiscall FUN_0057c470Class::NiTPointerMap_TESObjectREFR_bool_NiTPointerMap(int a)
 {
     InitArray(a);
-    m = (int)&DAT_01030f6c;
+    m = (int)&vftable_NiTPointerMap_01030f6c;
     return &m;
 }
 
@@ -550,7 +550,7 @@ FUN_0057e9a0::FUN_0057e9a0()
     ((WaterShaderSettings*)this)->Initialize();
 }
 
-extern void* DAT_01030fd4;
+extern void* vftable_NiTMapBase_01030fd4;
 void _NiFreeAlias(void*);
 
 struct FUN_0057ca30_Class
@@ -564,7 +564,7 @@ struct FUN_0057ca30_Class
 // src: GUESS 0x0057ca30 (confidence: low)
 void FUN_0057ca30_Class::SetVtableAndProcessState_0057ca30()
 {
-    *(void**)this = &DAT_01030fd4;
+    *(void**)this = &vftable_NiTMapBase_01030fd4;
     NiTPointerMap_RemoveAll();
     _NiFreeAlias(*(void**)((char*)this + 8));
 }
@@ -932,7 +932,7 @@ void S_00569620::CopyDataAndUse(Param_569620* apParam)
     apParam->Use_8c(&tmp);
 }
 
-extern "C" void* DAT_010302bc;
+extern "C" void* vftable_bhkEntity;
 extern "C" int DAT_012681fc;
 struct FUN_0056d410_Class
 {
@@ -944,7 +944,7 @@ struct FUN_0056d410_Class
 void* __thiscall FUN_0056d410_Class::bhkEntity_bhkEntity()
 {
     FUN_0056d440();
-    *(void**)(this) = &DAT_010302bc;
+    *(void**)(this) = &vftable_bhkEntity;
     DAT_012681fc = DAT_012681fc + 1;
     return this;
 }
@@ -954,7 +954,7 @@ struct FUN_004b5120
     unsigned char pad[0x10];
     FUN_004b5120();
 };
-extern int DAT_01030394;
+extern int vftable_bhkWorldObject;
 extern int DAT_0126810c;
 struct FUN_0056d440 : FUN_004b5120
 {
@@ -964,7 +964,7 @@ struct FUN_0056d440 : FUN_004b5120
 // @fnv 0x0056d440
 FUN_0056d440::FUN_0056d440()
 {
-    *(void**)this = (void*)&DAT_01030394;
+    *(void**)this = (void*)&vftable_bhkWorldObject;
     m_10 = 0;
     DAT_0126810c++;
 }
@@ -1093,7 +1093,7 @@ struct FUN_00559b40
 {
     FUN_00559b40(int);
 };
-extern int DAT_01030f4c;
+extern int vftable_BSMap_01030f4c;
 struct FUN_0057c440 : FUN_00559b40
 {
     FUN_0057c440(int);
@@ -1101,7 +1101,7 @@ struct FUN_0057c440 : FUN_00559b40
 // @fnv 0x0057c440
 FUN_0057c440::FUN_0057c440(int aiValue) : FUN_00559b40(aiValue)
 {
-    *(int*)this = (int)&DAT_01030f4c;
+    *(int*)this = (int)&vftable_BSMap_01030f4c;
 }
 
 struct Node
@@ -1160,7 +1160,7 @@ void* FUN_0057c6a0Class::NiTPointerListBase_NiPropertyPtr_FindPos(void* apTarget
     return 0;
 }
 
-extern int DAT_01030fac;
+extern int vftable_NiTPrimitiveArray_01030fac;
 struct Base5700
 {
     void __thiscall FUN_0057cb70(unsigned int, unsigned int);
@@ -1173,12 +1173,12 @@ struct FUN_0057c700
 FUN_0057c700::FUN_0057c700(unsigned int a, unsigned int b)
 {
     ((Base5700*)this)->FUN_0057cb70(a, b);
-    *(void**)this = (void*)&DAT_01030fac;
+    *(void**)this = (void*)&vftable_NiTPrimitiveArray_01030fac;
 }
 
 void* __cdecl _NiMalloc(unsigned int size);
 void* __cdecl _memset(void* dst, unsigned int value, unsigned int count);
-extern int DAT_01030fb4;
+extern int vftable_NiTMapBase_01030fb4;
 struct FUN_0057c7e0_Class
 {
     int* __thiscall InitArray(int count);
@@ -1187,7 +1187,7 @@ struct FUN_0057c7e0_Class
 int* FUN_0057c7e0_Class::InitArray(int count)
 {
     unsigned int uiByteCount;
-    *(int**)((char*)this + 0) = &DAT_01030fb4;
+    *(int**)((char*)this + 0) = &vftable_NiTMapBase_01030fb4;
     *(int*)((char*)this + 4) = count;
     *(int*)((char*)this + 0xc) = 0;
     uiByteCount = *(unsigned int*)((char*)this + 4) << 2;
@@ -1196,13 +1196,13 @@ int* FUN_0057c7e0_Class::InitArray(int count)
     return (int*)this;
 }
 
-extern int DAT_01030fb4;
+extern int vftable_NiTMapBase_01030fb4;
 void _NiFree(void*);
 // @fnv 0x0057c930
 // src: GUESS 0x0057c930 (confidence: low)
 void __thiscall FUN_0057c930_class::SetVtableAndProcessState_0057c930()
 {
-    *(int*)this = (int)&DAT_01030fb4;
+    *(int*)this = (int)&vftable_NiTMapBase_01030fb4;
     ((FUN_0057ca30_Class*)this)->NiTPointerMap_RemoveAll();
     _NiFree(((void**)this)[2]);
 }
@@ -1221,7 +1221,7 @@ struct FUN_0057c960
 // @fnv 0x0057c960
 FUN_0057c960::FUN_0057c960(int aiCount)
 {
-    vtable = &DAT_01030fd4;
+    vtable = &vftable_NiTMapBase_01030fd4;
     count = aiCount;
     pad = 0;
     unsigned int size = count * 4;
@@ -1340,7 +1340,7 @@ void ReferenceNavMeshAccess::TESObjectREFR_RemoveTeleport()
     (*(void(__thiscall**)(void*, unsigned int))(*(void***)this + 0x13))(this, 0x20000);
 }
 
-int DAT_0101fc8c;
+int vftable_NiTArray_0101fc8c;
 struct ActorCombatGroup;
 struct NiTMallocInterface_CombatGroup
 {
@@ -1359,7 +1359,7 @@ struct FUN_0057cb70_Class
 // @fnv 0x0057cb70
 FUN_0057cb70_Class::FUN_0057cb70_Class(unsigned short size, unsigned short maxSize)
 {
-    vtable = &DAT_0101fc8c;
+    vtable = &vftable_NiTArray_0101fc8c;
     m_iElementCount = size;
     m_maxSize = maxSize;
     m_auiShapeKeys = 0;

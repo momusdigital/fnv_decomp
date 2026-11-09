@@ -16,17 +16,17 @@
 #include "../../../../../../include/hkSimdReal.h"
 #include "../../../../../../include/hkVector4.h"
 
-extern int DAT_0102e388;
-extern int DAT_010c8198;
+extern int vftable_hkBaseObject;
+extern int vftable_hkpCharacterContext;
 // These helpers have no member declarations in the shared context header.
 // Keep the original this pointer in ECX and stack arguments in their original slots.
 // @fnv 0x00ca95e0
 // src: GUESS 0x00ca95e0 (confidence: low)
 __declspec(noinline) void __fastcall hkpCharacterContext_UpdateFields_00ca95e0(hkpCharacterContext* context)
 {
-    *reinterpret_cast<int**>(context) = &DAT_010c8198;
+    *reinterpret_cast<int**>(context) = &vftable_hkpCharacterContext;
     static_cast<hkReferencedObject*>(context->unk0C)->removeReference();
-    *reinterpret_cast<int**>(context) = &DAT_0102e388;
+    *reinterpret_cast<int**>(context) = &vftable_hkBaseObject;
 }
 
 // @fnv 0x00ca9670
@@ -57,7 +57,7 @@ hkpCharacterContext* hkpCharacterContext::Initialize(void* arg0, int arg1)
 {
     m_sReferenceCount = 1;
     unk0C = arg0;
-    *reinterpret_cast<int**>(this) = &DAT_010c8198;
+    *reinterpret_cast<int**>(this) = &vftable_hkpCharacterContext;
     unk10 = arg1;
     unk14 = arg1;
     unk08 = 0;

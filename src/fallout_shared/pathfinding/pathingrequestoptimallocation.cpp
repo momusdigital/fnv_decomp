@@ -8,7 +8,8 @@
 extern void _delete(void* p, unsigned int size);
 
 // @fnv 0x006e5d70
-void* PathingRequestOptimalLocation::FUN_006e5d70(unsigned int flags)
+// src: EXE 0x006e5d70
+void* PathingRequestOptimalLocation::ScalarDeletingDestructor(unsigned int flags)
 {
     this->PathingRequest::DestroyPathingRequest();
     if (flags & 1)

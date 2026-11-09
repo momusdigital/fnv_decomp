@@ -22,12 +22,12 @@ NiKeyBasedInterpolator::NiKeyBasedInterpolator() throw()
 }
 
 extern "C" void __cdecl operator delete(void*, unsigned int);
-extern "C" void* DAT_01097054;
+extern "C" void* vftable_NiKeyBasedInterpolator;
 
 // @fnv 0x00a3ca50
 NiKeyBasedInterpolator* __fastcall DeleteKeyBasedInterpolator(NiKeyBasedInterpolator* self, void*, unsigned int flags)
 {
-    *reinterpret_cast<void**>(self) = &DAT_01097054;
+    *reinterpret_cast<void**>(self) = &vftable_NiKeyBasedInterpolator;
     self->NiInterpolator::~NiInterpolator();
     if (flags & 1)
         ::operator delete(self, 0xc);

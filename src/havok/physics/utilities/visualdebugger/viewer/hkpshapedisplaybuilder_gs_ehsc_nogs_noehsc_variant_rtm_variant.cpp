@@ -575,10 +575,10 @@ struct FUN_00de1f50 : Display
     DisplayVectorCallLocal_00ddfd10 half;
     FUN_00de1f50(const DisplayVectorCallLocal_00ddfd10&);
 };
-struct FUN_00de4f20 : Display
+struct hkDisplayPlane : Display
 {
     DisplayVectorCallLocal_00ddfd10 normal, center, perp, extent;
-    FUN_00de4f20(const DisplayVectorCallLocal_00ddfd10&, const DisplayVectorCallLocal_00ddfd10&, const DisplayVectorCallLocal_00ddfd10&, const DisplayVectorCallLocal_00ddfd10&);
+    hkDisplayPlane(const DisplayVectorCallLocal_00ddfd10&, const DisplayVectorCallLocal_00ddfd10&, const DisplayVectorCallLocal_00ddfd10&, const DisplayVectorCallLocal_00ddfd10&);
 };
 struct FUN_00de1d20 : Display
 {
@@ -880,7 +880,7 @@ void Node::hkpShapeDisplayBuilder_buildShapeDisplay(const BaseShape* shape, cons
         ext.mul4(0.5f);
         DisplayVectorCallLocal_00ddfd10 center(ext);
         center.add4(*reinterpret_cast<const DisplayVectorCallLocal_00ddfd10*>(&bounds.m_kMinimumCorner.x));
-        FUN_00de4f20* g = new FUN_00de4f20(plane, axis, center, ext);
+        hkDisplayPlane* g = new hkDisplayPlane(plane, axis, center, ext);
         g->getTransform() = mat;
         out.AddBack(g);
         break;

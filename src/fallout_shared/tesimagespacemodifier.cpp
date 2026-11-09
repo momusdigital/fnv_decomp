@@ -731,12 +731,13 @@ typedef char _sizecheck_NiMemObject[sizeof(NiMemObject) == 1 ? 1 : -1];
 struct Obj52 : NiMemObject
 {
     void FUN_00a3cc80();
-    void* FUN_0052cf90(unsigned int);
+    void* NiFloatData_ScalarDeletingDestructor(unsigned int);
     static void operator delete(void*, unsigned int);
 };
 // Calls FUN_00a3cc80, deletes this with size 0x18 when flags has bit 0 set, and returns this.
 // @fnv 0x0052cf90
-void* Obj52::FUN_0052cf90(unsigned int flags)
+// src: EXE 0x0052cf90
+void* Obj52::NiFloatData_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00a3cc80();
     if (flags & 1)

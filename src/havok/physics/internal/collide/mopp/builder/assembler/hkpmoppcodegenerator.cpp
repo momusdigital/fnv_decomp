@@ -10,8 +10,8 @@ extern "C"
     void* __cdecl hkMemoryRouter_getInstance(void);
     void __cdecl hkMemoryRouter_easyFree(void*, void*);
 }
-extern int DAT_0102e388;
-extern void* DAT_010ea5b4;
+extern int vftable_hkBaseObject;
+extern void* vftable_hkpMoppCodeGenerator;
 inline hkThreadMemory& GetMoppMemoryRouter()
 {
     return *static_cast<hkThreadMemory*>(hkMemoryRouter_getInstance());
@@ -43,12 +43,12 @@ struct SomeClass
     hkArray<unsigned __int64> buffer;
     void Destroy();
 };
-// Resets the vtable, frees unk10 through the allocator if set, clears buffer, then sets the vtable to DAT_0102e388.
+// Resets the vtable, frees unk10 through the allocator if set, clears buffer, then sets the vtable to vftable_hkBaseObject.
 // @fnv 0x00e06650
 void SomeClass::Destroy()
 {
     void* p = unk10;
-    vtable = &DAT_010ea5b4;
+    vtable = &vftable_hkpMoppCodeGenerator;
     if (p)
     {
         void* q = hkMemoryRouter_getInstance();
@@ -57,7 +57,7 @@ void SomeClass::Destroy()
     void* s = hkMemoryRouter_getInstance();
     void* t = *(void**)((char*)s + 0x10);
     buffer._clearAndDeallocate(*static_cast<hkMemoryAllocator*>(t));
-    vtable = &DAT_0102e388;
+    vtable = &vftable_hkBaseObject;
 }
 
 char* __cdecl AllocateWithHeader(hkMemoryAllocator* alloc, int numBytes);

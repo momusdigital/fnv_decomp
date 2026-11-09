@@ -1190,8 +1190,8 @@ struct StatsPageUpdateMethods : StatsMenu
     void RefreshHealingOptions();
 };
 void __cdecl PlayPipboyPageSound(int);
-extern Setting g_011db37c;
-extern Setting g_011db458;
+extern Setting fMiniBurstIntensity_InterfaceFX;
+extern Setting fMiniBurstDuration_InterfaceFX;
 
 // Validates aePage (0-4), updates the Pipboy menu, sets menu value 0x1004 to aePage, and applies page-specific actions.
 // @fnv 0x007dff40
@@ -1199,7 +1199,7 @@ void PageMenuMethods::SetPage(int aePage)
 {
     if (aePage < 0 || aePage > 4)
         return;
-    ((StatsmenuInterfaceView*)InterfaceManager_GetSingleton())->GetPipboyManager()->StartBurst(*g_011db458.Float(), *g_011db37c.Float(), 0.5f);
+    ((StatsmenuInterfaceView*)InterfaceManager_GetSingleton())->GetPipboyManager()->StartBurst(*fMiniBurstDuration_InterfaceFX.Float(), *fMiniBurstIntensity_InterfaceFX.Float(), 0.5f);
     pMenu->Set(0x1004, aePage);
     if (((StatsmenuInterfaceView*)InterfaceManager_GetSingleton())->GetPipboyManager()->GetInitialized())
         PlayPipboyPageSound(1);
@@ -1617,7 +1617,7 @@ extern const char str_01077378[];
 extern const char str_01077388[];
 extern const char str_01077398[];
 
-extern const StartMenu g_011c3cb4;
+extern const StartMenu sLanguage_General;
 extern const StartMenu g_011d1f08;
 extern const StartMenu g_011d1f5c;
 extern const StartMenu g_011d246c;
@@ -1653,7 +1653,7 @@ void StatsMenuInitializationMethods::InitializeStatsMenu()
     reinterpret_cast<HealingMenuMethods*>(this)->UpdateOption(4);
     reinterpret_cast<LimbStatusMenuMethods*>(this)->ShowWorstLimbStatus();
 
-    if (BSstrcmp(g_011c3cb4.GetMenuTitle(), reinterpret_cast<char const*>(&ENGLISH)))
+    if (BSstrcmp(sLanguage_General.GetMenuTitle(), reinterpret_cast<char const*>(&ENGLISH)))
     {
         this->m_pTiles[0]->Set(0xfc4, g_011d2f88.GetMenuTitle(), true);
         this->m_pTiles[1]->Set(0xfc4, g_011d2994.GetMenuTitle(), true);
@@ -3459,8 +3459,8 @@ struct InputSetting
 {
     float* Setting_Float_00403e20();
 };
-extern InputSetting g_011db358;
-extern InputSetting g_011db2f0;
+extern InputSetting fScrollKnobRate_Pipboy;
+extern InputSetting fScrollKnobIncrement_Pipboy;
 struct InputInterface
 {
     FOPipboyManager* FUN_00704370();
@@ -3583,8 +3583,8 @@ bool InputStats::StatsMenu_DoGamepad(int code, float amount)
                     else if (GetTileIndex(0x39, &limbVal) && limbVal == newStatusVal)
                         ((Tile*)m_pTiles[57])->Tile_PlayTileSound(0xfcb);
                     ((void (__thiscall*)(FOPipboyManager*, int, float, float, bool))UpdatePipboyScrollKnobTarget)(
-                        InterfaceManager_GetSingleton()->FUN_00704370(), 0, *g_011db2f0.Setting_Float_00403e20() * statusStep6,
-                                                                 *g_011db358.Setting_Float_00403e20(), true);
+                        InterfaceManager_GetSingleton()->FUN_00704370(), 0, *fScrollKnobIncrement_Pipboy.Setting_Float_00403e20() * statusStep6,
+                                                                 *fScrollKnobRate_Pipboy.Setting_Float_00403e20(), true);
                     return true;
                 }
             }

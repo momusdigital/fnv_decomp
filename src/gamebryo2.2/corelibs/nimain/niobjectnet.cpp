@@ -268,13 +268,13 @@ void FUN_00a5bfa0_shell::ClearExtraData()
     LeaveCriticalSection(&g_NiObjectNETExtraDataLock);
 }
 
-extern int DAT_0109b23c;
+extern int vftable_NiTArray_0109b23c;
 
 // @fnv 0x00a5c760
 // src: GUESS 0x00a5c760 (confidence: low)
 void __fastcall Object_UpdateFields_00a5c760(void** pThis)
 {
-    *pThis = &DAT_0109b23c;
+    *pThis = &vftable_NiTArray_0109b23c;
     NiFree(pThis[1]);
 }
 
@@ -789,7 +789,7 @@ C7B0ObjectNET* C7B0ObjectNET::DestroyObject(unsigned int uiFlags)
 }
 
 namespace fnv_00a5c820 {
-extern int DAT_0109b2d4;
+extern int vftable_NiTPrimitiveArray_0109b2d4;
 void* _NiMalloc_00aa1070(unsigned int);
 
 struct ShortArray
@@ -804,7 +804,7 @@ struct ShortArray
         m_usSize = 0;
         m_usESize = 0;
         m_pBase = 0;
-        m_ppVirtualMethodTable = &DAT_0109b2d4;
+        m_ppVirtualMethodTable = &vftable_NiTPrimitiveArray_0109b2d4;
     }
     void NiTArray_unsigned_short_NiTMallocInterface_unsigned_short_SetSize(unsigned int);
     void SetEntry(unsigned int, const unsigned short&);

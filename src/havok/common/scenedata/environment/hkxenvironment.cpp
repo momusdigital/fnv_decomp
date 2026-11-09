@@ -48,7 +48,7 @@ HKXEnvironmentStandIn* HKXEnvironmentStandIn::FUN_00e3f8a0(unsigned char flags)
     return this;
 }
 
-extern int DAT_010ebab8;
+extern int vftable_hkxEnvironment;
 
 struct FnvVtObj
 {
@@ -61,7 +61,7 @@ struct FnvVtObj
 // src: GUESS 0x00e3f510 (confidence: low)
 FnvVtObj* FnvVtObj::SetVptr_00e3f510(unsigned int unusedArg)
 {
-    m_vptr = (int)&DAT_010ebab8;
+    m_vptr = (int)&vftable_hkxEnvironment;
     return this;
 }
 

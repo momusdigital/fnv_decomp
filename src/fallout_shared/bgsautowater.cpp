@@ -89,12 +89,12 @@ void TaskQueueInterface::SetEnabledFlag(bool enabled)
     SetTaskFlagDWord(enabled, 0x8000);
 }
 
-extern void* DAT_0101e07c;
+extern void* vftable_NiStencilProperty;
 
 // @fnv 0x0049ed70
 void NiStencilProperty::Destroy()
 {
-    *reinterpret_cast<void**>(this) = &DAT_0101e07c;
+    *reinterpret_cast<void**>(this) = &vftable_NiStencilProperty;
     DestroyBase();
 }
 

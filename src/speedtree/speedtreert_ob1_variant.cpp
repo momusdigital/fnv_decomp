@@ -613,14 +613,14 @@ struct FUN_0044d6f0_This
     void* m_8;
     void __thiscall FUN_00ec79a1();
 };
-extern int DAT_010a307c;
+extern int vftable_std__runtime_error;
 struct FUN_00b09780_class : FUN_0044d6f0_This
 {
     std::basic_string<char, std::char_traits<char>, std::allocator<char> > m_iThirdValue;
 
     void __thiscall UpdateFields_00b09780();
 };
-extern int DAT_010a51e0;
+extern int vftable_IdvFileError;
 struct FUN_00b097b0_class
 {
     void* m_p;

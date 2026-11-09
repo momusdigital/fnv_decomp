@@ -1091,10 +1091,10 @@ void Container::ProcessEntries_00d56800()
 
 namespace fnv_00d56e00 {
 
-extern "C" char DAT_010d0ecc[];
-extern "C" char DAT_010d0ea8[];
-extern "C" char DAT_010c6fb0[];
-extern "C" char DAT_0102e388[];
+extern "C" char vftable_hkpExtendedMeshShape[];
+extern "C" char vftable_hkpExtendedMeshShape_for_hkpShapeContainer[];
+extern "C" char vftable_hkpShapeContainer[];
+extern "C" char vftable_hkBaseObject[];
 
 struct Elem40
 {
@@ -1151,13 +1151,13 @@ struct Obj
 // src: GUESS 0x00d56e00 (confidence: medium)
 void Obj::ReleaseMeshArrays()
 {
-    m_vtbl = DAT_010d0ecc;
-    m_vtbl10 = DAT_010d0ea8;
+    m_vtbl = vftable_hkpExtendedMeshShape;
+    m_vtbl10 = vftable_hkpExtendedMeshShape_for_hkpShapeContainer;
     mcc.clearAndDeallocate();
     destroyAndDeallocate(mc0);
     mb4.clearAndDeallocate();
-    m_vtbl10 = DAT_010c6fb0;
-    m_vtbl = DAT_0102e388;
+    m_vtbl10 = vftable_hkpShapeContainer;
+    m_vtbl = vftable_hkBaseObject;
 }
 }  // namespace fnv_00d56e00
 
@@ -1666,8 +1666,8 @@ extern "C"
     void _mm_store_ss(float*, LocalM128);
 }
 
-extern int DAT_010c749c;
-extern int DAT_010d0e5c;
+extern int vftable_hkpTriangleShape;
+extern int vftable_hkpConvexTranslateShape;
 extern LocalM128 DAT_010c4c10;
 extern float DAT_011b153c;
 
@@ -1755,7 +1755,7 @@ struct TriangleShape
         m_fSphereRadius = radius;
         m_ulUserData = 0;
         m_type = 3;
-        vtable = (int)&DAT_010c749c;
+        vtable = (int)&vftable_hkpTriangleShape;
         m_kWeldingInfo = 0;
         m_eWeldingType = 6;
         *(LocalM128*)&m_kVertexTransform = _mm_setzero_ps();
@@ -1925,7 +1925,7 @@ const hkpShape* ExtendedMeshShape::hkpExtendedMeshShape_getChildShape(unsigned i
             {
                 float radius = ((const TriangleShape*)childShape)->m_fSphereRadius;
                 ((HelperC9E340*)buffer)->FUN_00c9e340(0xb, radius, childShape, 0);
-                ((TriangleShape*)buffer)->vtable = (int)&DAT_010d0e5c;
+                ((TriangleShape*)buffer)->vtable = (int)&vftable_hkpConvexTranslateShape;
                 LocalM128 scale = _mm_and_ps(*(LocalM128*)&pSubpartShape->m_vTranslation, DAT_010c4c10);
                 *(LocalM128*)&((TriangleShape*)buffer)->m_kVertexA = scale;
                 ((TriangleShape*)buffer)->unk1c = 0;

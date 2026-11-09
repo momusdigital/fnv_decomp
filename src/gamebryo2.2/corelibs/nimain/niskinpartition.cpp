@@ -70,7 +70,7 @@ bool Holder::ContainsSortedSubset(const Holder* pkOther)
     return true;
 }
 
-extern int DAT_0109e47c;
+extern int vftable_NiSkinPartition;
 struct P03MM
 {
     void __thiscall _DeallocateAlias(void* p);
@@ -86,7 +86,7 @@ struct S : NiRefObject
 // src: GUESS 0x00a824d0 (confidence: low)
 void __thiscall S::SetVtableAndProcessState_00a824d0()
 {
-    *(void**)this = (void*)&DAT_0109e47c;
+    *(void**)this = (void*)&vftable_NiSkinPartition;
     if (NiRenderer::ms_pRenderer)
         ((void(__thiscall*)(NiRenderer*, void*))(*(void***)NiRenderer::ms_pRenderer)[64])(NiRenderer::ms_pRenderer,
                                                                                           this);
@@ -253,14 +253,14 @@ struct MyCls
     void NiSkinData_ComputeBoneBounds(int);
     MyCls* InitFromData(int, int, const Dummy13&, int);
 };
-extern int DAT_0109e574;
+extern int vftable_NiSkinData;
 int __cdecl NiSkinData_ComputeBoneBounds();
 // Initialises the object: sets the vtable, clears _08, copies a3 into _0c, stores a2 and a1, then calls FUN_00a853c0(a4) and returns this.
 // @fnv 0x00a854c0
 MyCls* MyCls::InitFromData(int a1, int a2, const Dummy13& aData, int a4)
 {
     _Call_a5d3a0();
-    vf = (void*)&DAT_0109e574;
+    vf = (void*)&vftable_NiSkinData;
     _08 = 0;
     _0c = aData;
     _40 = a2;

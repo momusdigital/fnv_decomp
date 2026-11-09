@@ -35,7 +35,7 @@ void* __thiscall BSLookIKNote::Destroy(unsigned int flags)
     return this;
 }
 
-extern int DAT_01097c8c;
+extern int vftable_BSLookIKNote;
 inline void* operator new(unsigned int, void* storage) { return storage; }
 
 // @fnv 0x00a43fb0
@@ -48,7 +48,7 @@ BSLookIKNote* __cdecl CreateLookIKNote()
         pNote->fTime = 0.0f;
         *reinterpret_cast<int*>(pNote->unk08) = 2;
         pNote->m_fDistanceScale = 0.0f;
-        *reinterpret_cast<void**>(pNote) = &DAT_01097c8c;
+        *reinterpret_cast<void**>(pNote) = &vftable_BSLookIKNote;
         pNote->eState = 0;
         return pNote;
     }
@@ -463,7 +463,7 @@ NiObject* BSLookIKNote::MakeClone(CloningProcess& cloning)
         pkClone->fTime = 0.0f;
         *reinterpret_cast<int*>(pkClone->unk08) = 2;
         pkClone->m_fDistanceScale = 0.0f;
-        *reinterpret_cast<void**>(pkClone) = &DAT_01097c8c;
+        *reinterpret_cast<void**>(pkClone) = &vftable_BSLookIKNote;
         pkClone->eState = 0;
     }
     else

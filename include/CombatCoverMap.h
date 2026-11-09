@@ -31,7 +31,7 @@ public:
 
     void* __thiscall DestroyAndFree(unsigned int flags);
     ~CombatCoverMap();
-    void* __thiscall FUN_00983100(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
     void __thiscall FUN_00983130();
 
     void* GetFirstPos();

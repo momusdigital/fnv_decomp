@@ -1,4 +1,4 @@
-extern "C" void* const DAT_010c5ce4[];
+extern "C" void* const vftable_bhkLimitedHingeConstraint[];
 
 #include "../../../../../include/BSThreadCriticalSectionPC.h"
 #include "../../../../../include/hkArray.h"
@@ -608,7 +608,7 @@ void FUN_00c97f50_Class::DispatchOrQueue(void* p)
     }
 }
 
-extern int DAT_010c3bb8;
+extern int vftable_hkpBroadPhaseCastCollector;
 struct FUN_00c98350_Class {
     void* m_p;
     void* __thiscall InitAndMaybeFree(int);
@@ -617,7 +617,7 @@ void __cdecl _Deallocate(void*);
 // @fnv 0x00c98350
 void* __thiscall FUN_00c98350_Class::InitAndMaybeFree(int flags)
 {
-    m_p = &DAT_010c3bb8;
+    m_p = &vftable_hkpBroadPhaseCastCollector;
     if (flags & 1)
         _Deallocate(this);
     return this;
@@ -4219,7 +4219,7 @@ FNV_AllocatorContext* __cdecl hkMemoryRouter_getInstance();
 struct FNV_Subobject {
     void* ProcessAndReturnValue_00cf6da0(unsigned int value);
 };
-extern void* DAT_010c69cc;
+extern void* vftable_hkDebugDisplay;
 struct FUN_00c99eb0 {
     void* m_ppVirtualMethodTable;
     unsigned short m_04;
@@ -4234,7 +4234,7 @@ struct FUN_00c99eb0 {
 // @fnv 0x00c99eb0
 FUN_00c99eb0::FUN_00c99eb0() {
     m_flag06 = 1;
-    m_ppVirtualMethodTable = &DAT_010c69cc;
+    m_ppVirtualMethodTable = &vftable_hkDebugDisplay;
     m_08 = 0;
     m_0C = 0;
     m_10 = 0x80000000u;
@@ -5826,7 +5826,7 @@ extern unsigned int DAT_0126835c;
 extern "C" __declspec(dllimport) void* __stdcall TlsGetValue(unsigned int);
 extern const char str_010c64b8[];
 extern const char str_010c41f8[];
-extern void* DAT_010c6488;
+extern void* vftable_hkpWorldLinearCaster;
 extern float DAT_0104da4c;
 struct TimerEntry { const char* name; unsigned int ticks; unsigned int unk08; };
 struct TimerBuffer { unsigned int unk00; TimerEntry* current; unsigned int unk08; TimerEntry* end; };
@@ -5924,7 +5924,7 @@ void WorldQuery::hkpWorld_linearCast(void* a,void* b,void* c,void* d) {
     } else {
         LinearCaster caster;
         caster.unk80 = DAT_0104da4c;
-        caster.unk00 = &DAT_010c6488;
+        caster.unk00 = &vftable_hkpWorldLinearCaster;
         caster.unk24 = 0;
         caster.ComputeValues_00cfaed0(m_pJobSemaphore,a,b,m_pCollisionFilter ? (char*)m_pCollisionFilter+8 : 0,m_pCollisionInput,((CollisionInput*)m_pCollisionInput)->unk70,0,c,d);
     }
@@ -7429,8 +7429,8 @@ void __cdecl hkpWorld_unlockReadOnly(void)
 }
 
 namespace c912 { inline hkMemoryRouter* router() { return (hkMemoryRouter*)hkMemoryRouter_getInstance(); } }
-extern int DAT_010c6420;
-extern int DAT_010c6378;
+extern int vftable_hkpNullContactMgrFactory;
+extern int vftable_hkpNullContactMgr;
 
 struct CFB240ContactMgrFactory {
     virtual ~CFB240ContactMgrFactory();
@@ -7449,13 +7449,13 @@ struct FUN_00cfd450 : CFB240ContactMgrFactory {
     int unk08;
     FUN_00cfd450(void*) throw();
 };
-struct FUN_00cfca20 : CFB240ContactMgrFactory {
+struct hkpReportContactMgr__Factory : CFB240ContactMgrFactory {
     int unk08;
-    FUN_00cfca20(void*) throw();
+    hkpReportContactMgr__Factory(void*) throw();
 };
 struct OtherC912 {
     void* vtable; short unknown; short refs; int kind;
-    OtherC912() throw() { refs = 1; kind = 3; vtable = &DAT_010c6378; }
+    OtherC912() throw() { refs = 1; kind = 3; vtable = &vftable_hkpNullContactMgr; }
 };
 struct FactoryThreeC912 : CFB240ContactMgrFactory {
     OtherC912 other;
@@ -7473,7 +7473,7 @@ struct CFB240Dispatcher {
 static void RegisterContactMgrFactories(CFB240Dispatcher* dispatcher, void* world)
 {
     FUN_00cfd450* first = new FUN_00cfd450(world);
-    FUN_00cfca20* second = new FUN_00cfca20(world);
+    hkpReportContactMgr__Factory* second = new hkpReportContactMgr__Factory(world);
     FactoryThreeC912* third = new FactoryThreeC912;
     dispatcher->SetContactMgrFactory(first, 1);
     dispatcher->SetContactMgrFactory(second, 2);
@@ -10514,7 +10514,7 @@ void S00c92040_Obj::hkpWorld_castRay_00c92040(int a, int b)
     extern unsigned long DAT_0126835c;
     extern const char str_010c64a8[];
     extern const char str_010c41f8[];
-    extern const char DAT_010c647c[];
+    extern const char vftable_hkpSimpleWorldRayCaster[];
 
     typedef S00c92040_Pool* (__stdcall* AllocFn)(unsigned long);
     AllocFn alloc = (AllocFn)DAT_00fdf044;
@@ -10535,7 +10535,7 @@ void S00c92040_Obj::hkpWorld_castRay_00c92040(int a, int b)
         p5C->v7(a, p7C, b);
     } else {
         S00c92040_Arg arg;
-        arg.p00 = DAT_010c647c;
+        arg.p00 = vftable_hkpSimpleWorldRayCaster;
         arg.f30 = 0;
         arg.f34 = 0;
         arg.RecordAndDispatch(p58, a, p7C, 0, b);
@@ -12167,7 +12167,7 @@ unsigned int LimitedHingeWrapper::hkLimitedHingeConstraintCinfo_CreateData()
 
 extern "C" void _ReadWriteBarrier();
 
-extern int DAT_0108febc;
+extern int vftable_bhkConstraint;
 extern int DAT_01268188;
 extern int DAT_01268318;
 void* Object_DispatchCommandFour(unsigned int size);
@@ -12371,13 +12371,13 @@ __forceinline bhkRefObject* CreateRefObject()
     RefObjectAllocationGuard guard = { obj };
     if (obj != 0) {
         obj->Initialize();
-        *(const void**)obj = (const void*)&DAT_0108febc;
+        *(const void**)obj = (const void*)&vftable_bhkConstraint;
         _ReadWriteBarrier();
         const int inc = 1;
         *(unsigned int*)((char*)obj + 12) = 0;
         DAT_01268188 += inc;
         _ReadWriteBarrier();
-        *(const void**)obj = (const void*)DAT_010c5ce4;
+        *(const void**)obj = (const void*)vftable_bhkLimitedHingeConstraint;
         _ReadWriteBarrier();
         DAT_01268318 += inc;
     }

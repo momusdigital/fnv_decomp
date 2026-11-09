@@ -39,7 +39,7 @@ void* ReferencedObjectHolder::hkRefVariant_getClass()
     return 0;
 }
 
-extern int DAT_010cf9c8;
+extern int vftable_hkBinaryTagfileWriter;
 
 struct SetBlk
 {
@@ -58,7 +58,7 @@ extern "C" int stub_c(void);
 // the enable flag arrives in eax, the extra word in edx, the value on the
 // stack. The trailing stub_caller exists only so VC9 negotiates that
 // convention for the out-of-line body above.
-// If enable is set, builds a SetBlk with f06=1 and f00 pointing to DAT_010cf9c8, then calls DAT_010cf9d4; otherwise returns 1.
+// If enable is set, builds a SetBlk with f06=1 and f00 pointing to vftable_hkBinaryTagfileWriter, then calls DAT_010cf9d4; otherwise returns 1.
 // @fnv 0x00d48560
 // src: GUESS 0x00d48560 (confidence: low)
 static __declspec(noinline) int Object_ProcessAndReturnValue_00d48560(int enable, int extra, int value)
@@ -67,7 +67,7 @@ static __declspec(noinline) int Object_ProcessAndReturnValue_00d48560(int enable
     if (enable)
     {
         v.f06 = 1;
-        v.f00 = (void*)&DAT_010cf9c8;
+        v.f00 = (void*)&vftable_hkBinaryTagfileWriter;
         return DAT_010cf9d4(&v, value, enable, extra);
     }
     return 1;

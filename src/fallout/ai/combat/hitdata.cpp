@@ -130,7 +130,7 @@ struct GlobalObject_00869f00
     void Clear(bool a);
 };
 
-extern int DAT_0108f9e8;
+extern int vftable_BSSimpleArray_0108f9e8;
 
 struct FUN_009b7970_shell
 {
@@ -140,7 +140,7 @@ struct FUN_009b7970_shell
 // @fnv 0x009b7970
 void FUN_009b7970_shell::InitializeAndClear()
 {
-    *reinterpret_cast<int*>(this) = (int)&DAT_0108f9e8;
+    *reinterpret_cast<int*>(this) = (int)&vftable_BSSimpleArray_0108f9e8;
     reinterpret_cast<GlobalObject_00869f00*>(this)->Clear(true);
 }
 
@@ -167,11 +167,11 @@ struct FUN_009b7940_shell
     void BSSimpleArray_float_1024_InitialSetup(unsigned int a, unsigned int b);
     FUN_009b7940_shell* Initialize();
 };
-// Sets the vtable to DAT_0108f9e8, calls FUN_006b3eb0 with 0, 0, and returns this.
+// Sets the vtable to vftable_BSSimpleArray_0108f9e8, calls FUN_006b3eb0 with 0, 0, and returns this.
 // @fnv 0x009b7940
 FUN_009b7940_shell* FUN_009b7940_shell::Initialize()
 {
-    vtable = &DAT_0108f9e8;
+    vtable = &vftable_BSSimpleArray_0108f9e8;
     BSSimpleArray_float_1024_InitialSetup(0, 0);
     return this;
 }

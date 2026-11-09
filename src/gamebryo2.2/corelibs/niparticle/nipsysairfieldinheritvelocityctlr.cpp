@@ -77,7 +77,7 @@ void NiPSysAirFieldInheritVelocityCtlr::SetModValue(float fValue)
     reinterpret_cast<S_00c30650_Mod*>(m_pkTargetModifier)->Set(fValue);
 }
 
-extern "C" char DAT_010c05e4;
+extern "C" char vftable_NiPSysAirFieldInheritVelocityCtlr;
 extern "C" void* __cdecl Object_DispatchCommandFour(unsigned int size);
 
 // Allocates and initialises a controller, copies its members, and returns it.
@@ -88,7 +88,7 @@ NiPSysModifierFloatCtlr* NiPSysAirFieldInheritVelocityCtlr::CreateSpawnedCtlr(vo
     if (obj != 0)
     {
         ::new (obj) NiPSysModifierFloatCtlr;
-        *(void* volatile*)obj = &DAT_010c05e4;
+        *(void* volatile*)obj = &vftable_NiPSysAirFieldInheritVelocityCtlr;
     }
     else
     {

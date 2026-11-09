@@ -22,7 +22,8 @@ extern "C" void* __cdecl _Deallocate(void*);
 
 // Returns this, and if bit 0 of flags is set, deallocates this before returning it.
 // @fnv 0x007bfbd0
-void* SleepWaitMenu::FUN_007bfbd0(unsigned int flags)
+// src: EXE 0x007bfbd0
+void* SleepWaitMenu::ScalarDeletingDestructor(unsigned int flags)
 {
     this->SleepWaitMenu::~SleepWaitMenu();
     if (flags & 1)

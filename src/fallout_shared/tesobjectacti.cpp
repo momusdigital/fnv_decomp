@@ -151,13 +151,13 @@ TESSound* FUN_004fd3a0_shell::TESChallenge_GetFormOne()
     return *(TESSound**)((char*)this + 0x74);
 }
 
-extern int DAT_01029ee0;
+extern int vftable_BGSOpenCloseForm;
 
 // @fnv 0x00510620
 // src: EXE 0x00510620
 void* __fastcall BGSOpenCloseForm_BGSOpenCloseForm(void** pThis)
 {
-    *pThis = &DAT_01029ee0;
+    *pThis = &vftable_BGSOpenCloseForm;
     return pThis;
 }
 
@@ -188,11 +188,12 @@ const char* __fastcall TESSound_GetFilename(char* apObject)
 void _Deallocate(void*);
 struct Holder005105F0 : TESObjectACTI
 {
-    void* FUN_005105f0(unsigned int);
+    void* TESObjectACTI_ScalarDeletingDestructor(unsigned int);
 };
 // Destructs the TESObjectACTI base and, when flags has bit 0 set, deallocates this object; returns this.
 // @fnv 0x005105f0
-void* Holder005105F0::FUN_005105f0(unsigned int flags)
+// src: EXE 0x005105f0
+void* Holder005105F0::TESObjectACTI_ScalarDeletingDestructor(unsigned int flags)
 {
     this->TESObjectACTI::~TESObjectACTI();
     if (flags & 1)

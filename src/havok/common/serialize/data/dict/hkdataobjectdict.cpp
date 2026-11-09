@@ -2086,11 +2086,12 @@ struct StructArrayImplementation
     void* m_00;
     unsigned short m_04;
     void ProcessEntries_00dcb890();
-    void* __thiscall FUN_00dcb960(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 
 // @fnv 0x00dcb960
-void* __thiscall StructArrayImplementation::FUN_00dcb960(unsigned int flags)
+// src: EXE 0x00dcb960
+void* __thiscall StructArrayImplementation::ScalarDeletingDestructor(unsigned int flags)
 {
     ProcessEntries_00dcb890();
 
@@ -2905,7 +2906,7 @@ void FUN_00dc7dc0_StandIn::hkDataWorldDict_castObject(int piA, int piB)
 }
 
 namespace fnv_00dc8030 {
-extern "C" void* DAT_010d7510[];
+extern "C" void* vftable_hkDataWorldDict[];
 struct FUN_00dc8030_Allocator
 {
     virtual void slot0();
@@ -2935,7 +2936,7 @@ struct FUN_00dc8030_Class
 FUN_00dc8030_Class* __thiscall FUN_00dc8030_Class::hkDataWorldDict_hkDataWorldDict()
 {
     refCount = 1;
-    vtable = DAT_010d7510;
+    vtable = vftable_hkDataWorldDict;
     FUN_00dc8030_Memory* pMemory = hkMemoryRouter_getInstance();
     FUN_00dc8030_Allocator* allocator = pMemory->allocator;
     FUN_00dc7fd0_Class* p = (FUN_00dc7fd0_Class*)allocator->Allocate(0x88);
@@ -4628,7 +4629,7 @@ __forceinline void InitializeClassArray(hkArrayBase<int>& array)
     array.m_iElementCount = 0;
     array.m_iCapacityState = 0x80000000;
 }
-extern "C" void* DAT_010d73c8[];
+extern "C" void* vftable_hkDataClassDict[];
 // The shared base has no initializing constructor; initialize the game's base fields here.
 // @fnv 0x00dcabb0
 hkDataClassDict* __fastcall ConstructDataClassDict(hkDataClassDict* pkClass, void*, hkDataWorldDict* pkOwner,
@@ -4636,7 +4637,7 @@ hkDataClassDict* __fastcall ConstructDataClassDict(hkDataClassDict* pkClass, voi
 {
     pkClass->m_externalCount = 0;
     pkClass->m_count = 0;
-    *reinterpret_cast<void***>(pkClass) = DAT_010d73c8;
+    *reinterpret_cast<void***>(pkClass) = vftable_hkDataClassDict;
     pkClass->m_pOwningWorld = pkOwner;
     reinterpret_cast<hkTypeOwnerDCAB*>(pkOwner)->m_registry->FindOrCreateTypeEntry(&pkClass->unk10, reinterpret_cast<int>(pcName));
     pkClass->m_version = iFlags;
@@ -7577,7 +7578,7 @@ void hkDataWorldDictDC7::RenameClassMember(hkDataClassDC7& kClass, const char* p
     pkClass->members[FindMemberDeclDC7(pkClass, pcOld)].name = pcNew;
 }
 
-extern int DAT_010d6ee4;
+extern int vftable_hkDataObjectDict;
 
 struct RefCounted_dc7c
 {
@@ -7607,7 +7608,7 @@ struct Node_dc7c : RefCounted_dc7c
     {
         m_flags = 0;
         m_sReferenceCount = 0;
-        m_vtbl = &DAT_010d6ee4;
+        m_vtbl = &vftable_hkDataObjectDict;
         if (parent)
             parent->RetainReference();
         m_parent = parent;
@@ -7673,7 +7674,7 @@ struct Alloc_dc8d
 };
 
 extern hkReferencedObject DAT_011b7c00;
-extern int DAT_010d6da0;
+extern int vftable_InternedStringRefCounted_010d6da0;
 
 struct StringPtr_dc8d
 {
@@ -7762,7 +7763,7 @@ void* Registry_dc8d::FindOrCreateTypeEntry(void* pvDataTypeOut, int pcTypeName) 
             StringPtr_dc8d* result = impl->GetPooledString(&local, name);
 
             dataType->m_sReferenceCount = 1;
-            *reinterpret_cast<void**>(dataType) = &DAT_010d6da0;
+            *reinterpret_cast<void**>(dataType) = &vftable_InternedStringRefCounted_010d6da0;
 
             const char* typeName = result->m_kStringBuffer;
             dataType->m_name = typeName;
@@ -9237,7 +9238,7 @@ void hkStreamBufferDC9D::BasicArrayImplementation_unsigned_char_1_setSize(int iS
 
 namespace fnv_00dcb890 {
 extern int DAT_010d73fc;
-extern int DAT_010d62f4;
+extern int vftable_hkDataRefCounted;
 void* hkMemoryRouter_getInstance();
 struct FUN_00dcb890_Owner
 {
@@ -9340,7 +9341,7 @@ void FUN_00dcb890_cls::ProcessEntries_00dcb890()
     unk0c = 0;
     int& flag = unk14;
     flag = (int)0x80000000;
-    unk00 = &DAT_010d62f4;
+    unk00 = &vftable_hkDataRefCounted;
 }
 }  // namespace fnv_00dcb890
 

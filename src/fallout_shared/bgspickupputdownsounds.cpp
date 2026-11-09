@@ -91,16 +91,16 @@ void BGSPickupPutdownSounds::InitItem(TESForm* owner)
     }
 }
 
-extern int DAT_0101abd8;
+extern int vftable_BGSPickupPutdownSounds;
 void __fastcall BGSPickupPutdownSounds_InitializeDataComponent(void* pThis);
 
-// Initialises the BaseFormComponent base, installs the vtable from DAT_0101abd8, calls FUN_0047b540, and returns pThis.
+// Initialises the BaseFormComponent base, installs the vtable from vftable_BGSPickupPutdownSounds, calls FUN_0047b540, and returns pThis.
 // @fnv 0x0047b4f0
 // src: EXE 0x0047b4f0
 void* __fastcall BGSPickupPutdownSounds_BGSPickupPutdownSounds(BaseFormComponent* apComponent)
 {
     apComponent->BaseFormComponent::BaseFormComponent();
-    *(int**)apComponent = &DAT_0101abd8;
+    *(int**)apComponent = &vftable_BGSPickupPutdownSounds;
     BGSPickupPutdownSounds_InitializeDataComponent(apComponent);
     return apComponent;
 }
@@ -184,11 +184,11 @@ bool __fastcall IsSamePickupPutdownSounds(BGSPickupPutdownSounds* sounds, Pickup
 }
 }  // namespace fnv_0047b630
 
-extern int DAT_0101abd8;
+extern int vftable_BGSPickupPutdownSounds;
 
 // @fnv 0x0047b520
 void __fastcall FreePickupPutdownSounds(BGSPickupPutdownSounds* sounds)
 {
-    *(int**)sounds = &DAT_0101abd8;
+    *(int**)sounds = &vftable_BGSPickupPutdownSounds;
     reinterpret_cast<TESForm*>(sounds)->TESForm::ClearData();
 }

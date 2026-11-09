@@ -78,7 +78,7 @@ GlobalObjectO2_00a7b618* __cdecl NiPSysBoxEmitter_GetRTTI()
     return &g_01202518;
 }
 
-extern int DAT_010bda2c;
+extern int vftable_NiPSysBoxEmitter;
 // Allocates a 100-byte BSFadeNode, runs its constructor, zeroes the floats at offsets 0x58-0x60, sets its vtable, and returns it (or null).
 // @fnv 0x00c20350
 // src: EXE 0x00c20350
@@ -89,7 +89,7 @@ BSFadeNode* __cdecl NiPSysBoxEmitter_CreateObject()
     {
         node->FUN_00c31af0();
         *(float*)((char*)node + 0x58) = 0.0f;
-        *(void**)((char*)node + 0) = &DAT_010bda2c;
+        *(void**)((char*)node + 0) = &vftable_NiPSysBoxEmitter;
         *(float*)((char*)node + 0x5c) = 0.0f;
         *(float*)((char*)node + 0x60) = 0.0f;
         return node;
@@ -147,7 +147,7 @@ NiObject* BoxEmitterClone::Clone(CloningProcess& kCloning)
     {
         pkObject->FUN_00c31af0();
         *(float*)((char*)pkObject + 0x58) = 0.0f;
-        *(void**)pkObject = (void*)&DAT_010bda2c;
+        *(void**)pkObject = (void*)&vftable_NiPSysBoxEmitter;
         *(float*)((char*)pkObject + 0x5c) = 0.0f;
         *(float*)((char*)pkObject + 0x60) = 0.0f;
     }

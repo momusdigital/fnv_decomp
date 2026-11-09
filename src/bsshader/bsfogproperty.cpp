@@ -41,7 +41,7 @@ void __fastcall SetDepthParams(FogPropertyWithBase* property, void*, float afDep
 typedef char _sizecheck_NiMemObject[sizeof(NiMemObject) == 1 ? 1 : -1];
 __declspec(dllimport) long __stdcall InterlockedDecrement(volatile long*);
 
-extern unsigned char* DAT_0109b244;
+extern unsigned char* vftable_NiObjectNET;
 extern int EmptyFS;
 
 inline void NiRefObject::DecRefCount()
@@ -55,7 +55,7 @@ inline void NiRefObject::DecRefCount()
 // @fnv 0x00a5c240
 void __fastcall DestroyProperty(NiProperty* property)
 {
-    *(void**)property = (void*)&DAT_0109b244;
+    *(void**)property = (void*)&vftable_NiObjectNET;
     ((NiAVObject*)property)->UpdateModelBound();
 
     NiRefObject* pExtra = (NiRefObject*)property->m_spControllers;
@@ -100,7 +100,7 @@ void* __fastcall DestroyFogProperty(NiFogProperty* property, void*, unsigned int
 }
 
 void __cdecl ReleaseObjectArray(void*);
-extern int DAT_010a1458;
+extern int vftable_NiTArray_010a1458;
 extern MemoryManager g_memoryManager;
 // The original vftable's RTTI identifies this array specialization.
 class NiMetricsOutputModule;
@@ -110,7 +110,7 @@ void* __fastcall DestroyObjectArray(
     void*, unsigned int auiFlags)
 {
     void* p = array->m_pBase;
-    *(void**)array = (void*)&DAT_010a1458;
+    *(void**)array = (void*)&vftable_NiTArray_010a1458;
     ReleaseObjectArray(p);
     if (auiFlags & 1)
         g_memoryManager._DeallocateAlias(array);

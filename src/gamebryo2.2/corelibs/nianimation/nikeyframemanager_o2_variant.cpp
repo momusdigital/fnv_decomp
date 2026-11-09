@@ -262,8 +262,8 @@ struct MemShellD810
 {
     void MemoryManager_Deallocate(void* p);
 };
-extern int DAT_0102102c;
-extern int DAT_0101a3a4;
+extern int vftable_NiTArray_0102102c;
+extern int vftable_NiTArray_0101a3a4;
 extern int str_0101a3a4;
 extern int PTR_0102102c;
 struct RefD810
@@ -333,8 +333,8 @@ struct LegacyD810
 {
     ArrD810<unsigned int, &str_0101a3a4> values;
     ArrD810<void*, &PTR_0102102c> names;
-    ArrD810<unsigned int, &DAT_0101a3a4> counts;
-    ArrD810<void*, &DAT_0102102c> linkNames;
+    ArrD810<unsigned int, &vftable_NiTArray_0101a3a4> counts;
+    ArrD810<void*, &vftable_NiTArray_0102102c> linkNames;
     ~LegacyD810()
     {}
     static void __cdecl operator delete(void* p)

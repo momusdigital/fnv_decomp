@@ -94,7 +94,7 @@ struct Desc
     int unk08;
 };
 
-extern "C" char DAT_010ce1a8[];
+extern "C" char vftable_hkaDetectRagdollPenetration[];
 
 struct RefObj
 {
@@ -103,19 +103,19 @@ struct RefObj
     short m_sReferenceCount;
 };
 
-struct FUN_00d1fa50 : RefObj
+struct hkaDetectRagdollPenetration : RefObj
 {
     Desc m_kCreateDesc;
     int m_uiItemCount;
     hkIntArrayLocalForm m_aiIndexedValues;
     bool m_flag;
-    FUN_00d1fa50(const Desc& d);
+    hkaDetectRagdollPenetration(const Desc& d);
 };
 
 // @fnv 0x00d1fa50
-FUN_00d1fa50::FUN_00d1fa50(const Desc& d)
+hkaDetectRagdollPenetration::hkaDetectRagdollPenetration(const Desc& d)
 {
-    m_vtbl = DAT_010ce1a8;
+    m_vtbl = vftable_hkaDetectRagdollPenetration;
     m_sReferenceCount = 1;
     m_kCreateDesc = d;
     m_aiIndexedValues.init();
@@ -327,7 +327,7 @@ hkBool PairFinder::hkaDetectRagdollPenetration_detectPenetration(BoxSet* boxes, 
 
 
 namespace fnv_00d1fe70 {
-extern int DAT_0102e388;
+extern int vftable_hkBaseObject;
 
 hkMemoryRouter* __cdecl hkMemoryRouter_getInstance() throw();
 
@@ -362,7 +362,7 @@ FUN_00d1fe70_cls* FUN_00d1fe70_cls::FUN_00d1fe70(unsigned char acFlags)
     }
     m_p18 = 0;
     m_20 = 0x80000000;
-    m_vptr = (int)&DAT_0102e388;
+    m_vptr = (int)&vftable_hkBaseObject;
     if (acFlags & 1)
     {
         hkMemoryRouter* pHolder2 = hkMemoryRouter_getInstance();

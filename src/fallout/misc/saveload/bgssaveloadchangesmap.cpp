@@ -256,7 +256,7 @@ void BGSSaveLoadChangesMap::SetCombatTargetQuantity(unsigned int formID, unsigne
     ((unsigned int*)((char*)array + 4))[0] = extra;
 }
 
-extern int DAT_0107eda8;
+extern int vftable_NiTMapBase_0107eda8;
 void* __cdecl _NiMalloc(unsigned int size);
 void* __cdecl memset(void* dest, int c, unsigned int count);
 
@@ -273,7 +273,7 @@ struct FUN_00845b90_shell
 // @fnv 0x00845b90
 FUN_00845b90_shell* FUN_00845b90_shell::InitArray(int aiCount)
 {
-    vtable_ = &DAT_0107eda8;
+    vtable_ = &vftable_NiTMapBase_0107eda8;
     count_ = aiCount;
     tail_ = 0;
     unsigned int bytes = count_ * 4;

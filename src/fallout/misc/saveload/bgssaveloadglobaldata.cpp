@@ -617,8 +617,8 @@ template <class T> class LLD_SettingT
     LLD_SettingValue* Bool();
     const char* String();
 };
-extern LLD_SettingT<LLD_INISettingCollection> g_011e08e0;
-extern LLD_SettingT<LLD_INISettingCollection> g_011de25c;
+extern LLD_SettingT<LLD_INISettingCollection> bBorderRegionsEnabled_General;
+extern LLD_SettingT<LLD_INISettingCollection> sSaveGameSafeMarkerID_SaveGame;
 struct LLD_Point3
 {
     float x;
@@ -714,7 +714,7 @@ void LoadPlayerLocation(BGSLoadGameBuffer* apLoadGameBuffer)
             if (ptesWorldSpace)
                 g_TES->AssignWorldSpace(ptesWorldSpace);
             TESWorldSpace* pworld = (TESWorldSpace*)plocation;
-            if (((bool (__thiscall*)(TESWorldSpace*))WorldSpaceIsFlag8Set)(pworld) && g_011e08e0.Bool()->b &&
+            if (((bool (__thiscall*)(TESWorldSpace*))WorldSpaceIsFlag8Set)(pworld) && bBorderRegionsEnabled_General.Bool()->b &&
                 !((bool (__thiscall*)(TESWorldSpace*, LLD_Point3*))WorldSpaceContainsPoint)(pworld, &playerLocation))
                 bvalidPlayerLocation = false;
             if (bvalidPlayerLocation)
@@ -775,7 +775,7 @@ void LoadPlayerLocation(BGSLoadGameBuffer* apLoadGameBuffer)
             pIter = pIter->GetNext();
         }
         ((LLD_PlayerCharacter*)g_thePlayer)->SetCameraPathEnabled(false, 0xff);
-        isafeMarkerID = FUN_00ec8d08(g_011de25c.String(), 0, 16);
+        isafeMarkerID = FUN_00ec8d08(sSaveGameSafeMarkerID_SaveGame.String(), 0, 16);
         pref = dynamic_cast<TESObjectREFR*>(TESForm::GetFormByID(isafeMarkerID));
         if (pref)
         {

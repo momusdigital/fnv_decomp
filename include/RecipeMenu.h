@@ -20,7 +20,7 @@ public:
     unsigned char layoutExtension[0xDC];
 
     int GetMenuID_00726f00();
-    void* FUN_00726f20(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
     void FUN_00726f50();
     int GetID();
     void OnAction(int action, Tile* tile);

@@ -36,18 +36,18 @@ struct FUN_00851d70_shell
 {
     void SetFlagByte();
 };
-extern GlobalObject_0045cf30 g_011de29c;
+extern GlobalObject_0045cf30 bAllowScriptedAutosave_SaveGame;
 extern void* DAT_011de134;
 bool Cmd_SystemSave_Execute();
 extern "C" void __cdecl j_Deallocate_NiTNewInterface_V_NiPointer_VNiAVObject_SAXPAV_NiPointer_VNiAVObject_Z(int);
-extern int DAT_0103d3e8;
+extern int vftable_NiTArray_0103d3e8;
 struct FUN_005e02e0
 {
     int m0;
     int m4;
     void Init();
 };
-extern "C" void* DAT_0103d3f0;
+extern "C" void* vftable_NiTObjectArray_0103d3f0;
 struct FUN_005e0310_class
 {
     void* vtbl;
@@ -61,8 +61,8 @@ struct FUN_005e0340Class
     ActorCombatGroup** m_ptr;
     void ReleaseStorage_005e0340();
 };
-extern int DAT_0103d3f8;
-extern int DAT_0103d400;
+extern int vftable_NiTArray_0103d3f8;
+extern int vftable_NiTPrimitiveArray_0103d400;
 struct FUN_005e0370_Class
 {
     void* vtbl;
@@ -107,14 +107,14 @@ struct FUN_005ed1b0_Class
     bool Equals(int);
     bool IsNotEqual(int arg);
 };
-extern int DAT_010472e4;
+extern int vftable_BSSimpleArray_010472e4;
 struct GlobalObject_00869f00
 {
     int* p;
     void Clear(bool);
     void ResetToGlobal();
 };
-extern int DAT_010472f8;
+extern int vftable_BSSimpleArray_010472f8;
 struct FUN_005ef910_class
 {
     int __thiscall FUN_005ef910(int, int);
@@ -133,7 +133,7 @@ struct FUN_005ef180_Class
 {
     void* __thiscall FUN_005ef180(int n, int m);
 };
-extern int DAT_0104730c;
+extern int vftable_BSSimpleArray_0104730c;
 void BSSimpleArray_LookIK_DATA_LookIK_Head_DATA_1024_InitialSetup(int, int);
 struct FUN_005ef1a0_Class
 {
@@ -149,7 +149,7 @@ struct FUN_005ef360_class
 {
     void* __thiscall BSSimpleArray_PathingLocation_1024_Reallocate(unsigned int n, unsigned int m);
 };
-extern int DAT_01047320;
+extern int vftable_BSSimpleArray_01047320;
 struct FUN_005efd40_class
 {
     void* vtbl;
@@ -226,7 +226,7 @@ struct FUN_005f4bd0_class
     int m14;
     void SetEntryByte(unsigned int index, unsigned char value);
 };
-extern int DAT_0103d408;
+extern int vftable_NiTArray_0103d408;
 void __cdecl NiTMallocInterface_unsigned_int_Deallocate(void*);
 struct Standin005e03a0
 {
@@ -1882,7 +1882,7 @@ struct ChallengeReward
     void RunScriptOnTarget(void*, int);
 };
 extern ChallengeNode DAT_011cb448;
-extern GlobalObject_0045cf30 g_011cb4d4;
+extern GlobalObject_0045cf30 bShowChallengeUpdates_GamePlay;
 extern void* DAT_011dea3c;
 void __cdecl FUN_004d5c60(int);
 int __cdecl BSsprintf(char*, int, const char*, ...);
@@ -1935,7 +1935,7 @@ struct FUN_005e2ca0_s
 };
 struct FUN_005e2c70_s : FUN_005e2ca0_s
 {
-    void* FUN_005e2c70(unsigned int flags);
+    void* TESSound_ScalarDeletingDestructor(unsigned int flags);
 };
 struct SoundData
 {
@@ -2335,7 +2335,7 @@ void __cdecl operator delete(void*);
 struct DeletingObject
 {
     void FUN_005e4bc0();
-    void* FUN_005e4b90(unsigned int flags);
+    void* BGSBodyPartData_ScalarDeletingDestructor(unsigned int flags);
 };
 class FUN_00483630_holder
 {
@@ -2427,7 +2427,7 @@ void EntryPointFunction_MultiplyValue(void* pvArg0, void* pvArg1, unsigned char 
 }
 namespace s5e63f0 {
 
-extern "C" const char DAT_010462c0[];
+extern "C" const char vftable_BGSEntryPointFunctionDataOneValue[];
 
 struct Base
 {
@@ -2448,7 +2448,7 @@ struct Derived : Base
 Derived* Derived::UpdateState_005e63f0()
 {
     BGSEntryPointFunctionData_BGSEntryPointFunctionData();
-    m_pVtbl = DAT_010462c0;
+    m_pVtbl = vftable_BGSEntryPointFunctionDataOneValue;
     m_fValue = 0.0f;
     return this;
 }
@@ -2456,7 +2456,7 @@ Derived* Derived::UpdateState_005e63f0()
 }
 namespace s5e6420 {
 
-extern "C" const char DAT_010462e0[];
+extern "C" const char vftable_BGSEntryPointFunctionData[];
 
 struct Holder
 {
@@ -2469,12 +2469,12 @@ struct Holder
 // src: EXE 0x005e6420
 Holder* Holder::BGSEntryPointFunctionData_BGSEntryPointFunctionData()
 {
-    m_pTable = DAT_010462e0;
+    m_pTable = vftable_BGSEntryPointFunctionData;
     return this;
 }
 
 }
-extern void* DAT_01046320;
+extern void* vftable_BGSEntryPointFunctionDataLeveledList;
 struct FUN_005e6510_cls
 {
     void* vtbl;
@@ -2482,7 +2482,7 @@ struct FUN_005e6510_cls
     void BGSEntryPointFunctionData_BGSEntryPointFunctionData();
     FUN_005e6510_cls* InitializeFields_005e6510();
 };
-extern int DAT_01048bb4, DAT_01048ba0, DAT_01048b88, DAT_01048b68, DAT_01048b54;
+extern int vftable_TESClass, vftable_TESClass_for_TESFullName, vftable_TESClass_for_TESDescription, vftable_TESClass_for_TESTexture, vftable_TESClass_for_TESAttributes;
 struct FUN_00483370
 {
     void* table_00;

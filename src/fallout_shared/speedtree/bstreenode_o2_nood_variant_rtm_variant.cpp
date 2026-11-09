@@ -70,7 +70,7 @@ void __cdecl __Dummy_00b6fef0(void* p, unsigned int size);
 struct FUN_0066d440_shell
 {
     void ForwardCall_0066d470();
-    void* FUN_0066d440(unsigned int flags);
+    void* bhkSPCollisionObject_ScalarDeletingDestructor(unsigned int flags);
 };
 struct FUN_0066d470_shell
 {
@@ -85,7 +85,7 @@ extern const void* g_012683e0;
 struct FUN_0066d520_shell
 {
     void FUN_00cb78b0();
-    void* FUN_0066d520(unsigned int flags);
+    void* bhkMultiSphereShape_ScalarDeletingDestructor(unsigned int flags);
 };
 void __cdecl __Dummy_00b6fef0(void* p, unsigned int size);
 struct GlobalObjectO2_00a7b610
@@ -120,7 +120,7 @@ struct FUN_0066d3d0_shell
 {
     void __thiscall bhkPCollisionObject_bhkPCollisionObject(void*);
 };
-extern int DAT_01066acc;
+extern int vftable_bhkSPCollisionObject;
 struct FUN_0066d3a0_shell
 {
     void* __thiscall bhkSPCollisionObject_bhkSPCollisionObject(void*);
@@ -279,7 +279,7 @@ struct VisNodeAlpha70
 {
     void Method0094db80(unsigned char aAlpha);
 };
-extern char DAT_01066c5c;
+extern char vftable_bhkMultiSphereShape;
 extern unsigned int DAT_012683dc;
 struct FUN_0066d490_base
 {
@@ -292,7 +292,7 @@ struct FUN_0066d490_cls : FUN_0066d490_base
     void bhkMultiSphereShape_Init(unsigned int a1);
     FUN_0066d490_cls(unsigned int a1);
 };
-extern char DAT_01066d44;
+extern char vftable_bhkTransformShape;
 extern unsigned int DAT_012681b0;
 struct FUN_0066d590_base
 {

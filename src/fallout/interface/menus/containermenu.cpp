@@ -2007,7 +2007,7 @@ void ContainerMenu::UpdateDialog()
     }
 }
 
-extern int DAT_0106ff84;
+extern int vftable_TutorialMenu;
 void* __cdecl ourMemset(void*, int, unsigned int);
 struct Base0071
 {
@@ -2026,7 +2026,7 @@ struct FUN_0071f240 : Base0071
 // @fnv 0x0071f240
 FUN_0071f240::FUN_0071f240()
 {
-    vtable = &DAT_0106ff84;
+    vtable = &vftable_TutorialMenu;
     ourMemset(&unk28, 0, 0x20);
     unk4c = 0;
     unk48 = 0;

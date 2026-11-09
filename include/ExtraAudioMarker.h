@@ -12,7 +12,7 @@ public:
 
     void __local_vftable_ctor_closure();
     void FUN_00431520();
-    void* FUN_004314f0(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 
     union
     {

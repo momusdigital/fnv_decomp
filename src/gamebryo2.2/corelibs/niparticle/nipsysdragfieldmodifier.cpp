@@ -45,7 +45,7 @@ void* __thiscall FUN_00c2c810_shell::FUN_00c2c810(int arg)
 }
 
 extern NiPoint3 _NiPoint3_ZERO;
-extern int DAT_010bff2c;
+extern int vftable_NiPSysDragFieldModifier;
 struct CloningProcess
 {
     NiObject* operator()(NiObject*);
@@ -68,7 +68,7 @@ NiPSysFieldModifier* __thiscall NiPSysDragFieldModifier::CreateClone_00c2c8d0(Cl
     if (clone)
     {
         ::new (clone) NiPSysFieldModifier;
-        *(void**)clone = &DAT_010bff2c;
+        *(void**)clone = &vftable_NiPSysDragFieldModifier;
         *(unsigned char*)((char*)clone + 0x30) = 0;
         *(NiPoint3*)((char*)clone + 0x34) = _NiPoint3_ZERO;
     }

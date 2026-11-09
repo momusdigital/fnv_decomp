@@ -555,7 +555,7 @@ struct BaseCopy
 {
     void FUN_00a6cfe0(NiTimeController* destination, void* process);
 };
-extern int DAT_01098c14;
+extern int vftable_NiLookAtController;
 void __fastcall FUN_00a6d220(void*) throw();
 
 // The base constructor's nonthrowing entry is not declared in the shared header.
@@ -567,7 +567,7 @@ inline NiLookAtController* AllocateLookAtController()
     if (controller)
     {
         FUN_00a6d220(controller);
-        *reinterpret_cast<void**>(controller) = &DAT_01098c14;
+        *reinterpret_cast<void**>(controller) = &vftable_NiLookAtController;
         controller->m_pkLookAt = 0;
         *reinterpret_cast<unsigned short*>(controller->_pad) = 0;
         controller->m_uiObjectFlags &= ~0x40;

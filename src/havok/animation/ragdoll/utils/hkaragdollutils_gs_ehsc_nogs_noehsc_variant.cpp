@@ -262,7 +262,7 @@ template <> __forceinline void ArrayLocalForm<Bone>::SetSizeAndGrow(int count) t
     constructBones(data + size, count - size);
     size = count;
 }
-extern unsigned int DAT_010c4dec;
+extern unsigned int vftable_hkaSkeleton;
 struct SkeletonHeader
 {
     const void* vtable;
@@ -270,7 +270,7 @@ struct SkeletonHeader
     unsigned short references;
     __forceinline SkeletonHeader() throw() : references(1), memorySize(0x48)
     {
-        vtable = &DAT_010c4dec;
+        vtable = &vftable_hkaSkeleton;
     }
 };
 struct Skeleton : SkeletonHeader

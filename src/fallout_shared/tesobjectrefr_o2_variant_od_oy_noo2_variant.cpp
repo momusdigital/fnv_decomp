@@ -51,9 +51,9 @@ extern int DAT_0126810c;
 extern int DAT_01268208;
 extern int DAT_0126822c;
 extern int DAT_01268238;
-extern const void* DAT_01030394;
-extern const void* DAT_0103078c;
-extern const void* DAT_010306b4;
+extern const void* vftable_bhkWorldObject;
+extern const void* vftable_bhkPhantom;
+extern const void* vftable_bhkShapePhantom;
 struct FUN_00c6d190 : bhkRefObject
 {
     FUN_00c6d190();
@@ -240,10 +240,10 @@ extern int DAT_012680f8;
 extern int DAT_01268250;
 extern int DAT_0126825c;
 extern int DAT_01268274;
-extern void* DAT_0103093c;
-extern void* DAT_01030a24;
-extern void* DAT_01030b0c;
-extern void* DAT_01030bf4;
+extern void* vftable_bhkBoxShape;
+extern void* vftable_bhkConvexShape;
+extern void* vftable_bhkSphereRepShape;
+extern void* vftable_bhkShape;
 struct FUN_00c9fde0 : bhkRefObject
 {
     FUN_00c9fde0();
@@ -253,7 +253,7 @@ struct A51BF0Base
     static void* __cdecl operator new(unsigned int size);
     static void operator delete(void*, unsigned int);
 };
-extern int DAT_01030864;
+extern int vftable_bhkAabbPhantom;
 extern int DAT_01268244;
 struct S_00cb79d0_Base
 {
@@ -269,13 +269,13 @@ struct Object_00c9f5a0 : S_00cb79d0_Base, A51BF0Base
 {
     Object_00c9f5a0() : S_00cb79d0_Base()
     {
-        vtbl = (void*)&DAT_01030394;
+        vtbl = (void*)&vftable_bhkWorldObject;
         f0c = 0;
         f10 = 0;
         ++DAT_0126810c;
-        vtbl = (void*)&DAT_0103078c;
+        vtbl = (void*)&vftable_bhkPhantom;
         ++DAT_01268238;
-        vtbl = (void*)&DAT_01030864;
+        vtbl = (void*)&vftable_bhkAabbPhantom;
         ++DAT_01268244;
         f14 = 0;
     }

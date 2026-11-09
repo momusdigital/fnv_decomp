@@ -342,7 +342,7 @@ struct P03MM
     void* __thiscall Allocate(unsigned int);
 };
 extern P03MM g_memoryManager;
-extern int DAT_010f1814;
+extern int vftable_NiBoxBV;
 // Shared NiBoxBV lacks a Clone override and box storage; retain this local form.
 struct FUN_00ea7d10_shell
 {
@@ -360,7 +360,7 @@ NiBoundingVolume* FUN_00ea7d10_shell::Clone()
     FUN_00ea7d10_shell* pkClone = (FUN_00ea7d10_shell*)g_memoryManager.Allocate(0x40);
     if (pkClone)
     {
-        pkClone->vfptr = (void*)&DAT_010f1814;
+        pkClone->vfptr = (void*)&vftable_NiBoxBV;
         pkClone->data = data;
         return (NiBoundingVolume*)pkClone;
     }
@@ -412,7 +412,7 @@ bool NiBoxBV_BoxSphereFindIntersect(float afLength, const void* pA, const void* 
     return true;
 }
 
-extern int DAT_010f1814;
+extern int vftable_NiBoxBV;
 // Shared NiBoxBV lacks the five-point constructor and box storage; retain this local form.
 struct FUN_00ea0820
 {
@@ -426,7 +426,7 @@ struct FUN_00ea0820
 FUN_00ea0820::FUN_00ea0820(const NiPoint3& aPoint1, const NiPoint3& aPoint2, const NiPoint3& aPoint3,
                            const NiPoint3& aPoint4, const NiPoint3& aPoint5)
 {
-    v0 = (int)&DAT_010f1814;
+    v0 = (int)&vftable_NiBoxBV;
     v1 = *(int*)&aPoint2;
     v2 = *(int*)((char*)&aPoint2 + 4);
     v3 = *(int*)((char*)&aPoint2 + 8);

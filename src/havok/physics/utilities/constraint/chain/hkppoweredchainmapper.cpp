@@ -88,7 +88,7 @@ inline void* operator new(unsigned int, FnPlacement* p)
 extern "C" void __cdecl hkArrayUtil__reserve(hkMemoryAllocator*, void*, int, int);
 extern "C" void __cdecl ResizeAudioStream(hkMemoryAllocator*, void*, int);
 extern "C" void* __cdecl hkString_memSet(void*, int, unsigned int);
-extern "C" int DAT_010e0654;
+extern "C" int vftable_hkpPoweredChainMapper;
 
 template <class T> struct FnArray
 {
@@ -226,7 +226,7 @@ __forceinline hkpPoweredChainMapper* allocatePoweredChainMapper()
 }
 __forceinline void initializePoweredChainMapper(hkpPoweredChainMapper* p)
 {
-    *(void**)p = &DAT_010e0654;
+    *(void**)p = &vftable_hkpPoweredChainMapper;
     p->m_sReferenceCount = 1;
     ((FnArray<hkpPoweredChainMapperLinkInfo>&)p->m_ppLinks).initialize();
     ((FnArray<hkpPoweredChainMapperTarget>&)p->m_kTargets).initialize();

@@ -69,7 +69,7 @@ void RemoveDeviceFromMap(Direct3DDeviceInterface* pkD3DDevice)
 }
 
 void __cdecl _NiFreeAlias(void*);
-extern int DAT_010f119c;
+extern int vftable_NiD3DHLSLVertexShader;
 struct S
 {
     void SetVtableAndProcessState_00e971d0();
@@ -87,7 +87,7 @@ struct ComObj
 void S::SetVtableAndProcessState_00e971d0()
 {
     void* v1 = *(void**)((char*)this + 0x3C);
-    *(void**)this = (void*)&DAT_010f119c;
+    *(void**)this = (void*)&vftable_NiD3DHLSLVertexShader;
     _NiFreeAlias(v1);
     _NiFreeAlias(*(void**)((char*)this + 0x40));
     ComObj* p = *(ComObj**)((char*)this + 0x44);
@@ -100,7 +100,7 @@ void S::SetVtableAndProcessState_00e971d0()
 }
 
 __declspec(noinline) void RemoveDeviceFromMap(Direct3DDeviceInterface*);
-extern int DAT_010ef87c;
+extern int vftable_NiD3DVertexShader;
 
 struct FUN_00e69970_class
 {
@@ -113,7 +113,7 @@ struct FUN_00e69970_class
 __declspec(noinline) void S::RemoveDeviceAndClearShader()
 {
     char* self = (char*)this;
-    *(void**)self = (void*)&DAT_010ef87c;
+    *(void**)self = (void*)&vftable_NiD3DVertexShader;
     RemoveDeviceFromMap((Direct3DDeviceInterface*)this);
     if (*(void**)(self + 0x34) != 0)
     {

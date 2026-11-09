@@ -68,7 +68,7 @@ NiRenderedTexture* NiRenderedTexture::Create(const NiFixedString& name, unsigned
 void __fastcall DestroyFogProperty(void*);
 void __fastcall NiTexture_RemoveTextureFromList(void*);
 void __cdecl __Dummy_00b6fef0(void*, unsigned int);
-extern int DAT_0109b944;
+extern int vftable_NiTexture;
 
 // Need to declare InterlockedDecrement if it's not found.
 // extern "C" long __cdecl InterlockedDecrement(long*);
@@ -90,7 +90,7 @@ void* __fastcall DestroyRenderedTexture(NiRenderedTexture* self, int, unsigned c
     }
 
     void* p24 = *(void**)((char*)self + 0x24);
-    *(void**)self = &DAT_0109b944;
+    *(void**)self = &vftable_NiTexture;
     if (p24)
     {
         void** vtbl24 = *(void***)p24;

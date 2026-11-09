@@ -83,7 +83,7 @@ char FUN_00b40800_t::GetNextChar()
     return *(char*)(p[3] + idx);
 }
 
-extern int DAT_010a58fc;
+extern int vftable_CBillboardLeaf;
 
 // The shared camera header does not yet declare this parameterized initializer.
 // Keep its declarations here while using the shared camera layout.
@@ -94,7 +94,7 @@ struct CIdvCameraInitializer : CIdvCameraClone
                                                 float value, int result);
 };
 
-// Calls FUN_00b3f030, sets unk00 to &DAT_010a58fc, stores value10, value18, value and result, zeroes three points, and copies position into unk04.
+// Calls FUN_00b3f030, sets unk00 to &vftable_CBillboardLeaf, stores value10, value18, value and result, zeroes three points, and copies position into unk04.
 // @fnv 0x00b40070
 // src: GUESS 0x00b40070 (confidence: low)
 CIdvCameraInitializer* __thiscall CIdvCameraInitializer::UpdateState_00b40070(NiPoint3* position, unsigned char value18,
@@ -105,7 +105,7 @@ CIdvCameraInitializer* __thiscall CIdvCameraInitializer::UpdateState_00b40070(Ni
     NiPoint3* secondPointA;
 
     this->FUN_00b3f030();
-    *(void**)this = &DAT_010a58fc;
+    *(void**)this = &vftable_CBillboardLeaf;
     this->unk10 = value10;
     this->unk14 = -1;
     this->unk18 = value18;
@@ -435,7 +435,7 @@ int FUN_00b420a0_cls::CompareAndGetDelta(FUN_00b42980 const& arg)
 
 void* operator new(unsigned int);
 
-extern char DAT_010176f8[];
+extern char vftable_std__bad_alloc[];
 extern char DAT_01140ef8[];
 
 struct FnvThrowObj
@@ -460,7 +460,7 @@ void* __cdecl Runtime_UpdateState_00b42df0(unsigned int count, void* allocator)
         int value = 0;
         FnvThrowObj kObj;
         kObj.FUN_00ec78f1(&value);
-        kObj.vptr = DAT_010176f8;
+        kObj.vptr = vftable_std__bad_alloc;
         _CxxThrowException(&kObj, (_ThrowInfo*)DAT_01140ef8);
     }
     return operator new(count << 3);

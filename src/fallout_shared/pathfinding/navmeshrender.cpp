@@ -189,7 +189,7 @@ struct PaddedBooleanState
 bool __fastcall FUN_00425fd0(TESObjectCELL* cell);
 int __cdecl NavMeshRender_GetSingleton(void);
 
-GlobalObject_0045cfe0 g_011c63cc;
+GlobalObject_0045cfe0 uGridsToLoad_General;
 int g_TES;
 
 // @fnv 0x006a5ca0
@@ -208,7 +208,7 @@ void PaddedBooleanState::NavMeshRender_UpdateRenderOnlyNavMeshes()
     {
         if (!FUN_00425fd0(pcellVal))
         {
-            d8 = (g_011c63cc.Int()[0] - 1) / 2;
+            d8 = (uGridsToLoad_General.Int()[0] - 1) / 2;
             x9 = reinterpret_cast<CellH*>(pcellVal)->GetCellGridX() - d8;
             for (; x9 <= reinterpret_cast<CellH*>(pcellVal)->GetCellGridX() + d8; ++x9)
             {

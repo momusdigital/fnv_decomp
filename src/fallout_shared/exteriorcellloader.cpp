@@ -58,7 +58,7 @@ bool FUN_005287e0_shell::BSTask_IsCompleted()
     return m_0c == 5;
 }
 
-extern int DAT_0102d078;
+extern int vftable_LockFreeMap__LockFreeMapIterator_0102d078;
 
 struct FUN_00528800_shell
 {
@@ -70,7 +70,7 @@ struct FUN_00528800_shell
 // src: GUESS 0x00528800 (confidence: low)
 void FUN_00528800_shell::UpdateFields_00528800()
 {
-    m_val = (int)&DAT_0102d078;
+    m_val = (int)&vftable_LockFreeMap__LockFreeMapIterator_0102d078;
 }
 
 struct FUN_00528820_shell

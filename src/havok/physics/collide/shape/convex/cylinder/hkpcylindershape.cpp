@@ -50,8 +50,8 @@ void C00d573e0::SetValue(float afValue) {
 
 #include "fnv_asm_helpers.h"   // project x87 helpers (fnv_SinCos, fnv_FloatToInt), kept last so earlier code is unchanged
 
-extern char DAT_010305a8;
-extern char DAT_010d0f1c;
+extern char vftable_hkpShape;
+extern char vftable_hkpCylinderShape;
 extern float DAT_011b5be8;
 
 // src: HAVOK_LIB 0x00d571d0
@@ -73,13 +73,13 @@ struct S00d57b20_Obj {
 // src: HAVOK_LIB 0x00d57b20
 S00d57b20_Obj* __thiscall S00d57b20_Obj::hkpCylinderShape_hkpCylinderShape_00d57b20(int condition)
 {
-    unk00 = &DAT_010305a8;
+    unk00 = &vftable_hkpShape;
 
     if (condition)
         unk0C = 0;
 
     unk0C = 0x12;
-    unk00 = &DAT_010d0f1c;
+    unk00 = &vftable_hkpCylinderShape;
 
     if (condition && DAT_011b5be8 < 0.0f)
         DAT_011b5be8 = 1.0f - minValueRoundedUpTo1();

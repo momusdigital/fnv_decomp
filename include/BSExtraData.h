@@ -7,7 +7,7 @@ public:
     virtual bool Compare(BSExtraData* extra);
 
     BSExtraData(unsigned char type);
-    void* __thiscall FUN_0040ecd0(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 
     unsigned char type;
     unsigned char unknown05;

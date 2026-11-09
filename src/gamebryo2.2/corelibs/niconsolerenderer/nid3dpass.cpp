@@ -246,14 +246,14 @@ void __cdecl FreePointerArray(NiPointer<BeamStage>* pkElement)
 }
 
 void* __cdecl NiTObjectArray_NiPointer_NiScreenTexture_NiTObjectArray_NiPointer_NiScreenTexture(unsigned int);
-extern int DAT_010ef35c;
-extern int DAT_010ef378;
+extern int vftable_NiTArray_010ef35c;
+extern int vftable_NiTObjectArray_010ef378;
 
 // @fnv 0x00e80020
 // src: COMMUNITY 0x00e80020
 void* __fastcall NiTObjectArray_NiPointer_NiD3DTextureStage_Init(void* pThis, int, unsigned int uiMaxSize, unsigned int uiGrowBy)
 {
-    *(int**)pThis = &DAT_010ef35c;
+    *(int**)pThis = &vftable_NiTArray_010ef35c;
     unsigned short usMaxSize = (unsigned short)uiMaxSize;
     *(unsigned short*)((char*)pThis + 0x8) = usMaxSize;
     *(unsigned short*)((char*)pThis + 0xe) = (unsigned short)uiGrowBy;
@@ -263,7 +263,7 @@ void* __fastcall NiTObjectArray_NiPointer_NiD3DTextureStage_Init(void* pThis, in
         *(void**)((char*)pThis + 4) = NiTObjectArray_NiPointer_NiScreenTexture_NiTObjectArray_NiPointer_NiScreenTexture(usMaxSize);
     else
         *(void**)((char*)pThis + 4) = 0;
-    *(int**)pThis = &DAT_010ef378;
+    *(int**)pThis = &vftable_NiTObjectArray_010ef378;
     return pThis;
 }
 
@@ -721,7 +721,7 @@ void Node::DestroyNode()
 
 namespace fnv_00e7fe70 {
 extern MemoryManager g_memoryManager;
-extern int DAT_010ef35c;
+extern int vftable_NiTArray_010ef35c;
 void __cdecl FreePointerArray(void*);
 struct S
 {
@@ -733,7 +733,7 @@ struct S
 void* S::FUN_00e7fe70(unsigned int auiFlags)
 {
     void* tmp = ptr;
-    vfptr = (int)&DAT_010ef35c;
+    vfptr = (int)&vftable_NiTArray_010ef35c;
     FreePointerArray(tmp);
     if (auiFlags & 1)
         g_memoryManager.Deallocate(this);

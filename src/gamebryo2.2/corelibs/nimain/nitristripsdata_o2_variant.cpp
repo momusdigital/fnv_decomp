@@ -7,7 +7,7 @@
 #include "../../../../include/NiStream.h"
 extern "C" const NiRTTI DAT_011f4a70;
 
-extern const void* DAT_0109d8ac;
+extern const void* vftable_NiTriStripsData;
 
 NiTriBasedGeomData* __fastcall InitializeTriBasedGeomData(NiTriBasedGeomData* p);
 
@@ -20,7 +20,7 @@ NiTriStripsData* __fastcall NiTriStripsData_NiTriStripsData(NiTriStripsData* sel
     self->m_usStrips = 0;
     self->m_pusStripLengths = reinterpret_cast<unsigned short*>(v);
     self->m_pusStripLists = reinterpret_cast<unsigned short*>(v);
-    *reinterpret_cast<const void**>(self) = &DAT_0109d8ac;
+    *reinterpret_cast<const void**>(self) = &vftable_NiTriStripsData;
     return self;
 }
 
@@ -410,7 +410,7 @@ NiTriBasedGeomData* __fastcall NiTriStripsData_CreateObject(NiTriBasedGeomData*)
         p->m_usStrips = 0;
         p->m_pusStripLengths = 0;
         p->m_pusStripLists = 0;
-        *reinterpret_cast<const void**>(p) = &DAT_0109d8ac;
+        *reinterpret_cast<const void**>(p) = &vftable_NiTriStripsData;
         return p;
     }
     return 0;

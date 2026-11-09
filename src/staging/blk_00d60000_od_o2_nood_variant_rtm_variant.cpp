@@ -11,7 +11,7 @@
 #include "../../include/hkQuaternion.h"
 namespace sd6ae50 {
 
-extern "C" const char DAT_010cc040[];
+extern "C" const char vftable_hkpConstraintInstance[];
 
 struct FinishLoadedObjectFlag
 {
@@ -46,7 +46,7 @@ struct __declspec(align(16)) LoadedObject
     LoadedMember m_kMember;
 
     LoadedObject(FinishLoadedObjectFlag kFlag)
-        : m_pVtbl(DAT_010cc040), m_uiLogicalSize(0), m_usCapacity(0), m_usFlags(0x8000), m_kMember(kFlag)
+        : m_pVtbl(vftable_hkpConstraintInstance), m_uiLogicalSize(0), m_usCapacity(0), m_usFlags(0x8000), m_kMember(kFlag)
     {}
 };
 

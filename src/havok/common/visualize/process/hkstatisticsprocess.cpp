@@ -333,8 +333,8 @@ __forceinline Elem16& LocalVec3::expand(Allocator& allocator)
     return data[length++];
 }
 
-extern char DAT_010c9368;
-extern char DAT_0102e388;
+extern char vftable_hkArrayStreamWriter;
+extern char vftable_hkBaseObject;
 extern char DAT_010d6ae8;
 extern char DAT_0126c830;
 struct CharVec
@@ -521,7 +521,7 @@ void ThisCls::WriteToStream(int aiUnused)
     int iTextLen = pOutText->m_iArrayLength;
     SObj objStr;
     objStr.m_06 = 1;
-    objStr.m_00 = &DAT_010c9368;
+    objStr.m_00 = &vftable_hkArrayStreamWriter;
     objStr.m_08 = pOutText;
     objStr.m_0c = iTextLen;
     objStr.m_10 = 1;
@@ -531,7 +531,7 @@ void ThisCls::WriteToStream(int aiUnused)
     MiniStr ms;
     ms.FUN_00dc1680(&DAT_010d6ae8);
     hkObjectSerialize_writeObject(&objStr, &ms, 1, 0, &vecProcessed, &DAT_0126c830, &vec4);
-    objStr.m_00 = &DAT_010c9368;
+    objStr.m_00 = &vftable_hkArrayStreamWriter;
     if (objStr.m_10 == 0)
     {
         CharVec* pCharVec = objStr.m_08;
@@ -549,7 +549,7 @@ void ThisCls::WriteToStream(int aiUnused)
             pSingleton7b->m_heap->blockFree(pCharVec, 12);
         }
     }
-    objStr.m_00 = &DAT_0102e388;
+    objStr.m_00 = &vftable_hkBaseObject;
     vecProcessed.ProcessEntries_00ddc870();
     {
         hkMemoryRouter* pSingleton8 = GetSingleton();
@@ -734,9 +734,9 @@ struct Sbf00_B2
     void* m_pVtbl;
     unsigned char m_bFlag;
 };
-extern int DAT_010d1508;
-extern int DAT_010d7e48;
-extern int DAT_010d7e28;
+extern int vftable_hkProcess;
+extern int vftable_hkStatisticsProcess;
+extern int vftable_hkStatisticsProcess_for_hkProcess;
 extern int DAT_0126c860;
 extern double DAT_01017b70;
 unsigned __int64 __cdecl hkStopwatch_getTicksPerSecond();
@@ -757,15 +757,15 @@ struct SbfProc
     int unk14;
     int unk18;
     int unk1c;
-    SbfProc() : m_pVtbl(&DAT_010d1508), m_bFlag(1)
+    SbfProc() : m_pVtbl(&vftable_hkProcess), m_bFlag(1)
     {}
 };
 struct SbfBases : SbfRef, SbfProc
 {
     SbfBases()
     {
-        SbfRef::m_pVtbl = &DAT_010d7e48;
-        SbfProc::m_pVtbl = &DAT_010d7e28;
+        SbfRef::m_pVtbl = &vftable_hkStatisticsProcess;
+        SbfProc::m_pVtbl = &vftable_hkStatisticsProcess_for_hkProcess;
     }
 };
 struct SbfPtrs

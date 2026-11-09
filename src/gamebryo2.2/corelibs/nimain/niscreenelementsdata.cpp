@@ -113,14 +113,14 @@ GlobalObjectO2_00a7b610* __cdecl NiScreenElementsData_GetRTTI()
 void __fastcall FUN_00a7b8c0(void*);
 void __cdecl _NiFreeAlias(void*);
 void __cdecl _delete(void*, unsigned int);
-extern int DAT_0109ea94;
+extern int vftable_NiScreenElementsData;
 // Scalar-deleting entry point: the shared layout supplies the members and object size.
 // An unused EDX argument preserves the original ECX object and stack-argument ABI.
 // @fnv 0x00a87aa0
 void* __fastcall DestroyScreenElementsData(NiScreenElementsData* data, void*, unsigned int auiFlags)
 {
     void* p = data->m_akPolygon;
-    *reinterpret_cast<void**>(data) = &DAT_0109ea94;
+    *reinterpret_cast<void**>(data) = &vftable_NiScreenElementsData;
     _NiFreeAlias(p);
     _NiFreeAlias(data->m_ausPIndexer);
     FUN_00a7b8c0(data);
@@ -422,7 +422,7 @@ NiScreenElementsData* __fastcall InitializeScreenElementsData(
     int iMaxPQuantity, int iPGrowBy, int iMaxVQuantity, int iVGrowBy, int iMaxTQuantity, int iTGrowBy)
 {
     InitializeTriShapeData(data);
-    *reinterpret_cast<void**>(data) = &DAT_0109ea94;
+    *reinterpret_cast<void**>(data) = &vftable_NiScreenElementsData;
 
     data->m_usMaxPQuantity = (unsigned short)(iMaxPQuantity > 0 ? iMaxPQuantity : 1);
     data->m_usPGrowBy = (unsigned short)(iPGrowBy > 0 ? iPGrowBy : 1);

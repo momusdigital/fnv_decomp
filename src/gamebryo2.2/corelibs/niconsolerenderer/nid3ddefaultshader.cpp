@@ -31,7 +31,7 @@ __declspec(nothrow) NiD3DDefaultShader::NiD3DDefaultShader()
     m_spPixelConstantMap.m_pObject = 0;
     m_spVertexConstantMap.m_pObject = 0;
     m_uiCurrentPass = 0;
-    *(void**)this = (void*)DAT_010eecac;
+    *(void**)this = (void*)vftable_NiD3DDefaultShader;
     m_peFogPassArray = 0;
     m_uiFogPassArraySize = 0;
     m_pkLastState = 0;
@@ -117,7 +117,7 @@ extern void _delete(void*, unsigned int);
 void* __fastcall DestroyDefaultShader(NiD3DDefaultShader* shader, void*, unsigned int auiFlags)
 {
     void* p = shader->m_peFogPassArray;
-    *(void**)shader = (void*)DAT_010eecac;
+    *(void**)shader = (void*)vftable_NiD3DDefaultShader;
     NiFree(p);
     shader->NiD3DShader::FUN_00e806c0();
     if (auiFlags & 1)

@@ -1222,7 +1222,7 @@ struct GlobalObject_0045cf30
 {
     unsigned char* Bool();
 };
-extern GlobalObject_0045cf30 g_011df214;
+extern GlobalObject_0045cf30 bTaskletActorHavokSync_General;
 struct S5460
 {
     unsigned int BSSimpleArray_NiPoint2_1024_AddUninitialized();
@@ -1239,7 +1239,7 @@ struct S0087ab50
 // @fnv 0x0087ab50
 void S0087ab50::SetPairIfEnabled(unsigned int uiFirst, unsigned int uiSecond)
 {
-    if (*g_011df214.Bool())
+    if (*bTaskletActorHavokSync_General.Bool())
     {
         unsigned int uiIndex = ((S5460*)&DAT_011df244)->BSSimpleArray_NiPoint2_1024_AddUninitialized();
         ((S006950d0*)&DAT_011df244)->GetElement(uiIndex)[0] = uiFirst;

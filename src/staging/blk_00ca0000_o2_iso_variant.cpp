@@ -1,5 +1,5 @@
-extern int DAT_0102016c;
-extern int DAT_010c8914;
+extern int vftable_bhkAction;
+extern int vftable_bhkOrientHingedBodyAction;
 
 #include "../../include/NiTArray.h"
 // src/staging/blk_00ca0000_o2_iso_variant.cpp - variant unit created 2026-11-01 by rtm_route.py: community reworks of src/staging/blk_00ca0000_o2.cpp that match byte for byte only
@@ -87,7 +87,7 @@ struct FUN_00ca3980_class
     FUN_00ca3980_class* __thiscall FUN_00ca3980(int);
 };
 extern "C" void NiFreeAlias(void*);
-extern int DAT_010c759c;
+extern int vftable_NiTLargeArray_010c759c;
 struct FUN_00ca4470_Class
 {
     void* m_iWordAt00;
@@ -151,7 +151,7 @@ struct FUN_00cbf400_class : GlobalObject_0045cfe0
 {
     FUN_00cbf400_class();
 };
-extern int DAT_010c7310;
+extern int vftable_BSSimpleArray_010c7310;
 struct FUN_00ca0d40_class
 {
     void __thiscall UpdateFields_00ca0d40();
@@ -162,10 +162,10 @@ struct FUN_00ca4a90_Class
 {
     FUN_00ca4a90_Class* __thiscall FUN_00ca4a90(int flags);
 };
-extern int DAT_01030a24;
-extern int DAT_01030b0c;
-extern int DAT_01030bf4;
-extern int DAT_01066e2c;
+extern int vftable_bhkConvexShape;
+extern int vftable_bhkSphereRepShape;
+extern int vftable_bhkShape;
+extern int vftable_bhkCapsuleShape;
 extern int DAT_012680f8;
 extern int DAT_01268250;
 extern int DAT_01268274;
@@ -199,7 +199,7 @@ struct FUN_00ca5540_Class
     void* m_p;
     int GetEntryValue(int i);
 };
-extern int DAT_010c8d14;
+extern int vftable_BSSimpleArray_010c8d14;
 struct FUN_00cba080_class
 {
     int m_vtbl;
@@ -208,7 +208,7 @@ struct FUN_00cba080_class
     int m_iThirdValue;
     FUN_00cba080_class* __thiscall FUN_00cba080(int flag);
 };
-extern int DAT_010c8d00;
+extern int vftable_BSSimpleArray_010c8d00;
 extern void(__cdecl* DAT_010c8d08)(void*);
 struct FUN_00cba030_class
 {
@@ -251,8 +251,8 @@ struct FUN_00ca5340_class
     FUN_00ca5340_class* __thiscall FUN_00ca5340(int flags);
 };
 extern int _data_011c16bc;
-extern int DAT_010c44e4;
-extern int DAT_010c761c;
+extern int vftable_bhkShapeCollection;
+extern int vftable_bhkPackedNiTriStripsShape;
 extern int DAT_012682d8;
 extern int DAT_012686d0;
 struct A51BF0Base
@@ -276,7 +276,7 @@ struct HC1Base
 };
 float __fastcall Object_GetNestedFloatOrOne_00ca6620(void* p, int);
 float __cdecl hkpConstraintData_getMaxLinearImpulse();
-extern int DAT_0102e388;
+extern int vftable_hkBaseObject;
 void __fastcall Object_SetVirtualTable_00ca9900(int* p);
 void __cdecl _delete(void* p, int size);
 struct FUN_00ca9920_class
@@ -309,7 +309,7 @@ struct FUN_00cac920_Class
     float m_5c;
     void __thiscall hkpCharacterProxy_setPosition(void* body);
 };
-extern int DAT_010c8b0c;
+extern int vftable_bhkBallAndSocketConstraint;
 extern int DAT_01268648;
 struct FUN_00cb99a0_class
 {
@@ -411,7 +411,7 @@ class CA0CD0Manager
 
     void ResetEntries();
 };
-extern int DAT_010c7310;
+extern int vftable_BSSimpleArray_010c7310;
 extern void(__stdcall* DAT_010c7318)(void*);
 extern MemoryManager _g_memoryManager;
 struct FUN_00ca0d70_Class
@@ -775,7 +775,7 @@ struct FUN_00ca3570_class : FUN_00a5d3d0_class
 
     void __thiscall ReleaseStorage_00ca3570();
 };
-extern "C" char DAT_010c740c[];
+extern "C" char vftable_hkPackedNiTriStripsData[];
 extern MemoryManager _g_memoryManager;
 struct Record
 {
@@ -1965,7 +1965,7 @@ static inline int Val(S_00ca6880_Class* o)
 extern __declspec(thread) int g_threadAllocationContext;
 void __cdecl bhkSerializable_CloneCritLock();
 void __cdecl bhkSerializable_CloneCritUnlock();
-extern int DAT_010c771c;
+extern int vftable_bhkNiTriStripsShape;
 extern int DAT_012682e4;
 struct AllocationContextGuard
 {
@@ -1984,13 +1984,13 @@ struct FNVShape : S_00cb79d0_Base
 {
     FNVShape()
     {
-        m_vptr = &DAT_01030bf4;
+        m_vptr = &vftable_bhkShape;
         m_iThirdValue = 0;
         m_10 = 0;
         ++DAT_012680f8;
-        m_vptr = &DAT_010c44e4;
+        m_vptr = &vftable_bhkShapeCollection;
         ++DAT_012686d0;
-        m_vptr = &DAT_010c771c;
+        m_vptr = &vftable_bhkNiTriStripsShape;
         ++DAT_012682e4;
     }
 };
@@ -2769,7 +2769,7 @@ int __cdecl CompareCaseInsensitive(const char* pcA, const char* pcB, int n);
 // FUN_00cb75d0 : default constructor of the object whose first member holds
 // the class table pointer.  The constructor clears three trailing dword
 // members, sets a byte flag to 1 and installs the table pointer last.
-extern int DAT_010c88b8;
+extern int vftable_bhkWaterListener;
 struct FUN_00cb75d0_cls
 {
     void* m_pVTable;
@@ -2856,7 +2856,7 @@ struct S_00cb9770_Foo
     void __thiscall UpdateActiveState(float* param);
 };
 extern int DAT_01268188;
-extern int DAT_0108febc;
+extern int vftable_bhkConstraint;
 struct FUN_00c87c30
 {
     void* vtable;
@@ -4661,7 +4661,7 @@ struct MemMgr_00aa4060
 {
     void __thiscall MemoryManager_Deallocate(FUN_00ca0ca0_Class* p);
 };
-extern int DAT_010c7304;
+extern int vftable_hkaRagdollRaycastInterface;
 struct WalkPlacement
 {
 };
@@ -5140,7 +5140,7 @@ struct FUN_00cbb130_Class : FUN_00cbaf90_Obj
 {
     unsigned int __thiscall FUN_00cbb130(unsigned char flag);
 };
-extern int DAT_010c9194;
+extern int vftable_hkpCharacterStateManager;
 struct FUN_00cbc460
 {
     void* m_ppVirtualMethodTable;
@@ -5375,7 +5375,7 @@ struct HeapIndexGuard
         g_threadLocalData.heapIndex = saved;
     }
 };
-extern int DAT_010c7600;
+extern int vftable_NiTLargePrimitiveArray_010c7600;
 struct ShapePrefix
 {
     int unk00;
@@ -5402,7 +5402,7 @@ struct ShapeStrips
             pBase = g_heapAllocator.Allocate(uiMaxSize);
         else
             pBase = 0;
-        vtbl = &DAT_010c7600;
+        vtbl = &vftable_NiTLargePrimitiveArray_010c7600;
     }
 };
 struct ShapeVector
@@ -5562,8 +5562,8 @@ struct FUN_00ca8a30_Local
     float m_uiY;
     float m_uiZ;
 };
-extern int DAT_0108febc;
-extern int DAT_010c81ac;
+extern int vftable_bhkConstraint;
+extern int vftable_bhkMalleableConstraint;
 extern int DAT_01268188;
 extern int DAT_0126830c;
 extern __declspec(thread) int tls_memContext;
@@ -5745,9 +5745,9 @@ struct Cb1b80Arr
 };
 void __cdecl bhkCollisionObject_SaveBinary(void);
 void __cdecl bhkSPCollisionObject_SaveBinary(void);
-extern int DAT_0102009c;
-extern int DAT_0102016c;
-extern int DAT_010c8914;
+extern int vftable_bhkUnaryAction;
+extern int vftable_bhkAction;
+extern int vftable_bhkOrientHingedBodyAction;
 extern int DAT_01268118;
 extern int DAT_01268154;
 struct S00cb84f0_Obj : FUN_00c87c30
@@ -5759,12 +5759,12 @@ struct S00cb84f0_Obj : FUN_00c87c30
     }
     S00cb84f0_Obj()
     {
-        *(void**)this = (void*)&DAT_0102016c;
+        *(void**)this = (void*)&vftable_bhkAction;
         unk0c = 0;
         DAT_01268154 += 1;
-        *(void**)this = (void*)&DAT_0102009c;
+        *(void**)this = (void*)&vftable_bhkUnaryAction;
         DAT_01268118 += 1;
-        *(void**)this = (void*)&DAT_010c8914;
+        *(void**)this = (void*)&vftable_bhkOrientHingedBodyAction;
     }
 };
 void* __cdecl bhkOrientHingedBodyAction_CreateObject();
@@ -5798,7 +5798,7 @@ struct FUN_00cbadb0_Obj
 
     void ReleaseItems(void* items, unsigned int count);
 };
-extern int DAT_010c8d28;
+extern int vftable_BSSimpleArray_010c8d28;
 struct FUN_00cbaec0_Obj
 {
     virtual void vf00();
@@ -5891,7 +5891,7 @@ struct FUN_00cbf6b0_class
     void __thiscall EnsureObjectsCreated(int v);
 };
 extern int(__stdcall* DAT_00fdf1d0)();
-extern int DAT_010c925c;
+extern int vftable_hkpPhantomOverlapListener;
 struct FUN_00cbf6e0_cls
 {
     void* m_ppVirtualMethodTable;
@@ -6121,13 +6121,13 @@ struct S00cb87e0_Obj
     void bhkOrientHingedBodyAction_CopyCinfo(S00cb87e0_Node* p);
     void* GetNode(bool* out);
 };
-extern int DAT_010c81ac;
+extern int vftable_bhkMalleableConstraint;
 struct SpawnMidBase : FUN_00c87c30
 {
     InitializedField unk0c;
     SpawnMidBase()
     {
-        vtable = &DAT_0108febc;
+        vtable = &vftable_bhkConstraint;
         ++DAT_01268188;
     }
 };
@@ -6297,7 +6297,7 @@ extern double DAT_010c92f0;
 extern double DAT_01030f38;
 extern double DAT_0101ff40;
 float __cdecl Atan2(float x, float y);
-extern int DAT_010c771c;
+extern int vftable_bhkNiTriStripsShape;
 extern int g_fnvDecompCounter;
 struct ScopeHost_cls
 {
@@ -6312,7 +6312,7 @@ struct OwnerGuard_cls
     OwnerGuard_cls(ScopeHost_cls* owner)
     {
         m_pOwnerObject = owner;
-        owner->m_vptr = &DAT_010c771c;
+        owner->m_vptr = &vftable_bhkNiTriStripsShape;
     }
     ~OwnerGuard_cls()
     {
@@ -7612,7 +7612,7 @@ struct CA3F10Data
 
     void hkPackedNiTriStripsData_LoadBinary(CA3F10Stream* pkStream);
 };
-extern "C" int DAT_010c82ec;
+extern "C" int vftable_ahkpMalleableConstraintData;
 struct Rec9bd0;
 struct Sub9bd0
 {
@@ -7643,7 +7643,7 @@ struct Rec9bd0
     Rec9bd0()
     {
         FUN_00ca9aa0();
-        vt = &DAT_010c82ec;
+        vt = &vftable_ahkpMalleableConstraintData;
     }
 };
 struct Ctx9bd0
@@ -7924,7 +7924,7 @@ struct ProbeMap64
 
     int hkMapBase_unsigned_int64_unsigned_int64_struct_hkMapOperations_unsigned_int64_findKey(unsigned __int64 key);
 };
-extern int DAT_010c7600;
+extern int vftable_NiTLargePrimitiveArray_010c7600;
 extern float DAT_010c72c0;
 struct ExtraArray
 {
@@ -7942,7 +7942,7 @@ struct ExtraArray
         m_uiESize = 0;
         m_uiCount = 0;
         m_pBase = 0;
-        unk00 = (int)&DAT_010c7600;
+        unk00 = (int)&vftable_NiTLargePrimitiveArray_010c7600;
     }
     __declspec(noinline) void Resize(unsigned int capacity)
     {
@@ -8098,7 +8098,7 @@ inline void SaveRV(S_00ca59d0_Bin& bin, unsigned int value)
 {
     SaveR(bin, &value);
 }
-extern int DAT_0102009c;
+extern int vftable_bhkUnaryAction;
 extern int DAT_01268154;
 extern int DAT_01268118;
 struct cb86f0_obj : bhkRefObject
@@ -8111,13 +8111,13 @@ struct cb86f0_obj : bhkRefObject
     cb86f0_obj()
     {
         Initialize();
-        vtable = (void*)&DAT_0102016c;
+        vtable = (void*)&vftable_bhkAction;
         const int inc = 1;
         unk0c = 0;
         DAT_01268154 += inc;
-        vtable = (void*)&DAT_0102009c;
+        vtable = (void*)&vftable_bhkUnaryAction;
         DAT_01268118 += inc;
-        vtable = (void*)&DAT_010c8914;
+        vtable = (void*)&vftable_bhkOrientHingedBodyAction;
     }
 
     static void* operator new(unsigned int size)

@@ -123,14 +123,14 @@ struct FUN_00d2b8c0_Class
     void* vptr14;
     FUN_00d2b8c0_Class* FUN_00d2b8c0(unsigned int flags);
 };
-void* DAT_0102e388;
+void* vftable_hkBaseObject;
 UnkRet* hkMemoryRouter_getInstance();
 // @fnv 0x00d2b8c0
 FUN_00d2b8c0_Class* FUN_00d2b8c0_Class::FUN_00d2b8c0(unsigned int flags)
 {
-    vptr14 = &DAT_0102e388;
-    vptr08 = &DAT_0102e388;
-    vptr00 = &DAT_0102e388;
+    vptr14 = &vftable_hkBaseObject;
+    vptr08 = &vftable_hkBaseObject;
+    vptr00 = &vftable_hkBaseObject;
     if (flags & 1)
     {
         UnkRet* object = hkMemoryRouter_getInstance();

@@ -431,11 +431,12 @@ struct DtorStandIn
 };
 struct DelStandIn
 {
-    void* FUN_007f7cb0(unsigned int flags);
+    void* FOPipboyManager_ScalarDeletingDestructor(unsigned int flags);
 };
 // Calls the destructor, frees this when flags has bit 0 set, and returns this.
 // @fnv 0x007f7cb0
-void* DelStandIn::FUN_007f7cb0(unsigned int flags)
+// src: EXE 0x007f7cb0
+void* DelStandIn::FOPipboyManager_ScalarDeletingDestructor(unsigned int flags)
 {
     ((DtorStandIn*)this)->FUN_0083dec0();
     if (flags & 1)
@@ -504,15 +505,15 @@ class FORenderedMenuPC : public FORenderedMenu
     void FUN_007fb2b0(float, float, float);
 };
 
-extern SettingT_GameSettingCollection_ g_011db3b0;
-extern SettingT_GameSettingCollection_ g_011db3bc;
-extern SettingT_GameSettingCollection_ g_011db3fc;
-extern SettingT_GameSettingCollection_ g_011db414;
-extern SettingT_GameSettingCollection_ g_011db43c;
-extern SettingT_GameSettingCollection_ g_011db480;
-extern SettingT_GameSettingCollection_ g_011db4b4;
-extern SettingT_GameSettingCollection_ g_011db4e0;
-extern SettingT_GameSettingCollection_ g_011db4ec;
+extern SettingT_GameSettingCollection_ fDefaultShudderFrequency_InterfaceFX;
+extern SettingT_GameSettingCollection_ fDefaultShudderIntensity_InterfaceFX;
+extern SettingT_GameSettingCollection_ fDefaultVertHoldSpeed_InterfaceFX;
+extern SettingT_GameSettingCollection_ fDefaultShudderDuration_InterfaceFX;
+extern SettingT_GameSettingCollection_ fDefaultBurstIntensity_InterfaceFX;
+extern SettingT_GameSettingCollection_ fDefaultBurstDuration_InterfaceFX;
+extern SettingT_GameSettingCollection_ fVertHoldChance_InterfaceFX;
+extern SettingT_GameSettingCollection_ fShudderChance_InterfaceFX;
+extern SettingT_GameSettingCollection_ fDefaultVertHoldDuration_InterfaceFX;
 
 // The shared header does not yet declare the burst update.
 struct PipboyBurstMethods : public FOPipboyManager
@@ -527,14 +528,14 @@ void PipboyBurstMethods::FOPipboyManager_TriggerRandomEffect()
     float fchance;
 
     fchance = RandomFloat0To1();
-    if (fchance < g_011db4b4.Float()->f)
+    if (fchance < fVertHoldChance_InterfaceFX.Float()->f)
         ((FORenderedMenuPC*)PipboyInterface::InterfaceManager_GetSingleton()->GetPipboyManager())
-            ->FUN_007fb250(g_011db4ec.Float()->f, g_011db3fc.Float()->f);
-    if (fchance >= g_011db4b4.Float()->f && fchance < g_011db4b4.Float()->f + g_011db4e0.Float()->f)
+            ->FUN_007fb250(fDefaultVertHoldDuration_InterfaceFX.Float()->f, fDefaultVertHoldSpeed_InterfaceFX.Float()->f);
+    if (fchance >= fVertHoldChance_InterfaceFX.Float()->f && fchance < fVertHoldChance_InterfaceFX.Float()->f + fShudderChance_InterfaceFX.Float()->f)
         ((FORenderedMenuPC*)PipboyInterface::InterfaceManager_GetSingleton()->GetPipboyManager())
-            ->FUN_007fb2b0(g_011db414.Float()->f, g_011db3bc.Float()->f, g_011db3b0.Float()->f);
+            ->FUN_007fb2b0(fDefaultShudderDuration_InterfaceFX.Float()->f, fDefaultShudderIntensity_InterfaceFX.Float()->f, fDefaultShudderFrequency_InterfaceFX.Float()->f);
     ((FORenderedMenuPC*)PipboyInterface::InterfaceManager_GetSingleton()->GetPipboyManager())
-        ->StartBurst(g_011db480.Float()->f, g_011db43c.Float()->f, 0.5f);
+        ->StartBurst(fDefaultBurstDuration_InterfaceFX.Float()->f, fDefaultBurstIntensity_InterfaceFX.Float()->f, 0.5f);
 }
 }  // namespace fnv_007f8a80
 
@@ -600,7 +601,7 @@ float __cdecl BSMAX_00404010(float, float);
 float __cdecl BSMIN(float, float);
 ReferenceLightData* __fastcall ProcessAndReturnValue_0057bd40(PlayerCharacter* apPlayer);
 extern double _gModifierZero;
-extern SettingT_GameSettingCollection_ g_011db308;
+extern SettingT_GameSettingCollection_ fLightEffectLightFadeDuration_Pipboy;
 
 }  // namespace fnv_007fa810
 
@@ -613,7 +614,7 @@ void FOPipboyManager::UpdatePipboyLightFade(float afTime)
     float fdelta;
 
     fdelta = afTime - m_fFirstPersonLightIntensity;
-    ffade = BSMIN(fdelta / g_011db308.Float()->f, 1.0f);
+    ffade = BSMIN(fdelta / fLightEffectLightFadeDuration_Pipboy.Float()->f, 1.0f);
     ffade = BSMAX_00404010(0.0f, ffade);
     if (m_fThirdPersonLightIntensity == 0.0)
         ffade = 1.0f - ffade;
@@ -627,11 +628,11 @@ namespace fnv_007ff960 {
 ShadowSceneNode* __cdecl FUN_00450b80(int);
 void __cdecl _FNV_Warning(const char*);
 
-extern SettingT_GameSettingCollection_ g_011db5f8;
-extern SettingT_GameSettingCollection_ g_011db608;
-extern SettingT_GameSettingCollection_ g_011db644;
-extern SettingT_GameSettingCollection_ g_011db650;
-extern SettingT_GameSettingCollection_ g_011db668;
+extern SettingT_GameSettingCollection_ fScreenLightColorB_RenderedTerminal;
+extern SettingT_GameSettingCollection_ fScreenLightColorR_RenderedTerminal;
+extern SettingT_GameSettingCollection_ fScreenLightRadius_RenderedTerminal;
+extern SettingT_GameSettingCollection_ fScreenLightBaseIntensity_RenderedTerminal;
+extern SettingT_GameSettingCollection_ fScreenLightColorG_RenderedTerminal;
 
 class NiAVObjectPC : public NiAVObject
 {
@@ -664,12 +665,12 @@ void TerminalLightMethods::CreateTerminalLight()
         plight->FUN_0050c660(0);
         plight->FUN_0050c690(0);
         plight->NiLight_SetDimmer(1.0f);
-        plight->FUN_0050dd50(NiPoint3(g_011db644.Float()->f, 0, 0));
+        plight->FUN_0050dd50(NiPoint3(fScreenLightRadius_RenderedTerminal.Float()->f, 0, 0));
         {
-            NiColor screenLightColor(g_011db608.Float()->f, g_011db668.Float()->f, g_011db5f8.Float()->f);
+            NiColor screenLightColor(fScreenLightColorR_RenderedTerminal.Float()->f, fScreenLightColorG_RenderedTerminal.Float()->f, fScreenLightColorB_RenderedTerminal.Float()->f);
             FORenderedMenu_SetScreenLightColor(screenLightColor);
         }
-        SetIntensity(g_011db650.Float()->f);
+        SetIntensity(fScreenLightBaseIntensity_RenderedTerminal.Float()->f);
         SetScreenLightFlickerIntensity(1.0f);
         NiUpdateData updateData(0, false, false);
         ((NiAVObjectPC*)plight)->Update(updateData);

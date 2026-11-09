@@ -66,7 +66,7 @@ class LocalPoint3Ext
     LocalPoint3Ext& ComputeValue_0063c8a0(const NiPoint3& point);
     NiPoint3 GetNegatedVector() const;
 };
-extern int DAT_0109cb9c;
+extern int vftable_NiCamera;
 void __fastcall ReleaseStorage_00a5a390(void* p);
 struct FUN_00a6fae0_Class
 {

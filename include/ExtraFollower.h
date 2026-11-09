@@ -12,7 +12,7 @@ public:
     virtual ~ExtraFollower();
 
     void __thiscall FUN_00430ea0();
-    void* __thiscall FUN_00430e70(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 
     BSSimpleList<Actor*>* list;
 };

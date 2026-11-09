@@ -24,7 +24,7 @@ struct FUN_00cb0c00_class
     void Object_UpdateFields_00cb0c00();
 };
 typedef FUN_00cb0c00_class String;
-extern int DAT_010e99d8, DAT_0102e388;
+extern int vftable_hkxScene, vftable_hkBaseObject;
 struct Root
 {
     Ref* ptr;
@@ -48,7 +48,7 @@ struct Scene
 // @fnv 0x00e4a750
 void Scene::ClearScene()
 {
-    unk00 = &DAT_010e99d8;
+    unk00 = &vftable_hkxScene;
     {
         Alloc* allocator = reinterpret_cast<Alloc*>(hkMemoryRouter::getInstance().m_heap);
         Ref** p = unk6c.m_data;
@@ -180,7 +180,7 @@ void Scene::ClearScene()
     unk14.~Root();
     unk0c.Object_UpdateFields_00cb0c00();
     unk08.Object_UpdateFields_00cb0c00();
-    unk00 = &DAT_0102e388;
+    unk00 = &vftable_hkBaseObject;
 }
 
 
@@ -230,8 +230,8 @@ FUN_00e4a6a0::FUN_00e4a6a0() throw() : m_fNumFrames(0.0f), m_pAabbRootNode(0)
     m_kAppliedTransform = hkMatrix3::GetIdentityTransform();
 }
 
-extern int DAT_010e929c;
-extern int DAT_0102e388;
+extern int vftable_hkMemoryMeshShape;
+extern int vftable_hkBaseObject;
 
 
 
@@ -281,7 +281,7 @@ struct Mesh_e4a4
 // src: GUESS 0x00e4a460 (confidence: medium)
 void Mesh_e4a4::ReleaseEntriesAndIndexArrays()
 {
-    m_vtbl = &DAT_010e929c;
+    m_vtbl = &vftable_hkMemoryMeshShape;
     int n = m_entries.GetLogicalSize();
     for (int i = 0; i < n; i++)
         m_entries[i].~Entry_e4a4();
@@ -289,5 +289,5 @@ void Mesh_e4a4::ReleaseEntriesAndIndexArrays()
     ClearAndRelease(m_iSlotIds);
     ClearAndRelease(m_ppIndices);
     ClearAndRelease(m_entries);
-    m_vtbl = &DAT_0102e388;
+    m_vtbl = &vftable_hkBaseObject;
 }

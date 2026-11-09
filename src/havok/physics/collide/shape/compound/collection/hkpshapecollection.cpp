@@ -63,8 +63,8 @@ struct MemorySystem
     unsigned int field0c;
     Allocator* allocator;
 };
-extern char DAT_010c6fb0;
-extern char DAT_0102e388;
+extern char vftable_hkpShapeContainer;
+extern char vftable_hkBaseObject;
 struct Holder
 {
     void* vtable;
@@ -80,8 +80,8 @@ struct Holder
 // @fnv 0x00cf57e0
 Holder* __thiscall Holder::Destroy(unsigned char flags)
 {
-    shapeVtable = &DAT_010c6fb0;
-    vtable = &DAT_0102e388;
+    shapeVtable = &vftable_hkpShapeContainer;
+    vtable = &vftable_hkBaseObject;
     if ((flags & 1) != 0)
     {
         MemorySystem* memory = hkMemoryRouter_getInstance();

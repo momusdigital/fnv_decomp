@@ -15,7 +15,7 @@
 // src/gamebryo2.2/corelibs/nianimation/nibonelodcontroller.cpp - unit created 2026-10-16 from the whole-binary attribution (360 source path: d:/_fallout3/platforms/common/code/gamebryo2.2/corelibs/nianimation/nibonelodcontroller.cpp).
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
 extern "C" void __cdecl _NiFreeAlias(void*);
-extern int DAT_0109a2a4;
+extern int vftable_NiTArray_0109a2a4;
 struct FUN_00a543f0_shell
 {
     void* m_kPointA;
@@ -53,7 +53,7 @@ void operator delete(void*, unsigned int);
 struct S_00c53e10
 {
     void FUN_00c53e40();
-    void* FUN_00c53e10(unsigned int);
+    void* NiBSBoneLODController_ScalarDeletingDestructor(unsigned int);
 };
 struct Inner_00c53ed0
 {

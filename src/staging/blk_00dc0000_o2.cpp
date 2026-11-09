@@ -169,7 +169,7 @@ void __thiscall FUN_00dd4b70_class::hkpMoppCompiler_enableInterleavedBuilding(un
     *(unsigned char*)(this + 0x64) = value;
 }
 
-extern int DAT_0102e388;
+extern int vftable_hkBaseObject;
 
 struct FUN_00dd51d0_class
 {
@@ -184,7 +184,7 @@ struct FUN_00dd51d0_class
 void FUN_00dd51d0_class::InitializeFields_00dd51d0()
 {
     m_08 = 0;
-    m_00 = (int)&DAT_0102e388;
+    m_00 = (int)&vftable_hkBaseObject;
 }
 
 struct FUN_00ddfb70_cls
@@ -310,19 +310,19 @@ void __cdecl Runtime_UpdateState_00dccb10(char* p)
     lock->S_00d49310_Lock::~S_00d49310_Lock();
 }
 
-extern int DAT_010d77b4[];
+extern int vftable_hkpSaveContactPointsUtil__EntitySelector[];
 extern void __cdecl _Deallocate(void* p);
 
-struct FUN_00dcd4b0_Class
+struct hkpSaveContactPointsUtil__EntitySelector
 {
     void* m_ppVirtualMethodTable;
-    FUN_00dcd4b0_Class* __thiscall InitializeAndMaybeFree(int flags);
+    hkpSaveContactPointsUtil__EntitySelector* __thiscall InitializeAndMaybeFree(int flags);
 };
 
 // @fnv 0x00dcd4b0
-FUN_00dcd4b0_Class* __thiscall FUN_00dcd4b0_Class::InitializeAndMaybeFree(int flags)
+hkpSaveContactPointsUtil__EntitySelector* __thiscall hkpSaveContactPointsUtil__EntitySelector::InitializeAndMaybeFree(int flags)
 {
-    m_ppVirtualMethodTable = DAT_010d77b4;
+    m_ppVirtualMethodTable = vftable_hkpSaveContactPointsUtil__EntitySelector;
     if (flags & 1)
         _Deallocate(this);
     return this;
@@ -376,7 +376,7 @@ void __fastcall Object_Clear_Thunk(char* ecx, int edx)
 }
 }  // namespace fnv_00ddf040
 
-extern int DAT_010d8094;
+extern int vftable_hkpShapeDisplayBuilder;
 
 struct FUN_00ddfb80_s
 {
@@ -395,7 +395,7 @@ struct FUN_00ddfb80_s
 FUN_00ddfb80_s* __fastcall hkpShapeDisplayBuilder_hkpShapeDisplayBuilder(FUN_00ddfb80_s* self, int, const void* src)
 {
     *(unsigned short*)((char*)self + 6) = 1;
-    self->m_vt = &DAT_010d8094;
+    self->m_vt = &vftable_hkpShapeDisplayBuilder;
     *(void**)((char*)self + 8) = *(void**)((char*)src + 0);
     *(void**)((char*)self + 12) = *(void**)((char*)src + 4);
     *(unsigned int*)((char*)self + 16) = 0;
@@ -598,17 +598,17 @@ struct FUN_00dcc670_Class
     int* __thiscall InitFromValue(int* value);
 };
 
-extern int DAT_010d7540;
+extern int vftable_hkIstream;
 extern FUN_00dcc670_Manager* DAT_01268364;
 
-// Sets unk06 to 1, unk00 to &DAT_010d7540, and unk08 to the result of DAT_01268364->FUN_00dcc670_v3(value), then returns this.
+// Sets unk06 to 1, unk00 to &vftable_hkIstream, and unk08 to the result of DAT_01268364->FUN_00dcc670_v3(value), then returns this.
 // @fnv 0x00dcc670
 int* __thiscall FUN_00dcc670_Class::InitFromValue(int* value)
 {
     int* local_value = value;
 
     unk06 = 1;
-    unk00 = &DAT_010d7540;
+    unk00 = &vftable_hkIstream;
     unk08 = DAT_01268364->FUN_00dcc670_v3(local_value);
     return (int*)this;
 }
@@ -622,7 +622,7 @@ struct AllocIface
 
 hkMemoryRouter* __cdecl hkMemoryRouter_getInstance() throw();
 
-extern char DAT_010d7540[];
+extern char vftable_hkIstream[];
 
 struct SpawnedBlob
 {
@@ -648,7 +648,7 @@ struct FUN_00dcc6a0_cls
 FUN_00dcc6a0_cls* FUN_00dcc6a0_cls::hkIstream_hkIstream_00dcc6a0(int a1, int a2)
 {
     m_w06 = 1;
-    m_vptr = DAT_010d7540;
+    m_vptr = vftable_hkIstream;
     hkMemoryRouter* holder = hkMemoryRouter_getInstance();
     SpawnedBlob* blob = (SpawnedBlob*)reinterpret_cast<AllocIface*>(holder->m_heap)->Alloc(0x1c);
     blob->m_w04 = 0x1c;
@@ -666,7 +666,7 @@ struct AllocIface
 
 hkMemoryRouter* __cdecl hkMemoryRouter_getInstance() throw();
 
-extern char DAT_010d7540[];
+extern char vftable_hkIstream[];
 
 struct SpawnedBlob
 {
@@ -692,7 +692,7 @@ struct FUN_00dcc6f0_cls
 FUN_00dcc6f0_cls* FUN_00dcc6f0_cls::hkIstream_hkIstream_00dcc6f0(int a1)
 {
     m_w06 = 1;
-    m_vptr = DAT_010d7540;
+    m_vptr = vftable_hkIstream;
     hkMemoryRouter* holder = hkMemoryRouter_getInstance();
     SpawnedBlob* blob = (SpawnedBlob*)reinterpret_cast<AllocIface*>(holder->m_heap)->Alloc(0x14);
     blob->m_w04 = 0x14;
@@ -923,7 +923,7 @@ void* FUN_00dd5150_cls::hkpMoppCostFunction_hkpMoppSplitCostParams_hkpMoppSplitC
     return this;
 }
 
-extern void* DAT_010d7ba8;
+extern void* vftable_hkpMoppCostFunction;
 
 struct FUN_00dd5150_component
 {
@@ -945,7 +945,7 @@ struct FUN_00dd51a0
 FUN_00dd51a0::FUN_00dd51a0(const int* data)
 {
     enabled06 = 1;
-    vftable = &DAT_010d7ba8;
+    vftable = &vftable_hkpMoppCostFunction;
     component08.hkpMoppCostFunction_hkpMoppSplitCostParams_hkpMoppSplitCostParams(0);
     CopySixInts(data);
 }
@@ -1117,7 +1117,7 @@ S_00dd8cf0_Ret __thiscall S_00dd8cf0::AllMatch(const int* pValues, int iCount)
     return r;
 }
 
-extern int DAT_010d7c34;
+extern int vftable_hkLargeBlockAllocator;
 
 // Object built by Construct: it installs its own vtable, clears a couple
 // of members and then hands the object over to FUN_00dd7f10 for a full reset.
@@ -1227,7 +1227,7 @@ void SpawnedObject::_init_00dd7f10()
 // @fnv 0x00dd8d40
 SpawnedObject* SpawnedObject::Construct(int value)
 {
-    m_vptr = &DAT_010d7c34;
+    m_vptr = &vftable_hkLargeBlockAllocator;
     m_04 = 0;
     m_98 = value;
     this->_init_00dd7f10();
@@ -1281,9 +1281,9 @@ struct S_00dd8fa0_S
 };
 
 extern "C" hkMemoryRouter* __cdecl hkMemoryRouter_getInstance();
-extern "C" S_00dd8fa0_Vtable DAT_010d7c58;
+extern "C" S_00dd8fa0_Vtable vftable_hkWindowsSystemClock;
 
-// Gets a caller, calls its object's vtable method with 8, then sets m_04 to 8, m_06 to 1 and the vtable to DAT_010d7c58.
+// Gets a caller, calls its object's vtable method with 8, then sets m_04 to 8, m_06 to 1 and the vtable to vftable_hkWindowsSystemClock.
 // @fnv 0x00dd8fa0
 // src: GUESS 0x00dd8fa0 (confidence: low)
 void __cdecl Object_UpdateFields_00dd8fa0()
@@ -1295,7 +1295,7 @@ void __cdecl Object_UpdateFields_00dd8fa0()
 
     object->m_04 = 8;
     object->m_06 = 1;
-    object->vtable = &DAT_010d7c58;
+    object->vtable = &vftable_hkWindowsSystemClock;
 }
 }  // namespace fnv_00dd8fa0
 
@@ -1500,7 +1500,7 @@ struct FUN_00dcc130_Class
 int* FUN_00dcc130_Class::hkIstream_hkIstream(int* value)
 {
     enabled06 = 1;
-    m_vtbl = &DAT_010d7540;
+    m_vtbl = &vftable_hkIstream;
     unk08 = (int)value;
     FUN_00c90510();
     return (int*)this;
@@ -1573,7 +1573,7 @@ int Lock_dd9::hkProcessFactory_createProcess(int iKey, int iArg)
     return iResult;
 }
 
-extern int DAT_010d7db8;
+extern int vftable_hkDisplaySerializeOStream;
 
 struct Bool1
 {
@@ -1597,7 +1597,7 @@ struct FUN_00dda690 : Base_00d60b40
 FUN_00dda690::FUN_00dda690(int a)
 {
     FUN_00d60b40(a, 0);
-    vft = &DAT_010d7db8;
+    vft = &vftable_hkDisplaySerializeOStream;
 }
 
 struct S_00dcc240_Reader
@@ -2903,9 +2903,9 @@ int FUN_00dd92f0_cls::InvokeRecord(int index, int arg)
 }
 
 namespace fnv_00dd9d20 {
-extern int DAT_010d7da8;
-extern int DAT_010d7d54;
-extern int DAT_010d7cfc;
+extern int vftable_hkServerDebugDisplayHandler;
+extern int vftable_hkServerDebugDisplayHandler_for_hkDebugDisplayHandler;
+extern int vftable_hkDebugDisplayHandler;
 
 struct FUN_00dd9d20_Target
 {
@@ -2932,8 +2932,8 @@ void __thiscall FUN_00dd9d20_Object::UpdateFields_00dd9d20()
 {
     void* criticalSection = unk10;
 
-    unk00 = reinterpret_cast<void*>(&DAT_010d7da8);
-    unk08 = reinterpret_cast<void*>(&DAT_010d7d54);
+    unk00 = reinterpret_cast<void*>(&vftable_hkServerDebugDisplayHandler);
+    unk08 = reinterpret_cast<void*>(&vftable_hkServerDebugDisplayHandler_for_hkDebugDisplayHandler);
 
     if (criticalSection != 0)
     {
@@ -2945,8 +2945,8 @@ void __thiscall FUN_00dd9d20_Object::UpdateFields_00dd9d20()
         target->vf08(criticalSection, 0x18);
     }
 
-    unk08 = reinterpret_cast<void*>(&DAT_010d7cfc);
-    unk00 = reinterpret_cast<void*>(&DAT_0102e388);
+    unk08 = reinterpret_cast<void*>(&vftable_hkDebugDisplayHandler);
+    unk00 = reinterpret_cast<void*>(&vftable_hkBaseObject);
 }
 }  // namespace fnv_00dd9d20
 

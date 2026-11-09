@@ -104,8 +104,8 @@ void hkpVehicleRayCastWheelCollide::RemoveFromWorld()
     ((FUN_00c92c70_host*)*(void**)((char*)p + 8))->hkpWorld_removePhantom(p);
 }
 
-extern int DAT_010e5ae4;
-extern int DAT_0102e388;
+extern int vftable_hkpVehicleRayCastWheelCollide;
+extern int vftable_hkBaseObject;
 
 // 0x00e360f0 destroys the embedded hkpRejectChassisListener.
 struct RejectChassisListenerMethods : public hkpRejectChassisListener
@@ -117,7 +117,7 @@ struct RejectChassisListenerMethods : public hkpRejectChassisListener
 void hkpVehicleRayCastWheelCollide::Destroy()
 {
     hkpAabbPhantom* phantom = this->m_pPhantom;
-    *(int**)this = &DAT_010e5ae4;
+    *(int**)this = &vftable_hkpVehicleRayCastWheelCollide;
 
     if (phantom)
     {
@@ -130,7 +130,7 @@ void hkpVehicleRayCastWheelCollide::Destroy()
     }
 
     static_cast<RejectChassisListenerMethods*>(&this->m_kChassisRejectionListener)->Destroy();
-    *(int**)this = &DAT_0102e388;
+    *(int**)this = &vftable_hkBaseObject;
 }
 
 void __cdecl ResizeAudioStream(void* pvAlloc, void* apvArray, int iElemSize);

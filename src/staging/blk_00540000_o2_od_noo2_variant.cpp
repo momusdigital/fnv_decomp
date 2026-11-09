@@ -227,14 +227,14 @@ struct FUN_00c99ff0 : ParticleSystem
     static void operator delete(void*);
     FUN_00c99ff0(FUN_00c681c0*, FUN_006815c0*, FUN_006815c0*);
 };
-struct FUN_00554590
+struct TESWindListener
 {
     unsigned int field00;
     unsigned int field04;
     unsigned int field08;
     unsigned int field0c;
     unsigned int field10;
-    FUN_00554590();
+    TESWindListener();
 };
 struct FUN_0062d5c0 : CurveOwner, CurveBase
 {
@@ -254,26 +254,26 @@ struct FUN_0061f460
     unsigned int field24;
     FUN_0061f460();
 };
-struct FUN_0062a460
+struct TESArrowTargetListener
 {
     unsigned int field00;
     unsigned int field04;
     unsigned int field08;
     unsigned int field0c;
     unsigned int field10;
-    FUN_0062a460();
+    TESArrowTargetListener();
 };
-struct FUN_00624150
+struct FOIslandActivationListener
 {
     U32 header, body;
-    FUN_00624150();
+    FOIslandActivationListener();
     void NotifyActivation(Component*);
 };
 extern "C"
 {
     extern float DAT_011ca158, DAT_0102f104, DAT_0102f100, DAT_0102f0fc;
     extern const char str_0102ed68[];
-    extern FUN_00624150* DAT_011ca088;
+    extern FOIslandActivationListener* DAT_011ca088;
 }
 extern float __cdecl NI2HK_004a3e90(float);
 extern void* __cdecl TESWaterListener_GetExteriorListener();
@@ -302,14 +302,14 @@ ParticleSystem* __cdecl TESObjectCELL_CreateWorld(const FUN_006815c0* origin)
     *acceleration.FUN_00560d30(2) = NI2HK_004a3e90(DAT_0102f0fc);
     ParticleSystem* system = new FUN_00c99ff0(&source, &velocity, &acceleration);
     system->FUN_00541c80()->FUN_00483710();
-    system->bhkWorld_AddEntityListener(new FUN_00554590());
+    system->bhkWorld_AddEntityListener(new TESWindListener());
     system->bhkWorld_AddTrapListener(new FUN_0062d5c0());
     system->SetField(TESWaterListener_GetExteriorListener());
     system->bhkWorld_AppendAcousticSpaceListener(new FUN_0061f460());
     system->bhkWorld_AddContactListener(FOCollisionListener_GetSingleton());
-    system->bhkWorld_AddEntityListener(new FUN_0062a460());
+    system->bhkWorld_AddEntityListener(new TESArrowTargetListener());
     if (!DAT_011ca088)
-        DAT_011ca088 = new FUN_00624150();
+        DAT_011ca088 = new FOIslandActivationListener();
     DAT_011ca088->NotifyActivation(system->FUN_00541c80());
     system->bhkWorld_SetOrigin(&direction);
     system->FUN_00541c80()->FUN_00483710();

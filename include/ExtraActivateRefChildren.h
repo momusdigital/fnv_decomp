@@ -11,7 +11,7 @@ public:
     ExtraActivateRefChildren();
 
     void __thiscall FUN_00433830();
-    void* __thiscall FUN_00433800(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 
     SL m;
     float f;

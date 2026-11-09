@@ -197,7 +197,7 @@ void FUN_00a38ef0_Class::NiSingleInterpController_CopyMembers(FUN_00a38ef0_Class
     }
 }
 
-extern int DAT_0109687c;
+extern int vftable_NiTransformController;
 struct NiTimeController_Call
 {
     void SetControllerActive();
@@ -211,11 +211,11 @@ struct S_00a36560
 void* S_00a36560::NiTransformController_NiTransformController()
 {
     ((NiTimeController_Call*)this)->SetControllerActive();
-    *(void**)this = &DAT_0109687c;
+    *(void**)this = &vftable_NiTransformController;
     return this;
 }
 
-extern int DAT_01096694;
+extern int vftable_BSMultiTargetTreadTransfController;
 struct NiSingleInterpControllerBase
 {
     int unk00;
@@ -251,7 +251,7 @@ FUN_00a36070::FUN_00a36070(int a1, int a2)
     m_spControllerInterpolator = 0;
     unk38 = 0;
     unk3c = 0;
-    *(int**)this = &DAT_01096694;
+    *(int**)this = &vftable_BSMultiTargetTreadTransfController;
     unk40 = 0;
     ((FUN_00a35a80_Obj*)this)->BSMultiTargetTreadTransfController_AllocateStorage(a1, a2);
 }

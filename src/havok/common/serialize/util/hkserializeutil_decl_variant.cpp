@@ -12,8 +12,8 @@ void __cdecl Object_ForwardCall_00d48620(int a, int b, int c);
 void __cdecl Object_ForwardCall_00d48640(int a, int b);
 extern "C" int __cdecl Object_ProcessAndReturnValue_00d485a0(int, int, int, int, int);
 void __cdecl Object_ForwardCall_00d48660(int a, int b, int c);
-extern int DAT_0102e388;
-extern int DAT_010d7540;
+extern int vftable_hkBaseObject;
+extern int vftable_hkIstream;
 struct FUN_00dcc160_cls
 {
     void* vtbl;
@@ -218,7 +218,7 @@ struct FUN_00d49420_cls
     void unk20(Obj1* apA, void* apB, void* apC);
 };
 
-extern int DAT_010cf9b4;
+extern int vftable_ForwardingPackfileListerer_010cf9b4;
 struct Lister
 {
     const int* vtbl;
@@ -254,14 +254,14 @@ struct Proxy
     void* vtbl;
     short refs;
 };
-extern int DAT_010cf9c8;
+extern int vftable_hkBinaryTagfileWriter;
 int __cdecl dispatch(Proxy*, int*, int, void*);
 static __declspec(noinline) int helper(int a, void* b, int* c)
 {
     if (!a)
         return 1;
     Proxy p;
-    p.vtbl = &DAT_010cf9c8;
+    p.vtbl = &vftable_hkBinaryTagfileWriter;
     p.refs = 1;
     return dispatch(&p, c, a, b);
 }
@@ -274,13 +274,13 @@ extern "C" int __cdecl Object_ProcessAndReturnValue_00d485a0(int a1, int a2, int
     world.ctor();
     world.method(a1, a2);
     lister.f06 = 1;
-    lister.vtbl = &DAT_010cf9b4;
+    lister.vtbl = &vftable_ForwardingPackfileListerer_010cf9b4;
     lister.f08 = a5;
     lister.f0c = &world;
     int* obj = world.method2(&a5);
     int r = helper(a3, &lister, obj);
     ((RefHolder*)&a5)->release();
-    lister.vtbl = &DAT_0102e388;
+    lister.vtbl = &vftable_hkBaseObject;
     world.dtor();
     return r;
 }

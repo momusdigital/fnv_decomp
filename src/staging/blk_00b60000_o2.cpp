@@ -4806,7 +4806,7 @@ struct FUN_00b7e300_pool
     void __thiscall MemoryManager_Deallocate(void* pBlock);
 };
 
-extern char DAT_010ef53c;
+extern char vftable_NiTArray_010ef53c;
 extern FUN_00b7e300_pool DAT_011f6238;
 extern void __stdcall FUN_00ec5fce(void* pData, int stride, int count, void(__cdecl* fnDestroy)(void*));
 extern void __cdecl FUN_0045cec0(void* pElement);
@@ -4816,7 +4816,7 @@ extern void __cdecl FUN_0045cec0(void* pElement);
 void FUN_00b7e300_cls::DestroyDataArray()
 {
     int** pData = m_pData;
-    m_pVTable = &DAT_010ef53c;
+    m_pVTable = &vftable_NiTArray_010ef53c;
     if (pData != 0)
     {
         int count = ((int*)pData)[-1];  // element count stored in the block header

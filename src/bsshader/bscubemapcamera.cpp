@@ -389,7 +389,7 @@ struct FUN_00a69400
     FUN_00a69400(void*);
     void NiCullingProcess_SetFrustum(void*);
 };
-extern "C" void* DAT_0101e2ec;
+extern "C" void* vftable_BSCullingProcess;
 struct CleanupRef
 {
     struct Methods
@@ -427,7 +427,7 @@ struct S00bd7bb0_Cull : FUN_00a69400
     CleanupRef* ref;
     S00bd7bb0_Cull(void* p) : FUN_00a69400(p)
     {
-        vtbl = &DAT_0101e2ec;
+        vtbl = &vftable_BSCullingProcess;
         unk090 = 0;
         unk0bc = 0;
         unk0c0 = 0;

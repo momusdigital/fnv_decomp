@@ -122,7 +122,7 @@ Blk* Blk::FreeBlock(unsigned int flags)
 namespace fnv_00a7b8c0 {
 void __cdecl _NiFreeAlias(void*);
 extern MemoryManager g_memoryManager;
-extern void* DAT_0109dac4[];
+extern void* vftable_NiTriShapeData[];
 
 struct Blk
 {
@@ -149,7 +149,7 @@ void __fastcall DestroyTriBasedGeomData(NiTriBasedGeomData*);
 // @fnv 0x00a7b8c0
 void __fastcall DestroyTriShapeData(NiTriShapeData* self)
 {
-    *(void**)self = DAT_0109dac4;
+    *(void**)self = vftable_NiTriShapeData;
     if (self->m_pusTriList)
         _NiFreeAlias(self->m_pusTriList);
     if (self->m_pkSNAMemoryBlocks)

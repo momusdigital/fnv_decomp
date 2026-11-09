@@ -8,7 +8,7 @@
 #include "../../../../../include/Pair.h"
 int __stdcall hkObjectCopier_areMembersCompatible(const void* a, const void* b);
 int __cdecl Object_ComputeValue_00e049c0(int a, int b);
-extern int DAT_0102e388;
+extern int vftable_hkBaseObject;
 struct Object {
     int* vtable;
     void SetVirtualTable_00e03160();

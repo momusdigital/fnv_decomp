@@ -157,7 +157,7 @@ using ::_mm_store_ps;
 using ::_mm_xor_ps;
 extern float DAT_0104da48;
 extern LocalM128 DAT_010c44d0;
-extern char DAT_010ce80c;
+extern char vftable_hkpSymmetricAgentFlipCastCollector;
 struct __declspec(align(16)) D2fInput
 {
     int unk00;

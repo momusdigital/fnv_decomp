@@ -176,7 +176,7 @@ struct FUN_0098de60_shell
     BSSimpleArray<unsigned int> arr;  // +0x138
     int GetArrayItem(char index);
 };
-extern int DAT_0108d6f4;
+extern int vftable_BSSimpleArray_0108d6f4;
 struct FUN_0098ed30_class
 {
     void* vtable;
@@ -209,7 +209,7 @@ struct FUN_00985b10_shell
 {
     void __thiscall Lst0044_PathingLocation_Load(BGSLoadFormBuffer* buffer, int a2);
 };
-extern int DAT_0108d708;
+extern int vftable_BSSimpleArray_0108d708;
 struct FUN_0098fbe0_shell
 {
     void BSSimpleArray_CombatMember_1024_InitialSetup(int, int);
@@ -855,7 +855,7 @@ struct S00992700
 {
     void CombatManager_NotifyCombatGroupAddedMember(void*, ActorV*);
 };
-extern Setting g_011f1878;
+extern Setting bDebugCombatGroups_Combat;
 int __cdecl BSTestObjects_GetColor(unsigned int);
 void TintScenegraph(void*, NiPoint3*, int);
 struct FUN_0072ba80_shell

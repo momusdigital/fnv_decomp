@@ -10,7 +10,8 @@ void __cdecl _Deallocate(void*);
 
 // Calls FUN_004b0530, then deallocates this if flags has bit 0 set, and returns this.
 // @fnv 0x004b0550
-void* IBSAnimNoteReceiver::FUN_004b0550(unsigned int flags)
+// src: EXE 0x004b0550
+void* IBSAnimNoteReceiver::ScalarDeletingDestructor(unsigned int flags)
 {
     SetVtableAndProcessState_004b0530();
     if (flags & 1)
@@ -20,7 +21,8 @@ void* IBSAnimNoteReceiver::FUN_004b0550(unsigned int flags)
 
 // Calls FUN_004b0480, then deallocates this when flags has bit 0 set, and returns this.
 // @fnv 0x004b0580
-void* __thiscall BSAnimNoteReceiver::FUN_004b0580(unsigned int flags)
+// src: EXE 0x004b0580
+void* __thiscall BSAnimNoteReceiver::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_004b0480();
     if (flags & 1)

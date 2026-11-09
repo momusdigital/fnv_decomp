@@ -229,7 +229,7 @@ struct GlobalObject_0045cfe0
 };
 
 extern TES* g_TES;
-extern GlobalObject_0045cfe0 g_011c63cc;
+extern GlobalObject_0045cfe0 uGridsToLoad_General;
 
 struct FUN_004aabb0_shell : public FUN_004aa3d0_shell
 {
@@ -257,7 +257,7 @@ void FUN_004aabb0_shell::BGSTextureUseMap_CollectTextureUseDataForLoadedArea(cha
     }
     else
     {
-        maxValue2 = static_cast<unsigned int>(*g_011c63cc.Int()) >> 1;
+        maxValue2 = static_cast<unsigned int>(*uGridsToLoad_General.Int()) >> 1;
         grid = maxValue2 - 2;
         center3 = maxValue2 + 2;
 

@@ -28,7 +28,7 @@ void* __cdecl NiVertWeightsExtraData_GetRTTI()
 
 
 
-extern void* DAT_0109ee9c;
+extern void* vftable_NiVertWeightsExtraData;
 
 // @fnv 0x00a89b80
 void* __cdecl CreateNiExtraData()
@@ -37,7 +37,7 @@ void* __cdecl CreateNiExtraData()
     if (p)
     {
         p->FUN_00a7b2e0();
-        *reinterpret_cast<void**>(p) = &DAT_0109ee9c;
+        *reinterpret_cast<void**>(p) = &vftable_NiVertWeightsExtraData;
     }
     else
     {
@@ -58,7 +58,7 @@ void __cdecl _delete(void*, unsigned int);
 // @fnv 0x00a89bb0
 void* NiVertWeightsExtraData::FUN_00a89bb0(unsigned int flags)
 {
-    *(void**)this = (void*)&DAT_0109ee9c;
+    *(void**)this = (void*)&vftable_NiVertWeightsExtraData;
     ((FUN_00a7b300_shell*)this)->DestroyFields_00a7b300();
     if (flags & 1)
         _delete(this, 12);
@@ -132,7 +132,7 @@ void* FUN_00a89b30_cls::NiVertWeightsExtraData_CreateClone(unsigned int a1)
     if (p != 0)
     {
         ((NiExtraData*)p)->FUN_00a7b2e0();
-        p->m_vtbl = (void*)&DAT_0109ee9c;
+        p->m_vtbl = (void*)&vftable_NiVertWeightsExtraData;
     }
     else
     {

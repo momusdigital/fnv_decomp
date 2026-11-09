@@ -300,12 +300,12 @@ bool NavMeshSearchHide::IsGoalNode(NavData6aa4* pkData)
     return fDist_2 <= DAT_01012060;
 }
 
-extern int DAT_0106b7dc;
+extern int vftable_NavMeshSearchHide;
 
 // @fnv 0x006a9d60
 // src: GUESS 0x006a9d60 (confidence: low)
 void NavMeshSearchHide::UpdateFields_006a9d60()
 {
-    *reinterpret_cast<void**>(this) = &DAT_0106b7dc;
+    *reinterpret_cast<void**>(this) = &vftable_NavMeshSearchHide;
     NavMeshSearch::FUN_006a6b00();
 }

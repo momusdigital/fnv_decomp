@@ -18,7 +18,7 @@ void* __cdecl NiTextKeyExtraData_GetRTTI()
     return &g_011f3f28;
 }
 
-extern void* DAT_0109827c;
+extern void* vftable_NiTextKeyExtraData;
 
 // @fnv 0x00a46b70
 // src: EXE 0x00a46b70
@@ -28,7 +28,7 @@ void* __cdecl NiTextKeyExtraData_CreateObject()
     if (p)
     {
         p->FUN_00a7b2e0();
-        *reinterpret_cast<void**>(p) = &DAT_0109827c;
+        *reinterpret_cast<void**>(p) = &vftable_NiTextKeyExtraData;
         p->m_uiNumKeys = 0;
         p->m_pKeys = 0;
         return p;
@@ -103,7 +103,7 @@ extern MM g_memoryManager;
 // @fnv 0x00a46d50
 void __fastcall DestroyTextKeyList(NiTextKeyExtraData* self, void*)
 {
-    *(void**)self = &DAT_0109827c;
+    *(void**)self = &vftable_NiTextKeyExtraData;
     void* keys = self->m_pKeys;
     if (keys)
     {
@@ -219,7 +219,7 @@ void __cdecl CopyTextKeyMemberData();
 __forceinline NiTextKeyExtraData* __fastcall InitializeTextKeyExtraData(NiTextKeyExtraData* self) throw()
 {
     self->FUN_00a7b2e0();
-    *reinterpret_cast<void**>(self) = &DAT_0109827c;
+    *reinterpret_cast<void**>(self) = &vftable_NiTextKeyExtraData;
     self->m_uiNumKeys = 0;
     self->m_pKeys = 0;
     return self;

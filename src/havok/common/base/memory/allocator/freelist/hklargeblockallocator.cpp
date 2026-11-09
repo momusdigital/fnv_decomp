@@ -42,8 +42,8 @@ void* __stdcall hkLargeBlockAllocator_getAllocatedSize(void* p, void* apUnused)
     return reinterpret_cast<char*>(reinterpret_cast<size_t*>(p)[-3] & 0xfffffffc) - 0x10;
 }
 
-extern int DAT_0102e388;
-extern int DAT_010d7c80;
+extern int vftable_hkBaseObject;
+extern int vftable_hkIArchive;
 
 // Not an hkLargeBlockAllocator member: 0x00dd91f0 stores hkIArchive's vftable
 // (RTTI 0x010d7c80, base hkReferencedObject), releases m_streamReader at +8 and
@@ -52,10 +52,10 @@ extern int DAT_010d7c80;
 // src: GUESS 0x00dd91f0 (confidence: medium)
 void hkIArchive::ReleaseArchiveReader()
 {
-    *(int**)this = (int*)&DAT_010d7c80;
+    *(int**)this = (int*)&vftable_hkIArchive;
     if (m_streamReader)
         m_streamReader->removeReference();
-    *(int**)this = (int*)&DAT_0102e388;
+    *(int**)this = (int*)&vftable_hkBaseObject;
 }
 
 // Returns the value at a[-3] with the low two bits cleared.
@@ -250,8 +250,8 @@ struct HklargeblockallocatorListNodeView
     int value;
 };
 
-extern int DAT_010d7c34;
-extern int DAT_010d7c10;
+extern int vftable_hkLargeBlockAllocator;
+extern int vftable_hkFreeListAllocatorServer;
 
 struct ListTarget
 {
@@ -267,7 +267,7 @@ struct ListTarget
 // src: GUESS 0x00dd7ec0 (confidence: low)
 void hkLargeBlockAllocator::ProcessEntries_00dd7ec0()
 {
-    *(int**)this = &DAT_010d7c34;
+    *(int**)this = &vftable_hkLargeBlockAllocator;
     ::HklargeblockallocatorListNodeView* sentinel = (::HklargeblockallocatorListNodeView*)&m_a4;
     ::HklargeblockallocatorListNodeView* node = ((::HklargeblockallocatorListNodeView*)&m_a4)->next;
     if (node != sentinel)
@@ -280,7 +280,7 @@ void hkLargeBlockAllocator::ProcessEntries_00dd7ec0()
             node = next;
         } while (node != sentinel);
     }
-    *(int**)this = &DAT_010d7c10;
+    *(int**)this = &vftable_hkFreeListAllocatorServer;
 }
 
 struct tchunk
@@ -1027,7 +1027,7 @@ void* hkLargeBlockAllocator::_allocLarge(unsigned int uiSize)
 
 inline hkLargeBlockAllocator::~hkLargeBlockAllocator()
 {
-    *(int**)this = &DAT_010d7c10;
+    *(int**)this = &vftable_hkFreeListAllocatorServer;
 }
 
 // Scalar deleting destructor entry: the shared destructor is nonvirtual.

@@ -173,7 +173,7 @@ void FUN_00dbda80_s::hkPackfileWriter_addImport(void* key, int value)
     firstDepth.hkMapBase_unsigned_long_unsigned_long_hkMapOperations_unsigned_long_insert(router2->m_heap, key, value);
 }
 
-extern int DAT_0102e388;
+extern int vftable_hkBaseObject;
 
 struct FUN_00dbdb10_buf
 {
@@ -223,7 +223,7 @@ void __cdecl chasePointers(void* apArg1, void* apArg2, void* apArg3)
     reinterpret_cast<FUN_00e02bb0_Obj*>(&buf.unk14)->hkPlatformObjectWriter_hkPlatformObjectWriter(&buf);
     reinterpret_cast<FUN_00e02ef0_Obj*>(&buf.unk04)->FUN_00e02ef0();
     reinterpret_cast<FUN_00e02a80_Obj*>(&buf.unk14)->hkPlatformObjectWriter_writeObject(&buf.unk04, apArg1, apArg2, apArg3);
-    buf.unk04 = (int)&DAT_0102e388;
+    buf.unk04 = (int)&vftable_hkBaseObject;
     reinterpret_cast<FUN_00e02c70_Obj*>(&buf.unk14)->FUN_00e02c70();
 }
 

@@ -44,7 +44,7 @@ struct S_00a370b0_Allocator
 };
 
 extern float DAT_0109696c;
-extern int DAT_0109697c;
+extern int vftable_NiBlendInterpolator;
 extern S_00a370b0_Allocator DAT_011f6238;
 
 struct BlendItem
@@ -81,7 +81,7 @@ S_00a370b0_Class* __thiscall S_00a370b0_Class::NiBlendInterpolator_NiBlendInterp
     m_fNextHighSumOfWeights = DAT_0109696c;
     m_cNextHighPriority = (char)0x80;
     m_fTrailingValue = DAT_0109696c;
-    unk00 = &DAT_0109697c;
+    unk00 = &vftable_NiBlendInterpolator;
     m_ucArraySize = arraySize;
     m_ucInterpCount = 0;
     m_ucSingleIdx = 0xff;

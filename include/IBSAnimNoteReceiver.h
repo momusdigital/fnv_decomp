@@ -7,5 +7,5 @@ public:
     virtual void vf01();
 
     void __thiscall SetVtableAndProcessState_004b0530();
-    void* FUN_004b0550(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 };

@@ -226,7 +226,7 @@ void FUN_00539f20_Class::BSShaderPPLightingProperty_StoreExtraDataPointers(void*
 }
 
 extern "C" void* __cdecl NiFreeAlias(void*);
-extern void* DAT_0102cfa0;
+extern void* vftable_NiTMapBase_0102cfa0;
 
 struct FUN_005278a0
 {
@@ -236,11 +236,11 @@ struct FUN_005278a0
     void DoIt();
 };
 
-// Sets the vtable to DAT_0102cfa0, clears the map via RemoveAll, then frees b with NiFreeAlias.
+// Sets the vtable to vftable_NiTMapBase_0102cfa0, clears the map via RemoveAll, then frees b with NiFreeAlias.
 // @fnv 0x005278a0
 void FUN_005278a0::DoIt()
 {
-    vtbl = &DAT_0102cfa0;
+    vtbl = &vftable_NiTMapBase_0102cfa0;
     ((NiTPointerMap<int, int>*)this)->RemoveAll();
     NiFreeAlias(b);
 }
@@ -487,7 +487,7 @@ void* __cdecl memset(void* dst, int value, unsigned int count);
 // @fnv 0x005277d0
 FUN_005277d0_Class* __thiscall FUN_005277d0_Class::InitBuffer(unsigned int size)
 {
-    vtbl = &DAT_0102cfa0;
+    vtbl = &vftable_NiTMapBase_0102cfa0;
     this->size = size;
     next = 0;
     unsigned int uiByteCount = this->size * 4;
@@ -589,7 +589,7 @@ unsigned char __thiscall FUN_00528b60_Class::LockedCall(void* a, void* b, unsign
     return r;
 }
 
-extern int DAT_0102d078;
+extern int vftable_LockFreeMap__LockFreeMapIterator_0102d078;
 struct FUN_00528c70_Class
 {
     void* vtbl;
@@ -602,7 +602,7 @@ struct FUN_00528c70_Class
 // @fnv 0x00528c70
 FUN_00528c70_Class::FUN_00528c70_Class()
 {
-    vtbl = &DAT_0102d078;
+    vtbl = &vftable_LockFreeMap__LockFreeMapIterator_0102d078;
     m_kPointA = 0;
     m_kPointB = 0;
     m_iThirdValue = 0;

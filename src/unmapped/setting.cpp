@@ -9,7 +9,7 @@
 #include "../../include/SettingCollectionMap.h"
 
 extern void __cdecl FUN_0044f700();
-extern void* DAT_0101772c;
+extern void* vftable_INISettingCollection;
 struct FUN_0044f600_class
 {
     void* vtbl;
@@ -20,7 +20,7 @@ struct FUN_0044f600_class
 void* __thiscall FUN_0044f600_class::InitializeVtbl()
 {
     FUN_0044f700();
-    vtbl = &DAT_0101772c;
+    vtbl = &vftable_INISettingCollection;
     return this;
 }
 

@@ -29,7 +29,7 @@ struct FUN_00c7fa70_Class
     void* __thiscall FUN_00c7fa70(int);
 };
 extern "C" void __cdecl FUN_0062d4b0();
-extern int DAT_01084e54;
+extern int vftable_bhkFilteredCdBodyCollector;
 struct FUN_00cb9900_cls
 {
     void __thiscall UpdateFields_00cb9900();
@@ -492,8 +492,8 @@ struct FUN_00c7d5c0_cls
 };
 extern unsigned int g_01268188;
 extern unsigned int g_012685f4;
-extern const char DAT_0108febc[];
-extern const char DAT_010c52bc[];
+extern const char vftable_bhkConstraint[];
+extern const char vftable_bhkStiffSpringConstraint[];
 struct BaseObject
 {
     const char* classTable;
@@ -506,7 +506,7 @@ struct MiddleObject : BaseObject
     unsigned int initialized0c;
     MiddleObject() : initialized0c(0)
     {
-        classTable = DAT_0108febc;
+        classTable = vftable_bhkConstraint;
         ++g_01268188;
     }
     ~MiddleObject();

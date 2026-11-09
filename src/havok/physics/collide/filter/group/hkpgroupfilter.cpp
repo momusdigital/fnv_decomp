@@ -50,11 +50,11 @@ inline hkpShapeType hkpShape::getType() const
     return reinterpret_cast<const hkpShapeType&>(m_type);
 }
 
-extern int DAT_0102e388;
-extern int DAT_010c3b80;
-extern int DAT_010c3b8c;
-extern int DAT_010c3b98;
-extern int DAT_010c3bac;
+extern int vftable_hkBaseObject;
+extern int vftable_hkpCollidableCollidableFilter;
+extern int vftable_hkpRayCollidableFilter;
+extern int vftable_hkpShapeCollectionFilter;
+extern int vftable_hkpRayShapeCollectionFilter;
 
 struct FUN_00e48a80_struct
 {
@@ -70,11 +70,11 @@ struct FUN_00e48a80_struct
 // @fnv 0x00e48a80
 void FUN_00e48a80_struct::InitGroupFilterPointers()
 {
-    p5 = &DAT_010c3b8c;
-    p4 = &DAT_010c3bac;
-    p3 = &DAT_010c3b98;
-    p2 = &DAT_010c3b80;
-    p0 = &DAT_0102e388;
+    p5 = &vftable_hkpRayCollidableFilter;
+    p4 = &vftable_hkpRayShapeCollectionFilter;
+    p3 = &vftable_hkpShapeCollectionFilter;
+    p2 = &vftable_hkpCollidableCollidableFilter;
+    p0 = &vftable_hkBaseObject;
 }
 
 // Local extension: the shared group header lacks ClearMaskedBits.

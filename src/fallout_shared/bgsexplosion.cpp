@@ -227,11 +227,12 @@ void _Deallocate(void*);
 struct ScalarHelper
 {
     void FUN_004fad20();
-    void* FUN_004facf0(unsigned int);
+    void* BGSExplosion_ScalarDeletingDestructor(unsigned int);
 };
 // Calls FUN_004fad20, then deallocates this if bit 0 of flags is set, and returns this.
 // @fnv 0x004facf0
-void* ScalarHelper::FUN_004facf0(unsigned int flags)
+// src: EXE 0x004facf0
+void* ScalarHelper::BGSExplosion_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_004fad20();
     if (flags & 1)

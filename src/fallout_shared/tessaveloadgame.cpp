@@ -113,7 +113,7 @@ public:
     void FUN_00c42dd0(unsigned int, const char*);
     BSTaskManagerThread(void*, unsigned int);
 };
-extern void* DAT_010c1740[];
+extern void* vftable_BSTaskManagerThread_010c1740[];
 extern const char DAT_010c1748[];
 
 // @fnv 0x008551f0
@@ -142,12 +142,12 @@ void TESSaveLoadGame::FinalizeForm(TESForm* form)
     if (m_kDeferredDeletionList.IsInList(form))
         m_kDeferredDeletionList.Remove(form);
 }
-// Initializes the task manager thread: calls FUN_00c42dd0 with arg and DAT_010c1748, then stores DAT_010c1740 in table and owner in manager.
+// Initializes the task manager thread: calls FUN_00c42dd0 with arg and DAT_010c1748, then stores vftable_BSTaskManagerThread_010c1740 in table and owner in manager.
 // @fnv 0x00c3ee70
 BSTaskManagerThread::BSTaskManagerThread(void* owner, unsigned int arg)
 {
     FUN_00c42dd0(arg, DAT_010c1748);
-    table = DAT_010c1740;
+    table = vftable_BSTaskManagerThread_010c1740;
     manager = owner;
 }
 
@@ -373,7 +373,8 @@ void _Deallocate(void* p);
 
 // Calls FUN_00855310, then frees this with _Deallocate when flags has bit 0 set, and returns this.
 // @fnv 0x008552e0
-void* InteriorCellNewReferencesMap::FUN_008552e0(unsigned int flags)
+// src: EXE 0x008552e0
+void* InteriorCellNewReferencesMap::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00855310();
     if (flags & 1)
@@ -507,7 +508,7 @@ struct ActorCombatGroup;
 template <class T> class NiTMallocInterface;
 #include "../../include/NiTMallocInterface.h"
 
-extern int DAT_01081f98;
+extern int vftable_NiTLargeArray_01081f98;
 
 struct FUN_00863d60_obj
 {
@@ -516,12 +517,12 @@ struct FUN_00863d60_obj
     void __thiscall ReleaseStorage_00863d60();
 };
 
-// Sets field0 to the address of DAT_01081f98, then deallocates field4 via NiTMallocInterface::Deallocate.
+// Sets field0 to the address of vftable_NiTLargeArray_01081f98, then deallocates field4 via NiTMallocInterface::Deallocate.
 // @fnv 0x00863d60
 // src: GUESS 0x00863d60 (confidence: medium)
 void __thiscall FUN_00863d60_obj::ReleaseStorage_00863d60()
 {
-    field0 = reinterpret_cast<int>(&DAT_01081f98);
+    field0 = reinterpret_cast<int>(&vftable_NiTLargeArray_01081f98);
     NiTMallocInterface<ActorCombatGroup*>::Deallocate(field4);
 }
 
@@ -684,36 +685,36 @@ int* __thiscall FUN_00862370_class::GetOrCreatePointer()
     return m_8c;
 }
 
-extern int DAT_01081e30;
+extern int vftable_NiTPointerMap_01081e30;
 struct FUN_00863360
 {
     void __thiscall FUN_008635d0(int);
     void* __thiscall InitializeFields_00863360(int);
 };
-// Calls FUN_008635d0 with a, stores the address of DAT_01081e30 at this, and returns this.
+// Calls FUN_008635d0 with a, stores the address of vftable_NiTPointerMap_01081e30 at this, and returns this.
 // @fnv 0x00863360
 // src: GUESS 0x00863360 (confidence: low)
 void* __thiscall FUN_00863360::InitializeFields_00863360(int a)
 {
     FUN_008635d0(a);
-    *reinterpret_cast<void**>(this) = &DAT_01081e30;
+    *reinterpret_cast<void**>(this) = &vftable_NiTPointerMap_01081e30;
     return this;
 }
 
-extern int DAT_01081e50;
+extern int vftable_NiTPointerMap_01081e50;
 struct FUN_00863390_class
 {
     int m;
     void __thiscall FUN_008636d0(int);
     int __thiscall NiTPointerMap_unsigned_int_BSSimpleList_unsigned_int_NiTPointerMap(int a);
 };
-// Calls FUN_008636d0 with a, stores the address of DAT_01081e50 in m, and returns this.
+// Calls FUN_008636d0 with a, stores the address of vftable_NiTPointerMap_01081e50 in m, and returns this.
 // @fnv 0x00863390
 // src: EXE 0x00863390
 int __thiscall FUN_00863390_class::NiTPointerMap_unsigned_int_BSSimpleList_unsigned_int_NiTPointerMap(int a)
 {
     FUN_008636d0(a);
-    m = (int)&DAT_01081e50;
+    m = (int)&vftable_NiTPointerMap_01081e50;
     return (int)this;
 }
 
@@ -724,19 +725,19 @@ struct FUN_008633f0_class
     void FUN_008638f0(void* a);
 };
 
-extern void* DAT_01081e90;
+extern void* vftable_NiTPointerMap_01081e90;
 
-// Calls FUN_008638f0 on a, sets p to the address of DAT_01081e90, and returns this.
+// Calls FUN_008638f0 on a, sets p to the address of vftable_NiTPointerMap_01081e90, and returns this.
 // @fnv 0x008633f0
 // src: EXE 0x008633f0
 void* FUN_008633f0_class::NiTPointerMap_unsigned_int_void_NiTPointerMap(void* apArg)
 {
     FUN_008638f0(apArg);
-    p = &DAT_01081e90;
+    p = &vftable_NiTPointerMap_01081e90;
     return this;
 }
 
-extern int DAT_01081eb0;
+extern int vftable_NiTPointerMap_01081eb0;
 
 struct FUN_00863420_class
 {
@@ -745,18 +746,18 @@ struct FUN_00863420_class
     FUN_00863420_class* NiTPointerMap_unsigned_char_BSSimpleList_LoadFormHeader_NiTPointerMap(int a);
 };
 
-// Calls FUN_008639f0 with a, sets vfn_0 to &DAT_01081eb0, and returns this.
+// Calls FUN_008639f0 with a, sets vfn_0 to &vftable_NiTPointerMap_01081eb0, and returns this.
 // @fnv 0x00863420
 // src: EXE 0x00863420
 FUN_00863420_class* FUN_00863420_class::NiTPointerMap_unsigned_char_BSSimpleList_LoadFormHeader_NiTPointerMap(int a)
 {
     FUN_008639f0(a);
-    vfn_0 = &DAT_01081eb0;
+    vfn_0 = &vftable_NiTPointerMap_01081eb0;
     return this;
 }
 
 extern "C" void __cdecl NiTMapBase_DFALL_NiTMapItem_unsigned_int_BSSimpleList_ExpiredCellData_unsigned_int_BSSimpleList_ExpiredCellData_NiTMapBase_DFALL_NiTMapItem_unsigned_int_BSSimpleList_ExpiredCellData_unsigned_int_BSSimpleList_ExpiredCellData(int);
-extern int DAT_01081ed0;
+extern int vftable_NiTMap_01081ed0;
 
 struct FUN_00863450_Class
 {
@@ -764,16 +765,16 @@ struct FUN_00863450_Class
     int __thiscall InitWithGlobal(int a);
 };
 
-// Calls FUN_00863e30 with a, stores the address of DAT_01081ed0 into this, and returns this.
+// Calls FUN_00863e30 with a, stores the address of vftable_NiTMap_01081ed0 into this, and returns this.
 // @fnv 0x00863450
 int __thiscall FUN_00863450_Class::InitWithGlobal(int a)
 {
     NiTMapBase_DFALL_NiTMapItem_unsigned_int_BSSimpleList_ExpiredCellData_unsigned_int_BSSimpleList_ExpiredCellData_NiTMapBase_DFALL_NiTMapItem_unsigned_int_BSSimpleList_ExpiredCellData_unsigned_int_BSSimpleList_ExpiredCellData(a);
-    *reinterpret_cast<int*>(this) = reinterpret_cast<int>(&DAT_01081ed0);
+    *reinterpret_cast<int*>(this) = reinterpret_cast<int>(&vftable_NiTMap_01081ed0);
     return reinterpret_cast<int>(this);
 }
 
-extern int DAT_01081ef8;
+extern int vftable_NiTMapBase_01081ef8;
 struct MyMap
 {
     void RemoveAll();
@@ -789,7 +790,7 @@ struct FUN_008636a0 : MyMap
 // @fnv 0x008636a0
 void FUN_008636a0::Init()
 {
-    vtbl = (int*)&DAT_01081ef8;
+    vtbl = (int*)&vftable_NiTMapBase_01081ef8;
     RemoveAll();
     _NiFreeAlias(alias);
 }
@@ -1015,23 +1016,23 @@ bool FUN_00858730_shell::TESSaveLoadGame_LoadForm(TESForm* apForm)
 }
 }  // namespace fnv_00858730
 
-extern int DAT_01081e70;
+extern int vftable_NiTPointerMap_01081e70;
 struct S8633
 {
     void FUN_008637d0(int);
     S8633* NiTPointerMap_unsigned_int_BSSimpleList_ExteriorCellReferenceData_NiTPointerMap(int);
 };
-// Calls FUN_008637d0 with a, sets the object's vtable pointer to DAT_01081e70, and returns this.
+// Calls FUN_008637d0 with a, sets the object's vtable pointer to vftable_NiTPointerMap_01081e70, and returns this.
 // @fnv 0x008633c0
 // src: EXE 0x008633c0
 S8633* S8633::NiTPointerMap_unsigned_int_BSSimpleList_ExteriorCellReferenceData_NiTPointerMap(int a)
 {
     FUN_008637d0(a);
-    *(void**)this = (void*)&DAT_01081e70;
+    *(void**)this = (void*)&vftable_NiTPointerMap_01081e70;
     return this;
 }
 
-extern int DAT_01081ef0;
+extern int vftable_NiTLargePrimitiveArray_01081ef0;
 struct BaseStub
 {
     void __thiscall FUN_00864160(unsigned int, unsigned int);
@@ -1044,7 +1045,7 @@ struct FUN_008635a0 : BaseStub
 FUN_008635a0::FUN_008635a0(unsigned int a, unsigned int b)
 {
     FUN_00864160(a, b);
-    *(void**)this = (void*)&DAT_01081ef0;
+    *(void**)this = (void*)&vftable_NiTLargePrimitiveArray_01081ef0;
 }
 
 namespace fnv_008637a0 {
@@ -1054,12 +1055,12 @@ struct MyMap
     void ReleaseStorage_008637a0();
 };
 void __cdecl _NiFree(void*);
-extern int DAT_01081f18;
+extern int vftable_NiTMapBase_01081f18;
 // @fnv 0x008637a0
 // src: GUESS 0x008637a0 (confidence: medium)
 void MyMap::ReleaseStorage_008637a0()
 {
-    *(void**)this = (void*)&DAT_01081f18;
+    *(void**)this = (void*)&vftable_NiTMapBase_01081f18;
     RemoveAll();
     _NiFree(*(void**)((char*)this + 8));
 }
@@ -1073,7 +1074,7 @@ struct MyMap
     void RemoveAll();
 };
 void _NiFree(void*);
-extern int DAT_01081f38;
+extern int vftable_NiTMapBase_01081f38;
 struct Holder : MyMap
 {
     void* m8;
@@ -1083,7 +1084,7 @@ struct Holder : MyMap
 // src: GUESS 0x008638c0 (confidence: medium)
 void Holder::ReleaseStorage_008638c0()
 {
-    *(int*)this = (int)&DAT_01081f38;
+    *(int*)this = (int)&vftable_NiTMapBase_01081f38;
     RemoveAll();
     _NiFree(m8);
 }
@@ -1410,7 +1411,7 @@ unsigned int FUN_00861cd0Class::GetArrayValueChecked(unsigned short index)
 
 void __cdecl memset(void*, int, unsigned int);
 void* __cdecl _NiMalloc(unsigned int);
-extern int DAT_01081ef8;
+extern int vftable_NiTMapBase_01081ef8;
 
 struct FUN_008635d0_t
 {
@@ -1425,7 +1426,7 @@ struct FUN_008635d0_t
 // @fnv 0x008635d0
 FUN_008635d0_t::FUN_008635d0_t(int iCount)
 {
-    m_pVTable = &DAT_01081ef8;
+    m_pVTable = &vftable_NiTMapBase_01081ef8;
     m_iArrayLength = iCount;
     m_iDummy = 0;
     unsigned int uiSize = m_iArrayLength * 4;
@@ -1456,7 +1457,7 @@ FUN_00863640::~FUN_00863640()
 }  // namespace fnv_00863640
 
 namespace fnv_008636d0 {
-extern int DAT_01081f18;
+extern int vftable_NiTMapBase_01081f18;
 void* __cdecl _NiMalloc(unsigned int);
 void* __cdecl memset(void*, int, unsigned int);
 
@@ -1473,7 +1474,7 @@ struct FUN_008636d0
 // @fnv 0x008636d0
 FUN_008636d0::FUN_008636d0(int aiCount)
 {
-    vtbl = &DAT_01081f18;
+    vtbl = &vftable_NiTMapBase_01081f18;
     count = aiCount;
     pad = 0;
     unsigned int size = count << 2;
@@ -1485,7 +1486,7 @@ FUN_008636d0::FUN_008636d0(int aiCount)
 namespace fnv_008637d0 {
 void* __cdecl _NiMalloc(unsigned int);
 void* __cdecl memset(void*, int, unsigned int);
-extern int DAT_01081f38;
+extern int vftable_NiTMapBase_01081f38;
 struct FUN_008637d0
 {
     void** vtbl;
@@ -1498,7 +1499,7 @@ struct FUN_008637d0
 // @fnv 0x008637d0
 FUN_008637d0::FUN_008637d0(unsigned int auiCount)
 {
-    vtbl = (void**)&DAT_01081f38;
+    vtbl = (void**)&vftable_NiTMapBase_01081f38;
     count = auiCount;
     m = 0;
     unsigned int uiSize = count << 2;
@@ -1508,7 +1509,7 @@ FUN_008637d0::FUN_008637d0(unsigned int auiCount)
 }  // namespace fnv_008637d0
 
 namespace fnv_00863860 {
-extern int DAT_01081e70;
+extern int vftable_NiTPointerMap_01081e70;
 struct MyMap
 {
     void RemoveAll();
@@ -1531,7 +1532,7 @@ FUN_00863860::~FUN_00863860()
 
 void* __cdecl _NiMalloc(unsigned int);
 void __cdecl memset(void*, int, unsigned int);
-extern int DAT_01081f58;
+extern int vftable_NiTMapBase_01081f58;
 
 struct FUN_008638f0
 {
@@ -1546,7 +1547,7 @@ struct FUN_008638f0
 // @fnv 0x008638f0
 FUN_008638f0::FUN_008638f0(unsigned int uiSize)
 {
-    m_pVTable = &DAT_01081f58;
+    m_pVTable = &vftable_NiTMapBase_01081f58;
     m_uiSize = uiSize;
     m_uiCount = 0;
     unsigned int uiBytes = m_uiSize * 4;
@@ -1557,7 +1558,7 @@ FUN_008638f0::FUN_008638f0(unsigned int uiSize)
 namespace fnv_008639f0 {
 void* __cdecl _NiMalloc(unsigned int);
 void* __cdecl memset(void*, int, unsigned int);
-extern int DAT_01081f78;
+extern int vftable_NiTMapBase_01081f78;
 struct FUN_008639f0
 {
     void* pVTable;
@@ -1571,7 +1572,7 @@ struct FUN_008639f0
 FUN_008639f0::FUN_008639f0(unsigned int count)
 {
     unsigned int uiSize;
-    pVTable = &DAT_01081f78;
+    pVTable = &vftable_NiTMapBase_01081f78;
     ItemUpdateArray = count;
     pElement0 = 0;
     uiSize = ItemUpdateArray * 4;
@@ -1631,7 +1632,8 @@ void _Deallocate(void*);
 
 
 // @fnv 0x00855410
-void* ExteriorCellNewReferencesMap::FUN_00855410(unsigned int flags)
+// src: EXE 0x00855410
+void* ExteriorCellNewReferencesMap::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00855440();
 
@@ -1647,7 +1649,8 @@ void __cdecl _Deallocate(void*);
 
 // Calls FUN_008555b0, then deallocates this when bit 0 of flags is set, and returns this.
 // @fnv 0x00855580
-void* NumericIDBufferMap::FUN_00855580(unsigned int flags)
+// src: EXE 0x00855580
+void* NumericIDBufferMap::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_008555b0();
 
@@ -3580,7 +3583,7 @@ struct SaveSetting
 {
     const char* String();
 };
-extern SaveSetting g_011c3f74;
+extern SaveSetting sLocalSavePath_General;
 const char* PrepareScriptMessage(const char*, bool);
 char* BSUtilities_GetPersonalPath();
 int strcpy_s(char*, unsigned int, const char*);
@@ -3618,13 +3621,13 @@ SaveFile* SaveOwner::OpenSaveFile(SaveFile* file, const char* name, unsigned int
             BuildSaveFilename(basename9);
         else
             strcpy_s(basename9, 260, name);
-        sprintf_s(pathX, 260, "%s%s%s.ess", BSUtilities_GetPersonalPath(), PrepareScriptMessage(g_011c3f74.String(), false),
+        sprintf_s(pathX, 260, "%s%s%s.ess", BSUtilities_GetPersonalPath(), PrepareScriptMessage(sLocalSavePath_General.String(), false),
                   basename9);
         if (mode == 0)
         {
             char directory6[260];
             strcpy_s(directory6, 260, BSUtilities_GetPersonalPath());
-            strcat_s(directory6, 260, PrepareScriptMessage(g_011c3f74.String(), false));
+            strcat_s(directory6, 260, PrepareScriptMessage(sLocalSavePath_General.String(), false));
             CreateDirectoryA(directory6, 0);
             int kBackupCount = 1;
             if (kBackupCount > 10)
@@ -3634,7 +3637,7 @@ SaveFile* SaveOwner::OpenSaveFile(SaveFile* file, const char* name, unsigned int
                 char destination3[260];
                 char source_[260];
                 strcpy_s(source_, 260, BSUtilities_GetPersonalPath());
-                strcat_s(source_, 260, PrepareScriptMessage(g_011c3f74.String(), false));
+                strcat_s(source_, 260, PrepareScriptMessage(sLocalSavePath_General.String(), false));
                 strcat_s(source_, 260, basename9);
                 for (int suffix = 0; suffix < backup; ++suffix)
                     strcat_s(source_, 260, ".bak");

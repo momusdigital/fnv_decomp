@@ -83,7 +83,7 @@ class LoadingFloatSetting : public SettingT_GameSettingCollection_
   public:
     float FUN_00450410();
 };
-extern LoadingFloatSetting g_011da158, g_011da190, g_011da1a0;
+extern LoadingFloatSetting fLoadingInitUpdateInterval_Loading, fMainMenuBkgdUpdateInterval_Loading, fLoadingBkgdUpdateInterval_Loading;
 extern bool DAT_011a0294;
 bool StartMenu_MainMenuIsActive();
 unsigned int gm_GetTickCount();
@@ -104,10 +104,10 @@ extern int DAT_011da170;
 extern SettingT_GameSettingCollection_ g_011d1f8c, g_011d40f0, g_011d2358;
 void LoadingMenu_FillDisplayData();
 
-extern SettingT_GameSettingCollection_ g_011ded5c;
+extern SettingT_GameSettingCollection_ sStartingCell_General;
 void BSSleep(unsigned long);
 
-extern SettingT_GameSettingCollection_ g_011da108, g_011da124, g_011da138;
+extern SettingT_GameSettingCollection_ iNumLocationSpecificScreens_Loading, g_011da124, iMaxScreens_Loading;
 class ParentSpaceNode;
 
 class ScriptVariableInfo;
@@ -214,11 +214,11 @@ void LoadingMenu::UpdateLoadingScreenTip()
 {
     float delay = 0.0f;
     if (StartMenu_MainMenuIsActive())
-        delay = g_011da190.FUN_00450410();
+        delay = fMainMenuBkgdUpdateInterval_Loading.FUN_00450410();
     else if (DAT_011a0294)
-        delay = g_011da158.FUN_00450410();
+        delay = fLoadingInitUpdateInterval_Loading.FUN_00450410();
     else
-        delay = g_011da1a0.FUN_00450410();
+        delay = fLoadingBkgdUpdateInterval_Loading.FUN_00450410();
     m_uiLoadScreenIndex = gm_GetTickCount() + (unsigned int)(delay * 1000.0);
 }
 
@@ -258,7 +258,7 @@ unsigned int LoadingMenuThread::ThreadProc()
         if (gm_GetTickCount() < interval)
             BSSleep(interval - gm_GetTickCount());
         if (m_bFirstThreadFlag &&
-            (!DAT_011a0294 || *reinterpret_cast<SettingT_GameSettingCollection_*>(&g_011ded5c)->String() ||
+            (!DAT_011a0294 || *reinterpret_cast<SettingT_GameSettingCollection_*>(&sStartingCell_General)->String() ||
              !reinterpret_cast<LoadingMenu*>(BSSystemUtility::s_iUpdateEnabled)->m_pTiles[0]->Tile3D_IsPlaying()))
         {
             m_kSecondSemaphore.Signal();
@@ -281,11 +281,11 @@ unsigned int LoadingMenuThread::ThreadProc()
 // @fnv 0x0078adc0
 void LoadingMenu::SelectLoadScreens(BSSimpleArray<TESLoadScreen*, 1024>& aLoadScreens)
 {
-    unsigned int count = *reinterpret_cast<unsigned int*>(reinterpret_cast<SettingT_GameSettingCollection_*>(&g_011da138)->Int());
+    unsigned int count = *reinterpret_cast<unsigned int*>(reinterpret_cast<SettingT_GameSettingCollection_*>(&iMaxScreens_Loading)->Int());
     if (GetFloat(5))
         count = *reinterpret_cast<unsigned int*>(reinterpret_cast<SettingT_GameSettingCollection_*>(&g_011da124)->Int());
     else if (pLocation && !TESLoadScreenFlags::GetUseLocationSpecificScreensOnly())
-        count = FUN_0042f5a0(count, *reinterpret_cast<unsigned int*>(reinterpret_cast<SettingT_GameSettingCollection_*>(&g_011da108)->Int()));
+        count = FUN_0042f5a0(count, *reinterpret_cast<unsigned int*>(reinterpret_cast<SettingT_GameSettingCollection_*>(&iNumLocationSpecificScreens_Loading)->Int()));
     unsigned int maximum = CountLoadingCandidates(reinterpret_cast<BSSimpleList<BGSMusicType::MusicTrack*>*>(&m_kLoadScreenItems));
     while (maximum < count && reinterpret_cast<BSSimpleArray<ParentSpaceNode, 1024>*>(&aLoadScreens)->GetSize())
     {
@@ -825,19 +825,19 @@ void LoadingMenu_FillDisplayData()
 
 class NavMeshInfo;
 namespace fnv_0078d880 {
-extern int DAT_0107410c;
+extern int vftable_BSSimpleArray_0107410c;
 
 // @fnv 0x0078d880
 // src: COMMUNITY 0x0078d880
 void* __fastcall BSSimpleArray_TESLoadScreen_1024_BSSimpleArray_TESLoadScreen_1024(void* pThis)
 {
-    *reinterpret_cast<int**>(pThis) = &DAT_0107410c;
+    *reinterpret_cast<int**>(pThis) = &vftable_BSSimpleArray_0107410c;
     reinterpret_cast<BSSimpleArray<NavMeshInfo*, 1024>*>(pThis)->BSSimpleArray_float_1024_InitialSetup(0, false);
     return pThis;
 }
 }  // namespace fnv_0078d880
 
-extern int DAT_0107410c;
+extern int vftable_BSSimpleArray_0107410c;
 
 class GlobalObject_00869f00
 {
@@ -849,7 +849,7 @@ class GlobalObject_00869f00
 // src: GUESS 0x0078d8b0 (confidence: low)
 void __fastcall LoadingMenu_UpdateState_0078d8b0(GlobalObject_00869f00* pThis)
 {
-    *(int**)pThis = &DAT_0107410c;
+    *(int**)pThis = &vftable_BSSimpleArray_0107410c;
     pThis->Clear(true);
 }
 
@@ -1181,7 +1181,7 @@ void LoadingMenu::InitLoadingMenu(TESForm* apLocation)
     LoadingMenu::UpdateLoadingMenuState();
 
     if ((DAT_011a0294 || !apLocation) && BSAudio::GetSingleton()->IsPatrolling() &&
-        !*((SettingT_GameSettingCollection_*)&g_011ded5c)->String())
+        !*((SettingT_GameSettingCollection_*)&sStartingCell_General)->String())
     {
         if (!BSAudio::GetSingleton()->TESRegionData_GetPriority())
         {
@@ -1331,8 +1331,8 @@ extern double DAT_0101db88;
 extern const double runtimeInitializationDouble5;
 extern double _gModifierZero;
 extern TES* g_TES;
-extern SettingT_GameSettingCollection_ g_011de740;
-extern SettingT_GameSettingCollection_ g_011da0f0;
+extern SettingT_GameSettingCollection_ sMainMenuMovieIntro_General;
+extern SettingT_GameSettingCollection_ sTitleMusic_Loading;
 void* memset(void*, int, unsigned int);
 int sprintf_s(char*, unsigned int, const char*, ...);
 unsigned int BSStringLength(const char*);
@@ -1423,12 +1423,12 @@ void LoadingMenu::Update_00789820()
     if (CurrTime - this->m_uiFirstStateValue < 3000)
     {
         if (DAT_011a0294 && !this->GetFloat(0) && !DAT_0126fac4->IsPlaying() &&
-            BSStringLength(((SettingT_GameSettingCollection_*)&g_011de740)->String()) && !DAT_011da0c9)
+            BSStringLength(((SettingT_GameSettingCollection_*)&sMainMenuMovieIntro_General)->String()) && !DAT_011da0c9)
         {
             char cfilename[64];
             memset(cfilename, 0, 64);
             sprintf_s(cfilename, 64, "Data\\Music\\Special\\%s.mp3",
-                      ((SettingT_GameSettingCollection_*)&g_011da0f0)->String());
+                      ((SettingT_GameSettingCollection_*)&sTitleMusic_Loading)->String());
             FalloutAudio_SetMainMenuMusic(true);
             FalloutAudioMedia::PlayMedia(MEDIATYPE_MEDIA_MAINMENU, cfilename, 0, true, true, 0.0f, 0);
             FalloutAudioMedia_MediaMenuUnPause();
@@ -1437,18 +1437,18 @@ void LoadingMenu::Update_00789820()
             this->m_pTiles[0]->GetModel_0056c7f0()->SetAppCulled(true);
             this->m_pTiles[32]->Set(0xfa9, 0.0f, true);
             this->m_pTiles[33]->Set(0xfa9, 255.0f, true);
-            DAT_0126fac4->StartPlayback(((SettingT_GameSettingCollection_*)&g_011de740)->String(), 0, -1, 0, 0, 0.0f);
+            DAT_0126fac4->StartPlayback(((SettingT_GameSettingCollection_*)&sMainMenuMovieIntro_General)->String(), 0, -1, 0, 0, 0.0f);
             DAT_011da0c9 = true;
             this->m_pTiles[11]->Set(0xfa3, 1);
             DAT_011a0295 = true;
         }
         else if (DAT_011a0294 && !this->GetFloat(0) && !DAT_0126fac4->IsPlaying() && !DAT_011da0c9 &&
-                 !BSStringLength(((SettingT_GameSettingCollection_*)&g_011de740)->String()))
+                 !BSStringLength(((SettingT_GameSettingCollection_*)&sMainMenuMovieIntro_General)->String()))
         {
             char cfilename[64];
             memset(cfilename, 0, 64);
             sprintf_s(cfilename, 64, "Data\\Music\\Special\\%s.mp3",
-                      ((SettingT_GameSettingCollection_*)&g_011da0f0)->String());
+                      ((SettingT_GameSettingCollection_*)&sTitleMusic_Loading)->String());
             FalloutAudio_SetMainMenuMusic(true);
             FalloutAudioMedia::PlayMedia(MEDIATYPE_MEDIA_MAINMENU, cfilename, 0, true, true, 0.0f, 0);
             FalloutAudioMedia_MediaMenuUnPause();
@@ -1744,11 +1744,12 @@ void _Deallocate(void*);
 struct S0078d3f0
 {
     void FUN_0078d420();
-    void* FUN_0078d3f0(unsigned int);
+    void* LoadingMenuThread_ScalarDeletingDestructor(unsigned int);
 };
 // Calls FUN_0078d420 on this, deallocates this when flags has bit 0 set, and returns this.
 // @fnv 0x0078d3f0
-void* S0078d3f0::FUN_0078d3f0(unsigned int flags)
+// src: EXE 0x0078d3f0
+void* S0078d3f0::LoadingMenuThread_ScalarDeletingDestructor(unsigned int flags)
 {
     this->FUN_0078d420();
     if (flags & 1)
@@ -1860,7 +1861,7 @@ LoadingMenu::~LoadingMenu()
     }
     DAT_011d8907 = false;
     ((fnv_007887a0::RendX*)fnv_007887a0::NiXenonRenderer_GetRenderer())->SetBackground(&m_kLoadingScreenColor);
-    if (StartMenu_MainMenuIsActive() || (DAT_011a0294 && *((SettingT_GameSettingCollection_*)&g_011ded5c)->String()))
+    if (StartMenu_MainMenuIsActive() || (DAT_011a0294 && *((SettingT_GameSettingCollection_*)&sStartingCell_General)->String()))
     {
         if (((PatrolActorPackageData*)BSAudio::GetSingleton())->IsPatrolling())
             fnv_007887a0::FalloutAudioMedia::FadeOutMedia(4000, (MEDIATYPE)0);
@@ -2230,7 +2231,7 @@ void LoadingMenu::UpdateLoadingScreens()
     if (DAT_011a0294 && !StartMenu_MainMenuIsActive())
     {
         int index = 0;
-        if (IsSpecial(((SettingT_GameSettingCollection_*)&g_011de740)->String()))
+        if (IsSpecial(((SettingT_GameSettingCollection_*)&sMainMenuMovieIntro_General)->String()))
             index = 3;
         for (; index < 5; NextScreen(&index, 0))
         {
@@ -2247,7 +2248,7 @@ void LoadingMenu::UpdateLoadingScreens()
         ScreenArray screenArray;
         Gather(screenArray);
         Build(screenArray);
-        if (pLocation && ((ScreenList*)&m_kLoadScreenItems)->Count() < *reinterpret_cast<unsigned int*>(((SettingT_GameSettingCollection_*)&g_011da138)->Int()) && !GetIsLocationSpecificLoadScreensOnly())
+        if (pLocation && ((ScreenList*)&m_kLoadScreenItems)->Count() < *reinterpret_cast<unsigned int*>(((SettingT_GameSettingCollection_*)&iMaxScreens_Loading)->Int()) && !GetIsLocationSpecificLoadScreensOnly())
         {
             pLocation = 0;
             Gather(screenArray);

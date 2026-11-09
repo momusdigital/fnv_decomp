@@ -25,7 +25,7 @@ int __cdecl Object_ComputeValue_00e049c0(int a, int b)
     return a < b ? a : b;
 }
 
-extern int DAT_0102e388;
+extern int vftable_hkBaseObject;
 struct Object {
     int* vtable;
     void SetVirtualTable_00e03160();
@@ -33,7 +33,7 @@ struct Object {
 // @fnv 0x00e03160
 // src: GUESS 0x00e03160 (confidence: low)
 void Object::SetVirtualTable_00e03160() {
-    vtable = &DAT_0102e388;
+    vtable = &vftable_hkBaseObject;
 }
 
 struct E04A00Allocator;

@@ -50,7 +50,8 @@ extern "C" void __cdecl ForwardCall_00439320();
 extern "C" void __cdecl __Dummy_00b6fef0(void*, unsigned int);
 
 // @fnv 0x004392f0
-void* NiAlphaProperty::FUN_004392f0(unsigned int flags)
+// src: EXE 0x004392f0
+void* NiAlphaProperty::ScalarDeletingDestructor(unsigned int flags)
 {
     this->NiAlphaProperty::ForwardCall_00439320();
     if (flags & 1)

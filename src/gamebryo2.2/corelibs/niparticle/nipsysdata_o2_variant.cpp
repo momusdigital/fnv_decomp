@@ -21,13 +21,13 @@ extern "C" void* fnv_zlib_memset(void* dst, int value, unsigned long size);
 // The default geometry constructor is not declared by the shared header.
 // Its no-argument thiscall ABI also accepts the object in ECX here.
 void __fastcall ConstructGeometryData(NiGeometryData* data);
-extern char* DAT_010a05e4;
+extern char* vftable_NiParticlesData;
 
 // @fnv 0x00a963f0
 NiParticlesData* __fastcall ConstructParticlesData(NiParticlesData* data)
 {
     ConstructGeometryData(data);
-    *(void**)data = (void*)&DAT_010a05e4;
+    *(void**)data = (void*)&vftable_NiParticlesData;
     data->m_pfRadii = 0;
     data->m_usActive = 0;
     data->m_pfSizes = 0;
@@ -75,7 +75,7 @@ const char* const* __cdecl NiPSysData_GetRTTI()
     return &g_01202680_arg1;
 }
 
-extern int DAT_010be254;
+extern int vftable_NiPSysData;
 void _NiFreeAlias(void*);
 void _delete(void*, unsigned int);
 // Destruction adapters avoid adding exception cleanup absent from the original
@@ -85,7 +85,7 @@ void __fastcall DestroyParticlesData(NiParticlesData* data);
 // @fnv 0x00c25280
 void* __fastcall DeleteParticleData(NiPSysData* data, void*, unsigned int flags)
 {
-    *(void**)data = (void*)&DAT_010be254;
+    *(void**)data = (void*)&vftable_NiPSysData;
     g_memoryManager.Deallocate(data->m_pkParticleInfo);
     _NiFreeAlias(data->m_pfRotationSpeeds);
     DestroyParticlesData(data);
@@ -97,7 +97,7 @@ void* __fastcall DeleteParticleData(NiPSysData* data, void*, unsigned int flags)
 // @fnv 0x00c24ef0
 void __fastcall DestroyParticleData(NiPSysData* data)
 {
-    *(void**)data = (void*)&DAT_010be254;
+    *(void**)data = (void*)&vftable_NiPSysData;
     g_memoryManager.Deallocate(data->m_pkParticleInfo);
     _NiFreeAlias(data->m_pfRotationSpeeds);
     DestroyParticlesData(data);
@@ -243,13 +243,13 @@ void NiPSysData::SaveBinary(NiStream& stream)
 //
 // The original code calls the immediate-base routine with `this` in ecx, then
 // clears the two integer members at +8 and +0xc, installs the class vtable
-// pointer (the extern data object DAT_010be45c) at +0 and stores 0.0f in the
+// pointer (the extern data object vftable_NiPSysUpdateTask) at +0 and stores 0.0f in the
 // float member at +0x10, finally returning the object itself.
 //
 // The volatile qualifiers only pin the order of the four member stores
 // (int +8, vtable, int +0xc, float +0x10); they do not change the semantics.
 
-extern int DAT_010be45c;
+extern int vftable_NiPSysUpdateTask;
 
 struct FUN_00c25850_cls
 {
@@ -269,7 +269,7 @@ FUN_00c25850_cls* FUN_00c25850_cls::NiPSysUpdateTask_NiPSysUpdateTask()
 {
     BaseCtor();
     m_iValue08 = 0;
-    m_pVTable = (void*)&DAT_010be45c;
+    m_pVTable = (void*)&vftable_NiPSysUpdateTask;
     m_iValue0c = 0;
     m_fValue10 = 0.0f;
     return this;
@@ -541,7 +541,7 @@ void NiPSysData::LoadBinary(NiStream& stream)
     }
 }
 
-extern int DAT_010be254;
+extern int vftable_NiPSysData;
 
 // @fnv 0x00c252d0
 NiPSysData* __fastcall CloneParticleData(NiPSysData* source, void*, CloningProcess& kCloning)

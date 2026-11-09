@@ -25,7 +25,8 @@ struct P03MM
 extern P03MM g_memoryManager;
 // Calls FUN_00aa4c80, then if bit 0 of flags is set deallocates this via g_memoryManager, and returns this.
 // @fnv 0x00aa4d00
-void* BSCoreMessage::FUN_00aa4d00(unsigned int flags)
+// src: EXE 0x00aa4d00
+void* BSCoreMessage::ScalarDeletingDestructor(unsigned int flags)
 {
     UpdateFields_00aa4c80();
     if (flags & 1)

@@ -16,7 +16,7 @@ NiRTTI* __cdecl NiSwitchStringExtraData_GetRTTI()
     return &g_011f5eac;
 }
 
-extern int DAT_0109ff64;
+extern int vftable_NiSwitchStringExtraData;
 
 // @fnv 0x00a93870
 // src: EXE 0x00a93870
@@ -27,7 +27,7 @@ void* __cdecl NiSwitchStringExtraData_CreateObject()
     {
         NiExtraData* pExtra = static_cast<NiExtraData*>(p);
         pExtra->FUN_00a7b2e0();
-        *reinterpret_cast<int**>(p) = &DAT_0109ff64;
+        *reinterpret_cast<int**>(p) = &vftable_NiSwitchStringExtraData;
         reinterpret_cast<int*>(p)[4] = 0;
         reinterpret_cast<int*>(p)[3] = 0;
         reinterpret_cast<int*>(p)[5] = -1;
@@ -51,7 +51,7 @@ struct FUN_00a93750_shell
 // src: GUESS 0x00a93750 (confidence: low)
 void FUN_00a93750_shell::ProcessEntries_00a93750()
 {
-    m_pData = &DAT_0109ff64;
+    m_pData = &vftable_NiSwitchStringExtraData;
     for (unsigned int i = 0; i < m_nCount; ++i)
         NiFreeAlias(m_pEntryData[i]);
     NiFreeAlias(m_pEntryData);
@@ -79,7 +79,7 @@ void* __thiscall NiSwitchStringExtraData::FUN_00a938b0(unsigned int flags)
 }
 
 void __cdecl ReleaseObjectArray(void*);
-extern int DAT_0109f9b4;
+extern int vftable_NiTArray_0109f9b4;
 struct MM
 {
     void __thiscall _DeallocateAlias(void*);
@@ -95,7 +95,7 @@ struct S_00a918e0
 void* __thiscall S_00a918e0::FUN_00a918e0(unsigned int auiFlags)
 {
     void* v = f4;
-    f0 = (void*)&DAT_0109f9b4;
+    f0 = (void*)&vftable_NiTArray_0109f9b4;
     ReleaseObjectArray(v);
     if (auiFlags & 1)
         g_memoryManager._DeallocateAlias(this);
@@ -366,7 +366,7 @@ void SwitchStringSaveState::SaveToStream(NiStream& kStream)
 }
 
 // Uses insights from unverified 2026-10-23 contributor attempt.
-extern int DAT_0109ff64;
+extern int vftable_NiSwitchStringExtraData;
 struct SSE_Node
 {
     // Initialize the shared base through its original helper, without calling its default constructor.
@@ -380,7 +380,7 @@ struct SSE_Node
     SSE_Node() throw()
     {
         reinterpret_cast<NiExtraData*>(this)->FUN_00a7b2e0();
-        *reinterpret_cast<void**>(this) = &DAT_0109ff64;
+        *reinterpret_cast<void**>(this) = &vftable_NiSwitchStringExtraData;
         unk10 = 0;
         unk0C = 0;
         unk14 = -1;

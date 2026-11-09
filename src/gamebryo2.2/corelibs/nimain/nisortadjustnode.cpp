@@ -8,7 +8,7 @@
 #include "../../../../include/NiStream.h"
 
 extern "C" void* g_011f5ed8;
-extern int DAT_010a0384;
+extern int vftable_NiSortAdjustNode;
 void __fastcall UpdateFields_00c5faa0(void*);
 void __cdecl __Dummy_00b6fef0(void*, unsigned int);
 void* __cdecl Object_DispatchCommandFour(unsigned int);
@@ -84,7 +84,7 @@ inline int& SortAdjustMode(NiSortAdjustNode* node)
 inline NiSortAdjustNode* ConstructSortAdjustNode(void* storage) throw()
 {
     ::new (storage) NiNode(0);
-    *(void**)storage = &DAT_010a0384;
+    *(void**)storage = &vftable_NiSortAdjustNode;
     NiSortAdjustNode* node = (NiSortAdjustNode*)storage;
     SortAdjustMode(node) = 0;
     return node;
@@ -104,7 +104,7 @@ void* __cdecl NiSortAdjustNode_GetRTTI()
 // @fnv 0x00a95320
 void* __thiscall NiSortAdjustNode::Destructor(unsigned int flags)
 {
-    *(void**)this = &DAT_010a0384;
+    *(void**)this = &vftable_NiSortAdjustNode;
     UpdateFields_00c5faa0(this);
     if (flags & 1)
         __Dummy_00b6fef0(this, 0xb0);
@@ -119,7 +119,7 @@ void* __cdecl NiSortAdjustNode_CreateObject()
     if (p)
     {
         ::new (p) NiNode(0);
-        *(void**)p = (void*)&DAT_010a0384;
+        *(void**)p = (void*)&vftable_NiSortAdjustNode;
         SortAdjustMode((NiSortAdjustNode*)p) = 0;
         return p;
     }

@@ -32,11 +32,11 @@ bool __cdecl CompareHelpers(Helper const* apLeft, Helper const* apRight)
 void __fastcall NiTexture_RemoveTextureFromList(void*);
 void __fastcall DestroyFogProperty(void*);
 void __cdecl _delete(void*, unsigned int);
-extern int DAT_0109b944;
+extern int vftable_NiTexture;
 // @fnv 0x00a60120
 void* NiTexture::Destroy(unsigned int flags)
 {
-    *(void**)this = (void*)&DAT_0109b944;
+    *(void**)this = (void*)&vftable_NiTexture;
     delete m_pkRendererData;
     NiTexture_RemoveTextureFromList(this);
     DestroyFogProperty(this);

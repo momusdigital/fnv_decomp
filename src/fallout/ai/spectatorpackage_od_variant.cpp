@@ -198,7 +198,7 @@ int __thiscall FUN_009f8ac0_class::BSSimpleArray_SpectatorThreatInfo_1024_CalcOf
     return a * 0x34 + *(int*)((char*)this + 4);
 }
 
-extern int DAT_01093980;
+extern int vftable_BSSimpleArray_01093980;
 struct FUN_009f8ae0Class
 {
     void* vtbl;
@@ -209,13 +209,13 @@ struct FUN_009f8ae0Class
 // src: EXE 0x009f8ae0
 void* FUN_009f8ae0Class::BSSimpleArray_SpectatorThreatInfo_1024_BSSimpleArray(int a, int b)
 {
-    vtbl = &DAT_01093980;
+    vtbl = &vftable_BSSimpleArray_01093980;
     BSSimpleArray_SpectatorThreatInfo_1024_Initialize(a, b);
     return this;
 }
 
 namespace fnv_009f8b10 {
-extern int DAT_01093980;
+extern int vftable_BSSimpleArray_01093980;
 // 0x01093980 is the threat-array vtable; 0x009f8d00 clears its 0x34-byte records.
 struct ThreatRecordArray
 {
@@ -226,7 +226,7 @@ struct ThreatRecordArray
 // src: GUESS 0x009f8b10 (confidence: low)
 void ThreatRecordArray::SetVtableAndProcessState_009f8b10()
 {
-    *reinterpret_cast<void**>(this) = &DAT_01093980;
+    *reinterpret_cast<void**>(this) = &vftable_BSSimpleArray_01093980;
     ReallocateStorage(1);
 }
 }  // namespace fnv_009f8b10

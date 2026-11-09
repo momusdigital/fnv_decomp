@@ -537,7 +537,7 @@ void ScreenSplatter_Update()
 // result of a global getter, stores the class vtable pointer, copies a
 // 16-byte value from the argument into the member at +0x0c and returns this.
 
-extern char DAT_01022a24[];
+extern char vftable_BSSplatterExtraData[];
 
 struct FUN_004e04e0_quad
 {
@@ -565,7 +565,7 @@ struct FUN_004e04e0_cls : FUN_004e04e0_base
 FUN_004e04e0_cls* FUN_004e04e0_cls::InitializeFields_004e04e0(const FUN_004e04e0_quad* pQuad)
 {
     FUN_00a7b440(BSSplatterExtraData_Tag());
-    m_pVTable = (void*)DAT_01022a24;
+    m_pVTable = (void*)vftable_BSSplatterExtraData;
     m_0c = *pQuad;
     return this;
 }

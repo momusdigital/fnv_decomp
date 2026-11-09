@@ -23,7 +23,7 @@ void __cdecl ReleaseObjectArray(void*);
 extern float DAT_01096548;
 extern double DAT_010231b0;
 extern unsigned char DAT_01096968;
-extern unsigned int DAT_01096688;
+extern unsigned int vftable_NiTObjectArray_01096688;
 void* __cdecl _NiMalloc_00aa1070(unsigned int);
 struct LegacyStream
 {
@@ -244,7 +244,7 @@ void NiControllerSequence::LinkObject(NiStream& stream)
             MakeRefs(controllers.capacity, controllers.data);
         else
             controllers.data = 0;
-        controllers.vtable = &DAT_01096688;
+        controllers.vtable = &vftable_NiTObjectArray_01096688;
         for (unsigned int i = 0; i < m_uiNumControlledBlocks; ++i)
         {
             {

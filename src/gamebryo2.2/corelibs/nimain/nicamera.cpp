@@ -202,7 +202,7 @@ const NiFrustum& NiCamera::GetViewFrustum() const
 }
 #pragma optimize("", on)
 
-extern int DAT_0109cb9c;
+extern int vftable_NiCamera;
 void __fastcall ReleaseStorage_00a5a390(void* pThis);
 
 #include "../../../../include/NiMemObject.h"
@@ -210,7 +210,7 @@ void __fastcall ReleaseStorage_00a5a390(void* pThis);
 // @fnv 0x00a70050
 void* __fastcall DestroyCamera(int* pThis, int, unsigned int flags)
 {
-    *pThis = (int)&DAT_0109cb9c;
+    *pThis = (int)&vftable_NiCamera;
     ReleaseStorage_00a5a390(pThis);
     if (flags & 1)
         NiMemObject::operator delete(pThis, 0x114);

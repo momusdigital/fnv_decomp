@@ -187,7 +187,7 @@ void ActorPackageContext::Revert(BGSLoadFormBuffer* buffer)
     Clear();
 }
 
-extern int DAT_01085864;
+extern int vftable_BSTCommonMessageQueue_01085864;
 struct FUN_008ca740_class
 {
     void __thiscall InitializeVtbl();
@@ -198,12 +198,12 @@ struct FUN_008ca740_class
 FUN_008ca740_class* __thiscall FUN_008ca740_class::InitializeFields_008ca740()
 {
     InitializeVtbl();
-    *reinterpret_cast<void**>(this) = &DAT_01085864;
+    *reinterpret_cast<void**>(this) = &vftable_BSTCommonMessageQueue_01085864;
     *reinterpret_cast<int*>(reinterpret_cast<char*>(this) + 4) = 0;
     return this;
 }
 
-extern int DAT_01085884;
+extern int vftable_BSTMessageQueue_01085884;
 
 struct FUN_008ca7a0_cls
 {
@@ -214,7 +214,7 @@ struct FUN_008ca7a0_cls
 // @fnv 0x008ca7a0
 void* __thiscall FUN_008ca7a0_cls::InitializeVtbl()
 {
-    vtbl = &DAT_01085884;
+    vtbl = &vftable_BSTMessageQueue_01085884;
     return this;
 }
 
@@ -541,7 +541,7 @@ void __thiscall FUN_008df1c0_Class::SetByteAtA1(int aiValue)
     ((unsigned char*)this)[0xa1] = (unsigned char)aiValue;
 }
 
-extern int DAT_0108583c;
+extern int vftable_BSTFreeList_0108583c;
 
 struct FUN_008ca800_Class
 {
@@ -551,12 +551,12 @@ struct FUN_008ca800_Class
     FUN_008ca800_Class* __thiscall BSTFreeList_MobileObjectMessage_BSTFreeList_MobileObjectMessage();
 };
 
-// Sets a to the address of DAT_0108583c and clears b and c, then returns this.
+// Sets a to the address of vftable_BSTFreeList_0108583c and clears b and c, then returns this.
 // @fnv 0x008ca800
 // src: COMMUNITY 0x008ca800
 FUN_008ca800_Class* __thiscall FUN_008ca800_Class::BSTFreeList_MobileObjectMessage_BSTFreeList_MobileObjectMessage()
 {
-    a = (int)&DAT_0108583c;
+    a = (int)&vftable_BSTFreeList_0108583c;
     b = 0;
     c = 0;
     return this;
@@ -731,8 +731,8 @@ struct B006815c0
     B006815c0();
 };
 
-extern int DAT_01085948;
-extern int DAT_01085954;
+extern int vftable_ArrowProjectile_for_TESChildCell;
+extern int vftable_ArrowProjectile;
 extern int DAT_011dfc98;
 struct FUN_008cab20 : BMobile_S
 {
@@ -742,8 +742,8 @@ struct FUN_008cab20 : BMobile_S
 // @fnv 0x008cab20
 FUN_008cab20::FUN_008cab20()
 {
-    *(void**)this = &DAT_01085954;
-    *(void**)((char*)this + 0x18) = &DAT_01085948;
+    *(void**)this = &vftable_ArrowProjectile;
+    *(void**)((char*)this + 0x18) = &vftable_ArrowProjectile_for_TESChildCell;
     ((B006815c0*)((char*)this + 0xb4))->B006815c0::B006815c0();
     reinterpret_cast<void (__thiscall*)(TESObjectREFR*, int)>(FUN_0046a010)((TESObjectREFR*)this, 1);
     *(HighProcess**)((char*)this + 0x68) = new HighProcess;
@@ -755,7 +755,7 @@ FUN_008cab20::FUN_008cab20()
     DAT_011dfc98++;
 }
 
-extern int DAT_01085e2c;
+extern int vftable_BaseProcess;
 void __cdecl InitializeFields_008c5e20();
 struct FUN_008d0270_Class
 {
@@ -778,7 +778,7 @@ struct FUN_008d0270_Class
 // src: EXE 0x008d0270
 FUN_008d0270_Class* __thiscall FUN_008d0270_Class::BaseProcess_BaseProcess()
 {
-    vtbl = &DAT_01085e2c;
+    vtbl = &vftable_BaseProcess;
     ((void(__thiscall*)(void*))InitializeFields_008c5e20)((char*)this + 4);
     m_2c = 0;
     return this;
@@ -802,18 +802,18 @@ FUN_008d1130_Class* __thiscall FUN_008d1130_Class::FUN_008d1130(unsigned int fla
 }
 
 extern "C" void __fastcall FUN_00a6d220(void*);
-extern int DAT_010867fc;
+extern int vftable_BSPlayerDistanceCheckController;
 struct FUN_008d15d0_Class
 {
     void* __thiscall BSPlayerDistanceCheckController_BSPlayerDistanceCheckController();
 };
-// Calls FUN_00a6d220 on this, sets the vtable to DAT_010867fc, zeroes the float at +0x34 and the int at +0x38, and returns this.
+// Calls FUN_00a6d220 on this, sets the vtable to vftable_BSPlayerDistanceCheckController, zeroes the float at +0x34 and the int at +0x38, and returns this.
 // @fnv 0x008d15d0
 // src: EXE 0x008d15d0
 void* __thiscall FUN_008d15d0_Class::BSPlayerDistanceCheckController_BSPlayerDistanceCheckController()
 {
     FUN_00a6d220(this);
-    *(int*)this = (int)&DAT_010867fc;
+    *(int*)this = (int)&vftable_BSPlayerDistanceCheckController;
     *(float*)((char*)this + 0x34) = 0.0f;
     *(int*)((char*)this + 0x38) = 0;
     return this;
@@ -829,12 +829,12 @@ struct SFTX
 {
     void SetFormType(int);
 };
-extern int DAT_0108695c;
-extern int DAT_010869a4;
-extern int DAT_010869d4;
-extern int DAT_01086a0c;
-extern int DAT_01086a60;
-extern int DAT_01086a6c;
+extern int vftable_Character_for_CachedValuesOwner;
+extern int vftable_Character_for_ActorValueOwner;
+extern int vftable_Character_for_MagicTarget;
+extern int vftable_Character_for_MagicCaster;
+extern int vftable_Character_for_TESChildCell;
+extern int vftable_Character;
 struct FUN_008d1d30 : FUN_0087d4a0
 {
     FUN_008d1d30();
@@ -842,12 +842,12 @@ struct FUN_008d1d30 : FUN_0087d4a0
 // @fnv 0x008d1d30
 FUN_008d1d30::FUN_008d1d30() : FUN_0087d4a0(true)
 {
-    *(int**)this = &DAT_01086a6c;
-    *(int**)(this + 0x18) = &DAT_01086a60;
-    *(int**)(this + 0x88) = &DAT_01086a0c;
-    *(int**)(this + 0x94) = &DAT_010869d4;
-    *(int**)(this + 0xa4) = &DAT_010869a4;
-    *(int**)(this + 0xa8) = &DAT_0108695c;
+    *(int**)this = &vftable_Character;
+    *(int**)(this + 0x18) = &vftable_Character_for_TESChildCell;
+    *(int**)(this + 0x88) = &vftable_Character_for_MagicCaster;
+    *(int**)(this + 0x94) = &vftable_Character_for_MagicTarget;
+    *(int**)(this + 0xa4) = &vftable_Character_for_ActorValueOwner;
+    *(int**)(this + 0xa8) = &vftable_Character_for_CachedValuesOwner;
     ((SFTX*)this)->SetFormType(0x3b);
     *(int*)(this + 0x1b4) = 0;
     FUN_008d4e80();
@@ -943,12 +943,13 @@ extern "C" void __cdecl _delete(void* p, unsigned int size);
 struct FUN_008df980_Class
 {
     void __thiscall FUN_008df9b0();
-    void* __thiscall FUN_008df980(unsigned int flags);
+    void* __thiscall ActorPathingMessageQueue_ScalarDeletingDestructor(unsigned int flags);
 };
 
 // Calls FUN_008df9b0, frees this with _delete when flags has bit 0 set, and returns this.
 // @fnv 0x008df980
-void* __thiscall FUN_008df980_Class::FUN_008df980(unsigned int flags)
+// src: EXE 0x008df980
+void* __thiscall FUN_008df980_Class::ActorPathingMessageQueue_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_008df9b0();
     if (flags & 1)
@@ -1056,9 +1057,9 @@ struct Call741e0
 {
     void FUN_00c741e0(int);
 };
-extern int DAT_01086658;
-extern int DAT_01086674;
-extern int DAT_01086684;
+extern int vftable_bhkCharacterListenerArrow_for_bhkCharacterListener;
+extern int vftable_bhkCharacterListenerArrow_for_hkpCharacterContext;
+extern int vftable_bhkCharacterListenerArrow;
 struct FUN_008d10e0_Class : Call741e0
 {
     void* bhkCharacterListenerArrow_bhkCharacterListenerArrow(int a, int b);
@@ -1068,9 +1069,9 @@ struct FUN_008d10e0_Class : Call741e0
 void* FUN_008d10e0_Class::bhkCharacterListenerArrow_bhkCharacterListenerArrow(int aiArg, int aiValue)
 {
     FUN_00c741e0(aiArg);
-    *reinterpret_cast<int**>(this) = &DAT_01086684;
-    *reinterpret_cast<int**>(reinterpret_cast<char*>(this) + 0x3e0) = &DAT_01086674;
-    *reinterpret_cast<int**>(reinterpret_cast<char*>(this) + 0x410) = &DAT_01086658;
+    *reinterpret_cast<int**>(this) = &vftable_bhkCharacterListenerArrow;
+    *reinterpret_cast<int**>(reinterpret_cast<char*>(this) + 0x3e0) = &vftable_bhkCharacterListenerArrow_for_hkpCharacterContext;
+    *reinterpret_cast<int**>(reinterpret_cast<char*>(this) + 0x410) = &vftable_bhkCharacterListenerArrow_for_bhkCharacterListener;
     *reinterpret_cast<int*>(reinterpret_cast<char*>(this) + 0x650) = aiValue;
     return this;
 }

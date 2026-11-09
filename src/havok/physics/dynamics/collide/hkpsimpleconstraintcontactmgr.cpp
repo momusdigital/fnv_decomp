@@ -116,14 +116,14 @@ struct FUN_00cfda50_class {
     void FUN_00cfda50();
 };
 
-extern int DAT_010cc984;
-extern int _DAT_0102e388;
+extern int vftable_hkpSimpleConstraintContactMgr;
+extern int vftable_hkBaseObject;
 
 void __cdecl hkpWorldOperationUtil_removeConstraintImmediately(void*, void*, int);
 
 // @fnv 0x00cfd720
 __declspec(noinline) void __fastcall DestroySimpleContactManager(hkpSimpleConstraintContactMgr* mgr) {
-    *(void**)mgr = (void*)&DAT_010cc984;
+    *(void**)mgr = (void*)&vftable_hkpSimpleConstraintContactMgr;
     if (mgr->m_kSimpleContactConstraintData.m_pAtom->m_usNumContactPoints != 0) {
         hkpWorldOperationUtil_removeConstraintImmediately(mgr->m_pOwningWorld, &mgr->m_pHavokConstraint, 1);
     }
@@ -132,7 +132,7 @@ __declspec(noinline) void __fastcall DestroySimpleContactManager(hkpSimpleConstr
     mgr->m_pHavokConstraint.m_data = 0;
     mgr->m_pHavokConstraint.hkpConstraintInstance::~hkpConstraintInstance();
     reinterpret_cast<FUN_00cfda50_class*>(&mgr->m_kSimpleContactConstraintData)->FUN_00cfda50();
-    *(void**)mgr = (void*)&_DAT_0102e388;
+    *(void**)mgr = (void*)&vftable_hkBaseObject;
 }
 
 struct FUN_00cfd7d0_class {
@@ -381,7 +381,7 @@ FUN_00cfd450::FUN_00cfd450(hkWorldCFD4* pkWorld)
     m_pOwningWorld = pkWorld;
 }
 
-extern int DAT_010cc984;
+extern int vftable_hkpSimpleConstraintContactMgr;
 
 struct ContactData;
 struct ContactCache
@@ -432,7 +432,7 @@ hkpSimpleConstraintContactMgr* __fastcall InitSimpleContactManager(hkpSimpleCons
 {
     *reinterpret_cast<unsigned short*>(reinterpret_cast<char*>(&mgr->unk04) + 2) = 1;
     mgr->unk08 = 0;
-    *reinterpret_cast<void**>(mgr) = &DAT_010cc984;
+    *reinterpret_cast<void**>(mgr) = &vftable_hkpSimpleConstraintContactMgr;
     reinterpret_cast<ContactCache*>(&mgr->m_kSimpleContactConstraintData)->FUN_00d92f20(reinterpret_cast<ContactData*>(&mgr->m_pHavokConstraint), second, third);
     reinterpret_cast<ContactData*>(&mgr->m_pHavokConstraint)->hkpConstraintInstance_hkpConstraintInstance(1);
 

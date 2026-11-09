@@ -913,7 +913,7 @@ struct FUN_0044d6f0_This
     void __thiscall FUN_00ec79a1();
 };
 
-extern int DAT_010a307c;
+extern int vftable_std__runtime_error;
 
 struct FUN_00b09780_class : FUN_0044d6f0_This
 {
@@ -928,12 +928,12 @@ void FUN_00b09780_class::UpdateFields_00b09780()
 {
     char local[16];
 
-    m_iWordAt00 = &DAT_010a307c;
+    m_iWordAt00 = &vftable_std__runtime_error;
     m_iThirdValue._Tidy(true, 0);
     FUN_0044d6f0_This::FUN_00ec79a1();
 }
 
-extern int DAT_010a51e0;
+extern int vftable_IdvFileError;
 
 struct FUN_00b097b0_class
 {
@@ -943,14 +943,14 @@ struct FUN_00b097b0_class
     int* IdvFileError_IdvFileError(int a);
 };
 
-// Calls FUN_00aca270 with a, sets m_p to the address of DAT_010a51e0, and returns this as an int pointer.
+// Calls FUN_00aca270 with a, sets m_p to the address of vftable_IdvFileError, and returns this as an int pointer.
 // @fnv 0x00b097b0
 // src: EXE 0x00b097b0
 int* FUN_00b097b0_class::IdvFileError_IdvFileError(int a)
 {
     char pad[0x58];
     FUN_00aca270(a);
-    m_p = &DAT_010a51e0;
+    m_p = &vftable_IdvFileError;
     return (int*)this;
 }
 
@@ -1864,7 +1864,7 @@ void FUN_00b08750_class::UpdateState_00b08750()
 }
 
 extern unsigned int DAT_010173f0;
-extern int DAT_010a307c;
+extern int vftable_std__runtime_error;
 
 struct FUN_00ec78e0
 {
@@ -1920,7 +1920,7 @@ FUN_00b096a0::FUN_00b096a0(const FUN_00b096a0_Str& pName)
     int v24;
     int v25;
 
-    *(void**)this = (void*)&DAT_010a307c;
+    *(void**)this = (void*)&vftable_std__runtime_error;
 
     {
         FUN_00b096a0_Str& s = m_str;
@@ -1953,7 +1953,7 @@ void* __thiscall FUN_00b09730_Class::FUN_00b09730(unsigned int flags)
 {
     FUN_00b09730_Local local;
 
-    *(void**)this = &DAT_010a307c;
+    *(void**)this = &vftable_std__runtime_error;
     m_iThirdValue._Tidy(true, 0);
     FUN_0044d6f0_This::FUN_00ec79a1();
 

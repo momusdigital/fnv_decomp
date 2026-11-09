@@ -72,7 +72,7 @@ int __fastcall Object_HasEqualFloatComponents(const float* pThis, int, const flo
 }
 
 void __cdecl FUN_00a57010();
-extern void* _DAT_01097054;
+extern void* vftable_NiKeyBasedInterpolator;
 
 struct FUN_00a3ca30_shell
 {
@@ -84,7 +84,7 @@ struct FUN_00a3ca30_shell
 // src: GUESS 0x00a3ca30 (confidence: low)
 void FUN_00a3ca30_shell::UpdateState_00a3ca30()
 {
-    m = &_DAT_01097054;
+    m = &vftable_NiKeyBasedInterpolator;
     FUN_00a57010();
 }
 

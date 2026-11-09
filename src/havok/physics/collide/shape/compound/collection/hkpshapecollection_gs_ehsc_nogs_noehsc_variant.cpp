@@ -36,8 +36,8 @@ struct MemorySystem
     unsigned int field0c;
     Allocator* allocator;
 };
-extern char DAT_010c6fb0;
-extern char DAT_0102e388;
+extern char vftable_hkpShapeContainer;
+extern char vftable_hkBaseObject;
 struct Holder
 {
     void* vtable;

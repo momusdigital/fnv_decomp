@@ -71,8 +71,8 @@ void __cdecl hkMemoryRouter_getInstance()
     free((void*)DAT_01268108);
 }
 
-extern char _DAT_010c9314;
-extern char _DAT_0102e388;
+extern char vftable_hkOstream;
+extern char vftable_hkBaseObject;
 struct Old
 {
     void ReleaseReference();
@@ -87,10 +87,10 @@ struct FUN_00cc00e0
 // @fnv 0x00cc00e0
 FUN_00cc00e0::~FUN_00cc00e0()
 {
-    vtbl = (void*)&_DAT_010c9314;
+    vtbl = (void*)&vftable_hkOstream;
     if (m_pStreamWriter)
         m_pStreamWriter->ReleaseReference();
-    vtbl = (void*)&_DAT_0102e388;
+    vtbl = (void*)&vftable_hkBaseObject;
 }
 
 

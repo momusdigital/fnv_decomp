@@ -153,7 +153,7 @@ FOHUDEffectManager::FOHUDEffectManager() : spEffect(0)
     bShudderActive = false;
     kShudderOffset = DAT_011f4980;
     bFlag54 = false;
-    fScanlineFrequency = ((SettingT_GameSettingCollection_&)g_011db25c).Float()->f;
-    fBlurIntensity = ((SettingT_GameSettingCollection_&)g_011db238).Float()->f;
-    fBlurRadius = ((SettingT_GameSettingCollection_&)g_011db200).Float()->f;
+    fScanlineFrequency = ((SettingT_GameSettingCollection_&)fScanlineFrequencyHUD_InterfaceFX).Float()->f;
+    fBlurIntensity = ((SettingT_GameSettingCollection_&)fBlurIntensityHUD_InterfaceFX).Float()->f;
+    fBlurRadius = ((SettingT_GameSettingCollection_&)fBlurRadiusHUD_InterfaceFX).Float()->f;
 }

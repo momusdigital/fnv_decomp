@@ -106,7 +106,7 @@ void FUN_00aa1010_s::ResizeAndCopy(unsigned int uiNewSize, const void* pData)
 void __cdecl FUN_00aa1d10();
 void _FUN_00aa2e60();
 void _FUN_00aa2ea0();
-extern int DAT_010a256c;
+extern int vftable_NiMemStream;
 
 struct FUN_00aa2ff0_s
 {
@@ -128,7 +128,7 @@ struct FUN_00aa2ff0_s
 FUN_00aa2ff0_s* FUN_00aa2ff0_s::NiMemStream_NiMemStream()
 {
     FUN_00aa1d10();
-    m_pVtable = &DAT_010a256c;
+    m_pVtable = &vftable_NiMemStream;
     m_uiSize = 0x400;
     m_pData = _NiMalloc(0x400);
     m_uiCount = 0;
@@ -140,13 +140,13 @@ FUN_00aa2ff0_s* FUN_00aa2ff0_s::NiMemStream_NiMemStream()
     return this;
 }
 
-extern char DAT_010a2138;
+extern char vftable_NiTFixedStringMapBase_010a2138;
 extern MemoryManager _g_memoryManager;
 
 // @fnv 0x00aa02b0
 void* NiTFixedStringMap_NiAVObject___::Destroy(int flags)
 {
-    m_baseData0 = &DAT_010a2138;
+    m_baseData0 = &vftable_NiTFixedStringMapBase_010a2138;
     RemoveAll();
     _NiFree(*(void**)((char*)this + 0x08));
     if (flags & 1)
@@ -161,17 +161,17 @@ struct FUN_00aa02f0_s : public NiTFixedStringMap_NiAVObject___
     void* FUN_00aa02f0(unsigned char bDelete);
 };
 
-extern void* DAT_010a2138;
-extern void* DAT_010a2154;
+extern void* vftable_NiTFixedStringMapBase_010a2138;
+extern void* vftable_NiTFixedStringMap_010a2154;
 extern MemoryManager _g_memoryManager;
 
 // @fnv 0x00aa02f0
 void* FUN_00aa02f0_s::FUN_00aa02f0(unsigned char bDelete)
 {
-    m_baseData0 = &DAT_010a2154;
+    m_baseData0 = &vftable_NiTFixedStringMap_010a2154;
     RemoveAll();
 
-    m_baseData0 = &DAT_010a2138;
+    m_baseData0 = &vftable_NiTFixedStringMapBase_010a2138;
     RemoveAll();
 
     _NiFree(m_pData);
@@ -335,7 +335,7 @@ void __cdecl NiFile_WriteNoSwap(void* object, void* buffer, unsigned int size)
 // vtable pointer; the constructor installs the vtable and clears the three
 // trailing dword members (stored in the order +8, +0xc, +4).
 
-extern int DAT_010a24b8;
+extern int vftable_NiBinaryStream;
 
 struct FUN_00aa1d10_cls
 {
@@ -350,13 +350,13 @@ struct FUN_00aa1d10_cls
 // @fnv 0x00aa1d10
 FUN_00aa1d10_cls::FUN_00aa1d10_cls()
 {
-    m_pVTable = (void*)&DAT_010a24b8;
+    m_pVTable = (void*)&vftable_NiBinaryStream;
     m_iValue08 = 0;
     m_iValue0c = 0;
     m_iValue04 = 0;
 }
 
-extern int DAT_010a24b8;
+extern int vftable_NiBinaryStream;
 
 struct FUN_00aa1d30_cls
 {
@@ -369,7 +369,7 @@ struct FUN_00aa1d30_cls
 // src: GUESS 0x00aa1d30 (confidence: low)
 void FUN_00aa1d30_cls::SetVptr00()
 {
-    m_vptr00 = (int)&DAT_010a24b8;
+    m_vptr00 = (int)&vftable_NiBinaryStream;
 }
 
 class FUN_00aa1fd0_cls
@@ -567,7 +567,7 @@ struct FUN_00aa2230_BSNiAllocator
 FUN_00aa2230_BSNiAllocator::FUN_00aa2230_BSNiAllocator()
 {}
 
-extern char DAT_010a2554[];
+extern char vftable_NiSearchPath[];
 
 struct FUN_00aa24d0
 {
@@ -649,14 +649,14 @@ struct FUN_00aa24d0
 // @fnv 0x00aa24d0
 FUN_00aa24d0::FUN_00aa24d0()
 {
-    unk00 = DAT_010a2554;
+    unk00 = vftable_NiSearchPath;
     unk04 = 0;
     unk08 = 0;
     unk10c = 0;
 }
 
 namespace fnv_00aa24f0 {
-extern int DAT_010a2554;
+extern int vftable_NiSearchPath;
 
 struct FUN_00aa24f0_cls
 {
@@ -669,7 +669,7 @@ struct FUN_00aa24f0_cls
 // src: GUESS 0x00aa24f0 (confidence: low)
 void FUN_00aa24f0_cls::SetVptr00()
 {
-    m_vptr00 = (int)&DAT_010a2554;
+    m_vptr00 = (int)&vftable_NiSearchPath;
 }
 }  // namespace fnv_00aa24f0
 
@@ -931,7 +931,7 @@ void __cdecl NormalizePathSeparators(char* pcPath)
     pcPath[uiDest] = 0;
 }
 
-extern char DAT_010a2490[];
+extern char vftable_NiFile[];
 
 struct FUN_00aa14b0_Obj
 {
@@ -958,7 +958,7 @@ unsigned int* FUN_00aa14b0_Obj::Reset()
     unk20 = 0;
     unk24 = 0;
     unk1C = 0;
-    m_pVtable = DAT_010a2490;
+    m_pVtable = vftable_NiFile;
 
     return reinterpret_cast<unsigned int*>(this);
 }

@@ -31,10 +31,10 @@ bool __thiscall BSAnimNote::vf35(const TimedTextEntry* apTextKey)
     return true;
 }
 
-extern int DAT_01097dd4;
+extern int vftable_BSAnimNotes;
 inline void* operator new(unsigned int, void* storage) { return storage; }
 
-// Allocates a 0x10-byte BSFadeNode, calls Init on it, sets its vtable to DAT_01097dd4, and returns the pointer or 0.
+// Allocates a 0x10-byte BSFadeNode, calls Init on it, sets its vtable to vftable_BSAnimNotes, and returns the pointer or 0.
 // @fnv 0x00a44940
 // src: EXE 0x00a44940
 void* __cdecl BSAnimNotes_CreateObject()
@@ -43,7 +43,7 @@ void* __cdecl BSAnimNotes_CreateObject()
     if (p)
     {
         ::new (p) NiObject;
-        *(void**)(p) = &DAT_01097dd4;
+        *(void**)(p) = &vftable_BSAnimNotes;
         return p;
     }
     return 0;
@@ -84,7 +84,7 @@ extern MemoryManager g_memoryManager;
 // @fnv 0x00a44970
 void BSAnimNotes::Destroy()
 {
-    *(void**)this = (void*)&DAT_01097dd4;
+    *(void**)this = (void*)&vftable_BSAnimNotes;
     for (unsigned int i = 0; i < m_usNumAnimNotes; ++i)
     {
         NiRefObject* p = m_ppNotes[i];

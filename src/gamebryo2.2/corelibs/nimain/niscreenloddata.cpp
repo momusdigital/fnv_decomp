@@ -87,7 +87,7 @@ int FUN_00a95c80_shell::ClampToLODCount(int aiIndex)
     return aiIndex < n ? aiIndex : n;
 }
 
-extern int DAT_010a051c;
+extern int vftable_NiScreenLODData;
 void _NiFreeAlias(void*);
 void _delete(void*, unsigned int);
 struct Holder
@@ -105,7 +105,7 @@ struct Fake
 // @fnv 0x00a95d20
 void* Fake::Destroy(unsigned int auiFlags)
 {
-    vtable = (void*)&DAT_010a051c;
+    vtable = (void*)&vftable_NiScreenLODData;
     _NiFreeAlias(prop);
     ((Holder*)this)->FUN_00aa09c0();
     if (auiFlags & 1)
@@ -515,7 +515,7 @@ bool FUN_00a96130_cls::Equals(FUN_00a96130_cls* other)
 }
 
 namespace fnv_00a95cc0 {
-extern int DAT_010a051c;
+extern int vftable_NiScreenLODData;
 extern int DAT_011f426c;
 extern int DAT_011f4270;
 extern int DAT_011f4274;
@@ -554,7 +554,7 @@ FUN_00a95cc0_shell* FUN_00a95cc0_shell::InitializeScreenLODData()
 
     q->FUN_00aa09a0();
 
-    p->unk00 = reinterpret_cast<void*>(&DAT_010a051c);
+    p->unk00 = reinterpret_cast<void*>(&vftable_NiScreenLODData);
     p->unk08 = DAT_011f426c;
     p->unk0c = DAT_011f4270;
     p->unk10 = DAT_011f4274;

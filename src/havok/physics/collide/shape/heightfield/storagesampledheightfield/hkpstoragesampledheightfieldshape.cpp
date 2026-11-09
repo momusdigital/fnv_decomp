@@ -21,7 +21,7 @@ int __stdcall hkpCompressedSampledHeightFieldShape_calcSizeForSpu(int unused, in
 }
 
 extern "C" void __cdecl Deallocate(void*);
-extern int DAT_010cfb34;
+extern int vftable_hkpStorageSampledHeightFieldShape;
 
 struct FUN_00d496d0
 {
@@ -33,7 +33,7 @@ struct FUN_00d496d0
 // @fnv 0x00d496d0
 FUN_00d496d0::~FUN_00d496d0()
 {
-    *(void**)this = &DAT_010cfb34;
+    *(void**)this = &vftable_hkpStorageSampledHeightFieldShape;
     if (*(char*)((char*)this + 0x70))
         Deallocate(*(void**)((char*)this + 0x60));
     SetVirtualTable_00d24660();
@@ -333,7 +333,7 @@ void HfShape_d49850::Collide(const HfInput_d49850& input, HfVec_d49850* outputAr
     HfCollide_d49850(*this, input, outputArray);
 }
 
-extern int DAT_010cfb34;
+extern int vftable_hkpStorageSampledHeightFieldShape;
 
 struct HeightFieldSource;
 struct HeightFieldVtable
@@ -403,7 +403,7 @@ FUN_00d49750::FUN_00d49750(HeightFieldSource* source) : m_sReferenceCount(1)
 {
     m_ulUserData = 0;
     m_type = 13;
-    vtable = &DAT_010cfb34;
+    vtable = &vftable_hkpStorageSampledHeightFieldShape;
     m_ucHeightFieldType = 0;
     m_iXResolution = source->m_iXResolution;
     m_iZResolution = source->m_iZResolution;

@@ -20,13 +20,13 @@ void TESObjectCONT::ResetFormData()
 TESObjectCONT::TESObjectCONT()
 {
     *reinterpret_cast<void**>(this) = &kVtbl_TESObjectCONT;
-    *reinterpret_cast<void**>(reinterpret_cast<unsigned char*>(this) + 0x30) = &DAT_0102ae9c;
-    *reinterpret_cast<void**>(reinterpret_cast<unsigned char*>(this) + 0x3C) = &DAT_0102ae88;
-    *reinterpret_cast<void**>(reinterpret_cast<unsigned char*>(this) + 0x48) = &DAT_0102ae64;
-    *reinterpret_cast<void**>(reinterpret_cast<unsigned char*>(this) + 0x68) = &DAT_0102ae50;
-    *reinterpret_cast<void**>(reinterpret_cast<unsigned char*>(this) + 0x74) = &DAT_0102ae3c;
-    *reinterpret_cast<void**>(reinterpret_cast<unsigned char*>(this) + 0x7C) = &DAT_0102ae28;
-    *reinterpret_cast<void**>(reinterpret_cast<unsigned char*>(this) + 0x84) = &DAT_0102ae18;
+    *reinterpret_cast<void**>(reinterpret_cast<unsigned char*>(this) + 0x30) = &vftable_TESObjectCONT_for_TESContainer;
+    *reinterpret_cast<void**>(reinterpret_cast<unsigned char*>(this) + 0x3C) = &vftable_TESObjectCONT_for_TESFullName;
+    *reinterpret_cast<void**>(reinterpret_cast<unsigned char*>(this) + 0x48) = &vftable_TESObjectCONT_for_TESModelTextureSwap;
+    *reinterpret_cast<void**>(reinterpret_cast<unsigned char*>(this) + 0x68) = &vftable_TESObjectCONT_for_TESScriptableForm;
+    *reinterpret_cast<void**>(reinterpret_cast<unsigned char*>(this) + 0x74) = &vftable_TESObjectCONT_for_TESWeightForm;
+    *reinterpret_cast<void**>(reinterpret_cast<unsigned char*>(this) + 0x7C) = &vftable_TESObjectCONT_for_BGSDestructibleObjectForm;
+    *reinterpret_cast<void**>(reinterpret_cast<unsigned char*>(this) + 0x84) = &vftable_TESObjectCONT_for_BGSOpenCloseForm;
     SetFormType((ENUM_FORM_ID)0x1B);
     ResetFormData();
 }

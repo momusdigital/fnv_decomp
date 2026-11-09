@@ -24,8 +24,8 @@ bool FUN_00d2bf00_class::Seek(long offset, int whence)
     return _fseek(m8, offset, whence) != 0;
 }
 
-extern int DAT_010ce6f4;
-extern int DAT_0102e388;
+extern int vftable_hkStdioStreamWriter;
+extern int vftable_hkBaseObject;
 
 struct FUN_00d2bfb0_class
 {
@@ -38,9 +38,9 @@ struct FUN_00d2bfb0_class
 // src: XBOX_PDB 0x00d2bfb0
 void __thiscall FUN_00d2bfb0_class::fclose_00d2bfb0()
 {
-    vtbl = &DAT_010ce6f4;
+    vtbl = &vftable_hkStdioStreamWriter;
     FUN_00d2be50();
-    vtbl = &DAT_0102e388;
+    vtbl = &vftable_hkBaseObject;
 }
 
 void __cdecl FUN_00ecda70(void*);
@@ -67,22 +67,22 @@ long FUN_00d2bf20_class::hkStdioStreamWriter_tell()
     return _ftell(m8);
 }
 
-struct FUN_00d2bf30
+struct hkStdioStreamWriter
 {
     int* vtable;
     unsigned short unk04;
     unsigned short unk06;
     void* m8;
     unsigned char unk0c;
-    FUN_00d2bf30(int mode);
+    hkStdioStreamWriter(int mode);
 };
 extern void* __cdecl FUN_00ecdf44();
 // Sets the vtable and flags, then stores a pointer into the block returned by FUN_00ecdf44, offset by 0x40 when mode is 2 and 0x20 otherwise.
 // @fnv 0x00d2bf30
-FUN_00d2bf30::FUN_00d2bf30(int mode)
+hkStdioStreamWriter::hkStdioStreamWriter(int mode)
 {
     unk06 = 1;
-    vtable = &DAT_010ce6f4;
+    vtable = &vftable_hkStdioStreamWriter;
     unk0c = 0;
     char* base = static_cast<char*>(FUN_00ecdf44());
     if (mode == 2)
@@ -116,7 +116,7 @@ struct Candidate : FUN_00d2be30
 void* Candidate::OpenFile(const char* fileName)
 {
     flags = 1;
-    vtable = &DAT_010ce6f4;
+    vtable = &vftable_hkStdioStreamWriter;
     file = 0;
     opened = 1;
     if (fileName != 0)

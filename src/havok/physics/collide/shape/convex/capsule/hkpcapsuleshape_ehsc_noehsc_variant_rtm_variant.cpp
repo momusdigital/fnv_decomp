@@ -65,7 +65,7 @@ struct FUN_00d224a0_Data {
 
     void __thiscall FUN_00d224a0(LocalM128* result);
 };
-extern int DAT_010ce25c;
+extern int vftable_hkpCapsuleShape;
 union __declspec(align(16)) AlignedHKVector4 { LocalM128 simd; struct {float x,y,z,w;}; };
 struct FUN_00d22590_Class : hkpCapsuleShape {
     FUN_00d22590_Class* __thiscall FUN_00d22590(

@@ -1,4 +1,4 @@
-extern "C" void* const DAT_010ce81c[];
+extern "C" void* const vftable_hkpSymmetricAgentFlipBodyCollector[];
 
 #define FNV64_HKVECTOR4_OWN_ADD4_consthkVector4   // this unit keeps the out-of-line hkVector4 form
 #define FNV64_HKVECTOR4_OWN_ADDMUL4_consthkVector4_consthkVector4   // this unit keeps the out-of-line hkVector4 form
@@ -94,7 +94,7 @@ void __cdecl Object_UpdateFields_00d38ac0(void* first, void* second, void* third
     D38AC0Data data;
     data.unk08 = fourth;
     data.unk04 = 0;
-    data.unk00 = (int)DAT_010ce81c;
+    data.unk00 = (int)vftable_hkpSymmetricAgentFlipBodyCollector;
     hkpMultiSphereTriangleAgent_staticGetPenetrations(second, first, third, &data);
 }
 
@@ -105,13 +105,13 @@ struct CpuCallData
     unsigned int value;
 };
 extern float DAT_0104da48;
-extern unsigned char DAT_010ce7fc;
+extern unsigned char vftable_hkpSymmetricAgentFlipCollector;
 struct CpuObject
 {
     void FUN_00d38390(void*, void*, unsigned int, CpuCallData*);
     void hkpSymmetricAgentLinearCast_hkpMultiSphereTriangleAgent_getClosestPoints(void*, void*, unsigned int, unsigned int);
 };
-// Builds a CpuCallData from fourth, DAT_0104da48 and DAT_010ce7fc, then forwards second, first and third to FUN_00d38390.
+// Builds a CpuCallData from fourth, DAT_0104da48 and vftable_hkpSymmetricAgentFlipCollector, then forwards second, first and third to FUN_00d38390.
 // @fnv 0x00d38e90
 // src: XBOX_PDB 0x00d38e90
 void CpuObject::hkpSymmetricAgentLinearCast_hkpMultiSphereTriangleAgent_getClosestPoints(void* first, void* second, unsigned int third, unsigned int fourth)
@@ -119,7 +119,7 @@ void CpuObject::hkpSymmetricAgentLinearCast_hkpMultiSphereTriangleAgent_getClose
     CpuCallData data;
     data.value = fourth;
     data.bound = DAT_0104da48;
-    data.descriptor = &DAT_010ce7fc;
+    data.descriptor = &vftable_hkpSymmetricAgentFlipCollector;
     FUN_00d38390(second, first, third, &data);
 }
 

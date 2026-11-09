@@ -62,7 +62,7 @@ extern const char str_010d64dc[];
 extern const char str_010d64d0[];
 extern const char str_010d64bc[];
 extern const char str_010d6394[];
-extern char DAT_010d6334[];
+extern char vftable_hkDataObjectNative[];
 
 struct S00dbb260_Rec
 {
@@ -126,7 +126,7 @@ static __declspec(noinline) S00dbb260_Result* hkNativeDataObjectImplCreate(Pair*
     rec->size = 0x18;
     rec->unk06 = 0;
     rec->unk08 = 0;
-    rec->vt = (int)DAT_010d6334;
+    rec->vt = (int)vftable_hkDataObjectNative;
     rec->sub.Imath_Vec2_int_Vec2_int(*args);
     rec->world = world;
     return rec;

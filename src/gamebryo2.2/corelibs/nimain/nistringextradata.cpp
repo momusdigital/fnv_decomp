@@ -27,7 +27,7 @@ void* __cdecl NiStringExtraData_GetRTTI()
 }
 
 extern "C" int EmptyFS;
-extern "C" void* DAT_0109d39c;
+extern "C" void* vftable_NiStringExtraData;
 // @fnv 0x00a74230
 // src: EXE 0x00a74230
 void* __cdecl NiStringExtraData_CreateObject()
@@ -36,7 +36,7 @@ void* __cdecl NiStringExtraData_CreateObject()
     if (p)
     {
         static_cast<NiExtraData*>(p)->FUN_00a7b2e0();
-        *(void**)p = &DAT_0109d39c;
+        *(void**)p = &vftable_NiStringExtraData;
         static_cast<NiStringExtraData*>(p)->m_p = reinterpret_cast<char*>(EmptyFS);
         return p;
     }
@@ -95,7 +95,7 @@ unsigned char __fastcall NiStringExtraData_Equals(NiStringExtraData* self, void*
     return self->m_p == pOther->m_p;
 }
 
-extern "C" void* DAT_0109d39c;
+extern "C" void* vftable_NiStringExtraData;
 extern "C" void* DAT_0109b220;
 extern "C" __declspec(dllimport) void __stdcall FUN_00fdf1c4_import(void* apMemory);
 void __cdecl FUN_00aa1460(void* apMemory, unsigned int auiSize);
@@ -104,7 +104,7 @@ void __cdecl FUN_00aa1460(void* apMemory, unsigned int auiSize);
 // @fnv 0x00a742c0
 NiStringExtraData* __fastcall NiStringExtraData_Destroy(NiStringExtraData* self, void*, unsigned int acFlags)
 {
-    *reinterpret_cast<volatile int*>(self) = (int)&DAT_0109d39c;
+    *reinterpret_cast<volatile int*>(self) = (int)&vftable_NiStringExtraData;
     char* pData = *(char* volatile*)&self->m_p;
     if (pData != (char*)DAT_0109b220)
     {
@@ -121,7 +121,7 @@ NiStringExtraData* __fastcall NiStringExtraData_Destroy(NiStringExtraData* self,
 namespace fnv_00a74300 {
 extern "C" void* __cdecl Object_DispatchCommandFour(unsigned int);
 extern "C" char* DAT_0109b220;
-extern "C" void* DAT_0109d39c;
+extern "C" void* vftable_NiStringExtraData;
 extern "C" void(__stdcall* DAT_00fdf1c0)(void*);
 extern "C" void(__stdcall* DAT_00fdf1c4)(void*);
 
@@ -132,7 +132,7 @@ void* __fastcall NiStringExtraData_CreateCopy(NiStringExtraData* self, void*, in
     if (esi != 0)
     {
         esi->FUN_00a7b2e0();
-        *reinterpret_cast<void**>(esi) = (void*)&DAT_0109d39c;
+        *reinterpret_cast<void**>(esi) = (void*)&vftable_NiStringExtraData;
         esi->m_p = DAT_0109b220;
     }
     else

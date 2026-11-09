@@ -48,7 +48,7 @@ const void* __cdecl NiLODNode_GetRTTI()
     return &g_011f5f1c;
 }
 
-extern int DAT_010a0b64;
+extern int vftable_NiLODNode;
 
 // Allocates a NiLODNode, initializes its base, LOD data, switch index and modifier flag.
 // @fnv 0x00a99710
@@ -60,7 +60,7 @@ void* __cdecl NiLODNode_CreateObject()
     {
         NiLODNode* n = static_cast<NiLODNode*>(p);
         n->FUN_00a94360();
-        *(void**)p = &DAT_010a0b64;
+        *(void**)p = &vftable_NiLODNode;
         n->m_spLODData.m_pObject = 0;
         n->m_iIndex = 0;
         n->m_bLODActive = true;
@@ -259,7 +259,7 @@ NiLODNode* NiLODNode::CreateCloneLODNode(CloningProcess& process)
     {
         clone = static_cast<NiLODNode*>(memory);
         clone->FUN_00a94360();
-        *reinterpret_cast<void**>(clone) = &DAT_010a0b64;
+        *reinterpret_cast<void**>(clone) = &vftable_NiLODNode;
         clone->m_spLODData.m_pObject = 0;
     }
     else

@@ -166,10 +166,11 @@ struct FUN_00ec15e0_shell
 };
 struct FUN_00ec19d0_class
 {
-    void* __thiscall FUN_00ec19d0(unsigned int flags);
+    void* __thiscall MoviePlayer_ScalarDeletingDestructor(unsigned int flags);
 };
 // @fnv 0x00ec19d0
-void* __thiscall FUN_00ec19d0_class::FUN_00ec19d0(unsigned int flags)
+// src: EXE 0x00ec19d0
+void* __thiscall FUN_00ec19d0_class::MoviePlayer_ScalarDeletingDestructor(unsigned int flags)
 {
     ((FUN_00ec15e0_shell*)this)->FUN_00ec15e0();
     if (flags & 1)
@@ -428,7 +429,7 @@ void __thiscall FUN_00ec1a60_class::FreeStruct(FUN_00ec1a60_t* pStruct)
 }
 
 extern "C" void __cdecl _NiFree(void*);
-extern int DAT_010f1ca4;
+extern int vftable_NiTMapBase_010f1ca4;
 struct FUN_00ec1b80_Map
 {
     void __thiscall RemoveAll();
@@ -445,7 +446,7 @@ void __thiscall FUN_00ec1b80_Class::Initialize()
 {
     int pad1;
     int pad2;
-    m_0000 = (int)&DAT_010f1ca4;
+    m_0000 = (int)&vftable_NiTMapBase_010f1ca4;
     ((FUN_00ec1b80_Map*)this)->RemoveAll();
     _NiFree((void*)m_0008);
 }
@@ -477,7 +478,7 @@ void __thiscall FUN_00ec1cc0_Class::AssignString(void* apTarget, const char* apS
     *(int*)((char*)apTarget + 8) = aiValue;
 }
 
-extern int DAT_010f1c20;
+extern int vftable_BSTCaseInsensitiveStringMap_010f1c20;
 struct FUN_00ec1a90_Class
 {
     int m_ppVirtualMethodTable;
@@ -498,7 +499,7 @@ void __thiscall FUN_00ec1d30_Class::UpdateState_00ec1d30()
     int e;
     int f;
     int g;
-    m_ppVirtualMethodTable = (int)&DAT_010f1c20;
+    m_ppVirtualMethodTable = (int)&vftable_BSTCaseInsensitiveStringMap_010f1c20;
     FUN_00ec1a90();
 }
 
@@ -887,7 +888,7 @@ void BEC16D0MoviePlayerThread::MoviePlayer_StartSequence(void* pvParam, bool bFl
     }
 }
 
-extern int DAT_010f1ca4;
+extern int vftable_NiTMapBase_010f1ca4;
 void __cdecl _NiFree_00aa10f0(int aValue);
 
 struct FUN_00ec1df0_pool
@@ -912,7 +913,7 @@ FUN_00ec1df0_cls* FUN_00ec1df0_cls::FUN_00ec1df0(unsigned int acFlags)
 {
     int unk00;
     int unk04;
-    m_vptr = (int)&DAT_010f1ca4;
+    m_vptr = (int)&vftable_NiTMapBase_010f1ca4;
     BaseCleanup();
     _NiFree_00aa10f0(m_08);
     if (acFlags & 1)
@@ -923,7 +924,7 @@ FUN_00ec1df0_cls* FUN_00ec1df0_cls::FUN_00ec1df0(unsigned int acFlags)
 }
 
 namespace fnv_00ec1ee0 {
-extern int DAT_010f1c20;
+extern int vftable_BSTCaseInsensitiveStringMap_010f1c20;
 
 class FUN_00ec1ee0_pool
 {
@@ -957,7 +958,7 @@ struct FUN_00ec1ee0_cls
 FUN_00ec1ee0_cls* FUN_00ec1ee0_cls::FUN_00ec1ee0(unsigned int auiFlags)
 {
     FUN_00ec1ee0_frame frame;
-    m_vptr = (int)&DAT_010f1c20;
+    m_vptr = (int)&vftable_BSTCaseInsensitiveStringMap_010f1c20;
     BaseCleanup();
     if (auiFlags & 1)
     {

@@ -65,7 +65,7 @@ CombatGoal* CombatGoal::CreateGoal(CombatGoal::COMBAT_GOAL eType)
     }
 }
 
-extern int DAT_0108d47c;
+extern int vftable_CombatGoalKillTarget;
 struct FUN_00984ba0
 {
     FUN_00984ba0(int);
@@ -152,7 +152,7 @@ FUN_00984f80::FUN_00984f80(int t) : CGBase(t)
 }  // namespace fnv_00984f80
 
 namespace fnv_00985080 {
-extern int DAT_0108d47c;
+extern int vftable_CombatGoalKillTarget;
 struct FUN_00984ba0
 {
     FUN_00984ba0(int);
@@ -175,7 +175,7 @@ FUN_00985080::FUN_00985080(int aiValue) : FUN_00984ba0(aiValue)
 }  // namespace fnv_00985080
 
 namespace fnv_00985180 {
-extern int DAT_0108d47c;
+extern int vftable_CombatGoalKillTarget;
 struct FUN_00984ba0
 {
     FUN_00984ba0(int);
@@ -312,7 +312,7 @@ FUN_00985300::FUN_00985300(int aeType) : CGBase(aeType)
 }  // namespace fnv_00985300
 
 namespace fnv_00984c20 {
-extern int DAT_0108d488;
+extern int vftable_CombatGoalFindTarget;
 class CGBase
 {
   public:
@@ -330,7 +330,7 @@ class FUN_00984c20 : public CGBase
 // @fnv 0x00984c20
 FUN_00984c20::FUN_00984c20(int aeType) : CGBase(aeType)
 {
-    m_ppVirtualMethodTable = (void**)&DAT_0108d488;
+    m_ppVirtualMethodTable = (void**)&vftable_CombatGoalFindTarget;
     FUN_0097ade0(0x12, 0x10);
     FUN_0097ade0(3, 1);
     FUN_00984390(3, 0);
@@ -338,7 +338,7 @@ FUN_00984c20::FUN_00984c20(int aeType) : CGBase(aeType)
 }  // namespace fnv_00984c20
 
 namespace fnv_00984cb0 {
-extern int DAT_0108d494;
+extern int vftable_CombatGoalAvoidThreats;
 
 class CGBase
 {
@@ -357,7 +357,7 @@ class FUN_00984cb0 : public CGBase
 // @fnv 0x00984cb0
 FUN_00984cb0::FUN_00984cb0(int aeType) : CGBase(aeType)
 {
-    m_ppVirtualMethodTable = (void**)&DAT_0108d494;
+    m_ppVirtualMethodTable = (void**)&vftable_CombatGoalAvoidThreats;
     FUN_0097ade0(0xe, 1);
     FUN_0097ade0(0xf, 0);
     FUN_00984390(0xe, 0);
@@ -365,7 +365,7 @@ FUN_00984cb0::FUN_00984cb0(int aeType) : CGBase(aeType)
 }  // namespace fnv_00984cb0
 
 namespace fnv_00984d40 {
-extern int DAT_0108d4a0;
+extern int vftable_CombatGoalFlee;
 
 class CGBase
 {
@@ -384,7 +384,7 @@ class FUN_00984d40 : public CGBase
 // @fnv 0x00984d40
 FUN_00984d40::FUN_00984d40(int aeType) : CGBase(aeType)
 {
-    m_ppVirtualMethodTable = (void**)&DAT_0108d4a0;
+    m_ppVirtualMethodTable = (void**)&vftable_CombatGoalFlee;
     FUN_0097ade0(0xf, 1);
     FUN_0097ade0(1, 8);
     FUN_0097ade0(1, 7);
@@ -393,7 +393,7 @@ FUN_00984d40::FUN_00984d40(int aeType) : CGBase(aeType)
 }  // namespace fnv_00984d40
 
 namespace fnv_00985100 {
-extern int DAT_0108d4f4;
+extern int vftable_CombatGoalAdvance;
 namespace ol4_00985000 {
 class CGBase
 {
@@ -418,7 +418,7 @@ class FUN_00985100 : public CGBase
 // @fnv 0x00985100
 FUN_00985100::FUN_00985100(int aeType) : CGBase(aeType)
 {
-    m_ppVirtualMethodTable = (void**)&DAT_0108d4f4;
+    m_ppVirtualMethodTable = (void**)&vftable_CombatGoalAdvance;
     FUN_0097ade0(0x13, 4);
     FUN_00984390(1, 6);
     ((ol4_00985000::CGBase*)this)->SetProcedureType(4);
@@ -506,7 +506,7 @@ struct CondS
     {}
 };
 
-extern int DAT_0108d440;
+extern int vftable_CombatGoal;
 
 struct FUN_00984ba0
 {
@@ -520,7 +520,7 @@ struct FUN_00984ba0
 };
 
 // @fnv 0x00984ba0
-FUN_00984ba0::FUN_00984ba0(int value) : m_vftable(&DAT_0108d440), m_condition0(), m_condition1(), m_uiFilterValue(value)
+FUN_00984ba0::FUN_00984ba0(int value) : m_vftable(&vftable_CombatGoal), m_condition0(), m_condition1(), m_uiFilterValue(value)
 {
     m_zero = 0;
 }

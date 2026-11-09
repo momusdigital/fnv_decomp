@@ -136,7 +136,7 @@ void ShapeD54F90::hkpPlaneShape_castRayWithCollectorImpl(const RayCastInputD54F9
     }
 }
 
-extern char DAT_010d0e18;
+extern char vftable_hkpPlaneShape;
 extern LocalM128 DAT_010c71d0;
 
 struct PlaneShape_00d551d0 : hkpPlaneShape
@@ -151,7 +151,7 @@ PlaneShape_00d551d0* PlaneShape_00d551d0::hkpPlaneShape_hkpPlaneShape(const hkVe
 {
     m_ulUserData = 0;
     *(unsigned int*)&m_type = 0x1c;
-    *(void**)this = &DAT_010d0e18;
+    *(void**)this = &vftable_hkpPlaneShape;
     m_sReferenceCount = 1;
     *(LocalM128*)&m_kTriangleNormal = *(const LocalM128*)&p;
     *(LocalM128*)&m_kAabbCenter = _mm_mul_ps(_mm_add_ps(*(const LocalM128*)&box[1], *(const LocalM128*)&box[0]), DAT_010c71d0);

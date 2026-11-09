@@ -26,7 +26,7 @@ public:
 
     void DestroyBase();
     static void _delete(void* p, unsigned int size);
-    void* FUN_004a7bf0(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
     void DestroyBase_Thunk();
     void CombatLocation_SetRadius(float radius);
     int CheckBound(BSMultiBound* bound);

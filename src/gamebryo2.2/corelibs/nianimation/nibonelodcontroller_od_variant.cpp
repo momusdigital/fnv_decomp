@@ -20,7 +20,7 @@ struct NiBSBoneLODControllerMethods : NiBSBoneLODController
     void FUN_00a6cfe0(NiBSBoneLODController*, CloningProcess*);
     void NiBSBoneLODController_CopyMembers(NiBSBoneLODController*, CloningProcess*);
     void FUN_00c53e40();
-    void* FUN_00c53e10(unsigned int);
+    void* NiBSBoneLODController_ScalarDeletingDestructor(unsigned int);
     bool NiBSBoneLODController_TargetIsRequiredType();
     void __thiscall FUN_00a6d730(NiStream*);
     void __thiscall NiBSBoneLODController_SaveBinary(NiStream*);
@@ -77,7 +77,8 @@ void NiBSBoneLODControllerMethods::NiBSBoneLODController_CopyMembers(NiBSBoneLOD
 
 void operator delete(void*, unsigned int);
 // @fnv 0x00c53e10
-void* NiBSBoneLODControllerMethods::FUN_00c53e10(unsigned int flags)
+// src: EXE 0x00c53e10
+void* NiBSBoneLODControllerMethods::NiBSBoneLODController_ScalarDeletingDestructor(unsigned int flags)
 {
     int pad[2];
     this->FUN_00c53e40();

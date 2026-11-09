@@ -135,7 +135,7 @@ bool NiPixelData::RegisterStreamables(NiStream& stream)
 
 void* __cdecl Object_DispatchCommandFour(unsigned int size);
 
-extern int DAT_0109dbb4;
+extern int vftable_NiPixelData;
 // Constructor entry points used by the default and copy initialization paths.
 struct NiObjectInitialization
 {
@@ -149,7 +149,7 @@ struct NiPixelFormatInitialization
 static __forceinline void InitializePixelData(NiPixelData* data)
 {
     reinterpret_cast<NiObjectInitialization*>(data)->Construct();
-    *reinterpret_cast<void**>(data) = &DAT_0109dbb4;
+    *reinterpret_cast<void**>(data) = &vftable_NiPixelData;
     reinterpret_cast<NiPixelFormatInitialization*>(&data->m_kPixelFormat)->Construct();
     data->m_spPalette.value = 0;
 }
@@ -375,7 +375,7 @@ void __fastcall TeardownPixelDataBase(NiObject* data);
 void __fastcall ReleaseSpawnedRefs(void* object)
 {
     NiPixelData* data = static_cast<NiPixelData*>(object);
-    *(void* volatile*)data = (void*)&DAT_0109dbb4;
+    *(void* volatile*)data = (void*)&vftable_NiPixelData;
     NiPalette* first = *(NiPalette* volatile*)&data->m_spPalette.value;
     if (first != 0)
     {
@@ -513,7 +513,7 @@ class NiPalettePtr
 NiPixelData* NiPixelData::NiPixelData_00a7c030(const NiPixelData& kSrc)
 {
     reinterpret_cast<NiObjectInitialization*>(this)->Construct();
-    *reinterpret_cast<void**>(this) = &DAT_0109dbb4;
+    *reinterpret_cast<void**>(this) = &vftable_NiPixelData;
     reinterpret_cast<NiPixelFormatInitialization*>(&m_kPixelFormat)->Construct();
     m_spPalette = NiPalettePointer();
     m_bOwnsPixelData = false;

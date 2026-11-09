@@ -711,8 +711,8 @@ namespace fnv_00d07720 {
 namespace fnvc_adapt {
 hkMemoryRouter* __cdecl hkMemoryRouter_getInstance() throw();
 }
-extern int DAT_010ccf28;
-extern int DAT_0102e388;
+extern int vftable_hkpSimulationIsland;
+extern int vftable_hkBaseObject;
 
 struct FUN_00d07720_cls
 {
@@ -749,7 +749,7 @@ struct FUN_00d07720_cls
 // @fnv 0x00d07720
 void FUN_00d07720_cls::ResetArrays()
 {
-    m_vptr00 = (int)&DAT_010ccf28;
+    m_vptr00 = (int)&vftable_hkpSimulationIsland;
 
     hkMemoryRouter* pHolder = fnvc_adapt::hkMemoryRouter_getInstance();
     hkMemoryAllocator* pAllocator = reinterpret_cast<hkMemoryAllocator*>(pHolder->m_heap);
@@ -784,7 +784,7 @@ void FUN_00d07720_cls::ResetArrays()
     m_pData3 = 0;
     m_uCapBits3 = 0x80000000u;
 
-    *(volatile int*)&m_vptr00 = (int)&DAT_0102e388;
+    *(volatile int*)&m_vptr00 = (int)&vftable_hkBaseObject;
 }
 }  // namespace fnv_00d07720
 
@@ -959,7 +959,7 @@ void FUN_00d07210_Island::SaveIsland(FUN_00d07210_Writer* save, int)
     save->End();
 }
 
-extern const void* DAT_010ccf28[];  // hkpSimulationIsland vftable (not in the symbols DB)
+extern const void* vftable_hkpSimulationIsland[];  // hkpSimulationIsland vftable (not in the symbols DB)
 
 
 
@@ -994,7 +994,7 @@ struct __declspec(novtable) IslandBaseQ : hkpConstraintOwner
     unsigned char m_bActiveMark;
     IslandBaseQ(hkpWorld* world) : m_pOwningWorld(world), m_usDirtyListIndex(0xffff)
     {
-        *(const void**)this = DAT_010ccf28;
+        *(const void**)this = vftable_hkpSimulationIsland;
         m_ucMultiThreadCheckFlags = 5;
         m_bSplitCheckRequested = 0;
         m_bActionListCleanupNeeded = 0;

@@ -1974,7 +1974,7 @@ extern float DAT_010d51c4;
 extern double DAT_01021928;
 extern double DAT_010290b0;
 extern double DAT_0109cc78;
-extern int DAT_010eb000;
+extern int vftable_hkgpMesh;
 extern int DAT_011bdee0;
 struct FUN_00d9c110_object {
     void FUN_00d9c110();
@@ -2044,7 +2044,7 @@ FUN_00e1b750::FUN_00e1b750() {
     f28 = 0x80000000;
     f2c = 0;
     f30 = 0;
-    vtable = &DAT_010eb000;
+    vtable = &vftable_hkgpMesh;
     sub40.FUN_00d9c110();
     double initial = DAT_010d51c4;
     fc0 = 0;
@@ -3299,10 +3299,10 @@ struct FUN_00d9be30_cls { int m_vptr; void UpdateState_00d9be30(); };
 struct FUN_00d9c010_cls { void ClearBuffers(); };
 struct FUN_00e23860_cls { void FreeAllBlocks(); };
 
-extern int DAT_010eb000;
-extern int DAT_010eaf50;
-extern int DAT_0102e388;
-extern int DAT_010d40a4;
+extern int vftable_hkgpMesh;
+extern int vftable_hkgpAbstractMesh_010eaf50;
+extern int vftable_hkBaseObject;
+extern int vftable_hkAabbTree_010d40a4;
 
 struct FUN_00e18a50_cls {
     int m_vptr00;
@@ -3372,7 +3372,7 @@ struct FUN_00e18a50_cls {
 // src: GUESS 0x00e18a50 (confidence: low)
 void FUN_00e18a50_cls::UpdateState_00e18a50()
 {
-    m_vptr00 = (int)&DAT_010eb000;
+    m_vptr00 = (int)&vftable_hkgpMesh;
     ResetState();
 
     hkMemoryRouter* pHolder = (hkMemoryRouter*)fnvc_adapt::hkMemoryRouter_getInstance();
@@ -3406,11 +3406,11 @@ void FUN_00e18a50_cls::UpdateState_00e18a50()
     FUN_00d9be30_cls* pSub40 = (FUN_00d9be30_cls*)&m_vptr40;
     m_cap3 = 0x80000000u;
 
-    pSub40->m_vptr = (int)&DAT_010d40a4;
+    pSub40->m_vptr = (int)&vftable_hkAabbTree_010d40a4;
     pSub40->UpdateState_00d9be30();
     ((FUN_00d9c010_cls*)((char*)pSub40 + 0x1c))->ClearBuffers();
 
-    m_vptr00 = (int)&DAT_010eaf50;
+    m_vptr00 = (int)&vftable_hkgpAbstractMesh_010eaf50;
     FUN_00e234e0_* pSub20 = (FUN_00e234e0_*)&unk20;
     pSub20->FreeAllItems();
     ((FUN_00e23860_cls*)pSub20)->FreeAllBlocks();
@@ -3419,11 +3419,11 @@ void FUN_00e18a50_cls::UpdateState_00e18a50()
     pSub08->FreeAllItems();
     ((FUN_00e23860_cls*)pSub08)->FreeAllBlocks();
 
-    m_vptr00 = (int)&DAT_0102e388;
+    m_vptr00 = (int)&vftable_hkBaseObject;
 }
 
 namespace fnv_00e21e00 {
-extern int DAT_010eacf4;
+extern int vftable_hkgpMesh__IConvexOverlap__IConvexShape;
 
 
 
@@ -3431,17 +3431,17 @@ extern int DAT_010eacf4;
 
 namespace fnvc_adapt { hkMemoryRouter* __cdecl hkMemoryRouter_getInstance() throw(); }
 
-struct FUN_00e21e00_cls {
+struct hkgpMesh__IConvexOverlap__IConvexShape {
     int m_vptr;
 
-    FUN_00e21e00_cls* FUN_00e21e00(unsigned char acFlags);
+    hkgpMesh__IConvexOverlap__IConvexShape* FUN_00e21e00(unsigned char acFlags);
 };
 
 // Sets the vtable pointer and, if bit 0 of acFlags is set, frees this object through the audio allocator.
 // @fnv 0x00e21e00
-FUN_00e21e00_cls* FUN_00e21e00_cls::FUN_00e21e00(unsigned char acFlags)
+hkgpMesh__IConvexOverlap__IConvexShape* hkgpMesh__IConvexOverlap__IConvexShape::FUN_00e21e00(unsigned char acFlags)
 {
-    m_vptr = (int)&DAT_010eacf4;
+    m_vptr = (int)&vftable_hkgpMesh__IConvexOverlap__IConvexShape;
     if (acFlags & 1) {
         hkMemoryRouter* pHolder = fnvc_adapt::hkMemoryRouter_getInstance();
         hkMemoryAllocator* pAllocator = reinterpret_cast<hkMemoryAllocator*>(pHolder->m_heap);
@@ -3573,8 +3573,8 @@ FUN_00e23af0_cls* FUN_00e23af0_cls::ClearAndFree(unsigned char acFlags)
 }  // namespace fnv_00e23af0
 
 namespace fnv_00e23b50 {
-extern "C" void* DAT_010eaf50;
-extern "C" void* DAT_0102e388;
+extern "C" void* vftable_hkgpAbstractMesh_010eaf50;
+extern "C" void* vftable_hkBaseObject;
 
 
 
@@ -3621,12 +3621,12 @@ struct SpawnedObject {
 // @fnv 0x00e23b50
 SpawnedObject* SpawnedObject::DestroySpawnedObject(unsigned char acFlags)
 {
-    m_vptr = (int)&DAT_010eaf50;
+    m_vptr = (int)&vftable_hkgpAbstractMesh_010eaf50;
     m_sub20.FreeAllItems();
     m_sub20.FreeAllBlocks();
     m_sub08.FreeAllItems();
     m_sub08.FreeAllBlocks();
-    m_vptr = (int)&DAT_0102e388;
+    m_vptr = (int)&vftable_hkBaseObject;
     if (acFlags & 1) {
         hkMemoryRouter* pHolder = fnvc_adapt::hkMemoryRouter_getInstance();
         hkMemoryAllocator* pAllocator = reinterpret_cast<hkMemoryAllocator*>(pHolder->m_heap);
@@ -3727,9 +3727,9 @@ namespace fnv_00e27df0 {
 
 
 namespace fnvc_adapt { hkMemoryRouter* __cdecl hkMemoryRouter_getInstance() throw(); }
-extern int DAT_010eb0e0;
-extern int DAT_010eb088;
-extern int DAT_0102e388;
+extern int vftable_hkgpTriangulatorType_010eb0e0;
+extern int vftable_hkgpAbstractMesh_010eb088;
+extern int vftable_hkBaseObject;
 
 struct FUN_00e27df0_sub10 {
     int unk00;
@@ -3910,7 +3910,7 @@ struct FUN_00e27df0_cls {
 // @fnv 0x00e27df0
 FUN_00e27df0_cls* FUN_00e27df0_cls::FUN_00e27df0(unsigned char acFlags)
 {
-    m_vptr00 = (int)&DAT_010eb0e0;
+    m_vptr00 = (int)&vftable_hkgpTriangulatorType_010eb0e0;
     hkgpTriangulatorType_struct_hkgpTriangulatorBase_VertexBase_struct_hkgpTriangulatorBase_TriangleBase_struct_hkgpTriangulatorBase_DefaultEdgeData_struct_hkContainerHeapAllocator_struct_hkContainerHeapAllocator_1_reset(1);
     m_sub250.FUN_00e23c70();
     hkMemoryRouter* pHolder = fnvc_adapt::hkMemoryRouter_getInstance();
@@ -3923,13 +3923,13 @@ FUN_00e27df0_cls* FUN_00e27df0_cls::FUN_00e27df0(unsigned char acFlags)
     m_pEntryData = 0;
     *(volatile unsigned int*)&m_uCapBits = 0x80000000u;
     FUN_00e27df0_sub28* pSub28 = &m_sub28;
-    *(volatile int*)&m_vptr08 = (int)&DAT_010eb088;
+    *(volatile int*)&m_vptr08 = (int)&vftable_hkgpAbstractMesh_010eb088;
     pSub28->hkgpAbstractMeshDefinitions_List_struct_hkgpTriangulatorType_struct_hkgpTriangulatorBase_VertexBase_struct_hkgpTriangulatorBase_TriangleBase_struct_hkgpTriangulatorBase_DefaultEdgeData_struct_hkContainerHeapAllocator_struct_hkContainerHeapAllocator_1_Triangle_struct_hkgpAbstractMeshDefinitions_List_struct_hkgpTriangulatorType_struct_hkgpTriangulatorBase_VertexBase_struct_hkgpTriangulatorBase_TriangleBase_struct_hkgpTriangulatorBase_DefaultEdgeData_struct_hkContainerHeapAllocator_struct_hkContainerHeapAllocator_1_Vertex_struct_hkgpTriangulatorBase_VertexBase_struct_hkGeometryProcessing_PoolAllocator_struct_hkgpTriangulatorType_struct_hkgpTriangulatorBase_VertexBase_struct_hkgpTriangulatorBase_TriangleBase_struct_hkgpTriangulatorBase_DefaultEdgeData_struct_hkContainerHeapAllocator_struct_hkContainerHeapAllocator_1_Vertex_32_struct_hkContainerHeapAllocator_Item_struct_hkGeometryProcessing_PoolAllocator_struct_hkgpTriangulatorType_struct_hkgpTriangulatorBase_VertexBase_struct_hkgpTriangulatorBase_TriangleBase_struct_hkgpTriangulatorBase_DefaultEdgeData_struct_hkContainerHeapAllocator_struct_hkContainerHeapAllocator_1_Triangle_32_struct_hkContainerHeapAllocator_reset();
     pSub28->ProcessEntries_00e23d70();
     m_sub10.ProcessEntries();
     m_sub10.ClearAndFreeItems();
-    m_vptr08 = (int)&DAT_0102e388;
-    m_vptr00 = (int)&DAT_0102e388;
+    m_vptr08 = (int)&vftable_hkBaseObject;
+    m_vptr00 = (int)&vftable_hkBaseObject;
     if (acFlags & 1) {
         hkMemoryRouter* pHolder2 = fnvc_adapt::hkMemoryRouter_getInstance();
         hkMemoryAllocator* pAllocator2 = reinterpret_cast<hkMemoryAllocator*>(pHolder2->m_heap);
@@ -13972,9 +13972,9 @@ struct Int3 {
     int m_04;
     int m_08;
 };
-extern int DAT_010eb0e0;
-extern int DAT_010eb088;
-extern int DAT_0102e388;
+extern int vftable_hkgpTriangulatorType_010eb0e0;
+extern int vftable_hkgpAbstractMesh_010eb088;
+extern int vftable_hkBaseObject;
 struct CapMatrix { LocalVec4 rows[4]; int hkMatrix4_CopyColumnsAndApplyValue(const CapMatrix&,float); };
 struct BigObj {
     void *m_vtbl;
@@ -14071,8 +14071,8 @@ __forceinline void InitBigObj(BigObj *obj)
 {
     obj->m_ref06 = 1;
     obj->m_ref0e = 1;
-    obj->m_vtbl = &DAT_010eb0e0;
-    obj->m_vtbl2 = &DAT_010eb088;
+    obj->m_vtbl = &vftable_hkgpTriangulatorType_010eb0e0;
+    obj->m_vtbl2 = &vftable_hkgpAbstractMesh_010eb088;
     obj->m_10.unk_00_000 = 0;
     obj->m_10.unk_00_004 = 0;
     obj->m_10.unk_00_008 = (int)0x80000000;
@@ -14093,7 +14093,7 @@ __forceinline void InitBigObj(BigObj *obj)
 
 __forceinline void TeardownBigObj(BigObj *obj)
 {
-    obj->m_vtbl = &DAT_010eb0e0;
+    obj->m_vtbl = &vftable_hkgpTriangulatorType_010eb0e0;
     obj->hkgpTriangulatorType_struct_hkgpTriangulatorBase_VertexBase_struct_hkgpTriangulatorBase_TriangleBase_struct_hkgpTriangulatorBase_DefaultEdgeData_struct_hkContainerHeapAllocator_struct_hkContainerHeapAllocator_1_reset(1);
     obj->m_250.FUN_00e23c70();
     AllocSvc *alloc = capMemory();
@@ -14104,13 +14104,13 @@ __forceinline void TeardownBigObj(BigObj *obj)
         ctx->FreeBuf(obj->m_40arr.m_pData, (cap & 0x3fffffff) * 8);
     obj->m_40arr.m_pData = 0;
     obj->m_40arr.m_iCap = (int)0x80000000;
-    obj->m_vtbl2 = &DAT_010eb088;
+    obj->m_vtbl2 = &vftable_hkgpAbstractMesh_010eb088;
     obj->m_28.hkgpAbstractMeshDefinitions_List_struct_hkgpTriangulatorType_struct_hkgpTriangulatorBase_VertexBase_struct_hkgpTriangulatorBase_TriangleBase_struct_hkgpTriangulatorBase_DefaultEdgeData_struct_hkContainerHeapAllocator_struct_hkContainerHeapAllocator_1_Triangle_struct_hkgpAbstractMeshDefinitions_List_struct_hkgpTriangulatorType_struct_hkgpTriangulatorBase_VertexBase_struct_hkgpTriangulatorBase_TriangleBase_struct_hkgpTriangulatorBase_DefaultEdgeData_struct_hkContainerHeapAllocator_struct_hkContainerHeapAllocator_1_Vertex_struct_hkgpTriangulatorBase_VertexBase_struct_hkGeometryProcessing_PoolAllocator_struct_hkgpTriangulatorType_struct_hkgpTriangulatorBase_VertexBase_struct_hkgpTriangulatorBase_TriangleBase_struct_hkgpTriangulatorBase_DefaultEdgeData_struct_hkContainerHeapAllocator_struct_hkContainerHeapAllocator_1_Vertex_32_struct_hkContainerHeapAllocator_Item_struct_hkGeometryProcessing_PoolAllocator_struct_hkgpTriangulatorType_struct_hkgpTriangulatorBase_VertexBase_struct_hkgpTriangulatorBase_TriangleBase_struct_hkgpTriangulatorBase_DefaultEdgeData_struct_hkContainerHeapAllocator_struct_hkContainerHeapAllocator_1_Triangle_32_struct_hkContainerHeapAllocator_reset();
     obj->m_28.ProcessEntries_00e23d70();
     obj->m_10.ProcessEntries();
     obj->m_10.ClearAndFreeItems();
-    obj->m_vtbl2 = &DAT_0102e388;
-    obj->m_vtbl = &DAT_0102e388;
+    obj->m_vtbl2 = &vftable_hkBaseObject;
+    obj->m_vtbl = &vftable_hkBaseObject;
     capMemory();
 }
 
@@ -17294,8 +17294,8 @@ void S_00e27c90_Obj::UpdateBoundsForZRotation(int a, int angle, int b, int c)
 extern "C" void _ReadBarrier();
 extern "C" void _WriteBarrier();
 extern "C" void _ReadWriteBarrier();
-extern int DAT_010eb088;
-extern int DAT_010eb0e0;
+extern int vftable_hkgpAbstractMesh_010eb088;
+extern int vftable_hkgpTriangulatorType_010eb0e0;
 extern "C" __m128 _mm_setr_ps(float,float,float,float);
 extern "C" __m128 _mm_set_ps1(float);
 extern "C" __m128 _mm_setzero_ps();
@@ -17408,9 +17408,9 @@ struct SolverMesh {
     void *vtable;
     short memorySize; short references;
     SolverPool vertices; SolverPool triangles;
-    __declspec(nothrow) SolverMesh() throw() : vtable(&DAT_010eb088), references(1) {}
+    __declspec(nothrow) SolverMesh() throw() : vtable(&vftable_hkgpAbstractMesh_010eb088), references(1) {}
     __declspec(nothrow) __forceinline ~SolverMesh() throw() {
-        vtable=&DAT_010eb088;
+        vtable=&vftable_hkgpAbstractMesh_010eb088;
         triangles.hkgpAbstractMeshDefinitions_List_struct_hkgpTriangulatorType_struct_hkgpTriangulatorBase_VertexBase_struct_hkgpTriangulatorBase_TriangleBase_struct_hkgpTriangulatorBase_DefaultEdgeData_struct_hkContainerHeapAllocator_struct_hkContainerHeapAllocator_1_Triangle_struct_hkgpAbstractMeshDefinitions_List_struct_hkgpTriangulatorType_struct_hkgpTriangulatorBase_VertexBase_struct_hkgpTriangulatorBase_TriangleBase_struct_hkgpTriangulatorBase_DefaultEdgeData_struct_hkContainerHeapAllocator_struct_hkContainerHeapAllocator_1_Vertex_struct_hkgpTriangulatorBase_VertexBase_struct_hkGeometryProcessing_PoolAllocator_struct_hkgpTriangulatorType_struct_hkgpTriangulatorBase_VertexBase_struct_hkgpTriangulatorBase_TriangleBase_struct_hkgpTriangulatorBase_DefaultEdgeData_struct_hkContainerHeapAllocator_struct_hkContainerHeapAllocator_1_Vertex_32_struct_hkContainerHeapAllocator_Item_struct_hkGeometryProcessing_PoolAllocator_struct_hkgpTriangulatorType_struct_hkgpTriangulatorBase_VertexBase_struct_hkgpTriangulatorBase_TriangleBase_struct_hkgpTriangulatorBase_DefaultEdgeData_struct_hkContainerHeapAllocator_struct_hkContainerHeapAllocator_1_Triangle_32_struct_hkContainerHeapAllocator_reset(); triangles.ProcessEntries_00e23d70();
         vertices.ProcessEntries(); vertices.ClearAndFreeItems();
     }
@@ -17421,7 +17421,7 @@ struct SolverTail {
     __declspec(nothrow) void FUN_00e23c70() throw();
 };
 struct SolverRef {
-    SolverRef() throw() : vtable(&DAT_010eb0e0), references(1) {}
+    SolverRef() throw() : vtable(&vftable_hkgpTriangulatorType_010eb0e0), references(1) {}
     void *vtable;
     short memorySize; short references;
 };
@@ -17517,7 +17517,7 @@ struct __declspec(align(16)) BigSolver : SolverRef {
 __forceinline void initializeMap() throw() {edgeMap=0;}
     __declspec(nothrow) __forceinline BigSolver() throw();
     __declspec(nothrow) __forceinline ~BigSolver() throw() {
-        vtable=&DAT_010eb0e0;
+        vtable=&vftable_hkgpTriangulatorType_010eb0e0;
         hkgpTriangulatorType_struct_hkgpTriangulatorBase_VertexBase_struct_hkgpTriangulatorBase_TriangleBase_struct_hkgpTriangulatorBase_DefaultEdgeData_struct_hkContainerHeapAllocator_struct_hkContainerHeapAllocator_1_reset(1);
         tail.FUN_00e23c70();
         Allocator& ctx=meshHeap(hkMemoryRouter_getInstance());

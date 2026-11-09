@@ -78,7 +78,7 @@ void __thiscall FUN_00a92480_shell::NiTriStripsDynamicData_SetActiveVertexCount(
     m_usActiveVertices = value;
 }
 
-extern int DAT_0109fc54;
+extern int vftable_NiTriStripsDynamicData;
 
 // Allocates the dynamic strips data, constructs its shared base, initializes the active counts and vtable, and returns it or null.
 // @fnv 0x00a923f0
@@ -91,7 +91,7 @@ void* __cdecl NiTriStripsDynamicData_CreateObject()
         char* pBytes = (char*)pNode;
         ::new (pBytes) NiTriStripsData;
         *(unsigned short*)(pBytes + 0x50) = 0;
-        *(int*)pBytes = (int)&DAT_0109fc54;
+        *(int*)pBytes = (int)&vftable_NiTriStripsDynamicData;
         *(unsigned short*)(pBytes + 0x52) = 0;
         return pNode;
     }

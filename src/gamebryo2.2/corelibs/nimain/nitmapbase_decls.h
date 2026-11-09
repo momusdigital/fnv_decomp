@@ -47,14 +47,14 @@ struct FUN_00845690_Owner
 };
 class TESObjectCELL;
 class TESObjectCELL;
-extern void* DAT_01031fec[];
+extern void* vftable_NiTPointerMap_01031fec[];
 // The NiTMapBase<NiTPointerAllocator<unsigned int>,int,TESObjectCELL *> constructor 0x005892c0.
 struct FUN_005892c0_MapBase
 {
     void InitArray(unsigned int size);
 };
 class TESForm;
-extern void* DAT_01019a3c[];
+extern void* vftable_NiTLargePrimitiveArray_01019a3c[];
 // RTTI: vftable 0x01019a3c is NiTLargePrimitiveArray<TESForm *>; 0x004701d0 is its constructor over the NiTLargeArray
 // constructor 0x004705e0.
 struct FUN_004701d0_TESFormLargeArray

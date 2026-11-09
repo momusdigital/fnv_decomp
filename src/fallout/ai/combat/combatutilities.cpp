@@ -1572,7 +1572,7 @@ class GlobalObject_0044f440
   public:
     float* Float();
 };
-extern GlobalObject_0044f440 g_011f1c24;
+extern GlobalObject_0044f440 fDebugCombatProjectileLOSTime_Combat;
 
 NiAVObject* __cdecl MakeLine(const DebugPoint& kStart, const NiColorA& kStartColor, const DebugPoint& kEnd,
                                  const NiColorA& kEndColor, bool bArg);
@@ -1586,15 +1586,15 @@ void __cdecl DrawDebugLine(const DebugPoint& kStart, const DebugPoint& kEnd, int
     NiColorA kLineColor6 = pkLineColor ? *pkLineColor : NiColorA(1.0f, 1.0f, 0.0f, 1.0f);
     DebugPoint kMid = bScaled ? (kEnd.SubtractIntoVector(kStart)).ApplyScaled(fScale).FUN_00439e90(kStart) : kEnd;
     NiAVObject* pkLine_ = MakeLine(kStart, kLineColor6, kMid, kLineColor6, true);
-    g_TES->FUN_00458e20(pkLine_, *g_011f1c24.Float());
+    g_TES->FUN_00458e20(pkLine_, *fDebugCombatProjectileLOSTime_Combat.Float());
     if (bScaled)
     {
         NiAVObject* pkSphere4 = CreateOctahedron(5.0f, aKTipColor, true);
         pkSphere4->UpdateProperties();
         pkSphere4->NiAVObject_SetTranslate(kMid);
-        g_TES->FUN_00458e20(pkSphere4, *g_011f1c24.Float());
+        g_TES->FUN_00458e20(pkSphere4, *fDebugCombatProjectileLOSTime_Combat.Float());
         NiAVObject* pkTipLine = MakeLine(kMid, aKTipColor, kEnd, aKTipColor, true);
-        g_TES->FUN_00458e20(pkTipLine, *g_011f1c24.Float());
+        g_TES->FUN_00458e20(pkTipLine, *fDebugCombatProjectileLOSTime_Combat.Float());
     }
 }
 

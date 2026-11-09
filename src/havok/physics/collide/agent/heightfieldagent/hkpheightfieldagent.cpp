@@ -141,7 +141,7 @@ __forceinline hkTransform::hkTransform(const hkTransform& other) {
     m_row3 = other.m_row3;
 }
 
-extern char DAT_010ceaa8[];
+extern char vftable_hkpHeightFieldAgent[];
 
 hkMemoryRouter* hkMemoryRouter_getInstance();
 
@@ -186,23 +186,23 @@ __forceinline void hkArrayBase<T>::_setSize(hkMemoryAllocator& alloc, int n, con
     m_iElementCount = n;
 }
 
-struct FUN_00d32060_Class {
+struct hkpHeightFieldAgent {
     void* m_vtbl;
     short m_usMemSizeAndFlags;
     short m_sReferenceCount;
     int m_flag;
     hkArray<unsigned short> m_aiIndexedValues;
 
-    FUN_00d32060_Class* Init(const SourceRef& src, int b, int c, int flag);
+    hkpHeightFieldAgent* Init(const SourceRef& src, int b, int c, int flag);
 };
 
 // Sets the vtable, flag and count fields, initialises the array, and if flag is set fills it with 0xffff up to src.m_p->GetCount().
 // @fnv 0x00d32060
-FUN_00d32060_Class* FUN_00d32060_Class::Init(const SourceRef& aSource, int aiUnused1, int aiUnused2, int aiFlags)
+hkpHeightFieldAgent* hkpHeightFieldAgent::Init(const SourceRef& aSource, int aiUnused1, int aiUnused2, int aiFlags)
 {
     m_sReferenceCount = 1;
     m_flag = aiFlags;
-    m_vtbl = DAT_010ceaa8;
+    m_vtbl = vftable_hkpHeightFieldAgent;
     m_aiIndexedValues.setOwnedData(0, 0, hkArrayBase<unsigned short>::DONT_DEALLOCATE_FLAG);
     if (aiFlags) {
         int n = aSource.m_p->GetCount();
@@ -365,7 +365,7 @@ extern "C" void __stdcall hkpHeightFieldAgent_getPenetrations(void* arg0, void* 
     hkpHeightFieldAgent_staticGetPenetrations(arg0, arg1, arg2, arg3);
 }
 
-extern char DAT_010ce81c;
+extern char vftable_hkpSymmetricAgentFlipBodyCollector;
 
 void __cdecl hkpHeightFieldAgent_staticGetPenetrations(int a1, int a2, int a3, void* a4);
 
@@ -375,14 +375,14 @@ struct FUN_00d32370_cls {
     int d;
 };
 
-// Builds a FUN_00d32370_cls with vt set to DAT_010ce81c and d set to a4, then calls FUN_00d317d0 with a2, a1, a3 and the struct.
+// Builds a FUN_00d32370_cls with vt set to vftable_hkpSymmetricAgentFlipBodyCollector and d set to a4, then calls FUN_00d317d0 with a2, a1, a3 and the struct.
 // @fnv 0x00d32370
 // src: GUESS 0x00d32370 (confidence: low)
 void __cdecl hkpHeightFieldAgent_staticGetPenetrations_UpdateState_00d32370(int aiArg1, int aiArg2, int aiArg3, int a4) {
     FUN_00d32370_cls local;
     local.flag = 0;
     local.d = a4;
-    local.vt = &DAT_010ce81c;
+    local.vt = &vftable_hkpSymmetricAgentFlipBodyCollector;
     hkpHeightFieldAgent_staticGetPenetrations(aiArg2, aiArg1, aiArg3, &local);
 }
 
@@ -644,7 +644,7 @@ void __cdecl hkpHeightFieldAgent_staticGetPenetrations(int a1, int a2, int a3, v
 namespace fnv_00d32190 {
 hkMemoryRouter* __cdecl hkMemoryRouter_getInstance() throw();
 
-extern char DAT_010ceaf4[];
+extern char vftable_hkpSymmetricAgent_010ceaf4[];
 
 struct FUN_00d32190_cls {
     void* m_vptr;
@@ -654,7 +654,7 @@ struct FUN_00d32190_cls {
     void FUN_00d32060(int a1, int a2, int a3, int a4);
 };
 
-// Allocates a 0x18 byte object via m_pAllocator, sets m_w04 to 0x18, calls FUN_00d32060, and sets m_vptr to DAT_010ceaf4.
+// Allocates a 0x18 byte object via m_pAllocator, sets m_w04 to 0x18, calls FUN_00d32060, and sets m_vptr to vftable_hkpSymmetricAgent_010ceaf4.
 // @fnv 0x00d32190
 // src: HAVOK_LIB 0x00d32190
 FUN_00d32190_cls* __cdecl hkpHeightFieldAgent_createHeightFieldAAgent(int a1, int a2, int a3, int a4)
@@ -663,7 +663,7 @@ FUN_00d32190_cls* __cdecl hkpHeightFieldAgent_createHeightFieldAAgent(int a1, in
     FUN_00d32190_cls* obj = (FUN_00d32190_cls*)((hkMemoryAllocator*)holder->m_heap)->blockAlloc(0x18);
     obj->m_w04 = 0x18;
     obj->FUN_00d32060(a2, a1, a3, a4);
-    obj->m_vptr = DAT_010ceaf4;
+    obj->m_vptr = vftable_hkpSymmetricAgent_010ceaf4;
     return obj;
 }
 }  // namespace fnv_00d32190

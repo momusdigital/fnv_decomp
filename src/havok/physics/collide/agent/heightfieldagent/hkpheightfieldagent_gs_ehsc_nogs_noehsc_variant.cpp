@@ -9,7 +9,7 @@
 #include "../../../../../../include/hkMemoryAllocator.h"
 #include "../../../../../../include/hkArray.h"
 
-extern char DAT_010ceaa8[];
+extern char vftable_hkpHeightFieldAgent[];
 BSAudio* hkMemoryRouter_getInstance();
 void __cdecl hkArrayUtil__reserve(hkMemoryAllocator& alloc, void* arr, int numElem, int sizeElem);
 struct SizeSource {
@@ -103,7 +103,7 @@ extern "C" void __stdcall hkpHeightFieldAgent_getPenetrations(void* arg0, void* 
 {
     hkpHeightFieldAgent_staticGetPenetrations(arg0, arg1, arg2, arg3);
 }
-extern char DAT_010ce81c;
+extern char vftable_hkpSymmetricAgentFlipBodyCollector;
 void __cdecl hkpHeightFieldAgent_staticGetPenetrations(int a1, int a2, int a3, void* a4);
 struct FUN_00d32370_cls {
     void* vt;
@@ -117,7 +117,7 @@ extern "C" unsigned __int64 __rdtsc();
 extern "C" void _ReadWriteBarrier();
 extern "C" __declspec(dllimport) void* __stdcall TlsGetValue(unsigned long);
 extern unsigned long DAT_0126835c;
-extern char DAT_010cea14[];
+extern char vftable_hkHeightFieldRayForwardingCollector[];
 
 union CastVector {
     __m128 v;
@@ -268,7 +268,7 @@ extern "C" void __cdecl hkpHeightFieldAgent_ProcessSphereQueries(void* arg0,void
     sphereInput.filterInfo=0;
     sphereInput.filterInfoB=0;
     sphereInput.maxExtraPenetration=input->maxExtraPenetration;
-    collector.vtable=DAT_010cea14;
+    collector.vtable=vftable_hkHeightFieldRayForwardingCollector;
     collector.earlyOut=1.0f;
     collector.path=input->path;
     collector.body=bodyA;

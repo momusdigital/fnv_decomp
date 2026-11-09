@@ -59,7 +59,7 @@ char* NiStencilProperty_GetViewerString_00a6f2d0(const char* name, int stencil)
     return result;
 }
 
-extern void* DAT_0101e07c;
+extern void* vftable_NiStencilProperty;
 
 
 // @fnv 0x00a6f410
@@ -71,7 +71,7 @@ void* __cdecl NiStencilProperty_CreateObject()
     {
         ::new (p) NiProperty;
         p->mode = 0x4180;
-        *(void**)p = &DAT_0101e07c;
+        *(void**)p = &vftable_NiStencilProperty;
         p->flags = 0;
         p->mask = 0xffffffff;
         return p;
@@ -138,7 +138,7 @@ NiObject* NiStencilProperty::MakeClone(CloningProcess& kCloning)
         if (pkObject)
         {
             ::new (pkObject) NiProperty;
-            *(void**)((char*)pkObject + 0x00) = &DAT_0101e07c;
+            *(void**)((char*)pkObject + 0x00) = &vftable_NiStencilProperty;
             pkObject->flags = 0;
             pkObject->mask = 0xffffffff;
             pkObject->mode = 0x4180;
@@ -524,7 +524,7 @@ void NiStencilProperty__SDMInit()
     if (obj != 0)
     {
         ::new (obj) NiProperty;
-        *(void**)obj = &DAT_0101e07c;
+        *(void**)obj = &vftable_NiStencilProperty;
         obj->m_1c = 0;
         obj->m_20 = -1;
         obj->mode = 0x4180;

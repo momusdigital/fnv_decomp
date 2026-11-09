@@ -30582,7 +30582,7 @@ void* __thiscall FUN_0087d830_class::Destroy(unsigned int flags)
     return this;
 }
 
-extern "C" void* DAT_01084734;
+extern "C" void* vftable_CachedValuesOwner;
 
 struct FUN_0087d860_Class
 {
@@ -30594,7 +30594,7 @@ struct FUN_0087d860_Class
 // src: GUESS 0x0087d860 (confidence: low)
 void* __thiscall FUN_0087d860_Class::SetVirtualTable_0087d860()
 {
-    pvt = &DAT_01084734;
+    pvt = &vftable_CachedValuesOwner;
     return this;
 }
 
@@ -30955,7 +30955,7 @@ void __thiscall FUN_008abfa0_Class::PlayerCharacter_AddTeammate(int* arg)
     reinterpret_cast<G2*>(reinterpret_cast<char*>(this) + 0x5fc)->AddHead(reinterpret_cast<int*>(&arg));
 }
 
-extern "C" void __cdecl DAT_01084e54();
+extern "C" void __cdecl vftable_bhkFilteredCdBodyCollector();
 extern "C" void __cdecl FUN_0062d350(void*);
 
 struct FUN_008aff30_Class
@@ -30968,7 +30968,7 @@ struct FUN_008aff30_Class
 void* __thiscall FUN_008aff30_Class::Construct()
 {
     FUN_0062d350();
-    *(void**)(this) = (void*)&DAT_01084e54;
+    *(void**)(this) = (void*)&vftable_bhkFilteredCdBodyCollector;
     return this;
 }
 
@@ -56551,7 +56551,7 @@ struct Package
     int GetPackType();
 };
 
-extern ::Setting g_011df6c4;
+extern ::Setting bDisableNPCAttacks_Combat;
 extern Pawn* _g_thePlayer;
 struct Pawn
 {
@@ -56777,7 +56777,7 @@ void FNV_Warning(const char*, ...);
 // @fnv 0x008935f0
 bool Pawn::TryAttack(int action)
 {
-    if (this != _g_thePlayer && *g_011df6c4.Bool())
+    if (this != _g_thePlayer && *bDisableNPCAttacks_Combat.Bool())
         return false;
     Weapon* weapon3 = process->weapon() ? process->weapon()->CallGetFlags() : 0;
     List* ammoA = process->ammo();
@@ -68167,7 +68167,7 @@ struct SettingView
 {
     SETTING_VALUE* Bool();
 };
-extern SettingView g_011de4e8;
+extern SettingView bDebugSaveBuffer_Debug;
 NameObj* __cdecl TESForm_GetFormByNumericID(int id);
 void __cdecl ProgramFlow(const char* fmt, ...);
 struct FUN_008d32b0_shell
@@ -68247,7 +68247,7 @@ unsigned short FUN_008d32b0_shell::Actor_GetSaveSize(unsigned int flags)
         size += 1;
     if (g_TESSaveLoadGame->FUN_008df040() >= 0x7b)
         size += 1;
-    if (*(unsigned char*)g_011de4e8.Bool())
+    if (*(unsigned char*)bDebugSaveBuffer_Debug.Bool())
     {
         FormObj* formObj = g_TESSaveLoadGame->FUN_004fd3e0();
         if (formObj)
@@ -68310,7 +68310,7 @@ struct DebugSetting
 {
     bool* Bool();
 };
-extern DebugSetting g_011de4e8;
+extern DebugSetting bDebugSaveBuffer_Debug;
 struct LogForm
 {
     virtual void slot0();
@@ -68513,7 +68513,7 @@ void ActorSave::SaveActorData(unsigned int flags)
     unsigned short a = 0;
     char* p = 0;
     char* i = g_TESSaveLoadGame->Position();
-    if (*g_011de4e8.Bool())
+    if (*bDebugSaveBuffer_Debug.Bool())
         i = g_TESSaveLoadGame->Position();
     if (g_TESSaveLoadGame->Blocks())
     {
@@ -68619,7 +68619,7 @@ void ActorSave::SaveActorData(unsigned int flags)
         Write(&field174, 1);
     if (g_TESSaveLoadGame->Version() >= 123)
         Write(&field118, 1);
-    if (*g_011de4e8.Bool())
+    if (*bDebugSaveBuffer_Debug.Bool())
     {
         char* end = g_TESSaveLoadGame->Position();
         SaveRecord* record = g_TESSaveLoadGame->Record();
@@ -93091,7 +93091,7 @@ struct PickSetting
 {
     float* Setting_Float_00403e20();
 };
-extern PickSetting g_011df72c;
+extern PickSetting fJumpAnimDelay_HAVOK;
 struct PickBaseExtra
 {
     int data;
@@ -93537,7 +93537,7 @@ void PickActor::Actor_PickAnimations(float movementMult, float turnMult)
                     group10 = 0xe4;
                     break;
                 case 2:
-                    if (controller8->GetField548() > *g_011df72c.Setting_Float_00403e20() ||
+                    if (controller8->GetField548() > *fJumpAnimDelay_HAVOK.Setting_Float_00403e20() ||
                         (movementSequence27 && movementSequence27->FUN_0048f7f0()->FUN_005f4d60()))
                         group10 = 0xe4;
                     break;
@@ -121154,7 +121154,7 @@ extern const float DAT_0101e340, DAT_0101e570, DAT_01030ff0, DAT_01075a9c, DAT_0
     DAT_01017b78;
 extern EActor* _g_thePlayer;
 extern ESave* BGSSaveLoadGlobalDataWorldspacePtr;
-extern MSetting g_011df780, originalRuntimeFloatSetting642, originalRuntimeFloatSetting746;
+extern MSetting iMaxHiPerfCombatCount_Combat, originalRuntimeFloatSetting642, originalRuntimeFloatSetting746;
 extern MTES* g_TES;
 int __cdecl ComputeScaledSettingSum(float);
 void __cdecl ScreenSplatter_Activate(int, float, int);
@@ -121198,7 +121198,7 @@ void EActor::Actor_CreateBlood(float elapsed, ERequest* event)
         MPt delta = origin - Main_WorldRootCamera()->NiAVObject_GetWorldTranslate();
         bool visible =
             !(!Main_GetSceneIsComplex() &&
-              (BGSSaveLoadGlobalDataWorldspacePtr->CountCombatGroupMembers(0, 0) <= (unsigned int)*g_011df780.Setting_Int() ||
+              (BGSSaveLoadGlobalDataWorldspacePtr->CountCombatGroupMembers(0, 0) <= (unsigned int)*iMaxHiPerfCombatCount_Combat.Setting_Int() ||
                IsPersistent() || !source || source->IsPersistent()) &&
               !(delta.FUN_00457990() <= *originalRuntimeFloatSetting642.Setting_Float_00403e20()) &&
               PointInFrustum(origin, Main_WorldRootCamera(), DAT_0101e340));
@@ -122178,7 +122178,7 @@ struct ZWorld
 };
 extern ZVats attackVats;
 extern ZActor* DAT_011f21f0;
-extern ZIntGlobal g_011df838, g_011df754, g_011cd3b4;
+extern ZIntGlobal iShowHitVector_Combat, fHitVectorDelay_Combat, g_011cd3b4;
 extern ZWorld* g_TES;
 bool AILinearTaskThreadManager_ShouldQueue3DTask();
 ZQueue* FUN_004537b0();
@@ -122218,7 +122218,7 @@ void ZActor::Actor_MeleeAttack(bool arg1, bool abFindTarget)
             }
         }
     }
-    if (g_011df838.value() > 1)
+    if (iShowHitVector_Combat.value() > 1)
     {
         ZParam params3(0, 0, 0, 0);
         if (player())
@@ -122239,7 +122239,7 @@ void ZActor::Actor_MeleeAttack(bool arg1, bool abFindTarget)
         ZVec offsetVal = directionTmp * 800.0f;
         ZEffect* effectTmp = BSTestObjects_CreateDirArrow(offsetVal * 0.1f, params3);
         effectTmp->position(end5);
-        g_TES->addEffect(effectTmp, g_011df754.real());
+        g_TES->addEffect(effectTmp, fHitVectorDelay_Combat.real());
     }
     currentProcess()->attack(true);
     if (hasWeapon())
@@ -130042,7 +130042,7 @@ class GlobalObject_0045cf30
   public:
     unsigned char* Bool();
 };
-extern GlobalObject_0045cf30 g_011e05ec;
+extern GlobalObject_0045cf30 bBackgroundLoadLipFiles_BackgroundLoad;
 
 extern SettingT_GameSettingCollection_ originalRuntimeFloatSetting1221;
 extern SettingT_GameSettingCollection_ originalRuntimeFloatSetting184;
@@ -131004,7 +131004,7 @@ float ActorStub::Actor_SpeakSoundFunction(const char* soundPath, BSSoundHandle* 
         {
             if (BuildLipPath(sTrackTypeX))
             {
-                if (a11 && *g_011e05ec.Bool())
+                if (a11 && *bBackgroundLoadLipFiles_BackgroundLoad.Bool())
                 {
                     ((ProcessCustom*)this->GetProcess())->vfn_370(1);
                     ((ProcessCustom*)this->GetProcess())->vfn_154(1);
@@ -131890,7 +131890,7 @@ struct SettingView
     unsigned char* Call_00408d60();
     float* Call_00403e20();
 };
-extern SettingView g_011df7f8;
+extern SettingView bDisableAllGore_General;
 extern SettingView originalRuntimeFloatSetting751;
 extern const char* DAT_01196d6c[];
 extern const double DAT_01023128;
@@ -132988,7 +132988,7 @@ void ActorView::Actor_DismemberLimb(void* reference, unsigned int partIndex, boo
                              bool skipProcess)
 {
     LimbCreatureView* creature7 = (LimbCreatureView*)dynamic_cast<LimbCastCreature*>(Call_004181e0());
-    if (((creature7 && creature7->IsHumanoidCreature()) || IsSpecial()) && *g_011df7f8.Call_00408d60())
+    if (((creature7 && creature7->IsHumanoidCreature()) || IsSpecial()) && *bDisableAllGore_General.Call_00408d60())
         return;
     Node* root5 = Call_0043fcd0();
     World* world14 = Call_004543c0(Call_008d6f30());

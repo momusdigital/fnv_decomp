@@ -24,7 +24,7 @@ NiRTTI* __cdecl BSRotAccumTransfInterpolator_GetRTTI()
     return &g_011f3ee0;
 }
 
-extern int DAT_01097af4;
+extern int vftable_BSRotAccumTransfInterpolator;
 extern int DAT_011a9ea8;
 extern int DAT_011a9eac;
 extern int DAT_011a9eb0;
@@ -37,7 +37,7 @@ BSRotAccumTransfInterpolator* CreateRotAccumTransfInterpolator()
     if (pInterpolator)
     {
         pInterpolator->NiTransformInterpolator::CopyMemberData(0);
-        *(void**)pInterpolator = (void*)&DAT_01097af4;
+        *(void**)pInterpolator = (void*)&vftable_BSRotAccumTransfInterpolator;
         *(int*)&pInterpolator->m_kAccumulatedRotation.m_fVectorX = *(int*)&NiQuaternion::IDENTITY;
         *(int*)&pInterpolator->m_kAccumulatedRotation.m_fVectorY = DAT_011a9ea8;
         *(int*)&pInterpolator->m_kAccumulatedRotation.m_fVectorZ = DAT_011a9eac;
@@ -58,7 +58,7 @@ BSRotAccumTransfInterpolator* BSRotAccumTransfInterpolator::CreateInterpolator(i
     if (obj != 0)
     {
         obj->NiTransformInterpolator::CopyMemberData(0);
-        *(void**)obj = (void*)&DAT_01097af4;
+        *(void**)obj = (void*)&vftable_BSRotAccumTransfInterpolator;
         *(int*)&obj->m_kAccumulatedRotation.m_fVectorX = DAT_011a9ea4;
         *(int*)&obj->m_kAccumulatedRotation.m_fVectorY = DAT_011a9ea8;
         *(int*)&obj->m_kAccumulatedRotation.m_fVectorZ = DAT_011a9eac;
@@ -279,7 +279,7 @@ void __cdecl FUN_00aa1460(void* apMemory, unsigned int auiSize);
 // @fnv 0x00a43df0
 BSRotAccumTransfInterpolator* BSRotAccumTransfInterpolator::FUN_00a43df0(unsigned char acFlags)
 {
-    *(volatile int*)this = (int)&DAT_01097af4;
+    *(volatile int*)this = (int)&vftable_BSRotAccumTransfInterpolator;
     NiRefObject* pCounted = *(NiRefObject* volatile*)&m_spTransformData.m_pObject;
     if (pCounted != 0)
     {

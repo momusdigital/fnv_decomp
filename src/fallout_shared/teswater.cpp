@@ -800,13 +800,13 @@ unsigned int S5460::BSSimpleArray_NiPoint2_1024_AddUninitialized()
 }
 
 
-extern Setting g_011c7b20;
+extern Setting bUseWaterShader_Water;
 
 // @fnv 0x004e2160
 // src: COMMUNITY 0x004e2160
 bool TESWaterSystem_GetUseWaterShader()
 {
-    return *g_011c7b20.Bool();
+    return *bUseWaterShader_Water.Bool();
 }
 
 extern unsigned char DAT_011c7a59;
@@ -1014,7 +1014,7 @@ int __cdecl ImageSpaceEffectWaterFFT_GetInstance()
     return DAT_0120006c;
 }
 
-extern Setting g_011c7b2c;
+extern Setting uNearWaterRadius_Water;
 
 struct FUN_004e7600_shell
 {
@@ -1024,7 +1024,7 @@ struct FUN_004e7600_shell
 // @fnv 0x004e7600
 int __thiscall FUN_004e7600_shell::GetIntValue()
 {
-    return *g_011c7b2c.Int();
+    return *uNearWaterRadius_Water.Int();
 }
 
 // @fnv 0x004e9530
@@ -1287,7 +1287,7 @@ float __thiscall FUN_004e45c0_shell::GetField130()
 }
 
 
-extern Setting g_011c7bb0;
+extern Setting uNearWaterPoints_Water;
 
 struct FUN_004e7620_shell
 {
@@ -1297,12 +1297,12 @@ struct FUN_004e7620_shell
 // @fnv 0x004e7620
 int __thiscall FUN_004e7620_shell::GetGameSettingInt()
 {
-    return *g_011c7bb0.Int();
+    return *uNearWaterPoints_Water.Int();
 }
 
 
 
-extern Setting g_011c7bd8;
+extern Setting fNearWaterIndoorTolerance_Water;
 
 struct FUN_004e7640_shell
 {
@@ -1313,7 +1313,7 @@ struct FUN_004e7640_shell
 // src: COMMUNITY 0x004e7640
 float __thiscall FUN_004e7640_shell::Water_fNearWaterIndoorTolerance_Get()
 {
-    return *g_011c7bd8.Float();
+    return *fNearWaterIndoorTolerance_Water.Float();
 }
 
 
@@ -1389,7 +1389,7 @@ namespace fnv_004e65d0 {
 extern unsigned char DAT_01189624;
 extern unsigned char DAT_011ad86e;
 
-extern Setting g_011c7adc;
+extern Setting bUseWater_Water;
 struct S_004e65d0
 {
     void TESWaterSystem_DisplayWater(int, int, int);
@@ -1402,7 +1402,7 @@ bool S_004e65d0::TESWaterSystem_EnableWaterSystem()
     DAT_011ad86e = 1;
     if (!DAT_01189624)
     {
-        if (*g_011c7adc.Bool())
+        if (*bUseWater_Water.Bool())
         {
             DAT_01189624 = 1;
             TESWaterSystem_DisplayWater(1, 0, 0);
@@ -1433,7 +1433,7 @@ WaterSoundVector2& WaterSoundVector2::DivideBy(float afDivisor)
 
 namespace fnv_004e7660 {
 
-extern Setting g_011c7ba4;
+extern Setting fNearWaterOutdoorTolerance_Water;
 
 struct FUN_004e7660_shell
 {
@@ -1444,7 +1444,7 @@ struct FUN_004e7660_shell
 // src: COMMUNITY 0x004e7660
 float FUN_004e7660_shell::Water_fNearWaterOutdoorTolerance_Get()
 {
-    return *g_011c7ba4.Float();
+    return *fNearWaterOutdoorTolerance_Water.Float();
 }
 }  // namespace fnv_004e7660
 
@@ -3251,7 +3251,7 @@ FUN_004e8e40_owner* FUN_004e8e40_owner::WadingWaterData_WadingWaterData()
     return this;
 }
 
-extern void* DAT_010231cc;
+extern void* vftable_ImageSpaceEffectParam;
 
 struct FUN_004eba20_Sub
 {
@@ -3278,11 +3278,11 @@ struct FUN_004eba20_Base
 {
     void* m_vptr;
 
-    // Sets the object's vtable pointer to DAT_010231cc.
+    // Sets the object's vtable pointer to vftable_ImageSpaceEffectParam.
 // @fnv 0x004eba20
     FUN_004eba20_Base()
     {
-        m_vptr = &DAT_010231cc;
+        m_vptr = &vftable_ImageSpaceEffectParam;
     }
 };
 
@@ -5821,7 +5821,7 @@ Reference61* Main61::CreateWaterReference(Node61* geometry, World61* world, Node
 }
 }  // namespace fnv_004e4c80
 
-extern Setting g_011c7adc;
+extern Setting bUseWater_Water;
 
 struct WaterPtrList
 {
@@ -5983,7 +5983,7 @@ class WaterSystem5370
 // @fnv 0x004e5370
 bool WaterSystem5370::RemoveWaterRef(TESObjectREFR* apRef, const NiPoint3* apPos, const WaterRotation* apRot)
 {
-    if (DAT_01189624 && *g_011c7adc.Bool())
+    if (DAT_01189624 && *bUseWater_Water.Bool())
     {
         NiPoint3 kNormal2(0.0f, 0.0f, 1.0f);
         NiPoint3 kPoint3 = NiPoint3::ZERO;
@@ -9063,12 +9063,12 @@ struct Bool197
 {
     bool* FUN_00408d60();
 };
-extern Bool197 g_011c7c00, g_011c7c48;
+extern Bool197 bForceHighDetailReflections_Water, bUseWaterReflectionBlur_Water;
 struct Uint197
 {
     unsigned int* Setting_Int();
 };
-extern Uint197 g_011c7c1c;
+extern Uint197 iWaterBlurAmount_Water;
 struct Manager197
 {
     Texture197* BSTextureManager_BorrowRenderedTexture(NiRenderer*, int, int, int, int);
@@ -9316,7 +9316,7 @@ void Water197::UpdateWaterRendering()
     BSShaderManager_GetRenderer()->SetBackgroundColor(reinterpret_cast<NiVector4*>(&plane));
     if (!g_011c7ad4.Modelloader_GetReferencedThis())
         g_011c7ad4.FUN_0066b0d0(BSShaderManager_GetTextureManager()->BSTextureManager_BorrowRenderedTexture(BSShaderManager_GetRenderer(), 9, 0, 0, 0));
-    bool memory = (unsigned char)BGSTerrainManager_GetCurrentWorldHasLOD() && !*g_011c7c00.FUN_00408d60();
+    bool memory = (unsigned char)BGSTerrainManager_GetCurrentWorldHasLOD() && !*bForceHighDetailReflections_Water.FUN_00408d60();
     if (!((Player197*)DAT_011dea10)->FUN_005f36f0() && memory)
         BGSTerrainManager_DisableBlockVisibility();
     BSRenderedTexture_StartOffscreen(7, g_011c7ad4.Modelloader_GetReferencedThis()->FUN_00b6b260());
@@ -9338,14 +9338,14 @@ void Water197::UpdateWaterRendering()
         BGSTerrainManager_EnableBlockVisibility();
     BSShaderManager_GetRenderer()->SetBackgroundColor(reinterpret_cast<NiVector4*>(&oldColor));
     g_011c7b44.FUN_0066b0d0(0);
-    if (*g_011c7c48.FUN_00408d60())
+    if (*bUseWaterReflectionBlur_Water.FUN_00408d60())
     {
         Texture197* index = BSShaderManager_GetTextureManager()->BSTextureManager_BorrowRenderedTexture(BSShaderManager_GetRenderer(), 22, 0, 0, 0);
         Param197 texture;
         texture.ImageSpaceTexture_SetTexture(index);
         EffectParam197 effectParam;
-        DAT_012003c4 = *g_011c7c1c.Setting_Int() + 1.0;
-        unsigned int param = *g_011c7c1c.Setting_Int();
+        DAT_012003c4 = *iWaterBlurAmount_Water.Setting_Int() + 1.0;
+        unsigned int param = *iWaterBlurAmount_Water.Setting_Int();
         unsigned int uiEffectIndex = param + 16;
         BSShaderManager_GetImageSpaceManager()->GetEffect_004ebbc0(uiEffectIndex)->SetAccumulatorAt(2, &texture, 0);
         BSShaderManager_GetImageSpaceManager()->ImageSpaceManager_RenderEffect(uiEffectIndex, BSShaderManager_GetRenderer(), g_011c7ad4.Modelloader_GetReferencedThis(),
@@ -10100,7 +10100,7 @@ struct RenderHelper
     void Setup(int, int);
 };
 
-extern Setting g_011c7c10;
+extern Setting fRefractionWaterPlaneBias_Water;
 extern NiPoint2 DAT_011f9614;
 extern Plane DAT_011f9604;
 bool TESWaterSystem_GetUseWaterShader();
@@ -10180,7 +10180,7 @@ void WaterSetup::TESWaterSystem_MTRenderSelectiveDepthTexture(WaterPass* pass, u
     GetPassRenderer()->UseTexture(pass->target);
     DAT_011f9604 = pass->reflect;
     Apply(NiColorA(pass->refract.Normal().x, pass->refract.Normal().y, pass->refract.Normal().z,
-                          -pass->refract.Distance() + *g_011c7c10.Float()),
+                          -pass->refract.Distance() + *fRefractionWaterPlaneBias_Water.Float()),
           0);
     UpdateSpawnedObjectFlags(1, 0, 0, 0, 0, 0, 0);
     CopyTexture(pass->target, pass->accumulator, 0);
@@ -11000,7 +11000,7 @@ struct System125
 };
 extern float DAT_011ff108;
 bool TESWaterListener_GetUnderwater();
-extern Setting g_011c7b6c, g_011c7c60, g_011c7bbc;
+extern Setting bUseWaterReflections_Water, bUseWaterRefractions_Water, bUseWaterDepth_Water;
 // For geometry with shader result 13, copies water form properties into its enabled water material and updates related flags.
 // @fnv 0x004e3590
 // src: COMMUNITY 0x004e3590
@@ -11063,9 +11063,9 @@ void System125::TESWaterSystem_UpdateShader(Parent125* parent, Ref125* reference
                     bool flag81 = base->flag80;
                     bool flag63 = base->flag81;
                     bool flag80 = base->flag63;
-                    base->flag80 = material->GetReflectionEnabled() && *g_011c7b6c.Bool();
-                    base->flag81 = material->BGSPlaceableWater_GetRefractionEnabled() && *g_011c7c60.Bool();
-                    base->flag63 = material->FUN_004e32e0() && *g_011c7bbc.Bool();
+                    base->flag80 = material->GetReflectionEnabled() && *bUseWaterReflections_Water.Bool();
+                    base->flag81 = material->BGSPlaceableWater_GetRefractionEnabled() && *bUseWaterRefractions_Water.Bool();
+                    base->flag63 = material->FUN_004e32e0() && *bUseWaterDepth_Water.Bool();
                     if (base->flag80 != flag81 || base->flag81 != flag63 || base->flag63 != flag80)
                     {
                         base->BSShaderProperty_ClearRenderPasses();

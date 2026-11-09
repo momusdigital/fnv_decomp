@@ -187,20 +187,20 @@ int FUN_004d8a20_Class::GetEntry(unsigned short index)
     return m_p38[index];
 }
 
-extern int DAT_01020fe4;
+extern int vftable_NiTMap_01020fe4;
 struct FUN_004d8fa0_StandIn
 {
     int m_p;
     void NiTMapBase_DFALL_NiTMapItem_NiAVObject_TREEITEM_NiAVObject_TREEITEM_NiTMapBase_DFALL_NiTMapItem_NiAVObject_TREEITEM_NiAVObject_TREEITEM(int a);
     FUN_004d8fa0_StandIn* NiTMap_NiAVObject_TREEITEM_NiTMap(int a);
 };
-// Calls FUN_004d9000 with a, stores the address of DAT_01020fe4 in m_p, and returns this.
+// Calls FUN_004d9000 with a, stores the address of vftable_NiTMap_01020fe4 in m_p, and returns this.
 // @fnv 0x004d8fa0
 // src: EXE 0x004d8fa0
 FUN_004d8fa0_StandIn* __thiscall FUN_004d8fa0_StandIn::NiTMap_NiAVObject_TREEITEM_NiTMap(int a)
 {
     NiTMapBase_DFALL_NiTMapItem_NiAVObject_TREEITEM_NiAVObject_TREEITEM_NiTMapBase_DFALL_NiTMapItem_NiAVObject_TREEITEM_NiAVObject_TREEITEM(a);
-    m_p = (int)&DAT_01020fe4;
+    m_p = (int)&vftable_NiTMap_01020fe4;
     return this;
 }
 
@@ -433,7 +433,7 @@ void FUN_004d4f10_StandIn::ReleaseStorage_004d4f10()
 
 extern "C" void NiFreeAlias(void*);
 
-extern int DAT_01021004;
+extern int vftable_NiTMapBase_01021004;
 
 struct FUN_004d90d0_Class
 {
@@ -443,12 +443,12 @@ struct FUN_004d90d0_Class
     void UpdateState_004d90d0();
 };
 
-// Points m_p0 at DAT_01021004, clears the map via RemoveAll, and frees m_p8 with NiFreeAlias.
+// Points m_p0 at vftable_NiTMapBase_01021004, clears the map via RemoveAll, and frees m_p8 with NiFreeAlias.
 // @fnv 0x004d90d0
 // src: GUESS 0x004d90d0 (confidence: low)
 void FUN_004d90d0_Class::UpdateState_004d90d0()
 {
-    m_p0 = (void*)&DAT_01021004;
+    m_p0 = (void*)&vftable_NiTMapBase_01021004;
     ((NiTPointerMap<int, int>*)this)->RemoveAll();
     NiFreeAlias(m_p8);
 }
@@ -483,7 +483,7 @@ void* FUN_004d9160_Class::FUN_004d9160(unsigned int flags)
     return this;
 }
 
-extern int DAT_01020924;
+extern int vftable_NiTMap_01020924;
 struct FUN_004d4e40_Holder
 {
     void __thiscall FUN_004d4e40(unsigned int);
@@ -492,19 +492,19 @@ struct FUN_004d4de0_Class
 {
     void* __thiscall ProcessAndReturnValue_004d4de0(unsigned int);
 };
-// Calls FUN_004d4e40 on this, then stores the address of DAT_01020924 into the object's first field and returns this.
+// Calls FUN_004d4e40 on this, then stores the address of vftable_NiTMap_01020924 into the object's first field and returns this.
 // @fnv 0x004d4de0
 // src: GUESS 0x004d4de0 (confidence: low)
 void* __thiscall FUN_004d4de0_Class::ProcessAndReturnValue_004d4de0(unsigned int a)
 {
     ((FUN_004d4e40_Holder*)this)->FUN_004d4e40(a);
-    *(void**)this = (void*)&DAT_01020924;
+    *(void**)this = (void*)&vftable_NiTMap_01020924;
     return (void*)this;
 }
 
 extern "C" void* __cdecl NiMalloc(unsigned int size);
 extern "C" void* __cdecl memset(void* dest, int value, unsigned int count);
-extern int DAT_01020944;
+extern int vftable_NiTMapBase_01020944;
 struct FUN_004d4e40_Class
 {
     void* m_pVT;
@@ -517,7 +517,7 @@ struct FUN_004d4e40_Class
 // @fnv 0x004d4e40
 FUN_004d4e40_Class::FUN_004d4e40_Class(unsigned int size)
 {
-    m_pVT = &DAT_01020944;
+    m_pVT = &vftable_NiTMapBase_01020944;
     m_uiSize = size;
     m_uiCount = 0;
     unsigned int uiBytes = m_uiSize << 2;
@@ -745,12 +745,12 @@ struct FUN_004d8fa0_Class
     FUN_004d8fa0_Class* NiTMapBase_DFALL_NiTMapItem_NiAVObject_TREEITEM_NiAVObject_TREEITEM_NiTMapBase_DFALL_NiTMapItem_NiAVObject_TREEITEM_NiAVObject_TREEITEM(unsigned int size);
 };
 
-// Sets m_p0 to DAT_01021004, stores size in m_i4, allocates m_i4*4 bytes into m_p8, zeroes them, and returns this.
+// Sets m_p0 to vftable_NiTMapBase_01021004, stores size in m_i4, allocates m_i4*4 bytes into m_p8, zeroes them, and returns this.
 // @fnv 0x004d9000
 // src: COMMUNITY 0x004d9000
 FUN_004d8fa0_Class* FUN_004d8fa0_Class::NiTMapBase_DFALL_NiTMapItem_NiAVObject_TREEITEM_NiAVObject_TREEITEM_NiTMapBase_DFALL_NiTMapItem_NiAVObject_TREEITEM_NiAVObject_TREEITEM(unsigned int size)
 {
-    m_p0 = &DAT_01021004;
+    m_p0 = &vftable_NiTMapBase_01021004;
     m_i4 = size;
     m_iC = 0;
     unsigned int a = m_i4 * 4;
@@ -904,12 +904,12 @@ struct GlobalObject_004a4a40
 {
     int GetCellStandValue();
 };
-extern GlobalObject_004a4a40 g_011c738c;
+extern GlobalObject_004a4a40 iAdapter_Display;
 // @fnv 0x004dc210
 // src: COMMUNITY 0x004dc210
 int __cdecl TESRenderer_GetAdapterIndex()
 {
-    return g_011c738c.GetCellStandValue();
+    return iAdapter_Display.GetCellStandValue();
 }
 
 struct CellStand
@@ -920,13 +920,13 @@ struct GlobalObject_0045cfe0
 {
     CellStand m_cell;
 };
-extern GlobalObject_0045cfe0 g_011c7100;
+extern GlobalObject_0045cfe0 iNPatches_Display;
 
 // @fnv 0x004dc2b0
 // src: COMMUNITY 0x004dc2b0
 void __cdecl TESRenderer_GetNPatchSegments()
 {
-    g_011c7100.m_cell.GetCellStandValue();
+    iNPatches_Display.m_cell.GetCellStandValue();
 }
 
 extern float DAT_0118945c;
@@ -1159,9 +1159,9 @@ struct GlobalObject_0044f440
 {
     float* Float();
 };
-extern GlobalObject_0044f440 g_011c6528;
-extern GlobalObject_0044f440 g_011c6534;
-extern GlobalObject_0044f440 g_011c651c;
+extern GlobalObject_0044f440 fDialogueHeadPitchExaggeration_Audio;
+extern GlobalObject_0044f440 fDialogueHeadRollExaggeration_Audio;
+extern GlobalObject_0044f440 fDialogueHeadYawExaggeration_Audio;
 
 struct Buf
 {
@@ -1223,9 +1223,9 @@ void* ReadBufFromMemory(char* pData, unsigned int uiSize)
             result2->pC[i5][k] = *(float*)(pData + pos5);
             pos5 += 4;
         }
-        result2->pC[i5][14] = result2->pC[i5][14] * *g_011c6528.Float();
-        result2->pC[i5][15] = result2->pC[i5][15] * *g_011c6534.Float();
-        result2->pC[i5][16] = result2->pC[i5][16] * *g_011c651c.Float();
+        result2->pC[i5][14] = result2->pC[i5][14] * *fDialogueHeadPitchExaggeration_Audio.Float();
+        result2->pC[i5][15] = result2->pC[i5][15] * *fDialogueHeadRollExaggeration_Audio.Float();
+        result2->pC[i5][16] = result2->pC[i5][16] * *fDialogueHeadYawExaggeration_Audio.Float();
     }
     return result2;
 }

@@ -470,10 +470,10 @@ struct FUN_00cad900_cls
     void hkpCharacterProxy_calcContentStatistics(FUN_00cad900_arg* a1, int a2);
 };
 extern char str_0102f13c[];
-extern char DAT_0104e3d0[];
-extern char DAT_010c84a4[];
-extern char DAT_010c8488[];
-extern char DAT_010c8470[];
+extern char vftable_hkpPhantomListener[];
+extern char vftable_hkpCharacterProxy[];
+extern char vftable_hkpCharacterProxy_for_hkpEntityListener[];
+extern char vftable_hkpCharacterProxy_for_hkpPhantomListener[];
 struct FUN_00cad500_Class
 {
     void __thiscall hkpCharacterProxy_updateFromCinfo(void* arg);

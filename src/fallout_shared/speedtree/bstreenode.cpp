@@ -56,7 +56,8 @@ NiNode* BSTreeNode::GetLeavesNode()
 void __cdecl __Dummy_00b6fef0(void*, unsigned int);
 
 // @fnv 0x0066b680
-void* BSTreeNode::FUN_0066b680(unsigned int flags)
+// src: EXE 0x0066b680
+void* BSTreeNode::ScalarDeletingDestructor(unsigned int flags)
 {
     this->BSTreeNode::~BSTreeNode();
     if (flags & 1)
@@ -138,11 +139,12 @@ void __cdecl __Dummy_00b6fef0(void* p, unsigned int size);
 struct FUN_0066d440_shell
 {
     void ForwardCall_0066d470();
-    void* FUN_0066d440(unsigned int flags);
+    void* bhkSPCollisionObject_ScalarDeletingDestructor(unsigned int flags);
 };
 
 // @fnv 0x0066d440
-void* FUN_0066d440_shell::FUN_0066d440(unsigned int flags)
+// src: EXE 0x0066d440
+void* FUN_0066d440_shell::bhkSPCollisionObject_ScalarDeletingDestructor(unsigned int flags)
 {
     this->ForwardCall_0066d470();
     if (flags & 1)
@@ -180,13 +182,14 @@ const void* FUN_0066d510_shell::bhkMultiSphereShape_GetRTTI()
 struct FUN_0066d520_shell
 {
     void FUN_00cb78b0();
-    void* FUN_0066d520(unsigned int flags);
+    void* bhkMultiSphereShape_ScalarDeletingDestructor(unsigned int flags);
 };
 
 void __cdecl __Dummy_00b6fef0(void* p, unsigned int size);
 
 // @fnv 0x0066d520
-void* __thiscall FUN_0066d520_shell::FUN_0066d520(unsigned int flags)
+// src: EXE 0x0066d520
+void* __thiscall FUN_0066d520_shell::bhkMultiSphereShape_ScalarDeletingDestructor(unsigned int flags)
 {
     this->FUN_00cb78b0();
     if (flags & 1)
@@ -276,11 +279,11 @@ bool __thiscall BSTreeNode::SetFrondVisible(bool abVisible)
     return true;
 }
 
-struct FUN_0066d3d0_shell
+struct bhkPCollisionObject
 {
     void __thiscall bhkPCollisionObject_bhkPCollisionObject(void*);
 };
-extern int DAT_01066acc;
+extern int vftable_bhkSPCollisionObject;
 struct FUN_0066d3a0_shell
 {
     void* __thiscall bhkSPCollisionObject_bhkSPCollisionObject(void*);
@@ -289,8 +292,8 @@ struct FUN_0066d3a0_shell
 // src: EXE 0x0066d3a0
 void* __thiscall FUN_0066d3a0_shell::bhkSPCollisionObject_bhkSPCollisionObject(void* arg)
 {
-    reinterpret_cast<FUN_0066d3d0_shell*>(this)->bhkPCollisionObject_bhkPCollisionObject(arg);
-    *reinterpret_cast<void**>(this) = &DAT_01066acc;
+    reinterpret_cast<bhkPCollisionObject*>(this)->bhkPCollisionObject_bhkPCollisionObject(arg);
+    *reinterpret_cast<void**>(this) = &vftable_bhkSPCollisionObject;
     return this;
 }
 
@@ -299,21 +302,21 @@ struct FUN_00c6b950_shell
 {
     void* __thiscall FUN_00c6b950(unsigned int);
 };
-extern void* DAT_01066b94;
+extern void* vftable_bhkPCollisionObject;
 
-struct FUN_0066d3d0_shell
+struct bhkPCollisionObject
 {
     void* m0;
     void* __thiscall bhkPCollisionObject_bhkPCollisionObject(unsigned int a);
 };
 
-// Calls FUN_00c6b950 with a, then sets m0 to point at DAT_01066b94 and returns this.
+// Calls FUN_00c6b950 with a, then sets m0 to point at vftable_bhkPCollisionObject and returns this.
 // @fnv 0x0066d3d0
 // src: EXE 0x0066d3d0
-void* __thiscall FUN_0066d3d0_shell::bhkPCollisionObject_bhkPCollisionObject(unsigned int a)
+void* __thiscall bhkPCollisionObject::bhkPCollisionObject_bhkPCollisionObject(unsigned int a)
 {
     ((FUN_00c6b950_shell*)this)->FUN_00c6b950(a);
-    m0 = &DAT_01066b94;
+    m0 = &vftable_bhkPCollisionObject;
     return this;
 }
 }  // namespace fnv_0066d3d0
@@ -589,7 +592,7 @@ void BSTreeNode::UpdateSelectedDownwardPass(NiUpdateData& kUpdate, unsigned int 
         reinterpret_cast<NiUpdateData&>(kUpdate), uiFlags);
 }
 
-extern char DAT_01066c5c;
+extern char vftable_bhkMultiSphereShape;
 extern unsigned int DAT_012683dc;
 
 struct FUN_0066d490_base
@@ -609,12 +612,12 @@ struct FUN_0066d490_cls : FUN_0066d490_base
 // @fnv 0x0066d490
 FUN_0066d490_cls::FUN_0066d490_cls(unsigned int a1)
 {
-    *(void* volatile*)&m_vptr = &DAT_01066c5c;
+    *(void* volatile*)&m_vptr = &vftable_bhkMultiSphereShape;
     this->bhkMultiSphereShape_Init(a1);
     DAT_012683dc = DAT_012683dc + 1;
 }
 
-extern char DAT_01066d44;
+extern char vftable_bhkTransformShape;
 extern unsigned int DAT_012681b0;
 
 struct FUN_0066d590_base
@@ -634,7 +637,7 @@ struct FUN_0066d590_cls : FUN_0066d590_base
 // @fnv 0x0066d590
 FUN_0066d590_cls::FUN_0066d590_cls(unsigned int a1)
 {
-    *(void* volatile*)&m_vptr = &DAT_01066d44;
+    *(void* volatile*)&m_vptr = &vftable_bhkTransformShape;
     this->bhkTransformShape_Init(a1);
     DAT_012681b0 = DAT_012681b0 + 1;
 }

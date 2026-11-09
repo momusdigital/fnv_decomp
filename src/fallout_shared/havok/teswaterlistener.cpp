@@ -25,7 +25,7 @@
 
 struct FUN_0062e750_shell
 {
-    void* __thiscall FUN_0062e750(unsigned int flags);
+    void* __thiscall TESWaterListener_ScalarDeletingDestructor(unsigned int flags);
     void __thiscall FUN_0062e860();
 };
 
@@ -33,7 +33,8 @@ void __cdecl _Deallocate(void* p);
 
 // Calls FUN_0062e860, then deallocates this when flags has bit 0 set, and returns this.
 // @fnv 0x0062e750
-void* FUN_0062e750_shell::FUN_0062e750(unsigned int flags)
+// src: EXE 0x0062e750
+void* FUN_0062e750_shell::TESWaterListener_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_0062e860();
     if (flags & 1)
@@ -320,19 +321,19 @@ struct AX
 {
     void __thiscall BSSimpleArray_float_1024_InitialSetup(unsigned int, unsigned int);
 };
-extern int DAT_0104e4bc;
+extern int vftable_BSSimpleArray_0104e4bc;
 
 struct FUN_00631750_shell
 {
     void* __thiscall BSSimpleArray_hkpCollidable_const_1024_BSSimpleArray_hkpCollidable_const_1024();
 };
 
-// Sets the object's vtable pointer to DAT_0104e4bc, calls FUN_006b3eb0 with 0, 0, and returns this.
+// Sets the object's vtable pointer to vftable_BSSimpleArray_0104e4bc, calls FUN_006b3eb0 with 0, 0, and returns this.
 // @fnv 0x00631750
 // src: XBOX_PDB 0x00631750
 void* __thiscall FUN_00631750_shell::BSSimpleArray_hkpCollidable_const_1024_BSSimpleArray_hkpCollidable_const_1024()
 {
-    *(void**)this = &DAT_0104e4bc;
+    *(void**)this = &vftable_BSSimpleArray_0104e4bc;
     reinterpret_cast<AX*>(this)->BSSimpleArray_float_1024_InitialSetup(0, 0);
     return this;
 }
@@ -1099,7 +1100,7 @@ struct SettingWater
 {
     unsigned char* Bool();
 };
-extern SettingWater g_011cc5a8;
+extern SettingWater bAutoWaterUsesHavokShapes_HAVOK;
 void __cdecl ResetWater(int);
 void TESWaterSystem_SetCameraRelevantWaterHeight(float);
 void TESWaterSystem_SetCameraInPlaceableWater(unsigned char);
@@ -1188,7 +1189,7 @@ bool WaterManager::TESWaterListener_contactPointRemovedCallback(EventWater* even
     if (!eb)
         return false;
     BGSPlaceableWater* i = dynamic_cast<BGSPlaceableWater*>(eb->GetBase());
-    if (!*g_011cc5a8.Bool() && i->IsRestricted())
+    if (!*bAutoWaterUsesHavokShapes_HAVOK.Bool() && i->IsRestricted())
         return false;
     Group* p = groups ? groups->Find(event->water) : 0;
     Group* q = p;
@@ -1359,7 +1360,7 @@ bool WaterOwner::TESWaterListener_contactPointAddedCallback(WaterRequest* reques
             if (!f)
                 return false;
             BGSPlaceableWater* g = dynamic_cast<BGSPlaceableWater*>(f->GetBase());
-            if (!*g_011cc5a8.Bool() && g->IsRestricted())
+            if (!*bAutoWaterUsesHavokShapes_HAVOK.Bool() && g->IsRestricted())
                 return false;
             TESWaterSystem_SetCameraRelevantWaterHeight(static_cast<const TESObjectREFR*>(f)->GetPos()->z);
             TESWaterSystem_SetPlayerForceUnderwater(1);
@@ -1373,7 +1374,7 @@ bool WaterOwner::TESWaterListener_contactPointAddedCallback(WaterRequest* reques
     if (!b)
         return false;
     BGSPlaceableWater* c = dynamic_cast<BGSPlaceableWater*>(b->GetBase());
-    if (!*g_011cc5a8.Bool() && c->IsRestricted())
+    if (!*bAutoWaterUsesHavokShapes_HAVOK.Bool() && c->IsRestricted())
         return false;
     if (d == (TESObjectREFR*)_g_thePlayer)
         TESWaterSystem_SetCurrentWaterType((int)static_cast<const TESObject*>(c)->GetAssociatedWaterForm());

@@ -1018,7 +1018,7 @@ HLSLVertexShaderConstructionView* HLSLCreator_b10814::NiD3DShaderProgramCreatorH
 
 extern void* DAT_0126fa2c;
 extern void* DAT_0126fa28;
-extern void* DAT_010f10f4;
+extern void* vftable_NiD3DHLSLPixelShader;
 const char* __stdcall D3DXGetPixelShaderProfile_00ee6e28(void* pkDevice);
 
 struct HLSLPixelShader96 : NiMemObject
@@ -1090,7 +1090,7 @@ struct HLSLPixelShaderCtor96 : NiMemObject
     {
         ((HLSLPixelShader96*)this)->FUN_00e897d0(pkRenderer, 2);
         ((HLSLPixelShader96*)this)->m_pD3DPixelShader = 0;
-        *(void**)this = &DAT_010f10f4;
+        *(void**)this = &vftable_NiD3DHLSLPixelShader;
         ((HLSLPixelShader96*)this)->m_pcShaderEntryPoint = 0;
         ((HLSLPixelShader96*)this)->m_pcShaderProfile = 0;
         ((HLSLPixelShader96*)this)->m_pShaderConstantTable = 0;

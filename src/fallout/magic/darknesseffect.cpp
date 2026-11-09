@@ -6,7 +6,7 @@
 // src/fallout/magic/darknesseffect.cpp - unit created 2026-10-16 from the whole-binary attribution (360 source path: d:/_fallout3/platforms/common/code/fallout/magic/darknesseffect.cpp).
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
 
-// Constructs a ValueModifierEffect subobject and sets its vtable pointer to DAT_01079d2c.
+// Constructs a ValueModifierEffect subobject and sets its vtable pointer to vftable_DarknessEffect.
 // @fnv 0x0080c460
 DarknessEffect::DarknessEffect(void* apArg1, void* apArg2, void* apArg3)
     : ValueModifierEffect(apArg1, apArg2, apArg3)

@@ -706,7 +706,7 @@ FUN_00a9beb0::~FUN_00a9beb0()
     InterlockedDecrement(&DAT_011f4400);
 }
 
-extern "C" char DAT_010f003c;
+extern "C" char vftable_NiTObjectArray_010f003c;
 struct ShaderMapBase : NiShaderConstantMap
 {
     ShaderMapBase(unsigned int);
@@ -722,7 +722,7 @@ struct ShaderMapArray
         size = 0;
         count = 0;
         entries = 0;
-        vtable = &DAT_010f003c;
+        vtable = &vftable_NiTObjectArray_010f003c;
     }
     ~ShaderMapArray();
     void NiTObjectArray_NiPointer_NiShaderConstantMapEntry_RemoveAll();

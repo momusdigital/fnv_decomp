@@ -9,7 +9,7 @@ extern "C" void _ReadWriteBarrier();
 typedef ::__m128 __m128;
 extern "C" __m128 _mm_setr_ps(float, float, float, float);
 extern "C" void _mm_store_ps(float*, __m128);
-extern char DAT_0102f0ec[];
+extern char vftable_hkpWorldCinfo[];
 extern float DAT_01018180, DAT_01013d84;
 __declspec(selectany) extern const float DAT_0104da48 = 3.402820018375656e38f;
 __declspec(selectany) extern const float DAT_010141cc = 0.0001f;
@@ -123,7 +123,7 @@ struct WorldFieldsC90
     hkBool m_bFireCollisionCallbacks;
     char unkE1, unkE2, unkE3;
     unsigned int unkE4, unkE8, unkEC;
-    WorldFieldsC90() : m_vft(DAT_0102f0ec), m_sReferenceCount(1)
+    WorldFieldsC90() : m_vft(vftable_hkpWorldCinfo), m_sReferenceCount(1)
     {}
     void setVecs(float zero, float a);
     void setToi(float v);

@@ -379,14 +379,14 @@ struct __declspec(align(16)) FUN_00c9ce00
     int unk218;
     int unk21C;
 };
-extern int DAT_010c7888;
+extern int vftable_hkpRigidBody;
 // @fnv 0x00d49550
 // src: HAVOK_LIB 0x00d49550
 int* __cdecl getVtablehkpRigidBody()
 {
     Handle_d49550 kHandle = {0};
     FUN_00c9ce00 kObject(kHandle);
-    return &DAT_010c7888;
+    return &vftable_hkpRigidBody;
 }
 
 class __declspec(align(16)) S00d4b1a0_Object

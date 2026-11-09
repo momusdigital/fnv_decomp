@@ -26,7 +26,7 @@ unsigned short __thiscall LimbConditionEffect::GetSaveSize(Actor* apActor)
     return isize;
 }
 
-extern int DAT_0107a3fc;
+extern int vftable_LimbConditionEffect;
 extern "C" void ConstructValueModifierEffect();
 
 // Constructs the value-modifier base, installs the game vtable and initializes the limb actor value.
@@ -36,7 +36,7 @@ LimbConditionEffect* LimbConditionEffect::LimbConditionEffect_0080f060(void* a, 
 {
     typedef ValueModifierEffect* (__thiscall* BaseConstructor)(ValueModifierEffect*, void*, void*, void*);
     ((BaseConstructor)&ConstructValueModifierEffect)(this, a, b, c);
-    *(void**)this = (void*)&DAT_0107a3fc;
+    *(void**)this = (void*)&vftable_LimbConditionEffect;
     m_eModifiedActorValue = -1;
     return this;
 }

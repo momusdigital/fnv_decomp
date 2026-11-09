@@ -12,9 +12,9 @@ struct FUN_0062d2f0_shell
 {
     void* GetOffset160();
 };
-extern int DAT_0104e328;
+extern int vftable_hkpCdBodyPairCollector;
 void* __cdecl _Deallocate(void*);
-extern int DAT_0104e3d0;
+extern int vftable_hkpPhantomListener;
 struct FUN_0062d740_shell
 {
     int m_field;
@@ -25,7 +25,7 @@ struct FUN_0062dee0_shell
     CombatWorldStateListNode* m_kNode;
     bool ProcessEntries_0062dee0(int arg);
 };
-extern int DAT_0104e3f4;
+extern int vftable_BSListBase_0104e3f4;
 struct FUN_0062e040_shell
 {
     void SetVirtualTable_0062e040();
@@ -40,7 +40,7 @@ struct FUN_0062dfe0_shell
 };
 struct FUN_0062d710_shell : FUN_0062d740_shell
 {
-    void* FUN_0062d710(unsigned int flags);
+    void* hkpPhantomListener_ScalarDeletingDestructor(unsigned int flags);
 };
 struct FUN_0062e200_shell
 {

@@ -94,7 +94,7 @@ BSExtraData* FUN_0042e110::GetExtraData()
 }
 }  // namespace fnv_0042e110
 
-extern "C" void* __cdecl DAT_010159e8;
+extern "C" void* __cdecl vftable_NiTMap_010159e8;
 
 struct FUN_0042f4e0_class
 {
@@ -103,13 +103,13 @@ struct FUN_0042f4e0_class
     void* __thiscall SetVirtualTable_0042f4e0(void* arg);
 };
 
-// Calls FUN_0042fe10 on arg, sets m_vtbl to &DAT_010159e8, and returns this.
+// Calls FUN_0042fe10 on arg, sets m_vtbl to &vftable_NiTMap_010159e8, and returns this.
 // @fnv 0x0042f4e0
 // src: GUESS 0x0042f4e0 (confidence: low)
 void* __thiscall FUN_0042f4e0_class::SetVirtualTable_0042f4e0(void* arg)
 {
     NiTMapBase_DFALL_NiTMapItem_TESObjectREFR_bool_TESObjectREFR_bool_NiTMapBase_DFALL_NiTMapItem_TESObjectREFR_bool_TESObjectREFR_bool(arg);
-    m_vtbl = &DAT_010159e8;
+    m_vtbl = &vftable_NiTMap_010159e8;
     return this;
 }
 
@@ -125,7 +125,7 @@ void BSSimpleArray_NavMeshPtr_1024_DefaultEqualFunction_NavMeshPtr(FUN_0042ff10_
     pTarget->Helper_0042ff30(b);
 }
 
-extern int DAT_01015a08;
+extern int vftable_BSSimpleArray_01015a08;
 struct GlobalObject_00869f00
 {
     void Clear(bool);
@@ -135,11 +135,11 @@ struct GlobalObject_00869f00
 // src: GUESS 0x0042ff80 (confidence: medium)
 void GlobalObject_00869f00::ResetVirtualTableAndClear()
 {
-    *(int*)this = (int)&DAT_01015a08;
+    *(int*)this = (int)&vftable_BSSimpleArray_01015a08;
     Clear(true);
 }
 
-extern void* DAT_01015968;
+extern void* vftable_ExtraHeadingTarget;
 
 struct FUN_00435ef0 : public BSExtraData
 {
@@ -151,7 +151,7 @@ struct FUN_00435ef0 : public BSExtraData
 // src: GUESS 0x00435ef0 (confidence: low)
 void FUN_00435ef0::SetVtableAndProcessState_00435ef0()
 {
-    *reinterpret_cast<void**>(this) = &DAT_01015968;
+    *reinterpret_cast<void**>(this) = &vftable_ExtraHeadingTarget;
     *reinterpret_cast<int*>(reinterpret_cast<char*>(this) + 0xc) = 0;
     this->BSExtraData::~BSExtraData();
 }
@@ -168,25 +168,25 @@ void* FUN_00437dd0_Class::ExtraFollowerSwimBreadcrumbs_GetFirstCrumb()
     return *(void**)&((Bound*)((char*)this + 0x20))->FUN_006815c0();
 }
 
-extern int DAT_01015fbc;
+extern int vftable_NiTMap_01015fbc;
 struct FUN_004383b0_Class
 {
     void* p;
     void NiTMapBase_DFALL_NiTMapItem_WaterZone_int_WaterZone_int_NiTMapBase(void*);
     void* NiTMap_WaterZone_int_NiTMap(void* a);
 };
-// Calls FUN_004386b0 with a, sets p to the address of DAT_01015fbc, and returns this.
+// Calls FUN_004386b0 with a, sets p to the address of vftable_NiTMap_01015fbc, and returns this.
 // @fnv 0x004383b0
 // src: EXE 0x004383b0
 void* FUN_004383b0_Class::NiTMap_WaterZone_int_NiTMap(void* apArg)
 {
     NiTMapBase_DFALL_NiTMapItem_WaterZone_int_WaterZone_int_NiTMapBase(apArg);
-    p = &DAT_01015fbc;
+    p = &vftable_NiTMap_01015fbc;
     return this;
 }
 
 extern "C" void __cdecl FUN_00438820(void*);
-extern char DAT_01015fdc;
+extern char vftable_BSMap_01015fdc;
 
 struct FUN_004383e0_class
 {
@@ -194,17 +194,17 @@ struct FUN_004383e0_class
     void* __thiscall BSMap_TESFaction_bool_BSMap(void* a);
 };
 
-// Calls FUN_00438820 with this and a, sets p to the address of DAT_01015fdc, and returns this.
+// Calls FUN_00438820 with this and a, sets p to the address of vftable_BSMap_01015fdc, and returns this.
 // @fnv 0x004383e0
 // src: EXE 0x004383e0
 void* __thiscall FUN_004383e0_class::BSMap_TESFaction_bool_BSMap(void* apArg)
 {
     ((void(__thiscall*)(void*, void*))FUN_00438820)(this, apArg);
-    p = &DAT_01015fdc;
+    p = &vftable_BSMap_01015fdc;
     return this;
 }
 
-extern int DAT_01015ffc;
+extern int vftable_BSSimpleArray_01015ffc;
 
 struct AX
 {
@@ -216,13 +216,13 @@ struct AX
 // src: EXE 0x00438570
 AX* AX::BSSimpleArray_DismemberedLimb_1024_BSSimpleArray()
 {
-    *reinterpret_cast<int*>(this) = (int)&DAT_01015ffc;
+    *reinterpret_cast<int*>(this) = (int)&vftable_BSSimpleArray_01015ffc;
     BSSimpleArray_float_1024_InitialSetup(0, 0);
     return this;
 }
 
 namespace fnv_004385a0 {
-extern int DAT_01015ffc;
+extern int vftable_BSSimpleArray_01015ffc;
 struct GlobalObject_00869f00
 {
     void Clear(bool);
@@ -235,7 +235,7 @@ struct FUN_004385a0Class
 // src: GUESS 0x004385a0 (confidence: medium)
 void FUN_004385a0Class::ResetVirtualTableAndClear_004385a0()
 {
-    *(int*)this = (int)&DAT_01015ffc;
+    *(int*)this = (int)&vftable_BSSimpleArray_01015ffc;
     ((GlobalObject_00869f00*)this)->Clear(true);
 }
 }  // namespace fnv_004385a0
@@ -248,7 +248,7 @@ BSSimpleArray<CombatTargetTimestamp, 1024>::BSSimpleArray()
 }
 
 namespace fnv_00438690 {
-extern int DAT_01016024;
+extern int vftable_BSSimpleArray_01016024;
 
 struct GlobalObject_00869f00
 {
@@ -261,7 +261,7 @@ struct GlobalObject_00869f00
 // src: GUESS 0x00438690 (confidence: low)
 void GlobalObject_00869f00::UpdateState_00438690()
 {
-    p = &DAT_01016024;
+    p = &vftable_BSSimpleArray_01016024;
     Clear(true);
 }
 }  // namespace fnv_00438690
@@ -463,7 +463,7 @@ bool __thiscall FUN_0043fab0_class::QueuedHelmet_GetFinishedQueuing()
 }
 
 extern "C" void* __cdecl _NiFreeAlias(void*);
-extern int DAT_01015a1c;
+extern int vftable_NiTMapBase_01015a1c;
 
 // @fnv 0x0042fee0
 template <>
@@ -473,14 +473,14 @@ NiTMapBase<DFALL<NiTMapItem<TESObjectREFR*, bool> >, TESObjectREFR*, bool>::~NiT
     _NiFreeAlias(m_ppkHashTable);
 }
 
-extern int DAT_01015f24;
+extern int vftable_ExtraTalkingActor;
 
 struct FUN_00436ac0 : BSExtraData
 {
     FUN_00436ac0();
 };
 
-// Initialises the base with tag 0x55, installs the vtable pointer from DAT_01015f24, and zeroes the field at offset 0xc.
+// Initialises the base with tag 0x55, installs the vtable pointer from vftable_ExtraTalkingActor, and zeroes the field at offset 0xc.
 // @fnv 0x00436ac0
 FUN_00436ac0::FUN_00436ac0() : BSExtraData(0x55)
 {
@@ -529,7 +529,7 @@ struct FUN_00435ec0 : public BSExtraData
     void* p;
     FUN_00435ec0(void* a);
 };
-// Initialises the object with base value 0x46, sets its vtable to DAT_01015968 and stores the passed pointer in p.
+// Initialises the object with base value 0x46, sets its vtable to vftable_ExtraHeadingTarget and stores the passed pointer in p.
 // @fnv 0x00435ec0
 FUN_00435ec0::FUN_00435ec0(void* a) : BSExtraData(0x46)
 {
@@ -554,11 +554,12 @@ struct FUN_00435f80_shell
 };
 struct FUN_00435f50_class : FUN_00435f80_shell
 {
-    void* __thiscall FUN_00435f50(unsigned int flags);
+    void* __thiscall ExtraRefractionProperty_ScalarDeletingDestructor(unsigned int flags);
 };
 // Calls FUN_00435f80, then deallocates this when flags has bit 0 set, and returns this.
 // @fnv 0x00435f50
-void* __thiscall FUN_00435f50_class::FUN_00435f50(unsigned int flags)
+// src: EXE 0x00435f50
+void* __thiscall FUN_00435f50_class::ExtraRefractionProperty_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00435f80();
     if (flags & 1)
@@ -566,7 +567,7 @@ void* __thiscall FUN_00435f50_class::FUN_00435f50(unsigned int flags)
     return this;
 }
 
-extern "C" void* DAT_01015974;
+extern "C" void* vftable_ExtraHasNoRumors;
 struct FUN_00436090 : public BSExtraData
 {
     unsigned char c;
@@ -582,10 +583,11 @@ void __cdecl Deallocate(void*);
 struct FUN_00436150_Class
 {
     void __thiscall FUN_00436180();
-    void* __thiscall FUN_00436150(unsigned int flags);
+    void* __thiscall ExtraSound_ScalarDeletingDestructor(unsigned int flags);
 };
 // @fnv 0x00436150
-void* __thiscall FUN_00436150_Class::FUN_00436150(unsigned int flags)
+// src: EXE 0x00436150
+void* __thiscall FUN_00436150_Class::ExtraSound_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00436180();
     if (flags & 1)
@@ -596,11 +598,12 @@ void* __thiscall FUN_00436150_Class::FUN_00436150(unsigned int flags)
 struct FUN_00436390_Class
 {
     void __thiscall FUN_004363c0();
-    void* __thiscall FUN_00436390(unsigned int flags);
+    void* __thiscall ExtraCreatureMovementSound_ScalarDeletingDestructor(unsigned int flags);
 };
 
 // @fnv 0x00436390
-void* FUN_00436390_Class::FUN_00436390(unsigned int flags)
+// src: EXE 0x00436390
+void* FUN_00436390_Class::ExtraCreatureMovementSound_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_004363c0();
     if (flags & 1)
@@ -611,11 +614,12 @@ void* FUN_00436390_Class::FUN_00436390(unsigned int flags)
 struct FUN_004364b0_Class
 {
     void __thiscall FUN_004364e0();
-    void* __thiscall FUN_004364b0(unsigned int flags);
+    void* __thiscall ExtraWeaponIdleSound_ScalarDeletingDestructor(unsigned int flags);
 };
 // Calls FUN_004364e0, then deallocates this if flags has bit 0 set, and returns this.
 // @fnv 0x004364b0
-void* FUN_004364b0_Class::FUN_004364b0(unsigned int flags)
+// src: EXE 0x004364b0
+void* FUN_004364b0_Class::ExtraWeaponIdleSound_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_004364e0();
     if (flags & 1)
@@ -626,11 +630,12 @@ void* FUN_004364b0_Class::FUN_004364b0(unsigned int flags)
 struct FUN_004365d0_class
 {
     void* __thiscall FUN_00436600();
-    void* __thiscall FUN_004365d0(unsigned int flags);
+    void* __thiscall ExtraWeaponAttackSound_ScalarDeletingDestructor(unsigned int flags);
 };
 // Calls FUN_00436600, then deallocates this when flags has bit 0 set, and returns this.
 // @fnv 0x004365d0
-void* __thiscall FUN_004365d0_class::FUN_004365d0(unsigned int flags)
+// src: EXE 0x004365d0
+void* __thiscall FUN_004365d0_class::ExtraWeaponAttackSound_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00436600();
     if (flags & 1)
@@ -644,12 +649,13 @@ void __cdecl Deallocate(void*);
 struct FUN_004366f0_class
 {
     void __thiscall FUN_00436720();
-    void* __thiscall FUN_004366f0(unsigned int flags);
+    void* __thiscall ExtraActivateLoopSound_ScalarDeletingDestructor(unsigned int flags);
 };
 
 // Calls FUN_00436720, frees this via Deallocate when flags has bit 0 set, and returns this.
 // @fnv 0x004366f0
-void* __thiscall FUN_004366f0_class::FUN_004366f0(unsigned int flags)
+// src: EXE 0x004366f0
+void* __thiscall FUN_004366f0_class::ExtraActivateLoopSound_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00436720();
     if (flags & 1)
@@ -662,10 +668,11 @@ void FUN_00436bb0();
 struct FUN_00436af0_Class
 {
     void FUN_00436bb0();
-    void* FUN_00436af0(unsigned int flags);
+    void* ExtraTalkingActor_ScalarDeletingDestructor(unsigned int flags);
 };
 // @fnv 0x00436af0
-void* FUN_00436af0_Class::FUN_00436af0(unsigned int flags)
+// src: EXE 0x00436af0
+void* FUN_00436af0_Class::ExtraTalkingActor_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00436bb0();
     if (flags & 1)
@@ -806,7 +813,7 @@ unsigned int __thiscall Holder00420dd0::ExtraDataList_GetPortal()
     return 0;
 }
 
-extern int DAT_01015998;
+extern int vftable_ExtraAmmo;
 
 struct FUN_0042cba0_class : public BSExtraData
 {
@@ -815,7 +822,7 @@ struct FUN_0042cba0_class : public BSExtraData
     FUN_0042cba0_class();
 };
 
-// Initialises the object with base value 0x6e, sets its vtbl to DAT_01015998, and zeroes fields c and d.
+// Initialises the object with base value 0x6e, sets its vtbl to vftable_ExtraAmmo, and zeroes fields c and d.
 // @fnv 0x0042cba0
 FUN_0042cba0_class::FUN_0042cba0_class() : BSExtraData(0x6e)
 {
@@ -827,14 +834,14 @@ struct FHolder_42cbe0 : BSExtraData
 {
     void* __thiscall ExtraPackageData_ExtraPackageData();
 };
-extern int DAT_010151fc;
-// Initialises the object with BSExtraData(0x70), installs the vtable pointer DAT_010151fc, zeroes the field at offset 0xc, and returns this.
+extern int vftable_ExtraPackageData;
+// Initialises the object with BSExtraData(0x70), installs the vtable pointer vftable_ExtraPackageData, zeroes the field at offset 0xc, and returns this.
 // @fnv 0x0042cbe0
 // src: EXE 0x0042cbe0
 void* __thiscall FHolder_42cbe0::ExtraPackageData_ExtraPackageData()
 {
     this->BSExtraData::BSExtraData(0x70);
-    *(void**)this = (void*)&DAT_010151fc;
+    *(void**)this = (void*)&vftable_ExtraPackageData;
     *(int*)((char*)this + 0xc) = 0;
     return this;
 }
@@ -899,14 +906,14 @@ ExtraLock* FUN_0042df90_shell::ExtraDataList_GetInfoGeneralTopic(int a)
     return p;
 }
 
-extern int DAT_01015980;
+extern int vftable_ExtraModelSwap;
 struct FUN_0042e210_Class : public BSExtraData
 {
     int c;
     int d;
     FUN_0042e210_Class(int x, int y);
 };
-// Initializes the object with base BSExtraData(0x5b), sets vtbl to DAT_01015980, and stores x into c and y into d.
+// Initializes the object with base BSExtraData(0x5b), sets vtbl to vftable_ExtraModelSwap, and stores x into c and y into d.
 // @fnv 0x0042e210
 FUN_0042e210_Class::FUN_0042e210_Class(int x, int y) : BSExtraData(0x5b)
 {
@@ -914,13 +921,13 @@ FUN_0042e210_Class::FUN_0042e210_Class(int x, int y) : BSExtraData(0x5b)
     d = y;
 }
 
-extern void* DAT_010159bc;
+extern void* vftable_ExtraModdingItem;
 struct FUN_0042e650_class : BSExtraData
 {
     unsigned char c;
     FUN_0042e650_class(unsigned char c);
 };
-// Initialises the object with base value 0x8e, sets its vtbl to DAT_010159bc and stores c in field c.
+// Initialises the object with base value 0x8e, sets its vtbl to vftable_ExtraModdingItem and stores c in field c.
 // @fnv 0x0042e650
 FUN_0042e650_class::FUN_0042e650_class(unsigned char aucValue) : BSExtraData(0x8e)
 {
@@ -967,7 +974,7 @@ struct FUN_0042fe10_class
 // src: COMMUNITY 0x0042fe10
 void* FUN_0042fe10_class::NiTMapBase_DFALL_NiTMapItem_TESObjectREFR_bool_TESObjectREFR_bool_NiTMapBase_DFALL_NiTMapItem_TESObjectREFR_bool_TESObjectREFR_bool(unsigned int count)
 {
-    m_pName = &DAT_01015a1c;
+    m_pName = &vftable_NiTMapBase_01015a1c;
     m_uiCount = count;
     m_uiSize = 0;
     unsigned int size = m_uiCount * 4;
@@ -1017,30 +1024,30 @@ int __cdecl NiGlobalStringTable_GetRealBufferStart(int* p)
     return *p - 8;
 }
 
-extern int DAT_01016024;
+extern int vftable_BSSimpleArray_01016024;
 struct FUN_00438660_class
 {
     void* vtable;
     FUN_00438660_class* SetVirtualTableAndProcessState_00438660();
 };
-// Sets the vtable to DAT_01016024, calls FUN_006b3eb0 with 0, 0, and returns this.
+// Sets the vtable to vftable_BSSimpleArray_01016024, calls FUN_006b3eb0 with 0, 0, and returns this.
 // @fnv 0x00438660
 // src: GUESS 0x00438660 (confidence: low)
 FUN_00438660_class* FUN_00438660_class::SetVirtualTableAndProcessState_00438660()
 {
-    vtable = &DAT_01016024;
+    vtable = &vftable_BSSimpleArray_01016024;
     reinterpret_cast<AX*>(this)->BSSimpleArray_float_1024_InitialSetup(0, 0);
     return this;
 }
 
-extern void* DAT_01016058;
+extern void* vftable_BSMapBase_01016058;
 void __cdecl Deallocate(void*);
 
 // @fnv 0x00438900
 // src: GUESS 0x00438900 (confidence: medium)
 void __thiscall FUN_00438900_class::ReleaseStorage_00438900()
 {
-    *reinterpret_cast<void**>(this) = &DAT_01016058;
+    *reinterpret_cast<void**>(this) = &vftable_BSMapBase_01016058;
     if (*(void**)((char*)this + 8))
     {
         void* p = *(void**)((char*)this + 8);
@@ -1353,7 +1360,7 @@ void FUN_00421600_Class::ExtraDataList_SetNoRumors(unsigned char aucValue)
     }
 }
 
-extern int DAT_01015cd8;
+extern int vftable_ExtraActivateRefChildren;
 struct ListX
 {
     void* m_pInventoryEntryData;
@@ -1386,7 +1393,7 @@ struct FUN_00438820_Class
 // @fnv 0x00438820
 FUN_00438820_Class::FUN_00438820_Class(int aiCount)
 {
-    vtbl = &DAT_01016058;
+    vtbl = &vftable_BSMapBase_01016058;
     count = aiCount;
     pad = 0;
     if (aiCount)
@@ -1418,7 +1425,7 @@ void FUN_0042e5a0_class::ExtraDataList_SetIsModding(unsigned char type)
     }
 }
 
-extern int DAT_01016038;
+extern int vftable_NiTMapBase_01016038;
 void* __cdecl NiMalloc(unsigned int);
 void* __cdecl memset(void* dest, int c, unsigned int count);
 struct FUN_004386b0_Class
@@ -1431,7 +1438,7 @@ struct FUN_004386b0_Class
 // src: EXE 0x004386b0
 void* FUN_004386b0_Class::NiTMapBase_DFALL_NiTMapItem_WaterZone_int_WaterZone_int_NiTMapBase(void* auiCount)
 {
-    p = &DAT_01016038;
+    p = &vftable_NiTMapBase_01016038;
     *(void**)((char*)this + 4) = auiCount;
     *(int*)((char*)this + 0xc) = 0;
     unsigned int size = *(int*)((char*)this + 4) << 2;
@@ -1662,12 +1669,13 @@ FUN_00435f80::~FUN_00435f80()
 struct FUN_004362a0
 {
     ~FUN_004362a0();
-    void* __thiscall FUN_00436270(unsigned int flags);
+    void* __thiscall ExtraCreatureAwakeSound_ScalarDeletingDestructor(unsigned int flags);
 };
 
 // Runs the destructor, frees this with _Deallocate when flags has bit 0 set, and returns this.
 // @fnv 0x00436270
-void* FUN_004362a0::FUN_00436270(unsigned int flags)
+// src: EXE 0x00436270
+void* FUN_004362a0::ExtraCreatureAwakeSound_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_004362a0::~FUN_004362a0();
 
@@ -1760,7 +1768,7 @@ void ExtraListShell::ExtraDataList_ClearRumorsExtra()
     BaseExtraList_RemoveExtra_00410140(0x4E);
 }
 
-extern "C" void* DAT_0101598c;
+extern "C" void* vftable_ExtraActorCause;
 
 struct FUN_0042f780
 {

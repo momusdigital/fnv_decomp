@@ -6,23 +6,23 @@
 #include "../../../../../../../include/hkMemoryRouter.h"
 
 
-extern int DAT_010d16f0;
-extern int DAT_010d1700;
-extern int DAT_010d1720;
+extern int vftable_hkpWorldSnapshotViewer_for_hkpPhysicsContextWorldListener;
+extern int vftable_hkpWorldSnapshotViewer_for_hkProcess;
+extern int vftable_hkpWorldSnapshotViewer;
 extern void __cdecl FUN_00ddcc60();
 
-struct FUN_00d62fe0_cls
+struct hkpWorldSnapshotViewer
 {
     void __thiscall UpdateFields_00d62fe0();
 };
 
 // @fnv 0x00d62fe0
 // src: GUESS 0x00d62fe0 (confidence: low)
-void __thiscall FUN_00d62fe0_cls::UpdateFields_00d62fe0()
+void __thiscall hkpWorldSnapshotViewer::UpdateFields_00d62fe0()
 {
-    *(int*)this = (int)&DAT_010d1720;
-    *(int*)((char*)this + 8) = (int)&DAT_010d1700;
-    *(int*)((char*)this + 0x20) = (int)&DAT_010d16f0;
+    *(int*)this = (int)&vftable_hkpWorldSnapshotViewer;
+    *(int*)((char*)this + 8) = (int)&vftable_hkpWorldSnapshotViewer_for_hkProcess;
+    *(int*)((char*)this + 0x20) = (int)&vftable_hkpWorldSnapshotViewer_for_hkpPhysicsContextWorldListener;
     FUN_00ddcc60();
 }
 
@@ -207,9 +207,9 @@ FUN_00d63250_cls* FUN_00d63250_cls::Destroy(unsigned char acFlags)
 }
 }  // namespace fnv_00d63250
 
-extern int DAT_010d1794;
-extern int DAT_010d1774;
-extern int DAT_010d1764;
+extern int vftable_hkpWorldMemoryViewer;
+extern int vftable_hkpWorldMemoryViewer_for_hkProcess;
+extern int vftable_hkpWorldMemoryViewer_for_hkpPhysicsContextWorldListener;
 
 struct SubObject
 {
@@ -239,9 +239,9 @@ struct FUN_00d63280_cls
 FUN_00d63280_cls* FUN_00d63280_cls::hkpWorldMemoryViewer_hkpWorldMemoryViewer(int a, int b)
 {
     Setup(b);
-    m_vtbl0 = (void*)&DAT_010d1794;
-    m_vtbl8 = (void*)&DAT_010d1774;
-    m_vtbl20 = (void*)&DAT_010d1764;
+    m_vtbl0 = (void*)&vftable_hkpWorldMemoryViewer;
+    m_vtbl8 = (void*)&vftable_hkpWorldMemoryViewer_for_hkProcess;
+    m_vtbl20 = (void*)&vftable_hkpWorldMemoryViewer_for_hkpPhysicsContextWorldListener;
     m_sub28.Init(a, 0x7a120);
     return this;
 }

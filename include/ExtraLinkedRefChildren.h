@@ -14,7 +14,7 @@ public:
     virtual ~ExtraLinkedRefChildren();
 
     void FUN_004335d0();
-    void* __thiscall FUN_004335a0(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 
     ListX items;
 };

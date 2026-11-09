@@ -38,7 +38,7 @@ public:
     Setting& SetStringAndPromoteKeyOwnership(const char* value);
     Setting& AssignStringValue(const char* value);
     void FUN_00404950();
-    void* FUN_004049a0(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
     void Setting_GetViewerStrings(NiTPrimitiveArray<char*>* values);
     float* Setting_Float_00403e20();
     int* Setting_Int();

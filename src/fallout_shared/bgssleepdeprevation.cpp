@@ -203,7 +203,8 @@ BGSSleepDeprevationStage* __cdecl GetSleepDeprivationStage(float level)
 
 void _Deallocate(void*);
 // @fnv 0x00402170
-void* BGSSleepDeprevationStage::FUN_00402170(unsigned int flags)
+// src: EXE 0x00402170
+void* BGSSleepDeprevationStage::ScalarDeletingDestructor(unsigned int flags)
 {
     this->BGSSleepDeprevationStage::~BGSSleepDeprevationStage();
     if (flags & 1)

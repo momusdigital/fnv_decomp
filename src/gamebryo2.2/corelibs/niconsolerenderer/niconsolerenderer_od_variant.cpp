@@ -212,8 +212,8 @@ struct NiTMapBase_StandIn
 };
 extern "C" void __cdecl _NiFreeAlias(void*);
 extern "C" void* __cdecl _DeallocateAlias(void*);
-extern int DAT_010eda84;
-extern int DAT_010edb5c;
+extern int vftable_NiTMapBase_010eda84;
+extern int vftable_NiTPointerMap_010edb5c;
 extern struct MemoryManager
 {
     void* Deallocate(void*);

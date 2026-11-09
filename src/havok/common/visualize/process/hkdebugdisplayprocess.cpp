@@ -82,12 +82,12 @@ int Adapter::InvokeTarget(int aiArg1, int aiArg2, int aiArg3, int aiArg4, int co
 }
 }  // namespace fnv_00ddca90
 
-extern char DAT_010d7ed0;
-extern char DAT_010d7eb0;
-extern char DAT_010d7e5c;
-extern char DAT_010d7cfc;
-extern char DAT_010d1508;
-extern char DAT_0102e388;
+extern char vftable_hkDebugDisplayProcess;
+extern char vftable_hkDebugDisplayProcess_for_hkProcess;
+extern char vftable_hkDebugDisplayProcess_for_hkDebugDisplayHandler;
+extern char vftable_hkDebugDisplayHandler;
+extern char vftable_hkProcess;
+extern char vftable_hkBaseObject;
 class ProcessManager
 {
   public:
@@ -112,13 +112,13 @@ class Process
 // src: GUESS 0x00ddcb50 (confidence: low)
 void Process::SetVtableAndProcessState_00ddcb50()
 {
-    vftable = &DAT_010d7ed0;
-    baseVftable = &DAT_010d7eb0;
-    listenerVftable = &DAT_010d7e5c;
+    vftable = &vftable_hkDebugDisplayProcess;
+    baseVftable = &vftable_hkDebugDisplayProcess_for_hkProcess;
+    listenerVftable = &vftable_hkDebugDisplayProcess_for_hkDebugDisplayHandler;
     DAT_012681e0->RemoveListener(&listenerVftable);
-    listenerVftable = &DAT_010d7cfc;
-    baseVftable = &DAT_010d1508;
-    vftable = &DAT_0102e388;
+    listenerVftable = &vftable_hkDebugDisplayHandler;
+    baseVftable = &vftable_hkProcess;
+    vftable = &vftable_hkBaseObject;
 }
 
 struct S_00ddcb90_Allocator
@@ -723,11 +723,11 @@ int WrapperObject::hkDebugDisplayProcess_displayAnnotation(int first, int second
 }
 
 namespace fnv_00ddcaf0 {
-extern char DAT_010d1508[];
-extern char DAT_010d7cfc[];
-extern char DAT_010d7ed0[];
-extern char DAT_010d7eb0[];
-extern char DAT_010d7e5c[];
+extern char vftable_hkProcess[];
+extern char vftable_hkDebugDisplayHandler[];
+extern char vftable_hkDebugDisplayProcess[];
+extern char vftable_hkDebugDisplayProcess_for_hkProcess[];
+extern char vftable_hkDebugDisplayProcess_for_hkDebugDisplayHandler[];
 extern char DAT_01269cdc[];
 extern char DAT_012681e0[];
 
@@ -760,12 +760,12 @@ FUN_00ddcaf0_cls* FUN_00ddcaf0_cls::hkDebugDisplayProcess_hkDebugDisplayProcess(
     unsigned char flag = 1;
     m_06 = 1;
     unsigned char* pFlag = (unsigned char*)&m_0c;
-    *(void* volatile*)&m_08 = DAT_010d1508;
+    *(void* volatile*)&m_08 = vftable_hkProcess;
     *(volatile unsigned char*)pFlag = flag;
-    *(void* volatile*)&m_20 = DAT_010d7cfc;
-    m_vtbl = DAT_010d7ed0;
-    m_08 = DAT_010d7eb0;
-    *(void* volatile*)&m_20 = DAT_010d7e5c;
+    *(void* volatile*)&m_20 = vftable_hkDebugDisplayHandler;
+    m_vtbl = vftable_hkDebugDisplayProcess;
+    m_08 = vftable_hkDebugDisplayProcess_for_hkProcess;
+    *(void* volatile*)&m_20 = vftable_hkDebugDisplayProcess_for_hkDebugDisplayHandler;
     if (*(int*)DAT_01269cdc == 0)
     {
         Helper();

@@ -6,7 +6,7 @@
 #include "../../../../include/NiTMallocInterface.h"
 #include "../../../../include/NiTPrimitiveArray.h"
 #include "../../../../include/NiIntegersExtraData.h"
-extern int DAT_010a0c7c;
+extern int vftable_NiIntegersExtraData;
 
 // Local until include/NiIntegersExtraData.h supplies the integer-array fields and methods:
 // RTTI identifies vtable 0x010a0c7c as NiIntegersExtraData; the shared header's LoadBinary (0x00c540a0) belongs to BSFurnitureMarker (vtable 0x010c2a94).
@@ -26,7 +26,7 @@ extern "C" void __cdecl NiFreeAlias(void* p);
 void NiIntegersExtraData::SetVtableAndProcessState_00a99950()
 {
     void* p = m_piValue;
-    *(int*)this = (int)&DAT_010a0c7c;
+    *(int*)this = (int)&vftable_NiIntegersExtraData;
     NiFreeAlias(p);
     m_piValue = 0;
     NiExtraData::DestroyFields_00a7b300();
@@ -37,7 +37,7 @@ void NiIntegersExtraData::SetVtableAndProcessState_00a99950()
 NiIntegersExtraData* NiIntegersExtraData::NiIntegersExtraData_00a99980(int a, int b)
 {
     NiExtraData::FUN_00a7b2e0();
-    *(int*)this = (int)&DAT_010a0c7c;
+    *(int*)this = (int)&vftable_NiIntegersExtraData;
     m_piValue = 0;
     AssignPointerArray(a, b);
     return this;
@@ -51,7 +51,7 @@ NiExtraData* NiIntegersExtraData_CreateObject()
     if (data)
     {
         data->FUN_00a7b2e0();
-        ((unsigned int*)data)[0] = reinterpret_cast<unsigned int>(&DAT_010a0c7c);
+        ((unsigned int*)data)[0] = reinterpret_cast<unsigned int>(&vftable_NiIntegersExtraData);
         data->m_piValue = 0;
         data->m_uiSize = 0;
         return data;
@@ -62,7 +62,7 @@ NiExtraData* NiIntegersExtraData_CreateObject()
 // @fnv 0x00a99a50
 NiIntegersExtraData* NiIntegersExtraData::FUN_00a99a50(int flag)
 {
-    *(int*)this = (int)&DAT_010a0c7c;
+    *(int*)this = (int)&vftable_NiIntegersExtraData;
     NiFreeAlias(m_piValue);
     m_piValue = 0;
     NiExtraData::DestroyFields_00a7b300();

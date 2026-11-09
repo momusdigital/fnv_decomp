@@ -53,7 +53,8 @@ extern void __cdecl _Deallocate(void*);
 
 // Destroys the task, deallocates it if flags has bit 0 set, and returns this.
 // @fnv 0x006f6fb0
-void* BGSDistantObjectBlockLoadTask::FUN_006f6fb0(unsigned int flags)
+// src: EXE 0x006f6fb0
+void* BGSDistantObjectBlockLoadTask::ScalarDeletingDestructor(unsigned int flags)
 {
     this->BGSDistantObjectBlockLoadTask::~BGSDistantObjectBlockLoadTask();
     if (flags & 1)

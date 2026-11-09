@@ -3521,11 +3521,12 @@ void _Deallocate(void*);
 struct S9145e0
 {
     void FUN_00914610();
-    void* FUN_009145e0(unsigned int);
+    void* MiddleHighProcess_ScalarDeletingDestructor(unsigned int);
 };
 // Calls FUN_00914610, then if bit 0 of flags is set calls _Deallocate on this, and returns this.
 // @fnv 0x009145e0
-void* S9145e0::FUN_009145e0(unsigned int flags)
+// src: EXE 0x009145e0
+void* S9145e0::MiddleHighProcess_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00914610();
     if (flags & 1)
@@ -14343,7 +14344,7 @@ struct Base96
     int unk0c4;
     virtual ~Base96();
 };
-extern void* DAT_0108904c[];
+extern void* vftable_MiddleHighProcess[];
 struct Global96
 {
     bool FUN_0047c850();
@@ -27461,10 +27462,10 @@ class GlobalObject_0044f440
   public:
     float* Float();
 };
-extern GlobalObject_0044f440 g_011c5724;
-extern GlobalObject_0044f440 g_011e0474;
-extern GlobalObject_0044f440 g_011e048c;
-extern GlobalObject_0044f440 g_011e0498;
+extern GlobalObject_0044f440 fAnimationMult_General;
+extern GlobalObject_0044f440 fAimChaseLookingMult_Combat;
+extern GlobalObject_0044f440 fAimUpDegrees_Combat;
+extern GlobalObject_0044f440 fAimDownDegrees_Combat;
 float BSMIN(float, float);
 float BSMAX_00404010(float, float);
 struct AimProcess : MiddleHighProcess
@@ -27488,7 +27489,7 @@ void AimProcess::UpdateAimTurn(MobileObject* actor)
     right = 0.0f;
     up = 0.0f;
     float neutral =
-        m_fAnimationTime - m_fAnimationTime * g_timeGlobal.FUN_0084d030() * *g_011e0474.Float() * *g_011c5724.Float();
+        m_fAnimationTime - m_fAnimationTime * g_timeGlobal.FUN_0084d030() * *fAimChaseLookingMult_Combat.Float() * *fAnimationMult_General.Float();
     if (m_fAnimationTime > 0.0 && neutral < 0.0)
         m_fAnimationTime = 0.0f;
     else if (m_fAnimationTime < 0.0 && neutral > 0.0)
@@ -27499,9 +27500,9 @@ void AimProcess::UpdateAimTurn(MobileObject* actor)
         m_fAnimationTime = neutral;
     left = m_fAnimationTime + actor->GetLooking();
     if (left < 0.0 && m_apAnimGroupSequences[1])
-        next = BSMIN(1.0f, float(left / (-0.017453292f * *g_011e048c.Float())));
+        next = BSMIN(1.0f, float(left / (-0.017453292f * *fAimUpDegrees_Combat.Float())));
     else if (left > 0.0 && m_apAnimGroupSequences[2])
-        angle = BSMIN(1.0f, float(left / (0.017453292f * *g_011e0498.Float())));
+        angle = BSMIN(1.0f, float(left / (0.017453292f * *fAimDownDegrees_Combat.Float())));
     down = 1.0f - BSMAX_00404010(next + angle, right + up);
     if (m_apAnimGroupSequences[0])
         ((FUN_00495480_shell*)m_apAnimGroupSequences[0])->NiControllerSequence_SetSequenceWeight(down);
@@ -29121,7 +29122,7 @@ struct GlobalObject_0045cf30
 {
     unsigned char* Bool();
 };
-extern GlobalObject_0045cf30 g_011de4e8;
+extern GlobalObject_0045cf30 bDebugSaveBuffer_Debug;
 
 struct ActorPackageHelper
 {
@@ -29227,7 +29228,7 @@ unsigned short MiddleHighProcess_Shell::MiddleHighProcess_GetSaveSize(unsigned i
         uiTotalSize += 4;
     }
 
-    if (*g_011de4e8.Bool())
+    if (*bDebugSaveBuffer_Debug.Bool())
     {
         SaveLoadEntry* pSaveEntry = static_cast<SaveLoadEntry*>(g_TESSaveLoadGame->FUN_004fd3e0());
         if (pSaveEntry)

@@ -178,8 +178,8 @@ void FUN_00d06090_Class::ReleaseAllReferences()
     count2 = 0;
 }
 
-extern int DAT_010cce28;
-extern int _DAT_0102e388;
+extern int vftable_hkpPhysicsSystem;
+extern int vftable_hkBaseObject;
 
 struct MemoryAllocator
 {
@@ -219,7 +219,7 @@ void FUN_00d06640_class::Destroy()
 {
     unsigned int highBit = 0x80000000u;
 
-    m_pVtable = &DAT_010cce28;
+    m_pVtable = &vftable_hkpPhysicsSystem;
     ReleaseAllReferences();
     m_lock.~S_00d49310_Lock();
 
@@ -259,7 +259,7 @@ void FUN_00d06640_class::Destroy()
     m_pWorkingSet[0].m_pData = 0;
     m_pWorkingSet[0].m_uCapacity = highBit;
 
-    m_pVtable = &_DAT_0102e388;
+    m_pVtable = &vftable_hkBaseObject;
 }
 
 // @fnv 0x00cb0020

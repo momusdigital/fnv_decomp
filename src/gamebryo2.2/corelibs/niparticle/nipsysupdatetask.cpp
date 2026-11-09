@@ -14,14 +14,14 @@ void* __cdecl NiPSysUpdateTask_GetRTTI()
     return &g_01202580;
 }
 
-extern int DAT_010be45c;
-extern int DAT_01069674;
+extern int vftable_NiPSysUpdateTask;
+extern int vftable_NiTask;
 extern int(__stdcall* DAT_00fdf1c4)(void*);
 // @fnv 0x00c25880
 void NiPSysUpdateTask::Destroy()
 {
     int(__stdcall * f)(void*) = DAT_00fdf1c4;
-    *(void* volatile*)this = (void*)&DAT_010be45c;
+    *(void* volatile*)this = (void*)&vftable_NiPSysUpdateTask;
     NiRefObject* p = reinterpret_cast<NiRefObject*>(reinterpret_cast<NiParticleSystem* volatile&>(m_pkParticleSystem));
     if (p)
     {
@@ -35,7 +35,7 @@ void NiPSysUpdateTask::Destroy()
         if (f(&p->m_uiRefCount) == 0)
             p->DeleteThis();
     }
-    *(void* volatile*)this = (void*)&DAT_01069674;
+    *(void* volatile*)this = (void*)&vftable_NiTask;
     this->NiRefObject::~NiRefObject();
 }
 
@@ -291,7 +291,7 @@ void __cdecl NiMemObject_ReleaseStorage_00aa1490(void* pv, unsigned int uiSize);
 
 __forceinline void NiPSysUpdateTask::Destruct()
 {
-    *(int* volatile*)this = &DAT_010be45c;
+    *(int* volatile*)this = &vftable_NiPSysUpdateTask;
     NiRefObject* pkObj = reinterpret_cast<NiRefObject*>(reinterpret_cast<NiParticleSystem* volatile&>(m_pkParticleSystem));
     if (pkObj)
     {
@@ -305,7 +305,7 @@ __forceinline void NiPSysUpdateTask::Destruct()
         if (InterlockedDecrement((volatile long*)&pkObjCur->m_uiRefCount) == 0)
             pkObjCur->DeleteThis();
     }
-    *(int**)this = &DAT_01069674;
+    *(int**)this = &vftable_NiTask;
     this->NiRefObject::~NiRefObject();
 }
 

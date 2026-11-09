@@ -318,7 +318,7 @@ void S_00e8e1d0_Map::InsertOrAssign(const unsigned* pKey, S_00e8e1d0_Ptr v)
     v.Release();
 }
 
-extern int DAT_0101dce4;
+extern int vftable_NiRefObject;
 extern long DAT_011f4400;
 
 void __cdecl ReleaseObjectArray(void* apData);
@@ -348,7 +348,7 @@ FUN_00e8eb10_cls* FUN_00e8eb10_cls::Destroy(unsigned char acFlags)
             pRef->f1();
         }
     }
-    m_vptr = (int)&DAT_0101dce4;
+    m_vptr = (int)&vftable_NiRefObject;
     InterlockedDecrement(&DAT_011f4400);
     if (acFlags & 1)
     {

@@ -73,7 +73,7 @@ void FUN_00404b70::ForwardCall_00404b70()
     FUN_00404c00();
 }
 
-extern "C" void* DAT_01012188;
+extern "C" void* vftable_SettingCollection_01012188;
 
 struct Twin_008d0360
 {
@@ -85,11 +85,11 @@ struct Twin_008d0360
 // src: GUESS 0x00404c80 (confidence: low)
 void Twin_008d0360::UpdateFields_00404c80()
 {
-    *reinterpret_cast<void**>(this) = &DAT_01012188;
+    *reinterpret_cast<void**>(this) = &vftable_SettingCollection_01012188;
     GetBooleanValue();
 }
 
-extern "C" void* __cdecl DAT_010121b4;
+extern "C" void* __cdecl vftable_BSTCaseInsensitiveStringMap_010121b4;
 
 struct FUN_00405570_struct
 {
@@ -105,7 +105,7 @@ struct FUN_00404d50_class
 void* __thiscall FUN_00404d50_class::ConstructWithVTable(int aiArg, char acArg)
 {
     ((FUN_00405570_struct*)this)->InitFromGlobal(aiArg, acArg);
-    *(void**)this = &DAT_010121b4;
+    *(void**)this = &vftable_BSTCaseInsensitiveStringMap_010121b4;
     return this;
 }
 
@@ -122,7 +122,7 @@ void __thiscall FUN_00405230_Class::ForwardCall_00405230()
     FUN_00405250();
 }
 
-extern int DAT_01012298;
+extern int vftable_NiTStringMap_01012298;
 void __cdecl FUN_004055d0(int, char);
 
 struct FUN_00405570_cls
@@ -131,17 +131,17 @@ struct FUN_00405570_cls
     FUN_00405570_cls* __thiscall InitFromGlobal(int, char);
 };
 
-// Calls FUN_004055d0 with the arguments, stores the address of DAT_01012298 into this, and returns this.
+// Calls FUN_004055d0 with the arguments, stores the address of vftable_NiTStringMap_01012298 into this, and returns this.
 // @fnv 0x00405570
 FUN_00405570_cls* __thiscall FUN_00405570_cls::InitFromGlobal(int a, char b)
 {
     FUN_004055d0(a, b);
-    *reinterpret_cast<int*>(this) = reinterpret_cast<int>(&DAT_01012298);
+    *reinterpret_cast<int*>(this) = reinterpret_cast<int>(&vftable_NiTStringMap_01012298);
     return this;
 }
 
 extern "C" void __cdecl Init(int);
-extern int DAT_01012258;
+extern int vftable_NiTMap_01012258;
 
 struct FUN_00405600_class
 {
@@ -149,13 +149,13 @@ struct FUN_00405600_class
     void* __thiscall NiTMap_char_const_Setting_NiTMap(int param_2);
 };
 
-// Calls Init with param_2, stores the address of DAT_01012258 into this, and returns this.
+// Calls Init with param_2, stores the address of vftable_NiTMap_01012258 into this, and returns this.
 // @fnv 0x00405600
 // src: EXE 0x00405600
 void* __thiscall FUN_00405600_class::NiTMap_char_const_Setting_NiTMap(int param_2)
 {
     Init(param_2);
-    *(int*)this = (int)&DAT_01012258;
+    *(int*)this = (int)&vftable_NiTMap_01012258;
     return this;
 }
 
@@ -411,7 +411,8 @@ void* FUN_004053d0_class::FUN_004053d0(unsigned int flags)
 
 // Calls the BSExtraData destructor and, when flags has bit 0 set, frees this; returns this.
 // @fnv 0x0040ecd0
-void* BSExtraData::FUN_0040ecd0(unsigned int flags)
+// src: EXE 0x0040ecd0
+void* BSExtraData::ScalarDeletingDestructor(unsigned int flags)
 {
     BSExtraData::~BSExtraData();
     if (flags & 1)
@@ -516,23 +517,23 @@ void* __thiscall FUN_004055a0_Class::FUN_004055a0(unsigned int flags)
     return this;
 }
 
-extern int DAT_01012238;
+extern int vftable_NiTStringTemplateMap_01012238;
 struct FUN_004055d0 : public FUN_00405600_class
 {
     FUN_004055d0(int, char);
 };
-// Calls the base constructor with a, installs the vtable from DAT_01012238, and stores b at offset 0x10.
+// Calls the base constructor with a, installs the vtable from vftable_NiTStringTemplateMap_01012238, and stores b at offset 0x10.
 // @fnv 0x004055d0
 FUN_004055d0::FUN_004055d0(int a, char b)
 {
     NiTMap_char_const_Setting_NiTMap(a);
-    *(int**)this = &DAT_01012238;
+    *(int**)this = &vftable_NiTStringTemplateMap_01012238;
     *(char*)((char*)this + 0x10) = b;
 }
 
 void* __cdecl NiMalloc(unsigned int);
 void* __cdecl memset(void*, int, unsigned int);
-extern "C" void* DAT_01012278;
+extern "C" void* vftable_NiTMapBase_01012278;
 struct FUN_00405630_s
 {
     void* vtbl;
@@ -545,7 +546,7 @@ struct FUN_00405630_s
 // @fnv 0x00405630
 FUN_00405630_s* __thiscall FUN_00405630_s::Init(int count)
 {
-    vtbl = &DAT_01012278;
+    vtbl = &vftable_NiTMapBase_01012278;
     this->count = count;
     pad = 0;
     unsigned int size = this->count << 2;
@@ -645,13 +646,13 @@ struct SettingBase_01012120
     virtual ~SettingBase_01012120();
     SettingBase_01012120* __thiscall InitializeFloatSetting(const char* a, float b);
 };
-extern int vftable_SettingBase_01012120;
+extern int vftable_Setting;
 // Sets the vtable pointer, stores the string in _08 and the float in _04, then returns this.
 // @fnv 0x0040e130
 // src: GUESS 0x0040e130 (confidence: medium)
 SettingBase_01012120* __thiscall SettingBase_01012120::InitializeFloatSetting(const char* a, float afValue)
 {
-    *(void**)this = (void*)&vftable_SettingBase_01012120;
+    *(void**)this = (void*)&vftable_Setting;
     _08 = a;
     _04 = afValue;
     return this;
@@ -813,7 +814,7 @@ FUN_0040a1c0_Class::~FUN_0040a1c0_Class()
 {}
 
 namespace fnv_00411ea0 {
-int DAT_01014458;
+int vftable_ExtraSpecialRenderFlags;
 struct FUN_00411ea0 : BSExtraData
 {
     ~FUN_00411ea0();
@@ -846,7 +847,7 @@ int __cdecl MagicSystem_CheckEffectFlares()
     return 0;
 }
 
-extern int DAT_01012238;
+extern int vftable_NiTStringTemplateMap_01012238;
 void __cdecl _NiFree_00aa10f0(void* p);
 
 struct C405250Node
@@ -1158,12 +1159,12 @@ bool __cdecl EnchantmentItem_IsValidEffectForEnchantment(TESBoundObject* object,
     return true;
 }
 
-// Stores &DAT_01012278 in a field of the map, calls RemoveAll, then calls FUN_00aa10f0 on m_ppkHashTable.
+// Stores &vftable_NiTMapBase_01012278 in a field of the map, calls RemoveAll, then calls FUN_00aa10f0 on m_ppkHashTable.
 // @fnv 0x00405370
 // src: GUESS 0x00405370 (confidence: low)
 void __thiscall FUN_00405370_Class::SetVtableAndProcessState_00405370()
 {
-    *reinterpret_cast<void**>(this) = &DAT_01012278;  // the vftable pointer
+    *reinterpret_cast<void**>(this) = &vftable_NiTMapBase_01012278;  // the vftable pointer
     reinterpret_cast<NiTPointerMap<const char*, Setting*>*>(this)->RemoveAll();
     _NiFree_00aa10f0(reinterpret_cast<NiTPointerMap<const char*, Setting*>*>(this)->m_ppkHashTable);
 }

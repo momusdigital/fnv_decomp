@@ -11,7 +11,7 @@ public:
     virtual ~BackgroundCloneThread();
     virtual void RunBackgroundClone();
 
-    void* __thiscall FUN_00442290(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 
     bool m_bThirdThreadFlag;
     int m_iState;

@@ -19,7 +19,7 @@ inline void* hkReferencedObject::operator new(std::size_t size)
     return p;
 }
 
-extern int DAT_010d1508;
+extern int vftable_hkProcess;
 void __cdecl Deallocate(void*);
 struct FUN_00d60bb0
 {
@@ -29,7 +29,7 @@ struct FUN_00d60bb0
 // @fnv 0x00d60bb0
 FUN_00d60bb0::FUN_00d60bb0(unsigned char p)
 {
-    m_p = &DAT_010d1508;
+    m_p = &vftable_hkProcess;
     if (p & 1)
         Deallocate(this);
 }
@@ -797,11 +797,11 @@ struct FUN_00ddabe0 : hkReferencedObject
     int unk0c;
     FUN_00ddabe0(void* src) throw();
 };
-struct FUN_00dda6e0 : hkReferencedObject
+struct hkDisplaySerializeOStream : hkReferencedObject
 {
     int unk08;
     int unk0c;
-    FUN_00dda6e0(void* src) throw();
+    hkDisplaySerializeOStream(void* src) throw();
 };
 struct ChildBase
 {
@@ -811,13 +811,13 @@ struct FUN_00dd9cc0 : hkReferencedObject, ChildBase
 {
     int unk0c;
     int unk10;
-    FUN_00dd9cc0(FUN_00dda6e0* src) throw();
+    FUN_00dd9cc0(hkDisplaySerializeOStream* src) throw();
 };
 
 struct FUN_00d60f30 : hkReferencedObject, ListenerB, ListenerC
 {
     FUN_00ddabe0* m_pHeadNode;
-    FUN_00dda6e0* m_iSecondInteger;
+    hkDisplaySerializeOStream* m_iSecondInteger;
     ChildBase* m_pChildAtom;
     ListenerB* m_kListener;
     OwnerObject m_pOwnerObject;
@@ -837,7 +837,7 @@ FUN_00d60f30::FUN_00d60f30(const hkArray<int>& apArray, void* first, void* secon
     m_pOwnerObject.ProcessInputData(this);
     m_arr44 = apArray;
     m_pHeadNode = first ? new FUN_00ddabe0(first) : 0;
-    m_iSecondInteger = second ? new FUN_00dda6e0(second) : 0;
+    m_iSecondInteger = second ? new hkDisplaySerializeOStream(second) : 0;
     m_pChildAtom = new FUN_00dd9cc0(m_iSecondInteger);
     m_kListener = this;
 }

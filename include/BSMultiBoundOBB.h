@@ -23,7 +23,7 @@ public:
     void BSMultiBoundOBB_GetVertices(NiPoint3OB* corners);
     bool BSMultiBoundOBB_CompletelyWithinFrustum(const NiFrustumPlanes& frustum);
     void DestroyBase_Thunk();
-    void* FUN_004a7100(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 
     int unk24;
     int unk28;

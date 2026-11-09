@@ -1122,7 +1122,7 @@ extern FloatSetting DAT_011c3c74, DAT_011c3db0, DAT_011c3d28, DAT_011c3e54, DAT_
 
 extern ByteSetting DAT_011c3da0, DAT_011c3e64, DAT_011c3ccc;
 
-extern unsigned int DAT_010178b4;
+extern unsigned int vftable_TES;
 
 extern int DAT_01017874, DAT_005764f0, DAT_00577450, DAT_00577ca0, DAT_0045c680;
 
@@ -2475,12 +2475,13 @@ void __cdecl operator delete(void* p);
 struct FUN_009398a0_Class
 {
     void __thiscall FUN_009398d0();
-    void* __thiscall FUN_009398a0(unsigned int flags);
+    void* __thiscall PlayerCharacter_ScalarDeletingDestructor(unsigned int flags);
 };
 
 // Calls FUN_009398d0, deletes this if bit 0 of flags is set, and returns this.
 // @fnv 0x009398a0
-void* __thiscall FUN_009398a0_Class::FUN_009398a0(unsigned int flags)
+// src: EXE 0x009398a0
+void* __thiscall FUN_009398a0_Class::PlayerCharacter_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_009398d0();
     if (flags & 1)
@@ -9457,12 +9458,12 @@ struct GlobalObject_0045cf30
 {
     bool GetBoolValue();
 };
-GlobalObject_0045cf30 g_011c3c10;
+GlobalObject_0045cf30 bSelectivePurgeUnusedOnFastTravel_BackgroundLoad;
 // @fnv 0x0093d4f0
 // src: XBOX_PDB 0x0093d4f0
 void TES_GetSelectivePurgeUnusedOnFastTravel()
 {
-    g_011c3c10.GetBoolValue();
+    bSelectivePurgeUnusedOnFastTravel_BackgroundLoad.GetBoolValue();
 }
 
 namespace fnv_0093d500 {
@@ -14081,7 +14082,7 @@ void __thiscall ActorAnimation::PlayerCharacter_AmmoSwapHelper(unsigned char all
 }
 }  // namespace fnv_009462c0
 
-extern Setting g_011e08e0;
+extern Setting bBorderRegionsEnabled_General;
 
 struct TESStub
 {
@@ -14525,7 +14526,7 @@ struct PCTravelStub : Character
 // src: XBOX_PDB 0x00947b10
 void PCTravelStub::PlayerCharacter_CheckBorderRegion()
 {
-    if (*g_011e08e0.Bool() && !g_TES->IsTraveling())
+    if (*bBorderRegionsEnabled_General.Bool() && !g_TES->IsTraveling())
     {
         bool bFound4 = false;
         if (b79c)
@@ -16760,9 +16761,9 @@ struct CameraFloatSetting
 {
     float* Float();
 };
-extern CameraBoolSetting g_011e0a5c;
-extern CameraFloatSetting g_011e0a6c;
-extern CameraFloatSetting g_011e090c;
+extern CameraBoolSetting bInvertYValues_Controls;
+extern CameraFloatSetting fMouseSensitivity_Controls;
+extern CameraFloatSetting fUFOCamSpeedMult_Controls;
 struct CameraVector
 {
     float x, y, z;
@@ -17351,18 +17352,18 @@ void CameraPlayer::PlayerCharacter_HandleFlycamMovement()
         h = s->Controls_GetMouseAxis(1);
         q = s->Controls_GetMouseAxis(2);
     }
-    if (*g_011e0a5c.Bool())
+    if (*bInvertYValues_Controls.Bool())
         q = -q;
     InterfaceManager_GetSingleton();
     if (InterfaceManager_Has360Controller())
     {
-        cameraYaw += (double)h * *g_011e0a6c.Float() / 1500.0;
-        cameraPitch += (double)q * *g_011e0a6c.Float() / -1500.0;
+        cameraYaw += (double)h * *fMouseSensitivity_Controls.Float() / 1500.0;
+        cameraPitch += (double)q * *fMouseSensitivity_Controls.Float() / -1500.0;
     }
     else
     {
-        cameraYaw += (double)h * *g_011e0a6c.Float();
-        cameraPitch += (double)q * *g_011e0a6c.Float();
+        cameraYaw += (double)h * *fMouseSensitivity_Controls.Float();
+        cameraPitch += (double)q * *fMouseSensitivity_Controls.Float();
     }
     CameraMatrix cf;
     cf.FUN_006815c0();
@@ -17411,7 +17412,7 @@ void CameraPlayer::PlayerCharacter_HandleFlycamMovement()
     DAT_011e0bf8 = p;
     l.ScaleComponents(b * 10.0);
     l = ba.FUN_004b4500(&l);
-    l.ScaleComponents(*g_011e090c.Float());
+    l.ScaleComponents(*fUFOCamSpeedMult_Controls.Float());
     cameraPosition.ComputeValue_0063c8a0(l);
     CameraNode* f = Main_GetWorldSceneGraph();
     f->BSSceneGraph_GetCameraRoot()->NiAVObject_SetTranslate(cameraPosition);
@@ -28437,14 +28438,14 @@ void PlayerCharacter_SetGodMode(unsigned char abGodMode)
 }
 
 namespace fnv_009526b0 {
-extern Setting g_011e0894;
+extern Setting bSetDemigodMode_GamePlay;
 extern unsigned char DAT_011e07ba;
 
 // @fnv 0x009526b0
 // src: XBOX_PDB 0x009526b0
 char PlayerCharacter_IsGodMode()
 {
-    if (*reinterpret_cast<unsigned char*>(g_011e0894.Bool()))
+    if (*reinterpret_cast<unsigned char*>(bSetDemigodMode_GamePlay.Bool()))
         return 1;
     else
         return DAT_011e07ba;
@@ -28461,14 +28462,14 @@ void SetDemiGodMode(unsigned char value)
 }
 
 namespace fnv_009526f0 {
-extern Setting g_011e0894;
+extern Setting bSetDemigodMode_GamePlay;
 extern unsigned char DAT_011e07bb;
 
 // @fnv 0x009526f0
 // src: COMMUNITY 0x009526f0
 char GetDemigodeMode()
 {
-    if (*reinterpret_cast<unsigned char*>(g_011e0894.Bool()))
+    if (*reinterpret_cast<unsigned char*>(bSetDemigodMode_GamePlay.Bool()))
         return 1;
     else
         return DAT_011e07bb;

@@ -515,11 +515,11 @@ bool __thiscall TerminalStateAccess::IsFlagSet()
     return (Data.cFlags & 1) ? true : false;
 }
 
-extern Setting g_011d961c;
-extern Setting g_011d9660;
-extern Setting g_011d9684;
-extern Setting g_011d95d4;
-extern Setting g_011d9640;
+extern Setting fHackingMinSkillVeryEasy_Hacking;
+extern Setting fHackingMinSkillEasy_Hacking;
+extern Setting fHackingMinSkillAverage_Hacking;
+extern Setting fHackingMinSkillHard_Hacking;
+extern Setting fHackingMinSkillVeryHard_Hacking;
 
 // @fnv 0x005017a0
 // src: XBOX_PDB 0x005017a0
@@ -528,15 +528,15 @@ float TermHack::BGSTerminal_GetMinSkillRequiredToHack(TESObjectREFR* apItemActiv
     switch (((TerminalStateAccess*)this)->BGSTerminal_GetHackDifficultyLockLevel(apItemActivated))
     {
     case 0:
-        return *g_011d961c.Float();
+        return *fHackingMinSkillVeryEasy_Hacking.Float();
     case 1:
-        return *g_011d9660.Float();
+        return *fHackingMinSkillEasy_Hacking.Float();
     case 2:
-        return *g_011d9684.Float();
+        return *fHackingMinSkillAverage_Hacking.Float();
     case 3:
-        return *g_011d95d4.Float();
+        return *fHackingMinSkillHard_Hacking.Float();
     case 4:
-        return *g_011d9640.Float();
+        return *fHackingMinSkillVeryHard_Hacking.Float();
     default:
         return 3.402823466e+38F;
     }

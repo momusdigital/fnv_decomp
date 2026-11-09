@@ -83,5 +83,5 @@ public:
     void RefreshMiscStat(MiscStatManager::MiscStat value);
     void __thiscall RefreshHealingOptions();
     void FUN_0071f700();
-    void* FUN_0071f6d0(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 };

@@ -611,7 +611,7 @@ struct DebrisCounter
 {
     bool IsEnabled(int arg);
 };
-extern DebrisCounter g_011c3ea4;
+extern DebrisCounter iNumHWThreads_General;
 
 struct TaskQueueInterface
 {
@@ -643,7 +643,7 @@ FUN_00682f40::~FUN_00682f40()
     {
         ((DebrisNode*)m_pSceneObject)->GetDebrisManager()->RemoveDebris(m_pSceneObject);
     }
-    if (g_011c3ea4.IsEnabled(1))
+    if (iNumHWThreads_General.IsEnabled(1))
     {
         bhkWorld_Activate(m_pSceneObject, true, true, 0);
         bhkWorld_RemoveObjects(m_pSceneObject, true, 0);

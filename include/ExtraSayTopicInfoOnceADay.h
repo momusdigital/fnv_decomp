@@ -11,7 +11,7 @@ public:
     ExtraSayTopicInfoOnceADay();
     virtual ~ExtraSayTopicInfoOnceADay();
 
-    void* __thiscall FUN_004374e0(unsigned int);
+    void* __thiscall ScalarDeletingDestructor(unsigned int);
     void __thiscall FUN_004375c0();
 
     BSSimpleList<TopicInfoVisitRecord*>* pList;

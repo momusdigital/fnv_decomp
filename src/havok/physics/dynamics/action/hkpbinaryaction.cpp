@@ -15,9 +15,9 @@ struct S_00d49310_Lock
     ~S_00d49310_Lock(void);
 };
 
-extern int DAT_010cc320;
-extern int DAT_010cc2fc;
-extern int _DAT_0102e388;
+extern int vftable_hkpBinaryAction;
+extern int vftable_hkpAction;
+extern int vftable_hkBaseObject;
 
 struct FUN_00cf4de0_class
 {
@@ -29,7 +29,7 @@ struct FUN_00cf4de0_class
 // src: GUESS 0x00cf4de0 (confidence: medium)
 void FUN_00cf4de0_class::ReleaseReferencedObjectsAndLock(void)
 {
-    *(void**)this = &DAT_010cc320;
+    *(void**)this = &vftable_hkpBinaryAction;
     if (*(void**)((char*)this + 0x18))
     {
         ((DDCC60World*)*(void**)((char*)this + 0x18))->removeReference();
@@ -40,9 +40,9 @@ void FUN_00cf4de0_class::ReleaseReferencedObjectsAndLock(void)
         ((DDCC60World*)*(void**)((char*)this + 0x1c))->removeReference();
         *(void**)((char*)this + 0x1c) = 0;
     }
-    *(void**)this = &DAT_010cc2fc;
+    *(void**)this = &vftable_hkpAction;
     ((S_00d49310_Lock*)((char*)this + 0x14))->~S_00d49310_Lock();
-    *(void**)this = &_DAT_0102e388;
+    *(void**)this = &vftable_hkBaseObject;
 }
 
 struct FUN_00c97510

@@ -95,7 +95,7 @@ bool NiColorInterpolator::Update(float fTime, NiObjectNET*, NiColorA& kValue)
 }
 
 namespace fnv_00a3bd10 {
-extern int DAT_01096e14;
+extern int vftable_NiColorInterpolator;
 extern NiColorA const DAT_011a9430;
 extern int DAT_011a9434;
 extern int DAT_011a9438;
@@ -106,7 +106,7 @@ extern int DAT_011a943c;
 NiColorInterpolator* __fastcall NiColorInterpolatorConstructor(NiColorInterpolator* pThis, int, void* pkColorData)
 {
     reinterpret_cast<NiKeyBasedInterpolator*>(pThis)->NiKeyBasedInterpolator::NiKeyBasedInterpolator();
-    *reinterpret_cast<int**>(pThis) = &DAT_01096e14;
+    *reinterpret_cast<int**>(pThis) = &vftable_NiColorInterpolator;
     *reinterpret_cast<NiColorA*>(reinterpret_cast<char*>(pThis) + 0x0c) = DAT_011a9430;
     *reinterpret_cast<void**>(reinterpret_cast<char*>(pThis) + 0x1c) = pkColorData;
     if (pkColorData)
@@ -167,7 +167,7 @@ void NiColorInterpolator::SaveBinary(NiStream& kStream)
     kStream.SaveLinkID(reinterpret_cast<const NiObject*>(m_spColorData.m_pObject));
 }
 
-extern int DAT_01096e14;
+extern int vftable_NiColorInterpolator;
 extern int DAT_011a9434;
 extern int DAT_011a9438;
 extern int DAT_011a943c;
@@ -179,7 +179,7 @@ NiColorInterpolator* NiColorInterpolator_CreateObject()
     if (p)
     {
         p->NiKeyBasedInterpolator::NiKeyBasedInterpolator();
-        *(unsigned int*)p = (unsigned int)&DAT_01096e14;
+        *(unsigned int*)p = (unsigned int)&vftable_NiColorInterpolator;
         *(unsigned int*)((char*)p + 0xc) = *(unsigned int*)&DAT_011a9430;
         *(unsigned int*)((char*)p + 0x10) = DAT_011a9434;
         *(unsigned int*)((char*)p + 0x14) = DAT_011a9438;
@@ -229,7 +229,7 @@ NiColorInterpolator* __fastcall ConstructColorValue(NiColorInterpolator* pThis, 
     *(volatile unsigned int*)&pThis->m_kColorValue.g = g;
     *(volatile unsigned int*)&pThis->m_kColorValue.b = b;
     *(volatile unsigned int*)&pThis->m_kColorValue.a = a;
-    *(volatile unsigned int*)pThis = (unsigned int)&DAT_01096e14;
+    *(volatile unsigned int*)pThis = (unsigned int)&vftable_NiColorInterpolator;
     *(NiColorData* volatile*)&pThis->m_spColorData.m_pObject = 0;
     *(volatile unsigned int*)&pThis->m_uiLastKeyIndex = 0;
     return pThis;

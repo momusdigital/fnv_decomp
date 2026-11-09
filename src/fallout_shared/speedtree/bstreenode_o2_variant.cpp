@@ -280,7 +280,7 @@ void __thiscall S00cb7750::bhkSPCollisionObject_hktoNiTransform()
 }
 
 void* __fastcall NiRTTI_UpdateState_00c6b910(void*);
-extern int DAT_01066b94;
+extern int vftable_bhkPCollisionObject;
 struct CollisionNodeStub
 {
     void* vf;
@@ -289,7 +289,7 @@ struct CollisionNodeStub
     CollisionNodeStub()
     {
         NiRTTI_UpdateState_00c6b910(this);
-        vf = (void*)&DAT_01066b94;
+        vf = (void*)&vftable_bhkPCollisionObject;
     }
 };
 // @fnv 0x00c87fc0
@@ -305,7 +305,7 @@ struct CollisionNodeStub
     static void* __cdecl operator new(unsigned int);
 };
 void* __fastcall NiRTTI_UpdateState_00c6b910(void*);
-extern int DAT_01066acc;
+extern int vftable_bhkSPCollisionObject;
 struct NewObjA : CollisionNodeStub
 {
     int a;
@@ -316,7 +316,7 @@ struct NewObjA : CollisionNodeStub
     NewObjA()
     {
         NiRTTI_UpdateState_00c6b910(this);
-        *(void**)this = &DAT_01066acc;
+        *(void**)this = &vftable_bhkSPCollisionObject;
     }
 };
 // @fnv 0x00cb7640
@@ -1218,7 +1218,7 @@ void S_00cab8c0_Owner::bhkCapsuleShape_GetViewerStrings(StrArr* a)
 
 namespace fnv_00cb76a0 {
 
-extern int DAT_01066acc;
+extern int vftable_bhkSPCollisionObject;
 
 struct SpawnedFade
 {
@@ -1229,7 +1229,7 @@ struct SpawnedFade
     SpawnedFade()
     {
         NiRTTI_UpdateState_00c6b910(this);
-        vf = (void*)&DAT_01066acc;
+        vf = (void*)&vftable_bhkSPCollisionObject;
     }
 };
 
@@ -2865,8 +2865,8 @@ namespace fnv_00c8c4d0 {
 extern "C" void* __cdecl Object_DispatchCommandFour(unsigned int);
 extern "C" void __cdecl bhkSerializable_CloneCritLock();
 extern "C" void __cdecl bhkSerializable_CloneCritUnlock();
-extern "C" char DAT_01030bf4[];
-extern "C" char DAT_01066d44[];
+extern "C" char vftable_bhkShape[];
+extern "C" char vftable_bhkTransformShape[];
 extern "C" int DAT_012680f8;
 extern "C" int DAT_012681b0;
 
@@ -2881,11 +2881,11 @@ struct SpawnedObject
     SpawnedObject()
     {
         ctorBase();
-        m_vtbl = (void*)DAT_01030bf4;
+        m_vtbl = (void*)vftable_bhkShape;
         unk0C = 0;
         unk10 = 0;
         DAT_012680f8++;
-        m_vtbl = (void*)DAT_01066d44;
+        m_vtbl = (void*)vftable_bhkTransformShape;
         DAT_012681b0++;
     }
     void* operator new(unsigned int size) throw()

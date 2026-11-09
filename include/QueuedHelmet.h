@@ -26,7 +26,7 @@ public:
     bool FormatQueuedHelmetDescription(char* apDescription, unsigned int aiBufferSize);
     void ApplyQueuedModels();
     void FUN_0043f080();
-    void* FUN_0043f030(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
     void PostProcess();
     void Finish_0043f2b0();
 

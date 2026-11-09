@@ -216,7 +216,8 @@ void Menumanager_ClearDAT011d8d54()
 
 // Calls FUN_0071f700, then deletes this if bit 0 of flags is set, and returns this.
 // @fnv 0x0071f6d0
-void* StatsMenu::FUN_0071f6d0(unsigned int flags)
+// src: EXE 0x0071f6d0
+void* StatsMenu::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_0071f700();
     if (flags & 1)
@@ -805,14 +806,15 @@ int __thiscall FUN_0071f2d0_shell::TutorialMenu_GetMenuID()
 
 struct FUN_00720330_shell
 {
-    void* FUN_00720330(unsigned int flags);
+    void* SPECIALBookMenu_ScalarDeletingDestructor(unsigned int flags);
     void FUN_00720420();
 };
 
 void __cdecl _Deallocate(void* p);
 
 // @fnv 0x00720330
-void* FUN_00720330_shell::FUN_00720330(unsigned int flags)
+// src: EXE 0x00720330
+void* FUN_00720330_shell::SPECIALBookMenu_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00720420();
     if (flags & 1)
@@ -822,7 +824,7 @@ void* FUN_00720330_shell::FUN_00720330(unsigned int flags)
 
 struct FUN_00720770_shell
 {
-    void* FUN_00720770(unsigned int flags);
+    void* LoveTesterMenu_ScalarDeletingDestructor(unsigned int flags);
     void* FUN_00720860();
 };
 
@@ -830,7 +832,8 @@ void __cdecl _Deallocate(void*);
 
 // Calls FUN_00720860, then deallocates this when flags has bit 0 set, and returns this.
 // @fnv 0x00720770
-void* FUN_00720770_shell::FUN_00720770(unsigned int flags)
+// src: EXE 0x00720770
+void* FUN_00720770_shell::LoveTesterMenu_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00720860();
     if (flags & 1)
@@ -1088,12 +1091,13 @@ namespace fnv_0071fec0 {
 struct FUN_0071fef0
 {
     virtual ~FUN_0071fef0();
-    void* FUN_0071fec0(unsigned int);
+    void* SurgeryMenu_ScalarDeletingDestructor(unsigned int);
 };
 void __cdecl _Deallocate(void*);
 // Runs the destructor, frees this with _Deallocate when flags has bit 0 set, and returns this.
 // @fnv 0x0071fec0
-void* FUN_0071fef0::FUN_0071fec0(unsigned int flags)
+// src: EXE 0x0071fec0
+void* FUN_0071fef0::SurgeryMenu_ScalarDeletingDestructor(unsigned int flags)
 {
     this->FUN_0071fef0::~FUN_0071fef0();
     if (flags & 1)
@@ -1117,12 +1121,13 @@ int FUN_00720010_shell::SurgeryMenu_GetIndex(int aiValue)
 struct Cls_720110
 {
     void FUN_007e9130();
-    void* FUN_00720110(unsigned int);
+    void* VATSMenu_ScalarDeletingDestructor(unsigned int);
 };
 void __cdecl _Deallocate(void*);
 // Calls FUN_007e9130, deallocates this when flags has bit 0 set, and returns this.
 // @fnv 0x00720110
-void* Cls_720110::FUN_00720110(unsigned int flags)
+// src: EXE 0x00720110
+void* Cls_720110::VATSMenu_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_007e9130();
     if (flags & 1)

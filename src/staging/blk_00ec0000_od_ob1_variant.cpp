@@ -78,7 +78,7 @@ struct FUN_00ec15e0_shell
 };
 struct FUN_00ec19d0_class
 {
-    void* __thiscall FUN_00ec19d0(unsigned int flags);
+    void* __thiscall MoviePlayer_ScalarDeletingDestructor(unsigned int flags);
 };
 struct FUN_00ec0cd0_Class
 {
@@ -189,7 +189,7 @@ struct FUN_00ec1a60_class
     void __thiscall FreeStruct(FUN_00ec1a60_t* p);
 };
 extern "C" void __cdecl _NiFree(void*);
-extern int DAT_010f1ca4;
+extern int vftable_NiTMapBase_010f1ca4;
 struct FUN_00ec1b80_Map
 {
     void __thiscall RemoveAll();
@@ -208,7 +208,7 @@ struct FUN_00ec1cc0_Class
 {
     void __thiscall AssignString(void* a, const char* b, int c);
 };
-extern int DAT_010f1c20;
+extern int vftable_BSTCaseInsensitiveStringMap_010f1c20;
 struct FUN_00ec1a90_Class
 {
     int m_ppVirtualMethodTable;
@@ -426,7 +426,7 @@ class BEC16D0MoviePlayerThread
     void SetPriority(int iPriority);
     void MoviePlayer_StartSequence(void* pvParam, bool bFlag22, int iPriority, bool bFlag23, bool bFlag24, float fValue28);
 };
-extern int DAT_010f1ca4;
+extern int vftable_NiTMapBase_010f1ca4;
 void __cdecl _NiFree_00aa10f0(int aValue);
 extern MemoryManager DAT_011f6238;
 struct FUN_00ec1df0_cls

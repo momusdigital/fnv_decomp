@@ -55,7 +55,7 @@ struct FUN_00827200_class
     void __thiscall FUN_00cb26e0(int);
     FUN_00827200_class* __thiscall hkQuaternion_hkQuaternion(int a);
 };
-extern int DAT_0107ca44;
+extern int vftable_NiTPointerMap_0107ca44;
 void __cdecl InitArray(int);
 struct FUN_0082ee80_class
 {
@@ -63,7 +63,7 @@ struct FUN_0082ee80_class
     void InitArray(int);
     FUN_0082ee80_class* InitializeWithGlobal(int a);
 };
-extern "C" void* DAT_0107cb6c;
+extern "C" void* vftable_CAsyncStream;
 struct FUN_0082f140_class
 {
     void SetVirtualTable_0082f140();
@@ -111,7 +111,7 @@ int __cdecl ImpactMixer_GetMaterialSoundName(int index);
 extern "C" void __cdecl FalloutAudio_FUN_00839ab0();
 extern unsigned char DAT_011dd85c;
 void ResetFootstepSounds();
-extern "C" void* DAT_0107d9c4;
+extern "C" void* vftable_NiTPointerMap_0107d9c4;
 struct FUN_0083b5e0_class
 {
     void* m_ptr;
@@ -127,7 +127,7 @@ struct FUN_0083dea0_class
     unsigned int TESTopic_HasDummyPrompt();
 };
 extern "C" void* __cdecl _NiFreeAlias(void*);
-extern void* DAT_0107ca64;
+extern void* vftable_NiTMapBase_0107ca64;
 struct FUN_0082efb0
 {
     void SetVtableAndProcessState_0082efb0();
@@ -159,9 +159,9 @@ struct FUN_00831f80_class
     void __thiscall SetVtableAndProcessState_00831fb0();
     void* __thiscall FUN_00831f80(unsigned int flags);
 };
-extern int DAT_0107cd54;
-extern int DAT_0107cd6c;
-extern int DAT_0107cdac;
+extern int vftable_CBSAReader_for_IAMovieSetup;
+extern int vftable_CBSAReader_for_IBaseFilter;
+extern int vftable_CBSAReader;
 extern "C" void __fastcall FUN_009fdc10(void*);
 struct FUN_00831fb0_class
 {
@@ -318,7 +318,7 @@ struct FUN_00822a40_Class
 
     FUN_00822a40_Class();
 };
-extern int DAT_0107bc28;
+extern int vftable_MagicTarget;
 struct FUN_0080d930
 {
     ~FUN_0080d930();
@@ -345,8 +345,8 @@ struct BCaster_S
     BCaster_S();
     ~BCaster_S();
 };
-extern int DAT_0107be2c;
-extern int DAT_0107be80;
+extern int vftable_NonActorMagicCaster_for_MagicCaster;
+extern int vftable_NonActorMagicCaster;
 extern int _data_011c16bc;
 struct FUN_00825a10 : BE
 {
@@ -357,7 +357,7 @@ struct FUN_00825a10 : BE
 
     FUN_00825a10();
 };
-extern int DAT_0107bf1c;
+extern int vftable_OpenEffect;
 struct MagicCaster;
 struct MagicItem;
 struct EffectItem;

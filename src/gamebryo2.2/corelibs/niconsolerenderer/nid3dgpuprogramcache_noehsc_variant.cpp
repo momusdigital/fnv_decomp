@@ -140,7 +140,7 @@ struct S_00e8e1d0_Map
     void AssignValueHolder(S_00e8e1d0_Node* n, const unsigned* k, S_00e8e1d0_Ptr v) throw();
     void InsertOrAssign(const unsigned* k, S_00e8e1d0_Ptr v) throw();
 };
-extern int DAT_0101dce4;
+extern int vftable_NiRefObject;
 extern long DAT_011f4400;
 void __cdecl ReleaseObjectArray(void* apData);
 void __cdecl FUN_00aa1460(void* apMemory, unsigned int auiSize);

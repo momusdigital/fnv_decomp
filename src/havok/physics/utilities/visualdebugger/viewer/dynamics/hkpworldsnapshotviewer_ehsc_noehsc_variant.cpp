@@ -12,9 +12,9 @@
 
 // src/havok/physics/utilities/visualdebugger/viewer/dynamics/hkpworldsnapshotviewer.cpp - unit created 2026-10-16 from the whole-binary attribution (360 source path: d:/projects/fallout/code/havok/source/physics/utilities/visualdebugger/viewer/dynamics/hkpworldsnapshotviewer.cpp).
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
-extern int DAT_010d16f0;
-extern int DAT_010d1700;
-extern int DAT_010d1720;
+extern int vftable_hkpWorldSnapshotViewer_for_hkpPhysicsContextWorldListener;
+extern int vftable_hkpWorldSnapshotViewer_for_hkProcess;
+extern int vftable_hkpWorldSnapshotViewer;
 extern void __cdecl FUN_00ddcc60();
 struct FUN_00d62fe0_cls
 {
@@ -89,9 +89,9 @@ struct FUN_00d62fa0_class
 
     void __thiscall ProcessContainerItems();
 };
-extern int DAT_010d1794;
-extern int DAT_010d1774;
-extern int DAT_010d1764;
+extern int vftable_hkpWorldMemoryViewer;
+extern int vftable_hkpWorldMemoryViewer_for_hkProcess;
+extern int vftable_hkpWorldMemoryViewer_for_hkpPhysicsContextWorldListener;
 struct SubObject
 {
     void Init(int a, int b);

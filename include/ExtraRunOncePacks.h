@@ -18,7 +18,7 @@ public:
 
     void SetExtra(int a, unsigned char b);
     void FUN_004330e0();
-    void* FUN_004330b0(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 
     extra_save::ExtraSavePackageListView* list;
 };

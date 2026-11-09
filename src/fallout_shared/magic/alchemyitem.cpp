@@ -109,13 +109,13 @@ bool FUN_004029d0_shell::AlchemyItem_IsFlagSet(int aiFlag)
     return (*((unsigned char*)this + 0xbc) & aiFlag) != 0;
 }
 
-extern int DAT_01011d68;
+extern int vftable_BaseFormComponent;
 
 // @fnv 0x00402d30
 // src: EXE 0x00402d30
 int* __fastcall BaseFormComponent_BaseFormComponent(int* this_ptr)
 {
-    *this_ptr = (int)&DAT_01011d68;
+    *this_ptr = (int)&vftable_BaseFormComponent;
     return this_ptr;
 }
 

@@ -9,7 +9,7 @@ class GlobalObject_0045cf30
     unsigned char* FUN_00408d60();
     void Setting_SetValueB(int v);
 };
-extern GlobalObject_0045cf30 g_011de308;
+extern GlobalObject_0045cf30 bCopySaveGameToHostOrMemStick_SaveGame;
 int __cdecl FUN_00406d50(char* dst, unsigned int sz, const char* src);
 int __cdecl BSstrlen(char* s);
 extern const char saveExtension[];
@@ -255,8 +255,8 @@ void ThisCls::BGSSaveLoadManager_CopySaveGames(int unused)
     unsigned char settingByte16;
     char buf127[0x104];
 
-    settingByte16 = *g_011de308.FUN_00408d60();
-    g_011de308.Setting_SetValueB(0);
+    settingByte16 = *bCopySaveGameToHostOrMemStick_SaveGame.FUN_00408d60();
+    bCopySaveGameToHostOrMemStick_SaveGame.Setting_SetValueB(0);
     FUN_00406d50(buf127, 0x104, "Saves");
     FUN_00406d50(buf127, 0x104, "/");
     Finder finder(buf127);
@@ -341,6 +341,6 @@ void ThisCls::BGSSaveLoadManager_CopySaveGames(int unused)
     next_iter:
         finder.FUN_00b00720(&flag29);
     }
-    g_011de308.Setting_SetValueB(settingByte16);
+    bCopySaveGameToHostOrMemStick_SaveGame.Setting_SetValueB(settingByte16);
 }
 }  // namespace fnv_00852080

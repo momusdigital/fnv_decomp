@@ -131,15 +131,15 @@ struct Payload
     int id;
 };
 extern float DAT_0104da48;
-extern const char DAT_010ce7fc[];
+extern const char vftable_hkpSymmetricAgentFlipCollector[];
 void hkpMultiRayConvexAgent_staticGetClosestPoints(int, int, int, Payload*);
-// Builds a Payload from DAT_010ce7fc, DAT_0104da48 and d, then passes it with b, a and c to FUN_00d37280.
+// Builds a Payload from vftable_hkpSymmetricAgentFlipCollector, DAT_0104da48 and d, then passes it with b, a and c to FUN_00d37280.
 // @fnv 0x00d378a0
 // src: GUESS 0x00d378a0 (confidence: low)
 void Object_UpdateFields_00d378a0(int aiArg1, int aiArg2, int aiArg3, int aiId)
 {
     Payload p;
-    p.name = DAT_010ce7fc;
+    p.name = vftable_hkpSymmetricAgentFlipCollector;
     p.value = DAT_0104da48;
     p.id = aiId;
     hkpMultiRayConvexAgent_staticGetClosestPoints(aiArg2, aiArg1, aiArg3, &p);

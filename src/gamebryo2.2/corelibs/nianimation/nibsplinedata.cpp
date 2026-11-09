@@ -77,7 +77,7 @@ void NiBSplineData::CalculateSplineValue(float time, float* value, unsigned int 
     }
 }
 
-extern int DAT_01099e54;
+extern int vftable_NiBSplineData;
 void __cdecl _NiFreeAlias(void*);
 void __fastcall FUN_00a5d3d0(void*);
 void __cdecl FUN_00aa1460(void*, unsigned int);
@@ -85,7 +85,7 @@ void __cdecl FUN_00aa1460(void*, unsigned int);
 // @fnv 0x00a52510
 void* __fastcall FUN_00a52510(void** pThis, int, unsigned int flags)
 {
-    *pThis = &DAT_01099e54;
+    *pThis = &vftable_NiBSplineData;
     _NiFreeAlias(pThis[2]);
     _NiFreeAlias(pThis[3]);
     FUN_00a5d3d0(pThis);

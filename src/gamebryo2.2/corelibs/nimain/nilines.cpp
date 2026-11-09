@@ -88,7 +88,7 @@ void __cdecl NiLines_SaveBinary()
 }
 
 void* __cdecl NiAllocBlock(unsigned int size);
-extern const void* DAT_0109d55c[];
+extern const void* vftable_NiLines[];
 
 // Allocates a NiLines, initializes its geometry base and vtable, then copies the source.
 // @fnv 0x00a747e0
@@ -99,7 +99,7 @@ NiLines* __fastcall NiLines_CreateClone(NiLines* self, int, CloningProcess& proc
     if (result)
     {
         result->NiGeometry::NiGeometry();
-        *reinterpret_cast<const void***>(result) = DAT_0109d55c;
+        *reinterpret_cast<const void***>(result) = vftable_NiLines;
     }
     else
     {

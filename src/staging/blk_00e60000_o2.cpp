@@ -333,7 +333,7 @@ unsigned char __cdecl InitD3D9CreateFunctions()
 }
 
 extern void __cdecl NiFree(void*);
-extern int DAT_010eec74;
+extern int vftable_NiTArray_010eec74;
 struct FUN_00e7b200_Class
 {
     int vtbl;
@@ -344,7 +344,7 @@ struct FUN_00e7b200_Class
 // @fnv 0x00e7b200
 FUN_00e7b200_Class* __thiscall FUN_00e7b200_Class::FUN_00e7b200(int aiFlags)
 {
-    vtbl = (int)&DAT_010eec74;
+    vtbl = (int)&vftable_NiTArray_010eec74;
     NiFree((void*)m_p);
     if (aiFlags & 1)
         g_memoryManager.Deallocate(this);
@@ -803,7 +803,7 @@ template <> __forceinline RenderFormatMap::~NiTPointerMap() throw()
 }
 
 void* __cdecl _NiFree(void*);
-extern int DAT_010eec4c;
+extern int vftable_NiTArray_010eec4c;
 extern MemoryManager _g_memoryManager;
 
 struct FUN_00e7b230_Class
@@ -816,7 +816,7 @@ struct FUN_00e7b230_Class
 // @fnv 0x00e7b230
 void* FUN_00e7b230_Class::FUN_00e7b230(unsigned char flags)
 {
-    this->vtbl = &DAT_010eec4c;
+    this->vtbl = &vftable_NiTArray_010eec4c;
     _NiFree(this->m_p);
     if (flags & 1)
         _g_memoryManager.Deallocate(this);
@@ -874,19 +874,19 @@ void __thiscall FUN_00e7bb50_Class::ReleaseStorage_00e7bb50()
     }
 
     void** items = *reinterpret_cast<void***>(self + 0x454);
-    *reinterpret_cast<void**>(self + 0x450) = reinterpret_cast<void*>(&DAT_010eec74);
+    *reinterpret_cast<void**>(self + 0x450) = reinterpret_cast<void*>(&vftable_NiTArray_010eec74);
     _NiFree(items);
 }
 }  // namespace fnv_00e7bb50
 
-extern void* const DAT_010eecac[];
+extern void* const vftable_NiD3DDefaultShader[];
 void NiFree(void*);
 
 // @fnv 0x00e7c540
 // src: GUESS 0x00e7c540 (confidence: low)
 void __thiscall NiD3DShader::UpdateFields_00e7c540()
 {
-    *reinterpret_cast<void* const**>(this) = DAT_010eecac;
+    *reinterpret_cast<void* const**>(this) = vftable_NiD3DDefaultShader;
     // The shared shader declaration does not yet name the allocation at +0x50.
     NiFree(*reinterpret_cast<void**>(reinterpret_cast<unsigned char*>(this) + 0x50));
     FUN_00e806c0();
@@ -910,8 +910,8 @@ unsigned char __cdecl NiDX9DepthStencilBufferData_SetNULLDepthStencilTarget(int*
 
 extern const void* vftable_NiRefObject[];
 
-extern int DAT_010eeed4;
-extern int DAT_010eefbc;
+extern int vftable_NiDX92DBufferData;
+extern int vftable_NiDX9TextureBufferData;
 extern long volatile DAT_011f4400;
 extern MemoryManager _g_memoryManager;
 extern void*(__stdcall* DAT_00fdf1c4)(void*);
@@ -935,7 +935,7 @@ struct FUN_00e7d1b0_Class
 void FUN_00e7d1b0_Class::ReleaseStorage_00e7d1b0()
 {
     void* p = *(void**)((char*)this + 0x20);
-    *(void**)this = &DAT_010eefbc;
+    *(void**)this = &vftable_NiDX9TextureBufferData;
     if (p)
     {
         void** vt = *(void***)p;
@@ -945,7 +945,7 @@ void FUN_00e7d1b0_Class::ReleaseStorage_00e7d1b0()
         *(void**)((char*)this + 0x20) = 0;
     }
     p = *(void**)((char*)this + 0x14);
-    *(void**)this = &DAT_010eeed4;
+    *(void**)this = &vftable_NiDX92DBufferData;
     if (p)
     {
         void** vt = *(void***)p;
@@ -978,8 +978,8 @@ FUN_00e7d690_Class* FUN_00e7d690_Class::FUN_00e7d690(int flags)
 }
 
 namespace fnv_00e7dbc0 {
-extern int DAT_010eeed4;
-extern int DAT_010ef184;
+extern int vftable_NiDX92DBufferData;
+extern int vftable_NiDX9AdditionalDepthStencilBufferData;
 extern long volatile DAT_011f4400;
 extern int DAT_0126f5cc;
 extern int DAT_0126f600;
@@ -1003,13 +1003,13 @@ struct FUN_00e7dbc0_Class
 // src: GUESS 0x00e7dbc0 (confidence: low)
 void FUN_00e7dbc0_Class::ReleaseStorage_00e7dbc0()
 {
-    *(int*)this = (int)&DAT_010ef184;
+    *(int*)this = (int)&vftable_NiDX9AdditionalDepthStencilBufferData;
     EnterCriticalSection(&DAT_0126f600);
     void* p = this;
     ((BSBatchRenderer__AlphaList*)&DAT_0126f5cc)->Remove(&p);
     LeaveCriticalSection(&DAT_0126f600);
     void* q = *(void**)((char*)this + 0x14);
-    *(int*)this = (int)&DAT_010eeed4;
+    *(int*)this = (int)&vftable_NiDX92DBufferData;
     if (q)
     {
         (*(void(__stdcall**)(void*))(*(int*)q + 8))(q);
@@ -3297,7 +3297,7 @@ void TextureUpdate_00e689d0::UpdateTexture()
 }
 }  // namespace fnv_00e689d0
 
-extern "C" char DAT_010ed37c[];
+extern "C" char vftable_NiDX9SourceTextureData[];
 
 void __cdecl FUN_00aa1460(void* pObject, unsigned int value);
 
@@ -3352,7 +3352,7 @@ struct FUN_00e68ea0_cls
 // @fnv 0x00e68ea0
 FUN_00e68ea0_cls* FUN_00e68ea0_cls::FUN_00e68ea0(unsigned char acFlags)
 {
-    *(void* volatile*)&m_vptr = DAT_010ed37c;
+    *(void* volatile*)&m_vptr = vftable_NiDX9SourceTextureData;
     FUN_00e68ea0_held* pRefCounted = *(FUN_00e68ea0_held* volatile*)&m_74;
     if (pRefCounted != 0)
     {
@@ -3943,7 +3943,7 @@ void FUN_00e7bbf0_cls::BuildItemsFromSource(BE7BBF0Source* pkSource, void* pvCon
     }
 }
 
-extern int DAT_010eeca4;
+extern int vftable_NiTPrimitiveArray_010eeca4;
 
 struct NiArr_e7bc90
 {
@@ -3960,7 +3960,7 @@ struct NiArr_e7bc90
         m_usSize = 0;
         m_usESize = 0;
         m_pBase = 0;
-        m_ppVirtualMethodTable = (void*)&DAT_010eeca4;
+        m_ppVirtualMethodTable = (void*)&vftable_NiTPrimitiveArray_010eeca4;
     }
 };
 
@@ -4014,7 +4014,7 @@ void FUN_00e7bcd0_cls::DestroyItems()
             FUN_00aa1460(item, 0x468);
         }
     }
-    unk04 = (int)&DAT_010eec4c;
+    unk04 = (int)&vftable_NiTArray_010eec4c;
     _NiFree_00aa10f0(m_items);
 }
 
@@ -4470,9 +4470,9 @@ NiDX9TextureBufferData* __cdecl NiDX9TextureBufferData::Create_00e7d250(IDirect3
 namespace fnv_00e7d4e0 {
 extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(volatile long* value);
 
-extern int DAT_010ef06c;
-extern int DAT_010eeed4;
-extern int DAT_0101dce4;
+extern int vftable_NiDX9ImplicitBufferData;
+extern int vftable_NiDX92DBufferData;
+extern int vftable_NiRefObject;
 extern volatile long DAT_011f4400;
 
 struct FUN_00e7d4e0_child
@@ -4522,13 +4522,13 @@ struct FUN_00e7d4e0_cls
 // src: GUESS 0x00e7d4e0 (confidence: low)
 void FUN_00e7d4e0_cls::UpdateFields_00e7d4e0()
 {
-    m_vptr = (int)&DAT_010ef06c;
+    m_vptr = (int)&vftable_NiDX9ImplicitBufferData;
     if (m_58 != 0)
     {
         m_58->Release();
         m_58 = 0;
     }
-    m_vptr = (int)&DAT_010eeed4;
+    m_vptr = (int)&vftable_NiDX92DBufferData;
     if (m_14 != 0)
     {
         m_14->Release();
@@ -4536,7 +4536,7 @@ void FUN_00e7d4e0_cls::UpdateFields_00e7d4e0()
     }
     DAT_011f6238.MemoryManager_Deallocate(m_0c);
     m_0c = 0;
-    m_vptr = (int)&DAT_0101dce4;
+    m_vptr = (int)&vftable_NiRefObject;
     InterlockedDecrement(&DAT_011f4400);
 }
 }  // namespace fnv_00e7d4e0
@@ -4553,8 +4553,8 @@ int* __cdecl NiDX9ImplicitBufferData_GetRTTI()
 namespace fnv_00e7d620 {
 extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(volatile long* value);
 
-extern int DAT_010eeed4;
-extern int DAT_0101dce4;
+extern int vftable_NiDX92DBufferData;
+extern int vftable_NiRefObject;
 extern volatile long DAT_011f4400;
 
 void __cdecl FUN_00aa1460(void* apMemory, unsigned int auiSize);
@@ -4588,7 +4588,7 @@ struct FUN_00e7d620_cls
 // @fnv 0x00e7d620
 FUN_00e7d620_cls* FUN_00e7d620_cls::FUN_00e7d620(unsigned char acFlags)
 {
-    m_vptr = (int)&DAT_010eeed4;
+    m_vptr = (int)&vftable_NiDX92DBufferData;
     if (m_14 != 0)
     {
         m_14->Release();
@@ -4596,7 +4596,7 @@ FUN_00e7d620_cls* FUN_00e7d620_cls::FUN_00e7d620(unsigned char acFlags)
     }
     DAT_011f6238.MemoryManager_Deallocate(m_0c);
     m_0c = 0;
-    m_vptr = (int)&DAT_0101dce4;
+    m_vptr = (int)&vftable_NiRefObject;
     InterlockedDecrement(&DAT_011f4400);
     if (acFlags & 1)
     {
@@ -9625,7 +9625,7 @@ bool NiDX9SourceTextureDataQ::LoadFromFilename(const char* pcFilename, NiDX9Rend
     return false;
 }
 
-extern int DAT_010eec9c;
+extern int vftable_NiTPrimitiveArray_010eec9c;
 void* __cdecl NiMalloc(unsigned int size);
 
 struct DisplayMode
@@ -9791,7 +9791,7 @@ template <class T, class TAlloc> class ModeArrayBase
     unsigned short m_usGrowBy;
     ModeArrayBase(unsigned int uiMaxSize = 0, unsigned int uiGrowBy = 1) throw()
     {
-        m_ppVirtualMethodTable = &DAT_010eec74;
+        m_ppVirtualMethodTable = &vftable_NiTArray_010eec74;
         m_usMaxSize = (unsigned short)uiMaxSize;
         m_usGrowBy = (unsigned short)uiGrowBy;
         m_usSize = 0;
@@ -9852,7 +9852,7 @@ template <class T> class ModeArray : public ModeArrayBase<T, ModeStorage<T> >
     ModeArray(unsigned int uiMaxSize = 0, unsigned int uiGrowBy = 1) throw()
         : ModeArrayBase<T, ModeStorage<T> >(uiMaxSize, uiGrowBy)
     {
-        this->m_ppVirtualMethodTable = &DAT_010eec9c;
+        this->m_ppVirtualMethodTable = &vftable_NiTPrimitiveArray_010eec9c;
     }
 };
 
@@ -10403,8 +10403,8 @@ void __cdecl NiDX9SourceTextureData_CopyRendererDataToSurfaceLevel(TextureAccess
     surface->UnlockRect();
 }
 
-extern int DAT_010eec54;
-extern int DAT_010eec7c;
+extern int vftable_NiTMapBase_010eec54;
+extern int vftable_NiTPointerMap_010eec7c;
 void* __cdecl FUN_00ec61c0(void* p, int c, unsigned int n);
 int __cdecl MapIndexToValue(unsigned int eFormat);
 
@@ -10455,12 +10455,12 @@ FUN_00e7b260* ModeItemInit::ProbeDeviceRenderFormats(S00e7b590_D3D* apD3D, int a
     RenderFormatMap& modes = self->modes;
     D3DProbe* pkD3D = (D3DProbe*)apD3D;
     unsigned int uiAdapter = aiAdapter;
-    *(int**)&modes = &DAT_010eec54;
+    *(int**)&modes = &vftable_NiTMapBase_010eec54;
     modes.m_uiHashSize = 37;
     modes.m_kItemCount.m_uiCount = 0;
     modes.m_ppkHashTable = (RenderFormatMap::EntryType**)_NiMalloc_00aa1070(sizeof(void*) * modes.m_uiHashSize);
     FUN_00ec61c0(modes.m_ppkHashTable, 0, sizeof(void*) * modes.m_uiHashSize);
-    *(int**)&modes = &DAT_010eec7c;
+    *(int**)&modes = &vftable_NiTPointerMap_010eec7c;
     self->key = eAdapterFormat;
     self->fullscreenSupported = bFullscreen;
     self->b4 = bWindowed;

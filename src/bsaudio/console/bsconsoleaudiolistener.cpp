@@ -40,13 +40,13 @@ void BSAudioListener::SetRolloffFactor(float afRolloffFactor)
 }
 
 extern MemoryManager g_memoryManager;
-extern int DAT_010a3bb4;
+extern int vftable_BSAudioListener;
 
 // Sets the vtable pointer, clears the flags, and deallocates this when bit 0 is set; returns this.
 // @fnv 0x00aeabb0
 void* BSAudioListener::Destroy(unsigned int auiFlags)
 {
-    *reinterpret_cast<void**>(this) = &DAT_010a3bb4;
+    *reinterpret_cast<void**>(this) = &vftable_BSAudioListener;
     m_uiListenerFlags = 0;
     if (auiFlags & 1)
         g_memoryManager.Deallocate(this);

@@ -8,7 +8,7 @@
 #include "../../../../include/NiRTTI.h"
 FNV_STATIC_ASSERT(sizeof(NiRTTI) == 0x8);
 
-extern const char DAT_0104d448[];
+extern const char vftable_NiTLargeArray_0104d448[];
 void __cdecl NiTMallocInterface_unsigned_int_Deallocate(const void*);
 struct RTTIEntry
 {
@@ -20,6 +20,6 @@ struct RTTIEntry
 // src: GUESS 0x0061bcf0 (confidence: low)
 void RTTIEntry::UpdateState_0061bcf0()
 {
-    name = DAT_0104d448;
+    name = vftable_NiTLargeArray_0104d448;
     NiTMallocInterface_unsigned_int_Deallocate(base);
 }

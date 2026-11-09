@@ -73,13 +73,13 @@ NiSingleShaderMaterialLibrary::NiSingleShaderMaterialLibrary()
 {
 }
 
-extern int DAT_0109f7b4;
+extern int vftable_NiSingleShaderMaterialLibrary;
 void __cdecl _delete(void*, unsigned int);
-// Sets the vfptr to DAT_0109f7b4, clears _c and _d, calls the NiMaterialLibrary destructor, and deletes this with size 0x14 when flag bit 0 is set.
+// Sets the vfptr to vftable_NiSingleShaderMaterialLibrary, clears _c and _d, calls the NiMaterialLibrary destructor, and deletes this with size 0x14 when flag bit 0 is set.
 // @fnv 0x00a8fd30
 void* NiSingleShaderMaterialLibrary::Destroy(unsigned int auiFlags)
 {
-    *(void**)this = (void*)&DAT_0109f7b4;
+    *(void**)this = (void*)&vftable_NiSingleShaderMaterialLibrary;
     _c = 0;
     _d = 0;
     NiMaterialLibrary::~NiMaterialLibrary();

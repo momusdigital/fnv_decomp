@@ -16,5 +16,5 @@ public:
     bool GetDescription_0043d820(char* apDescription, unsigned int aiBufferSize);
     bool QueuedFileEntry_GetDescription(char* apDescription, unsigned int aiBufferSize, const char* apStr);
     void __thiscall FUN_0043d5b0();
-    void* __thiscall FUN_0043d580(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };

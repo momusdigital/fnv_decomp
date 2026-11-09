@@ -668,7 +668,7 @@ void NiStepPosKey_InterpolateD1_RegisterSevenKeyHandlers(int param_1, int param_
 }  // namespace fnv_00a2d5b0
 
 
-extern int DAT_01096114;
+extern int vftable_NiTFixedStringMapBase_01096114;
 extern void __cdecl _NiFree(void*);
 extern MemoryManager _g_memoryManager;
 
@@ -680,7 +680,7 @@ struct FUN_00a2e790_StandIn : public NiTFixedStringMap_NiAVObject___ {
 // @fnv 0x00a2e790
 void* FUN_00a2e790_StandIn::DestroyFixedStringMap(unsigned char deleting)
 {
-    *(void**)this = (void*)&DAT_01096114;
+    *(void**)this = (void*)&vftable_NiTFixedStringMapBase_01096114;
     RemoveAll();
     _NiFree(p);
     if (deleting & 1)
@@ -3872,7 +3872,7 @@ bool FUN_00a305e0_cls::Equals(const char* other)
 }
 
 namespace fnv_00a363b0 {
-extern "C" unsigned char DAT_01096784;
+extern "C" unsigned char vftable_NiBlendAccumTransformInterpolator;
 extern "C" float DAT_01096b8c;
 extern "C" unsigned int DAT_011a8400;
 extern "C" unsigned int DAT_011a8404;
@@ -3952,7 +3952,7 @@ struct Object : Base {
 // @fnv 0x00a363b0
 Object* Object::InitObject(int aiArg, float afArg, int aiArg2) {
   NiBlendInterpolator_NiBlendInterpolator_00a370b0(aiArg,afArg,aiArg2);
-  vtable = &DAT_01096784;
+  vtable = &vftable_NiBlendAccumTransformInterpolator;
   unk30 = DAT_011a8400;
   unk34 = DAT_011a8404;
   unk38 = DAT_011a8408;
@@ -5140,7 +5140,7 @@ void CloneableObj::BSMultiTargetTreadTransfController_CopyMembers(CloneableObj* 
 
 namespace sa359d0 {
 
-extern "C" const char DAT_01096694[];
+extern "C" const char vftable_BSMultiTargetTreadTransfController[];
 
 struct ControllerBase {
     const char* m_pVtbl;
@@ -5169,7 +5169,7 @@ struct Controller : ControllerBase {
 
     Controller()
     {
-        m_pVtbl = DAT_01096694;
+        m_pVtbl = vftable_BSMultiTargetTreadTransfController;
         m_i34 = 0;
         m_us38 = 0;
         m_i3c = 0;

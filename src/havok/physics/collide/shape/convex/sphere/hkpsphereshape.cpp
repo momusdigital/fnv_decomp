@@ -21,7 +21,7 @@ void __cdecl hkpSphereShape_calcContentStatistics(char const* const* a1, char co
     hkReferencedObject_calcContentStatistics(a1, &g_01268970_arg1);
 }
 
-extern int DAT_010cb5ac;
+extern int vftable_hkpSphereShape;
 
 struct FUN_00cd8160
 {
@@ -35,7 +35,7 @@ FUN_00cd8160::FUN_00cd8160(float radius)
     *(unsigned short*)((char*)this + 6) = 1;
     *(int*)((char*)this + 8) = 0;
     *(int*)((char*)this + 0xc) = 1;
-    *(int*)this = (int)&DAT_010cb5ac;
+    *(int*)this = (int)&vftable_hkpSphereShape;
 }
 
 // @fnv 0x00cd8050

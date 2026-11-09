@@ -29,7 +29,7 @@ class NiAdditionalGeometryData : public NiObject
     bool __thiscall NiAdditionalGeometryData_IsEqual(const NiAdditionalGeometryData*);
     bool NiAdditionalGeometryData_GetDataStream(unsigned int uiIndex, char** ppcData, void** ppvStream, unsigned short* pusVertexCount,
                       int* piFormat, int* piStride, int* piUsage);
-    void* FUN_00537cb0(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 
     unsigned char unk08[0x24];
     unsigned int m_uiShaderDeclarationIndex;

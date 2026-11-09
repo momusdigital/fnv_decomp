@@ -187,7 +187,7 @@ void ContactAgent::hkpConvexListAgent_cleanup(void* input)
     Invalidate(1);
 }
 extern float DAT_01012054;
-extern char DAT_010cebf0[];
+extern char vftable_hkpConvexListAgent[];
 struct __declspec(align(16)) S00d33940_Out
 {
     float x;
@@ -215,7 +215,7 @@ struct S00d33940_Sub
 extern "C" unsigned __int64 __rdtsc(void);
 extern "C" void _ReadWriteBarrier(void);
 extern DWORD DAT_0126835c;
-extern char DAT_010cebd0;
+extern char vftable_hkpFlagCdBodyPairCollector;
 struct HitCollector
 {
     void* m_vtbl;
@@ -241,7 +241,7 @@ extern "C" void __cdecl hkpConvexListAgent_staticGetPenetrations(void* a, void* 
     }
 
     HitCollector col;
-    col.m_vtbl = &DAT_010cebd0;
+    col.m_vtbl = &vftable_hkpFlagCdBodyPairCollector;
     col.m_bHit = false;
     TestGsk(a, b, c, &col);
     if (col.m_bHit)
@@ -275,7 +275,7 @@ extern "C" unsigned __int64 __rdtsc(void);
 extern unsigned long DAT_0126835c;
 extern const char str_010cec28[];
 extern const char str_01076f38[];
-extern int DAT_010c476c;
+extern int vftable_hkpClosestCdPointCollector;
 extern float DAT_0104da48;
 extern "C" __declspec(dllimport) void* __stdcall TlsGetValue(unsigned long dwTlsIndex);
 extern "C" int __cdecl TestGsk(const void* a, const void* b, const void* c, void* d);
@@ -401,7 +401,7 @@ static __forceinline float ParseFloatValue(LocalM128 v)
     return f;
 }
 
-extern void* DAT_010ceb44;
+extern void* vftable_hkpMapPointsToSubShapeContactMgr;
 extern const char str_010ceb84[], str_010ceb7c[], str_010ceb70[], str_010ceca0[], str_01076f38[];
 
 struct L16
@@ -778,7 +778,7 @@ __forceinline void Agent::processCached(const Shape& a, const Shape& b, const Ar
         }
         so.kind = 2;
         so.m_06s = 1;
-        so.vptr = &DAT_010ceb44;
+        so.vptr = &vftable_hkpMapPointsToSubShapeContactMgr;
         so.flag = 0;
         so.saved = m_08;
         m_08 = &so;

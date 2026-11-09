@@ -114,7 +114,7 @@ bool FUN_00c20a60_shell::NiPSysRotationModifier_IsEqual(NiObject* object)
     return false;
 }
 
-extern int DAT_010bdaec;
+extern int vftable_NiPSysRotationModifier;
 extern int DAT_011a946c;
 extern int DAT_011a9470;
 extern int DAT_011a9474;
@@ -131,7 +131,7 @@ NiPSysRotationModifier* NiPSysRotationModifier_CreateObject()
     if (pModifier)
     {
         ::new (static_cast<NiPSysPositionModifier*>(pModifier)) NiPSysPositionModifier();
-        *(void**)pModifier = (void*)&DAT_010bdaec;
+        *(void**)pModifier = (void*)&vftable_NiPSysRotationModifier;
         pModifier->m_fInitialRotationAngleVariation = pModifier->m_fInitialRotationAngle =
             pModifier->m_fInitialRotationSpeedVariation = pModifier->m_fInitialRotationSpeed = 0.0f;
         *reinterpret_cast<int*>(&pModifier->m_kRotationAxis.x) = DAT_011a946c;

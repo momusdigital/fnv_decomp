@@ -422,7 +422,7 @@ float& __fastcall Setting_Float_00403e20(float* pThis)
     return pThis ? pThis[1] : (DAT_01202800 = 0.0f);
 }
 
-extern int DAT_01014210;
+extern int vftable_BSExtraData;
 
 struct FUN_0040ec80_this
 {
@@ -436,11 +436,11 @@ struct FUN_0040ec80_cls
     FUN_0040ec80_this* init(unsigned char acType);
 };
 
-// Sets the object's vftable to DAT_01014210, stores acType in cType and clears pNext, then returns the object.
+// Sets the object's vftable to vftable_BSExtraData, stores acType in cType and clears pNext, then returns the object.
 // @fnv 0x0040ec80
 FUN_0040ec80_this* FUN_0040ec80_cls::init(unsigned char acType)
 {
-    ((FUN_0040ec80_this*)this)->vftable = &DAT_01014210;
+    ((FUN_0040ec80_this*)this)->vftable = &vftable_BSExtraData;
     ((FUN_0040ec80_this*)this)->cType = acType;
     ((FUN_0040ec80_this*)this)->pNext = 0;
     return (FUN_0040ec80_this*)this;
@@ -465,15 +465,15 @@ bool FUN_0040f700_shell::IsDifferentFrom(BSExtraData* apCompare)
     return false;
 }
 
-extern int DAT_01014300;
+extern int vftable_BaseExtraList;
 void* __cdecl memset(void*, int, unsigned int);
 
-// Sets pThis[0] to the address of DAT_01014300, clears pThis[1], zeroes 0x15 bytes at offset 8, and returns pThis.
+// Sets pThis[0] to the address of vftable_BaseExtraList, clears pThis[1], zeroes 0x15 bytes at offset 8, and returns pThis.
 // @fnv 0x0040f740
 // src: EXE 0x0040f740
 void* __fastcall BaseExtraList_BaseExtraList(int* pThis)
 {
-    pThis[0] = reinterpret_cast<int>(&DAT_01014300);
+    pThis[0] = reinterpret_cast<int>(&vftable_BaseExtraList);
     pThis[1] = 0;
     memset(reinterpret_cast<char*>(pThis) + 8, 0, 0x15);
     return pThis;
@@ -809,7 +809,7 @@ int* __fastcall ClearFourInts(int* pInts)
     return pInts;
 }
 
-extern int DAT_01014458;
+extern int vftable_ExtraSpecialRenderFlags;
 struct Y00411e40
 {
     void* vt;
@@ -817,13 +817,13 @@ struct Y00411e40
     int f;
     void FUN_0040ec80(unsigned char t);
 };
-// Calls FUN_0040ec80 with 0x92, sets vt to &DAT_01014458 and f to 0, then returns p.
+// Calls FUN_0040ec80 with 0x92, sets vt to &vftable_ExtraSpecialRenderFlags and f to 0, then returns p.
 // @fnv 0x00411e40
 // src: GUESS 0x00411e40 (confidence: low)
 Y00411e40* __fastcall Object_InitializeFields_00411e40(Y00411e40* apThis)
 {
     apThis->FUN_0040ec80(0x92);
-    apThis->vt = &DAT_01014458;
+    apThis->vt = &vftable_ExtraSpecialRenderFlags;
     apThis->f = 0;
     return apThis;
 }
@@ -4467,41 +4467,41 @@ S_0042f730* S_0042f730::SetObject(AC_0042f730* pObject)
     return this;
 }
 
-extern int DAT_010159d4;
+extern int vftable_BSSimpleArray_010159d4;
 struct Y0042f7d0
 {
     void* vt;
     void FUN_0042fcb0(int, int);
     Y0042f7d0* BSSimpleArray_NavMeshPtr_1024_BSSimpleArray_NavMeshPtr_1024(int a);
 };
-// Sets the vtable pointer to DAT_010159d4, calls FUN_0042fcb0 with the argument twice, and returns this.
+// Sets the vtable pointer to vftable_BSSimpleArray_010159d4, calls FUN_0042fcb0 with the argument twice, and returns this.
 // @fnv 0x0042f7d0
 // src: COMMUNITY 0x0042f7d0
 Y0042f7d0* Y0042f7d0::BSSimpleArray_NavMeshPtr_1024_BSSimpleArray_NavMeshPtr_1024(int a)
 {
-    vt = &DAT_010159d4;
+    vt = &vftable_BSSimpleArray_010159d4;
     FUN_0042fcb0(a, a);
     return this;
 }
 
-extern int DAT_010159d4;
+extern int vftable_BSSimpleArray_010159d4;
 
 struct Dummy0042f800
 {
     void FUN_0042fcb0(int, int);
 };
 
-// Sets the object's vtable pointer to DAT_010159d4, calls FUN_0042fcb0 with 0, 0, and returns the object.
+// Sets the object's vtable pointer to vftable_BSSimpleArray_010159d4, calls FUN_0042fcb0 with 0, 0, and returns the object.
 // @fnv 0x0042f800
 // src: GUESS 0x0042f800 (confidence: low)
 void* __fastcall Object_ProcessAndReturnValue_0042f800(int** apObject)
 {
-    *apObject = &DAT_010159d4;
+    *apObject = &vftable_BSSimpleArray_010159d4;
     reinterpret_cast<Dummy0042f800*>(apObject)->FUN_0042fcb0(0, 0);
     return apObject;
 }
 
-extern int DAT_010159d4;
+extern int vftable_BSSimpleArray_010159d4;
 
 struct FUN_0042f830_struct
 {
@@ -4513,7 +4513,7 @@ struct FUN_0042f830_struct
 // src: GUESS 0x0042f830 (confidence: low)
 void __fastcall BSSimpleArray_NavMeshPtr_1024_Clear_SetVtableAndProcessState_0042f830(FUN_0042f830_struct* pThis)
 {
-    pThis->vftable = (int)&DAT_010159d4;
+    pThis->vftable = (int)&vftable_BSSimpleArray_010159d4;
     pThis->BSSimpleArray_NavMeshPtr_1024_Clear(1);
 }
 
@@ -4932,7 +4932,7 @@ void __fastcall BSSimpleArray_float_1024_InitialSetup(AX* self, UW uiMaxSize, UW
     }
 }
 
-extern void* DAT_01014428[];
+extern void* vftable_ExtraReflectedRefs[];
 struct BE
 {
     void** m_ppVirtualMethodTable;
@@ -5036,11 +5036,12 @@ struct DtorStandIn
 };
 struct DelStandIn
 {
-    void* FUN_0042c5b0(unsigned int flags);
+    void* ExtraTeleport_ScalarDeletingDestructor(unsigned int flags);
 };
 // Calls the destructor on this object, frees it when flags has bit 0 set, and returns this.
 // @fnv 0x0042c5b0
-void* DelStandIn::FUN_0042c5b0(unsigned int flags)
+// src: EXE 0x0042c5b0
+void* DelStandIn::ExtraTeleport_ScalarDeletingDestructor(unsigned int flags)
 {
     ((DtorStandIn*)this)->FUN_0083dec0();
     if (flags & 1)
@@ -5082,7 +5083,7 @@ struct BE
     ~BE();
 };
 
-extern const void* DAT_01015ce4[];
+extern const void* vftable_ExtraActivateRef[];
 extern const char DAT_01011584[];
 
 struct FUN_004338b0 : BE
@@ -5097,7 +5098,7 @@ struct FUN_004338b0 : BE
 
 // Initializes the object with base BE(0x53), sets vtbl, clears flag, and sets str to DAT_01011584 with length 0.
 // @fnv 0x004338b0
-FUN_004338b0::FUN_004338b0() : BE(0x53), vtbl(DAT_01015ce4)
+FUN_004338b0::FUN_004338b0() : BE(0x53), vtbl(vftable_ExtraActivateRef)
 {
     flag = 0;
     str.Set(DAT_01011584, 0);
@@ -5702,10 +5703,10 @@ struct FUN_0041bd10_shell : public ExtraDataList
     void ExtraDataList_SetMusicType(BGSMusicType*);
 };
 
-struct FUN_0040ef30 : public LegacyExtraData
+struct ExtraCellMusicType : public LegacyExtraData
 {
     BGSMusicType* pData;
-    FUN_0040ef30(BGSMusicType*);
+    ExtraCellMusicType(BGSMusicType*);
 };
 
 struct Dummy_00410020
@@ -5728,12 +5729,12 @@ void FUN_0041bd10_shell::ExtraDataList_SetMusicType(BGSMusicType* apData)
     }
     else if (!pExtra)
     {
-        pExtra = reinterpret_cast<BSExtraData*>(new FUN_0040ef30(apData));
+        pExtra = reinterpret_cast<BSExtraData*>(new ExtraCellMusicType(apData));
         ((BaseExtraList*)this)->AddExtra(reinterpret_cast<BSExtraData*>(pExtra));
     }
     else
     {
-        ((FUN_0040ef30*)pExtra)->pData = apData;
+        ((ExtraCellMusicType*)pExtra)->pData = apData;
     }
 }
 }  // namespace fnv_0041bd10
@@ -5815,10 +5816,10 @@ struct FUN_0041c190_shell : public ExtraDataList
     void SetClimate(TESClimate*);
 };
 
-struct FUN_0040f070 : public LegacyExtraData
+struct ExtraCellClimate : public LegacyExtraData
 {
     TESClimate* pData;
-    FUN_0040f070(TESClimate*);
+    ExtraCellClimate(TESClimate*);
 };
 
 struct Dummy_00410020
@@ -5840,12 +5841,12 @@ void FUN_0041c190_shell::SetClimate(TESClimate* apData)
     }
     else if (!pExtra)
     {
-        pExtra = reinterpret_cast<BSExtraData*>(new FUN_0040f070(apData));
+        pExtra = reinterpret_cast<BSExtraData*>(new ExtraCellClimate(apData));
         ((BaseExtraList*)this)->AddExtra(reinterpret_cast<BSExtraData*>(pExtra));
     }
     else
     {
-        ((FUN_0040f070*)pExtra)->pData = apData;
+        ((ExtraCellClimate*)pExtra)->pData = apData;
     }
 }
 }  // namespace fnv_0041c190
@@ -6331,12 +6332,13 @@ void FUN_0042f300_shell::ExtraDataList_SetPatrolRefInUse(TESObjectREFR* apUser)
 struct FUN_0040f780_struct
 {
     void SetVtableAndProcessState_0040f7b0();
-    void* FUN_0040f780(unsigned int flags);
+    void* BaseExtraList_ScalarDeletingDestructor(unsigned int flags);
 };
 void _Deallocate(void*);
 // Calls FUN_0040f7b0, then deallocates this when flags has bit 0 set, and returns this.
 // @fnv 0x0040f780
-void* FUN_0040f780_struct::FUN_0040f780(unsigned int flags)
+// src: EXE 0x0040f780
+void* FUN_0040f780_struct::BaseExtraList_ScalarDeletingDestructor(unsigned int flags)
 {
     SetVtableAndProcessState_0040f7b0();
     if (flags & 1)
@@ -6348,7 +6350,8 @@ void __cdecl _Deallocate(void*);
 
 // Calls FUN_00434dc0, then frees this object with _Deallocate if flags has bit 0 set, and returns this.
 // @fnv 0x00411d90
-void* ExtraLitWaterRefs::FUN_00411d90(unsigned int flags)
+// src: EXE 0x00411d90
+void* ExtraLitWaterRefs::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00434dc0();
     if (flags & 1)
@@ -6745,7 +6748,8 @@ bool ExtraPatrolRefData::Compare_0041fd20(ExtraPatrolRefData* apCompare)
 
 // Calls FUN_0041fdb0, then frees this with _Deallocate when flags has bit 0 set, and returns this.
 // @fnv 0x0041fd80
-void* __thiscall ExtraPatrolRefData::FUN_0041fd80(unsigned int flags)
+// src: EXE 0x0041fd80
+void* __thiscall ExtraPatrolRefData::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_0041fdb0();
     if (flags & 1)
@@ -6905,7 +6909,7 @@ void FUN_00428130_Class::SetValue(int aiValue)
 }
 
 namespace fnv_0042c900 {
-extern "C" void* DAT_0101595c;
+extern "C" void* vftable_ExtraPoison;
 
 struct BE
 {
@@ -6927,33 +6931,33 @@ struct FUN_0042c900 : BE
     FUN_0042c900();
 };
 
-// Constructs the object with byte value 0x3f, sets its vftable to DAT_0101595c and clears m_0c.
+// Constructs the object with byte value 0x3f, sets its vftable to vftable_ExtraPoison and clears m_0c.
 // @fnv 0x0042c900
 FUN_0042c900::FUN_0042c900() : BE(0x3f)
 {
-    m_vftable = &DAT_0101595c;
+    m_vftable = &vftable_ExtraPoison;
     m_0c = 0;
 }
 }  // namespace fnv_0042c900
 
 namespace fnv_0042c9c0 {
-extern "C" void* DAT_01015184;
+extern "C" void* vftable_ExtraObjectHealth;
 
 struct BE
 {
     __thiscall BE(unsigned char);
 };
 
-struct FUN_0042c9c0 : BE
+struct ExtraObjectHealth : BE
 {
-    __thiscall FUN_0042c9c0();
+    __thiscall ExtraObjectHealth();
 };
 
-// Initialises the object: sets its vtable pointer to DAT_01015184 and zeroes the float at offset 0xc.
+// Initialises the object: sets its vtable pointer to vftable_ExtraObjectHealth and zeroes the float at offset 0xc.
 // @fnv 0x0042c9c0
-__thiscall FUN_0042c9c0::FUN_0042c9c0() : BE(0x56)
+__thiscall ExtraObjectHealth::ExtraObjectHealth() : BE(0x56)
 {
-    *reinterpret_cast<void**>(this) = &DAT_01015184;
+    *reinterpret_cast<void**>(this) = &vftable_ExtraObjectHealth;
     *reinterpret_cast<float*>(this + 0xc) = 0.0f;
 }
 }  // namespace fnv_0042c9c0
@@ -6962,7 +6966,8 @@ void __cdecl _Deallocate(void* p);
 
 // Calls FUN_0042cd70, frees this when flags has bit 0 set, and returns this.
 // @fnv 0x0042cd40
-void* __thiscall ExtraSecuritronFace::FUN_0042cd40(unsigned int flags)
+// src: EXE 0x0042cd40
+void* __thiscall ExtraSecuritronFace::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_0042cd70();
     if (flags & 1)
@@ -7108,13 +7113,13 @@ struct _DummyExtraDataList
     void SetVtableAndProcessState_0040f7b0();
 };
 
-extern int DAT_01014300;
+extern int vftable_BaseExtraList;
 
 // @fnv 0x0040f7b0
 // src: GUESS 0x0040f7b0 (confidence: low)
 void __thiscall _DummyExtraDataList::SetVtableAndProcessState_0040f7b0()
 {
-    vtable = &DAT_01014300;
+    vtable = &vftable_BaseExtraList;
     BaseExtraList_RemoveAll(true);
 }
 
@@ -7125,7 +7130,8 @@ void* __thiscall ExtraReflectorRefs::FUN_00434af0()
 
 // Returns this, and when bit 0 of flags is set, deallocates this before returning it.
 // @fnv 0x00411c50
-void* __thiscall ExtraReflectorRefs::FUN_00411c50(unsigned int flags)
+// src: EXE 0x00411c50
+void* __thiscall ExtraReflectorRefs::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00434af0();
     if (flags & 1)
@@ -7269,7 +7275,8 @@ void __cdecl _Deallocate(void*);
 
 // Calls FUN_0041fb50, then frees this with _Deallocate when flags has bit 0 set, and returns this.
 // @fnv 0x0041fb20
-void* __thiscall ExtraPrimitive::FUN_0041fb20(unsigned int flags)
+// src: EXE 0x0041fb20
+void* __thiscall ExtraPrimitive::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_0041fb50();
     if (flags & 1)
@@ -7278,7 +7285,7 @@ void* __thiscall ExtraPrimitive::FUN_0041fb20(unsigned int flags)
 }
 
 namespace fnv_0041ff80 {
-extern int DAT_010151cc;
+extern int vftable_ExtraOcclusionPlaneRefData;
 
 struct BE
 {
@@ -7293,7 +7300,7 @@ struct FUN_0041ff80 : BE
 // @fnv 0x0041ff80
 FUN_0041ff80::FUN_0041ff80() : BE(0x76)
 {
-    *reinterpret_cast<void**>(this) = reinterpret_cast<void**>(&DAT_010151cc);
+    *reinterpret_cast<void**>(this) = reinterpret_cast<void**>(&vftable_ExtraOcclusionPlaneRefData);
 }
 }  // namespace fnv_0041ff80
 
@@ -7301,7 +7308,8 @@ void __cdecl _Deallocate(void*);
 
 // Calls FUN_004203b0, then deallocates this when flags has bit 0 set, and returns this.
 // @fnv 0x00420380
-void* ExtraPortalRefData::FUN_00420380(unsigned int flags)
+// src: EXE 0x00420380
+void* ExtraPortalRefData::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_004203b0();
     if (flags & 1)
@@ -7367,13 +7375,13 @@ struct FUN_00421280 : BE
     FUN_00421280(void* aPtr);
 };
 
-extern int DAT_010151fc;
+extern int vftable_ExtraPackageData;
 
-// Initializes the base with 0x70, stores a pointer to DAT_010151fc and the given pointer.
+// Initializes the base with 0x70, stores a pointer to vftable_ExtraPackageData and the given pointer.
 // @fnv 0x00421280
 FUN_00421280::FUN_00421280(void* aPtr) : BE(0x70)
 {
-    m_ppVirtualMethodTable = &DAT_010151fc;
+    m_ppVirtualMethodTable = &vftable_ExtraPackageData;
     m_ptr = aPtr;
 }
 }  // namespace fnv_00421280
@@ -7405,13 +7413,13 @@ void FUN_00422670_Cls::RemoveExtra045()
 }
 
 namespace fnv_0042c860 {
-extern int DAT_01015944;
+extern int vftable_ExtraTresPassPackage;
 
 // @fnv 0x0042c860
 ExtraTresPassPackage* __fastcall InitializeTrespassExtra(ExtraTresPassPackage* extra)
 {
     extra->BSExtraData::BSExtraData(0x1a);
-    *reinterpret_cast<int**>(extra) = &DAT_01015944;
+    *reinterpret_cast<int**>(extra) = &vftable_ExtraTresPassPackage;
     extra->package = 0;
     return extra;
 }
@@ -7420,7 +7428,8 @@ ExtraTresPassPackage* __fastcall InitializeTrespassExtra(ExtraTresPassPackage* e
 void __cdecl _Deallocate(void*);
 
 // @fnv 0x0042c960
-void* __thiscall ExtraHeadingTarget::FUN_0042c960(unsigned int flags)
+// src: EXE 0x0042c960
+void* __thiscall ExtraHeadingTarget::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00435ef0();
     if (flags & 1)
@@ -7432,7 +7441,8 @@ void* __thiscall ExtraHeadingTarget::FUN_0042c960(unsigned int flags)
 
 // Calls FUN_0042cb30, deallocates this when flags has bit 0 set, and returns this.
 // @fnv 0x0042cb00
-void* ExtraActorCause::FUN_0042cb00(unsigned int flags)
+// src: EXE 0x0042cb00
+void* ExtraActorCause::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_0042cb30();
     if (flags & 1)
@@ -7694,7 +7704,7 @@ struct BE
     BE(unsigned char);
 };
 
-extern "C" void* DAT_01015178;
+extern "C" void* vftable_ExtraHealthPerc;
 
 struct FUN_0041b650 : BE
 {
@@ -7705,11 +7715,11 @@ struct FUN_0041b650 : BE
     FUN_0041b650();
 };
 
-// Initialises the base with 0x7a, installs the vtable pointer DAT_01015178 and sets fPerc to 0.0f.
+// Initialises the base with 0x7a, installs the vtable pointer vftable_ExtraHealthPerc and sets fPerc to 0.0f.
 // @fnv 0x0041b650
 FUN_0041b650::FUN_0041b650() : BE(0x7a)
 {
-    *reinterpret_cast<void**>(this) = &DAT_01015178;
+    *reinterpret_cast<void**>(this) = &vftable_ExtraHealthPerc;
     fPerc = 0.0f;
 }
 }  // namespace fnv_0041b650
@@ -7871,7 +7881,7 @@ int FUN_0041e660_class::ExtraDataList_GetOpenCloseActivateRef()
 }
 
 namespace fnv_0041e750 {
-extern "C" void* DAT_010151a8;
+extern "C" void* vftable_ExtraOpenCloseActivateRef;
 
 struct BE
 {
@@ -7887,17 +7897,17 @@ struct FUN_0041e750 : BE
     FUN_0041e750();
 };
 
-// Constructs the object with BE(0x6c), sets its vtbl to DAT_010151a8 and clears field c.
+// Constructs the object with BE(0x6c), sets its vtbl to vftable_ExtraOpenCloseActivateRef and clears field c.
 // @fnv 0x0041e750
 FUN_0041e750::FUN_0041e750() : BE(0x6c)
 {
-    vtbl = &DAT_010151a8;
+    vtbl = &vftable_ExtraOpenCloseActivateRef;
     c = 0;
 }
 }  // namespace fnv_0041e750
 
 namespace fnv_004202d0 {
-extern int DAT_010151d8;
+extern int vftable_ExtraPortalRefData;
 struct BE
 {
     BE(unsigned char);
@@ -7909,12 +7919,12 @@ struct FUN_004202d0 : BE
 // @fnv 0x004202d0
 FUN_004202d0::FUN_004202d0() : BE(0x77)
 {
-    *reinterpret_cast<int**>(this) = &DAT_010151d8;
+    *reinterpret_cast<int**>(this) = &vftable_ExtraPortalRefData;
 }
 }  // namespace fnv_004202d0
 
 namespace fnv_00420500 {
-extern "C" void* DAT_010151e4;
+extern "C" void* vftable_ExtraRoomRefData;
 
 struct BE
 {
@@ -7929,7 +7939,7 @@ struct FUN_00420500 : BE
 // @fnv 0x00420500
 FUN_00420500::FUN_00420500() : BE(0x7b)
 {
-    *(void**)this = &DAT_010151e4;
+    *(void**)this = &vftable_ExtraRoomRefData;
 }
 }  // namespace fnv_00420500
 
@@ -8022,20 +8032,20 @@ void FUN_00422c20_shell::ExtraDataList_RemoveSavedHavokData()
 
 namespace fnv_0042c610 {
 extern "C"
-extern void* DAT_010158c0;
+extern void* vftable_ExtraGlobal;
 
 // @fnv 0x0042c610
 ExtraGlobal* __fastcall InitializeGlobalExtra(ExtraGlobal* extra)
 {
     extra->BSExtraData::BSExtraData(0x22);
-    *reinterpret_cast<void**>(extra) = &DAT_010158c0;
+    *reinterpret_cast<void**>(extra) = &vftable_ExtraGlobal;
     extra->global = 0;
     return extra;
 }
 }  // namespace fnv_0042c610
 
 namespace fnv_0042c6a0 {
-extern int DAT_010158e4;
+extern int vftable_ExtraHealth;
 struct BE
 {
     BE(unsigned char);
@@ -8048,11 +8058,11 @@ struct FUN_0042c6a0 : BE
     int m_pAuxiliaryObject;
     float fHealthPercent;
 };
-// Initialises the object: sets its vtable pointer to DAT_010158e4 and clears the float field to 0.0f.
+// Initialises the object: sets its vtable pointer to vftable_ExtraHealth and clears the float field to 0.0f.
 // @fnv 0x0042c6a0
 FUN_0042c6a0::FUN_0042c6a0() : BE(0x25)
 {
-    *reinterpret_cast<int**>(this) = &DAT_010158e4;
+    *reinterpret_cast<int**>(this) = &vftable_ExtraHealth;
     fHealthPercent = 0.0f;
 }
 }  // namespace fnv_0042c6a0
@@ -8063,7 +8073,7 @@ struct BE
     BE(unsigned char);
 };
 
-extern const void* DAT_01015908;
+extern const void* vftable_ExtraCharge;
 
 struct FUN_0042c730 : BE
 {
@@ -8074,17 +8084,17 @@ struct FUN_0042c730 : BE
     FUN_0042c730();
 };
 
-// Initialises the object: sets its vtable pointer to DAT_01015908 and sets m_f to 0.0f.
+// Initialises the object: sets its vtable pointer to vftable_ExtraCharge and sets m_f to 0.0f.
 // @fnv 0x0042c730
 FUN_0042c730::FUN_0042c730() : BE(0x28)
 {
-    *reinterpret_cast<const void**>(this) = &DAT_01015908;
+    *reinterpret_cast<const void**>(this) = &vftable_ExtraCharge;
     m_f = 0.0f;
 }
 }  // namespace fnv_0042c730
 
 namespace fnv_0042c830 {
-extern int DAT_01015938;
+extern int vftable_ExtraReferencePointer;
 struct BE
 {
     BE(unsigned char);
@@ -8100,7 +8110,7 @@ struct FUN_0042c830 : BE
 // @fnv 0x0042c830
 FUN_0042c830::FUN_0042c830() : BE(0x1c)
 {
-    *(int**)((char*)this + 0) = &DAT_01015938;
+    *(int**)((char*)this + 0) = &vftable_ExtraReferencePointer;
     *(int*)((char*)this + 0xc) = 0;
 }
 }  // namespace fnv_0042c830
@@ -8162,7 +8172,7 @@ FUN_0042c930::FUN_0042c930() : BE(0x46)
 }  // namespace fnv_0042c930
 
 namespace fnv_0042c990 {
-extern "C" int DAT_01015974;
+extern "C" int vftable_ExtraHasNoRumors;
 
 class BE
 {
@@ -8181,11 +8191,11 @@ struct FUN_0042c990 : public BE
     FUN_0042c990();
 };
 
-// Initializes the base with 0x4e, points m_p at DAT_01015974 and clears m_b3.
+// Initializes the base with 0x4e, points m_p at vftable_ExtraHasNoRumors and clears m_b3.
 // @fnv 0x0042c990
 FUN_0042c990::FUN_0042c990() : BE(0x4e)
 {
-    m_p = &DAT_01015974;
+    m_p = &vftable_ExtraHasNoRumors;
     m_b3 = 0;
 }
 }  // namespace fnv_0042c990
@@ -8245,12 +8255,13 @@ void __cdecl _Deallocate(void*);
 struct FUN_00410380_class
 {
     void FUN_004103b0();
-    void* FUN_00410380(unsigned int flags);
+    void* ExtraDataList_ScalarDeletingDestructor(unsigned int flags);
 };
 
 // Calls FUN_004103b0, frees this via _Deallocate when flags has bit 0 set, and returns this.
 // @fnv 0x00410380
-void* FUN_00410380_class::FUN_00410380(unsigned int flags)
+// src: EXE 0x00410380
+void* FUN_00410380_class::ExtraDataList_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_004103b0();
     if (flags & 1)
@@ -8265,12 +8276,13 @@ void __cdecl _Deallocate(void*);
 struct FUN_00411cf0_class
 {
     void __thiscall FUN_00434950();
-    void* __thiscall FUN_00411cf0(unsigned int flags);
+    void* __thiscall ExtraWaterLightRefs_ScalarDeletingDestructor(unsigned int flags);
 };
 
 // Calls FUN_00434950, then deallocates this when flags has bit 0 set, and returns this.
 // @fnv 0x00411cf0
-void* __thiscall FUN_00411cf0_class::FUN_00411cf0(unsigned int flags)
+// src: EXE 0x00411cf0
+void* __thiscall FUN_00411cf0_class::ExtraWaterLightRefs_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00434950();
     if (flags & 1)
@@ -8360,7 +8372,7 @@ FUN_0041b790::FUN_0041b790(float value) : BE(0x56)
 }  // namespace fnv_0041b790
 
 namespace fnv_0042c640 {
-extern int DAT_010158cc;
+extern int vftable_ExtraRank;
 
 struct BE
 {
@@ -8375,7 +8387,7 @@ struct FUN_0042c640 : BE
 // @fnv 0x0042c640
 FUN_0042c640::FUN_0042c640() : BE(0x23)
 {
-    *(int**)(this) = &DAT_010158cc;
+    *(int**)(this) = &vftable_ExtraRank;
     *(int*)((char*)this + 0xc) = 0;
 }
 }  // namespace fnv_0042c640
@@ -8383,7 +8395,8 @@ FUN_0042c640::FUN_0042c640() : BE(0x23)
 void __cdecl _Deallocate(void*);
 // Calls FUN_00434560, deallocates this when flags has bit 0 set, and returns this.
 // @fnv 0x00411bb0
-void* ExtraReflectedRefs::FUN_00411bb0(unsigned int flags)
+// src: EXE 0x00411bb0
+void* ExtraReflectedRefs::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00434560();
     if (flags & 1)
@@ -8751,7 +8764,7 @@ struct BE
 {
     BE(unsigned char);
 };
-extern int DAT_010151f0;
+extern int vftable_ExtraCollisionData;
 struct FUN_00421090 : BE
 {
     FUN_00421090();
@@ -8759,7 +8772,7 @@ struct FUN_00421090 : BE
 // @fnv 0x00421090
 FUN_00421090::FUN_00421090() : BE(0x72)
 {
-    *(void**)this = &DAT_010151f0;
+    *(void**)this = &vftable_ExtraCollisionData;
 }
 }  // namespace fnv_00421090
 
@@ -8827,17 +8840,17 @@ struct BE
     int m08;
     int m0C_pad;
 };
-extern int DAT_010158f0;
+extern int vftable_ExtraUses;
 struct FUN_0042c6d0 : BE
 {
     unsigned char f0c;
     FUN_0042c6d0();
 };
-// Constructs the object with base value 0x26, sets its vtable pointer to DAT_010158f0 and clears f0c.
+// Constructs the object with base value 0x26, sets its vtable pointer to vftable_ExtraUses and clears f0c.
 // @fnv 0x0042c6d0
 FUN_0042c6d0::FUN_0042c6d0() : BE(0x26)
 {
-    *(int*)this = (int)&DAT_010158f0;
+    *(int*)this = (int)&vftable_ExtraUses;
     f0c = 0;
 }
 }  // namespace fnv_0042c6d0
@@ -8850,7 +8863,7 @@ struct BE
     int _08;
     int _0c;
 };
-extern int DAT_010158fc;
+extern int vftable_ExtraTimeLeft;
 struct FUN_0042c700 : BE
 {
     float _10;
@@ -8859,7 +8872,7 @@ struct FUN_0042c700 : BE
 // @fnv 0x0042c700
 FUN_0042c700::FUN_0042c700() : BE(0x27)
 {
-    *(int*)this = (int)&DAT_010158fc;
+    *(int*)this = (int)&vftable_ExtraTimeLeft;
     _10 = 0.0f;
 }
 }  // namespace fnv_0042c700
@@ -8872,17 +8885,17 @@ struct BE
     int _008;
     BE(unsigned char);
 };
-extern int DAT_01015920;
+extern int vftable_ExtraScale;
 struct FUN_0042c7d0 : BE
 {
     float m00C;
     FUN_0042c7d0();
 };
-// Initializes the base with 0x30, sets the vtable to DAT_01015920 and zeroes m00C.
+// Initializes the base with 0x30, sets the vtable to vftable_ExtraScale and zeroes m00C.
 // @fnv 0x0042c7d0
 FUN_0042c7d0::FUN_0042c7d0() : BE(0x30)
 {
-    _vtbl = (void*)&DAT_01015920;
+    _vtbl = (void*)&vftable_ExtraScale;
     m00C = 0.0f;
 }
 }  // namespace fnv_0042c7d0
@@ -8900,18 +8913,18 @@ struct BE
     int _04;
     BE(unsigned char);
 };
-extern int DAT_01015208;
+extern int vftable_ExtraRadius;
 struct FUN_0042ca30 : BE
 {
     int _08;
     float _0c;
     FUN_0042ca30();
 };
-// Initialises the object: installs the vtable pointer from DAT_01015208 and sets the float at offset 0x0c to 0.0f.
+// Initialises the object: installs the vtable pointer from vftable_ExtraRadius and sets the float at offset 0x0c to 0.0f.
 // @fnv 0x0042ca30
 FUN_0042ca30::FUN_0042ca30() : BE(0x5c)
 {
-    *(int*)this = (int)&DAT_01015208;
+    *(int*)this = (int)&vftable_ExtraRadius;
     _0c = 0.0f;
 }
 }  // namespace fnv_0042ca30
@@ -8921,7 +8934,7 @@ struct BE
 {
     BE(unsigned char);
 };
-extern int DAT_01015214;
+extern int vftable_ExtraRadiation;
 // ExtraRadiation's default constructor (0x0042ca60) is not declared by the shared header yet.
 struct FUN_0042ca60 : BE
 {
@@ -8930,7 +8943,7 @@ struct FUN_0042ca60 : BE
 // @fnv 0x0042ca60
 FUN_0042ca60::FUN_0042ca60() : BE(0x5D)
 {
-    *(int*)this = (int)&DAT_01015214;
+    *(int*)this = (int)&vftable_ExtraRadiation;
     *(float*)((char*)this + 0xC) = 0.0f;
 }
 }  // namespace fnv_0042ca60
@@ -8943,17 +8956,17 @@ struct BE
     int _m1;
     int _m2;
 };
-extern int DAT_010159a4;
+extern int vftable_ExtraWeaponModFlags;
 struct FUN_0042cc40 : BE
 {
     unsigned char _m3;
     FUN_0042cc40();
 };
-// Initialises the object: sets its vtable pointer to DAT_010159a4 and clears the byte at offset 0xC.
+// Initialises the object: sets its vtable pointer to vftable_ExtraWeaponModFlags and clears the byte at offset 0xC.
 // @fnv 0x0042cc40
 FUN_0042cc40::FUN_0042cc40() : BE(0x8d)
 {
-    *(int*)this = (int)&DAT_010159a4;
+    *(int*)this = (int)&vftable_ExtraWeaponModFlags;
     *(unsigned char*)((char*)this + 0xC) = 0;
 }
 }  // namespace fnv_0042cc40
@@ -11320,7 +11333,7 @@ struct BE
     BE(unsigned char);
 };
 
-extern int DAT_010151b4;
+extern int vftable_ExtraPrimitive;
 
 struct FUN_0041faf0 : BE
 {
@@ -11330,7 +11343,7 @@ struct FUN_0041faf0 : BE
 // @fnv 0x0041faf0
 FUN_0041faf0::FUN_0041faf0(void* arg) : BE(0x6b)
 {
-    *(int*)this = (int)&DAT_010151b4;
+    *(int*)this = (int)&vftable_ExtraPrimitive;
     *(void**)((char*)this + 0xc) = arg;
 }
 }  // namespace fnv_0041faf0
@@ -11361,7 +11374,8 @@ void __cdecl _Deallocate(void* p);
 
 // Calls FUN_00420060, then deallocates this if flags has bit 0 set, and returns this.
 // @fnv 0x00420030
-void* ExtraOcclusionPlaneRefData::FUN_00420030(unsigned int flags)
+// src: EXE 0x00420030
+void* ExtraOcclusionPlaneRefData::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00420060();
     if (flags & 1)
@@ -11370,7 +11384,8 @@ void* ExtraOcclusionPlaneRefData::FUN_00420030(unsigned int flags)
 }
 
 // @fnv 0x00420600
-void* ExtraRoomRefData::FUN_00420600(unsigned int flags)
+// src: EXE 0x00420600
+void* ExtraRoomRefData::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00420630();
     if (flags & 1)
@@ -11571,7 +11586,8 @@ void* ExtraLock::ReleaseIfFlagged(unsigned int flags)
 }
 
 // @fnv 0x0042c890
-void* ExtraTresPassPackage::FUN_0042c890(unsigned int flags)
+// src: EXE 0x0042c890
+void* ExtraTresPassPackage::ScalarDeletingDestructor(unsigned int flags)
 {
     this->FUN_00432900();
 
@@ -11587,18 +11603,18 @@ struct BE
     BE(unsigned char a);
 };
 
-extern int DAT_01015980;
+extern int vftable_ExtraModelSwap;
 
-struct FUN_0042c9f0 : BE
+struct ExtraModelSwap : BE
 {
-    FUN_0042c9f0();
+    ExtraModelSwap();
 };
 
-// Initializes the object: sets the vtable pointer to DAT_01015980 and zeroes the fields at offsets 0xC and 0x10.
+// Initializes the object: sets the vtable pointer to vftable_ExtraModelSwap and zeroes the fields at offsets 0xC and 0x10.
 // @fnv 0x0042c9f0
-FUN_0042c9f0::FUN_0042c9f0() : BE(0x5B)
+ExtraModelSwap::ExtraModelSwap() : BE(0x5B)
 {
-    *(int*)this = (int)&DAT_01015980;
+    *(int*)this = (int)&vftable_ExtraModelSwap;
     *(int*)((char*)this + 0xC) = 0;
     *(int*)((char*)this + 0x10) = 0;
 }
@@ -11614,7 +11630,7 @@ struct BE
     unsigned char value;
 };
 
-extern int DAT_010159a4;
+extern int vftable_ExtraWeaponModFlags;
 
 struct FUN_0042e450 : public BE
 {
@@ -11624,11 +11640,11 @@ struct FUN_0042e450 : public BE
 BE::BE(unsigned char)
 {}
 
-// Initializes the base with 0x8d, sets the vtable pointer to DAT_010159a4 and stores aValue in value.
+// Initializes the base with 0x8d, sets the vtable pointer to vftable_ExtraWeaponModFlags and stores aValue in value.
 // @fnv 0x0042e450
 FUN_0042e450::FUN_0042e450(unsigned char aValue) : BE(0x8d)
 {
-    vptr = &DAT_010159a4;
+    vptr = &vftable_ExtraWeaponModFlags;
     value = aValue;
 }
 }  // namespace fnv_0042e450
@@ -11728,18 +11744,18 @@ struct BE
     BE(unsigned char);
 };
 
-extern int DAT_010159c8;
+extern int vftable_ExtraCombatStyle;
 
 struct FUN_0042eb10 : BE
 {
     FUN_0042eb10(void* arg);
 };
 
-// Constructs a BE with tag 0x69, sets the vtable pointer to DAT_010159c8 and stores arg at offset 0xc.
+// Constructs a BE with tag 0x69, sets the vtable pointer to vftable_ExtraCombatStyle and stores arg at offset 0xc.
 // @fnv 0x0042eb10
 FUN_0042eb10::FUN_0042eb10(void* arg) : BE(0x69)
 {
-    *(void**)this = &DAT_010159c8;
+    *(void**)this = &vftable_ExtraCombatStyle;
     *(void**)((char*)this + 0xc) = arg;
 }
 }  // namespace fnv_0042eb10
@@ -11806,7 +11822,7 @@ struct GlobalObject_0045cfe0
 };
 
 extern GlobalObject_0044fae0 g_011c3d84;
-extern GlobalObject_0045cfe0 g_011c3ea4;
+extern GlobalObject_0045cfe0 iNumHWThreads_General;
 
 #include "../../include/ActorTaskManager.h"
 // If the global int is not 1, either queries the performance counter or waits for rendering tasks depending on flag.
@@ -11814,7 +11830,7 @@ extern GlobalObject_0045cfe0 g_011c3ea4;
 // src: COMMUNITY 0x00453860
 void ActorTaskManager::TES_LockHavokUpdateMT(bool abQueryCounter)
 {
-    if (*g_011c3ea4.Int() != 1)
+    if (*iNumHWThreads_General.Int() != 1)
     {
         if (abQueryCounter)
             g_011c3d84.QueryPerformanceCounter(0);
@@ -12100,9 +12116,9 @@ void XList::BaseExtraList_RemoveAllDefault(bool abDelete)
 ExtraWaterLightRefs::ExtraWaterLightRefs() : BSExtraData(0x84)
 {}
 
-extern int DAT_0101444c;
+extern int vftable_ExtraLitWaterRefs;
 
-// Initializes the object's base with type 0x85 and sets its vtable pointer to DAT_0101444c.
+// Initializes the object's base with type 0x85 and sets its vtable pointer to vftable_ExtraLitWaterRefs.
 // @fnv 0x00411d20
 ExtraLitWaterRefs::ExtraLitWaterRefs() : BSExtraData(0x85)
 {}
@@ -13569,14 +13585,14 @@ int FUN_00420bc0_cls::ExtraDataList_GetPortalLinkedRoomRef(int aiIndex)
     }
 }
 
-extern char DAT_010151f0;
+extern char vftable_ExtraCollisionData;
 void __cdecl FormHeapFreeAndLog_00401030(void* pointer);
 
 // @fnv 0x00421160
 // src: GUESS 0x00421160 (confidence: medium)
 void ExtraCollisionData::ReleaseStorage()
 {
-    *reinterpret_cast<void**>(this) = &DAT_010151f0;
+    *reinterpret_cast<void**>(this) = &vftable_ExtraCollisionData;
     void* changes = m_pCollisionData;
     FormHeapFreeAndLog_00401030(changes);
     BSExtraData::~BSExtraData();
@@ -16871,7 +16887,7 @@ void LoadRef::ExtraDataList_Revert(unsigned int auiFlags, LoadRefForm* apForm)
     }
 }
 
-extern void* DAT_01015914[];
+extern void* vftable_ExtraScript[];
 
 // @fnv 0x0042c760
 ExtraScript::ExtraScript() : BSExtraData(0x0d)
@@ -16880,14 +16896,14 @@ ExtraScript::ExtraScript() : BSExtraData(0x0d)
     m_pLocals = 0;
 }
 
-extern int DAT_01015950;
+extern int vftable_ExtraLeveledItem;
 
-// Calls FUN_0040ec80 with 0x2f, sets vt to DAT_01015950, clears unk0C and unk10, and returns this.
+// Calls FUN_0040ec80 with 0x2f, sets vt to vftable_ExtraLeveledItem, clears unk0C and unk10, and returns this.
 // @fnv 0x0042c8c0
 ExtraLeveledItem* __fastcall InitializeLeveledItemExtra(ExtraLeveledItem* extra)
 {
     extra->BSExtraData::BSExtraData(0x2f);
-    *reinterpret_cast<int**>(extra) = &DAT_01015950;
+    *reinterpret_cast<int**>(extra) = &vftable_ExtraLeveledItem;
     extra->iIndex = 0;
     extra->m_bIsLeveledItem = 0;
     return extra;

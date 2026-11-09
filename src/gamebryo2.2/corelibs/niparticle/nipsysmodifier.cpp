@@ -118,7 +118,7 @@ void NiPSysModifier::SaveBinary(NiStream& stream)
 }
 
 extern "C" char* DAT_0109b220;
-extern "C" int DAT_010c09cc;
+extern "C" int vftable_NiPSysModifier;
 extern "C" void(__stdcall* DAT_00fdf1c0)(char*);
 extern "C" void(__stdcall* DAT_00fdf1c4)(char*);
 // Keep constructor entry points here until their overloads are declared by the shared headers.
@@ -128,7 +128,7 @@ NiPSysModifier* __fastcall ConstructNiPSysModifier(NiPSysModifier* modifier, voi
                                                 char* volatile* newName, unsigned int newOrder)
 {
     ConstructNiObject(modifier);
-    *reinterpret_cast<void**>(modifier) = &DAT_010c09cc;
+    *reinterpret_cast<void**>(modifier) = &vftable_NiPSysModifier;
     modifier->m_kName.m_kHandle = DAT_0109b220;
     modifier->m_uiUpdateOrder = newOrder;
     modifier->m_pkTarget = 0;
@@ -176,7 +176,7 @@ void __fastcall GetNiPSysModifierViewerStrings(NiPSysModifier* modifier, void*, 
 // @fnv 0x00c31870
 NiPSysModifier* __fastcall DestroyNiPSysModifier(NiPSysModifier* modifier, void*, unsigned int uiFlags)
 {
-    *reinterpret_cast<void**>(modifier) = &DAT_010c09cc;
+    *reinterpret_cast<void**>(modifier) = &vftable_NiPSysModifier;
     modifier->m_kName.~NiFixedString();
     modifier->NiRefObject::~NiRefObject();
     if (uiFlags & 1)

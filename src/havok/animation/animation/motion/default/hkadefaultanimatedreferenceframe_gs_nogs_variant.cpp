@@ -133,7 +133,7 @@ struct Config
 
 extern hkError* DAT_01268360;
 extern int DAT_01268700;
-extern int DAT_010e57a4;
+extern int vftable_hkaDefaultAnimatedReferenceFrame;
 extern const char DAT_010ebe28[], DAT_010ebdec[], DAT_010ebdcc[], DAT_01012630[], DAT_010ebde0[], DAT_010ebd70[];
 extern "C" void __cdecl hkaDefaultAnimatedReferenceFrame_project(const Config* cfg, const void* v1, void* outV, const void* v2) throw();
 extern "C" void __cdecl hkQsTransform_UpdateState_00e41bf0(void* outTransform, float time, const hkQsTransform* transforms, int numTransforms,
@@ -225,7 +225,7 @@ extern "C" __declspec(noinline) void __cdecl hkaDefaultAnimatedReferenceFrame_pr
 }
 
 // @fnv 0x00e41830
-FUN_00e41830::FUN_00e41830(const Config& config) throw() : m_ppVirtualMethodTable(&DAT_010e57a4), m_sReferenceCount(1)
+FUN_00e41830::FUN_00e41830(const Config& config) throw() : m_ppVirtualMethodTable(&vftable_hkaDefaultAnimatedReferenceFrame), m_sReferenceCount(1)
 {
     int numSamples =
         config.m_iValueAfterAnimationDuration == -1 ? config.m_numQsTransforms : config.m_iValueAfterAnimationDuration;

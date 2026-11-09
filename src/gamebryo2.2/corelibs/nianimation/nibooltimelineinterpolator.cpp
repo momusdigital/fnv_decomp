@@ -18,7 +18,7 @@ void* __cdecl NiBoolTimelineInterpolator_GetRTTI()
     return &g_011f4044;
 }
 
-extern int DAT_01099fb4;
+extern int vftable_NiBoolTimelineInterpolator;
 
 
 // Allocates a 0x20-byte NiBoolInterpolator, initialises its vtable, clears the field at offset 0x18 and the byte at 0x1c, and returns it (or null).
@@ -29,7 +29,7 @@ NiBoolInterpolator* __cdecl CreateBoolInterpolator()
     if (p)
     {
         p->LinkObject(0);
-        *reinterpret_cast<void**>(p) = reinterpret_cast<void*>(&DAT_01099fb4);
+        *reinterpret_cast<void**>(p) = reinterpret_cast<void*>(&vftable_NiBoolTimelineInterpolator);
         *reinterpret_cast<int*>(reinterpret_cast<char*>(p) + 0x18) = 0;
         *reinterpret_cast<unsigned char*>(reinterpret_cast<char*>(p) + 0x1c) = 0;
         return p;
@@ -79,7 +79,7 @@ void NiBoolTimelineInterpolator::AppendString(StrArr* pkStrings)
     pkStrings->SetAt(uiSize, pszStr);
 }
 
-extern unsigned int DAT_0109a0b4;
+extern unsigned int vftable_NiBoolInterpolator;
 extern unsigned char DAT_0109a914;
 // Allocates a 0x18-byte NiKeyBasedInterpolator, constructs it, sets its vtable and fields, and returns the pointer or 0.
 // @fnv 0x00a53500
@@ -89,7 +89,7 @@ void* CreateNiKeyBasedInterpolator()
     if (p)
     {
         static_cast<NiKeyBasedInterpolator*>(p)->NiKeyBasedInterpolator::NiKeyBasedInterpolator();
-        *(unsigned int*)p = (unsigned int)&DAT_0109a0b4;
+        *(unsigned int*)p = (unsigned int)&vftable_NiBoolInterpolator;
         *(unsigned char*)((char*)p + 0xc) = DAT_0109a914;
         *(unsigned int*)((char*)p + 0x10) = 0;
         *(unsigned int*)((char*)p + 0x14) = 0;
@@ -105,7 +105,7 @@ NiBoolTimelineInterpolator::NiBoolTimelineInterpolator(NiBoolData* pkBoolData)
 {
     m_uiLastIndex = 0;
     m_bBoolValue = 0;
-    *(int**)this = &DAT_01099fb4;
+    *(int**)this = &vftable_NiBoolTimelineInterpolator;
 }
 
 struct BoolKey

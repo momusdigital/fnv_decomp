@@ -22,7 +22,7 @@ void __fastcall FreeSimpleArrayStorage(void* array);
 
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
 
-extern int DAT_0106b8a0;
+extern int vftable_BSSimpleArray_0106b8a0;
 
 struct FUN_006cf9d0
 {
@@ -31,25 +31,25 @@ struct FUN_006cf9d0
     FUN_006cf9d0(unsigned int maxSize, unsigned int growBy);
 };
 
-// Initializes the object's vfptr to DAT_0106b8a0 and calls FUN_009a3d00 with maxSize and growBy.
+// Initializes the object's vfptr to vftable_BSSimpleArray_0106b8a0 and calls FUN_009a3d00 with maxSize and growBy.
 // @fnv 0x006cf9d0
-FUN_006cf9d0::FUN_006cf9d0(unsigned int maxSize, unsigned int growBy) : vfptr(&DAT_0106b8a0)
+FUN_006cf9d0::FUN_006cf9d0(unsigned int maxSize, unsigned int growBy) : vfptr(&vftable_BSSimpleArray_0106b8a0)
 {
     this->BSSimpleArray_WeaponData_1024_InitialSetup(maxSize, growBy);
 }
 
-extern int DAT_0106b91c;
+extern int vftable_BSSimpleArray_0106b91c;
 struct FUN_006cf180
 {
     void* vfptr;
     void ResizeAndConstruct(int a, int b);
     FUN_006cf180();
 };
-// Sets the vtable pointer to DAT_0106b91c and calls ResizeAndConstruct with 0, 0.
+// Sets the vtable pointer to vftable_BSSimpleArray_0106b91c and calls ResizeAndConstruct with 0, 0.
 // @fnv 0x006cf180
 FUN_006cf180::FUN_006cf180()
 {
-    vfptr = &DAT_0106b91c;
+    vfptr = &vftable_BSSimpleArray_0106b91c;
     ResizeAndConstruct(0, 0);
 }
 
@@ -84,7 +84,7 @@ bool AreBytesEqual(const unsigned char* pucA, const unsigned char* pucB)
     return *pucA == *pucB;
 }
 
-extern int DAT_0106b8c8;
+extern int vftable_BSSimpleArray_0106b8c8;
 struct Dummy_0061bf20
 {
     void BSSimpleArray_NavMeshPOVSearchNode_1024_InitialSetup(int, int);
@@ -94,15 +94,15 @@ struct FUN_006cf9a0 : Dummy_0061bf20
     int* vfptr;
     FUN_006cf9a0(int maxSize, int growBy);
 };
-// Sets the vtable pointer to DAT_0106b8c8 and forwards maxSize and growBy to FUN_006b3f40.
+// Sets the vtable pointer to vftable_BSSimpleArray_0106b8c8 and forwards maxSize and growBy to FUN_006b3f40.
 // @fnv 0x006cf9a0
 FUN_006cf9a0::FUN_006cf9a0(int maxSize, int growBy)
 {
-    vfptr = &DAT_0106b8c8;
+    vfptr = &vftable_BSSimpleArray_0106b8c8;
     BSSimpleArray_NavMeshPOVSearchNode_1024_InitialSetup(maxSize, growBy);
 }
 
-extern int DAT_0106c9e0;
+extern int vftable_BSSimpleArray_0106c9e0;
 struct GlobalObject_00869f00
 {
     void Clear(bool);
@@ -116,7 +116,7 @@ struct FUN_006cfaa0
 // src: GUESS 0x006cfaa0 (confidence: medium)
 void FUN_006cfaa0::ResetVirtualTableAndClear_006cfaa0()
 {
-    vfptr = &DAT_0106c9e0;
+    vfptr = &vftable_BSSimpleArray_0106c9e0;
     ((GlobalObject_00869f00*)this)->Clear(true);
 }
 
@@ -146,22 +146,22 @@ void FUN_006e9210::Reallocate(void* p, unsigned int auiCount)
     _Reallocate(p, auiCount * 0x30);
 }
 
-extern int DAT_0106d4e8;
+extern int vftable_BSSimpleArray_0106d4e8;
 struct FUN_006e9230_class
 {
     int* vfptr;
     void BSSimpleArray_PathingNode_1024_InitialSetup(int a, int b);
     FUN_006e9230_class();
 };
-// Sets the vtable pointer to DAT_0106d4e8 and calls FUN_006e97a0 with 0, 0.
+// Sets the vtable pointer to vftable_BSSimpleArray_0106d4e8 and calls FUN_006e97a0 with 0, 0.
 // @fnv 0x006e9230
 FUN_006e9230_class::FUN_006e9230_class()
 {
-    vfptr = &DAT_0106d4e8;
+    vfptr = &vftable_BSSimpleArray_0106d4e8;
     BSSimpleArray_PathingNode_1024_InitialSetup(0, 0);
 }
 
-extern int DAT_0106d4e8;
+extern int vftable_BSSimpleArray_0106d4e8;
 struct PSNodeStub
 {
     int* vfptr;
@@ -175,7 +175,7 @@ struct FUN_006e9260Class : PSNodeStub
 // src: GUESS 0x006e9260 (confidence: low)
 void FUN_006e9260Class::SetVirtualTableAndProcessState_006e9260()
 {
-    vfptr = (int*)&DAT_0106d4e8;
+    vfptr = (int*)&vftable_BSSimpleArray_0106d4e8;
     FUN_006cf120(true);
 }
 
@@ -344,7 +344,7 @@ unsigned int FUN_006cf4c0_Array::BSSimpleArray_ParentSpaceNode_1024_Add(const Pa
     return iElementIndex;
 }
 
-extern int DAT_0106c990;
+extern int vftable_BSScrapArray_0106c990;
 struct FUN_0069b1d0
 {
     virtual ~FUN_0069b1d0();
@@ -1042,7 +1042,7 @@ void BSSimpleArray<NiColorA, 1024>::SetSize(unsigned int newSize, bool freeMemor
 }
 
 
-extern int DAT_0106c954;
+extern int vftable_BSSimpleArray_0106c954;
 struct FUN_006d0310_Class
 {
     void BSSimpleArray_NavMeshEdgeLocation_1024_InitialSetup(unsigned int, unsigned int);
@@ -1056,7 +1056,7 @@ struct FUN_006cf200
 // @fnv 0x006cf200
 FUN_006cf200::FUN_006cf200()
 {
-    vfptr = (int*)&DAT_0106c954;
+    vfptr = (int*)&vftable_BSSimpleArray_0106c954;
     ((FUN_006d0310_Class*)this)->BSSimpleArray_NavMeshEdgeLocation_1024_InitialSetup(0, 0);
 }
 
@@ -1551,7 +1551,7 @@ struct FUN_005e0510
     ~FUN_005e0510();
 };
 
-extern int DAT_0106c968;
+extern int vftable_BSScrapArray_0106c968;
 
 struct HeapProvider
 {
@@ -1571,7 +1571,7 @@ struct FUN_006cf2a0 : FUN_005e0510
 // @fnv 0x006cf2a0
 FUN_006cf2a0::FUN_006cf2a0(int first, int second, void* heap)
 {
-    m_vftable = &DAT_0106c968;
+    m_vftable = &vftable_BSScrapArray_0106c968;
     m_pStreamAllocator = heap ? heap : MemoryManager_Instance()->FUN_00aa42e0();
     BSSimpleArray_float_1024_InitialSetup(first, second);
 }
@@ -1704,7 +1704,7 @@ void FUN_006cf940_cls::BSSimpleArray_CopyTo_0(FUN_006cf940_Owner* pOwner)
 }
 
 namespace fnv_006cfa00 {
-extern int DAT_0106c9cc;
+extern int vftable_BSScrapArray_0106c9cc;
 
 class FUN_006cfa00_base
 {
@@ -1764,7 +1764,7 @@ FUN_006cfac0_cls::~FUN_006cfac0_cls()
 }
 
 namespace fnv_006cfb20 {
-extern int DAT_0106c9f4;
+extern int vftable_BSScrapArray_0106c9f4;
 
 struct FUN_00694de0_base
 {
@@ -1795,7 +1795,7 @@ struct FUN_006cfb20_cls : FUN_00694de0_base
 // @fnv 0x006cfb20
 FUN_006cfb20_cls::FUN_006cfb20_cls(int aiArg1, int aiArg2, void* apData)
 {
-    vfptr = (int*)&DAT_0106c9f4;
+    vfptr = (int*)&vftable_BSScrapArray_0106c9f4;
     m_10 = apData != 0 ? apData : MemoryManager_Instance()->FUN_00aa42e0();
     BSSimpleArray_float_1024_InitialSetup(aiArg1, aiArg2);
 }

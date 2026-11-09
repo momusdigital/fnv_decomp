@@ -191,7 +191,7 @@ void hkxVertexBuffer::CopyFrom(const hkxVertexBuffer& kOther, bool bResizeToMatc
     }
 }
 
-extern int DAT_0102e388;
+extern int vftable_hkBaseObject;
 // @fnv 0x00e3e760
 void hkxVertexBuffer::Destroy()
 {
@@ -207,7 +207,7 @@ void hkxVertexBuffer::Destroy()
     a.m_data = 0;
     a.m_iCapacityState = 0x80000000;
     m_data.DestroyArrays();
-    *(int*)this = (int)(unsigned int)&DAT_0102e388;
+    *(int*)this = (int)(unsigned int)&vftable_hkBaseObject;
 }
 
 // @fnv 0x00e3e7b0

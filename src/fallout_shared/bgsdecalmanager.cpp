@@ -1003,7 +1003,7 @@ NiPoint3* MultiplyComponents(NiPoint3* pResult, const NiPoint3* pLeft, const NiP
     return pResult;
 }
 
-extern int DAT_0101e594;
+extern int vftable_hkpRayHitCollector;
 
 struct FUN_004a3ae0_shell
 {
@@ -1014,10 +1014,10 @@ struct FUN_004a3ae0_shell
 // src: GUESS 0x004a3ae0 (confidence: low)
 void FUN_004a3ae0_shell::SetVirtualTable_004a3ae0()
 {
-    *(int*)this = (int)&DAT_0101e594;
+    *(int*)this = (int)&vftable_hkpRayHitCollector;
 }
 
-extern int DAT_0101e594;
+extern int vftable_hkpRayHitCollector;
 void __fastcall hkpRayHitCollector_reset(void*);
 
 struct FUN_004a3b30_shell
@@ -1029,7 +1029,7 @@ struct FUN_004a3b30_shell
 // @fnv 0x004a3b30
 void* __thiscall FUN_004a3b30_shell::InitializeVftable()
 {
-    m_vftable = &DAT_0101e594;
+    m_vftable = &vftable_hkpRayHitCollector;
     hkpRayHitCollector_reset(this);
     return this;
 }
@@ -1131,7 +1131,8 @@ void* StandIn::FUN_004a0490(unsigned int flags)
 void _Deallocate(void*);
 // Calls FUN_004a0f60, then deallocates this when flags has bit 0 set, and returns this.
 // @fnv 0x004a0ff0
-void* BSCullingProcess::FUN_004a0ff0(unsigned int flags)
+// src: EXE 0x004a0ff0
+void* BSCullingProcess::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_004a0f60();
     if (flags & 1)

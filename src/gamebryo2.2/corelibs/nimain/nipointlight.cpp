@@ -54,7 +54,7 @@ struct FUN_00a71ec0_helper
 {
     void FUN_00a71ec0(void* clone, void* process);
 };
-extern const unsigned int DAT_0109dd0c;
+extern const unsigned int vftable_NiPointLight;
 // @fnv 0x00a7d7c0
 NiObject* NiPointLight::MakeClone(CloningProcess& process)
 {
@@ -66,7 +66,7 @@ NiObject* NiPointLight::MakeClone(CloningProcess& process)
         FUN_00a71f60(clone);
         float zero = 0.0f;
         reinterpret_cast<float*>(clone->storage)[0] = zero;
-        *(unsigned int*)clone = (unsigned int)&DAT_0109dd0c;
+        *(unsigned int*)clone = (unsigned int)&vftable_NiPointLight;
         clone->effectType = 2;
         float one = 1.0f;
         reinterpret_cast<float*>(clone->storage)[1] = one;

@@ -574,7 +574,7 @@ struct FUN_00ec78f1_t
 };
 void __stdcall FUN_00ec7894(FUN_00ec78f1_t* info, const char* fmt);
 void* __cdecl operator new(unsigned int);
-extern int DAT_010176f8;
+extern int vftable_std__bad_alloc;
 extern int DAT_01140ef8;
 
 // Clamps n to 0 when not positive, reports an error if n exceeds the max element count, then allocates n*0x38 bytes.
@@ -594,7 +594,7 @@ void* __cdecl Object_AllocateElementStorage_00b23980(unsigned int n)
                 int zero = 0;
                 o.FUN_00ec78f1(&zero);
             }
-            o.m0 = (unsigned int)&DAT_010176f8;
+            o.m0 = (unsigned int)&vftable_std__bad_alloc;
             FUN_00ec7894(&o, (const char*)&DAT_01140ef8);
         }
     }
@@ -960,7 +960,7 @@ void* __cdecl Object_AllocateElementStorage_00b23aa0(unsigned int n)
             FUN_0044d6c0_class e2;
             z0 = 0;
             e2.FUN_00ec78f1(&z0);
-            e2.m_iWordAt00 = &DAT_010176f8;
+            e2.m_iWordAt00 = &vftable_std__bad_alloc;
             __CxxThrowException(&e2, (unsigned int)&DAT_01140ef8);
         }
     }
@@ -1411,7 +1411,7 @@ struct AllocationException
     unsigned int reserved2;
     void __thiscall FUN_00ec78f1(unsigned int* value);
 };
-extern unsigned int DAT_010176f8;
+extern unsigned int vftable_std__bad_alloc;
 extern unsigned int DAT_01140ef8;
 void __stdcall FUN_00ec7894(void* exception, void* info);
 void* __cdecl FormHeap_Allocate(unsigned int bytes);
@@ -1428,7 +1428,7 @@ void* __cdecl Frondengine_AllocateElementArray12Checked(unsigned int count)
         unsigned int empty = 0;
         AllocationException exception;
         exception.FUN_00ec78f1(&empty);
-        exception.vtable = (unsigned int)&DAT_010176f8;
+        exception.vtable = (unsigned int)&vftable_std__bad_alloc;
         FUN_00ec7894(&exception, &DAT_01140ef8);
     }
     return FormHeap_Allocate(count * 12);

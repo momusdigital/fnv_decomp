@@ -10,7 +10,7 @@ unsigned int Owner::hkpCollidableMediator_getNumPrimitives() { return child->unk
 
 // InitWalker: thiscall (2 stack args). Stores vptr, flag word and list, walks the item list when ctx != 0, returns this.
 
-extern int DAT_010d40b4;
+extern int vftable_hkpCollidableMediator;
 
 struct __declspec(align(16)) OutSlot {
     void* m_ptr;
@@ -106,7 +106,7 @@ public:
 ListWalker* ListWalker::InitWalker(ItemListRec* list, CtxRec* ctx)
 {
     m_06 = 1;
-    m_vptr = (int)&DAT_010d40b4;
+    m_vptr = (int)&vftable_hkpCollidableMediator;
     m_08 = list;
     if (ctx != 0) {
         int iIndex = 0;

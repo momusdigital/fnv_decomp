@@ -535,7 +535,7 @@ struct NameHeader
     unsigned length;
 };
 extern char* DAT_0109b220;
-extern void* DAT_01094cfc[];
+extern void* vftable_Tile__Extra[];
 char* __cdecl FUN_00a5b690(const char*);
 struct NameString
 {
@@ -571,7 +571,7 @@ struct TileExtra
     TileExtra(Tile* owner, TextNode* object)
     {
         FUN_00a7b2e0();
-        vtable = DAT_01094cfc;
+        vtable = vftable_Tile__Extra;
         tile = owner;
         node = object;
         NameString extraName("Tileptr");

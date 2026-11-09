@@ -217,7 +217,8 @@ void* BGSEntryPointFunctionDataTwoValue::FUN_005e64e0(unsigned int flags)
 }
 
 // @fnv 0x005e65d0
-void* BGSEntryPointFunctionDataActivateChoice::FUN_005e65d0(unsigned int flags)
+// src: EXE 0x005e65d0
+void* BGSEntryPointFunctionDataActivateChoice::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_005e6600();
     if (flags & 1)

@@ -57,7 +57,7 @@ void __cdecl __Dummy_00b6fef0(void* p, unsigned int size);
 struct FUN_0066d440_shell
 {
     void ForwardCall_0066d470();
-    void* FUN_0066d440(unsigned int flags);
+    void* bhkSPCollisionObject_ScalarDeletingDestructor(unsigned int flags);
 };
 struct FUN_0066d470_shell
 {
@@ -72,7 +72,7 @@ extern const void* g_012683e0;
 struct FUN_0066d520_shell
 {
     void FUN_00cb78b0();
-    void* FUN_0066d520(unsigned int flags);
+    void* bhkMultiSphereShape_ScalarDeletingDestructor(unsigned int flags);
 };
 void __cdecl __Dummy_00b6fef0(void* p, unsigned int size);
 struct GlobalObjectO2_00a7b610
@@ -303,7 +303,7 @@ struct S00cb7750
     void __thiscall bhkSPCollisionObject_hktoNiTransform();
 };
 void* __fastcall NiRTTI_UpdateState_00c6b910(void*);
-extern int DAT_01066b94;
+extern int vftable_bhkPCollisionObject;
 BSFadeNode* bhkPCollisionObject_CreateObject();
 struct Middle
 {

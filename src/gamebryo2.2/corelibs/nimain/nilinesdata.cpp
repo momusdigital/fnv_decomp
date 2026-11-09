@@ -20,14 +20,14 @@ void* __cdecl NiLinesData_GetRTTI()
 }
 
 void* __cdecl NiFreeAlias(void*);
-extern int DAT_0109f23c;
+extern int vftable_NiLinesData;
 void __cdecl operator delete(void* p, unsigned int size);
 
 // @fnv 0x00a8a7c0
 void* NiLinesData::Destroy(unsigned int flags)
 {
     void* pkFlags = m_pkFlags;
-    *(void**)this = (void*)&DAT_0109f23c;
+    *(void**)this = (void*)&vftable_NiLinesData;
     NiFreeAlias(pkFlags);
     NiGeometryData::~NiGeometryData();
     if (flags & 1)

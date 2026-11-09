@@ -65,7 +65,7 @@ void hkpMultiSphereShape::calcContentStatistics(hkStatisticsCollector* pkCollect
     hkReferencedObject::calcContentStatistics(pkCollector, &g_01268910);
 }
 
-extern int DAT_010ce4bc;
+extern int vftable_hkpMultiSphereShape;
 
 struct FUN_00d2a760
 {
@@ -89,7 +89,7 @@ FUN_00d2a760::FUN_00d2a760(const hkVector4* spheres, int count)
     m_iObjectReferenceCount = 1;
     m_ulUserData = 0;
     m_type = 0x15;
-    m_ppVirtualMethodTable = &DAT_010ce4bc;
+    m_ppVirtualMethodTable = &vftable_hkpMultiSphereShape;
     for (int i = 0; i < count; ++i)
         *(LocalM128*)&m_kSpheres[i] = *(const LocalM128*)&spheres[i];
     m_iSphereCount = count;

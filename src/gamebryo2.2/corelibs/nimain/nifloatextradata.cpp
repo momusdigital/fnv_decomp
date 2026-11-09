@@ -22,14 +22,14 @@ GlobalObjectO2_00a7b610* __cdecl NiFloatExtraData_GetRTTI()
     return &g_011f5f40;
 }
 
-extern void* DAT_010a0ec4;
+extern void* vftable_NiFloatExtraData;
 extern void __cdecl DestroyFields_00a7b300();
 extern void __cdecl operator delete(void*, unsigned int);
 
 // @fnv 0x00a9a4b0
 void* NiFloatExtraData::Destroy(unsigned int flags)
 {
-    *reinterpret_cast<void**>(this) = &DAT_010a0ec4;
+    *reinterpret_cast<void**>(this) = &vftable_NiFloatExtraData;
     ::DestroyFields_00a7b300();
     if (flags & 1)
         ::operator delete(this, 0x10);
@@ -57,7 +57,7 @@ void* NiExtraData::CloneFloatExtraData(void* kCloning)
     {
         ((NiExtraData*)pkObject)->FUN_00a7b2e0();
         pkObject->m_fValue = 0.0f;
-        *reinterpret_cast<void**>(pkObject) = &DAT_010a0ec4;
+        *reinterpret_cast<void**>(pkObject) = &vftable_NiFloatExtraData;
     }
     else
     {
@@ -79,7 +79,7 @@ void* __cdecl NiFloatExtraData_CreateObject()
     {
         reinterpret_cast<NiExtraData*>(p)->FUN_00a7b2e0();
         *reinterpret_cast<float*>(reinterpret_cast<char*>(p) + 0xc) = 0.0f;
-        *reinterpret_cast<void**>(p) = &DAT_010a0ec4;
+        *reinterpret_cast<void**>(p) = &vftable_NiFloatExtraData;
         return p;
     }
     return 0;

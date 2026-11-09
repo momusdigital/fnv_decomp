@@ -75,7 +75,7 @@ public:
 
     PATH_HANDLER_RESULT CompleteNoPathUpdate(float fSeconds);
     void FUN_009dfe40(void*, void*, void*, void*);
-    void* FUN_009dfe10(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 
     Actor* pActor;
     ActorMover* m_pActorMover;

@@ -111,7 +111,7 @@ void FUN_00663a10_shell::BSFaceGenAnimationData_SetShouldHeadTrack(bool abShould
     *((bool*)((char*)this + 0x189)) = abShouldHeadTrack;
 }
 
-// 0x00408d60 is a folded byte-pointer getter (also ProcessLists::GetLifeStateControlFlag); g_011d5a5c and g_011df6d0
+// 0x00408d60 is a folded byte-pointer getter (also ProcessLists::GetLifeStateControlFlag); bUseFaceGenLOD_LOD and bDisableHeadTracking_HeadTracking
 // are not the ProcessLists singleton 0x011e0e80
 class FlagGetterView
 {
@@ -119,13 +119,13 @@ class FlagGetterView
     unsigned char* GetLifeStateControlFlag(void);
 };
 
-extern FlagGetterView g_011d5a5c;
+extern FlagGetterView bUseFaceGenLOD_LOD;
 
 // @fnv 0x00663a30
 // src: XBOX_PDB 0x00663a30
 unsigned char BSFaceGenManager_GetUseLOD()
 {
-    return *g_011d5a5c.GetLifeStateControlFlag();
+    return *bUseFaceGenLOD_LOD.GetLifeStateControlFlag();
 }
 
 // @fnv 0x00663a50
@@ -236,13 +236,13 @@ struct GlobalObject_0044f440
     void FUN_00450410(void);
 };
 
-GlobalObject_0044f440 g_011d5b28;
+GlobalObject_0044f440 fLodDistance_LOD;
 
 // @fnv 0x006633d0
 // src: COMMUNITY 0x006633d0
 void BSFaceGenManager_GetLODDistance(void)
 {
-    g_011d5b28.FUN_00450410();
+    fLodDistance_LOD.FUN_00450410();
 }
 
 namespace fnv_006633e0 {
@@ -251,13 +251,13 @@ struct GlobalObject_0044f440
     void FUN_00450410(void);
 };
 
-GlobalObject_0044f440 g_011d5b34;
+GlobalObject_0044f440 fTalkingDistance_LOD;
 
 // @fnv 0x006633e0
 // src: COMMUNITY 0x006633e0
 void BSFaceGenManager_GetTalkingDistance()
 {
-    g_011d5b34.FUN_00450410();
+    fTalkingDistance_LOD.FUN_00450410();
 }
 }  // namespace fnv_006633e0
 
@@ -508,9 +508,9 @@ class BsfacegenninodeInterfaceView
   public:
     static bool __cdecl IsSaveLoadActive();
 };
-extern Setting g_011c5724;
+extern Setting fAnimationMult_General;
 extern Twin_0084d030 g_timeGlobal;
-extern FlagGetterView g_011df6d0;
+extern FlagGetterView bDisableHeadTracking_HeadTracking;
 extern ProcessLists DAT_011e0e80;
 unsigned char __cdecl BSFaceGenManager_GetUseLOD();
 unsigned char __fastcall BSFaceGenAnimationData_ShouldHeadTrack(char*);
@@ -549,7 +549,7 @@ void FUN_00663510_t::UpdateFaceGenAnimation(NiUpdateData* UpdateData)
         else
             bchanged = ((FaceGenNode*)this)
                            ->GetAnimationData()
-                           ->UpdateAnimation(g_timeGlobal.GetStoredFloatValue() * *g_011c5724.Float());
+                           ->UpdateAnimation(g_timeGlobal.GetStoredFloatValue() * *fAnimationMult_General.Float());
     }
     else
     {
@@ -560,7 +560,7 @@ void FUN_00663510_t::UpdateFaceGenAnimation(NiUpdateData* UpdateData)
         ((MobileObject*)*(Actor**)((char*)this + 0xe8))->GetCurrentAIProcess() &&
         ((MobileObject*)*(Actor**)((char*)this + 0xe8))->GetCurrentAIProcess()->GetPrimaryTargetReference() &&
         BSFaceGenAnimationData_ShouldHeadTrack((char*)((FaceGenNode*)this)->GetAnimationData()) &&
-        ((BSFaceGenNiNode*)this)->bApplyRotationToParent && !*g_011df6d0.GetLifeStateControlFlag() &&
+        ((BSFaceGenNiNode*)this)->bApplyRotationToParent && !*bDisableHeadTracking_HeadTracking.GetLifeStateControlFlag() &&
         ((NiAVObject*)this)->GetSelectiveUpdate())
     {
         bool beyeTrackingChanged;

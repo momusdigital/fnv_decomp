@@ -32,8 +32,8 @@ void __cdecl AdvancePosition(NiBinaryStream* apState, void* b, unsigned int c)
 
 void _NiFreeAlias(void*);
 extern MemoryManager g_memoryManager;
-extern int DAT_01101378;
-extern int DAT_01101388;
+extern int vftable_NiTFixedStringMapBase_01101378;
+extern int vftable_NiTFixedStringMap_01101388;
 struct SomeClass
 {
     void* FUN_00ee90b0(unsigned int);
@@ -41,9 +41,9 @@ struct SomeClass
 // @fnv 0x00ee90b0
 void* SomeClass::FUN_00ee90b0(unsigned int uiFlags)
 {
-    *(int*)this = (int)&DAT_01101388;
+    *(int*)this = (int)&vftable_NiTFixedStringMap_01101388;
     ((NiTFixedStringMap_NiAVObject___*)this)->RemoveAll();
-    *(int*)this = (int)&DAT_01101378;
+    *(int*)this = (int)&vftable_NiTFixedStringMapBase_01101378;
     ((NiTFixedStringMap_NiAVObject___*)this)->RemoveAll();
     _NiFreeAlias(*(void**)((char*)this + 8));
     if (uiFlags & 1)
@@ -79,7 +79,7 @@ void __cdecl NiFreeAlias(void*);
 // @fnv 0x00ee9070
 void* NiTFixedStringMap_NiAVObject___::Destroy(int b)
 {
-    *(void**)this = &DAT_01101378;
+    *(void**)this = &vftable_NiTFixedStringMapBase_01101378;
     RemoveAll();
     NiFreeAlias(*(void**)((char*)this + 8));
     if (b & 1)

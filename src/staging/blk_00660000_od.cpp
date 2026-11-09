@@ -93,7 +93,7 @@ const char* const* FUN_00661d30_cls::GetArg1Ptr()
 }
 
 extern "C" void* __cdecl NiTMapBase_NiTPointerAllocator_unsigned_int_TESObjectTREE_NiPointer_BSTreeModel_NiTMapBase(void*);
-extern int DAT_01066434;
+extern int vftable_NiTPointerMap_01066434;
 
 struct FUN_00665c50
 {
@@ -101,12 +101,12 @@ struct FUN_00665c50
     void* __thiscall Set(int a);
 };
 
-// Calls FUN_00665f50 with a, stores the address of DAT_01066434 into this, and returns this.
+// Calls FUN_00665f50 with a, stores the address of vftable_NiTPointerMap_01066434 into this, and returns this.
 // @fnv 0x00665c50
 void* __thiscall FUN_00665c50::Set(int a)
 {
     NiTMapBase_NiTPointerAllocator_unsigned_int_TESObjectTREE_NiPointer_BSTreeModel_NiTMapBase(a);
-    *reinterpret_cast<void**>(this) = &DAT_01066434;
+    *reinterpret_cast<void**>(this) = &vftable_NiTPointerMap_01066434;
     return this;
 }
 
@@ -177,7 +177,7 @@ bool ActionPoints_IsThrownAttackAction(int type)
     }
 }
 
-extern int DAT_01068884;
+extern int vftable_TESPackageData;
 
 struct FUN_0067ad20_Class
 {
@@ -188,10 +188,10 @@ struct FUN_0067ad20_Class
 // @fnv 0x0067ad20
 FUN_0067ad20_Class::FUN_0067ad20_Class()
 {
-    vtbl = &DAT_01068884;
+    vtbl = &vftable_TESPackageData;
 }
 
-extern int DAT_01068884;
+extern int vftable_TESPackageData;
 
 struct FUN_0067ad70_Class
 {
@@ -202,10 +202,10 @@ struct FUN_0067ad70_Class
 // src: GUESS 0x0067ad70 (confidence: low)
 void FUN_0067ad70_Class::SetVtableAndProcessState_0067ad70()
 {
-    *reinterpret_cast<int*>(this) = reinterpret_cast<int>(&DAT_01068884);
+    *reinterpret_cast<int*>(this) = reinterpret_cast<int>(&vftable_TESPackageData);
 }
 
-extern int DAT_01068aa4;
+extern int vftable_ActorPackageData;
 
 
 ActorPackageData::ActorPackageData()
@@ -214,11 +214,11 @@ ActorPackageData::ActorPackageData()
 // @fnv 0x0067d920
 ActorPackageData* ActorPackageData::FUN_0067d920()
 {
-    *(int**)this = &DAT_01068aa4;
+    *(int**)this = &vftable_ActorPackageData;
     return this;
 }
 
-extern "C" int DAT_01068aa4;
+extern "C" int vftable_ActorPackageData;
 
 struct FUN_0067d970_Class
 {
@@ -230,7 +230,7 @@ struct FUN_0067d970_Class
 // src: GUESS 0x0067d970 (confidence: low)
 void __thiscall FUN_0067d970_Class::SetM()
 {
-    m = (int)&DAT_01068aa4;
+    m = (int)&vftable_ActorPackageData;
 }
 
 struct FUN_0067f4b0_class
@@ -284,11 +284,12 @@ S6* __cdecl CopyTripleShorts(S6* apBegin, S6* apEnd, S6* apDest)
 struct FUN_00661d40_shell
 {
     void __thiscall SetVTableAndDestroy();
-    void* __thiscall FUN_00661d60(unsigned int);
+    void* __thiscall BSFaceGenMorphData_ScalarDeletingDestructor(unsigned int);
 };
 void __cdecl _delete(void*, unsigned int);
 // @fnv 0x00661d60
-void* __thiscall FUN_00661d40_shell::FUN_00661d60(unsigned int flags)
+// src: EXE 0x00661d60
+void* __thiscall FUN_00661d40_shell::BSFaceGenMorphData_ScalarDeletingDestructor(unsigned int flags)
 {
     this->SetVTableAndDestroy();
     if (flags & 1)
@@ -651,7 +652,7 @@ void __thiscall Holder::SaveToBuffer(void* apBuffer)
         q->PackageLocation_SaveGame(apBuffer);
 }
 
-extern int DAT_010689e4;
+extern int vftable_TESPatrolPackageData;
 
 struct FUN_0067c3f0_Class : public FUN_0067ad20_Class
 {
@@ -660,11 +661,11 @@ struct FUN_0067c3f0_Class : public FUN_0067ad20_Class
     FUN_0067c3f0_Class();
 };
 
-// Sets the vtable pointer to DAT_010689e4 and initializes b to 1 and c to 0.
+// Sets the vtable pointer to vftable_TESPatrolPackageData and initializes b to 1 and c to 0.
 // @fnv 0x0067c3f0
 FUN_0067c3f0_Class::FUN_0067c3f0_Class()
 {
-    vtbl = &DAT_010689e4;
+    vtbl = &vftable_TESPatrolPackageData;
     b = 1;
     c = 0;
 }
@@ -675,12 +676,13 @@ extern "C" void __cdecl Deallocate(void*);
 struct FUN_0067d940_Class
 {
     void __thiscall SetM();
-    void* __thiscall FUN_0067d940(unsigned int flags);
+    void* __thiscall ActorPackageData_ScalarDeletingDestructor(unsigned int flags);
 };
 
 // Calls FUN_0067d970, then frees this object with Deallocate when flags has bit 0 set, and returns this.
 // @fnv 0x0067d940
-void* __thiscall FUN_0067d940_Class::FUN_0067d940(unsigned int flags)
+// src: EXE 0x0067d940
+void* __thiscall FUN_0067d940_Class::ActorPackageData_ScalarDeletingDestructor(unsigned int flags)
 {
     SetM();
     if (flags & 1)
@@ -1925,7 +1927,7 @@ void B6DF40Owner::ClearEffectsAndRegisterOwner()
 }
 }  // namespace fnv_0066df40
 
-extern int DAT_01068a64;
+extern int vftable_TESUseWeaponPackageData;
 extern float DAT_010162c0;
 
 struct S_0067caa0_Foo
@@ -1950,14 +1952,14 @@ struct S_0067caa0_Foo
     S_0067caa0_Foo* __thiscall InitializeFields_0067caa0();
 };
 
-// Calls FUN_0067ad20, sets vtbl to DAT_01068a64, initializes the listed fields to constants (unk1c from DAT_010162c0), and returns this.
+// Calls FUN_0067ad20, sets vtbl to vftable_TESUseWeaponPackageData, initializes the listed fields to constants (unk1c from DAT_010162c0), and returns this.
 // @fnv 0x0067caa0
 // src: GUESS 0x0067caa0 (confidence: low)
 S_0067caa0_Foo* __thiscall S_0067caa0_Foo::InitializeFields_0067caa0()
 {
     FUN_0067ad20();
 
-    vtbl = &DAT_01068a64;
+    vtbl = &vftable_TESUseWeaponPackageData;
     unk04 = 0;
     unk08 = 0;
     unk20 = 0;

@@ -472,7 +472,7 @@ void* FUN_00c657e0_class::GetGlobalDataPtr()
 }
 
 extern "C" void NiFreeAlias(void*);
-extern int DAT_010c377c;
+extern int vftable_NiTArray_010c377c;
 
 // RTTI at vftable 0x010c377c identifies NiTArray<NiPointer<NiAVObject>, NiTMallocInterface<NiPointer<NiAVObject> > >.
 // @fnv 0x00c62890
@@ -484,7 +484,7 @@ NiTArray<NiPointer<NiAVObject>, NiTMallocInterface<NiPointer<NiAVObject> > >::~N
 }
 
 extern "C" void NiFreeAlias(void*);
-extern int DAT_010c3a08;
+extern int vftable_NiTArray_010c3a08;
 // RTTI at vftable 0x010c3a08 identifies NiTArray<BSAttachPointPair*, NiTMallocInterface<BSAttachPointPair*> >.
 // @fnv 0x00c65680
 template <>
@@ -497,13 +497,14 @@ NiTArray<BSAttachPointPair*, NiTMallocInterface<BSAttachPointPair*> >::~NiTArray
 struct FUN_00c600c0_class
 {
     void* __thiscall UpdateState_00c5fd50();
-    void* __thiscall FUN_00c600c0(unsigned int flags);
+    void* __thiscall BSPSysStripUpdateModifier_ScalarDeletingDestructor(unsigned int flags);
     static void __cdecl operator delete(void* p, unsigned int size);
 };
 
 // Calls FUN_00c5fd50, then frees this with operator delete when flags has bit 0 set, and returns this.
 // @fnv 0x00c600c0
-void* __thiscall FUN_00c600c0_class::FUN_00c600c0(unsigned int flags)
+// src: EXE 0x00c600c0
+void* __thiscall FUN_00c600c0_class::BSPSysStripUpdateModifier_ScalarDeletingDestructor(unsigned int flags)
 {
     UpdateState_00c5fd50();
     if (flags & 1)
@@ -514,11 +515,12 @@ void* __thiscall FUN_00c600c0_class::FUN_00c600c0(unsigned int flags)
 struct FUN_00c613a0_Class
 {
     void __thiscall FUN_00c613a0();
-    void* __thiscall FUN_00c617e0(unsigned int flags);
+    void* __thiscall BSWArray_ScalarDeletingDestructor(unsigned int flags);
     void operator delete(void* p, unsigned int size);
 };
 // @fnv 0x00c617e0
-void* __thiscall FUN_00c613a0_Class::FUN_00c617e0(unsigned int flags)
+// src: EXE 0x00c617e0
+void* __thiscall FUN_00c613a0_Class::BSWArray_ScalarDeletingDestructor(unsigned int flags)
 {
     this->FUN_00c613a0();
     if (flags & 1)
@@ -538,7 +540,7 @@ struct AVObjectArrayDeleteEntry : NiTArray<NiPointer<NiAVObject>, NiTMallocInter
 // @fnv 0x00c63210
 void* AVObjectArrayDeleteEntry::Delete(int flag)
 {
-    *reinterpret_cast<void**>(this) = &DAT_010c377c;
+    *reinterpret_cast<void**>(this) = &vftable_NiTArray_010c377c;
     void* p = m_pBase;
     NiFree(p);
     if (flag & 1)
@@ -548,11 +550,12 @@ void* AVObjectArrayDeleteEntry::Delete(int flag)
 
 struct FUN_00c632f0_class
 {
-    void* __thiscall FUN_00c632f0(unsigned int flags);
+    void* __thiscall PArrayPoint_ScalarDeletingDestructor(unsigned int flags);
 };
 void __cdecl operator delete(void*, int);
 // @fnv 0x00c632f0
-void* __thiscall FUN_00c632f0_class::FUN_00c632f0(unsigned int flags)
+// src: EXE 0x00c632f0
+void* __thiscall FUN_00c632f0_class::PArrayPoint_ScalarDeletingDestructor(unsigned int flags)
 {
     reinterpret_cast<NiExtraData*>(this)->DestroyFields_00a7b300();
     if (flags & 1)
@@ -592,11 +595,12 @@ void __cdecl operator delete(void* p, unsigned int size);
 struct FUN_00c64610_Class
 {
     void __thiscall FUN_00c63b40();
-    void* __thiscall FUN_00c64610(unsigned int flags);
+    void* __thiscall BSDecalPlacementVectorExtraData_ScalarDeletingDestructor(unsigned int flags);
 };
 // Calls FUN_00c63b40, then frees this with operator delete when flags has bit 0 set, and returns this.
 // @fnv 0x00c64610
-void* __thiscall FUN_00c64610_Class::FUN_00c64610(unsigned int flags)
+// src: EXE 0x00c64610
+void* __thiscall FUN_00c64610_Class::BSDecalPlacementVectorExtraData_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00c63b40();
     if (flags & 1)
@@ -914,7 +918,7 @@ struct AttachPointArrayDeleteEntry : NiTArray<BSAttachPointPair*, NiTMallocInter
 void* AttachPointArrayDeleteEntry::Delete(unsigned int flags)
 {
     void* p;
-    *reinterpret_cast<void**>(this) = &DAT_010c3a08;
+    *reinterpret_cast<void**>(this) = &vftable_NiTArray_010c3a08;
     p = m_pBase;
     NiFree(p);
     if (flags & 1)
@@ -1025,11 +1029,12 @@ void __cdecl operator delete(void* p, unsigned int size);
 struct FUN_00c60d10_Class
 {
     void FUN_00c31750();
-    void* __thiscall FUN_00c60d10(unsigned int flags);
+    void* __thiscall BSPSysSimpleColorModifier_ScalarDeletingDestructor(unsigned int flags);
 };
 
 // @fnv 0x00c60d10
-void* FUN_00c60d10_Class::FUN_00c60d10(unsigned int flags)
+// src: EXE 0x00c60d10
+void* FUN_00c60d10_Class::BSPSysSimpleColorModifier_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00c31750();
     if (flags & 1)
@@ -1131,12 +1136,13 @@ struct FUN_00c31750_Class
 
 struct FUN_00c63a70_Class
 {
-    void* __thiscall FUN_00c63a70(unsigned int flags);
+    void* __thiscall BSParentVelocityModifier_ScalarDeletingDestructor(unsigned int flags);
 };
 
 // Calls FUN_00c31750 on this, deletes this with size 0x3c when flags has bit 1 set, and returns this.
 // @fnv 0x00c63a70
-void* __thiscall FUN_00c63a70_Class::FUN_00c63a70(unsigned int flags)
+// src: EXE 0x00c63a70
+void* __thiscall FUN_00c63a70_Class::BSParentVelocityModifier_ScalarDeletingDestructor(unsigned int flags)
 {
     ((FUN_00c31750_Class*)this)->FUN_00c31750();
     if (flags & 1)
@@ -1263,12 +1269,13 @@ void __cdecl operator delete(void* p, unsigned int size);
 struct FUN_00c64e70_Class
 {
     void __thiscall FUN_00c64e70();
-    void* __thiscall FUN_00c65650(unsigned int flags);
+    void* __thiscall BSAttachPoints_ScalarDeletingDestructor(unsigned int flags);
 };
 
 // Calls FUN_00c64e70, then frees this with operator delete when flags has bit 1 set, and returns this.
 // @fnv 0x00c65650
-void* __thiscall FUN_00c64e70_Class::FUN_00c65650(unsigned int flags)
+// src: EXE 0x00c65650
+void* __thiscall FUN_00c64e70_Class::BSAttachPoints_ScalarDeletingDestructor(unsigned int flags)
 {
     this->FUN_00c64e70();
     if (flags & 1)

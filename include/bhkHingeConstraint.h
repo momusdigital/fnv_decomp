@@ -9,7 +9,7 @@ public:
 
     static NiObject* __cdecl CreateObject();
     unsigned int GetInstanceSize();
-    void* FUN_009ba520(unsigned int);
+    void* ScalarDeletingDestructor(unsigned int);
 
     static const NiRTTI ms_kRTTI;
 };

@@ -27,7 +27,7 @@ void* __cdecl NiMaterialColorController_GetRTTI()
 
 void __cdecl FUN_00a57c80(void*);
 
-extern int DAT_01098a14;
+extern int vftable_NiMaterialColorController;
 
 // Allocates a 0x3c-byte BSFadeNode, runs its constructor, zeroes the field at offset 0x38, sets its vtable, and returns the object or null.
 // @fnv 0x00a4b790
@@ -39,7 +39,7 @@ void* __cdecl NiMaterialColorController_CreateObject()
     {
         ((void(__thiscall*)(void*))FUN_00a57c80)(p);
         *(unsigned short*)((char*)p + 0x38) = 0;
-        *(void**)p = &DAT_01098a14;
+        *(void**)p = &vftable_NiMaterialColorController;
         return p;
     }
     return 0;
@@ -297,7 +297,7 @@ struct BaseB
 // @fnv 0x00a4b6f0
 void* __fastcall ReleaseMaterialColor(NiMaterialColorController* self, void*, unsigned int uiFlags)
 {
-    *(void* volatile*)self = (void*)&DAT_01098a14;
+    *(void* volatile*)self = (void*)&vftable_NiMaterialColorController;
     RefObj* p = (RefObj* volatile&)self->m_spControllerInterpolator.m_pObject;
     if (p)
     {
@@ -318,7 +318,7 @@ NiMaterialColorController* NiMaterialColorController::Clone(CloningProcess& kClo
     if (pkObject)
     {
         ((void(__thiscall*)(NiLightColorController*))FUN_00a57c80)((NiLightColorController*)pkObject);
-        *(void**)pkObject = (void*)&DAT_01098a14;
+        *(void**)pkObject = (void*)&vftable_NiMaterialColorController;
         pkObject->m_uiObjectFlags = 0;
     }
     else

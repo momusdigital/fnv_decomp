@@ -118,7 +118,7 @@ struct GlobalObject_0045cf30
 {
     unsigned char* Bool();
 };
-extern GlobalObject_0045cf30 g_011de4e8;
+extern GlobalObject_0045cf30 bDebugSaveBuffer_Debug;
 
 TESForm* TESForm_GetFormByNumericID(unsigned int formID);
 void ProgramFlow(const char* format, ...);
@@ -143,7 +143,7 @@ unsigned int EffectSettingCollection_GetKnownEffectsSaveSize()
         if (mgef->IsFlagSet(0x200000))
             size += 4;
     }
-    if (*g_011de4e8.Bool())
+    if (*bDebugSaveBuffer_Debug.Bool())
     {
         ChangedForm* changed = (ChangedForm*)g_TESSaveLoadGame->FUN_004fd3e0();
         if (changed)

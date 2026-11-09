@@ -153,7 +153,7 @@ void FUN_00d39930_class::DispatchToReceivers(void* value)
         Release(1);
 }
 
-extern const int DAT_010ce7fc;
+extern const int vftable_hkpSymmetricAgentFlipCollector;
 
 struct CallbackState {
     const int* m_pIntegerValue;
@@ -172,7 +172,7 @@ void __cdecl Object_UpdateFields_00d3b220(void* apOne, void* apTwo, void* apThre
     CallbackState kState;
     kState.m_fFirstLightParameter = 3.40282e+38f;
     kState.m_iValue = aiValue;
-    kState.m_pIntegerValue = &DAT_010ce7fc;
+    kState.m_pIntegerValue = &vftable_hkpSymmetricAgentFlipCollector;
     staticGetClosestPoints(apTwo, apOne, apThree, &kState);
 }
 
@@ -185,8 +185,8 @@ hkMemoryRouter* __cdecl hkMemoryRouter_getInstance() throw();
 
 void __cdecl ComputeInverseLengths(void* value, void* self);
 
-extern char DAT_010ceefc[];
-extern char DAT_010cef38[];
+extern char vftable_hkpCapsuleTriangleAgent[];
+extern char vftable_hkpSymmetricAgentLinearCast_010cef38[];
 
 struct FUN_00d39980_cls {
     void* m_vptr;
@@ -211,9 +211,9 @@ FUN_00d39980_cls* __cdecl CreateAllocatedObject(int a1, int a2, int a3, int a4)
     pObject->m_w0C = 0xffff;
     pObject->m_w0E = 0xffff;
     pObject->m_w10 = 0xffff;
-    pObject->m_vptr = DAT_010ceefc;
+    pObject->m_vptr = vftable_hkpCapsuleTriangleAgent;
     ComputeInverseLengths((void*)(*(int*)a1 + 0x20), &pObject->m_sub);
-    pObject->m_vptr = DAT_010cef38;
+    pObject->m_vptr = vftable_hkpSymmetricAgentLinearCast_010cef38;
     return pObject;
 }
 
@@ -384,7 +384,7 @@ void __cdecl Object_UpdateFields_00d3ac80(unsigned int first, unsigned int secon
     }
 }
 
-extern char DAT_010ce81c;
+extern char vftable_hkpSymmetricAgentFlipBodyCollector;
 struct FUN_00d3b160_tmp { const void* vt; unsigned char flag; unsigned int a4; };
 struct CallbackHost_d3b160 {
     void hkpCapsuleTriangleAgent_getPenetrations(void*, void*, void*, void*);
@@ -399,7 +399,7 @@ void CallbackHost_d3b160::hkpSymmetricAgentLinearCast_hkpCapsuleTriangleAgent_ge
     FUN_00d3b160_tmp t;
     t.a4 = a4;
     t.flag = 0;
-    t.vt = &DAT_010ce81c;
+    t.vt = &vftable_hkpSymmetricAgentFlipBodyCollector;
     hkpCapsuleTriangleAgent_getPenetrations(a2, a1, a3, &t);
 }
 
@@ -803,7 +803,7 @@ void CapsuleTriangleAgent::hkpCapsuleTriangleAgent_getPenetrations(const hkpCdBo
 }
 
 namespace fnv_00d3b1a0 {
-extern "C" const int DAT_010ce81c;
+extern "C" const int vftable_hkpSymmetricAgentFlipBodyCollector;
 
 struct LocalState_d3b1a0 {
     const int* m_pIntegerValue;
@@ -813,14 +813,14 @@ struct LocalState_d3b1a0 {
 
 typedef void (__cdecl *Call_d3a8c0)(int, int, int, LocalState_d3b1a0*);
 
-// Initialises a LocalState_d3b1a0 with param4, a zero flag and a pointer to DAT_010ce81c, then calls FUN_00d3a8c0 with param2, param1, param3 and the state.
+// Initialises a LocalState_d3b1a0 with param4, a zero flag and a pointer to vftable_hkpSymmetricAgentFlipBodyCollector, then calls FUN_00d3a8c0 with param2, param1, param3 and the state.
 // @fnv 0x00d3b1a0
 // src: GUESS 0x00d3b1a0 (confidence: low)
 void __cdecl Object_UpdateFields_00d3b1a0(int param1, int param2, int param3, int aiValue) {
     LocalState_d3b1a0 state;
     state.m_iValue = aiValue;
     state.m_bZero = 0;
-    state.m_pIntegerValue = &DAT_010ce81c;
+    state.m_pIntegerValue = &vftable_hkpSymmetricAgentFlipBodyCollector;
 
     Call_d3a8c0 call = (Call_d3a8c0)Object_CollectPenetratingBodyPair;
     call(param2, param1, param3, &state);
@@ -830,12 +830,12 @@ void __cdecl Object_UpdateFields_00d3b1a0(int param1, int param2, int param3, in
 namespace fnv_00d3b1e0 {
 struct CpuCallData { void* descriptor; float bound; unsigned int value; };
 extern float DAT_0104da48;
-extern unsigned char DAT_010ce7fc;
+extern unsigned char vftable_hkpSymmetricAgentFlipCollector;
 struct CpuObject {
     void hkpCapsuleTriangleAgent_getClosestPoints(void*, void*, unsigned int, CpuCallData*);
     void hkpSymmetricAgentLinearCast_hkpCapsuleTriangleAgent_getClosestPoints(void*, void*, unsigned int, unsigned int);
 };
-// Builds a CpuCallData from fourth, DAT_0104da48 and &DAT_010ce7fc, then calls FUN_00d39ef0 with second, first, third and that data.
+// Builds a CpuCallData from fourth, DAT_0104da48 and &vftable_hkpSymmetricAgentFlipCollector, then calls FUN_00d39ef0 with second, first, third and that data.
 // @fnv 0x00d3b1e0
 // src: XBOX_PDB 0x00d3b1e0
 void CpuObject::hkpSymmetricAgentLinearCast_hkpCapsuleTriangleAgent_getClosestPoints(void* first, void* second, unsigned int third, unsigned int fourth)
@@ -843,7 +843,7 @@ void CpuObject::hkpSymmetricAgentLinearCast_hkpCapsuleTriangleAgent_getClosestPo
     CpuCallData data;
     data.value = fourth;
     data.bound = DAT_0104da48;
-    data.descriptor = &DAT_010ce7fc;
+    data.descriptor = &vftable_hkpSymmetricAgentFlipCollector;
     hkpCapsuleTriangleAgent_getClosestPoints(second, first, third, &data);
 }
 }  // namespace fnv_00d3b1e0

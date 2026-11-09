@@ -25,5 +25,5 @@ public:
     virtual void vf48();
 
     void Destroy();
-    void* FUN_004b5160(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 };

@@ -48,11 +48,11 @@ struct Holder00a92080
 };
 void __cdecl DestroyFields_00a7b300();
 void __cdecl _delete(void*, unsigned int);
-extern int DAT_0109fb94;
+extern int vftable_NiVectorExtraData;
 // @fnv 0x00a92080
 void* Holder00a92080::FUN_00a92080(unsigned int flags)
 {
-    *(void**)this = (void*)&DAT_0109fb94;
+    *(void**)this = (void*)&vftable_NiVectorExtraData;
     DestroyFields_00a7b300();
     if (flags & 1)
         _delete(this, 0x1c);
@@ -62,7 +62,7 @@ void* Holder00a92080::FUN_00a92080(unsigned int flags)
 struct CloningProcess
 {
 };
-extern int DAT_0109fb94;
+extern int vftable_NiVectorExtraData;
 struct FUN_00a920b0_shell : NiVectorExtraData
 {
     NiObject* NiVectorExtraData_CreateClone(CloningProcess&);
@@ -76,7 +76,7 @@ NiObject* FUN_00a920b0_shell::NiVectorExtraData_CreateClone(CloningProcess& kClo
     if (pkObject)
     {
         ((NiExtraData*)pkObject)->FUN_00a7b2e0();
-        *(void**)pkObject = (void*)&DAT_0109fb94;
+        *(void**)pkObject = (void*)&vftable_NiVectorExtraData;
         pkObject->m_afVectorComponents[0] = pkObject->m_afVectorComponents[1] = pkObject->m_afVectorComponents[2] =
             pkObject->m_afVectorComponents[3] = 0.0f;
     }

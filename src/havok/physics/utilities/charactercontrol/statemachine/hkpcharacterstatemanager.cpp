@@ -21,8 +21,8 @@ void hkpCharacterStateManager::registerState(hkReferencedObject* object, int ind
     m_states[index] = object;
 }
 
-extern int DAT_010c9194;
-extern int _DAT_0102e388;
+extern int vftable_hkpCharacterStateManager;
+extern int vftable_hkBaseObject;
 
 struct FUN_00cbc4a0
 {
@@ -36,7 +36,7 @@ struct FUN_00cbc4a0
 // @fnv 0x00cbc4a0
 FUN_00cbc4a0::~FUN_00cbc4a0()
 {
-    m_ppVirtualMethodTable = reinterpret_cast<int*>(&DAT_010c9194);
+    m_ppVirtualMethodTable = reinterpret_cast<int*>(&vftable_hkpCharacterStateManager);
 
     for (int i = 0; i < 11; ++i)
     {
@@ -48,7 +48,7 @@ FUN_00cbc4a0::~FUN_00cbc4a0()
         }
     }
 
-    m_ppVirtualMethodTable = reinterpret_cast<int*>(&_DAT_0102e388);
+    m_ppVirtualMethodTable = reinterpret_cast<int*>(&vftable_hkBaseObject);
 }
 
 // 0x00cbc510 is the manager lookup bound by hkpcharactercontext.cpp: a pointer table at +0x08, not a character state.

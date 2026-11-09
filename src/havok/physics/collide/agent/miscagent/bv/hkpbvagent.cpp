@@ -276,7 +276,7 @@ void D45350Agent::ProcessShapeChildren(const D45350CdBody& body, void* apArg1, v
     }
 }
 
-extern char DAT_010ce81c[];
+extern char vftable_hkpSymmetricAgentFlipBodyCollector[];
 
 struct Functor_d46010
 {
@@ -295,7 +295,7 @@ void __cdecl hkpBvAgent_staticGetPenetrations_UpdateState_00d46010(int aiArg1, i
     Functor_d46010 f;
     f.m_uiFilterValue = aiValue;
     f.m_flag = false;
-    f.m_vtbl = DAT_010ce81c;
+    f.m_vtbl = vftable_hkpSymmetricAgentFlipBodyCollector;
     hkpBvAgent_staticGetPenetrations(aiArg2, aiArg1, aiArg3, &f);
 }
 
@@ -375,7 +375,7 @@ void FUN_00d45330_cls::CallSlotVt13(void* arg)
     }
 }
 
-extern char DAT_010cf3cc;
+extern char vftable_hkpBvAgent;
 
 struct FUN_00d453d0_args
 {
@@ -402,7 +402,7 @@ class FUN_00d453d0_cls
 // @fnv 0x00d453d0
 FUN_00d453d0_cls* FUN_00d453d0_cls::Construct(FUN_00d452a0* a1, void* apArg2, void* apArg3, int aiValue)
 {
-    m_vptr = (int*)&DAT_010cf3cc;
+    m_vptr = (int*)&vftable_hkpBvAgent;
     m_06 = 1;
     m_08 = aiValue;
 
@@ -485,7 +485,7 @@ D45480Object* __cdecl hkpBvAgent_createBvShapeAgent(void* apArg1, void* apArg2, 
 }
 
 extern float DAT_0104da48;
-extern char DAT_010ce7fc;
+extern char vftable_hkpSymmetricAgentFlipCollector;
 
 struct FUN_00d46050_cls
 {
@@ -502,7 +502,7 @@ void __cdecl hkpBvAgent_staticGetClosestPoints_UpdateState_00d46050(int aiArg1, 
     FUN_00d46050_cls local;
     local.f = DAT_0104da48;
     local.d = aiValue;
-    local.vt = &DAT_010ce7fc;
+    local.vt = &vftable_hkpSymmetricAgentFlipCollector;
     ((void(__cdecl*)(int, int, int, FUN_00d46050_cls*))hkpBvAgent_staticGetClosestPoints)(aiArg2, aiArg1, aiArg3, &local);
 }
 
@@ -530,7 +530,7 @@ struct FUN_00d461a0_Args
     int unk08;
 };
 
-extern char DAT_010ce81c[];
+extern char vftable_hkpSymmetricAgentFlipBodyCollector[];
 
 struct FUN_00d461a0_Owner
 {
@@ -543,19 +543,19 @@ struct FUN_00d461a0_Owner
     virtual void DispatchWithArgs(int, int, int, int);
 };
 
-// Builds an argument struct from DAT_010ce81c and a4, then forwards a2, a1, a3 and the struct to FUN_00d45c50.
+// Builds an argument struct from vftable_hkpSymmetricAgentFlipBodyCollector and a4, then forwards a2, a1, a3 and the struct to FUN_00d45c50.
 // @fnv 0x00d461a0
 void FUN_00d461a0_Owner::DispatchWithArgs(int aiArg1, int aiArg2, int aiArg3, int aiArg4)
 {
     FUN_00d461a0_Args l;
     l.unk08 = aiArg4;
     l.unk04 = 0;
-    l.unk00 = DAT_010ce81c;
+    l.unk00 = vftable_hkpSymmetricAgentFlipBodyCollector;
     this->hkpBvAgent_getPenetrations(aiArg2, aiArg1, aiArg3, &l);
 }
 
 namespace fnv_00d461e0 {
-extern void* DAT_010ce7fc;
+extern void* vftable_hkpSymmetricAgentFlipCollector;
 extern float DAT_0104da48;
 
 struct Rec
@@ -571,7 +571,7 @@ struct FUN_00d461e0_Cls
     void UpdateFields_00d461e0(int a1, int a2, int a3, int a4);
 };
 
-// Builds a Rec from a4, DAT_0104da48 and DAT_010ce7fc, then calls GetPenetrations with a2, a1, a3 and the Rec.
+// Builds a Rec from a4, DAT_0104da48 and vftable_hkpSymmetricAgentFlipCollector, then calls GetPenetrations with a2, a1, a3 and the Rec.
 // @fnv 0x00d461e0
 // src: GUESS 0x00d461e0 (confidence: low)
 void FUN_00d461e0_Cls::UpdateFields_00d461e0(int aiArg1, int aiArg2, int aiArg3, int aiValue)
@@ -579,7 +579,7 @@ void FUN_00d461e0_Cls::UpdateFields_00d461e0(int aiArg1, int aiArg2, int aiArg3,
     Rec rec;
     rec.m_i = aiValue;
     rec.m_f = DAT_0104da48;
-    rec.m_p = &DAT_010ce7fc;
+    rec.m_p = &vftable_hkpSymmetricAgentFlipCollector;
     GetPenetrations(aiArg2, aiArg1, aiArg3, &rec);
 }
 }  // namespace fnv_00d461e0
@@ -588,7 +588,7 @@ extern "C" unsigned __int64 __rdtsc(void);
 extern "C" void _ReadWriteBarrier(void);
 extern "C" __declspec(dllimport) void* __stdcall TlsGetValue(unsigned long);
 extern unsigned long DAT_0126835c;
-extern char DAT_010cebd0;
+extern char vftable_hkpFlagCdBodyPairCollector;
 
 struct MonStream
 {
@@ -710,7 +710,7 @@ void __cdecl hkpBvAgent_staticGetClosestPoints(CdBody* bodyA, CdBody* bodyB, Col
     unsigned char* table = input->m_pCollisionDispatcher;
     DispatchEntry* entries = (DispatchEntry*)(table + 0x9a4);
     CollideFn firstHandler = entries[table[(child.m_pCollisionShape->m_type + 13) * 32 + typeB]].m_fn0;
-    scratch.early.m_vtbl = &DAT_010cebd0;
+    scratch.early.m_vtbl = &vftable_hkpFlagCdBodyPairCollector;
     scratch.early.m_bHasHit = false;
     firstHandler(&child, bodyB, input, &scratch.early);
     if (scratch.early.m_bHasHit)
@@ -787,7 +787,7 @@ void S00d454c0_Owner::hkpBvAgent_processCollision(CdBody* bodyA, CdBody* bodyB, 
     body.m_pCollisionShape = shape->m_boundingShape;
     body.m_key = 0xffffffff;
     EarlyOutCollector out;
-    out.m_vtbl = &DAT_010cebd0;
+    out.m_vtbl = &vftable_hkpFlagCdBodyPairCollector;
     out.m_bHasHit = false;
     m_iFilter->check(&body, bodyB, input, &out);
     if (out.m_bHasHit)
@@ -981,7 +981,7 @@ void __cdecl hkpBvAgent_staticLinearCast(CdBody* bodyA, CdBody* bodyB, Collision
 
 extern float DAT_0104da48;
 extern const LocalM128 DAT_010c44d0;
-extern unsigned int DAT_010ce80c;
+extern unsigned int vftable_hkpSymmetricAgentFlipCastCollector;
 
 struct Input_d2e9
 {
@@ -1012,7 +1012,7 @@ void __cdecl hkpBvAgent_staticLinearCast_UpdateState_00d46090(int a2, int a1, co
         _mm_xor_ps(*reinterpret_cast<const LocalM128*>(&input->m_key), DAT_010c44d0);
 
     Record_d2e9 rec;
-    rec.m_vtbl = &DAT_010ce80c;
+    rec.m_vtbl = &vftable_hkpSymmetricAgentFlipCastCollector;
     rec.m_fScalar = DAT_0104da48;
     rec.m_key = input->m_key;
     rec.m_uiFilterValue = a4;
@@ -1020,7 +1020,7 @@ void __cdecl hkpBvAgent_staticLinearCast_UpdateState_00d46090(int a2, int a1, co
     if (a5 != 0)
     {
         Record_d2e9 rec2;
-        rec2.m_vtbl = &DAT_010ce80c;
+        rec2.m_vtbl = &vftable_hkpSymmetricAgentFlipCastCollector;
         rec2.m_fScalar = DAT_0104da48;
         rec2.m_key = input->m_key;
         rec2.m_uiFilterValue = a5;
@@ -2072,12 +2072,12 @@ void Owner::UpdateFields_00d46340(int a1, int a2, const Block* p, int a4, int a5
     ev.m_vec = p->m_vec;
     ev.m_kCollisionBody = a4;
     _mm_store_ps((float*)&blk.m_vec, _mm_xor_ps(*(const LocalM128*)&p->m_vec, DAT_010c44d0));
-    ev.vtbl = &DAT_010ce80c;
+    ev.vtbl = &vftable_hkpSymmetricAgentFlipCastCollector;
 
     Event ctx;
     if (a5 != 0)
     {
-        ctx.vtbl = &DAT_010ce80c;
+        ctx.vtbl = &vftable_hkpSymmetricAgentFlipCastCollector;
         ctx.m_fHitFraction = DAT_0104da48;
         ctx.m_vec = p->m_vec;
         ctx.m_kCollisionBody = a5;

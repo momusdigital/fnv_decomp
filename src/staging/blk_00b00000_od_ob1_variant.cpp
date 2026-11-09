@@ -43,7 +43,7 @@ struct FUN_00b01be0_Class
 {
     bool __thiscall IsFlag4Clear(unsigned int flags, unsigned int unused);
 };
-extern int DAT_010a48e8;
+extern int vftable_BSTaskletGroupData;
 struct FUN_00b029a0_class
 {
     void __thiscall SetVirtualTable_00b029a0();
@@ -118,8 +118,8 @@ struct FUN_00b01c20 : public FUN_00b01020
 {
     virtual ~FUN_00b01c20();
 };
-extern int DAT_010a4880;
-extern int DAT_010a48ac;
+extern int vftable_BSWin32TaskletManager;
+extern int vftable_BSTaskletManager;
 extern "C" __declspec(dllimport) void __stdcall FreeLibrary(void*);
 extern "C" __declspec(dllimport) void __stdcall DestroyWindow(void*);
 struct FUN_00b01f00_class
@@ -236,8 +236,8 @@ class FUN_00b00df0_cls
 extern "C" __declspec(dllimport) long __stdcall InterlockedCompareExchange(long volatile* destination, long exchange,
                                                                            long comparand);
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long milliseconds);
-extern int DAT_0106c800;
-extern int DAT_0106c814;
+extern int vftable_BSWin32TaskletData;
+extern int vftable_BSTaskletData;
 struct FUN_00b00ec0
 {
     int unk00;
@@ -346,7 +346,7 @@ struct FUN_00b10490_class
     bool __thiscall ProcessEntries_00b10490(const FUN_00b10490_class* rhs);
 };
 extern "C" MemoryManager DAT_011f6238;
-extern "C" char DAT_010176f8[];
+extern "C" char vftable_std__bad_alloc[];
 extern "C" char DAT_01140ef8[];
 extern "C" void __stdcall FUN_00ec7894(void* err2, const char* msg);
 struct FUN_00b108e0_err
@@ -507,7 +507,7 @@ struct StripBuilder
     unsigned int baseIndex;
     void BuildStripIndices(unsigned short id, StripDestination* destination);
 };
-extern "C" char DAT_010176f8[];
+extern "C" char vftable_std__bad_alloc[];
 extern "C" char DAT_01140ef8[];
 extern "C" void __stdcall FUN_00ec7894(void* err2, const char* msg);
 int* Object_AllocateElementStorage_00b16b00(unsigned int count, int zero);

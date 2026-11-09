@@ -22,8 +22,8 @@ struct FUN_00cde9b0_cls
 {
     char* FUN_00cde9b0(int a);
 };
-extern int DAT_010cb71c;
-extern int _DAT_0102e388;
+extern int vftable_hkpRagdollConstraintData;
+extern int vftable_hkBaseObject;
 struct DDCC60World
 {
     void __thiscall removeReference(void);

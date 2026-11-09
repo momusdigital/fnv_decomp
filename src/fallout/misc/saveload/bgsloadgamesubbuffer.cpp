@@ -364,13 +364,13 @@ struct FUN_00865660_This
     void NiTMapBase_DFALL_NiTMapItem_TESForm_BGSLoadGameSubBuffer_TESForm_BGSLoadGameSubBuffer_NiTMapBase_DFALL_NiTMapItem_TESForm_BGSLoadGameSubBuffer_TESForm_BGSLoadGameSubBuffer(unsigned int);
     FUN_00865660_This* Construct(unsigned int);
 };
-extern int DAT_01082288;
-// Calls FUN_008656c0 with size, sets the vtable to DAT_01082288, and returns this.
+extern int vftable_NiTMap_01082288;
+// Calls FUN_008656c0 with size, sets the vtable to vftable_NiTMap_01082288, and returns this.
 // @fnv 0x00865660
 FUN_00865660_This* FUN_00865660_This::Construct(unsigned int size)
 {
     NiTMapBase_DFALL_NiTMapItem_TESForm_BGSLoadGameSubBuffer_TESForm_BGSLoadGameSubBuffer_NiTMapBase_DFALL_NiTMapItem_TESForm_BGSLoadGameSubBuffer_TESForm_BGSLoadGameSubBuffer(size);
-    vtable = (void*)&DAT_01082288;
+    vtable = (void*)&vftable_NiTMap_01082288;
     return this;
 }
 
@@ -407,7 +407,7 @@ void BGSLoadGameSubBuffer::LoadHavokData(TESForm* form)
 
 extern void* __cdecl NiMalloc(unsigned int);
 void* __cdecl memset(void*, int, unsigned int);
-extern int DAT_010822a8;
+extern int vftable_NiTMapBase_010822a8;
 struct FUN_008656c0_This
 {
     void* vtable;
@@ -422,7 +422,7 @@ struct FUN_008656c0_This
 FUN_008656c0_This* FUN_008656c0_This::NiTMapBase_DFALL_NiTMapItem_TESForm_BGSLoadGameSubBuffer_TESForm_BGSLoadGameSubBuffer_NiTMapBase_DFALL_NiTMapItem_TESForm_BGSLoadGameSubBuffer_TESForm_BGSLoadGameSubBuffer(unsigned int count)
 {
     unsigned int uiBytes;
-    vtable = (void*)&DAT_010822a8;
+    vtable = (void*)&vftable_NiTMapBase_010822a8;
     m_uiCount = count;
     m_uiSize = 0;
     uiBytes = m_uiCount << 2;

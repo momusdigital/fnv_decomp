@@ -140,7 +140,7 @@ struct ColorInterpolatorBaseConstruction
 {
     void Construct(int, unsigned int, int) throw();
 };
-extern int DAT_01099c34;
+extern int vftable_NiBSplineCompColorInterpolator;
 // Allocates and returns a compressed color interpolator with default scalar values.
 // @fnv 0x00a518f0
 void* CreateSplineCompColorInterpolator()
@@ -149,7 +149,7 @@ void* CreateSplineCompColorInterpolator()
     if (result)
     {
         ((ColorInterpolatorBaseConstruction*)result)->Construct(0, 0xffff, 0);
-        *(void**)result = &DAT_01099c34;
+        *(void**)result = &vftable_NiBSplineCompColorInterpolator;
         for (int i = 0; i < 2; i++)
             result->m_afScalars[i] = DAT_01099c2c;
         return result;
@@ -196,7 +196,7 @@ NiBSplineCompColorInterpolator* NiBSplineCompColorInterpolator::CreateClone_00a5
     if (result)
     {
         ((ColorInterpolatorBaseConstruction*)result)->Construct(0, 0xffff, 0);
-        *(void* volatile*)result = &DAT_01099c34;
+        *(void* volatile*)result = &vftable_NiBSplineCompColorInterpolator;
         result->m_fStartValue = DAT_01099c2c;
         result->m_fEndValue = DAT_01099c2c;
     }

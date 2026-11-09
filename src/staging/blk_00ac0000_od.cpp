@@ -113,8 +113,8 @@ void* __thiscall FUN_00acbb60_Class::GetSelf(void* apUnusedA, void* apUnusedB)
     return this;
 }
 
-extern int DAT_010a2f9c;
-extern int DAT_010a2fa4;
+extern int vftable_std__ios_base;
+extern int vftable_std__basic_ios_010a2fa4;
 void __cdecl Deallocate(void*);
 void __cdecl FUN_00ec3205(void*);
 struct FUN_00acdfa0_class
@@ -124,8 +124,8 @@ struct FUN_00acdfa0_class
 // @fnv 0x00acdfa0
 void* __thiscall FUN_00acdfa0_class::FUN_00acdfa0(int aiFlags)
 {
-    *(void**)this = &DAT_010a2fa4;
-    *(void**)this = &DAT_010a2f9c;
+    *(void**)this = &vftable_std__basic_ios_010a2fa4;
+    *(void**)this = &vftable_std__ios_base;
     FUN_00ec3205(this);
     if (aiFlags & 1)
         Deallocate(this);
@@ -155,7 +155,7 @@ unsigned char FUN_00ad4080_Class::GetParam(unsigned char aucValue, int extra)
 }
 
 extern int DAT_010a31f4;
-extern int DAT_010a31fc;
+extern int vftable_std__locale__facet;
 
 struct FUN_00ad41a0_cls
 {
@@ -167,7 +167,7 @@ struct FUN_00ad41a0_cls
 void FUN_00ad41a0_cls::UpdateFields_00ad41a0()
 {
     *reinterpret_cast<int**>(this) = &DAT_010a31f4;
-    *reinterpret_cast<int**>(this) = &DAT_010a31fc;
+    *reinterpret_cast<int**>(this) = &vftable_std__locale__facet;
 }
 
 
@@ -234,7 +234,7 @@ int __cdecl Runtime_UpdateState_00ac7990(int aiLeft, int aiRight)
 
 void __cdecl Deallocate(void*);
 void __cdecl FUN_00ec3205(void*);
-extern int DAT_010a2f9c;
+extern int vftable_std__ios_base;
 
 struct FUN_00ac9c30_class
 {
@@ -245,7 +245,7 @@ struct FUN_00ac9c30_class
 // @fnv 0x00ac9c30
 void* __thiscall FUN_00ac9c30_class::FUN_00ac9c30(int flags)
 {
-    m_p = &DAT_010a2f9c;
+    m_p = &vftable_std__ios_base;
     FUN_00ec3205(this);
     if (flags & 1)
         Deallocate(this);
@@ -334,11 +334,11 @@ struct FUN_00ad3eb0_Class
     int* m_p;
     FUN_00ad3eb0_Class* __thiscall FUN_00ad3eb0(unsigned int flags);
 };
-// Sets m_p to DAT_010a31fc and, when bit 0 of flags is set, deallocates this object before returning it.
+// Sets m_p to vftable_std__locale__facet and, when bit 0 of flags is set, deallocates this object before returning it.
 // @fnv 0x00ad3eb0
 FUN_00ad3eb0_Class* __thiscall FUN_00ad3eb0_Class::FUN_00ad3eb0(unsigned int flags)
 {
-    m_p = &DAT_010a31fc;
+    m_p = &vftable_std__locale__facet;
     if (flags & 1)
         Deallocate(this);
     return this;
@@ -380,8 +380,8 @@ void __thiscall FUN_00ad41c0_Class::std_ctype_char_Tidy()
     }
 }
 
-extern int DAT_010a3228;
-extern int DAT_010a31fc;
+extern int vftable_std__codecvt_base;
+extern int vftable_std__locale__facet;
 void __cdecl Deallocate(void*);
 struct FUN_00ad5670_class
 {
@@ -390,16 +390,16 @@ struct FUN_00ad5670_class
 // @fnv 0x00ad5670
 int* __thiscall FUN_00ad5670_class::FUN_00ad5670(int aiFlags)
 {
-    *(int**)this = &DAT_010a3228;
-    *(int**)this = &DAT_010a31fc;
+    *(int**)this = &vftable_std__codecvt_base;
+    *(int**)this = &vftable_std__locale__facet;
     if (aiFlags & 1)
         Deallocate(this);
     return (int*)this;
 }
 
-extern int DAT_010a3204;
-extern int DAT_010a3228;
-extern int DAT_010a31fc;
+extern int vftable_std__codecvt_010a3204;
+extern int vftable_std__codecvt_base;
+extern int vftable_std__locale__facet;
 void __cdecl Deallocate(void*);
 
 struct FUN_00ad5730_Class
@@ -410,9 +410,9 @@ struct FUN_00ad5730_Class
 // @fnv 0x00ad5730
 void* __thiscall FUN_00ad5730_Class::FUN_00ad5730(int flags)
 {
-    *reinterpret_cast<void**>(this) = &DAT_010a3204;
-    *reinterpret_cast<void**>(this) = &DAT_010a3228;
-    *reinterpret_cast<void**>(this) = &DAT_010a31fc;
+    *reinterpret_cast<void**>(this) = &vftable_std__codecvt_010a3204;
+    *reinterpret_cast<void**>(this) = &vftable_std__codecvt_base;
+    *reinterpret_cast<void**>(this) = &vftable_std__locale__facet;
     if (flags & 1)
         Deallocate(this);
     return this;
@@ -630,8 +630,8 @@ void FUN_00ace330_class::UpdateState_00ace330()
     void** p = (void**)((char*)this + 8);
     *(void**)((char*)p + *(int*)(*(int*)((char*)p - 8) + 4) - 8) = &DAT_010a30a8;
     void** q = (void**)((char*)this + 8);
-    *q = &DAT_010a2fa4;
-    *q = &DAT_010a2f9c;
+    *q = &vftable_std__basic_ios_010a2fa4;
+    *q = &vftable_std__ios_base;
     FUN_00ec3205(q);
 }
 
@@ -662,12 +662,12 @@ struct FUN_00ad3ee0
     void* m_vft;
     FUN_00ad3ee0(int a);
 };
-// Sets the object's vtable pointer to DAT_010a31fc and deallocates the object when bit 0 of a is set.
+// Sets the object's vtable pointer to vftable_std__locale__facet and deallocates the object when bit 0 of a is set.
 // @fnv 0x00ad3ee0
 FUN_00ad3ee0::FUN_00ad3ee0(int aiFlags)
 {
     m_vft = (void*)&DAT_010a31f4;
-    m_vft = (void*)&DAT_010a31fc;
+    m_vft = (void*)&vftable_std__locale__facet;
     if (aiFlags & 1)
         Deallocate(this);
 }
@@ -826,7 +826,7 @@ struct FUN_00ac1720_pool
 };
 
 extern "C" FUN_00ac1720_pool DAT_011f6238;
-extern "C" char DAT_010176f8[];
+extern "C" char vftable_std__bad_alloc[];
 extern "C" char DAT_01140ef8[];
 extern "C" void __stdcall FUN_00ec7894(void* err2, const char* msg);
 
@@ -854,7 +854,7 @@ void __cdecl Object_AllocateCheckedWords(unsigned int count)
             unsigned int tmp = 0;
             FUN_00ac1720_err err2;
             err2.FUN_00ec78f1(&tmp);
-            err2.m_vptr = DAT_010176f8;
+            err2.m_vptr = vftable_std__bad_alloc;
             FUN_00ec7894(&err2, DAT_01140ef8);
         }
     }
@@ -1705,14 +1705,14 @@ void SpawnedObject::InitSub()
     m_sub.Init();
     {
         SpawnedBase* p = &m_sub;
-        *(int*)p = (int)&DAT_010a2fa4;
-        *(int*)p = (int)&DAT_010a2f9c;
+        *(int*)p = (int)&vftable_std__basic_ios_010a2fa4;
+        *(int*)p = (int)&vftable_std__ios_base;
         FUN_00ec3205(p);
     }
 }
 
-extern int DAT_010a2f9c;
-extern int DAT_010a2fa4;
+extern int vftable_std__ios_base;
+extern int vftable_std__basic_ios_010a2fa4;
 void __cdecl FUN_00ec3205(void* p);
 
 struct Sub58
@@ -1749,7 +1749,7 @@ struct FUN_00ac9cb0_cls
     void InitSub58();
 };
 
-// Initializes m_58, sets its vptr to DAT_010a2fa4 then DAT_010a2f9c, and passes it to FUN_00ec3205.
+// Initializes m_58, sets its vptr to vftable_std__basic_ios_010a2fa4 then vftable_std__ios_base, and passes it to FUN_00ec3205.
 // @fnv 0x00ac9cb0
 void FUN_00ac9cb0_cls::InitSub58()
 {
@@ -1758,8 +1758,8 @@ void FUN_00ac9cb0_cls::InitSub58()
         Sub58* p;
         m_58.Init();
         p = &m_58;
-        p->m_vptr = (void*)&DAT_010a2fa4;
-        p->m_vptr = (void*)&DAT_010a2f9c;
+        p->m_vptr = (void*)&vftable_std__basic_ios_010a2fa4;
+        p->m_vptr = (void*)&vftable_std__ios_base;
         FUN_00ec3205(p);
     }
 }
@@ -1998,7 +1998,7 @@ void FUN_00acb1a0_cls::ResetListSentinel()
     m_18->m_08 = m_18;
 }
 
-extern int DAT_010a30fc;
+extern int vftable_std__basic_streambuf_010a30fc;
 void __cdecl FormHeapFreeAndLog_00401030(void*);
 
 class Sub_00acb6b0
@@ -2049,7 +2049,7 @@ void FUN_00acb6b0_cls::UpdateState_00acb6b0()
     Sub_00acb6b0* cur;
     Sub_00acb6b0* prev;
     unsigned int arr[4];
-    m_vft = &DAT_010a30fc;
+    m_vft = &vftable_std__basic_streambuf_010a30fc;
     cur = m_38;
     prev = cur;
     prev != 0 ? (prev->UpdateFields_00acb720(), (((prev, 1) & 1) ? FormHeapFreeAndLog_00401030(prev) : (void)0), prev) : 0;
@@ -2403,8 +2403,8 @@ FUN_00acdff0_prim* FUN_00acdff0_cls::FUN_00acdff0(unsigned int auiFlags)
 
 void __cdecl Deallocate(void*);
 void __cdecl FUN_00ec3205(void*);
-extern int DAT_010a2f9c;
-extern int DAT_010a2fa4;
+extern int vftable_std__ios_base;
+extern int vftable_std__basic_ios_010a2fa4;
 
 struct FUN_00acdeb0_cls
 {
@@ -2425,8 +2425,8 @@ FUN_00ace260_cls* FUN_00ace260_cls::DestroyAndFree(unsigned int acFlags)
     char* pOuter = (char*)this - 0x54;
     ((FUN_00acdeb0_cls*)(pOuter + 0x54))->FUN_00acdeb0();
     FUN_00ace260_cls* pSub = (FUN_00ace260_cls*)(pOuter + 0x54);
-    pSub->m_vptr = (void*)&DAT_010a2fa4;
-    pSub->m_vptr = (void*)&DAT_010a2f9c;
+    pSub->m_vptr = (void*)&vftable_std__basic_ios_010a2fa4;
+    pSub->m_vptr = (void*)&vftable_std__ios_base;
     FUN_00ec3205(pSub);
     if (acFlags & 1)
     {
@@ -3406,7 +3406,7 @@ struct FUN_0044d6c0_class
 };
 
 void* __cdecl FormHeap_Allocate(unsigned int size);
-extern void* DAT_010176f8;
+extern void* vftable_std__bad_alloc;
 
 // Checks that n * 0x1c does not overflow, throws an exception if it would, and otherwise allocates n * 0x1c bytes via FUN_00401000.
 // @fnv 0x00ad5310
@@ -3427,7 +3427,7 @@ void* __cdecl Runtime_AllocateElementArray28Checked(unsigned int n)
             int w;
             o = 0;
             ((FUN_0044d6c0_class*)&obj)->FUN_00ec78f1((void***)&o);
-            obj = (void*)&DAT_010176f8;
+            obj = (void*)&vftable_std__bad_alloc;
             _CxxThrowException(&obj, (_ThrowInfo*)DAT_01140ef8);
         }
     }
@@ -4385,8 +4385,8 @@ int FUN_00acd060_cls::ReadByte()
 }
 
 extern int DAT_010a318c;
-extern int DAT_010a2fa4;
-extern int DAT_010a2f9c;
+extern int vftable_std__basic_ios_010a2fa4;
+extern int vftable_std__ios_base;
 void __cdecl FUN_00ec3205(void* component);
 struct FUN_00ace2d0_Class
 {
@@ -4403,8 +4403,8 @@ void FUN_00ace2d0_Class::InitializeVirtualBase()
     *reinterpret_cast<void**>(virtualBaseObject + (*reinterpret_cast<int**>(virtualBaseObject - 4))[1] - 4) =
         &DAT_010a318c;
     subobject = reinterpret_cast<char*>(this) + 4;
-    *reinterpret_cast<void**>(subobject) = &DAT_010a2fa4;
-    *reinterpret_cast<void**>(subobject) = &DAT_010a2f9c;
+    *reinterpret_cast<void**>(subobject) = &vftable_std__basic_ios_010a2fa4;
+    *reinterpret_cast<void**>(subobject) = &vftable_std__ios_base;
     FUN_00ec3205(subobject);
 }
 
@@ -4415,7 +4415,7 @@ struct FUN_00ad5430_err
     unsigned int unk08;
     void FUN_00ec78f1(unsigned int* out);
 };
-extern "C" char DAT_010176f8[];
+extern "C" char vftable_std__bad_alloc[];
 extern "C" char DAT_01140ef8[];
 extern "C" void __stdcall FUN_00ec7894(void* err2, const char* msg);
 void* __cdecl FormHeap_Allocate(unsigned int size);
@@ -4435,7 +4435,7 @@ void* __cdecl AllocateCountedBlocks(unsigned int count)
     {
         zero = 0;
         err3.FUN_00ec78f1(&zero);
-        err3.m_vptr = DAT_010176f8;
+        err3.m_vptr = vftable_std__bad_alloc;
         FUN_00ec7894(&err3, DAT_01140ef8);
     }
     return FormHeap_Allocate(count * 0x18);
@@ -4831,7 +4831,7 @@ struct S00aca220_Base
     void FUN_00ec79a1();
 };
 void FormHeapFreeAndLog_00401030(void* p);
-extern char DAT_010a307c;
+extern char vftable_std__runtime_error;
 struct S00aca220_Obj : public S00aca220_Base
 {
     char* m_pVft;
@@ -4849,7 +4849,7 @@ S00aca220_Obj* S00aca220_Obj::FUN_00aca220(int flags)
     int u3;
     int u4;
     int u5;
-    m_pVft = &DAT_010a307c;
+    m_pVft = &vftable_std__runtime_error;
     m_sub.fopen_0044a730(1, 0);
     FUN_00ec79a1();
     if (flags & 1)
@@ -4858,8 +4858,8 @@ S00aca220_Obj* S00aca220_Obj::FUN_00aca220(int flags)
 }
 
 namespace fnv_00aca300 {
-extern int DAT_010a3070;
-extern int DAT_010a307c;
+extern int vftable_std__ios_base__failure;
+extern int vftable_std__runtime_error;
 struct StringLike
 {
     void Clear(bool, unsigned int);
@@ -4878,7 +4878,7 @@ struct PoolSpawn
     StringLike m_str;
     void UpdateFields_00aca300();
 };
-// Sets m_vft to DAT_010a3070 then DAT_010a307c, calls Clear(true, 0) on the string at this+0xc, then calls FUN_00ec79a1 on this.
+// Sets m_vft to vftable_std__ios_base__failure then vftable_std__runtime_error, calls Clear(true, 0) on the string at this+0xc, then calls FUN_00ec79a1 on this.
 // @fnv 0x00aca300
 // src: GUESS 0x00aca300 (confidence: low)
 void PoolSpawn::UpdateFields_00aca300()
@@ -4888,8 +4888,8 @@ void PoolSpawn::UpdateFields_00aca300()
     int c;
     int d;
     int e;
-    m_vft = (void*)&DAT_010a3070;
-    m_vft = (void*)&DAT_010a307c;
+    m_vft = (void*)&vftable_std__ios_base__failure;
+    m_vft = (void*)&vftable_std__runtime_error;
     ((StringLike*)((char*)this + 0xc))->Clear(true, 0);
     ((FUN_0044d6f0_This*)this)->FUN_00ec79a1();
 }
@@ -4904,8 +4904,8 @@ struct S00aca340_Base
     void FUN_00ec79a1();
 };
 void FormHeapFreeAndLog_00401030(void* p);
-extern char DAT_010a3070;
-extern char DAT_010a307c;
+extern char vftable_std__ios_base__failure;
+extern char vftable_std__runtime_error;
 struct S00aca340_Obj : public S00aca340_Base
 {
     void* m_vft;
@@ -4923,8 +4923,8 @@ S00aca340_Obj* S00aca340_Obj::FUN_00aca340(int aiFlags)
     int u3;
     int u4;
     int u5;
-    m_vft = &DAT_010a3070;
-    m_vft = &DAT_010a307c;
+    m_vft = &vftable_std__ios_base__failure;
+    m_vft = &vftable_std__runtime_error;
     m_str.Clear(true, 0);
     FUN_00ec79a1();
     if (aiFlags & 1)
@@ -5248,8 +5248,8 @@ void __cdecl Object_FillRecordRange(Rec_00ac1600* begin, Rec_00ac1600* end, cons
     }
 }
 
-extern int DAT_010a2f9c;
-extern int DAT_010a2fa4;
+extern int vftable_std__ios_base;
+extern int vftable_std__basic_ios_010a2fa4;
 
 void __cdecl operator delete(void* pv);
 
@@ -5277,8 +5277,8 @@ void* S00ace060_Obj::FUN_00ace060(int flags)
     reinterpret_cast<S00ace060_Obj*>(zbase + 0x50)->FUN_00acb610();
 
     o = reinterpret_cast<S00ace060_Obj*>(zbase + 0x50);
-    *reinterpret_cast<void**>(o) = reinterpret_cast<void*>(&DAT_010a2fa4);
-    *reinterpret_cast<void**>(o) = reinterpret_cast<void*>(&DAT_010a2f9c);
+    *reinterpret_cast<void**>(o) = reinterpret_cast<void*>(&vftable_std__basic_ios_010a2fa4);
+    *reinterpret_cast<void**>(o) = reinterpret_cast<void*>(&vftable_std__ios_base);
     FUN_00ec3205(o);
 
     if (flags & 1)
@@ -5289,8 +5289,8 @@ void* S00ace060_Obj::FUN_00ace060(int flags)
 
 void __cdecl FormHeapFreeAndLog_00401030(void*);
 void __cdecl FUN_00ec3205(void*);
-extern int DAT_010a2fa4;
-extern int DAT_010a2f9c;
+extern int vftable_std__basic_ios_010a2fa4;
+extern int vftable_std__ios_base;
 
 struct StreamOwner;
 
@@ -5321,8 +5321,8 @@ StreamOwner* StreamComponent::FUN_00ace150(unsigned int flags)
     StreamOwner* j = (StreamOwner*)((char*)this - 0x58);
     ((StreamComponent*)((char*)j + 0x58))->FUN_00acc8c0();
     StreamComponent* e = (StreamComponent*)((char*)j + 0x58);
-    e->vtable = &DAT_010a2fa4;
-    e->vtable = &DAT_010a2f9c;
+    e->vtable = &vftable_std__basic_ios_010a2fa4;
+    e->vtable = &vftable_std__ios_base;
     FUN_00ec3205(e);
     if (flags & 1)
         FormHeapFreeAndLog_00401030((char*)this - 0x58);

@@ -33,7 +33,7 @@ struct FUN_00404b10_class
     void __thiscall FUN_00404b90(int);
     void* __thiscall Initialize();
 };
-extern int DAT_01012188;
+extern int vftable_SettingCollection_01012188;
 struct FUN_00404d00_class
 {
     void* m_vtbl;

@@ -189,7 +189,7 @@ bool NavMeshTriangle::IsNoLargeCreature()
     return FUN_00691140(0x10);
 }
 
-extern unsigned int DAT_0106b0dc;
+extern unsigned int vftable_BSSimpleArray_0106b0dc;
 
 class GlobalObject_00869f00
 {
@@ -201,7 +201,7 @@ class GlobalObject_00869f00
 // src: GUESS 0x00694e10 (confidence: low)
 void __fastcall NavmeshLoadsave_UpdateState_00694e10(GlobalObject_00869f00* pThis)
 {
-    *(unsigned int**)pThis = &DAT_0106b0dc;
+    *(unsigned int**)pThis = &vftable_BSSimpleArray_0106b0dc;
     pThis->Clear(true);
 }
 
@@ -746,7 +746,7 @@ struct InfoMapS
 unsigned int EdgeExtraInfo_GetSizeOfV0();
 TESForm* __fastcall NavMeshInfo_GetParentSpace(const NavMeshInfo*);
 extern TESObjectCELL* DAT_011c3f30;
-extern ProcessListsView g_011d6ca8;
+extern ProcessListsView bGlobalNavMeshCheck_NavMeshGeneration;
 
 // Reads a NavMesh record from a TESFile, parsing subrecords, converting old versions, and resolving the parent cell and NavMeshInfo.
 // @fnv 0x00692950
@@ -1092,7 +1092,7 @@ bool FUN_00692950_shell::NavMesh_Load(TESFile* apFile)
             }
         }
     }
-    if ((*g_011d6ca8.GetLifeStateControlFlag() || !apFile->IsMasterFile()) && !((TESForm*)this)->IsDeleted())
+    if ((*bGlobalNavMeshCheck_NavMeshGeneration.GetLifeStateControlFlag() || !apFile->IsMasterFile()) && !((TESForm*)this)->IsDeleted())
         Validate(false);
     return true;
 }

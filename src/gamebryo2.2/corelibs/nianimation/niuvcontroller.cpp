@@ -297,7 +297,7 @@ struct SharedRef
     }
 };
 
-extern int DAT_01098064;
+extern int vftable_NiUVController;
 
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
@@ -306,7 +306,7 @@ extern "C" void _ReadWriteBarrier();
 // src: GUESS 0x00a45b60 (confidence: low)
 int __thiscall NiUVController::ProcessAndReturnValue_00a45b60()
 {
-    *(void**)this = &DAT_01098064;
+    *(void**)this = &vftable_NiUVController;
     SharedRef* owner = (SharedRef*)&m_pData;
     owner->Reset();
     // Preserve the separate member-destruction read used by the original destructor.
@@ -333,7 +333,7 @@ struct UVControllerConstruction : NiUVController
 
     UVControllerConstruction() throw()
     {
-        *(void**)this = &DAT_01098064;
+        *(void**)this = &vftable_NiUVController;
         *(void* volatile*)&m_pData.m_pObject = 0;
         _ReadWriteBarrier();
         *(unsigned short volatile*)&m_usValue = 0;

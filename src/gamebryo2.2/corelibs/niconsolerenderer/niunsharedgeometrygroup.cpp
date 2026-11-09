@@ -8,7 +8,7 @@
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
 
 // Placeholder declarations
-extern int DAT_010f1008;
+extern int vftable_NiUnsharedGeometryGroup;
 extern int DAT_0126fa34;
 void __cdecl FUN_00e98710();
 void __cdecl _delete(void*, unsigned int);
@@ -19,7 +19,7 @@ void __cdecl _delete(void*, unsigned int);
 void* __thiscall NiUnsharedGeometryGroup::Destroy(unsigned int flags)
 {
     NiUnsharedGeometryGroup* pThis = this;
-    *(void**)pThis = &DAT_010f1008;
+    *(void**)pThis = &vftable_NiUnsharedGeometryGroup;
     if (pThis == *(void**)&DAT_0126fa34)
         *(void**)&DAT_0126fa34 = 0;
     FUN_00e98710();
@@ -144,7 +144,7 @@ void __fastcall NiDynamicGeometryGroup_RemoveObject_00e95190(NiDynamicGeometryGr
     }
 }
 
-extern int DAT_010f1008;
+extern int vftable_NiUnsharedGeometryGroup;
 extern int DAT_0126fa34;
 void __cdecl FUN_00e98710();
 void __cdecl _delete(void*, unsigned int);

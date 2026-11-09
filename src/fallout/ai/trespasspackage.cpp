@@ -24,7 +24,8 @@ void __thiscall TrespassPackage::LoadGame_009f9840(BGSLoadFormBuffer* apLoadGame
 
 // Calls FUN_009f9450, then deletes this when flags has bit 1 set, and returns this.
 // @fnv 0x009f9220
-void* __thiscall TrespassPackage::FUN_009f9220(unsigned int flags)
+// src: EXE 0x009f9220
+void* __thiscall TrespassPackage::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_009f9450();
     if (flags & 1)

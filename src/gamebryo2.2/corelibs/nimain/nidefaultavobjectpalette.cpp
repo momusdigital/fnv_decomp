@@ -128,8 +128,8 @@ void __stdcall AssignSharedPtr(void* apTarget, void* apSource, void* apValue)
     *(void**)((char*)apTarget + 8) = apValue;
 }
 
-extern int DAT_0109ca08;
-extern int DAT_0109ca18;
+extern int vftable_NiTFixedStringMapBase_0109ca08;
+extern int vftable_NiTFixedStringMap_0109ca18;
 struct FUN_00a6eb20_Holder
 {
     void* __thiscall DestroyHolder(unsigned int);
@@ -139,9 +139,9 @@ struct FUN_00a6eb20_Holder
 void* __thiscall FUN_00a6eb20_Holder::DestroyHolder(unsigned int auiFlags)
 {
     PaletteObjectMapView* p = (PaletteObjectMapView*)this;
-    *(void**)this = (void*)&DAT_0109ca18;
+    *(void**)this = (void*)&vftable_NiTFixedStringMap_0109ca18;
     p->RemoveAll();
-    *(void**)this = (void*)&DAT_0109ca08;
+    *(void**)this = (void*)&vftable_NiTFixedStringMapBase_0109ca08;
     p->RemoveAll();
     NiFree(*(void**)((char*)this + 8));
     if (auiFlags & 1)
@@ -239,9 +239,9 @@ void __cdecl RecurseAndRemoveObjectsFromPalette(NiAVObject* object, NiDefaultAVO
 extern "C" void* __cdecl Object_DispatchCommandFour(unsigned int size);
 extern "C" void* __cdecl _NiMalloc_00aa1070(unsigned int size);
 extern "C" void* __cdecl FUN_00ec61c0(void* buffer, int value, unsigned int size);
-extern "C" unsigned char DAT_01096284;
-extern "C" unsigned char DAT_01096114;
-extern "C" unsigned char DAT_0109618c;
+extern "C" unsigned char vftable_NiDefaultAVObjectPalette;
+extern "C" unsigned char vftable_NiTFixedStringMapBase_01096114;
+extern "C" unsigned char vftable_NiTFixedStringMap_0109618c;
 // The shared class has no initializing constructor declaration; this adapter adds initialization only.
 struct PaletteObject : NiDefaultAVObjectPalette
 {
@@ -251,14 +251,14 @@ struct PaletteObject : NiDefaultAVObjectPalette
     }
     __forceinline PaletteObject() throw()
     {
-        *(void**)this = &DAT_01096284;
+        *(void**)this = &vftable_NiDefaultAVObjectPalette;
         PaletteObjectMapView& hash = reinterpret_cast<PaletteObjectMapView&>(m_kObjectMap);
-        hash.m_ppVirtualMethodTable = (void**)&DAT_01096114;
+        hash.m_ppVirtualMethodTable = (void**)&vftable_NiTFixedStringMapBase_01096114;
         hash.m_uiHashSize = 37;
         hash.m_kItemCount.m_uiCount = 0;
         hash.m_ppkHashTable = (NiTMapItem<NiFixedString, NiAVObject*>**)_NiMalloc_00aa1070(148);
         FUN_00ec61c0(hash.m_ppkHashTable, 0, hash.m_uiHashSize * 4);
-        hash.m_ppVirtualMethodTable = (void**)&DAT_0109618c;
+        hash.m_ppVirtualMethodTable = (void**)&vftable_NiTFixedStringMap_0109618c;
         m_pkScene = 0;
     }
 };
@@ -669,8 +669,8 @@ void NiDefaultAVObjectPaletteViewer::NiDefaultAVObjectPalette_GetViewerStrings(V
 
 #include <string.h>
 #include "NiRefObject_inline.h"
-extern int DAT_0109ca08;
-extern int DAT_0109ca18;
+extern int vftable_NiTFixedStringMapBase_0109ca08;
+extern int vftable_NiTFixedStringMap_0109ca18;
 extern NiFixedString EmptyFS;
 
 void* __cdecl NiMalloc(unsigned int);
@@ -711,19 +711,19 @@ struct NidefaultavobjectpaletteMapView
     unsigned int count;
     __forceinline NidefaultavobjectpaletteMapView()
     {
-        vtable = &DAT_0109ca08;
+        vtable = &vftable_NiTFixedStringMapBase_0109ca08;
         size = 37;
         count = 0;
         buckets = (Item**)NiMalloc(148);
         fnv_zlib_memset(buckets, 0, size * 4);
-        vtable = &DAT_0109ca18;
+        vtable = &vftable_NiTFixedStringMap_0109ca18;
     }
     void __thiscall FUN_00aa01f0();
     __forceinline void Destroy()
     {
-        vtable = &DAT_0109ca18;
+        vtable = &vftable_NiTFixedStringMap_0109ca18;
         FUN_00aa01f0();
-        vtable = &DAT_0109ca08;
+        vtable = &vftable_NiTFixedStringMapBase_0109ca08;
         FUN_00aa01f0();
         _NiFree_00aa10f0(buckets);
     }

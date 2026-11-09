@@ -22,28 +22,28 @@ __declspec(noinline) void hkBsdSocket::CloseSocket()
     }
 }
 
-extern int DAT_0102e388;
-extern int DAT_010d5030;
+extern int vftable_hkBaseObject;
+extern int vftable_hkBsdSocket;
 
 // @fnv 0x00da3080
 __declspec(noinline) void __thiscall hkBsdSocket::Destroy()
 {
-    *(int*)this = (int)&DAT_010d5030;
+    *(int*)this = (int)&vftable_hkBsdSocket;
     this->hkBsdSocket::CloseSocket();
-    *(int*)((char*)this + 0x14) = (int)&DAT_0102e388;
-    *(int*)((char*)this + 8) = (int)&DAT_0102e388;
-    *(int*)this = (int)&DAT_0102e388;
+    *(int*)((char*)this + 0x14) = (int)&vftable_hkBaseObject;
+    *(int*)((char*)this + 8) = (int)&vftable_hkBaseObject;
+    *(int*)this = (int)&vftable_hkBaseObject;
 }
 
 extern "C" void __cdecl FUN_00d2b850(void);
-extern int DAT_010d5030;
+extern int vftable_hkBsdSocket;
 
-// Calls FUN_00d2b850, sets the vtable to DAT_010d5030 and m_pSocket to param, calls FUN_00da2de0 if param is -1, and returns this.
+// Calls FUN_00d2b850, sets the vtable to vftable_hkBsdSocket and m_pSocket to param, calls FUN_00da2de0 if param is -1, and returns this.
 // @fnv 0x00da30a0
 void* __thiscall hkBsdSocket::InitWithParam(int param)
 {
     FUN_00d2b850();
-    *(void**)this = &DAT_010d5030;
+    *(void**)this = &vftable_hkBsdSocket;
     m_pSocket = param;
     if (param == -1)
         createSocket();

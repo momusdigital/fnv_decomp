@@ -28,13 +28,13 @@ struct FUN_0040ef00_shell : BE
     FUN_0040ef00_shell(void* aField);
 };
 
-extern void* DAT_01014228;
+extern void* vftable_ExtraRegionList;
 
-// Sets the vftable pointer to DAT_01014228 and stores aField in pField.
+// Sets the vftable pointer to vftable_ExtraRegionList and stores aField in pField.
 // @fnv 0x0040ef00
 FUN_0040ef00_shell::FUN_0040ef00_shell(void* aField) : BE(4)
 {
-    *reinterpret_cast<void**>(this) = &DAT_01014228;
+    *reinterpret_cast<void**>(this) = &vftable_ExtraRegionList;
     pField = aField;
 }
 
@@ -44,20 +44,20 @@ ExtraCellAcousticSpace::ExtraCellAcousticSpace(BGSAcousticSpace* aField) : BSExt
     m_pPathingCell = aField;
 }
 
-extern void* DAT_0101424c;
+extern void* vftable_ExtraCellClimate;
 
-struct FUN_0040f070_shell : BE
+struct ExtraCellClimate : BE
 {
     void* pad1;
     void* pad2;
     void* pField;
-    FUN_0040f070_shell(void* aField);
+    ExtraCellClimate(void* aField);
 };
 
 // @fnv 0x0040f070
-FUN_0040f070_shell::FUN_0040f070_shell(void* aField) : BE(8)
+ExtraCellClimate::ExtraCellClimate(void* aField) : BE(8)
 {
-    pVftable = &DAT_0101424c;
+    pVftable = &vftable_ExtraCellClimate;
     pField = aField;
 }
 
@@ -67,7 +67,7 @@ struct FUN_0040f4d0_shell : BE
     void* pad2;
     void* pField;
     FUN_0040f4d0_shell(void* aField);
-    void* FUN_0040f4d0(unsigned int flags);
+    void* ExtraCellCanopyShadowMask_ScalarDeletingDestructor(unsigned int flags);
     void FUN_0040f500();
 };
 
@@ -75,7 +75,8 @@ extern void* _Deallocate(void*);
 
 // Calls FUN_0040f500, then deallocates this if bit 0 of flags is set, and returns this.
 // @fnv 0x0040f4d0
-void* FUN_0040f4d0_shell::FUN_0040f4d0(unsigned int flags)
+// src: EXE 0x0040f4d0
+void* FUN_0040f4d0_shell::ExtraCellCanopyShadowMask_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_0040f500();
     if (flags & 1)
@@ -83,27 +84,28 @@ void* FUN_0040f4d0_shell::FUN_0040f4d0(unsigned int flags)
     return this;
 }
 
-extern void* DAT_01014294;
+extern void* vftable_ExtraSeenData;
 
-struct FUN_0040f590_shell : BE
+struct ExtraSeenData : BE
 {
     void* pad1;
     void* pad2;
     void* pField;
-    FUN_0040f590_shell();
+    ExtraSeenData();
 };
 
-// Initialises the object with base value 5, sets its vftable pointer to DAT_01014294 and clears pField.
+// Initialises the object with base value 5, sets its vftable pointer to vftable_ExtraSeenData and clears pField.
 // @fnv 0x0040f590
-FUN_0040f590_shell::FUN_0040f590_shell() : BE(5)
+ExtraSeenData::ExtraSeenData() : BE(5)
 {
-    pVftable = &DAT_01014294;
+    pVftable = &vftable_ExtraSeenData;
     pField = 0;
 }
 
 // Calls FUN_0040ee70, then deallocates this if bit 0 of flags is set, and returns this.
 // @fnv 0x0040ee40
-void* ExtraHavok::FUN_0040ee40(unsigned int flags)
+// src: EXE 0x0040ee40
+void* ExtraHavok::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_0040ee70();
     if (flags & 1)
@@ -113,23 +115,24 @@ void* ExtraHavok::FUN_0040ee40(unsigned int flags)
 
 struct BGSMusicType;
 
-extern int DAT_01014234;
-struct FUN_0040ef30 : BE
+extern int vftable_ExtraCellMusicType;
+struct ExtraCellMusicType : BE
 {
     void* pad1;
     void* pad2;
     void* pField;
-    FUN_0040ef30(BGSMusicType* aMusic);
+    ExtraCellMusicType(BGSMusicType* aMusic);
 };
 // @fnv 0x0040ef30
-FUN_0040ef30::FUN_0040ef30(BGSMusicType* aMusic) : BE(7)
+ExtraCellMusicType::ExtraCellMusicType(BGSMusicType* aMusic) : BE(7)
 {
-    pVftable = &DAT_01014234;
+    pVftable = &vftable_ExtraCellMusicType;
     pField = aMusic;
 }
 
 // @fnv 0x0040f1e0
-void* ExtraCellImpactSwap::FUN_0040f1e0(unsigned int flags)
+// src: EXE 0x0040f1e0
+void* ExtraCellImpactSwap::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_0040f210();
     if (flags & 1)
@@ -137,7 +140,7 @@ void* ExtraCellImpactSwap::FUN_0040f1e0(unsigned int flags)
     return this;
 }
 
-extern int DAT_01014270;
+extern int vftable_ExtraCellWaterType;
 struct FUN_0040f370 : BE
 {
     void* pad1;
@@ -148,11 +151,11 @@ struct FUN_0040f370 : BE
 // @fnv 0x0040f370
 FUN_0040f370::FUN_0040f370() : BE(3)
 {
-    pVftable = (void*)&DAT_01014270;
+    pVftable = (void*)&vftable_ExtraCellWaterType;
     pField = 0;
 }
 
-extern int DAT_0101427c;
+extern int vftable_ExtraProcessMiddleLow;
 struct FUN_0040f410 : BE
 {
     void* pad1;
@@ -163,7 +166,7 @@ struct FUN_0040f410 : BE
 // @fnv 0x0040f410
 FUN_0040f410::FUN_0040f410() : BE(9)
 {
-    BE::pVftable = (void*)&DAT_0101427c;
+    BE::pVftable = (void*)&vftable_ExtraProcessMiddleLow;
     pField = 0;
 }
 
@@ -182,12 +185,12 @@ struct FUN_0040f1b0_shell : BE
     FUN_0040f1b0_shell();
 };
 
-extern void* DAT_01014264;
+extern void* vftable_ExtraCellImpactSwap;
 
 // @fnv 0x0040f1b0
 FUN_0040f1b0_shell::FUN_0040f1b0_shell() : BE(0x8c)
 {
-    *(void**)this = &DAT_01014264;
+    *(void**)this = &vftable_ExtraCellImpactSwap;
     pField = 0;
 }
 

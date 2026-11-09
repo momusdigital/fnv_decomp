@@ -145,7 +145,7 @@ class CullingBaseInitialization
   public:
     void Initialize(NiVisibleArray*);
 };
-extern "C" const void* DAT_0101e2ec;
+extern "C" const void* vftable_BSCullingProcess;
 
 class CullingProcessScope
 {
@@ -156,7 +156,7 @@ class CullingProcessScope
     {
         BSCullingProcess& culling = Get();
         reinterpret_cast<CullingBaseInitialization*>(&culling)->Initialize(0);
-        *reinterpret_cast<const void**>(&culling) = &DAT_0101e2ec;
+        *reinterpret_cast<const void**>(&culling) = &vftable_BSCullingProcess;
         culling.unk90 = 0;
         culling.unkBc = 0;
         culling.unkC0 = 0;

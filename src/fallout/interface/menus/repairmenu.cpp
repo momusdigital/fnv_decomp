@@ -802,7 +802,7 @@ struct PreviewInterface
     PreviewPipboy* Pipboy();
 };
 PreviewInterface* GetPreviewInterface();
-extern PreviewSetting g_011db2f0, g_011db358, g_011d3dcc, g_011d1f2c, g_011d270c, g_011d018c, g_011d4ee8, g_011d2b20,
+extern PreviewSetting fScrollKnobIncrement_Pipboy, fScrollKnobRate_Pipboy, g_011d3dcc, g_011d1f2c, g_011d270c, g_011d018c, g_011d4ee8, g_011d2b20,
     g_011d2c7c, g_011d396c, g_011d20c4;
 extern int DAT_011da7d8, DAT_011da74c;
 extern HealthOwner* DAT_011da760;
@@ -857,7 +857,7 @@ void PreviewMenu::UpdatePreviewComparison(int event, PreviewTile* target)
         if (DAT_011da7d8 != selection7)
         {
             GetPreviewInterface()->Pipboy()->Rotate(
-                0, DAT_011da7d8 < selection7 ? *g_011db2f0.Float() : -*g_011db2f0.Float(), *g_011db358.Float(), true);
+                0, DAT_011da7d8 < selection7 ? *fScrollKnobIncrement_Pipboy.Float() : -*fScrollKnobIncrement_Pipboy.Float(), *fScrollKnobRate_Pipboy.Float(), true);
             DAT_011da7d8 = selection7;
         }
         if (item7 && DAT_011da760)

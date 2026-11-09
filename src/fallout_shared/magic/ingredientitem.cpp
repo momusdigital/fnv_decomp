@@ -79,11 +79,12 @@ void _Deallocate(void*);
 struct FUN_00409b10_shell
 {
     void FUN_00409b40();
-    void* FUN_00409b10(unsigned int);
+    void* IngredientItem_ScalarDeletingDestructor(unsigned int);
 };
 // Calls FUN_00409b40, then frees this with _Deallocate when flags has bit 1 set, and returns this.
 // @fnv 0x00409b10
-void* FUN_00409b10_shell::FUN_00409b10(unsigned int flags)
+// src: EXE 0x00409b10
+void* FUN_00409b10_shell::IngredientItem_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00409b40();
     if (flags & 1)

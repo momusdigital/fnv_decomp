@@ -17,7 +17,7 @@ void __thiscall FUN_00cd06c0_t::hkFreeListMemorySystem_setAllocator(int v)
     *(int*)((char*)this + 0x18) = v;
 }
 
-extern int DAT_010cacd0;
+extern int vftable_hkThreadMemory;
 
 struct FUN_00cd06a0
 {
@@ -30,7 +30,7 @@ struct FUN_00cd06a0
 // @fnv 0x00cd06a0
 FUN_00cd06a0::FUN_00cd06a0(int aiArg)
 {
-    m_p00 = &DAT_010cacd0;
+    m_p00 = &vftable_hkThreadMemory;
     hkThreadMemory_releaseCachedMemory();
     UpdateFields_00cbf1a0();
 }

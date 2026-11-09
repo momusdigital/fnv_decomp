@@ -76,7 +76,7 @@ struct BackuppackageInterfaceView
 };
 
 TESSaveLoadGame* DAT_011de45c;
-GlobalObject_0045cf30 g_011de4e8;
+GlobalObject_0045cf30 bDebugSaveBuffer_Debug;
 
 TESForm* __cdecl _ref_004839c0(unsigned int formID);
 
@@ -98,7 +98,7 @@ unsigned short __thiscall BackUpPackage::GetSaveSize_009ed5f0()
 
     usSaveSize += 0xC;
 
-    if (*g_011de4e8.Bool())
+    if (*bDebugSaveBuffer_Debug.Bool())
     {
         HeaderProxy* header = (HeaderProxy*)DAT_011de45c->FUN_004fd3e0();
         if (header)
@@ -137,7 +137,7 @@ void BackUpPackage::SaveBackupPackage()
     unsigned short a = 0;
     unsigned short* p = 0;
     char* i = (char*)DAT_011de45c->FUN_00825c00();
-    if (*g_011de4e8.Bool())
+    if (*bDebugSaveBuffer_Debug.Bool())
         i = (char*)DAT_011de45c->FUN_00825c00();
     if (DAT_011de45c->TESSaveLoadGame_UseSaveGameBlocks())
     {
@@ -150,7 +150,7 @@ void BackUpPackage::SaveBackupPackage()
     char* h = (char*)DAT_011de45c->FUN_00825c00();
     DAT_011de45c->TESSaveLoadGame_SaveGameDataOLD(&s, 2u);
     ((TESPackageUnitSupport*)this)->WriteTypedData(&unk80, 12);
-    if (*g_011de4e8.Bool())
+    if (*bDebugSaveBuffer_Debug.Bool())
     {
         char* header = (char*)DAT_011de45c->FUN_00825c00();
         HeaderProxy* end = (HeaderProxy*)DAT_011de45c->FUN_004fd3e0();

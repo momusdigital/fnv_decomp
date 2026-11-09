@@ -35,7 +35,7 @@ void* __cdecl NiVisController_GetRTTI()
 NiBoolInterpController* __fastcall ConstructBoolInterpController(NiBoolInterpController* controller, void*);
 typedef NiBoolInterpController* (__thiscall* BoolInterpControllerConstructor)(NiBoolInterpController*);
 
-extern void* DAT_01097e8c;
+extern void* vftable_NiVisController;
 
 // Allocates and initializes a visibility controller, returning zero on allocation failure.
 // @fnv 0x00a44f10
@@ -46,7 +46,7 @@ void* __cdecl NiVisController_CreateObject()
     if (mem)
     {
         reinterpret_cast<BoolInterpControllerConstructor>(&ConstructBoolInterpController)(static_cast<NiBoolInterpController*>(mem));
-        *reinterpret_cast<void**>(mem) = &DAT_01097e8c;
+        *reinterpret_cast<void**>(mem) = &vftable_NiVisController;
         return mem;
     }
     return 0;
@@ -106,22 +106,22 @@ bool NiTransformController::IsTargetOfType(NiObjectNET* pkTarget) const
 void __cdecl InitializeInterpControllerBase();
 typedef void (__thiscall* InterpControllerBaseInitializer)(NiTimeController*);
 
-extern void* DAT_0109ab44;
+extern void* vftable_NiFloatInterpController;
 // @fnv 0x00a57640
 NiInterpController* __fastcall ConstructInterpController(NiInterpController* controller, void*)
 {
     reinterpret_cast<InterpControllerBaseInitializer>(&InitializeInterpControllerBase)(controller);
-    *reinterpret_cast<void**>(controller) = &DAT_0109ab44;
+    *reinterpret_cast<void**>(controller) = &vftable_NiFloatInterpController;
     return controller;
 }
 
-extern int DAT_0109ac54;
+extern int vftable_NiBoolInterpController;
 
 // @fnv 0x00a57790
 NiBoolInterpController* __fastcall ConstructBoolInterpController(NiBoolInterpController* controller, void*)
 {
     reinterpret_cast<InterpControllerBaseInitializer>(&InitializeInterpControllerBase)(controller);
-    *reinterpret_cast<int**>(controller) = &DAT_0109ac54;
+    *reinterpret_cast<int**>(controller) = &vftable_NiBoolInterpController;
     return controller;
 }
 
@@ -199,7 +199,7 @@ __forceinline NiVisController* InitializeVisController(void* memory)
 {
     NiVisController* controller = static_cast<NiVisController*>(memory);
     reinterpret_cast<BoolInterpControllerConstructor>(&ConstructBoolInterpController)(controller);
-    *reinterpret_cast<void***>(controller) = &DAT_01097e8c;
+    *reinterpret_cast<void***>(controller) = &vftable_NiVisController;
     return controller;
 }
 

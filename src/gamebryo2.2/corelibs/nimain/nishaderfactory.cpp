@@ -258,8 +258,8 @@ int __stdcall _return0(int unk08)
     return 0;
 }
 
-extern int DAT_010a2148;
-extern int DAT_0101dce4;
+extern int vftable_NiGlobalConstantEntry;
+extern int vftable_NiRefObject;
 extern void* DAT_0109b220;
 extern int DAT_011f4400;
 
@@ -273,7 +273,7 @@ void __cdecl FUN_00aa1460(void* p, unsigned int size);
 void* __thiscall NiGlobalConstantEntry::Destroy(int aiFlags)
 {
     void* saved = m_pResource;
-    *(int**)this = &DAT_010a2148;
+    *(int**)this = &vftable_NiGlobalConstantEntry;
     _NiFree_00aa10f0(saved);
 
     void* head = m_kName.m_kHandle;
@@ -283,7 +283,7 @@ void* __thiscall NiGlobalConstantEntry::Destroy(int aiFlags)
         decrement(static_cast<char*>(head) - 8);
     }
 
-    *(int**)this = &DAT_0101dce4;
+    *(int**)this = &vftable_NiRefObject;
     decrement(&DAT_011f4400);
 
     if ((aiFlags & 1) != 0)

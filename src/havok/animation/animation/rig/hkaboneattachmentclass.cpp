@@ -25,7 +25,7 @@ struct CallbackManager
     Callback* callback;
 };
 CallbackManager* hkMemoryRouter_getInstance();
-extern int DAT_0102e388;
+extern int vftable_hkBaseObject;
 struct Owner
 {
     void* vtable;
@@ -61,7 +61,7 @@ Owner* Owner::FUN_00dfe620(unsigned int flags)
         owned50->FUN_00c905b0();
     owned50 = 0;
     child08.Object_UpdateFields_00cb0c00();
-    vtable = &DAT_0102e388;
+    vtable = &vftable_hkBaseObject;
     if (flags & 1)
     {
         CallbackManager* manager = hkMemoryRouter_getInstance();

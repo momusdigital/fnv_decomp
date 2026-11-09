@@ -6,7 +6,7 @@
 #define FNV_VEC4_SIMD
 #include "../../../../include/Vec4.h"
 
-extern int DAT_010d7cfc;
+extern int vftable_hkDebugDisplayHandler;
 void __cdecl _Deallocate(void*);
 struct FUN_00dd97c0
 {
@@ -16,7 +16,7 @@ struct FUN_00dd97c0
 // @fnv 0x00dd97c0
 FUN_00dd97c0::FUN_00dd97c0(char acFlags)
 {
-    m_p = &DAT_010d7cfc;
+    m_p = &vftable_hkDebugDisplayHandler;
     if (acFlags & 1)
         _Deallocate(this);
 }
@@ -250,7 +250,7 @@ void FUN_00dd9da0_cls::ApplyItemList(ItemList* pItemList)
     _fnv_LeaveCriticalSection(m_pUserData);
 }
 
-extern int DAT_010d7cfc;
+extern int vftable_hkDebugDisplayHandler;
 void __cdecl _Deallocate(void*);
 
 extern "C" __declspec(dllimport) void __stdcall _fnv_EnterCriticalSection(void* section);

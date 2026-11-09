@@ -7,7 +7,7 @@
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
 #include "../../../../../include/hkxMeshSection.h"
 #include "../../../../../include/hkxIndexBuffer.h"
-extern int DAT_010e9b7c;
+extern int vftable_hkxMeshSection;
 struct IndexArray
 {
     void* m_data;

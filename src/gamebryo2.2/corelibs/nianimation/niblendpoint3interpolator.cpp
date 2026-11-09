@@ -130,7 +130,7 @@ bool __stdcall NiBlendPoint3Interpolator_InterpolatorIsCorrectType(NiBlendPoint3
 }
 
 void __fastcall NiBlendInterpolator_NiBlendInterpolator(void*);
-extern int DAT_0109a49c;
+extern int vftable_NiBlendPoint3Interpolator;
 extern int _DAT_011a9424;
 extern int _DAT_011a9428;
 extern int _DAT_011a942c;
@@ -142,7 +142,7 @@ void* NiBlendPoint3Interpolator_CreateObject()
     if (p)
     {
         NiBlendInterpolator_NiBlendInterpolator(p);
-        *(void**)p = (void*)&DAT_0109a49c;
+        *(void**)p = (void*)&vftable_NiBlendPoint3Interpolator;
         *(int*)((char*)p + 0x30) = _DAT_011a9424;
         *(int*)((char*)p + 0x34) = _DAT_011a9428;
         *(int*)((char*)p + 0x38) = _DAT_011a942c;
@@ -206,7 +206,7 @@ void* FUN_00a55b20_shell::NiBlendPoint3Interpolator_CreateClone(CloningProcess* 
     if (pkObject)
     {
         NiBlendInterpolator_NiBlendInterpolator(pkObject);
-        *reinterpret_cast<void**>(pkObject) = &DAT_0109a49c;
+        *reinterpret_cast<void**>(pkObject) = &vftable_NiBlendPoint3Interpolator;
         *reinterpret_cast<int*>(reinterpret_cast<char*>(pkObject) + 0x30) = _DAT_011a9424;
         *reinterpret_cast<int*>(reinterpret_cast<char*>(pkObject) + 0x34) = _DAT_011a9428;
         *reinterpret_cast<int*>(reinterpret_cast<char*>(pkObject) + 0x38) = _DAT_011a942c;
@@ -228,7 +228,7 @@ void* FUN_00a55b20_shell::NiBlendPoint3Interpolator_CreateClone(CloningProcess* 
     return pkObject;
 }
 
-extern int DAT_0109a49c;
+extern int vftable_NiBlendPoint3Interpolator;
 
 struct FUN_00a370b0_tgt
 {
@@ -259,7 +259,7 @@ struct FUN_00a55a10
 FUN_00a55a10::FUN_00a55a10(void* apArg, float f, void* c)
 {
     ((FUN_00a370b0_tgt*)this)->Init(apArg, f, c);
-    m_vptr = reinterpret_cast<int>(&DAT_0109a49c);
+    m_vptr = reinterpret_cast<int>(&vftable_NiBlendPoint3Interpolator);
     m_kPoint3Value = DAT_011a9424;
     m_bValueValid = false;
 }

@@ -172,7 +172,7 @@ void __cdecl AlignAndAdvance(char flags, int aiCount, int aiIndex, int* p)
     }
 }
 
-extern int DAT_010eb770;
+extern int vftable_hkaMeshBinding;
 struct FUN_00e34800
 {
     int vtbl;
@@ -185,7 +185,7 @@ struct FUN_00e34800
 // @fnv 0x00e34800
 FUN_00e34800::FUN_00e34800(int aiValue)
 {
-    vtbl = (int)&DAT_010eb770;
+    vtbl = (int)&vftable_hkaMeshBinding;
     ((FUN_00e34800*)((char*)this + 0xc))->m(aiValue);
 }
 
@@ -1654,7 +1654,7 @@ bool* FUN_00e33910_cls::AreAllItemsValid(bool* out)
 }
 
 extern "C" void _ReadWriteBarrier(void);
-extern int DAT_010eb770;
+extern int vftable_hkaMeshBinding;
 
 struct SubObj_b4888
 {
@@ -1671,7 +1671,7 @@ struct Base_b4888
     Base_b4888()
     {
         m_06 = 1;
-        *(int**)this = &DAT_010eb770;
+        *(int**)this = &vftable_hkaMeshBinding;
         m_08 = 0;
     }
 };
@@ -1732,7 +1732,7 @@ S_00e34950_Foo* S_00e34950_Foo::Init()
     return this;
 }
 
-extern int DAT_010df9f4;
+extern int vftable_hkpVehicleDefaultBrake;
 
 class FUN_00e39a80
 {
@@ -1752,7 +1752,7 @@ FUN_00e39a80::FUN_00e39a80()
 {
     float zero = 0.0f;
     *(volatile unsigned short*)&m_06 = 1;
-    *(volatile int*)&m_vptr00 = (int)&DAT_010df9f4;
+    *(volatile int*)&m_vptr00 = (int)&vftable_hkpVehicleDefaultBrake;
     *(volatile int*)&m_08 = 0;
     *(volatile int*)&m_0c = 0;
     *(volatile int*)&m_10 = 0x80000000;
@@ -1840,7 +1840,7 @@ void S_00e3ae70_cls::SetItemValues(unsigned int a1, unsigned int a2, float afVal
     }
 }
 
-extern void* DAT_010eb98c;
+extern void* vftable_hkpStiffSpringChainData;
 union ReleaseFlags
 {
     int releaseHandle;
@@ -1865,7 +1865,7 @@ struct FUN_00e3b060_Class
 // @fnv 0x00e3b060
 FUN_00e3b060_Class* FUN_00e3b060_Class::ReleaseLinks(ReleaseFlags aReleaseFlags)
 {
-    vtable = &DAT_010eb98c;
+    vtable = &vftable_hkpStiffSpringChainData;
     LinkOwner* owner = &links;
     if (aReleaseFlags.releaseHandle)
         owner->hkpBridgeConstraintAtom_init(owner->unk08);
@@ -1877,8 +1877,8 @@ FUN_00e3b060_Class* FUN_00e3b060_Class::ReleaseLinks(ReleaseFlags aReleaseFlags)
 namespace fnv_00e3b0a0 {
 
 hkMemoryRouter* __cdecl hkMemoryRouter_getInstance() throw();
-extern int DAT_010eb98c;
-extern int DAT_0102e388;
+extern int vftable_hkpStiffSpringChainData;
+extern int vftable_hkBaseObject;
 
 struct FUN_00e3b0a0_cls
 {
@@ -1900,7 +1900,7 @@ struct FUN_00e3b0a0_cls
 // src: GUESS 0x00e3b0a0 (confidence: medium)
 void FUN_00e3b0a0_cls::ReleaseOwnedArrayAndResetFields()
 {
-    m_vptr00 = (int)&DAT_010eb98c;
+    m_vptr00 = (int)&vftable_hkpStiffSpringChainData;
     hkMemoryRouter* pHolder = hkMemoryRouter_getInstance();
     hkMemoryAllocator* pAllocator = reinterpret_cast<hkMemoryAllocator*>(pHolder->m_heap);
     unsigned int uCapBits = m_uCapBits;
@@ -1911,7 +1911,7 @@ void FUN_00e3b0a0_cls::ReleaseOwnedArrayAndResetFields()
     }
     m_pData = 0;
     m_uCapBits = 0x80000000u;
-    m_vptr00 = (int)&DAT_0102e388;
+    m_vptr00 = (int)&vftable_hkBaseObject;
 }
 }  // namespace fnv_00e3b0a0
 
@@ -2308,7 +2308,7 @@ void E3F0F0Owner::ProcessState_00e3f0f0()
 class BSAudio;
 namespace fnv_00e3f110 {
 
-extern int DAT_010e33dc;
+extern int vftable_hkxMaterial;
 BSAudio* __cdecl hkMemoryRouter_getInstance();
 
 struct AudioRefObject
@@ -2365,7 +2365,7 @@ struct FUN_00e3f110_cls
 // @fnv 0x00e3f110
 void FUN_00e3f110_cls::Destroy() throw()
 {
-    *(volatile int*)&m_vptr00 = (int)&DAT_010e33dc;
+    *(volatile int*)&m_vptr00 = (int)&vftable_hkxMaterial;
     AudioRefObject* pRef = *(AudioRefObject* volatile*)&m_p7c;
     if (pRef != 0)
     {
@@ -3048,7 +3048,7 @@ void* S3b010Obj::hkpStiffSpringChainData_hkpStiffSpringChainData()
 {
     unk06 = 1;
     unk08 = 0;
-    unk00 = (void*)&DAT_010eb98c;
+    unk00 = (void*)&vftable_hkpStiffSpringChainData;
     m_0c.unk00 = 1;
     unk18 = 0;
     unk1c = 0;
@@ -3060,7 +3060,7 @@ void* S3b010Obj::hkpStiffSpringChainData_hkpStiffSpringChainData()
     return this;
 }
 
-extern int DAT_010e11ec;
+extern int vftable_hkpRotationalConstraintData;
 
 struct M3
 {
@@ -3104,7 +3104,7 @@ struct FUN_00e3b5c0
 // @fnv 0x00e3b5c0
 FUN_00e3b5c0::FUN_00e3b5c0()
 {
-    *(int**)this = &DAT_010e11ec;
+    *(int**)this = &vftable_hkpRotationalConstraintData;
     m_06 = 1;
     m_08 = 0;
     m_10 = 4;
@@ -3380,7 +3380,7 @@ struct __declspec(align(16)) CastCollector
     int unk78;
     int unk7c;
 };
-extern int DAT_010dbaf8, DAT_010dbae4, DAT_010dbad8, DAT_010dbacc, DAT_010dbb04;
+extern int vftable_hkCpuWorldRayCastCollector, vftable_hkCpuWorldRayCastCollector_for_hkKdTreeCastCollector, vftable_hkCpuWorldRayCastCollector_for_hkAabbTreeQueryUtils__Collector_010dbad8, vftable_hkCpuWorldRayCastCollector_for_hkAabbTreeQueryUtils__Collector_010dbacc, vftable_hkpFixedBufferRayHitCollector;
 void __cdecl hkKdTreeUtils_castRayIterative(void*, void*, S_00df8990_Obj*, void*, void*);
 // Initializes a CastCollector from source and value, optionally fills a CastOutput, then calls FUN_00d98ca0 with the caster and source.
 // @fnv 0x00e2abf0
@@ -3391,10 +3391,10 @@ void __cdecl hkTreeRayCastJobUtil_castRayKdTree(void* caster, S_00df8990_Obj* so
     {
         CastCollector collector;
         unsigned char result;
-        collector.vtable00 = &DAT_010dbaf8;
-        collector.vtable04 = &DAT_010dbae4;
-        collector.vtable08 = &DAT_010dbad8;
-        collector.vtable0c = &DAT_010dbacc;
+        collector.vtable00 = &vftable_hkCpuWorldRayCastCollector;
+        collector.vtable04 = &vftable_hkCpuWorldRayCastCollector_for_hkKdTreeCastCollector;
+        collector.vtable08 = &vftable_hkCpuWorldRayCastCollector_for_hkAabbTreeQueryUtils__Collector_010dbad8;
+        collector.vtable0c = &vftable_hkCpuWorldRayCastCollector_for_hkAabbTreeQueryUtils__Collector_010dbacc;
         collector.fraction14 = 1.0f;
         collector.hit18 = 0;
         collector.value10 = value;
@@ -3416,7 +3416,7 @@ void __cdecl hkTreeRayCastJobUtil_castRayKdTree(void* caster, S_00df8990_Obj* so
                 int b = source->unk34;
                 int a = source->unk30;
                 output->fraction = 1.0f;
-                output->vtable = &DAT_010dbb04;
+                output->vtable = &vftable_hkpFixedBufferRayHitCollector;
                 output->shape08 = a;
                 output->shape0c = a;
                 output->shape10 = b;
@@ -4492,7 +4492,7 @@ unsigned int __cdecl hkaSplineCompressedAnimation_handleEndianKnots(unsigned cha
 }
 }  // namespace fnv_00e31570
 
-extern int DAT_010e00dc;
+extern int vftable_hkpTyremarksInfo;
 
 void __cdecl hkArrayUtil__reserve(hkMemoryAllocator* allocator, void* array, int capacity, int elementSize);
 
@@ -4561,7 +4561,7 @@ struct TyremarkInfoView
 // src: HAVOK_LIB 0x00e3a2a0
 TyremarkInfoView* TyremarkInfoView::hkpTyremarksInfo_hkpTyremarksInfo(const TyremarkVehicleView* vehicle, int pointCount)
 {
-    m_ppVirtualMethodTable = &DAT_010e00dc;
+    m_ppVirtualMethodTable = &vftable_hkpTyremarksInfo;
     m_sReferenceCount = 1;
     TyremarkArray_initialize(m_wheels);
     m_fMinTyremarkPointDistance = 0.0f;

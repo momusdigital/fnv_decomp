@@ -139,7 +139,8 @@ void TESLeveledList::AddScriptAddedLeveledObject(TESForm* apOwner, unsigned shor
 void __cdecl _Deallocate(void*);
 // Calls the TESModel destructor and, when flags has bit 0 set, deallocates this; returns this.
 // @fnv 0x00489010
-void* TESModel::FUN_00489010(unsigned int flags)
+// src: EXE 0x00489010
+void* TESModel::ScalarDeletingDestructor(unsigned int flags)
 {
     this->TESModel::~TESModel();
     if (flags & 1)

@@ -158,8 +158,8 @@ struct P03MM
 extern P03MM g_memoryManager;
 extern "C" void* __cdecl _NiMalloc(unsigned int size);
 extern "C" void* __cdecl _fnv_zlib_memset(void* dst, int value, unsigned int size);
-extern int DAT_010f0eb0;
-extern int DAT_010f0f50;
+extern int vftable_NiTMapBase_010f0eb0;
+extern int vftable_NiTStringPointerMap_010f0f50;
 
 // @fnv 0x00e93d80
 void CreateCreatorMap()
@@ -167,14 +167,14 @@ void CreateCreatorMap()
     int* p = (int*)g_memoryManager.Allocate(0x14);
     if (p)
     {
-        p[0] = (int)&DAT_010f0eb0;
+        p[0] = (int)&vftable_NiTMapBase_010f0eb0;
         p[1] = 0x25;
         p[3] = 0;
         int* data = (int*)_NiMalloc(0x94);
         p[2] = (int)data;
         _fnv_zlib_memset((void*)data, 0, 4 * p[1]);
         *(char*)(p + 4) = 1;
-        p[0] = (int)&DAT_010f0f50;
+        p[0] = (int)&vftable_NiTStringPointerMap_010f0f50;
         DAT_0126fa14 = (CreatorMap*)p;
     }
     else
@@ -471,8 +471,8 @@ void __thiscall ShaderFactoryDirectoryView::RemoveDirectoryEntry(const char* pcD
 }
 }  // namespace fnv_00e93bb0
 
-extern int DAT_010f0f70;
-extern int DAT_0101dce4;
+extern int vftable_NiD3DShaderProgramFactory;
+extern int vftable_NiRefObject;
 extern int DAT_011f4400;
 extern int(__stdcall* DAT_00fdf1c4)(void*);
 
@@ -510,7 +510,7 @@ struct FUN_00e93e00_Obj : public FUN_00e93cc0_Obj
 // src: GUESS 0x00e93e00 (confidence: low)
 void FUN_00e93e00_Obj::UpdateFields_00e93e00()
 {
-    *reinterpret_cast<int*>(this) = reinterpret_cast<int>(&DAT_010f0f70);
+    *reinterpret_cast<int*>(this) = reinterpret_cast<int>(&vftable_NiD3DShaderProgramFactory);
 
     if (unk14 != 0)
         unk14->NiTPointerMap_RemoveAll_00b601a0();
@@ -527,7 +527,7 @@ void FUN_00e93e00_Obj::UpdateFields_00e93e00()
     NiD3DShaderProgramFactory_RemoveAllProgramDirectories();
     unk08.FUN_00b71300();
 
-    *reinterpret_cast<int*>(this) = reinterpret_cast<int>(&DAT_0101dce4);
+    *reinterpret_cast<int*>(this) = reinterpret_cast<int>(&vftable_NiRefObject);
     DAT_00fdf1c4(&DAT_011f4400);
 }
 

@@ -17,7 +17,7 @@ bool TESLandFlagsView::TESPackage_GetLockDoorsAtStart()
         return false;
 }
 
-extern int DAT_0102de10;
+extern int vftable_TESChildCell;
 
 struct FUN_00533240_helper
 {
@@ -28,7 +28,7 @@ struct FUN_00533240_helper
 // @fnv 0x00533240
 FUN_00533240_helper* FUN_00533240_helper::InitVtable()
 {
-    this->vtable = &DAT_0102de10;
+    this->vtable = &vftable_TESChildCell;
     return this;
 }
 
@@ -116,7 +116,7 @@ CellMopp* __fastcall GetCellMopp(char* pThis)
     return ExtraDataList_GetCellMopp(pThis + 0x28);
 }
 
-extern int DAT_0102e388;
+extern int vftable_hkBaseObject;
 
 struct FUN_00538e30_class
 {
@@ -127,7 +127,7 @@ struct FUN_00538e30_class
 // @fnv 0x00538e30
 void __fastcall SetVtable(FUN_00538e30_class* this_ptr)
 {
-    this_ptr->vtable = (int)&DAT_0102e388;
+    this_ptr->vtable = (int)&vftable_hkBaseObject;
 }
 
 // Returns a new NiPoint3 with each component divided by denom.

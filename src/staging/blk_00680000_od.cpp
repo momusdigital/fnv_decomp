@@ -139,7 +139,7 @@ void FUN_00682680_class::FreeBuffer_Thunk()
     FreeBuffer();
 }
 
-extern int DAT_01069948;
+extern int vftable_BSList_01069948;
 
 struct FUN_006836f0_class
 {
@@ -153,7 +153,7 @@ struct FUN_006836f0_class
 FUN_006836f0_class* __thiscall FUN_006836f0_class::BSList_BSTempEffectDebris_BSList()
 {
     FUN_00683760();
-    *reinterpret_cast<int**>(this) = &DAT_01069948;
+    *reinterpret_cast<int**>(this) = &vftable_BSList_01069948;
     return this;
 }
 
@@ -170,7 +170,7 @@ void FUN_00683740_class::BSList_BSTempEffectDebris_Free()
     FUN_006837f0();
 }
 
-extern int DAT_01069958;
+extern int vftable_BSPointerListBase_01069958;
 struct FUN_00683760_class
 {
     void Init();
@@ -180,7 +180,7 @@ struct FUN_00683760_class
 FUN_00683760_class::FUN_00683760_class()
 {
     Init();
-    *reinterpret_cast<int**>(this) = &DAT_01069958;
+    *reinterpret_cast<int**>(this) = &vftable_BSPointerListBase_01069958;
 }
 
 struct FUN_0068a810_class
@@ -193,19 +193,19 @@ int FUN_0068a810_class::GetField4C()
     return *(int*)((char*)this + 0x4c);
 }
 
-extern int DAT_01069d7c;
+extern int vftable_NiTArray_01069d7c;
 struct FUN_0068ab80_class
 {
     ActorCombatGroup** p;
     ActorCombatGroup** q;
     void ReleaseStorage_0068ab80();
 };
-// Points p at DAT_01069d7c and frees the allocation held by q via NiTMallocInterface<ActorCombatGroup*>::Deallocate.
+// Points p at vftable_NiTArray_01069d7c and frees the allocation held by q via NiTMallocInterface<ActorCombatGroup*>::Deallocate.
 // @fnv 0x0068ab80
 // src: GUESS 0x0068ab80 (confidence: medium)
 void FUN_0068ab80_class::ReleaseStorage_0068ab80()
 {
-    p = (ActorCombatGroup**)&DAT_01069d7c;
+    p = (ActorCombatGroup**)&vftable_NiTArray_01069d7c;
     NiTMallocInterface<ActorCombatGroup*>::Deallocate(q);
 }
 
@@ -223,7 +223,7 @@ void FUN_0068e740_class::NiAVObject_DetachAllProperties()
     ((void(__thiscall*)(void*))NiTPointerListBase_NiTPointerAllocator_unsigned_int_NiPointer_BSMultiBoundRoom_RemoveAll)((char*)this + 0x24);
 }
 
-extern int DAT_0106a038;
+extern int vftable_BSSimpleArray_0106a038;
 
 struct GlobalObject_00869f00
 {
@@ -239,7 +239,7 @@ struct FUN_0068eb30_class : GlobalObject_00869f00
 // @fnv 0x0068eb30
 void FUN_0068eb30_class::InitializeGlobalObject()
 {
-    pData = (int)&DAT_0106a038;
+    pData = (int)&vftable_BSSimpleArray_0106a038;
     Clear(true);
 }
 
@@ -285,7 +285,7 @@ void FUN_00691a30_class::ClearEntryPointerAndForward(int pObject)
 }
 
 namespace fnv_00691bf0 {
-extern void* DAT_0106ac40;
+extern void* vftable_BSSimpleArray_0106ac40;
 
 struct GlobalObject_00869f00
 {
@@ -301,7 +301,7 @@ void GlobalObject_00869f00::Clear(bool)
 // src: GUESS 0x00691bf0 (confidence: low)
 void GlobalObject_00869f00::UpdateState_00691bf0()
 {
-    p = &DAT_0106ac40;
+    p = &vftable_BSSimpleArray_0106ac40;
     Clear(true);
 }
 }  // namespace fnv_00691bf0
@@ -321,7 +321,7 @@ void* __thiscall FUN_00691d20_class::BSSimpleArray_NavMeshSearchLink_1024_Reallo
 }
 
 namespace fnv_00691fe0 {
-extern int DAT_0106acb0;
+extern int vftable_BSSimpleArray_0106acb0;
 
 struct GlobalObject_00869f00
 {
@@ -338,7 +338,7 @@ struct FUN_00691fe0_class
 // src: GUESS 0x00691fe0 (confidence: medium)
 void FUN_00691fe0_class::ResetVirtualTableAndClear_00691fe0()
 {
-    p = &DAT_0106acb0;
+    p = &vftable_BSSimpleArray_0106acb0;
     ((GlobalObject_00869f00*)this)->Clear(true);
 }
 }  // namespace fnv_00691fe0
@@ -433,7 +433,7 @@ void* __cdecl MemsetWrapper(void* dst, int value, unsigned int count)
     return memset(dst, value, count);
 }
 
-extern int DAT_0106b184;
+extern int vftable_NiTMap_0106b184;
 
 struct FUN_0069ad40_class
 {
@@ -441,12 +441,12 @@ struct FUN_0069ad40_class
     int* InitializeWithGlobal(int);
 };
 
-// Calls ConstructBuffer with param, stores the address of DAT_0106b184 at the start of this, and returns this as an int pointer.
+// Calls ConstructBuffer with param, stores the address of vftable_NiTMap_0106b184 at the start of this, and returns this as an int pointer.
 // @fnv 0x0069ad40
 int* FUN_0069ad40_class::InitializeWithGlobal(int param)
 {
     ConstructBuffer(param);
-    *reinterpret_cast<int**>(this) = &DAT_0106b184;
+    *reinterpret_cast<int**>(this) = &vftable_NiTMap_0106b184;
     return reinterpret_cast<int*>(this);
 }
 
@@ -475,7 +475,7 @@ bool AreWideCharsEqual(const unsigned short* a, const unsigned short* b)
 }
 
 namespace fnv_0069b1d0 {
-extern int DAT_0106b1cc;
+extern int vftable_BSSimpleArray_0106b1cc;
 struct GlobalObject_00869f00
 {
     void Clear(bool);
@@ -489,7 +489,7 @@ struct FUN_0069b1d0_class
 // src: GUESS 0x0069b1d0 (confidence: low)
 void FUN_0069b1d0_class::UpdateState_0069b1d0()
 {
-    m_pData = (int)&DAT_0106b1cc;
+    m_pData = (int)&vftable_BSSimpleArray_0106b1cc;
     ((GlobalObject_00869f00*)this)->Clear(true);
 }
 }  // namespace fnv_0069b1d0
@@ -529,7 +529,7 @@ int __cdecl Object_ComputeValue_0069b2a0(const unsigned short* ausLeft, const un
     return *ausLeft == *reinterpret_cast<const int*>(ausRight);
 }
 
-extern int DAT_0106b1e0;
+extern int vftable_BSSimpleArray_0106b1e0;
 
 struct Dummy_0069af30
 {
@@ -541,13 +541,13 @@ struct Dummy_0069af30
 // src: COMMUNITY 0x0069b2c0
 int* Dummy_0069af30::BSSimpleArray_FastNavMeshEdgeHandle_1024_BSSimpleArray_FastNavMeshEdgeHandle_1024()
 {
-    *(int*)this = (int)&DAT_0106b1e0;
+    *(int*)this = (int)&vftable_BSSimpleArray_0106b1e0;
     ResetAndWrite(0, 0);
     return (int*)this;
 }
 
 namespace fnv_0069b2f0 {
-extern int DAT_0106b1e0;
+extern int vftable_BSSimpleArray_0106b1e0;
 struct GlobalObject_00869f00
 {
     void Clear(bool);
@@ -561,7 +561,7 @@ struct FUN_0069b2f0_class
 // src: GUESS 0x0069b2f0 (confidence: low)
 void FUN_0069b2f0_class::UpdateState_0069b2f0()
 {
-    p = &DAT_0106b1e0;
+    p = &vftable_BSSimpleArray_0106b1e0;
     ((GlobalObject_00869f00*)this)->Clear(true);
 }
 }  // namespace fnv_0069b2f0
@@ -628,7 +628,7 @@ NavMeshBounds::NavMeshBoundsTriangle& BSSimpleArray<NavMeshBounds::NavMeshBounds
 }
 
 namespace fnv_0069cd40 {
-extern int DAT_0106b28c;
+extern int vftable_BSSimpleArray_0106b28c;
 struct GlobalObject_00869f00
 {
     void Clear(bool);
@@ -641,7 +641,7 @@ struct FUN_0069cd40_class
 // @fnv 0x0069cd40
 void FUN_0069cd40_class::InitAndClear()
 {
-    p = &DAT_0106b28c;
+    p = &vftable_BSSimpleArray_0106b28c;
     ((GlobalObject_00869f00*)this)->Clear(true);
 }
 }  // namespace fnv_0069cd40
@@ -726,7 +726,7 @@ void FUN_00691a00_class::ReleaseStorage_00691a00()
 
 namespace fnv_0069b730 {
 extern "C" void __cdecl NiFreeAlias(void*);
-extern int DAT_0106b1f4;
+extern int vftable_NiTMapBase_0106b1f4;
 
 struct FUN_0069b730_class
 {
@@ -741,7 +741,7 @@ struct FUN_0069b730_class
 // src: GUESS 0x0069b730 (confidence: low)
 void FUN_0069b730_class::UpdateState_0069b730()
 {
-    pvt = &DAT_0106b1f4;
+    pvt = &vftable_NiTMapBase_0106b1f4;
     ((NiTPointerMap<int, int>*)this)->RemoveAll();
     NiFreeAlias(pMem);
 }
@@ -874,17 +874,17 @@ struct BaseForAbb0
 {
     void __thiscall NiTArray_NiAVObject_NiTMallocInterface_NiAVObject_NiTArray_NiAVObject_NiTMallocInterface_NiAVObject(int a, int b);
 };
-extern int DAT_01069d84;
+extern int vftable_NiTPrimitiveArray_01069d84;
 struct FUN_0068abb0 : BaseForAbb0
 {
     FUN_0068abb0(int a, int b);
 };
-// Calls the base constructor with a and b, then stores the address of DAT_01069d84 into this object's vtable slot.
+// Calls the base constructor with a and b, then stores the address of vftable_NiTPrimitiveArray_01069d84 into this object's vtable slot.
 // @fnv 0x0068abb0
 FUN_0068abb0::FUN_0068abb0(int a, int b)
 {
     NiTArray_NiAVObject_NiTMallocInterface_NiAVObject_NiTArray_NiAVObject_NiTMallocInterface_NiAVObject(a, b);
-    *(int*)this = (int)&DAT_01069d84;
+    *(int*)this = (int)&vftable_NiTPrimitiveArray_01069d84;
 }
 
 struct FUN_0068ab60_shell
@@ -928,7 +928,7 @@ struct AX
 // src: EXE 0x0068eb00
 AX* AX::BSSimpleArray_DecalVertex_1024_BSSimpleArray()
 {
-    vtable = &DAT_0106a038;
+    vtable = &vftable_BSSimpleArray_0106a038;
     BSSimpleArray_float_1024_InitialSetup(0, 0);
     return this;
 }
@@ -1250,17 +1250,17 @@ void FUN_00693bd0_class::NavMeshTriangle_SetObjectCount(unsigned short ausValue)
     d = (d & 0xffff1fff) | (ausValue << 0xd);
 }
 
-extern int DAT_0106abe4;
+extern int vftable_BSSimpleArray_0106abe4;
 struct FUN_0069ada0_class : FUN_00692290_class
 {
     FUN_0069ada0_class* BSSimpleArray_unsigned_short_1024_BSSimpleArray_0069ada0(unsigned int a, unsigned int b);
 };
-// Sets the vtable pointer to DAT_0106abe4, calls the base constructor with a and b, and returns this.
+// Sets the vtable pointer to vftable_BSSimpleArray_0106abe4, calls the base constructor with a and b, and returns this.
 // @fnv 0x0069ada0
 // src: EXE 0x0069ada0
 FUN_0069ada0_class* FUN_0069ada0_class::BSSimpleArray_unsigned_short_1024_BSSimpleArray_0069ada0(unsigned int a, unsigned int b)
 {
-    *(void**)this = (void*)&DAT_0106abe4;
+    *(void**)this = (void*)&vftable_BSSimpleArray_0106abe4;
     BSSimpleArray_unsigned_short_1024_InitialSetup(a, b);
     return this;
 }
@@ -1371,7 +1371,7 @@ void FUN_0069bca0_class::NavMeshArray_AddToGarbageCollector()
     BSSimpleArray_NavMeshPtr_1024_Clear(1);
 }
 
-extern int DAT_0106b28c;
+extern int vftable_BSSimpleArray_0106b28c;
 struct FUN_0069cd10_class
 {
     int m_iWordAt00;
@@ -1382,7 +1382,7 @@ struct FUN_0069cd10_class
 // src: GUESS 0x0069cd10 (confidence: low)
 FUN_0069cd10_class* __thiscall FUN_0069cd10_class::UpdateState_0069cd10()
 {
-    m_iWordAt00 = (int)&DAT_0106b28c;
+    m_iWordAt00 = (int)&vftable_BSSimpleArray_0106b28c;
     InitializeBuffer(0, 0);
     return this;
 }
@@ -1792,7 +1792,7 @@ struct FUN_0068ac40_class
 // src: COMMUNITY 0x0068ac40
 void* FUN_0068ac40_class::NiTArray_NiAVObject_NiTMallocInterface_NiAVObject_NiTArray_NiAVObject_NiTMallocInterface_NiAVObject(unsigned short usSize, unsigned short ausUnknown)
 {
-    m_pData = &DAT_01069d7c;
+    m_pData = &vftable_NiTArray_01069d7c;
     m_usSize = usSize;
     m_usUnknown = ausUnknown;
     m_usElementCount = 0;

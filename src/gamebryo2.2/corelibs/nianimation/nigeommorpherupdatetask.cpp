@@ -120,7 +120,7 @@ void NiGeomMorpherUpdateTask::vf35()
 }
 
 extern int(__stdcall* DAT_00fdf1c4)(void*);
-extern int DAT_01069674;
+extern int vftable_NiTask;
 
 // These helpers use the shared task layout. The unused EDX parameter keeps ECX
 // and the stack arguments in their original locations. The release call uses a
@@ -142,7 +142,7 @@ void __fastcall ReleaseMorpherRefObjects(NiGeomMorpherUpdateTask* task, void*)
         if (f(&p->m_uiRefCount) == 0)
             p->DeleteThis();
     }
-    *(void**)task = &DAT_01069674;
+    *(void**)task = &vftable_NiTask;
     ((NiRefObject*)task)->NiRefObject::~NiRefObject();
 }
 
@@ -206,7 +206,7 @@ NiGeomMorpherUpdateTask* __fastcall DestroyMorpherUpdateTask(NiGeomMorpherUpdate
                 {
                     b->DeleteThis();
                 }
-                *(void**)p = &DAT_01069674;
+                *(void**)p = &vftable_NiTask;
                 p->FUN_00a5d3d0();
             } while (--i >= 0);
         }

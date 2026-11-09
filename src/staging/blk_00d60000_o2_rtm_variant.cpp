@@ -79,10 +79,10 @@ void RegisterContactPointsInactive();
 // Constructor of the class whose vftables live at 0x010d1fb0 / 0x010d1f90 /
 // 0x010d1f80 / 0x010d1f70: it calls the immediate base constructor and then
 // installs the derived vftable pointers for the four base sub-objects.
-extern int DAT_010d1fb0;
-extern int DAT_010d1f90;
-extern int DAT_010d1f80;
-extern int DAT_010d1f70;
+extern int vftable_hkpInactiveContactPointViewer;
+extern int vftable_hkpInactiveContactPointViewer_for_hkProcess;
+extern int vftable_hkpInactiveContactPointViewer_for_hkpPhysicsContextWorldListener;
+extern int vftable_hkpInactiveContactPointViewer_for_hkpWorldPostSimulationListener;
 struct FUN_00d68770_cls
 {
     int* m_pVtbl00;
@@ -123,10 +123,10 @@ struct FnvCpu_FUN_00d687c0_CpuBlock
     FnvCpu_FUN_00d687c0_CpuBlock* Construct(unsigned int value);
 };
 void* __cdecl hkpInactiveContactPointViewer_create(unsigned int value);
-extern "C" int DAT_010d203c;
-extern "C" int DAT_010d201c;
-extern "C" int DAT_010d200c;
-extern "C" int DAT_010d1ffc;
+extern "C" int vftable_hkpActiveContactPointViewer;
+extern "C" int vftable_hkpActiveContactPointViewer_for_hkProcess;
+extern "C" int vftable_hkpActiveContactPointViewer_for_hkpPhysicsContextWorldListener;
+extern "C" int vftable_hkpActiveContactPointViewer_for_hkpWorldPostSimulationListener;
 void __stdcall FUN_00de29b0(int a, int b);
 struct FUN_00d68840_cls
 {
@@ -272,8 +272,8 @@ class FUN_00d60540 : public hkReferencedObject
     FUN_00d60540(FinishingFlag flag);
     virtual ~FUN_00d60540();
 };
-extern int DAT_010d14f8;
-extern int DAT_0102e388;
+extern int vftable_hkOArchive;
+extern int vftable_hkBaseObject;
 struct D60590Callback
 {
     void FUN_00c905b0();
@@ -575,9 +575,9 @@ struct FUN_00d62ef0_cls
 
     FUN_00d62ef0_cls* UpdateState_00d62ef0(int aParam, unsigned char aValue);
 };
-extern int DAT_010d1720;
-extern int DAT_010d1700;
-extern int DAT_010d16f0;
+extern int vftable_hkpWorldSnapshotViewer;
+extern int vftable_hkpWorldSnapshotViewer_for_hkProcess;
+extern int vftable_hkpWorldSnapshotViewer_for_hkpPhysicsContextWorldListener;
 struct HeapAllocator
 {
     virtual void* GetStats();
@@ -1036,7 +1036,7 @@ struct FnvCpu_FUN_00d76d80_CpuOwner
     FnvCpu_FUN_00d76d80_CpuTarget* target;
     void ForwardCall_00d76d80();
 };
-extern int DAT_010d14f8;
+extern int vftable_hkOArchive;
 struct hkAllocatorD608
 {
     virtual void vf00();

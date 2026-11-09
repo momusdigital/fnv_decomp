@@ -247,7 +247,7 @@ bool FUN_0082ccb0_Cls::ValueModifierEffect_IsCausingDamage()
     return *(int*)((char*)this + 0x48) == 16 && GetEffectSetting()->IsFlagSet(4) && !GetEffectSetting()->IsFlagSet(2);
 }
 
-extern int DAT_0107c68c;
+extern int vftable_ValueModifierEffect;
 
 struct FUN_0080bc70_base
 {
@@ -267,7 +267,7 @@ struct FUN_0082ba60 : public FUN_0080bc70_base
 FUN_0082ba60::FUN_0082ba60(MagicCaster* apCaster, MagicItem* apSpell, EffectItem* apEffect)
     : FUN_0080bc70_base(apCaster, apSpell, apEffect)
 {
-    *(void**)this = &DAT_0107c68c;
+    *(void**)this = &vftable_ValueModifierEffect;
     EffectSetting* psetting = apEffect->GetEffectSetting();
     if (psetting->HasAssociatedActorValue())
         *(int*)((char*)this + 0x48) = psetting->GetAssociatedActorValue();

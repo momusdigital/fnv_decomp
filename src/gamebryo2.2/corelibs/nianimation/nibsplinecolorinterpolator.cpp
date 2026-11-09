@@ -34,7 +34,7 @@ struct SplineBaseOperations
     void AppendStrings(struct StringArray*);
     bool IsEqual(NiBSplineInterpolator*);
 };
-extern int DAT_01099d3c;
+extern int vftable_NiBSplineColorInterpolator;
 // @fnv 0x00a51c60
 // src: EXE 0x00a51c60
 void* NiBSplineColorInterpolator_CreateObject()
@@ -43,7 +43,7 @@ void* NiBSplineColorInterpolator_CreateObject()
     if (p)
     {
         new (p) SplineBaseOperations(0, 0);
-        *(volatile int*)p = (int)&DAT_01099d3c;
+        *(volatile int*)p = (int)&vftable_NiBSplineColorInterpolator;
         ((volatile NiColorA*)&p->m_kDiffuseColor)->a =
             ((volatile NiColorA*)&p->m_kDiffuseColor)->b =
             ((volatile NiColorA*)&p->m_kDiffuseColor)->g =
@@ -75,7 +75,7 @@ NiBSplineInterpolator* __fastcall NiBSplineColorInterpolator_CreateClone(NiBSpli
     if (pkClone)
     {
         new (pkClone) SplineBaseOperations(0, 0);
-        *(volatile int*)pkClone = (int)&DAT_01099d3c;
+        *(volatile int*)pkClone = (int)&vftable_NiBSplineColorInterpolator;
         ((volatile NiColorA*)&pkClone->m_kDiffuseColor)->r = 0.0f;
         ((volatile NiColorA*)&pkClone->m_kDiffuseColor)->g = 0.0f;
         ((volatile NiColorA*)&pkClone->m_kDiffuseColor)->b = 0.0f;

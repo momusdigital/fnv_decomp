@@ -12,7 +12,7 @@ struct FUN_00cd06c0_t
 {
     void __thiscall hkFreeListMemorySystem_setAllocator(int v);
 };
-extern int DAT_010cacd0;
+extern int vftable_hkThreadMemory;
 struct FUN_00cd06a0
 {
     void* m_p00;
@@ -1284,9 +1284,9 @@ struct FUN_00cd07b0_cls
 };
 
 #include <windows.h>
-extern int DAT_010cad74;
-extern int DAT_010cad0c;
-extern int DAT_010cacd0;
+extern int vftable_hkFreeListMemorySystem;
+extern int vftable_hkMemoryBlockServer;
+extern int vftable_hkThreadMemory;
 
 void __fastcall hkThreadMemory_releaseCachedMemory(void* self);
 void __fastcall UpdateFields_00cbf1a0(void* self);
@@ -1302,7 +1302,7 @@ struct Base_cd09d0
     int unk0c, unk10, unk14, unk18;
     ~Base_cd09d0()
     {
-        m_08 = &DAT_010cad0c;
+        m_08 = &vftable_hkMemoryBlockServer;
         SetVirtualTable_00cbbfe0(this);
     }
 };
@@ -1443,7 +1443,7 @@ struct Block_cd09d0
     int unk0124, unk0128, unk012c, unk0130, unk0134;
     ~Block_cd09d0()
     {
-        m_vptr = &DAT_010cacd0;
+        m_vptr = &vftable_hkThreadMemory;
         hkThreadMemory_releaseCachedMemory(this);
         UpdateFields_00cbf1a0(this);
     }
@@ -1462,7 +1462,7 @@ class Pool_cd09d0 : public Base_cd09d0
 // @fnv 0x00cd09d0
 Pool_cd09d0::~Pool_cd09d0()
 {
-    m_vptr = (void*)&DAT_010cad74;
+    m_vptr = (void*)&vftable_hkFreeListMemorySystem;
     *(volatile int*)&DAT_012686cc = 0;
     DeleteCriticalSection(&m_kLock);
 }

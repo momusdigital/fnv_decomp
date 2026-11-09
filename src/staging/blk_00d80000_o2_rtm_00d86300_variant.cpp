@@ -29,7 +29,7 @@ public:
     int unk00;
     int m_iJobId;
 };
-extern int DAT_010cc4f4;
+extern int vftable_hkpSimulation;
 void __cdecl Runtime_UpdateState_00d9f6d0(int* p);
 struct FUN_00d85300_Stub {
     void ComputeValue_00d85300(int*);
@@ -148,7 +148,7 @@ struct S_00d85af0_Cls : S_00d85af0_Base {
 struct CpuOpaque;
 extern CpuOpaque DAT_01269514;
 CpuOpaque* __cdecl Object_GetGlobalObjectAddress_00d9f6c0();
-extern int DAT_010cc4f4;
+extern int vftable_hkpSimulation;
 unsigned int __cdecl Object_ComputeValue_00d9f6e0();
 // Havok object clone: allocate a default instance and copy the payload (everything after the header).
 struct D85660Allocator {
@@ -211,7 +211,7 @@ public:
     int m_iData09C;
 };
 D85660Object* __cdecl copyConstraintAtoms_class_hkpHingeLimitsData(const D85660Object* pkSource);
-extern int DAT_010d3838;
+extern int vftable_hkpSpringDamperConstraintMotor;
 struct FUN_00d86260_Class {
     unsigned int m_vptr;
     unsigned short m_word04;
@@ -567,7 +567,7 @@ struct FUN_00d87a80_Stub {
     void* GetSelf_00d87a80(int);
 };
 void __cdecl Runtime_DoNothing_00d87a90();
-extern int DAT_010d3cc0;
+extern int vftable_hkTraceStream;
 D85660Object* __cdecl CreateD85660Object();
 class FUN_00d88050 {
 public:
@@ -881,7 +881,7 @@ struct FnvCpu_FUN_00d9f6b0_CpuInterface {
     virtual void Invoke(int value);
 };
 void __cdecl Runtime_ForwardCall_00d9f6b0(FnvCpu_FUN_00d9f6b0_CpuInterface* object);
-extern char DAT_0102e388;
+extern char vftable_hkBaseObject;
 struct FUN_00d9fb30_Stub {
     void SetVtableAndProcessState_00d9fb30();
 };
@@ -962,7 +962,7 @@ inline void NiStreamLoadBinaryD8616(NiBinaryStream& kStream, T& value)
 }
 
 void __cdecl bhkLimitedForceConstraintMotor_SaveBinary(NiStream& kStream, SerializedWordPair* pkData);
-extern int DAT_010d3838;
+extern int vftable_hkpSpringDamperConstraintMotor;
 struct FUN_00d86220_Class {
     unsigned int m_vptr;
     unsigned short m_word04;
@@ -2340,7 +2340,7 @@ union F128U
 static const F128U V4C = { { 196608.0f, 196608.0f, 196608.0f, 196608.0f } };
 float Object_ComputeBisectionMidpoint();
 extern "C" void _mm_store_ps(float* p, __m128 a);
-extern int DAT_010d37e4;
+extern int vftable_hkpPointToPlaneConstraintData;
 struct FUN_00d84bd0
 {
     unsigned int m_00;

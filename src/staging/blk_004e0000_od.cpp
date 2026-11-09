@@ -257,12 +257,12 @@ struct GlobalObject_0045cf30
 {
     unsigned char* Bool();
 };
-extern GlobalObject_0045cf30 g_011c7ac4;
+extern GlobalObject_0045cf30 bUseWaterDisplacements_Water;
 // @fnv 0x004e89e0
 // src: COMMUNITY 0x004e89e0
 unsigned char Water_bUseWaterDisplacements_Get()
 {
-    return *g_011c7ac4.Bool();
+    return *bUseWaterDisplacements_Water.Bool();
 }
 
 
@@ -282,24 +282,24 @@ NiNode* __thiscall FUN_004ea9e0_Class::BGSTerrainManager_GetTreeNode()
     return (NiNode*)((Flt*)&g_011d86bc)->operator unsigned int();
 }
 
-extern "C" void* DAT_010231f4;
+extern "C" void* vftable_NiTPointerMap_010231f4;
 struct FUN_004ed7a0_class
 {
     void* m_ptr;
     void __thiscall FUN_004ed960(void* a);
     void* __thiscall InitializeFields_004ed7a0(void* a);
 };
-// Calls FUN_004ed960(a), sets m_ptr to &DAT_010231f4, and returns this.
+// Calls FUN_004ed960(a), sets m_ptr to &vftable_NiTPointerMap_010231f4, and returns this.
 // @fnv 0x004ed7a0
 // src: GUESS 0x004ed7a0 (confidence: low)
 void* __thiscall FUN_004ed7a0_class::InitializeFields_004ed7a0(void* apArg)
 {
     FUN_004ed960(apArg);
-    m_ptr = &DAT_010231f4;
+    m_ptr = &vftable_NiTPointerMap_010231f4;
     return this;
 }
 
-extern int DAT_01023214;
+extern int vftable_NiTPointerMap_01023214;
 
 struct FUN_004ed7d0_class
 {
@@ -308,18 +308,18 @@ struct FUN_004ed7d0_class
     FUN_004ed7d0_class* UpdateState_004ed7d0(int a);
 };
 
-// Calls FUN_004eda60 with a, sets p to point at DAT_01023214, and returns this.
+// Calls FUN_004eda60 with a, sets p to point at vftable_NiTPointerMap_01023214, and returns this.
 // @fnv 0x004ed7d0
 // src: GUESS 0x004ed7d0 (confidence: low)
 FUN_004ed7d0_class* FUN_004ed7d0_class::UpdateState_004ed7d0(int a)
 {
     NiTMapBase_NiTPointerAllocator_unsigned_int_TESWaterForm_bool_NiTMapBase_NiTPointerAllocator_unsigned_int_TESWaterForm_bool(a);
-    p = &DAT_01023214;
+    p = &vftable_NiTPointerMap_01023214;
     return this;
 }
 
 extern "C" void __cdecl NiTMapBase_NiTPointerAllocator_unsigned_int_TESObjectREFR_WadingWaterData_NiTMapBase_NiTPointerAllocator_unsigned_int_TESObjectREFR_WadingWaterData(int);
-extern int DAT_01023234;
+extern int vftable_NiTPointerMap_01023234;
 
 struct FUN_004ed800Class
 {
@@ -328,13 +328,13 @@ struct FUN_004ed800Class
     FUN_004ed800Class* __thiscall InitializeFields_004ed800(int arg);
 };
 
-// Calls FUN_004edb60 with arg, sets p to point at DAT_01023234, and returns this.
+// Calls FUN_004edb60 with arg, sets p to point at vftable_NiTPointerMap_01023234, and returns this.
 // @fnv 0x004ed800
 // src: GUESS 0x004ed800 (confidence: low)
 FUN_004ed800Class* __thiscall FUN_004ed800Class::InitializeFields_004ed800(int aiValue)
 {
     this->NiTMapBase_NiTPointerAllocator_unsigned_int_TESObjectREFR_WadingWaterData_NiTMapBase_NiTPointerAllocator_unsigned_int_TESObjectREFR_WadingWaterData(aiValue);
-    p = &DAT_01023234;
+    p = &vftable_NiTPointerMap_01023234;
     return this;
 }
 
@@ -802,7 +802,7 @@ struct FUN_004f5600_shell
 {
     FUN_004f5600_shell();
 };
-extern int DAT_01023ec4;
+extern int vftable_TESRegionGrassObject;
 struct FUN_004f5590 : FUN_004f5600_shell
 {
     int m4;
@@ -812,7 +812,7 @@ struct FUN_004f5590 : FUN_004f5600_shell
 // @fnv 0x004f5590
 FUN_004f5590::FUN_004f5590(int aiFirst, int aiSecond)
 {
-    *reinterpret_cast<int*>(this) = reinterpret_cast<int>(&DAT_01023ec4);
+    *reinterpret_cast<int*>(this) = reinterpret_cast<int>(&vftable_TESRegionGrassObject);
     *reinterpret_cast<int*>(reinterpret_cast<char*>(this) + 4) = aiFirst;
     *reinterpret_cast<int*>(reinterpret_cast<char*>(this) + 8) = aiSecond;
 }
@@ -1143,7 +1143,7 @@ BGSConstructibleObject::BGSConstructibleObject()
 }
 
 class ActorCombatGroup;
-extern int DAT_010232b4;
+extern int vftable_NiTArray_010232b4;
 struct FUN_004edf70
 {
     int* vtbl;
@@ -1158,7 +1158,7 @@ struct FUN_004edf70
 // @fnv 0x004edf70
 FUN_004edf70::FUN_004edf70(unsigned short ausSize, unsigned short y)
 {
-    vtbl = &DAT_010232b4;
+    vtbl = &vftable_NiTArray_010232b4;
     a = ausSize;
     d = y;
     b = 0;
@@ -1170,7 +1170,7 @@ FUN_004edf70::FUN_004edf70(unsigned short ausSize, unsigned short y)
 }
 
 namespace fnv_004edfe0 {
-extern int DAT_010232c4;
+extern int vftable_NiTArray_010232c4;
 struct FUN_004edfe0
 {
     int* p;
@@ -1184,7 +1184,7 @@ struct FUN_004edfe0
 // @fnv 0x004edfe0
 FUN_004edfe0::FUN_004edfe0(unsigned short ausCount, unsigned short b)
 {
-    p = &DAT_010232c4;
+    p = &vftable_NiTArray_010232c4;
     count = ausCount;
     m0e = b;
     m0a = 0;
@@ -3899,7 +3899,7 @@ struct Map6c
     bool NiTMapBase_NiTPointerAllocator_unsigned_int_TESObjectREFR_bool_GetAt(Obj20* obj, bool& oflag);
     void NiTMapBase_NiTPointerAllocator_unsigned_int_TESObjectREFR_bool_SetAt(Obj20* obj, bool value);
 };
-extern GlobalObject_0045cf30 g_011c7b98;
+extern GlobalObject_0045cf30 bUsePerWorldSpaceWaterNoise_Water;
 
 
 struct TESObj
@@ -3972,7 +3972,7 @@ void Self::TESWaterSystem_UpdateWaterNoise(ParamObj* param)
                         {
                             PropObj* propTemp = item->FUN_00a59d30(3);
                             PropObj* pprop = propTemp;
-                            if (*g_011c7b98.Bool())
+                            if (*bUsePerWorldSpaceWaterNoise_Water.Bool())
                             {
                                 if (pprop->m_134.Modelloader_GetReferencedThis() == 0)
                                 {

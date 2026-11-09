@@ -42,7 +42,7 @@ void __cdecl NiSingleShaderMaterialLibrary__SDMInit()
     }
 }
 
-extern int DAT_0109f68c;
+extern int vftable_NiCullingProperty;
 struct CloningProcess
 {
     void* m_pCloneMap;
@@ -57,7 +57,7 @@ NiCullingProperty* NiCullingProperty::CreateClone_00a8f530(CloningProcess& kClon
     {
         p->NiProperty::NiProperty();
         p->m_usFlags &= 0xfffe;
-        *(void**)p = &DAT_0109f68c;
+        *(void**)p = &vftable_NiCullingProperty;
     }
     else
         p = 0;
@@ -82,7 +82,7 @@ void __thiscall NiCullingProperty::LoadBinary_00a8f650(NiStream& stream)
 
 extern void* __cdecl Object_DispatchCommandFour(unsigned int);
 extern "C" void __fastcall FUN_00a5c200(void*);
-extern int DAT_0109f68c;
+extern int vftable_NiCullingProperty;
 extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(volatile long*);
 extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(volatile long*);
 
@@ -124,7 +124,7 @@ void __cdecl CreateCullingProperty()
     {
         FUN_00a5c200(allocated);
         allocated->m_usFlags &= 0xfffe;
-        *(void**)allocated = &DAT_0109f68c;
+        *(void**)allocated = &vftable_NiCullingProperty;
         fresh = allocated;
     }
     else
@@ -255,12 +255,12 @@ void __fastcall NiCullingProperty_GetViewerStrings(NiCullingProperty* property, 
     pkStrings->Add(NiGetViewerString("bCulled", bCulled));
 }
 
-extern int DAT_0109f68c;
+extern int vftable_NiCullingProperty;
 inline void* __cdecl operator new(unsigned int, void* p)
 {
     return p;
 }
-// Allocates a NiProperty, clears the low bit of the 0x18 field, sets the vtable to DAT_0109f68c, and returns it.
+// Allocates a NiProperty, clears the low bit of the 0x18 field, sets the vtable to vftable_NiCullingProperty, and returns it.
 // @fnv 0x00a8f580
 NiProperty* __cdecl CreateProperty()
 {
@@ -269,7 +269,7 @@ NiProperty* __cdecl CreateProperty()
     {
         ::new (pProperty) NiProperty();
         pProperty->m_usFlags &= 0xFFFE;
-        *(void**)pProperty = (void*)&DAT_0109f68c;
+        *(void**)pProperty = (void*)&vftable_NiCullingProperty;
         return pProperty;
     }
     return 0;

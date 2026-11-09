@@ -73,7 +73,7 @@ const char* Tile::GetName_00700300()
     return StringProvider.String();
 }
 
-extern "C" void* __cdecl DAT_0106e8d4;
+extern "C" void* __cdecl vftable_NiTPrimitiveArray_0106e8d4;
 
 struct FUN_00700560
 {
@@ -88,7 +88,7 @@ struct FUN_00700480 : FUN_00700560
 // @fnv 0x00700480
 FUN_00700480::FUN_00700480(void* apArg, void* apArg2) : FUN_00700560(apArg, apArg2)
 {
-    *reinterpret_cast<void**>(this) = &DAT_0106e8d4;
+    *reinterpret_cast<void**>(this) = &vftable_NiTPrimitiveArray_0106e8d4;
 }
 
 struct FUN_007004e0_class
@@ -189,7 +189,7 @@ void __cdecl Interface_SetRootMapSpace(int aiValue)
     MapMenu_SetRootMapSpace(aiValue);
 }
 
-extern void* DAT_0106edec;
+extern void* vftable_BSSimpleArray_0106edec;
 struct AX
 {
     void BSSimpleArray_float_1024_InitialSetup(unsigned int, unsigned int);
@@ -199,13 +199,13 @@ struct AX
 // src: EXE 0x00709e80
 AX* __thiscall AX::BSSimpleArray_Tile_Value_8_BSSimpleArray(unsigned int auiFirst, unsigned int auiSecond)
 {
-    *reinterpret_cast<void**>(this) = &DAT_0106edec;
+    *reinterpret_cast<void**>(this) = &vftable_BSSimpleArray_0106edec;
     BSSimpleArray_float_1024_InitialSetup(auiFirst, auiSecond);
     return this;
 }
 
 namespace fnv_00709eb0 {
-extern int DAT_0106edec;
+extern int vftable_BSSimpleArray_0106edec;
 struct GlobalObject_00869f00
 {
     void Clear(bool b);
@@ -218,7 +218,7 @@ struct FUN_00709eb0_Class
 // @fnv 0x00709eb0
 void FUN_00709eb0_Class::InitAndClear()
 {
-    m = &DAT_0106edec;
+    m = &vftable_BSSimpleArray_0106edec;
     ((GlobalObject_00869f00*)this)->Clear(true);
 }
 }  // namespace fnv_00709eb0
@@ -246,7 +246,7 @@ void FUN_00717e30_Class::InterfaceManager_DumpMenuPackingInfo()
     ((FUN_00700350_Class*)((TgtOps*)((char*)this + 0x178))->GetPosition())->BGSMenuPacker_DumpInfo();
 }
 
-extern int DAT_0106f448;
+extern int vftable_SystemColorManager__SoftSystemColor;
 
 struct FUN_00719390_class
 {
@@ -258,7 +258,7 @@ struct FUN_00719390_class
 // src: GUESS 0x00719390 (confidence: low)
 void __thiscall FUN_00719390_class::SetVtableAndProcessState_00719390()
 {
-    *reinterpret_cast<int**>(this) = &DAT_0106f448;
+    *reinterpret_cast<int**>(this) = &vftable_SystemColorManager__SoftSystemColor;
     ConstructAndInit();
 }
 
@@ -273,7 +273,7 @@ bool FUN_00719b00_class::PlayerCharacter_GetIsDebounceWASD()
     return (reinterpret_cast<signed char*>(reinterpret_cast<char*>(this) + 0x66d)[0] & 4) != 0;
 }
 
-extern unsigned int DAT_0106f798;
+extern unsigned int vftable_BSSimpleArray_0106f798;
 struct GlobalObject_00869f00
 {
     void Clear(bool);
@@ -286,7 +286,7 @@ struct FUN_00719be0
 // @fnv 0x00719be0
 void FUN_00719be0::Initialize()
 {
-    p = &DAT_0106f798;
+    p = &vftable_BSSimpleArray_0106f798;
     ((GlobalObject_00869f00*)this)->Clear(true);
 }
 
@@ -395,18 +395,18 @@ char __cdecl HasThirdFieldNonZero(void* a)
     return ((int*)a)[2] != 0 ? 1 : 0;
 }
 
-extern int DAT_01070028;
+extern int vftable_StatsMenu__StatusEffectList;
 struct FUN_0071f5d0
 {
     int m;
     SL s;
     FUN_0071f5d0();
 };
-// Constructor that stores the address of DAT_01070028 into m and default-constructs s.
+// Constructor that stores the address of vftable_StatsMenu__StatusEffectList into m and default-constructs s.
 // @fnv 0x0071f5d0
 FUN_0071f5d0::FUN_0071f5d0() : s()
 {
-    m = (int)&DAT_01070028;
+    m = (int)&vftable_StatsMenu__StatusEffectList;
 }
 
 struct FUN_0071fb20_Class
@@ -745,7 +745,7 @@ void* __thiscall FUN_00719200_Cls::FUN_00719200(unsigned int flags)
     return this;
 }
 
-extern "C" void* __cdecl DAT_0106f430;
+extern "C" void* __cdecl vftable_SystemColorManager__HardSystemColor;
 struct FUN_00719250_class
 {
     void* vtbl;
@@ -755,12 +755,12 @@ struct FUN_00719250_class
     void __thiscall FUN_00719160(int, int);
     FUN_00719250_class* __thiscall Construct(int, int, int);
 };
-// Calls FUN_00719160 with p2 and p4, sets vtbl to DAT_0106f430 and c to p3, then returns this.
+// Calls FUN_00719160 with p2 and p4, sets vtbl to vftable_SystemColorManager__HardSystemColor and c to p3, then returns this.
 // @fnv 0x00719250
 FUN_00719250_class* __thiscall FUN_00719250_class::Construct(int aiArg1, int aiValue, int aiArg2)
 {
     FUN_00719160(aiArg1, aiArg2);
-    vtbl = &DAT_0106f430;
+    vtbl = &vftable_SystemColorManager__HardSystemColor;
     c = aiValue;
     return this;
 }
@@ -781,7 +781,7 @@ FUN_00719290_class* __thiscall FUN_00719290_class::FUN_00719290(unsigned int fla
     return this;
 }
 
-extern int DAT_0106f448;
+extern int vftable_SystemColorManager__SoftSystemColor;
 struct FUN_007192e0_Class
 {
     void* vtbl;
@@ -793,12 +793,12 @@ struct FUN_007192e0_Class
     void __thiscall FUN_00719160(int, int);
     FUN_007192e0_Class(void* a, void* b, void* c);
 };
-// Calls FUN_00719160 with a and c, sets vtbl to &DAT_0106f448 and stores b in m_0c.
+// Calls FUN_00719160 with a and c, sets vtbl to &vftable_SystemColorManager__SoftSystemColor and stores b in m_0c.
 // @fnv 0x007192e0
 FUN_007192e0_Class::FUN_007192e0_Class(void* a, void* b, void* c)
 {
     FUN_00719160((int)a, (int)c);
-    vtbl = &DAT_0106f448;
+    vtbl = &vftable_SystemColorManager__SoftSystemColor;
     m_0c = b;
 }
 
@@ -929,17 +929,17 @@ void* __thiscall S_0071e200::FUN_0071e200(unsigned int flags)
     return this;
 }
 
-extern int DAT_0106ff84;
+extern int vftable_TutorialMenu;
 extern int DAT_011db088;
 struct S
 {
     void __thiscall DestroyMenu();
 };
-// Resets the vtable pointer to DAT_0106ff84, clears DAT_011db088, then calls the Menu destructor on this.
+// Resets the vtable pointer to vftable_TutorialMenu, clears DAT_011db088, then calls the Menu destructor on this.
 // @fnv 0x0071f310
 void __thiscall S::DestroyMenu()
 {
-    *(int*)this = (int)&DAT_0106ff84;
+    *(int*)this = (int)&vftable_TutorialMenu;
     DAT_011db088 = 0;
     ((Menu*)this)->Menu::~Menu();
 }
@@ -1084,12 +1084,12 @@ void PerfMgr::ClearThreePerformanceEntries()
 
 class ActorCombatGroup;
 
-extern int DAT_0106e8dc;
+extern int vftable_NiTArray_0106e8dc;
 
 // @fnv 0x00700560
 FUN_00700560::FUN_00700560(void* ausSize, void* b)
 {
-    *(void**)this = &DAT_0106e8dc;
+    *(void**)this = &vftable_NiTArray_0106e8dc;
     *(unsigned short*)((char*)this + 0x08) = (unsigned short)(unsigned int)ausSize;
     *(unsigned short*)((char*)this + 0x0e) = (unsigned short)(unsigned int)b;
     *(unsigned short*)((char*)this + 0x0a) = 0;
@@ -1134,7 +1134,7 @@ struct FUN_007192c0_class
 // src: GUESS 0x007192c0 (confidence: low)
 void FUN_007192c0_class::SetVirtualTableAndProcessState_007192c0()
 {
-    vtbl = &DAT_0106f430;
+    vtbl = &vftable_SystemColorManager__HardSystemColor;
     ((FUN_00719390_class*)this)->ConstructAndInit();
 }
 
@@ -1419,7 +1419,7 @@ FUN_00719160_cls::FUN_00719160_cls(const char* a1, int a2)
     ReleaseWith(m_04.Get(), a2);
 }
 
-extern char vftable_FUN_00719390;
+extern char vftable_SystemColorManager__SystemColor;
 
 struct FUN_004037d0_Class
 {
@@ -1429,7 +1429,7 @@ struct FUN_004037d0_Class
 // @fnv 0x00719230
 void FUN_00719390_class::ConstructAndInit()
 {
-    reinterpret_cast<void**>(this)[0] = reinterpret_cast<void*>(&vftable_FUN_00719390);
+    reinterpret_cast<void**>(this)[0] = reinterpret_cast<void*>(&vftable_SystemColorManager__SystemColor);
     reinterpret_cast<FUN_004037d0_Class*>(reinterpret_cast<char*>(this) + 4)->FUN_004037d0();
 }
 
@@ -1721,7 +1721,7 @@ void __cdecl NiTMallocInterface_unsigned_int_Deallocate(void*);
 // src: GUESS 0x00700500 (confidence: low)
 void FUN_007004e0_class::UpdateFields_00700500()
 {
-    ((StandIn_700500*)this)->m_ppVirtualMethodTable = &DAT_0106e8dc;
+    ((StandIn_700500*)this)->m_ppVirtualMethodTable = &vftable_NiTArray_0106e8dc;
     NiTMallocInterface_unsigned_int_Deallocate(((StandIn_700500*)this)->m_data);
 }
 
@@ -1804,8 +1804,8 @@ struct ConsoleSetting
 {
     int* Setting_Int();
 };
-extern ConsoleSetting g_011d8d38;
-extern ConsoleSetting g_011d8cf0;
+extern ConsoleSetting iConsoleFont_Menu;
+extern ConsoleSetting iConsoleHistorySize_Menu;
 struct ConsoleFont
 {
     int Font_LineBreakText(BSStringT<char>*, int*, int*, int, int);
@@ -1850,7 +1850,7 @@ void ConsoleText::Console_Print(const char* format, char* arguments)
     WriteLine(a.String());
     int s = 1200;
     int p = 0;
-    int h = FUN_005bd5b0()->FUN_005bd5c0(*g_011d8d38.Setting_Int() - 1)->Font_LineBreakText(&a, &s, &p, 0, 0);
+    int h = FUN_005bd5b0()->FUN_005bd5c0(*iConsoleFont_Menu.Setting_Int() - 1)->Font_LineBreakText(&a, &s, &p, 0, 0);
     if (h == 0)
         return;
     char i[2048];
@@ -1868,7 +1868,7 @@ void ConsoleText::Console_Print(const char* format, char* arguments)
         lines.NiTPointerListBase_DFALL_NiTListItem_BSStringT_char_BSStringT_char_AddTail(l);
         if (j)
             currentLine = lines.FUN_0044ddc0();
-        while (lines.FUN_0044ddc0() > *g_011d8cf0.Setting_Int())
+        while (lines.FUN_0044ddc0() > *iConsoleHistorySize_Menu.Setting_Int())
         {
             lines.PopFront();
             currentLine--;

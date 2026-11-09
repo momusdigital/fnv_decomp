@@ -20,7 +20,7 @@ void FUN_00dd9110_class::SetReferencedObject(hkReferencedObject* apObject)
     m_cByteAtOffset2 = apObject;
 }
 
-int DAT_010d7c80;
+int vftable_hkIArchive;
 
 struct FUN_00dd9130_class
 {
@@ -32,7 +32,7 @@ struct FUN_00dd9130_class
 FUN_00dd9130_class* FUN_00dd9130_class::Init(hkReferencedObject* apObject, bool abFlag)
 {
     *(unsigned short*)((char*)this + 6) = 1;
-    *(int**)this = &DAT_010d7c80;
+    *(int**)this = &vftable_hkIArchive;
     *(hkReferencedObject**)((char*)this + 8) = apObject;
     *(bool*)((char*)this + 12) = abFlag;
     apObject->addReference();

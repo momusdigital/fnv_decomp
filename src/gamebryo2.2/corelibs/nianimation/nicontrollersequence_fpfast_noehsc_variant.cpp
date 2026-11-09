@@ -28,7 +28,7 @@ struct MM_00a34450
     void __thiscall _DeallocateAlias(void*);
 };
 extern MM_00a34450 g_memoryManager;
-extern int DAT_01096620;
+extern int vftable_NiTArray_01096620;
 struct FUN_00a34450_shell
 {
     void* __thiscall FUN_00a34450(unsigned int);
@@ -99,7 +99,7 @@ struct FUN_00a316a0_shell
     void* __thiscall FUN_00a316a0();
 };
 void* __cdecl NiControllerSequence_CreateObject();
-extern char DAT_01096584;
+extern char vftable_NiControllerSequence;
 extern void* _EmptyFS;
 extern int(__stdcall* DAT_00fdf1c4)(void*);
 struct FUN_00a31500_shell

@@ -26,8 +26,8 @@ NiPointer<NiAVObject>& NiPointer<NiAVObject>::operator=(NiAVObject* object)
 }
 #pragma optimize("", on)
 
-extern int DAT_0109f584;
-extern int DAT_0101dce4;
+extern int vftable_NiShader;
+extern int vftable_NiRefObject;
 extern char* DAT_0109b220;
 extern volatile long DAT_011f4400;
 __declspec(dllimport) long __stdcall InterlockedDecrement(volatile long*);
@@ -37,11 +37,11 @@ void __cdecl FUN_00aa1460(void*, unsigned int);
 // @fnv 0x00a8f4d0
 NiShader* __fastcall DestroyShader(NiShader* shader, void*, unsigned char flags)
 {
-    *reinterpret_cast<int* volatile*>(shader) = &DAT_0109f584;
+    *reinterpret_cast<int* volatile*>(shader) = &vftable_NiShader;
     char* stringData = static_cast<volatile NiShader*>(shader)->m_kName.m_kHandle;
     if (stringData != DAT_0109b220)
         InterlockedDecrement(reinterpret_cast<volatile long*>(stringData - 8));
-    *reinterpret_cast<int* volatile*>(shader) = &DAT_0101dce4;
+    *reinterpret_cast<int* volatile*>(shader) = &vftable_NiRefObject;
     InterlockedDecrement(&DAT_011f4400);
     if (flags & 1)
         FUN_00aa1460(shader, sizeof(NiShader));

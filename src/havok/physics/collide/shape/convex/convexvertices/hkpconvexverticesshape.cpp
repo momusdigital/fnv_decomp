@@ -797,7 +797,7 @@ void MatchShape::hkpConvexVerticesShape_getSupportingVertexImpl(const MatchVecto
     supportingVertexOut.setInt24W(vertexId);
 }
 
-extern void* DAT_010d0fc4;
+extern void* vftable_hkpConvexVerticesShape;
 extern "C" void _ReadWriteBarrier();
 
 struct InputValues {
@@ -862,7 +862,7 @@ struct RefPart {
 struct ShapePart : RefPart {
     int userData;
     int type;
-    __forceinline ShapePart(int shapeType) { userData = 0; type = shapeType; m_ppVirtualMethodTable = &DAT_010d0fc4; }
+    __forceinline ShapePart(int shapeType) { userData = 0; type = shapeType; m_ppVirtualMethodTable = &vftable_hkpConvexVerticesShape; }
 };
 struct SpherePart : ShapePart {
     __forceinline SpherePart(int shapeType) : ShapePart(shapeType) {}

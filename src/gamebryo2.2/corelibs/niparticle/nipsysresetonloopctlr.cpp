@@ -98,7 +98,7 @@ void __stdcall NiPSysResetOnLoopCtlr_GetViewerStrings(StrArr* pkStrings)
 #include "../../../../include/NiMemObject.h"
 void __fastcall FUN_00a6d220(void* object);
 extern float DAT_01015f5c;
-extern int DAT_010be8e4;
+extern int vftable_NiPSysResetOnLoopCtlr;
 
 struct CloningProcess
 {
@@ -136,7 +136,7 @@ FUN_00c28430_Object* FUN_00c28430_class::CreateCloneableObject(void* volatile ar
     {
         FUN_00a6d220(object);
         object->value34 = DAT_01015f5c;
-        object->vtable = &DAT_010be8e4;
+        object->vtable = &vftable_NiPSysResetOnLoopCtlr;
         FUN_00a6cfe0(object, argument);
     }
     else

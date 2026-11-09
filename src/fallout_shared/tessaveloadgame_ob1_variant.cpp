@@ -44,7 +44,7 @@ struct HelperL
     }
     static void operator delete(void* pvMem);
 };
-extern int DAT_010c1604;
+extern int vftable_IOManager;
 struct FUN_00c3da50 : BaseListL
 {
     void* m_pFirstData;
@@ -55,7 +55,7 @@ struct FUN_00c3da50 : BaseListL
 // @fnv 0x00c3da50
 FUN_00c3da50::FUN_00c3da50() : BaseListL(10, 1, 120)
 {
-    m_vtbl = &DAT_010c1604;
+    m_vtbl = &vftable_IOManager;
     m_70 = 0;
     m_78 = 0;
     m_6c = 0;

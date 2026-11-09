@@ -26,7 +26,7 @@ public:
     unsigned char unk10[0x20 - sizeof(MoviePlayer)];
     unsigned char field_20;
 
-    void* __thiscall FUN_00867150(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
     void __thiscall UpdateFields_00867180();
     void __thiscall PauseMusic();
     void __thiscall UnPauseMusic();

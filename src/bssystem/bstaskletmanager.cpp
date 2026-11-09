@@ -6,14 +6,14 @@
 #include "../../include/MemoryManager.h"
 
 extern "C" void* __cdecl _DeallocateAlias(void*);
-extern int DAT_010a47b8;
+extern int vftable_BSTaskletManagerCallback;
 extern MemoryManager g_memoryManager;
 
-// Sets the vtable to DAT_010a47b8 and, when flags has bit 0 set, deallocates this through g_memoryManager, returning this.
+// Sets the vtable to vftable_BSTaskletManagerCallback and, when flags has bit 0 set, deallocates this through g_memoryManager, returning this.
 // @fnv 0x00b00e90
 void* __thiscall BSTaskletManagerCallback::Destroy(unsigned int flags)
 {
-    *reinterpret_cast<int**>(this) = &DAT_010a47b8;
+    *reinterpret_cast<int**>(this) = &vftable_BSTaskletManagerCallback;
     if (flags & 1)
     {
         g_memoryManager._DeallocateAlias(this);

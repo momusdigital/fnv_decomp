@@ -238,7 +238,7 @@ struct FUN_00458f20_shell
     const void* const* BSTempNode_GetRTTI() const;
 };
 extern "C" void __fastcall UpdateFields_00c5faa0(void*);
-extern int DAT_01017d24;
+extern int vftable_BSTempNode;
 struct FUN_00458f70_shell
 {
     void __thiscall SetVtableAndProcessState_00458f70();
@@ -563,7 +563,7 @@ struct DH
     void DeleteObject(TESObjectCELL*);
 };
 extern DH* g_dataHandler;
-extern GlobalObject_0045cfe0 g_011c63cc;
+extern GlobalObject_0045cfe0 uGridsToLoad_General;
 struct FUN_00454e70_shell
 {
     char _pad[0x3c];
@@ -636,7 +636,7 @@ struct GlobalObject_0045cf30
 {
     unsigned char* Bool();
 };
-extern GlobalObject_0045cf30 g_011c7adc;
+extern GlobalObject_0045cf30 bUseWater_Water;
 struct S451cd0
 {
     unsigned char TESClimate_GetVolatilityIndex();
@@ -709,8 +709,8 @@ void __cdecl BSWindModifier_SetWind(float, float);
 void __cdecl bhkWindListener_SetWind(float, float);
 void __fastcall ProcessLists_PostProcessProjectiles(char*);
 extern float DAT_011c3c08;
-extern GlobalObject_0045cfe0 g_011c3ea4;
-extern Setting g_011c5724;
+extern GlobalObject_0045cfe0 iNumHWThreads_General;
+extern Setting fAnimationMult_General;
 extern int DAT_011e0e80;
 extern Twin_0084d030 g_timeGlobal;
 struct Zt5TES
@@ -1215,7 +1215,7 @@ struct FUN_00459920_shell
     void TES_QueueReferencesForAttachedCells();
 };
 unsigned int __fastcall DetailedActorPathHandler_GetCurrentNodeIndex(char* apName);
-extern GlobalObject_0045cf30 g_011c7b98;
+extern GlobalObject_0045cf30 bUsePerWorldSpaceWaterNoise_Water;
 struct NiSourceTexture;
 struct WaterFormNode
 {
@@ -2891,7 +2891,7 @@ struct WS458200_TES
     void CreateTextureImage(const char* apPath, NiPointer<NiSourceTexture>& arTexture, bool abA, bool abB);
 };
 extern WS458200_TES* g_pWS458200TES;
-extern GlobalObject_0045cf30 g_011c3d40;
+extern GlobalObject_0045cf30 bPreemptivelyUnloadCells_General;
 void __cdecl FUN_0058eeb0(WS458200_Quest*);
 void __cdecl FUN_007043c0();
 void __cdecl Interface_SetRootMapSpace(WS458200_World*);

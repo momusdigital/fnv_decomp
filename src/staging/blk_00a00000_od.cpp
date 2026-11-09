@@ -51,7 +51,7 @@ void __thiscall FUN_00a1e720_class::BSMapBase_unsigned_int_ScrapHeap_SetValue(in
 }
 
 extern void* NiFreeAlias(void*);
-extern int DAT_01095524;
+extern int vftable_NiTArray_01095524;
 
 struct FUN_00a1e1a0_class
 {
@@ -60,12 +60,12 @@ struct FUN_00a1e1a0_class
     void __thiscall ReleaseStorage_00a1e1a0();
 };
 
-// Sets the vtable pointer to DAT_01095524 and frees the m_field pointer via NiFreeAlias.
+// Sets the vtable pointer to vftable_NiTArray_01095524 and frees the m_field pointer via NiFreeAlias.
 // @fnv 0x00a1e1a0
 // src: GUESS 0x00a1e1a0 (confidence: medium)
 void __thiscall FUN_00a1e1a0_class::ReleaseStorage_00a1e1a0()
 {
-    m_vtbl = (int)&DAT_01095524;
+    m_vtbl = (int)&vftable_NiTArray_01095524;
     void* p = (void*)m_field;
     NiFreeAlias(p);
 }
@@ -119,7 +119,7 @@ struct FUN_00a1e400_class
 FUN_00a1e400_class* __thiscall FUN_00a1e400_class::FUN_00a1e400(int flags)
 {
     void* old;
-    m_vtbl = (int)&DAT_01095524;
+    m_vtbl = (int)&vftable_NiTArray_01095524;
     old = (void*)m_field;
     NiFree(old);
     if (flags & 1)
@@ -183,7 +183,7 @@ StrA& StrA::std_string_append(const char* apChars, unsigned int auiCount)
 
 void* __cdecl _NiMalloc(unsigned int);
 void* __cdecl _fnv_zlib_memset(void* dst, int c, unsigned int n);
-extern int DAT_01094e1c;
+extern int vftable_NiTMapBase_01094e1c;
 struct FUN_00a0d5f0_class
 {
     int* m_vtbl;
@@ -200,7 +200,7 @@ FUN_00a0d5f0_class* __thiscall FUN_00a0d5f0_class::NiTMapBase_NiTPointerAllocato
     unsigned int iAllocationSize;
     unsigned int memsetSize;
     void* data2;
-    m_vtbl = (int*)&DAT_01094e1c;
+    m_vtbl = (int*)&vftable_NiTMapBase_01094e1c;
     m_iElementCount = size;
     m_auiShapeKeys = 0;
     iAllocationSize = m_iElementCount << 2;
@@ -213,7 +213,7 @@ FUN_00a0d5f0_class* __thiscall FUN_00a0d5f0_class::NiTMapBase_NiTPointerAllocato
 
 void* _NiMalloc(unsigned int);
 void* _fnv_zlib_memset(void* dest, int val, unsigned int size);
-extern int DAT_01094e9c;
+extern int vftable_NiTMapBase_01094e9c;
 struct FUN_00a0d8e0
 {
     int* m_vtbl;
@@ -226,7 +226,7 @@ struct FUN_00a0d8e0
 // @fnv 0x00a0d8e0
 FUN_00a0d8e0::FUN_00a0d8e0(int count)
 {
-    m_vtbl = (int*)&DAT_01094e9c;
+    m_vtbl = (int*)&vftable_NiTMapBase_01094e9c;
     m_uiItemCount = count;
     m_auiShapeKeys = 0;
     int sz3 = m_uiItemCount << 2;
@@ -279,7 +279,7 @@ struct FUN_00a1e450_Class
 // @fnv 0x00a1e450
 FUN_00a1e450_Class::FUN_00a1e450_Class(unsigned short size, unsigned short x)
 {
-    m_vtbl = (int*)&DAT_01095524;
+    m_vtbl = (int*)&vftable_NiTArray_01095524;
     m_iElementCount = size;
     m_uiY = x;
     m_auiShapeKeys = 0;
@@ -295,7 +295,7 @@ FUN_00a1e450_Class::FUN_00a1e450_Class(unsigned short size, unsigned short x)
     }
 }
 
-extern int DAT_010955e4;
+extern int vftable_NiTMapBase_010955e4;
 void* __cdecl _NiMalloc(unsigned int);
 void* __cdecl _fnv_zlib_memset(void*, int, unsigned int);
 struct FUN_00a1eaa0
@@ -313,7 +313,7 @@ FUN_00a1eaa0::FUN_00a1eaa0(int aiCount)
     int size;
     int size2;
     int* p3;
-    vtbl = &DAT_010955e4;
+    vtbl = &vftable_NiTMapBase_010955e4;
     count = aiCount;
     pad = 0;
     size = count << 2;
@@ -323,7 +323,7 @@ FUN_00a1eaa0::FUN_00a1eaa0(int aiCount)
     _fnv_zlib_memset(p3, 0, size2);
 }
 
-extern int DAT_01095664;
+extern int vftable_NiTMapBase_01095664;
 void* __cdecl NiMalloc(unsigned int size);
 void* __cdecl fnv_zlib_memset(void* dest, int c, unsigned int size);
 struct FUN_00a1ede0
@@ -338,7 +338,7 @@ struct FUN_00a1ede0
 // @fnv 0x00a1ede0
 FUN_00a1ede0::FUN_00a1ede0(int count)
 {
-    m_vtbl = &DAT_01095664;
+    m_vtbl = &vftable_NiTMapBase_01095664;
     m_uiItemCount = count;
     m_auiShapeKeys = 0;
     int sz2 = m_uiItemCount << 2;
@@ -349,7 +349,7 @@ FUN_00a1ede0::FUN_00a1ede0(int count)
 }
 
 extern void* NiMalloc(unsigned int);
-extern int DAT_0109568c;
+extern int vftable_NiTArray_0109568c;
 
 struct FUN_00a1eeb0_class
 {
@@ -366,7 +366,7 @@ struct FUN_00a1eeb0_class
 // @fnv 0x00a1eeb0
 FUN_00a1eeb0_class::FUN_00a1eeb0_class(unsigned short ausCount, unsigned short s)
 {
-    vtbl = (void*)&DAT_0109568c;
+    vtbl = (void*)&vftable_NiTArray_0109568c;
     count = ausCount;
     b = s;
     a = 0;
@@ -383,7 +383,7 @@ FUN_00a1eeb0_class::FUN_00a1eeb0_class(unsigned short ausCount, unsigned short s
     }
 }
 
-extern int DAT_01094e5c;
+extern int vftable_NiTMapBase_01094e5c;
 struct FUN_00a0d710_class
 {
     int* m_vtbl;
@@ -399,7 +399,7 @@ FUN_00a0d710_class* FUN_00a0d710_class::NiTMapBase_NiTPointerAllocator_unsigned_
     unsigned int a;
     void* b;
     unsigned int c;
-    m_vtbl = &DAT_01094e5c;
+    m_vtbl = &vftable_NiTMapBase_01094e5c;
     m_iElementCount = size;
     m_auiShapeKeys = 0;
     a = m_iElementCount << 2;
@@ -421,7 +421,7 @@ struct FUN_00a1ee60_class
 // @fnv 0x00a1ee60
 FUN_00a1ee60_class* FUN_00a1ee60_class::FUN_00a1ee60(int freeMem)
 {
-    m_vtbl = &DAT_0109568c;
+    m_vtbl = &vftable_NiTArray_0109568c;
     void* data = m_data;
     _NiFree(data);
     if (freeMem & 1)
@@ -448,7 +448,7 @@ void FUN_00a0d960_class::ReleaseStorage_00a0d960()
 {
     int unused;
     int padding;
-    m_vtbl = &DAT_01094e9c;
+    m_vtbl = &vftable_NiTMapBase_01094e9c;
     ClearAll();
     _NiFree(m_data);
 }
@@ -458,15 +458,15 @@ struct _BSAHelper
     void Clear(bool);
 };
 
-extern unsigned int DAT_0109504c;
+extern unsigned int vftable_BSSimpleArray_0109504c;
 
-// Sets the object's vtable pointer to DAT_0109504c, then calls Clear(true) on the object.
+// Sets the object's vtable pointer to vftable_BSSimpleArray_0109504c, then calls Clear(true) on the object.
 // @fnv 0x00a11d00
 void FUN_00a11d80_Class::InitAndClear()
 {
     int unused;
 
-    *reinterpret_cast<int**>(this) = reinterpret_cast<int*>(&DAT_0109504c);
+    *reinterpret_cast<int**>(this) = reinterpret_cast<int*>(&vftable_BSSimpleArray_0109504c);
     reinterpret_cast<_BSAHelper*>(this)->Clear(true);
 }
 
@@ -654,7 +654,7 @@ struct FUN_00a1e880_class : S00a0d390
 // src: GUESS 0x00a1e880 (confidence: low)
 void FUN_00a1e880_class::SetVirtualTable_00a1e880()
 {
-    m_vtbl = (int*)&DAT_010955e4;
+    m_vtbl = (int*)&vftable_NiTMapBase_010955e4;
     void* pAssertA;
     void* pAssertB;  // only used by debug asserts in the original build
     ClearAll();
@@ -690,7 +690,7 @@ void* __thiscall FUN_00a1ea70_Class::FUN_00a1ea70(unsigned int auiFlags)
 }
 
 namespace fnv_00a1ebf0 {
-extern int DAT_01095664;
+extern int vftable_NiTMapBase_01095664;
 
 
 
@@ -708,7 +708,7 @@ void* __thiscall FUN_00a1ebf0_Class::FUN_00a1ebf0(int flags)
 {
     int _temp1;
     int _temp2;
-    m_vtbl = &DAT_01095664;
+    m_vtbl = &vftable_NiTMapBase_01095664;
     ClearAll();
     _NiFree_00aa10f0(m_data);
     if ((flags & 1) != 0)
@@ -791,12 +791,12 @@ void FUN_00a0d790_class::UpdateState_00a0d790()
 {
     int unusedA;
     int unusedB;
-    m_vtbl = &DAT_01094e5c;
+    m_vtbl = &vftable_NiTMapBase_01094e5c;
     ClearAll();
     NiFree(m_data);
 }
 
-extern int DAT_01094e9c;
+extern int vftable_NiTMapBase_01094e9c;
 extern void* __cdecl _NiFree_00aa10f0(void*);
 
 struct FUN_00a0d990_cls : S00a0d390
@@ -812,7 +812,7 @@ int __thiscall FUN_00a0d990_cls::FUN_00a0d990(int aiFlags)
     int b;
     (void)a;
     (void)b;
-    this->m_vtbl = reinterpret_cast<int*>(&DAT_01094e9c);
+    this->m_vtbl = reinterpret_cast<int*>(&vftable_NiTMapBase_01094e9c);
     this->ClearAll();
     _NiFree_00aa10f0(this->m_data);
     if ((aiFlags & 1) != 0)
@@ -844,13 +844,13 @@ struct S
     void Clear(bool);
     void Reset();
 };
-extern int DAT_0109527c;
-// Sets m_vtbl to DAT_0109527c and calls Clear(true).
+extern int vftable_BSSimpleArray_0109527c;
+// Sets m_vtbl to vftable_BSSimpleArray_0109527c and calls Clear(true).
 // @fnv 0x00a1bf80
 void S::Reset()
 {
     int unused;
-    m_vtbl = &DAT_0109527c;
+    m_vtbl = &vftable_BSSimpleArray_0109527c;
     Clear(true);
 }
 

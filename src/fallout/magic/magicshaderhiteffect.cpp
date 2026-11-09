@@ -591,13 +591,13 @@ struct Arr3520
     void RemoveAll(bool);
 };
 
-extern int DAT_0107b824;
+extern int vftable_BSSimpleArray_0107b824;
 
 // @fnv 0x00822560
 // src: GUESS 0x00822560 (confidence: medium)
 void __fastcall Object_ResetVirtualTableAndRemoveAll(Arr3520* pArray)
 {
-    *(int*)pArray = (int)&DAT_0107b824;
+    *(int*)pArray = (int)&vftable_BSSimpleArray_0107b824;
     pArray->RemoveAll(true);
 }
 
@@ -697,18 +697,18 @@ struct AX
 void __thiscall AX::BSSimpleArray_float_1024_InitialSetup(unsigned int, unsigned int)
 {}
 
-extern unsigned int DAT_0107b84c;
+extern unsigned int vftable_BSSimpleArray_0107b84c;
 
 struct FUN_00822600_shell : AX
 {
     AX* __thiscall InitVtable();
 };
 
-// Sets the object's vtable to DAT_0107b84c, calls FUN_006b3eb0 with 0, 0, and returns this as an AX pointer.
+// Sets the object's vtable to vftable_BSSimpleArray_0107b84c, calls FUN_006b3eb0 with 0, 0, and returns this as an AX pointer.
 // @fnv 0x00822600
 AX* __thiscall FUN_00822600_shell::InitVtable()
 {
-    vtable = (unsigned int)&DAT_0107b84c;
+    vtable = (unsigned int)&vftable_BSSimpleArray_0107b84c;
     BSSimpleArray_float_1024_InitialSetup(0, 0);
     return (AX*)this;
 }
@@ -721,13 +721,13 @@ struct GlobalObject_00869f00
     void UpdateState_00822630();
 };
 
-extern int DAT_0107b84c;
+extern int vftable_BSSimpleArray_0107b84c;
 
 // @fnv 0x00822630
 // src: GUESS 0x00822630 (confidence: low)
 void GlobalObject_00869f00::UpdateState_00822630()
 {
-    m_data = &DAT_0107b84c;
+    m_data = &vftable_BSSimpleArray_0107b84c;
     Clear(true);
 }
 }  // namespace fnv_00822630
@@ -745,7 +745,7 @@ bool MagicShaderHitEffect::CheckShouldSave_00822010()
     return true;
 }
 
-extern int DAT_0107b824;
+extern int vftable_BSSimpleArray_0107b824;
 struct Caller00822860
 {
     void BSSimpleArray_NiPointer_ObstacleUndoData_1024_InitialSetup(unsigned int, bool);
@@ -755,12 +755,12 @@ struct FUN_00822530_shell
     void* vtable;
     FUN_00822530_shell* InitializeArrayView();
 };
-// Sets the object's vtable to DAT_0107b824, calls FUN_00822860 with 0 and false, and returns this.
+// Sets the object's vtable to vftable_BSSimpleArray_0107b824, calls FUN_00822860 with 0 and false, and returns this.
 // @fnv 0x00822530
 // src: GUESS 0x00822530 (confidence: medium)
 FUN_00822530_shell* FUN_00822530_shell::InitializeArrayView()
 {
-    vtable = &DAT_0107b824;
+    vtable = &vftable_BSSimpleArray_0107b824;
     reinterpret_cast<Caller00822860*>(this)->BSSimpleArray_NiPointer_ObstacleUndoData_1024_InitialSetup(0, false);
     return this;
 }

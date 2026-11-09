@@ -926,7 +926,7 @@ struct Monitor
     MonitorEntry* end;
 };
 extern DWORD DAT_0126835c;
-extern void* DAT_010ceb44;
+extern void* vftable_hkpMapPointsToSubShapeContactMgr;
 extern float DAT_010ceb6c;
 int __cdecl hkpGsk_getClosestPoint(ProbeInput*, Agent*, void*, hkVector4*);
 void __cdecl hkAgent1nMachine_Destroy(Cache*, int, Manager*, int);
@@ -1026,7 +1026,7 @@ void* __cdecl hkConvexListAgent3_process(Context* context, int stream, Agent* ag
 
         arguments.collector.capacity = 1;
         arguments.collector.mode = 2;
-        arguments.collector.vtable = &DAT_010ceb44;
+        arguments.collector.vtable = &vftable_hkpMapPointsToSubShapeContactMgr;
         arguments.collector.manager = context->manager;
         arguments.collector.hit = false;
 

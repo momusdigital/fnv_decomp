@@ -38,15 +38,15 @@ bool PatrolPackage::TESRegionData_GetOverride()
     return *reinterpret_cast<bool*>(reinterpret_cast<char*>(this) + 4);
 }
 
-extern int DAT_010933c8;
+extern int vftable_GuardActorPackageData;
 
 
-// Calls FUN_0067d920, installs the vtable at DAT_010933c8, and zeroes fields at offsets 0x4 through 0x10 before returning thisPtr.
+// Calls FUN_0067d920, installs the vtable at vftable_GuardActorPackageData, and zeroes fields at offsets 0x4 through 0x10 before returning thisPtr.
 // @fnv 0x009f27a0
 void* __fastcall InitEscortPackageData(void* thisPtr)
 {
     reinterpret_cast<EscortActorPackageData*>(thisPtr)->FUN_0067d920();
-    *reinterpret_cast<void**>(thisPtr) = &DAT_010933c8;
+    *reinterpret_cast<void**>(thisPtr) = &vftable_GuardActorPackageData;
     *reinterpret_cast<int*>(reinterpret_cast<char*>(thisPtr) + 0x8) = 0;
     *reinterpret_cast<int*>(reinterpret_cast<char*>(thisPtr) + 0xc) = 0;
     *reinterpret_cast<float*>(reinterpret_cast<char*>(thisPtr) + 0x10) = 0.0f;

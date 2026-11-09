@@ -2355,9 +2355,9 @@ struct RagdollUpdateController {
 };
 using ::_mm_setzero_ps;
 namespace ControllerFloatHardware { extern "C" LocalM128 _mm_set_ps1(float); }
-extern void* DAT_010c4ddc;
-extern void* DAT_01071aec;
-extern void* DAT_010c4db8;
+extern void* vftable_bhkRagdollController;
+extern void* vftable_BSSimpleArray_01071aec;
+extern void* vftable_BSSimpleArray_010c4db8;
 extern char* DAT_0109b220;
 extern const float DAT_010c4df8;
 extern const float DAT_01022958;
@@ -2381,7 +2381,7 @@ struct RefSlotArray {
 };
 struct SmallArray {
     void* vtable; unsigned int data,size,capacity;
-    SmallArray():vtable(&DAT_01071aec),data(0),size(0),capacity(0){}
+    SmallArray():vtable(&vftable_BSSimpleArray_01071aec),data(0),size(0),capacity(0){}
     ~SmallArray();
 };
 struct NameSlot {
@@ -2411,12 +2411,12 @@ struct NodeArg {
 };
 struct TempArray {
     void* vtable; unsigned int data,size,capacity;
-    TempArray():vtable(&DAT_010c4db8),data(0),size(0),capacity(0){}
+    TempArray():vtable(&vftable_BSSimpleArray_010c4db8),data(0),size(0),capacity(0){}
     ~TempArray();
 };
 typedef void (__thiscall *FreeTemp)(TempArray*,unsigned int);
 extern FreeTemp DAT_010c4dc0;
-TempArray::~TempArray() { vtable=&DAT_010c4db8; if(data) DAT_010c4dc0(this,data); }
+TempArray::~TempArray() { vtable=&vftable_BSSimpleArray_010c4db8; if(data) DAT_010c4dc0(this,data); }
 extern void __cdecl bhkRagdollController_CopyPoseTo3D(NiNode*,NiNode*,TempArray*,bool*,unsigned int*);
 extern void __cdecl RestoreNodeTransforms(NiNode*,TempArray*,bool,unsigned int);
 struct ConstructorBase { virtual ~ConstructorBase(); };

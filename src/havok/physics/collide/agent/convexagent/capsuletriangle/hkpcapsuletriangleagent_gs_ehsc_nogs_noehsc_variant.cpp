@@ -65,7 +65,7 @@ struct FUN_00d39930_class : ReceiverBase {
     unsigned short receiverIds[3];
     void __thiscall DispatchToReceivers(void* value);
 };
-extern const int DAT_010ce7fc;
+extern const int vftable_hkpSymmetricAgentFlipCollector;
 struct CallbackState {
     const int* m_pIntegerValue;
     float m_fFirstLightParameter;
@@ -77,8 +77,8 @@ void __cdecl Object_UpdateFields_00d3b220(void* apOne, void* apTwo, void* apThre
 
 hkMemoryRouter* __cdecl hkMemoryRouter_getInstance() throw();
 void __cdecl ComputeInverseLengths(void* value, void* self);
-extern char DAT_010ceefc[];
-extern char DAT_010cef38[];
+extern char vftable_hkpCapsuleTriangleAgent[];
+extern char vftable_hkpSymmetricAgentLinearCast_010cef38[];
 struct FUN_00d39980_cls {
     void* m_vptr;
     unsigned short m_w04;
@@ -173,7 +173,7 @@ extern "C" void __cdecl Object_ProcessEntries_00daf8e0(unsigned int second, unsi
                             MotionPacket* packet, MotionCallData* primary,
                             MotionCallData* secondary);
 void __cdecl Object_UpdateFields_00d3ac80(unsigned int first, unsigned int second, const MotionPacket* apPacket, unsigned int mode, unsigned int optionalMode);
-extern char DAT_010ce81c;
+extern char vftable_hkpSymmetricAgentFlipBodyCollector;
 struct FUN_00d3b160_tmp { const void* vt; unsigned char flag; unsigned int a4; };
 struct CallbackHost_d3b160 {
     void hkpCapsuleTriangleAgent_getPenetrations(void*, void*, void*, void*);

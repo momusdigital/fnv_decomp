@@ -294,10 +294,10 @@ void __cdecl BSShaderManager_CalculateTime();
 void __cdecl BSShaderManager_SetTimerFunc(void(__cdecl*)());
 void __cdecl BSShaderManager_SetUseHardDriveCache(unsigned char);
 
-extern GlobalObject_0044f440 g_011deb70;
-extern GlobalObject_0044f440 g_011dec18;
-extern GlobalObject_0045cf30 g_011ded68;
-extern GlobalObject_0045cf30 g_011deea8;
+extern GlobalObject_0044f440 fLODTreeMipMapLODBias_SpeedTree;
+extern GlobalObject_0044f440 fLocalTreeMipMapLODBias_SpeedTree;
+extern GlobalObject_0045cf30 bUseHardDriveCache_General;
+extern GlobalObject_0045cf30 bDisplayLODLand_LOD;
 
 extern unsigned char DAT_011f9443;
 extern float DAT_011f9480;
@@ -310,10 +310,10 @@ void __cdecl Main_ShaderInit()
     InterfaceDebug::PrintDebugMessage((BGSLoadGameBuffer*)"Initializing Shader System...");
     BSShaderManager_SetShaderErrorCallback(0);
     BSShaderManager_SetTimerFunc(BSShaderManager_CalculateTime);
-    BSShaderManager_SetUseHardDriveCache(*reinterpret_cast<ProcessLists*>(&g_011ded68)->GetLifeStateControlFlag());
-    DAT_011f9443 = *reinterpret_cast<ProcessLists*>(&g_011deea8)->GetLifeStateControlFlag();
-    DAT_011f9484 = g_011dec18.FUN_00450410();
-    DAT_011f9480 = g_011deb70.FUN_00450410();
+    BSShaderManager_SetUseHardDriveCache(*reinterpret_cast<ProcessLists*>(&bUseHardDriveCache_General)->GetLifeStateControlFlag());
+    DAT_011f9443 = *reinterpret_cast<ProcessLists*>(&bDisplayLODLand_LOD)->GetLifeStateControlFlag();
+    DAT_011f9484 = fLocalTreeMipMapLODBias_SpeedTree.FUN_00450410();
+    DAT_011f9480 = fLODTreeMipMapLODBias_SpeedTree.FUN_00450410();
 }
 
 // The positional call passes three raw stack values; NiPoint3 preserves that value ABI.
@@ -443,13 +443,13 @@ class FlagGetterView
     unsigned char* GetLifeStateControlFlag();
 };
 
-extern FlagGetterView g_011c7154;
+extern FlagGetterView bDoAmbientPass_Display;
 
 // @fnv 0x0086e540
 // src: COMMUNITY 0x0086e540
 unsigned char Display_bDoAmbientPass_Get()
 {
-    return *g_011c7154.GetLifeStateControlFlag();
+    return *bDoAmbientPass_Display.GetLifeStateControlFlag();
 }
 }  // namespace fnv_0086e540
 
@@ -461,13 +461,13 @@ class FlagGetterView
     unsigned char* GetLifeStateControlFlag();
 };
 
-extern FlagGetterView g_011c7544;
+extern FlagGetterView bDoDiffusePass_Display;
 
 // @fnv 0x0086e560
 // src: COMMUNITY 0x0086e560
 unsigned char Display_bDoDiffusePass_Get()
 {
-    return *g_011c7544.GetLifeStateControlFlag();
+    return *bDoDiffusePass_Display.GetLifeStateControlFlag();
 }
 }  // namespace fnv_0086e560
 
@@ -478,13 +478,13 @@ struct FlagGetterView
     unsigned char* GetLifeStateControlFlag();
 };
 
-extern FlagGetterView g_011c712c;
+extern FlagGetterView bDoSpecularPass_Display;
 
 // @fnv 0x0086e580
 // src: COMMUNITY 0x0086e580
 unsigned char Display_bDoSpecularPass_Get()
 {
-    return *g_011c712c.GetLifeStateControlFlag();
+    return *bDoSpecularPass_Display.GetLifeStateControlFlag();
 }
 }  // namespace fnv_0086e580
 
@@ -496,13 +496,13 @@ class FlagGetterView
     unsigned char* GetLifeStateControlFlag(void);
 };
 
-extern FlagGetterView g_011c7180;
+extern FlagGetterView bDoTexturePass_Display;
 
 // @fnv 0x0086e5a0
 // src: COMMUNITY 0x0086e5a0
 unsigned char Display_bDoTexturePass_Get()
 {
-    return *g_011c7180.GetLifeStateControlFlag();
+    return *bDoTexturePass_Display.GetLifeStateControlFlag();
 }
 }  // namespace fnv_0086e5a0
 
@@ -513,13 +513,13 @@ class FlagGetterView
   public:
     unsigned char* GetLifeStateControlFlag();
 };
-extern FlagGetterView g_011c7368;
+extern FlagGetterView bDoActorShadows_Display;
 
 // @fnv 0x0086e5c0
 // src: COMMUNITY 0x0086e5c0
 unsigned char TESRenderer_GetDoActorShadows()
 {
-    return *g_011c7368.GetLifeStateControlFlag();
+    return *bDoActorShadows_Display.GetLifeStateControlFlag();
 }
 }  // namespace fnv_0086e5c0
 
@@ -530,13 +530,13 @@ class FlagGetterView
   public:
     unsigned char* GetLifeStateControlFlag(void);
 };
-extern FlagGetterView g_011c7380;
+extern FlagGetterView bDoStaticAndArchShadows_Display;
 
 // @fnv 0x0086e5e0
 // src: COMMUNITY 0x0086e5e0
 unsigned char TESRenderer_GetDoStaticAndArchShadows()
 {
-    return *g_011c7380.GetLifeStateControlFlag();
+    return *bDoStaticAndArchShadows_Display.GetLifeStateControlFlag();
 }
 }  // namespace fnv_0086e5e0
 
@@ -547,13 +547,13 @@ struct FlagGetterView
     unsigned char* GetLifeStateControlFlag();
 };
 
-extern FlagGetterView g_011c7550;
+extern FlagGetterView bStaticMenuBackground_Display;
 
 // @fnv 0x0086e600
 // src: COMMUNITY 0x0086e600
 unsigned char TESRenderer_GetDoStaticMenuBackground()
 {
-    return *g_011c7550.GetLifeStateControlFlag();
+    return *bStaticMenuBackground_Display.GetLifeStateControlFlag();
 }
 }  // namespace fnv_0086e600
 
@@ -608,8 +608,8 @@ struct Twin_0084d030
 };
 using ::TESObjectREFR;
 extern TG g_timeGlobal;
-extern PL g_011dedbc;
-extern SetA g_011c5724;
+extern PL bChangeTimeMultSlowly_General;
+extern SetA fAnimationMult_General;
 extern SetA originalRuntimeFloatSetting807;
 extern bool DAT_011dea2b;
 extern float DAT_011afe60;
@@ -628,7 +628,7 @@ struct Mover
 // src: COMMUNITY 0x0086f260
 void Mover::TESMain_OnIdle_UpdateTimer()
 {
-    ((BGSLoadFormBuffer*)&g_timeGlobal)->SetVersion(*g_011dedbc.GetLifeStateControlFlag());
+    ((BGSLoadFormBuffer*)&g_timeGlobal)->SetVersion(*bChangeTimeMultSlowly_General.GetLifeStateControlFlag());
     if (!DAT_011dea2b)
         FUN_00aa4e40();
     ((GameTimerRecord*)&g_timeGlobal)->Update();
@@ -636,7 +636,7 @@ void Mover::TESMain_OnIdle_UpdateTimer()
     bhkWorld_SetDeltaTime(((Twin_0084d030*)&g_timeGlobal)->GetStoredFloatValue(), Main_GetSceneIsComplex(), ReferenceFlags(&DAT_011f2250) == 4);
     BSShaderManager_UpdateTimers();
     DAT_011dea30 =
-        (float)(DAT_011dea2b ? 0.0 : ((Twin_0084d030*)&g_timeGlobal)->GetStoredFloatValue() * *g_011c5724.Float());
+        (float)(DAT_011dea2b ? 0.0 : ((Twin_0084d030*)&g_timeGlobal)->GetStoredFloatValue() * *fAnimationMult_General.Float());
 }
 }  // namespace fnv_0086f260
 
@@ -783,7 +783,7 @@ struct GlobalObject2_0040c150
     int* Int(void);
 };
 
-extern GlobalObject2_0040c150 g_011c3ea4;
+extern GlobalObject2_0040c150 iNumHWThreads_General;
 extern bool DAT_011dea2b;
 extern bool DAT_011dea2d;
 extern bool DAT_011dea2e;
@@ -802,14 +802,14 @@ void __fastcall PlayerCharacter_UpdateAutoAimActor(void* pThis);
 // src: XBOX_PDB 0x0086f890
 void FUN_0086f890_shell::Main_OnIdle_UpdateProcessLists()
 {
-    if (*g_011c3ea4.Int() == 1)
+    if (*iNumHWThreads_General.Int() == 1)
     {
         ProcessLists_ChangeProcessLevelTempList(&DAT_011e0e80);
     }
 
     if ((!DAT_011dea2b || DAT_011dea2d) && !DAT_011dea2e && !((unsigned char*)this)[7])
     {
-        if (*g_011c3ea4.Int() == 1)
+        if (*iNumHWThreads_General.Int() == 1)
         {
             AITaskManager_UpdateTasks(&DAT_011e0fe0);
             CombatManager_UpdateCombatants(BGSSaveLoadGlobalDataWorldspacePtr);
@@ -850,21 +850,21 @@ struct GlobalObject2_0040c150
     int* Int();
 };
 
-extern GlobalObject2_0040c150 g_011c3ea4;
+extern GlobalObject2_0040c150 iNumHWThreads_General;
 
 void __fastcall TESMain_OnIdle_UpdateAudio(void* pThis);
 void __fastcall Main_OnIdle_UpdateProcessLists(void* pThis);
 void __cdecl TESObjectCELL_RunQueuedParticleUpdates();
 void __fastcall Main_RunScripts(void* pThis);
 
-// Calls FUN_0086f640, FUN_0086f890, then FUN_00552570 if *g_011c3ea4.Int() > 1, and finally FUN_0086f670 on pThis.
+// Calls FUN_0086f640, FUN_0086f890, then FUN_00552570 if *iNumHWThreads_General.Int() > 1, and finally FUN_0086f670 on pThis.
 // @fnv 0x008705d0
 // src: COMMUNITY 0x008705d0
 void __fastcall TESMain_PostSwapProcess(void* pThis)
 {
     TESMain_OnIdle_UpdateAudio(pThis);
     Main_OnIdle_UpdateProcessLists(pThis);
-    if (*g_011c3ea4.Int() > 1)
+    if (*iNumHWThreads_General.Int() > 1)
     {
         TESObjectCELL_RunQueuedParticleUpdates();
     }
@@ -893,7 +893,7 @@ class TaskQueueInterface
 
 using ::DebugText;
 
-extern GlobalObject2_0040c150 g_011c3ea4;
+extern GlobalObject2_0040c150 iNumHWThreads_General;
 
 void* __cdecl InterfaceManager_GetSingleton(void);
 void __cdecl Script_RunDelayedScriptActionsOnReferences(void);
@@ -908,7 +908,7 @@ void __fastcall DebugText_HandleQueuedPrints(DebugText*);
 void FUN_00870610_shell::TESMain_OnIdle_PostThreadsProcess()
 {
     Script_RunDelayedScriptActionsOnReferences();
-    if (*g_011c3ea4.Int() > 1)
+    if (*iNumHWThreads_General.Int() > 1)
     {
         TaskQueueInterface_ThreadEndSecondaryInput(TaskQueueInterface::GetSingleton());
         TaskQueueInterface::GetSingleton()->ProcessTaskQueue();
@@ -1036,13 +1036,13 @@ class FlagGetterView
     unsigned char* GetLifeStateControlFlag();
 };
 
-extern FlagGetterView g_011c74d4;
+extern FlagGetterView bDrawShadows_Display;
 
 // @fnv 0x00871a10
 // src: COMMUNITY 0x00871a10
 unsigned char TESRenderer_GetDoShadows()
 {
-    return *g_011c74d4.GetLifeStateControlFlag();
+    return *bDrawShadows_Display.GetLifeStateControlFlag();
 }
 }  // namespace fnv_00871a10
 
@@ -1068,7 +1068,7 @@ struct GlobalObject_0045cf30
 struct TimeGlobal
 {
 };
-extern GlobalObject_0045cf30 g_011deed8;
+extern GlobalObject_0045cf30 bAlwaysActive_General;
 extern TimeGlobal g_timeGlobal;
 HotkeyWheelDisplay* Controls_GetInstance();
 void __fastcall Controls_ClearKeystrokes(HotkeyWheelDisplay*);
@@ -1084,7 +1084,7 @@ struct FUN_00871c90_shell
 // src: COMMUNITY 0x00871c90
 void FUN_00871c90_shell::TESMain_SetActive(bool abEnabled)
 {
-    if (*((FlagGetterView*)&g_011deed8)->GetLifeStateControlFlag())
+    if (*((FlagGetterView*)&bAlwaysActive_General)->GetLifeStateControlFlag())
         abEnabled = 1;
     if (Controls_GetInstance())
     {
@@ -1395,15 +1395,15 @@ class GlobalObject2_0040c150
     int* Int(void);
 };
 
-extern StartMenu g_011c4030;
-extern GlobalObject2_0040c150 g_011deaa0;
-extern GlobalObject2_0040c150 g_011deb24;
-extern StartMenu g_011deb94;
-extern FlagGetterView g_011debdc;
-extern GlobalObject2_0040c150 g_011dec40;
-extern FlagGetterView g_011dec4c;
-extern StartMenu g_011dec68;
-extern FlagGetterView g_011dee3c;
+extern StartMenu sLocalMasterPath_General;
+extern GlobalObject2_0040c150 iRetainFilenameStringTable_Archive;
+extern GlobalObject2_0040c150 iRetainDirectoryStringTable_Archive;
+extern StartMenu sArchiveList_Archive;
+extern FlagGetterView bCheckRuntimeCollisions_Archive;
+extern GlobalObject2_0040c150 iRetainFilenameOffsetTable_Archive;
+extern FlagGetterView bInvalidateOlderFiles_Archive;
+extern StartMenu sInvalidationFile_Archive;
+extern FlagGetterView bUseArchives_Archive;
 
 void __cdecl ArchiveManager_Init(unsigned char, const char*, const char*, int);
 void __cdecl ArchiveManager_SetCheckRuntimeCollisions(unsigned char);
@@ -1415,10 +1415,10 @@ void __cdecl ArchiveManager_OpenMasterArchives();
 // src: COMMUNITY 0x00876d20
 void __cdecl SetupArchiveSettings_AndLoadBSAs()
 {
-    ArchiveManager_Init(*g_011dee3c.GetLifeStateControlFlag(), ((const StartMenu&)g_011c4030).GetMenuTitle(), ((const StartMenu&)g_011deb94).GetMenuTitle(), 0x200000);
-    ArchiveManager_SetCheckRuntimeCollisions(*g_011debdc.GetLifeStateControlFlag());
-    SetRetainStringAndOffsetTables(*g_011deb24.Int(), *g_011deaa0.Int(), *g_011dec40.Int());
-    ArchiveManager_SetInvalidation(*g_011dec4c.GetLifeStateControlFlag(), ((const StartMenu&)g_011dec68).GetMenuTitle());
+    ArchiveManager_Init(*bUseArchives_Archive.GetLifeStateControlFlag(), ((const StartMenu&)sLocalMasterPath_General).GetMenuTitle(), ((const StartMenu&)sArchiveList_Archive).GetMenuTitle(), 0x200000);
+    ArchiveManager_SetCheckRuntimeCollisions(*bCheckRuntimeCollisions_Archive.GetLifeStateControlFlag());
+    SetRetainStringAndOffsetTables(*iRetainDirectoryStringTable_Archive.Int(), *iRetainFilenameStringTable_Archive.Int(), *iRetainFilenameOffsetTable_Archive.Int());
+    ArchiveManager_SetInvalidation(*bInvalidateOlderFiles_Archive.GetLifeStateControlFlag(), ((const StartMenu&)sInvalidationFile_Archive).GetMenuTitle());
     ArchiveManager_OpenMasterArchives();
 }
 }  // namespace fnv_00876d20
@@ -1863,15 +1863,15 @@ using ::TES;
 using ::PlayerCharacter;
 extern TES* g_TES;
 extern PlayerCharacter* g_thePlayer;
-extern SettingFloat g_011dea80;
-extern SettingFloat g_011deb10;
-extern SettingFloat g_011dec24;
-extern SettingFloat g_011dec7c;
-extern SettingFloat g_011decc8;
-extern SettingFloat g_011ded8c;
-extern SettingFloat g_011ded98;
-extern SettingFloat g_011deddc;
-extern SettingFloat g_011dee54;
+extern SettingFloat fLODFadeOutObjectMultInterior_LOD;
+extern SettingFloat fLODFadeOutItemMultComplex_LOD;
+extern SettingFloat fLODFadeOutObjectMultComplex_LOD;
+extern SettingFloat fLODFadeOutObjectMultCity_LOD;
+extern SettingFloat fLODFadeOutActorMultInterior_LOD;
+extern SettingFloat fLODFadeOutActorMultComplex_LOD;
+extern SettingFloat fLODFadeOutActorMultCity_LOD;
+extern SettingFloat fLODFadeOutItemMultInterior_LOD;
+extern SettingFloat fLODFadeOutItemMultCity_LOD;
 bool __cdecl Main_GetSceneIsComplex();
 bool __fastcall FUN_00425fd0(TESObjectCELL* cell);
 void __cdecl BSFadeNode_SetLODFadeOutObjectMult(float);
@@ -1889,21 +1889,21 @@ void FUN_0086efe0_t::Main_OnIdle_ScaleLOD()
 {
     if (Main_GetSceneIsComplex())
     {
-        BSFadeNode_SetLODFadeOutObjectMult(*g_011dec24.Float());
-        BSFadeNode_SetLODFadeOutItemMult(*g_011deb10.Float());
-        BSFadeNode_SetLODFadeOutActorMult(*g_011ded8c.Float());
+        BSFadeNode_SetLODFadeOutObjectMult(*fLODFadeOutObjectMultComplex_LOD.Float());
+        BSFadeNode_SetLODFadeOutItemMult(*fLODFadeOutItemMultComplex_LOD.Float());
+        BSFadeNode_SetLODFadeOutActorMult(*fLODFadeOutActorMultComplex_LOD.Float());
     }
     else if (g_TES->GetParentWorldSpace() && ((TESWorldSpace*)g_TES->GetParentWorldSpace())->GetParentWorld(TESWorldSpace::PU_LOD))
     {
-        BSFadeNode_SetLODFadeOutObjectMult(*g_011dec7c.Float());
-        BSFadeNode_SetLODFadeOutItemMult(*g_011dee54.Float());
-        BSFadeNode_SetLODFadeOutActorMult(*g_011ded98.Float());
+        BSFadeNode_SetLODFadeOutObjectMult(*fLODFadeOutObjectMultCity_LOD.Float());
+        BSFadeNode_SetLODFadeOutItemMult(*fLODFadeOutItemMultCity_LOD.Float());
+        BSFadeNode_SetLODFadeOutActorMult(*fLODFadeOutActorMultCity_LOD.Float());
     }
     else if (g_thePlayer && g_thePlayer->GetParentCell() && FUN_00425fd0(g_thePlayer->GetParentCell()))
     {
-        BSFadeNode_SetLODFadeOutObjectMult(*g_011dea80.Float());
-        BSFadeNode_SetLODFadeOutItemMult(*g_011deddc.Float());
-        BSFadeNode_SetLODFadeOutActorMult(*g_011decc8.Float());
+        BSFadeNode_SetLODFadeOutObjectMult(*fLODFadeOutObjectMultInterior_LOD.Float());
+        BSFadeNode_SetLODFadeOutItemMult(*fLODFadeOutItemMultInterior_LOD.Float());
+        BSFadeNode_SetLODFadeOutActorMult(*fLODFadeOutActorMultInterior_LOD.Float());
     }
     else
     {
@@ -1985,7 +1985,7 @@ struct GlobalObject2_0040c150
 {
     int* Int();
 };
-extern GlobalObject2_0040c150 g_011c3ea4;
+extern GlobalObject2_0040c150 iNumHWThreads_General;
 struct Twin_0084d030
 {
     float GetStoredFloatValue();
@@ -2013,7 +2013,7 @@ void FUN_0086fc60_shell::Main_OnIdle_UpdateAnimationsAndEffects()
 {
     if ((!DAT_011dea2b || DAT_011dea2c || DAT_011dea2d) && !*((bool*)this + 7))
     {
-        if (*g_011c3ea4.Int() > 1)
+        if (*iNumHWThreads_General.Int() > 1)
         {
             DAT_011e0e80.ProcessLists_UpdateTempEffectsParallel(g_timeGlobal.GetStoredFloatValue());
         }
@@ -2021,7 +2021,7 @@ void FUN_0086fc60_shell::Main_OnIdle_UpdateAnimationsAndEffects()
         {
             DAT_011e0e80.FUN_00974420(g_timeGlobal.GetStoredFloatValue());
         }
-        if (*g_011c3ea4.Int() == 1 && !DAT_011dea2b)
+        if (*iNumHWThreads_General.Int() == 1 && !DAT_011dea2b)
         {
             UpdateTES_00453550(g_TES, DAT_011dea30);
         }
@@ -2030,7 +2030,7 @@ void FUN_0086fc60_shell::Main_OnIdle_UpdateAnimationsAndEffects()
             RefreshTES_004537c0(g_TES);
         }
         NiUpdateData UpdateData(DAT_011dea30, true, false);
-        if (*g_011c3ea4.Int() > 1)
+        if (*iNumHWThreads_General.Int() > 1)
         {
             Main_GetMasterParticleSystemManager()->BSParticleSystemManager_UpdateParallel(&UpdateData);
         }
@@ -2138,7 +2138,7 @@ bool __cdecl TESObjectCELL_IsNodeCulled(int);
 BSFaceGenAnimationData* __cdecl Main_WorldRootCamera();
 using ::TESWaterSystem;
 extern int DAT_011a9608;
-extern FlagGetterView g_011c7adc;
+extern FlagGetterView bUseWater_Water;
 extern FUN_004e2190_shell* g_osGlobals;
 extern TES* g_TES;
 extern bool DAT_011ff104;
@@ -2148,7 +2148,7 @@ extern bool DAT_011ff8c4;
 // src: COMMUNITY 0x008727d0
 void FUN_008727d0_shell::TESMain_DrawWorld_UpdateWater()
 {
-    if (*g_011c7adc.GetLifeStateControlFlag())
+    if (*bUseWater_Water.GetLifeStateControlFlag())
     {
         int isavemaxaniso = DAT_011a9608;
         DAT_011a9608 = 1;
@@ -2840,7 +2840,7 @@ bool __fastcall FOPipboyManager_GetPipBoyManagerReset(char*);
 bool DialogMenu_GetPaused();
 void __fastcall ProcessLists_ReconcileDetectionDataForActor(ProcessLists*);
 extern float DAT_011c3c08;
-extern GlobalObject_0045cfe0 g_011c3ea4;
+extern GlobalObject_0045cfe0 iNumHWThreads_General;
 extern GlobalObject2_0040c150 g_011d10d4;
 extern bool DAT_011dea2b;
 extern bool DAT_011dea2d;
@@ -2865,7 +2865,7 @@ void FUN_0086f6a0_shell::Main_UpdateNonRenderSafeAITasks()
         }
     }
     DAT_011e0e80.UpdateMagicTempEffects(0.0f);
-    if (*g_011c3ea4.Int() > 1)
+    if (*iNumHWThreads_General.Int() > 1)
         ((FUN_0096c970_shell*)&DAT_011e0e80)->ProcessLists_ParallelUpdateAnimationScenegraph();
     else
         DAT_011e0e80.ProcessLists_UpdateAnimationScenegraph();
@@ -2874,7 +2874,7 @@ void FUN_0086f6a0_shell::Main_UpdateNonRenderSafeAITasks()
     ppipboy = MainInterfaceView::GetPipboyManagerInstance();
     if (FOPipboyManager_GetPipBoyManagerReset((char*)ppipboy))
         UpdatePipboy_007fa990(ppipboy);
-    if (*g_011c3ea4.Int() > 1)
+    if (*iNumHWThreads_General.Int() > 1)
     {
         TESObjectCELL_PerformQueuedChildAttaches();
         ((FUN_0087a6d0_shell*)TaskQueueInterface::GetInstance())->TaskQueueInterface_ThreadEndInput();
@@ -3492,7 +3492,7 @@ struct GlobalObject_0045cfe0
 {
     int* Int();
 };
-extern GlobalObject_0045cfe0 g_011c63cc;
+extern GlobalObject_0045cfe0 uGridsToLoad_General;
 extern int g_TES;
 struct FUN_0054cfd0_S
 {
@@ -3714,7 +3714,7 @@ void __cdecl Main_InitPlayerStart(::NiPoint3 apos)
     if (!pcell)
     {
         pcell = *(TESObjectCELL**)((TES*)g_TES)
-                     ->GetGridCell((unsigned int)*g_011c63cc.Int() >> 1, (unsigned int)*g_011c63cc.Int() >> 1);
+                     ->GetGridCell((unsigned int)*uGridsToLoad_General.Int() >> 1, (unsigned int)*uGridsToLoad_General.Int() >> 1);
     }
     if (pcell)
     {
@@ -5283,7 +5283,7 @@ struct Setting86
     int* Int() throw();
     const char* FUN_00403df0() throw();
 };
-extern Setting86 g_011dec88, g_011dee20, g_011ded74;
+extern Setting86 bAllowYesToAll_MESSAGES, bSkipProgramFlows_MESSAGES, bSkipInitializationFlows_MESSAGES;
 struct SystemInfo86
 {
     unsigned int architecture;
@@ -5316,7 +5316,7 @@ struct Text86
     void FUN_008783c0(void*);
     void FUN_008784d0();
 };
-extern Setting86 g_011dee78, g_011ded2c, g_011dece4, g_011dee6c, g_011de72c, g_011d73e4;
+extern Setting86 sEssentialFileCacheList_General, sUnessentialFileCacheList_General, g_011dece4, iFileLogging_MESSAGES, sIntroSequence_General, bUseObstacleAvoidance_Pathfinding;
 extern Receiver86* DAT_0126fac4;
 struct WindowClass86
 {
@@ -5346,7 +5346,7 @@ extern Receiver86* g_dataHandler;
 extern Receiver86* g_TESSaveLoadGame;
 extern Receiver86* g_BGSSaveLoadGame;
 extern Receiver86 g_011deb30;
-extern Setting86 g_011deed8;
+extern Setting86 bAlwaysActive_General;
 extern Receiver86 g_011ded3c, g_011dec64, g_011deb38;
 extern Receiver86* g_modelLoader;
 typedef int(__cdecl* code)(...);
@@ -5654,18 +5654,18 @@ int __stdcall WinMain_0086a850(unsigned int param_1, unsigned int param_2, unsig
         {
             enableMemory0 = 0;
             enableMemory0 = 1;
-            MessageHandler_Init(enableMemory0, *g_011dec88.FUN_00408d60(), *g_011dee20.FUN_00408d60(),
-                         *g_011ded74.FUN_00408d60(), MessageBoxA_0);
+            MessageHandler_Init(enableMemory0, *bAllowYesToAll_MESSAGES.FUN_00408d60(), *bSkipProgramFlows_MESSAGES.FUN_00408d60(),
+                         *bSkipInitializationFlows_MESSAGES.FUN_00408d60(), MessageBoxA_0);
             MessageHandler_SetAllWarningFileNames(&UNK_01082a38);
             MessageHandler_SetProgramFlowFileName(&UNK_01082a28);
             MessageHandler_SetProgrammerOutputFileName(&UNK_01082a10);
             MessageHandler_SetCrashTraceFileName(&UNK_01082a00);
             main_win32::GetSystemInfo(&systemInfo7);
-            *g_011c3ea4.Int() = systemInfo7.processors;
+            *iNumHWThreads_General.Int() = systemInfo7.processors;
             FUN_00876ad0(path2);
-            if (*g_011c3ea4.Int() == 1)
+            if (*iNumHWThreads_General.Int() == 1)
             {
-                *g_011c3ea4.Int() = 2;
+                *iNumHWThreads_General.Int() = 2;
             }
             existingWindow30 = main_win32::FindWindowA(_DAT_011a2fe8, 0);
             if (existingWindow30 != 0)
@@ -5736,9 +5736,9 @@ int __stdcall WinMain_0086a850(unsigned int param_1, unsigned int param_2, unsig
                 FUN_00406d50(path2, 0x104, _DAT_011a2ff8);
                 SettingT_RendererSettingCollection_GetCollection()->j_ReadSettingsFromFile_SettingCollection_VSetting_QEAA_NPEBD_Z(path2);
                 FUN_004de490()->j_ReadSettingsFromFile_SettingCollection_VSetting_QEAA_NPEBD_Z(path2);
-                if (*g_011c3ea4.Int() == 1)
+                if (*iNumHWThreads_General.Int() == 1)
                 {
-                    *g_011c3ea4.Int() = 2;
+                    *iNumHWThreads_General.Int() = 2;
                 }
                 if (ProcessCustomINI())
                 {
@@ -5754,14 +5754,14 @@ int __stdcall WinMain_0086a850(unsigned int param_1, unsigned int param_2, unsig
                         return shellExitResult20;
                     }
                 }
-                FUN_00aff100()->BSFileCache_SetFileCacheList(g_011dee78.FUN_00403df0(), g_011ded2c.FUN_00403df0());
+                FUN_00aff100()->BSFileCache_SetFileCacheList(sEssentialFileCacheList_General.FUN_00403df0(), sUnessentialFileCacheList_General.FUN_00403df0());
                 fileAllocation4 = (Receiver86*)operator new(16);
                 fileSystem2 = fileAllocation4
-                                  ? fileAllocation4->FUN_00afdc60(g_011dece4.FUN_00403df0(), *g_011dee6c.Int(), 0)
+                                  ? fileAllocation4->FUN_00afdc60(g_011dece4.FUN_00403df0(), *iFileLogging_MESSAGES.Int(), 0)
                                   : 0;
                 FileFinder_AddPath_0(&UNK_0105bb14);
-                MessageHandler_Init(enableMemory0, *g_011dec88.FUN_00408d60(), *g_011dee20.FUN_00408d60(),
-                             *g_011ded74.FUN_00408d60(), MessageBoxA_0);
+                MessageHandler_Init(enableMemory0, *bAllowYesToAll_MESSAGES.FUN_00408d60(), *bSkipProgramFlows_MESSAGES.FUN_00408d60(),
+                             *bSkipInitializationFlows_MESSAGES.FUN_00408d60(), MessageBoxA_0);
                 MessageHandler_SetAllWarningFileNames(&UNK_01082a38);
                 MessageHandler_SetProgramFlowFileName(&UNK_01082a28);
                 MessageHandler_SetProgrammerOutputFileName(&UNK_01082a10);
@@ -5815,18 +5815,18 @@ int __stdcall WinMain_0086a850(unsigned int param_1, unsigned int param_2, unsig
                 TESMain_ImagespaceInit();
                 NiXenonRenderer_GetRenderer()->NiXenonRenderer_UnlockRenderer();
                 BGSMoviePlayer_Create();
-                DAT_0126fac4->MoviePlayer_StartSequence(g_011de72c.FUN_00403df0(), 0, -1, 1, 1, 0.0f);
+                DAT_0126fac4->MoviePlayer_StartSequence(sIntroSequence_General.FUN_00403df0(), 0, -1, 1, 1, 0.0f);
                 memoryContext11.FUN_00404f70();
                 ((Receiver86*)_DAT_011dea0c)->Main_InitTES((Receiver86*)Main_GetWorldSceneGraph());
                 BSFaceGenManager_SetWorldCamera(((Receiver86*)Main_GetWorldSceneGraph())->FUN_006629f0());
                 BSTreeManager_SetCamera(((Receiver86*)Main_GetWorldSceneGraph())->FUN_006629f0());
-                if (*g_011c3ea4.Int() > 1)
+                if (*iNumHWThreads_General.Int() > 1)
                 {
                     AILinearTaskThreadManager_GetSingleton()->FUN_008c7290();
                 }
                 Pathing_Init();
                 GetPathManager()->FUN_006eb8c0();
-                if (*g_011d73e4.FUN_00408d60())
+                if (*bUseObstacleAvoidance_Pathfinding.FUN_00408d60())
                 {
                     GetNavMeshObstacleManager()->NavMeshObstacleManager_CreateListeners();
                 }
@@ -5875,7 +5875,7 @@ int __stdcall WinMain_0086a850(unsigned int param_1, unsigned int param_2, unsig
                         main_win32::DispatchMessageA(&message0);
                     }
                     if ((int)GetForegroundWindow() == gameWindow3 || ((Receiver86*)_DAT_011dea10)->TES_CellTestRunning() ||
-                        g_011deb30.Modelloader_GetReferencedThis() || *g_011deed8.FUN_00408d60())
+                        g_011deb30.Modelloader_GetReferencedThis() || *bAlwaysActive_General.FUN_00408d60())
                     {
                         deviceStatus13 = NiXenonRenderer_GetRenderer()->NiXenonRenderer_GetD3DDevice()->TestCooperativeLevel();
                         if (deviceStatus13 < 0)
@@ -5983,7 +5983,7 @@ int __stdcall WinMain_0086a850(unsigned int param_1, unsigned int param_2, unsig
                     NiParallelUpdateTaskManager_Shutdown();
                 }
                 g_modelLoader->CancelAllFiles_00448420();
-                if (*g_011c3ea4.Int() > 1)
+                if (*iNumHWThreads_General.Int() > 1)
                 {
                     AILinearTaskThreadManager_GetSingleton()->AILinearTaskThreadManager_Kill();
                 }
@@ -6006,7 +6006,7 @@ int __stdcall WinMain_0086a850(unsigned int param_1, unsigned int param_2, unsig
                 DecalManager_Destroy_();
                 DecalCaster_ClearInstance();
                 Runtime_ReleaseStorage_00626f10();
-                if (*g_011d73e4.FUN_00408d60())
+                if (*bUseObstacleAvoidance_Pathfinding.FUN_00408d60())
                 {
                     GetNavMeshObstacleManager()->NavMeshObstacleManager_Release();
                 }
@@ -6456,8 +6456,8 @@ extern InitSetting g_011ded14;
 extern InitSetting g_011dee48;
 extern InitSetting g_011dea70;
 extern InitSetting g_011ded48;
-extern InitSetting g_011c7adc;
-extern InitSetting g_011dee60;
+extern InitSetting bUseWater_Water;
+extern InitSetting iFPSClamp_General;
 struct FileInit
 {
     void Enable(bool);
@@ -7653,7 +7653,7 @@ void BootInit::Main_InitTES(ScenePart* scene)
     FUN_005f5880();
     worldInstance->LoadTerrain();
     worldInstance->LoadLandscape();
-    if (*g_011c7adc.Bool())
+    if (*bUseWater_Water.Bool())
         worldInstance->Extra();
     worldInstance->Finish();
     FUN_0068b3e0();
@@ -7673,8 +7673,8 @@ void BootInit::Main_InitTES(ScenePart* scene)
     }
     LogInit("Initializing Scripts...");
     handlerInstance->Scripts();
-    if (g_011dee60.Value() > 0 && g_011dee60.Value() < 200)
-        timeInstance.Set(*g_011dee60.Int());
+    if (iFPSClamp_General.Value() > 0 && iFPSClamp_General.Value() < 200)
+        timeInstance.Set(*iFPSClamp_General.Int());
 }
 
 extern "C" __declspec(dllimport) short __stdcall GetAsyncKeyState(int);
@@ -8308,7 +8308,7 @@ void RenderMgr::TESMain_DrawWorldRenderedMenu(int p1, bool p2)
     Main_DrawWorld_UpdateOffscreenBuffers();
     int res4 = TESMain_DrawWorld_InitRenderTexture(renderer, p1, p2, flag_);
     TESMain_DrawWorld_CopyMenuBG(ism2, renderer, flag_, p1);
-    if (*g_011c3ea4.Int() > 1)
+    if (*iNumHWThreads_General.Int() > 1)
         FUN_008c80e0(0);
     FUN_004ea970()->MTRenderingSystem_SetThreadStage(0, 0x15);
     FUN_004ea970()->MTRenderingSystem_WaitOnThreadStage(1, 0x15);
@@ -11635,7 +11635,7 @@ extern GOa4 g_011deda4;
 extern GO34 DAT_011deb34;
 
 using ::SettingT;
-extern GlobalObject_0045cf30 g_011deadc;
+extern GlobalObject_0045cf30 bUseSunbeams_Display;
 
 struct ProcObj
 {
@@ -11752,8 +11752,8 @@ void TESMain_InitSky()
     ((HostV*)g_011deda4.Modelloader_GetReferencedThis())->v37(((ModelOps*)(void*)DAT_011dea20->FUN_0045cd60())->NiObjectNET_GetControllers(), 1);
     ((LightShell*)FUN_00450b80(0))->FUN_00b5aac0((void*)DAT_011dea20->Sky_GetLight());
     DAT_011deb34.Modelloader_GetReferencedThis()->UpdateProperties();
-    ((ISM2*)BSShaderManager_GetImageSpaceManager())->ImageSpaceManager_SetUseSunbeams(((SettingT<INISettingCollection>*)&g_011deadc)->Bool()[0]);
-    if (((SettingT<INISettingCollection>*)&g_011deadc)->Bool()[0])
+    ((ISM2*)BSShaderManager_GetImageSpaceManager())->ImageSpaceManager_SetUseSunbeams(((SettingT<INISettingCollection>*)&bUseSunbeams_Display)->Bool()[0]);
+    if (((SettingT<INISettingCollection>*)&bUseSunbeams_Display)->Bool()[0])
     {
         NiAlphaProperty* obj = new NiAlphaProperty;
         ((NiAlphaProperty*)obj)->NiAlphaProperty_SetAlphaBlending(true);
@@ -11953,9 +11953,9 @@ struct BoolSetting
 {
     bool* Bool();
 };
-extern BoolSetting g_011ded80;
-extern BoolSetting g_011decd8;
-extern BoolSetting g_011deb60;
+extern BoolSetting bPreCullActors_General;
+extern BoolSetting bEnableBoundingVolumeOcclusion_General;
+extern BoolSetting bDisplayBoundingVolumes_General;
 struct CamWatcher
 {
     int unk00;
@@ -12034,7 +12034,7 @@ void* MainX::UpdateCamera()
     }
     NiCamera* pCamera = ((CamNode*)g_011deb7c)->GetAnimationData();
     NiCamera* pOverride6 = 0;
-    if (*g_011ded80.Bool())
+    if (*bPreCullActors_General.Bool())
     {
         static CamWatcher kWatcher;
         kWatcher.HighActorCuller_Run(pOverride6 ? pOverride6 : pCamera);
@@ -12050,8 +12050,8 @@ void* MainX::UpdateCamera()
         DAT_011f9fc0 = 0;
         DAT_011f9fc1 = 1;
     }
-    BSShaderAccumulator_SetRunBoundingSphereTests(*g_011decd8.Bool(), true);
-    BSShaderAccumulator_SetDisplayBoundingSpheres(*g_011deb60.Bool());
+    BSShaderAccumulator_SetRunBoundingSphereTests(*bEnableBoundingVolumeOcclusion_General.Bool(), true);
+    BSShaderAccumulator_SetDisplayBoundingSpheres(*bDisplayBoundingVolumes_General.Bool());
     DAT_011f94a5 = 0;
     void* pResult = 0;
     if (g_TES->GetSky() && SkyData_0045cd60(g_TES->GetSky()) &&

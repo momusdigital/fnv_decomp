@@ -1,4 +1,4 @@
-extern int DAT_0109ec0c;
+extern int vftable_NiFloatsExtraData;
 
 #include "../../../../include/NiTArray.h"
 
@@ -27,7 +27,7 @@ void* __cdecl NiFloatsExtraData_CreateObject()
     {
         NiExtraData* pExtraData = static_cast<NiExtraData*>(p);
         pExtraData->FUN_00a7b2e0();
-        *static_cast<void**>(p) = (void*)&DAT_0109ec0c;
+        *static_cast<void**>(p) = (void*)&vftable_NiFloatsExtraData;
         *(int*)(static_cast<char*>(p) + 0x10) = 0;
         *(int*)(static_cast<char*>(p) + 0x0c) = 0;
         return p;
@@ -72,7 +72,7 @@ void __thiscall NiFloatsExtraData::CopyFloatsExtraData(NiFloatsExtraData* pDest,
 }
 
 void __cdecl _NiFreeAlias(void*);
-extern int DAT_0109ec0c;
+extern int vftable_NiFloatsExtraData;
 void __cdecl operator delete(void*, unsigned int);
 // Releases the float array, resets the vtable, runs base cleanup, and optionally frees the object when flags has bit 0 set.
 // @fnv 0x00a891d0
@@ -80,7 +80,7 @@ void* __thiscall NiFloatsExtraData::DestroyNiFloatsExtraData(unsigned int flags)
 {
     NiFloatsExtraData* p = (NiFloatsExtraData*)this;
     float* v = p->m_pfValue;
-    *(void**)this = (void*)&DAT_0109ec0c;
+    *(void**)this = (void*)&vftable_NiFloatsExtraData;
     _NiFreeAlias(v);
     p->m_pfValue = 0;
     NiExtraData::DestroyFields_00a7b300();
@@ -601,7 +601,7 @@ NiFloatsExtraData* NiFloatsExtraData::CreateNiFloatsExtraData(CloningProcess* pC
     NiFloatsExtraData* pExtraData = (NiFloatsExtraData*)Object_DispatchCommandFour(0x14);
     NiFloatsExtraData* ret =
         pExtraData
-            ? (((NiExtraData*)pExtraData)->FUN_00a7b2e0(), *(void**)pExtraData = (void*)&DAT_0109ec0c,
+            ? (((NiExtraData*)pExtraData)->FUN_00a7b2e0(), *(void**)pExtraData = (void*)&vftable_NiFloatsExtraData,
                pExtraData->m_pfValue = 0, pExtraData->m_uiSize = 0, pExtraData)
             : 0;
     CopyFloatsExtraData(ret, pCloning);

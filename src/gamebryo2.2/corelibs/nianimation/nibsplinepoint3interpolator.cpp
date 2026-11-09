@@ -91,7 +91,7 @@ void __fastcall NiBSplinePoint3Interpolator_SetPoint3ControlHandle(NiBSplinePoin
         self->m_kPoint3CPHandle = kControlHandle;
 }
 
-extern int DAT_010996dc;
+extern int vftable_NiBSplinePoint3Interpolator;
 struct FUN_00a57f20_shell
 {
     void __thiscall FUN_00a57f20(int, int);
@@ -105,7 +105,7 @@ void* __cdecl NiBSplinePoint3Interpolator_CreateObject()
     if (p)
     {
         ((FUN_00a57f20_shell*)p)->FUN_00a57f20(0, 0);
-        *(void**)p = &DAT_010996dc;
+        *(void**)p = &vftable_NiBSplinePoint3Interpolator;
         *(int*)((char*)p + 0x28) = 0xffff;
     }
     else
@@ -119,7 +119,7 @@ void* __cdecl NiBSplinePoint3Interpolator_CreateObject()
 void* __fastcall NiBSplinePoint3Interpolator_Construct(NiBSplinePoint3Interpolator* self, void*, int a1, int aiValue, int a3)
 {
     ((FUN_00a57f20_shell*)self)->FUN_00a57f20(a1, a3);
-    *(void**)self = (void*)&DAT_010996dc;
+    *(void**)self = (void*)&vftable_NiBSplinePoint3Interpolator;
     self->m_kPoint3CPHandle = aiValue;
     return self;
 }
@@ -131,7 +131,7 @@ NiObject* __fastcall NiBSplinePoint3Interpolator_Clone(NiBSplinePoint3Interpolat
     if (pkObject)
     {
         ((FUN_00a57f20_shell*)pkObject)->FUN_00a57f20(0, 0);
-        *(int*)pkObject = (int)&DAT_010996dc;
+        *(int*)pkObject = (int)&vftable_NiBSplinePoint3Interpolator;
         pkObject->m_kPoint3CPHandle = 0xffff;
     }
     else

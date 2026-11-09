@@ -8,7 +8,7 @@
 #include "../../../../../../include/hkDataClassImpl.h"
 #include "../../../../../../include/hkBinaryTagfileReader.h"
 
-extern "C" void* DAT_010d6ce8;
+extern "C" void* vftable_hkBinaryTagfileReader;
 
 struct FUN_00dc5d30
 {
@@ -22,7 +22,7 @@ struct FUN_00dc5d30
 FUN_00dc5d30::FUN_00dc5d30()
 {
     m_f = 1;
-    m_p = &DAT_010d6ce8;
+    m_p = &vftable_hkBinaryTagfileReader;
 }
 
 struct hkBinaryTagFileReaderVirtualObject

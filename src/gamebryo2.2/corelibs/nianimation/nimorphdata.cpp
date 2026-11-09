@@ -26,13 +26,13 @@ void* __cdecl NiMorphData_GetRTTI()
     return &g_011f3e74;
 }
 
-extern int DAT_010976fc;
+extern int vftable_NiMorphData;
 void __cdecl _delete(void*, unsigned int);
 // @fnv 0x00a41a00
 void* __fastcall DestroyMorphData(NiMorphData* self, int, unsigned int auiFlags)
 {
     void* p = self->m_pMorphTargets;
-    *(void**)self = (void*)&DAT_010976fc;
+    *(void**)self = (void*)&vftable_NiMorphData;
     if (p)
         ((DestroyMorphTargetFn)DestroyMorphTarget)((NiMorphData::MorphTarget*)p, 3);
     ((NiRefObject*)self)->NiRefObject::~NiRefObject();

@@ -48,7 +48,8 @@ void __fastcall FUN_0078e0f0(void*);
 void __cdecl _Deallocate(void*);
 // Calls FUN_0078e0f0 on this, frees this with _Deallocate when flags has bit 1 set, and returns this.
 // @fnv 0x0078dad0
-void* LockPickMenu::FUN_0078dad0(unsigned int flags)
+// src: EXE 0x0078dad0
+void* LockPickMenu::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_0078e0f0(this);
     if (flags & 1)

@@ -123,18 +123,18 @@ int __cdecl BSvsprintf(char* apString1, const char* apFormat, char* aList)
     return FUN_00ec6cc4(apString1, apFormat, aList);
 }
 
-extern int DAT_01070020;
+extern int vftable_StatsMenu__NamedEffectsList;
 
 // @fnv 0x0071f540
 void* __fastcall ConstructWithVTable(void* apObject)
 {
     reinterpret_cast<RecursiveSpinLock*>(reinterpret_cast<char*>(apObject) + 4)->RecursiveSpinLock::RecursiveSpinLock();
-    *reinterpret_cast<int**>(apObject) = &DAT_01070020;
+    *reinterpret_cast<int**>(apObject) = &vftable_StatsMenu__NamedEffectsList;
     return apObject;
 }
 
-extern int DAT_01011cf4;
-extern int DAT_01011d0c;
+extern int vftable_MagicItem_for_EffectItemList;
+extern int vftable_MagicItem;
 struct FUN_004056a0
 {
     FUN_004056a0();
@@ -147,12 +147,12 @@ struct FUN_00402c90
     FUN_004056a0 component;
     FUN_00402c90();
 };
-// Sets the two vtable pointers of the object to DAT_01011d0c and DAT_01011cf4.
+// Sets the two vtable pointers of the object to vftable_MagicItem and vftable_MagicItem_for_EffectItemList.
 // @fnv 0x00402c90
 FUN_00402c90::FUN_00402c90()
 {
-    *reinterpret_cast<void**>(&fullName) = &DAT_01011d0c;
-    component.vt1 = &DAT_01011cf4;
+    *reinterpret_cast<void**>(&fullName) = &vftable_MagicItem;
+    component.vt1 = &vftable_MagicItem_for_EffectItemList;
 }
 
 // @fnv 0x00405f30

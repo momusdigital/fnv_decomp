@@ -474,7 +474,7 @@ void __fastcall SetWheelInBodySpace(hkpWheelConstraintData* self, void*, const h
 }
 }  // namespace fnv_00d4e960
 
-extern int DAT_010d0a64;
+extern int vftable_hkpWheelConstraintData;
 extern "C" void ConstructWheelAtoms();
 
 static __forceinline void InitializeWheelRotation(hkRotation& r)
@@ -494,7 +494,7 @@ hkpWheelConstraintData* __fastcall ConstructWheel(hkpWheelConstraintData* self, 
 {
     self->m_sReferenceCount = 1;
     self->m_ulUserData = 0;
-    *reinterpret_cast<int**>(self) = &DAT_010d0a64;
+    *reinterpret_cast<int**>(self) = &vftable_hkpWheelConstraintData;
     typedef void (__thiscall *AtomsConstructor)(hkpWheelConstraintDataAtoms*);
     reinterpret_cast<AtomsConstructor>(ConstructWheelAtoms)(&self->m_kBridgeAtoms);
 

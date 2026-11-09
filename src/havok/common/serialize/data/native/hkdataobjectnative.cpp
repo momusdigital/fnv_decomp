@@ -450,7 +450,7 @@ struct FUN_00dbb360_Global
     virtual hkReferencedObject* vf14();
 };
 extern FUN_00dbb360_Global* DAT_01268b08;
-extern int DAT_010d6518[];
+extern int vftable_hkDataWorldNative[];
 struct FUN_00dbb360_Class
 {
     int m_00;
@@ -468,7 +468,7 @@ FUN_00dbb360_Class* __thiscall FUN_00dbb360_Class::Initialize()
     FUN_00d87790_Result result;
     m_06 = 1;
     result.value = 0;
-    m_00 = (int)DAT_010d6518;
+    m_00 = (int)vftable_hkDataWorldNative;
     *reinterpret_cast<hkReferencedObject* volatile*>(&m_08) = 0;
     *reinterpret_cast<hkReferencedObject* volatile*>(&m_0C) = 0;
     m_10.FUN_00d87790(result);
@@ -1359,7 +1359,7 @@ struct Node680
     Dispatch680* owner;
 };
 extern const char DAT_010d64bc[], DAT_010d64d0[], DAT_010d64dc[], DAT_010d6394[];
-extern int DAT_010d6334;
+extern int vftable_hkDataObjectNative;
 extern "C" void hkString_memSet(void*, int, int);
 
 // src: XBOX_PDB 0x00dbb260
@@ -1393,7 +1393,7 @@ static __declspec(noinline) Node680* hkNativeDataObjectImplCreate(Pair* p, Dispa
     e->refs = 0;
     e->unk08 = 0;
     e->size = 24;
-    e->vtable = &DAT_010d6334;
+    e->vtable = &vftable_hkDataObjectNative;
     e->name.Imath_Vec2_int_Vec2_int(*p);
     e->owner = o;
     return e;
@@ -1912,7 +1912,7 @@ void nativeCaller()
 }
 
 namespace fnv_00dbb520 {
-extern int DAT_010d62fc;
+extern int vftable_hkDataClassNative;
 struct Source
 {
     virtual void a();
@@ -1959,7 +1959,7 @@ Record* Object::hkDataWorldNative_findClass(void* key)
     record->byteSize = 20;
     record->flags = 0;
     record->state = 0;
-    record->type = &DAT_010d62fc;
+    record->type = &vftable_hkDataClassNative;
     record->reference = reference;
     record->owner = this;
     index.unk(key, record);

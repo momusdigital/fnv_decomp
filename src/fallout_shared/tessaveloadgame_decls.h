@@ -48,6 +48,6 @@ class BSTaskManagerThread
     void FUN_00c42dd0(unsigned int, const char*);
     BSTaskManagerThread(void*, unsigned int);
 };
-extern void* DAT_010c1740[];
+extern void* vftable_BSTaskManagerThread_010c1740[];
 
 extern const char DAT_010c1748[];

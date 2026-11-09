@@ -222,14 +222,14 @@ bool __thiscall FUN_00ae6cf0_shell::BSAudioManager_IsEnableAudioCache()
 }
 }  // namespace fnv_00ae6cf0
 
-extern int DAT_010a3718;
+extern int vftable_AudioLoadTask;
 
-// Sets the vtable pointer to DAT_010a3718, touches the field at offset 0x30, then calls the base destructor.
+// Sets the vtable pointer to vftable_AudioLoadTask, touches the field at offset 0x30, then calls the base destructor.
 // @fnv 0x00ae7020
 // src: GUESS 0x00ae7020 (confidence: medium)
 void __thiscall AudioLoadTask::DestroyFields_00ae7020()
 {
-    *reinterpret_cast<void**>(this) = &DAT_010a3718;
+    *reinterpret_cast<void**>(this) = &vftable_AudioLoadTask;
     SoundAssetTmp = SoundAssetTmp;
     QueuedFileEntry::~QueuedFileEntry();
 }
@@ -346,7 +346,7 @@ void __thiscall Host00ae8ef0::ClearAndFreeEntry(void* p)
 namespace fnv_00ae8f20 {
 void __cdecl _NiFreeAlias(void*);
 extern MemoryManager g_memoryManager;
-extern int DAT_010a3370;
+extern int vftable_NiTMapBase_010a3370;
 struct S00a0d390
 {
     int _0;
@@ -360,7 +360,7 @@ void* __thiscall S00a0d390::FUN_00ae8f20(int aiFlags)
 {
     int _u1;
     int _u2;
-    *(void**)this = (void*)&DAT_010a3370;
+    *(void**)this = (void*)&vftable_NiTMapBase_010a3370;
     ClearAll();
     _NiFreeAlias(_8);
     if (aiFlags & 1)
@@ -374,7 +374,7 @@ void* __thiscall S00a0d390::FUN_00ae8f20(int aiFlags)
 }  // namespace fnv_00ae8f20
 
 namespace fnv_00ae9010 {
-extern int DAT_010a3390;
+extern int vftable_NiTMapBase_010a3390;
 void __cdecl _NiFreeAlias(void*);
 extern MemoryManager g_memoryManager;
 struct S00a0d390
@@ -393,7 +393,7 @@ void* __thiscall FUN_00ae9010Owner::DestroyOwner(int aiFlags)
 {
     int x;
     int y;
-    *(void**)this = (void*)&DAT_010a3390;
+    *(void**)this = (void*)&vftable_NiTMapBase_010a3390;
     ((S00a0d390*)this)->ClearAll();
     _NiFreeAlias(f8);
     if (aiFlags & 1)
@@ -412,7 +412,7 @@ struct S00a0d390
     void __thiscall ClearAll();
     void* __thiscall FUN_00ae9100(unsigned int);
 };
-extern int DAT_010a33b0;
+extern int vftable_NiTMapBase_010a33b0;
 extern MemoryManager g_memoryManager;
 // Sets the vtable, calls ClearAll, frees _08 via _NiFreeAlias, and deallocates this when flag bit 0 is set.
 // @fnv 0x00ae9100
@@ -420,7 +420,7 @@ void* __thiscall S00a0d390::FUN_00ae9100(unsigned int auiFlags)
 {
     int d1;
     int d2;
-    *(void**)this = (void*)&DAT_010a33b0;
+    *(void**)this = (void*)&vftable_NiTMapBase_010a33b0;
     ClearAll();
     _NiFreeAlias(_08);
     if (auiFlags & 1)

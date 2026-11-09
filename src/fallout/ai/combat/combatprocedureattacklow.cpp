@@ -29,7 +29,7 @@ struct FUN_009ca6c0_shell
 void FUN_009ca6c0_shell::SetVirtualTable_009ca6c0()
 {}
 
-extern int DAT_01090aec;
+extern int vftable_CombatProcedureAttackLow;
 
 struct FUN_009cbb50_shell
 {
@@ -40,7 +40,7 @@ struct FUN_009cbb50_shell
 // src: GUESS 0x009cbb50 (confidence: low)
 void FUN_009cbb50_shell::SetVtableAndProcessState_009cbb50()
 {
-    *(int*)this = (int)&DAT_01090aec;
+    *(int*)this = (int)&vftable_CombatProcedureAttackLow;
     reinterpret_cast<FUN_009ca6c0_shell*>(this)->SetVirtualTable_009ca6c0();
 }
 

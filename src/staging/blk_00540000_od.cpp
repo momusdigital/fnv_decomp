@@ -103,21 +103,21 @@ void __cdecl Object_OurMemalign_Thunk(unsigned int blocksize)
     ourMemalign(16, blocksize);
 }
 
-struct FUN_00554590_Class
+struct TESWindListener
 {
     void* vtbl;
     void __thiscall FUN_00c74760();
     void* __thiscall SetVtableAndProcessState_00554590();
 };
 
-extern int DAT_0102f10c;
+extern int vftable_TESWindListener;
 
 // @fnv 0x00554590
 // src: GUESS 0x00554590 (confidence: low)
-void* __thiscall FUN_00554590_Class::SetVtableAndProcessState_00554590()
+void* __thiscall TESWindListener::SetVtableAndProcessState_00554590()
 {
     FUN_00c74760();
-    vtbl = &DAT_0102f10c;
+    vtbl = &vftable_TESWindListener;
     return this;
 }
 
@@ -166,19 +166,19 @@ void __cdecl TESObjectCELL_DefaultRenderTestCallback(int a)
     WriteRenderStatsFile(a);
 }
 
-extern int DAT_0102f448;
+extern int vftable_NiTMap_0102f448;
 struct FUN_00559e50_Class
 {
     int* p;
     void __thiscall FUN_00559eb0(int arg);
     FUN_00559e50_Class* __thiscall InitializeWithGlobal(int arg);
 };
-// Calls FUN_00559eb0 with arg, sets p to point at DAT_0102f448, and returns this.
+// Calls FUN_00559eb0 with arg, sets p to point at vftable_NiTMap_0102f448, and returns this.
 // @fnv 0x00559e50
 FUN_00559e50_Class* __thiscall FUN_00559e50_Class::InitializeWithGlobal(int arg)
 {
     FUN_00559eb0(arg);
-    p = &DAT_0102f448;
+    p = &vftable_NiTMap_0102f448;
     return this;
 }
 
@@ -250,7 +250,7 @@ char FUN_0055b9a0_class::GetByteAtOffset42()
     return ((char*)this)[0x2a];
 }
 
-extern void* DAT_0102e47c;
+extern void* vftable_NiTMapBase_0102e47c;
 extern void __cdecl _NiFreeAlias(void*);
 
 struct FUN_00540a10_cls : public NiTPointerMap<int, int>
@@ -263,14 +263,14 @@ struct FUN_00540a10_cls : public NiTPointerMap<int, int>
 // src: GUESS 0x00540a10 (confidence: low)
 void FUN_00540a10_cls::SetVtableAndProcessState_00540a10()
 {
-    *(void**)this = &DAT_0102e47c;
+    *(void**)this = &vftable_NiTMapBase_0102e47c;
     NiTPointerMap::RemoveAll();
     _NiFreeAlias(*(void**)((char*)this + 8));
 }
 
 namespace fnv_00559230 {
 extern "C" void _NiFreeAlias(void*);
-extern int DAT_0102f398;
+extern int vftable_NiTMapBase_0102f398;
 struct FUN_00559230_class
 {
     void* m_vft;
@@ -283,7 +283,7 @@ struct FUN_00559230_class
 // src: GUESS 0x00559230 (confidence: low)
 void FUN_00559230_class::ReleaseStorage_00559230()
 {
-    m_vft = &DAT_0102f398;
+    m_vft = &vftable_NiTMapBase_0102f398;
     RemoveAll();
     _NiFreeAlias(pAudioItems);
 }
@@ -291,7 +291,7 @@ void FUN_00559230_class::ReleaseStorage_00559230()
 
 namespace fnv_00559df0 {
 extern "C" void _NiFreeAlias(void*);
-extern void* DAT_0102f428;
+extern void* vftable_NiTMapBase_0102f428;
 struct FUN_00559df0
 {
     void* p;
@@ -299,18 +299,18 @@ struct FUN_00559df0
     void* r;
     void Init();
 };
-// Sets p to DAT_0102f428, clears the pointer map, and frees r via _NiFreeAlias.
+// Sets p to vftable_NiTMapBase_0102f428, clears the pointer map, and frees r via _NiFreeAlias.
 // @fnv 0x00559df0
 void FUN_00559df0::Init()
 {
-    p = &DAT_0102f428;
+    p = &vftable_NiTMapBase_0102f428;
     ((NiTPointerMap<int, int>*)this)->RemoveAll();
     _NiFreeAlias(r);
 }
 }  // namespace fnv_00559df0
 
 namespace fnv_00559ff0 {
-extern void* DAT_0102f468;
+extern void* vftable_NiTMapBase_0102f468;
 extern void* __cdecl _NiFreeAlias(void*);
 
 struct FUN_00559ff0_class
@@ -326,7 +326,7 @@ struct FUN_00559ff0_class
 // src: GUESS 0x00559ff0 (confidence: low)
 void __thiscall FUN_00559ff0_class::SetVtableAndProcessState_00559ff0()
 {
-    vtbl = &DAT_0102f468;
+    vtbl = &vftable_NiTMapBase_0102f468;
     ((NiTPointerMap<int, int>*)this)->RemoveAll();
     _NiFreeAlias(data);
 }
@@ -407,12 +407,13 @@ void __cdecl Deallocate(void*);
 
 struct FUN_00554670_Class : public FUN_00554650_Class
 {
-    void* FUN_00554670(unsigned int flags);
+    void* hkpEntityListener_ScalarDeletingDestructor(unsigned int flags);
 };
 
 // Calls the base cleanup, frees this object when flags has bit 0 set, and returns this.
 // @fnv 0x00554670
-void* FUN_00554670_Class::FUN_00554670(unsigned int flags)
+// src: EXE 0x00554670
+void* FUN_00554670_Class::hkpEntityListener_ScalarDeletingDestructor(unsigned int flags)
 {
     UpdateState_00554650();
     if (flags & 1)
@@ -569,7 +570,7 @@ unsigned int FUN_00540570_Owner::GetFltValue(int index)
 }
 }  // namespace fnv_00540570
 
-extern int DAT_0102e44c;
+extern int vftable_NiTPointerMap_0102e44c;
 struct FUN_00540940_Standin
 {
     void __thiscall InitBuffer(int);
@@ -579,7 +580,7 @@ struct FUN_00540940_Standin
 int FUN_00540700_Class::NiTPointerMap_unsigned_int_TESGrassAreaParam_NiTPointerMap(int a)
 {
     ((FUN_00540940_Standin*)this)->InitBuffer(a);
-    *(void**)this = (void*)&DAT_0102e44c;
+    *(void**)this = (void*)&vftable_NiTPointerMap_0102e44c;
     return (int)this;
 }
 
@@ -620,7 +621,7 @@ struct FUN_00540940_Class
 // @fnv 0x00540940
 void* __thiscall FUN_00540940_Class::InitBuffer(unsigned int size)
 {
-    ((void**)this)[0] = &DAT_0102e47c;
+    ((void**)this)[0] = &vftable_NiTMapBase_0102e47c;
     ((unsigned int*)this)[1] = size;
     ((unsigned int*)this)[3] = 0;
     unsigned int count = ((unsigned int*)this)[1] * 4;
@@ -999,7 +1000,7 @@ void __thiscall FUN_00559c90_Class::NiTPointerListBase_DFALL_NiTListItem_BSAnimG
 namespace fnv_00559d20 {
 extern "C" void* __cdecl _NiMalloc(unsigned int size);
 extern "C" void* __cdecl memset(void* dest, int value, unsigned int count);
-extern int DAT_0102f428;
+extern int vftable_NiTMapBase_0102f428;
 
 struct FUN_00559d20_Class
 {
@@ -1014,7 +1015,7 @@ struct FUN_00559d20_Class
 // @fnv 0x00559d20
 FUN_00559d20_Class* __thiscall FUN_00559d20_Class::InitArray(int aiCount)
 {
-    *reinterpret_cast<void**>(this) = &DAT_0102f428;
+    *reinterpret_cast<void**>(this) = &vftable_NiTMapBase_0102f428;
     count = aiCount;
     pad = 0;
     unsigned int size = count * 4;
@@ -1132,7 +1133,7 @@ void __thiscall FUN_00558600_Class::BSShaderAccumulator_GetDebugStats(int* a, in
 
 void* __cdecl operator new(unsigned int);
 extern "C" void* __cdecl _fnv_zlib_memset(void* dst, int value, unsigned int count);
-extern int DAT_0102f3e8;
+extern int vftable_BSMapBase_0102f3e8;
 struct FUN_00559b40
 {
     int* vtbl;
@@ -1147,7 +1148,7 @@ FUN_00559b40* __thiscall FUN_00559b40::Init(int aiCount)
 {
     int* pAlloc;
     int size;
-    vtbl = &DAT_0102f3e8;
+    vtbl = &vftable_BSMapBase_0102f3e8;
     count = aiCount;
     pad = 0;
     if (aiCount)
@@ -1252,7 +1253,7 @@ char* __cdecl ourMemalign(unsigned char count, unsigned int size)
 }
 
 namespace fnv_00559ad0 {
-extern int DAT_0102f3b8;
+extern int vftable_NiTArray_0102f3b8;
 struct FUN_00559ad0_Class
 {
     void* vtbl;
@@ -1267,7 +1268,7 @@ struct FUN_00559ad0_Class
 // @fnv 0x00559ad0
 FUN_00559ad0_Class::FUN_00559ad0_Class(unsigned short ausCount, unsigned short b)
 {
-    vtbl = &DAT_0102f3b8;
+    vtbl = &vftable_NiTArray_0102f3b8;
     count = ausCount;
     m0e = b;
     m0a = 0;
@@ -1835,15 +1836,15 @@ void FUN_005593a0_cls::NiTMap_NiAVObject_TESObjectCELL_QUEUED_ATTACH_GetNext(Ite
     *apNode = 0;
 }
 
-extern int DAT_0102f3b8;
+extern int vftable_NiTArray_0102f3b8;
 void __cdecl NiTMallocInterface_unsigned_int_Deallocate(int);
 
-// Sets the object's vtable pointer to DAT_0102f3b8 and calls FUN_004ede70 on the int at offset 4.
+// Sets the object's vtable pointer to vftable_NiTArray_0102f3b8 and calls FUN_004ede70 on the int at offset 4.
 // @fnv 0x00559460
 // src: GUESS 0x00559460 (confidence: low)
 void FUN_005422b0Class::UpdateFields_00559460()
 {
-    *(int*)this = (int)&DAT_0102f3b8;
+    *(int*)this = (int)&vftable_NiTArray_0102f3b8;
     NiTMallocInterface_unsigned_int_Deallocate(*(int*)((char*)this + 4));
 }
 
@@ -2279,7 +2280,7 @@ FUN_00559810::~FUN_00559810()
     NiTPointerListBase_DFALL_NiTListItem_BSAnimGroupSequence_const_BSAnimGroupSequence_const_RemoveAll();
 }
 
-extern int DAT_0102f468;
+extern int vftable_NiTMapBase_0102f468;
 struct FUN_00559eb0
 {
     int vtbl;
@@ -2292,7 +2293,7 @@ struct FUN_00559eb0
 // @fnv 0x00559eb0
 FUN_00559eb0::FUN_00559eb0(int aiCount)
 {
-    *(int*)this = (int)&DAT_0102f468;
+    *(int*)this = (int)&vftable_NiTMapBase_0102f468;
     *(int*)((char*)this + 4) = aiCount;
     *(int*)((char*)this + 0x0c) = 0;
     unsigned int byteCount = (unsigned int)(*(int*)((char*)this + 4) << 2);

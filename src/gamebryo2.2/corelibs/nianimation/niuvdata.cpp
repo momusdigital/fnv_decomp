@@ -125,14 +125,14 @@ void NiUVData::ReplaceUTilingAnim(void* keys, unsigned int count, unsigned int t
     }
 }
 
-extern int DAT_01097f84;
+extern int vftable_NiUVData;
 
 
 // Sets the vtable, releases the four pointer members via DAT_011f38a0 if non-null, then calls the NiRefObject destructor.
 // @fnv 0x00a45020
 void NiUVData::Destructor()
 {
-    *(void**)this = (void*)&DAT_01097f84;
+    *(void**)this = (void*)&vftable_NiUVData;
     void* p;
     p = m_pUOffsetKeys;
     if (p)

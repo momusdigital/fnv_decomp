@@ -52,23 +52,23 @@ FUN_00600b00_shell::~FUN_00600b00_shell()
     ForwardCall_00600d70();
 }
 
-extern int DAT_0104a068;
+extern int vftable_NiTPrimitiveArray_0104a068;
 struct FUN_00600d10_class
 {
     int m_vft;
     void FUN_00601000(int a, int b);
     FUN_00600d10_class(int a, int b);
 };
-// Calls FUN_00601000 with the two arguments, then stores the address of DAT_0104a068 into m_vft.
+// Calls FUN_00601000 with the two arguments, then stores the address of vftable_NiTPrimitiveArray_0104a068 into m_vft.
 // @fnv 0x00600d10
 FUN_00600d10_class::FUN_00600d10_class(int aiArg1, int aiArg2)
 {
     FUN_00601000(aiArg1, aiArg2);
-    m_vft = (int)&DAT_0104a068;
+    m_vft = (int)&vftable_NiTPrimitiveArray_0104a068;
 }
 
 extern "C" void __cdecl NiTMapBase_DFALL_NiTMapItem_char_const_IDLE_ANIM_ROOT_char_const_IDLE_ANIM_ROOT_Init(int);
-extern int DAT_0104a090;
+extern int vftable_NiTMap_0104a090;
 
 struct FUN_006010d0_Class
 {
@@ -77,12 +77,12 @@ struct FUN_006010d0_Class
     int __thiscall InitializeWithGlobal(int param);
 };
 
-// Calls FUN_00601100 with param, stores the address of DAT_0104a090 in m_field_0, and returns this.
+// Calls FUN_00601100 with param, stores the address of vftable_NiTMap_0104a090 in m_field_0, and returns this.
 // @fnv 0x006010d0
 int __thiscall FUN_006010d0_Class::InitializeWithGlobal(int param)
 {
     NiTMapBase_DFALL_NiTMapItem_char_const_IDLE_ANIM_ROOT_char_const_IDLE_ANIM_ROOT_Init(param);
-    m_field_0 = (int)&DAT_0104a090;
+    m_field_0 = (int)&vftable_NiTMap_0104a090;
     return (int)this;
 }
 
@@ -103,16 +103,16 @@ struct GlobalObject_0045cf30
     unsigned char* Bool();
 };
 
-GlobalObject_0045cf30 g_011cb99c;
+GlobalObject_0045cf30 bFaceGenTexturing_General;
 
 // @fnv 0x00605d50
 // src: COMMUNITY 0x00605d50
 unsigned char General_bFaceGenTexturing_Get()
 {
-    return g_011cb99c.Bool()[0];
+    return bFaceGenTexturing_General.Bool()[0];
 }
 
-extern int DAT_0104ab04;
+extern int vftable_BSSimpleArray_0104ab04;
 struct GlobalObject_00869f00
 {
     void Clear(bool);
@@ -121,7 +121,7 @@ struct GlobalObject_00869f00
 // @fnv 0x0060bac0
 void GlobalObject_00869f00::Reset()
 {
-    *(int*)this = (int)&DAT_0104ab04;
+    *(int*)this = (int)&vftable_BSSimpleArray_0104ab04;
     this->Clear(true);
 }
 
@@ -140,7 +140,7 @@ void __thiscall FUN_0060bb40_class::ForwardCall_0060bb40(void* apArg1, void* apA
 }
 
 namespace fnv_0060bdd0 {
-extern void* DAT_0104ab04;
+extern void* vftable_BSSimpleArray_0104ab04;
 struct AX
 {
     void BSSimpleArray_float_1024_InitialSetup(unsigned int, unsigned int);
@@ -150,7 +150,7 @@ struct AX
 // src: COMMUNITY 0x0060bdd0
 AX* AX::BSSimpleArray_BGSHeadPart_1024_BSSimpleArray_BGSHeadPart_1024()
 {
-    *reinterpret_cast<void**>(this) = &DAT_0104ab04;
+    *reinterpret_cast<void**>(this) = &vftable_BSSimpleArray_0104ab04;
     BSSimpleArray_float_1024_InitialSetup(0, 0);
     return this;
 }
@@ -274,23 +274,23 @@ char TESTopic_IsFormTypeDialogueChild(unsigned char a)
     return 0;
 }
 
-extern int DAT_0104d450;
+extern int vftable_NiTLargePrimitiveArray_0104d450;
 struct FUN_0061bef0_class
 {
     void* vtbl;
     void __thiscall FUN_0061c120(void* a, void* b);
     FUN_0061bef0_class(void* a, void* b);
 };
-// Calls FUN_0061c120 with the two arguments, then sets the object's vtbl to &DAT_0104d450.
+// Calls FUN_0061c120 with the two arguments, then sets the object's vtbl to &vftable_NiTLargePrimitiveArray_0104d450.
 // @fnv 0x0061bef0
 FUN_0061bef0_class::FUN_0061bef0_class(void* apArg1, void* apArg2)
 {
     FUN_0061c120(apArg1, apArg2);
-    vtbl = &DAT_0104d450;
+    vtbl = &vftable_NiTLargePrimitiveArray_0104d450;
 }
 
 namespace fnv_0061bf50 {
-extern int DAT_0104d458;
+extern int vftable_BSSimpleArray_0104d458;
 struct GlobalObject_00869f00
 {
     void Clear(bool);
@@ -302,7 +302,7 @@ struct FUN_0061bf50_Class
 // @fnv 0x0061bf50
 void __thiscall FUN_0061bf50_Class::InitAndClear()
 {
-    *reinterpret_cast<int**>(this) = &DAT_0104d458;
+    *reinterpret_cast<int**>(this) = &vftable_BSSimpleArray_0104d458;
     reinterpret_cast<GlobalObject_00869f00*>(this)->Clear(true);
 }
 }  // namespace fnv_0061bf50
@@ -328,24 +328,24 @@ void FUN_0061f440::ClearResponses()
     TESResponseList::ClearResponses();
 }
 
-extern int DAT_0104d948;
+extern int vftable_NiTMap_0104d948;
 struct FUN_0061fa10_class
 {
     void __thiscall NiTMapBase_DFALL_NiTMapItem_TESObjectREFR_int_TESObjectREFR_int_NiTMapBase(int);
     int __thiscall NiTMap_TESObjectREFR_int_NiTMap(int a);
 };
-// Calls FUN_0061fa70 with a, stores the address of DAT_0104d948 at this, and returns this.
+// Calls FUN_0061fa70 with a, stores the address of vftable_NiTMap_0104d948 at this, and returns this.
 // @fnv 0x0061fa10
 // src: EXE 0x0061fa10
 int __thiscall FUN_0061fa10_class::NiTMap_TESObjectREFR_int_NiTMap(int a)
 {
     NiTMapBase_DFALL_NiTMapItem_TESObjectREFR_int_TESObjectREFR_int_NiTMapBase(a);
-    *reinterpret_cast<int*>(this) = reinterpret_cast<int>(&DAT_0104d948);
+    *reinterpret_cast<int*>(this) = reinterpret_cast<int>(&vftable_NiTMap_0104d948);
     return reinterpret_cast<int>(this);
 }
 
 extern void NiFreeAlias(void*);
-extern int DAT_0104a0b0;
+extern int vftable_NiTMapBase_0104a0b0;
 
 struct FUN_00600eb0_cls
 {
@@ -361,12 +361,12 @@ struct FUN_00600eb0_cls
 // src: GUESS 0x00600eb0 (confidence: low)
 void FUN_00600eb0_cls::SetVtableAndProcessState_00600eb0()
 {
-    *reinterpret_cast<void**>(this) = &DAT_0104a0b0;
+    *reinterpret_cast<void**>(this) = &vftable_NiTMapBase_0104a0b0;
     RemoveAll();
     NiFreeAlias(b);
 }
 
-extern int DAT_0104d968;
+extern int vftable_NiTMapBase_0104d968;
 void NiFreeAlias(void*);
 
 struct NiTPointerMapIntInt : public NiTPointerMap<int, int>
@@ -379,12 +379,12 @@ struct NiTPointerMapIntInt : public NiTPointerMap<int, int>
 // src: GUESS 0x0061fb40 (confidence: medium)
 void NiTPointerMapIntInt::ReleaseStorage_0061fb40()
 {
-    *(int**)this = &DAT_0104d968;
+    *(int**)this = &vftable_NiTMapBase_0104d968;
     RemoveAll();
     NiFreeAlias(*(void**)((char*)this + 8));
 }
 
-extern int DAT_0104a060;
+extern int vftable_NiTArray_0104a060;
 void __cdecl MyDeallocate(void*);
 struct FUN_00600b90_Cls
 {
@@ -392,12 +392,12 @@ struct FUN_00600b90_Cls
     void* m4;
     void __thiscall ReleaseMemberStorage();
 };
-// Sets m0 to the address of DAT_0104a060 and frees the m4 pointer via MyDeallocate.
+// Sets m0 to the address of vftable_NiTArray_0104a060 and frees the m4 pointer via MyDeallocate.
 // @fnv 0x00600b90
 // src: GUESS 0x00600b90 (confidence: medium)
 void __thiscall FUN_00600b90_Cls::ReleaseMemberStorage()
 {
-    m0 = (void*)&DAT_0104a060;
+    m0 = (void*)&vftable_NiTArray_0104a060;
     MyDeallocate(m4);
 }
 
@@ -486,7 +486,7 @@ void* __thiscall FUN_005ffbd0_cls::FUN_00600fa0(unsigned int flags)
 }
 }  // namespace fnv_00600fa0
 
-extern int DAT_0104a0d0;
+extern int vftable_NiTStringMap_0104a0d0;
 struct FUN_006010a0_holder
 {
     void __thiscall NiTStringTemplateMap_NiTMap_char_const_IDLE_ANIM_ROOT_IDLE_ANIM_ROOT_NiTStringTemplateMap(int, bool);
@@ -499,7 +499,7 @@ struct FUN_00600fd0 : FUN_006010a0_holder
 FUN_00600fd0::FUN_00600fd0(int a, bool b)
 {
     NiTStringTemplateMap_NiTMap_char_const_IDLE_ANIM_ROOT_IDLE_ANIM_ROOT_NiTStringTemplateMap(a, b);
-    *(void**)this = (void*)&DAT_0104a0d0;
+    *(void**)this = (void*)&vftable_NiTStringMap_0104a0d0;
 }
 
 struct FUN_00601070_shell : FUN_00600b00_shell
@@ -517,7 +517,7 @@ void* __thiscall FUN_00601070_shell::FUN_00601070(unsigned int flags)
     return this;
 }
 
-extern int DAT_0104a070;
+extern int vftable_NiTStringTemplateMap_0104a070;
 struct FUN_006010a0_Class
 {
     int* m_vft;
@@ -527,13 +527,13 @@ struct FUN_006010a0_Class
     unsigned char m_field_10;
     FUN_006010a0_Class* __thiscall NiTStringTemplateMap_NiTMap_char_const_IDLE_ANIM_ROOT_IDLE_ANIM_ROOT_NiTStringTemplateMap(int a, unsigned char b);
 };
-// Calls InitializeWithGlobal on this, sets the vtable to DAT_0104a070, stores b in m_field_10 and returns this.
+// Calls InitializeWithGlobal on this, sets the vtable to vftable_NiTStringTemplateMap_0104a070, stores b in m_field_10 and returns this.
 // @fnv 0x006010a0
 // src: EXE 0x006010a0
 FUN_006010a0_Class* __thiscall FUN_006010a0_Class::NiTStringTemplateMap_NiTMap_char_const_IDLE_ANIM_ROOT_IDLE_ANIM_ROOT_NiTStringTemplateMap(int a, unsigned char b)
 {
     ((FUN_006010d0_Class*)this)->InitializeWithGlobal(a);
-    m_vft = &DAT_0104a070;
+    m_vft = &vftable_NiTStringTemplateMap_0104a070;
     m_field_10 = b;
     return this;
 }
@@ -554,7 +554,7 @@ struct FUN_00601100_cls
 FUN_00601100_cls* __thiscall FUN_00601100_cls::NiTMapBase_DFALL_NiTMapItem_char_const_IDLE_ANIM_ROOT_char_const_IDLE_ANIM_ROOT_Init(int size)
 {
     int n;
-    vtbl = &DAT_0104a0b0;
+    vtbl = &vftable_NiTMapBase_0104a0b0;
     a = size;
     c = 0;
     n = a * 4;
@@ -805,11 +805,12 @@ void __thiscall TESTopicInfo::MarkAsRefusal()
 struct FUN_005545d0_Class
 {
     void FUN_005545f0();
-    void* FUN_0061f550(unsigned int flags);
+    void* bhkEntityListener_ScalarDeletingDestructor(unsigned int flags);
 };
 // Calls FUN_005545f0, deletes this when flags has bit 0 set, and returns this.
 // @fnv 0x0061f550
-void* __thiscall FUN_005545d0_Class::FUN_0061f550(unsigned int flags)
+// src: EXE 0x0061f550
+void* __thiscall FUN_005545d0_Class::bhkEntityListener_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_005545f0();
     if (flags & 1)
@@ -847,7 +848,7 @@ struct FUN_0061fa70_class
 // src: EXE 0x0061fa70
 int __thiscall FUN_0061fa70_class::NiTMapBase_DFALL_NiTMapItem_TESObjectREFR_int_TESObjectREFR_int_NiTMapBase(int aiCount)
 {
-    *reinterpret_cast<void**>(this) = &DAT_0104d968;
+    *reinterpret_cast<void**>(this) = &vftable_NiTMapBase_0104d968;
     reinterpret_cast<int*>(this)[1] = aiCount;
     reinterpret_cast<int*>(this)[3] = 0;
     unsigned int iAllocationSize = (unsigned int)reinterpret_cast<int*>(this)[1] << 2;
@@ -886,7 +887,7 @@ struct FUN_00601000
 // @fnv 0x00601000
 FUN_00601000::FUN_00601000(short x, short y)
 {
-    vft = (int*)&DAT_0104a060;
+    vft = (int*)&vftable_NiTArray_0104a060;
     a = x;
     d = y;
     c = 0;
@@ -898,7 +899,7 @@ FUN_00601000::FUN_00601000(short x, short y)
 }
 
 namespace fnv_0060bd20 {
-extern int DAT_0104aae0;
+extern int vftable_NiTArray_0104aae0;
 struct FUN_0060bd20_class
 {
     int* m_vft;
@@ -912,7 +913,7 @@ struct FUN_0060bd20_class
 // @fnv 0x0060bd20
 FUN_0060bd20_class::FUN_0060bd20_class(unsigned short a, unsigned short b)
 {
-    m_vft = &DAT_0104aae0;
+    m_vft = &vftable_NiTArray_0104aae0;
     m8 = a;
     m_usTrailingValue = b;
     m_kPointA = 0;
@@ -979,7 +980,7 @@ void TESTopic_ClearAllSaidOnceInfosForQuest(int a)
 }
 
 namespace fnv_0061c120 {
-extern int DAT_0104d448;
+extern int vftable_NiTLargeArray_0104d448;
 struct FUN_0061c120
 {
     void* vtbl;
@@ -994,7 +995,7 @@ struct FUN_0061c120
 // @fnv 0x0061c120
 FUN_0061c120::FUN_0061c120(unsigned int size, unsigned int max)
 {
-    vtbl = (void*)&DAT_0104d448;
+    vtbl = (void*)&vftable_NiTLargeArray_0104d448;
     m_usSize = size;
     m_uiMax = max;
     m_usAllocSize = 0;
@@ -1061,7 +1062,7 @@ char const* GlobalObject_0040c150::TESReputation_GetThresholdIcon()
     return menuTable[column][row]->GetMenuTitle();
 }
 
-extern int DAT_0104d9cc[];
+extern int vftable_ZoneEntry[];
 struct FUN_0061fea0_shell
 {
     void ClearList();

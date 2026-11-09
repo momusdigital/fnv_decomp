@@ -11,7 +11,7 @@
 #include "../../include/BSAudio.h"
 #include "../../include/hkMemoryAllocator.h"
 extern "C" void __cdecl ReturnSelf(void*);
-extern int DAT_010d461c;
+extern int vftable_hkSimpleLocalFrame;
 struct FUN_00da07b0_class
 {
     void __thiscall ReturnSelf(void*);
@@ -20,12 +20,12 @@ void __cdecl finishLoadedObjecthkSimpleLocalFrame(void* a, void* b);
 void __cdecl InitBlockPool(void*);
 void* __cdecl InitAndReturnTail(void* a, void* b, void* c);
 void __cdecl Object_InvokeVirtualMethod_00da08c0(void** a);
-extern int DAT_010c59f4;
-extern int DAT_010c6bec;
+extern int vftable_hkpMotion;
+extern int vftable_hkpKeyframedRigidMotion;
 void __cdecl Object_UpdateFields_00da08e0(void* a, int b);
-extern int DAT_010c6fd0;
+extern int vftable_hkpSingleShapeContainer;
 void __cdecl Runtime_UpdateState_00da0b10(int* p);
-extern int DAT_010d6014;
+extern int vftable_hkStaticClassNameRegistry;
 struct FUN_00db7ab0_class
 {
     void* __thiscall SetVtableAndProcessState_00db7ab0(void* a, void* b, void* c);
@@ -89,7 +89,7 @@ extern int DAT_0126970c;
 int* __cdecl Runtime_GetDAT0126970cAddress();
 extern int DAT_01269754;
 void* __cdecl Runtime_GetDAT01269754Address(void);
-extern int DAT_010c6bec;
+extern int vftable_hkpKeyframedRigidMotion;
 void* __cdecl Runtime_GetDAT010c6becAddress(void);
 struct DA0920FinishFlag
 {
@@ -310,7 +310,7 @@ struct FUN_00da0af0_Class
 void __cdecl Runtime_ForwardCall_00da0af0(FUN_00da0af0_Class* param_1);
 extern int DAT_01269a0c;
 void* __cdecl Object_GetGlobalObjectAddress_00da0b00();
-extern int DAT_010c6fd0;
+extern int vftable_hkpSingleShapeContainer;
 void* __cdecl Object_GetGlobalObjectAddress_00da0b20();
 unsigned char* __cdecl CheckDuplicateValues(unsigned char* result, int* values);
 struct FUN_00db0060_class
@@ -682,7 +682,7 @@ struct FUN_00da2b30_Class
 
     void InvokeCallback();
 };
-extern int DAT_010d4de4;
+extern int vftable_hkStackTracer;
 extern int DAT_01269a9c;
 struct FUN_00da2840_Obj
 {
@@ -718,8 +718,8 @@ void __cdecl ProcessCollisionEntry();
 void __cdecl Object_HkAgent1nMachine_VisitAllAgents_Thunk(int a, int b);
 void* __cdecl hkpAgent1nSector_ProcessEntries_00da3510(void*, void*);
 void* __cdecl Runtime_ForwardCall_00da6e10(void* a, void* b, void* c);
-extern int DAT_010cf7d4;
-extern int DAT_010cf804;
+extern int vftable_hkDynamicClassNameRegistry;
+extern int vftable_hkDefaultClassNameRegistry;
 extern char str_010cf830[];
 struct SubObject
 {
@@ -750,10 +750,10 @@ struct CreatedObject
         flag.byte = 0;
         unsigned int arg = flag.word;
 
-        vtable = &DAT_010cf7d4;
+        vtable = &vftable_hkDynamicClassNameRegistry;
         typeName = str_010cf830;
         base.FUN_00d87790(arg);
-        vtable = &DAT_010cf804;
+        vtable = &vftable_hkDefaultClassNameRegistry;
     }
 };
 void* __cdecl hkDefaultClassNameRegistrycreate();
@@ -765,7 +765,7 @@ void __cdecl Object_Vslot00_Thunk(FUN_00db7c00_obj* p);
 // 0x00db7c10  /MT /O2 /GS /EHsc /Gy   target: B8 28 9B 26 01 C3  (mov eax, offset DAT_01269b28; ret)
 extern int DAT_01269b28;
 int* Runtime_GetDAT01269b28Address();
-extern int DAT_010cce28;
+extern int vftable_hkpPhysicsSystem;
 struct hkLoadedObjectDB7C
 {
     int* m_ppVirtualMethodTable;
@@ -787,7 +787,7 @@ struct hkLoadedObjectDB7C
 void __cdecl InitLoadedObject(void* pvObject, int iFinishing);
 extern "C" void __cdecl FUN_00ec658f(const void*);
 extern unsigned char DAT_01269b80;
-extern void* DAT_010d6260;
+extern void* vftable_hkSerializeDeprecated;
 extern void* DAT_01269b78;
 extern void* FUN_00fde2a0;
 extern unsigned short DAT_01269b7e;

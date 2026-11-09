@@ -28,7 +28,7 @@ public:
 };
 
 #include <xmmintrin.h>
-extern unsigned int DAT_010ec004;
+extern unsigned int vftable_hkpMountedBallGun;
 extern float DAT_01011d78;
 extern float DAT_01016410;
 
@@ -94,7 +94,7 @@ MBG* FUN_00e45150_class::Initialize(int a)
 {
     MBG* self = (MBG*)this;
     ((FUN_00e46f90_Obj*)this)->FUN_00e46f90(a);
-    self->vfptr = (void*)&DAT_010ec004;
+    self->vfptr = (void*)&vftable_hkpMountedBallGun;
     self->m_type = 4;
     self->m_name = "MountedBallGun";
     __m128 v = _mm_setr_ps(DAT_01011d78, DAT_01016410, DAT_01011d78, DAT_01011d78);

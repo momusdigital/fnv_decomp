@@ -12,14 +12,14 @@ void NiPSysAirFieldAirFrictionCtlr::CopyMemberData(NiPSysAirFieldAirFrictionCtlr
 }
 
 void __fastcall NiPSysModifierCtlr_NiPSysModifierCtlr(void*);
-extern int DAT_010c0d2c;
+extern int vftable_NiPSysModifierBoolCtlr;
 
 // @fnv 0x00c32b60
 // src: EXE 0x00c32b60
 void* __fastcall NiPSysModifierBoolCtlr_NiPSysModifierBoolCtlr(void* pThis)
 {
     NiPSysModifierCtlr_NiPSysModifierCtlr(pThis);
-    *(int**)pThis = &DAT_010c0d2c;
+    *(int**)pThis = &vftable_NiPSysModifierBoolCtlr;
     return pThis;
 }
 

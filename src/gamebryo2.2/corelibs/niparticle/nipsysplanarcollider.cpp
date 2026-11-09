@@ -551,7 +551,7 @@ struct Mat36
     int d[9];
 };
 
-extern int DAT_010beb0c;
+extern int vftable_NiPSysPlanarCollider;
 extern NiPoint3 _NiPoint3_ZERO;
 extern Mat36 DAT_011a9448;
 
@@ -565,7 +565,7 @@ void* __fastcall InitializePlanarCollider(void* this_ptr, int, float fBounce, in
                               NiPoint3 kYAxis)
 {
     reinterpret_cast<InitializeColliderFunction>(&InitializeCollider)(static_cast<NiPSysCollider*>(this_ptr), fBounce, bSpawnOnCollide, bDieOnCollide, pkSpawnModifier);
-    *(int**)this_ptr = &DAT_010beb0c;
+    *(int**)this_ptr = &vftable_NiPSysPlanarCollider;
     *(void**)((char*)this_ptr + 0x2c) = pkColliderObj;
     *(float*)((char*)this_ptr + 0x30) = m_fGlyphWidthInPixels;
     *(float*)((char*)this_ptr + 0x34) = m_fGlyphExtent;

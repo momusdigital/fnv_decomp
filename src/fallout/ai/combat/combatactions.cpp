@@ -339,7 +339,7 @@ CombatActionAcquireLineOfSight::CombatActionAcquireLineOfSight(CombatAction::COM
     AddEffect(5, 1);
 }
 
-extern int DAT_0108cdd4;
+extern int vftable_CombatActionHide;
 // Constructs a CombatAction of the given type, then calls AddActionWorldState(1, 10) and AddEffect(0x11, -1).
 // @fnv 0x0097d250
 CombatActionHide::CombatActionHide(CombatAction::COMBAT_ACTION aeType) : CombatAction(aeType)

@@ -290,8 +290,8 @@ struct FUN_006658b0_shell
 {
     void Update();
 };
-extern Setting g_011d5d98;
-extern Setting g_011d5d4c;
+extern Setting iCanopyShadowScale_SpeedTree;
+extern Setting fCanopyShadowGrassMult_SpeedTree;
 
 // @fnv 0x006652e0
 // src: XBOX_PDB 0x006652e0
@@ -338,8 +338,8 @@ void BSTreeManager_Update(NiAVObject* apCamera, bool abMenuMode)
         }
         ((FUN_006658b0_shell*)_FUN_00664840(1))->Update();
     }
-    SetGlobalFloatFromUInt(*g_011d5d98.Int());
-    ClampAndStoreValue(*((Setting*)&g_011d5d4c)->Float());
+    SetGlobalFloatFromUInt(*iCanopyShadowScale_SpeedTree.Int());
+    ClampAndStoreValue(*((Setting*)&fCanopyShadowGrassMult_SpeedTree)->Float());
 }
 }  // namespace fnv_006652e0
 

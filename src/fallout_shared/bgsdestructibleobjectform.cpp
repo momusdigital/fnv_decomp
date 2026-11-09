@@ -80,7 +80,7 @@ void BGSDestructibleObjectForm::UpdateDestructionMap()
         if (ref && !ref->GetDisabled() && !ref->IsDeleted())
         {
             float damage = value * fTime;
-            if (*g_011c3ea4.Int() == 1)
+            if (*iNumHWThreads_General.Int() == 1)
             {
                 if (ref->IsActor())
                 {

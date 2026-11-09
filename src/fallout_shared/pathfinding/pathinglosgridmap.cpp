@@ -69,7 +69,8 @@ bool FUN_006e08f0_shell::PathingLOSGrid_GetNavMesh(NavMeshPtr& aArg)
 void __cdecl _delete(void*, unsigned int);
 // Calls FUN_006e02a0, then frees this with _delete when flags has bit 0 set, and returns this.
 // @fnv 0x006e0270
-void* __thiscall PathingLOSGridMap::FUN_006e0270(unsigned int flags)
+// src: EXE 0x006e0270
+void* __thiscall PathingLOSGridMap::ScalarDeletingDestructor(unsigned int flags)
 {
     this->FUN_006e02a0();
     if (flags & 1)
@@ -127,7 +128,7 @@ extern "C"
 {
     void __declspec(dllimport) __stdcall vprintf(const char*, void*);
 }
-extern int DAT_0106cef8;
+extern int vftable_BSSimpleArray_0106cef8;
 struct AX
 {
     void __thiscall BSSimpleArray_float_1024_InitialSetup(unsigned int, unsigned int);
@@ -136,12 +137,12 @@ struct FUN_006e1020_shell : AX
 {
     FUN_006e1020_shell* __thiscall BSSimpleArray_PathingLOSGridCell_1024_BSSimpleArray_PathingLOSGridCell_1024();
 };
-// Sets the object's vtable pointer to DAT_0106cef8, calls FUN_006b3eb0 with 0, 0, and returns this.
+// Sets the object's vtable pointer to vftable_BSSimpleArray_0106cef8, calls FUN_006b3eb0 with 0, 0, and returns this.
 // @fnv 0x006e1020
 // src: COMMUNITY 0x006e1020
 FUN_006e1020_shell* __thiscall FUN_006e1020_shell::BSSimpleArray_PathingLOSGridCell_1024_BSSimpleArray_PathingLOSGridCell_1024()
 {
-    *reinterpret_cast<unsigned int**>(this) = reinterpret_cast<unsigned int*>(&DAT_0106cef8);
+    *reinterpret_cast<unsigned int**>(this) = reinterpret_cast<unsigned int*>(&vftable_BSSimpleArray_0106cef8);
     BSSimpleArray_float_1024_InitialSetup(0, 0);
     return this;
 }

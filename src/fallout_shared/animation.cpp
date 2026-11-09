@@ -51,7 +51,7 @@
 #include "../../include/MEM_CONTEXT.h"
 
 namespace fnv_004965d0 {
-extern "C" char DAT_0101dcd8;
+extern "C" char vftable_AnimIdle;
 extern "C" char DAT_0101dccc;
 extern "C" char DAT_0101dcc4;
 extern "C" char DAT_011c3f2c;
@@ -524,13 +524,13 @@ struct FUN_0048ef40_shell : public AnimSequenceBase
     void SetVirtualTable_0048ef40();
 };
 
-extern int DAT_0101d8e8;
+extern int vftable_AnimSequenceBase;
 
 // @fnv 0x0048ef40
 // src: GUESS 0x0048ef40 (confidence: low)
 void FUN_0048ef40_shell::SetVirtualTable_0048ef40()
 {
-    *(int**)this = &DAT_0101d8e8;
+    *(int**)this = &vftable_AnimSequenceBase;
 }
 
 namespace fnv_0048f010 {
@@ -572,7 +572,7 @@ void AnimSequenceSingle::AssignSequence(BSAnimGroupSequence* apSeq, bool abRelea
 }
 
 
-extern int DAT_0101d908;
+extern int vftable_AnimSequenceMultiple;
 
 struct GlobalObject_0048f200
 {
@@ -599,7 +599,7 @@ struct FUN_0048f0c0 : public FUN_0048f1b0
 // @fnv 0x0048f0c0
 FUN_0048f0c0::FUN_0048f0c0(AnimSequenceSingle* apSingleSeq)
 {
-    m_ppVirtualMethodTable = &DAT_0101d908;
+    m_ppVirtualMethodTable = &vftable_AnimSequenceMultiple;
     m_pSingleSequence = new GlobalObject_0048f200;
     FUN_0048f3a0(apSingleSeq->GetSequenceAtIndex(-1), true);
     typedef void (__thiscall *AssignSlot)(AnimSequenceSingle*, BSAnimGroupSequence*, bool);
@@ -608,13 +608,13 @@ FUN_0048f0c0::FUN_0048f0c0(AnimSequenceSingle* apSingleSeq)
     delete reinterpret_cast<NiObject*>(apSingleSeq);
 }
 
-extern int DAT_0101d8e8;
+extern int vftable_AnimSequenceBase;
 
 // @fnv 0x0048f1b0
 // src: GUESS 0x0048f1b0 (confidence: low)
 int* __fastcall Animation_UpdateState_0048f1b0(int* pThis)
 {
-    *pThis = (int)&DAT_0101d8e8;
+    *pThis = (int)&vftable_AnimSequenceBase;
     return pThis;
 }
 
@@ -755,13 +755,13 @@ typedef char _sizecheck_AnimSequenceSingle[sizeof(AnimSequenceSingle) == 8 ? 1 :
 
 
 void __fastcall Animation_UpdateState_0048f1b0(void* pThis);
-extern int DAT_0101d8c8;
+extern int vftable_AnimSequenceSingle;
 
 // @fnv 0x00490e10
 void* __fastcall ConstructAnimSequenceSingle(AnimSequenceSingle* pThis)
 {
     Animation_UpdateState_0048f1b0(pThis);
-    *reinterpret_cast<void**>(pThis) = &DAT_0101d8c8;
+    *reinterpret_cast<void**>(pThis) = &vftable_AnimSequenceSingle;
     pThis->pForwardSequence = 0;
     return pThis;
 }
@@ -1143,13 +1143,13 @@ unsigned char __fastcall GetMaxByte(unsigned char* pThis)
 
 
 
-extern Setting g_01267c30;
+extern Setting bFootIK_RagdollAnim;
 
 // @fnv 0x00495580
 // src: XBOX_PDB 0x00495580
 unsigned char bhkRagdollController_QFootIK()
 {
-    return *g_01267c30.FUN_00408d60();
+    return *bFootIK_RagdollAnim.FUN_00408d60();
 }
 
 class NiMatrix3;
@@ -1509,12 +1509,13 @@ void __fastcall FUN_004969b0(void*);
 
 struct FUN_00496980_caller
 {
-    void* FUN_00496980(unsigned int flags);
+    void* AnimIdle_ScalarDeletingDestructor(unsigned int flags);
 };
 
 // Calls FUN_004969b0 on this, then frees this with NiMemObject::operator delete when flags has bit 1 set, and returns this.
 // @fnv 0x00496980
-void* FUN_00496980_caller::FUN_00496980(unsigned int flags)
+// src: EXE 0x00496980
+void* FUN_00496980_caller::AnimIdle_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_004969b0(this);
     if (flags & 1)
@@ -2191,11 +2192,12 @@ bool FUN_00498f80_cls::Animation_SpecialIdleWorking()
 struct FUN_0049bb20_cls : public NiMemObject
 {
     void FUN_004eeb00();
-    void* FUN_0049bb20(unsigned int f);
+    void* BSAnimGroupSequence_ScalarDeletingDestructor(unsigned int f);
 };
 // Calls FUN_004eeb00, then if bit 0 of f is set frees this with operator delete and returns this.
 // @fnv 0x0049bb20
-void* FUN_0049bb20_cls::FUN_0049bb20(unsigned int auiFlags)
+// src: EXE 0x0049bb20
+void* FUN_0049bb20_cls::BSAnimGroupSequence_ScalarDeletingDestructor(unsigned int auiFlags)
 {
     FUN_004eeb00();
     if (auiFlags & 1)
@@ -2280,10 +2282,11 @@ struct DtorStandIn
 };
 struct DelStandIn
 {
-    void* FUN_0048efc0(unsigned int flags);
+    void* AnimSequenceSingle_ScalarDeletingDestructor(unsigned int flags);
 };
 // @fnv 0x0048efc0
-void* DelStandIn::FUN_0048efc0(unsigned int flags)
+// src: EXE 0x0048efc0
+void* DelStandIn::AnimSequenceSingle_ScalarDeletingDestructor(unsigned int flags)
 {
     ((DtorStandIn*)this)->FUN_0083dec0();
     if (flags & 1)
@@ -3428,11 +3431,12 @@ struct EBase
 void __cdecl _delete(void*, unsigned int);
 struct FUN_004968e0_shell : EBase
 {
-    void* FUN_004968e0(unsigned int);
+    void* NiRefObject_ScalarDeletingDestructor(unsigned int);
 };
 // Runs the base destructor, frees this with _delete when flags has bit 0 set, and returns this.
 // @fnv 0x004968e0
-void* FUN_004968e0_shell::FUN_004968e0(unsigned int flags)
+// src: EXE 0x004968e0
+void* FUN_004968e0_shell::NiRefObject_ScalarDeletingDestructor(unsigned int flags)
 {
     this->EBase::~EBase();
     if (flags & 1)
@@ -3497,13 +3501,13 @@ struct S_0049c050
     void NiTMapBase_NiTPointerAllocator_unsigned_int_unsigned_short_AnimSequenceBase_NiTMapBase(int);
     void* Construct(int);
 };
-extern int DAT_0101ded0;
-// Calls FUN_0049c100 with a, stores the address of DAT_0101ded0 into this, and returns this.
+extern int vftable_NiTPointerMap_0101ded0;
+// Calls FUN_0049c100 with a, stores the address of vftable_NiTPointerMap_0101ded0 into this, and returns this.
 // @fnv 0x0049c050
 void* S_0049c050::Construct(int a)
 {
     NiTMapBase_NiTPointerAllocator_unsigned_int_unsigned_short_AnimSequenceBase_NiTMapBase(a);
-    *(void**)this = (void*)&DAT_0101ded0;
+    *(void**)this = (void*)&vftable_NiTPointerMap_0101ded0;
     return this;
 }
 
@@ -3617,7 +3621,7 @@ bool FUN_00493990_shell::Animation_GetDelayUpdateScenegraph()
 }  // namespace fnv_00493970
 
 extern "C" void* _NiMalloc(unsigned int);
-extern int DAT_0101def0;
+extern int vftable_NiTMapBase_0101def0;
 struct FUN_0049c100_shell
 {
     void* vft;
@@ -3631,7 +3635,7 @@ struct FUN_0049c100_shell
 // src: EXE 0x0049c100
 FUN_0049c100_shell* FUN_0049c100_shell::NiTMapBase_NiTPointerAllocator_unsigned_int_unsigned_short_AnimSequenceBase_NiTMapBase(int aiCount)
 {
-    vft = (void*)&DAT_0101def0;
+    vft = (void*)&vftable_NiTMapBase_0101def0;
     count = aiCount;
     unused = 0;
     unsigned int uiSize = count * 4;
@@ -3903,7 +3907,7 @@ struct FUN_00451530_shell
     bool TES_CellTestRunning();
 };
 extern PC_00605d70* g_thePlayer;
-extern GlobalObject_0045cfe0 g_011c5778;
+extern GlobalObject_0045cfe0 iAnimationClonePerLoop_BackgroundLoad;
 extern BGSSaveLoadGame* g_BGSSaveLoadGame;
 extern FUN_00451530_shell* g_TES;
 
@@ -3912,7 +3916,7 @@ bool FUN_00490e60_shell::ShouldQueueAnimations()
 {
     bool bqueueAnims = false;
     bqueueAnims = true;
-    if (!g_thePlayer || !g_thePlayer->GetNode(false) || !*g_011c5778.Int())
+    if (!g_thePlayer || !g_thePlayer->GetNode(false) || !*iAnimationClonePerLoop_BackgroundLoad.Int())
     {
         bqueueAnims = false;
     }
@@ -5420,8 +5424,8 @@ struct TESAnimGroupActionEntry
 };
 
 extern TimeGlobalStub g_timeGlobal;
-extern IntSettingStub g_011c5778;
-extern GlobalObject_0044f440 g_011c5724;
+extern IntSettingStub iAnimationClonePerLoop_BackgroundLoad;
+extern GlobalObject_0044f440 fAnimationMult_General;
 extern unsigned int DAT_011c56e8;
 extern bool DAT_011e0783;
 extern PlayerCharacter* g_thePlayer;
@@ -5452,7 +5456,7 @@ void FUN_00491180_shell::Animation_Update(TESObjectREFR* apRef, float afDelta, f
     float fTimeMultiplier = g_timeGlobal.GetTimeMult() * m_fEquipAnimationRate;
     if (HasQueuedSequences())
     {
-        for (; DAT_011c56e8 < *g_011c5778.Int(); DAT_011c56e8++)
+        for (; DAT_011c56e8 < *iAnimationClonePerLoop_BackgroundLoad.Int(); DAT_011c56e8++)
         {
             KFModel* m_kModelObjectsItem = kfModelList.GetItem();
             AddAnimation(m_kModelObjectsItem, false);
@@ -5984,7 +5988,7 @@ void FUN_00491180_shell::Animation_Update(TESObjectREFR* apRef, float afDelta, f
                     if (iType == ((SeqStub*)m_pChildTile[1])->GetAnimGroup()->GetGroupType())
                     {
                         kMoveDelta = ((SeqStub*)m_pChildTile[1])->GetAnimGroup()->GetMoveVector() *
-                                     fTimeMultiplier * *g_011c5724.Float() * m_fMovementRate;
+                                     fTimeMultiplier * *fAnimationMult_General.Float() * m_fMovementRate;
                     }
                     else
                     {
@@ -5998,7 +6002,7 @@ void FUN_00491180_shell::Animation_Update(TESObjectREFR* apRef, float afDelta, f
                                 SeqStub* pMoveSeq = (SeqStub*)pSeqBase->GetSequenceAtIndex(-1);
                                 if (pMoveSeq)
                                     kMoveDelta = pMoveSeq->GetAnimGroup()->GetMoveVector() * fTimeMultiplier *
-                                                 *g_011c5724.Float() * m_fMovementRate;
+                                                 *fAnimationMult_General.Float() * m_fMovementRate;
                             }
                         }
                     }
@@ -6162,7 +6166,7 @@ struct GlobalObject2_0040c150
 {
     int* Int();
 };
-extern GlobalObject2_0040c150 g_011c3ea4;
+extern GlobalObject2_0040c150 iNumHWThreads_General;
 extern char DAT_011e07a8;
 
 extern BGSSaveLoadGame* g_BGSSaveLoadGame;
@@ -6234,7 +6238,7 @@ void AnimSwap::Animation_UpdateSceneGraphNoController()
 {
     if (!m_pRootNode || !pOther)
         return;
-    if (*g_011c3ea4.Int() > 1 && !DAT_011e07a8 && !Animation_GetDelayUpdateScenegraph() && !g_BGSSaveLoadGame->IsLoading())
+    if (*iNumHWThreads_General.Int() > 1 && !DAT_011e07a8 && !Animation_GetDelayUpdateScenegraph() && !g_BGSSaveLoadGame->IsLoading())
     {
         Animation_SetDelayUpdateScenegraph(1);
         return;
@@ -9499,7 +9503,7 @@ struct BoolSetting
 {
     unsigned char* Bool();
 };
-extern BoolSetting g_011de4e8;
+extern BoolSetting bDebugSaveBuffer_Debug;
 
 struct SaveRef
 {
@@ -9606,7 +9610,7 @@ void AnimIdle_SaveAnimIdle(void* apUnused, SavedAnim* apAnim, int aiState, float
     unsigned short usBlockSize4 = 0;
     char* pSizePos8 = 0;
     char* pStart4 = g_TESSaveLoadGame->GetBufferPos();
-    if (*g_011de4e8.Bool())
+    if (*bDebugSaveBuffer_Debug.Bool())
         pStart4 = g_TESSaveLoadGame->GetBufferPos();
     if (g_TESSaveLoadGame->IsSaving())
     {
@@ -9625,7 +9629,7 @@ void AnimIdle_SaveAnimIdle(void* apUnused, SavedAnim* apAnim, int aiState, float
         g_TESSaveLoadGame->WriteData(&usGroup, 2);
         apAnim->SaveState(afTime, aiState);
     }
-    if (*g_011de4e8.Bool())
+    if (*bDebugSaveBuffer_Debug.Bool())
     {
         char* pEnd6 = g_TESSaveLoadGame->GetBufferPos();
         SaveFormInfo* pInfo2 = g_TESSaveLoadGame->GetCurrentForm();

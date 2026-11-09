@@ -2148,7 +2148,7 @@ struct RefCountedObject
 namespace fnvc_adapt {
 extern SourceGeometry* __cdecl hkpMoppUtility_buildCode(const void* attributes, ScratchGeometry* scratch, unsigned int options);
 }
-extern int DAT_0102e368;
+extern int vftable_hkpMoppCode;
 struct Shape : RefCountedObject
 {
     const void** volatile methods;
@@ -2169,7 +2169,7 @@ struct Shape : RefCountedObject
     }
     Shape(const __m128& scaled, unsigned int materialValue, unsigned int shapeFlags)
     {
-        methods = reinterpret_cast<const void**>(&DAT_0102e368);
+        methods = reinterpret_cast<const void**>(&vftable_hkpMoppCode);
         state = 1;
         dimensions = scaled;
         flags = shapeFlags;

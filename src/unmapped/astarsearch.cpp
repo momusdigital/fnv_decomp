@@ -25,7 +25,7 @@ float __fastcall AStarSearch_EvaluateValue_006a7f50(const CombatTargetTimestamp*
     return timestamp->fTimeStamp;
 }
 
-extern int DAT_0106b660;
+extern int vftable_BSSimpleArray_0106b660;
 
 struct GlobalObject_00869f00
 {
@@ -37,7 +37,7 @@ struct GlobalObject_00869f00
 // src: GUESS 0x006a7f90 (confidence: low)
 void GlobalObject_00869f00::SetVtableAndProcessState_006a7f90()
 {
-    *(int*)this = (int)&DAT_0106b660;
+    *(int*)this = (int)&vftable_BSSimpleArray_0106b660;
     this->Clear(true);
 }
 
@@ -50,10 +50,10 @@ struct FUN_006a7f60
     int* vtable;
     FUN_006a7f60();
 };
-// Sets the vtable pointer to DAT_0106b660 and calls FUN_006b3eb0 with 0 and 0 on this object.
+// Sets the vtable pointer to vftable_BSSimpleArray_0106b660 and calls FUN_006b3eb0 with 0 and 0 on this object.
 // @fnv 0x006a7f60
 FUN_006a7f60::FUN_006a7f60()
 {
-    vtable = &DAT_0106b660;
+    vtable = &vftable_BSSimpleArray_0106b660;
     ((AX*)this)->BSSimpleArray_float_1024_InitialSetup(0, 0);
 }

@@ -6,7 +6,8 @@
 
 // Calls FUN_00983130, then deletes this if flags has bit 0 set, and returns this.
 // @fnv 0x00983100
-void* CombatCoverMap::FUN_00983100(unsigned int flags)
+// src: EXE 0x00983100
+void* CombatCoverMap::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00983130();
     if (flags & 1)

@@ -201,7 +201,7 @@ void __fastcall AppendSpawnSettingsStrings(NiPSysSpawnModifier* modifier, void*,
 }
 
 void* __cdecl Object_DispatchCommandFour(unsigned int size);
-extern int DAT_010be124;
+extern int vftable_NiPSysSpawnModifier;
 
 // @fnv 0x00c23d10
 NiPSysSpawnModifier* __fastcall CloneSpawnModifier(NiPSysSpawnModifier* modifier, void*, CloningProcess& process)
@@ -213,7 +213,7 @@ NiPSysSpawnModifier* __fastcall CloneSpawnModifier(NiPSysSpawnModifier* modifier
         pkNew->m_fSpawnPercentage = 1.0f;
         pkNew->m_fSpawnedSpeedChaos = 0.0f;
         pkNew->m_fSpawnDirectionChaos = 0.0f;
-        *(int*)pkNew = (int)&DAT_010be124;
+        *(int*)pkNew = (int)&vftable_NiPSysSpawnModifier;
         pkNew->m_fYValue = 0.0f;
         pkNew->m_usSpawnGenerationCount = 1;
         pkNew->m_fLifeSpanVariation = 0.0f;

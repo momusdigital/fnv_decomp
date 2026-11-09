@@ -22,5 +22,5 @@ public:
     virtual void LoadGame_0087a090(unsigned short count) override;
 
     void SaveToBuffer(BGSSaveFormBuffer* buffer);
-    void* FUN_0087a140(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 };

@@ -52,8 +52,8 @@ int FUN_00d2bb40_cls::hkBufferedStreamReader_rewindToMark()
     return 1;
 }
 
-extern int DAT_0102e388;
-extern int DAT_010ce688;
+extern int vftable_hkBaseObject;
+extern int vftable_hkBufferedStreamReader;
 struct hkBufferedStreamReader
 {
     int* m_pVTable;
@@ -67,10 +67,10 @@ struct hkBufferedStreamReader
 // @fnv 0x00d2bc70
 void hkBufferedStreamReader::Destroy()
 {
-    m_pVTable = &DAT_010ce688;
+    m_pVTable = &vftable_hkBufferedStreamReader;
     m_pObject->removeReference();
     ((hkBufferedStreamReader*)((char*)this + 0xc))->UpdateState_00d2bc10();
-    m_pVTable = &DAT_0102e388;
+    m_pVTable = &vftable_hkBaseObject;
 }
 
 struct FUN_00d2ba80_cls
@@ -436,7 +436,7 @@ FUN_00d2bc30_cls* FUN_00d2bc30_cls::hkBufferedStreamReader_hkBufferedStreamReade
 {
     m_06 = 1;
     m_08 = aiShape;
-    m_pVTable = &DAT_010ce688;
+    m_pVTable = &vftable_hkBufferedStreamReader;
     ((V_00d2bbd0*)((char*)this + 0xc))->Init(b);
     ((CC9F10Shape*)m_08)->Refresh();
     return this;

@@ -19,7 +19,7 @@ public:
     virtual void ChangePriority(IO_TASK_PRIORITY priority);
 
     void __thiscall FUN_0054ab60();
-    void* __thiscall FUN_0054ab30(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 
     TESObjectREFR* unk18;
     NiPointer<NiAVObject> unk1c;

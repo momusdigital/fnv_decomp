@@ -184,7 +184,7 @@ void D2B600Container::AppendObject(D2B600Object* object, int iUnused)
     m_kTrackedObjects.pushBack(object);
 }
 
-extern char DAT_010ce5d4[];
+extern char vftable_hkDefaultError[];
 
 struct D2B640Sub
 {
@@ -214,7 +214,7 @@ struct D2B640Object
 D2B640Object* D2B640Object::Initialize(int a1, int a2)
 {
     *(unsigned short volatile*)&m_06 = 1;
-    m_vtbl = DAT_010ce5d4;
+    m_vtbl = vftable_hkDefaultError;
     D2B640Sub* sub = (D2B640Sub*)((char*)this + 8);
     *(unsigned int volatile*)&sub->m_00 = 0;
     *(unsigned int volatile*)&sub->m_04 = 0;
@@ -248,7 +248,7 @@ struct D2B6Sub
     void Object_DoNothing();
 };
 
-extern int DAT_0102e388;
+extern int vftable_hkBaseObject;
 
 struct FUN_00d2b6b0_cls
 {
@@ -279,7 +279,7 @@ void FUN_00d2b6b0_cls::ClearAndReset()
     D2B6Sub* pSub = &m_sub;
     pSub->ProcessArgument(hkMemoryRouter_getInstance()->unk10);
     pSub->Object_DoNothing();
-    m_vptr00 = (int)&DAT_0102e388;
+    m_vptr00 = (int)&vftable_hkBaseObject;
 }
 
 extern "C" int __cdecl Vsnprintf(char* buf, unsigned size, const char* fmt, ...);

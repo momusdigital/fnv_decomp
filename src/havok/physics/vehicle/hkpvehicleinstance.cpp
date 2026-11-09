@@ -419,7 +419,7 @@ void FUN_00e38080StandIn::hkpVehicleInstance_applyFrictionSolver(const VUC_StepI
     hkpVehicleFrictionDescription_ProcessEntries_00e59a40(&deltaTime, m_data + 0xa4, apArg, &m_object54);
 }
 
-extern int DAT_010df34c;
+extern int vftable_hkpVehicleInstance;
 hkMemoryRouter* _D1A0E0GetMemoryRouter();
 void __fastcall ReleaseReference_00d2b2b0(void*);
 
@@ -465,7 +465,7 @@ struct FUN_00e38bf0
 // @fnv 0x00e38bf0
 FUN_00e38bf0::~FUN_00e38bf0()
 {
-    m_vtbl = &DAT_010df34c;
+    m_vtbl = &vftable_hkpVehicleInstance;
 
     if (m_ref1c)
         m_ref1c->removeReference();

@@ -138,13 +138,13 @@ static __declspec(noinline) void ComputeScaledMinimum(hkpCollidable* coll, const
     coll->m_kBoundingVolumeData.m_pChildShapeKeys = coll->m_kBoundingVolumeData.m_pChildShapeAabbs;
 }
 
-extern void* DAT_010c7888;
+extern void* vftable_hkpRigidBody;
 // @fnv 0x00ca8c90
 // src: GUESS 0x00ca8c90 (confidence: low)
 RigidBodyConstruction* RigidBodyConstruction::AllocateStorage_00ca8c90(const hkpRigidBodyCinfo& info)
 {
     FUN_00c9cce0(info.shape);
-    *(void**)this = &DAT_010c7888;
+    *(void**)this = &vftable_hkpRigidBody;
     *reinterpret_cast<unsigned char*>(&m_iMaterialIndex.m_eResponseType) = info.response;
     m_usNextProcessCallbackDelay = info.responseCount;
     m_kCollidable.m_kBroadPhaseHandle.m_uiCollisionFilterData = info.collisionFilterInfo;

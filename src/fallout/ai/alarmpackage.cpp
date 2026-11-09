@@ -344,7 +344,7 @@ struct GlobalObject_0045cf30
 {
     unsigned char* Bool();
 };
-extern GlobalObject_0045cf30 g_011de4e8;
+extern GlobalObject_0045cf30 bDebugSaveBuffer_Debug;
 
 TESForm* __cdecl _GetFormByNumericID(unsigned int);
 
@@ -447,7 +447,7 @@ unsigned short AlarmPackage::GetSaveSize()
         isaveGameCount += 4;
         isaveGameCount += 2;
     }
-    if (*g_011de4e8.Bool())
+    if (*bDebugSaveBuffer_Debug.Bool())
     {
         char* header = (char*)g_TESSaveLoadGame->GetHitSound();
         if (header)
@@ -725,7 +725,7 @@ unsigned short FUN_009ebb80_shell::Crime_GetSaveSize()
         usTotalSize += 0x10;
         usTotalSize += list.GetSize() * 4 + 2;
 
-        if (*g_011de4e8.Bool())
+        if (*bDebugSaveBuffer_Debug.Bool())
         {
             SoundAssetTmp = reinterpret_cast<FUN_009ebb80_hit_sound*>(DAT_011de45c->GetHitSound());
 
@@ -1158,7 +1158,7 @@ void MyCand::WriteToSave()
     char* aa = 0;
     char* a9 = g_save->GetCurrentPosition();
 
-    if (*g_011de4e8.Bool())
+    if (*bDebugSaveBuffer_Debug.Bool())
         a9 = g_save->GetCurrentPosition();
 
     if (g_save->TESSaveLoadGame_UseSaveGameBlocks())
@@ -1210,7 +1210,7 @@ void MyCand::WriteToSave()
     }
     *(unsigned short*)a8 = a38;
 
-    if (*g_011de4e8.Bool())
+    if (*bDebugSaveBuffer_Debug.Bool())
     {
         char* a4 = g_save->GetCurrentPosition();
         FormRec* ang8 = static_cast<FormRec*>(g_save->FUN_004fd3e0());
@@ -1330,7 +1330,7 @@ void AlarmPackageUnitOperations::SaveGameLegacy()
     unsigned short usVersion7 = 0;
     unsigned short* pSizeTmp = 0;
     unsigned int uiStart3 = g_TESSaveLoadGame->GetTimeStamp();
-    if (*g_011de4e8.Bool())
+    if (*bDebugSaveBuffer_Debug.Bool())
         uiStart3 = g_TESSaveLoadGame->GetTimeStamp();
 
     if (g_TESSaveLoadGame->TESSaveLoadGame_UseSaveGameBlocks())
@@ -1358,7 +1358,7 @@ void AlarmPackageUnitOperations::SaveGameLegacy()
     }
     *aPCount = m_usPassCountLocal;
 
-    if (*g_011de4e8.Bool())
+    if (*bDebugSaveBuffer_Debug.Bool())
     {
         unsigned int uiEnd = g_TESSaveLoadGame->GetTimeStamp();
         unsigned char* pRec9 = (unsigned char*)g_TESSaveLoadGame->GetHitSound();

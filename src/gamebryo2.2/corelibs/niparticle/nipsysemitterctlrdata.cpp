@@ -62,7 +62,7 @@ void NiPSysEmitterCtlrData::ReplaceBirthRateKeys(void* keys, unsigned int numKey
 }
 
 struct NiAnimationKey;
-extern int DAT_010bfd54;
+extern int vftable_NiPSysEmitterCtlrData;
 extern void(__cdecl* DAT_011f38a0[])(void*);
 extern void(__cdecl* DAT_011f3918[])(NiAnimationKey*);
 void __cdecl _delete(void*, unsigned int);
@@ -70,7 +70,7 @@ void __cdecl _delete(void*, unsigned int);
 void* NiPSysEmitterCtlrData::Destroy(unsigned int flags)
 {
     void* pkKeys = *(void**)((char*)this + 0xc);
-    *(void**)this = (void*)&DAT_010bfd54;
+    *(void**)this = (void*)&vftable_NiPSysEmitterCtlrData;
     if (pkKeys)
         DAT_011f38a0[*(int*)((char*)this + 0x10)](pkKeys);
     pkKeys = *(void**)((char*)this + 0x1c);

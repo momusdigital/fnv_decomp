@@ -173,11 +173,12 @@ struct S_FUN_00c53fa0
 };
 struct S_FUN_00c547e0
 {
-    void* __thiscall FUN_00c547e0(unsigned int);
+    void* __thiscall BSFurnitureMarker_ScalarDeletingDestructor(unsigned int);
 };
 // Calls FUN_00c53fa0 on this, then frees this with _delete when bit 0 of flags is set, and returns this.
 // @fnv 0x00c547e0
-void* __thiscall S_FUN_00c547e0::FUN_00c547e0(unsigned int flags)
+// src: EXE 0x00c547e0
+void* __thiscall S_FUN_00c547e0::BSFurnitureMarker_ScalarDeletingDestructor(unsigned int flags)
 {
     reinterpret_cast<S_FUN_00c53fa0*>(this)->FUN_00c53fa0();
     if (flags & 1)
@@ -190,19 +191,19 @@ struct MM
     void __thiscall _DeallocateAlias(void*);
 };
 extern MM g_memoryManager;
-extern int DAT_010c2b2c;
+extern int vftable_NiTArray_010c2b2c;
 struct S
 {
     void* vtbl;
     void* ptr;
     void __thiscall SetVtableAndProcessState_00c54810();
 };
-// Sets the object's vtable pointer to DAT_010c2b2c and deallocates its ptr through g_memoryManager.
+// Sets the object's vtable pointer to vftable_NiTArray_010c2b2c and deallocates its ptr through g_memoryManager.
 // @fnv 0x00c54810
 // src: GUESS 0x00c54810 (confidence: low)
 void __thiscall S::SetVtableAndProcessState_00c54810()
 {
-    *(int*)this = (int)&DAT_010c2b2c;
+    *(int*)this = (int)&vftable_NiTArray_010c2b2c;
     void* p1 = ptr;
     void* p2 = p1;
     g_memoryManager._DeallocateAlias(p2);
@@ -393,7 +394,7 @@ struct FUN_00c54c50_shell
     FUN_00c54c50_shell* __thiscall NiTArray_FurnitureMark_NiTNewInterface_FurnitureMark_NiTArray(unsigned short param_1, unsigned short param_2);
 };
 
-extern int DAT_010c2b2c;
+extern int vftable_NiTArray_010c2b2c;
 void* __cdecl Object_GetIndexedValue_00c54bc0(unsigned int);
 
 // @fnv 0x00c54c50
@@ -407,7 +408,7 @@ FUN_00c54c50_shell* __thiscall FUN_00c54c50_shell::NiTArray_FurnitureMark_NiTNew
     int unk14;
     int unk18;
 
-    this->vtbl = &DAT_010c2b2c;
+    this->vtbl = &vftable_NiTArray_010c2b2c;
     this->fld8 = param_1;
     this->fldE = param_2;
     this->fldA = 0;

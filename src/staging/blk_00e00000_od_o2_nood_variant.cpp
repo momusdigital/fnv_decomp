@@ -39,7 +39,7 @@ void* __cdecl Runtime_EvaluateValue_00e005f0()
 
 // Havok type-registration helper: construct the class in finish-loading mode (flag 0) on the stack,
 // then return its static registration data.
-extern char DAT_010e8ab0[];
+extern char vftable_hkpFastMeshShape[];
 struct __declspec(align(16)) S_00e00cd0_Obj
 {
     void* m_vtbl;
@@ -76,7 +76,7 @@ const char* __cdecl getVtablehkpFastMeshShape()
     FinishingFlag flag;
     flag.m_bFinishing = 0;
     S_00e00cd0_Obj obj(flag);
-    return DAT_010e8ab0;
+    return vftable_hkpFastMeshShape;
 }
 
 // Havok vtable getter: finish-construct a throwaway instance in an aligned scratch buffer (the
@@ -241,8 +241,8 @@ struct FUN_00e00290_sub
     void ReturnSelf(FinishingFlag kHandle);
     int m_00;
 };
-extern int DAT_010cc040;
-extern int DAT_010d79e8;
+extern int vftable_hkpConstraintInstance;
+extern int vftable_hkpConstraintChainInstance;
 struct SmallArray_e00290
 {
     void* m_pData;
@@ -277,12 +277,12 @@ int* __cdecl getVtablehkpConstraintChainInstance()
 {
     FinishingFlag kHandle(0);
     FUN_00e00290_obj kObj;
-    kObj.m_pVtbl = &DAT_010cc040;
+    kObj.m_pVtbl = &vftable_hkpConstraintInstance;
     kObj.m_kArray.m_pData = 0;
     kObj.m_kArray.m_usSize = 0;
     kObj.m_kArray.m_usCapacityAndFlags = 0x8000;
     kObj.m_kSub.ReturnSelf(kHandle);
-    return &DAT_010d79e8;
+    return &vftable_hkpConstraintChainInstance;
 }
 
 class __declspec(align(16)) S00e003b0_Object
@@ -715,7 +715,7 @@ struct FUN_00e02180_sub
     void ReturnSelf(FinishingFlag kHandle);
     int m_00;
 };
-extern int DAT_010e9ccc;
+extern int vftable_hkxMaterialShader;
 struct __declspec(align(16)) FUN_00e02180_obj
 {
     int* m_pVtbl;
@@ -737,7 +737,7 @@ int* __cdecl Object_ProcessAndReturnValue_00e02180()
 {
     FinishingFlag kHandle(0);
     FUN_00e02180_obj kObj;
-    kObj.m_pVtbl = &DAT_010e9ccc;
+    kObj.m_pVtbl = &vftable_hkxMaterialShader;
     kObj.m_kSub08.ReturnSelf(kHandle);
     kObj.m_kSub10.ReturnSelf(kHandle);
     kObj.m_kSub14.ReturnSelf(kHandle);

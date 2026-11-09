@@ -30,7 +30,7 @@ void NiPSysCylinderEmitter::LoadBinary(NiStream& stream)
     stream.m_pkIstr->ReadFloat(m_fCylinderHeight);
 }
 
-extern void* DAT_010bd8b4;
+extern void* vftable_NiPSysCylinderEmitter;
 
 // @fnv 0x00c1fbf0
 // src: EXE 0x00c1fbf0
@@ -41,7 +41,7 @@ void* __cdecl NiPSysCylinderEmitter_CreateObject()
     {
         pFadeNode->FUN_00c31af0();
         *(float*)((char*)pFadeNode + 0x58) = 0.0f;
-        *(void**)pFadeNode = &DAT_010bd8b4;
+        *(void**)pFadeNode = &vftable_NiPSysCylinderEmitter;
         *(float*)((char*)pFadeNode + 0x5c) = 0.0f;
         return pFadeNode;
     }
@@ -68,7 +68,7 @@ BSFadeNode* NiPSysCylinderEmitter::CloneFadeNode(CloningProcess& kCloning)
     {
         pkObject->FUN_00c31af0();
         *(float*)((char*)pkObject + 0x58) = 0.0f;
-        *(void**)((char*)pkObject) = &DAT_010bd8b4;
+        *(void**)((char*)pkObject) = &vftable_NiPSysCylinderEmitter;
         *(float*)((char*)pkObject + 0x5c) = 0.0f;
     }
     else

@@ -36,8 +36,8 @@ struct P03MM
 extern P03MM g_memoryManager;
 extern "C" void* __cdecl _NiMalloc(unsigned int size);
 extern "C" void* __cdecl _fnv_zlib_memset(void* dst, int value, unsigned int size);
-extern int DAT_010f0eb0;
-extern int DAT_010f0f50;
+extern int vftable_NiTMapBase_010f0eb0;
+extern int vftable_NiTStringPointerMap_010f0f50;
 void CreateCreatorMap();
 
 #include "../../../../include/RecursiveSpinLock.h"

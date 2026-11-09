@@ -38,7 +38,7 @@ FUN_00dd9580_Class* FUN_00dd9580_Class::FUN_00dd9580(char flags)
     return this;
 }
 
-extern char DAT_010d7c90[];
+extern char vftable_hkProcessFactory[];
 
 struct FUN_00dd9460_Factory
 {
@@ -69,7 +69,7 @@ class FUN_00dd9460_cls
 FUN_00dd9460_cls* FUN_00dd9460_cls::Initialize()
 {
     unk06 = 1;
-    vtable = DAT_010d7c90;
+    vtable = vftable_hkProcessFactory;
     unk08 = 0;
     unk0c = 0;
     unk10 = 0;

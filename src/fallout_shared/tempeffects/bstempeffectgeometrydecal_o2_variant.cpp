@@ -24,7 +24,7 @@ struct FUN_00685e60_shell
 extern "C" void __cdecl _delete(void* p, unsigned int size);
 
 extern "C" void __cdecl _Call_a5d3a0();
-extern int DAT_0109e47c;
+extern int vftable_NiSkinPartition;
 struct FUN_00a81f90_class
 {
     void* __thiscall NiSkinPartition_NiSkinPartition();
@@ -34,7 +34,7 @@ struct FUN_00a81f90_class
 void* __thiscall FUN_00a81f90_class::NiSkinPartition_NiSkinPartition()
 {
     _Call_a5d3a0();
-    *(int*)this = (int)&DAT_0109e47c;
+    *(int*)this = (int)&vftable_NiSkinPartition;
     *(int*)((char*)this + 0xc) = 0;
     return this;
 }

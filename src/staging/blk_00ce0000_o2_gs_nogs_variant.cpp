@@ -19,7 +19,7 @@
 #include "../../include/hkReferencedObject.h"
 #include "../../include/hkpBroadPhaseListener.h"
 #include "../../include/hkMultiThreadCheck.h"
-extern int DAT_010cc164;
+extern int vftable_bhkSpringDamperConstraintMotor;
 void __cdecl FUN_00d86220();
 struct FUN_00cf45d0_class
 {
@@ -44,7 +44,7 @@ struct FUN_00cf86f0_class
     int IsFieldEqual();
 };
 unsigned short hkMath_min2_unsigned_short(unsigned short a, unsigned short b);
-extern int DAT_010cb864;
+extern int vftable_hkaSkeletonMapper;
 struct FUN_00ce4ae0_cls
 {
     int __thiscall AssignFields_00ce4ae0(int);
@@ -58,7 +58,7 @@ struct FUN_00ce4a20_cls
     int m_iFourthElementInteger;
     int __thiscall ProcessAndReturnValue_00ce4a20(int a);
 };
-extern int DAT_0102e378;
+extern int vftable_hkReferencedObject;
 void __cdecl Object_UpdateFields_00cf69a0(int* a);
 struct FUN_00cf69c0_class
 {
@@ -82,7 +82,7 @@ struct FUN_00cf4820_class
     int m4;
     FUN_00cf4820_class();
 };
-extern int DAT_0102e388;
+extern int vftable_hkBaseObject;
 struct FUN_00cf86d0_cls
 {
     void SetVtableAndProcessState_00cf86d0();
@@ -91,8 +91,8 @@ struct FUN_00cf86d0_cls
 //   - installs the base vtable pointer at [this],
 //   - calls the constructor of the sub-object living at this+0x10,
 //   - then installs the vtable pointer of the derived class at [this].
-extern int DAT_010cb864;
-extern int DAT_0102e388;
+extern int vftable_hkaSkeletonMapper;
+extern int vftable_hkBaseObject;
 // Sub-object at +0x10; FUN_00ce5370 is the game's constructor for it.
 struct FUN_00ce5370_cls
 {
@@ -228,8 +228,8 @@ class CF4BC0Saver
 };
 CF4BC0Saver* __cdecl CF4BC0CreateSaver(unsigned int uiType);
 void __cdecl bhkConstraintManager_SaveBinary(NiStream& kStream, CF4BC0Object* pkObject);
-extern int DAT_010cc2fc;
-extern int DAT_0102e388;
+extern int vftable_hkpAction;
+extern int vftable_hkBaseObject;
 hkMemoryRouter* __cdecl hkMemoryRouter_getInstance() throw();
 struct SubObject_b3813
 {
@@ -341,7 +341,7 @@ struct FUN_00cf6980_class
 void __cdecl Object_ForwardCall_00cf6980(FUN_00cf6980_class* object);
 extern int DAT_01268748;
 int* __cdecl Runtime_GetDAT01268748Address();
-extern int DAT_0102e378;
+extern int vftable_hkReferencedObject;
 int* __cdecl Runtime_GetDAT0102e378Address();
 extern int DAT_01268794;
 extern "C" __declspec(dllimport) void __stdcall FUN_00fdf05c(int value);
@@ -737,7 +737,7 @@ extern "C" unsigned int __cdecl SaveUIntArray(NiStream& kStream, const ArrayData
 
     return totalSize;
 }
-extern int DAT_010cc064;
+extern int vftable_bhkPositionConstraintMotor;
 struct FUN_00cdf560
 {
     int m0;
@@ -870,14 +870,14 @@ void* __cdecl Runtime_UpdateState_00cfb050(void* pvUnused, bool* pbOut, void* pv
 void nullsub_7();
 int __cdecl Runtime_GetC(int a, int b, int c);
 void __stdcall nullsub_59(int, int, int, int, int);
-extern int DAT_0102e388;
+extern int vftable_hkBaseObject;
 struct FUN_00cfc590_class
 {
     int* vtable;
 
     void __thiscall SetVtable();
 };
-extern int DAT_010cc86c;
+extern int vftable_hkpReportContactMgr;
 struct S_00cfc5a0
 {
     int unk00;
@@ -1051,7 +1051,7 @@ class SerializableCF42
 };
 // bhkVelocityConstraintMotor ctor (hkpVelocityConstraintMotor chain):
 // vptr(0), memSizeAndFlags(4), referenceCount(6), motor type(8), min/max force, tau, damping, velocity-clamp bool.
-const void* DAT_010cc0ec[];
+const void* vftable_bhkVelocityConstraintMotor[];
 extern "C" void _ReadWriteBarrier();
 class FUN_00cf43b0
 {

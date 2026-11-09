@@ -5,7 +5,7 @@
 #include "../../include/layout_support.h"
 
 extern "C" void __cdecl _Call_a5d3a0();
-extern int DAT_011011ec;
+extern int vftable_NiShaderDeclaration;
 
 struct FUN_00ee88b0
 {
@@ -17,7 +17,7 @@ struct FUN_00ee88b0
 FUN_00ee88b0::FUN_00ee88b0()
 {
     _Call_a5d3a0();
-    m_vftable = (int)&DAT_011011ec;
+    m_vftable = (int)&vftable_NiShaderDeclaration;
 }
 
 extern const char* _EmptyFS;

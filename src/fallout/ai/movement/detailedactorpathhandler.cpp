@@ -1119,11 +1119,12 @@ struct DtorStandIn
 };
 struct DelStandIn
 {
-    void* FUN_009e0160(unsigned int flags);
+    void* DetailedActorPathHandler_ScalarDeletingDestructor(unsigned int flags);
 };
 // Runs the destructor on this, then frees this when flags has bit 0 set, and returns this.
 // @fnv 0x009e0160
-void* DelStandIn::FUN_009e0160(unsigned int flags)
+// src: EXE 0x009e0160
+void* DelStandIn::DetailedActorPathHandler_ScalarDeletingDestructor(unsigned int flags)
 {
     ((DtorStandIn*)this)->FUN_0083dec0();
     if (flags & 1)
@@ -1308,10 +1309,10 @@ extern float DAT_010923dc;
 extern Setting originalRuntimeFloatSetting220;
 extern const double DAT_01023128;
 extern double DAT_01092478;
-extern Setting g_011f2ac4;
-extern Setting g_011f2ad8;
-extern Setting g_011f2b10;
-extern Setting g_011f2c10;
+extern Setting fAICombatTurnSpeedScale_Pathfinding;
+extern Setting fAITurnSpeedScale_Pathfinding;
+extern Setting fCreatureCombatTurnSpeedScale_Pathfinding;
+extern Setting fCreatureTurnSpeedScale_Pathfinding;
 
 // Runs the actor path handler's state machine, turning the actor toward its look-at target and updating move mode and timers.
 // @fnv 0x009e16e0
@@ -1401,11 +1402,11 @@ int FUN_009e16e0_shell::DetailedActorPathHandler_NoPathUpdate(float afDeltaT)
                     }
                     float frotateMax = (*(Actor**)((char*)this + 4))->GetMaxRotationSpeed() * DAT_01023128 * afDeltaT;
                     if (!(*(Actor**)((char*)this + 4))->IsCreature())
-                        frotateMax *= ((Actor*)*(Actor**)((char*)this + 4))->HasCombatState() ? *g_011f2ac4.Float()
-                                                                                                : *g_011f2ad8.Float();
+                        frotateMax *= ((Actor*)*(Actor**)((char*)this + 4))->HasCombatState() ? *fAICombatTurnSpeedScale_Pathfinding.Float()
+                                                                                                : *fAITurnSpeedScale_Pathfinding.Float();
                     else
-                        frotateMax *= ((Actor*)*(Actor**)((char*)this + 4))->HasCombatState() ? *g_011f2b10.Float()
-                                                                                                : *g_011f2c10.Float();
+                        frotateMax *= ((Actor*)*(Actor**)((char*)this + 4))->HasCombatState() ? *fCreatureCombatTurnSpeedScale_Pathfinding.Float()
+                                                                                                : *fCreatureTurnSpeedScale_Pathfinding.Float();
                     float fclampedAngleDelta = fangleDelta;
                     if (fclampedAngleDelta > frotateMax)
                         fclampedAngleDelta = frotateMax;
@@ -2054,8 +2055,8 @@ extern float DAT_011a5cf4;
 extern float DAT_011a5cfc;
 extern PC7d* g_thePlayer;
 extern unsigned int DAT_011f2aa0;
-extern GlobalObject_0044f440 g_011f2b8c;
-extern GlobalObject_0044f440 g_011f2b98;
+extern GlobalObject_0044f440 fAvoidanceAvoidAllRadius_Pathfinding;
+extern GlobalObject_0044f440 fAvoidanceTimeCheck_Pathfinding;
 extern NiTPrimitiveArray<Actor*> g_011f2bf8;
 extern Twin_0084d030 g_timeGlobal;
 
@@ -2081,7 +2082,7 @@ void EvaluateAvoidance(Actor* apActor, PathingRequest* apRequest, unsigned int a
     float fAheadDist;
 
     fTime = g_timeGlobal.GetStoredFloatValue();
-    fSpeed = *g_011f2b98.Float();
+    fSpeed = *fAvoidanceTimeCheck_Pathfinding.Float();
     fScaleMultiplier = kNormDir.GetLengthSquared();
     fTravelTime = fScaleMultiplier / fTime;
     fAheadDist = fSpeed * fTravelTime;
@@ -2126,7 +2127,7 @@ void EvaluateAvoidance(Actor* apActor, PathingRequest* apRequest, unsigned int a
                     ((NiPoint3&)kRelOffset).Subtract(kOtherOffset);
                 }
                 fOffsetLength = ((NiPoint3&)kRelOffset).GetLengthSquared();
-                if (fDistSq > *g_011f2b8c.Float() * *g_011f2b8c.Float())
+                if (fDistSq > *fAvoidanceAvoidAllRadius_Pathfinding.Float() * *fAvoidanceAvoidAllRadius_Pathfinding.Float())
                 {
                     NiPoint3 kToOther = (const NiPoint3&)*((const Actor*)pAvoidActor)->GetPos();
                     kToOther.Subtract(((NiPoint3&)akStart));
@@ -2138,8 +2139,8 @@ void EvaluateAvoidance(Actor* apActor, PathingRequest* apRequest, unsigned int a
                 fTimeToTarget = fOffsetLength / fTime;
                 fOtherDist = fSpeed * fTimeToTarget;
                 fAvoidDist = fRadius + fOtherDist;
-                if (fAvoidDist < *g_011f2b8c.Float())
-                    fAvoidDist = *g_011f2b8c.Float();
+                if (fAvoidDist < *fAvoidanceAvoidAllRadius_Pathfinding.Float())
+                    fAvoidDist = *fAvoidanceAvoidAllRadius_Pathfinding.Float();
                 if (DetailedActorPathHandler_CheckDetection(apActor, apData, pAvoidActor, &((NiPoint3&)akStart), &((NiPoint3&)kRelOffset), fAvoidDist, fCosThreshold,
                                  &fDistance, false))
                     apList->AppendElement(ActorAvoidanceData(pAvoidActor, fDistance));
@@ -3006,8 +3007,8 @@ FUN_009e6870::FUN_009e6870(const POD12& aPOD12, float afValue1, float afValue2, 
     f20 = aiValue;
 }
 
-extern int DAT_01092640;
-// Sets the vtable to DAT_01092640, calls InitBuffer with 0 and 0, and returns this.
+extern int vftable_BSSimpleArray_01092640;
+// Sets the vtable to vftable_BSSimpleArray_01092640, calls InitBuffer with 0 and 0, and returns this.
 // @fnv 0x009e9950
 template <>
 BSSimpleArray<ActorAvoidanceData, 1024>::BSSimpleArray()
@@ -3163,7 +3164,7 @@ extern int DAT_011e0e80;
 extern int DAT_011f2a9c;
 extern unsigned int DAT_011f2aa0;
 extern int DAT_011f2aa4;
-extern GlobalObject_0044f440 g_011f2bd0;
+extern GlobalObject_0044f440 fLODActorAvoidanceDistance_General;
 extern NiTPrimitiveArray<Actor*> g_011f2bf8;
 extern GameTimerRecord g_timeGlobal;
 
@@ -3192,7 +3193,7 @@ bool UpdateAliveActorList()
                 continue;
             if (actor->GetPhysicsCharacterController() && ((BSFadeNode*)node)->NiNode_QNotVisible() &&
                 ((CharacterControllerQueries*)actor->GetPhysicsCharacterController())->bhkCharacterController_QLODDistance() >
-                    *((Setting*)&g_011f2bd0)->Float())
+                    *((Setting*)&fLODActorAvoidanceDistance_General)->Float())
                 continue;
             DAT_011f2aa0++;
             g_011f2bf8.AddFirstEmpty(actor);
@@ -3418,7 +3419,7 @@ float __cdecl GetDirectionAngle(const NiPoint3& dir);
 bool __cdecl NavMeshMath_SegmentCircleIntersection(const NiPoint3* start, const NiPoint3* end, const NiPoint3* avoidPos, float avoidRadius);
 
 extern PlayerOps_9e6ba0* g_thePlayer;
-extern Setting g_011f2b68;
+extern Setting fRepathingWaitDistance_Pathfinding;
 extern double DAT_01011588;
 
 // Validates the pathing solution and player state, then updates the tether and sets the request origin based on actor position, cell interior, and avoided actors.
@@ -3463,9 +3464,9 @@ void FUN_009e6ba0_shell::UpdatePathingOrigin(PathingRequest* apRequest)
         float fnewLen = (((PathingRequestOps*)apRequest)->GetOrigin()->GetLocation<NiPoint3Ops>() -
                          ((PathingRequestOps*)apRequest)->GetDestination()->GetLocation<NiPoint3Ops>())
                             .Length();
-        float fwaitDist = *g_011f2b68.Float();
+        float fwaitDist = *fRepathingWaitDistance_Pathfinding.Float();
         if (((DetailedActorPathHandler*)this)->ByteAndFlagState & 0x200)
-            fwaitDist += *g_011f2b68.Float();
+            fwaitDist += *fRepathingWaitDistance_Pathfinding.Float();
         fwaitDist *= 2.0f;
         if (fnewLen < fwaitDist)
             fwaitDist = fnewLen * DAT_01011588;
@@ -4215,8 +4216,8 @@ struct UpdateBoolSetting
 {
     bool* Bool();
 };
-extern UpdateFloatSetting g_011f2b2c;
-extern UpdateBoolSetting g_011f2bb8;
+extern UpdateFloatSetting fAvoidanceMinWaitTime_Pathfinding;
+extern UpdateBoolSetting bUseActorAvoidance_Pathfinding;
 struct UpdateMatrix
 {
     float m0;
@@ -4395,7 +4396,7 @@ int UpdateHandler::UpdateMovementState(float afDeltaTime)
                 return 1;
             }
             else
-                avoidanceTimer = *g_011f2b2c.Float();
+                avoidanceTimer = *fAvoidanceMinWaitTime_Pathfinding.Float();
         }
         else
         {
@@ -4430,7 +4431,7 @@ int UpdateHandler::UpdateMovementState(float afDeltaTime)
     }
     ScaleMovement(afDeltaTime);
 
-    if (*g_011f2bb8.Bool())
+    if (*bUseActorAvoidance_Pathfinding.Bool())
     {
         if (!movementBlocked)
         {
@@ -5823,7 +5824,7 @@ struct AvoidSetting
 {
     float* Setting_Float_00403e20();
 };
-extern AvoidSetting g_011f2bd0, g_011f2b1c, g_011f2b74, g_011f2b2c, g_011f2b3c, g_011f2bc4, g_011f2b5c;
+extern AvoidSetting fLODActorAvoidanceDistance_General, fAvoidanceDetectionTime_Pathfinding, fAvoidanceDefaultWaitTime_Pathfinding, fAvoidanceMinWaitTime_Pathfinding, fAvoidanceIgnoreTime_Pathfinding, fAvoidanceIgnoreMinTime_Pathfinding, g_011f2b5c;
 struct AvoidPlayer : AvoidActor
 {
 };
@@ -5876,7 +5877,7 @@ int AvoidHandler::UpdateAvoidance(float deltaTime)
 {
     AvoidActor* target = actor->v116();
     if (!target || !target->NiAVObject_QFadedIn() ||
-        (target->NiNode_QNotVisible() && actor->FUN_009306d0()->bhkCharacterController_QLODDistance() > *g_011f2bd0.Setting_Float_00403e20()))
+        (target->NiNode_QNotVisible() && actor->FUN_009306d0()->bhkCharacterController_QLODDistance() > *fLODActorAvoidanceDistance_General.Setting_Float_00403e20()))
         return 0;
     if (avoidState != 2 && moveDelta.GetSquaredXYLength() < 0.25)
         return 0;
@@ -5942,7 +5943,7 @@ int AvoidHandler::UpdateAvoidance(float deltaTime)
                 else if (!actor->FUN_008bc7d0(obstacle))
                 {
                     blocked = true;
-                    if (detectionValue >= *g_011f2b1c.Setting_Float_00403e20())
+                    if (detectionValue >= *fAvoidanceDetectionTime_Pathfinding.Setting_Float_00403e20())
                         break;
                 }
             }
@@ -5972,21 +5973,21 @@ int AvoidHandler::UpdateAvoidance(float deltaTime)
         return 0;
     if (detectionValue == 0.0)
         return 0;
-    if (detectionValue >= *g_011f2b1c.Setting_Float_00403e20())
+    if (detectionValue >= *fAvoidanceDetectionTime_Pathfinding.Setting_Float_00403e20())
     {
         if (blocked)
         {
-            waitTime = *g_011f2b74.Setting_Float_00403e20();
-            avoidTimer = *g_011f2b2c.Setting_Float_00403e20();
+            waitTime = *fAvoidanceDefaultWaitTime_Pathfinding.Setting_Float_00403e20();
+            avoidTimer = *fAvoidanceMinWaitTime_Pathfinding.Setting_Float_00403e20();
             mover->FUN_00483710();
             return 1;
         }
         if (!nearbyActors.NiTListBase_DFALL_NiTListItem_BSAnimGroupSequence_const_BSAnimGroupSequence_const_IsEmpty())
         {
             if (avoidState != 4 && !includesPlayer && !(moveMode & 0x200))
-                avoidTimer = *g_011f2b3c.Setting_Float_00403e20();
+                avoidTimer = *fAvoidanceIgnoreTime_Pathfinding.Setting_Float_00403e20();
             else
-                avoidTimer = BSMAX_00404010(avoidTimer, *g_011f2bc4.Setting_Float_00403e20());
+                avoidTimer = BSMAX_00404010(avoidTimer, *fAvoidanceIgnoreMinTime_Pathfinding.Setting_Float_00403e20());
             AvoidArray* avoidNodes = new AvoidArray;
             unsigned int count = nearbyActors.GetSize();
             for (unsigned int j = 0; j < count; ++j)
@@ -6057,10 +6058,10 @@ class GlobalObject_0044f440
   public:
     float* Float();
 };
-extern GlobalObject_0044f440 g_011f2ac4;
-extern GlobalObject_0044f440 g_011f2ad8;
-extern GlobalObject_0044f440 g_011f2b10;
-extern GlobalObject_0044f440 g_011f2c10;
+extern GlobalObject_0044f440 fAICombatTurnSpeedScale_Pathfinding;
+extern GlobalObject_0044f440 fAITurnSpeedScale_Pathfinding;
+extern GlobalObject_0044f440 fCreatureCombatTurnSpeedScale_Pathfinding;
+extern GlobalObject_0044f440 fCreatureTurnSpeedScale_Pathfinding;
 
 struct FUN_008843a0_shell
 {
@@ -6139,11 +6140,11 @@ float FUN_009e7d70_shell::DetailedActorPathHandler_UpdateRotation(float afDeltaT
         float var_10 = ((VCallHelper_354*)this->pActor)->v213() * DAT_01023128 * afDeltaTime;
         if (!this->pActor->IsCreature())
         {
-            var_10 *= ((FUN_00493bb0_shell*)this->pActor)->Actor_IsInCombat() ? *g_011f2ac4.Float() : *g_011f2ad8.Float();
+            var_10 *= ((FUN_00493bb0_shell*)this->pActor)->Actor_IsInCombat() ? *fAICombatTurnSpeedScale_Pathfinding.Float() : *fAITurnSpeedScale_Pathfinding.Float();
         }
         else
         {
-            var_10 *= ((FUN_00493bb0_shell*)this->pActor)->Actor_IsInCombat() ? *g_011f2b10.Float() : *g_011f2c10.Float();
+            var_10 *= ((FUN_00493bb0_shell*)this->pActor)->Actor_IsInCombat() ? *fCreatureCombatTurnSpeedScale_Pathfinding.Float() : *fCreatureTurnSpeedScale_Pathfinding.Float();
         }
         if (var_10 > std::abs(var4))
         {
@@ -6632,7 +6633,7 @@ struct SettingVal
 {
     float* Float();
 };
-extern SettingVal g_011f2b8c;
+extern SettingVal fAvoidanceAvoidAllRadius_Pathfinding;
 
 struct Pkg
 {
@@ -7190,7 +7191,7 @@ bool __cdecl DetailedActorPathHandler_CheckDetection(Ref* apActor, Group* apGrou
                 kDelta.z = 0.0f;
                 float fDist = kDelta.Length2();
                 bool bClose4 = false;
-                if (fDist < *g_011f2b8c.Float())
+                if (fDist < *fAvoidanceAvoidAllRadius_Pathfinding.Float())
                     bClose4 = true;
                 fDist = fDist - fRadius3;
                 fDist = BSMAX_00404010(fDist, 0.0f);

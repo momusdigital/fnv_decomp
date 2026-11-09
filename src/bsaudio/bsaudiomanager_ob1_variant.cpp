@@ -314,7 +314,7 @@ struct FUN_00ae6c60_shell
 {
     int __thiscall _BSAudioManager_AudioCacheSize();
 };
-extern int DAT_010a3718;
+extern int vftable_AudioLoadTask;
 struct _Base_00441d20
 {
     _Base_00441d20();
@@ -1332,8 +1332,8 @@ IdentifierState FUN_00ae5870_t::BSAudioManager_InitSoundForm(const char* pName, 
     return kHandle_nhzv;
 }
 
-extern int DAT_010a3368, DAT_010a3308, DAT_010a33b0;
-extern int DAT_010a3328, DAT_010a3390, DAT_010a3348, DAT_010a3370;
+extern int vftable_BSAudioManager, vftable_NiTPointerMap_010a3308, vftable_NiTMapBase_010a33b0;
+extern int vftable_NiTPointerMap_010a3328, vftable_NiTMapBase_010a3390, vftable_NiTPointerMap_010a3348, vftable_NiTMapBase_010a3370;
 extern "C" void __cdecl _NiFree_00aa10f0(void*);
 extern "C" void __cdecl FUN_00a1bbd0();
 void __stdcall FUN_0065ee50_Helper(void*, unsigned int, int, void(__cdecl*)());
@@ -1422,10 +1422,10 @@ struct FUN_00ad93f0
     int offset_04, offset_08;
     ArrayView offset_0c;
     StackView offset_24, offset_34, offset_44;
-    ContainerView<&DAT_010a3348, &DAT_010a3370> offset_54;
-    ContainerView<&DAT_010a3328, &DAT_010a3390, 2> offset_64;
-    ContainerView<&DAT_010a3328, &DAT_010a3390> offset_74;
-    ContainerView<&DAT_010a3308, &DAT_010a33b0> offset_84;
+    ContainerView<&vftable_NiTPointerMap_010a3348, &vftable_NiTMapBase_010a3370> offset_54;
+    ContainerView<&vftable_NiTPointerMap_010a3328, &vftable_NiTMapBase_010a3390, 2> offset_64;
+    ContainerView<&vftable_NiTPointerMap_010a3328, &vftable_NiTMapBase_010a3390> offset_74;
+    ContainerView<&vftable_NiTPointerMap_010a3308, &vftable_NiTMapBase_010a33b0> offset_84;
     ListView<1> offset_94;
     int offset_a0, offset_a4, offset_a8;
     CSView offset_ac, offset_c4, offset_dc, offset_f4, offset_10c;
@@ -7783,8 +7783,8 @@ void List_ae7550::SoundMessageStack_Clear()
 }  // namespace fnv_00ae7550
 
 namespace fnv_00ae9150 {
-extern char DAT_010a3308;
-extern char DAT_010a33b0;
+extern char vftable_NiTPointerMap_010a3308;
+extern char vftable_NiTMapBase_010a33b0;
 
 void __cdecl _NiFree_00aa10f0(int value);
 
@@ -7819,12 +7819,12 @@ S00ae9150_Obj* S00ae9150_Obj::FUN_00ae9150(unsigned int aFlags)
     int u1;
     int u2;
     int u3;
-    m_vptr = &DAT_010a3308;
+    m_vptr = &vftable_NiTPointerMap_010a3308;
     {
         S00ae9150_Guard guard;
         ClearAll();
     }
-    m_vptr = &DAT_010a33b0;
+    m_vptr = &vftable_NiTMapBase_010a33b0;
     ClearAll();
     _NiFree_00aa10f0(m_08);
     if (aFlags & 1)

@@ -78,7 +78,7 @@ bool FUN_00d5e8a0_Class::CanAllocate(int size)
 
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(void*);
 
-extern int DAT_010d1110;
+extern int vftable_hkSolverAllocator;
 
 struct FUN_00c66560_class
 {
@@ -90,7 +90,7 @@ struct FUN_00c66560_class
 // src: GUESS 0x00cbf1a0 (confidence: low)
 void FUN_00c66560_class::UpdateFields_00cbf1a0()
 {
-    volatile int* p = &DAT_010d1110;
+    volatile int* p = &vftable_hkSolverAllocator;
     *p = *p;
 }
 
@@ -106,7 +106,7 @@ struct FUN_00cd06a0_class : public FUN_00c66560_class
 void FUN_00cd06a0_class::ResetVftableAndDeleteCriticalSection()
 {
     void* criticalSection = &m_CriticalSection;
-    m_pVftable = &DAT_010d1110;
+    m_pVftable = &vftable_hkSolverAllocator;
     DeleteCriticalSection(criticalSection);
     UpdateFields_00cbf1a0();
 }

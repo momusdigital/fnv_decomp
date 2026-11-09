@@ -1209,7 +1209,7 @@ bhkSerializable::bhkSerializable()
 
 struct FUN_004b51a0_shell
 {
-    void* FUN_004b51a0(unsigned int flags);
+    void* bhkAction_ScalarDeletingDestructor(unsigned int flags);
 };
 
 struct FUN_00c87970_shell
@@ -1220,7 +1220,8 @@ struct FUN_00c87970_shell
 void __cdecl __Dummy_00b6fef0(void* obj, unsigned int size);
 
 // @fnv 0x004b51a0
-void* FUN_004b51a0_shell::FUN_004b51a0(unsigned int flags)
+// src: EXE 0x004b51a0
+void* FUN_004b51a0_shell::bhkAction_ScalarDeletingDestructor(unsigned int flags)
 {
     ((FUN_00c87970_shell*)this)->FUN_00c87970();
     if (flags & 1)
@@ -1372,7 +1373,7 @@ struct FUN_004b50f0 : bhkSerializable
     FUN_004b50f0();
 };
 
-// Sets m_p to the address of DAT_0102016c and increments DAT_01268154.
+// Sets m_p to the address of vftable_bhkAction and increments DAT_01268154.
 // @fnv 0x004b50f0
 FUN_004b50f0::FUN_004b50f0()
 {
@@ -1398,7 +1399,8 @@ extern void _delete(void* ptr, unsigned int size);
 
 // Calls Destroy on this, then frees this with _delete when flags has bit 0 set, and returns this.
 // @fnv 0x004b5160
-void* bhkSerializable::FUN_004b5160(unsigned int flags)
+// src: EXE 0x004b5160
+void* bhkSerializable::ScalarDeletingDestructor(unsigned int flags)
 {
     this->Destroy();
     if (flags & 1)
@@ -1425,11 +1427,12 @@ extern void __cdecl _delete(void* ptr, unsigned int size);
 // The shared base lacks this deleting-destructor entry.
 struct UnaryActionDeletingDestructor : bhkUnaryAction
 {
-    void* __thiscall FUN_004b51e0(unsigned int flags);
+    void* __thiscall bhkUnaryAction_ScalarDeletingDestructor(unsigned int flags);
 };
 
 // @fnv 0x004b51e0
-void* __thiscall UnaryActionDeletingDestructor::FUN_004b51e0(unsigned int flags)
+// src: EXE 0x004b51e0
+void* __thiscall UnaryActionDeletingDestructor::bhkUnaryAction_ScalarDeletingDestructor(unsigned int flags)
 {
     this->FUN_00c86720();
     if (flags & 1)
@@ -1562,7 +1565,7 @@ void S_004b4fc0::bhkVector4_setZero4()
     bhkVector4_set(0.0f, 0.0f, 0.0f, 0.0f);
 }
 
-extern int DAT_0102009c;
+extern int vftable_bhkUnaryAction;
 extern int DAT_01268118;
 struct Fake004b50c0
 {
@@ -1574,7 +1577,7 @@ struct Fake004b50c0
 Fake004b50c0* Fake004b50c0::InitializeFields_004b50c0()
 {
     FUN_004b50f0();
-    *(int*)this = (int)&DAT_0102009c;
+    *(int*)this = (int)&vftable_bhkUnaryAction;
     DAT_01268118++;
     return this;
 }
@@ -1582,7 +1585,8 @@ Fake004b50c0* Fake004b50c0::InitializeFields_004b50c0()
 void __cdecl _delete(void*, unsigned int);
 // Calls FUN_00c86cb0, frees this with _delete when flags has bit 0 set, and returns this.
 // @fnv 0x004b5230
-void* __thiscall bhkMouseSpringAction::FUN_004b5230(unsigned int flags)
+// src: EXE 0x004b5230
+void* __thiscall bhkMouseSpringAction::ScalarDeletingDestructor(unsigned int flags)
 {
     this->FUN_00c86cb0();
     if (flags & 1)

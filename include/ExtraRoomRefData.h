@@ -15,7 +15,7 @@ public:
     void SetSelectedMagicItem(MagicItem* spell);
 
     void FUN_00420630();
-    void* FUN_00420600(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 
     RoomRefData* pData;
 };

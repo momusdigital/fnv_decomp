@@ -360,7 +360,7 @@ void* __cdecl CreateResourceFromArray(void* arg0, void* arg1, void* arg2) throw(
 class BSAudio;
 namespace fnv_00dc0f20 {
 extern int DAT_010d6a94;
-extern int DAT_0102e388;
+extern int vftable_hkBaseObject;
 
 void __cdecl hkNativePackfileUtils_unload(void*, void*);
 
@@ -399,7 +399,7 @@ void FUN_00dc0f20_cls::UpdateFields_00dc0f20()
     }
     m_08 = 0;
     m_10 = 0x80000000u;
-    *(volatile int*)&m_vptr = (int)&DAT_0102e388;
+    *(volatile int*)&m_vptr = (int)&vftable_hkBaseObject;
 }
 }  // namespace fnv_00dc0f20
 

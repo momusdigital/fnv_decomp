@@ -57,4 +57,4 @@ class NiD3DGeometryGroupManager : public NiMemObject
     NiGeometryGroup* CreateGroup(NiGeometryGroupManager::RepackingBehavior);
     static NiD3DGeometryGroupManager* Create(Direct3DDeviceInterface*, VertexDeclarationLayout*);
 };
-extern void* DAT_010ef718[];
+extern void* vftable_NiD3DGeometryGroupManager[];

@@ -351,7 +351,7 @@ void __stdcall ClearAllItems(int iUnused0, int iUnused1)
     }
 }
 
-extern int DAT_010d8040;
+extern int vftable_hkStreamStatisticsCollector;
 
 struct SubBase
 {
@@ -409,7 +409,7 @@ FUN_00ddf170_cls* FUN_00ddf170_cls::hkStreamStatisticsCollector_hkStreamStatisti
 {
     ((SubBase*)this)->FUN_00d06f50(a1);
     int value = aiBufferSize;
-    m_vtbl = (void*)&DAT_010d8040;
+    m_vtbl = (void*)&vftable_hkStreamStatisticsCollector;
     SpawnedHandle* pHandle = &m_14;
     pHandle->m_ptr = 0;
     pHandle->m_uiFilterValue = 0;

@@ -582,7 +582,7 @@ class GlobalObject_0045cf30
     unsigned char* Bool();
 };
 
-extern GlobalObject_0045cf30 g_011de4e8;
+extern GlobalObject_0045cf30 bDebugSaveBuffer_Debug;
 
 class ActorMagicSpellList
 {
@@ -630,7 +630,7 @@ void TESSpellList_Target::SaveSpellList(unsigned int flags)
         unsigned int posNow1;
 
         startPosData = reinterpret_cast<TimeGlobal*>(g_TESSaveLoadGame)->GetTimeStamp();
-        if (*g_011de4e8.Bool())
+        if (*bDebugSaveBuffer_Debug.Bool())
             startPosData = reinterpret_cast<TimeGlobal*>(g_TESSaveLoadGame)->GetTimeStamp();
 
         if (g_TESSaveLoadGame->TESSaveLoadGame_UseSaveGameBlocks())
@@ -674,7 +674,7 @@ void TESSpellList_Target::SaveSpellList(unsigned int flags)
 
         *pNumSpells = spellCount1;
 
-        if (*g_011de4e8.Bool())
+        if (*bDebugSaveBuffer_Debug.Bool())
         {
             currentPos1 = reinterpret_cast<TimeGlobal*>(g_TESSaveLoadGame)->GetTimeStamp();
             createdObj2 = reinterpret_cast<TES*>(g_TESSaveLoadGame)->GetHitSound();
@@ -774,7 +774,7 @@ struct S0048d8f0_SettingStub
 {
     unsigned char* Bool();
 };
-extern S0048d8f0_SettingStub g_011de4e8;
+extern S0048d8f0_SettingStub bDebugSaveBuffer_Debug;
 struct S0048d8f0_FormStub
 {
     virtual void vfn_0();
@@ -888,7 +888,7 @@ unsigned short S0048d8f0_SpellListSaveSizer::TESSpellList_GetSaveSize(unsigned i
         size += 2;
         size += spells.GetSize() * 4;
         size += leveledSpells.GetSize() * 4;
-        if (*g_011de4e8.Bool())
+        if (*bDebugSaveBuffer_Debug.Bool())
         {
             S0048d8f0_Record* record = DAT_011de45c->FUN_004fd3e0();
             if (record)

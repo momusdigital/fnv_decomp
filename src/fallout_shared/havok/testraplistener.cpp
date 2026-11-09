@@ -30,14 +30,14 @@ void* FUN_0062d2f0_shell::GetOffset160()
 
 int __fastcall _ref_0084e3a0(void* self);
 
-extern int DAT_0104e328;
+extern int vftable_hkpCdBodyPairCollector;
 
 
 // @fnv 0x0062d420
 // src: GUESS 0x0062d420 (confidence: low)
 void hkpCdBodyPairCollector::SetVirtualTable_0062d420()
 {
-    *(int*)this = (int)&DAT_0104e328;
+    *(int*)this = (int)&vftable_hkpCdBodyPairCollector;
 }
 
 void* __cdecl _Deallocate(void*);
@@ -55,7 +55,7 @@ void* bhkTrapListener::DestroyIfFlagged(unsigned int flags)
     return this;
 }
 
-extern int DAT_0104e3d0;
+extern int vftable_hkpPhantomListener;
 
 struct FUN_0062d740_shell
 {
@@ -67,7 +67,7 @@ struct FUN_0062d740_shell
 // src: GUESS 0x0062d740 (confidence: low)
 void FUN_0062d740_shell::UpdateFields_0062d740()
 {
-    m_field = (int)&DAT_0104e3d0;
+    m_field = (int)&vftable_hkpPhantomListener;
 }
 
 struct FUN_0062dee0_shell
@@ -91,7 +91,7 @@ bool __thiscall FUN_0062dee0_shell::ProcessEntries_0062dee0(int arg)
     return false;
 }
 
-extern int DAT_0104e3f4;
+extern int vftable_BSListBase_0104e3f4;
 
 struct FUN_0062e040_shell
 {
@@ -102,7 +102,7 @@ struct FUN_0062e040_shell
 // src: GUESS 0x0062e040 (confidence: low)
 void FUN_0062e040_shell::SetVirtualTable_0062e040()
 {
-    *(int*)this = (int)&DAT_0104e3f4;
+    *(int*)this = (int)&vftable_BSListBase_0104e3f4;
 }
 
 struct FUN_0062c700_shell
@@ -124,12 +124,13 @@ void FUN_0062c700_shell::ForwardCall_0062c700()
 
 struct FUN_0062d710_shell : FUN_0062d740_shell
 {
-    void* FUN_0062d710(unsigned int flags);
+    void* hkpPhantomListener_ScalarDeletingDestructor(unsigned int flags);
 };
 
 // Calls FUN_0062d740, deallocates this when flags has bit 0 set, and returns this.
 // @fnv 0x0062d710
-void* FUN_0062d710_shell::FUN_0062d710(unsigned int flags)
+// src: EXE 0x0062d710
+void* FUN_0062d710_shell::hkpPhantomListener_ScalarDeletingDestructor(unsigned int flags)
 {
     this->UpdateFields_0062d740();
     if (flags & 1)
@@ -216,7 +217,7 @@ void* FUN_0062c720_shell::FUN_0062c720(unsigned int flags)
     return this;
 }
 
-extern int DAT_0104e308;
+extern int vftable_BSPointerListBase_0104e308;
 struct FUN_0062dfa0_shell
 {
     void BSListBase_TriggerEntry_TriggerEvent_BSListBase_TriggerEntry_TriggerEvent();
@@ -230,7 +231,7 @@ struct FUN_0062c750_shell : FUN_0062dfa0_shell
 FUN_0062c750_shell::FUN_0062c750_shell()
 {
     BSListBase_TriggerEntry_TriggerEvent_BSListBase_TriggerEntry_TriggerEvent();
-    vtbl = (void*)&DAT_0104e308;
+    vtbl = (void*)&vftable_BSPointerListBase_0104e308;
 }
 
 struct FUN_0062c770_shell : FUN_0062dfe0_shell
@@ -318,7 +319,7 @@ struct MyCollector
 // src: XBOX_PDB 0x0062d3c0
 void* MyCollector::hkpCdBodyPairCollector_hkpCdBodyPairCollector()
 {
-    __vftable = (void*)&DAT_0104e328;
+    __vftable = (void*)&vftable_hkpCdBodyPairCollector;
     m_04._ref_006815c0();
     hkpCdBodyPairCollector_reset();
     return this;
@@ -327,11 +328,12 @@ void* MyCollector::hkpCdBodyPairCollector_hkpCdBodyPairCollector()
 void __cdecl Cameracaster_UpdateState_006210d0(void*);
 struct FUN_0062d3f0_Standin : hkpCdBodyPairCollector
 {
-    void* FUN_0062d3f0(unsigned int);
+    void* hkpCdBodyPairCollector_ScalarDeletingDestructor(unsigned int);
 };
 // Calls FUN_0062d420, then if bit 0 of flags is set calls FUN_006210d0 on this, and returns this.
 // @fnv 0x0062d3f0
-void* FUN_0062d3f0_Standin::FUN_0062d3f0(unsigned int flags)
+// src: EXE 0x0062d3f0
+void* FUN_0062d3f0_Standin::hkpCdBodyPairCollector_ScalarDeletingDestructor(unsigned int flags)
 {
     SetVirtualTable_0062d420();
     if (flags & 1)
@@ -342,7 +344,8 @@ void* FUN_0062d3f0_Standin::FUN_0062d3f0(unsigned int flags)
 void __cdecl BSAudio_UpdateState_0062d470(void*);
 // Calls FUN_0062d4b0 on this, then FUN_0062d470(this) if bit 0 of flags is set, and returns this.
 // @fnv 0x0062d440
-void* hkpAllCdBodyPairCollector::FUN_0062d440(unsigned int flags)
+// src: EXE 0x0062d440
+void* hkpAllCdBodyPairCollector::ScalarDeletingDestructor(unsigned int flags)
 {
     this->hkpAllCdBodyPairCollector::~hkpAllCdBodyPairCollector();
     if (flags & 1)
@@ -387,7 +390,7 @@ struct FUN_0062d6f0_shell
 // src: EXE 0x0062d6f0
 void* FUN_0062d6f0_shell::hkpPhantomListener_hkpPhantomListener()
 {
-    *reinterpret_cast<void**>(this) = &DAT_0104e3d0;
+    *reinterpret_cast<void**>(this) = &vftable_hkpPhantomListener;
     return this;
 }
 
@@ -724,13 +727,13 @@ struct Base
     void FUN_0062c750();
 };
 
-extern void* DAT_0104e2f8;
+extern void* vftable_BSList_0104e2f8;
 
 // @fnv 0x0062c6e0
 FUN_0062c6e0_shell::FUN_0062c6e0_shell()
 {
     ((Base*)this)->FUN_0062c750();
-    *(void**)this = &DAT_0104e2f8;
+    *(void**)this = &vftable_BSList_0104e2f8;
 }
 
 // @fnv 0x0062d330
@@ -804,7 +807,7 @@ struct FUN_0062dfa0_shell
 // src: COMMUNITY 0x0062dfa0
 void* __thiscall FUN_0062dfa0_shell::BSListBase_TriggerEntry_TriggerEvent_BSListBase_TriggerEntry_TriggerEvent()
 {
-    *(void**)this = &DAT_0104e3f4;
+    *(void**)this = &vftable_BSListBase_0104e3f4;
     *(int**)((char*)this + 0xc) = 0;
     *(int**)((char*)this + 4) = 0;
     *(int**)((char*)this + 8) = 0;
@@ -865,21 +868,21 @@ void FUN_0062de90_shell::TESTrapListener_ClearCurrentRefs(CombatWorldStateListNo
     }
 }
 
-struct FUN_0062d840_shell
+struct TrapEntry
 {
     char _pad[24];
-    FUN_0062d840_shell(unsigned int, unsigned int);
+    TrapEntry(unsigned int, unsigned int);
 };
 struct FUN_0062d7c0_shell
 {
-    FUN_0062d840_shell* TESTrapListener_CreateZoneEntry(unsigned int a, unsigned int b);
+    TrapEntry* TESTrapListener_CreateZoneEntry(unsigned int a, unsigned int b);
 };
-// Allocates and constructs a FUN_0062d840_shell with the two given unsigned int arguments and returns the new object.
+// Allocates and constructs a TrapEntry with the two given unsigned int arguments and returns the new object.
 // @fnv 0x0062d7c0
 // src: XBOX_PDB 0x0062d7c0
-FUN_0062d840_shell* FUN_0062d7c0_shell::TESTrapListener_CreateZoneEntry(unsigned int a, unsigned int b)
+TrapEntry* FUN_0062d7c0_shell::TESTrapListener_CreateZoneEntry(unsigned int a, unsigned int b)
 {
-    return new FUN_0062d840_shell(a, b);
+    return new TrapEntry(a, b);
 }
 
 TESObjectREFR* __cdecl TESHavokUtilities_FindCollidableRef(void*);

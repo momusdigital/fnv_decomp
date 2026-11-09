@@ -191,8 +191,8 @@ void __thiscall FUN_00d268f0_Shape::ProcessBuffer(int a, int b, float c, int d)
     CollectHits(reinterpret_cast<char*>(&buffer), d);
 }
 
-extern int DAT_010c6fd0;
-extern int DAT_010ce404;
+extern int vftable_hkpSingleShapeContainer;
+extern int vftable_hkpTriSampledHeightFieldBvTreeShape;
 
 struct FUN_00d26b50
 {
@@ -218,8 +218,8 @@ FUN_00d26b50::FUN_00d26b50(hkpShape* pShape, unsigned char bE)
     m_iA = 0;
     m_iB = 8;
     m_bC = 1;
-    m_pVT = &DAT_010ce404;
-    m_pD = &DAT_010c6fd0;
+    m_pVT = &vftable_hkpTriSampledHeightFieldBvTreeShape;
+    m_pD = &vftable_hkpSingleShapeContainer;
     m_pShape = pShape;
     m_pShape->addReference();
     m_bE = bE;

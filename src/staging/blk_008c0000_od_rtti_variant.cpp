@@ -65,13 +65,13 @@ struct FUN_008c6c80_Class
 {
     void __thiscall FUN_008c6c80(int a);
 };
-extern int DAT_01085864;
+extern int vftable_BSTCommonMessageQueue_01085864;
 struct FUN_008ca740_class
 {
     void __thiscall InitializeVtbl();
     FUN_008ca740_class* __thiscall InitializeFields_008ca740();
 };
-extern int DAT_01085884;
+extern int vftable_BSTMessageQueue_01085884;
 struct FUN_008ca7a0_cls
 {
     void* vtbl;
@@ -198,7 +198,7 @@ struct FUN_006d2c00_shell
 {
     void FUN_006d2c00();
 };
-extern int DAT_0108583c;
+extern int vftable_BSTFreeList_0108583c;
 struct FUN_008ca800_Class
 {
     int a;
@@ -283,14 +283,14 @@ struct B006815c0
 {
     B006815c0();
 };
-extern int DAT_01085948;
-extern int DAT_01085954;
+extern int vftable_ArrowProjectile_for_TESChildCell;
+extern int vftable_ArrowProjectile;
 extern int DAT_011dfc98;
 struct FUN_008cab20 : BMobile_S
 {
     FUN_008cab20();
 };
-extern int DAT_01085e2c;
+extern int vftable_BaseProcess;
 void __cdecl InitializeFields_008c5e20();
 struct FUN_008d0270_Class
 {
@@ -314,7 +314,7 @@ struct FUN_008d1130_Class : FUN_008d1160_Class
     FUN_008d1130_Class* __thiscall FUN_008d1130(unsigned int flags);
 };
 extern "C" void __fastcall FUN_00a6d220(void*);
-extern int DAT_010867fc;
+extern int vftable_BSPlayerDistanceCheckController;
 struct FUN_008d15d0_Class
 {
     void* __thiscall BSPlayerDistanceCheckController_BSPlayerDistanceCheckController();
@@ -329,12 +329,12 @@ struct SFTX
 {
     void SetFormType(int);
 };
-extern int DAT_0108695c;
-extern int DAT_010869a4;
-extern int DAT_010869d4;
-extern int DAT_01086a0c;
-extern int DAT_01086a60;
-extern int DAT_01086a6c;
+extern int vftable_Character_for_CachedValuesOwner;
+extern int vftable_Character_for_ActorValueOwner;
+extern int vftable_Character_for_MagicTarget;
+extern int vftable_Character_for_MagicCaster;
+extern int vftable_Character_for_TESChildCell;
+extern int vftable_Character;
 struct FUN_008d1d30 : FUN_0087d4a0
 {
     FUN_008d1d30();
@@ -375,7 +375,7 @@ extern "C" void __cdecl _delete(void* p, unsigned int size);
 struct FUN_008df980_Class
 {
     void __thiscall FUN_008df9b0();
-    void* __thiscall FUN_008df980(unsigned int flags);
+    void* __thiscall ActorPathingMessageQueue_ScalarDeletingDestructor(unsigned int flags);
 };
 struct NiFixedStr
 {
@@ -425,9 +425,9 @@ struct Call741e0
 {
     void FUN_00c741e0(int);
 };
-extern int DAT_01086658;
-extern int DAT_01086674;
-extern int DAT_01086684;
+extern int vftable_bhkCharacterListenerArrow_for_bhkCharacterListener;
+extern int vftable_bhkCharacterListenerArrow_for_hkpCharacterContext;
+extern int vftable_bhkCharacterListenerArrow;
 struct FUN_008d10e0_Class : Call741e0
 {
     void* bhkCharacterListenerArrow_bhkCharacterListenerArrow(int a, int b);

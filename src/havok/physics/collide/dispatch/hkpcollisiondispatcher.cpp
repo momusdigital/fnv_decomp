@@ -2399,8 +2399,8 @@ void hkpCollisionDispatcher::registerAlternateShapeType(int primaryType, int alt
     si.m_iSecond = primaryType;
 }
 
-extern "C" int DAT_010cc7c0;
-extern "C" int DAT_0102e388;
+extern "C" int vftable_hkpCollisionDispatcher;
+extern "C" int vftable_hkBaseObject;
 struct CleanupAllocator
 {
     virtual void Slot0();
@@ -2429,7 +2429,7 @@ struct Cleanup
 // @fnv 0x00cfc140
 void Cleanup::Destroy()
 {
-    *reinterpret_cast<int**>(this) = &DAT_010cc7c0;
+    *reinterpret_cast<int**>(this) = &vftable_hkpCollisionDispatcher;
     reinterpret_cast<Owner*>(this)->FreeBuffers();
     hkReferencedObject*(*grid)[8] = reinterpret_cast<hkReferencedObject*(*)[8]>(reinterpret_cast<char*>(this) + 0xc);
     for (int r = 0; r < 8; ++r)
@@ -2447,10 +2447,10 @@ void Cleanup::Destroy()
         allocator->Free(buffer.data, (flags & 0x3fffffffu) * 8u);
     buffer.data = 0;
     buffer.capacityFlags = 0x80000000u;
-    *reinterpret_cast<int**>(this) = &DAT_0102e388;
+    *reinterpret_cast<int**>(this) = &vftable_hkBaseObject;
 }
 
-extern "C" int DAT_010cc7c0;
+extern "C" int vftable_hkpCollisionDispatcher;
 
 struct RefCounted
 {
@@ -2482,7 +2482,7 @@ FUN_00cfc030_cls* FUN_00cfc030_cls::hkpCollisionDispatcher_hkpCollisionDispatche
     unk08 = a1;
     unsigned int one = 1;
     int n = one + 0x3e;
-    unk00 = (void*)&DAT_010cc7c0;
+    unk00 = (void*)&vftable_hkpCollisionDispatcher;
 
     char* p = (char*)this + 0x9b1;
     for (; n >= 0; --n)

@@ -2326,7 +2326,7 @@ class GlobalObject_0044f440
   public:
     float* Float();
 };
-extern GlobalObject_0044f440 g_011db750, g_011db6d8;
+extern GlobalObject_0044f440 fBurstIntensity_VATS, fBurstDuration_VATS;
 struct FUN_004a4410_Class
 {
     void* FUN_004a4410(unsigned int);
@@ -2612,7 +2612,7 @@ void Target::FOVATSEffectManager_SetTarget(TargetActor* actor, int slot, bool st
         flag2b5 = false;
     }
     if (enabled && !flag2b4 && actor && actor->getNode() == (void*)node)
-        FOVATSEffectManager_TriggerBurst(*g_011db6d8.Float(), *g_011db750.Float(), true);
+        FOVATSEffectManager_TriggerBurst(*fBurstDuration_VATS.Float(), *fBurstIntensity_VATS.Float(), true);
     active = state;
     if (active)
         pending[slot] = true;

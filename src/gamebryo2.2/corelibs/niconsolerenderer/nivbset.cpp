@@ -100,7 +100,7 @@ void FUN_00e94220_cls::InsertSortedNode(NiVBBlock* node)
 }
 
 extern unsigned int DAT_011c0cdc;
-extern int DAT_010f0f8c;
+extern int vftable_NiTPrimitiveArray_010f0f8c;
 void* __cdecl Object_DispatchCommandFour(unsigned int);
 __forceinline NiVBBlock* InitializeVBBlock(NiVBBlock* block)
 {
@@ -109,7 +109,7 @@ __forceinline NiVBBlock* InitializeVBBlock(NiVBBlock* block)
     block->m_chips.m_36 = 0;
     block->m_chips.m_38 = 0;
     block->m_chips.m_30 = 0;
-    block->m_chips.unk00 = &DAT_010f0f8c;
+    block->m_chips.unk00 = &vftable_NiTPrimitiveArray_010f0f8c;
     block->ClearAllData();
     return block;
 }

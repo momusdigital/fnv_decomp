@@ -748,7 +748,7 @@ void FUN_0061bcd0_shell::TESTopic_InitializeData()
     reinterpret_cast<FUN_00619010_helper*>(this)->TESTopic_SetDumbDialogue(&DAT_01011584);
 }
 
-extern int DAT_0104d458;
+extern int vftable_BSSimpleArray_0104d458;
 
 struct Dummy_0061bf20
 {
@@ -756,11 +756,11 @@ struct Dummy_0061bf20
     void BSSimpleArray_NavMeshPOVSearchNode_1024_InitialSetup(int, int);
 };
 
-// Sets the object's vtable to DAT_0104d458, calls FUN_006b3f40(0, 0), and returns the object.
+// Sets the object's vtable to vftable_BSSimpleArray_0104d458, calls FUN_006b3f40(0, 0), and returns the object.
 // @fnv 0x0061bf20
 Dummy_0061bf20* __fastcall ConstructDummy(Dummy_0061bf20* apObject)
 {
-    apObject->vtable = &DAT_0104d458;
+    apObject->vtable = &vftable_BSSimpleArray_0104d458;
     apObject->BSSimpleArray_NavMeshPOVSearchNode_1024_InitialSetup(0, 0);
     return apObject;
 }

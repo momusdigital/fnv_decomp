@@ -58,11 +58,12 @@ struct FUN_00533260_holder {
 };
 
 struct FUN_00533210_class {
-    void* __thiscall FUN_00533210(unsigned int flags);
+    void* __thiscall TESObjectLAND_ScalarDeletingDestructor(unsigned int flags);
 };
 
 // @fnv 0x00533210
-void* __thiscall FUN_00533210_class::FUN_00533210(unsigned int flags)
+// src: EXE 0x00533210
+void* __thiscall FUN_00533210_class::TESObjectLAND_ScalarDeletingDestructor(unsigned int flags)
 {
     ((FUN_00533260_holder*)this)->FUN_00533260();
     if (flags & 1)
@@ -334,7 +335,8 @@ struct FUN_00a73080_holder { void ReleaseEntries_00a73080(); };
 void __cdecl operator delete(void* p, unsigned int size);
 
 // @fnv 0x00537cb0
-void* NiAdditionalGeometryData::FUN_00537cb0(unsigned int flags)
+// src: EXE 0x00537cb0
+void* NiAdditionalGeometryData::ScalarDeletingDestructor(unsigned int flags)
 {
     reinterpret_cast<FUN_00a73080_holder*>(this)->ReleaseEntries_00a73080();
     if (flags & 1)
@@ -369,12 +371,13 @@ void* __thiscall FUN_00537d00_Class::BSPackedAdditionalGeometryData_GetRTTI()
 
 struct FUN_00537d10_Class {
     void FUN_00537d40();
-    void* FUN_00537d10(unsigned int flags);
+    void* BSPackedAdditionalGeometryData_ScalarDeletingDestructor(unsigned int flags);
     static void operator delete(void* p, unsigned int size);
 };
 
 // @fnv 0x00537d10
-void* FUN_00537d10_Class::FUN_00537d10(unsigned int flags)
+// src: EXE 0x00537d10
+void* FUN_00537d10_Class::BSPackedAdditionalGeometryData_ScalarDeletingDestructor(unsigned int flags)
 {
     this->FUN_00537d40();
     if (flags & 1)
@@ -417,7 +420,7 @@ void FUN_00537e90::SetQuantity(unsigned int value)
 struct FUN_00538e30_class {
     void __fastcall SetVtable();
 };
-extern int DAT_0102e378;
+extern int vftable_hkReferencedObject;
 struct FUN_00538e10_class {
     int* m_vtbl;
     void __fastcall UpdateState_00538e10();
@@ -426,17 +429,18 @@ struct FUN_00538e10_class {
 // src: GUESS 0x00538e10 (confidence: low)
 void __fastcall FUN_00538e10_class::UpdateState_00538e10()
 {
-    m_vtbl = &DAT_0102e378;
+    m_vtbl = &vftable_hkReferencedObject;
     ((FUN_00538e30_class*)this)->SetVtable();
 }
 
 namespace fnv_00538e50 {
 struct FUN_00538e30_class {
     void __fastcall SetVtable();
-    void* __thiscall FUN_00538e50(unsigned int flags);
+    void* __thiscall hkBaseObject_ScalarDeletingDestructor(unsigned int flags);
 };
 // @fnv 0x00538e50
-void* __thiscall FUN_00538e30_class::FUN_00538e50(unsigned int flags)
+// src: EXE 0x00538e50
+void* __thiscall FUN_00538e30_class::hkBaseObject_ScalarDeletingDestructor(unsigned int flags)
 {
     SetVtable();
     if (flags & 1)
@@ -445,10 +449,11 @@ void* __thiscall FUN_00538e30_class::FUN_00538e50(unsigned int flags)
 }
 }  // namespace fnv_00538e50
 
-struct B1 { virtual ~B1(); void* FUN_00538e80(unsigned int); };
+struct B1 { virtual ~B1(); void* hkReferencedObject_ScalarDeletingDestructor(unsigned int); };
 void __cdecl Tesland_UpdateState_00538eb0(void*);
 // @fnv 0x00538e80
-void* B1::FUN_00538e80(unsigned int flags)
+// src: EXE 0x00538e80
+void* B1::hkReferencedObject_ScalarDeletingDestructor(unsigned int flags)
 {
     this->B1::~B1();
     if (flags & 1)
@@ -457,7 +462,7 @@ void* B1::FUN_00538e80(unsigned int flags)
 }
 
 extern "C" void __cdecl FUN_00538f20();
-extern int DAT_0102e378;
+extern int vftable_hkReferencedObject;
 
 struct FUN_00538ef0_class {
     void* m_ppVirtualMethodTable;
@@ -472,12 +477,12 @@ struct FUN_00538ef0_class {
 void* FUN_00538ef0_class::UpdateState_00538ef0()
 {
     FUN_00538f20();
-    m_ppVirtualMethodTable = &DAT_0102e378;
+    m_ppVirtualMethodTable = &vftable_hkReferencedObject;
     *(unsigned short*)((char*)this + 6) = 1;
     return this;
 }
 
-extern int DAT_0102e388;
+extern int vftable_hkBaseObject;
 
 struct FUN_00538f20 {
     int* p;
@@ -487,7 +492,7 @@ struct FUN_00538f20 {
 // @fnv 0x00538f20
 FUN_00538f20::FUN_00538f20()
 {
-    p = &DAT_0102e388;
+    p = &vftable_hkBaseObject;
 }
 
 void __cdecl Tesland_UpdateState_00538eb0(void*);
@@ -688,13 +693,13 @@ struct GlobalObject_0044f440 {
     float* Float();
 };
 
-extern GlobalObject_0044f440 g_011c8dcc;
+extern GlobalObject_0044f440 fWaveOffsetRange_Grass;
 
 // @fnv 0x0053ca40
 // src: COMMUNITY 0x0053ca40
 float TESGrass_GetWaveOffsetRange()
 {
-    return *g_011c8dcc.Float();
+    return *fWaveOffsetRange_Grass.Float();
 }
 
 struct FUN_0053ca60 {
@@ -1053,8 +1058,8 @@ void FUN_005331f0_class::TESObjectLAND_GetSaveParentCell()
         reinterpret_cast<char*>(this) - 0x18)->_FNV_GetObjectReference();
 }
 
-extern int DAT_0102dcd4;
-extern int DAT_0102dccc;
+extern int vftable_TESObjectLAND;
+extern int vftable_TESObjectLAND_for_TESChildCell;
 extern unsigned char DAT_011c9efc;
 extern int DAT_011c9f00;
 void __cdecl TESObjectLAND_InitializeStatics();
@@ -1094,7 +1099,7 @@ struct FUN_00533120_cls : FUN_00483370 {
 };
 
 // @fnv 0x00533120
-FUN_00533120_cls::FUN_00533120_cls() : m_18(), m_24((this->m_vt = &DAT_0102dcd4, this->m_18.m_vt = &DAT_0102dccc, 0))
+FUN_00533120_cls::FUN_00533120_cls() : m_18(), m_24((this->m_vt = &vftable_TESObjectLAND, this->m_18.m_vt = &vftable_TESObjectLAND_for_TESChildCell, 0))
 {
     if (DAT_011c9efc == 0) {
         TESObjectLAND_InitializeStatics();
@@ -4066,8 +4071,8 @@ struct TerrainData {
  TextureGrass* base[4]; TextureGrass** layers[4]; float** weights[4];
  int u50; SampleMap maps[4];
 };
-struct SampleSetting { float* Float(); }; extern SampleSetting g_011c9f38;
-struct IntSetting { int* Int(); }; extern IntSetting g_011c9f74,g_011c9fb8;
+struct SampleSetting { float* Float(); }; extern SampleSetting fTexturePctThreshold_Grass;
+struct IntSetting { int* Int(); }; extern IntSetting iMaxGrassTypesPerTexure_Grass,iGrassDensityEvalSize_Grass;
 extern unsigned long DAT_011c9f6c;
 struct TerrainOwner {
  int u00,u04,u08,u0c,u10,u14,u18,u1c,u20,u24; TerrainData* data;
@@ -4078,12 +4083,12 @@ struct TerrainOwner {
 // src: COMMUNITY 0x0053bc10
 bool TerrainOwner::TESObjectLAND_CalculateGrassParams() {
  if (!data) return false;
- float threshold2=*g_011c9f38.Float();
+ float threshold2=*fTexturePctThreshold_Grass.Float();
  threshold2=threshold2 < 0.0 ? 0.0 : threshold2;
  threshold2=threshold2 > 1.0 ? 0.9 : threshold2;
  GrassNode* nodeBTmp=0; Grass* _activeProcess=0; float density5=0.0f; int count1=0; int _actors=0;
- int limitVal=*g_011c9f74.Int(); int indexValue4=0; int capacity8=16; float sumHigh_2=0.0f; Sample** samples4;
- DAT_011c9f6c=*g_011c9fb8.Int();
+ int limitVal=*iMaxGrassTypesPerTexure_Grass.Int(); int indexValue4=0; int capacity8=16; float sumHigh_2=0.0f; Sample** samples4;
+ DAT_011c9f6c=*iGrassDensityEvalSize_Grass.Int();
  if (DAT_011c9f6c!=1 && DAT_011c9f6c!=2 && DAT_011c9f6c!=4 && DAT_011c9f6c!=8) DAT_011c9f6c=2;
  for (int quad=0;quad<4;quad++) {
  count1=0;

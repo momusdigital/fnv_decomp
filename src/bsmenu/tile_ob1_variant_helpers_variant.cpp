@@ -59,7 +59,7 @@ extern BSAudio* DAT_011f6d98;
 inline BSAudio* GetAudio() {
     return DAT_011f6d98;
 }
-extern int DAT_01094e1c;
+extern int vftable_NiTMapBase_01094e1c;
 void _NiFreeAlias(void*);
 struct S00a0d390
 {
@@ -315,7 +315,7 @@ static inline NiAVObject* A0B1F0GetChild(NiNode* pkNode, unsigned int uiIndex) {
     else
         return pkNode->GetChildren().GetAt(uiIndex);
 }
-extern int DAT_01094d9c;
+extern int vftable_Tile__MenuStringMap;
 class FUN_00a0d220_pool {
 public:
     void MemoryManager_Deallocate(void* apMemory);
@@ -1181,7 +1181,7 @@ public:
 };
 extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volatile* value);
 extern int DAT_0109b220;
-extern const void* DAT_01094cfc[];
+extern const void* vftable_Tile__Extra[];
 extern "C" char* __cdecl FUN_00a5b690(const char* text);
 class FUN_00a7b2e0
 {
@@ -1267,7 +1267,7 @@ double __cdecl fabs(double);
 extern const char DAT_01020764[];
 struct P03MM { void* Allocate(unsigned int); void Deallocate(void*); };
 extern P03MM g_memoryManager;
-extern int DAT_0106cc64;
+extern int vftable_BSSimpleArray_0106cc64;
 extern __declspec(thread) int DAT_012722b4;
 __forceinline int GetMemoryContext() { return DAT_012722b4; }
 __forceinline void SetMemoryContext(int value) { DAT_012722b4=value; }
@@ -1297,7 +1297,7 @@ struct EvalStack {
  return index;
  }
  void ResetVirtualTableAndClear_006db720();
- __forceinline EvalStack(unsigned start=0,unsigned growth=0) { vtable=&DAT_0106cc64; BSSimpleArray_float_1024_InitialSetup(start,growth); }
+ __forceinline EvalStack(unsigned start=0,unsigned growth=0) { vtable=&vftable_BSSimpleArray_0106cc64; BSSimpleArray_float_1024_InitialSetup(start,growth); }
  __forceinline ~EvalStack() { ResetVirtualTableAndClear_006db720(); }
  __forceinline void RemoveLast(unsigned count) {
   if(!size) return;

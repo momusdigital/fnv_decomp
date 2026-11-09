@@ -6,7 +6,7 @@
 // @fnv 0x00694de0
 EdgeExtraInfo* EdgeExtraInfo::DeserializeFromFile()
 {
-    vtable = &DAT_0106b0dc;
+    vtable = &vftable_BSSimpleArray_0106b0dc;
     reinterpret_cast<BSSimpleArray<NavMeshInfo*, 1024>*>(this)->BSSimpleArray_float_1024_InitialSetup(0, false);
     return this;
 }

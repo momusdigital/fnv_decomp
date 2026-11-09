@@ -412,14 +412,14 @@ struct FUN_0047f4c0_shell : public TESAIForm
 };
 
 
-extern Setting g_011c5348;
+extern Setting bFixAIPackagesOnLoad_General;
 
 // If the Setting byte is zero, calls InitItem on the conditions object obtained from this, passing apOwner.
 // @fnv 0x0047f4c0
 // src: XBOX_PDB 0x0047f4c0
 void FUN_0047f4c0_shell::TESAIForm_InitItem(TESForm* apOwner)
 {
-    if (!*g_011c5348.FUN_00408d60())
+    if (!*bFixAIPackagesOnLoad_General.FUN_00408d60())
     {
         ((PackageList*)((BGSCameraPath*)this)->GetConditions())->InitItem(apOwner);
     }

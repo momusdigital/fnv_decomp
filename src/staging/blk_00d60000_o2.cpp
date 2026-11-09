@@ -106,10 +106,10 @@ void* RegisterContactPointsActive()
 // Constructor of the class whose vftables live at 0x010d1fb0 / 0x010d1f90 /
 // 0x010d1f80 / 0x010d1f70: it calls the immediate base constructor and then
 // installs the derived vftable pointers for the four base sub-objects.
-extern int DAT_010d1fb0;
-extern int DAT_010d1f90;
-extern int DAT_010d1f80;
-extern int DAT_010d1f70;
+extern int vftable_hkpInactiveContactPointViewer;
+extern int vftable_hkpInactiveContactPointViewer_for_hkProcess;
+extern int vftable_hkpInactiveContactPointViewer_for_hkpPhysicsContextWorldListener;
+extern int vftable_hkpInactiveContactPointViewer_for_hkpWorldPostSimulationListener;
 
 struct FUN_00d68770_cls
 {
@@ -133,10 +133,10 @@ struct FUN_00d68770_cls
 FUN_00d68770_cls* FUN_00d68770_cls::Construct(int aParam)
 {
     BaseConstruct(aParam, 0xff008000);
-    m_pVtbl00 = &DAT_010d1fb0;
-    m_pVtbl08 = &DAT_010d1f90;
-    m_pVtbl20 = &DAT_010d1f80;
-    m_pVtbl28 = &DAT_010d1f70;
+    m_pVtbl00 = &vftable_hkpInactiveContactPointViewer;
+    m_pVtbl08 = &vftable_hkpInactiveContactPointViewer_for_hkProcess;
+    m_pVtbl20 = &vftable_hkpInactiveContactPointViewer_for_hkpPhysicsContextWorldListener;
+    m_pVtbl28 = &vftable_hkpInactiveContactPointViewer_for_hkpWorldPostSimulationListener;
     return this;
 }
 
@@ -168,10 +168,10 @@ void* __cdecl hkpInactiveContactPointViewer_create(unsigned int value)
     return 0;
 }
 
-extern "C" int DAT_010d203c;
-extern "C" int DAT_010d201c;
-extern "C" int DAT_010d200c;
-extern "C" int DAT_010d1ffc;
+extern "C" int vftable_hkpActiveContactPointViewer;
+extern "C" int vftable_hkpActiveContactPointViewer_for_hkProcess;
+extern "C" int vftable_hkpActiveContactPointViewer_for_hkpPhysicsContextWorldListener;
+extern "C" int vftable_hkpActiveContactPointViewer_for_hkpWorldPostSimulationListener;
 
 void __stdcall FUN_00de29b0(int a, int b);
 
@@ -196,10 +196,10 @@ struct FUN_00d68840_cls
 void* FUN_00d68840_cls::Init(int aiValue)
 {
     FUN_00de29b0(aiValue, 0xff0000ff);
-    m_p00 = (void*)&DAT_010d203c;
-    m_p08 = (void*)&DAT_010d201c;
-    m_p20 = (void*)&DAT_010d200c;
-    m_p28 = (void*)&DAT_010d1ffc;
+    m_p00 = (void*)&vftable_hkpActiveContactPointViewer;
+    m_p08 = (void*)&vftable_hkpActiveContactPointViewer_for_hkProcess;
+    m_p20 = (void*)&vftable_hkpActiveContactPointViewer_for_hkpPhysicsContextWorldListener;
+    m_p28 = (void*)&vftable_hkpActiveContactPointViewer_for_hkpWorldPostSimulationListener;
     return this;
 }
 
@@ -513,8 +513,8 @@ class MemoryBlockServerState
 MemoryBlockServerState::MemoryBlockServerState(FinishingFlag flag)
 {}
 
-extern int DAT_010d14f8;
-extern int DAT_0102e388;
+extern int vftable_hkOArchive;
+extern int vftable_hkBaseObject;
 
 struct D60590Object
 {
@@ -529,9 +529,9 @@ struct D60590Object
 // src: GUESS 0x00d60590 (confidence: medium)
 void D60590Object::ReleaseReference_00d60590()
 {
-    vtable = &DAT_010d14f8;
+    vtable = &vftable_hkOArchive;
     callback->removeReference();
-    vtable = &DAT_0102e388;
+    vtable = &vftable_hkBaseObject;
 }
 
 namespace fnv_00d60860 {
@@ -544,7 +544,7 @@ struct HKMemoryManager
     virtual void* v4(int);
 };
 extern HKMemoryManager* DAT_01268364;
-extern char DAT_010d14f8;
+extern char vftable_hkOArchive;
 struct FUN_00d60860
 {
     char* m_pVtbl;
@@ -559,7 +559,7 @@ struct FUN_00d60860
 FUN_00d60860::FUN_00d60860(void* pData, unsigned char ucType)
 {
     m_usSize = 1;
-    m_pVtbl = &DAT_010d14f8;
+    m_pVtbl = &vftable_hkOArchive;
     m_ucType = ucType;
     m_pData = DAT_01268364->v4((int)pData);
 }
@@ -1117,9 +1117,9 @@ struct FUN_00d62ef0_cls
     FUN_00d62ef0_cls* UpdateState_00d62ef0(int aParam, unsigned char aValue);
 };
 
-extern int DAT_010d1720;
-extern int DAT_010d1700;
-extern int DAT_010d16f0;
+extern int vftable_hkpWorldSnapshotViewer;
+extern int vftable_hkpWorldSnapshotViewer_for_hkProcess;
+extern int vftable_hkpWorldSnapshotViewer_for_hkpPhysicsContextWorldListener;
 
 // Calls FUN_00ddccb0 with aParam, then stores three global addresses and aValue into the object's fields and returns this.
 // @fnv 0x00d62ef0
@@ -1127,9 +1127,9 @@ extern int DAT_010d16f0;
 FUN_00d62ef0_cls* __thiscall FUN_00d62ef0_cls::UpdateState_00d62ef0(int aParam, unsigned char aValue)
 {
     ((FUN_00ddccb0_Obj*)this)->FUN_00ddccb0(aParam);
-    unk00 = &DAT_010d1720;
-    unk08 = &DAT_010d1700;
-    unk20 = &DAT_010d16f0;
+    unk00 = &vftable_hkpWorldSnapshotViewer;
+    unk08 = &vftable_hkpWorldSnapshotViewer_for_hkProcess;
+    unk20 = &vftable_hkpWorldSnapshotViewer_for_hkpPhysicsContextWorldListener;
     unk28 = aValue;
     return this;
 }
@@ -1795,7 +1795,7 @@ void FnvCpu_FUN_00d76d80_CpuOwner::ForwardCall_00d76d80()
     target->ProcessEntries_00d81340();
 }
 
-extern int DAT_010d14f8;
+extern int vftable_hkOArchive;
 // LocalhkBool: 0x00d608a0 constructs the outgoing byte on the stack; the shared hkBool's trivial copy emits 87 rather
 // than 83 bytes.
 namespace archive_arguments {
@@ -1827,7 +1827,7 @@ struct FUN_00d608a0
 FUN_00d608a0::FUN_00d608a0(int first, int second, unsigned char mode)
 {
     count = 1;
-    vptr = &DAT_010d14f8;
+    vptr = &vftable_hkOArchive;
     this->mode = mode;
     hkMemoryRouter* router = static_cast<hkMemoryRouter*>(hkMemoryRouter_getInstance());
     FUN_00d274c0* next = static_cast<FUN_00d274c0*>(reinterpret_cast<hkMemoryAllocator*>(router->m_heap)->blockAlloc(28));

@@ -1703,8 +1703,8 @@ void S_00e07da0_Tree::BuildRegion(S_00e07da0_Node* node, S_00e07da0_Region* pare
 
 struct BSAudio;
 
-extern int DAT_010ea5dc;
-extern int DAT_0102e388;
+extern int vftable_hkpMoppDefaultAssembler;
+extern int vftable_hkBaseObject;
 
 struct FUN_00e09450_cls
 {
@@ -1734,7 +1734,7 @@ struct FUN_00e09450_cls
 // @fnv 0x00e09450
 void FUN_00e09450_cls::DestroyAudioBuffer()
 {
-    m_vptr00 = (int)&DAT_010ea5dc;
+    m_vptr00 = (int)&vftable_hkpMoppDefaultAssembler;
     hkMemoryRouter* pAudioHolder = (hkMemoryRouter*)hkMemoryRouter_getInstance();
     hkMemoryAllocator* pAudioAllocator = reinterpret_cast<hkMemoryAllocator*>(pAudioHolder->m_heap);
     m_iArrayLength = 0;
@@ -1745,7 +1745,7 @@ void FUN_00e09450_cls::DestroyAudioBuffer()
     }
     m_pData = 0;
     m_uCapBits = 0x80000000u;
-    m_vptr00 = (int)&DAT_0102e388;
+    m_vptr00 = (int)&vftable_hkBaseObject;
 }
 
 int __cdecl hkMath_hkFloorToInt(float v);

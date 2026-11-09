@@ -4,19 +4,19 @@
 #include "../../../../include/NiShaderDeclaration.h"
 
 extern "C" void __cdecl __Dummy_00b6fef0(void*, unsigned int);
-extern int DAT_011011ec;
+extern int vftable_NiShaderDeclaration;
 
 // @fnv 0x00ee88e0
 NiShaderDeclaration* __fastcall FUN_00ee88e0(NiShaderDeclaration* object, void*, unsigned int flags)
 {
-    *reinterpret_cast<void**>(object) = &DAT_011011ec;
+    *reinterpret_cast<void**>(object) = &vftable_NiShaderDeclaration;
     object->NiRefObject::~NiRefObject();
     if (flags & 1)
         __Dummy_00b6fef0(object, 8);
     return object;
 }
 
-extern int DAT_011010ec;
+extern int vftable_NiRenderTargetGroup;
 struct BaseStub
 {
     void __thiscall _Call_a5d3a0();
@@ -26,13 +26,13 @@ struct FUN_00ee8500
     char _pad[40];
     FUN_00ee8500();
 };
-// Calls the base constructor, installs DAT_011010ec as the vtable pointer, and zeroes the byte at offset 8 and the dwords from offset 12 through 36.
+// Calls the base constructor, installs vftable_NiRenderTargetGroup as the vtable pointer, and zeroes the byte at offset 8 and the dwords from offset 12 through 36.
 // @fnv 0x00ee8500
 FUN_00ee8500::FUN_00ee8500()
 {
     ((BaseStub*)this)->_Call_a5d3a0();
     *(volatile unsigned char*)((char*)this + 8) = 0;
-    *(volatile unsigned int*)this = (unsigned int)&DAT_011010ec;
+    *(volatile unsigned int*)this = (unsigned int)&vftable_NiRenderTargetGroup;
     *(volatile unsigned int*)((char*)this + 12) = 0;
     *(volatile unsigned int*)((char*)this + 16) = 0;
     *(volatile unsigned int*)((char*)this + 20) = 0;

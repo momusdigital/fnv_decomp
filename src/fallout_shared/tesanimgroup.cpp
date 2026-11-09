@@ -243,7 +243,8 @@ unsigned short TESAnimGroup::GetAnimGroupType_0047d3b0()
 
 // Calls the destructor, frees this when flags has bit 1 set, and returns this.
 // @fnv 0x005f22a0
-void* TESAnimGroup::FUN_005f22a0(unsigned int flags)
+// src: EXE 0x005f22a0
+void* TESAnimGroup::ScalarDeletingDestructor(unsigned int flags)
 {
     this->FUN_005f22d0();
     if (flags & 1)
@@ -386,7 +387,7 @@ void __fastcall SetAnimGroupType(TESAnimGroup* self, UShortArg type)
     }
 }
 
-extern int DAT_010484e8;
+extern int vftable_TESAnimGroup;
 
 void __cdecl operator delete(void*);
 

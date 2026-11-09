@@ -32,7 +32,7 @@ GlobalObjectO2_00a7b610* __cdecl BSBlendTreadTransfInterpolator_GetRTTI()
     return &g_011f3ed0;
 }
 
-extern int DAT_01097904;
+extern int vftable_BSBlendTreadTransfInterpolator;
 NiBlendInterpolator* __fastcall NiBlendInterpolator_NiBlendInterpolator(NiBlendInterpolator*);
 // @fnv 0x00a42ff0
 NiObject* BSBlendTreadTransfInterpolator::MakeClone(CloningProcess& kCloning)
@@ -43,7 +43,7 @@ NiObject* BSBlendTreadTransfInterpolator::MakeClone(CloningProcess& kCloning)
     {
         NiBlendInterpolator_NiBlendInterpolator(pkObject);
         pkObject->m_fPhase = 0.0f;
-        *(void**)pkObject = (void*)&DAT_01097904;
+        *(void**)pkObject = (void*)&vftable_BSBlendTreadTransfInterpolator;
     }
     else
     {
@@ -207,7 +207,7 @@ bool BSBlendTreadTransfInterpolator::UpdateSingleInterpolator(float afTime, NiOb
 }
 
 static volatile float BlendTimeValue = -3.402823466e+38f;
-extern int DAT_0109697c;
+extern int vftable_NiBlendInterpolator;
 
 // The shared class has no default constructor; initialize its declared fields here.
 void __fastcall InitializeInterpolator(NiInterpolator* interpolator);
@@ -217,7 +217,7 @@ void __fastcall InitializeInterpolator(NiInterpolator* interpolator);
 NiBlendInterpolator* __fastcall NiBlendInterpolator_NiBlendInterpolator(NiBlendInterpolator* interpolator)
 {
     InitializeInterpolator(interpolator);
-    *reinterpret_cast<void**>(interpolator) = &DAT_0109697c;
+    *reinterpret_cast<void**>(interpolator) = &vftable_NiBlendInterpolator;
     interpolator->m_uiObjectFlags = 0;
     interpolator->m_ucArraySize = 0;
     interpolator->m_ucInterpCount = 0;

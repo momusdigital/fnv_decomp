@@ -276,7 +276,7 @@ void __thiscall FUN_0044a2c0_class::FaceGenData_Return1()
     ((FUN_0044abf0*)((char*)this + 8))->FUN_0044abf1();
 }
 
-extern int DAT_010173dc;
+extern int vftable_std__length_error;
 struct Dummy44a3a0
 {
     void SetVtableAndProcessState_0044a3d0();
@@ -289,7 +289,7 @@ struct Dummy44a400 : Dummy44a3a0
 // src: GUESS 0x0044a400 (confidence: low)
 void Dummy44a400::UpdateFields_0044a400()
 {
-    *(int**)(void*)this = (int*)&DAT_010173dc;
+    *(int**)(void*)this = (int*)&vftable_std__length_error;
     SetVtableAndProcessState_0044a3d0();
 }
 
@@ -307,19 +307,19 @@ void* Unk65::EvaluateValue_0044a7b0(int param)
     return this;
 }
 
-extern int DAT_010173dc;
+extern int vftable_std__length_error;
 struct FUN_0044a9a0_Class
 {
     void __thiscall FUN_0044a450(int a);
     int __thiscall std_length_error_length_error(int a);
 };
-// Calls FUN_0044a450 with a, stores the address of DAT_010173dc at this, and returns this.
+// Calls FUN_0044a450 with a, stores the address of vftable_std__length_error at this, and returns this.
 // @fnv 0x0044a9a0
 // src: EXE 0x0044a9a0
 int __thiscall FUN_0044a9a0_Class::std_length_error_length_error(int aiValue)
 {
     FUN_0044a450(aiValue);
-    *reinterpret_cast<int*>(this) = reinterpret_cast<int>(&DAT_010173dc);
+    *reinterpret_cast<int*>(this) = reinterpret_cast<int>(&vftable_std__length_error);
     return reinterpret_cast<int>(this);
 }
 
@@ -372,7 +372,7 @@ void __thiscall FUN_0044cac0_class::SetIntValue(int aiValue, int* piOut)
     *piOut = aiValue;
 }
 
-extern void* __cdecl DAT_010176f8;
+extern void* __cdecl vftable_std__bad_alloc;
 struct FUN_0044d6c0_class
 {
     void* __thiscall FUN_00ec78f1(void***);
@@ -384,11 +384,11 @@ struct FUN_0044d6c0_class
 void* __thiscall FUN_0044d6c0_class::std_bad_alloc_bad_alloc(void** p)
 {
     FUN_00ec78f1(&p);
-    m_field = &DAT_010176f8;
+    m_field = &vftable_std__bad_alloc;
     return this;
 }
 
-extern "C" void* DAT_010176f8;
+extern "C" void* vftable_std__bad_alloc;
 
 struct FUN_0044d6f0_This
 {
@@ -400,11 +400,11 @@ struct FUN_0044d6f0_This
 // @fnv 0x0044d6f0
 void FUN_0044d6f0_This::InitVtblAndCall()
 {
-    vtbl = &DAT_010176f8;
+    vtbl = &vftable_std__bad_alloc;
     FUN_00ec79a1();
 }
 
-extern int DAT_01017458;
+extern int vftable_InterfacedClass;
 
 struct FUN_0044d7f0_class
 {
@@ -416,13 +416,13 @@ struct FUN_0044d7f0_class
 // src: EXE 0x0044d7f0
 FUN_0044d7f0_class* __thiscall FUN_0044d7f0_class::InterfacedClass_InterfacedClass()
 {
-    vfn = &DAT_01017458;
+    vfn = &vftable_InterfacedClass;
     return this;
 }
 
 namespace fnv_0044dd10 {
 extern "C" void FUN_00ec7944(int);
-extern int DAT_010176f8;
+extern int vftable_std__bad_alloc;
 
 struct FUN_0044dd10_class
 {
@@ -430,13 +430,13 @@ struct FUN_0044dd10_class
     FUN_0044dd10_class* std_bad_alloc_bad_alloc_0044dd10(int arg);
 };
 
-// Calls FUN_00ec7944 with arg, stores the address of DAT_010176f8 at this, and returns this.
+// Calls FUN_00ec7944 with arg, stores the address of vftable_std__bad_alloc at this, and returns this.
 // @fnv 0x0044dd10
 // src: EXE 0x0044dd10
 FUN_0044dd10_class* FUN_0044dd10_class::std_bad_alloc_bad_alloc_0044dd10(int arg)
 {
     FUN_00ec7944(arg);
-    *reinterpret_cast<int**>(this) = &DAT_010176f8;
+    *reinterpret_cast<int**>(this) = &vftable_std__bad_alloc;
     return this;
 }
 }  // namespace fnv_0044dd10
@@ -783,13 +783,13 @@ struct GlobalObject_0045cf30
     unsigned char* Bool();
 };
 
-extern GlobalObject_0045cf30 g_01267c24;
+extern GlobalObject_0045cf30 bRagdollAnim_RagdollAnim;
 
 // @fnv 0x00456c90
 // src: XBOX_PDB 0x00456c90
 void bhkRagdollController_SetRagdollAnim(unsigned char value)
 {
-    *g_01267c24.Bool() = value;
+    *bRagdollAnim_RagdollAnim.Bool() = value;
 }
 }  // namespace fnv_00456c90
 
@@ -866,7 +866,7 @@ struct GlobalObject_0045cf30
 {
     unsigned char* Bool();
 };
-extern GlobalObject_0045cf30 g_011c3dbc;
+extern GlobalObject_0045cf30 bShowLoadingAreaMessage_General;
 struct FUN_004581e0_Class
 {
     unsigned char* __thiscall TES_ShowLoadingAreaMessage(int);
@@ -875,7 +875,7 @@ struct FUN_004581e0_Class
 // src: XBOX_PDB 0x004581e0
 unsigned char* __thiscall FUN_004581e0_Class::TES_ShowLoadingAreaMessage(int)
 {
-    return g_011c3dbc.Bool();
+    return bShowLoadingAreaMessage_General.Bool();
 }
 }  // namespace fnv_004581e0
 
@@ -1794,24 +1794,24 @@ struct FUN_0044a2e0 : public std::logic_error
 {
     FUN_0044a2e0(std::basic_string<char, std::char_traits<char>, std::allocator<char> > const& a);
 };
-// Constructs the object from a string via the std::logic_error base constructor and sets its vtable pointer to DAT_010173dc.
+// Constructs the object from a string via the std::logic_error base constructor and sets its vtable pointer to vftable_std__length_error.
 // @fnv 0x0044a2e0
 FUN_0044a2e0::FUN_0044a2e0(std::basic_string<char, std::char_traits<char>, std::allocator<char> > const& strMessage)
     : std::logic_error(strMessage)
 {
-    *(int*)this = (int)&DAT_010173dc;
+    *(int*)this = (int)&vftable_std__length_error;
 }
 
 struct NarrowString
 {
     ~NarrowString();
 };
-extern int DAT_010173e8;
+extern int vftable_std__logic_error;
 // @fnv 0x0044a3d0
 // src: GUESS 0x0044a3d0 (confidence: low)
 void Dummy44a3a0::SetVtableAndProcessState_0044a3d0()
 {
-    *(void**)this = (void*)&DAT_010173e8;
+    *(void**)this = (void*)&vftable_std__logic_error;
     ((NarrowString*)((char*)this + 12))->NarrowString::~NarrowString();
     ((FUN_0044d6f0_This*)this)->FUN_0044d6f0_This::FUN_00ec79a1();
 }
@@ -1956,7 +1956,7 @@ void* FUN_0044b1f0_class::FUN_0044b1f0(unsigned int flags)
     return this;
 }
 
-extern int DAT_01017294;
+extern int vftable_LockFreeMap__LockFreeMapIterator_01017294;
 struct FUN_0044cb70_Holder
 {
     void* m_iWordAt00;
@@ -1969,14 +1969,14 @@ struct FUN_0044cb70_Holder
 // src: XBOX_PDB 0x0044cb70
 FUN_0044cb70_Holder* __thiscall FUN_0044cb70_Holder::LockFreeMap_char_const_Model_LockFreeMapIterator_LockFreeMapIterator()
 {
-    m_iWordAt00 = (void*)&DAT_01017294;
+    m_iWordAt00 = (void*)&vftable_LockFreeMap__LockFreeMapIterator_01017294;
     m_iWordAt04 = 0;
     m_8 = 0;
     m_C = 0;
     return this;
 }
 
-extern int DAT_010172ac;
+extern int vftable_LockFreeMap__LockFreeMapIterator_010172ac;
 struct FUN_0044cbb0_class
 {
     void* m_iWordAt00;
@@ -1988,13 +1988,13 @@ struct FUN_0044cbb0_class
 // @fnv 0x0044cbb0
 FUN_0044cbb0_class::FUN_0044cbb0_class()
 {
-    m_iWordAt00 = &DAT_010172ac;
+    m_iWordAt00 = &vftable_LockFreeMap__LockFreeMapIterator_010172ac;
     m_iWordAt04 = 0;
     m_8 = 0;
     m_iThirdValue = 0;
 }
 
-extern int DAT_010172c4;
+extern int vftable_LockFreeMap__LockFreeMapIterator_010172c4;
 struct FUN_0044cc50_class
 {
     int* vfn;
@@ -2007,14 +2007,14 @@ struct FUN_0044cc50_class
 // src: COMMUNITY 0x0044cc50
 FUN_0044cc50_class* __thiscall FUN_0044cc50_class::LockFreeMap_AnimIdle_NiPointer_QueuedAnimIdle_LockFreeMapIterator_LockFreeMapIterator()
 {
-    vfn = &DAT_010172c4;
+    vfn = &vftable_LockFreeMap__LockFreeMapIterator_010172c4;
     m_iWordAt04 = 0;
     m_8 = 0;
     m_iThirdValue = 0;
     return this;
 }
 
-extern int DAT_010172d0;
+extern int vftable_LockFreeMap__LockFreeMapIterator_010172d0;
 
 struct FUN_0044cc90_Class
 {
@@ -2028,7 +2028,7 @@ struct FUN_0044cc90_Class
 // @fnv 0x0044cc90
 FUN_0044cc90_Class::FUN_0044cc90_Class()
 {
-    vtbl = &DAT_010172d0;
+    vtbl = &vftable_LockFreeMap__LockFreeMapIterator_010172d0;
     m_iWordAt04 = 0;
     m_8 = 0;
     m_iThirdValue = 0;
@@ -2348,7 +2348,7 @@ void __cdecl bhkNiCollisionObject_SetDebugDisplayCallback(int value)
 
 namespace fnv_004505f0 {
 
-extern int DAT_010178bc;
+extern int vftable_BSTempNodeManager;
 // The constructor assigns its original vtable explicitly.
 struct __declspec(novtable) FUN_004505f0 : NiNode
 {
@@ -2357,7 +2357,7 @@ struct __declspec(novtable) FUN_004505f0 : NiNode
 // @fnv 0x004505f0
 FUN_004505f0::FUN_004505f0() : NiNode(0)
 {
-    *(int*)this = (int)&DAT_010178bc;
+    *(int*)this = (int)&vftable_BSTempNodeManager;
 }
 }  // namespace fnv_004505f0
 
@@ -2401,9 +2401,9 @@ struct GlobalObject_0045d060
 {
     float* Float();
 };
-extern GlobalObject_0045d060 g_011c3d0c;
-extern GlobalObject_0045d060 g_011c3d78;
-extern GlobalObject_0045d060 g_011c3ec0;
+extern GlobalObject_0045d060 fLODFadeOutMultItems_LOD;
+extern GlobalObject_0045d060 fLODFadeOutMultObjects_LOD;
+extern GlobalObject_0045d060 fLODFadeOutMultActors_LOD;
 void __cdecl SetFloatAt(int, float);
 // Reads floats from three global objects and passes them to SetFloatAt with several slot indices.
 // @fnv 0x004506b0
@@ -2411,11 +2411,11 @@ void __cdecl SetFloatAt(int, float);
 void TES_InitFadeOutMultipliers()
 {
     float v;
-    v = *g_011c3d0c.Float();
+    v = *fLODFadeOutMultItems_LOD.Float();
     SetFloatAt(2, v);
-    v = *g_011c3ec0.Float();
+    v = *fLODFadeOutMultActors_LOD.Float();
     SetFloatAt(3, v);
-    v = *g_011c3d78.Float();
+    v = *fLODFadeOutMultObjects_LOD.Float();
     SetFloatAt(0, v);
     SetFloatAt(1, v);
     SetFloatAt(4, v);
@@ -4197,7 +4197,7 @@ void TESGridOwner::SaveGridState(SaveBuffer* buffer)
     }
 }
 
-extern int DAT_01018508;
+extern int vftable_RendererSettingCollection;
 
 struct S_0044f600
 {
@@ -4215,7 +4215,7 @@ struct S_0045d220 : public S_0044f600
 void* S_0045d220::SetVirtualTableAndProcessState_0045d220()
 {
     this->InitializeVtbl();
-    this->m_vtbl = &DAT_01018508;
+    this->m_vtbl = &vftable_RendererSettingCollection;
     return this;
 }
 
@@ -4888,7 +4888,7 @@ struct GlobalObject2_0045cfe0
 {
     int* Int();
 };
-extern GlobalObject2_0045cfe0 g_011c63cc;
+extern GlobalObject2_0045cfe0 uGridsToLoad_General;
 
 struct Target_00458440
 {
@@ -4914,7 +4914,7 @@ int Obj_00458440::ApplyOrNotify(int a, bool abApply)
         Target_00458440* p = Find();
         if (p == 0)
         {
-            p = this->m_08->Get((unsigned int)*g_011c63cc.Int() >> 1, (unsigned int)*g_011c63cc.Int() >> 1)->unk00;
+            p = this->m_08->Get((unsigned int)*uGridsToLoad_General.Int() >> 1, (unsigned int)*uGridsToLoad_General.Int() >> 1)->unk00;
         }
         return p ? p->Apply(a) : 0;
     }

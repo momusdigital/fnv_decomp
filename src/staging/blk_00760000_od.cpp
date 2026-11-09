@@ -551,7 +551,7 @@ struct GO709f00Stub
     bool Check();
 };
 extern TimeGlobalStub g_timeGlobal;
-extern GO709f00Stub g_011d8a38;
+extern GO709f00Stub bCrossHair_GamePlay;
 extern int DAT_011d96ac;
 
 struct FUN_0076bb40 : Menu
@@ -696,7 +696,7 @@ FUN_0076bb40::FUN_0076bb40()
     unk248 = g_timeGlobal.GetTime();
     unk24c = -1;
     unk250 = -1;
-    flags1c0 = (g_011d8a38.Check() ? 0x40 : 0) | 0x3f | 0x80 | 0x100 | 0x200 | 0x400 | 0x800 | 0x1000 | 0x2000 |
+    flags1c0 = (bCrossHair_GamePlay.Check() ? 0x40 : 0) | 0x3f | 0x80 | 0x100 | 0x200 | 0x400 | 0x800 | 0x1000 | 0x2000 |
                0x4000 | 0x8000 | 0x10000;
     unk1c4 = 4;
     unk254 = false;

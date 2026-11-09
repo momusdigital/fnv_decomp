@@ -225,12 +225,13 @@ int S::ListBox_ItemChange_GetLastItem()
 struct FUN_00784bc0_shell
 {
     void FUN_00784bf0();
-    void* FUN_00784bc0(unsigned int);
+    void* LevelUpMenu_ScalarDeletingDestructor(unsigned int);
 };
 void _Deallocate(void*);
 // Calls FUN_00784bf0, deallocates this when flags has bit 0 set, and returns this.
 // @fnv 0x00784bc0
-void* FUN_00784bc0_shell::FUN_00784bc0(unsigned int flags)
+// src: EXE 0x00784bc0
+void* FUN_00784bc0_shell::LevelUpMenu_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00784bf0();
     if (flags & 1)

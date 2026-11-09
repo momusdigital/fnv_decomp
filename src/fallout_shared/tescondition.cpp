@@ -205,7 +205,7 @@ bool PerkEntryConditionSet::ContainsTrait(TESObjectREFR* subject, TESObjectREFR*
     return state.all;
 }
 
-extern int DAT_01046b48;
+extern int vftable_BGSPerkEntry;
 
 struct FUN_005e9530_Obj
 {
@@ -215,12 +215,12 @@ struct FUN_005e9530_Obj
     __thiscall FUN_005e9530_Obj();
 };
 
-// Sets the object's vftable to DAT_01046b48 and clears bytes b4 and b5, then returns the object.
+// Sets the object's vftable to vftable_BGSPerkEntry and clears bytes b4 and b5, then returns the object.
 // @fnv 0x005e9530
 // src: EXE 0x005e9530
 void* __fastcall BGSPerkEntry_BGSPerkEntry(FUN_005e9530_Obj* pThis)
 {
-    pThis->vftable = &DAT_01046b48;
+    pThis->vftable = &vftable_BGSPerkEntry;
     pThis->b4 = 0;
     pThis->b5 = 0;
     return pThis;

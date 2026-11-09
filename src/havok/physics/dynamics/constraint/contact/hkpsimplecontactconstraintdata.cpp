@@ -114,7 +114,7 @@ void __stdcall hkpSimpleContactConstraintData_isValid(bool* p)
     *p = true;
 }
 
-extern unsigned char DAT_010cc934;
+extern unsigned char vftable_hkpSimpleContactConstraintData;
 
 struct PacketResult
 {
@@ -158,7 +158,7 @@ struct FUN_00d92f20
 // @fnv 0x00d92f20
 FUN_00d92f20::FUN_00d92f20(void* atom, const unsigned char* first, const unsigned char* second)
 {
-    vtable = &DAT_010cc934;
+    vtable = &vftable_hkpSimpleContactConstraintData;
     active06 = 1;
     field08 = 0;
     field0c = &field18;

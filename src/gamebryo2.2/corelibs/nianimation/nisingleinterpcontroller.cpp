@@ -43,7 +43,7 @@ void NiSingleInterpController::LoadBinary(NiStream& stream)
     }
 }
 
-extern int DAT_0109632c;
+extern int vftable_NiInterpController;
 void __fastcall FUN_00a6d220(void*);
 
 // @fnv 0x00a2f8c0
@@ -52,7 +52,7 @@ void* __fastcall NiInterpController_NiInterpController(void* pThis)
 {
     FUN_00a6d220(pThis);
     *((unsigned short*)pThis + 4) &= 0xffdf;
-    *(int**)pThis = &DAT_0109632c;
+    *(int**)pThis = &vftable_NiInterpController;
     return pThis;
 }
 

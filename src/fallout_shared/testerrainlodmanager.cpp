@@ -106,9 +106,9 @@ void __cdecl SetWindMagnitudeRange(float, float);
 extern void* DAT_011ca43c;
 extern void* DAT_011ca440;
 extern int DAT_011ca444;
-extern Setting g_011ca48c;
-extern Setting g_011ca510;
-extern Setting g_011ca524;
+extern Setting fGrassWindMagnitudeMin_Grass;
+extern Setting fGrassWindMagnitudeMax_Grass;
+extern Setting iMinGrassSize_Grass;
 
 struct FUN_0057cd10
 {
@@ -121,22 +121,22 @@ FUN_0057cd10::FUN_0057cd10()
 {
     if (!DAT_011ca444)
     {
-        int isizecap = (TallGrassShaderProperty::GetCacheIdentifier() << 8) / *g_011ca524.Int();
+        int isizecap = (TallGrassShaderProperty::GetCacheIdentifier() << 8) / *iMinGrassSize_Grass.Int();
         if (!DAT_011ca43c)
             DAT_011ca43c = new NiPoint3[isizecap * isizecap];
         if (!DAT_011ca440)
             DAT_011ca440 = new int[isizecap * isizecap];
     }
     DAT_011ca444++;
-    SetWindMagnitudeRange(*g_011ca48c.Float(), *g_011ca510.Float());
+    SetWindMagnitudeRange(*fGrassWindMagnitudeMin_Grass.Float(), *fGrassWindMagnitudeMax_Grass.Float());
 }
 
 namespace fnv_0057cf00 {
 extern double DAT_01011588;
 extern Setting DAT_011ca450;
-extern Setting g_011ca4ac;
-extern Setting g_011ca498;
-extern Setting g_011c63cc;
+extern Setting fGrassMinStartFadeDistance_Grass;
+extern Setting fGrassFadeRange_Grass;
+extern Setting uGridsToLoad_General;
 extern float DAT_011ca434;
 extern NiNode* DAT_011ca438;
 extern bool DAT_011ca430;
@@ -148,10 +148,10 @@ void UpdateTerrainLODMaxRange()
     AutoMemHelper tempMemContext(
         0x1c, true, "D:\\_Fallout3\\Platforms\\Common\\Code\\Fallout Shared\\TESTerrainLODManager.cpp", 0x90);
     float fmaxrange = 0.0f;
-    if (*DAT_011ca450.Float() >= *g_011ca4ac.Float() + 0.5f)
-        fmaxrange = *DAT_011ca450.Float() + *g_011ca498.Float();
-    if (fmaxrange > (float)(unsigned int)(*g_011c63cc.Int() << 12))
-        fmaxrange = (float)(unsigned int)(*g_011c63cc.Int() << 12);
+    if (*DAT_011ca450.Float() >= *fGrassMinStartFadeDistance_Grass.Float() + 0.5f)
+        fmaxrange = *DAT_011ca450.Float() + *fGrassFadeRange_Grass.Float();
+    if (fmaxrange > (float)(unsigned int)(*uGridsToLoad_General.Int() << 12))
+        fmaxrange = (float)(unsigned int)(*uGridsToLoad_General.Int() << 12);
     DAT_011ca434 = fmaxrange;
     ShadowSceneNode* pbasenode = NiAdditionalGeometryData::GetShadowSceneNodeForIndex(0);
     DAT_011ca438 = new NiNode(0);

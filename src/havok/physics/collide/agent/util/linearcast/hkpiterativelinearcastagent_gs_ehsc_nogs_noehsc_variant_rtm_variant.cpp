@@ -100,7 +100,7 @@ struct IterativeSweep_hkpCdPointCollector
 
 extern float DAT_0104da48;
 
-extern char DAT_010cebe0;
+extern char vftable_hkpSimpleClosestContactCollector;
 struct __declspec(align(16)) IterativeSweep_hkpSimpleClosestContactCollector
 {
     void* m_ppVirtualMethodTable;
@@ -110,7 +110,7 @@ struct __declspec(align(16)) IterativeSweep_hkpSimpleClosestContactCollector
     __forceinline IterativeSweep_hkpSimpleClosestContactCollector()
     {
         m_fEarlyOutDistance = m_kHitPoint.m_vSeparatingNormal.w = DAT_0104da48;
-        m_ppVirtualMethodTable = &DAT_010cebe0;
+        m_ppVirtualMethodTable = &vftable_hkpSimpleClosestContactCollector;
         m_bHit = false;
     }
 };

@@ -6,5 +6,5 @@ extern "C" void _ReadWriteBarrier();
 #include "../../../../include/NiFixedString.h"
 
 extern NiFixedString EmptyFS;
-extern void* const DAT_010eecac[];
+extern void* const vftable_NiD3DDefaultShader[];
 #endif

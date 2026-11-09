@@ -45,7 +45,7 @@ __forceinline void Vec4::set(float start, float end)
 // src/havok/physics/dynamics/world/simulation/multithreaded/hkpmultithreadedsimulation.cpp - unit created 2026-10-16 from the whole-binary attribution (360 source path: d:/projects/fallout/code/havok/source/physics/dynamics/world/simulation/multithreaded/hkpmultithreadedsimulation.cpp).
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
 extern "C" void __cdecl Deallocate(void*);
-extern int DAT_010c63bc;
+extern int vftable_hkpBroadPhaseListener;
 struct FUN_00d04300
 {
     int* m_p;

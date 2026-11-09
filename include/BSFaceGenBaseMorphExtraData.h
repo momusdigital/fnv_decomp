@@ -12,7 +12,7 @@ public:
 
     NiPoint3* GetVertices();
     unsigned int GetPointerByFlag(unsigned int);
-    void* FUN_006626f0(unsigned int flags);
+    void* BSFaceGenBaseMorphExtraData_ScalarDeletingDestructor(unsigned int flags);
     void UpdateFields_00662720();
 
     static const NiRTTI ms_kRTTI;

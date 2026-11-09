@@ -22,5 +22,5 @@ public:
     float GetPointLength();
     void BSMultiBoundAABB_GetVertices(NiPoint3* points);
     void GetNiBound(Vec4* point);
-    void* FUN_004a7060(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 };

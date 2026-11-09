@@ -167,7 +167,7 @@ struct FUN_00cf4d80
     bool m_bEnableState;
     FUN_00cf4d80(void* a, void* b, unsigned long c);
 };
-extern int DAT_010d08f4;
+extern int vftable_hkpSpringAction;
 extern float DAT_01013974;
 extern float DAT_0101e2bc;
 struct FUN_00d4d340 : FUN_00cf4d80
@@ -181,7 +181,7 @@ FUN_00d4d340::FUN_00d4d340(void* a, void* b, unsigned long c) : FUN_00cf4d80(a, 
     float* __restrict pf = &m_fSpringConstant;
     m_fMass = 1.0f;
     *pf = DAT_01013974;
-    *(int* __restrict*)this = &DAT_010d08f4;
+    *(int* __restrict*)this = &vftable_hkpSpringAction;
     m_fDamping = DAT_0101e2bc;
     *(volatile bool*)&m_bModifierActive = true;
     *(volatile bool*)&m_bEnableState = true;

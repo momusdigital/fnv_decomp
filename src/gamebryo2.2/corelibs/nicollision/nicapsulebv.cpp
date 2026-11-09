@@ -56,12 +56,12 @@ void NiCapsuleBV::Copy(const NiBoundingVolume& kABV)
     UpdateCapsuleSegment(this);
 }
 
-extern int DAT_010f17d0;
+extern int vftable_NiCapsuleBV;
 
 // @fnv 0x00ea0640
 __declspec(noinline) NiCapsuleBV* NiCapsuleBV::CopyConstruct(const NiCapsuleBV& source)
 {
-    *(void**)this = &DAT_010f17d0;
+    *(void**)this = &vftable_NiCapsuleBV;
     reinterpret_cast<unsigned int&>(m_kCenter.x) = reinterpret_cast<const unsigned int&>(source.m_kCenter.x);
     reinterpret_cast<unsigned int&>(m_kCenter.y) = reinterpret_cast<const unsigned int&>(source.m_kCenter.y);
     reinterpret_cast<unsigned int&>(m_kCenter.z) = reinterpret_cast<const unsigned int&>(source.m_kCenter.z);
@@ -281,7 +281,7 @@ __forceinline void ConstructCapsule(NiCapsuleBV* p, NiPoint3 v1, NiPoint3 v2) th
 {
     p->m_fHalfLength = 1.0f;
     p->m_fBoundRadius = 1.0f;
-    *(void**)p = &DAT_010f17d0;
+    *(void**)p = &vftable_NiCapsuleBV;
     reinterpret_cast<NiPoint3&>(p->m_kCenter) = v2;
     reinterpret_cast<NiPoint3&>(p->m_kAxisDirection) = v1;
     UpdateCapsuleSegment(p);
@@ -422,7 +422,7 @@ NiCapsuleBV* __cdecl NiCapsuleBV_Create()
         S_P3 a = {DAT_011a946c, DAT_011a9470, DAT_011a9474};
         p->m_fHalfLength = 1.0f;
         p->m_fBoundRadius = 1.0f;
-        *(void**)p = &DAT_010f17d0;
+        *(void**)p = &vftable_NiCapsuleBV;
         reinterpret_cast<S_P3&>(p->m_kCenter) = c;
         reinterpret_cast<S_P3&>(p->m_kAxisDirection) = a;
         UpdateCapsuleSegment(p);

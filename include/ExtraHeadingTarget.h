@@ -13,7 +13,7 @@ public:
     virtual ~ExtraHeadingTarget();
 
     void __thiscall FUN_00435ef0();
-    void* __thiscall FUN_0042c960(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 
     extra_save::SForm* target;
 };

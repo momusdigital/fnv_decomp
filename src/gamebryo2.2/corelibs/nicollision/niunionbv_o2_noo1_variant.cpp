@@ -27,8 +27,8 @@ S* __fastcall NiUnionBV_Clone(void* self);
 extern int g_fnv_00e9ecc0_value_anchor;
 int bhkCharacterStateFlying_Update();
 
-extern void* DAT_010f1778[];
-extern void* DAT_010f17ac[];
+extern void* vftable_NiUnionBV[];
+extern void* vftable_NiTPrimitiveArray_010f17ac[];
 
 struct SViewQ
 {
@@ -42,14 +42,14 @@ S* S::NiUnionBV_NiUnionBV(void* pkOtherRaw)
 {
     SViewQ* pkOther = (SViewQ*)pkOtherRaw;
     SViewQ* pkSelf = (SViewQ*)this;
-    pkSelf->vtbl = DAT_010f1778;
+    pkSelf->vtbl = vftable_NiUnionBV;
     NiTPrimitiveArray<NiBoundingVolume*>* pkArray = &pkSelf->m_kArray;
     pkArray->m_usMaxSize = 0;
     pkArray->m_usGrowBy = 1;
     pkArray->m_usSize = 0;
     pkArray->m_usESize = 0;
     pkArray->m_pBase = 0;
-    *(void***)pkArray = DAT_010f17ac;
+    *(void***)pkArray = vftable_NiTPrimitiveArray_010f17ac;
     pkArray->SetSize(pkOther->m_kArray.m_usSize);
     for (unsigned int i = 0; i < pkOther->m_kArray.m_usSize; i++)
     {

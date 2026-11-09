@@ -11,7 +11,7 @@
 struct Child { unsigned int unk00; unsigned int unk04; };
 struct Owner { unsigned int unk00; unsigned int unk04; Child* child; unsigned int hkpCollidableMediator_getNumPrimitives(); };
 // InitWalker: thiscall (2 stack args). Stores vptr, flag word and list, walks the item list when ctx != 0, returns this.
-extern int DAT_010d40b4;
+extern int vftable_hkpCollidableMediator;
 struct __declspec(align(16)) OutSlot {
     void* m_ptr;
     unsigned int unk04;

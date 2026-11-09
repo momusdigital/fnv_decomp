@@ -58,12 +58,13 @@ void* FUN_00409160_Class::DestroyIfFlagged(unsigned int flags)
 struct Unnamed
 {
     void __thiscall FUN_00409210();
-    void* __thiscall FUN_00409270(unsigned int);
+    void* __thiscall MagicItemForm_ScalarDeletingDestructor(unsigned int);
 };
 void __cdecl _Deallocate(void*);
 // Calls FUN_00409210, then frees this via _Deallocate when flags has bit 1 set, and returns this.
 // @fnv 0x00409270
-void* __thiscall Unnamed::FUN_00409270(unsigned int flags)
+// src: EXE 0x00409270
+void* __thiscall Unnamed::MagicItemForm_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00409210();
     if (flags & 1)

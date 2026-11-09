@@ -617,16 +617,16 @@ DEF4F0Object::DEF4F0Object()
 {}
 
 namespace fnv_00def160 {
-extern int DAT_010da0c8;
-extern int DAT_010da0bc;
-extern int DAT_010da0a8;
-extern int DAT_010da09c;
-extern int DAT_010da090;
-extern int DAT_010c3b8c;
-extern int DAT_010c3bac;
-extern int DAT_010c3b98;
-extern int DAT_010c3b80;
-extern int DAT_0102e388;
+extern int vftable_hkpPairCollisionFilter;
+extern int vftable_hkpPairCollisionFilter_for_hkpCollidableCollidableFilter;
+extern int vftable_hkpPairCollisionFilter_for_hkpShapeCollectionFilter;
+extern int vftable_hkpPairCollisionFilter_for_hkpRayShapeCollectionFilter;
+extern int vftable_hkpPairCollisionFilter_for_hkpRayCollidableFilter;
+extern int vftable_hkpRayCollidableFilter;
+extern int vftable_hkpRayShapeCollectionFilter;
+extern int vftable_hkpShapeCollectionFilter;
+extern int vftable_hkpCollidableCollidableFilter;
+extern int vftable_hkBaseObject;
 
 
 hkMemoryRouter* __cdecl hkMemoryRouter_getInstance() throw();
@@ -669,11 +669,11 @@ void FUN_00def160_cls::UpdateFields_00def160()
     hkMemoryRouter* pHolder;
     FUN_00def160_Sub* pSub;
 
-    m_vp00 = (void*)&DAT_010da0c8;
-    m_vp08 = (void*)&DAT_010da0bc;
-    m_vp0C = (void*)&DAT_010da0a8;
-    m_vp10 = (void*)&DAT_010da09c;
-    m_vp14 = (void*)&DAT_010da090;
+    m_vp00 = (void*)&vftable_hkpPairCollisionFilter;
+    m_vp08 = (void*)&vftable_hkpPairCollisionFilter_for_hkpCollidableCollidableFilter;
+    m_vp0C = (void*)&vftable_hkpPairCollisionFilter_for_hkpShapeCollectionFilter;
+    m_vp10 = (void*)&vftable_hkpPairCollisionFilter_for_hkpRayShapeCollectionFilter;
+    m_vp14 = (void*)&vftable_hkpPairCollisionFilter_for_hkpRayCollidableFilter;
 
     if (m_pReference != 0)
     {
@@ -685,11 +685,11 @@ void FUN_00def160_cls::UpdateFields_00def160()
     pSub->hkMapBase_unsigned_int64_unsigned_int64_hkMapOperations_unsigned_int64_clearAndDeallocate(pHolder->m_heap);
     pSub->Object_DoNothing();
 
-    m_vp14 = (void*)&DAT_010c3b8c;
-    m_vp10 = (void*)&DAT_010c3bac;
-    m_vp0C = (void*)&DAT_010c3b98;
-    m_vp08 = (void*)&DAT_010c3b80;
-    m_vp00 = (void*)&DAT_0102e388;
+    m_vp14 = (void*)&vftable_hkpRayCollidableFilter;
+    m_vp10 = (void*)&vftable_hkpRayShapeCollectionFilter;
+    m_vp0C = (void*)&vftable_hkpShapeCollectionFilter;
+    m_vp08 = (void*)&vftable_hkpCollidableCollidableFilter;
+    m_vp00 = (void*)&vftable_hkBaseObject;
 }
 }  // namespace fnv_00def160
 

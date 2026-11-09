@@ -107,7 +107,7 @@ struct GlobalObject2_0040c150
 {
     int* Int();
 };
-extern GlobalObject2_0040c150 g_011df198;
+extern GlobalObject2_0040c150 iNumBitsForFullySeen_General;
 float __cdecl GetRuntimeFloatSetting37();
 
 // @fnv 0x00879ad0
@@ -137,7 +137,7 @@ bool SeenData::HasEnoughSeenPoints(const NiPoint3& aPoint, const NiPoint3& aOffs
             iSeenCount++;
         }
     }
-    return iSeenCount >= *g_011df198.Int();
+    return iSeenCount >= *iNumBitsForFullySeen_General.Int();
 }
 
 int __cdecl TruncateFloatToInt(float);
@@ -217,7 +217,8 @@ void SeenData::SaveGame_0087a060(bool abRecursing)
 void _Deallocate(void*);
 // Calls FUN_0087a170, then if the low bit of flags is set deallocates this, and returns this.
 // @fnv 0x0087a140
-void* IntSeenData::FUN_0087a140(unsigned int flags)
+// src: EXE 0x0087a140
+void* IntSeenData::ScalarDeletingDestructor(unsigned int flags)
 {
     IntSeenData::~IntSeenData();
     if (flags & 1)
@@ -246,7 +247,7 @@ void IntSeenData::SaveToBuffer(BGSSaveFormBuffer* buffer)
 // @fnv 0x008799a0
 void SeenData::SetVtable()
 {
-    *(void**)this = &DAT_01083fc4;
+    *(void**)this = &vftable_SeenData;
 }
 
 namespace fnv_0087a3e0 {

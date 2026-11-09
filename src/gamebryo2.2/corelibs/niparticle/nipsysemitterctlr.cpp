@@ -240,13 +240,13 @@ void NiPSysEmitterCtlr::SetInterpolator(NiInterpolator* pkInterpolator, unsigned
 }
 
 extern MemoryManager g_memoryManager;
-extern int DAT_0109a1d4;
+extern int vftable_NiBoolData;
 void __cdecl _delete(void*, unsigned int);
 // @fnv 0x00a53a10
 void* NiBoolData::Destroy(unsigned int auiFlags)
 {
     void* keys = m_pKeyArray;
-    *(void**)this = (void*)&DAT_0109a1d4;
+    *(void**)this = (void*)&vftable_NiBoolData;
     if (keys)
         g_memoryManager.Deallocate((char*)keys - 4);
     ((NiRefObject*)this)->NiRefObject::~NiRefObject();
@@ -577,7 +577,7 @@ void __fastcall AppendEmitterViewerStrings(NiPSysEmitterCtlr* self, int unused, 
     }
 }
 
-extern int DAT_0109a864;
+extern int vftable_NiGeomMorpherUpdateTask;
 
 struct S_00a56be0
 {
@@ -597,7 +597,7 @@ S_00a56be0* S_00a56be0::Initialize()
     this->FUN_00a5d3a0();
 
     unk08 = 0;
-    unk00 = &DAT_0109a864;
+    unk00 = &vftable_NiGeomMorpherUpdateTask;
     unk0c = 0;
     unk10 = 0;
 

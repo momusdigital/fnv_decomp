@@ -187,7 +187,7 @@ void __fastcall SaveBombBinary(NiPSysBombModifier* modifier, void*, NiStream& kS
 }
 
 void* __cdecl Object_DispatchCommandFour(unsigned int size);
-extern int DAT_010c01ec;
+extern int vftable_NiPSysBombModifier;
 extern int DAT_011a946c;
 extern int DAT_011a9470;
 extern int DAT_011a9474;
@@ -206,7 +206,7 @@ NiObject* NiPSysBombModifier::MakeClone(CloningProcess& process)
     {
         clone = (NiPSysBombModifier*)memory;
         ((ParticleModifierConstructor*)clone)->FUN_00c31720();
-        *(void**)clone = &DAT_010c01ec;
+        *(void**)clone = &vftable_NiPSysBombModifier;
         clone->m_pkBombObject = 0;
         *(int*)&clone->m_kBombDirection.x = DAT_011a946c;
         *(int*)&clone->m_kBombDirection.y = DAT_011a9470;

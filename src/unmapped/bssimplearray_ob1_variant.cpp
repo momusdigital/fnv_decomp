@@ -12,14 +12,14 @@
 // to their real unit once identified.
 
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
-extern int DAT_0106b8a0;
+extern int vftable_BSSimpleArray_0106b8a0;
 struct FUN_006cf9d0
 {
     int* vfptr;
     void BSSimpleArray_WeaponData_1024_InitialSetup(unsigned int maxSize, unsigned int growBy);
     FUN_006cf9d0(unsigned int maxSize, unsigned int growBy);
 };
-extern int DAT_0106b91c;
+extern int vftable_BSSimpleArray_0106b91c;
 struct FUN_006cf180
 {
     void* vfptr;
@@ -36,7 +36,7 @@ struct FUN_006cf280_Class
     void* __thiscall _Reallocate_Thunk_006cf280(void* p, unsigned int n);
 };
 bool AreBytesEqual(const unsigned char* a, const unsigned char* b);
-extern int DAT_0106b8c8;
+extern int vftable_BSSimpleArray_0106b8c8;
 struct Dummy_0061bf20
 {
     void BSSimpleArray_NavMeshPOVSearchNode_1024_InitialSetup(int, int);
@@ -46,7 +46,7 @@ struct FUN_006cf9a0 : Dummy_0061bf20
     int* vfptr;
     FUN_006cf9a0(int maxSize, int growBy);
 };
-extern int DAT_0106c9e0;
+extern int vftable_BSSimpleArray_0106c9e0;
 struct GlobalObject_00869f00
 {
     void Clear(bool);
@@ -65,14 +65,14 @@ struct FUN_006e9210
 {
     void Reallocate(void* p, unsigned int size);
 };
-extern int DAT_0106d4e8;
+extern int vftable_BSSimpleArray_0106d4e8;
 struct FUN_006e9230_class
 {
     int* vfptr;
     void BSSimpleArray_PathingNode_1024_InitialSetup(int a, int b);
     FUN_006e9230_class();
 };
-extern int DAT_0106d4e8;
+extern int vftable_BSSimpleArray_0106d4e8;
 struct PSNodeStub
 {
     int* vfptr;
@@ -137,7 +137,7 @@ struct FUN_006cf4c0_Array
     unsigned int iSize;
     unsigned int BSSimpleArray_ParentSpaceNode_1024_Add(const ParentSpaceNode& aValue);
 };
-extern int DAT_0106c990;
+extern int vftable_BSScrapArray_0106c990;
 struct FUN_0069b1d0
 {
     virtual ~FUN_0069b1d0();
@@ -287,7 +287,7 @@ struct FUN_0061bf70_Class
 
     void FUN_0061bf70(unsigned int aiIndex, bool abShrink);
 };
-extern int DAT_0106c954;
+extern int vftable_BSSimpleArray_0106c954;
 struct FUN_006d0310_Class
 {
     void BSSimpleArray_NavMeshEdgeLocation_1024_InitialSetup(unsigned int, unsigned int);
@@ -440,7 +440,7 @@ struct FUN_005e0510
     FUN_005e0510();
     ~FUN_005e0510();
 };
-extern int DAT_0106c968;
+extern int vftable_BSScrapArray_0106c968;
 struct HeapProvider
 {
     void* FUN_00aa42e0();
@@ -790,7 +790,7 @@ void ArrQ0cd50::AllocateStorage_00a0cd50(unsigned int index, void* const& item)
     m_pBuffer[index] = item;
 }
 
-extern int DAT_0109527c;
+extern int vftable_BSSimpleArray_0109527c;
 inline void* __cdecl operator new(unsigned int, void* memory)
 {
     return memory;
@@ -853,7 +853,7 @@ struct ArrayConstructor
 // src: COMMUNITY 0x00a1bef0
 ArrayConstructor* ArrayConstructor::BSSimpleArray_ButtonIcon_1024_BSSimpleArray_ButtonIcon_1024()
 {
-    vfptr = &DAT_0109527c;
+    vfptr = &vftable_BSSimpleArray_0109527c;
     Initialize(0, 0);
     return this;
 }

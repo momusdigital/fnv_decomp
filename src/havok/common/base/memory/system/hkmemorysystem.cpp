@@ -30,7 +30,7 @@ int __cdecl hkMemorySystem_GetCBBFD0Value()
     return g_CBBFD0Value;
 }
 
-extern int DAT_010c8efc;
+extern int vftable_hkMemorySystem;
 
 struct FUN_00cbbfe0_This
 {
@@ -42,7 +42,7 @@ struct FUN_00cbbfe0_This
 // src: GUESS 0x00cbbfe0 (confidence: low)
 void FUN_00cbbfe0_This::SetVirtualTable_00cbbfe0()
 {
-    this->unk00 = reinterpret_cast<int>(&DAT_010c8efc);
+    this->unk00 = reinterpret_cast<int>(&vftable_hkMemorySystem);
 }
 
 // FUN_00cbc450 - 10 bytes

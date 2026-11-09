@@ -67,7 +67,7 @@ struct FieldCtlrBase
     FieldCtlrBase();
 };
 
-// Stand-in carrying the vtable the original installs (DAT_010bf554).
+// Stand-in carrying the vtable the original installs (vftable_NiPSysFieldAttenuationCtlr).
 // fnvcheck derives the vtable address from the original image bytes.
 struct AttenCtlr
 {

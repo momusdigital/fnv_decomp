@@ -4678,7 +4678,7 @@ FUN_00c1cf20::FUN_00c1cf20()
 }
 
 namespace fnv_00c1d980 {
-extern int DAT_010bd698;
+extern int vftable_NiTArray_010bd698;
 void __cdecl ReleaseObjectArray(int aiValue);
 
 class FUN_00c1d980_pool
@@ -4700,7 +4700,7 @@ struct FUN_00c1d980_cls
 FUN_00c1d980_cls* FUN_00c1d980_cls::FUN_00c1d980(unsigned char acFlags)
 {
     int value = m_04;
-    m_vptr = (int)&DAT_010bd698;
+    m_vptr = (int)&vftable_NiTArray_010bd698;
     ReleaseObjectArray(value);
     if (acFlags & 1)
     {
@@ -4711,7 +4711,7 @@ FUN_00c1d980_cls* FUN_00c1d980_cls::FUN_00c1d980(unsigned char acFlags)
 }  // namespace fnv_00c1d980
 
 namespace fnv_00c1d9b0 {
-extern int DAT_010bd6a0;
+extern int vftable_NiTArray_010bd6a0;
 void __cdecl ReleaseObjectArray(int aiValue);
 
 class FUN_00c1d9b0_pool
@@ -4733,7 +4733,7 @@ struct FUN_00c1d9b0_cls
 FUN_00c1d9b0_cls* FUN_00c1d9b0_cls::FUN_00c1d9b0(unsigned char acFlags)
 {
     int value = m_04;
-    m_vptr = (int)&DAT_010bd6a0;
+    m_vptr = (int)&vftable_NiTArray_010bd6a0;
     ReleaseObjectArray(value);
     if (acFlags & 1)
     {

@@ -54,7 +54,7 @@ class Tile__BuildStorage
 extern void FUN_00f1d2eb();
 extern void FUN_00f1e4f0();
 extern "C" unsigned int __security_cookie;
-extern void* DAT_01094cfc;
+extern void* vftable_Tile__Extra;
 extern const char DAT_010954cc[];
 class NiNode;
 class Tile__Extra : public NiExtraData

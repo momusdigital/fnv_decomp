@@ -56,7 +56,7 @@ inline void* operator new(unsigned int, void* object) throw()
     return object;
 }
 
-extern char g_010bf854;
+extern char vftable_NiPSysEmitterPlanarAngleCtlr;
 // The shared float-controller header does not yet declare its member-copy entry point.
 void __cdecl FUN_00c32de0();
 
@@ -69,7 +69,7 @@ void* NiPSysEmitterPlanarAngleCtlr::CreateTargetObj(void* arg)
     if (obj)
     {
         ::new (obj) NiPSysModifierFloatCtlr;
-        *(void**)obj = &g_010bf854;
+        *(void**)obj = &vftable_NiPSysEmitterPlanarAngleCtlr;
     }
     else
     {

@@ -13,14 +13,14 @@ int* __cdecl NiSCMExtraData_GetRTTI()
     return &g_01270908;
 }
 
-extern int DAT_0110129c;
+extern int vftable_NiSCMExtraData;
 void __cdecl NiFreeAlias(void*);
 void __cdecl operator delete(void*, unsigned int);
 // @fnv 0x00ee89b0
 void* NiSCMExtraData::Destroy(unsigned int auiFlags)
 {
     void* tmp = m_24;
-    *(int*)this = (int)&DAT_0110129c;
+    *(int*)this = (int)&vftable_NiSCMExtraData;
     NiFreeAlias(tmp);
     NiFreeAlias(m_2c);
     NiExtraData::DestroyFields_00a7b300();
@@ -37,7 +37,7 @@ void* __cdecl _NiMalloc_00aa1070(int);
 NiSCMExtraData* __fastcall NiSCMExtraData_UpdateState_00ee8910(NiSCMExtraData* self, void*, int a, int aiCountA, int aiCountB)
 {
     self->NiExtraData::FUN_00a7b2e0();
-    *reinterpret_cast<void**>(self) = &DAT_0110129c;
+    *reinterpret_cast<void**>(self) = &vftable_NiSCMExtraData;
     reinterpret_cast<NiObjectNET*>(self)->SetName(*reinterpret_cast<const NiFixedString*>(a));
     *reinterpret_cast<int*>(reinterpret_cast<char*>(self) + 0x0c) = aiCountA;
     *reinterpret_cast<int*>(reinterpret_cast<char*>(self) + 0x18) = 0;

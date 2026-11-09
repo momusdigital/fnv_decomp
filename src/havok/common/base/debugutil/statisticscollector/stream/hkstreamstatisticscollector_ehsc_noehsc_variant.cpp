@@ -188,7 +188,7 @@ class ObjDDF9
 };
 void __stdcall hkStreamStatisticsCollector_makeTree(hkArray<ObjDDF9*>& kArray, int iParam) throw();
 void __stdcall ClearAllItems(int iUnused0, int iUnused1);
-extern int DAT_010d8040;
+extern int vftable_hkStreamStatisticsCollector;
 struct SubBase
 {
     void FUN_00d06f50(int a1);

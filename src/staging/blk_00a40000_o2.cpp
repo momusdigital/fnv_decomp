@@ -1,4 +1,4 @@
-extern int DAT_0109750c;
+extern int vftable_NiBlendTransformInterpolator;
 
 #include "../../include/NiTArray.h"
 // staging/blk_00a40000_o2.cpp: Owner, Controller, Arr, ExtraOwner and more (111 functions)
@@ -121,7 +121,7 @@ __forceinline NP::~NP()
 }
 
 extern "C" void __fastcall NiBlendInterpolator_NiBlendInterpolator(void*);
-extern int DAT_0109750c;
+extern int vftable_NiBlendTransformInterpolator;
 struct FUN_00a409b0_class
 {
     void* vtbl;
@@ -131,7 +131,7 @@ struct FUN_00a409b0_class
 FUN_00a409b0_class::FUN_00a409b0_class()
 {
     NiBlendInterpolator_NiBlendInterpolator(this);
-    vtbl = (void*)&DAT_0109750c;
+    vtbl = (void*)&vftable_NiBlendTransformInterpolator;
 }
 
 void __fastcall NiBlendInterpolator_NiBlendInterpolator(void*);
@@ -144,7 +144,7 @@ void* __cdecl NiBlendTransformInterpolator_CreateObject()
     if (p)
     {
         NiBlendInterpolator_NiBlendInterpolator(p);
-        *(void**)p = (void*)&DAT_0109750c;
+        *(void**)p = (void*)&vftable_NiBlendTransformInterpolator;
         return p;
     }
     return 0;
@@ -152,9 +152,9 @@ void* __cdecl NiBlendTransformInterpolator_CreateObject()
 
 namespace fnv_00a411f0 {
 int* __fastcall InitTimeController(int*);
-extern int DAT_010975fc;
+extern int vftable_NiFloatExtraDataController;
 
-// Allocates a 0x40-byte BSFadeNode, initialises it via InitTimeController, sets its vtable to DAT_010975fc and returns it, or returns 0 on allocation failure.
+// Allocates a 0x40-byte BSFadeNode, initialises it via InitTimeController, sets its vtable to vftable_NiFloatExtraDataController and returns it, or returns 0 on allocation failure.
 // @fnv 0x00a411f0
 // src: EXE 0x00a411f0
 int* __cdecl NiFloatExtraDataController_CreateObject()
@@ -163,7 +163,7 @@ int* __cdecl NiFloatExtraDataController_CreateObject()
     if (p)
     {
         InitTimeController(p);
-        *p = reinterpret_cast<int>(&DAT_010975fc);
+        *p = reinterpret_cast<int>(&vftable_NiFloatExtraDataController);
         return p;
     }
     return 0;
@@ -178,7 +178,7 @@ float NiInterpScalar_Linear(float afT, float afFrom, float afTo)
 }
 
 void __fastcall NiBlendInterpolator_NiBlendInterpolator(void*);
-extern int DAT_01097904;
+extern int vftable_BSBlendTreadTransfInterpolator;
 
 struct FUN_00a42f60
 {
@@ -193,7 +193,7 @@ FUN_00a42f60::FUN_00a42f60()
 {
     NiBlendInterpolator_NiBlendInterpolator(this);
     m_f = 0.0f;
-    m_pVTable = &DAT_01097904;
+    m_pVTable = &vftable_BSBlendTreadTransfInterpolator;
 }
 
 struct CloningProcess;
@@ -307,7 +307,7 @@ void* __cdecl BSBlendTreadTransfInterpolator_CreateObject()
     {
         NiBlendInterpolator_NiBlendInterpolator(p);
         *(float*)((char*)p + 0x30) = 0.0f;
-        *(int*)p = (int)&DAT_01097904;
+        *(int*)p = (int)&vftable_BSBlendTreadTransfInterpolator;
         return p;
     }
     return 0;
@@ -338,7 +338,7 @@ void* __fastcall DeleteSequenceMapBase(SequenceMapBase* map, void*, unsigned cha
     return map;
 }
 
-extern int DAT_010997f4;
+extern int vftable_NiBSplineFloatInterpolator;
 struct BaseHolder
 {
     void FUN_00a57f20(int, int);
@@ -352,7 +352,7 @@ void* __cdecl NiBSplineFloatInterpolator_CreateObject()
     if (p)
     {
         ((BaseHolder*)p)->FUN_00a57f20(0, 0);
-        *(int*)p = (int)&DAT_010997f4;
+        *(int*)p = (int)&vftable_NiBSplineFloatInterpolator;
         *(int*)((char*)p + 0x20) = 0xffff;
         return p;
     }
@@ -360,7 +360,7 @@ void* __cdecl NiBSplineFloatInterpolator_CreateObject()
 }
 
 void __fastcall _Call_a5d3a0(void*);
-extern int DAT_01099e54;
+extern int vftable_NiBSplineData;
 
 // @fnv 0x00a51e10
 // src: EXE 0x00a51e10
@@ -374,7 +374,7 @@ void* __cdecl NiBSplineData_CreateObject()
         *(int*)((char*)p + 12) = 0;
         *(int*)((char*)p + 16) = 0;
         *(int*)((char*)p + 20) = 0;
-        *(int*)p = (int)&DAT_01099e54;
+        *(int*)p = (int)&vftable_NiBSplineData;
         return p;
     }
     return 0;
@@ -401,7 +401,7 @@ void* __fastcall DeleteNodeMapBase(NodeMapBase* map, void*, unsigned char flags)
     return map;
 }
 
-extern int DAT_0109a2a4;
+extern int vftable_NiTArray_0109a2a4;
 extern MemoryManager g_memoryManager;
 void __cdecl NiFree(void*);
 struct FUN_00a54160_class
@@ -414,7 +414,7 @@ struct FUN_00a54160_class
 void* __thiscall FUN_00a54160_class::FUN_00a54160(unsigned char flags)
 {
     void* old = p;
-    vtbl = &DAT_0109a2a4;
+    vtbl = &vftable_NiTArray_0109a2a4;
     NiFree(old);
     if (flags & 1)
         g_memoryManager.Deallocate(this);
@@ -493,7 +493,7 @@ void __cdecl NiStandardizeFilePath(NiFixedString* apString)
     }
 }
 
-extern int DAT_0109b00c;
+extern int vftable_NiAVObject;
 struct FUN_004a4650_ListBase
 {
     void NiTPointerListBase_NiTPointerAllocator_unsigned_int_NiPointer_BSMultiBoundRoom_RemoveAll();
@@ -510,7 +510,7 @@ void FUN_00a5a390_shell::ReleaseStorage_00a5a390()
 {
     char* p = (char*)this;
     void* old = *(void**)(p + 0x20);
-    *(void**)p = &DAT_0109b00c;
+    *(void**)p = &vftable_NiAVObject;
     if (old)
         _g_memoryManager.Deallocate(old);
     *(unsigned int*)(p + 0x30) &= 0xfff7ffff;
@@ -533,7 +533,7 @@ void FUN_00a5a390_shell::ReleaseStorage_00a5a390()
     DestroyFogProperty();
 }
 
-extern char DAT_010976ec;
+extern char vftable_NiTArray_010976ec;
 
 struct FUN_00a414c0_class
 {
@@ -545,14 +545,14 @@ struct FUN_00a414c0_class
 // @fnv 0x00a414c0
 FUN_00a414c0_class* __thiscall FUN_00a414c0_class::FUN_00a414c0(unsigned char flags)
 {
-    m_pVTable = &DAT_010976ec;
+    m_pVTable = &vftable_NiTArray_010976ec;
     NiFree(m_p);
     if (flags & 1)
         _g_memoryManager.Deallocate(this);
     return this;
 }
 
-extern int DAT_010976fc;
+extern int vftable_NiMorphData;
 
 struct A51BF0
 {
@@ -575,7 +575,7 @@ A51BF0* CreateA51BF0()
         p->b = 0;
         p->c = 0;
         p->d = false;
-        p->vtbl = (void*)&DAT_010976fc;
+        p->vtbl = (void*)&vftable_NiMorphData;
     }
     else
     {
@@ -620,7 +620,7 @@ struct FUN_00a44f90_class
     FUN_00a44f90_class();
 };
 
-extern int DAT_01097f84;
+extern int vftable_NiUVData;
 
 // @fnv 0x00a44f90
 FUN_00a44f90_class::FUN_00a44f90_class()
@@ -646,7 +646,7 @@ FUN_00a44f90_class::FUN_00a44f90_class()
     m_49 = 0;
     m_4a = 0;
     m_4b = 0;
-    vtbl = &DAT_01097f84;
+    vtbl = &vftable_NiUVData;
 }
 
 namespace fnv_00a47f20 {
@@ -696,7 +696,7 @@ void FUN_00a50aa0_class::NiBSplineFloatInterpolator_CopyMembers(void* apDest, vo
 }  // namespace fnv_00a50aa0
 
 namespace fnv_00a537f0 {
-extern int DAT_0109a1d4;
+extern int vftable_NiBoolData;
 
 struct FUN_00a5d3a0_class : NiObject
 {
@@ -718,7 +718,7 @@ void* NiBoolData_CreateObject()
         p->m_iThirdValue = 0;
         p->m_10 = 0;
         p->m_14 = 0;
-        *reinterpret_cast<void**>(p) = &DAT_0109a1d4;
+        *reinterpret_cast<void**>(p) = &vftable_NiBoolData;
     }
     else
     {
@@ -1215,7 +1215,7 @@ FUN_00a478f0::~FUN_00a478f0() throw()
 }
 
 extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(volatile long*);
-extern int DAT_0109893c;
+extern int vftable_NiPathController;
 struct RefObject
 {
     virtual void GetRTTI();
@@ -1275,7 +1275,7 @@ struct FUN_00a49d60 : public ParentData
 // @fnv 0x00a49d60
 FUN_00a49d60::~FUN_00a49d60()
 {
-    vtable = &DAT_0109893c;
+    vtable = &vftable_NiPathController;
     first.Clear();
     second.Clear();
     _NiFree_00aa10f0(resource);
@@ -1576,7 +1576,7 @@ void __cdecl NiGlobalStringTable_FreeUnusedStrings()
 }
 
 extern void __cdecl _NiFree_00aa10f0(char* psz);
-extern int DAT_0102102c;
+extern int vftable_NiTArray_0102102c;
 
 struct Ent
 {
@@ -1616,7 +1616,7 @@ void FUN_00a5b470_cls::ResetEntries()
     for (int i = 0x200; i >= 0; --i)
     {
         p = p - 1;
-        p->m_f0 = &DAT_0102102c;
+        p->m_f0 = &vftable_NiTArray_0102102c;
         _NiFree_00aa10f0(GetStr(p));
     }
 }
@@ -1793,8 +1793,8 @@ __declspec(noinline) NiRefObject::~NiRefObject()
 }
 
 extern void* __cdecl Object_DispatchCommandFour(unsigned int);
-extern int DAT_0109b5ac;
-extern int DAT_0101fbd4;
+extern int vftable_NiNode;
+extern int vftable_NiTObjectArray_0101fbd4;
 struct NiObjectBase
 {
     void __thiscall FUN_00a5aa20();
@@ -1816,21 +1816,21 @@ NiObjectBase* __cdecl NiNode_CreateObject()
     if (object)
     {
         object->FUN_00a5aa20();
-        *reinterpret_cast<void**>(object) = &DAT_0109b5ac;
+        *reinterpret_cast<void**>(object) = &vftable_NiNode;
         ObjectState* state = reinterpret_cast<ObjectState*>(reinterpret_cast<char*>(object) + 0x9c);
         state->first = 0;
         state->enabled = 1;
         state->second = 0;
         state->third = 0;
         state->count = 0;
-        state->reference = &DAT_0101fbd4;
+        state->reference = &vftable_NiTObjectArray_0101fbd4;
         return object;
     }
     return 0;
 }
 
 // Constructor of a derived object: base ctor call, then a 16-bit field and the vtable pointer.
-extern int DAT_0109b72c;
+extern int vftable_NiVertexColorProperty;
 
 struct FUN_00a5f1e0_cls
 {
@@ -1853,7 +1853,7 @@ FUN_00a5f1e0_cls::FUN_00a5f1e0_cls()
 {
     Init();
     m_w18 = 8;
-    m_pVTable = &DAT_0109b72c;
+    m_pVTable = &vftable_NiVertexColorProperty;
 }
 
 class A5F4D0Property
@@ -1891,8 +1891,8 @@ struct CountedRef
     long m_iObjectReferenceCount;
 };
 
-extern int DAT_0109b9ec;
-extern int DAT_0109b944;
+extern int vftable_NiSourceTexture;
+extern int vftable_NiTexture;
 extern int DAT_0109b220;
 
 struct FUN_00a5fca0_cls
@@ -1915,7 +1915,7 @@ struct FUN_00a5fca0_cls
 // src: GUESS 0x00a5fca0 (confidence: low)
 void FUN_00a5fca0_cls::UpdateFields_00a5fca0()
 {
-    *(void* volatile*)&m_vptr = (void*)&DAT_0109b9ec;
+    *(void* volatile*)&m_vptr = (void*)&vftable_NiSourceTexture;
     CountedRef* a = *(CountedRef* volatile*)&m_3c;
     if (a != 0)
     {
@@ -1959,7 +1959,7 @@ void FUN_00a5fca0_cls::UpdateFields_00a5fca0()
         InterlockedDecrement((long*)(m_30 - 8));
     }
     CountedRef* e = m_24;
-    *(void* volatile*)&m_vptr = (void*)&DAT_0109b944;
+    *(void* volatile*)&m_vptr = (void*)&vftable_NiTexture;
     if (e != 0)
     {
         e->Vslot00(1);
@@ -3168,16 +3168,16 @@ void ExtraOwner::NiAVObject_RemoveProperty_0(int type, NiPointer<AnimIdle>& outp
     output = 0;
 }
 
-extern int DAT_0101dce4;
+extern int vftable_NiRefObject;
 extern char DAT_011f4400;
 void __cdecl _delete(void*, unsigned int);
 __declspec(dllimport) long __stdcall InterlockedDecrement(long volatile* Addend);
 
-// Sets the vtable to DAT_0101dce4, decrements DAT_011f4400, and frees this if flags has bit 0 set.
+// Sets the vtable to vftable_NiRefObject, decrements DAT_011f4400, and frees this if flags has bit 0 set.
 // @fnv 0x00a5d4e0
 void* __fastcall DeleteNiRefObject(NiRefObject* object, void*, unsigned char flags)
 {
-    *reinterpret_cast<void**>(object) = &DAT_0101dce4;
+    *reinterpret_cast<void**>(object) = &vftable_NiRefObject;
     InterlockedDecrement((long volatile*)&DAT_011f4400);
     if (flags & 1)
         _delete(object, 8);
@@ -4775,16 +4775,16 @@ void FUN_00a473d0_class::SetString(const char* apString)
 
 // NiSequence::NiSequence(const char* pcName, unsigned int uiArraySize, unsigned int uiArrayGrowBy)
 // RTTI: NiSequence : NiObject : NiRefObject. Vtables not in the symbols DB are referenced by their data symbols.
-extern const void* DAT_01098454[];  // NiSequence vftable
-extern int DAT_01021024;            // NiTPrimitiveArray<char*> vftable
-extern const void* DAT_010984e4[];  __forceinline void ConstructSequenceNames(StrArr* array, unsigned int maxSize, unsigned int growBy)
+extern const void* vftable_NiSequence[];  // NiSequence vftable
+extern int vftable_NiTPrimitiveArray_01021024;            // NiTPrimitiveArray<char*> vftable
+extern const void* vftable_NiTObjectArray_010984e4[];  __forceinline void ConstructSequenceNames(StrArr* array, unsigned int maxSize, unsigned int growBy)
 {
     array->m_usMaxSize = (unsigned short)maxSize;
     array->m_usGrowBy = (unsigned short)growBy;
     array->m_usSize = 0;
     array->m_usESize = 0;
     array->m_pBase = 0;
-    array->vtable = &DAT_01021024;
+    array->vtable = &vftable_NiTPrimitiveArray_01021024;
 }
 
 // NiTObjectArray<NiPointer<NiTransformController> > vftable
@@ -4808,7 +4808,7 @@ struct NiSequenceControllerArray
         m_usSize = 0;
         m_usESize = 0;
         m_pBase = 0;
-        m_vft = DAT_010984e4;
+        m_vft = vftable_NiTObjectArray_010984e4;
     }
     void FUN_00a47770(unsigned int uiSize);  // SetSize
 };
@@ -4818,7 +4818,7 @@ struct NiSequenceControllerArray
 NiSequence* NiSequence::Initialize(const char* pcName, unsigned int uiArraySize, unsigned int uiArrayGrowBy)
 {
     _Call_a5d3a0(this);  // NiObject::NiObject
-    *reinterpret_cast<const void**>(this) = DAT_01098454;
+    *reinterpret_cast<const void**>(this) = vftable_NiSequence;
     StrArr& m_kNameArray = m_kStringArray;
     NiRefObject*& m_spTextKeyData = *reinterpret_cast<NiRefObject**>(pad + 0x10);
 

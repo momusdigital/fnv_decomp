@@ -96,8 +96,8 @@ void cleanupLoadedObjecthkaSkeletonLocalFrameOnBone(hkReferencedObject** p)
     *p = 0;
 }
 
-extern int DAT_010cc2fc;
-extern int DAT_010df34c;
+extern int vftable_hkpAction;
+extern int vftable_hkpVehicleInstance;
 
 struct FUN_00dfbdf0_class
 {
@@ -110,9 +110,9 @@ void Runtime_UpdateState_00dfbdf0(void* p, int a)
 {
     if (p)
     {
-        *(int*)p = (int)&DAT_010cc2fc;
+        *(int*)p = (int)&vftable_hkpAction;
         ((FUN_00dfbdf0_class*)((char*)p + 0x14))->ReturnSelf(a);
-        *(int*)p = (int)&DAT_010df34c;
+        *(int*)p = (int)&vftable_hkpVehicleInstance;
     }
 }
 
@@ -134,8 +134,8 @@ void __cdecl finishLoadedObjecthkpSerializedAgentNnEntry(void** ppObject, void* 
     }
 }
 
-extern "C" void* DAT_010305a8;
-extern "C" void* DAT_010e222c;
+extern "C" void* vftable_hkpShape;
+extern "C" void* vftable_hkpMultiRayShape;
 
 // @fnv 0x00dfd0f0
 // src: GUESS 0x00dfd0f0 (confidence: low)
@@ -143,10 +143,10 @@ void Object_UpdateState_00dfd0f0(void* pObject, int b)
 {
     if (pObject)
     {
-        *reinterpret_cast<void**>(pObject) = &DAT_010305a8;
+        *reinterpret_cast<void**>(pObject) = &vftable_hkpShape;
         if (b)
             *reinterpret_cast<int*>(reinterpret_cast<char*>(pObject) + 0xc) = 0;
-        *reinterpret_cast<void**>(pObject) = &DAT_010e222c;
+        *reinterpret_cast<void**>(pObject) = &vftable_hkpMultiRayShape;
         *reinterpret_cast<int*>(reinterpret_cast<char*>(pObject) + 0xc) = 0x18;
     }
 }
@@ -194,7 +194,7 @@ void Object_UpdateState_00dfda10(char* pObject, char* a)
     }
 }
 
-extern int DAT_010d3cc0;
+extern int vftable_hkTraceStream;
 
 // @fnv 0x00dfde30
 // src: GUESS 0x00dfde30 (confidence: low)
@@ -203,12 +203,12 @@ void Object_UpdateState_00dfde30(void* apObject)
     if (apObject)
     {
         *(unsigned short*)((char*)apObject + 6) = 1;
-        *(int**)(char*)apObject = &DAT_010d3cc0;
+        *(int**)(char*)apObject = &vftable_hkTraceStream;
     }
 }
 
-extern int DAT_010cc2fc;
-extern int DAT_010d08f4;
+extern int vftable_hkpAction;
+extern int vftable_hkpSpringAction;
 
 struct FUN_00cb0a70_Class
 {
@@ -227,14 +227,14 @@ void Object_UpdateState_00dfef50(int* pObject, int aiValue)
 {
     if (pObject)
     {
-        pObject[0] = (int)&DAT_010cc2fc;
+        pObject[0] = (int)&vftable_hkpAction;
         ((FUN_00cb0a70_Class*)((char*)pObject + 0x14))->ReturnSelf(aiValue);
-        pObject[0] = (int)&DAT_010d08f4;
+        pObject[0] = (int)&vftable_hkpSpringAction;
     }
 }
 
-extern int DAT_010cc2fc;
-extern int DAT_010e6834;
+extern int vftable_hkpAction;
+extern int vftable_hkpReorientAction;
 
 struct FUN_00dff0f0_class
 {
@@ -242,21 +242,21 @@ struct FUN_00dff0f0_class
     void ReturnSelf(int);
 };
 
-// If p is non-null, sets p->m to &DAT_010cc2fc, calls FUN_00cb0a70 on the object at p+0x14 with a, then sets p->m to &DAT_010e6834.
+// If p is non-null, sets p->m to &vftable_hkpAction, calls FUN_00cb0a70 on the object at p+0x14 with a, then sets p->m to &vftable_hkpReorientAction.
 // @fnv 0x00dff0f0
 // src: GUESS 0x00dff0f0 (confidence: low)
 void Runtime_UpdateState_00dff0f0(FUN_00dff0f0_class* p, int aiValue)
 {
     if (p)
     {
-        p->m = (int)&DAT_010cc2fc;
+        p->m = (int)&vftable_hkpAction;
         ((FUN_00dff0f0_class*)((char*)p + 0x14))->ReturnSelf(aiValue);
-        p->m = (int)&DAT_010e6834;
+        p->m = (int)&vftable_hkpReorientAction;
     }
 }
 
-extern int DAT_010cce28;
-extern int DAT_010d07f4;
+extern int vftable_hkpPhysicsSystem;
+extern int vftable_hkpPhysicsSystemWithContacts;
 struct FUN_00cb0a70
 {
     void __thiscall m_00cb0a70(int);
@@ -268,9 +268,9 @@ void __cdecl finishLoadedObjecthkpPhysicsSystemWithContacts(int* pObject, int iV
 {
     if (pObject)
     {
-        *pObject = (int)&DAT_010cce28;
+        *pObject = (int)&vftable_hkpPhysicsSystem;
         ((FUN_00cb0a70*)(pObject + 14))->m_00cb0a70(iValue);
-        *pObject = (int)&DAT_010d07f4;
+        *pObject = (int)&vftable_hkpPhysicsSystemWithContacts;
     }
 }
 
@@ -280,8 +280,8 @@ struct FUN_00dff340_Class
     void ReturnSelf(void* arg);
 };
 
-extern int DAT_010cc2fc;
-extern int DAT_010d0944;
+extern int vftable_hkpAction;
+extern int vftable_hkpMotorAction;
 
 // @fnv 0x00dff340
 // src: GUESS 0x00dff340 (confidence: low)
@@ -289,9 +289,9 @@ void __cdecl Object_UpdateFields_00dff340(void* apObject, void* arg)
 {
     if (apObject)
     {
-        ((FUN_00dff340_Class*)apObject)->m_p = &DAT_010cc2fc;
+        ((FUN_00dff340_Class*)apObject)->m_p = &vftable_hkpAction;
         ((FUN_00dff340_Class*)((char*)apObject + 0x14))->ReturnSelf(arg);
-        ((FUN_00dff340_Class*)apObject)->m_p = &DAT_010d0944;
+        ((FUN_00dff340_Class*)apObject)->m_p = &vftable_hkpMotorAction;
     }
 }
 
@@ -327,8 +327,8 @@ struct FUN_00cb0a70_class
     void ReturnSelf(int a);
 };
 
-extern int DAT_010cc2fc;
-extern int DAT_010d09f4;
+extern int vftable_hkpAction;
+extern int vftable_hkpAngularDashpotAction;
 
 // @fnv 0x00dffbe0
 // src: GUESS 0x00dffbe0 (confidence: low)
@@ -336,9 +336,9 @@ void __cdecl Object_UpdateFields_00dffbe0(int* pObject, int aiValue)
 {
     if (pObject)
     {
-        *pObject = (int)&DAT_010cc2fc;
+        *pObject = (int)&vftable_hkpAction;
         ((FUN_00cb0a70_class*)(pObject + 5))->ReturnSelf(aiValue);
-        *pObject = (int)&DAT_010d09f4;
+        *pObject = (int)&vftable_hkpAngularDashpotAction;
     }
 }
 }  // namespace fnv_00dffbe0
@@ -370,32 +370,32 @@ void Object_ForwardCall_00dfbc70(FUN_00cb0c00_class* self)
     ((FUN_00cb0c00_class*)((char*)self + 4))->Object_UpdateFields_00cb0c00();
 }
 
-extern int DAT_010df89c;
+extern int vftable_hkpVehicleDefaultSuspension;
 // @fnv 0x00dfbf50
 // src: GUESS 0x00dfbf50 (confidence: low)
 void __cdecl Runtime_UpdateState_00dfbf50(int* p)
 {
     if (p)
-        *p = (int)&DAT_010df89c;
+        *p = (int)&vftable_hkpVehicleDefaultSuspension;
 }
 
-extern int DAT_010df9f4;
+extern int vftable_hkpVehicleDefaultBrake;
 
 // @fnv 0x00dfc060
 // src: GUESS 0x00dfc060 (confidence: low)
 void Object_UpdateFields_00dfc060(int* p)
 {
     if (p)
-        *p = (int)&DAT_010df9f4;
+        *p = (int)&vftable_hkpVehicleDefaultBrake;
 }
 
-extern int DAT_010dff44;
+extern int vftable_hkpVehicleData;
 // @fnv 0x00dfc130
 // src: GUESS 0x00dfc130 (confidence: low)
 void __cdecl Runtime_UpdateState_00dfc130(int* p)
 {
     if (p)
-        *p = (int)&DAT_010dff44;
+        *p = (int)&vftable_hkpVehicleData;
 }
 
 typedef void(__thiscall* VTable0)(void*, int);
@@ -414,22 +414,22 @@ void __cdecl Runtime_UpdateState_00dfc250(void** p)
     fn(p, 0);
 }
 
-extern int DAT_010e00cc;
+extern int vftable_hkpTyremarksWheel;
 // @fnv 0x00dfc280
 // src: GUESS 0x00dfc280 (confidence: low)
 void __cdecl Object_UpdateFields_00dfc280(int* p)
 {
     if (p)
-        *p = (int)&DAT_010e00cc;
+        *p = (int)&vftable_hkpTyremarksWheel;
 }
 
-extern int DAT_010e00dc;
+extern int vftable_hkpTyremarksInfo;
 // @fnv 0x00dfc2a0
 // src: GUESS 0x00dfc2a0 (confidence: low)
 void Object_UpdateFields_00dfc2a0(int* p)
 {
     if (p)
-        *p = (int)&DAT_010e00dc;
+        *p = (int)&vftable_hkpTyremarksInfo;
 }
 
 // @fnv 0x00dfc380
@@ -439,13 +439,13 @@ void __cdecl Object_InvokeVirtualMethod_00dfc380(void** p)
     (**(void(__thiscall**)(void*, int))(*p))(p, 0);
 }
 
-extern int DAT_010e04ac;
+extern int vftable_hkpSerializedDisplayRbTransforms;
 // @fnv 0x00dfc470
 // src: GUESS 0x00dfc470 (confidence: low)
 void __cdecl Runtime_UpdateState_00dfc470(int* p)
 {
     if (p)
-        *p = (int)&DAT_010e04ac;
+        *p = (int)&vftable_hkpSerializedDisplayRbTransforms;
 }
 
 // @fnv 0x00dfc500
@@ -455,32 +455,32 @@ void __cdecl Object_ProcessAndTransformResult_00dfc500(void* p)
     ((void(__thiscall*)(void*, int)) * (void**)*(void**)p)(p, 0);
 }
 
-extern int DAT_010e0654;
+extern int vftable_hkpPoweredChainMapper;
 // @fnv 0x00dfc520
 // src: GUESS 0x00dfc520 (confidence: low)
 void __cdecl Object_UpdateFields_00dfc520(int* a)
 {
     if (a)
-        *a = (int)&DAT_010e0654;
+        *a = (int)&vftable_hkpPoweredChainMapper;
 }
 
-extern int DAT_0102e368;
+extern int vftable_hkpMoppCode;
 
 // @fnv 0x00dfc620
 // src: GUESS 0x00dfc620 (confidence: low)
 void __cdecl Object_UpdateFields_00dfc620(int* p)
 {
     if (p)
-        *p = (int)&DAT_0102e368;
+        *p = (int)&vftable_hkpMoppCode;
 }
 
-extern int DAT_010d0a64;
+extern int vftable_hkpWheelConstraintData;
 // @fnv 0x00dfc6c0
 // src: GUESS 0x00dfc6c0 (confidence: low)
 void __cdecl Object_UpdateFields_00dfc6c0(int* p)
 {
     if (p)
-        *p = (int)&DAT_010d0a64;
+        *p = (int)&vftable_hkpWheelConstraintData;
 }
 
 // @fnv 0x00dfc700
@@ -490,31 +490,31 @@ void __cdecl Object_ProcessAndTransformResult_00dfc700(void* p)
     ((void(__thiscall*)(void*, int))(*(void**)*(void**)p))(p, 0);
 }
 
-extern int DAT_010d0aac;
+extern int vftable_hkpStiffSpringConstraintData;
 // @fnv 0x00dfc730
 // src: GUESS 0x00dfc730 (confidence: low)
 void Runtime_UpdateState_00dfc730(int* p)
 {
     if (p)
-        *p = (int)&DAT_010d0aac;
+        *p = (int)&vftable_hkpStiffSpringConstraintData;
 }
 
-extern int DAT_010e11ec;
+extern int vftable_hkpRotationalConstraintData;
 // @fnv 0x00dfc900
 // src: GUESS 0x00dfc900 (confidence: low)
 void __cdecl Object_UpdateFields_00dfc900(int* p)
 {
     if (p)
-        *p = (int)&DAT_010e11ec;
+        *p = (int)&vftable_hkpRotationalConstraintData;
 }
 
-extern int DAT_010da04c;
+extern int vftable_hkpPulleyConstraintData;
 // @fnv 0x00dfca90
 // src: GUESS 0x00dfca90 (confidence: low)
 void __cdecl Runtime_UpdateState_00dfca90(int* p)
 {
     if (p)
-        *p = (int)&DAT_010da04c;
+        *p = (int)&vftable_hkpPulleyConstraintData;
 }
 
 // @fnv 0x00dfcad0
@@ -524,40 +524,40 @@ void __cdecl Runtime_Helper_00dfcad0(void** p)
     ((void(__thiscall*)(void*, int))(**(void***)(p)))(p, 0);
 }
 
-extern int DAT_010d0b3c;
+extern int vftable_hkpPrismaticConstraintData;
 // @fnv 0x00dfcb00
 // src: GUESS 0x00dfcb00 (confidence: low)
 void Object_UpdateFields_00dfcb00(int* p)
 {
     if (p)
-        *p = (int)&DAT_010d0b3c;
+        *p = (int)&vftable_hkpPrismaticConstraintData;
 }
 
-extern void* DAT_010d37e4;
+extern void* vftable_hkpPointToPlaneConstraintData;
 // @fnv 0x00dfcbf0
 // src: GUESS 0x00dfcbf0 (confidence: low)
 void __cdecl Runtime_UpdateState_00dfcbf0(void** p)
 {
     if (p)
-        *p = &DAT_010d37e4;
+        *p = &vftable_hkpPointToPlaneConstraintData;
 }
 
-extern int DAT_010c89e4;
+extern int vftable_hkpLimitedHingeConstraintData;
 // @fnv 0x00dfcc60
 // src: GUESS 0x00dfcc60 (confidence: low)
 void __cdecl Object_UpdateFields_00dfcc60(int* p)
 {
     if (p)
-        *p = (int)&DAT_010c89e4;
+        *p = (int)&vftable_hkpLimitedHingeConstraintData;
 }
 
-extern int DAT_010d0be4;
+extern int vftable_hkpHingeLimitsData;
 // @fnv 0x00dfccd0
 // src: GUESS 0x00dfccd0 (confidence: low)
 void __cdecl Runtime_UpdateState_00dfccd0(int* p)
 {
     if (p)
-        *p = (int)&DAT_010d0be4;
+        *p = (int)&vftable_hkpHingeLimitsData;
 }
 
 typedef int(__thiscall* VFunc0)(void*, int);
@@ -568,23 +568,23 @@ int __cdecl Object_EvaluateValue_00dfcd10(void* self)
     return ((VFunc0*)*(void**)self)[0](self, 0);
 }
 
-extern int DAT_010c91ec;
+extern int vftable_hkpHingeConstraintData;
 // @fnv 0x00dfcd40
 // src: GUESS 0x00dfcd40 (confidence: low)
 void __cdecl Object_UpdateFields_00dfcd40(int* p)
 {
     if (p)
-        *p = (int)&DAT_010c91ec;
+        *p = (int)&vftable_hkpHingeConstraintData;
 }
 
-extern int DAT_010d0cd4;
+extern int vftable_hkpBallAndSocketConstraintData;
 
 // @fnv 0x00dfce90
 // src: GUESS 0x00dfce90 (confidence: low)
 void __cdecl Runtime_UpdateState_00dfce90(int* a)
 {
     if (a)
-        *a = (int)&DAT_010d0cd4;
+        *a = (int)&vftable_hkpBallAndSocketConstraintData;
 }
 
 struct FUN_00dfd7a0_vt
@@ -624,22 +624,22 @@ void __cdecl Object_ForwardCall_00dfdb40(void* p)
     ((FUN_00cb0c00_class*)((char*)p + 4))->Object_UpdateFields_00cb0c00();
 }
 
-extern int DAT_010e351c;
+extern int vftable_hkxSparselyAnimatedEnum;
 // @fnv 0x00dfdb50
 // src: GUESS 0x00dfdb50 (confidence: low)
 void __cdecl Runtime_UpdateState_00dfdb50(int* p)
 {
     if (p)
-        *p = (int)&DAT_010e351c;
+        *p = (int)&vftable_hkxSparselyAnimatedEnum;
 }
 
-extern "C" void* DAT_010e352c;
+extern "C" void* vftable_hkxEnum;
 // @fnv 0x00dfdb70
 // src: GUESS 0x00dfdb70 (confidence: low)
 void __cdecl Runtime_UpdateState_00dfdb70(void** p)
 {
     if (p)
-        *p = &DAT_010e352c;
+        *p = &vftable_hkxEnum;
 }
 
 // @fnv 0x00dfdf90
@@ -659,13 +659,13 @@ void __cdecl Runtime_UpdateState_00dfdfb0(int* p)
         *p = (int)&DAT_010e3e5c;
 }
 
-extern int DAT_010e5474;
+extern int vftable_hkaInterleavedUncompressedAnimation;
 // @fnv 0x00dfe340
 // src: GUESS 0x00dfe340 (confidence: low)
 void __cdecl Object_UpdateFields_00dfe340(void* p)
 {
     if (p)
-        *reinterpret_cast<int*>(p) = reinterpret_cast<int>(&DAT_010e5474);
+        *reinterpret_cast<int*>(p) = reinterpret_cast<int>(&vftable_hkaInterleavedUncompressedAnimation);
 }
 
 struct FUN_00dfe430_class
@@ -679,22 +679,22 @@ int __cdecl Runtime_ForwardCall_00dfe430(FUN_00dfe430_class* p)
     return p->ReturnSelf(0);
 }
 
-extern int DAT_010e56d4;
+extern int vftable_hkaFootstepAnalysisInfoContainer;
 // @fnv 0x00dfe490
 // src: GUESS 0x00dfe490 (confidence: low)
 void __cdecl Runtime_UpdateState_00dfe490(int* p)
 {
     if (p)
-        *p = (int)&DAT_010e56d4;
+        *p = (int)&vftable_hkaFootstepAnalysisInfoContainer;
 }
 
-extern int DAT_010e57a4;
+extern int vftable_hkaDefaultAnimatedReferenceFrame;
 // @fnv 0x00dfe500
 // src: GUESS 0x00dfe500 (confidence: low)
 void __cdecl Object_UpdateFields_00dfe500(int* p)
 {
     if (p)
-        *p = (int)&DAT_010e57a4;
+        *p = (int)&vftable_hkaDefaultAnimatedReferenceFrame;
 }
 
 struct FUN_00dfe670_vt
@@ -708,23 +708,23 @@ void __cdecl Runtime_ForwardCall_00dfe670(FUN_00dfe670_vt* p)
     p->m_iWordAt00(0);
 }
 
-extern int DAT_010e58c8;
+extern int vftable_hkaAnimationPreviewColorContainer;
 
 // @fnv 0x00dfe690
 // src: GUESS 0x00dfe690 (confidence: low)
 void __cdecl Runtime_UpdateState_00dfe690(int** p)
 {
     if (p)
-        *p = &DAT_010e58c8;
+        *p = &vftable_hkaAnimationPreviewColorContainer;
 }
 
-extern int DAT_010e59ac;
+extern int vftable_hkaAnimationContainer;
 // @fnv 0x00dfe700
 // src: GUESS 0x00dfe700 (confidence: low)
 void Object_UpdateFields_00dfe700(int* p)
 {
     if (p)
-        *p = (int)&DAT_010e59ac;
+        *p = (int)&vftable_hkaAnimationContainer;
 }
 
 // @fnv 0x00dfeaa0
@@ -734,52 +734,52 @@ void __cdecl Object_InvokeVirtualMethod_00dfeaa0(void** p)
     ((void(__thiscall*)(void*, int))(*reinterpret_cast<void***>(p))[0])(p, 0);
 }
 
-extern int DAT_010e5b68;
+extern int vftable_hkpVehicleRayCastBatchingManager;
 
 // @fnv 0x00dfeb60
 // src: GUESS 0x00dfeb60 (confidence: low)
 void __cdecl Object_UpdateFields_00dfeb60(int* p)
 {
     if (p)
-        *p = (int)&DAT_010e5b68;
+        *p = (int)&vftable_hkpVehicleRayCastBatchingManager;
 }
 
-extern int DAT_010e5b4c;
+extern int vftable_hkpVehicleManager;
 
 // @fnv 0x00dfebd0
 // src: GUESS 0x00dfebd0 (confidence: low)
 void __cdecl Runtime_UpdateState_00dfebd0(int* p)
 {
     if (p)
-        *p = (int)&DAT_010e5b4c;
+        *p = (int)&vftable_hkpVehicleManager;
 }
 
-extern int DAT_010e5bfc;
+extern int vftable_hkpVehicleLinearCastBatchingManager;
 // @fnv 0x00dfec10
 // src: GUESS 0x00dfec10 (confidence: low)
 void __cdecl Runtime_UpdateState_00dfec10(int* p)
 {
     if (p)
-        *p = (int)&DAT_010e5bfc;
+        *p = (int)&vftable_hkpVehicleLinearCastBatchingManager;
 }
 
-extern int DAT_010e5d94;
+extern int vftable_hkpVehicleDriverInputAnalogStatus;
 
 // @fnv 0x00dfec70
 // src: GUESS 0x00dfec70 (confidence: low)
 void __cdecl Runtime_UpdateState_00dfec70(int* p)
 {
     if (p)
-        *p = (int)&DAT_010e5d94;
+        *p = (int)&vftable_hkpVehicleDriverInputAnalogStatus;
 }
 
-extern int DAT_010e5da8;
+extern int vftable_hkpVehicleDefaultAnalogDriverInput;
 // @fnv 0x00dfec90
 // src: GUESS 0x00dfec90 (confidence: low)
 void __cdecl Runtime_UpdateState_00dfec90(int** p)
 {
     if (p)
-        *p = &DAT_010e5da8;
+        *p = &vftable_hkpVehicleDefaultAnalogDriverInput;
 }
 
 // @fnv 0x00dfecb0
@@ -789,74 +789,74 @@ void __cdecl Runtime_Helper_00dfecb0(int* p)
     ((void(__thiscall*)(void*, int))(*(int*)p[0]))(p, 0);
 }
 
-extern int DAT_010e5e9c;
+extern int vftable_hkpVehicleDefaultVelocityDamper;
 
 // @fnv 0x00dfecd0
 // src: GUESS 0x00dfecd0 (confidence: low)
 void __cdecl Runtime_UpdateState_00dfecd0(int* p)
 {
     if (p)
-        *p = (int)&DAT_010e5e9c;
+        *p = (int)&vftable_hkpVehicleDefaultVelocityDamper;
 }
 
-extern int DAT_010e5ff4;
+extern int vftable_hkpVehicleDefaultTransmission;
 // @fnv 0x00dfed10
 // src: GUESS 0x00dfed10 (confidence: low)
 void Runtime_UpdateState_00dfed10(int* p)
 {
     if (p)
-        *p = (int)&DAT_010e5ff4;
+        *p = (int)&vftable_hkpVehicleDefaultTransmission;
 }
 
-extern int DAT_010e60c4;
+extern int vftable_hkpVehicleDefaultSteering;
 
 // @fnv 0x00dfee00
 // src: GUESS 0x00dfee00 (confidence: low)
 void __cdecl Object_UpdateFields_00dfee00(int* p)
 {
     if (p)
-        *p = (int)&DAT_010e60c4;
+        *p = (int)&vftable_hkpVehicleDefaultSteering;
 }
 
-extern int DAT_010e62a4;
+extern int vftable_hkpVehicleDefaultEngine;
 // @fnv 0x00dfeea0
 // src: GUESS 0x00dfeea0 (confidence: low)
 void __cdecl Object_UpdateFields_00dfeea0(int* p)
 {
     if (p)
-        *p = (int)&DAT_010e62a4;
+        *p = (int)&vftable_hkpVehicleDefaultEngine;
 }
 
-extern int DAT_010e6394;
+extern int vftable_hkpVehicleDefaultAerodynamics;
 
 // @fnv 0x00dfeee0
 // src: GUESS 0x00dfeee0 (confidence: low)
 void __cdecl Object_UpdateFields_00dfeee0(int* p)
 {
     if (p)
-        *p = (int)&DAT_010e6394;
+        *p = (int)&vftable_hkpVehicleDefaultAerodynamics;
 }
 
-extern int DAT_010e66fc;
+extern int vftable_hkpSerializedDisplayMarkerList;
 // @fnv 0x00dfeff0
 // src: GUESS 0x00dfeff0 (confidence: low)
 void __cdecl Runtime_UpdateState_00dfeff0(int* p)
 {
     if (p)
-        *p = (int)&DAT_010e66fc;
+        *p = (int)&vftable_hkpSerializedDisplayMarkerList;
 }
 
-extern int DAT_010e676c;
+extern int vftable_hkpSerializedDisplayMarker;
 // @fnv 0x00dff0d0
 // src: GUESS 0x00dff0d0 (confidence: low)
 void __cdecl Runtime_UpdateState_00dff0d0(int* p)
 {
     if (p)
-        *p = (int)&DAT_010e676c;
+        *p = (int)&vftable_hkpSerializedDisplayMarker;
 }
 
-extern int DAT_010cc2fc;
-extern int DAT_010c8e94;
+extern int vftable_hkpAction;
+extern int vftable_hkpMouseSpringAction;
 struct FUN_00cb0a70_m_helper
 {
     void __thiscall m(int);
@@ -867,9 +867,9 @@ void __cdecl finishLoadedObjecthkpMouseSpringAction(void* pObject, void* b)
 {
     if (pObject)
     {
-        *(int*)pObject = (int)&DAT_010cc2fc;
+        *(int*)pObject = (int)&vftable_hkpAction;
         ((FUN_00cb0a70_m_helper*)((char*)pObject + 0x14))->m((int)b);
-        *(int*)pObject = (int)&DAT_010c8e94;
+        *(int*)pObject = (int)&vftable_hkpMouseSpringAction;
         *(int*)((char*)pObject + 0x54) = 0;
         *(int*)((char*)pObject + 0x58) = 0;
         *(int*)((char*)pObject + 0x5c) = 0x80000000;
@@ -926,22 +926,22 @@ int __cdecl Runtime_EvaluateValue_00dffa30(void* obj)
     return reinterpret_cast<Vfn>(**reinterpret_cast<void***>(obj))(obj, 0);
 }
 
-extern int DAT_010e7c24;
+extern int vftable_hkpConvexPieceStreamData;
 // @fnv 0x00dffc80
 // src: GUESS 0x00dffc80 (confidence: low)
 void __cdecl Object_UpdateFields_00dffc80(int* p)
 {
     if (p)
-        *p = (int)&DAT_010e7c24;
+        *p = (int)&vftable_hkpConvexPieceStreamData;
 }
 
-extern int DAT_010cc0d8;
+extern int vftable_hkpVelocityConstraintMotor;
 // @fnv 0x00dffda0
 // src: GUESS 0x00dffda0 (confidence: low)
 void __cdecl Object_UpdateFields_00dffda0(int* p)
 {
     if (p)
-        *p = (int)&DAT_010cc0d8;
+        *p = (int)&vftable_hkpVelocityConstraintMotor;
 }
 
 struct FUN_00dffdc0_vt
@@ -955,23 +955,23 @@ void __cdecl Object_InvokeVirtualMethod_00dffdc0(FUN_00dffdc0_vt* p)
     p->m0(0);
 }
 
-extern int DAT_010d3838;
+extern int vftable_hkpSpringDamperConstraintMotor;
 // @fnv 0x00dffe40
 // src: GUESS 0x00dffe40 (confidence: low)
 void __cdecl Object_UpdateFields_00dffe40(int* p)
 {
     if (p)
-        *p = (int)&DAT_010d3838;
+        *p = (int)&vftable_hkpSpringDamperConstraintMotor;
 }
 
-extern int DAT_010cb798;
+extern int vftable_hkpPositionConstraintMotor;
 
 // @fnv 0x00dffee0
 // src: GUESS 0x00dffee0 (confidence: low)
 void Object_UpdateFields_00dffee0(int* p)
 {
     if (p)
-        *p = (int)&DAT_010cb798;
+        *p = (int)&vftable_hkpPositionConstraintMotor;
 }
 
 struct FUN_00dfff60_vt
@@ -996,13 +996,13 @@ void __cdecl Object_InvokeVirtualMethod_00dfffc0(FUN_00dfffc0_VT* p)
     p->m0(0);
 }
 
-extern void* DAT_010e80b4;
+extern void* vftable_hkpLinearParametricCurve;
 // @fnv 0x00dfffe0
 // src: GUESS 0x00dfffe0 (confidence: low)
 void __cdecl Object_UpdateFields_00dfffe0(void** p)
 {
     if (p)
-        *p = &DAT_010e80b4;
+        *p = &vftable_hkpLinearParametricCurve;
 }
 
 struct FUN_00de87c0_class
@@ -1196,7 +1196,7 @@ void __cdecl Runtime_ForwardCall_00dfb890(FUN_00dfb890_vt* p)
     p->v0(0);
 }
 
-extern int DAT_010c4dec;
+extern int vftable_hkaSkeleton;
 
 // @fnv 0x00dfb9f0
 // src: GUESS 0x00dfb9f0 (confidence: low)
@@ -1204,7 +1204,7 @@ void Runtime_UpdateState_00dfb9f0(int* pTarget, int iValue)
 {
     if (pTarget)
     {
-        *pTarget = (int)&DAT_010c4dec;
+        *pTarget = (int)&vftable_hkaSkeleton;
         ((FUN_00cb0a70_m_helper*)(pTarget + 2))->m(iValue);
     }
 }
@@ -1407,15 +1407,15 @@ void __cdecl Runtime_ForwardCall_00dfd670(DFD680MeshData* p)
     p->ReleaseMeshArrays_00dfd680();
 }
 
-extern int DAT_010e311c;
-// If p is non-null, stores &DAT_010e311c at p[0] and calls m(a) on the helper objects at p+5 and p+16.
+extern int vftable_hkxNode;
+// If p is non-null, stores &vftable_hkxNode at p[0] and calls m(a) on the helper objects at p+5 and p+16.
 // @fnv 0x00dfd7d0
 // src: GUESS 0x00dfd7d0 (confidence: low)
 void Object_UpdateState_00dfd7d0(int* pObject, int aiValue)
 {
     if (pObject)
     {
-        pObject[0] = (int)&DAT_010e311c;
+        pObject[0] = (int)&vftable_hkxNode;
         ((FUN_00cb0a70_m_helper*)(pObject + 5))->m(aiValue);
         ((FUN_00cb0a70_m_helper*)(pObject + 16))->m(aiValue);
     }
@@ -1532,7 +1532,7 @@ void __cdecl Runtime_Helper_00dfe2b0(void* p)
     ((void(__thiscall*)(void*, int)) * (*(void***)p))(p, 0);
 }
 
-extern int DAT_010cb864;
+extern int vftable_hkaSkeletonMapper;
 struct FUN_00ce5360_class
 {
     int m_iWordAt00;
@@ -1549,7 +1549,7 @@ void __cdecl finishLoadedObjecthkaSkeletonMapper(FUN_00ce5360_class* pObject, in
     if (pObject)
     {
         int* p = (int*)pObject;
-        *p = (int)&DAT_010cb864;
+        *p = (int)&vftable_hkaSkeletonMapper;
         ((FUN_00ce5360_class*)((char*)pObject + 0x10))->ComputeValue_00ce5360(iValue);
     }
 }
@@ -1565,12 +1565,12 @@ void __cdecl Object_M_iWordAt00_Thunk_00dfe320(FUN_00dfe320_vt* p)
     p->m_iWordAt00(0);
 }
 
-extern int DAT_010e56d4;
+extern int vftable_hkaFootstepAnalysisInfoContainer;
 // @fnv 0x00dfe4a0
 // src: GUESS 0x00dfe4a0 (confidence: low)
 int* Object_GetGlobalObjectAddress_00dfe4a0()
 {
-    return &DAT_010e56d4;
+    return &vftable_hkaFootstepAnalysisInfoContainer;
 }
 
 struct FUN_00dfe4e0_vt
@@ -1593,29 +1593,29 @@ void __cdecl Runtime_UpdateState_00dfe590(void* p)
     fn(p, 0);
 }
 
-extern int DAT_010e587c;
+extern int vftable_hkaBoneAttachment;
 
-// If a is non-null, stores &DAT_010e587c at its start and calls m(b) on the helper objects at offsets 8 and 0x54.
+// If a is non-null, stores &vftable_hkaBoneAttachment at its start and calls m(b) on the helper objects at offsets 8 and 0x54.
 // @fnv 0x00dfe5b0
 // src: HAVOK_LIB 0x00dfe5b0
 void __cdecl finishLoadedObjecthkaBoneAttachment(void* pObject, int iValue)
 {
     if (pObject)
     {
-        *(int*)pObject = (int)&DAT_010e587c;
+        *(int*)pObject = (int)&vftable_hkaBoneAttachment;
         ((FUN_00cb0a70_m_helper*)((char*)pObject + 8))->m(iValue);
         ((FUN_00cb0a70_m_helper*)((char*)pObject + 0x54))->m(iValue);
     }
 }
 
-extern int DAT_010e5a58;
+extern int vftable_hkaAnimationBinding;
 // @fnv 0x00dfe990
 // src: GUESS 0x00dfe990 (confidence: low)
 void __cdecl Object_UpdateState_00dfe990(void* apObject, int aiValue)
 {
     if (apObject)
     {
-        *(void**)(char*)apObject = (void*)&DAT_010e5a58;
+        *(void**)(char*)apObject = (void*)&vftable_hkaAnimationBinding;
         ((FUN_00cb0a70_m_helper*)((char*)apObject + 8))->m(aiValue);
     }
 }
@@ -1750,8 +1750,8 @@ void __cdecl Object_ProcessState_00dff5c0(void* p)
     ((VTable0*)*(void**)p)[0](p, 0);
 }
 
-extern int DAT_010cc2fc;
-extern int DAT_010d0994;
+extern int vftable_hkpAction;
+extern int vftable_hkpDashpotAction;
 struct FUN_00dff9b0_m : FUN_00cb0a70
 {
     void __thiscall m(int);
@@ -1762,9 +1762,9 @@ void __cdecl Object_UpdateState_00dff9b0(FUN_00dff9b0_m* pObject, int aiValue)
 {
     if (pObject)
     {
-        *reinterpret_cast<void**>(pObject) = &DAT_010cc2fc;
+        *reinterpret_cast<void**>(pObject) = &vftable_hkpAction;
         reinterpret_cast<FUN_00dff9b0_m*>(reinterpret_cast<char*>(pObject) + 0x14)->m(aiValue);
-        *reinterpret_cast<void**>(pObject) = &DAT_010d0994;
+        *reinterpret_cast<void**>(pObject) = &vftable_hkpDashpotAction;
     }
 }
 
@@ -1825,7 +1825,7 @@ void __cdecl Object_ProcessState_00dfff00(void* p)
     ((Vfn0*)*((void**)p))[0](p, 0);
 }
 
-extern int DAT_0102e388;
+extern int vftable_hkBaseObject;
 
 hkMemoryRouter* __cdecl hkMemoryRouter_getInstance() throw();
 
@@ -1855,7 +1855,7 @@ FUN_00de10e0_cls* FUN_00de10e0_cls::FUN_00de10e0(unsigned char acFlags)
     }
     m_p08 = 0;
     m_10 = 0x80000000;
-    m_vptr = (int)&DAT_0102e388;
+    m_vptr = (int)&vftable_hkBaseObject;
     if (acFlags & 1)
     {
         hkMemoryRouter* pHolder2 = hkMemoryRouter_getInstance();
@@ -1877,9 +1877,9 @@ struct FUN_00de3050
 FUN_00de3050::FUN_00de3050() : m_iWordAt00(DAT_01017d00)
 {}
 
-extern int DAT_010d8214;
+extern int vftable_hkpConvexRadiusBuilder;
 
-class FUN_00de3060
+class hkpConvexRadiusBuilder
 {
   public:
     void* m_00;
@@ -1888,15 +1888,15 @@ class FUN_00de3060
     unsigned int m_08;
     unsigned int m_0c;
 
-    FUN_00de3060(const unsigned int* src);
+    hkpConvexRadiusBuilder(const unsigned int* src);
 };
 
-// Initializes the object: sets m_06 to 1, points m_00 at DAT_010d8214, copies *src into m_08 and zeroes m_0c.
+// Initializes the object: sets m_06 to 1, points m_00 at vftable_hkpConvexRadiusBuilder, copies *src into m_08 and zeroes m_0c.
 // @fnv 0x00de3060
-FUN_00de3060::FUN_00de3060(const unsigned int* src)
+hkpConvexRadiusBuilder::hkpConvexRadiusBuilder(const unsigned int* src)
 {
     m_06 = 1;
-    m_00 = (void*)&DAT_010d8214;
+    m_00 = (void*)&vftable_hkpConvexRadiusBuilder;
     m_08 = *src;
     m_0c = 0;
 }
@@ -3362,13 +3362,13 @@ void Runtime_AllocateStorage_00dfb570(void* apMemory, int finishing)
     new (apMemory) DFB570Object(flag);
 }
 
-extern int DAT_010ddc5c;
+extern int vftable_hkaWaveletCompressedAnimation;
 
 // @fnv 0x00dfb590
 // src: GUESS 0x00dfb590 (confidence: low)
 void* __cdecl Runtime_GetDAT010ddc5cAddress()
 {
-    return &DAT_010ddc5c;
+    return &vftable_hkaWaveletCompressedAnimation;
 }
 
 extern int DAT_0126add8;
@@ -3401,7 +3401,7 @@ void* Object_GetGlobalObjectAddress_00dfb8a0()
 // ResetVTable -- installs a fixed vtable on an object and, when the second
 // argument is set, runs the object's update step afterwards.
 
-extern int DAT_010de0ec;  // vtable that gets installed
+extern int vftable_hkaSplineCompressedAnimation;  // vtable that gets installed
 
 struct ResetVTableObj
 {
@@ -3418,7 +3418,7 @@ void __cdecl ResetVTable(ResetVTableObj* pObj, int bUpdate)
 {
     if (pObj != 0)
     {
-        pObj->m_vptr = reinterpret_cast<void*>(&DAT_010de0ec);
+        pObj->m_vptr = reinterpret_cast<void*>(&vftable_hkaSplineCompressedAnimation);
         if (bUpdate != 0)
         {
             reinterpret_cast<ResetVTableTarget*>(pObj)->m_update();
@@ -3426,13 +3426,13 @@ void __cdecl ResetVTable(ResetVTableObj* pObj, int bUpdate)
     }
 }
 
-extern int DAT_010de0ec;
+extern int vftable_hkaSplineCompressedAnimation;
 
 // @fnv 0x00dfb8d0
 // src: GUESS 0x00dfb8d0 (confidence: low)
 void* Runtime_GetDAT010de0ecAddress()
 {
-    return &DAT_010de0ec;
+    return &vftable_hkaSplineCompressedAnimation;
 }
 
 struct CpuOpaque;
@@ -3630,7 +3630,7 @@ void* __cdecl Object_GetGlobalObjectAddress_00dfbb40()
 // second argument is non-zero, tail-calls the routine at FUN_00e35050 with
 // the object as 'this'.
 
-extern int DAT_010de90c;
+extern int vftable_hkaDeltaCompressedAnimation;
 
 struct FUN_00dfbb50_cls
 {
@@ -3644,7 +3644,7 @@ void __cdecl Object_UpdateState_00dfbb50(FUN_00dfbb50_cls* apObject, int a)
 {
     if (apObject)
     {
-        apObject->m_vtbl = (void*)&DAT_010de90c;
+        apObject->m_vtbl = (void*)&vftable_hkaDeltaCompressedAnimation;
         if (a)
         {
             apObject->hkaDeltaCompressedAnimation_handleEndian();
@@ -3652,13 +3652,13 @@ void __cdecl Object_UpdateState_00dfbb50(FUN_00dfbb50_cls* apObject, int a)
     }
 }
 
-extern int DAT_010de90c;
+extern int vftable_hkaDeltaCompressedAnimation;
 
 // @fnv 0x00dfbb70
 // src: GUESS 0x00dfbb70 (confidence: low)
 void* __cdecl Runtime_GetDAT010de90cAddress()
 {
-    return &DAT_010de90c;
+    return &vftable_hkaDeltaCompressedAnimation;
 }
 
 extern "C" int DAT_0126b078;
@@ -3717,11 +3717,11 @@ void* __cdecl Object_GetGlobalObjectAddress_00dfbce0()
 // set, then the second vtable is installed along with two secondary vtables
 // at +0x24 and +0x1c. Finally the flag byte is set to 2 when the flag is set.
 
-extern int DAT_010dec04;
-extern int DAT_010dec3c;
-extern int DAT_010c925c;
-extern int DAT_010debf4;
-extern int DAT_010debe4;
+extern int vftable_hkpVehicleWheelCollide;
+extern int vftable_hkpVehicleLinearCastWheelCollide;
+extern int vftable_hkpPhantomOverlapListener;
+extern int vftable_hkpRejectChassisListener;
+extern int vftable_hkpRejectChassisListener_for_hkpPhantomOverlapListener;
 
 struct FUN_00dfbcf0_obj
 {
@@ -3745,15 +3745,15 @@ void __cdecl InitVTable(FUN_00dfbcf0_obj* self, int flag)
 {
     if (self != 0)
     {
-        self->m_pVTable00 = (void*)&DAT_010dec04;
+        self->m_pVTable00 = (void*)&vftable_hkpVehicleWheelCollide;
         if (flag != 0)
         {
             self->m_bFlag09 = 0;
         }
-        self->m_pVTable00 = (void*)&DAT_010dec3c;
-        *(void* volatile*)&self->m_pVTable24 = (void*)&DAT_010c925c;
-        self->m_pVTable1c = (void*)&DAT_010debf4;
-        self->m_pVTable24 = (void*)&DAT_010debe4;
+        self->m_pVTable00 = (void*)&vftable_hkpVehicleLinearCastWheelCollide;
+        *(void* volatile*)&self->m_pVTable24 = (void*)&vftable_hkpPhantomOverlapListener;
+        self->m_pVTable1c = (void*)&vftable_hkpRejectChassisListener;
+        self->m_pVTable24 = (void*)&vftable_hkpRejectChassisListener_for_hkpPhantomOverlapListener;
         if (flag != 0)
         {
             self->m_bFlag09 = 2;
@@ -3761,13 +3761,13 @@ void __cdecl InitVTable(FUN_00dfbcf0_obj* self, int flag)
     }
 }
 
-extern int DAT_010dec3c;
+extern int vftable_hkpVehicleLinearCastWheelCollide;
 
 // @fnv 0x00dfbd30
 // src: GUESS 0x00dfbd30 (confidence: low)
 void* __cdecl Runtime_GetDAT010dec3cAddress()
 {
-    return &DAT_010dec3c;
+    return &vftable_hkpVehicleLinearCastWheelCollide;
 }
 
 extern int DAT_0126b180;
@@ -3858,7 +3858,7 @@ int* __cdecl Object_GetGlobalObjectAddress_00dfbf40()
 // src: GUESS 0x00dfbf60 (confidence: low)
 int* __cdecl Object_GetGlobalObjectAddress_00dfbf60()
 {
-    return &DAT_010df89c;
+    return &vftable_hkpVehicleDefaultSuspension;
 }
 
 extern int DAT_0126b330;
@@ -3924,13 +3924,13 @@ int* __cdecl Object_GetGlobalObjectAddress_00dfc120()
     return &g_0126b3d8;
 }
 
-extern int DAT_010dff44;
+extern int vftable_hkpVehicleData;
 
 // @fnv 0x00dfc140
 // src: GUESS 0x00dfc140 (confidence: low)
 int* __cdecl Object_GetGlobalObjectAddress_00dfc140()
 {
-    return &DAT_010dff44;
+    return &vftable_hkpVehicleData;
 }
 
 namespace fnv_00dfc150 {
@@ -4052,22 +4052,22 @@ char* __cdecl Object_GetGlobalObjectAddress_00dfc260()
     return &DAT_0126b498;
 }
 
-extern int DAT_010e00cc;
+extern int vftable_hkpTyremarksWheel;
 
 // @fnv 0x00dfc290
 // src: GUESS 0x00dfc290 (confidence: low)
 void* Runtime_GetDAT010e00ccAddress()
 {
-    return &DAT_010e00cc;
+    return &vftable_hkpTyremarksWheel;
 }
 
-extern int DAT_010e00dc;
+extern int vftable_hkpTyremarksInfo;
 
 // @fnv 0x00dfc2b0
 // src: GUESS 0x00dfc2b0 (confidence: low)
 int* __cdecl Runtime_GetDAT010e00dcAddress()
 {
-    return &DAT_010e00dc;
+    return &vftable_hkpTyremarksInfo;
 }
 
 // FUN_00dfc360: cdecl no-arg getter returning the address of a global.
@@ -4153,13 +4153,13 @@ int __cdecl Object_ComputeValue_00dfc460()
     return reinterpret_cast<int>(&DAT_0126b588);
 }
 
-extern int DAT_010e04ac;
+extern int vftable_hkpSerializedDisplayRbTransforms;
 
 // @fnv 0x00dfc480
 // src: GUESS 0x00dfc480 (confidence: low)
 void* __cdecl Object_GetGlobalObjectAddress_00dfc480()
 {
-    return &DAT_010e04ac;
+    return &vftable_hkpSerializedDisplayRbTransforms;
 }
 
 extern int g_unk0126b678;
@@ -4189,13 +4189,13 @@ int* __cdecl Runtime_GetDAT0126b600Address()
     return &DAT_0126b600;
 }
 
-extern int DAT_010e0654;
+extern int vftable_hkpPoweredChainMapper;
 
 // @fnv 0x00dfc530
 // src: GUESS 0x00dfc530 (confidence: low)
 int* __cdecl Runtime_GetDAT010e0654Address()
 {
-    return &DAT_010e0654;
+    return &vftable_hkpPoweredChainMapper;
 }
 
 extern int DAT_0126b6a8;
@@ -4254,13 +4254,13 @@ void* __cdecl Runtime_GetDAT0126b768Address()
     return &DAT_0126b768;
 }
 
-extern int DAT_0102e368;
+extern int vftable_hkpMoppCode;
 
 // @fnv 0x00dfc630
 // src: GUESS 0x00dfc630 (confidence: low)
 int* __cdecl Runtime_GetDAT0102e368Address()
 {
-    return &DAT_0102e368;
+    return &vftable_hkpMoppCode;
 }
 
 extern int DAT_0126b7b0;
@@ -4302,13 +4302,13 @@ void* __cdecl Object_GetGlobalObjectAddress_00dfc6a0()
     return &DAT_0126b810;
 }
 
-extern int DAT_010d0a64;
+extern int vftable_hkpWheelConstraintData;
 
 // @fnv 0x00dfc6d0
 // src: GUESS 0x00dfc6d0 (confidence: low)
 int* __cdecl Runtime_GetDAT010d0a64Address()
 {
-    return &DAT_010d0a64;
+    return &vftable_hkpWheelConstraintData;
 }
 
 extern char DAT_0126b858;
@@ -4329,13 +4329,13 @@ GlobalObjectO2_00d472a0* __cdecl Runtime_GetField0126b888Address()
     return &g_0126b888;
 }
 
-extern int DAT_010d0aac;
+extern int vftable_hkpStiffSpringConstraintData;
 
 // @fnv 0x00dfc740
 // src: GUESS 0x00dfc740 (confidence: low)
 int* __cdecl Object_GetGlobalObjectAddress_00dfc740()
 {
-    return &DAT_010d0aac;
+    return &vftable_hkpStiffSpringConstraintData;
 }
 
 extern int g_unk0126b8d0;
@@ -4548,12 +4548,12 @@ int* __cdecl Object_GetGlobalObjectAddress_00dfc8e0()
     return &g_unk0126b9f0;
 }
 
-extern int DAT_010e11ec;
+extern int vftable_hkpRotationalConstraintData;
 // @fnv 0x00dfc910
 // src: GUESS 0x00dfc910 (confidence: low)
 int* __cdecl Runtime_GetDAT010e11ecAddress()
 {
-    return &DAT_010e11ec;
+    return &vftable_hkpRotationalConstraintData;
 }
 
 extern int g_0126ba38;
@@ -4586,7 +4586,7 @@ void* __cdecl Runtime_GetDAT0126ba68Address()
     return &DAT_0126ba68;
 }
 
-extern int DAT_010d0af4;
+extern int vftable_hkpRagdollLimitsData;
 
 struct S_00dfc970_Flag
 {
@@ -4653,7 +4653,7 @@ void __cdecl finishLoadedObjecthkpRagdollLimitsData(S_00dfc970_Obj* pObj, int fl
 {
     if (pObj)
     {
-        pObj->vptr = &DAT_010d0af4;
+        pObj->vptr = &vftable_hkpRagdollLimitsData;
         if (flag && pObj->unk9a)
         {
             pObj->hkpRagdollLimitsData_setConeLimitStabilization(S_00dfc970_Flag(1));
@@ -4661,13 +4661,13 @@ void __cdecl finishLoadedObjecthkpRagdollLimitsData(S_00dfc970_Obj* pObj, int fl
     }
 }
 
-extern int DAT_010d0af4;
+extern int vftable_hkpRagdollLimitsData;
 
 // @fnv 0x00dfc9a0
 // src: GUESS 0x00dfc9a0 (confidence: low)
 int* __cdecl Object_GetGlobalObjectAddress_00dfc9a0()
 {
-    return &DAT_010d0af4;
+    return &vftable_hkpRagdollLimitsData;
 }
 
 extern int DAT_0126bab0;
@@ -4701,13 +4701,13 @@ int* __cdecl Object_GetGlobalObjectAddress_00dfc9e0()
     return &DAT_0126bae0;
 }
 
-extern int DAT_010cb71c;
+extern int vftable_hkpRagdollConstraintData;
 
 // @fnv 0x00dfca30
 // src: GUESS 0x00dfca30 (confidence: low)
 void* __cdecl Runtime_GetDAT010cb71cAddress()
 {
-    return &DAT_010cb71c;
+    return &vftable_hkpRagdollConstraintData;
 }
 
 extern int DAT_0126bb28;
@@ -4741,13 +4741,13 @@ void* __cdecl Runtime_GetUnk0126bb58Address()
     return &g_unk0126bb58;
 }
 
-extern int DAT_010da04c;
+extern int vftable_hkpPulleyConstraintData;
 
 // @fnv 0x00dfcaa0
 // src: GUESS 0x00dfcaa0 (confidence: low)
 int* __cdecl Object_GetGlobalObjectAddress_00dfcaa0()
 {
-    return &DAT_010da04c;
+    return &vftable_hkpPulleyConstraintData;
 }
 
 extern int DAT_0126bba0;
@@ -4768,12 +4768,12 @@ int __cdecl Object_ComputeValue_00dfcae0()
     return reinterpret_cast<int>(&DAT_0126bbd0);
 }
 
-extern int DAT_010d0b3c;
+extern int vftable_hkpPrismaticConstraintData;
 // @fnv 0x00dfcb10
 // src: GUESS 0x00dfcb10 (confidence: low)
 int* __cdecl Runtime_GetDAT010d0b3cAddress()
 {
-    return &DAT_010d0b3c;
+    return &vftable_hkpPrismaticConstraintData;
 }
 
 extern int DAT_0126bc18;
@@ -4839,12 +4839,12 @@ void* __cdecl Runtime_GetDAT0126bcc0Address()
     return &DAT_0126bcc0;
 }
 
-extern void* DAT_010d37e4;
+extern void* vftable_hkpPointToPlaneConstraintData;
 // @fnv 0x00dfcc00
 // src: GUESS 0x00dfcc00 (confidence: low)
 void** __cdecl Object_GetGlobalObjectAddress_00dfcc00()
 {
-    return &DAT_010d37e4;
+    return &vftable_hkpPointToPlaneConstraintData;
 }
 
 // FUN_00dfcc20 : a one-line function - getter
@@ -4909,13 +4909,13 @@ void* Runtime_GetTarget00dfccb0Address()
     return &g_target_00dfccb0;
 }
 
-extern int DAT_010d0be4;
+extern int vftable_hkpHingeLimitsData;
 
 // @fnv 0x00dfcce0
 // src: GUESS 0x00dfcce0 (confidence: low)
 void* __cdecl Object_GetGlobalObjectAddress_00dfcce0()
 {
-    return &DAT_010d0be4;
+    return &vftable_hkpHingeLimitsData;
 }
 
 extern int DAT_0126bdf8;
@@ -4936,13 +4936,13 @@ CpuOpaque* __cdecl Object_GetGlobalObjectAddress_00dfcd20()
     return &DAT_0126be28;
 }
 
-extern int DAT_010c91ec;
+extern int vftable_hkpHingeConstraintData;
 
 // @fnv 0x00dfcd50
 // src: GUESS 0x00dfcd50 (confidence: low)
 int* Runtime_GetDAT010c91ecAddress()
 {
-    return &DAT_010c91ec;
+    return &vftable_hkpHingeConstraintData;
 }
 
 extern int DAT_0126be70;
@@ -5041,12 +5041,12 @@ void* __cdecl Runtime_GetDAT0126bf78Address()
     return &DAT_0126bf78;
 }
 
-extern int DAT_010d0cd4;
+extern int vftable_hkpBallAndSocketConstraintData;
 // @fnv 0x00dfcea0
 // src: GUESS 0x00dfcea0 (confidence: low)
 int* __cdecl Object_GetGlobalObjectAddress_00dfcea0()
 {
-    return &DAT_010d0cd4;
+    return &vftable_hkpBallAndSocketConstraintData;
 }
 
 struct CpuOpaque;
@@ -5091,12 +5091,12 @@ void __cdecl Object_ProcessState_00dfcf20(FUN_00dfcf20_cls* pObject, int aiValue
     }
 }
 
-extern "C" void* DAT_010305a8;
-extern "C" void* DAT_010c6fb0;
-extern "C" void* DAT_010cc364;
-extern "C" void* DAT_010cc344;
-extern "C" void* DAT_010e2144;
-extern "C" void* DAT_010e2124;
+extern "C" void* vftable_hkpShape;
+extern "C" void* vftable_hkpShapeContainer;
+extern "C" void* vftable_hkpShapeCollection;
+extern "C" void* vftable_hkpShapeCollection_for_hkpShapeContainer;
+extern "C" void* vftable_hkpSimpleMeshShape;
+extern "C" void* vftable_hkpSimpleMeshShape_for_hkpShapeContainer;
 
 struct FUN_00dfcf60_cls
 {
@@ -5116,21 +5116,21 @@ struct FUN_00dfcf60_cls
 // @fnv 0x00dfcf60
 FUN_00dfcf60_cls* FUN_00dfcf60_cls::InitializeVtables(int flag)
 {
-    *(void* volatile*)&m_vptr00 = (void*)&DAT_010305a8;
+    *(void* volatile*)&m_vptr00 = (void*)&vftable_hkpShape;
     if (flag != 0)
     {
         *(int volatile*)&m_0c = 0;
     }
-    *(void* volatile*)&m_vptr10 = (void*)&DAT_010c6fb0;
-    *(void* volatile*)&m_vptr00 = (void*)&DAT_010cc364;
-    *(void* volatile*)&m_vptr10 = (void*)&DAT_010cc344;
+    *(void* volatile*)&m_vptr10 = (void*)&vftable_hkpShapeContainer;
+    *(void* volatile*)&m_vptr00 = (void*)&vftable_hkpShapeCollection;
+    *(void* volatile*)&m_vptr10 = (void*)&vftable_hkpShapeCollection_for_hkpShapeContainer;
     if (flag != 0)
     {
         *(int volatile*)&m_0c = 7;
         *(unsigned char volatile*)&m_15 = 3;
     }
-    *(void* volatile*)&m_vptr00 = (void*)&DAT_010e2144;
-    *(void* volatile*)&m_vptr10 = (void*)&DAT_010e2124;
+    *(void* volatile*)&m_vptr00 = (void*)&vftable_hkpSimpleMeshShape;
+    *(void* volatile*)&m_vptr10 = (void*)&vftable_hkpSimpleMeshShape_for_hkpShapeContainer;
     if (flag != 0)
     {
         *(int volatile*)&m_0c = 0x17;
@@ -5169,17 +5169,17 @@ void* Object_GetGlobalObjectAddress_00dfd0e0()
     return &DAT_0126c098;
 }
 
-extern "C" void* DAT_010e222c;
+extern "C" void* vftable_hkpMultiRayShape;
 
 // @fnv 0x00dfd120
 // src: GUESS 0x00dfd120 (confidence: low)
 void* __cdecl Object_GetGlobalObjectAddress_00dfd120()
 {
-    return &DAT_010e222c;
+    return &vftable_hkpMultiRayShape;
 }
 
 namespace fnv_00dfd130 {
-extern int DAT_0102e388;
+extern int vftable_hkBaseObject;
 
 hkMemoryRouter* __cdecl hkMemoryRouter_getInstance() throw();
 
@@ -5212,7 +5212,7 @@ FUN_00dfd130_cls* FUN_00dfd130_cls::FUN_00dfd130(unsigned char acFlags)
     }
     m_pData = 0;
     m_uiItemCount = 0x80000000;
-    m_vptr = (int)&DAT_0102e388;
+    m_vptr = (int)&vftable_hkBaseObject;
     if (acFlags & 1)
     {
         hkMemoryRouter* pHolder2 = hkMemoryRouter_getInstance();
@@ -5543,7 +5543,7 @@ int* __cdecl Runtime_GetDAT0126c4b8Address()
     return &DAT_0126c4b8;
 }
 
-extern int DAT_010e33dc;
+extern int vftable_hkxMaterial;
 struct FUN_00dfd990_class
 {
     void* vtable;
@@ -5559,7 +5559,7 @@ void __cdecl Runtime_SetVtableAndProcessState_00dfd990(FUN_00dfd990_class* objec
 {
     if (object)
     {
-        object->vtable = &DAT_010e33dc;
+        object->vtable = &vftable_hkxMaterial;
         object->field14.ReturnSelf(value);
     }
 }
@@ -5638,21 +5638,21 @@ void* __cdecl Runtime_GetDAT0126c5f0Address()
     return &DAT_0126c5f0;
 }
 
-extern int DAT_010e351c;
+extern int vftable_hkxSparselyAnimatedEnum;
 // @fnv 0x00dfdb60
 // src: GUESS 0x00dfdb60 (confidence: low)
 int* __cdecl Object_GetGlobalObjectAddress_00dfdb60()
 {
-    return &DAT_010e351c;
+    return &vftable_hkxSparselyAnimatedEnum;
 }
 
-extern "C" void* DAT_010e352c;
+extern "C" void* vftable_hkxEnum;
 
 // @fnv 0x00dfdb80
 // src: GUESS 0x00dfdb80 (confidence: low)
 void* __cdecl Object_GetGlobalObjectAddress_00dfdb80()
 {
-    return &DAT_010e352c;
+    return &vftable_hkxEnum;
 }
 
 extern int DAT_0126c638;
@@ -5722,12 +5722,12 @@ int __cdecl Object_ComputeValue_00dfde20()
     return reinterpret_cast<int>(&DAT_0126c728);
 }
 
-extern int DAT_010d3cc0;
+extern int vftable_hkTraceStream;
 // @fnv 0x00dfde50
 // src: GUESS 0x00dfde50 (confidence: low)
 int* __cdecl Runtime_GetDAT010d3cc0Address()
 {
-    return &DAT_010d3cc0;
+    return &vftable_hkTraceStream;
 }
 
 extern char DAT_0126c770;
@@ -6114,13 +6114,13 @@ void* Runtime_GetTarget00dfe330Address()
     return &g_target_00dfe330;
 }
 
-extern int DAT_010e5474;
+extern int vftable_hkaInterleavedUncompressedAnimation;
 
 // @fnv 0x00dfe350
 // src: GUESS 0x00dfe350 (confidence: low)
 unsigned int __cdecl Runtime_EvaluateValue_00dfe350()
 {
-    return reinterpret_cast<unsigned int>(&DAT_010e5474);
+    return reinterpret_cast<unsigned int>(&vftable_hkaInterleavedUncompressedAnimation);
 }
 
 // Helper object whose virtual-like member performs the work.
@@ -6174,13 +6174,13 @@ void* __cdecl Runtime_GetUnk0126ccb0Address()
     return &g_unk0126ccb0;
 }
 
-extern int DAT_010e57a4;
+extern int vftable_hkaDefaultAnimatedReferenceFrame;
 
 // @fnv 0x00dfe510
 // src: GUESS 0x00dfe510 (confidence: low)
 int* Runtime_GetDAT010e57a4Address()
 {
-    return &DAT_010e57a4;
+    return &vftable_hkaDefaultAnimatedReferenceFrame;
 }
 
 // FUN_00dfe5a0: cdecl, returns the address of a global object.
@@ -6202,12 +6202,12 @@ CpuOpaque* __cdecl Object_GetGlobalObjectAddress_00dfe680()
     return &DAT_0126cd40;
 }
 
-extern int DAT_010e58c8;
+extern int vftable_hkaAnimationPreviewColorContainer;
 // @fnv 0x00dfe6a0
 // src: GUESS 0x00dfe6a0 (confidence: low)
 int* __cdecl Object_GetGlobalObjectAddress_00dfe6a0()
 {
-    return &DAT_010e58c8;
+    return &vftable_hkaAnimationPreviewColorContainer;
 }
 
 struct FUN_00dfe6e0_Class
@@ -6231,13 +6231,13 @@ void* __cdecl Runtime_GetDAT0126cd88Address()
     return &DAT_0126cd88;
 }
 
-extern int DAT_010e59ac;
+extern int vftable_hkaAnimationContainer;
 
 // @fnv 0x00dfe710
 // src: GUESS 0x00dfe710 (confidence: low)
 int __cdecl Runtime_EvaluateValue_00dfe710()
 {
-    return reinterpret_cast<int>(&DAT_010e59ac);
+    return reinterpret_cast<int>(&vftable_hkaAnimationContainer);
 }
 
 struct FUN_00dfe970_class
@@ -6270,11 +6270,11 @@ int __cdecl Runtime_EvaluateValue_00dfeab0()
     return reinterpret_cast<int>(&DAT_0126ce18);
 }
 
-extern int DAT_010dec04;
-extern int DAT_010e5ae4;
-extern int DAT_010c925c;
-extern int DAT_010debf4;
-extern int DAT_010debe4;
+extern int vftable_hkpVehicleWheelCollide;
+extern int vftable_hkpVehicleRayCastWheelCollide;
+extern int vftable_hkpPhantomOverlapListener;
+extern int vftable_hkpRejectChassisListener;
+extern int vftable_hkpRejectChassisListener_for_hkpPhantomOverlapListener;
 
 // @fnv 0x00dfeac0
 void __cdecl InitObjectVtables(int* pObject, int bFlag)
@@ -6284,26 +6284,26 @@ void __cdecl InitObjectVtables(int* pObject, int bFlag)
 
     volatile int* vp = (volatile int*)pObject;
 
-    *vp = (int)&DAT_010dec04;
+    *vp = (int)&vftable_hkpVehicleWheelCollide;
 
     if (bFlag != 0)
         ((unsigned char*)pObject)[9] = 0;
 
-    *vp = (int)&DAT_010e5ae4;
-    *(volatile int*)((unsigned char*)pObject + 0x1c) = (int)&DAT_010c925c;
-    *(int*)((unsigned char*)pObject + 0x14) = (int)&DAT_010debf4;
-    *(volatile int*)((unsigned char*)pObject + 0x1c) = (int)&DAT_010debe4;
+    *vp = (int)&vftable_hkpVehicleRayCastWheelCollide;
+    *(volatile int*)((unsigned char*)pObject + 0x1c) = (int)&vftable_hkpPhantomOverlapListener;
+    *(int*)((unsigned char*)pObject + 0x14) = (int)&vftable_hkpRejectChassisListener;
+    *(volatile int*)((unsigned char*)pObject + 0x1c) = (int)&vftable_hkpRejectChassisListener_for_hkpPhantomOverlapListener;
 
     if (bFlag != 0)
         ((unsigned char*)pObject)[9] = 1;
 }
 
-extern int DAT_010e5ae4;
+extern int vftable_hkpVehicleRayCastWheelCollide;
 // @fnv 0x00dfeb00
 // src: GUESS 0x00dfeb00 (confidence: low)
 int* Object_GetGlobalObjectAddress_00dfeb00()
 {
-    return &DAT_010e5ae4;
+    return &vftable_hkpVehicleRayCastWheelCollide;
 }
 
 extern int DAT_0126ce60;
@@ -6315,13 +6315,13 @@ int* __cdecl Runtime_GetDAT0126ce60Address()
     return &DAT_0126ce60;
 }
 
-extern int DAT_010e5b68;
+extern int vftable_hkpVehicleRayCastBatchingManager;
 
 // @fnv 0x00dfeb70
 // src: GUESS 0x00dfeb70 (confidence: low)
 int* __cdecl Runtime_GetDAT010e5b68Address()
 {
-    return &DAT_010e5b68;
+    return &vftable_hkpVehicleRayCastBatchingManager;
 }
 
 namespace fnv_00dfeb80 {
@@ -6357,12 +6357,12 @@ int* __cdecl Object_GetGlobalObjectAddress_00dfebc0()
     return &DAT_0126cea8;
 }
 
-extern int DAT_010e5b4c;
+extern int vftable_hkpVehicleManager;
 // @fnv 0x00dfebe0
 // src: GUESS 0x00dfebe0 (confidence: low)
 int* __cdecl Object_GetGlobalObjectAddress_00dfebe0()
 {
-    return &DAT_010e5b4c;
+    return &vftable_hkpVehicleManager;
 }
 
 extern int DAT_0126cef0;
@@ -6375,13 +6375,13 @@ int* __cdecl Object_GetGlobalObjectAddress_00dfec00()
     return &DAT_0126cef0;
 }
 
-extern int DAT_010e5bfc;
+extern int vftable_hkpVehicleLinearCastBatchingManager;
 
 // @fnv 0x00dfec20
 // src: GUESS 0x00dfec20 (confidence: low)
 int* __cdecl Object_GetGlobalObjectAddress_00dfec20()
 {
-    return &DAT_010e5bfc;
+    return &vftable_hkpVehicleLinearCastBatchingManager;
 }
 
 // FUN_00dfec40 : a constant getter - MSVC emits mov eax, OFFSET <global> ; ret.
@@ -6419,22 +6419,22 @@ void* Object_GetGlobalObjectAddress_00dfec60()
 }
 
 // FUN_00dfec80: cdecl, returns the address of a global data symbol.
-extern int DAT_010e5d94;
+extern int vftable_hkpVehicleDriverInputAnalogStatus;
 
 // @fnv 0x00dfec80
 // src: GUESS 0x00dfec80 (confidence: low)
 int* __cdecl Object_GetGlobalObjectAddress_00dfec80()
 {
-    return &DAT_010e5d94;
+    return &vftable_hkpVehicleDriverInputAnalogStatus;
 }
 
-extern int DAT_010e5da8;
+extern int vftable_hkpVehicleDefaultAnalogDriverInput;
 
 // @fnv 0x00dfeca0
 // src: GUESS 0x00dfeca0 (confidence: low)
 void* __cdecl Object_GetGlobalObjectAddress_00dfeca0()
 {
-    return &DAT_010e5da8;
+    return &vftable_hkpVehicleDefaultAnalogDriverInput;
 }
 
 extern int DAT_0126cfc8;
@@ -6446,13 +6446,13 @@ void* __cdecl Object_GetGlobalObjectAddress_00dfecc0()
     return &DAT_0126cfc8;
 }
 
-extern int DAT_010e5e9c;
+extern int vftable_hkpVehicleDefaultVelocityDamper;
 
 // @fnv 0x00dfece0
 // src: GUESS 0x00dfece0 (confidence: low)
 int* __cdecl Object_GetGlobalObjectAddress_00dfece0()
 {
-    return &DAT_010e5e9c;
+    return &vftable_hkpVehicleDefaultVelocityDamper;
 }
 
 // FUN_00dfed00 : a one-line function - getter
@@ -6468,7 +6468,7 @@ void* Object_GetGlobalObjectAddress_00dfed00()
 // src: GUESS 0x00dfed20 (confidence: low)
 int* Object_GetGlobalObjectAddress_00dfed20()
 {
-    return &DAT_010e5ff4;
+    return &vftable_hkpVehicleDefaultTransmission;
 }
 
 extern int DAT_0126d058;
@@ -6480,13 +6480,13 @@ int __cdecl Runtime_EvaluateValue_00dfedf0()
     return reinterpret_cast<int>(&DAT_0126d058);
 }
 
-extern int DAT_010e60c4;
+extern int vftable_hkpVehicleDefaultSteering;
 
 // @fnv 0x00dfee10
 // src: GUESS 0x00dfee10 (confidence: low)
 int* __cdecl Runtime_GetDAT010e60c4Address()
 {
-    return &DAT_010e60c4;
+    return &vftable_hkpVehicleDefaultSteering;
 }
 
 extern int DAT_0126d0a0;
@@ -6498,13 +6498,13 @@ int* __cdecl Runtime_GetDAT0126d0a0Address()
     return &DAT_0126d0a0;
 }
 
-extern int DAT_010e62a4;
+extern int vftable_hkpVehicleDefaultEngine;
 
 // @fnv 0x00dfeeb0
 // src: GUESS 0x00dfeeb0 (confidence: low)
 void* __cdecl Runtime_GetDAT010e62a4Address()
 {
-    return &DAT_010e62a4;
+    return &vftable_hkpVehicleDefaultEngine;
 }
 
 extern int DAT_0126d0e8;
@@ -6516,13 +6516,13 @@ int __cdecl Runtime_EvaluateValue_00dfeed0()
     return reinterpret_cast<int>(&DAT_0126d0e8);
 }
 
-extern int DAT_010e6394;
+extern int vftable_hkpVehicleDefaultAerodynamics;
 
 // @fnv 0x00dfeef0
 // src: GUESS 0x00dfeef0 (confidence: low)
 int* __cdecl Runtime_GetDAT010e6394Address()
 {
-    return &DAT_010e6394;
+    return &vftable_hkpVehicleDefaultAerodynamics;
 }
 
 extern int DAT_0126d130;
@@ -6541,29 +6541,29 @@ struct HavokObject
     unsigned int referenceCount;
     void* volatile secondaryVtable;
 };
-extern unsigned char DAT_010c925c;
-extern unsigned char DAT_010debf4;
-extern unsigned char DAT_010debe4;
+extern unsigned char vftable_hkpPhantomOverlapListener;
+extern unsigned char vftable_hkpRejectChassisListener;
+extern unsigned char vftable_hkpRejectChassisListener_for_hkpPhantomOverlapListener;
 
 // @fnv 0x00dfef20
 void __cdecl ResetVtables(HavokObject* object)
 {
     if (object)
     {
-        object->secondaryVtable = &DAT_010c925c;
-        object->primaryVtable = &DAT_010debf4;
-        object->secondaryVtable = &DAT_010debe4;
+        object->secondaryVtable = &vftable_hkpPhantomOverlapListener;
+        object->primaryVtable = &vftable_hkpRejectChassisListener;
+        object->secondaryVtable = &vftable_hkpRejectChassisListener_for_hkpPhantomOverlapListener;
     }
 }
 }  // namespace fnv_00dfef20
 
-extern int DAT_010debf4;
+extern int vftable_hkpRejectChassisListener;
 
 // @fnv 0x00dfef40
 // src: GUESS 0x00dfef40 (confidence: low)
 int __cdecl Object_ComputeValue_00dfef40()
 {
-    return reinterpret_cast<int>(&DAT_010debf4);
+    return reinterpret_cast<int>(&vftable_hkpRejectChassisListener);
 }
 
 class DFEF80Object
@@ -6613,13 +6613,13 @@ void* __cdecl Object_GetGlobalObjectAddress_00dfefe0()
     return &DAT_0126d1d8;
 }
 
-extern int DAT_010e66fc;
+extern int vftable_hkpSerializedDisplayMarkerList;
 
 // @fnv 0x00dff000
 // src: GUESS 0x00dff000 (confidence: low)
 int* __cdecl Object_GetGlobalObjectAddress_00dff000()
 {
-    return &DAT_010e66fc;
+    return &vftable_hkpSerializedDisplayMarkerList;
 }
 
 struct FUN_00dff0b0_class
@@ -6643,13 +6643,13 @@ void* __cdecl Object_GetGlobalObjectAddress_00dff0c0()
     return &DAT_0126d220;
 }
 
-extern int DAT_010e676c;
+extern int vftable_hkpSerializedDisplayMarker;
 
 // @fnv 0x00dff0e0
 // src: GUESS 0x00dff0e0 (confidence: low)
 int* __cdecl Object_GetGlobalObjectAddress_00dff0e0()
 {
-    return &DAT_010e676c;
+    return &vftable_hkpSerializedDisplayMarker;
 }
 
 struct FUN_00dff120_Class
@@ -6858,12 +6858,12 @@ void __cdecl ConstructSpawnedObject(void* apMemory)
 }  // namespace fnv_00dff3e0
 
 struct CpuOpaque;
-extern CpuOpaque DAT_010e6dec;
+extern CpuOpaque vftable_hkpGroupCollisionFilter;
 // @fnv 0x00dff430
 // src: GUESS 0x00dff430 (confidence: low)
 CpuOpaque* __cdecl Runtime_GetDAT010e6decAddress()
 {
-    return &DAT_010e6dec;
+    return &vftable_hkpGroupCollisionFilter;
 }
 
 namespace fnv_00dff470 {
@@ -7088,17 +7088,17 @@ void __cdecl Object_ProcessState_00dff890(FUN_00dff890_cls* pObject, int aValue)
         pObject->InitializeRecordPointers(aValue);
 }
 
-extern "C" char DAT_010c3b80;
-extern "C" char DAT_010c3b98;
-extern "C" char DAT_010c3bac;
-extern "C" char DAT_010c3b8c;
+extern "C" char vftable_hkpCollidableCollidableFilter;
+extern "C" char vftable_hkpShapeCollectionFilter;
+extern "C" char vftable_hkpRayShapeCollectionFilter;
+extern "C" char vftable_hkpRayCollidableFilter;
 extern "C" char str_0102f13c[];
-extern "C" char DAT_010e7700;
-extern "C" char DAT_010e76f4;
-extern "C" char DAT_010e76e0;
-extern "C" char DAT_010e76d4;
-extern "C" char DAT_010e76c8;
-extern "C" char DAT_010e76ac;
+extern "C" char vftable_hkpDisableEntityCollisionFilter;
+extern "C" char vftable_hkpDisableEntityCollisionFilter_for_hkpCollidableCollidableFilter;
+extern "C" char vftable_hkpDisableEntityCollisionFilter_for_hkpShapeCollectionFilter;
+extern "C" char vftable_hkpDisableEntityCollisionFilter_for_hkpRayShapeCollectionFilter;
+extern "C" char vftable_hkpDisableEntityCollisionFilter_for_hkpRayCollidableFilter;
+extern "C" char vftable_hkpDisableEntityCollisionFilter_for_hkpEntityListener;
 struct FNVRecordPointers
 {
     void* volatile m00;
@@ -7120,17 +7120,17 @@ struct FNVRecordPointers
 // @fnv 0x00dff8d0
 FNVRecordPointers* __thiscall FNVRecordPointers::InitializeRecordPointers(int unused)
 {
-    m08 = &DAT_010c3b80;
-    m0c = &DAT_010c3b98;
-    m10 = &DAT_010c3bac;
-    m14 = &DAT_010c3b8c;
+    m08 = &vftable_hkpCollidableCollidableFilter;
+    m0c = &vftable_hkpShapeCollectionFilter;
+    m10 = &vftable_hkpRayShapeCollectionFilter;
+    m14 = &vftable_hkpRayCollidableFilter;
     m30 = &str_0102f13c;
-    m00 = &DAT_010e7700;
-    m08 = &DAT_010e76f4;
-    m0c = &DAT_010e76e0;
-    m10 = &DAT_010e76d4;
-    m14 = &DAT_010e76c8;
-    m30 = &DAT_010e76ac;
+    m00 = &vftable_hkpDisableEntityCollisionFilter;
+    m08 = &vftable_hkpDisableEntityCollisionFilter_for_hkpCollidableCollidableFilter;
+    m0c = &vftable_hkpDisableEntityCollisionFilter_for_hkpShapeCollectionFilter;
+    m10 = &vftable_hkpDisableEntityCollisionFilter_for_hkpRayShapeCollectionFilter;
+    m14 = &vftable_hkpDisableEntityCollisionFilter_for_hkpRayCollidableFilter;
+    m30 = &vftable_hkpDisableEntityCollisionFilter_for_hkpEntityListener;
     return this;
 }
 
@@ -7308,13 +7308,13 @@ CpuOpaque* __cdecl Runtime_GetDAT0126d718Address()
     return &DAT_0126d718;
 }
 
-extern int DAT_010e7c24;
+extern int vftable_hkpConvexPieceStreamData;
 
 // @fnv 0x00dffc90
 // src: GUESS 0x00dffc90 (confidence: low)
 int* __cdecl Runtime_GetDAT010e7c24Address()
 {
-    return &DAT_010e7c24;
+    return &vftable_hkpConvexPieceStreamData;
 }
 
 extern int DAT_0126d760;
@@ -7326,12 +7326,12 @@ void* Runtime_GetDAT0126d760Address()
     return &DAT_0126d760;
 }
 
-extern int DAT_010cc0d8;
+extern int vftable_hkpVelocityConstraintMotor;
 // @fnv 0x00dffdb0
 // src: GUESS 0x00dffdb0 (confidence: low)
 int* __cdecl Runtime_GetDAT010cc0d8Address()
 {
-    return &DAT_010cc0d8;
+    return &vftable_hkpVelocityConstraintMotor;
 }
 
 // FUN_00dffdd0 : a one-line function - getter
@@ -7452,13 +7452,13 @@ void ConstructSpawnedDerived(SpawnedObject* apObject, int flag)
 }
 }  // namespace fnv_00dffde0
 
-extern int DAT_010c6e34;
+extern int vftable_hkpThinBoxMotion;
 
 // @fnv 0x00dffe10
 // src: GUESS 0x00dffe10 (confidence: low)
 void* Runtime_GetDAT010c6e34Address()
 {
-    return &DAT_010c6e34;
+    return &vftable_hkpThinBoxMotion;
 }
 
 extern int DAT_0126d7f0;
@@ -7470,13 +7470,13 @@ void* __cdecl Runtime_GetDAT0126d7f0Address()
     return &DAT_0126d7f0;
 }
 
-extern int DAT_010d3838;
+extern int vftable_hkpSpringDamperConstraintMotor;
 
 // @fnv 0x00dffe50
 // src: GUESS 0x00dffe50 (confidence: low)
 void* __cdecl Runtime_GetDAT010d3838Address()
 {
-    return &DAT_010d3838;
+    return &vftable_hkpSpringDamperConstraintMotor;
 }
 
 extern char g_unk0126d838;
@@ -7488,8 +7488,8 @@ void* __cdecl Runtime_GetUnk0126d838Address()
     return &g_unk0126d838;
 }
 
-extern void* DAT_010c59f4;
-extern void* DAT_010c6d54;
+extern void* vftable_hkpMotion;
+extern void* vftable_hkpSphereMotion;
 
 // @fnv 0x00dffe80
 // src: GUESS 0x00dffe80 (confidence: low)
@@ -7497,7 +7497,7 @@ void __cdecl Object_UpdateFields_00dffe80(void* apObject, int b)
 {
     if (apObject != 0)
     {
-        *reinterpret_cast<int*>(apObject) = reinterpret_cast<int>(&DAT_010c59f4);
+        *reinterpret_cast<int*>(apObject) = reinterpret_cast<int>(&vftable_hkpMotion);
 
         if (b != 0)
         {
@@ -7507,7 +7507,7 @@ void __cdecl Object_UpdateFields_00dffe80(void* apObject, int b)
                 static_cast<unsigned short>(bits >> 16);
         }
 
-        *reinterpret_cast<int*>(apObject) = reinterpret_cast<int>(&DAT_010c6d54);
+        *reinterpret_cast<int*>(apObject) = reinterpret_cast<int>(&vftable_hkpSphereMotion);
     }
 }
 
@@ -7518,18 +7518,18 @@ namespace fnv_00dffeb0 {
 // (its entries point at the implementation functions 0x00DE10B0, 0x00C90350,
 // ... ).  The original code is simply:
 //
-//     mov eax, offset DAT_010c6d54
+//     mov eax, offset vftable_hkpSphereMotion
 //     ret
 //
 // so the global is declared as an extern and its address is returned.
 
-extern int DAT_010c6d54;
+extern int vftable_hkpSphereMotion;
 
 // @fnv 0x00dffeb0
 // src: GUESS 0x00dffeb0 (confidence: low)
 int* __cdecl Runtime_GetDAT010c6d54Address()
 {
-    return &DAT_010c6d54;
+    return &vftable_hkpSphereMotion;
 }
 }  // namespace fnv_00dffeb0
 
@@ -7557,13 +7557,13 @@ void* __cdecl Runtime_GetDAT0126d880Address()
     return &DAT_0126d880;
 }
 
-extern int DAT_010cb798;
+extern int vftable_hkpPositionConstraintMotor;
 
 // @fnv 0x00dffef0
 // src: GUESS 0x00dffef0 (confidence: low)
 int* __cdecl Runtime_GetDAT010cb798Address()
 {
-    return &DAT_010cb798;
+    return &vftable_hkpPositionConstraintMotor;
 }
 
 extern int DAT_0126d8c8;
@@ -7575,7 +7575,7 @@ int __cdecl Runtime_EvaluateValue_00dfff10()
     return reinterpret_cast<int>(&DAT_0126d8c8);
 }
 
-extern int DAT_010da004;
+extern int vftable_hkpPointToPathConstraintData;
 
 struct SpawnedSub
 {
@@ -7599,20 +7599,20 @@ void __cdecl InitSpawnedObject(SpawnedObject* pObject, int iNotifyFlag)
 {
     if (pObject != 0)
     {
-        pObject->vptr = &DAT_010da004;
+        pObject->vptr = &vftable_hkpPointToPathConstraintData;
         SpawnedSub* sub = &pObject->m_0c;
         if (iNotifyFlag != 0)
             sub->Notify(sub->unk08);
     }
 }
 
-extern int DAT_010da004;
+extern int vftable_hkpPointToPathConstraintData;
 
 // @fnv 0x00dfff50
 // src: GUESS 0x00dfff50 (confidence: low)
 int* __cdecl Runtime_GetDAT010da004Address()
 {
-    return &DAT_010da004;
+    return &vftable_hkpPointToPathConstraintData;
 }
 
 extern int DAT_0126d910;
@@ -7647,12 +7647,12 @@ void* Runtime_GetTarget00dfffd0Address()
     return &g_target_00dfffd0;
 }
 
-extern void* DAT_010e80b4;
+extern void* vftable_hkpLinearParametricCurve;
 // @fnv 0x00dffff0
 // src: GUESS 0x00dffff0 (confidence: low)
 void** __cdecl Runtime_GetDAT010e80b4Address()
 {
-    return &DAT_010e80b4;
+    return &vftable_hkpLinearParametricCurve;
 }
 
 extern "C" __m128 _mm_setzero_ps(void);
@@ -11503,7 +11503,7 @@ struct Manager
     Heap* volatile heap;
 };
 extern "C" Manager* __cdecl hkMemoryRouter_getInstance();
-extern "C" int DAT_0102e388;
+extern "C" int vftable_hkBaseObject;
 struct Holder
 {
     void* volatile vtable;
@@ -11533,7 +11533,7 @@ void Holder::SetVtableAndProcessState_00dfed30()
         mem2->release(data1, (cap1 & 0x3fffffff) * 4);
     data1 = 0;
     cap1 = 0x80000000;
-    vtable = &DAT_0102e388;
+    vtable = &vftable_hkBaseObject;
 }
 }  // namespace fnv_00dfed30
 
@@ -12466,7 +12466,7 @@ struct FUN_00deefd0 : PulleyObjectBase
 // @fnv 0x00deefd0
 FUN_00deefd0::FUN_00deefd0()
 {
-    vtable = &DAT_010da04c;
+    vtable = &vftable_hkpPulleyConstraintData;
     translationType = 3;
     pulleyType = 0x14;
     ropeLength = 0.0f;
@@ -12514,7 +12514,7 @@ class SuspensionObject
   public:
     ~SuspensionObject() throw()
     {
-        m_ppVirtualMethodTable = &DAT_0102e388;
+        m_ppVirtualMethodTable = &vftable_hkBaseObject;
     }
     int* m_ppVirtualMethodTable;
     unsigned short m_usMemSizeAndFlags;
@@ -12536,7 +12536,7 @@ FUN_00dfbf70::~FUN_00dfbf70() throw()
 
 extern "C" void _mm_store_ps(float*, __m128);
 
-extern "C" int DAT_010d8274;
+extern "C" int vftable_hkDisplaySemiCircle;
 
 struct FUN_00de4a80
 {
@@ -12585,7 +12585,7 @@ struct FUN_00de4a80
     FUN_00de4a80();
 };
 
-// Stores &DAT_010d8274 at offset 0, sets m_06=1, m_50=5, m_10/m_24/m_38=1.0f, and zeroes m_08, m_90-m_9c and several 16-byte blocks.
+// Stores &vftable_hkDisplaySemiCircle at offset 0, sets m_06=1, m_50=5, m_10/m_24/m_38=1.0f, and zeroes m_08, m_90-m_9c and several 16-byte blocks.
 // @fnv 0x00de4a80
 FUN_00de4a80::FUN_00de4a80()
 {
@@ -12600,7 +12600,7 @@ FUN_00de4a80::FUN_00de4a80()
     m_24 = 1.0f;
     m_38 = 1.0f;
     _mm_store_ps((float*)((char*)this + 0x40), _mm_setzero_ps());
-    *(int**)this = &DAT_010d8274;
+    *(int**)this = &vftable_hkDisplaySemiCircle;
     m_90 = 0.0f;
     m_9c = zero;
     m_94 = 0.0f;

@@ -30,7 +30,7 @@ public:
     virtual bool Compare(BSExtraData* extra);
 
     void FUN_004377f0();
-    void* FUN_004377c0(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
     void UpdatePriorityEntry(TESForm* form, bool flag);
 
     WaterZoneMap m_map;

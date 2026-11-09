@@ -101,7 +101,7 @@ TESFile* CameraPathManager::BGSCameraPathManager_GetCameraPathToPlay(unsigned in
     return pFile;
 }
 
-extern int DAT_01032748;
+extern int vftable_NiTArray_01032748;
 struct ActorCombatGroup;
 #include "../include/NiTMallocInterface.h"
 struct FUN_0058bc00_obj
@@ -109,12 +109,12 @@ struct FUN_0058bc00_obj
     void* vtbl;
     ActorCombatGroup** data;
 };
-// Sets the object's vtbl to DAT_01032748 and deallocates its data array via NiTMallocInterface.
+// Sets the object's vtbl to vftable_NiTArray_01032748 and deallocates its data array via NiTMallocInterface.
 // @fnv 0x0058bc00
 // src: GUESS 0x0058bc00 (confidence: medium)
 void __fastcall Object_ReleaseStorage(FUN_0058bc00_obj* self)
 {
-    self->vtbl = &DAT_01032748;
+    self->vtbl = &vftable_NiTArray_01032748;
     NiTMallocInterface<ActorCombatGroup*>::Deallocate(self->data);
 }
 

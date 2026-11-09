@@ -557,7 +557,8 @@ bool EffectItem::SetDuration_00404510(int aiValue)
 }
 
 // @fnv 0x004049a0
-void* Setting::FUN_004049a0(unsigned int flags)
+// src: EXE 0x004049a0
+void* Setting::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00404950();
     if (flags & 1)

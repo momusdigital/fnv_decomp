@@ -4,7 +4,7 @@
 
 #include "../../include/layout_support.h"
 
-extern int DAT_010f20a8;
+extern int vftable_std__bad_exception;
 
 struct FUN_00ece2f0_cls
 {
@@ -17,7 +17,7 @@ struct FUN_00ece2f0_cls
 // src: GUESS 0x00ece2f0 (confidence: low)
 void FUN_00ece2f0_cls::SetVtableAndProcessState_00ece2f0()
 {
-    m_vptr = (int)&DAT_010f20a8;
+    m_vptr = (int)&vftable_std__bad_exception;
     FUN_00ec79a1();
 }
 

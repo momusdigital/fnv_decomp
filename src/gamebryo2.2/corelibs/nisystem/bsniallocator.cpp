@@ -47,16 +47,16 @@ void __stdcall BSNiAllocator_DeallocateExternal(void* pvMemory, int aiAllocation
 
 namespace fnv_00aa24a0 {
 extern MemoryManager g_memoryManager;
-extern int DAT_010a24d0;
+extern int vftable_NiAllocator;
 struct BSNiAllocator
 {
     void* Destroy(unsigned int);
 };
-// Sets the vtable pointer to DAT_010a24d0 and, when bit 0 of flags is set, deallocates this via g_memoryManager, then returns this.
+// Sets the vtable pointer to vftable_NiAllocator and, when bit 0 of flags is set, deallocates this via g_memoryManager, then returns this.
 // @fnv 0x00aa24a0
 void* BSNiAllocator::Destroy(unsigned int flags)
 {
-    *(void**)this = (void*)&DAT_010a24d0;
+    *(void**)this = (void*)&vftable_NiAllocator;
     if (flags & 1)
         g_memoryManager.Deallocate(this);
     return this;

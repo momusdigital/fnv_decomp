@@ -324,8 +324,8 @@ struct FixedAllocator
 };
 
 hkMemoryRouter* __cdecl hkMemoryRouter_getInstance() throw();
-extern int DAT_010c93e4;
-extern int DAT_0102e388;
+extern int vftable_hkpHavokSnapshot__ConvertListener;
+extern int vftable_hkBaseObject;
 
 struct FUN_00cc0ae0_cls
 {
@@ -338,12 +338,12 @@ struct FUN_00cc0ae0_cls
     void ProcessEntries_00cc0ae0();
 };
 
-// Sets the vtable pointer, calls v00(1) on each non-null item, frees the item array, empties it, and sets the vtable pointer to DAT_0102e388.
+// Sets the vtable pointer, calls v00(1) on each non-null item, frees the item array, empties it, and sets the vtable pointer to vftable_hkBaseObject.
 // @fnv 0x00cc0ae0
 // src: GUESS 0x00cc0ae0 (confidence: low)
 void FUN_00cc0ae0_cls::ProcessEntries_00cc0ae0()
 {
-    m_vptr00 = (int)&DAT_010c93e4;
+    m_vptr00 = (int)&vftable_hkpHavokSnapshot__ConvertListener;
     for (int i = 0; i < m_iArrayLength; i++)
     {
         PooledItem* item = m_pItems[i];
@@ -362,7 +362,7 @@ void FUN_00cc0ae0_cls::ProcessEntries_00cc0ae0()
     }
     m_pItems = 0;
     m_uCapBits = 0x80000000u;
-    *(volatile int*)&m_vptr00 = (int)&DAT_0102e388;
+    *(volatile int*)&m_vptr00 = (int)&vftable_hkBaseObject;
 }
 }  // namespace fnv_00cc0ae0
 

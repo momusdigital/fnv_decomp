@@ -11,7 +11,7 @@ public:
     virtual WorldHolder* GetWorld();
 
     void FUN_00c9f530();
-    void* FUN_0056e5e0(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
     void bhkPhantom_UpdateCFilter();
     static NiObject* __cdecl CreateObject();
 

@@ -85,7 +85,7 @@ void FakeSkin::NiSkinData_LinkObject(void* streamObject)
         m_sp = kStream.GetLoadedObject();
 }
 
-extern int DAT_0109e574;
+extern int vftable_NiSkinData;
 // @fnv 0x00a84d30
 // src: EXE 0x00a84d30
 void* __cdecl NiSkinData_CreateObject()
@@ -94,7 +94,7 @@ void* __cdecl NiSkinData_CreateObject()
     if (p)
     {
         ((BSFadeNode*)p)->NiObject::NiObject();
-        *(int*)p = (int)&DAT_0109e574;
+        *(int*)p = (int)&vftable_NiSkinData;
         *(int*)((char*)p + 8) = 0;
         *(int*)((char*)p + 0x40) = 0;
         return p;
@@ -367,7 +367,7 @@ void SkinDataBounds::NiSkinData_ComputeBoneBounds(NiPoint3* vertices)
 }
 
 #include <windows.h>
-extern int DAT_0109e574;
+extern int vftable_NiSkinData;
 
 struct a84ef0_Counted
 {
@@ -411,7 +411,7 @@ struct FUN_00a84ef0_cls
 // @fnv 0x00a84ef0
 FUN_00a84ef0_cls* FUN_00a84ef0_cls::FUN_00a84ef0(unsigned char acFlags)
 {
-    m_vptr = (int)&DAT_0109e574;
+    m_vptr = (int)&vftable_NiSkinData;
     BaseCleanupA();
     ((a84ef0_Mgr*)&DAT_011f6238)->MemoryManager_Deallocate(m_uValue);
     a84ef0_Counted* pCounted = m_pCounted;

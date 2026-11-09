@@ -346,7 +346,7 @@ char* __fastcall TESWorldSpace_OFFSET_DATA_OFFSET_DATA(char* pThis)
     return pThis;
 }
 
-extern int DAT_01031fac;
+extern int vftable_NiTPointerMap_01031fac;
 
 struct FUN_00588fa0_arg
 {
@@ -355,13 +355,13 @@ struct FUN_00588fa0_arg
 
 void __fastcall FUN_005890c0(int* self, FUN_00588fa0_arg a);
 
-// Calls FUN_005890c0 on self, then stores the address of DAT_01031fac into *self and returns self.
+// Calls FUN_005890c0 on self, then stores the address of vftable_NiTPointerMap_01031fac into *self and returns self.
 // @fnv 0x00588fa0
 // src: EXE 0x00588fa0
 int* __fastcall NiTPointerMap_unsigned_int_BSSimpleList_TESObjectREFR_NiTPointerMap(int* self, FUN_00588fa0_arg a)
 {
     FUN_005890c0(self, a);
-    *self = (int)&DAT_01031fac;
+    *self = (int)&vftable_NiTPointerMap_01031fac;
     return self;
 }
 

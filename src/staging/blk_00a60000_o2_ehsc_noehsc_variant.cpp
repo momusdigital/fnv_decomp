@@ -48,7 +48,7 @@ void NiStream__SDMShutdown();
 extern "C" void NiFreeAlias(void*);
 extern void* DAT_011f4aa8;
 void FreeGlobalAlias();
-extern int DAT_0109df2c;
+extern int vftable_NiGeometryGroupManager;
 extern int DAT_011f4ab4;
 struct FUN_00a7f820_Class
 {
@@ -66,10 +66,10 @@ extern void* DAT_011c5f58;
 void __stdcall FUN_00a638c0(void* p);
 struct NiTriBasedGeomData;
 NiTriBasedGeomData* __fastcall InitializeTriBasedGeomData(NiTriBasedGeomData*);
-extern int DAT_0109dac4;
+extern int vftable_NiTriShapeData;
 void* __cdecl NiTriShapeData_CreateObject();
 void __fastcall FUN_00a71f60(void*);
-extern int DAT_0109dd0c;
+extern int vftable_NiPointLight;
 extern "C" int __cdecl tolower(int);
 unsigned int BSTexturePalette_GetContainerNumber(const char* str);
 struct FUN_00a755f0_Class : NiCullingProperty
@@ -86,9 +86,9 @@ struct A51BF0Base
 };
 void* NiPointLight_CreateObject();
 extern void _NiFree(void*);
-extern int DAT_0109bc84;
-extern int DAT_0109bca4;
-extern int DAT_0109bcc4;
+extern int vftable_NiTMapBase_0109bc84;
+extern int vftable_NiTPointerMap_0109bca4;
+extern int vftable_NiTStringTemplateMap_0109bcc4;
 struct FUN_00a699d0_Class
 {
     NiPoint3 normal;
@@ -101,10 +101,10 @@ struct FUN_00a6ea00_Class : NiTFixedStringMap_NiAVObject___
     void* m_pData;
     void* __thiscall FUN_00a6ea00(unsigned char flag);
 };
-extern int DAT_0109ca08;
+extern int vftable_NiTFixedStringMapBase_0109ca08;
 extern MemoryManager _g_memoryManager;
 void _NiFree(void* p);
-extern int DAT_0109cd44;
+extern int vftable_NiTriStrips;
 void* CreateNiTriStrips();
 struct FUN_00a72ca0_Class
 {
@@ -357,7 +357,7 @@ extern Settings_a62 g_kSettings_11f4600;
 extern NiPtr_a62<RefObj_a62> g_aspObjects_11f4514[10];
 void __cdecl ApplySettings(const Settings_a62& kSettings);
 extern MemoryManager _g_memoryManager;
-extern int DAT_0109bc84;
+extern int vftable_NiTMapBase_0109bc84;
 extern "C" void NiFreeAlias(void*);
 struct FUN_00a66960_cls
 {
@@ -461,7 +461,7 @@ struct FUN_00a674b0_cls
     unsigned char m_3a;
     void __thiscall GetOutRec(OutRec674* out);
 };
-extern int DAT_0109c28c;
+extern int vftable_NiCullingProcess;
 struct FUN_00a693e0_cls
 {
     int m_vptr00;
@@ -549,7 +549,7 @@ struct FUN_00a75dc0_cls
                        unsigned int a11);
 };
 void* __cdecl Object_DispatchCommandFour(unsigned int size);
-extern int DAT_0109cd44;
+extern int vftable_NiTriStrips;
 struct FUN_00a72550_Class
 {
     struct Item
@@ -664,7 +664,7 @@ class BA72DB0Data
     int m_iValue4;
     int m_iValue5;
 };
-extern int DAT_0109d55c;
+extern int vftable_NiLines;
 struct SceneFactoryObject
 {
     void* m_vtbl;
@@ -1609,8 +1609,8 @@ void __cdecl ConvertPixelFormat(unsigned int uiWidth, unsigned int uiHeight, uns
 void __cdecl FUN_00a8a9a0();
 void __cdecl NiPSysData_LinkObject();
 void __cdecl AddScaledPoints(NiPoint3* dest, float scale, const NiPoint3* src, unsigned int count);
-extern int DAT_0109b944;
-extern int DAT_0109df8c;
+extern int vftable_NiTexture;
+extern int vftable_NiRenderedTexture;
 struct FUN_00a7fb80_Class
 {
     void* m_ppVirtualMethodTable;

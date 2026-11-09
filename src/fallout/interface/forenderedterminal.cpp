@@ -87,12 +87,12 @@ struct GlobalObjectO2_0045cfe0
     void ProcessAndReturnValue_0045ce80(int);
 };
 
-GlobalObjectO2_0045cfe0 g_011f9148;
+GlobalObjectO2_0045cfe0 iFadeNodeMinNearDistance_LOD;
 
 // @fnv 0x007ffb60
 void ForwardToGlobalObject(int aiValue)
 {
-    g_011f9148.ProcessAndReturnValue_0045ce80(aiValue);
+    iFadeNodeMinNearDistance_LOD.ProcessAndReturnValue_0045ce80(aiValue);
 }
 
 namespace fnv_007ffb80 {
@@ -104,13 +104,13 @@ struct GlobalObjectO2_0045cfe0
 {
     int* Int(void);
 };
-extern GlobalObjectO2_0045cfe0 g_011f9148;
+extern GlobalObjectO2_0045cfe0 iFadeNodeMinNearDistance_LOD;
 
 // @fnv 0x007ffb80
 // src: XBOX_PDB 0x007ffb80
 int BSFadeNode_QMinNearDistance()
 {
-    return *g_011f9148.Int();
+    return *iFadeNodeMinNearDistance_LOD.Int();
 }
 }  // namespace fnv_007ffb80
 
@@ -428,7 +428,7 @@ struct FloatSetting
 {
     float* Setting_Float_00403e20();
 };
-extern FloatSetting g_011db674, g_011db65c, g_011db62c, g_011db614, g_01203144, g_01203150, g_011db5ec;
+extern FloatSetting fRenderedTerminalScanlineScale_RenderedTerminal, fRenderedTerminalZoom_RenderedTerminal, fRenderedTerminalHPos_RenderedTerminal, fRenderedTerminalVPos_RenderedTerminal, g_01203144, g_01203150, fRenderedTerminalFOV_RenderedTerminal;
 extern unsigned DAT_011a0bb0;
 extern unsigned char DAT_011f9426;
 extern int DAT_011f9434;
@@ -645,7 +645,7 @@ struct RenderNode
 // @fnv 0x007feeb0
 void RenderNode::SetupPowerButtonScreen()
 {
-    SetMode(1, *g_011db674.Setting_Float_00403e20());
+    SetMode(1, *fRenderedTerminalScanlineScale_RenderedTerminal.Setting_Float_00403e20());
     bool createdCur = false;
     Resource* rootP = 0;
     if (!(unsigned)g_011db63c)
@@ -670,10 +670,10 @@ void RenderNode::SetupPowerButtonScreen()
     rotAM.RotateX(DAT_010559cc);
     rotB.RotateY(DAT_010559cc);
     rootP->SetRotation(rotB * rotAM);
-    float rate9 = *g_011db65c.Setting_Float_00403e20();
+    float rate9 = *fRenderedTerminalZoom_RenderedTerminal.Setting_Float_00403e20();
     if (!Renderer_GetWidescreen() && !DAT_011f9426)
         rate9 = (float)(rate9 * DAT_0101de30);
-    rootP->SetTranslation(rate9, *g_011db614.Setting_Float_00403e20(), *g_011db62c.Setting_Float_00403e20());
+    rootP->SetTranslation(rate9, *fRenderedTerminalVPos_RenderedTerminal.Setting_Float_00403e20(), *fRenderedTerminalHPos_RenderedTerminal.Setting_Float_00403e20());
     LocalVector3 akStart(0.f, 0, 0);
     rootP->SetPosition(akStart);
     Camera* cameraK = new Camera;
@@ -691,7 +691,7 @@ void RenderNode::SetupPowerButtonScreen()
     cameraK->SetNearFar(frustum.farPlane / frustum.nearPlane);
     float aspect6 = (double)(DAT_011f9426 ? DAT_011f9434 : Renderer_GetScreenHeight()) / Renderer_GetScreenWidth();
     float scale4 = DAT_01016264;
-    float angle7 = (float)(*g_01203150.Setting_Float_00403e20() * DAT_01023128 * *g_011db5ec.Setting_Float_00403e20());
+    float angle7 = (float)(*g_01203150.Setting_Float_00403e20() * DAT_01023128 * *fRenderedTerminalFOV_RenderedTerminal.Setting_Float_00403e20());
     frustum.left = -tan_0057dd70(angle7) * scale4;
     frustum.right = tan_0057dd70(angle7) * scale4;
     frustum.bottom = -tan_0057dd70(angle7) * aspect6 * scale4;

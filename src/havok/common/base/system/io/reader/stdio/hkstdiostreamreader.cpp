@@ -23,8 +23,8 @@ void FUN_00d2bcd0_class::ReadOrMarkFailed(void* buffer, unsigned int count)
     m_10 = 0;
 }
 
-extern int DAT_0102e388;
-extern int DAT_010ce6c0;
+extern int vftable_hkBaseObject;
+extern int vftable_hkStdioStreamReader;
 extern int __cdecl _fclose(int);
 
 struct FUN_00d2bda0_cls
@@ -37,10 +37,10 @@ struct FUN_00d2bda0_cls
 void __thiscall FUN_00d2bda0_cls::DestroyFileHandle()
 {
     int file = *(int*)((char*)this + 0xc);
-    *(int*)this = (int)&DAT_010ce6c0;
+    *(int*)this = (int)&vftable_hkStdioStreamReader;
     if (file)
         _fclose(file);
-    *(int*)this = (int)&DAT_0102e388;
+    *(int*)this = (int)&vftable_hkBaseObject;
 }
 
 long __cdecl _ftell(void*);
@@ -143,7 +143,7 @@ void Owner::hkStdioStreamReader_rewindToMark()
     invoke(unk08, 0);
 }
 
-extern int DAT_010cc2fc;
+extern int vftable_hkpAction;
 struct Prefix
 {
     int vtable;
@@ -167,7 +167,7 @@ struct FUN_00d2c7e0_class : Prefix
 // @fnv 0x00d2c7e0
 FUN_00d2c7e0_class::FUN_00d2c7e0_class(int value)
 {
-    vtable = (int)&DAT_010cc2fc;
+    vtable = (int)&vftable_hkpAction;
     sub.ReturnSelf(value);
 }
 
@@ -191,7 +191,7 @@ void FUN_00d2bd00_cls::hkStdioStreamReader_isOk(unsigned char* volatile out)
 
 extern "C" void _ReadWriteBarrier(void);
 extern "C" void* __cdecl FUN_00ec9a47(const char* name, const char* mode);
-extern int DAT_010ce6c0;
+extern int vftable_hkStdioStreamReader;
 extern const char kModeReadBinary[];
 
 struct StdioStreamReader
@@ -211,7 +211,7 @@ StdioStreamReader* StdioStreamReader::OpenFile(const char* fname)
 {
     refCount = 1;
     lastSeek = -1;
-    m_vptr = (int)&DAT_010ce6c0;
+    m_vptr = (int)&vftable_hkStdioStreamReader;
     *(volatile unsigned char*)&IsStreamValid = 1;
     handle = FUN_00ec9a47(fname, kModeReadBinary);
     IsStreamValid = handle != 0;

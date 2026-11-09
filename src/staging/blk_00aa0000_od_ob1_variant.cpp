@@ -1,4 +1,4 @@
-extern int DAT_010a2970;
+extern int vftable_BSPointerListBase_010a2970;
 
 #include "../../include/NiTMapItem.h"
 
@@ -173,7 +173,7 @@ struct FUN_00aa4c40_class
 {
     void __thiscall BSCoreMessage_DisableContextMessages(int a);
 };
-extern "C" void* DAT_010a2708;
+extern "C" void* vftable_BSCoreMessage;
 struct FUN_00aa4c60_class
 {
     void* m_p;
@@ -195,18 +195,18 @@ struct FUN_00aa7e50_Class
     int m4;
     int GetM4();
 };
-extern int DAT_010a29c0;
+extern int vftable_OEI__IO__IO_Thread;
 struct FUN_00aa8410 : BSThread
 {
     FUN_00aa8410();
 };
-extern int DAT_010a29b0;
+extern int vftable_BSListBase_010a29b0;
 struct FUN_00aa8a00_cls
 {
     int* m;
     void UpdateFields_00aa8a00();
 };
-extern int DAT_010a2980;
+extern int vftable_BSListBase_010a2980;
 struct FUN_00aa8a20_class
 {
     void UpdateFields_00aa8a20();
@@ -294,7 +294,7 @@ struct FUN_00aaa6e0_Class
     int m4;
     void __thiscall SetFlags(unsigned int flags, int unused);
 };
-extern int DAT_010a2618;
+extern int vftable_BSMapBase_010a2618;
 void* __cdecl _fnv_zlib_memset(void* dst, int val, unsigned int len);
 struct FUN_00aa47e0_Class
 {
@@ -491,7 +491,7 @@ struct FUN_00aa4ae0_Class
     void* unk08;
     void ResetAndFree();
 };
-extern int DAT_010a2618;
+extern int vftable_BSMapBase_010a2618;
 extern MemoryManager DAT_011f6238;
 extern MemoryManager DAT_011f6238;
 struct FUN_00aa4bb0_Class
@@ -609,8 +609,8 @@ struct FUN_00aa8be0_cls
     void __thiscall ClearList();
 };
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(void* cs);
-extern "C" char DAT_010a28c8;
-extern "C" char DAT_010a2bbc;
+extern "C" char vftable_IMemoryHeap;
+extern "C" char vftable_AbstractHeap;
 struct FUN_00aa8ca0_cls
 {
     void* m_vtbl;
@@ -1155,7 +1155,7 @@ void __cdecl OEI_IO_terminate()
 }
 
 extern MemoryManager DAT_011f6238;
-extern int DAT_010a29a0;
+extern int vftable_BSPointerListBase_010a29a0;
 
 struct Guard
 {
@@ -1177,12 +1177,12 @@ struct Derived
 // @fnv 0x00aa88d0
 void* Derived::FUN_00aa88d0(unsigned int flags)
 {
-    m_vtbl = &DAT_010a29a0;
+    m_vtbl = &vftable_BSPointerListBase_010a29a0;
     {
         Guard guard;
         this->ClearList();
     }
-    m_vtbl = &DAT_010a29b0;
+    m_vtbl = &vftable_BSListBase_010a29b0;
     if (flags & 1)
         DAT_011f6238.Deallocate(this);
     return this;
@@ -2709,12 +2709,12 @@ struct S00aa8950_Obj : FUN_00aa8be0_cls
 // @fnv 0x00aa8950
 void* __thiscall S00aa8950_Obj::FUN_00aa8950(unsigned int flags)
 {
-    ((int*)this)[0] = (int)&DAT_010a2970;
+    ((int*)this)[0] = (int)&vftable_BSPointerListBase_010a2970;
     {
         S00aa8950_ReleaseGuard guard;
         ClearList();
     }
-    ((int*)this)[0] = (int)&DAT_010a2980;
+    ((int*)this)[0] = (int)&vftable_BSListBase_010a2980;
     if (flags & 1)
     {
         reinterpret_cast<S_00aa8950_MM*>(&DAT_011f6238)->MemoryManager_Deallocate(this);
@@ -6358,7 +6358,7 @@ inline void* AllocateBytes(unsigned int n)
 {
     return ((MMAlloc*)&g_memoryManager)->Allocate(n);
 }
-extern void* DAT_010a2c38;
+extern void* vftable_BSFaceGenBinaryFile;
 struct FUN_00aaaa80
 {
     std::Str name;
@@ -19271,7 +19271,7 @@ struct GlobalObject_0078d3b0
     GlobalObject_0078d3b0();
     ~GlobalObject_0078d3b0();
 };
-extern int DAT_010a29a0, DAT_010a2990, DAT_010a2970, DAT_010a2960;
+extern int vftable_BSPointerListBase_010a29a0, vftable_BSList_010a2990, vftable_BSPointerListBase_010a2970, vftable_BSList_010a2960;
 struct IOQueue
 {
     int* vtable;
@@ -19280,12 +19280,12 @@ struct IOQueue
     unsigned int count;
     IOQueue()
     {
-        vtable = &DAT_010a29b0;
+        vtable = &vftable_BSListBase_010a29b0;
         count = 0;
         head = 0;
         tail = 0;
-        vtable = &DAT_010a29a0;
-        vtable = &DAT_010a2990;
+        vtable = &vftable_BSPointerListBase_010a29a0;
+        vtable = &vftable_BSList_010a2990;
     }
     void BSList_BSSemaphore_AddHead(GlobalObject_0078d3b0* const&);
 };
@@ -19297,12 +19297,12 @@ struct IOFreeQueue
     unsigned int count;
     IOFreeQueue()
     {
-        vtable = &DAT_010a2980;
+        vtable = &vftable_BSListBase_010a2980;
         count = 0;
         head = 0;
         tail = 0;
-        vtable = &DAT_010a2970;
-        vtable = &DAT_010a2960;
+        vtable = &vftable_BSPointerListBase_010a2970;
+        vtable = &vftable_BSList_010a2960;
     }
 };
 
@@ -21440,7 +21440,7 @@ bool __cdecl fffWriteTriFile(TriWriterRework::Writer* w, TriWriterRework::Tri* t
 
 extern unsigned int DAT_010173f0;
 extern char DAT_010a2d3c;
-extern void* DAT_010a2c38;
+extern void* vftable_BSFaceGenBinaryFile;
 void FUN_00ec7c56();
 extern "C" unsigned int __cdecl strlen(const char*);
 extern "C" int __cdecl memcpy_s(void*, unsigned int, const void*, unsigned int);

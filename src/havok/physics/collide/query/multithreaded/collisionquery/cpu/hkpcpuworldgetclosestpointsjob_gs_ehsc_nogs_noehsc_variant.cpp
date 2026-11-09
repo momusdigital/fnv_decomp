@@ -248,7 +248,7 @@ struct FUN_00df6b30_cls {
     unsigned char* hkCpuWorldGetClosestPointsCollector_addMidPhaseHit(unsigned char* out, int a);
 };
 extern float DAT_0104da48;
-extern int DAT_0108f288;
+extern int vftable_hkpFixedBufferCdPointCollector;
 extern "C" __declspec(dllimport) long __stdcall DAT_00fdf1ec(long volatile*, long);
 struct CopyQuad { int x; int y; int z; int w; };
 struct __declspec(align(16)) QueryPoint { CopyQuad parts[7]; };
@@ -269,7 +269,7 @@ struct QueryCollector {
     QueryPoint* next;
     int capacity;
     int count;
-    QueryCollector(QueryPoint* b, int c) : earlyOut(DAT_0104da48), base(b), next(b), capacity(c), count(0), table(&DAT_0108f288) {}
+    QueryCollector(QueryPoint* b, int c) : earlyOut(DAT_0104da48), base(b), next(b), capacity(c), count(0), table(&vftable_hkpFixedBufferCdPointCollector) {}
 };
 struct QueryJob {
     int unk00; int unk04; int unk08; int unk0C;

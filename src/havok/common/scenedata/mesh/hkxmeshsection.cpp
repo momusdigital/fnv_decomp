@@ -7,7 +7,7 @@
 #include "../../../../../include/hkArray.h"
 #include "../../../../../include/hkMemoryAllocator.h"
 
-extern int DAT_010e9b7c;
+extern int vftable_hkxMeshSection;
 struct IndexArray
 {
     void* m_data;
@@ -30,7 +30,7 @@ struct FUN_00e61720
 };
 // @fnv 0x00e61720
 FUN_00e61720::FUN_00e61720(void* arg)
-    : m_vptr(&DAT_010e9b7c), m_sReferenceCount(1), m_pMeshVertexBuffer(0), m_kIndexBuffers(), m_iMaterialIndex(0),
+    : m_vptr(&vftable_hkxMeshSection), m_sReferenceCount(1), m_pMeshVertexBuffer(0), m_kIndexBuffers(), m_iMaterialIndex(0),
       m_kUserChannels()
 {
     UpdateState_00e61770(arg);

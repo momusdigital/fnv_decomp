@@ -76,8 +76,8 @@ hkpTransformShape* hkpTransformShape::DestroyAndMaybeFree(unsigned int flags) th
     return this;
 }
 
-extern int DAT_010cc41c;
-extern int DAT_010c6fd0;
+extern int vftable_hkpTransformShape;
+extern int vftable_hkpSingleShapeContainer;
 
 // @fnv 0x00cf5990
 int hkpTransformShape::Initialize(hkpShape* child, const hkTransform& transform)
@@ -85,8 +85,8 @@ int hkpTransformShape::Initialize(hkpShape* child, const hkTransform& transform)
     m_sReferenceCount = 1;
     m_ulUserData = 0;
     *reinterpret_cast<unsigned int*>(&m_type) = 15;
-    *reinterpret_cast<void**>(this) = &DAT_010cc41c;
-    *reinterpret_cast<void**>(&m_pContainedShape) = &DAT_010c6fd0;
+    *reinterpret_cast<void**>(this) = &vftable_hkpTransformShape;
+    *reinterpret_cast<void**>(&m_pContainedShape) = &vftable_hkpSingleShapeContainer;
     m_pContainedShape.m_pContainedShape = child;
     child->addReference();
     SetTransform(transform);

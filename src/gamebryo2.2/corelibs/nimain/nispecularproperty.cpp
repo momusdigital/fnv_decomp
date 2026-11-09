@@ -6,10 +6,10 @@
 // src/gamebryo2.2/corelibs/nimain/nispecularproperty.cpp - unit created 2026-10-16 from the whole-binary attribution (360 source path: d:/_fallout3/platforms/common/code/gamebryo2.2/corelibs/nimain/nispecularproperty.cpp).
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
 
-extern int DAT_010a02e4;
+extern int vftable_NiSpecularProperty;
 inline NiSpecularProperty::NiSpecularProperty() throw()
 {
-    *(void**)this = (void*)&DAT_010a02e4;
+    *(void**)this = (void*)&vftable_NiSpecularProperty;
     m_uiObjectFlags = 0;
 }
 // @fnv 0x00a95110

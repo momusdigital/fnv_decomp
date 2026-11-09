@@ -15,7 +15,7 @@ public:
 
     LoadedFile* GetLoadedFile();
     void FUN_00441d20();
-    void* FUN_00441cf0(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 
     char m_pLoadedFile[4];
     union

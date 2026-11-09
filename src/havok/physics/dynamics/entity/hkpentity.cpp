@@ -400,8 +400,8 @@ void __fastcall updateConstraintSlaveIndices(hkpEntity* self, int)
     }
 }
 
-extern const int DAT_010c6c64;
-extern const int DAT_010c6f7c;
+extern const int vftable_hkpMaxSizeMotion;
+extern const int vftable_hkpEntity;
 
 // The shared material has a finishing constructor; build the ordinary defaults through its copy interface.
 inline hkpMaterial makeDefaultMaterial()
@@ -437,7 +437,7 @@ class __declspec(novtable) EntityShapeConstructionBase : public hkpWorldObject
   public:
     EntityShapeConstructionBase(const hkpShape* pkShape) throw() : hkpWorldObject(pkShape, hkpWorldObject::BROAD_PHASE_ENTITY)
     {
-        *(const int**)this = &DAT_010c6f7c;
+        *(const int**)this = &vftable_hkpEntity;
     }
 };
 
@@ -500,19 +500,19 @@ template <typename T> inline void initializeEntityArray(hkArray<T>& array)
     array.m_iCapacityState = 0x80000000;
 }
 
-extern int DAT_010c59f4;
-extern int DAT_010c6bec;
+extern int vftable_hkpMotion;
+extern int vftable_hkpKeyframedRigidMotion;
 
 // @fnv 0x00c9d100
 hkpKeyframedRigidMotion* __fastcall finishKeyframedMotion(hkpKeyframedRigidMotion* self, int, int enabled)
 {
-    *reinterpret_cast<int* volatile*>(self) = &DAT_010c59f4;
+    *reinterpret_cast<int* volatile*>(self) = &vftable_hkpMotion;
     if (enabled != 0)
     {
         *reinterpret_cast<volatile float*>(&enabled) = 1.0f;
         self->m_fGravityFactor.m_value = static_cast<short>(enabled >> 16);
     }
-    *reinterpret_cast<int* volatile*>(self) = &DAT_010c6bec;
+    *reinterpret_cast<int* volatile*>(self) = &vftable_hkpKeyframedRigidMotion;
     return self;
 }
 
@@ -543,18 +543,18 @@ hkpMotion* __fastcall deleteMotion(hkpMotion* self, int, unsigned int flags)
     return self;
 }
 
-extern int DAT_010c59f4;
-extern int DAT_010c6d54;
+extern int vftable_hkpMotion;
+extern int vftable_hkpSphereMotion;
 // @fnv 0x00c9d190
 hkpSphereMotion* __fastcall finishSphereMotion(hkpSphereMotion* self, int, int flag)
 {
-    *reinterpret_cast<int* volatile*>(self) = &DAT_010c59f4;
+    *reinterpret_cast<int* volatile*>(self) = &vftable_hkpMotion;
     if (flag)
     {
         float one = 1.0f;
         self->m_fGravityFactor.m_value = static_cast<short>(*reinterpret_cast<int*>(&one) >> 16);
     }
-    *reinterpret_cast<int* volatile*>(self) = &DAT_010c6d54;
+    *reinterpret_cast<int* volatile*>(self) = &vftable_hkpSphereMotion;
     return self;
 }
 
@@ -562,14 +562,14 @@ hkpSphereMotion* __fastcall finishSphereMotion(hkpSphereMotion* self, int, int f
 // @fnv 0x00c9d1c0
 hkpBoxMotion* __fastcall finishBoxMotion(hkpBoxMotion* self, int, int flag)
 {
-    extern const int DAT_010c6dc4;
-    *reinterpret_cast<const int**>(self) = &DAT_010c59f4;
+    extern const int vftable_hkpBoxMotion;
+    *reinterpret_cast<const int**>(self) = &vftable_hkpMotion;
     if (flag)
     {
         *reinterpret_cast<float*>(&flag) = 1.0f;
         self->m_fGravityFactor.m_value = static_cast<short>(flag >> 16);
     }
-    *reinterpret_cast<const int* volatile*>(self) = &DAT_010c6dc4;
+    *reinterpret_cast<const int* volatile*>(self) = &vftable_hkpBoxMotion;
     return self;
 }
 
@@ -937,9 +937,9 @@ void __fastcall collectEntityConstraints(hkpEntity* self, int, hkArray<hkpConstr
         constraints[k++] = self->m_kSlaveConstraints.m_data[i];
 }
 
-extern int DAT_010c59f4;
-extern const int DAT_010c6c64;
-extern const int DAT_010c6f7c;
+extern int vftable_hkpMotion;
+extern const int vftable_hkpMaxSizeMotion;
+extern const int vftable_hkpEntity;
 inline void setHalfC9CE(hkHalf& kHalf, const float& f)
 {
     int t = ((const int*)&f)[0];
@@ -973,10 +973,10 @@ hkpWorldObject* __fastcall finishWorldObject(hkpWorldObject* self, int, Finishin
 
 inline void finishMaxSizeMotion(hkpMaxSizeMotion& motion, int flag)
 {
-    *reinterpret_cast<int**>(&motion) = &DAT_010c59f4;
+    *reinterpret_cast<int**>(&motion) = &vftable_hkpMotion;
     if (flag)
         setHalfC9CE(motion.m_fGravityFactor, 1.0f);
-    *reinterpret_cast<const int**>(&motion) = &DAT_010c6c64;
+    *reinterpret_cast<const int**>(&motion) = &vftable_hkpMaxSizeMotion;
 }
 
 // Constructs the base and m_pMotionState from flag, then if flag is set re-constructs m_pMotionState as the motion class matching its m_type.
@@ -984,7 +984,7 @@ inline void finishMaxSizeMotion(hkpMaxSizeMotion& motion, int flag)
 hkpEntity* __fastcall finishEntity(hkpEntity* self, int unused, int flag)
 {
     finishWorldObject(self, unused, FinishingFlag(*(volatile int*)&flag));
-    *reinterpret_cast<const int**>(self) = &DAT_010c6f7c;
+    *reinterpret_cast<const int**>(self) = &vftable_hkpEntity;
     initializeEntitySmallArray(self->m_eSmallArraySerializeOverrideType);
     initializeEntityArray(self->m_kSlaveConstraints);
     initializeEntityArray(self->m_pByteBuffer);
@@ -1021,14 +1021,14 @@ hkpEntity* __fastcall finishEntity(hkpEntity* self, int unused, int flag)
 // @fnv 0x00c9d130
 hkpMotion* __fastcall finishFixedMotion(hkpMotion* self, int, int flag)
 {
-    extern const int DAT_010c6cdc;
-    *reinterpret_cast<const int**>(self) = &DAT_010c59f4;
+    extern const int vftable_hkpFixedRigidMotion;
+    *reinterpret_cast<const int**>(self) = &vftable_hkpMotion;
     if (flag)
     {
         *reinterpret_cast<float*>(&flag) = 1.0f;
         self->m_fGravityFactor.m_value = static_cast<short>(flag >> 16);
     }
-    *reinterpret_cast<const int* volatile*>(self) = &DAT_010c6cdc;
+    *reinterpret_cast<const int* volatile*>(self) = &vftable_hkpFixedRigidMotion;
     return self;
 }
 
@@ -1233,14 +1233,14 @@ void __fastcall deactivateEntityImmediately(hkpEntity* self)
 // @fnv 0x00c9d1f0
 hkpThinBoxMotion* __fastcall finishThinBoxMotion(hkpThinBoxMotion* self, int, int flag)
 {
-    extern const int DAT_010c6e34;
-    *reinterpret_cast<const int**>(self) = &DAT_010c59f4;
+    extern const int vftable_hkpThinBoxMotion;
+    *reinterpret_cast<const int**>(self) = &vftable_hkpMotion;
     if (flag)
     {
         *reinterpret_cast<float*>(&flag) = 1.0f;
         self->m_fGravityFactor.m_value = static_cast<short>(flag >> 16);
     }
-    *reinterpret_cast<const int* volatile*>(self) = &DAT_010c6e34;
+    *reinterpret_cast<const int* volatile*>(self) = &vftable_hkpThinBoxMotion;
     return self;
 }
 
@@ -1421,8 +1421,8 @@ void __cdecl DeleteCallbacks(void* pEntity);
 // @fnv 0x00c9cf60
 void __fastcall destroyEntity(hkpEntity* self)
 {
-    extern const int DAT_010c6f7c;
-    *reinterpret_cast<const int**>(self) = &DAT_010c6f7c;
+    extern const int vftable_hkpEntity;
+    *reinterpret_cast<const int**>(self) = &vftable_hkpEntity;
     LimitUtilC9CF* pkUtil = static_cast<LimitUtilC9CF*>(self->m_pEntityUserData);
     if (pkUtil)
     {
@@ -1456,8 +1456,8 @@ void __fastcall destroyEntity(hkpEntity* self)
 // @fnv 0x00c9d3b0
 void __fastcall destroyWorldObject(hkpWorldObject* self, int)
 {
-    extern const int DAT_010c6f64;
-    *reinterpret_cast<const int**>(self) = &DAT_010c6f64;
+    extern const int vftable_hkpWorldObject;
+    *reinterpret_cast<const int**>(self) = &vftable_hkpWorldObject;
     if (self->m_kCollidable.m_pCollisionShape)
         const_cast<hkpShape*>(self->m_kCollidable.m_pCollisionShape)->removeReference();
     if (self->m_kNextStreamField)

@@ -11,7 +11,7 @@ class TimeGlobal
     float FUN_0084d030();
 };
 extern TimeGlobal g_timeGlobal;
-extern Setting g_011c3ea4;
+extern Setting iNumHWThreads_General;
 
 extern BGSReconstructFormsInAllFilesMap g_011c4104;
 class TaskQueueInterface

@@ -38,7 +38,7 @@ struct FUN_0042ce90_class
 {
     bool BGSLoadFormBuffer_GetReconstructedForm() const;
 };
-extern "C" void* __cdecl DAT_010159e8;
+extern "C" void* __cdecl vftable_NiTMap_010159e8;
 struct FUN_0042f4e0_class
 {
     void* m_vtbl;
@@ -50,13 +50,13 @@ struct FUN_0042ff10_cls
     void Helper_0042ff30(int);
 };
 void BSSimpleArray_NavMeshPtr_1024_DefaultEqualFunction_NavMeshPtr(FUN_0042ff10_cls* a, int b);
-extern int DAT_01015a08;
+extern int vftable_BSSimpleArray_01015a08;
 struct GlobalObject_00869f00
 {
     void Clear(bool);
     void ResetVirtualTableAndClear();
 };
-extern void* DAT_01015968;
+extern void* vftable_ExtraHeadingTarget;
 struct FUN_00435ef0 : public BSExtraData
 {
     void* vtbl;
@@ -74,7 +74,7 @@ struct FUN_00437dd0_Class
 {
     void* ExtraFollowerSwimBreadcrumbs_GetFirstCrumb();
 };
-extern int DAT_01015fbc;
+extern int vftable_NiTMap_01015fbc;
 struct FUN_004383b0_Class
 {
     void* p;
@@ -82,19 +82,19 @@ struct FUN_004383b0_Class
     void* NiTMap_WaterZone_int_NiTMap(void* a);
 };
 extern "C" void __cdecl FUN_00438820(void*);
-extern char DAT_01015fdc;
+extern char vftable_BSMap_01015fdc;
 struct FUN_004383e0_class
 {
     void* p;
     void* __thiscall BSMap_TESFaction_bool_BSMap(void* a);
 };
-extern int DAT_01015ffc;
+extern int vftable_BSSimpleArray_01015ffc;
 struct AX
 {
     void BSSimpleArray_float_1024_InitialSetup(unsigned int, unsigned int);
     AX* BSSimpleArray_DismemberedLimb_1024_BSSimpleArray();
 };
-extern int DAT_01016010;
+extern int vftable_BSSimpleArray_01016010;
 struct BSSimpleArrayShell
 {
     void BSSimpleArray_CombatTimeStamp_1024_InitialSetup(unsigned int, unsigned int);
@@ -166,12 +166,12 @@ struct FUN_0043fab0_class
     bool __thiscall QueuedHelmet_GetFinishedQueuing();
 };
 extern "C" void* __cdecl _NiFreeAlias(void*);
-extern int DAT_01015a1c;
+extern int vftable_NiTMapBase_01015a1c;
 struct FUN_0042fee0_cls : NiTPointerMap<int, int>
 {
     void FUN_0042fee0();
 };
-extern int DAT_01015f24;
+extern int vftable_ExtraTalkingActor;
 struct BE
 {
     BE(unsigned char);
@@ -208,9 +208,9 @@ struct FUN_00435f80_shell
 };
 struct FUN_00435f50_class : FUN_00435f80_shell
 {
-    void* __thiscall FUN_00435f50(unsigned int flags);
+    void* __thiscall ExtraRefractionProperty_ScalarDeletingDestructor(unsigned int flags);
 };
-extern "C" void* DAT_01015974;
+extern "C" void* vftable_ExtraHasNoRumors;
 struct FUN_00436090 : public BE
 {
     void* vtbl;
@@ -223,36 +223,36 @@ void __cdecl Deallocate(void*);
 struct FUN_00436150_Class
 {
     void __thiscall FUN_00436180();
-    void* __thiscall FUN_00436150(unsigned int flags);
+    void* __thiscall ExtraSound_ScalarDeletingDestructor(unsigned int flags);
 };
 struct FUN_00436390_Class
 {
     void __thiscall FUN_004363c0();
-    void* __thiscall FUN_00436390(unsigned int flags);
+    void* __thiscall ExtraCreatureMovementSound_ScalarDeletingDestructor(unsigned int flags);
 };
 struct FUN_004364b0_Class
 {
     void __thiscall FUN_004364e0();
-    void* __thiscall FUN_004364b0(unsigned int flags);
+    void* __thiscall ExtraWeaponIdleSound_ScalarDeletingDestructor(unsigned int flags);
 };
 struct FUN_004365d0_class
 {
     void* __thiscall FUN_00436600();
-    void* __thiscall FUN_004365d0(unsigned int flags);
+    void* __thiscall ExtraWeaponAttackSound_ScalarDeletingDestructor(unsigned int flags);
 };
 void FUN_00436720();
 void __cdecl Deallocate(void*);
 struct FUN_004366f0_class
 {
     void __thiscall FUN_00436720();
-    void* __thiscall FUN_004366f0(unsigned int flags);
+    void* __thiscall ExtraActivateLoopSound_ScalarDeletingDestructor(unsigned int flags);
 };
 void Deallocate(void*);
 void FUN_00436bb0();
 struct FUN_00436af0_Class
 {
     void FUN_00436bb0();
-    void* FUN_00436af0(unsigned int flags);
+    void* ExtraTalkingActor_ScalarDeletingDestructor(unsigned int flags);
 };
 void __cdecl FUN_00438720(FUN_004383b0_Class*);
 struct FUN_00438410_Class
@@ -311,7 +311,7 @@ struct Holder00420dd0
     BSExtraData* __thiscall GetExtraData(unsigned char);
     unsigned int __thiscall ExtraDataList_GetPortal();
 };
-extern int DAT_01015998;
+extern int vftable_ExtraAmmo;
 struct FUN_0042cba0_class : public BE
 {
     void* vtbl;
@@ -325,7 +325,7 @@ struct FHolder_42cbe0 : BE
 {
     void* __thiscall ExtraPackageData_ExtraPackageData();
 };
-extern int DAT_010151fc;
+extern int vftable_ExtraPackageData;
 struct FUN_0042cc10_class
 {
     int m0;
@@ -354,7 +354,7 @@ struct FUN_0042df90_shell
 {
     ExtraLock* ExtraDataList_GetInfoGeneralTopic(int a);
 };
-extern int DAT_01015980;
+extern int vftable_ExtraModelSwap;
 struct FUN_0042e210_Class : public BE
 {
     void* vtbl;
@@ -364,7 +364,7 @@ struct FUN_0042e210_Class : public BE
     int d;
     FUN_0042e210_Class(int x, int y);
 };
-extern void* DAT_010159bc;
+extern void* vftable_ExtraModdingItem;
 struct FUN_0042e650_class : BE
 {
     void* vtbl;
@@ -406,13 +406,13 @@ void* __cdecl NiGlobalStringTable_GetRealBufferStart(void*);
 void __cdecl FinishScriptRunLock(void*);
 void NiGlobalStringTable_DecRefCount(void* p);
 int __cdecl NiGlobalStringTable_GetRealBufferStart(int* p);
-extern int DAT_01016024;
+extern int vftable_BSSimpleArray_01016024;
 struct FUN_00438660_class
 {
     void* vtable;
     FUN_00438660_class* SetVirtualTableAndProcessState_00438660();
 };
-extern void* DAT_01016058;
+extern void* vftable_BSMapBase_01016058;
 void __cdecl Deallocate(void*);
 struct FNStub
 {
@@ -536,7 +536,7 @@ struct FUN_00421600_Class
     BSExtraData* AddExtra(BSExtraData*);
     void ExtraDataList_SetNoRumors(unsigned char val);
 };
-extern int DAT_01015cd8;
+extern int vftable_ExtraActivateRefChildren;
 struct ListX
 {
     void* m_pInventoryEntryData;
@@ -570,7 +570,7 @@ struct FUN_0042e5a0_class
 {
     void ExtraDataList_SetIsModding(unsigned char type);
 };
-extern int DAT_01016038;
+extern int vftable_NiTMapBase_01016038;
 void* __cdecl NiMalloc(unsigned int);
 void* __cdecl memset(void* dest, int c, unsigned int count);
 struct FUN_004386b0_Class
@@ -670,7 +670,7 @@ struct FUN_00435f80 : public BSExtraDataHelper
 struct FUN_004362a0
 {
     ~FUN_004362a0();
-    void* __thiscall FUN_00436270(unsigned int flags);
+    void* __thiscall ExtraCreatureAwakeSound_ScalarDeletingDestructor(unsigned int flags);
 };
 struct FUN_00436bb0 : public BSExtraData
 {
@@ -695,7 +695,7 @@ struct ExtraListShell
     void BaseExtraList_RemoveExtra_00410140(unsigned char type);
     void ExtraDataList_ClearRumorsExtra();
 };
-extern "C" void* DAT_0101598c;
+extern "C" void* vftable_ExtraActorCause;
 struct FUN_0040ecb0
 {
     virtual ~FUN_0040ecb0();

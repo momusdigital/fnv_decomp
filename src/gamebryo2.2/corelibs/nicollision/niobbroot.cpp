@@ -9,7 +9,7 @@ struct MM
     void _DeallocateAlias(void*);
 };
 extern MM g_memoryManager;
-extern int DAT_010f1b44;
+extern int vftable_NiOBBRoot;
 struct DelBase
 {
     virtual ~DelBase();
@@ -19,7 +19,7 @@ struct DelBase
 void* NiOBBRoot::Destroy(unsigned int auiFlags)
 {
     DelBase* t = reinterpret_cast<DelBase*>(unk08);
-    *reinterpret_cast<void**>(this) = (void*)&DAT_010f1b44;
+    *reinterpret_cast<void**>(this) = (void*)&vftable_NiOBBRoot;
     delete t;
     if (auiFlags & 1)
         g_memoryManager._DeallocateAlias(this);

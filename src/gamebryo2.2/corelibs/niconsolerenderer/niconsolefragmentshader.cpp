@@ -56,7 +56,7 @@ char const* const* __cdecl NiShader_NiShaderInstanceDescriptor_GetRTTI()
     return &g_01270918_arg1;
 }
 
-extern int DAT_010efeb4;
+extern int vftable_NiShader__NiShaderInstanceDescriptor;
 
 extern MemoryManager g_memoryManager;
 
@@ -66,11 +66,11 @@ struct NiShaderInstanceDescriptor
     void* __thiscall FUN_00e8d370(unsigned int mode);
 };
 
-// Sets m_p to the address of DAT_010efeb4 and, when mode has bit 0 set, deallocates this via g_memoryManager, then returns this.
+// Sets m_p to the address of vftable_NiShader__NiShaderInstanceDescriptor and, when mode has bit 0 set, deallocates this via g_memoryManager, then returns this.
 // @fnv 0x00e8d370
 void* __thiscall NiShaderInstanceDescriptor::FUN_00e8d370(unsigned int mode)
 {
-    m_p = &DAT_010efeb4;
+    m_p = &vftable_NiShader__NiShaderInstanceDescriptor;
     if (mode & 1)
         g_memoryManager._DeallocateAlias(this);
     return this;
@@ -164,7 +164,7 @@ void* __thiscall NiFragmentShaderInstanceDescriptor::FUN_00e8d540(unsigned int f
 {
     if ((int)m_pDescriptorData != EmptyFS)
         InterlockedDecrement((long volatile*)((int)m_pDescriptorData - 8));
-    *(int*)this = (int)&DAT_010efeb4;
+    *(int*)this = (int)&vftable_NiShader__NiShaderInstanceDescriptor;
     if (flags & 1)
         g_memoryManager._DeallocateAlias(this);
     return this;
@@ -613,7 +613,7 @@ bool __stdcall SetBloodSplatter(unsigned int auiShaderType, bool abEnabled, bool
     return true;
 }
 
-extern unsigned int DAT_010eff44;
+extern unsigned int vftable_NiDX9FragmentShader;
 extern void* DAT_0109b220;
 void operator delete(void* pvObject, unsigned int uiSize);
 
@@ -649,11 +649,11 @@ struct ShaderObj
 // @fnv 0x00e8dbe0
 ShaderObj* ShaderObj::Release(unsigned int uiFlags)
 {
-    m_vft0 = (unsigned int)&DAT_010eff44;
+    m_vft0 = (unsigned int)&vftable_NiDX9FragmentShader;
     void* pvDevice = m_40;
     if (pvDevice != DAT_0109b220)
         InterlockedDecrement((volatile long*)pvDevice - 2);
-    m_vft3c = (unsigned int)&DAT_010efeb4;
+    m_vft3c = (unsigned int)&vftable_NiShader__NiShaderInstanceDescriptor;
     FUN_00e806c0();
     if (uiFlags & 1)
         operator delete(this, sizeof(ShaderObj));

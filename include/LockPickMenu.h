@@ -88,7 +88,7 @@ public:
     LockPickMenu();
     int GetClass_0078da90();
     void SetTile(int id, Tile* tile);
-    void* FUN_0078dad0(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
     void DoEnter_007902b0(int, Tile*);
     void DoLeave_007902f0(int, Tile*);
     void HandleLockPickAction(int aiCode, int aiUnused);

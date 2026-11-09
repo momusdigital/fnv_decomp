@@ -18,7 +18,7 @@ public:
     unsigned int DecRefCount();
     BSFaceGenModel* GetModelFilePath();
     void FUN_0065bf20();
-    void* FUN_0065bef0(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 
 
     union

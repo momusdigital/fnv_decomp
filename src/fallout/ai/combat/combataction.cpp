@@ -294,7 +294,7 @@ float CombatAction_GetMovementCost(CombatController* apCombatController, Coordin
     return fmovementCost;
 }
 
-extern int DAT_0108cab8;
+extern int vftable_CombatAction;
 
 // CombatWorldStateListNode currently has no nontrivial constructor or destructor.
 // Keep this constructor's local representation until the shared node supports

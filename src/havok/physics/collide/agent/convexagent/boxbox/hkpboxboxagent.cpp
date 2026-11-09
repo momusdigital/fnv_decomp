@@ -100,7 +100,7 @@ void __cdecl RegisterStaticCollisionAgent(D41FD0CollisionDispatcher* dispatcher)
 }
 
 extern "C" const double DAT_010cf200;
-extern "C" char DAT_010cf1c4;
+extern "C" char vftable_hkpBoxBoxAgent;
 extern "C" void* __cdecl FUN_00dacc00(void* a1, void* a2, void* a3, void* a4);
 extern "C" void* __cdecl hkMemoryRouter_getInstance(void);
 
@@ -166,7 +166,7 @@ void* hkpBoxBoxAgent_createBoxBoxAgent(void* apFirst, void* apSecond, void* a3, 
     pSpawned->m_04 = 0x50;
     pSpawned->m_06 = 1;
     pSpawned->m_08 = a4;
-    pSpawned->vptr = &DAT_010cf1c4;
+    pSpawned->vptr = &vftable_hkpBoxBoxAgent;
     ((SubStub*)((char*)pSpawned + 0x10))->InitializeEmptyEntries();
     return pSpawned;
 callPath:

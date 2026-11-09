@@ -442,7 +442,7 @@ struct FUN_00c97510 {
 struct FUN_00c97f50_Class {
     void DispatchOrQueue(void* p);
 };
-extern int DAT_010c3bb8;
+extern int vftable_hkpBroadPhaseCastCollector;
 void __cdecl _Deallocate(void*);
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(void*);
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(void*);
@@ -2364,7 +2364,7 @@ extern unsigned int DAT_0126835c;
 extern "C" __declspec(dllimport) void* __stdcall TlsGetValue(unsigned int);
 extern const char str_010c64b8[];
 extern const char str_010c41f8[];
-extern void* DAT_010c6488;
+extern void* vftable_hkpWorldLinearCaster;
 extern float DAT_0104da4c;
 
 
@@ -3225,8 +3225,8 @@ struct Alloc {
 };
 }
 namespace c912 { inline hkMemoryRouter* router() { return (hkMemoryRouter*)hkMemoryRouter_getInstance(); } }
-extern int DAT_010c6420;
-extern int DAT_010c6378;
+extern int vftable_hkpNullContactMgrFactory;
+extern int vftable_hkpNullContactMgr;
 struct CFB240ContactMgrFactory {
     virtual ~CFB240ContactMgrFactory();
     unsigned short m_usMemSizeAndFlags;
@@ -3250,7 +3250,7 @@ struct FUN_00cfca20 : CFB240ContactMgrFactory {
 };
 struct OtherC912 {
     void* vtable; short unknown; short refs; int kind;
-    OtherC912() throw() { refs = 1; kind = 3; vtable = &DAT_010c6378; }
+    OtherC912() throw() { refs = 1; kind = 3; vtable = &vftable_hkpNullContactMgr; }
 };
 struct FactoryThreeC912 : CFB240ContactMgrFactory {
     OtherC912 other;
@@ -6404,7 +6404,7 @@ __forceinline void transformLocalPoseToModelPoseDAD(int numTransforms, const sho
     }
 }
 extern "C" void _ReadWriteBarrier();
-extern int DAT_0108febc;
+extern int vftable_bhkConstraint;
 extern int DAT_01268188;
 extern int DAT_01268318;
 void* Object_DispatchCommandFour(unsigned int size);
@@ -7710,19 +7710,19 @@ extern void Runtime_GetD107A0RTTIAddress();
 extern void hkpCollisionCallbackUtil_addCollisionCallbackUtil(WorldCtor*);
 extern ObjectCtor* (__cdecl* DAT_011b37a0)(::hkQuadReal*,::hkQuadReal*,int);
 
-extern int DAT_010c6714;
-extern int DAT_010c63f0;
-extern int DAT_010c63e0;
-extern int DAT_010c6410;
-extern int DAT_010c6400;
-extern int DAT_010c646c;
-extern int DAT_010c6460;
-extern int DAT_010c644c;
-extern int DAT_010c6440;
-extern int DAT_010c6434;
-extern int DAT_010c63cc;
-extern int DAT_010c6378;
-extern int DAT_010c6420;
+extern int vftable_hkpWorld;
+extern int vftable_hkpPhantomBroadPhaseListener;
+extern int vftable_hkpPhantomBroadPhaseListener_for_hkpBroadPhaseListener;
+extern int vftable_hkpBroadPhaseBorderListener;
+extern int vftable_hkpBroadPhaseBorderListener_for_hkpBroadPhaseListener;
+extern int vftable_hkpNullCollisionFilter;
+extern int vftable_hkpNullCollisionFilter_for_hkpCollidableCollidableFilter;
+extern int vftable_hkpNullCollisionFilter_for_hkpShapeCollectionFilter;
+extern int vftable_hkpNullCollisionFilter_for_hkpRayShapeCollectionFilter;
+extern int vftable_hkpNullCollisionFilter_for_hkpRayCollidableFilter;
+extern int vftable_hkpDefaultConvexListFilter;
+extern int vftable_hkpNullContactMgr;
+extern int vftable_hkpNullContactMgrFactory;
 extern ::hkQuadReal DAT_010c44d0;
 extern float DAT_010c6840;
 extern float DAT_010c6844;
@@ -7947,7 +7947,7 @@ __forceinline DeactivationCtor& SolverCtor::configureTier(int tierIndex,float th
 // @fnv 0x00c95a80
 // src: XBOX_PDB 0x00c95a80
 WorldCtor* WorldCtor::hkpWorld_hkpWorld(WorldInfoCtor* info, int version) {
-    vtable=&DAT_010c6714;
+    vtable=&vftable_hkpWorld;
     references=1;
     int tierIndex=0;
     initArray(active); initArray(inactive); initArray(dirty);
@@ -8049,15 +8049,15 @@ WorldCtor* WorldCtor::hkpWorld_hkpWorld(WorldInfoCtor* info, int version) {
     broadphaseDispatcher=object ? object->FUN_00cf6f90() : 0;
     object=allocObject<ObjectCtor>(0xc);
     object->references=1;
-    object->vtable=(ObjectVtableCtor*)&DAT_010c63f0;
-    object->unk08.raw=&DAT_010c63e0;
+    object->vtable=(ObjectVtableCtor*)&vftable_hkpPhantomBroadPhaseListener;
+    object->unk08.raw=&vftable_hkpPhantomBroadPhaseListener_for_hkpBroadPhaseListener;
     phantomListener=object;
     object=allocObject<ObjectCtor>(0x10);
     entityListener=object->InitializeFields_00d107d0(this);
     object=allocObject<ObjectCtor>(0xc);
     object->references=1;
-    object->vtable=(ObjectVtableCtor*)&DAT_010c6410;
-    object->unk08.raw=&DAT_010c6400;
+    object->vtable=(ObjectVtableCtor*)&vftable_hkpBroadPhaseBorderListener;
+    object->unk08.raw=&vftable_hkpBroadPhaseBorderListener_for_hkpBroadPhaseListener;
     borderListener=object;
     broadphaseDispatcher->unk28.raw=phantomListener ? &phantomListener->unk08 : 0;
     broadphaseDispatcher->unk44.raw=phantomListener ? &phantomListener->unk08 : 0;
@@ -8074,11 +8074,11 @@ WorldCtor* WorldCtor::hkpWorld_hkpWorld(WorldInfoCtor* info, int version) {
     if(!info->filter) {
         object=allocObject<ObjectCtor>(0x30);
         object->FUN_00cbfba0();
-        object->vtable=(ObjectVtableCtor*)&DAT_010c646c;
-        object->unk08.raw=&DAT_010c6460;
-        object->unk0c.raw=&DAT_010c644c;
-        object->unk10.raw=&DAT_010c6440;
-        object->unk14.raw=&DAT_010c6434;
+        object->vtable=(ObjectVtableCtor*)&vftable_hkpNullCollisionFilter;
+        object->unk08.raw=&vftable_hkpNullCollisionFilter_for_hkpCollidableCollidableFilter;
+        object->unk0c.raw=&vftable_hkpNullCollisionFilter_for_hkpShapeCollectionFilter;
+        object->unk10.raw=&vftable_hkpNullCollisionFilter_for_hkpRayShapeCollectionFilter;
+        object->unk14.raw=&vftable_hkpNullCollisionFilter_for_hkpRayCollidableFilter;
         object->unk20.i=1;
         filter=object;
     } else {
@@ -8088,7 +8088,7 @@ WorldCtor* WorldCtor::hkpWorld_hkpWorld(WorldInfoCtor* info, int version) {
     if(!info->convexFilter) {
         object=allocObject<ObjectCtor>(8);
         object->references=1;
-        object->vtable=(ObjectVtableCtor*)&DAT_010c63cc;
+        object->vtable=(ObjectVtableCtor*)&vftable_hkpDefaultConvexListFilter;
         convexFilter=object;
     } else {
         convexFilter=info->convexFilter;

@@ -263,7 +263,7 @@ void Hkpshapecollectionagent_ForwardCall_00d36990()
     hkCollectorD347_ProcessState_00d34790();
 }
 
-extern char DAT_010cf318[];
+extern char vftable_hkpShapeCollectionAgent[];
 
 struct ContactMgrS;
 struct AgentS;

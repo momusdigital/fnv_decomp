@@ -1611,7 +1611,7 @@ struct SweepMarker { unsigned short node,value; SweepEndpointView<unsigned short
 union SweepBits { __m128 vector; struct { unsigned int x,y,z,w; } bits; };
 static const __m128 sweepBias={65536.0f,65536.0f,65536.0f,65536.0f};
 extern __m128 DAT_011b3790;
-extern const void* DAT_010cd5cc[];
+extern const void* vftable_hkp3AxisSweep[];
 extern "C" void _ReadWriteBarrier(void);
 inline void findSweepShift(int value,int& result) { result=-1; if(value>0) { int current=*(volatile int*)&result; do {value>>=1;++current;}while(value>0);result=current;} }
 struct SweepScratch { union {float upper;SweepEnd endpoint;}; union {int logarithm;int byteOffset;}; union {float lower;int power;int index;SweepEnd last;}; union {float middle;float value;int needed;int markerCount;}; SweepNode* root; };
@@ -1630,7 +1630,7 @@ struct FUN_00d13bd0 : SweepBase {
 };
 // Initializes sweep bounds, node and marker arrays, and the initial sweep tree.
 // @fnv 0x00d13bd0
-FUN_00d13bd0::FUN_00d13bd0(const int* low,const int* high,int count):lowBound((vtable=DAT_010cd5cc,low)),highBound(high) {
+FUN_00d13bd0::FUN_00d13bd0(const int* low,const int* high,int count):lowBound((vtable=vftable_hkp3AxisSweep,low)),highBound(high) {
     SweepScratch scratch; findSweepShift(count ? count : 1,scratch.logarithm);
     SweepRouter* router = (SweepRouter*)hkMemoryRouter_getInstance();
     nodes.reserveHeap(*router->heap, &nodes, 255);

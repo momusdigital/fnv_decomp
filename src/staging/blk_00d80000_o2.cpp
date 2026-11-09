@@ -50,14 +50,14 @@ public:
     int m_iJobId;
 };
 
-extern int DAT_010cc4f4;
+extern int vftable_hkpSimulation;
 
 // @fnv 0x00d9f6d0
 // src: GUESS 0x00d9f6d0 (confidence: low)
 void __cdecl Runtime_UpdateState_00d9f6d0(int* p)
 {
     if (p)
-        *p = (int)&DAT_010cc4f4;
+        *p = (int)&vftable_hkpSimulation;
 }
 
 struct FUN_00d85300_Stub {
@@ -368,7 +368,7 @@ D85440Shape* CloneShape(const D85440Shape* pkSource)
 }  // namespace fnv_00d85440
 
 namespace fnv_00d85490 {
-extern int DAT_010cc4f4;
+extern int vftable_hkpSimulation;
 
 struct FUN_00d85490_Allocator {
     virtual void FUN_00d85490_Alloc0();
@@ -885,12 +885,12 @@ CpuOpaque* __cdecl Object_GetGlobalObjectAddress_00d9f6c0()
     return &DAT_01269514;
 }
 
-extern int DAT_010cc4f4;
+extern int vftable_hkpSimulation;
 
 // @fnv 0x00d9f6e0
 // src: GUESS 0x00d9f6e0 (confidence: low)
 unsigned int __cdecl Object_ComputeValue_00d9f6e0() {
-    return reinterpret_cast<unsigned int>(&DAT_010cc4f4);
+    return reinterpret_cast<unsigned int>(&vftable_hkpSimulation);
 }
 
 // Havok object clone: allocate a default instance and copy the payload (everything after the header).
@@ -972,7 +972,7 @@ D85660Object* __cdecl copyConstraintAtoms_class_hkpHingeLimitsData(const D85660O
     return pkClone;
 }
 
-extern int DAT_010d3838;
+extern int vftable_hkpSpringDamperConstraintMotor;
 struct FUN_00d86260_Class {
     unsigned int m_vptr;
     unsigned short m_word04;
@@ -990,7 +990,7 @@ FUN_00d86260_Class::FUN_00d86260_Class(float a, float b, float c)
     m_word06 = 1;
     m_byte08 = 0;
     m_float0C = -c;
-    m_vptr = (unsigned int)&DAT_010d3838;
+    m_vptr = (unsigned int)&vftable_hkpSpringDamperConstraintMotor;
     m_float10 = c;
     m_byte08 = 3;
     m_float14 = a;
@@ -1391,14 +1391,14 @@ void __cdecl Runtime_DoNothing_00d87a90()
 {
 }
 
-extern int DAT_010d3cc0;
+extern int vftable_hkTraceStream;
 // @fnv 0x00d87b90
 D85660Object* __cdecl CreateD85660Object()
 {
     D85660Object* p = static_cast<D85660Object*>(GetObjectHeap(D85660GetMemoryRouter()).AllocateMemoryBlock(0x1c));
     p->m_usMemSizeAndFlags = 0x1c;
     p->m_sReferenceCount = 1;
-    *reinterpret_cast<void**>(p) = &DAT_010d3cc0;
+    *reinterpret_cast<void**>(p) = &vftable_hkTraceStream;
     p->m_iData010 = 0;
     p->m_iData014 = 0;
     p->m_iData018 = 0x80000000;
@@ -1955,7 +1955,7 @@ void __cdecl Runtime_ForwardCall_00d9f6b0(FnvCpu_FUN_00d9f6b0_CpuInterface* obje
     object->Invoke(0);
 }
 
-extern char DAT_0102e388;
+extern char vftable_hkBaseObject;
 struct FUN_00d9fb30_Stub {
     void SetVtableAndProcessState_00d9fb30();
 };
@@ -1963,7 +1963,7 @@ struct FUN_00d9fb30_Stub {
 // src: GUESS 0x00d9fb30 (confidence: low)
 void FUN_00d9fb30_Stub::SetVtableAndProcessState_00d9fb30()
 {
-    *(int*)this = (int)&DAT_0102e388;
+    *(int*)this = (int)&vftable_hkBaseObject;
 }
 
 // @fnv 0x00d9fb40
@@ -2109,7 +2109,7 @@ void __cdecl bhkLimitedForceConstraintMotor_SaveBinary(NiStream& kStream, Serial
     NiStreamLoadBinaryD8616(**reinterpret_cast<NiBinaryStream**>(reinterpret_cast<char*>(&kStream) + 0x250), pkData->m_10);
 }
 
-extern int DAT_010d3838;
+extern int vftable_hkpSpringDamperConstraintMotor;
 struct FUN_00d86220_Class {
     unsigned int m_vptr;
     unsigned short m_word04;
@@ -2129,7 +2129,7 @@ FUN_00d86220_Class::FUN_00d86220_Class()
     m_byte08 = 0;
     m_float0C = -1000000.0f;
     m_float10 = 1000000.0f;
-    m_vptr = (unsigned int)&DAT_010d3838;
+    m_vptr = (unsigned int)&vftable_hkpSpringDamperConstraintMotor;
     m_byte08 = 3;
     m_float14 = 0.0f;
     m_float18 = 0.0f;
@@ -5497,7 +5497,7 @@ float Object_ComputeBisectionMidpoint()
 
 extern "C" void _mm_store_ps(float* p, LocalM128 a);
 
-extern int DAT_010d37e4;
+extern int vftable_hkpPointToPlaneConstraintData;
 
 struct FUN_00d84bd0
 {
@@ -5549,11 +5549,11 @@ struct FUN_00d84bd0
     FUN_00d84bd0();
 };
 
-// Stores &DAT_010d37e4 at offset 0, sets m_06=1, m_10=2, m_a0=7, sets m_20/m_34/m_48 and m_60/m_74/m_88 to 1.0f, and zeroes the other 16-byte blocks.
+// Stores &vftable_hkpPointToPlaneConstraintData at offset 0, sets m_06=1, m_10=2, m_a0=7, sets m_20/m_34/m_48 and m_60/m_74/m_88 to 1.0f, and zeroes the other 16-byte blocks.
 // @fnv 0x00d84bd0
 FUN_00d84bd0::FUN_00d84bd0()
 {
-    *(int**)this = &DAT_010d37e4;
+    *(int**)this = &vftable_hkpPointToPlaneConstraintData;
     m_06 = 1;
     m_08 = 0;
     m_10 = 2;

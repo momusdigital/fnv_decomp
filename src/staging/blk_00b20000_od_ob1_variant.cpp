@@ -24,18 +24,18 @@ struct FUN_00b274a0_class
     FUN_00b274a0_class* __thiscall ResetState();
 };
 extern "C" void FUN_0044a450(int);
-extern int DAT_010a57fc;
+extern int vftable_std__out_of_range;
 struct FUN_00b3c440_class
 {
     int* vtbl;
     int std_out_of_range_out_of_range(int a);
 };
-extern int DAT_010a31fc;
+extern int vftable_std__locale__facet;
 struct FUN_00b3c910_class
 {
     void InitVTable();
 };
-extern int DAT_010a5890;
+extern int vftable_CIdvCamera;
 struct FUN_00b3f0a0_Class
 {
     void __thiscall SetVirtualTable_00b3f0a0();
@@ -314,7 +314,7 @@ struct Hldr0044
 extern "C" void __stdcall FUN_00ec7894(Hldr0044* p, void* dat);
 extern "C" void __cdecl FormHeap_Allocate(unsigned int scaled);
 extern "C" int DAT_01140ef8;
-extern "C" int DAT_010176f8;
+extern "C" int vftable_std__bad_alloc;
 // @fnv 0x00b35f00
 // src: GUESS 0x00b35f00 (confidence: low)
 extern "C" void __cdecl Object_UpdateFields_00b35f00(unsigned int n)
@@ -332,7 +332,7 @@ extern "C" void __cdecl Object_UpdateFields_00b35f00(unsigned int n)
         {
             tmp = 0;
             h.Init(&tmp);
-            h.m_iWordAt00 = (int)&DAT_010176f8;
+            h.m_iWordAt00 = (int)&vftable_std__bad_alloc;
             FUN_00ec7894(&h, &DAT_01140ef8);
         }
     }
@@ -653,7 +653,7 @@ struct FUN_00b3fdd0_class
     FUN_00b37880_class* unk5c;
     void __thiscall UpdateState_00b3fdd0(FUN_00b37880_class* value);
 };
-extern int DAT_010173e8;
+extern int vftable_std__logic_error;
 struct FUN_00b3c3b0_Sub
 {
     void __thiscall fopen_0044a730(int a, int b);

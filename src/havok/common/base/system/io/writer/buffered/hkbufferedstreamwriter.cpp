@@ -82,8 +82,8 @@ void __cdecl hkBufferedStreamWriter_flush();
 hkMemoryRouter* __cdecl _D1A0E0GetMemoryRouter();
 void __cdecl hkMemoryRouter_alignedFree(void*, void*);
 
-extern int DAT_010ce448;
-extern int _DAT_0102e388;
+extern int vftable_hkBufferedStreamWriter;
+extern int vftable_hkBaseObject;
 
 struct FUN_00d27520
 {
@@ -101,7 +101,7 @@ struct FUN_00d27520
 // @fnv 0x00d27520
 FUN_00d27520::~FUN_00d27520()
 {
-    m_vtbl = &DAT_010ce448;
+    m_vtbl = &vftable_hkBufferedStreamWriter;
     hkBufferedStreamWriter_flush();
     if (m_pWorld)
         m_pWorld->removeReference();
@@ -111,7 +111,7 @@ FUN_00d27520::~FUN_00d27520()
         hkMemoryRouter* router = _D1A0E0GetMemoryRouter();
         hkMemoryRouter_alignedFree(router->m_heap, pData);
     }
-    m_vtbl = &_DAT_0102e388;
+    m_vtbl = &vftable_hkBaseObject;
 }
 
 namespace fnv_00d27570 {

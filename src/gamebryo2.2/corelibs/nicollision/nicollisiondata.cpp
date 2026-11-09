@@ -273,7 +273,7 @@ bool __stdcall NiCollisionData_RegisterStreamables(void* pStream)
     return MyColl_WriteToStream(pStream);
 }
 
-extern unsigned char DAT_010f18bc;
+extern unsigned char vftable_NiCollisionData;
 extern unsigned int DAT_011f426c;
 
 inline void* __cdecl operator new(unsigned int, void* memory) { return memory; }
@@ -304,7 +304,7 @@ NiCollisionData::NiCollisionData() : NiCollisionObject((void*)0)
 
 }
 
-extern unsigned char DAT_010f18bc;
+extern unsigned char vftable_NiCollisionData;
 extern unsigned char DAT_011f6238;
 
 struct FUN_00aa4060_shell
@@ -326,7 +326,7 @@ struct SpawnedObj
 void NiCollisionData::UpdateFields_00eacde0()
 {
     unsigned int a = (unsigned int)m_pWorldVertices;
-    *(void**)this = &DAT_010f18bc;
+    *(void**)this = &vftable_NiCollisionData;
     ((FUN_00aa4060_shell*)&DAT_011f6238)->MemoryManager_Deallocate(a);
     ((FUN_00aa4060_shell*)&DAT_011f6238)->MemoryManager_Deallocate((unsigned int)unk44);
     if (m_pkModelABV != 0)

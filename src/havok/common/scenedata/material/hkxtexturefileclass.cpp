@@ -31,16 +31,16 @@ struct FUN_00e01870_Class
     Part part10;
     FUN_00e01870_Class* FUN_00e01870(unsigned int);
 };
-void* DAT_0102e388;
+void* vftable_hkBaseObject;
 UnkRet* hkMemoryRouter_getInstance();
-// Calls FUN_00cb0c00 on part10, part0c and part08, sets vptr to DAT_0102e388, and if flags bit 0 is set releases this with refCount via object->part10.
+// Calls FUN_00cb0c00 on part10, part0c and part08, sets vptr to vftable_hkBaseObject, and if flags bit 0 is set releases this with refCount via object->part10.
 // @fnv 0x00e01870
 FUN_00e01870_Class* FUN_00e01870_Class::FUN_00e01870(unsigned int flags)
 {
     part10.Object_UpdateFields_00cb0c00();
     part0c.Object_UpdateFields_00cb0c00();
     part08.Object_UpdateFields_00cb0c00();
-    vptr = &DAT_0102e388;
+    vptr = &vftable_hkBaseObject;
     if (flags & 1)
     {
         UnkRet* object = hkMemoryRouter_getInstance();

@@ -593,17 +593,17 @@ void FORenderedMenu::HandleShudderEffect(float afTime)
 }
 
 float __cdecl ApplyNoise(float);
-extern Setting g_011db3a4;
-extern Setting g_011db408;
-extern Setting g_011db424;
+extern Setting fPulseBrightenIntensity_InterfaceFX;
+extern Setting fPulseRate_InterfaceFX;
+extern Setting fPulseRadiusIntensity_InterfaceFX;
 
 // @fnv 0x007fb530
 // src: COMMUNITY 0x007fb530
 void FORenderedMenu::HandlePulseEffect(float afDuration)
 {
-    float f04 = ApplyNoise(afDuration * *g_011db408.Float()) * 2.0f;
-    m_fPulseBrightenIntensity = f04 * *g_011db3a4.Float();
-    m_fPulseRate = f04 * *g_011db424.Float();
+    float f04 = ApplyNoise(afDuration * *fPulseRate_InterfaceFX.Float()) * 2.0f;
+    m_fPulseBrightenIntensity = f04 * *fPulseBrightenIntensity_InterfaceFX.Float();
+    m_fPulseRate = f04 * *fPulseRadiusIntensity_InterfaceFX.Float();
 }
 
 // These transition entry points are not declared by FOPipboyManager.h yet.
@@ -620,8 +620,8 @@ void __cdecl Interface_IsolateMenuElements(bool, bool);
 void __cdecl BSShaderBloodSplatter_SetGlobalAlpha(float);
 
 extern char DAT_011d890a;
-extern Setting g_011db43c;
-extern Setting g_011db480;
+extern Setting fDefaultBurstIntensity_InterfaceFX;
+extern Setting fDefaultBurstDuration_InterfaceFX;
 
 // @fnv 0x007f8010
 void PipboyMenuTransitions::OpenPipboyMenu()
@@ -644,7 +644,7 @@ void PipboyMenuTransitions::OpenPipboyMenu()
 
     reinterpret_cast<BSSoundHandle&>(m_kPipBoyLightData).Play(false);
 
-    StartBurst(*g_011db480.Float(), *g_011db43c.Float(), 0.5f);
+    StartBurst(*fDefaultBurstDuration_InterfaceFX.Float(), *fDefaultBurstIntensity_InterfaceFX.Float(), 0.5f);
 
     OnMenuOpen_007fb040();
 

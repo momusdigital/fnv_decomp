@@ -715,7 +715,7 @@ struct GlobalObject_0045cf30
 {
     unsigned char* Bool();
 };
-extern GlobalObject_0045cf30 g_011de4e8;
+extern GlobalObject_0045cf30 bDebugSaveBuffer_Debug;
 
 TESForm* _ref_004839c0(unsigned int formID);
 
@@ -762,7 +762,7 @@ unsigned short FleePackage::GetSaveSize()
     usSize += 1;
     usSize += 1;
 
-    if (*g_011de4e8.Bool())
+    if (*bDebugSaveBuffer_Debug.Bool())
     {
         HitSound* m_pContactSound =
             reinterpret_cast<HitSound*>(reinterpret_cast<TESSaveLoadGame*>(DAT_011de45c)->GetHitSound());
@@ -1546,7 +1546,7 @@ void FleePackage::SaveFleePackage()
     unsigned short sizeVal = 0;   // Serialized block length.
     unsigned char* position = 0;  // Address of the block length field.
     unsigned char* aPosition = reinterpret_cast<SaveStream*>(DAT_011de45c)->FUN_00825c00();
-    if (*g_011de4e8.Bool())
+    if (*bDebugSaveBuffer_Debug.Bool())
         aPosition = reinterpret_cast<SaveStream*>(DAT_011de45c)->FUN_00825c00();
     if (reinterpret_cast<SaveStream*>(DAT_011de45c)->TESSaveLoadGame_UseSaveGameBlocks())
     {
@@ -1583,7 +1583,7 @@ void FleePackage::SaveFleePackage()
     reinterpret_cast<PackageSaveAccess*>(this)->TESForm_SaveGameDataOLD(&this->position, 12);
     reinterpret_cast<PackageSaveAccess*>(this)->TESForm_SaveGameDataOLD(&flag80, 1);
     reinterpret_cast<PackageSaveAccess*>(this)->TESForm_SaveGameDataOLD(&flagA9, 1);
-    if (*g_011de4e8.Bool())
+    if (*bDebugSaveBuffer_Debug.Bool())
     {
         unsigned char* end = reinterpret_cast<SaveStream*>(DAT_011de45c)->FUN_00825c00();
         SaveDebugRecord* reference = reinterpret_cast<SaveStream*>(DAT_011de45c)->GetHitSound();

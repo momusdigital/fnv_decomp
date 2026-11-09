@@ -12,7 +12,7 @@
 // preserves the original no-argument member-call convention.
 float __fastcall GetTimeoutTimerElapsed(TimeoutTimer* timer);
 
-extern void* DAT_01090ed4;
+extern void* vftable_CombatProcedureAttackRanged;
 
 // Methods not yet declared by the shared class keep their original ECX/stack ABI.
 Actor* __fastcall GetRangedActor(CombatProcedureAttackRanged* self);
@@ -33,7 +33,7 @@ struct RangedIntArgument { int value; };
 // @fnv 0x009d0980
 void __fastcall DestroyRangedProcedure(CombatProcedureAttackRanged* self)
 {
-    *(void**)self = &DAT_01090ed4;
+    *(void**)self = &vftable_CombatProcedureAttackRanged;
     DestroyRangedBase(self);
 }
 

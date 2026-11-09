@@ -44,7 +44,7 @@
 #include "../../include/NiFrustum.h"
 
 
-extern int DAT_010c1670;
+extern int vftable_LockFreeMap__LockFreeMapIterator_010c1670;
 
 struct FUN_00c40990_Class {
     void __thiscall SetVtableAndProcessState_00c40990();
@@ -54,7 +54,7 @@ struct FUN_00c40990_Class {
 // src: GUESS 0x00c40990 (confidence: low)
 void __thiscall FUN_00c40990_Class::SetVtableAndProcessState_00c40990()
 {
-    *(int*)this = (int)&DAT_010c1670;
+    *(int*)this = (int)&vftable_LockFreeMap__LockFreeMapIterator_010c1670;
 }
 
 struct FUN_00c42b60_class {
@@ -259,7 +259,7 @@ void FUN_00c44cb0_class::CallStoredCallback()
     ((void (*)(void*))m1)(m2);
 }
 
-extern int DAT_010178bc;
+extern int vftable_BSTempNodeManager;
 void __cdecl UpdateFields_00c5faa0(void*);
 struct FUN_00c44e20 {
     void UpdateFields_00c5faa0();
@@ -268,7 +268,7 @@ struct FUN_00c44e20 {
 // @fnv 0x00c44e20
 FUN_00c44e20::~FUN_00c44e20()
 {
-    *reinterpret_cast<int**>(this) = &DAT_010178bc;
+    *reinterpret_cast<int**>(this) = &vftable_BSTempNodeManager;
     UpdateFields_00c5faa0();
 }
 
@@ -833,7 +833,7 @@ int* __thiscall FUN_00c5cea0_Class::BSPSysMultiTargetEmitterCtlr_GetRTTI()
     return &g_01203340;
 }
 
-extern int DAT_010c2e7c;
+extern int vftable_BSScissorTriShape;
 
 struct FUN_00a744a0 {
     void* vtbl;
@@ -851,11 +851,11 @@ struct FUN_00c5ceb0 : public FUN_00a744a0 {
 // @fnv 0x00c5ceb0
 FUN_00c5ceb0::FUN_00c5ceb0()
 {
-    vtbl = &DAT_010c2e7c;
+    vtbl = &vftable_BSScissorTriShape;
 }
 
 extern "C" void __fastcall FUN_00a89760(void*);
-extern int DAT_010c2e7c;
+extern int vftable_BSScissorTriShape;
 
 struct FUN_00c5cfb0 {
     virtual void vfn();
@@ -929,7 +929,7 @@ GlobalObject_00a7b610* __thiscall GlobalObject_00a7b610::GetGlobalInstance()
 }
 
 namespace fnv_00c5f570 {
-extern int DAT_010c31a4;
+extern int vftable_BSNiNode;
 
 
 struct FUN_00c5f570 : NiNode {
@@ -942,7 +942,7 @@ FUN_00c5f570::FUN_00c5f570() : NiNode(0)
 }
 }  // namespace fnv_00c5f570
 
-extern int DAT_010c31a4;
+extern int vftable_BSNiNode;
 struct Unk_00a5e930 {
     void __thiscall UpdateFields_00c5faa0();
 };
@@ -953,7 +953,7 @@ struct FUN_00c5faa0 {
 // src: GUESS 0x00c5faa0 (confidence: low)
 void FUN_00c5faa0::UpdateFields_00c5faa0()
 {
-    *reinterpret_cast<int**>(this) = &DAT_010c31a4;
+    *reinterpret_cast<int**>(this) = &vftable_BSNiNode;
     reinterpret_cast<Unk_00a5e930*>(this)->UpdateFields_00c5faa0();
 }
 
@@ -1012,18 +1012,18 @@ void __thiscall FUN_00c5ffb0_Class::BSPSysStripUpdateModifier_RegisterStreamable
     FUN_00c31670(param);
 }
 
-extern int DAT_010c30b8;
+extern int vftable_NiTArray_010c30b8;
 void NiFreeAlias(void*);
 struct FUN_00c5eb60_Class {
     int m0;
     int m1;
     void ResetAndFreeAlias();
 };
-// Stores the address of DAT_010c30b8 into m0, then frees m1 through NiFreeAlias.
+// Stores the address of vftable_NiTArray_010c30b8 into m0, then frees m1 through NiFreeAlias.
 // @fnv 0x00c5eb60
 void FUN_00c5eb60_Class::ResetAndFreeAlias()
 {
-    m0 = (int)&DAT_010c30b8;
+    m0 = (int)&vftable_NiTArray_010c30b8;
     void* alias = (void*)m1;
     NiFreeAlias(alias);
 }
@@ -1098,7 +1098,7 @@ struct FUN_00c40b40_class {
 // @fnv 0x00c40b40
 FUN_00c40b40_class* __thiscall FUN_00c40b40_class::FUN_00c40b40(int a)
 {
-    vtbl = (int)&DAT_010c1670;
+    vtbl = (int)&vftable_LockFreeMap__LockFreeMapIterator_010c1670;
     if (a & 1)
         reinterpret_cast<MemoryManager*>(&g_memoryManager)->Deallocate(this);
     return this;
@@ -1108,11 +1108,12 @@ FUN_00c40b40_class* __thiscall FUN_00c40b40_class::FUN_00c40b40(int a)
 void __cdecl SetVtableAndProcessState_00c43070(void*);
 struct FUN_00c43620_Class {
     void __thiscall SetVtableAndProcessState_00c43070();
-    void* __thiscall FUN_00c43620(unsigned int flags);
+    void* __thiscall BSXFlags_ScalarDeletingDestructor(unsigned int flags);
     static void __cdecl operator delete(void* p, unsigned int size);
 };
 // @fnv 0x00c43620
-void* __thiscall FUN_00c43620_Class::FUN_00c43620(unsigned int flags)
+// src: EXE 0x00c43620
+void* __thiscall FUN_00c43620_Class::BSXFlags_ScalarDeletingDestructor(unsigned int flags)
 {
     SetVtableAndProcessState_00c43070();
     if (flags & 1)
@@ -1196,10 +1197,11 @@ namespace fnv_00c44df0 {
 extern MemoryManager _g_memoryManager;
 struct FUN_00c44df0_class {
     void __thiscall FUN_008c77c0();
-    void* __thiscall FUN_00c44df0(unsigned int flags);
+    void* __thiscall BSParallelTaskThread_ScalarDeletingDestructor(unsigned int flags);
 };
 // @fnv 0x00c44df0
-void* FUN_00c44df0_class::FUN_00c44df0(unsigned int flags)
+// src: EXE 0x00c44df0
+void* FUN_00c44df0_class::BSParallelTaskThread_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_008c77c0();
     if (flags & 1)
@@ -1395,8 +1397,8 @@ int __thiscall FUN_00c50f30_class::GetEntryValue(int aiIndex)
     return r;
 }
 
-extern int DAT_0106c814;
-extern int DAT_010c256c;
+extern int vftable_BSTaskletData;
+extern int vftable_UpdateMasterPsysTaskletData;
 struct FUN_00c51640_Class {
     const char* s;
     int i;
@@ -1411,14 +1413,14 @@ struct FUN_00c51640_Class {
 // src: COMMUNITY 0x00c51640
 void* __thiscall FUN_00c51640_Class::UpdateMasterPsysTaskletData_UpdateMasterPsysTaskletData()
 {
-    s = (const char*)&DAT_0106c814;
+    s = (const char*)&vftable_BSTaskletData;
     *(unsigned char*)((char*)this + 4) = 0;
     s = "@yl";
     *(int*)((char*)this + 8) = 0;
     *(unsigned char*)((char*)this + 0xc) = 1;
     int* q = (int*)((char*)this + 0x10);
     *q = 0;
-    s = (const char*)&DAT_010c256c;
+    s = (const char*)&vftable_UpdateMasterPsysTaskletData;
     return this;
 }
 
@@ -1427,10 +1429,11 @@ struct FUN_00878690_shell {
 };
 void __cdecl operator delete(void* ptr, unsigned int size);
 struct FUN_00c52830_class {
-    void* __thiscall FUN_00c52830(unsigned int flags);
+    void* __thiscall BSSceneGraph_ScalarDeletingDestructor(unsigned int flags);
 };
 // @fnv 0x00c52830
-void* __thiscall FUN_00c52830_class::FUN_00c52830(unsigned int flags)
+// src: EXE 0x00c52830
+void* __thiscall FUN_00c52830_class::BSSceneGraph_ScalarDeletingDestructor(unsigned int flags)
 {
     reinterpret_cast<FUN_00878690_shell*>(this)->FUN_00c51df0();
     if (flags & 1)
@@ -1440,7 +1443,7 @@ void* __thiscall FUN_00c52830_class::FUN_00c52830(unsigned int flags)
 
 namespace fnv_00c54d70 {
 extern MemoryManager _g_memoryManager;
-extern int DAT_010c2b2c;
+extern int vftable_NiTArray_010c2b2c;
 struct FUN_00c54d70_class {
     int* vtbl;
     void* data;
@@ -1450,7 +1453,7 @@ struct FUN_00c54d70_class {
 // @fnv 0x00c54d70
 FUN_00c54d70_class* __thiscall FUN_00c54d70_class::FUN_00c54d70(unsigned int flags)
 {
-    vtbl = &DAT_010c2b2c;
+    vtbl = &vftable_NiTArray_010c2b2c;
     void* tmp2 = data;
     void* tmp = tmp2;
     _g_memoryManager.Deallocate(tmp);
@@ -1475,11 +1478,12 @@ void __thiscall FUN_00c54ec0_class::BSBound_SaveBinary(NiStream& stream)
 }
 
 struct FUN_00c55330_class {
-    void* __thiscall FUN_00c55330(unsigned int flags);
+    void* __thiscall BSBound_ScalarDeletingDestructor(unsigned int flags);
     void operator delete(void* p, unsigned int size);
 };
 // @fnv 0x00c55330
-void* __thiscall FUN_00c55330_class::FUN_00c55330(unsigned int flags)
+// src: EXE 0x00c55330
+void* __thiscall FUN_00c55330_class::BSBound_ScalarDeletingDestructor(unsigned int flags)
 {
     reinterpret_cast<NiExtraData*>(this)->DestroyFields_00a7b300();
     if (flags & 1)
@@ -1492,12 +1496,13 @@ extern "C" void __cdecl operator delete(void*, unsigned int);
 
 struct FUN_00c5ac00_class {
     void __thiscall FUN_00c5ac00();
-    void* __thiscall FUN_00c5bae0(unsigned int flags);
+    void* __thiscall BSPortalGraph_ScalarDeletingDestructor(unsigned int flags);
 };
 
 // Calls FUN_00c5ac00, then frees this with operator delete when flags has bit 0 set, and returns this.
 // @fnv 0x00c5bae0
-void* __thiscall FUN_00c5ac00_class::FUN_00c5bae0(unsigned int flags)
+// src: EXE 0x00c5bae0
+void* __thiscall FUN_00c5ac00_class::BSPortalGraph_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00c5ac00();
     if (flags & 1)
@@ -1506,7 +1511,7 @@ void* __thiscall FUN_00c5ac00_class::FUN_00c5bae0(unsigned int flags)
 }
 }  // namespace fnv_00c5bae0
 
-extern int DAT_010c2d54;
+extern int vftable_BSPSysMultiTargetEmitterCtlr;
 struct FUN_00c1c280_class {
     void __thiscall FUN_00c1c280(int a);
 };
@@ -1517,13 +1522,13 @@ struct FUN_00c5c3c0_class : FUN_00c1c280_class {
 int __thiscall FUN_00c5c3c0_class::InitWithParams(int aiArg, int aiValue, unsigned short ausValue)
 {
     FUN_00c1c280(aiArg);
-    *(int*)this = (int)&DAT_010c2d54;
+    *(int*)this = (int)&vftable_BSPSysMultiTargetEmitterCtlr;
     *(int*)(this + 0x5c) = aiValue;
     *(unsigned short*)(this + 0x60) = ausValue;
     return (int)this;
 }
 
-extern int DAT_010c2d54;
+extern int vftable_BSPSysMultiTargetEmitterCtlr;
 struct FUN_00c1c390_Class {
     void __thiscall FUN_00c1c390();
 };
@@ -1538,7 +1543,7 @@ struct FUN_00c5c400_Class : FUN_00c1c390_Class {
 // src: GUESS 0x00c5c400 (confidence: low)
 FUN_00c5c400_Class* __thiscall FUN_00c5c400_Class::SetVirtualTableAndProcessState_00c5c400()
 {
-    FUN_00c1c390_Class::FUN_00c1c390(); vtbl = (void*)&DAT_010c2d54; m_0x5c = 0; m_0x60 = 0; return this; }
+    FUN_00c1c390_Class::FUN_00c1c390(); vtbl = (void*)&vftable_BSPSysMultiTargetEmitterCtlr; m_0x5c = 0; m_0x60 = 0; return this; }
 
 struct NiStream;
 void __cdecl NiStreamSaveBinary_unsigned_short(NiStream&, unsigned short*);
@@ -1581,11 +1586,12 @@ namespace fnv_00c5ce10 {
 extern "C" void __cdecl operator delete(void*, unsigned int);
 struct FUN_00c5ce10_Class {
     void __thiscall Constructor();
-    void* __thiscall FUN_00c5ce10(unsigned int a);
+    void* __thiscall BSPSysMultiTargetEmitterCtlr_ScalarDeletingDestructor(unsigned int a);
 };
 // Calls Constructor on this, deletes this with size 0x64 when bit 0 of a is set, and returns this.
 // @fnv 0x00c5ce10
-void* FUN_00c5ce10_Class::FUN_00c5ce10(unsigned int uiFlags)
+// src: EXE 0x00c5ce10
+void* FUN_00c5ce10_Class::BSPSysMultiTargetEmitterCtlr_ScalarDeletingDestructor(unsigned int uiFlags)
 {
     this->Constructor();
     if (uiFlags & 1)
@@ -1601,7 +1607,7 @@ struct FUN_00c5ced0 : FUN_00a744a0 {
 // @fnv 0x00c5ced0
 FUN_00c5ced0::FUN_00c5ced0(int a, int b, int c, int d)
 {
-    *(int**)((char*)this + 0) = (int*)&DAT_010c2e7c;
+    *(int**)((char*)this + 0) = (int*)&vftable_BSScissorTriShape;
     *(int*)((char*)this + 0xc4) = a;
     *(int*)((char*)this + 0xc8) = b;
     *(int*)((char*)this + 0xcc) = c;
@@ -1710,10 +1716,11 @@ struct FUN_00c5db90_Class {
 };
 void __cdecl operator delete(void* p, unsigned int size);
 struct FUN_00c5eb20_Class {
-    void* __thiscall FUN_00c5eb20(unsigned int flags);
+    void* __thiscall BSMasterParticleSystem_ScalarDeletingDestructor(unsigned int flags);
 };
 // @fnv 0x00c5eb20
-void* __thiscall FUN_00c5eb20_Class::FUN_00c5eb20(unsigned int flags)
+// src: EXE 0x00c5eb20
+void* __thiscall FUN_00c5eb20_Class::BSMasterParticleSystem_ScalarDeletingDestructor(unsigned int flags)
 {
     ((FUN_00c5db90_Class*)this)->FUN_00c5db90();
     if (flags & 1) operator delete(this, 0xe0);
@@ -1721,7 +1728,7 @@ void* __thiscall FUN_00c5eb20_Class::FUN_00c5eb20(unsigned int flags)
 }
 
 namespace fnv_00c5eca0 {
-extern int DAT_010c30b8;
+extern int vftable_NiTArray_010c30b8;
 extern "C" void __cdecl NiFree(void*);
 struct P03MM_Deallocate {
     void __thiscall Deallocate(void*);
@@ -1733,7 +1740,7 @@ struct FUN_00c5eca0_Class {
 int* __thiscall FUN_00c5eca0_Class::FUN_00c5eca0(int aiFlags)
 {
     int* result;
-    *(int*)this = (int)&DAT_010c30b8;
+    *(int*)this = (int)&vftable_NiTArray_010c30b8;
     result = *(int**)((char*)this + 4);
     NiFree(result);
     if (aiFlags & 1)
@@ -1749,12 +1756,13 @@ struct FUN_00c5ed60_Class {
 };
 
 struct FUN_00c5f360_Class {
-    void* __thiscall FUN_00c5f360(unsigned int flags);
+    void* __thiscall BSTextureData_ScalarDeletingDestructor(unsigned int flags);
 };
 
 // Calls FUN_00c5ed60 on this, then deletes this with size 0x1c if flags has bit 0 set, and returns this.
 // @fnv 0x00c5f360
-void* __thiscall FUN_00c5f360_Class::FUN_00c5f360(unsigned int flags)
+// src: EXE 0x00c5f360
+void* __thiscall FUN_00c5f360_Class::BSTextureData_ScalarDeletingDestructor(unsigned int flags)
 {
     ((FUN_00c5ed60_Class*)this)->FUN_00c5ed60();
     if (flags & 1)
@@ -1782,13 +1790,14 @@ void __thiscall FUN_00c5f500_class::BSSimpleArray_NiAVObject_1024_CopyTo_1024(FU
 }
 
 struct FUN_00c5fc20_class {
-    void* __thiscall FUN_00c5fc20(unsigned int flags);
+    void* __thiscall BSNiNode_ScalarDeletingDestructor(unsigned int flags);
     void __cdecl operator delete(void* p, unsigned int size);
     void __thiscall FUN_00c5faa0();
 };
 // Calls FUN_00c5faa0, then frees this with operator delete when flags has bit 0 set, and returns this.
 // @fnv 0x00c5fc20
-void* __thiscall FUN_00c5fc20_class::FUN_00c5fc20(unsigned int flags)
+// src: EXE 0x00c5fc20
+void* __thiscall FUN_00c5fc20_class::BSNiNode_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00c5faa0();
     if (flags & 1)
@@ -1964,7 +1973,7 @@ NiTArray<NiParticles*, NiTMallocInterface<NiParticles*> >::NiTArray(unsigned int
     }
 }
 
-extern int DAT_010c1b2c;
+extern int vftable_BSRangeNode;
 struct FUN_00c5f570_Class {
     void __thiscall FUN_00c5f570();
 };
@@ -2073,7 +2082,7 @@ struct FUN_00c450d0 : FUN_00c5f570_Class {
 FUN_00c450d0::FUN_00c450d0()
 {
     FUN_00c5f570_Class::FUN_00c5f570();
-    vtbl = (int)&DAT_010c1b2c;
+    vtbl = (int)&vftable_BSRangeNode;
     *(unsigned char*)((char*)this + 0xae) = 0;
     *(unsigned char*)((char*)this + 0xaf) = 0xff;
     *(unsigned char*)((char*)this + 0xad) = 0;
@@ -2346,20 +2355,20 @@ void FUN_00c42060_Class::SetArg(int arg)
     }
 }
 
-extern int DAT_010c1844;
+extern int vftable_BSTaskThread;
 
 // @fnv 0x00c42f00
 void __fastcall DestroyResources(void* thisPtr)
 {
-    *(int*)thisPtr = (int)&DAT_010c1844;
+    *(int*)thisPtr = (int)&vftable_BSTaskThread;
     FreeLibrary(*(HMODULE*)((char*)thisPtr + 4));
     DeleteObject(*(void**)((char*)thisPtr + 4));
     DeleteObject(*(void**)((char*)thisPtr + 0x1c));
     DeleteObject(*(void**)((char*)thisPtr + 0x10));
 }
 
-extern int DAT_010a0d24;
-extern int DAT_010c1854;
+extern int vftable_NiIntegerExtraData;
+extern int vftable_BSXFlags;
 struct FUN_00c43070_shell {
     void DestroyFields_00a7b300();
     void SetVtableAndProcessState_00c43070();
@@ -2368,8 +2377,8 @@ struct FUN_00c43070_shell {
 // src: GUESS 0x00c43070 (confidence: low)
 void FUN_00c43070_shell::SetVtableAndProcessState_00c43070()
 {
-    *reinterpret_cast<int**>(this) = &DAT_010c1854;
-    *reinterpret_cast<int**>(this) = &DAT_010a0d24;
+    *reinterpret_cast<int**>(this) = &vftable_BSXFlags;
+    *reinterpret_cast<int**>(this) = &vftable_NiIntegerExtraData;
     DestroyFields_00a7b300();
 }
 
@@ -2399,7 +2408,7 @@ void* GetExtraDataChecked(NiAVObject* obj)
     return result5;
 }
 
-extern int DAT_010c195c;
+extern int vftable_BSValueNode;
 
 struct FUN_00c43660 : FUN_00c5f570_Class {
     char pad[0xb0];
@@ -2411,7 +2420,7 @@ struct FUN_00c43660 : FUN_00c5f570_Class {
 FUN_00c43660::FUN_00c43660()
 {
     FUN_00c5f570();
-    *(int*)this = (int)&DAT_010c195c;
+    *(int*)this = (int)&vftable_BSValueNode;
     f1 = 0;
     f2 = 0;
 }
@@ -2477,11 +2486,12 @@ void __thiscall FUN_00c43950_Class::BSValueNode_SaveBinary(NiStream& stream)
 
 struct FUN_00c43cb0_class {
     void __thiscall FUN_00c5faa0();
-    void* __thiscall FUN_00c43cb0(unsigned int flags);
+    void* __thiscall BSValueNode_ScalarDeletingDestructor(unsigned int flags);
 };
 // Calls FUN_00c5faa0, then frees this with operator delete when flags has bit 0 set, and returns this.
 // @fnv 0x00c43cb0
-void* FUN_00c43cb0_class::FUN_00c43cb0(unsigned int flags)
+// src: EXE 0x00c43cb0
+void* FUN_00c43cb0_class::BSValueNode_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00c5faa0();
     if (flags & 1)
@@ -2526,11 +2536,12 @@ void __cdecl FUN_00c31750();
 
 struct FUN_00c46930_class {
     void __thiscall FUN_00c31750();
-    void* __thiscall FUN_00c46930(unsigned int flags);
+    void* __thiscall BSWindModifier_ScalarDeletingDestructor(unsigned int flags);
 };
 
 // @fnv 0x00c46930
-void* FUN_00c46930_class::FUN_00c46930(unsigned int flags)
+// src: EXE 0x00c46930
+void* FUN_00c46930_class::BSWindModifier_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00c31750();
     if (flags & 1)
@@ -2582,11 +2593,12 @@ void FUN_00c46cd0_Class::LoadFromStream(void* stream)
 
 struct FUN_00c46af0 {
     void __thiscall Destruct();
-    void* __thiscall FUN_00c47610(unsigned int flags);
+    void* __thiscall BSMultiBoundNode_ScalarDeletingDestructor(unsigned int flags);
 };
 // Calls Destruct, then frees this with operator delete when flags has bit 0 set, and returns this.
 // @fnv 0x00c47610
-void* FUN_00c46af0::FUN_00c47610(unsigned int flags)
+// src: EXE 0x00c47610
+void* FUN_00c46af0::BSMultiBoundNode_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00c46af0::Destruct();
     if (flags & 1)
@@ -3018,11 +3030,12 @@ struct FUN_00c5d260_view {
     static void __cdecl operator delete(void* p, unsigned int sz);
 };
 struct FUN_00c5d260 : FUN_00c5d260_view {
-    void* __thiscall FUN_00c5d260_method(unsigned int flags);
+    void* __thiscall BSScissorTriShape_ScalarDeletingDestructor(unsigned int flags);
 };
 // Calls Destruct, frees this with operator delete when flags has bit 0 set, and returns this.
 // @fnv 0x00c5d260
-void* __thiscall FUN_00c5d260::FUN_00c5d260_method(unsigned int flags)
+// src: EXE 0x00c5d260
+void* __thiscall FUN_00c5d260::BSScissorTriShape_ScalarDeletingDestructor(unsigned int flags)
 {
     reinterpret_cast<FUN_00c5d260_view*>(this)->Destruct();
     if (flags & 1)
@@ -3872,7 +3885,7 @@ void* S_00c46420_Class::FUN_00c46420(unsigned int flags)
 }  // namespace fnv_00c46420
 
 namespace fnv_00c464c0 {
-extern int DAT_010c1c5c;
+extern int vftable_NiTArray_010c1c5c;
 
 class FUN_00c464c0_child {
 public:
@@ -3895,7 +3908,7 @@ struct FUN_00c464c0_cls {
 // @fnv 0x00c464c0
 FUN_00c464c0_cls* FUN_00c464c0_cls::FUN_00c464c0(unsigned int acFlags)
 {
-    m_vptr = (int)&DAT_010c1c5c;
+    m_vptr = (int)&vftable_NiTArray_010c1c5c;
     FUN_00c464c0_child* pObj = m_04;
     FUN_00c464c0_child* pChild_;
     FUN_00c464c0_child* pExtra;
@@ -3909,7 +3922,7 @@ FUN_00c464c0_cls* FUN_00c464c0_cls::FUN_00c464c0(unsigned int acFlags)
 }
 }  // namespace fnv_00c464c0
 
-extern int DAT_010c1c5c;
+extern int vftable_NiTArray_010c1c5c;
 extern void* __cdecl Runtime_GetIndexedValue_00c46170(unsigned int count);
 
 
@@ -5127,7 +5140,7 @@ bool DecisionTree::EvaluateQuery(SSNode* query) {
  return bResult;
 }
 
-extern int DAT_010c1e9c;
+extern int vftable_BSSimpleArray_010c1e9c;
 
 struct FUN_00c4a1b0_cls
 {
@@ -5136,7 +5149,7 @@ struct FUN_00c4a1b0_cls
     FUN_00c4a1b0_cls* SetVtableAndProcessState_00c4a1b0();
 };
 
-// Sets m_vptr to &DAT_010c1e9c, calls FUN_00c4a5a0 with 0, 0, and returns this.
+// Sets m_vptr to &vftable_BSSimpleArray_010c1e9c, calls FUN_00c4a5a0 with 0, 0, and returns this.
 // @fnv 0x00c4a1b0
 // src: GUESS 0x00c4a1b0 (confidence: low)
 FUN_00c4a1b0_cls* FUN_00c4a1b0_cls::SetVtableAndProcessState_00c4a1b0()
@@ -5146,7 +5159,7 @@ FUN_00c4a1b0_cls* FUN_00c4a1b0_cls::SetVtableAndProcessState_00c4a1b0()
     int iScratch0;
     int iScratch1;
 
-    m_vptr = reinterpret_cast<int>(&DAT_010c1e9c);
+    m_vptr = reinterpret_cast<int>(&vftable_BSSimpleArray_010c1e9c);
     reinterpret_cast<FUN_00c4a5a0_class*>(this)->BSSimpleArray_BSCompoundFrustum_FunctionOp_1024_InitialSetup(0, 0);
     return this;
 }
@@ -6509,7 +6522,7 @@ void FUN_00c5b190_cls::BSPortalGraph_RemovePortal(int aiValue) {
 // Constructor: member routine that installs the class vtable pointer into
 // the object, clears the flag member at +0x5c and then hands the object to
 // the shared cleanup routine (FUN_00c1c300).
-extern int DAT_010c2d54;
+extern int vftable_BSPSysMultiTargetEmitterCtlr;
 
 struct FUN_00c5c440_cls
 {
@@ -6552,7 +6565,7 @@ void FUN_00c5c440_cls::Constructor()
     int iScratch2;
     int iScratch3;
 
-    m_pVTable = (void*)&DAT_010c2d54;
+    m_pVTable = (void*)&vftable_BSPSysMultiTargetEmitterCtlr;
     m_5c = 0;
     FUN_00c1c300();
 }
@@ -7743,7 +7756,7 @@ char* __cdecl ConcatPrefixAndSuffix(FUN_00c5fb80_rec* rec, const char* suffix)
     return FUN_00c5fb80_appendTail(buf3, total, suffix);
 }
 
-extern void* DAT_010c32c4;
+extern void* vftable_BSPSysStripUpdateModifier;
 
 struct FUN_00c5fd50_cls
 {
@@ -7756,7 +7769,7 @@ struct FUN_00c5fd50_cls
 // src: GUESS 0x00c5fd50 (confidence: low)
 void FUN_00c5fd50_cls::UpdateState_00c5fd50()
 {
-    m_vtbl = &DAT_010c32c4;
+    m_vtbl = &vftable_BSPSysStripUpdateModifier;
     FUN_00c31750();
 }
 
@@ -9896,7 +9909,7 @@ void ControlGraph::BSCompoundFrustum_PrethreadOpList() {
     ready = true;
 }
 
-extern int DAT_010c1e88;
+extern int vftable_BSSimpleArray_010c1e88;
 
 struct S00c49fe0_Vt
 {
@@ -9915,7 +9928,7 @@ struct FUN_00c49fe0_Cls
     FUN_00c49fe0_Cls();
 };
 
-// Sets vtbl to DAT_010c1e88 and zeroes data, unk08 and unk0C; the size is a constant 0, so the allocation path is never reached.
+// Sets vtbl to vftable_BSSimpleArray_010c1e88 and zeroes data, unk08 and unk0C; the size is a constant 0, so the allocation path is never reached.
 // @fnv 0x00c49fe0
 FUN_00c49fe0_Cls::FUN_00c49fe0_Cls()
 {
@@ -9924,7 +9937,7 @@ FUN_00c49fe0_Cls::FUN_00c49fe0_Cls()
     int u3;
     int u4;
     int u5;
-    vtbl = (void*)&DAT_010c1e88;
+    vtbl = (void*)&vftable_BSSimpleArray_010c1e88;
     {
     unsigned int nSize = 0;
     data = 0;
@@ -9990,14 +10003,14 @@ bool c4a790_Owner::BSCompoundFrustum_TestNotContained(CallerObj_b3918* target, c
     return true;
 }
 
-extern int DAT_010c1e88;
+extern int vftable_BSSimpleArray_010c1e88;
 
-// Sets the vtable pointer to DAT_010c1e88 and calls ReleaseBuffer(1) on the object.
+// Sets the vtable pointer to vftable_BSSimpleArray_010c1e88 and calls ReleaseBuffer(1) on the object.
 // @fnv 0x00c4a840
 // src: GUESS 0x00c4a840 (confidence: low)
 void FUN_00c4a960_Class::UpdateFields_00c4a840() {
     int x;
-    *(int**)this = &DAT_010c1e88;
+    *(int**)this = &vftable_BSSimpleArray_010c1e88;
     ((FUN_00c4a9c0_class*)this)->ReleaseBuffer(1);
 }
 

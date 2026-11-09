@@ -150,7 +150,8 @@ extern "C" void __cdecl FUN_00c44e20(BSTempNodeManager*);
 extern void __cdecl __Dummy_00b6fef0(void*, unsigned int);
 
 // @fnv 0x00450630
-void* BSTempNodeManager::FUN_00450630(unsigned int flags)
+// src: EXE 0x00450630
+void* BSTempNodeManager::ScalarDeletingDestructor(unsigned int flags)
 {
     this->BSTempNodeManager::~BSTempNodeManager();
     if (flags & 1)
@@ -422,7 +423,7 @@ const void* const* __thiscall FUN_00458f20_shell::BSTempNode_GetRTTI() const
 }
 
 extern "C" void __fastcall UpdateFields_00c5faa0(void*);
-extern int DAT_01017d24;
+extern int vftable_BSTempNode;
 
 struct FUN_00458f70_shell
 {
@@ -433,7 +434,7 @@ struct FUN_00458f70_shell
 // src: GUESS 0x00458f70 (confidence: low)
 void __thiscall FUN_00458f70_shell::SetVtableAndProcessState_00458f70()
 {
-    *(int*)this = (int)&DAT_01017d24;
+    *(int*)this = (int)&vftable_BSTempNode;
     UpdateFields_00c5faa0(this);
 }
 
@@ -1454,7 +1455,7 @@ struct CellStand
     int GetCellStandValue();
 };
 extern TESDataHandler* g_dataHandler;
-extern GlobalObject_0045cfe0 g_011c63cc;
+extern GlobalObject_0045cfe0 uGridsToLoad_General;
 
 struct ExteriorBufferPromoter : TES
 {
@@ -1468,14 +1469,14 @@ void ExteriorBufferPromoter::MoveCellToFront(TESObjectCELL* apCell)
     TESObjectCELL* pmoveCell;
     UpdateExteriorCellBuffer();
     bool bvisible = ((CellOutdoorQuery*)apCell)->IsOutdoorCell() || ((SaveLoadStateQuery*)apCell)->TESObjectCELL_GetAttaching();
-    if (!(*(TESObjectCELL***)((char*)this + 0x3c))[*g_011c63cc.Int() * *g_011c63cc.Int() - 1])
+    if (!(*(TESObjectCELL***)((char*)this + 0x3c))[*uGridsToLoad_General.Int() * *uGridsToLoad_General.Int() - 1])
         bvisible = true;
     pmoveCell = apCell;
     unsigned int n;
     TESObjectCELL* ptempCell;
     for (n = (!bvisible && (unsigned int)((CellStand*)&DAT_011c3c90)->GetCellStandValue() >
-                               (unsigned int)(*g_011c63cc.Int() * *g_011c63cc.Int()))
-                 ? *g_011c63cc.Int() * *g_011c63cc.Int()
+                               (unsigned int)(*uGridsToLoad_General.Int() * *uGridsToLoad_General.Int()))
+                 ? *uGridsToLoad_General.Int() * *uGridsToLoad_General.Int()
                  : 0;
          n < (unsigned int)((CellStand*)&DAT_011c3c90)->GetCellStandValue(); n++)
     {
@@ -1548,7 +1549,7 @@ struct GlobalObject_0045cf30
 {
     unsigned char* Bool();
 };
-extern GlobalObject_0045cf30 g_011c7adc;
+extern GlobalObject_0045cf30 bUseWater_Water;
 struct CellFlagQuery : TESObjectCELL
 {
     unsigned char TESClimate_GetVolatilityIndex();
@@ -1593,7 +1594,7 @@ void ExteriorGridLoader::TES_LoadGridCell(int aiGridX, int aiGridY, int aiCellX,
         ((LAND_x*)pLand)->TESObjectLAND_UpdateMesh(0, 0);
     ((LAND_x*)((TESObjectCELL*)pcell)->GetLandscape())->TESObjectLAND_GetMinMaxLandHeight((NiPoint2*)extents);
     ((CellWaterFlagUpdate*)pcell)->SetFlag2(TESObjectCELL_GetWaterHeight(pcell) > extents[0]);
-    if (*g_011c7adc.Bool() && ((TESObjectCELL*)pcell)->HasWater() && !((CellFlagQuery*)pcell)->TESClimate_GetVolatilityIndex())
+    if (*bUseWater_Water.Bool() && ((TESObjectCELL*)pcell)->HasWater() && !((CellFlagQuery*)pcell)->TESClimate_GetVolatilityIndex())
         BGSAutoWater_GeneratePlaceableWaterForCell(pcell);
     ((LAND_x*)pLand)->TESObjectLAND_DrawLandBorder((*(bool*)((char*)this + 0x60)));
 }
@@ -1636,8 +1637,8 @@ void __cdecl BSWindModifier_SetWind(float, float);
 void __cdecl bhkWindListener_SetWind(float, float);
 void __fastcall ProcessLists_PostProcessProjectiles(char*);
 extern float DAT_011c3c08;
-extern GlobalObject_0045cfe0 g_011c3ea4;
-extern Setting g_011c5724;
+extern GlobalObject_0045cfe0 iNumHWThreads_General;
+extern Setting fAnimationMult_General;
 extern int DAT_011e0e80;
 extern Twin_0084d030 g_timeGlobal;
 struct Zt5TES
@@ -1702,15 +1703,15 @@ void Zt5TES::TES_UpdateCellAnimations(float afTime)
     else
         m_pGridCells->UpdateCellGrid(DAT_011c3c08);
     TES_LockHavokUpdateMT(false);
-    if (*g_011c3ea4.Int() > 1)
+    if (*iNumHWThreads_General.Int() > 1)
     {
         TaskQueueInterface* pTaskQueue = TaskQueueInterface::GetInstance();
         ((FUN_0087aa90_shell*)pTaskQueue)->TaskQueueInterface_QueueParallelTaskProcessing();
     }
     FOCollisionListener_GetSingleton()->ProcessRequests();
-    if (*g_011c3ea4.Int() == 1)
-        pWeatherSky->Update(DialogH::IsInDialog() ? g_timeGlobal.GetStoredFloatValue() * *g_011c5724.Float() : afTime);
-    if (*g_011c3ea4.Int() == 1)
+    if (*iNumHWThreads_General.Int() == 1)
+        pWeatherSky->Update(DialogH::IsInDialog() ? g_timeGlobal.GetStoredFloatValue() * *fAnimationMult_General.Float() : afTime);
+    if (*iNumHWThreads_General.Int() == 1)
         TES_UpdateCellMainThread();
     ProcessLists_PostProcessProjectiles((char*)&DAT_011e0e80);
 }
@@ -1832,9 +1833,9 @@ struct CellCollisionUpdate : TES
 // src: COMMUNITY 0x00451cf0
 void CellCollisionUpdate::TES_UpdateGridLights()
 {
-    for (unsigned int x = 0; x < *g_011c63cc.Int(); x++)
+    for (unsigned int x = 0; x < *uGridsToLoad_General.Int(); x++)
     {
-        for (unsigned int y = 0; y < *g_011c63cc.Int(); y++)
+        for (unsigned int y = 0; y < *uGridsToLoad_General.Int(); y++)
         {
             CellExt* cell = (CellExt*)*(void**)(*(GridCellArray**)((char*)this + 0x8))->Get(x, y);
             if (cell && cell->IsOutdoorCell())
@@ -1855,13 +1856,13 @@ TESObjectCELL* TESCoordinateLookup::FindCell(int aiCellX, int aiCellY)
     int igridY;
 
     igridX = aiCellX - (*reinterpret_cast<int*>(reinterpret_cast<unsigned char*>(this) + 0x24) -
-                        (static_cast<unsigned int>(*g_011c63cc.Int()) >> 1));
+                        (static_cast<unsigned int>(*uGridsToLoad_General.Int()) >> 1));
     igridY = aiCellY - (*reinterpret_cast<int*>(reinterpret_cast<unsigned char*>(this) + 0x28) -
-                        (static_cast<unsigned int>(*g_011c63cc.Int()) >> 1));
+                        (static_cast<unsigned int>(*uGridsToLoad_General.Int()) >> 1));
     pcell = 0;
 
-    if (static_cast<unsigned int>(igridX) < static_cast<unsigned int>(*g_011c63cc.Int()) &&
-        static_cast<unsigned int>(igridY) < static_cast<unsigned int>(*g_011c63cc.Int()) && igridX >= 0 && igridY >= 0)
+    if (static_cast<unsigned int>(igridX) < static_cast<unsigned int>(*uGridsToLoad_General.Int()) &&
+        static_cast<unsigned int>(igridY) < static_cast<unsigned int>(*uGridsToLoad_General.Int()) && igridX >= 0 && igridY >= 0)
     {
         pcell = *reinterpret_cast<TESObjectCELL**>(
             reinterpret_cast<GridCellArray*>(*reinterpret_cast<void**>(reinterpret_cast<unsigned char*>(this) + 0x08))
@@ -1904,13 +1905,13 @@ bool TES::IsCellBuffering()
         return false;
 
     pgc = *reinterpret_cast<int*>(reinterpret_cast<char*>(this) + 0x24) -
-          (static_cast<unsigned int>(*g_011c63cc.Int()) >> 1);
+          (static_cast<unsigned int>(*uGridsToLoad_General.Int()) >> 1);
     ix = *reinterpret_cast<int*>(reinterpret_cast<char*>(this) + 0x28) -
-         (static_cast<unsigned int>(*g_011c63cc.Int()) >> 1);
+         (static_cast<unsigned int>(*uGridsToLoad_General.Int()) >> 1);
 
-    for (icellY = 0; static_cast<unsigned int>(icellY) < static_cast<unsigned int>(*g_011c63cc.Int()); ++icellY)
+    for (icellY = 0; static_cast<unsigned int>(icellY) < static_cast<unsigned int>(*uGridsToLoad_General.Int()); ++icellY)
     {
-        for (iy = 0; iy < static_cast<unsigned int>(*g_011c63cc.Int()); ++iy)
+        for (iy = 0; iy < static_cast<unsigned int>(*uGridsToLoad_General.Int()); ++iy)
         {
             pcell = reinterpret_cast<GridCell*>((*reinterpret_cast<GridCellArray**>(reinterpret_cast<char*>(this) + 8))
                                                ->Get(static_cast<unsigned int>(icellY), iy));
@@ -1949,8 +1950,8 @@ void TES::UpdateExteriorCellBuffer()
     if ((*(int*)((char*)this + 0x24)) == (*(int*)((char*)this + 0x2c)) && (*(int*)((char*)this + 0x30)) == (*(int*)((char*)this + 0x30)))
         return;
 
-    iattachedCount = *g_011c63cc.Int() * *g_011c63cc.Int();
-    ihalfgrid = static_cast<unsigned int>(*g_011c63cc.Int()) >> 1;
+    iattachedCount = *uGridsToLoad_General.Int() * *uGridsToLoad_General.Int();
+    ihalfgrid = static_cast<unsigned int>(*uGridsToLoad_General.Int()) >> 1;
     ilastNonQueuedPos = 0;
 
     {
@@ -2197,7 +2198,7 @@ extern const unsigned char DAT_01017830[5][5];
 // @fnv 0x0045c780
 void FUN_0045c780_shell::InitSoundGrid()
 {
-    if (*g_011c63cc.Int() == 5)
+    if (*uGridsToLoad_General.Int() == 5)
     {
         unsigned int index1;
         for (index1 = 0; index1 < this->sound->GetFormID(); ++index1)
@@ -2238,7 +2239,7 @@ unsigned int __fastcall _ref_0084e3a0(void* object);
 // @fnv 0x0045c840
 void FUN_0045c840_shell::InitFromMatrix()
 {
-    if (*g_011c63cc.Int() == 5)
+    if (*uGridsToLoad_General.Int() == 5)
     {
         for (unsigned int index1 = 0; index1 < _ref_0084e3a0(this->field_08); ++index1)
         {
@@ -2289,14 +2290,14 @@ bool LandscapeHeightQuery::GetLandHeightAt(const NiPoint3& coord, float& height)
 }
 
 
-// Writes four fixed-point bounds around m_24/m_28 expanded by half of g_011c63cc, offset by f.
+// Writes four fixed-point bounds around m_24/m_28 expanded by half of uGridsToLoad_General, offset by f.
 // @fnv 0x00451020
 void TES::GetLoadedAreaBounds(tagRECT* out, float f)
 {
-    int iMinX = (*(int*)((char*)this + 0x24)) - (int)((unsigned int)*g_011c63cc.Int() >> 1);
-    int cellY = (*(int*)((char*)this + 0x28)) - (int)((unsigned int)*g_011c63cc.Int() >> 1);
-    int iMaxX = (*(int*)((char*)this + 0x24)) + (int)((unsigned int)*g_011c63cc.Int() >> 1);
-    int top = (*(int*)((char*)this + 0x28)) + (int)((unsigned int)*g_011c63cc.Int() >> 1);
+    int iMinX = (*(int*)((char*)this + 0x24)) - (int)((unsigned int)*uGridsToLoad_General.Int() >> 1);
+    int cellY = (*(int*)((char*)this + 0x28)) - (int)((unsigned int)*uGridsToLoad_General.Int() >> 1);
+    int iMaxX = (*(int*)((char*)this + 0x24)) + (int)((unsigned int)*uGridsToLoad_General.Int() >> 1);
+    int top = (*(int*)((char*)this + 0x28)) + (int)((unsigned int)*uGridsToLoad_General.Int() >> 1);
 
     ((int*)out)[0] = (int)((float)(iMinX << 12) + f);
     ((int*)out)[3] = (int)((float)(cellY << 12) + f);
@@ -2733,11 +2734,11 @@ void OwnerProxy::TES_InitModelsToLoad(int mode)
 {
     unsigned int h, p;
     int a = 0;
-    int s = x - ((unsigned int)*g_011c63cc.Int() >> 1);
-    int i = y - ((unsigned int)*g_011c63cc.Int() >> 1);
-    for (h = 0; h < (unsigned int)*g_011c63cc.Int(); ++h)
+    int s = x - ((unsigned int)*uGridsToLoad_General.Int() >> 1);
+    int i = y - ((unsigned int)*uGridsToLoad_General.Int() >> 1);
+    for (h = 0; h < (unsigned int)*uGridsToLoad_General.Int(); ++h)
     {
-        for (p = 0; p < (unsigned int)*g_011c63cc.Int(); ++p)
+        for (p = 0; p < (unsigned int)*uGridsToLoad_General.Int(); ++p)
         {
             switch (mode)
             {
@@ -3065,9 +3066,9 @@ void ReferenceSoundReset::TES_QueueReferencesForAttachedCells()
     if (FUN_005f36f0() && FUN_005f36f0()->TESObjectCELL_GetAttached())
         FUN_005f36f0()->QueueReferences(0);
 
-    for (unsigned int column = 0; column < static_cast<unsigned int>(*g_011c63cc.Int()); ++column)
+    for (unsigned int column = 0; column < static_cast<unsigned int>(*uGridsToLoad_General.Int()); ++column)
     {
-        for (unsigned int row = 0; row < static_cast<unsigned int>(*g_011c63cc.Int()); ++row)
+        for (unsigned int row = 0; row < static_cast<unsigned int>(*uGridsToLoad_General.Int()); ++row)
         {
             FUN_00459920_reference* object;
             FUN_00459920_reference** entry = (*(ReferenceSoundGrid**)((char*)this + 0x8))->FUN_004ba490(column, row);
@@ -3081,7 +3082,7 @@ void ReferenceSoundReset::TES_QueueReferencesForAttachedCells()
 
 unsigned int __fastcall DetailedActorPathHandler_GetCurrentNodeIndex(char* apName);
 
-extern GlobalObject_0045cf30 g_011c7b98;
+extern GlobalObject_0045cf30 bUsePerWorldSpaceWaterNoise_Water;
 
 struct NiSourceTexture;
 
@@ -3104,13 +3105,13 @@ struct WaterTextureLoader
     void LoadWaterTextures();
 };
 
-// Iterates the water form list and, unless g_011c7b98.Bool() is set, creates and assigns a texture image for each form that has a texture.
+// Iterates the water form list and, unless bUsePerWorldSpaceWaterNoise_Water.Bool() is set, creates and assigns a texture image for each form that has a texture.
 // @fnv 0x0045a600
 void WaterTextureLoader::LoadWaterTextures()
 {
     AutoMemContext kMemContext(29, true, "D:\\_Fallout3\\Platforms\\Common\\Code\\Fallout Shared\\TES.cpp", 7207);
     DetailedActorPathHandler_GetCurrentNodeIndex((char*)this);
-    if (*g_011c7b98.Bool())
+    if (*bUsePerWorldSpaceWaterNoise_Water.Bool())
         return;
     WaterFormNode* pNode = (WaterFormNode*)g_dataHandler->GetTESWaterFormList();
     while (pNode && !pNode->IsEmpty())
@@ -3930,9 +3931,9 @@ void LandscapeReset::TES_ActivateAllSubmergedReferencesIslands()
     }
     else
     {
-        for (unsigned int uiX = 0; uiX < (unsigned int)*g_011c63cc.Int(); uiX++)
+        for (unsigned int uiX = 0; uiX < (unsigned int)*uGridsToLoad_General.Int(); uiX++)
         {
-            for (unsigned int uiY = 0; uiY < (unsigned int)*g_011c63cc.Int(); uiY++)
+            for (unsigned int uiY = 0; uiY < (unsigned int)*uGridsToLoad_General.Int(); uiY++)
             {
                 B45CDA0GridCell* pkGridCell = (*(LandscapeCellGrid**)((char*)this + 0x8))->Get(uiX, uiY);
                 B45CDA0Cell* pkCell = pkGridCell->m_pkCell;
@@ -4220,7 +4221,7 @@ struct WaterCellSearch : TES
 TESObjectCELL** WaterCellSearch::TES_FindFirstGridCellWithWater()
 {
     TESObjectCELL** foundCell = 0;
-    unsigned int gridSize = *g_011c63cc.Int();
+    unsigned int gridSize = *uGridsToLoad_General.Int();
     unsigned int center = gridSize >> 1;
     unsigned int centerCoordinate = center;
     for (unsigned int radius = 0; radius < center; ++radius)
@@ -4917,7 +4918,7 @@ void Zt5TES::TES_UpdateCellMainThread()
 {
     S_004537c0_Fade fadeData;
     ((S_004537c0_Sky*)pWeatherSky)
-        ->Update_0063ac70(Interface_InDialog() ? g_timeGlobal.GetStoredFloatValue() * *g_011c5724.Float() : Main_QFrameAnimTime());
+        ->Update_0063ac70(Interface_InDialog() ? g_timeGlobal.GetStoredFloatValue() * *fAnimationMult_General.Float() : Main_QFrameAnimTime());
     fadeData.FUN_0043d410(DAT_011c3c08, 0, 0);
     ((S_004537c0_Tes*)this)->NiAVObject_GetParent()->NiAVObject_Update(&fadeData);
 }
@@ -6378,7 +6379,7 @@ struct WorldTextureUpdate : TES
     void CreateTextureImage(const char* apPath, NiPointer<NiSourceTexture>& arTexture, bool abA, bool abB);
 };
 extern WorldTextureUpdate* g_pWS458200TES;
-extern GlobalObject_0045cf30 g_011c3d40;
+extern GlobalObject_0045cf30 bPreemptivelyUnloadCells_General;
 void __cdecl FUN_0058eeb0(WS458200_Quest*);
 void __cdecl FUN_007043c0();
 void __cdecl Interface_SetRootMapSpace(WorldTextureSource*);
@@ -6401,7 +6402,7 @@ void WorldSpaceAssignment::TES_SetWorldSpace(WorldTextureSource* apWorld)
 {
     if (apWorld && (*(WorldTextureSource**)((char*)this + 0x88)) != apWorld)
     {
-        if (*g_011c3d40.Bool())
+        if (*bPreemptivelyUnloadCells_General.Bool())
         {
             if (FUN_005f36f0())
                 TES_DetachGridCells();
@@ -8780,10 +8781,10 @@ void FadeAttachedTES::TES_UpdateFadeNodesForAttachedCells()
     }
 
     unsigned int x = 0;
-    for (; x < *g_011c63cc.Int(); ++x)
+    for (; x < *uGridsToLoad_General.Int(); ++x)
     {
         unsigned int y = 0;
-        for (; y < *g_011c63cc.Int(); ++y)
+        for (; y < *uGridsToLoad_General.Int(); ++y)
         {
             void* pgridcell = (m_pGridCells->Get(x, y));
             TESObjectCELL* pcell = reinterpret_cast<TESObjectCELL*>(*reinterpret_cast<void**>(pgridcell));

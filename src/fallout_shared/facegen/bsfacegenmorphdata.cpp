@@ -458,7 +458,8 @@ template <> unsigned int FaceGenMatrix<float>::std_vector_float_std_allocator_fl
 void __cdecl _delete(void*, unsigned int);
 // Destroys this head morph data, frees this with _delete when flags has bit 0 set, and returns this.
 // @fnv 0x00661db0
-void* BSFaceGenMorphDataHead::FUN_00661db0(unsigned int flags)
+// src: EXE 0x00661db0
+void* BSFaceGenMorphDataHead::ScalarDeletingDestructor(unsigned int flags)
 {
     BSFaceGenMorphDataHead::~BSFaceGenMorphDataHead();
     if (flags & 1)
@@ -492,7 +493,8 @@ int BSFaceGenMorphDataHead::GetCustomMorph(int aiIndex)
 
 void __cdecl _delete(void*, unsigned int);
 // @fnv 0x006623a0
-void* BSFaceGenMorphDataHair::FUN_006623a0(unsigned int flags)
+// src: EXE 0x006623a0
+void* BSFaceGenMorphDataHair::ScalarDeletingDestructor(unsigned int flags)
 {
     BSFaceGenMorphDataHair::~BSFaceGenMorphDataHair();
     if (flags & 1)
@@ -504,11 +506,12 @@ void __cdecl _delete(void*, unsigned int);
 struct Host006626f0
 {
     void UpdateFields_00662720();
-    void* FUN_006626f0(unsigned int);
+    void* BSFaceGenBaseMorphExtraData_ScalarDeletingDestructor(unsigned int);
 };
 // Calls FUN_00662720, then deletes this with _delete when flags has bit 0 set, and returns this.
 // @fnv 0x006626f0
-void* Host006626f0::FUN_006626f0(unsigned int flags)
+// src: EXE 0x006626f0
+void* Host006626f0::BSFaceGenBaseMorphExtraData_ScalarDeletingDestructor(unsigned int flags)
 {
     this->UpdateFields_00662720();
     if (flags & 1)
@@ -516,7 +519,7 @@ void* Host006626f0::FUN_006626f0(unsigned int flags)
     return this;
 }
 
-extern int DAT_01065fac;
+extern int vftable_BSFaceGenBaseMorphExtraData;
 void __cdecl _Deallocate(void*);
 struct FUN_00662720_shell
 {
@@ -530,7 +533,7 @@ struct FUN_00662720_shell
 // src: GUESS 0x00662720 (confidence: low)
 void FUN_00662720_shell::UpdateFields_00662720()
 {
-    *(void**)this = (void*)&DAT_01065fac;
+    *(void**)this = (void*)&vftable_BSFaceGenBaseMorphExtraData;
     if (f12)
     {
         void* tmp = f12;

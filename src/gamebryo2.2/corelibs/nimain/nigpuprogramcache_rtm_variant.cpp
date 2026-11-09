@@ -24,8 +24,8 @@ struct S_00a8d8b0
 void __cdecl AdvancePosition(S_00a8d8b0* apState, void* b, unsigned int c);
 void _NiFreeAlias(void*);
 extern MemoryManager g_memoryManager;
-extern int DAT_01101378;
-extern int DAT_01101388;
+extern int vftable_NiTFixedStringMapBase_01101378;
+extern int vftable_NiTFixedStringMap_01101388;
 struct SomeClass
 {
     void* FUN_00ee90b0(unsigned int);

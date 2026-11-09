@@ -23,13 +23,14 @@ extern P03MM g_memoryManager;
 
 struct FUN_00a219e0_shell
 {
-    void* FUN_00a219e0(unsigned int flags);
+    void* RadialTile_ScalarDeletingDestructor(unsigned int flags);
     void __thiscall DestroyTileImageBase();
 };
 
 // Calls DestroyTileImageBase, then deallocates this via g_memoryManager when flags has bit 1 set, and returns this.
 // @fnv 0x00a219e0
-void* FUN_00a219e0_shell::FUN_00a219e0(unsigned int flags)
+// src: EXE 0x00a219e0
+void* FUN_00a219e0_shell::RadialTile_ScalarDeletingDestructor(unsigned int flags)
 {
     DestroyTileImageBase();
     if (flags & 1)

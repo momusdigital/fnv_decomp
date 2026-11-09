@@ -55,7 +55,7 @@ extern int DAT_010eb3b8[];
 extern int DAT_010eb3d0[];
 int __cdecl hkaSplineCompressedAnimation_handleEndianQuaternion(int a, int b);
 void __cdecl AlignAndAdvance(char flags, int a, int b, int* p);
-extern int DAT_010eb770;
+extern int vftable_hkaMeshBinding;
 struct FUN_00e34800
 {
     int vtbl;
@@ -1169,7 +1169,7 @@ class FUN_00e33910_cls
     bool* AreAllItemsValid(bool* out);
 };
 extern "C" void _ReadWriteBarrier(void);
-extern int DAT_010eb770;
+extern int vftable_hkaMeshBinding;
 struct SubObj_b4888
 {
     SubObj_b4888();
@@ -1184,7 +1184,7 @@ struct Base_b4888
     Base_b4888()
     {
         m_06 = 1;
-        *(int**)this = &DAT_010eb770;
+        *(int**)this = &vftable_hkaMeshBinding;
         m_08 = 0;
     }
 };
@@ -1213,7 +1213,7 @@ struct S_00e34950_Foo
 
     S_00e34950_Foo* Init();
 };
-extern int DAT_010df9f4;
+extern int vftable_hkpVehicleDefaultBrake;
 class FUN_00e39a80
 {
   public:
@@ -1282,7 +1282,7 @@ struct S_00e3ae70_cls
     void CollectSlotValues(unsigned int a1, unsigned int a2, S_00e3ae70_Array* pOut);
     void SetItemValues(unsigned int a1, unsigned int a2, float a3, float a4);
 };
-extern void* DAT_010eb98c;
+extern void* vftable_hkpStiffSpringChainData;
 union ReleaseFlags
 {
     int releaseHandle;

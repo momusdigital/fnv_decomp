@@ -39,7 +39,7 @@ public:
     bool HandleContactResponse();
     void HandleMissileImpact();
 
-    void* FUN_009b7a20(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
     void FUN_009b7bc0();
     void UpdateProjectile_009b8030(float deltaTime);
     void AdvanceStateAtOffset150_009b8a20();

@@ -3,7 +3,7 @@
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
 
 extern "C" void* __cdecl Object_DispatchCommandFour(unsigned int);
-extern char DAT_0109717c[];
+extern char vftable_NiPosData[];
 
 struct FUN_00a5d3a0_cls
 {
@@ -55,7 +55,7 @@ void FUN_00a42460_cls::NiPoint3Interpolator_SetKeys(unsigned int auiArg1, unsign
             if (o != 0)
             {
                 ((FUN_00a5d3a0_cls*)o)->FUN_00a5d3a0();
-                o->m_vtbl = (void*)&DAT_0109717c;
+                o->m_vtbl = (void*)&vftable_NiPosData;
                 o->m_08 = 0;
                 o->m_0c = 0;
                 o->m_10 = 0;

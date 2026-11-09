@@ -26,7 +26,7 @@ class TaskQueueInterface
 class GlobalObject_0045cf30
 {
 };
-extern GlobalObject_0045cf30 g_011d7188;
+extern GlobalObject_0045cf30 bCutDoors_Pathfinding;
 extern const char DAT_01011f30[];
 extern const char g_011d22b0_arg1[];
 extern float DAT_0101ab70;

@@ -474,7 +474,7 @@ Glyph20* FUN_00d9c280_cls::PopGlyphRecord(int* outRecord, unsigned short* inChar
 }  // namespace fnv_00d9c280
 
 namespace fnv_00d9c320 {
-extern int DAT_010d40ac;
+extern int vftable_hkAabbTree_010d40ac;
 
 hkMemoryRouter* __cdecl hkMemoryRouter_getInstance() throw();
 
@@ -501,7 +501,7 @@ struct FUN_00d9c320_cls {
 // @fnv 0x00d9c320
 FUN_00d9c320_cls* FUN_00d9c320_cls::Destroy(unsigned char acFlags)
 {
-    m_vptr = (int)&DAT_010d40ac;
+    m_vptr = (int)&vftable_hkAabbTree_010d40ac;
     BaseRelease();
     m_sub.Release();
     if (acFlags & 1) {
@@ -1006,7 +1006,7 @@ FUN_00d9c180::FUN_00d9c180(const hkVector4* apVecA, const hkVector4* apVecB, con
     unk14 = 0x7fff;
 }
 
-extern const void* DAT_010d40a4[];
+extern const void* vftable_hkAabbTree_010d40a4[];
 
 struct TreeDeleteNodeManagerD9C2 {
     void ClearBuffers();
@@ -1025,7 +1025,7 @@ struct TreeDeleteD9C2 {
 // @fnv 0x00d9c2e0
 TreeDeleteD9C2* TreeDeleteD9C2::FUN_00d9c2e0(unsigned char flags)
 {
-    m_ppVirtualMethodTable = DAT_010d40a4;
+    m_ppVirtualMethodTable = vftable_hkAabbTree_010d40a4;
     UpdateState_00d9be30();
     m_kNodeCollection.ClearBuffers();
     if (flags & 1) {

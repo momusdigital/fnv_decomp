@@ -815,11 +815,11 @@ const void* __cdecl Runtime_GetVtableFromTemporary_00dfb2b0()
 }
 
 namespace fnv_00dfb2d0 {
-extern "C" char DAT_010305a8;
-extern "C" char DAT_010ce3c8;
-extern "C" char DAT_010d0d70;
-extern "C" char DAT_010d0dac;
-extern "C" char DAT_010c6fd0;
+extern "C" char vftable_hkpShape;
+extern "C" char vftable_hkpBvTreeShape;
+extern "C" char vftable_hkMoppBvTreeShapeBase;
+extern "C" char vftable_hkpMoppBvTreeShape;
+extern "C" char vftable_hkpSingleShapeContainer;
 
 struct ShapeChild
 {
@@ -853,14 +853,14 @@ struct FUN_00dfb2d0
 // @fnv 0x00dfb2d0
 FUN_00dfb2d0::FUN_00dfb2d0(FinishingFlag flag)
 {
-    this->unk00 = &DAT_010305a8;
+    this->unk00 = &vftable_hkpShape;
 
     if (flag.m_bFinishing)
     {
         this->unk0c = 0;
     }
 
-    this->unk00 = &DAT_010ce3c8;
+    this->unk00 = &vftable_hkpBvTreeShape;
 
     if (flag.m_bFinishing)
     {
@@ -868,15 +868,15 @@ FUN_00dfb2d0::FUN_00dfb2d0(FinishingFlag flag)
         this->unk10 = 2;
     }
 
-    this->unk00 = &DAT_010d0d70;
+    this->unk00 = &vftable_hkMoppBvTreeShapeBase;
 
     if (flag.m_bFinishing)
     {
         this->unk10 = 0;
     }
 
-    this->unk00 = &DAT_010d0dac;
-    this->unk30 = &DAT_010c6fd0;
+    this->unk00 = &vftable_hkpMoppBvTreeShape;
+    this->unk30 = &vftable_hkpSingleShapeContainer;
 
     if (flag.m_bFinishing == 1)
     {
@@ -1350,7 +1350,7 @@ void* Runtime_EvaluateValue_00dfd630()
     return *(void**)&holder.unk00;
 }
 
-unsigned int DAT_010e33dc;
+unsigned int vftable_hkxMaterial;
 
 struct FUN_00dfd9b0_sub
 {
@@ -1400,7 +1400,7 @@ unsigned int* Runtime_UpdateState_00dfd9b0()
 {
     FUN_00dfd9b0_holder holder;
     FinishingFlag arg(0);
-    holder.m_pTable = &DAT_010e33dc;
+    holder.m_pTable = &vftable_hkxMaterial;
     holder.m_sub.ReturnSelf(arg);
     return holder.m_pTable;
 }
@@ -1459,7 +1459,7 @@ const void* __cdecl Object_GetConstructedVirtualTable_00dfe280()
     return kObject.m_ppVirtualMethodTable;
 }
 
-int DAT_010cb864;
+int vftable_hkaSkeletonMapper;
 
 struct ZSubDFE2F0
 {
@@ -1509,7 +1509,7 @@ int* getVtablehkaSkeletonMapper()
 {
     ZHolderDFE2F0 holder;
     FinishingFlag arg(0);
-    holder.unk00 = (int)&DAT_010cb864;
+    holder.unk00 = (int)&vftable_hkaSkeletonMapper;
     holder.m_sub.ComputeValue_00ce5360(arg);
     return *(int**)&holder.unk00;
 }
@@ -1573,8 +1573,8 @@ struct FUN_00dff130_sub
     void ReturnSelf(FinishingFlag kHandle);
     int m_00;
 };
-extern int DAT_010cc2fc;
-extern int DAT_010e6834;
+extern int vftable_hkpAction;
+extern int vftable_hkpReorientAction;
 struct __declspec(align(16)) FUN_00dff130_obj
 {
     int* m_pVtbl;
@@ -1604,9 +1604,9 @@ int* __cdecl getVtablehkpReorientAction()
 {
     FinishingFlag kHandle(0);
     FUN_00dff130_obj kObj;
-    kObj.m_pVtbl = &DAT_010cc2fc;
+    kObj.m_pVtbl = &vftable_hkpAction;
     kObj.m_kSub.ReturnSelf(kHandle);
-    return &DAT_010e6834;
+    return &vftable_hkpReorientAction;
 }
 
 class __declspec(align(16)) S00dff310_Object
@@ -2314,7 +2314,7 @@ const void* __cdecl getVtablehkaAnimationBinding()
     return *reinterpret_cast<const void**>(&object);
 }
 
-extern int DAT_010d08f4;
+extern int vftable_hkpSpringAction;
 
 struct __declspec(align(16)) SpringVtableObject
 {
@@ -2351,13 +2351,13 @@ const void* __cdecl Runtime_UpdateState_00dfef90()
 {
     FinishingFlag finish(0);
     SpringVtableObject object;
-    object.m_ppVirtualMethodTable = &DAT_010cc2fc;
+    object.m_ppVirtualMethodTable = &vftable_hkpAction;
     object.m_name.ReturnSelf(finish);
-    return &DAT_010d08f4;
+    return &vftable_hkpSpringAction;
 }
 
-extern int DAT_010cce28;
-extern int DAT_010d07f4;
+extern int vftable_hkpPhysicsSystem;
+extern int vftable_hkpPhysicsSystemWithContacts;
 
 struct __declspec(align(16)) ContactSystemView
 {
@@ -2389,12 +2389,12 @@ const void* __cdecl getVtablehkpPhysicsSystemWithContacts()
 {
     FinishingFlag flag(0);
     ContactSystemView object;
-    object.table = &DAT_010cce28;
+    object.table = &vftable_hkpPhysicsSystem;
     object.name.ReturnSelf(flag);
-    return &DAT_010d07f4;
+    return &vftable_hkpPhysicsSystemWithContacts;
 }
 
-extern int DAT_010c8e94;
+extern int vftable_hkpMouseSpringAction;
 
 struct __declspec(align(16)) VtableProbeDff2b0
 {
@@ -2430,9 +2430,9 @@ const void* __cdecl Runtime_UpdateState_00dff2b0()
 {
     FinishingFlag flag(0);
     VtableProbeDff2b0 object;
-    object.m_ppVirtualMethodTable = &DAT_010cc2fc;
+    object.m_ppVirtualMethodTable = &vftable_hkpAction;
     object.m_name.ReturnSelf(flag);
-    return &DAT_010c8e94;
+    return &vftable_hkpMouseSpringAction;
 }
 
 class __declspec(align(16)) S00dff380_Object : public S00dfbe20_Mid
@@ -2463,7 +2463,7 @@ const void* __cdecl Object_ProcessAndReturnValue_00dff380()
     return *reinterpret_cast<const void**>(&kObject);
 }
 
-extern int DAT_010d0994;
+extern int vftable_hkpDashpotAction;
 
 struct __declspec(align(16)) DashpotTypeInfoObject
 {
@@ -2480,12 +2480,12 @@ int* __cdecl Runtime_UpdateState_00dff9f0()
 {
     FinishingFlag finishing(0);
     DashpotTypeInfoObject object;
-    object.m_pAction.m_pVtbl = &DAT_010cc2fc;
+    object.m_pAction.m_pVtbl = &vftable_hkpAction;
     object.m_pAction.m_kSub.ReturnSelf(finishing);
-    return &DAT_010d0994;
+    return &vftable_hkpDashpotAction;
 }
 
-extern int DAT_010d09f4;
+extern int vftable_hkpAngularDashpotAction;
 
 struct __declspec(align(16)) AngularActionVtableObject
 {
@@ -2513,7 +2513,7 @@ const void* __cdecl Object_ProcessAndReturnValue_00dffc20()
 {
     FinishingFlag flag(0);
     AngularActionVtableObject object;
-    object.m_ppVirtualMethodTable = &DAT_010cc2fc;
+    object.m_ppVirtualMethodTable = &vftable_hkpAction;
     object.m_name.ReturnSelf(flag);
-    return &DAT_010d09f4;
+    return &vftable_hkpAngularDashpotAction;
 }

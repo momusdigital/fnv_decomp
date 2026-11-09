@@ -17,7 +17,7 @@ extern GlobalObjectO2_00d472a0 g_0126cab8;
 extern GlobalObjectO2_00d472a0 g_0126cae8;
 extern int DAT_011b7a7c;
 extern int DAT_011b7aec;
-extern void* DAT_010d65bc;
+extern void* vftable_hkBinaryPackfileWriter;
 struct FUN_00dbdf30_s
 {
     void hkPackfileWriter_setSectionForClass(GlobalObjectO2_00d472a0*, int);
@@ -34,7 +34,7 @@ extern void FUN_00dbe4d0();
 FUN_00dbc670::FUN_00dbc670()
 {
     FUN_00dbe4d0();
-    m_vft = &DAT_010d65bc;
+    m_vft = &vftable_hkBinaryPackfileWriter;
     hkPackfileWriter_addSection(DAT_011b7a7c);
     ((FUN_00dbdf30_s*)this)->hkPackfileWriter_setSectionForClass(&g_0126cae8, DAT_011b7aec);
     ((FUN_00dbdf30_s*)this)->hkPackfileWriter_setSectionForClass(&g_0126ca58, DAT_011b7aec);
@@ -59,7 +59,7 @@ struct FUN_00dbc6e0_s
 // src: GUESS 0x00dbc6e0 (confidence: low)
 void FUN_00dbc6e0_s::SetVirtualTableAndProcessState_00dbc6e0()
 {
-    m_vft = &DAT_010d65bc;
+    m_vft = &vftable_hkBinaryPackfileWriter;
     FUN_00dbdf60();
 }
 
@@ -579,8 +579,8 @@ struct S_00dbd620_Dtor
     ~S_00dbd620_Dtor();
 };
 
-extern int DAT_010d65ec;
-extern int DAT_0102e388;
+extern int vftable_hkSubStreamWriter;
+extern int vftable_hkBaseObject;
 
 unsigned int __cdecl Object_ComputeValue_00dbd720(unsigned int arg);
 
@@ -607,7 +607,7 @@ void* S_00dbd620_Owner::ProcessPoly(S_00dbd620_Poly* pPoly, S_00dbd620_Arg* a2)
     S_00dbd620_Writer writer;
 
     writer.unk06 = 1;
-    writer.vtbl = &DAT_010d65ec;
+    writer.vtbl = &vftable_hkSubStreamWriter;
     writer.unk08 = pPoly;
     writer.unk0c = writer.unk08->v8();
 
@@ -631,7 +631,7 @@ void* S_00dbd620_Owner::ProcessPoly(S_00dbd620_Poly* pPoly, S_00dbd620_Arg* a2)
 
     ((S_00dbd620_Poly*)&writer)->v5();
 
-    writer.vtbl = &DAT_0102e388;
+    writer.vtbl = &vftable_hkBaseObject;
 
     ((S_00dbd620_Dtor*)&obj)->~S_00dbd620_Dtor();
 

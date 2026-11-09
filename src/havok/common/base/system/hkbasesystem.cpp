@@ -418,7 +418,7 @@ void __cdecl hkDummySingletoncreate()
 namespace fnv_00cbbb10 {
 extern "C" void __cdecl hkBaseSystem_initThread(int value);
 extern "C" void __cdecl hkBaseSystem_initSingletons();
-extern "C" unsigned char DAT_010c8eb8;
+extern "C" unsigned char vftable_hkNativeFileSystem;
 extern int DAT_01268410;
 
 struct SpawnedObject8
@@ -459,7 +459,7 @@ int __cdecl hkBaseSystem_init(int a1, unsigned int auParam1, unsigned int auPara
     SpawnedObject8* obj8 = (SpawnedObject8*)reinterpret_cast<hkMemoryAllocator*>(holder->m_heap)->blockAlloc(8);
     obj8->m_size04 = 8;
     obj8->m_flags06 = 1;
-    obj8->m_vtbl = &DAT_010c8eb8;
+    obj8->m_vtbl = &vftable_hkNativeFileSystem;
     if (DAT_01268364 != 0)
     {
         ((FUN_00c903b0_Class*)DAT_01268364)->ReleaseReference();

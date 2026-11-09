@@ -30,7 +30,7 @@ struct P03MM
     void* __thiscall Allocate(unsigned int size);
 };
 extern P03MM g_memoryManager;
-extern int DAT_0109cf58;
+extern int vftable_NiAdditionalGeometryData__NiAGDDataBlock;
 struct NiAGDDataBlock
 {
     void* m_pData;
@@ -45,7 +45,7 @@ NiAGDDataBlock* __cdecl NiAdditionalGeometryData_CreateAGDDataBlock()
     NiAGDDataBlock* block = static_cast<NiAGDDataBlock*>(g_memoryManager.Allocate(16));
     if (block)
     {
-        block->m_pData = &DAT_0109cf58;
+        block->m_pData = &vftable_NiAdditionalGeometryData__NiAGDDataBlock;
         block->m_uiLogicalSize = 0;
         block->m_iArrayLength = 0;
         block->m_bFlag = 0;
@@ -56,7 +56,7 @@ NiAGDDataBlock* __cdecl NiAdditionalGeometryData_CreateAGDDataBlock()
 }  // namespace fnv_00a727c0
 
 namespace fnv_00a73080 {
-extern int DAT_0102e274;
+extern int vftable_NiAdditionalGeometryData;
 extern MemoryManager g_memoryManager;
 void _NiFreeAlias(void*);
 struct S
@@ -69,7 +69,7 @@ struct S
 // src: GUESS 0x00a73080 (confidence: medium)
 void S::ReleaseEntries_00a73080()
 {
-    *(void**)this = (void*)&DAT_0102e274;
+    *(void**)this = (void*)&vftable_NiAdditionalGeometryData;
     for (unsigned int i = 0; i < *(unsigned short*)((char*)this + 0x26); ++i)
         RemoveObject(i, 1);
     void* p = *(void**)((char*)this + 0x14);

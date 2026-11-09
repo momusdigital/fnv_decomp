@@ -134,8 +134,8 @@ void __thiscall FUN_00dee7f0_class::hkpPointToPathConstraintData_getConstraintIn
     *(int*)((char*)a + 0xc) = 8;
 }
 
-extern int DAT_010da004;
-extern int _DAT_0102e388;
+extern int vftable_hkpPointToPathConstraintData;
+extern int vftable_hkBaseObject;
 struct FUN_00dee7d0_class
 {
     void* m_vft;
@@ -151,10 +151,10 @@ struct FUN_00dee7d0_class
 void __thiscall FUN_00dee7d0_class::Destroy()
 {
     hkReferencedObject* p = m_obj;
-    m_vft = &DAT_010da004;
+    m_vft = &vftable_hkpPointToPathConstraintData;
     if (p)
         p->removeReference();
-    m_vft = &_DAT_0102e388;
+    m_vft = &vftable_hkBaseObject;
 }
 
 // @fnv 0x00dee740

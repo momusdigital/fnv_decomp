@@ -109,7 +109,7 @@ struct GlobalObject_00869f00
 {
     void Clear(bool);
 };
-extern void* DAT_0108cff4;
+extern void* vftable_BSSimpleArray_0108cff4;
 
 struct FUN_00982460
 {
@@ -120,7 +120,7 @@ struct FUN_00982460
 // @fnv 0x00982460
 void FUN_00982460::Init()
 {
-    m_p = &DAT_0108cff4;
+    m_p = &vftable_BSSimpleArray_0108cff4;
     ((GlobalObject_00869f00*)this)->Clear(true);
 }
 
@@ -202,7 +202,7 @@ NiTMap<unsigned int, ReservedCoverLocation*>::NiTMap(unsigned int arg) : CoverRe
 {
 }
 
-extern int DAT_0108d124;
+extern int vftable_BSSimpleArray_0108d124;
 
 struct FUN_006dc440_class
 {
@@ -215,18 +215,18 @@ struct FUN_009836d0_class
     FUN_009836d0_class* BSSimpleArray_CoverReservation_1024_BSSimpleArray_CoverReservation_1024();
 };
 
-// Sets the vtable pointer to DAT_0108d124, calls FUN_006dc440 with 0 and 0, and returns this.
+// Sets the vtable pointer to vftable_BSSimpleArray_0108d124, calls FUN_006dc440 with 0 and 0, and returns this.
 // @fnv 0x009836d0
 // src: COMMUNITY 0x009836d0
 FUN_009836d0_class* FUN_009836d0_class::BSSimpleArray_CoverReservation_1024_BSSimpleArray_CoverReservation_1024()
 {
-    vtable = &DAT_0108d124;
+    vtable = &vftable_BSSimpleArray_0108d124;
     reinterpret_cast<FUN_006dc440_class*>(this)->BSSimpleArray_NavMeshTriHandle_1024_InitialSetup(0, 0);
     return this;
 }
 
 namespace fnv_00983700 {
-extern int DAT_0108d124;
+extern int vftable_BSSimpleArray_0108d124;
 struct GlobalObject_00869f00
 {
     void Clear(bool);
@@ -236,7 +236,7 @@ struct GlobalObject_00869f00
 // src: GUESS 0x00983700 (confidence: medium)
 void __thiscall GlobalObject_00869f00::ResetVirtualTableAndClear_00983700()
 {
-    *reinterpret_cast<int**>(this) = &DAT_0108d124;
+    *reinterpret_cast<int**>(this) = &vftable_BSSimpleArray_0108d124;
     this->Clear(true);
 }
 }  // namespace fnv_00983700
@@ -341,7 +341,7 @@ BSSimpleArray<CombatSearchLocation>::~BSSimpleArray()
     Clear(true);
 }
 
-extern "C" void* DAT_0108d730;
+extern "C" void* vftable_BSSimpleArray_0108d730;
 
 struct Dummy_0061bf20
 {
@@ -356,13 +356,13 @@ struct FUN_0098f4c0 : Dummy_0061bf20
 // @fnv 0x0098f4c0
 FUN_0098f4c0* FUN_0098f4c0::Init()
 {
-    *(void**)this = &DAT_0108d730;
+    *(void**)this = &vftable_BSSimpleArray_0108d730;
     BSSimpleArray_NavMeshPOVSearchNode_1024_InitialSetup(0, 0);
     return this;
 }
 
 namespace fnv_0098f4f0 {
-extern int DAT_0108d730;
+extern int vftable_BSSimpleArray_0108d730;
 struct GlobalObject_00869f00
 {
     void Clear(bool);
@@ -375,12 +375,12 @@ struct FUN_0098f4f0_class
 // src: GUESS 0x0098f4f0 (confidence: low)
 void FUN_0098f4f0_class::SetVtableAndProcessState_0098f4f0()
 {
-    *(int*)this = (int)&DAT_0108d730;
+    *(int*)this = (int)&vftable_BSSimpleArray_0108d730;
     ((GlobalObject_00869f00*)this)->Clear(true);
 }
 }  // namespace fnv_0098f4f0
 
-extern int DAT_0108d744;
+extern int vftable_BSSimpleArray_0108d744;
 
 struct AX
 {
@@ -395,13 +395,13 @@ struct FUN_0098f510 : AX
 // @fnv 0x0098f510
 AX* FUN_0098f510::Set()
 {
-    *reinterpret_cast<int*>(this) = reinterpret_cast<int>(&DAT_0108d744);
+    *reinterpret_cast<int*>(this) = reinterpret_cast<int>(&vftable_BSSimpleArray_0108d744);
     this->BSSimpleArray_float_1024_InitialSetup(0, 0);
     return this;
 }
 
 namespace fnv_0098f540 {
-extern int DAT_0108d744;
+extern int vftable_BSSimpleArray_0108d744;
 
 struct GlobalObject_00869f00
 {
@@ -419,13 +419,13 @@ struct FUN_0098f540
 // @fnv 0x0098f540
 void FUN_0098f540::Init()
 {
-    *(int*)this = (int)&DAT_0108d744;
+    *(int*)this = (int)&vftable_BSSimpleArray_0108d744;
     ((GlobalObject_00869f00*)this)->Clear(true);
 }
 }  // namespace fnv_0098f540
 
 namespace fnv_0098f560 {
-extern int DAT_0108d758;
+extern int vftable_BSSimpleArray_0108d758;
 
 struct GlobalObject_00869f00
 {
@@ -442,7 +442,7 @@ struct FUN_0098f560_Class
 // src: GUESS 0x0098f560 (confidence: medium)
 void FUN_0098f560_Class::ResetVirtualTableAndClear_0098f560()
 {
-    p = &DAT_0108d758;
+    p = &vftable_BSSimpleArray_0108d758;
     reinterpret_cast<GlobalObject_00869f00*>(this)->Clear(true);
 }
 }  // namespace fnv_0098f560
@@ -467,7 +467,7 @@ Inner097* __thiscall FUN_0098fda0_Class::UnreachableLocation_UnreachableLocation
     return (Inner097*)this;
 }
 
-extern int DAT_0108d93c;
+extern int vftable_CombatGroupStrategyFlank;
 void __cdecl FUN_0098ffb0(void* self, int arg);
 struct FUN_0098ff80_class
 {
@@ -480,11 +480,11 @@ struct FUN_0098ff80_class
 int* __thiscall FUN_0098ff80_class::CombatGroupStrategyFlank_CombatGroupStrategyFlank(int arg)
 {
     FUN_0098ffb0(arg);
-    *reinterpret_cast<int**>(this) = &DAT_0108d93c;
+    *reinterpret_cast<int**>(this) = &vftable_CombatGroupStrategyFlank;
     return reinterpret_cast<int*>(this);
 }
 
-extern "C" void* DAT_0108d94c;
+extern "C" void* vftable_CombatGroupStrategy;
 
 struct FUN_0098ffb0
 {
@@ -493,32 +493,32 @@ struct FUN_0098ffb0
     FUN_0098ffb0(int flag);
 };
 
-// Sets the vtable pointer to DAT_0108d94c and stores flag in mFlag.
+// Sets the vtable pointer to vftable_CombatGroupStrategy and stores flag in mFlag.
 // @fnv 0x0098ffb0
 FUN_0098ffb0::FUN_0098ffb0(int flag)
 {
-    mVtbl = &DAT_0108d94c;
+    mVtbl = &vftable_CombatGroupStrategy;
     mFlag = flag;
 }
 
-extern int DAT_0108d95c;
+extern int vftable_CombatGroupStrategyFallBack;
 struct FUN_0098ffe0_class
 {
     int* m_p;
     void FUN_0098ffb0(int arg);
     FUN_0098ffe0_class* CombatGroupStrategyFallBack_CombatGroupStrategyFallBack(int arg);
 };
-// Calls FUN_0098ffb0 with arg, sets m_p to the address of DAT_0108d95c, and returns this.
+// Calls FUN_0098ffb0 with arg, sets m_p to the address of vftable_CombatGroupStrategyFallBack, and returns this.
 // @fnv 0x0098ffe0
 // src: EXE 0x0098ffe0
 FUN_0098ffe0_class* FUN_0098ffe0_class::CombatGroupStrategyFallBack_CombatGroupStrategyFallBack(int arg)
 {
     FUN_0098ffb0(arg);
-    m_p = &DAT_0108d95c;
+    m_p = &vftable_CombatGroupStrategyFallBack;
     return this;
 }
 
-extern int DAT_0108d96c;
+extern int vftable_CombatGroupStrategyAmbush;
 
 struct FUN_00990010_class
 {
@@ -527,12 +527,12 @@ struct FUN_00990010_class
     FUN_00990010_class(int arg);
 };
 
-// Calls FUN_0098ffb0 with arg, then sets the vfn field to point at DAT_0108d96c.
+// Calls FUN_0098ffb0 with arg, then sets the vfn field to point at vftable_CombatGroupStrategyAmbush.
 // @fnv 0x00990010
 FUN_00990010_class::FUN_00990010_class(int arg)
 {
     FUN_0098ffb0(arg);
-    vfn = &DAT_0108d96c;
+    vfn = &vftable_CombatGroupStrategyAmbush;
 }
 
 struct FUN_009905a0_shell
@@ -559,7 +559,7 @@ int __thiscall FUN_00990540_shell::CombatGroupData_GetMemberMinimumTargetDetecti
 }
 
 namespace fnv_00990ef0 {
-extern int DAT_0108d758;
+extern int vftable_BSSimpleArray_0108d758;
 
 struct FUN_006dc440_class
 {
@@ -572,11 +572,11 @@ struct FUN_00990ef0_class
     FUN_00990ef0_class* InitializeVtable();
 };
 
-// Sets the vtable pointer to DAT_0108d758, calls FUN_006dc440 with 0, 0, and returns this.
+// Sets the vtable pointer to vftable_BSSimpleArray_0108d758, calls FUN_006dc440 with 0, 0, and returns this.
 // @fnv 0x00990ef0
 FUN_00990ef0_class* FUN_00990ef0_class::InitializeVtable()
 {
-    vtable = &DAT_0108d758;
+    vtable = &vftable_BSSimpleArray_0108d758;
     reinterpret_cast<FUN_006dc440_class*>(this)->BSSimpleArray_NavMeshTriHandle_1024_InitialSetup(0, 0);
     return this;
 }
@@ -611,7 +611,7 @@ void __thiscall CombatThreatMap::ResetThreatObjects(int)
     InitThreatObjects();
 }
 
-extern int DAT_0108db2c;
+extern int vftable_NiTMap_0108db2c;
 
 struct FUN_00993820_class
 {
@@ -620,29 +620,29 @@ struct FUN_00993820_class
     FUN_00993820_class* NiTMap_Actor_int64_NiTMap(int arg);
 };
 
-// Calls FUN_00993990 with arg, sets m_vfn to the address of DAT_0108db2c, and returns this.
+// Calls FUN_00993990 with arg, sets m_vfn to the address of vftable_NiTMap_0108db2c, and returns this.
 // @fnv 0x00993820
 // src: EXE 0x00993820
 FUN_00993820_class* FUN_00993820_class::NiTMap_Actor_int64_NiTMap(int arg)
 {
     FUN_00993990(arg);
-    m_vfn = (int)&DAT_0108db2c;
+    m_vfn = (int)&vftable_NiTMap_0108db2c;
     return this;
 }
 
-extern int DAT_0108db54;
+extern int vftable_NiTPrimitiveArray_0108db54;
 struct FUN_00993960
 {
     int* vtbl;
     void __thiscall NiTArray_CombatGroup_NiTMallocInterface_CombatGroup_Init(int, int);
     FUN_00993960* __thiscall Init(int a, int b);
 };
-// Calls FUN_00993cf0 with the two arguments, sets vtbl to DAT_0108db54, and returns this.
+// Calls FUN_00993cf0 with the two arguments, sets vtbl to vftable_NiTPrimitiveArray_0108db54, and returns this.
 // @fnv 0x00993960
 FUN_00993960* __thiscall FUN_00993960::Init(int a, int b)
 {
     NiTArray_CombatGroup_NiTMallocInterface_CombatGroup_Init(a, b);
-    vtbl = &DAT_0108db54;
+    vtbl = &vftable_NiTPrimitiveArray_0108db54;
     return this;
 }
 
@@ -747,7 +747,7 @@ struct GlobalObject_00869f00
     void Clear(bool);
 };
 
-extern int DAT_0108dc80;
+extern int vftable_BSSimpleArray_0108dc80;
 
 struct FUN_00996540
 {
@@ -757,7 +757,7 @@ struct FUN_00996540
 // @fnv 0x00996540
 void FUN_00996540::Init()
 {
-    *reinterpret_cast<int**>(this) = &DAT_0108dc80;
+    *reinterpret_cast<int**>(this) = &vftable_BSSimpleArray_0108dc80;
     reinterpret_cast<GlobalObject_00869f00*>(this)->Clear(true);
 }
 }  // namespace fnv_00996540
@@ -767,7 +767,7 @@ struct GlobalObject_00869f00
 {
     void Clear(bool);
 };
-extern int DAT_0108dca8;
+extern int vftable_BSSimpleArray_0108dca8;
 struct FUN_00996640
 {
     void* p;
@@ -776,13 +776,13 @@ struct FUN_00996640
 // @fnv 0x00996640
 void FUN_00996640::Init()
 {
-    p = &DAT_0108dca8;
+    p = &vftable_BSSimpleArray_0108dca8;
     ((GlobalObject_00869f00*)this)->Clear(true);
 }
 }  // namespace fnv_00996640
 
 namespace fnv_009966c0 {
-extern int DAT_0108dcbc;
+extern int vftable_BSSimpleArray_0108dcbc;
 
 struct AX
 {
@@ -794,14 +794,14 @@ struct AX
 // src: COMMUNITY 0x009966c0
 AX* AX::BSSimpleArray_AStarNode_CombatPlanNode_CombatPlanLink_1024_BSSimpleArray_AStarNode_CombatPlanNode_CombatPlanLink_1024(unsigned int a, unsigned int b)
 {
-    *reinterpret_cast<int**>(this) = &DAT_0108dcbc;
+    *reinterpret_cast<int**>(this) = &vftable_BSSimpleArray_0108dcbc;
     BSSimpleArray_float_1024_InitialSetup(a, b);
     return this;
 }
 }  // namespace fnv_009966c0
 
 namespace fnv_009966f0 {
-extern int DAT_0108dcbc;
+extern int vftable_BSSimpleArray_0108dcbc;
 
 struct GlobalObject_00869f00
 {
@@ -818,12 +818,12 @@ struct FUN_009966f0_Class
 // src: GUESS 0x009966f0 (confidence: low)
 void FUN_009966f0_Class::UpdateState_009966f0()
 {
-    m_p = &DAT_0108dcbc;
+    m_p = &vftable_BSSimpleArray_0108dcbc;
     ((GlobalObject_00869f00*)this)->Clear(true);
 }
 }  // namespace fnv_009966f0
 
-extern int DAT_0108dc80;
+extern int vftable_BSSimpleArray_0108dc80;
 
 struct FUN_00996ba0
 {
@@ -832,17 +832,17 @@ struct FUN_00996ba0
     FUN_00996ba0* __thiscall DeserializeFromFile();
 };
 
-// Sets the vtable to DAT_0108dc80, calls FUN_006b3eb0 with 0, 0, and returns this.
+// Sets the vtable to vftable_BSSimpleArray_0108dc80, calls FUN_006b3eb0 with 0, 0, and returns this.
 // @fnv 0x00996ba0
 FUN_00996ba0* __thiscall FUN_00996ba0::DeserializeFromFile()
 {
-    vtable = (int)&DAT_0108dc80;
+    vtable = (int)&vftable_BSSimpleArray_0108dc80;
     BSSimpleArray_float_1024_InitialSetup(0, 0);
     return this;
 }
 
 namespace fnv_00996bd0 {
-extern "C" void* DAT_0108dca8;
+extern "C" void* vftable_BSSimpleArray_0108dca8;
 struct AX
 {
     void BSSimpleArray_float_1024_InitialSetup(unsigned int, unsigned int);
@@ -851,19 +851,19 @@ struct FUN_00996bd0_class : public AX
 {
     AX* SetVtableAndProcessState_00996bd0();
 };
-// Sets the object's vtable pointer to DAT_0108dca8, calls FUN_006b3eb0 with 0 and 0, and returns this.
+// Sets the object's vtable pointer to vftable_BSSimpleArray_0108dca8, calls FUN_006b3eb0 with 0 and 0, and returns this.
 // @fnv 0x00996bd0
 // src: GUESS 0x00996bd0 (confidence: low)
 AX* FUN_00996bd0_class::SetVtableAndProcessState_00996bd0()
 {
-    *reinterpret_cast<void**>(this) = &DAT_0108dca8;
+    *reinterpret_cast<void**>(this) = &vftable_BSSimpleArray_0108dca8;
     this->BSSimpleArray_float_1024_InitialSetup(0, 0);
     return this;
 }
 }  // namespace fnv_00996bd0
 
 namespace fnv_00996db0 {
-extern int DAT_0108dcbc;
+extern int vftable_BSSimpleArray_0108dcbc;
 
 struct AX
 {
@@ -875,11 +875,11 @@ struct FUN_00996db0 : public AX
     FUN_00996db0* Init();
 };
 
-// Sets the object's vtable pointer to DAT_0108dcbc, calls FUN_006b3eb0 with 0, 0, and returns this.
+// Sets the object's vtable pointer to vftable_BSSimpleArray_0108dcbc, calls FUN_006b3eb0 with 0, 0, and returns this.
 // @fnv 0x00996db0
 FUN_00996db0* FUN_00996db0::Init()
 {
-    *reinterpret_cast<int**>(this) = &DAT_0108dcbc;
+    *reinterpret_cast<int**>(this) = &vftable_BSSimpleArray_0108dcbc;
     BSSimpleArray_float_1024_InitialSetup(0, 0);
     return this;
 }
@@ -1320,11 +1320,12 @@ struct FUN_00994270
 {
     int* m_items;
     int m_uiItemCount;
-    unsigned int __thiscall FindIndex(unsigned int key);
+    unsigned int __thiscall CombatPlan_GetIndexForStep(unsigned int key);
 };
 // Searches m_items for key and returns its index, warning via FNV_Warning and returning 0 if not found.
 // @fnv 0x00994270
-unsigned int FUN_00994270::FindIndex(unsigned int key)
+// src: EXE 0x00994270
+unsigned int FUN_00994270::CombatPlan_GetIndexForStep(unsigned int key)
 {
     for (unsigned int i = 0; i < (unsigned int)m_uiItemCount; ++i)
     {
@@ -1471,7 +1472,7 @@ unsigned char __thiscall FUN_00996420_class::SetThreadTasklet(int a, int b, int 
     return f;
 }
 
-extern int DAT_0108dc6c;
+extern int vftable_BSScrapArray_0108dc6c;
 struct FUN_00996540
 {
     virtual ~FUN_00996540();
@@ -1747,7 +1748,7 @@ unsigned char FUN_00996370_class::AdvanceToNextEntry(unsigned int* puiCurrent, u
 namespace fnv_009965c0 {
 struct ScrapHeapBuffer;
 MemoryManager* __cdecl MemoryManager_Instance();
-extern void* DAT_0108dc94;
+extern void* vftable_BSScrapArray_0108dc94;
 struct FUN_00996bd0
 {
     FUN_00996bd0();
@@ -1765,7 +1766,7 @@ struct FUN_009965c0 : public FUN_00996bd0
 // @fnv 0x009965c0
 FUN_009965c0::FUN_009965c0()
 {
-    m_vtbl = &DAT_0108dc94;
+    m_vtbl = &vftable_BSScrapArray_0108dc94;
     m_10 = MemoryManager_Instance()->GetGeneralAllocator();
     ((AX*)this)->BSSimpleArray_float_1024_InitialSetup(0, 0);
 }
@@ -1858,7 +1859,7 @@ void __cdecl CombatManager_FreeAll()
     BGSSaveLoadGlobalDataWorldspacePtr = 0;
 }
 
-extern int DAT_0108db5c;
+extern int vftable_NiTMapBase_0108db5c;
 void* __cdecl _NiMalloc(unsigned int);
 void* __cdecl memset(void* dst, int val, unsigned int len);
 struct FUN_00993990
@@ -1873,7 +1874,7 @@ struct FUN_00993990
 // @fnv 0x00993990
 FUN_00993990::FUN_00993990(int aiCount)
 {
-    vtbl = &DAT_0108db5c;
+    vtbl = &vftable_NiTMapBase_0108db5c;
     m_04 = aiCount;
     m_0c = 0;
     int n = m_04 * 4;
@@ -1966,11 +1967,11 @@ struct FUN_00982430 : public AX
     FUN_00982430* DeserializeFromFile();
 };
 
-// Sets the object's vtable to DAT_0108cff4, calls FUN_006b3eb0 with 0, 0, and returns this.
+// Sets the object's vtable to vftable_BSSimpleArray_0108cff4, calls FUN_006b3eb0 with 0, 0, and returns this.
 // @fnv 0x00982430
 FUN_00982430* FUN_00982430::DeserializeFromFile()
 {
-    *reinterpret_cast<void**>(this) = &DAT_0108cff4;
+    *reinterpret_cast<void**>(this) = &vftable_BSSimpleArray_0108cff4;
     BSSimpleArray_float_1024_InitialSetup(0, 0);
     return this;
 }
@@ -2407,16 +2408,16 @@ int __thiscall FUN_0098fdd0_class::CombatGroupStrategy_GetName()
     return DAT_011a4ed0[reinterpret_cast<unsigned int>(GetNext())];
 }
 
-extern int DAT_0108d97c;
+extern int vftable_CombatGroupStrategyAdvance;
 struct FUN_00990040 : public FUN_0098ffb0
 {
     FUN_00990040(int arg);
 };
-// Constructs the object by forwarding arg to the base constructor and setting mVtbl to DAT_0108d97c.
+// Constructs the object by forwarding arg to the base constructor and setting mVtbl to vftable_CombatGroupStrategyAdvance.
 // @fnv 0x00990040
 FUN_00990040::FUN_00990040(int arg) : FUN_0098ffb0(arg)
 {
-    mVtbl = &DAT_0108d97c;
+    mVtbl = &vftable_CombatGroupStrategyAdvance;
 }
 
 extern int DAT_011f18b4[4];
@@ -2498,7 +2499,7 @@ struct FUN_00993bc0_class
 // src: GUESS 0x00993bc0 (confidence: low)
 void __thiscall FUN_00993bc0_class::SetVirtualTableAndProcessState_00993bc0()
 {
-    m_vtbl = (int)&DAT_0108db5c;
+    m_vtbl = (int)&vftable_NiTMapBase_0108db5c;
     FUN_00993cd0();
     NiFree(m_08);
 }
@@ -2532,7 +2533,7 @@ void* __thiscall FUN_00993c70::DeleteThis(unsigned int flags)
 }
 
 
-extern int DAT_0108db4c;
+extern int vftable_NiTArray_0108db4c;
 
 struct FUN_00993cf0_class
 {
@@ -2549,7 +2550,7 @@ struct FUN_00993cf0_class
 // src: COMMUNITY 0x00993cf0
 FUN_00993cf0_class* __thiscall FUN_00993cf0_class::NiTArray_CombatGroup_NiTMallocInterface_CombatGroup_Init(unsigned short a, unsigned short b)
 {
-    vtbl = &DAT_0108db4c;
+    vtbl = &vftable_NiTArray_0108db4c;
     m_uiItemCount = a;
     m_00e = b;
     m_00a = 0;
@@ -4696,7 +4697,7 @@ struct GlobalSetting_011f18d8
 {
     unsigned char* Bool();
 };
-extern GlobalSetting_011f18d8 g_011f18d8;
+extern GlobalSetting_011f18d8 bDisableCombatGroupStrategies_Combat;
 
 
 struct CombatContext
@@ -4732,7 +4733,7 @@ CombatStyleHandler* __cdecl CombatGroupStrategies_GetStrategy(unsigned int index
 // @fnv 0x009900f0
 CombatStyleHandler* __cdecl SelectCombatStyleHandler(CombatActor* actor)
 {
-    if (*g_011f18d8.Bool())
+    if (*bDisableCombatGroupStrategies_Combat.Bool())
         return 0;
     CombatContext ctx(actor);
     CombatStyleHandler* pCurrentHandler = actor->GetCurrentHandler();
@@ -4803,7 +4804,7 @@ FUN_00991150::~FUN_00991150()
     Clear(0);
 }
 
-extern int DAT_0108db4c;
+extern int vftable_NiTArray_0108db4c;
 
 void __cdecl NiTMallocInterface_unsigned_int_Deallocate(void*);
 
@@ -4811,7 +4812,7 @@ void __cdecl NiTMallocInterface_unsigned_int_Deallocate(void*);
 // src: GUESS 0x00993880 (confidence: low)
 void FUN_00991130_class::UpdateFields_00993880()
 {
-    *(int*)this = (int)&DAT_0108db4c;
+    *(int*)this = (int)&vftable_NiTArray_0108db4c;
     NiTMallocInterface_unsigned_int_Deallocate(*(void**)((char*)this + 4));
 }
 
@@ -4979,7 +4980,7 @@ struct Arr994350
 {
     Elem** m_items;
     int m_uiItemCount;
-    unsigned int FUN_00994270(unsigned int key);
+    unsigned int CombatPlan_GetIndexForStep(unsigned int key);
     bool InsertSortedEntry(int p0, KeyObj* p1, int p2, CtxObj* p3);
 };
 // @fnv 0x00994350
@@ -5022,7 +5023,7 @@ bool Arr994350::InsertSortedEntry(int aiStartIndex, KeyObj* apKey, int aiValue, 
         {
             if (m_items[aiStartIndex]->m_04 == 0)
                 return 1;
-            unsigned int idx = FUN_00994270((unsigned int)m_items[aiStartIndex]->m_04);
+            unsigned int idx = CombatPlan_GetIndexForStep((unsigned int)m_items[aiStartIndex]->m_04);
             if (idx < i)
                 return 1;
             Elem* saved = m_items[aiStartIndex];
@@ -5073,7 +5074,7 @@ bool Arr994350::InsertSortedEntry(int aiStartIndex, KeyObj* apKey, int aiValue, 
                                 prevN = m_items[aiStartIndex];
                                 markI = i;
                                 if (m_items[aiStartIndex]->m_04 != 0)
-                                    markI = FUN_00994270((unsigned int)m_items[aiStartIndex]->m_04) - 1;
+                                    markI = CombatPlan_GetIndexForStep((unsigned int)m_items[aiStartIndex]->m_04) - 1;
                                 if (markI > (unsigned int)aiStartIndex)
                                 {
                                     memcpy(&m_items[aiStartIndex], &m_items[aiStartIndex + 1],
@@ -8668,7 +8669,7 @@ struct Set99
 extern Set99 originalRuntimeFloatSetting434, originalRuntimeFloatSetting433, originalRuntimeFloatSetting430,
     originalRuntimeFloatSetting445, originalRuntimeFloatSetting444, originalRuntimeFloatSetting435,
     originalRuntimeFloatSetting446;
-extern Set99 g_011f1840;
+extern Set99 bEncounterZoneTargetRestrict_Combat;
 struct BaseData99
 {
     virtual bool v0();
@@ -9125,7 +9126,7 @@ bool Self99::CombatState_FindBestFleeLocation(void* arg, Out99* output, int mode
                     Ref99* linked0 = link36->Modelloader_GetReferencedThis();
                     if (linked0->GetHavokWorldObjectCountInSceneGraph_0084e3a0() == excluded || linked0->TESForm_GetDisabledOrDeleted())
                         continue;
-                    if (*g_011f1840.FUN_00408d60())
+                    if (*bEncounterZoneTargetRestrict_Combat.FUN_00408d60())
                     {
                         void* world0 = linked0->FUN_00567d20();
                         void* actorWorld5 = actor15->FUN_00567d20();

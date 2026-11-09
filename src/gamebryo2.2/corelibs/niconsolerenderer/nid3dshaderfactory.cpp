@@ -28,10 +28,10 @@ typedef NiTStringTemplateMap<NiTPointerMap<const char*, NiPointer<NiShaderLibrar
 extern void* DAT_011f4a64;
 extern void* DAT_0126fa0c;
 extern void* DAT_011f6044;
-extern void* DAT_010f0bc0;
-extern void* DAT_010f0c20;
-extern void* DAT_010f0c80;
-extern void* DAT_010f0ca0;
+extern void* vftable_NiTMapBase_010f0bc0;
+extern void* vftable_NiTMapBase_010f0c20;
+extern void* vftable_NiTStringPointerMap_010f0c80;
+extern void* vftable_NiTStringPointerMap_010f0ca0;
 extern void(__stdcall* DAT_00fdf054)(void*);
 extern unsigned char kVtbl_NiD3DShaderFactory;
 extern MemoryManager g_memoryManager;
@@ -137,13 +137,13 @@ NiShaderFactory* NiD3DShaderFactory::Create()
         static_cast<ShaderStringMap*>(g_memoryManager.Allocate(sizeof(ShaderStringMap)));
     if (shaderStorage)
     {
-        *reinterpret_cast<void**>(shaderStorage) = &DAT_010f0bc0;
+        *reinterpret_cast<void**>(shaderStorage) = &vftable_NiTMapBase_010f0bc0;
         shaderStorage->m_uiHashSize = 0x3b;
         shaderStorage->m_kItemCount.m_uiCount = 0;
         shaderStorage->m_ppkHashTable = static_cast<ShaderStringMap::EntryType**>(NiMalloc(0xec));
         fnv_zlib_memset(shaderStorage->m_ppkHashTable, 0, shaderStorage->m_uiHashSize * 4);
         shaderStorage->m_bCopy = true;
-        *reinterpret_cast<void**>(shaderStorage) = &DAT_010f0c80;
+        *reinterpret_cast<void**>(shaderStorage) = &vftable_NiTStringPointerMap_010f0c80;
         shaderMap = shaderStorage;
     }
     else
@@ -154,13 +154,13 @@ NiShaderFactory* NiD3DShaderFactory::Create()
         static_cast<ShaderLibraryStringMap*>(g_memoryManager.Allocate(sizeof(ShaderLibraryStringMap)));
     if (libraryStorage)
     {
-        *reinterpret_cast<void**>(libraryStorage) = &DAT_010f0c20;
+        *reinterpret_cast<void**>(libraryStorage) = &vftable_NiTMapBase_010f0c20;
         libraryStorage->m_uiHashSize = 0x25;
         libraryStorage->m_kItemCount.m_uiCount = 0;
         libraryStorage->m_ppkHashTable = static_cast<ShaderLibraryStringMap::EntryType**>(NiMalloc(0x94));
         fnv_zlib_memset(libraryStorage->m_ppkHashTable, 0, libraryStorage->m_uiHashSize * 4);
         libraryStorage->m_bCopy = false;
-        *reinterpret_cast<void**>(libraryStorage) = &DAT_010f0ca0;
+        *reinterpret_cast<void**>(libraryStorage) = &vftable_NiTStringPointerMap_010f0ca0;
         m_pShaderLibraryStorage = libraryStorage;
         return this;
     }
@@ -379,14 +379,14 @@ ShaderLibraryStringTemplateMap* __fastcall FUN_00e92cd0(ShaderLibraryStringTempl
 namespace fnv_00e92520 {
 void __cdecl NiFreeAlias(void*);
 
-extern void* DAT_010f0bc0;
-extern void* DAT_010f0be0;
-extern void* DAT_010f0c00;
+extern void* vftable_NiTMapBase_010f0bc0;
+extern void* vftable_NiTPointerMap_010f0be0;
+extern void* vftable_NiTStringTemplateMap_010f0c00;
 
 // @fnv 0x00e92520
 void __fastcall DestroyMap(ShaderMapBase* self, int)
 {
-    *reinterpret_cast<void**>(self) = &DAT_010f0c00;
+    *reinterpret_cast<void**>(self) = &vftable_NiTStringTemplateMap_010f0c00;
     if (*(char*)(((char*)self) + 0x10))
     {
         for (unsigned int i = 0; i < self->m_uiHashSize; ++i)
@@ -400,9 +400,9 @@ void __fastcall DestroyMap(ShaderMapBase* self, int)
             }
         }
     }
-    *reinterpret_cast<void**>(self) = &DAT_010f0be0;
+    *reinterpret_cast<void**>(self) = &vftable_NiTPointerMap_010f0be0;
     self->RemoveAll();
-    *reinterpret_cast<void**>(self) = &DAT_010f0bc0;
+    *reinterpret_cast<void**>(self) = &vftable_NiTMapBase_010f0bc0;
     self->RemoveAll();
     NiFreeAlias(self->m_ppkHashTable);
 }
@@ -414,7 +414,7 @@ void __cdecl _NiFreeAlias(void*);
 // @fnv 0x00e92610
 void* __fastcall DestroyShaderMapBase(ShaderMapBase* self, int, unsigned int flags)
 {
-    *reinterpret_cast<void**>(self) = &DAT_010f0bc0;
+    *reinterpret_cast<void**>(self) = &vftable_NiTMapBase_010f0bc0;
     self->RemoveAll();
     _NiFreeAlias(self->m_ppkHashTable);
     if (flags & 1)
@@ -423,15 +423,15 @@ void* __fastcall DestroyShaderMapBase(ShaderMapBase* self, int, unsigned int fla
 }
 
 namespace fnv_00e92650 {
-extern void* DAT_010f0be0;
+extern void* vftable_NiTPointerMap_010f0be0;
 void __cdecl _NiFreeAlias(void*);
 // Resets two embedded map bases, frees unk8, and optionally deallocates the object when flags bit 0 is set.
 // @fnv 0x00e92650
 void* __fastcall DestroyHolder(ShaderMapBase* self, int, unsigned int flags)
 {
-    *reinterpret_cast<void**>(self) = &DAT_010f0be0;
+    *reinterpret_cast<void**>(self) = &vftable_NiTPointerMap_010f0be0;
     self->RemoveAll();
-    *reinterpret_cast<void**>(self) = &DAT_010f0bc0;
+    *reinterpret_cast<void**>(self) = &vftable_NiTMapBase_010f0bc0;
     self->RemoveAll();
     fnv_00e92650::_NiFreeAlias(self->m_ppkHashTable);
     if (flags & 1)
@@ -441,13 +441,13 @@ void* __fastcall DestroyHolder(ShaderMapBase* self, int, unsigned int flags)
 }  // namespace fnv_00e92650
 
 namespace fnv_00e926b0 {
-extern void* DAT_010f0c20;
+extern void* vftable_NiTMapBase_010f0c20;
 void NiFreeAlias(void* p);
 // Resets the vftable, removes all entries, frees the field pointer, and optionally deallocates this object.
 // @fnv 0x00e926b0
 void* __fastcall DestroyMap(ShaderLibraryMapBase* self, int, bool abFree)
 {
-    *reinterpret_cast<void**>(self) = &DAT_010f0c20;
+    *reinterpret_cast<void**>(self) = &vftable_NiTMapBase_010f0c20;
     self->RemoveAll();
     NiFreeAlias(self->m_ppkHashTable);
     if (abFree & 1)
@@ -457,15 +457,15 @@ void* __fastcall DestroyMap(ShaderLibraryMapBase* self, int, bool abFree)
 }  // namespace fnv_00e926b0
 
 namespace fnv_00e926f0 {
-extern int DAT_010f0c40;
+extern int vftable_NiTPointerMap_010f0c40;
 void __cdecl _NiFreeAlias(void*);
 // Resets two map bases, frees the buckets, and optionally deallocates the map.
 // @fnv 0x00e926f0
 void* __fastcall DestroyMap(ShaderLibraryMapBase* self, int, unsigned int auiFlags)
 {
-    *reinterpret_cast<void**>(self) = (void*)&DAT_010f0c40;
+    *reinterpret_cast<void**>(self) = (void*)&vftable_NiTPointerMap_010f0c40;
     self->RemoveAll();
-    *reinterpret_cast<void**>(self) = (void*)&DAT_010f0c20;
+    *reinterpret_cast<void**>(self) = (void*)&vftable_NiTMapBase_010f0c20;
     self->RemoveAll();
     fnv_00e926f0::_NiFreeAlias(self->m_ppkHashTable);
     if (auiFlags & 1)

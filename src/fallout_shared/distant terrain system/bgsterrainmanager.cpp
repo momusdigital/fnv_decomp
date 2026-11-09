@@ -142,7 +142,7 @@ struct GlobalObject_0045cf30
     unsigned char* Bool();
 };
 extern unsigned char DAT_0119f188;
-extern GlobalObject_0045cf30 g_011d86ac;
+extern GlobalObject_0045cf30 bUseNewTerrainSystem_TerrainManager;
 struct FUN_006fea70_obj
 {
     void SetValue(int);
@@ -150,7 +150,7 @@ struct FUN_006fea70_obj
 // @fnv 0x006fcdb0
 void BGSTerrainManager::UpdateMorphParameters(void* a1)
 {
-    if (DAT_0119f188 && *g_011d86ac.Bool() && pRootTerrainNode)
+    if (DAT_0119f188 && *bUseNewTerrainSystem_TerrainManager.Bool() && pRootTerrainNode)
         ((FUN_006fea70_obj*)pRootTerrainNode)->SetValue((int)a1);
 }
 
@@ -341,7 +341,7 @@ extern BGSTerrainManager* DAT_011d8670;
 // src: XBOX_PDB 0x006fca90
 void BGSTerrainManager::Update_006fca90(const NiPoint3& arPos, int aiFlags)
 {
-    if (DAT_0119f188 && *g_011d86ac.Bool())
+    if (DAT_0119f188 && *bUseNewTerrainSystem_TerrainManager.Bool())
     {
         NiPoint3 pos = arPos;
         aiFlags |= 1;

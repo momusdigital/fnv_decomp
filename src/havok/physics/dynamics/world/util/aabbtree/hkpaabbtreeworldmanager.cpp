@@ -966,9 +966,9 @@ FnvCpu_FUN_00d0a240_CpuObject* FnvCpu_FUN_00d0a240_CpuObject::FUN_00d0a240(unsig
 }
 }  // namespace fnv_00d0a240
 
-extern int DAT_010ccfcc;
-extern int DAT_010ccfe0;
-extern int DAT_010ccfec;
+extern int vftable_hkpKdTreeWorldLinearCaster;
+extern int vftable_hkpAabbTreeWorldLinearCaster_for_hkAabbTreeQueryUtils__Collector_010ccfe0;
+extern int vftable_hkpAabbTreeWorldLinearCaster_010ccfec;
 extern float DAT_0104da4c;
 __declspec(align(16)) struct S00d08740_coll {
     int m_00;
@@ -1029,15 +1029,15 @@ void S00d08740_cls::Collect(void* kFrom, void* kTo, void* pkRoot, void* pkFilter
 {
     if (m_10) {
         S00d08740_coll kCollector;
-        kCollector.m_00 = (int)&DAT_010ccfcc;
+        kCollector.m_00 = (int)&vftable_hkpKdTreeWorldLinearCaster;
         kCollector.m_24 = 0;
         kCollector.m_80 = DAT_0104da4c;
         kCollector.ComputeValues_00d984b0(m_10, kFrom, kTo, pkRoot, pkFilter, pkShapeFilter, pkOutput, pkCollector);
     }
     if (m_24) {
         S00d08740_coll kCollector;
-        kCollector.m_00 = (int)&DAT_010ccfec;
-        kCollector.m_04 = (int)&DAT_010ccfe0;
+        kCollector.m_00 = (int)&vftable_hkpAabbTreeWorldLinearCaster_010ccfec;
+        kCollector.m_04 = (int)&vftable_hkpAabbTreeWorldLinearCaster_for_hkAabbTreeQueryUtils__Collector_010ccfe0;
         kCollector.m_24 = 0;
         kCollector.m_80 = DAT_0104da4c;
         kCollector.ProcessAndReturnValue_00d9a2a0(m_0c, kFrom, kTo, pkRoot, pkFilter, pkShapeFilter, pkOutput, pkCollector);
@@ -1158,16 +1158,16 @@ void TrackerD08::MarkAndProcessIslandCollidables(hkpSimulationIsland* island)
 }
 
 namespace fnv_00d08e80 {
-extern "C" void* DAT_010cd078;
-extern "C" void* DAT_010cd05c;
-extern "C" void* DAT_010cd044;
-extern "C" void* DAT_010cd034;
-extern "C" void* DAT_010cd024;
-extern "C" void* DAT_010ccf7c;
-extern int DAT_0104de10;
-extern int DAT_0102e388;
-extern int DAT_0104e3d0;
-extern "C" void* DAT_0102f13c;
+extern "C" void* vftable_hkpAabbTreeWorldManager;
+extern "C" void* vftable_hkpAabbTreeWorldManager_for_hkpEntityListener;
+extern "C" void* vftable_hkpAabbTreeWorldManager_for_hkpPhantomListener;
+extern "C" void* vftable_hkpAabbTreeWorldManager_for_hkpIslandActivationListener;
+extern "C" void* vftable_hkpAabbTreeWorldManager_for_hkpWorldPostSimulationListener;
+extern "C" void* vftable_hkpWorldPostSimulationListener;
+extern int vftable_hkpIslandActivationListener;
+extern int vftable_hkBaseObject;
+extern int vftable_hkpPhantomListener;
+extern "C" void* vftable_hkpEntityListener;
 
 namespace fnvc_adapt { hkMemoryRouter* __cdecl hkMemoryRouter_getInstance(); }
 
@@ -1235,11 +1235,11 @@ struct Tgt_d08e80 {
 // @fnv 0x00d08e80
 void Tgt_d08e80::Destructor()
 {
-    vtbl00 = &DAT_010cd078;
-    vtbl14 = &DAT_010cd05c;
-    vtbl18 = &DAT_010cd044;
-    vtbl1C = &DAT_010cd034;
-    vtbl20 = &DAT_010cd024;
+    vtbl00 = &vftable_hkpAabbTreeWorldManager;
+    vtbl14 = &vftable_hkpAabbTreeWorldManager_for_hkpEntityListener;
+    vtbl18 = &vftable_hkpAabbTreeWorldManager_for_hkpPhantomListener;
+    vtbl1C = &vftable_hkpAabbTreeWorldManager_for_hkpIslandActivationListener;
+    vtbl20 = &vftable_hkpAabbTreeWorldManager_for_hkpWorldPostSimulationListener;
 
     ((Cls_00c917a0*)unk28)->hkpWorld_removeEntityListener(&vtbl14);
     ((Cls_00c917f0*)unk28)->hkpWorld_removePhantomListener(&vtbl18);
@@ -1270,15 +1270,15 @@ void Tgt_d08e80::Destructor()
 
     m_aiIndexedValues.destroy();
 
-    vtbl20 = &DAT_010ccf7c;
-    vtbl1C = (void*)&DAT_0104de10;
-    vtbl00 = (void*)&DAT_0102e388;
-    vtbl18 = (void*)&DAT_0104e3d0;
-    vtbl14 = (void*)&DAT_0102f13c;
+    vtbl20 = &vftable_hkpWorldPostSimulationListener;
+    vtbl1C = (void*)&vftable_hkpIslandActivationListener;
+    vtbl00 = (void*)&vftable_hkBaseObject;
+    vtbl18 = (void*)&vftable_hkpPhantomListener;
+    vtbl14 = (void*)&vftable_hkpEntityListener;
 }
 }  // namespace fnv_00d08e80
 
-extern int DAT_010ccfcc;
+extern int vftable_hkpKdTreeWorldLinearCaster;
 extern float DAT_0104da4c;
 __declspec(align(16)) struct S00d0a490_Obj {
     int m_00;
@@ -1327,12 +1327,12 @@ struct S00d0a490_cls {
     int m_10;
     int __thiscall CallSubroutine(int a0, int a1, int a2, int a3, int a4, int a5, int a6);
 };
-// Initialises a local S00d0a490_Obj with DAT_010ccfcc and DAT_0104da4c, then calls FUN_00d984b0 with m_10 and the seven arguments.
+// Initialises a local S00d0a490_Obj with vftable_hkpKdTreeWorldLinearCaster and DAT_0104da4c, then calls FUN_00d984b0 with m_10 and the seven arguments.
 // @fnv 0x00d0a490
 int S00d0a490_cls::CallSubroutine(int a0, int a1, int a2, int a3, int a4, int a5, int a6)
 {
     S00d0a490_Obj o;
-    o.m_00 = (int)&DAT_010ccfcc;
+    o.m_00 = (int)&vftable_hkpKdTreeWorldLinearCaster;
     o.m_80 = DAT_0104da4c;
     o.m_24 = 0;
     return o.ComputeValues_00d984b0(m_10, a0, a1, a2, a3, a4, a5, a6);

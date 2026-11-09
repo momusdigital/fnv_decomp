@@ -1508,8 +1508,8 @@ bool Target::BSTaskManager_int64_AddTask(Task* task)
     return false;
 }
 
-extern int DAT_010c1670;
-extern int DAT_010c1664;
+extern int vftable_LockFreeMap__LockFreeMapIterator_010c1670;
+extern int vftable_BSTaskManagerIterator_010c1664;
 extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(volatile long*);
 struct S00c3fce0_Iter
 {
@@ -1523,16 +1523,16 @@ struct S00c3fce0_Iter
     int unk1C;
     __forceinline S00c3fce0_Iter()
     {
-        table = &DAT_010c1670;
+        table = &vftable_LockFreeMap__LockFreeMapIterator_010c1670;
         index = 0;
         current = 0;
         tail = 0;
         flags = 0;
-        table = &DAT_010c1664;
+        table = &vftable_BSTaskManagerIterator_010c1664;
     }
     __forceinline ~S00c3fce0_Iter()
     {
-        table = &DAT_010c1670;
+        table = &vftable_LockFreeMap__LockFreeMapIterator_010c1670;
     }
     __forceinline bool atEnd() const
     {
@@ -1639,8 +1639,8 @@ void S00c3fce0_cls::ProcessEntries_00c3fce0()
 
 __declspec(dllimport) long __stdcall InterlockedDecrement(long*);
 void* __cdecl Object_DispatchCommandFour(unsigned int size);
-extern int DAT_010c13f4;
-extern int DAT_01069d84;
+extern int vftable_BSNodeReferences;
+extern int vftable_NiTPrimitiveArray_01069d84;
 class FUN_00a5d3a0
 {
   public:
@@ -1659,7 +1659,7 @@ class FUN_00a5d3a0
     FUN_00a5d3a0();
     ~FUN_00a5d3a0();
 };
-extern int DAT_01069d7c;
+extern int vftable_NiTArray_01069d7c;
 void* FUN_0096afc0(unsigned int);
 class C3B270_SubBase
 {
@@ -1670,7 +1670,7 @@ class C3B270_SubBase
 // src: COMMUNITY 0x0068ac40
     void NiTArray_NiAVObject_NiTMallocInterface_NiAVObject_NiTArray_NiAVObject_NiTMallocInterface_NiAVObject(unsigned int a, unsigned int b)
     {
-        table = &DAT_01069d7c;
+        table = &vftable_NiTArray_01069d7c;
         capacity = (unsigned short)a;
         grow = (unsigned short)b;
         size = 0;
@@ -1688,7 +1688,7 @@ class C3B270_Sub : public C3B270_SubBase
     __forceinline C3B270_Sub()
     {
         NiTArray_NiAVObject_NiTMallocInterface_NiAVObject_NiTArray_NiAVObject_NiTMallocInterface_NiAVObject(0, 1);
-        table = &DAT_01069d84;
+        table = &vftable_NiTPrimitiveArray_01069d84;
     }
 };
 class C3B270_Object : public FUN_00a5d3a0

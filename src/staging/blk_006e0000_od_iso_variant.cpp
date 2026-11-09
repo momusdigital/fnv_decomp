@@ -85,19 +85,19 @@ FUN_006e1020_shell* __thiscall FUN_006e1020_shell::BSSimpleArray_PathingLOSGridC
 {
     return this;
 }
-extern int DAT_0106ceb8;
+extern int vftable_NiTMap_0106ceb8;
 struct FUN_006e0ea0_Class
 {
     int* __thiscall NiTMap_unsigned_int_PathingLOSGrid_NiTMap(int a1);
     void __thiscall ConstructHashTable(int a1);
 };
-extern int DAT_0106cef8;
+extern int vftable_BSSimpleArray_0106cef8;
 struct GlobalObject_00869f00
 {
     void __thiscall Clear(bool);
     void __thiscall SetVtableAndProcessState_006e1050();
 };
-extern int DAT_0106cf0c;
+extern int vftable_BSSimpleArray_0106cf0c;
 struct S006d0420
 {
     void __thiscall BSSimpleArray_char_1024_InitialSetup(int a1, int a2);
@@ -106,7 +106,7 @@ struct FUN_006e1070_Class
 {
     FUN_006e1070_Class* __thiscall SetVtableAndProcessState_006e1070();
 };
-extern int DAT_0106cf68;
+extern int vftable_NiTMap_0106cf68;
 struct FUN_006e2080_Class
 {
     void __thiscall FUN_006e20e0(int a1);
@@ -138,42 +138,42 @@ struct FUN_006e8fc0_Class
     void* __thiscall BSSimpleArray_PathingNode_1024_GetHead();
 };
 void __cdecl InitSizeState(int a1, int a2);
-extern void* DAT_0106d4d4;
+extern void* vftable_BSSimpleArray_0106d4d4;
 struct FUN_006e9050_Class
 {
     void __thiscall InitSizeState(int a1, int a2);
     void* __thiscall BSSimpleArray_VirtualPathingNode_1024_BSSimpleArray();
 };
-extern int DAT_0106d6b8;
+extern int vftable_BSTMessageQueue_0106d6b8;
 struct FUN_006ec1e0_Class
 {
     void __thiscall SetVirtualTable_006ec1e0();
 };
-extern int DAT_0106d6d0;
+extern int vftable_BSTCommonStaticMessageQueue_0106d6d0;
 struct FUN_006ec3f0_Class
 {
     void __thiscall SetVtableAndProcessState_006ec3f0();
     void __thiscall FUN_006ec410();
 };
-extern const void* DAT_0106d6f0;
+extern const void* vftable_BSTCommonMessageQueue_0106d6f0;
 struct FUN_006ec410_Class
 {
     virtual ~FUN_006ec410_Class();
     void __thiscall SetVtableAndProcessState_006ec430();
 };
-extern int DAT_0106d710;
+extern int vftable_BSTMessageQueue_0106d710;
 struct FUN_006ec430_Class
 {
     void __thiscall SetVtableAndProcessState_006ec430();
 };
 extern "C" void __cdecl BSTMessageQueue_PathingMessage_BSTMessageQueue_PathingMessage();
-extern int DAT_0106d698;
+extern int vftable_BSTCommonMessageQueue_0106d698;
 struct FUN_006ecb40_Class
 {
     void __thiscall BSTMessageQueue_PathingMessage_BSTMessageQueue_PathingMessage();
     FUN_006ecb40_Class* __thiscall BSTCommonMessageQueue_PathingMessage_BSTCommonMessageQueue();
 };
-extern int DAT_0106d7a0;
+extern int vftable_BSTFreeList_0106d7a0;
 struct FUN_006ecf20_Class
 {
     void __thiscall SetVirtualTable_006ecf20();
@@ -201,7 +201,7 @@ struct FUN_006f30e0_Class
 {
     AX* __thiscall BSSimpleArray_PathSmoother_PathEdge_1024_BSSimpleArray_PathSmoother_PathEdge_1024();
 };
-extern int DAT_0106d88c;
+extern int vftable_BSSimpleArray_0106d88c;
 struct FUN_006f3320_Class
 {
     void __thiscall InitBuffer(int a1, int a2);
@@ -219,13 +219,13 @@ struct FUN_006f4320_Class : public ScrapHeapBuffer
 {
     ScrapHeapBuffer* __thiscall ProcessAndReturnValue_006f4320();
 };
-extern int DAT_0106d974;
+extern int vftable_BSSimpleArray_0106d974;
 struct Dummy_0061bf20
 {
     void __thiscall BSSimpleArray_NavMeshPOVSearchNode_1024_InitialSetup(int a1, int a2);
     Dummy_0061bf20* __thiscall SetVtableAndProcessState_006f4b10();
 };
-extern void* DAT_0106d988;
+extern void* vftable_BSSimpleArray_0106d988;
 struct FUN_006f4b60_Class
 {
     void __thiscall ResetAndWrite(void* a1, void* a2);
@@ -236,7 +236,7 @@ struct FUN_006f4bb0_Class
 {
     void* __thiscall BSSimpleArray_Alloc16BytesMembers(int a1);
 };
-extern int DAT_0106df38;
+extern int vftable_BSMap_0106df38;
 struct FUN_006f98c0_Class
 {
     void __thiscall FUN_006f98c0(int a1);
@@ -246,7 +246,7 @@ struct FUN_006f9680_Class
     int m_iWordAt00;
     int __thiscall BSMap_unsigned_int_BGSDistantTreeBlock_InstanceData_BSMap(int a1);
 };
-extern int DAT_0106df58;
+extern int vftable_BSMap_0106df58;
 struct FUN_006f9a00_Class
 {
     void __thiscall FUN_006f9a00(int a2);
@@ -255,7 +255,7 @@ struct FUN_006f96b0_Class
 {
     int* __thiscall BSMap_unsigned_int_BGSDistantTreeBlock_TreeGroup_BSMap(int a1);
 };
-extern int DAT_0106df78;
+extern int vftable_BSSimpleArray_0106df78;
 struct FUN_006f9740_Class
 {
     void __thiscall ResizeAndFill(int a1, int a2);
@@ -266,7 +266,7 @@ struct FUN_006f9850_Class
 {
     void* __thiscall Reallocate_Thunk(void* p, unsigned int count);
 };
-extern int DAT_0106dfe0;
+extern int vftable_BSSimpleArray_0106dfe0;
 struct FUN_006fa180_Class
 {
     void __thiscall UpdateFields_006fa180(int, int);
@@ -275,7 +275,7 @@ struct FUN_006fa100_Class
 {
     FUN_006fa100_Class* __thiscall BSSimpleArray_BGSDistantTreeBlock_TreeType_1024_BSSimpleArray_BGSDistantTreeBlock_TreeType_1024();
 };
-extern int DAT_0106dfe0;
+extern int vftable_BSSimpleArray_0106dfe0;
 struct FUN_006f9c70_shell
 {
     void BGSDistantTreeBlock_TreeTypes_FreeAll(bool a1);
@@ -298,7 +298,7 @@ struct FUN_006ff880_Class
 {
     void __thiscall SteamAPI_SetNoCloud(unsigned char a1);
 };
-extern int DAT_0106e7b4;
+extern int vftable_CCallbackBase;
 struct FUN_006ff970_Class
 {
     int* m_p;
@@ -306,13 +306,13 @@ struct FUN_006ff970_Class
     int m_i;
     FUN_006ff970_Class();
 };
-extern int DAT_0106e7a4;
+extern int vftable_CCallback_0106e7a4;
 struct FUN_006ffc00_Class
 {
     void __thiscall UnregisterSteamCallback();
     void __thiscall UpdateFields_006ff9a0();
 };
-extern int DAT_0106e7c4;
+extern int vftable_CCallback_0106e7c4;
 struct FUN_006ffa40_Class
 {
     int m_vtbl;
@@ -320,7 +320,7 @@ struct FUN_006ffa40_Class
     void __thiscall UnregisterSteamCallback();
     void __thiscall SetVirtualTable_006ffa40();
 };
-extern "C" void* DAT_0106e7d4;
+extern "C" void* vftable_CCallback_0106e7d4;
 struct FUN_006ffac0_Class
 {
     void __thiscall UnregisterSteamCallback();
@@ -331,12 +331,12 @@ struct FUN_006ffb10_Class
     int __thiscall ReturnConstant_0x98();
 };
 extern void* __cdecl NiFreeAlias(void*);
-extern void* DAT_0106ced8;
+extern void* vftable_NiTMapBase_0106ced8;
 struct FUN_006e0ff0_Class : NiTPointerMap<int, int>
 {
     void __thiscall SetVtableAndProcessState_006e0ff0();
 };
-extern int DAT_0106d63c;
+extern int vftable_BSTFreeList_0106d63c;
 struct FUN_006ecc40_Class
 {
     int m0;
@@ -344,7 +344,7 @@ struct FUN_006ecc40_Class
     int m8;
     FUN_006ecc40_Class();
 };
-extern int DAT_0106d7a0;
+extern int vftable_BSTFreeList_0106d7a0;
 struct FUN_006ed010_Class
 {
     int* p;
@@ -384,7 +384,7 @@ struct FUN_006e1280_Class
 };
 void* __cdecl _NiMalloc(unsigned int);
 void* memset(void* p, int v, unsigned int n);
-extern int DAT_0106cf88;
+extern int vftable_NiTMapBase_0106cf88;
 struct FUN_006e20e0_Class
 {
     int* m_vtbl;
@@ -399,7 +399,7 @@ struct FUN_006e21e0_Class
     void __thiscall ClearAndFreeStorage();
     FUN_006e21e0_Class* __thiscall FUN_006e21e0(unsigned int flags);
 };
-extern int DAT_0106d414;
+extern int vftable_PathingRequestSafeStraightLine;
 struct FUN_006e5fa0 : public PathingRequestClosePoint
 {
     int m_B8;
@@ -480,7 +480,7 @@ struct FUN_006ebfb0_Class
     int* m_p;
     int* __thiscall AssignPointer(int** other);
 };
-extern int DAT_0106d678;
+extern int vftable_BSTCommonLLMessageQueue_0106d678;
 struct FUN_006ec090_Class
 {
     int f0;
@@ -650,7 +650,7 @@ struct S006F1E90
     bool __thiscall IsSegmentClear(int, int);
     bool __thiscall PathSmoother_IsSegmentValid(int, int);
 };
-extern int DAT_0106d814;
+extern int vftable_BSScrapArray_0106d814;
 struct FUN_006f26d0_Class
 {
     virtual ~FUN_006f26d0_Class();
@@ -762,7 +762,7 @@ struct FUN_006f9710_Class
     void __thiscall FUN_006f9b80();
     void* __thiscall FUN_006f9710(unsigned int a1);
 };
-extern int DAT_0106dfa0;
+extern int vftable_BSMapBase_0106dfa0;
 void __cdecl Deallocate(void*);
 struct FUN_006f99a0_Class
 {
@@ -780,7 +780,7 @@ struct FUN_006f9b80 : public FUN_006f9b80_shell
 {
     virtual ~FUN_006f9b80();
 };
-extern int DAT_0106dfc0;
+extern int vftable_BSMapBase_0106dfc0;
 void __cdecl Deallocate(void* p);
 struct FUN_006f9be0_Class
 {
@@ -1306,7 +1306,7 @@ struct LocalBSSimpleList
     void* __thiscall GetNext();
 };
 void* __cdecl retn8();
-extern void* DAT_0106ced8;
+extern void* vftable_NiTMapBase_0106ced8;
 void* __cdecl _NiMalloc(unsigned int size);
 void* __cdecl memset(void* destination, int value, unsigned int size);
 struct FUN_006e0f20_Class
@@ -1805,7 +1805,7 @@ class FUN_006ec000 : public FUN_006ecc40
     virtual ~FUN_006ec000();
     void InitElementList(unsigned int count, FUN_006ed0e0* entries);
 };
-extern int DAT_0106d698;
+extern int vftable_BSTCommonMessageQueue_0106d698;
 struct FUN_006ec2e0_Elem
 {
     int unk00;
@@ -2547,7 +2547,7 @@ class FUN_006f33b0_cls : public Base_6f33b0
 
     FUN_006f33b0_cls();
 };
-extern unsigned int DAT_0106d90c;
+extern unsigned int vftable_AStarSearch_0106d90c;
 struct FUN_006f4320
 {
     unsigned int m_pTreeNode;

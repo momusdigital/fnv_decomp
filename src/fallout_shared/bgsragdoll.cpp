@@ -649,7 +649,7 @@ bool RagdollOperations::Differs(TESForm* apCompare)
 }
 
 
-extern int DAT_010472d0;
+extern int vftable_BSSimpleArray_010472d0;
 
 // The constructor and destructor store the BSSimpleArray<char const *,1024> vftable 0x010472d0.
 // @fnv 0x005eede0

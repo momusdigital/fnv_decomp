@@ -443,7 +443,7 @@ struct ProcessListsView
 {
     unsigned char* GetLifeStateControlFlag();
 };
-extern ProcessListsView g_011d73d8;
+extern ProcessListsView bUseStraightLineCheckFirst_Pathfinding;
 extern const float g_011e024c_arg1;
 extern const NiPoint3 _NiPoint3_ZERO;
 
@@ -463,7 +463,7 @@ float __cdecl abs(float);
 int FUN_006cc5e0_shell::PathBuilder_AddNodesFromNavMesh(PathingLocation* aStartLocation, PathingLocation* aGoalLocation,
                                      unsigned int aiFirstVirtualNodeIndex, unsigned int aiLastVirtualNodeIndex)
 {
-    if (*g_011d73d8.GetLifeStateControlFlag() && !((PathingRequest*)pRequest)->GetString() &&
+    if (*bUseStraightLineCheckFirst_Pathfinding.GetLifeStateControlFlag() && !((PathingRequest*)pRequest)->GetString() &&
         !((PathingRequest*)pRequest)->TESCombatStyle_GetPowerAttackF() && !((PathingRequest*)pRequest)->GetTryToUseCurvedPath() &&
         ((::PathBuilder*)this)->PathBuilder_TryBuildStraightPath(aStartLocation, aGoalLocation))
         return 0;
@@ -750,7 +750,7 @@ struct P4_6cb4c0
 {
     int a, b, c, d;
 };
-extern SettingT<INISettingCollection> g_011d7404;
+extern SettingT<INISettingCollection> bUseRayCasts_Pathfinding;
 BSWin32TaskletManager& GetTaskletManager();
 unsigned int __cdecl gm_GetCurrentThreadId();
 class PathManager
@@ -791,7 +791,7 @@ struct FUN_006cb480
 // src: COMMUNITY 0x006cb4c0
 int PathBuilder::BuildStraightPathUsingRayCasts(PathingLocation& aStartLocation, PathingLocation& aGoalLocation, void* aRetPath)
 {
-    if (*(unsigned char*)g_011d7404.Bool())
+    if (*(unsigned char*)bUseRayCasts_Pathfinding.Bool())
     {
         if (GetTaskletManager().IsTaskletThread(gm_GetCurrentThreadId()))
         {
@@ -1703,7 +1703,7 @@ struct PathBuilderDirect : PathBuilderCore
 // src: COMMUNITY 0x006cb050
 int PathBuilderCore::PathBuilder_BuildPathToValidNavMeshTriangle(PathLoc* start, PathLocArray* output, int allowPartial, DoorEntryList* doors)
 {
-    if (*g_011d7404.Bool())
+    if (*bUseRayCasts_Pathfinding.Bool())
     {
         switch (CollectNearbyEdges(start, 10, doors))
         {

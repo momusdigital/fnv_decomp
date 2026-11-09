@@ -45,7 +45,7 @@ struct FUN_00661d30_cls
     const char* const* GetArg1Ptr();
 };
 extern "C" void* __cdecl NiTMapBase_NiTPointerAllocator_unsigned_int_TESObjectTREE_NiPointer_BSTreeModel_NiTMapBase(void*);
-extern int DAT_01066434;
+extern int vftable_NiTPointerMap_01066434;
 struct FUN_00665c50
 {
     void* __thiscall NiTMapBase_NiTPointerAllocator_unsigned_int_TESObjectTREE_NiPointer_BSTreeModel_NiTMapBase(int a);
@@ -68,21 +68,21 @@ struct FUN_0066dd80_Class
     bool IsFlag8Set() const;
 };
 bool ActionPoints_IsThrownAttackAction(int type);
-extern int DAT_01068884;
+extern int vftable_TESPackageData;
 struct FUN_0067ad20_Class
 {
     int* vtbl;
     FUN_0067ad20_Class();
 };
-extern int DAT_01068884;
+extern int vftable_TESPackageData;
 struct FUN_0067ad70_Class
 {
     void SetVtableAndProcessState_0067ad70();
 };
-extern int DAT_01068aa4;
+extern int vftable_ActorPackageData;
 ActorPackageData::ActorPackageData()
 {}
-extern "C" int DAT_01068aa4;
+extern "C" int vftable_ActorPackageData;
 struct FUN_0067d970_Class
 {
     int m;
@@ -114,7 +114,7 @@ S6* __cdecl CopyTripleShorts(S6* a1, S6* a2, S6* a3);
 struct FUN_00661d40_shell
 {
     void __thiscall SetVTableAndDestroy();
-    void* __thiscall FUN_00661d60(unsigned int);
+    void* __thiscall BSFaceGenMorphData_ScalarDeletingDestructor(unsigned int);
 };
 void __cdecl _delete(void*, unsigned int);
 extern const char* DAT_0119b49c[];
@@ -286,7 +286,7 @@ struct Holder
     FUNObj* q;
     void __thiscall SaveToBuffer(void*);
 };
-extern int DAT_010689e4;
+extern int vftable_TESPatrolPackageData;
 struct FUN_0067c3f0_Class : public FUN_0067ad20_Class
 {
     unsigned char b;
@@ -318,7 +318,7 @@ struct FUN_0067b100_Class
     unsigned char b14;
     void __thiscall PACK_DIALOGUE_DATA_Endian();
 };
-extern int DAT_01066e2c;
+extern int vftable_bhkCapsuleShape;
 extern int DAT_01268324;
 struct FUN_0066d6a0 : bhkConvexShape
 {

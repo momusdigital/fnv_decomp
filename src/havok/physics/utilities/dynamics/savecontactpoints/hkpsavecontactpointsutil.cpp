@@ -2002,14 +2002,14 @@ struct LocalContext
 {
     void* vtable;
 };
-extern int DAT_010d77c0;
+extern int vftable_hkEntitySelectorAll_010d77c0;
 extern "C" void __cdecl hkpSaveContactPointsUtil_loadContactPointsInternal(int, int, int, LocalContext*);
-// Sets up a LocalContext with DAT_010d77c0 as its vtable and forwards first, second and third to FUN_00dcea10.
+// Sets up a LocalContext with vftable_hkEntitySelectorAll_010d77c0 as its vtable and forwards first, second and third to FUN_00dcea10.
 // @fnv 0x00dce7b0
 void __cdecl RunWithLocalContext(int first, int second, int third)
 {
     LocalContext local;
-    local.vtable = &DAT_010d77c0;
+    local.vtable = &vftable_hkEntitySelectorAll_010d77c0;
     hkpSaveContactPointsUtil_loadContactPointsInternal(first, second, third, &local);
 }
 

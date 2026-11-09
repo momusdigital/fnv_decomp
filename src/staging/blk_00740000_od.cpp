@@ -45,7 +45,7 @@ int FUN_00752df0_class::CompareToTwentyOneToTwentySix(int value)
     return 0;
 }
 
-extern "C" void* DAT_01071aec;
+extern "C" void* vftable_BSSimpleArray_01071aec;
 
 struct AX
 {
@@ -53,18 +53,18 @@ struct AX
     AX* __thiscall BSSimpleArray_NiAVObject_1024_BSSimpleArray();
 };
 
-// Sets the object's vtable pointer to DAT_01071aec, calls FUN_006b3eb0(0, 0), and returns this.
+// Sets the object's vtable pointer to vftable_BSSimpleArray_01071aec, calls FUN_006b3eb0(0, 0), and returns this.
 // @fnv 0x00753070
 // src: EXE 0x00753070
 AX* __thiscall AX::BSSimpleArray_NiAVObject_1024_BSSimpleArray()
 {
-    *(void**)this = &DAT_01071aec;
+    *(void**)this = &vftable_BSSimpleArray_01071aec;
     BSSimpleArray_float_1024_InitialSetup(0, 0);
     return this;
 }
 
 namespace fnv_007530a0 {
-extern int DAT_01071aec;
+extern int vftable_BSSimpleArray_01071aec;
 
 struct GlobalObject_00869f00
 {
@@ -76,12 +76,12 @@ struct GlobalObject_00869f00
 // src: GUESS 0x007530a0 (confidence: medium)
 void GlobalObject_00869f00::ResetVirtualTableAndClear_007530a0()
 {
-    *reinterpret_cast<int**>(this) = &DAT_01071aec;
+    *reinterpret_cast<int**>(this) = &vftable_BSSimpleArray_01071aec;
     Clear(true);
 }
 }  // namespace fnv_007530a0
 
-extern int DAT_01071b00;
+extern int vftable_BSSimpleArray_01071b00;
 
 struct GlobalObject_00869f00
 {
@@ -94,7 +94,7 @@ struct GlobalObject_00869f00
 // src: GUESS 0x007530f0 (confidence: low)
 void GlobalObject_00869f00::UpdateState_007530f0()
 {
-    p = &DAT_01071b00;
+    p = &vftable_BSSimpleArray_01071b00;
     Clear(true);
 }
 
@@ -105,21 +105,21 @@ struct AX
     AX* SetVtableAndProcessState_00753110();
 };
 
-extern void* DAT_01071b14;
+extern void* vftable_BSSimpleArray_01071b14;
 
-// Sets the object's vtable pointer to DAT_01071b14, calls FUN_006b3eb0 with 0, 0, and returns this.
+// Sets the object's vtable pointer to vftable_BSSimpleArray_01071b14, calls FUN_006b3eb0 with 0, 0, and returns this.
 // @fnv 0x00753110
 // src: GUESS 0x00753110 (confidence: low)
 AX* AX::SetVtableAndProcessState_00753110()
 {
-    *reinterpret_cast<void**>(this) = &DAT_01071b14;
+    *reinterpret_cast<void**>(this) = &vftable_BSSimpleArray_01071b14;
     BSSimpleArray_float_1024_InitialSetup(0, 0);
     return this;
 }
 }  // namespace fnv_00753110
 
 namespace fnv_00753210 {
-extern int DAT_01071b14;
+extern int vftable_BSSimpleArray_01071b14;
 struct GlobalObject_00869f00
 {
     int* p;
@@ -134,7 +134,7 @@ struct FUN_00753210Class
 // src: GUESS 0x00753210 (confidence: low)
 void __thiscall FUN_00753210Class::UpdateState_00753210()
 {
-    p = &DAT_01071b14;
+    p = &vftable_BSSimpleArray_01071b14;
     ((GlobalObject_00869f00*)this)->Clear(true);
 }
 }  // namespace fnv_00753210
@@ -181,12 +181,12 @@ struct S007530c0
 {
     S007530c0* __thiscall BSSimpleArray_TESCaravanCard_1024_BSSimpleArray();
 };
-// Sets the vtable pointer to DAT_01071b00, calls FUN_006b3eb0 with 0, 0, and returns this.
+// Sets the vtable pointer to vftable_BSSimpleArray_01071b00, calls FUN_006b3eb0 with 0, 0, and returns this.
 // @fnv 0x007530c0
 // src: EXE 0x007530c0
 S007530c0* __thiscall S007530c0::BSSimpleArray_TESCaravanCard_1024_BSSimpleArray()
 {
-    *(int*)this = (int)&DAT_01071b00;
+    *(int*)this = (int)&vftable_BSSimpleArray_01071b00;
     ((AX*)this)->BSSimpleArray_float_1024_InitialSetup(0, 0);
     return this;
 }

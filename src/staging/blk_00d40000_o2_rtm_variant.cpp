@@ -41,7 +41,7 @@ struct FUN_00c9ce00_cls
 {
     void __thiscall FUN_00c9ce00(int);
 };
-extern int DAT_010c7888;
+extern int vftable_hkpRigidBody;
 void __cdecl finishLoadedObjecthkpRigidBody(FUN_00c9ce00_cls* pObject, int aiValue);
 extern "C" void __cdecl AppendEventRecord(int, int, int, int);
 void __stdcall hkpBreakableConstraintData_buildNopJacobian(int a, int b);
@@ -67,16 +67,16 @@ void __cdecl InsertSlotId();
 void __cdecl FindEntryByKey();
 void __cdecl ForwardToTarget();
 void __cdecl hkPredGskAgent3_initAgentFunc(int* pObject);
-extern int DAT_010cf9a4;
+extern int vftable_hkpPhysicsData;
 void __cdecl Runtime_UpdateState_00d48350(int* p);
 struct FUN_00d49580_vtbl
 {
     virtual void v0(int);
 };
 void __cdecl Object_InvokeVirtualMethod_00d49580(FUN_00d49580_vtbl* p);
-extern int DAT_010305a8;
-extern int DAT_010ce31c;
-extern int DAT_010cfb34;
+extern int vftable_hkpShape;
+extern int vftable_hkpSampledHeightFieldShape;
+extern int vftable_hkpStorageSampledHeightFieldShape;
 void __cdecl Object_UpdateFields_00d495a0(int* pObject, int b);
 void __cdecl Runtime_Helper_00d4b190(void* p);
 struct FUN_00d4b250_class
@@ -173,7 +173,7 @@ struct SpawnLarge
     unsigned short m_w04;
     void __thiscall FUN_00dacbd0(int, int, int);
 };
-extern char DAT_010ceb94[];
+extern char vftable_hkpPredGskfAgent[];
 hkMemoryRouter* __cdecl hkMemoryRouter_getInstance();
 void* __cdecl CreateSpawnObject(int a1, int a2, int a3, int a4);
 struct FNVDispatchType
@@ -231,7 +231,7 @@ struct S_00d48300_Foo
 };
 extern int DAT_01268b9c;
 void* __cdecl Object_GetGlobalObjectAddress_00d48340();
-extern int DAT_010cf9a4;
+extern int vftable_hkpPhysicsData;
 int* __cdecl Object_GetGlobalObjectAddress_00d48360();
 struct S_00d483a0_Result
 {
@@ -278,7 +278,7 @@ extern int DAT_01268bcc;
 int* __cdecl Object_GetGlobalObjectAddress_00d49520();
 extern int DAT_01268c14;
 int __cdecl Runtime_EvaluateValue_00d49590();
-extern int DAT_010cfb34;
+extern int vftable_hkpStorageSampledHeightFieldShape;
 int __cdecl Runtime_EvaluateValue_00d495f0();
 extern int DAT_010cfd10;
 struct FnvVtObj
@@ -287,8 +287,8 @@ struct FnvVtObj
 
     FnvVtObj* SetVirtualTable_00d49c40(unsigned int unusedArg);
 };
-extern int DAT_010cfd44;
-extern int DAT_010cfd20;
+extern int vftable_hkpStorageExtendedMeshShape;
+extern int vftable_hkpStorageExtendedMeshShape_for_hkpShapeContainer;
 struct FUN_00d49c50_cls
 {
     volatile void* m_pVtbl;
@@ -424,8 +424,8 @@ void __cdecl Object_InvokeVirtualMethod_00d4b380(TailTarget* pTarget);
 // Constructor of a scene-graph style node: initialises the base node
 // (FUN_00dcd310) and then the derived node's own vtable pointers and
 // member state.
-extern int DAT_010d055c;
-extern int DAT_010d053c;
+extern int vftable_hkpStorageMeshShape;
+extern int vftable_hkpStorageMeshShape_for_hkpShapeContainer;
 struct FUN_00d4b3c0_cls
 {
     volatile void* m_pVtbl;
@@ -2072,7 +2072,7 @@ struct S_00d49660_Foo
     void __thiscall ProcessAndReturnValue_00d248a0(int, int);
     S_00d49660_Foo* __thiscall hkpStorageSampledHeightFieldShape_hkpStorageSampledHeightFieldShape(int, int, float);
 };
-extern int DAT_010cfb34;
+extern int vftable_hkpStorageSampledHeightFieldShape;
 extern double DAT_01012070;
 int __cdecl FUN_00ec62c0();
 struct AllocatorD500
@@ -3211,7 +3211,7 @@ struct FUN_00d4f2a0 : hkpRagdollDataS
     FUN_00d4f2a0();
     virtual ~FUN_00d4f2a0();
 };
-extern int DAT_010d0be4;
+extern int vftable_hkpHingeLimitsData;
 extern float DAT_0106b648;
 extern float DAT_0102b3c8;
 namespace HingeLimitsD52FC0Detail {
@@ -3265,7 +3265,7 @@ class FUN_00d52fc0
 
     FUN_00d52fc0();
 };
-extern int DAT_010d0cd4;
+extern int vftable_hkpBallAndSocketConstraintData;
 extern float DAT_0104da48;
 struct FUN_00ca9360_sub
 {
@@ -3365,7 +3365,7 @@ int ConstraintBuilder::ProcessAndReturnValue_00d52ae0(float value)
     return result;
 }
 
-extern const void* DAT_010d0fc4[];
+extern const void* vftable_hkpConvexVerticesShape[];
 extern "C" void _ReadWriteBarrier();
 struct Scalar380
 {
@@ -3431,7 +3431,7 @@ struct FUN_00d59760 : ConvexBase380
 // @fnv 0x00d59760
 FUN_00d59760::FUN_00d59760(TransposedPoints380* vertexData, int count, hkVector4* planeData, int planeCount,
                            const hkAabb& bounds, float r)
-    : ConvexBase380(r), vertices((vtable = DAT_010d0fc4, references = 1, vertexData), count), vertexCount(count),
+    : ConvexBase380(r), vertices((vtable = vftable_hkpConvexVerticesShape, references = 1, vertexData), count), vertexCount(count),
       unk50(0), planes(planeData, planeCount), connectivity(0)
 {
     halfExtents.setSub4(bounds.m_kMaximumCorner, bounds.m_kMinimumCorner);

@@ -24,7 +24,7 @@ void* BSResizableTriShape::GetBoundingVolume()
 
 extern "C" void __cdecl _delete(void*, unsigned int);
 void __fastcall FUN_00a89760(void*);
-extern void* DAT_0109e704;
+extern void* vftable_BSResizableTriShape;
 
 // Preserve the original x86 field offsets where shared headers expose no matching fields.
 
@@ -33,7 +33,7 @@ extern void* DAT_0109e704;
 // @fnv 0x00a86da0
 void* __fastcall DestroyResizableTriShape(BSResizableTriShape* self, void*, unsigned int flags)
 {
-    ((void**)(self))[0] = &DAT_0109e704;
+    ((void**)(self))[0] = &vftable_BSResizableTriShape;
     FUN_00a89760(self);
     if (flags & 1)
         _delete(self, 0xd8);
@@ -68,7 +68,7 @@ struct FUN_00a74480_holder
 BSResizableTriShape* __fastcall ConstructResizableTriShape(BSResizableTriShape* self, void*, unsigned int a)
 {
     ((FUN_00a74480_holder*)self)->FUN_00a74480(a);
-    *(void**)self = (void*)&DAT_0109e704;
+    *(void**)self = (void*)&vftable_BSResizableTriShape;
     *(unsigned int*)((char*)self + 0xC4) = 0;
     return self;
 }
@@ -85,7 +85,7 @@ NiObject* BSResizableTriShape::MakeClone(CloningProcess& kCloning)
     if (pkObject)
     {
         ((BSFadeNode*)pkObject)->FUN_00a744a0();
-        *(void**)pkObject = (void*)&DAT_0109e704;
+        *(void**)pkObject = (void*)&vftable_BSResizableTriShape;
     }
     else
     {

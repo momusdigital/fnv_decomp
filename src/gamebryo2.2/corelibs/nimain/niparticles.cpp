@@ -64,7 +64,7 @@ void __stdcall NiParticles_GetViewerStrings(StrArr* apStrArr)
 }
 
 void* __cdecl Object_DispatchCommandFour(unsigned int size);
-extern int DAT_010a11d4;
+extern int vftable_NiParticles;
 
 inline void* operator new(unsigned int, void* memory) { return memory; }
 
@@ -75,7 +75,7 @@ NiParticles* __fastcall CreateAndInitObject(NiParticles* self, void*, unsigned i
     if (p != 0)
     {
         ::new (p) NiGeometry;
-        *(void**)p = (void*)&DAT_010a11d4;
+        *(void**)p = (void*)&vftable_NiParticles;
     }
     else
     {

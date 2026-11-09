@@ -198,7 +198,7 @@ extern int DAT_011f3708;
 extern int DAT_011f370c;
 extern int DAT_011f3710;
 extern float DAT_01096b8c;
-extern int DAT_0109957c;
+extern int vftable_NiBSplineTransformInterpolator;
 
 // The shared classes do not declare the parameterized constructors. Keep the
 // original thiscall entry point here, operating on their checked layouts.
@@ -208,7 +208,7 @@ NiBSplineTransformInterpolator* SplineTransformOperations::Construct(int aiArg1,
 {
     NiBSplineTransformInterpolator* self = reinterpret_cast<NiBSplineTransformInterpolator*>(this);
     reinterpret_cast<SplineBaseOperations*>(self)->Construct(aiArg1, aiArg5);
-    *reinterpret_cast<int*>(self) = (int)&DAT_0109957c;
+    *reinterpret_cast<int*>(self) = (int)&vftable_NiBSplineTransformInterpolator;
     reinterpret_cast<int&>(self->m_kDefaultTransform.x) = DAT_011a8400;
     reinterpret_cast<int&>(self->m_kDefaultTransform.y) = DAT_011a8404;
     reinterpret_cast<int&>(self->m_kDefaultTransform.z) = DAT_011a8408;
@@ -224,7 +224,7 @@ NiBSplineTransformInterpolator* SplineTransformOperations::Construct(int aiArg1,
 }
 
 static const float NI_INFINITY = 3.402823466e+38f;
-extern int DAT_0109991c;
+extern int vftable_NiBSplineCompTransformInterpolator;
 
 __forceinline NiBSplineCompTransformInterpolator* NewCompTransform()
 {
@@ -234,7 +234,7 @@ __forceinline NiBSplineCompTransformInterpolator* NewCompTransform()
     {
         reinterpret_cast<SplineTransformOperations*>(result)->Construct(0, 0xffff, 0xffff, 0xffff, 0);
         // Keep vtable installation before the range stores, as in the original constructor.
-        *reinterpret_cast<volatile int*>(result) = (int)&DAT_0109991c;
+        *reinterpret_cast<volatile int*>(result) = (int)&vftable_NiBSplineCompTransformInterpolator;
         volatile float* ranges = result->m_afOffsetAndHalfRange;
         ranges[0] = NI_INFINITY;
         ranges[1] = NI_INFINITY;

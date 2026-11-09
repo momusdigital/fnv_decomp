@@ -77,7 +77,7 @@ bool __thiscall FUN_00b01be0_Class::IsFlag4Clear(unsigned int flags, unsigned in
     return !(flags & 4);
 }
 
-extern int DAT_010a48e8;
+extern int vftable_BSTaskletGroupData;
 
 struct FUN_00b029a0_class
 {
@@ -88,7 +88,7 @@ struct FUN_00b029a0_class
 // src: GUESS 0x00b029a0 (confidence: low)
 void __thiscall FUN_00b029a0_class::SetVirtualTable_00b029a0()
 {
-    *(int**)(this) = &DAT_010a48e8;
+    *(int**)(this) = &vftable_BSTaskletGroupData;
 }
 
 struct FUN_00b18320_Class
@@ -321,8 +321,8 @@ struct FUN_00b01c20 : public FUN_00b01020
 FUN_00b01c20::~FUN_00b01c20()
 {}
 
-extern int DAT_010a4880;
-extern int DAT_010a48ac;
+extern int vftable_BSWin32TaskletManager;
+extern int vftable_BSTaskletManager;
 extern "C" __declspec(dllimport) void __stdcall FreeLibrary(void*);
 extern "C" __declspec(dllimport) void __stdcall DestroyWindow(void*);
 
@@ -334,10 +334,10 @@ struct FUN_00b01f00_class
 // @fnv 0x00b01f00
 void FUN_00b01f00_class::DestroyAndFreeLibraries()
 {
-    *(int*)this = (int)&DAT_010a4880;
+    *(int*)this = (int)&vftable_BSWin32TaskletManager;
     FreeLibrary(*(void**)((char*)this + 0x270));
     DestroyWindow((void*)((char*)this + 0x54));
-    *(int*)this = (int)&DAT_010a48ac;
+    *(int*)this = (int)&vftable_BSTaskletManager;
     FreeLibrary(*(void**)((char*)this + 0xc));
 }
 
@@ -637,8 +637,8 @@ extern "C" __declspec(dllimport) long __stdcall InterlockedCompareExchange(long 
                                                                            long comparand);
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long milliseconds);
 
-extern int DAT_0106c800;
-extern int DAT_0106c814;
+extern int vftable_BSWin32TaskletData;
+extern int vftable_BSTaskletData;
 
 struct FUN_00b00ec0
 {
@@ -654,7 +654,7 @@ struct FUN_00b00ec0
 // @fnv 0x00b00ec0
 FUN_00b00ec0::~FUN_00b00ec0() throw()
 {
-    *(void* volatile*)this = (void*)&DAT_0106c800;
+    *(void* volatile*)this = (void*)&vftable_BSWin32TaskletData;
     while (InterlockedCompareExchange(&m_10, 1, 0) != 0)
     {
         Sleep(0);
@@ -664,7 +664,7 @@ FUN_00b00ec0::~FUN_00b00ec0() throw()
         m_08 = 0;
     }
     m_10 = 0;
-    *(void* volatile*)this = (void*)&DAT_0106c814;
+    *(void* volatile*)this = (void*)&vftable_BSTaskletData;
 }
 
 extern "C" __declspec(dllimport) int __stdcall FindFirstFileA(const char* pattern);
@@ -865,7 +865,7 @@ bool __thiscall FUN_00b10490_class::ProcessEntries_00b10490(const FUN_00b10490_c
 }
 
 extern "C" MemoryManager DAT_011f6238;
-extern "C" char DAT_010176f8[];
+extern "C" char vftable_std__bad_alloc[];
 extern "C" char DAT_01140ef8[];
 extern "C" void __stdcall FUN_00ec7894(void* err2, const char* msg);
 
@@ -892,7 +892,7 @@ void* __cdecl AllocatePoolArray(unsigned int count)
             unsigned int tmp = 0;
             FUN_00b108e0_err err2;
             err2.FUN_00ec78f1(&tmp);
-            err2.m_vptr = DAT_010176f8;
+            err2.m_vptr = vftable_std__bad_alloc;
             FUN_00ec7894(&err2, DAT_01140ef8);
         }
     }
@@ -1309,7 +1309,7 @@ void StripBuilder::BuildStripIndices(unsigned short ausStripId, StripDestination
     }
 }
 
-extern "C" char DAT_010176f8[];
+extern "C" char vftable_std__bad_alloc[];
 extern "C" char DAT_01140ef8[];
 extern "C" void __stdcall FUN_00ec7894(void* err2, const char* msg);
 
@@ -1324,7 +1324,7 @@ int* Object_AllocateElementStorage_00b16b00(unsigned int count, int aiUnused)
         FUN_00b108e0_err val;
         unsigned int err = 0;
         val.FUN_00ec78f1(&err);
-        val.m_vptr = DAT_010176f8;
+        val.m_vptr = vftable_std__bad_alloc;
         FUN_00ec7894(&val, DAT_01140ef8);
     }
     return (int*)operator new(count << 2);
@@ -1465,7 +1465,7 @@ void __cdecl Runtime_SetVtableAndProcessState_00b10830(unsigned int count)
             FUN_00b108e0_err value;
             unsigned int error = 0;
             value.FUN_00ec78f1(&error);
-            value.m_vptr = (void*)DAT_010176f8;
+            value.m_vptr = (void*)vftable_std__bad_alloc;
             FUN_00ec7894(&value, DAT_01140ef8);
         }
     }
@@ -1681,7 +1681,7 @@ FUN_00b01d50::FUN_00b01d50(unsigned int count)
         mainThread = CreateThread(0, 0, MainThreadProc, this, 0, &threadID);
 }
 
-extern int DAT_010a48ac;
+extern int vftable_BSTaskletManager;
 
 struct FUN_00b02720_shell
 {
@@ -1692,7 +1692,7 @@ struct FUN_00b02720_shell
 // @fnv 0x00b02720
 void* __thiscall FUN_00b02720_shell::Init()
 {
-    *(int*)this = (int)&DAT_010a48ac;
+    *(int*)this = (int)&vftable_BSTaskletManager;
     ((unsigned char*)this)[4] = 0;
     ((unsigned char*)this)[5] = 0;
     int* p = (int*)((char*)this + 8);
@@ -1702,7 +1702,7 @@ void* __thiscall FUN_00b02720_shell::Init()
     return this;
 }
 
-extern int DAT_010a48d8;
+extern int vftable_BSWin32TaskletGroupData;
 struct FUN_00b027c0
 {
     void* vtable;
@@ -1720,9 +1720,9 @@ struct CSFields
 // @fnv 0x00b027c0
 FUN_00b027c0::FUN_00b027c0()
 {
-    vtable = &DAT_010a48e8;
+    vtable = &vftable_BSTaskletGroupData;
     bActive = 1;
-    vtable = &DAT_010a48d8;
+    vtable = &vftable_BSWin32TaskletGroupData;
     CSFields* pCS = (CSFields*)((char*)this + 8);
     pCS->LockCount = 0;
     pCS->Pad1 = 1;

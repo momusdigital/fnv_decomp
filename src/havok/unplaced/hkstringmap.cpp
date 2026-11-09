@@ -153,8 +153,8 @@ struct FUN_00dc7750_class
     void ClearWorldContainers();
 };
 
-extern int DAT_010d7510;
-extern int _DAT_0102e388;
+extern int vftable_hkDataWorldDict;
+extern int vftable_hkBaseObject;
 
 hkMemoryRouter* _D1A0E0GetMemoryRouter();
 
@@ -171,7 +171,7 @@ struct FUN_00dc8080_class
 void FUN_00dc8080_class::ReleaseStorage_00dc8080()
 {
     FUN_00dc7750_class* object = m_8;
-    m_vptr = &DAT_010d7510;
+    m_vptr = &vftable_hkDataWorldDict;
 
     if (object)
     {
@@ -183,7 +183,7 @@ void FUN_00dc8080_class::ReleaseStorage_00dc8080()
         allocator->blockFree(object, 0x88);
     }
 
-    m_vptr = &_DAT_0102e388;
+    m_vptr = &vftable_hkBaseObject;
 }
 }  // namespace fnv_00dc8080
 

@@ -453,7 +453,7 @@ void __cdecl MapMenu_SetWorldMapMagnification(float afMagnification)
     }
 }
 
-extern int DAT_01075530;
+extern int vftable_BSSimpleArray_01075530;
 
 struct Dummy_007a1a70
 {
@@ -461,12 +461,12 @@ struct Dummy_007a1a70
     void UpdateState_007a63f0(int, int);
 };
 
-// Sets the object's vtable to DAT_01075530 and calls FUN_007a63f0 with 0, 0, returning the object.
+// Sets the object's vtable to vftable_BSSimpleArray_01075530 and calls FUN_007a63f0 with 0, 0, returning the object.
 // @fnv 0x007a1a70
 // src: EXE 0x007a1a70
 Dummy_007a1a70* __fastcall BSSimpleArray_BSStringT_char_1024_BSSimpleArray(Dummy_007a1a70* pThis)
 {
-    pThis->vtable = &DAT_01075530;
+    pThis->vtable = &vftable_BSSimpleArray_01075530;
     pThis->UpdateState_007a63f0(0, 0);
     return pThis;
 }
@@ -643,8 +643,8 @@ extern SettingT_GameSettingCollection_ g_011d48e8;
 extern SettingT_GameSettingCollection_ g_011d4960;
 extern SettingT_GameSettingCollection_ g_011d4a38;
 extern SettingT_GameSettingCollection_ g_011d4f54;
-extern SettingT_GameSettingCollection_ g_011db37c;
-extern SettingT_GameSettingCollection_ g_011db458;
+extern SettingT_GameSettingCollection_ fMiniBurstIntensity_InterfaceFX;
+extern SettingT_GameSettingCollection_ fMiniBurstDuration_InterfaceFX;
 extern PlayerCharacter* g_thePlayer;
 int sprintf_s(char*, unsigned int, const char*, ...);
 int _stricmp(const char*, const char*);
@@ -944,7 +944,7 @@ void MapMenu::HandleSelection(int aiID, Tile* apTarget)
         m_iMapDisplayMode = aiID;
         ((MapInterface*)InterfaceManager_GetSingleton())
             ->GetPipboyManager()
-            ->StartBurst(g_011db458.Float()->f, g_011db37c.Float()->f, 0.5f);
+            ->StartBurst(fMiniBurstDuration_InterfaceFX.Float()->f, fMiniBurstIntensity_InterfaceFX.Float()->f, 0.5f);
         if (!Interface_Has360Controller() && aiID != 0x20 && aiID != 0x21)
             InterfaceManager_GetSingleton()->GetParent()->Set(0xfa9, 255.0f, true);
         m_pTiles[13]->Set(0xfa3, 0);
@@ -1126,13 +1126,13 @@ void MapMenu_SetKnobPosition(bool a)
             ->SetValue(*(int*)((char*)DAT_011da368 + 0x80) - 0x20, a);
 }
 
-extern SettingT_GameSettingCollection_ g_011c63cc;
+extern SettingT_GameSettingCollection_ uGridsToLoad_General;
 extern MapMenu* _DAT_011da368;
 // @fnv 0x007a1750
 // src: XBOX_PDB 0x007a1750
 bool MapMenu_ShouldRenderLocalMap()
 {
-    return _DAT_011da368 != 0 && _DAT_011da368->m_uiMapMarkerCount < *reinterpret_cast<int*>(g_011c63cc.Int()) * *reinterpret_cast<int*>(g_011c63cc.Int());
+    return _DAT_011da368 != 0 && _DAT_011da368->m_uiMapMarkerCount < *reinterpret_cast<int*>(uGridsToLoad_General.Int()) * *reinterpret_cast<int*>(uGridsToLoad_General.Int());
 }
 
 namespace fnv_007a17e0 {
@@ -1201,7 +1201,7 @@ bool __fastcall HasChallengeDisplayFlag(const TESChallenge* challenge)
     return *(const unsigned short*)((const char*)challenge + 0x5c) & 4;
 }
 
-extern int DAT_01075530;
+extern int vftable_BSSimpleArray_01075530;
 
 struct FUN_007a1aa0_shell : public MapArray<BSStringT<char>, 1024>
 {
@@ -1212,7 +1212,7 @@ struct FUN_007a1aa0_shell : public MapArray<BSStringT<char>, 1024>
 // src: GUESS 0x007a1aa0 (confidence: medium)
 void FUN_007a1aa0_shell::ResetVirtualTableAndClear_007a1aa0()
 {
-    *reinterpret_cast<int**>(this) = &DAT_01075530;
+    *reinterpret_cast<int**>(this) = &vftable_BSSimpleArray_01075530;
     Clear(true);
 }
 
@@ -3583,19 +3583,19 @@ void MapMenu::UpdateLocalMap()
     {
         MapPoint3 b = c;
         pAdjustNorthRotationCell->AdjustCoordForNorthRotation(reinterpret_cast<NiPoint3&>(c), reinterpret_cast<NiPoint3&>(b), true);
-        int e = ((TruncateFloatToInt(b.x) - 2048) >> 12) - (*reinterpret_cast<int*>(g_011c63cc.Int()) >> 1);
-        int d = ((TruncateFloatToInt(b.y) - 2048) >> 12) - (*reinterpret_cast<int*>(g_011c63cc.Int()) >> 1);
-        MapPoint3 a((float)((e << 12) + 2048), (float)(((d + *reinterpret_cast<int*>(g_011c63cc.Int()) - 1) << 12) + 2048), 0.0f);
-        MapPoint3 c((float)(((e + *reinterpret_cast<int*>(g_011c63cc.Int()) - 1) << 12) + 2048), (float)((d << 12) + 2048), 0.0f);
+        int e = ((TruncateFloatToInt(b.x) - 2048) >> 12) - (*reinterpret_cast<int*>(uGridsToLoad_General.Int()) >> 1);
+        int d = ((TruncateFloatToInt(b.y) - 2048) >> 12) - (*reinterpret_cast<int*>(uGridsToLoad_General.Int()) >> 1);
+        MapPoint3 a((float)((e << 12) + 2048), (float)(((d + *reinterpret_cast<int*>(uGridsToLoad_General.Int()) - 1) << 12) + 2048), 0.0f);
+        MapPoint3 c((float)(((e + *reinterpret_cast<int*>(uGridsToLoad_General.Int()) - 1) << 12) + 2048), (float)((d << 12) + 2048), 0.0f);
         m_kMapMinimumPoint = NiPoint2(a.x, a.y + 4096.0);
         m_kMapMaximumPoint = NiPoint2(c.x + 4096.0, c.y);
     }
     else
     {
-        int e = ((TruncateFloatToInt(c.x)) >> 12) - (*reinterpret_cast<int*>(g_011c63cc.Int()) >> 1);
-        int d = ((TruncateFloatToInt(c.y)) >> 12) - (*reinterpret_cast<int*>(g_011c63cc.Int()) >> 1);
-        MapPoint3 a((float)(e << 12), (float)((d + *reinterpret_cast<int*>(g_011c63cc.Int()) - 1) << 12), 0.0f);
-        MapPoint3 b((float)((e + *reinterpret_cast<int*>(g_011c63cc.Int()) - 1) << 12), (float)(d << 12), 0.0f);
+        int e = ((TruncateFloatToInt(c.x)) >> 12) - (*reinterpret_cast<int*>(uGridsToLoad_General.Int()) >> 1);
+        int d = ((TruncateFloatToInt(c.y)) >> 12) - (*reinterpret_cast<int*>(uGridsToLoad_General.Int()) >> 1);
+        MapPoint3 a((float)(e << 12), (float)((d + *reinterpret_cast<int*>(uGridsToLoad_General.Int()) - 1) << 12), 0.0f);
+        MapPoint3 b((float)((e + *reinterpret_cast<int*>(uGridsToLoad_General.Int()) - 1) << 12), (float)(d << 12), 0.0f);
         m_kMapMinimumPoint = NiPoint2(a.x, a.y + 4096.0);
         m_kMapMaximumPoint = NiPoint2(b.x + 4096.0, b.y);
     }
@@ -4374,7 +4374,7 @@ struct SettingQuestOps
 {
     MapINISettingValue* FUN_00408d60();
 };
-extern SettingQuestOps g_011e07f0;
+extern SettingQuestOps bShowQuestMarkers_GamePlay;
 extern const char markerWorld[], markerLocal[], markerTexture[];
 struct MarkerValue
 {
@@ -4416,7 +4416,7 @@ void MarkerMap::MapMenu_AddQuestMarkers()
         tile = ((MarkerTile*)m_pMapTile)->Tile_GetChildByID(29);
     }
     for (QuestNode* node = ((PlayerQuestOps*)g_thePlayer)->PlayerCharacter_GetCurrentQuestTargets();
-         g_011e07f0.FUN_00408d60()->b && node && *node->FUN_006815c0(); node = node->FUN_00726070())
+         bShowQuestMarkers_GamePlay.FUN_00408d60()->b && node && *node->FUN_006815c0(); node = node->FUN_00726070())
     {
         TESObjectREFR* reference = (*node->FUN_006815c0())->FUN_006101b0(true);
         TESObjectREFR* target = m_iMapDisplayMode == 33

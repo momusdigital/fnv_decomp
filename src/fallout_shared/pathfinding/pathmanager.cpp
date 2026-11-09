@@ -67,7 +67,7 @@ bool PathManager::Initialize()
 bool PathManager::BuildPath(NiPointer<PathingRequest> m_pPathingRequest, NiPointer<ActorPathingMessageQueue> spQueue,
                             bool bAsync)
 {
-    if (*g_011d77cc.Bool() && bAsync)
+    if (*bBackgroundPathing_Pathfinding.Bool() && bAsync)
     {
         return m_pPathManagerImpl->BuildPath(m_pPathingRequest, spQueue);
     }
@@ -611,7 +611,7 @@ void __thiscall FUN_006ebcb0_shell::CallMemberFunction()
     m0->IsFieldZero();
 }
 
-extern int DAT_0106d644;
+extern int vftable_LockFreeMap__LockFreeMapIterator_0106d644;
 
 struct FUN_006ebdc0_shell
 {
@@ -621,7 +621,7 @@ struct FUN_006ebdc0_shell
 // @fnv 0x006ebdc0
 void __thiscall FUN_006ebdc0_shell::SetVtable()
 {
-    *(int*)this = (int)&DAT_0106d644;
+    *(int*)this = (int)&vftable_LockFreeMap__LockFreeMapIterator_0106d644;
 }
 
 struct FUN_006ebde0_shell
@@ -642,7 +642,7 @@ struct GlobalObject_00869f00
     void Clear(bool);
 };
 
-extern void* DAT_0106d650;
+extern void* vftable_BSSimpleArray_0106d650;
 
 struct FUN_006ebec0_shell
 {
@@ -654,7 +654,7 @@ struct FUN_006ebec0_shell
 // src: GUESS 0x006ebec0 (confidence: medium)
 void FUN_006ebec0_shell::ResetVirtualTableAndClear_006ebec0()
 {
-    m_data = &DAT_0106d650;
+    m_data = &vftable_BSSimpleArray_0106d650;
     reinterpret_cast<GlobalObject_00869f00*>(this)->Clear(true);
 }
 
@@ -664,19 +664,19 @@ struct AX
     void BSSimpleArray_float_1024_InitialSetup(unsigned int, unsigned int);
 };
 
-extern int DAT_0106d664;
+extern int vftable_BSSimpleArray_0106d664;
 
 struct FUN_006ebee0_shell : AX
 {
     AX* BSSimpleArray_RayCastPath_1024_BSSimpleArray();
 };
 
-// Sets the vtable to DAT_0106d664, calls FUN_006b3eb0 with 0, 0, and returns this.
+// Sets the vtable to vftable_BSSimpleArray_0106d664, calls FUN_006b3eb0 with 0, 0, and returns this.
 // @fnv 0x006ebee0
 // src: EXE 0x006ebee0
 AX* FUN_006ebee0_shell::BSSimpleArray_RayCastPath_1024_BSSimpleArray()
 {
-    vtable = &DAT_0106d664;
+    vtable = &vftable_BSSimpleArray_0106d664;
     BSSimpleArray_float_1024_InitialSetup(0, 0);
     return this;
 }
@@ -688,7 +688,7 @@ struct GlobalObject_00869f00
     void SetVtableAndProcessState_006ebf10();
 };
 
-extern int DAT_0106d664;
+extern int vftable_BSSimpleArray_0106d664;
 
 void GlobalObject_00869f00::Clear(bool)
 {}
@@ -697,13 +697,13 @@ void GlobalObject_00869f00::Clear(bool)
 // src: GUESS 0x006ebf10 (confidence: low)
 void GlobalObject_00869f00::SetVtableAndProcessState_006ebf10()
 {
-    *(int*)this = (int)&DAT_0106d664;
+    *(int*)this = (int)&vftable_BSSimpleArray_0106d664;
     Clear(true);
 }
 }  // namespace fnv_006ebf10
 
 namespace fnv_006ec970 {
-extern void* DAT_0106d644;
+extern void* vftable_LockFreeMap__LockFreeMapIterator_0106d644;
 
 struct FUN_006ec970_shell
 {
@@ -717,7 +717,7 @@ struct FUN_006ec970_shell
 // @fnv 0x006ec970
 FUN_006ec970_shell::FUN_006ec970_shell()
 {
-    m_kPointA = &DAT_0106d644;
+    m_kPointA = &vftable_LockFreeMap__LockFreeMapIterator_0106d644;
     m_kPointB = 0;
     m_iThirdValue = 0;
     m_iFourthElementInteger = 0;
@@ -749,7 +749,7 @@ void* __thiscall FUN_006ebe60_shell::FUN_006ebe60(unsigned int flags)
 }  // namespace fnv_006ebe60
 
 extern "C" void __cdecl BSSimpleArray_float_1024_InitialSetup(unsigned int, unsigned int);
-extern void* DAT_0106d650;
+extern void* vftable_BSSimpleArray_0106d650;
 
 struct FUN_006ebe90_shell
 {
@@ -758,12 +758,12 @@ struct FUN_006ebe90_shell
     FUN_006ebe90_shell* BSSimpleArray_RayCastPathRequest_1024_BSSimpleArray();
 };
 
-// Sets the vtable to DAT_0106d650, calls FUN_006b3eb0 with 0 and false, and returns this.
+// Sets the vtable to vftable_BSSimpleArray_0106d650, calls FUN_006b3eb0 with 0 and false, and returns this.
 // @fnv 0x006ebe90
 // src: EXE 0x006ebe90
 FUN_006ebe90_shell* FUN_006ebe90_shell::BSSimpleArray_RayCastPathRequest_1024_BSSimpleArray()
 {
-    vtable = &DAT_0106d650;
+    vtable = &vftable_BSSimpleArray_0106d650;
     BSSimpleArray_float_1024_InitialSetup(0, false);
     return this;
 }
@@ -929,7 +929,7 @@ void* __thiscall Tmp_006eb890::FUN_006eb890(unsigned int flags)
     return this;
 }
 
-extern int DAT_0106d63c;
+extern int vftable_BSTFreeList_0106d63c;
 
 struct FUN_006ebda0_shell
 {
@@ -940,7 +940,7 @@ struct FUN_006ebda0_shell
 // src: GUESS 0x006ebda0 (confidence: low)
 void FUN_006ebda0_shell::SetVirtualTable_006ebda0()
 {
-    *reinterpret_cast<int*>(this) = (int)&DAT_0106d63c;
+    *reinterpret_cast<int*>(this) = (int)&vftable_BSTFreeList_0106d63c;
 }
 
 void __cdecl _Deallocate(void*);

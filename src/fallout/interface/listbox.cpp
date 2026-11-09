@@ -113,7 +113,7 @@ struct GlobalObject_00869f00
     void Clear(bool bClear);
 };
 
-extern int DAT_010703b4;
+extern int vftable_BSSimpleArray_010703b4;
 
 struct FUN_00723f30_shell : GlobalObject_00869f00
 {
@@ -124,7 +124,7 @@ struct FUN_00723f30_shell : GlobalObject_00869f00
 // src: GUESS 0x00723f30 (confidence: low)
 void FUN_00723f30_shell::SetVtableAndProcessState_00723f30()
 {
-    *(int*)this = (int)&DAT_010703b4;
+    *(int*)this = (int)&vftable_BSSimpleArray_010703b4;
     Clear(true);
 }
 
@@ -132,7 +132,7 @@ struct AX
 {
     void BSSimpleArray_float_1024_InitialSetup(unsigned int, unsigned int);
 };
-extern int DAT_010703c8;
+extern int vftable_BSSimpleArray_010703c8;
 
 struct FUN_00723f50_shell : AX
 {
@@ -145,7 +145,7 @@ struct FUN_00723f50_shell : AX
 // src: GUESS 0x00723f50 (confidence: medium)
 AX* FUN_00723f50_shell::InitializeArrayView()
 {
-    vtable = &DAT_010703c8;
+    vtable = &vftable_BSSimpleArray_010703c8;
     reinterpret_cast<AX*>(this)->BSSimpleArray_float_1024_InitialSetup(0, 0);
     return this;
 }
@@ -156,7 +156,7 @@ struct GlobalObject_00869f00
     void Clear(bool);
 };
 
-extern int DAT_010703c8;
+extern int vftable_BSSimpleArray_010703c8;
 
 struct FUN_00723f80_shell
 {
@@ -167,7 +167,7 @@ struct FUN_00723f80_shell
 // src: GUESS 0x00723f80 (confidence: high)
 void FUN_00723f80_shell::DoNothing_00723f80()
 {
-    *(void**)this = (void*)&DAT_010703c8;
+    *(void**)this = (void*)&vftable_BSSimpleArray_010703c8;
     ((GlobalObject_00869f00*)this)->Clear(true);
 }
 }  // namespace fnv_00723f80
@@ -196,14 +196,14 @@ struct AX
     void __thiscall BSSimpleArray_float_1024_InitialSetup(unsigned int, unsigned int);
     AX* __thiscall InitializeFields_00724040();
 };
-extern unsigned int DAT_01070404;
+extern unsigned int vftable_BSSimpleArray_01070404;
 
-// Sets the object's vtable pointer to DAT_01070404, calls FUN_006b3eb0 with 0, 0, and returns this.
+// Sets the object's vtable pointer to vftable_BSSimpleArray_01070404, calls FUN_006b3eb0 with 0, 0, and returns this.
 // @fnv 0x00724040
 // src: GUESS 0x00724040 (confidence: low)
 AX* AX::InitializeFields_00724040()
 {
-    *reinterpret_cast<unsigned int*>(this) = reinterpret_cast<unsigned int>(&DAT_01070404);
+    *reinterpret_cast<unsigned int*>(this) = reinterpret_cast<unsigned int>(&vftable_BSSimpleArray_01070404);
     BSSimpleArray_float_1024_InitialSetup(0, 0);
     return this;
 }
@@ -427,7 +427,7 @@ FUN_00723ff0_shell* FUN_00723ff0_shell::Constructor()
     return this;
 }
 
-extern int DAT_01070404;
+extern int vftable_BSSimpleArray_01070404;
 
 struct FUN_00724070_shell : GlobalObject_00869f00
 {
@@ -438,7 +438,7 @@ struct FUN_00724070_shell : GlobalObject_00869f00
 // src: GUESS 0x00724070 (confidence: low)
 void FUN_00724070_shell::SetVtableAndProcessState_00724070()
 {
-    *(int*)this = (int)&DAT_01070404;
+    *(int*)this = (int)&vftable_BSSimpleArray_01070404;
     GlobalObject_00869f00::Clear(true);
 }
 
@@ -575,7 +575,7 @@ struct FUN_00723f00_shell : AX
 // src: GUESS 0x00723f00 (confidence: low)
 FUN_00723f00_shell* __thiscall FUN_00723f00_shell::SetVirtualTableAndProcessState_00723f00()
 {
-    vtable = &DAT_010703b4;
+    vtable = &vftable_BSSimpleArray_010703b4;
     BSSimpleArray_float_1024_InitialSetup(0, 0);
     return this;
 }
@@ -1154,7 +1154,7 @@ struct ListBox_SetSelectedTile_shell
     void __thiscall SetSelectedTile(Tile* apItem, bool apSelect);
 };
 
-extern int DAT_01070220;
+extern int vftable_ListBox_01070220;
 extern unsigned int _data_011c16bc;
 
 struct FUN_00721060 : FUN_007240c0
@@ -1176,7 +1176,7 @@ struct FUN_00721060 : FUN_007240c0
 // @fnv 0x00721060
 FUN_00721060::FUN_00721060()
 {
-    vptr = &DAT_01070220;
+    vptr = &vftable_ListBox_01070220;
 
     m_pHighlightedTile = 0;
     m_pSelectedTile = 0;
@@ -1367,7 +1367,7 @@ struct FUN_007240c0
     FUN_007240c0();
 };
 
-extern int DAT_010755bc[];
+extern int vftable_ListBox_010755bc[];
 
 struct FUN_007a43a0_ListBoxHelper
 {
@@ -1393,7 +1393,7 @@ struct FUN_007a43a0 : FUN_007240c0, SL
 // @fnv 0x007a43a0
 FUN_007a43a0::FUN_007a43a0() : FUN_007240c0(), SL()
 {
-    *(int**)this = DAT_010755bc;
+    *(int**)this = vftable_ListBox_010755bc;
     field_14 = 0;
     field_10 = 0;
     field_0c = 0;
@@ -1551,7 +1551,7 @@ bool FUN_00721440_class::SelectObject(Tile* object)
     }
 }
 
-extern int DAT_010702ec;
+extern int vftable_ListBox_010702ec;
 
 struct FUN_00721850_shell
 {
@@ -1578,7 +1578,7 @@ struct FUN_00721850_cls : FUN_007240c0
 // @fnv 0x00721850
 FUN_00721850_cls::FUN_00721850_cls()
 {
-    vptr = &DAT_010702ec;
+    vptr = &vftable_ListBox_010702ec;
     m_pHighlightedTile = 0;
     m_pSelectedTile = 0;
     m_pListTile = 0;
@@ -1911,7 +1911,7 @@ bool FUN_00723340_cls::ProcessAndReturnValue_00723340(Tile* arg)
 }
 }  // namespace fnv_00723340
 
-extern char DAT_0107038c;
+extern char vftable_ListBox_0107038c;
 
 struct FUN_00723750 : FUN_007240c0, SL
 {
@@ -1933,7 +1933,7 @@ struct FUN_00723750 : FUN_007240c0, SL
 // @fnv 0x00723750
 FUN_00723750::FUN_00723750()
 {
-    *(void**)this = &DAT_0107038c;
+    *(void**)this = &vftable_ListBox_0107038c;
     this->m_14 = 0;
     this->m_10 = 0;
     this->m_0c = 0;
@@ -2329,13 +2329,13 @@ struct FUN_00730810 : Parent
     FUN_00730810();
     void __thiscall ListBox_ItemChange_SetFlag(int, int);
 };
-extern void* DAT_01070890;
+extern void* vftable_ListBox_01070890;
 void __cdecl AddToHeadList(FUN_00730810*);
 // Initialises the object's vtable, clears its pointers, flags, indices and floats, then calls FUN_007a1950(0,1) and AddToHeadList.
 // @fnv 0x00730810
 FUN_00730810::FUN_00730810()
 {
-    vptr = &DAT_01070890;
+    vptr = &vftable_ListBox_01070890;
     scrollbar = 0;
     selected = 0;
     container = 0;
@@ -2498,7 +2498,7 @@ FUN_007a27f0_cls::FUN_007a27f0_cls()
     AddToHeadList(this);
 }
 
-extern int DAT_01075594;
+extern int vftable_ListBox_01075594;
 
 struct FUN_007a36e0_cls : FUN_007240c0
 {
@@ -2521,7 +2521,7 @@ struct FUN_007a36e0_cls : FUN_007240c0
 // @fnv 0x007a36e0
 FUN_007a36e0_cls::FUN_007a36e0_cls() : FUN_007240c0(), m_04()
 {
-    vptr = (int*)&DAT_01075594;
+    vptr = (int*)&vftable_ListBox_01075594;
     m_14 = 0;
     m_10 = 0;
     m_0c = 0;
@@ -2718,7 +2718,7 @@ bool FUN_007a81b0_cls::IsEnabled()
     return (m_0c != 0 && m_0c->IsTraitNonZero(reinterpret_cast<int>(sKey))) ? 1 : 0;
 }
 
-extern int DAT_01077094;
+extern int vftable_ListBox_01077094;
 struct FUN_007240c0_Base
 {
     const void* vtbl00;
@@ -2744,7 +2744,7 @@ struct FUN_007d7c60 : FUN_007240c0_Base
 // @fnv 0x007d7c60
 FUN_007d7c60::FUN_007d7c60()
 {
-    vtbl00 = &DAT_01077094;
+    vtbl00 = &vftable_ListBox_01077094;
     unk14 = 0;
     unk10 = 0;
     unk0C = 0;
@@ -3809,7 +3809,7 @@ Tile* Class_721c60::ListBox_PerkRankData_HandleKeyboardInput(int action)
     return pTargetTile2 != m_pSelected ? pTargetTile2 : 0;
 }
 
-extern int DAT_01070314;
+extern int vftable_ListBox_01070314;
 
 struct FUN_00722000 : FUN_007240c0
 {
@@ -3832,7 +3832,7 @@ struct FUN_00722000 : FUN_007240c0
 // @fnv 0x00722000
 FUN_00722000::FUN_00722000()
 {
-    vptr = &DAT_01070314;
+    vptr = &vftable_ListBox_01070314;
     m_pHighlightedTile = 0;
     m_pSelectedTile = 0;
     m_pListTile = 0;

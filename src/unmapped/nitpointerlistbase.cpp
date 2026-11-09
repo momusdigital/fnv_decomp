@@ -24,7 +24,7 @@ void* __thiscall FUN_004edb30_t::FUN_004edd50(unsigned int flags)
     return this;
 }
 
-extern int DAT_010232b4;
+extern int vftable_NiTArray_010232b4;
 
 
 struct NiPointerListBase
@@ -38,12 +38,12 @@ struct NiPointerListBase
 // src: GUESS 0x004edc60 (confidence: medium)
 void __thiscall NiPointerListBase::ReleaseStorage_004edc60()
 {
-    p = &DAT_010232b4;
+    p = &vftable_NiTArray_010232b4;
     NiTMallocInterface<void*>::Deallocate((void**)q);
 }
 
 void __cdecl operator delete(void*);
-extern int DAT_010232bc;
+extern int vftable_NiTPrimitiveArray_010232bc;
 struct FUN_004edf70_t
 {
     void __thiscall FUN_004edf70(int a, int b);
@@ -52,46 +52,46 @@ struct FUN_004edc90_t
 {
     void* __thiscall NiTPrimitiveArray_enum_BSTextureManager_eTextureType_NiTPrimitiveArray(int a, int b);
 };
-// Calls FUN_004edf70 with the two arguments, then stores the address of DAT_010232bc as the object's first field and returns this.
+// Calls FUN_004edf70 with the two arguments, then stores the address of vftable_NiTPrimitiveArray_010232bc as the object's first field and returns this.
 // @fnv 0x004edc90
 // src: EXE 0x004edc90
 void* __thiscall FUN_004edc90_t::NiTPrimitiveArray_enum_BSTextureManager_eTextureType_NiTPrimitiveArray(int a, int b)
 {
     reinterpret_cast<FUN_004edf70_t*>(this)->FUN_004edf70(a, b);
-    *reinterpret_cast<int**>(this) = &DAT_010232bc;
+    *reinterpret_cast<int**>(this) = &vftable_NiTPrimitiveArray_010232bc;
     return this;
 }
 
 class ActorCombatGroup;
 namespace fnv_004edcc0 {
 void __cdecl operator delete(void*);
-extern int DAT_010232c4;
+extern int vftable_NiTArray_010232c4;
 struct FUN_004edcc0_t
 {
     void* m;
     void __thiscall InitAndDeallocate();
 };
-// Sets m to the address of DAT_010232c4, then deallocates the pointer stored just past this via NiTMallocInterface::Deallocate.
+// Sets m to the address of vftable_NiTArray_010232c4, then deallocates the pointer stored just past this via NiTMallocInterface::Deallocate.
 // @fnv 0x004edcc0
 void __thiscall FUN_004edcc0_t::InitAndDeallocate()
 {
-    m = &DAT_010232c4;
+    m = &vftable_NiTArray_010232c4;
     NiTMallocInterface<ActorCombatGroup*>::Deallocate(*(ActorCombatGroup***)(this + 1));
 }
 }  // namespace fnv_004edcc0
 
-extern int DAT_010232cc;
+extern int vftable_NiTPrimitiveArray_010232cc;
 struct FUN_004edcf0_t
 {
     int* __thiscall InitWithGlobal(int, int);
     void __thiscall FUN_004edfe0(int, int);
 };
-// Calls FUN_004edfe0 with the two arguments, stores the address of DAT_010232cc at the start of this object, and returns this.
+// Calls FUN_004edfe0 with the two arguments, stores the address of vftable_NiTPrimitiveArray_010232cc at the start of this object, and returns this.
 // @fnv 0x004edcf0
 int* __thiscall FUN_004edcf0_t::InitWithGlobal(int a, int b)
 {
     FUN_004edfe0(a, b);
-    *reinterpret_cast<int**>(this) = &DAT_010232cc;
+    *reinterpret_cast<int**>(this) = &vftable_NiTPrimitiveArray_010232cc;
     return reinterpret_cast<int*>(this);
 }
 
@@ -104,7 +104,7 @@ void __cdecl NiTMallocInterface_unsigned_int_Deallocate(void* apMemory)
     NiFreeAlias(apMemory);
 }
 
-extern int DAT_01023254;
+extern int vftable_NiTMapBase_01023254;
 void __cdecl NiFreeAlias(void*);
 struct MyMap
 {
@@ -118,13 +118,13 @@ struct FUN_004eda30_t
 // src: GUESS 0x004eda30 (confidence: low)
 void __thiscall FUN_004eda30_t::SetVtableAndProcessState_004eda30()
 {
-    *(int**)(void*)this = (int*)&DAT_01023254;
+    *(int**)(void*)this = (int*)&vftable_NiTMapBase_01023254;
     ((MyMap*)(void*)this)->RemoveAll();
     NiFreeAlias(*(void**)((char*)this + 8));
 }
 
 namespace fnv_004edc30 {
-extern int DAT_01023294;
+extern int vftable_NiTMapBase_01023294;
 struct MyMap
 {
     void* vtbl;
@@ -140,7 +140,7 @@ struct FUN_004edc30_t
 // @fnv 0x004edc30
 void __thiscall FUN_004edc30_t::ClearAndFreeMap()
 {
-    *(int**)this = (int*)&DAT_01023294;
+    *(int**)this = (int*)&vftable_NiTMapBase_01023294;
     ((MyMap*)this)->RemoveAll();
     NiFreeAlias(((MyMap*)this)->b);
 }
@@ -180,7 +180,7 @@ struct FUN_004ed960
 // @fnv 0x004ed960
 void* __thiscall FUN_004ed960::Init(unsigned int uiSize)
 {
-    vtbl = (void*)&DAT_01023254;
+    vtbl = (void*)&vftable_NiTMapBase_01023254;
     size = uiSize;
     count = 0;
     unsigned int n = size << 2;
@@ -189,7 +189,7 @@ void* __thiscall FUN_004ed960::Init(unsigned int uiSize)
     return this;
 }
 
-extern int DAT_01023274;
+extern int vftable_NiTMapBase_01023274;
 void* __cdecl NiMalloc(unsigned int size);
 void* __cdecl memset(void* dst, int c, unsigned int n);
 struct FUN_004eda60_t
@@ -202,7 +202,7 @@ struct FUN_004eda60_t
 void* __thiscall FUN_004eda60_t::NiTMapBase_NiTPointerAllocator_unsigned_int_TESWaterForm_bool_NiTMapBase_NiTPointerAllocator_unsigned_int_TESWaterForm_bool(unsigned int count)
 {
     unsigned int size;
-    *(int*)this = (int)&DAT_01023274;
+    *(int*)this = (int)&vftable_NiTMapBase_01023274;
     *(unsigned int*)((char*)this + 4) = count;
     *(int*)((char*)this + 12) = 0;
     size = *(unsigned int*)((char*)this + 4) * 4;
@@ -211,7 +211,7 @@ void* __thiscall FUN_004eda60_t::NiTMapBase_NiTPointerAllocator_unsigned_int_TES
     return this;
 }
 
-extern int DAT_01023294;
+extern int vftable_NiTMapBase_01023294;
 void* __cdecl _NiMalloc(unsigned int);
 void* __cdecl memset(void*, int, unsigned int);
 struct FUN_004edb60_t
@@ -224,7 +224,7 @@ struct FUN_004edb60_t
 int* __thiscall FUN_004edb60_t::NiTMapBase_NiTPointerAllocator_unsigned_int_TESObjectREFR_WadingWaterData_NiTMapBase_NiTPointerAllocator_unsigned_int_TESObjectREFR_WadingWaterData(int size)
 {
     int tmp;
-    *(int*)this = (int)&DAT_01023294;
+    *(int*)this = (int)&vftable_NiTMapBase_01023294;
     *(int*)((char*)this + 4) = size;
     *(int*)((char*)this + 0xc) = 0;
     tmp = *(int*)((char*)this + 4) << 2;
@@ -233,7 +233,7 @@ int* __thiscall FUN_004edb60_t::NiTMapBase_NiTPointerAllocator_unsigned_int_TESO
     return (int*)this;
 }
 
-extern int DAT_01023234;
+extern int vftable_NiTPointerMap_01023234;
 struct FUN_004edc30_t
 {
     virtual ~FUN_004edc30_t();
@@ -429,14 +429,14 @@ void NiTPointerListBase<NiTPointerAllocator<unsigned int>, void*>::RemoveAll() /
     m_pkTail = 0;
 }
 
-extern int DAT_01023274;
+extern int vftable_NiTMapBase_01023274;
 
-// Sets the first word to DAT_01023274, calls RemoveAll, then frees the pointer at offset 8 with NiFreeAlias.
+// Sets the first word to vftable_NiTMapBase_01023274, calls RemoveAll, then frees the pointer at offset 8 with NiFreeAlias.
 // @fnv 0x004edb30
 // src: GUESS 0x004edb30 (confidence: low)
 void FUN_004edb30_t::SetVtableAndProcessState_004edb30()
 {
-    *(int**)this = &DAT_01023274;
+    *(int**)this = &vftable_NiTMapBase_01023274;
     ((MyMap*)this)->RemoveAll();
     NiFreeAlias(*(void**)((char*)this + 8));
 }

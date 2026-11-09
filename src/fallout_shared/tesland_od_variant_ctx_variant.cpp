@@ -73,7 +73,7 @@ struct FUN_00533260_holder {
     void __thiscall FUN_00533260();
 };
 struct FUN_00533210_class {
-    void* __thiscall FUN_00533210(unsigned int flags);
+    void* __thiscall TESObjectLAND_ScalarDeletingDestructor(unsigned int flags);
 };
 struct CellH {
     int GetCellGridX();
@@ -150,7 +150,7 @@ struct FUN_00537d00_Class {
 };
 struct FUN_00537d10_Class {
     void FUN_00537d40();
-    void* FUN_00537d10(unsigned int flags);
+    void* BSPackedAdditionalGeometryData_ScalarDeletingDestructor(unsigned int flags);
     static void operator delete(void* p, unsigned int size);
 };
 struct QuantityData { void SetQuantity(unsigned int); };
@@ -166,15 +166,15 @@ struct FUN_00537e90 {
 struct FUN_00538e30_class {
     void __fastcall SetVtable();
 };
-extern int DAT_0102e378;
+extern int vftable_hkReferencedObject;
 struct FUN_00538e10_class {
     int* m_vtbl;
     void __fastcall UpdateState_00538e10();
 };
-struct B1 { virtual ~B1(); void* FUN_00538e80(unsigned int); };
+struct B1 { virtual ~B1(); void* hkReferencedObject_ScalarDeletingDestructor(unsigned int); };
 void __cdecl Tesland_UpdateState_00538eb0(void*);
 extern "C" void __cdecl FUN_00538f20();
-extern int DAT_0102e378;
+extern int vftable_hkReferencedObject;
 struct FUN_00538ef0_class {
     void* m_ppVirtualMethodTable;
     int m_kPointA;
@@ -182,7 +182,7 @@ struct FUN_00538ef0_class {
     void FUN_00538f20();
     void* UpdateState_00538ef0();
 };
-extern int DAT_0102e388;
+extern int vftable_hkBaseObject;
 struct FUN_00538f20 {
     int* p;
     FUN_00538f20();
@@ -258,7 +258,7 @@ struct FUN_0053ae30_class {
 struct GlobalObject_0044f440 {
     float* Float();
 };
-extern GlobalObject_0044f440 g_011c8dcc;
+extern GlobalObject_0044f440 fWaveOffsetRange_Grass;
 float TESGrass_GetWaveOffsetRange();
 struct FUN_0053ca60 {
     void FUN_00b600e0();
@@ -414,8 +414,8 @@ struct FUN_005331f0_class
 {
     void TESObjectLAND_GetSaveParentCell();
 };
-extern int DAT_0102dcd4;
-extern int DAT_0102dccc;
+extern int vftable_TESObjectLAND;
+extern int vftable_TESObjectLAND_for_TESChildCell;
 extern unsigned char DAT_011c9efc;
 extern int DAT_011c9f00;
 void __cdecl TESObjectLAND_InitializeStatics();
@@ -2043,9 +2043,9 @@ struct TerrainData {
  int u50; SampleMap maps[4];
 };
 struct SampleSetting { float* Float(); };
-extern SampleSetting g_011c9f38;
+extern SampleSetting fTexturePctThreshold_Grass;
 struct IntSetting { int* Int(); };
-extern IntSetting g_011c9f74,g_011c9fb8;
+extern IntSetting iMaxGrassTypesPerTexure_Grass,iGrassDensityEvalSize_Grass;
 extern unsigned long DAT_011c9f6c;
 struct TerrainOwner {
  int u00,u04,u08,u0c,u10,u14,u18,u1c,u20,u24; TerrainData* data;

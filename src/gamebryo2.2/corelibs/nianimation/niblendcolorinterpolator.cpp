@@ -32,7 +32,7 @@ extern NiColorA const DAT_011a9430;
 extern int DAT_011a9434;
 extern int DAT_011a9438;
 extern int DAT_011a943c;
-extern int DAT_0109a58c;
+extern int vftable_NiBlendColorInterpolator;
 
 // @fnv 0x00a55ff0
 NiBlendColorInterpolator* __cdecl CreateBlendColorInterpolator()
@@ -41,7 +41,7 @@ NiBlendColorInterpolator* __cdecl CreateBlendColorInterpolator()
     if (pInterpolator)
     {
         NiBlendInterpolator_NiBlendInterpolator(pInterpolator);
-        *(int*)pInterpolator = (int)&DAT_0109a58c;
+        *(int*)pInterpolator = (int)&vftable_NiBlendColorInterpolator;
         *(int*)((char*)pInterpolator + 0x30) = *(int*)&DAT_011a9430;
         *(int*)((char*)pInterpolator + 0x34) = DAT_011a9434;
         *(int*)((char*)pInterpolator + 0x38) = DAT_011a9438;
@@ -109,7 +109,7 @@ void* NiBlendColorInterpolator::CreateClone_00a56090(CloningProcess& kCloning)
     if (pkObject)
     {
         NiBlendInterpolator_NiBlendInterpolator(pkObject);
-        *(void**)pkObject = &DAT_0109a58c;
+        *(void**)pkObject = &vftable_NiBlendColorInterpolator;
         *(int*)((char*)pkObject + 0x30) = *(int*)&DAT_011a9430;
         *(int*)((char*)pkObject + 0x34) = DAT_011a9434;
         *(int*)((char*)pkObject + 0x38) = DAT_011a9438;

@@ -240,7 +240,7 @@ char NiPSysGravityFieldModifier::IsEqual_00c26db0(NiPSysGravityFieldModifier* ot
 extern "C" float DAT_011a9478;
 extern "C" float DAT_011a947c;
 extern "C" float DAT_011a9480;
-extern "C" int DAT_010bf2ac;
+extern "C" int vftable_NiPSysGravityFieldModifier;
 
 // Thiscall with no stack arguments uses the same registers as this fastcall initializer.
 void __fastcall ConstructFieldModifierBase(NiPSysFieldModifier*);
@@ -249,7 +249,7 @@ void __fastcall ConstructFieldModifierBase(NiPSysFieldModifier*);
 NiPSysGravityFieldModifier* NiPSysGravityFieldModifier::Ctor()
 {
     ConstructFieldModifierBase(reinterpret_cast<NiPSysFieldModifier*>(this));
-    *reinterpret_cast<void**>(this) = &DAT_010bf2ac;
+    *reinterpret_cast<void**>(this) = &vftable_NiPSysGravityFieldModifier;
     NiPoint3 direction;
     direction.x = -DAT_011a9478;
     direction.y = -DAT_011a947c;

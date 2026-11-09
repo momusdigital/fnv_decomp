@@ -27,12 +27,12 @@
 // src/havok/physics/dynamics/world/util/aabbtree/hkpaabbtreeworldmanager.cpp - unit created 2026-10-16 from the whole-binary attribution (360 source path: d:/projects/fallout/code/havok/source/physics/dynamics/world/util/aabbtree/hkpaabbtreeworldmanager.cpp).
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
 extern "C" void __cdecl Deallocate(void*);
-extern "C" void* DAT_010ccf7c;
+extern "C" void* vftable_hkpWorldPostSimulationListener;
 struct FUN_00d08330 {
     void* m_p;
     FUN_00d08330(char);
 };
-extern int DAT_010ccf8c;
+extern int vftable_hkKdTreeCastCollector;
 extern void __cdecl Deallocate(void*);
 struct FUN_00d08350 {
     void* m_p;
@@ -363,9 +363,9 @@ struct FUN_00d0a1e0_class {
     char unk68;
     char __thiscall GetUnk68_00d0a1e0();
 };
-extern int DAT_010ccfcc;
-extern int DAT_010ccfe0;
-extern int DAT_010ccfec;
+extern int vftable_hkpKdTreeWorldLinearCaster;
+extern int vftable_hkpAabbTreeWorldLinearCaster_for_hkAabbTreeQueryUtils__Collector_010ccfe0;
+extern int vftable_hkpAabbTreeWorldLinearCaster_010ccfec;
 extern float DAT_0104da4c;
 __declspec(align(16)) struct S00d08740_coll {
     int m_00;
@@ -499,7 +499,7 @@ public:
     void hkpAabbTreeWorldManager_queueInactivated(hkpCollidable* collidable);
     virtual void MarkAndProcessIslandCollidables(hkpSimulationIsland* island);
 };
-extern int DAT_010ccfcc;
+extern int vftable_hkpKdTreeWorldLinearCaster;
 extern float DAT_0104da4c;
 __declspec(align(16)) struct S00d0a490_Obj {
     int m_00;

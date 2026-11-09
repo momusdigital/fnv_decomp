@@ -4,7 +4,7 @@
 
 #include "../../../../../../include/hkMemoryRouter.h"
 
-extern int DAT_0102e388;
+extern int vftable_hkBaseObject;
 
 struct FUN_00d06f70_s
 {
@@ -19,7 +19,7 @@ struct FUN_00d06f70_s
 void FUN_00d06f70_s::InitializeFields_00d06f70()
 {
     y = 0;
-    p = &DAT_0102e388;
+    p = &vftable_hkBaseObject;
 }
 
 int __cdecl hkStatisticsCollector_getAllocatedSize(void* apBuffer, int aiCount);

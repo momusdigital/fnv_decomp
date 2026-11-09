@@ -50,7 +50,7 @@ struct SettingFloat
 {
     float* Float();
 };
-extern SettingFloat g_011db520, g_011db464;
+extern SettingFloat fDistortVerticalScale_InterfaceFX, fDistortHorizontalScale_InterfaceFX;
 extern float g_011ae600, g_0120081c, g_011ae604, g_01200820, g_01200824, g_011ae608, g_01200828;
 extern NiColorA g_0120082c;
 struct NiRenderer;
@@ -161,8 +161,8 @@ void Effect::FORenderedMenuRaceSex_DoEffect(void* apArg1, void* apArg2, void* un
     if (active)
     {
         g_011ae600 = BGSProjectile_GetMuzzleFlashDuration();
-        g_0120081c = *g_011db520.Float();
-        g_011ae604 = *g_011db464.Float();
+        g_0120081c = *fDistortVerticalScale_InterfaceFX.Float();
+        g_011ae604 = *fDistortHorizontalScale_InterfaceFX.Float();
         g_01200820 = primary;
         g_0120082c = GetValueAtC0();
     }
@@ -176,8 +176,8 @@ void Effect::FORenderedMenuRaceSex_DoEffect(void* apArg1, void* apArg2, void* un
     }
     if (enabled && active)
     {
-        g_01200824 = *g_011db520.Float();
-        g_011ae608 = *g_011db464.Float();
+        g_01200824 = *fDistortVerticalScale_InterfaceFX.Float();
+        g_011ae608 = *fDistortHorizontalScale_InterfaceFX.Float();
         g_01200828 = secondary;
     }
     else

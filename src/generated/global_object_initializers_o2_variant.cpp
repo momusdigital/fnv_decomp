@@ -15,7 +15,7 @@ struct FUN_006ffc90_shell
     int m_kPointB;
     FUN_006ffc90_shell();
 };
-extern void* DAT_010827e8;
+extern void* vftable_NiTObjectArray_010827e8;
 struct FUN_008699c0_shell
 {
     void FUN_00869aa0(unsigned int maxSize, unsigned int growBy);
@@ -35,7 +35,7 @@ struct AX
     void* m_vft;
     void BSSimpleArray_float_1024_InitialSetup(unsigned int, unsigned int);
 };
-extern void* DAT_0106ba6c;
+extern void* vftable_BSSimpleArray_0106ba6c;
 struct FUN_00869f00_shell
 {
     void* m_vft;

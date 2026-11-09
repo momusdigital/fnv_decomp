@@ -726,13 +726,13 @@ struct ShapeSub
     void EnsureCapacity(int value, int zero);
 };
 
-extern char DAT_0102f13c[];
-extern char DAT_010ccf7c[];
-extern char DAT_010d1b04[];
-extern char DAT_010d1ae4[];
-extern char DAT_010d1ad4[];
-extern char DAT_010d1ab8[];
-extern char DAT_010d1aa8[];
+extern char vftable_hkpEntityListener[];
+extern char vftable_hkpWorldPostSimulationListener[];
+extern char vftable_hkpShapeDisplayViewer[];
+extern char vftable_hkpShapeDisplayViewer_for_hkProcess[];
+extern char vftable_hkpShapeDisplayViewer_for_hkpPhysicsContextWorldListener[];
+extern char vftable_hkpShapeDisplayViewer_for_hkpEntityListener[];
+extern char vftable_hkpShapeDisplayViewer_for_hkpWorldPostSimulationListener[];
 extern float DAT_01012054;
 extern int DAT_01268fe8;
 extern int DAT_01268fe4;
@@ -782,13 +782,13 @@ FUN_00d657d0_cls* FUN_00d657d0_cls::hkpShapeDisplayViewer_hkpShapeDisplayViewer(
 {
     int i;
     FUN_00ddccb0(apShapes);
-    *(void* volatile*)&m_vptr28 = (void*)DAT_0102f13c;
-    *(void* volatile*)&m_vptr2c = (void*)DAT_010ccf7c;
-    m_vptr00 = (void*)DAT_010d1b04;
-    m_vptr08 = (void*)DAT_010d1ae4;
-    m_vptr20 = (void*)DAT_010d1ad4;
-    *(void* volatile*)&m_vptr28 = (void*)DAT_010d1ab8;
-    *(void* volatile*)&m_vptr2c = (void*)DAT_010d1aa8;
+    *(void* volatile*)&m_vptr28 = (void*)vftable_hkpEntityListener;
+    *(void* volatile*)&m_vptr2c = (void*)vftable_hkpWorldPostSimulationListener;
+    m_vptr00 = (void*)vftable_hkpShapeDisplayViewer;
+    m_vptr08 = (void*)vftable_hkpShapeDisplayViewer_for_hkProcess;
+    m_vptr20 = (void*)vftable_hkpShapeDisplayViewer_for_hkpPhysicsContextWorldListener;
+    *(void* volatile*)&m_vptr28 = (void*)vftable_hkpShapeDisplayViewer_for_hkpEntityListener;
+    *(void* volatile*)&m_vptr2c = (void*)vftable_hkpShapeDisplayViewer_for_hkpWorldPostSimulationListener;
     *(int volatile*)&m_30 = 0;
     *(int volatile*)&m_34 = 0;
     m_38 = 0x80000000;

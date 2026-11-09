@@ -764,10 +764,10 @@ void FUN_00cada30_cls::AppendPointer(void* value)
 }  // namespace fnv_00cada30
 
 extern char str_0102f13c[];
-extern char DAT_0104e3d0[];
-extern char DAT_010c84a4[];
-extern char DAT_010c8488[];
-extern char DAT_010c8470[];
+extern char vftable_hkpPhantomListener[];
+extern char vftable_hkpCharacterProxy[];
+extern char vftable_hkpCharacterProxy_for_hkpEntityListener[];
+extern char vftable_hkpCharacterProxy_for_hkpPhantomListener[];
 
 struct FUN_00cad500_Class
 {
@@ -828,10 +828,10 @@ FUN_00cada70_cls* FUN_00cada70_cls::Construct(void* a1)
 {
     *(unsigned short volatile*)&m_06 = 1;
     *(void* volatile*)&m_08 = str_0102f13c;
-    *(void* volatile*)&m_0c = DAT_0104e3d0;
-    *(void* volatile*)&m_vtbl = DAT_010c84a4;
-    *(void* volatile*)&m_08 = DAT_010c8488;
-    *(void* volatile*)&m_0c = DAT_010c8470;
+    *(void* volatile*)&m_0c = vftable_hkpPhantomListener;
+    *(void* volatile*)&m_vtbl = vftable_hkpCharacterProxy;
+    *(void* volatile*)&m_08 = vftable_hkpCharacterProxy_for_hkpEntityListener;
+    *(void* volatile*)&m_0c = vftable_hkpCharacterProxy_for_hkpPhantomListener;
     *(unsigned int volatile*)&m_30 = 0;
     *(unsigned int volatile*)&m_74 = 0;
     *(unsigned int volatile*)&m_78 = 0;

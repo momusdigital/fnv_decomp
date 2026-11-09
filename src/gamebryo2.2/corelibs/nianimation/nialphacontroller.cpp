@@ -29,12 +29,12 @@ int* __cdecl NiAlphaController_GetRTTI()
     return &g_011f4084;
 }
 
-extern int DAT_0109a76c;
+extern int vftable_NiAlphaController;
 inline void* __cdecl operator new(unsigned int, void* p)
 {
     return p;
 }
-// Allocates a 0x38-byte NiFloatInterpController, constructs it in place, sets its vtable to DAT_0109a76c, and returns it (or null on allocation failure).
+// Allocates a 0x38-byte NiFloatInterpController, constructs it in place, sets its vtable to vftable_NiAlphaController, and returns it (or null on allocation failure).
 // @fnv 0x00a56b30
 NiFloatInterpController* __cdecl CreateFloatInterpController()
 {
@@ -42,7 +42,7 @@ NiFloatInterpController* __cdecl CreateFloatInterpController()
     if (p)
     {
         ::new (p) NiFloatInterpController;
-        *(int**)p = &DAT_0109a76c;
+        *(int**)p = &vftable_NiAlphaController;
         return p;
     }
     return 0;
@@ -105,7 +105,7 @@ void __stdcall NiAlphaController_GetViewerStrings(AlphaPrimitiveArray<char*>* pk
     pkStrings->SetAt(uiSize, pszStr);
 }
 
-extern int DAT_0109a76c;
+extern int vftable_NiAlphaController;
 // Allocates and initialises a NiFloatInterpController, then copies p into it via Copy and returns the new object, or null if allocation fails.
 // @fnv 0x00a56ae0
 NiFloatInterpController* __fastcall CreateAndCopy(NiAlphaController* self, void*, CloningProcess* apSource)
@@ -115,7 +115,7 @@ NiFloatInterpController* __fastcall CreateAndCopy(NiAlphaController* self, void*
     if (n)
     {
         ::new (n) NiFloatInterpController;
-        *(int**)n = &DAT_0109a76c;
+        *(int**)n = &vftable_NiAlphaController;
         r = n;
     }
     else

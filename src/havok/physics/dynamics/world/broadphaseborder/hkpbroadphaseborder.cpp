@@ -359,14 +359,14 @@ namespace fnv_00d0bb20 {
 
 BSAudio* __cdecl hkMemoryRouter_getInstance();
 
-extern int DAT_010cd3c4;
-extern int DAT_010cd3b4;
-extern int DAT_010cd3a4;
-extern int DAT_010cd394;
-extern int DAT_010ccf7c;
-extern int DAT_010c925c;
-extern int DAT_010cb1c4;
-extern int DAT_0102e388;
+extern int vftable_hkpBroadPhaseBorder;
+extern int vftable_hkpBroadPhaseBorder_for_hkpWorldDeletionListener;
+extern int vftable_hkpBroadPhaseBorder_for_hkpPhantomOverlapListener;
+extern int vftable_hkpBroadPhaseBorder_for_hkpWorldPostSimulationListener;
+extern int vftable_hkpWorldPostSimulationListener;
+extern int vftable_hkpPhantomOverlapListener;
+extern int vftable_hkpWorldDeletionListener;
+extern int vftable_hkBaseObject;
 
 struct FUN_00d0bb20_cls
 {
@@ -388,19 +388,19 @@ struct FUN_00d0bb20_cls
 
 static inline void ResetBaseVptrs(int* vptrs)
 {
-    vptrs[4] = (int)&DAT_010ccf7c;
-    vptrs[3] = (int)&DAT_010c925c;
-    vptrs[2] = (int)&DAT_010cb1c4;
-    vptrs[0] = (int)&DAT_0102e388;
+    vptrs[4] = (int)&vftable_hkpWorldPostSimulationListener;
+    vptrs[3] = (int)&vftable_hkpPhantomOverlapListener;
+    vptrs[2] = (int)&vftable_hkpWorldDeletionListener;
+    vptrs[0] = (int)&vftable_hkBaseObject;
 }
 
 // @fnv 0x00d0bb20
 void FUN_00d0bb20_cls::Destroy()
 {
-    m_vptr00 = (int)&DAT_010cd3c4;
-    m_vptr08 = (int)&DAT_010cd3b4;
-    m_vptr0c = (int)&DAT_010cd3a4;
-    m_vptr10 = (int)&DAT_010cd394;
+    m_vptr00 = (int)&vftable_hkpBroadPhaseBorder;
+    m_vptr08 = (int)&vftable_hkpBroadPhaseBorder_for_hkpWorldDeletionListener;
+    m_vptr0c = (int)&vftable_hkpBroadPhaseBorder_for_hkpPhantomOverlapListener;
+    m_vptr10 = (int)&vftable_hkpBroadPhaseBorder_for_hkpWorldPostSimulationListener;
     hkReferencedObject** pEntry = m_entries;
     int i = 6;
     do
@@ -427,10 +427,10 @@ void FUN_00d0bb20_cls::Destroy()
     unsigned int* puiCap = &m_uCapBits;
     m_pData = 0;
     *puiCap = 0x80000000u;
-    m_vptr10 = (int)&DAT_010ccf7c;
-    m_vptr0c = (int)&DAT_010c925c;
-    m_vptr08 = (int)&DAT_010cb1c4;
-    m_vptr00 = (int)&DAT_0102e388;
+    m_vptr10 = (int)&vftable_hkpWorldPostSimulationListener;
+    m_vptr0c = (int)&vftable_hkpPhantomOverlapListener;
+    m_vptr08 = (int)&vftable_hkpWorldDeletionListener;
+    m_vptr00 = (int)&vftable_hkBaseObject;
 }
 }  // namespace fnv_00d0bb20
 

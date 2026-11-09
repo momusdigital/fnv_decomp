@@ -179,7 +179,7 @@ struct FUN_00458f20_shell
     const void* const* BSTempNode_GetRTTI() const;
 };
 extern "C" void __fastcall UpdateFields_00c5faa0(void*);
-extern int DAT_01017d24;
+extern int vftable_BSTempNode;
 struct FUN_00458f70_shell
 {
     void __thiscall SetVtableAndProcessState_00458f70();

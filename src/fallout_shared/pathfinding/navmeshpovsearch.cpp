@@ -488,17 +488,17 @@ struct AX
 {
     void BSSimpleArray_float_1024_InitialSetup(unsigned int, unsigned int);
 };
-extern int DAT_0106b3b0;
+extern int vftable_BSSimpleArray_0106b3b0;
 struct C006a14b0
 {
     C006a14b0* SetVtableAndProcessState_006a14b0();
 };
-// Sets the vtable pointer to DAT_0106b3b0, calls FUN_006b3eb0 with 0, 0, and returns this.
+// Sets the vtable pointer to vftable_BSSimpleArray_0106b3b0, calls FUN_006b3eb0 with 0, 0, and returns this.
 // @fnv 0x006a14b0
 // src: GUESS 0x006a14b0 (confidence: low)
 C006a14b0* C006a14b0::SetVtableAndProcessState_006a14b0()
 {
-    *(void**)this = (void*)&DAT_0106b3b0;
+    *(void**)this = (void*)&vftable_BSSimpleArray_0106b3b0;
     ((AX*)this)->BSSimpleArray_float_1024_InitialSetup(0, 0);
     return this;
 }

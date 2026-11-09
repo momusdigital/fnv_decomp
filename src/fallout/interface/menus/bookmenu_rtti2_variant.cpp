@@ -14,7 +14,7 @@
 
 // src/fallout/interface/menus/bookmenu.cpp - unit created 2026-10-16 from the whole-binary attribution (360 source path: d:/_fallout3/platforms/common/code/fallout/interface/menus/bookmenu.cpp).
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
-extern unsigned int DAT_01070ecc;
+extern unsigned int vftable_BookMenu;
 struct FUN_0073acb0 : Menu
 {
     void* m_pHighlightedTile;
@@ -98,7 +98,7 @@ struct Holder73b430
     Inner73b430 inner;
     void __thiscall CallInnerFoo();
 };
-extern unsigned int DAT_01077abc;
+extern unsigned int vftable_TraitSelectMenu;
 struct FUN_007e7a80 : Menu
 {
     char _pad[0x50];

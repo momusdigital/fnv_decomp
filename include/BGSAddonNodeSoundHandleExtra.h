@@ -13,7 +13,7 @@ public:
     virtual void vf37();
 
     void FUN_004f9270();
-    void* FUN_004f9240(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 
     BSSoundHandle m_kData;
 };

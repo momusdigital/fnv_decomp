@@ -52,45 +52,45 @@ bool FUN_00666f00_shell::CombatProcedure_GetFinished()
     return *(int*)(this + 1) == 2;
 }
 
-extern Setting g_011d5d14;
+extern Setting fTreeForceCS_SpeedTree;
 
 // @fnv 0x00666f20
 // src: COMMUNITY 0x00666f20
 float SpeedTree_fTreeForceCS_Get()
 {
-    return *g_011d5d14.Float();
+    return *fTreeForceCS_SpeedTree.Float();
 }
 
 namespace fnv_00666f40 {
-extern Setting g_011d5db8;
+extern Setting fTreeForceBranchDimming_SpeedTree;
 
 // @fnv 0x00666f40
 // src: COMMUNITY 0x00666f40
 float SpeedTree_fTreeForceBranchDimming_Get()
 {
-    return *g_011d5db8.Float();
+    return *fTreeForceBranchDimming_SpeedTree.Float();
 }
 }  // namespace fnv_00666f40
 
 namespace fnv_00666f60 {
-extern Setting g_011d5d24;
+extern Setting fTreeForceLeafDimming_SpeedTree;
 
 // @fnv 0x00666f60
 // src: COMMUNITY 0x00666f60
 float SpeedTree_fTreeForceLeafDimming_Get()
 {
-    return *g_011d5d24.Float();
+    return *fTreeForceLeafDimming_SpeedTree.Float();
 }
 }  // namespace fnv_00666f60
 
 namespace fnv_00666f80 {
-extern Setting g_011d5c9c;
+extern Setting fTreeForceMinBudAngle_SpeedTree;
 
 // @fnv 0x00666f80
 // src: COMMUNITY 0x00666f80
 float SpeedTree_fTreeForceMinBudAngle_Get()
 {
-    return g_011d5c9c.Float()[0];
+    return fTreeForceMinBudAngle_SpeedTree.Float()[0];
 }
 }  // namespace fnv_00666f80
 
@@ -181,13 +181,13 @@ void FUN_0066a630_shell::ConvertFloatToUInt()
     m_flt.operator unsigned int();
 }
 
-extern Setting g_011d5c80;
+extern Setting fTreeForceMaxBudAngle_SpeedTree;
 
 // @fnv 0x00666fa0
 // src: COMMUNITY 0x00666fa0
 float SpeedTree_fTreeForceMaxBudAngle_Get()
 {
-    return *g_011d5c80.Float();
+    return *fTreeForceMaxBudAngle_SpeedTree.Float();
 }
 
 struct S_00666910

@@ -318,7 +318,7 @@ TreadEntry* FUN_00a35900_cls::BSMultiTargetTreadTransfController_GetBlendInterpo
     return &m_pEntries[usIndex];
 }
 
-extern char DAT_01096694;
+extern char vftable_BSMultiTargetTreadTransfController;
 void* __cdecl Object_DispatchCommandFour(unsigned int size) throw();
 
 void* __fastcall NiInterpController_NiInterpController(void* controller) throw();
@@ -348,7 +348,7 @@ TreadInterpolator* TreadController::CreateInterpolator(unsigned int index)
     {
         // The shared base has no declaration for the original constructor yet.
         NiInterpController_NiInterpController(storage);
-        *reinterpret_cast<void**>(storage) = &DAT_01096694;
+        *reinterpret_cast<void**>(storage) = &vftable_BSMultiTargetTreadTransfController;
         storage->unk34 = 0;
         storage->unk38 = 0;
         storage->unk40 = 0;
@@ -738,7 +738,7 @@ void Controller112::BSMultiTargetTreadTransfController_Update(float* time)
     }
 }
 
-extern char DAT_01096694;
+extern char vftable_BSMultiTargetTreadTransfController;
 extern char DAT_011f6238;
 void __cdecl _NiFree_00aa10f0(void* p);
 
@@ -770,7 +770,7 @@ struct S00a35960_Cls : NiInterpController
 void S00a35960_Cls::ProcessEntries_00a35960()
 {
     S00a35960_Obj* pObj = m34;
-    *reinterpret_cast<void**>(this) = &DAT_01096694;
+    *reinterpret_cast<void**>(this) = &vftable_BSMultiTargetTreadTransfController;
     if (pObj != 0)
     {
         int* h = (int*)pObj - 1;

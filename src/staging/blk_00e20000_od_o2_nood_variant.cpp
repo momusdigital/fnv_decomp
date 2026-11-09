@@ -256,8 +256,8 @@ extern "C" LocalM128 _mm_unpacklo_ps(LocalM128, LocalM128);
 extern "C" void _mm_store_ps(float*, LocalM128);
 extern "C" LocalM128 _mm_setr_ps(float, float, float, float);
 
-extern int DAT_010dbacc, DAT_010dbad8, DAT_010dbae4, DAT_010dbaf8;
-extern int DAT_010ccfac, DAT_010ccfa0, DAT_010ccf8c, DAT_010c3bb8;
+extern int vftable_hkCpuWorldRayCastCollector_for_hkAabbTreeQueryUtils__Collector_010dbacc, vftable_hkCpuWorldRayCastCollector_for_hkAabbTreeQueryUtils__Collector_010dbad8, vftable_hkCpuWorldRayCastCollector_for_hkKdTreeCastCollector, vftable_hkCpuWorldRayCastCollector;
+extern int DAT_010ccfac, DAT_010ccfa0, vftable_hkKdTreeCastCollector, vftable_hkpBroadPhaseCastCollector;
 extern void* DAT_011b3830[];
 void __cdecl Runtime_UpdateState_00d1bb50(void*, void*, void*, void*, void*, void*, void*, void*, void*, int) throw();
 void __cdecl hkAabbTreeQueryUtils_ForwardCall_00d1d490(void*, void*, int, void*, void*, void*) throw();
@@ -312,7 +312,7 @@ struct Collector {
 ray.mode=m;         return r;
     }
     __forceinline void init() {
-        ray.fraction = 1.0f; vt0 = &DAT_010dbaf8; vt1 = &DAT_010dbae4; vt2 = &DAT_010dbad8; ray.vtable = &DAT_010dbacc;
+        ray.fraction = 1.0f; vt0 = &vftable_hkCpuWorldRayCastCollector; vt1 = &vftable_hkCpuWorldRayCastCollector_for_hkKdTreeCastCollector; vt2 = &vftable_hkCpuWorldRayCastCollector_for_hkAabbTreeQueryUtils__Collector_010dbad8; ray.vtable = &vftable_hkCpuWorldRayCastCollector_for_hkAabbTreeQueryUtils__Collector_010dbacc;
         unk50 = 0; unk54 = 0; unk60 = 0; ray.hit = 0;
     }
 };
@@ -360,7 +360,7 @@ void __cdecl Runtime_ProcessEntries_00e2b510(Owner* owner, RayBatch* input, int 
     do {
         --p;
         p->ray.vtable = &DAT_010ccfac; p->vt2 = &DAT_010ccfa0;
-        p->vt1 = &DAT_010ccf8c; p->vt0 = &DAT_010c3bb8;
+        p->vt1 = &vftable_hkKdTreeCastCollector; p->vt0 = &vftable_hkpBroadPhaseCastCollector;
     } while (--n >= 0);
 }
 

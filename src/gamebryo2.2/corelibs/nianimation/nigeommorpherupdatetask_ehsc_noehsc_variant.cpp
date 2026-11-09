@@ -71,7 +71,7 @@ struct MorphController
     virtual void MorphFunc() = 0;
 };
 extern int(__stdcall* DAT_00fdf1c4)(void*);
-extern int DAT_01069674;
+extern int vftable_NiTask;
 extern int(__stdcall* DAT_00fdf1c0)(void*);
 extern "C" void __cdecl FUN_00aa1460(void* apMemory, unsigned int aiSize);
 extern "C" void __cdecl NiMemObject_ReleaseStorage_00aa1490(void* apMemory, unsigned int aiSize);

@@ -71,20 +71,20 @@ template <typename T> __forceinline void hkMemoryAllocator::_bufFree(void* p, in
     bufFree(p, numElem * int(sizeof(T)));
 }
 
-extern int DAT_010cc164;
+extern int vftable_bhkSpringDamperConstraintMotor;
 void __cdecl FUN_00d86220();
 
-struct FUN_00cf45d0_class
+struct bhkSpringDamperConstraintMotor
 {
     int vtable;
-    FUN_00cf45d0_class();
+    bhkSpringDamperConstraintMotor();
 };
 
 // @fnv 0x00cf45d0
-FUN_00cf45d0_class::FUN_00cf45d0_class()
+bhkSpringDamperConstraintMotor::bhkSpringDamperConstraintMotor()
 {
     FUN_00d86220();
-    vtable = (int)&DAT_010cc164;
+    vtable = (int)&vftable_bhkSpringDamperConstraintMotor;
 }
 
 struct FUN_00cf4ca0_class
@@ -146,7 +146,7 @@ unsigned short hkMath_min2_unsigned_short(unsigned short a, unsigned short b)
     return r;
 }
 
-extern int DAT_010cb864;
+extern int vftable_hkaSkeletonMapper;
 struct FUN_00ce4ae0_cls
 {
     int __thiscall AssignFields_00ce4ae0(int);
@@ -165,19 +165,19 @@ struct FUN_00ce4a20_cls
 int __thiscall FUN_00ce4a20_cls::ProcessAndReturnValue_00ce4a20(int a)
 {
     m_iThirdValue = 1;
-    m_kPointA = (int)&DAT_010cb864;
+    m_kPointA = (int)&vftable_hkaSkeletonMapper;
     ((FUN_00ce4ae0_cls*)((char*)this + 0x10))->hkaSkeletonMapperData_hkaSkeletonMapperData();
     ((FUN_00ce4ae0_cls*)((char*)this + 0x10))->AssignFields_00ce4ae0(a);
     return (int)this;
 }
 
-extern int DAT_0102e378;
+extern int vftable_hkReferencedObject;
 // @fnv 0x00cf69a0
 // src: GUESS 0x00cf69a0 (confidence: low)
 void __cdecl Object_UpdateFields_00cf69a0(int* a)
 {
     if (a)
-        *a = (int)&DAT_0102e378;
+        *a = (int)&vftable_hkReferencedObject;
 }
 
 struct FUN_00cf69c0_class
@@ -238,7 +238,7 @@ FUN_00cf4820_class::FUN_00cf4820_class()
     vtbl = &DAT_010cc2e0;
 }
 
-extern int DAT_0102e388;
+extern int vftable_hkBaseObject;
 
 struct FUN_00cf86d0_cls
 {
@@ -249,15 +249,15 @@ struct FUN_00cf86d0_cls
 // src: GUESS 0x00cf86d0 (confidence: low)
 void FUN_00cf86d0_cls::SetVtableAndProcessState_00cf86d0()
 {
-    *(int*)this = (int)&DAT_0102e388;
+    *(int*)this = (int)&vftable_hkBaseObject;
 }
 
 // FUN_00ce29e0: member function that (re)initialises the object.
 //   - installs the base vtable pointer at [this],
 //   - calls the constructor of the sub-object living at this+0x10,
 //   - then installs the vtable pointer of the derived class at [this].
-extern int DAT_010cb864;
-extern int DAT_0102e388;
+extern int vftable_hkaSkeletonMapper;
+extern int vftable_hkBaseObject;
 
 // Sub-object at +0x10; FUN_00ce5370 is the game's constructor for it.
 struct FUN_00ce5370_cls
@@ -279,9 +279,9 @@ struct FUN_00ce29e0_cls
 // src: GUESS 0x00ce29e0 (confidence: low)
 void FUN_00ce29e0_cls::UpdateFields_00ce29e0()
 {
-    m_pVTable = &DAT_010cb864;
+    m_pVTable = &vftable_hkaSkeletonMapper;
     m_sub.UpdateState_00ce5370();
-    m_pVTable = &DAT_0102e388;
+    m_pVTable = &vftable_hkBaseObject;
 }
 
 struct FnvSpawnedObject;
@@ -590,8 +590,8 @@ void __cdecl bhkConstraintManager_SaveBinary(NiStream& kStream, CF4BC0Object* pk
     pkSaver->DeleteThis(true);
 }
 
-extern int DAT_010cc2fc;
-extern int DAT_0102e388;
+extern int vftable_hkpAction;
+extern int vftable_hkBaseObject;
 
 hkMemoryRouter* __cdecl hkMemoryRouter_getInstance() throw();
 
@@ -617,9 +617,9 @@ struct FUN_00cf4eb0_cls
 // @fnv 0x00cf4eb0
 FUN_00cf4eb0_cls* FUN_00cf4eb0_cls::Destroy(unsigned char acFlags)
 {
-    m_vptr = (int)&DAT_010cc2fc;
+    m_vptr = (int)&vftable_hkpAction;
     m_sub.Release();
-    m_vptr = (int)&DAT_0102e388;
+    m_vptr = (int)&vftable_hkBaseObject;
     if (acFlags & 1)
     {
         hkMemoryRouter* pHolder = hkMemoryRouter_getInstance();
@@ -788,12 +788,12 @@ int* __cdecl Runtime_GetDAT01268748Address()
     return &DAT_01268748;
 }
 
-extern int DAT_0102e378;
+extern int vftable_hkReferencedObject;
 // @fnv 0x00cf69b0
 // src: GUESS 0x00cf69b0 (confidence: low)
 int* __cdecl Runtime_GetDAT0102e378Address()
 {
-    return &DAT_0102e378;
+    return &vftable_hkReferencedObject;
 }
 
 namespace fnv_00cf6b10 {
@@ -1219,7 +1219,7 @@ extern "C" unsigned int __cdecl SaveUIntArray(NiStream& kStream, const ArrayData
     return totalSize;
 }
 
-extern int DAT_010cc064;
+extern int vftable_bhkPositionConstraintMotor;
 struct FUN_00cdf560
 {
     int m0;
@@ -1227,14 +1227,14 @@ struct FUN_00cdf560
     int m8;
     FUN_00cdf560(float);
 };
-struct FUN_00cf4190 : FUN_00cdf560
+struct bhkPositionConstraintMotor : FUN_00cdf560
 {
-    FUN_00cf4190();
+    bhkPositionConstraintMotor();
 };
 // @fnv 0x00cf4190
-FUN_00cf4190::FUN_00cf4190() : FUN_00cdf560(0.0f)
+bhkPositionConstraintMotor::bhkPositionConstraintMotor() : FUN_00cdf560(0.0f)
 {
-    m0 = (int)&DAT_010cc064;
+    m0 = (int)&vftable_bhkPositionConstraintMotor;
 }
 
 extern int DAT_01268730;
@@ -1548,7 +1548,7 @@ int __cdecl Runtime_GetC(int a, int b, int c)
 void __stdcall nullsub_59(int, int, int, int, int)
 {}
 
-extern int DAT_0102e388;
+extern int vftable_hkBaseObject;
 
 struct FUN_00cfc590_class
 {
@@ -1561,10 +1561,10 @@ struct FUN_00cfc590_class
 // src: GUESS 0x00cfc590 (confidence: low)
 void __thiscall FUN_00cfc590_class::SetVtable()
 {
-    vtable = &DAT_0102e388;
+    vtable = &vftable_hkBaseObject;
 }
 
-extern int DAT_010cc86c;
+extern int vftable_hkpReportContactMgr;
 
 struct S_00cfc5a0
 {
@@ -1634,7 +1634,7 @@ FUN_00cfc5a0::FUN_00cfc5a0(int aiValue, S_00cfc5a0* apFirst, S_00cfc5a0* apSecon
 {
     unk06 = 1;
     unk08 = 1;
-    vtbl = &DAT_010cc86c;
+    vtbl = &vftable_hkpReportContactMgr;
     unsigned short w3 = apSecond->unkAA;
     unsigned short w2 = apFirst->unkAA;
     unsigned short chosen = w2 < w3 ? w2 : w3;
@@ -1804,7 +1804,7 @@ void SerializableCF42::bhkPositionConstraintMotor_SaveBinary(NiStream& kStream)
 
 // bhkVelocityConstraintMotor ctor (hkpVelocityConstraintMotor chain):
 // vptr(0), memSizeAndFlags(4), referenceCount(6), motor type(8), min/max force, tau, damping, velocity-clamp bool.
-const void* DAT_010cc0ec[];
+const void* vftable_bhkVelocityConstraintMotor[];
 
 extern "C" void _ReadWriteBarrier();
 
@@ -1842,7 +1842,7 @@ FUN_00cf43b0::FUN_00cf43b0()
     _ReadWriteBarrier();
     m_useVelocityClamp = kClamp.m_cBooleanValue;
     _ReadWriteBarrier();
-    m_vftable = DAT_010cc0ec;
+    m_vftable = vftable_bhkVelocityConstraintMotor;
 }
 
 class SerializableCF44;
@@ -2229,9 +2229,9 @@ void __stdcall Object_DoNothing_00cf6d00(int)
 
 {}
 
-extern void* DAT_010c63bc;
-extern void* DAT_010cc4e0;
-extern void* DAT_010cc4d0;
+extern void* vftable_hkpBroadPhaseListener;
+extern void* vftable_hkpNullBroadPhaseListener;
+extern void* vftable_hkpNullBroadPhaseListener_for_hkpBroadPhaseListener;
 
 struct NodeBaseA
 {
@@ -2249,7 +2249,7 @@ struct NodeBaseB
     void* m_vtbl;
     NodeBaseB()
     {
-        m_vtbl = &DAT_010c63bc;
+        m_vtbl = &vftable_hkpBroadPhaseListener;
     }
 };
 
@@ -2257,8 +2257,8 @@ struct NodeObj : NodeBaseA, NodeBaseB
 {
     NodeObj()
     {
-        NodeBaseA::m_vtbl = &DAT_010cc4e0;
-        NodeBaseB::m_vtbl = &DAT_010cc4d0;
+        NodeBaseA::m_vtbl = &vftable_hkpNullBroadPhaseListener;
+        NodeBaseB::m_vtbl = &vftable_hkpNullBroadPhaseListener_for_hkpBroadPhaseListener;
     }
 };
 

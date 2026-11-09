@@ -222,24 +222,24 @@ struct FUN_00d63c50 : public WorldViewerBase
 };
 
 // the vftables of the class and of its bases
-extern int DAT_010cb1d4;
-extern int DAT_010ccf7c;
-extern int DAT_010d1854;
-extern int DAT_010d1834;
-extern int DAT_010d1824;
-extern int DAT_010d1814;
-extern int DAT_010d1804;
+extern int vftable_hkpActionListener;
+extern int vftable_hkpWorldPostSimulationListener;
+extern int vftable_hkpVehicleViewer;
+extern int vftable_hkpVehicleViewer_for_hkProcess;
+extern int vftable_hkpVehicleViewer_for_hkpPhysicsContextWorldListener;
+extern int vftable_hkpVehicleViewer_for_hkpActionListener;
+extern int vftable_hkpVehicleViewer_for_hkpWorldPostSimulationListener;
 
 // @fnv 0x00d63c50
 FUN_00d63c50::FUN_00d63c50(ViewerArg* arg) : WorldViewerBase(arg)
 {
-    m_vtbl28 = &DAT_010cb1d4;
-    m_vtbl2c = &DAT_010ccf7c;
-    m_vtbl00 = &DAT_010d1854;
-    m_vtbl08 = &DAT_010d1834;
-    m_vtbl20 = &DAT_010d1824;
-    m_vtbl28 = &DAT_010d1814;
-    m_vtbl2c = &DAT_010d1804;
+    m_vtbl28 = &vftable_hkpActionListener;
+    m_vtbl2c = &vftable_hkpWorldPostSimulationListener;
+    m_vtbl00 = &vftable_hkpVehicleViewer;
+    m_vtbl08 = &vftable_hkpVehicleViewer_for_hkProcess;
+    m_vtbl20 = &vftable_hkpVehicleViewer_for_hkpPhysicsContextWorldListener;
+    m_vtbl28 = &vftable_hkpVehicleViewer_for_hkpActionListener;
+    m_vtbl2c = &vftable_hkpVehicleViewer_for_hkpWorldPostSimulationListener;
     m_30 = 0;
     m_34 = 0;
     m_38 = 0x80000000;

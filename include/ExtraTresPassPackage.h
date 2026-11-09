@@ -11,7 +11,7 @@ public:
     virtual ~ExtraTresPassPackage();
 
     void FUN_00432900();
-    void* FUN_0042c890(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 
     union
     {

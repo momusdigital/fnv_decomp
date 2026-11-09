@@ -60,7 +60,7 @@ NiPick::~NiPick()
 // @fnv 0x00e98e90
 void NiPick::Results::Clear() throw()
 {
-    m_ppVirtualMethodTable = DAT_010f16ec;
+    m_ppVirtualMethodTable = vftable_NiPick__Results;
     for (unsigned int i = 0; i < m_usSize; ++i)
     {
         Record* record = m_pBase[i];
@@ -73,7 +73,7 @@ void NiPick::Results::Clear() throw()
             g_memoryManager.Deallocate(record);
         }
     }
-    m_ppVirtualMethodTable = DAT_010f16dc;
+    m_ppVirtualMethodTable = vftable_NiTArray_010f16dc;
     NiFree(m_pBase);
 }
 

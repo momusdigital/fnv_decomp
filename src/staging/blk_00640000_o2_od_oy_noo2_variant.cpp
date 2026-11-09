@@ -22,7 +22,7 @@ void BSShaderUtil_TintUncompressedPixelDataByMipMap(void* p);
 NiTexture* NiSourceTexture_Create(void* p, int a, void* b);
 NiTexture* BSShaderUtil_ConvertTexture(NiTexture* t, void* p);
 
-extern Setting g_011d59ac;
+extern Setting bFaceMipMaps_General;
 
 struct NiPtrTex
 {
@@ -119,7 +119,7 @@ NiTexture* NiTexture::BSFaceGenImage_GetCompressedImage(float lo, float hi, floa
             }
         }
 
-        if (g_011d59ac.GetBoolValue())
+        if (bFaceMipMaps_General.GetBoolValue())
         {
             createdTex = creator.GenerateMipmaps(pixelData, 0);
             delete pixelData;

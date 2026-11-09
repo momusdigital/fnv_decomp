@@ -63,14 +63,14 @@ const NiRTTI* NiLight::GetRTTI() const
     return reinterpret_cast<const NiRTTI*>(&g_011f4a68_arg1);
 }
 
-extern int DAT_0109ce4c;
+extern int vftable_NiLight;
 void __fastcall DestroyDynamicEffect(NiDynamicEffect*);
 
 // @fnv 0x00a72010
 void NiLight::DestroyMembers()
 {
     typedef void(__thiscall * Fn_t)(NiRenderer*, void*);
-    *(void**)this = (void*)&DAT_0109ce4c;
+    *(void**)this = (void*)&vftable_NiLight;
     NiRenderer* pkRenderer = NiRenderer::ms_pRenderer;
     if (pkRenderer)
         ((Fn_t*)*(void**)pkRenderer)[62](pkRenderer, this);
@@ -162,7 +162,7 @@ void NiLight::AppendEffectProperties(StrArr* pArray)
     }
 }
 
-extern int DAT_0109ce4c;
+extern int vftable_NiLight;
 
 // Initializes the base and colors, clears the material pointer, and sets the dimmer and colors to 1.0f.
 // @fnv 0x00a71f60
@@ -215,13 +215,13 @@ void __cdecl NiLight_RegisterStreamables()
 
 void __fastcall DestroyDynamicEffect(NiDynamicEffect*);
 void __cdecl _delete(void*, unsigned int);
-extern int DAT_0109ce4c;
+extern int vftable_NiLight;
 
 // Sets the vtable, calls UnkF8 on the renderer when present, destroys the dynamic effect, and optionally frees memory when flag bit 0 is set.
 // @fnv 0x00a72040
 void* NiLight::Destroy(unsigned int auiFlags)
 {
-    *(void**)this = &DAT_0109ce4c;
+    *(void**)this = &vftable_NiLight;
     typedef void(__thiscall * Fn_t)(NiRenderer*, void*);
     if (NiRenderer::ms_pRenderer)
         ((Fn_t*)*(void**)NiRenderer::ms_pRenderer)[62](NiRenderer::ms_pRenderer, this);

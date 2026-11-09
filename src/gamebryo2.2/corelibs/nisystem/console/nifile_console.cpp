@@ -83,7 +83,7 @@ int S_00aa15f0::GetFileSize()
 // Installs the NiFile vtable, opens the file with fopen-style mode string
 // selected from the open mode, records good/bad and allocates a read buffer.
 
-extern int DAT_010a2490;
+extern int vftable_NiFile;
 extern const char kModeReadBinary[];
 extern const char kModeWriteBinary[];
 

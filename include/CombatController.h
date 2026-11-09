@@ -199,7 +199,7 @@ public:
     void bhkCharacterController_SetFarAway(bool far);
     void FUN_008d0600();
     int PlayerCharacter_AttemptYield();
-    void* FUN_0097d740(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
     void FUN_0097d770();
     void FirstUpdate();
     void CalculateAttackerInfo();

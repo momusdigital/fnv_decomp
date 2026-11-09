@@ -33,7 +33,7 @@ extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(long volati
 
 extern long DAT_011aa070;
 extern float DAT_0101e570;
-extern char DAT_0109d6c4;
+extern char vftable_NiMaterialProperty;
 
 void __fastcall FUN_00a5c200(void* self);
 
@@ -66,7 +66,7 @@ void* __fastcall Lighting30shaderproperty_StoreAndAddReference_00a75650(void* se
 {
     ObjectWithFloats* p = (ObjectWithFloats*)self;
     FUN_00a5c200(self);
-    p->m_vptr = (void*)&DAT_0109d6c4;
+    p->m_vptr = (void*)&vftable_NiMaterialProperty;
     p->m_1c = 0.0f;
     p->m_20 = 0.0f;
     p->m_24 = 0.0f;

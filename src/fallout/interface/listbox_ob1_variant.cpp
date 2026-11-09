@@ -37,7 +37,7 @@ struct GlobalObject_00869f00
 {
     void Clear(bool bClear);
 };
-extern int DAT_010703b4;
+extern int vftable_BSSimpleArray_010703b4;
 struct FUN_00723f30_shell : GlobalObject_00869f00
 {
     void SetVtableAndProcessState_00723f30();
@@ -46,7 +46,7 @@ struct AX
 {
     void BSSimpleArray_float_1024_InitialSetup(unsigned int, unsigned int);
 };
-extern int DAT_010703c8;
+extern int vftable_BSSimpleArray_010703c8;
 struct FUN_00723f50_shell : AX
 {
     int* vtable;
@@ -119,7 +119,7 @@ struct FUN_00723ff0_shell : AX
     int* vtable;
     FUN_00723ff0_shell* Constructor();
 };
-extern int DAT_01070404;
+extern int vftable_BSSimpleArray_01070404;
 struct FUN_00724070_shell : GlobalObject_00869f00
 {
     void SetVtableAndProcessState_00724070();
@@ -341,7 +341,7 @@ struct ListBox_SetSelectedTile_shell
 {
     void __thiscall SetSelectedTile(Tile* apItem, bool apSelect);
 };
-extern int DAT_01070220;
+extern int vftable_ListBox_01070220;
 extern unsigned int _data_011c16bc;
 struct FUN_00721060 : FUN_007240c0
 {
@@ -445,7 +445,7 @@ struct FUN_00721440_class
     void __thiscall ListBox_enum_ActorValue_Index_UpdateHighlightBoxPos();
     bool __thiscall SelectObject(Tile* object);
 };
-extern int DAT_010702ec;
+extern int vftable_ListBox_010702ec;
 struct FUN_00721850_shell
 {
     void __thiscall ListBox_ItemChange_SetFlag(int a, int b);
@@ -595,7 +595,7 @@ struct FUN_00723070
     void ProcessEntries_007230e0();
 };
 void __cdecl InterfaceManager_UnregisterListBox(FUN_00723070* self);
-extern char DAT_0107038c;
+extern char vftable_ListBox_0107038c;
 struct FUN_00723750 : FUN_007240c0, SL
 {
     int m_0c;
@@ -810,7 +810,7 @@ struct FUN_00730810 : Parent
     FUN_00730810();
     void __thiscall ListBox_ItemChange_SetFlag(int, int);
 };
-extern void* DAT_01070890;
+extern void* vftable_ListBox_01070890;
 void __cdecl AddToHeadList(FUN_00730810*);
 struct FUN_00730e20_inner
 {
@@ -897,7 +897,7 @@ class FUN_007a27f0_cls : public B7A27F0Base, public B7A27F0List
     float m_fItemHeight;
     short m_sFlags;
 };
-extern int DAT_01075594;
+extern int vftable_ListBox_01075594;
 struct FUN_007a36e0_m4
 {
     int m_00;
@@ -968,7 +968,7 @@ struct FUN_007a81b0_cls
     bool IsEnabled();
 };
 int __cdecl Tile_AddUserTrait(const char* s, int n);
-extern int DAT_01077094;
+extern int vftable_ListBox_01077094;
 struct FUN_007240c0_Base
 {
     const void* vtbl00;
@@ -1443,7 +1443,7 @@ struct Class_721c60 : Base_721c60, Node_721c60
     bool IsScrollBarTraitEnabled();
     Tile* ListBox_PerkRankData_HandleKeyboardInput(int action);
 };
-extern int DAT_01070314;
+extern int vftable_ListBox_01070314;
 struct FUN_00722000 : FUN_007240c0
 {
     SL sl;

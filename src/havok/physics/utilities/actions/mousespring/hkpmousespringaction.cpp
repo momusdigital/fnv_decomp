@@ -63,8 +63,8 @@ typedef union __declspec(intrin_type) __declspec(align(16)) {
 
 #include "../../../../../../include/hkVector4.h"
 
-extern int DAT_010c8e94;
-extern int DAT_010c476c;
+extern int vftable_hkpMouseSpringAction;
+extern int vftable_hkpClosestCdPointCollector;
 extern float DAT_0101b2d0;
 extern float DAT_0104da48;
 extern const char str_011b1f3c[];
@@ -270,7 +270,7 @@ Ms_cls* Ms_cls::hkpMouseSpringAction_hkpMouseSpringAction(LocalM128* apPos, Loca
                              Ms_Ent* apEnt, hkArray<int>* apArr)
 {
     ((Ms_B*)this)->FUN_00d2b260(apEnt, 0);
-    *(int**)this = &DAT_010c8e94;
+    *(int**)this = &vftable_hkpMouseSpringAction;
     _mm_store_ps(&pos.x, *apPos);
     _mm_store_ps(&mouse.x, *apMouse);
     damping = afDamping;
@@ -328,7 +328,7 @@ Ms_cls* Ms_cls::hkpMouseSpringAction_hkpMouseSpringAction(LocalM128* apPos, Loca
         Ms_Coll coll;
         coll.dist = DAT_0104da48;
         coll.early = DAT_0104da48;
-        coll.vptr = &DAT_010c476c;
+        coll.vptr = &vftable_hkpClosestCdPointCollector;
         coll.hit = 0;
         fn(&body, &apEnt->shape, &in, &coll);
         if (coll.hit)
@@ -588,7 +588,7 @@ FUN_00cbb4e0::FUN_00cbb4e0(int arg) : m_kAppliedCallbacks(FinishingFlag())
 {
     ((Ms_B*)this)->FUN_00d2b260((void*)arg, 0);
     m_fSpringDamping = DAT_01016248;
-    unk00 = (void*)&DAT_010c8e94;
+    unk00 = (void*)&vftable_hkpMouseSpringAction;
     m_fSpringElasticity = DAT_01017870;
     LocalM128 zero = _mm_setzero_ps();
     m_fMaxRelativeForce = DAT_0101b2d0;

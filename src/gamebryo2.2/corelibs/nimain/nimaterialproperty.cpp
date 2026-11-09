@@ -62,7 +62,7 @@ inline void NiRefObject::DecRefCount()
         DeleteThis();
 }
 
-extern int DAT_0109d6c4;
+extern int vftable_NiMaterialProperty;
 void __fastcall DestroyFogProperty(void*);
 
 struct NiMemObject_Del
@@ -73,7 +73,7 @@ struct NiMemObject_Del
 // @fnv 0x00a756f0
 void* __fastcall NiMaterialProperty_Destructor(NiMaterialProperty* pThis, int, unsigned int flags)
 {
-    *(int**)pThis = &DAT_0109d6c4;
+    *(int**)pThis = &vftable_NiMaterialProperty;
     if (NiRenderer::ms_pRenderer)
         (*(void(__thiscall**)(NiRenderer*, NiMaterialProperty*))(*(int*)NiRenderer::ms_pRenderer + 0xf4))(
             NiRenderer::ms_pRenderer, pThis);

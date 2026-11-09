@@ -9,7 +9,7 @@
 
 
 
-extern int DAT_0109b72c;
+extern int vftable_NiVertexColorProperty;
 
 // Allocates a 0x1c-byte NiProperty, constructs it, sets a short field at offset 0x18 to 8 and installs the vtable, returning the object or null.
 // @fnv 0x00a5f280
@@ -21,7 +21,7 @@ NiProperty* NiVertexColorProperty_CreateObject()
     {
         p->NiProperty::NiProperty();
         p->m_uiObjectFlags = 8;
-        *reinterpret_cast<int*>(p) = reinterpret_cast<int>(&DAT_0109b72c);
+        *reinterpret_cast<int*>(p) = reinterpret_cast<int>(&vftable_NiVertexColorProperty);
         return p;
     }
     return 0;
@@ -95,7 +95,7 @@ void* __fastcall CloneVertexColorProperty(NiVertexColorProperty* self, void*, un
         if (p)
         {
             p->NiProperty::NiProperty();
-            *reinterpret_cast<int*>(p) = reinterpret_cast<int>(&DAT_0109b72c);
+            *reinterpret_cast<int*>(p) = reinterpret_cast<int>(&vftable_NiVertexColorProperty);
             p->m_uiObjectFlags = 8;
         }
         else

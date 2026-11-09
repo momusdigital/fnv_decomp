@@ -462,16 +462,23 @@ extern const char g_011f6060_arg0[];
 extern const char g_011f6060_arg1[];
 extern const char g_011f9140_arg0[];
 extern const char g_011f9140_arg1[];
-extern const char g_011f9148_arg0[];
+// src: EXE 0x010a91a0
+extern const char iFadeNodeMinNearDistance_LOD_key[];
 extern const char g_011f94d4_arg0[];
-extern const char g_011f94e0_arg0[];
-extern const char g_011f94ec_arg0[];
-extern const char g_011f94f8_arg0[];
+// src: EXE 0x010ada84
+extern const char bImageSpaceEffects_Display_key[];
+// src: EXE 0x010adaa0
+extern const char iMaxAnisotropy_Display_key[];
+// src: EXE 0x010adab8
+extern const char bDoTestHDR_Display_key[];
 extern const char g_011f9648_arg0[];
 extern const char g_011f9648_arg1[];
-extern const char g_011f9650_arg0[];
-extern const char g_011f9688_arg0[];
-extern const char g_011f9694_arg0[];
+// src: EXE 0x010adc24
+extern const char iDistantLODGroupWidth_DistantLOD_key[];
+// src: EXE 0x010adc88
+extern const char bDoRadialBlur_Imagespace_key[];
+// src: EXE 0x010adca4
+extern const char iRadialBlurLevel_Imagespace_key[];
 extern const char g_011f9e80_arg0[];
 extern const char g_011f9e80_arg1[];
 extern const char g_011f9f00_arg0[];
@@ -586,10 +593,12 @@ extern const char g_01202348_arg0[];
 extern const char g_01202348_arg1[];
 extern const char g_012023c8_arg0[];
 extern const char g_012023c8_arg1[];
-extern const char g_012023d0_arg0[];
+// src: EXE 0x010bc430
+extern const char bDoDepthOfField_Imagespace_key[];
 extern const char g_012023e8_arg0[];
 extern const char g_012023e8_arg1[];
-extern const char g_0120249c_arg0[];
+// src: EXE 0x010bcacc
+extern const char bDoMotionBlur_Imagespace_key[];
 extern const char g_012024b0_arg0[];
 extern const char g_012024b0_arg1[];
 extern const char g_012024b8_arg0[];
@@ -732,22 +741,36 @@ extern const char g_0126780c_arg0[];
 extern const char g_01267818_arg0[];
 extern const char g_01267824_arg0[];
 extern const char g_01267824_arg1[];
-extern const char g_01267b1c_arg0[];
-extern const char g_01267b28_arg0[];
-extern const char g_01267b40_arg0[];
+// src: EXE 0x010c42ac
+extern const char iMinNumSubSteps_HAVOK_key[];
+// src: EXE 0x010c42c4
+extern const char bHavokDebug_HAVOK_key[];
+// src: EXE 0x010c42ec
+extern const char bFindContactPointsOnAdd_HAVOK_key[];
 extern const char g_01267b70_arg0[];
 extern const char g_01267b70_arg1[];
-extern const char g_01267ba0_arg0[];
-extern const char g_01267c24_arg0[];
-extern const char g_01267c30_arg0[];
-extern const char g_01267c3c_arg0[];
-extern const char g_01267c48_arg0[];
-extern const char g_01267c54_arg0[];
-extern const char g_01267c60_arg0[];
-extern const char g_01267d80_arg0[];
-extern const char g_01267dc8_arg0[];
-extern const char g_01267e04_arg0[];
-extern const char g_01267e1c_arg0[];
+// src: EXE 0x010c4450
+extern const char bWONameSync_Havok_key[];
+// src: EXE 0x010c4dfc
+extern const char bRagdollAnim_RagdollAnim_key[];
+// src: EXE 0x010c4e18
+extern const char bFootIK_RagdollAnim_key[];
+// src: EXE 0x010c4e2c
+extern const char bGrabIK_RagdollAnim_key[];
+// src: EXE 0x010c4e40
+extern const char bLookIK_RagdollAnim_key[];
+// src: EXE 0x010c4e54
+extern const char bRagdollFeedback_RagdollAnim_key[];
+// src: EXE 0x010c4e74
+extern const char bPoseMatching_RagdollAnim_key[];
+// src: EXE 0x010c512c
+extern const char bFootPlacementOn_FootIK_key[];
+// src: EXE 0x010c51cc
+extern const char iNumFramesFootEaseOut_FootIK_key[];
+// src: EXE 0x010c5254
+extern const char uiFeedbackTimeout_RagdollFeedback_key[];
+// src: EXE 0x010c5290
+extern const char bRigidBodyController_FootIK_key[];
 extern const char g_01267e64_arg0[];
 extern const char g_01267e64_arg1[];
 extern const char g_01268100_arg0[];
@@ -2320,16 +2343,16 @@ extern GlobalObjectO2_00a7b610 g_011f6050;
 extern GlobalObjectO2_00a7b610 g_011f6058;
 extern GlobalObjectO2_00a7b610 g_011f6060;
 extern GlobalObjectO2_00a7b610 g_011f9140;
-extern GlobalObjectO2_0045cfe0 g_011f9148;
+extern GlobalObjectO2_0045cfe0 iFadeNodeMinNearDistance_LOD;
 extern GlobalObjectO2_0045cf30 g_011f94d4;
-extern GlobalObjectO2_0045cf30 g_011f94e0;
-extern GlobalObjectO2_004a4a40 g_011f94ec;
-extern GlobalObjectO2_0045cf30 g_011f94f8;
+extern GlobalObjectO2_0045cf30 bImageSpaceEffects_Display;
+extern GlobalObjectO2_004a4a40 iMaxAnisotropy_Display;
+extern GlobalObjectO2_0045cf30 bDoTestHDR_Display;
 extern GlobalObjectO2_00b54280 g_011f9504;
 extern GlobalObjectO2_00a7b610 g_011f9648;
-extern GlobalObjectO2_0045cfe0 g_011f9650;
-extern GlobalObjectO2_0045cf30 g_011f9688;
-extern GlobalObjectO2_004a4a40 g_011f9694;
+extern GlobalObjectO2_0045cfe0 iDistantLODGroupWidth_DistantLOD;
+extern GlobalObjectO2_0045cf30 bDoRadialBlur_Imagespace;
+extern GlobalObjectO2_004a4a40 iRadialBlurLevel_Imagespace;
 extern GlobalObjectO2_00a7b610 g_011f9e80;
 extern GlobalObjectO2_00a7b610 g_011f9f00;
 extern GlobalObjectO2_00a7b610 g_011fa000;
@@ -2390,10 +2413,10 @@ extern GlobalObjectO2_00a7b610 g_01202330;
 extern GlobalObjectO2_00a7b610 g_0120233c;
 extern GlobalObjectO2_00a7b610 g_01202348;
 extern GlobalObjectO2_00a7b610 g_012023c8;
-extern GlobalObjectO2_004de2f0 g_012023d0;
+extern GlobalObjectO2_004de2f0 bDoDepthOfField_Imagespace;
 extern GlobalObjectO2_00a7b610 g_012023e8;
 extern GlobalObjectO2_00b8a9e0 g_01202410;
-extern GlobalObjectO2_0045cf30 g_0120249c;
+extern GlobalObjectO2_0045cf30 bDoMotionBlur_Imagespace;
 extern GlobalObjectO2_00a7b610 g_012024b0;
 extern GlobalObjectO2_00a7b610 g_012024b8;
 extern GlobalObjectO2_00a7b610 g_012024c0;
@@ -2469,21 +2492,21 @@ extern GlobalObjectO2_0045cfe0 g_0126780c;
 extern GlobalObjectO2_0045cfe0 g_01267818;
 extern GlobalObjectO2_00a7b610 g_01267824;
 extern GlobalObjectO2_00c67fe0 g_01267830;
-extern GlobalObjectO2_0045cfe0 g_01267b1c;
-extern GlobalObjectO2_0045cf30 g_01267b28;
-extern GlobalObjectO2_0045cf30 g_01267b40;
+extern GlobalObjectO2_0045cfe0 iMinNumSubSteps_HAVOK;
+extern GlobalObjectO2_0045cf30 bHavokDebug_HAVOK;
+extern GlobalObjectO2_0045cf30 bFindContactPointsOnAdd_HAVOK;
 extern GlobalObjectO2_00a7b610 g_01267b70;
-extern GlobalObjectO2_0045cf30 g_01267ba0;
-extern GlobalObjectO2_0045cf30 g_01267c24;
-extern GlobalObjectO2_0045cf30 g_01267c30;
-extern GlobalObjectO2_0045cf30 g_01267c3c;
-extern GlobalObjectO2_0045cf30 g_01267c48;
-extern GlobalObjectO2_0045cf30 g_01267c54;
-extern GlobalObjectO2_0045cf30 g_01267c60;
-extern GlobalObjectO2_0045cf30 g_01267d80;
-extern GlobalObjectO2_0045cfe0 g_01267dc8;
-extern GlobalObjectO2_0045cfe0 g_01267e04;
-extern GlobalObjectO2_0045cf30 g_01267e1c;
+extern GlobalObjectO2_0045cf30 bWONameSync_Havok;
+extern GlobalObjectO2_0045cf30 bRagdollAnim_RagdollAnim;
+extern GlobalObjectO2_0045cf30 bFootIK_RagdollAnim;
+extern GlobalObjectO2_0045cf30 bGrabIK_RagdollAnim;
+extern GlobalObjectO2_0045cf30 bLookIK_RagdollAnim;
+extern GlobalObjectO2_0045cf30 bRagdollFeedback_RagdollAnim;
+extern GlobalObjectO2_0045cf30 bPoseMatching_RagdollAnim;
+extern GlobalObjectO2_0045cf30 bFootPlacementOn_FootIK;
+extern GlobalObjectO2_0045cfe0 iNumFramesFootEaseOut_FootIK;
+extern GlobalObjectO2_0045cfe0 uiFeedbackTimeout_RagdollFeedback;
+extern GlobalObjectO2_0045cf30 bRigidBodyController_FootIK;
 extern GlobalObjectO2_00a7b610 g_01267e64;
 extern GlobalObjectO2_00a7b610 g_01268100;
 extern GlobalObjectO2_00a7b610 g_01268110;

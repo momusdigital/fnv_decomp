@@ -34,7 +34,7 @@ int FUN_00d4c000::Method(int a)
     return 0;
 }
 
-extern int DAT_010cf9a4;
+extern int vftable_hkpPhysicsData;
 
 struct FUN_00d4c220_s
 {
@@ -52,7 +52,7 @@ struct FUN_00d4c220_s
 FUN_00d4c220_s::FUN_00d4c220_s()
 {
     m_06 = 1;
-    m_00 = &DAT_010cf9a4;
+    m_00 = &vftable_hkpPhysicsData;
     m_0c = 0;
     m_10 = 0;
     m_14 = 0x80000000;
@@ -89,7 +89,7 @@ int FUN_00d4c050_obj::FindMatchingEntry(int a)
     return 0;
 }
 
-extern int DAT_0102f0ec;
+extern int vftable_hkpWorldCinfo;
 
 
 void* hkMemoryRouter_getInstance() throw();
@@ -189,7 +189,7 @@ class __declspec(align(16)) FUN_00553540
     }
     __forceinline ~FUN_00553540() throw()
     {
-        vtable = &DAT_0102f0ec;
+        vtable = &vftable_hkpWorldCinfo;
     }
 };
 
@@ -299,7 +299,7 @@ FUN_00dcecc0* FUN_00dcecc0::Destroy(unsigned int uiFlags) throw()
 }  // namespace fnv_00d4c8e0
 
 extern void* __cdecl hkMemoryRouter_getInstance(void);
-extern int DAT_010d07f4;
+extern int vftable_hkpPhysicsSystemWithContacts;
 extern void __cdecl ProcessCollisionRecords(void*, void*, void*);
 extern void __cdecl ResizeAudioStream(void*, void*, int);
 
@@ -396,7 +396,7 @@ void HostType::hkpPhysicsData_populateFromWorld(ClientType* client, unsigned cha
         small->m_04 = 0x50;
         small->FUN_00d065e0();
 
-        small->m_00 = (int)&DAT_010d07f4;
+        small->m_00 = (int)&vftable_hkpPhysicsSystemWithContacts;
         new (&small->m_ppData, D4C2Place()) hkArray<void*>();
 
         ProcessCollisionRecords(&local, client, small);

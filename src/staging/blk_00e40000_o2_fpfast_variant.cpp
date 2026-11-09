@@ -63,7 +63,7 @@ int __cdecl Factorial(int count);
 extern const float runtimeFloatSettingDefault132;
 extern const float runtimeFloatSettingDefault255;
 extern const float g_011c7344_arg1;
-extern int DAT_010e62a4;
+extern int vftable_hkpVehicleDefaultEngine;
 struct FUN_00e44280_struct
 {
     int* m_00;
@@ -112,7 +112,7 @@ struct FUN_00e4ab50_class
     int m_0c;
     void __thiscall ApplyToAll(int a);
 };
-extern int DAT_010ec1fc;
+extern int vftable_hkAlignSceneToNodeOptions;
 struct FUN_00cb0a70
 {
     void m(int);
@@ -264,7 +264,7 @@ struct FUN_00e42680_cls
 
     void CallItemsVirtual();
 };
-extern "C" int DAT_010e5e9c;
+extern "C" int vftable_hkpVehicleDefaultVelocityDamper;
 struct FUN_00e43ac0_cls
 {
     void* m_00;
@@ -280,7 +280,7 @@ extern double DAT_010ebf18;
 extern double DAT_01012638;
 extern double DAT_0101ff48;
 float __cdecl ComputeScaledRatio(float param_1, float param_2, float param_3, float param_4);
-extern "C" int DAT_010e5ff4;
+extern "C" int vftable_hkpVehicleDefaultTransmission;
 struct FUN_00e43f30_cls
 {
     void* volatile m_00;
@@ -544,7 +544,7 @@ struct S_00e4af60_class
 
     S_00e4af60_class* InitializeFields_00e4af60();
 };
-extern int DAT_010ec1fc;
+extern int vftable_hkAlignSceneToNodeOptions;
 void __cdecl AccumulateNeighborSum(float k, const float* src, float* dst, int n);
 extern float DAT_0102295c;
 extern float DAT_0101622c;
@@ -1207,7 +1207,7 @@ template <class T> inline T MaxOf(T a, T b)
 float __cdecl hkaFootstepAnalysisInfo_getMax(FloatArray_e404b0* arr);
 extern float _DAT_0104da48;
 float __cdecl FindMinFloat(int* param_1);
-extern int DAT_010e60c4;
+extern int vftable_hkpVehicleDefaultSteering;
 struct FUN_00e44070
 {
     int* volatile m_00;
@@ -1813,13 +1813,13 @@ static inline float QSqrt(float v)
     return (float)sqrt(v);
 }
 void UnpackQuaternion(const unsigned int* packed, float* quat);
-extern int DAT_010e7874;
-extern int DAT_010e7868;
-extern int DAT_010e7854;
-extern int DAT_010e7848;
-extern int DAT_010e783c;
-extern int DAT_010e781c;
-extern int DAT_010cb1e4;
+extern int vftable_hkpConstrainedSystemFilter;
+extern int vftable_hkpConstrainedSystemFilter_for_hkpCollidableCollidableFilter;
+extern int vftable_hkpConstrainedSystemFilter_for_hkpShapeCollectionFilter;
+extern int vftable_hkpConstrainedSystemFilter_for_hkpRayShapeCollectionFilter;
+extern int vftable_hkpConstrainedSystemFilter_for_hkpRayCollidableFilter;
+extern int vftable_hkpConstrainedSystemFilter_for_hkpConstraintListener;
+extern int vftable_hkpConstraintListener;
 struct FUN_00cbfba0_Base
 {
     void FUN_00cbfba0();
@@ -1853,18 +1853,18 @@ struct FUN_00c905b0_class
 {
     void __thiscall FUN_00c905b0();
 };
-extern int DAT_010e7874;
-extern int DAT_010e7868;
-extern int DAT_010e7854;
-extern int DAT_010e7848;
-extern int DAT_010e783c;
-extern int DAT_010e781c;
-extern int DAT_010cb1e4;
-extern int DAT_010c3b8c;
-extern int DAT_010c3bac;
-extern int DAT_010c3b98;
-extern int DAT_010c3b80;
-extern int DAT_0102e388;
+extern int vftable_hkpConstrainedSystemFilter;
+extern int vftable_hkpConstrainedSystemFilter_for_hkpCollidableCollidableFilter;
+extern int vftable_hkpConstrainedSystemFilter_for_hkpShapeCollectionFilter;
+extern int vftable_hkpConstrainedSystemFilter_for_hkpRayShapeCollectionFilter;
+extern int vftable_hkpConstrainedSystemFilter_for_hkpRayCollidableFilter;
+extern int vftable_hkpConstrainedSystemFilter_for_hkpConstraintListener;
+extern int vftable_hkpConstraintListener;
+extern int vftable_hkpRayCollidableFilter;
+extern int vftable_hkpRayShapeCollectionFilter;
+extern int vftable_hkpShapeCollectionFilter;
+extern int vftable_hkpCollidableCollidableFilter;
+extern int vftable_hkBaseObject;
 struct FUN_00e46b80_class
 {
     int* unk00;
@@ -1916,7 +1916,7 @@ struct FnvCpu_FUN_00e473f0_CpuObject
     unsigned char value;
     void SetValue(unsigned char arg0);
 };
-extern int DAT_010e81a4;
+extern int vftable_hkpDefaultWorldMemoryWatchDog;
 struct FUN_00e48240
 {
     void* m_vTable;
@@ -1925,9 +1925,9 @@ struct FUN_00e48240
     int m_uiFilterValue;
     FUN_00e48240(int value);
 };
-extern int DAT_010cb76c;
-extern int DAT_010cb780;
-extern int DAT_010e83b4;
+extern int vftable_hkpConstraintMotor;
+extern int vftable_hkpLimitedForceConstraintMotor;
+extern int vftable_hkpCallbackConstraintMotor;
 struct SourceData
 {
     void* m_ppVirtualMethodTable;
@@ -1987,8 +1987,8 @@ struct FUN_00e484e0_class
     int m_10;
     void ScatterBytes(FUN_00e484e0_dst* dst);
 };
-extern "C" int DAT_010e8ab0;
-extern "C" int DAT_010e8a90;
+extern "C" int vftable_hkpFastMeshShape;
+extern "C" int vftable_hkpFastMeshShape_for_hkpShapeContainer;
 struct FUN_00e48db0_holder
 {
     void FUN_00dcd310(float f, void* p);

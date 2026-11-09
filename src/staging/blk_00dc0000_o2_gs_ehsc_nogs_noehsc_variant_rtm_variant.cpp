@@ -85,7 +85,7 @@ struct FUN_00dd4b70_class
 {
     void __thiscall hkpMoppCompiler_enableInterleavedBuilding(unsigned char value);
 };
-extern int DAT_0102e388;
+extern int vftable_hkBaseObject;
 struct FUN_00dd51d0_class
 {
     int m_00;
@@ -147,7 +147,7 @@ struct S_00d49310_Lock
     ~S_00d49310_Lock();
 };
 void __cdecl Runtime_UpdateState_00dccb10(char* p);
-extern int DAT_010d77b4[];
+extern int vftable_hkpSaveContactPointsUtil__EntitySelector[];
 extern void __cdecl _Deallocate(void* p);
 struct FUN_00dcd4b0_Class
 {
@@ -170,7 +170,7 @@ struct FUN_00ddf030_Class
 {
     void __thiscall Clear_Thunk(int arg);
 };
-extern int DAT_010d8094;
+extern int vftable_hkpShapeDisplayBuilder;
 struct FUN_00ddfb80_s
 {
     void* m_vt;
@@ -260,7 +260,7 @@ struct FUN_00dcc670_Class
 
     int* __thiscall InitFromValue(int* value);
 };
-extern int DAT_010d7540;
+extern int vftable_hkIstream;
 extern FUN_00dcc670_Manager* DAT_01268364;
 extern int g_unk01269bb4;
 int* __cdecl Object_GetGlobalObjectAddress_00dccb00();
@@ -314,7 +314,7 @@ struct FUN_00dd5150_cls
     float m_f14;
     void* hkpMoppCostFunction_hkpMoppSplitCostParams_hkpMoppSplitCostParams(int arg);
 };
-extern void* DAT_010d7ba8;
+extern void* vftable_hkpMoppCostFunction;
 struct FUN_00dd5150_component
 {
     void hkpMoppCostFunction_hkpMoppSplitCostParams_hkpMoppSplitCostParams(int value);
@@ -422,7 +422,7 @@ struct S_00dd8cf0
     bool __thiscall IsValidChunk(int v);
     S_00dd8cf0_Ret __thiscall AllMatch(const int* arr, int n);
 };
-extern int DAT_010d7c34;
+extern int vftable_hkLargeBlockAllocator;
 // Object built by Construct: it installs its own vtable, clears a couple
 // of members and then hands the object over to FUN_00dd7f10 for a full reset.
 struct SpawnedObject
@@ -577,7 +577,7 @@ struct Lock_dd9
     int InvokeRecord(int iIndex, int iArg);
     int hkProcessFactory_createProcess(int iKey, int iArg);
 };
-extern int DAT_010d7db8;
+extern int vftable_hkDisplaySerializeOStream;
 struct Bool1
 {
     char v;

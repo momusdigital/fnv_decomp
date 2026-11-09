@@ -554,10 +554,10 @@ int __stdcall Object_ProcessAndReturnValue_009fb480(int a, int b, int c)
     return Runtime_UpdateState_009fcf10(a, b, c);
 }
 
-extern int DAT_01093d84;
-extern int DAT_01093d9c;
-extern int DAT_01093de8;
-extern int DAT_01093e24;
+extern int vftable_CAsyncOutputPin_for_IQualityControl;
+extern int vftable_CAsyncOutputPin_for_IPin;
+extern int vftable_CAsyncOutputPin_for_CBasePin;
+extern int vftable_CAsyncOutputPin;
 extern int DAT_01093ed4;
 struct FUN_009fc890_class
 {
@@ -614,11 +614,11 @@ struct FUN_009fdd70_class
 FUN_009fdd70_class::FUN_009fdd70_class(int a, int b, int c, int d)
 {
     ((FUN_009fc890_class*)((char*)this + 8))->FUN_009fc890(0, b, d, a, L"Output", 1);
-    m_08 = (int)&DAT_01093de8;
+    m_08 = (int)&vftable_CAsyncOutputPin_for_CBasePin;
     m_a0 = b;
-    m_vft = (int)&DAT_01093e24;
-    m_14 = (int)&DAT_01093d9c;
-    m_18 = (int)&DAT_01093d84;
+    m_vft = (int)&vftable_CAsyncOutputPin;
+    m_14 = (int)&vftable_CAsyncOutputPin_for_IPin;
+    m_18 = (int)&vftable_CAsyncOutputPin_for_IQualityControl;
     m_a4 = c;
 }
 
@@ -682,7 +682,7 @@ int __stdcall FUN_009fa1d0_s::ResetAndQueryVtbl()
     return 0;
 }
 
-extern int DAT_01093c9c;
+extern int vftable_CMediaSample;
 int __stdcall Runtime_ProcessState_009f9cb0(int);
 struct FUN_009fa560_class
 {
@@ -708,7 +708,7 @@ struct FUN_009fa560_class
 // src: GUESS 0x009fa560 (confidence: low)
 void FUN_009fa560_class::UpdateFields_009fa560()
 {
-    *(int*)this = (int)&DAT_01093c9c;
+    *(int*)this = (int)&vftable_CMediaSample;
     if (m_3c)
         Runtime_ProcessState_009f9cb0(m_3c);
 }
@@ -817,8 +817,8 @@ FUN_009fc580_class* FUN_009fc580_class::Destroy(bool abFree)
     return this;
 }
 
-extern int DAT_01093cf8;
-extern int DAT_01093d28;
+extern int vftable_CMemAllocator_for_IMemAllocatorCallbackTemp;
+extern int vftable_CMemAllocator;
 struct FUN_009fcc20_class
 {
     int __thiscall InitializeAllocatorState(int a, int b, int c, int d, int e);
@@ -828,8 +828,8 @@ struct FUN_009fcc20_class
 int __thiscall FUN_009fcc20_class::Initialize(int a, int b, int c)
 {
     InitializeAllocatorState(a, b, c, 1, 1);
-    *(int*)this = (int)&DAT_01093d28;
-    *(int*)((char*)this + 0xc) = (int)&DAT_01093cf8;
+    *(int*)this = (int)&vftable_CMemAllocator;
+    *(int*)((char*)this + 0xc) = (int)&vftable_CMemAllocator_for_IMemAllocatorCallbackTemp;
     *(int*)((char*)this + 0x60) = 0;
     return (int)this;
 }
@@ -1225,7 +1225,7 @@ int __stdcall InitFromInterface(int a)
 }
 
 // Vtable of the class this function belongs to; supplied by the game data.
-extern int DAT_01093c74[];
+extern int vftable_CEnumMediaTypes[];
 
 struct VkCallback
 {
@@ -1253,7 +1253,7 @@ struct FUN_009fa100_cls
 // @fnv 0x009fa100
 void FUN_009fa100_cls::InitVTableAndInvokeCallback()
 {
-    m_pVTable = DAT_01093c74;
+    m_pVTable = vftable_CEnumMediaTypes;
 
     VkInner* inner = m_pInner;
     VkCallback* callback = inner->m_pCallback;
@@ -1565,8 +1565,8 @@ int __stdcall Object_GetField10_009fa8a0(FUN_009fa8a0_cls* a1)
     return a1->m_10;
 }
 
-extern "C" int DAT_01093d28;
-extern "C" int DAT_01093cf8;
+extern "C" int vftable_CMemAllocator;
+extern "C" int vftable_CMemAllocator_for_IMemAllocatorCallbackTemp;
 struct EntryObject
 {
     void* volatile vtable;
@@ -1583,8 +1583,8 @@ struct CleanupGuard
     EntryObject* const owner;
     CleanupGuard(EntryObject* obj) : owner(obj)
     {
-        obj->vtable = &DAT_01093d28;
-        obj->secondaryVtable = &DAT_01093cf8;
+        obj->vtable = &vftable_CMemAllocator;
+        obj->secondaryVtable = &vftable_CMemAllocator_for_IMemAllocatorCallbackTemp;
     }
     ~CleanupGuard()
     {
@@ -4291,7 +4291,7 @@ struct FUN_009fc780 : RecBase
 // @fnv 0x009fc780
 FUN_009fc780::FUN_009fc780(RecOwner* owner, RecSource* src) : RecBase(owner)
 {
-    m_ppVirtualMethodTable = DAT_01093c74;
+    m_ppVirtualMethodTable = vftable_CEnumMediaTypes;
     m_04 = 0;
     m_10 = 1;
     owner->m_0c.AddRef();
@@ -8225,10 +8225,10 @@ __declspec(noinline) void FUN_009fddd0_class::ProcessAndReturnValue_009fd3c0()
 {
     char* base = reinterpret_cast<char*>(this);
 
-    *reinterpret_cast<int*>(base) = reinterpret_cast<int>(&DAT_01093e24);
-    *reinterpret_cast<int*>(base + 8) = reinterpret_cast<int>(&DAT_01093de8);
-    *reinterpret_cast<int*>(base + 0x14) = reinterpret_cast<int>(&DAT_01093d9c);
-    *reinterpret_cast<int*>(base + 0x18) = reinterpret_cast<int>(&DAT_01093d84);
+    *reinterpret_cast<int*>(base) = reinterpret_cast<int>(&vftable_CAsyncOutputPin);
+    *reinterpret_cast<int*>(base + 8) = reinterpret_cast<int>(&vftable_CAsyncOutputPin_for_CBasePin);
+    *reinterpret_cast<int*>(base + 0x14) = reinterpret_cast<int>(&vftable_CAsyncOutputPin_for_IPin);
+    *reinterpret_cast<int*>(base + 0x18) = reinterpret_cast<int>(&vftable_CAsyncOutputPin_for_IQualityControl);
 
     return reinterpret_cast<S009fd3c0_FUN_009fa1f0_class*>(base + 8)->FUN_009fa1f0();
 }

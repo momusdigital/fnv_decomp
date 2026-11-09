@@ -371,7 +371,7 @@ struct hkpClosestCdPointCollectorq
 
     hkpClosestCdPointCollectorq()
     {
-        m_ppVirtualMethodTable = &DAT_010c476c;
+        m_ppVirtualMethodTable = &vftable_hkpClosestCdPointCollector;
         reset();
     }
     void reset()
@@ -385,7 +385,7 @@ struct hkpClosestCdPointCollectorq
         return m_pRootCollidableA != 0;
     }
 
-    static int DAT_010c476c;
+    static int vftable_hkpClosestCdPointCollector;
 };
 
 struct hkpWorldq

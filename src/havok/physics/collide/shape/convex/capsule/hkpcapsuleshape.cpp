@@ -93,7 +93,7 @@ const hkSphere* hkpCapsuleShape::GetCollisionSpheres(hkSphere* sphereBuffer) con
     return sphereBuffer;
 }
 
-extern int DAT_010ce25c;
+extern int vftable_hkpCapsuleShape;
 
 
 template <typename ENUM, typename STORAGE>
@@ -120,7 +120,7 @@ hkpCapsuleShape::hkpCapsuleShape(const hkVector4& first, const hkVector4& second
     m_sReferenceCount = 1;
     m_ulUserData = 0;
     *reinterpret_cast<unsigned int*>(&m_type) = 5;
-    *reinterpret_cast<void**>(this) = &DAT_010ce25c;
+    *reinterpret_cast<void**>(this) = &vftable_hkpCapsuleShape;
     m_kVertexA.m_vComponents = first.m_vComponents;
     m_kVertexB.m_vComponents = second.m_vComponents;
     *reinterpret_cast<volatile float*>(&m_kVertexA.w) = radius;

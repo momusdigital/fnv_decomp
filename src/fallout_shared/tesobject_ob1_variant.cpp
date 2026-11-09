@@ -6398,9 +6398,9 @@ void ResizeEntries::ProcessState_00abb060(unsigned int count, ResizeEntry value)
 }
 
 namespace fnv_00ad5500 {
-extern int DAT_010a31fc;
-extern int DAT_010a3228;
-extern int DAT_010a3204;
+extern int vftable_std__locale__facet;
+extern int vftable_std__codecvt_base;
+extern int vftable_std__codecvt_010a3204;
 
 namespace std {
 template <class _Elem> struct char_traits
@@ -6480,7 +6480,7 @@ class ObjBase
     int m_refs;
     ObjBase()
     {
-        m_vtbl = &DAT_010a31fc;
+        m_vtbl = &vftable_std__locale__facet;
         m_refs = 0;
     }
 };
@@ -6489,7 +6489,7 @@ class ObjMid : public ObjBase
   public:
     ObjMid()
     {
-        m_vtbl = &DAT_010a3228;
+        m_vtbl = &vftable_std__codecvt_base;
     }
 };
 class ObjNew : public ObjMid
@@ -6497,7 +6497,7 @@ class ObjNew : public ObjMid
   public:
     ObjNew(const TmpCls&)
     {
-        m_vtbl = &DAT_010a3204;
+        m_vtbl = &vftable_std__codecvt_010a3204;
     }
 };
 

@@ -29,7 +29,7 @@ struct GlobalObject_0044f440
         float f;
     }* Float();
 };
-extern GlobalObject_0044f440 g_011d5d14;
+extern GlobalObject_0044f440 fTreeForceCS_SpeedTree;
 float SpeedTree_fTreeForceCS_Get();
 struct FUN_006684d0_shell
 {
@@ -70,7 +70,7 @@ struct FUN_0066a630_shell
     Flt m_flt;
     void ConvertFloatToUInt();
 };
-GlobalObject_0044f440 g_011d5c80;
+GlobalObject_0044f440 fTreeForceMaxBudAngle_SpeedTree;
 float SpeedTree_fTreeForceMaxBudAngle_Get();
 struct S_00666910
 {

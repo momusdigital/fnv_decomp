@@ -43,7 +43,7 @@ void __stdcall NiPSysFieldMaxDistanceCtlr_GetViewerStrings(StrArr* pkStrings)
 }
 
 extern "C" void* __cdecl Object_DispatchCommandFour(unsigned int);
-extern char DAT_010bf354[];
+extern char vftable_NiPSysFieldMaxDistanceCtlr[];
 
 inline void* operator new(unsigned int, void* location)
 {
@@ -62,7 +62,7 @@ void* NiPSysFieldMaxDistanceCtlr::CreateClone_00c2b070(unsigned int a1)
     if (p != 0)
     {
         ::new (p) NiPSysModifierFloatCtlr;
-        *reinterpret_cast<void**>(p) = (void*)&DAT_010bf354;
+        *reinterpret_cast<void**>(p) = (void*)&vftable_NiPSysFieldMaxDistanceCtlr;
     }
     else
     {

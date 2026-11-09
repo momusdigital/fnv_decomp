@@ -13,6 +13,6 @@ public:
 
     void dtor();
     void* hkpCdBodyPairCollector_hkpCdBodyPairCollector();
-    void* FUN_0062d3f0(unsigned int flags);
+    void* hkpCdBodyPairCollector_ScalarDeletingDestructor(unsigned int flags);
     void SetVirtualTable_0062d420();
 };

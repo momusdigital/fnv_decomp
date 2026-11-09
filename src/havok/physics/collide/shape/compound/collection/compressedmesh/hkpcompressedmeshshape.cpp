@@ -173,7 +173,7 @@ void FUN_00e3cd20_Class::ForwardCall_00e3cd20(float afScale, ::hkVector4* a2, ::
 
 extern "C" void _ReadWriteBarrier(void);
 
-const void* DAT_010d0fc4[];
+const void* vftable_hkpConvexVerticesShape[];
 
 struct FUN_00d59710
 {
@@ -215,7 +215,7 @@ FUN_00d59710::FUN_00d59710(float fScale)
     m_uiType = us;
     m_uiPad = uiZero;
     m_uiNumShapes = 6;
-    m_vtbl = DAT_010d0fc4;
+    m_vtbl = vftable_hkpConvexVerticesShape;
     m_uiF40 = uiZero;
     m_uiF44 = uiZero;
     _ReadWriteBarrier();
@@ -379,8 +379,8 @@ __forceinline hkpShapeCollection::hkpShapeCollection(FinishingFlag flag) : ::hkp
 }
 
 
-extern int DAT_010eba5c;
-extern int DAT_010eba3c;
+extern int vftable_hkpCompressedMeshShape;
+extern int vftable_hkpCompressedMeshShape_for_hkpShapeContainer;
 
 // @fnv 0x00e3dbd0
 hkpCompressedMeshShape::hkpCompressedMeshShape(FinishingFlag flag) throw()
@@ -388,8 +388,8 @@ hkpCompressedMeshShape::hkpCompressedMeshShape(FinishingFlag flag) throw()
       m_kMaterialIndices8(flag), m_kTransforms(flag), m_kBigVertices(flag),
       m_kBigTriangles(flag), m_kChunks(flag), m_kConvexPieces(flag), m_kNamedMaterials(flag)
 {
-    *reinterpret_cast<void**>(this) = &DAT_010eba5c;
-    *reinterpret_cast<void**>(static_cast<hkpShapeContainer*>(this)) = &DAT_010eba3c;
+    *reinterpret_cast<void**>(this) = &vftable_hkpCompressedMeshShape;
+    *reinterpret_cast<void**>(static_cast<hkpShapeContainer*>(this)) = &vftable_hkpCompressedMeshShape_for_hkpShapeContainer;
     if (flag.m_bFinishing)
     {
         *reinterpret_cast<int*>(&m_type) = 0x10;
@@ -915,7 +915,7 @@ extern hkVector4 DAT_012683a0;
 extern float DAT_011b153c;
 extern float DAT_0104da48, DAT_0104e148, DAT_01011d78;
 extern hkVector4 DAT_010c71d0;
-extern int DAT_010c749c;
+extern int vftable_hkpTriangleShape;
 struct VertexBlock
 {
     hkVector4 x, y, z;
@@ -973,7 +973,7 @@ struct Triangle
         userData = 0;
         type = 3;
         radius = r;
-        vtable = &DAT_010c749c;
+        vtable = &vftable_hkpTriangleShape;
         welding = 0;
         weldingType = 6;
         *(LocalM128*)&extrusion = _mm_setzero_ps();
@@ -1235,8 +1235,8 @@ hkpCompressedMeshShape::hkpCompressedMeshShape(float value)
       m_kChunks(FinishingFlag()), m_kConvexPieces(FinishingFlag()), m_kNamedMaterials(FinishingFlag())
 {
     m_fSphereRadius = value;
-    *reinterpret_cast<void**>(this) = &DAT_010eba5c;
-    *reinterpret_cast<void**>(static_cast<hkpShapeContainer*>(this)) = &DAT_010eba3c;
+    *reinterpret_cast<void**>(this) = &vftable_hkpCompressedMeshShape;
+    *reinterpret_cast<void**>(static_cast<hkpShapeContainer*>(this)) = &vftable_hkpCompressedMeshShape_for_hkpShapeContainer;
     m_iBitsPerIndex = 0x11;
     m_iBitsPerWIndex = 0x12;
     m_iNumBitsForIndex = 0x3FFFF;

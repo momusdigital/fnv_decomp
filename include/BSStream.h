@@ -37,5 +37,5 @@ public:
     unsigned int GetRefAt21C();
     NiNode* GetStringAt(unsigned int index);
     void DestroyObject();
-    void* FUN_0043d150(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 };

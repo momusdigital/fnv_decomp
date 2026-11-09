@@ -27,7 +27,7 @@ typedef unsigned short hkUint16;
 
 extern hkReal DAT_0104da48;
 extern hkReal DAT_0104da4c;
-extern const void* DAT_0108f288[];
+extern const void* vftable_hkpFixedBufferCdPointCollector[];
 
 inline void* operator new(size_t, void* p) throw()
 {
@@ -65,7 +65,7 @@ inline hkpCdPointCollector::~hkpCdPointCollector()
 
 inline hkpFixedBufferCdPointCollector::hkpFixedBufferCdPointCollector(RootContactPoint* buffer, int capacity)
 {
-    *reinterpret_cast<const void***>(this) = DAT_0108f288;
+    *reinterpret_cast<const void***>(this) = vftable_hkpFixedBufferCdPointCollector;
     m_fEarlyOutDistance = DAT_0104da48;
     m_pPointBuffer = buffer;
     m_pPointBufferEnd = buffer;

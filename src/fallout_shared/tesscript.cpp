@@ -660,7 +660,7 @@ void __cdecl Script_InitActionList(TESObjectREFR* ownerObject, ExtraDataList* ap
     }
 }
 
-extern SettingT_GameSettingCollection_ g_011cac68;
+extern SettingT_GameSettingCollection_ fQuestScriptDelayTime_MAIN;
 
 // Runs the script via the script runner, decrementing a timer and resetting it from the game setting or a referenced value when the header flag is set.
 // @fnv 0x005ac1e0
@@ -681,7 +681,7 @@ bool Script::Run(TESObjectREFR* ownerObject, ScriptLocals* ownerVars,
     bool bretVal = ScriptExecutor::Instance()->Run(this, ownerObject, ownerVars, ownerContainer, abIsPartialScript,
                                                    false, false, 0.0f);
 
-    if (GetHeader()->m_bQuest && g_011cac68.Float()->f > 0.0)
+    if (GetHeader()->m_bQuest && fQuestScriptDelayTime_MAIN.Float()->f > 0.0)
     {
         if (m_pOwnerQuest && m_pOwnerQuest->QueuedModel_GetOverriddenVisualDistance() > 0.0)
         {
@@ -689,7 +689,7 @@ bool Script::Run(TESObjectREFR* ownerObject, ScriptLocals* ownerVars,
         }
         else
         {
-            fValueAtOffset38 += g_011cac68.Float()->f;
+            fValueAtOffset38 += fQuestScriptDelayTime_MAIN.Float()->f;
         }
         m_fValueAtOffset3C = 0.0f;
     }

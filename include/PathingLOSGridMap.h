@@ -28,7 +28,7 @@ public:
     void __thiscall Reset();
     void __thiscall FUN_006e02a0();
     void __thiscall Animation_ResetVtableAndFinishScriptRunLock();
-    void* __thiscall FUN_006e0270(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
     void FUN_006e04b0();
     void* __thiscall FUN_006e0480(unsigned int flags);
 

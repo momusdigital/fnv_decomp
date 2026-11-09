@@ -22,26 +22,26 @@ const char* __cdecl NiLODData_GetRTTI()
 
 extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(long volatile*);
 extern long volatile DAT_011f4400;
-extern int DAT_0109b4f4;
+extern int vftable_NiObject;
 inline NiRefObject::NiRefObject() : m_uiRefCount(0)
 {
     InterlockedIncrement(&DAT_011f4400);
 }
-// Initialises the object by storing the vtable pointer DAT_0109b4f4 into its first field.
+// Initialises the object by storing the vtable pointer vftable_NiObject into its first field.
 // @fnv 0x00a5d3a0
 NiObject::NiObject()
 {
-    *(void**)this = (void*)&DAT_0109b4f4;
+    *(void**)this = (void*)&vftable_NiObject;
 }
 
 namespace fnv_00aa09f0 {
-extern int DAT_010a2254;
+extern int vftable_NiLODData;
 
 // Scalar deleting destructor; the flag controls whether storage is released.
 // @fnv 0x00aa09f0
 void* __fastcall DestroyNiLODData(NiLODData* self, void*, int flags)
 {
-    *reinterpret_cast<void**>(self) = &DAT_010a2254;
+    *reinterpret_cast<void**>(self) = &vftable_NiLODData;
     self->NiRefObject::~NiRefObject();
     if (flags & 1)
         NiObject::operator delete(self, sizeof(NiLODData));

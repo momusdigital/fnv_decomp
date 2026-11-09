@@ -39,7 +39,7 @@ void* __thiscall FUN_00404b10_class::Initialize()
     return this;
 }
 
-extern int DAT_01012188;
+extern int vftable_SettingCollection_01012188;
 struct FUN_00404d00_class
 {
     void* m_vtbl;
@@ -51,7 +51,7 @@ struct FUN_00404d00_class
 // @fnv 0x00404d00
 FUN_00404d00_class::FUN_00404d00_class()
 {
-    m_vtbl = &DAT_01012188;
+    m_vtbl = &vftable_SettingCollection_01012188;
     m_auiShapeKeys[0x40] = 0;
     m_kPointB = 0;
 }

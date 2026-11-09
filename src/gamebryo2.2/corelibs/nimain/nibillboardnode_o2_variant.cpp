@@ -85,13 +85,13 @@ inline void* __cdecl operator new(unsigned int, void* storage)
 }
 // The shared child array has no constructor declaration for this entry point.
 void __fastcall InitializeChildArray(void* storage, void*, unsigned int count, unsigned int growBy);
-extern const void* DAT_0109b5ac[];
+extern const void* vftable_NiNode[];
 // The unused second register lets a free function receive this in ECX.
 // @fnv 0x00a5ecb0
 __declspec(noinline) NiNode* __fastcall InitializeNiNode(NiNode* node, void*, unsigned int uiNumChildren)
 {
     ::new ((void*)node) NiAVObject;
-    *(const void***)node = DAT_0109b5ac;
+    *(const void***)node = vftable_NiNode;
     typedef void (__thiscall* ArrayConstructor)(void*, unsigned int, unsigned int);
     ((ArrayConstructor)InitializeChildArray)(&node->m_kChildren, uiNumChildren, 1);
     return node;
@@ -569,7 +569,7 @@ void NiBillboardNode::RotateToCamera(const BoardObject* cameraObject)
 
 void* __cdecl Object_DispatchCommandFour(unsigned int bytes);
 
-extern const void* DAT_0102bf44[];
+extern const void* vftable_NiBillboardNode[];
 
 inline NiBillboardNode* InitializeBillboardClone(void* storage)
 {
@@ -577,7 +577,7 @@ inline NiBillboardNode* InitializeBillboardClone(void* storage)
     typedef NiNode* (__thiscall* NodeConstructor)(NiNode*, unsigned int);
     ((NodeConstructor)InitializeNiNode)(clone, 0);
     *(float*)&clone->unkB0 = 0.0f;
-    *(const void***)clone = DAT_0102bf44;
+    *(const void***)clone = vftable_NiBillboardNode;
     *(short*)&clone->unkAC = 9;
     return clone;
 }

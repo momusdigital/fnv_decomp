@@ -15,14 +15,14 @@ const GlobalObjectO2_00a7b610* NiLines_GetRTTI()
     return &g_011f4a48;
 }
 
-extern "C" unsigned int DAT_0109ed94;
+extern "C" unsigned int vftable_NiTriBasedGeom;
 extern "C" void __fastcall UpdateFields_00a80580(::NiGeometry*);
 extern "C" void __cdecl FUN_00aa1460(void*, unsigned int);
 
 // @fnv 0x00a89790
 extern "C" ::NiGeometry* __fastcall FUN_00a89790(::NiGeometry* geometry, void*, unsigned int flags)
 {
-    *reinterpret_cast<void**>(geometry) = &DAT_0109ed94;
+    *reinterpret_cast<void**>(geometry) = &vftable_NiTriBasedGeom;
     UpdateFields_00a80580(geometry);
     if (flags & 1u)
         FUN_00aa1460(geometry, sizeof(*geometry));

@@ -78,8 +78,8 @@ void __stdcall hkpPrismaticConstraintData_getRuntimeInfo(int aiUnused, hkpPrisma
     *(int*)((char*)apConstraintData + 0) = 0x48;
 }
 
-extern int DAT_010d0b3c;
-extern int DAT_0102e388;
+extern int vftable_hkpPrismaticConstraintData;
+extern int vftable_hkBaseObject;
 inline hkpConstraintData::~hkpConstraintData() throw() {}
 
 // Releases the motor stored at +0xAC before destroying the constraint base.
@@ -87,10 +87,10 @@ inline hkpConstraintData::~hkpConstraintData() throw() {}
 hkpPrismaticConstraintData::~hkpPrismaticConstraintData() throw()
 {
     hkReferencedObject* motor = *reinterpret_cast<hkReferencedObject**>(m_kBridgeAtoms + 0x9C);
-    *reinterpret_cast<int**>(this) = &DAT_010d0b3c;
+    *reinterpret_cast<int**>(this) = &vftable_hkpPrismaticConstraintData;
     if (motor)
         motor->removeReference();
-    *reinterpret_cast<int**>(this) = &DAT_0102e388;
+    *reinterpret_cast<int**>(this) = &vftable_hkBaseObject;
 }
 
 // FUN_00d4f8c0: cdecl constant-return leaf (mov eax,6; ret)
@@ -130,7 +130,7 @@ hkpPrismaticConstraintData* hkpPrismaticConstraintData::DestroyObject(unsigned i
     return this;
 }
 
-extern int DAT_010d0b9c;
+extern int vftable_hkpGenericConstraintData;
 
 struct Embedded
 {
@@ -167,13 +167,13 @@ struct FUN_00d50c50
 // @fnv 0x00d50c50
 FUN_00d50c50::~FUN_00d50c50()
 {
-    vtbl = &DAT_010d0b9c;
+    vtbl = &vftable_hkpGenericConstraintData;
     for (int i = 0; i < mCount; ++i)
     {
         mArr[i]->removeReference();
     }
     mSub.Run();
-    vtbl = &DAT_0102e388;
+    vtbl = &vftable_hkBaseObject;
 }
 
 // Raw SIMD arithmetic temporaries: these expose no game-class methods or ABI.

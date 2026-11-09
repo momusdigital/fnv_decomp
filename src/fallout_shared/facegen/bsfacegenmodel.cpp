@@ -352,12 +352,13 @@ void __fastcall FUN_00659b50(void*);
 
 struct FUN_00659b20_thiscall
 {
-    void* FUN_00659b20(unsigned int flags);
+    void* BSFaceGenModel_ScalarDeletingDestructor(unsigned int flags);
 };
 
 // Calls FUN_00659b50 on this, frees this with NiMemObject::operator delete when flags has bit 1 set, and returns this.
 // @fnv 0x00659b20
-void* FUN_00659b20_thiscall::FUN_00659b20(unsigned int flags)
+// src: EXE 0x00659b20
+void* FUN_00659b20_thiscall::BSFaceGenModel_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00659b50(this);
     if (flags & 1)
@@ -1045,7 +1046,8 @@ extern "C" void __cdecl _delete(void*, unsigned int);
 
 // Calls FUN_0065bf20, frees this with _delete when flags has bit 0 set, and returns this.
 // @fnv 0x0065bef0
-void* BSFaceGenModelExtraData::FUN_0065bef0(unsigned int flags)
+// src: EXE 0x0065bef0
+void* BSFaceGenModelExtraData::ScalarDeletingDestructor(unsigned int flags)
 {
     this->FUN_0065bf20();
     if (flags & 1)
@@ -1205,7 +1207,7 @@ bool FUN_0065c090_shell::UpdateState_0065c090()
     return true;
 }
 
-extern int DAT_01065af4;
+extern int vftable_BSFaceGenModel;
 class FUN_004968b0
 {
   public:
@@ -1220,11 +1222,11 @@ class FUN_00659ae0 : public FUN_004968b0
     int m_iThirdValue;
     FUN_00659ae0();
 };
-// Initializes the vtable pointer to DAT_01065af4 and zeroes the two integer members.
+// Initializes the vtable pointer to vftable_BSFaceGenModel and zeroes the two integer members.
 // @fnv 0x00659ae0
 FUN_00659ae0::FUN_00659ae0()
 {
-    m_vt = &DAT_01065af4;
+    m_vt = &vftable_BSFaceGenModel;
     m_8 = 0;
     m_iThirdValue = 0;
 }

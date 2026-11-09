@@ -38,7 +38,7 @@ class TESAnimGroup : public NiRefObject
     virtual ~TESAnimGroup();
 
     void __thiscall FUN_005f22d0();
-    void* __thiscall FUN_005f22a0(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
     void __thiscall Animation_ResetVtableAndFinishScriptRunLock();
 
     struct AnimGroupSound

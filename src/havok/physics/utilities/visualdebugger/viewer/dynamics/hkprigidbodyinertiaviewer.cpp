@@ -447,13 +447,13 @@ void D671B0Owner::AddItem(void* item)
     m_ppData.pushBack(item);
 }
 
-extern int DAT_010d1d80;
-extern int DAT_010d1d60;
-extern int DAT_010d1d50;
-extern int DAT_010d1d34;
-extern int DAT_010d1d24;
-extern int DAT_010ccf7c;
-extern int DAT_0102f13c;
+extern int vftable_hkpRigidBodyInertiaViewer;
+extern int vftable_hkpRigidBodyInertiaViewer_for_hkProcess;
+extern int vftable_hkpRigidBodyInertiaViewer_for_hkpPhysicsContextWorldListener;
+extern int vftable_hkpRigidBodyInertiaViewer_for_hkpEntityListener;
+extern int vftable_hkpRigidBodyInertiaViewer_for_hkpWorldPostSimulationListener;
+extern int vftable_hkpWorldPostSimulationListener;
+extern int vftable_hkpEntityListener;
 
 template <class T> __forceinline void destructArray_d672(T* p, int n)
 {
@@ -568,11 +568,11 @@ struct Viewer_d672 {
 // src: GUESS 0x00d67250 (confidence: low)
 void Viewer_d672::ProcessEntries_00d67250()
 {
-    m_vtbl00 = &DAT_010d1d80;
-    m_vtbl08 = &DAT_010d1d60;
-    m_vtbl20 = &DAT_010d1d50;
-    m_vtbl28 = &DAT_010d1d34;
-    m_vtbl2C = &DAT_010d1d24;
+    m_vtbl00 = &vftable_hkpRigidBodyInertiaViewer;
+    m_vtbl08 = &vftable_hkpRigidBodyInertiaViewer_for_hkProcess;
+    m_vtbl20 = &vftable_hkpRigidBodyInertiaViewer_for_hkpPhysicsContextWorldListener;
+    m_vtbl28 = &vftable_hkpRigidBodyInertiaViewer_for_hkpEntityListener;
+    m_vtbl2C = &vftable_hkpRigidBodyInertiaViewer_for_hkpWorldPostSimulationListener;
     if (m_pOwningWorld) {
         int n = m_pOwningWorld->m_iActorEntryCount;
         for (int i = 0; i < n; i++)
@@ -580,8 +580,8 @@ void Viewer_d672::ProcessEntries_00d67250()
     }
     m_geometries.clearAndDeallocate();
     m_ids.clearAndDeallocate();
-    m_vtbl2C = &DAT_010ccf7c;
-    m_vtbl28 = &DAT_0102f13c;
+    m_vtbl2C = &vftable_hkpWorldPostSimulationListener;
+    m_vtbl28 = &vftable_hkpEntityListener;
     FUN_00ddcc60();
 }
 

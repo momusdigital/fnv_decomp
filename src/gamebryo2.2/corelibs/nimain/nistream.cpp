@@ -945,7 +945,7 @@ void CreateOrReleaseRef(const char* apPath, int p2, NiObject** ppRef, void* p4)
 }
 
 void __fastcall _Call_a5d3a0(void*);
-extern int DAT_010984ec;
+extern int vftable_NiRotData;
 struct Obj
 {
     void* vtable;
@@ -967,7 +967,7 @@ void* NiRotData_CreateObject()
         p->f0C = 0;
         p->f10 = 0;
         p->f14 = 0;
-        p->vtable = &DAT_010984ec;
+        p->vtable = &vftable_NiRotData;
         return p;
     }
     return 0;
@@ -2712,7 +2712,7 @@ template <> void NiTLargeArray<NiPointer<NiObject>, NiTNewInterface<NiPointer<Ni
     FUN_00a47600(pSaveBase);
 }
 
-extern int DAT_0109bdcc, DAT_0109bd54, DAT_0109bc64, DAT_0109bd4c, DAT_0109bd98, DAT_01081fc8, DAT_0109bc3c;
+extern int vftable_NiStream, vftable_NiTPointerMap_0109bd54, vftable_NiTMapBase_0109bc64, vftable_NiTLargeArray_0109bd4c, vftable_NiTLargeArray_0109bd98, vftable_NiTLargeArray_01081fc8, vftable_NiTArray_0109bc3c;
 void __cdecl FUN_00a47600(void*);
 void _NiFreeAlias(void*);
 void Object_ProcessEntries_00a644a0(void*);
@@ -2761,7 +2761,7 @@ struct FUN_00a65300_holder
 // src: GUESS 0x00a65300 (confidence: low)
 void __fastcall Object_ReleaseStorage_00a65300(FUN_00a65300_holder* s)
 {
-    s->vt = &DAT_0109bdcc;
+    s->vt = &vftable_NiStream;
     if (s->istr)
         s->istr->Del(1);
     if (s->ostr)
@@ -2770,22 +2770,22 @@ void __fastcall Object_ReleaseStorage_00a65300(FUN_00a65300_holder* s)
     if (s->bg)
         s->bg->Del(1);
     NiStreamRegisterMap* m = &s->map;
-    *reinterpret_cast<void**>(m) = &DAT_0109bd54;
+    *reinterpret_cast<void**>(m) = &vftable_NiTPointerMap_0109bd54;
     m->RemoveAll();
-    *reinterpret_cast<void**>(m) = &DAT_0109bc64;
+    *reinterpret_cast<void**>(m) = &vftable_NiTMapBase_0109bc64;
     m->RemoveAll();
     _NiFreeAlias(m->m_ppkHashTable);
     _NiFreeAlias(s->l264);
     _NiFreeAlias(s->l254);
-    s->vt_234 = &DAT_0109bd4c;
+    s->vt_234 = &vftable_NiTLargeArray_0109bd4c;
     Object_ProcessEntries_00a644a0(s->a238);
-    s->vt_21c = &DAT_0109bd98;
+    s->vt_21c = &vftable_NiTLargeArray_0109bd98;
     FUN_00a47600(s->a220);
-    s->vt_204 = &DAT_01081fc8;
+    s->vt_204 = &vftable_NiTLargeArray_01081fc8;
     _NiFreeAlias(s->a208);
-    s->vt_1ec = &DAT_0109bd98;
+    s->vt_1ec = &vftable_NiTLargeArray_0109bd98;
     FUN_00a47600(s->a1f0);
-    s->vt_c8 = &DAT_0109bc3c;
+    s->vt_c8 = &vftable_NiTArray_0109bc3c;
     _NiFreeAlias(s->c_cc);
 }
 
@@ -3456,19 +3456,19 @@ namespace fnv_00a66070 {
 void __cdecl Object_ProcessEntries_00a644a0(void*);
 
 extern MemoryManager g_memoryManager;
-extern int DAT_0109bd4c;
+extern int vftable_NiTLargeArray_0109bd4c;
 struct Holder66070
 {
     void* vf;
     void* mem;
     void* FUN_00a66070(unsigned int);
 };
-// Saves mem, sets vf to DAT_0109bd4c, calls FUN_00a644a0 with the saved pointer, and conditionally calls _DeallocateAlias on this.
+// Saves mem, sets vf to vftable_NiTLargeArray_0109bd4c, calls FUN_00a644a0 with the saved pointer, and conditionally calls _DeallocateAlias on this.
 // @fnv 0x00a66070
 void* Holder66070::FUN_00a66070(unsigned int flags)
 {
     void* tmp = mem;
-    vf = (void*)&DAT_0109bd4c;
+    vf = (void*)&vftable_NiTLargeArray_0109bd4c;
     Object_ProcessEntries_00a644a0(tmp);
     if (flags & 1)
         g_memoryManager._DeallocateAlias(this);
@@ -3558,13 +3558,13 @@ void __cdecl NiStream__SDMInit()
 }
 }  // namespace fnv_00a660a0
 
-extern int DAT_01081ef0;
-extern int DAT_0109bc64;
-extern int DAT_0109bd54;
-extern int DAT_0109bd90;
-extern int DAT_0109bdcc;
-extern int DAT_0109bf6c;
-extern int DAT_0109bf74;
+extern int vftable_NiTLargePrimitiveArray_01081ef0;
+extern int vftable_NiTMapBase_0109bc64;
+extern int vftable_NiTPointerMap_0109bd54;
+extern int vftable_NiTPrimitiveArray_0109bd90;
+extern int vftable_NiStream;
+extern int vftable_NiTLargeObjectArray_0109bf6c;
+extern int vftable_NiTLargeObjectArray_0109bf74;
 extern unsigned int DAT_011a9b0c;
 extern unsigned int DAT_011a9b10;
 extern bool DAT_011f4780;
@@ -3735,9 +3735,9 @@ struct FUN_00a66150 : VPtr_a66150
 // Initializes the NifStream object, its stream arrays, maps, thread state, and error fields.
 // @fnv 0x00a66150
 FUN_00a66150::FUN_00a66150()
-    : VPtr_a66150(&DAT_0109bdcc), m_kObjectGroups(&DAT_0109bd90, 0, 1),
-      m_kThirdFollowingStreamField(&DAT_0109bf6c, 0, 1024), ObjectSerializationStream(&DAT_01081ef0, 0, 1),
-      m_kTopLevelObjects(&DAT_0109bf6c, 0, 1), m_kStringTable(&DAT_0109bf74, 0, 128), m_kSecondFollowingStreamField(0),
+    : VPtr_a66150(&vftable_NiStream), m_kObjectGroups(&vftable_NiTPrimitiveArray_0109bd90, 0, 1),
+      m_kThirdFollowingStreamField(&vftable_NiTLargeObjectArray_0109bf6c, 0, 1024), ObjectSerializationStream(&vftable_NiTLargePrimitiveArray_01081ef0, 0, 1),
+      m_kTopLevelObjects(&vftable_NiTLargeObjectArray_0109bf6c, 0, 1), m_kStringTable(&vftable_NiTLargeObjectArray_0109bf74, 0, 128), m_kSecondFollowingStreamField(0),
       m_kSecondUnsignedIntSet(0), m_kObjectToIndexMap(37), m_pBackgroundLoadThread(0), BackgroundLoadTask(0),
       m_eThreadPriority(2)
 {
@@ -4155,7 +4155,7 @@ bool FUN_00a66850_shell::NiStream_SaveStream()
 }
 }  // namespace fnv_00a66850
 
-extern int DAT_010a256c;
+extern int vftable_NiMemStream;
 
 void NiFreeAlias(void*);
 
@@ -4163,7 +4163,7 @@ void NiFreeAlias(void*);
 // @fnv 0x00aa2d30
 __declspec(noinline) void NiMemStream::NiMemStreamDestructor()
 {
-    *(void**)this = &DAT_010a256c;
+    *(void**)this = &vftable_NiMemStream;
     if (!m_bFlag20 && !m_bFlag21)
         NiFreeAlias(m_kRayStart);
     NiBinaryStream::~NiBinaryStream();

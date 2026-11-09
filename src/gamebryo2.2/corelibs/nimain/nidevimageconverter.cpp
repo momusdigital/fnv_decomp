@@ -461,7 +461,7 @@ template <class T> struct PoolAllocatorBase
     static LinkedListEntry* ms_pFreeList;
 };
 
-extern int DAT_0109d9c4;
+extern int vftable_NiDevImageConverter;
 extern RecursiveSpinLock g_011c5f80;
 extern unsigned int DAT_011c5f84;
 void __fastcall FUN_00a76680(void* pThis);
@@ -470,7 +470,7 @@ void __fastcall FUN_00a76680(void* pThis);
 // src: GUESS 0x00a7aff0 (confidence: low)
 void NiDevImageConverter::ProcessEntries_00a7aff0()
 {
-    *(void**)this = &DAT_0109d9c4;
+    *(void**)this = &vftable_NiDevImageConverter;
     while (m_kImageReaderList.m_kItemCount.m_uiCount)
     {
         NiTListItem<NiImageReader*>* node = m_kImageReaderList.m_pkHead;
@@ -1402,7 +1402,7 @@ void __fastcall InitializeConverterCodec(void*) throw();
 NiDevImageConverter* __fastcall InitializeNiDevImageConverter(NiDevImageConverter* self)
 {
     InitializeConverterBase(self);
-    *(void**)self = &DAT_0109d9c4;
+    *(void**)self = &vftable_NiDevImageConverter;
     InitializeConverterCodec(&self->m_kPixelDataExpander);
     self->m_kImageReaderList.m_kItemCount.m_uiCount = 0;
     self->m_kImageReaderList.m_pkHead = 0;

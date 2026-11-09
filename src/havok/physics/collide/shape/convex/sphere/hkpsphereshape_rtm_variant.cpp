@@ -15,7 +15,7 @@ typedef union __declspec(intrin_type) __declspec(align(16)) {
 extern char const* const g_01268970_arg1;
 void __cdecl hkReferencedObject_calcContentStatistics(char const* const*, char const* const*);
 void __cdecl hkpSphereShape_calcContentStatistics(char const* const* a1, char const* const* a2);
-extern int DAT_010cb5ac;
+extern int vftable_hkpSphereShape;
 struct FUN_00cd8160
 {
     FUN_00cd8160(float radius);

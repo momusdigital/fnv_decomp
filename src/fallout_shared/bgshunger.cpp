@@ -211,7 +211,8 @@ void HungerStageData::Reinitialize()
 void __cdecl _Deallocate(void*);
 // Calls FUN_00401ac0, then deallocates this when flags has bit 0 set, and returns this.
 // @fnv 0x00401a90
-void* BGSHungerStage::FUN_00401a90(unsigned int flags)
+// src: EXE 0x00401a90
+void* BGSHungerStage::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00401ac0();
     if (flags & 1)

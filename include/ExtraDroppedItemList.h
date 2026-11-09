@@ -20,7 +20,7 @@ public:
     virtual ~ExtraDroppedItemList();
 
     void FUN_004359f0();
-    void* __thiscall FUN_004359c0(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 
     ListX m_pInventoryEntryData;
 };

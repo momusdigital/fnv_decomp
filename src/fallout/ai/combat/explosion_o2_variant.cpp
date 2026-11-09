@@ -38,7 +38,7 @@ struct FUN_009afc30_shell
 struct FUN_009afbb0_shell
 {
     virtual ~FUN_009afbb0_shell();
-    void* FUN_009afbb0(unsigned int flags);
+    void* hkpFixedBufferCdPointCollector_ScalarDeletingDestructor(unsigned int flags);
     void ForwardCall_009afc10();
 };
 extern "C" void __cdecl Object_UpdateFields_009afbe0(void*);

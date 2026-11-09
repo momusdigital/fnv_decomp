@@ -65,7 +65,7 @@ struct SmallRecord
     int m_i08;
     unsigned short m_w0C;
 };
-extern char DAT_010cf018[];
+extern char vftable_hkpSymmetricAgentLinearCast_010cf018[];
 hkMemoryRouter* hkMemoryRouter_getInstance();
 void __cdecl hkpSphereBoxAgent_createBoxSphereAgent(int a, int b, int c, int d);
 class D3CF80CollectorBase
@@ -93,7 +93,7 @@ class D3CF80Agent
     void CollectFilteredEvents(void* pkA, void* pkB, void* pkInput, int iFilter);
 };
 extern void __cdecl hkpSphereBoxAgent_staticGetPenetrations(int a, int b, int c, int d);
-extern char DAT_010ce81c[];
+extern char vftable_hkpSymmetricAgentFlipBodyCollector[];
 struct FlipCollectorLocal
 {
     void* unk00;
@@ -108,7 +108,7 @@ struct CpuCallData
     unsigned int value;
 };
 extern float DAT_0104da48;
-extern unsigned char DAT_010ce7fc;
+extern unsigned char vftable_hkpSymmetricAgentFlipCollector;
 struct CpuObject
 {
     void hkpSphereBoxAgent_getClosestPoints(void*, void*, unsigned int, CpuCallData*);

@@ -232,7 +232,7 @@ FaceGenCoordinateValue FaceGenMatrix<float>::ForwardCall_0060b370(unsigned int a
     return FaceGenCoordinateValue(GetElementPointerChecked(0, m_uiColumnCount) + aiRow * m_uiColumnCount);
 }
 
-extern int DAT_01065678;
+extern int vftable_BSFaceGenModelMap;
 
 struct Dummy658aa0
 {
@@ -243,7 +243,7 @@ struct Dummy658aa0
 // src: EXE 0x0064fd80
 void* __fastcall BSFaceGenModelMap_BSFaceGenModelMap(void* pThis)
 {
-    *(int**)pThis = &DAT_01065678;
+    *(int**)pThis = &vftable_BSFaceGenModelMap;
     ((Dummy658aa0*)((char*)pThis + 4))->Initialize(0x25, 1);
     for (unsigned int cnt = 0; cnt < 2; ++cnt)
     {
@@ -4729,8 +4729,8 @@ float GetMorphCoordinateValue(char* pcCoords, unsigned int uiRenderPassIndex, un
 
 // 0x00651b50 - BSFaceGenManager.cpp helper
 
-extern GO45CFE0 g_011d59f4;
-extern GO45CFE0 g_011d5afc;
+extern GO45CFE0 uiFaceGenMaxEGMDataSize_General;
+extern GO45CFE0 uiFaceGenMaxEGTDataSize_General;
 
 // Looks up a Sol face-gen model in the BSFaceGenManager cache by a1 or a4, creating and caching a new one via FUN_00659c70 when a5 is true and no entry exists.
 // @fnv 0x00651b50
@@ -4746,8 +4746,8 @@ Sol* GetOrCreateFaceGenModel(char* a1, char* a2, char* a3, char* a4, bool abCrea
     if (BSFaceGenManager::GetFaceGenManager()->m_pModelCache == 0)
     {
         BSFaceGenManager::GetFaceGenManager()->m_pModelCache = new BSFaceGenModelMap;
-        BSFaceGenManager::GetFaceGenManager()->m_pModelCache->SetArrayValue(0, g_011d59f4.FUN_004503f0());
-        BSFaceGenManager::GetFaceGenManager()->m_pModelCache->SetArrayValue(1, g_011d5afc.FUN_004503f0());
+        BSFaceGenManager::GetFaceGenManager()->m_pModelCache->SetArrayValue(0, uiFaceGenMaxEGMDataSize_General.FUN_004503f0());
+        BSFaceGenManager::GetFaceGenManager()->m_pModelCache->SetArrayValue(1, uiFaceGenMaxEGTDataSize_General.FUN_004503f0());
     }
 
     if (a1)

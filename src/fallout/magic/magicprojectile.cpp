@@ -65,9 +65,9 @@ struct Call741e0
 {
     void FUN_00c741e0(int a);
 };
-extern int DAT_010795b8;
-extern int DAT_010795d4;
-extern int DAT_010795e4;
+extern int vftable_bhkCharacterListenerSpell_for_bhkCharacterListener;
+extern int vftable_bhkCharacterListenerSpell_for_hkpCharacterContext;
+extern int vftable_bhkCharacterListenerSpell;
 struct FUN_00806eb0
 {
     FUN_00806eb0(int a1, int a2);
@@ -77,9 +77,9 @@ struct FUN_00806eb0
 FUN_00806eb0::FUN_00806eb0(int aiArg, int aiValue)
 {
     ((Call741e0*)this)->FUN_00c741e0(aiArg);
-    *(void**)this = (void*)&DAT_010795e4;
-    *(void**)((char*)this + 0x3E0) = (void*)&DAT_010795d4;
-    *(void**)((char*)this + 0x410) = (void*)&DAT_010795b8;
+    *(void**)this = (void*)&vftable_bhkCharacterListenerSpell;
+    *(void**)((char*)this + 0x3E0) = (void*)&vftable_bhkCharacterListenerSpell_for_hkpCharacterContext;
+    *(void**)((char*)this + 0x410) = (void*)&vftable_bhkCharacterListenerSpell_for_bhkCharacterListener;
     *(int*)((char*)this + 0x650) = aiValue;
 }
 

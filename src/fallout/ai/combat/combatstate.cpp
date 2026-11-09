@@ -465,13 +465,13 @@ struct GlobalObject_00869f00
     void Clear(bool);
 };
 
-extern int DAT_0108e068;
+extern int vftable_BSSimpleArray_0108e068;
 
 // @fnv 0x009a3410
 // src: GUESS 0x009a3410 (confidence: low)
 void __fastcall CombatState_UpdateState_009a3410(GlobalObject_00869f00* this_)
 {
-    this_->m_ptr = &DAT_0108e068;
+    this_->m_ptr = &vftable_BSSimpleArray_0108e068;
     this_->Clear(true);
 }
 
@@ -482,7 +482,7 @@ struct GlobalObject_00869f00
     void __thiscall Clear(bool);
 };
 
-extern int DAT_0108e090;
+extern int vftable_BSSimpleArray_0108e090;
 
 struct FUN_009a35f0_shell : GlobalObject_00869f00
 {
@@ -493,7 +493,7 @@ struct FUN_009a35f0_shell : GlobalObject_00869f00
 // src: GUESS 0x009a35f0 (confidence: low)
 void FUN_009a35f0_shell::UpdateState_009a35f0()
 {
-    m_Data = reinterpret_cast<int>(&DAT_0108e090);
+    m_Data = reinterpret_cast<int>(&vftable_BSSimpleArray_0108e090);
     this->Clear(true);
 }
 }  // namespace fnv_009a35f0
@@ -1952,7 +1952,7 @@ float FUN_009a0b70_shell::GetInterpolatedValue()
 }
 }  // namespace fnv_009a0b70
 
-extern int DAT_0108e068;
+extern int vftable_BSSimpleArray_0108e068;
 struct AX
 {
     void BSSimpleArray_float_1024_InitialSetup(unsigned int, unsigned int);
@@ -1961,17 +1961,17 @@ struct FUN_009a33e0_shell : AX
 {
     FUN_009a33e0_shell* BSSimpleArray_TESObjectWEAP_1024_BSSimpleArray_TESObjectWEAP_1024();
 };
-// Sets the object's vtable pointer to DAT_0108e068, calls FUN_006b3eb0(0, 0), and returns this.
+// Sets the object's vtable pointer to vftable_BSSimpleArray_0108e068, calls FUN_006b3eb0(0, 0), and returns this.
 // @fnv 0x009a33e0
 // src: XBOX_PDB 0x009a33e0
 FUN_009a33e0_shell* FUN_009a33e0_shell::BSSimpleArray_TESObjectWEAP_1024_BSSimpleArray_TESObjectWEAP_1024()
 {
-    *(int**)this = &DAT_0108e068;
+    *(int**)this = &vftable_BSSimpleArray_0108e068;
     BSSimpleArray_float_1024_InitialSetup(0, 0);
     return this;
 }
 
-extern int DAT_0108e07c;
+extern int vftable_BSSimpleArray_0108e07c;
 struct FUN_009a39f0_t
 {
     void UpdateState_009a39f0(unsigned int, unsigned int);
@@ -1980,18 +1980,18 @@ struct FUN_009a3430_shell : FUN_009a39f0_t
 {
     FUN_009a3430_shell* BSSimpleArray_UnreachableCoverLocation_1024_BSSimpleArray_UnreachableCoverLocation_1024();
 };
-// Sets the object's vtable pointer to DAT_0108e07c, calls FUN_009a39f0(0, 0), and returns this.
+// Sets the object's vtable pointer to vftable_BSSimpleArray_0108e07c, calls FUN_009a39f0(0, 0), and returns this.
 // @fnv 0x009a3430
 // src: COMMUNITY 0x009a3430
 FUN_009a3430_shell* FUN_009a3430_shell::BSSimpleArray_UnreachableCoverLocation_1024_BSSimpleArray_UnreachableCoverLocation_1024()
 {
-    *(int**)this = &DAT_0108e07c;
+    *(int**)this = &vftable_BSSimpleArray_0108e07c;
     UpdateState_009a39f0(0, 0);
     return this;
 }
 
 namespace fnv_009a3460 {
-extern int DAT_0108e07c;
+extern int vftable_BSSimpleArray_0108e07c;
 struct GlobalObject_00869f00
 {
     void Clear(bool);
@@ -2004,12 +2004,12 @@ struct FUN_009a3460_shell : GlobalObject_00869f00
 // src: GUESS 0x009a3460 (confidence: medium)
 void FUN_009a3460_shell::ResetVirtualTableAndClear_009a3460()
 {
-    *(int**)this = &DAT_0108e07c;
+    *(int**)this = &vftable_BSSimpleArray_0108e07c;
     Clear(true);
 }
 }  // namespace fnv_009a3460
 
-extern int DAT_0108e090;
+extern int vftable_BSSimpleArray_0108e090;
 struct FUN_009a3bc0_t
 {
     void Initialize(unsigned int, unsigned int);
@@ -2018,12 +2018,12 @@ struct FUN_009a35c0_shell : FUN_009a3bc0_t
 {
     FUN_009a35c0_shell* BSSimpleArray_UnreachableLocation_1024_BSSimpleArray_UnreachableLocation_1024();
 };
-// Sets the object's vtable pointer to DAT_0108e090, calls Initialize with 0, 0, and returns this.
+// Sets the object's vtable pointer to vftable_BSSimpleArray_0108e090, calls Initialize with 0, 0, and returns this.
 // @fnv 0x009a35c0
 // src: COMMUNITY 0x009a35c0
 FUN_009a35c0_shell* FUN_009a35c0_shell::BSSimpleArray_UnreachableLocation_1024_BSSimpleArray_UnreachableLocation_1024()
 {
-    *(int**)this = &DAT_0108e090;
+    *(int**)this = &vftable_BSSimpleArray_0108e090;
     Initialize(0, 0);
     return this;
 }
@@ -2449,7 +2449,7 @@ void FUN_0099a8d0_struct::CombatState_TargetChanged()
 }
 }  // namespace fnv_0099a8d0
 
-extern int DAT_0106cbc0;
+extern int vftable_PathingCoverLocation;
 
 struct StandInShell
 {
@@ -2479,7 +2479,7 @@ struct FUN_0099aa80_struct : StandInShell
 FUN_0099aa80_struct* FUN_0099aa80_struct::PathingCoverLocation_PathingCoverLocation(FUN_0099aa80_struct* other)
 {
     FUN_006dcc40(other);
-    vtable = &DAT_0106cbc0;
+    vtable = &vftable_PathingCoverLocation;
     memcpy(&pt28, &other->pt28, sizeof(pt28));
     memcpy(&pt34, &other->pt34, sizeof(pt34));
     memcpy(&pt40, &other->pt40, sizeof(pt40));

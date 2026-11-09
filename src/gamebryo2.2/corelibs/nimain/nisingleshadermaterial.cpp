@@ -67,7 +67,7 @@ void NiSingleShaderMaterial::ReleaseShader()
     }
 }
 
-extern int DAT_010a21dc;
+extern int vftable_NiSingleShaderMaterial;
 
 // NiMaterial's named initialization entry is not yet declared in its shared header.
 void InitializeMaterial();
@@ -79,7 +79,7 @@ NiSingleShaderMaterial* NiSingleShaderMaterial::NiSingleShaderMaterial_00aa06f0(
     typedef void (__thiscall* InitializeMaterialEntry)(NiMaterial*, void*);
     reinterpret_cast<InitializeMaterialEntry>(InitializeMaterial)(this, arg1);
 
-    *reinterpret_cast<void**>(this) = reinterpret_cast<void*>(&DAT_010a21dc);
+    *reinterpret_cast<void**>(this) = reinterpret_cast<void*>(&vftable_NiSingleShaderMaterial);
 
     if (!apcString)
     {
@@ -154,7 +154,7 @@ void __cdecl FUN_00aa1460(void* apMemory, unsigned int auiSize);
 NiSingleShaderMaterial* NiSingleShaderMaterial::Destroy(unsigned char acFlags)
 {
     long(__stdcall * pfnRelease)(long volatile*) = InterlockedDecrement;
-    *(int volatile*)this = (int)&DAT_010a21dc;
+    *(int volatile*)this = (int)&vftable_NiSingleShaderMaterial;
     NiShader* sp = *(NiShader* volatile*)&m_sp;
     if (sp != 0)
     {

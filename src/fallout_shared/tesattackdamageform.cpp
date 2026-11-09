@@ -205,11 +205,12 @@ void __cdecl _Deallocate(void*);
 struct Unk_57
 {
     void FUN_0057ee10();
-    void* FUN_0057ede0(unsigned int);
+    void* TESWaterForm_ScalarDeletingDestructor(unsigned int);
 };
 // Calls FUN_0057ee10, then deallocates this when flags has bit 0 set, and returns this.
 // @fnv 0x0057ede0
-void* Unk_57::FUN_0057ede0(unsigned int flags)
+// src: EXE 0x0057ede0
+void* Unk_57::TESWaterForm_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_0057ee10();
     if (flags & 1)

@@ -35,7 +35,7 @@ void __fastcall UnlinkPalette(NiPalette* self)
     LeaveCriticalSection(&DAT_011f5c80);
 }
 
-extern int DAT_0109f3fc;
+extern int vftable_NiPalette;
 void __fastcall _Call_a5d3a0(void*);
 void __fastcall NiPalette_AddPaletteToList(void*);
 // @fnv 0x00a8b220
@@ -46,7 +46,7 @@ void* NiPalette_CreateObject()
     if (p)
     {
         _Call_a5d3a0(p);
-        *(void**)p = (void*)&DAT_0109f3fc;
+        *(void**)p = (void*)&vftable_NiPalette;
         *(unsigned char*)&p->unk08 = 0;
         p->unk0C = 0;
         p->unk14 = 0;
@@ -68,12 +68,12 @@ struct MM
     void _DeallocateAlias(void*);
 };
 extern MM g_memoryManager;
-extern int DAT_0109f3fc;
+extern int vftable_NiPalette;
 void _delete(void*, unsigned int);
 // @fnv 0x00a8b270
 void* NiPalette::DestroyPalette(unsigned int auiFlags)
 {
-    *(void**)this = (void*)&DAT_0109f3fc;
+    *(void**)this = (void*)&vftable_NiPalette;
     g_memoryManager._DeallocateAlias((void*)unk14);
     delete (NipaletteRendererDataView*)unk18;
     UnlinkPalette(this);
@@ -278,7 +278,7 @@ void* __fastcall NiPalette_NiPalette_00a8b110(NiPalette* self, void*, unsigned c
     _Call_a5d3a0(self);
     *(unsigned char*)&self->unk08 = a1;
     self->unk0C = a2;
-    *(void**)self = (void*)&DAT_0109f3fc;
+    *(void**)self = (void*)&vftable_NiPalette;
     self->unk10 = 1;
     self->unk14 = (unsigned int)(new A8b110Elem[a2]);
     FUN_00ec44d0((void*)self->unk14, pSrc, self->unk0C * 4);
@@ -584,7 +584,7 @@ struct PaletteElement : A8b110Elem
 void* __fastcall NiPalette_NiPalette(NiPalette* self, void*, const NiPalette& src)
 {
     _Call_a5d3a0(self);
-    *(void**)self = &DAT_0109f3fc;
+    *(void**)self = &vftable_NiPalette;
     *(unsigned char*)&self->unk08 = *(const unsigned char*)&src.unk08;
     self->unk0C = src.unk0C;
     self->unk10 = 1;

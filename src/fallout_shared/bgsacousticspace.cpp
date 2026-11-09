@@ -184,12 +184,13 @@ void __thiscall FUN_00589f50_shell::SetSound(void* apSound)
 struct Standin00589930
 {
     void UpdateFields_00589960();
-    void* FUN_00589930(unsigned int);
+    void* BGSAcousticSpace_ScalarDeletingDestructor(unsigned int);
 };
 void __cdecl _Deallocate(void*);
 // Calls FUN_00589960, then deallocates this if flags has bit 0 set, and returns this.
 // @fnv 0x00589930
-void* Standin00589930::FUN_00589930(unsigned int flags)
+// src: EXE 0x00589930
+void* Standin00589930::BGSAcousticSpace_ScalarDeletingDestructor(unsigned int flags)
 {
     UpdateFields_00589960();
     if (flags & 1)
@@ -207,7 +208,7 @@ BGSCameraPath* BGSCameraPath::GetCameraPathAt(unsigned int uiIndex)
     return result;
 }
 
-extern int DAT_010320fc;
+extern int vftable_BGSAcousticSpace;
 
 void __fastcall UpdateState_0050e9f0(void*);
 
@@ -220,7 +221,7 @@ struct FUN_00589960_shell
 // src: GUESS 0x00589960 (confidence: low)
 void __thiscall FUN_00589960_shell::UpdateFields_00589960()
 {
-    *reinterpret_cast<int**>(this) = &DAT_010320fc;
+    *reinterpret_cast<int**>(this) = &vftable_BGSAcousticSpace;
     UpdateState_0050e9f0(this);
 }
 

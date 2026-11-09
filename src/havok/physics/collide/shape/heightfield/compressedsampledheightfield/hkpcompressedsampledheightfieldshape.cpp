@@ -259,7 +259,7 @@ void HfShape_e49530::Collide(const HfInput_e49530& input, HfVec_e49530* outputAr
 
 extern "C" void* __cdecl hkMemoryRouter_getInstance();
 extern "C" void __cdecl hkArrayUtil__reserve(void* alloc, void* array, int capacity, int elemSize);
-extern int DAT_010e901c;
+extern int vftable_hkpCompressedSampledHeightFieldShape;
 
 struct hkBoolR_e499
 {
@@ -347,7 +347,7 @@ Compressed_e499* Compressed_e499::InitializeFields_00e499d0(const HfSrc_e499* ap
     m_sReferenceCount = 1;
     m_ulUserData = 0;
     m_type = (hkpShapeType)0xd;
-    *(int**)this = &DAT_010e901c;
+    *(int**)this = &vftable_hkpCompressedSampledHeightFieldShape;
     hkArrayBase<hkUint16>& st = (hkArrayBase<hkUint16>&)m_kStorage;
     st.m_data = 0;
     st.m_iElementCount = 0;

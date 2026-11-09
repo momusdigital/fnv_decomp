@@ -374,7 +374,7 @@ struct VUC_Router
     VUC_Allocator* m_pThreadAllocator;
 };
 
-extern int DAT_010df34c;
+extern int vftable_hkpVehicleInstance;
 VUC_Router* _D1A0E0GetMemoryRouter();
 void __fastcall ReleaseReference_00d2b2b0(void*);
 
@@ -420,7 +420,7 @@ struct FUN_00e38bf0
 // @fnv 0x00e38bf0
 FUN_00e38bf0::~FUN_00e38bf0()
 {
-    m_vtbl = &DAT_010df34c;
+    m_vtbl = &vftable_hkpVehicleInstance;
 
     if (m_ref1c)
         m_ref1c->removeReference();

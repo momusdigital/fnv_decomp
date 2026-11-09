@@ -75,8 +75,8 @@ float NiFastSqrt(float number)
 
 void __cdecl ReleaseObjectArray(void*);
 void __cdecl _delete(void*, unsigned int);
-extern int DAT_010bd698;
-extern int DAT_010bd6a0;
+extern int vftable_NiTArray_010bd698;
+extern int vftable_NiTArray_010bd6a0;
 struct Holder31750
 {
     void __thiscall FUN_00c31750();
@@ -96,10 +96,10 @@ struct NiPSysMeshEmitter
 void* __thiscall NiPSysMeshEmitter::Destroy(unsigned int flags)
 {
     void* tmp1 = m_68;
-    m_64 = (void*)&DAT_010bd6a0;
+    m_64 = (void*)&vftable_NiTArray_010bd6a0;
     ReleaseObjectArray(tmp1);
     void* tmp2 = m_58;
-    m_54 = (void*)&DAT_010bd698;
+    m_54 = (void*)&vftable_NiTArray_010bd698;
     ReleaseObjectArray(tmp2);
     ((Holder31750*)this)->FUN_00c31750();
     if (flags & 1)
@@ -2129,7 +2129,7 @@ void __thiscall CloneEmitter::CloneItems(CloneProcess& process)
 }
 
 #include <windows.h>
-extern int DAT_0101dce4;
+extern int vftable_NiRefObject;
 extern long DAT_011f4400;
 void __cdecl FUN_00aa1460(void* apMemory, unsigned int auiSize);
 
@@ -2156,7 +2156,7 @@ FUN_00c1d660_cls* FUN_00c1d660_cls::Release(unsigned char acFlags)
             obj->DeleteThis();
         }
     }
-    self->m_00 = &DAT_0101dce4;
+    self->m_00 = &vftable_NiRefObject;
     pDecrement(&DAT_011f4400);
     if (acFlags & 1)
     {

@@ -222,7 +222,7 @@ bool __cdecl AILinearTaskThreadManager_GetMainRendering(void);
 void* __stdcall AILinearTaskThreadManager_GetSingleton(int);
 unsigned int __fastcall GetValueWithItemResult(void*);
 unsigned long __fastcall _ref_0084e3a0(void*);
-extern SettingT_GameSettingCollection_ g_011c3ea4;
+extern SettingT_GameSettingCollection_ iNumHWThreads_General;
 extern BSAudio* g_osGlobals;
 
 // @fnv 0x008c7aa0
@@ -231,7 +231,7 @@ bool __cdecl AILinearTaskThreadManager_ShouldQueue3DTask()
 {
     bool bretval = false;
     bool bretvalBug44071 = false;
-    if (*reinterpret_cast<int*>(g_011c3ea4.Int()) > 1 && AILinearTaskThreadManager_QRunningThreads())
+    if (*reinterpret_cast<int*>(iNumHWThreads_General.Int()) > 1 && AILinearTaskThreadManager_QRunningThreads())
     {
         TaskQueueInterface* pqueueInterface = TaskQueueInterface::GetInstance();
         if (TaskQueueInterface_QQueueFurtherTasks(pqueueInterface))
@@ -585,7 +585,7 @@ void __fastcall CombatManager_UpdateCombatants(void*);
 
 extern BSAudio* g_osGlobals;
 extern int g_TES;
-extern SettingT_GameSettingCollection_ g_011d73e4;
+extern SettingT_GameSettingCollection_ bUseObstacleAvoidance_Pathfinding;
 extern int DAT_011e0e80;
 extern RecursiveSpinLock DAT_011f11a0;
 extern void* BGSSaveLoadGlobalDataWorldspacePtr;
@@ -631,7 +631,7 @@ void __cdecl AILinearTaskThreadManager_AIThreadCombined()
     reinterpret_cast<FUN_008c7d80_shell*>(AILinearTaskThreadManager_GetSingleton(1))->SetCurrent(6);
     AILinearTaskThreadManager_WaitMainRendering();
 
-    if (*reinterpret_cast<unsigned char*>(g_011d73e4.Bool()))
+    if (*reinterpret_cast<unsigned char*>(bUseObstacleAvoidance_Pathfinding.Bool()))
         NavMeshObstacleManager::GetSingleton()->Update();
 
     reinterpret_cast<FUN_0087a6d0_shell*>(TaskQueueInterface::GetInstance())->TaskQueueInterface_ThreadEndInput();
@@ -797,7 +797,7 @@ extern BSAudio* g_osGlobals;
 extern FUN_00455640_shell* g_TES;
 extern void* BGSSaveLoadGlobalDataWorldspacePtr;
 extern int DAT_011e0e80;
-extern SettingT_GameSettingCollection_ g_011d73e4;
+extern SettingT_GameSettingCollection_ bUseObstacleAvoidance_Pathfinding;
 
 void* __cdecl AILinearTaskThreadManager_GetSingleton();
 void __fastcall TESMain_OnIdle_DoInterfaceIdle(void*);
@@ -838,7 +838,7 @@ void __cdecl AILinearTaskThreadManager_AIThread1TaskFunc()
     reinterpret_cast<FUN_008c7a70_shell*>(AILinearTaskThreadManager_GetSingleton())->WaitForEvent(1, 7);
     AILinearTaskThreadManager_WaitMainRendering();
     reinterpret_cast<FUN_008c79e0_shell*>(AILinearTaskThreadManager_GetSingleton())->SignalThreadEvent(0, 9);
-    if (*reinterpret_cast<unsigned char*>(g_011d73e4.Bool()))
+    if (*reinterpret_cast<unsigned char*>(bUseObstacleAvoidance_Pathfinding.Bool()))
         NavMeshObstacleManager::GetSingleton()->Update();
     Script_ClearOptimizations();
     ScriptLocals_ClearOptimizations();

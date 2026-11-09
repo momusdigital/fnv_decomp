@@ -242,23 +242,23 @@ char* FUN_006c85c0_shell::GetCharPtrAtOffset()
     return reinterpret_cast<char*>(this) + 0x1A1;
 }
 
-extern int DAT_0106c8d4;
+extern int vftable_BSSimpleArray_0106c8d4;
 struct S_006c87c0
 {
     int BSSimpleArray_ObstacleTaskNavMeshOperation_1024_InitialSetup(int, int);
     S_006c87c0* InitializeFields_006c87c0();
 };
-// Sets the object's vtable pointer to DAT_0106c8d4, calls FUN_006c8c70(0, 0), and returns this.
+// Sets the object's vtable pointer to vftable_BSSimpleArray_0106c8d4, calls FUN_006c8c70(0, 0), and returns this.
 // @fnv 0x006c87c0
 // src: GUESS 0x006c87c0 (confidence: low)
 S_006c87c0* S_006c87c0::InitializeFields_006c87c0()
 {
-    *(int*)this = (int)&DAT_0106c8d4;
+    *(int*)this = (int)&vftable_BSSimpleArray_0106c8d4;
     BSSimpleArray_ObstacleTaskNavMeshOperation_1024_InitialSetup(0, 0);
     return this;
 }
 
-extern int DAT_0106c8d4;
+extern int vftable_BSSimpleArray_0106c8d4;
 struct FUN_006c87f0_shell
 {
     void* vftable;
@@ -269,7 +269,7 @@ struct FUN_006c87f0_shell
 // src: GUESS 0x006c87f0 (confidence: low)
 void __thiscall FUN_006c87f0_shell::SetVtableAndProcessState_006c87f0()
 {
-    vftable = &DAT_0106c8d4;
+    vftable = &vftable_BSSimpleArray_0106c8d4;
     BSSimpleArray_ObstacleTaskNavMeshOperation_1024_Clear(1);
 }
 

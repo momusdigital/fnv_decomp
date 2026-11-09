@@ -8,7 +8,7 @@
 #include "../../../../include/NiProperty.h"
 #include "../../../../include/NiShadeProperty.h"
 
-extern int DAT_0109e274;
+extern int vftable_NiShadeProperty;
 
 // @fnv 0x00a814e0
 NiObject* NiShadeProperty::CreateObject()
@@ -18,7 +18,7 @@ NiObject* NiShadeProperty::CreateObject()
     {
         node->NiProperty::NiProperty();
         node->m_uFlags = 1;
-        *(void**)node = &DAT_0109e274;
+        *(void**)node = &vftable_NiShadeProperty;
         node->iShaderPropertyType = -1;
         return node;
     }
@@ -37,7 +37,7 @@ NiObject* NiShadeProperty::CreateClone_00a81480(CloningProcess& kCloning)
     if (pkObject)
     {
         ::new (pkObject) NiProperty();
-        *(void**)pkObject = (void*)&DAT_0109e274;
+        *(void**)pkObject = (void*)&vftable_NiShadeProperty;
         pkObject->iShaderPropertyType = -1;
         pkObject->m_uFlags = 1;
     }
@@ -143,7 +143,7 @@ void __cdecl NiShadeProperty__SDMInit()
     {
         replacement = static_cast<NiShadeProperty*>(allocation);
         replacement->NiProperty::NiProperty();
-        *(void**)replacement = &DAT_0109e274;
+        *(void**)replacement = &vftable_NiShadeProperty;
         replacement->iShaderPropertyType = -1;
         replacement->m_uFlags = 1;
     }

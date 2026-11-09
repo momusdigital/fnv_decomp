@@ -138,7 +138,7 @@ NiTPointerMap<int, TESObjectCELL*>::NiTPointerMap(unsigned int size)
 FUN_004701d0_TESFormLargeArray::FUN_004701d0_TESFormLargeArray(unsigned int size, unsigned int flags)
 {
  NiTLargeArray_TESForm_NiTMallocInterface_TESForm_NiTLargeArray(size,flags);
- vtable = DAT_01019a3c;
+ vtable = vftable_NiTLargePrimitiveArray_01019a3c;
 }
 
 // @fnv 0x00402d00

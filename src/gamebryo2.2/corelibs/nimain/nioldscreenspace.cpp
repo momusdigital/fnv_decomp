@@ -92,7 +92,7 @@ NiRTTI* __cdecl NiScreenGeometry_GetRTTI()
     return &g_011f5e5c;
 }
 
-extern void* DAT_0109f81c;
+extern void* vftable_NiScreenGeometry;
 
 // @fnv 0x00a8ff80
 // src: EXE 0x00a8ff80
@@ -102,7 +102,7 @@ void* __cdecl NiScreenGeometry_CreateObject()
     if (p)
     {
         ((BSFadeNode*)p)->FUN_00a744a0();
-        *(void**)p = &DAT_0109f81c;
+        *(void**)p = &vftable_NiScreenGeometry;
         return p;
     }
     return 0;
@@ -122,7 +122,7 @@ NiRTTI* __cdecl NiScreenPolygon_GetRTTI()
 namespace fnv_00a8ffc0 {
 void __fastcall ConstructNiRefObject(NiRefObject*);
 
-extern int DAT_0109f914;
+extern int vftable_NiScreenPolygon;
 
 // @fnv 0x00a8ffc0
 // src: EXE 0x00a8ffc0
@@ -138,7 +138,7 @@ void* __cdecl NiScreenPolygon_CreateObject()
         *puiField10 = 0;
         puiField10[1] = 0;
         puiField10[2] = 0;
-        *reinterpret_cast<unsigned*>(p) = reinterpret_cast<unsigned>(&DAT_0109f914);
+        *reinterpret_cast<unsigned*>(p) = reinterpret_cast<unsigned>(&vftable_NiScreenPolygon);
         return p;
     }
     return 0;
@@ -147,13 +147,13 @@ void* __cdecl NiScreenPolygon_CreateObject()
 
 namespace fnv_00a90040 {
 void __fastcall FUN_00a89760(void*);
-extern int DAT_0109f81c;
+extern int vftable_NiScreenGeometry;
 void __cdecl __Dummy_00b6fef0(void*, unsigned int);
 
 // @fnv 0x00a90040
 void* __fastcall DestroyScreenGeometry(NiScreenGeometry* self, void*, unsigned int flags)
 {
-    *(int*)self = (int)&DAT_0109f81c;
+    *(int*)self = (int)&vftable_NiScreenGeometry;
     FUN_00a89760(self);
     if (flags & 1)
         __Dummy_00b6fef0(self, 0xc4);
@@ -356,7 +356,7 @@ BSFadeNode* NiScreenSpaceCamera_CreateObject()
 namespace fnv_00a90560 {
 
 extern MemoryManager g_memoryManager;
-extern int DAT_0109f914;
+extern int vftable_NiScreenPolygon;
 void __cdecl _delete(void*, unsigned int);
 struct FUN_00a90560_host : NiRefObject
 {
@@ -369,7 +369,7 @@ struct FUN_00a90560_host : NiRefObject
 // @fnv 0x00a90560
 void* __thiscall FUN_00a90560_host::FUN_00a90560(unsigned int auiFlags)
 {
-    *(void**)this = (void*)&DAT_0109f914;
+    *(void**)this = (void*)&vftable_NiScreenPolygon;
     g_memoryManager.Deallocate(m1);
     g_memoryManager.Deallocate(m2);
     g_memoryManager.Deallocate(m3);
@@ -544,12 +544,12 @@ void __fastcall ProcessScreenSpaceCameraClones(NiScreenSpaceCamera* self, void*,
     }
 }
 
-extern int DAT_0109f814;
+extern int vftable_NiScreenGeometryData__ScreenElement;
 
 
 extern MemoryManager g_011f6238;
 
-struct FUN_00a902e0_cls
+struct NiScreenGeometryData__ScreenElement
 {
     int m_vptr00;
     int m_04;
@@ -557,25 +557,25 @@ struct FUN_00a902e0_cls
     void* m_0c;
     void* m_10;
 
-    FUN_00a902e0_cls* FUN_00a902e0(unsigned char acFlags);
+    NiScreenGeometryData__ScreenElement* FUN_00a902e0(unsigned char acFlags);
 };
 
 // @fnv 0x00a902e0
-FUN_00a902e0_cls* FUN_00a902e0_cls::FUN_00a902e0(unsigned char acFlags)
+NiScreenGeometryData__ScreenElement* NiScreenGeometryData__ScreenElement::FUN_00a902e0(unsigned char acFlags)
 {
     if (acFlags & 2)
     {
         char* base = (char*)this - 4;
         int i = *(int*)base;
-        FUN_00a902e0_cls* p = (FUN_00a902e0_cls*)((char*)this + i * 20);
+        NiScreenGeometryData__ScreenElement* p = (NiScreenGeometryData__ScreenElement*)((char*)this + i * 20);
         i = i - 1;
         if (i >= 0)
         {
             do
             {
-                p = (FUN_00a902e0_cls*)((char*)p - 20);
+                p = (NiScreenGeometryData__ScreenElement*)((char*)p - 20);
                 void* a = p->m_08;
-                p->m_vptr00 = (int)&DAT_0109f814;
+                p->m_vptr00 = (int)&vftable_NiScreenGeometryData__ScreenElement;
                 g_011f6238.Deallocate(a);
                 g_011f6238.Deallocate(p->m_0c);
                 g_011f6238.Deallocate(p->m_10);
@@ -585,11 +585,11 @@ FUN_00a902e0_cls* FUN_00a902e0_cls::FUN_00a902e0(unsigned char acFlags)
         {
             g_011f6238.Deallocate(base);
         }
-        return (FUN_00a902e0_cls*)base;
+        return (NiScreenGeometryData__ScreenElement*)base;
     }
 
     void* a = m_08;
-    m_vptr00 = (int)&DAT_0109f814;
+    m_vptr00 = (int)&vftable_NiScreenGeometryData__ScreenElement;
     g_011f6238.Deallocate(a);
     g_011f6238.Deallocate(m_0c);
     g_011f6238.Deallocate(m_10);
@@ -684,7 +684,7 @@ bool __fastcall IsScreenGeometryDataEqual(NiScreenGeometryData* self, void*, con
 }
 
 void* __cdecl Object_DispatchCommandFour(unsigned int size);
-extern int DAT_0109f914;
+extern int vftable_NiScreenPolygon;
 
 
 extern MemoryManager DAT_011f6238;
@@ -716,7 +716,7 @@ struct SpawnedObj_a905c0
 SpawnedObj_a905c0::SpawnedObj_a905c0() throw()
 {
     FUN_00a5d3a0();
-    m_pVTable = (void*)&DAT_0109f914;
+    m_pVTable = (void*)&vftable_NiScreenPolygon;
     m_0c = 0;
     unk10 = 0;
     unk14 = 0;

@@ -1,4 +1,4 @@
-extern "C" void* const DAT_0109297c[];
+extern "C" void* const vftable_PlayerMover[];
 
 
 // Fallout: New Vegas - original source reconstruction.
@@ -244,14 +244,15 @@ void PlayerMover::SetMoveModePreference(unsigned int auMode)
 // src: GUESS 0x009e9e30 (confidence: medium)
 void PlayerMover::ResetVtableAndDestroyActorMover()
 {
-    *reinterpret_cast<int*>(this) = (int)DAT_0109297c;
+    *reinterpret_cast<int*>(this) = (int)vftable_PlayerMover;
     ActorMover::~ActorMover();
 }
 
 void __cdecl _Deallocate(void*);
 // Calls FUN_009e9e30, then deallocates this object if auFlags has bit 0 set, and returns this.
 // @fnv 0x009e9e00
-void* PlayerMover::FUN_009e9e00(unsigned int auFlags)
+// src: EXE 0x009e9e00
+void* PlayerMover::ScalarDeletingDestructor(unsigned int auFlags)
 {
     ResetVtableAndDestroyActorMover();
     if (auFlags & 1)

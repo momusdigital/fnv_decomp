@@ -4,11 +4,11 @@
 
 #include "havok/hkpNullCollisionFilter.h"
 
-extern int DAT_0102e388;
-extern int DAT_010c3b80;
-extern int DAT_010c3b8c;
-extern int DAT_010c3b98;
-extern int DAT_010c3bac;
+extern int vftable_hkBaseObject;
+extern int vftable_hkpCollidableCollidableFilter;
+extern int vftable_hkpRayCollidableFilter;
+extern int vftable_hkpShapeCollectionFilter;
+extern int vftable_hkpRayShapeCollectionFilter;
 
 struct FUN_00cfa860
 {
@@ -23,11 +23,11 @@ struct FUN_00cfa860
 // @fnv 0x00cfa860
 FUN_00cfa860::~FUN_00cfa860()
 {
-    *(void**)((char*)this + 0x14) = &DAT_010c3b8c;
-    *(void**)((char*)this + 0x10) = &DAT_010c3bac;
-    *(void**)((char*)this + 0x0c) = &DAT_010c3b98;
-    *(void**)((char*)this + 0x08) = &DAT_010c3b80;
-    *(void**)((char*)this + 0x00) = &DAT_0102e388;
+    *(void**)((char*)this + 0x14) = &vftable_hkpRayCollidableFilter;
+    *(void**)((char*)this + 0x10) = &vftable_hkpRayShapeCollectionFilter;
+    *(void**)((char*)this + 0x0c) = &vftable_hkpShapeCollectionFilter;
+    *(void**)((char*)this + 0x08) = &vftable_hkpCollidableCollidableFilter;
+    *(void**)((char*)this + 0x00) = &vftable_hkBaseObject;
 }
 
 extern "C" unsigned __int64 __rdtsc(void);

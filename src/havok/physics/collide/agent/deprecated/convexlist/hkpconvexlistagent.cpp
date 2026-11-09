@@ -1,5 +1,5 @@
-extern "C" void* const DAT_010ceb94[];
-extern "C" void* const DAT_010cec68[];
+extern "C" void* const vftable_hkpPredGskfAgent[];
+extern "C" void* const vftable_hkpSymmetricAgent_010cec68[];
 extern "C" void* const DAT_010ce8b0[];
 
 #define FNV64_HKVECTOR4_OWN_ASSIGN   // this unit defines its own hkVector4 assign form
@@ -266,7 +266,7 @@ static __forceinline hkpCollisionAgent* MakePredGskfAgent(
     void* agent = hkpCollisionAgent::operator new(0x80);
     ((void (__thiscall*)(hkpGskfAgent*, const hkpCdBody&, const hkpCdBody&,
                         hkpContactMgr*))FUN_00dacbd0)((hkpGskfAgent*)agent, bodyA, bodyB, mgr);
-    *(void**)agent = (void*)DAT_010ceb94;
+    *(void**)agent = (void*)vftable_hkpPredGskfAgent;
     return (hkpCollisionAgent*)agent;
 }
 
@@ -278,7 +278,7 @@ static __forceinline hkpCollisionAgent* MakeFlippedConvexListAgent(
     ((void (__thiscall*)(hkpConvexListAgent*, const hkpCdBody&, const hkpCdBody&,
                         const hkpCollisionInput&, hkpContactMgr*))FUN_00d33940)(
         (hkpConvexListAgent*)agent, bodyA, bodyB, input, mgr);
-    *(void**)agent = (void*)DAT_010cec68;
+    *(void**)agent = (void*)vftable_hkpSymmetricAgent_010cec68;
     return (hkpCollisionAgent*)agent;
 }
 
@@ -455,7 +455,7 @@ void __fastcall hkpConvexListAgent_cleanup(hkpConvexListAgent* self, void*, void
 }
 
 extern float DAT_01012054;
-extern char DAT_010cebf0[];
+extern char vftable_hkpConvexListAgent[];
 
 struct __declspec(align(16)) S00d33940_Out
 {
@@ -483,12 +483,12 @@ struct S00d33940_Sub
     void hkpGskCache_init(int a, int b, S00d33940_Out* c);
 };
 
-// Calls FUN_00dacbd0(a, b, d), sets vt to DAT_010cebf0 and unk80 to *c, sets unk84/85, calls FUN_00dafcd0 on unk0c, and sets unk18 and unk2c to DAT_01012054.
+// Calls FUN_00dacbd0(a, b, d), sets vt to vftable_hkpConvexListAgent and unk80 to *c, sets unk84/85, calls FUN_00dafcd0 on unk0c, and sets unk18 and unk2c to DAT_01012054.
 // @fnv 0x00d33940
 hkpConvexListAgent* __fastcall InitializeConvexListAgent(hkpConvexListAgent* self, void*, int* a, int* b, int* c, void* d)
 {
     ((void (__thiscall*)(hkpGskfAgent*, int*, int*, void*))FUN_00dacbd0)(self, a, b, d);
-    *(void**)self = DAT_010cebf0;
+    *(void**)self = vftable_hkpConvexListAgent;
     *(int*)((char*)self + 0x80) = *c;
     *(unsigned char*)((char*)self + 0x84) = 1;
     *(unsigned char*)((char*)self + 0x85) = 0;
@@ -507,7 +507,7 @@ extern "C" unsigned __int64 __rdtsc(void);
 #include <windows.h>
 extern "C" void _ReadWriteBarrier(void);
 extern DWORD DAT_0126835c;
-extern char DAT_010cebd0;
+extern char vftable_hkpFlagCdBodyPairCollector;
 
 void __cdecl TestGsk(void* a, void* b, void* c, hkpFlagCdBodyPairCollector* col);
 void __cdecl hkCollectorD347_ProcessState_00d34790(void* a, void* b, void* c, void* d);
@@ -532,7 +532,7 @@ extern "C" void __cdecl hkpConvexListAgent_staticGetPenetrations(void* a, void* 
 
     void* flagStorage[sizeof(hkpFlagCdBodyPairCollector) / sizeof(void*)];
     hkpFlagCdBodyPairCollector& col = *(hkpFlagCdBodyPairCollector*)flagStorage;
-    *(const void**)&col = &DAT_010cebd0;
+    *(const void**)&col = &vftable_hkpFlagCdBodyPairCollector;
     col.m_flag = false;
     TestGsk(a, b, c, &col);
     if (col.m_flag)
@@ -568,7 +568,7 @@ extern "C" unsigned __int64 __rdtsc(void);
 extern unsigned long DAT_0126835c;
 extern const char str_010cec28[];
 extern const char str_01076f38[];
-extern int DAT_010c476c;
+extern int vftable_hkpClosestCdPointCollector;
 extern float DAT_0104da48;
 
 extern "C" __declspec(dllimport) void* __stdcall TlsGetValue(unsigned long dwTlsIndex);
@@ -606,7 +606,7 @@ extern "C" void __cdecl hkpConvexListAgent_QueryClosestPointsAfterHullTest(int a
 
     void* flagStorage[sizeof(hkpFlagCdBodyPairCollector) / sizeof(void*)];
     hkpFlagCdBodyPairCollector& flagCollector = *(hkpFlagCdBodyPairCollector*)flagStorage;
-    *(const void**)&flagCollector = &DAT_010cebd0;
+    *(const void**)&flagCollector = &vftable_hkpFlagCdBodyPairCollector;
     flagCollector.m_flag = false;
     TestGsk((const void*)apBodyA, (const void*)apBodyB, (const void*)a3, &flagCollector);
     if (flagCollector.DidHit())
@@ -633,7 +633,7 @@ extern "C" void __cdecl hkpConvexListAgent_QueryClosestPointsAfterHullTest(int a
         hkpClosestCdPointCollector& x = *(hkpClosestCdPointCollector*)closestStorage;
         x.m_kHitPoint.m_kPoint.m_vSeparatingNormal.m_vComponents.m128_f32[3] = DAT_0104da48;
         x.m_fEarlyOutDistance = DAT_0104da48;
-        *(const void**)&x = &DAT_010c476c;
+        *(const void**)&x = &vftable_hkpClosestCdPointCollector;
         x.m_kHitPoint.m_pRootCollidableA = 0;
         FUN_00dac450((const void*)apBodyA, (const void*)apBodyB, (const void*)a3, &x);
         if (!x.m_kHitPoint.m_pRootCollidableA)
@@ -688,7 +688,7 @@ extern "C" void __cdecl Object_ProcessEntries_00daf8e0(int, int, int, void*, voi
 
 extern int DAT_0126835c;
 extern float DAT_0104da48;
-extern int DAT_010cebe0;
+extern int vftable_hkpSimpleClosestContactCollector;
 extern char str_010cec54[];
 extern char str_010cec34[];
 extern char str_010cec4c[];
@@ -735,7 +735,7 @@ extern "C" void __cdecl hkpConvexListAgent_staticLinearCast(int a, int b, int c,
         S00d33ca0_Local local;
         local.unk2c = DAT_0104da48;
         local.unk04 = DAT_0104da48;
-        local.unk00 = &DAT_010cebe0;
+        local.unk00 = &vftable_hkpSimpleClosestContactCollector;
         local.unk08 = 0;
         Object_ProcessEntries_00daf8e0(a, b, c, &local, &local);
         if (local.unk08 != 0)
@@ -802,7 +802,7 @@ void* __cdecl hkpConvexListAgent_createConvexListConvexListAgent(void* bodyA, vo
             void* agent = ((ChunkAllocator*)pMemoryRouter->m_heap)->allocate(iAllocSize);
             ((hkpCollisionAgent*)agent)->m_usMemSizeAndFlags = (unsigned short)iAllocSize;
             ((PfnD33940)FUN_00d33940)(agent, bodyB, bodyA, input, contactMgr);
-            *(void**)agent = (void*)DAT_010cec68;
+            *(void**)agent = (void*)vftable_hkpSymmetricAgent_010cec68;
             return agent;
         }
         case 1: {
@@ -838,7 +838,7 @@ void* __cdecl hkpConvexListAgent_createConvexListConvexListAgent(void* bodyA, vo
                 void* agent = ((ChunkAllocator*)pMemoryRouter->m_heap)->allocate(iAllocSize);
                 ((hkpCollisionAgent*)agent)->m_usMemSizeAndFlags = (unsigned short)iAllocSize;
                 ((PfnDacbd0)FUN_00dacbd0)(agent, bodyA, bodyB, contactMgr);
-                *(void**)agent = (void*)DAT_010ceb94;
+                *(void**)agent = (void*)vftable_hkpPredGskfAgent;
                 return agent;
             }
             }

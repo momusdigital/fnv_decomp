@@ -139,7 +139,7 @@ void FUN_00a0b110_shell::Tile_PlayTileSound(int aiSoundType) {
     }
 }
 
-extern int DAT_01094e1c;
+extern int vftable_NiTMapBase_01094e1c;
 void _NiFreeAlias(void*);
 struct S00a0d390
 {
@@ -155,7 +155,7 @@ void S00a0d390::ReleaseStorage_00a0d390()
 {
     int pad1;
     int pad2;
-    f0 = &DAT_01094e1c;
+    f0 = &vftable_NiTMapBase_01094e1c;
     ClearAll();
     _NiFreeAlias(f8);
 }
@@ -924,7 +924,7 @@ TileShaderProperty* A0B1F0Tile::Tile_GetShaderProperty() {
     return pkProperty;
 }
 
-extern int DAT_01094d9c;
+extern int vftable_Tile__MenuStringMap;
 
 extern MemoryManager DAT_011f6238;
 
@@ -951,7 +951,7 @@ struct FUN_00a0d220_cls {
 FUN_00a0d220_cls* FUN_00a0d220_cls::FUN_00a0d220(unsigned int auiFlags)
 {
     FUN_00a0d220_frame frame;
-    m_vptr = (int)&DAT_01094d9c;
+    m_vptr = (int)&vftable_Tile__MenuStringMap;
     BaseCleanup();
     if (auiFlags & 1) {
         DAT_011f6238.Deallocate(this);
@@ -3057,7 +3057,7 @@ void A1E1D0_Holder::Tile_BuildStorage_SetTemplate(FUN_00a0c190* entry)
 
 extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volatile* value);
 extern int DAT_0109b220;
-extern const void* DAT_01094cfc[];
+extern const void* vftable_Tile__Extra[];
 
 extern "C" char* __cdecl FUN_00a5b690(const char* text);
 
@@ -3085,7 +3085,7 @@ public:
 FUN_00a1f610::FUN_00a1f610(int a, int b)
     : FUN_00a7b2e0()
 {
-    vtable = DAT_01094cfc;
+    vtable = vftable_Tile__Extra;
     m_0c = a;
     m_10 = b;
     AssignFixedString(NiFixedString("Tileptr"));
@@ -3126,7 +3126,7 @@ template<class T, class Traits, class Alloc> struct basic_string {
 }
 typedef std::basic_string<char, std::char_traits<char>, std::allocator<char> > GameString;
 
-extern void* DAT_010a2c38[];
+extern void* vftable_BSFaceGenBinaryFile[];
 struct FUN_00aaaa80 {
     GameString signature;
     GameString filename;

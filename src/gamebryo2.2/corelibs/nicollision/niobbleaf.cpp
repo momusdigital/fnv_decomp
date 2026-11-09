@@ -1128,7 +1128,7 @@ struct S_eb6b90_Payload
     int unk84;
     int unk88;
 };
-extern void* DAT_010f1b70;
+extern void* vftable_NiOBBLeaf;
 struct S_eb6b90_Node
 {
 

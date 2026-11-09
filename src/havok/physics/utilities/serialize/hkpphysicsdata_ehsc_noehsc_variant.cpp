@@ -20,7 +20,7 @@ struct FUN_00d4c000
     int m_10;
     int Method(int a);
 };
-extern int DAT_010cf9a4;
+extern int vftable_hkpPhysicsData;
 struct FUN_00d4c220_s
 {
     int* m_00;
@@ -42,7 +42,7 @@ struct FUN_00d4c050_obj
     int m_10;
     int FindMatchingEntry(int a);
 };
-extern int DAT_0102f0ec;
+extern int vftable_hkpWorldCinfo;
 void* hkMemoryRouter_getInstance() throw();
 void __cdecl InitializeWorld(void*) throw();
 void __cdecl RunWithLocalContext(void*, void*, void*) throw();
@@ -141,7 +141,7 @@ class __declspec(align(16)) FUN_00553540
     }
     __forceinline ~FUN_00553540() throw()
     {
-        vtable = &DAT_0102f0ec;
+        vtable = &vftable_hkpWorldCinfo;
     }
 };
 struct ContactOptions
@@ -161,7 +161,7 @@ struct PhysicsDataExt : public hkpPhysicsData
     hkpWorld* CreateWorld(char bRegisterWithMemoryManager) throw();
 };
 extern void* __cdecl hkMemoryRouter_getInstance(void);
-extern int DAT_010d07f4;
+extern int vftable_hkpPhysicsSystemWithContacts;
 extern void __cdecl ProcessCollisionRecords(void*, void*, void*);
 extern void __cdecl ResizeAudioStream(void*, void*, int);
 struct D4C2Place

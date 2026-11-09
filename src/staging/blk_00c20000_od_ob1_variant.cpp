@@ -168,15 +168,15 @@ struct FUN_00c3ba70_Class
     void* __thiscall BSNodeReferences_GetRTTI();
 };
 int __cdecl Object_ComputeValue_00c3c200();
-extern const void* DAT_010c14e8;
+extern const void* vftable_QueuedChildren;
 extern void __cdecl SetVtableAndProcessState_00c3d930();
 struct FUN_00c3c520_class
 {
     const void* vtbl;
     void __thiscall SetVirtualTable_00c3c520();
 };
-extern int DAT_010c1510;
-extern int DAT_010c14fc;
+extern int vftable_QueuedParents;
+extern int vftable_BSSimpleArray_010c14fc;
 struct FUN_00c3f6f0_Class
 {
     void LockFreeMap_int64_NiPointer_BSTask_int64_IncrementCount();
@@ -219,7 +219,7 @@ extern "C" void __cdecl operator delete(void*, unsigned int);
 struct FUN_00c3a140_Class
 {
     void __thiscall FUN_00c39770();
-    void* __thiscall FUN_00c3a140(unsigned int flags);
+    void* __thiscall BSMultiBoundRoom_ScalarDeletingDestructor(unsigned int flags);
 };
 struct FUN_00c3a620_Class
 {
@@ -235,7 +235,7 @@ void MessageHandler_SetAllWarningFileNames(const char* src);
 extern char DAT_01202a40[0x104];
 extern char DAT_01202fa0[0x104];
 void __cdecl MessageHandler_SetProgrammerOutputFileName(const char* p);
-extern const void* DAT_010c14a8;
+extern const void* vftable_MessageHandler;
 
 struct FUN_00c3c070_Class
 {
@@ -328,7 +328,7 @@ extern "C" void __cdecl operator delete(void*, unsigned int);
 struct FUN_00c3ba80_Class
 {
     void __thiscall FUN_00c3bab0();
-    void* __thiscall FUN_00c3ba80(unsigned int flags);
+    void* __thiscall BSNodeReferences_ScalarDeletingDestructor(unsigned int flags);
     int a, b, c, d;
 };
 extern "C" unsigned char DAT_01202d55;
@@ -517,7 +517,7 @@ class FUN_00c39a80_cls
     Mid m_c0;
     void BSMultiBoundRoom_AddOccluder(unsigned int a1);
 };
-extern "C" int DAT_010c117c;
+extern "C" int vftable_BSSimpleArray_010c117c;
 struct FUN_00c3a220_cls
 {
     void* m_vptr;
@@ -1079,7 +1079,7 @@ void Builder::BSOcclusionPlane_UpdateFrustumPlanes(LocalPoint eye, FUN_00a699d0s
     dirty = false;
 }
 
-extern int DAT_010c1064;
+extern int vftable_BSMultiBoundRoom;
 struct FUN_00c46970
 {
     FUN_00c46970();
@@ -3164,7 +3164,7 @@ template <> void* NiTPointerListBase<StagingPointerAllocator<unsigned int>, void
 }
 
 void __cdecl FUN_00aa1460(void* apMemory, unsigned int auiSize);
-extern const char DAT_010c1364[];
+extern const char vftable_BSReference[];
 
 struct S_Base
 {
@@ -3189,7 +3189,7 @@ inline S_X::~S_X()
 // @fnv 0x00c3b9f0
 S_X* S_X::FUN_00c3b9f0(unsigned int flags)
 {
-    *(const void**)this = DAT_010c1364;
+    *(const void**)this = vftable_BSReference;
     this->S_X::~S_X();
     if (flags & 1)
     {

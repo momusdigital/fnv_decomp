@@ -49,7 +49,7 @@ public:
     bool IsSlidingDoor();
     void SetMinimalUse(bool);
     void FUN_00517500();
-    void* FUN_005174d0(unsigned int);
+    void* ScalarDeletingDestructor(unsigned int);
     bool Activate(TESObjectREFR*, TESObjectREFR*, bool, TESBoundObject*, int);
     TESObjectREFR* FindRandomTeleportTarget(TESObjectREFR*, TESObjectREFR*);
     void QueueDoorTeleport(TESObjectREFR*);

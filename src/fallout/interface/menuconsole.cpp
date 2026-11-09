@@ -635,8 +635,8 @@ bool ConsoleManager::Idle(int aiKeyCode)
 }
 
 void* __cdecl memset(void*, int, unsigned int);
-extern SettingT_GameSettingCollection_ g_011d8d44;
-extern SettingT_GameSettingCollection_ g_011d8d08;
+extern SettingT_GameSettingCollection_ iConsoleTextXPos_Menu;
+extern SettingT_GameSettingCollection_ iConsoleTextYPos_Menu;
 
 class GlobalObject_0048f200
 {
@@ -682,8 +682,8 @@ FUN_0071af10::FUN_0071af10()
     f38 = 0;
     f1c = 0;
     f2c = (int)FontManager::Instance()->GetFont(DAT_011d8d38.Int()->i - 1)->GetHeight() + 3;
-    f30 = g_011d8d44.Int()->i;
-    f34 = g_011d8d08.Int()->i;
+    f30 = iConsoleTextXPos_Menu.Int()->i;
+    f34 = iConsoleTextYPos_Menu.Int()->i;
     f3a = 0;
     f3c = 0;
     memset(f810, 0, 0x104);
@@ -1052,7 +1052,7 @@ struct DumpSetting
 {
     bool* FUN_00408d60();
 };
-extern DumpSetting g_011dec98;
+extern DumpSetting bShowMenuTextureUse_Display;
 struct DumpFullName
 {
     const char* TESModel_GetModel();
@@ -1094,7 +1094,7 @@ void DumpConsole::DumpLoadedTextures()
             {
                 a9 = a1;
                 a7 = a9->FUN_0059bb30();
-                if (a7 && (*g_011dec98.FUN_00408d60() || !HasMenusPath(a9)))
+                if (a7 && (*bShowMenuTextureUse_Display.FUN_00408d60() || !HasMenusPath(a9)))
                 {
                     a5 = -1;
                     for (a4 = 0; a4 < 200 && a5 == -1; a4++)

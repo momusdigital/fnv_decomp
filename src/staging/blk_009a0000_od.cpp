@@ -144,7 +144,7 @@ float FUN_009a1260_Class::GetFloatAt0xC8()
     return *(float*)((char*)this + 0xc8);
 }
 
-extern int DAT_0108b4c8;
+extern int vftable_BSSimpleArray_0108b4c8;
 
 struct AX
 {
@@ -156,12 +156,12 @@ struct AX
 // src: XBOX_PDB 0x009a3750
 AX* AX::BSSimpleArray_TESAmmo_1024_BSSimpleArray_TESAmmo_1024(unsigned int a, unsigned int b)
 {
-    *(int*)this = (int)&DAT_0108b4c8;
+    *(int*)this = (int)&vftable_BSSimpleArray_0108b4c8;
     BSSimpleArray_float_1024_InitialSetup(a, b);
     return this;
 }
 
-extern "C" void* DAT_0108e0a4;
+extern "C" void* vftable_BSSimpleArray_0108e0a4;
 
 struct FUN_006cf9d0
 {
@@ -173,13 +173,13 @@ struct FUN_006cf9d0
 // src: XBOX_PDB 0x009a37e0
 FUN_006cf9d0* FUN_006cf9d0::BSSimpleArray_WeaponData_1024_BSSimpleArray_WeaponData_1024(unsigned int a, unsigned int b)
 {
-    *(void**)this = &DAT_0108e0a4;
+    *(void**)this = &vftable_BSSimpleArray_0108e0a4;
     BSSimpleArray_WeaponData_1024_InitialSetup(a, b);
     return this;
 }
 
 namespace fnv_009a3810 {
-extern int DAT_0108e0a4;
+extern int vftable_BSSimpleArray_0108e0a4;
 
 struct GlobalObject_00869f00
 {
@@ -191,7 +191,7 @@ struct GlobalObject_00869f00
 // src: GUESS 0x009a3810 (confidence: low)
 void GlobalObject_00869f00::SetVtableAndProcessState_009a3810()
 {
-    *reinterpret_cast<int**>(this) = &DAT_0108e0a4;
+    *reinterpret_cast<int**>(this) = &vftable_BSSimpleArray_0108e0a4;
     Clear(true);
 }
 }  // namespace fnv_009a3810
@@ -212,22 +212,22 @@ CombatTargetTimestamp* __thiscall FUN_009a3d90_class::EvaluateValue_009a3d90()
     return reinterpret_cast<CombatTargetTimestamp*>(this);
 }
 
-extern int DAT_0108e1e8;
+extern int vftable_CombatTargetMap;
 struct FUN_009a3e90
 {
     void* vfn_00;
     void __thiscall NiTMap_Actor_CombatTargetData_NiTMap(int);
     FUN_009a3e90();
 };
-// Calls FUN_009a4290 with 0x25, then sets vfn_00 to point at DAT_0108e1e8.
+// Calls FUN_009a4290 with 0x25, then sets vfn_00 to point at vftable_CombatTargetMap.
 // @fnv 0x009a3e90
 FUN_009a3e90::FUN_009a3e90()
 {
     NiTMap_Actor_CombatTargetData_NiTMap(0x25);
-    vfn_00 = &DAT_0108e1e8;
+    vfn_00 = &vftable_CombatTargetMap;
 }
 
-extern int DAT_0108e258;
+extern int vftable_NiTMap_0108e258;
 struct FUN_009a4290_class
 {
     void __thiscall InitArray(int a);
@@ -238,12 +238,12 @@ struct FUN_009a4290_class
 int* __thiscall FUN_009a4290_class::NiTMap_Actor_CombatTargetData_NiTMap(int a)
 {
     InitArray(a);
-    *(int**)this = &DAT_0108e258;
+    *(int**)this = &vftable_NiTMap_0108e258;
     return (int*)this;
 }
 
 namespace fnv_009a42f0 {
-extern int DAT_01084fec;
+extern int vftable_BSSimpleArray_01084fec;
 struct AX
 {
     void BSSimpleArray_float_1024_InitialSetup(unsigned int, unsigned int);
@@ -256,7 +256,7 @@ void AX::BSSimpleArray_float_1024_InitialSetup(unsigned int a, unsigned int b)
 // src: GUESS 0x009a42f0 (confidence: low)
 AX* AX::SetVtableAndProcessState_009a42f0(unsigned int a, unsigned int b)
 {
-    *(int*)this = (int)&DAT_01084fec;
+    *(int*)this = (int)&vftable_BSSimpleArray_01084fec;
     BSSimpleArray_float_1024_InitialSetup(a, b);
     return this;
 }
@@ -273,7 +273,7 @@ float __thiscall FUN_009a5480_class::GetFieldE4Float()
     return *(float*)((char*)this + 0xe4);
 }
 
-extern int DAT_0108e308;
+extern int vftable_NiTMap_0108e308;
 
 struct FUN_009a5d20_class
 {
@@ -282,13 +282,13 @@ struct FUN_009a5d20_class
     int* NiTMap_unsigned_int_CombatThreat_NiTMap(int a);
 };
 
-// Calls Construct with a, sets p to point at DAT_0108e308, and returns this as an int pointer.
+// Calls Construct with a, sets p to point at vftable_NiTMap_0108e308, and returns this as an int pointer.
 // @fnv 0x009a5d20
 // src: EXE 0x009a5d20
 int* FUN_009a5d20_class::NiTMap_unsigned_int_CombatThreat_NiTMap(int a)
 {
     Construct(a);
-    p = &DAT_0108e308;
+    p = &vftable_NiTMap_0108e308;
     return (int*)this;
 }
 
@@ -433,7 +433,7 @@ void __thiscall FUN_009beae0_class::SetByte95(char value)
 }
 
 extern "C" void NiFreeAlias(void*);
-extern int DAT_0108e278;
+extern int vftable_NiTMapBase_0108e278;
 struct FUN_009a4480_Class
 {
     void* vfn_00;
@@ -447,12 +447,12 @@ struct FUN_009a4480_Class
 // src: GUESS 0x009a4480 (confidence: medium)
 void __thiscall FUN_009a4480_Class::ReleaseStorage_009a4480()
 {
-    vfn_00 = &DAT_0108e278;
+    vfn_00 = &vftable_NiTMapBase_0108e278;
     RemoveAll();
     NiFreeAlias(p);
 }
 
-extern void* DAT_0108e328;
+extern void* vftable_NiTMapBase_0108e328;
 
 void __cdecl NiFreeAlias(void* p);
 
@@ -461,7 +461,7 @@ void __cdecl NiFreeAlias(void* p);
 // src: GUESS 0x009a5e50 (confidence: low)
 void __thiscall CombatThreatRecord_blk_009a0000_od::SetVtableAndProcessState_009a5e50()
 {
-    *reinterpret_cast<void**>(this) = &DAT_0108e328;
+    *reinterpret_cast<void**>(this) = &vftable_NiTMapBase_0108e328;
     reinterpret_cast<NiTPointerMap<int, int>*>(this)->RemoveAll();
     NiFreeAlias(p_08);
 }
@@ -559,7 +559,7 @@ struct FUN_009a4290_class2
 // @fnv 0x009a43b0
 void* FUN_009a4290_class2::InitArray(int a)
 {
-    *(int**)this = &DAT_0108e278;
+    *(int**)this = &vftable_NiTMapBase_0108e278;
     ((int*)this)[1] = a;
     ((int*)this)[3] = 0;
     int size = ((int*)this)[1] << 2;
@@ -616,7 +616,7 @@ void* __thiscall FUN_009a51b0_class::FUN_009a51b0(unsigned int flags)
     return this;
 }
 
-extern void* DAT_0108e328;
+extern void* vftable_NiTMapBase_0108e328;
 void* __cdecl NiMalloc(unsigned int);
 void* __cdecl memset(void*, int, unsigned int);
 struct FUN_009a5d80_class
@@ -631,7 +631,7 @@ struct FUN_009a5d80_class
 // @fnv 0x009a5d80
 FUN_009a5d80_class* FUN_009a5d80_class::Construct(unsigned int size)
 {
-    vfn_00 = &DAT_0108e328;
+    vfn_00 = &vftable_NiTMapBase_0108e328;
     pad_04 = (int)size;
     p_0c = 0;
     unsigned int uiAllocSize = pad_04 << 2;
@@ -1920,8 +1920,8 @@ struct FUN_009bbef0 : public SFTX
     FUN_009bbef0(void* a, void* b, void* c, Point3Value position, float d, float e);
 };
 
-extern void* DAT_0108f2e8;
-extern void* DAT_0108f2f4;
+extern void* vftable_FlameProjectile_for_TESChildCell;
+extern void* vftable_FlameProjectile;
 
 struct FUN_009b31f0 : public FUN_009bbef0
 {
@@ -1938,8 +1938,8 @@ struct FUN_009b31f0 : public FUN_009bbef0
 FUN_009b31f0::FUN_009b31f0(void* a, void* b, void* c, Point3Value position, float d, float e)
     : FUN_009bbef0(a, b, c, position, d, e)
 {
-    vptr = &DAT_0108f2f4;
-    p_18 = &DAT_0108f2e8;
+    vptr = &vftable_FlameProjectile;
+    p_18 = &vftable_FlameProjectile_for_TESChildCell;
     SetFormType(0x40);
     f_150 = 0.0f;
     f_154 = 0.0f;
@@ -2954,7 +2954,7 @@ FUN_009a5df0_cls::~FUN_009a5df0_cls()
     ((DtorBaseE*)this)->Release();
 }
 
-extern char DAT_0104e1dc;
+extern char vftable_SpecificItemCollector;
 struct FUN_0062a220
 {
     void* vtable;
@@ -2974,7 +2974,7 @@ struct FUN_009a7bc0 : FUN_0062a220
 // @fnv 0x009a7bc0
 FUN_009a7bc0::FUN_009a7bc0(unsigned int first, unsigned int second)
 {
-    vtable = &DAT_0104e1dc;
+    vtable = &vftable_SpecificItemCollector;
     reinterpret_cast<FUN_008c71b0_Class*>(reinterpret_cast<char*>(this) + 0x70)->FUN_008c71b0(0);
     SetFilter(first, second);
 }
@@ -4487,7 +4487,7 @@ void E9A3A80Allocator::ConstructEntries(E9A3A80Entry* pkArray, unsigned int Item
         new (&pkArray[i]) E9A3A80Entry;
 }
 
-extern int DAT_0108e258;
+extern int vftable_NiTMap_0108e258;
 
 class CleanupBase
 {
@@ -5023,7 +5023,7 @@ struct Form_009a5530
 
 
 
-extern Setting g_011f1ba0;
+extern Setting bDebugCombatThreats_Combat;
 
 // @fnv 0x009a5530
 void S_9a54a0_Class::AddOrUpdateItem(int pForm, float b, float c, float d, float e)
@@ -5040,7 +5040,7 @@ void S_9a54a0_Class::AddOrUpdateItem(int pForm, float b, float c, float d, float
         pItem = new FUN_009a44e0_FormEntry(pForm, b, c, d, e);
         ((Map_009a5530*)this)->SetAt(((Form_009a5530*)pForm)->GetFormID(), (unsigned int)pItem);
     }
-    if (*g_011f1ba0.Bool())
+    if (*bDebugCombatThreats_Combat.Bool())
     {
         pItem->FUN_004534f0(0);
     }

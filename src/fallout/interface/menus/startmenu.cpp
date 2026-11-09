@@ -159,7 +159,7 @@ FNV_STATIC_ASSERT(offsetof(BGSSaveLoadFileEntry, spScreenshot) == 0x40);
 
 // ---- identities used by this packet (mapped in manifest.json) ----
 extern bool DAT_011a0294;                 // ?DAT_011a0294@@3_NA
-extern GlobalObject_004de370 g_011c71ac;  // ?g_011c71ac@@3VGlobalObject_004de370@@A
+extern GlobalObject_004de370 fGamma_Display;  // ?fGamma_Display@@3VGlobalObject_004de370@@A
 extern float DAT_011ad7b8[];              // ?DAT_011ad7b8@@3PAMA
 extern GlobalObject_00709f00 g_011d8c4c;  // ?g_011d8c4c@@3VGlobalObject_00709f00@@A
 
@@ -180,7 +180,7 @@ bool StartMenu::IsInGame()
 // src: COMMUNITY 0x007d1b30
 void Get_fGamma()
 {
-    g_011c71ac.FUN_00450410();
+    fGamma_Display.FUN_00450410();
 }
 
 // @fnv 0x007d1d00
@@ -286,7 +286,7 @@ void StartMenu_IdleTimer_Delete()
     DAT_011daac4 = 0;
 }
 
-extern int DAT_01076ee0;
+extern int vftable_StartMenu__Option;
 struct S007ce620
 {
     void* vt;
@@ -300,7 +300,7 @@ struct S007ce620
 // src: GUESS 0x007ce620 (confidence: low)
 S007ce620* S007ce620::InitializeFields_007ce620(int pa, int pb, int pc)
 {
-    vt = &DAT_01076ee0;
+    vt = &vftable_StartMenu__Option;
     a = pa;
     b = pb;
     c = pc;
@@ -518,19 +518,19 @@ struct CellStand
     int GetCellStandValue();
 };
 extern StartMenu* DAT_011daac0;
-extern GlobalObject_00709f00 g_011d8a38;
+extern GlobalObject_00709f00 bCrossHair_GamePlay;
 void __cdecl HUDMainMenu_SetVisibilityFlag(int, int);
 // @fnv 0x007d1440
 void __cdecl UpdateSaveOptionsMenu(Menu* menu)
 {
     if (DAT_011daac0 && DAT_011daac0->IsFlagSet(StartMenu::FLAG_SAVE_OPTIONS))
     {
-        ((G7d1*)&g_011d8a38)->Setting_SetValueB(menu->m_iModalMenuId == 1);
-        HUDMainMenu_SetVisibilityFlag(0x40, ((CellStand*)&g_011d8a38)->GetCellStandValue());
+        ((G7d1*)&bCrossHair_GamePlay)->Setting_SetValueB(menu->m_iModalMenuId == 1);
+        HUDMainMenu_SetVisibilityFlag(0x40, ((CellStand*)&bCrossHair_GamePlay)->GetCellStandValue());
     }
     else
     {
-        menu->m_iModalMenuId = ((G7d1*)&g_011d8a38)->GetBoolValue() != 0;
+        menu->m_iModalMenuId = ((G7d1*)&bCrossHair_GamePlay)->GetBoolValue() != 0;
         menu->m_iSecondaryValue = 1;
     }
 }
@@ -568,7 +568,7 @@ struct GlobalObject_00709f00_ext : GlobalObject_00709f00
 };
 
 extern StartMenu* DAT_011daac0;
-extern GlobalObject_00709f00 g_011d8974;
+extern GlobalObject_00709f00 bSaveOnWait_GamePlay;
 
 struct UnknownParam_007d1570
 {
@@ -577,18 +577,18 @@ struct UnknownParam_007d1570
     int field_18;
 };
 
-// If the start menu has the save-options flag, sets g_011d8974 from param->field_14 == 1; otherwise reads g_011d8974 into field_14 and sets field_18 to 1.
+// If the start menu has the save-options flag, sets bSaveOnWait_GamePlay from param->field_14 == 1; otherwise reads bSaveOnWait_GamePlay into field_14 and sets field_18 to 1.
 // @fnv 0x007d1570
 // src: COMMUNITY 0x007d1570
 void __cdecl SettingsMenu_SaveOnWait(UnknownParam_007d1570* param)
 {
     if (DAT_011daac0 && DAT_011daac0->IsFlagSet(StartMenu::FLAG_SAVE_OPTIONS))
     {
-        reinterpret_cast<GlobalObject_00709f00_ext*>(&g_011d8974)->Setting_SetValueB(param->field_14 == 1);
+        reinterpret_cast<GlobalObject_00709f00_ext*>(&bSaveOnWait_GamePlay)->Setting_SetValueB(param->field_14 == 1);
     }
     else
     {
-        param->field_14 = reinterpret_cast<GlobalObject_00709f00_ext*>(&g_011d8974)->GetBoolValue() ? 1 : 0;
+        param->field_14 = reinterpret_cast<GlobalObject_00709f00_ext*>(&bSaveOnWait_GamePlay)->GetBoolValue() ? 1 : 0;
         param->field_18 = 1;
     }
 }
@@ -621,7 +621,7 @@ void __cdecl SettingsMenu_SaveOnTravel(int* param_1)
 }  // namespace fnv_007d15d0
 
 extern StartMenu* DAT_011daac0;
-extern GlobalObject_00709f00 g_011d8934;
+extern GlobalObject_00709f00 bDialogueSubtitles_GamePlay;
 
 struct GlobalObject_00709f00_Compat
 {
@@ -642,11 +642,11 @@ void SettingsMenu_ToggleDialogueSubtitles(Param_007d1630* pParams)
 {
     if (DAT_011daac0 && DAT_011daac0->IsFlagSet(StartMenu::FLAG_SAVE_OPTIONS))
     {
-        reinterpret_cast<GlobalObject_00709f00_Compat*>(&g_011d8934)->Setting_SetValueB(pParams->field_14 == 1);
+        reinterpret_cast<GlobalObject_00709f00_Compat*>(&bDialogueSubtitles_GamePlay)->Setting_SetValueB(pParams->field_14 == 1);
     }
     else
     {
-        pParams->field_14 = reinterpret_cast<GlobalObject_00709f00_Compat*>(&g_011d8934)->GetBoolValue() != false;
+        pParams->field_14 = reinterpret_cast<GlobalObject_00709f00_Compat*>(&bDialogueSubtitles_GamePlay)->GetBoolValue() != false;
         pParams->field_18 = 1;
     }
 }
@@ -662,20 +662,20 @@ struct P1690
     int a;
     int b;
 };
-extern GlobalObject_00709f00 g_011d8928;
+extern GlobalObject_00709f00 bGeneralSubtitles_GamePlay;
 extern StartMenu* DAT_011daac0;
-// If the StartMenu has FLAG_SAVE_OPTIONS set, pushes p->a==1 to g_011d8928; otherwise reads g_011d8928's flag into p->a and clears p->b.
+// If the StartMenu has FLAG_SAVE_OPTIONS set, pushes p->a==1 to bGeneralSubtitles_GamePlay; otherwise reads bGeneralSubtitles_GamePlay's flag into p->a and clears p->b.
 // @fnv 0x007d1690
 // src: COMMUNITY 0x007d1690
 void SettingsMenu_GeneralSubtitles(P1690* pData)
 {
     if (DAT_011daac0 && DAT_011daac0->IsFlagSet(StartMenu::FLAG_SAVE_OPTIONS))
     {
-        ((G1690*)&g_011d8928)->Setting_SetValueB(pData->a == 1);
+        ((G1690*)&bGeneralSubtitles_GamePlay)->Setting_SetValueB(pData->a == 1);
     }
     else
     {
-        pData->a = ((G1690*)&g_011d8928)->GetBoolValue() ? 1 : 0;
+        pData->a = ((G1690*)&bGeneralSubtitles_GamePlay)->GetBoolValue() ? 1 : 0;
         pData->b = 0;
     }
 }
@@ -714,7 +714,7 @@ struct GlobalObject_004a4a40
 {
     void ProcessAndReturnValue_0045ce80(int);
 };
-extern GlobalObject_004a4a40 g_011c779c;
+extern GlobalObject_004a4a40 iTexMipMapSkip_Display;
 
 struct StartMenu_Wrap : public StartMenu
 {
@@ -727,7 +727,7 @@ void __cdecl SettingsMenu_TextureSize(int* pOptions)
 {
     if (DAT_011daac0 && DAT_011daac0->IsFlagSet(StartMenu::FLAG_SAVE_OPTIONS))
     {
-        g_011c779c.ProcessAndReturnValue_0045ce80(pOptions[5]);
+        iTexMipMapSkip_Display.ProcessAndReturnValue_0045ce80(pOptions[5]);
         ((StartMenu_Wrap*)DAT_011daac0)->StartMenu_SetFlag(StartMenu::FLAG_RESTART_REQUIRED, DAT_0126efc4 != pOptions[5]);
     }
     else
@@ -815,17 +815,17 @@ struct G7d2
     bool GetBoolValue();
 };
 extern StartMenu* DAT_011daac0;
-extern GlobalObject_00709f00 g_011e0a5c;
+extern GlobalObject_00709f00 bInvertYValues_Controls;
 // @fnv 0x007d2e50
 void __cdecl UpdateMenuSaveOptions(Menu* menu)
 {
     if (DAT_011daac0 && DAT_011daac0->IsFlagSet(StartMenu::FLAG_SAVE_OPTIONS))
     {
-        ((G7d2*)&g_011e0a5c)->Setting_SetValueB(menu->m_iModalMenuId == 1);
+        ((G7d2*)&bInvertYValues_Controls)->Setting_SetValueB(menu->m_iModalMenuId == 1);
     }
     else
     {
-        menu->m_iModalMenuId = ((G7d2*)&g_011e0a5c)->GetBoolValue() != 0;
+        menu->m_iModalMenuId = ((G7d2*)&bInvertYValues_Controls)->GetBoolValue() != 0;
         menu->m_iSecondaryValue = 0;
     }
 }
@@ -836,7 +836,7 @@ namespace fnv_007d2eb0 {
 using ::SettingT;
 
 extern StartMenu* DAT_011daac0;
-extern SettingT<GameSettingCollection> g_011e0a6c;
+extern SettingT<GameSettingCollection> fMouseSensitivity_Controls;
 
 // @fnv 0x007d2eb0
 void SyncSliderWithSetting(int pSlider)
@@ -844,11 +844,11 @@ void SyncSliderWithSetting(int pSlider)
     if (DAT_011daac0 && DAT_011daac0->IsFlagSet(StartMenu::FLAG_SAVE_OPTIONS))
     {
         float ratio = (float)*(int*)(pSlider + 0x14) / (float)(*(unsigned int*)(pSlider + 0x20) - 1);
-        g_011e0a6c.Float()[0] = ratio * 0.0095f + 0.0005f;
+        fMouseSensitivity_Controls.Float()[0] = ratio * 0.0095f + 0.0005f;
     }
     else
     {
-        float ratio = (g_011e0a6c.Float()[0] - 0.0005f) / 0.0095f;
+        float ratio = (fMouseSensitivity_Controls.Float()[0] - 0.0005f) / 0.0095f;
         *(int*)(pSlider + 0x14) =
             (int)InventoryStackRecord::RoundToNearestStep((float)(*(unsigned int*)(pSlider + 0x20) - 1) * ratio, 1.0f);
         ratio = (0.002f - 0.0005f) / 0.0095f;
@@ -883,7 +883,7 @@ class GlobalObject_00709f00
 };
 }
 
-extern N::GlobalObject_00709f00 g_011e0850;
+extern N::GlobalObject_00709f00 bGamePadRumble_Controls;
 
 struct Struct_007d30e0
 {
@@ -898,11 +898,11 @@ void __cdecl StartMenu_SetRumble(Struct_007d30e0* pState)
 {
     if (DAT_011daac0 && DAT_011daac0->IsFlagSet(StartMenu::FLAG_SAVE_OPTIONS))
     {
-        Controls_EnableRumble(g_011e0850.Setting_SetValueB(pState->field_14 == 1)->GetBoolValue());
+        Controls_EnableRumble(bGamePadRumble_Controls.Setting_SetValueB(pState->field_14 == 1)->GetBoolValue());
     }
     else
     {
-        pState->field_14 = g_011e0850.GetBoolValue() != 0;
+        pState->field_14 = bGamePadRumble_Controls.GetBoolValue() != 0;
         pState->field_18 = XGamerProfile_Instance()->XGamerProfile_GetRumbleDefault() != 0;
     }
 }
@@ -1278,7 +1278,7 @@ struct StartMenuSm
 {
     bool IsFlagSet(int);
 };
-extern Setting g_011d9774;
+extern Setting fHudOpacity_Interface;
 extern StartMenuSm* DAT_011daac0;
 
 struct MenuCtl
@@ -1296,12 +1296,12 @@ void SettingsMenu_HUDOpacity(MenuCtl* pMenuCtl)
 {
     if (DAT_011daac0 && DAT_011daac0->IsFlagSet(0x20))
     {
-        ((FloatOptionAccess*)&g_011d9774)->ProcessAndReturnValue_004ed780((float)pMenuCtl->a / (float)(pMenuCtl->count - 1));
+        ((FloatOptionAccess*)&fHudOpacity_Interface)->ProcessAndReturnValue_004ed780((float)pMenuCtl->a / (float)(pMenuCtl->count - 1));
         ((SM7d6*)DAT_011daac0)->StartMenu_SetFlag(0x40, 1);
     }
     else
     {
-        pMenuCtl->a = (int)InventoryStackRecord::RoundToNearestStep(*g_011d9774.Float() * (float)(pMenuCtl->count - 1), 1.0f);
+        pMenuCtl->a = (int)InventoryStackRecord::RoundToNearestStep(*fHudOpacity_Interface.Float() * (float)(pMenuCtl->count - 1), 1.0f);
         pMenuCtl->b = (int)InventoryStackRecord::RoundToNearestStep(1.0f * (float)(pMenuCtl->count - 1), 1.0f);
     }
 }
@@ -1564,7 +1564,7 @@ struct StartMenuSaveLoadCleanup : BGSSaveLoadManager
 };
 extern BGSSaveLoadManager* DAT_011de134;
 extern StartMenu* DAT_011daac0;
-extern FloatOptionAccess g_011d9774;
+extern FloatOptionAccess fHudOpacity_Interface;
 
 }  // namespace fnv_007cb5b0
 
@@ -1573,7 +1573,7 @@ StartMenu::~StartMenu()
 {
     using namespace fnv_007cb5b0;
     if (IsFlagSet(StartMenu::FLAG_RESET_HUD_OPACITY))
-        fnv_007cb5b0::HUDMainMenu_ResetHUDOpacity(fnv_007cb5b0::g_011d9774.FUN_00450410());
+        fnv_007cb5b0::HUDMainMenu_ResetHUDOpacity(fnv_007cb5b0::fHudOpacity_Interface.FUN_00450410());
     BSAudio::GetSingleton()->BSAudio_UnPauseWorldVoices();
     if (fnv_007cb5b0::StartMenu_MainMenuIsActive())
     {
@@ -1771,10 +1771,10 @@ void StartMenu_ChooseAudio()
 namespace fnv_007d1bb0 {
 
 struct GlobalObject_0045d060;
-extern GlobalObject_0045d060 g_011c3ec0;
-extern FloatOptionAccess g_011daaf4;
-extern FloatOptionAccess g_011dab1c;
-extern FloatOptionAccess g_011dac38;
+extern GlobalObject_0045d060 fLODFadeOutMultActors_LOD;
+extern FloatOptionAccess fActorLODMax_LOD;
+extern FloatOptionAccess fActorLODMin_LOD;
+extern FloatOptionAccess fActorLODDefault_LOD;
 extern StartMenu* DAT_011daac0;
 void __cdecl SetFloatAt(int, float);
 float __cdecl BSFadeNode_GetFadeOutMultiplier(int);
@@ -1784,8 +1784,8 @@ void SyncOptionWithSettings(StartMenu::UserOption* apOption)
 {
     float fHigh;
     float fLow;
-    fLow = *((Setting*)&g_011dab1c)->Float();
-    fHigh = *((Setting*)&g_011daaf4)->Float();
+    fLow = *((Setting*)&fActorLODMin_LOD)->Float();
+    fHigh = *((Setting*)&fActorLODMax_LOD)->Float();
     if (DAT_011daac0 && DAT_011daac0->IsFlagSet(StartMenu::FLAG_SAVE_OPTIONS))
     {
         float fValue;
@@ -1793,14 +1793,14 @@ void SyncOptionWithSettings(StartMenu::UserOption* apOption)
             (float)*(int*)((char*)apOption + 0x14) / (*(unsigned int*)((char*)apOption + 0x20) - 1);
         fValue = (fHigh - fLow) * fNormalizedPosition + fLow;
         SetFloatAt(3, fValue);
-        ((FloatOptionAccess*)&g_011c3ec0)->ProcessAndReturnValue_004ed780(fValue);
+        ((FloatOptionAccess*)&fLODFadeOutMultActors_LOD)->ProcessAndReturnValue_004ed780(fValue);
     }
     else
     {
         float fRatio = (BSFadeNode_GetFadeOutMultiplier(3) - fLow) / (fHigh - fLow);
         *(int*)((char*)apOption + 0x14) =
             (int)InventoryStackRecord::RoundToNearestStep((*(unsigned int*)((char*)apOption + 0x20) - 1) * fRatio, 1.0f);
-        fRatio = (*((Setting*)&g_011dac38)->Float() - fLow) / (fHigh - fLow);
+        fRatio = (*((Setting*)&fActorLODDefault_LOD)->Float() - fLow) / (fHigh - fLow);
         *(int*)((char*)apOption + 0x18) =
             (int)InventoryStackRecord::RoundToNearestStep((*(unsigned int*)((char*)apOption + 0x20) - 1) * fRatio, 1.0f);
     }
@@ -1810,10 +1810,10 @@ void SyncOptionWithSettings(StartMenu::UserOption* apOption)
 namespace fnv_007d1d10 {
 
 struct GlobalObject_0045d060;
-extern GlobalObject_0045d060 g_011c3d0c;
-extern FloatOptionAccess g_011dac24;
-extern FloatOptionAccess g_011dabf0;
-extern FloatOptionAccess g_011dabc0;
+extern GlobalObject_0045d060 fLODFadeOutMultItems_LOD;
+extern FloatOptionAccess fItemLODMax_LOD;
+extern FloatOptionAccess fItemLODMin_LOD;
+extern FloatOptionAccess fItemLODDefault_LOD;
 extern StartMenu* DAT_011daac0;
 void __cdecl SetFloatAt(int, float);
 float __cdecl BSFadeNode_GetFadeOutMultiplier(int);
@@ -1824,8 +1824,8 @@ void SettingsMenu_ItemFade(StartMenu::UserOption* apOption)
 {
     float fHigh;
     float fLow;
-    fLow = *((Setting*)&g_011dabf0)->Float();
-    fHigh = *((Setting*)&g_011dac24)->Float();
+    fLow = *((Setting*)&fItemLODMin_LOD)->Float();
+    fHigh = *((Setting*)&fItemLODMax_LOD)->Float();
     if (DAT_011daac0 && DAT_011daac0->IsFlagSet(StartMenu::FLAG_SAVE_OPTIONS))
     {
         float fValue;
@@ -1833,14 +1833,14 @@ void SettingsMenu_ItemFade(StartMenu::UserOption* apOption)
             (float)*(int*)((char*)apOption + 0x14) / (*(unsigned int*)((char*)apOption + 0x20) - 1);
         fValue = (fHigh - fLow) * fNormalizedPosition + fLow;
         SetFloatAt(2, fValue);
-        ((FloatOptionAccess*)&g_011c3d0c)->ProcessAndReturnValue_004ed780(fValue);
+        ((FloatOptionAccess*)&fLODFadeOutMultItems_LOD)->ProcessAndReturnValue_004ed780(fValue);
     }
     else
     {
         float fRatio = (BSFadeNode_GetFadeOutMultiplier(2) - fLow) / (fHigh - fLow);
         *(int*)((char*)apOption + 0x14) =
             (int)InventoryStackRecord::RoundToNearestStep((*(unsigned int*)((char*)apOption + 0x20) - 1) * fRatio, 1.0f);
-        fRatio = (*((Setting*)&g_011dabc0)->Float() - fLow) / (fHigh - fLow);
+        fRatio = (*((Setting*)&fItemLODDefault_LOD)->Float() - fLow) / (fHigh - fLow);
         *(int*)((char*)apOption + 0x18) =
             (int)InventoryStackRecord::RoundToNearestStep((*(unsigned int*)((char*)apOption + 0x20) - 1) * fRatio, 1.0f);
     }
@@ -1850,10 +1850,10 @@ void SettingsMenu_ItemFade(StartMenu::UserOption* apOption)
 namespace fnv_007d1e60 {
 
 struct GlobalObject_0045d060;
-extern GlobalObject_0045d060 g_011c3d78;
-extern FloatOptionAccess g_011dab78;
-extern FloatOptionAccess g_011dab30;
-extern FloatOptionAccess g_011dab6c;
+extern GlobalObject_0045d060 fLODFadeOutMultObjects_LOD;
+extern FloatOptionAccess fObjectLODMax_LOD;
+extern FloatOptionAccess fObjectLODMin_LOD;
+extern FloatOptionAccess fObjectLODDefault_LOD;
 extern StartMenu* DAT_011daac0;
 void __cdecl SetFloatAt(int, float);
 float __cdecl BSFadeNode_GetFadeOutMultiplier(int);
@@ -1863,8 +1863,8 @@ void SyncUserOptionSetting(StartMenu::UserOption* apOption)
 {
     float fHigh;
     float fLow;
-    fLow = *((Setting*)&g_011dab30)->Float();
-    fHigh = *((Setting*)&g_011dab78)->Float();
+    fLow = *((Setting*)&fObjectLODMin_LOD)->Float();
+    fHigh = *((Setting*)&fObjectLODMax_LOD)->Float();
     if (DAT_011daac0 && DAT_011daac0->IsFlagSet(StartMenu::FLAG_SAVE_OPTIONS))
     {
         float fValue;
@@ -1872,14 +1872,14 @@ void SyncUserOptionSetting(StartMenu::UserOption* apOption)
             (float)*(int*)((char*)apOption + 0x14) / (*(unsigned int*)((char*)apOption + 0x20) - 1);
         fValue = (fHigh - fLow) * fNormalizedPosition + fLow;
         SetFloatAt(1, fValue);
-        ((FloatOptionAccess*)&g_011c3d78)->ProcessAndReturnValue_004ed780(fValue);
+        ((FloatOptionAccess*)&fLODFadeOutMultObjects_LOD)->ProcessAndReturnValue_004ed780(fValue);
     }
     else
     {
         float fRatio = (BSFadeNode_GetFadeOutMultiplier(1) - fLow) / (fHigh - fLow);
         *(int*)((char*)apOption + 0x14) =
             (int)InventoryStackRecord::RoundToNearestStep((*(unsigned int*)((char*)apOption + 0x20) - 1) * fRatio, 1.0f);
-        fRatio = (*((Setting*)&g_011dab6c)->Float() - fLow) / (fHigh - fLow);
+        fRatio = (*((Setting*)&fObjectLODDefault_LOD)->Float() - fLow) / (fHigh - fLow);
         *(int*)((char*)apOption + 0x18) =
             (int)InventoryStackRecord::RoundToNearestStep((*(unsigned int*)((char*)apOption + 0x20) - 1) * fRatio, 1.0f);
     }
@@ -1888,9 +1888,9 @@ void SyncUserOptionSetting(StartMenu::UserOption* apOption)
 
 namespace fnv_007d1fb0 {
 
-extern FloatOptionAccess g_011ca4ac;
-extern FloatOptionAccess g_011ca4cc;
-extern FloatOptionAccess g_011ca4d8;
+extern FloatOptionAccess fGrassMinStartFadeDistance_Grass;
+extern FloatOptionAccess fGrassDefaultStartFadeDistance_Grass;
+extern FloatOptionAccess fGrassMaxStartFadeDistance_Grass;
 extern FloatOptionAccess DAT_011ca450;
 extern StartMenu* DAT_011daac0;
 
@@ -1900,8 +1900,8 @@ void SyncUserOptionSlider(StartMenu::UserOption* apOption)
 {
     float fHigh;
     float fLow;
-    fLow = *((Setting*)&g_011ca4ac)->Float();
-    fHigh = *((Setting*)&g_011ca4d8)->Float();
+    fLow = *((Setting*)&fGrassMinStartFadeDistance_Grass)->Float();
+    fHigh = *((Setting*)&fGrassMaxStartFadeDistance_Grass)->Float();
     if (DAT_011daac0 && DAT_011daac0->IsFlagSet(StartMenu::FLAG_SAVE_OPTIONS))
     {
         float fValue;
@@ -1915,7 +1915,7 @@ void SyncUserOptionSlider(StartMenu::UserOption* apOption)
         float fRatio = (*((Setting*)&DAT_011ca450)->Float() - fLow) / (fHigh - fLow);
         *(int*)((char*)apOption + 0x14) =
             (int)InventoryStackRecord::RoundToNearestStep((*(unsigned int*)((char*)apOption + 0x20) - 1) * fRatio, 1.0f);
-        fRatio = (*((Setting*)&g_011ca4cc)->Float() - fLow) / (fHigh - fLow);
+        fRatio = (*((Setting*)&fGrassDefaultStartFadeDistance_Grass)->Float() - fLow) / (fHigh - fLow);
         *(int*)((char*)apOption + 0x18) =
             (int)InventoryStackRecord::RoundToNearestStep((*(unsigned int*)((char*)apOption + 0x20) - 1) * fRatio, 1.0f);
     }
@@ -1924,9 +1924,9 @@ void SyncUserOptionSlider(StartMenu::UserOption* apOption)
 
 namespace fnv_007d2510 {
 
-extern Setting g_011d86c4;
-extern Setting g_011d86ec;
-extern Setting g_011d870c;
+extern Setting fLowBlockLoadDistanceLow_TerrainManager;
+extern Setting fHighBlockLoadDistanceLow_TerrainManager;
+extern Setting fDefaultBlockLoadDistanceLow_TerrainManager;
 extern Setting DAT_011d8724;
 extern StartMenu* DAT_011daac0;
 
@@ -1935,8 +1935,8 @@ extern StartMenu* DAT_011daac0;
 // src: COMMUNITY 0x007d2510
 void SettingsMenu_ObjectLODFade(StartMenu::UserOption* pOption)
 {
-    float fLow = *g_011d86c4.Float();
-    float fHigh = *g_011d86ec.Float();
+    float fLow = *fLowBlockLoadDistanceLow_TerrainManager.Float();
+    float fHigh = *fHighBlockLoadDistanceLow_TerrainManager.Float();
     if (DAT_011daac0 && DAT_011daac0->IsFlagSet(StartMenu::FLAG_SAVE_OPTIONS))
     {
         float fNormalizedPosition =
@@ -1949,7 +1949,7 @@ void SettingsMenu_ObjectLODFade(StartMenu::UserOption* pOption)
         float fRatio = (*DAT_011d8724.Float() - fLow) / (fHigh - fLow);
         *(int*)((char*)pOption + 0x14) =
             (int)InventoryStackRecord::RoundToNearestStep((*(unsigned int*)((char*)pOption + 0x20) - 1) * fRatio, 1.0f);
-        fRatio = (*g_011d870c.Float() - fLow) / (fHigh - fLow);
+        fRatio = (*fDefaultBlockLoadDistanceLow_TerrainManager.Float() - fLow) / (fHigh - fLow);
         *(int*)((char*)pOption + 0x18) =
             (int)InventoryStackRecord::RoundToNearestStep((*(unsigned int*)((char*)pOption + 0x20) - 1) * fRatio, 1.0f);
     }
@@ -1958,9 +1958,9 @@ void SettingsMenu_ObjectLODFade(StartMenu::UserOption* pOption)
 
 namespace fnv_007d2650 {
 
-extern Setting g_011d8734;
-extern Setting g_011d8718;
-extern Setting g_011d8770;
+extern Setting fLowTreeLoadDistance_TerrainManager;
+extern Setting fHighTreeLoadDistance_TerrainManager;
+extern Setting fDefaultTreeLoadDistance_TerrainManager;
 extern Setting DAT_011d8788;
 extern StartMenu* DAT_011daac0;
 
@@ -1968,8 +1968,8 @@ extern StartMenu* DAT_011daac0;
 // @fnv 0x007d2650
 void SyncOptionValue(StartMenu::UserOption* pOption)
 {
-    float fLow = *g_011d8734.Float();
-    float fHigh = *g_011d8718.Float();
+    float fLow = *fLowTreeLoadDistance_TerrainManager.Float();
+    float fHigh = *fHighTreeLoadDistance_TerrainManager.Float();
     if (DAT_011daac0 && DAT_011daac0->IsFlagSet(StartMenu::FLAG_SAVE_OPTIONS))
     {
         float fNormalizedPosition =
@@ -1982,7 +1982,7 @@ void SyncOptionValue(StartMenu::UserOption* pOption)
         float fRatio = (*DAT_011d8788.Float() - fLow) / (fHigh - fLow);
         *(int*)((char*)pOption + 0x14) =
             (int)InventoryStackRecord::RoundToNearestStep((*(unsigned int*)((char*)pOption + 0x20) - 1) * fRatio, 1.0f);
-        fRatio = (*g_011d8770.Float() - fLow) / (fHigh - fLow);
+        fRatio = (*fDefaultTreeLoadDistance_TerrainManager.Float() - fLow) / (fHigh - fLow);
         *(int*)((char*)pOption + 0x18) =
             (int)InventoryStackRecord::RoundToNearestStep((*(unsigned int*)((char*)pOption + 0x20) - 1) * fRatio, 1.0f);
     }
@@ -2866,7 +2866,7 @@ void* FUN_00b008d0_StandIn::BSContentPackage_DisplayName()
     return m_pUnk;
 }
 
-extern int DAT_01076ee0;
+extern int vftable_StartMenu__Option;
 
 struct FUN_007ce690_cls
 {
@@ -2877,7 +2877,7 @@ struct FUN_007ce690_cls
 // @fnv 0x007ce690
 void FUN_007ce690_cls::InitPointer()
 {
-    p = &DAT_01076ee0;
+    p = &vftable_StartMenu__Option;
 }
 
 struct FUN_007d1240_Class
@@ -3216,8 +3216,8 @@ class StartMenuUserOptionFields
 // 0x007d1b30 is a free gamma-query thunk; it never receives a StartMenu.
 float __cdecl ReadMenuGamma();
 void __cdecl Renderer_SetGamma(float afValue);
-extern Setting g_011dab98;
-extern Setting g_011dab60;
+extern Setting fGammaMin_Display;
+extern Setting fGammaMax_Display;
 extern StartMenu* DAT_011daac0;
 // @fnv 0x007d19c0
 // src: COMMUNITY 0x007d19c0
@@ -3225,8 +3225,8 @@ void __cdecl SettingsMenu_Brightness(StartMenu::UserOption* apOption)
 {
     if (DAT_011daac0 && DAT_011daac0->IsFlagSet(StartMenu::FLAG_SAVE_OPTIONS))
     {
-        float fMinimum = *g_011dab98.Float();
-        float fScaledValue = *g_011dab60.Float();
+        float fMinimum = *fGammaMin_Display.Float();
+        float fScaledValue = *fGammaMax_Display.Float();
         float fRatio = ((StartMenuUserOptionFields*)apOption)->iValue /
                        (float)(((StartMenuUserOptionFields*)apOption)->ItemUpdateArray - 1);
         Renderer_SetGamma((fScaledValue - fMinimum) * fRatio + fMinimum);
@@ -3234,10 +3234,10 @@ void __cdecl SettingsMenu_Brightness(StartMenu::UserOption* apOption)
     else
     {
         float fNormalizedPosition =
-            (ReadMenuGamma() - *g_011dab98.Float()) / (*g_011dab60.Float() - *g_011dab98.Float());
+            (ReadMenuGamma() - *fGammaMin_Display.Float()) / (*fGammaMax_Display.Float() - *fGammaMin_Display.Float());
         ((StartMenuUserOptionFields*)apOption)->iValue = (int)InventoryStackRecord::RoundToNearestStep(
             (((StartMenuUserOptionFields*)apOption)->ItemUpdateArray - 1) * fNormalizedPosition, 1.0f);
-        fNormalizedPosition = (1.0f - *g_011dab98.Float()) / (*g_011dab60.Float() - *g_011dab98.Float());
+        fNormalizedPosition = (1.0f - *fGammaMin_Display.Float()) / (*fGammaMax_Display.Float() - *fGammaMin_Display.Float());
         ((StartMenuUserOptionFields*)apOption)->iSelected = (int)InventoryStackRecord::RoundToNearestStep(
             (((StartMenuUserOptionFields*)apOption)->ItemUpdateArray - 1) * fNormalizedPosition, 1.0f);
     }
@@ -3363,10 +3363,10 @@ class SettingFloat_007d23b0
   public:
     float* Float();
 };
-extern SettingFloat_007d23b0 g_011c7440;
-extern SettingFloat_007d23b0 g_011c71d0;
-extern SettingFloat_007d23b0 g_011c7494;
-extern SettingFloat_007d23b0 g_011c7634;
+extern SettingFloat_007d23b0 fSpecularLODMinStartFade_Display;
+extern SettingFloat_007d23b0 fSpecularLODMaxStartFade_Display;
+extern SettingFloat_007d23b0 fSpecularLODDefaultStartFade_Display;
+extern SettingFloat_007d23b0 fSpecularLODRange_Display;
 extern SettingFloat_007d23b0 DAT_011c7598;
 
 extern float DAT_011f9454;
@@ -3376,22 +3376,22 @@ extern StartMenu* DAT_011daac0;
 // src: COMMUNITY 0x007d23b0
 void __cdecl SettingsMenu_SpecularityFade(UserOptionView_007d23b0* apOption)
 {
-    float fLow = *g_011c7440.Float();
-    float fHigh = *g_011c71d0.Float();
+    float fLow = *fSpecularLODMinStartFade_Display.Float();
+    float fHigh = *fSpecularLODMaxStartFade_Display.Float();
     if (DAT_011daac0 && DAT_011daac0->IsFlagSet(StartMenu::FLAG_SAVE_OPTIONS))
     {
         float fRatio = apOption->iValue / (float)(apOption->ItemUpdateArray - 1);
         float fGamma = (fHigh - fLow) * fRatio + fLow;
         *DAT_011c7598.Float() = fGamma;
         DAT_011f9454 = fGamma;
-        DAT_011f9458 = fGamma + *g_011c7634.Float();
+        DAT_011f9458 = fGamma + *fSpecularLODRange_Display.Float();
     }
     else
     {
         float fNormalizedPosition = (*DAT_011c7598.Float() - fLow) / (fHigh - fLow);
         apOption->iValue =
             (int)InventoryStackRecord::RoundToNearestStep((apOption->ItemUpdateArray - 1) * fNormalizedPosition, 1.0f);
-        fNormalizedPosition = (*g_011c7494.Float() - fLow) / (fHigh - fLow);
+        fNormalizedPosition = (*fSpecularLODDefaultStartFade_Display.Float() - fLow) / (fHigh - fLow);
         apOption->iSelected =
             (int)InventoryStackRecord::RoundToNearestStep((apOption->ItemUpdateArray - 1) * fNormalizedPosition, 1.0f);
     }
@@ -3417,7 +3417,7 @@ struct SettingString
 {
     char* GetString();
 };
-extern MenuSetting_r7d32b0 g_011dac00;
+extern MenuSetting_r7d32b0 sCharGenQuest_General;
 extern SettingString g_011d4f78;
 extern bool DAT_011d8907;
 extern LoadingMenu* DAT_011da0c0;
@@ -3448,7 +3448,7 @@ void __cdecl StartCharacterGeneration()
 {
     TESQuest* pcharGenQuest;
     char* pstopString;
-    unsigned int icharGenQuest = FUN_00ec8d08(g_011dac00.FUN_00403df0(), &pstopString, 16);
+    unsigned int icharGenQuest = FUN_00ec8d08(sCharGenQuest_General.FUN_00403df0(), &pstopString, 16);
     TESForm* pform = TESForm::GetFormByID(icharGenQuest);
     TESNPC* pplayerBase;
     pcharGenQuest = 0;
@@ -3484,7 +3484,7 @@ void __cdecl StartCharacterGeneration()
     }
     else
     {
-        Warning("QUESTS: Unable to find character generation quest \x27%s\x27.", g_011dac00.FUN_00403df0());
+        Warning("QUESTS: Unable to find character generation quest \x27%s\x27.", sCharGenQuest_General.FUN_00403df0());
         HandleBackAction();
     }
 }
@@ -6862,11 +6862,11 @@ void FUN_007d62e0_shell::EnableAndRemoveHighlightedItem()
     }
 }
 
-extern int DAT_0107704c;
+extern int vftable_StartMenu__UserOption;
 
 void __cdecl FormHeapFreeAndLog_00401030(int value);
 
-struct FUN_007d64d0_cls
+struct StartMenu__UserOption
 {
     int m_vptr;
     int unk04;
@@ -6885,9 +6885,9 @@ struct FUN_007d64d0_cls
 
 // Sets the vtable pointer, passes m_28 to FUN_00401030, then calls InitPointer on this object.
 // @fnv 0x007d64d0
-void FUN_007d64d0_cls::Initialize()
+void StartMenu__UserOption::Initialize()
 {
-    m_vptr = (int)&DAT_0107704c;
+    m_vptr = (int)&vftable_StartMenu__UserOption;
     int value = m_28;
     FormHeapFreeAndLog_00401030(value);
     ((FUN_007ce690_cls*)this)->InitPointer();
@@ -7135,14 +7135,14 @@ int __cdecl CopyStartMenuPath(char* Destination, unsigned int SizeInBytes, const
 int __cdecl AppendStartMenuPath(char* Destination, unsigned int SizeInBytes, const char* Source);
 const char* __cdecl PrepareScriptMessage(const char*, bool);
 struct GlobalObject2_0045cfe0;
-extern GlobalObject2_0045cfe0 g_011c3f74;
+extern GlobalObject2_0045cfe0 sLocalSavePath_General;
 
 // Builds a path from FUN_004dc110 and a prepared script message, then calls CreateDirectoryA on it and returns the result.
 // @fnv 0x0084ff30
 int StartMenuSaveDirectory::CreateScriptMessageDirectory(char* pcPathBuffer)
 {
     CopyStartMenuPath(pcPathBuffer, 0x104u, BSUtilities_GetPersonalPath());
-    AppendStartMenuPath(pcPathBuffer, 0x104u, PrepareScriptMessage(((InventoryMenuSetting*)&g_011c3f74)->FUN_00403df0(), false));
+    AppendStartMenuPath(pcPathBuffer, 0x104u, PrepareScriptMessage(((InventoryMenuSetting*)&sLocalSavePath_General)->FUN_00403df0(), false));
     return CreateDirectoryA(pcPathBuffer, 0);
 }
 
@@ -7643,13 +7643,13 @@ bool StartSaveMenu::StartMenu_SaveLoadIdle()
 }  // namespace fnv_007d5af0
 
 namespace fnv_007d1b30 {
-__declspec(selectany) GlobalObject_004de370 g_011c71ac = {};
+__declspec(selectany) GlobalObject_004de370 fGamma_Display = {};
 
 // @fnv 0x007d1b30
 // src: COMMUNITY 0x007d1b30
 void Get_fGamma()
 {
-    g_011c71ac.FUN_00450410();
+    fGamma_Display.FUN_00450410();
 }
 }  // namespace fnv_007d1b30
 
@@ -7844,7 +7844,7 @@ struct SaveGameAccess
 };
 extern SaveGameAccess* g_BGSSaveLoadGame;
 struct SettingOpsLocal;
-extern SettingOpsLocal g_011c3f74, g_011d2eec, g_011d48a0, g_011d2070, g_011d1fec;
+extern SettingOpsLocal sLocalSavePath_General, g_011d2eec, g_011d48a0, g_011d2070, g_011d1fec;
 char* BSUtilities_GetPersonalPath();
 const char* PrepareScriptMessage(const char*, bool);
 int __cdecl FUN_00406d30(char*, unsigned int, const char*);
@@ -7919,7 +7919,7 @@ void StartMenuInit::StartMenu__Create(bool inGame, bool forceReload)
     else
     {
         FUN_00406d30(s, 260, BSUtilities_GetPersonalPath());
-        FUN_00406d50(s, 260, PrepareScriptMessage(g_011c3f74.FUN_00403df0(), false));
+        FUN_00406d50(s, 260, PrepareScriptMessage(sLocalSavePath_General.FUN_00403df0(), false));
     }
     FUN_00406d50(s, 260, "*");
     FUN_00406d50(s, 260, ".fos");

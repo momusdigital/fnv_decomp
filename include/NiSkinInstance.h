@@ -36,7 +36,7 @@ class NiSkinInstance : public NiObject
     void BSMultiBound_SetShape(NiSkinInstance*);
     FaceObject** FUN_00825c00();
     void __thiscall FUN_00a85580();
-    void* __thiscall FUN_006885a0(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
     void SetRootParent(NiNode* rootParent);
     void SetBone(unsigned int index, NiAVObject* bone);
     void SetBone(unsigned int index, FaceObject* bone);

@@ -29,7 +29,7 @@ void* __cdecl NiRollController_GetRTTI()
 
 
 void __fastcall FUN_00a6d220(void*);
-extern int DAT_01098634;
+extern int vftable_NiRollController;
 
 // @fnv 0x00a48750
 // src: EXE 0x00a48750
@@ -41,7 +41,7 @@ void* __cdecl NiRollController_CreateObject()
         FUN_00a6d220(pFadeNode);
         *(int*)((char*)pFadeNode + 0x38) = 0;
         *(int*)((char*)pFadeNode + 0x34) = 0;
-        *(int*)pFadeNode = (int)&DAT_01098634;
+        *(int*)pFadeNode = (int)&vftable_NiRollController;
         return pFadeNode;
     }
     return 0;
@@ -81,7 +81,7 @@ static inline NiRollController* InitializeRollController(NiRollController* contr
     controller->m_spFloatData = 0;
     // Preserve the original initialization store order.
     *(volatile unsigned int*)&controller->unk34 = 0;
-    *(int*)controller = (int)&DAT_01098634;
+    *(int*)controller = (int)&vftable_NiRollController;
     return controller;
 }
 

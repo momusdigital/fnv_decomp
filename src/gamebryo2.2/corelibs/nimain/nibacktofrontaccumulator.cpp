@@ -1,4 +1,4 @@
-extern int DAT_010a2304;
+extern int vftable_NiAccumulator;
 
 // gamebryo2.2/corelibs/nimain/nibacktofrontaccumulator.cpp: NiBackToFrontAccumulator (12 functions)
 
@@ -53,7 +53,7 @@ NiAccumulator* __fastcall InitializeAccumulator(NiAccumulator* self, void*) thro
 {
     __assume(self != 0);
     ::new (self) NiObject;
-    *(volatile unsigned int*)self = (int)&DAT_010a2304;
+    *(volatile unsigned int*)self = (int)&vftable_NiAccumulator;
     self->m_pkCamera = 0;
     return self;
 }
@@ -249,7 +249,7 @@ NiBackToFrontAccumulator* __fastcall DestroyAndFree(NiBackToFrontAccumulator* se
     return self;
 }
 
-extern int DAT_010a23ac;
+extern int vftable_NiBackToFrontAccumulator;
 
 // The shared base has no declared constructor, so initialize it through its original entry point.
 static inline NiBackToFrontAccumulator* InitializeBackToFrontAccumulator(NiBackToFrontAccumulator* pkObject)
@@ -257,7 +257,7 @@ static inline NiBackToFrontAccumulator* InitializeBackToFrontAccumulator(NiBackT
     if (pkObject)
     {
         reinterpret_cast<NiAccumulator* (__thiscall *)(NiAccumulator*)>(InitializeAccumulator)(pkObject);
-        *(volatile unsigned int*)pkObject = (unsigned int)&DAT_010a23ac;
+        *(volatile unsigned int*)pkObject = (unsigned int)&vftable_NiBackToFrontAccumulator;
         NiBackToFrontAccumulator::ItemList* pkList = &pkObject->m_kItems;
         __assume(pkList != 0);
         ::new (pkList) NiBackToFrontAccumulator::ItemList;
@@ -289,8 +289,8 @@ void __cdecl NiKeyBasedInterpolator_LoadBinary()
 }
 
 
-extern int DAT_010a23ac;
-extern int DAT_010a2304;
+extern int vftable_NiBackToFrontAccumulator;
+extern int vftable_NiAccumulator;
 
 extern void NiFree(void*);
 
@@ -300,7 +300,7 @@ void __fastcall ClearItemList(NiBackToFrontAccumulator::ItemList*, void*);
 // @fnv 0x00aa0dc0
 void __fastcall DestroyBackToFrontAccumulator(NiBackToFrontAccumulator* self, void*)
 {
-    *(unsigned int*)self = (unsigned int)&DAT_010a23ac;
+    *(unsigned int*)self = (unsigned int)&vftable_NiBackToFrontAccumulator;
     NiFree(self->m_ppkItems);
     NiFree(self->m_pfDepths);
 
@@ -324,7 +324,7 @@ void __fastcall DestroyBackToFrontAccumulator(NiBackToFrontAccumulator* self, vo
     }
 
     reinterpret_cast<void (__thiscall *)(NiBackToFrontAccumulator::ItemList*)>(ClearItemList)(&self->m_kItems);
-    *(unsigned int*)self = (unsigned int)&DAT_010a2304;
+    *(unsigned int*)self = (unsigned int)&vftable_NiAccumulator;
     self->FUN_00a5d3d0();
 }
 

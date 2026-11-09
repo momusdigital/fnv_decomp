@@ -89,12 +89,12 @@ struct SmallRecord
     int m_i08;
     unsigned short m_w0C;
 };
-extern char DAT_010cf018[];
+extern char vftable_hkpSymmetricAgentLinearCast_010cf018[];
 hkMemoryRouter* hkMemoryRouter_getInstance();
 void __cdecl hkpSphereCapsuleAgent_createCapsuleSphereAgent(int a, int b, int c, int d);
 void __cdecl hkpSphereCapsuleAgent_staticGetPenetrations(int a, int b, int c, int d);
 void __stdcall hkpSphereCapsuleAgent_getPenetrations(int a, int b, int c, int d);
-extern char DAT_010ce81c;
+extern char vftable_hkpSymmetricAgentFlipBodyCollector;
 struct FUN_00d3f040_tmp
 {
     const char* str;
@@ -103,7 +103,7 @@ struct FUN_00d3f040_tmp
 };
 void __cdecl hkpSphereCapsuleAgent_staticGetPenetrations(unsigned int a, unsigned int b, unsigned int c, FUN_00d3f040_tmp* p);
 void __cdecl Object_UpdateFields_00d3f040(unsigned int a0, unsigned int a1, unsigned int a2, unsigned int a3);
-extern char DAT_010ce81c;
+extern char vftable_hkpSymmetricAgentFlipBodyCollector;
 struct AgentDispatchDescriptor
 {
     const void* dispatchTable;

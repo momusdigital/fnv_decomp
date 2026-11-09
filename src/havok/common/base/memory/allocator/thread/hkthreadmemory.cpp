@@ -772,7 +772,7 @@ void Owner219::hkThreadMemory_onRowFull(int aiSizeIndex, Node219* apBlock)
     caches[aiSizeIndex].head = apBlock;
 }
 
-extern "C" char DAT_010cacd0;
+extern "C" char vftable_hkThreadMemory;
 
 struct BlockEntry
 {
@@ -899,7 +899,7 @@ __declspec(noinline) void HKThreadMemory::InitSizeClasses()
 // src: HAVOK_LIB 0x00d2c720
 HKThreadMemory* HKThreadMemory::hkThreadMemory_hkThreadMemory()
 {
-    m0 = &DAT_010cacd0;
+    m0 = &vftable_hkThreadMemory;
     BlockEntry* p = blocks;
     int n = 16;
     while (n >= 0)
@@ -915,7 +915,7 @@ HKThreadMemory* HKThreadMemory::hkThreadMemory_hkThreadMemory()
 }
 
 namespace fnv_00d2c760 {
-extern "C" char DAT_010cacd0;
+extern "C" char vftable_hkThreadMemory;
 
 struct BlockEntry
 {
@@ -952,7 +952,7 @@ __declspec(noinline) void ThreadMemoryView::InitSizeClasses()
 // src: HAVOK_LIB 0x00d2c760
 ThreadMemoryView* ThreadMemoryView::hkThreadMemory_hkThreadMemory_00d2c760(void* allocator)
 {
-    m0 = &DAT_010cacd0;
+    m0 = &vftable_hkThreadMemory;
     BlockEntry* entry = blocks;
     int remaining = 16;
     do

@@ -41,7 +41,7 @@ void* S00c27140::DestroyIfFlagged(unsigned int auiFlags)
 }
 
 extern "C" void* __cdecl Object_DispatchCommandFour(unsigned int);
-extern char DAT_010be6b4[];
+extern char vftable_NiPSysUpdateCtlr[];
 
 struct CtorBase_cls
 {
@@ -72,7 +72,7 @@ void* FUN_00c27160_cls::NiPSysUpdateCtlr_CreateClone(unsigned int a1)
         ((CtorBase_cls*)p)->ctorBase();
         p->m_18 = 0.0f;
         p->m_14 = 0.0f;
-        p->m_vtbl = (void*)&DAT_010be6b4;
+        p->m_vtbl = (void*)&vftable_NiPSysUpdateCtlr;
     }
     else
     {

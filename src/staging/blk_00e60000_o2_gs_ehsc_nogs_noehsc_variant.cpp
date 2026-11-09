@@ -71,7 +71,7 @@ extern void*(__stdcall* DAT_00fdf0ac)(void*, const char*);
 extern void*(__stdcall* DAT_00fdf0b0)(const char*);
 unsigned char __cdecl InitD3D9CreateFunctions();
 extern void __cdecl NiFree(void*);
-extern int DAT_010eec74;
+extern int vftable_NiTArray_010eec74;
 struct FUN_00e7b200_Class
 {
     int vtbl;
@@ -246,7 +246,7 @@ struct FUN_00e63ec0_Class
 };
 extern MM g_memoryManager;
 void* __cdecl _NiFree(void*);
-extern int DAT_010eec4c;
+extern int vftable_NiTArray_010eec4c;
 extern MemoryManager _g_memoryManager;
 struct FUN_00e7b230_Class
 {
@@ -254,13 +254,13 @@ struct FUN_00e7b230_Class
     void* m_p;
     void* __thiscall FUN_00e7b230(unsigned char flags);
 };
-extern void* const DAT_010eecac[];
+extern void* const vftable_NiD3DDefaultShader[];
 void NiFree(void*);
 extern int DAT_0126f590;
 unsigned char __cdecl NiDX9DepthStencilBufferData_SetNULLDepthStencilTarget(int* p);
 extern NiRefObject vftable_NiRefObject;
-extern int DAT_010eeed4;
-extern int DAT_010eefbc;
+extern int vftable_NiDX92DBufferData;
+extern int vftable_NiDX9TextureBufferData;
 extern long volatile DAT_011f4400;
 extern MemoryManager _g_memoryManager;
 extern void*(__stdcall* DAT_00fdf1c4)(void*);
@@ -1951,7 +1951,7 @@ struct FUN_00e68870_cls
     unsigned int m_78;
     void __thiscall NiDX9SourceTextureData_CopyDataToSurface(FUN_00e68870_arg* a1);
 };
-extern "C" char DAT_010ed37c[];
+extern "C" char vftable_NiDX9SourceTextureData[];
 void __cdecl FUN_00aa1460(void* pObject, unsigned int value);
 struct FUN_00e68ea0_held
 {
@@ -2480,7 +2480,7 @@ class FUN_00e7bbf0_cls
     unsigned int m_uiCount;
     BE7BBF0Array<BE7BBF0Item*> m_kUnsortedGeometryList;
 };
-extern int DAT_010eeca4;
+extern int vftable_NiTPrimitiveArray_010eeca4;
 struct NiArr_e7bc90
 {
     void* m_ppVirtualMethodTable;
@@ -2496,7 +2496,7 @@ struct NiArr_e7bc90
         m_usSize = 0;
         m_usESize = 0;
         m_pBase = 0;
-        m_ppVirtualMethodTable = (void*)&DAT_010eeca4;
+        m_ppVirtualMethodTable = (void*)&vftable_NiTPrimitiveArray_010eeca4;
     }
 };
 struct Base_e7bc90

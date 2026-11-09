@@ -280,7 +280,7 @@ void NiBlendInterpolator::ProcessClone(CloningProcess& aCloneProcess)
     }
 }
 
-extern int DAT_0109697c;
+extern int vftable_NiBlendInterpolator;
 
 extern MemoryManager g_memoryManager;
 
@@ -300,7 +300,7 @@ struct InterpArrayItem_Temp
 // @fnv 0x00a37170
 void __fastcall DestroyInterpolatorArray(NiBlendInterpolator* pThis, int)
 {
-    *reinterpret_cast<int**>(pThis) = &DAT_0109697c;
+    *reinterpret_cast<int**>(pThis) = &vftable_NiBlendInterpolator;
     InterpArrayItem_Temp* pArray = *reinterpret_cast<InterpArrayItem_Temp**>(reinterpret_cast<char*>(pThis) + 0x14);
     if (pArray)
     {

@@ -208,7 +208,7 @@ void Object_ProcessState_00d44e20(void* apFirst, void* apSecond, void* apThird, 
     hkpMultiSphereAgent_staticGetClosestPoints(apSecond, apFirst, apThird, &collector);
 }
 
-extern char DAT_010ce81c;
+extern char vftable_hkpSymmetricAgentFlipBodyCollector;
 
 struct S_00d44f50
 {
@@ -224,12 +224,12 @@ void S_00d44f50::RunWithCollector(void* pFirst, void* pSecond, void* pThird, int
     hkpSymmetricAgentFlipBodyCollector& collector = *(hkpSymmetricAgentFlipBodyCollector*)collectorStorage;
     collector.payload = (void*)value;
     collector.unk04[0] = 0;
-    *(void**)&collector = &DAT_010ce81c;
+    *(void**)&collector = &vftable_hkpSymmetricAgentFlipBodyCollector;
     ProcessSpheres(pSecond, pFirst, pThird, &collector);
 }
 
 extern float DAT_0104da48;
-extern unsigned char DAT_010ce7fc;
+extern unsigned char vftable_hkpSymmetricAgentFlipCollector;
 
 struct FUN_00d44f90_Data
 {
@@ -244,7 +244,7 @@ struct FUN_00d44f90_Class
     void UpdateState_00d44f90(void* first, void* second, void* third, unsigned int value);
 };
 
-// Builds a data record from value, DAT_0104da48 and DAT_010ce7fc, then calls GetPenetrations with second, first and third.
+// Builds a data record from value, DAT_0104da48 and vftable_hkpSymmetricAgentFlipCollector, then calls GetPenetrations with second, first and third.
 // @fnv 0x00d44f90
 // src: GUESS 0x00d44f90 (confidence: low)
 void FUN_00d44f90_Class::UpdateState_00d44f90(void* first, void* second, void* third, unsigned int value)
@@ -252,7 +252,7 @@ void FUN_00d44f90_Class::UpdateState_00d44f90(void* first, void* second, void* t
     FUN_00d44f90_Data data;
     data.value = value;
     data.bound = DAT_0104da48;
-    data.descriptor = (unsigned int)&DAT_010ce7fc;
+    data.descriptor = (unsigned int)&vftable_hkpSymmetricAgentFlipCollector;
     GetPenetrations(second, first, third, &data);
 }
 
@@ -263,7 +263,7 @@ struct Allocator
 };
 
 
-extern char DAT_010cf390[];
+extern char vftable_hkpSymmetricAgent_010cf390[];
 
 struct SpawnedObject
 {
@@ -296,7 +296,7 @@ void* Object_AllocateStorage_00d44d00(int aiArg1, int aiArg2, int aiArg3, int ai
     SpawnedObject* obj = (SpawnedObject*)pAllocator->Alloc(0x38);
     obj->m_iElementCount = 0x38;
     obj->Init(aiArg2, aiArg1, aiArg3, aiArg4);
-    *(void* volatile*)obj = (void*)DAT_010cf390;
+    *(void* volatile*)obj = (void*)vftable_hkpSymmetricAgent_010cf390;
     return obj;
 }
 
@@ -346,7 +346,7 @@ void RegisterTwoTables(RegistryOwner* apOwner)
     apOwner->RegisterTable(&table, 0x15, -1);
 }
 
-extern char DAT_010ce81c;
+extern char vftable_hkpSymmetricAgentFlipBodyCollector;
 
 
 void __cdecl hkpCdBody_AllocateStorage_00d449f0(void* a, void* b, void* c, void* d);
@@ -360,13 +360,13 @@ void __cdecl Object_UpdateFields_00d44de0(void* apArg1, void* apArg2, void* apAr
     hkpSymmetricAgentFlipBodyCollector& t = *(hkpSymmetricAgentFlipBodyCollector*)collectorStorage;
     t.payload = (void*)a4;
     t.unk04[0] = 0;
-    *(void**)&t = &DAT_010ce81c;
+    *(void**)&t = &vftable_hkpSymmetricAgentFlipBodyCollector;
     hkpCdBody_AllocateStorage_00d449f0(apArg2, apArg1, apArg3, &t);
 }
 
 namespace fnv_00d450f0 {
 hkMemoryRouter* __cdecl hkMemoryRouter_getInstance() throw();
-extern int DAT_0102e388;
+extern int vftable_hkBaseObject;
 
 struct FUN_00d450f0_cls
 {
@@ -395,7 +395,7 @@ FUN_00d450f0_cls* FUN_00d450f0_cls::Destroy(unsigned char acFlags)
     }
     m_pData = 0;
     m_uCapBits = 0x80000000u;
-    m_vptr00 = (int)&DAT_0102e388;
+    m_vptr00 = (int)&vftable_hkBaseObject;
     if (acFlags & 1)
     {
         hkMemoryRouter* pHolder2 = hkMemoryRouter_getInstance();
@@ -511,7 +511,7 @@ void Object_AllocateStorage_00d44cc0(int a1, int a2, int a3, int a4)
 extern "C" LocalM128 _mm_xor_ps(LocalM128 _A, LocalM128 _B);
 extern "C" void* __cdecl memcpy(void* _Dst, const void* _Src, unsigned int _Size);
 
-extern char DAT_010ce80c;
+extern char vftable_hkpSymmetricAgentFlipCastCollector;
 extern LocalM128 DAT_010c44d0;
 extern float DAT_0104da48;
 
@@ -586,10 +586,10 @@ void S_00d45160_Owner::SpawnWithCollectors(unsigned int a1, unsigned int a2, con
     memcpy(&collector1.m_vec, &pInput->m_vec, 16);
     inputCopy.m_vec.m_vComponents = _mm_xor_ps(pInput->m_vec.m_vComponents, DAT_010c44d0);
     collector1.m_key = uiKey1;
-    collector1.m_vtbl = (void*)&DAT_010ce80c;
+    collector1.m_vtbl = (void*)&vftable_hkpSymmetricAgentFlipCastCollector;
     if (uiKey2 != 0)
     {
-        collector2.m_vtbl = (void*)&DAT_010ce80c;
+        collector2.m_vtbl = (void*)&vftable_hkpSymmetricAgentFlipCastCollector;
         collector2.m_fHitDistance = DAT_0104da48;
         memcpy(&collector2.m_vec, &pInput->m_vec, 16);
         collector2.m_key = uiKey2;
@@ -794,7 +794,7 @@ void __cdecl Object_ProcessNegatedMultiSphereInput(int a2, int a1, const Input_d
     localInput.m_vComponents = _mm_xor_ps(input->m_vComponents, DAT_010c44d0);
 
     Record_d2e9 rec;
-    rec.m_vtbl = &DAT_010ce80c;
+    rec.m_vtbl = &vftable_hkpSymmetricAgentFlipCastCollector;
     rec.m_fScalar = DAT_0104da48;
     rec.m_key = input->m_key;
     rec.m_uiFilterValue = a4;
@@ -802,7 +802,7 @@ void __cdecl Object_ProcessNegatedMultiSphereInput(int a2, int a1, const Input_d
     if (a5 != 0)
     {
         Record_d2e9 rec2;
-        rec2.m_vtbl = &DAT_010ce80c;
+        rec2.m_vtbl = &vftable_hkpSymmetricAgentFlipCastCollector;
         rec2.m_fScalar = DAT_0104da48;
         rec2.m_key = input->m_key;
         rec2.m_uiFilterValue = a5;
@@ -881,7 +881,7 @@ struct S_00d44b00_Inplace : S_00d44b00_Arr
         m_cap = 0x80000004;
     }
 };
-extern char DAT_010cf354;
+extern char vftable_hkpMultiSphereAgent;
 struct FUN_00d44b00 : hkpCollisionAgent
 {
     virtual ~FUN_00d44b00() throw();

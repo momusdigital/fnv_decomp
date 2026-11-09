@@ -13,7 +13,8 @@
 extern "C" void __cdecl __Dummy_00b6fef0(void* p, unsigned int size);
 
 // @fnv 0x006e5fd0
-void* PathingRequestSafeStraightLine::FUN_006e5fd0(unsigned int flags)
+// src: EXE 0x006e5fd0
+void* PathingRequestSafeStraightLine::ScalarDeletingDestructor(unsigned int flags)
 {
     this->PathingRequestSafeStraightLine::~PathingRequestSafeStraightLine();
     if (flags & 1)

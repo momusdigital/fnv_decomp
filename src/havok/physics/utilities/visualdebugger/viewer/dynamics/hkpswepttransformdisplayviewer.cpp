@@ -297,7 +297,7 @@ void hkpSweptTransformDisplayViewer::RemoveWorldData(int index)
 class BSAudio;
 namespace fnv_00d648c0 {
 BSAudio* __cdecl hkMemoryRouter_getInstance();
-extern int DAT_010d1918, DAT_010d18f8, DAT_010d18e8, DAT_010d18cc, DAT_010d18bc, DAT_010ccf7c;
+extern int vftable_hkpSweptTransformDisplayViewer, vftable_hkpSweptTransformDisplayViewer_for_hkProcess, vftable_hkpSweptTransformDisplayViewer_for_hkpPhysicsContextWorldListener, vftable_hkpSweptTransformDisplayViewer_for_hkpEntityListener, vftable_hkpSweptTransformDisplayViewer_for_hkpWorldPostSimulationListener, vftable_hkpWorldPostSimulationListener;
 __forceinline void ResetWorldData(hkpSweptTransformDisplayViewer::WorldDataList& data)
 {
     data.m_data = 0;
@@ -309,11 +309,11 @@ __forceinline void ResetWorldData(hkpSweptTransformDisplayViewer::WorldDataList&
 void __fastcall Destroy(hkpSweptTransformDisplayViewer* self)
 {
     int i = self->m_kWorldDataList.m_iElementCount - 1;
-    *(int*)(self) = (int)&DAT_010d1918;
-    *(int*)((char*)self + 0x08) = (int)&DAT_010d18f8;
-    *(int*)((char*)self + 0x20) = (int)&DAT_010d18e8;
-    *(int*)((char*)self + 0x28) = (int)&DAT_010d18cc;
-    *(int*)((char*)self + 0x2c) = (int)&DAT_010d18bc;
+    *(int*)(self) = (int)&vftable_hkpSweptTransformDisplayViewer;
+    *(int*)((char*)self + 0x08) = (int)&vftable_hkpSweptTransformDisplayViewer_for_hkProcess;
+    *(int*)((char*)self + 0x20) = (int)&vftable_hkpSweptTransformDisplayViewer_for_hkpPhysicsContextWorldListener;
+    *(int*)((char*)self + 0x28) = (int)&vftable_hkpSweptTransformDisplayViewer_for_hkpEntityListener;
+    *(int*)((char*)self + 0x2c) = (int)&vftable_hkpSweptTransformDisplayViewer_for_hkpWorldPostSimulationListener;
     if (i >= 0)
     {
         do
@@ -331,7 +331,7 @@ void __fastcall Destroy(hkpSweptTransformDisplayViewer* self)
         ((void(__thiscall*)(hkMemoryAllocator*, void*, unsigned int))(*(void***)a)[4])(
             a, self->m_kWorldDataList.m_data, (uiCapBits & 0x3fffffffu) * 4);
     ResetWorldData(self->m_kWorldDataList);
-    *(int*)((char*)self + 0x2c) = (int)&DAT_010ccf7c;
+    *(int*)((char*)self + 0x2c) = (int)&vftable_hkpWorldPostSimulationListener;
     *(int*)((char*)self + 0x28) = (int)"pFU";
     return self->FUN_00ddcc60();
 }

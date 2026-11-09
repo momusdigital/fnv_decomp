@@ -1,7 +1,7 @@
 // src/havok/physics/collide/broadphase/hkpbroadphase.cpp - unit created 2026-10-16 from the whole-binary attribution (360 source path: d:/projects/fallout/code/havok/source/physics/collide/broadphase/hkpbroadphase.cpp).
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
 
-extern char DAT_010d3f7c[];
+extern char vftable_hkpBroadPhase[];
 
 struct SpawnedObject
 {
@@ -25,7 +25,7 @@ struct InitObject
 InitObject* InitObject::hkpBroadPhase_hkpBroadPhase()
 {
     m_w06 = 1;
-    m_pGlobal = DAT_010d3f7c;
+    m_pGlobal = vftable_hkpBroadPhase;
     SpawnedObject* pSubObject = &m_sub;
     pSubObject->m_i00 = 0xfffffff1u;
     pSubObject->m_w04 = 0x8000;
@@ -170,7 +170,7 @@ void FUN_00d97050_cls::hkpBroadPhase_lockImplementation()
 }
 
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(void* apSection);
-extern char DAT_0102e388[];
+extern char vftable_hkBaseObject[];
 
 struct FUN_00d970c0_cls
 {
@@ -190,12 +190,12 @@ struct FreeAllocator
     virtual void Free(void* apMemory, unsigned int auiSize) throw();
 };
 
-// Deletes the critical section m_pCs, frees it via the holder's allocator, clears m_pCs, and sets the vtable pointer to DAT_0102e388.
+// Deletes the critical section m_pCs, frees it via the holder's allocator, clears m_pCs, and sets the vtable pointer to vftable_hkBaseObject.
 // @fnv 0x00d970c0
 // src: GUESS 0x00d970c0 (confidence: low)
 void FUN_00d970c0_cls::UpdateFields_00d970c0()
 {
-    m_vptr = (int)&DAT_010d3f7c;
+    m_vptr = (int)&vftable_hkpBroadPhase;
     void* pCs = m_pCs;
     if (pCs != 0)
     {
@@ -205,5 +205,5 @@ void FUN_00d970c0_cls::UpdateFields_00d970c0()
         pAllocator->Free(pCs, 0x18);
         m_pCs = 0;
     }
-    m_vptr = (int)&DAT_0102e388;
+    m_vptr = (int)&vftable_hkBaseObject;
 }

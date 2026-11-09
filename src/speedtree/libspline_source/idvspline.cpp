@@ -801,7 +801,7 @@ struct FUN_0044d6c0_class
     void* FUN_00ec78f1(void*** ppArg);
 };
 extern "C" __declspec(noreturn) void __stdcall __CxxThrowException(void* pException, void* apThrowInfo);
-extern void* DAT_010176f8;
+extern void* vftable_std__bad_alloc;
 extern const char* const DAT_01140ef8;
 // Throws an exception if a*0x30 would overflow an unsigned int, otherwise calls operator new with a*0x30 bytes.
 // @fnv 0x00b3b540
@@ -815,7 +815,7 @@ void __cdecl Object_AllocateElementStorage_00b3b540(int aiCount, int aiUnused)
         void** p = 0;
         FUN_0044d6c0_class e5;
         e5.FUN_00ec78f1(&p);
-        e5.m0 = (int)&DAT_010176f8;
+        e5.m0 = (int)&vftable_std__bad_alloc;
         __CxxThrowException(&e5, (void*)&DAT_01140ef8);
     }
     operator new(aiCount * 0x30);

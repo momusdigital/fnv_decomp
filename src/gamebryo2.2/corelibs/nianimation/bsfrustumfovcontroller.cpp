@@ -23,7 +23,7 @@ void* __cdecl BSFrustumFOVController_GetRTTI()
     return &g_011f3ec8;
 }
 
-extern int DAT_0109780c;
+extern int vftable_BSFrustumFOVController;
 
 // @fnv 0x00a42ee0
 // src: EXE 0x00a42ee0
@@ -34,7 +34,7 @@ void* __cdecl BSFrustumFOVController_CreateObject()
     {
         NiFloatInterpController* pController = static_cast<NiFloatInterpController*>(p);
         pController->Init();
-        *reinterpret_cast<int**>(pController) = &DAT_0109780c;
+        *reinterpret_cast<int**>(pController) = &vftable_BSFrustumFOVController;
         return pController;
     }
     return 0;

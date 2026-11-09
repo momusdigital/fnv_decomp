@@ -18,7 +18,7 @@ NiRTTI* __cdecl NiBooleanExtraData_GetRTTI()
     return &g_011f5f5c;
 }
 
-extern int DAT_010a112c;
+extern int vftable_NiBooleanExtraData;
 
 // @fnv 0x00a9af90
 // src: EXE 0x00a9af90
@@ -29,7 +29,7 @@ void* __cdecl NiBooleanExtraData_CreateObject()
     {
         NiExtraData* pExtraData = static_cast<NiExtraData*>(p);
         pExtraData->FUN_00a7b2e0();
-        *reinterpret_cast<void**>(p) = &DAT_010a112c;
+        *reinterpret_cast<void**>(p) = &vftable_NiBooleanExtraData;
         *reinterpret_cast<unsigned char*>(reinterpret_cast<char*>(p) + 0xc) = 0;
     }
     else
@@ -46,7 +46,7 @@ extern void __cdecl __Dummy_00b6fef0(void*, unsigned int);
 // @fnv 0x00a9afc0
 void* __fastcall FUN_00a9afc0(NiBooleanExtraData* self, void*, unsigned int flags)
 {
-    *reinterpret_cast<void**>(self) = &DAT_010a112c;
+    *reinterpret_cast<void**>(self) = &vftable_NiBooleanExtraData;
     _FUN_00a7b300();
     if (flags & 1)
         __Dummy_00b6fef0(self, 0x10);
@@ -70,7 +70,7 @@ NiBooleanExtraData* __fastcall NiBooleanExtraData_CreateClone(NiBooleanExtraData
     if (pkClone)
     {
         pkClone->FUN_00a7b2e0();
-        *reinterpret_cast<void**>(pkClone) = &DAT_010a112c;
+        *reinterpret_cast<void**>(pkClone) = &vftable_NiBooleanExtraData;
         pkClone->m_bValue = false;
     }
     else

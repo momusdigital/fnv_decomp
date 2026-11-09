@@ -30,7 +30,7 @@ public:
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
 
 extern "C" void __cdecl Deallocate(void*);
-extern int DAT_010c63bc;
+extern int vftable_hkpBroadPhaseListener;
 
 struct FUN_00d04300
 {
@@ -41,7 +41,7 @@ struct FUN_00d04300
 // @fnv 0x00d04300
 FUN_00d04300::FUN_00d04300(bool del)
 {
-    m_p = &DAT_010c63bc;
+    m_p = &vftable_hkpBroadPhaseListener;
     if (del & 1)
         Deallocate(this);
 }
@@ -1823,7 +1823,7 @@ namespace fnv_00d02da0 {
 // three broad phase listeners and finally chains to the base class teardown.
 // ---------------------------------------------------------------------------
 
-extern int DAT_010c63bc;
+extern int vftable_hkpBroadPhaseListener;
 
 // The audio sink reached through the global BSAudio instance.  Releasing a
 // streamed buffer is a virtual call: the routine lives in the fifth vtable
@@ -1958,7 +1958,7 @@ FUN_00d02da0::~FUN_00d02da0()
             sink->Release(m_audio6c.m_data, (items & 0x3fffffff) * 8);
         m_audio6c.Clear();
     }
-    m_listenerA.vptr = m_listenerB.vptr = m_listenerC.vptr = &DAT_010c63bc;
+    m_listenerA.vptr = m_listenerB.vptr = m_listenerC.vptr = &vftable_hkpBroadPhaseListener;
     BaseTeardown();
 }
 }  // namespace fnv_00d02da0

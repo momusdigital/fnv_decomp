@@ -18,7 +18,7 @@
 #include "../../../../../../include/hkpDashpotAction.h"
 extern float DAT_0101e2bc;
 extern float DAT_01013ea4;
-extern int DAT_010d0994;
+extern int vftable_hkpDashpotAction;
 // Calls FUN_00cf4d80, sets m_fSpringStrength and m_fMotorDamping from globals, sets the vtable pointer, zeroes both m_kPoint entries and returns this.
 // @fnv 0x00d4d980
 // src: GUESS 0x00d4d980 (confidence: medium)
@@ -27,7 +27,7 @@ hkpDashpotAction* hkpDashpotAction::InitializeSpringMotorFields(int entityA, int
     FUN_00cf4d80(entityA, entityB, userData);
     m_fSpringStrength = DAT_0101e2bc;
     m_fMotorDamping = DAT_01013ea4;
-    *reinterpret_cast<int**>(this) = &DAT_010d0994;
+    *reinterpret_cast<int**>(this) = &vftable_hkpDashpotAction;
     *reinterpret_cast<__m128*>(&m_kPoint[0]) = _mm_setzero_ps();
     *reinterpret_cast<__m128*>(&m_kPoint[1]) = _mm_setzero_ps();
     return this;

@@ -111,8 +111,8 @@ FUN_00a8ae50::FUN_00a8ae50()
 {}
 
 #include <windows.h>
-extern int DAT_0109f3e4[];
-extern int DAT_0109f3d0[];
+extern int vftable_NiNIFImageReader[];
+extern int vftable_NiImageReader[];
 
 struct A8NiStream
 {
@@ -185,14 +185,14 @@ struct A8Class
     void __thiscall ProcessState_00a8ada0();
 };
 
-// Sets unk00 to DAT_0109f3e4, calls unk100.FUN_00a65300, sets unk00 to DAT_0109f3d0, and deletes the critical section at unk80.
+// Sets unk00 to vftable_NiNIFImageReader, calls unk100.FUN_00a65300, sets unk00 to vftable_NiImageReader, and deletes the critical section at unk80.
 // @fnv 0x00a8ada0
 // src: GUESS 0x00a8ada0 (confidence: low)
 void __thiscall A8Class::ProcessState_00a8ada0()
 {
-    unk00 = DAT_0109f3e4;
+    unk00 = vftable_NiNIFImageReader;
     unk100.Object_ReleaseStorage_00a65300();
-    unk00 = DAT_0109f3d0;
+    unk00 = vftable_NiImageReader;
     DeleteCriticalSection(&unk80);
 }
 
@@ -265,8 +265,8 @@ bool FUN_00a8add0_cls::NiNIFImageReader_ReadHeader(const char* pcFileExtension, 
 }
 
 namespace fnv_00a8ae80 {
-extern int DAT_0109f3e4;
-extern int DAT_0109f3d0;
+extern int vftable_NiNIFImageReader;
+extern int vftable_NiImageReader;
 
 struct FUN_00a8ae80_member
 {
@@ -351,9 +351,9 @@ struct FUN_00a8ae80_cls
 FUN_00a8ae80_cls* FUN_00a8ae80_cls::FUN_00a8ae80(unsigned char acFlags)
 {
     FUN_00a8ae80_member* pMember = &m_100;
-    m_vptr = (int)&DAT_0109f3e4;
+    m_vptr = (int)&vftable_NiNIFImageReader;
     pMember->Cleanup();
-    m_vptr = (int)&DAT_0109f3d0;
+    m_vptr = (int)&vftable_NiImageReader;
     DeleteCriticalSection(&m_cs);
     if (acFlags & 1)
     {

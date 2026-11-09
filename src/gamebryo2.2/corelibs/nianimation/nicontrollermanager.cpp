@@ -120,9 +120,9 @@ int __cdecl NiStepPosKey_RegisterLoader()
     return 1;
 }
 
-extern int DAT_01096114;
-extern int DAT_0109618c;
-extern int DAT_01096284;
+extern int vftable_NiTFixedStringMapBase_01096114;
+extern int vftable_NiTFixedStringMap_0109618c;
+extern int vftable_NiDefaultAVObjectPalette;
 
 void __fastcall _Call_a5d3a0(void*);
 void* __cdecl _NiMalloc(unsigned int);
@@ -131,13 +131,13 @@ void __fastcall FUN_00a6e960(void*);
 
 __forceinline void init_map(int* map, int size)
 {
-    map[0] = reinterpret_cast<int>(&DAT_01096114);
+    map[0] = reinterpret_cast<int>(&vftable_NiTFixedStringMapBase_01096114);
     map[1] = size;
     map[3] = 0;
     void* mem = _NiMalloc(size * 4);
     map[2] = reinterpret_cast<int>(mem);
     _fnv_zlib_memset(mem, 0, map[1] * 4);
-    map[0] = reinterpret_cast<int>(&DAT_0109618c);
+    map[0] = reinterpret_cast<int>(&vftable_NiTFixedStringMap_0109618c);
 }
 
 // @fnv 0x00a2ed80
@@ -145,7 +145,7 @@ __forceinline void init_map(int* map, int size)
 int* __fastcall NiDefaultAVObjectPalette_NiDefaultAVObjectPalette(int* this_ptr, int, int arg1, int arg2)
 {
     _Call_a5d3a0(this_ptr);
-    this_ptr[0] = reinterpret_cast<int>(&DAT_01096284);
+    this_ptr[0] = reinterpret_cast<int>(&vftable_NiDefaultAVObjectPalette);
     init_map(this_ptr + 2, arg2);
     this_ptr[6] = arg1;
     FUN_00a6e960(this_ptr);
@@ -185,10 +185,10 @@ void* __fastcall NiDefaultAVObjectPalette_GetAVObject(HashObj* pThis, int, const
     return 0;
 }
 
-extern int DAT_0109607c;
-extern int DAT_01096114;
-extern int DAT_0109618c;
-extern int DAT_01096284;
+extern int vftable_NiAVObjectPalette;
+extern int vftable_NiTFixedStringMapBase_01096114;
+extern int vftable_NiTFixedStringMap_0109618c;
+extern int vftable_NiDefaultAVObjectPalette;
 
 __declspec(nothrow) void __cdecl _NiFreeAlias(void*);
 void __cdecl FUN_00aa1460(void*, unsigned int);
@@ -203,13 +203,13 @@ struct NiObject_Helper
 void* __fastcall FUN_00a2ee70(int* pThis, int, unsigned int flags)
 {
     int* pMap = pThis + 2;
-    *pThis = (int)&DAT_01096284;
-    *pMap = (int)&DAT_0109618c;
+    *pThis = (int)&vftable_NiDefaultAVObjectPalette;
+    *pMap = (int)&vftable_NiTFixedStringMap_0109618c;
     reinterpret_cast<NiTFixedStringMap_NiAVObject___*>(pMap)->RemoveAll();
-    *pMap = (int)&DAT_01096114;
+    *pMap = (int)&vftable_NiTFixedStringMapBase_01096114;
     reinterpret_cast<NiTFixedStringMap_NiAVObject___*>(pMap)->RemoveAll();
     _NiFreeAlias(reinterpret_cast<void*>(pMap[2]));
-    *pThis = (int)&DAT_0109607c;
+    *pThis = (int)&vftable_NiAVObjectPalette;
     reinterpret_cast<NiObject_Helper*>(pThis)->FUN_00a5d3d0();
     if (flags & 1)
     {
@@ -400,8 +400,8 @@ inline NiTStringPointerMap<TVAL>::~NiTStringPointerMap()
 {}
 
 namespace fnv_00a2ebb0 {
-extern int DAT_0109619c;
-extern int DAT_01096184;
+extern int vftable_NiControllerManager;
+extern int vftable_NiTArray_01096184;
 void __cdecl NiFree(void*);
 __declspec(dllimport) long __stdcall InterlockedDecrement(volatile long*);
 struct RC
@@ -426,7 +426,7 @@ struct S290
 void __fastcall NiTObjectArray_UpdateReferenceState_00a2ebb0(char* self)
 {
     char* b = self + 0x34;
-    *(void**)self = &DAT_0109619c;
+    *(void**)self = &vftable_NiControllerManager;
     reinterpret_cast<NiTObjectArray<NiPointer<NiControllerSequence> >*>(b)->RemoveAll();
     S450* p = *(S450**)(self + 0x64);
     *(int*)(self + 0x74) = 0;
@@ -442,7 +442,7 @@ void __fastcall NiTObjectArray_UpdateReferenceState_00a2ebb0(char* self)
     ReleaseObjectArray(*(void**)(self + 0x6c));
     ((SequenceStringMap*)(self + 0x50))->SequenceStringMap::~NiTStringTemplateMap();
     NiFree(*(void**)(self + 0x44));
-    *(void**)b = &DAT_01096184;
+    *(void**)b = &vftable_NiTArray_01096184;
     ReleaseObjectArray(*(void**)(b + 4));
     ((S290*)self)->FUN_00a6d290();
 }
@@ -602,16 +602,16 @@ void* __cdecl NiControllerManager_CreateObject()
 namespace fnv_00a2eb40 {
 void _NiFreeAlias(void*);
 extern MemoryManager g_memoryManager;
-extern int DAT_01096114;
-extern int DAT_0109618c;
+extern int vftable_NiTFixedStringMapBase_01096114;
+extern int vftable_NiTFixedStringMap_0109618c;
 }  // namespace fnv_00a2eb40
 
 // @fnv 0x00a2eb40
 void* NiTFixedStringMap_NiAVObject___::Destroy(int auiFlags)
 {
-    *(void**)this = &fnv_00a2eb40::DAT_0109618c;
+    *(void**)this = &fnv_00a2eb40::vftable_NiTFixedStringMap_0109618c;
     RemoveAll();
-    *(void**)this = &fnv_00a2eb40::DAT_01096114;
+    *(void**)this = &fnv_00a2eb40::vftable_NiTFixedStringMapBase_01096114;
     RemoveAll();
     fnv_00a2eb40::_NiFreeAlias(*(void**)((char*)this + 8));
     if (auiFlags & 1)
@@ -625,10 +625,10 @@ extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volati
 void* __cdecl _NiMalloc(unsigned int);
 void* __cdecl fnv_zlib_memset(void*, int, unsigned int);
 void __fastcall FUN_00a6d220(void*);
-extern void* DAT_0109619c;
-extern void* DAT_01096258;
-extern void* DAT_01096124;
-extern void* DAT_01096260;
+extern void* vftable_NiControllerManager;
+extern void* vftable_NiTObjectArray_01096258;
+extern void* vftable_NiTMapBase_01096124;
+extern void* vftable_NiTStringPointerMap_01096260;
 struct P03MM
 {
     void* Allocate(unsigned int);
@@ -680,17 +680,17 @@ inline void InitializeSequenceArray(NiTObjectArray<NiPointer<NiControllerSequenc
         array.m_pBase = (NiPointer<NiControllerSequence>*)_NiMalloc(array.m_usMaxSize * 4);
     else
         array.m_pBase = 0;
-    *(void***)&array = (void**)&DAT_01096258;
+    *(void***)&array = (void**)&vftable_NiTObjectArray_01096258;
 }
 inline void InitializeSequenceMap(NiTStringPointerMap<NiControllerSequence*>* map, unsigned int uiHashSize)
 {
-    *(void***)map = (void**)&DAT_01096124;
+    *(void***)map = (void**)&vftable_NiTMapBase_01096124;
     map->m_uiHashSize = uiHashSize;
     map->m_kItemCount.m_uiCount = 0;
     map->m_ppkHashTable = (SequenceMapBase::EntryType**)_NiMalloc(uiHashSize * 4);
     fnv_zlib_memset(map->m_ppkHashTable, 0, map->m_uiHashSize * 4);
     map->m_bCopy = false;
-    *(void***)map = (void**)&DAT_01096260;
+    *(void***)map = (void**)&vftable_NiTStringPointerMap_01096260;
 }
 struct NiListStandin
 {
@@ -710,7 +710,7 @@ struct NiListStandin
 NiControllerManager* __fastcall NiControllerManager_NiControllerManager(NiControllerManager* self, int, NiObjectNET* pkTarget, bool bCumulative)
 {
     FUN_00a6d220(self);
-    *(void***)self = (void**)&DAT_0109619c;
+    *(void***)self = (void**)&vftable_NiControllerManager;
     InitializeSequenceArray(self->m_kSequences, 0, 10);
     self->m_kPlayingSequences.m_pBase = 0;
     self->m_kPlayingSequences.m_uiAlloced = 0;
@@ -784,9 +784,9 @@ void __fastcall NiControllerManager_LinkObject(NiControllerManager* self, int, N
 }
 }  // namespace fnv_00a2f6e0
 
-extern int DAT_01096164;
-extern int DAT_01096144;
-extern int DAT_01096124;
+extern int vftable_NiTStringTemplateMap_01096164;
+extern int vftable_NiTPointerMap_01096144;
+extern int vftable_NiTMapBase_01096124;
 
 void __cdecl _NiFree_00aa10f0(void* p);
 void __fastcall NiTPointerMap_RemoveAll_00b601a0(void* self);
@@ -1690,24 +1690,24 @@ inline void InitializeSequenceMap(NiTStringPointerMap<NiControllerSequence*>* ma
     map->m_bCopy = false;
 }
 
-extern int DAT_0109619c;
+extern int vftable_NiControllerManager;
 
 // Constructs the controller manager and its sequence containers, then allocates its listener.
 // @fnv 0x00a2eed0
 NiControllerManager* __fastcall ConstructControllerManager(NiControllerManager* self) throw()
 {
     fnv_00a2efa0::FUN_00a6d220(self);
-    *(void**)self = &DAT_0109619c;
+    *(void**)self = &vftable_NiControllerManager;
     _ReadWriteBarrier();
     NiTObjectArray<NiPointer<NiControllerSequence> >* array = &self->m_kSequences;
     ClearSequenceArrayStorage(*array);
     _ReadWriteBarrier();
-    *(void**)array = &fnv_00a2efa0::DAT_01096258;
+    *(void**)array = &fnv_00a2efa0::vftable_NiTObjectArray_01096258;
     InitializeSequenceArrayTail(self);
     NiTStringPointerMap<NiControllerSequence*>* map = &self->m_kObjectMap;
-    *(void**)map = &fnv_00a2efa0::DAT_01096124;
+    *(void**)map = &fnv_00a2efa0::vftable_NiTMapBase_01096124;
     InitializeSequenceMap(map);
-    *(void**)map = &fnv_00a2efa0::DAT_01096260;
+    *(void**)map = &fnv_00a2efa0::vftable_NiTStringPointerMap_01096260;
     *(volatile bool*)&self->m_bUseCumulativeAnimation = false;
     _ReadWriteBarrier();
     volatile MgrBlendSet& sequences = *(volatile MgrBlendSet*)&self->m_kSequenceSet;

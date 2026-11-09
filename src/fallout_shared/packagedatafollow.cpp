@@ -15,13 +15,13 @@ void* __thiscall TESFollowPackageData::DestroyIfFlagged(unsigned int flags)
     return this;
 }
 
-extern int DAT_01068988;
-// Calls FUN_0067ad20, sets vtbl to &DAT_01068988, stores a in m2, zeroes m1, and returns this.
+extern int vftable_TESFollowPackageData;
+// Calls FUN_0067ad20, sets vtbl to &vftable_TESFollowPackageData, stores a in m2, zeroes m1, and returns this.
 // @fnv 0x0067c040
 TESFollowPackageData* TESFollowPackageData::Construct(float afValue)
 {
     ((TESPackageData*)this)->TESPackageData::TESPackageData();
-    *reinterpret_cast<void**>(this) = &DAT_01068988;
+    *reinterpret_cast<void**>(this) = &vftable_TESFollowPackageData;
     m_08 = afValue;
     m_04 = 0;
     return this;

@@ -12,7 +12,7 @@
 #include "niextradata_packet.h"
 
 extern "C" void* __fastcall NiRTTI_UpdateState_00c6b910(void*);
-extern void* DAT_0103046c;
+extern void* vftable_bhkCollisionObject;
 
 struct FUN_0066b640
 {
@@ -24,7 +24,7 @@ struct FUN_0066b640
 FUN_0066b640::FUN_0066b640()
 {
     NiRTTI_UpdateState_00c6b910(this);
-    m_vft = &DAT_0103046c;
+    m_vft = &vftable_bhkCollisionObject;
 }
 
 class FUN_00539f50 : public NiExtraData

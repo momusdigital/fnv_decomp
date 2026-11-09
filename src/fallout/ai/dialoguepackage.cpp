@@ -237,7 +237,7 @@ struct DialoguepackageInterfaceView
 };
 
 extern SaveManager* DAT_011de45c;
-extern Setting g_011de4e8;
+extern Setting bDebugSaveBuffer_Debug;
 
 TESForm* _GetFormByNumericID(unsigned int formID);
 
@@ -282,7 +282,7 @@ unsigned short DialoguePackage::GetSaveSize_009ef560()
             scurrentResponseIndex += 2;
         }
 
-        if (*g_011de4e8.Bool())
+        if (*bDebugSaveBuffer_Debug.Bool())
         {
             apSaveGameBuffer = DAT_011de45c->GetHitSound();
 
@@ -1603,7 +1603,7 @@ class DialogueSaveGameWriter
     DialogueSaveRecord* FUN_004fd3e0();
 };
 extern TESSaveLoadGame* g_TESSaveLoadGame;
-extern Setting g_011de4e8;
+extern Setting bDebugSaveBuffer_Debug;
 // Retained: Conversation.h is absent; 0x0083bb30 and 0x0083ba50 are conversation.cpp size/index methods.
 class Conversation
 {
@@ -1629,7 +1629,7 @@ void DialoguePackage::SaveGame_009ef6e0()
     unsigned short* offset = 0;  // blockStart
     // Initial save position.
     unsigned int saved7 = ((DialogueSaveGameWriter*)fnv_009ef6e0::g_TESSaveLoadGame)->FUN_00825c00();
-    if (*g_011de4e8.Bool())
+    if (*bDebugSaveBuffer_Debug.Bool())
         saved7 = ((DialogueSaveGameWriter*)fnv_009ef6e0::g_TESSaveLoadGame)->FUN_00825c00();
     if (((DialogueSaveGameWriter*)fnv_009ef6e0::g_TESSaveLoadGame)->TESSaveLoadGame_UseSaveGameBlocks())
     {
@@ -1673,7 +1673,7 @@ void DialoguePackage::SaveGame_009ef6e0()
             responseIndex = item->GetResponseIndex(response);
         TESForm_SaveGameDataOLD(&responseIndex, 2);
     }
-    if (*g_011de4e8.Bool())
+    if (*bDebugSaveBuffer_Debug.Bool())
     {
         unsigned int end = ((DialogueSaveGameWriter*)fnv_009ef6e0::g_TESSaveLoadGame)->FUN_00825c00();
         DialogueSaveRecord* record = ((DialogueSaveGameWriter*)fnv_009ef6e0::g_TESSaveLoadGame)->FUN_004fd3e0();

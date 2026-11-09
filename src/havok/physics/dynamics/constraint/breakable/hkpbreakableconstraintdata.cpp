@@ -121,17 +121,17 @@ void* hkpBreakableConstraintData::isValid_00d4dea0(void* value)
     return value;
 }
 
-extern void* DAT_010d0a1c;
-extern void* _DAT_0102e388;
+extern void* vftable_hkpBreakableConstraintData;
+extern void* vftable_hkBaseObject;
 
 // @fnv 0x00d4e000
 // src: GUESS 0x00d4e000 (confidence: low)
 void hkpBreakableConstraintData::UpdateFields_00d4e000()
 {
     hkpConstraintData* oldData = m_pConstraintData;
-    *reinterpret_cast<void**>(this) = &DAT_010d0a1c;
+    *reinterpret_cast<void**>(this) = &vftable_hkpBreakableConstraintData;
     oldData->removeReference();
-    *reinterpret_cast<void**>(this) = &_DAT_0102e388;
+    *reinterpret_cast<void**>(this) = &vftable_hkBaseObject;
 }
 
 // @fnv 0x00d4dec0

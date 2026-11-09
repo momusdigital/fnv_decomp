@@ -374,16 +374,16 @@ void FUN_004a3eb0_shell::bhkPickData_SetTo(void* arTo)
     ((FUN_004a3f40_helper*)this)->bhkPickData_SetTo_004a3f40(NI2HK(hkv, *(const NiPoint3*)arTo));
 }
 
-extern int DAT_0108a490;
-extern int DAT_0108a49c;
+extern int vftable_MobileObject_for_TESChildCell;
+extern int vftable_MobileObject;
 
 // @fnv 0x0092eb50
 // src: GUESS 0x0092eb50 (confidence: low)
 void* __fastcall TESObjectREFR_UpdateState_0092eb50(char* this_ptr)
 {
     ((TESObjectREFR*)this_ptr)->TESObjectREFR::TESObjectREFR();
-    *(int**)(this_ptr + 0x00) = &DAT_0108a49c;
-    *(int**)(this_ptr + 0x18) = &DAT_0108a490;
+    *(int**)(this_ptr + 0x00) = &vftable_MobileObject;
+    *(int**)(this_ptr + 0x18) = &vftable_MobileObject_for_TESChildCell;
     *(int*)(this_ptr + 0x6c) = 0;
     *(int*)(this_ptr + 0x68) = 0;
     *(int*)(this_ptr + 0x70) = 0;
@@ -5058,8 +5058,8 @@ struct Twin_0084d030
     float GetStoredFloatValue();
 };
 extern Setting DAT_01267bd4;
-extern Setting g_011e0574;
-extern Setting g_011e05b4;
+extern Setting fQuadrupedPitchMult_HAVOK;
+extern Setting iHavokSkipFrameCountTEST_Havok;
 extern Twin_0084d030 g_timeGlobal;
 
 struct TopicH
@@ -5566,12 +5566,12 @@ bhkCharacterController* FUN_0092f260_shell::MobileObject_Move(float afDeltaTime,
         ((TESAngleHelper*)this)->SetReferencePosition(NiPoint3(0, 0, 0));
     }
 
-    if (*g_011e05b4.Int())
+    if (*iHavokSkipFrameCountTEST_Havok.Int())
     {
         unsigned int iFrameCounter = Main_QFrameCount();
         if (DAT_011e054c != iFrameCounter)
         {
-            if (iFrameCounter % (*g_011e05b4.Int() + 1))
+            if (iFrameCounter % (*iHavokSkipFrameCountTEST_Havok.Int() + 1))
                 DAT_011e0550 = true;
             else
                 DAT_011e0550 = false;
@@ -5728,7 +5728,7 @@ bhkCharacterController* FUN_0092f260_shell::MobileObject_Move(float afDeltaTime,
             if (((bhkCharControllerVT*)pcon)->bhkCharacterController_QCanPitch() || ((bhkCharControllerVT*)pcon)->bhkCharacterController_QCanRoll())
             {
                 ((CharFlags*)((char*)pcon + 0x410))->bhkCharacterListener_SetStuckQuadruped(0);
-                ((bhkCharControllerVT*)pcon)->SetField558(*g_011e0574.Float() * g_timeGlobal.GetStoredFloatValue());
+                ((bhkCharControllerVT*)pcon)->SetField558(*fQuadrupedPitchMult_HAVOK.Float() * g_timeGlobal.GetStoredFloatValue());
             }
             if (pactor && (((FUN_008846e0_shell*)pactor)->GetVtbl20Result() & 0x3f))
                 kMoveData.fSpeed = ((Act_009e3520*)pactor)->GetCurrentMovementSpeed();

@@ -125,14 +125,14 @@ int __fastcall ForwardValueToObject(hkOArchive* self, void*, int value)
     return value;
 }
 
-extern int DAT_010d14f8;
+extern int vftable_hkOArchive;
 
 // @fnv 0x00d60830
 // src: GUESS 0x00d60830 (confidence: high)
 hkOArchive* __fastcall hkOArchive_InitializeWriterWithByteSwap(hkOArchive* self, void*, hkReferencedObject* apObject, char b)
 {
     self->m_sReferenceCount = 1;
-    *(int*)self = (int)&DAT_010d14f8;
+    *(int*)self = (int)&vftable_hkOArchive;
     self->writer = static_cast<hkStreamWriter*>(apObject);
     self->byteSwap.m_cBooleanValue = b;
     apObject->addReference();

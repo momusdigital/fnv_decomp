@@ -45,14 +45,14 @@ extern int DAT_0126810c;
 extern int DAT_01268208;
 extern int DAT_0126822c;
 extern int DAT_01268238;
-extern const void* DAT_01030394;
-extern const void* DAT_0103078c;
-extern const void* DAT_010306b4;
+extern const void* vftable_bhkWorldObject;
+extern const void* vftable_bhkPhantom;
+extern const void* vftable_bhkShapePhantom;
 struct FUN_0056e2d0
 {
     virtual ~FUN_0056e2d0();
 };
-extern const void* vftable_FUN_0056e2d0;
+extern const void* vftable_bhkSimpleShapePhantom;
 struct FUN_00c6d190
 {
     bhkRefObject base;
@@ -64,16 +64,16 @@ struct FUN_00c6d190
 // @fnv 0x00c6d190
 FUN_00c6d190::FUN_00c6d190()
 {
-    *(const void**)this = &DAT_01030394;
+    *(const void**)this = &vftable_bhkWorldObject;
     fc = 0;
     f10 = 0;
     ++DAT_0126810c;
-    *(const void**)this = &DAT_0103078c;
+    *(const void**)this = &vftable_bhkPhantom;
     ++DAT_01268238;
-    *(const void**)this = &DAT_010306b4;
+    *(const void**)this = &vftable_bhkShapePhantom;
     ++DAT_01268208;
     f14 = 0;
-    *(const void**)this = &vftable_FUN_0056e2d0;
+    *(const void**)this = &vftable_bhkSimpleShapePhantom;
     ++DAT_0126822c;
     f14 = 0;
 }
@@ -329,14 +329,14 @@ void* MM::FUN_00cb30a0(unsigned int f)
 }
 
 namespace fnv_00cb3860 {
-extern int DAT_010302bc;
-extern int DAT_01030394;
-extern int DAT_010c879c;
+extern int vftable_bhkEntity;
+extern int vftable_bhkWorldObject;
+extern int vftable_bhkRigidBodyT;
 extern int DAT_0126810c;
 extern unsigned int DAT_012681bc;
 extern int DAT_012681fc;
 extern int DAT_012683c0;
-extern const void* vftable_bhkLiquidAction;
+extern const void* vftable_bhkRigidBody;
 struct FUN_00cb3860
 {
     bhkRefObject base;
@@ -349,18 +349,18 @@ struct FUN_00cb3860
 // @fnv 0x00cb3860
 FUN_00cb3860::FUN_00cb3860()
 {
-    *(const void**)this = &DAT_01030394;
+    *(const void**)this = &vftable_bhkWorldObject;
     m10 = 0;
     mC = 0;
     ++DAT_0126810c;
-    *(const void**)this = &DAT_010302bc;
+    *(const void**)this = &vftable_bhkEntity;
     ++DAT_012681fc;
-    *(const void**)this = &vftable_bhkLiquidAction;
+    *(const void**)this = &vftable_bhkRigidBody;
     m14 = 0;
     m18 = 0;
     ++DAT_012681bc;
     m10 = 0;
-    *(const void**)this = &DAT_010c879c;
+    *(const void**)this = &vftable_bhkRigidBodyT;
     ++DAT_012683c0;
 }
 }  // namespace fnv_00cb3860
@@ -407,10 +407,10 @@ extern int DAT_012680f8;
 extern int DAT_01268250;
 extern int DAT_0126825c;
 extern int DAT_01268274;
-extern void* DAT_0103093c;
-extern void* DAT_01030a24;
-extern void* DAT_01030b0c;
-extern void* DAT_01030bf4;
+extern void* vftable_bhkBoxShape;
+extern void* vftable_bhkConvexShape;
+extern void* vftable_bhkSphereRepShape;
+extern void* vftable_bhkShape;
 struct FUN_00c9fde0
 {
     bhkRefObject base;
@@ -423,13 +423,13 @@ FUN_00c9fde0::FUN_00c9fde0()
 {
     fc = 0;
     f10 = 0;
-    *(const void**)this = &DAT_01030bf4;
+    *(const void**)this = &vftable_bhkShape;
     DAT_012680f8 += 1;
-    *(const void**)this = &DAT_01030b0c;
+    *(const void**)this = &vftable_bhkSphereRepShape;
     DAT_01268274 += 1;
-    *(const void**)this = &DAT_01030a24;
+    *(const void**)this = &vftable_bhkConvexShape;
     DAT_01268250 += 1;
-    *(const void**)this = &DAT_0103093c;
+    *(const void**)this = &vftable_bhkBoxShape;
     DAT_0126825c += 1;
 }
 
@@ -438,7 +438,7 @@ struct A51BF0Base
     static void* __cdecl operator new(unsigned int size);
 };
 
-extern int DAT_01030864;
+extern int vftable_bhkAabbPhantom;
 extern int DAT_01268244;
 
 struct S_00cb79d0_Base
@@ -456,13 +456,13 @@ struct Object_00c9f5a0 : S_00cb79d0_Base, A51BF0Base
 {
     Object_00c9f5a0() : S_00cb79d0_Base()
     {
-        vtbl = (void*)&DAT_01030394;
+        vtbl = (void*)&vftable_bhkWorldObject;
         f0c = 0;
         f10 = 0;
         ++DAT_0126810c;
-        vtbl = (void*)&DAT_0103078c;
+        vtbl = (void*)&vftable_bhkPhantom;
         ++DAT_01268238;
-        vtbl = (void*)&DAT_01030864;
+        vtbl = (void*)&vftable_bhkAabbPhantom;
         ++DAT_01268244;
         f14 = 0;
     }

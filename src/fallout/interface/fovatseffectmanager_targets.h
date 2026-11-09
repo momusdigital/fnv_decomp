@@ -6,7 +6,7 @@
 
 extern NiPoint2 DAT_011f4980;
 class GlobalObject_0044f440;
-extern GlobalObject_0044f440 g_011db200;
-extern GlobalObject_0044f440 g_011db238;
-extern GlobalObject_0044f440 g_011db25c;
+extern GlobalObject_0044f440 fBlurRadiusHUD_InterfaceFX;
+extern GlobalObject_0044f440 fBlurIntensityHUD_InterfaceFX;
+extern GlobalObject_0044f440 fScanlineFrequencyHUD_InterfaceFX;
 #endif

@@ -190,7 +190,7 @@ void Object_RegisterSymmetricAgentFunctions(S_00d2e8e0_Dispatcher* dispatcher)
 
 // Raw stack storage preserves these wrappers' original lack of constructor and destructor calls.
 extern float g_D2E9B0MaxDistance;
-extern unsigned char DAT_010ce7fc;
+extern unsigned char vftable_hkpSymmetricAgentFlipCollector;
 void __cdecl hkpBvTreeAgent_staticGetClosestPoints(int a, int b, int c, hkpCdPointCollector* collector);
 
 // @fnv 0x00d2e9b0
@@ -201,7 +201,7 @@ void __cdecl hkpSymmetricAgentFlipCollector_UpdateState_00d2e9b0(int aiArg1, int
     hkpSymmetricAgentFlipCollector& collector = *(hkpSymmetricAgentFlipCollector*)storage;
     collector.m_fEarlyOutDistance = g_D2E9B0MaxDistance;
     collector.unk08 = (void*)aiData;
-    *(void**)&collector = &DAT_010ce7fc;
+    *(void**)&collector = &vftable_hkpSymmetricAgentFlipCollector;
     hkpBvTreeAgent_staticGetClosestPoints(aiArg2, aiArg1, aiArg3, &collector);
 }
 
@@ -219,7 +219,7 @@ void Context::UpdateState_00d2edd0(void* first, void* second, void* third, void*
 {
     unsigned int storage[sizeof(hkpSymmetricAgentFlipCollector) / sizeof(unsigned int)];
     hkpSymmetricAgentFlipCollector& collector = *(hkpSymmetricAgentFlipCollector*)storage;
-    *(void**)&collector = &DAT_010ce7fc;
+    *(void**)&collector = &vftable_hkpSymmetricAgentFlipCollector;
     collector.m_fEarlyOutDistance = DAT_0104da48;
     collector.unk08 = fourth;
     hkpShapeCollectionAgent_getClosestPoints(second, first, third, &collector);
@@ -265,7 +265,7 @@ void hkpBvTreeStreamAgent::calcContentStatistics(hkStatisticsCollector* collecto
     hkpAgentMachineUtil_calc1nStatistics(pBuffer, target->m_08, target);
 }
 
-extern "C" const void* DAT_010ce81c;
+extern "C" const void* vftable_hkpSymmetricAgentFlipBodyCollector;
 
 // Builds a flip-body collector on the stack with the given collector and vtable, then calls FUN_00d312f0 with bodyB, bodyA, arg3 and the Collector.
 // @fnv 0x00d2e970
@@ -276,7 +276,7 @@ void __cdecl hkpSymmetricAgentFlipBodyCollector_UpdateState_00d2e970(void* bodyA
     hkpSymmetricAgentFlipBodyCollector& c = *(hkpSymmetricAgentFlipBodyCollector*)storage;
     c.payload = orig_collector;
     c.unk04[0] = 0;
-    *(const void**)&c = &DAT_010ce81c;
+    *(const void**)&c = &vftable_hkpSymmetricAgentFlipBodyCollector;
     hkpBvTreeAgent_staticGetPenetrations(bodyB, bodyA, arg3, &c);
 }
 
@@ -326,7 +326,7 @@ void FUN_00d2eb50_cls::SwapFields()
 }
 
 namespace fnv_00d2ebb0 {
-extern char DAT_010ce81c;
+extern char vftable_hkpSymmetricAgentFlipBodyCollector;
 
 struct FUN_00d2ebb0_cls
 {
@@ -341,18 +341,18 @@ void FUN_00d2ebb0_cls::DispatchWithFlag(void* a1, void* a2, void* a3, unsigned i
     hkpSymmetricAgentFlipBodyCollector& t = *(hkpSymmetricAgentFlipBodyCollector*)storage;
     t.payload = (void*)a4;
     t.unk04[0] = 0;
-    *(const void**)&t = &DAT_010ce81c;
+    *(const void**)&t = &vftable_hkpSymmetricAgentFlipBodyCollector;
     ((hkpBvTreeStreamAgent*)this)->hkpBvTreeStreamAgent::getPenetrations(*(const hkpCdBody*)a2, *(const hkpCdBody*)a1, *(const CollisionAgentContext*)a3, *(hkpCdBodyPairCollector*)&t);
 }
 }  // namespace fnv_00d2ebb0
 
 extern float DAT_0104da48;
-extern unsigned char DAT_010ce7fc;
+extern unsigned char vftable_hkpSymmetricAgentFlipCollector;
 struct CpuObject
 {
     void DispatchWithBoundData(void*, void*, unsigned int, unsigned int);
 };
-// Builds a flip collector from fourth, DAT_0104da48 and DAT_010ce7fc, then forwards second, first, third and the data to FUN_00d2dd50.
+// Builds a flip collector from fourth, DAT_0104da48 and vftable_hkpSymmetricAgentFlipCollector, then forwards second, first, third and the data to FUN_00d2dd50.
 // @fnv 0x00d2ebf0
 void CpuObject::DispatchWithBoundData(void* first, void* second, unsigned int third, unsigned int fourth)
 {
@@ -360,7 +360,7 @@ void CpuObject::DispatchWithBoundData(void* first, void* second, unsigned int th
     hkpSymmetricAgentFlipCollector& data = *(hkpSymmetricAgentFlipCollector*)storage;
     data.unk08 = (void*)fourth;
     data.m_fEarlyOutDistance = DAT_0104da48;
-    *(void**)&data = &DAT_010ce7fc;
+    *(void**)&data = &vftable_hkpSymmetricAgentFlipCollector;
     ((hkpBvTreeStreamAgent*)this)->hkpBvTreeStreamAgent::getClosestPoints(*(const hkpCdBody*)second, *(const hkpCdBody*)first, *(const CollisionAgentContext*)third, data);
 }
 
@@ -408,7 +408,7 @@ void __thiscall FUN_00d43cd0_class::UpdateState_00d2ed90(void* a1, void* a2, voi
     unsigned int storage[sizeof(hkpSymmetricAgentFlipBodyCollector) / sizeof(unsigned int)];
     hkpSymmetricAgentFlipBodyCollector& collector = *(hkpSymmetricAgentFlipBodyCollector*)storage;
     collector.unk04[0] = 0;
-    *(const void**)&collector = &DAT_010ce81c;
+    *(const void**)&collector = &vftable_hkpSymmetricAgentFlipBodyCollector;
     collector.payload = apPayload;
     this->ProcessCollisionEntries(a2, a1, a3, &collector);
 }
@@ -455,7 +455,7 @@ void __fastcall hkpBvTreeStreamAgent_updateShapeCollectionFilter(hkpBvTreeStream
     hkAgent1nMachine_UpdateShapeCollectionFilter(&self->m_kAgentNnTrack, &args);
 }
 
-extern int DAT_010ce838;
+extern int vftable_hkpBvTreeStreamAgent;
 extern "C" void __cdecl InitBlockPool(void* p);
 
 // Raw constructor entry: initialize the shared fields without implicit base or hkAabb constructor calls.
@@ -466,7 +466,7 @@ hkpBvTreeStreamAgent* __fastcall hkpBvTreeStreamAgent_hkpBvTreeStreamAgent(hkpBv
 {
     self->m_sReferenceCount = 1;
     self->m_pContactManager = (hkpContactMgr*)a4;
-    *(int*)self = (int)&DAT_010ce838;
+    *(int*)self = (int)&vftable_hkpBvTreeStreamAgent;
     int* pBlockPool = (int*)&self->m_kAgentNnTrack;
     *pBlockPool = 0;
     pBlockPool[1] = 0;
@@ -480,7 +480,7 @@ hkpBvTreeStreamAgent* __fastcall hkpBvTreeStreamAgent_hkpBvTreeStreamAgent(hkpBv
 
 extern float DAT_0104da48;
 extern const LocalM128 DAT_010c44d0;
-extern unsigned int DAT_010ce80c;
+extern unsigned int vftable_hkpSymmetricAgentFlipCastCollector;
 
 struct __declspec(align(16)) Key_d2e9
 {
@@ -521,7 +521,7 @@ void __cdecl hkpBvTreeAgent_staticLinearCast_UpdateState_00d2e9f0(int a2, int a1
     local.m_vComponents = _mm_xor_ps(input->m_vComponents, DAT_010c44d0);
 
     Record_d2e9 rec;
-    rec.m_vtbl = &DAT_010ce80c;
+    rec.m_vtbl = &vftable_hkpSymmetricAgentFlipCastCollector;
     rec.m_fScalar = DAT_0104da48;
     rec.m_key = input->m_key;
     rec.m_uiFilterValue = aiRecordValue;
@@ -529,7 +529,7 @@ void __cdecl hkpBvTreeAgent_staticLinearCast_UpdateState_00d2e9f0(int a2, int a1
     if (aiOptionalRecordValue != 0)
     {
         Record_d2e9 rec2;
-        rec2.m_vtbl = &DAT_010ce80c;
+        rec2.m_vtbl = &vftable_hkpSymmetricAgentFlipCastCollector;
         rec2.m_fScalar = DAT_0104da48;
         rec2.m_key = input->m_key;
         rec2.m_uiFilterValue = aiOptionalRecordValue;
@@ -647,7 +647,7 @@ void Agent::ProcessEntries_00d2ec50(int a, int b, int c, Simplex* apSimplex)
 namespace fnv_00d2ef30 {
 extern float DAT_0104da48;
 extern unsigned int DAT_010c44d0;
-extern unsigned int DAT_010ce80c;
+extern unsigned int vftable_hkpSymmetricAgentFlipCastCollector;
 
 struct Head50
 {
@@ -689,7 +689,7 @@ __declspec(align(16)) struct QueryObj
     int extra;
     void Init(const HkpbvtreestreamagentVector4fView& v, int e)
     {
-        vtable = &DAT_010ce80c;
+        vtable = &vftable_hkpSymmetricAgentFlipCastCollector;
         scale = DAT_0104da48;
         vec = v;
         extra = e;
@@ -718,7 +718,7 @@ void __thiscall SymmetricStreamCast::UpdateState_00d2ef30(Handle p1, Handle p2, 
     *(LocalM128*)&local.vec = neg;
     q1.vec = ctx->vec;
     q1.extra = aiExtra1;
-    q1.vtable = &DAT_010ce80c;
+    q1.vtable = &vftable_hkpSymmetricAgentFlipCastCollector;
     if (aiExtra2)
     {
         q2.Init(ctx->vec, aiExtra2);
@@ -1068,8 +1068,8 @@ struct StreamDispatchInput
     unsigned int unk00, unk04, unk08, unk0c;
     Selector* selector;
 };
-extern "C" void* g_010ce8b0[];
-extern "C" void* g_010ce874[];
+extern "C" void* vftable_hkpSymmetricAgent_010ce8b0[];
+extern "C" void* vftable_hkpSymmetricAgent_010ce874[];
 struct Header
 {
     void** vtable;
@@ -1086,7 +1086,7 @@ static __forceinline Obj56* Create56(void* second, void* first, StreamDispatchIn
     Obj56* obj = static_cast<Obj56*>(allocator->blockAlloc(0x38));
     obj->size = 0x38;
     obj->FUN_00d440f0(second, first, context, flags);
-    obj->vtable = g_010ce8b0;
+    obj->vtable = vftable_hkpSymmetricAgent_010ce8b0;
     return obj;
 }
 static __forceinline Header* Create64(void* second, void* first, StreamDispatchInput* context, unsigned int flags)
@@ -1096,7 +1096,7 @@ static __forceinline Header* Create64(void* second, void* first, StreamDispatchI
     hkpBvTreeStreamAgent* obj = static_cast<hkpBvTreeStreamAgent*>(allocator->blockAlloc(0x40));
     obj->m_usMemSizeAndFlags = 0x40;
     ::new (obj) hkpBvTreeStreamAgent(second, first, context, (void*)flags);
-    *(void***)obj = g_010ce874;
+    *(void***)obj = vftable_hkpSymmetricAgent_010ce874;
     return (Header*)obj;
 }
 // Creates a 0x38 or 0x40 byte stream object from the selector, defaulting to a stream agent when flags is zero.

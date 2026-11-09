@@ -17,7 +17,7 @@ struct GlobalMgr
 };
 
 extern "C" GlobalMgr DAT_011f6238;
-extern "C" int DAT_010c4b60;
+extern "C" int vftable_hkaRaycastInterface;
 
 struct FUN_00c74e70_cls
 {
@@ -26,11 +26,11 @@ struct FUN_00c74e70_cls
     FUN_00c74e70_cls* FUN_00c74e70(unsigned char acFlags);
 };
 
-// Sets the object's vtable pointer to DAT_010c4b60 and, when bit 0 of acFlags is set, releases the object through DAT_011f6238, returning this.
+// Sets the object's vtable pointer to vftable_hkaRaycastInterface and, when bit 0 of acFlags is set, releases the object through DAT_011f6238, returning this.
 // @fnv 0x00c74e70
 FUN_00c74e70_cls* FUN_00c74e70_cls::FUN_00c74e70(unsigned char acFlags)
 {
-    m_vptr = (int)&DAT_010c4b60;
+    m_vptr = (int)&vftable_hkaRaycastInterface;
     if (acFlags & 1)
     {
         DAT_011f6238.Release(this);

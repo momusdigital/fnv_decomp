@@ -13,7 +13,7 @@ public:
     ExtraActorCause();
     void FUN_0042cb30();
     void SetActorCause(int value);
-    void* FUN_0042cb00(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 
     NiPointer<ActorCause> actorCause;
 };

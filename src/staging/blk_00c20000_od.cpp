@@ -113,7 +113,7 @@ int __cdecl Object_ComputeValue_00c3c200()
     return v;
 }
 
-extern const void* DAT_010c14e8;
+extern const void* vftable_QueuedChildren;
 extern void __cdecl SetVtableAndProcessState_00c3d930();
 
 struct FUN_00c3c520_class
@@ -126,20 +126,20 @@ struct FUN_00c3c520_class
 // src: GUESS 0x00c3c520 (confidence: low)
 void __thiscall FUN_00c3c520_class::SetVirtualTable_00c3c520()
 {
-    vtbl = &DAT_010c14e8;
+    vtbl = &vftable_QueuedChildren;
     ((void(__thiscall*)(void*))SetVtableAndProcessState_00c3d930)(this);
 }
 
-extern int DAT_010c1510;
+extern int vftable_QueuedParents;
 // @fnv 0x00c3c570
 // src: GUESS 0x00c3c570 (confidence: low)
 void __thiscall QueuedParents::SetVtableAndProcessState_00c3c570()
 {
-    *reinterpret_cast<int**>(this) = &DAT_010c1510;
+    *reinterpret_cast<int**>(this) = &vftable_QueuedParents;
     SetVtableAndProcessState_00c3d930();
 }
 
-extern int DAT_010c14fc;
+extern int vftable_BSSimpleArray_010c14fc;
 
 struct FUN_00c3d930_Class
 {
@@ -148,13 +148,13 @@ struct FUN_00c3d930_Class
     void __thiscall SetVtableAndProcessState_00c3d930();
 };
 
-// Sets the vftable to DAT_010c14fc and calls FUN_00c3d980 with 1.
+// Sets the vftable to vftable_BSSimpleArray_010c14fc and calls FUN_00c3d980 with 1.
 // @fnv 0x00c3d930
 // src: GUESS 0x00c3d930 (confidence: low)
 void __thiscall FUN_00c3d930_Class::SetVtableAndProcessState_00c3d930()
 {
     char buf[0x18];
-    vftable = &DAT_010c14fc;
+    vftable = &vftable_BSSimpleArray_010c14fc;
     BSSimpleArray_NiPointer_QueuedFile_1024_Clear(1);
 }
 
@@ -298,11 +298,12 @@ extern "C" void __cdecl operator delete(void*, unsigned int);
 struct FUN_00c3a140_Class
 {
     void __thiscall FUN_00c39770();
-    void* __thiscall FUN_00c3a140(unsigned int flags);
+    void* __thiscall BSMultiBoundRoom_ScalarDeletingDestructor(unsigned int flags);
 };
 // Calls FUN_00c39770, then deletes this with operator delete when flags has bit 0 set, and returns this.
 // @fnv 0x00c3a140
-void* FUN_00c3a140_Class::FUN_00c3a140(unsigned int flags)
+// src: EXE 0x00c3a140
+void* FUN_00c3a140_Class::BSMultiBoundRoom_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00c39770();
     if (flags & 1)
@@ -386,15 +387,15 @@ void __cdecl MessageHandler_SetCrashTraceFileName(const char* pcSuffix)
 }
 }  // namespace fnv_00c3bc80
 
-extern const void* DAT_010c14a8;
+extern const void* vftable_MessageHandler;
 
-// Calls BSCoreMessage_BSCoreMessage, sets the vtable to DAT_010c14a8, stores b in bStatic, sets MessageHandler::pHandler to this and returns this.
+// Calls BSCoreMessage_BSCoreMessage, sets the vtable to vftable_MessageHandler, stores b in bStatic, sets MessageHandler::pHandler to this and returns this.
 // @fnv 0x00c3bcf0
 // src: EXE 0x00c3bcf0
 MessageHandler* __thiscall MessageHandler::MessageHandler_00c3bcf0(bool abStatic)
 {
     BSCoreMessage_BSCoreMessage();
-    *(const void**)this = &DAT_010c14a8;
+    *(const void**)this = &vftable_MessageHandler;
     bStatic = abStatic;
     MessageHandler::pHandler = this;
     return this;
@@ -744,13 +745,14 @@ extern "C" void __cdecl operator delete(void*, unsigned int);
 struct FUN_00c3ba80_Class
 {
     void __thiscall FUN_00c3bab0();
-    void* __thiscall FUN_00c3ba80(unsigned int flags);
+    void* __thiscall BSNodeReferences_ScalarDeletingDestructor(unsigned int flags);
     int a, b, c, d;
 };
 
 // Calls FUN_00c3bab0, then deletes this with operator delete when flags has bit 0 set, and returns this.
 // @fnv 0x00c3ba80
-void* __thiscall FUN_00c3ba80_Class::FUN_00c3ba80(unsigned int flags)
+// src: EXE 0x00c3ba80
+void* __thiscall FUN_00c3ba80_Class::BSNodeReferences_ScalarDeletingDestructor(unsigned int flags)
 {
     int x, y, z;
     FUN_00c3bab0();
@@ -1113,7 +1115,7 @@ void FUN_00c39a80_cls::BSMultiBoundRoom_AddOccluder(unsigned int auiValue)
     }
 }
 
-extern "C" int DAT_010c117c;
+extern "C" int vftable_BSSimpleArray_010c117c;
 
 struct FUN_00c3a220_cls
 {
@@ -1123,14 +1125,14 @@ struct FUN_00c3a220_cls
     FUN_00c3a220_cls* SetVirtualTable_00c3a220();
 };
 
-// Sets the vtable pointer to DAT_010c117c, calls InitBuffer with 0 and 0, and returns this.
+// Sets the vtable pointer to vftable_BSSimpleArray_010c117c, calls InitBuffer with 0 and 0, and returns this.
 // @fnv 0x00c3a220
 // src: GUESS 0x00c3a220 (confidence: low)
 FUN_00c3a220_cls* FUN_00c3a220_cls::SetVirtualTable_00c3a220()
 {
     int unk04;
     int unk08;
-    m_vptr = (void*)&DAT_010c117c;
+    m_vptr = (void*)&vftable_BSSimpleArray_010c117c;
     InitBuffer(0, 0);
     return this;
 }
@@ -1276,7 +1278,7 @@ void BSMultiBoundNode::UpdateUpwardPass()
 }
 
 namespace fnv_00c3a620 {
-extern "C" void* DAT_010c117c;
+extern "C" void* vftable_BSSimpleArray_010c117c;
 
 class SpawnedBase
 {
@@ -1292,13 +1294,13 @@ class FUN_00c3a620_cls : public SpawnedBase
     void SetVirtualTableAndProcessState_00c3a620();
 };
 
-// Sets the object's vtable pointer to DAT_010c117c and calls SpawnedBase::FUN_00b5af80 with flags 1.
+// Sets the object's vtable pointer to vftable_BSSimpleArray_010c117c and calls SpawnedBase::FUN_00b5af80 with flags 1.
 // @fnv 0x00c3a620
 // src: GUESS 0x00c3a620 (confidence: low)
 void FUN_00c3a620_cls::SetVirtualTableAndProcessState_00c3a620()
 {
     int unk00;
-    this->m_vptr = (int)&DAT_010c117c;
+    this->m_vptr = (int)&vftable_BSSimpleArray_010c117c;
     this->SpawnedBase::UpdateFields_00b5af80(1);
 }
 }  // namespace fnv_00c3a620
@@ -1598,7 +1600,7 @@ int __stdcall CbtHookProc(int code, unsigned int wParam, int lParam)
     return CallNextHookEx((HHOOK)DAT_01202d70, code, wParam, lParam);
 }
 
-// Sets the vtable to DAT_010c14fc, calls Resize(5, 0), then sets it to DAT_010c1510 and returns this.
+// Sets the vtable to vftable_BSSimpleArray_010c14fc, calls Resize(5, 0), then sets it to vftable_QueuedParents and returns this.
 // @fnv 0x00c3c540
 // src: COMMUNITY 0x00c3c540
 int* __thiscall QueuedParents::QueuedParents_00c3c540()
@@ -1609,9 +1611,9 @@ int* __thiscall QueuedParents::QueuedParents_00c3c540()
     int unused10;
     int unused14;
 
-    *reinterpret_cast<int**>(this) = &DAT_010c14fc;
+    *reinterpret_cast<int**>(this) = &vftable_BSSimpleArray_010c14fc;
     this->Resize(5, 0);
-    *reinterpret_cast<int**>(this) = &DAT_010c1510;
+    *reinterpret_cast<int**>(this) = &vftable_QueuedParents;
 
     return reinterpret_cast<int*>(this);
 }

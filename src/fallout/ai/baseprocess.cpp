@@ -566,7 +566,7 @@ struct GlobalObject_0045cf30
     unsigned char* Bool();
 };
 
-extern GlobalObject_0045cf30 g_011de4e8;
+extern GlobalObject_0045cf30 bDebugSaveBuffer_Debug;
 
 // Exe 0x008d0900: unit-local BaseprocessInterfaceView view used by this matched implementation.
 struct BaseprocessInterfaceView
@@ -605,7 +605,7 @@ unsigned short BaseProcess::GetSaveSize(unsigned int aiFlags, MobileObject* pmob
     pform += reinterpret_cast<fnv_008d0900::FUN_008c61a0_Class*>(reinterpret_cast<unsigned char*>(this) + 4)->ComputeTotal(aiFlags);
     pform += 4;
 
-    if (*fnv_008d0900::g_011de4e8.Bool())
+    if (*fnv_008d0900::bDebugSaveBuffer_Debug.Bool())
     {
         isize = static_cast<fnv_008d0900::FormIDEntry*>(fnv_008d0900::DAT_011de45c->GetHitSound());
         if (isize)
@@ -685,7 +685,7 @@ class GlobalObject_0045cf30
   public:
     unsigned char* Bool();
 };
-extern GlobalObject_0045cf30 g_011de4e8;
+extern GlobalObject_0045cf30 bDebugSaveBuffer_Debug;
 extern const char DAT_010865e0[];
 extern const char DAT_010153a0[];
 extern const char DAT_0101536c[];
@@ -792,7 +792,7 @@ void SavedProcess::BaseProcess_SaveGameTES(unsigned int flags, unsigned int unus
     unsigned short length = 0;
     unsigned int* begin = 0;
     unsigned int initial = ((TimeGlobal*)g_TESSaveLoadGame)->GetTimeStamp();
-    if (*g_011de4e8.Bool())
+    if (*bDebugSaveBuffer_Debug.Bool())
         initial = ((TimeGlobal*)g_TESSaveLoadGame)->GetTimeStamp();
     if (((TESSaveLoadGameHelper*)g_TESSaveLoadGame)->TESSaveLoadGame_UseSaveGameBlocks())
     {
@@ -803,7 +803,7 @@ void SavedProcess::BaseProcess_SaveGameTES(unsigned int flags, unsigned int unus
     }
     data.FUN_008c6250(flags);
     ((TESSaveLoadGameHelper*)g_TESSaveLoadGame)->TESSaveLoadGame_SaveGameDataOLD(&unk1c, 4);
-    if (*g_011de4e8.Bool())
+    if (*bDebugSaveBuffer_Debug.Bool())
     {
         unsigned int header = ((TimeGlobal*)g_TESSaveLoadGame)->GetTimeStamp();
         SaveHeaderView* end = ((TESSaveLoadGameHelper*)g_TESSaveLoadGame)->GetHitSound();

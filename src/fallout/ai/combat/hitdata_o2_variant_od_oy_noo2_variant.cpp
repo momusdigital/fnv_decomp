@@ -64,7 +64,7 @@ struct GlobalObject_00869f00
 {
     void Clear(bool a);
 };
-extern int DAT_0108f9e8;
+extern int vftable_BSSimpleArray_0108f9e8;
 struct FUN_009b7970_shell
 {
     void InitializeAndClear();

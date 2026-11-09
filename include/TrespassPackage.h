@@ -24,7 +24,7 @@ public:
     float BGSProjectile_GetExplosionTimer();
     void TrespassPackage_ModWarningTimer(float);
     void TrespassPackage_ModWarningCount(int);   // 0x009f94d0
-    void* __thiscall FUN_009f9220(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
     void __thiscall FUN_009f9450();
     unsigned short GetSaveSize_009f9500();
     void __thiscall SaveFormRefs();

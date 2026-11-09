@@ -12,9 +12,9 @@
 #include "../../../../include/Tile.h"
 #include "../../../../include/InterfaceManager.h"
 
-extern unsigned int DAT_01070ecc;
+extern unsigned int vftable_BookMenu;
 
-// Initializes the Menu base and sets the vtable pointer to DAT_01070ecc, then clears the two pointer fields.
+// Initializes the Menu base and sets the vtable pointer to vftable_BookMenu, then clears the two pointer fields.
 // @fnv 0x0073acb0
 BookMenu::BookMenu() : Menu()
 {
@@ -228,7 +228,7 @@ void BookMenu::DoStillDown(int aiID, Tile* apTarget)
 // src: GUESS 0x0073ad30 (confidence: low)
 void BookMenu::SetVtableAndProcessState_0073ad30()
 {
-    *reinterpret_cast<unsigned int*>(this) = (unsigned int)&DAT_01070ecc;
+    *reinterpret_cast<unsigned int*>(this) = (unsigned int)&vftable_BookMenu;
     FUN_00a1c520();
 }
 

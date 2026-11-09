@@ -135,13 +135,13 @@ struct GlobalObject2_0045cfe0
     int* Int();
 };
 
-GlobalObject2_0045cfe0 g_011c59e0;
+GlobalObject2_0045cfe0 uActorMemoryBudgetCap_BudgetCaps;
 
 // @fnv 0x004a9100
 // src: XBOX_PDB 0x004a9100
 int BGSSceneInfo_GetActorMemoryBudgetCap()
 {
-    return *g_011c59e0.Int();
+    return *uActorMemoryBudgetCap_BudgetCaps.Int();
 }
 
 // @fnv 0x004a95b0
@@ -172,7 +172,7 @@ void* FUN_004a9630_shell::FUN_004a9630(unsigned int flags)
     return this;
 }
 
-extern int DAT_0101ec68;
+extern int vftable_BGSSceneInfo;
 void* __cdecl memset(void*, int, unsigned int);
 
 struct FUN_004a7c40_shell
@@ -185,7 +185,7 @@ struct FUN_004a7c40_shell
 // src: GUESS 0x004a7c40 (confidence: low)
 void* FUN_004a7c40_shell::InitializeFields_004a7c40()
 {
-    *(int*)this = (int)&DAT_0101ec68;
+    *(int*)this = (int)&vftable_BGSSceneInfo;
     ((FUN_004a7c40_shell*)((char*)this + 4))->ClearToZero();
     memset((char*)this + 4, 0, 0x40);
     *(int*)((char*)this + 0x44) = 0;
@@ -221,7 +221,7 @@ void* BGSSceneInfo_shell::Destroy(unsigned int flags)
     return this;
 }
 
-extern int DAT_0101ec68;
+extern int vftable_BGSSceneInfo;
 
 struct FUN_004a7cd0_shell
 {
@@ -233,7 +233,7 @@ struct FUN_004a7cd0_shell
 // src: GUESS 0x004a7cd0 (confidence: low)
 void FUN_004a7cd0_shell::SetField0000()
 {
-    m_0000 = &DAT_0101ec68;
+    m_0000 = &vftable_BGSSceneInfo;
 }
 
 struct FUN_004a8030_shell
@@ -263,24 +263,24 @@ void* This_004a8050::GetNextProc()
     return ((Proc_S*)(unsigned int)*(Flt*)((char*)this + 0xB8))->GetNext();
 }
 
-extern int DAT_0101ecec;
+extern int vftable_NiTMap_0101ecec;
 struct FUN_004a95d0_shell
 {
     void* NiTMap_NiTexture_TEX_USER_DATA_NiTMap(int a);
     void NiTMapBase_DFALL_NiTMapItem_NiTexture_TEX_USER_DATA_NiTexture_TEX_USER_DATA_NiTMapBase_DFALL_NiTMapItem_NiTexture_TEX_USER_DATA_NiTexture_TEX_USER_DATA(int a);
 };
 
-// Calls FUN_004a97e0(a), stores the address of DAT_0101ecec into this, and returns this.
+// Calls FUN_004a97e0(a), stores the address of vftable_NiTMap_0101ecec into this, and returns this.
 // @fnv 0x004a95d0
 // src: EXE 0x004a95d0
 void* FUN_004a95d0_shell::NiTMap_NiTexture_TEX_USER_DATA_NiTMap(int a)
 {
     NiTMapBase_DFALL_NiTMapItem_NiTexture_TEX_USER_DATA_NiTexture_TEX_USER_DATA_NiTMapBase_DFALL_NiTMapItem_NiTexture_TEX_USER_DATA_NiTexture_TEX_USER_DATA(a);
-    *(int*)this = (int)&DAT_0101ecec;
+    *(int*)this = (int)&vftable_NiTMap_0101ecec;
     return this;
 }
 
-extern int DAT_0101ed0c;
+extern int vftable_NiTMap_0101ed0c;
 
 struct FUN_004a9600_shell
 {
@@ -289,13 +289,13 @@ struct FUN_004a9600_shell
     void __thiscall NiTMapBase_DFALL_NiTMapItem_TESObjectCELL_bool_TESObjectCELL_bool_NiTMapBase_DFALL_NiTMapItem_TESObjectCELL_bool_TESObjectCELL_bool(void* arg);
 };
 
-// Calls FUN_004a98e0 on arg, stores the address of DAT_0101ed0c in m_0000, and returns this.
+// Calls FUN_004a98e0 on arg, stores the address of vftable_NiTMap_0101ed0c in m_0000, and returns this.
 // @fnv 0x004a9600
 // src: GUESS 0x004a9600 (confidence: low)
 void* FUN_004a9600_shell::InitializeFields_004a9600(void* arg)
 {
     NiTMapBase_DFALL_NiTMapItem_TESObjectCELL_bool_TESObjectCELL_bool_NiTMapBase_DFALL_NiTMapItem_TESObjectCELL_bool_TESObjectCELL_bool(arg);
-    m_0000 = (int)&DAT_0101ed0c;
+    m_0000 = (int)&vftable_NiTMap_0101ed0c;
     return this;
 }
 
@@ -389,15 +389,15 @@ struct CP_008c48d0
 {
     int GetPrevPath();
 };
-extern GlobalObject_0045cfe0 g_011c5b20;
-extern GlobalObject_0045cfe0 g_011c5ae0;
-extern GlobalObject2_0045cfe0 g_011c5c04;
+extern GlobalObject_0045cfe0 uLoadedAreaNonActorMemoryBudgetCap_BudgetCaps;
+extern GlobalObject_0045cfe0 uWastelandLODBudgetAdjustment_BudgetCaps;
+extern GlobalObject2_0045cfe0 uCityLODBudgetAdjustment_BudgetCaps;
 extern int g_TES;
 // @fnv 0x004a9050
 // src: XBOX_PDB 0x004a9050
 int BGSSceneInfo_GetLoadedAreaNonActorMemoryBudgetCap()
 {
-    int iValue = *g_011c5b20.Int();
+    int iValue = *uLoadedAreaNonActorMemoryBudgetCap_BudgetCaps.Int();
     if (!((CP_008c48d0*)g_TES)->GetPrevPath())
     {
         TESWorldSpace* pworld = (TESWorldSpace*)((TESSaveLoadGame*)g_TES)->GetHitSound();
@@ -409,9 +409,9 @@ int BGSSceneInfo_GetLoadedAreaNonActorMemoryBudgetCap()
         {
             int iadjust = 0;
             if (pLODworld->GetHavokWorldObjectCountInSceneGraph_0084e3a0() == 0x3c)
-                iadjust = *g_011c5ae0.Int();
+                iadjust = *uWastelandLODBudgetAdjustment_BudgetCaps.Int();
             else
-                iadjust = *g_011c5c04.Int();
+                iadjust = *uCityLODBudgetAdjustment_BudgetCaps.Int();
             iValue -= iadjust;
         }
     }

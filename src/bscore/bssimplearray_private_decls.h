@@ -16,15 +16,15 @@
 void* __cdecl FUN_00ec7230(void*, const void*, unsigned int);
 extern "C" void* __cdecl bsearch(const void*, const void*, unsigned int, unsigned int, BSSimpleArrayCompare);
 
-extern unsigned int DAT_0106c264;
-extern unsigned int DAT_0106f798;
-extern unsigned int DAT_01073e50;
+extern unsigned int vftable_BSSimpleArray_0106c264;
+extern unsigned int vftable_BSSimpleArray_0106f798;
+extern unsigned int vftable_BSSimpleArray_01073e50;
 class BSSimpleArrayPacketEffect
 {
   public:
     void FUN_007883b0(unsigned int, bool);
 };
-extern unsigned int DAT_0109504c;
+extern unsigned int vftable_BSSimpleArray_0109504c;
 class BSSimpleArrayPacketDebug
 {
   public:

@@ -162,14 +162,14 @@ struct FUN_00c657e0_class
     void* GetGlobalDataPtr();
 };
 extern "C" void NiFreeAlias(void*);
-extern int DAT_010c377c;
+extern int vftable_NiTArray_010c377c;
 // 0x00c62890 is the NiTArray<NiPointer<NiAVObject>, NiTMallocInterface<NiPointer<NiAVObject> > > destructor in blk_00c60000_od.cpp's overlay.
 struct AVObjectArrayDestructorEntry : NiTArray<NiPointer<NiAVObject>, NiTMallocInterface<NiPointer<NiAVObject> > >
 {
     void FUN_00c62890();
 };
 extern "C" void NiFreeAlias(void*);
-extern int DAT_010c3a08;
+extern int vftable_NiTArray_010c3a08;
 struct FUN_00c65680_Class
 {
     void* m_iWordAt00;
@@ -179,13 +179,13 @@ struct FUN_00c65680_Class
 struct FUN_00c600c0_class
 {
     void* __thiscall UpdateState_00c5fd50();
-    void* __thiscall FUN_00c600c0(unsigned int flags);
+    void* __thiscall BSPSysStripUpdateModifier_ScalarDeletingDestructor(unsigned int flags);
     static void __cdecl operator delete(void* p, unsigned int size);
 };
 struct FUN_00c613a0_Class
 {
     void __thiscall FUN_00c613a0();
-    void* __thiscall FUN_00c617e0(unsigned int flags);
+    void* __thiscall BSWArray_ScalarDeletingDestructor(unsigned int flags);
     void operator delete(void* p, unsigned int size);
 };
 extern "C" void NiFree(void*);
@@ -202,7 +202,7 @@ struct FUN_00a7b300_shell
 };
 struct FUN_00c632f0_class
 {
-    void* __thiscall FUN_00c632f0(unsigned int flags);
+    void* __thiscall PArrayPoint_ScalarDeletingDestructor(unsigned int flags);
 };
 void __cdecl operator delete(void*, int);
 struct FUN_00c63840_Class : NiPSysModifier
@@ -221,7 +221,7 @@ void __cdecl operator delete(void* p, unsigned int size);
 struct FUN_00c64610_Class
 {
     void __thiscall FUN_00c63b40();
-    void* __thiscall FUN_00c64610(unsigned int flags);
+    void* __thiscall BSDecalPlacementVectorExtraData_ScalarDeletingDestructor(unsigned int flags);
 };
 struct FUN_00c64930_Class
 {
@@ -235,7 +235,7 @@ struct FUN_00c64c30_Class
 {
     bool __thiscall BSNodeReferences_IsEqual(int a);
 };
-extern int DAT_010c3384;
+extern int vftable_BSPSysSimpleColorModifier;
 struct FUN_00c60240 : NiPSysPositionModifier
 {
     int m_vt;
@@ -304,7 +304,7 @@ struct FUN_00c63260_class
 extern NiPoint3 _NiPoint3_ZERO;
 extern int _DAT_011f4270;
 extern int _DAT_011f4274;
-extern int DAT_010c37fc;
+extern int vftable_BSParentVelocityModifier;
 struct FUN_00c63330 : NiPSysPositionModifier
 {
     FUN_00c63330();
@@ -371,7 +371,7 @@ void __cdecl operator delete(void* p, unsigned int size);
 struct FUN_00c60d10_Class
 {
     void FUN_00c31750();
-    void* __thiscall FUN_00c60d10(unsigned int flags);
+    void* __thiscall BSPSysSimpleColorModifier_ScalarDeletingDestructor(unsigned int flags);
 };
 struct A51BF0Base
 {
@@ -413,7 +413,7 @@ struct FUN_00c31750_Class
 };
 struct FUN_00c63a70_Class
 {
-    void* __thiscall FUN_00c63a70(unsigned int flags);
+    void* __thiscall BSParentVelocityModifier_ScalarDeletingDestructor(unsigned int flags);
 };
 struct FUN_00c64500_Class : FUN_00c61490_Class
 {
@@ -448,7 +448,7 @@ void __cdecl operator delete(void* p, unsigned int size);
 struct FUN_00c64e70_Class
 {
     void __thiscall FUN_00c64e70();
-    void* __thiscall FUN_00c65650(unsigned int flags);
+    void* __thiscall BSAttachPoints_ScalarDeletingDestructor(unsigned int flags);
 };
 void* __cdecl Object_DispatchCommandFour(unsigned int size);
 struct SpawnedObject_b9118

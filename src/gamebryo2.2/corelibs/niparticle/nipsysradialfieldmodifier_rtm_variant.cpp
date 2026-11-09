@@ -16,7 +16,7 @@
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
 extern "C" void* g_012026b0;
 void* __cdecl NiPSysRadialFieldModifier_GetRTTI();
-extern int DAT_010c0b5c;
+extern int vftable_NiPSysFieldModifier;
 struct FUN_00c31ff0 : NiPSysPositionModifier
 {
     int _m18;
@@ -95,7 +95,7 @@ struct FieldMod
     void Update(float fTime, NiPSysData* pkData);
 };
 
-extern int DAT_010be99c;
+extern int vftable_NiPSysRadialFieldModifier;
 void* __cdecl Object_DispatchCommandFour(unsigned int size);
 
 struct RadialFieldObject_00c285d0 : FUN_00c31ff0
@@ -108,7 +108,7 @@ struct RadialFieldObject_00c285d0 : FUN_00c31ff0
     RadialFieldObject_00c285d0()
     {
         m30 = 0.0f;
-        *((int*)this) = (int)&DAT_010be99c;
+        *((int*)this) = (int)&vftable_NiPSysRadialFieldModifier;
     }
 };
 

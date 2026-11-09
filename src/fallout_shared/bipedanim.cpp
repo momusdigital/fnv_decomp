@@ -709,12 +709,12 @@ void BipedAnim::ApplyReferenceExtraData(NiNode* model, NiNode* clone, BIPED_OBJE
     }
 }
 
-// Returns true only if both INI boolean settings at g_011d5a10 and g_011d5a44 are enabled.
+// Returns true only if both INI boolean settings at bUseMultiThreadedFaceGen_BackgroundLoad and bUseFaceGenHeads_General are enabled.
 // @fnv 0x004abfa0
 bool BipedAnim::CanLoadHiddenBipedObjects()
 {
-    return *((SettingT<INISettingCollection>*)&g_011d5a10)->Bool() &&
-           *((SettingT<INISettingCollection>*)&g_011d5a44)->Bool();
+    return *((SettingT<INISettingCollection>*)&bUseMultiThreadedFaceGen_BackgroundLoad)->Bool() &&
+           *((SettingT<INISettingCollection>*)&bUseFaceGenHeads_General)->Bool();
 }
 
 struct NiNode;

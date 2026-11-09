@@ -165,8 +165,8 @@ void RagdollInstance::hkaRagdollInstance_commonInit(const ObjectArrayLocalForm<R
 }
 
 namespace fnv_00ce2600 {
-extern int DAT_010cb830;
-extern int DAT_0102e388;
+extern int vftable_hkaRagdollInstance;
+extern int vftable_hkBaseObject;
 struct FnvRefObject
 {
     void FUN_00c905b0() throw();
@@ -197,7 +197,7 @@ struct FnvParent
     short references;
     ~FnvParent() throw()
     {
-        vtbl = &DAT_0102e388;
+        vtbl = &vftable_hkBaseObject;
     }
 };
 struct FUN_00ce2600 : FnvParent
@@ -209,7 +209,7 @@ struct FUN_00ce2600 : FnvParent
 // @fnv 0x00ce2600
 FUN_00ce2600::~FUN_00ce2600() throw()
 {
-    vtbl = &DAT_010cb830;
+    vtbl = &vftable_hkaRagdollInstance;
     for (int i = 0; i < bodies.size; ++i)
         ((FnvRefObject*)bodies.data[i])->FUN_00c905b0();
     for (int j = 0; j < constraints.size; ++j)
@@ -523,7 +523,7 @@ int hkaRagdollInstance::addToWorld(void* world, unsigned char flag)
     return 0;
 }
 
-extern int DAT_010cb830;
+extern int vftable_hkaRagdollInstance;
 // The shared hkArray declarations leave allocator-dependent bodies to each unit.
 // This unit's reserve call is 0x00c908c0 (hkArrayUtil::_reserve).
 inline hkMemoryAllocator& GetArrayHeap(hkMemoryRouter& router)
@@ -565,7 +565,7 @@ RagdollInstance_ce24* RagdollInstance_ce24::hkaRagdollInstance_hkaRagdollInstanc
                                                          const hkArray<ReferenceObject*>& constraints,
                                                          hkaSkeleton* skeleton)
 {
-    m_vtbl = &DAT_010cb830;
+    m_vtbl = &vftable_hkaRagdollInstance;
     m_sReferenceCount = 1;
     m_ppRigidBodies.setOwnedData(0, 0, 0x80000000);
     m_ppConstraints.setOwnedData(0, 0, 0x80000000);
@@ -742,7 +742,7 @@ template <class T> struct InitArray : ObjectArrayLocalForm<T>
         this->m_iCapacityState = 0x80000000;
     }
 };
-extern "C" int DAT_010cb830;
+extern "C" int vftable_hkaRagdollInstance;
 
 struct FUN_00ce2510
 {
@@ -760,7 +760,7 @@ struct FUN_00ce2510
 
 // Sets the vtable and reference count, calls FUN_00ce22c0, and assigns m_kBoneMap from the provided array.
 // @fnv 0x00ce2510
-FUN_00ce2510::FUN_00ce2510(int a, int b, int c, ObjectArrayLocalForm<int>* apBoneMap) : m_vptr(&DAT_010cb830), m_6(1)
+FUN_00ce2510::FUN_00ce2510(int a, int b, int c, ObjectArrayLocalForm<int>* apBoneMap) : m_vptr(&vftable_hkaRagdollInstance), m_6(1)
 {
     m_2c = 0;
 

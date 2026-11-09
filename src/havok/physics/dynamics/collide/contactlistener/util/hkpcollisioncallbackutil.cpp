@@ -21,9 +21,9 @@ struct FUN_00d0b1e0
     };
     FUN_00d0b1e0(int flags);
 };
-extern int DAT_0102e388;
-extern int DAT_010cb1e4;
-extern int DAT_010cb1c4;
+extern int vftable_hkBaseObject;
+extern int vftable_hkpConstraintListener;
+extern int vftable_hkpWorldDeletionListener;
 extern "C" void* __cdecl hkMemoryRouter_getInstance();
 struct CallbackInterface
 {
@@ -41,9 +41,9 @@ struct Manager
 FUN_00d0b1e0::FUN_00d0b1e0(int flags)
 {
     ((Base*)((char*)this + 0x14))->FUN_00d0b0d0();
-    unk0c = &DAT_010cb1c4;
-    unk08 = &DAT_010cb1e4;
-    unk00 = &DAT_0102e388;
+    unk0c = &vftable_hkpWorldDeletionListener;
+    unk08 = &vftable_hkpConstraintListener;
+    unk00 = &vftable_hkBaseObject;
     if (flags & 1)
     {
         Manager* manager = (Manager*)hkMemoryRouter_getInstance();
@@ -92,11 +92,11 @@ void FUN_00d0ae30_cls::hkpCollisionCallbackUtil_worldDeletedCallback(CallbackTar
     ((OuterRefHolder*)((char*)this - 0xc))->FUN_00c905b0();
 }
 
-extern int DAT_010cb1e4;
-extern int DAT_010cb1c4;
-extern int DAT_010cd33c;
-extern int DAT_010cd31c;
-extern int DAT_010cd30c;
+extern int vftable_hkpConstraintListener;
+extern int vftable_hkpWorldDeletionListener;
+extern int vftable_hkpCollisionCallbackUtil;
+extern int vftable_hkpCollisionCallbackUtil_for_hkpConstraintListener;
+extern int vftable_hkpCollisionCallbackUtil_for_hkpWorldDeletionListener;
 
 struct FUN_00d0b180_sub
 {
@@ -120,12 +120,12 @@ struct FUN_00d0b180_cls
 FUN_00d0b180_cls* FUN_00d0b180_cls::Initialize()
 {
     *(volatile unsigned short*)&unk06 = 1;
-    *(void* volatile*)&unk08 = &DAT_010cb1e4;
-    *(void* volatile*)&unk0c = &DAT_010cb1c4;
+    *(void* volatile*)&unk08 = &vftable_hkpConstraintListener;
+    *(void* volatile*)&unk0c = &vftable_hkpWorldDeletionListener;
     FUN_00d0b180_sub* sub = &unk14;
-    unk00 = &DAT_010cd33c;
-    unk08 = &DAT_010cd31c;
-    unk0c = &DAT_010cd30c;
+    unk00 = &vftable_hkpCollisionCallbackUtil;
+    unk08 = &vftable_hkpCollisionCallbackUtil_for_hkpConstraintListener;
+    unk0c = &vftable_hkpCollisionCallbackUtil_for_hkpWorldDeletionListener;
     unk10 = 1;
     sub->FUN_00d9e860();
     return this;

@@ -94,14 +94,14 @@ struct FUN_0046fe90_Class
 {
     bool HasFlag(signed char flag);
 };
-extern int DAT_01019a1c;
+extern int vftable_NiTPrimitiveArray_01019a1c;
 struct FUN_00470040_class
 {
     int m_vft;
     void FUN_004704e0(int a, int b);
     FUN_00470040_class(int a, int b);
 };
-extern int DAT_01019a2c;
+extern int vftable_NiTPrimitiveArray_01019a2c;
 struct FUN_004700a0
 {
     void* vtbl;
@@ -134,7 +134,7 @@ struct FUN_00474760_This
     ActorCombatGroup* q;
     void __thiscall ReleaseStorage_00474760();
 };
-extern "C" void* DAT_0101a3b8;
+extern "C" void* vftable_BGSAmmoForm;
 struct BFC_s
 {
     BFC_s();
@@ -190,7 +190,7 @@ struct FUN_004791f0_holder
 {
     void __thiscall InitArrayHolder(int a);
 };
-extern int DAT_0101a8fc;
+extern int vftable_NiTMap_0101a8fc;
 struct FUN_00479190_holder
 {
     int m_iWordAt00;
@@ -225,13 +225,13 @@ struct FUN_0047ff50_class
     void FUN_0047ff50(unsigned short value);
 };
 extern "C" void __cdecl NiFreeAlias(void*);
-extern void* DAT_0101a364;
+extern void* vftable_NiTMapBase_0101a364;
 struct FUN_00474630 : public NiTPointerMap<int, int>
 {
     void FUN_00474631();
 };
 extern "C" void __cdecl _NiFreeAlias(void*);
-extern int DAT_0101a91c;
+extern int vftable_NiTMapBase_0101a91c;
 struct FUN_004792c0_Class : NiTPointerMap<int, int>
 {
     void __thiscall ReleaseStorage_004792c0();
@@ -339,13 +339,13 @@ struct FUN_0046e8e0_This
 {
     void __thiscall TESDataHandler_PrintTextureInfo(KFModel* a, int b, int c, int d, int e);
 };
-extern int DAT_01019a14;
+extern int vftable_NiTArray_01019a14;
 // @fnv 0x0046ffd0
 #include "../../include/NiTMallocInterface.h"
 // src: GUESS 0x0046ffd0 (confidence: low)
 void __thiscall FUN_0045d930_class::SetVtableAndProcessState_0046ffd0()
 {
-    *(void**)this = (void*)&DAT_01019a14;
+    *(void**)this = (void*)&vftable_NiTArray_01019a14;
     NiTMallocInterface<void*>::Deallocate(*(void***)((char*)this + 4));
 }
 struct FUN_004700d0_class : FUN_004705c0_cls
@@ -394,7 +394,7 @@ struct FUN_00474500_Class
     void __thiscall FUN_004745d0();
     void* __thiscall FUN_00474500(unsigned int flags);
 };
-extern int DAT_0101a384;
+extern int vftable_NiTMapBase_0101a384;
 void* __cdecl _NiMalloc(unsigned int);
 void* __cdecl memset(void*, int, unsigned int);
 struct FUN_00474660_class
@@ -576,8 +576,8 @@ struct FUN_0046fdd0_Class
     int m_38;
     char IsFieldEqual(int param_2);
 };
-extern int DAT_01019a24;
-extern int DAT_0101a644;
+extern int vftable_NiTArray_01019a24;
+extern int vftable_BGSClipRoundsForm;
 struct Date
 {
     virtual ~Date();
@@ -605,7 +605,7 @@ class FUN_00462dc0_cls
     int InvokeAndAccumulate(int a1, int a2, int a3, int a4);
 };
 int __cdecl ConvertFromUni(int a);
-extern int DAT_01019a34;
+extern int vftable_NiTLargeArray_01019a34;
 extern void* __cdecl FUN_0096afc0(unsigned int count);
 struct ResourceDescriptor
 {
@@ -1062,7 +1062,7 @@ struct NamedObject_47ab40
 {
     NiFixedString& GetName();
 };
-extern Setting g_011c4c64;
+extern Setting bAnimateDoorPhysics_General;
 int FUN_00ec6da0(const char*, const char*);
 bool AILinearTaskThreadManager_ShouldQueue3DTask();
 struct World_47ab40

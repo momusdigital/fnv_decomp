@@ -13,7 +13,7 @@ void* __cdecl NiPSysInitialRotAngleVarCtlr_GetRTTI()
 }
 
 extern "C" void* __cdecl Object_DispatchCommandFour(unsigned int uiSize);
-extern "C" char DAT_010beebc;
+extern "C" char vftable_NiPSysInitialRotAngleVarCtlr;
 
 struct Item
 {
@@ -35,7 +35,7 @@ Item* Creator::CreateItem(int iArg)
     if (pkItem)
     {
         pkItem->FUN_00c32d80();
-        pkItem->m_pkVtbl = &DAT_010beebc;
+        pkItem->m_pkVtbl = &vftable_NiPSysInitialRotAngleVarCtlr;
     }
     else
     {

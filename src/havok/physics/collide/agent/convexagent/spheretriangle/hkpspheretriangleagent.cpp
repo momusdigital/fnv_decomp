@@ -68,7 +68,7 @@ void __cdecl QueryD3DCollector(int aiArg1, int aiArg2, int aiArg3, int aiData)
     D3DD50Query(aiArg2, aiArg1, aiArg3, &collector);
 }
 
-extern char DAT_010ce7fc[];
+extern char vftable_hkpSymmetricAgentFlipCollector[];
 
 struct Functor_d3e110
 {
@@ -79,7 +79,7 @@ struct Functor_d3e110
 
 void __cdecl hkpCdBody_ProcessAndReturnValue_00d3d8c0(int a, int b, int c, Functor_d3e110* f);
 
-// Builds a Functor_d3e110 with a max-float value and d, sets its vtable to DAT_010ce7fc, and calls FUN_00d3d8c0(b, a, c, &f).
+// Builds a Functor_d3e110 with a max-float value and d, sets its vtable to vftable_hkpSymmetricAgentFlipCollector, and calls FUN_00d3d8c0(b, a, c, &f).
 // @fnv 0x00d3e110
 // src: GUESS 0x00d3e110 (confidence: low)
 void __cdecl Hkpspheretriangleagent_UpdateState_00d3e110(int a, int b, int aiArg3, int d)
@@ -87,7 +87,7 @@ void __cdecl Hkpspheretriangleagent_UpdateState_00d3e110(int a, int b, int aiArg
     Functor_d3e110 f;
     f.m_fHitFraction = 3.40282e+38f;
     f.m_uiFilterValue = d;
-    f.m_vtbl = DAT_010ce7fc;
+    f.m_vtbl = vftable_hkpSymmetricAgentFlipCollector;
     hkpCdBody_ProcessAndReturnValue_00d3d8c0(b, a, aiArg3, &f);
 }
 
@@ -135,8 +135,8 @@ inline void* hkThreadMemory::allocateChunk(int size) throw()
     return m_pMemoryAllocator->allocateChunk(size);
 }
 extern "C" void __cdecl hkpCollideTriangleUtil_setupClosestPointTriangleCache(void* src, void* dst);
-extern "C" const void* DAT_010cf060;
-extern "C" const void* DAT_010cf09c;
+extern "C" const void* vftable_hkpSphereTriangleAgent;
+extern "C" const void* vftable_hkpSymmetricAgentLinearCast_010cf09c;
 
 struct TargetAgent
 {
@@ -151,10 +151,10 @@ struct TargetAgent
     TargetAgent(const void* bodyA, void* mgr)
         : m_usMemSizeAndFlags(0x20), m_sReferenceCount(1), m_pContactManager(mgr), m_padC(0xffff)
     {
-        vtable = &DAT_010cf060;
+        vtable = &vftable_hkpSphereTriangleAgent;
         void* triangle = *(void**)bodyA;
         hkpCollideTriangleUtil_setupClosestPointTriangleCache((char*)triangle + 0x20, m_pAccessManager);
-        vtable = &DAT_010cf09c;
+        vtable = &vftable_hkpSymmetricAgentLinearCast_010cf09c;
     }
 };
 
@@ -167,7 +167,7 @@ void* __cdecl CreateTargetAgent(void* bodyA, void* bodyB, void* input, void* mgr
     return agent;
 }
 
-extern char DAT_010ce81c[];
+extern char vftable_hkpSymmetricAgentFlipBodyCollector[];
 
 struct D3DD10Data
 {
@@ -183,7 +183,7 @@ struct D3DD10Object
     void __thiscall hkpSymmetricAgentLinearCast_hkpSphereTriangleAgent_getPenetrations(unsigned int p0, unsigned int p1, unsigned int p2, unsigned int p3);
 };
 
-// Builds a D3DD10Data with value p3, flag 0 and vt DAT_010ce81c, then calls FUN_00d3d2a0 with p1, p0, p2 and that data.
+// Builds a D3DD10Data with value p3, flag 0 and vt vftable_hkpSymmetricAgentFlipBodyCollector, then calls FUN_00d3d2a0 with p1, p0, p2 and that data.
 // @fnv 0x00d3dd10
 // src: XBOX_PDB 0x00d3dd10
 void __thiscall D3DD10Object::hkpSymmetricAgentLinearCast_hkpSphereTriangleAgent_getPenetrations(unsigned int p0, unsigned int p1, unsigned int p2, unsigned int uiValue)
@@ -192,7 +192,7 @@ void __thiscall D3DD10Object::hkpSymmetricAgentLinearCast_hkpSphereTriangleAgent
 
     data.value = uiValue;
     data.flag = 0;
-    data.vt = &DAT_010ce81c[0];
+    data.vt = &vftable_hkpSymmetricAgentFlipBodyCollector[0];
 
     this->hkpSphereTriangleAgent_getPenetrations(p1, p0, p2, &data);
 }
@@ -617,13 +617,13 @@ struct CpuCallData
     unsigned int value;
 };
 extern float DAT_0104da48;
-extern unsigned char DAT_010ce7fc;
+extern unsigned char vftable_hkpSymmetricAgentFlipCollector;
 struct CpuObject
 {
     void hkpSphereTriangleAgent_getClosestPoints(void*, void*, unsigned int, CpuCallData*);
     void hkpSymmetricAgentLinearCast_hkpSphereTriangleAgent_getClosestPoints(void*, void*, unsigned int, unsigned int);
 };
-// Fills a CpuCallData with fourth, DAT_0104da48 and &DAT_010ce7fc, then calls FUN_00d3d6b0 with second, first, third and the data pointer.
+// Fills a CpuCallData with fourth, DAT_0104da48 and &vftable_hkpSymmetricAgentFlipCollector, then calls FUN_00d3d6b0 with second, first, third and the data pointer.
 // @fnv 0x00d3e0d0
 // src: XBOX_PDB 0x00d3e0d0
 void CpuObject::hkpSymmetricAgentLinearCast_hkpSphereTriangleAgent_getClosestPoints(void* first, void* second, unsigned int third, unsigned int uiValue)
@@ -631,7 +631,7 @@ void CpuObject::hkpSymmetricAgentLinearCast_hkpSphereTriangleAgent_getClosestPoi
     CpuCallData data;
     data.value = uiValue;
     data.bound = DAT_0104da48;
-    data.descriptor = &DAT_010ce7fc;
+    data.descriptor = &vftable_hkpSymmetricAgentFlipCollector;
     hkpSphereTriangleAgent_getClosestPoints(second, first, third, &data);
 }
 }  // namespace fnv_00d3e0d0

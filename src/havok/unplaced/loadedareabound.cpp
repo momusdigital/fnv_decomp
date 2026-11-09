@@ -9,7 +9,8 @@
 
 // Calls FUN_006270f0, then deletes this with size 0x44 when flags has bit 0 set, and returns this.
 // @fnv 0x006270c0
-void* LoadedAreaBound::FUN_006270c0(unsigned int flags)
+// src: EXE 0x006270c0
+void* LoadedAreaBound::ScalarDeletingDestructor(unsigned int flags)
 {
     this->FUN_006270f0();
     if (flags & 1)

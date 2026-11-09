@@ -31,7 +31,7 @@ public:
     void FUN_0050f9a0(SpellItem* sickness);
     void* FUN_00500940();
     void FUN_004021a0();
-    void* FUN_00402170(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
     bool Compare_00402310(TESForm* pkForm);
 
     static void ClearStageData(BGSSleepDeprevationStage* stage);

@@ -229,7 +229,7 @@ void CleanupGlobalObject()
 }  // namespace fnv_007aa530
 
 namespace fnv_007aa6b0 {
-extern Setting g_011c3ea4;
+extern Setting iNumHWThreads_General;
 extern bool DAT_011da4ec;
 extern int DAT_011da4f0;
 void __cdecl MessageMenu_Close();
@@ -246,7 +246,7 @@ void MessageMenu_DisableMessageMenu(bool a)
         MessageMenu_Close();
     if (!DAT_011da4f0 && !DAT_011da4ec && GetCurrentArrayElement())
     {
-        if (*g_011c3ea4.Int() > 1)
+        if (*iNumHWThreads_General.Int() > 1)
             Interface_QueueMenuCreate(7, 0, 0, 0, 1, 0);
         else
             MessageMenu_Create();
@@ -299,11 +299,12 @@ struct DtorStandIn
 };
 struct DelStandIn
 {
-    void* FUN_007a8ae0(unsigned int flags);
+    void* MessageMenu_ScalarDeletingDestructor(unsigned int flags);
 };
 // Runs the destructor on this object, then frees it with Deallocate when flags has bit 0 set, and returns this.
 // @fnv 0x007a8ae0
-void* DelStandIn::FUN_007a8ae0(unsigned int flags)
+// src: EXE 0x007a8ae0
+void* DelStandIn::MessageMenu_ScalarDeletingDestructor(unsigned int flags)
 {
     ((DtorStandIn*)this)->FUN_0083dec0();
     if (flags & 1)

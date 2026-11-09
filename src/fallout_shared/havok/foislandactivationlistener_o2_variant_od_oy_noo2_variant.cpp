@@ -11,7 +11,7 @@
 // src/fallout_shared/havok/foislandactivationlistener.cpp - unit created 2026-10-16 from the whole-binary attribution (360 source path: d:/_fallout3/platforms/common/code/fallout shared/havok/foislandactivationlistener.cpp).
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
 extern "C" void __cdecl _Deallocate(void*);
-extern int DAT_0104de10;
+extern int vftable_hkpIslandActivationListener;
 extern int DAT_011f942c;
 void BSShaderManager_ResetMotionBluredObject();
 struct hkVector4;

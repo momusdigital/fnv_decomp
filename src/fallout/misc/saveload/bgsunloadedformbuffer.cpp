@@ -4,7 +4,7 @@
 
 #include "../../../../include/BGSLoadFormBuffer.h"
 
-extern int DAT_0107f494;
+extern int vftable_NiTMap_0107f494;
 
 struct FUN_0084b4e0_shell
 {
@@ -12,13 +12,13 @@ struct FUN_0084b4e0_shell
     int NiTMap_int64_int_NiTMap(void* arg);
 };
 
-// Calls FUN_0084b750 with arg, stores the address of DAT_0107f494 into this, and returns this.
+// Calls FUN_0084b750 with arg, stores the address of vftable_NiTMap_0107f494 into this, and returns this.
 // @fnv 0x0084b4e0
 // src: EXE 0x0084b4e0
 int FUN_0084b4e0_shell::NiTMap_int64_int_NiTMap(void* arg)
 {
     FUN_0084b750(arg);
-    *(int*)this = (int)&DAT_0107f494;
+    *(int*)this = (int)&vftable_NiTMap_0107f494;
     return (int)this;
 }
 

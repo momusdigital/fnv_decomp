@@ -8,7 +8,7 @@
 #include "../../../include/NiPoint3.h"
 
 extern "C" void __cdecl _Deallocate(void*);
-extern int DAT_0104de10;
+extern int vftable_hkpIslandActivationListener;
 extern int DAT_011f942c;
 void BSShaderManager_ResetMotionBluredObject();
 struct hkVector4;

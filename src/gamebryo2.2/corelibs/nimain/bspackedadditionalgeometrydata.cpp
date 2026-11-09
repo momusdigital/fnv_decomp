@@ -7,7 +7,7 @@ struct FakeBase
 {
     void FUN_00a734c0();
 };
-extern int DAT_0102e1dc;
+extern int vftable_BSPackedAdditionalGeometryData;
 // @fnv 0x00a7f740
 // src: EXE 0x00a7f740
 void* BSPackedAdditionalGeometryData_CreateObject()
@@ -16,7 +16,7 @@ void* BSPackedAdditionalGeometryData_CreateObject()
     if (p)
     {
         ((FakeBase*)p)->FUN_00a734c0();
-        *(void**)p = (void*)&DAT_0102e1dc;
+        *(void**)p = (void*)&vftable_BSPackedAdditionalGeometryData;
         ((int*)p)[11] = 0;
         ((int*)p)[12] = 0;
         return p;

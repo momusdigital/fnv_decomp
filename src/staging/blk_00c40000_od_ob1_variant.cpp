@@ -282,8 +282,8 @@ template <class T, class TAlloc> inline const T& NiTArray<T, TAlloc>::GetAt(unsi
 
 
 
-extern int DAT_010c1670;
-extern int DAT_01016024;
+extern int vftable_LockFreeMap__LockFreeMapIterator_010c1670;
+extern int vftable_BSSimpleArray_01016024;
 struct FUN_00c40990_Class
 {
     void __thiscall SetVtableAndProcessState_00c40990();
@@ -367,7 +367,7 @@ struct FUN_00c44cb0_class
     void* m2;
     void CallStoredCallback();
 };
-extern int DAT_010178bc;
+extern int vftable_BSTempNodeManager;
 void __cdecl UpdateFields_00c5faa0(void*);
 struct FUN_00c44e20
 {
@@ -570,7 +570,7 @@ struct FUN_00c5cea0_Class
 {
     int* __thiscall BSPSysMultiTargetEmitterCtlr_GetRTTI();
 };
-extern int DAT_010c2e7c;
+extern int vftable_BSScissorTriShape;
 struct FUN_00a744a0
 {
     void* vtbl;
@@ -583,7 +583,7 @@ struct FUN_00c5ceb0 : public FUN_00a744a0
     FUN_00c5ceb0();
 };
 extern "C" void __fastcall FUN_00a89760(void*);
-extern int DAT_010c2e7c;
+extern int vftable_BSScissorTriShape;
 struct FUN_00c5cfb0
 {
     virtual void vfn();
@@ -615,7 +615,7 @@ struct GlobalObject_00a7b610
     GlobalObject_00a7b610* __thiscall GetGlobalInstance();
 };
 extern GlobalObject_00a7b610 g_01204378;
-extern int DAT_010c31a4;
+extern int vftable_BSNiNode;
 struct Unk_00a5e930
 {
     void __thiscall UpdateFields_00c5faa0();
@@ -629,7 +629,7 @@ struct FUN_00c5fc60_class
 {
     const char* const* BSNiNode_GetRTTI();
 };
-extern void* DAT_010c32c4;
+extern void* vftable_BSPSysStripUpdateModifier;
 
 struct FUN_00c5fd30 : NiPSysPositionModifier
 {
@@ -642,7 +642,7 @@ struct FUN_00c5ffb0_Class
     void __thiscall FUN_00c31670(int param);
     void __thiscall BSPSysStripUpdateModifier_RegisterStreamables(int param);
 };
-extern int DAT_010c30b8;
+extern int vftable_NiTArray_010c30b8;
 void NiFreeAlias(void*);
 struct FUN_00c5eb60_Class
 {
@@ -661,7 +661,7 @@ void __cdecl SetVtableAndProcessState_00c43070(void*);
 struct FUN_00c43620_Class
 {
     void __thiscall SetVtableAndProcessState_00c43070();
-    void* __thiscall FUN_00c43620(unsigned int flags);
+    void* __thiscall BSXFlags_ScalarDeletingDestructor(unsigned int flags);
     static void __cdecl operator delete(void* p, unsigned int size);
 };
 struct FUN_00c43850_Class
@@ -752,8 +752,8 @@ struct FUN_00c50f30_class
 {
     int __thiscall GetEntryValue(int a);
 };
-extern int DAT_0106c814;
-extern int DAT_010c256c;
+extern int vftable_BSTaskletData;
+extern int vftable_UpdateMasterPsysTaskletData;
 struct FUN_00c51640_Class
 {
     const char* s;
@@ -771,7 +771,7 @@ struct FUN_00878690_shell
 void __cdecl operator delete(void* ptr, unsigned int size);
 struct FUN_00c52830_class
 {
-    void* __thiscall FUN_00c52830(unsigned int flags);
+    void* __thiscall BSSceneGraph_ScalarDeletingDestructor(unsigned int flags);
 };
 
 struct NiExtraDataSaveHelper
@@ -788,10 +788,10 @@ struct FUN_00a7b300_shell
 };
 struct FUN_00c55330_class
 {
-    void* __thiscall FUN_00c55330(unsigned int flags);
+    void* __thiscall BSBound_ScalarDeletingDestructor(unsigned int flags);
     void operator delete(void* p, unsigned int size);
 };
-extern int DAT_010c2d54;
+extern int vftable_BSPSysMultiTargetEmitterCtlr;
 struct FUN_00c1c280_class
 {
     void __thiscall FUN_00c1c280(int a);
@@ -800,7 +800,7 @@ struct FUN_00c5c3c0_class : FUN_00c1c280_class
 {
     int __thiscall InitWithParams(int a, int b, unsigned short c);
 };
-extern int DAT_010c2d54;
+extern int vftable_BSPSysMultiTargetEmitterCtlr;
 struct FUN_00c1c390_Class
 {
     void __thiscall FUN_00c1c390();
@@ -870,7 +870,7 @@ struct FUN_00c5db90_Class
 void __cdecl operator delete(void* p, unsigned int size);
 struct FUN_00c5eb20_Class
 {
-    void* __thiscall FUN_00c5eb20(unsigned int flags);
+    void* __thiscall BSMasterParticleSystem_ScalarDeletingDestructor(unsigned int flags);
 };
 void __cdecl operator delete(void* p, unsigned int size);
 struct FUN_00c5ed60_Class
@@ -879,7 +879,7 @@ struct FUN_00c5ed60_Class
 };
 struct FUN_00c5f360_Class
 {
-    void* __thiscall FUN_00c5f360(unsigned int flags);
+    void* __thiscall BSTextureData_ScalarDeletingDestructor(unsigned int flags);
 };
 struct FUN_00c5f390_class
 {
@@ -894,7 +894,7 @@ struct FUN_00c5f500_class
 };
 struct FUN_00c5fc20_class
 {
-    void* __thiscall FUN_00c5fc20(unsigned int flags);
+    void* __thiscall BSNiNode_ScalarDeletingDestructor(unsigned int flags);
     void __cdecl operator delete(void* p, unsigned int size);
     void __thiscall FUN_00c5faa0();
 };
@@ -961,7 +961,7 @@ struct FUN_00c4a9c0_class
 };
 void* __cdecl NiMalloc(unsigned int);
 
-extern int DAT_010c1b2c;
+extern int vftable_BSRangeNode;
 struct FUN_00c5f570_Class
 {
     void __thiscall FUN_00c5f570();
@@ -1204,10 +1204,10 @@ struct FUN_00c42060_Class
     unsigned char m18;  // +0x18
     void __thiscall SetArg(int arg);
 };
-extern int DAT_010c1844;
+extern int vftable_BSTaskThread;
 void __fastcall DestroyResources(void* thisPtr);
-extern int DAT_010a0d24;
-extern int DAT_010c1854;
+extern int vftable_NiIntegerExtraData;
+extern int vftable_BSXFlags;
 struct FUN_00c43070_shell
 {
     void DestroyFields_00a7b300();
@@ -1217,7 +1217,7 @@ struct FUN_00c43070_shell
 
 extern void* _g_01202de0;
 void* GetExtraDataChecked(NiAVObject* obj);
-extern int DAT_010c195c;
+extern int vftable_BSValueNode;
 struct FUN_00c43660 : FUN_00c5f570_Class
 {
     char pad[0xb0];
@@ -1245,7 +1245,7 @@ struct FUN_00c43950_Class : MyBase
 struct FUN_00c43cb0_class
 {
     void __thiscall FUN_00c5faa0();
-    void* __thiscall FUN_00c43cb0(unsigned int flags);
+    void* __thiscall BSValueNode_ScalarDeletingDestructor(unsigned int flags);
 };
 struct FUN_00c457e0_class
 {
@@ -1262,7 +1262,7 @@ void __cdecl FUN_00c31750();
 struct FUN_00c46930_class
 {
     void __thiscall FUN_00c31750();
-    void* __thiscall FUN_00c46930(unsigned int flags);
+    void* __thiscall BSWindModifier_ScalarDeletingDestructor(unsigned int flags);
 };
 struct A51BF0Base
 {
@@ -1289,7 +1289,7 @@ struct FUN_00c46cd0_Class
 struct FUN_00c46af0
 {
     void __thiscall Destruct();
-    void* __thiscall FUN_00c47610(unsigned int flags);
+    void* __thiscall BSMultiBoundNode_ScalarDeletingDestructor(unsigned int flags);
 };
 struct FUN_00c47a00_Class
 {
@@ -1368,7 +1368,7 @@ struct FUN_00c5d260_view
 };
 struct FUN_00c5d260 : FUN_00c5d260_view
 {
-    void* __thiscall FUN_00c5d260_method(unsigned int flags);
+    void* __thiscall BSScissorTriShape_ScalarDeletingDestructor(unsigned int flags);
 };
 extern double runtimeInitializationDouble5;
 extern double DAT_01034208;
@@ -1671,7 +1671,7 @@ struct FUN_00c459d0_frame
     int unk20;
 };
 void __cdecl NiObjectGarbage_ClearAll(unsigned char a1);
-extern int DAT_010c1c5c;
+extern int vftable_NiTArray_010c1c5c;
 extern void* __cdecl Runtime_GetIndexedValue_00c46170(unsigned int count);
 struct S_00c46530_Class
 {
@@ -1692,7 +1692,7 @@ S_00c46530_Class* __thiscall S_00c46530_Class::FUN_00c46530(unsigned short param
     int unk0c;
     int unk10;
 
-    this->m_vtbl = &DAT_010c1c5c;
+    this->m_vtbl = &vftable_NiTArray_010c1c5c;
     this->m_uiItemCount = param1;
     this->m_field_0e = param2;
     this->m_field_0a = 0;
@@ -2548,7 +2548,7 @@ struct DecisionTree
     bool skipBounds;
     bool __thiscall EvaluateQuery(SSNode* query);
 };
-extern int DAT_010c1e9c;
+extern int vftable_BSSimpleArray_010c1e9c;
 struct FUN_00c4a1b0_cls
 {
     int m_vptr;
@@ -3221,7 +3221,7 @@ struct FUN_00c5b190_cls
 // Constructor: member routine that installs the class vtable pointer into
 // the object, clears the flag member at +0x5c and then hands the object to
 // the shared cleanup routine (FUN_00c1c300).
-extern int DAT_010c2d54;
+extern int vftable_BSPSysMultiTargetEmitterCtlr;
 struct FUN_00c5c440_cls
 {
     void* m_pVTable;
@@ -4146,7 +4146,7 @@ unsigned int __cdecl FUN_00c5fb80_strlen(const char* s);
 void __cdecl FUN_00c5fb80_copyPrefix(char* dst, unsigned int len, const char* src);
 char* __cdecl FUN_00c5fb80_appendTail(char* dst, unsigned int len, const char* src);
 char* __cdecl ConcatPrefixAndSuffix(FUN_00c5fb80_rec* rec, const char* suffix);
-extern void* DAT_010c32c4;
+extern void* vftable_BSPSysStripUpdateModifier;
 struct FUN_00c5fd50_cls
 {
     void* m_vtbl;
@@ -4774,7 +4774,7 @@ struct ShapeEntry
 {
     virtual ~ShapeEntry();
 };
-extern void* DAT_010c16dc;
+extern void* vftable_LockFreePriorityQueue_010c16dc;
 
 struct ShapeList
 {
@@ -4791,7 +4791,7 @@ static inline void FreeShapeArray(void* memory)
 // src: GUESS 0x00c409e0 (confidence: low)
 void ShapeList::SetVirtualTable_00c409e0()
 {
-    vtable = &DAT_010c16dc;
+    vtable = &vftable_LockFreePriorityQueue_010c16dc;
     unsigned index;
     for (index = 0; index < count; ++index)
     {
@@ -6921,7 +6921,7 @@ struct RttiX
     const RttiX* m_pBaseRTTI;
 };
 extern RttiX DAT_011f4aa0;
-extern int DAT_010c195c;
+extern int vftable_BSValueNode;
 struct ObjX
 {
     virtual void v00();
@@ -6974,7 +6974,7 @@ struct FUN_00c436a0 : FUN_00c5f680
 // @fnv 0x00c436a0
 FUN_00c436a0::FUN_00c436a0(AVX* pkObj) : FUN_00c5f680(pkObj, 0)
 {
-    *(int**)this = &DAT_010c195c;
+    *(int**)this = &vftable_BSValueNode;
     if (IsKindOfType(DAT_011f4aa0, pkObj))
     {
         AVX* pkAV = pkObj;
@@ -7126,7 +7126,7 @@ void FUN_00c4a1e0::SetSize(unsigned int uiNewSize, bool bFree)
     }
 }
 
-extern char DAT_010c1eb4;
+extern char vftable_BSBlastNode;
 struct DerQ : FUN_00c450d0
 {
     int unk64, unk68, unk6C, unk70, unk74, unk78, unk7C, unk80, unk84, unk88, unk8C, unk90, unk94, unk98, unk9C, unkA0,
@@ -7137,7 +7137,7 @@ struct DerQ : FUN_00c450d0
     }
     DerQ()
     {
-        vtbl = (int)&DAT_010c1eb4;
+        vtbl = (int)&vftable_BSBlastNode;
     }
 };
 // @fnv 0x00c4ac00
@@ -8845,7 +8845,7 @@ struct IntMid_c42ff0 : ExtraBase_c42ff0
 {
     __forceinline IntMid_c42ff0()
     {
-        m_vtbl = (int)&DAT_010a0d24;
+        m_vtbl = (int)&vftable_NiIntegerExtraData;
     }
 };
 
@@ -8866,7 +8866,7 @@ struct FUN_00c42ff0 : IntData_c42ff0
 // @fnv 0x00c42ff0
 FUN_00c42ff0::FUN_00c42ff0(int v) : IntData_c42ff0(v)
 {
-    m_vtbl = (int)&DAT_010c1854;
+    m_vtbl = (int)&vftable_BSXFlags;
     BSXFlags_Init();
 }
 
@@ -10289,7 +10289,7 @@ struct ObjC4aa40 : FUN_00c450d0
     }
     __forceinline ObjC4aa40()
     {
-        vtbl = (int)&DAT_010c1eb4;
+        vtbl = (int)&vftable_BSBlastNode;
     }
 };
 
@@ -10307,7 +10307,7 @@ ObjC4aa40* OwnerC4aa40::BSBlastNode_CreateClone(int a1)
     return p;
 }
 
-extern unsigned int DAT_010c1fc4;
+extern unsigned int vftable_BSDebrisNode;
 
 // @fnv 0x00c4ae60
 // src: EXE 0x00c4ae60
@@ -10318,7 +10318,7 @@ BSDebrisNode* __cdecl BSDebrisNode_CreateObject()
 
 void* __cdecl Object_DispatchCommandFour(unsigned int size);
 
-extern int DAT_010c20d4;
+extern int vftable_BSDamageStage;
 
 struct S00c4af00_Obj : FUN_00c450d0
 {
@@ -10343,7 +10343,7 @@ struct S00c4af00_Obj : FUN_00c450d0
     int unkAC;
     S00c4af00_Obj() : FUN_00c450d0()
     {
-        vtbl = (int)&DAT_010c20d4;
+        vtbl = (int)&vftable_BSDamageStage;
     }
     static void* operator new(unsigned int size) throw()
     {
@@ -10366,7 +10366,7 @@ S00c4af00_Obj* S00c4af00_Cls::BSDamageStage_CreateClone(unsigned int arg)
     return obj;
 }
 
-extern int DAT_010c20d4;
+extern int vftable_BSDamageStage;
 struct C4B0C0_Obj : FUN_00c450d0
 {
     int u64;
@@ -10394,7 +10394,7 @@ struct C4B0C0_Obj : FUN_00c450d0
     }
     __forceinline C4B0C0_Obj()
     {
-        vtbl = (int)&DAT_010c20d4;
+        vtbl = (int)&vftable_BSDamageStage;
     }
 };
 // @fnv 0x00c4b0c0
@@ -10825,8 +10825,8 @@ inline long NiDecrement086(volatile long* value)
     return result;
 }
 
-extern int DAT_01016024;
-extern int DAT_0106abe4;
+extern int vftable_BSSimpleArray_01016024;
+extern int vftable_BSSimpleArray_0106abe4;
 struct FUN_00438690
 {
     int* table;
@@ -10846,7 +10846,7 @@ struct FUN_00438690
     void BSSimpleArray_unsigned_int_1024_Remove(unsigned int, unsigned int);
     __forceinline FUN_00438690()
     {
-        table = &DAT_01016024;
+        table = &vftable_BSSimpleArray_01016024;
         BSSimpleArray_float_1024_InitialSetup(0, 0);
     }
     __forceinline void Wrap(int& index)
@@ -10973,7 +10973,7 @@ struct NewShorts086 : Shorts086
 {
     __forceinline NewShorts086()
     {
-        table = &DAT_0106abe4;
+        table = &vftable_BSSimpleArray_0106abe4;
         BSSimpleArray_unsigned_short_1024_InitialSetup(0, 0);
     }
     __forceinline static void* operator new(unsigned int n)
@@ -13049,11 +13049,11 @@ struct Tail
     void BSSimpleArray_NiPointer_ObstacleUndoData_1024_InitialSetup(unsigned int, bool);
     __forceinline Tail()
     {
-        field_00 = (int)&DAT_010840e4;
+        field_00 = (int)&vftable_BSSimpleArray_010840e4;
         BSSimpleArray_NiPointer_ObstacleUndoData_1024_InitialSetup(0, false);
     }
     ~Tail();
-    static int DAT_010840e4;
+    static int vftable_BSSimpleArray_010840e4;
 };
 struct FUN_00c5a9d0 : Base
 {
@@ -14651,7 +14651,7 @@ void ScissorProperty_Stub::BSScissorTriShape_RenderImmediate(NiDX9Renderer* pkRe
         GetD3DDevice(pkDX9Renderer)->SetRenderState(D3DRS_SCISSORTESTENABLE, dwOldValue);
 }
 
-extern "C" char DAT_010c2fb4;
+extern "C" char vftable_BSMasterParticleSystem;
 inline void DeadQ1()
 {
     int aiQ[1];
@@ -15191,7 +15191,7 @@ void __thiscall FUN_00c5f5a0_cls::BSNiNode_ReparentSkinInstances(NodeQ* pParent,
 extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volatile* p);
 
 extern void* DAT_0109b220;  // empty string handle
-extern void* DAT_010c32c4;
+extern void* vftable_BSPSysStripUpdateModifier;
 
 void* __cdecl FUN_00a5b690(const char* p);
 
@@ -15215,7 +15215,7 @@ class S00c5fc70_Object
 S00c5fc70_Object* S00c5fc70_Object::BSPSysStripUpdateModifier_BSPSysStripUpdateModifier(const char* pSource, float f)
 {
     FUN_00c316a0(NiFixedString(pSource), 0x9c4);
-    m_vt = &DAT_010c32c4;
+    m_vt = &vftable_BSPSysStripUpdateModifier;
     m_f18 = f;
     return this;
 }
@@ -15516,7 +15516,7 @@ void CloneOwner::BSMultiBoundNode_CopyMembers(CloneOwner* pDest, unsigned int kC
 namespace fnv_00c44980 {
 extern unsigned int DAT_011af714[];
 extern char DAT_010c1ad4[];
-extern int DAT_010c1af0[];
+extern int vftable_BSParallelTaskThread[];
 int __cdecl BSsprintf(char*, unsigned int, const char*, ...);
 __forceinline void* operator new[](unsigned int size)
 {
@@ -15773,7 +15773,7 @@ template <> void NiTArray<fnv_00c45b20::ResizePointer, NiTNewInterface<fnv_00c45
 namespace fnv_00c46970 {
 extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(long volatile* value);
 
-extern int DAT_010c1d14;
+extern int vftable_BSMultiBoundNode;
 
 struct SpawnedBase
 {
@@ -15863,7 +15863,7 @@ struct FUN_00c46970 : SpawnedBase
 };
 
 // @fnv 0x00c46970
-FUN_00c46970::FUN_00c46970() : SpawnedBase(), m_vtbl(&DAT_010c1d14)
+FUN_00c46970::FUN_00c46970() : SpawnedBase(), m_vtbl(&vftable_BSMultiBoundNode)
 {
     m_ac.FUN_0066b0d0(0);
     SetFormFlag(0x800, true);
@@ -15871,7 +15871,7 @@ FUN_00c46970::FUN_00c46970() : SpawnedBase(), m_vtbl(&DAT_010c1d14)
 }  // namespace fnv_00c46970
 
 namespace fnv_00c46a40 {
-extern int DAT_010c1d14;
+extern int vftable_BSMultiBoundNode;
 extern "C" void(__stdcall* FUN_00fdf1c0)(void*);
 extern "C" long(__stdcall* FUN_00fdf1c4)(void*);
 
@@ -15971,7 +15971,7 @@ struct FUN_00c46a40 : FUN_00c5f680
 };
 
 // @fnv 0x00c46a40
-FUN_00c46a40::FUN_00c46a40(int a) : FUN_00c5f680(a, 1), vfptr(&DAT_010c1d14)
+FUN_00c46a40::FUN_00c46a40(int a) : FUN_00c5f680(a, 1), vfptr(&vftable_BSMultiBoundNode)
 {
     node = 0;
 }
@@ -16138,8 +16138,8 @@ void C50c30::BSParticleSystemManager_DetachChild_00c50c30(int a, SpOwner* b)
 
 
 namespace fnv_00c52d80 {
-extern int DAT_0109a284;
-extern int DAT_01030f8c;
+extern int vftable_NiTPointerMap_0109a284;
+extern int vftable_NiTPointerMap_01030f8c;
 struct MapItem
 {
     MapItem* next;
@@ -16164,7 +16164,7 @@ struct ArrA : FUN_00a54060_class
     __forceinline ArrA(unsigned int n)
     {
         InitBuffer(n);
-        vtable = &DAT_0109a284;
+        vtable = &vftable_NiTPointerMap_0109a284;
     }
     ~ArrA();
     __forceinline unsigned int First() const
@@ -16206,7 +16206,7 @@ struct ArrB : FUN_0057c960
 {
     __forceinline ArrB(int n) : FUN_0057c960(n)
     {
-        vtable = &DAT_01030f8c;
+        vtable = &vftable_NiTPointerMap_01030f8c;
     }
     ~ArrB();
     __forceinline unsigned int First() const

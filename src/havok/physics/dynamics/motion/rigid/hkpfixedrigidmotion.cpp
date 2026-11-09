@@ -4,7 +4,7 @@
 
 #include "havok/hkpFixedRigidMotion.h"
 
-extern int DAT_010c6cdc;
+extern int vftable_hkpFixedRigidMotion;
 struct FUN_00d1e160_t
 {
     int* vtbl;
@@ -13,12 +13,12 @@ struct FUN_00d1e160_t
     void FUN_00d1dfa0(int a, int b);
     void* InitFixedRigidMotion(int a, int b);
 };
-// Calls FUN_00d1dfa0, sets vtbl to &DAT_010c6cdc, writes 5 to byte offset 8, and returns this.
+// Calls FUN_00d1dfa0, sets vtbl to &vftable_hkpFixedRigidMotion, writes 5 to byte offset 8, and returns this.
 // @fnv 0x00d1e160
 void* FUN_00d1e160_t::InitFixedRigidMotion(int a, int b)
 {
     FUN_00d1dfa0(a, b);
-    vtbl = &DAT_010c6cdc;
+    vtbl = &vftable_hkpFixedRigidMotion;
     ((unsigned char*)this)[8] = 5;
     return this;
 }

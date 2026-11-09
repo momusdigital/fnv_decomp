@@ -36,7 +36,7 @@ struct FUN_00e891f0_Class {
     void __thiscall NiD3DTextureStageGroup_RemoveAllStageStates();
 };
 extern "C" void __cdecl operator delete(void* p, unsigned int size);
-extern int DAT_010efc34;
+extern int vftable_NiDX9SourceCubeMapData;
 void __cdecl FUN_00e68830();
 struct FUN_00e8aa40_Class {
     int __thiscall FUN_00e8aa40(bool flag);
@@ -55,7 +55,7 @@ struct FUN_00e97790_Class {
 };
 int __cdecl NiDX9ShaderConstantManager_Create(int a, int b);
 extern "C" void __cdecl NiFreeAlias(void*);
-extern int DAT_010f0f7c;
+extern int vftable_NiTArray_010f0f7c;
 struct FUN_00e98640_Class {
     void __thiscall ReleaseStorage_00e98640();
 };
@@ -87,13 +87,13 @@ extern int DAT_011f4500;
 void __cdecl ReleaseShaderNodes();
 extern NiD3DShaderProgramCreator* DAT_0126fa54;
 extern const unsigned char DAT_010bc868[];
-extern int DAT_010f0af4;
+extern int vftable_NiD3DShaderProgramCreatorObj;
 void __cdecl NiD3DShaderProgramCreatorObj__SDMInit();
-extern int DAT_010f0e50;
-extern int DAT_010f0e70;
+extern int vftable_NiTMapBase_010f0e50;
+extern int vftable_NiTPointerMap_010f0e70;
 extern "C" void __cdecl NiFree(void*);
-extern int DAT_010f0eb0;
-extern int DAT_010f0ed0;
+extern int vftable_NiTMapBase_010f0eb0;
+extern int vftable_NiTPointerMap_010f0ed0;
 void __cdecl NiFree(void*);
 struct FUN_00e941d0_Node { unsigned int pad[9]; unsigned int count; unsigned int pad2[5]; FUN_00e941d0_Node* next; FUN_00e941d0_Node* prev; };
 struct FUN_00e941d0_This { int pad[11]; FUN_00e941d0_Node* head; };
@@ -168,20 +168,20 @@ struct FUN_00e93fb0_Class {
 struct FUN_00e8a1f0_Class {
     char __thiscall GetEntryData(int b, int* c, int* d, char* e, char* f);
 };
-extern int DAT_010f0ac0;
+extern int vftable_NiD3DShaderProgramCreatorAsm;
 extern NiD3DShaderProgramCreator* DAT_0126fa50;
 void __cdecl NiD3DShaderProgramCreatorAsm__SDMInit();
 unsigned int __fastcall NiPixelFormat_GetNumComponents(char* self, int);
 void __cdecl _NiFree(void* p);
-extern int DAT_010efdd8;
-extern int DAT_010efdf8;
-extern int DAT_010efdd8;
+extern int vftable_NiTMapBase_010efdd8;
+extern int vftable_NiTPointerMap_010efdf8;
+extern int vftable_NiTMapBase_010efdd8;
 void __cdecl _NiFree(void* p);
 void __cdecl _NiFree(void* p);
-extern int DAT_010efe54;
+extern int vftable_NiTMapBase_010efe54;
 extern MemoryManager _g_memoryManager;
-extern int DAT_010efe54;
-extern int DAT_010efe74;
+extern int vftable_NiTMapBase_010efe54;
+extern int vftable_NiTPointerMap_010efe74;
 extern MemoryManager _g_memoryManager;
 void __cdecl _NiFree(void*);
 extern "C" void __cdecl operator delete(void*, unsigned int);
@@ -192,8 +192,8 @@ struct FUN_00e8f800_Class {
 
     void* __thiscall FUN_00e8f800(bool deleting);
 };
-extern unsigned char DAT_010f02b0[];
-extern unsigned char DAT_010f02d0[];
+extern unsigned char vftable_NiTMapBase_010f02b0[];
+extern unsigned char vftable_NiTPointerMap_010f02d0[];
 extern MemoryManager _g_memoryManager;
 void __cdecl _NiFree(void* p);
 extern int DAT_0126fa04;
@@ -208,14 +208,14 @@ struct FUN_00e92080_This {
     virtual void Release(int);
 };
 void NiD3DShaderFactory__SDMShutdown();
-extern int DAT_010f0df0;
-extern int DAT_010f0e10;
-extern int DAT_010f0e30;
+extern int vftable_NiTMapBase_010f0df0;
+extern int vftable_NiTPointerMap_010f0e10;
+extern int vftable_NiTStringTemplateMap_010f0e30;
 void __cdecl _NiFree(void* p);
 struct FUN_00e93400_Class {
     void __thiscall FUN_00e93400();
 };
-extern int DAT_010f0e90;
+extern int vftable_NiTStringTemplateMap_010f0e90;
 void _NiFree(void* p);
 struct FUN_00e934d0_Class {
     void FUN_00e934d0();
@@ -225,10 +225,10 @@ struct FUN_00e935b0_Class {
     bool m_flag;
     void FreeIfFlagged(int* a);
 };
-extern int DAT_010f0df0;
+extern int vftable_NiTMapBase_010f0df0;
 extern "C" void __cdecl NiFree(void*);
-extern int DAT_010f0df0;
-extern int DAT_010f0e10;
+extern int vftable_NiTMapBase_010f0df0;
+extern int vftable_NiTPointerMap_010f0e10;
 extern MemoryManager _g_memoryManager;
 struct FUN_00e93610_Class {
     void* m_vptr;
@@ -238,7 +238,7 @@ struct FUN_00e93610_Class {
     FUN_00e93610_Class* __thiscall FUN_00e93610(int flags);
 };
 void __cdecl NiFree(void* p);
-extern int DAT_010f0e50;
+extern int vftable_NiTMapBase_010f0e50;
 extern MemoryManager g_memoryManager;
 struct FUN_00e93670_Class {
     void* m_ppVirtualMethodTable;
@@ -273,8 +273,8 @@ struct FUN_00e94390_Class {
 
     void* __thiscall FUN_00e94390(int flags);
 };
-extern int DAT_010f0f94;
-extern int DAT_010f0fb4;
+extern int vftable_NiTMapBase_010f0f94;
+extern int vftable_NiTPointerMap_010f0fb4;
 extern MemoryManager _g_memoryManager;
 void __cdecl _NiFree(void*);
 struct FUN_00e94850_Class {
@@ -284,7 +284,7 @@ struct FUN_00e94850_Class {
 
     int* __thiscall FUN_00e94850(int deleting);
 };
-extern int DAT_010f10f4;
+extern int vftable_NiD3DHLSLPixelShader;
 struct FUN_00e89970_Object {
     virtual void FUN_00e89970_Object_0();
     virtual void FUN_00e89970_Object_1();
@@ -302,7 +302,7 @@ struct FUN_00e96c90_Class {
 };
 extern "C" void __cdecl operator delete(void* p, unsigned int size);
 void __cdecl FUN_00e989c0();
-extern int DAT_010f1550;
+extern int vftable_NiDX9ShaderConstantManager;
 struct FUN_00e97870_Class {
     void* m_ppVirtualMethodTable;
     FUN_00e97870_Class(unsigned char flag);
@@ -318,7 +318,7 @@ struct FUN_00e98b10_Class {
     void* m_data;
     FUN_00e98b10_Class* __thiscall FUN_00e98b10(unsigned char flag);
 };
-extern void** DAT_010f16dc;
+extern void** vftable_NiTArray_010f16dc;
 extern MemoryManager _g_memoryManager;
 struct SpawnedObject {
     void __thiscall ReleaseResources();
@@ -656,8 +656,8 @@ struct ScalarDeletingObject {
     void* DestroyScalarObject(unsigned char flags);
 };
 extern "C" void __cdecl _NiFree_00aa10f0(void*);
-extern int DAT_010ef73c;
-extern int DAT_0101dce4;
+extern int vftable_NiD3DShaderProgram;
+extern int vftable_NiRefObject;
 extern volatile long DAT_011f4400;
 extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(volatile long*);
 // Three __stdcall virtual slots end in Release; this interface declares no device operations.
@@ -1969,8 +1969,8 @@ public:
 
     bool SetDeviceState(unsigned int uiA, unsigned int uiB, unsigned int uiC, unsigned int uiUnused);
 };
-extern int DAT_010efb7c;
-extern int DAT_010a080c;
+extern int vftable_NiDX9TextureData;
+extern int vftable_NiTexture__RendererData;
 void __cdecl FUN_00aa1460(void* apMemory, unsigned int auiSize);
 struct FUN_00e8a9e0_mgr {
     virtual void v00();
@@ -2334,8 +2334,8 @@ struct Target {
  Item* NiTMapIterator_GetFirstPos();
  void ProcessEntries_00e8b630();
 };
-extern int DAT_010efdd8;
-extern int DAT_010efdf8;
+extern int vftable_NiTMapBase_010efdd8;
+extern int vftable_NiTPointerMap_010efdf8;
 extern "C" void* __cdecl _NiMalloc_00aa1070(unsigned int);
 extern "C" void* __cdecl FUN_00ec61c0(void*, int, unsigned int);
 struct Observer {
@@ -2832,7 +2832,7 @@ int f68;
 bool UpdateFromSource(LightSource* source);
 };
 extern "C" void __cdecl _NiFree_00aa10f0(void* p);
-extern int DAT_010f0ef0;
+extern int vftable_NiTStringTemplateMap_010f0ef0;
 struct FUN_00e89740_Obj {
     int unk00;
     int unk04;
@@ -4451,7 +4451,7 @@ struct PlainResource58 {
     void FUN_00e687a0(TextureInput*, ResourceConfig*);
     PlainResource58(TextureInput* input, ResourceConfig* config) {
         FUN_00e687a0(input, config);
-        vtable = &DAT_010efc34;
+        vtable = &vftable_NiDX9SourceCubeMapData;
         flags = 0;
     }
 };
@@ -4973,8 +4973,8 @@ struct FUN_00e98910_Target {
     virtual void vf00();
     virtual int __stdcall vf04();
 };
-extern int DAT_0101dce4;
-extern int DAT_010f16cc;
+extern int vftable_NiRefObject;
+extern int vftable_NiD3DShaderConstantManager;
 struct FUN_00e98910_Class {
     int* unk00;
     int unk04;
@@ -5103,7 +5103,7 @@ void NiDX9VertexBufferManager::DestroyDefaultBuffers()
     map->RemoveAll();
 }
 
-extern int DAT_010efe94;
+extern int vftable_NiDX9VertexBufferManager;
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(void*);
 
 struct ShaderEntry093 : FUN_00e95b80_Class {
@@ -5148,7 +5148,7 @@ inline void VertexBufferMapBase::GetNext(void*& pos, unsigned int& key,
 // src: GUESS 0x00e8ceb0 (confidence: low)
 void NiDX9VertexBufferManager::ReleaseStorage_00e8ceb0() {
     NiDX9VertexBufferManager* self = this;
-    *(void**)self = &DAT_010efe94;
+    *(void**)self = &vftable_NiDX9VertexBufferManager;
     VertexBufferMap* map;
     for (unsigned int group = 0; group < 3; ++group) {
         switch (group) {
@@ -5184,7 +5184,7 @@ void NiDX9VertexBufferManager::ReleaseStorage_00e8ceb0() {
     self->third.VertexBufferMap::~NiTPointerMap();
     self->second.VertexBufferMap::~NiTPointerMap();
     self->first.VertexBufferMap::~NiTPointerMap();
-    *(void**)self = &DAT_0101dce4;
+    *(void**)self = &vftable_NiRefObject;
     InterlockedDecrement(&DAT_011f4400);
 }
 

@@ -3445,12 +3445,13 @@ void __cdecl operator delete(void*);
 
 struct FUN_00670880_shell : FUN_006708b0
 {
-    void* FUN_00670880(unsigned int flags);
+    void* TESPackage_ScalarDeletingDestructor(unsigned int flags);
 };
 
 // Runs the destructor, then frees this with operator delete when flags has bit 0 set, and returns this.
 // @fnv 0x00670880
-void* FUN_00670880_shell::FUN_00670880(unsigned int flags)
+// src: EXE 0x00670880
+void* FUN_00670880_shell::TESPackage_ScalarDeletingDestructor(unsigned int flags)
 {
     this->FUN_006708b0::~FUN_006708b0();
     if (flags & 1)
@@ -3633,7 +3634,7 @@ void FUN_0067abf0_shell::TESPackage_SetFOEnableIdleChatterBehavior(bool show)
     show ? *(unsigned short*)((char*)this + 0x22) |= 0x80 : *(unsigned short*)((char*)this + 0x22) &= ~0x80;
 }
 
-extern int DAT_01068860;
+extern int vftable_TESAmbushPackageData;
 struct FUN_0067acf0
 {
     void* _0;
@@ -3641,48 +3642,48 @@ struct FUN_0067acf0
     void FUN_0067ad20();
     FUN_0067acf0();
 };
-// Calls FUN_0067ad20, then sets _0 to point at DAT_01068860 and _4 to 0.
+// Calls FUN_0067ad20, then sets _0 to point at vftable_TESAmbushPackageData and _4 to 0.
 // @fnv 0x0067acf0
 FUN_0067acf0::FUN_0067acf0()
 {
     FUN_0067ad20();
-    _0 = &DAT_01068860;
+    _0 = &vftable_TESAmbushPackageData;
     _4 = 0;
 }
 
 // Shared TESPackageData has no constructor declaration.
 void __fastcall InitializePackageDataBase(TESPackageData*);
-extern int DAT_01068938;
+extern int vftable_TESEatPackageData;
 struct FUN_0067b950
 {
     void* _0;
     int _4;
     FUN_0067b950();
 };
-// Calls the base constructor, stores the address of DAT_01068938 in _0 and sets _4 to 0.
+// Calls the base constructor, stores the address of vftable_TESEatPackageData in _0 and sets _4 to 0.
 // @fnv 0x0067b950
 FUN_0067b950::FUN_0067b950()
 {
     InitializePackageDataBase(reinterpret_cast<TESPackageData*>(this));
-    _0 = (void*)&DAT_01068938;
+    _0 = (void*)&vftable_TESEatPackageData;
     _4 = 0;
 }
 
 
-extern int DAT_01068960;
+extern int vftable_TESEscortPackageData;
 // @fnv 0x0067bbf0
 // src: EXE 0x0067bbf0
 TESEscortPackageData* TESEscortPackageData::TESEscortPackageData_0067bbf0()
 {
     FUN_0067ad20();
-    *reinterpret_cast<unsigned int*>(this) = reinterpret_cast<unsigned int>(&DAT_01068960);
+    *reinterpret_cast<unsigned int*>(this) = reinterpret_cast<unsigned int>(&vftable_TESEscortPackageData);
     m_pPackageTarget = 0;
     m_iValue = 0xC8;
     return this;
 }
 
 
-extern int DAT_01068988;
+extern int vftable_TESFollowPackageData;
 struct S0067bfd0
 {
     void FUN_0067ad20();
@@ -3693,13 +3694,13 @@ struct S0067bfd0
 S0067bfd0* S0067bfd0::SetVtableAndProcessState_0067bfd0()
 {
     FUN_0067ad20();
-    *reinterpret_cast<unsigned int*>(this) = reinterpret_cast<unsigned int>(&DAT_01068988);
+    *reinterpret_cast<unsigned int*>(this) = reinterpret_cast<unsigned int>(&vftable_TESFollowPackageData);
     *reinterpret_cast<unsigned int*>(reinterpret_cast<char*>(this) + 4) = 0;
     *reinterpret_cast<float*>(reinterpret_cast<char*>(this) + 8) = 0.0f;
     return this;
 }
 
-extern int DAT_01068a0c;
+extern int vftable_TESUseItemPackageData;
 struct FUN_0067c770
 {
     void* vtable;
@@ -3707,12 +3708,12 @@ struct FUN_0067c770
     void FUN_0067ad20();
     FUN_0067c770();
 };
-// Calls FUN_0067ad20, sets the vtable to DAT_01068a0c and initializes field4 to 0.
+// Calls FUN_0067ad20, sets the vtable to vftable_TESUseItemPackageData and initializes field4 to 0.
 // @fnv 0x0067c770
 FUN_0067c770::FUN_0067c770()
 {
     FUN_0067ad20();
-    vtable = &DAT_01068a0c;
+    vtable = &vftable_TESUseItemPackageData;
     field4 = 0;
 }
 
@@ -5448,7 +5449,7 @@ void FUN_006738b0_shell::TESPackage_Save()
 }
 }  // namespace fnv_006738b0
 
-extern Setting g_011de4e8;
+extern Setting bDebugSaveBuffer_Debug;
 
 extern TESSaveLoadGame* DAT_011de45c;
 
@@ -5522,7 +5523,7 @@ unsigned short FUN_00678fd0_shell::TESPackage_GetSaveSize()
 
         size += 4;
 
-        if (*g_011de4e8.Bool())
+        if (*bDebugSaveBuffer_Debug.Bool())
         {
             HitSoundData* hitSound;
             {
@@ -6318,7 +6319,7 @@ bool FUN_00677570_shell::IsTargetInRange(::Actor* actor, float radius)
 // vtable pointer, sets a float and several zero-initialised members, returns this.
 
 extern float DAT_01016410;
-extern int DAT_010688ac;
+extern int vftable_TESDialoguePackageData;
 
 struct FUN_0067b170_cls
 {
@@ -6344,7 +6345,7 @@ struct FUN_0067b170_cls
 FUN_0067b170_cls* FUN_0067b170_cls::UpdateState_0067b170()
 {
     FUN_0067ad20();
-    m_pVTable = (void*)&DAT_010688ac;
+    m_pVTable = (void*)&vftable_TESDialoguePackageData;
     m_fValue04 = DAT_01016410;
     m_iValue08 = 0;
     m_iValue0c = 0;
@@ -9608,7 +9609,7 @@ void Package679120::SavePackage()
     unsigned short blockLength = 0;
     unsigned int start = 0;
     unsigned int blockStart = DAT_011de45c->FUN_00825c00();
-    if (*g_011de4e8.Bool())
+    if (*bDebugSaveBuffer_Debug.Bool())
         blockStart = DAT_011de45c->FUN_00825c00();
     if (DAT_011de45c->TESSaveLoadGame_UseSaveGameBlocks())
     {
@@ -9629,7 +9630,7 @@ void Package679120::SavePackage()
     if (target)
         ((Target679120*)target)->SaveLoad();
     DAT_011de45c->TESSaveLoadGame_SaveGameDataOLD(&procedureArrayIndex, 4);
-    if (*g_011de4e8.Bool())
+    if (*bDebugSaveBuffer_Debug.Bool())
     {
         unsigned int end = DAT_011de45c->FUN_00825c00();
         Record679120* record = (Record679120*)DAT_011de45c->GetHitSound();

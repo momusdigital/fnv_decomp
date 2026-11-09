@@ -65,7 +65,7 @@ void __stdcall NiPSysInitialRotAngleCtlr_GetViewerStrings(StrArr* pkStrings)
     pkStrings->SetAt(iCount, pStr);
 }
 
-extern char DAT_010befbc;
+extern char vftable_NiPSysInitialRotAngleCtlr;
 void* __cdecl Object_DispatchCommandFour(unsigned int);
 
 struct SpawnedObject
@@ -87,7 +87,7 @@ SpawnedObject* SpawnedCtlr::CreateSpawnedObject(void* pArg)
     if (pkObj != 0)
     {
         pkObj->FUN_00c32d80();
-        *(char**)pkObj = &DAT_010befbc;
+        *(char**)pkObj = &vftable_NiPSysInitialRotAngleCtlr;
     }
     else
     {

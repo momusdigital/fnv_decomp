@@ -72,7 +72,7 @@ int __cdecl Factorial(int count);
 extern const float runtimeFloatSettingDefault132;
 extern const float runtimeFloatSettingDefault255;
 extern const float g_011c7344_arg1;
-extern int DAT_010e62a4;
+extern int vftable_hkpVehicleDefaultEngine;
 struct FUN_00e44280_struct
 {
     int* m_00;
@@ -121,7 +121,7 @@ struct FUN_00e4ab50_class
     int m_0c;
     void __thiscall ApplyToAll(int a);
 };
-extern int DAT_010ec1fc;
+extern int vftable_hkAlignSceneToNodeOptions;
 struct FUN_00cb0a70
 {
     void m(int);
@@ -273,7 +273,7 @@ struct FUN_00e42680_cls
 
     void CallItemsVirtual();
 };
-extern "C" int DAT_010e5e9c;
+extern "C" int vftable_hkpVehicleDefaultVelocityDamper;
 struct FUN_00e43ac0_cls
 {
     void* m_00;
@@ -289,7 +289,7 @@ extern double DAT_010ebf18;
 extern double DAT_01012638;
 extern double DAT_0101ff48;
 float __cdecl ComputeScaledRatio(float param_1, float param_2, float param_3, float param_4);
-extern "C" int DAT_010e5ff4;
+extern "C" int vftable_hkpVehicleDefaultTransmission;
 struct FUN_00e43f30_cls
 {
     void* volatile m_00;
@@ -541,7 +541,7 @@ struct S_00e4af60_class
 
     S_00e4af60_class* InitializeFields_00e4af60();
 };
-extern int DAT_010ec1fc;
+extern int vftable_hkAlignSceneToNodeOptions;
 void __cdecl AccumulateNeighborSum(float k, const float* src, float* dst, int n);
 extern float DAT_0102295c;
 extern float DAT_0101622c;
@@ -1194,7 +1194,7 @@ template <class T> inline T MaxOf(T a, T b)
 float __cdecl hkaFootstepAnalysisInfo_getMax(FloatArray_e404b0* arr);
 extern float _DAT_0104da48;
 float __cdecl FindMinFloat(int* param_1);
-extern int DAT_010e60c4;
+extern int vftable_hkpVehicleDefaultSteering;
 struct FUN_00e44070
 {
     int* volatile m_00;

@@ -193,7 +193,7 @@ struct FUN_00a35900_cls
     TreadEntry* m_pEntries;
     TreadEntry* BSMultiTargetTreadTransfController_GetBlendInterpolator(unsigned short usIndex, int aParam1, int aParam2, int aParam3, int aParam4);
 };
-extern char DAT_01096694;
+extern char vftable_BSMultiTargetTreadTransfController;
 void* __cdecl Object_DispatchCommandFour(unsigned int size) throw();
 struct TreadInterpolator : NiInterpController
 {
@@ -210,7 +210,7 @@ struct TreadInterpolator : NiInterpController
     }
     TreadInterpolator() throw()
     {
-        *reinterpret_cast<void**>(this) = &DAT_01096694;
+        *reinterpret_cast<void**>(this) = &vftable_BSMultiTargetTreadTransfController;
         unk34 = 0;
         unk38 = 0;
         unk40 = 0;

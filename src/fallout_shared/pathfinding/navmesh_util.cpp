@@ -378,7 +378,7 @@ void FUN_0069a700_shell::NavMeshPOVEdge_Set(void* aEdge)
         ((*(unsigned short*)((char*)aEdge + 4) & 0x3fff) | ((*(unsigned short*)((char*)aEdge + 8) & 3) << 14));
 }
 
-extern int DAT_0106b1b8;
+extern int vftable_BSSimpleArray_0106b1b8;
 
 struct Dummy_0069af30
 {
@@ -391,12 +391,12 @@ struct Dummy_0069af30
 // src: XBOX_PDB 0x0069af30
 Dummy_0069af30* __fastcall BSSimpleArray_NavMeshEdgeHandle_1024_BSSimpleArray_NavMeshEdgeHandle_1024(Dummy_0069af30* pThis)
 {
-    pThis->vtable = &DAT_0106b1b8;
+    pThis->vtable = &vftable_BSSimpleArray_0106b1b8;
     pThis->ResetAndWrite(0, 0);
     return pThis;
 }
 
-extern int DAT_0106b1b8;
+extern int vftable_BSSimpleArray_0106b1b8;
 
 class GlobalObject_00869f00
 {
@@ -408,7 +408,7 @@ class GlobalObject_00869f00
 // src: GUESS 0x0069af60 (confidence: medium)
 void __fastcall Object_ResetVirtualTableAndClear_0069af60(GlobalObject_00869f00* apObject)
 {
-    *(int**)apObject = &DAT_0106b1b8;
+    *(int**)apObject = &vftable_BSSimpleArray_0106b1b8;
     apObject->Clear(true);
 }
 
@@ -1384,7 +1384,7 @@ MidCopy& MidCopy::AssignFrom(const MidCopy& other)
     return *this;
 }
 
-extern void* DAT_0106b1f4;
+extern void* vftable_NiTMapBase_0106b1f4;
 void* __cdecl _NiMalloc(unsigned int);
 void* __cdecl memset(void*, int, unsigned int);
 
@@ -1396,7 +1396,7 @@ struct FUN_0069b360_shell
 // @fnv 0x0069b360
 void* __thiscall FUN_0069b360_shell::ConstructBuffer(unsigned int a)
 {
-    *(void**)this = &DAT_0106b1f4;
+    *(void**)this = &vftable_NiTMapBase_0106b1f4;
     *(unsigned int*)((char*)this + 4) = a;
     *(unsigned int*)((char*)this + 0xc) = 0;
     unsigned int uiSize = *(unsigned int*)((char*)this + 4) * 4;

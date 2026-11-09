@@ -541,7 +541,7 @@ struct Base_004d9210
 {
     void FUN_004d9210(int a, int b);
 };
-extern int DAT_01021024;
+extern int vftable_NiTPrimitiveArray_01021024;
 struct Holder_004d9100
 {
     Holder_004d9100* InitializeFields_004d9100(int a, int b);
@@ -551,14 +551,15 @@ struct Holder_004d9100
 Holder_004d9100* Holder_004d9100::InitializeFields_004d9100(int aiArg1, int aiArg2)
 {
     ((Base_004d9210*)this)->FUN_004d9210(aiArg1, aiArg2);
-    *(void**)this = (void*)&DAT_01021024;
+    *(void**)this = (void*)&vftable_NiTPrimitiveArray_01021024;
     return this;
 }
 
 void __cdecl _Deallocate(void*);
 // Calls FUN_00517500 on this, frees this with _Deallocate when flags has bit 1 set, and returns this.
 // @fnv 0x005174d0
-void* __thiscall TESObjectDOOR::FUN_005174d0(unsigned int flags)
+// src: EXE 0x005174d0
+void* __thiscall TESObjectDOOR::ScalarDeletingDestructor(unsigned int flags)
 {
     this->FUN_00517500();
     if (flags & 1)

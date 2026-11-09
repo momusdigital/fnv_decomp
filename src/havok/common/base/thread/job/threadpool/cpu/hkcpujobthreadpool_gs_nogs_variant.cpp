@@ -109,8 +109,8 @@ class OwnerD2CD
 
     void hkCpuJobThreadPool_processAllJobs(int value, int unused);
 };
-extern char DAT_010ce774;
-extern char DAT_0102e388;
+extern char vftable_hkCpuJobThreadPool;
+extern char vftable_hkBaseObject;
 void hkReferencedObject_setLockMode(int);
 struct EventObjD2C
 {

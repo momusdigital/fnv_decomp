@@ -18,12 +18,12 @@ void* hkpIslandActivationListener::vf00(unsigned int flags)
     return this;
 }
 
-extern int DAT_0104de10;
+extern int vftable_hkpIslandActivationListener;
 
 // @fnv 0x00624210
 void hkpIslandActivationListener::InitPtr()
 {
-    *reinterpret_cast<int**>(this) = &DAT_0104de10;
+    *reinterpret_cast<int**>(this) = &vftable_hkpIslandActivationListener;
 }
 
 extern int DAT_011f942c;
@@ -95,7 +95,7 @@ void* FUN_00624190_shell::FUN_00624190(unsigned int flags)
 // @fnv 0x006241c0
 hkpIslandActivationListener* __fastcall InitializeIslandActivationListener(hkpIslandActivationListener* listener)
 {
-    *reinterpret_cast<int**>(listener) = &DAT_0104de10;
+    *reinterpret_cast<int**>(listener) = &vftable_hkpIslandActivationListener;
     return listener;
 }
 

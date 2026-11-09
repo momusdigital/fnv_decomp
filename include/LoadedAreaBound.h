@@ -9,7 +9,7 @@ class LoadedAreaBound : public NiRefObject
   public:
     virtual ~LoadedAreaBound();
     void FUN_006270f0();
-    void* FUN_006270c0(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
     void FUN_00628da0();
     void LoadedAreaBound_Update(TESObjectCELL*, void*);
 };

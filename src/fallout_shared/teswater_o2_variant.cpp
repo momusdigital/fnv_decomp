@@ -3,7 +3,7 @@
 // produce (frameless code in an /Od unit). Declarations copied from that unit's skeleton; move the functions to their real unit once identified.
 
 
-extern int DAT_0109cb9c;
+extern int vftable_NiCamera;
 void __fastcall ReleaseStorage_00a5a390(void* p);
 
 struct FUN_00a6fae0_Class
@@ -15,7 +15,7 @@ struct FUN_00a6fae0_Class
 // src: GUESS 0x00a6fae0 (confidence: low)
 void __thiscall FUN_00a6fae0_Class::UpdateFields_00a6fae0()
 {
-    *(int*)this = (int)&DAT_0109cb9c;
+    *(int*)this = (int)&vftable_NiCamera;
     ReleaseStorage_00a5a390(this);
 }
 

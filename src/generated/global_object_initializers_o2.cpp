@@ -385,32 +385,39 @@ GlobalObjectO2_00a7b610 g_011f6060(g_011f6060_arg0, g_011f6060_arg1);
 GlobalObjectO2_00a7b610 g_011f9140(g_011f9140_arg0, g_011f9140_arg1);
 // @fnv 0x00fb94f0
 // @fnv 0x00fdc780
-GlobalObjectO2_0045cfe0 g_011f9148(g_011f9148_arg0, 400);
+// src: EXE 0x011f9148
+GlobalObjectO2_0045cfe0 iFadeNodeMinNearDistance_LOD(iFadeNodeMinNearDistance_LOD_key, 400);
 // @fnv 0x00fb9550
 // @fnv 0x00fdcbf0
 GlobalObjectO2_0045cf30 g_011f94d4(g_011f94d4_arg0, 1);
 // @fnv 0x00fb9570
 // @fnv 0x00fdcc00
-GlobalObjectO2_0045cf30 g_011f94e0(g_011f94e0_arg0, 1);
+// src: EXE 0x011f94e0
+GlobalObjectO2_0045cf30 bImageSpaceEffects_Display(bImageSpaceEffects_Display_key, 1);
 // @fnv 0x00fb9590
 // @fnv 0x00fdcc20
-GlobalObjectO2_004a4a40 g_011f94ec(g_011f94ec_arg0, 8);
+// src: EXE 0x011f94ec
+GlobalObjectO2_004a4a40 iMaxAnisotropy_Display(iMaxAnisotropy_Display_key, 8);
 // @fnv 0x00fb95b0
 // @fnv 0x00fdcc10
-GlobalObjectO2_0045cf30 g_011f94f8(g_011f94f8_arg0, 0);
+// src: EXE 0x011f94f8
+GlobalObjectO2_0045cf30 bDoTestHDR_Display(bDoTestHDR_Display_key, 0);
 // @fnv 0x00fb95d0
 GlobalObjectO2_00b54280 g_011f9504;
 // @fnv 0x00fb9850
 GlobalObjectO2_00a7b610 g_011f9648(g_011f9648_arg0, g_011f9648_arg1);
 // @fnv 0x00fb9870
 // @fnv 0x00fdcc50
-GlobalObjectO2_0045cfe0 g_011f9650(g_011f9650_arg0, 8);
+// src: EXE 0x011f9650
+GlobalObjectO2_0045cfe0 iDistantLODGroupWidth_DistantLOD(iDistantLODGroupWidth_DistantLOD_key, 8);
 // @fnv 0x00fb9890
 // @fnv 0x00fdcc60
-GlobalObjectO2_0045cf30 g_011f9688(g_011f9688_arg0, 1);
+// src: EXE 0x011f9688
+GlobalObjectO2_0045cf30 bDoRadialBlur_Imagespace(bDoRadialBlur_Imagespace_key, 1);
 // @fnv 0x00fb98b0
 // @fnv 0x00fdcc70
-GlobalObjectO2_004a4a40 g_011f9694(g_011f9694_arg0, 0);
+// src: EXE 0x011f9694
+GlobalObjectO2_004a4a40 iRadialBlurLevel_Imagespace(iRadialBlurLevel_Imagespace_key, 0);
 // @fnv 0x00fb98d0
 GlobalObjectO2_00a7b610 g_011f9e80(g_011f9e80_arg0, g_011f9e80_arg1);
 // @fnv 0x00fb9910
@@ -537,7 +544,8 @@ GlobalObjectO2_00a7b610 g_01202348(g_01202348_arg0, g_01202348_arg1);
 GlobalObjectO2_00a7b610 g_012023c8(g_012023c8_arg0, g_012023c8_arg1);
 // @fnv 0x00fbade0
 // @fnv 0x00fdd380
-GlobalObjectO2_004de2f0 g_012023d0(g_012023d0_arg0, 1);
+// src: EXE 0x012023d0
+GlobalObjectO2_004de2f0 bDoDepthOfField_Imagespace(bDoDepthOfField_Imagespace_key, 1);
 // @fnv 0x00fbae30
 GlobalObjectO2_00a7b610 g_012023e8(g_012023e8_arg0, g_012023e8_arg1);
 // @fnv 0x00fbae70
@@ -545,7 +553,8 @@ GlobalObjectO2_00a7b610 g_012023e8(g_012023e8_arg0, g_012023e8_arg1);
 GlobalObjectO2_00b8a9e0 g_01202410;
 // @fnv 0x00fbae90
 // @fnv 0x00fdd3a0
-GlobalObjectO2_0045cf30 g_0120249c(g_0120249c_arg0, 1);
+// src: EXE 0x0120249c
+GlobalObjectO2_0045cf30 bDoMotionBlur_Imagespace(bDoMotionBlur_Imagespace_key, 1);
 // @fnv 0x00fbaeb0
 GlobalObjectO2_00a7b610 g_012024b0(g_012024b0_arg0, g_012024b0_arg1);
 // @fnv 0x00fbaed0
@@ -705,48 +714,62 @@ GlobalObjectO2_00a7b610 g_01267824(g_01267824_arg0, g_01267824_arg1);
 GlobalObjectO2_00c67fe0 g_01267830;
 // @fnv 0x00fbcbd0
 // @fnv 0x00fddde0
-GlobalObjectO2_0045cfe0 g_01267b1c(g_01267b1c_arg0, 8);
+// src: EXE 0x01267b1c
+GlobalObjectO2_0045cfe0 iMinNumSubSteps_HAVOK(iMinNumSubSteps_HAVOK_key, 8);
 // @fnv 0x00fbcbf0
 // @fnv 0x00fdddf0
-GlobalObjectO2_0045cf30 g_01267b28(g_01267b28_arg0, 0);
+// src: EXE 0x01267b28
+GlobalObjectO2_0045cf30 bHavokDebug_HAVOK(bHavokDebug_HAVOK_key, 0);
 // @fnv 0x00fbcc40
 // @fnv 0x00fdde10
-GlobalObjectO2_0045cf30 g_01267b40(g_01267b40_arg0, 1);
+// src: EXE 0x01267b40
+GlobalObjectO2_0045cf30 bFindContactPointsOnAdd_HAVOK(bFindContactPointsOnAdd_HAVOK_key, 1);
 // @fnv 0x00fbcc60
 GlobalObjectO2_00a7b610 g_01267b70(g_01267b70_arg0, g_01267b70_arg1);
 // @fnv 0x00fbcc90
 // @fnv 0x00fdde20
-GlobalObjectO2_0045cf30 g_01267ba0(g_01267ba0_arg0, 1);
+// src: EXE 0x01267ba0
+GlobalObjectO2_0045cf30 bWONameSync_Havok(bWONameSync_Havok_key, 1);
 // @fnv 0x00fbcd70
 // @fnv 0x00fdde90
-GlobalObjectO2_0045cf30 g_01267c24(g_01267c24_arg0, 1);
+// src: EXE 0x01267c24
+GlobalObjectO2_0045cf30 bRagdollAnim_RagdollAnim(bRagdollAnim_RagdollAnim_key, 1);
 // @fnv 0x00fbcd90
 // @fnv 0x00fddea0
-GlobalObjectO2_0045cf30 g_01267c30(g_01267c30_arg0, 1);
+// src: EXE 0x01267c30
+GlobalObjectO2_0045cf30 bFootIK_RagdollAnim(bFootIK_RagdollAnim_key, 1);
 // @fnv 0x00fbcdb0
 // @fnv 0x00fddeb0
-GlobalObjectO2_0045cf30 g_01267c3c(g_01267c3c_arg0, 1);
+// src: EXE 0x01267c3c
+GlobalObjectO2_0045cf30 bGrabIK_RagdollAnim(bGrabIK_RagdollAnim_key, 1);
 // @fnv 0x00fbcdd0
 // @fnv 0x00fddec0
-GlobalObjectO2_0045cf30 g_01267c48(g_01267c48_arg0, 1);
+// src: EXE 0x01267c48
+GlobalObjectO2_0045cf30 bLookIK_RagdollAnim(bLookIK_RagdollAnim_key, 1);
 // @fnv 0x00fbcdf0
 // @fnv 0x00fdded0
-GlobalObjectO2_0045cf30 g_01267c54(g_01267c54_arg0, 1);
+// src: EXE 0x01267c54
+GlobalObjectO2_0045cf30 bRagdollFeedback_RagdollAnim(bRagdollFeedback_RagdollAnim_key, 1);
 // @fnv 0x00fbce10
 // @fnv 0x00fddee0
-GlobalObjectO2_0045cf30 g_01267c60(g_01267c60_arg0, 1);
+// src: EXE 0x01267c60
+GlobalObjectO2_0045cf30 bPoseMatching_RagdollAnim(bPoseMatching_RagdollAnim_key, 1);
 // @fnv 0x00fbd280
 // @fnv 0x00fde060
-GlobalObjectO2_0045cf30 g_01267d80(g_01267d80_arg0, 1);
+// src: EXE 0x01267d80
+GlobalObjectO2_0045cf30 bFootPlacementOn_FootIK(bFootPlacementOn_FootIK_key, 1);
 // @fnv 0x00fbd390
 // @fnv 0x00fde0c0
-GlobalObjectO2_0045cfe0 g_01267dc8(g_01267dc8_arg0, 30);
+// src: EXE 0x01267dc8
+GlobalObjectO2_0045cfe0 iNumFramesFootEaseOut_FootIK(iNumFramesFootEaseOut_FootIK_key, 30);
 // @fnv 0x00fbd470
 // @fnv 0x00fde110
-GlobalObjectO2_0045cfe0 g_01267e04(g_01267e04_arg0, 1500);
+// src: EXE 0x01267e04
+GlobalObjectO2_0045cfe0 uiFeedbackTimeout_RagdollFeedback(uiFeedbackTimeout_RagdollFeedback_key, 1500);
 // @fnv 0x00fbd4c0
 // @fnv 0x00fde130
-GlobalObjectO2_0045cf30 g_01267e1c(g_01267e1c_arg0, 1);
+// src: EXE 0x01267e1c
+GlobalObjectO2_0045cf30 bRigidBodyController_FootIK(bRigidBodyController_FootIK_key, 1);
 // @fnv 0x00fbd5d0
 GlobalObjectO2_00a7b610 g_01267e64(g_01267e64_arg0, g_01267e64_arg1);
 // @fnv 0x00fbd5f0

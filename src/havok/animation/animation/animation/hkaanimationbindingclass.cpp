@@ -61,7 +61,7 @@ struct ReclaimState
     unsigned int m_24;  // 0x24
 };
 
-extern char DAT_0102e388;
+extern char vftable_hkBaseObject;
 struct CalleeA
 {
     void FUN_00c905b0();
@@ -102,5 +102,5 @@ void Record::ClearReferences()
     }
     pState->unk0c = 0;
     reinterpret_cast<CalleeB*>(&pState->unk08)->Object_UpdateFields_00cb0c00();
-    pState->vptr = (void*)&DAT_0102e388;
+    pState->vptr = (void*)&vftable_hkBaseObject;
 }

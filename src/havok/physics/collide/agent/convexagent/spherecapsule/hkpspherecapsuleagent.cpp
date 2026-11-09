@@ -140,7 +140,7 @@ void __stdcall hkpSphereCapsuleAgent_getPenetrations(int a, int b, int c, int d)
     hkpSphereCapsuleAgent_staticGetPenetrations(a, b, c, d);
 }
 
-extern char DAT_010ce81c;
+extern char vftable_hkpSymmetricAgentFlipBodyCollector;
 
 struct FUN_00d3f040_tmp {
     const char* str;
@@ -150,7 +150,7 @@ struct FUN_00d3f040_tmp {
 
 void __cdecl hkpSphereCapsuleAgent_staticGetPenetrations(unsigned int a, unsigned int b, unsigned int c, FUN_00d3f040_tmp* p);
 
-// Builds a FUN_00d3f040_tmp with value a3, flag 0 and str pointing at DAT_010ce81c, then calls FUN_00d3e330(a1, a0, a2, &t).
+// Builds a FUN_00d3f040_tmp with value a3, flag 0 and str pointing at vftable_hkpSymmetricAgentFlipBodyCollector, then calls FUN_00d3e330(a1, a0, a2, &t).
 // @fnv 0x00d3f040
 // src: GUESS 0x00d3f040 (confidence: low)
 void __cdecl Object_UpdateFields_00d3f040(unsigned int a0, unsigned int a1, unsigned int a2, unsigned int uiValue)
@@ -158,11 +158,11 @@ void __cdecl Object_UpdateFields_00d3f040(unsigned int a0, unsigned int a1, unsi
     FUN_00d3f040_tmp t;
     t.value = uiValue;
     t.flag = 0;
-    t.str = &DAT_010ce81c;
+    t.str = &vftable_hkpSymmetricAgentFlipBodyCollector;
     hkpSphereCapsuleAgent_staticGetPenetrations(a1, a0, a2, &t);
 }
 
-extern char DAT_010ce81c;
+extern char vftable_hkpSymmetricAgentFlipBodyCollector;
 struct AgentDispatchDescriptor {
     const void* dispatchTable;
     unsigned char isFlipped;
@@ -180,7 +180,7 @@ void CollisionDispatcher::hkpSymmetricAgentLinearCast_hkpSphereCapsuleAgent_getP
     AgentDispatchDescriptor descriptor;
     descriptor.tag = tag;
     descriptor.isFlipped = false;
-    descriptor.dispatchTable = &DAT_010ce81c;
+    descriptor.dispatchTable = &vftable_hkpSymmetricAgentFlipBodyCollector;
     hkpSphereCapsuleAgent_getPenetrations(bodyB, bodyA, input, &descriptor);
 }
 

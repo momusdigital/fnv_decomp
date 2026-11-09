@@ -4,13 +4,13 @@
 
 #include "../../../include/BGSZoneTargetListener.h"
 
-extern int DAT_0104d9e0;
+extern int vftable_BGSZoneTargetListener;
 
 // The shared header has no constructor declaration; ECX carries the listener here.
 // @fnv 0x0061ffb0
 void* __fastcall ConstructZoneTargetListener(BGSZoneTargetListener* listener)
 {
-    *reinterpret_cast<void**>(listener) = &DAT_0104d9e0;
+    *reinterpret_cast<void**>(listener) = &vftable_BGSZoneTargetListener;
     listener->m_flags = 0;
     return listener;
 }
@@ -59,22 +59,22 @@ struct FUN_0061fc10_shell
     void __thiscall FUN_0061fc10(unsigned int a, unsigned int b);
 };
 
-extern void* DAT_0104e3e8;
+extern void* vftable_TrapEntry;
 
-struct FUN_0062d840_shell
+struct TrapEntry
 {
     void* m_iWordAt00;
     void* m_iWordAt04;
     void* __thiscall TrapEntry_TrapEntry(unsigned int a, unsigned int b);
 };
 
-// Calls FUN_0061fc10 with a and b, sets the first field to point at DAT_0104e3e8, and returns this.
+// Calls FUN_0061fc10 with a and b, sets the first field to point at vftable_TrapEntry, and returns this.
 // @fnv 0x0062d840
 // src: EXE 0x0062d840
-void* __thiscall FUN_0062d840_shell::TrapEntry_TrapEntry(unsigned int a, unsigned int b)
+void* __thiscall TrapEntry::TrapEntry_TrapEntry(unsigned int a, unsigned int b)
 {
     ((FUN_0061fc10_shell*)this)->FUN_0061fc10(a, b);
-    m_iWordAt00 = &DAT_0104e3e8;
+    m_iWordAt00 = &vftable_TrapEntry;
     return this;
 }
 
@@ -82,7 +82,7 @@ struct Member140
 {
     void __thiscall bhkTTNode_TESObjectREFR_bhkTTNode_TESObjectREFR(unsigned int a, unsigned int b);
 };
-extern int DAT_0104d9cc[];
+extern int vftable_ZoneEntry[];
 struct FUN_0061fc10
 {
     void* m0;
@@ -90,16 +90,16 @@ struct FUN_0061fc10
     int _14;
     FUN_0061fc10(unsigned int a, unsigned int b);
 };
-// Calls FUN_00620720 on the member at offset 4 with a and b, then sets m0 to DAT_0104d9cc and _14 to 0.
+// Calls FUN_00620720 on the member at offset 4 with a and b, then sets m0 to vftable_ZoneEntry and _14 to 0.
 // @fnv 0x0061fc10
 FUN_0061fc10::FUN_0061fc10(unsigned int uiFirst, unsigned int uiSecond)
 {
     ((Member140*)((char*)this + 4))->bhkTTNode_TESObjectREFR_bhkTTNode_TESObjectREFR(uiFirst, uiSecond);
-    m0 = DAT_0104d9cc;
+    m0 = vftable_ZoneEntry;
     _14 = 0;
 }
 
-extern int DAT_0104d9d8;
+extern int vftable_TrapTargetEntry;
 struct FUN_0061fe70_shell
 {
     void* m_iWordAt00;
@@ -107,12 +107,12 @@ struct FUN_0061fe70_shell
     void __thiscall TargetEntry_TargetEntry(unsigned int a, unsigned int b);
     void* __thiscall Construct(unsigned int a, unsigned int b);
 };
-// Calls FUN_0061fba0 with a and b, stores the address of DAT_0104d9d8 at this, and returns this.
+// Calls FUN_0061fba0 with a and b, stores the address of vftable_TrapTargetEntry at this, and returns this.
 // @fnv 0x0061fe70
 void* __thiscall FUN_0061fe70_shell::Construct(unsigned int a, unsigned int b)
 {
     TargetEntry_TargetEntry(a, b);
-    *reinterpret_cast<void**>(this) = &DAT_0104d9d8;
+    *reinterpret_cast<void**>(this) = &vftable_TrapTargetEntry;
     return this;
 }
 
@@ -299,7 +299,7 @@ void* BGSZoneTargetListener::CreateZoneTargetNode(unsigned int uiFirst, unsigned
     return new ZoneTargetNode(uiFirst, uiSecond);
 }
 
-extern int DAT_0104d9c4;
+extern int vftable_TargetEntry;
 
 struct S_0061fba0_Member
 {
@@ -337,7 +337,7 @@ struct S_0061fba0_Obj
 S_0061fba0_Obj* __thiscall S_0061fba0_Obj::TargetEntry_TargetEntry(unsigned int a, unsigned int b)
 {
     m_10.bhkTTNode_TESObjectREFR_bhkTTNode_TESObjectREFR(a, b);
-    vtbl = (const void*)&DAT_0104d9c4;
+    vtbl = (const void*)&vftable_TargetEntry;
     m_20.FUN_006815c0();
     m_30.FUN_006815c0();
     m_20.hkVector4_setZero4();

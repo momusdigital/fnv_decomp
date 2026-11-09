@@ -115,12 +115,13 @@ void __thiscall FUN_004fe520_shell::BGSStaticCollection_Save(void)
 struct Dummy
 {
     void FUN_004fe310();
-    void* FUN_004fe2e0(unsigned int);
+    void* BGSStaticCollection_ScalarDeletingDestructor(unsigned int);
 };
 void __cdecl _Deallocate(void*);
 // Calls FUN_004fe310, then deallocates this when flags has bit 0 set, and returns this.
 // @fnv 0x004fe2e0
-void* Dummy::FUN_004fe2e0(unsigned int flags)
+// src: EXE 0x004fe2e0
+void* Dummy::BGSStaticCollection_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_004fe310();
     if (flags & 1)

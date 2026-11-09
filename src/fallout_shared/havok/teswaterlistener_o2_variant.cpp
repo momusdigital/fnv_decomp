@@ -11,7 +11,7 @@
 
 struct FUN_0062e750_shell
 {
-    void* __thiscall FUN_0062e750(unsigned int flags);
+    void* __thiscall TESWaterListener_ScalarDeletingDestructor(unsigned int flags);
     void __thiscall FUN_0062e860();
 };
 void __cdecl _Deallocate(void* p);

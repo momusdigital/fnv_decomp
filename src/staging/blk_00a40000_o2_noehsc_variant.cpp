@@ -34,7 +34,7 @@
 extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(volatile long*);
 extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(volatile long*);
 extern "C" void __fastcall NiBlendInterpolator_NiBlendInterpolator(void*);
-extern int DAT_0109750c;
+extern int vftable_NiBlendTransformInterpolator;
 struct FUN_00a409b0_class
 {
     void* vtbl;
@@ -44,7 +44,7 @@ void __fastcall NiBlendInterpolator_NiBlendInterpolator(void*);
 void* __cdecl NiBlendTransformInterpolator_CreateObject();
 float NiInterpScalar_Linear(float a, float b, float c);
 void __fastcall NiBlendInterpolator_NiBlendInterpolator(void*);
-extern int DAT_01097904;
+extern int vftable_BSBlendTreadTransfInterpolator;
 struct FUN_00a42f60
 {
     void* m_pVTable;
@@ -85,18 +85,18 @@ struct FUN_00a57870_Class
 void* __cdecl BSBlendTreadTransfInterpolator_CreateObject();
 extern "C" void NiFree(void*);
 extern MemoryManager _g_memoryManager;
-extern int DAT_010997f4;
+extern int vftable_NiBSplineFloatInterpolator;
 struct BaseHolder
 {
     void FUN_00a57f20(int, int);
 };
 void* __cdecl NiBSplineFloatInterpolator_CreateObject();
 void __fastcall _Call_a5d3a0(void*);
-extern int DAT_01099e54;
+extern int vftable_NiBSplineData;
 void* __cdecl NiBSplineData_CreateObject();
 void* __cdecl NiMalloc(unsigned int);
 void* __cdecl fnv_zlib_memset(void* dst, void* src, unsigned int size);
-extern int DAT_0109a2a4;
+extern int vftable_NiTArray_0109a2a4;
 extern MemoryManager g_memoryManager;
 void __cdecl NiFree(void*);
 struct FUN_00a54160_class
@@ -115,7 +115,7 @@ unsigned int __stdcall NiGlobalStringTable_HashFunction(const char* s, unsigned 
 extern "C" unsigned int __cdecl _strcpy_s(char* dst, unsigned int size, const char* src);
 void __cdecl _fnv_StandardizeFilePath(char*);
 void __cdecl NiStandardizeFilePath(NiFixedString* k);
-extern int DAT_0109b00c;
+extern int vftable_NiAVObject;
 struct FUN_004a4650_ListBase
 {
     void NiTPointerListBase_NiTPointerAllocator_unsigned_int_NiPointer_BSMultiBoundRoom_RemoveAll();
@@ -125,14 +125,14 @@ struct FUN_00a5a390_shell
     void ReleaseStorage_00a5a390();
     void DestroyFogProperty();
 };
-extern char DAT_010976ec;
+extern char vftable_NiTArray_010976ec;
 struct FUN_00a414c0_class
 {
     void* m_pVTable;
     void* m_p;
     FUN_00a414c0_class* __thiscall FUN_00a414c0(unsigned char flags);
 };
-extern int DAT_010976fc;
+extern int vftable_NiMorphData;
 struct A51BF0Base
 {
     static void* operator new(unsigned int);
@@ -175,7 +175,7 @@ struct FUN_00a44f90_class
     char m_4b;
     FUN_00a44f90_class();
 };
-extern int DAT_01097f84;
+extern int vftable_NiUVData;
 void __cdecl _NiFree(void*);
 struct FUN_00a57890_shell
 {
@@ -447,7 +447,7 @@ struct FUN_00a478f0 : NiRefObject
     ~FUN_00a478f0() throw();
 };
 extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(volatile long*);
-extern int DAT_0109893c;
+extern int vftable_NiPathController;
 struct RefPointer
 {
     NiRefObject* object;
@@ -671,7 +671,7 @@ struct SingletonTarget
 extern SingletonTarget* g_011f42c0;
 void __cdecl NiGlobalStringTable_FreeUnusedStrings();
 extern void __cdecl _NiFree_00aa10f0(char* psz);
-extern int DAT_0102102c;
+extern int vftable_NiTArray_0102102c;
 struct Ent
 {
     void* m_f0;
@@ -789,8 +789,8 @@ struct FUN_00a5b870_cls
 };
 // NiRefObject
 extern void* __cdecl Object_DispatchCommandFour(unsigned int);
-extern int DAT_0109b5ac;
-extern int DAT_0101fbd4;
+extern int vftable_NiNode;
+extern int vftable_NiTObjectArray_0101fbd4;
 struct NiObjectBase
 {
     void __thiscall FUN_00a5aa20();
@@ -806,7 +806,7 @@ struct ObjectState
 };
 NiObjectBase* __cdecl NiNode_CreateObject();
 // Constructor of a derived object: base ctor call, then a 16-bit field and the vtable pointer.
-extern int DAT_0109b72c;
+extern int vftable_NiVertexColorProperty;
 struct FUN_00a5f1e0_cls
 {
     void* m_pVTable;       // +0x00
@@ -842,8 +842,8 @@ class FUN_00a5f4d0 : public A5F4D0Property
     FUN_00a5f4d0();
     virtual ~FUN_00a5f4d0();
 };
-extern int DAT_0109b9ec;
-extern int DAT_0109b944;
+extern int vftable_NiSourceTexture;
+extern int vftable_NiTexture;
 extern int DAT_0109b220;
 struct FUN_00a5fca0_cls
 {
@@ -1327,7 +1327,7 @@ struct ExtraOwner
     S654 list;
     void NiAVObject_RemoveProperty_0(int type, NiPointer<AnimIdle>& output);
 };
-extern int DAT_0101dce4;
+extern int vftable_NiRefObject;
 extern char DAT_011f4400;
 void __cdecl _delete(void*, unsigned int);
 __declspec(dllimport) long __stdcall InterlockedDecrement(long volatile* Addend);

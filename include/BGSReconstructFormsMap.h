@@ -12,5 +12,5 @@ public:
     BGSReconstructFormsMap();
     virtual ~BGSReconstructFormsMap();
     void FUN_008411f0();
-    void* FUN_008411c0(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 };

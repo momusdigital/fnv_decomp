@@ -240,8 +240,8 @@ struct LinkedListEntry
 void __stdcall NiTPointerListBase_DeleteItem(LinkedListEntry* a);
 extern "C" void __cdecl _NiFreeAlias(void*);
 extern "C" void* __cdecl _DeallocateAlias(void*);
-extern int DAT_010eda84;
-extern int DAT_010edb5c;
+extern int vftable_NiTMapBase_010eda84;
+extern int vftable_NiTPointerMap_010edb5c;
 extern MemoryManager g_memoryManager;
 struct NodePoolView
 {
@@ -463,9 +463,9 @@ struct FUN_00e6dcc0_shell
 {
     bool __thiscall NiDX9Renderer_CreateSourceCubeMap(void*);
 };
-extern int DAT_010eda24;
+extern int vftable_NiTMapBase_010eda24;
 extern MemoryManager g_memoryManager;
-extern int DAT_010edaf4;
+extern int vftable_NiTArray_010edaf4;
 extern MemoryManager g_memoryManager;
 struct S00e72e20
 {
@@ -504,7 +504,7 @@ struct P03MM
     void* Allocate(unsigned int size);
 };
 extern void* DAT_0126f550;
-extern const void* DAT_010ee898;
+extern const void* vftable_NiTPrimitiveArray_010ee898;
 void __cdecl Object_ProcessEntries_00e7a760();
 void __cdecl NiD3DShaderDeclaration__SDMInit();
 extern int DAT_0126f0ec;
@@ -711,7 +711,7 @@ struct FUN_00e76610_shell
     unsigned int pad[0x34 / 4];
     void __thiscall SetFlag(bool value);
 };
-extern int DAT_010ee70c;
+extern int vftable_NiDX9ShaderDeclaration;
 extern MemoryManager g_memoryManager;
 void __cdecl _delete(void*, unsigned int);
 struct ICom78510
@@ -733,7 +733,7 @@ struct S78510
     void* __thiscall FUN_00e78510(unsigned int);
 };
 extern "C" void __cdecl FUN_00ee88b0();
-extern const char DAT_010ee7cc[];
+extern const char vftable_NiD3DShaderDeclaration[];
 struct FUN_00e78840_shell
 {
     void* vtable;
@@ -4671,7 +4671,7 @@ struct RendererPoolView : GraphicsRenderer
 {
     void ResetPools();
 };
-extern int DAT_010eda84;
+extern int vftable_NiTMapBase_010eda84;
 void __cdecl NiFree(void*);
 extern MemoryManager _g_memoryManager;
 extern "C" void __cdecl operator_delete_sized(void* pvMem, unsigned int uiSize);
@@ -9429,7 +9429,7 @@ static inline unsigned int PackColor_e78910(const short* v, unsigned short comps
     return (((short)a & 0xff00) << 16) | ((v[0] & 0xff00) << 8) | (v[1] & 0xff00) | ((v[2] >> 8) & 0xff);
 }
 int PackVertexColors(Stream_e78910* s);
-extern const char DAT_010ee7cc[];
+extern const char vftable_NiD3DShaderDeclaration[];
 void __cdecl NiMemObject_ReleaseStorage_00aa1490(void* apMemory, unsigned int auiSize);
 struct FUN_00e78be0_cls
 {
@@ -9478,7 +9478,7 @@ struct NormalizedStream
     unsigned char* dest;
 };
 unsigned __cdecl NormalizeVertexStream(NormalizedStream* s);
-extern "C" const char DAT_010ee8a0[];
+extern "C" const char vftable_NiTPrimitiveArray_010ee8a0[];
 struct FUN_00e7a640
 {
     unsigned int m_00;

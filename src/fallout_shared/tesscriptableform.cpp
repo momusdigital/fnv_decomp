@@ -42,16 +42,16 @@ void TESScriptableForm::InitItem(TESForm* owner)
     m_bHasScript = true;
 }
 
-extern int DAT_0101d518;
+extern int vftable_TESScriptableForm;
 void __fastcall TESScriptableForm_InitializeDataComponent(void* pThis);
 
-// Initialises a BaseFormComponent: runs its base constructor, installs the vtable at DAT_0101d518, calls FUN_0048cc80, and returns pThis.
+// Initialises a BaseFormComponent: runs its base constructor, installs the vtable at vftable_TESScriptableForm, calls FUN_0048cc80, and returns pThis.
 // @fnv 0x0048cc50
 // src: GUESS 0x0048cc50 (confidence: high)
 void* __fastcall TESScriptableForm_InitializeDataComponent_InitializeScriptableFormComponent(BaseFormComponent* apComponent)
 {
     apComponent->BaseFormComponent::BaseFormComponent();
-    *(int**)apComponent = &DAT_0101d518;
+    *(int**)apComponent = &vftable_TESScriptableForm;
     TESScriptableForm_InitializeDataComponent(apComponent);
     return apComponent;
 }

@@ -1,4 +1,4 @@
-extern char DAT_0109e984;
+extern char vftable_NiScreenElements;
 
 // src/gamebryo2.2/corelibs/nimain/niscreenelements_o2_variant.cpp - flag-variant unit created 2026-10-17 by flag_variants.py for src/gamebryo2.2/corelibs/nimain/niscreenelements.cpp functions whose prologue its flags cannot
 // produce (frameless code in an /Od unit). Declarations copied from that unit's skeleton; move the functions to their real unit once identified.
@@ -21,7 +21,7 @@ extern "C" void _delete(void*, unsigned int);
 // @fnv 0x00a87830
 NiScreenElements* __thiscall NiScreenElements::FUN_00a87830(unsigned int flags)
 {
-    *reinterpret_cast<void**>(this) = (void*)&DAT_0109e984;
+    *reinterpret_cast<void**>(this) = (void*)&vftable_NiScreenElements;
     FUN_00a89760();
     if (flags & 1)
         _delete(this, 0xc4);
@@ -42,7 +42,7 @@ void NiScreenElements::GetViewerStrings(NiViewerStringsArray* strings)
     pkStrings->SetAt(sz, tmp);
 }
 
-extern char DAT_0109e984;
+extern char vftable_NiScreenElements;
 extern "C" void __cdecl ScreenElementsBaseConstructor();
 
 // The shared base has no single-data-pointer constructor declaration.
@@ -50,7 +50,7 @@ extern "C" void __cdecl ScreenElementsBaseConstructor();
 NiScreenElements* __fastcall ConstructScreenElements(NiScreenElements* self, void*, NiScreenElementsData* data)
 {
     ((void (__thiscall*)(NiTriShape*, NiScreenElementsData*))&ScreenElementsBaseConstructor)(self, data);
-    *reinterpret_cast<void**>(self) = &DAT_0109e984;
+    *reinterpret_cast<void**>(self) = &vftable_NiScreenElements;
     return self;
 }
 
@@ -65,7 +65,7 @@ NiObject* __fastcall CloneScreenElements(NiScreenElements* self, void*, CloningP
     if (pChild)
     {
         ((void (__thiscall*)(NiTriShape*) throw())&ScreenElementsBaseDefaultConstructor)(pChild);
-        *reinterpret_cast<void**>(pChild) = &DAT_0109e984;
+        *reinterpret_cast<void**>(pChild) = &vftable_NiScreenElements;
     }
     else
         pChild = 0;

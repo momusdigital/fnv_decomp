@@ -67,7 +67,7 @@ struct PtrElem
     void Release();
 };
 
-extern int DAT_0102e388;
+extern int vftable_hkBaseObject;
 
 struct FUN_00dff730_cls
 {
@@ -128,7 +128,7 @@ void FUN_00dff730_cls::ClearArrays()
     }
     m_pData2 = 0;
     m_uCapBits2 = 0x80000000u;
-    m_vptr = (int)&DAT_0102e388;
+    m_vptr = (int)&vftable_hkBaseObject;
 }
 }  // namespace fnv_00dff730
 

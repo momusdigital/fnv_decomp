@@ -14,7 +14,7 @@ public:
     ExtraHavok(int);
 
     void FUN_0040ee70();
-    void* FUN_0040ee40(unsigned int);
+    void* ScalarDeletingDestructor(unsigned int);
 
     union
     {

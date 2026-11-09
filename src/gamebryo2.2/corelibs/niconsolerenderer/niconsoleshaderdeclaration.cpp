@@ -4,7 +4,7 @@
 #include "../../../../include/BSFadeNode.h"
 #include "../../../../include/NiRenderer.h"
 
-extern void* DAT_010ee70c;
+extern void* vftable_NiDX9ShaderDeclaration;
 
 struct NiD3DVertexDeclaration
 {
@@ -30,7 +30,7 @@ NiD3DVertexDeclaration* NiDX9ShaderDeclaration_Create(NiRenderer* renderer, unsi
     if (pkShaderDeclaration)
     {
         pkShaderDeclaration->Construct();
-        *reinterpret_cast<void**>(pkShaderDeclaration) = &DAT_010ee70c;
+        *reinterpret_cast<void**>(pkShaderDeclaration) = &vftable_NiDX9ShaderDeclaration;
         *reinterpret_cast<void**>(reinterpret_cast<char*>(pkShaderDeclaration) + 0x2c) = 0;
         *reinterpret_cast<void**>(reinterpret_cast<char*>(pkShaderDeclaration) + 0x30) = 0;
         *reinterpret_cast<char*>(reinterpret_cast<char*>(pkShaderDeclaration) + 0x34) = 0;

@@ -42,8 +42,8 @@ void* __fastcall FUN_00ee8440(NiRenderedCubeMap* cubeMap, void*, unsigned int fl
 }
 
 extern "C" void _ReadWriteBarrier(void);
-extern int DAT_0109b944;
-extern int DAT_0110102c;
+extern int vftable_NiTexture;
+extern int vftable_NiRenderedCubeMap;
 
 // Entry points for base initialization and teardown absent from the shared headers.
 void __fastcall InitializeObjectNET(NiObjectNET* object);
@@ -55,7 +55,7 @@ void __fastcall DestroyObjectNET(NiObjectNET* object);
 NiRenderedCubeMap* __fastcall ConstructCubeMap(NiRenderedCubeMap* cubeMap) throw()
 {
     InitializeObjectNET(cubeMap);
-    *(int**)cubeMap = &DAT_0109b944;
+    *(int**)cubeMap = &vftable_NiTexture;
     cubeMap->m_kFormatPrefs.m_ePreferredPixelLayout = NiTexture::TextureFormatPreferences::PIX_DEFAULT;
     cubeMap->m_kFormatPrefs.m_eAlphaFormat = NiTexture::TextureFormatPreferences::ALPHA_DEFAULT;
     cubeMap->m_kFormatPrefs.m_eMipFlag = NiTexture::TextureFormatPreferences::MIP_DEFAULT;
@@ -63,7 +63,7 @@ NiRenderedCubeMap* __fastcall ConstructCubeMap(NiRenderedCubeMap* cubeMap) throw
     InitializeTexture(cubeMap);
     cubeMap->m_spRenderTargetBuffer.m_pObject = 0;
     _ReadWriteBarrier();
-    *(int**)cubeMap = &DAT_0110102c;
+    *(int**)cubeMap = &vftable_NiRenderedCubeMap;
     memset(cubeMap->m_ppCubeMapFaces, 0, 0x18);
     cubeMap->unk48 = 0;
     return cubeMap;
@@ -90,7 +90,7 @@ void NiRenderedCubeMap::ReleaseReference_00ee82b0()
     NiRefObject* p = m_spRenderTargetBuffer.m_pObject;
     if (p && InterlockedDecrement((volatile long*)p + 1) == 0)
         p->DeleteThis();
-    *(int*)this = (int)&DAT_0109b944;
+    *(int*)this = (int)&vftable_NiTexture;
     if (m_pkRendererData)
         delete (Item*)m_pkRendererData;
     DestroyTexture(this);

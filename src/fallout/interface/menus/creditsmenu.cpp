@@ -96,7 +96,7 @@ int* __thiscall FUN_007613f0_shell::UpdateState_007613f0()
     return (int*)this;
 }
 
-extern int DAT_01072514;
+extern int vftable_BSSimpleArray_01072514;
 struct FUN_007616d0_shell
 {
     void __thiscall InitializeBuffer(int, int);
@@ -108,7 +108,7 @@ struct FUN_00761470_shell
 // @fnv 0x00761470
 FUN_00761470_shell* __thiscall FUN_00761470_shell::Construct()
 {
-    *reinterpret_cast<int**>(this) = &DAT_01072514;
+    *reinterpret_cast<int**>(this) = &vftable_BSSimpleArray_01072514;
     reinterpret_cast<FUN_007616d0_shell*>(this)->InitializeBuffer(0, 0);
     return this;
 }

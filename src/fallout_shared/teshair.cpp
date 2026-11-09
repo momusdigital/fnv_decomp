@@ -156,12 +156,13 @@ void __thiscall FUN_005fde80_shell::CopyFromHair(TESForm* apCopy)
 struct S
 {
     void FUN_005fdb90();
-    void* FUN_005fdb60(unsigned int);
+    void* TESHair_ScalarDeletingDestructor(unsigned int);
 };
 void _Deallocate(void*);
 // Calls FUN_005fdb90, then deallocates this when bit 0 of flags is set, and returns this.
 // @fnv 0x005fdb60
-void* S::FUN_005fdb60(unsigned int flags)
+// src: EXE 0x005fdb60
+void* S::TESHair_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_005fdb90();
     if (flags & 1)

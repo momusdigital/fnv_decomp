@@ -237,7 +237,7 @@ extern float _DAT_010162c0;
 extern float DAT_0108aff0;
 extern float DAT_0108da38;
 extern TeleportableReference DAT_011e0e80;
-extern ProcessListsView g_011f197c;
+extern ProcessListsView bDebugCombatDetectionEvents_Combat;
 
 // @fnv 0x00991770
 void FUN_00991770_shell::UpdateDetectionVisuals()
@@ -282,7 +282,7 @@ void FUN_00991770_shell::UpdateDetectionVisuals()
     {
         return;
     }
-    if (*g_011f197c.GetLifeStateControlFlag())
+    if (*bDebugCombatDetectionEvents_Combat.GetLifeStateControlFlag())
     {
         if (!*reinterpret_cast<Flt*>(reinterpret_cast<char*>(this) + 0x38))
         {

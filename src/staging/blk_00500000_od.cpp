@@ -1,5 +1,5 @@
-extern "C" void* const DAT_0102814c[];
-extern "C" void* const DAT_01028128[];
+extern "C" void* const vftable_TESGrass[];
+extern "C" void* const vftable_TESGrass_for_TESModel[];
 
 
 // src/staging/blk_00500000_od.cpp - STAGING unit created 2026-10-16 by stage_units.py for functions with no attributed unit
@@ -355,7 +355,7 @@ bool TESObjectDOOR::IsRandomDoor()
     return false;
 }
 
-extern "C" void* DAT_0102b3d0;
+extern "C" void* vftable_NiTPointerMap_0102b3d0;
 
 struct FUN_00519b20_cls
 {
@@ -364,13 +364,13 @@ struct FUN_00519b20_cls
     void* __thiscall InitializeFields_00519b20(void* arg);
 };
 
-// Calls ConstructArray with arg, sets m_p to the address of DAT_0102b3d0, and returns this.
+// Calls ConstructArray with arg, sets m_p to the address of vftable_NiTPointerMap_0102b3d0, and returns this.
 // @fnv 0x00519b20
 // src: GUESS 0x00519b20 (confidence: low)
 void* __thiscall FUN_00519b20_cls::InitializeFields_00519b20(void* arg)
 {
     ConstructArray(arg);
-    m_p = &DAT_0102b3d0;
+    m_p = &vftable_NiTPointerMap_0102b3d0;
     return this;
 }
 
@@ -443,7 +443,7 @@ void __thiscall FUN_0051f530_class::TESObjectWEAP_SetVATSEffect(int value)
 
 extern "C" void* __cdecl _NiFreeAlias(void*);
 
-extern void* DAT_0102b3f0;
+extern void* vftable_NiTMapBase_0102b3f0;
 
 struct FUN_00519c50_class
 {
@@ -458,7 +458,7 @@ struct FUN_00519c50_class
 // src: GUESS 0x00519c50 (confidence: low)
 void __thiscall FUN_00519c50_class::ReleaseStorage_00519c50()
 {
-    pVft = &DAT_0102b3f0;
+    pVft = &vftable_NiTMapBase_0102b3f0;
     NiTPointerMap_RemoveAll();
     _NiFreeAlias(_0x8);
 }
@@ -723,7 +723,7 @@ struct FUN_00519b20
 void* __thiscall FUN_00519b20::ConstructArray(unsigned int n)
 {
     unsigned int size;
-    ((void**)this)[0] = &DAT_0102b3f0;
+    ((void**)this)[0] = &vftable_NiTMapBase_0102b3f0;
     ((unsigned int*)this)[1] = n;
     ((unsigned int*)this)[3] = 0;
     size = ((unsigned int*)this)[1] * 4;
@@ -801,8 +801,8 @@ struct FUN_00509a10 : TESGrassBase
 // @fnv 0x00509a10
 FUN_00509a10::FUN_00509a10()
 {
-    ((void**)this)[0] = (void*)DAT_0102814c;
-    ((void**)((char*)this + 0x30))[0] = (void*)DAT_01028128;
+    ((void**)this)[0] = (void*)vftable_TESGrass;
+    ((void**)((char*)this + 0x30))[0] = (void*)vftable_TESGrass_for_TESModel;
     SetFormType(0x24);
     ResetFormData();
 }
@@ -843,42 +843,42 @@ typedef bool (__thiscall *AssignSettingByteFn)(Setting*, unsigned char);
 extern unsigned char DAT_011c8fa0;
 extern double _DAT_01012060;
 
-extern Setting g_011c8fb0;
-extern Setting g_011c8ff0;
-extern Setting g_011c9028;
-extern Setting g_011c9054;
-extern Setting g_011c9060;
-extern Setting g_011c906c;
-extern Setting g_011c907c;
+extern Setting fLinearRadiusMult_bLightAttenuation;
+extern Setting bUseLinear_bLightAttenuation;
+extern Setting bUseQuadratic_bLightAttenuation;
+extern Setting uLinearMethod_bLightAttenuation;
+extern Setting bUseConstant_bLightAttenuation;
+extern Setting fQuadraticRadiusMult_bLightAttenuation;
+extern Setting uQuadraticMethod_bLightAttenuation;
 
 // @fnv 0x0050e6c0
 bool __cdecl InitSettingsDefaults()
 {
     DAT_011c8fa0 = 0;
 
-    if (reinterpret_cast<AssignSettingByteFn>(AssignSettingByte)(&g_011c9060, 1))
+    if (reinterpret_cast<AssignSettingByteFn>(AssignSettingByte)(&bUseConstant_bLightAttenuation, 1))
         DAT_011c8fa0 |= 1;
 
-    if (reinterpret_cast<AssignSettingByteFn>(AssignSettingByte)(&g_011c8ff0, 1))
+    if (reinterpret_cast<AssignSettingByteFn>(AssignSettingByte)(&bUseLinear_bLightAttenuation, 1))
         DAT_011c8fa0 |= 2;
 
-    if (reinterpret_cast<AssignSettingByteFn>(AssignSettingByte)(&g_011c9028, 1))
+    if (reinterpret_cast<AssignSettingByteFn>(AssignSettingByte)(&bUseQuadratic_bLightAttenuation, 1))
         DAT_011c8fa0 |= 4;
 
     if (!DAT_011c8fa0)
         DAT_011c8fa0 |= 4;
 
-    if (*g_011c9054.Int() != 0 && *g_011c9054.Int() != 1 && *g_011c9054.Int() != 2)
-        g_011c9054.ProcessAndReturnValue_0045ce80(1);
+    if (*uLinearMethod_bLightAttenuation.Int() != 0 && *uLinearMethod_bLightAttenuation.Int() != 1 && *uLinearMethod_bLightAttenuation.Int() != 2)
+        uLinearMethod_bLightAttenuation.ProcessAndReturnValue_0045ce80(1);
 
-    if (*g_011c907c.Int() != 0 && *g_011c907c.Int() != 1 && *g_011c907c.Int() != 2)
-        g_011c907c.ProcessAndReturnValue_0045ce80(2);
+    if (*uQuadraticMethod_bLightAttenuation.Int() != 0 && *uQuadraticMethod_bLightAttenuation.Int() != 1 && *uQuadraticMethod_bLightAttenuation.Int() != 2)
+        uQuadraticMethod_bLightAttenuation.ProcessAndReturnValue_0045ce80(2);
 
-    if (*g_011c8fb0.Float() == 0.0)
-        reinterpret_cast<AssignSettingFloatFn>(AssignSettingFloat)(&g_011c8fb0, 1.0f);
+    if (*fLinearRadiusMult_bLightAttenuation.Float() == 0.0)
+        reinterpret_cast<AssignSettingFloatFn>(AssignSettingFloat)(&fLinearRadiusMult_bLightAttenuation, 1.0f);
 
-    if (*g_011c906c.Float() == 0.0)
-        reinterpret_cast<AssignSettingFloatFn>(AssignSettingFloat)(&g_011c906c, 1.0f);
+    if (*fQuadraticRadiusMult_bLightAttenuation.Float() == 0.0)
+        reinterpret_cast<AssignSettingFloatFn>(AssignSettingFloat)(&fQuadraticRadiusMult_bLightAttenuation, 1.0f);
 
     return true;
 }
@@ -1219,13 +1219,13 @@ float Envelope::UpdateEnvelope(float current, float rate, float elapsed, unsigne
     return current;
 }
 
-extern char DAT_01026bd0;
-extern char DAT_01026a4c;
-extern char DAT_01026a34;
-extern char DAT_01026a10;
-extern char DAT_010269fc;
-extern char DAT_010269e8;
-extern char DAT_010269d8;
+extern char vftable_TESFlora;
+extern char vftable_TESFlora_for_TESObjectACTI;
+extern char vftable_TESFlora_for_TESFullName;
+extern char vftable_TESFlora_for_TESModelTextureSwap;
+extern char vftable_TESFlora_for_TESScriptableForm;
+extern char vftable_TESFlora_for_BGSDestructibleObjectForm;
+extern char vftable_TESFlora_for_BGSOpenCloseForm;
 
 class ActorStateBase
 {
@@ -1284,13 +1284,13 @@ class FUN_00508450_cls : public ActorStateBase
 // @fnv 0x00508450
 FUN_00508450_cls::FUN_00508450_cls()
 {
-    this->m_00 = (void*)&DAT_01026bd0;
-    this->m_0c.m_00 = (void*)&DAT_01026a4c;
-    this->m_3c = (void*)&DAT_01026a34;
-    this->m_48 = (void*)&DAT_01026a10;
-    this->m_68 = (void*)&DAT_010269fc;
-    this->m_74 = (void*)&DAT_010269e8;
-    this->m_7c = (void*)&DAT_010269d8;
+    this->m_00 = (void*)&vftable_TESFlora;
+    this->m_0c.m_00 = (void*)&vftable_TESFlora_for_TESObjectACTI;
+    this->m_3c = (void*)&vftable_TESFlora_for_TESFullName;
+    this->m_48 = (void*)&vftable_TESFlora_for_TESModelTextureSwap;
+    this->m_68 = (void*)&vftable_TESFlora_for_TESScriptableForm;
+    this->m_74 = (void*)&vftable_TESFlora_for_BGSDestructibleObjectForm;
+    this->m_7c = (void*)&vftable_TESFlora_for_BGSOpenCloseForm;
     this->m_0c.FUN_004f15a0(0x26);
     this->m_0c.FUN_00484ab0(1);
 }

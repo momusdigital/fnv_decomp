@@ -159,12 +159,13 @@ void FUN_007b4180_shell::SetSelected()
 struct FUN_007ac530_shell
 {
     void FUN_007ac560();
-    void* FUN_007ac530(unsigned int);
+    void* RaceSexMenu_ScalarDeletingDestructor(unsigned int);
 };
 void __cdecl _Deallocate(void*);
 // Calls FUN_007ac560, then deallocates this when flags has bit 0 set, and returns this.
 // @fnv 0x007ac530
-void* FUN_007ac530_shell::FUN_007ac530(unsigned int flags)
+// src: EXE 0x007ac530
+void* FUN_007ac530_shell::RaceSexMenu_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_007ac560();
     if (flags & 1)
@@ -195,11 +196,12 @@ extern "C" void __cdecl _Deallocate(void*);
 struct FUN_007acb30_shell
 {
     void __thiscall FUN_007fed10();
-    void* __thiscall FUN_007acb30(unsigned int flags);
+    void* __thiscall FORenderedMenuRaceSex_ScalarDeletingDestructor(unsigned int flags);
 };
 // Calls FUN_007fed10, then deallocates this when flags has bit 0 set, and returns this.
 // @fnv 0x007acb30
-void* __thiscall FUN_007acb30_shell::FUN_007acb30(unsigned int flags)
+// src: EXE 0x007acb30
+void* __thiscall FUN_007acb30_shell::FORenderedMenuRaceSex_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_007fed10();
     if (flags & 1)
@@ -774,7 +776,7 @@ struct GlobalObject_0045cf30
 {
     unsigned char* Bool();
 };
-extern GlobalObject_0045cf30 g_011db620;
+extern GlobalObject_0045cf30 bUseRenderedTerminals_RenderedTerminal;
 void* __cdecl operator new(unsigned int);
 void __cdecl operator delete(void*);
 struct FUN_007ac9f0
@@ -926,7 +928,7 @@ Tile* __cdecl GetOrCreateMenuTile(int param)
             }
         }
         ((RaceInit*)DAT_011da634)->SetupRaceMenu(param);
-        if (*g_011db620.Bool())
+        if (*bUseRenderedTerminals_RenderedTerminal.Bool())
         {
             Tile::UpdateAll(false);
             FUN_007ac9f0* pRenderData = new FUN_007ac9f0;

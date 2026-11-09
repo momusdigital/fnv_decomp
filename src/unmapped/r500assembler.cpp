@@ -36,7 +36,7 @@ extern "C" __declspec(dllimport) void* __stdcall FindFirstFileA(const char*, _WI
 extern "C" __declspec(dllimport) int __stdcall FindNextFileA(void*, _WIN32_FIND_DATAA*);
 extern "C" __declspec(dllimport) int __stdcall FindClose(void*);
 struct DebrisData;
-extern StartMenu g_011c3f74;
+extern StartMenu sLocalSavePath_General;
 const char* __cdecl PrepareScriptMessage(const char*, bool);
 char* __cdecl BSUtilities_GetPersonalPath();
 int __cdecl _sprintf_s(char*, unsigned int, const char*, ...);
@@ -188,7 +188,7 @@ void SaveLoadList::LoadSaveFiles()
                         DeleteAllItems();
                     list = new SL;
                     lstrcpy(path, BSUtilities_GetPersonalPath());
-                    lstrcatA(path, PrepareScriptMessage(static_cast<const StartMenu&>(g_011c3f74).GetMenuTitle(), false));
+                    lstrcatA(path, PrepareScriptMessage(static_cast<const StartMenu&>(sLocalSavePath_General).GetMenuTitle(), false));
                     lstrcatA(path, "*.ess");
                     handle = FindFirstFileA(path, (_WIN32_FIND_DATAA*)&findData);
                     if (handle != (void*)-1)
@@ -198,7 +198,7 @@ void SaveLoadList::LoadSaveFiles()
                             if (findData.nFileSizeHigh || findData.nFileSizeLow)
                             {
                                 _sprintf_s(fullPath, 260, "%s%s%s", BSUtilities_GetPersonalPath(),
-                                           PrepareScriptMessage(static_cast<const StartMenu&>(g_011c3f74).GetMenuTitle(), false), findData.cFileName);
+                                           PrepareScriptMessage(static_cast<const StartMenu&>(sLocalSavePath_General).GetMenuTitle(), false), findData.cFileName);
                                 file = new FUN_0085fb40(fullPath, 0, 0x20000);
                                 ((AEList*)list)->Insert((DebrisData*)file, CompareFileWriteTimes);
                             }
@@ -211,7 +211,7 @@ void SaveLoadList::LoadSaveFiles()
     }
 }
 
-extern "C" char DAT_01081a5c;
+extern "C" char vftable_SaveGameFile;
 
 struct SpawnedObject
 {
@@ -311,7 +311,7 @@ struct SpawnedObject
 SpawnedObject* SpawnedObject::InitializeFields_0085fb40(int a1, int a2, int a3)
 {
     this->Init(a1, a2, a3, 0);
-    *(void* volatile*)this = &DAT_01081a5c;
+    *(void* volatile*)this = &vftable_SaveGameFile;
     this->m_158 = 0;
     return this;
 }
@@ -368,12 +368,13 @@ void __cdecl operator delete(void*);
 
 struct SaveGameFileDeleteEntry85 : public FUN_0085fbb0
 {
-    void* __thiscall FUN_0085fb80(unsigned int flags);
+    void* __thiscall SaveGameFile_ScalarDeletingDestructor(unsigned int flags);
 };
 
 // Calls Method_0085fbb0 of the base, deletes this when bit 0 of flags is set, and returns this.
 // @fnv 0x0085fb80
-void* __thiscall SaveGameFileDeleteEntry85::FUN_0085fb80(unsigned int flags)
+// src: EXE 0x0085fb80
+void* __thiscall SaveGameFileDeleteEntry85::SaveGameFile_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_0085fbb0::Method_0085fbb0();
     if (flags & 1)

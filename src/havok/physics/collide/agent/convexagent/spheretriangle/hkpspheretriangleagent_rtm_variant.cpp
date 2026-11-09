@@ -141,7 +141,7 @@ struct D3DD50Collector : D3DD50CollectorBase {
 };
 void __cdecl D3DD50Query(int a, int b, int c, D3DD50CollectorBase* collector);
 void __cdecl QueryD3DCollector(int aiArg1, int aiArg2, int aiArg3, int aiData);
-extern char DAT_010ce7fc[];
+extern char vftable_hkpSymmetricAgentFlipCollector[];
 struct Functor_d3e110 {
     void* m_vtbl;
     float m_fHitFraction;
@@ -174,8 +174,8 @@ struct hkMemory {
 };
 extern "C" hkThreadMemory* __cdecl hkMemoryRouter_getInstance();
 extern "C" void __cdecl hkpCollideTriangleUtil_setupClosestPointTriangleCache(void* src, void* dst);
-extern "C" const void* DAT_010cf060;
-extern "C" const void* DAT_010cf09c;
+extern "C" const void* vftable_hkpSphereTriangleAgent;
+extern "C" const void* vftable_hkpSymmetricAgentLinearCast_010cf09c;
 struct TargetAgent {
     const void* vtable;
     short m_usMemSizeAndFlags;
@@ -191,14 +191,14 @@ struct TargetAgent {
           m_pContactManager(mgr),
           m_padC(0xffff)
     {
-        vtable = &DAT_010cf060;
+        vtable = &vftable_hkpSphereTriangleAgent;
         void* triangle = *(void**)bodyA;
         hkpCollideTriangleUtil_setupClosestPointTriangleCache((char*)triangle + 0x20, m_pAccessManager);
-        vtable = &DAT_010cf09c;
+        vtable = &vftable_hkpSymmetricAgentLinearCast_010cf09c;
     }
 };
 void* __cdecl CreateTargetAgent(void* bodyA, void* bodyB, void* input, void* mgr);
-extern char DAT_010ce81c[];
+extern char vftable_hkpSymmetricAgentFlipBodyCollector[];
 struct D3DD10Data
 {
     void* vt;

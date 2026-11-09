@@ -42,9 +42,9 @@ void NiTexture::LoadBinary(NiStream& stream)
     NiObjectNET::LoadBinary(stream);
 }
 
-extern int DAT_010983bc;
+extern int vftable_NiSequenceStreamHelper;
 
-// Allocates a 0x18-byte NiProperty, runs its constructor, installs the vtable at DAT_010983bc, and returns it (or null on allocation failure).
+// Allocates a 0x18-byte NiProperty, runs its constructor, installs the vtable at vftable_NiSequenceStreamHelper, and returns it (or null on allocation failure).
 // @fnv 0x00a47380
 // src: EXE 0x00a47380
 void* __cdecl NiSequenceStreamHelper_CreateObject()
@@ -53,7 +53,7 @@ void* __cdecl NiSequenceStreamHelper_CreateObject()
     if (p)
     {
         p->NiProperty::NiProperty();
-        *(int**)p = &DAT_010983bc;
+        *(int**)p = &vftable_NiSequenceStreamHelper;
         return p;
     }
     return 0;

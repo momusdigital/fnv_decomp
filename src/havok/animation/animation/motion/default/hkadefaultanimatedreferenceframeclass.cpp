@@ -6,7 +6,7 @@
 #include "../../../../../../include/hkMemoryRouter.h"
 
 hkMemoryRouter* __cdecl hkMemoryRouter_getInstance() throw();
-extern int DAT_0102e388;
+extern int vftable_hkBaseObject;
 
 struct FUN_00dfe520_cls
 {
@@ -44,7 +44,7 @@ FUN_00dfe520_cls* FUN_00dfe520_cls::Destroy(unsigned char acFlags)
     }
     m_pData = 0;
     m_uCapBits = 0x80000000u;
-    m_vptr00 = (int)&DAT_0102e388;
+    m_vptr00 = (int)&vftable_hkBaseObject;
     if (acFlags & 1)
     {
         hkMemoryRouter* pHolder2 = hkMemoryRouter_getInstance();

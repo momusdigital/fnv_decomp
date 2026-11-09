@@ -131,7 +131,7 @@ void NiPosData::LoadBinary(NiStream& stream)
     }
 }
 
-extern int DAT_0109717c;
+extern int vftable_NiPosData;
 struct BaseUnk
 {
     void _Call_a5d3a0();
@@ -150,7 +150,7 @@ NiPosData* NiPosData_CreateObject()
         p->m_pKeyArray = 0;
         p->m_eRequestType = NiAnimationKey::NOINTERP;
         p->m_ucKeyDataSize = 0;
-        *(void**)p = (void*)&DAT_0109717c;
+        *(void**)p = (void*)&vftable_NiPosData;
         return p;
     }
     return 0;
@@ -171,7 +171,7 @@ void NiPosDataOperations::UpdateKeyRange(float afArg1, float afArg2)
 void NiPosDataOperations::DestroyPosData()
 {
     PositionKeyInterpolator* p = m_pKeyArray;
-    *(int*)this = (int)&DAT_0109717c;
+    *(int*)this = (int)&vftable_NiPosData;
     if (p)
         DAT_011f38b8[m_eRequestType](p);
     this->NiRefObject::~NiRefObject();

@@ -1151,10 +1151,10 @@ struct CompressedEntry
     unsigned int m_uiCharacterCount;
     unsigned char* m_pCompressedData;
 };
-extern int DAT_01095574;
-extern int DAT_01095524;
-extern int DAT_0103d420;
-extern int DAT_0103d418;
+extern int vftable_NiTPrimitiveArray_01095574;
+extern int vftable_NiTArray_01095524;
+extern int vftable_NiTPrimitiveArray_0103d420;
+extern int vftable_NiTArray_0103d418;
 extern const char DAT_01095548[];
 extern const char DAT_01095528[];
 void __cdecl Tile_InsertIncludedFiles(CompressedEntry* apEntry);
@@ -1234,11 +1234,11 @@ struct EntryArray
     EntryArray()
     {
         FUN_00a1e450(0, 1);
-        m_vtbl = &DAT_01095574;
+        m_vtbl = &vftable_NiTPrimitiveArray_01095574;
     }
     ~EntryArray()
     {
-        m_vtbl = &DAT_01095524;
+        m_vtbl = &vftable_NiTArray_01095524;
         Deallocate(m_pBase);
     }
 };
@@ -1261,11 +1261,11 @@ struct NameArray
     NameArray()
     {
         NiTArray_char_const_NiTMallocInterface_char_const_Init(0, 1);
-        m_vtbl = &DAT_0103d420;
+        m_vtbl = &vftable_NiTPrimitiveArray_0103d420;
     }
     ~NameArray()
     {
-        m_vtbl = &DAT_0103d418;
+        m_vtbl = &vftable_NiTArray_0103d418;
         Deallocate(m_pBase);
     }
 };

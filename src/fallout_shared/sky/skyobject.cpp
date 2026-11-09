@@ -13,11 +13,12 @@ void _Deallocate(void*);
 struct StandIn
 {
     void FUN_0063f8d0();
-    void* FUN_0063f8a0(unsigned int);
+    void* SkyObject_ScalarDeletingDestructor(unsigned int);
 };
 // Calls FUN_0063f8d0, then frees this via _Deallocate when flags has bit 1 set, and returns this.
 // @fnv 0x0063f8a0
-void* StandIn::FUN_0063f8a0(unsigned int flags)
+// src: EXE 0x0063f8a0
+void* StandIn::SkyObject_ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_0063f8d0();
     if (flags & 1)

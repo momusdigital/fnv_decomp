@@ -156,7 +156,7 @@ void NiPathController::LoadFromStream(NiStream& kStream)
 }
 
 void* __cdecl Object_DispatchCommandFour(unsigned int size) throw();
-extern int DAT_0109893c;
+extern int vftable_NiPathController;
 extern float DAT_01012054;
 
 // Allocates a NiPathController, constructs its base, and initializes its fields; returns null on allocation failure.
@@ -168,7 +168,7 @@ NiPathController* __cdecl NiPathController_CreateObject() throw()
     if (p != 0)
     {
         p->NiTimeController::NiTimeController();
-        *(void* volatile*)p = (void*)&DAT_0109893c;
+        *(void* volatile*)p = (void*)&vftable_NiPathController;
         *(int volatile*)&p->m_pPathObject.m_pObject = 0;
         *(int volatile*)&p->m_pPathInterp.m_pObject = 0;
         *(float volatile*)&p->m50 = 0.0f;

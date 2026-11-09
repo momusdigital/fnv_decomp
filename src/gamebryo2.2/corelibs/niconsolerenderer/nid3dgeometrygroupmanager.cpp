@@ -35,7 +35,7 @@ class Direct3DDeviceInterface
     virtual unsigned long __stdcall Release() = 0;
 };
 
-extern void* DAT_010ef718[];
+extern void* vftable_NiD3DGeometryGroupManager[];
 
 // Allocates and initialises a NiD3DGeometryGroupManager, stores the device and buffers, and AddRefs the device.
 // @fnv 0x00e88eb0
@@ -46,7 +46,7 @@ NiD3DGeometryGroupManager* NiD3DGeometryGroupManager::Create(Direct3DDeviceInter
     if (p)
     {
         p->Initialize();
-        *(void***)p = DAT_010ef718;
+        *(void***)p = vftable_NiD3DGeometryGroupManager;
         p->m_04 = 0;
         p->m_08 = 0;
         p->m_0c = 0;
@@ -121,7 +121,7 @@ void __fastcall DestroyGeometryGroupManager(NiD3DGeometryGroupManager* manager, 
 {
     unsigned int n = manager->m_0c;
     unsigned int i = 0;
-    *(void***)manager = DAT_010ef718;
+    *(void***)manager = vftable_NiD3DGeometryGroupManager;
     for (; i < n; ++i)
     {
         NiGeometryGroup* e = reinterpret_cast<NiGeometryGroup**>(manager->m_04)[i];

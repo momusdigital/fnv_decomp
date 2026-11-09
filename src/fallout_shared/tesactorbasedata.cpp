@@ -575,7 +575,7 @@ struct TesactorbasedataInterfaceView
 };
 
 extern TESSaveLoadGame* DAT_011de45c;
-extern SettingT_GameSettingCollection_ g_011de4e8;
+extern SettingT_GameSettingCollection_ bDebugSaveBuffer_Debug;
 TESForm* __cdecl _ref_004839c0(unsigned int);
 
 }  // namespace fnv_0047e380
@@ -605,7 +605,7 @@ unsigned short TESActorBaseData::GetSaveSize(unsigned int aiFlags)
     pform += 2;
     pform += reinterpret_cast<BSSimpleListTESRaceSize*>(reinterpret_cast<unsigned char*>(this) + 0x2c)->GetSize() * 5;
 
-    if (*g_011de4e8.FUN_00408d60())
+    if (*bDebugSaveBuffer_Debug.FUN_00408d60())
     {
         isize = static_cast<FormIDEntry*>(fnv_0047e380::DAT_011de45c->GetHitSound());
         if (isize)

@@ -145,7 +145,7 @@ unsigned int __fastcall Falloutaudiomedia_ProcessEntries_0082f7b0(FAMThread* pTh
 #include "../../../include/SettingT_GameSettingCollection_.h"
 
 
-extern SettingT_GameSettingCollection_ g_011dd084;
+extern SettingT_GameSettingCollection_ fMainMenuMusicVolume_Audio;
 extern double DAT_01073490;
 extern double g_d100;
 extern float DAT_0107cc20;
@@ -165,7 +165,7 @@ float __cdecl ComputeAttenuatedVolume(int aeMediaType, float attenuation)
 
     if (aeMediaType == 8)
     {
-        vol = g_011dd084.Float()->f;
+        vol = fMainMenuMusicVolume_Audio.Float()->f;
     }
     else if (aeMediaType == 7)
     {

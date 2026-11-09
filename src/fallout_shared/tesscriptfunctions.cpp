@@ -1734,7 +1734,7 @@ public:
 };
 
 extern DataHandler* g_dataHandler;
-extern GlobalObject2_0040c150 g_011c3ea4;
+extern GlobalObject2_0040c150 iNumHWThreads_General;
 
 bool __fastcall TESObjectREFR_CanBeMoved(TESObjectREFR*);
 void __cdecl DebugLog(const char*, ...);
@@ -1776,7 +1776,7 @@ bool __cdecl Cmd_SetPos_Execute(const ScriptParameter* paramInfo, const char* sc
         return true;
     }
 
-    if (*g_011c3ea4.Int() > 1)
+    if (*iNumHWThreads_General.Int() > 1)
     {
         TaskQueueInterface_QueueScriptFunctionCall(TaskQueueInterface::GetSingleton(), 0x1007, thisObj, axis, value);
     }
@@ -1810,7 +1810,7 @@ public:
     static TaskQueueInterface* __cdecl GetSingleton();
 };
 
-extern GlobalObject2_0040c150 g_011c3ea4;
+extern GlobalObject2_0040c150 iNumHWThreads_General;
 void __cdecl TaskQueueInterface_QueueScriptFunctionCall(TaskQueueInterface*, int, TESObjectREFR*, ...);
 
 // @fnv 0x005c1b80
@@ -1820,7 +1820,7 @@ bool __cdecl Cmd_SetScale_Execute(const ScriptParameter* paramInfo, const char* 
     float scale = 0.0f;
     if (!ExtractArgs(paramInfo, scriptData, &opcodeOffsetPtr, thisObj, containingObj, scriptObj, locals, &scale))
         return false;
-    if (*g_011c3ea4.Int() > 1) {
+    if (*iNumHWThreads_General.Int() > 1) {
         TaskQueueInterface_QueueScriptFunctionCall(TaskQueueInterface::GetSingleton(), 0x113c, thisObj, scale);
     } else {
         Script::SetReferenceScale(thisObj, scale);
@@ -2211,13 +2211,13 @@ bool __cdecl Cmd_RemoveFromFaction_Execute(const ScriptParameter* paramInfo, con
     return true;
 }
 
-extern int DAT_0103cf5c;
+extern int vftable_MobIterOperator;
 
 // @fnv 0x005d8b10
 // src: GUESS 0x005d8b10 (confidence: low)
 int* __fastcall Tesscriptfunctions_UpdateState_005d8b10(int* pThis)
 {
-    pThis[0] = (int)&DAT_0103cf5c;
+    pThis[0] = (int)&vftable_MobIterOperator;
     pThis[1] = 0;
     return pThis;
 }
@@ -2370,13 +2370,13 @@ public:
 };
 
 
-extern int DAT_0103d428;
+extern int vftable_BSSimpleArray_0103d428;
 
 // @fnv 0x005e04c0
 // src: GUESS 0x005e04c0 (confidence: low)
 void* __fastcall Object_InitializeFields_005e04c0(void* pThis)
 {
-    *reinterpret_cast<int**>(pThis) = &DAT_0103d428;
+    *reinterpret_cast<int**>(pThis) = &vftable_BSSimpleArray_0103d428;
     reinterpret_cast<ScriptNavMeshInfoArray*>(pThis)->BSSimpleArray_float_1024_InitialSetup(0, false);
     return pThis;
 }
@@ -2387,13 +2387,13 @@ public:
     void Clear(bool);
 };
 
-extern int DAT_0103d428;
+extern int vftable_BSSimpleArray_0103d428;
 
 // @fnv 0x005e04f0
 // src: GUESS 0x005e04f0 (confidence: low)
 void __fastcall Tesscriptfunctions_UpdateState_005e04f0(GlobalObject_00869f00* pThis)
 {
-    *(int**)pThis = &DAT_0103d428;
+    *(int**)pThis = &vftable_BSSimpleArray_0103d428;
     pThis->Clear(true);
 }
 
@@ -2404,13 +2404,13 @@ public:
     void Clear(bool);
 };
 
-extern int DAT_0103d43c;
+extern int vftable_BSSimpleArray_0103d43c;
 
 // @fnv 0x005e0540
 // src: GUESS 0x005e0540 (confidence: medium)
 void __fastcall Object_ResetVirtualTableAndClear(GlobalObject_00869f00* _this)
 {
-    *(int**)_this = &DAT_0103d43c;
+    *(int**)_this = &vftable_BSSimpleArray_0103d43c;
     _this->Clear(true);
 }
 }  // namespace fnv_005e0540
@@ -2561,10 +2561,11 @@ void __cdecl Deallocate(void*);
 namespace p07 {
 struct DtorStandIn { void FUN_0083dec0(); };
 struct DelStandIn {
-    void* FUN_00709980(unsigned int flags);
+    void* TileRect_ScalarDeletingDestructor(unsigned int flags);
 };
 // @fnv 0x00709980
-void* DelStandIn::FUN_00709980(unsigned int flags)
+// src: EXE 0x00709980
+void* DelStandIn::TileRect_ScalarDeletingDestructor(unsigned int flags)
 {
     ((DtorStandIn*)this)->FUN_0083dec0();
     if (flags & 1)
@@ -2591,10 +2592,11 @@ void __cdecl Deallocate(void*);
 namespace p07 {
 struct DtorStandIn { void FUN_0083dec0(); };
 struct DelStandIn {
-    void* FUN_00709a60(unsigned int flags);
+    void* TileMenu_ScalarDeletingDestructor(unsigned int flags);
 };
 // @fnv 0x00709a60
-void* DelStandIn::FUN_00709a60(unsigned int flags)
+// src: EXE 0x00709a60
+void* DelStandIn::TileMenu_ScalarDeletingDestructor(unsigned int flags)
 {
     ((DtorStandIn*)this)->FUN_0083dec0();
     if (flags & 1)
@@ -2946,13 +2948,13 @@ struct RuntimeByteFlag {
     unsigned char* GetLifeStateControlFlag();
 };
 
-extern RuntimeByteFlag g_01267c30;
+extern RuntimeByteFlag bFootIK_RagdollAnim;
 
 // @fnv 0x005ba110
 // src: XBOX_PDB 0x005ba110
 void __cdecl bhkRagdollController_SetFootIK(unsigned char value)
 {
-    *g_01267c30.GetLifeStateControlFlag() = value;
+    *bFootIK_RagdollAnim.GetLifeStateControlFlag() = value;
 }
 
 struct FUN_005ba180_Class
@@ -2974,13 +2976,13 @@ struct GlobalObjectO2_0045cf30
     char* GetLifeStateControlFlag(void);
 };
 
-extern GlobalObjectO2_0045cf30 g_01267c3c;
+extern GlobalObjectO2_0045cf30 bGrabIK_RagdollAnim;
 
 // @fnv 0x005ba2d0
 // src: XBOX_PDB 0x005ba2d0
 char bhkRagdollController_QGrabIK()
 {
-    return g_01267c3c.GetLifeStateControlFlag()[0];
+    return bGrabIK_RagdollAnim.GetLifeStateControlFlag()[0];
 }
 }  // namespace fnv_005ba2d0
 
@@ -2990,13 +2992,13 @@ struct GlobalObjectO2_0045cf30 {
     unsigned char* GetLifeStateControlFlag();
 };
 
-extern GlobalObjectO2_0045cf30 g_01267c3c;
+extern GlobalObjectO2_0045cf30 bGrabIK_RagdollAnim;
 
 // @fnv 0x005ba2f0
 // src: XBOX_PDB 0x005ba2f0
 void bhkRagdollController_SetGrabIK(unsigned char value)
 {
-    *g_01267c3c.GetLifeStateControlFlag() = value;
+    *bGrabIK_RagdollAnim.GetLifeStateControlFlag() = value;
 }
 }  // namespace fnv_005ba2f0
 
@@ -3018,13 +3020,13 @@ struct GlobalObjectO2_0045cf30 : RuntimeByteFlag {
     unsigned char b;
 };
 
-GlobalObjectO2_0045cf30 g_01267c48;
+GlobalObjectO2_0045cf30 bLookIK_RagdollAnim;
 
 // @fnv 0x005ba4b0
 // src: XBOX_PDB 0x005ba4b0
 unsigned char bhkRagdollController_QLookIK()
 {
-    return *g_01267c48.GetLifeStateControlFlag();
+    return *bLookIK_RagdollAnim.GetLifeStateControlFlag();
 }
 }  // namespace fnv_005ba4b0
 
@@ -3032,13 +3034,13 @@ struct GlobalObjectO2_0045cf30
 {
     unsigned char* GetLifeStateControlFlag();
 };
-extern GlobalObjectO2_0045cf30 g_01267c48;
+extern GlobalObjectO2_0045cf30 bLookIK_RagdollAnim;
 
 // @fnv 0x005ba4d0
 // src: XBOX_PDB 0x005ba4d0
 void __cdecl bhkRagdollController_SetLookIK(unsigned char value)
 {
-    *g_01267c48.GetLifeStateControlFlag() = value;
+    *bLookIK_RagdollAnim.GetLifeStateControlFlag() = value;
 }
 
 struct FUN_005ba540_Class
@@ -3163,13 +3165,13 @@ struct G7d1 {
     void Setting_SetValueB(bool);
 };
 
-extern G7d1 g_011c75a4;
+extern G7d1 bDoCanopyShadowPass_Display;
 
 // @fnv 0x005bf840
 // src: COMMUNITY 0x005bf840
 void Renderer_SetDoCanopyShadowPass(bool param)
 {
-    g_011c75a4.Setting_SetValueB(param);
+    bDoCanopyShadowPass_Display.Setting_SetValueB(param);
 }
 
 extern unsigned char DAT_0118c000;
@@ -3346,13 +3348,13 @@ struct GlobalObject_0045cf30 {
 
 
 extern BGSSaveLoadManager* DAT_011de134;
-extern GlobalObject_0045cf30 g_011de29c;
+extern GlobalObject_0045cf30 bAllowScriptedAutosave_SaveGame;
 
 // @fnv 0x005c5560
 // src: EXE 0x005c5560
 bool Cmd_Autosave_Execute()
 {
-    if (*g_011de29c.GetLifeStateControlFlag())
+    if (*bAllowScriptedAutosave_SaveGame.GetLifeStateControlFlag())
     {
         DAT_011de134->QueueAutosave();
     }
@@ -4150,13 +4152,13 @@ struct GlobalObject_00869f00
     void UpdateState_005e0590();
 };
 
-extern GlobalObject_00869f00 DAT_0103d450;
+extern GlobalObject_00869f00 vftable_BSSimpleArray_0103d450;
 
 // @fnv 0x005e0590
 // src: GUESS 0x005e0590 (confidence: low)
 void GlobalObject_00869f00::UpdateState_005e0590()
 {
-    m_pSomething = &DAT_0103d450;
+    m_pSomething = &vftable_BSSimpleArray_0103d450;
     Clear(true);
 }
 }  // namespace fnv_005e0590
@@ -4750,7 +4752,7 @@ bool Cmd_IsAlwaysHardcore_Execute(const ScriptParameter* a_param, const char* a_
     return Cmd_IsAlwaysHardcore_Eval(a_refr, 0, 0, a_double);
 }
 
-extern "C" void* DAT_0103d450;
+extern "C" void* vftable_BSSimpleArray_0103d450;
 
 struct AX {
     void* vtable;
@@ -4764,7 +4766,7 @@ struct FUN_005e0560 : AX {
 // @fnv 0x005e0560
 FUN_005e0560::FUN_005e0560()
 {
-    this->vtable = &DAT_0103d450;
+    this->vtable = &vftable_BSSimpleArray_0103d450;
     this->BSSimpleArray_float_1024_InitialSetup(0, false);
 }
 
@@ -5659,7 +5661,7 @@ Setting& Setting::AssignStringValue(const char* name)
     return *this;
 }
 
-extern "C" void* DAT_0103d410;
+extern "C" void* vftable_NiTPrimitiveArray_0103d410;
 struct FUN_005e0430 {
     void* m_vft;
     void __thiscall FUN_005e09c0(void*, void*);
@@ -5669,7 +5671,7 @@ struct FUN_005e0430 {
 FUN_005e0430* __thiscall FUN_005e0430::Init(void* a, void* b)
 {
     FUN_005e09c0(a, b);
-    m_vft = &DAT_0103d410;
+    m_vft = &vftable_NiTPrimitiveArray_0103d410;
     return this;
 }
 
@@ -5732,7 +5734,7 @@ struct GlobalObject_0045cfe0 { int* Int(); };
 
 extern BSOcclusionPlane* g_thePlayer;
 extern TES* g_TES;
-extern GlobalObject_0045cfe0 g_011c63cc;
+extern GlobalObject_0045cfe0 uGridsToLoad_General;
 extern NiMatrix3 DAT_011a9448;
 extern double _gModifierZero;
 
@@ -5763,9 +5765,9 @@ bool Cmd_TestSeenData_Execute(const ScriptParameter* paramInfo, const char* scri
         }
         else
         {
-            for (unsigned int i = 0; i < *g_011c63cc.Int(); i++)
+            for (unsigned int i = 0; i < *uGridsToLoad_General.Int(); i++)
             {
-                for (unsigned int j = 0; j < *g_011c63cc.Int(); j++)
+                for (unsigned int j = 0; j < *uGridsToLoad_General.Int(); j++)
                 {
                     TESObjectCELL* pGridCell = ((GridCell*)g_TES->GetGridCell_00457050(i, j))->pCell;
                     SeenData* pGridSeenData = pGridCell ? reinterpret_cast<FUN_00555bc0_shell*>(pGridCell)->FindSeenData() : 0;
@@ -6280,7 +6282,7 @@ bool Cmd_RevokeCode_Execute(const ScriptParameter* parameters, const char* scrip
     return true;
 }
 
-extern int DAT_0103d418;
+extern int vftable_NiTArray_0103d418;
 void __cdecl NiTMallocInterface_unsigned_int_Deallocate(void*);
 struct S005e0460
 {
@@ -6290,14 +6292,14 @@ struct S005e0460
 // src: GUESS 0x005e0460 (confidence: low)
 void S005e0460::UpdateFields_005e0460()
 {
-    *(void**)this = (void*)&DAT_0103d418;
+    *(void**)this = (void*)&vftable_NiTArray_0103d418;
     NiTMallocInterface_unsigned_int_Deallocate(*(void**)((char*)this + 4));
 }
 
 struct BaseFor_5e0490 {
     void __thiscall NiTArray_char_const_NiTMallocInterface_char_const_Init(unsigned int, unsigned int);
 };
-extern int DAT_0103d420;
+extern int vftable_NiTPrimitiveArray_0103d420;
 struct Holder {
     Holder* __thiscall NiTPrimitiveArray_char_const_NiTPrimitiveArray(unsigned int, unsigned int);
 };
@@ -6306,7 +6308,7 @@ struct Holder {
 Holder* __thiscall Holder::NiTPrimitiveArray_char_const_NiTPrimitiveArray(unsigned int a, unsigned int b)
 {
     ((BaseFor_5e0490*)this)->NiTArray_char_const_NiTMallocInterface_char_const_Init(a, b);
-    *(int*)this = (int)&DAT_0103d420;
+    *(int*)this = (int)&vftable_NiTPrimitiveArray_0103d420;
     return (Holder*)this;
 }
 
@@ -6781,7 +6783,7 @@ struct DH;
 struct DataHandler5ccf50 { bool FormIDExists(unsigned int); };
 extern DH* g_dataHandler;
 struct GlobalObject_0045cfe0 { int* Int(); };
-extern GlobalObject_0045cfe0 g_011c3ea4;
+extern GlobalObject_0045cfe0 iNumHWThreads_General;
 struct TaskQueue5ccf50 { static TaskQueue5ccf50* __cdecl GetInstance(); };
 
 void __cdecl TaskQueueInterface_QueueScriptFunctionCall(TaskQueue5ccf50*, int, Actor*, ...);
@@ -6811,7 +6813,7 @@ bool Cmd_MoveToMarker_Execute(const ScriptParameter* paramInfo, const char* scri
         return true;
     }
     if (pTeleportMarker) {
-        if (*g_011c3ea4.Int() > 1)
+        if (*iNumHWThreads_General.Int() > 1)
             TaskQueueInterface_QueueScriptFunctionCall(TaskQueue5ccf50::GetInstance(), 0x109e, (Actor*)thisObj, pTeleportMarker, (double)fX, (double)fY, (double)fZ);
         else
             ScriptMoveHelper::MoveReferenceToPosition(thisObj, pTeleportMarker, fX, fY, fZ);
@@ -7382,7 +7384,7 @@ bool __cdecl Cmd_SetCellFullName_Execute(const ScriptParameter* parameters, cons
 
 namespace fnv_005d3b90 {
 struct GlobalObject_0045cfe0 { int* Int(); };
-extern GlobalObject_0045cfe0 g_011c3ea4;
+extern GlobalObject_0045cfe0 iNumHWThreads_General;
 
 struct TaskQueueInterface { static TaskQueueInterface* __cdecl GetInstance(); };
 void __cdecl TaskQueueInterface_QueueScriptFunctionCall(TaskQueueInterface*, int, Actor*, ...);
@@ -7396,7 +7398,7 @@ bool Cmd_SetRigidBodyMass_Execute(const ScriptParameter* parameters, const char*
         return false;
     if (!thisObject)
         return false;
-    if (*g_011c3ea4.Int() > 1)
+    if (*iNumHWThreads_General.Int() > 1)
         TaskQueueInterface_QueueScriptFunctionCall(TaskQueueInterface::GetInstance(), 0x1156, (Actor*)thisObject, value);
     else
         Script_SetRigidBodyMassBase(thisObject, value);
@@ -7472,7 +7474,7 @@ bool __cdecl Cmd_ToggleCastShadows_Execute(const ScriptParameter* apParameters, 
 namespace fnv_005d4b90 {
 
 struct GlobalObject_0045cfe0 { int* Int(); };
-extern GlobalObject_0045cfe0 g_011c3ea4;
+extern GlobalObject_0045cfe0 iNumHWThreads_General;
 struct TaskQueueInterface { static TaskQueueInterface* GetInstance(); };
 void Script_DamageObjectBase(TESObjectREFR*, float);
 void TaskQueueInterface_QueueScriptFunctionCall(TaskQueueInterface*, int, Actor*, ...);
@@ -7489,7 +7491,7 @@ bool Cmd_DamageObject_Execute(const ScriptParameter* parameters, const char* scr
         return false;
     if (!thisObject)
         return false;
-    if (g_011c3ea4.Int()[0] > 1)
+    if (iNumHWThreads_General.Int()[0] > 1)
         TaskQueueInterface_QueueScriptFunctionCall(TaskQueueInterface::GetInstance(), 0x116c,
                       (Actor*)thisObject, damage);
     else
@@ -8284,7 +8286,7 @@ bool __cdecl Script_ToggleLiteBriteFunction()
 }
 }  // namespace fnv_005ba6d0
 
-extern Setting g_011e090c;
+extern Setting fUFOCamSpeedMult_Controls;
 // @fnv 0x005bb870
 // src: EXE 0x005bb870
 bool Cmd_SetUFOCamSpeedMult_Execute(const ScriptParameter* parameters, const char* scriptData, TESObjectREFR* thisObject, TESObjectREFR* container, Script* script, ScriptLocals* locals, double& result, unsigned int& opcodeOffset)
@@ -8292,7 +8294,7 @@ bool Cmd_SetUFOCamSpeedMult_Execute(const ScriptParameter* parameters, const cha
     float argument;
     if (!ExtractArgs(parameters, scriptData, &opcodeOffset, thisObject, container, script, locals, &argument))
         return false;
-    *g_011e090c.Float() = argument;
+    *fUFOCamSpeedMult_Controls.Float() = argument;
     return true;
 }
 
@@ -10587,9 +10589,9 @@ unsigned char BSShaderManager_GetShadows()
 namespace fnv_005bfaf0 {
 
 
-extern Setting g_011db200;
-extern Setting g_011db238;
-extern Setting g_011db25c;
+extern Setting fBlurRadiusHUD_InterfaceFX;
+extern Setting fBlurIntensityHUD_InterfaceFX;
+extern Setting fScanlineFrequencyHUD_InterfaceFX;
 
 class FUN_005bfbb0_Class
 {
@@ -10613,13 +10615,13 @@ bool Cmd_SetHudGlowConstants_Execute(const ScriptParameter* parameter, const cha
                  Script* script, ScriptLocals* locals,
                  double& result, unsigned int& type)
 {
-    float f1 = *g_011db200.Float();
+    float f1 = *fBlurRadiusHUD_InterfaceFX.Float();
     {
         void* p;
         {
-            float f2 = *g_011db238.Float();
+            float f2 = *fBlurIntensityHUD_InterfaceFX.Float();
             {
-                float f3 = *g_011db25c.Float();
+                float f3 = *fScanlineFrequencyHUD_InterfaceFX.Float();
 
                 if (!ExtractArgs(parameter, name, &type, object1, object2, script, locals,
                                  &f1, &f2, &f3, &p))
@@ -10738,7 +10740,7 @@ struct GlobalObject_0045cf30
 };
 
 
-extern GlobalObject_0045cf30 g_011de2b8;
+extern GlobalObject_0045cf30 bAllowScriptedForceSave_SaveGame;
 extern void* DAT_011de134;
 
 void __fastcall BGSSaveLoadManager_SetForceSaveTimer(void*);
@@ -10747,7 +10749,7 @@ void __fastcall BGSSaveLoadManager_SetForceSaveTimer(void*);
 // src: EXE 0x005c5590
 bool Cmd_ForceSave_Execute()
 {
-    if (g_011de2b8.Bool()[0] &&
+    if (bAllowScriptedForceSave_SaveGame.Bool()[0] &&
         static_cast<ActorValueInfo*>(DAT_011de134)->SetScriptName(
             reinterpret_cast<const char*>(-1)))
     {
@@ -38301,7 +38303,7 @@ bool Cmd_AlwaysShowActorSubtitles_Execute(const ScriptParameter* apParameters, c
 }
 
 namespace fnv_005e0510 {
-extern int DAT_0103d43c;
+extern int vftable_BSSimpleArray_0103d43c;
 
 struct AX {
     void __thiscall BSSimpleArray_float_1024_InitialSetup(unsigned int, unsigned int);
@@ -38315,7 +38317,7 @@ struct FUN_005e0510_Class {
 // @fnv 0x005e0510
 // src: GUESS 0x005e0510 (confidence: low)
 unsigned int* __thiscall FUN_005e0510_Class::SetVtableAndProcessState_005e0510() {
-    *(int**)this = (int*)&DAT_0103d43c;
+    *(int**)this = (int*)&vftable_BSSimpleArray_0103d43c;
     reinterpret_cast<AX*>(this)->BSSimpleArray_float_1024_InitialSetup(0, 0);
     return reinterpret_cast<unsigned int*>(this);
 }
@@ -39620,7 +39622,7 @@ void FNVWipScreenManager::FollowerBarks_FollowerBarkEntry_Trigger() {
 }
 }
 
-extern GlobalObject_0045cf30 g_011f20b8;
+extern GlobalObject_0045cf30 bVATSProjectileDebug_Combat;
 struct SettingAccess { unsigned char* FUN_00408d60(); };
 struct FixedName { const char* FUN_0043b1b0(); };
 struct NamedPart { FixedName& FUN_00413f40(); };
@@ -39722,7 +39724,7 @@ void __cdecl VATSMenu_RemoveTarget(Projectile*);
 // @fnv 0x009bc8f0
 // src: XBOX_PDB 0x009bc8f0
 void ScriptProjectile::Projectile_Kill() {
- if(*((SettingAccess*)&g_011f20b8)->FUN_00408d60() && reinterpret_cast<TargetList*>(&kImpacts)->FUN_008256d0() && MiddleHighProcess_GetCurrentFurniture()) {
+ if(*((SettingAccess*)&bVATSProjectileDebug_Combat)->FUN_00408d60() && reinterpret_cast<TargetList*>(&kImpacts)->FUN_008256d0() && MiddleHighProcess_GetCurrentFurniture()) {
   PartLookup* part = FindFirstCollisionObject(MiddleHighProcess_GetCurrentFurniture()->name.String());
   NamedPart* reference = part ? part->FUN_0044ddc0() : 0;
   TargetRef* lookup = MiddleHighProcess_GetCurrentFurniture()->ref;
@@ -41500,7 +41502,7 @@ public:
     int* Int();
 };
 
-GlobalObject_0045cfe0 g_011c3ea4;
+GlobalObject_0045cfe0 iNumHWThreads_General;
 
 class TaskQueueInterface
 {
@@ -41545,7 +41547,7 @@ bool __cdecl Cmd_MatchFaceGeometry_Execute(
             return false;
         }
 
-        if (*g_011c3ea4.Int() > 1) {
+        if (*iNumHWThreads_General.Int() > 1) {
             TaskQueueInterface_QueueScriptFunctionCall(
                 TaskQueueInterface::GetInstance(),
                 0x11df,

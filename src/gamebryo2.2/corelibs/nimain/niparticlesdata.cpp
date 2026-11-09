@@ -69,7 +69,7 @@ void __thiscall ParticleDataMethods::SetPointer(void* apPointer)
 
 void __fastcall FUN_00a67c00(void* object);
 
-extern char DAT_010a05e4[];
+extern char vftable_NiParticlesData[];
 
 // @fnv 0x00a96600
 // src: EXE 0x00a96600
@@ -79,7 +79,7 @@ void* NiParticlesData_CreateObject()
     if (p)
     {
         FUN_00a67c00(p);
-        *(void**)p = DAT_010a05e4;
+        *(void**)p = vftable_NiParticlesData;
         p->m_pfRadii = 0;
         p->m_usActive = 0;
         p->m_pfSizes = 0;
@@ -208,7 +208,7 @@ __forceinline NiParticlesData* InitializeParticleData(NiParticlesData* p) throw(
     if (p)
     {
         FUN_00a67c00(p);
-        *(void**)p = DAT_010a05e4;
+        *(void**)p = vftable_NiParticlesData;
         p->m_pfRadii = 0;
         p->m_usActive = 0;
         p->m_pfSizes = 0;

@@ -285,7 +285,7 @@ void FreeGlobalAlias()
     DAT_011f4aa8 = 0;
 }
 
-extern int DAT_0109df2c;
+extern int vftable_NiGeometryGroupManager;
 extern int DAT_011f4ab4;
 
 struct FUN_00a7f820_Class
@@ -297,7 +297,7 @@ struct FUN_00a7f820_Class
 // src: GUESS 0x00a7f820 (confidence: low)
 void __thiscall FUN_00a7f820_Class::UpdateFields_00a7f820()
 {
-    *reinterpret_cast<int*>(this) = (int)&DAT_0109df2c;
+    *reinterpret_cast<int*>(this) = (int)&vftable_NiGeometryGroupManager;
     DAT_011f4ab4 = 0;
 }
 
@@ -361,7 +361,7 @@ void NiTPointerMap<const char*, unsigned short>::DeleteItem(NiTMapItem<const cha
 
 namespace fnv_00a63b30 {
 extern "C" void NiFree(void*);
-extern int DAT_0109bc3c;
+extern int vftable_NiTArray_0109bc3c;
 extern void* g_memoryManager;
 
 
@@ -374,7 +374,7 @@ struct FUN_00a63b30_Class
 void* __thiscall FUN_00a63b30_Class::FUN_00a63b30(bool abFree)
 {
     void* p = *(void**)((char*)this + 4);
-    *(int**)((char*)this) = &DAT_0109bc3c;
+    *(int**)((char*)this) = &vftable_NiTArray_0109bc3c;
     NiFree(p);
     if (abFree & 1)
         ((MemoryManager*)&g_memoryManager)->Deallocate(this);
@@ -384,7 +384,7 @@ void* __thiscall FUN_00a63b30_Class::FUN_00a63b30(bool abFree)
 
 namespace fnv_00a652d0 {
 extern MemoryManager _g_memoryManager;
-extern int DAT_0109bd98;
+extern int vftable_NiTLargeArray_0109bd98;
 void __cdecl ReleaseObjectArray(void*);
 struct FUN_00a652d0_class
 {
@@ -392,11 +392,11 @@ struct FUN_00a652d0_class
     void* m4;
     void* __thiscall FUN_00a652d0(bool);
 };
-// Sets m0 to &DAT_0109bd98, calls ReleaseObjectArray on m4, and if b is set deallocates this via _g_memoryManager, returning this.
+// Sets m0 to &vftable_NiTLargeArray_0109bd98, calls ReleaseObjectArray on m4, and if b is set deallocates this via _g_memoryManager, returning this.
 // @fnv 0x00a652d0
 void* __thiscall FUN_00a652d0_class::FUN_00a652d0(bool abFree)
 {
-    m0 = (int)&DAT_0109bd98;
+    m0 = (int)&vftable_NiTLargeArray_0109bd98;
     ReleaseObjectArray(m4);
     if (abFree & 1)
         _g_memoryManager.Deallocate(this);
@@ -406,7 +406,7 @@ void* __thiscall FUN_00a652d0_class::FUN_00a652d0(bool abFree)
 
 struct NiTriBasedGeomData;
 NiTriBasedGeomData* __fastcall InitializeTriBasedGeomData(NiTriBasedGeomData*);
-extern int DAT_0109dac4;
+extern int vftable_NiTriShapeData;
 // @fnv 0x00a7b790
 // src: EXE 0x00a7b790
 void* __cdecl NiTriShapeData_CreateObject()
@@ -420,20 +420,20 @@ void* __cdecl NiTriShapeData_CreateObject()
         *(int*)(p + 0x4c) = 0;
         *(int*)(p + 0x54) = 0;
         *(short*)(p + 0x50) = 0;
-        *(int*)p = (int)&DAT_0109dac4;
+        *(int*)p = (int)&vftable_NiTriShapeData;
         return p;
     }
     return 0;
 }
 
 void __fastcall FUN_00a71f60(void*);
-extern int DAT_0109dd0c;
+extern int vftable_NiPointLight;
 // @fnv 0x00a7d670
 NiDirectionalLight* __fastcall InitializeAttenuatedLight(NiDirectionalLight* light)
 {
     FUN_00a71f60(light);
     *(float*)((char*)light + 0xf0) = 0.0f;
-    *(int*)light = (int)&DAT_0109dd0c;
+    *(int*)light = (int)&vftable_NiPointLight;
     *(float*)((char*)light + 0xf4) = 1.0f;
     *(unsigned char*)((char*)light + 0x9d) = 2;
     *(float*)((char*)light + 0xf8) = 0.0f;
@@ -529,7 +529,7 @@ void* NiPointLight_CreateObject()
     {
         FUN_00a71f60(obj);
         *(float*)((char*)obj + 0xf0) = 0.0f;
-        *(void**)obj = (void*)&DAT_0109dd0c;
+        *(void**)obj = (void*)&vftable_NiPointLight;
         *(float*)((char*)obj + 0xf4) = 1.0f;
         *(unsigned char*)((char*)obj + 0x9d) = 2;
         *(float*)((char*)obj + 0xf8) = 0.0f;
@@ -632,7 +632,7 @@ FUN_00a699d0_Class* __thiscall FUN_00a699d0_Class::SetPlaneFromThreePoints(NiPoi
 }
 
 
-extern int DAT_0109ca08;
+extern int vftable_NiTFixedStringMapBase_0109ca08;
 extern MemoryManager _g_memoryManager;
 void _NiFree(void* p);
 
@@ -643,7 +643,7 @@ void* __fastcall DestroyFixedStringCStringMap(
     NiTFixedStringMapBase<DFALL<NiTMapItem<NiFixedString, const char*> >, const char*>* map,
     void*, unsigned char flag)
 {
-    *reinterpret_cast<int**>(map) = &DAT_0109ca08;
+    *reinterpret_cast<int**>(map) = &vftable_NiTFixedStringMapBase_0109ca08;
     map->RemoveAll();
     _NiFree(map->m_ppkHashTable);
     if (flag & 1)
@@ -652,9 +652,9 @@ void* __fastcall DestroyFixedStringCStringMap(
 }
 
 
-extern int DAT_0109cd44;
+extern int vftable_NiTriStrips;
 
-// Allocates 0xc4 bytes, constructs a NiTriStrips in place, sets its vtable to DAT_0109cd44, and returns the pointer or 0 on failure.
+// Allocates 0xc4 bytes, constructs a NiTriStrips in place, sets its vtable to vftable_NiTriStrips, and returns the pointer or 0 on failure.
 // @fnv 0x00a71ce0
 void* CreateNiTriStrips()
 {
@@ -662,7 +662,7 @@ void* CreateNiTriStrips()
     if (p)
     {
         p->NiTriStrips::NiTriStrips();
-        *(int*)p = (int)&DAT_0109cd44;
+        *(int*)p = (int)&vftable_NiTriStrips;
         return p;
     }
     return 0;
@@ -688,7 +688,7 @@ struct FUN_00a7f810
 // @fnv 0x00a7f810
 FUN_00a7f810::FUN_00a7f810()
 {
-    m_p = (int)&DAT_0109df2c;
+    m_p = (int)&vftable_NiGeometryGroupManager;
     DAT_011f4ab4 = (int)this;
 }
 
@@ -1571,7 +1571,7 @@ void FUN_00a674b0_cls::GetOutRec(OutRec674* out)
     }
 }
 
-extern int DAT_0109c28c;
+extern int vftable_NiCullingProcess;
 
 struct FUN_00a693e0_cls
 {
@@ -1584,7 +1584,7 @@ struct FUN_00a693e0_cls
 // src: GUESS 0x00a693e0 (confidence: low)
 void FUN_00a693e0_cls::UpdateFields_00a693e0()
 {
-    m_vptr00 = (int)&DAT_0109c28c;
+    m_vptr00 = (int)&vftable_NiCullingProcess;
 }
 
 extern unsigned int DAT_011f4980;
@@ -1830,14 +1830,14 @@ FUN_00a71c40_cls* FUN_00a71c40_cls::ConstructWithAlloc(unsigned int a1, unsigned
         obj = 0;
     }
     this->FUN_00a89720(obj);
-    this->m_vt = &DAT_0109cd44;
+    this->m_vt = &vftable_NiTriStrips;
     return this;
 }
 
 // FUN_00a71cc0 : constructor-like helper that calls a base routine with the
 // argument and then installs the class vtable pointer, returning itself.
 
-extern int DAT_0109cd44;
+extern int vftable_NiTriStrips;
 
 struct FUN_00a71cc0_cls
 {
@@ -1851,7 +1851,7 @@ struct FUN_00a71cc0_cls
 FUN_00a71cc0_cls* FUN_00a71cc0_cls::NiTriStrips_NiTriStrips(int arg)
 {
     FUN_00a89720(arg);
-    m_pVTable = (void*)&DAT_0109cd44;
+    m_pVTable = (void*)&vftable_NiTriStrips;
     return this;
 }
 
@@ -2131,7 +2131,7 @@ void BA72DB0Data::NiAdditionalGeometryData_NiAGDDataStream_SaveBinary(NiStream& 
     BA72DB0SaveBinary(kStream, m_bFlag);
 }
 
-extern int DAT_0109d55c;
+extern int vftable_NiLines;
 
 struct SceneFactoryObject
 {
@@ -2139,7 +2139,7 @@ struct SceneFactoryObject
     void Initialize();
 };
 
-// Allocates a 196-byte SceneFactoryObject, initializes it, sets its vtable to DAT_0109d55c, and returns it (or null on allocation failure).
+// Allocates a 196-byte SceneFactoryObject, initializes it, sets its vtable to vftable_NiLines, and returns it (or null on allocation failure).
 // @fnv 0x00a74750
 SceneFactoryObject* CreateSceneFactoryObject()
 {
@@ -2147,7 +2147,7 @@ SceneFactoryObject* CreateSceneFactoryObject()
     if (object)
     {
         object->Initialize();
-        object->m_vtbl = &DAT_0109d55c;
+        object->m_vtbl = &vftable_NiLines;
         return object;
     }
     return 0;
@@ -3832,8 +3832,8 @@ void __cdecl AddScaledPoints(NiPoint3* dest, float scale, const NiPoint3* src, u
     }
 }
 
-extern int DAT_0109b944;
-extern int DAT_0109df8c;
+extern int vftable_NiTexture;
+extern int vftable_NiRenderedTexture;
 struct FUN_00a7fb80_Class
 {
     void* m_ppVirtualMethodTable;
@@ -3861,13 +3861,13 @@ struct Z2Setup
 void* FUN_00a7fb80_Class::NiRenderedTexture_NiRenderedTexture()
 {
     FUN_00a5c200();
-    m_ppVirtualMethodTable = &DAT_0109b944;
+    m_ppVirtualMethodTable = &vftable_NiTexture;
     m_18 = 6;
     m_1C = 3;
     m_20 = 2;
     m_24 = 0;
     ((Z2Setup*)this)->NiTexture_AddTextureToList();
-    m_ppVirtualMethodTable = &DAT_0109df8c;
+    m_ppVirtualMethodTable = &vftable_NiRenderedTexture;
     m_30 = 0;
     return this;
 }

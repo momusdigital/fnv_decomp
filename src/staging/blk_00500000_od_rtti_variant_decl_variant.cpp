@@ -139,7 +139,7 @@ struct FUN_005194d0_shell_base
 {
     bool IsRandomDoor();
 };
-extern "C" void* DAT_0102b3d0;
+extern "C" void* vftable_NiTPointerMap_0102b3d0;
 struct FUN_00519b20_cls
 {
     void* m_p;
@@ -168,7 +168,7 @@ struct FUN_0051f530_class
     void __thiscall TESObjectWEAP_SetVATSEffect(int value);
 };
 extern "C" void* __cdecl _NiFreeAlias(void*);
-extern void* DAT_0102b3f0;
+extern void* vftable_NiTMapBase_0102b3f0;
 struct FUN_00519c50_class
 {
     void* pVft;
@@ -364,16 +364,16 @@ struct FUN_00509a10 : TESGrassBase
     FUN_00509a10();
     void ResetFormData();
 };
-extern int DAT_01028364;
-extern int DAT_01028378;
-extern int DAT_0102838c;
-extern int DAT_010283a0;
-extern int DAT_010283b4;
-extern int DAT_010283d4;
-extern int DAT_010283e8;
-extern int DAT_01028408;
-extern int DAT_0102842c;
-extern int DAT_01028444;
+extern int vftable_TESKey_for_BGSPickupPutdownSounds;
+extern int vftable_TESKey_for_BGSMessageIcon;
+extern int vftable_TESKey_for_BGSDestructibleObjectForm;
+extern int vftable_TESKey_for_TESWeightForm;
+extern int vftable_TESKey_for_TESValueForm;
+extern int vftable_TESKey_for_TESScriptableForm;
+extern int vftable_TESKey_for_TESIcon;
+extern int vftable_TESKey_for_TESModelTextureSwap;
+extern int vftable_TESKey_for_TESFullName;
+extern int vftable_TESKey;
 struct SFTX
 {
     void SetFormType(int);
@@ -404,13 +404,13 @@ struct GlobalObject_0045cf30 : FUN_0050e620_S
 };
 extern unsigned char DAT_011c8fa0;
 extern double _DAT_01012060;
-extern Setting g_011c8fb0;
-extern GlobalObject_0045cf30 g_011c8ff0;
-extern GlobalObject_0045cf30 g_011c9028;
-extern Setting g_011c9054;
-extern GlobalObject_0045cf30 g_011c9060;
-extern Setting g_011c906c;
-extern Setting g_011c907c;
+extern Setting fLinearRadiusMult_bLightAttenuation;
+extern GlobalObject_0045cf30 bUseLinear_bLightAttenuation;
+extern GlobalObject_0045cf30 bUseQuadratic_bLightAttenuation;
+extern Setting uLinearMethod_bLightAttenuation;
+extern GlobalObject_0045cf30 bUseConstant_bLightAttenuation;
+extern Setting fQuadraticRadiusMult_bLightAttenuation;
+extern Setting uQuadraticMethod_bLightAttenuation;
 bool __cdecl InitSettingsDefaults();
 struct TESBoundObject;
 struct LockExtraData
@@ -604,13 +604,13 @@ struct Envelope
     float UpdateEnvelope(float current, float rate, float elapsed, unsigned char releasing, float attack, float decay,
                          float hold, float maximum, float minimum);
 };
-extern char DAT_01026bd0;
-extern char DAT_01026a4c;
-extern char DAT_01026a34;
-extern char DAT_01026a10;
-extern char DAT_010269fc;
-extern char DAT_010269e8;
-extern char DAT_010269d8;
+extern char vftable_TESFlora;
+extern char vftable_TESFlora_for_TESObjectACTI;
+extern char vftable_TESFlora_for_TESFullName;
+extern char vftable_TESFlora_for_TESModelTextureSwap;
+extern char vftable_TESFlora_for_TESScriptableForm;
+extern char vftable_TESFlora_for_BGSDestructibleObjectForm;
+extern char vftable_TESFlora_for_BGSOpenCloseForm;
 class ActorStateBase
 {
   public:

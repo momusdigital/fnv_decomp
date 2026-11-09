@@ -495,8 +495,8 @@ fail:
     return 0;
 }
 
-extern "C" const void* DAT_010ea51c;
-extern int DAT_0102e388;
+extern "C" const void* vftable_hkPackfileData;
+extern int vftable_hkBaseObject;
 
 void* hkMemoryRouter_getInstance();
 void __cdecl hkMemoryRouter_easyFree(void* heap, void* ptr);
@@ -568,7 +568,7 @@ struct FUN_00e057c0_Class
 // src: GUESS 0x00e057c0 (confidence: low)
 void FUN_00e057c0_Class::ReleaseEntries_00e057c0()
 {
-    this->vtable = &DAT_010ea51c;
+    this->vtable = &vftable_hkPackfileData;
     this->Clear();
 
     int i;
@@ -613,7 +613,7 @@ void FUN_00e057c0_Class::ReleaseEntries_00e057c0()
 
     this->m_map1.ClearAndRelease();
 
-    this->vtable = (const void*)&DAT_0102e388;
+    this->vtable = (const void*)&vftable_hkBaseObject;
 }
 
 class FUN_00e057c0
@@ -823,7 +823,7 @@ struct FUN_01268B08_Obj
     virtual int vf10();
 };
 
-extern "C" const void* DAT_010ea51c;
+extern "C" const void* vftable_hkPackfileData;
 extern FUN_01268B08_Obj* DAT_01268b08;
 
 struct S00e05700_Arr
@@ -873,7 +873,7 @@ S00e05700_Class* __thiscall S00e05700_Class::hkPackfileData_hkPackfileData()
     int zero = 0;
 
     unk06 = 1;
-    unk00 = reinterpret_cast<const void*>(&DAT_010ea51c);
+    unk00 = reinterpret_cast<const void*>(&vftable_hkPackfileData);
     unk08 = zero;
     unk0C = zero;
 

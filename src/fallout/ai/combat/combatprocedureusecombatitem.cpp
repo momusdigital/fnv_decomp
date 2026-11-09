@@ -14,12 +14,12 @@ CombatProcedure::COMBAT_PROCEDURES CombatProcedureUseCombatItem::GetProcedureTyp
     return USE_COMBAT_ITEM;
 }
 
-extern void* DAT_0109214c;
+extern void* vftable_CombatProcedureUseCombatItem;
 
 // @fnv 0x009daa90
 void CombatProcedureUseCombatItem::SetVtableAndInit()
 {
-    *reinterpret_cast<void**>(this) = &DAT_0109214c;
+    *reinterpret_cast<void**>(this) = &vftable_CombatProcedureUseCombatItem;
     CombatProcedure::~CombatProcedure();
 }
 

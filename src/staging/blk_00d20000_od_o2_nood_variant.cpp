@@ -1421,7 +1421,7 @@ extern "C" LocalM128 _mm_xor_ps(LocalM128, LocalM128);
 
 extern float DAT_0104da48;
 extern LocalM128 DAT_010c44d0;
-extern char DAT_010ce80c;
+extern char vftable_hkpSymmetricAgentFlipCastCollector;
 
 
 struct __declspec(align(16)) D2fInput

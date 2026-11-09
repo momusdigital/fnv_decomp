@@ -9,7 +9,7 @@ struct DAT_010c53b4_t
     void*(__thiscall* Alloc)(void*, unsigned int);
     void(__thiscall* Free)(void*, void*);
 };
-extern DAT_010c53b4_t DAT_010c53b4;
+extern DAT_010c53b4_t vftable_BSSimpleArray_010c53b4;
 
 int __cdecl bhkUtilFunctions_FindCollisionObjectBFSRec(void*, void*, void*, int);
 
@@ -22,20 +22,20 @@ struct LocalObj
 
     LocalObj()
     {
-        vptr = &DAT_010c53b4;
+        vptr = &vftable_BSSimpleArray_010c53b4;
         data = 0;
         size = 0;
         capacity = 0;
-        data = DAT_010c53b4.Alloc(this, 0x20);
+        data = vftable_BSSimpleArray_010c53b4.Alloc(this, 0x20);
         capacity = 0x20;
     }
 
     ~LocalObj()
     {
-        vptr = &DAT_010c53b4;
+        vptr = &vftable_BSSimpleArray_010c53b4;
         if (data)
         {
-            DAT_010c53b4.Free(this, data);
+            vftable_BSSimpleArray_010c53b4.Free(this, data);
         }
     }
 };

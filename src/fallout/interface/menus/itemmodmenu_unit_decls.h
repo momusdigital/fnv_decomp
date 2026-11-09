@@ -31,8 +31,8 @@ class BGSPerkEntry;
 
 extern "C"
 {
-    extern void* DAT_01073b7c;
-    extern void* DAT_01075c5c;
+    extern void* vftable_ItemModMenu;
+    extern void* vftable_RepairMenu;
 
     extern const char DAT_0106ed18[];
     extern const char DAT_0106ed20[];

@@ -33,7 +33,7 @@ public:
     hkMemoryAllocator& debug();
 };
 #include <xmmintrin.h>
-extern unsigned int DAT_010ec004;
+extern unsigned int vftable_hkpMountedBallGun;
 extern float DAT_01011d78;
 extern float DAT_01016410;
 struct FUN_00e46f90_Obj

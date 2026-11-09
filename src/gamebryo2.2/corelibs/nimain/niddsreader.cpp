@@ -305,8 +305,8 @@ bool __stdcall IsNotBmpExtension(const char* extension)
     return true;
 }
 
-extern int DAT_0109f4b0;
-extern int DAT_0109f3d0;
+extern int vftable_NiTGAReader;
+extern int vftable_NiImageReader;
 extern void(__stdcall* DAT_00fdf058)(void*);
 
 void __cdecl _NiFree_00aa10f0(void* apMemory);
@@ -333,11 +333,11 @@ struct FUN_00a8d850_cls : NiImageReader
 FUN_00a8d850_cls* FUN_00a8d850_cls::DestroyImageReader(unsigned char acFlags)
 {
     void* pFirst = m_p164;
-    *(int*)this = (int)&DAT_0109f4b0;
+    *(int*)this = (int)&vftable_NiTGAReader;
     _NiFree_00aa10f0(pFirst);
     void* pSecond = m_p16c;
     DAT_011f6238.Deallocate(pSecond);
-    *(int*)this = (int)&DAT_0109f3d0;
+    *(int*)this = (int)&vftable_NiImageReader;
     DAT_00fdf058(lock);
     if (acFlags & 1)
     {

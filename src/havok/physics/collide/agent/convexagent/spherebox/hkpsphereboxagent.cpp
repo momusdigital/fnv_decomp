@@ -58,7 +58,7 @@ void __cdecl hkpSphereBoxAgent_registerAgent(Registry* registry)
 }
 
 extern float DAT_0104da48;
-extern unsigned char DAT_010ce7fc;
+extern unsigned char vftable_hkpSymmetricAgentFlipCollector;
 extern void __cdecl hkpSphereBoxAgent_staticGetClosestPoints(void*, void*, int, void*);
 // Builds a hkpSymmetricAgentFlipCollector from DAT_0104da48 and arg4, then calls FUN_00d3cc00 with arg2, arg1, arg3 and the collector.
 // @fnv 0x00d3d040
@@ -67,7 +67,7 @@ void __cdecl FlipAndDispatchCollector(void* arg1, void* arg2, int arg3, int arg4
     // The original initializes stack storage directly, without collector lifetime calls.
     void* storage[sizeof(hkpSymmetricAgentFlipCollector) / sizeof(void*)];
     hkpSymmetricAgentFlipCollector& local = *(hkpSymmetricAgentFlipCollector*)storage;
-    *(void**)&local = &DAT_010ce7fc;
+    *(void**)&local = &vftable_hkpSymmetricAgentFlipCollector;
     local.m_fEarlyOutDistance = DAT_0104da48;
     local.unk08 = (void*)arg4;
     hkpSphereBoxAgent_staticGetClosestPoints(arg2, arg1, arg3, &local);
@@ -116,7 +116,7 @@ struct SmallRecord
     unsigned short m_w0C;
 };
 
-extern char DAT_010cf018[];
+extern char vftable_hkpSymmetricAgentLinearCast_010cf018[];
 
 hkMemoryRouter* hkMemoryRouter_getInstance();
 
@@ -131,7 +131,7 @@ void __cdecl hkpSphereBoxAgent_createBoxSphereAgent(int aiUnused1, int aiUnused2
     pRecord->m_w06 = 1;
     pRecord->m_i08 = d;
     pRecord->m_w0C = 0xffff;
-    pRecord->m_vptr = DAT_010cf018;
+    pRecord->m_vptr = vftable_hkpSymmetricAgentLinearCast_010cf018;
 }
 
 class D3CF80CollectorBase
@@ -169,7 +169,7 @@ void D3CF80Agent::CollectFilteredEvents(void* pkA, void* pkB, void* pkInput, int
 }
 
 extern void __cdecl hkpSphereBoxAgent_staticGetPenetrations(int a, int b, int c, int d);
-extern char DAT_010ce81c[];
+extern char vftable_hkpSymmetricAgentFlipBodyCollector[];
 
 struct FlipCollectorLocal
 {
@@ -178,7 +178,7 @@ struct FlipCollectorLocal
     int unk08;
 };
 
-// Builds a FlipCollectorLocal from DAT_010ce81c and a4, then calls FUN_00d3c440 with a2, a1, a3 and the local's address.
+// Builds a FlipCollectorLocal from vftable_hkpSymmetricAgentFlipBodyCollector and a4, then calls FUN_00d3c440 with a2, a1, a3 and the local's address.
 // @fnv 0x00d3cfc0
 // src: GUESS 0x00d3cfc0 (confidence: low)
 void __cdecl Object_UpdateFields_00d3cfc0(int aiArg1, int aiArg2, int aiArg3, int a4)
@@ -186,18 +186,18 @@ void __cdecl Object_UpdateFields_00d3cfc0(int aiArg1, int aiArg2, int aiArg3, in
     FlipCollectorLocal local;
     local.unk08 = a4;
     local.unk04 = 0;
-    local.unk00 = DAT_010ce81c;
+    local.unk00 = vftable_hkpSymmetricAgentFlipBodyCollector;
     hkpSphereBoxAgent_staticGetPenetrations(aiArg2, aiArg1, aiArg3, (int)&local);
 }
 
 extern float DAT_0104da48;
-extern unsigned char DAT_010ce7fc;
+extern unsigned char vftable_hkpSymmetricAgentFlipCollector;
 struct CpuObject
 {
     void hkpSphereBoxAgent_getClosestPoints(void*, void*, unsigned int, hkpSymmetricAgentFlipCollector*);
     void hkpSymmetricAgentLinearCast_hkpSphereBoxAgent_getClosestPoints(void*, void*, unsigned int, unsigned int);
 };
-// Builds a hkpSymmetricAgentFlipCollector from fourth, DAT_0104da48 and DAT_010ce7fc, then forwards second, first, third and the collector to FUN_00d3c910.
+// Builds a hkpSymmetricAgentFlipCollector from fourth, DAT_0104da48 and vftable_hkpSymmetricAgentFlipCollector, then forwards second, first, third and the collector to FUN_00d3c910.
 // @fnv 0x00d3d000
 // src: XBOX_PDB 0x00d3d000
 void CpuObject::hkpSymmetricAgentLinearCast_hkpSphereBoxAgent_getClosestPoints(void* first, void* second, unsigned int third, unsigned int fourth)
@@ -206,7 +206,7 @@ void CpuObject::hkpSymmetricAgentLinearCast_hkpSphereBoxAgent_getClosestPoints(v
     hkpSymmetricAgentFlipCollector& callData = *(hkpSymmetricAgentFlipCollector*)storage;
     callData.unk08 = (void*)fourth;
     callData.m_fEarlyOutDistance = DAT_0104da48;
-    *(void**)&callData = &DAT_010ce7fc;
+    *(void**)&callData = &vftable_hkpSymmetricAgentFlipCollector;
     hkpSphereBoxAgent_getClosestPoints(second, first, third, &callData);
 }
 

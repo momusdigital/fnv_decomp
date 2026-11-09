@@ -236,7 +236,8 @@ void Deallocate(void*);
 }  // namespace fnv_0097d740
 
 // @fnv 0x0097d740
-void* CombatController::FUN_0097d740(unsigned int flags)
+// src: EXE 0x0097d740
+void* CombatController::ScalarDeletingDestructor(unsigned int flags)
 {
     using namespace fnv_0097d740;
     FUN_0097d770();
@@ -277,7 +278,8 @@ void __cdecl Deallocate(void*);
 
 // Calls FUN_0097e3e0, then deallocates this if bit 0 of flags is set, and returns this.
 // @fnv 0x0097e460
-void* CombatPlanner::FUN_0097e460(unsigned int flags)
+// src: EXE 0x0097e460
+void* CombatPlanner::ScalarDeletingDestructor(unsigned int flags)
 {
     this->CombatPlanner::~CombatPlanner();
     if (flags & 1)

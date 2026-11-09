@@ -101,7 +101,7 @@ void* __fastcall FUN_00a50b80(void* self, int, unsigned int flags)
 void __fastcall InitializeBSplineInterpolator(NiBSplineInterpolator* self, int, int, int);
 void __fastcall CopyBSplineInterpolator(NiBSplineInterpolator* self, int, NiBSplineInterpolator* object,
                                        CloningProcess& cloning);
-extern int DAT_010997f4;
+extern int vftable_NiBSplineFloatInterpolator;
 // Allocates a new object, initialises it, copies the float value and handle from this, and returns the clone.
 // @fnv 0x00a50c20
 NiBSplineFloatInterpolator* __fastcall CloneFloatInterpolator(NiBSplineFloatInterpolator* self, int, CloningProcess& kCloning)
@@ -110,7 +110,7 @@ NiBSplineFloatInterpolator* __fastcall CloneFloatInterpolator(NiBSplineFloatInte
     if (pkObject)
     {
         (((ThisCallStub*)pkObject)->*MemberCall<void (ThisCallStub::*)(int, int)>(InitializeBSplineInterpolator))(0, 0);
-        *(void**)pkObject = (void*)&DAT_010997f4;
+        *(void**)pkObject = (void*)&vftable_NiBSplineFloatInterpolator;
         pkObject->m_kFloatCPHandle = 0xffff;
     }
     else
@@ -201,13 +201,13 @@ void __fastcall SaveFloatInterpolator(NiBSplineFloatInterpolator* self, int, NiS
 
 #include <windows.h>
 
-extern int DAT_0109ae8c;
+extern int vftable_NiBSplineInterpolator;
 void __fastcall DestroyInterpolator(NiInterpolator* self, int);
 
 // @fnv 0x00a57f80
 __declspec(noinline) void __fastcall DestroyBSplineInterpolator(NiBSplineInterpolator* self, int)
 {
-    *(void* volatile*)self = (void*)&DAT_0109ae8c;
+    *(void* volatile*)self = (void*)&vftable_NiBSplineInterpolator;
     NiBSplineBasisData* second = *(NiBSplineBasisData* volatile*)&self->m_spSplineBasisData.m_pObject;
     if (second != 0)
     {

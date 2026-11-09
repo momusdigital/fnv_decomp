@@ -604,7 +604,7 @@ struct DeallocHelper
 {
     void _DeallocateAlias(void*);
 };
-extern int DAT_0109c394;
+extern int vftable_NiTArray_0109c394;
 // The scalar deleting destructors use the shared array layouts. Keep the
 // entry-point wrappers here because C++ cannot name a scalar deleting destructor.
 // @fnv 0x00a6a050
@@ -613,21 +613,21 @@ void* __fastcall DestroyTextureMapArrayBase(
     int, unsigned int flags)
 {
     void* elements = self->m_pBase;
-    *reinterpret_cast<void**>(self) = &DAT_0109c394;
+    *reinterpret_cast<void**>(self) = &vftable_NiTArray_0109c394;
     _NiFreeAlias(elements);
     if (flags & 1)
         reinterpret_cast<DeallocHelper*>(&g_memoryManager)->_DeallocateAlias(self);
     return self;
 }
 
-extern int DAT_0109c39c;
+extern int vftable_NiTArray_0109c39c;
 // @fnv 0x00a6a080
 void* __fastcall DestroyShaderMapArrayBase(
     NiTArray<NiTexturingProperty::ShaderMap*, NiTMallocInterface<NiTexturingProperty::ShaderMap*> >* self,
     int, unsigned int flags)
 {
     void* elements = self->m_pBase;
-    *reinterpret_cast<void**>(self) = &DAT_0109c39c;
+    *reinterpret_cast<void**>(self) = &vftable_NiTArray_0109c39c;
     _NiFreeAlias(elements);
     if (flags & 1)
         reinterpret_cast<DeallocHelper*>(&g_memoryManager)->_DeallocateAlias(self);
@@ -1499,12 +1499,12 @@ bool A9E60Desc::IsEquivalent(const A9E60Desc& kOther) const
     return true;
 }
 
-extern int DAT_0109c514;
+extern int vftable_NiTexturingProperty;
 // Sets the vtable, deletes the texture array elements and the second array, frees the base array and runs the NiProperty destructor.
 // @fnv 0x00a6a0b0
 void __fastcall NiTexturingPropertyDestructor(NiTexturingProperty* pThis)
 {
-    *reinterpret_cast<void**>(pThis) = &DAT_0109c514;
+    *reinterpret_cast<void**>(pThis) = &vftable_NiTexturingProperty;
     for (unsigned int i = 0; i < pThis->m_kStringArray.m_usSize; ++i)
     {
         delete pThis->m_kStringArray.m_pBase[i];
@@ -1517,7 +1517,7 @@ void __fastcall NiTexturingPropertyDestructor(NiTexturingProperty* pThis)
         }
         delete pThis->m_pShaderMaps;
     }
-    *reinterpret_cast<void**>(&pThis->m_kStringArray) = &DAT_0109c394;
+    *reinterpret_cast<void**>(&pThis->m_kStringArray) = &vftable_NiTArray_0109c394;
     _NiFreeAlias(pThis->m_kStringArray.m_pBase);
     pThis->NiProperty::~NiProperty();
 }
@@ -1968,7 +1968,7 @@ int __cdecl Ret0()
 
 extern "C" void _ReadWriteBarrier();
 
-const void* DAT_0109c4c4[];
+const void* vftable_NiTexturingProperty__Map[];
 
 class FUN_00a69dd0_cls
 {
@@ -1985,7 +1985,7 @@ class FUN_00a69dd0_cls
 FUN_00a69dd0_cls::FUN_00a69dd0_cls() : m_usFlags(0)
 {
     _ReadWriteBarrier();
-    m_vtbl = DAT_0109c4c4;
+    m_vtbl = vftable_NiTexturingProperty__Map;
     _ReadWriteBarrier();
     m_spTexture = 0;
     _ReadWriteBarrier();

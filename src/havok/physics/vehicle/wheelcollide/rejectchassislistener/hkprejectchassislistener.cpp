@@ -4,8 +4,8 @@
 
 #include "havok/hkpRejectChassisListener.h"
 
-extern "C" void* DAT_010c925c;
-extern "C" void* DAT_0102e388;
+extern "C" void* vftable_hkpPhantomOverlapListener;
+extern "C" void* vftable_hkBaseObject;
 struct FUN_00e360f0
 {
     void* m_pVTable;
@@ -16,8 +16,8 @@ struct FUN_00e360f0
 // @fnv 0x00e360f0
 FUN_00e360f0::~FUN_00e360f0()
 {
-    m_pListener = &DAT_010c925c;
-    m_pVTable = &DAT_0102e388;
+    m_pListener = &vftable_hkpPhantomOverlapListener;
+    m_pVTable = &vftable_hkBaseObject;
 }
 
 struct FUN_00e36100_StandIn

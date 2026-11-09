@@ -266,7 +266,7 @@ template <class T> struct MergeArray
         capacity = 0x80000000;
     }
 };
-extern char DAT_0102e368;
+extern char vftable_hkpMoppCode;
 inline void* hkpMoppCode::operator new(std::size_t n)
 {
     hkReferencedObject* b = (hkReferencedObject*)(&hkMemoryRouter::getInstance())->heap().blockAlloc(n);
@@ -307,7 +307,7 @@ struct CostSettings
 {
     float primitive, plane, axis, split, balance, minimum, maximum, scale;
 };
-extern char DAT_0102e388;
+extern char vftable_hkBaseObject;
 struct hkpMoppCostFunction
 {
     void* vfptr;
@@ -317,7 +317,7 @@ struct hkpMoppCostFunction
     hkpMoppCostFunction(CostSettings*) throw();
     ~hkpMoppCostFunction() throw()
     {
-        vfptr = &DAT_0102e388;
+        vfptr = &vftable_hkBaseObject;
     }
 };
 struct AssemblerSettings

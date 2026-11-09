@@ -49,7 +49,7 @@ using ::SettingT;
 class GlobalObject_0045cf30
 {
 };
-extern GlobalObject_0045cf30 g_011d71a0;
+extern GlobalObject_0045cf30 bBackgroundNavmeshUpdate_Pathfinding;
 class BGSPerkEntry;
 class ActorCause;
 class BGSCameraShot;
@@ -130,7 +130,7 @@ void NavMeshObstacleManager::QueueObstacleTasks()
     {
         ((NiTMap<unsigned int, ObstacleTaskData*>*)((char*)this + 0x12c))
             ->GetNext(locals.iterator, locals.key, locals.task);
-        if (((SettingT<INISettingCollection>*)&g_011d71a0)->Bool()[0])
+        if (((SettingT<INISettingCollection>*)&bBackgroundNavmeshUpdate_Pathfinding)->Bool()[0])
             ProcessObstacleTask(locals.task);
         else
         {
@@ -652,25 +652,25 @@ bool FUN_006c4900_shell::NavMeshObstacleManager_ProcessEnabledNavMeshes()
     return true;
 }
 
-extern int DAT_0106c5d8;
+extern int vftable_BSTasklet;
 
-// Sets pThis[0] to the address of DAT_0106c5d8 and pThis[1] to 0, then returns pThis.
+// Sets pThis[0] to the address of vftable_BSTasklet and pThis[1] to 0, then returns pThis.
 // @fnv 0x006c5e40
 // src: XBOX_PDB 0x006c5e40
 int* __fastcall BSTasklet_BSTasklet(int* pObject)
 {
-    pObject[0] = (int)&DAT_0106c5d8;
+    pObject[0] = (int)&vftable_BSTasklet;
     pObject[1] = 0;
     return pObject;
 }
 
-extern int DAT_0106c5d8;
+extern int vftable_BSTasklet;
 
 // @fnv 0x006c5e70
 // src: GUESS 0x006c5e70 (confidence: low)
 void __fastcall NavMeshObstacleManager_UpdateState_006c5e70(int** ppObject)
 {
-    *ppObject = &DAT_0106c5d8;
+    *ppObject = &vftable_BSTasklet;
 }
 
 namespace fnv_006c5ec0 {
@@ -690,7 +690,7 @@ void S6c5ec0::BSTaskletGroup_AttachTask(void* task, bool last)
 }
 }  // namespace fnv_006c5ec0
 
-extern int DAT_0106c5e0;
+extern int vftable_NiTMap_0106c5e0;
 
 struct FUN_006c5fc0_shell
 {
@@ -699,17 +699,17 @@ struct FUN_006c5fc0_shell
     FUN_006c5fc0_shell* InitializeFields_006c5fc0(unsigned int uiHashSize);
 };
 
-// Calls FUN_006c6260 with uiHashSize, sets the vftable to DAT_0106c5e0, and returns this.
+// Calls FUN_006c6260 with uiHashSize, sets the vftable to vftable_NiTMap_0106c5e0, and returns this.
 // @fnv 0x006c5fc0
 // src: GUESS 0x006c5fc0 (confidence: low)
 FUN_006c5fc0_shell* FUN_006c5fc0_shell::InitializeFields_006c5fc0(unsigned int uiHashSize)
 {
     FUN_006c6260(uiHashSize);
-    vftable = &DAT_0106c5e0;
+    vftable = &vftable_NiTMap_0106c5e0;
     return this;
 }
 
-extern int DAT_0106c600;
+extern int vftable_NiTMap_0106c600;
 
 struct FUN_006c6070_Class
 {
@@ -718,13 +718,13 @@ struct FUN_006c6070_Class
     void* SetVtableAndProcessState_006c6070(unsigned int uiHashSize);
 };
 
-// Calls FUN_006c68b0 with uiHashSize, sets the vftable to DAT_0106c600, and returns this.
+// Calls FUN_006c68b0 with uiHashSize, sets the vftable to vftable_NiTMap_0106c600, and returns this.
 // @fnv 0x006c6070
 // src: GUESS 0x006c6070 (confidence: low)
 void* FUN_006c6070_Class::SetVtableAndProcessState_006c6070(unsigned int uiHashSize)
 {
     NiTMapBase_DFALL_NiTMapItem_bhkRigidBody_NiPointer_ObstacleData_bhkRigidBody_NiPointer_ObstacleData_NiTMapBase_DFALL_NiTMapItem_bhkRigidBody_NiPointer_ObstacleData_bhkRigidBody_NiPointer_ObstacleData(uiHashSize);
-    vftable = &DAT_0106c600;
+    vftable = &vftable_NiTMap_0106c600;
     return this;
 }
 
@@ -801,7 +801,7 @@ void* __fastcall BSSimpleArray_UpdateState_006c6c10(void* pThis)
 }
 }  // namespace fnv_006c6c10
 
-extern int DAT_0106c708;
+extern int vftable_BSSimpleArray_0106c708;
 
 struct GlobalObject_00869f00
 {
@@ -812,7 +812,7 @@ struct GlobalObject_00869f00
 // src: GUESS 0x006c6de0 (confidence: medium)
 void __fastcall Object_ResetVirtualTableAndClear_006c6de0(GlobalObject_00869f00* pThis)
 {
-    *(int**)pThis = &DAT_0106c708;
+    *(int**)pThis = &vftable_BSSimpleArray_0106c708;
     pThis->Clear(true);
 }
 
@@ -903,7 +903,7 @@ void __fastcall ProcessObstacleTasks(NavMeshObstacleManager* pObstacleManager)
         unsigned int formID;
         ((NiTMap<unsigned int, ObstacleTaskData*>*)((char*)pObstacleManager + 0x12c))
             ->GetNext(taskIt, formID, ptaskData);
-        if (((SettingT<INISettingCollection>*)&g_011d71a0)->Bool()[0])
+        if (((SettingT<INISettingCollection>*)&bBackgroundNavmeshUpdate_Pathfinding)->Bool()[0])
         {
             pObstacleManager->ProcessObstacleTask(ptaskData);
         }
@@ -1090,7 +1090,7 @@ int __cdecl NavMeshRender_GetSingleton()
     return DAT_011d6e2c;
 }
 
-extern int DAT_0106c3c4;
+extern int vftable_hkpEntityActivationListener;
 
 struct FUN_006c0150_shell
 {
@@ -1101,7 +1101,7 @@ struct FUN_006c0150_shell
 // src: GUESS 0x006c0150 (confidence: low)
 void FUN_006c0150_shell::SetVtableAndProcessState_006c0150()
 {
-    *reinterpret_cast<int*>(this) = (int)&DAT_0106c3c4;
+    *reinterpret_cast<int*>(this) = (int)&vftable_hkpEntityActivationListener;
 }
 
 struct G2
@@ -1229,11 +1229,12 @@ extern "C" void __cdecl __Dummy_00b6fef0(void*, unsigned int);
 struct ObstacleData_shell
 {
     void __thiscall DestroyMembers();
-    void* __thiscall FUN_006c2490(unsigned int flags);
+    void* __thiscall ObstacleData_ScalarDeletingDestructor(unsigned int flags);
 };
 
 // @fnv 0x006c2490
-void* __thiscall ObstacleData_shell::FUN_006c2490(unsigned int flags)
+// src: EXE 0x006c2490
+void* __thiscall ObstacleData_shell::ObstacleData_ScalarDeletingDestructor(unsigned int flags)
 {
     this->DestroyMembers();
     if (flags & 1)
@@ -1246,12 +1247,13 @@ void __cdecl operator delete(void*);
 
 struct FUN_006c5e90_shell
 {
-    void* __thiscall FUN_006c5e90(unsigned int flags);
+    void* __thiscall BSTasklet_ScalarDeletingDestructor(unsigned int flags);
 };
 
 // Calls FUN_006c5e70 on this object, deletes it when flags has bit 0 set, and returns this.
 // @fnv 0x006c5e90
-void* __thiscall FUN_006c5e90_shell::FUN_006c5e90(unsigned int flags)
+// src: EXE 0x006c5e90
+void* __thiscall FUN_006c5e90_shell::BSTasklet_ScalarDeletingDestructor(unsigned int flags)
 {
     NavMeshObstacleManager_UpdateState_006c5e70((int**)this);
     if (flags & 1)
@@ -1269,12 +1271,13 @@ extern void _Deallocate(void*);
 
 struct FUN_006c0120_shell : FUN_006c0150_shell
 {
-    void* FUN_006c0120(unsigned int flags);
+    void* hkpEntityActivationListener_ScalarDeletingDestructor(unsigned int flags);
 };
 
 // Calls FUN_006c0150, then deallocates this when bit 0 of flags is set, and returns this.
 // @fnv 0x006c0120
-void* FUN_006c0120_shell::FUN_006c0120(unsigned int flags)
+// src: EXE 0x006c0120
+void* FUN_006c0120_shell::hkpEntityActivationListener_ScalarDeletingDestructor(unsigned int flags)
 {
     SetVtableAndProcessState_006c0150();
     if (flags & 1)
@@ -1351,11 +1354,12 @@ void __cdecl _Deallocate(void*);
 struct Dummy
 {
     void ForwardCall_006c0170();
-    void* FUN_006c00d0(unsigned int);
+    void* bhkObstacleDeactivationListener_ScalarDeletingDestructor(unsigned int);
 };
 // Calls FUN_006c0170, then if the low bit of flags is set calls _Deallocate on this, and returns this.
 // @fnv 0x006c00d0
-void* Dummy::FUN_006c00d0(unsigned int flags)
+// src: EXE 0x006c00d0
+void* Dummy::bhkObstacleDeactivationListener_ScalarDeletingDestructor(unsigned int flags)
 {
     ForwardCall_006c0170();
     if (flags & 1)
@@ -1389,23 +1393,24 @@ struct FUN_006c0210_shell
     void ComputeValue_0061f580();
 };
 
-extern int DAT_0106c3d4;
+extern int vftable_bhkObstacleRemovalListener;
 
 // @fnv 0x006c0210
 FUN_006c0210_shell::FUN_006c0210_shell()
 {
     ComputeValue_0061f580();
-    vtbl = &DAT_0106c3d4;
+    vtbl = &vftable_bhkObstacleRemovalListener;
 }
 
 void __fastcall UpdateFields_006c0260(void*);
 void __cdecl _Deallocate(void*);
 struct FUN_006c0230_shell
 {
-    void* FUN_006c0230(unsigned int);
+    void* bhkObstacleRemovalListener_ScalarDeletingDestructor(unsigned int);
 };
 // @fnv 0x006c0230
-void* FUN_006c0230_shell::FUN_006c0230(unsigned int flags)
+// src: EXE 0x006c0230
+void* FUN_006c0230_shell::bhkObstacleRemovalListener_ScalarDeletingDestructor(unsigned int flags)
 {
     UpdateFields_006c0260(this);
     if (flags & 1)
@@ -1415,7 +1420,7 @@ void* FUN_006c0230_shell::FUN_006c0230(unsigned int flags)
 
 class Actor;
 namespace fnv_006c0c30 {
-extern GlobalObject_0045cf30 g_011d73e4;
+extern GlobalObject_0045cf30 bUseObstacleAvoidance_Pathfinding;
 struct LH
 {
     bool IsInList(Actor*&);
@@ -1433,7 +1438,7 @@ struct Mgr006c0c30
 // src: XBOX_PDB 0x006c0c30
 void Mgr006c0c30::NavMeshObstacleManager_AddObstacleForReference(Actor* apRef)
 {
-    if (!*(unsigned char*)(((SettingT_GameSettingCollection_*)&g_011d73e4)->Bool()))
+    if (!*(unsigned char*)(((SettingT_GameSettingCollection_*)&bUseObstacleAvoidance_Pathfinding)->Bool()))
         return;
     if (!((LH*)((char*)this + 0x2c))->IsInList(apRef))
         ((G2*)((char*)this + 0x2c))->AddHead((int*)&apRef);
@@ -1534,7 +1539,7 @@ bool C006c6030::LockFreeQueue_bhkRigidBody_Pop(void* apArg)
 }
 
 namespace fnv_006c0260 {
-extern void* DAT_0106c3d4;
+extern void* vftable_bhkObstacleRemovalListener;
 struct FUN_00554650_shell
 {
     void UpdateState_00554650();
@@ -1547,7 +1552,7 @@ struct FUN_006c0260_shell
 // src: GUESS 0x006c0260 (confidence: low)
 void FUN_006c0260_shell::UpdateFields_006c0260()
 {
-    *(void**)this = &DAT_0106c3d4;
+    *(void**)this = &vftable_bhkObstacleRemovalListener;
     ((FUN_00554650_shell*)this)->UpdateState_00554650();
 }
 }  // namespace fnv_006c0260
@@ -2542,7 +2547,7 @@ void Call_006c0c80::HandleRigidBodyObstacle(bhkRigidBody* apRigidBody)
 }
 }  // namespace fnv_006c1cb0
 
-extern int DAT_0106c3c4;
+extern int vftable_hkpEntityActivationListener;
 
 struct FUN_006c0100_t
 {
@@ -2554,7 +2559,7 @@ struct FUN_006c0100_t
 // src: GUESS 0x006c0100 (confidence: low)
 void* __thiscall FUN_006c0100_t::InitializeFields_006c0100()
 {
-    v = (int)&DAT_0106c3c4;
+    v = (int)&vftable_hkpEntityActivationListener;
     return this;
 }
 
@@ -6509,7 +6514,7 @@ struct GlobalObject_0044f440
 {
     float* Setting_Float_00403e20();
 };
-extern GlobalObject_0044f440 g_011d71b0;
+extern GlobalObject_0044f440 fObstacleUpdateDeltaWhenMoving_Pathfinding;
 struct TimeGlobal
 {
     unsigned int FUN_00825c00();
@@ -6542,7 +6547,7 @@ struct ObsMgr
 // src: COMMUNITY 0x006c4d30
 void ObsMgr::NavMeshObstacleManager_ProcessMovingReferences()
 {
-    unsigned int uiTimeLimitMs = (unsigned int)(*g_011d71b0.Setting_Float_00403e20() * 1000.0);
+    unsigned int uiTimeLimitMs = (unsigned int)(*fObstacleUpdateDeltaWhenMoving_Pathfinding.Setting_Float_00403e20() * 1000.0);
     for (ObstList* node = &list3C; node && !node->BSSimpleList_NiRefObjectPtr_IsEmpty();)
     {
         NiPointer<ObstData1920> item(node->FUN_006815c0());
@@ -6664,7 +6669,7 @@ struct RemoveObstacleManagerView
 // src: XBOX_PDB 0x006c0c80
 void RemoveObstacleManagerView::NavMeshObstacleManager_RemoveObstacleForReference(::TESObjectREFR* ref)
 {
-    if (!reinterpret_cast< ::SettingT< ::INISettingCollection>*>(&::fnv_006c0c30::g_011d73e4)->Bool()[0])
+    if (!reinterpret_cast< ::SettingT< ::INISettingCollection>*>(&::fnv_006c0c30::bUseObstacleAvoidance_Pathfinding)->Bool()[0])
         return;
     pending.RemoveMatchingItem(&ref);
     if (!removed.IsInList(reinterpret_cast< ::TESForm*>(ref)->GetFormID()))

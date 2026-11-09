@@ -40,6 +40,6 @@ class GlobalObject_00709f00
 
 // ---- identities used by this packet (mapped in manifest.json) ----
 extern bool DAT_011a0294;                 // ?DAT_011a0294@@3_NA
-extern GlobalObject_004de370 g_011c71ac;  // ?g_011c71ac@@3VGlobalObject_004de370@@A
+extern GlobalObject_004de370 fGamma_Display;  // ?fGamma_Display@@3VGlobalObject_004de370@@A
 extern float DAT_011ad7b8[];              // ?DAT_011ad7b8@@3PAMA
 extern GlobalObject_00709f00 g_011d8c4c;  // ?g_011d8c4c@@3VGlobalObject_00709f00@@A

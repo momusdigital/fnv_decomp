@@ -2226,7 +2226,7 @@ void Sky::UpdateHDRValues_0063ef20()
 }
 
 
-extern Setting g_011ccb8c;
+extern Setting bPrecipitation_Weather;
 extern unsigned char DAT_011ccb74;
 
 BSAudio* __cdecl BSAudio_QInstance();
@@ -2278,7 +2278,7 @@ void SkySoundCreationMethods::Sky_ActivateWeatherSounds(ParamObj* pParamObj)
     {
         BSSoundHandle sound;
         int flags7;
-        if (*g_011ccb8c.Bool() || pItem_2->m04 != 1)
+        if (*bPrecipitation_Weather.Bool() || pItem_2->m04 != 1)
         {
             flags7 = 0x21;
             if (pItem_2->m04 != 3)
@@ -2591,7 +2591,7 @@ void Sky::UpdateWeather_0063d1d0()
 
 namespace fnv_0063a630 {
 
-extern Setting g_011ccb8c;
+extern Setting bPrecipitation_Weather;
 extern unsigned char DAT_011f426c;
 extern bool DAT_011F941E;
 extern float DAT_011ad87c, DAT_011ad880;
@@ -2684,7 +2684,7 @@ void SkyInitializationMethods::Sky_Initialize(NiNode* apRootNode, int arg)
         // The shared DestroyIfFlagged entry occupies the scalar-deleting slot.
         // A delete expression retains the original null check and call sequence.
         delete reinterpret_cast<SkyObject*>(m_pPrecipitation);
-    if (*g_011ccb8c.Bool())
+    if (*bPrecipitation_Weather.Bool())
     {
         static_cast<PrecipitationSetupMethods*>(m_pPrecipitation = new PrecipitationSetupMethods)->FUN_00636bb0();
     }

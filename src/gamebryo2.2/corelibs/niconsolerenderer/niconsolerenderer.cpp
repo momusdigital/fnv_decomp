@@ -537,8 +537,8 @@ void __stdcall NiTPointerListBase_DeleteItem(LinkedListEntry* pNode)
 
 extern "C" void __cdecl _NiFreeAlias(void*);
 extern "C" void* __cdecl _DeallocateAlias(void*);
-extern int DAT_010eda84;
-extern int DAT_010edb5c;
+extern int vftable_NiTMapBase_010eda84;
+extern int vftable_NiTPointerMap_010edb5c;
 extern MemoryManager g_memoryManager;
 
 
@@ -546,9 +546,9 @@ extern MemoryManager g_memoryManager;
 // @fnv 0x00e6eab0
 int __fastcall DestroyMap(NiTPointerMap<NiRenderedCubeMap*, NiDX9RenderedCubeMapData*>* self, void*, int aiFlags)
 {
-    *(int*)self = (int)&DAT_010edb5c;
+    *(int*)self = (int)&vftable_NiTPointerMap_010edb5c;
     self->RemoveAll();
-    *(int*)self = (int)&DAT_010eda84;
+    *(int*)self = (int)&vftable_NiTMapBase_010eda84;
     self->RemoveAll();
     _NiFreeAlias(self->m_ppkHashTable);
     if (aiFlags & 1)
@@ -1021,14 +1021,14 @@ bool __thiscall FUN_00e6dd40_shell::EnsureVertexBufferReady(Prm* pPrm)
 }  // namespace fnv_00e6dd40
 
 
-extern int DAT_010eda24;
+extern int vftable_NiTMapBase_010eda24;
 extern MemoryManager g_memoryManager;
 
-// Initializes f00 to DAT_010eda24, clears the map, frees f08, and deallocates this when flag bit 0 is set.
+// Initializes f00 to vftable_NiTMapBase_010eda24, clears the map, frees f08, and deallocates this when flag bit 0 is set.
 // @fnv 0x00e6e8f0
 void* __fastcall FUN_00e6e8f0(NiTMapBaseStub* self, void*, unsigned int uiFlags)
 {
-    *(void**)self = (void*)&DAT_010eda24;
+    *(void**)self = (void*)&vftable_NiTMapBase_010eda24;
     self->RemoveAll();
     _NiFreeAlias(self->m_ppkHashTable);
     if (uiFlags & 1)
@@ -1037,17 +1037,17 @@ void* __fastcall FUN_00e6e8f0(NiTMapBaseStub* self, void*, unsigned int uiFlags)
 }
 
 namespace fnv_00e6e930 {
-extern int DAT_010eda24;
-extern int DAT_010edafc;
+extern int vftable_NiTMapBase_010eda24;
+extern int vftable_NiTPointerMap_010edafc;
 
 
 // Resets two vtables, clears two maps, frees unk8, and frees the object when flags has bit 0 set; returns this.
 // @fnv 0x00e6e930
 void* __fastcall DestroyOwner(NiTMapBaseStub* self, void*, unsigned int flags)
 {
-	*(void**)self = (void*)&DAT_010edafc;
+	*(void**)self = (void*)&vftable_NiTPointerMap_010edafc;
 	self->RemoveAll();
-	*(void**)self = (void*)&DAT_010eda24;
+	*(void**)self = (void*)&vftable_NiTMapBase_010eda24;
 	self->RemoveAll();
 	_NiFreeAlias(self->m_ppkHashTable);
 	if (flags & 1)
@@ -1058,12 +1058,12 @@ void* __fastcall DestroyOwner(NiTMapBaseStub* self, void*, unsigned int flags)
 
 
 
-extern int DAT_010eda44;
+extern int vftable_NiTMapBase_010eda44;
 extern MemoryManager g_memoryManager;
 // @fnv 0x00e6e970
 void* __fastcall DestroyRenderTargetMap(RenderTargetMapBase* self, void*, unsigned int auiFlags)
 {
-	*(void**)self = (void*)&DAT_010eda44;
+	*(void**)self = (void*)&vftable_NiTMapBase_010eda44;
 	self->RemoveAll();
 	_NiFreeAlias(self->m_ppkHashTable);
 	if (auiFlags & 1)
@@ -1074,16 +1074,16 @@ void* __fastcall DestroyRenderTargetMap(RenderTargetMapBase* self, void*, unsign
 
 namespace fnv_00e6e9b0 {
 
-extern int DAT_010eda44;
-extern int DAT_010edb1c;
+extern int vftable_NiTMapBase_010eda44;
+extern int vftable_NiTPointerMap_010edb1c;
 extern MemoryManager g_memoryManager;
 
 // @fnv 0x00e6e9b0
 void* __fastcall FUN_00e6e9b0(NiTPointerMap<HWND__*, NiPointer<NiRenderTargetGroup> >* self, void*, unsigned int auiFlags)
 {
-    *(void**)self = &DAT_010edb1c;
+    *(void**)self = &vftable_NiTPointerMap_010edb1c;
     self->RemoveAll();
-    *(void**)self = &DAT_010eda44;
+    *(void**)self = &vftable_NiTMapBase_010eda44;
     self->RemoveAll();
     _NiFreeAlias(self->m_ppkHashTable);
     if (auiFlags & 1)
@@ -1093,13 +1093,13 @@ void* __fastcall FUN_00e6e9b0(NiTPointerMap<HWND__*, NiPointer<NiRenderTargetGro
 }  // namespace fnv_00e6e9b0
 
 namespace fnv_00e6e9f0 {
-extern int DAT_010eda64;
+extern int vftable_NiTMapBase_010eda64;
 
 extern MemoryManager g_memoryManager;
 // @fnv 0x00e6e9f0
 void* __fastcall FUN_00e6e9f0(RenderedTextureMapBase* self, void*, unsigned int auiFlags)
 {
-	*(void**)self = (void*)&DAT_010eda64;
+	*(void**)self = (void*)&vftable_NiTMapBase_010eda64;
 	self->RemoveAll();
 	_NiFreeAlias(self->m_ppkHashTable);
 	if (auiFlags & 1)
@@ -1110,16 +1110,16 @@ void* __fastcall FUN_00e6e9f0(RenderedTextureMapBase* self, void*, unsigned int 
 
 namespace fnv_00e6ea30 {
 
-extern int DAT_010eda64;
-extern int DAT_010edb3c;
+extern int vftable_NiTMapBase_010eda64;
+extern int vftable_NiTPointerMap_010edb3c;
 extern MemoryManager g_memoryManager;
 
 // @fnv 0x00e6ea30
 void* __fastcall FUN_00e6ea30(NiTPointerMap<NiRenderedTexture*, NiDX9RenderedTextureData*>* self, void*, unsigned int auiFlags)
 {
-    *(void**)self = &DAT_010edb3c;
+    *(void**)self = &vftable_NiTPointerMap_010edb3c;
     self->RemoveAll();
-    *(void**)self = &DAT_010eda64;
+    *(void**)self = &vftable_NiTMapBase_010eda64;
     self->RemoveAll();
     _NiFreeAlias(self->m_ppkHashTable);
     if (auiFlags & 1)
@@ -1131,15 +1131,15 @@ void* __fastcall FUN_00e6ea30(NiTPointerMap<NiRenderedTexture*, NiDX9RenderedTex
 namespace fnv_00e6eb30 {
 
 extern MemoryManager g_memoryManager;
-extern int DAT_010edaa4;
-extern int DAT_010edb7c;
+extern int vftable_NiTMapBase_010edaa4;
+extern int vftable_NiTPointerMap_010edb7c;
 
 // @fnv 0x00e6eb30
 void* __fastcall FUN_00e6eb30(NiTPointerMap<NiDynamicTexture*, NiDX9DynamicTextureData*>* self, void*, unsigned int auiFlags)
 {
-    *(void**)self = (void*)&DAT_010edb7c;
+    *(void**)self = (void*)&vftable_NiTPointerMap_010edb7c;
     self->RemoveAll();
-    *(void**)self = (void*)&DAT_010edaa4;
+    *(void**)self = (void*)&vftable_NiTMapBase_010edaa4;
     self->RemoveAll();
     _NiFreeAlias(self->m_ppkHashTable);
     if (auiFlags & 1)
@@ -1150,13 +1150,13 @@ void* __fastcall FUN_00e6eb30(NiTPointerMap<NiDynamicTexture*, NiDX9DynamicTextu
 
 namespace fnv_00e6eba0 {
 
-extern int DAT_010edac4;
+extern int vftable_NiTMapBase_010edac4;
 extern MemoryManager g_memoryManager;
 
 // @fnv 0x00e6eba0
 void* __fastcall FUN_00e6eba0(PixelFormatMapBase* self, void*, unsigned int auiFlags)
 {
- *(void**)self = &DAT_010edac4;
+ *(void**)self = &vftable_NiTMapBase_010edac4;
  self->RemoveAll();
  _NiFreeAlias(self->m_ppkHashTable);
  if (auiFlags & 1)
@@ -1167,16 +1167,16 @@ void* __fastcall FUN_00e6eba0(PixelFormatMapBase* self, void*, unsigned int auiF
 
 namespace fnv_00e6ebe0 {
 
-extern int DAT_010edac4;
-extern int DAT_010edb9c;
+extern int vftable_NiTMapBase_010edac4;
+extern int vftable_NiTMap_010edb9c;
 extern MemoryManager g_memoryManager;
 
 // @fnv 0x00e6ebe0
 void* __fastcall FUN_00e6ebe0(NiTMap<_D3DFORMAT, NiPixelFormat*>* self, void*, unsigned int auiFlags)
 {
-    *(void**)self = (void*)&DAT_010edb9c;
+    *(void**)self = (void*)&vftable_NiTMap_010edb9c;
     self->RemoveAll();
-    *(void**)self = (void*)&DAT_010edac4;
+    *(void**)self = (void*)&vftable_NiTMapBase_010edac4;
     self->RemoveAll();
     _NiFreeAlias(self->m_ppkHashTable);
     if (auiFlags & 1)
@@ -1207,15 +1207,15 @@ void __thiscall FUN_00e71cc0_shell::NiDX9Renderer_PurgeEffect(void* pObject)
 }
 }  // namespace fnv_00e71cc0
 
-extern int DAT_010edaf4;
+extern int vftable_NiTArray_010edaf4;
 extern MemoryManager g_memoryManager;
 struct S00e72e20 { void *vf; void *ptr; void *__thiscall FUN_00e72e20(unsigned int); };
-// Frees the stored pointer, sets the vtable to DAT_010edaf4, and deallocates this when f has bit 0 set.
+// Frees the stored pointer, sets the vtable to vftable_NiTArray_010edaf4, and deallocates this when f has bit 0 set.
 // @fnv 0x00e72e20
 void *__thiscall S00e72e20::FUN_00e72e20(unsigned int auiFlags)
 {
     void *tmp = ptr;
-    vf = (void *)&DAT_010edaf4;
+    vf = (void *)&vftable_NiTArray_010edaf4;
     _NiFreeAlias(tmp);
     if (auiFlags & 1)
         g_memoryManager.Deallocate(this);
@@ -1284,7 +1284,7 @@ bool NiDX9ShaderDeclaration::GenerateVertexParameters(IDirect3DVertexDeclaration
 }
 
 extern void* DAT_0126f550;
-extern const void* DAT_010ee898;
+extern const void* vftable_NiTPrimitiveArray_010ee898;
 void __cdecl Object_ProcessEntries_00e7a760();
 // @fnv 0x00e7a860
 // src: COMMUNITY 0x00e7a860
@@ -1297,7 +1297,7 @@ void __cdecl NiD3DShaderDeclaration__SDMInit()
         ((unsigned short*)p)[5] = 0;
         ((unsigned short*)p)[6] = 0;
         ((unsigned int*)p)[1] = 0;
-        ((unsigned int*)p)[0] = (unsigned int)&DAT_010ee898;
+        ((unsigned int*)p)[0] = (unsigned int)&vftable_NiTPrimitiveArray_010ee898;
         DAT_0126f550 = p;
     } else {
         DAT_0126f550 = 0;
@@ -1590,7 +1590,7 @@ void __thiscall FUN_00e76610_shell::SetFlag(bool value)
     ((unsigned char*)((unsigned char*)this + 0x34))[0] = value;
 }
 
-extern int DAT_010ee70c;
+extern int vftable_NiDX9ShaderDeclaration;
 extern MemoryManager g_memoryManager;
 void __cdecl _delete(void*, unsigned int);
 struct ICom78510 { virtual int __stdcall Q(); virtual int __stdcall A(); virtual int __stdcall R(); };
@@ -1600,7 +1600,7 @@ struct S78510 { char pad[0x2c]; void* p1; ICom78510* p2; char tail[4]; void* __t
 void* __thiscall S78510::FUN_00e78510(unsigned int auiFlags)
 {
     void* v1 = p1;
-    *(int**)this = &DAT_010ee70c;
+    *(int**)this = &vftable_NiDX9ShaderDeclaration;
     g_memoryManager.Deallocate(v1);
     if (p2) {
         p2->R();
@@ -1614,7 +1614,7 @@ void* __thiscall S78510::FUN_00e78510(unsigned int auiFlags)
 }
 
 extern "C" void __cdecl FUN_00ee88b0();
-extern const char DAT_010ee7cc[];
+extern const char vftable_NiD3DShaderDeclaration[];
 
 struct FUN_00e78840_shell {
     void* vtable;
@@ -1624,7 +1624,7 @@ struct FUN_00e78840_shell {
     FUN_00e78840_shell* __thiscall Construct();
 };
 
-// Calls FUN_00ee88b0, zeroes the pad array and flag, sets the vtable to DAT_010ee7cc, and returns this.
+// Calls FUN_00ee88b0, zeroes the pad array and flag, sets the vtable to vftable_NiD3DShaderDeclaration, and returns this.
 // @fnv 0x00e78840
 FUN_00e78840_shell* __thiscall FUN_00e78840_shell::Construct()
 {
@@ -1638,7 +1638,7 @@ FUN_00e78840_shell* __thiscall FUN_00e78840_shell::Construct()
     pad[6] = 0;
     pad[7] = 0;
     flag = 0;
-    vtable = (void*)DAT_010ee7cc;
+    vtable = (void*)vftable_NiD3DShaderDeclaration;
     return this;
 }
 
@@ -5356,7 +5356,7 @@ void RendererPoolView::ResetPools()
     pools[1].Reset();
 }
 
-extern int DAT_010eda84;
+extern int vftable_NiTMapBase_010eda84;
 void __cdecl NiFree(void*);
 
 extern MemoryManager _g_memoryManager;
@@ -5364,7 +5364,7 @@ extern MemoryManager _g_memoryManager;
 // Resets the vtable, removes all entries, frees the hash table, and optionally deallocates the object when flags has bit 0 set.
 // @fnv 0x00e6ea70
 void* __fastcall DestroyRenderedCubeMap(RenderedCubeMapBase* self, void*, unsigned int flags) {
-    *(void**)self = &DAT_010eda84;
+    *(void**)self = &vftable_NiTMapBase_010eda84;
     self->RemoveAll();
     NiFree(self->m_ppkHashTable);
     if (flags & 1) {
@@ -11303,7 +11303,7 @@ int PackVertexColors(Stream_e78910* aStream)
     return size;
 }
 
-extern const char DAT_010ee7cc[];
+extern const char vftable_NiD3DShaderDeclaration[];
 void __cdecl NiMemObject_ReleaseStorage_00aa1490(void* apMemory, unsigned int auiSize);
 
 struct FUN_00e78be0_cls {
@@ -11327,7 +11327,7 @@ struct FUN_00e78be0_cls {
 // src: GUESS 0x00e78be0 (confidence: low)
 void FUN_00e78be0_cls::ProcessEntries_00e78be0() throw()
 {
-    m_vptr00 = (void*)DAT_010ee7cc;
+    m_vptr00 = (void*)vftable_NiD3DShaderDeclaration;
     if (m_pArr24 != 0) {
         unsigned int i = 0;
         if (m_uCount20 > 0) {
@@ -11483,7 +11483,7 @@ unsigned __cdecl NormalizeVertexStream(NormalizedStream* pStream) {
     return a;
 }
 
-extern "C" const char DAT_010ee8a0[];
+extern "C" const char vftable_NiTPrimitiveArray_010ee8a0[];
 
 struct FUN_00e7a640 {
     unsigned int m_00;
@@ -11504,7 +11504,7 @@ FUN_00e7a640::FUN_00e7a640()
     m_0e = 0;
     m_10 = 0;
     m_08 = 0;
-    m_04 = DAT_010ee8a0;
+    m_04 = vftable_NiTPrimitiveArray_010ee8a0;
     m_00 = 0x11;
     unsigned short i = 0;
     unsigned short* pn = &m_0e;
@@ -25125,11 +25125,11 @@ void NiDX9DeviceDesc_DisplayFormatInfo_GetDepthStencilBPPFromFormat(int key, int
 }
 
 extern MemoryManager g_memoryManager;
-extern int DAT_010edaa4;
+extern int vftable_NiTMapBase_010edaa4;
 // @fnv 0x00e6eaf0
 void* __fastcall DestroyDynamicTextureMap(DynamicTextureMapBase* self, void*, unsigned int flags)
 {
-    *(void**)self = &DAT_010edaa4;
+    *(void**)self = &vftable_NiTMapBase_010edaa4;
     self->RemoveAll();
     _NiFreeAlias(self->m_ppkHashTable);
     if (flags & 1)

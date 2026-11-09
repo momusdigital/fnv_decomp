@@ -91,13 +91,13 @@ void __thiscall FUN_00869e10_class::NiTObjectArray_NiPointer_BSTempEffect_Free()
     UpdateState_00869e30();
 }
 
-extern int DAT_010a47b8;
+extern int vftable_BSTaskletManagerCallback;
 bool __cdecl BSTaskletManager_RegisterOnStartupCallback(void*);
 bool __cdecl QueueTasklet(void*);
 // @fnv 0x00b00e40
 BSTaskletManagerCallback* BSTaskletManagerCallback::Initialize(int a)
 {
-    *(int**)this = &DAT_010a47b8;
+    *(int**)this = &vftable_BSTaskletManagerCallback;
     bool b;
     switch (a)
     {

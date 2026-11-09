@@ -9,7 +9,7 @@
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
 #include "../../../include/bhkCharacterListener.h"
 
-extern int DAT_0104da3c;
+extern int vftable_hkpCdPointCollector;
 struct FUN_00621100_shell
 {
     void SetVtable();

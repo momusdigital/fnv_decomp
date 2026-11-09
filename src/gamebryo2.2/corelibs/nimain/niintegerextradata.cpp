@@ -30,14 +30,14 @@ char const* const* __cdecl NiIntegerExtraData_GetRTTI()
     return &g_01202de0_arg1;
 }
 
-extern int DAT_010a0d24;
+extern int vftable_NiIntegerExtraData;
 
 // The shared class lacks these lifecycle/viewer declarations. Explicit object
 // parameters preserve ECX; an unused EDX parameter keeps remaining arguments on the stack.
 // @fnv 0x00a99c70
 void __fastcall DestroyIntegerExtraData(NiIntegerExtraData* data)
 {
-    *reinterpret_cast<int**>(data) = &DAT_010a0d24;
+    *reinterpret_cast<int**>(data) = &vftable_NiIntegerExtraData;
     data->NiExtraData::DestroyFields_00a7b300();
 }
 
@@ -49,7 +49,7 @@ NiExtraData* NiIntegerExtraData_CreateObject()
     if (pExtraData)
     {
         pExtraData->FUN_00a7b2e0();
-        *reinterpret_cast<int**>(pExtraData) = &DAT_010a0d24;
+        *reinterpret_cast<int**>(pExtraData) = &vftable_NiIntegerExtraData;
         static_cast<NiIntegerExtraData*>(pExtraData)->m_iValue = 0;
         return pExtraData;
     }
@@ -60,7 +60,7 @@ void __cdecl operator delete(void*, unsigned int);
 // @fnv 0x00a99d00
 void* __fastcall DeleteIntegerExtraData(NiIntegerExtraData* data, void*, unsigned int auiFlags)
 {
-    *reinterpret_cast<int**>(data) = &DAT_010a0d24;
+    *reinterpret_cast<int**>(data) = &vftable_NiIntegerExtraData;
     data->NiExtraData::DestroyFields_00a7b300();
     if (auiFlags & 1)
         ::operator delete(data, 0x10);
@@ -104,7 +104,7 @@ NiIntegerExtraData* __fastcall CreateIntegerExtraData(NiIntegerExtraData* data, 
     if (allocated != 0)
     {
         allocated->FUN_00a7b2e0();
-        *(void**)allocated = &DAT_010a0d24;
+        *(void**)allocated = &vftable_NiIntegerExtraData;
         allocated->m_iValue = 0;
         result = allocated;
     }

@@ -66,7 +66,7 @@ void FUN_009c8660_Class::BGSCameraShot_GetTargetNode()
     ((Flt*)((char*)this + 0x64))->operator unsigned int();
 }
 
-extern int DAT_01090874;
+extern int vftable_CombatProcedure;
 
 struct FUN_009ca6c0_class
 {
@@ -77,7 +77,7 @@ struct FUN_009ca6c0_class
 // src: GUESS 0x009ca6c0 (confidence: low)
 void FUN_009ca6c0_class::SetVirtualTable_009ca6c0()
 {
-    *(int*)this = (int)&DAT_01090874;
+    *(int*)this = (int)&vftable_CombatProcedure;
 }
 
 struct FUN_009d1b30_class
@@ -302,9 +302,9 @@ FUN_009c1b00* FUN_009c1b00::Set(FUN_009c1b00 const* apSource)
     return this;
 }
 
-extern int DAT_01090568;
-extern int DAT_01090584;
-extern int DAT_01090594;
+extern int vftable_ProjectileListener_for_bhkCharacterListener;
+extern int vftable_ProjectileListener_for_hkpCharacterContext;
+extern int vftable_ProjectileListener;
 struct Call741e0
 {
     void FUN_00c741e0(int);
@@ -318,9 +318,9 @@ struct FUN_009c6440_Class
 int FUN_009c6440_Class::ProjectileListener_ProjectileListener(int a, int aiStoredValue)
 {
     ((Call741e0*)this)->FUN_00c741e0(a);
-    *(int*)this = (int)&DAT_01090594;
-    *(int*)((char*)this + 0x3e0) = (int)&DAT_01090584;
-    *(int*)((char*)this + 0x410) = (int)&DAT_01090568;
+    *(int*)this = (int)&vftable_ProjectileListener;
+    *(int*)((char*)this + 0x3e0) = (int)&vftable_ProjectileListener_for_hkpCharacterContext;
+    *(int*)((char*)this + 0x410) = (int)&vftable_ProjectileListener_for_bhkCharacterListener;
     *(int*)((char*)this + 0x650) = aiStoredValue;
     return (int)this;
 }
@@ -534,7 +534,7 @@ NiPoint3* FUN_009c8ac0_class::VATS_GetCamshotTargetPos(NiPoint3* result)
     return result;
 }
 
-extern int DAT_01090aec;
+extern int vftable_CombatProcedureAttackLow;
 struct FUN_009ca680
 {
     FUN_009ca680();
@@ -551,11 +551,11 @@ struct FUN_009cbad0 : FUN_009ca680
     int m_1c;
     FUN_009cbad0();
 };
-// Initializes the object: stores the address of DAT_01090aec and zeroes m_10, m_14 and m_1c.
+// Initializes the object: stores the address of vftable_CombatProcedureAttackLow and zeroes m_10, m_14 and m_1c.
 // @fnv 0x009cbad0
 FUN_009cbad0::FUN_009cbad0()
 {
-    m_iWordAt00 = (int)&DAT_01090aec;
+    m_iWordAt00 = (int)&vftable_CombatProcedureAttackLow;
     m_10 = 0;
     m_14 = 0.0f;
     m_1c = 0;
@@ -2383,7 +2383,7 @@ FUN_009dad00::FUN_009dad00(int param)
     unk84 = 0;
 }
 
-extern void* DAT_0109231c;
+extern void* vftable_ActorPathHandler;
 
 struct FUN_009dfd70_Sub
 {
@@ -2406,7 +2406,7 @@ struct FUN_009dfd70_cls
 
 // Initializes the object: sets the vtable pointer, stores aA in m_04 and aB in m_08, and default-constructs m_0c and m_10 with 0.
 // @fnv 0x009dfd70
-FUN_009dfd70_cls::FUN_009dfd70_cls(int aA, int aB) : m_vptr(&DAT_0109231c), m_04(aA), m_08(aB), m_0c(0), m_10(0)
+FUN_009dfd70_cls::FUN_009dfd70_cls(int aA, int aB) : m_vptr(&vftable_ActorPathHandler), m_04(aA), m_08(aB), m_0c(0), m_10(0)
 {}
 
 struct FUN_009dfe40_Sub
@@ -2467,7 +2467,7 @@ FUN_009dfed0_cls::~FUN_009dfed0_cls()
 {}
 
 namespace fnv_009ca680 {
-extern int DAT_01090874;
+extern int vftable_CombatProcedure;
 class FUN_009ca680
 {
   public:
@@ -2480,7 +2480,7 @@ class FUN_009ca680
 // @fnv 0x009ca680
 FUN_009ca680::FUN_009ca680()
 {
-    m_iWordAt00 = &DAT_01090874;
+    m_iWordAt00 = &vftable_CombatProcedure;
     m_iWordAt04 = 0;
     m_8 = 0;
     m_iThirdValue = 0;

@@ -345,12 +345,12 @@ void FUN_00d69fa0_cls::ForwardCall_00d69fa0()
 }  // namespace fnv_00d69fa0
 
 extern const char str_0102f13c[];
-extern const char DAT_010ccf7c[];
-extern const char DAT_010d22a8[];
-extern const char DAT_010d2288[];
-extern const char DAT_010d2278[];
-extern const char DAT_010d225c[];
-extern const char DAT_010d224c[];
+extern const char vftable_hkpWorldPostSimulationListener[];
+extern const char vftable_hkpRigidBodyCentreOfMassViewer[];
+extern const char vftable_hkpRigidBodyCentreOfMassViewer_for_hkProcess[];
+extern const char vftable_hkpRigidBodyCentreOfMassViewer_for_hkpPhysicsContextWorldListener[];
+extern const char vftable_hkpRigidBodyCentreOfMassViewer_for_hkpEntityListener[];
+extern const char vftable_hkpRigidBodyCentreOfMassViewer_for_hkpWorldPostSimulationListener[];
 struct FUN_00ddccb0
 {
     void* unk00;
@@ -378,12 +378,12 @@ struct FUN_00d6a040 : FUN_00ddccb0
 FUN_00d6a040::FUN_00d6a040(void* input) : FUN_00ddccb0(input)
 {
     unk28 = (void*)str_0102f13c;
-    unk2c = (void*)DAT_010ccf7c;
-    unk00 = (void*)DAT_010d22a8;
-    unk08 = (void*)DAT_010d2288;
-    unk20 = (void*)DAT_010d2278;
-    unk28 = (void*)DAT_010d225c;
-    unk2c = (void*)DAT_010d224c;
+    unk2c = (void*)vftable_hkpWorldPostSimulationListener;
+    unk00 = (void*)vftable_hkpRigidBodyCentreOfMassViewer;
+    unk08 = (void*)vftable_hkpRigidBodyCentreOfMassViewer_for_hkProcess;
+    unk20 = (void*)vftable_hkpRigidBodyCentreOfMassViewer_for_hkpPhysicsContextWorldListener;
+    unk28 = (void*)vftable_hkpRigidBodyCentreOfMassViewer_for_hkpEntityListener;
+    unk2c = (void*)vftable_hkpRigidBodyCentreOfMassViewer_for_hkpWorldPostSimulationListener;
     unk30 = 0;
     unk34 = 0;
     unk38 = 0x80000000u;

@@ -40,19 +40,24 @@ GlobalObject2_0040c150 g_011c399c(g_011c399c_arg0, 100);
 GlobalObject2_0040c150 g_011c3a24(g_011c3a24_arg0, 255);
 // @fnv 0x00f383c0
 // @fnv 0x00fc80c0
-GlobalObject2_0045cfe0 g_011c3c20(g_011c3c20_arg0, g_011c3c20_arg1);
+// src: EXE 0x011c3c20
+GlobalObject2_0045cfe0 sEnvReduceColor_Weather(sEnvReduceColor_Weather_key, g_011c3c20_arg1);
 // @fnv 0x00f383f0
 // @fnv 0x00fc80d0
-GlobalObject2_0045cfe0 g_011c3c50(g_011c3c50_arg0, g_011c3c50_arg1);
+// src: EXE 0x011c3c50
+GlobalObject2_0045cfe0 sLerpCloseColor_Weather(sLerpCloseColor_Weather_key, g_011c3c50_arg1);
 // @fnv 0x00f38420
 // @fnv 0x00fc80e0
-GlobalObject2_0045cfe0 g_011c3e0c(g_011c3e0c_arg0, g_011c3e0c_arg1);
+// src: EXE 0x011c3e0c
+GlobalObject2_0045cfe0 sBumpFadeColor_Weather(sBumpFadeColor_Weather_key, g_011c3e0c_arg1);
 // @fnv 0x00f388a0
 // @fnv 0x00fc8260
-GlobalObject2_0045cfe0 g_011c3cb4(g_011c3cb4_arg0, g_011c3cb4_arg1);
+// src: EXE 0x011c3cb4
+GlobalObject2_0045cfe0 sLanguage_General(sLanguage_General_key, g_011c3cb4_arg1);
 // @fnv 0x00f388d0
 // @fnv 0x00fc8270
-GlobalObject2_0045cfe0 g_011c3c84(g_011c3c84_arg0, g_011c3c84_arg1);
+// src: EXE 0x011c3c84
+GlobalObject2_0045cfe0 sFailureMessage_LANGUAGE(sFailureMessage_LANGUAGE_key, g_011c3c84_arg1);
 // @fnv 0x00f38900
 // @fnv 0x00fc8280
 GlobalObject2_0045cfe0 g_011c3e48(g_011c3e48_arg0, g_011c3e48_arg1);
@@ -79,22 +84,28 @@ GlobalObject2_0045cfe0 g_011c3d34(g_011c3d34_arg0, g_011c3d34_arg1);
 GlobalObject2_0045cfe0 g_011c3e70(g_011c3e70_arg0, g_011c3e70_arg1);
 // @fnv 0x00f38a80
 // @fnv 0x00fc8300
-GlobalObject2_0045cfe0 g_011c3e88(g_011c3e88_arg0, g_011c3e88_arg1);
+// src: EXE 0x011c3e88
+GlobalObject2_0045cfe0 sThumbstick_LANGUAGE(sThumbstick_LANGUAGE_key, g_011c3e88_arg1);
 // @fnv 0x00f38ab0
 // @fnv 0x00fc8310
-GlobalObject2_0045cfe0 g_011c3de4(g_011c3de4_arg0, g_011c3de4_arg1);
+// src: EXE 0x011c3de4
+GlobalObject2_0045cfe0 sDPad_LANGUAGE(sDPad_LANGUAGE_key, g_011c3de4_arg1);
 // @fnv 0x00f38ea0
 // @fnv 0x00fc8370
-GlobalObject2_0045cfe0 g_011c4030(g_011c4030_arg0, g_011c4030_arg1);
+// src: EXE 0x011c4030
+GlobalObject2_0045cfe0 sLocalMasterPath_General(sLocalMasterPath_General_key, g_011c4030_arg1);
 // @fnv 0x00f38ed0
 // @fnv 0x00fc8380
-GlobalObject2_0045cfe0 g_011c3f74(g_011c3f74_arg0, g_011c3f74_arg1);
+// src: EXE 0x011c3f74
+GlobalObject2_0045cfe0 sLocalSavePath_General(sLocalSavePath_General_key, g_011c3f74_arg1);
 // @fnv 0x00f38f30
 // @fnv 0x00fc83a0
-GlobalObject2_0045cfe0 g_011c4024(g_011c4024_arg0, g_011c4024_arg1);
+// src: EXE 0x011c4024
+GlobalObject2_0045cfe0 sMasterMismatchWarning_GeneralWarnings(sMasterMismatchWarning_GeneralWarnings_key, g_011c4024_arg1);
 // @fnv 0x00f38f60
 // @fnv 0x00fc83b0
-GlobalObject2_0045cfe0 g_011c4048(g_011c4048_arg0, g_011c4048_arg1);
+// src: EXE 0x011c4048
+GlobalObject2_0045cfe0 sGeneralMasterMismatchWarning_GeneralWarnings(sGeneralMasterMismatchWarning_GeneralWarnings_key, g_011c4048_arg1);
 // @fnv 0x00f3a320
 // @fnv 0x00fc84c0
 GlobalObject2_0040c150 g_011c50d8(g_011c50d8_arg0, 35);
@@ -112,28 +123,35 @@ GlobalObject2_0096a2d0 g_011c594c;
 GlobalObject2_0096a2d0 g_011c5b30;
 // @fnv 0x00f3de10
 // @fnv 0x00fc8dd0
-GlobalObject2_0045cfe0 g_011c5bbc(g_011c5bbc_arg0, g_011c5bbc_arg1);
+// src: EXE 0x011c5bbc
+GlobalObject2_0045cfe0 uGeometryMemory_BudgetCaps(uGeometryMemory_BudgetCaps_key, g_011c5bbc_arg1);
 // @fnv 0x00f3de70
 // @fnv 0x00fc8df0
-GlobalObject2_0045cfe0 g_011c5c50(g_011c5c50_arg0, g_011c5c50_arg1);
+// src: EXE 0x011c5c50
+GlobalObject2_0045cfe0 uWaterMemory_BudgetCaps(uWaterMemory_BudgetCaps_key, g_011c5c50_arg1);
 // @fnv 0x00f3e110
 // @fnv 0x00fc8ed0
-GlobalObject2_0045cfe0 g_011c5c80(g_011c5c80_arg0, g_011c5c80_arg1);
+// src: EXE 0x011c5c80
+GlobalObject2_0045cfe0 uGeometryMemoryInterior_BudgetCaps(uGeometryMemoryInterior_BudgetCaps_key, g_011c5c80_arg1);
 // @fnv 0x00f3e170
 // @fnv 0x00fc8ef0
-GlobalObject2_0045cfe0 g_011c5a4c(g_011c5a4c_arg0, g_011c5a4c_arg1);
+// src: EXE 0x011c5a4c
+GlobalObject2_0045cfe0 uWaterMemoryInterior_BudgetCaps(uWaterMemoryInterior_BudgetCaps_key, g_011c5a4c_arg1);
 // @fnv 0x00f3e560
 // @fnv 0x00fc9040
-GlobalObject2_0045cfe0 g_011c5c04(g_011c5c04_arg0, g_011c5c04_arg1);
+// src: EXE 0x011c5c04
+GlobalObject2_0045cfe0 uCityLODBudgetAdjustment_BudgetCaps(uCityLODBudgetAdjustment_BudgetCaps_key, g_011c5c04_arg1);
 // @fnv 0x00f3e590
 // @fnv 0x00fc9050
-GlobalObject2_0045cfe0 g_011c59e0(g_011c59e0_arg0, g_011c59e0_arg1);
+// src: EXE 0x011c59e0
+GlobalObject2_0045cfe0 uActorMemoryBudgetCap_BudgetCaps(uActorMemoryBudgetCap_BudgetCaps_key, g_011c59e0_arg1);
 // @fnv 0x00f41470
 // @fnv 0x00fc9990
 GlobalObject2_004a4a40 g_011c72c0(g_011c72c0_arg0, g_011c72c0_arg1);
 // @fnv 0x00f42a80
 // @fnv 0x00fca010
-GlobalObject2_0045cfe0 g_011c7c8c(g_011c7c8c_arg0, g_011c7c8c_arg1);
+// src: EXE 0x011c7c8c
+GlobalObject2_0045cfe0 sSurfaceTexture_Water(sSurfaceTexture_Water_key, g_011c7c8c_arg1);
 // @fnv 0x00f42b80
 // @fnv 0x00fca040
 GlobalObject2_0096a2d0 g_011c7d20;
@@ -172,10 +190,12 @@ GlobalObject2_0040c150 g_011c91c0(g_011c91c0_arg0, 20);
 GlobalObject2_0040c150 g_011c91f8(g_011c91f8_arg0, 15);
 // @fnv 0x00f4b1f0
 // @fnv 0x00fcae80
-GlobalObject2_0045cfe0 g_011ca004(g_011ca004_arg0, g_011ca004_arg1);
+// src: EXE 0x011ca004
+GlobalObject2_0045cfe0 sDefaultLandDiffuseTexture_Landscape(sDefaultLandDiffuseTexture_Landscape_key, g_011ca004_arg1);
 // @fnv 0x00f4b220
 // @fnv 0x00fcae90
-GlobalObject2_0045cfe0 g_011c9f8c(g_011c9f8c_arg0, g_011c9f8c_arg1);
+// src: EXE 0x011c9f8c
+GlobalObject2_0045cfe0 sDefaultLandNormalTexture_Landscape(sDefaultLandNormalTexture_Landscape_key, g_011c9f8c_arg1);
 // @fnv 0x00f4b7d0
 // @fnv 0x00fcaee0
 GlobalObject2_0040c150 g_011ca160(g_011ca160_arg0, 72);
@@ -214,16 +234,20 @@ GlobalObject2_0096a2d0 g_011cb764;
 GlobalObject2_0040c150 g_011cb74c(g_011cb74c_arg0, 20);
 // @fnv 0x00f54350
 // @fnv 0x00fcb7c0
-GlobalObject2_0045cfe0 g_011cbe14(g_011cbe14_arg0, g_011cbe14_arg1);
+// src: EXE 0x011cbe14
+GlobalObject2_0045cfe0 sFileTypeGame_Voice(sFileTypeGame_Voice_key, g_011cbe14_arg1);
 // @fnv 0x00f54380
 // @fnv 0x00fcb7d0
-GlobalObject2_0045cfe0 g_011cbe34(g_011cbe34_arg0, g_011cbe34_arg1);
+// src: EXE 0x011cbe34
+GlobalObject2_0045cfe0 sFileTypeSource_Voice(sFileTypeSource_Voice_key, g_011cbe34_arg1);
 // @fnv 0x00f543b0
 // @fnv 0x00fcb7e0
-GlobalObject2_0045cfe0 g_011cbde4(g_011cbde4_arg0, g_011cbde4_arg1);
+// src: EXE 0x011cbde4
+GlobalObject2_0045cfe0 sFileTypeLip_Voice(sFileTypeLip_Voice_key, g_011cbde4_arg1);
 // @fnv 0x00f543e0
 // @fnv 0x00fcb7f0
-GlobalObject2_0045cfe0 g_011cbdb8(g_011cbdb8_arg0, g_011cbdb8_arg1);
+// src: EXE 0x011cbdb8
+GlobalObject2_0045cfe0 sFileTypeLTF_Voice(sFileTypeLTF_Voice_key, g_011cbdb8_arg1);
 // @fnv 0x00f54410
 // @fnv 0x00fcb800
 GlobalObject2_0040c150 g_011cbdf4(g_011cbdf4_arg0, 100);
@@ -1193,13 +1217,16 @@ GlobalObject2_0096a2d0 g_011d8b54;
 GlobalObject2_0096a2d0 g_011d970c;
 // @fnv 0x00f90540
 // @fnv 0x00fd7f50
-GlobalObject2_0045cfe0 g_011da0f0(g_011da0f0_arg0, g_011da0f0_arg1);
+// src: EXE 0x011da0f0
+GlobalObject2_0045cfe0 sTitleMusic_Loading(sTitleMusic_Loading_key, g_011da0f0_arg1);
 // @fnv 0x00f90570
 // @fnv 0x00fd7f60
-GlobalObject2_0045cfe0 g_011da184(g_011da184_arg0, g_011da184_arg1);
+// src: EXE 0x011da184
+GlobalObject2_0045cfe0 sInitialSound_Loading(sInitialSound_Loading_key, g_011da184_arg1);
 // @fnv 0x00f92a20
 // @fnv 0x00fd8110
-GlobalObject2_0045cfe0 g_011dac00(g_011dac00_arg0, g_011dac00_arg1);
+// src: EXE 0x011dac00
+GlobalObject2_0045cfe0 sCharGenQuest_General(sCharGenQuest_General_key, g_011dac00_arg1);
 // @fnv 0x00f93470
 // @fnv 0x00fd82f0
 GlobalObject2_0096a2d0 g_011dae48;
@@ -1211,10 +1238,12 @@ GlobalObject2_0096a2d0 g_011db124;
 GlobalObject2_0096a2d0 g_011db150;
 // @fnv 0x00f94f20
 // @fnv 0x00fd8670
-GlobalObject2_0045cfe0 g_011db3d8(g_011db3d8_arg0, g_011db3d8_arg1);
+// src: EXE 0x011db3d8
+GlobalObject2_0045cfe0 sScanlineTexture_InterfaceFX(sScanlineTexture_InterfaceFX_key, g_011db3d8_arg1);
 // @fnv 0x00f95b60
 // @fnv 0x00fd88c0
-GlobalObject2_0045cfe0 g_011db744(g_011db744_arg0, g_011db744_arg1);
+// src: EXE 0x011db744
+GlobalObject2_0045cfe0 sScanlineTexture_VATS(sScanlineTexture_VATS_key, g_011db744_arg1);
 // @fnv 0x00f9e4c0
 // @fnv 0x00fd8a60
 GlobalObject2_0096a2d0 g_011dd554;
@@ -1226,25 +1255,32 @@ GlobalObject2_0096a2d0 g_011dd58c;
 GlobalObject2_0096a2d0 g_011dd59c;
 // @fnv 0x00fa0570
 // @fnv 0x00fd8c80
-GlobalObject2_0045cfe0 g_011de25c(g_011de25c_arg0, g_011de25c_arg1);
+// src: EXE 0x011de25c
+GlobalObject2_0045cfe0 sSaveGameSafeMarkerID_SaveGame(sSaveGameSafeMarkerID_SaveGame_key, g_011de25c_arg1);
 // @fnv 0x00fa1840
 // @fnv 0x00fd8d00
-GlobalObject2_0045cfe0 g_011de72c(g_011de72c_arg0, g_011de72c_arg1);
+// src: EXE 0x011de72c
+GlobalObject2_0045cfe0 sIntroSequence_General(sIntroSequence_General_key, g_011de72c_arg1);
 // @fnv 0x00fa1870
 // @fnv 0x00fd8d10
-GlobalObject2_0045cfe0 g_011de740(g_011de740_arg0, g_011de740_arg1);
+// src: EXE 0x011de740
+GlobalObject2_0045cfe0 sMainMenuMovieIntro_General(sMainMenuMovieIntro_General_key, g_011de740_arg1);
 // @fnv 0x00fa18a0
 // @fnv 0x00fd8d20
-GlobalObject2_0045cfe0 g_011de71c(g_011de71c_arg0, g_011de71c_arg1);
+// src: EXE 0x011de71c
+GlobalObject2_0045cfe0 sIntroMovie_General(sIntroMovie_General_key, g_011de71c_arg1);
 // @fnv 0x00fa2550
 // @fnv 0x00fd8ee0
-GlobalObject2_0045cfe0 g_011dee78(g_011dee78_arg0, g_011dee78_arg1);
+// src: EXE 0x011dee78
+GlobalObject2_0045cfe0 sEssentialFileCacheList_General(sEssentialFileCacheList_General_key, g_011dee78_arg1);
 // @fnv 0x00fa2580
 // @fnv 0x00fd8ef0
-GlobalObject2_0045cfe0 g_011ded2c(g_011ded2c_arg0, g_011ded2c_arg1);
+// src: EXE 0x011ded2c
+GlobalObject2_0045cfe0 sUnessentialFileCacheList_General(sUnessentialFileCacheList_General_key, g_011ded2c_arg1);
 // @fnv 0x00fa25b0
 // @fnv 0x00fd8f00
-GlobalObject2_0045cfe0 g_011deb94(g_011deb94_arg0, g_011deb94_arg1);
+// src: EXE 0x011deb94
+GlobalObject2_0045cfe0 sArchiveList_Archive(sArchiveList_Archive_key, g_011deb94_arg1);
 // @fnv 0x00fa25e0
 // @fnv 0x00fd8f10
 GlobalObject2_0045cfe0 g_011debf0(g_011debf0_arg0, g_011debf0_arg1);
@@ -1277,28 +1313,36 @@ GlobalObject2_0045cfe0 g_011dea70(g_011dea70_arg0, g_011dea70_arg1);
 GlobalObject2_0045cfe0 g_011ded48(g_011ded48_arg0, g_011ded48_arg1);
 // @fnv 0x00fa27c0
 // @fnv 0x00fd8fb0
-GlobalObject2_0045cfe0 g_011ded5c(g_011ded5c_arg0, g_011ded5c_arg1);
+// src: EXE 0x011ded5c
+GlobalObject2_0045cfe0 sStartingCell_General(sStartingCell_General_key, g_011ded5c_arg1);
 // @fnv 0x00fa2820
 // @fnv 0x00fd8fd0
-GlobalObject2_0045cfe0 g_011deb48(g_011deb48_arg0, g_011deb48_arg1);
+// src: EXE 0x011deb48
+GlobalObject2_0045cfe0 sStartingWorld_General(sStartingWorld_General_key, g_011deb48_arg1);
 // @fnv 0x00fa2850
 // @fnv 0x00fd8fe0
-GlobalObject2_0045cfe0 g_011dee8c(g_011dee8c_arg0, g_011dee8c_arg1);
+// src: EXE 0x011dee8c
+GlobalObject2_0045cfe0 sStartingCellX_General(sStartingCellX_General_key, g_011dee8c_arg1);
 // @fnv 0x00fa2880
 // @fnv 0x00fd8ff0
-GlobalObject2_0045cfe0 g_011debc4(g_011debc4_arg0, g_011debc4_arg1);
+// src: EXE 0x011debc4
+GlobalObject2_0045cfe0 sStartingCellY_General(sStartingCellY_General_key, g_011debc4_arg1);
 // @fnv 0x00fa2a30
 // @fnv 0x00fd9080
-GlobalObject2_0045cfe0 g_011dee30(g_011dee30_arg0, g_011dee30_arg1);
+// src: EXE 0x011dee30
+GlobalObject2_0045cfe0 sNif_CameraPath(sNif_CameraPath_key, g_011dee30_arg1);
 // @fnv 0x00fa2a90
 // @fnv 0x00fd90a0
-GlobalObject2_0045cfe0 g_011deb04(g_011deb04_arg0, g_011deb04_arg1);
+// src: EXE 0x011deb04
+GlobalObject2_0045cfe0 sDirectoryName_CameraPath(sDirectoryName_CameraPath_key, g_011deb04_arg1);
 // @fnv 0x00fa2e20
 // @fnv 0x00fd91d0
-GlobalObject2_0045cfe0 g_011debd0(g_011debd0_arg0, g_011debd0_arg1);
+// src: EXE 0x011debd0
+GlobalObject2_0045cfe0 sCopyProtectionTitle_CopyProtectionStrings(sCopyProtectionTitle_CopyProtectionStrings_key, g_011debd0_arg1);
 // @fnv 0x00fa2e50
 // @fnv 0x00fd91e0
-GlobalObject2_0045cfe0 g_011deeb4(g_011deeb4_arg0, g_011deeb4_arg1);
+// src: EXE 0x011deeb4
+GlobalObject2_0045cfe0 sCopyProtectionMessage_CopyProtectionStrings(sCopyProtectionMessage_CopyProtectionStrings_key, g_011deeb4_arg1);
 // @fnv 0x00fa2e80
 // @fnv 0x00fd91f0
 GlobalObject2_0045cfe0 g_011debfc(g_011debfc_arg0, g_011debfc_arg1);
@@ -1307,13 +1351,16 @@ GlobalObject2_0045cfe0 g_011debfc(g_011debfc_arg0, g_011debfc_arg1);
 GlobalObject2_0045cfe0 g_011debb8(g_011debb8_arg0, g_011debb8_arg1);
 // @fnv 0x00fa2ff0
 // @fnv 0x00fd9270
-GlobalObject2_0045cfe0 g_011dec68(g_011dec68_arg0, g_011dec68_arg1);
+// src: EXE 0x011dec68
+GlobalObject2_0045cfe0 sInvalidationFile_Archive(sInvalidationFile_Archive_key, g_011dec68_arg1);
 // @fnv 0x00fa3080
 // @fnv 0x00fd92a0
-GlobalObject2_0045cfe0 g_011ded08(g_011ded08_arg0, g_011ded08_arg1);
+// src: EXE 0x011ded08
+GlobalObject2_0045cfe0 sDebugText_Display(sDebugText_Display_key, g_011ded08_arg1);
 // @fnv 0x00fa3b50
 // @fnv 0x00fd93b0
-GlobalObject2_0045cfe0 g_011df0f8(g_011df0f8_arg0, g_011df0f8_arg1);
+// src: EXE 0x011df0f8
+GlobalObject2_0045cfe0 sScreenShotBaseName_Display(sScreenShotBaseName_Display_key, g_011df0f8_arg1);
 // @fnv 0x00fa5f90
 // @fnv 0x00fd9670
 GlobalObject2_0096a2d0 g_011dfe14;
@@ -1331,7 +1378,8 @@ GlobalObject2_0096a2d0 g_011e0280;
 GlobalObject2_0096a2d0 g_011e0424;
 // @fnv 0x00fa88f0
 // @fnv 0x00fd9890
-GlobalObject2_0045cfe0 g_011e09d4(g_011e09d4_arg0, g_011e09d4_arg1);
+// src: EXE 0x011e09d4
+GlobalObject2_0045cfe0 sTrackProgressPath_GamePlay(sTrackProgressPath_GamePlay_key, g_011e09d4_arg1);
 // @fnv 0x00fa9240
 // @fnv 0x00fd9b70
 GlobalObject2_0096a2d0 g_011e0ae8;

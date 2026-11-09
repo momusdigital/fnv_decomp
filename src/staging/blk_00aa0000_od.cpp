@@ -80,7 +80,7 @@ void __thiscall FUN_00aa4c40_class::BSCoreMessage_DisableContextMessages(int a)
     SetByteAtOffset(a, 1);
 }
 
-extern "C" void* DAT_010a2708;
+extern "C" void* vftable_BSCoreMessage;
 
 struct FUN_00aa4c60_class
 {
@@ -92,12 +92,12 @@ struct FUN_00aa4c60_class
 // src: COMMUNITY 0x00aa4c60
 void* FUN_00aa4c60_class::BSCoreMessage_BSCoreMessage()
 {
-    m_p = &DAT_010a2708;
+    m_p = &vftable_BSCoreMessage;
     return this;
 }
 
 namespace fnv_00aa4c80 {
-extern int DAT_010a2708;
+extern int vftable_BSCoreMessage;
 
 struct FUN_00aa4c80_class
 {
@@ -109,7 +109,7 @@ struct FUN_00aa4c80_class
 // src: GUESS 0x00aa4c80 (confidence: low)
 void FUN_00aa4c80_class::UpdateFields_00aa4c80()
 {
-    m_p = &DAT_010a2708;
+    m_p = &vftable_BSCoreMessage;
 }
 }  // namespace fnv_00aa4c80
 
@@ -147,7 +147,7 @@ const char* AbstractHeap::GetName()
     return pName;
 }
 
-extern int DAT_010a29c0;
+extern int vftable_OEI__IO__IO_Thread;
 
 
 struct FUN_00aa8410 : BSThread
@@ -159,7 +159,7 @@ struct FUN_00aa8410 : BSThread
 FUN_00aa8410::FUN_00aa8410()
 {}
 
-extern int DAT_010a29b0;
+extern int vftable_BSListBase_010a29b0;
 
 struct FUN_00aa8a00_cls
 {
@@ -171,10 +171,10 @@ struct FUN_00aa8a00_cls
 // src: GUESS 0x00aa8a00 (confidence: low)
 void FUN_00aa8a00_cls::UpdateFields_00aa8a00()
 {
-    m = &DAT_010a29b0;
+    m = &vftable_BSListBase_010a29b0;
 }
 
-extern int DAT_010a2980;
+extern int vftable_BSListBase_010a2980;
 
 struct FUN_00aa8a20_class
 {
@@ -185,7 +185,7 @@ struct FUN_00aa8a20_class
 // src: GUESS 0x00aa8a20 (confidence: low)
 void FUN_00aa8a20_class::UpdateFields_00aa8a20()
 {
-    *reinterpret_cast<int*>(this) = reinterpret_cast<int>(&DAT_010a2980);
+    *reinterpret_cast<int*>(this) = reinterpret_cast<int>(&vftable_BSListBase_010a2980);
 }
 
 extern MemoryManager g_memoryManager;
@@ -270,7 +270,7 @@ void __thiscall FUN_00aa4b20_Class::ClearAndDeallocate(void* p)
 }
 
 namespace fnv_00aa4b50 {
-extern int DAT_010a2618;
+extern int vftable_BSMapBase_010a2618;
 extern MemoryManager _g_memoryManager;
 struct FUN_00aa4b50_Class
 {
@@ -283,7 +283,7 @@ struct FUN_00aa4b50_Class
 // @fnv 0x00aa4b50
 void* __thiscall FUN_00aa4b50_Class::Destroy(unsigned int flags)
 {
-    vtbl = (int*)&DAT_010a2618;
+    vtbl = (int*)&vftable_BSMapBase_010a2618;
     if (p)
     {
         void* tmp = p;
@@ -324,7 +324,7 @@ struct FUN_00aa8b20_Class
 // @fnv 0x00aa8b20
 void* __thiscall FUN_00aa8b20_Class::FUN_00aa8b20(int flag)
 {
-    p = &DAT_010a29b0;
+    p = &vftable_BSListBase_010a29b0;
     if (flag & 1)
         _g_memoryManager.Deallocate(this);
     return this;
@@ -337,11 +337,11 @@ struct FUN_00aa8b50_Class
     int* m;
     void* __thiscall FUN_00aa8b50(int a);
 };
-// Sets m to &DAT_010a2980 and, when bit 0 of a is set, deallocates this via g_memoryManager; returns this.
+// Sets m to &vftable_BSListBase_010a2980 and, when bit 0 of a is set, deallocates this via g_memoryManager; returns this.
 // @fnv 0x00aa8b50
 void* __thiscall FUN_00aa8b50_Class::FUN_00aa8b50(int aiFlags)
 {
-    m = &DAT_010a2980;
+    m = &vftable_BSListBase_010a2980;
     if (aiFlags & 1)
         g_memoryManager.Deallocate(this);
     return this;
@@ -433,7 +433,7 @@ void __thiscall FUN_00aaa6e0_Class::SetFlags(unsigned int flags, int unused)
     unused = 0;
 }
 
-extern int DAT_010a2618;
+extern int vftable_BSMapBase_010a2618;
 void* __cdecl _fnv_zlib_memset(void* dst, int val, unsigned int len);
 struct FUN_00aa47e0_Class
 {
@@ -450,7 +450,7 @@ FUN_00aa47e0_Class* FUN_00aa47e0_Class::BSMapBase_unsigned_int_ScrapHeap_BSMapBa
 {
     unsigned int bytes;
     void* p5;
-    m0 = (int)&DAT_010a2618;
+    m0 = (int)&vftable_BSMapBase_010a2618;
     m4 = count;
     mC = 0;
     if (count)
@@ -740,14 +740,14 @@ struct FUN_00aa4ae0_Class
     void ResetAndFree();
 };
 
-extern int DAT_010a2618;
+extern int vftable_BSMapBase_010a2618;
 extern MemoryManager DAT_011f6238;
 
-// Points unk00 at DAT_010a2618 and, if unk08 is non-null, deallocates it through DAT_011f6238.
+// Points unk00 at vftable_BSMapBase_010a2618 and, if unk08 is non-null, deallocates it through DAT_011f6238.
 // @fnv 0x00aa4ae0
 void __thiscall FUN_00aa4ae0_Class::ResetAndFree()
 {
-    this->unk00 = &DAT_010a2618;
+    this->unk00 = &vftable_BSMapBase_010a2618;
     if (this->unk08 != 0)
     {
         void* p = this->unk08;
@@ -1116,8 +1116,8 @@ void __thiscall FUN_00aa8be0_cls::ClearList()
 
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(void* cs);
 
-extern "C" char DAT_010a28c8;
-extern "C" char DAT_010a2bbc;
+extern "C" char vftable_IMemoryHeap;
+extern "C" char vftable_AbstractHeap;
 
 // The shared class has no constructor overload for these four arguments. Keep
 // its initialization and teardown helpers here, using the shared layout.
@@ -1131,8 +1131,8 @@ struct AbstractHeapLifecycle : AbstractHeap
 // @fnv 0x00aa8ca0
 AbstractHeap* AbstractHeapLifecycle::Initialize(int a1, int a2, int a3, int a4)
 {
-    *(void**)this = &DAT_010a28c8;
-    *(void**)this = &DAT_010a2bbc;
+    *(void**)this = &vftable_IMemoryHeap;
+    *(void**)this = &vftable_AbstractHeap;
     pName = (const char*)a3;
     iDefaultAlignment = 4;
     iPageSize = a4;
@@ -2455,15 +2455,15 @@ void __thiscall FUN_00aa6590_cls::ForwardCall_00aa6590(unsigned int exitCode, in
 }  // namespace fnv_00aa6590
 
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(void* cs);
-extern "C" char DAT_010a28c8;
-extern "C" char DAT_010a2bbc;
+extern "C" char vftable_IMemoryHeap;
+extern "C" char vftable_AbstractHeap;
 
 // @fnv 0x00aa8da0
 void AbstractHeapLifecycle::Destroy()
 {
-    *(void**)this = &DAT_010a2bbc;
+    *(void**)this = &vftable_AbstractHeap;
     DeleteCriticalSection(CriticalSectionO);
-    *(void**)this = &DAT_010a28c8;
+    *(void**)this = &vftable_IMemoryHeap;
 }
 
 extern "C" __declspec(dllimport) void* __stdcall VirtualAlloc(void*, unsigned int, unsigned long, unsigned long);

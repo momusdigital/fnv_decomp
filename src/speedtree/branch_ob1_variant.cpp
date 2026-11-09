@@ -1522,9 +1522,9 @@ struct ResObj
     }
     void CBillboardLeaf_SetColor(NiPoint3* p, int flag);
 };
-struct FUN_00b40070 : ResObj
+struct CBillboardLeaf : ResObj
 {
-    FUN_00b40070(int a, int b, int c);
+    CBillboardLeaf(int a, int b, int c);
 };
 struct ResHolder
 {
@@ -1784,7 +1784,7 @@ void Host::AllocateStorage_00b13c10(int p0, float p1, Link* p2, MathPoint* p3, M
                 vZ = vZ * vZ * vZ;
                 scale7 = (float)(1.0 - ((Settings*)DAT_011f8bf4)->factor) * (1.0f - vZ) + vZ;
             }
-            ResObj* res = new FUN_00b40070(p0, (unsigned short)(int)(scale7 * 255.0),
+            ResObj* res = new CBillboardLeaf(p0, (unsigned short)(int)(scale7 * 255.0),
                                            (int)((G4Obj*)&g_011f8c05)->FUN_00b3f130(0.0f, DAT_01022958, p5, p6) %
                                                ((Settings*)DAT_011f8bf4)->count);
             ((Obj80*)p7)->UpdateState_00b15390(&res);

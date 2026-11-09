@@ -5420,7 +5420,7 @@ struct GlobalObject_0045cf30
 {
     unsigned char* Bool();
 };
-extern GlobalObject_0045cf30 g_011de4e8;
+extern GlobalObject_0045cf30 bDebugSaveBuffer_Debug;
 TESForm* __cdecl TESForm_GetFormByNumericID(unsigned int auiFormID);
 void __cdecl ProgramFlow(const char* apFormat, ...);
 extern const char DAT_01012c78[];
@@ -5458,7 +5458,7 @@ unsigned short LowProcess::GetSaveSize_0090f8b0(unsigned int auiChangeFlags, uns
         uiSaveSize += ((ModifierListSize*)&m_kActorValueModifiers)->ModifierList_GetSaveSize();
     if (g_TESSaveLoadGame->FUN_008df040() >= 0x74)
         uiSaveSize += 4;
-    if (*g_011de4e8.Bool())
+    if (*bDebugSaveBuffer_Debug.Bool())
     {
         unsigned char* pHeader = static_cast<unsigned char*>(g_TESSaveLoadGame->FUN_004fd3e0());
         if (pHeader)

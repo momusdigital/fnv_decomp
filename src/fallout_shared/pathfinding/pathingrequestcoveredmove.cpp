@@ -64,12 +64,13 @@ void __cdecl _delete(void* p, unsigned int size);
 
 struct FUN_006e4bb0_shell
 {
-    void* FUN_006e4bb0(unsigned int flags);
+    void* PathingRequestCoveredMove_ScalarDeletingDestructor(unsigned int flags);
 };
 
 // Calls FUN_006e4bf0 on this, frees this with size 0x10c when flags has bit 0 set, and returns this.
 // @fnv 0x006e4bb0
-void* FUN_006e4bb0_shell::FUN_006e4bb0(unsigned int flags)
+// src: EXE 0x006e4bb0
+void* FUN_006e4bb0_shell::PathingRequestCoveredMove_ScalarDeletingDestructor(unsigned int flags)
 {
     reinterpret_cast<FUN_006e4bf0_shell*>(this)->FUN_006e4bf0();
     if (flags & 1)
@@ -565,7 +566,7 @@ void FUN_006e51a0_shell::LoadFromStream(FNVInputStream* stream)
     }
 }
 
-extern char DAT_0106d32c;
+extern char vftable_PathingRequestHide;
 extern float DAT_0101e704;
 
 struct BaseEmpty

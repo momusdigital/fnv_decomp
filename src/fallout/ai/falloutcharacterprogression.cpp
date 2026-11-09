@@ -230,7 +230,7 @@ struct G7d1
 {
     bool GetBoolValue();
 };
-extern G7d1 g_011e0a30;
+extern G7d1 bTrackProgress_GamePlay;
 
 }  // namespace fnv_008d5270
 
@@ -248,7 +248,7 @@ void NiNodeBooleanState_falloutcharacterprogression::CharacterProgression_Finish
         {
             XGamerProfile_Instance()->XGamerProfile_ForcePresenceUpdate();
         }
-        if (g_011e0a30.GetBoolValue())
+        if (bTrackProgress_GamePlay.GetBoolValue())
         {
             _g_thePlayer->WriteProgressData(0);
         }

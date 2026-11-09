@@ -7,7 +7,8 @@ extern void _Deallocate(void*);
 
 // Destructs the object and, when flags has bit 0 set, deallocates this; returns this.
 // @fnv 0x009dfe10
-void* ActorPathHandler::FUN_009dfe10(unsigned int flags)
+// src: EXE 0x009dfe10
+void* ActorPathHandler::ScalarDeletingDestructor(unsigned int flags)
 {
     ActorPathHandler::~ActorPathHandler();
     if (flags & 1)

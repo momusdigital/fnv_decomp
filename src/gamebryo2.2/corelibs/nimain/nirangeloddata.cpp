@@ -84,7 +84,7 @@ bool __fastcall RangeLODDataEquals(NiRangeLODData* self, int, NiObject* pkObject
     return true;
 }
 
-extern int DAT_010a073c;
+extern int vftable_NiRangeLODData;
 extern NiPoint3 _NiPoint3_ZERO;
 struct BaseCall
 {
@@ -95,14 +95,14 @@ struct BaseCall
 NiRangeLODData* NiRangeLODData::InitializeRangeLODData()
 {
     ((BaseCall*)this)->FUN_00aa09a0();
-    *(int*)this = (int)&DAT_010a073c;
+    *(int*)this = (int)&vftable_NiRangeLODData;
     m_kCenter = *(const NiPoint3*)&_NiPoint3_ZERO;
     m_uiRangeCount = 0;
     m_pRanges = 0;
     return this;
 }
 
-extern int DAT_010a073c;
+extern int vftable_NiRangeLODData;
 void __cdecl _NiFreeAlias(void*);
 void __cdecl _delete(void*, unsigned int);
 struct FUN_00aa09c0_shell
@@ -114,7 +114,7 @@ struct FUN_00aa09c0_shell
 void* __fastcall DestroyRangeLODData(NiRangeLODData* self, int, unsigned int auiFlags)
 {
     void* pk = self->m_pRanges;
-    *(void**)self = (void*)&DAT_010a073c;
+    *(void**)self = (void*)&vftable_NiRangeLODData;
     _NiFreeAlias(pk);
     ((FUN_00aa09c0_shell*)self)->FUN_00aa09c0();
     if (auiFlags & 1)
@@ -126,7 +126,7 @@ struct Base00aa09a0
 {
     void FUN_00aa09a0();
 };
-extern int DAT_010a073c;
+extern int vftable_NiRangeLODData;
 extern NiPoint3 _NiPoint3_ZERO;
 // @fnv 0x00a97c00
 NiRangeLODData* CreateRangeLODData()
@@ -135,7 +135,7 @@ NiRangeLODData* CreateRangeLODData()
     if (p)
     {
         ((Base00aa09a0*)p)->FUN_00aa09a0();
-        *(int*)p = (int)&DAT_010a073c;
+        *(int*)p = (int)&vftable_NiRangeLODData;
         p->m_kCenter = *(const NiPoint3*)&_NiPoint3_ZERO;
         p->m_uiRangeCount = 0;
         p->m_pRanges = 0;
@@ -151,7 +151,7 @@ NiRangeLODData* __fastcall CopyRangeLODData(NiRangeLODData* self, int)
     if (pkData)
     {
         ((BaseCall*)pkData)->FUN_00aa09a0();
-        *(int*)((char*)pkData + 0) = (int)&DAT_010a073c;
+        *(int*)((char*)pkData + 0) = (int)&vftable_NiRangeLODData;
         pkData->m_kCenter = *(const NiPoint3*)&_NiPoint3_ZERO;
         pkData->m_uiRangeCount = 0;
         pkData->m_pRanges = 0;

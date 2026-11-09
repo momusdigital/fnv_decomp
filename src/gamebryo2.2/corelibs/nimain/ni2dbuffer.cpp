@@ -66,12 +66,12 @@ struct RendererDataPtr
             p->DecRefCount();
     }
 };
-extern int DAT_0109f4dc;
+extern int vftable_Ni2DBuffer;
 void __cdecl __Dummy_00b6fef0(void*, unsigned int);
 // @fnv 0x00a8f330
 Ni2DBuffer* __fastcall DestroyNi2DBuffer(Ni2DBuffer* self, int unused, unsigned char flags)
 {
-    *reinterpret_cast<void**>(self) = &DAT_0109f4dc;
+    *reinterpret_cast<void**>(self) = &vftable_Ni2DBuffer;
     reinterpret_cast<RendererDataPtr*>(&self->m_pRendererData)->~RendererDataPtr();
     self->NiRefObject::~NiRefObject();
     if (flags & 1)

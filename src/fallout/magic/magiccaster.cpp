@@ -739,7 +739,7 @@ MagicTarget* FUN_00817620_shell::FindClosestMagicTarget()
     return pclosestTarget;
 }
 
-extern int DAT_0107ac5c;
+extern int vftable_MagicCaster;
 
 class FUN_008153b0_cls
 {
@@ -755,7 +755,7 @@ void FUN_008153b0_cls::UpdateState_008153b0()
 {
     MagicEffectCollection* target;
     MagicEffectCollection* light;
-    m_vtbl = (void*)&DAT_0107ac5c;
+    m_vtbl = (void*)&vftable_MagicCaster;
     if (m_pLight != 0)
     {
         target = m_pLight;

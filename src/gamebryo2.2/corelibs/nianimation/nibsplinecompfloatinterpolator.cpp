@@ -55,14 +55,14 @@ int __thiscall FUN_00a52d20_shell::NiBoolInterpolator_GetKeys(int* b, int* c, ch
 // The unused fastcall register lets these free functions implement the original
 // member ABI. Call through a thiscall pointer so callers pass only ECX and stack arguments.
 void __fastcall InitializeBSplineInterpolator(NiBSplineInterpolator* self, int, int a, int b);
-extern int DAT_010997f4;
+extern int vftable_NiBSplineFloatInterpolator;
 
 // @fnv 0x00a509f0
 NiBSplineFloatInterpolator* __fastcall InitializeFloatInterpolator(NiBSplineFloatInterpolator* self, int,
                                                                   int a, int b, int c)
 {
     reinterpret_cast<void (__thiscall*)(NiBSplineInterpolator*, int, int)>(InitializeBSplineInterpolator)(self, a, c);
-    *(int*)self = (int)&DAT_010997f4;
+    *(int*)self = (int)&vftable_NiBSplineFloatInterpolator;
     self->m_kFloatCPHandle = b;
     return self;
 }
@@ -136,12 +136,12 @@ bool __fastcall EvaluateAtTime(NiBSplineCompFloatInterpolator* self, int, float 
 
 void* __cdecl Object_DispatchCommandFour(unsigned int size);
 static const float kMaxCompScalar = 3.402823466e+38F;
-extern int DAT_01099b2c;
+extern int vftable_NiBSplineCompFloatInterpolator;
 
 inline void InitializeCompFloatInterpolator(NiBSplineCompFloatInterpolator* self)
 {
     reinterpret_cast<NiBSplineFloatInterpolator* (__thiscall*)(NiBSplineFloatInterpolator*, int, int, int)>(InitializeFloatInterpolator)(self, 0, 0xffff, 0);
-    *(int*)self = (int)&DAT_01099b2c;
+    *(int*)self = (int)&vftable_NiBSplineCompFloatInterpolator;
     float* pfScalars = self->m_afOffsetAndHalfRange;
     pfScalars[0] = kMaxCompScalar;
     pfScalars[1] = kMaxCompScalar;

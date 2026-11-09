@@ -83,7 +83,7 @@ void __thiscall hkpBoxShape::GetAabb(const hkTransform& transform, hkReal tolera
     ComputeAabbFromTransform(transform, m_vHalfExtents, m_fSphereRadius + tolerance, out);
 }
 
-extern void* DAT_010c70b4;
+extern void* vftable_hkpBoxShape;
 
 // @fnv 0x00c9ddb0
 hkpBoxShape* hkpBoxShape::SetExtentsAndRadius(const hkVector4& extents, float radius)
@@ -92,7 +92,7 @@ hkpBoxShape* hkpBoxShape::SetExtentsAndRadius(const hkVector4& extents, float ra
     m_sReferenceCount = 1;
     m_ulUserData = 0;
     *reinterpret_cast<int*>(&m_type) = 4;
-    *reinterpret_cast<void**>(this) = &DAT_010c70b4;
+    *reinterpret_cast<void**>(this) = &vftable_hkpBoxShape;
     memcpy(&m_vHalfExtents, &extents, sizeof(m_vHalfExtents));
 
     float smaller = m_vHalfExtents.x < m_vHalfExtents.y ? m_vHalfExtents.x : m_vHalfExtents.y;

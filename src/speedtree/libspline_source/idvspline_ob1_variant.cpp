@@ -401,7 +401,7 @@ inline void Dead3()
 }
 unsigned int __cdecl FUN_00ec7c56();
 void __stdcall FUN_00ec7894(void* p, void* t);
-extern int DAT_010173dc;
+extern int vftable_std__length_error;
 extern int DAT_01140cb0;
 struct FUN_0044a4c0
 {
@@ -423,7 +423,7 @@ struct LenErrQ : FUN_0044a310
 {
     LenErrQ(const FUN_0044a4c0& s) : FUN_0044a310(s)
     {
-        vt = &DAT_010173dc;
+        vt = &vftable_std__length_error;
     }
 };
 inline void ThrowLen(const LenErrQ& _Ex)
@@ -4458,7 +4458,7 @@ inline void Dead3()
 }
 unsigned int __cdecl FUN_00ec7c56();
 void __stdcall FUN_00ec7894(void* p, void* t);
-extern int DAT_010173dc;
+extern int vftable_std__length_error;
 extern int DAT_01140cb0;
 struct FUN_0044a4c0
 {
@@ -4480,7 +4480,7 @@ struct LenErrQ : FUN_0044a310
 {
     LenErrQ(const FUN_0044a4c0& s) : FUN_0044a310(s)
     {
-        vt = &DAT_010173dc;
+        vt = &vftable_std__length_error;
     }
 };
 inline void ThrowLen(const LenErrQ& _Ex)

@@ -443,7 +443,7 @@ void hkpVehicleLinearCastWheelCollide::UpdateWheelAabb(unsigned char wheelIndex)
 
 extern hkReal DAT_0104da48;
 extern hkReal DAT_0104da4c;
-extern hkUint8 DAT_010c476c;
+extern hkUint8 vftable_hkpClosestCdPointCollector;
 
 struct __declspec(align(16)) LCCastInput
 {
@@ -513,7 +513,7 @@ void hkpVehicleLinearCastWheelCollide::CastWheel(int hitOut, hkUint32 b, hkUint8
     input.m_4c = DAT_0104da48;
     *reinterpret_cast<LocalM128*>(&input.m_vTo) = tmp;
     input.m_24 = DAT_0104da48;
-    input.m_20 = &DAT_010c476c;
+    input.m_20 = &vftable_hkpClosestCdPointCollector;
     input.m_50 = 0;
 
     pWheelState->m_pPhantom

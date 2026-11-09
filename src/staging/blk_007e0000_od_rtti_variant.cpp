@@ -399,7 +399,7 @@ struct GlobalObject_0044f440
 {
     float* Float();
 };
-extern GlobalObject_0044f440 g_011db288;
+extern GlobalObject_0044f440 fTabKnobMoveRate_Pipboy;
 extern bool g_burstSoundEnabled;
 struct FUN_007fa0f0_Class
 {
@@ -1030,9 +1030,9 @@ struct StringSetting
 {
     const char* String();
 };
-extern FloatSetting g_011db6bc;
-extern IntSetting g_011db75c;
-extern StringSetting g_011db744;
+extern FloatSetting fDistortDuration_VATS;
+extern IntSetting iDistortMaxInterval_VATS;
+extern StringSetting sScanlineTexture_VATS;
 extern "C" int __cdecl rand();
 void __cdecl LoadTexture(const char*, bool, Ref&, bool, bool);
 struct FUN_007ffec0

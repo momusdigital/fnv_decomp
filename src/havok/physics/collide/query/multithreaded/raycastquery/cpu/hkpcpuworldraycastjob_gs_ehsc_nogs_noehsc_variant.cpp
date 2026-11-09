@@ -75,7 +75,7 @@ struct FUN_00df8db0_cls
 
     float GetResult(ParamBlock* apParam);
 };
-extern int DAT_0101e594;
+extern int vftable_hkpRayHitCollector;
 hkMemoryRouter* __cdecl hkMemoryRouter_getInstance() throw();
 struct FUN_00df8960_cls
 {
@@ -170,7 +170,7 @@ NiExtraDataBase::NiExtraDataBase()
 Derived::Derived()
 {}
 #include <xmmintrin.h>
-extern char DAT_010dbb04[];
+extern char vftable_hkpFixedBufferRayHitCollector[];
 extern void(__cdecl* DAT_0126ec04)(void* a, void* b, struct S_00df8990_Obj* obj);
 struct S_00df8990_Obj;
 void __cdecl Runtime_ProcessEntries_00e2b9b0(void* a, void* b, S_00df8990_Obj* obj);
@@ -207,7 +207,7 @@ struct Spawned
         return p;
     }
     Spawned(unsigned int first, unsigned int last)
-        : m_00((unsigned int)DAT_010dbb04), m_04(1.0f), m_08(first), m_0c(first), m_10(last), m_14(0), m_18(0)
+        : m_00((unsigned int)vftable_hkpFixedBufferRayHitCollector), m_04(1.0f), m_08(first), m_0c(first), m_10(last), m_14(0), m_18(0)
     {}
 };
 struct SubBase
@@ -299,9 +299,9 @@ namespace fnv_00df8df0 {
 extern "C" unsigned __int64 __rdtsc();
 extern "C" void _ReadWriteBarrier();
 extern unsigned int DAT_0126835c;
-extern const char DAT_010dbaf8, DAT_010dbae4, DAT_010dbad8, DAT_010dbacc;
+extern const char vftable_hkCpuWorldRayCastCollector, vftable_hkCpuWorldRayCastCollector_for_hkKdTreeCastCollector, vftable_hkCpuWorldRayCastCollector_for_hkAabbTreeQueryUtils__Collector_010dbad8, vftable_hkCpuWorldRayCastCollector_for_hkAabbTreeQueryUtils__Collector_010dbacc;
 extern const char DAT_010dbb0c[], DAT_010c41f8[];
-extern const char DAT_010dbb04, DAT_010ccfac, DAT_010ccfa0, DAT_010ccf8c, DAT_010c3bb8;
+extern const char vftable_hkpFixedBufferRayHitCollector, DAT_010ccfac, DAT_010ccfa0, vftable_hkKdTreeCastCollector, vftable_hkpBroadPhaseCastCollector;
 extern __m128 DAT_01267e30, DAT_010c7170, DAT_010cd670;
 extern const float DAT_01012068;
 struct __declspec(align(16)) Vec
@@ -458,10 +458,10 @@ struct __declspec(align(16)) Field
     Vec vector70;
     __forceinline void Init() throw()
     {
-        name0 = &DAT_010dbaf8;
-        name1 = &DAT_010dbae4;
-        name2 = &DAT_010dbad8;
-        name3 = &DAT_010dbacc;
+        name0 = &vftable_hkCpuWorldRayCastCollector;
+        name1 = &vftable_hkCpuWorldRayCastCollector_for_hkKdTreeCastCollector;
+        name2 = &vftable_hkCpuWorldRayCastCollector_for_hkAabbTreeQueryUtils__Collector_010dbad8;
+        name3 = &vftable_hkCpuWorldRayCastCollector_for_hkAabbTreeQueryUtils__Collector_010dbacc;
         weight = 1.0f;
         property50 = 0;
         property54 = 0;
@@ -472,8 +472,8 @@ struct __declspec(align(16)) Field
     {
         name3 = &DAT_010ccfac;
         name2 = &DAT_010ccfa0;
-        *(const void* volatile*)&name1 = &DAT_010ccf8c;
-        *(const void* volatile*)&name0 = &DAT_010c3bb8;
+        *(const void* volatile*)&name1 = &vftable_hkKdTreeCastCollector;
+        *(const void* volatile*)&name0 = &vftable_hkpBroadPhaseCastCollector;
     }
 };
 struct State
@@ -483,7 +483,7 @@ struct State
     int a, b, c, d, e;
     __forceinline void Init() throw()
     {
-        type = &DAT_010dbb04;
+        type = &vftable_hkpFixedBufferRayHitCollector;
         weight = 1.0f;
         a = 0;
         b = 0;

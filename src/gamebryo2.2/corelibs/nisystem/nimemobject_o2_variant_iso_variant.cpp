@@ -17,7 +17,7 @@ struct FUN_00a5c200 : ::NiObjectWords
 // @fnv 0x00a5c200
 FUN_00a5c200::FUN_00a5c200()
 {
-    words[0] = (unsigned int)::DAT_0109b244;
+    words[0] = (unsigned int)::vftable_NiObjectNET;
     name = ::EmptyFS;
     controller = 0;
     extraData = 0;

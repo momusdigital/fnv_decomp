@@ -386,13 +386,13 @@ unsigned int TESFile::GetOffset()
     return m_uiRecordSize;
 }
 
-extern int DAT_01014210;
+extern int vftable_BSExtraData;
 
 // @fnv 0x0040ecb0
 // src: GUESS 0x0040ecb0 (confidence: low)
 void __fastcall TESForm_UpdateState_0040ecb0(int* p)
 {
-    *p = (int)&DAT_01014210;
+    *p = (int)&vftable_BSExtraData;
 }
 
 // @fnv 0x00471d60

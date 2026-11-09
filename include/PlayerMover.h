@@ -12,7 +12,7 @@ public:
 
     void SetMoveModePreference(unsigned int auMode);
     void ClearMoveModePreference(unsigned int auMode);
-    void* FUN_009e9e00(unsigned int auFlags);
+    void* ScalarDeletingDestructor(unsigned int auFlags);
     void ResetVtableAndDestroyActorMover();
     void SaveGame_009ea5a0(BGSSaveFormBuffer* apBuffer);
 

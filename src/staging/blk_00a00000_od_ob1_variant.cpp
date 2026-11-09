@@ -22,7 +22,7 @@ struct FUN_00a1e720_class
     void __thiscall BSMapBase_unsigned_int_ScrapHeap_SetValue(int a, int b, int c);
 };
 extern void* NiFreeAlias(void*);
-extern int DAT_01095524;
+extern int vftable_NiTArray_01095524;
 struct FUN_00a1e1a0_class
 {
     int m_vtbl;
@@ -58,7 +58,7 @@ struct StrA
 };
 void* __cdecl _NiMalloc(unsigned int);
 void* __cdecl _fnv_zlib_memset(void* dst, int c, unsigned int n);
-extern int DAT_01094e1c;
+extern int vftable_NiTMapBase_01094e1c;
 struct FUN_00a0d5f0_class
 {
     int* m_vtbl;
@@ -69,7 +69,7 @@ struct FUN_00a0d5f0_class
 };
 void* _NiMalloc(unsigned int);
 void* _fnv_zlib_memset(void* dest, int val, unsigned int size);
-extern int DAT_01094e9c;
+extern int vftable_NiTMapBase_01094e9c;
 struct FUN_00a0d8e0
 {
     int* m_vtbl;
@@ -96,7 +96,7 @@ struct FUN_00a1e450_Class
     unsigned short m_uiY;
     FUN_00a1e450_Class(unsigned short size, unsigned short x);
 };
-extern int DAT_010955e4;
+extern int vftable_NiTMapBase_010955e4;
 void* __cdecl _NiMalloc(unsigned int);
 void* __cdecl _fnv_zlib_memset(void*, int, unsigned int);
 struct FUN_00a1eaa0
@@ -107,7 +107,7 @@ struct FUN_00a1eaa0
     int pad;
     FUN_00a1eaa0(int n);
 };
-extern int DAT_01095664;
+extern int vftable_NiTMapBase_01095664;
 void* __cdecl NiMalloc(unsigned int size);
 void* __cdecl fnv_zlib_memset(void* dest, int c, unsigned int size);
 struct FUN_00a1ede0
@@ -119,7 +119,7 @@ struct FUN_00a1ede0
     FUN_00a1ede0(int count);
 };
 extern void* NiMalloc(unsigned int);
-extern int DAT_0109568c;
+extern int vftable_NiTArray_0109568c;
 struct FUN_00a1eeb0_class
 {
     void* vtbl;
@@ -130,7 +130,7 @@ struct FUN_00a1eeb0_class
     unsigned short b;
     FUN_00a1eeb0_class(unsigned short c, unsigned short s);
 };
-extern int DAT_01094e5c;
+extern int vftable_NiTMapBase_01094e5c;
 struct FUN_00a0d710_class
 {
     int* m_vtbl;
@@ -162,7 +162,7 @@ struct _BSAHelper
 {
     void Clear(bool);
 };
-extern unsigned int DAT_0109504c;
+extern unsigned int vftable_BSSimpleArray_0109504c;
 struct FUN_00a1e520_class
 {
     int* m_vtbl;
@@ -268,7 +268,7 @@ struct FUN_00a0d790_class : S00a0d390
     void* m_data;
     void UpdateState_00a0d790();
 };
-extern int DAT_01094e9c;
+extern int vftable_NiTMapBase_01094e9c;
 extern void* __cdecl _NiFree_00aa10f0(void*);
 struct FUN_00a0d990_cls : S00a0d390
 {
@@ -355,7 +355,7 @@ struct S00a0d7f0 : S00a0d390
 // @fnv 0x00a0d7f0
 void* __thiscall S00a0d7f0::FUN_00a0d7f0(unsigned int flags)
 {
-    m_vtbl = (int*)&DAT_01094e5c;
+    m_vtbl = (int*)&vftable_NiTMapBase_01094e5c;
     RemoveAll();
     NiFree(m_data);
     if (flags & 1)
